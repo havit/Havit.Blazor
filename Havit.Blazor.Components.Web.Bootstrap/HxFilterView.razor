@@ -1,0 +1,29 @@
+﻿@typeparam TFilterType
+
+<CascadingValue Value="@filtersRegistration" Name="@FilterRegistrationCascadingValueName">
+	<CascadingValue Value="@chipGeneratorsRegistration" Name="@ChipGeneratorRegistrationCascadingValueName">
+		@*Aby se dostaly komponenty do kolekcí, musíme je dostat do renderování této komponenty. Chceme však, aby komponenty nic nevyrenderovaly. *@
+		@Criteria(Data)
+	</CascadingValue>
+</CascadingValue>
+
+@if (isExpanded)
+{
+	@foreach (var filter in filters)
+	{
+		<div>
+			<span>@filter.GetLabelTemplate()</span>
+			<span>@filter.GetFilterTemplate()</span>
+			
+		</div>
+	}
+
+	<button @onclick="ApplyFilterClick">Apply filter</button> @*TODO:  Lokalizace*@
+	<button @onclick="CollapseFilterClick">Collapse</button> @*TODO:  Lokalizace*@
+}
+else
+{	
+	@*<Havit.Blazor.Components.Web.Bootstrap.Filters.HxChipList Chips="@chipGenerators.SelectMany(item => item.GetChips())" />*@
+
+	<button @onclick="ExpandFilterClick">Expand</button> @*TODO:  Lokalizace*@
+}

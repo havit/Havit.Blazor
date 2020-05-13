@@ -1,0 +1,12 @@
+﻿HxNamedViewList
+
+@if ((Data != null) && Data.Any())
+{
+	<ul>
+		@*TODO: Nic jako prázdná položka asi nechceme*@
+		@foreach (Havit.Blazor.Components.Web.Bootstrap.NamedViews.NamedView namedView in Data)
+		{			
+			<li selected="@(namedView == SelectedNamedView)" @onclick="async () => await NamedViewClick(namedView)">@namedView.Name</li>
+		}
+	</ul>
+}

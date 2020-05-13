@@ -1,0 +1,10 @@
+﻿@inherits HxFilterBase<string>
+<HxFilter Label="@Label">
+	<LabelTemplate>@LabelTemplate</LabelTemplate>
+	<FilterTemplate>
+		<input type="text" @bind="Value" />
+	</FilterTemplate>
+	<ChipTemplate>
+		@Value
+	</ChipTemplate>
+</HxFilter>

@@ -1,0 +1,53 @@
+* text=auto
+
+# 
+*.ascx text
+*.aspx text
+*.cd text
+*.cmd text
+*.coffee text
+*.config text
+*.cs text diff=csharp 
+*.csproj text
+*.cshtml text
+*.css text
+*.dtd text
+*.edmx text
+*.htm text diff=html
+*.html text diff=html
+*.js text
+*.json text
+*.msbuild text
+*.nuspec text
+*.resx text
+*.ruleset text
+*.StyleCop text
+*.targets text
+*.tt text
+*.txt text
+*.vb text
+*.vbhtml text
+*.vbproj text
+*.vbs text
+*.wsf text
+*.xml text
+*.xunit text
+
+# Project files
+*.sln text eol=crlf
+*.csproj text eol=crlf
+*.vbproj text eol=crlf
+*.vcxproj text eol=crlf
+*.vcproj text eol=crlf
+*.dbproj text eol=crlf
+*.fsproj text eol=crlf
+*.lsproj text eol=crlf
+*.wixproj text eol=crlf
+*.modelproj text eol=crlf
+*.sqlproj text eol=crlf
+*.wmaproj text eol=crlf
+
+*.xproj text eol=crlf
+*.props text eol=crlf
+*.filters text eol=crlf
+*.vcxitems text eol=crlf

@@ -1,0 +1,44 @@
+﻿<div>
+	@if (TitleSection != null)
+	{
+		@TitleSection
+	}
+	else if (!String.IsNullOrEmpty(Title))
+	{
+		<span>@Title</span>
+	}
+
+	@if (SearchSection != null)
+	{
+		<span>@SearchSection</span>
+	}
+
+	@if (NamedViewsSection != null)
+	{
+		@NamedViewsSection
+	}
+
+	@if (FilterSection != null)
+	{
+		@FilterSection
+	}
+
+	@if (CommandsSection != null)
+	{
+		@CommandsSection
+	}
+
+	@if (DataSection != null)
+	{
+		<div>@DataSection</div>
+	}
+
+	@if (DetailSection != null)
+	{
+		@*TODO: Otevření jen, je-li vybrán záznam pro zobrazení detailu. Používání detailu zapnuto použitím sekce? *@
+		@*TODO: Kdo řídí vybrání detailu?*@
+		<drawer>
+			@DetailSection
+		</drawer>
+	}
+</div>

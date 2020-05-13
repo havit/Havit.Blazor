@@ -1,0 +1,16 @@
+﻿@if ((Chips != null) && Chips.Any())
+{ 
+
+	// TODO: Jak se zajistí, aby došlo k přerenderování, to zatím netuším :-(
+
+	foreach (Havit.Blazor.Components.Web.Bootstrap.Filters.Chip chip in Chips)
+	{
+		<chip>
+			@chip.ChipTemplate
+			if (chip.RemoveCallback != null)
+			{
+				<button @onclick="async () => await chip.RemoveCallback()">remove</button> 
+			}
+		</chip>
+	}
+}
