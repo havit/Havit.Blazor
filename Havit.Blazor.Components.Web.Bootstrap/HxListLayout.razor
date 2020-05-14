@@ -1,21 +1,20 @@
 ﻿<div>
 	<div class="d-lg-flex">
-		<div class="title">
-			@if (TitleSection != null)
-			{
-				@TitleSection
-			}
-			else if (!String.IsNullOrEmpty(Title))
-			{
-				@Title
-			}
-
-			<div class="named-views">
-				@if (NamedViewsSection != null)
+		<div class="title @NamedViewsSectionExpandedClass">
+			<span role="button" @onclick="ToggleNamedViewsSectionExpanded">
+				@if (TitleSection != null)
 				{
-					@NamedViewsSection
+					@TitleSection
 				}
-			</div>
+				else if (!String.IsNullOrEmpty(Title))
+				{
+					@Title
+				}
+			</span>
+			@if (NamedViewsSection != null)
+			{
+				@NamedViewsSection
+			}
 		</div>
 
 		<div class="search mb-3 mb-lg-0">
