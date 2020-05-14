@@ -1,34 +1,44 @@
 ﻿<div>
-	@if (TitleSection != null)
-	{
-		@TitleSection
-	}
-	else if (!String.IsNullOrEmpty(Title))
-	{
-		<span>@Title</span>
-	}
+	<div class="d-lg-flex">
+		<div class="title">
+			@if (TitleSection != null)
+			{
+				@TitleSection
+			}
+			else if (!String.IsNullOrEmpty(Title))
+			{
+				@Title
+			}
 
-	@if (SearchSection != null)
-	{
-		<span>@SearchSection</span>
-	}
+			<div class="named-views">
+				@if (NamedViewsSection != null)
+				{
+					@NamedViewsSection
+				}
+			</div>
+		</div>
 
-	@if (NamedViewsSection != null)
-	{
-		@NamedViewsSection
-	}
+		<div class="search mb-3 mb-lg-0">
+			@if (SearchSection != null)
+			{
+				@SearchSection
+			}
+		</div>
+
+		<div class="commands text-right">
+			<button class="btn btn-light" @onclick="ToggleFilterExpanded">Filtrovat</button>
+			@if (CommandsSection != null)
+			{
+				@CommandsSection
+			}
+		</div>
+	</div>
 
 	@if (FilterSection != null)
 	{
-		<button @onclick="ToggleFilterExpanded">toggle</button>
 		<CascadingValue Value="@FilterExpanded" Name="FilterExpanded"> @* TODO pojmenování, konstanta *@ @* Kam může programátor napsat, že chce filtr by default expandovaný? *@
 			@FilterSection
 		</CascadingValue>
-	}
-
-	@if (CommandsSection != null)
-	{
-		@CommandsSection
 	}
 
 	@if (DataSection != null)
