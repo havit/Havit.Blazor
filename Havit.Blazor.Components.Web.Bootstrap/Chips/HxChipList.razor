@@ -1,0 +1,13 @@
+﻿@if ((Chips != null) && Chips.Any())
+{
+    foreach (Havit.Blazor.Components.Web.Bootstrap.Chips.ChipItem chipItem in Chips)
+    {
+		<chip>
+			@chipItem.ChipTemplate
+			@if (chipItem.RemoveCallback != null)
+            {
+				<button @onclick="async () => await chipItem.RemoveCallback()">remove</button> 
+			}
+		</chip>
+	}
+}

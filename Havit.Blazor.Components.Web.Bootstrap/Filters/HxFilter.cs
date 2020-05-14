@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Chips;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.RenderTree;
 using System;
@@ -63,11 +64,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 			return FilterTemplate;
 		}
 
-		public IEnumerable<Chip> GetChips()
+		public IEnumerable<ChipItem> GetChips()
 		{
 			if (ChipTemplate != null)
 			{
-				yield return new Chip
+				yield return new ChipItem
 				{
 					ChipTemplate = this.ChipTemplate,
 					RemoveCallback = null // TODO

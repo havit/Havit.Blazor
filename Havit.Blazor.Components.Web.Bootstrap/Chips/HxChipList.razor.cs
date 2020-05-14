@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Filters
+namespace Havit.Blazor.Components.Web.Bootstrap.Chips
 {
 	public partial class HxChipList
 	{
 		[Parameter]
-		public IEnumerable<Chip> Chips { get; set; }
+		public IEnumerable<ChipItem> Chips { get; set; }
 	}
 }

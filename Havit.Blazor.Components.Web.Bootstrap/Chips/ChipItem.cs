@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Filters
+namespace Havit.Blazor.Components.Web.Bootstrap.Chips
 {
-	public class Chip
+	public class ChipItem
 	{
 		public RenderFragment ChipTemplate { get; set; }
 		public Func<Task> RemoveCallback { get; set; }
