@@ -10,6 +10,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
     public partial class HxListLayout
     {
 		[Parameter]
+		public bool FilterExpanded { get; set; }
+
+		[Parameter]
 		public string Title { get; set; }
 
 		[Parameter]
@@ -36,5 +39,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter]
 		public RenderFragment CommandsSection { get; set; }
 
+		private void ToggleFilterExpanded()
+        {
+			FilterExpanded = !FilterExpanded;
+        }
 	}
 }

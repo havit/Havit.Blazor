@@ -20,7 +20,10 @@
 
 	@if (FilterSection != null)
 	{
-		@FilterSection
+		<button @onclick="ToggleFilterExpanded">toggle</button>
+		<CascadingValue Value="@FilterExpanded" Name="FilterExpanded"> @* TODO pojmenování, konstanta *@ @* Kam může programátor napsat, že chce filtr by default expandovaný? *@
+			@FilterSection
+		</CascadingValue>
 	}
 
 	@if (CommandsSection != null)

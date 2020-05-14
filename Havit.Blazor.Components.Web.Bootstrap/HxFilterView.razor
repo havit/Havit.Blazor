@@ -7,7 +7,7 @@
 	</CascadingValue>
 </CascadingValue>
 
-@if (isExpanded)
+@if (IsExpanded)
 {
 	@foreach (var filter in filters)
 	{
@@ -19,11 +19,8 @@
 	}
 
 	<button @onclick="ApplyFilterClick">Apply filter</button> @*TODO:  Lokalizace*@
-	<button @onclick="CollapseFilterClick">Collapse</button> @*TODO:  Lokalizace*@
 }
 else
 {	
 	@*<Havit.Blazor.Components.Web.Bootstrap.Filters.HxChipList Chips="@chipGenerators.SelectMany(item => item.GetChips())" />*@
-
-	<button @onclick="ExpandFilterClick">Expand</button> @*TODO:  Lokalizace*@
 }

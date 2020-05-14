@@ -15,10 +15,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public const string FilterRegistrationCascadingValueName = "FiltersRegistration";
 		public const string ChipGeneratorRegistrationCascadingValueName = "ChipGeneratorsRegistration";
 
-		// pokud bude parametrem, pozor, že hodnotu měníme (OnParameterSet ji přepíše).
-#pragma warning disable CS0414
-		private bool isExpanded = false; //https://github.com/dotnet/aspnetcore/issues/20137
-#pragma warning restore CS0414
+		[CascadingParameter(Name = "FilterExpanded")] // TODO: Konstanta
+		public bool IsExpanded { get; set; }
 
 		[Parameter]
 		// TODO: Pojmenování? Filter? Value?
@@ -45,16 +43,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			chipGeneratorsRegistration = new CollectionRegistration<IHxChipGenerator>(chipGenerators);
 	}
 
-
-	protected void ExpandFilterClick()
-		{
-			isExpanded = true;
-		}
-
-		protected void CollapseFilterClick()
-		{
-			isExpanded = false;
-		}
 
 		protected Task ApplyFilterClick()
 		{
