@@ -1,10 +1,10 @@
 ﻿@if ((Data != null) && Data.Any())
 {
-	<ul class="named-views list-unstyled">
+	<ul class="named-views list-unstyled shadow py-2 rounded">
 		@*TODO: Nic jako prázdná položka asi nechceme*@
 		@foreach (Havit.Blazor.Components.Web.Bootstrap.NamedViews.NamedView namedView in Data)
 		{			
-			<li selected="@(namedView == SelectedNamedView)" @onclick="async () => await NamedViewClick(namedView)">@namedView.Name</li>
+			<li selected="@(namedView == SelectedNamedView)" class="px-3 py-1" role="button" @onclick="async () => await NamedViewClick(namedView)">@namedView.Name</li>
 		}
 	</ul>
 }
