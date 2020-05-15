@@ -31,7 +31,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
         public RenderFragment NamedViewsSection { get; set; }
         [Parameter]
         public bool NamedViewsSectionExpanded { get; set; }
-        private string NamedViewsSectionExpandedClass => NamedViewsSectionExpanded ? "show" : null;
+        private string NamedViewsSectionCssClass => NamedViewsSectionExpanded ? "show" : "hide";
+
+        public bool DrawerExpanded { get; set; }
+        private string DrawerCssClass => DrawerExpanded ? "show" : "hide";
 
         [Parameter]
         public RenderFragment DataSection { get; set; }
@@ -50,6 +53,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
         private void ToggleNamedViewsSectionExpanded()
         {
             NamedViewsSectionExpanded = !NamedViewsSectionExpanded;
+        }
+        private void ToggleDrawerExpanded()
+        {
+            DrawerExpanded = !DrawerExpanded;
         }
     }
 }
