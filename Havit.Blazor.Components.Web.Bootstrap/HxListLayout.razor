@@ -17,15 +17,18 @@
 			}
 		</div>
 
-		<div class="search mb-3 mb-lg-0">
-			@if (SearchSection != null)
-			{
+		@if (SearchSection != null)
+		{
+			<div class="search mb-3 mb-lg-0">
 				@SearchSection
-			}
-		</div>
+			</div>
+		}
 
 		<div class="commands text-right">
-			<button class="btn btn-light" @onclick="ToggleFilterExpanded">Filtrovat</button>
+				@if (FilterSection != null)
+				{
+					<button class="btn btn-light" @onclick="ToggleFilterExpanded">Filtrovat</button>
+				}
 			<button class="btn btn-light" @onclick="ToggleDrawerExpanded">Otevřít Drawer</button>
 			@if (CommandsSection != null)
 			{
