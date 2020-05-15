@@ -2,12 +2,12 @@
 {
     foreach (Havit.Blazor.Components.Web.Bootstrap.Chips.ChipItem chipItem in Chips)
     {
-		<chip>
+		<span class="badge badge-primary">
 			@chipItem.ChipTemplate
 			@if (chipItem.RemoveCallback != null)
             {
-				<button @onclick="async () => await chipItem.RemoveCallback()">remove</button> 
+				<span role="button" @onclick="async () => await chipItem.RemoveCallback()">&times;</span> 
 			}
-		</chip>
+		</span>
 	}
 }
