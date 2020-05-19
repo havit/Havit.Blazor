@@ -7,6 +7,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 {
 	public class HxGridColumn<TItemType> : HxGridColumnBase<TItemType>
 	{
+		// TODO: Suppress SA1134 je v CSPROJ, uvolnit celofiremně?
 		[Parameter] public string HeaderText { get; set; }
 		[Parameter] public RenderFragment HeaderTemplate { get; set; }
 		[Parameter] public Func<TItemType, string> ItemText { get; set; } // TODO: Na rozdíl od běžných vlastností Text tato není typu string, Func<TItemType, string>!
