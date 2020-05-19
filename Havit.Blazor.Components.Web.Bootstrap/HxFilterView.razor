@@ -14,13 +14,13 @@
 		<div>
 			<span>@filter.GetLabelTemplate()</span>
 			<span>@filter.GetFilterTemplate()</span>
-			
 		</div>
 	}
 
-	<button @onclick="ApplyFilterClick">Apply filter</button> @*TODO:  Lokalizace*@
+	<button class="btn btn-primary" @onclick="ApplyFilterClick">Apply filter</button> @*TODO:  Lokalizace*@
 }
 else
 {	
 	<Havit.Blazor.Components.Web.Bootstrap.Chips.HxChipList Chips="@chipGenerators.SelectMany(item => item.GetChips())" />
 }
+
