@@ -1,0 +1,40 @@
+﻿@typeparam TItemType
+
+<CascadingValue Value="@columnsListRegistration" Name="@ColumnsRegistrationCascadingValueName">
+	@*Aby se dostaly komponenty do kolekcí, musíme je dostat do renderování této komponenty. Chceme však, aby komponenty nic nevyrenderovaly. *@
+	@Columns
+</CascadingValue>
+
+<table class="table">
+	@*<colgroup></colgroup>*@ @*TODO: Ať si řekne Dominik*@
+	<thead>
+		<tr>
+			@foreach (IHxGridColumn<TItemType> column in columnsList)
+			{
+				<td>@column.GetHeaderTemplate()</td>
+			}
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (TItemType item in Data) // TODO: Paging, atp.
+		{
+		<tr>
+			@foreach (IHxGridColumn<TItemType> column in columnsList)
+			{
+				<td>@column.GetItemTemplate(item)</td>
+			}
+			</tr>
+		}
+		</tbody>
+	@*TODO: Jen, když existuje*@
+	<tfoot>
+		<tr>
+			@foreach (IHxGridColumn<TItemType> column in columnsList)
+			{
+				<td>@column.GetFooterTemplate()</td>
+			}
+		</tr>
+	</tfoot>
+	@*TODO: Pager*@
+</table>
+

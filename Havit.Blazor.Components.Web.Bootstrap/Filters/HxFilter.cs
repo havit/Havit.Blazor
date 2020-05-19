@@ -45,18 +45,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 
 		public RenderFragment GetLabelTemplate()
 		{
-			return (RenderTreeBuilder builder) =>
-			{
-				if (!String.IsNullOrEmpty(Label))
-				{
-					builder.AddContent(0, Label);
-				}
-
-				if (LabelTemplate != null)
-				{
-					builder.AddContent(1, LabelTemplate);
-				}
-			};
+			return RenderFragmentBuilder.CreateFrom(Label, LabelTemplate);
 		}
 
 		public RenderFragment GetFilterTemplate()
