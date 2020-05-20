@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 {
 	// TODO: Je dobře pojmenovat to filter view, když jde vlastně o editaci?
 	public partial class HxFilterView<TFilterType>
