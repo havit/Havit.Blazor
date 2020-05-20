@@ -27,9 +27,9 @@
 		<div class="commands text-right">
 				@if (FilterSection != null)
 				{
-					<button class="btn btn-light" @onclick="ToggleFilterExpanded">Filtrovat</button>
+					<HxButton OnClick="ToggleFilterExpanded">Filtrovat</HxButton>
 				}
-			<button class="btn btn-light" @onclick="ToggleDrawerExpanded">Otevřít Drawer</button>
+			<HxButton OnClick="ToggleDrawerExpanded">Otevřít Drawer</HxButton>
 			@if (CommandsSection != null)
 			{
 				@CommandsSection
