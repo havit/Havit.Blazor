@@ -1,5 +1,7 @@
 ﻿@typeparam TItemType
 
+@{ List<IHxGridColumn<TItemType>> columnsToRender = ColumnsToRender(); }
+
 <CascadingValue Value="@columnsListRegistration" Name="@ColumnsRegistrationCascadingValueName">
 	@*Aby se dostaly komponenty do kolekcí, musíme je dostat do renderování této komponenty. Chceme však, aby komponenty nic nevyrenderovaly. *@
 	@Columns
@@ -9,7 +11,7 @@
 	@*<colgroup></colgroup>*@ @*TODO: Ať si řekne Dominik*@
 	<thead>
 		<tr>
-			@foreach (IHxGridColumn<TItemType> column in columnsList)
+			@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 			{
 				<td>@column.GetHeaderTemplate()</td>
 			}
@@ -19,7 +21,7 @@
 		@foreach (TItemType item in Data) // TODO: Paging, atp.
 		{
 		<tr>
-			@foreach (IHxGridColumn<TItemType> column in columnsList)
+			@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 			{
 				<td>@column.GetItemTemplate(item)</td>
 			}
@@ -29,7 +31,7 @@
 	@*TODO: Jen, když existuje*@
 	<tfoot>
 		<tr>
-			@foreach (IHxGridColumn<TItemType> column in columnsList)
+			@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 			{
 				<td>@column.GetFooterTemplate()</td>
 			}

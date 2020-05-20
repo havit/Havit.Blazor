@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		public bool AllowSelection { get; set; } // TODO: OnClickBehavior nebo tak něco?
 
 		[Parameter]
-		public bool AllowSorting { get; set; }
+		public bool AllowSorting { get; set; } // TODO
 
 		[Parameter]
 		public RenderFragment Columns { get; set; }
@@ -27,10 +27,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		public RenderFragment<TItemType> ContextMenu { get; set; }
 
 		[Parameter]
-		public TItemType SelectedDataItem { get; set; }
+		public TItemType SelectedDataItem { get; set; } // TODO
 
 		[Parameter]
-		public EventCallback<TItemType> SelectedDataItemChanged { get; set; }
+		public EventCallback<TItemType> SelectedDataItemChanged { get; set; } 
 
 		private List<IHxGridColumn<TItemType>> columnsList;
 		protected CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration; // protected: The field 'HxGrid<TItemType>.columnsListRegistration' is never used
@@ -39,6 +39,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		{
 			columnsList = new List<IHxGridColumn<TItemType>>();
 			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItemType>>(columnsList);
+		}
+
+		/// <summary>
+		/// Vrací sloupce k vyrenderování.
+		/// Hlavním účelem je doplnění sloupce pro menu k uživatelsky definovaným sloupcům
+		/// </summary>		
+		protected List<IHxGridColumn<TItemType>> ColumnsToRender()
+		{
+			var result = new List<IHxGridColumn<TItemType>>(columnsList);
+			if (ContextMenu != null)
+			{
+				result.Add(new ContextMenuGridColumn<TItemType>(ContextMenu));
+			}
+			return result;
 		}
 
 	}
