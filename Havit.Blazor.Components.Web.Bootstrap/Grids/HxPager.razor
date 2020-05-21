@@ -1,0 +1,37 @@
+﻿<ul class="pagination">
+
+	@if (showFirstLast)
+	{
+		<li class="page-item">
+			<a class="page-link" @onclick="() => ChangeCurrentPageIndexTo(0)">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+	}
+
+	@for (int i = pageFromInclusive; i < pageToExclusive; i++)
+	{
+		int j = i;
+		if (i == CurrentPageIndex)
+		{
+			<li class="page-item active">
+				<a class="page-link" href="#">@((j + 1).ToString())</a>
+			</li>
+		}
+		else
+		{
+			<li class="page-item"><a class="page-link" @onclick="() => ChangeCurrentPageIndexTo(j)">@((j + 1).ToString("N0"))</a></li>
+		}
+	}
+
+	@if (showFirstLast)
+	{
+		<li class="page-item">
+			<a class="page-link" @onclick="() => ChangeCurrentPageIndexTo(TotalPages - 1)">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+	}
+
+	@*TODO: ShowAll*@
+</ul>

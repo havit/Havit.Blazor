@@ -1,6 +1,6 @@
 ﻿@typeparam TItemType
 
-@{ List<IHxGridColumn<TItemType>> columnsToRender = ColumnsToRender(); }
+@{ List<IHxGridColumn<TItemType>> columnsToRender = ColumnsToRender(); /* TODO: to codebehind */ }
 
 <CascadingValue Value="@columnsListRegistration" Name="@ColumnsRegistrationCascadingValueName">
 	@*Aby se dostaly komponenty do kolekcí, musíme je dostat do renderování této komponenty. Chceme však, aby komponenty nic nevyrenderovaly. *@
