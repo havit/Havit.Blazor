@@ -9,15 +9,16 @@
 
 @if (IsExpanded)
 {
-	@foreach (var filter in filters)
-	{
+	<div class="d-flex flex-column flex-grow-1">
+		@foreach (var filter in filters)
+		{
 			<span>@filter.GetLabelTemplate()</span>
 			<span>@filter.GetFilterTemplate()</span>
-	}
-	<HxButton OnClick="ApplyFilterClick">Apply filter</HxButton> @*TODO:  Lokalizace*@
+		}
+		<HxButton OnClick="ApplyFilterClick">Apply filter</HxButton> @*TODO:  Lokalizace*@
+	</div>
 }	
 else
 {	
 	<Havit.Blazor.Components.Web.Bootstrap.Chips.HxChipList Chips="@chipGenerators.SelectMany(item => item.GetChips())" />
 }
-
