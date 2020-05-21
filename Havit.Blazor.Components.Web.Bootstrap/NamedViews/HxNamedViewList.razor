@@ -1,10 +1,10 @@
 ﻿@if ((Data != null) && Data.Any())
 {
-	<ul class="named-views list-unstyled shadow py-2 rounded">
+	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 		@*TODO: Nic jako prázdná položka asi nechceme*@
 		@foreach (Havit.Blazor.Components.Web.Bootstrap.NamedViews.NamedView namedView in Data)
 		{			
-			<li selected="@(namedView == SelectedNamedView)" class="px-3 py-1" role="button" @onclick="async () => await NamedViewClick(namedView)">@namedView.Name</li>
+			<a class="dropdown-item" selected="@(namedView == SelectedNamedView)" role="button" @onclick="async () => await NamedViewClick(namedView)">@namedView.Name</a>
 		}
-	</ul>
+	</div>
 }

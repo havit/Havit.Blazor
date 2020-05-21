@@ -11,14 +11,11 @@
 {
 	@foreach (var filter in filters)
 	{
-		<div>
 			<span>@filter.GetLabelTemplate()</span>
 			<span>@filter.GetFilterTemplate()</span>
-		</div>
 	}
-
 	<HxButton OnClick="ApplyFilterClick">Apply filter</HxButton> @*TODO:  Lokalizace*@
-}
+}	
 else
 {	
 	<Havit.Blazor.Components.Web.Bootstrap.Chips.HxChipList Chips="@chipGenerators.SelectMany(item => item.GetChips())" />

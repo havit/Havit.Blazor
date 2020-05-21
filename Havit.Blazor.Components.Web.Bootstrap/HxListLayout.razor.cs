@@ -10,7 +10,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
     public partial class HxListLayout
     {
         [Parameter]
-        public bool FilterExpanded { get; set; }
+        public bool FilterDrawerOpen { get; set; }
 
         [Parameter]
         public string Title { get; set; }
@@ -29,12 +29,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
         [Parameter]
         public RenderFragment NamedViewsSection { get; set; }
-        [Parameter]
-        public bool NamedViewsSectionExpanded { get; set; }
-        private string NamedViewsSectionCssClass => NamedViewsSectionExpanded ? "show" : "hide";
 
-        public bool DrawerExpanded { get; set; }
-        private string DrawerCssClass => DrawerExpanded ? "show" : "hide";
+        public bool DetailDrawerOpen { get; set; }
 
         [Parameter]
         public RenderFragment DataSection { get; set; }
@@ -45,18 +41,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
         [Parameter]
         public RenderFragment CommandsSection { get; set; }
 
-        private void ToggleFilterExpanded()
+        private void ToggleFilterDrawer()
         {
-            FilterExpanded = !FilterExpanded;
+            FilterDrawerOpen = !FilterDrawerOpen;
         }
 
-        private void ToggleNamedViewsSectionExpanded()
+        private void ToggleDetailDrawer()
         {
-            NamedViewsSectionExpanded = !NamedViewsSectionExpanded;
-        }
-        private void ToggleDrawerExpanded()
-        {
-            DrawerExpanded = !DrawerExpanded;
+            DetailDrawerOpen = !DetailDrawerOpen;
         }
     }
 }

@@ -1,0 +1,23 @@
+<div class=@($"drawer {(IsOpen ? "show" : "hide")}")>
+    @if (TitleSection != null || !String.IsNullOrEmpty(Title)) 
+    {
+        <div class="drawer-header p-4">
+            @if (TitleSection != null)
+            {
+                @TitleSection
+            }
+            else if (!String.IsNullOrEmpty(Title))
+            {
+                @Title
+            }
+        </div>
+    }
+    @if (BodySection != null)
+    {
+        <div class="drawer-body p-4">@BodySection</div>
+    }
+    @if (CommandsSection != null)
+	{
+		<div class="drawer-footer p-4">@CommandsSection</div>
+	}
+</div>

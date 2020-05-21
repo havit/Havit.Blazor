@@ -1,0 +1,24 @@
+.drawer {
+	position: absolute;
+	height: 100%;
+	width: var(--drawer-width);
+	top: 0;
+	background: white;
+	transition: all 0.35s;
+	z-index: 1050;
+	display: flex;
+	flex-direction: column;
+}
+
+.drawer-body {
+	flex: 1 0 auto;
+}
+
+.drawer.show {
+	right: 0;
+	box-shadow: var(--box-shadow);
+}
+
+.drawer.hide {
+	right: calc(-1 * var(--drawer-width));
+}
