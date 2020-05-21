@@ -1,0 +1,18 @@
+﻿@typeparam TItemType
+
+<select @onchange="SelectedItemChangedX">
+	@if (Nullable || (@SelectedItem == null))
+	{
+		<option value="-1">@NullText</option>
+	}
+
+	@for (int i = 0; i < itemsToRender.Count; i++)
+	{
+		int j = i;
+		var item = itemsToRender[j];
+		if (item != null)
+		{
+			<option value="@j" selected="@((SelectedItem != null) && SelectedItem.Equals(item))">@(Text?.Invoke(item) ?? item?.ToString() ?? String.Empty)</option>
+		}
+	}
+</select>
