@@ -14,7 +14,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		[Parameter] public int TotalPages { get; set; }
 		[Parameter] public int CurrentPageIndex { get; set; }
 		[Parameter] public EventCallback<int> CurrentPageIndexChanged { get; set; }
-
+		[Parameter] public bool ShowAllButton { get; set; } = true;
+		[Parameter] public EventCallback ShowAllButtonClicked { get; set; }
+		
 		protected int pageFromInclusive;
 		protected int pageToExclusive;
 		protected bool showFirstLast;
@@ -49,6 +51,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 				pageFromInclusive = 0;
 			}
 			showFirstLast = true; // always true
+		}
+
+		private async Task ShowAllButtonClick()
+		{
+			await ShowAllButtonClicked.InvokeAsync(null);
 		}
 	}
 }

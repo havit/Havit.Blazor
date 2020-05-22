@@ -11,26 +11,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 	{
 		public const string ColumnsRegistrationCascadingValueName = "ColumnsRegistration";
 
-		[Parameter]
-		public IEnumerable<TItemType> Data { get; set; }
-
-		[Parameter]
-		public bool AllowSelection { get; set; } // TODO: OnClickBehavior nebo tak něco?
-
-		[Parameter]
-		public bool AllowSorting { get; set; } // TODO
-
-		[Parameter]
-		public RenderFragment Columns { get; set; }
-
-		[Parameter]
-		public RenderFragment<TItemType> ContextMenu { get; set; }
-
-		[Parameter]
-		public TItemType SelectedDataItem { get; set; } // TODO
-
-		[Parameter]
-		public EventCallback<TItemType> SelectedDataItemChanged { get; set; } 
+		[Parameter] public IEnumerable<TItemType> Data { get; set; }
+		[Parameter] public bool AllowSelection { get; set; } // TODO: OnClickBehavior nebo tak něco?
+		[Parameter] public bool AllowSorting { get; set; } // TODO
+		[Parameter] public RenderFragment Columns { get; set; }
+		[Parameter] public RenderFragment<TItemType> ContextMenu { get; set; }
+		[Parameter] public TItemType SelectedDataItem { get; set; } // TODO
+		[Parameter] public EventCallback<TItemType> SelectedDataItemChanged { get; set; }
+		[Parameter] public bool ShowFooter { get; set; } = true;		
+		[Parameter] public int PageSize { get; set; } = 0;
+		[Parameter] public int PageIndex { get; set; }
+		[Parameter] public EventCallback<int> PageIndexChanged { get; set; }
+		[Parameter] public bool PagerShowAllButton { get; set; } = true;
 
 		private List<IHxGridColumn<TItemType>> columnsList;
 		protected CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration; // protected: The field 'HxGrid<TItemType>.columnsListRegistration' is never used
@@ -53,6 +45,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 				result.Add(new ContextMenuGridColumn<TItemType>(ContextMenu));
 			}
 			return result;
+		}
+
+		private void PagerShowAllButtonClicked()
+		{
+			PageSize = 0; // TODO: implementovat přes pochopitelnější stavové proměnné
 		}
 
 	}

@@ -1,6 +1,9 @@
 ﻿@typeparam TItemType
 
-@{ List<IHxGridColumn<TItemType>> columnsToRender = ColumnsToRender(); /* TODO: to codebehind */ }
+@{
+	List<IHxGridColumn<TItemType>> columnsToRender = ColumnsToRender(); /* TODO: to codebehind */
+	IEnumerable<TItemType> dataToRender = (PageSize > 0) ? Data.Skip(PageSize * PageIndex).Take(PageSize) : Data;
+}
 
 <CascadingValue Value="@columnsListRegistration" Name="@ColumnsRegistrationCascadingValueName">
 	@*Aby se dostaly komponenty do kolekcí, musíme je dostat do renderování této komponenty. Chceme však, aby komponenty nic nevyrenderovaly. *@
@@ -18,25 +21,40 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (TItemType item in Data) // TODO: Paging, atp.
+		@foreach (TItemType item in dataToRender) // TODO: Paging, atp.
 		{
-		<tr>
-			@foreach (IHxGridColumn<TItemType> column in columnsToRender)
-			{
-				<td>@column.GetItemTemplate(item)</td>
-			}
+			<tr>
+				@foreach (IHxGridColumn<TItemType> column in columnsToRender)
+				{
+					<td>@column.GetItemTemplate(item)</td>
+				}
 			</tr>
 		}
-		</tbody>
-	@*TODO: Jen, když existuje*@
-	<tfoot>
-		<tr>
-			@foreach (IHxGridColumn<TItemType> column in columnsToRender)
-			{
-				<td>@column.GetFooterTemplate()</td>
-			}
-		</tr>
-	</tfoot>
-	@*TODO: Pager*@
+	</tbody>
+	@if (ShowFooter)
+	{
+		RenderFragment[] footerTemplates = columnsToRender.Select(column => column.GetFooterTemplate()).ToArray();
+		if (footerTemplates.Any(template => template != null))
+		{
+			<tfoot>
+				<tr>
+					@foreach (RenderFragment footerFragment in footerTemplates)
+					{
+						<td>@footerFragment</td>
+					}
+				</tr>
+			</tfoot>
+		}
+	}
+
 </table>
+
+@if (PageSize > 0)
+{
+	int totalPages = (Data.Count() + PageSize - 1) / PageSize;
+	if (totalPages > 0)
+	{
+		<HxPager @bind-CurrentPageIndex="@PageIndex" TotalPages="@totalPages" ShowAllButton="@PagerShowAllButton" ShowAllButtonClicked="@PagerShowAllButtonClicked" />
+	}
+}
 

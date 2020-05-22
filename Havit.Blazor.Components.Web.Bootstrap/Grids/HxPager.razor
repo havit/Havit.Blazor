@@ -4,7 +4,7 @@
 	{
 		<li class="page-item">
 			<a class="page-link" @onclick="() => ChangeCurrentPageIndexTo(0)">
-				<span aria-hidden="true">&laquo;</span>
+				<span>&laquo;</span>
 			</a>
 		</li>
 	}
@@ -28,10 +28,17 @@
 	{
 		<li class="page-item">
 			<a class="page-link" @onclick="() => ChangeCurrentPageIndexTo(TotalPages - 1)">
-				<span aria-hidden="true">&raquo;</span>
+				<span>&raquo;</span>
 			</a>
 		</li>
 	}
 
-	@*TODO: ShowAll*@
+	@if (ShowAllButton)
+	{
+		<li class="page-item">
+			<a class="page-link" @onclick="ShowAllButtonClick">
+				<span>all</span>
+			</a>
+		</li>
+	}
 </ul>

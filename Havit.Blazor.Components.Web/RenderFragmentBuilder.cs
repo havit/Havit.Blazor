@@ -10,7 +10,7 @@ namespace Havit.Blazor.Components.Web
 	{
 		public static RenderFragment Empty()
 		{
-			return (RenderTreeBuilder builder) => { /* NOOP */ };
+			return null;
 		}
 
 		public static RenderFragment CreateFrom(string content, RenderFragment template)
