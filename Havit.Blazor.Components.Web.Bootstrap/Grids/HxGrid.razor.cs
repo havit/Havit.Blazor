@@ -30,7 +30,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		public HxGrid()
 		{
 			columnsList = new List<IHxGridColumn<TItemType>>();
-			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItemType>>(columnsList);
+			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItemType>>(columnsList, this.StateHasChanged);
 		}
 
 		/// <summary>
@@ -39,8 +39,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// </summary>		
 		protected List<IHxGridColumn<TItemType>> ColumnsToRender()
 		{
-			var result = new List<IHxGridColumn<TItemType>>(columnsList);
-			if (ContextMenu != null)
+			var result = new List<IHxGridColumn<TItemType>>(columnsList);			
+			if ((result.Count > 0) && (ContextMenu != null))
 			{
 				result.Add(new ContextMenuGridColumn<TItemType>(ContextMenu));
 			}

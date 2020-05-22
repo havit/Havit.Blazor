@@ -38,10 +38,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
         public HxFilterView()
         {
             filters = new List<IHxFilter>();
-            filtersRegistration = new CollectionRegistration<IHxFilter>(filters);
+            filtersRegistration = new CollectionRegistration<IHxFilter>(filters, this.StateHasChanged);
 
             chipGenerators = new List<IHxChipGenerator>();
-            chipGeneratorsRegistration = new CollectionRegistration<IHxChipGenerator>(chipGenerators);
+            chipGeneratorsRegistration = new CollectionRegistration<IHxChipGenerator>(chipGenerators, this.StateHasChanged);
         }
 
 
