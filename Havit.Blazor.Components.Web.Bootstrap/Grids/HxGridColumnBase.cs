@@ -1,11 +1,13 @@
-﻿using Havit.Diagnostics.Contracts;
+﻿using Havit.Collections;
+using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Grids
-{
+{	
 	public abstract class HxGridColumnBase<TItemType> : ComponentBase, IHxGridColumn<TItemType>, IDisposable
 	{
 		[CascadingParameter(Name = HxGrid<TItemType>.ColumnsRegistrationCascadingValueName)]
@@ -21,6 +23,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		RenderFragment IHxGridColumn<TItemType>.GetHeaderTemplate() => this.GetHeaderTemplate();
 		RenderFragment IHxGridColumn<TItemType>.GetItemTemplate(TItemType item) => this.GetItemTemplate(item);
 		RenderFragment IHxGridColumn<TItemType>.GetFooterTemplate() => this.GetFooterTemplate();
+		IEnumerable<SortingItem<TItemType>> IHxGridColumn<TItemType>.GetSorting() => this.GetSorting();
+
+		protected abstract IEnumerable<SortingItem<TItemType>> GetSorting();
 
 		protected abstract RenderFragment GetHeaderTemplate();
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 {
-    // TODO: Je dobře pojmenovat to filter view, když jde vlastně o editaci?
+    // TODO: Je dobře pojmenovat to filter view, když jde vlastně o editaci? FiltrLayout?
     public partial class HxFilterView<TFilterType>
     // where TFilterType : class - toto nelze zapsat
     {

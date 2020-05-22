@@ -39,7 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		
 		private void CalculateRenderFields()
 		{
-			// todo: Možná doplnit logiku a posouvat se dle přiblížení k "hranici"
+			// todo: Možná doplnit logiku a posouvat se dle přiblížení k "hranici", tohle živé posouvání není moc uživatelsky příjemné
 			if (CurrentPageIndex >= 5)
 			{
 				pageToExclusive = Math.Min(TotalPages, CurrentPageIndex + 5);

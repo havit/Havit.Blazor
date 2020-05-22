@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Havit.Collections;
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Grids
@@ -14,6 +16,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		[Parameter] public RenderFragment<TItemType> ItemTemplate { get; set; }
 		[Parameter] public string FooterText { get; set; }
 		[Parameter] public RenderFragment FooterTemplate { get; set; }
+		[Parameter] public Expression<Func<TItemType, IComparable>> SortExpression { get; set; }
+		[Parameter] public SortDirection SortDirection { get; set; } = SortDirection.Ascending;
 
 		protected override RenderFragment GetHeaderTemplate() => RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate);
 
@@ -21,5 +25,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		protected override RenderFragment GetFooterTemplate() => RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate);
 
+		protected override IEnumerable<SortingItem<TItemType>> GetSorting()
+		{
+			if (SortExpression == null)
+			{
+				yield break;
+			}
+
+			yield return new SortingItem<TItemType>(this.SortExpression, this.SortDirection);
+		}
 	}
 }

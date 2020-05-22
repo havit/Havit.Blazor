@@ -6,8 +6,8 @@
 </CascadingValue>
 
 @{
-	List<IHxGridColumn<TItemType>> columnsToRender = ColumnsToRender(); /* TODO: to codebehind */
-	IEnumerable<TItemType> dataToRender = (PageSize > 0) ? Data.Skip(PageSize * PageIndex).Take(PageSize) : Data;
+	List<IHxGridColumn<TItemType>> columnsToRender = ColumnsToRender(); /* TODO: to codebehind? */
+	IEnumerable<TItemType> dataToRender = (PageSize > 0) ? Data.Skip(PageSize * CurrentPageIndex).Take(PageSize) : Data;
 }
 
 @if (columnsToRender.Any())
@@ -18,7 +18,21 @@
 			<tr>
 				@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 				{
-					<td>@column.GetHeaderTemplate()</td>
+					var columnSorting = column.GetSorting().ToArray();
+				<td>
+					@column.GetHeaderTemplate()
+					@if (CurrentSorting.StartsWith(columnSorting))
+					{
+						@*TODO: Chceme vizualizovat reverzní řazení?*@
+						<span>aktuální řazení</span>
+					}
+
+					@if (columnSorting.Any())
+					{
+						@*TODO: Chceme vizualizovat reverzní řazení?*@
+						<a @onclick="async () => await SetSorting(columnSorting)">seřadit</a>
+					}
+				</td>
 				}
 			</tr>
 		</thead>
@@ -56,7 +70,7 @@
 		int totalPages = (Data.Count() + PageSize - 1) / PageSize;
 		if (totalPages > 0)
 		{
-			<HxPager @bind-CurrentPageIndex="@PageIndex" TotalPages="@totalPages" ShowAllButton="@PagerShowAllButton" ShowAllButtonClicked="@PagerShowAllButtonClicked" />
+			<HxPager @bind-CurrentPageIndex="@CurrentPageIndex" TotalPages="@totalPages" ShowAllButton="@PagerShowAllButton" ShowAllButtonClicked="@PagerShowAllButtonClicked" />
 		}
 	}
 }

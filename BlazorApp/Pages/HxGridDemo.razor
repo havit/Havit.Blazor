@@ -4,8 +4,8 @@
 
 <HxGrid Data="@cultureInfos" PageSize="10">
 	<Columns>
-		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemText="@(item => item.DisplayName)" />
-		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemText="@(item => item.Name)" />		
+		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemText="@(item => item.DisplayName)" SortExpression="@(item => item.DisplayName)" />
+		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemText="@(item => item.Name)" SortExpression="@(item => item.Name)" />		
 	</Columns>
 	<ContextMenu>
 		<HxContextMenu>

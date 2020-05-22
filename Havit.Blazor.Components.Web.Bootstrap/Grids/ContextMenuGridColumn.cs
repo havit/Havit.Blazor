@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Grids
@@ -20,5 +21,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		protected override RenderFragment GetFooterTemplate() => RenderFragmentBuilder.Empty();
 
+		protected override IEnumerable<SortingItem<TItemType>> GetSorting()
+		{
+			return Enumerable.Empty<SortingItem<TItemType>>();
+		}
 	}
 }
