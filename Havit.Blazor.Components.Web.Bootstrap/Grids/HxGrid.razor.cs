@@ -12,6 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 {
 	// Přesunout do Havit.Blazor.Components.Web? Ale pozor na závislost na Pageru!
 	// Jak pohodlně definovat Default SortExpression? Asi na sloupci. Více sloupců?
+	// TODO: Rozdělit header, footer, řádky tak, aby se komponenty smyslupně updatovaly?
 	public partial class HxGrid<TItemType> : IDisposable
 	{
 		public const string ColumnsRegistrationCascadingValueName = "ColumnsRegistration";

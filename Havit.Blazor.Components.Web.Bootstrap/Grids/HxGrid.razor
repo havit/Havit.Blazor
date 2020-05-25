@@ -14,33 +14,51 @@
 @if (columnsToRender.Any())
 {
 	<table class="table">
-		@*<colgroup></colgroup>*@ @*TODO: Ať si řekne Dominik*@
 		<thead>
 			<tr>
 				@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 				{
 					var columnSorting = column.GetSorting().ToArray();
-				<td>
-					@column.GetHeaderTemplate()
-					@if (CurrentSorting.StartsWith(columnSorting))
-					{
-						@*TODO: Chceme vizualizovat reverzní řazení?*@
-						<span>aktuální řazení</span>
-					}
+					bool isCurrentSorting = CurrentSorting.StartsWith(columnSorting);
+					<td>
+						@column.GetHeaderTemplate()
+						@if (isCurrentSorting)
+						{
+							<span>
+								@if (CurrentSorting[0].SortDirection == Collections.SortDirection.Ascending)
+								{
+									<text>teď: ↑</text>
+								}
+								else
+								{
+									<text>teď: ↓</text>
+								}
+							</span>
+						}
 
-					@if (columnSorting.Any())
-					{
-						@*TODO: Chceme vizualizovat reverzní řazení?*@
-						<a @onclick="async () => await SetSorting(columnSorting)">seřadit</a>
-					}
-				</td>
+						@if (columnSorting.Any())
+						{
+							<a @onclick="async () => await SetSorting(columnSorting)">
+								@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Ascending))
+									|| (isCurrentSorting && (CurrentSorting[0].SortDirection == Collections.SortDirection.Descending)))
+								{
+									<text>chci: ↑</text>
+								}
+								else
+								{
+									<text>chci: ↓</text>
+								}
+							</a>
+						}
+					</td>
 				}
 			</tr>
 		</thead>
 		<tbody>
 			@foreach (TItemType item in itemsToRender)
 			{
-				<tr @onclick="async () => await SelectDataItem(item)">
+							 
+				<tr @onclick="async () => await SelectDataItem(item)" class="@(((item != null) && item.Equals(SelectedDataItem)) ? "selected" : "")">
 					@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 					{
 						<td>@column.GetItemTemplate(item)</td>
