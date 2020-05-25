@@ -2,10 +2,15 @@
 
 <h1>HxGrid</h1>
 
-<HxGrid Data="@cultureInfos" PageSize="10">
+<HxGrid Data="@cultureInfos" @bind-SelectedDataItem="currentCultureInfo" PageSize="10">
 	<Columns>
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemText="@(item => item.DisplayName)" SortExpression="@(item => item.DisplayName)" />
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemText="@(item => item.Name)" SortExpression="@(item => item.Name)" />		
+		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Link">
+			<ItemTemplate>
+				<a href="https://www.havit.cz">link to a page</a>
+			</ItemTemplate>
+		</HxGridColumn>
 	</Columns>
 	<ContextMenu>
 		<HxContextMenu>
@@ -14,6 +19,9 @@
 	</ContextMenu>
 </HxGrid>
 
+<p>Current CultureInfo: @currentCultureInfo?.DisplayName</p>
+
 @code {
 	private List<System.Globalization.CultureInfo> cultureInfos = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).ToList();
+	private System.Globalization.CultureInfo currentCultureInfo = null;
 }
