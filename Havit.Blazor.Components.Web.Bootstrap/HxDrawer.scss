@@ -1,6 +1,6 @@
 .drawer {
-	position: absolute;
-	height: 100%;
+	position: fixed;
+	height: 100vh;
 	width: var(--drawer-width);
 	top: 0;
 	background: white;
