@@ -38,7 +38,7 @@ namespace Havit.Blazor.Components.Web
 					// NOOP
 				}
 #else
-				stageHasChangedAction();
+				stateHasChangedAction();
 #endif
 			}
 		}
