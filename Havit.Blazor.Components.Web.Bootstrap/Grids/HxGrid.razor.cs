@@ -1,7 +1,9 @@
 ﻿using Havit.Collections;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 {
 	// Přesunout do Havit.Blazor.Components.Web? Ale pozor na závislost na Pageru!
 	// Jak pohodlně definovat Default SortExpression? Asi na sloupci. Více sloupců?
-	public partial class HxGrid<TItemType>
+	public partial class HxGrid<TItemType> : IDisposable
 	{
 		public const string ColumnsRegistrationCascadingValueName = "ColumnsRegistration";
 
@@ -32,12 +34,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		private List<IHxGridColumn<TItemType>> columnsList;
 		protected CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration; // protected: The field 'HxGrid<TItemType>.columnsListRegistration' is never used
+		
+		private bool isDisposed = false;
 
 		public HxGrid()
 		{ 
 			CurrentSorting = new SortingItem<TItemType>[0];
 			columnsList = new List<IHxGridColumn<TItemType>>();
-			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItemType>>(columnsList, this.StateHasChanged);
+			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItemType>>(columnsList, this.StateHasChanged, () => isDisposed);
 		}
 
 		/// <summary>
@@ -91,6 +95,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			}
 
 			return result;
+		}
+
+		private async Task SelectDataItem(TItemType newSelectedDataItem)
+		{
+			SelectedDataItem = newSelectedDataItem;
+			await SelectedDataItemChanged.InvokeAsync(newSelectedDataItem);
+		}
+
+		public void Dispose()
+		{
+			isDisposed = true;
 		}
 	}
 }

@@ -8,6 +8,7 @@
 @{
 	List<IHxGridColumn<TItemType>> columnsToRender = GetColumnsToRender();
 	TItemType[] itemsToRender = ApplyPaging(ApplySorting(Data)).ToArray();
+	// TODO: Není-li zobrazen selectedItem, odvybrat!
 }
 
 @if (columnsToRender.Any())
@@ -39,7 +40,7 @@
 		<tbody>
 			@foreach (TItemType item in itemsToRender)
 			{
-				<tr>
+				<tr @onclick="async () => await SelectDataItem(item)">
 					@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 					{
 						<td>@column.GetItemTemplate(item)</td>

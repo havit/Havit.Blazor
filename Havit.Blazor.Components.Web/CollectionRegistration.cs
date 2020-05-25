@@ -7,34 +7,40 @@ namespace Havit.Blazor.Components.Web
 	public class CollectionRegistration<TItem>
 	{
 		private readonly ICollection<TItem> collection;
-		private readonly Action stageHasChangedAction;
+		private readonly Action stateHasChangedAction;
+		private readonly Func<bool> isOwnerDisposedAction;
 
-		public CollectionRegistration(ICollection<TItem> collection, Action stageHasChangedAction)
+		public CollectionRegistration(ICollection<TItem> collection, Action stateHasChangedAction, Func<bool> isOwnerDisposedAction)
 		{
 			this.collection = collection;
-			this.stageHasChangedAction = stageHasChangedAction;
+			this.stateHasChangedAction = stateHasChangedAction;
+			this.isOwnerDisposedAction = isOwnerDisposedAction;
 		}
+
 		public void Register(TItem item)
 		{
 			collection.Add(item);
-			stageHasChangedAction();
+			stateHasChangedAction();
 		}
 
 		public void Unregister(TItem item)
 		{
 			collection.Remove(item);
+			if (!isOwnerDisposedAction())
+			{
 #if DEBUG
-			try
-			{
-				stageHasChangedAction();
-			}
-			catch (System.ObjectDisposedException)
-			{
-				// NOOP
-			}
+				try
+				{
+					stateHasChangedAction();
+				}
+				catch (System.ObjectDisposedException)
+				{
+					// NOOP
+				}
 #else
-			stageHasChangedAction();
+				stageHasChangedAction();
 #endif
+			}
 		}
 	}
 }
