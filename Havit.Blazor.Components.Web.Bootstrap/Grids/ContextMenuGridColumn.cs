@@ -15,11 +15,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			ItemTemplate = itemTemplate;
 		}
 
-		protected override RenderFragment GetHeaderTemplate() => RenderFragmentBuilder.Empty();
+		protected override CellTemplate GetHeaderCellTemplate() => new CellTemplate(RenderFragmentBuilder.Empty());
 
-		protected override RenderFragment GetItemTemplate(TItemType item) => ItemTemplate(item);
+		protected override CellTemplate GetItemCellTemplate(TItemType item) => new CellTemplate(ItemTemplate(item));
 
-		protected override RenderFragment GetFooterTemplate() => RenderFragmentBuilder.Empty();
+		protected override CellTemplate GetFooterCellTemplate() => new CellTemplate(RenderFragmentBuilder.Empty());
 
 		protected override IEnumerable<SortingItem<TItemType>> GetSorting()
 		{

@@ -20,8 +20,10 @@
 				{
 					var columnSorting = column.GetSorting().ToArray();
 					bool isCurrentSorting = CurrentSorting.StartsWith(columnSorting);
-					<td>
-						@column.GetHeaderTemplate()
+					var headerCellTemplate = column.GetHeaderCellTemplate();
+					<td class="@headerCellTemplate.CssClass">
+						@headerCellTemplate.Template
+
 						@if (isCurrentSorting)
 						{
 							<span>
@@ -46,7 +48,7 @@
 						{
 							<a @onclick="async () => await SetSorting(columnSorting)">
 								@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Ascending))
-									|| (isCurrentSorting && (CurrentSorting[0].SortDirection == Collections.SortDirection.Descending)))
+								   || (isCurrentSorting && (CurrentSorting[0].SortDirection == Collections.SortDirection.Descending)))
 								{
 									<text>chci: ↑</text>
 								}
@@ -64,24 +66,25 @@
 			@foreach (TItemType item in itemsToRender)
 			{
 							 
-				<tr @onclick="async () => await SelectDataItem(item)" class="@(((item != null) && item.Equals(SelectedDataItem)) ? "selected" : "")">
-					@foreach (IHxGridColumn<TItemType> column in columnsToRender)
-					{
-						<td>@column.GetItemTemplate(item)</td>
-					}
-				</tr>
+			<tr @onclick="async () => await SelectDataItem(item)" class="@(((item != null) && item.Equals(SelectedDataItem)) ? "selected" : null)">
+				@foreach (IHxGridColumn<TItemType> column in columnsToRender)
+				{
+					CellTemplate cellTemplate = column.GetItemCellTemplate(item);
+					<td class="@cellTemplate.CssClass">@cellTemplate.Template</td>
+				}
+			</tr>
 			}
 		</tbody>
 		@if (ShowFooter)
 		{
-			RenderFragment[] footerTemplates = columnsToRender.Select(column => column.GetFooterTemplate()).ToArray();
-			if (footerTemplates.Any(template => template != null))
+			CellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate()).ToArray();
+			if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null))
 			{
 				<tfoot>
 					<tr>
-						@foreach (RenderFragment footerFragment in footerTemplates)
+						@foreach (CellTemplate footerCellTemplate in footerTemplates)
 						{
-							<td>@footerFragment</td>
+							<td class="@footerCellTemplate.CssClass">@footerCellTemplate.Template</td>
 						}
 					</tr>
 				</tfoot>

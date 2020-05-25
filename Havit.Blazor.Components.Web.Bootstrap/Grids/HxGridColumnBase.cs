@@ -20,18 +20,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			ColumnsRegistration.Register(this);
 		}
 
-		RenderFragment IHxGridColumn<TItemType>.GetHeaderTemplate() => this.GetHeaderTemplate();
-		RenderFragment IHxGridColumn<TItemType>.GetItemTemplate(TItemType item) => this.GetItemTemplate(item);
-		RenderFragment IHxGridColumn<TItemType>.GetFooterTemplate() => this.GetFooterTemplate();
+		CellTemplate IHxGridColumn<TItemType>.GetHeaderCellTemplate() => this.GetHeaderCellTemplate();
+		CellTemplate IHxGridColumn<TItemType>.GetItemCellTemplate(TItemType item) => this.GetItemCellTemplate(item);
+		CellTemplate IHxGridColumn<TItemType>.GetFooterCellTemplate() => this.GetFooterCellTemplate();
 		IEnumerable<SortingItem<TItemType>> IHxGridColumn<TItemType>.GetSorting() => this.GetSorting();
 
 		protected abstract IEnumerable<SortingItem<TItemType>> GetSorting();
 
-		protected abstract RenderFragment GetHeaderTemplate();
+		protected abstract CellTemplate GetHeaderCellTemplate();
 
-		protected abstract RenderFragment GetItemTemplate(TItemType item);
+		protected abstract CellTemplate GetItemCellTemplate(TItemType item);
 
-		protected abstract RenderFragment GetFooterTemplate();
+		protected abstract CellTemplate GetFooterCellTemplate();
 
 		public virtual void Dispose()
 		{
