@@ -6,8 +6,8 @@
 </CascadingValue>
 
 @{
-	List<IHxGridColumn<TItemType>> columnsToRender = ColumnsToRender(); /* TODO: to codebehind? */
-	IEnumerable<TItemType> dataToRender = (PageSize > 0) ? Data.Skip(PageSize * CurrentPageIndex).Take(PageSize) : Data;
+	List<IHxGridColumn<TItemType>> columnsToRender = GetColumnsToRender();
+	TItemType[] itemsToRender = ApplyPaging(ApplySorting(Data)).ToArray();
 }
 
 @if (columnsToRender.Any())
@@ -37,7 +37,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (TItemType item in dataToRender) // TODO: Paging, atp.
+			@foreach (TItemType item in itemsToRender)
 			{
 				<tr>
 					@foreach (IHxGridColumn<TItemType> column in columnsToRender)

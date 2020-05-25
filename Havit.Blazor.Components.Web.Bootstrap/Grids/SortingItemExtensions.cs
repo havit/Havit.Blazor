@@ -20,7 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			if (source.StartsWith(itemsToMerge))
 			{
 				// pokud již podle položek řadíme, pak jen otočíme pořadí
-				return itemsToMerge.ToggleSortDirections().Concat(source.Skip(itemsToMerge.Length)).ToArray();
+				return source.Take(itemsToMerge.Length).ToggleSortDirections().Concat(source.Skip(itemsToMerge.Length)).ToArray();
 			}
 
 			// přidáme položky na začátek, odebereme shodné z pole, pokud existují
@@ -29,7 +29,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		internal static bool StartsWith<T>(this SortingItem<T>[] source, SortingItem<T>[] itemsToMerge)
 		{
-			if (source.Length < itemsToMerge.Length)
+			if ((source.Length < itemsToMerge.Length) || (itemsToMerge.Length == 0))
 			{
 				return false;
 			}
@@ -45,7 +45,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			return true;
 		}
 
-		private static IEnumerable<SortingItem<T>> ToggleSortDirections<T>(this SortingItem<T>[] source)
+		private static IEnumerable<SortingItem<T>> ToggleSortDirections<T>(this IEnumerable<SortingItem<T>> source)
 		{
 			return source.Select(item => item.WithToggledSortDirection());
 		}

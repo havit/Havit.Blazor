@@ -23,7 +23,18 @@ namespace Havit.Blazor.Components.Web
 		public void Unregister(TItem item)
 		{
 			collection.Remove(item);
+#if DEBUG
+			try
+			{
+				stageHasChangedAction();
+			}
+			catch (System.ObjectDisposedException)
+			{
+				// NOOP
+			}
+#else
 			stageHasChangedAction();
+#endif
 		}
 	}
 }
