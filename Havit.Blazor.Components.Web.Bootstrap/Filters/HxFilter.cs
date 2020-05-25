@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Text;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Filters
-{	
+{
 	public sealed class HxFilter : ComponentBase, IHxFilter, IHxChipGenerator, IDisposable
 	{
 		[CascadingParameter(Name = HxFilterView<object>.FilterRegistrationCascadingValueName)]
@@ -39,7 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 
 		public void Dispose()
 		{
-			FiltersRegistration.Unregister(this);			
+			FiltersRegistration.Unregister(this);
 			ChipGeneratorsRegistration.Unregister(this);
 		}
 

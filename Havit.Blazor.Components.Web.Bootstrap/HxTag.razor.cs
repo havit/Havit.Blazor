@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-    public partial class HxTag
-    {
-        [Parameter]
-        public string Text { get; set; }
-    }
+	public partial class HxTag
+	{
+		[Parameter]
+		public string Text { get; set; }
+	}
 }

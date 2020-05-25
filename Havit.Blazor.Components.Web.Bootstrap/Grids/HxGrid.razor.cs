@@ -35,11 +35,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		private List<IHxGridColumn<TItemType>> columnsList;
 		protected CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration; // protected: The field 'HxGrid<TItemType>.columnsListRegistration' is never used
-		
+
 		private bool isDisposed = false;
 
 		public HxGrid()
-		{ 
+		{
 			CurrentSorting = new SortingItem<TItemType>[0];
 			columnsList = new List<IHxGridColumn<TItemType>>();
 			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItemType>>(columnsList, this.StateHasChanged, () => isDisposed);
@@ -51,7 +51,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// </summary>		
 		protected List<IHxGridColumn<TItemType>> GetColumnsToRender()
 		{
-			var result = new List<IHxGridColumn<TItemType>>(columnsList);			
+			var result = new List<IHxGridColumn<TItemType>>(columnsList);
 			if ((result.Count > 0) && (ContextMenu != null))
 			{
 				result.Add(new ContextMenuGridColumn<TItemType>(ContextMenu));

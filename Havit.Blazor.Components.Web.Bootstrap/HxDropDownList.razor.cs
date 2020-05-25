@@ -10,15 +10,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	// TODO: Nebude nakonec přesunuto do Havit.Blazor.Components.Web?
 	public partial class HxDropDownList<TItemType>
 	{
-		[Parameter]	public string NullText { get; set; }
-		[Parameter]	public bool Nullable { get; set; } = false;
-		[Parameter]	public IEnumerable<TItemType> Items { get; set; }
-		[Parameter]	public TItemType SelectedItem { get; set; }
-		[Parameter]	public EventCallback<TItemType> SelectedItemChanged { get; set; }
-		[Parameter]	public Func<TItemType, string> Text { get; set; } // TODO: Pojmenování?
-		// TODO: Pojmenování?
-		[Parameter]	public Func<TItemType, IComparable> Sort { get; set; } // TODO: Neumíme zřetězení výrazů pro řazení, v takovém případě buď umělou vlastnost s IComparable nebo seřadit předem.
-		[Parameter]	public bool AutoSort { get; set; } = true;
+		[Parameter] public string NullText { get; set; }
+		[Parameter] public bool Nullable { get; set; } = false;
+		[Parameter] public IEnumerable<TItemType> Items { get; set; }
+		[Parameter] public TItemType SelectedItem { get; set; }
+		[Parameter] public EventCallback<TItemType> SelectedItemChanged { get; set; }
+		[Parameter] public Func<TItemType, string> Text { get; set; } // TODO: Pojmenování?
+																	  // TODO: Pojmenování?
+		[Parameter] public Func<TItemType, IComparable> Sort { get; set; } // TODO: Neumíme zřetězení výrazů pro řazení, v takovém případě buď umělou vlastnost s IComparable nebo seřadit předem.
+		[Parameter] public bool AutoSort { get; set; } = true;
 
 		protected List<TItemType> itemsToRender;
 
@@ -35,7 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		public override async Task SetParametersAsync(ParameterView parameters)
-		{			
+		{
 			await base.SetParametersAsync(parameters);
 
 			itemsToRender = Items.ToList() ?? new List<TItemType>(); // TODO: AutoSort?

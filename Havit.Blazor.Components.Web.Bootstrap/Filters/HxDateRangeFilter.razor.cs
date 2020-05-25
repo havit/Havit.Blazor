@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 {
-    public partial class HxDateRangeFilter : HxFilterBase<DateRange>
-    {
-        //public override IEnumerable<FilterChip> GetChips()
-        //{
-        //    yield break;            
-        //}
+	public partial class HxDateRangeFilter : HxFilterBase<DateRange>
+	{
+		//public override IEnumerable<FilterChip> GetChips()
+		//{
+		//    yield break;            
+		//}
 
-        //public override RenderFragment GetFilter()
-        //{
-        //    return "HxDateRangeFilter - Not implemented".ToRenderFragment();
-        //}
-    }
+		//public override RenderFragment GetFilter()
+		//{
+		//    return "HxDateRangeFilter - Not implemented".ToRenderFragment();
+		//}
+	}
 }

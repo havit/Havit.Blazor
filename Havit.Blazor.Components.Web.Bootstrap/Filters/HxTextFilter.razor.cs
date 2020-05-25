@@ -8,27 +8,27 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 {
-    public partial class HxTextFilter
-    {
-        //public override IEnumerable<FilterChip> GetChips()
-        //{
-        //    yield return new FilterChip
-        //    {
-        //        //Chip = (Label + ": " + Value).ToRenderFragment(),
-        //        RemoveCallback = RemoveChip
-        //    };
-        //}
+	public partial class HxTextFilter
+	{
+		//public override IEnumerable<FilterChip> GetChips()
+		//{
+		//    yield return new FilterChip
+		//    {
+		//        //Chip = (Label + ": " + Value).ToRenderFragment(),
+		//        RemoveCallback = RemoveChip
+		//    };
+		//}
 
-        protected virtual Task RemoveChip()
-        {
-            Value = null; // nebo nějaký default?
-            // TODO: OnChange?
-            return Task.CompletedTask;
-        }
+		protected virtual Task RemoveChip()
+		{
+			Value = null; // nebo nějaký default?
+						  // TODO: OnChange?
+			return Task.CompletedTask;
+		}
 
-        //public override RenderFragment GetFilter()
-        //{
-        //    return "HxStringFilter - Not implemented".ToRenderFragment();
-        //}
-    }
+		//public override RenderFragment GetFilter()
+		//{
+		//    return "HxStringFilter - Not implemented".ToRenderFragment();
+		//}
+	}
 }

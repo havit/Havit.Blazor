@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Grids
-{	
+{
 	public abstract class HxGridColumnBase<TItemType> : ComponentBase, IHxGridColumn<TItemType>, IDisposable
 	{
 		[CascadingParameter(Name = HxGrid<TItemType>.ColumnsRegistrationCascadingValueName)]

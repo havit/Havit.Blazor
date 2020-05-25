@@ -16,7 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		[Parameter] public EventCallback<int> CurrentPageIndexChanged { get; set; }
 		[Parameter] public bool ShowAllButton { get; set; } = true;
 		[Parameter] public EventCallback ShowAllButtonClicked { get; set; }
-		
+
 		protected int pageFromInclusive;
 		protected int pageToExclusive;
 		protected bool showFirstLast;
@@ -36,7 +36,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			await CurrentPageIndexChanged.InvokeAsync(CurrentPageIndex);
 			CalculateRenderFields();
 		}
-		
+
 		private void CalculateRenderFields()
 		{
 			// todo: Možná doplnit logiku a posouvat se dle přiblížení k "hranici", tohle živé posouvání není moc uživatelsky příjemné
