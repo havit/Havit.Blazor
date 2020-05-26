@@ -6,7 +6,7 @@
 }
 
 <CascadingValue Value="stepsRegistration" Name="WizardStepsRegistration"> @*TODO: konstanta*@
-	<div>
+	<div class="wizard d-flex flex-column flex-grow-1">
 		@*<ul class="nav nav-pills nav-justified">
 			@foreach (var step in Steps)
 			{
@@ -16,19 +16,23 @@
 				</li>
 			}
 		</ul>*@
-		<div id="container-fluid">
+		<div>
 			@Steps
 		</div>
+		<div class="mt-auto row">
+			@if (CanGoBack())
+			{
+				<div class="col">
+					<button class="btn btn-lg btn-light btn-block" @onclick="GoBackClick">Back</button>
+				</div>
+			}
 
-		@if (CanGoBack())
-		{
-			<button @onclick="GoBackClick">Back</button>
-		}
-
-		@if (CanGoNext())
-		{
-			<button @onclick="GoNextClick">Next</button>
-		}
-
+			@if (CanGoNext())
+			{
+				<div class="col">
+					<button class="btn btn-primary btn-lg btn-block" @onclick="GoNextClick">Next</button>
+				</div>
+			}
+		</div>
 	</div>
 </CascadingValue>
