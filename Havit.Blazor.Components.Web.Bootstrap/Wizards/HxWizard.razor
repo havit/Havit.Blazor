@@ -1,0 +1,34 @@
+﻿@{ 
+	if (!steps.Any(item => item.IsActive) && steps.Any())
+	{
+		steps[0].Activate();
+	}
+}
+
+<CascadingValue Value="stepsRegistration" Name="WizardStepsRegistration"> @*TODO: konstanta*@
+	<div>
+		@*<ul class="nav nav-pills nav-justified">
+			@foreach (var step in Steps)
+			{
+				<li id="step-@(StepsIndex(step) + 1)" class="nav-item">
+					<a class="nav-link @((ActiveStep == step) ? "active" : "")" href="javascript: void(0)"
+					   @onclick="@(e=> SetActive(step))">@step.Name</a>
+				</li>
+			}
+		</ul>*@
+		<div id="container-fluid">
+			@Steps
+		</div>
+
+		@if (CanGoBack())
+		{
+			<button @onclick="GoBackClick">Back</button>
+		}
+
+		@if (CanGoNext())
+		{
+			<button @onclick="GoNextClick">Next</button>
+		}
+
+	</div>
+</CascadingValue>
