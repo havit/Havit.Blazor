@@ -4,19 +4,26 @@ using System.Text;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.NamedViews
 {
-	// TODO: Pro použití by stačil interface
-	public class NamedView
+	public class NamedView<TFilterType>
 	{
-		public string Name { get; set; }
+		public string Name { get; }
 
-		public NamedView()
+		public Func<TFilterType> Filter { get; } // TODO: Naming?
+
+		public NamedView(string name) : this(name, () => default)
 		{
 			// NOOP
 		}
 
-		public NamedView(string name)
+		public NamedView(string name, TFilterType filter) : this(name, () => filter)
 		{
-			this.Name = name;
+			// NOOP
+		}
+
+		public NamedView(string name, Func<TFilterType> filterFunc)
+		{
+			Name = name;
+			Filter = filterFunc;
 		}
 	}
 }
