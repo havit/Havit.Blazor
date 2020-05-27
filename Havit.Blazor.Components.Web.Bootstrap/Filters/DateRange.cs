@@ -25,7 +25,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 
 		public override string ToString()
 		{
-			return $"StartDate: { StartDate?.ToShortDateString() ?? "null" }, EndDate: { EndDate?.ToShortDateString() ?? "null" }";
+			return String.Format("StartDate: {0}, EndDate: {1}",
+				StartDate?.ToShortDateString() ?? "null",
+				EndDate?.ToShortDateString() ?? "null");
 		}
 	}
 }
