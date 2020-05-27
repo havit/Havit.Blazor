@@ -11,10 +11,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 {
 	public sealed class HxFilter : ComponentBase, IHxFilter, IHxChipGenerator, IDisposable
 	{
-		[CascadingParameter(Name = HxFilterView<object>.FilterRegistrationCascadingValueName)]
+		[CascadingParameter(Name = HxFilterView.FilterRegistrationCascadingValueName)]
 		public CollectionRegistration<IHxFilter> FiltersRegistration { get; set; }
 
-		[CascadingParameter(Name = HxFilterView<object>.ChipGeneratorRegistrationCascadingValueName)]
+		[CascadingParameter(Name = HxFilterView.ChipGeneratorRegistrationCascadingValueName)]
 		public CollectionRegistration<IHxChipGenerator> ChipGeneratorsRegistration { get; set; }
 
 		[Parameter]

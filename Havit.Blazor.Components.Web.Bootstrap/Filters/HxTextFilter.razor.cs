@@ -10,25 +10,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 {
 	public partial class HxTextFilter
 	{
-		//public override IEnumerable<FilterChip> GetChips()
-		//{
-		//    yield return new FilterChip
-		//    {
-		//        //Chip = (Label + ": " + Value).ToRenderFragment(),
-		//        RemoveCallback = RemoveChip
-		//    };
-		//}
-
-		protected virtual Task RemoveChip()
-		{
-			Value = null; // nebo nějaký default?
-						  // TODO: OnChange?
-			return Task.CompletedTask;
+		protected async Task TextChanged(ChangeEventArgs eventArgs)
+		{			
+			Value = (string)eventArgs.Value;
+			await ValueChanged.InvokeAsync(Value);
 		}
 
-		//public override RenderFragment GetFilter()
+		//protected virtual async Task RemoveChip()
 		//{
-		//    return "HxStringFilter - Not implemented".ToRenderFragment();
+		//	Value = null; // nebo nějaký default?
+		//				  // TODO: OnChange?
+		//	await ValueChanged.InvokeAsync(Value);
 		//}
 	}
 }

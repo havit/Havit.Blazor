@@ -10,14 +10,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 {
 	public partial class HxDateRangeFilter : HxFilterBase<DateRange>
 	{
-		//public override IEnumerable<FilterChip> GetChips()
-		//{
-		//    yield break;            
-		//}
+		protected async Task StartDateChanged(ChangeEventArgs eventArgs)
+		{
+			Value = new DateRange(DateTime.Parse((string)eventArgs.Value), Value?.EndDate); // TODO: ErrorHandling
+			await ValueChanged.InvokeAsync(Value);
+		}
 
-		//public override RenderFragment GetFilter()
-		//{
-		//    return "HxDateRangeFilter - Not implemented".ToRenderFragment();
-		//}
+		protected async Task EndDateChanged(ChangeEventArgs eventArgs)
+		{
+			Value = new  DateRange(Value?.StartDate, DateTime.Parse((string)eventArgs.Value)); // TODO: ErrorHandling
+			await ValueChanged.InvokeAsync(Value);
+		}
 	}
 }

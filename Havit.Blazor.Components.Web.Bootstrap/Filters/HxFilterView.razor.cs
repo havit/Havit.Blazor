@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 {
 	// TODO: Je dobře pojmenovat to filter view, když jde vlastně o editaci? FiltrLayout?
-	public partial class HxFilterView<TFilterType> : IDisposable
-	// where TFilterType : class - toto nelze zapsat
+	public partial class HxFilterView : IDisposable
 	{
 		public const string FilterRegistrationCascadingValueName = "FiltersRegistration";
 		public const string ChipGeneratorRegistrationCascadingValueName = "ChipGeneratorsRegistration";
@@ -20,21 +19,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 		public bool IsExpanded { get; set; }
 
 		[Parameter]
-		// TODO: Pojmenování? Filter? Value?
-		public TFilterType Data { get; set; }
+		public EventCallback ApplyFilterRequested { get; set; }
 
 		[Parameter]
-		public EventCallback<EventArgs> OnChange { get; set; }
-
-		[Parameter]
-		public RenderFragment<TFilterType> Criteria { get; set; }
+		public RenderFragment Criteria { get; set; }
 
 		private List<IHxFilter> filters;
 		private CollectionRegistration<IHxFilter> filtersRegistration;
 
 		private List<IHxChipGenerator> chipGenerators;
 		private CollectionRegistration<IHxChipGenerator> chipGeneratorsRegistration;
-
+		
 		private bool isDisposed = false;
 
 		public HxFilterView()
@@ -47,10 +42,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 		}
 
 
-		protected Task ApplyFilterClick()
+		protected async Task ApplyFilterClick()
 		{
-			// TODO: Notify...
-			return Task.CompletedTask;
+			await ApplyFilterRequested.InvokeAsync(null);
 		}
 
 		public void Dispose()

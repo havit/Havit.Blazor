@@ -8,8 +8,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 {
 	public class DateRange
 	{
-		public DateTime? StartDate { get; set; }
+		public DateTime? StartDate { get; }
 
-		public DateTime? EndDate { get; set; }
+		public DateTime? EndDate { get; }
+
+		public DateRange()
+		{
+			// NOOP
+		}
+
+		public DateRange(DateTime? startDate, DateTime? endDate)
+		{
+			this.StartDate = startDate;
+			this.EndDate = endDate;
+		}
+
+		public override string ToString()
+		{
+			return $"StartDate: { StartDate?.ToShortDateString() ?? "null" }, EndDate: { EndDate?.ToShortDateString() ?? "null" }";
+		}
 	}
 }

@@ -2,7 +2,7 @@
 <HxFilter Label="@Label">
 	<LabelTemplate>@LabelTemplate</LabelTemplate>
 	<FilterTemplate>
-		<input type="text" class="form-control" @bind="Value" />
+		<input type="text" class="form-control" value="@Value" @onchange="TextChanged" />
 	</FilterTemplate>
 	<ChipTemplate>
 		@Value

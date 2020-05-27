@@ -8,7 +8,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Od</span>
 					</div>
-					<input type="date" class="form-control">
+					<input type="date" class="form-control" value="Value?.StartDate" @onchange="StartDateChanged" />
 				</div>
 			</div>
 			<div class="col">
@@ -16,7 +16,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Do</span>
 					</div>
-					<input type="date" class="form-control">
+					<input type="date" class="form-control" value="Value?.EndDate" @onchange="EndDateChanged" />
 				</div>
 			</div>
 		</div>
