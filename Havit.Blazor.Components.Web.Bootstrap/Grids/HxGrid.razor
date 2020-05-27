@@ -102,7 +102,7 @@
 	@if (PageSize > 0)
 	{
 		int totalPages = (Data.Count() + PageSize - 1) / PageSize;
-		if (totalPages > 0)
+		if (totalPages > 1)
 		{
 			<HxPager @bind-CurrentPageIndex="@CurrentPageIndex" TotalPages="@totalPages" ShowAllButton="@PagerShowAllButton" ShowAllButtonClicked="@PagerShowAllButtonClicked" />
 		}
