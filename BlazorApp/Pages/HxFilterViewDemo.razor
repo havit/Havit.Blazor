@@ -1,0 +1,15 @@
+﻿@page "/HxFilterViewDemo"
+
+<h1>HxFilterView</h1>
+
+<CascadingValue Value="@true" Name="FilterDrawerOpen">
+	<HxFilterView>
+		<Criteria>
+			<HxDateRangeFilter @bind-Value="@Filter.MyDateRange" />
+			<HxTextFilter @bind-Value="@Filter.MyText" />
+		</Criteria>
+	</HxFilterView>
+</CascadingValue>
+
+<p>MyDateRange: @Filter.MyDateRange</p>
+<p>MyText: @Filter.MyText</p>
