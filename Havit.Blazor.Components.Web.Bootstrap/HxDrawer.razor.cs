@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Parameter]
 		public RenderFragment CommandsSection { get; set; }
+
+		[Parameter]
+		public EventCallback<MouseEventArgs> OnCloseClickCallback { get; set; }
 
 	}
 }
