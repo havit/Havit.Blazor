@@ -1,0 +1,43 @@
+.hx-list-layout {
+	.hx-list-header {
+		position: sticky;
+		top: 0;
+		background-color: white;
+
+		.title,
+		.search,
+		.commands {
+			flex: 1 1 33%;
+		}
+
+		.title {
+			font-size: 20px;
+			position: relative;
+			display: flex;
+			align-items: center;
+		}
+
+		.title .named-views {
+			display: none;
+			font-size: 14px;
+		}
+
+		.title.show .named-views {
+			position: absolute;
+			display: block;
+			top: 35px;
+			left: -15px;
+			background: white;
+			border: 5px;
+		}
+
+		.title.show .named-views {
+			position: absolute;
+			display: block;
+			top: 35px;
+			left: -15px;
+			background: white;
+			border: 5px;
+		}
+	}
+}
