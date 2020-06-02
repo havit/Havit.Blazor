@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,13 +13,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 	{
 		protected async Task StartDateChanged(ChangeEventArgs eventArgs)
 		{
-			Value = new DateRange(DateTime.Parse((string)eventArgs.Value), Value?.EndDate); // TODO: ErrorHandling
+			if (DateTime.TryParse((string)eventArgs.Value, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime value))
+			{
+				Value = new DateRange(value, Value?.EndDate);
+			}
+			else
+			{
+				Value = new DateRange(null, Value?.EndDate); // TODO: ErrorHandling
+			}
+
 			await ValueChanged.InvokeAsync(Value);
 		}
 
 		protected async Task EndDateChanged(ChangeEventArgs eventArgs)
 		{
-			Value = new  DateRange(Value?.StartDate, DateTime.Parse((string)eventArgs.Value)); // TODO: ErrorHandling
+			if (DateTime.TryParse((string)eventArgs.Value, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime value))
+			{
+				Value = new DateRange(Value?.StartDate, value);
+			}
+			else
+			{
+				Value = new DateRange(Value?.StartDate, null); // TODO: ErrorHandling
+			}
 			await ValueChanged.InvokeAsync(Value);
 		}
 	}
