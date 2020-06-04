@@ -1,6 +1,16 @@
 ﻿<CascadingValue Value="@filtersRegistration" Name="@FilterRegistrationCascadingValueName">
 	<CascadingValue Value="@chipGeneratorsRegistration" Name="@ChipGeneratorRegistrationCascadingValueName">
-		@*Aby se dostaly komponenty do kolekcí, musíme je dostat do renderování této komponenty. Chceme však, aby komponenty nic nevyrenderovaly. *@		
+		@*Aby se dostaly komponenty do kolekcí, musíme je dostat do renderování této komponenty. Chceme však, aby komponenty nic nevyrenderovaly. *@
+		@*Problémem však je aktualizace. V případě změny parametrů, dojde k přerenderování zde kritérií, protože v nich jsou filtry, od těch však očekáváme,
+		že jsou prázdné a ve skutečnosti nic nerenderují.
+
+		Nedojde tak k přerenderování dynamicky renderovaných hodnot (filter.GetLabelTemplate(), filter.GetFilterTemplate()).
+		Využijeme tedy triku, kdy při vyrendrování hodnoty přes Criteria si vyvoláme událost filter.Rendered a v obsluze této události vyvoláme
+		přerenderování zavolámím StateHasChanged. To musíme udělat v jiné komponentě než zde, jinak by došlo k zacyklení 
+		(StateHasChanged -> renderování @Criteria -> Rendered -> StateHasChanged -> renderování Criteria ...).
+
+		Extrakce do komponenty má výhodu, že dojde k přerenderování jen nezbytně nutné části (nezbytně nutného filtru, rozlišení jeho LabelTemplate a FilterTemplate se neřeší).
+		*@
 		@Criteria
 	</CascadingValue>
 </CascadingValue>
@@ -9,9 +19,9 @@
 {
 	<div class="d-flex flex-column flex-grow-1">
 		@foreach (var filter in filters)
-		{
-			<span>@filter.GetLabelTemplate()</span>
-			<span>@filter.GetFilterTemplate()</span>
+		{			
+			<span><HxFilterView_RenderUpdatedContent Filter="@filter" Content="@filter.GetLabelTemplate()" /></span>
+			<span><HxFilterView_RenderUpdatedContent Filter="@filter" Content="@filter.GetFilterTemplate()" /></span>
 		}
 		<HxButton OnClick="ApplyFilterClick">Apply filter</HxButton> @*TODO:  Lokalizace*@
 	</div>

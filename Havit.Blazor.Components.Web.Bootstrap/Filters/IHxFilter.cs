@@ -11,5 +11,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 
 		RenderFragment GetFilterTemplate();
 
+		RenderedEventHandler Rendered { get; set; }
+
+		public delegate void RenderedEventHandler(IHxFilter sender, bool firstRender);
 	}
 }

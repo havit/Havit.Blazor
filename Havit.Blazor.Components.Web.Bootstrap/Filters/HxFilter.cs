@@ -29,6 +29,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 		[Parameter]
 		public RenderFragment ChipTemplate { get; set; } // nebo jinak, uvidíme, jak s remove callbackem		
 
+		[Parameter]
+		public IHxFilter.RenderedEventHandler Rendered { get; set; }
+
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
@@ -63,6 +66,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 					RemoveCallback = null // TODO
 				};
 			}
+		}
+
+		protected override void OnAfterRender(bool firstRender)
+		{
+			base.OnAfterRender(firstRender);
+
+			Rendered?.Invoke(this, firstRender);
 		}
 	}
 }
