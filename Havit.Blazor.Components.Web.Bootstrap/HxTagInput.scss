@@ -1,3 +1,7 @@
-.hx-tag-input input:focus {
-	outline: none;
+.hx-tag-input {
+	position: relative;
+
+	input:focus {
+		outline: none;
+	}
 }
