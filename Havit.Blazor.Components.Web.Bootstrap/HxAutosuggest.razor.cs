@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -20,17 +21,34 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter]
 		public EventCallback<SuggestionRequest> SuggestionsRequested { get; set; }
 
+		[Parameter]
+		public int MinimalCharactersCountToStartSuggesting { get; set; } = 3;
+
+		[Parameter]
+		public int DebounceIntervalInMilliseconds { get; set; } = 300;
+
 		[Inject]
 		public IJSRuntime JSRuntime { get; set; }
 
 		private string dropdownId;
 		private System.Timers.Timer timer;
+		private CancellationTokenSource cancellationTokenSource;
 		private string autosuggestValue;
 		private List<string> suggestions;
 
 		public HxAutosuggest()
 		{
 			dropdownId = Guid.NewGuid().ToString();
+		}
+
+		protected override void OnParametersSet()
+		{
+			base.OnParametersSet();
+
+			if (!SuggestionsRequested.HasDelegate)
+			{
+				throw new ArgumentException("Property not set.", nameof(SuggestionRequest));
+			}
 		}
 
 		private async Task HandleValueChanged(string value)
@@ -49,12 +67,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				timer.Stop();
 			}
 
-			if (userInput.Length >= 3)
+			if (cancellationTokenSource != null)
+			{
+				cancellationTokenSource.Cancel();
+			}
+
+			if (userInput.Length >= MinimalCharactersCountToStartSuggesting)
 			{
 				if (timer == null)
 				{
 					timer = new System.Timers.Timer();
-					timer.Interval = 300;
+					timer.Interval = DebounceIntervalInMilliseconds;
 					timer.AutoReset = false; // just once
 					timer.Elapsed += HandleTimerElapsed;
 				}
@@ -68,7 +91,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
 		{
-			// todo: paralelní běh?
 			await InvokeAsync(async () =>
 			{
 				if (await UpdateSuggestions())
@@ -91,13 +113,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				timer.Stop();
 			}
+			if (cancellationTokenSource != null)
+			{
+				cancellationTokenSource.Cancel();
+			}
 		}
 
 		private async Task<bool> UpdateSuggestions()
 		{
-			SuggestionRequest suggestionRequest = new SuggestionRequest(autosuggestValue);
+			if (cancellationTokenSource != null)
+			{
+				cancellationTokenSource.Dispose();
+			}
+
+			cancellationTokenSource = new CancellationTokenSource();
+			CancellationToken cancellationToken = cancellationTokenSource.Token;
+			SuggestionRequest suggestionRequest = new SuggestionRequest(autosuggestValue, cancellationToken);
 			await SuggestionsRequested.InvokeAsync(suggestionRequest);
-			// TOOD: Kontrola nastavení SuggestionsRequested
+
+			if (cancellationToken.IsCancellationRequested)
+			{
+				return false;
+			}
 
 			suggestions = suggestionRequest.Suggestions;
 
@@ -128,6 +165,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (timer != null)
 			{
 				timer.Dispose();
+			}
+
+			if (cancellationTokenSource != null)
+			{
+				cancellationTokenSource.Dispose();
 			}
 		}
 	}
