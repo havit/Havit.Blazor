@@ -1,0 +1,17 @@
+﻿@page "/HxAutosuggestDemo"
+
+<h1>HxAutosuggest</h1>
+
+<HxAutosuggest @bind-Value="@value" SuggestionsRequested="ProvideSuggestions" />
+
+<p>Value: @value</p>
+
+@code
+{
+	private string value;
+
+	private void ProvideSuggestions(SuggestionRequest request)
+	{
+		request.Suggestions = Enumerable.Range(0, 20).Select(i => request.UserInput + " " + (i + 1).ToString()).ToList();
+	}
+}

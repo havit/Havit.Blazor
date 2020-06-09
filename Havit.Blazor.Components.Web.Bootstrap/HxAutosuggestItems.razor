@@ -1,0 +1,23 @@
+﻿<div class="dropdown-menu w-100" aria-labelledby="dropdownMenuLink">
+	@if (Items != null)
+	{
+		@foreach (string value in Items)
+		{
+			<HxAutosuggestItem @key="@value" Value="@value" ItemClicked="HandleItemClick" />
+		}
+	}
+</div>
+
+@code {
+
+	[Parameter]
+	public List<string> Items { get; set; }
+
+	[Parameter]
+	public EventCallback<string> ItemClicked { get; set; }
+
+	private async Task HandleItemClick(string value)
+	{
+		await ItemClicked.InvokeAsync(value);
+	}
+}

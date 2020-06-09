@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <None Include="wwwroot\hxbootstrap.js" />
   </ItemGroup>
 
   <ItemGroup>

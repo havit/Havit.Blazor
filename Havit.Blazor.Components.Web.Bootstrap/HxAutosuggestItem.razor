@@ -1,0 +1,13 @@
+﻿<button class="dropdown-item" type="button" @onclick="HandleItemClick">@Value</button>
+@code {
+	[Parameter]
+	public string Value { get; set; }
+
+	[Parameter]
+	public EventCallback<string> ItemClicked { get; set; }
+
+	private async Task HandleItemClick()
+	{
+		await ItemClicked.InvokeAsync(Value);
+	}
+}
