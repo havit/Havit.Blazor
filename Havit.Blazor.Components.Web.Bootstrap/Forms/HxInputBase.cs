@@ -20,6 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		[Parameter]
 		public RenderFragment LabelTemplate { get; set; }
 
+		// Určitě chceme CssClass? Nestačí nám AdditionalArguments a "class"? Komplikací je, existence vlastnosti CssClass v bázové třídě (byť jen s getterem).
 		[Parameter]
 		public new string CssClass { get; set; }
 

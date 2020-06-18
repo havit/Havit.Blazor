@@ -11,9 +11,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
 	public class HxInputPassword : HxInputText
 	{
-		protected override sealed string GetTypeAttributeValue()
-		{
-			return "password";
-		}
+		private protected override sealed string GetTypeAttributeValue() => "password";
 	}
 }

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -13,19 +16,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
-			builder.OpenElement(0, "input");
+			builder.OpenElement(0, GetElementName());
 			BuildRenderInput_AddCommonAttributes(builder, GetTypeAttributeValue());
 
-			builder.AddAttribute(1000, "value", FormatValueAsString(Value));
-			builder.AddAttribute(1001, ModelUpdateMode.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
+			var maxLengthAttribute = FieldIdentifier.Model.GetType().GetMember(FieldIdentifier.FieldName).Single().GetCustomAttribute<MaxLengthAttribute>();
+			if ((maxLengthAttribute != null) && (maxLengthAttribute.Length > 0))
+			{
+				builder.AddAttribute(1000, "maxlength", maxLengthAttribute.Length);
+			}
+
+			builder.AddAttribute(1001, "value", FormatValueAsString(Value));
+			builder.AddAttribute(1002, ModelUpdateMode.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
 
 			builder.CloseElement();
 		}
 
-		protected virtual string GetTypeAttributeValue()
-		{
-			return "text";
-		}
+		private protected virtual string GetElementName() => "input";
+
+		private protected virtual string GetTypeAttributeValue() => "text";
 
 		protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
 		{

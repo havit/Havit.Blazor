@@ -13,6 +13,7 @@ namespace BlazorApp.Pages
 		public class FormModel
 		{
 			[Required]
+			[MaxLength(50)]
 			public string Text { get; set; }
 
 			[Required]
