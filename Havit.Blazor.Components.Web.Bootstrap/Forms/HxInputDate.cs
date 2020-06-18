@@ -22,7 +22,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			BuildRenderInput_AddCommonAttributes(builder, "date");
 
 			builder.AddAttribute(1000, "value", FormatValueAsString(Value));
-			builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
+			builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 			
 			builder.CloseElement();
 		}
@@ -74,7 +74,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			}
 		}
 
-		static bool TryParseDateTime(string value, out TValue result)
+		private static bool TryParseDateTime(string value, out TValue result)
 		{
 			var success = BindConverter.TryConvertToDateTime(value, CultureInfo.InvariantCulture, DateFormat, out var parsedValue);
 			if (success)
@@ -89,7 +89,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			}
 		}
 
-		static bool TryParseDateTimeOffset(string value, out TValue result)
+		private static bool TryParseDateTimeOffset(string value, out TValue result)
 		{
 			var success = BindConverter.TryConvertToDateTimeOffset(value, CultureInfo.InvariantCulture, DateFormat, out var parsedValue);
 			if (success)

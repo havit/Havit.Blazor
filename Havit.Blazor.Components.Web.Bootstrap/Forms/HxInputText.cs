@@ -26,7 +26,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			}
 
 			builder.AddAttribute(1001, "value", FormatValueAsString(Value));
-			builder.AddAttribute(1002, ModelUpdateMode.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
+			builder.AddAttribute(1002, ModelUpdateMode.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 
 			builder.CloseElement();
 		}

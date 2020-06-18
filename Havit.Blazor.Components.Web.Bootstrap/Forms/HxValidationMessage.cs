@@ -24,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		/// </summary>
 		//[Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; }
 
-		[CascadingParameter] EditContext CurrentEditContext { get; set; }
+		[CascadingParameter] protected EditContext CurrentEditContext { get; set; }
 
 		/// <summary>
 		/// Specifies the field for which validation messages should be displayed.

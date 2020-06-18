@@ -17,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			BuildRenderInput_AddCommonAttributes(builder, "checkbox");
 
 			builder.AddAttribute(1000, "checked", BindConverter.FormatValue(CurrentValue));
-			builder.AddAttribute(1001, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, __value => CurrentValue = __value, CurrentValue));
+			builder.AddAttribute(1001, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
 			builder.CloseElement();
 		}
 

@@ -19,7 +19,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			BuildRenderInput_AddCommonAttributes(builder, "number");
 
 			builder.AddAttribute(1000, "value", FormatValueAsString(Value));
-			builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, __value => CurrentValueAsString = __value, CurrentValueAsString));
+			builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 			builder.CloseElement();
 		}
 
