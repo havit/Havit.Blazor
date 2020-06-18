@@ -22,8 +22,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected List<TItemType> itemsToRender;
 
-		// TODO!
-		protected async Task SelectedItemChangedX(ChangeEventArgs eventArgs)
+		protected async Task HandleSelectChange(ChangeEventArgs eventArgs)
 		{
 			int index = int.Parse((string)eventArgs.Value);
 			TItemType newSelectedItem = (index == -1)

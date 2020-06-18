@@ -9,7 +9,7 @@
 						<span class="input-group-text">Od</span>
 					</div>
 					@*Extrahovat do samostatného inputu*@
-					<input type="date" class="form-control" value="@(Value?.StartDate?.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture))" @onchange="StartDateChanged" format-value="yyyy-MM-dd" placeholder="" />
+					<input type="date" class="form-control" value="@(Value?.StartDate?.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture))" @onchange="StartDateChanged" placeholder="" />
 				</div>
 			</div>
 			<div class="col">
@@ -18,7 +18,7 @@
 						<span class="input-group-text">Do</span>
 					</div>
 					@*Reusovat ze samostatného inputu*@
-					<input type="date" class="form-control" value="@(Value?.EndDate?.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture))" @onchange="EndDateChanged" format-value="yyyy-MM-dd" placeholder="" />
+					<input type="date" class="form-control" value="@(Value?.EndDate?.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture))" @onchange="EndDateChanged" placeholder="" />
 				</div>
 			</div>
 		</div>

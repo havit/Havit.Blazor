@@ -1,6 +1,6 @@
 ﻿@typeparam TItemType
 
-<select @onchange="SelectedItemChangedX">
+<select @onchange="HandleSelectChange">
 	@if (Nullable || (@SelectedItem == null))
 	{
 		<option value="-1">@NullText</option>
