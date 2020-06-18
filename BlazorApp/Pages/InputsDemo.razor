@@ -1,0 +1,88 @@
+﻿@page "/InputsDemo"
+
+<h1>Inputs</h1>
+
+<EditForm Model="@Model">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+
+	<table>
+		<tr>
+			<td>Text (OnChange)</td>
+			<td><HxInputText @bind-Value="@Model.Text" /></td>
+			<td>@Model.Text</td>
+		</tr>
+		<tr>
+			<td>Text (disabled via own property)</td>
+			<td><HxInputText @bind-Value="@Model.Text" IsEnabled="false" /></td>
+			<td>@Model.Text</td>
+		</tr>
+		<tr>
+			<td>Text (disabled via cascading property)</td>
+			<td><HxState IsEnabled="false"><HxInputText @bind-Value="@Model.Text" /></HxState></td>
+			<td>@Model.Text</td>
+		</tr>
+		<tr>
+			<td>Text (OnChange), with label</td>
+			<td><HxInputText Label="Label" @bind-Value="@Model.Text" /></td>
+			<td>@Model.Text</td>
+		</tr>
+		<tr>
+			<td>Text (OnInput)</td>
+			<td><HxInputText @bind-Value="@Model.Text" ModelUpdateMode="ModelUpdateMode.OnInput" /></td>
+			<td>@Model.Text</td>
+		</tr>
+		<tr>
+			<td>TextArea</td>
+			<td><HxInputTextArea @bind-Value="@Model.Text" /></td>
+			<td>@Model.Text</td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><HxInputPassword @bind-Value="@Model.Password" /></td>
+			<td>@Model.Password</td>
+		</tr>
+		<tr>
+			<td>Integer</td>
+			<td><HxInputNumber @bind-Value="@Model.IntegerValue" ParsingErrorMessage="Zadejte správně Integer." /></td>
+			<td>@Model.IntegerValue</td>
+		</tr>
+		<tr>
+			<td>Integer (nullable)</td>
+			<td><HxInputNumber @bind-Value="@Model.NullableIntegerValue" ParsingErrorMessage="Zadejte správně Integer." /></td>
+			<td>@Model.NullableIntegerValue</td>
+		</tr>
+		<tr>
+			<td>Decimal</td>
+			<td><HxInputNumber @bind-Value="@Model.DecimalValue" ParsingErrorMessage="Zadejte správně Decimal." /></td>
+			<td>@Model.DecimalValue</td>
+		</tr>
+		<tr>
+			<td>Decimal (nullable)</td>
+			<td><HxInputNumber @bind-Value="@Model.NullableDecimalValue" ParsingErrorMessage="Zadejte správně Decimal." /></td>
+			<td>@Model.NullableDecimalValue</td>
+		</tr>
+		<tr>
+			<td>Date</td>
+			<td><HxInputDate @bind-Value="@Model.DateValue" ParsingErrorMessage="Zadejte správně Date." /></td>
+			<td>@Model.DateValue</td>
+		</tr>
+		<tr>
+			<td>Date (nullable)</td>
+			<td><HxInputDate @bind-Value="@Model.NullableDateValue" ParsingErrorMessage="Zadejte správně Date." /></td>
+			<td>@Model.NullableDateValue</td>
+		</tr>
+		<tr>
+			<td>Checkbox</td>
+			<td><HxInputCheckBox @bind-Value="@Model.BoolValue" /></td>
+			<td>@Model.BoolValue</td>
+		</tr>
+		<tr>
+			<td>Checkbox with label</td>
+			<td><HxInputCheckBox Label="Label" @bind-Value="@Model.BoolValue" /></td>
+			<td>@Model.BoolValue</td>
+		</tr>
+	</table>
+
+	<button type="submit">Submit</button>
+</EditForm>
