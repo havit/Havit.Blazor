@@ -6,19 +6,32 @@ using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.Extensions.Hosting;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
+	/// <summary>
+	/// Numeric input.
+	/// </summary>
+	/// <typeparam name="TValue">
+	/// Supported values: int (Int32), long (Int64), float (Single), double, decimal.
+	/// </typeparam>
 	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>
 	{
-		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(int), typeof(float), typeof(float), typeof(double), typeof(decimal) };
+		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(int), typeof(long), typeof(float), typeof(double), typeof(decimal) };
 
-		// TODO
+		/// <summary>
+		/// Gets or sets the error message used when displaying an a parsing error.
+		/// Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
 		/// </summary>
 		[Parameter] public string ParsingErrorMessage { get; set; }
 
-		[Parameter]
-		public int? Decimals
+		/// <summary>
+		/// Gets or sets the number of decimal points.
+		/// Can be used only for floating point types, for integer types throws exception.
+		/// When not set 2 decimal points are used.
+		/// </summary>
+		[Parameter] public int? Decimals
 		{
 			get
 			{
@@ -35,8 +48,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		}
 		private int? _decimals;
 
+		/// <summary>
+		/// Gets effective value for Decimals (when not set gets 0 for integer types and 2 for floating point types.
+		/// </summary>
 		protected virtual int DecimalsEffective => Decimals ?? (IsTValueIntegerType ? 0 : 2);
 
+		/// <summary>
+		/// Injected host environment.
+		/// </summary>
+		[Inject] private IHostEnvironment HostEnvironment { get; set; }
+
+		/// <summary>
+		/// Returns true for integer types (false for floating point types).
+		/// </summary>
 		private bool IsTValueIntegerType
 		{
 			get
@@ -47,6 +71,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			}
 		}
 
+		/// <summary>
+		/// Constructor.
+		/// </summary>
 		public HxInputNumber()
 		{
 			Type undelyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
@@ -59,6 +86,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		private bool forceRenderValue = false;
 		private int valueSequenceOffset = 0;
 
+		/// <inheritdoc />
+		protected override void OnParametersSet()
+		{
+			base.OnParametersSet();
+
+			if (HostEnvironment.IsDevelopment() && String.IsNullOrEmpty(ParsingErrorMessage))
+			{
+				throw new InvalidOperationException($"Missing {nameof(ParsingErrorMessage)} property value on {GetType()}.");
+			}
+		}
+
+		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, "input");
@@ -120,17 +159,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			}
 		}
 
-		protected string GetParsingErrorMessage()
-		{
-			if (!String.IsNullOrEmpty(ParsingErrorMessage))
-			{
-				return String.Format(ParsingErrorMessage, Label, FieldIdentifier.FieldName);
-			}
-
-			// TODO: Theme
-			throw new InvalidOperationException("TODO");
-		}
-
 		/// <summary>
 		/// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
 		/// </summary>
@@ -168,6 +196,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 
 			throw new InvalidOperationException($"Unsupported type {value.GetType()}.");
 
+		}
+
+		private string GetParsingErrorMessage()
+		{
+			return String.Format(ParsingErrorMessage, Label, FieldIdentifier.FieldName);
 		}
 	}
 }

@@ -4,8 +4,14 @@ using System.Text;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
+	/// <summary>
+	/// Form state as a cascading value &amp; parameter.
+	/// </summary>
 	public class FormState
 	{
+		/// <summary>
+		/// Indicated enabled/disabled section.
+		/// </summary>
 		public bool? IsEnabled { get; set; }
 	}
 }

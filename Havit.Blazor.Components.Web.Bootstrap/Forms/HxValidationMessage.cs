@@ -19,11 +19,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
 		private FieldIdentifier _fieldIdentifier;
 
-		/// <summary>
-		/// Gets or sets a collection of additional attributes that will be applied to the created <c>div</c> element.
-		/// </summary>
+		///// <summary>
+		///// Gets or sets a collection of additional attributes that will be applied to the created <c>div</c> element.
+		///// </summary>
 		//[Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; }
 
+		/// <summary>
+		/// Cascading EditContext.
+		/// </summary>
 		[CascadingParameter] protected EditContext CurrentEditContext { get; set; }
 
 		/// <summary>
@@ -44,15 +47,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		{
 			if (CurrentEditContext == null)
 			{
-				throw new InvalidOperationException($"{GetType()} requires a cascading parameter " +
-					$"of type {nameof(EditContext)}. For example, you can use {GetType()} inside " +
-					$"an {nameof(EditForm)}.");
+				throw new InvalidOperationException($"{GetType()} requires a cascading parameter of type {nameof(EditContext)}. For example, you can use {GetType()} inside an {nameof(EditForm)}.");
 			}
 
 			if (For == null) // Not possible except if you manually specify T
 			{
-				throw new InvalidOperationException($"{GetType()} requires a value for the " +
-					$"{nameof(For)} parameter.");
+				throw new InvalidOperationException($"{GetType()} requires a value for the {nameof(For)} parameter.");
 			}
 			else if (For != _previousFieldAccessor)
 			{
@@ -90,14 +90,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 
 		}
 
-		protected virtual void Dispose(bool disposing)
-		{
-		}
-
+		/// <inheritdoc />
 		void IDisposable.Dispose()
 		{
 			DetachValidationStateChangedListener();
-			Dispose(disposing: true);
 		}
 
 		private void DetachValidationStateChangedListener()

@@ -9,11 +9,17 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
+	/// <summary>
+	/// Text-based (string) input base class.
+	/// </summary>
 	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>
 	{
-		[Parameter]
-		public ModelUpdateMode ModelUpdateMode { get; set; } = ModelUpdateMode.OnChange;
+		/// <summary>
+		/// Gets or sets the behavior when the model is updated from then input.
+		/// </summary>
+		[Parameter] public BindEvent BindEvent { get; set; } = BindEvent.OnChange;
 
+		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, GetElementName());
@@ -26,15 +32,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			}
 
 			builder.AddAttribute(1001, "value", FormatValueAsString(Value));
-			builder.AddAttribute(1002, ModelUpdateMode.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+			builder.AddAttribute(1002, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 
 			builder.CloseElement();
 		}
 
+		/// <summary>
+		/// Returns element name to render.
+		/// </summary>
 		private protected abstract string GetElementName();
 
+		/// <summary>
+		/// Returns type attribute value.
+		/// </summary>
 		private protected abstract string GetTypeAttributeValue();
 
+		/// <inheritdoc />
 		protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
 		{
 			result = value;

@@ -4,17 +4,30 @@ using System.Globalization;
 using System.Text;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.Extensions.Hosting;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
+	/// <summary>
+	/// Date input.
+	/// </summary>
+	/// <typeparam name="TValue">Supports DateTime and DateTimeOffset.</typeparam>
 	public class HxInputDate<TValue> : HxInputBaseWithInputGroups<TValue>
 	{
 		private const string DateFormat = "yyyy-MM-dd"; // Compatible with HTML date inputs
 
-		// TODO
+		/// <summary>
+		/// Gets or sets the error message used when displaying an a parsing error.
+		/// Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
 		/// </summary>
 		[Parameter] public string ParsingErrorMessage { get; set; }
 
+		/// <summary>
+		/// Injected host environment.
+		/// </summary>
+		[Inject] private IHostEnvironment HostEnvironment { get; set; }
+
+		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, "input");
@@ -80,15 +93,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			}
 		}
 
-		protected string GetParsingErrorMessage()
+		/// <inheritdoc />
+		protected override void OnParametersSet()
 		{
-			if (!String.IsNullOrEmpty(ParsingErrorMessage))
-			{
-				return String.Format(ParsingErrorMessage, Label, FieldIdentifier.FieldName);
-			}
+			base.OnParametersSet();
 
-			// TODO: Theme
-			throw new InvalidOperationException("TODO");
+			if (HostEnvironment.IsDevelopment() && String.IsNullOrEmpty(ParsingErrorMessage))
+			{
+				throw new InvalidOperationException($"Missing {nameof(ParsingErrorMessage)} property value on {GetType()}.");
+			}
+		}
+
+		private string GetParsingErrorMessage()
+		{
+			return String.Format(ParsingErrorMessage, Label, FieldIdentifier.FieldName);
 		}
 
 		private static bool TryParseDateTime(string value, out TValue result)

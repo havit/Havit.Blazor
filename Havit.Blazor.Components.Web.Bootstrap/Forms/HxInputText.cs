@@ -9,13 +9,20 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
+	/// <summary>
+	/// Text input (also password, search, etc.)
+	/// </summary>
 	public class HxInputText : HxInputTextBase
 	{
-		[Parameter]
-		public InputType Type { get; set; } = InputType.Text;
+		/// <summary>
+		/// Input type.
+		/// </summary>
+		[Parameter] public InputType Type { get; set; } = InputType.Text;
 
+		/// <inheritdoc />
 		private protected override string GetElementName() => "input";
 
+		/// <inheritdoc />
 		private protected override string GetTypeAttributeValue() => Type.ToString().ToLower();
 
 	}

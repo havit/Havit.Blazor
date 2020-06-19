@@ -7,13 +7,24 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
+	/// <summary>
+	/// CheckBox input.
+	/// </summary>
 	public class HxInputCheckBox : HxInputBase<bool>
 	{
-		protected override InputRenderOrder RenderOrder => InputRenderOrder.InputLabelValidatorHint;
+		/// <inheritdoc />
+		protected override InputRenderOrder RenderOrder => InputRenderOrder.InputLabel;
+
+		/// <inheritdoc />
 		private protected override string CoreCssClass => "form-check";
+
+		/// <inheritdoc />
 		private protected override string CoreInputCssClass => "form-check-input";
+
+		/// <inheritdoc />
 		private protected override string CoreLabelCssClass => "form-check-label";
 
+		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, "input");
@@ -24,6 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			builder.CloseElement();
 		}
 
+		/// <inheritdoc />
 		protected override bool TryParseValueFromString(string value, out bool result, out string validationErrorMessage)
 		{
             throw new NotSupportedException($"This component does not parse string inputs. Bind to the '{nameof(CurrentValue)}' property, not '{nameof(CurrentValueAsString)}'.");

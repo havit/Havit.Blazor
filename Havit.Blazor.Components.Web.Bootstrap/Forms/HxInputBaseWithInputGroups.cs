@@ -10,14 +10,28 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
+	/// <summary>
+	/// A base class for form input components. This base class automatically integrates
+	/// with an Microsoft.AspNetCore.Components.Forms.EditContext, which must be supplied
+	/// as a cascading parameter.
+	/// Extends <seealso cref="HxInputBase{TValue}" /> class.
+	/// Adds support for input groups, https://v5.getbootstrap.com/docs/5.0/forms/input-group/
+	/// </summary>
 	public abstract class HxInputBaseWithInputGroups<TValue> : HxInputBase<TValue>
 	{
+		/// <summary>
+		/// Input-group before input.
+		/// </summary>
 		[Parameter]
 		public RenderFragment InputGroupBeforeTemplate { get; set; }
-		
+
+		/// <summary>
+		/// Input-group before input.
+		/// </summary>
 		[Parameter]
 		public RenderFragment InputGroupAfterTemplate { get; set; }
 
+		/// <inheritdoc />
 		protected override void BuildRenderInputAndValidationMessage(RenderTreeBuilder builder)
 		{
 			if ((InputGroupBeforeTemplate == null) && (InputGroupAfterTemplate == null))
@@ -37,6 +51,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 
 		}
 
+		/// <inheritdoc />
 		protected override void BuildRenderInputDecorated(RenderTreeBuilder builder)
 		{
 			if (InputGroupBeforeTemplate != null)
