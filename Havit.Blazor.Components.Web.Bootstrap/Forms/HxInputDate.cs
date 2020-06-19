@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
-	public class HxInputDate<TValue> : HxInputBase<TValue>
+	public class HxInputDate<TValue> : HxInputBaseWithInputGroups<TValue>
 	{
 		private const string DateFormat = "yyyy-MM-dd"; // Compatible with HTML date inputs
 

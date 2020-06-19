@@ -60,41 +60,40 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			if (renderDiv)
 			{
 				builder.OpenElement(1, "div");
-				builder.AddAttribute(1, "class", cssClass);
+				builder.AddAttribute(2, "class", cssClass);
 			}
 
 			switch (RenderOrder)
 			{
 				case InputRenderOrder.LabelInputValidatorHint:
-					builder.OpenRegion(100);
+					builder.OpenRegion(3);
 					BuildRenderLabel(builder);
 					builder.CloseRegion();
 
-					builder.OpenRegion(101);
-					BuildRenderInput(builder);
+					builder.OpenRegion(4);
+					BuildRenderInputAndValidationMessage(builder); // abychom mohli do inputu přidat div
 					builder.CloseRegion();
-
 					break;
 
 				case InputRenderOrder.InputLabelValidatorHint:
-					builder.OpenRegion(200);
-					BuildRenderInput(builder);
+					builder.OpenRegion(6);
+					BuildRenderInputDecorated(builder);
 					builder.CloseRegion();
 
-					builder.OpenRegion(201);
+					builder.OpenRegion(7);
 					BuildRenderLabel(builder);
 					builder.CloseRegion();
 
+					builder.OpenRegion(8);
+					BuildRenderValidationMessage(builder);
+					builder.CloseRegion();
+					
 					break;
 
 				default: throw new InvalidOperationException(RenderOrder.ToString());
 			}
 
-			builder.OpenRegion(102);
-			BuildRenderValidationMessage(builder);
-			builder.CloseRegion();
-
-			builder.OpenRegion(103);
+			builder.OpenRegion(9);
 			BuildRenderHint(builder);
 			builder.CloseRegion();
 
@@ -102,6 +101,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			{
 				builder.CloseElement();
 			}
+		}
+
+		protected virtual void BuildRenderInputAndValidationMessage(RenderTreeBuilder builder)
+		{
+			// za cenu porušení nezávislosti jsme v potomkovi schopni implementovat input-groups
+
+			builder.OpenRegion(1);
+			BuildRenderInputDecorated(builder);
+			builder.CloseRegion();
+
+			builder.OpenRegion(2);
+			BuildRenderValidationMessage(builder);
+			builder.CloseRegion();
 		}
 
 		protected virtual void BuildRenderLabel(RenderTreeBuilder builder)
@@ -121,6 +133,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 				builder.AddContent(4, LabelTemplate);
 				builder.CloseElement();
 			}
+		}
+		
+		protected virtual void BuildRenderInputDecorated(RenderTreeBuilder builder)
+		{
+			// za cenu porušení nezávislosti jsme v potomkovi schopni implementovat input-groups
+			BuildRenderInput(builder);
 		}
 
 		protected abstract void BuildRenderInput(RenderTreeBuilder builder);

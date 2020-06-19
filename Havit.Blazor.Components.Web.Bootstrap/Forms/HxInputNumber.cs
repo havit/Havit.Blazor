@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
-	public class HxInputNumber<TValue> : HxInputBase<TValue>
+	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>
 	{
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(int), typeof(float), typeof(float), typeof(double), typeof(decimal) };
 

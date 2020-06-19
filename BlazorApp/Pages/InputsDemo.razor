@@ -24,7 +24,10 @@
 	<HxInputTextArea Label="TextArea" @bind-Value="@Model.Text" />
 
 	<HxInputNumber Label="Integer" @bind-Value="@Model.IntegerValue" ParsingErrorMessage="Zadejte správně Integer." />
-	<HxInputNumber Label="Integer (nullable)" @bind-Value="@Model.NullableIntegerValue" ParsingErrorMessage="Zadejte správně Integer." />
+	<HxInputNumber Label="Integer (nullable)" @bind-Value="@Model.NullableIntegerValue" ParsingErrorMessage="Zadejte správně Integer.">
+		<InputGroupBeforeTemplate>€</InputGroupBeforeTemplate>
+		<InputGroupAfterTemplate>.00</InputGroupAfterTemplate>
+	</HxInputNumber>
 	<HxInputNumber Label="Decimal" @bind-Value="@Model.DecimalValue" ParsingErrorMessage="Zadejte správně Decimal." />
 	<HxInputNumber Label="Decimal (nullable)" @bind-Value="@Model.NullableDecimalValue" ParsingErrorMessage="Zadejte správně Decimal." />
 	<HxInputDate Label="Date" @bind-Value="@Model.DateValue" ParsingErrorMessage="Zadejte správně Date." />

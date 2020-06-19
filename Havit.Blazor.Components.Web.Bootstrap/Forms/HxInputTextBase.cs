@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
-	public abstract class HxInputTextBase : HxInputBase<string>
+	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>
 	{
 		[Parameter]
 		public ModelUpdateMode ModelUpdateMode { get; set; } = ModelUpdateMode.OnChange;
