@@ -57,7 +57,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		}
 
 		private bool forceRenderValue = false;
-		int valueSequenceOffset = 0;
+		private int valueSequenceOffset = 0;
 
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
@@ -115,16 +115,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			}
 			else
 			{
-				validationErrorMessage = GetParsingErrorMessage(FieldIdentifier.FieldName);
+				validationErrorMessage = GetParsingErrorMessage();
 				return false;
 			}
 		}
 
-		protected string GetParsingErrorMessage(string fieldName)
+		protected string GetParsingErrorMessage()
 		{
 			if (!String.IsNullOrEmpty(ParsingErrorMessage))
 			{
-				return String.Format(ParsingErrorMessage, fieldName);
+				return String.Format(ParsingErrorMessage, Label, FieldIdentifier.FieldName);
 			}
 
 			// TODO: Theme
@@ -151,7 +151,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			}
 
 			string format = "0." + String.Join("", Enumerable.Repeat('0', DecimalsEffective));
-			switch(value)
+			switch (value)
 			{ 
 				//case short @short:
 				//	return BindConverter.FormatValue(@short, CultureInfo.CurrentCulture);

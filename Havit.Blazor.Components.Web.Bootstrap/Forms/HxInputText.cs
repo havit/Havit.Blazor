@@ -9,37 +9,14 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
-	public class HxInputText : HxInputBase<string>
+	public class HxInputText : HxInputTextBase
 	{
 		[Parameter]
-		public ModelUpdateMode ModelUpdateMode { get; set; } = ModelUpdateMode.OnChange;
+		public InputType Type { get; set; } = InputType.Text;
 
-		protected override void BuildRenderInput(RenderTreeBuilder builder)
-		{
-			builder.OpenElement(0, GetElementName());
-			BuildRenderInput_AddCommonAttributes(builder, GetTypeAttributeValue());
+		private protected override string GetElementName() => "input";
 
-			var maxLengthAttribute = FieldIdentifier.Model.GetType().GetMember(FieldIdentifier.FieldName).Single().GetCustomAttribute<MaxLengthAttribute>();
-			if ((maxLengthAttribute != null) && (maxLengthAttribute.Length > 0))
-			{
-				builder.AddAttribute(1000, "maxlength", maxLengthAttribute.Length);
-			}
+		private protected override string GetTypeAttributeValue() => Type.ToString().ToLower();
 
-			builder.AddAttribute(1001, "value", FormatValueAsString(Value));
-			builder.AddAttribute(1002, ModelUpdateMode.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-
-			builder.CloseElement();
-		}
-
-		private protected virtual string GetElementName() => "input";
-
-		private protected virtual string GetTypeAttributeValue() => "text";
-
-		protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
-		{
-			result = value;
-			validationErrorMessage = null;
-			return true;
-		}
 	}
 }

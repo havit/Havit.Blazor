@@ -30,6 +30,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		/// <inheritdoc />
 		protected override string FormatValueAsString(TValue value)
 		{
+			// nenabízíme hodnotu 1.1.0001, atp.
+			if (EqualityComparer<TValue>.Default.Equals(value, default))
+			{
+				return null;
+			}
+
 			switch (value)
 			{
 				case DateTime dateTimeValue:
@@ -69,9 +75,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			}
 			else
 			{
-				validationErrorMessage = string.Format(ParsingErrorMessage, FieldIdentifier.FieldName);
+				validationErrorMessage = GetParsingErrorMessage();
 				return false;
 			}
+		}
+
+		protected string GetParsingErrorMessage()
+		{
+			if (!String.IsNullOrEmpty(ParsingErrorMessage))
+			{
+				return String.Format(ParsingErrorMessage, Label, FieldIdentifier.FieldName);
+			}
+
+			// TODO: Theme
+			throw new InvalidOperationException("TODO");
 		}
 
 		private static bool TryParseDateTime(string value, out TValue result)
@@ -80,7 +97,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			if (success)
 			{
 				result = (TValue)(object)parsedValue;
-				return true;
+				return parsedValue != default(DateTime);
 			}
 			else
 			{
@@ -95,7 +112,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			if (success)
 			{
 				result = (TValue)(object)parsedValue;
-				return true;
+				return parsedValue != default(DateTimeOffset);
 			}
 			else
 			{

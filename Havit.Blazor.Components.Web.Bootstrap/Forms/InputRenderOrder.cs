@@ -2,7 +2,7 @@
 {
 	public enum InputRenderOrder
 	{
-		LabelInputValidator,
-		InputLabelValidator
+		LabelInputValidatorHint,
+		InputLabelValidatorHint
 	}
 }

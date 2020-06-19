@@ -16,9 +16,6 @@ namespace BlazorApp.Pages
 			[MaxLength(50)]
 			public string Text { get; set; }
 
-			[Required]
-			public string Password { get; set; }
-
 			public int IntegerValue { get; set; }
 
 			public int? NullableIntegerValue { get; set; }

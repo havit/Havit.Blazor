@@ -11,7 +11,7 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxAutosuggest : IDisposable
-	{
+	{		
 		[Parameter]
 		public string Value { get; set; }
 

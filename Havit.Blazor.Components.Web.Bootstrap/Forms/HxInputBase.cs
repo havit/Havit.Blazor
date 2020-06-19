@@ -12,6 +12,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
 	public abstract class HxInputBase<TValue> : InputBase<TValue>
 	{
+		public const string InvalidCssClass = "is-invalid";
+
 		[CascadingParameter] protected FormState CascadingFormState { get; set; }
 
 		[Parameter]
@@ -20,9 +22,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		[Parameter]
 		public RenderFragment LabelTemplate { get; set; }
 
-		// Určitě chceme CssClass? Nestačí nám AdditionalArguments a "class"? Komplikací je, existence vlastnosti CssClass v bázové třídě (byť jen s getterem).
+		[Parameter]
+		public RenderFragment HintTemplate { get; set; }
+
 		[Parameter]
 		public new string CssClass { get; set; }
+
+		[Parameter]
+		public string LabelCssClass { get; set; }
+
+		[Parameter]
+		public string InputCssClass { get; set; }
 
 		[Parameter]
 		public bool ShowValidationMessage { get; set; } = true;
@@ -32,47 +42,65 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 
 		protected bool IsEnabledEfective => IsEnabled ?? CascadingFormState?.IsEnabled ?? true;
 
-		protected virtual string CoreInputCssClass => "form-control";
+		private protected virtual string CoreCssClass => "";
+		private protected virtual string CoreInputCssClass => "form-control";
+		private protected virtual string CoreLabelCssClass => "form-label";
+		private protected virtual string HintCoreCssClass => "form-text";
 
 		protected string InputId { get; private set; }
 
-		protected virtual InputRenderOrder RenderOrder => InputRenderOrder.LabelInputValidator;
+		protected virtual InputRenderOrder RenderOrder => InputRenderOrder.LabelInputValidatorHint;
 
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			// no base call
+			string cssClass = CssClassHelper.Combine(CoreCssClass, CssClass);
+			bool renderDiv = !String.IsNullOrEmpty(cssClass) || !String.IsNullOrEmpty(Label) || (LabelTemplate != null) || (HintTemplate != null);
+
+			if (renderDiv)
+			{
+				builder.OpenElement(1, "div");
+				builder.AddAttribute(1, "class", cssClass);
+			}
 
 			switch (RenderOrder)
 			{
-				case InputRenderOrder.LabelInputValidator:
-					builder.OpenRegion(1);
+				case InputRenderOrder.LabelInputValidatorHint:
+					builder.OpenRegion(100);
 					BuildRenderLabel(builder);
 					builder.CloseRegion();
 
-					builder.OpenRegion(2);
+					builder.OpenRegion(101);
 					BuildRenderInput(builder);
 					builder.CloseRegion();
 
-					builder.OpenRegion(3);
-					BuildRenderValidationMessage(builder);
-					builder.CloseRegion();
 					break;
 
-				case InputRenderOrder.InputLabelValidator:
-					builder.OpenRegion(1);
+				case InputRenderOrder.InputLabelValidatorHint:
+					builder.OpenRegion(200);
 					BuildRenderInput(builder);
 					builder.CloseRegion();
 
-					builder.OpenRegion(2);
+					builder.OpenRegion(201);
 					BuildRenderLabel(builder);
 					builder.CloseRegion();
 
-					builder.OpenRegion(3);
-					BuildRenderValidationMessage(builder);
-					builder.CloseRegion();
 					break;
 
 				default: throw new InvalidOperationException(RenderOrder.ToString());
+			}
+
+			builder.OpenRegion(102);
+			BuildRenderValidationMessage(builder);
+			builder.CloseRegion();
+
+			builder.OpenRegion(103);
+			BuildRenderHint(builder);
+			builder.CloseRegion();
+
+			if (renderDiv)
+			{
+				builder.CloseElement();
 			}
 		}
 
@@ -85,7 +113,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 
 				builder.OpenElement(1, "label");
 				builder.AddAttribute(2, "for", InputId);
-				builder.AddContent(3, Label);
+				builder.AddAttribute(3, "class", CssClassHelper.Combine(CoreLabelCssClass, LabelCssClass));
+				if (LabelTemplate == null)
+				{
+					builder.AddContent(3, Label);
+				}
 				builder.AddContent(4, LabelTemplate);
 				builder.CloseElement();
 			}
@@ -98,8 +130,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			builder.AddMultipleAttributes(1, AdditionalAttributes);
 			builder.AddAttribute(2, "id", InputId);
 			builder.AddAttribute(3, "type", typeValue);
-			builder.AddAttribute(4, "class", GetCssClassToRender());
+			builder.AddAttribute(4, "class", GetInputCssClassToRender());
 			builder.AddAttribute(5, "disabled", !IsEnabledEfective);
+		}
+
+		protected virtual void BuildRenderHint(RenderTreeBuilder builder)
+		{
+			if (HintTemplate != null)
+			{
+				builder.OpenElement(1, "div");
+				builder.AddAttribute(2, "class", HintCoreCssClass);
+				builder.AddContent(3, HintTemplate);
+				builder.CloseElement();
+			}
 		}
 
 		protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
@@ -123,12 +166,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			}
 		}
 
-		protected virtual string GetCssClassToRender()
+		protected virtual string GetInputCssClassToRender()
 		{
-			string validationCssClass = EditContext.GetValidationMessages(FieldIdentifier).Any() ? "is-invalid" : null /*"is-valid"*/;
-
-			return String.Join(" ", new[] { CoreInputCssClass, CssClass, validationCssClass }.Where(item => !String.IsNullOrEmpty(item)));
+			string validationCssClass = EditContext.GetValidationMessages(FieldIdentifier).Any() ? InvalidCssClass : null;
+			return CssClassHelper.Combine(CoreInputCssClass, InputCssClass, validationCssClass);
 		}
-
 	}
 }
