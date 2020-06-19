@@ -1,5 +1,5 @@
 <div class=@($"drawer {(IsOpen ? "show" : "hide")}")>
-    <div class="drawer-header p-4">
+    <div class="drawer-header pt-4 px-4">
         @if (TitleSection != null)
         {
             @TitleSection
@@ -21,6 +21,6 @@
     }
     @if (CommandsSection != null)
 	{
-		<div class="drawer-footer p-4">@CommandsSection</div>
+		<div class="drawer-footer pb-4 px-4">@CommandsSection</div>
 	}
 </div>
