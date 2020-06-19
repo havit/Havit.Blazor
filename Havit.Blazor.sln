@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "BlazorApp\BlazorApp.csproj", "{0685E15F-4A00-4D81-A268-9915B8D048AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.Components.Web.Bootstrap.Documentation", "Havit.Blazor.Components.Web.Bootstrap.Documentation\Havit.Blazor.Components.Web.Bootstrap.Documentation.csproj", "{399A6F03-FA62-45F2-ACBC-F1B09D954807}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0685E15F-4A00-4D81-A268-9915B8D048AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0685E15F-4A00-4D81-A268-9915B8D048AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0685E15F-4A00-4D81-A268-9915B8D048AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{399A6F03-FA62-45F2-ACBC-F1B09D954807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{399A6F03-FA62-45F2-ACBC-F1B09D954807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{399A6F03-FA62-45F2-ACBC-F1B09D954807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{399A6F03-FA62-45F2-ACBC-F1B09D954807}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
