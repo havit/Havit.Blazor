@@ -54,11 +54,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		protected virtual int DecimalsEffective => Decimals ?? (IsTValueIntegerType ? 0 : 2);
 
 		/// <summary>
-		/// Injected host environment.
-		/// </summary>
-		[Inject] private IHostEnvironment HostEnvironment { get; set; }
-
-		/// <summary>
 		/// Returns true for integer types (false for floating point types).
 		/// </summary>
 		private bool IsTValueIntegerType
@@ -90,11 +85,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		protected override void OnParametersSet()
 		{
 			base.OnParametersSet();
-
-			if (HostEnvironment.IsDevelopment() && String.IsNullOrEmpty(ParsingErrorMessage))
-			{
-				throw new InvalidOperationException($"Missing {nameof(ParsingErrorMessage)} property value on {GetType()}.");
-			}
+			CheckParsingErrorMessage();
 		}
 
 		/// <inheritdoc />
@@ -198,9 +189,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 
 		}
 
-		private string GetParsingErrorMessage()
+		protected virtual string GetParsingErrorMessage()
 		{
 			return String.Format(ParsingErrorMessage, Label, FieldIdentifier.FieldName);
+		}
+
+		protected virtual void CheckParsingErrorMessage()
+		{
+			if (String.IsNullOrEmpty(ParsingErrorMessage))
+			{
+				throw new InvalidOperationException($"Missing {nameof(ParsingErrorMessage)} property value on {GetType()}.");
+			}
 		}
 	}
 }

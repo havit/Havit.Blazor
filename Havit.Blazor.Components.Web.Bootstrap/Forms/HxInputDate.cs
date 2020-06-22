@@ -22,11 +22,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		/// </summary>
 		[Parameter] public string ParsingErrorMessage { get; set; }
 
-		/// <summary>
-		/// Injected host environment.
-		/// </summary>
-		[Inject] private IHostEnvironment HostEnvironment { get; set; }
-
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
@@ -97,16 +92,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		protected override void OnParametersSet()
 		{
 			base.OnParametersSet();
-
-			if (HostEnvironment.IsDevelopment() && String.IsNullOrEmpty(ParsingErrorMessage))
-			{
-				throw new InvalidOperationException($"Missing {nameof(ParsingErrorMessage)} property value on {GetType()}.");
-			}
-		}
-
-		private string GetParsingErrorMessage()
-		{
-			return String.Format(ParsingErrorMessage, Label, FieldIdentifier.FieldName);
+			CheckParsingErrorMessage();
 		}
 
 		private static bool TryParseDateTime(string value, out TValue result)
@@ -138,5 +124,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 				return false;
 			}
 		}
+
+		protected virtual string GetParsingErrorMessage()
+		{
+			return String.Format(ParsingErrorMessage, Label, FieldIdentifier.FieldName);
+		}
+
+		protected virtual void CheckParsingErrorMessage()
+		{
+			if (String.IsNullOrEmpty(ParsingErrorMessage))
+			{
+				throw new InvalidOperationException($"Missing {nameof(ParsingErrorMessage)} property value on {GetType()}.");
+			}
+		}
+
 	}
 }
