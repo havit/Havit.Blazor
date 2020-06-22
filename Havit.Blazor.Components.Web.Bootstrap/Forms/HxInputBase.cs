@@ -127,7 +127,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			if (renderDiv)
 			{
 				builder.OpenElement(1, "div");
-				builder.AddAttribute(2, "class", cssClass);
+				if (!String.IsNullOrEmpty(cssClass))
+				{
+					builder.AddAttribute(2, "class", cssClass);
+				}
 			}
 
 			switch (RenderOrder)
