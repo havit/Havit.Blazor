@@ -17,4 +17,11 @@
     <ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
   </ItemGroup>
 
+	<Target Name="TfsPublish" AfterTargets="AfterPublish" Condition="'$(PublishDirectory)' != ''">
+		<ItemGroup>
+			<PublishToCopy Include="obj\Release\TfsPublish\*.zip" />
+		</ItemGroup>
+		<Copy SourceFiles="@(PublishToCopy)" DestinationFolder="$(PublishDirectory)\DocumentationWeb" />
+	</Target>
+	
 </Project>
