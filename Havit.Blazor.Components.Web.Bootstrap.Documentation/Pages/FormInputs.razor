@@ -1,146 +1,84 @@
 ﻿@page "/components/forminputs"
 
 <h1>Form Inputs</h1>
-<p class="lead">Renders input fields with labels and validation message.</p>
+<p class="lead">
+	Bootstrap based input fields with label and validation message. 
+	See also <a href="https://v5.getbootstrap.com/docs/5.0/forms/overview/">Bootstrap Forms</a>.
+</p>
 
-<EditForm Model="@model">
-	<DataAnnotationsValidator />
+<p>All input fields requires to be used within <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform">EditForm</a> with <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/data-binding">data binding</a> - they all require <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext">EditContext</a>.</p>
 
-	<p>Adds <code>.@(HxInputBase<object>.InvalidCssClass)</code> class for inputs with invalid states.</p>
-	<p>All input fields requires to be used within <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform">EditForm</a> with <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/data-binding">data binding</a> - they all require <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext">EditContext</a>.</p>
+<Demo Title="Quick Demo" RazorFile="FormsInputs_QuickDemo">
+	<FormInputs_QuickDemo />
+</Demo>
 
-	<h3>Common</h3>
-	<ul>
-		<li>
-			<strong>@nameof(HxInputBase<object>.Value), @nameof(HxInputBase<object>.ValueChanged)</strong><br />
-			Value of the input.
-		</li>
-		<li>
-			<strong>@nameof(HxInputBase<object>.Label), @nameof(HxInputBase<object>.LabelTemplate)</strong><br />
-			Label to be next to input. Label is rendered prior to input
-		</li>
-		<li>
-			<strong>@nameof(HxInputBase<object>.InputCssClass)</strong><br />
-			Class to be rendered with the input.
-		</li>
+<h2>Common component properties</h2>
+<ul>
+	<li>
+		<strong>@nameof(HxInputBase<object>.Value), @nameof(HxInputBase<object>.ValueChanged)</strong><br />
+		Value of the input.
+	</li>
+	<li>
+		<strong>@nameof(HxInputBase<object>.Label), @nameof(HxInputBase<object>.LabelTemplate)</strong><br />
+		Label to be next to input. Label is rendered prior to input
+	</li>
+	<li>
+		<strong>@nameof(HxInputBase<object>.InputCssClass)</strong><br />
+		Class to be rendered with the input.
+	</li>
+	<li>
+		<strong>@nameof(HxInputBase<object>.ShowValidationMessage)</strong><br />
+		Can be used to suppress rendering validation message.
+	</li>
+	<li>
+		<strong>@nameof(HxInputBase<object>.IsEnabled)</strong><br />
+		Can be used to render disabled individual inputs or override state from @nameof(HxFormState). To set multiple disabled components, use <a href="/components/hxstate">@nameof(HxFormState)</a>.
+	</li>
+</ul>
 
-		<li>
-			<strong>@nameof(HxInputBase<object>.ShowValidationMessage)</strong><br />
-			Can be used to suppress rendering validation message.
-		</li>
-		<li>
-			<strong>@nameof(HxInputBase<object>.IsEnabled)</strong><br />
-			Can be used to render disabled individual inputs or override state from @nameof(HxFormState). To set multiple disabled components, use <a href="/components/hxstate">@nameof(HxFormState)</a>.
-		</li>
-	</ul>
+<h2>@nameof(HxInputText)</h2>
 
-	<h2>@nameof(HxInputText)</h2>
+<ul>
+	<li>
+		<strong>@nameof(HxInputText.Type)</strong><br />
+		Input type (@InputType.Text.ToString(), @InputType.Password.ToString(), @InputType.Search.ToString(), ...).
+	</li>
+	<li>
+		<strong>@nameof(HxInputText.BindEvent)</strong><br />
+		Sets when to update model from input (onchange or oninput).
+	</li>
+	<li>Attribute <code>maxlength</code> is rendered when @nameof(System.ComponentModel.DataAnnotations.MaxLengthAttribute) is present on the model.</li>
+</ul>
 
-	<ul>
-		<li>
-			<strong>@nameof(HxInputText.Type)</strong><br />
-			Input type (@InputType.Text.ToString(), @InputType.Password.ToString(), @InputType.Search.ToString(), ...).
-		</li>
-		<li>
-			<strong>@nameof(HxInputText.BindEvent)</strong><br />
-			Sets when to update model from input (onchange or oninput).
-		</li>
-		<li>Attribute <code>maxlength</code> is rendered when @nameof(System.ComponentModel.DataAnnotations.MaxLengthAttribute) is present on the model.</li>
-	</ul>
+<h2>@nameof(HxInputTextArea)</h2>
+See @nameof(HxInputText) for @nameof(HxInputText.BindEvent) and <code>maxlength</code>.
 
-	<h3>Example</h3>
-	<HxInputText Label="Text" @bind-Value="@model.TextValue" />
-	<HxInputText Type="InputType.Email" Label="Email" @bind-Value="@model.EmailValue" />
-	<HxInputText Type="InputType.Password" Label="Password" @bind-Value="@model.PasswordValue" />
-
-	<h2>@nameof(HxInputTextArea)</h2>
-	See @nameof(HxInputText) for @nameof(HxInputText.BindEvent) and <code>maxlength</code>.
-
-	<h3>Example</h3>
-	<HxInputTextArea Label="TextArea" @bind-Value="@model.TextAreaValue" />
-
-	<h2>@nameof(HxInputNumber<int>)</h2>
-	<ul>
-		<li>
-			<strong>@nameof(HxInputNumber<decimal>.ParsingErrorMessage)</strong><br />
-			Error message for validator when user input is not possible to parse.
-			When not set, error message is retrieved from the theme. When not set, exception is throw.
-			{0} will be replaced by @nameof(HxInputBase<object>.Label), {1} is replaced by bounded property name.
-		</li>
-		<li>
-			<strong>@nameof(HxInputNumber<decimal>.Decimals)</strong>
-			Sets the number of decimal points, when not set, default is 2 for floating point types.
-			Cannot be used on integer types.
-		</li>
-	</ul>
-
-	<h3>Example</h3>
-	<HxInputNumber Label="Integer" @bind-Value="@model.IntegerValue" ParsingErrorMessage="Correct integer value." />
-	<HxInputNumber Label="Decimal" @bind-Value="@model.DecimalValue" ParsingErrorMessage="Correct decimal value." />
-
-
-	<h2>@nameof(HxInputDate<DateTime>)</h2>
+<h2>@nameof(HxInputNumber<int>)</h2>
+<ul>
 	<li>
 		<strong>@nameof(HxInputNumber<decimal>.ParsingErrorMessage)</strong><br />
 		Error message for validator when user input is not possible to parse.
 		When not set, error message is retrieved from the theme. When not set, exception is throw.
 		{0} will be replaced by @nameof(HxInputBase<object>.Label), {1} is replaced by bounded property name.
 	</li>
+	<li>
+		<strong>@nameof(HxInputNumber<decimal>.Decimals)</strong>
+		Sets the number of decimal points, when not set, default is 2 for floating point types.
+		Cannot be used on integer types.
+	</li>
+</ul>
 
-	<h3>Example</h3>
-	<HxInputDate Label="Date" @bind-Value="@model.DateTimeValue" ParsingErrorMessage="Corrent date value." />
+<h2>@nameof(HxInputDate<DateTime>)</h2>
+<li>
+	<strong>@nameof(HxInputNumber<decimal>.ParsingErrorMessage)</strong><br />
+	Error message for validator when user input is not possible to parse.
+	When not set, error message is retrieved from the theme. When not set, exception is throw.
+	{0} will be replaced by @nameof(HxInputBase<object>.Label), {1} is replaced by bounded property name.
+</li>
 
-	<h2>@nameof(HxInputCheckBox)</h2>
-	<ul>
-		<li>Label is rendered after checkbox.</li>
-	</ul>
+<h2>@nameof(HxInputCheckBox)</h2>
+<h2>@nameof(HxInputSwitch)</h2>
 
-	<h3>Example</h3>
-	<div class="form-check">
-		<HxInputCheckBox Label="Checkbox" @bind-Value="@model.CheckBoxValue" />
-	</div>
-	<div class="form-check form-switch">
-		<HxInputCheckBox Label="Switch" @bind-Value="@model.SwitchValue" />
-	</div>
-
-
-	<button type="submit">Validate</button>
-</EditForm>
-@code
-{
-	private Model model = new Model();
-
-	private class Model
-	{
-		[System.ComponentModel.DataAnnotations.Required]
-		[System.ComponentModel.DataAnnotations.MaxLength(50)]
-		public string TextValue { get; set; }
-
-		[System.ComponentModel.DataAnnotations.Required]
-		public string EmailValue { get; set; }
-
-		[System.ComponentModel.DataAnnotations.Required]
-		public string PasswordValue { get; set; }
-
-		[System.ComponentModel.DataAnnotations.Required]
-		public string TextAreaValue { get; set; }
-
-		[System.ComponentModel.DataAnnotations.Required]
-		public int? IntegerValue { get; set; }
-
-		[System.ComponentModel.DataAnnotations.Required]
-		public decimal? DecimalValue { get; set; }
-
-		[System.ComponentModel.DataAnnotations.Required]
-		public DateTime? DateTimeValue { get; set; }
-
-		[System.ComponentModel.DataAnnotations.Required]
-		public bool CheckBoxValue { get; set; }
-
-		[System.ComponentModel.DataAnnotations.Required]
-		public bool SwitchValue { get; set; }
-
-	}
-
-
-}
+<Demo Title="Form inputs demo" RazorFile="FormsInputs_Demo">
+	<FormInputs_Demo />
+</Demo>
