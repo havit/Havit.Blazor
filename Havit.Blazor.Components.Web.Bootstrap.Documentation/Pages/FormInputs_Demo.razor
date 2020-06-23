@@ -1,6 +1,5 @@
 ﻿<EditForm Model="@model">
 	<DataAnnotationsValidator />
-	<ValidationSummary />
 
 	<HxInputText Label="Text" @bind-Value="@model.Text">
 		<HintTemplate>
@@ -42,7 +41,7 @@
 	public class DemoModel
 	{
 		[Required(ErrorMessage = "Enter text.")]
-		[MaxLength(50, ErrorMessage = "Maximul length of text is 50 letters.")]
+		[MaxLength(50, ErrorMessage = "Maximum length of text is 50 letters.")]
 		public string Text { get; set; }
 
 		public int IntegerValue { get; set; }

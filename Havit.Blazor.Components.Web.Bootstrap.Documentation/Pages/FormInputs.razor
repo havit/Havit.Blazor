@@ -2,15 +2,13 @@
 
 <h1>Form Inputs</h1>
 <p class="lead">
-	Bootstrap based input fields with label and validation message. 
+	Bootstrap based input fields with label and validation message.
 	See also <a href="https://v5.getbootstrap.com/docs/5.0/forms/overview/">Bootstrap Forms</a>.
 </p>
 
 <p>All input fields requires to be used within <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform">EditForm</a> with <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/data-binding">data binding</a> - they all require <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext">EditContext</a>.</p>
 
-<Demo Title="Quick Demo" RazorFile="FormsInputs_QuickDemo">
-	<FormInputs_QuickDemo />
-</Demo>
+<Demo Title="Quick Demo" Type="@typeof(FormInputs_QuickDemo)" />
 
 <h2>Common component properties</h2>
 <ul>
@@ -79,6 +77,4 @@ See @nameof(HxInputText) for @nameof(HxInputText.BindEvent) and <code>maxlength<
 <h2>@nameof(HxInputCheckBox)</h2>
 <h2>@nameof(HxInputSwitch)</h2>
 
-<Demo Title="Form inputs demo" RazorFile="FormsInputs_Demo">
-	<FormInputs_Demo />
-</Demo>
+<Demo Title="Quick Demo" Type="@typeof(FormInputs_Demo)" />
