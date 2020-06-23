@@ -9,6 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 	/// <summary>
 	/// Textarea.
 	/// </summary>
+	// TODO: Nebo HxTextArea?
 	public class HxInputTextArea : HxInputText
 	{
 		/// <inheritdoc />

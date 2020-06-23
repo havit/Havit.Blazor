@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,6 +28,12 @@ namespace BlazorApp.Pages
 			public DateTime DateValue { get; set; }
 
 			public DateTime? NullableDateValue { get; set; }
+
+			[Required]
+			public string CultureInfoName { get; set; }
+			
+			[Required]
+			public CultureInfo CultureInfo { get; set; }
 
 			public bool BoolValue { get; set; }
 		}
