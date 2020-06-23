@@ -2,10 +2,13 @@
 <EditForm Model="@model">
 	<DataAnnotationsValidator />
 
-	<HxInputNumber Label="TextArea" @bind-Value="@model.Age" ParsingErrorMessage="Correct age.">
-		<LabelTemplate>Age</LabelTemplate>
-		<InputGroupAfterTemplate>years</InputGroupAfterTemplate>
-		<HintTemplate>When the age is above 99 years, enter 99.</HintTemplate>
+	<HxInputNumber @bind-Value="@model.Age" ParsingErrorMessage="Correct age (ParsingErrorMessage)." Placeholder="Value / Placeholder">
+		<LabelTemplate>Age <span class="red">(Label/LabelTemplate)</span></LabelTemplate>
+		<InputGroupAfterTemplate>
+			years
+			&nbsp;
+			<span class="red">(InputGroupAfterTemplate)</span></InputGroupAfterTemplate>
+		<HintTemplate>When the age is above 99 years, enter 99. <span class="red">(HintTemplate)</span></HintTemplate>
 	</HxInputNumber>
 	<button type="submit">Validate</button>
 </EditForm>
@@ -16,8 +19,8 @@
 
 	private class AgeModel
 	{
-		[Required(ErrorMessage = "Age is required.")]
-		[Range(0, 99, ErrorMessage = "Age must be between 0 and 99.")]
+		[Required(ErrorMessage = "Age is required. (Model validation)")]
+		[Range(0, 99, ErrorMessage = "Age must be between 0 and 99. (Model validation)")]
 		public int? Age { get; set; }
 	}
 }
