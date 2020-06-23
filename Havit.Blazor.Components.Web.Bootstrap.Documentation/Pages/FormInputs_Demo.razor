@@ -1,7 +1,7 @@
 ﻿<EditForm Model="@model">
 	<DataAnnotationsValidator />
 
-	<HxInputText Label="Text" @bind-Value="@model.Text">
+	<HxInputText Label="Text" @bind-Value="@model.Text" Placeholder="Enter text here.">
 		<HintTemplate>
 			Enter text, value is shared with all text inputs.
 		</HintTemplate>

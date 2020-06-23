@@ -18,6 +18,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		/// Gets or sets the behavior when the model is updated from then input.
 		/// </summary>
 		[Parameter] public BindEvent BindEvent { get; set; } = BindEvent.OnChange;
+		
+		/// <summary>
+		/// Placeholder for the input.
+		/// </summary>
+		[Parameter] public string Placeholder { get; set; }
 
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -31,8 +36,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 				builder.AddAttribute(1000, "maxlength", maxLengthAttribute.Length);
 			}
 
-			builder.AddAttribute(1001, "value", FormatValueAsString(Value));
-			builder.AddAttribute(1002, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+			if (!String.IsNullOrEmpty(Placeholder))
+			{
+				builder.AddAttribute(1001, "placeholder", Placeholder);
+			}
+
+			builder.AddAttribute(1002, "value", FormatValueAsString(Value));
+			builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 
 			builder.CloseElement();
 		}

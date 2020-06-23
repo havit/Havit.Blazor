@@ -27,6 +27,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		[Parameter] public string ParsingErrorMessage { get; set; }
 
 		/// <summary>
+		/// Placeholder for the input.
+		/// </summary>
+		[Parameter] public string Placeholder { get; set; }
+
+		/// <summary>
 		/// Gets or sets the number of decimal points.
 		/// Can be used only for floating point types, for integer types throws exception.
 		/// When not set 2 decimal points are used.
@@ -94,8 +99,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			builder.OpenElement(0, "input");
 			BuildRenderInput_AddCommonAttributes(builder, "number");
 
-			builder.AddAttribute(1000, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
-			builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+			if (!String.IsNullOrEmpty(Placeholder))
+			{
+				builder.AddAttribute(1000, "placeholder", Placeholder);
+			}
+
+			builder.AddAttribute(1001, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
+			builder.AddAttribute(1002, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 
 			// Počítané hodnoty sekvence jsou proti smyslu sekvencí a proti veškerým obecným doporučením.
 			// Zde chceme dosáhnout toho, aby při změně uživatelského vstupu, došlo k přerenderování hodnoty, přestože se nezměnila hodnota FormatValueAsString(Value).
@@ -112,7 +122,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 					valueSequenceOffset++;
 					forceRenderValue = false;
 				}
-				builder.AddAttribute(1000 + valueSequenceOffset, "value", FormatValueAsString(Value));
+				builder.AddAttribute(1003 + valueSequenceOffset, "value", FormatValueAsString(Value));
 			}
 
 			builder.CloseElement();
