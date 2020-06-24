@@ -34,7 +34,7 @@
 	<HxInputDate Label="Date (nullable)" @bind-Value="@Model.NullableDateValue" ParsingErrorMessage="Zadejte správně Date." />
 
 	<HxSelect Label="Select" @bind-Value="@Model.CultureInfoName" ValueSelector="@(item => item.DisplayName)" Items="@System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures)" Text="@(item => item.DisplayName)" />
-	<HxSelectSimple Label="Select (Simple)" @bind-Value="@Model.CultureInfo" Items="@System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures)" Text="@(item => item.DisplayName)" />
+	<HxSelect Label="Select" @bind-Value="@Model.CultureInfo" Items="@System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures)" Text="@(item => item.DisplayName)" />
 
 	<HxInputCheckBox Label="CheckBox" @bind-Value="@Model.BoolValue">
 		<HintTemplate>@Model.BoolValue</HintTemplate>
