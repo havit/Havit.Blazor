@@ -30,7 +30,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			builder.OpenElement(0, GetElementName());
 			BuildRenderInput_AddCommonAttributes(builder, GetTypeAttributeValue());
 
-			var maxLengthAttribute = FieldIdentifier.Model.GetType().GetMember(FieldIdentifier.FieldName).Single().GetCustomAttribute<MaxLengthAttribute>();
+			MaxLengthAttribute maxLengthAttribute = GetValueAttribute<MaxLengthAttribute>();
 			if ((maxLengthAttribute != null) && (maxLengthAttribute.Length > 0))
 			{
 				builder.AddAttribute(1000, "maxlength", maxLengthAttribute.Length);

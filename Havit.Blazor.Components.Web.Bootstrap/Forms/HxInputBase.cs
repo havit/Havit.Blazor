@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
@@ -292,6 +293,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		{
 			string validationCssClass = EditContext.GetValidationMessages(FieldIdentifier).Any() ? InvalidCssClass : null;
 			return CssClassHelper.Combine(CoreInputCssClass, InputCssClass, validationCssClass);
+		}
+
+		/// <summary>
+		/// Returns attribute from the bounded property if exists. Otherwise returns null.
+		/// </summary>
+		protected TAttribute GetValueAttribute<TAttribute>()
+			where TAttribute : Attribute
+		{
+			return FieldIdentifier.Model.GetType().GetMember(FieldIdentifier.FieldName).Single().GetCustomAttribute<TAttribute>();
 		}
 	}
 }
