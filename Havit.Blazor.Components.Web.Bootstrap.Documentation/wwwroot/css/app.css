@@ -21,3 +21,52 @@
 	right: 0.75rem;
 	top: 0.5rem;
 }
+
+.main-content {
+	margin-top: 40px;
+}
+
+/*Component sidebar*/
+.sidebar {
+	position: fixed;
+}
+
+.sidebar li {
+	list-style:none;
+	cursor: pointer;
+	
+}
+
+.sidebar .categories li{
+	margin-bottom: 0.5rem;
+}
+
+.sidebar .categories li a {
+	font-size: 18px;
+	font-weight: 500;
+	text-decoration: none;
+	color: rgba(0,0,0,0.8)
+}
+
+.sidebar .categories li a:hover {
+	color: rgba(0,0,0,1)
+}
+
+.sidebar .subcategories {
+	margin-top: 0.5rem;
+}
+
+.sidebar .subcategories li {
+	margin-bottom: 0.25rem;
+	margin-left: -1.25rem;
+	color: rgba(0,0,0,0.6);
+}
+
+.sidebar .subcategories li:hover {
+	color: rgba(0,0,0,0.9)
+}
+
+.components {
+	position: relative;
+	left: 16.666667%;
+}
