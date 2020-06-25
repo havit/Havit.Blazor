@@ -1,0 +1,16 @@
+﻿<EditForm Model="@model">
+
+	<HxFormState IsEnabled="@Enabled">
+
+	</HxFormState>
+
+</EditForm>
+@code {
+	private Model model = new Model();
+	private class Model
+	{
+		public string Text1 { get; set; }
+		public string Text2 { get; set; }
+		public bool Enabled { get; set; }
+	}
+}

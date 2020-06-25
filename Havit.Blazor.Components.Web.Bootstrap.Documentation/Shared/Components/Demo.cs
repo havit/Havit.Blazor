@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages
+namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 {
 	public class Demo : ComponentBase
 	{
