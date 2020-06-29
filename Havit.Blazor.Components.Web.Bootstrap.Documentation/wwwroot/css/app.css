@@ -18,8 +18,7 @@
     top: 0.5rem; }
 
 .navbar {
-  background-color: #3498db;
-  box-shadow: 0px 3px 15px #3498db; }
+  background-color: #3498db; }
   .navbar a {
     color: #f1f1f1; }
     .navbar a.navbar-brand {
