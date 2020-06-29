@@ -23,9 +23,11 @@
 
 .navbar {
     background-color: #3498db;
+    box-shadow: 0px 3px 15px #3498db;
 
     a {
         color: #f1f1f1;
+
         &.navbar-brand {
             color: #fff;
         }
@@ -35,20 +37,21 @@
         }
     }
 
-    .logo-havit{
-        height:30px;
+    .logo-havit {
+        height: 30px;
         margin-right: 10px;
     }
 }
 
 .main-content {
-    margin-top: 40px;
+    margin-top: 100px;
 
     .sidebar {
-        position: fixed;
+        position: sticky;
+        height: calc(100vh - 7rem);
         top: 100px;
         bottom: 0;
-        overflow-y: scroll;
+        overflow-y: auto;
         padding-left: 0;
 
         li {
@@ -56,47 +59,46 @@
             cursor: pointer;
         }
 
-        .categories li {
-            margin-bottom: 0.5rem;
+        .categories {
+            margin-left: -30px;
 
-            a {
-                font-size: 18px;
-                font-weight: 500;
-                text-decoration: none;
-                color: rgba(0,0,0,0.8);
+            li {
+                margin-bottom: 0.5rem;
 
-                &:hover {
-                    color: rgba(0,0,0,1)
-                }
-            }
+                a {
+                    font-size: 18px;
+                    font-weight: 500;
+                    text-decoration: none;
+                    color: rgba(0,0,0,0.8);
 
-            .subcategories {
-                li {
-                    margin-bottom: 0.25rem;
-                    margin-left: -1.5rem;
-
-                    &:first-of-type {
-                        margin-top: 0.5rem;
+                    &:hover {
+                        color: rgba(0,0,0,1)
                     }
+                }
 
-                    a {
-                        color: rgba(0,0,0,0.6);
-                        font-size: 1rem;
-                        font-weight: 400;
+                .subcategories {
+                    li {
+                        margin-bottom: 0.25rem;
+                        margin-left: -1.5rem;
+
+                        &:first-of-type {
+                            margin-top: 0.5rem;
+                        }
+
+                        a {
+                            color: rgba(0,0,0,0.6);
+                            font-size: 1rem;
+                            font-weight: 400;
 
 
 
-                        &:hover {
-                            color: rgba(0,0,0,0.9)
+                            &:hover {
+                                color: rgba(0,0,0,0.9)
+                            }
                         }
                     }
                 }
             }
         }
-    }
-
-    .components {
-        position: relative;
-        left: 20%;
     }
 }

@@ -18,7 +18,8 @@
     top: 0.5rem; }
 
 .navbar {
-  background-color: #3498db; }
+  background-color: #3498db;
+  box-shadow: 0px 3px 15px #3498db; }
   .navbar a {
     color: #f1f1f1; }
     .navbar a.navbar-brand {
@@ -30,36 +31,36 @@
     margin-right: 10px; }
 
 .main-content {
-  margin-top: 40px; }
+  margin-top: 100px; }
   .main-content .sidebar {
-    position: fixed;
+    position: sticky;
+    height: calc(100vh - 7rem);
     top: 100px;
     bottom: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding-left: 0; }
     .main-content .sidebar li {
       list-style: none;
       cursor: pointer; }
-    .main-content .sidebar .categories li {
-      margin-bottom: 0.5rem; }
-      .main-content .sidebar .categories li a {
-        font-size: 18px;
-        font-weight: 500;
-        text-decoration: none;
-        color: rgba(0, 0, 0, 0.8); }
-        .main-content .sidebar .categories li a:hover {
-          color: black; }
-      .main-content .sidebar .categories li .subcategories li {
-        margin-bottom: 0.25rem;
-        margin-left: -1.5rem; }
-        .main-content .sidebar .categories li .subcategories li:first-of-type {
-          margin-top: 0.5rem; }
-        .main-content .sidebar .categories li .subcategories li a {
-          color: rgba(0, 0, 0, 0.6);
-          font-size: 1rem;
-          font-weight: 400; }
-          .main-content .sidebar .categories li .subcategories li a:hover {
-            color: rgba(0, 0, 0, 0.9); }
-  .main-content .components {
-    position: relative;
-    left: 20%; }
+    .main-content .sidebar .categories {
+      margin-left: -30px; }
+      .main-content .sidebar .categories li {
+        margin-bottom: 0.5rem; }
+        .main-content .sidebar .categories li a {
+          font-size: 18px;
+          font-weight: 500;
+          text-decoration: none;
+          color: rgba(0, 0, 0, 0.8); }
+          .main-content .sidebar .categories li a:hover {
+            color: black; }
+        .main-content .sidebar .categories li .subcategories li {
+          margin-bottom: 0.25rem;
+          margin-left: -1.5rem; }
+          .main-content .sidebar .categories li .subcategories li:first-of-type {
+            margin-top: 0.5rem; }
+          .main-content .sidebar .categories li .subcategories li a {
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 1rem;
+            font-weight: 400; }
+            .main-content .sidebar .categories li .subcategories li a:hover {
+              color: rgba(0, 0, 0, 0.9); }
