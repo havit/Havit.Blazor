@@ -35,7 +35,8 @@
     position: fixed;
     top: 100px;
     bottom: 0;
-    overflow-y: scroll; }
+    overflow-y: scroll;
+    padding-left: 0; }
     .main-content .sidebar li {
       list-style: none;
       cursor: pointer; }
@@ -48,14 +49,17 @@
         color: rgba(0, 0, 0, 0.8); }
         .main-content .sidebar .categories li a:hover {
           color: black; }
-    .main-content .sidebar .subcategories {
-      margin-top: 0.5rem; }
-      .main-content .sidebar .subcategories li {
+      .main-content .sidebar .categories li .subcategories li {
         margin-bottom: 0.25rem;
-        margin-left: -1.25rem;
-        color: rgba(0, 0, 0, 0.6); }
-        .main-content .sidebar .subcategories li:hover {
-          color: rgba(0, 0, 0, 0.9); }
+        margin-left: -1.5rem; }
+        .main-content .sidebar .categories li .subcategories li:first-of-type {
+          margin-top: 0.5rem; }
+        .main-content .sidebar .categories li .subcategories li a {
+          color: rgba(0, 0, 0, 0.6);
+          font-size: 1rem;
+          font-weight: 400; }
+          .main-content .sidebar .categories li .subcategories li a:hover {
+            color: rgba(0, 0, 0, 0.9); }
   .main-content .components {
     position: relative;
     left: 20%; }

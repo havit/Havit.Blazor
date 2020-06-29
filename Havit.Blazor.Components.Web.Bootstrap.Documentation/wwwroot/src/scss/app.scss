@@ -49,6 +49,7 @@
         top: 100px;
         bottom: 0;
         overflow-y: scroll;
+        padding-left: 0;
 
         li {
             list-style: none;
@@ -68,18 +69,27 @@
                     color: rgba(0,0,0,1)
                 }
             }
-        }
 
-        .subcategories {
-            margin-top: 0.5rem;
+            .subcategories {
+                li {
+                    margin-bottom: 0.25rem;
+                    margin-left: -1.5rem;
 
-            li {
-                margin-bottom: 0.25rem;
-                margin-left: -1.25rem;
-                color: rgba(0,0,0,0.6);
+                    &:first-of-type {
+                        margin-top: 0.5rem;
+                    }
 
-                &:hover {
-                    color: rgba(0,0,0,0.9)
+                    a {
+                        color: rgba(0,0,0,0.6);
+                        font-size: 1rem;
+                        font-weight: 400;
+
+
+
+                        &:hover {
+                            color: rgba(0,0,0,0.9)
+                        }
+                    }
                 }
             }
         }
