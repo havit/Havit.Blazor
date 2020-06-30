@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.Extensions.Hosting;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Forms;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -75,9 +76,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		[Parameter] public bool? IsEnabled { get; set; }
 
 		/// <summary>
-		/// Effective value of IsEnalbed. When IsEnabled is not set, receives value from FormState or defaults to true.
+		/// Effective value of IsEnabled. When IsEnabled is not set, receives value from FormState or defaults to true.
 		/// </summary>
-		protected bool IsEnabledEfective => IsEnabled ?? FormState?.IsEnabled ?? true;
+		protected bool IsEnabledEffective => IsEnabled ?? FormState?.IsEnabled ?? true;
 
 		/// <summary>
 		/// Css class to be rendered with the wrapping div.
@@ -241,7 +242,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			builder.AddAttribute(2, "id", InputId);
 			builder.AddAttribute(3, "type", typeValue);
 			builder.AddAttribute(4, "class", GetInputCssClassToRender());
-			builder.AddAttribute(5, "disabled", !IsEnabledEfective);
+			builder.AddAttribute(5, "disabled", !IsEnabledEffective);
 		}
 
 		/// <summary>
