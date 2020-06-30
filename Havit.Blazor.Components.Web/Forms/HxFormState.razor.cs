@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Components;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Forms
+namespace Havit.Blazor.Components.Web.Forms
 {
 	/// <summary>
 	/// Propagates form states as a cascadint parementer to child components.

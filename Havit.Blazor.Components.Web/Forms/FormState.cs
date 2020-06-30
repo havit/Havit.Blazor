@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Forms
+namespace Havit.Blazor.Components.Web.Forms
 {
 	/// <summary>
 	/// Form state as a cascading value &amp; parameter.

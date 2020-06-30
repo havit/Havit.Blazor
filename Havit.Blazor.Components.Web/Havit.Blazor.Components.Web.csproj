@@ -1,8 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-	<OutputType>Library</OutputType>
+	<RazorLangVersion>3.0</RazorLangVersion>
+    <NoWarn>1701;1702;SA1134</NoWarn>
   </PropertyGroup>
 
   <!-- NuGet -->
@@ -17,4 +18,5 @@
 	<PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.4" />
   </ItemGroup>
+
 </Project>
