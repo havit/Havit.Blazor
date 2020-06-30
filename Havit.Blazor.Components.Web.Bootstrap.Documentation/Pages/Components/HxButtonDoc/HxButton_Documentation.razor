@@ -1,0 +1,24 @@
+﻿@page "/components/hxbutton"
+	
+<h1>@nameof(HxButton), @nameof(HxSubmit)</h1>
+<p class="lead">
+	Just buttons. @nameof(HxSubmit) submits form (and causes validation) while @nameof(HxButton) does not.
+</p>
+
+<h3>Properties</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxButton.CssClass)</strong><br />
+		Css class to render with button.
+	</li>
+	<li>
+		<strong>@nameof(HxButton.Icon)</strong><br />
+		Uses <a href="/components/hxbootstrapicon">HxBootstrapIcon</a> to display icon.
+	</li>
+	<li>
+		<strong>@nameof(HxButton.Text)</strong><br />
+		Button text.
+	</li>
+</ul>
+
+<Demo Type="typeof(HxButton_Demo)" />

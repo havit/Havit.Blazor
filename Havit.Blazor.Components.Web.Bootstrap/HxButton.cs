@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Button.
+	/// </summary>
 	public class HxButton : ComponentBase
 	{
 		/// <summary>
@@ -18,10 +21,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[CascadingParameter] protected FormState FormState { get; set; }
 
+		/// <summary>
+		/// Custom css class to render with button.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
+		/// <summary>
+		/// Label of the button.
+		/// </summary>
 		[Parameter] public string Text { get; set; }
 
+		/// <summary>
+		/// Button template.
+		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
+		/// <summary>
+		/// Icon to render into button.
+		/// </summary>
 		[Parameter] public BootstrapIcon? Icon { get; set; } 
 
 		[Parameter] public string Skin { get; set; } // TODO
@@ -38,6 +55,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected bool IsEnabledEffective => IsEnabled ?? FormState?.IsEnabled ?? true;
 
+		/// <summary>
+		/// Raised after button is clicked.
+		/// </summary>
 		[Parameter]
 		public EventCallback<MouseEventArgs> OnClick { get; set; }
 
@@ -46,7 +66,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			// no base call
 			builder.OpenElement(0, "button");
 			builder.AddAttribute(1, "type", GetButtonType());
-			builder.AddAttribute(2, "class", "btn btn-outline-primary");
+			builder.AddAttribute(2, "class", CssClassHelper.Combine("btn btn-primary", CssClass));
 			builder.AddAttribute(3, "onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, HandleClick));
 			builder.AddAttribute(4, "disabled", !IsEnabledEffective);
 			
