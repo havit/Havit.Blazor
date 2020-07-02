@@ -17,6 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
 			builder.RootComponents.Add<App>("app");
 
+			builder.Services.AddLocalization();
 			builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 			await builder.Build().RunAsync();

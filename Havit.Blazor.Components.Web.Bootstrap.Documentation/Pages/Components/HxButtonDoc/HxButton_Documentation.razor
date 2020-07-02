@@ -1,5 +1,5 @@
 ﻿@page "/components/hxbutton"
-	
+
 <h1>@nameof(HxButton), @nameof(HxSubmit)</h1>
 <p class="lead">
 	Just buttons. @nameof(HxSubmit) submits form (and causes validation) while @nameof(HxButton) does not.
@@ -19,6 +19,19 @@
 		<strong>@nameof(HxButton.Text)</strong><br />
 		Button text.
 	</li>
+	<li>
+		<strong>@nameof(HxButton.Skin)</strong><br />
+		Skin with shared button settings. See below.
+	</li>
+	<li>
+		<strong>@nameof(HxButton.ChildContent)</strong><br />
+		Content of the button when @nameof(HxButton.Text) and @nameof(HxButton.Icon) properties are not good enough for your needs.
+	</li>
 </ul>
+
+<h3>Skins</h3>
+<p>Common buttons (OK, Save, Apply, Export, ...) can be defined using a skin. Skin is a shared configuration of a button defined in this library or in a custom code. Skins are localizable, embedded skins are localized (English, Czech).</p>
+<p>Skins are used as readonly instances (strong-type), no string identifiers like SkinID in WebForms are used.</p>
+<p>See demo how to define custom skins. To make a skin localizable, use <strong>ResourceType</strong> property to set where to find the translations.</p>
 
 <Demo Type="typeof(HxButton_Demo)" />

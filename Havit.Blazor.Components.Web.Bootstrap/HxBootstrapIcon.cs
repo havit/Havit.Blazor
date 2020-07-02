@@ -12,10 +12,17 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Displays bootstrap icon. See https://icons.getbootstrap.com/.
+	/// </summary>
 	public class HxBootstrapIcon : ComponentBase
 	{
+		/// <summary>
+		/// Icon to display.
+		/// </summary>
 		[Parameter] public BootstrapIcon Icon { get; set; }
-
+		
+		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			// no base call

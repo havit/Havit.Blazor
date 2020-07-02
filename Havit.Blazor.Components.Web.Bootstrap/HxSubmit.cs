@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Button type="submit".
+	/// </summary>
 	public class HxSubmit : HxButton
 	{
 		private protected override string GetButtonType() => "submit";

@@ -11,14 +11,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <remarks>
 	/// How the content of this file was generated (and how to update it):
 	/// 1. Copy icon names from https://icons.getbootstrap.com/ to excel to column A. It works surprisingly well.
-	/// 2. Create this formula in column B: ="[Display(Name = """ &LOWER(SUBSTITUTE(A1; " "; "-")) & """)]"
-	/// 3. Create this formula in column C: =SUBSTITUTE(PROPER(LOWER(A1));" ";"") & IF(A2 = "";"";",")	
+	/// 2. Create this formula in column B (carefully with &amp; symbol): ="[Display(Name = """ &amp;LOWER(SUBSTITUTE(A1; " "; "-")) &amp; """)]"
+	/// 3. Create this formula in column C (carefully with &amp; symbol): =SUBSTITUTE(PROPER(LOWER(A1));" ";"") &amp; IF(A2 = "";"";",") 
 	/// 4. Copy formulas in columns B and C to all rows.
 	/// 5. Mark content of the B and C columns.
 	/// 6. Copy content to the clipboard and paste it here (replace current items).
 	/// </remarks>
 	public enum BootstrapIcon
 	{
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		[Display(Name = "alarm")] Alarm,
 		[Display(Name = "alarm-fill")] AlarmFill,
 		[Display(Name = "align-bottom")] AlignBottom,
@@ -1049,5 +1050,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Display(Name = "x")] X,
 		[Display(Name = "zoom-in")] ZoomIn,
 		[Display(Name = "zoom-out")] ZoomOut
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }
