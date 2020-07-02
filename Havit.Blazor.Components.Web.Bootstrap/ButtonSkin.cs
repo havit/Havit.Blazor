@@ -32,14 +32,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public Type ResourceType { get; set; } // TODO C# 9.0: set -> init
 
 		/// <summary>
-		/// Konstruktor.
+		/// Constructor.
 		/// </summary>
 		public ButtonSkin()
 		{
 		}
 
 		/// <summary>
-		/// Konstruktor.
+		/// Constructor.
 		/// </summary>
 		public ButtonSkin(string text = null, string cssClass = null, BootstrapIcon? icon = null, Type resourceType = null)
 		{
