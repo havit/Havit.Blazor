@@ -198,11 +198,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 
 		}
 
+		/// <summary>
+		/// Returns message for parsing error.
+		/// </summary>
 		protected virtual string GetParsingErrorMessage()
 		{
 			return String.Format(ParsingErrorMessage, Label, FieldIdentifier.FieldName);
 		}
 
+		/// <summary>
+		/// Checks message for parsing error is set.
+		/// If not set, throws <see cref="InvalidOperationException"/>.
+		/// </summary>
 		protected virtual void CheckParsingErrorMessage()
 		{
 			if (String.IsNullOrEmpty(ParsingErrorMessage))

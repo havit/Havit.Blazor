@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Wizards
 	public partial class HxWizard : ComponentBase, IDisposable
 	{
 		/// <summary>
-		/// The ChildContent container for <see cref="WizardStep"/>
+		/// The ChildContent container for <see cref="HxWizardStep"/>
 		/// </summary>
 		[Parameter]
 		public RenderFragment Steps { get; set; }

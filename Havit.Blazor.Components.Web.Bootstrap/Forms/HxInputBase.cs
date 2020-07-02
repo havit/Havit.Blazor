@@ -262,7 +262,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		/// <summary>
 		/// Renders validation message (component <seealso cref="HxValidationMessage{TValue}" />) when not disabled (<seealso cref="ShowValidationMessage" />).
 		/// </summary>
-		/// <param name="builder"></param>
 		protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
 		{
 			if (ShowValidationMessage)
