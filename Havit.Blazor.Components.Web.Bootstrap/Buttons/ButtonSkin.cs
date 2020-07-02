@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
 {
 	/// <summary>
 	/// Button skin.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
 {
 	/// <summary>
 	/// Button skins. Localized (Czech, English).
