@@ -2,12 +2,12 @@
 
 <h1>HxGrid</h1>
 
-<HxGrid Data="@cultureInfos" @bind-SelectedDataItem="currentCultureInfo" PageSize="10">
+<HxGrid Items="@cultureInfos" @bind-SelectedDataItem="currentCultureInfo" PageSize="10">
 	<Columns>
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemText="@(item => item.DisplayName)" SortExpression="@(item => item.DisplayName)" />
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemText="@(item => item.Name)" SortExpression="@(item => item.Name)" ItemCssClassTemplate="@(item => item.Name.Contains('Z') ? "text-right" : null)" />		
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Link">
-			<ItemTemplate>
+			<ItemTemplate>				
 				<a href="https://www.havit.cz">link to a page</a>
 			</ItemTemplate>
 		</HxGridColumn>

@@ -22,6 +22,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		[Parameter] public RenderFragment FooterTemplate { get; set; }
 		[Parameter] public string FooterCssClass { get; set; }
 
+		[Parameter] public string SortString { get; set; }
 		[Parameter] public Expression<Func<TItemType, IComparable>> SortExpression { get; set; }
 		[Parameter] public SortDirection SortDirection { get; set; } = SortDirection.Ascending;
 
@@ -41,12 +42,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		protected override IEnumerable<SortingItem<TItemType>> GetSorting()
 		{
-			if (SortExpression == null)
+			if ((SortExpression == null) && String.IsNullOrEmpty(SortString))
 			{
 				yield break;
 			}
 
-			yield return new SortingItem<TItemType>(this.SortExpression, this.SortDirection);
+			yield return new SortingItem<TItemType>(this.SortString, this.SortExpression, this.SortDirection);
 		}
 	}
 }

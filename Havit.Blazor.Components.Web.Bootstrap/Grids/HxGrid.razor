@@ -7,19 +7,23 @@
 
 @{
 	List<IHxGridColumn<TItemType>> columnsToRender = GetColumnsToRender();
-	TItemType[] itemsToRender = ApplyPaging(ApplySorting(Data)).ToArray();
-	// TODO: Není-li zobrazen selectedItem, odvybrat!
+	TItemType[] itemsToRender = ApplyPaging(ApplySorting(Items)).ToArray();
+
+	if ((itemsToRender.Length == 0) && (CurrentPageIndex > 0))
+	{
+		decreasePageIndexAfterRender = true;
+	}
 }
 
 @if (columnsToRender.Any())
 {
-	<table class="table grid">
+	<table class="table grid table-responsible">
 		<thead>
 			<tr>
 				@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 				{
 					var columnSorting = column.GetSorting().ToArray();
-					bool isCurrentSorting = CurrentSorting.StartsWith(columnSorting);
+					bool isCurrentSorting = CurrentSorting?.StartsWith(columnSorting) ?? false;
 					var headerCellTemplate = column.GetHeaderCellTemplate();
 					<td class="@headerCellTemplate.CssClass">
 						@headerCellTemplate.Template
@@ -44,7 +48,7 @@
 
 						@if (columnSorting.Any())
 						{
-							<a @onclick="async () => await SetSorting(columnSorting)" role="button" class="text-muted">
+							<a @onclick="async () => await HandleSortingClick(columnSorting)" role="button" class="text-muted">
 								@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Ascending))
 								   || (isCurrentSorting && (CurrentSorting[0].SortDirection == Collections.SortDirection.Descending)))
 								{
@@ -70,7 +74,7 @@
 			@foreach (TItemType item in itemsToRender)
 			{
 							 
-			<tr role="button"  @onclick="async () => await SelectDataItem(item)" class="@(((item != null) && item.Equals(SelectedDataItem)) ? "selected" : null)">
+			<tr role="button" @onclick="async () => await HandleSelectDataItemClick(item)" class="@(((item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
 				@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 				{
 					CellTemplate cellTemplate = column.GetItemCellTemplate(item);
@@ -97,12 +101,16 @@
 
 	</table>
 
-	@if (PageSize > 0)
+	@if ((PageSize > 0) && !suppressPaging)
 	{
-		int totalPages = (Data.Count() + PageSize - 1) / PageSize;
+		int totalPages = (Items.Count() + PageSize - 1) / PageSize;
 		if (totalPages > 1)
 		{
-			<HxPager @bind-CurrentPageIndex="@CurrentPageIndex" TotalPages="@totalPages" ShowAllButton="@PagerShowAllButton" ShowAllButtonClicked="@PagerShowAllButtonClicked" />
+			<HxPager TotalPages="@totalPages"
+					 CurrentPageIndex="@CurrentPageIndex"
+					 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged" 
+					 ShowAllButton="@PagerShowAllButton"
+					 ShowAllButtonClick="@HandlePagerShowAllButtonClick" />
 		}
 	}
 }

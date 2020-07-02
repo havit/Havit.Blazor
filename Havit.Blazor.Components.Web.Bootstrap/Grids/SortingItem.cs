@@ -1,35 +1,67 @@
 ﻿using Havit.Collections;
+using Havit.Diagnostics.Contracts;
 using System;
 using System.Linq.Expressions;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 {
 	// TODO: Přesunot do správného namespace
-	public class SortingItem<TItemType>
+
+	/// <summary>
+	/// Item describes one sorting criteria.
+	/// </summary>
+	public sealed class SortingItem<TItemType>
 	{
+		/// <summary>
+		/// Sorting as string value. Can be used to pass value between application layers (ie. WebAPI call parameter).
+		/// </summary>
+		public string SortString { get; }
+
+		/// <summary>
+		/// Sorting expression. To be used for automatic in memory sorting.
+		/// </summary>
 		public Expression<Func<TItemType, IComparable>> SortExpression { get; }
+
+		/// <summary>
+		/// Sort direction of SortString/SortExpression.
+		/// </summary>
 		public SortDirection SortDirection { get; }
 
-		public SortingItem(Expression<Func<TItemType, IComparable>> sortExpression, SortDirection sortDirection)
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		public SortingItem(string sortString,  Expression<Func<TItemType, IComparable>> sortExpression, SortDirection sortDirection)
 		{
+			Contract.Requires((sortString != null) || (sortExpression != null));
+
+			SortString = sortString;
 			SortExpression = sortExpression;
 			SortDirection = sortDirection;
 		}
 
+		/// <summary>
+		/// Returns true when this and sorting item describes the same sorting (direction is ignored).
+		/// </summary>
 		public bool EqualsIgnoringSortDirection<T>(SortingItem<T> sortingItem)
 		{
-			// pro účely řazení good-enough
-			return this.SortExpression.ToString().Equals(sortingItem.SortExpression.ToString());
+			return (sortingItem != null)
+				&& String.Equals(this.SortString, sortingItem.SortString, StringComparison.OrdinalIgnoreCase)
+				&& (((this.SortExpression == null) && (sortingItem.SortExpression == null))
+					|| this.SortExpression.ToString().Equals(sortingItem.SortExpression.ToString()) /* pro účely řazení good-enough */);
 		}
 
+		/// <summary>
+		/// Returns the SortItem describing the same sorting with toggled direction.
+		/// </summary>
 		public SortingItem<TItemType> WithToggledSortDirection()
 		{
-			return new SortingItem<TItemType>(SortExpression, SortDirection.Toggle());
+			return new SortingItem<TItemType>(SortString, SortExpression, SortDirection.Toggle());
 		}
 
+		/// <inheritdoc />
 		public override string ToString()
 		{
-			return $"SortExpression: {SortExpression}, SortDirection: {SortDirection}";
+			return $"SortString: {SortString ?? "(null)"}, SortExpression: {SortExpression}, SortDirection: {SortDirection}";
 		}
 	}
 }

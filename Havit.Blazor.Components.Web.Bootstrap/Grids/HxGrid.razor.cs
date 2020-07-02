@@ -1,4 +1,5 @@
 ﻿using Havit.Collections;
+using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;
@@ -10,45 +11,127 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 {
-	// Přesunout do Havit.Blazor.Components.Web? Ale pozor na závislost na Pageru!
-	// Jak pohodlně definovat Default SortExpression? Asi na sloupci. Více sloupců?
-	// TODO: Rozdělit header, footer, řádky tak, aby se komponenty smyslupně updatovaly?
+	// Jak pohodlně definovat Default SortExpression? Asi na sloupci. Více sloupců? V renderu? Jak s živnotním cyklem? Načíst data, render, sorting, načíst data?
+	// TODO: Ověřit, zda funguje dobře výběr řádku, pokud obsahuje odkaz, apod. (tj. odkaz nevybírá)
+	// TODO: Check all items has sort expression for AutoSort before sorting.
+
+	/// <summary>
+	/// Grid to display tabular data from data source.
+	/// </summary>
+	/// <typeparam name="TItemType">Type of row data item.</typeparam>
 	public partial class HxGrid<TItemType> : IDisposable
 	{
+		/// <summary>
+		/// ColumnsRegistration cascading value name.
+		/// </summary>
 		public const string ColumnsRegistrationCascadingValueName = "ColumnsRegistration";
 
-		[Parameter] public IEnumerable<TItemType> Data { get; set; } // TODO: Items? DataSource :-)
-		[Parameter] public bool AllowSelection { get; set; } // TODO: OnClickBehavior nebo tak něco?
-		[Parameter] public bool AllowSorting { get; set; } // TODO
+		/// <summary>
+		/// Items to render as a table.
+		/// </summary>
+		[Parameter] public IEnumerable<TItemType> Items { get; set; }
+
+		// TODO: OnClickBehavior nebo tak něco?
+		// [Parameter] public bool AllowSelection { get; set; }
+
+		/// <summary>
+		/// Columns template.
+		/// </summary>
 		[Parameter] public RenderFragment Columns { get; set; }
+
+		/// <summary>
+		/// Context menu template.
+		/// </summary>
 		[Parameter] public RenderFragment<TItemType> ContextMenu { get; set; }
-		[Parameter] public TItemType SelectedDataItem { get; set; } // TODO
+
+		/// <summary>
+		/// Selected data item.
+		/// Intended for for data binding.
+		/// </summary>		
+		/// TODO: Items vs. Selected*Data*Item
+		[Parameter] public TItemType SelectedDataItem { get; set; }
+
+		/// <summary>
+		/// Event fires when selected data item changes.
+		/// Intended for for data binding.
+		/// </summary>		
 		[Parameter] public EventCallback<TItemType> SelectedDataItemChanged { get; set; }
+
+		/// <summary>
+		/// Indicates whether to display footer. Default is true.
+		/// </summary>
 		[Parameter] public bool ShowFooter { get; set; } = true;
+
+		/// <summary>
+		/// Page size.
+		/// </summary>
 		[Parameter] public int PageSize { get; set; } = 0;
+
+		/// <summary>
+		/// Current page index.
+		/// Intended for for data binding.
+		/// </summary>
 		[Parameter] public int CurrentPageIndex { get; set; }
+
+		/// <summary>
+		/// Event fires when selected page changes.
+		/// Intended for for data binding.
+		/// </summary>		
 		[Parameter] public EventCallback<int> CurrentPageIndexChanged { get; set; }
+
+		/// <summary>
+		/// Indicates whether to display button to show all pages. Default is true.
+		/// </summary>
 		[Parameter] public bool PagerShowAllButton { get; set; } = true;
-		[Parameter] public SortingItem<TItemType>[] CurrentSorting { get; set; } // TODO: Vypořádat se s null hodnotou pro binding
-		[Parameter] public EventCallback<SortingItem<TItemType>[]> CurrentSortingChanged { get; set; } // TODO
-		[Parameter] public bool AutoSort { get; set; } = true; // Necháme to jako default? Co bude typičtější? Řazení a stránkování přes API na serveru nebo lokálně?
+
+		/// <summary>
+		/// Current grid sorting.
+		/// </summary>
+		[Parameter] public SortingItem<TItemType>[] CurrentSorting { get; set; }
+
+		/// <summary>
+		/// Event fires when sorting changes.
+		/// </summary>
+		[Parameter] public EventCallback<SortingItem<TItemType>[]> CurrentSortingChanged { get; set; }
+
+		/// <summary>
+		/// When true, automatically sorts the data in <see cref="Items"/> property. Default is true.
+		/// </summary>
+		[Parameter] public bool AutoSort { get; set; } = true; // TODO: Necháme to jako default? Co bude typičtější? Řazení a stránkování přes API na serveru nebo lokálně?
 
 		private List<IHxGridColumn<TItemType>> columnsList;
-		protected CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration; // protected: The field 'HxGrid<TItemType>.columnsListRegistration' is never used
+		private CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration;
 
+		private bool suppressPaging = false;
+		private bool decreasePageIndexAfterRender = false;
 		private bool isDisposed = false;
 
+		/// <summary>
+		/// Constructor.
+		/// </summary>
 		public HxGrid()
 		{
-			CurrentSorting = new SortingItem<TItemType>[0];
 			columnsList = new List<IHxGridColumn<TItemType>>();
 			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItemType>>(columnsList, this.StateHasChanged, () => isDisposed);
 		}
 
+		/// <inheritdoc />
+		protected override async Task OnAfterRenderAsync(bool firstRender)
+		{
+			await base.OnAfterRenderAsync(firstRender);
+			
+			if (decreasePageIndexAfterRender)
+			{
+				decreasePageIndexAfterRender = false;
+				await SetCurrentPageIndexWithEventCallback(CurrentPageIndex - 1);
+				StateHasChanged();
+			}
+		}
+
 		/// <summary>
-		/// Vrací sloupce k vyrenderování.
-		/// Hlavním účelem je doplnění sloupce pro menu k uživatelsky definovaným sloupcům
-		/// </summary>		
+		/// Returns columns to render.
+		/// Main goal of the method is to add ContextMenuGridColumn to the user defined columns.
+		/// </summary>
 		protected List<IHxGridColumn<TItemType>> GetColumnsToRender()
 		{
 			var result = new List<IHxGridColumn<TItemType>>(columnsList);
@@ -59,30 +142,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			return result;
 		}
 
-		private void PagerShowAllButtonClicked()
-		{
-			PageSize = 0; // TODO: implementovat přes pochopitelnější stavové (třeba odvozené) proměnné
-		}
-
-		private async Task SetSorting(IEnumerable<SortingItem<TItemType>> sorting)
-		{
-			CurrentSorting = CurrentSorting.ApplySorting(sorting.ToArray());
-			await CurrentSortingChanged.InvokeAsync(CurrentSorting);
-		}
-
+		/// <summary>
+		/// Applies paging on the source data when possible.
+		/// </summary>
 		protected virtual IEnumerable<TItemType> ApplyPaging(IEnumerable<TItemType> source)
 		{
-			return (PageSize > 0)
+			return ((PageSize > 0) && !suppressPaging)
 				? source.Skip(PageSize * CurrentPageIndex).Take(PageSize)
 				: source;
 		}
 
+		/// <summary>
+		/// Applies sorting on the source data when possible.
+		/// </summary>
 		protected virtual IEnumerable<TItemType> ApplySorting(IEnumerable<TItemType> source)
 		{
-			if ((CurrentSorting.Length == 0) || !AutoSort)
+			if ((CurrentSorting == null) || (CurrentSorting.Length == 0) || !AutoSort)
 			{
+				// no sorting applied
 				return source;
 			}
+
+			Contract.Assert(CurrentSorting.All(item => item.SortExpression != null), "All sorting items must have set SortExpression property.");
 
 			IOrderedEnumerable<TItemType> result = (CurrentSorting[0].SortDirection == SortDirection.Ascending)
 				? source.OrderBy(CurrentSorting[0].SortExpression.Compile())
@@ -98,12 +179,42 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			return result;
 		}
 
-		private async Task SelectDataItem(TItemType newSelectedDataItem)
+		private async Task SetCurrentPageIndexWithEventCallback(int newPageIndex)
 		{
-			SelectedDataItem = newSelectedDataItem;
-			await SelectedDataItemChanged.InvokeAsync(newSelectedDataItem);
+			if (CurrentPageIndex != newPageIndex)
+			{
+				CurrentPageIndex = newPageIndex;
+				await CurrentPageIndexChanged.InvokeAsync(newPageIndex);
+			}
 		}
 
+		private async Task HandleSelectDataItemClick(TItemType newSelectedDataItem)
+		{
+			if (!EqualityComparer<TItemType>.Default.Equals(SelectedDataItem, newSelectedDataItem))
+			{
+				SelectedDataItem = newSelectedDataItem;
+				await SelectedDataItemChanged.InvokeAsync(newSelectedDataItem);
+			}
+		}
+
+		private async Task HandleSortingClick(IEnumerable<SortingItem<TItemType>> sorting)
+		{
+			CurrentSorting = CurrentSorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToArray(); // when cu
+			await CurrentSortingChanged.InvokeAsync(CurrentSorting);
+		}
+
+		private async Task HandlePagerCurrentPageIndexChanged(int newPageIndex)
+		{
+			await SetCurrentPageIndexWithEventCallback(newPageIndex);
+		}
+
+		private async Task HandlePagerShowAllButtonClick()
+		{
+			suppressPaging = true; // TODO: Chceme to dát vědět ven, aby mohl programátor získat nestránkovaná data?
+			await SetCurrentPageIndexWithEventCallback(0);
+		}
+
+		/// <inheritdoc />
 		public void Dispose()
 		{
 			isDisposed = true;
