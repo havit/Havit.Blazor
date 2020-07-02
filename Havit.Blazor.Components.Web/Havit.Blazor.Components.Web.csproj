@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
 	<RazorLangVersion>3.0</RazorLangVersion>
     <NoWarn>1701;1702;SA1134</NoWarn>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <!-- NuGet -->
@@ -17,6 +18,7 @@
 	<PackageReference Include="Havit.Core" Version="2.0.10" />
 	<PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="3.1.5" />
   </ItemGroup>
 
 </Project>

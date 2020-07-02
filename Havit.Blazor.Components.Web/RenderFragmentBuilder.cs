@@ -6,13 +6,22 @@ using System.Text;
 
 namespace Havit.Blazor.Components.Web
 {
+	/// <summary>
+	/// Build render fragments for specific scenarios.
+	/// </summary>
 	public static class RenderFragmentBuilder
 	{
+		/// <summary>
+		/// Returns RenderFragment to render "nothing". Implementation returns null.
+		/// </summary>
 		public static RenderFragment Empty()
 		{
 			return null;
 		}
 
+		/// <summary>
+		/// Returns RenderFragment which renders content and template (it is expected at least one of argument is null).		
+		/// </summary>
 		public static RenderFragment CreateFrom(string content, RenderFragment template)
 		{
 			return (RenderTreeBuilder builder) =>
