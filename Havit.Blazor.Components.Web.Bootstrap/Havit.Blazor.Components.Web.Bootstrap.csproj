@@ -29,19 +29,4 @@
     <ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Resources\ButtonSkins.cs.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ButtonSkins.cs.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\ButtonSkins.cs.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ButtonSkins.cs.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
 </Project>
