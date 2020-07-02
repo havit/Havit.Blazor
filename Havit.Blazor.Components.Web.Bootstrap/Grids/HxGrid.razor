@@ -22,7 +22,7 @@
 			<tr>
 				@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 				{
-					var columnSorting = column.GetSorting().ToArray();
+					var columnSorting = column.GetSorting();
 					bool isCurrentSorting = CurrentSorting?.StartsWith(columnSorting) ?? false;
 					var headerCellTemplate = column.GetHeaderCellTemplate();
 					<td class="@headerCellTemplate.CssClass">

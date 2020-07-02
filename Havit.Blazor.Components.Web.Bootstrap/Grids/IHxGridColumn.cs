@@ -5,11 +5,29 @@ using System.Linq.Expressions;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 {
+	/// <summary>
+	/// Grid column.
+	/// </summary>
 	public interface IHxGridColumn<TItemType>
 	{
-		IEnumerable<SortingItem<TItemType>> GetSorting();
+		/// <summary>
+		/// Sorting of the column.
+		/// </summary>
+		SortingItem<TItemType>[] GetSorting();
+		
+		/// <summary>
+		/// Returns header cell template.
+		/// </summary>
 		CellTemplate GetHeaderCellTemplate();
+
+		/// <summary>
+		/// Returns data cell template for the specific item.
+		/// </summary>
 		CellTemplate GetItemCellTemplate(TItemType item);
+
+		/// <summary>
+		/// Returns footer cell template.
+		/// </summary>
 		CellTemplate GetFooterCellTemplate();
 	}
 }

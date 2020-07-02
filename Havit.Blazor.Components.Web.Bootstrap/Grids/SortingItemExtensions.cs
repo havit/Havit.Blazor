@@ -6,27 +6,37 @@ using System.Text;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 {
-	// TODO: Přesunot do správného namespace
+	/// <summary>
+	/// Sorting extension methods.
+	/// </summary>
 	public static class SortingItemExtensions
 	{
+		/// <summary>
+		/// Applies itemsToMerge items to source items of sorting.
+		/// When source starts with itemsToMerge, sort direction toggles.
+		/// Otherwise itemsToMerges prepends source (and remove possible duplicities).
+		/// </summary>
 		public static SortingItem<T>[] ApplySorting<T>(this SortingItem<T>[] source, SortingItem<T>[] itemsToMerge)
 		{
 			if (!source.Any())
 			{
-				// pokud ve zdroji nic není, vezmeme cílové položky
+				// nothing in source -> take itemsToMerge
 				return itemsToMerge;
 			}
 
 			if (source.StartsWith(itemsToMerge))
 			{
-				// pokud již podle položek řadíme, pak jen otočíme pořadí
+				// source starts with itemsToMerge, toggle sort direction
 				return source.Take(itemsToMerge.Length).ToggleSortDirections().Concat(source.Skip(itemsToMerge.Length)).ToArray();
 			}
 
-			// přidáme položky na začátek, odebereme shodné z pole, pokud existují
+			// add itemsToMerge to the source excluding itemsToMerge
 			return itemsToMerge.Concat(source.Excluding(itemsToMerge)).ToArray();
 		}
 
+		/// <summary>
+		/// Returns true when source sortings starts with itemsToMerge.
+		/// </summary>
 		internal static bool StartsWith<T>(this SortingItem<T>[] source, SortingItem<T>[] itemsToMerge)
 		{
 			if ((source.Length < itemsToMerge.Length) || (itemsToMerge.Length == 0))
@@ -45,20 +55,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			return true;
 		}
 
+		/// <summary>
+		/// Returns source with toggles sort direction.
+		/// </summary>
 		private static IEnumerable<SortingItem<T>> ToggleSortDirections<T>(this IEnumerable<SortingItem<T>> source)
 		{
 			return source.Select(item => item.WithToggledSortDirection());
 		}
 
+		/// <summary>
+		/// Returns source without itemsToMerge.
+		/// </summary>
 		private static IEnumerable<SortingItem<T>> Excluding<T>(this SortingItem<T>[] source, SortingItem<T>[] itemsToMerge)
 		{
 			return source.Where(sourceItem => !itemsToMerge.Any(itemToMerge => itemToMerge.EqualsIgnoringSortDirection(sourceItem)));
 		}
 
-		// TODO: Přesunout do Havit.Collections
-		internal static SortDirection Toggle(this SortDirection sortDirection)
-		{
-			return (SortDirection)(1 - (int)sortDirection);
-		}
 	}
 }

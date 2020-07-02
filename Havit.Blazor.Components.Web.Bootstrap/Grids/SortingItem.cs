@@ -5,8 +5,6 @@ using System.Linq.Expressions;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 {
-	// TODO: Přesunot do správného namespace
-
 	/// <summary>
 	/// Item describes one sorting criteria.
 	/// </summary>
@@ -55,7 +53,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// </summary>
 		public SortingItem<TItemType> WithToggledSortDirection()
 		{
-			return new SortingItem<TItemType>(SortString, SortExpression, SortDirection.Toggle());
+			return new SortingItem<TItemType>(SortString, SortExpression, SortDirection.Reverse());
 		}
 
 		/// <inheritdoc />
