@@ -1,5 +1,6 @@
 ﻿using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,50 +10,62 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 {
+	/// <summary>
+	/// Pager.
+	/// </summary>
 	public partial class HxPager : ComponentBase
 	{
+		/// <summary>
+		/// Total pages of data items.
+		/// </summary>
 		[Parameter] public int TotalPages { get; set; }
+
+		/// <summary>
+		/// Current page index. Zero based.
+		/// Displayed numbers start with 1 which is page index 0.
+		/// </summary>
 		[Parameter] public int CurrentPageIndex { get; set; }
+
+		/// <summary>
+		/// Event raised where page index is changed.
+		/// </summary>
 		[Parameter] public EventCallback<int> CurrentPageIndexChanged { get; set; }
+
+		/// <summary>
+		/// Indicates whether to display "show all" button
+		/// </summary>
 		[Parameter] public bool ShowAllButton { get; set; } = true;
+
+		/// <summary>
+		/// Event raised when user clicks "show all" button.
+		/// </summary>
 		[Parameter] public EventCallback ShowAllButtonClick { get; set; }
 
-		protected int pageFromInclusive;
-		protected int pageToExclusive;
-		protected bool showFirstLast;
+		/// <summary>
+		/// Count of numbers to display. Default value is 10.
+		/// </summary>
+		[Parameter] public int DisplayNumberCount { get; set; } = 10;
 
-		public override async Task SetParametersAsync(ParameterView parameters)
-		{
-			await base.SetParametersAsync(parameters);
-			CalculateRenderFields();
-		}
+		/// <summary>
+		/// Localization service.
+		/// </summary>
+		[Inject] protected IStringLocalizer<HxPager> StringLocalizer { get; set; }
 
-		protected async Task ChangeCurrentPageIndexTo(int newPageIndex)
+		/// <summary>
+		/// Changes current page index and fires event.
+		/// </summary>
+		protected async Task SetCurrentPageIndexTo(int newPageIndex)
 		{
 			Contract.Requires(newPageIndex >= 0, nameof(newPageIndex));
 			Contract.Requires(newPageIndex < TotalPages, nameof(newPageIndex));
 
 			CurrentPageIndex = newPageIndex;
 			await CurrentPageIndexChanged.InvokeAsync(CurrentPageIndex);
-			CalculateRenderFields();
 		}
 
-		private void CalculateRenderFields()
-		{
-			// todo: Možná doplnit logiku a posouvat se dle přiblížení k "hranici", tohle živé posouvání není moc uživatelsky příjemné
-			if (CurrentPageIndex >= 5)
-			{
-				pageToExclusive = Math.Min(TotalPages, CurrentPageIndex + 5);
-				pageFromInclusive = Math.Max(0, pageToExclusive - 10);
-			}
-			else
-			{
-				pageToExclusive = Math.Min(TotalPages, 10);
-				pageFromInclusive = 0;
-			}
-			showFirstLast = true; // always true
-		}
-
+		/// <summary>
+		/// Handles "show all" button click.
+		/// </summary>
 		private async Task HandleShowAllButtonClick()
 		{
 			await ShowAllButtonClick.InvokeAsync(null);
