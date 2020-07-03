@@ -32,16 +32,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		[Parameter] public EventCallback<int> CurrentPageIndexChanged { get; set; }
 
 		/// <summary>
-		/// Indicates whether to display "show all" button
-		/// </summary>
-		[Parameter] public bool ShowAllButton { get; set; } = true;
-
-		/// <summary>
-		/// Event raised when user clicks "show all" button.
-		/// </summary>
-		[Parameter] public EventCallback ShowAllButtonClick { get; set; }
-
-		/// <summary>
 		/// Count of numbers to display. Default value is 10.
 		/// </summary>
 		[Parameter] public int DisplayNumberCount { get; set; } = 10;
@@ -61,14 +51,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 			CurrentPageIndex = newPageIndex;
 			await CurrentPageIndexChanged.InvokeAsync(CurrentPageIndex);
-		}
-
-		/// <summary>
-		/// Handles "show all" button click.
-		/// </summary>
-		private async Task HandleShowAllButtonClick()
-		{
-			await ShowAllButtonClick.InvokeAsync(null);
 		}
 	}
 }

@@ -73,14 +73,14 @@
 		<tbody>
 			@foreach (TItemType item in itemsToRender)
 			{
-							 
-			<tr role="button" @onclick="async () => await HandleSelectDataItemClick(item)" class="@(((item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
+				<tr role="button" @onclick="async () => await HandleSelectDataItemClick(item)" class="@(((item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
 				@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 				{
 					CellTemplate cellTemplate = column.GetItemCellTemplate(item);
 					<td class="@cellTemplate.CssClass">@cellTemplate.Template</td>
+					@*<td onclick="if ((event.target.nodeName == 'A') || (event.target.nodeName == 'BUTTON') || (event.target.nodeName == 'SUBMIT') || event.target.hasAttribute('href')) { event.stopPropagation(); }" class="@cellTemplate.CssClass">@cellTemplate.Template</td>*@
 				}
-			</tr>
+				</tr>
 			}
 		</tbody>
 		@if (ShowFooter)
@@ -108,9 +108,7 @@
 		{
 			<HxPager TotalPages="@totalPages"
 					 CurrentPageIndex="@CurrentPageIndex"
-					 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged" 
-					 ShowAllButton="@PagerShowAllButton"
-					 ShowAllButtonClick="@HandlePagerShowAllButtonClick" />
+					 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged" />
 		}
 	}
 }

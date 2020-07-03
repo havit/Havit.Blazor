@@ -12,15 +12,19 @@ namespace Havit.Blazor.Components.Web
 		private readonly ICollection<TItem> collection;
 		private readonly Action stateHasChangedAction;
 		private readonly Func<bool> isOwnerDisposedAction;
+		private readonly Action<TItem> itemAddedCallback;
+		private readonly Action<TItem> itemRemovedCallback;
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public CollectionRegistration(ICollection<TItem> collection, Action stateHasChangedAction, Func<bool> isOwnerDisposedAction)
+		public CollectionRegistration(ICollection<TItem> collection, Action stateHasChangedAction, Func<bool> isOwnerDisposedAction, Action<TItem> itemAddedCallback = null, Action<TItem> itemRemovedCallback = null)
 		{
 			this.collection = collection;
 			this.stateHasChangedAction = stateHasChangedAction;
 			this.isOwnerDisposedAction = isOwnerDisposedAction;
+			this.itemAddedCallback = itemAddedCallback;
+			this.itemRemovedCallback = itemRemovedCallback;
 		}
 
 		/// <summary>
@@ -29,6 +33,7 @@ namespace Havit.Blazor.Components.Web
 		public void Register(TItem item)
 		{
 			collection.Add(item);
+			itemAddedCallback?.Invoke(item);
 			stateHasChangedAction();
 		}
 
@@ -38,6 +43,7 @@ namespace Havit.Blazor.Components.Web
 		public void Unregister(TItem item)
 		{
 			collection.Remove(item);
+			itemRemovedCallback?.Invoke(item);
 			if (!isOwnerDisposedAction())
 			{
 #if DEBUG

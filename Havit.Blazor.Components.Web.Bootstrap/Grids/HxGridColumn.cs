@@ -35,7 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// <summary>
 		/// Returns text for the item.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> ItemText { get; set; } // TODO: Na rozdíl od běžných vlastností Text tato není typu string, Func<TItemType, string>!
+		[Parameter] public Func<TItemType, string> ItemTextFunc { get; set; }
 
 		/// <summary>
 		/// Returns template for the item.
@@ -50,7 +50,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// <summary>
 		/// Returns item css class for the specific date item.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> ItemCssClassTemplate { get; set; } // TODO: Pojmenovávací peklo, všude je to jinak, tohle není Template, není to RenderFragment
+		[Parameter] public Func<TItemType, string> ItemCssClassFunc { get; set; }
 		#endregion
 
 		#region Footer properties
@@ -93,12 +93,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// <inheritdoc />
 		protected override CellTemplate GetItemCellTemplate(TItemType item)
 		{
-			string cssClass = (ItemCssClassTemplate == null)
-				? ItemCssClass // nemáme ItemCssClassTemplate, použijeme ItemCssClass, i kdyby to bylo null
-				: String.IsNullOrEmpty(ItemCssClass) // máme ItemCssClassTemplate
-					? ItemCssClassTemplate(item) // a pokud nemáme ItemCssClass, tak použijeme hodnotu z template
-					: ItemCssClass + " " + ItemCssClassTemplate(item); // jinak poskládáme ItemCssClass a ItemCssClassTemplate za sebe
-			return new CellTemplate(RenderFragmentBuilder.CreateFrom(ItemText?.Invoke(item), ItemTemplate?.Invoke(item)), cssClass);
+			string cssClass = CssClassHelper.Combine(ItemCssClass, ItemCssClassFunc?.Invoke(item));
+			return new CellTemplate(RenderFragmentBuilder.CreateFrom(ItemTextFunc?.Invoke(item), ItemTemplate?.Invoke(item)), cssClass);
 		}
 
 		/// <inheritdoc />

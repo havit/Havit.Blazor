@@ -112,7 +112,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		public HxGrid()
 		{
 			columnsList = new List<IHxGridColumn<TItemType>>();
-			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItemType>>(columnsList, this.StateHasChanged, () => isDisposed);
+			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItemType>>(columnsList, this.StateHasChanged, () => isDisposed, HandleColumnAdded);
+		}
+
+		private void HandleColumnAdded(IHxGridColumn<TItemType> column)
+		{
+			if (AutoSort)
+			{
+				Contract.Assert(column.GetSorting().All(item => item.SortExpression != null), "For AutoSort all sorting items must have SortExpression set.");
+			}
 		}
 
 		/// <inheritdoc />
@@ -120,6 +128,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		{
 			await base.OnAfterRenderAsync(firstRender);
 			
+			// TODO: Přesunout nastavení před render, parametry máme už dříve.
 			if (decreasePageIndexAfterRender)
 			{
 				decreasePageIndexAfterRender = false;
