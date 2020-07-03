@@ -8,3 +8,13 @@ window.hxBootstrapAutosuggest_destroyDropdown = (selector) => {
 	$(selector).dropdown("hide");
 	$(selector).dropdown("dispose");
 };
+
+window.hxGrid_cellClick = (event) => {
+	if ((event.target.nodeName === 'A')
+		|| (event.target.nodeName === 'BUTTON')
+		|| (event.target.nodeName === 'SUBMIT')
+		|| event.target.hasAttribute('href'))
+	{
+		event.stopPropagation();
+	}
+}

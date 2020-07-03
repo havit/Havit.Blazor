@@ -12,8 +12,6 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 {
 	// Jak pohodlně definovat Default SortExpression? Asi na sloupci. Více sloupců? V renderu? Jak s živnotním cyklem? Načíst data, render, sorting, načíst data?
-	// TODO: Ověřit, zda funguje dobře výběr řádku, pokud obsahuje odkaz, apod. (tj. odkaz nevybírá) -> Vybírá se, což nechceme
-	// TODO: Check all items has sort expression for AutoSort before sorting.
 
 	/// <summary>
 	/// Grid to display tabular data from data source.
@@ -215,12 +213,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		private async Task HandlePagerCurrentPageIndexChanged(int newPageIndex)
 		{
 			await SetCurrentPageIndexWithEventCallback(newPageIndex);
-		}
-
-		private async Task HandlePagerShowAllButtonClick()
-		{
-			suppressPaging = true; // TODO: Chceme to dát vědět ven, aby mohl programátor získat nestránkovaná data?
-			await SetCurrentPageIndexWithEventCallback(0);
 		}
 
 		/// <inheritdoc />
