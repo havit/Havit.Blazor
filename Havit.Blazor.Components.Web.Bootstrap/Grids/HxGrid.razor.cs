@@ -100,7 +100,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		private List<IHxGridColumn<TItemType>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration;
 
-		private bool suppressPaging = false;
 		private bool decreasePageIndexAfterRender = false;
 		private bool isDisposed = false;
 
@@ -154,7 +153,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// </summary>
 		protected virtual IEnumerable<TItemType> ApplyPaging(IEnumerable<TItemType> source)
 		{
-			return ((PageSize > 0) && !suppressPaging)
+			return (PageSize > 0)
 				? source.Skip(PageSize * CurrentPageIndex).Take(PageSize)
 				: source;
 		}

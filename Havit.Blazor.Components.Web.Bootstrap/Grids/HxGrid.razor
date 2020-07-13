@@ -100,7 +100,7 @@
 
 	</table>
 
-	@if ((PageSize > 0) && !suppressPaging)
+	@if (PageSize > 0)
 	{
 		int totalPages = (Items.Count() + PageSize - 1) / PageSize;
 		if (totalPages > 1)
