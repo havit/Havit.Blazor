@@ -11,6 +11,7 @@ window.hxBootstrapAutosuggest_destroyDropdown = (selector) => {
 
 window.hxGrid_cellClick = (event) => {
 	if ((event.target.nodeName === 'A')
+		|| (event.target.nodeName === 'INPUT')
 		|| (event.target.nodeName === 'BUTTON')
 		|| (event.target.nodeName === 'SUBMIT')
 		|| event.target.hasAttribute('href'))
