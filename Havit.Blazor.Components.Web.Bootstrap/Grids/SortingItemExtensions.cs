@@ -1,4 +1,5 @@
 ﻿using Havit.Collections;
+using Havit.Diagnostics.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,5 +72,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			return source.Where(sourceItem => !itemsToMerge.Any(itemToMerge => itemToMerge.EqualsIgnoringSortDirection(sourceItem)));
 		}
 
+		/// <summary>
+		/// Creates GenericPropertyComparer for the sorting by <see cref="SortingItem{TItemType}.SortString"/> and <see cref="SortingItem{TItemType}.SortDirection"/> properties.
+		/// </summary>
+		public static GenericPropertyComparer<T> ToGenericPropertyComparer<T>(this SortingItem<T>[] source)
+		{
+			Contract.Requires<ArgumentNullException>(source != null, nameof(source));
+
+			return new GenericPropertyComparer<T>(source.ToSortItems());
+		}
+
+		/// <summary>
+		/// Converts <see cref="SortingItem{TItemType}"/> to <see cref="SortItem"/>.
+		/// </summary>
+		private static SortItem[] ToSortItems<T>(this SortingItem<T>[] source)
+		{
+			Contract.Requires<ArgumentNullException>(source != null, nameof(source));
+
+			return source.Select(item => new SortItem(item.SortString, item.SortDirection)).ToArray();
+		}
 	}
 }

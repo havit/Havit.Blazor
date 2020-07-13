@@ -85,6 +85,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// Sort direction.
 		/// </summary>
 		[Parameter] public SortDirection SortDirection { get; set; } = SortDirection.Ascending;
+
+		/// <summary>
+		/// Indicates the sorting on the column is default (primary) on the grid.
+		/// </summary>
+		[Parameter] public bool IsDefaultSort { get; set; } = false;
 		#endregion
 
 		/// <inheritdoc />
@@ -108,7 +113,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 				yield break;
 			}
 
-			yield return new SortingItem<TItemType>(this.SortString, this.SortExpression, this.SortDirection);
+			yield return new SortingItem<TItemType>(this.SortString, this.SortExpression, this.SortDirection, sortDefaultOrder: IsDefaultSort ? 0 : (int?)null);
 		}
 	}
 }

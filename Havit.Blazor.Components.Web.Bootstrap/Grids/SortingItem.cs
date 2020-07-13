@@ -26,15 +26,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		public SortDirection SortDirection { get; }
 
 		/// <summary>
+		/// Not-null for default sort item.
+		/// For multiple sort items, set value in ascendant order.
+		/// </summary>
+		/// <remarks>
+		/// Current implementation of grid columns uses only null and zero values.
+		/// </remarks>
+		/// <example>
+		/// To set default sorting by LastName, then FirstName use value 1 for LastName and value 2 for FirstName).
+		/// </example>
+		public int? SortDefaultOrder { get; }
+
+		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public SortingItem(string sortString,  Expression<Func<TItemType, IComparable>> sortExpression, SortDirection sortDirection)
+		public SortingItem(string sortString, Expression<Func<TItemType, IComparable>> sortExpression, SortDirection sortDirection, int? sortDefaultOrder)
 		{
 			Contract.Requires((sortString != null) || (sortExpression != null));
 
 			SortString = sortString;
 			SortExpression = sortExpression;
 			SortDirection = sortDirection;
+			SortDefaultOrder = sortDefaultOrder;
 		}
 
 		/// <summary>
@@ -53,7 +66,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// </summary>
 		public SortingItem<TItemType> WithToggledSortDirection()
 		{
-			return new SortingItem<TItemType>(SortString, SortExpression, SortDirection.Reverse());
+			return new SortingItem<TItemType>(SortString, SortExpression, SortDirection.Reverse(), SortDefaultOrder);
 		}
 
 		/// <inheritdoc />

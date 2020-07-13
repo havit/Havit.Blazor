@@ -5,7 +5,8 @@
 	@Columns
 </CascadingValue>
 
-@{
+@if (Items != null)
+{
 	List<IHxGridColumn<TItemType>> columnsToRender = GetColumnsToRender();
 	TItemType[] itemsToRender = ApplyPaging(ApplySorting(Items)).ToArray();
 
@@ -13,101 +14,101 @@
 	{
 		decreasePageIndexAfterRender = true;
 	}
-}
 
-@if (columnsToRender.Any())
-{
-	<table class="table grid table-responsible">
-		<thead>
-			<tr>
-				@foreach (IHxGridColumn<TItemType> column in columnsToRender)
-				{
-					var columnSorting = column.GetSorting();
-					bool isCurrentSorting = CurrentSorting?.StartsWith(columnSorting) ?? false;
-					var headerCellTemplate = column.GetHeaderCellTemplate();
-					<td class="@headerCellTemplate.CssClass">
-						@headerCellTemplate.Template
+	if (columnsToRender.Any())
+	{
+		<table class="table grid table-responsible">
+			<thead>
+				<tr>
+					@foreach (IHxGridColumn<TItemType> column in columnsToRender)
+					{
+						var columnSorting = column.GetSorting();
+						bool isCurrentSorting = CurrentSorting?.StartsWith(columnSorting) ?? false;
+						var headerCellTemplate = column.GetHeaderCellTemplate();
+						<td class="@headerCellTemplate.CssClass">
+							@headerCellTemplate.Template
 
-						@if (isCurrentSorting)
-						{
-							@if (CurrentSorting[0].SortDirection == Collections.SortDirection.Ascending)
+							@if (isCurrentSorting)
 							{
-								<svg class="bi bi-arrow-up text-primary" width=".9em" height=".9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-									<path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
-									<path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"/>
-								</svg>
-							}
-							else
-							{
-								<svg class="bi bi-arrow-down text-primary" width=".9em" height=".9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-									<path fill-rule="evenodd" d="M4.646 9.646a.5.5 0 0 1 .708 0L8 12.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"/>
-									<path fill-rule="evenodd" d="M8 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z"/>
-								</svg>
-							}
-						}
-
-						@if (columnSorting.Any())
-						{
-							<a @onclick="async () => await HandleSortingClick(columnSorting)" role="button" class="text-muted">
-								@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Ascending))
-								   || (isCurrentSorting && (CurrentSorting[0].SortDirection == Collections.SortDirection.Descending)))
+								@if (CurrentSorting[0].SortDirection == Collections.SortDirection.Ascending)
 								{
-									<svg class="bi bi-arrow-up" width=".9em" height=".9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<svg class="bi bi-arrow-up text-primary" width=".9em" height=".9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 										<path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
 										<path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"/>
 									</svg>
 								}
 								else
 								{
-									<svg class="bi bi-arrow-down" width=".9em" height=".9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<svg class="bi bi-arrow-down text-primary" width=".9em" height=".9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 										<path fill-rule="evenodd" d="M4.646 9.646a.5.5 0 0 1 .708 0L8 12.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"/>
 										<path fill-rule="evenodd" d="M8 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z"/>
 									</svg>
 								}
-							</a>
-						}
-					</td>
-				}
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (TItemType item in itemsToRender)
-			{
-				<tr role="button" @onclick="async () => await HandleSelectDataItemClick(item)" class="@(((item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
-				@foreach (IHxGridColumn<TItemType> column in columnsToRender)
-				{
-					CellTemplate cellTemplate = column.GetItemCellTemplate(item);
-					<td onclick="hxGrid_cellClick(event);" class="@cellTemplate.CssClass">@cellTemplate.Template</td>					
-				}
+							}
+
+							@if (columnSorting.Any())
+							{
+								<a @onclick="async () => await HandleSortingClick(columnSorting)" role="button" class="text-muted">
+									@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Ascending))
+									   || (isCurrentSorting && (CurrentSorting[0].SortDirection == Collections.SortDirection.Descending)))
+									{
+										<svg class="bi bi-arrow-up" width=".9em" height=".9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
+											<path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"/>
+										</svg>
+									}
+									else
+									{
+										<svg class="bi bi-arrow-down" width=".9em" height=".9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" d="M4.646 9.646a.5.5 0 0 1 .708 0L8 12.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"/>
+											<path fill-rule="evenodd" d="M8 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z"/>
+										</svg>
+									}
+								</a>
+							}
+						</td>
+					}
 				</tr>
-			}
-		</tbody>
-		@if (ShowFooter)
-		{
-			CellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate()).ToArray();
-			if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null))
-			{
-				<tfoot>
-					<tr>
-						@foreach (CellTemplate footerCellTemplate in footerTemplates)
-						{
-							<td class="@footerCellTemplate.CssClass">@footerCellTemplate.Template</td>
-						}
+			</thead>
+			<tbody>
+				@foreach (TItemType item in itemsToRender)
+				{
+					<tr role="button" @onclick="async () => await HandleSelectDataItemClick(item)" class="@(((item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
+					@foreach (IHxGridColumn<TItemType> column in columnsToRender)
+					{
+						CellTemplate cellTemplate = column.GetItemCellTemplate(item);
+						<td onclick="hxGrid_cellClick(event);" class="@cellTemplate.CssClass">@cellTemplate.Template</td>					
+					}
 					</tr>
-				</tfoot>
+				}
+			</tbody>
+			@if (ShowFooter)
+			{
+				CellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate()).ToArray();
+				if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null))
+				{
+					<tfoot>
+						<tr>
+							@foreach (CellTemplate footerCellTemplate in footerTemplates)
+							{
+								<td class="@footerCellTemplate.CssClass">@footerCellTemplate.Template</td>
+							}
+						</tr>
+					</tfoot>
+				}
 			}
-		}
 
-	</table>
+		</table>
 
-	@if (PageSize > 0)
-	{
-		int totalPages = (Items.Count() + PageSize - 1) / PageSize;
-		if (totalPages > 1)
+		@if (PageSize > 0)
 		{
-			<HxPager TotalPages="@totalPages"
-					 CurrentPageIndex="@CurrentPageIndex"
-					 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged" />
+			int totalPages = ((TotalItemsCount ?? Items.Count()) + PageSize - 1) / PageSize;
+			if (totalPages > 1)
+			{
+				<HxPager TotalPages="@totalPages"
+						 CurrentPageIndex="@CurrentPageIndex"
+						 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged" />
+			}
 		}
 	}
 }

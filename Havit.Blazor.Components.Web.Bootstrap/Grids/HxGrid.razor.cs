@@ -78,9 +78,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		[Parameter] public EventCallback<int> CurrentPageIndexChanged { get; set; }
 
 		/// <summary>
-		/// Indicates whether to display button to show all pages. Default is true.
+		/// Indicates total number of items for server-side paging.
 		/// </summary>
-		[Parameter] public bool PagerShowAllButton { get; set; } = true;
+		[Parameter] public int? TotalItemsCount { get; set; }
 
 		/// <summary>
 		/// Current grid sorting.
@@ -96,6 +96,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// When true, automatically sorts the data in <see cref="Items"/> property. Default is true.
 		/// </summary>
 		[Parameter] public bool AutoSort { get; set; } = true; // TODO: Necháme to jako default? Co bude typičtější? Řazení a stránkování přes API na serveru nebo lokálně?
+
+		/// <summary>
+		/// Event fires when data reload is required. It is when
+		/// <list type="bullet">
+		/// <item>Current sorting is changed (includes initial set of default sorting).</item>
+		/// <item>Current page index is changes.</item>
+		/// </list>
+		/// </summary>
+		[Parameter] public EventCallback<GridUserState<TItemType>> DataReloadRequired { get; set; }
 
 		private List<IHxGridColumn<TItemType>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration;
@@ -124,14 +133,30 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
 			await base.OnAfterRenderAsync(firstRender);
-			
-			// TODO: Přesunout nastavení před render, parametry máme už dříve.
+
+			// when no sorting is set, use default
+			if (firstRender && (CurrentSorting == null))
+			{
+				SortingItem<TItemType>[] defaultSorting = GetDefaultSorting();
+				if (defaultSorting != null)
+				{
+					await SetCurrentSortingWithEventCallback(defaultSorting);
+				}
+			}
+
+			if (firstRender && (this.Items == null))
+			{
+				await DataReloadRequired.InvokeAsync(GetCurrentUserState());
+			}
+
+			// when rendering page with no data, navigate one page back
 			if (decreasePageIndexAfterRender)
 			{
 				decreasePageIndexAfterRender = false;
 				await SetCurrentPageIndexWithEventCallback(CurrentPageIndex - 1);
-				StateHasChanged();
 			}
+
+			// No StateHasChanged required - all reactions are performed by parameter changes which already causes re-rendering.
 		}
 
 		/// <summary>
@@ -149,11 +174,35 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		}
 
 		/// <summary>
+		/// Returns default sorting and checks the default sorting settings.
+		/// Default sorting is required when at least one column has specified any sorting.
+		/// Default sorting is not required when there is no sorting specified on columns.
+		/// </summary>
+		private SortingItem<TItemType>[] GetDefaultSorting()
+		{
+			var columnsSortings = GetColumnsToRender().SelectMany(item => item.GetSorting()).ToArray();
+			
+			if (columnsSortings.Any())
+			{
+				var defaultSorting = columnsSortings
+					.Where(item => item.SortDefaultOrder != null)
+					.OrderBy(item => item.SortDefaultOrder.Value)
+					.ToArray();
+
+				Contract.Assert(defaultSorting.Length > 0, "There should be specified default sorting.");
+
+				return defaultSorting;
+			}
+
+			return null;
+		}
+
+		/// <summary>
 		/// Applies paging on the source data when possible.
 		/// </summary>
 		protected virtual IEnumerable<TItemType> ApplyPaging(IEnumerable<TItemType> source)
 		{
-			return (PageSize > 0)
+			return ((PageSize > 0) && (TotalItemsCount == null))
 				? source.Skip(PageSize * CurrentPageIndex).Take(PageSize)
 				: source;
 		}
@@ -185,12 +234,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			return result;
 		}
 
+		private async Task SetCurrentSortingWithEventCallback(SortingItem<TItemType>[] newSorting)
+		{
+			CurrentSorting = newSorting;
+			await CurrentSortingChanged.InvokeAsync(newSorting);
+
+			if (!AutoSort)
+			{
+				await DataReloadRequired.InvokeAsync(GetCurrentUserState());
+			}
+		}
+
 		private async Task SetCurrentPageIndexWithEventCallback(int newPageIndex)
 		{
 			if (CurrentPageIndex != newPageIndex)
 			{
 				CurrentPageIndex = newPageIndex;
 				await CurrentPageIndexChanged.InvokeAsync(newPageIndex);
+
+				if (TotalItemsCount != null)
+				{
+					await DataReloadRequired.InvokeAsync(GetCurrentUserState());
+				}
 			}
 		}
 
@@ -205,13 +270,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		private async Task HandleSortingClick(IEnumerable<SortingItem<TItemType>> sorting)
 		{
-			CurrentSorting = CurrentSorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToArray(); // when cu
-			await CurrentSortingChanged.InvokeAsync(CurrentSorting);
+			await SetCurrentSortingWithEventCallback(CurrentSorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToArray()); // when current sorting is null, use new sorting
 		}
 
 		private async Task HandlePagerCurrentPageIndexChanged(int newPageIndex)
 		{
 			await SetCurrentPageIndexWithEventCallback(newPageIndex);
+		}
+
+		private GridUserState<TItemType> GetCurrentUserState()
+		{
+			return new GridUserState<TItemType>(this.CurrentPageIndex, this.CurrentSorting);
 		}
 
 		/// <inheritdoc />
