@@ -1,0 +1,44 @@
+﻿<CascadingValue Value="@tabsListRegistration" Name="@TabsRegistrationCascadingValueName">
+	@ChildContent
+</CascadingValue>
+
+<ul class="nav nav-tabs">
+	@foreach (HxTab tab in tabsList)
+	{
+		<UpdatedContentRenderer Component="@tab">
+			@if (tab.IsVisible)
+			{
+				<li class="nav-item">
+					<a class="@CssClassHelper.Combine("nav-link", tab.IsActive ? "active" : "", tab.IsEnabledEffective ? "" : "disabled")"
+					   @onclick="async () => await HandleClick(tab)">
+						@tab.Title
+						@tab.TitleTemplate
+					</a>
+				</li>
+			}
+		</UpdatedContentRenderer>
+	}
+</ul>
+
+<div class="tab-content">
+	@foreach (HxTab tab in tabsList)
+	{
+		<UpdatedContentRenderer Component="@tab">
+			@if (tab.IsVisible)
+			{
+				<div class="@CssClassHelper.Combine("tab-pane", tab.IsActive ? "active" : "")">
+					@tab.Content
+				</div>
+			}
+		</UpdatedContentRenderer>
+	}
+</div>
+	@*<div>
+		@{
+			HxTab activeTab = tabsList.FirstOrDefault(tab => tab.IsActive);
+			if (activeTab != null)
+			{
+				<text>@activeTab.Content</text>
+			}
+		}
+	</div>*@

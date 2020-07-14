@@ -1,4 +1,5 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Chips;
+using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.RenderTree;
@@ -29,8 +30,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 		[Parameter]
 		public RenderFragment ChipTemplate { get; set; } // nebo jinak, uvidíme, jak s remove callbackem		
 
-		[Parameter]
-		public IHxFilter.RenderedEventHandler Rendered { get; set; }
+		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
 
 		protected override void OnInitialized()
 		{
@@ -72,7 +72,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 		{
 			base.OnAfterRender(firstRender);
 
-			Rendered?.Invoke(this, firstRender);
+			((IRenderNotificationComponent)this).Rendered?.Invoke(this, firstRender);
 		}
 	}
 }

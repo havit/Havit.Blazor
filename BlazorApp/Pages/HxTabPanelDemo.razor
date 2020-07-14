@@ -1,0 +1,46 @@
+﻿@page "/HxTabPanelDemo"
+
+<h1>HxTabPanel</h1>
+
+<HxTabPanel>
+	<HxTab Title="First">
+		<Content>This is the first tab.</Content>
+	</HxTab>
+	<HxTab @bind-IsActive="@secondTabIsActive">
+		<TitleTemplate>@secondTabTitle</TitleTemplate>
+		<Content>This is the second tab with title "@secondTabTitle".</Content>
+	</HxTab>
+	<HxTab IsEnabled="false" IsVisible="@thirdTabVisible">
+		<TitleTemplate>Disabled</TitleTemplate>
+		<Content>This is the disabled tab.</Content>
+	</HxTab>
+</HxTabPanel>
+
+<p>3rd tab visible: @thirdTabVisible</p>
+
+<HxButton Text="Activate 2nd tab" IsEnabled="@(!secondTabIsActive)" OnClick="HandleActivateSecondTabButtonClick" />
+<HxButton Text="Update 2nd tab title" OnClick="HandleUpdateSecondTabTitleButtonClick" />
+<HxButton Text="Toggle 3rd tab visibility" OnClick="HandleToggleThirdTabVisibilityButtonClick" />
+
+@code{
+	private bool secondTabIsActive = false;
+	private string secondTabTitle = "Second";
+	private bool thirdTabVisible = true;
+
+	private void HandleActivateSecondTabButtonClick()
+	{
+		secondTabIsActive = true;
+	}
+
+	private void HandleUpdateSecondTabTitleButtonClick()
+	{
+		i += 1;
+		secondTabTitle = $"Second ({i})";
+	}
+	int i = 0;
+
+	private void HandleToggleThirdTabVisibilityButtonClick()
+	{
+		thirdTabVisible = !thirdTabVisible;
+	}
+}

@@ -4,15 +4,16 @@ using System.Diagnostics;
 using System.Text;
 using Microsoft.AspNetCore.Components;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Filters
+namespace Havit.Blazor.Components.Web.Bootstrap.Infrastructure
 {
-	public partial class HxFilterView_RenderUpdatedContent : ComponentBase, IDisposable
+	// TODO: Naming!
+	public partial class UpdatedContentRenderer : ComponentBase, IDisposable
 	{
 		[Parameter]
-		public IHxFilter Filter { get; set; }
+		public IRenderNotificationComponent Component { get; set; }
 
 		[Parameter]
-		public RenderFragment Content { get; set; }
+		public RenderFragment ChildContent { get; set; }
 
 		private Action detachAction;
 
@@ -21,17 +22,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 			base.OnParametersSet();
 
 			DetachIfPossible();
-			if (Filter != null)
+			if (Component != null)
 			{
-				var filter = Filter;
-				filter.Rendered += FilterRenderedHandler;
-				detachAction = () => { filter.Rendered -= FilterRenderedHandler; };
+				var component = Component;
+				component.Rendered += FilterRenderedHandler;
+				detachAction = () => { component.Rendered -= FilterRenderedHandler; };
 			}
 		}
 
-		private void FilterRenderedHandler(IHxFilter sender, bool firstRender)
+		private void FilterRenderedHandler(ComponentBase sender, bool firstRender)
 		{
-			Debug.Assert(sender == Filter);
+			Debug.Assert(sender == Component);
 
 			if (!firstRender)
 			{
