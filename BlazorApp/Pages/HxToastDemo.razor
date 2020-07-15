@@ -1,0 +1,32 @@
+﻿@page "/HxToastDemo"
+
+<h1>HxToast</h1>
+
+@if (isVisible)
+{
+	<HxToast HeaderText="Confirmation">
+		<ContentTemplate>
+			Hi! All messages has been deleted and cannot be restored.
+		</ContentTemplate>
+	</HxToast>
+
+	<HxToast AutohideDelayMs="5000">
+		<ContentTemplate>
+			This message should disappear.
+			Close button should be here.
+		</ContentTemplate>
+	</HxToast>
+
+	<HxToast ShowCloseButton="false">
+		<ContentTemplate>
+			No close button here.
+		</ContentTemplate>
+	</HxToast>
+
+}
+
+<HxButton Text="Toggle" OnClick="() => { isVisible = !isVisible; }" />
+
+@code{
+	private bool isVisible = true;
+}

@@ -19,3 +19,7 @@ window.hxGrid_cellClick = (event) => {
 		event.stopPropagation();
 	}
 }
+
+window.hxToast_show = (element) => {
+	new bootstrap.Toast(element).show();
+}
