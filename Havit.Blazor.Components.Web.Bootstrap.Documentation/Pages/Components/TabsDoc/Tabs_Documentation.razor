@@ -1,0 +1,32 @@
+﻿@page "/components/tabs"
+
+<h1>Tabs (@nameof(HxTabPanel), @nameof(HxTab))</h1>
+
+<p class="lead">
+	Tabs.
+</p>
+
+<p>Use @nameof(HxTabPanel) as a container for @nameof(HxTab) components.</p>
+
+<h3>@nameof(HxTab) properties</h3>
+
+<ul>
+	<li>
+		<strong>@nameof(HxTab.Title), @nameof(HxTab.TitleTemplate), @nameof(HxTab.Content)</strong><br />
+		Title and content of the tab.
+	</li>
+	<li>
+		<strong>@nameof(HxTab.IsInitiallyActive)</strong><br />
+		Set true to just one tab which should be active by default. Changing property value has no effect.
+		If no tab is active by default, first enabled &amp; visible tab is activated.
+	</li>
+	<li>
+		<strong>@nameof(HxTab.IsCurrentlyActive), @nameof(HxTab.IsCurrentlyActiveChanged)</strong><br />
+		Use to dynamically set active tab and receive change of active tab.
+		When tab is activated, currently active tab is automatically deactivated.
+	</li>
+	<li><strong>@nameof(HxTab.IsEnabled), @nameof(HxTab.IsVisible)</strong></li>
+</ul>
+
+<Demo Title="Tabs with IsInitiallyActive" Type="typeof(Tabs_Demo_IsInitiallyActive)" />
+<Demo Title="Tabs with IsCurrentlyActive" Type="typeof(Tabs_Demo_IsCurrentlyActive)" />

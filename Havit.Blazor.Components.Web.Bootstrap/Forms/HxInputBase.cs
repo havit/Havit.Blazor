@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
 using Havit.Blazor.Components.Web.Forms;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -21,17 +22,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 	/// Adds support for rendering bootstrap based input with validator.
 	/// See also https://v5.getbootstrap.com/docs/5.0/forms/overview/.
 	/// </summary>
-	public abstract class HxInputBase<TValue> : InputBase<TValue>
+	public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledComponent
 	{
 		/// <summary>
 		/// Css class used for invalid input.
 		/// </summary>
 		public const string InvalidCssClass = "is-invalid";
 
-		/// <summary>
-		/// Form state.
-		/// </summary>
-		[CascadingParameter] protected FormState FormState { get; set; }
+		/// <inheritdoc />
+		[CascadingParameter] public FormState FormState { get; set; }
 
 		/// <summary>
 		/// Label to render before input (for checkbox after input).		
@@ -68,17 +67,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		/// </summary>
 		[Parameter] public bool ShowValidationMessage { get; set; } = true;
 
-		/// <summary>
-		/// When null (default), the IsEnabled value is received from cascading FormState.
-		/// When value is false, input is rendered as disabled.
-		/// To set multiple controls as disabled use <seealso cref="HxFormState" />.
-		/// </summary>
+		/// <inheritdoc />
 		[Parameter] public bool? IsEnabled { get; set; }
-
-		/// <summary>
-		/// Effective value of IsEnabled. When IsEnabled is not set, receives value from FormState or defaults to true.
-		/// </summary>
-		protected bool IsEnabledEffective => IsEnabled ?? FormState?.IsEnabled ?? true;
 
 		/// <summary>
 		/// Css class to be rendered with the wrapping div.
@@ -242,7 +232,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			builder.AddAttribute(2, "id", InputId);
 			builder.AddAttribute(3, "type", typeValue);
 			builder.AddAttribute(4, "class", GetInputCssClassToRender());
-			builder.AddAttribute(5, "disabled", !IsEnabledEffective);
+			builder.AddAttribute(5, "disabled", !this.IsEnabledEffective());
 		}
 
 		/// <summary>

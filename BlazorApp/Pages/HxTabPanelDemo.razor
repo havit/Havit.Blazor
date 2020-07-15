@@ -6,7 +6,7 @@
 	<HxTab Title="First">
 		<Content>This is the first tab.</Content>
 	</HxTab>
-	<HxTab @bind-IsActive="@secondTabIsActive">
+	<HxTab IsInitiallyActive="true" @bind-IsCurrentlyActive="@secondTabIsActive">
 		<TitleTemplate>@secondTabTitle</TitleTemplate>
 		<Content>This is the second tab with title "@secondTabTitle".</Content>
 	</HxTab>
@@ -16,6 +16,7 @@
 	</HxTab>
 </HxTabPanel>
 
+<p>2nd tab is active: @secondTabIsActive</p>
 <p>3rd tab visible: @thirdTabVisible</p>
 
 <HxButton Text="Activate 2nd tab" IsEnabled="@(!secondTabIsActive)" OnClick="HandleActivateSecondTabButtonClick" />

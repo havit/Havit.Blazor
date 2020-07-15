@@ -8,13 +8,19 @@ using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tabs
 {
-	
-	// TODO: Activate first non-disabled tab if possible and no tab active
-
+	/// <summary>
+	/// Tab panel (container).
+	/// </summary>
 	public partial class HxTabPanel : ComponentBase, IDisposable
 	{
+		/// <summary>
+		/// ColumnsRegistration cascading value name.
+		/// </summary>
 		public const string TabsRegistrationCascadingValueName = "TabsRegistration";
 
+		/// <summary>
+		/// Tabs.
+		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		private List<HxTab> tabsList;
@@ -27,32 +33,48 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tabs
 		public HxTabPanel()
 		{
 			tabsList = new List<HxTab>();
-			tabsListRegistration = new CollectionRegistration<HxTab>(tabsList, this.StateHasChanged, () => isDisposed);
+			tabsListRegistration = new CollectionRegistration<HxTab>(tabsList,
+				this.StateHasChanged,
+				() => isDisposed,
+				(HxTab tab) => tab.ActiveTabChangedAsync += HandleActiveTabChangedAsync, // when tab is added, subsribe to tab activated "event".
+				(HxTab tab) => tab.ActiveTabChangedAsync -= HandleActiveTabChangedAsync); // when tab is removed, subsrive to tab activated "event". AFAIK we do not need to handle this in Dispose.
+		}
+	
+		private async Task HandleActiveTabChangedAsync(HxTab newActiveTab)
+		{
+			// when new tab is activated, deactivates other tabs
+			foreach (HxTab activeTab in tabsList.Where(item => item.IsCurrentlyActive && (item != newActiveTab)))
+			{
+				await activeTab.SetIsCurrentlyActiveAsync(false);
+			}
 		}
 
+		/// <inheritdoc />
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
 			if (firstRender)
 			{
-				if (!tabsList.Any(item => item.IsActive) && (tabsList.Count > 0))
+				// when no tab is active after initial render, activate the first visible & enabled tab
+				if (!tabsList.Any(item => item.IsCurrentlyActive) && (tabsList.Count > 0))
 				{
-					await tabsList[0].SetActiveAsync(true);
-					StateHasChanged(); // TODO: Je potřeba? Nezpropaguje se informace o vybrání z metody SetActive?
+					HxTab tabToActivate = tabsList.FirstOrDefault(tab => tab.IsEnabledEffective() && tab.IsVisible);
+					if (tabToActivate != null)
+					{
+						await tabToActivate.SetIsCurrentlyActiveAsync(true);
+					}
 				}
 			}
 		}
 
-		protected async Task HandleClick(HxTab tab)
+		/// <summary>
+		/// Handle click on tab title to activate tab.
+		/// </summary>
+		protected async Task HandleTabClick(HxTab tab)
 		{
-			foreach (HxTab activeTab in tabsList.Where(item => item.IsActive))
-			{
-				await activeTab.SetActiveAsync(false);
-			}
-			await tab.SetActiveAsync(true);
+			await tab.SetIsCurrentlyActiveAsync(true);
 		}
-
 		/// <inheritdoc />
 		public void Dispose()
 		{

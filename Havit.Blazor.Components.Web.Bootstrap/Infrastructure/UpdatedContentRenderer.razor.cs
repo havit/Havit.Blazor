@@ -30,9 +30,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Infrastructure
 			}
 		}
 
-		private void FilterRenderedHandler(ComponentBase sender, bool firstRender)
+		private void FilterRenderedHandler(ComponentBase component, bool firstRender)
 		{
-			Debug.Assert(sender == Component);
+			Debug.Assert(component == Component);
 
 			if (!firstRender)
 			{

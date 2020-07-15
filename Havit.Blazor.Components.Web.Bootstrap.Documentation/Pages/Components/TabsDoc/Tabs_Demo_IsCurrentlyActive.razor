@@ -1,0 +1,15 @@
+﻿
+<HxTabPanel>
+	<HxTab Title="First tab">
+		<Content>This is the first tab.</Content>
+	</HxTab>
+	<HxTab Title="Second tab" @bind-IsCurrentlyActive="@secondTabIsActive">	
+		<Content>This is the second tab.</Content>
+	</HxTab>
+</HxTabPanel>
+
+<HxButton Text="Set second tab active" IsEnabled="@(!secondTabIsActive)" OnClick="() => { secondTabIsActive = true; }" />
+
+@code{
+	private bool secondTabIsActive = false;
+}

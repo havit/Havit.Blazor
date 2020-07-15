@@ -11,8 +11,6 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 {
-	// Jak pohodlně definovat Default SortExpression? Asi na sloupci. Více sloupců? V renderu? Jak s živnotním cyklem? Načíst data, render, sorting, načíst data?
-
 	/// <summary>
 	/// Grid to display tabular data from data source.
 	/// </summary>

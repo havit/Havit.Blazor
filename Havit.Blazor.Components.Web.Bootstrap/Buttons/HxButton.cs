@@ -1,4 +1,5 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Forms;
+using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
 using Havit.Blazor.Components.Web.Forms;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -15,12 +16,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
 	/// <summary>
 	/// Button type="button".
 	/// </summary>
-	public class HxButton : ComponentBase
+	public class HxButton : ComponentBase, ICascadeEnabledComponent
 	{
-		/// <summary>
-		/// Form state.
-		/// </summary>
-		[CascadingParameter] protected FormState FormState { get; set; }
+		/// <inheritdoc />
+		[CascadingParameter] public FormState FormState { get; set; }
 
 		/// <summary>
 		/// Custom css class to render with button.
@@ -47,17 +46,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
 		/// </summary>
 		[Parameter] public ButtonSkin Skin { get; set; }
 
-		/// <summary>
-		/// When null (default), the IsEnabled value is received from cascading FormState.
-		/// When value is false, input is rendered as disabled.
-		/// To set multiple controls as disabled use <seealso cref="HxFormState" />.
-		/// </summary>
+		/// <inheritdoc />
 		[Parameter] public bool? IsEnabled { get; set; }
-
-		/// <summary>
-		/// Effective value of IsEnabled. When IsEnabled is not set, receives value from FormState or defaults to true.
-		/// </summary>
-		protected bool IsEnabledEffective => IsEnabled ?? FormState?.IsEnabled ?? true;
 
 		/// <summary>
 		/// Localization service.
@@ -78,7 +68,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
 			builder.AddAttribute(1, "type", GetButtonType());
 			builder.AddAttribute(2, "class", CssClassHelper.Combine("btn btn-primary", Skin?.CssClass, CssClass));
 			builder.AddAttribute(3, "onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, HandleClick));
-			builder.AddAttribute(4, "disabled", !IsEnabledEffective);
+			builder.AddAttribute(4, "disabled", !this.IsEnabledEffective());
 
 			BootstrapIcon? icon = Icon ?? Skin?.Icon;
 			if (icon != null)

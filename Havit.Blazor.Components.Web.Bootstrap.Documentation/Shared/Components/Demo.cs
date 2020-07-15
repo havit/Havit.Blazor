@@ -26,7 +26,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		{
 			// no base call
 			builder.OpenElement(100, "div");
-			builder.AddAttribute(101, "class", "card");
+			builder.AddAttribute(101, "class", "card card-demo");
 			builder.OpenElement(200, "div");
 			builder.AddAttribute(201, "class", "card-header");
 			builder.AddContent(202, Title);

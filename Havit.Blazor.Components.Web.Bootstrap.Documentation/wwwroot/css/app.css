@@ -1,5 +1,10 @@
 .red {
-  color: red; }
+  color: red;
+}
+
+.card-demo {
+    margin-bottom: 3ex;
+}
 
 #blazor-error-ui {
   background: lightyellow;

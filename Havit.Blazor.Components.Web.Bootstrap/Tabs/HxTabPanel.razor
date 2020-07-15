@@ -9,8 +9,8 @@
 			@if (tab.IsVisible)
 			{
 				<li class="nav-item">
-					<a class="@CssClassHelper.Combine("nav-link", tab.IsActive ? "active" : "", tab.IsEnabledEffective ? "" : "disabled")"
-					   @onclick="async () => await HandleClick(tab)">
+					<a class="@CssClassHelper.Combine("nav-link", tab.IsCurrentlyActive ? "active" : String.Empty, tab.IsEnabledEffective() ? String.Empty : "disabled")"
+					   @onclick="async () => await HandleTabClick(tab)">
 						@tab.Title
 						@tab.TitleTemplate
 					</a>
@@ -26,7 +26,7 @@
 		<UpdatedContentRenderer Component="@tab">
 			@if (tab.IsVisible)
 			{
-				<div class="@CssClassHelper.Combine("tab-pane", tab.IsActive ? "active" : "")">
+				<div class="@CssClassHelper.Combine("tab-pane", tab.IsCurrentlyActive ? "active" : String.Empty)">
 					@tab.Content
 				</div>
 			}
