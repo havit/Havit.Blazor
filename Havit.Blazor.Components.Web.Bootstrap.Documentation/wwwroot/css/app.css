@@ -1,10 +1,5 @@
 .red {
-  color: red;
-}
-
-.card-demo {
-    margin-bottom: 3ex;
-}
+  color: red; }
 
 #blazor-error-ui {
   background: lightyellow;
@@ -36,35 +31,59 @@
 
 .main-content {
   margin-top: 100px; }
-  .main-content .sidebar {
-    position: sticky;
-    height: calc(100vh - 7rem);
-    top: 100px;
-    bottom: 0;
-    overflow-y: auto;
-    padding-left: 0; }
-    .main-content .sidebar li {
-      list-style: none;
-      cursor: pointer; }
-    .main-content .sidebar .categories {
-      margin-left: -30px; }
-      .main-content .sidebar .categories li {
-        margin-bottom: 0.5rem; }
-        .main-content .sidebar .categories li a {
-          font-size: 18px;
-          font-weight: 500;
-          text-decoration: none;
-          color: rgba(0, 0, 0, 0.8); }
-          .main-content .sidebar .categories li a:hover {
-            color: black; }
-        .main-content .sidebar .categories li .subcategories li {
-          margin-bottom: 0.25rem;
-          margin-left: -1.5rem; }
-          .main-content .sidebar .categories li .subcategories li:first-of-type {
-            margin-top: 0.5rem; }
-          .main-content .sidebar .categories li .subcategories li a {
-            color: rgba(0, 0, 0, 0.6);
-            font-size: 1rem;
-            font-weight: 400; }
-            .main-content .sidebar .categories li .subcategories li a:hover {
-              color: rgba(0, 0, 0, 0.9); }
+  .main-content #sidebar-collapse {
+    margin-bottom: 20px; }
+    .main-content #sidebar-collapse .sidebar {
+      position: sticky;
+      height: unset;
+      top: 100px;
+      bottom: 0;
+      overflow-y: auto;
+      padding-left: 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.8); }
+      .main-content #sidebar-collapse .sidebar li {
+        list-style: none;
+        cursor: pointer; }
+      .main-content #sidebar-collapse .sidebar .categories {
+        margin-left: -30px; }
+        .main-content #sidebar-collapse .sidebar .categories li {
+          margin-bottom: 0.5rem; }
+          .main-content #sidebar-collapse .sidebar .categories li a {
+            font-size: 18px;
+            font-weight: 500;
+            text-decoration: none;
+            color: rgba(0, 0, 0, 0.8); }
+            .main-content #sidebar-collapse .sidebar .categories li a:hover {
+              color: black; }
+          .main-content #sidebar-collapse .sidebar .categories li .subcategories li {
+            margin-bottom: 0.25rem;
+            margin-left: -1.5rem; }
+            .main-content #sidebar-collapse .sidebar .categories li .subcategories li:first-of-type {
+              margin-top: 0.5rem; }
+            .main-content #sidebar-collapse .sidebar .categories li .subcategories li a {
+              color: rgba(0, 0, 0, 0.6);
+              font-size: 1rem;
+              font-weight: 400; }
+              .main-content #sidebar-collapse .sidebar .categories li .subcategories li a:hover {
+                color: rgba(0, 0, 0, 0.9); }
+
+button.sidebar-collapse-btn {
+  position: relative;
+  left: 100%;
+  background-color: #fff;
+  border: none;
+  outline: none; }
+  button.sidebar-collapse-btn div {
+    width: 25px;
+    height: 3px;
+    background-color: black;
+    margin: 7px 0; }
+
+@media screen and (min-width: 768px) {
+  .main-content #sidebar-collapse {
+    display: block !important; }
+    .main-content #sidebar-collapse .sidebar {
+      height: calc(100vh - 7rem);
+      border: none; }
+  button.sidebar-collapse-btn {
+    display: none; } }

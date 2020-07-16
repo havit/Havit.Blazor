@@ -45,59 +45,96 @@
 .main-content {
     margin-top: 100px;
 
-    .sidebar {
-        position: sticky;
-        height: calc(100vh - 7rem);
-        top: 100px;
-        bottom: 0;
-        overflow-y: auto;
-        padding-left: 0;
+    #sidebar-collapse {
+        margin-bottom: 20px;
 
-        li {
-            list-style: none;
-            cursor: pointer;
-        }
-
-        .categories {
-            margin-left: -30px;
+        .sidebar {
+            position: sticky;
+            height: unset;
+            top: 100px;
+            bottom: 0;
+            overflow-y: auto;
+            padding-left: 0;
+            border-bottom: 1px solid rgba(0,0,0,0.8);
 
             li {
-                margin-bottom: 0.5rem;
+                list-style: none;
+                cursor: pointer;
+            }
 
-                a {
-                    font-size: 18px;
-                    font-weight: 500;
-                    text-decoration: none;
-                    color: rgba(0,0,0,0.8);
+            .categories {
+                margin-left: -30px;
 
-                    &:hover {
-                        color: rgba(0,0,0,1)
-                    }
-                }
+                li {
+                    margin-bottom: 0.5rem;
 
-                .subcategories {
-                    li {
-                        margin-bottom: 0.25rem;
-                        margin-left: -1.5rem;
+                    a {
+                        font-size: 18px;
+                        font-weight: 500;
+                        text-decoration: none;
+                        color: rgba(0,0,0,0.8);
 
-                        &:first-of-type {
-                            margin-top: 0.5rem;
+                        &:hover {
+                            color: rgba(0,0,0,1)
                         }
+                    }
 
-                        a {
-                            color: rgba(0,0,0,0.6);
-                            font-size: 1rem;
-                            font-weight: 400;
+                    .subcategories {
+                        li {
+                            margin-bottom: 0.25rem;
+                            margin-left: -1.5rem;
+
+                            &:first-of-type {
+                                margin-top: 0.5rem;
+                            }
+
+                            a {
+                                color: rgba(0,0,0,0.6);
+                                font-size: 1rem;
+                                font-weight: 400;
 
 
 
-                            &:hover {
-                                color: rgba(0,0,0,0.9)
+                                &:hover {
+                                    color: rgba(0,0,0,0.9)
+                                }
                             }
                         }
                     }
                 }
             }
         }
+    }
+}
+
+button.sidebar-collapse-btn {
+    position: relative;
+    left: 100%;
+    background-color: #fff;
+    border:none;
+    outline:none;
+
+    div {
+        width: 25px;
+        height: 3px;
+        background-color: black;
+        margin: 7px 0;
+    }
+}
+
+// Media query for screens wider than 768px
+@media screen and (min-width: 768px) {
+    .main-content {
+        #sidebar-collapse {
+            display: block !important;
+
+            .sidebar {
+                height: calc(100vh - 7rem);
+                border: none;
+            }
+        }
+    }
+    button.sidebar-collapse-btn {
+        display: none;
     }
 }
