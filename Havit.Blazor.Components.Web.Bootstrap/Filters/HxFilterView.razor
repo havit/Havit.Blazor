@@ -1,5 +1,5 @@
-﻿<CascadingValue Value="@filtersRegistration" Name="@FilterRegistrationCascadingValueName">
-	<CascadingValue Value="@chipGeneratorsRegistration" Name="@ChipGeneratorRegistrationCascadingValueName">
+﻿<CascadingValue Value="@filtersRegistration" Name="@FilterRegistrationCascadingValueName" IsFixed="true">
+	<CascadingValue Value="@chipGeneratorsRegistration" Name="@ChipGeneratorRegistrationCascadingValueName" IsFixed="true">
 		@*Aby se dostaly komponenty do kolekcí, musíme je dostat do renderování této komponenty. Chceme však, aby komponenty nic nevyrenderovaly. *@
 		@*Problémem však je aktualizace. V případě změny parametrů, dojde k přerenderování zde kritérií, protože v nich jsou filtry, od těch však očekáváme,
 		že jsou prázdné a ve skutečnosti nic nerenderují.
