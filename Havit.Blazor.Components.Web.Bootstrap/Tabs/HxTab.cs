@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Text;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
 using Havit.Blazor.Components.Web.Forms;
+using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.RenderTree;
 
@@ -71,7 +71,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tabs
 		protected override async Task OnInitializedAsync()
 		{
 			await base.OnInitializedAsync();
-			Contract.Requires(TabsRegistration != null, $"{nameof(HxTab)} invalid usage. Must be used in a {nameof(HxTabPanel)}.");
+			
+			Contract.Assert(TabsRegistration != null, $"{nameof(HxTab)} invalid usage. Must be used in a {nameof(HxTabPanel)}.");
 			TabsRegistration.Register(this);
 
 			// When the tab should be initially active, set it currently active (just here in OnInitializedAsync).
