@@ -12,11 +12,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 	/// <summary>
 	/// Toast. After first render component never updates.
 	/// </summary>
-	public partial class HxToast : ComponentBase
+	public partial class HxToast : ComponentBase, IDisposable
 	{
 #pragma warning disable CS0649 // assigned by Blazor
 		private ElementReference toastElement;
 #pragma warning restore CS0649
+
+		private DotNetObjectReference<HxToast> dotnetObjectReference;
 
 		/// <summary>
 		/// JS Runtime.
@@ -26,7 +28,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 		/// <summary>
 		/// Delay in miliseconds to automatically hide toast.
 		/// </summary>
-		[Parameter] public int? AutohideDelayMs { get; set; }
+		[Parameter] public int? AutohideDelay { get; set; }
 
 		/// <summary>
 		/// Css class to render with toast.
@@ -44,6 +46,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 		[Parameter] public RenderFragment HeaderTemplate { get; set; }
 
 		/// <summary>
+		/// Content (body) icon.
+		/// </summary>
+		[Parameter] public BootstrapIcon? ContentIcon { get; set; }
+
+		/// <summary>
 		/// Content (body) text.
 		/// </summary>
 		[Parameter] public string ContentText { get; set; }
@@ -57,6 +64,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 		/// Indicates whether to show close button.
 		/// </summary>
 		[Parameter] public bool ShowCloseButton { get; set; } = true;
+
+		/// <summary>
+		/// Fires when toast is hidden (button or autohide).
+		/// </summary>
+		[Parameter] public EventCallback ToastHidden { get; set; }
+
+		public HxToast()
+		{
+			dotnetObjectReference = DotNetObjectReference.Create(this);
+		}
 
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -80,9 +97,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 			builder.OpenElement(100, "div");
 			builder.AddAttribute(101, "class", CssClassHelper.Combine("toast", CssClass));
 
-			if (AutohideDelayMs != null)
+			if (AutohideDelay != null)
 			{
-				builder.AddAttribute(102, "data-delay", AutohideDelayMs);
+				builder.AddAttribute(102, "data-delay", AutohideDelay);
 			}
 			else
 			{
@@ -111,12 +128,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 			{
 				builder.OpenElement(300, "div");
 				builder.AddAttribute(301, "class", "toast-body");
-				builder.AddContent(302, ContentText);
-				builder.AddContent(303, ContentTemplate);
+
+				if (ContentIcon != null)
+				{
+					builder.OpenComponent(302, typeof(HxBootstrapIcon));
+					builder.AddAttribute(303, nameof(HxBootstrapIcon.Icon), ContentIcon);
+					builder.CloseComponent();
+				}
+
+				builder.AddContent(304, ContentText);
+				builder.AddContent(305, ContentTemplate);
 
 				if (!renderHeader && ShowCloseButton)
 				{
-					builder.OpenRegion(304);
+					builder.OpenRegion(306);
 					BuildRenderTree_CloseButton(builder);
 					builder.CloseRegion();
 				}
@@ -148,7 +173,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 			if (firstRender)
 			{
 				// we need to manualy setup the toast.
-				await JSRuntime.InvokeVoidAsync("hxToast_show", toastElement);
+			await JSRuntime.InvokeVoidAsync("hxToast_show", toastElement, dotnetObjectReference);
 			}
 		}
 		
@@ -156,6 +181,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 		{
 			// never update content to avoid collision with javascript
 			return false;
+		}
+	
+		[JSInvokable("HxToast_HandleToastHidden")]
+		public async Task HandleToastHidden()
+		{
+			await ToastHidden.InvokeAsync(null);
+		}
+
+		public void Dispose()
+		{
+			dotnetObjectReference?.Dispose();
 		}
 	}
 }

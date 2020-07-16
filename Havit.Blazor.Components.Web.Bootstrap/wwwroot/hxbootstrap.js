@@ -20,6 +20,9 @@ window.hxGrid_cellClick = (event) => {
 	}
 }
 
-window.hxToast_show = (element) => {
+window.hxToast_show = (element, hxtoast) => {
+	element.addEventListener('hidden.bs.toast', function () {
+		hxtoast.invokeMethodAsync('HxToast_HandleToastHidden');
+	});
 	new bootstrap.Toast(element).show();
 }
