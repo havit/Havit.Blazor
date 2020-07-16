@@ -1,13 +1,10 @@
-﻿@inherits MainLayout
-<TopNavbar />
-<div class="container">
-	<div class="main-content row">
-		<ComponentsSideBar />
+﻿@inherits LayoutComponentBase
+@layout MainLayout
 
-		<div class="col-md-10">
-			<div class="components">
-				@Body
-			</div>
-		</div>
+<ComponentsSideBar />
+
+<div class="col-md-10">
+	<div class="components">
+		@Body
 	</div>
 </div>
