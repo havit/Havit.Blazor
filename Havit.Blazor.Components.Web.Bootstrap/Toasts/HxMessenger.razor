@@ -1,0 +1,20 @@
+﻿@*TODO Pozicování*@
+
+@foreach (Message message in messages)
+{
+	// @key is used to pair messages to HxToasts when some message disappers.
+	<HxToast @key="@message.Key"
+			 CssClass="@message.CssClass"
+			 ContentIcon="@message.Icon"
+			 ContentText="@message.Text"
+			 AutohideDelay="@message.AutohideDelay"
+			 ToastHidden="() => HandleToastHidden(message)" />
+}
+
+@* 
+	Because of using @key for HxToast when last message disappears the ChildContent is re-initialized.
+	To avoid this we use a key here too.
+*@
+<CascadingValue @key="@("messenger")" TValue="IMessenger" Value="messenger" IsFixed="true">
+	@ChildContent
+</CascadingValue>

@@ -4,13 +4,13 @@
 
 @if (isVisible)
 {
-	<HxToast HeaderText="Confirmation">
+	<HxToast HeaderText="Confirmation" ContentIcon="BootstrapIcon.InfoCircleFill">
 		<ContentTemplate>
 			Hi! All messages has been deleted and cannot be restored.
 		</ContentTemplate>
 	</HxToast>
 
-	<HxToast AutohideDelayMs="5000">
+	<HxToast AutohideDelay="5000">
 		<ContentTemplate>
 			This message should disappear.
 			Close button should be here.

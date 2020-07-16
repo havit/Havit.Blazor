@@ -1,0 +1,38 @@
+﻿@page "/HxMessenger"
+
+<h1>HxMessenger</h1>
+
+<HxButton Text="Add information" OnClick="HandleAddInformationButtonClick" />
+<HxButton Text="Add warning" OnClick="HandleAddWarningButtonClick" />
+<HxButton Text="Add error" OnClick="HandleAddErrorButtonClick" />
+
+@code{
+	[CascadingParameter]
+	public IMessenger Messenger { get; set; }
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		base.OnAfterRender(firstRender);
+		if (firstRender)
+		{
+			Messenger.AddInformation("Hello!");
+		}
+	}
+
+	private void HandleAddInformationButtonClick()
+	{
+		Messenger.AddInformation("Information button clicked.");
+	}
+
+	private void HandleAddWarningButtonClick()
+	{
+		Messenger.AddWarning("Warning button clicked.");
+	}
+
+	private void HandleAddErrorButtonClick()
+	{
+		Messenger.AddError("Error button clicked.");
+	}
+
+}
+
