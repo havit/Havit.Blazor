@@ -17,6 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 	/// </typeparam>
 	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>
 	{
+		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(int), typeof(long), typeof(float), typeof(double), typeof(decimal) };
 
 		/// <summary>
