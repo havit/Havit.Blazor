@@ -1,6 +1,6 @@
 ﻿<HxGrid Items="@cultureInfos" @bind-SelectedDataItem="currentCultureInfo" PageSize="20">
 	<Columns>
-		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemTextFunc="@(item => item.DisplayName)" SortExpression="@(item => item.DisplayName)" />
+		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemTextFunc="@(item => item.DisplayName)" SortExpression="@(item => item.DisplayName)" IsDefaultSort="true" />
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="ISO" ItemTextFunc="@(item => item.ThreeLetterISOLanguageName)" SortExpression="@(item => item.ThreeLetterISOLanguageName)" />
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Link">
 			<ItemTemplate Context="item">
