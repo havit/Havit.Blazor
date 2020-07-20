@@ -1,0 +1,32 @@
+﻿<HxButton Text="Show information" OnClick="HandleAddInformationButtonClick" />
+<HxButton Text="Show warning" OnClick="HandleAddWarningButtonClick" />
+<HxButton Text="Show error" OnClick="HandleAddErrorButtonClick" />
+@code { 
+	[CascadingParameter]
+	protected IMessenger Messenger { get; set; }
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		base.OnAfterRender(firstRender);
+
+		if (firstRender)
+		{
+			Messenger.AddInformation($"Welcome to the {nameof(HxMessenger)} documentation!");
+		}
+	}
+
+	private void HandleAddInformationButtonClick()
+	{
+		Messenger.AddInformation("All your data has been encrypted. To decrypt your data send $1 to each of your 100 contacts.");
+	}
+
+	private void HandleAddWarningButtonClick()
+	{
+		Messenger.AddWarning("Bio hazard detected in your office!");
+	}
+
+	private void HandleAddErrorButtonClick()
+	{
+		Messenger.AddError("An error occurred during showing messenger message.");
+	}
+}

@@ -5,8 +5,14 @@ using Havit.Diagnostics.Contracts;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 {
+	/// <summary>
+	/// Extension methods for <see cref="IMessenger"/>.
+	/// </summary>
 	public static class MessengerExtensions
 	{
+		/// <summary>
+		/// Adds and shows an informational message. Message is automatically hidden 5 seconds after showing up.
+		/// </summary>
 		public static void AddInformation(this IMessenger messenger, string message)
 		{
 			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
@@ -20,6 +26,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 			});
 		}
 
+		/// <summary>
+		/// Adds and shows a warning message.
+		/// </summary>
 		public static void AddWarning(this IMessenger messenger, string message)
 		{
 			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
@@ -34,6 +43,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 
 		}
 
+		/// <summary>
+		/// Adds and shows an error message.
+		/// </summary>
 		public static void AddError(this IMessenger messenger, string message)
 		{
 			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));

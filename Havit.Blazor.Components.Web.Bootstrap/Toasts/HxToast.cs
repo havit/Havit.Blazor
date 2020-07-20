@@ -10,7 +10,8 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 {
 	/// <summary>
-	/// Toast. After first render component never updates.
+	/// Toast. Not intented to be used in user code, use <see cref="HxMessenger"/>.
+	/// After first render component never updates.
 	/// </summary>
 	public partial class HxToast : ComponentBase, IDisposable
 	{
@@ -173,7 +174,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 			if (firstRender)
 			{
 				// we need to manualy setup the toast.
-			await JSRuntime.InvokeVoidAsync("hxToast_show", toastElement, dotnetObjectReference);
+				await JSRuntime.InvokeVoidAsync("hxToast_show", toastElement, dotnetObjectReference);
 			}
 		}
 		
@@ -182,13 +183,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 			// never update content to avoid collision with javascript
 			return false;
 		}
-	
+
+		/// <summary>
+		/// Receive notification from javascript when message is hidden.
+		/// </summary>
 		[JSInvokable("HxToast_HandleToastHidden")]
 		public async Task HandleToastHidden()
 		{
 			await ToastHidden.InvokeAsync(null);
 		}
 
+		/// <inheritdoc />
 		public void Dispose()
 		{
 			dotnetObjectReference?.Dispose();

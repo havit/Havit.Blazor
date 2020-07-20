@@ -13,7 +13,7 @@
 
 @* 
 	Because of using @key for HxToast when last message disappears the ChildContent is re-initialized.
-	To avoid this we use a key here too.
+	To avoid this we use a key here as a workaround.
 *@
 <CascadingValue @key="@("messenger")" TValue="IMessenger" Value="messenger" IsFixed="true">
 	@ChildContent

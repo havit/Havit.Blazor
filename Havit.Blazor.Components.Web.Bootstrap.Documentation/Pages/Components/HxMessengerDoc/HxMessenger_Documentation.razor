@@ -1,0 +1,11 @@
+﻿@page "/components/hxmessenger"
+
+<h1>@nameof(HxMessenger)</h1>
+<p class="lead">
+	Component to temporarily display status messages.
+</p>
+
+<p>Component is used via cascading parameter of type @nameof(IMessenger). To make it working place @nameof(HxMessenger) to the layout component!</p>
+<p>Informational messages are automatically hidden 5 seconds after displayed, waring and error messages are never automatically hidden.</p>
+
+<Demo Type="typeof(HxMessenger_Demo)" />
