@@ -54,11 +54,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		[Parameter] public EventCallback<TItemType> SelectedDataItemChanged { get; set; }
 
 		/// <summary>
-		/// Indicates whether to display footer. Default is true.
-		/// </summary>
-		[Parameter] public bool ShowFooter { get; set; } = true;
-
-		/// <summary>
 		/// Page size.
 		/// </summary>
 		[Parameter] public int PageSize { get; set; } = 0;

@@ -1,0 +1,30 @@
+﻿<HxGrid TItemType="System.Globalization.CultureInfo" Items="@serverCultureInfos" TotalItemsCount="@totalItemsCount" DataReloadRequired="@HandleDataReloadRequired" PageSize="@PageSize" AutoSort="false">
+	<Columns>
+		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemTextFunc="@(item => item.DisplayName)" SortString="@nameof(System.Globalization.CultureInfo.DisplayName)" IsDefaultSort="true" />
+		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemTextFunc="@(item => item.Name)" SortString="@nameof(System.Globalization.CultureInfo.Name)" />
+	</Columns>
+</HxGrid>
+
+@code {
+	private const int PageSize = 10;
+
+	// The only place where properties are set is HandleDataReloadRequired method.
+	private List<System.Globalization.CultureInfo> serverCultureInfos = null;
+	private int totalItemsCount;
+
+	private Task HandleDataReloadRequired(GridUserState<System.Globalization.CultureInfo> userState)
+	{
+		// simulate asynchronous server-side call: Get totalItemsCount and items for the current page.
+		// await ...
+		var localCultureInfos = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).ToList();	
+		
+		totalItemsCount = localCultureInfos.Count();
+		localCultureInfos.Sort(userState.CurrentSorting.ToGenericPropertyComparer()); // use of userState.CurrentSorting
+		serverCultureInfos = localCultureInfos
+			.Skip(userState.CurrentPageIndex * PageSize) // use of userState.CurrentPageIndex
+			.Take(PageSize)
+			.ToList();
+
+		return Task.CompletedTask; // simulation of asynchronout server-side call
+	}
+}

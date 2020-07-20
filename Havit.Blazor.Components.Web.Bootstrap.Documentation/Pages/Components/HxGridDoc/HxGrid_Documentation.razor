@@ -2,22 +2,127 @@
 
 <h1>@nameof(HxGrid<object>)</h1>
 <p class="lead">
-	Grid to display tabular data from data source.
+	Grid to display tabular data from data source. Includes support for client-side and server-side paging &amp; sorting.
 </p>
 
 <h3>Properties</h3>
-<p>TODO</p>
+<ul>
+	<li>
+		<strong>@nameof(HxGrid<object>.Columns)</strong><br />
+		Columns to display, see @nameof(HxGridColumn<object>) below.
+	</li>
+	<li>
+		<strong>@nameof(HxGrid<object>.Items)</strong><br />
+		Data items to render. When no paging &amp; sorting or client-side paging &amp; sorting it should contains all items to display.
+		When server-side paging &amp; sorting is used, it must contain data just for the current page. Do not forget to set value to @nameof(HxGrid<object>.TotalItemsCount).
+	</li>
+	<li>
+		<strong>@nameof(HxGrid<object>.TotalItemsCount)</strong><br />
+		Total count of items. Set ONLY in server-side paging &amp; sorting scenario.
+	</li>
+	<li>
+		<strong>@nameof(HxGrid<object>.CurrentPageIndex), @nameof(HxGrid<object>.CurrentPageIndexChanged)</strong><br />
+		Current page index.
+	</li>
+	<li>
+		<strong>@nameof(HxGrid<object>.CurrentSorting), @nameof(HxGrid<object>.CurrentSortingChanged)</strong><br />
+		Current sorting (consider as read-only). To setup default sorting see @nameof(HxGridColumn<object>) below.
+	</li>
+	<li>
+		<strong>@nameof(HxGrid<object>.DataReloadRequired)</strong><br />
+		<p>Event is fired when:</p>
+		<ul>
+			<li>The grid was rendered for the first time but has no data (@nameof(HxGrid<object>.Items) is null). This allows to use @nameof(HxGrid<object>.DataReloadRequired) for the initial data load.</li>
+			<li>Sorting was changed and autosorting is not used (@nameof(HxGrid<object>.AutoSort) is false).</li>
+			<li>Page was changed and @nameof(HxGrid<object>.TotalItemsCount) is not null (server-side paging is used).</li>
+		</ul>
+		<p>The event data contains grid state to simplify usage of the grid (do not need to handle other events for server-side paging and sorting).</p>
+		<p>See client-side and server-side paging &amp; sorting demo below.</p>
+	</li>
+	<li>
+		<strong>@nameof(HxGrid<object>.SelectedDataItem), @nameof(HxGrid<object>.SelectedDataItemChanged)</strong><br />
+		Currently selected item.
+	</li>
+</ul>
 
-<h3>Columns</h3>
-<p>TODO</p>
-
-<h3>Sorting</h3>
-<p>TODO</p>
-
-<h3>Paging</h3>
-<p>TODO</p>
 
 <h3>Commands</h3>
-<p>TODO</p>
+<p class="red">TODO</p>
 
-<Demo Type="typeof(HxGrid_Demo)" />
+<h2>Setting (loading) data to the grid</h2>
+<h4>No paging &amp; sorting or client-side paging &amp; sorting</h4>
+<ul>
+	<li>Create a field/property for the data.</li>
+	<li>Set data to this field/property. Do not sort data.</li>
+	<li>Assign this field/property to @nameof(HxGrid<object>.Items) property.</li>
+</ul>
+
+<Demo Title="Client-side paging and sorting" Type="typeof(HxGrid_ServerSideDemo)" />
+
+<h4>Server side paging &amp; sorting</h4>
+<ul>
+	<li>Create a field/property to store the data for the current page.</li>
+	<li>Set this field/property to the @nameof(HxGrid<object>.Items) property.</li>
+	<li>Create a field/property to store the count of the items on all pages.</li>
+	<li>Set this field/property to the @nameof(HxGrid<object>.TotalItemsCount) property.</li>
+	<li>Create a method to handle the @nameof(HxGrid<object>.DataReloadRequired) event.</li>
+	<li>The method receives the current sorting and current page index the the argument.</li>
+	<li>Load the data for the current page and retrieve the total number of items and assign the created fields/properties in this method.</li>
+</ul>
+
+<Demo Title="Server-side paging and sorting" Type="typeof(HxGrid_ServerSideDemo)" />
+
+<h2>@nameof(HxGridColumn<object>)</h2>
+<h3>Properties</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxGridColumn<object>.ItemTextFunc)</strong><br />
+		Function to get text to display in grid content cell. Use to display simple text content of the cell.
+	</li>
+	<li>
+		<strong>@nameof(HxGridColumn<object>.ItemTemplate)</strong><br />
+		Template to display in grid content cell. Use to display compex HTML content of the cell.
+	</li>
+	<li>
+		<strong>@nameof(HxGridColumn<object>.ItemCssClass)</strong><br />
+		Css class to add to every content cell.
+	</li>
+	<li>
+		<strong>@nameof(HxGridColumn<object>.ItemCssClassFunc)</strong><br />
+		Function to get css class to the content cell by the data item.
+	</li>
+	<li>
+		<strong>@nameof(HxGridColumn<object>.HeaderText), @nameof(HxGridColumn<object>.HeaderTemplate), @nameof(HxGridColumn<object>.HeaderCssClass)</strong><br />
+		Header.
+	</li>
+	<li>
+		<strong>@nameof(HxGridColumn<object>.FooterText), @nameof(HxGridColumn<object>.FooterTemplate), @nameof(HxGridColumn<object>.FooterCssClass)</strong><br />
+		Footer.
+	</li>
+</ul>
+
+<h3>Sorting properties</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxGridColumn<object>.SortExpression)</strong><br />
+		<p>Use to set sorting &quot;strongly typed&quot;, required for client-side sorting.</p>
+		<p>Result of the expression must be IComparable.</p>
+		<p>Sorting on the column does not support multiple expressions. Create an artifial property and implement IComparable.</p>
+	</li>
+	<li>
+		<strong>@nameof(HxGridColumn<object>.SortString)</strong><br />
+		<p>Use to set sorting as a string, ie. to get value to pass to backend.</p>
+		<p>Ignored in client-side sorting.</p>
+	</li>
+	<li>
+		<strong>@nameof(HxGridColumn<object>.SortDirection)</strong><br />
+		<p>Initial sort direct. Default is @Havit.Collections.SortDirection.Ascending.</p>
+	</li>
+	<li>
+		<strong>@nameof(HxGridColumn<object>.IsDefaultSort)</strong><br />
+		<p>Set true to the column with default sorting.</p>
+	</li>
+</ul>
+
+<p>Note, when sorting on grid is used (regardless client-side or server-side), there must be a column with @nameof(HxGridColumn<object>.IsDefaultSort) set to true (otherwise an exception is thrown)!</p>
+

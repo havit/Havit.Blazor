@@ -1,0 +1,10 @@
+﻿<HxGrid TItemType="System.Globalization.CultureInfo" Items="@localCultureInfos" PageSize="10">
+	<Columns>
+		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemTextFunc="@(item => item.DisplayName)" SortExpression="@(item => item.DisplayName)" IsDefaultSort="true" />
+		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemTextFunc="@(item => item.Name)" SortExpression="@(item => item.Name)"  />
+	</Columns>
+</HxGrid>
+
+@code {
+	private List<System.Globalization.CultureInfo> localCultureInfos = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).ToList();
+}

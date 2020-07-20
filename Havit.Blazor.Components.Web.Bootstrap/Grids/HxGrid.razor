@@ -82,8 +82,7 @@
 					</tr>
 				}
 			</tbody>
-			@if (ShowFooter)
-			{
+			@{
 				CellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate()).ToArray();
 				if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null))
 				{
