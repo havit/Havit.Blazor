@@ -182,7 +182,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 					.OrderBy(item => item.SortDefaultOrder.Value)
 					.ToArray();
 
-				Contract.Assert(defaultSorting.Length > 0, "There should be specified default sorting.");
+				Contract.Assert<InvalidOperationException>(defaultSorting.Length > 0, "There should be specified default sorting.");
 
 				return defaultSorting;
 			}

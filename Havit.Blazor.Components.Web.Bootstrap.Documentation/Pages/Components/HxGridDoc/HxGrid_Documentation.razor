@@ -124,5 +124,8 @@
 	</li>
 </ul>
 
-<p>Note, when sorting on grid is used (regardless client-side or server-side), there must be a column with @nameof(HxGridColumn<object>.IsDefaultSort) set to true (otherwise an exception is thrown)!</p>
+<div class="alert alert-warning">
+	Sorting is used (regardless client-side or server-side), there must be a column with @nameof(HxGridColumn<object>.IsDefaultSort) set to true (otherwise InvalidOperationException is thrown)!
+</div>
+
 
