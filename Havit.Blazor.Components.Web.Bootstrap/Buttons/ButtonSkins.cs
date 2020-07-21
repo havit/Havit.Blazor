@@ -18,12 +18,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
 		public static ButtonSkin Cancel { get; } = new ButtonSkin(text: "Cancel", resourceType: typeof(ButtonSkins));
 		public static ButtonSkin Close { get; } = new ButtonSkin(text: "Close", resourceType: typeof(ButtonSkins));
 		public static ButtonSkin Delete { get; } = new ButtonSkin(text: "Delete", resourceType: typeof(ButtonSkins));
-		public static ButtonSkin Edit { get; } = new ButtonSkin(text: "Upravit", resourceType: typeof(ButtonSkins));
+		public static ButtonSkin Edit { get; } = new ButtonSkin(text: "Edit", resourceType: typeof(ButtonSkins));
 		public static ButtonSkin Export { get; } = new ButtonSkin(text: "Export", resourceType: typeof(ButtonSkins));
 		public static ButtonSkin Insert { get; } = new ButtonSkin(text: "Insert", resourceType: typeof(ButtonSkins));
 		public static ButtonSkin New { get; } = new ButtonSkin(text: "New", resourceType: typeof(ButtonSkins));
 		public static ButtonSkin OK { get; } = new ButtonSkin(text: "OK", resourceType: typeof(ButtonSkins));
-		public static ButtonSkin Open { get; } = new ButtonSkin(text: "Otevřít", resourceType: typeof(ButtonSkins));
+		public static ButtonSkin Open { get; } = new ButtonSkin(text: "Open", resourceType: typeof(ButtonSkins));
 		public static ButtonSkin Remove { get; } = new ButtonSkin(text: "Remove", resourceType: typeof(ButtonSkins));
 		public static ButtonSkin Save { get; } = new ButtonSkin(text: "Save", resourceType: typeof(ButtonSkins));
 

@@ -14,29 +14,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
 		/// <summary>
 		/// Css class to be rendered with button.
 		/// </summary>
-		public string CssClass { get; set; } // TODO C# 9.0: set -> init
+		public string CssClass { get; }
 
 		/// <summary>
 		/// Icon to be rendered with button.
 		/// </summary>
-		public BootstrapIcon? Icon { get; set; } // TODO C# 9.0: set -> init
+		public BootstrapIcon? Icon { get; }
 
 		/// <summary>
 		/// Button text.
 		/// </summary>
-		public string Text { get; set; } // TODO C# 9.0: set -> init
+		public string Text { get; }
 
 		/// <summary>
 		/// Button resource type.
 		/// </summary>
-		public Type ResourceType { get; set; } // TODO C# 9.0: set -> init
-
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		public ButtonSkin()
-		{
-		}
+		public Type ResourceType { get; }
 
 		/// <summary>
 		/// Constructor.
