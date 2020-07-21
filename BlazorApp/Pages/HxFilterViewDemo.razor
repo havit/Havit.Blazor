@@ -4,14 +4,19 @@
 
 <button @onclick="SetRandomFilter">Set random values</button>
 
-<CascadingValue Value="@true" Name="FilterDrawerOpen">
-	<HxFilterView>
-		<Criteria>
-			<HxDateRangeFilter @bind-Value="@Filter.MyDateRange" />
-			<HxTextFilter @bind-Value="@Filter.MyText" />
-		</Criteria>
-	</HxFilterView>
-</CascadingValue>
+<EditForm Model="@Filter">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
 
-<p>MyDateRange: @Filter.MyDateRange</p>
-<p>MyText: @Filter.MyText</p>
+	<CascadingValue Value="true" Name="FilterDrawerOpen">
+		<HxFilterView>
+			<Criteria>
+				<HxTextFilter @bind-Value="@Filter.Text" />
+				<HxDateRangeFilter @bind-ValueFrom="@Filter.DateFrom" @bind-ValueTo="@Filter.DateTo" />
+			</Criteria>
+		</HxFilterView>
+	</CascadingValue>
+</EditForm>
+<p>Text: @Filter.Text</p>
+<p>DateFrom: @Filter.DateFrom</p>
+<p>DateTo: @Filter.DateTo</p>

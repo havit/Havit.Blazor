@@ -37,11 +37,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		[Parameter] public int DisplayNumberCount { get; set; } = 10;
 
 		/// <summary>
-		/// Localization service.
-		/// </summary>
-		[Inject] protected IStringLocalizer<HxPager> StringLocalizer { get; set; }
-
-		/// <summary>
 		/// Changes current page index and fires event.
 		/// </summary>
 		protected async Task SetCurrentPageIndexTo(int newPageIndex)

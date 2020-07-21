@@ -1,25 +1,19 @@
-﻿@inherits HxFilterBase<DateRange>
+﻿@inherits HxFilterBase
+@typeparam TValue
+
 <HxFilter Label="@Label">
 	<LabelTemplate>@LabelTemplate</LabelTemplate>
 	<FilterTemplate>
 		<div class="row">
 			<div class="col">
-				<div class="input-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Od</span>
-					</div>
-					@*Extrahovat do samostatného inputu*@
-					<input type="date" class="form-control" value="@(Value?.StartDate?.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture))" @onchange="StartDateChanged" placeholder="" />
-				</div>
+				<HxInputDate TValue="TValue" Value="@ValueFrom" ValueChanged="HandleValueFromChanged" ValueExpression="@ValueFromExpression" ParsingErrorMessage="@GetValueFromParsingError()">
+					<InputGroupBeforeTemplate>@StringLocalizer["From"]</InputGroupBeforeTemplate>
+				</HxInputDate>
 			</div>
 			<div class="col">
-				<div class="input-group">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Do</span>
-					</div>
-					@*Reusovat ze samostatného inputu*@
-					<input type="date" class="form-control" value="@(Value?.EndDate?.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture))" @onchange="EndDateChanged" placeholder="" />
-				</div>
+				<HxInputDate TValue="TValue" Value="@ValueTo" ValueChanged="HandleValueToChanged" ValueExpression="@ValueToExpression" ParsingErrorMessage="@GetValueToParsingError()">
+					<InputGroupBeforeTemplate>@StringLocalizer["To"]</InputGroupBeforeTemplate>
+				</HxInputDate>
 			</div>
 		</div>
 	</FilterTemplate>

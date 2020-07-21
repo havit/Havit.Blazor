@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,9 +11,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 {
 	public partial class HxTextFilter
 	{
-		protected async Task TextChanged(ChangeEventArgs eventArgs)
-		{			
-			Value = (string)eventArgs.Value;
+		[Parameter]
+		public string Value { get; set; }
+
+		[Parameter]
+		public EventCallback<string> ValueChanged { get; set; }
+
+		[Parameter]
+		public Expression<Func<string>> ValueExpression { get; set; }
+
+		protected async Task HandleValueChanged(string value)
+		{	
+			Value = value;
 			await ValueChanged.InvokeAsync(Value);
 		}
 

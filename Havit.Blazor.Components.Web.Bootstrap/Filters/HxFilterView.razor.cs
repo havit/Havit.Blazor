@@ -41,6 +41,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Filters
 			chipGeneratorsRegistration = new CollectionRegistration<IHxChipGenerator>(chipGenerators, this.StateHasChanged, () => isDisposed);
 		}
 
+		// TODO: Změnit z onclick na validsubmit editformu
 		protected async Task ApplyFilterClick()
 		{
 			await ApplyFilterRequested.InvokeAsync(null);

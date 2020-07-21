@@ -1,8 +1,8 @@
-﻿@inherits HxFilterBase<string>
+﻿@inherits HxFilterBase
 <HxFilter Label="@Label">
 	<LabelTemplate>@LabelTemplate</LabelTemplate>
 	<FilterTemplate>
-		<input type="text" class="form-control" value="@Value" @onchange="TextChanged" />
+		<HxInputText Value="@Value" ValueChanged="HandleValueChanged" ValueExpression="@ValueExpression" />
 	</FilterTemplate>
 	<ChipTemplate>
 		@Value

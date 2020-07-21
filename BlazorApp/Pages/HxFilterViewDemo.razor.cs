@@ -1,6 +1,7 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Filters;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,13 +13,18 @@ namespace BlazorApp.Pages
 
 		public class CustomFilter
 		{
-			public DateRange MyDateRange { get; set; }
-			public string MyText { get; set; }
+			[Required]
+			public string Text { get; set; }
+			public DateTime? DateFrom { get; set; }
+			public DateTime? DateTo { get; set; }
 		}
 
 		private void SetRandomFilter()
 		{
-			Filter = new CustomFilter() { MyText = Guid.NewGuid().ToString() };
+			Filter = new CustomFilter
+			{
+				Text = Guid.NewGuid().ToString()
+			};
 		}
 	}
 }
