@@ -33,7 +33,7 @@
 		<p>Event is fired when:</p>
 		<ul>
 			<li>The grid was rendered for the first time but has no data (@nameof(HxGrid<object>.Items) is null). This allows to use @nameof(HxGrid<object>.DataReloadRequired) for the initial data load.</li>
-			<li>Sorting was changed and autosorting is not used (@nameof(HxGrid<object>.AutoSort) is false).</li>
+			<li>Sorting was changed and autosorting is not used.</li>
 			<li>Page was changed and @nameof(HxGrid<object>.TotalItemsCount) is not null (server-side paging is used).</li>
 		</ul>
 		<p>The event data contains grid state to simplify usage of the grid (do not need to handle other events for server-side paging and sorting).</p>

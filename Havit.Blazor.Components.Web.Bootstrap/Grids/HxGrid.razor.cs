@@ -86,9 +86,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		[Parameter] public EventCallback<SortingItem<TItemType>[]> CurrentSortingChanged { get; set; }
 
 		/// <summary>
-		/// When true, automatically sorts the data in <see cref="Items"/> property. Default is true.
+		/// Enable/disable in-memory auto-sorting the data in <see cref="Items"/> property.
+		/// Default: Auto-sorting is enabled when all sorting on columns has <see cref="SortingItem{TItemType}.SortExpression"/>.
 		/// </summary>
-		[Parameter] public bool AutoSort { get; set; } = true; // TODO: Necháme to jako default? Co bude typičtější? Řazení a stránkování přes API na serveru nebo lokálně?
+		[Parameter] public bool? AutoSort { get; set; }
 
 		/// <summary>
 		/// Event fires when data reload is required. It is when
@@ -111,15 +112,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		public HxGrid()
 		{
 			columnsList = new List<IHxGridColumn<TItemType>>();
-			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItemType>>(columnsList, this.StateHasChanged, () => isDisposed, HandleColumnAdded);
-		}
-
-		private void HandleColumnAdded(IHxGridColumn<TItemType> column)
-		{
-			if (AutoSort)
-			{
-				Contract.Assert(column.GetSorting().All(item => item.SortExpression != null), "For AutoSort all sorting items must have SortExpression set.");
-			}
+			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItemType>>(columnsList, this.StateHasChanged, () => isDisposed);
 		}
 
 		/// <inheritdoc />
@@ -191,6 +184,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		}
 
 		/// <summary>
+		/// Returns effective value of autosort.
+		/// When AutoSort is not set return true when all sortings in all columns has SortExpression.
+		/// </summary>
+		private bool GetAutoSortEffective()
+		{
+			return AutoSort ?? columnsList.SelectMany(column => column.GetSorting()).All(sorting => sorting.SortExpression != null);
+		}
+
+		/// <summary>
 		/// Applies paging on the source data when possible.
 		/// </summary>
 		protected virtual IEnumerable<TItemType> ApplyPaging(IEnumerable<TItemType> source)
@@ -205,7 +207,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// </summary>
 		protected virtual IEnumerable<TItemType> ApplySorting(IEnumerable<TItemType> source)
 		{
-			if ((CurrentSorting == null) || (CurrentSorting.Length == 0) || !AutoSort)
+			if ((CurrentSorting == null) || (CurrentSorting.Length == 0) || !GetAutoSortEffective())
 			{
 				// no sorting applied
 				return source;
@@ -232,7 +234,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			CurrentSorting = newSorting;
 			await CurrentSortingChanged.InvokeAsync(newSorting);
 
-			if (!AutoSort)
+			if (!GetAutoSortEffective())
 			{
 				await DataReloadRequired.InvokeAsync(GetCurrentUserState());
 			}

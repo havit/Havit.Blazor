@@ -23,7 +23,7 @@
 <p>Current CultureInfo: @currentLocalCultureInfo?.DisplayName</p>
 
 <h2>Server paging, server sorting</h2>
-<HxGrid TItemType="System.Globalization.CultureInfo" Items="@serverCultureInfos" @bind-SelectedDataItem="@currentServerCultureInfo" TotalItemsCount="@totalItemsCount" DataReloadRequired="@HandleDataReloadRequired" PageSize="@PageSize" AutoSort="false">
+<HxGrid TItemType="System.Globalization.CultureInfo" Items="@serverCultureInfos" @bind-SelectedDataItem="@currentServerCultureInfo" TotalItemsCount="@totalItemsCount" DataReloadRequired="@HandleDataReloadRequired" PageSize="@PageSize">
 	<Columns>
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemTextFunc="@(item => item.DisplayName)" SortString="@nameof(System.Globalization.CultureInfo.DisplayName)" IsDefaultSort="true" />
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemTextFunc="@(item => item.Name)" SortString="@nameof(System.Globalization.CultureInfo.Name)" />
