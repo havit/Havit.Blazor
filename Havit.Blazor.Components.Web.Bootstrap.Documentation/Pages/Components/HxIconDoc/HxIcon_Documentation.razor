@@ -1,0 +1,33 @@
+﻿@page "/components/hxicon"
+
+<h1>@nameof(HxIcon)</h1>
+<p class="lead">
+	Displays an icon. Currently supported are <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</a>.
+</p>
+
+<p>Internally used in <a href="/components/hxbutton">@nameof(HxButton)</a> and other components.</p>
+
+<h3>Properties</h3>
+<ul>
+	<li>
+		<strong>@nameof(Havit.Blazor.Components.Web.Bootstrap.Icons.HxIcon.Icon)</strong><br />
+		Icon to display.
+	</li>
+</ul>
+
+<h3>Icon</h3>
+<p>Icon is a class derived from @nameof(IconBase) which allows to use icons from different icon sets.</p>
+<p>Currently, there is just one implementation - @nameof(BootstrapIcon).</p>
+
+<h2>BootstrapIcon</h2>
+<p>
+	Choose icon in <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icon documentation</a>
+	or list	<TypeLink Type="typeof(BootstrapIcon)" /> values.
+</p>
+
+<div class="alert alert-info">
+	You do need to copy SVG from Bootstrap documentation, just choose icon to display.
+	Under the hood the component displays the icon using <a href="https://icons.getbootstrap.com/#usage" target="_blank">a sprite</a>.
+</div>
+
+<Demo Type="typeof(HxIcon_Demo)" />

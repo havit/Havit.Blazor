@@ -10,12 +10,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web.Bootstrap.Icons
 {
 	/// <summary>
 	/// Displays bootstrap icon. See https://icons.getbootstrap.com/.
 	/// </summary>
-	public class HxBootstrapIcon : ComponentBase
+	internal class HxBootstrapIcon : ComponentBase
 	{
 		/// <summary>
 		/// Icon to display.
@@ -42,9 +42,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		private string GetIconHref()
-		{
-			string iconName = typeof(BootstrapIcon).GetMember(Icon.ToString()).Single().GetCustomAttribute<DisplayAttribute>().Name;
-			return "/_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap-icons.svg#" + iconName;
+		{			
+			return "/_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap-icons.svg#" + Icon.Name;
 		}
 	}
 }

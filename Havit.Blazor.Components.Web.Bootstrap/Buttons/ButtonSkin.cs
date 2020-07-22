@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Icons;
 using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
@@ -19,7 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
 		/// <summary>
 		/// Icon to be rendered with button.
 		/// </summary>
-		public BootstrapIcon? Icon { get; }
+		public IconBase Icon { get; }
 
 		/// <summary>
 		/// Button text.
@@ -34,7 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public ButtonSkin(string text = null, string cssClass = null, BootstrapIcon? icon = null, Type resourceType = null)
+		public ButtonSkin(string text = null, string cssClass = null, IconBase icon = null, Type resourceType = null)
 		{
 			CssClass = cssClass;
 			Icon = icon;

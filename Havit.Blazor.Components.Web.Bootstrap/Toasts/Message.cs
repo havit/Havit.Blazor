@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Havit.Blazor.Components.Web.Bootstrap.Icons;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 {
@@ -17,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 		/// <summary>
 		/// Bootstrap icon.
 		/// </summary>
-		public BootstrapIcon? Icon { get; set; }
+		public IconBase Icon { get; set; }
 
 		/// <summary>
 		/// Css class.

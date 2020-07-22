@@ -1,4 +1,5 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Forms;
+using Havit.Blazor.Components.Web.Bootstrap.Icons;
 using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
 using Havit.Blazor.Components.Web.Forms;
 using Microsoft.AspNetCore.Components;
@@ -39,7 +40,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
 		/// <summary>
 		/// Icon to render into button.
 		/// </summary>
-		[Parameter] public BootstrapIcon? Icon { get; set; }
+		[Parameter] public IconBase Icon { get; set; }
 
 		/// <summary>
 		/// Skin of the button. Simplifies usage of button properties.
@@ -70,11 +71,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
 			builder.AddAttribute(3, "onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, HandleClick));
 			builder.AddAttribute(4, "disabled", !this.IsEnabledEffective());
 
-			BootstrapIcon? icon = Icon ?? Skin?.Icon;
+			IconBase icon = Icon ?? Skin?.Icon;
 			if (icon != null)
 			{
-				builder.OpenComponent(5, typeof(HxBootstrapIcon));
-				builder.AddAttribute(6, nameof(HxBootstrapIcon.Icon), icon);
+				builder.OpenComponent(5, typeof(HxIcon));
+				builder.AddAttribute(6, nameof(HxIcon.Icon), icon);
 				builder.CloseComponent();
 				builder.AddContent(7, " ");
 

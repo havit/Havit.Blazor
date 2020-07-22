@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Icons;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
@@ -49,7 +50,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 		/// <summary>
 		/// Content (body) icon.
 		/// </summary>
-		[Parameter] public BootstrapIcon? ContentIcon { get; set; }
+		[Parameter] public IconBase ContentIcon { get; set; }
 
 		/// <summary>
 		/// Content (body) text.
@@ -132,8 +133,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
 
 				if (ContentIcon != null)
 				{
-					builder.OpenComponent(302, typeof(HxBootstrapIcon));
-					builder.AddAttribute(303, nameof(HxBootstrapIcon.Icon), ContentIcon);
+					builder.OpenComponent(302, typeof(HxIcon));
+					builder.AddAttribute(303, nameof(HxIcon.Icon), ContentIcon);
 					builder.CloseComponent();
 				}
 
