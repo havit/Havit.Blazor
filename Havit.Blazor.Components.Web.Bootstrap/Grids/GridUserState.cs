@@ -12,20 +12,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// <summary>
 		/// Current page index.
 		/// </summary>
-		public int CurrentPageIndex { get; }
+		public int PageIndex { get; }
 
 		/// <summary>
 		/// Current sorting.
 		/// </summary>
-		public SortingItem<TItemType>[] CurrentSorting { get; }
+		public SortingItem<TItemType>[] Sorting { get; } // TODO: Make array readonly
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public GridUserState(int currentPageIndex, SortingItem<TItemType>[] currentSorting)
+		public GridUserState(int pageIndex, SortingItem<TItemType>[] sorting)
 		{
-			CurrentPageIndex = currentPageIndex;
-			CurrentSorting = currentSorting;
+			PageIndex = pageIndex;
+			Sorting = sorting;
 		}
 	}
 }

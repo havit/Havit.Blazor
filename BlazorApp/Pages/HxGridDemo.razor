@@ -46,9 +46,9 @@
 	private void HandleDataReloadRequired(GridUserState<System.Globalization.CultureInfo> userState)
 	{
 		totalItemsCount = localCultureInfos.Count();
-		localCultureInfos.Sort(userState.CurrentSorting.ToGenericPropertyComparer());
+		localCultureInfos.Sort(userState.Sorting.ToGenericPropertyComparer());
 		serverCultureInfos = localCultureInfos
-			.Skip(userState.CurrentPageIndex * PageSize)
+			.Skip(userState.PageIndex * PageSize)
 			.Take(PageSize)
 			.ToList();
 	}

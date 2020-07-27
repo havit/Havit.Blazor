@@ -59,37 +59,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		[Parameter] public int PageSize { get; set; } = 0;
 
 		/// <summary>
-		/// Current page index.
-		/// Intended for for data binding.
-		/// </summary>
-		[Parameter] public int CurrentPageIndex { get; set; }
-
-		/// <summary>
-		/// Event fires when selected page changes.
-		/// Intended for for data binding.
-		/// </summary>		
-		[Parameter] public EventCallback<int> CurrentPageIndexChanged { get; set; }
-
-		/// <summary>
 		/// Indicates total number of items for server-side paging.
 		/// </summary>
 		[Parameter] public int? TotalItemsCount { get; set; }
 
 		/// <summary>
-		/// Current grid sorting.
-		/// </summary>
-		[Parameter] public SortingItem<TItemType>[] CurrentSorting { get; set; }
-
-		/// <summary>
-		/// Event fires when sorting changes.
-		/// </summary>
-		[Parameter] public EventCallback<SortingItem<TItemType>[]> CurrentSortingChanged { get; set; }
-
-		/// <summary>
 		/// Enable/disable in-memory auto-sorting the data in <see cref="Items"/> property.
-		/// Default: Auto-sorting is enabled when all sorting on columns has <see cref="SortingItem{TItemType}.SortExpression"/>.
+		/// Default: Auto-sorting is enabled when all sortings on all columns have <see cref="SortingItem{TItemType}.SortExpression"/>.
 		/// </summary>
 		[Parameter] public bool? AutoSort { get; set; }
+
+		/// <summary>
+		/// Current grid state (page, sorting).
+		/// </summary>
+		[Parameter] public GridUserState<TItemType> CurrentUserState { get; set; } = new GridUserState<TItemType>(0, null);
+
+		/// <summary>
+		/// Event fires when grid state is changed.
+		/// </summary>
+		[Parameter] public EventCallback<GridUserState<TItemType>> CurrentUserStateChanged { get; set; }
 
 		/// <summary>
 		/// Event fires when data reload is required. It is when
@@ -98,6 +86,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// <item>Current page index is changes.</item>
 		/// </list>
 		/// </summary>
+		/// <remarks>
+		/// It sounds like it is enought to have just <see cref="CurrentUserState"/> but there are reason why it is not true:
+		/// <list type="number">
+		/// <item>Consider usage of the grid - <see cref="CurrentUserState"/> and <see cref="CurrentUserStateChanged"/> are used by data-binding and no other event can be attached.</item>
+		/// <item>When there is no default sort <see cref="CurrentUserStateChanged"/> is not fired so there would not be simple place to attach initial data load.</item>
+		/// </list>
+		/// </remarks>
 		[Parameter] public EventCallback<GridUserState<TItemType>> DataReloadRequired { get; set; }
 
 		private List<IHxGridColumn<TItemType>> columnsList;
@@ -121,7 +116,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			await base.OnAfterRenderAsync(firstRender);
 
 			// when no sorting is set, use default
-			if (firstRender && (CurrentSorting == null))
+			if (firstRender && (CurrentUserState.Sorting == null))
 			{
 				SortingItem<TItemType>[] defaultSorting = GetDefaultSorting();
 				if (defaultSorting != null)
@@ -132,14 +127,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 			if (firstRender && (this.Items == null))
 			{
-				await DataReloadRequired.InvokeAsync(GetCurrentUserState());
+				await DataReloadRequired.InvokeAsync(CurrentUserState);
 			}
 
 			// when rendering page with no data, navigate one page back
 			if (decreasePageIndexAfterRender)
 			{
 				decreasePageIndexAfterRender = false;
-				await SetCurrentPageIndexWithEventCallback(CurrentPageIndex - 1);
+				await SetCurrentPageIndexWithEventCallback(CurrentUserState.PageIndex - 1);
 			}
 
 			// No StateHasChanged required - all reactions are performed by parameter changes which already causes re-rendering.
@@ -198,7 +193,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		protected virtual IEnumerable<TItemType> ApplyPaging(IEnumerable<TItemType> source)
 		{
 			return ((PageSize > 0) && (TotalItemsCount == null))
-				? source.Skip(PageSize * CurrentPageIndex).Take(PageSize)
+				? source.Skip(PageSize * CurrentUserState.PageIndex).Take(PageSize)
 				: source;
 		}
 
@@ -207,23 +202,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// </summary>
 		protected virtual IEnumerable<TItemType> ApplySorting(IEnumerable<TItemType> source)
 		{
-			if ((CurrentSorting == null) || (CurrentSorting.Length == 0) || !GetAutoSortEffective())
+			if ((CurrentUserState.Sorting == null) || (CurrentUserState.Sorting.Length == 0) || !GetAutoSortEffective())
 			{
 				// no sorting applied
 				return source;
 			}
 
-			Contract.Assert(CurrentSorting.All(item => item.SortExpression != null), "All sorting items must have set SortExpression property.");
+			Contract.Assert(CurrentUserState.Sorting.All(item => item.SortExpression != null), "All sorting items must have set SortExpression property.");
 
-			IOrderedEnumerable<TItemType> result = (CurrentSorting[0].SortDirection == SortDirection.Ascending)
-				? source.OrderBy(CurrentSorting[0].SortExpression.Compile())
-				: source.OrderByDescending(CurrentSorting[0].SortExpression.Compile());
+			IOrderedEnumerable<TItemType> result = (CurrentUserState.Sorting[0].SortDirection == SortDirection.Ascending)
+				? source.OrderBy(CurrentUserState.Sorting[0].SortExpression.Compile())
+				: source.OrderByDescending(CurrentUserState.Sorting[0].SortExpression.Compile());
 
-			for (int i = 1; i < CurrentSorting.Length; i++)
+			for (int i = 1; i < CurrentUserState.Sorting.Length; i++)
 			{
-				result = (CurrentSorting[i].SortDirection == SortDirection.Ascending)
-					? result.ThenBy(CurrentSorting[i].SortExpression.Compile())
-					: result.ThenByDescending(CurrentSorting[i].SortExpression.Compile());
+				result = (CurrentUserState.Sorting[i].SortDirection == SortDirection.Ascending)
+					? result.ThenBy(CurrentUserState.Sorting[i].SortExpression.Compile())
+					: result.ThenByDescending(CurrentUserState.Sorting[i].SortExpression.Compile());
 			}
 
 			return result;
@@ -231,25 +226,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		private async Task SetCurrentSortingWithEventCallback(SortingItem<TItemType>[] newSorting)
 		{
-			CurrentSorting = newSorting;
-			await CurrentSortingChanged.InvokeAsync(newSorting);
+			CurrentUserState = new GridUserState<TItemType>(CurrentUserState.PageIndex, newSorting);
+
+			await CurrentUserStateChanged.InvokeAsync(CurrentUserState);
 
 			if (!GetAutoSortEffective())
 			{
-				await DataReloadRequired.InvokeAsync(GetCurrentUserState());
+				await DataReloadRequired.InvokeAsync(CurrentUserState);
 			}
 		}
 
 		private async Task SetCurrentPageIndexWithEventCallback(int newPageIndex)
 		{
-			if (CurrentPageIndex != newPageIndex)
+			if (CurrentUserState.PageIndex != newPageIndex)
 			{
-				CurrentPageIndex = newPageIndex;
-				await CurrentPageIndexChanged.InvokeAsync(newPageIndex);
+				CurrentUserState = new GridUserState<TItemType>(newPageIndex, CurrentUserState.Sorting);
+				await CurrentUserStateChanged.InvokeAsync(CurrentUserState);
 
 				if (TotalItemsCount != null)
 				{
-					await DataReloadRequired.InvokeAsync(GetCurrentUserState());
+					await DataReloadRequired.InvokeAsync(CurrentUserState);
 				}
 			}
 		}
@@ -265,17 +261,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		private async Task HandleSortingClick(IEnumerable<SortingItem<TItemType>> sorting)
 		{
-			await SetCurrentSortingWithEventCallback(CurrentSorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToArray()); // when current sorting is null, use new sorting
+			await SetCurrentSortingWithEventCallback(CurrentUserState.Sorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToArray()); // when current sorting is null, use new sorting
 		}
 
 		private async Task HandlePagerCurrentPageIndexChanged(int newPageIndex)
 		{
 			await SetCurrentPageIndexWithEventCallback(newPageIndex);
-		}
-
-		private GridUserState<TItemType> GetCurrentUserState()
-		{
-			return new GridUserState<TItemType>(this.CurrentPageIndex, this.CurrentSorting);
 		}
 
 		/// <inheritdoc />

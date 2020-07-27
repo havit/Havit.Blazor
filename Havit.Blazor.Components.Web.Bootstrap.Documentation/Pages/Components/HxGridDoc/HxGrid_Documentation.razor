@@ -21,12 +21,8 @@
 		Total count of items. Set ONLY in server-side paging &amp; sorting scenario.
 	</li>
 	<li>
-		<strong>@nameof(HxGrid<object>.CurrentPageIndex), @nameof(HxGrid<object>.CurrentPageIndexChanged)</strong><br />
-		Current page index.
-	</li>
-	<li>
-		<strong>@nameof(HxGrid<object>.CurrentSorting), @nameof(HxGrid<object>.CurrentSortingChanged)</strong><br />
-		Current sorting (consider as read-only). To setup default sorting see @nameof(HxGridColumn<object>) below.
+		<strong>@nameof(HxGrid<object>.CurrentUserState), @nameof(HxGrid<object>.CurrentUserStateChanged)</strong><br />
+		Current grid state (page index, sorting).
 	</li>
 	<li>
 		<strong>@nameof(HxGrid<object>.DataReloadRequired)</strong><br />
@@ -43,8 +39,12 @@
 		<strong>@nameof(HxGrid<object>.SelectedDataItem), @nameof(HxGrid<object>.SelectedDataItemChanged)</strong><br />
 		Currently selected item.
 	</li>
+	<li>
+		<strong>@nameof(HxGrid<object>.AutoSort)</strong><br />
+		<p>Indicates whether the auto-sorting is on.</p>
+		<p>Default: True when all sortings in all columns have SortExpression (otherwise false).</p>
+	</li>
 </ul>
-
 
 <h3>Commands</h3>
 <p class="red">TODO</p>

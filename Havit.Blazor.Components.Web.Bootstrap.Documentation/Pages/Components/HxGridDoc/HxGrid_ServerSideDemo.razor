@@ -19,9 +19,9 @@
 		var localCultureInfos = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).ToList();	
 		
 		totalItemsCount = localCultureInfos.Count();
-		localCultureInfos.Sort(userState.CurrentSorting.ToGenericPropertyComparer()); // use of userState.CurrentSorting
+		localCultureInfos.Sort(userState.Sorting.ToGenericPropertyComparer()); // use of userState.CurrentSorting
 		serverCultureInfos = localCultureInfos
-			.Skip(userState.CurrentPageIndex * PageSize) // use of userState.CurrentPageIndex
+			.Skip(userState.PageIndex * PageSize) // use of userState.CurrentPageIndex
 			.Take(PageSize)
 			.ToList();
 

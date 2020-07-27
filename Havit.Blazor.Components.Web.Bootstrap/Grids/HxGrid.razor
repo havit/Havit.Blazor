@@ -10,7 +10,7 @@
 	List<IHxGridColumn<TItemType>> columnsToRender = GetColumnsToRender();
 	TItemType[] itemsToRender = ApplyPaging(ApplySorting(Items)).ToArray();
 
-	if ((itemsToRender.Length == 0) && (CurrentPageIndex > 0))
+	if ((itemsToRender.Length == 0) && (CurrentUserState.PageIndex > 0))
 	{
 		decreasePageIndexAfterRender = true;
 	}
@@ -23,14 +23,14 @@
 					@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 					{
 						var columnSorting = column.GetSorting();
-						bool isCurrentSorting = CurrentSorting?.StartsWith(columnSorting) ?? false;
+						bool isCurrentSorting = CurrentUserState.Sorting?.StartsWith(columnSorting) ?? false;
 						var headerCellTemplate = column.GetHeaderCellTemplate();
 						<td class="@headerCellTemplate.CssClass">
 							@headerCellTemplate.Template
 
 							@if (isCurrentSorting)
 							{
-								@if (CurrentSorting[0].SortDirection == Collections.SortDirection.Ascending)
+								@if (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Ascending)
 								{
 									<svg class="bi bi-arrow-up text-primary" width=".9em" height=".9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 										<path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
@@ -50,7 +50,7 @@
 							{
 								<a @onclick="async () => await HandleSortingClick(columnSorting)" role="button" class="text-muted">
 									@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Ascending))
-									   || (isCurrentSorting && (CurrentSorting[0].SortDirection == Collections.SortDirection.Descending)))
+									  || (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
 									{
 										<svg class="bi bi-arrow-up" width=".9em" height=".9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 											<path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
@@ -105,7 +105,7 @@
 			if (totalPages > 1)
 			{
 				<HxPager TotalPages="@totalPages"
-						 CurrentPageIndex="@CurrentPageIndex"
+						 CurrentPageIndex="@CurrentUserState.PageIndex"
 						 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged" />
 			}
 		}
