@@ -16,8 +16,8 @@
 	{
 		// simulate asynchronous server-side call: Get totalItemsCount and items for the current page.
 		// await ...
-		var localCultureInfos = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).ToList();	
-		
+		var localCultureInfos = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).ToList();
+
 		totalItemsCount = localCultureInfos.Count();
 		localCultureInfos.Sort(userState.Sorting.ToGenericPropertyComparer()); // use of userState.CurrentSorting
 		serverCultureInfos = localCultureInfos

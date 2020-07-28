@@ -202,7 +202,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// </summary>
 		protected virtual IEnumerable<TItemType> ApplySorting(IEnumerable<TItemType> source)
 		{
-			if ((CurrentUserState.Sorting == null) || (CurrentUserState.Sorting.Length == 0) || !GetAutoSortEffective())
+			if ((CurrentUserState.Sorting == null) || (CurrentUserState.Sorting.Count == 0) || !GetAutoSortEffective())
 			{
 				// no sorting applied
 				return source;
@@ -214,7 +214,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 				? source.OrderBy(CurrentUserState.Sorting[0].SortExpression.Compile())
 				: source.OrderByDescending(CurrentUserState.Sorting[0].SortExpression.Compile());
 
-			for (int i = 1; i < CurrentUserState.Sorting.Length; i++)
+			for (int i = 1; i < CurrentUserState.Sorting.Count; i++)
 			{
 				result = (CurrentUserState.Sorting[i].SortDirection == SortDirection.Ascending)
 					? result.ThenBy(CurrentUserState.Sorting[i].SortExpression.Compile())
@@ -224,7 +224,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 			return result;
 		}
 
-		private async Task SetCurrentSortingWithEventCallback(SortingItem<TItemType>[] newSorting)
+		private async Task SetCurrentSortingWithEventCallback(IReadOnlyList<SortingItem<TItemType>> newSorting)
 		{
 			CurrentUserState = new GridUserState<TItemType>(CurrentUserState.PageIndex, newSorting);
 
@@ -261,7 +261,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		private async Task HandleSortingClick(IEnumerable<SortingItem<TItemType>> sorting)
 		{
-			await SetCurrentSortingWithEventCallback(CurrentUserState.Sorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToArray()); // when current sorting is null, use new sorting
+			await SetCurrentSortingWithEventCallback(CurrentUserState.Sorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToList().AsReadOnly()); // when current sorting is null, use new sorting
 		}
 
 		private async Task HandlePagerCurrentPageIndexChanged(int newPageIndex)

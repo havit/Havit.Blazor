@@ -17,12 +17,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// <summary>
 		/// Current sorting.
 		/// </summary>
-		public SortingItem<TItemType>[] Sorting { get; } // TODO: Make array readonly
+		public IReadOnlyList<SortingItem<TItemType>> Sorting { get; }
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public GridUserState(int pageIndex, SortingItem<TItemType>[] sorting)
+		public GridUserState(int pageIndex, IReadOnlyList<SortingItem<TItemType>> sorting)
 		{
 			PageIndex = pageIndex;
 			Sorting = sorting;
