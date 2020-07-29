@@ -25,6 +25,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			// no base call
+			builder.AddMarkupContent(0, "<!--googleoff: index-->"); // source: https://perishablepress.com/tell-google-to-not-index-certain-parts-of-your-page/
+
 			builder.OpenElement(100, "div");
 			builder.AddAttribute(101, "class", "card card-demo");
 			builder.OpenElement(200, "div");
@@ -47,6 +49,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			builder.CloseElement(); // card-body
 			builder.CloseElement(); // card
+
+			builder.AddMarkupContent(600, "<!--googleon: index-->"); // source: https://perishablepress.com/tell-google-to-not-index-certain-parts-of-your-page/
+
 		}
 	}
 }
