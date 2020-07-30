@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <RazorLangVersion>3.0</RazorLangVersion>
-	<BlazorWebAssemblyEnableLinking>false</BlazorWebAssemblyEnableLinking>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,5 +17,11 @@
     <ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap\Havit.Blazor.Components.Web.Bootstrap.csproj" />
     <ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
   </ItemGroup>
-	
+
+	<Target Name="EmbedDemos" BeforeTargets="PrepareForBuild">
+		<!-- Let's embed demos sources to the assembly to be able to show sources at runtime. -->
+		<ItemGroup>
+			<EmbeddedResource Include="Pages/**/*Demo.razor" />
+		</ItemGroup>
+	</Target>
 </Project>

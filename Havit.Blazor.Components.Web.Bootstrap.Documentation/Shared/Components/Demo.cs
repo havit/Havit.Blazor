@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 {
@@ -15,15 +19,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		[Parameter]
 		public Type Type { get; set; }
 
-		private string GetLinkUrl()
-		{
-			string shortTypeName = Type.FullName.Replace("Havit.Blazor.Components.Web.Bootstrap.Documentation.", "");
-			string urlSegment = shortTypeName.Replace(".", "/");
-			return "https://dev.azure.com/havit/DEV/_git/002.HFW-HavitBlazor?path=" + System.Net.WebUtility.UrlEncode("/Havit.Blazor.Components.Web.Bootstrap.Documentation/" + urlSegment + ".razor");
-		}
+		[Inject]
+		public IJSRuntime JSRuntime { get; set; }
+
+		private bool showingDemo = true;
 
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
+			var resourceName = Type.FullName + ".razor";
+			string code;
+
+			using (Stream stream = Type.Assembly.GetManifestResourceStream(resourceName))
+			{
+				using (StreamReader reader = new StreamReader(stream))
+				{
+					code = reader.ReadToEnd();
+				}
+			}
+
 			// no base call
 			builder.AddMarkupContent(0, "<!--googleoff: index-->"); // source: https://perishablepress.com/tell-google-to-not-index-certain-parts-of-your-page/
 
@@ -33,25 +46,44 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			builder.AddAttribute(201, "class", "card-header");
 			builder.AddContent(202, Title);
 
-			builder.OpenElement(300, "a");
-			builder.AddAttribute(301, "href", GetLinkUrl());
-			builder.AddAttribute(302, "target", "_blank");
+			builder.OpenElement(300, "button");
+			builder.AddAttribute(301, "type", "button");
+			builder.AddAttribute(302, "class", "btn btn-info btn-sm");
 			builder.AddAttribute(303, "style", "float: right");
-			builder.AddContent(304, "source");
-			builder.CloseElement(); // a
+			builder.AddAttribute(304, "onclick", EventCallback.Factory.Create(this, () => { showingDemo = !showingDemo; }));
+			builder.AddContent(305, showingDemo ? "source" : "demo");
+			builder.CloseElement(); // button
+
 			builder.CloseElement(); // card-header
 
 			builder.OpenElement(400, "div");
 			builder.AddAttribute(401, "class", "card-body");
 
-			builder.OpenComponent(500, Type);
-			builder.CloseComponent();
+			if (showingDemo)
+			{
+				builder.OpenComponent(500, Type);
+				builder.CloseComponent();
+			}
+			else
+			{ 
+				builder.OpenElement(600, "pre");
+				builder.OpenElement(601, "code");
+				builder.AddAttribute(602, "class", "language-html");
+				builder.AddContent(603, code.Trim());
+				builder.CloseElement();
+				builder.CloseElement();
+			}
 
 			builder.CloseElement(); // card-body
 			builder.CloseElement(); // card
 
-			builder.AddMarkupContent(600, "<!--googleon: index-->"); // source: https://perishablepress.com/tell-google-to-not-index-certain-parts-of-your-page/
+			builder.AddMarkupContent(700, "<!--googleon: index-->"); // source: https://perishablepress.com/tell-google-to-not-index-certain-parts-of-your-page/
+		}
 
+		protected override async Task OnAfterRenderAsync(bool firstRender)
+		{
+			await base.OnAfterRenderAsync(firstRender);
+			await JSRuntime.InvokeVoidAsync("highlightCode");
 		}
 	}
 }
