@@ -111,7 +111,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			bool renderDiv = !String.IsNullOrEmpty(cssClass) || !String.IsNullOrEmpty(Label) || (LabelTemplate != null) || (HintTemplate != null);
 
 			// in checkbox label is renderead after input but we need InputId.
-			if (String.IsNullOrEmpty(Label) || (LabelTemplate != null))
+			if (!String.IsNullOrEmpty(Label) || (LabelTemplate != null))
 			{
 				EnsureInputId();
 			}
