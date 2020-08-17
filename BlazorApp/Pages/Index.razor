@@ -3,15 +3,20 @@
 <h1>Blazor Debugging App</h1>
 
 <ul>
-	<li><a href="/HxAutosuggestDemo">HxAutosuggestDemo</a></li>
-	<li><a href="/HxButtonDemo">HxButtonsDemo</a></li>
-	<li><a href="/HxPagerDemo">HxPagerDemo</a></li>
-	<li><a href="/HxFilterViewDemo">HxFilterViewDemo</a></li>
-	<li><a href="/HxGridDemo">HxGridDemo</a></li>
-	<li><a href="/HxIconDemo">HxIconDemo</a></li>
-	<li><a href="/HxMessenger">HxMessenger</a></li>
-	<li><a href="/HxTabPanelDemo">HxTabPanel</a></li>
-	<li><a href="/HxToastDemo">HxToast</a></li>
-	<li><a href="/HxWizardDemo">HxWizardDemo</a></li>
-	<li><a href="/InputsDemo">InputsDemo</a></li>
+	@foreach (var demo in GetDemos())
+	{
+		string url = "/" + demo;
+		<li><a href="@url">@demo</a></li>
+	}
 </ul>
+
+@code
+{
+	private IEnumerable<string> GetDemos()
+	{
+		// local debug-only implementation
+		var files = System.IO.Directory.GetFiles(System.IO.Path.Combine(System.Environment.CurrentDirectory, "Pages"), "*Demo*razor");
+		return files.Select(item => System.IO.Path.GetFileNameWithoutExtension(item)).OrderBy(item => item).ToList();
+	}
+
+}
