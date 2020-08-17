@@ -74,13 +74,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		/// Selects text to display from item.
 		/// When not set ToString() is used.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> Text { get; set; } // TODO: Pojmenování? Vs. ValueSelector vs. Sort.
+		[Parameter] public Func<TItemType, string> TextFunc { get; set; } // TODO: Pojmenování? Vs. ValueSelector vs. SortFunc.
 
 		/// <summary>
-		/// Selects value to sort items. Uses Text property when not set.
+		/// Selects value to sort items. Uses <see cref="TextFunc"/> property when not set.
 		/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
 		/// </summary>
-		[Parameter] public Func<TItemType, IComparable> Sort { get; set; } // TODO: Neumíme zřetězení výrazů pro řazení, v takovém případě buď umělou vlastnost s IComparable nebo seřadit předem.
+		[Parameter] public Func<TItemType, IComparable> SortFunc { get; set; } // TODO: Neumíme zřetězení výrazů pro řazení, v takovém případě buď umělou vlastnost s IComparable nebo seřadit předem.
 
 		/// <summary>
 		/// When true, items are sorted before displaying in select.
@@ -100,13 +100,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			// AutoSort
 			if (AutoSort && (itemsToRender.Count > 1))
 			{
-				if (Sort != null)
+				if (SortFunc != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.Sort).ToList();
+					itemsToRender = itemsToRender.OrderBy(this.SortFunc).ToList();
 				}
-				else if (Text != null)
+				else if (TextFunc != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.Text).ToList();
+					itemsToRender = itemsToRender.OrderBy(this.TextFunc).ToList();
 				}
 			}
 		}
@@ -143,7 +143,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 					builder.OpenElement(3000, "option");
 					builder.AddAttribute(3001, "value", i.ToString());
 					builder.AddAttribute(3002, "selected", comparer.Equals(Value, GetValueFromItem(item)));
-					builder.AddContent(3003, Text?.Invoke(item) ?? item?.ToString() ?? String.Empty);
+					builder.AddContent(3003, TextFunc?.Invoke(item) ?? item?.ToString() ?? String.Empty);
 					builder.CloseElement();
 				}
 			}
