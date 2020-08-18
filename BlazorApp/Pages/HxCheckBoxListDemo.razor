@@ -1,0 +1,24 @@
+﻿@page "/HxCheckBoxListDemo"
+@using System.Globalization
+
+<h1>HxCheckBoxList</h1>
+
+<EditForm Model="@model">
+	<HxCheckBoxList TItemType="CultureInfo" Label="Cultures" TextFunc="@(item => item.EnglishName)" Items="@items" @bind-Value="@model.CultureInfos" />
+</EditForm>
+
+<p>Selected values: @String.Join(", ", model.CultureInfos?.Select(item => item.EnglishName) ?? Enumerable.Empty<string>())</p>
+
+@code
+{
+	private Model model = new Model();
+	private List<CultureInfo> items = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+		.OrderBy(item => item.EnglishName)
+		.Take(10)
+		.ToList();
+
+	private class Model
+	{
+		public List<CultureInfo> CultureInfos { get; set; }
+	}
+}

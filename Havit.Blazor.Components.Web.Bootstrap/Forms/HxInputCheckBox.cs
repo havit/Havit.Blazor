@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
+	// TODO: Naming: HxInputCheckBox vs. HxCheckBoxList ("Input?")
 	/// <summary>
 	/// CheckBox input.
 	/// </summary>
@@ -28,9 +29,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, "input");
-			BuildRenderInput_AddCommonAttributes(builder, "checkbox");			
+			BuildRenderInput_AddCommonAttributes(builder, "checkbox");
  
-			 builder.AddAttribute(1000, "checked", BindConverter.FormatValue(CurrentValue));
+			builder.AddAttribute(1000, "checked", BindConverter.FormatValue(CurrentValue));
 			builder.AddAttribute(1001, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
 			builder.CloseElement();
 		}
