@@ -1,4 +1,5 @@
-﻿using Havit.Collections;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
+using Havit.Collections;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -20,12 +21,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		[CascadingParameter(Name = HxGrid<TItemType>.ColumnsRegistrationCascadingValueName)]
 		protected CollectionRegistration<IHxGridColumn<TItemType>> ColumnsRegistration { get; set; }
 
+		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
+
+		/// <summary>
+		/// Gets whether to autoregister column.
+		/// </summary>
+		protected abstract bool AutoRegisterColumn { get; }
+
 		/// <inheritdoc />
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
-			Contract.Requires(ColumnsRegistration != null, $"Grid column invalid usage. Must be used in a {typeof(HxGrid<TItemType>).FullName}.");
-			ColumnsRegistration.Register(this);
+
+			if (AutoRegisterColumn)
+			{
+				Contract.Requires(ColumnsRegistration != null, $"Grid column invalid usage. Must be used in a {typeof(HxGrid<TItemType>).FullName}.");
+				ColumnsRegistration.Register(this);
+			}
 		}
 
 		/// <inheritdoc />
@@ -61,9 +73,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		protected abstract IEnumerable<SortingItem<TItemType>> GetSorting();
 
 		/// <inheritdoc />
+		protected override void OnAfterRender(bool firstRender)
+		{
+			base.OnAfterRender(firstRender);
+
+			((IRenderNotificationComponent)this).Rendered?.Invoke(this, firstRender);
+		}
+
+		/// <inheritdoc />
 		public virtual void Dispose()
 		{
-			ColumnsRegistration.Unregister(this);
+			if (AutoRegisterColumn)
+			{
+				ColumnsRegistration.Unregister(this);
+			}
 		}
 	}
 }

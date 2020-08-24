@@ -3,7 +3,7 @@
 <h1>HxGrid</h1>
 
 <h2>Client paging, auto sorting</h2>
-<HxGrid Items="@localCultureInfos" @bind-SelectedDataItem="@currentLocalCultureInfo" PageSize="@PageSize">
+<HxGrid Items="@localCultureInfos" @bind-SelectedDataItem="@currentLocalCultureInfo" PageSize="@PageSize" SelectionMode="GridViewSelectionMode.MultiSelect">
 	<Columns>
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemTextFunc="@(item => item.DisplayName)" SortExpression="@(item => item.DisplayName)" IsDefaultSort="true" />
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemTextFunc="@(item => item.Name)" SortExpression="@(item => item.Name)" ItemCssClassFunc="@(item => item.Name.Contains('Z') ? "text-right" : null)" />

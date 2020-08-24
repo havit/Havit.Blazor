@@ -11,12 +11,17 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 {
+	// TODO: Údržba SelectedItem a SelectedItems: Kdy by mělo dojít k údržbě? V každém renderu? I při stránkování na straně serveru? 
+	// TODO: Co když se tedy při stránkování ztrácí záznamy vybrané na předchozí stránce?
+	// TODO: A naopak: Abychom při stránkování poznali stejné záznamy, musíme být schopni je porovnat. 
+	// TODO: Jenže to klade nároky na implementace IEquatable<>, což asi těžko bude někdo těžko implementovat hromadně.	
+
 	/// <summary>
 	/// Grid to display tabular data from data source.
 	/// </summary>
 	/// <typeparam name="TItemType">Type of row data item.</typeparam>
 	public partial class HxGrid<TItemType> : IDisposable
-	{
+	{		
 		/// <summary>
 		/// ColumnsRegistration cascading value name.
 		/// </summary>
@@ -27,8 +32,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// </summary>
 		[Parameter] public IEnumerable<TItemType> Items { get; set; }
 
-		// TODO: OnClickBehavior nebo tak něco?
-		// [Parameter] public bool AllowSelection { get; set; }
+		/// <summary>
+		/// Grid view selection mode. Default is "Select".
+		/// </summary>
+		[Parameter] public GridViewSelectionMode SelectionMode { get; set; }
 
 		/// <summary>
 		/// Columns template.
@@ -42,16 +49,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		/// <summary>
 		/// Selected data item.
-		/// Intended for for data binding.
+		/// Intended for data binding.
 		/// </summary>		
 		/// TODO: Items vs. Selected*Data*Item
 		[Parameter] public TItemType SelectedDataItem { get; set; }
 
 		/// <summary>
 		/// Event fires when selected data item changes.
-		/// Intended for for data binding.
+		/// Intended for data binding.
 		/// </summary>		
 		[Parameter] public EventCallback<TItemType> SelectedDataItemChanged { get; set; }
+
+		/// <summary>
+		/// Selected data items.
+		/// Intended for data binding.
+		/// </summary>		
+		/// TODO: Items vs. Selected*Data*Item
+		[Parameter] public HashSet<TItemType> SelectedDataItems { get; set; }
+
+		/// <summary>
+		/// Event fires when selected data items changes.
+		/// Intended for data binding.
+		/// </summary>		
+		[Parameter] public EventCallback<HashSet<TItemType>> SelectedDataItemsChanged { get; set; }
 
 		/// <summary>
 		/// Page size.
@@ -97,9 +117,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		private List<IHxGridColumn<TItemType>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration;
-
+#pragma warning disable CS0649 // assigned by @ref
+		private ContextMenuGridColumn<TItemType> contextMenuGridColumn; // assigned by @ref
+		private MultiSelectGridColumn<TItemType> multiSelectGridColumn; // assigned by @ref
+#pragma warning restore CS0649
 		private bool decreasePageIndexAfterRender = false;
 		private bool isDisposed = false;
+		private bool refreshAfterRender = false;
 
 		/// <summary>
 		/// Constructor.
@@ -137,19 +161,45 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 				await SetCurrentPageIndexWithEventCallback(CurrentUserState.PageIndex - 1);
 			}
 
-			// No StateHasChanged required - all reactions are performed by parameter changes which already causes re-rendering.
+			if (refreshAfterRender)
+			{
+				refreshAfterRender = false;
+				StateHasChanged();
+			}
 		}
 
-		/// <summary>
-		/// Returns columns to render.
-		/// Main goal of the method is to add ContextMenuGridColumn to the user defined columns.
-		/// </summary>
-		protected List<IHxGridColumn<TItemType>> GetColumnsToRender()
+	/// <summary>
+	/// Returns columns to render.
+	/// Main goal of the method is to add ContextMenuGridColumn to the user defined columns.
+	/// </summary>
+	protected List<IHxGridColumn<TItemType>> GetColumnsToRender()
 		{
 			var result = new List<IHxGridColumn<TItemType>>(columnsList);
+			
+			// TODO: Nahradíme registrací sloupců do kolekce?
+			if (SelectionMode == GridViewSelectionMode.MultiSelect)
+			{
+				if (multiSelectGridColumn != null)
+				{
+					result.Insert(0, multiSelectGridColumn);
+				}
+				else
+				{
+					refreshAfterRender = true; // field will be assigned during render, we need to re-render the component
+				}
+			}
+			
+			// TODO: Nahradíme registrací sloupců do kolekce?
 			if ((result.Count > 0) && (ContextMenu != null))
 			{
-				result.Add(new ContextMenuGridColumn<TItemType>(ContextMenu));
+				if (contextMenuGridColumn != null)
+				{
+					result.Add(contextMenuGridColumn);
+				}
+				else
+				{
+					refreshAfterRender = true; // field will be assigned during render, we need to re-render the component
+				}
 			}
 			return result;
 		}
@@ -252,11 +302,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		private async Task HandleSelectDataItemClick(TItemType newSelectedDataItem)
 		{
+			Contract.Requires(SelectionMode == GridViewSelectionMode.Select);
+			
 			if (!EqualityComparer<TItemType>.Default.Equals(SelectedDataItem, newSelectedDataItem))
 			{
 				SelectedDataItem = newSelectedDataItem;
 				await SelectedDataItemChanged.InvokeAsync(newSelectedDataItem);
 			}
+		}
+
+		private async Task HandleMultiSelectItemSelectionToggled(TItemType item)
+		{
+			Contract.Requires(SelectionMode == GridViewSelectionMode.MultiSelect);
+
+			SelectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItemType>();
+			if (!SelectedDataItems.Add(item))
+			{
+				SelectedDataItems.Remove(item);
+			}
+			await SelectedDataItemsChanged.InvokeAsync(SelectedDataItems);
 		}
 
 		private async Task HandleSortingClick(IEnumerable<SortingItem<TItemType>> sorting)
