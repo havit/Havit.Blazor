@@ -14,9 +14,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 	{
 		// TODO: Suppress SA1134 je v CSPROJ, uvolnit celofiremně?
 
-		/// <inheritdocs />
-		protected override bool AutoRegisterColumn => true;
-
 		#region Header properties
 		/// <summary>
 		/// Header cell text.

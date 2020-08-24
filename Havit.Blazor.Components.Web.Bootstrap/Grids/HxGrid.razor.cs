@@ -117,13 +117,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		private List<IHxGridColumn<TItemType>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration;
-#pragma warning disable CS0649 // assigned by @ref
-		private ContextMenuGridColumn<TItemType> contextMenuGridColumn; // assigned by @ref
-		private MultiSelectGridColumn<TItemType> multiSelectGridColumn; // assigned by @ref
-#pragma warning restore CS0649
 		private bool decreasePageIndexAfterRender = false;
 		private bool isDisposed = false;
-		private bool refreshAfterRender = false;
 
 		/// <summary>
 		/// Constructor.
@@ -160,12 +155,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 				decreasePageIndexAfterRender = false;
 				await SetCurrentPageIndexWithEventCallback(CurrentUserState.PageIndex - 1);
 			}
-
-			if (refreshAfterRender)
-			{
-				refreshAfterRender = false;
-				StateHasChanged();
-			}
 		}
 
 	/// <summary>
@@ -175,32 +164,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 	protected List<IHxGridColumn<TItemType>> GetColumnsToRender()
 		{
 			var result = new List<IHxGridColumn<TItemType>>(columnsList);
-			
-			// TODO: Nahradíme registrací sloupců do kolekce?
-			if (SelectionMode == GridViewSelectionMode.MultiSelect)
-			{
-				if (multiSelectGridColumn != null)
-				{
-					result.Insert(0, multiSelectGridColumn);
-				}
-				else
-				{
-					refreshAfterRender = true; // field will be assigned during render, we need to re-render the component
-				}
-			}
-			
-			// TODO: Nahradíme registrací sloupců do kolekce?
-			if ((result.Count > 0) && (ContextMenu != null))
-			{
-				if (contextMenuGridColumn != null)
-				{
-					result.Add(contextMenuGridColumn);
-				}
-				else
-				{
-					refreshAfterRender = true; // field will be assigned during render, we need to re-render the component
-				}
-			}
 			return result;
 		}
 

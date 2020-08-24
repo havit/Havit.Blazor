@@ -8,10 +8,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 {
 	public class ContextMenuGridColumn<TItemType> : HxGridColumnBase<TItemType>
 	{
-		// TODO: Možná bychom ani AutoRegisterColumn nepotřebovali, pokud bychom sloupce dokázali přidat na správné místo...
-		/// <inheritdocs />
-		protected override bool AutoRegisterColumn => false;
-
 		[Parameter] public RenderFragment<TItemType> ContextMenu { get; set; }
 
 		protected override CellTemplate GetHeaderCellTemplate() => new CellTemplate(RenderFragmentBuilder.Empty());

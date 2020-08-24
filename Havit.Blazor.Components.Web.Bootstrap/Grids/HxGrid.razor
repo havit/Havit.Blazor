@@ -2,18 +2,16 @@
 
 <CascadingValue Value="@columnsListRegistration" Name="@ColumnsRegistrationCascadingValueName" IsFixed="true">
 	@*Aby se dostaly komponenty do kolekcí, musíme je dostat do renderování této komponenty. Chceme však, aby komponenty nic nevyrenderovaly. *@
+	@if (SelectionMode == GridViewSelectionMode.MultiSelect)
+	{
+		<MultiSelectGridColumn TItemType="TItemType" SelectedDataItems="@SelectedDataItems" ItemSelectionToggled="HandleMultiSelectItemSelectionToggled" />
+	}
 	@Columns
+	@if (ContextMenu != null)
+	{
+		<ContextMenuGridColumn TItemType="TItemType" ContextMenu="ContextMenu" />
+	}
 </CascadingValue>
-
-@if (SelectionMode == GridViewSelectionMode.MultiSelect) 
-{
-	<MultiSelectGridColumn TItemType="TItemType" @ref="multiSelectGridColumn" SelectedDataItems="@SelectedDataItems" ItemSelectionToggled="HandleMultiSelectItemSelectionToggled" />
-}
-
-@if (ContextMenu != null)
-{
-	<ContextMenuGridColumn TItemType="TItemType" @ref="contextMenuGridColumn" ContextMenu="ContextMenu" />
-}
 
 @if (Items != null)
 {

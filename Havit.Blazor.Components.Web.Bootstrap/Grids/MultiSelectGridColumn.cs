@@ -12,8 +12,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		[Parameter] public HashSet<TItemType> SelectedDataItems { get; set; }
 		[Parameter] public EventCallback<TItemType> ItemSelectionToggled { get; set; }
 
-		protected override bool AutoRegisterColumn => false;
-
 		protected override CellTemplate GetHeaderCellTemplate()
 		{
 			return new CellTemplate(RenderFragmentBuilder.Empty());

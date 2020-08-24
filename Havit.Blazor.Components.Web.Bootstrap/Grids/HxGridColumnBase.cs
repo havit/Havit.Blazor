@@ -23,21 +23,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 
 		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
 
-		/// <summary>
-		/// Gets whether to autoregister column.
-		/// </summary>
-		protected abstract bool AutoRegisterColumn { get; }
-
 		/// <inheritdoc />
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
 
-			if (AutoRegisterColumn)
-			{
-				Contract.Requires(ColumnsRegistration != null, $"Grid column invalid usage. Must be used in a {typeof(HxGrid<TItemType>).FullName}.");
-				ColumnsRegistration.Register(this);
-			}
+			Contract.Requires(ColumnsRegistration != null, $"Grid column invalid usage. Must be used in a {typeof(HxGrid<TItemType>).FullName}.");
+			ColumnsRegistration.Register(this);
 		}
 
 		/// <inheritdoc />
@@ -83,10 +75,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Grids
 		/// <inheritdoc />
 		public virtual void Dispose()
 		{
-			if (AutoRegisterColumn)
-			{
-				ColumnsRegistration.Unregister(this);
-			}
+			ColumnsRegistration.Unregister(this);
 		}
 	}
 }
