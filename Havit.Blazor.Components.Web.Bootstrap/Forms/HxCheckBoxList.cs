@@ -76,7 +76,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					builder.OpenComponent(1, typeof(HxInputCheckBox));
 					builder.AddAttribute(2, nameof(HxInputCheckBox.Label), TextSelector?.Invoke(item) ?? item?.ToString() ?? String.Empty);
 					builder.AddAttribute(3, nameof(HxInputCheckBox.Value), Value?.Contains(item) ?? false);
-					builder.AddAttribute(4, nameof(HxInputCheckBox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item))); // TODO callback
+					builder.AddAttribute(4, nameof(HxInputCheckBox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
 
 					// We need ValueExpression. Ehm, HxInputCheckBox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 					// We have nothing to give the HxInputCheckBox. So we make own class with property which we assign to the ValueExpression.

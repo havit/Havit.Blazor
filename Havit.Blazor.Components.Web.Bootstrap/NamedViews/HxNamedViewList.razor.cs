@@ -24,13 +24,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		// TODO: Pojmenování?
 		public EventCallback<NamedView<TFilterType>> SelectedNamedViewChanged { get; set; }
 
-		//TODO: Click nebo Clicked?
-		protected async Task NamedViewClick(NamedView<TFilterType> namedView)
+		protected async Task HandleNamedViewClick(NamedView<TFilterType> namedView)
 		{
 			TFilterType newFilter = namedView.Filter();
 			if (newFilter != null)
 			{
-				Filter = newFilter; // POZOR, filtr ne nutno klonovat, jinak budeme měnit instanci, která je použita pro filtr (ev. musíme z filtru vždy vracet novou instanci!!! to je možný předpoklad)
+				Filter = newFilter; // POZOR, filtr je nutno klonovat, jinak budeme měnit instanci, která je použita pro filtr (ev. musíme z filtru vždy vracet novou instanci!!! to je možný předpoklad)
 				await FilterChanged.InvokeAsync(newFilter);
 			}
 

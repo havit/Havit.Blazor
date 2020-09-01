@@ -34,7 +34,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		//protected virtual async Task RemoveChip()
 		//{
 		//	Value = null; // nebo nějaký default?
-		//				  // TODO: OnChange?
 		//	await ValueChanged.InvokeAsync(Value);
 		//}
 	}
