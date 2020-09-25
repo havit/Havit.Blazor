@@ -77,7 +77,9 @@
 							{
 								CellTemplate cellTemplate = column.GetItemCellTemplate(item);
 								<td onclick="hxGrid_cellClick(event);" class="@cellTemplate.CssClass">
-									<UpdatedContentRenderer Component="column" ChildContent="@cellTemplate.Template" />
+									<UpdatedContentRenderer Component="column">
+										@cellTemplate.Template
+									</UpdatedContentRenderer>
 								</td>
 							}
 						</tr>
@@ -90,7 +92,9 @@
 							{
 								CellTemplate cellTemplate = column.GetItemCellTemplate(item);
 								<td class="@cellTemplate.CssClass">
-									<UpdatedContentRenderer Component="column" ChildContent="@cellTemplate.Template" />
+									<UpdatedContentRenderer Component="column">
+										@cellTemplate.Template
+									</UpdatedContentRenderer>
 								</td>
 							}
 						</tr>

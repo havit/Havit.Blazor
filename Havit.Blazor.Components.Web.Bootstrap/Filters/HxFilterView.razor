@@ -20,9 +20,17 @@
 {
 	<div class="d-flex flex-column flex-grow-1">
 		@foreach (var filter in filters)
-		{
-			<span><UpdatedContentRenderer Component="@filter" ChildContent="@filter.GetLabelTemplate()" /></span>
-			<span><UpdatedContentRenderer Component="@filter" ChildContent="@filter.GetFilterTemplate()" /></span>
+		{			
+			<span>
+				<UpdatedContentRenderer Component="@filter">
+					@filter.GetLabelTemplate()
+				</UpdatedContentRenderer>
+			</span>
+			<span>
+				<UpdatedContentRenderer Component="@filter">
+					@filter.GetFilterTemplate()
+				</UpdatedContentRenderer>
+			</span>
 		}
 		<HxSubmit OnClick="ApplyFilterClick">Apply filter</HxSubmit> @*TODO:  Lokalizace*@
 	</div>
