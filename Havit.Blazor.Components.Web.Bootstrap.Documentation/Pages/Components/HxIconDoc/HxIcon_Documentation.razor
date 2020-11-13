@@ -2,10 +2,10 @@
 
 <h1>@nameof(HxIcon)</h1>
 <p class="lead">
-	Displays an icon. Currently supported are <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</a>.
+	Displays an icon. Currently supports <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</a>.
 </p>
 
-<p>Internally used in <a href="/components/hxbutton">@nameof(HxButton)</a> and other components.</p>
+<p>(Internally used in <a href="/components/hxbutton">@nameof(HxButton)</a> and other components.)</p>
 
 <h3>Properties</h3>
 <ul>
@@ -16,18 +16,18 @@
 </ul>
 
 <h3>Icon</h3>
-<p>Icon is a class derived from @nameof(IconBase) which allows to use icons from different icon sets.</p>
-<p>Currently, there is just one implementation - @nameof(BootstrapIcon).</p>
+<p>Icon is a class derived from <code>@nameof(IconBase)</code> as we want to allow use of icons from different icon sets.</p>
+<p>Currently, the library brings just one implementation - <code>@nameof(BootstrapIcon)</code>.</p>
 
 <h2>BootstrapIcon</h2>
 <p>
-	Choose icon in <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icon documentation</a>
-	or list	<TypeLink Type="typeof(BootstrapIcon)" /> values.
+	For available icons see <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons <HxIcon Icon="BootstrapIcon.BoxArrowUpRight" /></a>
+	or <TypeLink Type="typeof(BootstrapIcon)" /> members.
 </p>
 
 <div class="alert alert-info">
-	You do need to copy SVG from Bootstrap documentation, just choose icon to display.
-	Under the hood the component displays the icon using <a href="https://icons.getbootstrap.com/#usage" target="_blank">a sprite</a>.
+	You don't need to copy SVG from Bootstrap documentation, just pick the icon you want.
+	Under the hood, the component displays the icon using a <a href="https://icons.getbootstrap.com/#usage" target="_blank">SVG sprite</a>.
 </div>
 
 <Demo Type="typeof(HxIcon_Demo)" />
