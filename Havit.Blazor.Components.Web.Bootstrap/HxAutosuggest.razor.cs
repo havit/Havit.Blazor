@@ -47,7 +47,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (!SuggestionsRequested.HasDelegate)
 			{
-				throw new ArgumentException("Property not set.", nameof(SuggestionRequest));
+				throw new ArgumentException("Property not set.", nameof(SuggestionsRequested));
 			}
 		}
 
