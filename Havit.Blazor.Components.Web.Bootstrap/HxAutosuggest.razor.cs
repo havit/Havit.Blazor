@@ -10,8 +10,9 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public partial class HxAutosuggest : IDisposable
-	{		
+	// TODO? HxAutocomplete
+	public partial class HxAutosuggest : IDisposable // TODO? IAsyncDisposable
+	{
 		[Parameter]
 		public string Value { get; set; }
 
@@ -19,13 +20,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public EventCallback<string> ValueChanged { get; set; }
 
 		[Parameter]
-		public EventCallback<SuggestionRequest> SuggestionsRequested { get; set; }
+		public EventCallback<SuggestionRequest> SuggestionsRequested { get; set; } // TODO? SuggestionsProvider + ála public delegate ValueTask<ItemsProviderResult<TItem>> ItemsProviderDelegate<TItem>(ItemsProviderRequest request);
 
 		[Parameter]
-		public int MinimalCharactersCountToStartSuggesting { get; set; } = 3;
+		public int MinimalCharactersCountToStartSuggesting { get; set; } = 3; // TODO? MinimumLength
 
 		[Parameter]
-		public int DebounceIntervalInMilliseconds { get; set; } = 300;
+		public int DebounceIntervalInMilliseconds { get; set; } = 300; // TODO? Delay
 
 		[Inject]
 		public IJSRuntime JSRuntime { get; set; }
@@ -38,7 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		public HxAutosuggest()
 		{
-			dropdownId = Guid.NewGuid().ToString();
+			dropdownId = "hx" + Guid.NewGuid().ToString("N");
 		}
 
 		protected override void OnParametersSet()
@@ -62,15 +63,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			autosuggestValue = userInput;
 
-			if (timer != null)
-			{
-				timer.Stop();
-			}
-
-			if (cancellationTokenSource != null)
-			{
-				cancellationTokenSource.Cancel();
-			}
+			timer?.Stop();
+			cancellationTokenSource?.Cancel();
 
 			if (userInput.Length >= MinimalCharactersCountToStartSuggesting)
 			{
@@ -109,22 +103,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		// Kvůli updatovanání HTML a kolizi s bootstrap Dropdown nesmíme v InputBlur přerenderovat html!
 		private void HandleInputBlur()
 		{
-			if (timer != null)
-			{
-				timer.Stop();
-			}
-			if (cancellationTokenSource != null)
-			{
-				cancellationTokenSource.Cancel();
-			}
+			timer?.Stop();
+			cancellationTokenSource?.Cancel();
 		}
 
 		private async Task<bool> UpdateSuggestions()
 		{
-			if (cancellationTokenSource != null)
-			{
-				cancellationTokenSource.Dispose();
-			}
+			cancellationTokenSource?.Dispose();
 
 			cancellationTokenSource = new CancellationTokenSource();
 			CancellationToken cancellationToken = cancellationTokenSource.Token;
@@ -151,6 +136,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		#region OpenDropdown, CloseDropdown
 		private async Task OpenDropdown()
 		{
+			// TODO JavaScript Isolation
 			await JSRuntime.InvokeVoidAsync("hxBootstrapAutosuggest_openDropdown", $"#{dropdownId} input");
 		}
 
@@ -162,15 +148,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		public void Dispose()
 		{
-			if (timer != null)
-			{
-				timer.Dispose();
-			}
-
-			if (cancellationTokenSource != null)
-			{
-				cancellationTokenSource.Dispose();
-			}
+			timer?.Dispose();
+			cancellationTokenSource?.Dispose();
 		}
 	}
 }
