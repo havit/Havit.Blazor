@@ -21,7 +21,7 @@ namespace Havit.Blazor.Components.Web
 			{
 				return stringLocalizerFactory.Create(resourceType).GetString(value).Value;
 			}
-			
+
 			return value;
 		}
 	}

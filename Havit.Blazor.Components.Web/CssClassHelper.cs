@@ -7,7 +7,7 @@ using System.Text;
 namespace Havit.Blazor.Components.Web
 {
 	/// <summary>
-	/// Helper for working with classes.
+	/// Helper for working with CSS classes.
 	/// </summary>
 	public static class CssClassHelper
 	{
@@ -19,6 +19,10 @@ namespace Havit.Blazor.Components.Web
 		/// </example>
 		public static string Combine(params string[] cssClasses)
 		{
+			if (cssClasses is null)
+			{
+				return String.Empty;
+			}
 			return String.Join(" ", cssClasses.Where(item => !String.IsNullOrEmpty(item)));
 		}
 	}

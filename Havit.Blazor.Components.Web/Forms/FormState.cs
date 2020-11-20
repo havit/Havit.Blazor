@@ -5,12 +5,12 @@ using System.Text;
 namespace Havit.Blazor.Components.Web.Forms
 {
 	/// <summary>
-	/// Form state as a cascading value &amp; parameter.
+	/// Form state to be used as a cascading value &amp; parameter.
 	/// </summary>
 	public class FormState
 	{
 		/// <summary>
-		/// Indicated enabled/disabled section.
+		/// Indicates enabled/disabled section.
 		/// </summary>
 		public bool? IsEnabled { get; set; }
 	}
