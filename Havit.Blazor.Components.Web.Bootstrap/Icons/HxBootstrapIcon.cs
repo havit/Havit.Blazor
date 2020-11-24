@@ -1,5 +1,4 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Forms;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using System;
@@ -10,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Icons
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Displays bootstrap icon. See https://icons.getbootstrap.com/.

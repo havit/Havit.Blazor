@@ -1,5 +1,4 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Filters;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Filters
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxTextFilter
 	{

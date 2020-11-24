@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Forms
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Select.

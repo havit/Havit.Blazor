@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Provides methods for adding and showing message. For better API use <see cref="MessengerExtensions">extension methods</see>.

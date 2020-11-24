@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Filters
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Marker for resources for HxDateRangeFilter&lt;&gt;.

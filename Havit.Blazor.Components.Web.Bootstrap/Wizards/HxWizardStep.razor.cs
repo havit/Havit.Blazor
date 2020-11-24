@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Wizards
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Wizard Step component

@@ -1,4 +1,7 @@
-﻿<button class="dropdown-item" type="button" @onclick="HandleItemClick">@Value</button>
+﻿@namespace  Havit.Blazor.Components.Web.Bootstrap
+
+<button class="dropdown-item" type="button" @onclick="HandleItemClick">@Value</button>
+
 @code {
 	[Parameter]
 	public string Value { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Grids
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// GridView selection mode.

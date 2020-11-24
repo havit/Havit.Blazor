@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Grids
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Grid column.

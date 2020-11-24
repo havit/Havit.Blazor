@@ -1,4 +1,5 @@
-﻿<CascadingValue Value="@tabsListRegistration" Name="@TabsRegistrationCascadingValueName" IsFixed="true">
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+<CascadingValue Value="@tabsListRegistration" Name="@TabsRegistrationCascadingValueName" IsFixed="true">
 	@ChildContent
 </CascadingValue>
 
@@ -33,7 +34,7 @@
 		</UpdatedContentRenderer>
 	}
 </div>
-	@*<div>
+@*<div>
 		@{
 			HxTab activeTab = tabsList.FirstOrDefault(tab => tab.IsActive);
 			if (activeTab != null)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
 using Microsoft.AspNetCore.Components;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Tabs
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Tab panel (container).

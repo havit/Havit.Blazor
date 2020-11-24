@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Grids
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	// TODO: Údržba SelectedItem a SelectedItems: Kdy by mělo dojít k údržbě? V každém renderu? I při stránkování na straně serveru? 
 	// TODO: Co když se tedy při stránkování ztrácí záznamy vybrané na předchozí stránce?

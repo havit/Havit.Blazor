@@ -1,13 +1,11 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Chips;
-using Havit.Blazor.Components.Web.Bootstrap.Filters;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Filters
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	// TODO: Je dobře pojmenovat to filter view, když jde vlastně o editaci? FiltrLayout?
 	public partial class HxFilterView : IDisposable

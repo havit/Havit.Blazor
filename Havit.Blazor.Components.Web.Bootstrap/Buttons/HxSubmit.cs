@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Button type="submit".

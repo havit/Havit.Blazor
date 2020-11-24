@@ -8,7 +8,7 @@ using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.RenderTree;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Tabs
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Tab in tab panel.

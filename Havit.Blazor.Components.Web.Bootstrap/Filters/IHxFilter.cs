@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Filters
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public interface IHxFilter : IRenderNotificationComponent
 	{

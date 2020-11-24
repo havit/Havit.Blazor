@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Havit.Blazor.Components.Web.Bootstrap.Icons;
 using Havit.Diagnostics.Contracts;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Extension methods for <see cref="IMessenger"/>.

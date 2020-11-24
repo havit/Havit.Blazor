@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Havit.Blazor.Components.Web.Bootstrap.Icons;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Toast. Not intented to be used in user code, use <see cref="HxMessenger"/>.

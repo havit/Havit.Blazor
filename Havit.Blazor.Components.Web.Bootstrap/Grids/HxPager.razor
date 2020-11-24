@@ -1,4 +1,5 @@
-﻿@{ 
+﻿@namespace  Havit.Blazor.Components.Web.Bootstrap
+@{
 	int pageFromInclusive = ((this.CurrentPageIndex / this.DisplayNumberCount) * this.DisplayNumberCount);
 	int pageToExclusive = Math.Min(TotalPages, pageFromInclusive + this.DisplayNumberCount);
 	bool showFirstLast = true; // always

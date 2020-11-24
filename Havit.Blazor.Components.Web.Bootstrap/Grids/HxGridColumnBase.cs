@@ -8,7 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Grids
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Grid column base class.

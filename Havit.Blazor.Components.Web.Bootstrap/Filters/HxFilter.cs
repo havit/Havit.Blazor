@@ -1,5 +1,4 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Chips;
-using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.RenderTree;
@@ -8,7 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Filters
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public sealed class HxFilter : ComponentBase, IHxFilter, IHxChipGenerator, IDisposable
 	{

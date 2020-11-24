@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Cascading value propagating access to <see cref="HxMessenger"/> as <see cref="IMessenger" />.

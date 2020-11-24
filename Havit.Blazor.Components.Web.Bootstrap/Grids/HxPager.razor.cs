@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Grids
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Pager.

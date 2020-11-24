@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.NamedViews
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public class NamedView<TFilterType>
 	{

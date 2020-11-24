@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Toasts
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Component wrapper displaying <see cref="HxToast"/> to show messages.

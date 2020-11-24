@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.ContextMenus
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxContextMenu
 	{

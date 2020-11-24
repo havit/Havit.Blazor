@@ -1,10 +1,11 @@
-﻿@typeparam TFilterType
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@typeparam TFilterType
 
 @if ((NamedViews != null) && NamedViews.Any())
 {
 	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 		@*TODO: Nic jako prázdná položka asi nechceme*@
-		@foreach (Havit.Blazor.Components.Web.Bootstrap.NamedViews.NamedView<TFilterType> namedView in NamedViews)
+		@foreach (Havit.Blazor.Components.Web.Bootstrap.NamedView<TFilterType> namedView in NamedViews)
 		{
 			<a class="dropdown-item" role="button" @onclick="async () => await NamedViewClick(namedView)">@namedView.Name</a>
 		}

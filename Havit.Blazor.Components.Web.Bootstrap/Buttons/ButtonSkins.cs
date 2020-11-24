@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Havit.Blazor.Components.Web.Bootstrap.Icons;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Button skins. Localized (Czech, English).

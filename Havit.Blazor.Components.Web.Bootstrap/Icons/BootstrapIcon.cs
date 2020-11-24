@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Icons
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Bootstrap icon.

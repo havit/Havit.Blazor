@@ -3,7 +3,7 @@ using Havit.Diagnostics.Contracts;
 using System;
 using System.Linq.Expressions;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Grids
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Item describes one sorting criteria.

@@ -1,6 +1,4 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Forms;
-using Havit.Blazor.Components.Web.Bootstrap.Icons;
-using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
 using Havit.Blazor.Components.Web.Forms;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -12,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Buttons
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Button type="button".

@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Grids
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public class MultiSelectGridColumn<TItemType> : HxGridColumnBase<TItemType>
 	{

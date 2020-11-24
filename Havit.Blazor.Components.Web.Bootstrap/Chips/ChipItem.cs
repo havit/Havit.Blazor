@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Chips
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public class ChipItem
 	{

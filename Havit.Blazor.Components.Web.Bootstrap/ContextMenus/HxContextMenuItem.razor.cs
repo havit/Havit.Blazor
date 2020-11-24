@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.ContextMenus
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxContextMenuItem : ComponentBase
 	{
