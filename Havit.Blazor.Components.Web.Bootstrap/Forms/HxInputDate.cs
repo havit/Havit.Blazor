@@ -25,12 +25,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, "input");
-			
+
 			BuildRenderInput_AddCommonAttributes(builder, "date");
 
 			builder.AddAttribute(1000, "value", FormatValueAsString(Value));
 			builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-			
+
 			builder.CloseElement();
 		}
 

@@ -40,7 +40,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Header text.
 		/// </summary>
 		[Parameter] public string HeaderText { get; set; }
-		
+
 		/// <summary>
 		/// Header template.
 		/// </summary>
@@ -158,7 +158,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(101, "type", "button");
 			builder.AddAttribute(102, "class", "close");
 			builder.AddAttribute(103, "data-dismiss", "toast");
-			
+
 			builder.OpenElement(200, "span");
 			builder.AddMarkupContent(201, "&times;");
 			builder.CloseElement(); // span
@@ -177,7 +177,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				await JSRuntime.InvokeVoidAsync("hxToast_show", toastElement, dotnetObjectReference);
 			}
 		}
-		
+
 		protected override bool ShouldRender()
 		{
 			// never update content to avoid collision with javascript

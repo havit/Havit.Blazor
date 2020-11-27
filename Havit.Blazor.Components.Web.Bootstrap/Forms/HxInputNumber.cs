@@ -32,11 +32,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Placeholder { get; set; }
 
 		/// <summary>
-		/// Gets or sets the number of decimal points.
+		/// Gets or sets the number of decimal digits.
 		/// Can be used only for floating point types, for integer types throws exception.
-		/// When not set 2 decimal points are used.
+		/// When not set, 2 decimal digits are used.
 		/// </summary>
-		[Parameter] public int? Decimals
+		[Parameter]
+		public int? Decimals
 		{
 			get
 			{
@@ -181,18 +182,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			string format = "0." + String.Join("", Enumerable.Repeat('0', DecimalsEffective));
 			switch (value)
-			{ 
+			{
 				//case short @short:
 				//	return BindConverter.FormatValue(@short, CultureInfo.CurrentCulture);
 
 				case float @float:
-					return @float.ToString(format, CultureInfo.InvariantCulture);					
+					return @float.ToString(format, CultureInfo.InvariantCulture);
 
 				case double @double:
-					return @double.ToString(format, CultureInfo.InvariantCulture);					
+					return @double.ToString(format, CultureInfo.InvariantCulture);
 
 				case decimal @decimal:
-					return @decimal.ToString(format, CultureInfo.InvariantCulture);					
+					return @decimal.ToString(format, CultureInfo.InvariantCulture);
 			}
 
 			throw new InvalidOperationException($"Unsupported type {value.GetType()}.");

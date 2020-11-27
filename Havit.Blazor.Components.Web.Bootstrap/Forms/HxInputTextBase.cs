@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Gets or sets the behavior when the model is updated from then input.
 		/// </summary>
 		[Parameter] public BindEvent BindEvent { get; set; } = BindEvent.OnChange;
-		
+
 		/// <summary>
 		/// Placeholder for the input.
 		/// </summary>

@@ -42,7 +42,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			builder.OpenElement(1, "div");
 			builder.AddAttribute(2, "class", "input-group");
-			
+
 			builder.OpenRegion(3);
 			base.BuildRenderInputAndValidationMessage(builder);
 			builder.CloseRegion();

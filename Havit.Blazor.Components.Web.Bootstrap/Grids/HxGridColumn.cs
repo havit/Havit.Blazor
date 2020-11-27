@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Grid column.
 	/// </summary>
-	/// <typeparam name="TItemType"></typeparam>
+	/// <typeparam name="TItemType">Grid row data type.</typeparam>
 	public class HxGridColumn<TItemType> : HxGridColumnBase<TItemType>
 	{
 		// TODO: Suppress SA1134 je v CSPROJ, uvolnit celofiremně?
@@ -35,7 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns text for the item.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> ItemTextFunc { get; set; }
+		[Parameter] public Func<TItemType, string> ItemTextFunc { get; set; } // TODO RH: Přejmenovat na ItemTextSelector?
 
 		/// <summary>
 		/// Returns template for the item.

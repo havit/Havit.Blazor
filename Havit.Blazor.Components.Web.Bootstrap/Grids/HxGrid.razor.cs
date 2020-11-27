@@ -1,27 +1,27 @@
-﻿using Havit.Collections;
-using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Collections;
+using Havit.Diagnostics.Contracts;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	// TODO: Údržba SelectedItem a SelectedItems: Kdy by mělo dojít k údržbě? V každém renderu? I při stránkování na straně serveru? 
 	// TODO: Co když se tedy při stránkování ztrácí záznamy vybrané na předchozí stránce?
 	// TODO: A naopak: Abychom při stránkování poznali stejné záznamy, musíme být schopni je porovnat. 
-	// TODO: Jenže to klade nároky na implementace IEquatable<>, což asi těžko bude někdo těžko implementovat hromadně.	
+	// TODO: Jenže to klade nároky na implementace IEquatable<>, což asi těžko bude někdo implementovat hromadně.	
 
 	/// <summary>
 	/// Grid to display tabular data from data source.
 	/// </summary>
 	/// <typeparam name="TItemType">Type of row data item.</typeparam>
 	public partial class HxGrid<TItemType> : IDisposable
-	{		
+	{
 		/// <summary>
 		/// ColumnsRegistration cascading value name.
 		/// </summary>
@@ -157,11 +157,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-	/// <summary>
-	/// Returns columns to render.
-	/// Main goal of the method is to add ContextMenuGridColumn to the user defined columns.
-	/// </summary>
-	protected List<IHxGridColumn<TItemType>> GetColumnsToRender()
+		/// <summary>
+		/// Returns columns to render.
+		/// Main goal of the method is to add ContextMenuGridColumn to the user defined columns.
+		/// </summary>
+		protected List<IHxGridColumn<TItemType>> GetColumnsToRender()
 		{
 			var result = new List<IHxGridColumn<TItemType>>(columnsList);
 			return result;
@@ -175,7 +175,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private SortingItem<TItemType>[] GetDefaultSorting()
 		{
 			var columnsSortings = GetColumnsToRender().SelectMany(item => item.GetSorting()).ToArray();
-			
+
 			if (columnsSortings.Any())
 			{
 				var defaultSorting = columnsSortings
@@ -183,7 +183,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					.OrderBy(item => item.SortDefaultOrder.Value)
 					.ToArray();
 
-				Contract.Assert<InvalidOperationException>(defaultSorting.Length > 0, "There should be specified default sorting.");
+				Contract.Assert<InvalidOperationException>(defaultSorting.Length > 0, "Default sorting has to be set.");
 
 				return defaultSorting;
 			}
@@ -266,7 +266,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private async Task HandleSelectDataItemClick(TItemType newSelectedDataItem)
 		{
 			Contract.Requires(SelectionMode == GridViewSelectionMode.Select);
-			
+
 			if (!EqualityComparer<TItemType>.Default.Equals(SelectedDataItem, newSelectedDataItem))
 			{
 				SelectedDataItem = newSelectedDataItem;

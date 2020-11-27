@@ -39,7 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				(HxTab tab) => tab.ActiveTabChangedAsync += HandleActiveTabChangedAsync, // when tab is added, subsribe to tab activated "event".
 				(HxTab tab) => tab.ActiveTabChangedAsync -= HandleActiveTabChangedAsync); // when tab is removed, subsrive to tab activated "event". AFAIK we do not need to handle this in Dispose.
 		}
-	
+
 		private async Task HandleActiveTabChangedAsync(HxTab newActiveTab)
 		{
 			// when new tab is activated, deactivates other tabs

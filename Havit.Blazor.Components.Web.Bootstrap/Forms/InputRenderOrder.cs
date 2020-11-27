@@ -6,12 +6,12 @@
 	public enum InputRenderOrder
 	{
 		/// <summary>
-		/// Label then input (majority of components).
+		/// Render Label first, then input (majority of components).
 		/// </summary>
 		LabelInput,
 
 		/// <summary>
-		/// Input then label (ie. chechbox).
+		/// Render Input first, then label (e.g. checkbox).
 		/// </summary>
 		InputLabel
 	}

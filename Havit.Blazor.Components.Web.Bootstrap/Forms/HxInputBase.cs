@@ -128,7 +128,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			switch (RenderOrder)
 			{
 				case InputRenderOrder.LabelInput:
-					
+
 					// majority component
 
 					builder.OpenRegion(3);
@@ -142,7 +142,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					break;
 
 				case InputRenderOrder.InputLabel:
-					
+
 					// checkbox 
 
 					builder.OpenRegion(6);
@@ -156,10 +156,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					builder.OpenRegion(8);
 					BuildRenderValidationMessage(builder);
 					builder.CloseRegion();
-					
+
 					break;
 
-				default: throw new InvalidOperationException(RenderOrder.ToString());
+				default: throw new InvalidOperationException($"Unknown RenderOrder: {RenderOrder}");
 			}
 
 			builder.OpenRegion(9);
@@ -208,7 +208,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.CloseElement();
 			}
 		}
-		
+
 		/// <summary>
 		/// Render input. Enables to use some wrapping html, used for input-group in descenant.
 		/// </summary>

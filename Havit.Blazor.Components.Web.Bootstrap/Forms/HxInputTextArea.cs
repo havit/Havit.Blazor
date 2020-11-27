@@ -14,7 +14,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		/// <inheritdoc />
 		private protected override string GetElementName() => "textarea";
-		
+
 		/// <inheritdoc />
 		private protected override string GetTypeAttributeValue() => null;
 	}

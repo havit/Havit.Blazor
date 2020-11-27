@@ -1,14 +1,14 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
 using Havit.Blazor.Components.Web.Forms;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -84,7 +84,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.AddContent(8, Text);
 			}
 			else if (!String.IsNullOrEmpty(Skin?.Text))
-			{				
+			{
 				builder.AddContent(9, StringLocalizerFactory.GetLocalizedValue(Skin.Text, Skin.ResourceType));
 			}
 

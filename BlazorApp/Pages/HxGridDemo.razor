@@ -14,13 +14,17 @@
 			</ItemTemplate>
 		</HxGridColumn>
 	</Columns>
-	<ContextMenu>
+	<ContextMenu Context="item">
 		<HxContextMenu>
 			<HxContextMenuItem Title="Nastavit jako výchozí" />
+			<HxContextMenuItem ConfirmationQuestion="Jako fakt?" OnItemClick="async () => await AlarmClicked(item)">
+				<HxIcon Icon="BootstrapIcon.Alarm" /> Bacha na to!
+			</HxContextMenuItem>
 		</HxContextMenu>
 	</ContextMenu>
 </HxGrid>
 <p>Current CultureInfo: @currentLocalCultureInfo?.DisplayName</p>
+<p>Clicked context menu item: @clickedItem?.DisplayName</p>
 
 <h2>Server paging, server sorting</h2>
 <HxGrid TItemType="System.Globalization.CultureInfo" Items="@serverCultureInfos" @bind-SelectedDataItem="@currentServerCultureInfo" TotalItemsCount="@totalItemsCount" DataReloadRequired="@HandleDataReloadRequired" PageSize="@PageSize">
@@ -42,6 +46,7 @@
 	private List<System.Globalization.CultureInfo> serverCultureInfos = null;
 	private System.Globalization.CultureInfo currentServerCultureInfo = null;
 	private int totalItemsCount;
+	private System.Globalization.CultureInfo clickedItem = null;
 
 	private void HandleDataReloadRequired(GridUserState<System.Globalization.CultureInfo> userState)
 	{
@@ -51,5 +56,11 @@
 			.Skip(userState.PageIndex * PageSize)
 			.Take(PageSize)
 			.ToList();
+	}
+
+	private Task AlarmClicked(System.Globalization.CultureInfo item)
+	{
+		clickedItem = item;
+		return Task.CompletedTask;
 	}
 }

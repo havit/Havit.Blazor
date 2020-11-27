@@ -39,7 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// True for just one tab which should be initially active (when using IsCurrentlyActive is overkill).
 		/// </summary>
-		[Parameter] public bool IsInitiallyActive { get; set; }
+		[Parameter] public bool IsInitiallyActive { get; set; }	 // TODO RH: Naming 
 
 		/// <summary>
 		/// Indicates currently tab activation/deactivation. Can be used only with data-binding.
