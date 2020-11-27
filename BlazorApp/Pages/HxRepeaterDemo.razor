@@ -1,0 +1,21 @@
+﻿@page "/HxRepeaterDemo"
+@using System.Globalization
+
+<HxRepeater Items="items">
+	<HeaderTemplate>
+		<h1>Header</h1>
+	</HeaderTemplate>
+	<ItemTemplate Context="item">
+		<p>@item.DisplayName</p>
+	</ItemTemplate>
+	<FooterTemplate>
+		<h2>Footer</h2>
+	</FooterTemplate>
+</HxRepeater>
+
+@code {
+	private List<CultureInfo> items = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+		.OrderBy(item => item.EnglishName)
+		.Take(10)
+		.ToList();
+}

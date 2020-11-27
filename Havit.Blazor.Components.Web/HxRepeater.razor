@@ -1,0 +1,10 @@
+﻿@typeparam TItem
+@if (Items.Any())
+{
+	@HeaderTemplate
+	@foreach (var item in Items)
+	{
+		@ItemTemplate(item)
+	}
+	@FooterTemplate
+}
