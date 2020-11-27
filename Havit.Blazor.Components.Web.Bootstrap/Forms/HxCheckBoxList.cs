@@ -21,15 +21,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Selects text to display from item.
-		/// When not set ToString() is used.
+		/// When not set, ToString() is used.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> TextFunc { get; set; }
+		[Parameter] public Func<TItemType, string> TextFunc { get; set; } // TODO RH: Přejmenovat na TextSelector? (viz LINQ Select, zarovnal bych s tím?)
 
 		/// <summary>
-		/// Selects value to sort items. Uses <see cref="TextFunc"/> property when not set.
-		/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
+		/// Selects value for items sorting. When not set, <see cref="TextFunc"/> property will be used.
+		/// If you need complex sorting, pre-sort data manually or create a custom comparable property.
 		/// </summary>
 		[Parameter] public Func<TItemType, IComparable> SortFunc { get; set; } // TODO: Neumíme zřetězení výrazů pro řazení, v takovém případě buď umělou vlastnost s IComparable nebo seřadit předem.
+																			   // TODO RH: Přejmenovat na SortKeyFunc nebo SortKeySelector (viz OrderBy, zarovnal bych s tím)
 
 		/// <summary>
 		/// When true, items are sorted before displaying in select.
@@ -57,9 +58,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					itemsToRender = itemsToRender.OrderBy(this.TextFunc).ToList();
 				}
+				else
+				{
+					itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
+				}
 			}
 		}
-		
+
 		/// <inheritdoc/>
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
@@ -74,7 +79,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					builder.AddAttribute(3, nameof(HxInputCheckBox.Value), Value?.Contains(item) ?? false);
 					builder.AddAttribute(4, nameof(HxInputCheckBox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item))); // TODO callback
 
-					// We need ValueExpression. Ehm, HxInputCheckBox need ValueExpression. Because it is InputBase<T> which needs ValueExpression.
+					// We need ValueExpression. Ehm, HxInputCheckBox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 					// We have nothing to give the HxInputCheckBox. So we make own class with property which we assign to the ValueExpression.
 					// Impacts? Unknown. Maybe none.
 					builder.AddAttribute(5, nameof(HxInputCheckBox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty)); // TODO: Je tenhle workaround průchozí???
