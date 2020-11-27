@@ -108,6 +108,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					itemsToRender = itemsToRender.OrderBy(this.TextFunc).ToList();
 				}
+				else
+				{
+					itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
+				}
 			}
 		}
 
