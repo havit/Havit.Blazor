@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-
     <IsPackable>false</IsPackable>
+	  <GenerateAssemblyInfo>true</GenerateAssemblyInfo><!-- Failing ADOS tests workaround?  -->
   </PropertyGroup>
 
   <ItemGroup>
