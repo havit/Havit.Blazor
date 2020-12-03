@@ -19,7 +19,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public EventCallback<TValue> ValueFromChanged { get; set; }
 
 		[Parameter]
-		public Expression<Func<TValue>> ValueFromExpression { get; set; }
+		public Expression<Func<TValue>> ValueFromSelector { get; set; }
 
 		[Parameter]
 		public string ValueFromParsingErrorMessage { get; set; }
@@ -31,7 +31,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public EventCallback<TValue> ValueToChanged { get; set; }
 
 		[Parameter]
-		public Expression<Func<TValue>> ValueToExpression { get; set; }
+		public Expression<Func<TValue>> ValueToSelector { get; set; }
 
 		[Parameter]
 		public string ValueToParsingErrorMessage { get; set; }

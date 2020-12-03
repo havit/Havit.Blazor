@@ -10,7 +10,6 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	// TODO? HxAutocomplete
 	public partial class HxAutosuggest : IDisposable // TODO? IAsyncDisposable
 	{
 		[Parameter]
@@ -109,7 +108,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task<bool> UpdateSuggestions()
 		{
-			cancellationTokenSource?.Dispose();
+			cancellationTokenSource?.Dispose(); // TODO nebo Cancel?!
 
 			cancellationTokenSource = new CancellationTokenSource();
 			CancellationToken cancellationToken = cancellationTokenSource.Token;

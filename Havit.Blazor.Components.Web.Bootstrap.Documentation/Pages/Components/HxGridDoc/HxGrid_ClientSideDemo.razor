@@ -1,7 +1,7 @@
 ﻿<HxGrid TItemType="System.Globalization.CultureInfo" Items="@localCultureInfos" PageSize="10">
 	<Columns>
-		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemTextFunc="@(item => item.DisplayName)" SortExpression="@(item => item.DisplayName)" IsDefaultSort="true" />
-		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemTextFunc="@(item => item.Name)" SortExpression="@(item => item.Name)"  />
+		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSort="true" />
+		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
 	</Columns>
 </HxGrid>
 

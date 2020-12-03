@@ -17,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public EventCallback<string> ValueChanged { get; set; }
 
 		[Parameter]
-		public Expression<Func<string>> ValueExpression { get; set; }
+		public Expression<Func<string>> ValueSelector { get; set; }
 
 		protected async Task HandleValueChanged(string value)
 		{

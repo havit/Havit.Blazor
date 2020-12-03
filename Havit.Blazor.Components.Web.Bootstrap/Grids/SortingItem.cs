@@ -16,12 +16,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public string SortString { get; }
 
 		/// <summary>
-		/// Sorting expression. To be used for automatic in memory sorting.
+		/// Selector function of sorting key. To be used for automatic in-memory sorting.
 		/// </summary>
-		public Expression<Func<TItemType, IComparable>> SortExpression { get; }
+		public Expression<Func<TItemType, IComparable>> SortKeySelector { get; }
 
 		/// <summary>
-		/// Sort direction of SortString/SortExpression.
+		/// Sort direction of SortString/SortKeySelector.
 		/// </summary>
 		public SortDirection SortDirection { get; }
 
@@ -40,12 +40,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public SortingItem(string sortString, Expression<Func<TItemType, IComparable>> sortExpression, SortDirection sortDirection, int? sortDefaultOrder)
+		public SortingItem(string sortString, Expression<Func<TItemType, IComparable>> sortKeySelector, SortDirection sortDirection, int? sortDefaultOrder)
 		{
-			Contract.Requires((sortString != null) || (sortExpression != null));
+			Contract.Requires((sortString != null) || (sortKeySelector != null));
 
 			SortString = sortString;
-			SortExpression = sortExpression;
+			SortKeySelector = sortKeySelector;
 			SortDirection = sortDirection;
 			SortDefaultOrder = sortDefaultOrder;
 		}
@@ -57,8 +57,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			return (sortingItem != null)
 				&& String.Equals(this.SortString, sortingItem.SortString, StringComparison.OrdinalIgnoreCase)
-				&& (((this.SortExpression == null) && (sortingItem.SortExpression == null))
-					|| this.SortExpression.ToString().Equals(sortingItem.SortExpression.ToString()) /* pro účely řazení good-enough */);
+				&& (((this.SortKeySelector == null) && (sortingItem.SortKeySelector == null))
+					|| this.SortKeySelector.ToString().Equals(sortingItem.SortKeySelector.ToString()) /* pro účely řazení good-enough */);
 		}
 
 		/// <summary>
@@ -66,13 +66,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public SortingItem<TItemType> WithToggledSortDirection()
 		{
-			return new SortingItem<TItemType>(SortString, SortExpression, SortDirection.Reverse(), SortDefaultOrder);
+			return new SortingItem<TItemType>(SortString, SortKeySelector, SortDirection.Reverse(), SortDefaultOrder);
 		}
 
 		/// <inheritdoc />
 		public override string ToString()
 		{
-			return $"SortString: {SortString ?? "(null)"}, SortExpression: {SortExpression}, SortDirection: {SortDirection}";
+			return $"SortString: {SortString ?? "(null)"}, SortKeySelector: {SortKeySelector}, SortDirection: {SortDirection}";
 		}
 	}
 }

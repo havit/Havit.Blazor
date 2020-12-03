@@ -76,7 +76,7 @@
 <h3>Properties</h3>
 <ul>
 	<li>
-		<strong>@nameof(HxGridColumn<object>.ItemTextFunc)</strong><br />
+		<strong>@nameof(HxGridColumn<object>.ItemTextSelector)</strong><br />
 		Function to get text to display as grid cell content. Use to display simple text content.
 	</li>
 	<li>
@@ -88,7 +88,7 @@
 		CSS class to be added to every content cell.
 	</li>
 	<li>
-		<strong>@nameof(HxGridColumn<object>.ItemCssClassFunc)</strong><br />
+		<strong>@nameof(HxGridColumn<object>.ItemCssClassSelector)</strong><br />
 		Function to get CSS class for the content cell (based on the data item).
 	</li>
 	<li>
@@ -104,7 +104,7 @@
 <h3>Sorting properties</h3>
 <ul>
 	<li>
-		<strong>@nameof(HxGridColumn<object>.SortExpression)</strong><br />
+		<strong>@nameof(HxGridColumn<object>.SortKeySelector)</strong><br />
 		<p>To be used for &quot;strongly typed&quot; setting of sorting, required for client-side sorting.</p>
 		<p>Must be <code>IComparable</code>.</p>
 		<p>Sorting of the column does not support multiple expressions. Create an artifial property and implement <code>IComparable</code>.</p>

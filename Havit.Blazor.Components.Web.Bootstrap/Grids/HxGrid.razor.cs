@@ -51,7 +51,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Selected data item.
 		/// Intended for data binding.
 		/// </summary>		
-		/// TODO: Items vs. Selected*Data*Item
 		[Parameter] public TItemType SelectedDataItem { get; set; }
 
 		/// <summary>
@@ -64,7 +63,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Selected data items.
 		/// Intended for data binding.
 		/// </summary>		
-		/// TODO: Items vs. Selected*Data*Item
 		[Parameter] public HashSet<TItemType> SelectedDataItems { get; set; }
 
 		/// <summary>
@@ -85,7 +83,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Enable/disable in-memory auto-sorting the data in <see cref="Items"/> property.
-		/// Default: Auto-sorting is enabled when all sortings on all columns have <see cref="SortingItem{TItemType}.SortExpression"/>.
+		/// Default: Auto-sorting is enabled when all sortings on all columns have <see cref="SortingItem{TItemType}.SortKeySelector"/>.
 		/// </summary>
 		[Parameter] public bool? AutoSort { get; set; }
 
@@ -193,11 +191,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Returns effective value of autosort.
-		/// When AutoSort is not set return true when all sortings in all columns has SortExpression.
+		/// When AutoSort is not set return true when all sortings in all columns has SortKeySelector.
 		/// </summary>
 		private bool GetAutoSortEffective()
 		{
-			return AutoSort ?? columnsList.SelectMany(column => column.GetSorting()).All(sorting => sorting.SortExpression != null);
+			return AutoSort ?? columnsList.SelectMany(column => column.GetSorting()).All(sorting => sorting.SortKeySelector != null);
 		}
 
 		/// <summary>
@@ -221,17 +219,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				return source;
 			}
 
-			Contract.Assert(CurrentUserState.Sorting.All(item => item.SortExpression != null), "All sorting items must have set SortExpression property.");
+			Contract.Assert(CurrentUserState.Sorting.All(item => item.SortKeySelector != null), "All sorting items must have set SortKeySelector property.");
 
 			IOrderedEnumerable<TItemType> result = (CurrentUserState.Sorting[0].SortDirection == SortDirection.Ascending)
-				? source.OrderBy(CurrentUserState.Sorting[0].SortExpression.Compile())
-				: source.OrderByDescending(CurrentUserState.Sorting[0].SortExpression.Compile());
+				? source.OrderBy(CurrentUserState.Sorting[0].SortKeySelector.Compile())
+				: source.OrderByDescending(CurrentUserState.Sorting[0].SortKeySelector.Compile());
 
 			for (int i = 1; i < CurrentUserState.Sorting.Count; i++)
 			{
 				result = (CurrentUserState.Sorting[i].SortDirection == SortDirection.Ascending)
-					? result.ThenBy(CurrentUserState.Sorting[i].SortExpression.Compile())
-					: result.ThenByDescending(CurrentUserState.Sorting[i].SortExpression.Compile());
+					? result.ThenBy(CurrentUserState.Sorting[i].SortKeySelector.Compile())
+					: result.ThenByDescending(CurrentUserState.Sorting[i].SortKeySelector.Compile());
 			}
 
 			return result;

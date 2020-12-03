@@ -23,14 +23,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Selects text to display from item.
 		/// When not set, ToString() is used.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> TextFunc { get; set; } // TODO RH: Přejmenovat na TextSelector? (viz LINQ Select, zarovnal bych s tím?)
+		[Parameter] public Func<TItemType, string> TextSelector { get; set; }
 
 		/// <summary>
-		/// Selects value for items sorting. When not set, <see cref="TextFunc"/> property will be used.
+		/// Selects value for items sorting. When not set, <see cref="TextSelector"/> property will be used.
 		/// If you need complex sorting, pre-sort data manually or create a custom comparable property.
 		/// </summary>
-		[Parameter] public Func<TItemType, IComparable> SortFunc { get; set; } // TODO: Neumíme zřetězení výrazů pro řazení, v takovém případě buď umělou vlastnost s IComparable nebo seřadit předem.
-																			   // TODO RH: Přejmenovat na SortKeyFunc nebo SortKeySelector (viz OrderBy, zarovnal bych s tím)
+		[Parameter] public Func<TItemType, IComparable> SortKeySelector { get; set; }
 
 		/// <summary>
 		/// When true, items are sorted before displaying in select.
@@ -50,13 +49,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			// AutoSort
 			if (AutoSort && (itemsToRender.Count > 1))
 			{
-				if (SortFunc != null)
+				if (SortKeySelector != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.SortFunc).ToList();
+					itemsToRender = itemsToRender.OrderBy(this.SortKeySelector).ToList();
 				}
-				else if (TextFunc != null)
+				else if (TextSelector != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.TextFunc).ToList();
+					itemsToRender = itemsToRender.OrderBy(this.TextSelector).ToList();
 				}
 				else
 				{
@@ -75,7 +74,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				foreach (var item in itemsToRender)
 				{
 					builder.OpenComponent(1, typeof(HxInputCheckBox));
-					builder.AddAttribute(2, nameof(HxInputCheckBox.Label), TextFunc?.Invoke(item) ?? item?.ToString() ?? String.Empty);
+					builder.AddAttribute(2, nameof(HxInputCheckBox.Label), TextSelector?.Invoke(item) ?? item?.ToString() ?? String.Empty);
 					builder.AddAttribute(3, nameof(HxInputCheckBox.Value), Value?.Contains(item) ?? false);
 					builder.AddAttribute(4, nameof(HxInputCheckBox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item))); // TODO callback
 

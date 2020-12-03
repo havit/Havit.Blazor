@@ -35,7 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns text for the item.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> ItemTextFunc { get; set; } // TODO RH: Přejmenovat na ItemTextSelector?
+		[Parameter] public Func<TItemType, string> ItemTextSelector { get; set; }
 
 		/// <summary>
 		/// Returns template for the item.
@@ -50,7 +50,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns item css class for the specific date item.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> ItemCssClassFunc { get; set; }
+		[Parameter] public Func<TItemType, string> ItemCssClassSelector { get; set; }
 		#endregion
 
 		#region Footer properties
@@ -79,7 +79,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns column sorting expression for automatic grid sorting.
 		/// </summary>
-		[Parameter] public Expression<Func<TItemType, IComparable>> SortExpression { get; set; }
+		[Parameter] public Expression<Func<TItemType, IComparable>> SortKeySelector { get; set; }
 
 		/// <summary>
 		/// Sort direction.
@@ -98,8 +98,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override CellTemplate GetItemCellTemplate(TItemType item)
 		{
-			string cssClass = CssClassHelper.Combine(ItemCssClass, ItemCssClassFunc?.Invoke(item));
-			return new CellTemplate(RenderFragmentBuilder.CreateFrom(ItemTextFunc?.Invoke(item), ItemTemplate?.Invoke(item)), cssClass);
+			string cssClass = CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item));
+			return new CellTemplate(RenderFragmentBuilder.CreateFrom(ItemTextSelector?.Invoke(item), ItemTemplate?.Invoke(item)), cssClass);
 		}
 
 		/// <inheritdoc />
@@ -108,12 +108,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override IEnumerable<SortingItem<TItemType>> GetSorting()
 		{
-			if ((SortExpression == null) && String.IsNullOrEmpty(SortString))
+			if ((SortKeySelector == null) && String.IsNullOrEmpty(SortString))
 			{
 				yield break;
 			}
 
-			yield return new SortingItem<TItemType>(this.SortString, this.SortExpression, this.SortDirection, sortDefaultOrder: IsDefaultSort ? 0 : (int?)null);
+			yield return new SortingItem<TItemType>(this.SortString, this.SortKeySelector, this.SortDirection, sortDefaultOrder: IsDefaultSort ? 0 : (int?)null);
 		}
 	}
 }

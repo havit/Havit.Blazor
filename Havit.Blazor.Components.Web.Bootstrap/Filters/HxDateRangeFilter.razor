@@ -7,12 +7,12 @@
 	<FilterTemplate>
 		<div class="row">
 			<div class="col">
-				<HxInputDate TValue="TValue" Value="@ValueFrom" ValueChanged="HandleValueFromChanged" ValueExpression="@ValueFromExpression" ParsingErrorMessage="@GetValueFromParsingError()">
+				<HxInputDate TValue="TValue" Value="@ValueFrom" ValueChanged="HandleValueFromChanged" ValueSelector="@ValueFromSelector" ParsingErrorMessage="@GetValueFromParsingError()">
 					<InputGroupBeforeTemplate>@StringLocalizer["From"]</InputGroupBeforeTemplate>
 				</HxInputDate>
 			</div>
 			<div class="col">
-				<HxInputDate TValue="TValue" Value="@ValueTo" ValueChanged="HandleValueToChanged" ValueExpression="@ValueToExpression" ParsingErrorMessage="@GetValueToParsingError()">
+				<HxInputDate TValue="TValue" Value="@ValueTo" ValueChanged="HandleValueToChanged" ValueSelector="@ValueToSelector" ParsingErrorMessage="@GetValueToParsingError()">
 					<InputGroupBeforeTemplate>@StringLocalizer["To"]</InputGroupBeforeTemplate>
 				</HxInputDate>
 			</div>
