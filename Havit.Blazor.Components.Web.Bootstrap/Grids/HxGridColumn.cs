@@ -89,7 +89,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Indicates the sorting on the column is default (primary) on the grid.
 		/// </summary>
-		[Parameter] public bool IsDefaultSort { get; set; } = false;
+		[Parameter] public bool IsDefaultSortColumn { get; set; } = false;
 		#endregion
 
 		/// <inheritdoc />
@@ -113,7 +113,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				yield break;
 			}
 
-			yield return new SortingItem<TItemType>(this.SortString, this.SortKeySelector, this.SortDirection, sortDefaultOrder: IsDefaultSort ? 0 : (int?)null);
+			yield return new SortingItem<TItemType>(this.SortString, this.SortKeySelector, this.SortDirection, sortDefaultOrder: IsDefaultSortColumn ? 0 : (int?)null);
 		}
 	}
 }
