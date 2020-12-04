@@ -68,7 +68,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool ShowValidationMessage { get; set; } = true;
 
 		/// <inheritdoc />
-		[Parameter] public bool? IsEnabled { get; set; }
+		[Parameter] public bool? Enabled { get; set; }
 
 		/// <summary>
 		/// Css class to be rendered with the wrapping div.
@@ -232,7 +232,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(2, "id", InputId);
 			builder.AddAttribute(3, "type", typeValue);
 			builder.AddAttribute(4, "class", GetInputCssClassToRender());
-			builder.AddAttribute(5, "disabled", !this.IsEnabledEffective());
+			builder.AddAttribute(5, "disabled", !this.EnabledEffective());
 		}
 
 		/// <summary>
