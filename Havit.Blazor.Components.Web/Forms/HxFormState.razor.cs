@@ -18,12 +18,12 @@ namespace Havit.Blazor.Components.Web.Forms
 		/// <summary>
 		/// Indicated enabled/disabled section. Value to propagate.
 		/// </summary>
-		[Parameter] public bool? IsEnabled { get; set; }
+		[Parameter] public bool? Enabled { get; set; }
 
 		/// <summary>
 		/// When false, nothing is rendered (no children). Value is not propagated, there is no where to propagate.
 		/// </summary>
-		[Parameter] public bool IsVisible { get; set; } = true;
+		[Parameter] public bool Visible { get; set; } = true;
 
 		/// <summary>
 		/// Child content.
@@ -37,7 +37,7 @@ namespace Havit.Blazor.Components.Web.Forms
 		{
 			return new FormState
 			{
-				IsEnabled = IsEnabled ?? CascadingFormState?.IsEnabled,
+				Enabled = Enabled ?? CascadingFormState?.Enabled,
 			};
 		}
 

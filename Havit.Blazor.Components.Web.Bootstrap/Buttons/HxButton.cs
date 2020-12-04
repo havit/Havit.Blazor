@@ -46,7 +46,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public ButtonSkin Skin { get; set; }
 
 		/// <inheritdoc />
-		[Parameter] public bool? IsEnabled { get; set; }
+		[Parameter] public bool? Enabled { get; set; }
 
 		/// <summary>
 		/// Localization service.
@@ -67,7 +67,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1, "type", GetButtonType());
 			builder.AddAttribute(2, "class", CssClassHelper.Combine("btn btn-primary", Skin?.CssClass, CssClass));
 			builder.AddAttribute(3, "onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, HandleClick));
-			builder.AddAttribute(4, "disabled", !this.IsEnabledEffective());
+			builder.AddAttribute(4, "disabled", !this.EnabledEffective());
 
 			IconBase icon = Icon ?? Skin?.Icon;
 			if (icon != null)

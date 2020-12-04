@@ -12,6 +12,6 @@ namespace Havit.Blazor.Components.Web.Forms
 		/// <summary>
 		/// Indicates enabled/disabled section.
 		/// </summary>
-		public bool? IsEnabled { get; set; }
+		public bool? Enabled { get; set; }
 	}
 }

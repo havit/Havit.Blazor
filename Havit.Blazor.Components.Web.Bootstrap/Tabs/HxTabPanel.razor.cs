@@ -59,7 +59,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				// when no tab is active after initial render, activate the first visible & enabled tab
 				if (!tabsList.Any(item => item.IsCurrentlyActive) && (tabsList.Count > 0))
 				{
-					HxTab tabToActivate = tabsList.FirstOrDefault(tab => tab.IsEnabledEffective() && tab.IsVisible);
+					HxTab tabToActivate = tabsList.FirstOrDefault(tab => tab.EnabledEffective() && tab.Visible);
 					if (tabToActivate != null)
 					{
 						await tabToActivate.SetIsCurrentlyActiveAsync(true);

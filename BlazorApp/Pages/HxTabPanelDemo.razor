@@ -10,7 +10,7 @@
 		<TitleTemplate>@secondTabTitle</TitleTemplate>
 		<Content>This is the second tab with title "@secondTabTitle".</Content>
 	</HxTab>
-	<HxTab IsEnabled="false" IsVisible="@thirdTabVisible">
+	<HxTab Enabled="false" Visible="@thirdTabVisible">
 		<TitleTemplate>Disabled</TitleTemplate>
 		<Content>This is the disabled tab.</Content>
 	</HxTab>
@@ -19,7 +19,7 @@
 <p>2nd tab is active: @secondTabIsActive</p>
 <p>3rd tab visible: @thirdTabVisible</p>
 
-<HxButton Text="Activate 2nd tab" IsEnabled="@(!secondTabIsActive)" OnClick="HandleActivateSecondTabButtonClick" />
+<HxButton Text="Activate 2nd tab" Enabled="@(!secondTabIsActive)" OnClick="HandleActivateSecondTabButtonClick" />
 <HxButton Text="Update 2nd tab title" OnClick="HandleUpdateSecondTabTitleButtonClick" />
 <HxButton Text="Toggle 3rd tab visibility" OnClick="HandleToggleThirdTabVisibilityButtonClick" />
 

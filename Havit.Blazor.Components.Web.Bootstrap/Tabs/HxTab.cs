@@ -54,13 +54,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// True for visible tab. Set false when tab should not be visible.
 		/// </summary>
-		[Parameter] public bool IsVisible { get; set; } = true;
+		[Parameter] public bool Visible { get; set; } = true;
 
 		/// <inheritdoc />
 		[CascadingParameter] public FormState FormState { get; set; }
 
 		/// <inheritdoc />
-		[Parameter] public bool? IsEnabled { get; set; }
+		[Parameter] public bool? Enabled { get; set; }
 
 		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
 

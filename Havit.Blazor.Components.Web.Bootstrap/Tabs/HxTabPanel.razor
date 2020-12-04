@@ -7,10 +7,10 @@
 	@foreach (HxTab tab in tabsList)
 	{
 		<UpdatedContentRenderer Component="@tab">
-			@if (tab.IsVisible)
+			@if (tab.Visible)
 			{
 				<li class="nav-item">
-					<a class="@CssClassHelper.Combine("nav-link", tab.IsCurrentlyActive ? "active" : String.Empty, tab.IsEnabledEffective() ? String.Empty : "disabled")"
+					<a class="@CssClassHelper.Combine("nav-link", tab.IsCurrentlyActive ? "active" : String.Empty, tab.EnabledEffective() ? String.Empty : "disabled")"
 					   @onclick="async () => await HandleTabClick(tab)">
 						@tab.Title
 						@tab.TitleTemplate
@@ -25,7 +25,7 @@
 	@foreach (HxTab tab in tabsList)
 	{
 		<UpdatedContentRenderer Component="@tab">
-			@if (tab.IsVisible)
+			@if (tab.Visible)
 			{
 				<div class="@CssClassHelper.Combine("tab-pane", tab.IsCurrentlyActive ? "active" : String.Empty)">
 					@tab.Content

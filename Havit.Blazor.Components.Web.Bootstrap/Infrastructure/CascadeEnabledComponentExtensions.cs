@@ -12,11 +12,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Infrastructure
 	public static class CascadeEnabledComponentExtensions
 	{
 		/// <summary>
-		/// Effective value of IsEnabled. When IsEnabled is not set, receives value from FormState or defaults to true.
+		/// Effective value of Enabled. When Enabled is not set, receives value from FormState or defaults to true.
 		/// </summary>
-		public static bool IsEnabledEffective(this ICascadeEnabledComponent component)
+		public static bool EnabledEffective(this ICascadeEnabledComponent component)
 		{
-			return component.FormState?.IsEnabled ?? component.IsEnabled ?? true;
+			return component.FormState?.Enabled ?? component.Enabled ?? true;
 		}
 	}
 }

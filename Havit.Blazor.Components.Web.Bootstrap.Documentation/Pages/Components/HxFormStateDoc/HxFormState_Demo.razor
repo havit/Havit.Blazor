@@ -6,7 +6,7 @@
 			Toggle the switch to enabled/disable form state.
 		</HintTemplate>
 	</HxInputSwitch>
-	<HxFormState IsEnabled="@model.Enabled">
+	<HxFormState Enabled="@model.Enabled">
 		<HxInputText Label="Text value" @bind-Value="@model.StringValue" />
 		<HxInputCheckBox Label="Bool value" @bind-Value="@model.BooleanValue" />
 		<HxSubmit Text="Validate" />

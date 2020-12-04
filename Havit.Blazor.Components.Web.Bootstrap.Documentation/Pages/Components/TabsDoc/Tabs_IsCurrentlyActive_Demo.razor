@@ -8,7 +8,7 @@
 	</HxTab>
 </HxTabPanel>
 
-<HxButton Text="Set second tab active" IsEnabled="@(!secondTabIsActive)" OnClick="() => { secondTabIsActive = true; }" />
+<HxButton Text="Set second tab active" Enabled="@(!secondTabIsActive)" OnClick="() => { secondTabIsActive = true; }" />
 
 @code{
 	private bool secondTabIsActive = false;
