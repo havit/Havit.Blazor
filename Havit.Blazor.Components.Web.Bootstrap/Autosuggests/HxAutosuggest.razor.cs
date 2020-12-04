@@ -21,11 +21,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter]
 		public EventCallback<SuggestionRequest> SuggestionsRequested { get; set; } // TODO? SuggestionsProvider + ála public delegate ValueTask<ItemsProviderResult<TItem>> ItemsProviderDelegate<TItem>(ItemsProviderRequest request);
 
+		/// <summary>
+		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
+		/// </summary>
 		[Parameter]
-		public int MinimalCharactersCountToStartSuggesting { get; set; } = 3; // TODO? MinimumLength
+		public int MinimumLength { get; set; } = 2;
 
+		/// <summary>
+		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
+		/// </summary>
 		[Parameter]
-		public int DebounceIntervalInMilliseconds { get; set; } = 300; // TODO? Delay
+		public int Delay { get; set; } = 300;
 
 		[Inject]
 		public IJSRuntime JSRuntime { get; set; }
@@ -65,12 +71,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			timer?.Stop();
 			cancellationTokenSource?.Cancel();
 
-			if (userInput.Length >= MinimalCharactersCountToStartSuggesting)
+			if (userInput.Length >= MinimumLength)
 			{
 				if (timer == null)
 				{
 					timer = new System.Timers.Timer();
-					timer.Interval = DebounceIntervalInMilliseconds;
+					timer.Interval = Delay;
 					timer.AutoReset = false; // just once
 					timer.Elapsed += HandleTimerElapsed;
 				}
