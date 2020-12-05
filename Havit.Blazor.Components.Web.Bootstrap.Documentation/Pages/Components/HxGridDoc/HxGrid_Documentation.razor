@@ -12,7 +12,7 @@
 		Columns to display, see <code>@nameof(HxGridColumn<object>)</code> below.
 	</li>
 	<li>
-		<strong>@nameof(HxGrid<object>.Items)</strong><br />
+		<strong>@nameof(HxGrid<object>.Data)</strong><br />
 		Data items to render. Without server-side paging &amp; sorting or with client-side paging &amp; sorting, it should contain all items to display.
 		When server-side paging &amp; sorting is used, it must contain data just for the current page. Do not forget to set <code>@nameof(HxGrid<object>.TotalItemsCount)</code>.
 	</li>
@@ -28,7 +28,7 @@
 		<strong>@nameof(HxGrid<object>.DataReloadRequired)</strong><br />
 		<p>This event is fired when:</p>
 		<ul>
-			<li>The grid was rendered for the first time but has no data (<code>@nameof(HxGrid<object>.Items)</code> is null). This allows you to use <code>@nameof(HxGrid<object>.DataReloadRequired)</code> for initial data load.</li>
+			<li>The grid was rendered for the first time but has no data (<code>@nameof(HxGrid<object>.Data)</code> is null). This allows you to use <code>@nameof(HxGrid<object>.DataReloadRequired)</code> for initial data load.</li>
 			<li>Sorting has changed and autosorting is not used.</li>
 			<li>Page index has changed and <code>@nameof(HxGrid<object>.TotalItemsCount)</code> is not null (server-side paging is used).</li>
 		</ul>
@@ -54,7 +54,7 @@
 <ul>
 	<li>Create a field/property for the data.</li>
 	<li>Set data to this field/property. Do not sort data.</li>
-	<li>Assign this field/property to <code>@nameof(HxGrid<object>.Items)</code> property.</li>
+	<li>Assign this field/property to <code>@nameof(HxGrid<object>.Data)</code> property.</li>
 </ul>
 
 <Demo Title="Client-side paging and sorting" Type="typeof(HxGrid_ClientSideDemo)" />
@@ -62,7 +62,7 @@
 <h4>Server side paging &amp; sorting:</h4>
 <ul>
 	<li>Create a field/property to store the data for the current page.</li>
-	<li>Set this field/property to the <code>@nameof(HxGrid<object>.Items)</code> property.</li>
+	<li>Set this field/property to the <code>@nameof(HxGrid<object>.Data)</code> property.</li>
 	<li>Create a field/property to store the count of the items on all pages.</li>
 	<li>Set this field/property to the <code>@nameof(HxGrid<object>.TotalItemsCount)</code> property.</li>
 	<li>Create a method to handle the <code>@nameof(HxGrid<object>.DataReloadRequired)</code> event.</li>

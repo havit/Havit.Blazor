@@ -14,10 +14,10 @@
 	}
 </CascadingValue>
 
-@if (Items != null)
+@if (Data != null)
 {
 	List<IHxGridColumn<TItemType>> columnsToRender = GetColumnsToRender();
-	TItemType[] itemsToRender = ApplyPaging(ApplySorting(Items)).ToArray();
+	TItemType[] itemsToRender = ApplyPaging(ApplySorting(Data)).ToArray();
 
 	if ((itemsToRender.Length == 0) && (CurrentUserState.PageIndex > 0))
 	{
@@ -116,7 +116,7 @@
 
 		@if (PageSize > 0)
 		{
-			int totalPages = ((TotalItemsCount ?? Items.Count()) + PageSize - 1) / PageSize;
+			int totalPages = ((TotalItemsCount ?? Data.Count()) + PageSize - 1) / PageSize;
 			if (totalPages > 1)
 			{
 				<HxPager TotalPages="@totalPages"

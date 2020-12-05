@@ -1,4 +1,4 @@
-﻿<HxGrid TItemType="System.Globalization.CultureInfo" Items="@localCultureInfos" PageSize="10">
+﻿<HxGrid TItemType="System.Globalization.CultureInfo" Data="@localCultureInfos" PageSize="10">
 	<Columns>
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />

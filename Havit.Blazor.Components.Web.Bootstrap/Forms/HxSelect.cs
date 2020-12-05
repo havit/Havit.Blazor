@@ -128,7 +128,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if ((Value != null) && (selectedItem == null))
 			{
-				throw new InvalidOperationException($"Items does not contain item for current value '{Value}'.");
+				throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
 			}
 
 			if (NullableEffective || (selectedItem == null))

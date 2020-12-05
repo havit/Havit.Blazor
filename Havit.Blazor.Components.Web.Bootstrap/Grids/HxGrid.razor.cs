@@ -28,9 +28,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public const string ColumnsRegistrationCascadingValueName = "ColumnsRegistration";
 
 		/// <summary>
-		/// Items to render as a table.
+		/// Items to render as a table (mutually exclusive with DataProvider).
 		/// </summary>
-		[Parameter] public IEnumerable<TItemType> Items { get; set; }
+		[Parameter] public IEnumerable<TItemType> Data { get; set; }
 
 		/// <summary>
 		/// Grid view selection mode. Default is "Select".
@@ -82,7 +82,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public int? TotalItemsCount { get; set; }
 
 		/// <summary>
-		/// Enable/disable in-memory auto-sorting the data in <see cref="Items"/> property.
+		/// Enable/disable in-memory auto-sorting the data in <see cref="Data"/> property.
 		/// Default: Auto-sorting is enabled when all sortings on all columns have <see cref="SortingItem{TItemType}.SortKeySelector"/>.
 		/// </summary>
 		[Parameter] public bool? AutoSort { get; set; }
@@ -142,7 +142,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 			}
 
-			if (firstRender && (this.Items == null))
+			if (firstRender && (this.Data == null))
 			{
 				await DataReloadRequired.InvokeAsync(CurrentUserState);
 			}
