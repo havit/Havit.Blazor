@@ -14,6 +14,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Parameter] public bool IsOpen { get; set; }
 
+		[Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
+
 		/// <summary>
 		/// Indicates, whether the content (TitleSection, BodySection, CommandsSection, Close-button) should be rendered even if the drawer is closed.
 		/// Default is <b>false</b>.
@@ -30,7 +32,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Parameter] public RenderFragment CommandsSection { get; set; }
 
-		[Parameter] public EventCallback<MouseEventArgs> OnCloseClickCallback { get; set; }
-
+		private async Task SetState(bool isOpen)
+		{
+			if (IsOpen != isOpen)
+			{
+				IsOpen = isOpen;
+				await IsOpenChanged.InvokeAsync(isOpen);
+				StateHasChanged();
+			}
+		}
 	}
 }

@@ -40,15 +40,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Parameter]
 		public RenderFragment CommandsSection { get; set; }
-
-		private void ToggleFilterDrawer()
-		{
-			FilterDrawerOpen = !FilterDrawerOpen;
-		}
-
-		private void ToggleDetailDrawer()
-		{
-			DetailDrawerOpen = !DetailDrawerOpen;
-		}
 	}
 }

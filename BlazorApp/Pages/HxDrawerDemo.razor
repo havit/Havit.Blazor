@@ -2,7 +2,19 @@
 
 <h1>HxDrawer</h1>
 
-<HxDrawer IsOpen="true">
+<HxDrawer @bind-IsOpen="drawerOpen">
 	<TitleSection>Title</TitleSection>
 	<BodySection>Body</BodySection>
 </HxDrawer>
+
+<div>
+	<HxButton OnClick="() => drawerOpen = true" Text="Open" />
+</div>
+<div>
+	IsOpen: @drawerOpen
+</div>
+
+@code
+{
+	private bool drawerOpen = false;
+}
