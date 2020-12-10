@@ -83,7 +83,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Enable/disable in-memory auto-sorting the data in <see cref="Data"/> property.
-		/// Default: Auto-sorting is enabled when all sortings on all columns have <see cref="SortingItem{TItemType}.SortKeySelector"/>.
+		/// Default: Auto-sorting is enabled when all sortings on all columns have <c>SortKeySelector</c> />.
 		/// </summary>
 		[Parameter] public bool? AutoSort { get; set; }
 
