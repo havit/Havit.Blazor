@@ -1,5 +1,9 @@
 ﻿@namespace  Havit.Blazor.Components.Web.Bootstrap
 <a class="dropdown-item" role="button" @onclick="HandleClick">
+	@if (Icon != null)
+	{
+		<HxIcon Icon="Icon" />
+	}
 	@Title
 	@ChildContent
 </a>

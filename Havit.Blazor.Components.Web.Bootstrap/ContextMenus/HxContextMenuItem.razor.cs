@@ -9,20 +9,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxContextMenuItem : ComponentBase
 	{
-		[Parameter]
-		public RenderFragment ChildContent { get; set; }
+		[Parameter] public RenderFragment ChildContent { get; set; }
 
-		[Parameter]
-		public string Title { get; set; }
+		[Parameter] public string Title { get; set; }
 
-		[Parameter]
-		public string ConfirmationQuestion { get; set; }
+		[Parameter] public IconBase Icon { get; set; }
 
-		[Parameter]
-		public EventCallback OnItemClick { get; set; }
+		[Parameter] public string ConfirmationQuestion { get; set; }
 
-		[Inject]
-		public IJSRuntime JSRuntime { get; set; }
+		[Parameter] public EventCallback OnItemClick { get; set; }
+
+		[Inject] public IJSRuntime JSRuntime { get; set; }
 
 		public async Task HandleClick()
 		{
