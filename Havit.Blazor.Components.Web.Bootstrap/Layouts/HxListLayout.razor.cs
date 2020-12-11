@@ -30,7 +30,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter]
 		public RenderFragment NamedViewsSection { get; set; }
 
-		public bool DetailDrawerOpen { get; set; }
+		[Parameter] public bool DetailDrawerIsOpen { get; set; }
+		[Parameter] public EventCallback<bool> DetailDrawerIsOpenChanged { get; set; }
+		private bool DetailDrawerIsOpenBound  // binding pass-through (https://docs.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-5.0#bind-across-more-than-two-components)
+		{
+			get => this.DetailDrawerIsOpen;
+			set => DetailDrawerIsOpenChanged.InvokeAsync(value);
+		}
 
 		[Parameter]
 		public RenderFragment DataSection { get; set; }
