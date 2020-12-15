@@ -5,7 +5,24 @@
 	Component to display notification messages.
 </p>
 
-<p>Component is using <code>@nameof(IMessenger)</code> cascading parameter. You should place the <code>@nameof(HxMessenger)</code> to the layout component to make it work!</p>
-<p>Informational messages are automatically hidden after 5 seconds, warning and error messages remain visible.</p>
+<p>Component is using <code>@nameof(IMessenger)</code> injected service.</p>
+<p>Informational messages are automatically hidden after 5 seconds, warning and error messages remain visible till manually closed.</p>
 
-<Demo Type="typeof(HxMessenger_Demo)" />
+<Demo Type="typeof(HxMessenger_Demo)" Title="Component adding messages..." />
+
+<p>You should place the <code>@nameof(HxMessenger)</code> component itself to the layout component to make it work!</p>
+<CodeCard Title="MainLayout.razor">
+@("@inherits LayoutComponentBase")
+@("<HxMessenger />")
+@("@Body")
+</CodeCard>
+
+<p>Call <code>services.AddHxMessenger()</code> in Startup.cs to configure related services.</p>
+<CodeCard Title="Startup.cs" Language="csharp">
+public void ConfigureServices(IServiceCollection services)
+{
+	// ...
+	services.AddHxMessenger();
+	// ...
+}
+</CodeCard>

@@ -17,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
 
-			messenger.AddMessage(new Message
+			messenger.AddMessage(new MessengerMessage
 			{
 				Icon = BootstrapIcon.InfoCircle,
 				CssClass = "toast-information",
@@ -33,7 +33,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
 
-			messenger.AddMessage(new Message
+			messenger.AddMessage(new MessengerMessage
 			{
 				Icon = BootstrapIcon.ExclamationCircle,
 				CssClass = "toast-warning",
@@ -50,7 +50,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
 
-			messenger.AddMessage(new Message
+			messenger.AddMessage(new MessengerMessage
 			{
 				Icon = BootstrapIcon.ExclamationCircleFill,
 				CssClass = "toast-error",

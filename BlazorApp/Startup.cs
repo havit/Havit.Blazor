@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,8 @@ namespace BlazorApp
 			services.AddLocalization();
 			services.AddRazorPages();
 			services.AddServerSideBlazor();
+
+			services.AddHxMessenger();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

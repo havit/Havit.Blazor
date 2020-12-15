@@ -1,7 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 @*TODO Pozicování*@
 
-@foreach (Message message in messages)
+@foreach (MessengerMessage message in messages)
 {
 	// @key is used to pair messages to HxToasts when some message disappers.
 	<HxToast @key="@message.Key"
@@ -11,11 +11,3 @@
 			 AutohideDelay="@message.AutohideDelay"
 			 ToastHidden="() => HandleToastHidden(message)" />
 }
-
-@* 
-	Because of using @key for HxToast when last message disappears the ChildContent is re-initialized.
-	To avoid this we use a key here as a workaround.
-*@
-<CascadingValue @key="@("messenger")" TValue="IMessenger" Value="messenger" IsFixed="true">
-	@ChildContent
-</CascadingValue>

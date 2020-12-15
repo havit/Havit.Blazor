@@ -41,7 +41,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			builder.AddMarkupContent(0, "<!--googleoff: index-->"); // source: https://perishablepress.com/tell-google-to-not-index-certain-parts-of-your-page/
 
 			builder.OpenElement(100, "div");
-			builder.AddAttribute(101, "class", "card card-demo");
+			builder.AddAttribute(101, "class", "card card-demo my-3");
 			builder.OpenElement(200, "div");
 			builder.AddAttribute(201, "class", "card-header");
 			builder.AddContent(202, Title);

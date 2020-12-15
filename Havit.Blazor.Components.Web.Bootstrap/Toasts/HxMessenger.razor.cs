@@ -9,49 +9,60 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Component wrapper displaying <see cref="HxToast"/> to show messages.
 	/// </summary>
-	public partial class HxMessenger : ComponentBase
+	public partial class HxMessenger : ComponentBase, IDisposable
 	{
-		/// <summary>
-		/// Content to render.
-		/// </summary>
-		[Parameter] public RenderFragment ChildContent { get; set; }
+		[Inject] public IMessenger Messenger { get; set; }
+		[Inject] public NavigationManager NavigationManager { get; set; }
 
-		private List<Message> messages = new List<Message>();
-		private MessengerCascadingValue messenger;
+		[Parameter] public bool RemoveMessagesOnNavigation { get; set; } = true;
 
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		public HxMessenger()
+		private List<MessengerMessage> messages = new List<MessengerMessage>();
+
+		protected override void OnInitialized()
 		{
-			messenger = new MessengerCascadingValue(this);
+			base.OnInitialized();
+
+			Messenger.OnMessage += Messenger_OnMessage;
+			if (RemoveMessagesOnNavigation)
+			{
+				NavigationManager.LocationChanged += NavigationManager_LocationChanged_RemoveMessagesOnNavigation;
+			}
 		}
 
-		/// <inheritdoc />
-		protected override void OnParametersSet()
+		private void NavigationManager_LocationChanged_RemoveMessagesOnNavigation(object sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
 		{
-			base.OnParametersSet();
-
-			// when used in layout we want to clear all messages during navigation
-			messages.Clear();
+			InvokeAsync(() =>
+			{
+				messages.Clear();
+				StateHasChanged();
+			});
 		}
 
-		/// <summary>
-		/// Add and shows the message. Not intented to be used in user code. 
-		/// See <see cref="IMessenger"/> and <see cref="MessengerExtensions"/> for methods to show message.
-		/// </summary>
-		public void AddMessage(Message message)
+		private void Messenger_OnMessage(MessengerMessage message)
 		{
-			messages.Add(message);
-			StateHasChanged();
+			InvokeAsync(() =>
+			{
+				messages.Add(message);
+
+				StateHasChanged();
+			});
 		}
 
 		/// <summary>
 		/// Receive notification from javascript when message is hidden.
 		/// </summary>
-		protected void HandleToastHidden(Message message)
+		protected void HandleToastHidden(MessengerMessage message)
 		{
 			messages.Remove(message);
+		}
+
+		public void Dispose()
+		{
+			Messenger.OnMessage -= Messenger_OnMessage;
+			if (RemoveMessagesOnNavigation)
+			{
+				NavigationManager.LocationChanged -= NavigationManager_LocationChanged_RemoveMessagesOnNavigation;
+			}
 		}
 	}
 }

@@ -1,9 +1,9 @@
 ﻿<HxButton Text="Show information" OnClick="HandleAddInformationButtonClick" />
 <HxButton Text="Show warning" OnClick="HandleAddWarningButtonClick" />
 <HxButton Text="Show error" OnClick="HandleAddErrorButtonClick" />
+
 @code { 
-	[CascadingParameter]
-	protected IMessenger Messenger { get; set; }
+	[Inject] protected IMessenger Messenger { get; set; }
 
 	protected override void OnAfterRender(bool firstRender)
 	{

@@ -1,0 +1,15 @@
+﻿<div class="card card-demo my-3">
+	<div class="card-header">@Title</div>
+	<div class="card-body">
+<pre><code class="language-@(Language ?? "html")">
+	@ChildContent
+</code></pre>
+	</div>
+</div>
+
+@code
+{
+	[Parameter] public RenderFragment ChildContent { get; set; }
+	[Parameter] public string Title { get; set; }
+	[Parameter] public string Language { get; set; }
+}

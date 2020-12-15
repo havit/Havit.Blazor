@@ -5,14 +5,18 @@ using System.Text;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Provides methods for adding and showing message. For better API use <see cref="MessengerExtensions">extension methods</see>.
-	/// Consume interface as cascading parameter in <see cref="HxMessenger"/> which must be present in the layout component (or any parent component).
+	/// Provides methods for adding and showing message. Use <see cref="MessengerExtensions">extension methods</see>.
 	/// </summary>
 	public interface IMessenger
 	{
 		/// <summary>
+		/// Subscription seam for HxMessenger component to be able to receive the messages.
+		/// </summary>
+		public event Action<MessengerMessage> OnMessage;
+
+		/// <summary>
 		/// Adds and shows message.
 		/// </summary>
-		public void AddMessage(Message message);
+		public void AddMessage(MessengerMessage message);
 	}
 }

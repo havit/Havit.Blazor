@@ -7,7 +7,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Messenger message.
 	/// </summary>
-	public class Message
+	public class MessengerMessage
 	{
 		/// <summary>
 		/// Key. Used for component paring during rendering (@key).
