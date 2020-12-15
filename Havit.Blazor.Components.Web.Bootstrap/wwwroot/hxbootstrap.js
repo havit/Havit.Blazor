@@ -3,7 +3,6 @@
     el.setAttribute("data-toggle", "dropdown");
     new bootstrap.Dropdown(el).show();
 };
-
 window.hxBootstrapAutosuggest_destroyDropdown = (selector) => {
     var el = document.querySelector(selector);
     el.removeAttribute("data-toggle", "dropdown");
@@ -24,9 +23,14 @@ window.hxGrid_cellClick = (event) => {
     }
 }
 
-window.hxToast_show = (element, hxtoast) => {
-    element.addEventListener('hidden.bs.toast', function () {
-        hxtoast.invokeMethodAsync('HxToast_HandleToastHidden');
-    });
+var handleToastHiddenInDotnet = (event) => {
+	event.target.hxToastDotnetObjectReference.invokeMethodAsync('HxToast_HandleToastHidden');
+}; 
+window.hxToast_show = (element, hxToastDotnetObjectReference) => {
+	element.hxToastDotnetObjectReference = hxToastDotnetObjectReference;
+	element.addEventListener('hidden.bs.toast', handleToastHiddenInDotnet);
     new bootstrap.Toast(element).show();
+}
+window.hxToast_dispose = (element) => {
+	element.removeEventListener('hidden.bs.toast', handleToastHiddenInDotnet);
 }

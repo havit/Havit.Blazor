@@ -13,7 +13,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// Toast. Not intented to be used in user code, use <see cref="HxMessenger"/>.
 	/// After first render component never updates.
 	/// </summary>
-	public partial class HxToast : ComponentBase, IDisposable
+	public partial class HxToast : ComponentBase, IAsyncDisposable
 	{
 #pragma warning disable CS0649 // assigned by Blazor
 		private ElementReference toastElement;
@@ -194,8 +194,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		public void Dispose()
+		public async ValueTask DisposeAsync()
 		{
+			await JSRuntime.InvokeVoidAsync("hxToast_dispose", toastElement);
 			dotnetObjectReference?.Dispose();
 		}
 	}
