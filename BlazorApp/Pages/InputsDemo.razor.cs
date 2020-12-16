@@ -24,14 +24,14 @@ namespace BlazorApp.Pages
 			public decimal DecimalValue { get; set; }
 
 			public decimal? NullableDecimalValue { get; set; }
-			
+
 			public DateTime DateValue { get; set; }
 
 			public DateTime? NullableDateValue { get; set; }
 
 			[Required]
 			public string CultureInfoName { get; set; }
-			
+
 			[Required]
 			public CultureInfo CultureInfo { get; set; }
 

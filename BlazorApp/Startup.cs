@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap;
@@ -49,6 +50,13 @@ namespace BlazorApp
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
+			app.UseRequestLocalization(o =>
+			{
+				CultureInfo cs = new CultureInfo("cs-CZ");
+				o.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture(cs);
+				o.AddSupportedCultures("cs", "en-US");
+				o.AddSupportedUICultures("cs", "en-US");
+			});
 
 			app.UseRouting();
 
