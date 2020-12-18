@@ -6,7 +6,7 @@
 <HxGrid Data="@localCultureInfos" @bind-SelectedDataItem="@currentLocalCultureInfo" PageSize="@PageSize" SelectionMode="GridViewSelectionMode.MultiSelect">
 	<Columns>
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
-		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-right" : null)" />
+		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
 		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Link">
 			<ItemTemplate>
 				<a href="https://www.havit.cz">link to a page</a>

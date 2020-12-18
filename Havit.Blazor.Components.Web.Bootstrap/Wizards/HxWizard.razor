@@ -20,19 +20,15 @@
 		<div>
 			@Steps
 		</div>
-		<div class="mt-auto row">
+		<div class="d-grid gap-2 d-md-block">
 			@if (CanGoBack())
 			{
-				<div class="col">
-					<button class="btn btn-lg btn-light btn-block" @onclick="GoBackClick">Back</button>
-				</div>
+				<button class="btn btn-lg btn-light" @onclick="GoBackClick">Back</button>
 			}
 
 			@if (CanGoNext())
 			{
-				<div class="col">
-					<button class="btn btn-primary btn-lg btn-block" @onclick="GoNextClick">Next</button>
-				</div>
+				<button class="btn btn-primary btn-lg" @onclick="GoNextClick">Next</button>
 			}
 		</div>
 	</div>

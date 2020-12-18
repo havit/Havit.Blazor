@@ -1,5 +1,5 @@
 ﻿@*Hamburger button*@
-<button data-target="#sidebar-collapse" data-toggle="collapse" class="sidebar-collapse-btn">
+<button data-bs-target="#sidebar-collapse" data-bs-toggle="collapse" class="sidebar-collapse-btn">
 	<div></div>
 	<div></div>
 	<div></div>
@@ -8,14 +8,14 @@
 	<div class="sidebar">
 		<ul class="categories">
 			<li>
-				<a href="#link-form-collapse" data-toggle="collapse" aria-expanded="false" class="">Forms</a>
+				<a href="#link-form-collapse" data-bs-toggle="collapse" aria-expanded="false" class="">Forms</a>
 				<ul class="subcategories collapse" id="link-form-collapse">
 					<li><a href="/components/forminputs">Inputs</a></li>
 					<li><a href="/components/hxformstate">@nameof(HxFormState)</a></li>
 				</ul>
 			</li>			
 			<li>
-				<a href="#link-components-collapse" data-toggle="collapse">Components</a>
+				<a href="#link-components-collapse" data-bs-toggle="collapse">Components</a>
 				<ul class="subcategories collapse" id="link-components-collapse">
 					<li><a href="/components/hxbutton">@nameof(HxButton), @nameof(HxSubmit)</a></li>
 					<li><a href="/components/hxgrid">@nameof(HxGrid<object>)</a></li>
@@ -25,45 +25,6 @@
 					<li><a href="/components/tabs">Tabs</a></li>
 				</ul>
 			</li>
-			@*<li>
-				<a href="#link3-collapse" data-toggle="collapse">Link 3</a>
-				<ul class="subcategories collapse" id="link3-collapse">
-					<li><a>SubLink 1</a></li>
-					<li><a>SubLink 2</a></li>
-					<li><a>SubLink 3</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="#link4-collapse" data-toggle="collapse">Link 4</a>
-				<ul class="subcategories collapse" id="link4-collapse">
-					<li><a>SubLink 1</a></li>
-					<li><a>SubLink 2</a></li>
-					<li><a>SubLink 3</a></li>
-					<li><a>SubLink 4</a></li>
-				</ul>
-			</li>
-			<li>
-				<a href="#link5-collapse" data-toggle="collapse">Link 5</a>
-				<ul class="subcategories collapse" id="link5-collapse">
-					<li><a>SubLink 1</a></li>
-					<li><a>SubLink 2</a></li>
-					<li><a>SubLink 3</a></li>
-					<li><a>SubLink 4</a></li>
-					<li><a>SubLink 5</a></li>
-					<li><a>SubLink 6</a></li>
-					<li><a>SubLink 7</a></li>
-					<li><a>SubLink 8</a></li>
-					<li><a>SubLink 9</a></li>
-					<li><a>SubLink 10</a></li>
-					<li><a>SubLink 11</a></li>
-				</ul>
-			</li>*@
 		</ul>
 	</div>
 </div>
-
-
-@code {
-	
-}
-

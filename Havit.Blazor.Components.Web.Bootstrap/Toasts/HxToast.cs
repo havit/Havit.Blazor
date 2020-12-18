@@ -81,43 +81,37 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			base.BuildRenderTree(builder);
 
-			//<div @ref="toastElement" class="toast" data-delay="5000" data-autohide="true">
-			//	<div class="toast-header">
-			//		...
-			//		<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-			//		</button>
-			//	</div>
-			//	<div class="toast-body">
-			//		...
-			//	</div>
-			//</div>
-
 			bool renderHeader = !String.IsNullOrEmpty(HeaderText) || (HeaderTemplate != null);
 			bool renderContent = !String.IsNullOrEmpty(ContentText) || (ContentTemplate != null) || (ShowCloseButton && !renderHeader);
 
 			builder.OpenElement(100, "div");
-			builder.AddAttribute(101, "class", CssClassHelper.Combine("toast", CssClass));
+			builder.AddAttribute(101, "role", "alert");
+			builder.AddAttribute(102, "aria-live", "assertive");
+			builder.AddAttribute(103, "aria-atomic", "true");
+			builder.AddAttribute(104, "class", CssClassHelper.Combine("toast", CssClass));
 
 			if (AutohideDelay != null)
 			{
-				builder.AddAttribute(102, "data-delay", AutohideDelay);
+				builder.AddAttribute(110, "data-bs-delay", AutohideDelay);
 			}
 			else
 			{
-				builder.AddAttribute(103, "data-autohide", "false");
+				builder.AddAttribute(111, "data-bs-autohide", "false");
 			}
-			builder.AddElementReferenceCapture(104, referenceCapture => toastElement = referenceCapture);
+			builder.AddElementReferenceCapture(120, referenceCapture => toastElement = referenceCapture);
 
 			if (renderHeader)
 			{
 				builder.OpenElement(200, "div");
 				builder.AddAttribute(201, "class", "toast-header");
-				builder.AddContent(202, HeaderText);
-				builder.AddContent(203, HeaderTemplate);
+				builder.OpenElement(202, "strong");
+				builder.AddContent(203, HeaderText);
+				builder.AddContent(204, HeaderTemplate);
+				builder.CloseElement(); // strong
 
 				if (ShowCloseButton)
 				{
-					builder.OpenRegion(204);
+					builder.OpenRegion(210);
 					BuildRenderTree_CloseButton(builder);
 					builder.CloseRegion();
 				}
@@ -156,13 +150,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			builder.OpenElement(100, "button");
 			builder.AddAttribute(101, "type", "button");
-			builder.AddAttribute(102, "class", "close");
-			builder.AddAttribute(103, "data-dismiss", "toast");
-
-			builder.OpenElement(200, "span");
-			builder.AddMarkupContent(201, "&times;");
-			builder.CloseElement(); // span
-
+			builder.AddAttribute(102, "class", "btn-close");
+			builder.AddAttribute(103, "data-bs-dismiss", "toast");
+			builder.AddAttribute(104, "aria-label", "Close");
 			builder.CloseElement(); // button
 		}
 
