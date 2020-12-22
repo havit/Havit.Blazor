@@ -1,30 +1,21 @@
-﻿<HxGrid TItemType="System.Globalization.CultureInfo" Data="@serverCultureInfos" TotalItemsCount="@totalItemsCount" DataReloadRequired="@HandleDataReloadRequired" PageSize="@PageSize">
+﻿<HxGrid TItemType="CultureInfo" DataProvider="@ServerSideCultureInfosDataProvider" PageSize="@PageSize">
 	<Columns>
-		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(System.Globalization.CultureInfo.DisplayName)" IsDefaultSortColumn="true" />
-		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(System.Globalization.CultureInfo.Name)" />
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />
 	</Columns>
 </HxGrid>
 
 @code {
 	private const int PageSize = 10;
 
-	// The only place where properties are set is HandleDataReloadRequired method.
-	private List<System.Globalization.CultureInfo> serverCultureInfos = null;
-	private int totalItemsCount;
-
-	private Task HandleDataReloadRequired(GridUserState<System.Globalization.CultureInfo> userState)
-	{
-		// simulate asynchronous server-side call: Get totalItemsCount and items for the current page.
-		// await ...
-		var localCultureInfos = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).ToList();
-
-		totalItemsCount = localCultureInfos.Count();
-		localCultureInfos.Sort(userState.Sorting.ToGenericPropertyComparer()); // use of userState.CurrentSorting
-		serverCultureInfos = localCultureInfos
-			.Skip(userState.PageIndex * PageSize) // use of userState.CurrentPageIndex
-			.Take(PageSize)
-			.ToList();
-
-		return Task.CompletedTask; // simulation of asynchronout server-side call
+	private async ValueTask<GridDataProviderResult<CultureInfo>> ServerSideCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+	{		
+		var cultureInfos = CultureInfo.GetCultures(CultureTypes.SpecificCultures).ToList();
+		cultureInfos.Sort(request.Sorting.ToGenericPropertyComparer()); // Just a demo. NEVER use in production code!
+		return new GridDataProviderResult<CultureInfo>
+		{
+			Data = cultureInfos.Skip(request.PageIndex * PageSize).Take(request.PageSize).ToList(),
+			DataItemsTotalCount = cultureInfos.Count()
+		};
 	}
 }

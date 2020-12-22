@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Havit.Collections;
 using Havit.Diagnostics.Contracts;
@@ -31,6 +32,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Items to render as a table (mutually exclusive with DataProvider).
 		/// </summary>
 		[Parameter] public IEnumerable<TItemType> Data { get; set; }
+
+		/// <summary>
+		/// Data provider for items to render as a table (mutually exclusive with Data).
+		/// </summary>
+		[Parameter] public GridDataProviderDelegate<TItemType> DataProvider { get; set; }
 
 		/// <summary>
 		/// Grid view selection mode. Default is "Select".
@@ -77,11 +83,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public int PageSize { get; set; } = 0;
 
 		/// <summary>
-		/// Indicates total number of items for server-side paging.
-		/// </summary>
-		[Parameter] public int? TotalItemsCount { get; set; }
-
-		/// <summary>
 		/// Enable/disable in-memory auto-sorting the data in <see cref="Data"/> property.
 		/// Default: Auto-sorting is enabled when all sortings on all columns have <c>SortKeySelector</c> />.
 		/// </summary>
@@ -96,27 +97,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Event fires when grid state is changed.
 		/// </summary>
 		[Parameter] public EventCallback<GridUserState<TItemType>> CurrentUserStateChanged { get; set; }
-
-		/// <summary>
-		/// Event fires when data reload is required. It is when
-		/// <list type="bullet">
-		/// <item>Current sorting is changed (includes initial set of default sorting).</item>
-		/// <item>Current page index is changes.</item>
-		/// </list>
-		/// </summary>
-		/// <remarks>
-		/// It sounds like it is enought to have just <see cref="CurrentUserState"/> but there are reason why it is not true:
-		/// <list type="number">
-		/// <item>Consider usage of the grid - <see cref="CurrentUserState"/> and <see cref="CurrentUserStateChanged"/> are used by data-binding and no other event can be attached.</item>
-		/// <item>When there is no default sort <see cref="CurrentUserStateChanged"/> is not fired so there would not be simple place to attach initial data load.</item>
-		/// </list>
-		/// </remarks>
-		[Parameter] public EventCallback<GridUserState<TItemType>> DataReloadRequired { get; set; }
+		
 
 		private List<IHxGridColumn<TItemType>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration;
 		private bool decreasePageIndexAfterRender = false;
 		private bool isDisposed = false;
+		private GridDataProviderDelegate<TItemType> dataProvider;
+		private List<TItemType> dataItemsToRender;
+		private int? dataItemsTotalCount;
+		private CancellationTokenSource refreshDataCancellationTokenSource;
 
 		/// <summary>
 		/// Constructor.
@@ -125,6 +115,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			columnsList = new List<IHxGridColumn<TItemType>>();
 			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItemType>>(columnsList, this.StateHasChanged, () => isDisposed);
+		}
+
+		/// <inheritdoc />
+		protected override void OnParametersSet()
+		{
+			base.OnParametersSet();
+
+			Contract.Requires<InvalidOperationException>((Data == null) || (DataProvider == null), $"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Data)}' and '{nameof(DataProvider)}'.");			
+
+			dataProvider = DataProvider ?? EnumerableDataProvider;
 		}
 
 		/// <inheritdoc />
@@ -142,9 +142,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 			}
 
-			if (firstRender && (this.Data == null))
+			if (firstRender)
 			{
-				await DataReloadRequired.InvokeAsync(CurrentUserState);
+				await RefreshDataToRenderCore(true);
 			}
 
 			// when rendering page with no data, navigate one page back
@@ -152,6 +152,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				decreasePageIndexAfterRender = false;
 				await SetCurrentPageIndexWithEventCallback(CurrentUserState.PageIndex - 1);
+				await RefreshDataToRenderCore(true);
 			}
 		}
 
@@ -189,76 +190,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return null;
 		}
 
-		/// <summary>
-		/// Returns effective value of autosort.
-		/// When AutoSort is not set return true when all sortings in all columns has SortKeySelector.
-		/// </summary>
-		private bool GetAutoSortEffective()
-		{
-			return AutoSort ?? columnsList.SelectMany(column => column.GetSorting()).All(sorting => sorting.SortKeySelector != null);
-		}
-
-		/// <summary>
-		/// Applies paging on the source data when possible.
-		/// </summary>
-		protected virtual IEnumerable<TItemType> ApplyPaging(IEnumerable<TItemType> source)
-		{
-			return ((PageSize > 0) && (TotalItemsCount == null))
-				? source.Skip(PageSize * CurrentUserState.PageIndex).Take(PageSize)
-				: source;
-		}
-
-		/// <summary>
-		/// Applies sorting on the source data when possible.
-		/// </summary>
-		protected virtual IEnumerable<TItemType> ApplySorting(IEnumerable<TItemType> source)
-		{
-			if ((CurrentUserState.Sorting == null) || (CurrentUserState.Sorting.Count == 0) || !GetAutoSortEffective())
-			{
-				// no sorting applied
-				return source;
-			}
-
-			Contract.Assert(CurrentUserState.Sorting.All(item => item.SortKeySelector != null), "All sorting items must have set SortKeySelector property.");
-
-			IOrderedEnumerable<TItemType> result = (CurrentUserState.Sorting[0].SortDirection == SortDirection.Ascending)
-				? source.OrderBy(CurrentUserState.Sorting[0].SortKeySelector.Compile())
-				: source.OrderByDescending(CurrentUserState.Sorting[0].SortKeySelector.Compile());
-
-			for (int i = 1; i < CurrentUserState.Sorting.Count; i++)
-			{
-				result = (CurrentUserState.Sorting[i].SortDirection == SortDirection.Ascending)
-					? result.ThenBy(CurrentUserState.Sorting[i].SortKeySelector.Compile())
-					: result.ThenByDescending(CurrentUserState.Sorting[i].SortKeySelector.Compile());
-			}
-
-			return result;
-		}
-
-		private async Task SetCurrentSortingWithEventCallback(IReadOnlyList<SortingItem<TItemType>> newSorting)
+		private async Task<bool> SetCurrentSortingWithEventCallback(IReadOnlyList<SortingItem<TItemType>> newSorting)
 		{
 			CurrentUserState = new GridUserState<TItemType>(CurrentUserState.PageIndex, newSorting);
-
 			await CurrentUserStateChanged.InvokeAsync(CurrentUserState);
-
-			if (!GetAutoSortEffective())
-			{
-				await DataReloadRequired.InvokeAsync(CurrentUserState);
-			}
+			return true;
 		}
 
-		private async Task SetCurrentPageIndexWithEventCallback(int newPageIndex)
+		private async Task<bool> SetCurrentPageIndexWithEventCallback(int newPageIndex)
 		{
 			if (CurrentUserState.PageIndex != newPageIndex)
 			{
 				CurrentUserState = new GridUserState<TItemType>(newPageIndex, CurrentUserState.Sorting);
 				await CurrentUserStateChanged.InvokeAsync(CurrentUserState);
-
-				if (TotalItemsCount != null)
-				{
-					await DataReloadRequired.InvokeAsync(CurrentUserState);
-				}
+				return true;
 			}
+			return false;
 		}
 
 		private async Task HandleSelectDataItemClick(TItemType newSelectedDataItem)
@@ -286,17 +233,115 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleSortingClick(IEnumerable<SortingItem<TItemType>> sorting)
 		{
-			await SetCurrentSortingWithEventCallback(CurrentUserState.Sorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToList().AsReadOnly()); // when current sorting is null, use new sorting
+			if (await SetCurrentSortingWithEventCallback(CurrentUserState.Sorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToList().AsReadOnly())) // when current sorting is null, use new sorting
+			{
+				await RefreshDataToRenderCore();
+			}
 		}
 
 		private async Task HandlePagerCurrentPageIndexChanged(int newPageIndex)
 		{
-			await SetCurrentPageIndexWithEventCallback(newPageIndex);
+			if (await SetCurrentPageIndexWithEventCallback(newPageIndex))
+			{
+				await RefreshDataToRenderCore();
+			}
+		}
+
+		private async ValueTask RefreshDataToRenderCore(bool renderOnSuccess = false)
+		{
+			refreshDataCancellationTokenSource?.Cancel();
+			refreshDataCancellationTokenSource?.Dispose();
+			refreshDataCancellationTokenSource = new CancellationTokenSource();
+			CancellationToken cancellationToken = refreshDataCancellationTokenSource.Token;
+
+			GridDataProviderRequest<TItemType> request = new GridDataProviderRequest<TItemType>
+			{
+				PageIndex = CurrentUserState.PageIndex,
+				PageSize = PageSize,
+				Sorting = CurrentUserState.Sorting,
+				CancellationToken = cancellationToken
+			};
+
+			GridDataProviderResult<TItemType> result;
+			try
+			{
+				result = await dataProvider.Invoke(request);
+			}
+			catch (OperationCanceledException operationCanceledException) when (operationCanceledException.CancellationToken == cancellationToken)
+			{
+				// NOOP, we are the one who canceled the token
+				return;
+			}		
+
+			if (!cancellationToken.IsCancellationRequested)
+			{
+				// do not use result from cancelled request (for the case that user does not use the cancellation token
+				Contract.Assert<InvalidOperationException>(result.Data != null, $"DataProvider did not set value to property {nameof(GridDataProviderResult<object>.Data)}. It cannot be null.");
+				Contract.Assert<InvalidOperationException>(result.DataItemsTotalCount != null, $"DataProvider did not set value to property {nameof(GridDataProviderResult<object>.DataItemsTotalCount)}. It cannot be null.");
+
+				dataItemsToRender = result.Data.ToList();
+				dataItemsTotalCount = result.DataItemsTotalCount;
+
+				if (renderOnSuccess)
+				{
+					StateHasChanged();
+				}
+			}
+		}
+
+		private ValueTask<GridDataProviderResult<TItemType>> EnumerableDataProvider(GridDataProviderRequest<TItemType> request)
+		{
+			IEnumerable<TItemType> resultData = Data ?? Enumerable.Empty<TItemType>();
+
+			#region AutoSorting
+			bool autoSortEffective = AutoSort ?? columnsList.SelectMany(column => column.GetSorting()).All(sorting => sorting.SortKeySelector != null);
+			if (autoSortEffective)
+			{
+				Contract.Assert(request.Sorting.All(item => item.SortKeySelector != null), "All sorting items must have set SortKeySelector property.");
+
+				if ((request.Sorting == null) || (request.Sorting.Count == 0))
+				{
+					// no sorting applied
+				}
+				else
+				{
+					IOrderedEnumerable<TItemType> orderedData = (request.Sorting[0].SortDirection == SortDirection.Ascending)
+						? resultData.OrderBy(request.Sorting[0].SortKeySelector.Compile())
+						: resultData.OrderByDescending(request.Sorting[0].SortKeySelector.Compile());
+
+					for (int i = 1; i < request.Sorting.Count; i++)
+					{
+						orderedData = (request.Sorting[i].SortDirection == SortDirection.Ascending)
+							? orderedData.ThenBy(request.Sorting[i].SortKeySelector.Compile())
+							: orderedData.ThenByDescending(request.Sorting[i].SortKeySelector.Compile());
+					}
+
+					resultData = orderedData;
+				}
+			}
+			#endregion
+
+			#region AutoPaging
+			if (PageSize > 0)
+			{
+				resultData = resultData.Skip(PageSize * request.PageIndex).Take(PageSize);
+			}
+			#endregion
+
+			return new ValueTask<GridDataProviderResult<TItemType>>(new GridDataProviderResult<TItemType>
+			{
+				Data = resultData.ToList(),
+				DataItemsTotalCount = Data.Count()
+			});
 		}
 
 		/// <inheritdoc />
 		public void Dispose()
 		{
+			refreshDataCancellationTokenSource?.Cancel();
+			refreshDataCancellationTokenSource?.Dispose();
+			refreshDataCancellationTokenSource = null;
+
 			isDisposed = true;
 		}
 	}

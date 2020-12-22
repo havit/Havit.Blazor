@@ -1,13 +1,14 @@
 ﻿@page "/HxGridDemo"
+@using System.Globalization
 
 <h1>HxGrid</h1>
 
 <h2>Client paging, auto sorting</h2>
-<HxGrid Data="@localCultureInfos" @bind-SelectedDataItem="@currentLocalCultureInfo" PageSize="@PageSize" SelectionMode="GridViewSelectionMode.MultiSelect">
+<HxGrid Data="@localCultureInfos" @bind-SelectedDataItem="@currentLocalCultureInfo" PageSize="@PageSize" SelectionMode="GridViewSelectionMode.Select">
 	<Columns>
-		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
-		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
-		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Link">
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Link">
 			<ItemTemplate>
 				<a href="https://www.havit.cz">link to a page</a>
 				<HxButton Text="Go" />
@@ -27,10 +28,10 @@
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
 
 <h2>Server paging, server sorting</h2>
-<HxGrid TItemType="System.Globalization.CultureInfo" Data="@serverCultureInfos" @bind-SelectedDataItem="@currentServerCultureInfo" TotalItemsCount="@totalItemsCount" DataReloadRequired="@HandleDataReloadRequired" PageSize="@PageSize">
+<HxGrid TItemType="CultureInfo" @bind-SelectedDataItem="@currentServerCultureInfo" DataProvider="@ServerCultureInfosDataProvider" PageSize="@PageSize">
 	<Columns>
-		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(System.Globalization.CultureInfo.DisplayName)" IsDefaultSortColumn="true" />
-		<HxGridColumn TItemType="System.Globalization.CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(System.Globalization.CultureInfo.Name)" />
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />
 	</Columns>
 </HxGrid>
 <p>Current CultureInfo: @currentServerCultureInfo?.DisplayName</p>
@@ -39,23 +40,28 @@
 	private const int PageSize = 10;
 
 	// LOCAL
-	private List<System.Globalization.CultureInfo> localCultureInfos = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).ToList();
-	private System.Globalization.CultureInfo currentLocalCultureInfo = null;
+	private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.SpecificCultures).ToList();
+	private CultureInfo currentLocalCultureInfo = null;
 
 	// SERVER SIDE (simulation)
-	private List<System.Globalization.CultureInfo> serverCultureInfos = null;
-	private System.Globalization.CultureInfo currentServerCultureInfo = null;
-	private int totalItemsCount;
-	private System.Globalization.CultureInfo clickedItem = null;
+	private CultureInfo currentServerCultureInfo = null;
+	private CultureInfo clickedItem = null;
 
-	private void HandleDataReloadRequired(GridUserState<System.Globalization.CultureInfo> userState)
+	private async ValueTask<GridDataProviderResult<CultureInfo>> ServerCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
 	{
-		totalItemsCount = localCultureInfos.Count();
-		localCultureInfos.Sort(userState.Sorting.ToGenericPropertyComparer());
-		serverCultureInfos = localCultureInfos
-			.Skip(userState.PageIndex * PageSize)
+		await Task.Delay(300); // simulate server call
+
+		var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures).ToList();
+		cultures.Sort(request.Sorting.ToGenericPropertyComparer());
+
+		return new GridDataProviderResult<CultureInfo>()
+		{
+			DataItemsTotalCount = cultures.Count(),
+			Data = cultures
+			.Skip(request.PageIndex * PageSize)
 			.Take(PageSize)
-			.ToList();
+			.ToList()
+		};
 	}
 
 	private Task AlarmClicked(System.Globalization.CultureInfo item)

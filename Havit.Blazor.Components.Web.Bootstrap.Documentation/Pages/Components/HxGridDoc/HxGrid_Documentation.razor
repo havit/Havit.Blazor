@@ -13,27 +13,18 @@
 	</li>
 	<li>
 		<strong>@nameof(HxGrid<object>.Data)</strong><br />
-		Data items to render. Without server-side paging &amp; sorting or with client-side paging &amp; sorting, it should contain all items to display.
-		When server-side paging &amp; sorting is used, it must contain data just for the current page. Do not forget to set <code>@nameof(HxGrid<object>.TotalItemsCount)</code>.
+		<p>Data items to render. Use when no server-side paging &amp; sorting is required (no paging &amp; sorting at all or when client-side paging &amp; sorting is applicable).</p>
+		<p>It should contain all items to display across all pages.</p>
 	</li>
 	<li>
-		<strong>@nameof(HxGrid<object>.TotalItemsCount)</strong><br />
-		Total count of items. Set ONLY in server-side paging &amp; sorting scenario.
+		<strong>@nameof(HxGrid<object>.DataProvider)</strong><br />
+		<p>Provider for access server-side data.</p>
+		<p>It should return data count and data for the page in the specified order.</p>
+		<p>See client-side and server-side paging &amp; sorting demo below.</p>
 	</li>
 	<li>
 		<strong>@nameof(HxGrid<object>.CurrentUserState), @nameof(HxGrid<object>.CurrentUserStateChanged)</strong><br />
 		Current state of the grid (page index, sorting).
-	</li>
-	<li>
-		<strong>@nameof(HxGrid<object>.DataReloadRequired)</strong><br />
-		<p>This event is fired when:</p>
-		<ul>
-			<li>The grid was rendered for the first time but has no data (<code>@nameof(HxGrid<object>.Data)</code> is null). This allows you to use <code>@nameof(HxGrid<object>.DataReloadRequired)</code> for initial data load.</li>
-			<li>Sorting has changed and autosorting is not used.</li>
-			<li>Page index has changed and <code>@nameof(HxGrid<object>.TotalItemsCount)</code> is not null (server-side paging is used).</li>
-		</ul>
-		<p>The event data contains grid state to simplify usage of the grid (do not need to handle other events for server-side paging and sorting).</p>
-		<p>See client-side and server-side paging &amp; sorting demo below.</p>
 	</li>
 	<li>
 		<strong>@nameof(HxGrid<object>.SelectedDataItem), @nameof(HxGrid<object>.SelectedDataItemChanged)</strong><br />
@@ -61,13 +52,8 @@
 
 <h4>Server side paging &amp; sorting:</h4>
 <ul>
-	<li>Create a field/property to store the data for the current page.</li>
-	<li>Set this field/property to the <code>@nameof(HxGrid<object>.Data)</code> property.</li>
-	<li>Create a field/property to store the count of the items on all pages.</li>
-	<li>Set this field/property to the <code>@nameof(HxGrid<object>.TotalItemsCount)</code> property.</li>
-	<li>Create a method to handle the <code>@nameof(HxGrid<object>.DataReloadRequired)</code> event.</li>
-	<li>The method receives the requested sorting and page index in the argument.</li>
-	<li>Load the data for the current page and retrieve the total number of items and assign the created fields/properties in this method.</li>
+	<li>Create a method (DataProvider) for getting data for the specified page in the specified order and total data items count.</li>
+	<li>Assign this method to <code>@nameof(HxGrid<object>.DataProvider)</code> property (as a delegate).</li>	
 </ul>
 
 <Demo Title="Server-side paging and sorting" Type="typeof(HxGrid_ServerSideDemo)" />

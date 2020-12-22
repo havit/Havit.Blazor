@@ -14,12 +14,11 @@
 	}
 </CascadingValue>
 
-@if (Data != null)
+@if (dataItemsToRender != null)
 {
 	List<IHxGridColumn<TItemType>> columnsToRender = GetColumnsToRender();
-	TItemType[] itemsToRender = ApplyPaging(ApplySorting(Data)).ToArray();
-
-	if ((itemsToRender.Length == 0) && (CurrentUserState.PageIndex > 0))
+	
+	if ((dataItemsToRender.Count == 0) && (CurrentUserState.PageIndex > 0))
 	{
 		decreasePageIndexAfterRender = true;
 	}
@@ -65,7 +64,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (TItemType item in itemsToRender)
+				@foreach (TItemType item in dataItemsToRender)
 				{
 					if (SelectionMode == GridViewSelectionMode.Select)
 					{
@@ -118,9 +117,9 @@
 
 		</table>
 
-		@if (PageSize > 0)
+		@if ((PageSize > 0) && (dataItemsTotalCount != null))
 		{
-			int totalPages = ((TotalItemsCount ?? Data.Count()) + PageSize - 1) / PageSize;
+			int totalPages = (dataItemsTotalCount.Value + PageSize - 1) / PageSize;
 			if (totalPages > 1)
 			{
 				<HxPager TotalPages="@totalPages"
