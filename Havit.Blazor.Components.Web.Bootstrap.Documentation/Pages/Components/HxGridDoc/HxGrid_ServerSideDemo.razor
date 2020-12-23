@@ -8,14 +8,14 @@
 @code {
 	private const int PageSize = 10;
 
-	private async ValueTask<GridDataProviderResult<CultureInfo>> ServerSideCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
-	{		
+	private ValueTask<GridDataProviderResult<CultureInfo>> ServerSideCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+	{
 		var cultureInfos = CultureInfo.GetCultures(CultureTypes.SpecificCultures).ToList();
 		cultureInfos.Sort(request.Sorting.ToGenericPropertyComparer()); // Just a demo. NEVER use in production code!
-		return new GridDataProviderResult<CultureInfo>
+		return ValueTask.FromResult(new GridDataProviderResult<CultureInfo>
 		{
 			Data = cultureInfos.Skip(request.PageIndex * PageSize).Take(request.PageSize).ToList(),
 			DataItemsTotalCount = cultureInfos.Count()
-		};
+		});
 	}
 }
