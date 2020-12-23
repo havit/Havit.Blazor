@@ -3,7 +3,7 @@
 	/// <summary>
 	/// GridView selection mode.
 	/// </summary>
-	public enum GridViewSelectionMode
+	public enum GridSelectionMode
 	{
 		/// <summary>
 		/// No selection is performed.

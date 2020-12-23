@@ -41,7 +41,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Grid view selection mode. Default is "Select".
 		/// </summary>
-		[Parameter] public GridViewSelectionMode SelectionMode { get; set; }
+		[Parameter] public GridSelectionMode SelectionMode { get; set; }
 
 		/// <summary>
 		/// Columns template.
@@ -190,6 +190,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return null;
 		}
 
+		private async Task SetSelectedDataItemsWithEventCallback(HashSet<TItemType> selectedDataItems)
+		{
+			SelectedDataItems = selectedDataItems;
+			await SelectedDataItemsChanged.InvokeAsync(SelectedDataItems);
+		}
+
 		private async Task<bool> SetCurrentSortingWithEventCallback(IReadOnlyList<SortingItem<TItemType>> newSorting)
 		{
 			CurrentUserState = new GridUserState<TItemType>(CurrentUserState.PageIndex, newSorting);
@@ -210,25 +216,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleSelectDataItemClick(TItemType newSelectedDataItem)
 		{
-			Contract.Requires(SelectionMode == GridViewSelectionMode.Select);
+			Contract.Requires(SelectionMode == GridSelectionMode.Select);
 
 			if (!EqualityComparer<TItemType>.Default.Equals(SelectedDataItem, newSelectedDataItem))
 			{
 				SelectedDataItem = newSelectedDataItem;
 				await SelectedDataItemChanged.InvokeAsync(newSelectedDataItem);
 			}
-		}
-
-		private async Task HandleMultiSelectItemSelectionToggled(TItemType item)
-		{
-			Contract.Requires(SelectionMode == GridViewSelectionMode.MultiSelect);
-
-			SelectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItemType>();
-			if (!SelectedDataItems.Add(item))
-			{
-				SelectedDataItems.Remove(item);
-			}
-			await SelectedDataItemsChanged.InvokeAsync(SelectedDataItems);
 		}
 
 		private async Task HandleSortingClick(IEnumerable<SortingItem<TItemType>> sorting)
@@ -334,6 +328,36 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				DataItemsTotalCount = Data.Count()
 			});
 		}
+
+		#region MultiSelect events
+		private async Task HandleMultiSelectSelectDataItemClicked(TItemType selectedDataItem)
+		{
+			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItemType>();
+			if (selectedDataItems.Add(selectedDataItem))
+			{
+				await SetSelectedDataItemsWithEventCallback(selectedDataItems);
+			}
+		}
+
+		private async Task HandleMultiSelectUnselectDataItemClicked(TItemType selectedDataItem)
+		{
+			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItemType>();
+			if (selectedDataItems.Remove(selectedDataItem))
+			{
+				await SetSelectedDataItemsWithEventCallback(selectedDataItems);
+			}
+		}
+
+		private async Task HandleMultiSelectSelectAllClicked()
+		{
+			await SetSelectedDataItemsWithEventCallback(new HashSet<TItemType>(dataItemsToRender));
+		}
+
+		private async Task HandleMultiSelectSelectNoneClicked()
+		{
+			await SetSelectedDataItemsWithEventCallback(new HashSet<TItemType>());
+		}
+		#endregion
 
 		/// <inheritdoc />
 		public void Dispose()

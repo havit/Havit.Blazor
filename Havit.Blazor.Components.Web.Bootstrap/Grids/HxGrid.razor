@@ -3,9 +3,16 @@
 
 <CascadingValue Value="@columnsListRegistration" Name="@ColumnsRegistrationCascadingValueName" IsFixed="true">
 	@*Aby se dostaly komponenty do kolekcí, musíme je dostat do renderování této komponenty. Chceme však, aby komponenty nic nevyrenderovaly. *@
-	@if (SelectionMode == GridViewSelectionMode.MultiSelect)
+	@if (SelectionMode == GridSelectionMode.MultiSelect)
 	{
-		<MultiSelectGridColumn TItemType="TItemType" SelectedDataItems="@SelectedDataItems" ItemSelectionToggled="HandleMultiSelectItemSelectionToggled" />
+		bool allDataItemsSelected = (dataItemsToRender != null) && (SelectedDataItems != null) && (SelectedDataItems.Count > 0) && (dataItemsToRender.Count == SelectedDataItems.Count);
+		<MultiSelectGridColumn TItemType="TItemType"
+							   AllDataItemsSelected="@allDataItemsSelected"
+							   SelectedDataItems="@SelectedDataItems"
+							   SelectDataItemClicked="HandleMultiSelectSelectDataItemClicked"
+							   UnselectDataItemClicked="HandleMultiSelectUnselectDataItemClicked"
+							   SelectAllClicked="HandleMultiSelectSelectAllClicked"
+							   SelectNoneClicked="HandleMultiSelectSelectNoneClicked" />
 	}
 	@Columns
 	@if (ContextMenu != null)
@@ -34,14 +41,16 @@
 						bool isCurrentSorting = CurrentUserState.Sorting?.StartsWith(columnSorting) ?? false;
 						var headerCellTemplate = column.GetHeaderCellTemplate();
 						string iconColor = isCurrentSorting ? "#0d6efd" : "currentColor";
-						<td class="@headerCellTemplate.CssClass">
-							@headerCellTemplate.Template
+					<td class="@headerCellTemplate.CssClass">
+							<UpdatedContentRenderer Component="column">
+								@headerCellTemplate.Template
+							</UpdatedContentRenderer>
 
 							@if (columnSorting.Any())
 							{
 								<a @onclick="async () => await HandleSortingClick(columnSorting)" role="button" class="text-muted">
 									@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Ascending))
-							 || (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
+							|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
 									{
 										<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-sort-alpha-down-alt" fill=@iconColor xmlns="http://www.w3.org/2000/svg">
 											<path fill-rule="evenodd" d="M4 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-1 0v-11A.5.5 0 0 1 4 2z" />
@@ -59,18 +68,18 @@
 									}
 								</a>
 							}
-						</td>
+					</td>
 					}
 				</tr>
 			</thead>
 			<tbody>
 				@foreach (TItemType item in dataItemsToRender)
 				{
-					if (SelectionMode == GridViewSelectionMode.Select)
+					if (SelectionMode == GridSelectionMode.Select)
 					{
 						<tr role="button"
 							@onclick="async () => await HandleSelectDataItemClick(item)"
-							class="@(((item != null) && (SelectionMode == GridViewSelectionMode.Select) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
+							class="@(((item != null) && (SelectionMode == GridSelectionMode.Select) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
 
 							@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 							{

@@ -4,7 +4,7 @@
 <h1>HxGrid</h1>
 
 <h2>Client paging, auto sorting</h2>
-<HxGrid Data="@localCultureInfos" @bind-SelectedDataItem="@currentLocalCultureInfo" PageSize="@PageSize" SelectionMode="GridViewSelectionMode.Select">
+<HxGrid Data="@localCultureInfos" @bind-SelectedDataItem="@currentLocalCultureInfo" PageSize="@PageSize" SelectionMode="GridSelectionMode.Select">
 	<Columns>
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
@@ -28,7 +28,7 @@
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
 
 <h2>Server paging, server sorting</h2>
-<HxGrid TItemType="CultureInfo" @bind-SelectedDataItem="@currentServerCultureInfo" DataProvider="@ServerCultureInfosDataProvider" PageSize="@PageSize">
+<HxGrid TItemType="CultureInfo" @bind-SelectedDataItem="@currentServerCultureInfo" DataProvider="@ServerCultureInfosDataProvider" PageSize="@PageSize" SelectionMode="GridSelectionMode.MultiSelect">
 	<Columns>
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />
