@@ -19,43 +19,51 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected override CellTemplate GetHeaderCellTemplate()
 		{
-			return new CellTemplate((RenderTreeBuilder builder) =>
+			return new CellTemplate
 			{
-				builder.OpenElement(100, "div");
-				builder.AddAttribute(101, "class", "form-check form-check-inline");
+				CssClass = "text-center",
+				Template = (RenderTreeBuilder builder) =>
+				{
+					builder.OpenElement(100, "div");
+					builder.AddAttribute(101, "class", "form-check form-check-inline");
 
-				builder.OpenElement(200, "input");
-				builder.AddAttribute(201, "type", "checkbox");
-				builder.AddAttribute(202, "class", "form-check-input");
+					builder.OpenElement(200, "input");
+					builder.AddAttribute(201, "type", "checkbox");
+					builder.AddAttribute(202, "class", "form-check-input");
 
-				builder.AddAttribute(203, "checked", AllDataItemsSelected);
-				builder.AddAttribute(204, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
+					builder.AddAttribute(203, "checked", AllDataItemsSelected);
+					builder.AddAttribute(204, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
 
-				builder.CloseElement(); // input
+					builder.CloseElement(); // input
 
-				builder.CloseElement(); // div
-			}, "text-center");
+					builder.CloseElement(); // div
+				}
+			};
 		}
 
 		protected override CellTemplate GetItemCellTemplate(TItemType item)
 		{
-			return new CellTemplate((RenderTreeBuilder builder) =>
+			return new CellTemplate
 			{
-				builder.OpenElement(100, "div");
-				builder.AddAttribute(101, "class", "form-check form-check-inline");
+				CssClass = "text-center",
+				Template = (RenderTreeBuilder builder) =>
+				{
+					builder.OpenElement(100, "div");
+					builder.AddAttribute(101, "class", "form-check form-check-inline");
 
-				builder.OpenElement(200, "input");
-				builder.AddAttribute(201, "type", "checkbox");
-				builder.AddAttribute(202, "class", "form-check-input");
+					builder.OpenElement(200, "input");
+					builder.AddAttribute(201, "type", "checkbox");
+					builder.AddAttribute(202, "class", "form-check-input");
 
-				bool selected = SelectedDataItems?.Contains(item) ?? false;
-				builder.AddAttribute(203, "checked", selected);
-				builder.AddAttribute(204, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectDataItemClick(item, selected)));
+					bool selected = SelectedDataItems?.Contains(item) ?? false;
+					builder.AddAttribute(203, "checked", selected);
+					builder.AddAttribute(204, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectDataItemClick(item, selected)));
 
-				builder.CloseElement(); // input
+					builder.CloseElement(); // input
 
-				builder.CloseElement(); // div
-			}, "text-center");
+					builder.CloseElement(); // div
+				}
+			};
 		}
 
 		protected override CellTemplate GetFooterCellTemplate()

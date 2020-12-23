@@ -13,12 +13,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Template to render cell.
 		/// </summary>
-		public RenderFragment Template { get; set; }
+		public RenderFragment Template { get; init; }
 
 		/// <summary>
 		/// Css class of the cell.
 		/// </summary>
-		public string CssClass { get; set; }
+		public string CssClass { get; init; }
+
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		public CellTemplate()
+		{
+		}
 
 		/// <summary>
 		/// Constructor.
