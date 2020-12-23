@@ -12,11 +12,6 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	// TODO: Údržba SelectedItem a SelectedItems: Kdy by mělo dojít k údržbě? V každém renderu? I při stránkování na straně serveru? 
-	// TODO: Co když se tedy při stránkování ztrácí záznamy vybrané na předchozí stránce?
-	// TODO: A naopak: Abychom při stránkování poznali stejné záznamy, musíme být schopni je porovnat. 
-	// TODO: Jenže to klade nároky na implementace IEquatable<>, což asi těžko bude někdo implementovat hromadně.	
-
 	/// <summary>
 	/// Grid to display tabular data from data source.
 	/// </summary>
@@ -189,6 +184,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			return null;
 		}
+		
+		private async Task SetSelectedDataItemWithEventCallback(TItemType newSelectedDataItem)
+		{
+			if (!EqualityComparer<TItemType>.Default.Equals(SelectedDataItem, newSelectedDataItem))
+			{
+				SelectedDataItem = newSelectedDataItem;
+				await SelectedDataItemChanged.InvokeAsync(newSelectedDataItem);
+			}
+		}
 
 		private async Task SetSelectedDataItemsWithEventCallback(HashSet<TItemType> selectedDataItems)
 		{
@@ -265,7 +269,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				// NOOP, we are the one who canceled the token
 				return;
-			}		
+			}
 
 			if (!cancellationToken.IsCancellationRequested)
 			{
@@ -275,6 +279,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				dataItemsToRender = result.Data.ToList();
 				dataItemsTotalCount = result.DataItemsTotalCount;
+
+				if (!EqualityComparer<TItemType>.Default.Equals(SelectedDataItem, default))
+				{
+					if (!dataItemsToRender.Contains(SelectedDataItem))
+					{
+						await SetSelectedDataItemWithEventCallback(default);
+					}
+				}
+
+				if (SelectedDataItems?.Count > 0)
+				{
+					HashSet<TItemType> selectedDataItems = dataItemsToRender.Intersect(SelectedDataItems).ToHashSet();
+					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
+				}
 
 				if (renderOnSuccess)
 				{
