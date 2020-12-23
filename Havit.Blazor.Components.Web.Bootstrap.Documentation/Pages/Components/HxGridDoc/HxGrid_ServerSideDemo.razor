@@ -10,7 +10,7 @@
 
 	private ValueTask<GridDataProviderResult<CultureInfo>> ServerSideCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
 	{
-		var cultureInfos = CultureInfo.GetCultures(CultureTypes.SpecificCultures).ToList();
+		var cultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
 		cultureInfos.Sort(request.Sorting.ToGenericPropertyComparer()); // Just a demo. NEVER use in production code!
 		return ValueTask.FromResult(new GridDataProviderResult<CultureInfo>
 		{
