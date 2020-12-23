@@ -30,7 +30,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public int? AutohideDelay { get; set; }
 
 		/// <summary>
-		/// Message text.
+		/// Message title.
+		/// </summary>
+		public string Title { get; set; }
+
+		/// <summary>
+		/// Message text (body).
 		/// </summary>
 		public string Text { get; set; }
 	}

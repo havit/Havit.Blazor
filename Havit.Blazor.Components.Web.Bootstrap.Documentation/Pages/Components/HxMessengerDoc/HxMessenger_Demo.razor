@@ -17,16 +17,16 @@
 
 	private void HandleAddInformationButtonClick()
 	{
-		Messenger.AddInformation("All your data has been encrypted. To decrypt your data share $100 with all your teammates.");
+		Messenger.AddInformation(title: "Data encrypted", message: "All your data has been encrypted. To decrypt your data share $100 with all your teammates.");
 	}
 
 	private void HandleAddWarningButtonClick()
 	{
-		Messenger.AddWarning("Bio hazard detected in your office!");
+		Messenger.AddWarning(title: "Bio hazard!", message: "Bio hazard detected in your office!");
 	}
 
 	private void HandleAddErrorButtonClick()
 	{
-		Messenger.AddError("An error occurred during showing messenger message.");
+		Messenger.AddError(title: "Error", message: "An error occurred during showing messenger message.");
 	}
 }

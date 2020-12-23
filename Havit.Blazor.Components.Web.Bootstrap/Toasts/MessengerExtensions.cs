@@ -15,6 +15,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public static void AddInformation(this IMessenger messenger, string message)
 		{
+			AddInformation(messenger, title: null, message);
+		}
+
+		/// <summary>
+		/// Adds and shows an informational message. Message is automatically hidden 5 seconds after showing up.
+		/// </summary>
+		public static void AddInformation(this IMessenger messenger, string title, string message)
+		{
 			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
 
 			messenger.AddMessage(new MessengerMessage
@@ -22,6 +30,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				Icon = BootstrapIcon.InfoCircle,
 				CssClass = "toast-information",
 				AutohideDelay = 5000,
+				Title = title,
 				Text = message
 			});
 		}
@@ -31,6 +40,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public static void AddWarning(this IMessenger messenger, string message)
 		{
+			AddWarning(messenger, title: null, message);
+		}
+
+		/// <summary>
+		/// Adds and shows a warning message.
+		/// </summary>
+		public static void AddWarning(this IMessenger messenger, string title, string message)
+		{
 			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
 
 			messenger.AddMessage(new MessengerMessage
@@ -38,6 +55,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				Icon = BootstrapIcon.ExclamationCircle,
 				CssClass = "toast-warning",
 				AutohideDelay = null,
+				Title = title,
 				Text = message
 			});
 
@@ -48,6 +66,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public static void AddError(this IMessenger messenger, string message)
 		{
+			AddError(messenger, title: null, message);
+		}
+
+		/// <summary>
+		/// Adds and shows an error message.
+		/// </summary>
+		public static void AddError(this IMessenger messenger, string title, string message)
+		{
 			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
 
 			messenger.AddMessage(new MessengerMessage
@@ -55,6 +81,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				Icon = BootstrapIcon.ExclamationCircleFill,
 				CssClass = "toast-error",
 				AutohideDelay = null,
+				Title = title,
 				Text = message
 			});
 		}

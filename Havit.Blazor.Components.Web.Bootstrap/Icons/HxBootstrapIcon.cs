@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -20,7 +20,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Icon to display.
 		/// </summary>
 		[Parameter] public BootstrapIcon Icon { get; set; }
-		
+
+		/// <summary>
+		/// CSS Class to combine with basic icon CSS class.
+		/// </summary>
+		[Parameter]
+		public string CssClass { get; set; }
+
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
@@ -32,7 +38,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			// </svg>
 
 			builder.OpenElement(0, "svg");
-			builder.AddAttribute(1, "class", "bi");
+			builder.AddAttribute(1, "class", CssClassHelper.Combine("bi", CssClass));
 			builder.AddAttribute(2, "width", "1em");
 			builder.AddAttribute(3, "height", "1em");
 			builder.AddAttribute(4, "fill", "currentColor");
@@ -41,7 +47,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		private string GetIconHref()
-		{			
+		{
 			return "/_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap-icons.svg#" + Icon.Name;
 		}
 	}

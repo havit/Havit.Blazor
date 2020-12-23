@@ -1,13 +1,15 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-@*TODO Pozicování*@
 
-@foreach (MessengerMessage message in messages)
-{
-	// @key is used to pair messages to HxToasts when some message disappers.
-	<HxToast @key="@message.Key"
-			 CssClass="@message.CssClass"
-			 ContentIcon="@message.Icon"
-			 ContentText="@message.Text"
-			 AutohideDelay="@message.AutohideDelay"
-			 ToastHidden="() => HandleToastHidden(message)" />
-}
+<div class="toast-container">
+	@foreach (MessengerMessage message in messages)
+	{
+		// @key is used to pair messages to HxToasts when some message disappers.
+		<HxToast @key="@message.Key"
+				 CssClass="@message.CssClass"
+				 HeaderIcon="@message.Icon"
+				 HeaderText="@message.Title"
+				 ContentText="@message.Text"
+				 AutohideDelay="@message.AutohideDelay"
+				 ToastHidden="() => HandleToastHidden(message)" />
+	}
+</div>

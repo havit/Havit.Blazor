@@ -4,25 +4,29 @@
 
 @if (isVisible)
 {
-	<HxToast HeaderText="Confirmation" ContentIcon="BootstrapIcon.InfoCircleFill">
-		<ContentTemplate>
-			Hi! All messages has been deleted and cannot be restored.
-		</ContentTemplate>
-	</HxToast>
+	<div class="toast-container">
+		<HxToast HeaderText="F20/00578" HeaderIcon="BootstrapIcon.InfoCircleFill" ContentText="Invoice has been created." />
 
-	<HxToast AutohideDelay="5000">
-		<ContentTemplate>
-			This message should disappear.
-			Close button should be here.
-		</ContentTemplate>
-	</HxToast>
+		<HxToast HeaderText="Confirmation">
+			<ContentTemplate>
+				<HxIcon Icon="BootstrapIcon.InfoCircleFill" CssClass="me-2" />
+				Hi! All messages have been deleted and cannot be restored.
+			</ContentTemplate>
+		</HxToast>
 
-	<HxToast ShowCloseButton="false">
-		<ContentTemplate>
-			No close button here.
-		</ContentTemplate>
-	</HxToast>
+		<HxToast AutohideDelay="5000">
+			<ContentTemplate>
+				This message should disappear.
+				Close button should be here.
+			</ContentTemplate>
+		</HxToast>
 
+		<HxToast ShowCloseButton="false">
+			<ContentTemplate>
+				No close button here.
+			</ContentTemplate>
+		</HxToast>
+	</div>
 }
 
 <HxButton Text="Toggle" OnClick="() => { isVisible = !isVisible; }" />

@@ -37,6 +37,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
+		/// Header icon.
+		/// </summary>
+		[Parameter] public IconBase HeaderIcon { get; set; }
+
+		/// <summary>
 		/// Header text.
 		/// </summary>
 		[Parameter] public string HeaderText { get; set; }
@@ -45,11 +50,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Header template.
 		/// </summary>
 		[Parameter] public RenderFragment HeaderTemplate { get; set; }
-
-		/// <summary>
-		/// Content (body) icon.
-		/// </summary>
-		[Parameter] public IconBase ContentIcon { get; set; }
 
 		/// <summary>
 		/// Content (body) text.
@@ -81,7 +81,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			base.BuildRenderTree(builder);
 
-			bool renderHeader = !String.IsNullOrEmpty(HeaderText) || (HeaderTemplate != null);
+			bool renderHeader = !String.IsNullOrEmpty(HeaderText) || (HeaderTemplate != null) || (HeaderIcon != null);
 			bool renderContent = !String.IsNullOrEmpty(ContentText) || (ContentTemplate != null) || (ShowCloseButton && !renderHeader);
 
 			builder.OpenElement(100, "div");
@@ -104,14 +104,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				builder.OpenElement(200, "div");
 				builder.AddAttribute(201, "class", "toast-header");
-				builder.OpenElement(202, "strong");
-				builder.AddContent(203, HeaderText);
-				builder.AddContent(204, HeaderTemplate);
-				builder.CloseElement(); // strong
+
+				if (HeaderIcon != null)
+				{
+					builder.OpenComponent(202, typeof(HxIcon));
+					builder.AddAttribute(203, nameof(HxIcon.Icon), HeaderIcon);
+					builder.AddAttribute(204, nameof(HxIcon.CssClass), "me-2");
+					builder.CloseComponent();
+				}
+
+				if (!String.IsNullOrWhiteSpace(HeaderText))
+				{
+					builder.OpenElement(205, "strong");
+					builder.AddAttribute(206, "class", "me-auto");
+					builder.AddContent(207, HeaderText);
+					builder.CloseElement(); // strong
+				}
+				builder.AddContent(208, HeaderTemplate);
 
 				if (ShowCloseButton)
 				{
-					builder.OpenRegion(210);
+					builder.OpenRegion(209);
 					BuildRenderTree_CloseButton(builder);
 					builder.CloseRegion();
 				}
@@ -124,13 +137,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.OpenElement(300, "div");
 				builder.AddAttribute(301, "class", "toast-body");
 
-				if (ContentIcon != null)
-				{
-					builder.OpenComponent(302, typeof(HxIcon));
-					builder.AddAttribute(303, nameof(HxIcon.Icon), ContentIcon);
-					builder.CloseComponent();
-				}
-
 				builder.AddContent(304, ContentText);
 				builder.AddContent(305, ContentTemplate);
 
@@ -140,7 +146,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					BuildRenderTree_CloseButton(builder);
 					builder.CloseRegion();
 				}
-				builder.CloseElement(); // toast-header
+				builder.CloseElement(); // toast-body
 			}
 
 			builder.CloseElement(); // toast
