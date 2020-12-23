@@ -18,15 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server
 		{
 			services.AddLocalization();
 			services.AddRazorPages();
-
-			services.AddScoped<HttpClient>(s =>
-			{
-				var navigationManager = s.GetRequiredService<NavigationManager>();
-				return new HttpClient
-				{
-					BaseAddress = new Uri(navigationManager.BaseUri)
-				};
-			});
+			services.AddHxMessenger();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -34,6 +26,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+                app.UseWebAssemblyDebugging();
+			}
+			else
+			{
+				app.UseExceptionHandler("/Error"); // TODO ExceptionHandler
 			}
 
 			app.UseBlazorFrameworkFiles();
@@ -43,6 +40,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server
 
 			app.UseEndpoints(endpoints =>
 			{
+				endpoints.MapRazorPages();
 				endpoints.MapFallbackToPage("/_Host");
 			});
 		}
