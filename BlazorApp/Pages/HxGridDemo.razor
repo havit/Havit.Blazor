@@ -40,12 +40,19 @@
 	private const int PageSize = 10;
 
 	// LOCAL
-	private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.SpecificCultures).ToList();
+	private List<CultureInfo> localCultureInfos = null;
 	private CultureInfo currentLocalCultureInfo = null;
 
 	// SERVER SIDE (simulation)
 	private CultureInfo currentServerCultureInfo = null;
 	private CultureInfo clickedItem = null;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+		await Task.Delay(100); // simulate server call (data download)
+		localCultureInfos = CultureInfo.GetCultures(CultureTypes.SpecificCultures).ToList();
+	}
 
 	private async ValueTask<GridDataProviderResult<CultureInfo>> ServerCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
 	{

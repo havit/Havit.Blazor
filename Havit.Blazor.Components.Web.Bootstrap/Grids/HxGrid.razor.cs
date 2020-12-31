@@ -79,7 +79,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Enable/disable in-memory auto-sorting the data in <see cref="Data"/> property.
-		/// Default: Auto-sorting is enabled when all sortings on all columns have <c>SortKeySelector</c> />.
+		/// Default: Auto-sorting is enabled when all sortings on all columns have <c>SortKeySelector</c>.
 		/// </summary>
 		[Parameter] public bool? AutoSort { get; set; }
 
@@ -92,7 +92,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Event fires when grid state is changed.
 		/// </summary>
 		[Parameter] public EventCallback<GridUserState<TItemType>> CurrentUserStateChanged { get; set; }
-		
+
 
 		private List<IHxGridColumn<TItemType>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration;
@@ -117,7 +117,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			base.OnParametersSet();
 
-			Contract.Requires<InvalidOperationException>((Data == null) || (DataProvider == null), $"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Data)}' and '{nameof(DataProvider)}'.");			
+			Contract.Requires<InvalidOperationException>((Data == null) || (DataProvider == null), $"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Data)}' and '{nameof(DataProvider)}'.");
 
 			dataProvider = DataProvider ?? EnumerableDataProvider;
 		}
@@ -184,7 +184,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			return null;
 		}
-		
+
 		private async Task SetSelectedDataItemWithEventCallback(TItemType newSelectedDataItem)
 		{
 			if (!EqualityComparer<TItemType>.Default.Equals(SelectedDataItem, newSelectedDataItem))
@@ -306,7 +306,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			IEnumerable<TItemType> resultData = Data ?? Enumerable.Empty<TItemType>();
 
 			#region AutoSorting
-			bool autoSortEffective = AutoSort ?? columnsList.SelectMany(column => column.GetSorting()).All(sorting => sorting.SortKeySelector != null);
+			bool autoSortEffective;
+			if (AutoSort.HasValue)
+			{
+				autoSortEffective = AutoSort.Value;
+			}
+			else
+			{
+				// Default: Auto-sorting is enabled when all sortings have SortKeySelector.
+				var definedSortings = columnsList.SelectMany(column => column.GetSorting());
+				autoSortEffective = definedSortings.Any() && definedSortings.All(sorting => sorting.SortKeySelector != null);
+			}
 			if (autoSortEffective)
 			{
 				Contract.Assert(request.Sorting.All(item => item.SortKeySelector != null), "All sorting items must have set SortKeySelector property.");
@@ -343,7 +353,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return new ValueTask<GridDataProviderResult<TItemType>>(new GridDataProviderResult<TItemType>
 			{
 				Data = resultData.ToList(),
-				DataItemsTotalCount = Data.Count()
+				DataItemsTotalCount = resultData.Count()
 			});
 		}
 
