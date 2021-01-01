@@ -98,6 +98,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration;
 		private bool decreasePageIndexAfterRender = false;
 		private bool isDisposed = false;
+		private IEnumerable<TItemType> previousDataValue = null;
+		private bool dataRefreshRequested = false;
 		private GridDataProviderDelegate<TItemType> dataProvider;
 		private List<TItemType> dataItemsToRender;
 		private int? dataItemsTotalCount;
@@ -115,9 +117,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override void OnParametersSet()
 		{
+			Console.WriteLine($"OnParametersSet, Data={Data}");
 			base.OnParametersSet();
 
 			Contract.Requires<InvalidOperationException>((Data == null) || (DataProvider == null), $"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Data)}' and '{nameof(DataProvider)}'.");
+
+			dataRefreshRequested = (Data != previousDataValue);
+			previousDataValue = Data;
 
 			dataProvider = DataProvider ?? EnumerableDataProvider;
 		}
@@ -137,7 +143,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 			}
 
-			if (firstRender)
+			if (firstRender || dataRefreshRequested)
 			{
 				await RefreshDataToRenderCore(true);
 			}
@@ -247,6 +253,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async ValueTask RefreshDataToRenderCore(bool renderOnSuccess = false)
 		{
+			bool wasDataRefreshRequested = dataRefreshRequested;
 			refreshDataCancellationTokenSource?.Cancel();
 			refreshDataCancellationTokenSource?.Dispose();
 			refreshDataCancellationTokenSource = new CancellationTokenSource();
@@ -299,10 +306,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					StateHasChanged();
 				}
 			}
+			dataRefreshRequested = dataRefreshRequested && !wasDataRefreshRequested; // reset request
 		}
 
 		private ValueTask<GridDataProviderResult<TItemType>> EnumerableDataProvider(GridDataProviderRequest<TItemType> request)
 		{
+			Console.WriteLine($"EnumerableDataProvider, Data={Data}");
+
 			IEnumerable<TItemType> resultData = Data ?? Enumerable.Empty<TItemType>();
 
 			#region AutoSorting
@@ -319,27 +329,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 			if (autoSortEffective)
 			{
+				Debug.Assert(request.Sorting is not null);
 				Contract.Assert(request.Sorting.All(item => item.SortKeySelector != null), "All sorting items must have set SortKeySelector property.");
 
-				if ((request.Sorting == null) || (request.Sorting.Count == 0))
-				{
-					// no sorting applied
-				}
-				else
-				{
-					IOrderedEnumerable<TItemType> orderedData = (request.Sorting[0].SortDirection == SortDirection.Ascending)
-						? resultData.OrderBy(request.Sorting[0].SortKeySelector.Compile())
-						: resultData.OrderByDescending(request.Sorting[0].SortKeySelector.Compile());
+				IOrderedEnumerable<TItemType> orderedData = (request.Sorting[0].SortDirection == SortDirection.Ascending)
+					? resultData.OrderBy(request.Sorting[0].SortKeySelector.Compile())
+					: resultData.OrderByDescending(request.Sorting[0].SortKeySelector.Compile());
 
-					for (int i = 1; i < request.Sorting.Count; i++)
-					{
-						orderedData = (request.Sorting[i].SortDirection == SortDirection.Ascending)
-							? orderedData.ThenBy(request.Sorting[i].SortKeySelector.Compile())
-							: orderedData.ThenByDescending(request.Sorting[i].SortKeySelector.Compile());
-					}
-
-					resultData = orderedData;
+				for (int i = 1; i < request.Sorting.Count; i++)
+				{
+					orderedData = (request.Sorting[i].SortDirection == SortDirection.Ascending)
+						? orderedData.ThenBy(request.Sorting[i].SortKeySelector.Compile())
+						: orderedData.ThenByDescending(request.Sorting[i].SortKeySelector.Compile());
 				}
+
+				resultData = orderedData;
 			}
 			#endregion
 

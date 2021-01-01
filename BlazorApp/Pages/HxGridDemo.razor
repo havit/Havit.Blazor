@@ -50,7 +50,7 @@
 	protected override async Task OnInitializedAsync()
 	{
 		await base.OnInitializedAsync();
-		await Task.Delay(100); // simulate server call (data download)
+		await Task.Delay(200); // simulate server call (data download)
 		localCultureInfos = CultureInfo.GetCultures(CultureTypes.SpecificCultures).ToList();
 	}
 
