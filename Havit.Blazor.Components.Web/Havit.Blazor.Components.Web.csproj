@@ -2,7 +2,6 @@
 
   <PropertyGroup>
 	  <TargetFramework>net5.0</TargetFramework>
-	  <RazorLangVersion>3.0</RazorLangVersion>
     <NoWarn>1701;1702;SA1134</NoWarn>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>

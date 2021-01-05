@@ -126,7 +126,3 @@ button.sidebar-collapse-btn div {
 		display: none;
 	}
 }
-
-.toast-container {
-	z-index: 1080;
-}

@@ -1,32 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-	  <TargetFramework>net5.0</TargetFramework>
-	  <RazorLangVersion>3.0</RazorLangVersion>
-	<NoWarn>1701;1702;SA1134</NoWarn>
-    <!--<GenerateDocumentationFile>true</GenerateDocumentationFile>-->
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<NoWarn>1701;1702;SA1134</NoWarn>
+		<!--<GenerateDocumentationFile>true</GenerateDocumentationFile>-->
+	</PropertyGroup>
 
-  <!-- NuGet -->
-  <Import Project="../NuGet.targets" />
-  <PropertyGroup>
-    <PackageVersion>1.0.0-preview01</PackageVersion>
-    <Description>HAVIT Blazor Library - Components For Bootstrap4</Description>
-  </PropertyGroup>
+	<!-- NuGet -->
+	<Import Project="../NuGet.targets" />
+	<PropertyGroup>
+		<PackageVersion>1.0.0-preview01</PackageVersion>
+		<Description>HAVIT Blazor Library - Components For Bootstrap4</Description>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Havit.Core" Version="2.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Havit.Core" Version="2.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\hxbootstrap.js" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="wwwroot\hxbootstrap.js" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
+	</ItemGroup>
 
 </Project>
