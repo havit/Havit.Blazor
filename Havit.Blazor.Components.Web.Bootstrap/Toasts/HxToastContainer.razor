@@ -1,0 +1,6 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@* TODO: To add positioning based on enum and https://getbootstrap.com/docs/5.0/utilities/position/ *@
+
+<div class="@CssClassHelper.Combine("toast-container m-2", GetPositionCss())">
+	@ChildContent
+</div>

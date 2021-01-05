@@ -1,5 +1,7 @@
 ﻿@page "/HxMessengerDemo"
 
+@* <HxMessenger /> iteself is in MainLayout.razor *@
+
 <h1>HxMessenger</h1>
 
 <HxButton Text="Add information" OnClick="HandleAddInformationButtonClick" />
@@ -14,24 +16,23 @@
 		base.OnAfterRender(firstRender);
 		if (firstRender)
 		{
-			Messenger.AddInformation("Hello!");
+			Messenger.AddInformation("Setup", "services.AddHxMessenger(); in Startup.cs!\n<HxMessenger /> in MainLayout.razor");
 		}
 	}
 
 	private void HandleAddInformationButtonClick()
 	{
-		Messenger.AddInformation("Information button clicked.");
+		Messenger.AddInformation("Information", "Information button clicked.");
 	}
 
 	private void HandleAddWarningButtonClick()
 	{
-		Messenger.AddWarning("Warning button clicked.");
+		Messenger.AddWarning("Warning", "Warning button clicked.");
 	}
 
 	private void HandleAddErrorButtonClick()
 	{
-		Messenger.AddError("Error button clicked.");
+		Messenger.AddError("Error", "Error button clicked.");
 	}
-
 }
 

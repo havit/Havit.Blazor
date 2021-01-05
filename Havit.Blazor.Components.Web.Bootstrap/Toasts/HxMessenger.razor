@@ -1,11 +1,15 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-@* TODO: To add positioning based on enum and https://getbootstrap.com/docs/5.0/utilities/position/ *@
-<div class="toast-container position-absolute top-0 end-0 m-2">
+
+<HxToastContainer Position="@Position">
 	@foreach (MessengerMessage message in messages)
 	{
 		// @key is used to pair messages to HxToasts when some message disappers.
-	 <HxToast @key="@message.Key" CssClass="@message.CssClass" HeaderIcon="@message.Icon" HeaderText="@message.Title"
-	  ContentText="@message.Text" AutohideDelay="@message.AutohideDelay"
-	  ToastHidden="() => HandleToastHidden(message)" />
+		<HxToast @key="@message.Key"
+				 CssClass="@message.CssClass"
+				 HeaderIcon="@message.Icon"
+				 HeaderText="@message.Title"
+				 ContentText="@message.Text"
+				 AutohideDelay="@message.AutohideDelay"
+				 ToastHidden="() => HandleToastHidden(message)" />
 	}
-</div>
+</HxToastContainer>
