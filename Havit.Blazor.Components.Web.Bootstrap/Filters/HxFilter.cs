@@ -1,33 +1,27 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.RenderTree;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.RenderTree;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public sealed class HxFilter : ComponentBase, IHxFilter, IHxChipGenerator, IDisposable
 	{
-		[CascadingParameter(Name = HxFilterView.FilterRegistrationCascadingValueName)]
-		public CollectionRegistration<IHxFilter> FiltersRegistration { get; set; }
+		[CascadingParameter(Name = HxFilterView.FilterRegistrationCascadingValueName)] public CollectionRegistration<IHxFilter> FiltersRegistration { get; set; }
 
-		[CascadingParameter(Name = HxFilterView.ChipGeneratorRegistrationCascadingValueName)]
-		public CollectionRegistration<IHxChipGenerator> ChipGeneratorsRegistration { get; set; }
+		[CascadingParameter(Name = HxFilterView.ChipGeneratorRegistrationCascadingValueName)] public CollectionRegistration<IHxChipGenerator> ChipGeneratorsRegistration { get; set; }
 
-		[Parameter]
-		public string Label { get; set; }
+		[Parameter] public string Label { get; set; }
 
-		[Parameter]
-		public RenderFragment LabelTemplate { get; set; }
+		[Parameter] public RenderFragment LabelTemplate { get; set; }
 
-		[Parameter]
-		public RenderFragment FilterTemplate { get; set; }
+		[Parameter] public RenderFragment FilterTemplate { get; set; }
 
-		[Parameter]
-		public RenderFragment ChipTemplate { get; set; } // nebo jinak, uvidíme, jak s remove callbackem		
+		[Parameter] public RenderFragment ChipTemplate { get; set; } // nebo jinak, uvidíme, jak s remove callbackem		
 
 		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
 

@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -12,23 +12,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/*/// <summary>
 		/// The Name of the step
 		///</summary>
-		[Parameter]
-		public string Name { get; set; }*/
+		[Parameter]	public string Name { get; set; }*/
 
 		/// <summary>
 		/// The Child Content of the current <see cref="WizardStep" />
 		/// </summary>
-		[Parameter]
-		public RenderFragment Content { get; set; }
+		[Parameter] public RenderFragment Content { get; set; }
 
-		[CascadingParameter(Name = "WizardStepsRegistration")] // TODO Konstanta
-		public CollectionRegistration<IHxWizardStep> StepsRegistration { get; set; }
+		// TODO Konstanta
+		[CascadingParameter(Name = "WizardStepsRegistration")] public CollectionRegistration<IHxWizardStep> StepsRegistration { get; set; }
 
-		[Parameter]
-		public bool IsActive { get; set; } // TODO: nebo activestep? Nedělal bych obojí. Ale jak zvenku nastavit aktuální krok?
+		[Parameter] public bool IsActive { get; set; } // TODO: nebo activestep? Nedělal bych obojí. Ale jak zvenku nastavit aktuální krok?
 
-		[Parameter]
-		public EventCallback<bool> IsActiveChanged { get; set; }
+		[Parameter] public EventCallback<bool> IsActiveChanged { get; set; }
 
 		public async Task Activate()
 		{

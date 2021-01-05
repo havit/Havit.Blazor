@@ -9,7 +9,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxTag
 	{
-		[Parameter]
-		public string Text { get; set; }
+		[Parameter]	public string Text { get; set; }
 	}
 }

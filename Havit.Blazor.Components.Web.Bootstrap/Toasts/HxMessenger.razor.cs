@@ -11,14 +11,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxMessenger : ComponentBase, IDisposable
 	{
-		[Inject] protected IMessenger Messenger { get; set; }
-		[Inject] protected NavigationManager NavigationManager { get; set; }
-
 		/// <summary>
 		/// Position of the messages. Default is <c>null</c> <see cref="HxToastContainerPosition.None"/>.
 		/// </summary>
 		[Parameter] public HxToastContainerPosition Position { get; set; } = HxToastContainerPosition.None;
 		[Parameter] public bool RemoveMessagesOnNavigation { get; set; } = true;
+
+		[Inject] protected IMessenger Messenger { get; set; }
+		[Inject] protected NavigationManager NavigationManager { get; set; }
 
 		private List<MessengerMessage> messages = new List<MessengerMessage>();
 

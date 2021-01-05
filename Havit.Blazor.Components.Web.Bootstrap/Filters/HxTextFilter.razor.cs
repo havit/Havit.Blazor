@@ -10,11 +10,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxTextFilter : HxFilterBase
 	{
-		[Parameter]
-		public string Value { get; set; }
+		[Parameter] public string Value { get; set; }
 
-		[Parameter]
-		public EventCallback<string> ValueChanged { get; set; }
+		[Parameter] public EventCallback<string> ValueChanged { get; set; }
 
 		/// <summary>
 		/// Gets or sets an expression that identifies the bound value.
@@ -22,8 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <remarks>
 		/// The ValueExpression property is set internally by the Blazor compiler if you use the @bind﻿ attribute for the Value property to implement two-way binding.
 		/// </remarks>
-		[Parameter]
-		public Expression<Func<string>> ValueExpression { get; set; }
+		[Parameter] public Expression<Func<string>> ValueExpression { get; set; }
 
 		protected async Task HandleValueChanged(string value)
 		{

@@ -49,15 +49,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? Enabled { get; set; }
 
 		/// <summary>
+		/// Raised after button is clicked.
+		/// </summary>
+		[Parameter]	public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+		/// <summary>
 		/// Localization service.
 		/// </summary>
 		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
-
-		/// <summary>
-		/// Raised after button is clicked.
-		/// </summary>
-		[Parameter]
-		public EventCallback<MouseEventArgs> OnClick { get; set; }
 
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)

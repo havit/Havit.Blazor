@@ -1,12 +1,12 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
-using Havit.Collections;
-using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
+using Havit.Collections;
+using Havit.Diagnostics.Contracts;
+using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -18,8 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Cascading parameter to register column to the grid.
 		/// </summary>
-		[CascadingParameter(Name = HxGrid<TItemType>.ColumnsRegistrationCascadingValueName)]
-		protected CollectionRegistration<IHxGridColumn<TItemType>> ColumnsRegistration { get; set; }
+		[CascadingParameter(Name = HxGrid<TItemType>.ColumnsRegistrationCascadingValueName)] protected CollectionRegistration<IHxGridColumn<TItemType>> ColumnsRegistration { get; set; }
 
 		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
 

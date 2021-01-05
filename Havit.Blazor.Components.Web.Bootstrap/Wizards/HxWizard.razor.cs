@@ -17,8 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// The ChildContent container for <see cref="HxWizardStep"/>
 		/// </summary>
-		[Parameter]
-		public RenderFragment Steps { get; set; }
+		[Parameter]	public RenderFragment Steps { get; set; }
 
 		private List<IHxWizardStep> steps;
 		protected CollectionRegistration<IHxWizardStep> stepsRegistration;

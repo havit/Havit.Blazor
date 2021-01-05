@@ -1,28 +1,24 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxNamedViewList<TFilterType>
 	{
-		[Parameter]
 		// TODO: Pojmenování?
 		// TODO: IEnumerable?
-		public IEnumerable<NamedView<TFilterType>> NamedViews { get; set; }
+		[Parameter] public IEnumerable<NamedView<TFilterType>> NamedViews { get; set; }
 
-		[Parameter]
-		public TFilterType Filter { get; set; }
-		
-		[Parameter]
-		public EventCallback<TFilterType> FilterChanged { get; set; }
+		[Parameter] public TFilterType Filter { get; set; }
 
-		[Parameter]
+		[Parameter] public EventCallback<TFilterType> FilterChanged { get; set; }
+
 		// TODO: Pojmenování?
-		public EventCallback<NamedView<TFilterType>> SelectedNamedViewChanged { get; set; }
+		[Parameter] public EventCallback<NamedView<TFilterType>> SelectedNamedViewChanged { get; set; }
 
 		protected async Task HandleNamedViewClick(NamedView<TFilterType> namedView)
 		{

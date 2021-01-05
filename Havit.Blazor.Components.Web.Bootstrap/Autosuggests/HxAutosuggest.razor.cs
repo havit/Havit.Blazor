@@ -12,29 +12,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxAutosuggest : IDisposable // TODO? IAsyncDisposable
 	{
-		[Parameter]
-		public string Value { get; set; }
-
-		[Parameter]
-		public EventCallback<string> ValueChanged { get; set; }
-
-		[Parameter]
-		public EventCallback<SuggestionRequest> SuggestionsRequested { get; set; } // TODO? SuggestionsProvider + ála public delegate ValueTask<ItemsProviderResult<TItem>> ItemsProviderDelegate<TItem>(ItemsProviderRequest request);
+		[Parameter] public string Value { get; set; }
+		[Parameter] public EventCallback<string> ValueChanged { get; set; }
+		[Parameter] public EventCallback<SuggestionRequest> SuggestionsRequested { get; set; } // TODO? SuggestionsProvider + ála public delegate ValueTask<ItemsProviderResult<TItem>> ItemsProviderDelegate<TItem>(ItemsProviderRequest request);
 
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
 		/// </summary>
-		[Parameter]
-		public int MinimumLength { get; set; } = 2;
+		[Parameter] public int MinimumLength { get; set; } = 2;
 
 		/// <summary>
 		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
 		/// </summary>
-		[Parameter]
-		public int Delay { get; set; } = 300;
+		[Parameter] public int Delay { get; set; } = 300;
 
-		[Inject]
-		public IJSRuntime JSRuntime { get; set; }
+		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		private string dropdownId;
 		private System.Timers.Timer timer;

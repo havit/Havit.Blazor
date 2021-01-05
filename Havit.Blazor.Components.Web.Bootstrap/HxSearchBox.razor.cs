@@ -9,12 +9,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxSearchBox
 	{
-		[Parameter]
-		// TODO: Když se komponenta jmenuje SearchBox, nepoužijeme jen Text? nebo SearchText?
-		public string QueryText { get; set; }
+		[Parameter] public string QueryText { get; set; } // TODO: Když se komponenta jmenuje SearchBox, nepoužijeme jen Text? nebo SearchText?
 
-		[Parameter]
-		public EventCallback<string> OnQueryTextChanged { get; set; }
+		[Parameter]	public EventCallback<string> OnQueryTextChanged { get; set; }
 
 		protected async Task QueryTextChanged()
 		{

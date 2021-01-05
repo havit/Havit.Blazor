@@ -13,14 +13,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 {
 	public class Demo : ComponentBase
 	{
-		[Parameter]
-		public string Title { get; set; }
+		[Parameter] public string Title { get; set; }
 
-		[Parameter]
-		public Type Type { get; set; }
+		[Parameter] public Type Type { get; set; }
 
-		[Inject]
-		public IJSRuntime JSRuntime { get; set; }
+		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		private bool showingDemo = true;
 
@@ -65,7 +62,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				builder.CloseComponent();
 			}
 			else
-			{ 
+			{
 				builder.OpenElement(600, "pre");
 				builder.OpenElement(601, "code");
 				builder.AddAttribute(602, "class", "language-html");

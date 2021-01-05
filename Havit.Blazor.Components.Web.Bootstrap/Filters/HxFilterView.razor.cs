@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -13,21 +13,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public const string FilterRegistrationCascadingValueName = "FiltersRegistration";
 		public const string ChipGeneratorRegistrationCascadingValueName = "ChipGeneratorsRegistration";
 
-		[CascadingParameter(Name = "FilterDrawerOpen")] // TODO: Konstanta
-		public bool IsExpanded { get; set; }
+		[CascadingParameter(Name = "FilterDrawerOpen")] public bool IsExpanded { get; set; } // TODO: Konstanta
 
-		[Parameter]
-		public EventCallback ApplyFilterRequested { get; set; }
+		[Parameter] public EventCallback ApplyFilterRequested { get; set; }
 
-		[Parameter]
-		public RenderFragment Criteria { get; set; }
+		[Parameter] public RenderFragment Criteria { get; set; }
 
 		private List<IHxFilter> filters;
 		private CollectionRegistration<IHxFilter> filtersRegistration;
 
 		private List<IHxChipGenerator> chipGenerators;
 		private CollectionRegistration<IHxChipGenerator> chipGeneratorsRegistration;
-		
+
 		private bool isDisposed = false;
 
 		public HxFilterView()

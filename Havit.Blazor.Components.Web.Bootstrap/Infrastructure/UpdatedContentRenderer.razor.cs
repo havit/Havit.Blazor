@@ -9,11 +9,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Infrastructure
 	// TODO: Naming!
 	public partial class UpdatedContentRenderer : ComponentBase, IDisposable
 	{
-		[Parameter]
-		public IRenderNotificationComponent Component { get; set; }
+		[Parameter] public IRenderNotificationComponent Component { get; set; }
 
-		[Parameter]
-		public RenderFragment ChildContent { get; set; }
+		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		private Action detachAction;
 

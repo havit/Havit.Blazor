@@ -22,14 +22,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Input-group before input.
 		/// </summary>
-		[Parameter]
-		public RenderFragment InputGroupBeforeTemplate { get; set; }
+		[Parameter] public RenderFragment InputGroupBeforeTemplate { get; set; }
 
 		/// <summary>
 		/// Input-group before input.
 		/// </summary>
-		[Parameter]
-		public RenderFragment InputGroupAfterTemplate { get; set; }
+		[Parameter] public RenderFragment InputGroupAfterTemplate { get; set; }
 
 		/// <inheritdoc />
 		protected override void BuildRenderInputAndValidationMessage(RenderTreeBuilder builder)
@@ -48,7 +46,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.CloseRegion();
 
 			builder.CloseElement();
-
 		}
 
 		/// <inheritdoc />

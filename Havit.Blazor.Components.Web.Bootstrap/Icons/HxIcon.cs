@@ -14,14 +14,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Icon to display.
 		/// </summary>
-		[Parameter]
-		public IconBase Icon { get; set; }
+		[Parameter] public IconBase Icon { get; set; }
 
 		/// <summary>
 		/// CSS Class to combine with basic icon CSS class.
 		/// </summary>
-		[Parameter]
-		public string CssClass { get; set; }
+		[Parameter] public string CssClass { get; set; }
 
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)

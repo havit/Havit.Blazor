@@ -5,7 +5,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxChipList
 	{
-		[Parameter]
-		public IEnumerable<ChipItem> Chips { get; set; }
+		[Parameter]	public IEnumerable<ChipItem> Chips { get; set; }
 	}
 }

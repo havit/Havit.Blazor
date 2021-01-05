@@ -10,13 +10,11 @@
 	}
 </div>
 
-@code {
+@code
+{
+	[Parameter]	public List<string> Items { get; set; }
 
-	[Parameter]
-	public List<string> Items { get; set; }
-
-	[Parameter]
-	public EventCallback<string> ItemClicked { get; set; }
+	[Parameter]	public EventCallback<string> ItemClicked { get; set; }
 
 	private async Task HandleItemClick(string value)
 	{

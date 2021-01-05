@@ -17,26 +17,22 @@ namespace Havit.Blazor.Components.Web
 		/// Template that defines how the header section of the Repeater component is displayed.
 		/// Renders only if there are any items to display.
 		/// </summary>
-		[Parameter]
-		public RenderFragment HeaderTemplate { get; set; }
+		[Parameter] public RenderFragment HeaderTemplate { get; set; }
 
 		/// <summary>
 		/// Template that defines how items in the Repeater component are displayed.
 		/// </summary>
-		[Parameter]
-		public RenderFragment<TItem> ItemTemplate { get; set; }
+		[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
 
 		/// <summary>
 		/// Template that defines how the footer section of the Repeater component is displayed.
 		/// Renders only if there are any items to display.
 		/// </summary>
-		[Parameter]
-		public RenderFragment FooterTemplate { get; set; }
+		[Parameter] public RenderFragment FooterTemplate { get; set; }
 
 		/// <summary>
 		/// Items to be rendered.
 		/// </summary>
-		[Parameter]
-		public IEnumerable<TItem> Items { get; set; }
+		[Parameter] public IEnumerable<TItem> Items { get; set; }
 	}
 }

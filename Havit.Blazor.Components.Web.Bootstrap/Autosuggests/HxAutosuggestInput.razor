@@ -4,20 +4,15 @@
 
 @code {
 
-	[Parameter]
-	public string Value { get; set; }
+	[Parameter] public string Value { get; set; }
 
-	[Parameter]
-	public EventCallback<string> ValueChanged { get; set; }
+	[Parameter]	public EventCallback<string> ValueChanged { get; set; }
 
-	[Parameter]
-	public EventCallback<string> OnInputInput { get; set; }
+	[Parameter]	public EventCallback<string> OnInputInput { get; set; }
 
-	[Parameter]
-	public EventCallback OnInputFocus { get; set; }
+	[Parameter]	public EventCallback OnInputFocus { get; set; }
 
-	[Parameter]
-	public EventCallback OnInputBlur { get; set; }
+	[Parameter]	public EventCallback OnInputBlur { get; set; }
 
 	private async Task HandleInput(ChangeEventArgs changeEventArgs)
 	{
@@ -39,5 +34,4 @@
 	{
 		await OnInputBlur.InvokeAsync(null);
 	}
-
 }
