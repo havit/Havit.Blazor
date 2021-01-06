@@ -8,7 +8,7 @@ using Havit.Blazor.Components.Web;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Havit.Blazor.Components.WebTests
+namespace Havit.Blazor.Components.Web.Tests
 {
 	[TestClass]
 	public class RenderFragmentBuilderTests
