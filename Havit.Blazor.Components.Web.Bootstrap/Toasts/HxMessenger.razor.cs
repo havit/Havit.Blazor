@@ -16,6 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public HxToastContainerPosition Position { get; set; } = HxToastContainerPosition.None;
 		[Parameter] public bool RemoveMessagesOnNavigation { get; set; } = true;
+		[Parameter] public string CssClass { get; set; }
 
 		[Inject] protected IMessenger Messenger { get; set; }
 		[Inject] protected NavigationManager NavigationManager { get; set; }

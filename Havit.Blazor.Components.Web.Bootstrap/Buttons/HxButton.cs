@@ -21,7 +21,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[CascadingParameter] public FormState FormState { get; set; }
 
 		/// <summary>
-		/// Custom css class to render with button.
+		/// Custom css class to render with the button.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
@@ -36,7 +36,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		/// <summary>
-		/// Icon to render into button.
+		/// Icon to render into the button.
 		/// </summary>
 		[Parameter] public IconBase Icon { get; set; }
 
@@ -49,7 +49,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? Enabled { get; set; }
 
 		/// <summary>
-		/// Raised after button is clicked.
+		/// Raised after the button is clicked.
 		/// </summary>
 		[Parameter]	public EventCallback<MouseEventArgs> OnClick { get; set; }
 

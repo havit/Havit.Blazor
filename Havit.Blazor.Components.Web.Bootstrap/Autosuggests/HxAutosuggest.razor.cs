@@ -26,6 +26,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public int Delay { get; set; } = 300;
 
+		[Parameter] public string CssClass { get; set; }
+
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		private string dropdownId;
