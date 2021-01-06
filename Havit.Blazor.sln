@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap.Documentation.Server", "Havit.Blazor.Components.Web.Bootstrap.Documentation.Server\Havit.Blazor.Components.Web.Bootstrap.Documentation.Server.csproj", "{C4CC1C76-BCC9-403A-917D-144868F1215E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Tests", "Havit.Blazor.Components.WebTests\Havit.Blazor.Components.Web.Tests.csproj", "{C8FEA4B9-A13F-406F-8B7A-1E193009536F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D7B56FC7-6322-4B66-B34F-A972805BF740}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
@@ -24,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE = LICENSE
 		logo.png = logo.png
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Tests", "Havit.Blazor.Components.Web.Tests\Havit.Blazor.Components.Web.Tests.csproj", "{47F722AB-B5A4-49AD-899C-9E041C4E6C71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +51,10 @@ Global
 		{C4CC1C76-BCC9-403A-917D-144868F1215E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4CC1C76-BCC9-403A-917D-144868F1215E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4CC1C76-BCC9-403A-917D-144868F1215E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C8FEA4B9-A13F-406F-8B7A-1E193009536F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C8FEA4B9-A13F-406F-8B7A-1E193009536F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C8FEA4B9-A13F-406F-8B7A-1E193009536F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C8FEA4B9-A13F-406F-8B7A-1E193009536F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47F722AB-B5A4-49AD-899C-9E041C4E6C71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47F722AB-B5A4-49AD-899C-9E041C4E6C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47F722AB-B5A4-49AD-899C-9E041C4E6C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47F722AB-B5A4-49AD-899C-9E041C4E6C71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
