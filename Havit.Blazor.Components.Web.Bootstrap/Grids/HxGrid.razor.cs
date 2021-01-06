@@ -97,9 +97,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private List<IHxGridColumn<TItemType>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration;
 		private bool decreasePageIndexAfterRender = false;
+		private bool firstRenderCompleted = false;
 		private bool isDisposed = false;
-		private IEnumerable<TItemType> previousDataValue = null;
-		private bool dataRefreshRequested = false;
 		private GridDataProviderDelegate<TItemType> dataProvider;
 		private List<TItemType> dataItemsToRender;
 		private int? dataItemsTotalCount;
@@ -122,10 +121,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			Contract.Requires<InvalidOperationException>((Data == null) || (DataProvider == null), $"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Data)}' and '{nameof(DataProvider)}'.");
 
-			dataRefreshRequested = (Data != previousDataValue);
-			previousDataValue = Data;
+			if (DataProvider != null)
+			{
+				dataProvider = DataProvider;
+			}
+			else
+			{
+				dataProvider = EnumerableDataProvider;
 
-			dataProvider = DataProvider ?? EnumerableDataProvider;
+				if (firstRenderCompleted) // we call RefreshDataCoreAsync after first render (when sorting is known), so we do not need to RefreshDataCoreAsync them in first render)
+				{
+					// When we have a fixed set of in-memory data, it doesn't cost anything to
+					// re-query it on each cycle, so do that. This means the developer can add/remove
+					// items in the collection and see the UI update without having to call RefreshDataAsync.
+					var refreshTask = RefreshDataCoreAsync(renderOnSuccess: false);
+
+					// We know it's synchronous and has its own error handling
+					Debug.Assert(refreshTask.IsCompletedSuccessfully);
+				}
+			}
 		}
 
 		/// <inheritdoc />
@@ -143,9 +157,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 			}
 
-			if (firstRender || dataRefreshRequested)
+			if (firstRender)
 			{
-				await RefreshDataToRenderCore(true);
+				await RefreshDataCoreAsync(true);
 			}
 
 			// when rendering page with no data, navigate one page back
@@ -153,8 +167,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				decreasePageIndexAfterRender = false;
 				await SetCurrentPageIndexWithEventCallback(CurrentUserState.PageIndex - 1);
-				await RefreshDataToRenderCore(true);
+				await RefreshDataCoreAsync(true);
 			}
+
+			firstRenderCompleted = true;
 		}
 
 		/// <summary>
@@ -239,7 +255,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			if (await SetCurrentSortingWithEventCallback(CurrentUserState.Sorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToList().AsReadOnly())) // when current sorting is null, use new sorting
 			{
-				await RefreshDataToRenderCore();
+				await RefreshDataCoreAsync();
 			}
 		}
 
@@ -247,13 +263,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			if (await SetCurrentPageIndexWithEventCallback(newPageIndex))
 			{
-				await RefreshDataToRenderCore();
+				await RefreshDataCoreAsync();
 			}
 		}
 
-		private async ValueTask RefreshDataToRenderCore(bool renderOnSuccess = false)
+		/// <summary>
+		/// Instructs the component to re-request data from its <see cref="ItemsProvider"/>.
+		/// This is useful if external data may have changed. There is no need to call this
+		/// when using <see cref="Items"/>.
+		/// </summary>
+		/// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+		public async Task RefreshDataAsync()
 		{
-			bool wasDataRefreshRequested = dataRefreshRequested;
+			// We don't auto-render after this operation because in the typical use case, the
+			// host component calls this from one of its lifecycle methods, and will naturally
+			// re-render afterwards anyway. It's not desirable to re-render twice.
+			await RefreshDataCoreAsync(renderOnSuccess: false);
+		}
+
+		private async ValueTask RefreshDataCoreAsync(bool renderOnSuccess = false)
+		{
 			refreshDataCancellationTokenSource?.Cancel();
 			refreshDataCancellationTokenSource?.Dispose();
 			refreshDataCancellationTokenSource = new CancellationTokenSource();
@@ -306,7 +335,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					StateHasChanged();
 				}
 			}
-			dataRefreshRequested = dataRefreshRequested && !wasDataRefreshRequested; // reset request
 		}
 
 		private ValueTask<GridDataProviderResult<TItemType>> EnumerableDataProvider(GridDataProviderRequest<TItemType> request)

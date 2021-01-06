@@ -28,7 +28,7 @@
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
 
 <h2>Server paging, server sorting</h2>
-<HxGrid TItemType="CultureInfo" @bind-SelectedDataItem="@currentServerCultureInfo" DataProvider="@ServerCultureInfosDataProvider" PageSize="@PageSize" SelectionMode="GridSelectionMode.MultiSelect">
+<HxGrid TItemType="CultureInfo" @ref="serverSideGrid" @bind-SelectedDataItem="@currentServerCultureInfo" DataProvider="@ServerCultureInfosDataProvider" PageSize="@PageSize" SelectionMode="GridSelectionMode.MultiSelect">
 	<Columns>
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />
@@ -36,8 +36,13 @@
 </HxGrid>
 <p>Current CultureInfo: @currentServerCultureInfo?.DisplayName</p>
 
+<HxButton OnClick="HandleRemoveItemsClick">Remove some items</HxButton>
 @code {
 	private const int PageSize = 10;
+
+	private HxGrid<CultureInfo> serverSideGrid;
+
+	private int skip = 0;
 
 	// LOCAL
 	private List<CultureInfo> localCultureInfos = null;
@@ -51,14 +56,19 @@
 	{
 		await base.OnInitializedAsync();
 		await Task.Delay(200); // simulate server call (data download)
-		localCultureInfos = CultureInfo.GetCultures(CultureTypes.SpecificCultures).ToList();
+		localCultureInfos = GetCultureInfos();
+	}
+
+	private List<CultureInfo> GetCultureInfos()
+	{
+		return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).Skip(skip).ToList();
 	}
 
 	private async ValueTask<GridDataProviderResult<CultureInfo>> ServerCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
 	{
 		await Task.Delay(300); // simulate server call
 
-		var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures).ToList();
+		var cultures = GetCultureInfos();
 		cultures.Sort(request.Sorting.ToGenericPropertyComparer());
 
 		return new GridDataProviderResult<CultureInfo>()
@@ -75,5 +85,12 @@
 	{
 		clickedItem = item;
 		return Task.CompletedTask;
+	}
+
+	private async Task HandleRemoveItemsClick()
+	{
+		skip += 10;
+		localCultureInfos = GetCultureInfos(); // duplicita kódu
+		await serverSideGrid.RefreshDataAsync();
 	}
 }
