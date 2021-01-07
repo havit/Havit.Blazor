@@ -116,7 +116,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override void OnParametersSet()
 		{
-			Console.WriteLine($"OnParametersSet, Data={Data}");
 			base.OnParametersSet();
 
 			Contract.Requires<InvalidOperationException>((Data == null) || (DataProvider == null), $"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Data)}' and '{nameof(DataProvider)}'.");
@@ -339,8 +338,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private ValueTask<GridDataProviderResult<TItemType>> EnumerableDataProvider(GridDataProviderRequest<TItemType> request)
 		{
-			Console.WriteLine($"EnumerableDataProvider, Data={Data}");
-
 			IEnumerable<TItemType> resultData = Data ?? Enumerable.Empty<TItemType>();
 
 			#region AutoSorting
