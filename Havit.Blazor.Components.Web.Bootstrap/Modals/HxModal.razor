@@ -1,0 +1,40 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+@if (opened)
+{
+	<div @ref="modalElement" class="@CssClassHelper.Combine("modal fade", CssClass)" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				@if (!String.IsNullOrEmpty(Header) || (HeaderTemplate != null) || ShowCloseButton)
+				{
+					<div class="modal-header">
+						@if (!String.IsNullOrEmpty(Header) || (HeaderTemplate != null))
+						{
+							<h5 class="modal-title">
+								@Header
+								@HeaderTemplate
+							</h5>
+						}
+						@if (ShowCloseButton)
+						{
+							<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+						}
+					</div>
+				}
+				@if (BodyTemplate != null)
+				{
+					<div class="modal-body">
+						@BodyTemplate
+					</div>
+				}
+				@if (FooterTemplate != null)
+				{
+					<div class="modal-footer">
+						@FooterTemplate
+					</div>
+				}
+			</div>
+		</div>
+
+	</div>
+}

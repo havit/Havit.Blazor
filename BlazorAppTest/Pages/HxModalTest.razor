@@ -1,0 +1,20 @@
+﻿@page "/HxModalTest"
+
+<h1>HxModal</h1>
+
+<HxButton OnClick="HandleShowClick">Show</HxButton>
+
+<HxModal @ref="myModal" Header="Header">
+	<BodyTemplate>Body</BodyTemplate>
+	<FooterTemplate>Footer</FooterTemplate>
+</HxModal>
+
+@code
+{
+	private HxModal myModal;
+
+	private async Task HandleShowClick()
+	{
+		await myModal.ShowAsync();
+	}
+}
