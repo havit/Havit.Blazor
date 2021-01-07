@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap", "Havit.Blazor.Components.Web.Bootstrap\Havit.Blazor.Components.Web.Bootstrap.csproj", "{154FB5A5-4A1E-4D38-B492-9EB32E676928}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "BlazorApp\BlazorApp.csproj", "{0685E15F-4A00-4D81-A268-9915B8D048AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAppTest", "BlazorAppTest\BlazorAppTest.csproj", "{0685E15F-4A00-4D81-A268-9915B8D048AF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap.Documentation", "Havit.Blazor.Components.Web.Bootstrap.Documentation\Havit.Blazor.Components.Web.Bootstrap.Documentation.csproj", "{399A6F03-FA62-45F2-ACBC-F1B09D954807}"
 EndProject

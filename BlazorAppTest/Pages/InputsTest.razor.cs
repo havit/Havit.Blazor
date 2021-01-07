@@ -5,9 +5,9 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorApp.Pages
+namespace BlazorAppTest.Pages
 {
-	public partial class InputsDemo
+	public partial class InputsTest
 	{
 		protected FormModel Model { get; } = new FormModel();
 

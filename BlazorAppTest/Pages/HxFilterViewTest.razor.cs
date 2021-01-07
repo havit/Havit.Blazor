@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorApp.Pages
+namespace BlazorAppTest.Pages
 {
-	public partial class HxFilterViewDemo
+	public partial class HxFilterViewTest
 	{
 		public CustomFilter Filter { get; set; } = new CustomFilter();
 
