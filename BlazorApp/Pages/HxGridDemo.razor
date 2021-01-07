@@ -17,7 +17,7 @@
 	</Columns>
 	<ContextMenu Context="item">
 		<HxContextMenu>
-			<HxContextMenuItem Title="Nastavit jako výchozí" />
+			<HxContextMenuItem Title="Nastavit jako výchozí" OnItemClick="async () => await AlarmClicked(item)" />
 			<HxContextMenuItem ConfirmationQuestion="Jako fakt?" OnItemClick="async () => await AlarmClicked(item)">
 				<HxIcon Icon="BootstrapIcon.Alarm" /> Bacha na to!
 			</HxContextMenuItem>
