@@ -1,4 +1,6 @@
-﻿window.hxBootstrapAutosuggest_openDropdown = (selector) => {
+﻿// *** HxAutosuggest ****************************************************************
+
+window.hxBootstrapAutosuggest_openDropdown = (selector) => {
     var el = document.querySelector(selector);
     el.setAttribute("data-bs-toggle", "dropdown");
     new bootstrap.Dropdown(el).show();
@@ -13,6 +15,8 @@ window.hxBootstrapAutosuggest_destroyDropdown = (selector) => {
     }
 };
 
+// *** HxGrid ****************************************************************
+
 window.hxGrid_cellClick = (event) => {
     if ((event.target.nodeName === 'A')
         || (event.target.nodeName === 'INPUT')
@@ -23,9 +27,11 @@ window.hxGrid_cellClick = (event) => {
     }
 }
 
+// *** HxModal ****************************************************************
+
 window.hxModal_show = (element, hxModalDotnetObjectReference, useStaticBackdrop, closeOnEscape) => {
     element.hxModalDotnetObjectReference = hxModalDotnetObjectReference;
-    element.addEventListener('hidden.bs.modal', window.hxModal_handleModalHiddenInDotnet)
+    element.addEventListener('hidden.bs.modal', window.hxModal_handleModalHidden)
 
     var modal = new bootstrap.Modal(element, {
         backdrop: useStaticBackdrop ? "static" : false,
@@ -34,19 +40,21 @@ window.hxModal_show = (element, hxModalDotnetObjectReference, useStaticBackdrop,
     modal.show();
 }
 
-window.hxModal_handleModalHiddenInDotnet = (event) => {
-    event.target.removeEventListener('hidden.bs.modal', window.hxModal_handleModalHiddenInDotnet);
+window.hxModal_hide = (element) => {
+    var modal = bootstrap.Modal.getInstance(element);
+    modal.hide();
+}
+
+window.hxModal_handleModalHidden = (event) => {
+    event.target.removeEventListener('hidden.bs.modal', window.hxModal_handleModalHidden);
     event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHidden');
     event.target.hxModalDotnetObjectReference = null;
-    hxModal_hide(event.target);
+
+    var modal = bootstrap.Modal.getInstance(event.target);    
+    modal.dispose();
 };
 
-window.hxModal_hide = (element) =>
-{
-    var modal = bootstrap.Modal.getInstance(element);    
-    modal.hide();
-    modal.dispose();
-}
+// *** HxToast ****************************************************************
 
 var handleToastHiddenInDotnet = (event) => {
 	event.target.hxToastDotnetObjectReference.invokeMethodAsync('HxToast_HandleToastHidden');

@@ -10,9 +10,8 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	// TODO: Jak se má správně renderovat HeaderTemplate?
 	// TODO: Uspořádání - jak umožnit použít "hezky" jakožto vlastní komponentu?
-	public partial class HxModal : ComponentBase, IAsyncDisposable
+	public partial class HxModal : ComponentBase, IDisposable
 	{
 		[Parameter] public string CssClass { get; set; }
 
@@ -36,7 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private bool opened = false;
 		private bool shouldOpenModal = false;
-		DotNetObjectReference<HxModal> dotnetObjectReference;
+		private DotNetObjectReference<HxModal> dotnetObjectReference;
 		private ElementReference modalElement;
 
 		public HxModal()
@@ -48,40 +47,44 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			Contract.Requires(!opened);
 
-			opened = true;
-			shouldOpenModal = true;
+			opened = true; // mark modal as opened
+			shouldOpenModal = true; // mak modal to be shown in OnAfterRender
 
-			StateHasChanged();
+			StateHasChanged(); // ensures render modal HTML
 
 			return Task.CompletedTask;
 		}
 
-		protected override async Task OnAfterRenderAsync(bool firstRender)
+		public async Task HideAsync()
 		{
-			await base.OnAfterRenderAsync(firstRender);
-			if (shouldOpenModal)
-			{
-				shouldOpenModal = false;
-				await JSRuntime.InvokeVoidAsync("hxModal_show", modalElement, dotnetObjectReference, UseStaticBackdrop, CloseOnEscape);
-			}
+			Contract.Requires(opened);
+			await JSRuntime.InvokeVoidAsync("hxModal_hide", modalElement);
 		}
 
 		[JSInvokable]
 		public async Task HxModal_HandleModalHidden()
 		{
 			opened = false;
-			await Closed.InvokeAsync();
+			await Closed.InvokeAsync(); // fires "event" dialog has been closed
+			StateHasChanged(); // ensures rerender to remove dialog from HTML
+		}
+
+		protected override async Task OnAfterRenderAsync(bool firstRender)
+		{
+			await base.OnAfterRenderAsync(firstRender);
+
+			if (shouldOpenModal)
+			{
+				shouldOpenModal = false; // do not run hxModal_show in every render
+				// Running JS interop is postponed to OnAfterAsync to ensure modalElement is set.
+				await JSRuntime.InvokeVoidAsync("hxModal_show", modalElement, dotnetObjectReference, UseStaticBackdrop, CloseOnEscape);
+			}
 		}
 
 		/// <inheritdoc />
-		public async ValueTask DisposeAsync()
+		public void Dispose()
 		{
-			if (opened)
-			{
-				// TODO: Má to význam? Asi ne (ničíme modal, který se zničí sám).
-				await JSRuntime.InvokeVoidAsync("hxModal_hide", modalElement);
-			}
-			dotnetObjectReference?.Dispose();
+			dotnetObjectReference.Dispose();
 		}
 	}
 }

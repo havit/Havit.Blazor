@@ -6,7 +6,7 @@
 
 <HxModal @ref="myModal" Header="Header">
 	<BodyTemplate>Body</BodyTemplate>
-	<FooterTemplate>Footer</FooterTemplate>
+	<FooterTemplate><HxButton Skin="ButtonSkins.Close" OnClick="HandleHideClick" /></FooterTemplate>
 </HxModal>
 
 @code
@@ -16,5 +16,10 @@
 	private async Task HandleShowClick()
 	{
 		await myModal.ShowAsync();
+	}
+
+	private async Task HandleHideClick()
+	{
+		await myModal.HideAsync();
 	}
 }
