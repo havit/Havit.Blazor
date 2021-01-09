@@ -1,0 +1,59 @@
+﻿@page "/HxMessageBoxTest"
+
+<h1>HxMessageBox</h1>
+
+<div>
+	<HxButton Text="Open MessageBox 1..." OnClick="@(async () => await box1.ShowAsync())" />
+	<HxMessageBox @ref="box1" HeaderText="Jednička" Text="Já jsem jednička!" OnClosed="HandleDialogClose" />
+</div>
+
+<div>
+	<HxButton Text="OkCancel..." OnClick="@(async () => await box2.ShowAsync())" />
+	<HxMessageBox @ref="box2" HeaderText="Dvojka?" Text="Chceš být dvojka?" Buttons="HxMessageBoxButtons.OkCancel" OnClosed="HandleDialogClose" />
+</div>
+
+<div>
+	<HxButton Text="AbortRetryIgnore..." OnClick="@(async () => await box3.ShowAsync())" />
+	<HxMessageBox @ref="box3" HeaderText="Test 3" Text="Test 3" Buttons="HxMessageBoxButtons.AbortRetryIgnore" OnClosed="HandleDialogClose" />
+</div>
+
+<div>
+	<HxButton Text="CustomCancel..." OnClick="@(async () => await box4.ShowAsync())" />
+	<HxMessageBox @ref="box4" HeaderText="Test 4" Text="Test 4" Buttons="HxMessageBoxButtons.CustomCancel" CustomButtonText="Custom" OnClosed="HandleDialogClose" />
+</div>
+
+<div>
+	<HxButton Text="YesNo..." OnClick="@(async () => await box5.ShowAsync())" />
+	<HxMessageBox @ref="box5" HeaderText="Test 5" Text="Test 5" Buttons="HxMessageBoxButtons.YesNo" OnClosed="HandleDialogClose" />
+</div>
+
+<div>
+	<HxButton Text="Mix..." OnClick="@(async () => await box6.ShowAsync())" />
+	<HxMessageBox @ref="box6"
+				  HeaderText="Test 6"
+				  Text="Test 6"
+				  Buttons="HxMessageBoxButtons.Yes | HxMessageBoxButtons.No | HxMessageBoxButtons.Ok"
+				  PrimaryButton="HxMessageBoxButtons.No"
+				  OnClosed="HandleDialogClose" />
+</div>
+
+<div>
+	Last result: @result.ToString("g")
+</div>
+
+@code{
+	HxMessageBox box1;
+	HxMessageBox box2;
+	HxMessageBox box3;
+	HxMessageBox box4;
+	HxMessageBox box5;
+	HxMessageBox box6;
+	HxMessageBoxButtons result;
+
+	private Task HandleDialogClose(HxMessageBoxButtons button)
+	{
+		result = button;
+
+		return Task.CompletedTask;
+	}
+}

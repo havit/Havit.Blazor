@@ -1,0 +1,24 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@* TODO Icon? *@
+@* TODO Pořadí tlačítek *@
+@* TODO Focus + Enter *@
+
+<HxModal @ref="modal"
+		 CssClass="@this.CssClass"
+		 ShowCloseButton="@this.ShowCloseButton"
+		 Closed="HandleModalClosed">
+	<HeaderTemplate>
+		@HeaderText
+		@HeaderTemplate
+	</HeaderTemplate>
+	<BodyTemplate>
+		@Text
+		@ContentTemplate
+	</BodyTemplate>
+	<FooterTemplate>
+		@foreach (var button in GetButtonsToRender())
+		{
+			<HxButton Text="@button.Text" OnClick="@(() => HandleButtonClick(button.Id))" CssClass="@((button.IsPrimary ?? false) ? "btn-primary" : null)" />
+		}
+	</FooterTemplate>
+</HxModal>

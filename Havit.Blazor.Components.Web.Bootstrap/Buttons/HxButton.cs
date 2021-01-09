@@ -64,7 +64,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			// no base call
 			builder.OpenElement(0, "button");
 			builder.AddAttribute(1, "type", GetButtonType());
-			builder.AddAttribute(2, "class", CssClassHelper.Combine("btn btn-primary", Skin?.CssClass, CssClass));
+			builder.AddAttribute(2, "class", CssClassHelper.Combine("btn", Skin?.CssClass, CssClass));
 			builder.AddAttribute(3, "onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, HandleClick));
 			builder.AddAttribute(4, "disabled", !this.EnabledEffective());
 
