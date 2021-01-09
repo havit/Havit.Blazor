@@ -125,7 +125,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				if (ShowCloseButton)
 				{
 					builder.OpenRegion(209);
-					BuildRenderTree_CloseButton(builder);
+					BuildRenderTree_CloseButton(builder, "ms-auto");
 					builder.CloseRegion();
 				}
 				builder.CloseElement(); // toast-header				
@@ -135,28 +135,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (renderContent)
 			{
 				builder.OpenElement(300, "div");
-				builder.AddAttribute(301, "class", "toast-body");
+				builder.AddAttribute(301, "class", "toast-body position-relative");
 
 				builder.AddContent(304, ContentText);
 				builder.AddContent(305, ContentTemplate);
 
+				builder.CloseElement(); // toast-body
+
 				if (!renderHeader && ShowCloseButton)
 				{
 					builder.OpenRegion(306);
-					BuildRenderTree_CloseButton(builder);
+					BuildRenderTree_CloseButton(builder, "position-absolute top-0 end-0 ms-2");
 					builder.CloseRegion();
 				}
-				builder.CloseElement(); // toast-body
 			}
 
 			builder.CloseElement(); // toast
 		}
 
-		private void BuildRenderTree_CloseButton(RenderTreeBuilder builder)
+		private void BuildRenderTree_CloseButton(RenderTreeBuilder builder, string cssClass = null)
 		{
 			builder.OpenElement(100, "button");
 			builder.AddAttribute(101, "type", "button");
-			builder.AddAttribute(102, "class", "btn-close ms-auto");
+			builder.AddAttribute(102, "class", CssClassHelper.Combine("btn-close", cssClass));
 			builder.AddAttribute(103, "data-bs-dismiss", "toast");
 			builder.AddAttribute(104, "aria-label", "Close");
 			builder.CloseElement(); // button
