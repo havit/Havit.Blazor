@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public EventCallback<TFilterType> FilterChanged { get; set; }
 
 		// TODO: Pojmenování?
-		[Parameter] public EventCallback<NamedView<TFilterType>> SelectedNamedViewChanged { get; set; }
+		[Parameter] public EventCallback<NamedView<TFilterType>> OnNamedViewSelected { get; set; }
 
 		protected async Task HandleNamedViewClick(NamedView<TFilterType> namedView)
 		{
@@ -29,7 +29,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				await FilterChanged.InvokeAsync(newFilter);
 			}
 
-			await SelectedNamedViewChanged.InvokeAsync(namedView);
+			await OnNamedViewSelected.InvokeAsync(namedView);
 		}
 	}
 }

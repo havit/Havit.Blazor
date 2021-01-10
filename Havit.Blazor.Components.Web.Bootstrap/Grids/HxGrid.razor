@@ -9,10 +9,10 @@
 		<MultiSelectGridColumn TItemType="TItemType"
 							   AllDataItemsSelected="@allDataItemsSelected"
 							   SelectedDataItems="@SelectedDataItems"
-							   SelectDataItemClicked="HandleMultiSelectSelectDataItemClicked"
-							   UnselectDataItemClicked="HandleMultiSelectUnselectDataItemClicked"
-							   SelectAllClicked="HandleMultiSelectSelectAllClicked"
-							   SelectNoneClicked="HandleMultiSelectSelectNoneClicked" />
+							   OnSelectDataItemClicked="HandleMultiSelectSelectDataItemClicked"
+							   OnUnselectDataItemClicked="HandleMultiSelectUnselectDataItemClicked"
+							   OnSelectAllClicked="HandleMultiSelectSelectAllClicked"
+							   OnSelectNoneClicked="HandleMultiSelectSelectNoneClicked" />
 	}
 	@Columns
 	@if (ContextMenu != null)

@@ -29,7 +29,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Parameter] public bool UseStaticBackdrop { get; set; } = true;
 
-		[Parameter] public EventCallback Closed { get; set; }
+		[Parameter] public EventCallback OnClosed { get; set; }
 
 		[Inject] public IJSRuntime JSRuntime { get; set; }
 
@@ -65,7 +65,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task HxModal_HandleModalHidden()
 		{
 			opened = false;
-			await Closed.InvokeAsync(); // fires "event" dialog has been closed
+			await OnClosed.InvokeAsync(); // fires "event" dialog has been closed
 			StateHasChanged(); // ensures rerender to remove dialog from HTML
 		}
 

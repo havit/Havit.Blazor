@@ -12,10 +12,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		[Parameter] public HashSet<TItemType> SelectedDataItems { get; set; }
 		[Parameter] public bool AllDataItemsSelected { get; set; }
-		[Parameter] public EventCallback SelectAllClicked { get; set; }
-		[Parameter] public EventCallback SelectNoneClicked { get; set; }
-		[Parameter] public EventCallback<TItemType> SelectDataItemClicked { get; set; }
-		[Parameter] public EventCallback<TItemType> UnselectDataItemClicked { get; set; }
+		[Parameter] public EventCallback OnSelectAllClicked { get; set; }
+		[Parameter] public EventCallback OnSelectNoneClicked { get; set; }
+		[Parameter] public EventCallback<TItemType> OnSelectDataItemClicked { get; set; }
+		[Parameter] public EventCallback<TItemType> OnUnselectDataItemClicked { get; set; }
 
 		protected override CellTemplate GetHeaderCellTemplate()
 		{
@@ -80,7 +80,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			return async (ChangeEventArgs changeEventArgs) =>
 			{
-				await (wasSelected ? UnselectDataItemClicked : SelectDataItemClicked).InvokeAsync(item);
+				await (wasSelected ? OnUnselectDataItemClicked : OnSelectDataItemClicked).InvokeAsync(item);
 			};
 		}
 
@@ -88,11 +88,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			if (AllDataItemsSelected)
 			{
-				await SelectNoneClicked.InvokeAsync();
+				await OnSelectNoneClicked.InvokeAsync();
 			}
 			else
 			{
-				await SelectAllClicked.InvokeAsync();
+				await OnSelectAllClicked.InvokeAsync();
 			}
 		}
 	}
