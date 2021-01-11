@@ -23,12 +23,12 @@
 		<div class="d-grid gap-2 d-md-block">
 			@if (CanGoBack())
 			{
-				<button class="btn btn-lg btn-light" @onclick="GoBackClick">Back</button>
+				<HxButton Text="Back" Style="ButtonStyle.Secondary" OnClick="GoBackClick" />@* TODO: Localization *@
 			}
 
 			@if (CanGoNext())
 			{
-				<button class="btn btn-primary btn-lg" @onclick="GoNextClick">Next</button>
+				<HxButton Text="Next" Style="ButtonStyle.Primary" OnClick="GoNextClick" />@* TODO: Localization *@
 			}
 		</div>
 	</div>

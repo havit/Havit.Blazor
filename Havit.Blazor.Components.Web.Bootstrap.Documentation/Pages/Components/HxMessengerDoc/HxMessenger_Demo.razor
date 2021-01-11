@@ -1,8 +1,8 @@
-﻿<HxButton Text="Show information" OnClick="HandleAddInformationButtonClick" />
-<HxButton Text="Show warning" OnClick="HandleAddWarningButtonClick" />
-<HxButton Text="Show error" OnClick="HandleAddErrorButtonClick" />
+﻿<HxButton Text="Show information" OnClick="HandleAddInformationButtonClick" Style="ButtonStyle.Primary" />
+<HxButton Text="Show warning" OnClick="HandleAddWarningButtonClick" Style="ButtonStyle.Primary" />
+<HxButton Text="Show error" OnClick="HandleAddErrorButtonClick" Style="ButtonStyle.Primary" />
 
-@code { 
+@code {
 	[Inject] protected IMessenger Messenger { get; set; }
 
 	protected override void OnAfterRender(bool firstRender)

@@ -41,6 +41,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public IconBase Icon { get; set; }
 
 		/// <summary>
+		/// Bootstrap button style. See https://getbootstrap.com/docs/5.0/components/buttons/.
+		/// </summary>
+		[Parameter] public ButtonStyle? Style { get; set; }
+
+		/// <summary>
+		/// Bootstrap outline button style. See https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons.
+		/// </summary>
+		[Parameter] public bool? Outline { get; set; }
+
+		/// <summary>
 		/// Skin of the button. Simplifies usage of button properties.
 		/// </summary>
 		[Parameter] public ButtonSkin Skin { get; set; }
@@ -51,7 +61,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Raised after the button is clicked.
 		/// </summary>
-		[Parameter]	public EventCallback<MouseEventArgs> OnClick { get; set; }
+		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
 		/// <summary>
 		/// Localization service.
@@ -64,7 +74,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			// no base call
 			builder.OpenElement(0, "button");
 			builder.AddAttribute(1, "type", GetButtonType());
-			builder.AddAttribute(2, "class", CssClassHelper.Combine("btn", Skin?.CssClass, CssClass));
+			builder.AddAttribute(2, "class", CssClassHelper.Combine("btn", GetStyleCss(), this.CssClass ?? Skin?.CssClass));
 			builder.AddAttribute(3, "onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, HandleClick));
 			builder.AddAttribute(4, "disabled", !this.EnabledEffective());
 
@@ -89,6 +99,44 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			builder.AddContent(10, ChildContent);
 			builder.CloseElement();
+		}
+
+		protected string GetStyleCss()
+		{
+			var outline = this.Outline ?? Skin?.Outline ?? false;
+			var style = this.Style ?? Skin?.Style ?? throw new InvalidOperationException("Button Style has to be set - either from Skin or explicitly.");
+
+			if (outline)
+			{
+				return style switch
+				{
+					ButtonStyle.Primary => "btn-outline-primary",
+					ButtonStyle.Secondary => "btn-outline-secondary",
+					ButtonStyle.Success => "btn-outline-success",
+					ButtonStyle.Danger => "btn-outline-danger",
+					ButtonStyle.Warning => "btn-outline-warning",
+					ButtonStyle.Info => "btn-outline-info",
+					ButtonStyle.Light => "btn-outline-light",
+					ButtonStyle.Dark => "btn-outline-dark",
+					ButtonStyle.Link => "btn-link",
+					ButtonStyle.None => null,
+					_ => throw new InvalidOperationException($"Unknown button style {style:g}.")
+				};
+			}
+			return style switch
+			{
+				ButtonStyle.Primary => "btn-primary",
+				ButtonStyle.Secondary => "btn-secondary",
+				ButtonStyle.Success => "btn-success",
+				ButtonStyle.Danger => "btn-danger",
+				ButtonStyle.Warning => "btn-warning",
+				ButtonStyle.Info => "btn-info",
+				ButtonStyle.Light => "btn-light",
+				ButtonStyle.Dark => "btn-dark",
+				ButtonStyle.Link => "btn-link",
+				ButtonStyle.None => null,
+				_ => throw new InvalidOperationException($"Unknown button style {style:g}.")
+			};
 		}
 
 		private protected virtual string GetButtonType() => "button";

@@ -29,7 +29,9 @@
 	</div>
 }
 
-<HxButton Text="Toggle" OnClick="() => { isVisible = !isVisible; }" />
+<p>
+	<HxButton Text="Toggle" OnClick="() => { isVisible = !isVisible; }" Style="ButtonStyle.Primary" />
+</p>
 
 @code{
 	private bool isVisible = true;

@@ -3,12 +3,12 @@
 	<HxTab Title="First tab">
 		<Content>This is the first tab.</Content>
 	</HxTab>
-	<HxTab Title="Second tab" @bind-IsCurrentlyActive="@secondTabIsActive">	
+	<HxTab Title="Second tab" @bind-IsCurrentlyActive="@secondTabIsActive">
 		<Content>This is the second tab.</Content>
 	</HxTab>
 </HxTabPanel>
 
-<HxButton Text="Set second tab active" Enabled="@(!secondTabIsActive)" OnClick="() => { secondTabIsActive = true; }" />
+<HxButton Text="Set second tab active" Enabled="@(!secondTabIsActive)" OnClick="() => { secondTabIsActive = true; }" Style="ButtonStyle.Primary" />
 
 @code{
 	private bool secondTabIsActive = false;

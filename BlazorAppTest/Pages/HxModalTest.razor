@@ -2,11 +2,11 @@
 
 <h1>HxModal</h1>
 
-<HxButton OnClick="HandleShowClick">Show</HxButton>
+<HxButton OnClick="HandleShowClick" Style="ButtonStyle.Primary">Show</HxButton>
 
 <HxModal @ref="myModal" Header="Header">
 	<BodyTemplate>Body</BodyTemplate>
-	<FooterTemplate><HxButton Skin="ButtonSkins.Close" OnClick="HandleHideClick" /></FooterTemplate>
+	<FooterTemplate><HxButton Skin="ButtonSkins.Close" OnClick="HandleHideClick" Style="ButtonStyle.Primary"/></FooterTemplate>
 </HxModal>
 
 @code

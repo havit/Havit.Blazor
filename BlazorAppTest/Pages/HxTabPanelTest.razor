@@ -19,9 +19,9 @@
 <p>2nd tab is active: @secondTabIsActive</p>
 <p>3rd tab visible: @thirdTabVisible</p>
 
-<HxButton Text="Activate 2nd tab" Enabled="@(!secondTabIsActive)" OnClick="HandleActivateSecondTabButtonClick" />
-<HxButton Text="Update 2nd tab title" OnClick="HandleUpdateSecondTabTitleButtonClick" />
-<HxButton Text="Toggle 3rd tab visibility" OnClick="HandleToggleThirdTabVisibilityButtonClick" />
+<HxButton Text="Activate 2nd tab" Enabled="@(!secondTabIsActive)" OnClick="HandleActivateSecondTabButtonClick" Style="ButtonStyle.Primary" />
+<HxButton Text="Update 2nd tab title" OnClick="HandleUpdateSecondTabTitleButtonClick" Style="ButtonStyle.Primary" />
+<HxButton Text="Toggle 3rd tab visibility" OnClick="HandleToggleThirdTabVisibilityButtonClick" Style="ButtonStyle.Primary" />
 
 @code{
 	private bool secondTabIsActive = false;

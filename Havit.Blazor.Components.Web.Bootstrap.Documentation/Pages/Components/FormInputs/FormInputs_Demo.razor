@@ -31,11 +31,12 @@
 	<HxInputCheckBox Label="CheckBox" @bind-Value="@model.BoolValue" />
 	<HxInputSwitch Label="Switch" @bind-Value="@model.BoolValue" />
 
-	<HxSubmit>Validate</HxSubmit>
+	<HxSubmit Style="ButtonStyle.Primary">Validate</HxSubmit>
 
 </EditForm>
 
-@code{
+@code
+{
 	protected DemoModel model = new DemoModel();
 
 	public class DemoModel
@@ -58,5 +59,4 @@
 
 		public bool BoolValue { get; set; }
 	}
-
 }

@@ -4,9 +4,9 @@
 
 <h1>HxMessenger</h1>
 
-<HxButton Text="Add information" OnClick="HandleAddInformationButtonClick" />
-<HxButton Text="Add warning" OnClick="HandleAddWarningButtonClick" />
-<HxButton Text="Add error" OnClick="HandleAddErrorButtonClick" />
+<HxButton Text="Add information" OnClick="HandleAddInformationButtonClick" Style="ButtonStyle.Primary" />
+<HxButton Text="Add warning" OnClick="HandleAddWarningButtonClick" Style="ButtonStyle.Warning" />
+<HxButton Text="Add error" OnClick="HandleAddErrorButtonClick" Style="ButtonStyle.Danger" />
 
 @code{
 	[Inject] protected IMessenger Messenger { get; set; }
