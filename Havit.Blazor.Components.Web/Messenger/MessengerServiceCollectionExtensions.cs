@@ -10,7 +10,7 @@ namespace Havit.Blazor.Components.Web.Messenger
 	/// <summary>
 	/// Extension methods for installation of HxMessenger support.
 	/// </summary>
-	public static class ServiceCollectionExtensions
+	public static class MessengerServiceCollectionExtensions
 	{
 		/// <summary>
 		/// Adds <see cref="IHxMessengerService"/> support to be able to add messages to HxMessenger.

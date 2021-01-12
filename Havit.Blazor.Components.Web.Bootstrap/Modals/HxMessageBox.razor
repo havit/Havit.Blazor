@@ -18,7 +18,7 @@
 	<FooterTemplate>
 		@foreach (var button in GetButtonsToRender())
 		{
-			<HxButton Text="@button.Text" OnClick="@(() => HandleButtonClick(button.Id))" CssClass="@((button.IsPrimary ?? false) ? "btn-primary" : null)" />
+			<HxButton Text="@button.Text" OnClick="@(() => HandleButtonClick(button.Id))" CssClass="@((button.IsPrimary ?? false) ? "btn-primary" : null)" Color="@((button.IsPrimary ?? false) ? ThemeColor.Primary : ThemeColor.Secondary)" />
 		}
 	</FooterTemplate>
 </HxModal>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
@@ -41,23 +42,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool ShowCloseButton { get; set; } = true;
 
 		/// <summary>
-		/// Buttons to show. Default is <see cref="HxMessageBoxButtons.Ok"/>.
+		/// Buttons to show. Default is <see cref="MessageBoxButtons.Ok"/>.
 		/// </summary>
-		[Parameter] public HxMessageBoxButtons Buttons { get; set; } = HxMessageBoxButtons.Ok;
+		[Parameter] public MessageBoxButtons Buttons { get; set; } = MessageBoxButtons.Ok;
 
 		/// <summary>
 		/// Primary button (if you want to override the default).
 		/// </summary>
-		[Parameter] public HxMessageBoxButtons? PrimaryButton { get; set; }
+		[Parameter] public MessageBoxButtons? PrimaryButton { get; set; }
 
 		/// <summary>
-		/// Text for <see cref="HxMessageBoxButtons.Custom"/>.
+		/// Text for <see cref="MessageBoxButtons.Custom"/>.
 		/// </summary>
 		[Parameter] public string CustomButtonText { get; set; }
 
 		[Parameter] public string CssClass { get; set; }
 
-		[Parameter] public EventCallback<HxMessageBoxButtons> OnClosed { get; set; }
+		[Parameter] public EventCallback<MessageBoxButtons> OnClosed { get; set; }
 
 
 		[Inject] protected IStringLocalizer<HxMessageBox> Loc { get; set; }
@@ -71,7 +72,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await modal.ShowAsync();
 		}
 
-		private async Task HandleButtonClick(HxMessageBoxButtons button)
+		private async Task HandleButtonClick(MessageBoxButtons button)
 		{
 			shouldSignalClose = false;
 			await modal.HideAsync();  // fires HxModal.OnClosed => We have shouldSignalClose to prevent raising our OnClose twice
@@ -82,7 +83,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			if (shouldSignalClose)
 			{
-				await OnClosed.InvokeAsync(HxMessageBoxButtons.None);
+				await OnClosed.InvokeAsync(MessageBoxButtons.None);
 				shouldSignalClose = false;
 			}
 		}
@@ -94,64 +95,64 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			switch (this.Buttons)
 			{
-				case HxMessageBoxButtons.AbortRetryIgnore:
+				case MessageBoxButtons.AbortRetryIgnore:
 					// no primary button (if not explicitly requested)
-					buttons.Add(new() { Id = HxMessageBoxButtons.Abort, Text = Loc["Abort"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Abort) });
-					buttons.Add(new() { Id = HxMessageBoxButtons.Retry, Text = Loc["Retry"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Retry) });
-					buttons.Add(new() { Id = HxMessageBoxButtons.Ignore, Text = Loc["Ignore"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Ignore) });
+					buttons.Add(new() { Id = MessageBoxButtons.Abort, Text = Loc["Abort"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Abort) });
+					buttons.Add(new() { Id = MessageBoxButtons.Retry, Text = Loc["Retry"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Retry) });
+					buttons.Add(new() { Id = MessageBoxButtons.Ignore, Text = Loc["Ignore"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ignore) });
 					break;
-				case HxMessageBoxButtons.OkCancel:
-					primaryButtonEffective ??= HxMessageBoxButtons.Ok;
-					buttons.Add(new() { Id = HxMessageBoxButtons.Cancel, Text = Loc["Cancel"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Cancel) });
-					buttons.Add(new() { Id = HxMessageBoxButtons.Ok, Text = Loc["OK"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Ok) });
+				case MessageBoxButtons.OkCancel:
+					primaryButtonEffective ??= MessageBoxButtons.Ok;
+					buttons.Add(new() { Id = MessageBoxButtons.Cancel, Text = Loc["Cancel"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Cancel) });
+					buttons.Add(new() { Id = MessageBoxButtons.Ok, Text = Loc["OK"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ok) });
 					break;
-				case HxMessageBoxButtons.YesNo:
-					primaryButtonEffective ??= HxMessageBoxButtons.Yes;
-					buttons.Add(new() { Id = HxMessageBoxButtons.No, Text = Loc["No"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.No) });
-					buttons.Add(new() { Id = HxMessageBoxButtons.Yes, Text = Loc["Yes"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Yes) });
+				case MessageBoxButtons.YesNo:
+					primaryButtonEffective ??= MessageBoxButtons.Yes;
+					buttons.Add(new() { Id = MessageBoxButtons.No, Text = Loc["No"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.No) });
+					buttons.Add(new() { Id = MessageBoxButtons.Yes, Text = Loc["Yes"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Yes) });
 					break;
-				case HxMessageBoxButtons.RetryCancel:
-					primaryButtonEffective ??= HxMessageBoxButtons.Retry;
-					buttons.Add(new() { Id = HxMessageBoxButtons.Cancel, Text = Loc["Cancel"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Cancel) });
-					buttons.Add(new() { Id = HxMessageBoxButtons.Retry, Text = Loc["Retry"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Retry) });
+				case MessageBoxButtons.RetryCancel:
+					primaryButtonEffective ??= MessageBoxButtons.Retry;
+					buttons.Add(new() { Id = MessageBoxButtons.Cancel, Text = Loc["Cancel"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Cancel) });
+					buttons.Add(new() { Id = MessageBoxButtons.Retry, Text = Loc["Retry"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Retry) });
 					break;
-				case HxMessageBoxButtons.CustomCancel:
-					primaryButtonEffective ??= HxMessageBoxButtons.Custom;
-					buttons.Add(new() { Id = HxMessageBoxButtons.Cancel, Text = Loc["Cancel"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Cancel) });
-					buttons.Add(new() { Id = HxMessageBoxButtons.Custom, Text = this.CustomButtonText, IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Custom) });
+				case MessageBoxButtons.CustomCancel:
+					primaryButtonEffective ??= MessageBoxButtons.Custom;
+					buttons.Add(new() { Id = MessageBoxButtons.Cancel, Text = Loc["Cancel"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Cancel) });
+					buttons.Add(new() { Id = MessageBoxButtons.Custom, Text = this.CustomButtonText, IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Custom) });
 					break;
 				default:
-					if (this.Buttons.HasFlag(HxMessageBoxButtons.Abort))
+					if (this.Buttons.HasFlag(MessageBoxButtons.Abort))
 					{
-						buttons.Add(new() { Id = HxMessageBoxButtons.Abort, Text = Loc["Abort"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Abort) });
+						buttons.Add(new() { Id = MessageBoxButtons.Abort, Text = Loc["Abort"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Abort) });
 					}
-					if (this.Buttons.HasFlag(HxMessageBoxButtons.Retry))
+					if (this.Buttons.HasFlag(MessageBoxButtons.Retry))
 					{
-						buttons.Add(new() { Id = HxMessageBoxButtons.Retry, Text = Loc["Retry"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Retry) });
+						buttons.Add(new() { Id = MessageBoxButtons.Retry, Text = Loc["Retry"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Retry) });
 					}
-					if (this.Buttons.HasFlag(HxMessageBoxButtons.Ignore))
+					if (this.Buttons.HasFlag(MessageBoxButtons.Ignore))
 					{
-						buttons.Add(new() { Id = HxMessageBoxButtons.Ignore, Text = Loc["Ignore"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Ignore) });
+						buttons.Add(new() { Id = MessageBoxButtons.Ignore, Text = Loc["Ignore"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ignore) });
 					}
-					if (this.Buttons.HasFlag(HxMessageBoxButtons.Cancel))
+					if (this.Buttons.HasFlag(MessageBoxButtons.Cancel))
 					{
-						buttons.Add(new() { Id = HxMessageBoxButtons.Cancel, Text = Loc["Cancel"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Cancel) });
+						buttons.Add(new() { Id = MessageBoxButtons.Cancel, Text = Loc["Cancel"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Cancel) });
 					}
-					if (this.Buttons.HasFlag(HxMessageBoxButtons.Yes))
+					if (this.Buttons.HasFlag(MessageBoxButtons.Yes))
 					{
-						buttons.Add(new() { Id = HxMessageBoxButtons.Yes, Text = Loc["Yes"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Yes) });
+						buttons.Add(new() { Id = MessageBoxButtons.Yes, Text = Loc["Yes"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Yes) });
 					}
-					if (this.Buttons.HasFlag(HxMessageBoxButtons.No))
+					if (this.Buttons.HasFlag(MessageBoxButtons.No))
 					{
-						buttons.Add(new() { Id = HxMessageBoxButtons.No, Text = Loc["No"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.No) });
+						buttons.Add(new() { Id = MessageBoxButtons.No, Text = Loc["No"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.No) });
 					}
-					if (this.Buttons.HasFlag(HxMessageBoxButtons.Custom))
+					if (this.Buttons.HasFlag(MessageBoxButtons.Custom))
 					{
-						buttons.Add(new() { Id = HxMessageBoxButtons.Custom, Text = this.CustomButtonText, IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Custom) });
+						buttons.Add(new() { Id = MessageBoxButtons.Custom, Text = this.CustomButtonText, IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Custom) });
 					}
-					if (this.Buttons.HasFlag(HxMessageBoxButtons.Ok))
+					if (this.Buttons.HasFlag(MessageBoxButtons.Ok))
 					{
-						buttons.Add(new() { Id = HxMessageBoxButtons.Ok, Text = Loc["Ok"], IsPrimary = primaryButtonEffective?.HasFlag(HxMessageBoxButtons.Ok) });
+						buttons.Add(new() { Id = MessageBoxButtons.Ok, Text = Loc["Ok"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ok) });
 					}
 					break;
 			}
@@ -172,7 +173,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private class ButtonDefintion
 		{
-			public HxMessageBoxButtons Id { get; set; }
+			public MessageBoxButtons Id { get; set; }
 			public string Text { get; set; }
 			public bool? IsPrimary { get; set; }
 		}

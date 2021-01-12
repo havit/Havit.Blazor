@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web
 {
 	[Flags]
-	public enum HxMessageBoxButtons
+	public enum MessageBoxButtons
 	{
 		None             = 0,
 		Ok               = 0b_0000_0001,

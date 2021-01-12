@@ -1,0 +1,27 @@
+﻿@page "/HxMessageBoxHostTest"
+@* <HxMessageBoxHost /> iteself is in MainLayout.razor *@
+
+<h1>HxMessageBoxHost</h1>
+
+<p>
+	<HxButton Text="Open MessageBox 1..." OnClick="OpenMessageBox" Color="ThemeColor.Primary" />
+</p>
+
+<p>
+	Last result: @result.ToString("g")
+</p>
+
+@code{
+	[Inject] protected IHxMessageBoxService MessageBox { get; set; }
+
+	private MessageBoxButtons result;
+
+	private async Task OpenMessageBox()
+	{
+		result = await MessageBox.ShowAsync(new MessageBoxRequest()
+		{
+			Text = "OK?",
+			Buttons = MessageBoxButtons.OkCancel
+		});
+	}
+}

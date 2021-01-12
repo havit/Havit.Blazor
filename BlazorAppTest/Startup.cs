@@ -33,6 +33,7 @@ namespace BlazorAppTest
 			services.AddServerSideBlazor();
 
 			services.AddHxMessenger();
+			services.AddHxMessageBoxHost();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
