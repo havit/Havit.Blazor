@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web.Messenger
 {
 	/// <summary>
-	/// Provides methods for adding and showing message. Use <see cref="MessengerExtensions">extension methods</see>.
+	/// Provides methods for adding and showing message. Additional extension methods available in concrete implementation.
 	/// </summary>
-	public interface IMessenger
+	public interface IHxMessengerService
 	{
 		/// <summary>
 		/// Subscription seam for HxMessenger component to be able to receive the messages.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web
 {
 	/// <summary>
 	/// Base class for icons.

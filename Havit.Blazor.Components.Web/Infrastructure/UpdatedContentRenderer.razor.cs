@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Text;
 using Microsoft.AspNetCore.Components;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Infrastructure
+namespace Havit.Blazor.Components.Web.Infrastructure
 {
 	// TODO: Naming!
 	public partial class UpdatedContentRenderer : ComponentBase, IDisposable

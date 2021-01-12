@@ -16,12 +16,17 @@
 
 <h3>Namespaces</h3>
 <p>Add these namespaces to your _Import.razor file:</p>
-<ul>
-	<li>Havit.Blazor.Components.Web.Bootstrap</li>
-	<li>Havit.Blazor.Components.Web.Bootstrap.Forms</li>
-	TODO: Add next. Styling.
-</ul>
+<p>
+	<ul>
+		<li>Havit.Blazor.Components.Web</li>
+		<li>Havit.Blazor.Components.Web.Bootstrap</li>
+		<li>(Havit.Blazor.Components.Web.Messenger - if you want to use IHxMessengerService in .razor files)</li>
+		@* TODO: Add next. Styling. *@
+	</ul>
+</p>
 
 <h3>Services</h3>
 <p>Add localization services to the DI container:</p>
 <p><code>services.AddLocalizations();</code></p>
+<p>Add IHxMessengerService support to the DI container:</p>
+<p><code>services.AddHxMessenger();</code></p>

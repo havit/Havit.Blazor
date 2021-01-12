@@ -4,7 +4,7 @@ using System.Text;
 using Havit.Blazor.Components.Web.Forms;
 using Microsoft.AspNetCore.Components;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Infrastructure
+namespace Havit.Blazor.Components.Web.Infrastructure
 {
 	/// <summary>
 	/// Extensions to <see cref="ICascadeEnabledComponent"/>.

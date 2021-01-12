@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using Havit.Blazor.Components.Web.Bootstrap.Infrastructure;
+using Havit.Blazor.Components.Web.Infrastructure;
 using Havit.Collections;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;

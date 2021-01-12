@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Havit.Blazor.Components.Web.Messenger;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -18,7 +19,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool RemoveMessagesOnNavigation { get; set; } = true;
 		[Parameter] public string CssClass { get; set; }
 
-		[Inject] protected IMessenger Messenger { get; set; }
+		[Inject] protected IHxMessengerService Messenger { get; set; }
 		[Inject] protected NavigationManager NavigationManager { get; set; }
 
 		private List<MessengerMessage> messages = new List<MessengerMessage>();

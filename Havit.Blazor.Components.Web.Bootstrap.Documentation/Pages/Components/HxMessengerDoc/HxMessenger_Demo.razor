@@ -3,7 +3,7 @@
 <HxButton Text="Show error" OnClick="HandleAddErrorButtonClick" Color="ThemeColor.Primary" />
 
 @code {
-	[Inject] protected IMessenger Messenger { get; set; }
+	[Inject] protected IHxMessengerService Messenger { get; set; }
 
 	protected override void OnAfterRender(bool firstRender)
 	{

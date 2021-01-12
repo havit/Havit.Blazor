@@ -11,6 +11,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap.Documentation\Havit.Blazor.Components.Web.Bootstrap.Documentation.csproj" />
 		<ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap\Havit.Blazor.Components.Web.Bootstrap.csproj" />
+		<ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
 	</ItemGroup>
 
 	<Target Name="TfsPublish" AfterTargets="AfterPublish" Condition="'$(PublishDirectory)' != ''">

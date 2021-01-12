@@ -21,6 +21,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		Info,
 		Light,
 		Dark,
+		/// <summary>
+		/// To be used for buttons only.
+		/// </summary>
 		Link
 	}
 }

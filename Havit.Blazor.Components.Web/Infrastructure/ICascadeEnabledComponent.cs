@@ -4,7 +4,7 @@ using System.Text;
 using Havit.Blazor.Components.Web.Forms;
 using Microsoft.AspNetCore.Components;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Infrastructure
+namespace Havit.Blazor.Components.Web.Infrastructure
 {
 	/// <summary>
 	/// Component which can be enabled/disabled in cascade.

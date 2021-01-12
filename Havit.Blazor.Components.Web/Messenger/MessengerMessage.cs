@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web.Messenger
 {
 	/// <summary>
 	/// Messenger message.
@@ -15,12 +15,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public string Key { get; } = Guid.NewGuid().ToString("N");
 
 		/// <summary>
-		/// Bootstrap icon.
+		/// Message icon.
 		/// </summary>
 		public IconBase Icon { get; set; }
 
 		/// <summary>
-		/// Css class.
+		/// CSS class.
 		/// </summary>
 		public string CssClass { get; set; }
 

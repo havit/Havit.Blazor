@@ -9,7 +9,7 @@
 <HxButton Text="Add error" OnClick="HandleAddErrorButtonClick" Color="ThemeColor.Danger" />
 
 @code{
-	[Inject] protected IMessenger Messenger { get; set; }
+	[Inject] protected IHxMessengerService Messenger { get; set; }
 
 	protected override void OnAfterRender(bool firstRender)
 	{
