@@ -46,9 +46,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public ThemeColor? Color { get; set; }
 
 		/// <summary>
-		/// Bootstrap outline button style. See https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons.
+		/// Bootstrap "outline" button style. See https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons.
 		/// </summary>
-		[Parameter] public bool? Outline { get; set; }
+		[Parameter] public bool? Outlined { get; set; }
 
 		/// <summary>
 		/// Skin of the button. Simplifies usage of button properties.
@@ -88,10 +88,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected string GetColorCss()
 		{
-			var outline = this.Outline ?? Skin?.Outline ?? false;
+			var outlined = this.Outlined ?? Skin?.Outlined ?? false;
 			var style = this.Color ?? Skin?.Color ?? throw new InvalidOperationException($"Button {nameof(Color)} has to be set - either from {nameof(Skin)} or explicitly.");
 
-			if (outline)
+			if (outlined)
 			{
 				return style switch
 				{
