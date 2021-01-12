@@ -19,6 +19,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation
 
 			builder.Services.AddLocalization();
 			builder.Services.AddHxMessenger();
+			builder.Services.AddHxMessageBoxHost();
 
 			await builder.Build().RunAsync();
 		}

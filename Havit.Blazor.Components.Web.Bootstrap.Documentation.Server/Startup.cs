@@ -19,7 +19,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server
 		{
 			services.AddLocalization();
 			services.AddRazorPages();
+
 			services.AddHxMessenger();
+			services.AddHxMessageBoxHost();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,0 +1,29 @@
+﻿@* <HxMessageBoxHost /> is in MainLayout.razor *@
+
+<p>
+	<HxButton Text="MessageBox.ShowAsync()..." OnClick="OpenMessageBox" Color="ThemeColor.Primary" />
+	<HxButton Text="MessageBox.Confirm()..." OnClick="OpenConfirm" Color="ThemeColor.Primary" />
+</p>
+
+<p>
+	ShowAsync result: @showResult.ToString("g")<br />
+	Confirm result: @confirmResult
+</p>
+
+@code
+{
+	[Inject] protected IHxMessageBoxService MessageBox { get; set; }
+
+	private MessageBoxButtons showResult;
+	private bool? confirmResult;
+
+	private async Task OpenMessageBox()
+	{
+		showResult = await MessageBox.ShowAsync("Info", "This is the text", MessageBoxButtons.OkCancel);
+	}
+
+	private async Task OpenConfirm()
+	{
+		confirmResult = await MessageBox.ConfirmAsync("Do you really want to ...?");
+	}
+}
