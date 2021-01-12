@@ -1,14 +1,15 @@
-﻿@namespace  Havit.Blazor.Components.Web.Bootstrap
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<button class="dropdown-item" type="button" @onclick="HandleItemClick">@Value</button>
+<button class="dropdown-item" type="button" @onclick="HandleItemClick" @onclick:stopPropagation="true">@Value</button>
 
-@code {
+@code
+{
 	[Parameter]	public string Value { get; set; }
 
-	[Parameter]	public EventCallback<string> ItemClicked { get; set; }
+	[Parameter]	public EventCallback<string> OnClick { get; set; }
 
 	private async Task HandleItemClick()
 	{
-		await ItemClicked.InvokeAsync(Value);
+		await OnClick.InvokeAsync(Value);
 	}
 }

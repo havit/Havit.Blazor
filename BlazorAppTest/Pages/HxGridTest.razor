@@ -10,15 +10,15 @@
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Link">
 			<ItemTemplate>
-				<a href="https://www.havit.cz">link to a page</a>
+				<a href="https://www.havit.cz" @onclick:stopPropagation>link to a page</a> @* TODO HxLink, který bude mít default stopPropagation ??? *@
 				<HxButton Text="Go" Color="ThemeColor.Secondary" Outline="true" />
 			</ItemTemplate>
 		</HxGridColumn>
 	</Columns>
 	<ContextMenu Context="item">
 		<HxContextMenu>
-			<HxContextMenuItem Title="Nastavit jako výchozí" OnItemClick="async () => await AlarmClicked(item)" />
-			<HxContextMenuItem ConfirmationQuestion="Jako fakt?" OnItemClick="async () => await AlarmClicked(item)">
+			<HxContextMenuItem Text="Nastavit jako výchozí" OnClick="async () => await AlarmClicked(item)" />
+			<HxContextMenuItem ConfirmationQuestion="Jako fakt?" OnClick="async () => await AlarmClicked(item)">
 				<HxIcon Icon="BootstrapIcon.Alarm" /> Bacha na to!
 			</HxContextMenuItem>
 		</HxContextMenu>

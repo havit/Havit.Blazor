@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -33,6 +34,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 					builder.AddAttribute(203, "checked", AllDataItemsSelected);
 					builder.AddAttribute(204, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
+					builder.AddEventStopPropagationAttribute(205, "onclick", true);
 
 					builder.CloseElement(); // input
 

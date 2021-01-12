@@ -2,45 +2,66 @@
 
 <h1>Inputs</h1>
 
-<EditForm Model="@Model">
-	<DataAnnotationsValidator />
-	<ValidationSummary />
+<div class="card" @onclick="HandleCardClick">
+	<div class="card-header">OnClick propagation test</div>
+	<div class="card-body">
 
-	<HxInputText Label="Text" @bind-Value="@Model.Text">
-		<HintTemplate>
-			@Model.Text
-		</HintTemplate>
-	</HxInputText>
+		<EditForm Model="@Model">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
 
-	<HxInputText Label="Text (oninput)" @bind-Value="@Model.Text" BindEvent="BindEvent.OnInput">
-		<HintTemplate>
-			@Model.Text
-		</HintTemplate>
-	</HxInputText>
+			<HxInputText Label="Text" @bind-Value="@Model.Text">
+				<HintTemplate>
+					@Model.Text
+				</HintTemplate>
+			</HxInputText>
 
-	<HxInputText Label="Text (disabled)" Enabled="false" @bind-Value="@Model.Text" />
-	<HxInputText Label="Text (password)" Type="InputType.Password" @bind-Value="@Model.Text" />
+			<HxInputText Label="Text (oninput)" @bind-Value="@Model.Text" BindEvent="BindEvent.OnInput">
+				<HintTemplate>
+					@Model.Text
+				</HintTemplate>
+			</HxInputText>
 
-	<HxInputTextArea Label="TextArea" @bind-Value="@Model.Text" />
+			<HxInputText Label="Text (disabled)" Enabled="false" @bind-Value="@Model.Text" />
+			<HxInputText Label="Text (password)" Type="InputType.Password" @bind-Value="@Model.Text" />
 
-	<HxInputNumber Label="Integer" @bind-Value="@Model.IntegerValue" ParsingErrorMessage="Zadejte správně Integer." />
-	<HxInputNumber Label="Integer (nullable)" @bind-Value="@Model.NullableIntegerValue" ParsingErrorMessage="Zadejte správně Integer.">
-		<InputGroupBeforeTemplate>€</InputGroupBeforeTemplate>
-		<InputGroupAfterTemplate>.00</InputGroupAfterTemplate>
-	</HxInputNumber>
-	<HxInputNumber Label="Decimal" @bind-Value="@Model.DecimalValue" ParsingErrorMessage="Zadejte správně Decimal." />
-	<HxInputNumber Label="Decimal (nullable)" @bind-Value="@Model.NullableDecimalValue" ParsingErrorMessage="Zadejte správně Decimal." />
-	<HxInputDate Label="Date" @bind-Value="@Model.DateValue" ParsingErrorMessage="Zadejte správně Date." />
-	<HxInputDate Label="Date (nullable)" @bind-Value="@Model.NullableDateValue" ParsingErrorMessage="Zadejte správně Date." />
+			<HxInputTextArea Label="TextArea" @bind-Value="@Model.Text" />
 
-	<HxSelect Label="Select" @bind-Value="@Model.CultureInfoName" ValueSelector="@(item => item.DisplayName)" Items="@System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures)" TextSelector="@(item => item.DisplayName)" />
-	<HxSelect Label="Select" @bind-Value="@Model.CultureInfo" Items="@System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).OrderByDescending(i => i.DisplayName)" TextSelector="@(item => item.DisplayName)" />
+			<HxInputNumber Label="Integer" @bind-Value="@Model.IntegerValue" ParsingErrorMessage="Zadejte správně Integer." />
+			<HxInputNumber Label="Integer (nullable)" @bind-Value="@Model.NullableIntegerValue" ParsingErrorMessage="Zadejte správně Integer.">
+				<InputGroupBeforeTemplate>€</InputGroupBeforeTemplate>
+				<InputGroupAfterTemplate>.00</InputGroupAfterTemplate>
+			</HxInputNumber>
+			<HxInputNumber Label="Decimal" @bind-Value="@Model.DecimalValue" ParsingErrorMessage="Zadejte správně Decimal." />
+			<HxInputNumber Label="Decimal (nullable)" @bind-Value="@Model.NullableDecimalValue" ParsingErrorMessage="Zadejte správně Decimal." />
+			<HxInputDate Label="Date" @bind-Value="@Model.DateValue" ParsingErrorMessage="Zadejte správně Date." />
+			<HxInputDate Label="Date (nullable)" @bind-Value="@Model.NullableDateValue" ParsingErrorMessage="Zadejte správně Date." />
 
-	<HxInputCheckBox Label="CheckBox" @bind-Value="@Model.BoolValue">
-		<HintTemplate>@Model.BoolValue</HintTemplate>
-	</HxInputCheckBox>
+			<HxSelect Label="Select" @bind-Value="@Model.CultureInfoName" ValueSelector="@(item => item.DisplayName)" Items="@System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures)" TextSelector="@(item => item.DisplayName)" />
+			<HxSelect Label="Select" @bind-Value="@Model.CultureInfo" Items="@System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).OrderByDescending(i => i.DisplayName)" TextSelector="@(item => item.DisplayName)" />
 
-	<HxInputCheckBox Label="CheckBox" CssClass="form-switch" @bind-Value="@Model.BoolValue" />
+			<HxInputCheckBox Label="CheckBox" @bind-Value="@Model.BoolValue">
+				<HintTemplate>@Model.BoolValue</HintTemplate>
+			</HxInputCheckBox>
 
-	<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>	
-</EditForm>
+			<HxInputCheckBox Label="CheckBox" CssClass="form-switch" @bind-Value="@Model.BoolValue" />
+
+			<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
+		</EditForm>
+
+	</div>
+	<div class="card-footer">
+		Last captured click: @lastCapturedClick
+	</div>
+</div>
+@code
+{
+	private DateTime? lastCapturedClick = null;
+
+	private Task HandleCardClick()
+	{
+		lastCapturedClick = DateTime.Now;
+
+		return Task.CompletedTask;
+	}
+}

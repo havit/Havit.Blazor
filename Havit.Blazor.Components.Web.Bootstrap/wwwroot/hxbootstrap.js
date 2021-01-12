@@ -15,18 +15,6 @@ window.hxBootstrapAutosuggest_destroyDropdown = (selector) => {
     }
 };
 
-// *** HxGrid ****************************************************************
-
-window.hxGrid_cellClick = (event) => {
-    if ((event.target.nodeName === 'A')
-        || (event.target.nodeName === 'INPUT')
-        || (event.target.nodeName === 'BUTTON')
-        || (event.target.nodeName === 'SUBMIT')
-        || event.target.hasAttribute('href')) {
-        event.stopPropagation();
-    }
-}
-
 // *** HxModal ****************************************************************
 
 window.hxModal_show = (element, hxModalDotnetObjectReference, useStaticBackdrop, closeOnEscape) => {

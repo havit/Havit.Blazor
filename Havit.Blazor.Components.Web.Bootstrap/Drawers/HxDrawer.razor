@@ -11,7 +11,7 @@
 			{
 				@Title
 			}
-			<button class="btn-close" @onclick="() => SetState(isOpen: false)" />
+			<button class="btn-close" @onclick="() => SetState(isOpen: false)" @onclick:stopPropagation />
 		</div>
 		@if (BodySection != null)
 		{

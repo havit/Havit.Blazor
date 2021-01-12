@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -33,6 +34,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
  
 			builder.AddAttribute(1000, "checked", BindConverter.FormatValue(CurrentValue));
 			builder.AddAttribute(1001, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
+			builder.AddEventStopPropagationAttribute(1002, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputCheckBox nastavitelné?
+
 			builder.CloseElement();
 		}
 

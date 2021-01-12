@@ -5,7 +5,7 @@
 	{
 		@foreach (string value in Items)
 		{
-			<HxAutosuggestItem @key="@value" Value="@value" ItemClicked="HandleItemClick" />
+			<HxAutosuggestItem @key="@value" Value="@value" OnClick="HandleItemClick" />
 		}
 	}
 </div>
@@ -14,10 +14,10 @@
 {
 	[Parameter]	public List<string> Items { get; set; }
 
-	[Parameter]	public EventCallback<string> ItemClicked { get; set; }
+	[Parameter]	public EventCallback<string> OnItemClicked { get; set; }
 
 	private async Task HandleItemClick(string value)
 	{
-		await ItemClicked.InvokeAsync(value);
+		await OnItemClicked.InvokeAsync(value);
 	}
 }

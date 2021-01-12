@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -122,6 +123,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			BuildRenderInput_AddCommonAttributes(builder, null);
 
 			builder.AddAttribute(1000, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+			builder.AddEventStopPropagationAttribute(1002, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxSelect nastavitelné?
 
 			IEqualityComparer<TValueType> comparer = EqualityComparer<TValueType>.Default;
 			TItemType selectedItem = itemsToRender.FirstOrDefault(item => comparer.Equals(Value, GetValueFromItem(item)));

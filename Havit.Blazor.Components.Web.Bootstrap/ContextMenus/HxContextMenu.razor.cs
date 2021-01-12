@@ -8,6 +8,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxContextMenu
 	{
 		[Parameter]	public RenderFragment ChildContent { get; set; }
-
 	}
 }

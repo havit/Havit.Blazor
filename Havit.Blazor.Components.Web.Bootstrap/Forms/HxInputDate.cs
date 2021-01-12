@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Text;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -30,6 +31,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			builder.AddAttribute(1000, "value", FormatValueAsString(Value));
 			builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+			builder.AddEventStopPropagationAttribute(1002, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputDate nastavitelné?
 
 			builder.CloseElement();
 		}

@@ -8,3 +8,26 @@
 
 <HxButton Text="Click me..." Color="ThemeColor.Warning" />
 <HxButton Text="Outline..." Color="ThemeColor.Danger" Outline="true" />
+
+<div class="card mt-4" @onclick="HandleCardClick">
+	<div class="card-header">OnClickStopPropagationTest</div>
+	<div class="card-body">
+		<HxButton Text="OnClickStopPropagation=true (default)" Color="ThemeColor.Secondary" />
+		<HxButton Text="OnClickStopPropagation=false" Color="ThemeColor.Secondary" OnClickStopPropagation="false" />
+	</div>
+	<div class="card-footer">
+		Last captured click: @lastCapturedClick
+	</div>
+</div>
+
+@code
+{
+	private DateTime? lastCapturedClick = null;
+
+	private Task HandleCardClick()
+	{
+		lastCapturedClick = DateTime.Now;
+
+		return Task.CompletedTask;
+	}
+}

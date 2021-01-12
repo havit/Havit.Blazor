@@ -48,7 +48,7 @@
 
 							@if (columnSorting.Any())
 							{
-								<a @onclick="async () => await HandleSortingClick(columnSorting)" role="button" class="text-muted">
+								<a @onclick="async () => await HandleSortingClick(columnSorting)" @onclick:stopPropagation role="button" class="text-muted">
 									@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Ascending))
 							|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
 									{
@@ -78,13 +78,13 @@
 					if (SelectionMode == GridSelectionMode.Select)
 					{
 						<tr role="button"
-							@onclick="async () => await HandleSelectDataItemClick(item)"
+							@onclick="async () => await HandleSelectDataItemClick(item)" @onclick:stopPropagation
 							class="@(((item != null) && (SelectionMode == GridSelectionMode.Select) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
 
 							@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 							{
 								CellTemplate cellTemplate = column.GetItemCellTemplate(item);
-								<td onclick="hxGrid_cellClick(event);" class="@cellTemplate.CssClass">
+								<td class="@cellTemplate.CssClass">
 									<UpdatedContentRenderer Component="column">
 										@cellTemplate.Template
 									</UpdatedContentRenderer>

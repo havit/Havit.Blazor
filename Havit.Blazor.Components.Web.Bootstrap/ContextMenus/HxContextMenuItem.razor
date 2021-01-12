@@ -1,12 +1,11 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <li>
-	@* !WARN! <span> used instead of <a> to prevent collision with grid-line selection event handling "stop-propagation" implementation. !WARN! *@
-	<span class="dropdown-item" role="button" @onclick="HandleClick">
+	<a class="dropdown-item" role="button" @onclick="HandleClick" @onclick:stopPropagation="@OnClickStopPropagation">
 		@if (Icon != null)
 		{
 			<HxIcon Icon="Icon" />
 		}
-		@Title
+		@Text
 		@ChildContent
-	</span>
+	</a>
 </li>

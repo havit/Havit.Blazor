@@ -10,6 +10,7 @@ using Havit.Blazor.Components.Web.Forms;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -200,11 +201,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.OpenElement(1, "label");
 				builder.AddAttribute(2, "for", InputId);
 				builder.AddAttribute(3, "class", CssClassHelper.Combine(CoreLabelCssClass, LabelCssClass));
+				builder.AddEventStopPropagationAttribute(4, "onclick", true); // TODO: Chceme onclick:stopPropagation na labelech všech inputů, nebo jen checkboxy? Má to být  nastavitelné?
 				if (LabelTemplate == null)
 				{
-					builder.AddContent(3, Label);
+					builder.AddContent(5, Label);
 				}
-				builder.AddContent(4, LabelTemplate);
+				builder.AddContent(6, LabelTemplate);
 				builder.CloseElement();
 			}
 		}

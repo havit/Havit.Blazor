@@ -1,0 +1,17 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+<button type="@GetButtonType()"
+		class="@CssClassHelper.Combine("btn", GetColorCss(), this.CssClass ?? this.Skin?.CssClass)"
+		@onclick="HandleClick"
+		@onclick:stopPropagation="this.OnClickStopPropagation"
+		disabled="@(!this.EnabledEffective())">
+
+	@if ((this.Icon ?? this.Skin?.Icon) is not null)
+	{
+		<HxIcon Icon="this.Icon ?? this.Skin?.Icon" />
+	}
+
+	@GetText()
+
+	@ChildContent
+</button>

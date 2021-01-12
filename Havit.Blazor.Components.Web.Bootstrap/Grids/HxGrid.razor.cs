@@ -16,7 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// Grid to display tabular data from data source.
 	/// </summary>
 	/// <typeparam name="TItemType">Type of row data item.</typeparam>
-	public partial class HxGrid<TItemType> : IDisposable
+	public partial class HxGrid<TItemType> : ComponentBase, IDisposable
 	{
 		/// <summary>
 		/// ColumnsRegistration cascading value name.

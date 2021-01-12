@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Button type="button".
 	/// </summary>
-	public class HxButton : ComponentBase, ICascadeEnabledComponent
+	public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	{
 		/// <inheritdoc />
 		[CascadingParameter] public FormState FormState { get; set; }
@@ -64,47 +64,32 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
 		/// <summary>
+		/// Stop onClick-event propagation. Deafult is <c>true</c>.
+		/// </summary>
+		[Parameter] public bool OnClickStopPropagation { get; set; } = true;
+
+		/// <summary>
 		/// Localization service.
 		/// </summary>
 		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
-		/// <inheritdoc />
-		protected override void BuildRenderTree(RenderTreeBuilder builder)
+		protected string GetText()
 		{
-			// no base call
-			builder.OpenElement(0, "button");
-			builder.AddAttribute(1, "type", GetButtonType());
-			builder.AddAttribute(2, "class", CssClassHelper.Combine("btn", GetStyleCss(), this.CssClass ?? Skin?.CssClass));
-			builder.AddAttribute(3, "onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.MouseEventArgs>(this, HandleClick));
-			builder.AddAttribute(4, "disabled", !this.EnabledEffective());
-
-			IconBase icon = Icon ?? Skin?.Icon;
-			if (icon != null)
-			{
-				builder.OpenComponent(5, typeof(HxIcon));
-				builder.AddAttribute(6, nameof(HxIcon.Icon), icon);
-				builder.CloseComponent();
-				builder.AddContent(7, " ");
-
-			}
-
 			if (!String.IsNullOrEmpty(Text))
 			{
-				builder.AddContent(8, Text);
+				return this.Text;
 			}
 			else if (!String.IsNullOrEmpty(Skin?.Text))
 			{
-				builder.AddContent(9, StringLocalizerFactory.GetLocalizedValue(Skin.Text, Skin.ResourceType));
+				return StringLocalizerFactory.GetLocalizedValue(Skin.Text, Skin.ResourceType);
 			}
-
-			builder.AddContent(10, ChildContent);
-			builder.CloseElement();
+			return null;
 		}
 
-		protected string GetStyleCss()
+		protected string GetColorCss()
 		{
 			var outline = this.Outline ?? Skin?.Outline ?? false;
-			var style = this.Color ?? Skin?.Color ?? throw new InvalidOperationException("Button Style has to be set - either from Skin or explicitly.");
+			var style = this.Color ?? Skin?.Color ?? throw new InvalidOperationException($"Button {nameof(Color)} has to be set - either from {nameof(Skin)} or explicitly.");
 
 			if (outline)
 			{
