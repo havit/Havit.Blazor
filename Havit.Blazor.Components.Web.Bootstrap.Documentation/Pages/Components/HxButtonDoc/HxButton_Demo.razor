@@ -1,18 +1,18 @@
 ﻿<h5>Button with an icon</h5>
 <p>
-	<HxButton Icon="@BootstrapIcon.Bootstrap" Style="ButtonStyle.Primary" Text="Go" />
+	<HxButton Icon="@BootstrapIcon.Bootstrap" Color="ThemeColor.Primary" Text="Go" />
 </p>
 
 <h5>Button with a badge</h5>
 <p>
-	<HxButton Style="ButtonStyle.Primary">
+	<HxButton Color="ThemeColor.Primary">
 		Send all <span class="badge bg-secondary">15</span>
 	</HxButton>
 </p>
 
 <h5>Button with a custom css class</h5>
 <p>
-	<HxButton Style="ButtonStyle.Primary" CssClass="btn-lg" Text="Large button" />
+	<HxButton Color="ThemeColor.Primary" CssClass="btn-lg" Text="Large button" />
 </p>
 
 <h5>Button with a (standard) skin</h5>
@@ -31,7 +31,7 @@
 
 	public class CustomButtonSkins
 	{
-		public static ButtonSkin Demo { get; } = new ButtonSkin(text: "Welcome", icon: BootstrapIcon.Heart, cssClass: "btn-secondary", style: ButtonStyle.Danger);
+		public static ButtonSkin Demo { get; } = new ButtonSkin(text: "Welcome", icon: BootstrapIcon.Heart, cssClass: "btn-secondary", style: ThemeColor.Danger);
 	};
 
 }

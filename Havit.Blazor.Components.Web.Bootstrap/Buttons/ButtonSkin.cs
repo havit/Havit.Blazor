@@ -28,9 +28,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public string Text { get; }
 
 		/// <summary>
-		/// Bootstrap button style.
+		/// Bootstrap button color (style).
 		/// </summary>
-		public ButtonStyle? Style { get; set; }
+		public ThemeColor? Color { get; set; }
 
 		/// <summary>
 		/// Bootstrap outline button style. See https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons.
@@ -45,13 +45,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public ButtonSkin(string text = null, string cssClass = null, IconBase icon = null, Type resourceType = null, ButtonStyle? style = null, bool? outline = false)
+		public ButtonSkin(string text = null, string cssClass = null, IconBase icon = null, Type resourceType = null, ThemeColor? style = null, bool? outline = false)
 		{
 			this.CssClass = cssClass;
 			this.Icon = icon;
 			this.Text = text;
 			this.ResourceType = resourceType;
-			this.Style = style;
+			this.Color = style;
 			this.Outline = outline;
 		}
 	}

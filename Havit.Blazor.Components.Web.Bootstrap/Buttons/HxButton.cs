@@ -41,9 +41,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public IconBase Icon { get; set; }
 
 		/// <summary>
-		/// Bootstrap button style. See https://getbootstrap.com/docs/5.0/components/buttons/.
+		/// Bootstrap button style - theme color. See https://getbootstrap.com/docs/5.0/components/buttons/.
 		/// </summary>
-		[Parameter] public ButtonStyle? Style { get; set; }
+		[Parameter] public ThemeColor? Color { get; set; }
 
 		/// <summary>
 		/// Bootstrap outline button style. See https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons.
@@ -104,37 +104,37 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected string GetStyleCss()
 		{
 			var outline = this.Outline ?? Skin?.Outline ?? false;
-			var style = this.Style ?? Skin?.Style ?? throw new InvalidOperationException("Button Style has to be set - either from Skin or explicitly.");
+			var style = this.Color ?? Skin?.Color ?? throw new InvalidOperationException("Button Style has to be set - either from Skin or explicitly.");
 
 			if (outline)
 			{
 				return style switch
 				{
-					ButtonStyle.Primary => "btn-outline-primary",
-					ButtonStyle.Secondary => "btn-outline-secondary",
-					ButtonStyle.Success => "btn-outline-success",
-					ButtonStyle.Danger => "btn-outline-danger",
-					ButtonStyle.Warning => "btn-outline-warning",
-					ButtonStyle.Info => "btn-outline-info",
-					ButtonStyle.Light => "btn-outline-light",
-					ButtonStyle.Dark => "btn-outline-dark",
-					ButtonStyle.Link => "btn-link",
-					ButtonStyle.None => null,
+					ThemeColor.Primary => "btn-outline-primary",
+					ThemeColor.Secondary => "btn-outline-secondary",
+					ThemeColor.Success => "btn-outline-success",
+					ThemeColor.Danger => "btn-outline-danger",
+					ThemeColor.Warning => "btn-outline-warning",
+					ThemeColor.Info => "btn-outline-info",
+					ThemeColor.Light => "btn-outline-light",
+					ThemeColor.Dark => "btn-outline-dark",
+					ThemeColor.Link => "btn-link",
+					ThemeColor.None => null,
 					_ => throw new InvalidOperationException($"Unknown button style {style:g}.")
 				};
 			}
 			return style switch
 			{
-				ButtonStyle.Primary => "btn-primary",
-				ButtonStyle.Secondary => "btn-secondary",
-				ButtonStyle.Success => "btn-success",
-				ButtonStyle.Danger => "btn-danger",
-				ButtonStyle.Warning => "btn-warning",
-				ButtonStyle.Info => "btn-info",
-				ButtonStyle.Light => "btn-light",
-				ButtonStyle.Dark => "btn-dark",
-				ButtonStyle.Link => "btn-link",
-				ButtonStyle.None => null,
+				ThemeColor.Primary => "btn-primary",
+				ThemeColor.Secondary => "btn-secondary",
+				ThemeColor.Success => "btn-success",
+				ThemeColor.Danger => "btn-danger",
+				ThemeColor.Warning => "btn-warning",
+				ThemeColor.Info => "btn-info",
+				ThemeColor.Light => "btn-light",
+				ThemeColor.Dark => "btn-dark",
+				ThemeColor.Link => "btn-link",
+				ThemeColor.None => null,
 				_ => throw new InvalidOperationException($"Unknown button style {style:g}.")
 			};
 		}

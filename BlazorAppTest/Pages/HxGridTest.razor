@@ -11,7 +11,7 @@
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Link">
 			<ItemTemplate>
 				<a href="https://www.havit.cz">link to a page</a>
-				<HxButton Text="Go" Style="ButtonStyle.Secondary" Outline="true" />
+				<HxButton Text="Go" Color="ThemeColor.Secondary" Outline="true" />
 			</ItemTemplate>
 		</HxGridColumn>
 	</Columns>
@@ -36,7 +36,7 @@
 </HxGrid>
 <p>Current CultureInfo: @currentServerCultureInfo?.DisplayName</p>
 
-<HxButton OnClick="HandleRemoveItemsClick" Style="ButtonStyle.Secondary">Remove some items</HxButton>
+<HxButton OnClick="HandleRemoveItemsClick" Color="ThemeColor.Secondary">Remove some items</HxButton>
 @code {
 	private const int PageSize = 10;
 

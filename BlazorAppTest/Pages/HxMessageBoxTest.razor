@@ -3,32 +3,32 @@
 <h1>HxMessageBox</h1>
 
 <p>
-	<HxButton Text="Open MessageBox 1..." OnClick="@(async () => await box1.ShowAsync())" Style="ButtonStyle.Primary" />
+	<HxButton Text="Open MessageBox 1..." OnClick="@(async () => await box1.ShowAsync())" Color="ThemeColor.Primary" />
 	<HxMessageBox @ref="box1" HeaderText="Jednička" Text="Já jsem jednička!" OnClosed="HandleDialogClose" />
 </p>
 
 <p>
-	<HxButton Text="OkCancel..." OnClick="@(async () => await box2.ShowAsync())" Style="ButtonStyle.Primary"/>
+	<HxButton Text="OkCancel..." OnClick="@(async () => await box2.ShowAsync())" Color="ThemeColor.Primary"/>
 	<HxMessageBox @ref="box2" HeaderText="Dvojka?" Text="Chceš být dvojka?" Buttons="HxMessageBoxButtons.OkCancel" OnClosed="HandleDialogClose" />
 </p>
 
 <p>
-	<HxButton Text="AbortRetryIgnore..." OnClick="@(async () => await box3.ShowAsync())" Style="ButtonStyle.Primary" />
+	<HxButton Text="AbortRetryIgnore..." OnClick="@(async () => await box3.ShowAsync())" Color="ThemeColor.Primary" />
 	<HxMessageBox @ref="box3" HeaderText="Test 3" Text="Test 3" Buttons="HxMessageBoxButtons.AbortRetryIgnore" OnClosed="HandleDialogClose" />
 </p>
 
 <p>
-	<HxButton Text="CustomCancel..." OnClick="@(async () => await box4.ShowAsync())" Style="ButtonStyle.Primary" />
+	<HxButton Text="CustomCancel..." OnClick="@(async () => await box4.ShowAsync())" Color="ThemeColor.Primary" />
 	<HxMessageBox @ref="box4" HeaderText="Test 4" Text="Test 4" Buttons="HxMessageBoxButtons.CustomCancel" CustomButtonText="Custom" OnClosed="HandleDialogClose" />
 </p>
 
 <p>
-	<HxButton Text="YesNo..." OnClick="@(async () => await box5.ShowAsync())" Style="ButtonStyle.Primary" />
+	<HxButton Text="YesNo..." OnClick="@(async () => await box5.ShowAsync())" Color="ThemeColor.Primary" />
 	<HxMessageBox @ref="box5" HeaderText="Test 5" Text="Test 5" Buttons="HxMessageBoxButtons.YesNo" OnClosed="HandleDialogClose" />
 </p>
 
 <p>
-	<HxButton Text="Mix..." OnClick="@(async () => await box6.ShowAsync())" Style="ButtonStyle.Primary" />
+	<HxButton Text="Mix..." OnClick="@(async () => await box6.ShowAsync())" Color="ThemeColor.Primary" />
 	<HxMessageBox @ref="box6"
 				  HeaderText="Test 6"
 				  Text="Test 6"
