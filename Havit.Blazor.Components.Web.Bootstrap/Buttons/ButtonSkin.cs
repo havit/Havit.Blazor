@@ -45,13 +45,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public ButtonSkin(string text = null, string cssClass = null, IconBase icon = null, Type resourceType = null, ThemeColor? style = null, bool? outline = false)
+		public ButtonSkin(string text = null, string cssClass = null, IconBase icon = null, Type resourceType = null, ThemeColor? color = null, bool? outline = false)
 		{
 			this.CssClass = cssClass;
 			this.Icon = icon;
 			this.Text = text;
 			this.ResourceType = resourceType;
-			this.Color = style;
+			this.Color = color;
 			this.Outline = outline;
 		}
 	}
