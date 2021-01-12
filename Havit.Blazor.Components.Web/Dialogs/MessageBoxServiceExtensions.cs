@@ -19,5 +19,17 @@ namespace Havit.Blazor.Components.Web
 				CustomButtonText = customButtonText
 			});
 		}
+
+		public static async Task<bool> ConfirmAsync(this IHxMessageBoxService messageBoxService, string title, string text)
+		{
+			var result = await messageBoxService.ShowAsync(title, text, MessageBoxButtons.OkCancel);
+
+			return (result == MessageBoxButtons.Ok);
+		}
+
+		public static Task<bool> ConfirmAsync(this IHxMessageBoxService messageBoxService, string text)
+		{
+			return messageBoxService.ConfirmAsync("Confirmation", text); // TODO Localization
+		}
 	}
 }

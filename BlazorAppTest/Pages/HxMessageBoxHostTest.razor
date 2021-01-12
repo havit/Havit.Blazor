@@ -4,18 +4,21 @@
 <h1>HxMessageBoxHost</h1>
 
 <p>
-	<HxButton Text="Open MessageBox 1..." OnClick="OpenMessageBox1" Color="ThemeColor.Primary" />
-	<HxButton Text="Open MessageBox 2..." OnClick="OpenMessageBox2" Color="ThemeColor.Primary" />
+	<HxButton Text="MessageBox.ShowAsync() 1..." OnClick="OpenMessageBox1" Color="ThemeColor.Primary" />
+	<HxButton Text="MessageBox.ShowAsync() 2..." OnClick="OpenMessageBox2" Color="ThemeColor.Primary" />
+	<HxButton Text="MessageBox.Confirm()..." OnClick="OpenConfirm" Color="ThemeColor.Primary" />
 </p>
 
 <p>
-	Last result: @result.ToString("g")
+	Last result: @result.ToString("g")<br />
+	Confirm result: @confirmResult
 </p>
 
 @code{
 	[Inject] protected IHxMessageBoxService MessageBox { get; set; }
 
 	private MessageBoxButtons result;
+	private bool? confirmResult;
 
 	private async Task OpenMessageBox1()
 	{
@@ -25,5 +28,10 @@
 	private async Task OpenMessageBox2()
 	{
 		result = await MessageBox.ShowAsync("Dotaz", "Chceš to dvojka?", MessageBoxButtons.YesNo);
+	}
+
+	private async Task OpenConfirm()
+	{
+		confirmResult = await MessageBox.ConfirmAsync("Chceš to?");
 	}
 }

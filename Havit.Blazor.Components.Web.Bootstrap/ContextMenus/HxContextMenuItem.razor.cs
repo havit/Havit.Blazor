@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
@@ -40,12 +41,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool OnClickStopPropagation { get; set; } = true;
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
+		[Inject] protected IServiceProvider ServiceProvider { get; set; } // optional IHxMessageBoxService, fallback to JS-confirm
+
+		protected IHxMessageBoxService MessageBox { get; set; }
+
+		protected override void OnInitialized()
+		{
+			base.OnInitialized();
+
+			MessageBox = ServiceProvider.GetService<IHxMessageBoxService>();
+		}
 
 		public async Task HandleClick()
 		{
 			if (!String.IsNullOrEmpty(ConfirmationQuestion))
 			{
-				if (!await JSRuntime.InvokeAsync<bool>("confirm", ConfirmationQuestion)) // TODO: HxMessageBox/HxModal spíš než JS-confirm
+				if (MessageBox is not null)
+				{
+					if (await MessageBox.ConfirmAsync(this.ConfirmationQuestion))
+					{
+						return; // No action
+					}
+				}
+				else if (!await JSRuntime.InvokeAsync<bool>("confirm", ConfirmationQuestion)) // TODO: HxMessageBox/HxModal spíš než JS-confirm
 				{
 					return; // No Action
 				}
