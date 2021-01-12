@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Havit.Blazor.Components.Web.Messenger
+namespace Havit.Blazor.Components.Web
 {
 	/// <summary>
 	/// Extension methods for installation of HxMessenger support.

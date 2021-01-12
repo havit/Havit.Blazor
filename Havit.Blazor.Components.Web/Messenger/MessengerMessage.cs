@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Havit.Blazor.Components.Web.Messenger
+namespace Havit.Blazor.Components.Web
 {
 	/// <summary>
 	/// Messenger message.

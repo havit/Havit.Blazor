@@ -1,7 +1,14 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
 <HxMessageBox @ref="messageBox"
-			  Buttons="@request.Buttons"
-			  HeaderText="@request.HeaderText"
+			  Title="@request.Title"
 			  Text="@request.Text"
-			  OnClosed="HandleClosed"/>
+			  Buttons="@request.Buttons"
+			  PrimaryButton="@request.PrimaryButton"
+			  CustomButtonText="@request.CustomButtonText"
+			  ShowCloseButton="@request.ShowCloseButton"
+			  CssClass="@request.CssClass"
+			  OnClosed="HandleClosed">
+	<TitleTemplate>@request.TitleTemplate</TitleTemplate>
+	<ContentTemplate>@request.ContentTemplate</ContentTemplate>
+</HxMessageBox>

@@ -4,7 +4,8 @@
 <h1>HxMessageBoxHost</h1>
 
 <p>
-	<HxButton Text="Open MessageBox 1..." OnClick="OpenMessageBox" Color="ThemeColor.Primary" />
+	<HxButton Text="Open MessageBox 1..." OnClick="OpenMessageBox1" Color="ThemeColor.Primary" />
+	<HxButton Text="Open MessageBox 2..." OnClick="OpenMessageBox2" Color="ThemeColor.Primary" />
 </p>
 
 <p>
@@ -16,12 +17,13 @@
 
 	private MessageBoxButtons result;
 
-	private async Task OpenMessageBox()
+	private async Task OpenMessageBox1()
 	{
-		result = await MessageBox.ShowAsync(new MessageBoxRequest()
-		{
-			Text = "OK?",
-			Buttons = MessageBoxButtons.OkCancel
-		});
+		result = await MessageBox.ShowAsync("Info", "OK jednička?", MessageBoxButtons.OkCancel);
+	}
+
+	private async Task OpenMessageBox2()
+	{
+		result = await MessageBox.ShowAsync("Dotaz", "Chceš to dvojka?", MessageBoxButtons.YesNo);
 	}
 }

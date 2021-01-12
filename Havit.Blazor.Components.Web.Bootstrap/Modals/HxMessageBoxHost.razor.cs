@@ -20,7 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			base.OnInitialized();
 
-			MessageBoxService.ShowAsyncFunc = HandleShowRequest;
+			MessageBoxService.OnShowAsync = HandleShowRequest;
 		}
 
 		private async Task<MessageBoxButtons> HandleShowRequest(MessageBoxRequest request)

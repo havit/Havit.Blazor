@@ -7,6 +7,6 @@ namespace Havit.Blazor.Components.Web
 	{
 		Task<MessageBoxButtons> ShowAsync(MessageBoxRequest request);
 
-		Func<MessageBoxRequest, Task<MessageBoxButtons>> ShowAsyncFunc { get; set; }
+		Func<MessageBoxRequest, Task<MessageBoxButtons>> OnShowAsync { get; set; }
 	}
 }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Havit.Blazor.Components.Web.Messenger;
+using Havit.Blazor.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation
 {

@@ -10,14 +10,14 @@ namespace Havit.Blazor.Components.Web
 	public struct MessageBoxRequest
 	{
 		/// <summary>
-		/// Header text.
+		/// Title text (Header).
 		/// </summary>
-		[Parameter] public string HeaderText { get; set; }
+		[Parameter] public string Title { get; set; }
 
 		/// <summary>
-		/// Header template.
+		/// Title template (Header).
 		/// </summary>
-		[Parameter] public RenderFragment HeaderTemplate { get; set; }
+		[Parameter] public RenderFragment TitleTemplate { get; set; }
 
 		/// <summary>
 		/// Content (body) text.
@@ -35,7 +35,7 @@ namespace Havit.Blazor.Components.Web
 		[Parameter] public bool ShowCloseButton { get; set; }
 
 		/// <summary>
-		/// Buttons to show. Default is <see cref="MessageBoxButtons.Ok"/>.
+		/// Buttons to show.
 		/// </summary>
 		[Parameter] public MessageBoxButtons Buttons { get; set; }
 
