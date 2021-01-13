@@ -2,39 +2,41 @@
 
 @if (opened)
 {
-	<div @ref="modalElement" class="@CssClassHelper.Combine("modal fade", CssClass)" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				@if (!String.IsNullOrEmpty(HeaderText) || (HeaderTemplate != null) || ShowCloseButton)
-				{
-					<div class="@CssClassHelper.Combine("modal-header", HeaderCssClass)">
-						@if (!String.IsNullOrEmpty(HeaderText) || (HeaderTemplate != null))
-						{
-							<h5 class="modal-title">
-								@HeaderText
-								@HeaderTemplate
-							</h5>
-						}
-						@if (ShowCloseButton)
-						{
-							<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-						}
-					</div>
-				}
-				@if (BodyTemplate != null)
-				{
-					<div class="@CssClassHelper.Combine("modal-body", BodyCssClass)">
-						@BodyTemplate
-					</div>
-				}
-				@if (FooterTemplate != null)
-				{
-					<div class="@CssClassHelper.Combine("modal-footer", FooterCssClass)">
-						@FooterTemplate
-					</div>
-				}
+	<CascadingValue Name="@MxModalInParentModalCascadingValueName" Value="true" IsFixed="true">
+		<div @ref="modalElement" class="@CssClassHelper.Combine("modal fade", CssClass)" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					@if (!String.IsNullOrEmpty(HeaderText) || (HeaderTemplate != null) || ShowCloseButton)
+					{
+						<div class="@CssClassHelper.Combine("modal-header", HeaderCssClass)">
+							@if (!String.IsNullOrEmpty(HeaderText) || (HeaderTemplate != null))
+							{
+								<h5 class="modal-title">
+									@HeaderText
+									@HeaderTemplate
+								</h5>
+							}
+							@if (ShowCloseButton)
+							{
+								<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+							}
+						</div>
+					}
+					@if (BodyTemplate != null)
+					{
+						<div class="@CssClassHelper.Combine("modal-body", BodyCssClass)">
+							@BodyTemplate
+						</div>
+					}
+					@if (FooterTemplate != null)
+					{
+						<div class="@CssClassHelper.Combine("modal-footer", FooterCssClass)">
+							@FooterTemplate
+						</div>
+					}
+				</div>
 			</div>
-		</div>
 
-	</div>
+		</div>
+	</CascadingValue>
 }

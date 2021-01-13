@@ -15,6 +15,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxModal : IDisposable
 	{
+		internal const string MxModalInParentModalCascadingValueName = nameof(MxModalInParentModalCascadingValueName);
+
 		/// <summary>
 		/// Modal css class. Added to root div (.modal).
 		/// </summary>
@@ -85,6 +87,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public EventCallback OnClosed { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
+		
+		[CascadingParameter(Name = MxModalInParentModalCascadingValueName)] protected bool InParentModal { get; set; } // default(bool) = false, receives True from parent HxModal
 
 		private bool opened = false; // indicates whether the modal is open
 		private bool shouldOpenModal = false; // indicates whether the modal is going to be opened
@@ -105,6 +109,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public Task ShowAsync()
 		{
 			Contract.Requires(!opened);
+
+			// We prevent only showing nested modal.
+			// The component can be present in *.razor file, but it cannot be shown (opened).
+			if (InParentModal)
+			{
+				throw new InvalidOperationException("Modals cannot be nested.");
+			}
 
 			opened = true; // mark modal as opened
 			shouldOpenModal = true; // mak modal to be shown in OnAfterRender

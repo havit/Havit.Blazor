@@ -5,13 +5,19 @@
 <HxButton OnClick="HandleShowClick" Color="ThemeColor.Primary">Show</HxButton>
 
 <HxModal @ref="myModal" HeaderText="Header">
-	<BodyTemplate>Body</BodyTemplate>
-	<FooterTemplate><HxButton Skin="ButtonSkins.Close" OnClick="HandleHideClick" Color="ThemeColor.Primary"/></FooterTemplate>
+	<BodyTemplate>
+		Body
+		<HxButton OnClick="HandleShowNestedClick" Color="ThemeColor.Danger">Show nested (exception expected)</HxButton>
+
+		<HxModal @ref="myNestedModal" />
+	</BodyTemplate>
+	<FooterTemplate><HxButton Skin="ButtonSkins.Close" OnClick="HandleHideClick" Color="ThemeColor.Primary" /></FooterTemplate>
 </HxModal>
 
 @code
 {
 	private HxModal myModal;
+	private HxModal myNestedModal;
 
 	private async Task HandleShowClick()
 	{
@@ -22,4 +28,11 @@
 	{
 		await myModal.HideAsync();
 	}
+
+	private async Task HandleShowNestedClick()
+	{
+		await myNestedModal.ShowAsync();
+	}
+
+
 }
