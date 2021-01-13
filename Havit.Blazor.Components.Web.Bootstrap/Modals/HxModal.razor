@@ -5,13 +5,13 @@
 	<div @ref="modalElement" class="@CssClassHelper.Combine("modal fade", CssClass)" tabindex="-1">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				@if (!String.IsNullOrEmpty(Header) || (HeaderTemplate != null) || ShowCloseButton)
+				@if (!String.IsNullOrEmpty(HeaderText) || (HeaderTemplate != null) || ShowCloseButton)
 				{
-					<div class="modal-header">
-						@if (!String.IsNullOrEmpty(Header) || (HeaderTemplate != null))
+					<div class="@CssClassHelper.Combine("modal-header", HeaderCssClass)">
+						@if (!String.IsNullOrEmpty(HeaderText) || (HeaderTemplate != null))
 						{
 							<h5 class="modal-title">
-								@Header
+								@HeaderText
 								@HeaderTemplate
 							</h5>
 						}
@@ -23,13 +23,13 @@
 				}
 				@if (BodyTemplate != null)
 				{
-					<div class="modal-body">
+					<div class="@CssClassHelper.Combine("modal-body", BodyCssClass)">
 						@BodyTemplate
 					</div>
 				}
 				@if (FooterTemplate != null)
 				{
-					<div class="modal-footer">
+					<div class="@CssClassHelper.Combine("modal-footer", FooterCssClass)">
 						@FooterTemplate
 					</div>
 				}
