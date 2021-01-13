@@ -46,6 +46,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public ThemeColor? Color { get; set; }
 
 		/// <summary>
+		/// Bootstrap button size. See https://getbootstrap.com/docs/5.0/components/buttons/#sizes
+		/// </summary>
+		[Parameter] public ButtonSize Size { get; set; }
+
+		/// <summary>
 		/// Bootstrap "outline" button style. See https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons.
 		/// </summary>
 		[Parameter] public bool? Outlined { get; set; }
@@ -86,7 +91,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return null;
 		}
 
-		protected string GetColorCss()
+		protected string GetColorCssClass()
 		{
 			var outlined = this.Outlined ?? Skin?.Outlined ?? false;
 			var style = this.Color ?? Skin?.Color ?? throw new InvalidOperationException($"Button {nameof(Color)} has to be set - either from {nameof(Skin)} or explicitly.");
@@ -121,6 +126,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				ThemeColor.Link => "btn-link",
 				ThemeColor.None => null,
 				_ => throw new InvalidOperationException($"Unknown button style {style:g}.")
+			};
+		}
+
+		protected string GetSizeCssClass()
+		{
+			return this.Size switch
+			{
+				ButtonSize.Regular => null,
+				ButtonSize.Small => "btn-sm",
+				ButtonSize.Large => "btn-lg",
+				_ => throw new InvalidOperationException($"Unknown button Size value {this.Size:g}.")
 			};
 		}
 

@@ -12,7 +12,7 @@
 
 <h5>Button with a custom css class</h5>
 <p>
-	<HxButton Color="ThemeColor.Primary" CssClass="btn-lg" Text="Large button" />
+	<HxButton Color="ThemeColor.Primary" CssClass="border border-danger border-3" Text="border border-danger border-3" />
 </p>
 
 <h5>Button with a (standard) skin</h5>
@@ -25,6 +25,13 @@
 <h5>Button with a custom skin</h5>
 <p>
 	<HxButton Skin="@CustomButtonSkins.Demo" />
+</p>
+
+<h5>Button sizes</h5>
+<p>
+	<HxButton Text="Small" Size="ButtonSize.Small" Color="ThemeColor.Primary" />
+	<HxButton Text="Regular" Size="ButtonSize.Regular" Color="ThemeColor.Primary" />
+	<HxButton Text="Large" Size="ButtonSize.Large" Color="ThemeColor.Primary" />
 </p>
 
 @code {

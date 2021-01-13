@@ -1,7 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
 <button type="@GetButtonType()"
-		class="@CssClassHelper.Combine("btn", GetColorCss(), this.CssClass ?? this.Skin?.CssClass)"
+		class="@CssClassHelper.Combine("btn", GetColorCssClass(), GetSizeCssClass(), this.CssClass ?? this.Skin?.CssClass)"
 		@onclick="HandleClick"
 		@onclick:stopPropagation="this.OnClickStopPropagation"
 		disabled="@(!this.EnabledEffective())">
