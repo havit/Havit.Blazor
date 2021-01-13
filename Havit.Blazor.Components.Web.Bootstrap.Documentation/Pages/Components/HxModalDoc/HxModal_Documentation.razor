@@ -1,0 +1,56 @@
+﻿@page "/components/hxmodal"
+
+<h1>@nameof(HxModal)</h1>
+<p class="lead">
+	Component to render modal dialog as a Bootstrap Modal.
+</p>
+
+<h3>Properties</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxModal.CloseOnEscape)</strong><br />
+		Indicates whether the modal closes when escape key is pressed. Default value is true.
+	</li>
+	<li>
+		<strong>@nameof(HxModal.ShowCloseButton)</strong><br />
+		Indicates whether the modal shows close button in header. Default value is true.
+	</li>
+	<li>
+		<strong>@nameof(HxModal.UseStaticBackdrop)</strong><br />
+		Indicates whether the modal uses a static backdrop. Default value is true.
+	</li>
+	<li>
+		<strong>@nameof(HxModal.CssClass)</strong><br />
+		Modal css class. Added to root div (.modal).
+	</li>
+	<li>
+		<strong>@nameof(HxModal.OnClosed)</strong><br />
+		Raised when modal is closed (whatever reason it is).
+	</li>
+	<li>
+		<strong>@nameof(HxModal.HeaderText), @nameof(HxModal.HeaderTemplate), @nameof(HxModal.HeaderCssClass)</strong><br />
+		Modal header.
+	</li>
+	<li>
+		<strong>@nameof(HxModal.BodyTemplate), @nameof(HxModal.BodyCssClass)</strong><br />
+		Modal body.
+	</li>
+	<li>
+		<strong>@nameof(HxModal.FooterTemplate), @nameof(HxModal.FooterCssClass)</strong><br />
+		Modal footer.
+	</li>
+</ul>
+
+<h3>Methods</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxModal.ShowAsync), @nameof(HxModal.HideAsync)</strong><br />
+		Shows / hides modal.
+	</li>
+</ul>
+
+<div class="alert alert-warning" role="alert">
+	Modals cannot be nested - you cannot have a modal inside another modal.
+</div>
+
+<Demo Type="typeof(HxModal_Demo)" />
