@@ -2,7 +2,7 @@
 <div class=@($"drawer {(this.IsOpen ? "show" : "hide")}")>
 	@if (IsOpen || PreRenderContent)
 	{
-		<div class="drawer-header pt-4 px-4">
+		<div class="drawer-header drawer-sm pt-4 px-4">
 			@if (TitleSection != null)
 			{
 				@TitleSection
@@ -15,7 +15,7 @@
 		</div>
 		@if (BodySection != null)
 		{
-			<div class="drawer-body d-flex p-4">@BodySection</div>
+			<div class="drawer-body p-4">@BodySection</div>
 		}
 		@if (CommandsSection != null)
 		{

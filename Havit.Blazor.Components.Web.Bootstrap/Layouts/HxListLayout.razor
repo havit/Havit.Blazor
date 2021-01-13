@@ -1,72 +1,81 @@
-﻿@namespace  Havit.Blazor.Components.Web.Bootstrap
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <div class="hx-list-layout">
-	<div class="hx-list-header d-lg-flex py-4">
-		<div class="title">
+	<div class="hx-list-header d-lg-flex">
+		<div class="title h4">
 			<div class="dropdown ">
-				<a role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false">
 					@if (TitleSection != null)
 					{
-						@TitleSection
+		 @TitleSection
 					}
 					else if (!String.IsNullOrEmpty(Title))
 					{
-						@Title
+		 @Title
 					}
-					<svg class="bi bi-chevron-down p-1" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-						<path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z" clip-rule="evenodd" />
-					</svg>
-				</a>
-				@if (NamedViewsSection != null)
+	 <svg class="bi bi-chevron-down p-1" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+	  xmlns="http://www.w3.org/2000/svg">
+	  <path fill-rule="evenodd"
+	   d="M1.646 4.646a.5.5 0 01.708 0L8 10.293l5.646-5.647a.5.5 0 01.708.708l-6 6a.5.5 0 01-.708 0l-6-6a.5.5 0 010-.708z"
+	   clip-rule="evenodd" />
+	 </svg>
+	</span>
+	@if (NamedViewsSection != null)
 				{
-					@NamedViewsSection
+		@NamedViewsSection
 				}
-			</div>
-		</div>
+   </div>
+  </div>
 
-		@if (SearchSection != null)
+  @if (SearchSection != null)
 		{
-			<div class="search mb-3 mb-lg-0">
-				@SearchSection
-			</div>
+	  <div class="search mb-3 mb-lg-0">
+	   @SearchSection
+	  </div>
 		}
 
-		<div class="commands text-end">
-			@if (FilterSection != null)
+  <div class="commands text-end">
+   @if (FilterSection != null)
 			{
-				<HxButton OnClick="() => FilterDrawerOpen = true" Color="ThemeColor.Secondary">Filtrovat</HxButton>
+	   <HxButton OnClick="() => FilterDrawerOpen = true" Color="ThemeColor.Secondary">Filtrovat</HxButton>
 			}
-			@if (CommandsSection != null)
+   @if (CommandsSection != null)
 			{
-				@CommandsSection
+	   @CommandsSection
 			}
-		</div>
-	</div>
+  </div>
+ </div>
 
-	@if (FilterSection != null)
+ @if (FilterSection != null)
 	{
-		<HxDrawer @bind-IsOpen="@FilterDrawerOpen">
-			<BodySection>
-				<CascadingValue Value="@FilterDrawerOpen" Name="FilterDrawerOpen">
-					@* TODO pojmenování, konstanta *@ @* Kam může programátor napsat, že chce filtr by default expandovaný? *@
-					@FilterSection
-				</CascadingValue>
-			</BodySection>
-		</HxDrawer>
+	 <HxDrawer @bind-IsOpen="@FilterDrawerOpen">
+	  <BodySection>
+	   <CascadingValue Value="@FilterDrawerOpen" Name="FilterDrawerOpen">
+		@* TODO pojmenování, konstanta *@ @* Kam může programátor napsat, že chce filtr by default expandovaný?
+		*@
+		@FilterSection
+	   </CascadingValue>
+	  </BodySection>
+	 </HxDrawer>
 	}
 
-	@if (DataSection != null)
+ @if (DataSection != null)
 	{
-		<div>@DataSection</div>
+	 <div class="card my-4">
+	  <div class="card-body">
+	   @DataSection
+	  </div>
+	 </div>
 	}
 
-	@if (DetailSection != null)
+ @if (DetailSection != null)
 	{
-		@*TODO: Otevření jen, je-li vybrán záznam pro zobrazení detailu. Používání detailu zapnuto použitím sekce? *@
-		@*TODO: Kdo řídí vybrání detailu?*@
-		<HxDrawer @bind-IsOpen="@DetailDrawerIsOpenBound">
-			<BodySection>
-				@DetailSection
-			</BodySection>
-		</HxDrawer>
+	 @*TODO: Otevření jen, je-li vybrán záznam pro zobrazení detailu. Používání detailu zapnuto použitím sekce? *@
+	 @*TODO: Kdo řídí vybrání detailu?*@
+	 <HxDrawer @bind-IsOpen="@DetailDrawerIsOpenBound">
+	  <BodySection>
+	   @DetailSection
+	  </BodySection>
+	 </HxDrawer>
 	}
 </div>

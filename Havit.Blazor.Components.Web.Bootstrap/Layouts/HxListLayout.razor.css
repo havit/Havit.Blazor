@@ -1,0 +1,25 @@
+.title,
+.search,
+.commands {
+	flex: 1 1 33%;
+}
+
+.title {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.named-views {
+	display: none;
+	font-size: 14px;
+}
+
+.title.show .named-views {
+	position: absolute;
+	display: block;
+	top: 35px;
+	left: -15px;
+	background: white;
+	border: 5px;
+}

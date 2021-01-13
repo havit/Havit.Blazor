@@ -1,13 +1,21 @@
 .drawer {
 	position: fixed;
 	height: 100vh;
-	width: var(--drawer-width);
 	top: 0;
+	width: var(--drawer-width);
 	background: white;
 	transition: all 0.35s;
 	z-index: 1050;
 	display: flex;
 	flex-direction: column;
+}
+
+.drawer.drawer-sm {
+	width: var(--drawer-sm-width);
+}
+
+.drawer.drawer-lg {
+	width: var(--drawer-lg-width);
 }
 
 .drawer-body {
@@ -19,6 +27,13 @@
 	box-shadow: var(--box-shadow);
 }
 
-.drawer.hide {
+.hide {
 	right: calc(-1 * var(--drawer-width));
+}
+
+.drawer-sm.hide {
+	right: calc(-1 * var(--drawer-sm-width));
+}
+.drawer-lg.hide {
+	right: calc(-1 * var(--drawer-lg-width));
 }
