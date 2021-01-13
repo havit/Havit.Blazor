@@ -20,7 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static ButtonSkin Delete { get; } = new ButtonSkin(text: "Delete", icon: BootstrapIcon.Trash, resourceType: typeof(ButtonSkins), color: ThemeColor.Secondary);
 		public static ButtonSkin Edit { get; } = new ButtonSkin(text: "Edit", icon: BootstrapIcon.Pencil, resourceType: typeof(ButtonSkins), color: ThemeColor.Secondary);
 		public static ButtonSkin Export { get; } = new ButtonSkin(text: "Export", icon: BootstrapIcon.BoxArrowUp, resourceType: typeof(ButtonSkins), color: ThemeColor.Secondary);
-		public static ButtonSkin Insert { get; } = new ButtonSkin(text: "Insert", icon: BootstrapIcon.BoxArrowInRight, resourceType: typeof(ButtonSkins), color: ThemeColor.Secondary);
+		public static ButtonSkin Insert { get; } = new ButtonSkin(text: "Insert", icon: BootstrapIcon.BoxArrowInRight, resourceType: typeof(ButtonSkins), color: ThemeColor.Primary);
 		public static ButtonSkin New { get; } = new ButtonSkin(text: "New", icon: BootstrapIcon.Plus, resourceType: typeof(ButtonSkins), color: ThemeColor.Secondary);
 		public static ButtonSkin OK { get; } = new ButtonSkin(text: "OK", icon: BootstrapIcon.Check2, resourceType: typeof(ButtonSkins), color: ThemeColor.Primary);
 		public static ButtonSkin Open { get; } = new ButtonSkin(text: "Open", icon: BootstrapIcon.BoxArrowUpRight, resourceType: typeof(ButtonSkins), color: ThemeColor.Secondary);
