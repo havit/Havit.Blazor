@@ -58,7 +58,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				if (MessageBox is not null)
 				{
-					if (await MessageBox.ConfirmAsync(this.ConfirmationQuestion))
+					if (!await MessageBox.ConfirmAsync(this.ConfirmationQuestion))
 					{
 						return; // No action
 					}
