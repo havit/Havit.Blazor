@@ -88,9 +88,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private List<ButtonDefintion> GetButtonsToRender()
+		private List<ButtonDefinition> GetButtonsToRender()
 		{
-			var buttons = new List<ButtonDefintion>();
+			var buttons = new List<ButtonDefinition>();
 			var primaryButtonEffective = this.PrimaryButton;
 
 			switch (this.Buttons)
@@ -171,7 +171,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return buttons;
 		}
 
-		private class ButtonDefintion
+		private class ButtonDefinition
 		{
 			public MessageBoxButtons Id { get; set; }
 			public string Text { get; set; }
