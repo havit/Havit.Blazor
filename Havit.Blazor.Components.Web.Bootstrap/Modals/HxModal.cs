@@ -13,7 +13,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Modal component to render dialog as a Bootstrap Modal.
 	/// </summary>
-	public partial class HxModal : IDisposable
+	public partial class HxModal : IAsyncDisposable
 	{
 		internal const string MxModalInParentModalCascadingValueName = nameof(MxModalInParentModalCascadingValueName);
 
@@ -159,8 +159,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		public void Dispose()
+		public async ValueTask DisposeAsync()
 		{
+			if (opened)
+			{
+				// We need to remove backdrop when leaving "page" when HxModal is shown (opened).
+				await JSRuntime.InvokeVoidAsync("hxModal_dispose", modalElement);
+			}
 			dotnetObjectReference.Dispose();
 		}
 	}

@@ -33,6 +33,14 @@ window.hxModal_hide = (element) => {
     modal.hide();
 }
 
+window.hxModal_dispose = (element) => {
+    var modal = bootstrap.Modal.getInstance(element);
+    element.removeEventListener('hidden.bs.modal', window.hxModal_handleModalHidden);
+    element.hxModalDotnetObjectReference = null;
+    modal.hide();
+    // modal.dispose(); modal.js:318 Uncaught TypeError: Cannot read property 'style' of null
+}
+
 window.hxModal_handleModalHidden = (event) => {
     event.target.removeEventListener('hidden.bs.modal', window.hxModal_handleModalHidden);
     event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHidden');
