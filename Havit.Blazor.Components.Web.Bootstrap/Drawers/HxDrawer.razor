@@ -1,16 +1,10 @@
-@namespace  Havit.Blazor.Components.Web.Bootstrap
-<div class=@($"drawer {(this.IsOpen ? "show" : "hide")}")>
+@namespace Havit.Blazor.Components.Web.Bootstrap
+<div class="@CssClassHelper.Combine("drawer", GetSizeCssClass(), GetOpenCssClass())">
 	@if (IsOpen || PreRenderContent)
 	{
-		<div class="drawer-header drawer-sm pt-4 px-4">
-			@if (TitleSection != null)
-			{
-				@TitleSection
-			}
-			else if (!String.IsNullOrEmpty(Title))
-			{
-				@Title
-			}
+		<div class="drawer-header pt-4 px-4">
+			@Title
+			@TitleSection
 			<button class="btn-close" @onclick="() => SetState(isOpen: false)" @onclick:stopPropagation />
 		</div>
 		@if (BodySection != null)

@@ -32,6 +32,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Parameter] public RenderFragment CommandsSection { get; set; }
 
+		/// <summary>
+		/// Size of the drawer. Default is <see cref="DrawerSize.Regular"/>.
+		/// </summary>
+		[Parameter] public DrawerSize Size { get; set; } = DrawerSize.Regular;
+
 		private async Task SetState(bool isOpen)
 		{
 			if (IsOpen != isOpen)
@@ -40,6 +45,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				await IsOpenChanged.InvokeAsync(isOpen);
 				StateHasChanged();
 			}
+		}
+
+		private string GetOpenCssClass()
+		{
+			return this.IsOpen ? "show" : "hide";
+		}
+
+		private string GetSizeCssClass()
+		{
+			return this.Size switch
+			{
+				DrawerSize.Regular => null,
+				DrawerSize.Small => "drawer-sm",
+				DrawerSize.Large => "drawer-lg",
+				_ => throw new InvalidOperationException($"Unknown HxDrawer.Size value {this.Size:g}.")
+			};
 		}
 	}
 }
