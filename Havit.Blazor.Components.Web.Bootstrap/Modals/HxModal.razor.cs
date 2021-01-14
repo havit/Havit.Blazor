@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxModal : IAsyncDisposable
 	{
-		internal const string MxModalInParentModalCascadingValueName = nameof(MxModalInParentModalCascadingValueName);
+		internal const string HxModalInParentModalCascadingValueName = nameof(HxModalInParentModalCascadingValueName);
 
 		/// <summary>
 		/// Modal css class. Added to root div (.modal).
@@ -88,7 +88,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-		[CascadingParameter(Name = MxModalInParentModalCascadingValueName)] protected bool InParentModal { get; set; } // default(bool) = false, receives True from parent HxModal
+		[CascadingParameter(Name = HxModalInParentModalCascadingValueName)] protected bool InParentModal { get; set; } // default(bool) = false, receives True from parent HxModal
 
 		private bool opened = false; // indicates whether the modal is open
 		private bool shouldOpenModal = false; // indicates whether the modal is going to be opened
