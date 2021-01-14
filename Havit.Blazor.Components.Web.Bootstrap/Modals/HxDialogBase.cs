@@ -13,8 +13,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public abstract class HxDialogBase<TResult> : ComponentBase		
 	{
+#pragma warning disable SA1307 // Accessible fields must begin with upper-case letter
 		protected internal HxModal modal; // for HxModal @ref
-		
+#pragma warning restore SA1307 // Accessible fields must begin with upper-case letter
+
 		/// <summary>
 		/// Returns the HxModal component which this component control. Override when you do not want to use modal field set using @ref.
 		/// </summary>
@@ -77,7 +79,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		/// <inheridoc />
 		protected override void OnAfterRender(bool firstRender)
 		{
 			base.OnAfterRender(firstRender);
