@@ -2,3 +2,11 @@
 	background-color: #f2f9ff;
 	color: #2e75f0;
 }
+
+::deep th a .text-muted {
+	visibility: hidden;
+}
+
+::deep th:hover a .text-muted {
+	visibility: visible;
+}

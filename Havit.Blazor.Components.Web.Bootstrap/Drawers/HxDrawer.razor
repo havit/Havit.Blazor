@@ -2,10 +2,10 @@
 <div class="@CssClassHelper.Combine("drawer", GetSizeCssClass(), GetOpenCssClass())">
 	@if (IsOpen || PreRenderContent)
 	{
-		<div class="drawer-header pt-4 px-4">
+		<div class="drawer-header pt-4 px-4 d-flex">
 			@Title
 			@TitleSection
-			<button class="btn-close" @onclick="() => SetState(isOpen: false)" @onclick:stopPropagation />
+			<button class="btn-close ms-auto" @onclick="() => SetState(isOpen: false)" @onclick:stopPropagation />
 		</div>
 		@if (BodySection != null)
 		{
