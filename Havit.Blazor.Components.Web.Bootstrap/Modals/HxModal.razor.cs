@@ -1,12 +1,12 @@
-﻿using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.JSInterop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Diagnostics.Contracts;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -87,7 +87,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public EventCallback OnClosed { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
-		
+
 		[CascadingParameter(Name = MxModalInParentModalCascadingValueName)] protected bool InParentModal { get; set; } // default(bool) = false, receives True from parent HxModal
 
 		private bool opened = false; // indicates whether the modal is open
