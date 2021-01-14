@@ -45,13 +45,13 @@
 							@if (columnSorting.Any())
 							{
 								<a @onclick="async () => await HandleSortingClick(columnSorting)" @onclick:stopPropagation role="button">
-									<UpdatedContentRenderer Component="column">
+						            <UpdatedContentRenderer Component="column">
 										@headerCellTemplate.Template
 									</UpdatedContentRenderer>
 									@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
 							|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
 									{
-										<HxIcon CssClass="@CssClassHelper.Combine("ms-1", @iconColor)" Icon="@BootstrapIcon.SortAlphaDownAlt" />
+					                    <HxIcon CssClass="@CssClassHelper.Combine("ms-1", @iconColor)" Icon="@BootstrapIcon.SortAlphaDownAlt" />
 									}
 									else
 									{

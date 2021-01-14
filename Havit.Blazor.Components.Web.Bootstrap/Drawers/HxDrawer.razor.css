@@ -1,39 +1,39 @@
 .drawer {
-	position: fixed;
-	height: 100vh;
-	top: 0;
-	width: var(--drawer-width);
-	background: white;
-	transition: all 0.35s;
-	z-index: 1050;
-	display: flex;
-	flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  width: var(--drawer-width);
+  background: white;
+  transition: right 0.35s;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
 }
 
 .drawer.drawer-sm {
-	width: var(--drawer-sm-width);
+  width: var(--drawer-sm-width);
 }
 
 .drawer.drawer-lg {
-	width: var(--drawer-lg-width);
+  width: var(--drawer-lg-width);
 }
 
 .drawer-body {
-	flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 
 .drawer.show {
-	right: 0;
-	box-shadow: var(--box-shadow);
+  right: 0;
+  box-shadow: var(--box-shadow);
 }
 
 .hide {
-	right: calc(-1 * var(--drawer-width));
+  right: calc(-1 * var(--drawer-width));
 }
 
 .drawer-sm.hide {
-	right: calc(-1 * var(--drawer-sm-width));
+  right: calc(-1 * var(--drawer-sm-width));
 }
 .drawer-lg.hide {
-	right: calc(-1 * var(--drawer-lg-width));
+  right: calc(-1 * var(--drawer-lg-width));
 }
