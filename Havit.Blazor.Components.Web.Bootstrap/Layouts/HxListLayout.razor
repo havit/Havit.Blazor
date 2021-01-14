@@ -72,7 +72,7 @@
 	@*TODO: Kdo řídí vybrání detailu?*@
 	<HxChangeTracker Value="layoutDetailContext">
 		<CascadingValue Value="layoutDetailContext">
-			<HxDrawer @bind-IsOpen="@DetailDrawerIsOpenBound" Title="@layoutDetailContext.DetailTitle">
+			<HxDrawer @bind-IsOpen="@DetailDrawerIsOpenBound" HeaderText="@layoutDetailContext.DetailTitle">
 				<BodyTemplate>
 					@DetailSection
 				</BodyTemplate>

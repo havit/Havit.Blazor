@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Havit.Blazor.Components.Web.Infrastructure;
 using Havit.Blazor.Components.Web.Forms;
+using Havit.Blazor.Components.Web.Infrastructure;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -72,6 +72,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Stop onClick-event propagation. Deafult is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool OnClickStopPropagation { get; set; } = true;
+
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> InputAttributes { get; set; }
 
 		/// <summary>
 		/// Localization service.
