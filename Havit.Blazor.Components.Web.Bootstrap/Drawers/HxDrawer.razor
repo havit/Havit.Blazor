@@ -4,18 +4,18 @@
 	{
 		<div class="drawer-header pt-4 px-4 d-flex align-items-center">
 			<div class="fs-4">
-                @Title
-			    @TitleSection
+                @HeaderText
+			    @HeaderTemplate
             </div>
 			<button class="btn-close ms-auto" @onclick="() => SetState(isOpen: false)" @onclick:stopPropagation />
 		</div>
-		@if (BodySection != null)
+		@if (BodyTemplate != null)
 		{
-			<div class="drawer-body p-4">@BodySection</div>
+			<div class="drawer-body p-4">@BodyTemplate</div>
 		}
-		@if (CommandsSection != null)
+		@if (FooterTemplate != null)
 		{
-			<div class="drawer-footer pb-4 px-4">@CommandsSection</div>
+			<div class="drawer-footer pb-4 px-4">@FooterTemplate</div>
 		}
 	}
 </div>

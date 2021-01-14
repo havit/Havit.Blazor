@@ -10,7 +10,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxDrawer
 	{
-		[Parameter] public string Title { get; set; }
+		[Parameter] public string HeaderText { get; set; }
+
+		[Parameter] public RenderFragment HeaderTemplate { get; set; }
+
+		[Parameter] public RenderFragment BodyTemplate { get; set; }
+
+		[Parameter] public RenderFragment FooterTemplate { get; set; }
 
 		[Parameter] public bool IsOpen { get; set; }
 
@@ -25,12 +31,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// If <c>true</c>, the content remains rendered and instantiated (OnIntialized not called on every open).
 		/// </remarks>
 		[Parameter] public bool PreRenderContent { get; set; } = false;
-
-		[Parameter] public RenderFragment TitleSection { get; set; }
-
-		[Parameter] public RenderFragment BodySection { get; set; }
-
-		[Parameter] public RenderFragment CommandsSection { get; set; }
 
 		/// <summary>
 		/// Size of the drawer. Default is <see cref="DrawerSize.Regular"/>.
