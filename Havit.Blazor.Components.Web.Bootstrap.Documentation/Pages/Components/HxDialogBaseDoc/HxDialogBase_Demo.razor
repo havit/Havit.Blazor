@@ -1,0 +1,23 @@
+﻿<HxButton Text="Play your dice" Color="ThemeColor.Primary" OnClick="HandlePlayDiceClick" />
+
+<CustomDialog @ref="customDialog" />
+
+<p>Successful: @successful</p>
+<p>Dice number: @diceNumber</p>
+
+@code
+{
+	CustomDialog customDialog;
+
+	private bool? successful;
+	private int? diceNumber;
+
+	private async Task HandlePlayDiceClick()
+	{
+		DialogResult<int> dialogResult = await customDialog.ShowAsync(); // shows the dialog and waits until the dialog is closed
+
+		successful = dialogResult.Successful;
+		diceNumber = dialogResult.Successful ? dialogResult.Value : null; // we cannot read dialogResult.Value when the result is noc sucecessful
+	}
+}
+

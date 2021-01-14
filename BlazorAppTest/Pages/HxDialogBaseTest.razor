@@ -1,0 +1,27 @@
+﻿@page "/HxDialogBaseTest"
+
+<h3>HxDialogBaseTest</h3>
+
+<HxButton Text="Play your dice" Color="ThemeColor.Primary" OnClick="HandleClick" />
+
+<BlazorAppTest.Pages.HxDialogBaseComponents.MyDialog @ref="dialog" />
+
+<p>Successful: @successful</p>
+<p>Dice number: @diceNumber</p>
+
+@code
+{
+	BlazorAppTest.Pages.HxDialogBaseComponents.MyDialog dialog;
+
+	private bool? successful;
+	private int? diceNumber;
+
+	private async Task HandleClick()
+	{
+		DialogResult<int> dialogResult = await dialog.ShowAsync(); // waits until the dialog is closed
+
+		successful = dialogResult.Successful;
+		diceNumber = dialogResult.Successful ? dialogResult.Value : null;
+	}
+}
+

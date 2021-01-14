@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Modal component to render dialog as a Bootstrap Modal.
+	/// Component to render modal dialog as a Bootstrap Modal.
 	/// </summary>
 	public partial class HxModal : IAsyncDisposable
 	{

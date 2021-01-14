@@ -1,0 +1,28 @@
+﻿@page "/components/hxdialogbase"
+
+<h1>@nameof(HxDialogBase<object>)</h1>
+<p class="lead">
+	Base class to simplify custom modal dialogs implementation.
+</p>
+
+<h3>Methods</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxDialogBase<object>.ShowAsync)</strong><br />
+		Shows the modal and waits until it is closed. Returns the result of the dialog.
+	</li>
+	<li>
+		<strong>@nameof(HxDialogBase<object>.HideAsync)</strong><br />
+		Hides the modal as successful with a value.
+	</li>
+	<li>
+		<strong>@nameof(HxDialogBase<object>.HideAsCancelledAsync)</strong><br />
+		Shows the modal as not sucessful (with no value).
+	</li>
+</ul>
+
+<h3>Imlementation</h3>
+Use @nameof(HxModal) with @@ref="@nameof(HxDialogBase<object>.modal)" inside of the dialog. See demo.
+
+<Demo Type="typeof(HxDialogBase_Demo)" Title="How to use a custom dialog" />
+<Demo Type="typeof(CustomDialog)" Title="How to implement a custom dialog" />
