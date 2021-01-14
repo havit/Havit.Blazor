@@ -1,0 +1,28 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+@if (this.DisplayMode == LayoutDisplayMode.Plain)
+{
+	<div class="h4">@HeaderTemplate</div>
+	@BodyTemplate
+	@FooterTemplate
+}
+else if (this.DisplayMode == LayoutDisplayMode.Drawer)
+{
+	<HxDrawer IsOpen="drawerIsOpen">
+		<HeaderTemplate>@HeaderTemplate</HeaderTemplate>
+		<BodyTemplate>@BodyTemplate</BodyTemplate>
+		<FooterTemplate>@FooterTemplate</FooterTemplate>
+	</HxDrawer>
+}
+else if (this.DisplayMode == LayoutDisplayMode.Modal)
+{
+	<HxModal @ref="modal">
+		<HeaderTemplate>@HeaderTemplate</HeaderTemplate>
+		<BodyTemplate>@BodyTemplate</BodyTemplate>
+		<FooterTemplate>@FooterTemplate</FooterTemplate>
+	</HxModal>
+}
+else
+{
+	throw new InvalidOperationException($"Unknown {nameof(DisplayMode)}: {this.DisplayMode:g}.");
+}

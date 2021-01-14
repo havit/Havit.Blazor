@@ -4,79 +4,69 @@
 		<div class="title h4">
 			@if (NamedViewsSection != null)
 			{
-			<div class="dropdown">
-				<span role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true"
-					  aria-expanded="false">
-					@if (TitleSection != null)
-							{
-					@TitleSection
-							}
-							else if (!String.IsNullOrEmpty(Title))
-							{
-					@Title
-							}
-					<HxIcon CssClass="fs-6 ms-1" Icon="@BootstrapIcon.ChevronDown" />
-				</span>
-				@NamedViewsSection
-			</div>
+				<div class="dropdown">
+					<span role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true"
+						  aria-expanded="false">
+						@if (TitleSection != null)
+						{
+							@TitleSection
+						}
+						else if (!String.IsNullOrEmpty(Title))
+						{
+							@Title
+						}
+						<HxIcon CssClass="fs-6 ms-1" Icon="@BootstrapIcon.ChevronDown" />
+					</span>
+					@NamedViewsSection
+				</div>
 			}
 			else if (TitleSection != null)
 			{
-			@TitleSection
+				@TitleSection
 			}
 			else if (!String.IsNullOrEmpty(Title))
 			{
-			@Title
+				@Title
 			}
 		</div>
 		@if (SearchSection != null)
 		{
-		<div class="search mb-3 mb-lg-0">
-			@SearchSection
-		</div>
+			<div class="search mb-3 mb-lg-0">
+				@SearchSection
+			</div>
 		}
 		<div class="commands text-end">
 			@if (FilterSection != null)
 			{
-			<HxButton OnClick="() => FilterDrawerOpen = true" Color="ThemeColor.Secondary">Filtrovat</HxButton>
+				<HxButton OnClick="() => FilterDrawerOpen = true" Color="ThemeColor.Secondary">Filtrovat</HxButton>
 			}
 			@if (CommandsSection != null)
 			{
-			@CommandsSection
+				@CommandsSection
 			}
 		</div>
 	</div>
 	@if (FilterSection != null)
 	{
-	<HxDrawer @bind-IsOpen="@FilterDrawerOpen">
-		<BodyTemplate>
-			<CascadingValue Value="@FilterDrawerOpen" Name="FilterDrawerOpen">
-				@* TODO pojmenování, konstanta *@ @* Kam může programátor napsat, že chce filtr by default expandovaný?
-				*@
-				@FilterSection
-			</CascadingValue>
-		</BodyTemplate>
-	</HxDrawer>
+		<HxDrawer @bind-IsOpen="@FilterDrawerOpen">
+			<BodyTemplate>
+				<CascadingValue Value="@FilterDrawerOpen" Name="FilterDrawerOpen">
+					@* TODO pojmenování, konstanta *@ @* Kam může programátor napsat, že chce filtr by default expandovaný?
+					*@
+					@FilterSection
+				</CascadingValue>
+			</BodyTemplate>
+		</HxDrawer>
 	}
 
 	@if (DataSection != null)
 	{
-	<div class="card my-4">
-		<div class="card-body">
-			@DataSection
+		<div class="card my-4">
+			<div class="card-body">
+				@DataSection
+			</div>
 		</div>
-	</div>
 	}
 
-	@*TODO: Otevření jen, je-li vybrán záznam pro zobrazení detailu. Používání detailu zapnuto použitím sekce? *@
-	@*TODO: Kdo řídí vybrání detailu?*@
-	<HxChangeTracker Value="layoutDetailContext">
-		<CascadingValue Value="layoutDetailContext">
-			<HxDrawer @bind-IsOpen="@DetailDrawerIsOpenBound" HeaderText="@layoutDetailContext.DetailTitle">
-				<BodyTemplate>
-					@DetailSection
-				</BodyTemplate>
-			</HxDrawer>
-		</CascadingValue>
-	</HxChangeTracker>
+	@DetailSection
 </div>
