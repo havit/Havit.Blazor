@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Layouts;
 using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
@@ -38,5 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter]	public RenderFragment DetailSection { get; set; }
 
 		[Parameter]	public RenderFragment CommandsSection { get; set; }
+
+		private LayoutDetailContext layoutDetailContext = new LayoutDetailContext();
 	}
 }
