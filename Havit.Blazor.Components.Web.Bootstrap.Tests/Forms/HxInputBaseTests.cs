@@ -39,7 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms
 				// No exception thrown
 			}
 
-			class HxComponent : HxInputBase<string>
+			private class HxComponent : HxInputBase<string>
 			{
 				protected override void BuildRenderInput(RenderTreeBuilder builder)
 				{
@@ -54,10 +54,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms
 				}
 			}
 
-			class FormData
+			private class FormData
 			{
 				public string StringValue { get; set; }
-			};
+			}
 		}
 	}
 }
