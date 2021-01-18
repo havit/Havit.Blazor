@@ -13,7 +13,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class ButtonSkin
 	{
 		/// <summary>
-		/// Css class to be rendered with button.
+		/// CSS class to be rendered with button.
 		/// </summary>
 		public string CssClass { get; }
 
