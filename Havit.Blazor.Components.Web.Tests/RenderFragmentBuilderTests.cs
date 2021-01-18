@@ -49,7 +49,7 @@ namespace Havit.Blazor.Components.Web.Tests
 		[TestMethod]
 		public void RenderFragmentBuilder_CreateFrom_OnlyContentSet_RendersContent()
 		{
-			// assert
+			// arrange
 			var ctx = new Bunit.TestContext();
 
 			// act
@@ -62,7 +62,7 @@ namespace Havit.Blazor.Components.Web.Tests
 		[TestMethod]
 		public void RenderFragmentBuilder_CreateFrom_OnlyTemplateSet_RendersTemplate()
 		{
-			// assert
+			// arrange
 			var ctx = new Bunit.TestContext();
 
 			// act
@@ -75,7 +75,7 @@ namespace Havit.Blazor.Components.Web.Tests
 		[TestMethod]
 		public void RenderFragmentBuilder_CreateFrom_EmptyStringContent_ReturnsFragmentWhichRendersStringEmpty()
 		{
-			// assert
+			// arrange
 			var ctx = new Bunit.TestContext();
 
 			// act

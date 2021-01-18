@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Havit.Blazor.Components.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Havit.Blazor.Components.WebTests
+namespace Havit.Blazor.Components.Web.Tests
 {
 	[TestClass]
 	public class CssClassHelperTests
