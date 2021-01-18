@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Tests", "Havit.Blazor.Components.Web.Tests\Havit.Blazor.Components.Web.Tests.csproj", "{47F722AB-B5A4-49AD-899C-9E041C4E6C71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.Components.Web.Bootstrap.Tests", "Havit.Blazor.Components.Web.Bootstrap.Tests\Havit.Blazor.Components.Web.Bootstrap.Tests.csproj", "{76FB473D-1C9D-484F-B04F-EDAF71CC1280}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{47F722AB-B5A4-49AD-899C-9E041C4E6C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47F722AB-B5A4-49AD-899C-9E041C4E6C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47F722AB-B5A4-49AD-899C-9E041C4E6C71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76FB473D-1C9D-484F-B04F-EDAF71CC1280}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76FB473D-1C9D-484F-B04F-EDAF71CC1280}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76FB473D-1C9D-484F-B04F-EDAF71CC1280}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76FB473D-1C9D-484F-B04F-EDAF71CC1280}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

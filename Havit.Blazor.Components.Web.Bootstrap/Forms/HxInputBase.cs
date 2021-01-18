@@ -96,10 +96,36 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected string InputId { get; private set; }
 
+		private EditContext autoCreatedEditContext;
+		
 		/// <summary>
 		/// Elements rendering order. Overriden in the checkbox component.
 		/// </summary>
 		protected virtual InputRenderOrder RenderOrder => InputRenderOrder.LabelInput;
+
+		public override Task SetParametersAsync(ParameterView parameters)
+		{
+			parameters.SetParameterProperties(this); // set properties to the component
+			EnsureCascadingEditContext(); // create edit context when there was none
+			return base.SetParametersAsync(ParameterView.Empty); // process base method (validations & EditContext property logic)
+		}
+
+		/// <summary>
+		/// When there is no EditContext cascading parameter, lets create a new one and assing it to CascadedEditContext private property in a base InputBase class.
+		/// </summary>
+		/// <remarks>
+		/// Even there is a protected EditContext property we cannot assign a value. When doing so InvalidOperationException exception is thrown.
+		/// </remarks>
+		private void EnsureCascadingEditContext()
+		{
+			var cascadedEditContextProperty = typeof(InputBase<TValue>).GetProperty("CascadedEditContext", BindingFlags.NonPublic | BindingFlags.Instance);
+
+			if (cascadedEditContextProperty.GetValue(this) == null)
+			{
+				autoCreatedEditContext ??= new EditContext(new object());
+				cascadedEditContextProperty.SetValue(this, autoCreatedEditContext);
+			}
+		}
 
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -256,7 +282,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
 		{
-			if (ShowValidationMessage)
+			if (ShowValidationMessage && (autoCreatedEditContext == null /* do not render validation when edit context was automatically created */))
 			{
 				//<div class="invalid-feedback">
 				//Please provide a valid city.
