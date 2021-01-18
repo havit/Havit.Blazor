@@ -1,0 +1,41 @@
+﻿<HxCard>
+	<HeaderTemplate>CardSkin.Default = new CardSkin() { CssClass = "bg-primary text-white m-3" };</HeaderTemplate>
+	<BodyTemplate>Card with default skin</BodyTemplate>
+	<FooterTemplate>Footer</FooterTemplate>
+</HxCard>
+
+<HxCard CssClass="bg-warning">
+	<HeaderTemplate>CssClass="bg-warning"</HeaderTemplate>
+	<BodyTemplate>Card with custom CSS (and default skin)</BodyTemplate>
+</HxCard>
+
+<HxCard Skin="MyCardSkins.MySkin">
+	<HeaderTemplate>Skin="MyCardSkins.MySkin"</HeaderTemplate>
+	<BodyTemplate>Card with custom skin</BodyTemplate>
+	<FooterTemplate>public static CardSkin MySkin = new CardSkin { CssClass = "bg-secondary m-5" };</FooterTemplate>
+</HxCard>
+
+<HxCard Skin="MyCardSkins.MySkin" CssClass="text-warning">
+	<HeaderTemplate>Skin="MyCardSkins.MySkin" CssClass="text-warning"</HeaderTemplate>
+	<BodyTemplate>Card with custom CSS (and custom skin)</BodyTemplate>
+</HxCard>
+
+<HxCard Skin="CardSkin.None" CssClass="text-danger">
+	<HeaderTemplate>Skin="CardSkin.None" CssClass="text-danger"</HeaderTemplate>
+	<BodyTemplate>In some rare cases you might need to disable the default skin completely (text-danger would not override text-white from Default skin).</BodyTemplate>
+	<FooterTemplate>Plain CssClass override should be enough in most cases.</FooterTemplate>
+</HxCard>
+
+
+@code {
+
+	protected override void OnInitialized()
+	{
+		CardSkin.Default = new CardSkin() { CssClass = "bg-primary text-white m-3" };
+	}
+
+	public static class MyCardSkins
+	{
+		public static CardSkin MySkin = new CardSkin { CssClass = "bg-secondary m-5" };
+	}
+}

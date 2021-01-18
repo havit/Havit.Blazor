@@ -1,5 +1,5 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-<div class="@CssClassHelper.Combine("card",  this.Skin?.CssClass ?? CardSkin.DefaultSkin?.CssClass, this.CssClass)">
+<div class="@CssClassHelper.Combine("card",  (this.Skin ?? CardSkin.Default)?.CssClass, this.CssClass)">
 	@if (HeaderTemplate is not null)
 	{
 		<div class="card-header">

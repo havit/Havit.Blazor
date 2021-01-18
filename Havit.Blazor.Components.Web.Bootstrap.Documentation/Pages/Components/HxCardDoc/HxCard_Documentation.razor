@@ -1,0 +1,22 @@
+﻿@page "/components/hxcard"
+
+<h1>@nameof(HxCard)</h1>
+<p class="lead">
+	Basic skinnable <a href="https://getbootstrap.com/docs/5.0/components/card/">Bootstrap Card</a>.
+</p>
+
+<h3>Properties</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxCard.CssClass)</strong><br />
+		Additional CSS classes for the card-container.
+	</li>
+	<li>
+		<strong>@nameof(HxCard.Skin)</strong><br />
+		Skin to be applied.<br />
+		You can set a default skin to <strong>@nameof(CardSkin).@nameof(CardSkin.Default)</strong>. It will be applied to any HxCard without explicit skin specified.
+	</li>
+</ul>
+
+
+<Demo Type="typeof(HxCard_Demo)" />
