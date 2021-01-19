@@ -1,11 +1,13 @@
 :root {
-	--main-bg: #fafafa;
-	--sidebar-link-hover: #f2f9ff;
-	--box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-	--drawer-sm-width: 400px;
-	--drawer-width: 600px;
-	--drawer-lg-width: 800px;
-	--drawer-lg-width: 800px;
-	--primary: #2e75f0;
-	--sidebar-border: 1px solid #e9ecef;
+  --main-bg: #f5f5f6;
+  --sidebar-link-hover: #f2f9ff;
+  --drawer-box-shadow: rgba(0, 0, 0, 0.075) -2px 0px 4px 0; /* shadow-sm */
+  --sidebar-box-shadow: rgba(0, 0, 0, 0.555) 2px 0px 4px 0; /* shadow-sm */
+  --sidebar-background-color: white;
+  --drawer-sm-width: 400px;
+  --drawer-width: 600px;
+  --drawer-lg-width: 800px;
+  --drawer-lg-width: 800px;
+  --primary: #2e75f0;
+  --sidebar-border: 1px solid #e9ecef;
 }

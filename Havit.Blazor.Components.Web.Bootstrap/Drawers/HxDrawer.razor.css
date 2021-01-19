@@ -24,7 +24,7 @@
 
 .drawer.show {
   right: 0;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--drawer-box-shadow);
 }
 
 .hide {
