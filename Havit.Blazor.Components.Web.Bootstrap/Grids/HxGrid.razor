@@ -122,6 +122,13 @@
 
 		</table>
 
+        @if (dataItemsToRender.Count == 0) {
+            <div class="text-center text-secondary my-5">
+                <div class="fs-3"><HxIcon Icon="@BootstrapIcon.Inbox" /></div>
+                <div>No data.</div>
+            </div>  
+        }
+
 		@if ((PageSize > 0) && (dataItemsTotalCount != null))
 		{
 			int totalPages = (dataItemsTotalCount.Value + PageSize - 1) / PageSize;
