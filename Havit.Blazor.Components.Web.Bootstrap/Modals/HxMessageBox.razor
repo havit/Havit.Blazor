@@ -3,25 +3,20 @@
 @* TODO Pořadí tlačítek *@
 @* TODO Focus + Enter *@
 
-<HxModal @ref="modal"
-		 CssClass="@this.CssClass"
-		 ShowCloseButton="@this.ShowCloseButton"
-		 OnClosed="HandleModalClosed">
-	<HeaderTemplate>
-		@Title
-		@TitleTemplate
-	</HeaderTemplate>
-	<BodyTemplate>
-		@Text
-		@ContentTemplate
-	</BodyTemplate>
-	<FooterTemplate>
-		@foreach (var button in GetButtonsToRender())
-		{
-			<HxButton Text="@button.Text"
-					  OnClick="@(() => HandleButtonClick(button.Id))"
-					  Color="@((button.IsPrimary ?? false) ? ThemeColor.Primary : ThemeColor.Secondary)"
-					  Outlined="@((!button.IsPrimary) ?? true)" />
-		}
-	</FooterTemplate>
+<HxModal @ref="modal" CssClass="@this.CssClass" ShowCloseButton="@this.ShowCloseButton" OnClosed="HandleModalClosed">
+    <HeaderTemplate>
+        @Title
+        @TitleTemplate
+    </HeaderTemplate>
+    <BodyTemplate>
+        @Text
+        @ContentTemplate
+    </BodyTemplate>
+    <FooterTemplate>
+        @foreach (var button in GetButtonsToRender())
+                {
+        <HxButton Text="@button.Text" OnClick="@(() => HandleButtonClick(button.Id))"
+            Color="@((button.IsPrimary ?? false) ? ThemeColor.Primary : ThemeColor.Secondary)" Outlined="false" />
+        }
+    </FooterTemplate>
 </HxModal>
