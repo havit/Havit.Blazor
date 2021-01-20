@@ -32,7 +32,7 @@
 
 	if (columnsToRender.Any())
 	{	
-		<table class="table table-responsible">
+		<table class="table table-responsible table-hover">
 			<thead>
 				<tr>
 					@foreach (IHxGridColumn<TItemType> column in columnsToRender)
@@ -124,7 +124,7 @@
 
         @if (dataItemsToRender.Count == 0) {
             <div class="text-center text-secondary my-5">
-                <div class="fs-3"><HxIcon Icon="@BootstrapIcon.Inbox" /></div>
+                <div class="fs-4"><HxIcon Icon="@BootstrapIcon.Inbox" /></div>
                 <div>No data.</div>
             </div>  
         }
