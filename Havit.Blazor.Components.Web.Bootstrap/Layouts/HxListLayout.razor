@@ -1,72 +1,71 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <div class="hx-list-layout">
-	<div class="hx-list-header d-lg-flex">
-		<div class="title h4">
-			@if (NamedViewsSection != null)
-			{
-				<div class="dropdown">
-					<span role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true"
-						  aria-expanded="false">
-						@if (TitleSection != null)
-						{
-							@TitleSection
-						}
-						else if (!String.IsNullOrEmpty(Title))
-						{
-							@Title
-						}
-						<HxIcon CssClass="fs-6 ms-1" Icon="@BootstrapIcon.ChevronDown" />
-					</span>
-					@NamedViewsSection
-				</div>
-			}
-			else if (TitleSection != null)
-			{
-				@TitleSection
-			}
-			else if (!String.IsNullOrEmpty(Title))
-			{
-				@Title
-			}
-		</div>
-		@if (SearchSection != null)
-		{
-			<div class="search mb-3 mb-lg-0">
-				@SearchSection
-			</div>
-		}
-		<div class="commands text-end">
-			@if (FilterSection != null)
-			{
-				<HxButton OnClick="() => FilterDrawerOpen = true" Color="ThemeColor.Secondary">Filtrovat</HxButton>
-			}
-			@if (CommandsSection != null)
-			{
-				@CommandsSection
-			}
-		</div>
-	</div>
-	@if (FilterSection != null)
-	{
-		<HxDrawer @bind-IsOpen="@FilterDrawerOpen">
-			<BodyTemplate>
-				<CascadingValue Value="@FilterDrawerOpen" Name="FilterDrawerOpen">
-					@* TODO pojmenování, konstanta *@ @* Kam může programátor napsat, že chce filtr by default expandovaný?
-					*@
-					@FilterSection
-				</CascadingValue>
-			</BodyTemplate>
-		</HxDrawer>
-	}
+    <div class="card my-4">
+        <div class="card-header d-flex">
+	        <div class="fs-5">
+	        	@if (NamedViewsSection != null)
+	        	{
+	        		<div class="dropdown">
+	        			<span role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true"
+	        				  aria-expanded="false">
+	        				@if (TitleSection != null)
+	        				{
+	        					@TitleSection
+	        				}
+	        				else if (!String.IsNullOrEmpty(Title))
+	        				{
+	        					@Title
+	        				}
+	        				<HxIcon CssClass="fs-6 ms-1" Icon="@BootstrapIcon.ChevronDown" />
+	        			</span>
+	        			@NamedViewsSection
+	        		</div>
+	        	}
+	        	else if (TitleSection != null)
+	        	{
+	        		@TitleSection
+	        	}
+	        	else if (!String.IsNullOrEmpty(Title))
+	        	{
+	        		@Title
+	        	}
+	        </div>
+	        @if (FilterSection != null)
+	        {
+	        	<HxDrawer @bind-IsOpen="@FilterDrawerOpen">
+	        		<BodyTemplate>
+	        			<CascadingValue Value="@FilterDrawerOpen" Name="FilterDrawerOpen">
+	        				@* TODO pojmenování, konstanta *@ @* Kam může programátor napsat, že chce filtr by default expandovaný?
+	        				*@
+	        				@FilterSection
+	        			</CascadingValue>
+	        		</BodyTemplate>
+	        	</HxDrawer>
+	        }
 
-	@if (DataSection != null)
-	{
-		<div class="card my-4">
-			<div class="card-body">
-				@DataSection
-			</div>
-		</div>
-	}
-
+            @if (SearchSection != null)
+            {
+                <div class="search mb-3 mb-lg-0">
+                    @SearchSection
+                </div>
+            }
+            <div class="commands text-end">
+                @if (FilterSection != null)
+                {
+                    <HxButton OnClick="() => FilterDrawerOpen = true" Color="ThemeColor.Secondary">Filtrovat</HxButton>
+                }
+                @if (CommandsSection != null)
+                {
+                    @CommandsSection
+                }
+            </div>
+        </div>
+        @if (DataSection != null)
+        {
+            <div class="card-body px-0 pt-0">
+                @DataSection
+            </div>
+        }
+    </div>
 	@DetailSection
 </div>
