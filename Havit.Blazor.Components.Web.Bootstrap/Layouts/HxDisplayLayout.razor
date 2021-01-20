@@ -8,7 +8,7 @@
 }
 else if (this.DisplayMode == LayoutDisplayMode.Drawer)
 {
-	<HxDrawer IsOpen="drawerIsOpen">
+	<HxDrawer IsOpen="drawerIsOpen" IsOpenChanged="HandleDrawerIsOpenChanged">
 		<HeaderTemplate>@HeaderTemplate</HeaderTemplate>
 		<BodyTemplate>@BodyTemplate</BodyTemplate>
 		<FooterTemplate>@FooterTemplate</FooterTemplate>
@@ -16,7 +16,7 @@ else if (this.DisplayMode == LayoutDisplayMode.Drawer)
 }
 else if (this.DisplayMode == LayoutDisplayMode.Modal)
 {
-	<HxModal @ref="modal">
+	<HxModal @ref="modal" OnClosed="OnClosed">
 		<HeaderTemplate>@HeaderTemplate</HeaderTemplate>
 		<BodyTemplate>@BodyTemplate</BodyTemplate>
 		<FooterTemplate>@FooterTemplate</FooterTemplate>

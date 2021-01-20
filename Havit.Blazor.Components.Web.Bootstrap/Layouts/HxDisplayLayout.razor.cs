@@ -15,16 +15,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment FooterTemplate { get; set; }
 
 		[Parameter] public LayoutDisplayMode DisplayMode { get; set; }
+		[Parameter] public EventCallback OnClosed { get; set; }
 
 		[Inject] protected ILogger<HxDisplayLayout> Logger { get; set; }
 
 		private bool drawerIsOpen;
 		private HxModal modal;
-
-		protected override void OnInitialized()
-		{
-			Logger.LogDebug("OnInitialized");
-		}
 
 		public async Task ShowAsync()
 		{
@@ -52,7 +48,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			else if (DisplayMode == LayoutDisplayMode.Drawer)
 			{
 				drawerIsOpen = false;
-				StateHasChanged();
+				await OnClosed.InvokeAsync();
+			}
+		}
+
+		private async Task HandleDrawerIsOpenChanged(bool isOpen)
+		{
+			drawerIsOpen = isOpen;
+			if (!isOpen)
+			{
+				await OnClosed.InvokeAsync();
 			}
 		}
 	}
