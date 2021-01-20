@@ -24,15 +24,15 @@
 @if (dataItemsToRender != null)
 {
 	List<IHxGridColumn<TItemType>> columnsToRender = GetColumnsToRender();
-	
+
 	if ((dataItemsToRender.Count == 0) && (CurrentUserState.PageIndex > 0))
 	{
 		decreasePageIndexAfterRender = true;
 	}
 
 	if (columnsToRender.Any())
-	{	
-		<table class="table table-responsible table-hover">
+	{
+		<table class="table table-responsible">
 			<thead>
 				<tr>
 					@foreach (IHxGridColumn<TItemType> column in columnsToRender)
@@ -41,17 +41,17 @@
 						bool isCurrentSorting = CurrentUserState.Sorting?.StartsWith(columnSorting) ?? false;
 						var headerCellTemplate = column.GetHeaderCellTemplate();
 						string iconColor = isCurrentSorting ? "text-primary" : "text-muted";
-					<th class="@headerCellTemplate.CssClass">
+						<th class="@headerCellTemplate.CssClass">
 							@if (columnSorting.Any())
 							{
 								<a @onclick="async () => await HandleSortingClick(columnSorting)" @onclick:stopPropagation role="button">
-						            <UpdatedContentRenderer Component="column">
+									<UpdatedContentRenderer Component="column">
 										@headerCellTemplate.Template
 									</UpdatedContentRenderer>
 									@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
-							|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
+						|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
 									{
-					                    <HxIcon CssClass="@CssClassHelper.Combine("ms-1", @iconColor)" Icon="@BootstrapIcon.SortAlphaDownAlt" />
+										<HxIcon CssClass="@CssClassHelper.Combine("ms-1", @iconColor)" Icon="@BootstrapIcon.SortAlphaDownAlt" />
 									}
 									else
 									{
@@ -59,12 +59,13 @@
 									}
 								</a>
 							}
-							else {
-							<UpdatedContentRenderer Component="column">
-								@headerCellTemplate.Template  
-							</UpdatedContentRenderer>
+							else
+							{
+								<UpdatedContentRenderer Component="column">
+									@headerCellTemplate.Template
+								</UpdatedContentRenderer>
 							}
-					</th>
+						</th>
 					}
 				</tr>
 			</thead>
@@ -122,12 +123,13 @@
 
 		</table>
 
-        @if (dataItemsToRender.Count == 0) {
-            <div class="text-center text-secondary my-5">
-                <div class="fs-4"><HxIcon Icon="@BootstrapIcon.Inbox" /></div>
-                <div>No data.</div>
-            </div>  
-        }
+		@if (dataItemsToRender.Count == 0)
+		{
+			<div class="text-center text-secondary my-5">
+				<div class="fs-3"><HxIcon Icon="@BootstrapIcon.Inbox" /></div>
+				<div>No data.</div>
+			</div>
+		}
 
 		@if ((PageSize > 0) && (dataItemsTotalCount != null))
 		{
