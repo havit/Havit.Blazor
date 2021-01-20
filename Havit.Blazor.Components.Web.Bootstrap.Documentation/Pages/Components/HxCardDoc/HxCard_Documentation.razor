@@ -8,13 +8,21 @@
 <h3>Properties</h3>
 <ul>
 	<li>
-		<strong>@nameof(HxCard.CssClass)</strong><br />
-		Additional CSS classes for the card-container.
+		<strong>@nameof(HxCard.HeaderTemplate), @nameof(HxCard.BodyTemplate), @nameof(HxCard.FooterTemplate)</strong><br />
+		Card sections.
 	</li>
 	<li>
 		<strong>@nameof(HxCard.Skin)</strong><br />
 		Skin to be applied.<br />
 		You can set a default skin to <strong>@nameof(CardSkin).@nameof(CardSkin.Default)</strong>. It will be applied to any HxCard without explicit skin specified.
+	</li>
+	<li>
+		<strong>@nameof(HxCard.CssClass)</strong><br />
+		Additional CSS classes for the card-container.
+	</li>
+	<li>
+		<strong>@nameof(HxCard.HeaderCssClass), @nameof(HxCard.BodyCssClass), @nameof(HxCard.FooterCssClass)</strong><br />
+		Additional CSS classes for card sections.
 	</li>
 </ul>
 

@@ -13,6 +13,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment BodyTemplate { get; set; }
 		[Parameter] public RenderFragment FooterTemplate { get; set; }
 		[Parameter] public string CssClass { get; set; }
+		[Parameter] public string HeaderCssClass { get; set; }
+		[Parameter] public string BodyCssClass { get; set; }
+		[Parameter] public string FooterCssClass { get; set; }
 		[Parameter] public CardSkin Skin { get; set; }
 	}
 }

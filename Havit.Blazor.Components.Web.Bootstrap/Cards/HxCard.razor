@@ -2,19 +2,19 @@
 <div class="@CssClassHelper.Combine("card",  (this.Skin ?? CardSkin.Default)?.CssClass, this.CssClass)">
 	@if (HeaderTemplate is not null)
 	{
-		<div class="card-header">
+		<div class="@CssClassHelper.Combine("card-header",  (this.Skin ?? CardSkin.Default)?.HeaderCssClass, this.HeaderCssClass)">
 			@HeaderTemplate
 		</div>
 	}
 	@if (BodyTemplate is not null)
 	{
-		<div class="card-body">
+		<div class="@CssClassHelper.Combine("card-body",  (this.Skin ?? CardSkin.Default)?.BodyCssClass, this.BodyCssClass)">
 			@BodyTemplate
 		</div>
 	}
 	@if (FooterTemplate is not null)
 	{
-		<div class="card-footer">
+		<div class="@CssClassHelper.Combine("card-footer",  (this.Skin ?? CardSkin.Default)?.FooterCssClass, this.FooterCssClass)">
 			@FooterTemplate
 		</div>
 	}

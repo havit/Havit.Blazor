@@ -18,9 +18,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public static CardSkin None => new CardSkin();
 
-		/// <summary>
-		/// CSS class to be rendered with button.
-		/// </summary>
 		public string CssClass { get; set; }
+		public string HeaderCssClass { get; set; }
+		public string BodyCssClass { get; set; }
+		public string FooterCssClass { get; set; }
 	}
 }
