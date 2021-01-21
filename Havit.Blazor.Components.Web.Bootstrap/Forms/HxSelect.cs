@@ -98,9 +98,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
 
+		private IEqualityComparer<TValueType> comparer = EqualityComparer<TValueType>.Default;
 		private List<TItemType> itemsToRender;
-		IEqualityComparer<TValueType> comparer = EqualityComparer<TValueType>.Default;
-		TItemType selectedItem;
+		private TItemType selectedItem;
 		private int selectedItemIndex;
 
 		/// <inheritdoc/>
