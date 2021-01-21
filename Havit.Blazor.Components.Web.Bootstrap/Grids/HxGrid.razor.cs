@@ -34,9 +34,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public GridDataProviderDelegate<TItemType> DataProvider { get; set; }
 
 		/// <summary>
-		/// Grid view selection mode. Default is "Select".
+		/// Indicates whether single data item selection is enabled. 
+		/// Selection is performed by click on the item row.
+		/// Can be combined with multiselection.
+		/// Default is true.
 		/// </summary>
-		[Parameter] public GridSelectionMode SelectionMode { get; set; }
+		[Parameter] public bool SelectionEnabled { get; set; } = true;
+
+		/// <summary>
+		/// Indicates whether multi data items selection is enabled. 
+		/// Selection is performed by checkboxes in the first column.
+		/// Can be combined with (single) selection.
+		/// Default is false.
+		/// </summary>
+		[Parameter] public bool MultiSelectionEnabled { get; set; } = false;
 
 		/// <summary>
 		/// Columns template.
@@ -241,7 +252,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleSelectDataItemClick(TItemType newSelectedDataItem)
 		{
-			Contract.Requires(SelectionMode == GridSelectionMode.Select);
+			Contract.Requires(SelectionEnabled);
 
 			if (!EqualityComparer<TItemType>.Default.Equals(SelectedDataItem, newSelectedDataItem))
 			{
@@ -389,6 +400,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		#region MultiSelect events
 		private async Task HandleMultiSelectSelectDataItemClicked(TItemType selectedDataItem)
 		{
+			Contract.Requires(MultiSelectionEnabled);
+
 			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItemType>();
 			if (selectedDataItems.Add(selectedDataItem))
 			{
@@ -398,6 +411,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleMultiSelectUnselectDataItemClicked(TItemType selectedDataItem)
 		{
+			Contract.Requires(MultiSelectionEnabled);
+			
 			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItemType>();
 			if (selectedDataItems.Remove(selectedDataItem))
 			{
@@ -407,11 +422,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleMultiSelectSelectAllClicked()
 		{
+			Contract.Requires(MultiSelectionEnabled);
+			
 			await SetSelectedDataItemsWithEventCallback(new HashSet<TItemType>(dataItemsToRender));
 		}
 
 		private async Task HandleMultiSelectSelectNoneClicked()
 		{
+			Contract.Requires(MultiSelectionEnabled);
+			
 			await SetSelectedDataItemsWithEventCallback(new HashSet<TItemType>());
 		}
 		#endregion

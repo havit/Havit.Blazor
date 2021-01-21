@@ -60,6 +60,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					bool selected = SelectedDataItems?.Contains(item) ?? false;
 					builder.AddAttribute(203, "checked", selected);
 					builder.AddAttribute(204, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectDataItemClick(item, selected)));
+					builder.AddEventStopPropagationAttribute(205, "onclick", true);
 
 					builder.CloseElement(); // input
 

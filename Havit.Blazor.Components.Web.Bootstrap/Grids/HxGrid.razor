@@ -3,7 +3,7 @@
 
 <CascadingValue Value="@columnsListRegistration" Name="@ColumnsRegistrationCascadingValueName" IsFixed="true">
 	@*Aby se dostaly komponenty do kolekcí, musíme je dostat do renderování této komponenty. Chceme však, aby komponenty nic nevyrenderovaly. *@
-	@if (SelectionMode == GridSelectionMode.MultiSelect)
+	@if (MultiSelectionEnabled)
 	{
 		bool allDataItemsSelected = (dataItemsToRender != null) && (SelectedDataItems != null) && (SelectedDataItems.Count > 0) && (dataItemsToRender.Count == SelectedDataItems.Count);
 		<MultiSelectGridColumn TItemType="TItemType"
@@ -72,14 +72,15 @@
 			<tbody>
 				@foreach (TItemType item in dataItemsToRender)
 				{
-					if (SelectionMode == GridSelectionMode.Select)
+					if (SelectionEnabled)
 					{
 						<tr role="button"
 							@onclick="async () => await HandleSelectDataItemClick(item)" @onclick:stopPropagation
-							class="@(((item != null) && (SelectionMode == GridSelectionMode.Select) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
-
+							class="@(((item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
+							
 							@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 							{
+								// same as below in the else section
 								CellTemplate cellTemplate = column.GetItemCellTemplate(item);
 								<td class="@cellTemplate.CssClass">
 									<UpdatedContentRenderer Component="column">
@@ -91,10 +92,11 @@
 					}
 					else
 					{
-						// SelectionMode: MultiSelect, None - no table-active, no event handlers
+						// !SelectionEnabled - no table-active, no event handlers
 						<tr>
 							@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 							{
+								// same as above this else section
 								CellTemplate cellTemplate = column.GetItemCellTemplate(item);
 								<td class="@cellTemplate.CssClass">
 									<UpdatedContentRenderer Component="column">
