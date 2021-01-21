@@ -61,6 +61,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string NullText { get; set; }
 
 		/// <summary>
+		/// Text to display when Items are null.
+		/// </summary>
+		[Parameter] public string NullItemsText { get; set; }
+
+		/// <summary>
 		/// Selects value from item.
 		/// Not required when TValueType is same as TItemTime.
 		/// </summary>
@@ -89,6 +94,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool AutoSort { get; set; } = true;
 
+		/// <inheritdoc />
+		/// </summary>
+		protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
+
 		private List<TItemType> itemsToRender;
 
 		/// <inheritdoc/>
@@ -96,23 +105,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			await base.SetParametersAsync(parameters);
 
-			itemsToRender = Items?.ToList() ?? new List<TItemType>();
 
-			// AutoSort
-			if (AutoSort && (itemsToRender.Count > 1))
+			if (Items != null)
+			{ 
+				itemsToRender = Items.ToList();
+				
+				// AutoSort
+				if (AutoSort && (itemsToRender.Count > 1))
+				{
+					if (SortKeySelector != null)
+					{
+						itemsToRender = itemsToRender.OrderBy(this.SortKeySelector).ToList();
+					}
+					else if (TextSelector != null)
+					{
+						itemsToRender = itemsToRender.OrderBy(this.TextSelector).ToList();
+					}
+					else
+					{
+						itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
+					}
+				}
+			}
+			else
 			{
-				if (SortKeySelector != null)
-				{
-					itemsToRender = itemsToRender.OrderBy(this.SortKeySelector).ToList();
-				}
-				else if (TextSelector != null)
-				{
-					itemsToRender = itemsToRender.OrderBy(this.TextSelector).ToList();
-				}
-				else
-				{
-					itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
-				}
+				itemsToRender = null;
 			}
 		}
 
@@ -125,35 +142,47 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1000, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 			builder.AddEventStopPropagationAttribute(1002, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxSelect nastavitelné?
 
-			IEqualityComparer<TValueType> comparer = EqualityComparer<TValueType>.Default;
-			TItemType selectedItem = itemsToRender.FirstOrDefault(item => comparer.Equals(Value, GetValueFromItem(item)));
-
-			if ((Value != null) && (selectedItem == null))
+			if (itemsToRender != null)
 			{
-				throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
-			}
+				IEqualityComparer<TValueType> comparer = EqualityComparer<TValueType>.Default;
+				TItemType selectedItem = itemsToRender.FirstOrDefault(item => comparer.Equals(Value, GetValueFromItem(item)));
 
-			if (NullableEffective || (selectedItem == null))
-			{
-				builder.OpenElement(2000, "option");
-				builder.AddAttribute(2001, "value", -1);
-				builder.AddContent(2002, NullText);
-				builder.CloseElement();
-			}
-
-			for (int i = 0; i < itemsToRender.Count; i++)
-			{
-				var item = itemsToRender[i];
-				if (item != null)
+				if ((Value != null) && (selectedItem == null))
 				{
-					builder.OpenElement(3000, "option");
-					builder.AddAttribute(3001, "value", i.ToString());
-					builder.AddAttribute(3002, "selected", comparer.Equals(Value, GetValueFromItem(item)));
-					builder.AddContent(3003, TextSelector?.Invoke(item) ?? item?.ToString() ?? String.Empty);
+					throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
+				}
+
+				if (NullableEffective || (selectedItem == null))
+				{
+					builder.OpenElement(2000, "option");
+					builder.AddAttribute(2001, "value", -1);
+					builder.AddContent(2002, NullText);
+					builder.CloseElement();
+				}
+
+				for (int i = 0; i < itemsToRender.Count; i++)
+				{
+					var item = itemsToRender[i];
+					if (item != null)
+					{
+						builder.OpenElement(3000, "option");
+						builder.AddAttribute(3001, "value", i.ToString());
+						builder.AddAttribute(3002, "selected", comparer.Equals(Value, GetValueFromItem(item)));
+						builder.AddContent(3003, TextSelector?.Invoke(item) ?? item?.ToString() ?? String.Empty);
+						builder.CloseElement();
+					}
+				}
+			}
+			else
+			{
+				if (!String.IsNullOrEmpty(NullItemsText))
+				{
+					builder.OpenElement(4000, "option");
+					builder.AddAttribute(4001, "selected", true);
+					builder.AddContent(4002, NullItemsText);
 					builder.CloseElement();
 				}
 			}
-
 			builder.CloseElement();
 		}
 

@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Components;
 namespace Havit.Blazor.Components.Web.Infrastructure
 {
 	/// <summary>
-	/// Extensions to <see cref="ICascadeEnabledComponent"/>.
+	/// <see cref="ICascadeEnabledComponent"/> helper method.
 	/// </summary>
-	public static class CascadeEnabledComponentExtensions
+	public static class CascadeEnabledComponent
 	{
 		/// <summary>
 		/// Effective value of Enabled. When Enabled is not set, receives value from FormState or defaults to true.
 		/// </summary>
-		public static bool EnabledEffective(this ICascadeEnabledComponent component)
+		public static bool EnabledEffective(ICascadeEnabledComponent component)
 		{
 			return component.FormState?.Enabled ?? component.Enabled ?? true;
 		}

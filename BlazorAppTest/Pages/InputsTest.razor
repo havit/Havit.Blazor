@@ -39,6 +39,7 @@
 
 			<HxSelect Label="Select" @bind-Value="@Model.CultureInfoName" ValueSelector="@(item => item.DisplayName)" Items="@System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures)" TextSelector="@(item => item.DisplayName)" />
 			<HxSelect Label="Select" @bind-Value="@Model.CultureInfo" Items="@System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).OrderByDescending(i => i.DisplayName)" TextSelector="@(item => item.DisplayName)" />
+			<HxSelect Label="Select" TItemType="System.Globalization.CultureInfo" TValueType="System.Globalization.CultureInfo"  @bind-Value="@Model.CultureInfo" TextSelector="@(item => item.DisplayName)" NullItemsText="No data available." />
 
 			<HxInputCheckBox Label="CheckBox" @bind-Value="@Model.BoolValue">
 				<HintTemplate>@Model.BoolValue</HintTemplate>

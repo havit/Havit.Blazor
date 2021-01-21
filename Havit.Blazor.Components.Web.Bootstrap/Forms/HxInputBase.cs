@@ -72,6 +72,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? Enabled { get; set; }
 
 		/// <summary>
+		/// Returns effective value for Enabled property.
+		/// </summary>
+		protected virtual bool EnabledEffective => CascadeEnabledComponent.EnabledEffective(this);
+
+		/// <summary>
 		/// Css class to be rendered with the wrapping div.
 		/// </summary>
 		private protected virtual string CoreCssClass => "";
@@ -260,7 +265,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(2, "id", InputId);
 			builder.AddAttribute(3, "type", typeValue);
 			builder.AddAttribute(4, "class", GetInputCssClassToRender());
-			builder.AddAttribute(5, "disabled", !this.EnabledEffective());
+			builder.AddAttribute(5, "disabled", !EnabledEffective);
 		}
 
 		/// <summary>

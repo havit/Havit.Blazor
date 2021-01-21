@@ -4,7 +4,7 @@
 		class="@CssClassHelper.Combine("btn", GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass)"
 		@onclick="HandleClick"
 		@onclick:stopPropagation="this.OnClickStopPropagation"
-		disabled="@(!this.EnabledEffective())"
+		disabled="@(!CascadeEnabledComponent.EnabledEffective(this))"
 		@attributes="InputAttributes">
 
 	@if ((this.Icon ?? this.Skin?.Icon) is not null)
