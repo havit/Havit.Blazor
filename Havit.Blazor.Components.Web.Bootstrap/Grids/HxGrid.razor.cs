@@ -125,9 +125,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		protected override void OnParametersSet()
+		protected override async Task OnParametersSetAsync()
 		{
-			base.OnParametersSet();
+			await base.OnParametersSetAsync();
 
 			Contract.Requires<InvalidOperationException>((Data == null) || (DataProvider == null), $"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Data)}' and '{nameof(DataProvider)}'.");
 
@@ -144,10 +144,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					// When we have a fixed set of in-memory data, it doesn't cost anything to
 					// re-query it on each cycle, so do that. This means the developer can add/remove
 					// items in the collection and see the UI update without having to call RefreshDataAsync.
-					var refreshTask = RefreshDataCoreAsync(renderOnSuccess: false);
 
-					// We know it's synchronous and has its own error handling
-					Debug.Assert(refreshTask.IsCompletedSuccessfully);
+					// Despite the Virtualize component (the inspiration), HxGrid can be asynchronous in RefreshDataCoreAsync with EnumerableDataProvider
+					// due the EventCallbacks (setting selected items etc.).
+					await RefreshDataCoreAsync(renderOnSuccess: false);
 				}
 			}
 		}
