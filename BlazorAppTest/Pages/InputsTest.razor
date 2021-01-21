@@ -1,5 +1,6 @@
 ﻿@page "/InputsTest"
-
+@using System.Globalization;
+ 
 <h1>Inputs</h1>
 
 <div class="card" @onclick="HandleCardClick">
@@ -37,9 +38,10 @@
 			<HxInputDate Label="Date" @bind-Value="@Model.DateValue" ParsingErrorMessage="Zadejte správně Date." />
 			<HxInputDate Label="Date (nullable)" @bind-Value="@Model.NullableDateValue" ParsingErrorMessage="Zadejte správně Date." />
 
-			<HxSelect Label="Select" @bind-Value="@Model.CultureInfoName" ValueSelector="@(item => item.DisplayName)" Items="@System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures)" TextSelector="@(item => item.DisplayName)" />
-			<HxSelect Label="Select" @bind-Value="@Model.CultureInfo" Items="@System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.SpecificCultures).OrderByDescending(i => i.DisplayName)" TextSelector="@(item => item.DisplayName)" />
-			<HxSelect Label="Select" TItemType="System.Globalization.CultureInfo" TValueType="System.Globalization.CultureInfo"  @bind-Value="@Model.CultureInfo" TextSelector="@(item => item.DisplayName)" NullItemsText="No data available." />
+			<HxSelect Label="Select (TValueType: string)" @bind-Value="@Model.CultureInfoName" ValueSelector="@(item => item.DisplayName)" Items="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
+			<HxSelect Label="Select (TValueType: CultureInfo)" @bind-Value="@Model.CultureInfo" Items="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
+			<HxSelect Label="Select (TValueType: CultureInfo, Nullable == true)" @bind-Value="@Model.CultureInfo2" Items="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
+			<HxSelect Label="Select (Items == null)" TItemType="CultureInfo" TValueType="CultureInfo" @bind-Value="@Model.CultureInfo" TextSelector="@(item => item.DisplayName)" NullItemsText="No data available." />
 
 			<HxInputCheckBox Label="CheckBox" @bind-Value="@Model.BoolValue">
 				<HintTemplate>@Model.BoolValue</HintTemplate>
@@ -57,6 +59,7 @@
 </div>
 @code
 {
+	private List<CultureInfo> cultureInfos = new List<CultureInfo> { CultureInfo.GetCultureInfo("cs-CZ"), CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sk-SK"), CultureInfo.GetCultureInfo("es-ES") };
 	private DateTime? lastCapturedClick = null;
 
 	private Task HandleCardClick()

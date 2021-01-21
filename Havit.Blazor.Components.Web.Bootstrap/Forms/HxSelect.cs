@@ -99,12 +99,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
 
 		private List<TItemType> itemsToRender;
+		IEqualityComparer<TValueType> comparer = EqualityComparer<TValueType>.Default;
+		TItemType selectedItem;
+		private int selectedItemIndex;
 
 		/// <inheritdoc/>
 		public override async Task SetParametersAsync(ParameterView parameters)
 		{
 			await base.SetParametersAsync(parameters);
-
 
 			if (Items != null)
 			{ 
@@ -126,10 +128,30 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 						itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
 					}
 				}
+
+				// set next properties for rendering
+				selectedItem = itemsToRender.FirstOrDefault(item => comparer.Equals(Value, GetValueFromItem(item))); // null when not found
+				selectedItemIndex = itemsToRender.IndexOf(selectedItem); // -1 when not found
+
+				if ((Value == null) && (selectedItem == null) && !NullableEffective && (itemsToRender.Count > 0))
+				{
+					// choose first item
+					selectedItem = itemsToRender.First();
+					selectedItemIndex = 0;
+					Value = GetValueFromItem(selectedItem);
+					await ValueChanged.InvokeAsync(Value);
+				}
+				
+				if ((Value != null) && (selectedItem == null))
+				{
+					throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
+				}
 			}
 			else
 			{
 				itemsToRender = null;
+				selectedItem = default;
+				selectedItemIndex = -1;
 			}
 		}
 
@@ -144,14 +166,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (itemsToRender != null)
 			{
-				IEqualityComparer<TValueType> comparer = EqualityComparer<TValueType>.Default;
-				TItemType selectedItem = itemsToRender.FirstOrDefault(item => comparer.Equals(Value, GetValueFromItem(item)));
-
-				if ((Value != null) && (selectedItem == null))
-				{
-					throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
-				}
-
 				if (NullableEffective || (selectedItem == null))
 				{
 					builder.OpenElement(2000, "option");
@@ -167,7 +181,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					{
 						builder.OpenElement(3000, "option");
 						builder.AddAttribute(3001, "value", i.ToString());
-						builder.AddAttribute(3002, "selected", comparer.Equals(Value, GetValueFromItem(item)));
+						builder.AddAttribute(3002, "selected", i == selectedItemIndex);
 						builder.AddContent(3003, TextSelector?.Invoke(item) ?? item?.ToString() ?? String.Empty);
 						builder.CloseElement();
 					}
