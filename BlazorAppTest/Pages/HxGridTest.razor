@@ -36,11 +36,31 @@
 </HxGrid>
 <p>Current CultureInfo: @currentServerCultureInfo?.DisplayName</p>
 
-<HxButton OnClick="HandleRemoveItemsClick" Color="ThemeColor.Secondary">Remove some items</HxButton>
+<HxButton OnClick="HandleRemoveItemsClick" Color="ThemeColor.Secondary">Remove some items</HxButton><br />
+<h2>Empty data</h2>
+<HxGrid TItemType="CultureInfo" Data="@emptyCultureInfos">
+	<Columns>
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" FooterText="footer" />
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" />
+	</Columns>
+</HxGrid>
+
+<h2>Empty data with template</h2>
+<HxGrid TItemType="CultureInfo" Data="@emptyCultureInfos">
+	<Columns>
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" FooterText="footer" />
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" />
+	</Columns>
+	<EmptyTemplate>
+		No culture info. <HxButton Skin="ButtonSkins.New" />
+	</EmptyTemplate>
+</HxGrid>
+
 @code {
 	private const int PageSize = 10;
 
-	private HxGrid<CultureInfo> serverSideGrid;
+	private HxGrid<CultureInfo>
+	serverSideGrid;
 
 	private int skip = 0;
 
@@ -52,6 +72,9 @@
 	private CultureInfo currentServerCultureInfo = null;
 	private CultureInfo clickedItem = null;
 
+	// EMPTY
+	private List<CultureInfo> emptyCultureInfos = new List<CultureInfo>();
+
 	protected override async Task OnInitializedAsync()
 	{
 		await base.OnInitializedAsync();
@@ -59,7 +82,8 @@
 		localCultureInfos = GetCultureInfos();
 	}
 
-	private List<CultureInfo> GetCultureInfos()
+	private List<CultureInfo>
+		GetCultureInfos()
 	{
 		return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).Skip(skip).ToList();
 	}

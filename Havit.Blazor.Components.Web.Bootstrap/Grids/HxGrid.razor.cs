@@ -9,9 +9,15 @@ using Havit.Collections;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	// TODO: Footer je vidět i když nemáme data. Chceme to? By default? Nastavitelné?
+	// TODO: V případě zobrazení, kam umístit (vyrenderovat) empty template?
+	// TODO: EmptyTemplate vs. default empty template? Jak se hezky doplnit?
+	// TODO: EmptyTemplate - renderovat do tabulky nebo pod tabulku? (nyní pod tabulku, ale...)
+
 	/// <summary>
 	/// Grid to display tabular data from data source.
 	/// </summary>
@@ -60,6 +66,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment<TItemType> ContextMenu { get; set; }
 
 		/// <summary>
+		/// Template to render when there is empty Data (but not null).
+		/// </summary>
+		[Parameter] public RenderFragment EmptyTemplate { get; set; }
+
+		/// <summary>
 		/// Selected data item.
 		/// Intended for data binding.
 		/// </summary>		
@@ -104,6 +115,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public EventCallback<GridUserState<TItemType>> CurrentUserStateChanged { get; set; }
 
+		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
 
 		private List<IHxGridColumn<TItemType>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration;

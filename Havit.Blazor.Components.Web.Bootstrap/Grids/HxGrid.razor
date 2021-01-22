@@ -49,7 +49,7 @@
 										@headerCellTemplate.Template
 									</UpdatedContentRenderer>
 									@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
-						|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
+										|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
 									{
 										<HxIcon CssClass="@CssClassHelper.Combine("ms-1", @iconColor)" Icon="@BootstrapIcon.SortAlphaDownAlt" />
 									}
@@ -127,10 +127,17 @@
 
 		@if (dataItemsToRender.Count == 0)
 		{
-			<div class="text-center text-secondary my-5">
-				<div class="fs-3"><HxIcon Icon="@BootstrapIcon.Inbox" /></div>
-				<div>No data.</div>
-			</div>
+			if (EmptyTemplate != null)
+			{
+				@EmptyTemplate
+			}
+			else
+			{
+				<div class="text-center text-secondary my-5">
+					<div class="fs-3"><HxIcon Icon="@BootstrapIcon.Inbox" /></div>
+					<div>@HxGridLocalizer["NoData"]</div>
+				</div>
+			}
 		}
 
 		@if ((PageSize > 0) && (dataItemsTotalCount != null))
