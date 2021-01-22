@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 namespace Havit.Blazor.Components.Web.Infrastructure
 {
 	/// <summary>
-	/// Component which can be enabled/disabled in cascade.
+	/// Component which can be enabled/disabled in a cascade.
 	/// </summary>
 	public interface ICascadeEnabledComponent
 	{

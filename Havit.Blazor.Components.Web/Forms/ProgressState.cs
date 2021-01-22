@@ -5,13 +5,13 @@ using System.Text;
 namespace Havit.Blazor.Components.Web.Forms
 {
 	/// <summary>
-	/// Form state to be used as a cascading value &amp; parameter.
+	/// Progress state to be used as a cascading value &amp; parameter.
 	/// </summary>
-	public class FormState
+	public class ProgressState
 	{
 		/// <summary>
-		/// Indicates enabled/disabled section.
+		/// Indicates progress state.
 		/// </summary>
-		public bool? Enabled { get; init; }
+		public bool? InProgress { get; init; }
 	}
 }

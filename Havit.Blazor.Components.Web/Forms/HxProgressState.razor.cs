@@ -6,24 +6,19 @@ using Microsoft.AspNetCore.Components;
 namespace Havit.Blazor.Components.Web.Forms
 {
 	/// <summary>
-	/// Propagates form states as a cascading parementer to child components.
+	/// Propagates progress state as a cascading parementer to child components.
 	/// </summary>
-	public partial class HxFormState
+	public partial class HxProgressState
 	{
 		/// <summary>
 		/// Received form state.
 		/// </summary>
-		[CascadingParameter] protected FormState CascadingFormState { get; set; }
+		[CascadingParameter] protected ProgressState CascadingFormState { get; set; }
 
 		/// <summary>
 		/// Indicated enabled/disabled section. Value to propagate.
 		/// </summary>
-		[Parameter] public bool? Enabled { get; set; }
-
-		/// <summary>
-		/// When false, nothing is rendered (no children). Value is not propagated, there is no where to propagate.
-		/// </summary>
-		[Parameter] public bool Visible { get; set; } = true;
+		[Parameter] public bool? InProgress { get; set; }
 
 		/// <summary>
 		/// Child content.
@@ -33,11 +28,11 @@ namespace Havit.Blazor.Components.Web.Forms
 		/// <summary>
 		/// Create form state to propagate.
 		/// </summary>
-		private FormState CreateNewCascadingFormState()
+		private ProgressState CreateNewCascadingProgressState()
 		{
-			return new FormState
+			return new ProgressState
 			{
-				Enabled = Enabled ?? CascadingFormState?.Enabled,
+				InProgress = InProgress ?? CascadingFormState?.InProgress,
 			};
 		}
 
