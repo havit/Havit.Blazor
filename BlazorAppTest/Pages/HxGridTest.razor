@@ -52,7 +52,9 @@
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" />
 	</Columns>
 	<EmptyTemplate>
-		No culture info. <HxButton Skin="ButtonSkins.New" />
+		<div class="my-5 mx-auto" style="width: 200px">
+			No culture info. <HxButton Skin="ButtonSkins.New" />
+		</div>
 	</EmptyTemplate>
 </HxGrid>
 
@@ -73,13 +75,14 @@
 	private CultureInfo clickedItem = null;
 
 	// EMPTY
-	private List<CultureInfo> emptyCultureInfos = new List<CultureInfo>();
+	private List<CultureInfo> emptyCultureInfos;
 
 	protected override async Task OnInitializedAsync()
 	{
 		await base.OnInitializedAsync();
-		await Task.Delay(200); // simulate server call (data download)
+		await Task.Delay(5000); // simulate server call (data download)
 		localCultureInfos = GetCultureInfos();
+		emptyCultureInfos = new List<CultureInfo>();
 	}
 
 	private List<CultureInfo>
@@ -90,7 +93,7 @@
 
 	private async ValueTask<GridDataProviderResult<CultureInfo>> ServerCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
 	{
-		await Task.Delay(300); // simulate server call
+		await Task.Delay(5000); // simulate server call
 
 		var cultures = GetCultureInfos();
 		cultures.Sort(request.Sorting.ToGenericPropertyComparer());
