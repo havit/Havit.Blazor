@@ -65,7 +65,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Template to render when there is empty Data (but not null).
 		/// </summary>
-		[Parameter] public RenderFragment EmptyTemplate { get; set; }
+		[Parameter] public RenderFragment EmptyDataTemplate { get; set; }
 
 		/// <summary>
 		/// Selected data item.
@@ -105,7 +105,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Indicates whether to render footer when data are empty.
 		/// </summary>
-		[Parameter] public bool ShowFooterWhenEmpty { get; set; } = false;
+		[Parameter] public bool ShowFooterWhenEmptyData { get; set; } = false;
 
 		/// <summary>
 		/// Current grid state (page, sorting).

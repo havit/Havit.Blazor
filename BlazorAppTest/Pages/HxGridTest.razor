@@ -52,9 +52,9 @@
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" FooterText="This is a footer"/>
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" />
 	</Columns>
-	<EmptyTemplate>
+	<EmptyDataTemplate>
 		<HxButton Skin="ButtonSkins.New" />
-	</EmptyTemplate>
+	</EmptyDataTemplate>
 </HxGrid>
 
 @code {

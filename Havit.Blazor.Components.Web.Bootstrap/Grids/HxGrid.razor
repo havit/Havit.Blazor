@@ -87,10 +87,10 @@
 								<div class="fs-3"><HxIcon Icon="@BootstrapIcon.Inbox" /></div>
 								<div>@HxGridLocalizer["NoData"]</div>
 
-								@if (EmptyTemplate != null)
+								@if (EmptyDataTemplate != null)
 								{
 									<div class="my-3">
-										@EmptyTemplate
+										@EmptyDataTemplate
 									</div>
 								}
 							</div>
@@ -142,7 +142,7 @@
 			@{
 				CellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate()).ToArray();
 				if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null) // there must be a tempate
-					&& ((dataItemsToRender.Count > 0) || ShowFooterWhenEmpty)) // AND (non-empty data or ShowFooterWhenEmpty)
+					&& ((dataItemsToRender.Count > 0) || ShowFooterWhenEmptyData)) // AND (non-empty data or ShowFooterWhenEmpty)
 				{
 					<tfoot>
 						<tr>
