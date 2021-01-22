@@ -132,16 +132,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				// set next properties for rendering
 				selectedItem = itemsToRender.FirstOrDefault(item => comparer.Equals(Value, GetValueFromItem(item))); // null when not found
 				selectedItemIndex = itemsToRender.IndexOf(selectedItem); // -1 when not found
-
-				if ((Value == null) && (selectedItem == null) && !NullableEffective && (itemsToRender.Count > 0))
-				{
-					// choose first item
-					selectedItem = itemsToRender.First();
-					selectedItemIndex = 0;
-					Value = GetValueFromItem(selectedItem);
-					await ValueChanged.InvokeAsync(Value);
-				}
-				
+			
 				if ((Value != null) && (selectedItem == null))
 				{
 					throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");

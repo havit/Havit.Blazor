@@ -35,8 +35,6 @@ namespace BlazorAppTest.Pages
 			[Required]
 			public CultureInfo CultureInfo { get; set; }
 
-			public CultureInfo CultureInfo2 { get; set; }
-
 			public bool BoolValue { get; set; }
 		}
 	}

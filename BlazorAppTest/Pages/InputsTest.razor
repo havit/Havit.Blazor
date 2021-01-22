@@ -40,7 +40,6 @@
 
 			<HxSelect Label="Select (TValueType: string)" @bind-Value="@Model.CultureInfoName" ValueSelector="@(item => item.DisplayName)" Items="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
 			<HxSelect Label="Select (TValueType: CultureInfo)" @bind-Value="@Model.CultureInfo" Items="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
-			<HxSelect Label="Select (TValueType: CultureInfo, Nullable == true)" @bind-Value="@Model.CultureInfo2" Items="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
 			<HxSelect Label="Select (Items == null)" TItemType="CultureInfo" TValueType="CultureInfo" @bind-Value="@Model.CultureInfo" TextSelector="@(item => item.DisplayName)" NullItemsText="No data available." />
 
 			<HxInputCheckBox Label="CheckBox" @bind-Value="@Model.BoolValue">
