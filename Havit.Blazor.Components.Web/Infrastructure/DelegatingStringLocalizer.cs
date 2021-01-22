@@ -11,7 +11,7 @@ namespace Havit.Blazor.Components.Web.Infrastructure
 	/// Base-class for delegating IStringLocalizer implementations.
 	/// To be used for implementation of strong-API localizers.
 	/// </summary>
-	public abstract class DelegatingStringLocalizer<T> : IStringLocalizer<T>
+	public abstract class DelegatingStringLocalizer<T> : IStringLocalizer<T> // TODO separate Havit.Extensions.Localization package? (if to be used outside Blazor stack)
 	{
 		protected readonly IStringLocalizer<T> InnerLocalizer;
 
