@@ -1,0 +1,10 @@
+﻿<HxGrid TItemType="CultureInfo" Data="@emptyCultureInfos">
+	<Columns>
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
+	</Columns>
+</HxGrid>
+
+@code {
+	private List<CultureInfo> emptyCultureInfos = new List<CultureInfo>();
+}

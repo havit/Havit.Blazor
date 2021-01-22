@@ -35,6 +35,11 @@
 		<p>Indicates whether the auto-sorting is on.</p>
 		<p>Default: <code>true</code> when all the sortings in all grid columns have SortExpression (otherwise <code>false</code>).</p>
 	</li>
+	<li>
+		<strong>@nameof(HxGrid<object>.EmptyTemplate)</strong><br />
+		<p>Template to render when there are empty data (but not null).</p>
+	</li>
+
 </ul>
 
 <h3>Commands</h3>
@@ -50,13 +55,17 @@
 
 <Demo Title="Client-side paging and sorting" Type="typeof(HxGrid_ClientSideDemo)" />
 
-<h4>Server side paging &amp; sorting:</h4>
+<h4>Server side paging &amp; sorting</h4>
 <ul>
 	<li>Create a method (DataProvider) for getting data for the specified page in the specified order and total data items count.</li>
-	<li>Assign this method to <code>@nameof(HxGrid<object>.DataProvider)</code> property (as a delegate).</li>	
+	<li>Assign this method to <code>@nameof(HxGrid<object>.DataProvider)</code> property (as a delegate).</li>
 </ul>
 
 <Demo Title="Server-side paging and sorting" Type="typeof(HxGrid_ServerSideDemo)" />
+
+<h4>Empty data</h4>
+
+<Demo Title="Empty data" Type="typeof(HxGrid_EmptyDataDemo)" />
 
 <h2>@nameof(HxGridColumn<object>)</h2>
 <h3>Properties</h3>
