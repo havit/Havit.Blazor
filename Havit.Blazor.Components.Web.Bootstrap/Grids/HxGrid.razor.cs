@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Forms;
+using Havit.Blazor.Components.Web.Infrastructure;
 using Havit.Collections;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
@@ -13,16 +15,11 @@ using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	// TODO: Footer je vidět i když nemáme data. Chceme to? By default? Nastavitelné?
-	// TODO: V případě zobrazení, kam umístit (vyrenderovat) empty template?
-	// TODO: EmptyTemplate vs. default empty template? Jak se hezky doplnit?
-	// TODO: EmptyTemplate - renderovat do tabulky nebo pod tabulku? (nyní pod tabulku, ale...)
-
 	/// <summary>
 	/// Grid to display tabular data from data source.
 	/// </summary>
 	/// <typeparam name="TItemType">Type of row data item.</typeparam>
-	public partial class HxGrid<TItemType> : ComponentBase, IDisposable
+	public partial class HxGrid<TItemType> : ComponentBase, ICascadeProgressComponent, IDisposable
 	{
 		/// <summary>
 		/// ColumnsRegistration cascading value name.
@@ -106,6 +103,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? AutoSort { get; set; }
 
 		/// <summary>
+		/// Indicates whether to render footer when data are empty.
+		/// </summary>
+		[Parameter] public bool ShowFooterWhenEmpty { get; set; } = false;
+
+		/// <summary>
 		/// Current grid state (page, sorting).
 		/// </summary>
 		[Parameter] public GridUserState<TItemType> CurrentUserState { get; set; } = new GridUserState<TItemType>(0, null);
@@ -115,6 +117,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public EventCallback<GridUserState<TItemType>> CurrentUserStateChanged { get; set; }
 
+		/// <inheritdoc />
+		[CascadingParameter] public ProgressState ProgressState { get; set; }
+		
+		/// <inheritdoc />
+		[Parameter] public bool? InProgress { get; set; }
+		
 		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
 
 		private List<IHxGridColumn<TItemType>> columnsList;

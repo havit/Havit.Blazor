@@ -23,6 +23,12 @@
 
 @if (dataItemsToRender != null)
 {
+	@*TODO: Sem se musíme dostat i při null datech, pokud inprogresseffective je true...*@
+	@if (CascadeProgressComponent.InProgressEffective(this))
+	{
+		<HxProgress InProgress="@InProgress" />
+	}
+
 	List<IHxGridColumn<TItemType>> columnsToRender = GetColumnsToRender();
 
 	if ((dataItemsToRender.Count == 0) && (CurrentUserState.PageIndex > 0))
@@ -49,7 +55,7 @@
 										@headerCellTemplate.Template
 									</UpdatedContentRenderer>
 									@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
-										|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
+									   || (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
 									{
 										<HxIcon CssClass="@CssClassHelper.Combine("ms-1", @iconColor)" Icon="@BootstrapIcon.SortAlphaDownAlt" />
 									}
@@ -70,47 +76,73 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (TItemType item in dataItemsToRender)
+				@if (dataItemsToRender.Count == 0)
 				{
-					if (SelectionEnabled)
+					<tr>
+						<td colspan="@columnsToRender.Count">
+
+							@*TODO: Alternativní renderování pro in progress*@
+
+							<div class="text-center text-secondary my-5">
+								<div class="fs-3"><HxIcon Icon="@BootstrapIcon.Inbox" /></div>
+								<div>@HxGridLocalizer["NoData"]</div>
+
+								@if (EmptyTemplate != null)
+								{
+									<div class="my-3">
+										@EmptyTemplate
+									</div>
+								}
+							</div>
+
+						</td>
+					</tr>
+				}
+				else
+				{
+					foreach (TItemType item in dataItemsToRender)
 					{
-						<tr role="button"
-							@onclick="async () => await HandleSelectDataItemClick(item)" @onclick:stopPropagation
-							class="@(((item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
-							
-							@foreach (IHxGridColumn<TItemType> column in columnsToRender)
-							{
-								// same as below in the else section
-								CellTemplate cellTemplate = column.GetItemCellTemplate(item);
-								<td class="@cellTemplate.CssClass">
-									<UpdatedContentRenderer Component="column">
-										@cellTemplate.Template
-									</UpdatedContentRenderer>
-								</td>
-							}
-						</tr>
-					}
-					else
-					{
-						// !SelectionEnabled - no table-active, no event handlers
-						<tr>
-							@foreach (IHxGridColumn<TItemType> column in columnsToRender)
-							{
-								// same as above this else section
-								CellTemplate cellTemplate = column.GetItemCellTemplate(item);
-								<td class="@cellTemplate.CssClass">
-									<UpdatedContentRenderer Component="column">
-										@cellTemplate.Template
-									</UpdatedContentRenderer>
-								</td>
-							}
-						</tr>
+						if (SelectionEnabled)
+						{
+							<tr role="button"
+								@onclick="async () => await HandleSelectDataItemClick(item)" @onclick:stopPropagation
+								class="@(((item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
+
+								@foreach (IHxGridColumn<TItemType> column in columnsToRender)
+								{
+									// same as below in the else section
+									CellTemplate cellTemplate = column.GetItemCellTemplate(item);
+									<td class="@cellTemplate.CssClass">
+										<UpdatedContentRenderer Component="column">
+											@cellTemplate.Template
+										</UpdatedContentRenderer>
+									</td>
+								}
+							</tr>
+						}
+						else
+						{
+							// !SelectionEnabled - no table-active, no event handlers
+							<tr>
+								@foreach (IHxGridColumn<TItemType> column in columnsToRender)
+								{
+									// same as above this else section
+									CellTemplate cellTemplate = column.GetItemCellTemplate(item);
+									<td class="@cellTemplate.CssClass">
+										<UpdatedContentRenderer Component="column">
+											@cellTemplate.Template
+										</UpdatedContentRenderer>
+									</td>
+								}
+							</tr>
+						}
 					}
 				}
 			</tbody>
 			@{
 				CellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate()).ToArray();
-				if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null))
+				if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null) // there must be a tempate
+					&& ((dataItemsToRender.Count > 0) || ShowFooterWhenEmpty)) // AND (non-empty data or ShowFooterWhenEmpty)
 				{
 					<tfoot>
 						<tr>
@@ -122,23 +154,7 @@
 					</tfoot>
 				}
 			}
-
 		</table>
-
-		@if (dataItemsToRender.Count == 0)
-		{
-			if (EmptyTemplate != null)
-			{
-				@EmptyTemplate
-			}
-			else
-			{
-				<div class="text-center text-secondary my-5">
-					<div class="fs-3"><HxIcon Icon="@BootstrapIcon.Inbox" /></div>
-					<div>@HxGridLocalizer["NoData"]</div>
-				</div>
-			}
-		}
 
 		@if ((PageSize > 0) && (dataItemsTotalCount != null))
 		{
