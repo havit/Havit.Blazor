@@ -133,6 +133,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private List<TItemType> dataItemsToRender;
 		private int? dataItemsTotalCount;
 		private CancellationTokenSource refreshDataCancellationTokenSource;
+		private bool dataProviderInProgress;
 
 		/// <summary>
 		/// Constructor.
@@ -325,7 +326,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				CancellationToken = cancellationToken
 			};
 
-			GridDataProviderResult<TItemType> result;
+			GridDataProviderResult<TItemType> result;			
+			dataProviderInProgress = true; // Multithreading: we can safelly set dataProviderInProgress, always dataProvider is going to retrieve data we are it is in in a progress.
+			StateHasChanged();
 			try
 			{
 				result = await dataProvider.Invoke(request);
@@ -338,6 +341,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (!cancellationToken.IsCancellationRequested)
 			{
+				dataProviderInProgress = false; // Multithreading: we can safelly clean dataProviderInProgress only wnen received data from non-cancelled task
+
 				// do not use result from cancelled request (for the case that user does not use the cancellation token)
 				dataItemsToRender = result.Data?.ToList();
 				dataItemsTotalCount = result.DataItemsTotalCount;
