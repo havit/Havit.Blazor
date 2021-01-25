@@ -1,0 +1,32 @@
+﻿@page "/components/hxdrawer"
+
+<h1>@nameof(HxDrawer)</h1>
+<p class="lead">
+	Custom-implemented drawer (not a direct part of Bootstrap).
+</p>
+
+<h3>Properties</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxDrawer.HeaderText), @nameof(HxDrawer.HeaderTemplate)</strong><br />
+		Drawer header.
+	</li>
+	<li>
+		<strong>@nameof(HxDrawer.BodyTemplate)</strong><br />
+		Drawer body.
+	</li>
+	<li>
+		<strong>@nameof(HxDrawer.FooterTemplate)</strong><br />
+		Drawer footer.
+	</li>
+	<li>
+		<strong>@nameof(HxDrawer.IsOpen) + @nameof(HxDrawer.IsOpenChanged)</strong><br />
+		Sets or gets state. Allows direct control of the drawer.<br />
+	</li>
+	<li>
+		<strong>@nameof(HxDrawer.Size)</strong><br />
+		Size of the drawer. Default is <code>@nameof(DrawerSize).@nameof(DrawerSize.Regular)</code>.<br />
+	</li>
+</ul>
+
+<Demo Type="typeof(HxDrawer_Demo)" />

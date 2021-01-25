@@ -23,16 +23,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
 
 		/// <summary>
-		/// Indicates, whether the content (HeaderTemplate, BodyTemplate, FooterTemplate, Close-button) should be rendered even if the drawer is closed.
-		/// Default is <b>false</b>.
-		/// </summary>
-		/// <remarks>
-		/// If <c>false</c> (default), new instance of content-components is being created on every open.
-		/// If <c>true</c>, the content remains rendered and instantiated (OnIntialized not called on every open).
-		/// </remarks>
-		[Parameter] public bool PreRenderContent { get; set; } = false;
-
-		/// <summary>
 		/// Size of the drawer. Default is <see cref="DrawerSize.Regular"/>.
 		/// </summary>
 		[Parameter] public DrawerSize Size { get; set; } = DrawerSize.Regular;

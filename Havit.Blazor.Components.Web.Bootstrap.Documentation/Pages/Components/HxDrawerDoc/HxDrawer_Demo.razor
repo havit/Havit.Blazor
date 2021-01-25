@@ -1,0 +1,13 @@
+﻿<HxDrawer @bind-IsOpen="drawerOpen">
+	<HeaderTemplate>Title</HeaderTemplate>
+	<BodyTemplate>Body</BodyTemplate>
+</HxDrawer>
+
+<div>
+	<HxButton OnClick="() => drawerOpen = true" Text="Open drawer" Color="ThemeColor.Primary" />
+</div>
+
+@code
+{
+	private bool drawerOpen = false;
+}
