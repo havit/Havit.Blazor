@@ -1,5 +1,5 @@
 ﻿<HxCard>
-	<HeaderTemplate>CardSkin.Default = new CardSkin() { CssClass = "bg-primary text-white m-3" };</HeaderTemplate>
+	<HeaderTemplate>HxCard.DefaultSkin = new CardSkin() { CssClass = "bg-primary text-white m-3" };</HeaderTemplate>
 	<BodyTemplate>Card with default skin</BodyTemplate>
 	<FooterTemplate>Footer</FooterTemplate>
 </HxCard>
@@ -32,7 +32,7 @@
 	static HxCard_Demo()
 	{
 		// Just for demo-purposes, Should be somewhere in application startup phase !
-		CardSkin.Default = new CardSkin() { CssClass = "bg-primary text-white m-3" };
+		HxCard.DefaultSkin = new CardSkin() { CssClass = "bg-primary text-white m-3" };
 	}
 
 	public static class MyCardSkins

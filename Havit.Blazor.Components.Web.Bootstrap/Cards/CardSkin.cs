@@ -9,12 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class CardSkin
 	{
 		/// <summary>
-		/// A skin to be used for any <see cref="HxCard"/> without explicit <see cref="HxCard.Skin"/> specified.
-		/// </summary>
-		public static CardSkin Default { get; set; }
-
-		/// <summary>
-		/// Empty skin to be able to disable <see cref="Default"/> locally.
+		/// Empty skin to be able to disable <see cref="HxCard.DefaultSkin"/> locally.
 		/// </summary>
 		public static CardSkin None => new CardSkin();
 

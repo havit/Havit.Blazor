@@ -17,5 +17,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string BodyCssClass { get; set; }
 		[Parameter] public string FooterCssClass { get; set; }
 		[Parameter] public CardSkin Skin { get; set; }
+
+		/// <summary>
+		/// A skin to be used for any <see cref="HxCard"/> without explicit <see cref="HxCard.Skin"/> specified.
+		/// </summary>
+		public static CardSkin DefaultSkin { get; set; }
 	}
 }
