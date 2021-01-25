@@ -21,16 +21,15 @@
 	}
 </CascadingValue>
 
-@if (dataItemsToRender != null)
-{
+@{
 	List<IHxGridColumn<TItemType>> columnsToRender = GetColumnsToRender();
 
-	if ((dataItemsToRender.Count == 0) && (CurrentUserState.PageIndex > 0))
+	if ((dataItemsToRender?.Count == 0) && (CurrentUserState.PageIndex > 0))
 	{
 		decreasePageIndexAfterRender = true;
 	}
 
-	if (columnsToRender.Any())
+	if (columnsToRender.Any() && ((dataItemsToRender != null) || dataProviderInProgress))
 	{
 		<HxProgressOverlay InProgress="@(InProgress ?? dataProviderInProgress)">
 
@@ -72,7 +71,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					@if (dataItemsToRender.Count == 0)
+					@if ((dataItemsToRender == null) && dataProviderInProgress)
+					{
+						<tr>
+							<td colspan="@columnsToRender.Count">
+								<div class="text-center text-secondary my-5">
+									<div class="fs-3"><HxIcon Icon="@BootstrapIcon.InboxFill" /></div>
+									<div>@HxGridLocalizer["LoadingData"]</div>
+								</div>
+							</td>
+						</tr>
+					}
+					else if (dataItemsToRender == null)
+					{
+						System.Diagnostics.Debug.Fail("DataItemsToRender here in rendering should be null only when dataProviderInProgress is true.");
+					}
+					else if (dataItemsToRender.Count == 0)
 					{
 						<tr>
 							<td colspan="@columnsToRender.Count">
@@ -115,7 +129,7 @@
 										</td>
 									}
 								</tr>
-							}
+						}
 							else
 							{
 								// !SelectionEnabled - no table-active, no event handlers
@@ -138,7 +152,7 @@
 				@{
 					CellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate()).ToArray();
 					if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null) // there must be a tempate
-						&& ((dataItemsToRender.Count > 0) || ShowFooterWhenEmptyData)) // AND (non-empty data or ShowFooterWhenEmpty)
+						&& ((dataItemsToRender?.Count > 0) || ShowFooterWhenEmptyData)) // AND (non-empty data or ShowFooterWhenEmpty)
 					{
 						<tfoot>
 							<tr>

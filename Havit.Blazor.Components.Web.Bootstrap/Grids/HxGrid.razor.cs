@@ -326,8 +326,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				CancellationToken = cancellationToken
 			};
 
-			GridDataProviderResult<TItemType> result;			
-			dataProviderInProgress = true; // Multithreading: we can safelly set dataProviderInProgress, always dataProvider is going to retrieve data we are it is in in a progress.
+			GridDataProviderResult<TItemType> result;
+			// Multithreading: we can safelly set dataProviderInProgress, always dataProvider is going to retrieve data we are it is in in a progress.
+			// True when DataProvider property is used.
+			// False when Data property is used.
+			dataProviderInProgress = (dataProvider == DataProvider); 
 			StateHasChanged();
 			try
 			{
