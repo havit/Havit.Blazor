@@ -104,7 +104,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (this.DecimalsEffective != 0)
 			{
-				builder.AddAttribute(1001, "step", Math.Pow(10, -DecimalsEffective).ToString(CultureInfo.InvariantCulture));
+				builder.AddAttribute(1001, "step", "any"); // Math.Pow(10, -DecimalsEffective).ToString(CultureInfo.InvariantCulture));
 			}
 
 			builder.AddAttribute(1002, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
