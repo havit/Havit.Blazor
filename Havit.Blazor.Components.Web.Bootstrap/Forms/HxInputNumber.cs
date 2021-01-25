@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -60,6 +61,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual int DecimalsEffective => Decimals ?? (IsTValueIntegerType ? 0 : 2);
 
+		[Inject] private protected IStringLocalizer<HxInputNumber> StringLocalizer { get; set; }
+
 		/// <summary>
 		/// Returns true for integer types (false for floating point types).
 		/// </summary>
@@ -87,13 +90,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private bool forceRenderValue = false;
 		private int valueSequenceOffset = 0;
-
-		/// <inheritdoc />
-		protected override void OnParametersSet()
-		{
-			base.OnParametersSet();
-			CheckParsingErrorMessage();
-		}
 
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -207,19 +203,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual string GetParsingErrorMessage()
 		{
-			return String.Format(ParsingErrorMessage, Label, FieldIdentifier.FieldName);
-		}
-
-		/// <summary>
-		/// Checks message for parsing error is set.
-		/// If not set, throws <see cref="InvalidOperationException"/>.
-		/// </summary>
-		protected virtual void CheckParsingErrorMessage()
-		{
-			if (String.IsNullOrEmpty(ParsingErrorMessage))
+			var message = this.ParsingErrorMessage;
+			if (ParsingErrorMessage is null)
 			{
-				throw new InvalidOperationException($"Missing {nameof(ParsingErrorMessage)} property value on {GetType()}.");
+				if (IsTValueIntegerType)
+				{
+					message = StringLocalizer["ParsingErrorMessage_Integer"];
+				}
+				else
+				{
+					message = StringLocalizer["ParsingErrorMessage"];
+				}
 			}
+			return String.Format(message, Label, FieldIdentifier.FieldName);
 		}
 	}
 }

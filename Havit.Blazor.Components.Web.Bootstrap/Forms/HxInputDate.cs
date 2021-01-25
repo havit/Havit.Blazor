@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -21,6 +22,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
 		/// </summary>
 		[Parameter] public string ParsingErrorMessage { get; set; }
+
+		[Inject] private protected IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -89,13 +92,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		/// <inheritdoc />
-		protected override void OnParametersSet()
-		{
-			base.OnParametersSet();
-			CheckParsingErrorMessage();
-		}
-
 		private static bool TryParseDateTime(string value, out TValue result)
 		{
 			var success = BindConverter.TryConvertToDateTime(value, CultureInfo.InvariantCulture, DateFormat, out var parsedValue);
@@ -131,20 +127,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual string GetParsingErrorMessage()
 		{
-			return String.Format(ParsingErrorMessage, Label, FieldIdentifier.FieldName);
+			var message = this.ParsingErrorMessage ?? StringLocalizer["ParsingErrorMessage"];
+			return String.Format(message, Label, FieldIdentifier.FieldName);
 		}
-
-		/// <summary>
-		/// Checks message for parsing error is set.
-		/// If not set, throws <see cref="InvalidOperationException"/>.
-		/// </summary>
-		protected virtual void CheckParsingErrorMessage()
-		{
-			if (String.IsNullOrEmpty(ParsingErrorMessage))
-			{
-				throw new InvalidOperationException($"Missing {nameof(ParsingErrorMessage)} property value on {GetType()}.");
-			}
-		}
-
 	}
 }
