@@ -338,16 +338,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (!cancellationToken.IsCancellationRequested)
 			{
-				// do not use result from cancelled request (for the case that user does not use the cancellation token
-				Contract.Assert<InvalidOperationException>(result.Data != null, $"DataProvider did not set value to property {nameof(GridDataProviderResult<object>.Data)}. It cannot be null.");
-				Contract.Assert<InvalidOperationException>(result.DataItemsTotalCount != null, $"DataProvider did not set value to property {nameof(GridDataProviderResult<object>.DataItemsTotalCount)}. It cannot be null.");
-
-				dataItemsToRender = result.Data.ToList();
+				// do not use result from cancelled request (for the case that user does not use the cancellation token)
+				dataItemsToRender = result.Data?.ToList();
 				dataItemsTotalCount = result.DataItemsTotalCount;
 
 				if (!EqualityComparer<TItemType>.Default.Equals(SelectedDataItem, default))
 				{
-					if (!dataItemsToRender.Contains(SelectedDataItem))
+					if ((dataItemsToRender == null) || !dataItemsToRender.Contains(SelectedDataItem))
 					{
 						await SetSelectedDataItemWithEventCallback(default);
 					}
@@ -355,9 +352,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				if (SelectedDataItems?.Count > 0)
 				{
-					HashSet<TItemType> selectedDataItems = dataItemsToRender.Intersect(SelectedDataItems).ToHashSet();
+					HashSet<TItemType> selectedDataItems = dataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItemType>();
 					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
-				}
+				}				
 
 				if (renderOnSuccess)
 				{
@@ -368,11 +365,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private ValueTask<GridDataProviderResult<TItemType>> EnumerableDataProvider(GridDataProviderRequest<TItemType> request)
 		{
-			IEnumerable<TItemType> resultData = Data ?? Enumerable.Empty<TItemType>();
+			if (Data == null)
+			{
+				return new ValueTask<GridDataProviderResult<TItemType>>(new GridDataProviderResult<TItemType>
+				{
+					Data = null,
+					DataItemsTotalCount = null
+				});
+			}
+
+			IEnumerable<TItemType> resultData = Data;
 
 			#region AutoSorting
 			bool autoSortEffective;
-			if (AutoSort.HasValue)
+			if (AutoSort != null)
 			{
 				autoSortEffective = AutoSort.Value;
 			}
