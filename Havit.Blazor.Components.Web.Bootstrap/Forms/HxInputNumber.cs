@@ -102,9 +102,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.AddAttribute(1000, "placeholder", Placeholder);
 			}
 
-			builder.AddAttribute(1001, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
-			builder.AddAttribute(1002, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-			builder.AddEventStopPropagationAttribute(1003, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputNumber nastavitelné?
+			if (this.DecimalsEffective != 0)
+			{
+				builder.AddAttribute(1001, "step", Math.Pow(10, -DecimalsEffective).ToString(CultureInfo.InvariantCulture));
+			}
+
+			builder.AddAttribute(1002, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
+			builder.AddAttribute(1003, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+			builder.AddEventStopPropagationAttribute(1004, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputNumber nastavitelné?
 
 			// Počítané hodnoty sekvence jsou proti smyslu sekvencí a proti veškerým obecným doporučením.
 			// Zde chceme dosáhnout toho, aby při změně uživatelského vstupu, došlo k přerenderování hodnoty, přestože se nezměnila hodnota FormatValueAsString(Value).
@@ -121,7 +126,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					valueSequenceOffset++;
 					forceRenderValue = false;
 				}
-				builder.AddAttribute(1004 + valueSequenceOffset, "value", FormatValueAsString(Value));
+				builder.AddAttribute(1005 + valueSequenceOffset, "value", FormatValueAsString(Value));
 			}
 
 			builder.CloseElement();
