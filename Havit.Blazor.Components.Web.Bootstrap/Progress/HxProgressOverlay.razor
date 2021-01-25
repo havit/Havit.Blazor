@@ -1,0 +1,11 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+@if (progressIndicatorVisible)
+{
+	<HxProgressIndicator />
+	@ChildContent
+}
+else
+{
+	@ChildContent
+}

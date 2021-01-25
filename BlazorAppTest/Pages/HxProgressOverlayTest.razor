@@ -1,0 +1,21 @@
+﻿@page "/HxProgressOverlayTest"
+<h3>HxProgress</h3>
+
+
+<HxProgressState InProgress="@inProgress">
+	<HxProgressOverlay>
+		<div>Content...</div>
+	</HxProgressOverlay>
+</HxProgressState>
+
+<HxButton Text="Toggle Progress" Color="ThemeColor.Primary" OnClick="HandleToggleProgressClick" />
+<p>inProgress:  @inProgress</p>
+
+@code
+{
+	private bool inProgress = false;
+	private void HandleToggleProgressClick()
+	{
+		inProgress = !inProgress;
+	}
+}
