@@ -13,7 +13,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxProgressOverlay : ICascadeProgressComponent
 	{
 		private bool progressIndicatorVisible;
-		private bool shouldRender;
 		private CancellationTokenSource delayCancellationTokenSource;
 
 		[CascadingParameter] public ProgressState ProgressState { get; set; }
@@ -44,7 +43,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					// hide progress indicator if visible
 					progressIndicatorVisible = false;
 					await ProgressIndicatorVisibleChanged.InvokeAsync(progressIndicatorVisible);
-					shouldRender = true;
 				}
 
 				if (delayCancellationTokenSource != null)
@@ -54,13 +52,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					delayCancellationTokenSource = null;
 				}
 			}
-		}
-
-		protected override bool ShouldRender()
-		{
-			bool result = shouldRender;
-			shouldRender = false;
-			return result;
 		}
 
 		private void StartInProgressWithDelay()
@@ -87,7 +78,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 						{
 							progressIndicatorVisible = true;
 							await ProgressIndicatorVisibleChanged.InvokeAsync(progressIndicatorVisible);
-							shouldRender = true;
 							StateHasChanged();
 						});
 					}
