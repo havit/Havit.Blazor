@@ -98,6 +98,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
 
+		private protected override string CoreInputCssClass => CssClassHelper.Combine(base.CoreInputCssClass, "form-select");
+
 		private IEqualityComparer<TValueType> comparer = EqualityComparer<TValueType>.Default;
 		private List<TItemType> itemsToRender;
 		private TItemType selectedItem;
@@ -150,7 +152,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, "select");
-			builder.AddAttribute(1, "class", "form-select");
 			BuildRenderInput_AddCommonAttributes(builder, null);
 
 			builder.AddAttribute(1000, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
