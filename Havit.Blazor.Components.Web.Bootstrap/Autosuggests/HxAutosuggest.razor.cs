@@ -35,7 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private CancellationTokenSource cancellationTokenSource;
 		private string autosuggestValue;
 		private List<string> suggestions;
-		IJSObjectReference jsModule;
+		private IJSObjectReference jsModule;
 
 		public HxAutosuggest()
 		{
@@ -159,7 +159,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (jsModule != null)
 			{
-				jsModule.DisposeAsync();
+				await jsModule.DisposeAsync();
 			}
 		}
 	}

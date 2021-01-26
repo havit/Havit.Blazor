@@ -94,7 +94,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private bool shouldOpenModal = false; // indicates whether the modal is going to be opened
 		private DotNetObjectReference<HxModal> dotnetObjectReference;
 		private ElementReference modalElement;
-		IJSObjectReference jsModule;
+		private IJSObjectReference jsModule;
 
 		/// <summary>
 		/// Constructor.

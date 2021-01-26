@@ -67,7 +67,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private ElementReference toastElement;
 		private DotNetObjectReference<HxToast> dotnetObjectReference;
-		IJSObjectReference jsModule;
+		private IJSObjectReference jsModule;
 
 		public HxToast()
 		{
