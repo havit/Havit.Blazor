@@ -26,12 +26,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public const string ColumnsRegistrationCascadingValueName = "ColumnsRegistration";
 
 		/// <summary>
-		/// Items to render as a table (mutually exclusive with DataProvider).
-		/// </summary>
-		[Parameter] public IEnumerable<TItemType> Data { get; set; }
-
-		/// <summary>
-		/// Data provider for items to render as a table (mutually exclusive with Data).
+		/// Data provider for items to render as a table.
 		/// </summary>
 		[Parameter] public GridDataProviderDelegate<TItemType> DataProvider { get; set; }
 
@@ -96,12 +91,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public int PageSize { get; set; } = 0;
 
 		/// <summary>
-		/// Enable/disable in-memory auto-sorting the data in <see cref="Data"/> property.
-		/// Default: Auto-sorting is enabled when all sortings on all columns have <c>SortKeySelector</c>.
-		/// </summary>
-		[Parameter] public bool? AutoSort { get; set; }
-
-		/// <summary>
 		/// Indicates whether to render footer when data are empty.
 		/// </summary>
 		[Parameter] public bool ShowFooterWhenEmptyData { get; set; } = false;
@@ -127,9 +116,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private List<IHxGridColumn<TItemType>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration;
 		private bool decreasePageIndexAfterRender = false;
-		private bool firstRenderCompleted = false;
 		private bool isDisposed = false;
-		private GridDataProviderDelegate<TItemType> dataProvider;
 		private List<TItemType> dataItemsToRender;
 		private int? dataItemsTotalCount;
 		private CancellationTokenSource refreshDataCancellationTokenSource;
@@ -149,27 +136,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			await base.OnParametersSetAsync();
 
-			Contract.Requires<InvalidOperationException>((Data == null) || (DataProvider == null), $"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Data)}' and '{nameof(DataProvider)}'.");
-
-			if (DataProvider != null)
-			{
-				dataProvider = DataProvider;
-			}
-			else
-			{
-				dataProvider = EnumerableDataProvider;
-
-				if (firstRenderCompleted) // we call RefreshDataCoreAsync after first render (when sorting is known), so we do not need to RefreshDataCoreAsync them in first render)
-				{
-					// When we have a fixed set of in-memory data, it doesn't cost anything to
-					// re-query it on each cycle, so do that. This means the developer can add/remove
-					// items in the collection and see the UI update without having to call RefreshDataAsync.
-
-					// Despite the Virtualize component (the inspiration), HxGrid can be asynchronous in RefreshDataCoreAsync with EnumerableDataProvider
-					// due the EventCallbacks (setting selected items etc.).
-					await RefreshDataCoreAsync(renderOnSuccess: false);
-				}
-			}
+			Contract.Requires<InvalidOperationException>(DataProvider != null, $"Property {nameof(DataProvider)} on {GetType()} must have a value.");
 		}
 
 		/// <inheritdoc />
@@ -199,8 +166,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				await SetCurrentPageIndexWithEventCallback(CurrentUserState.PageIndex - 1);
 				await RefreshDataCoreAsync(true);
 			}
-
-			firstRenderCompleted = true;
 		}
 
 		/// <summary>
@@ -328,13 +293,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			GridDataProviderResult<TItemType> result;
 			// Multithreading: we can safelly set dataProviderInProgress, always dataProvider is going to retrieve data we are it is in in a progress.
-			// True when DataProvider property is used.
-			// False when Data property is used.
-			dataProviderInProgress = (dataProvider == DataProvider); 
+			dataProviderInProgress = true; 
 			StateHasChanged();
 			try
 			{
-				result = await dataProvider.Invoke(request);
+				result = await DataProvider.Invoke(request);
 			}
 			catch (OperationCanceledException operationCanceledException) when (operationCanceledException.CancellationToken == cancellationToken)
 			{
@@ -342,11 +305,32 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				return;
 			}
 
+			// do not use result from cancelled request (for the case a developer does not use the cancellation token)
 			if (!cancellationToken.IsCancellationRequested)
 			{
 				dataProviderInProgress = false; // Multithreading: we can safelly clean dataProviderInProgress only wnen received data from non-cancelled task
 
-				// do not use result from cancelled request (for the case that user does not use the cancellation token)
+				#region Verify paged data information
+				if ((result.Data != null) && (this.PageSize > 0))
+				{
+					int dataCount = result.Data.Count();
+
+					if (dataCount > this.PageSize)
+					{
+						throw new InvalidOperationException($"{nameof(DataProvider)} returned more data items then is the size od the page.");
+					}
+
+					if (result.DataItemsTotalCount == null)
+					{
+						throw new InvalidOperationException($"{nameof(DataProvider)} did not set ${nameof(GridDataProviderResult<TItemType>.DataItemsTotalCount)}.");
+					}
+					else if (dataCount > result.DataItemsTotalCount.Value)
+					{
+						throw new InvalidOperationException($"{nameof(DataProvider)} set ${nameof(GridDataProviderResult<TItemType>.DataItemsTotalCount)} property byt the value is smaller than the number of data items.");
+					}
+				}
+				#endregion
+
 				dataItemsToRender = result.Data?.ToList();
 				dataItemsTotalCount = result.DataItemsTotalCount;
 
@@ -371,64 +355,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private ValueTask<GridDataProviderResult<TItemType>> EnumerableDataProvider(GridDataProviderRequest<TItemType> request)
-		{
-			if (Data == null)
-			{
-				return new ValueTask<GridDataProviderResult<TItemType>>(new GridDataProviderResult<TItemType>
-				{
-					Data = null,
-					DataItemsTotalCount = null
-				});
-			}
-
-			IEnumerable<TItemType> resultData = Data;
-
-			#region AutoSorting
-			bool autoSortEffective;
-			if (AutoSort != null)
-			{
-				autoSortEffective = AutoSort.Value;
-			}
-			else
-			{
-				// Default: Auto-sorting is enabled when all sortings have SortKeySelector.
-				var definedSortings = columnsList.SelectMany(column => column.GetSorting());
-				autoSortEffective = definedSortings.Any() && definedSortings.All(sorting => sorting.SortKeySelector != null);
-			}
-			if (autoSortEffective)
-			{
-				Debug.Assert(request.Sorting is not null);
-				Contract.Assert(request.Sorting.All(item => item.SortKeySelector != null), "All sorting items must have set SortKeySelector property.");
-
-				IOrderedEnumerable<TItemType> orderedData = (request.Sorting[0].SortDirection == SortDirection.Ascending)
-					? resultData.OrderBy(request.Sorting[0].SortKeySelector.Compile())
-					: resultData.OrderByDescending(request.Sorting[0].SortKeySelector.Compile());
-
-				for (int i = 1; i < request.Sorting.Count; i++)
-				{
-					orderedData = (request.Sorting[i].SortDirection == SortDirection.Ascending)
-						? orderedData.ThenBy(request.Sorting[i].SortKeySelector.Compile())
-						: orderedData.ThenByDescending(request.Sorting[i].SortKeySelector.Compile());
-				}
-
-				resultData = orderedData;
-			}
-			#endregion
-
-			#region AutoPaging
-			if (PageSize > 0)
-			{
-				resultData = resultData.Skip(PageSize * request.PageIndex).Take(PageSize);
-			}
-			#endregion
-
-			return new ValueTask<GridDataProviderResult<TItemType>>(new GridDataProviderResult<TItemType>
-			{
-				Data = resultData.ToList(),
-				DataItemsTotalCount = resultData.Count()
-			});
-		}
 
 		#region MultiSelect events
 		private async Task HandleMultiSelectSelectDataItemClicked(TItemType selectedDataItem)

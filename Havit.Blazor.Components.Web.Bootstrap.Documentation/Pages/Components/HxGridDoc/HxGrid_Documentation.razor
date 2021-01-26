@@ -12,14 +12,9 @@
 		Columns to display, see <code>@nameof(HxGridColumn<object>)</code> below.
 	</li>
 	<li>
-		<strong>@nameof(HxGrid<object>.Data)</strong><br />
-		<p>Data items to render. Use when no server-side paging &amp; sorting is required (no paging &amp; sorting at all or when client-side paging &amp; sorting is applicable).</p>
-		<p>It should contain all items to display across all pages.</p>
-	</li>
-	<li>
 		<strong>@nameof(HxGrid<object>.DataProvider)</strong><br />
 		<p>Provider for access server-side data.</p>
-		<p>It should return data count and data for the page in the specified order.</p>
+		<p>It should return data count and data items for the specified page in the specified order.</p>
 		<p>See client-side and server-side paging &amp; sorting demo below.</p>
 	</li>
 	<li>
@@ -29,11 +24,6 @@
 	<li>
 		<strong>@nameof(HxGrid<object>.SelectedDataItem), @nameof(HxGrid<object>.SelectedDataItemChanged)</strong><br />
 		Currently selected item.
-	</li>
-	<li>
-		<strong>@nameof(HxGrid<object>.AutoSort)</strong><br />
-		<p>Indicates whether the auto-sorting is on.</p>
-		<p>Default: <code>true</code> when all the sortings in all grid columns have SortExpression (otherwise <code>false</code>).</p>
 	</li>
 	<li>
 		<strong>@nameof(HxGrid<object>.EmptyDataTemplate)</strong><br />
@@ -50,7 +40,7 @@
 <ul>
 	<li>Create a field/property for the data.</li>
 	<li>Set data to this field/property. Do not sort data.</li>
-	<li>Assign this field/property to <code>@nameof(HxGrid<object>.Data)</code> property.</li>
+	<li>TODO</li>
 </ul>
 
 <Demo Title="Client-side paging and sorting" Type="typeof(HxGrid_ClientSideDemo)" />

@@ -4,7 +4,7 @@
 <h1>HxGrid</h1>
 
 <h2>Client paging, auto sorting</h2>
-<HxGrid Data="@localCultureInfos" @bind-SelectedDataItem="@currentLocalCultureInfo" PageSize="@PageSize">
+<HxGrid DataProvider="@ClientCultureInfosDataProvider" @bind-SelectedDataItem="@clientSideCurrentCultureInfo" PageSize="@PageSize">
 	<Columns>
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
@@ -24,30 +24,20 @@
 		</HxContextMenu>
 	</ContextMenu>
 </HxGrid>
-<p>Current CultureInfo: @currentLocalCultureInfo?.DisplayName</p>
+<p>Current CultureInfo: @clientSideCurrentCultureInfo?.DisplayName</p>
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
 
 <h2>Server paging, server sorting</h2>
-<HxGrid TItemType="CultureInfo" @ref="serverSideGrid" @bind-SelectedDataItem="@currentServerCultureInfo" DataProvider="@ServerCultureInfosDataProvider" PageSize="@PageSize" MultiSelectionEnabled="true">
+<HxGrid TItemType="CultureInfo" @ref="serverSideGrid" @bind-SelectedDataItem="@serverSideCurrentCultureInfo" DataProvider="@ServerCultureInfosDataProvider" PageSize="@PageSize" MultiSelectionEnabled="true">
 	<Columns>
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" IsDefaultSortColumn="true" FooterText="This is a footer" />
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />
 	</Columns>
 </HxGrid>
-<p>Current CultureInfo: @currentServerCultureInfo?.DisplayName</p>
+<p>Current CultureInfo: @serverSideCurrentCultureInfo?.DisplayName</p>
 
-<HxButton OnClick="HandleRemoveItemsClick" Color="ThemeColor.Secondary">Remove some items</HxButton>
-
-<h2>Empty data</h2>
-<HxGrid TItemType="CultureInfo" Data="@emptyCultureInfos">
-	<Columns>
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" />
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" />
-	</Columns>
-</HxGrid>
-
-<h2>Empty data with template</h2>
-<HxGrid TItemType="CultureInfo" Data="@emptyCultureInfos">
+<h2>Empty data with @nameof(HxGrid<object>.EmptyDataTemplate)</h2>
+<HxGrid TItemType="CultureInfo" DataProvider="@EmptyCultureInfosDataProvider">
 	<Columns>
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" FooterText="This is a footer"/>
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" />
@@ -66,33 +56,31 @@
 	private int skip = 0;
 
 	// LOCAL
-	private List<CultureInfo> localCultureInfos = null;
-	private CultureInfo currentLocalCultureInfo = null;
+	private CultureInfo clientSideCurrentCultureInfo = null;
 
 	// SERVER SIDE (simulation)
-	private CultureInfo currentServerCultureInfo = null;
+	private CultureInfo serverSideCurrentCultureInfo = null;
 	private CultureInfo clickedItem = null;
 
 	// EMPTY
 	private List<CultureInfo> emptyCultureInfos;
 
-	protected override async Task OnInitializedAsync()
-	{
-		await base.OnInitializedAsync();
-		await Task.Delay(5000); // simulate server call (data download)
-		localCultureInfos = GetCultureInfos();
-		emptyCultureInfos = new List<CultureInfo>();
-	}
-
-	private List<CultureInfo>
-		GetCultureInfos()
+	private List<CultureInfo> GetCultureInfos()
 	{
 		return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).Skip(skip).ToList();
 	}
 
+	private async ValueTask<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+	{
+		await Task.Delay(3000); // simulate server call
+
+		var cultures = GetCultureInfos();
+		return request.CreateClientSideResponse(cultures);
+	}
+
 	private async ValueTask<GridDataProviderResult<CultureInfo>> ServerCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
 	{
-		await Task.Delay(5000); // simulate server call
+		await Task.Delay(3000); // simulate server call
 
 		var cultures = GetCultureInfos();
 		cultures.Sort(request.Sorting.ToGenericPropertyComparer());
@@ -101,22 +89,26 @@
 		{
 			DataItemsTotalCount = cultures.Count(),
 			Data = cultures
-			.Skip(request.PageIndex * PageSize)
-			.Take(PageSize)
-			.ToList()
+				.Skip(request.PageIndex * PageSize)
+				.Take(PageSize)
+				.ToList()
 		};
 	}
+
+	private async ValueTask<GridDataProviderResult<CultureInfo>> EmptyCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+	{
+		await Task.Delay(3000);
+		return new GridDataProviderResult<CultureInfo>
+		{
+			Data = new List<CultureInfo>(),
+			DataItemsTotalCount = 0
+		};
+	}
+
 
 	private Task AlarmClicked(System.Globalization.CultureInfo item)
 	{
 		clickedItem = item;
 		return Task.CompletedTask;
-	}
-
-	private async Task HandleRemoveItemsClick()
-	{
-		skip += 10;
-		localCultureInfos = GetCultureInfos(); // duplicita kódu
-		await serverSideGrid.RefreshDataAsync();
 	}
 }
