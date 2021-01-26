@@ -1,11 +1,10 @@
-﻿// *** HxAutosuggest ****************************************************************
-
-window.hxBootstrapAutosuggest_openDropdown = (selector) => {
+﻿export function open(selector) {
     var el = document.querySelector(selector);
     el.setAttribute("data-bs-toggle", "dropdown");
     new bootstrap.Dropdown(el).show();
-};
-window.hxBootstrapAutosuggest_destroyDropdown = (selector) => {
+}
+
+export function destroy(selector) {
     var el = document.querySelector(selector);
     el.removeAttribute("data-bs-toggle", "dropdown");
     var dd = bootstrap.Dropdown.getInstance(el);
@@ -13,4 +12,4 @@ window.hxBootstrapAutosuggest_destroyDropdown = (selector) => {
         dd.hide();
         dd.dispose();
     }
-};
+}

@@ -10,7 +10,7 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public partial class HxAutosuggest : IDisposable // TODO? IAsyncDisposable
+	public partial class HxAutosuggest : IAsyncDisposable
 	{
 		[Parameter] public string Value { get; set; }
 		[Parameter] public EventCallback<string> ValueChanged { get; set; }
@@ -35,6 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private CancellationTokenSource cancellationTokenSource;
 		private string autosuggestValue;
 		private List<string> suggestions;
+		IJSObjectReference jsModule;
 
 		public HxAutosuggest()
 		{
@@ -135,20 +136,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		#region OpenDropdown, CloseDropdown
 		private async Task OpenDropdown()
 		{
-			// TODO JavaScript Isolation
-			await JSRuntime.InvokeVoidAsync("hxBootstrapAutosuggest_openDropdown", $"#{dropdownId} input");
+			await EnsureJsModuleAsync();
+			await jsModule.InvokeVoidAsync("open", $"#{dropdownId} input");
 		}
 
 		private async Task DestroyDropdown()
 		{
-			await JSRuntime.InvokeVoidAsync("hxBootstrapAutosuggest_destroyDropdown", $"#{dropdownId} input");
+			await EnsureJsModuleAsync();
+			await jsModule.InvokeVoidAsync("destroy", $"#{dropdownId} input");
 		}
 		#endregion
 
-		public void Dispose()
+		private async Task EnsureJsModuleAsync()
+		{
+			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxautosuggest.js");
+		}
+
+		public async ValueTask DisposeAsync()
 		{
 			timer?.Dispose();
 			cancellationTokenSource?.Dispose();
+
+			if (jsModule != null)
+			{
+				jsModule.DisposeAsync();
+			}
 		}
 	}
 }

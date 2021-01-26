@@ -21,10 +21,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="wwwroot\hxbootstrap.js" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
 	</ItemGroup>
 
