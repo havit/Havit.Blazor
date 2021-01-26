@@ -94,6 +94,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private bool shouldOpenModal = false; // indicates whether the modal is going to be opened
 		private DotNetObjectReference<HxModal> dotnetObjectReference;
 		private ElementReference modalElement;
+		IJSObjectReference jsModule;
 
 		/// <summary>
 		/// Constructor.
@@ -118,7 +119,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 			opened = true; // mark modal as opened
-			shouldOpenModal = true; // mak modal to be shown in OnAfterRender
+			shouldOpenModal = true; // mak modal to be shown in OnAfterRender			
 
 			StateHasChanged(); // ensures render modal HTML
 
@@ -131,7 +132,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task HideAsync()
 		{
 			Contract.Requires(opened);
-			await JSRuntime.InvokeVoidAsync("hxModal_hide", modalElement);
+			await jsModule.InvokeVoidAsync("hide", modalElement);
 		}
 
 		[JSInvokable("HxModal_HandleModalHidden")]
@@ -149,12 +150,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (shouldOpenModal)
 			{
-				// do not run hxModal_show in every render
+				// do not run show in every render
 				// the line must be prior to JSRuntime (because BuildRenderTree/OnAfterRender[Async] is called twice; in the bad order of lines the JSRuntime would be also called twice).
 				shouldOpenModal = false;
 
 				// Running JS interop is postponed to OnAfterAsync to ensure modalElement is set.
-				await JSRuntime.InvokeVoidAsync("hxModal_show", modalElement, dotnetObjectReference, UseStaticBackdrop, CloseOnEscape);
+				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxmodal.js");
+				await jsModule.InvokeVoidAsync("show", modalElement, dotnetObjectReference, UseStaticBackdrop, CloseOnEscape);
 			}
 		}
 
@@ -164,9 +166,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (opened)
 			{
 				// We need to remove backdrop when leaving "page" when HxModal is shown (opened).
-				await JSRuntime.InvokeVoidAsync("hxModal_dispose", modalElement);
+				await jsModule.InvokeVoidAsync("dispose", modalElement);
 			}
 			dotnetObjectReference.Dispose();
+
+			if (jsModule != null)
+			{
+				await jsModule.DisposeAsync();
+			}
+
 		}
 	}
 }
