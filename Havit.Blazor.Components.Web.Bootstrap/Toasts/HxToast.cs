@@ -15,12 +15,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxToast : ComponentBase, IAsyncDisposable
 	{
-#pragma warning disable CS0649 // assigned by Blazor
-		private ElementReference toastElement;
-#pragma warning restore CS0649
-
-		private DotNetObjectReference<HxToast> dotnetObjectReference;
-
 		/// <summary>
 		/// JS Runtime.
 		/// </summary>
@@ -70,6 +64,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Fires when toast is hidden (button or autohide).
 		/// </summary>
 		[Parameter] public EventCallback OnToastHidden { get; set; }
+
+		private ElementReference toastElement;
+		private DotNetObjectReference<HxToast> dotnetObjectReference;
+		IJSObjectReference jsModule;
 
 		public HxToast()
 		{
@@ -171,7 +169,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender)
 			{
 				// we need to manualy setup the toast.
-				await JSRuntime.InvokeVoidAsync("hxToast_show", toastElement, dotnetObjectReference);
+				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxtoast.js");
+				await jsModule.InvokeVoidAsync("show", toastElement, dotnetObjectReference);
 			}
 		}
 
@@ -193,8 +192,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		public async ValueTask DisposeAsync()
 		{
-			await JSRuntime.InvokeVoidAsync("hxToast_dispose", toastElement);
-			dotnetObjectReference?.Dispose();
+			if (jsModule != null)
+			{
+				await jsModule.InvokeVoidAsync("dispose", toastElement);
+				await jsModule.DisposeAsync();
+			}
+
+			dotnetObjectReference.Dispose();
 		}
 	}
 }

@@ -14,17 +14,3 @@ window.hxBootstrapAutosuggest_destroyDropdown = (selector) => {
         dd.dispose();
     }
 };
-
-// *** HxToast ****************************************************************
-
-var handleToastHiddenInDotnet = (event) => {
-	event.target.hxToastDotnetObjectReference.invokeMethodAsync('HxToast_HandleToastHidden');
-}; 
-window.hxToast_show = (element, hxToastDotnetObjectReference) => {
-	element.hxToastDotnetObjectReference = hxToastDotnetObjectReference;
-	element.addEventListener('hidden.bs.toast', handleToastHiddenInDotnet);
-    new bootstrap.Toast(element).show();
-}
-window.hxToast_dispose = (element) => {
-	element.removeEventListener('hidden.bs.toast', handleToastHiddenInDotnet);
-}

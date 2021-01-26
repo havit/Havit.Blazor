@@ -168,6 +168,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				// We need to remove backdrop when leaving "page" when HxModal is shown (opened).
 				await jsModule.InvokeVoidAsync("dispose", modalElement);
 			}
+
 			dotnetObjectReference.Dispose();
 
 			if (jsModule != null)
