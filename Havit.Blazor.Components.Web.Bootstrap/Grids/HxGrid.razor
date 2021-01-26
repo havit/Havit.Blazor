@@ -129,11 +129,11 @@
 										</td>
 									}
 								</tr>
-						}
+							}
 							else
 							{
 								// !SelectionEnabled - no table-active, no event handlers
-								<tr>
+								<tr @onclick:stopPropagation>
 									@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 									{
 										// same as above this else section

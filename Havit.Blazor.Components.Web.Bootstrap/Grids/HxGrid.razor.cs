@@ -239,11 +239,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			Contract.Requires(SelectionEnabled);
 
-			if (!EqualityComparer<TItemType>.Default.Equals(SelectedDataItem, newSelectedDataItem))
-			{
-				SelectedDataItem = newSelectedDataItem;
-				await SelectedDataItemChanged.InvokeAsync(newSelectedDataItem);
-			}
+			await SetSelectedDataItemWithEventCallback(newSelectedDataItem);
 		}
 
 		private async Task HandleSortingClick(IEnumerable<SortingItem<TItemType>> sorting)
