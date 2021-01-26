@@ -62,9 +62,6 @@
 	private CultureInfo serverSideCurrentCultureInfo = null;
 	private CultureInfo clickedItem = null;
 
-	// EMPTY
-	private List<CultureInfo> emptyCultureInfos;
-
 	private List<CultureInfo> GetCultureInfos()
 	{
 		return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).Skip(skip).ToList();
