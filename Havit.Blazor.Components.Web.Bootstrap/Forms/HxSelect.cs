@@ -150,6 +150,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, "select");
+			builder.AddAttribute(1, "class", "form-select");
 			BuildRenderInput_AddCommonAttributes(builder, null);
 
 			builder.AddAttribute(1000, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
