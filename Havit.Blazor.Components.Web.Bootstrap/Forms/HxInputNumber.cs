@@ -95,16 +95,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, "input");
-			BuildRenderInput_AddCommonAttributes(builder, "number");
+			BuildRenderInput_AddCommonAttributes(builder, "text");
 
 			if (!String.IsNullOrEmpty(Placeholder))
 			{
 				builder.AddAttribute(1000, "placeholder", Placeholder);
 			}
 
-			if (this.DecimalsEffective != 0)
+			if (DecimalsEffective <= 0)
 			{
-				builder.AddAttribute(1001, "step", "any"); // Math.Pow(10, -DecimalsEffective).ToString(CultureInfo.InvariantCulture));
+				// We can use inputmode numeric when we do not want to enter decimals. It displays a keyboard without a key for a decimal point.
+				// We do not use inputmode decimal because browser (ie. Safari on iPhone) displays a keyboard with a decimal point key depending on device settings (language & keyboard).
+				builder.AddAttribute(1001, "inputmode", "numeric");
 			}
 
 			builder.AddAttribute(1002, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
@@ -138,14 +140,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			// omezení počtu desetinných míst
 			// pro komplikace s tím, že máme TValue a s ním se dost těžko pracuje se omezíme na řešení a úpravu vstupních dat před konverzí do cílového typu
 
-			if (Decimal.TryParse(value, IsTValueIntegerType ? NumberStyles.Integer : NumberStyles.Float, CultureInfo.InvariantCulture, out decimal parsedValue))
+			string roundedValue = value;
+			if (Decimal.TryParse(value, IsTValueIntegerType ? NumberStyles.Integer : NumberStyles.Float, CultureInfo.CurrentCulture, out decimal parsedValue))
 			{
-				value = Math.Round(parsedValue, DecimalsEffective, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture);
+				roundedValue = Math.Round(parsedValue, DecimalsEffective, MidpointRounding.AwayFromZero).ToString(CultureInfo.CurrentCulture);
 			}
 
 			// konverze do cílového typu
 
-			if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out result))
+			if (BindConverter.TryConvertTo<TValue>(roundedValue, CultureInfo.CurrentCulture, out result))
 			{
 				// pokud došlo jen ke změně bez změny hodnoty (třeba z 5.50 na 5.5), chceme hodnotu převést na korektní formát (5.5 na 5.50).
 				// Nestačí však StateHasChange, viz komentář v BuildRenderInput.
@@ -177,26 +180,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					return null;
 
 				case int @int:
-					return BindConverter.FormatValue(@int, CultureInfo.InvariantCulture);
+					return BindConverter.FormatValue(@int, CultureInfo.CurrentCulture);
 
 				case long @long:
-					return BindConverter.FormatValue(@long, CultureInfo.InvariantCulture);
+					return BindConverter.FormatValue(@long, CultureInfo.CurrentCulture);
 			}
 
-			string format = "0." + String.Join("", Enumerable.Repeat('0', DecimalsEffective));
+			string format = (DecimalsEffective > 0)
+				? "0." + String.Join("", Enumerable.Repeat('0', DecimalsEffective))
+				: "0";
+
 			switch (value)
 			{
 				//case short @short:
 				//	return BindConverter.FormatValue(@short, CultureInfo.CurrentCulture);
 
 				case float @float:
-					return @float.ToString(format, CultureInfo.InvariantCulture);
+					return @float.ToString(format, CultureInfo.CurrentCulture);
 
 				case double @double:
-					return @double.ToString(format, CultureInfo.InvariantCulture);
+					return @double.ToString(format, CultureInfo.CurrentCulture);
 
 				case decimal @decimal:
-					return @decimal.ToString(format, CultureInfo.InvariantCulture);
+					return @decimal.ToString(format, CultureInfo.CurrentCulture);
 			}
 
 			throw new InvalidOperationException($"Unsupported type {value.GetType()}.");
