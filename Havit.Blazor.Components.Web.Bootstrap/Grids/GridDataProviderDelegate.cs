@@ -9,5 +9,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Data provider (delegate).
 	/// </summary>
-	public delegate ValueTask<GridDataProviderResult<TItemType>> GridDataProviderDelegate<TItemType>(GridDataProviderRequest<TItemType> request);
+	public delegate Task<GridDataProviderResult<TItemType>> GridDataProviderDelegate<TItemType>(GridDataProviderRequest<TItemType> request);
 }

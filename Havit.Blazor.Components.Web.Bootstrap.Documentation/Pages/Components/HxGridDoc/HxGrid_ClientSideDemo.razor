@@ -8,8 +8,8 @@
 @code {
 	private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
 
-	private ValueTask<GridDataProviderResult<CultureInfo>> ClientSideProcessingDataProvider(GridDataProviderRequest<CultureInfo> request)
+	private Task<GridDataProviderResult<CultureInfo>> ClientSideProcessingDataProvider(GridDataProviderRequest<CultureInfo> request)
 	{
-		return ValueTask.FromResult(request.ApplyTo(localCultureInfos));
+		return Task.FromResult(request.ApplyTo(localCultureInfos));
 	}
 }
