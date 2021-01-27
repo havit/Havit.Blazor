@@ -1,4 +1,4 @@
-﻿<HxGrid TItemType="CultureInfo" Data="@emptyCultureInfos">
+﻿<HxGrid TItemType="CultureInfo" DataProvider="EmptyCultureInfosDataProvider">
 	<Columns>
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
@@ -6,5 +6,13 @@
 </HxGrid>
 
 @code {
-	private List<CultureInfo> emptyCultureInfos = new List<CultureInfo>();
+	private async ValueTask<GridDataProviderResult<CultureInfo>> EmptyCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+	{
+		await Task.Delay(3000);
+		return new GridDataProviderResult<CultureInfo>
+		{
+			Data = new List<CultureInfo>(),
+			TotalCount = 0
+		};
+	}
 }

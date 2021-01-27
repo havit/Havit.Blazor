@@ -1,4 +1,4 @@
-﻿<HxGrid TItemType="CultureInfo" Data="@localCultureInfos" PageSize="10">
+﻿<HxGrid TItemType="CultureInfo" DataProvider="ClientSideProcessingDataProvider" PageSize="10">
 	<Columns>
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
@@ -7,4 +7,9 @@
 
 @code {
 	private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
+
+	private ValueTask<GridDataProviderResult<CultureInfo>> ClientSideProcessingDataProvider(GridDataProviderRequest<CultureInfo> request)
+	{
+		return ValueTask.FromResult(request.ApplyTo(localCultureInfos));
+	}
 }

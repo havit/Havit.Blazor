@@ -15,7 +15,7 @@
 		return ValueTask.FromResult(new GridDataProviderResult<CultureInfo>
 		{
 			Data = cultureInfos.Skip(request.PageIndex * PageSize).Take(request.PageSize).ToList(),
-			DataItemsTotalCount = cultureInfos.Count()
+			TotalCount = cultureInfos.Count()
 		});
 	}
 }

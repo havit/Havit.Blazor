@@ -166,9 +166,9 @@
 				}
 			</table>
 
-			@if ((PageSize > 0) && (dataItemsTotalCount != null))
+			@if ((PageSize > 0) && (totalCount != null))
 			{
-				int totalPages = (dataItemsTotalCount.Value + PageSize - 1) / PageSize;
+				int totalPages = (totalCount.Value + PageSize - 1) / PageSize;
 				if (totalPages > 1)
 				{
 					<HxPager TotalPages="@totalPages"

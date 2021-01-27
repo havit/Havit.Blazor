@@ -107,10 +107,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <inheritdoc />
 		[CascadingParameter] public ProgressState ProgressState { get; set; }
-		
+
 		/// <inheritdoc />
 		[Parameter] public bool? InProgress { get; set; }
-		
+
 		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
 
 		private List<IHxGridColumn<TItemType>> columnsList;
@@ -118,7 +118,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private bool decreasePageIndexAfterRender = false;
 		private bool isDisposed = false;
 		private List<TItemType> dataItemsToRender;
-		private int? dataItemsTotalCount;
+		private int? totalCount;
 		private CancellationTokenSource refreshDataCancellationTokenSource;
 		private bool dataProviderInProgress;
 
@@ -289,7 +289,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			GridDataProviderResult<TItemType> result;
 			// Multithreading: we can safelly set dataProviderInProgress, always dataProvider is going to retrieve data we are it is in in a progress.
-			dataProviderInProgress = true; 
+			dataProviderInProgress = true;
 			StateHasChanged();
 			try
 			{
@@ -316,19 +316,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 						throw new InvalidOperationException($"{nameof(DataProvider)} returned more data items then is the size od the page.");
 					}
 
-					if (result.DataItemsTotalCount == null)
+					if (result.TotalCount == null)
 					{
-						throw new InvalidOperationException($"{nameof(DataProvider)} did not set ${nameof(GridDataProviderResult<TItemType>.DataItemsTotalCount)}.");
+						throw new InvalidOperationException($"{nameof(DataProvider)} did not set ${nameof(GridDataProviderResult<TItemType>.TotalCount)}.");
 					}
-					else if (dataCount > result.DataItemsTotalCount.Value)
+					else if (dataCount > result.TotalCount.Value)
 					{
-						throw new InvalidOperationException($"{nameof(DataProvider)} set ${nameof(GridDataProviderResult<TItemType>.DataItemsTotalCount)} property byt the value is smaller than the number of data items.");
+						throw new InvalidOperationException($"{nameof(DataProvider)} set ${nameof(GridDataProviderResult<TItemType>.TotalCount)} property byt the value is smaller than the number of data items.");
 					}
 				}
 				#endregion
 
 				dataItemsToRender = result.Data?.ToList();
-				dataItemsTotalCount = result.DataItemsTotalCount;
+				totalCount = result.TotalCount;
 
 				if (!EqualityComparer<TItemType>.Default.Equals(SelectedDataItem, default))
 				{
@@ -342,7 +342,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					HashSet<TItemType> selectedDataItems = dataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItemType>();
 					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
-				}				
+				}
 
 				if (renderOnSuccess)
 				{
@@ -367,7 +367,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private async Task HandleMultiSelectUnselectDataItemClicked(TItemType selectedDataItem)
 		{
 			Contract.Requires(MultiSelectionEnabled);
-			
+
 			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItemType>();
 			if (selectedDataItems.Remove(selectedDataItem))
 			{
@@ -378,14 +378,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private async Task HandleMultiSelectSelectAllClicked()
 		{
 			Contract.Requires(MultiSelectionEnabled);
-			
+
 			await SetSelectedDataItemsWithEventCallback(new HashSet<TItemType>(dataItemsToRender));
 		}
 
 		private async Task HandleMultiSelectSelectNoneClicked()
 		{
 			Contract.Requires(MultiSelectionEnabled);
-			
+
 			await SetSelectedDataItemsWithEventCallback(new HashSet<TItemType>());
 		}
 		#endregion

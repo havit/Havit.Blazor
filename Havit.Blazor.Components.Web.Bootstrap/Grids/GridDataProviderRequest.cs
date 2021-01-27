@@ -31,22 +31,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public CancellationToken CancellationToken { get; init; }
 
-		// TODO: Naming?
 		/// <summary>
 		/// Process data on client side (process sorting &amp; paging) and returns result for the grid.
 		/// </summary>
-		public GridDataProviderResult<TItemType> CreateClientSideResponse(IEnumerable<TItemType> allInMemoryGridData)
+		/// <param name="data">data to process (paging and sorting will be applied)</param>
+		public GridDataProviderResult<TItemType> ApplyTo(IEnumerable<TItemType> data)
 		{
-			if (allInMemoryGridData == null)
+			if (data == null)
 			{
 				return new GridDataProviderResult<TItemType>
 				{
 					Data = null,
-					DataItemsTotalCount = null
+					TotalCount = null
 				};
 			}
 
-			IEnumerable<TItemType> resultData = allInMemoryGridData;
+			IEnumerable<TItemType> resultData = data;
 
 			#region Sorting
 			if ((Sorting != null) && Sorting.Any())
@@ -77,7 +77,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return new GridDataProviderResult<TItemType>
 			{
 				Data = resultData.ToList(),
-				DataItemsTotalCount = allInMemoryGridData.Count()
+				TotalCount = data.Count()
 			};
 		}
 	}

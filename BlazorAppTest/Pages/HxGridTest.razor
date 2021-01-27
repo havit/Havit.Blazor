@@ -72,7 +72,7 @@
 		await Task.Delay(3000); // simulate server call
 
 		var cultures = GetCultureInfos();
-		return request.CreateClientSideResponse(cultures);
+		return request.ApplyTo(cultures);
 	}
 
 	private async ValueTask<GridDataProviderResult<CultureInfo>> ServerCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
@@ -84,7 +84,7 @@
 
 		return new GridDataProviderResult<CultureInfo>()
 		{
-			DataItemsTotalCount = cultures.Count(),
+			TotalCount = cultures.Count(),
 			Data = cultures
 				.Skip(request.PageIndex * PageSize)
 				.Take(PageSize)
@@ -98,7 +98,7 @@
 		return new GridDataProviderResult<CultureInfo>
 		{
 			Data = new List<CultureInfo>(),
-			DataItemsTotalCount = 0
+			TotalCount = 0
 		};
 	}
 

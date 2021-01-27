@@ -13,8 +13,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public IEnumerable<TItemType> Data { get; init; }
 
 		/// <summary>
-		/// The total item count in the source.
+		/// The total item count in the source (for paging).
 		/// </summary>
-		public int? DataItemsTotalCount { get; init; }
+		public int? TotalCount { get; init; }
 	}
 }
