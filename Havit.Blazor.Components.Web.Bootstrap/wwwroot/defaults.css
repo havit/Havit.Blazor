@@ -12,4 +12,6 @@
   --drawer-lg-width: 800px;
   --primary: #2e75f0;
   --sidebar-border: 1px solid #e9ecef;
+  --hx-progress-overlay-color: white;
+  --hx-progress-overlay-opacity: .65;
 }
