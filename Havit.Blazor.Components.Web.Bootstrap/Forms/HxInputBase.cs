@@ -286,13 +286,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
 		{
-			if (ShowValidationMessage && (autoCreatedEditContext == null /* do not render validation when edit context was automatically created */))
+			if (ShowValidationMessage)
 			{
 				//<div class="invalid-feedback">
 				//Please provide a valid city.
 				//</div>
 				builder.OpenComponent<HxValidationMessage<TValue>>(1);
-				builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.For), ValueExpression);
+				if (autoCreatedEditContext != null)
+				{
+					builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.EditContext), autoCreatedEditContext);
+				}
+				builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.For), ValueExpression);
 				builder.CloseComponent();
 			}
 		}

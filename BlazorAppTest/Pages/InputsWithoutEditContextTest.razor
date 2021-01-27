@@ -1,0 +1,28 @@
+﻿@page "/InputsWithoutEditContextTest"
+@using System.Globalization;
+ 
+<h1>Inputs without EditContext</h1>
+
+<HxInputText Label="Text" @bind-Value="@text" />
+
+<HxInputNumber Label="Integer (nullable)" @bind-Value="@nullableIntegerValue" ParsingErrorMessage="Zadejte správně Integer.">
+	<InputGroupBeforeTemplate>€</InputGroupBeforeTemplate>
+	<InputGroupAfterTemplate>.00</InputGroupAfterTemplate>
+</HxInputNumber>
+
+<HxInputNumber Label="Decimal" @bind-Value="@decimalValue" ParsingErrorMessage="Zadejte správně Decimal." />
+<HxInputDate Label="Date" @bind-Value="@dateValue" ParsingErrorMessage="Zadejte správně Date." />
+
+<HxInputCheckBox Label="CheckBox" @bind-Value="@boolValue" />
+<HxInputCheckBox Label="CheckBox" CssClass="form-switch" @bind-Value="@boolValue" />
+
+<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
+
+@code
+{
+	private string text;
+	private int? nullableIntegerValue;
+	private decimal decimalValue;
+	private DateTime dateValue;
+	private bool boolValue;
+}
