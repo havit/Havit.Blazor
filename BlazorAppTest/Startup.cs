@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using BlazorAppTest.Resources;
 using Havit.Blazor.Components.Web;
 using Havit.Blazor.Components.Web.Bootstrap;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +30,8 @@ namespace BlazorAppTest
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddLocalization();
+			services.AddGeneratedResourceWrappers();
+
 			services.AddRazorPages();
 			services.AddServerSideBlazor();
 
