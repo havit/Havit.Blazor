@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -9,12 +11,20 @@ using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	// TODO: Predefined date ranges
+	// TODO: DisableDates
+	// TODO: HighlightDates
+
 	/// <summary>
 	/// Date input.
+	/// Uses a <see href="https://github.com/jdtcn/BlazorDateRangePicker">DateRangePicker</see>, follow the Get Started guide!
 	/// </summary>
 	/// <typeparam name="TValue">Supports DateTime and DateTimeOffset.</typeparam>
 	public class HxInputDate<TValue> : HxInputBaseWithInputGroups<TValue>
 	{
+		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
+		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(DateTime), typeof(DateTimeOffset) };
+
 		private const string DateFormat = "yyyy-MM-dd"; // Compatible with HTML date inputs
 
 		/// <summary>
@@ -25,18 +35,80 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Inject] private protected IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		public HxInputDate()
+		{
+			Type undelyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+			if (!supportedTypes.Contains(undelyingType))
+			{
+				throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
+			}
+		}
+
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
-			builder.OpenElement(0, "input");
+			EnsureInputId();
 
-			BuildRenderInput_AddCommonAttributes(builder, "date");
+			RenderFragment<BlazorDateRangePicker.DateRangePicker> pickerTemplate = (BlazorDateRangePicker.DateRangePicker dateRangePicker) => (RenderTreeBuilder builder) =>
+			{
+				// default input in DateRangePicker:
+				// <input id="@Id" type="text" @attributes="CombinedAttributes" value="@FormattedRange" @oninput="OnTextInput" @onfocusin="Open" @onfocusout="LostFocus" />
 
-			builder.AddAttribute(1000, "value", FormatValueAsString(Value));
-			builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-			builder.AddEventStopPropagationAttribute(1002, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputDate nastavitelné?
+				builder.OpenElement(0, "input");
+				BuildRenderInput_AddCommonAttributes(builder, "text"); // id, type, attributes (ale jiné)
 
-			builder.CloseElement();
+				builder.AddAttribute(1000, "value", FormatValueAsString(Value));
+				builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+
+				builder.AddAttribute(1002, "onfocusin", EventCallback.Factory.Create(this, dateRangePicker.Open));
+				builder.AddAttribute(1003, "onfocusout", EventCallback.Factory.Create(this, dateRangePicker.LostFocus));
+
+				builder.AddEventStopPropagationAttribute(1004, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputDate nastavitelné?
+				
+				builder.CloseElement();
+			};
+
+			builder.OpenComponent<BlazorDateRangePicker.DateRangePicker>(0);
+			builder.AddAttribute(1, nameof(BlazorDateRangePicker.DateRangePicker.Id), InputId);
+			builder.AddAttribute(2, nameof(BlazorDateRangePicker.DateRangePicker.PickerTemplate), pickerTemplate);
+			builder.AddAttribute(3, nameof(BlazorDateRangePicker.DateRangePicker.SingleDatePicker), true);
+			builder.AddAttribute(4, nameof(BlazorDateRangePicker.DateRangePicker.StartDateChanged), EventCallback.Factory.Create<DateTimeOffset?>(this, HandleStartDateChanged));
+
+			builder.CloseComponent();
+		}
+
+		private async Task HandleStartDateChanged(DateTimeOffset? startDate)
+		{
+			Value = GetValueFromDateTimeOffset(startDate);
+			await ValueChanged.InvokeAsync(Value);
+		}
+
+		// TODO: Unittest
+		internal TValue GetValueFromDateTimeOffset(DateTimeOffset? value)
+		{
+			if (value == null)
+			{
+				return default;
+			}
+			
+			var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+
+
+			if (targetType == typeof(DateTime))
+			{
+				return (TValue)(object)value.Value.DateTime;
+			}
+			else if (targetType == typeof(DateTimeOffset))
+			{
+				return (TValue)(object)value.Value;
+			}
+			else
+			{
+				throw new InvalidOperationException("Unsupported type.");
+			}
 		}
 
 		/// <inheritdoc />
@@ -51,13 +123,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			switch (value)
 			{
 				case DateTime dateTimeValue:
-					return BindConverter.FormatValue(dateTimeValue, DateFormat, CultureInfo.InvariantCulture);
+					return dateTimeValue.ToShortDateString();
 				case DateTimeOffset dateTimeOffsetValue:
-					return BindConverter.FormatValue(dateTimeOffsetValue, DateFormat, CultureInfo.InvariantCulture);
+					return dateTimeOffsetValue.DateTime.ToShortDateString();
 				default:
-					return string.Empty; // Handles null for Nullable<DateTime>, etc.
+					throw new InvalidOperationException("Unsupported type.");
+
 			}
 		}
+
+		// TODO: Zjednodušit 
 
 		/// <inheritdoc />
 		protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
@@ -94,7 +169,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private static bool TryParseDateTime(string value, out TValue result)
 		{
-			var success = BindConverter.TryConvertToDateTime(value, CultureInfo.InvariantCulture, DateFormat, out var parsedValue);
+			bool success = DateTime.TryParse(value, out DateTime parsedValue);
+			//var success = BindConverter.TryConvertToDateTime(value, CultureInfo.CurrentCulture, DateFormat, out var parsedValue);
 			if (success)
 			{
 				result = (TValue)(object)parsedValue;
@@ -109,7 +185,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private static bool TryParseDateTimeOffset(string value, out TValue result)
 		{
-			var success = BindConverter.TryConvertToDateTimeOffset(value, CultureInfo.InvariantCulture, DateFormat, out var parsedValue);
+			var success = BindConverter.TryConvertToDateTimeOffset(value, CultureInfo.CurrentCulture, DateFormat, out var parsedValue);
 			if (success)
 			{
 				result = (TValue)(object)parsedValue;

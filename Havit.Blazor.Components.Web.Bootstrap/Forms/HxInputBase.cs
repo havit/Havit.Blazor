@@ -304,7 +304,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Sets InputId to a random value when empty.
 		/// </summary>
-		private void EnsureInputId()
+		protected void EnsureInputId()
 		{
 			if (String.IsNullOrEmpty(InputId))
 			{

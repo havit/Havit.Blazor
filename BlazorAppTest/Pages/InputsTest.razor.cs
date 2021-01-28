@@ -25,7 +25,7 @@ namespace BlazorAppTest.Pages
 
 			public decimal? NullableDecimalValue { get; set; }
 
-			public DateTime DateValue { get; set; }
+			public DateTime DateValue { get; set; } = DateTime.Today;
 
 			public DateTime? NullableDateValue { get; set; }
 
