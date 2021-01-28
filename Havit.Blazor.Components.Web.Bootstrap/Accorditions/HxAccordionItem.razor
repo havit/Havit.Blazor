@@ -1,0 +1,13 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+<div class="accordion-item">
+	<h2 class="accordion-header" id="header-@idEffective">
+		<button class="@CssClassHelper.Combine("accordion-button", IsExpanded() ? null : "collapsed")" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@idEffective" aria-expanded="@IsExpanded()" aria-controls="collapse-@idEffective">
+			@HeaderTemplate
+		</button>
+	</h2>
+	<div @ref="collapseHtmlElement" id="collapse-@idEffective" class="@CssClassHelper.Combine("accordion-collapse collapse", IsExpanded() ? "show" : null)" aria-labelledby="header-@idEffective" data-bs-parent="#@ParentAccordition.Id">
+		<div class="accordion-body">
+			@BodyTemplate
+		</div>
+	</div>
+</div>

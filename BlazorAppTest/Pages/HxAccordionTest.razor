@@ -1,0 +1,122 @@
+﻿@page "/HxAccordionTest"
+
+<h1>HxAccordion</h1>
+
+<HxCard CssClass="my-3">
+	<HeaderTemplate>Plain, No IDs</HeaderTemplate>
+	<BodyTemplate>
+		<HxAccordion>
+			<HxAccordionItem>
+				<HeaderTemplate>Accordition Item 1</HeaderTemplate>
+				<BodyTemplate>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+					Suspendisse eu ipsum orci. Donec sit amet fringilla ante, at facilisis metus. Fusce leo elit, cursus sed rutrum vel, elementum eu justo.
+				</BodyTemplate>
+			</HxAccordionItem>
+			<HxAccordionItem>
+				<HeaderTemplate>Accordition Item 2</HeaderTemplate>
+				<BodyTemplate>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+					Suspendisse eu ipsum orci. Donec sit amet fringilla ante, at facilisis metus. Fusce leo elit, cursus sed rutrum vel, elementum eu justo.
+				</BodyTemplate>
+			</HxAccordionItem>
+		</HxAccordion>
+	</BodyTemplate>
+</HxCard>
+
+<HxCard CssClass="my-3">
+	<HeaderTemplate>ExpandedId="2"</HeaderTemplate>
+	<BodyTemplate>
+		<HxAccordion ExpandedItemId="2">
+			<HxAccordionItem Id="1">
+				<HeaderTemplate>Accordition Item 1 (Id="1")</HeaderTemplate>
+				<BodyTemplate>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+					Vivamus lacinia magna ut risus auctor ultrices. Aenean maximus lacus in tellus dictum posuere. Nulla facilisi. Sed vitae facilisis justo.
+				</BodyTemplate>
+			</HxAccordionItem>
+			<HxAccordionItem Id="2">
+				<HeaderTemplate>Accordition Item 2 (Id="2")</HeaderTemplate>
+				<BodyTemplate>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+					Suspendisse eu ipsum orci. Donec sit amet fringilla ante, at facilisis metus. Fusce leo elit, cursus sed rutrum vel, elementum eu justo.
+				</BodyTemplate>
+			</HxAccordionItem>
+		</HxAccordion>
+	</BodyTemplate>
+</HxCard>
+
+<HxCard CssClass="my-3">
+	<HeaderTemplate>Binding ExpandedId="@@expandedId"</HeaderTemplate>
+	<BodyTemplate>
+		<HxAccordion @bind-ExpandedItemId="@expandedItemId">
+			<HxAccordionItem Id="1">
+				<HeaderTemplate>Accordition Item 1 (Id="1")</HeaderTemplate>
+				<BodyTemplate>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+					Vivamus lacinia magna ut risus auctor ultrices. Aenean maximus lacus in tellus dictum posuere. Nulla facilisi. Sed vitae facilisis justo.
+				</BodyTemplate>
+			</HxAccordionItem>
+			<HxAccordionItem Id="2">
+				<HeaderTemplate>Accordition Item 2 (Id="2")</HeaderTemplate>
+				<BodyTemplate>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+					Vivamus lacinia magna ut risus auctor ultrices. Aenean maximus lacus in tellus dictum posuere. Nulla facilisi. Sed vitae facilisis justo.
+				</BodyTemplate>
+			</HxAccordionItem>
+		</HxAccordion>
+	</BodyTemplate>
+	<FooterTemplate>
+		<HxButton Text="@("expandedItemId=\"1\"")" OnClick="@(async () => expandedItemId = "1")" Color="ThemeColor.Primary" />
+		<HxButton Text="@("expandedItemId=\"2\"")" OnClick="@(async () => expandedItemId = "2")" Color="ThemeColor.Primary" />
+		<HxButton Text="@("expandedItemId=null")" OnClick="@(async () => expandedItemId = null)" Color="ThemeColor.Primary" />
+		<HxButton Text="@("expandedItemId=\"bžbž\"")" OnClick="@(async () => expandedItemId = "bžbž")" Color="ThemeColor.Secondary" />
+		expandedId: @expandedItemId
+	</FooterTemplate>
+</HxCard>
+
+<HxCard CssClass="my-3">
+	<HeaderTemplate>Callbacks</HeaderTemplate>
+	<BodyTemplate>
+		<HxAccordion ExpandedItemId="1">
+			<HxAccordionItem Id="1" OnExpanded="HandleExpanded" OnCollapsed="HandleCollapsed">
+				<HeaderTemplate>Accordition Item 1 (Id="1")</HeaderTemplate>
+				<BodyTemplate>
+					<HxProgressOverlay InProgress="inProgress">
+						Lazy loaded content...
+						@dataLoaded
+					</HxProgressOverlay>
+				</BodyTemplate>
+			</HxAccordionItem>
+			<HxAccordionItem Id="2">
+				<HeaderTemplate>Accordition Item 2 (Id="2")</HeaderTemplate>
+				<BodyTemplate>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+					Vivamus lacinia magna ut risus auctor ultrices. Aenean maximus lacus in tellus dictum posuere. Nulla facilisi. Sed vitae facilisis justo.
+				</BodyTemplate>
+			</HxAccordionItem>
+		</HxAccordion>
+	</BodyTemplate>
+</HxCard>
+
+@code
+{
+	private string expandedItemId;
+	private bool inProgress = true;
+	private string dataLoaded;
+
+	private async Task HandleExpanded(string id)
+	{
+		inProgress = true;
+		await Task.Delay(5000);
+		dataLoaded = "DataLoaded" + id;
+		inProgress = false;
+	}
+
+	private Task HandleCollapsed(string id)
+	{
+		dataLoaded = id; // throw-away data
+
+		return Task.CompletedTask;
+	}
+}
