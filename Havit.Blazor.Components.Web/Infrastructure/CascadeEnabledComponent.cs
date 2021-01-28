@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Infrastructure
 		/// </summary>
 		public static bool EnabledEffective(ICascadeEnabledComponent component)
 		{
-			return component.FormState?.Enabled ?? component.Enabled ?? true;
+			return component.Enabled ?? component.FormState?.Enabled ?? true;
 		}
 	}
 }
