@@ -52,7 +52,7 @@ namespace LocalizerGenerator
 		{
 			foreach (var localizer in Localizers)
 			{
-				builder.Append("services.AddScoped<").Append(localizer.InterfaceName).Append(", ").Append(localizer.ClassName).Append(">();").AppendLine();
+				builder.Append("services.AddScoped<").Append(localizer.LocalizerInterfaceName).Append(", ").Append(localizer.LocalizerClassName).Append(">();").AppendLine();
 			}
 		}
 	}

@@ -52,6 +52,11 @@ namespace LocalizerGenerator
 				{
 					var localizerBuilder = new LocalizerBuilder();
 					localizerBuilder.Name = Path.GetFileNameWithoutExtension(resx);
+					if (localizerBuilder.Name.Contains("."))
+					{
+						// language-specific file
+						continue;
+					}
 					var namespaceSuffix = Path.GetDirectoryName(resx).Remove(0, rootDir.Length).Replace(Path.DirectorySeparatorChar, '.');
 					localizerBuilder.Namespace = $"{namespaceBase}{namespaceSuffix}";
 					var properties = ParseResx(resx);
@@ -61,7 +66,13 @@ namespace LocalizerGenerator
 						continue;
 					}
 					localizerBuilder.Properties.AddRange(properties);
-					context.AddSource($"{nameof(LocalizerGenerator)}.{localizerBuilder.Namespace}.{localizerBuilder.ClassName}.generated.cs", SourceText.From(localizerBuilder.BuildSource(), Encoding.UTF8));
+					context.AddSource($"{nameof(LocalizerGenerator)}.{localizerBuilder.Namespace}.{localizerBuilder.LocalizerClassName}.generated.cs", SourceText.From(localizerBuilder.BuildSource(), Encoding.UTF8));
+
+					var markerClassBuilder = new MarkerClassBuilder();
+					markerClassBuilder.Namespace = localizerBuilder.Namespace;
+					markerClassBuilder.Name = localizerBuilder.Name;
+					context.AddSource($"{nameof(LocalizerGenerator)}.{markerClassBuilder.Namespace}.{markerClassBuilder.Name}.generated.cs", SourceText.From(markerClassBuilder.BuildSource(), Encoding.UTF8));
+
 					registrationsBuilder.Localizers.Add(localizerBuilder);
 				}
 

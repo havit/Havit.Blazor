@@ -6,12 +6,12 @@ namespace LocalizerGenerator
 	internal class LocalizerBuilder
 	{
 		public string Name { get; set; }
-		public string ClassName => $"{Name}Localizer";
-		public string InterfaceName => $"I{Name}Localizer";
+		public string LocalizerClassName => $"{Name}Localizer";
+		public string LocalizerInterfaceName => $"I{Name}Localizer";
 		public string Namespace { get; set; }
 		public List<string> Properties { get; } = new List<string>();
-		public string IStringLocalizerName => $"IStringLocalizer<{ClassName}>";
-		public string BaseClassName => $"DelegatingStringLocalizer<{ClassName}>";
+		public string IStringLocalizerName => $"IStringLocalizer<{Name}>";
+		public string BaseClassName => $"DelegatingStringLocalizer<{Name}>";
 
 		public string BuildSource()
 		{
@@ -26,7 +26,7 @@ namespace LocalizerGenerator
 			builder.AppendLine("{");
 			BuildUsings(builder);
 			BuildInterface(builder);
-			BuildClass(builder);
+			BuildLocalizerClass(builder);
 			builder.AppendLine("}");
 		}
 
@@ -38,7 +38,7 @@ namespace LocalizerGenerator
 
 		private void BuildInterface(StringBuilder builder)
 		{
-			builder.Append("public interface ").Append(InterfaceName).Append(" : ").Append(IStringLocalizerName).AppendLine();
+			builder.Append("public interface ").Append(LocalizerInterfaceName).Append(" : ").Append(IStringLocalizerName).AppendLine();
 			builder.AppendLine("{");
 			foreach (var property in Properties)
 			{
@@ -47,9 +47,9 @@ namespace LocalizerGenerator
 			builder.AppendLine("}");
 		}
 
-		private void BuildClass(StringBuilder builder)
+		private void BuildLocalizerClass(StringBuilder builder)
 		{
-			builder.Append("public class ").Append(ClassName).Append(" : ").Append(BaseClassName).Append(", ").Append(InterfaceName).AppendLine();
+			builder.Append("public class ").Append(LocalizerClassName).Append(" : ").Append(BaseClassName).Append(", ").Append(LocalizerInterfaceName).AppendLine();
 			builder.AppendLine("{");
 			BuildCtor(builder);
 			foreach (var property in Properties)
@@ -61,7 +61,7 @@ namespace LocalizerGenerator
 
 		private void BuildCtor(StringBuilder builder)
 		{
-			builder.Append("public ").Append(ClassName).Append("(").Append(IStringLocalizerName).Append(" innerLocalizer) : base(innerLocalizer)").AppendLine();
+			builder.Append("public ").Append(LocalizerClassName).Append("(").Append(IStringLocalizerName).Append(" innerLocalizer) : base(innerLocalizer)").AppendLine();
 			builder.AppendLine("{");
 			builder.AppendLine("}");
 		}
