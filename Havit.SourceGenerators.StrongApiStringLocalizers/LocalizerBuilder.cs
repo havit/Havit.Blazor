@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Havit.SourceGenerators.StrongApiStringLocalizers;
 
 namespace LocalizerGenerator
 {
@@ -32,12 +33,14 @@ namespace LocalizerGenerator
 
 		private void BuildUsings(StringBuilder builder)
 		{
+			builder.AppendLine("using System.CodeDom.Compiler;");
 			builder.AppendLine("using Microsoft.Extensions.Localization;");
 			builder.AppendLine("using Havit.Blazor.Components.Web.Infrastructure;");
 		}
 
 		private void BuildInterface(StringBuilder builder)
 		{
+			builder.AppendGeneratedCodeAttribute().AppendLine();
 			builder.Append("public interface ").Append(LocalizerInterfaceName).Append(" : ").Append(IStringLocalizerName).AppendLine();
 			builder.AppendLine("{");
 			foreach (var property in Properties)
@@ -49,6 +52,7 @@ namespace LocalizerGenerator
 
 		private void BuildLocalizerClass(StringBuilder builder)
 		{
+			builder.AppendGeneratedCodeAttribute().AppendLine();
 			builder.Append("public class ").Append(LocalizerClassName).Append(" : ").Append(BaseClassName).Append(", ").Append(LocalizerInterfaceName).AppendLine();
 			builder.AppendLine("{");
 			BuildCtor(builder);

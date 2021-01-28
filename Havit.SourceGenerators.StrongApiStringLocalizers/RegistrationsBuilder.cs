@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Havit.SourceGenerators.StrongApiStringLocalizers;
 
 namespace LocalizerGenerator
 {
@@ -29,6 +30,7 @@ namespace LocalizerGenerator
 
 		private void BuildUsings(StringBuilder builder)
 		{
+			builder.AppendLine("using System.CodeDom.Compiler;");
 			builder.AppendLine("using Microsoft.Extensions.DependencyInjection;");
 			builder.AppendLine("using Microsoft.Extensions.Localization;");
 			foreach (var @namespace in Localizers.Select(x => x.Namespace).Distinct(StringComparer.Ordinal))
@@ -39,6 +41,7 @@ namespace LocalizerGenerator
 
 		private void BuildClass(StringBuilder builder)
 		{
+			builder.AppendGeneratedCodeAttribute().AppendLine();
 			builder.Append("partial class ").Append(LocalizerGenerator.ServiceCollectionInstallerMarker).AppendLine();
 			builder.AppendLine("{");
 			builder.Append("public static void ").Append(MethodName).Append("(this IServiceCollection services)").AppendLine();

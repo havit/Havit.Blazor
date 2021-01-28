@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Havit.SourceGenerators.StrongApiStringLocalizers;
 
 namespace LocalizerGenerator
 {
@@ -17,6 +18,7 @@ namespace LocalizerGenerator
 		}
 		private void BuildUsings(StringBuilder builder)
 		{
+			builder.AppendLine("using System.CodeDom.Compiler;");
 			builder.AppendLine("using System.ComponentModel;");
 		}
 
@@ -30,6 +32,7 @@ namespace LocalizerGenerator
 
 		private void BuildMarkerClass(StringBuilder builder)
 		{
+			builder.AppendGeneratedCodeAttribute().AppendLine();
 			builder.Append("[Browsable(false)]").AppendLine();
 			builder.Append("[EditorBrowsable(EditorBrowsableState.Never)]").AppendLine();
 			builder.Append("public class ").Append(Name).AppendLine();
