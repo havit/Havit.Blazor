@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// Grid to display tabular data from data source.
 	/// </summary>
 	/// <typeparam name="TItemType">Type of row data item.</typeparam>
-	public partial class HxGrid<TItemType> : ComponentBase, ICascadeProgressComponent, IDisposable
+	public partial class HxGrid<TItemType> : ComponentBase, IDisposable
 	{
 		/// <summary>
 		/// ColumnsRegistration cascading value name.
@@ -104,9 +104,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Event fires when grid state is changed.
 		/// </summary>
 		[Parameter] public EventCallback<GridUserState<TItemType>> CurrentUserStateChanged { get; set; }
-
-		/// <inheritdoc />
-		[CascadingParameter] public ProgressState ProgressState { get; set; }
 
 		/// <inheritdoc />
 		[Parameter] public bool? InProgress { get; set; }
