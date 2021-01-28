@@ -15,11 +15,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private bool progressIndicatorVisible;
 		private CancellationTokenSource delayCancellationTokenSource;
 
+		/// <summary>
+		/// Default debounce delay in miliseconds to be used when <see cref="Delay"/> not set.
+		/// Default DefaultDelay is 300 ms.
+		/// </summary>
+		public static int DefaultDelay { get; set; } = 300;
+
 		[CascadingParameter] public ProgressState ProgressState { get; set; }
 
 		[Parameter] public bool? InProgress { get; set; }
 
-		[Parameter] public int Delay { get; set; } = 300;
+		/// <summary>
+		/// Debounce delay in miliseconds. If not set, uses the <see cref="DefaultDelay"/>.
+		/// </summary>
+		[Parameter] public int? Delay { get; set; }
 
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
@@ -65,7 +74,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					try
 					{
-						await Task.Delay(Delay, cancellationToken);
+						await Task.Delay(Delay ?? HxProgressOverlay.DefaultDelay, cancellationToken);
 					}
 					catch (TaskCanceledException)
 					{

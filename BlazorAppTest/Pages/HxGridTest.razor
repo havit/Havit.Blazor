@@ -39,7 +39,7 @@
 <h2>Empty data with @nameof(HxGrid<object>.EmptyDataTemplate)</h2>
 <HxGrid TItemType="CultureInfo" DataProvider="@EmptyCultureInfosDataProvider">
 	<Columns>
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" FooterText="This is a footer"/>
+		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" FooterText="This is a footer" />
 		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" />
 	</Columns>
 	<EmptyDataTemplate>
@@ -61,6 +61,13 @@
 	// SERVER SIDE (simulation)
 	private CultureInfo serverSideCurrentCultureInfo = null;
 	private CultureInfo clickedItem = null;
+
+	protected override Task OnInitializedAsync()
+	{
+		HxProgressOverlay.DefaultDelay = 0; // TEST
+
+		return base.OnInitializedAsync();
+	}
 
 	private List<CultureInfo> GetCultureInfos()
 	{
