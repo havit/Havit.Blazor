@@ -31,7 +31,7 @@
 
 	if (columnsToRender.Any() && ((dataItemsToRender != null) || dataProviderInProgress))
 	{
-		<HxProgressOverlay InProgress="@(InProgress ?? dataProviderInProgress)">
+		<HxProgressOverlay InProgress="@(InProgress ?? (dataProviderInProgress ? true : null))">
 
 			<table class="table table-responsible">
 				<thead>
