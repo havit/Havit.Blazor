@@ -10,22 +10,38 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	// TODO RH: OnExpanded na firstRender?
-	// TODO RH: OnExpanded+OnCollapsed na nastavení ExpandedItemId
-	// TODO RH: Animace na HxAccordition.ExpandedItemId změnu (ponecháme known-issue, jinak přechod na Collapse-JS)
-	// TODO RH: Dokumentace
+	/// <summary>
+	/// Single item for <see cref="HxAccordion"/>.
+	/// </summary>
 	public partial class HxAccordionItem : ComponentBase, IAsyncDisposable
 	{
 		[CascadingParameter] protected HxAccordion ParentAccordition { get; set; }
 
+		/// <summary>
+		/// Header (always visible).
+		/// </summary>
 		[Parameter] public RenderFragment HeaderTemplate { get; set; }
 
+		/// <summary>
+		/// Body (collapsible).
+		/// </summary>
 		[Parameter] public RenderFragment BodyTemplate { get; set; }
 
+		/// <summary>
+		/// ID of the item (<see cref="HxAccordion.ExpandedItemId"/>).
+		/// </summary>
 		[Parameter] public string Id { get; set; } = Guid.NewGuid().ToString("N");
 
+		/// <summary>
+		/// Raised after the transition to this item (the animation is finished).
+		/// Is not raised for the initial rendering even if the item is not collapsed (no transition happened).
+		/// </summary>
 		[Parameter] public EventCallback<string> OnExpanded { get; set; }
 
+		/// <summary>
+		/// Raised after the transition from this item (the animation is finished).
+		/// Is not raised for the initial rendering even if the item is collapsed (no transition happened).
+		/// </summary>
 		[Parameter] public EventCallback<string> OnCollapsed { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
@@ -48,7 +64,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			await base.OnParametersSetAsync();
 
-			Contract.Requires<InvalidOperationException>(ParentAccordition is not null, "<HxAccordionItem /> component has to be placed inside <HxAccordition />.");
+			Contract.Requires<InvalidOperationException>(ParentAccordition is not null, "<HxAccordionItem /> has to be placed inside <HxAccordition />.");
 
 			idEffective = ParentAccordition.Id + "-" + this.Id;
 
@@ -56,21 +72,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				if (!isInTransition)
 				{
-					if (!lastKnownStateIsExpanded && IsSetExpanded())
+					if (!lastKnownStateIsExpanded && IsSetToBeExpanded())
 					{
 						Logger.LogDebug($"OnParametersSetAsync_Expand[{idEffective}]");
-						await Expand();
+						await ExpandAsync();
 					}
 					else if (lastKnownStateIsExpanded && String.IsNullOrEmpty(ParentAccordition.ExpandedItemId))
 					{
 						Logger.LogDebug($"OnParametersSetAsync_Collapse[{idEffective}]");
-						await Collapse();
+						await CollapseAsync();
 					}
 				}
 			}
 			else
 			{
-				lastKnownStateIsExpanded = IsSetExpanded();
+				lastKnownStateIsExpanded = IsSetToBeExpanded();
 			}
 		}
 
@@ -88,14 +104,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			isInitialized = true;
 		}
-		public async Task Expand()
+
+		/// <summary>
+		/// Expands the item.
+		/// </summary>
+		public async Task ExpandAsync()
 		{
 			isInTransition = true;
 			await EnsureJsModuleAsync();
 			await jsModule.InvokeVoidAsync("show", collapseHtmlElement);
 		}
 
-		public async Task Collapse()
+		/// <summary>
+		/// Collapses the item.
+		/// </summary>
+		public async Task CollapseAsync()
 		{
 			isInTransition = true;
 			await EnsureJsModuleAsync();
@@ -103,7 +126,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Receive notification from javascript when item is shown.
+		/// Receives notification from javascript when item is shown.
 		/// </summary>
 		/// <remarks>
 		/// the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
@@ -117,7 +140,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			lastKnownStateIsExpanded = true;
 			isInTransition = false;
 
-			if (!IsSetExpanded())
+			if (!IsSetToBeExpanded())
 			{
 				await ParentAccordition.SetExpandedItemIdAsync(this.Id);
 			}
@@ -128,7 +151,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Receive notification from javascript when item is hidden.
+		/// Receives notification from javascript when item is hidden.
 		/// </summary>
 		[JSInvokable("HxAccordionItem_HandleJsHidden")]
 		public async Task HandleJsHidden()
@@ -139,7 +162,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			isInTransition = false;
 
 			// hidden-event usually comes AFTER the shown-event of the other HxAccorditionItem
-			if (IsSetExpanded())
+			if (IsSetToBeExpanded())
 			{
 				// if there has been no other HxAccorditionItem set as expanded yet, clear the selection
 				await ParentAccordition.SetExpandedItemIdAsync(null);
@@ -161,15 +184,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			dotnetObjectReference.Dispose();
 		}
 
-		private bool IsSetExpanded()
+		private bool IsSetToBeExpanded()
 		{
-			return this.Id == ParentAccordition.ExpandedItemId;
+			return (this.Id == ParentAccordition.ExpandedItemId);
 		}
 
 		private async Task EnsureJsModuleAsync()
 		{
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxaccordion.js");
 		}
-
 	}
 }

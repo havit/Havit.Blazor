@@ -13,7 +13,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// ID of the expanded item.
-		/// Do not use constant value as it reverts the accordion to this item on next roundtrip. Use <see cref="InitialExpandedItemId"/> to set the initial state.
+		/// Do not use constant value as it reverts the accordion to that item on every roundtrip. Use <see cref="InitialExpandedItemId"/> to set the initial state.
 		/// </summary>
 		[Parameter] public string ExpandedItemId { get; set; }
 		[Parameter] public EventCallback<string> ExpandedItemIdChanged { get; set; }
