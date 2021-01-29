@@ -25,9 +25,9 @@
 </HxCard>
 
 <HxCard CssClass="my-3">
-	<HeaderTemplate>ExpandedId="2"</HeaderTemplate>
+	<HeaderTemplate>InitialExpandedItemId="2"</HeaderTemplate>
 	<BodyTemplate>
-		<HxAccordion ExpandedItemId="2">
+		<HxAccordion InitialExpandedItemId="2">
 			<HxAccordionItem Id="1">
 				<HeaderTemplate>Accordition Item 1 (Id="1")</HeaderTemplate>
 				<BodyTemplate>
@@ -59,11 +59,11 @@
 					</HxProgressOverlay>
 				</BodyTemplate>
 			</HxAccordionItem>
-			<HxAccordionItem Id="2">
+			<HxAccordionItem Id="2" @ref="xxx">
 				<HeaderTemplate>Accordition Item 2 (Id="2")</HeaderTemplate>
 				<BodyTemplate>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
-					Vivamus lacinia magna ut risus auctor ultrices. Aenean maximus lacus in tellus dictum posuere. Nulla facilisi. Sed vitae facilisis justo.
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit.Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+					Vivamus lacinia magna ut risus auctor ultrices.Aenean maximus lacus in tellus dictum posuere.Nulla facilisi. Sed vitae facilisis justo.
 				</BodyTemplate>
 			</HxAccordionItem>
 		</HxAccordion>
@@ -83,10 +83,12 @@
 	private bool inProgress = true;
 	private string dataLoaded;
 
+	private HxAccordionItem xxx;
+
 	private async Task HandleExpanded(string id)
 	{
 		inProgress = true;
-		await Task.Delay(5000);
+		await Task.Delay(3000);
 		dataLoaded = "DataLoaded" + id;
 		inProgress = false;
 	}

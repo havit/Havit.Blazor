@@ -11,12 +11,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		[Parameter] public string CssClass { get; set; }
 
+		/// <summary>
+		/// ID of the expanded item.
+		/// Do not use constant value as it reverts the accordion to this item on next roundtrip. Use <see cref="InitialExpandedItemId"/> to set the initial state.
+		/// </summary>
 		[Parameter] public string ExpandedItemId { get; set; }
 		[Parameter] public EventCallback<string> ExpandedItemIdChanged { get; set; }
+
+		/// <summary>
+		/// ID of the item you want to expand at the very beginning (overwrites <see cref="ExpandedItemId"/> if set).
+		/// </summary>
+		[Parameter] public string InitialExpandedItemId { get; set; }
 
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		protected internal string Id { get; set; } = "hx" + Guid.NewGuid().ToString("N");
+
+		protected override async Task OnInitializedAsync()
+		{
+			await base.OnInitializedAsync();
+
+			if (!String.IsNullOrWhiteSpace(InitialExpandedItemId))
+			{
+				await SetExpandedItemIdAsync(InitialExpandedItemId);
+			}
+		}
 
 		internal async Task SetExpandedItemIdAsync(string newId)
 		{
