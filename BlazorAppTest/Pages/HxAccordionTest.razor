@@ -50,11 +50,13 @@
 	<HeaderTemplate>Binding ExpandedId="@@expandedId"</HeaderTemplate>
 	<BodyTemplate>
 		<HxAccordion @bind-ExpandedItemId="@expandedItemId">
-			<HxAccordionItem Id="1">
-				<HeaderTemplate>Accordition Item 1 (Id="1")</HeaderTemplate>
+			<HxAccordionItem Id="1" OnExpanded="HandleExpanded" OnCollapsed="HandleCollapsed">
+				<HeaderTemplate>Accordition Item 1 (Id="1") with LazyLoaded content</HeaderTemplate>
 				<BodyTemplate>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
-					Vivamus lacinia magna ut risus auctor ultrices. Aenean maximus lacus in tellus dictum posuere. Nulla facilisi. Sed vitae facilisis justo.
+					<HxProgressOverlay InProgress="inProgress">
+						Lazy loaded content...<br/>
+						@dataLoaded
+					</HxProgressOverlay>
 				</BodyTemplate>
 			</HxAccordionItem>
 			<HxAccordionItem Id="2">
@@ -73,30 +75,6 @@
 		<HxButton Text="@("expandedItemId=\"bžbž\"")" OnClick="@(async () => expandedItemId = "bžbž")" Color="ThemeColor.Secondary" />
 		expandedId: @expandedItemId
 	</FooterTemplate>
-</HxCard>
-
-<HxCard CssClass="my-3">
-	<HeaderTemplate>Callbacks</HeaderTemplate>
-	<BodyTemplate>
-		<HxAccordion ExpandedItemId="1">
-			<HxAccordionItem Id="1" OnExpanded="HandleExpanded" OnCollapsed="HandleCollapsed">
-				<HeaderTemplate>Accordition Item 1 (Id="1")</HeaderTemplate>
-				<BodyTemplate>
-					<HxProgressOverlay InProgress="inProgress">
-						Lazy loaded content...
-						@dataLoaded
-					</HxProgressOverlay>
-				</BodyTemplate>
-			</HxAccordionItem>
-			<HxAccordionItem Id="2">
-				<HeaderTemplate>Accordition Item 2 (Id="2")</HeaderTemplate>
-				<BodyTemplate>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
-					Vivamus lacinia magna ut risus auctor ultrices. Aenean maximus lacus in tellus dictum posuere. Nulla facilisi. Sed vitae facilisis justo.
-				</BodyTemplate>
-			</HxAccordionItem>
-		</HxAccordion>
-	</BodyTemplate>
 </HxCard>
 
 @code

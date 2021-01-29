@@ -10,7 +10,8 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	// TODO RH: OnExpanded na firstRender?
-	// TODO RH: Animace na HxAccordition.ExpandedItemId změnu
+	// TODO RH: OnExpanded+OnCollapsed na nastavení ExpandedItemId
+	// TODO RH: Animace na HxAccordition.ExpandedItemId změnu (ponecháme known-issue, jinak přechod na Collapse-JS)
 	// TODO RH: Dokumentace
 	public partial class HxAccordionItem : ComponentBase, IAsyncDisposable
 	{
