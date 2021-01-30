@@ -8,22 +8,24 @@
 
 <p>Use <code>@nameof(HxTabPanel)</code> as a container for <code>@nameof(HxTab)</code> components.</p>
 
+<h3>@nameof(HxTab)</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxTabPanel.ActiveTabId), @nameof(HxTabPanel.ActiveTabIdChanged)</strong><br />
+		Current active tab (ID).
+	</li>
+	<li>
+		<strong>@nameof(HxTabPanel.InitialActiveTabId)</strong><br />
+		Tab (ID) to be activated at the very beginning.
+	</li>
+</ul>
+
 <h3>@nameof(HxTab) properties</h3>
 
 <ul>
 	<li>
 		<strong>@nameof(HxTab.Title), @nameof(HxTab.TitleTemplate), @nameof(HxTab.Content)</strong><br />
 		Title and content of the tab.
-	</li>
-	<li>
-		<strong>@nameof(HxTab.IsInitiallyActive)</strong><br />
-		Set <code>true</code> to just one tab which should be active at first load. Changing the property has no effect.
-		If no tab is active by default, first enabled &amp; visible tab is activated.
-	</li>
-	<li>
-		<strong>@nameof(HxTab.IsCurrentlyActive), @nameof(HxTab.IsCurrentlyActiveChanged)</strong><br />
-		Use to dynamically set active tab and receive change of active tab.
-		When tab is activated, currently active tab is automatically deactivated.
 	</li>
 	<li>
 		<strong>@nameof(HxTab.Enabled)</strong><br />
@@ -35,5 +37,5 @@
 	</li>
 </ul>
 
-<Demo Title="Tabs with IsInitiallyActive" Type="typeof(Tabs_IsInitiallyActive_Demo)" />
-<Demo Title="Tabs with IsCurrentlyActive" Type="typeof(Tabs_IsCurrentlyActive_Demo)" />
+<Demo Title="Tabs with IsInitiallyActive" Type="typeof(Tabs_InitialActiveTabId_Demo)" />
+<Demo Title="Tabs with IsCurrentlyActive" Type="typeof(Tabs_ActiveTabId_Demo)" />

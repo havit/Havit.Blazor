@@ -2,11 +2,11 @@
 
 <h1>HxTabPanel</h1>
 
-<HxTabPanel>
-	<HxTab Title="First">
+<HxTabPanel @bind-ActiveTabId="activeTabId">
+	<HxTab Id="1" Title="First">
 		<Content>This is the first tab.</Content>
 	</HxTab>
-	<HxTab IsInitiallyActive="true" @bind-IsCurrentlyActive="@secondTabIsActive">
+	<HxTab Id="2">
 		<TitleTemplate>@secondTabTitle</TitleTemplate>
 		<Content>This is the second tab with title "@secondTabTitle".</Content>
 	</HxTab>
@@ -16,21 +16,21 @@
 	</HxTab>
 </HxTabPanel>
 
-<p>2nd tab is active: @secondTabIsActive</p>
-<p>3rd tab visible: @thirdTabVisible</p>
+<p>activeTabId: @activeTabId</p>
+<p>thirdTabVisible: @thirdTabVisible</p>
 
-<HxButton Text="Activate 2nd tab" Enabled="@(!secondTabIsActive)" OnClick="HandleActivateSecondTabButtonClick" Color="ThemeColor.Primary" />
+<HxButton Text="Activate 2nd tab" Enabled="@(activeTabId != "2")" OnClick="HandleActivateSecondTabButtonClick" Color="ThemeColor.Primary" />
 <HxButton Text="Update 2nd tab title" OnClick="HandleUpdateSecondTabTitleButtonClick" Color="ThemeColor.Primary" />
 <HxButton Text="Toggle 3rd tab visibility" OnClick="HandleToggleThirdTabVisibilityButtonClick" Color="ThemeColor.Primary" />
 
 @code{
-	private bool secondTabIsActive = false;
+	private string activeTabId;
 	private string secondTabTitle = "Second";
 	private bool thirdTabVisible = true;
 
 	private void HandleActivateSecondTabButtonClick()
 	{
-		secondTabIsActive = true;
+		activeTabId = "2";
 	}
 
 	private void HandleUpdateSecondTabTitleButtonClick()

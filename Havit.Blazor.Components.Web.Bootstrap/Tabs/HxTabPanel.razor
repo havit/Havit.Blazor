@@ -10,7 +10,7 @@
 			@if (tab.Visible)
 			{
 				<li class="nav-item">
-					<a class="@CssClassHelper.Combine("nav-link", tab.IsCurrentlyActive ? "active" : String.Empty, CascadeEnabledComponent.EnabledEffective(tab) ? String.Empty : "disabled")"
+					<a class="@CssClassHelper.Combine("nav-link", IsActive(tab) ? "active" : String.Empty, CascadeEnabledComponent.EnabledEffective(tab) ? String.Empty : "disabled")"
 					   @onclick="async () => await HandleTabClick(tab)">
 						@tab.Title
 						@tab.TitleTemplate
@@ -27,19 +27,10 @@
 		<UpdatedContentRenderer Component="@tab">
 			@if (tab.Visible)
 			{
-				<div class="@CssClassHelper.Combine("tab-pane", tab.IsCurrentlyActive ? "active" : String.Empty)">
+				<div class="@CssClassHelper.Combine("tab-pane", IsActive(tab) ? "active" : String.Empty)">
 					@tab.Content
 				</div>
 			}
 		</UpdatedContentRenderer>
 	}
 </div>
-@*<div>
-		@{
-			HxTab activeTab = tabsList.FirstOrDefault(tab => tab.IsActive);
-			if (activeTab != null)
-			{
-				<text>@activeTab.Content</text>
-			}
-		}
-	</div>*@

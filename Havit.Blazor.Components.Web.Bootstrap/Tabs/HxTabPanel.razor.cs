@@ -18,6 +18,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public const string TabsRegistrationCascadingValueName = "TabsRegistration";
 
+		[Parameter] public string ActiveTabId { get; set; }
+		[Parameter] public EventCallback<string> ActiveTabIdChanged { get; set; }
+		[Parameter] public string InitialActiveTabId { get; set; }
+
 		/// <summary>
 		/// Tabs.
 		/// </summary>
@@ -35,17 +39,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			tabsList = new List<HxTab>();
 			tabsListRegistration = new CollectionRegistration<HxTab>(tabsList,
 				this.StateHasChanged,
-				() => isDisposed,
-				(HxTab tab) => tab.ActiveTabChangedAsync += HandleActiveTabChangedAsync, // when tab is added, subsribe to tab activated "event".
-				(HxTab tab) => tab.ActiveTabChangedAsync -= HandleActiveTabChangedAsync); // when tab is removed, subsrive to tab activated "event". AFAIK we do not need to handle this in Dispose.
+				() => isDisposed);
 		}
 
-		private async Task HandleActiveTabChangedAsync(HxTab newActiveTab)
+		protected override async Task OnInitializedAsync()
 		{
-			// when new tab is activated, deactivates other tabs
-			foreach (HxTab activeTab in tabsList.Where(item => item.IsCurrentlyActive && (item != newActiveTab)))
+			await base.OnInitializedAsync();
+
+			if (!String.IsNullOrWhiteSpace(InitialActiveTabId))
 			{
-				await activeTab.SetIsCurrentlyActiveAsync(false);
+				await SetActiveTabIdAsync(InitialActiveTabId);
+			}
+		}
+
+		internal async Task SetActiveTabIdAsync(string newId)
+		{
+			if (this.ActiveTabId != newId)
+			{
+				ActiveTabId = newId;
+				await ActiveTabIdChanged.InvokeAsync(newId);
 			}
 		}
 
@@ -57,12 +69,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender)
 			{
 				// when no tab is active after initial render, activate the first visible & enabled tab
-				if (!tabsList.Any(item => item.IsCurrentlyActive) && (tabsList.Count > 0))
+				if (!tabsList.Any(tab => IsActive(tab)) && (tabsList.Count > 0))
 				{
 					HxTab tabToActivate = tabsList.FirstOrDefault(tab => CascadeEnabledComponent.EnabledEffective(tab) && tab.Visible);
 					if (tabToActivate != null)
 					{
-						await tabToActivate.SetIsCurrentlyActiveAsync(true);
+						await SetActiveTabIdAsync(tabToActivate.Id);
 					}
 				}
 			}
@@ -73,8 +85,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected async Task HandleTabClick(HxTab tab)
 		{
-			await tab.SetIsCurrentlyActiveAsync(true);
+			await SetActiveTabIdAsync(tab.Id);
 		}
+
+		private bool IsActive(HxTab tab)
+		{
+			return ActiveTabId == tab.Id;
+		}
+
 		/// <inheritdoc />
 		public void Dispose()
 		{
