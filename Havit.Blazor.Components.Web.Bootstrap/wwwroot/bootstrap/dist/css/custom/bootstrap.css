@@ -2120,6 +2120,7 @@ progress {
 }
 .table th {
   font-weight: 500;
+  background-color: #f8f9fa;
 }
 
 .form-label {
@@ -3398,7 +3399,7 @@ textarea.form-control-lg {
   list-style: none;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 0 solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
 }
 .dropdown-menu[style] {
@@ -3568,7 +3569,7 @@ textarea.form-control-lg {
 .dropdown-item {
   display: block;
   width: 100%;
-  padding: 0.25rem 1rem;
+  padding: 0.5rem 1rem;
   clear: both;
   font-weight: 400;
   color: #212529;
@@ -3608,7 +3609,7 @@ textarea.form-control-lg {
 
 .dropdown-item-text {
   display: block;
-  padding: 0.25rem 1rem;
+  padding: 0.5rem 1rem;
   color: #212529;
 }
 
@@ -3639,6 +3640,10 @@ textarea.form-control-lg {
 }
 .dropdown-menu-dark .dropdown-header {
   color: #adb5bd;
+}
+
+.dropdown-menu {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
 .btn-group,
