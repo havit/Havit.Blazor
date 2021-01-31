@@ -3,8 +3,8 @@
 :root {
   --main-bg: #f5f5f6;
   --sidebar-link-hover: #f2f9ff;
-  --drawer-box-shadow: rgba(0, 0, 0, 0.075) -2px 0px 4px 0; /* shadow-sm */
-  --sidebar-box-shadow: rgba(0, 0, 0, 0.075) 2px 0px 4px 0; /* shadow-sm */
+  --drawer-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* shadow-sm */
+  --sidebar-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* shadow-sm */
   --sidebar-background-color: white;
   --drawer-sm-width: 400px;
   --drawer-width: 600px;

@@ -4,7 +4,7 @@
   top: 0;
   width: var(--drawer-width);
   background: white;
-  transition: right 0.35s;
+  transition: right 0.35s ease;
   z-index: 1050;
   display: flex;
   flex-direction: column;

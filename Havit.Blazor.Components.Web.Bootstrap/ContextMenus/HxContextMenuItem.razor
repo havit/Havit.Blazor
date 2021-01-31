@@ -3,7 +3,7 @@
 	<a class="dropdown-item" role="button" @onclick="HandleClick" @onclick:stopPropagation="@OnClickStopPropagation">
 		@if (Icon != null)
 		{
-			<HxIcon Icon="Icon" />
+			<HxIcon Icon="Icon" CssClass="me-2" />
 		}
 		@Text
 		@ChildContent

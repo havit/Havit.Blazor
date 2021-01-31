@@ -1,8 +1,9 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <div class="hx-list-layout">
-    <HxCard Skin="CardSkin.None" CssClass="my-4" HeaderCssClass="d-flex" BodyCssClass="px-0 pt-0">
+    <HxCard Skin="CardSkin.None" CssClass="my-4" BodyCssClass="px-0 pt-0">
 		<HeaderTemplate>
-				<div class="fs-5">
+           <div class="row">
+    			<div class="col py-1 fw-bold">
 					@if (NamedViewsSection != null)
 					{
 						<div class="dropdown">
@@ -16,7 +17,7 @@
 								{
 									@Title
 								}
-								<HxIcon CssClass="fs-6 ms-1" Icon="@BootstrapIcon.ChevronDown" />
+								<HxIcon CssClass="ms-1" Icon="@BootstrapIcon.ChevronDown" />
 							</span>
 							@NamedViewsSection
 						</div>
@@ -30,26 +31,13 @@
 						@Title
 					}
 				</div>
-				@if (FilterSection != null)
-				{
-					<HxDrawer @bind-IsOpen="@FilterDrawerOpen">
-						<BodyTemplate>
-							<CascadingValue Value="@FilterDrawerOpen" Name="FilterDrawerOpen">
-								@* TODO pojmenování, konstanta *@ @* Kam může programátor napsat, že chce filtr by default expandovaný?
-								*@
-								@FilterSection
-							</CascadingValue>
-						</BodyTemplate>
-					</HxDrawer>
-				}
-
 				@if (SearchSection != null)
 				{
-					<div class="search mb-3 mb-lg-0">
+					<div class="col">
 						@SearchSection
 					</div>
 				}
-				<div class="commands text-end">
+				<div class="col text-end">
 					@if (FilterSection != null)
 					{
 						<HxButton OnClick="() => FilterDrawerOpen = true" Color="ThemeColor.Secondary">Filtrovat</HxButton>
@@ -59,6 +47,19 @@
 						@CommandsSection
 					}
 				</div>
+            </div>
+            @if (FilterSection != null)
+			{
+				<HxDrawer @bind-IsOpen="@FilterDrawerOpen">
+					<BodyTemplate>
+						<CascadingValue Value="@FilterDrawerOpen" Name="FilterDrawerOpen">
+							@* TODO pojmenování, konstanta *@ @* Kam může programátor napsat, že chce filtr by default expandovaný?
+							*@
+							@FilterSection
+						</CascadingValue>
+					</BodyTemplate>
+				</HxDrawer>
+			}
 		</HeaderTemplate>
 		<BodyTemplate>
 			@DataSection
