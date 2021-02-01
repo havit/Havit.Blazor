@@ -5,16 +5,33 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public partial class HxAutosuggest : IAsyncDisposable
+	public partial class HxAutosuggest<TItemType, TValueType> : IAsyncDisposable // TODO: zapojit od infrastruktury forms!
 	{
-		[Parameter] public string Value { get; set; }
-		[Parameter] public EventCallback<string> ValueChanged { get; set; }
-		[Parameter] public EventCallback<SuggestionRequest> SuggestionsRequested { get; set; } // TODO? SuggestionsProvider + ála public delegate ValueTask<ItemsProviderResult<TItem>> ItemsProviderDelegate<TItem>(ItemsProviderRequest request);
+		[Parameter] public TValueType Value { get; set; }
+		[Parameter] public EventCallback<TValueType> ValueChanged { get; set; }
+
+		[Parameter] public AutosuggestDataProviderDelegate<TItemType> DataProvider { get; set; }
+
+		/// <summary>
+		/// Selects value from item.
+		/// Not required when TValueType is same as TItemTime.
+		/// </summary>
+		[Parameter] public Func<TItemType, TValueType> ValueSelector { get; set; }
+
+		/// <summary>
+		/// Selects text to display from item.
+		/// When not set ToString() is used.
+		/// </summary>
+		[Parameter] public Func<TItemType, string> TextSelector { get; set; }
+
+		// TODO: Jak se tohoto zbavit? Máme value, chceme text, nemáme items? A to nemluvě o tom, že by tahle funkce měla být spíš asynchronní...
+		[Parameter] public Func<TValueType, string> TextFromValueSelector { get; set; }
 
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
@@ -30,127 +47,189 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-		private string dropdownId;
+		private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
 		private System.Timers.Timer timer;
+		private string userInput = String.Empty;
 		private CancellationTokenSource cancellationTokenSource;
-		private string autosuggestValue;
-		private List<string> suggestions;
+		private List<TItemType> suggestions;
+		private bool userInputModified;
+		private bool isDropdownOpened = false;
+		private bool isBlured;
 		private IJSObjectReference jsModule;
 
-		public HxAutosuggest()
+		private async Task SetValueItemWithEventCallback(TItemType selectedItem)
 		{
-			dropdownId = "hx" + Guid.NewGuid().ToString("N");
-		}
+			TValueType value = GetValueFromItem(selectedItem);
 
-		protected override void OnParametersSet()
-		{
-			base.OnParametersSet();
-
-			if (!SuggestionsRequested.HasDelegate)
+			if (!EqualityComparer<TValueType>.Default.Equals(Value, value))
 			{
-				throw new ArgumentException("Property not set.", nameof(SuggestionsRequested));
+				Value = value;
+				await ValueChanged.InvokeAsync(Value);
 			}
 		}
 
-		private async Task HandleValueChanged(string value)
+		public override async Task SetParametersAsync(ParameterView parameters)
 		{
-			Value = value;
-			await ValueChanged.InvokeAsync(value);
-			StateHasChanged();
+			await base.SetParametersAsync(parameters);
+
+			Contract.Requires<InvalidOperationException>(DataProvider != null, $"Property {nameof(DataProvider)} on {GetType()} must have a value.");
+
+			if (!EqualityComparer<TValueType>.Default.Equals(Value, default))
+			{
+				userInput = TextFromValueSelector(Value);
+			}
+			else
+			{
+				userInput = String.Empty;
+			}
+			userInputModified = false;
 		}
 
-		private async Task HandleInputInput(string userInput)
+		private async Task HandleInputInput(string newUserInput)
 		{
-			autosuggestValue = userInput;
+			// user changes an input
+			userInput = newUserInput;
+			userInputModified = true;
 
-			timer?.Stop();
-			cancellationTokenSource?.Cancel();
+			timer?.Stop(); // if waiting for an interval, stop it
+			cancellationTokenSource?.Cancel(); // if already loading data, cancel it
 
+			// start new time interval
 			if (userInput.Length >= MinimumLength)
 			{
 				if (timer == null)
 				{
 					timer = new System.Timers.Timer();
-					timer.Interval = Delay;
 					timer.AutoReset = false; // just once
 					timer.Elapsed += HandleTimerElapsed;
 				}
+				timer.Interval = Delay;
 				timer.Start();
 			}
 			else
 			{
-				await DestroyDropdown();
+				// or close a dropdown
+				suggestions = null;
+				await DestroyDropdownAsync();
 			}
 		}
 
 		private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
 		{
+			// when a time interval reached, update suggestions
 			await InvokeAsync(async () =>
 			{
-				if (await UpdateSuggestions())
-				{
-					StateHasChanged();
-					await OpenDropdown();
-				}
+				await UpdateSuggestionsAsync();
 			});
 		}
 
 		private async Task HandleFocus()
 		{
-			await DestroyDropdown();
+			// when an input looses focus, close a dropdown
+			await DestroyDropdownAsync();
 		}
 
 		// Kvůli updatovanání HTML a kolizi s bootstrap Dropdown nesmíme v InputBlur přerenderovat html!
 		private void HandleInputBlur()
 		{
-			timer?.Stop();
-			cancellationTokenSource?.Cancel();
+			isBlured = true;
+			timer?.Stop(); // if waiting for an interval, stop it
+			cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
 		}
 
-		private async Task<bool> UpdateSuggestions()
+		private async Task UpdateSuggestionsAsync()
 		{
-			cancellationTokenSource?.Dispose(); // TODO nebo Cancel?!
+			// Cancelation is performed in HandleInputInput method
+			cancellationTokenSource?.Dispose();
 
 			cancellationTokenSource = new CancellationTokenSource();
 			CancellationToken cancellationToken = cancellationTokenSource.Token;
-			SuggestionRequest suggestionRequest = new SuggestionRequest(autosuggestValue, cancellationToken);
-			await SuggestionsRequested.InvokeAsync(suggestionRequest);
+
+			AutosuggestDataProviderRequest request = new AutosuggestDataProviderRequest
+			{
+				UserInput = userInput,
+				CancellationToken = cancellationToken
+			};
+
+			AutosuggestDataProviderResult<TItemType> result;
+			try
+			{
+				result = await DataProvider.Invoke(request);
+			}
+			catch (OperationCanceledException operationCanceledException) when (operationCanceledException.CancellationToken == cancellationToken)
+			{
+				return;
+			}
 
 			if (cancellationToken.IsCancellationRequested)
 			{
-				return false;
+				return;
 			}
 
-			suggestions = suggestionRequest.Suggestions;
+			suggestions = result.Items;
+			
+			if (suggestions?.Any() ?? false)
+			{
+				await OpenDropdownAsync();
+			}
+			else
+			{
+				await DestroyDropdownAsync();
+			}
 
-			return suggestions?.Any() ?? false;
-		}
-
-		private async Task HandleItemClick(string value)
-		{
-			Value = value;
-			await ValueChanged.InvokeAsync(Value);
 			StateHasChanged();
 		}
 
-		#region OpenDropdown, CloseDropdown
-		private async Task OpenDropdown()
+		private async Task HandleItemClick(TItemType item)
 		{
-			await EnsureJsModuleAsync();
-			await jsModule.InvokeVoidAsync("open", $"#{dropdownId} input");
+			// user clicked on an item in the "dropdown".
+			await SetValueItemWithEventCallback(item);
+			userInput = TextSelectorEffective(item);
 		}
 
-		private async Task DestroyDropdown()
+		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
-			await EnsureJsModuleAsync();
-			await jsModule.InvokeVoidAsync("destroy", $"#{dropdownId} input");
+			await base.OnAfterRenderAsync(firstRender);
+
+			// TODO: Posunout do OnPreRender??
+			if (isBlured)
+			{
+				isBlured = false;
+				if (userInputModified && !isDropdownOpened)
+				{
+					await SetValueItemWithEventCallback(default); // TODO default?
+					userInput = String.Empty; //TODO: Vyzvedávat text pro null hodnotu? NullText?
+					userInputModified = false;
+					StateHasChanged();
+				}
+			}
 		}
-		#endregion
+		#region OpenDropdownAsync, DestroyDropdownAsync, EnsureJsModuleAsync
+		private async Task OpenDropdownAsync()
+		{
+			if (!isDropdownOpened)
+			{
+				await EnsureJsModuleAsync();
+				await jsModule.InvokeVoidAsync("open", $"#{dropdownId} input");
+				isDropdownOpened = true;
+			}
+		}
+
+		private async Task DestroyDropdownAsync()
+		{
+			if (isDropdownOpened)
+			{
+				await EnsureJsModuleAsync();
+				await jsModule.InvokeVoidAsync("destroy", $"#{dropdownId} input");
+				isDropdownOpened = false;
+			}
+		}
 
 		private async Task EnsureJsModuleAsync()
 		{
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxautosuggest.js");
 		}
+		#endregion
 
 		public async ValueTask DisposeAsync()
 		{
@@ -161,6 +240,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				await jsModule.DisposeAsync();
 			}
+		}
+
+		private TValueType GetValueFromItem(TItemType item)
+		{
+			if (ValueSelector != null)
+			{
+				return ValueSelector(item);
+			}
+
+			if (typeof(TValueType) == typeof(TItemType))
+			{
+				return (TValueType)(object)item;
+			}
+
+			throw new InvalidOperationException("ValueSelector property not set.");
+		}
+
+		private string TextSelectorEffective(TItemType item)
+		{
+			return (item == null)
+				? String.Empty // TODO: NullText?
+				: TextSelector?.Invoke(item) ?? item?.ToString() ?? String.Empty;
 		}
 	}
 }

@@ -1,0 +1,33 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+@typeparam TItemType
+
+<div class="dropdown-menu w-100">
+	@if (Items != null)
+	{
+		@foreach (TItemType item in Items)
+		{
+			TItemType currentItem = item;
+			string text = TextSelector.Invoke(currentItem);
+			<HxAutosuggestItem Text="@text" OnClick="async () => await HandleItemClick(currentItem)" />
+		}
+	}
+</div>
+
+@code
+{
+	[Parameter] public List<TItemType> Items { get; set; }
+
+	[Parameter] public EventCallback<TItemType> OnItemClick { get; set; }
+
+	/// <summary>
+	/// Selects text to display from item.
+	/// When not set ToString() is used.
+	/// </summary>
+	[Parameter] public Func<TItemType, string> TextSelector { get; set; }
+
+	private async Task HandleItemClick(TItemType value)
+	{
+		await OnItemClick.InvokeAsync(value);
+	}
+
+}

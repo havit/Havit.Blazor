@@ -1,12 +1,10 @@
-﻿@namespace  Havit.Blazor.Components.Web.Bootstrap
+﻿@namespace  Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<input type="text" class="form-control" autocomplete="false" data-bs-reference="parent" value="@Value" @oninput="HandleInput" @onchange="HandleChange" @onfocus="HandleFocus" @onblur="HandleBlur">
+<input type="text" class="form-control" autocomplete="false" data-bs-reference="parent" value="@Value" @oninput="HandleInput" @onfocus="HandleFocus" @onblur="HandleBlur">
 
 @code {
 
 	[Parameter] public string Value { get; set; }
-
-	[Parameter]	public EventCallback<string> ValueChanged { get; set; }
 
 	[Parameter]	public EventCallback<string> OnInputInput { get; set; }
 
@@ -17,12 +15,6 @@
 	private async Task HandleInput(ChangeEventArgs changeEventArgs)
 	{
 		await OnInputInput.InvokeAsync((string)changeEventArgs.Value);
-	}
-
-	private async Task HandleChange(ChangeEventArgs changeEventArgs)
-	{
-		Value = (string)changeEventArgs.Value;
-		await ValueChanged.InvokeAsync(Value);
 	}
 
 	private async Task HandleFocus()
