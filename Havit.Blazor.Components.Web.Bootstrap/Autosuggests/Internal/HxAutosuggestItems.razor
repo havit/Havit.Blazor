@@ -12,22 +12,3 @@
 		}
 	}
 </div>
-
-@code
-{
-	[Parameter] public List<TItemType> Items { get; set; }
-
-	[Parameter] public EventCallback<TItemType> OnItemClick { get; set; }
-
-	/// <summary>
-	/// Selects text to display from item.
-	/// When not set ToString() is used.
-	/// </summary>
-	[Parameter] public Func<TItemType, string> TextSelector { get; set; }
-
-	private async Task HandleItemClick(TItemType value)
-	{
-		await OnItemClick.InvokeAsync(value);
-	}
-
-}
