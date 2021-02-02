@@ -256,9 +256,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Instructs the component to re-request data from its <see cref="ItemsProvider"/>.
-		/// This is useful if external data may have changed. There is no need to call this
-		/// when using <see cref="Items"/>.
+		/// Instructs the component to re-request data from its <see cref="DataProvider"/>.
+		/// This is useful if external data may have changed.
 		/// </summary>
 		/// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
 		public async Task RefreshDataAsync()

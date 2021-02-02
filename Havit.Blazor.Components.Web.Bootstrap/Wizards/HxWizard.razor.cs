@@ -51,13 +51,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return (targetStepIndex >= 0) && (targetStepIndex < steps.Count);
 		}
 
+		/// <summary>
+		/// Sets the active step to the previous one.
+		/// </summary>
 		protected internal async Task GoBackClick()
 		{
 			await GoOffset(-1);
 		}
 
 		/// <summary>
-		/// Sets the <see cref="ActiveStep"/> to the next Index
+		/// Sets the active step to the next one.
 		/// </summary>
 		protected internal async Task GoNextClick()
 		{

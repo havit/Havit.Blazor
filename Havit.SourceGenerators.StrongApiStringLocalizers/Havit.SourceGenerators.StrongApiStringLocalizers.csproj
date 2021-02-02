@@ -1,9 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" PrivateAssets="all" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<!-- Projects which set IncludeBuildOutput=false are likely to hit NU5128 - https://github.com/NuGet/Home/issues/8583 -->
+		<NoWarn>$(NoWarn);NU5128</NoWarn>
+	</PropertyGroup>
+
+	<!-- Package a generator as a NuGet package -->
+	<!-- https://github.com/dotnet/roslyn/blob/master/docs/features/source-generators.cookbook.md#package-a-generator-as-a-nuget-package -->
+
+	<!-- NuGet -->
+	<Import Project="../NuGet.targets" />
+	<PropertyGroup>
+		<PackageVersion>1.0.0</PackageVersion>
+		<Description>HAVIT Source Generators for generating string localizers strong API.</Description>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" PrivateAssets="all" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<!-- Package the generator in the analyzer directory of the nuget package -->
+		<None Include="$(OutputPath)\$(AssemblyName).*" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+	</ItemGroup>
+
 </Project>

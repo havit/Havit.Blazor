@@ -95,7 +95,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool AutoSort { get; set; } = true;
 
 		/// <inheritdoc />
-		/// </summary>
 		protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
 
 		private protected override string CoreInputCssClass => CssClassHelper.Combine(base.CoreInputCssClass, "form-select");

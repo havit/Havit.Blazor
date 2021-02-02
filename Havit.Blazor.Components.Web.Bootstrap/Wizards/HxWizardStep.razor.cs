@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter]	public string Name { get; set; }*/
 
 		/// <summary>
-		/// The Child Content of the current <see cref="WizardStep" />
+		/// The Child Content of the current <see cref="HxWizard" />.
 		/// </summary>
 		[Parameter] public RenderFragment Content { get; set; }
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Havit.Blazor.Components.Web
 {
 	/// <summary>
-	/// Propagating access to <see cref="HxMessenger"/> as <see cref="IHxMessengerService" />.
+	/// Propagating access to HxMessenger as <see cref="IHxMessengerService" />.
 	/// </summary>
 	internal class HxMessengerService : IHxMessengerService
 	{
