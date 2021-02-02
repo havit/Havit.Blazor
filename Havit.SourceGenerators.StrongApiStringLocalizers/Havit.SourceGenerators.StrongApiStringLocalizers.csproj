@@ -19,10 +19,12 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.8.0" PrivateAssets="all" />
 	</ItemGroup>
-	
-	<ItemGroup>
-		<!-- Package the generator in the analyzer directory of the nuget package -->
-		<None Include="bin\$(Configuration)\netstandard2.0\*" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-	</ItemGroup>
+
+	<Target Name="AddAnalyzerToNugetPackage" AfterTargets="Build" BeforeTargets="GenerateNuspec">
+		<ItemGroup>
+			<!-- Package the generator in the analyzer directory of the nuget package -->
+			<None Include="bin\$(Configuration)\netstandard2.0\*" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+		</ItemGroup>
+	</Target>
 
 </Project>
