@@ -105,7 +105,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public EventCallback<GridUserState<TItemType>> CurrentUserStateChanged { get; set; }
 
-		/// <inheritdoc />
+		/// <summary>
+		/// When null (default), the InProgress value is received from cascading <see cref="ProgressState" />.
+		/// To set multiple controls as disabled use <seealso cref="HxProgressState" />.
+		/// </summary>
 		[Parameter] public bool? InProgress { get; set; }
 
 		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)

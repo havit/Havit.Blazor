@@ -6,7 +6,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Result of the dialog.
 	/// </summary>
-	/// <typeparam name="TValue"></typeparam>
 	public sealed class DialogResult<TValue>
 	{
 		/// <summary>
