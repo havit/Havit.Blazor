@@ -33,7 +33,7 @@
 	{
 		<HxProgressOverlay InProgress="@(InProgress ?? (dataProviderInProgress ? true : null))">
 
-			<table class="@CssClassHelper.Combine("table table-responsible", (this.SelectionEnabled ? "table-hover" : null))">
+			<table class="@CssClassHelper.Combine("table table-responsible", ((this.SelectionEnabled && (dataItemsToRender?.Count > 0)) ? "table-hover" : null))">
 				<thead>
 					<tr>
 						@foreach (IHxGridColumn<TItemType> column in columnsToRender)
