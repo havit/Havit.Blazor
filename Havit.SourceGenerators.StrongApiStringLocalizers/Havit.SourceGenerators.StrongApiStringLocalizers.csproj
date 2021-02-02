@@ -11,7 +11,7 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.0.0</PackageVersion>
+		<PackageVersion>1.0.1</PackageVersion>
 		<Description>HAVIT Source Generators for generating string localizers strong API.</Description>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 	</PropertyGroup>
@@ -22,7 +22,7 @@
 	
 	<ItemGroup>
 		<!-- Package the generator in the analyzer directory of the nuget package -->
-		<None Include="$(OutputPath)\$(AssemblyName).*" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+		<None Include="bin\$(Configuration)\netstandard2.0\*" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 	</ItemGroup>
 
 </Project>
