@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +18,15 @@ namespace Havit.Blazor.Components.Web
 		/// </summary>
 		public static IServiceCollection AddHxMessenger(this IServiceCollection services)
 		{
-			return services.AddScoped<IHxMessengerService, HxMessengerService>();
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.Create("BROWSER")))
+			{
+				// allows gRPC Interceptors to pass error-messages to the HxMessenger
+				return services.AddSingleton<IHxMessengerService, HxMessengerService>();
+			}
+			else
+			{
+				return services.AddScoped<IHxMessengerService, HxMessengerService>();
+			}
 		}
 	}
 }
