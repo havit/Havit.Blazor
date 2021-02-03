@@ -1,9 +1,12 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap
 
 <div class="form-control hx-tag-input d-flex">  
-	<HxTag Text="Interní" />
-	<a id="tagDropdownLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">
-		<input type="text" class="border-0">
+	<div class="d-flex align-items-center me-1">
+		<HxTag Text="Interní" /> 
+		<HxTag Text="Přijatá" />
+	</div>
+	<a id="tagDropdownLink" data-bs-toggle="dropdown" class="flex-grow-1" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">
+		<input type="text" class="border-0 w-100">
 	</a>
 	<div class="dropdown-menu w-100" aria-labelledby="tagDropdownLink">
 		<a class="dropdown-item" href="#">Action</a>
