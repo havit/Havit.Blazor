@@ -11,9 +11,7 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	// TODO: Řadit položky???
-
-	public partial class HxAutosuggestInternal<TItemType, TValueType> : IAsyncDisposable // TODO: zapojit od infrastruktury forms!
+	public partial class HxAutosuggestInternal<TItemType, TValueType> : IAsyncDisposable
 	{
 		[Parameter] public TValueType Value { get; set; }
 		[Parameter] public EventCallback<TValueType> ValueChanged { get; set; }
@@ -64,6 +62,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool isDropdownOpened = false;
 		private bool isBlured;
 		private IJSObjectReference jsModule;
+		private HxAutosuggestInput autosuggestInput;
 
 		private async Task SetValueItemWithEventCallback(TItemType selectedItem)
 		{
@@ -140,6 +139,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		// Kvůli updatovanání HTML a kolizi s bootstrap Dropdown nesmíme v InputBlur přerenderovat html!
 		private void HandleInputBlur()
 		{
+			// when user clicks back button in browser this method can be called after it is disposed!
 			isBlured = true;
 			timer?.Stop(); // if waiting for an interval, stop it
 			cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
@@ -199,14 +199,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			// TODO: Posunout do OnPreRender??
 			if (isBlured)
 			{
 				isBlured = false;
 				if (userInputModified && !isDropdownOpened)
 				{
-					await SetValueItemWithEventCallback(default); // TODO default?
-					userInput = String.Empty; //TODO: Vyzvedávat text pro null hodnotu? NullText?
+					await SetValueItemWithEventCallback(default);
+					userInput = String.Empty;
 					userInputModified = false;
 					StateHasChanged();
 				}
@@ -218,7 +217,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			if (!isDropdownOpened)
 			{
 				await EnsureJsModuleAsync();
-				await jsModule.InvokeVoidAsync("open", $"#{dropdownId} input");
+				await jsModule.InvokeVoidAsync("open", autosuggestInput.InputElement);
 				isDropdownOpened = true;
 			}
 		}
@@ -228,7 +227,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			if (isDropdownOpened)
 			{
 				await EnsureJsModuleAsync();
-				await jsModule.InvokeVoidAsync("destroy", $"#{dropdownId} input");
+				await jsModule.InvokeVoidAsync("destroy", autosuggestInput.InputElement);
 				isDropdownOpened = false;
 			}
 		}
@@ -238,17 +237,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxautosuggest.js");
 		}
 		#endregion
-
-		public async ValueTask DisposeAsync()
-		{
-			timer?.Dispose();
-			cancellationTokenSource?.Dispose();
-
-			if (jsModule != null)
-			{
-				await jsModule.DisposeAsync();
-			}
-		}
 
 		private TValueType GetValueFromItem(TItemType item)
 		{
@@ -268,9 +256,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private string TextSelectorEffective(TItemType item)
 		{
 			return (item == null)
-				? String.Empty // TODO: NullText?
+				? String.Empty
 				: TextSelector?.Invoke(item) ?? item?.ToString() ?? String.Empty;
 		}
+
+		public async ValueTask DisposeAsync()
+		{
+			timer?.Dispose();
+			timer = null;
+			cancellationTokenSource?.Dispose();
+			cancellationTokenSource = null;
+
+			if (jsModule != null)
+			{
+				await jsModule.DisposeAsync();
+			}
+		}
+
 	}
 }
 

@@ -23,6 +23,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public bool EnabledEffective { get; set; }
 
+		internal ElementReference InputElement { get; set; }
+
 		private async Task HandleInput(ChangeEventArgs changeEventArgs)
 		{
 			await OnInputInput.InvokeAsync((string)changeEventArgs.Value);
