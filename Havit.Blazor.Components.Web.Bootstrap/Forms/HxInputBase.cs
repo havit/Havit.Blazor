@@ -132,7 +132,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		protected override void BuildRenderTree(RenderTreeBuilder builder)
+		protected override sealed void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			// no base call
 
