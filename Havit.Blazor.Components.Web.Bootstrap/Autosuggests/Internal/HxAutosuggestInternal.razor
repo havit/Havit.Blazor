@@ -1,0 +1,8 @@
+@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+@typeparam TItemType
+@typeparam TValueType
+
+<div id="@dropdownId" class="dropdown">
+	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput Value="@userInput" OnInputInput="HandleInputInput" OnInputFocus="HandleFocus" OnInputBlur="HandleInputBlur" CssClass="@InputCssClass" />
+	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems TItemType="TItemType" Items="@suggestions" TextSelector="TextSelectorEffective" OnItemClick="HandleItemClick"/>	
+</div>

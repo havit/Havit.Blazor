@@ -1,6 +1,6 @@
 ﻿@page "/InputsTest"
 @using System.Globalization;
- 
+
 <h1>Inputs</h1>
 
 <div class="card" @onclick="HandleCardClick">
@@ -42,6 +42,10 @@
 			<HxSelect Label="Select (TValueType: CultureInfo)" @bind-Value="@Model.CultureInfo" Items="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
 			<HxSelect Label="Select (Items == null)" TItemType="CultureInfo" TValueType="CultureInfo" @bind-Value="@Model.CultureInfo" TextSelector="@(item => item.DisplayName)" NullItemsText="No data available." />
 
+			<HxAutosuggest Label="Autosuggest" @bind-Value="@Model.CultureInfo" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider">
+				<HintTemplate>@Model.CultureInfo?.DisplayName</HintTemplate>
+			</HxAutosuggest>
+
 			<HxInputCheckBox Label="CheckBox" @bind-Value="@Model.BoolValue">
 				<HintTemplate>@Model.BoolValue</HintTemplate>
 			</HxInputCheckBox>
@@ -66,5 +70,14 @@
 		lastCapturedClick = DateTime.Now;
 
 		return Task.CompletedTask;
+	}
+
+	private Task<AutosuggestDataProviderResult<CultureInfo>> CulturesAutosuggestDataProvider(AutosuggestDataProviderRequest request)
+	{
+		return Task.FromResult(
+		new AutosuggestDataProviderResult<CultureInfo>
+		{
+			Items = cultureInfos.Where(item => item.DisplayName.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase)).ToList()
+		});
 	}
 }

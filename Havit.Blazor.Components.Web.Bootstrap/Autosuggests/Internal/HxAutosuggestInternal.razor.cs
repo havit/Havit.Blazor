@@ -9,9 +9,11 @@ using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public partial class HxAutosuggest<TItemType, TValueType> : IAsyncDisposable // TODO: zapojit od infrastruktury forms!
+	// TODO: Řadit položky???
+
+	public partial class HxAutosuggestInternal<TItemType, TValueType> : IAsyncDisposable // TODO: zapojit od infrastruktury forms!
 	{
 		[Parameter] public TValueType Value { get; set; }
 		[Parameter] public EventCallback<TValueType> ValueChanged { get; set; }
@@ -43,7 +45,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public int Delay { get; set; } = 300;
 
-		[Parameter] public string CssClass { get; set; }
+		[Parameter] public string InputCssClass { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -166,7 +168,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				return;
 			}
 
-			suggestions = result.Items;
+			suggestions = result.Items.ToList();
 			
 			if (suggestions?.Any() ?? false)
 			{

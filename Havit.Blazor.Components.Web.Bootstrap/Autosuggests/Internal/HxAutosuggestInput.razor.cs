@@ -17,6 +17,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public EventCallback OnInputBlur { get; set; }
 
+		[Parameter] public string CssClass { get; set; }
+
 		private async Task HandleInput(ChangeEventArgs changeEventArgs)
 		{
 			await OnInputInput.InvokeAsync((string)changeEventArgs.Value);
