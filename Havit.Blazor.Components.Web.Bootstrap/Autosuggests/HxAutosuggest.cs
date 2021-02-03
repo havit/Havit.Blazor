@@ -10,9 +10,6 @@ using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	// TODO: is-invalid na nadřazeném prvku
-	// TODO: form-control na nadřazeném prvku
-	// TODO: renderování validační zprávy
 	// TODO: enabled
 	public class HxAutosuggest<TItemType> : HxInputBase<TItemType>
 	{
@@ -58,6 +55,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1005, nameof(HxAutosuggestInternal<TItemType, TItemType>.Delay), Delay);
 			builder.AddAttribute(1006, nameof(HxAutosuggestInternal<TItemType, TItemType>.InputCssClass), GetInputCssClassToRender());
 			builder.AddAttribute(1007, nameof(HxAutosuggestInternal<TItemType, TItemType>.TextFromValueSelector), TextSelector /* we have ITItemType and TValueType of the same type */);
+			builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItemType, TItemType>.ValidationMessageTemplate), (RenderFragment)base.BuildRenderValidationMessage); // we use base call because the method is overriden here (to not render validation message on the "usual" place)
 
 			// TODO: builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItemType, TItemType>.Enabled), Enabled);
 			// No ValueSelector - /* we have ITItemType and TValueType of the same type */
@@ -66,7 +64,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			builder.CloseComponent();
 		}
-	
+
+		protected override void BuildRenderValidationMessage(RenderTreeBuilder builder)
+		{
+			// NOOP - do not render validation message on the "usual" place
+			// We use the base call as a RenderFragment in the RenderInputMethod to pass the method as an argument to the HxAutosuggestInternal.
+		}
+
 		private async Task HandleValueChanged(TItemType newValue)
 		{
 			Value = newValue;
