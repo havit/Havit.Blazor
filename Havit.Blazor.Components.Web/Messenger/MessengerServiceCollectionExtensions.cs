@@ -18,15 +18,7 @@ namespace Havit.Blazor.Components.Web
 		/// </summary>
 		public static IServiceCollection AddHxMessenger(this IServiceCollection services)
 		{
-			if (RuntimeInformation.IsOSPlatform(OSPlatform.Create("BROWSER")))
-			{
-				// allows gRPC Interceptors to pass error-messages to the HxMessenger
-				return services.AddSingleton<IHxMessengerService, HxMessengerService>();
-			}
-			else
-			{
-				return services.AddScoped<IHxMessengerService, HxMessengerService>();
-			}
+			return services.AddScoped<IHxMessengerService, HxMessengerService>();
 		}
 	}
 }
