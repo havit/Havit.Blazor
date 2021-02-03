@@ -10,25 +10,15 @@ using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	// TODO: enabled
 	public class HxAutosuggest<TItemType> : HxInputBase<TItemType>
 	{
 		[Parameter] public AutosuggestDataProviderDelegate<TItemType> DataProvider { get; set; }
-
-		///// <summary>
-		///// Selects value from item.
-		///// Not required when TValueType is same as TItemTime.
-		///// </summary>
-		//[Parameter] public Func<TItemType, TValueType> ValueSelector { get; set; }
 
 		/// <summary>
 		/// Selects text to display from item.
 		/// When not set ToString() is used.
 		/// </summary>
 		[Parameter] public Func<TItemType, string> TextSelector { get; set; }
-
-		//// TODO: Jak se tohoto zbavit? Máme value, chceme text, nemáme items? A to nemluvě o tom, že by tahle funkce měla být spíš asynchronní...
-		//[Parameter] public Func<TValueType, string> TextFromValueSelector { get; set; }
 
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
@@ -46,22 +36,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenComponent<HxAutosuggestInternal<TItemType, TItemType>>(1);
-			// TODO: ID?
 			builder.AddAttribute(1000, nameof(HxAutosuggestInternal<TItemType, TItemType>.Value), Value);
 			builder.AddAttribute(1001, nameof(HxAutosuggestInternal<TItemType, TItemType>.ValueChanged), EventCallback.Factory.Create<TItemType>(this, HandleValueChanged));
 			builder.AddAttribute(1002, nameof(HxAutosuggestInternal<TItemType, TItemType>.DataProvider), DataProvider);
 			builder.AddAttribute(1003, nameof(HxAutosuggestInternal<TItemType, TItemType>.TextSelector), TextSelector);
 			builder.AddAttribute(1004, nameof(HxAutosuggestInternal<TItemType, TItemType>.MinimumLength), MinimumLength);
 			builder.AddAttribute(1005, nameof(HxAutosuggestInternal<TItemType, TItemType>.Delay), Delay);
-			builder.AddAttribute(1006, nameof(HxAutosuggestInternal<TItemType, TItemType>.InputCssClass), GetInputCssClassToRender());
-			builder.AddAttribute(1007, nameof(HxAutosuggestInternal<TItemType, TItemType>.TextFromValueSelector), TextSelector /* we have ITItemType and TValueType of the same type */);
-			builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItemType, TItemType>.ValidationMessageTemplate), (RenderFragment)base.BuildRenderValidationMessage); // we use base call because the method is overriden here (to not render validation message on the "usual" place)
-
-			// TODO: builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItemType, TItemType>.Enabled), Enabled);
+			builder.AddAttribute(1006, nameof(HxAutosuggestInternal<TItemType, TItemType>.InputId), InputId);
+			builder.AddAttribute(1007, nameof(HxAutosuggestInternal<TItemType, TItemType>.InputCssClass), GetInputCssClassToRender());
+			builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItemType, TItemType>.EnabledEffective), EnabledEffective);
+			builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItemType, TItemType>.TextFromValueSelector), TextSelector /* we have ITItemType and TValueType of the same type */);
+			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItemType, TItemType>.ValidationMessageTemplate), (RenderFragment)base.BuildRenderValidationMessage); // we use base call because the method is overriden here (to not render validation message on the "usual" place)
 			// No ValueSelector - /* we have ITItemType and TValueType of the same type */
-
-			//builder.AddMultipleAttributes(1009, this.AdditionalAttributes); // TODO: rozbije aplikaci? A chceme to vůbec?
-
 			builder.CloseComponent();
 		}
 

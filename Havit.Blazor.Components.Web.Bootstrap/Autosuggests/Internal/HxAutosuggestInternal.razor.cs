@@ -49,6 +49,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public RenderFragment ValidationMessageTemplate { get; set; }
 
+		[Parameter] public string InputId { get; set; }
+
+		[Parameter] public bool EnabledEffective { get; set; }
+
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
