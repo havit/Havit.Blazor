@@ -86,7 +86,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			if (!EqualityComparer<TValueType>.Default.Equals(Value, default))
 			{
-				userInput = await TextFromValueAsyncSelector(Value);
+				if ((TextFromValueAsyncSelector == null) && (typeof(TValueType) == typeof(TItemType)))
+				{
+					userInput = TextSelector.Invoke((TItemType)(object)Value);
+				}
+				else
+				{
+					userInput = await TextFromValueAsyncSelector(Value);
+				}
 			}
 			else
 			{
