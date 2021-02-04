@@ -5,7 +5,7 @@
 		@onclick="HandleClick"
 		@onclick:stopPropagation="this.OnClickStopPropagation"
 		disabled="@(!CascadeEnabledComponent.EnabledEffective(this))"
-		@attributes="InputAttributes">
+		form="@FormId">
 
 	@if ((this.Icon ?? this.Skin?.Icon) is not null)
 	{

@@ -63,6 +63,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? Enabled { get; set; }
 
 		/// <summary>
+		/// Specifies the form the button belongs to.
+		/// </summary>
+		[Parameter] public string FormId { get; set; }
+
+		/// <summary>
 		/// Raised after the button is clicked.
 		/// </summary>
 		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
@@ -71,8 +76,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Stop onClick-event propagation. Deafult is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool OnClickStopPropagation { get; set; } = true;
-
-		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> InputAttributes { get; set; }
 
 		/// <summary>
 		/// Localization service.

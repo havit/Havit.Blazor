@@ -20,11 +20,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private FieldIdentifier _fieldIdentifier;
 		private EditContext currentEditContext;
 
-		///// <summary>
-		///// Gets or sets a collection of additional attributes that will be applied to the created <c>div</c> element.
-		///// </summary>
-		//[Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; }
-
 		/// <summary>
 		/// Cascading EditContext.
 		/// </summary>
