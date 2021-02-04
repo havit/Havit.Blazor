@@ -17,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// Extends <seealso cref="HxInputBase{TValue}" /> class.
 	/// Adds support for input groups, https://v5.getbootstrap.com/docs/5.0/forms/input-group/
 	/// </summary>
-	public abstract class HxInputBaseWithInputGroups<TValue> : HxInputBase<TValue>
+	public abstract class HxInputBaseWithInputGroups<TValue> : HxInputBase<TValue>, IInputWithSize
 	{
 		/// <summary>
 		/// Input-group before input.
@@ -28,6 +28,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Input-group before input.
 		/// </summary>
 		[Parameter] public RenderFragment InputGroupAfterTemplate { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public InputSize InputSize { get; set; }
 
 		/// <inheritdoc />
 		protected override void BuildRenderInputAndValidationMessage(RenderTreeBuilder builder)

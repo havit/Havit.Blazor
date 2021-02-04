@@ -323,7 +323,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected virtual string GetInputCssClassToRender()
 		{
 			string validationCssClass = IsValueValid() ? InvalidCssClass : null;
-			return CssClassHelper.Combine(CoreInputCssClass, InputCssClass, validationCssClass);
+			return CssClassHelper.Combine(CoreInputCssClass, InputCssClass, validationCssClass, (this is IInputWithSize inputithSize) ? inputithSize.GetInputSizeCssClass() : null);
 		}
 
 		/// <summary>

@@ -10,7 +10,7 @@ using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public class HxAutosuggest<TItemType, TValueType> : HxInputBase<TValueType>
+	public class HxAutosuggest<TItemType, TValueType> : HxInputBase<TValueType>, IInputWithSize
 	{
 		[Parameter] public AutosuggestDataProviderDelegate<TItemType> DataProvider { get; set; }
 
@@ -40,6 +40,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
 		/// </summary>
 		[Parameter] public int Delay { get; set; } = 300;
+
+		/// <inheritdoc />
+		[Parameter] public InputSize InputSize { get; set; }
 
 		/// <summary>
 		/// Returns the text for (select) Value.

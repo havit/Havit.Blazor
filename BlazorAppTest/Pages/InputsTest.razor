@@ -11,7 +11,7 @@
 			<DataAnnotationsValidator />
 			<ValidationSummary />
 
-			<HxInputText Label="Text" @bind-Value="@Model.Text">
+			<HxInputText Label="Text (large)" InputSize="InputSize.Large" @bind-Value="@Model.Text">
 				<HintTemplate>
 					@Model.Text
 				</HintTemplate>
@@ -39,10 +39,10 @@
 			<HxInputDate Label="Date (nullable)" @bind-Value="@Model.NullableDateValue" ParsingErrorMessage="Zadejte správně Date." />
 
 			<HxSelect Label="Select (TValueType: string)" @bind-Value="@Model.CultureInfoName" ValueSelector="@(item => item.DisplayName)" Items="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
-			<HxSelect Label="Select (TValueType: CultureInfo)" @bind-Value="@Model.CultureInfo" Items="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
-			<HxSelect Label="Select (Items == null)" TItemType="CultureInfo" TValueType="CultureInfo" @bind-Value="@Model.CultureInfo" TextSelector="@(item => item.DisplayName)" NullItemsText="No data available." />
+			<HxSelect Label="Select (TValueType: CultureInfo, small)" @bind-Value="@Model.CultureInfo" Items="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
+			<HxSelect Label="Select (Items == null, small)" TItemType="CultureInfo" TValueType="CultureInfo" @bind-Value="@Model.CultureInfo" TextSelector="@(item => item.DisplayName)" NullItemsText="No data available." InputSize="InputSize.Small" />
 
-			<HxAutosuggest Label="Autosuggest" @bind-Value="@Model.CultureInfo" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider">
+			<HxAutosuggest Label="Autosuggest (large)" @bind-Value="@Model.CultureInfo" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider" InputSize="InputSize.Large">
 				<HintTemplate>@Model.CultureInfo?.DisplayName</HintTemplate>
 			</HxAutosuggest>
 
@@ -50,7 +50,7 @@
 				<HintTemplate>@Model.BoolValue</HintTemplate>
 			</HxInputCheckBox>
 
-			<HxInputCheckBox Label="CheckBox" CssClass="form-switch" @bind-Value="@Model.BoolValue" />
+			<HxInputSwitch Label="Switch" @bind-Value="@Model.BoolValue"/>
 
 			<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
 		</EditForm>

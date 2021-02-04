@@ -16,7 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	/// <typeparam name="TValueType">Type of value.</typeparam>
 	/// <typeparam name="TItemType">Type of items.</typeparam>
-	public class HxSelect<TValueType, TItemType> : HxInputBase<TValueType>
+	public class HxSelect<TValueType, TItemType> : HxInputBase<TValueType>, IInputWithSize
 	{
 		/// <summary>
 		/// Indicates when null is a valid value.
@@ -95,9 +95,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool AutoSort { get; set; } = true;
 
 		/// <inheritdoc />
+		[Parameter] public InputSize InputSize { get; set; }
+
+		/// <inheritdoc />
 		protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
 
-		private protected override string CoreInputCssClass => CssClassHelper.Combine(base.CoreInputCssClass, "form-select");
+		private protected override string CoreInputCssClass => "form-select";
 
 		private IEqualityComparer<TValueType> comparer = EqualityComparer<TValueType>.Default;
 		private List<TItemType> itemsToRender;
@@ -217,6 +220,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 			throw new InvalidOperationException("ValueSelector property not set.");
+		}
+
+		string IInputWithSize.GetInputSizeCssClass()
+		{
+			return this.InputSize switch
+			{
+				InputSize.Regular => null,
+				InputSize.Small => "form-select-sm",
+				InputSize.Large => "form-select-lg",
+				_ => throw new InvalidOperationException(InputSize.ToString())
+			};
 		}
 	}
 }
