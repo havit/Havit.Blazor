@@ -235,11 +235,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return false;
 		}
 
-		private async Task HandleSelectDataItemClick(TItemType newSelectedDataItem)
+		private async Task HandleSelectOrMultiSelectDataItemClick(TItemType clickedDataItem)
 		{
-			Contract.Requires(SelectionEnabled);
+			Contract.Requires(SelectionEnabled || MultiSelectionEnabled);
 
-			await SetSelectedDataItemWithEventCallback(newSelectedDataItem);
+			if (SelectionEnabled)
+			{
+				await SetSelectedDataItemWithEventCallback(clickedDataItem);
+			}
+			else // MultiSelectionEnabled
+			{
+				var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItemType>();
+				if (selectedDataItems.Add(clickedDataItem) // when the item was added
+					|| selectedDataItems.Remove(clickedDataItem)) // or removed... But because of || item removal is performed only when the item was not added!
+				{
+					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
+				}				
+			}
 		}
 
 		private async Task HandleSortingClick(IEnumerable<SortingItem<TItemType>> sorting)

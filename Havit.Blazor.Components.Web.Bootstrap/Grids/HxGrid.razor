@@ -33,7 +33,7 @@
 	{
 		<HxProgressOverlay InProgress="@(InProgress ?? (dataProviderInProgress ? true : null))">
 
-			<table class="@CssClassHelper.Combine("table table-responsible", ((this.SelectionEnabled && (dataItemsToRender?.Count > 0)) ? "table-hover" : null))">
+			<table class="@CssClassHelper.Combine("table table-responsible", (((SelectionEnabled || MultiSelectionEnabled) && (dataItemsToRender?.Count > 0)) ? "table-hover" : null))">
 				<thead>
 					<tr>
 						@foreach (IHxGridColumn<TItemType> column in columnsToRender)
@@ -112,11 +112,11 @@
 					{
 						foreach (TItemType item in dataItemsToRender)
 						{
-							if (SelectionEnabled)
+							if (SelectionEnabled || MultiSelectionEnabled)
 							{
 								<tr role="button"
-									@onclick="async () => await HandleSelectDataItemClick(item)" @onclick:stopPropagation
-									class="@(((item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
+									@onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)" @onclick:stopPropagation
+									class="@((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
 
 									@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 									{
@@ -132,7 +132,7 @@
 							}
 							else
 							{
-								// !SelectionEnabled - no table-active, no event handlers
+								// !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
 								<tr @onclick:stopPropagation>
 									@foreach (IHxGridColumn<TItemType> column in columnsToRender)
 									{
