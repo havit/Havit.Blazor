@@ -31,6 +31,16 @@ namespace Havit.Blazor.Components.Web
 		[Parameter] public RenderFragment FooterTemplate { get; set; }
 
 		/// <summary>
+		/// Template that defines what should be rendered in case of Items <c>null</c>.
+		/// </summary>
+		[Parameter] public RenderFragment NullTemplate { get; set; }
+
+		/// <summary>
+		/// Template that defines what should be rendered in case of empty Items.
+		/// </summary>
+		[Parameter] public RenderFragment EmptyTemplate { get; set; }
+
+		/// <summary>
 		/// Items to be rendered.
 		/// </summary>
 		[Parameter] public IEnumerable<TItem> Items { get; set; }

@@ -1,5 +1,13 @@
 ﻿@typeparam TItem
-@if (Items.Any())
+@if (Items == null)
+{
+	@NullTemplate
+}
+else if (!Items.Any())
+{
+	@EmptyTemplate
+}
+else
 {
 	@HeaderTemplate
 	@foreach (var item in Items)

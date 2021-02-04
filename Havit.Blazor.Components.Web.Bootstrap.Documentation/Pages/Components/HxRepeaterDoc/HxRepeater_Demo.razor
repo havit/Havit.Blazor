@@ -10,11 +10,29 @@
 	<FooterTemplate>
 		<h2>Footer</h2>
 	</FooterTemplate>
+	<NullTemplate>
+		Loading...
+	</NullTemplate>
+	<EmptyTemplate>
+		No data.
+	</EmptyTemplate>
 </HxRepeater>
 
-@code {
-	private List<CultureInfo> items = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-		.OrderBy(item => item.EnglishName)
-		.Take(10)
-		.ToList();
+@code
+{
+	private List<CultureInfo> items;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await Task.Delay(2000);
+		items = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+				.OrderBy(item => item.EnglishName)
+				.Take(10)
+				.ToList();
+
+		StateHasChanged();
+
+		await Task.Delay(5000);
+		items = new List<CultureInfo>(); // empty
+	}
 }
