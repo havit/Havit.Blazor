@@ -313,11 +313,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
+		/// Returns true when the Value is considered do be valid. Otherwise false.
+		/// </summary>
+		private protected bool IsValueValid() => EditContext.GetValidationMessages(FieldIdentifier).Any();
+		
+		/// <summary>
 		/// Gets css class for input.
 		/// </summary>
 		protected virtual string GetInputCssClassToRender()
 		{
-			string validationCssClass = EditContext.GetValidationMessages(FieldIdentifier).Any() ? InvalidCssClass : null;
+			string validationCssClass = IsValueValid() ? InvalidCssClass : null;
 			return CssClassHelper.Combine(CoreInputCssClass, InputCssClass, validationCssClass);
 		}
 

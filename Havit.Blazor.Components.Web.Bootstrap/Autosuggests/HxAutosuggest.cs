@@ -43,18 +43,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1004, nameof(HxAutosuggestInternal<TItemType, TItemType>.MinimumLength), MinimumLength);
 			builder.AddAttribute(1005, nameof(HxAutosuggestInternal<TItemType, TItemType>.Delay), Delay);
 			builder.AddAttribute(1006, nameof(HxAutosuggestInternal<TItemType, TItemType>.InputId), InputId);
-			builder.AddAttribute(1007, nameof(HxAutosuggestInternal<TItemType, TItemType>.InputCssClass), GetInputCssClassToRender());
+			builder.AddAttribute(1007, nameof(HxAutosuggestInternal<TItemType, TItemType>.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
 			builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItemType, TItemType>.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItemType, TItemType>.TextFromValueSelector), TextSelector /* we have ITItemType and TValueType of the same type */);
-			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItemType, TItemType>.ValidationMessageTemplate), (RenderFragment)base.BuildRenderValidationMessage); // we use base call because the method is overriden here (to not render validation message on the "usual" place)
 			// No ValueSelector - /* we have ITItemType and TValueType of the same type */
-			builder.CloseComponent();
+			builder.CloseComponent();			
 		}
 
 		protected override void BuildRenderValidationMessage(RenderTreeBuilder builder)
 		{
-			// NOOP - do not render validation message on the "usual" place
-			// We use the base call as a RenderFragment in the RenderInputMethod to pass the method as an argument to the HxAutosuggestInternal.
+			if (ShowValidationMessage)
+			{
+				builder.OpenElement(1, "div");
+				builder.AddAttribute(2, "class", IsValueValid() ? InvalidCssClass : null);
+				builder.CloseElement();
+
+				builder.OpenRegion(3);
+				base.BuildRenderValidationMessage(builder);
+				builder.CloseRegion();
+			}
 		}
 
 		private async Task HandleValueChanged(TItemType newValue)
