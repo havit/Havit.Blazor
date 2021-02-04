@@ -30,8 +30,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		[Parameter] public Func<TItemType, string> TextSelector { get; set; }
 
-		// TODO: Jak se tohoto zbavit? Máme value, chceme text, nemáme items? A to nemluvě o tom, že by tahle funkce měla být spíš asynchronní...
-		[Parameter] public Func<TValueType, string> TextFromValueSelector { get; set; }
+		/// <summary>
+		/// Text to display for null value.
+		/// </summary>
+		[Parameter] public string NullText { get; set; }
+
+		// TODO: Naming?
+		[Parameter] public Func<TValueType, Task<string>> TextFromValueAsyncSelector { get; set; }
 
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
@@ -81,11 +86,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			if (!EqualityComparer<TValueType>.Default.Equals(Value, default))
 			{
-				userInput = TextFromValueSelector(Value);
+				userInput = await TextFromValueAsyncSelector(Value);
 			}
 			else
 			{
-				userInput = String.Empty;
+				userInput = NullText;
 			}
 			userInputModified = false;
 		}
@@ -238,6 +243,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private TValueType GetValueFromItem(TItemType item)
 		{
+			if (item == null)
+			{
+				return default;
+			}
+
 			if (ValueSelector != null)
 			{
 				return ValueSelector(item);
@@ -254,7 +264,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private string TextSelectorEffective(TItemType item)
 		{
 			return (item == null)
-				? String.Empty
+				? NullText
 				: TextSelector?.Invoke(item) ?? item?.ToString() ?? String.Empty;
 		}
 
