@@ -102,6 +102,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			Value = newValue;
 			await ValueChanged.InvokeAsync(Value);
+			// TODO: notify changed
 		}
 
 		protected override bool TryParseValueFromString(string value, out List<TItemType> result, out string validationErrorMessage)

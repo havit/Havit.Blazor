@@ -36,6 +36,8 @@ namespace BlazorAppTest.Pages
 			public CultureInfo CultureInfo { get; set; }
 
 			public bool BoolValue { get; set; }
+
+			public Havit.Blazor.Components.Web.Bootstrap.DateTimeRange DateRange { get; set; }
 		}
 	}
 }

@@ -37,6 +37,7 @@
 			<HxInputNumber Label="Decimal (nullable)" @bind-Value="@Model.NullableDecimalValue" ParsingErrorMessage="Zadejte správně Decimal." />
 			<HxInputDate Label="Date" @bind-Value="@Model.DateValue" ParsingErrorMessage="Zadejte správně Date." />
 			<HxInputDate Label="Date (nullable)" @bind-Value="@Model.NullableDateValue" ParsingErrorMessage="Zadejte správně Date." />
+			<HxInputDateRange Label="DateRange" @bind-Value="@Model.DateRange" ParsingErrorMessage="Zadejte správně DateRange." />
 
 			<HxSelect Label="Select (TValueType: string)" @bind-Value="@Model.CultureInfoName" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
 			<HxSelect Label="Select (TValueType: CultureInfo, small)" @bind-Value="@Model.CultureInfo" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
