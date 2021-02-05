@@ -184,7 +184,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				return;
 			}
 
-			suggestions = result.Items.ToList();
+			suggestions = result.Data.ToList();
 			
 			if (suggestions?.Any() ?? false)
 			{

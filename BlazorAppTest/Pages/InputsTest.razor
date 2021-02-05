@@ -77,7 +77,7 @@
 		return Task.FromResult(
 		new AutosuggestDataProviderResult<CultureInfo>
 		{
-			Items = cultureInfos.Where(item => item.DisplayName.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase)).ToList()
+			Data = cultureInfos.Where(item => item.DisplayName.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase)).ToList()
 		});
 	}
 }

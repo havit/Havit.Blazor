@@ -10,6 +10,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// The provided items by the request.
 		/// </summary>
-		public IEnumerable<TItemType> Items { get; set; }
+		public IEnumerable<TItemType> Data { get; set; }
 	}
 }
