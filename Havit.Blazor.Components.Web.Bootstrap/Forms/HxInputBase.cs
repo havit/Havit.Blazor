@@ -111,14 +111,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public override Task SetParametersAsync(ParameterView parameters)
 		{
 			parameters.SetParameterProperties(this); // set properties to the component
-
-			if ((AdditionalAttributes != null) && AdditionalAttributes.Any())
-			{
-				string message = AdditionalAttributes.Count == 1 ? "There is an unsupported attribute {0} on {1} component." : "There are unsupported attributes {0} on {1} component.";
-				string attributes = String.Join(", ", AdditionalAttributes.Select(item => item.Key));
-				throw new InvalidOperationException(String.Format(message, attributes, GetType().Name));
-			}
-
 			EnsureCascadingEditContext(); // create edit context when there was none
 			return base.SetParametersAsync(ParameterView.Empty); // process base method (validations & EditContext property logic)
 		}
