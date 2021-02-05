@@ -1,236 +1,101 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Select.
+	/// Select. Consider creating custom picker derived from <see cref="HxSelectBase{TValueType, TItemType}"/>.
 	/// </summary>
 	/// <typeparam name="TValueType">Type of value.</typeparam>
 	/// <typeparam name="TItemType">Type of items.</typeparam>
-	public class HxSelect<TValueType, TItemType> : HxInputBase<TValueType>, IInputWithSize
+	public class HxSelect<TValueType, TItemType> : HxSelectBase<TValueType, TItemType>
 	{
 		/// <summary>
 		/// Indicates when null is a valid value.
 		/// </summary>
-		[Parameter] public bool? Nullable { get; set; }
-
-		/// <summary>
-		/// Indicates when null is a valid value.
-		/// Uses (in order) to get effective value: Nullable property, RequiresAttribute on bounded property (false), Nullable type on bounded property (true), class (true), default (false).
-		/// </summary>
-		protected bool NullableEffective
+		[Parameter]
+		public bool? Nullable
 		{
-			get
-			{
-				if (Nullable != null)
-				{
-					return Nullable.Value;
-				}
-
-				if (GetValueAttribute<RequiredAttribute>() != null)
-				{
-					return false;
-				}
-
-				if (System.Nullable.GetUnderlyingType(typeof(TValueType)) != null)
-				{
-					return true;
-				}
-
-				if (typeof(TValueType).IsClass)
-				{
-					return true;
-				}
-
-				return true;
-			}
+			get => NullableImpl;
+			set => NullableImpl = value;
 		}
 
 		/// <summary>
 		/// Text to display for null value.
 		/// </summary>
-		[Parameter] public string NullText { get; set; }
+		[Parameter]
+		public string NullText
+		{
+			get => NullTextImpl;
+			set => NullTextImpl = value;
+		}
 
 		/// <summary>
-		/// Text to display when <see cref="Data"/> are null.
+		/// Text to display when <see cref="Data"/> is null.
 		/// </summary>
-		[Parameter] public string NullDataText { get; set; }
+		[Parameter]
+		public string NullDataText
+		{
+			get => NullDataTextImpl;
+			set => NullDataTextImpl = value;
+		}
 
 		/// <summary>
 		/// Selects value from item.
 		/// Not required when TValueType is same as TItemTime.
 		/// </summary>
-		[Parameter] public Func<TItemType, TValueType> ValueSelector { get; set; }
+		[Parameter]
+		public Func<TItemType, TValueType> ValueSelector
+		{
+			get => ValueSelectorImpl;
+			set => ValueSelectorImpl = value;
+		}
 
 		/// <summary>
 		/// Items to display. 
 		/// </summary>
-		[Parameter] public IEnumerable<TItemType> Data { get; set; }
+		[Parameter]
+		public IEnumerable<TItemType> Data
+		{
+			get => DataImpl;
+			set => DataImpl = value;
+		}
 
 		/// <summary>
 		/// Selects text to display from item.
-		/// When not set ToString() is used.
+		/// When not set <c>ToString()</c> is used.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> TextSelector { get; set; }
+		[Parameter]
+		public Func<TItemType, string> TextSelector
+		{
+			get => TextSelectorImpl;
+			set => TextSelectorImpl = value;
+		}
 
 		/// <summary>
 		/// Selects value to sort items. Uses <see cref="TextSelector"/> property when not set.
 		/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
 		/// </summary>
-		[Parameter] public Func<TItemType, IComparable> SortKeySelector { get; set; }
+		[Parameter]
+		public Func<TItemType, IComparable> SortKeySelector
+		{
+			get => SortKeySelectorImpl;
+			set => SortKeySelectorImpl = value;
+		}
 
 		/// <summary>
 		/// When true, items are sorted before displaying in select.
-		/// Default value is true.
+		/// Default value is <c>true</c>.
 		/// </summary>
-		[Parameter] public bool AutoSort { get; set; } = true;
-
-		/// <inheritdoc />
-		[Parameter] public InputSize InputSize { get; set; }
-
-		/// <inheritdoc />
-		protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
-
-		private protected override string CoreInputCssClass => "form-select";
-
-		private IEqualityComparer<TValueType> comparer = EqualityComparer<TValueType>.Default;
-		private List<TItemType> itemsToRender;
-		private TItemType selectedItem;
-		private int selectedItemIndex;
-
-		/// <inheritdoc/>
-		public override async Task SetParametersAsync(ParameterView parameters)
+		[Parameter]
+		public bool AutoSort
 		{
-			await base.SetParametersAsync(parameters);
-
-			if (Data != null)
-			{ 
-				itemsToRender = Data.ToList();
-				
-				// AutoSort
-				if (AutoSort && (itemsToRender.Count > 1))
-				{
-					if (SortKeySelector != null)
-					{
-						itemsToRender = itemsToRender.OrderBy(this.SortKeySelector).ToList();
-					}
-					else if (TextSelector != null)
-					{
-						itemsToRender = itemsToRender.OrderBy(this.TextSelector).ToList();
-					}
-					else
-					{
-						itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
-					}
-				}
-
-				// set next properties for rendering
-				selectedItem = itemsToRender.FirstOrDefault(item => comparer.Equals(Value, GetValueFromItem(item))); // null when not found
-				selectedItemIndex = itemsToRender.IndexOf(selectedItem); // -1 when not found
-			
-				if ((Value != null) && (selectedItem == null))
-				{
-					throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
-				}
-			}
-			else
-			{
-				itemsToRender = null;
-				selectedItem = default;
-				selectedItemIndex = -1;
-			}
-		}
-
-		/// <inheritdoc/>
-		protected override void BuildRenderInput(RenderTreeBuilder builder)
-		{
-			builder.OpenElement(0, "select");
-			BuildRenderInput_AddCommonAttributes(builder, null);
-
-			builder.AddAttribute(1000, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-			builder.AddEventStopPropagationAttribute(1002, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxSelect nastavitelné?
-
-			if (itemsToRender != null)
-			{
-				if (NullableEffective || (selectedItem == null))
-				{
-					builder.OpenElement(2000, "option");
-					builder.AddAttribute(2001, "value", -1);
-					builder.AddContent(2002, NullText);
-					builder.CloseElement();
-				}
-
-				for (int i = 0; i < itemsToRender.Count; i++)
-				{
-					var item = itemsToRender[i];
-					if (item != null)
-					{
-						builder.OpenElement(3000, "option");
-						builder.AddAttribute(3001, "value", i.ToString());
-						builder.AddAttribute(3002, "selected", i == selectedItemIndex);
-						builder.AddContent(3003, TextSelector?.Invoke(item) ?? item?.ToString() ?? String.Empty);
-						builder.CloseElement();
-					}
-				}
-			}
-			else
-			{
-				if (!String.IsNullOrEmpty(NullDataText))
-				{
-					builder.OpenElement(4000, "option");
-					builder.AddAttribute(4001, "selected", true);
-					builder.AddContent(4002, NullDataText);
-					builder.CloseElement();
-				}
-			}
-			builder.CloseElement();
-		}
-
-		/// <inheritdoc/>
-		protected override bool TryParseValueFromString(string value, out TValueType result, out string validationErrorMessage)
-		{
-			int index = int.Parse(value);
-			result = (index == -1)
-				? default(TValueType)
-				: GetValueFromItem(itemsToRender[index]);
-
-			validationErrorMessage = null;
-			return true;
-		}
-
-		private TValueType GetValueFromItem(TItemType item)
-		{
-			if (ValueSelector != null)
-			{
-				return ValueSelector(item);
-			}
-
-			if (typeof(TValueType) == typeof(TItemType))
-			{
-				return (TValueType)(object)item;
-			}
-
-			throw new InvalidOperationException("ValueSelector property not set.");
-		}
-
-		string IInputWithSize.GetInputSizeCssClass()
-		{
-			return this.InputSize switch
-			{
-				InputSize.Regular => null,
-				InputSize.Small => "form-select-sm",
-				InputSize.Large => "form-select-lg",
-				_ => throw new InvalidOperationException(InputSize.ToString())
-			};
+			get => AutoSortImpl;
+			set => AutoSortImpl = value;
 		}
 	}
 }
