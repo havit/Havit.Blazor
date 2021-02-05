@@ -22,7 +22,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Selects text to display from item.
-		/// When not set ToString() is used.
+		/// When not set <c>ToString()</c> is used.
 		/// </summary>
 		[Parameter] public Func<TItemType, string> TextSelector { get; set; }
 
@@ -45,10 +45,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public InputSize InputSize { get; set; }
 
 		/// <summary>
-		/// Returns the text for (select) Value.
-		/// (There are no "Items" with the "selected item".)
+		/// Returns corresponding item for (select) Value.
 		/// </summary>
-		[Parameter] public Func<TValueType, Task<string>> TextFromValueAsyncSelector { get; set; }
+		[Parameter] public Func<TValueType, Task<TItemType>> ItemFromValueResolver { get; set; }
 
 		private protected override string CoreInputCssClass => "form-control";
 		private protected override string CoreCssClass => String.Empty;
@@ -67,7 +66,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItemType, TValueType>.InputId), InputId);
 			builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItemType, TValueType>.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
 			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItemType, TValueType>.EnabledEffective), EnabledEffective);
-			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItemType, TValueType>.TextFromValueAsyncSelector), TextFromValueAsyncSelector);
+			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItemType, TValueType>.ItemFromValueResolver), ItemFromValueResolver);
 			builder.CloseComponent();
 		}
 

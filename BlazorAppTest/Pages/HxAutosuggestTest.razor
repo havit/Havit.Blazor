@@ -3,7 +3,7 @@
 
 <h1>HxAutosuggest</h1>
 
-<HxAutosuggest TItemType="CultureInfo" TValueType="int" @bind-Value="@value" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" TextSelector="c => c.EnglishName" TextFromValueAsyncSelector="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid).EnglishName)" />
+<HxAutosuggest TItemType="CultureInfo" TValueType="int" @bind-Value="@value" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" TextSelector="c => c.EnglishName" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))" />
 
 <p>Value: @value</p>
 

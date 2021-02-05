@@ -35,8 +35,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		[Parameter] public string NullText { get; set; }
 
-		// TODO: Naming?
-		[Parameter] public Func<TValueType, Task<string>> TextFromValueAsyncSelector { get; set; }
+		/// <summary>
+		/// Gets item from <see cref="Value"/>.
+		/// </summary>
+		[Parameter] public Func<TValueType, Task<TItemType>> ItemFromValueResolver { get; set; }
 
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
@@ -86,13 +88,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			if (!EqualityComparer<TValueType>.Default.Equals(Value, default))
 			{
-				if ((TextFromValueAsyncSelector == null) && (typeof(TValueType) == typeof(TItemType)))
+				if ((ItemFromValueResolver == null) && (typeof(TValueType) == typeof(TItemType)))
 				{
 					userInput = TextSelector.Invoke((TItemType)(object)Value);
 				}
 				else
 				{
-					userInput = await TextFromValueAsyncSelector(Value);
+					userInput = TextSelector.Invoke(await ItemFromValueResolver(Value));
 				}
 			}
 			else
