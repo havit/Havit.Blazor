@@ -86,8 +86,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await ValueChanged.InvokeAsync(Value);
 		}
 
-		// TODO: Unittest
-		internal TValue GetValueFromDateTimeOffset(DateTimeOffset? value)
+		internal static TValue GetValueFromDateTimeOffset(DateTimeOffset? value)
 		{
 			if (value == null)
 			{
@@ -132,70 +131,43 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		// TODO: Zjednodušit 
-
 		/// <inheritdoc />
 		protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
 		{
-			// Unwrap nullable types. We don't have to deal with receiving empty values for nullable
-			// types here, because the underlying InputBase already covers that.
-			var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-
-			bool success;
-			if (targetType == typeof(DateTime))
-			{
-				success = TryParseDateTime(value, out result);
-			}
-			else if (targetType == typeof(DateTimeOffset))
-			{
-				success = TryParseDateTimeOffset(value, out result);
-			}
-			else
-			{
-				throw new InvalidOperationException($"The type '{targetType}' is not a supported date type.");
-			}
+			bool success = TryParseDateTimeOffsetFromString(value, CultureInfo.CurrentCulture, out DateTimeOffset? parsedValue);
 
 			if (success)
 			{
+				result = GetValueFromDateTimeOffset(parsedValue);
 				validationErrorMessage = null;
 				return true;
 			}
 			else
 			{
+				result = default;
 				validationErrorMessage = GetParsingErrorMessage();
 				return false;
 			}
 		}
 
-		private static bool TryParseDateTime(string value, out TValue result)
+		// for easy testability
+		internal static bool TryParseDateTimeOffsetFromString(string value, CultureInfo culture, out DateTimeOffset? result)
 		{
-			bool success = DateTime.TryParse(value, out DateTime parsedValue);
-			//var success = BindConverter.TryConvertToDateTime(value, CultureInfo.CurrentCulture, DateFormat, out var parsedValue);
-			if (success)
+			if (String.IsNullOrWhiteSpace(value))
 			{
-				result = (TValue)(object)parsedValue;
-				return parsedValue != default(DateTime);
+				result = null;
+				return true;
 			}
-			else
-			{
-				result = default;
-				return false;
-			}
-		}
 
-		private static bool TryParseDateTimeOffset(string value, out TValue result)
-		{
-			var success = BindConverter.TryConvertToDateTimeOffset(value, CultureInfo.CurrentCulture, DateFormat, out var parsedValue);
+			bool success = DateTimeOffset.TryParse(value, culture, DateTimeStyles.AllowWhiteSpaces, out DateTimeOffset parsedValue) && (parsedValue.TimeOfDay == TimeSpan.Zero);
 			if (success)
 			{
-				result = (TValue)(object)parsedValue;
-				return parsedValue != default(DateTimeOffset);
+				result = parsedValue;
+				return true;
 			}
-			else
-			{
-				result = default;
-				return false;
-			}
+
+			result = null;
+			return false;
 		}
 
 		/// <summary>

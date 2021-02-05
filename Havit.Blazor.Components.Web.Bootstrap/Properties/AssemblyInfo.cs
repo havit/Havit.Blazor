@@ -10,4 +10,5 @@ using System.Text;
 [assembly: Microsoft.Extensions.Localization.ResourceLocation("Resources")]
 
 [assembly: InternalsVisibleTo("Havit.Blazor.Components.Web.Bootstrap.Documentation")]
+[assembly: InternalsVisibleTo("Havit.Blazor.Components.Web.Bootstrap.Tests")]
 
