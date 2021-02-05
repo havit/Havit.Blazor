@@ -43,6 +43,6 @@ namespace Havit.Blazor.Components.Web
 		/// <summary>
 		/// Items to be rendered.
 		/// </summary>
-		[Parameter] public IEnumerable<TItem> Items { get; set; }
+		[Parameter] public IEnumerable<TItem> Data { get; set; }
 	}
 }

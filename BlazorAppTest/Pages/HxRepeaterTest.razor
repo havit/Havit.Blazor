@@ -1,7 +1,7 @@
 ﻿@page "/HxRepeaterTest"
 @using System.Globalization
 
-<HxRepeater Items="items">
+<HxRepeater Data="data">
 	<HeaderTemplate>
 		<h1>Header</h1>
 	</HeaderTemplate>
@@ -21,14 +21,14 @@
 
 @code
 {
-	private List<CultureInfo> items;
+	private List<CultureInfo> data;
 
 	protected override async Task OnInitializedAsync()
 	{
 		await Task.Delay(2000);
-		items = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-				.OrderBy(item => item.EnglishName)
-				.Take(10)
-				.ToList();
+		data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+			.OrderBy(item => item.EnglishName)
+			.Take(10)
+			.ToList();
 	}
 }

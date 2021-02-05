@@ -1,16 +1,16 @@
 ﻿@typeparam TItem
-@if (Items == null)
+@if (Data == null)
 {
 	@NullTemplate
 }
-else if (!Items.Any())
+else if (!Data.Any())
 {
 	@EmptyTemplate
 }
 else
 {
 	@HeaderTemplate
-	@foreach (var item in Items)
+	@foreach (var item in Data)
 	{
 		@ItemTemplate(item)
 	}
