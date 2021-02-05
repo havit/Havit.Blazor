@@ -38,9 +38,9 @@
 			<HxInputDate Label="Date" @bind-Value="@Model.DateValue" ParsingErrorMessage="Zadejte správně Date." />
 			<HxInputDate Label="Date (nullable)" @bind-Value="@Model.NullableDateValue" ParsingErrorMessage="Zadejte správně Date." />
 
-			<HxSelect Label="Select (TValueType: string)" @bind-Value="@Model.CultureInfoName" ValueSelector="@(item => item.DisplayName)" Items="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
-			<HxSelect Label="Select (TValueType: CultureInfo, small)" @bind-Value="@Model.CultureInfo" Items="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
-			<HxSelect Label="Select (Items == null, small)" TItemType="CultureInfo" TValueType="CultureInfo" @bind-Value="@Model.CultureInfo" TextSelector="@(item => item.DisplayName)" NullItemsText="No data available." InputSize="InputSize.Small" />
+			<HxSelect Label="Select (TValueType: string)" @bind-Value="@Model.CultureInfoName" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
+			<HxSelect Label="Select (TValueType: CultureInfo, small)" @bind-Value="@Model.CultureInfo" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
+			<HxSelect Label="Select (Data == null, small)" TItemType="CultureInfo" TValueType="CultureInfo" @bind-Value="@Model.CultureInfo" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" />
 
 			<HxAutosuggest Label="Autosuggest (large)" @bind-Value="@Model.CultureInfo" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider" InputSize="InputSize.Large">
 				<HintTemplate>@Model.CultureInfo?.DisplayName</HintTemplate>

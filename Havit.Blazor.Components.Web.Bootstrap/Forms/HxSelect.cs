@@ -61,9 +61,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string NullText { get; set; }
 
 		/// <summary>
-		/// Text to display when Items are null.
+		/// Text to display when <see cref="Data"/> are null.
 		/// </summary>
-		[Parameter] public string NullItemsText { get; set; }
+		[Parameter] public string NullDataText { get; set; }
 
 		/// <summary>
 		/// Selects value from item.
@@ -74,7 +74,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Items to display. 
 		/// </summary>
-		[Parameter] public IEnumerable<TItemType> Items { get; set; }
+		[Parameter] public IEnumerable<TItemType> Data { get; set; }
 
 		/// <summary>
 		/// Selects text to display from item.
@@ -112,9 +112,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			await base.SetParametersAsync(parameters);
 
-			if (Items != null)
+			if (Data != null)
 			{ 
-				itemsToRender = Items.ToList();
+				itemsToRender = Data.ToList();
 				
 				// AutoSort
 				if (AutoSort && (itemsToRender.Count > 1))
@@ -184,11 +184,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 			else
 			{
-				if (!String.IsNullOrEmpty(NullItemsText))
+				if (!String.IsNullOrEmpty(NullDataText))
 				{
 					builder.OpenElement(4000, "option");
 					builder.AddAttribute(4001, "selected", true);
-					builder.AddContent(4002, NullItemsText);
+					builder.AddContent(4002, NullDataText);
 					builder.CloseElement();
 				}
 			}
