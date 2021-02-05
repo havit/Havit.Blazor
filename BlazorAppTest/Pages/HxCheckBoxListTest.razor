@@ -4,7 +4,7 @@
 <h1>HxCheckBoxList</h1>
 
 <EditForm Model="@model">
-	<HxCheckBoxList TItemType="CultureInfo" Label="Cultures" TextSelector="@(item => item.EnglishName)" Items="@items" @bind-Value="@model.CultureInfos" />
+	<HxCheckBoxList TItemType="CultureInfo" Label="Cultures" TextSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" />
 </EditForm>
 
 <p>Selected values: @String.Join(", ", model.CultureInfos?.Select(item => item.EnglishName) ?? Enumerable.Empty<string>())</p>
@@ -12,7 +12,7 @@
 @code
 {
 	private Model model = new Model();
-	private List<CultureInfo> items = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+	private List<CultureInfo> data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
 		.OrderBy(item => item.EnglishName)
 		.Take(10)
 		.OrderByDescending(i => i.ToString()) // test řazení

@@ -17,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Items to display. 
 		/// </summary>
-		[Parameter] public IEnumerable<TItemType> Items { get; set; }
+		[Parameter] public IEnumerable<TItemType> Data { get; set; }
 
 		/// <summary>
 		/// Selects text to display from item.
@@ -44,7 +44,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			await base.SetParametersAsync(parameters);
 
-			itemsToRender = Items?.ToList() ?? new List<TItemType>();
+			itemsToRender = Data?.ToList() ?? new List<TItemType>();
 
 			// AutoSort
 			if (AutoSort && (itemsToRender.Count > 1))
