@@ -78,7 +78,7 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 		/// </summary>
 		public void Clear()
 		{
-			this.Data?.Clear();
+			this.Data = null;
 		}
 
 		/// <summary>
