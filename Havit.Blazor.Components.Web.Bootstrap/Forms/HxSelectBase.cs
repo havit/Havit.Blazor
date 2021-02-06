@@ -116,51 +116,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private int selectedItemIndex;
 
 		/// <inheritdoc/>
-		public override async Task SetParametersAsync(ParameterView parameters)
-		{
-			await base.SetParametersAsync(parameters);
-
-			if (DataImpl != null)
-			{ 
-				itemsToRender = DataImpl.ToList();
-				
-				// AutoSort
-				if (AutoSortImpl && (itemsToRender.Count > 1))
-				{
-					if (SortKeySelectorImpl != null)
-					{
-						itemsToRender = itemsToRender.OrderBy(this.SortKeySelectorImpl).ToList();
-					}
-					else if (TextSelectorImpl != null)
-					{
-						itemsToRender = itemsToRender.OrderBy(this.TextSelectorImpl).ToList();
-					}
-					else
-					{
-						itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
-					}
-				}
-
-				// set next properties for rendering
-				selectedItem = itemsToRender.FirstOrDefault(item => comparer.Equals(Value, GetValueFromItem(item))); // null when not found
-				selectedItemIndex = itemsToRender.IndexOf(selectedItem); // -1 when not found
-			
-				if ((Value != null) && (selectedItem == null))
-				{
-					throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
-				}
-			}
-			else
-			{
-				itemsToRender = null;
-				selectedItem = default;
-				selectedItemIndex = -1;
-			}
-		}
-
-		/// <inheritdoc/>
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
+			RefreshState();
+
 			builder.OpenElement(0, "select");
 			BuildRenderInput_AddCommonAttributes(builder, null);
 
@@ -201,6 +160,46 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 			}
 			builder.CloseElement();
+		}
+
+		private void RefreshState()
+		{
+			if (DataImpl != null)
+			{
+				itemsToRender = DataImpl.ToList();
+
+				// AutoSort
+				if (AutoSortImpl && (itemsToRender.Count > 1))
+				{
+					if (SortKeySelectorImpl != null)
+					{
+						itemsToRender = itemsToRender.OrderBy(this.SortKeySelectorImpl).ToList();
+					}
+					else if (TextSelectorImpl != null)
+					{
+						itemsToRender = itemsToRender.OrderBy(this.TextSelectorImpl).ToList();
+					}
+					else
+					{
+						itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
+					}
+				}
+
+				// set next properties for rendering
+				selectedItem = itemsToRender.FirstOrDefault(item => comparer.Equals(Value, GetValueFromItem(item))); // null when not found
+				selectedItemIndex = itemsToRender.IndexOf(selectedItem); // -1 when not found
+
+				if ((Value != null) && (selectedItem == null))
+				{
+					throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
+				}
+			}
+			else
+			{
+				itemsToRender = null;
+				selectedItem = default;
+				selectedItemIndex = -1;
+			}
 		}
 
 		/// <inheritdoc/>
