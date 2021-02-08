@@ -39,11 +39,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private List<TItemType> itemsToRender;
 
-		/// <inheritdoc/>
-		public override async Task SetParametersAsync(ParameterView parameters)
+		private void RefreshState()
 		{
-			await base.SetParametersAsync(parameters);
-
 			itemsToRender = Data?.ToList() ?? new List<TItemType>();
 
 			// AutoSort
@@ -67,6 +64,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc/>
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
+			RefreshState();
+
 			if (itemsToRender.Count > 0)
 			{
 				UglyHack uglyHack = new UglyHack(); // see comment below
