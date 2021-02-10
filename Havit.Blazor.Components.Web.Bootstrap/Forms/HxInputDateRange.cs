@@ -69,18 +69,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return String.Empty;
 		}
 
-		private async Task HandleRangeSelected(BlazorDateRangePicker.DateRange dateRange)
+		private void HandleRangeSelected(BlazorDateRangePicker.DateRange dateRange)
 		{
 			DateTime startDate = dateRange.Start.Date;
 			DateTime endDate = dateRange.End.Date;
-
-			Value = new DateTimeRange
+			
+			// setter includes ValueChanged + NotifyFieldChanged
+			CurrentValue = new DateTimeRange
 			{
 				StartDate = (startDate == default(DateTime)) ? null : startDate,
 				EndDate = (endDate == default(DateTime)) ? null : endDate
 			};
-			await ValueChanged.InvokeAsync(Value);
-			// notify change!
 		}
 
 		#region TryParseValueFromString

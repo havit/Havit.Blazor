@@ -84,11 +84,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private async Task HandleValueChanged(TValueType newValue)
+		private void HandleValueChanged(TValueType newValue)
 		{
-			Value = newValue;
-			await ValueChanged.InvokeAsync(Value);
-			// todo notify changed
+			CurrentValue = newValue; // setter includes ValueChanged + NotifyFieldChanged
 		}
 
 		protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValueType result, [NotNullWhen(false)] out string validationErrorMessage)

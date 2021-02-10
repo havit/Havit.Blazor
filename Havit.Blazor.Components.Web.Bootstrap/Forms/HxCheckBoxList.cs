@@ -88,7 +88,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private async Task HandleValueChanged(bool @checked, TItemType item)
+		private void HandleValueChanged(bool @checked, TItemType item)
 		{
 			var newValue = Value?.ToList() ?? new List<TItemType>();
 			if (@checked)
@@ -100,9 +100,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				newValue.Remove(item);
 			}
 
-			Value = newValue;
-			await ValueChanged.InvokeAsync(Value);
-			// TODO: notify changed
+			CurrentValue = newValue; // setter includes ValueChanged + NotifyFieldChanged
 		}
 
 		protected override bool TryParseValueFromString(string value, out List<TItemType> result, out string validationErrorMessage)

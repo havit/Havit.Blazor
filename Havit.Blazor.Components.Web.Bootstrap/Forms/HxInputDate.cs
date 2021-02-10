@@ -87,11 +87,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private async Task HandleStartDateChanged(DateTimeOffset? startDate)
+		private void HandleStartDateChanged(DateTimeOffset? startDate)
 		{
-			Value = GetValueFromDateTimeOffset(startDate);
-			await ValueChanged.InvokeAsync(Value);
-			// TODO: notify change!
+			CurrentValue = GetValueFromDateTimeOffset(startDate); // setter includes ValueChanged + NotifyFieldChanged
 		}
 
 		internal static TValue GetValueFromDateTimeOffset(DateTimeOffset? value)
