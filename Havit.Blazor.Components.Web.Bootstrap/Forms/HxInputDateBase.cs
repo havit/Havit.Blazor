@@ -50,6 +50,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.OpenComponent<BlazorDateRangePicker.DateRangePicker>(0);
 			builder.AddAttribute(1, nameof(BlazorDateRangePicker.DateRangePicker.Id), InputId);
 			builder.AddAttribute(2, nameof(BlazorDateRangePicker.DateRangePicker.PickerTemplate), pickerTemplate);
+			builder.AddAttribute(3, nameof(BlazorDateRangePicker.DateRangePicker.MinDate), new DateTimeOffset(1900, 1, 1, 0, 0, 0, TimeSpan.Zero));
+			builder.AddAttribute(4, nameof(BlazorDateRangePicker.DateRangePicker.MaxDate), new DateTimeOffset(2099, 12, 31, 0, 0, 0, TimeSpan.Zero));
 			BuildRenderInput_DateRangePickerAttributes(builder);
 
 			builder.CloseComponent();
