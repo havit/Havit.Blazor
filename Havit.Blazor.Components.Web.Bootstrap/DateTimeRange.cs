@@ -26,5 +26,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			return false;
 		}
+
+		public static bool operator ==(DateTimeRange left, DateTimeRange right)
+		{
+			return left.Equals(right);
+		}
+
+		public static bool operator !=(DateTimeRange left, DateTimeRange right)
+		{
+			return !(left == right);
+		}
 	}
 }

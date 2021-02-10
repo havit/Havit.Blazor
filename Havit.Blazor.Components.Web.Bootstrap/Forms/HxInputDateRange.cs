@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Forms.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -21,25 +22,33 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class HxInputDateRange : HxInputDateBase<DateTimeRange>
 	{
+		private const string Separator = "-";
+
 		private protected override bool UseSingleDatePicker => false;
 		
 		[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
+
+		private protected override void BuildRenderInput_DateRangeValue(RenderTreeBuilder builder)
+		{
+			builder.AddAttribute(2001, nameof(BlazorDateRangePicker.DateRangePicker.StartDate), Value.StartDate != null ? new DateTimeOffset(Value.StartDate.Value) : null);
+			builder.AddAttribute(2002, nameof(BlazorDateRangePicker.DateRangePicker.EndDate), Value.EndDate != null ? new DateTimeOffset(Value.EndDate.Value) : null);
+		}
 
 		protected override string FormatValueAsString(DateTimeRange value)
 		{
 			if ((Value.StartDate != null) && (Value.EndDate != null))
 			{
-				return $"{Value.StartDate.Value.ToShortDateString()} - {Value.StartDate.Value.ToShortDateString()}";
+				return $"{Value.StartDate.Value.ToShortDateString()} {Separator} {Value.EndDate.Value.ToShortDateString()}";
 			}
 
 			if (Value.StartDate != null)
 			{
-				return $"{StringLocalizer["od"]} {Value.StartDate.Value.ToShortDateString()}";
+				return $"{StringLocalizer["StartDate"]} {Value.StartDate.Value.ToShortDateString()}";
 			}
 
 			if (Value.EndDate != null)
 			{
-				return $"{StringLocalizer["do"]} {Value.EndDate.Value.ToShortDateString()}";
+				return $"{StringLocalizer["EndDate"]} {Value.EndDate.Value.ToShortDateString()}";
 			}
 
 			return String.Empty;
@@ -79,11 +88,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			CultureInfo cultureInfo = CultureInfo.CurrentCulture;
 
-			if (TryParseValueFromString_SeparatorPattern(value, cultureInfo, out result)
-				|| TryParseValueFromString_FromToPattern(value, cultureInfo, out result)
-				|| TryParseValueFromString_FromPattern(value, cultureInfo, out result)
-				|| TryParseValueFromString_ToPattern(value, cultureInfo, out result)
-				|| TryParseValueFromString_SingleDatePattern(value, cultureInfo, out result))
+			string startDateText = StringLocalizer["StartDate"];
+			string endDateText = StringLocalizer["EndDate"];
+
+			if (TryParseValueFromString_StartDateEndDatePattern(value, cultureInfo, startDateText, endDateText, out result)
+				|| TryParseValueFromString_StartDatePattern(value, cultureInfo, startDateText, out result)
+				|| TryParseValueFromString_EndDatePattern(value, cultureInfo, endDateText, out result)
+				|| TryParseValueFromString_NoDatePattern(value, out result))
 			{
 				validationErrorMessage = null;
 				return true;
@@ -96,37 +107,105 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		// TODO: Unit test
-		internal static bool TryParseValueFromString_SeparatorPattern(string value, CultureInfo cultureInfo, out DateTimeRange result)
+		internal static bool TryParseValueFromString_StartDateEndDatePattern(string value, CultureInfo culture, string startDateText, string endDateText, out DateTimeRange result)
 		{
+			StringPatternizer sp = new StringPatternizer();
+			sp.Markers.Add("XXstartDateXX", typeof(string));
+			sp.Markers.Add("XXendDateXX", typeof(string));
+
+			sp.Patterns.Add("XXstartDateXX-XXendDateXX");
+			sp.Patterns.Add($"{startDateText}XXstartDateXX{endDateText}XXendDateXX");
+
+			var patterns = sp.Match(value);
+			if (patterns.Exception == null) // fuj fuj API to má...
+			{
+				string startDateString = patterns.MarkerHasValue("XXstartDateXX") ? patterns.GetMarkerValue<string>("XXstartDateXX") : null;
+				string endDateString = patterns.MarkerHasValue("XXendDateXX") ? patterns.GetMarkerValue<string>("XXendDateXX") : null;
+
+				if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(startDateString, culture, out DateTimeOffset? startDate)
+					&& HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(endDateString, culture, out DateTimeOffset? endDate))
+				{
+					result = new DateTimeRange
+					{
+						StartDate = ((startDate != null) && (endDate != null)) ? DateTimeExt.Min(startDate.Value.DateTime, endDate.Value.DateTime) : startDate?.DateTime,
+						EndDate = ((startDate != null) && (endDate != null)) ? DateTimeExt.Max(startDate.Value.DateTime, endDate.Value.DateTime) : endDate?.DateTime
+					};
+					return true;
+				}
+			}
+
 			result = default;
 			return false;
 		}
 
-		// TODO: Unit test
-		internal static bool TryParseValueFromString_FromToPattern(string value, CultureInfo cultureInfo, out DateTimeRange result)
+		internal static bool TryParseValueFromString_StartDatePattern(string value, CultureInfo culture, string startDateText, out DateTimeRange result)
 		{
+			StringPatternizer sp = new StringPatternizer();
+			sp.Markers.Add("XXstartDateXX", typeof(string));
+
+			sp.Patterns.Add("XXstartDateXX-");
+			sp.Patterns.Add($"{startDateText}XXstartDateXX");
+
+			var patterns = sp.Match(value);
+			if (patterns.Exception == null) // fuj fuj API to má...
+			{
+				string startDateString = patterns.GetMarkerValue<string>("XXstartDateXX");
+
+				if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(startDateString, culture, out DateTimeOffset? startDate))					
+				{
+					result = new DateTimeRange
+					{
+						StartDate = startDate?.DateTime,
+						EndDate = null
+					};
+					return true;
+				}
+			}
+
 			result = default;
 			return false;
 		}
 
-		// TODO: Unit test
-		internal static bool TryParseValueFromString_FromPattern(string value, CultureInfo cultureInfo, out DateTimeRange result)
+		internal static bool TryParseValueFromString_EndDatePattern(string value, CultureInfo culture, string endDateText, out DateTimeRange result)
 		{
+			StringPatternizer sp = new StringPatternizer();
+			sp.Markers.Add("XXendDateXX", typeof(string));
+
+			sp.Patterns.Add("-XXendDateXX");
+			sp.Patterns.Add($"{endDateText}XXendDateXX");
+
+			var patterns = sp.Match(value);
+			if (patterns.Exception == null) // fuj fuj API to má...
+			{
+				string endDateString = patterns.GetMarkerValue<string>("XXendDateXX");
+
+				if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(endDateString, culture, out DateTimeOffset? endDate))
+				{
+					result = new DateTimeRange
+					{
+						StartDate = null,
+						EndDate = endDate?.DateTime
+					};
+					return true;
+				}
+			}
+
 			result = default;
 			return false;
 		}
 
-		// TODO: Unit test
-		internal static bool TryParseValueFromString_ToPattern(string value, CultureInfo cultureInfo, out DateTimeRange result)
+		internal static bool TryParseValueFromString_NoDatePattern(string value, out DateTimeRange result)
 		{
-			result = default;
-			return false;
-		}
+			if (String.IsNullOrWhiteSpace(value) || (value.Trim() == "-"))
+			{
+				result = new DateTimeRange
+				{
+					StartDate = null,
+					EndDate = null
+				};
+				return true;
+			}
 
-		// TODO: Unit test
-		internal static bool TryParseValueFromString_SingleDatePattern(string value, CultureInfo cultureInfo, out DateTimeRange result)
-		{
 			result = default;
 			return false;
 		}

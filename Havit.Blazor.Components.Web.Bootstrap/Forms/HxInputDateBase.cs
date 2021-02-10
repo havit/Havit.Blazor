@@ -62,8 +62,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				builder.AddAttribute(5, nameof(BlazorDateRangePicker.DateRangePicker.EndDateChanged), EventCallback.Factory.Create<DateTimeOffset?>(this, HandleEndDateChanged));
 			}
+			BuildRenderInput_DateRangeValue(builder);
+
 			builder.CloseComponent();
 		}
+
+		private protected abstract void BuildRenderInput_DateRangeValue(RenderTreeBuilder builder);
 
 		private protected abstract Task HandleStartDateChanged(DateTimeOffset? startDate);
 

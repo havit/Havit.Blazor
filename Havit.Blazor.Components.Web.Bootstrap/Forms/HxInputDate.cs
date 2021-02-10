@@ -41,6 +41,34 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
+		private protected override void BuildRenderInput_DateRangeValue(RenderTreeBuilder builder)
+		{
+			DateTimeOffset? startDate;
+			if (EqualityComparer<TValue>.Default.Equals(Value, default))
+			{
+				startDate = null;
+			}
+			else
+			{
+				switch (Value)
+				{
+					case DateTime dateTimeValue:
+						startDate = new DateTimeOffset(dateTimeValue);
+						break;
+
+					case DateTimeOffset dateTimeOffsetValue:
+						startDate = dateTimeOffsetValue;
+						break;
+
+					default:
+						throw new InvalidOperationException("Unsupported type.");
+				}
+			}
+
+			builder.AddAttribute(2001, nameof(BlazorDateRangePicker.DateRangePicker.StartDate), startDate);
+			builder.AddAttribute(2002, nameof(BlazorDateRangePicker.DateRangePicker.EndDate), (DateTimeOffset?)null);
+		}
+
 		/// <inheritdoc />
 		protected override string FormatValueAsString(TValue value)
 		{
