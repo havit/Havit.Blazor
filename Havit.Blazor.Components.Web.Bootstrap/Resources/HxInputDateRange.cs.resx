@@ -120,10 +120,22 @@
   <data name="EndDate" xml:space="preserve">
     <value>do</value>
   </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Minulý měsíc</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>Minulý rok</value>
+  </data>
   <data name="ParsingErrorMessage" xml:space="preserve">
     <value>Zadejte období.</value>
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>od</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Tento měsíc</value>
+  </data>
+  <data name="ThisYear" xml:space="preserve">
+    <value>Tento rok</value>
   </data>
 </root>

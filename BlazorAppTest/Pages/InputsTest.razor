@@ -37,7 +37,7 @@
 			<HxInputNumber Label="Decimal (nullable)" @bind-Value="@Model.NullableDecimalValue" ParsingErrorMessage="Zadejte správně Decimal." />
 			<HxInputDate Label="Date" @bind-Value="@Model.DateValue" ParsingErrorMessage="Zadejte správně Date." />
 			<HxInputDate Label="Date (nullable)" @bind-Value="@Model.NullableDateValue" ParsingErrorMessage="Zadejte správně Date." />
-			<HxInputDateRange Label="DateRange" @bind-Value="@Model.DateRange" ParsingErrorMessage="Zadejte správně DateRange." />
+			<HxInputDateRange Label="DateRange" @bind-Value="@Model.DateRange" ParsingErrorMessage="Zadejte správně DateRange." DateRanges="@(GetCustomDateRanges())" />
 
 			<HxSelect Label="Select (TValueType: string)" @bind-Value="@Model.CultureInfoName" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
 			<HxSelect Label="Select (TValueType: CultureInfo, small)" @bind-Value="@Model.CultureInfo" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
@@ -51,7 +51,7 @@
 				<HintTemplate>@Model.BoolValue</HintTemplate>
 			</HxInputCheckBox>
 
-			<HxInputSwitch Label="Switch" @bind-Value="@Model.BoolValue"/>
+			<HxInputSwitch Label="Switch" @bind-Value="@Model.BoolValue" />
 
 			<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
 		</EditForm>
@@ -80,5 +80,11 @@
 		{
 			Data = cultureInfos.Where(item => item.DisplayName.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase)).ToList()
 		});
+	}
+
+	private IEnumerable<DateRangeItem> GetCustomDateRanges()
+	{
+		yield return new DateRangeItem { Label = "Od příštího roku", DateRange = new DateTimeRange { StartDate = new DateTime(DateTime.Today.Year + 1, 1, 1) } };
+		yield return new DateRangeItem { Label = "Od zítřka", DateRange = new DateTimeRange { StartDate = DateTime.Today.AddDays(1) } };
 	}
 }

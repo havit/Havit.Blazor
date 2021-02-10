@@ -11,10 +11,6 @@ using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	// TODO: Predefined date ranges
-	// TODO: DisableDates
-	// TODO: HighlightDates
-
 	/// <summary>
 	/// Base class for date inputs.
 	/// Uses a <see href="https://github.com/jdtcn/BlazorDateRangePicker">DateRangePicker</see>, follow the Get Started guide!
@@ -26,8 +22,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
 		/// </summary>
 		[Parameter] public string ParsingErrorMessage { get; set; }
-
-		private protected abstract bool UseSingleDatePicker { get; }
 
 		/// <inheritdoc />
 		protected override sealed void BuildRenderInput(RenderTreeBuilder builder)
@@ -56,22 +50,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.OpenComponent<BlazorDateRangePicker.DateRangePicker>(0);
 			builder.AddAttribute(1, nameof(BlazorDateRangePicker.DateRangePicker.Id), InputId);
 			builder.AddAttribute(2, nameof(BlazorDateRangePicker.DateRangePicker.PickerTemplate), pickerTemplate);
-			builder.AddAttribute(3, nameof(BlazorDateRangePicker.DateRangePicker.SingleDatePicker), UseSingleDatePicker);
-			builder.AddAttribute(4, nameof(BlazorDateRangePicker.DateRangePicker.StartDateChanged), EventCallback.Factory.Create<DateTimeOffset?>(this, HandleStartDateChanged));
-			if (!UseSingleDatePicker)
-			{
-				builder.AddAttribute(5, nameof(BlazorDateRangePicker.DateRangePicker.EndDateChanged), EventCallback.Factory.Create<DateTimeOffset?>(this, HandleEndDateChanged));
-			}
-			BuildRenderInput_DateRangeValue(builder);
+			BuildRenderInput_DateRangePickerAttributes(builder);
 
 			builder.CloseComponent();
 		}
 
-		private protected abstract void BuildRenderInput_DateRangeValue(RenderTreeBuilder builder);
+		private protected abstract void BuildRenderInput_DateRangePickerAttributes(RenderTreeBuilder builder);
 
-		private protected abstract Task HandleStartDateChanged(DateTimeOffset? startDate);
-
-		private protected abstract Task HandleEndDateChanged(DateTimeOffset? startDate);
 
 		/// <summary>
 		/// Returns message for parsing error.

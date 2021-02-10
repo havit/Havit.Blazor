@@ -11,10 +11,6 @@ using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	// TODO: Predefined date ranges
-	// TODO: DisableDates
-	// TODO: HighlightDates
-
 	/// <summary>
 	/// Date input.
 	/// Uses a <see href="https://github.com/jdtcn/BlazorDateRangePicker">DateRangePicker</see>, follow the Get Started guide!
@@ -26,8 +22,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(DateTime), typeof(DateTimeOffset) };
 
 		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
-
-		private protected override bool UseSingleDatePicker => true;
 
 		/// <summary>
 		/// Constructor.
@@ -41,7 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private protected override void BuildRenderInput_DateRangeValue(RenderTreeBuilder builder)
+		private protected override void BuildRenderInput_DateRangePickerAttributes(RenderTreeBuilder builder)
 		{
 			DateTimeOffset? startDate;
 			if (EqualityComparer<TValue>.Default.Equals(Value, default))
@@ -67,6 +61,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			builder.AddAttribute(2001, nameof(BlazorDateRangePicker.DateRangePicker.StartDate), startDate);
 			builder.AddAttribute(2002, nameof(BlazorDateRangePicker.DateRangePicker.EndDate), (DateTimeOffset?)null);
+			builder.AddAttribute(2003, nameof(BlazorDateRangePicker.DateRangePicker.SingleDatePicker), true);
+			builder.AddAttribute(2004, nameof(BlazorDateRangePicker.DateRangePicker.StartDateChanged), EventCallback.Factory.Create<DateTimeOffset?>(this, HandleStartDateChanged));
+
 		}
 
 		/// <inheritdoc />
@@ -90,16 +87,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private protected override async Task HandleStartDateChanged(DateTimeOffset? startDate)
+		private async Task HandleStartDateChanged(DateTimeOffset? startDate)
 		{
 			Value = GetValueFromDateTimeOffset(startDate);
 			await ValueChanged.InvokeAsync(Value);
 			// TODO: notify change!
-		}
-
-		private protected override Task HandleEndDateChanged(DateTimeOffset? startDate)
-		{
-			throw new NotSupportedException();
 		}
 
 		internal static TValue GetValueFromDateTimeOffset(DateTimeOffset? value)

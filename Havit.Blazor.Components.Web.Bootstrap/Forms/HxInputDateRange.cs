@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap.Forms.Internal;
@@ -12,10 +13,6 @@ using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	// TODO: Predefined date ranges
-	// TODO: DisableDates
-	// TODO: HighlightDates
-
 	/// <summary>
 	/// Date range input.
 	/// Uses a <see href="https://github.com/jdtcn/BlazorDateRangePicker">DateRangePicker</see>, follow the Get Started guide!
@@ -24,14 +21,32 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		private const string Separator = "-";
 
-		private protected override bool UseSingleDatePicker => false;
-		
+		/// <summary>
+		/// When true, uses default date ranges (this month, last month, this year, last year).
+		/// </summary>
+		[Parameter] public bool UseDefaultDateRanges { get; set; } = true;
+
+		/// <summary>
+		/// Custom date ranges. When <see cref="UseDefaultDateRanges"/> is true, these items are used with default items.
+		/// </summary>
+		[Parameter] public IEnumerable<DateRangeItem> DateRanges { get; set; }
+
 		[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
-		private protected override void BuildRenderInput_DateRangeValue(RenderTreeBuilder builder)
+		private protected override void BuildRenderInput_DateRangePickerAttributes(RenderTreeBuilder builder)
 		{
 			builder.AddAttribute(2001, nameof(BlazorDateRangePicker.DateRangePicker.StartDate), Value.StartDate != null ? new DateTimeOffset(Value.StartDate.Value) : null);
 			builder.AddAttribute(2002, nameof(BlazorDateRangePicker.DateRangePicker.EndDate), Value.EndDate != null ? new DateTimeOffset(Value.EndDate.Value) : null);
+
+			Dictionary<string, BlazorDateRangePicker.DateRange> dateRanges = GetDateRanges();
+			if ((dateRanges != null) && dateRanges.Any())
+			{
+				builder.AddAttribute(2003, nameof(BlazorDateRangePicker.DateRangePicker.Ranges), dateRanges);
+				builder.AddAttribute(2004, nameof(BlazorDateRangePicker.DateRangePicker.AlwaysShowCalendars), true);
+				builder.AddAttribute(2005, nameof(BlazorDateRangePicker.DateRangePicker.ShowCustomRangeLabel), false);
+				builder.AddAttribute(2006, nameof(BlazorDateRangePicker.DateRangePicker.OnRangeSelect), EventCallback.Factory.Create<BlazorDateRangePicker.DateRange>(this, HandleRangeSelected));
+				builder.AddAttribute(2007, nameof(BlazorDateRangePicker.DateRangePicker.AutoApply), true);
+			}
 		}
 
 		protected override string FormatValueAsString(DateTimeRange value)
@@ -54,28 +69,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return String.Empty;
 		}
 
-		private protected override async Task HandleStartDateChanged(DateTimeOffset? startDate)
+		private async Task HandleRangeSelected(BlazorDateRangePicker.DateRange dateRange)
 		{
+			DateTime startDate = dateRange.Start.Date;
+			DateTime endDate = dateRange.End.Date;
+
 			Value = new DateTimeRange
 			{
-				StartDate = startDate?.DateTime,
-				EndDate = Value.EndDate
+				StartDate = (startDate == default(DateTime)) ? null : startDate,
+				EndDate = (endDate == default(DateTime)) ? null : endDate
 			};
 			await ValueChanged.InvokeAsync(Value);
 			// notify change!
 		}
 
-		private protected override async Task HandleEndDateChanged(DateTimeOffset? endDate)
-		{
-			Value = new DateTimeRange
-			{
-				StartDate = Value.StartDate,
-				EndDate = endDate?.DateTime
-			};
-			await ValueChanged.InvokeAsync(Value);
-			// notify change!
-		}
-
+		#region TryParseValueFromString
 		/// <inheritdoc />
 		protected override bool TryParseValueFromString(string value, out DateTimeRange result, out string validationErrorMessage)
 		{
@@ -151,7 +159,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				string startDateString = patterns.GetMarkerValue<string>("XXstartDateXX");
 
-				if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(startDateString, culture, out DateTimeOffset? startDate))					
+				if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(startDateString, culture, out DateTimeOffset? startDate))
 				{
 					result = new DateTimeRange
 					{
@@ -209,6 +217,48 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			result = default;
 			return false;
 		}
+		#endregion
 
+		private Dictionary<string, BlazorDateRangePicker.DateRange> GetDateRanges()
+		{
+			Dictionary<string, BlazorDateRangePicker.DateRange> result = null;
+
+			if (DateRanges != null)
+			{
+				result = new Dictionary<string, BlazorDateRangePicker.DateRange>();
+
+				foreach (DateRangeItem dateRangeItem in DateRanges)
+				{
+					result[dateRangeItem.Label] = new BlazorDateRangePicker.DateRange
+					{
+						Start = (dateRangeItem.DateRange.StartDate != null) ? new DateTimeOffset(dateRangeItem.DateRange.StartDate.Value) : default,
+						End = (dateRangeItem.DateRange.EndDate != null) ? new DateTimeOffset(dateRangeItem.DateRange.EndDate.Value) : default,
+					};
+				}
+			}
+
+			if (UseDefaultDateRanges)
+			{
+				result ??= new Dictionary<string, BlazorDateRangePicker.DateRange>();
+
+				DateTimeOffset today = DateTimeOffset.Now.Date;
+
+				DateTimeOffset thisMonthStart = new DateTimeOffset(today.Year, today.Month, 1, 0, 0, 0, TimeSpan.Zero);
+				DateTimeOffset thisMonthEnd = new DateTimeOffset(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month), 0, 0, 0, TimeSpan.Zero);
+				DateTimeOffset lastMonthStart = thisMonthStart.AddMonths(-1);
+				DateTimeOffset lastMonthEnd = new DateTimeOffset(lastMonthStart.Year, lastMonthStart.Month, DateTime.DaysInMonth(lastMonthStart.Year, lastMonthStart.Month), 0, 0, 0, TimeSpan.Zero);
+				DateTimeOffset thisYearStart = new DateTimeOffset(today.Year, 1, 1, 0, 0, 0, TimeSpan.Zero);
+				DateTimeOffset thisYearEnd = new DateTimeOffset(today.Year, 12, 31, 0, 0, 0, TimeSpan.Zero);
+				DateTimeOffset lastYearStart = thisYearStart.AddYears(-1);
+				DateTimeOffset lastYearEnd = thisYearEnd.AddYears(-1);
+
+				result[StringLocalizer["ThisMonth"]] = new BlazorDateRangePicker.DateRange { Start = thisMonthStart, End = thisMonthEnd };
+				result[StringLocalizer["LastMonth"]] = new BlazorDateRangePicker.DateRange { Start = lastMonthStart, End = lastMonthEnd };
+				result[StringLocalizer["ThisYear"]] = new BlazorDateRangePicker.DateRange { Start = thisYearStart, End = thisYearEnd };
+				result[StringLocalizer["LastYear"]] = new BlazorDateRangePicker.DateRange { Start = lastYearStart, End = lastYearEnd };
+			}
+
+			return result;
+		}
 	}
 }
