@@ -1,0 +1,39 @@
+﻿@page "/FilterContextTest"
+@using System.Globalization;
+
+<h1>FilterContext</h1>
+
+<FilterContext @ref="filterContext" Context="modelContext" @bind-Model="@model" OnChipsUpdated="HandleChipsUpdated">
+	<EditForm Model="@modelContext">
+		<DataAnnotationsValidator />
+		<ValidationSummary />
+
+		<h2>Filter</h2>
+
+		<HxInputText Label="Text1" @bind-Value="@modelContext.Text1" />
+		<HxInputText Label="Text2" @bind-Value="@modelContext.Text2" />
+		<HxInputText Label="Text3" @bind-Value="@modelContext.Text3" />
+
+		<HxButton Skin="ButtonSkins.Apply" OnClick="HandleApplyClick" />
+
+		<h2>Values</h2>
+
+		<h3>Values in filter</h3>
+		<ul>
+			<li>Text1: @modelContext.Text1</li>
+			<li>Text2: @modelContext.Text2</li>
+			<li>Text3: @modelContext.Text3</li>
+		</ul>
+	</EditForm>
+</FilterContext>
+
+<h3>Values in model</h3>
+<ul>
+	<li>Text1: @model.Text1</li>
+	<li>Text2: @model.Text2</li>
+	<li>Text3: @model.Text3</li>
+</ul>
+
+<h4>Chips</h4>
+
+<HxChipList Chips="@chips" OnChipRemoveClick="HandleChipRemoveClick" />

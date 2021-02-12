@@ -34,7 +34,7 @@ namespace Havit.Blazor.Components.Web
 		{
 			collection.Add(item);
 			itemAddedCallback?.Invoke(item);
-			stateHasChangedAction();
+			stateHasChangedAction?.Invoke();
 		}
 
 		/// <summary>
@@ -49,14 +49,14 @@ namespace Havit.Blazor.Components.Web
 #if DEBUG
 				try
 				{
-					stateHasChangedAction();
+					stateHasChangedAction?.Invoke();
 				}
 				catch (System.ObjectDisposedException)
 				{
 					// NOOP
 				}
 #else
-				stateHasChangedAction();
+				stateHasChangedAction?.Invoke();
 #endif
 			}
 		}

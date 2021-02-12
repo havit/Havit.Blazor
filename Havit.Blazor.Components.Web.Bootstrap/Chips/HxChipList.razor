@@ -1,14 +1,14 @@
-﻿@namespace  Havit.Blazor.Components.Web.Bootstrap
-@if ((Chips != null) && Chips.Any())
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@if (Chips != null)
 {
-    foreach (Havit.Blazor.Components.Web.Bootstrap.ChipItem chipItem in Chips)
-    {
-<span class="badge bg-primary">
-	@chipItem.ChipTemplate
-	@if (chipItem.RemoveCallback != null)
+	foreach (Havit.Blazor.Components.Web.Bootstrap.ChipItem chipItem in Chips)
 	{
-		<span role="button" @onclick="async () => await chipItem.RemoveCallback()">&times;</span>
-	}
-</span>
+		<span class="badge bg-secondary">
+			@chipItem.ChipTemplate
+			@if (chipItem.CanBeRemoved)
+			{
+				<span role="button" @onclick="() => HandleRemoveClick(chipItem)" @onclick:stopPropagation><HxIcon Icon="BootstrapIcon.X" /></span>
+			}
+		</span>
 	}
 }

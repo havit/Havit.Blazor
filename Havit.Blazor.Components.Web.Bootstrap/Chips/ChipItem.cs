@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public class ChipItem
 	{
-		public RenderFragment ChipTemplate { get; set; }
-		public Func<Task> RemoveCallback { get; set; }
+		public FieldIdentifier FieldIdentifier { get; init; }
+		public RenderFragment ChipTemplate { get; init; }
+		public bool CanBeRemoved { get; init; } = false;
 	}
 }
