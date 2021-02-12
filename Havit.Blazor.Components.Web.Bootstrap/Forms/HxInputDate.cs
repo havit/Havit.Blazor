@@ -245,7 +245,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				DateTimeOffset today = DateTimeOffset.Now.Date;
 
-				result[StringLocalizer["Today"]] = new BlazorDateRangePicker.DateRange { Start = today, End = default };
+				result[StringLocalizer["Today"]] = new BlazorDateRangePicker.DateRange { Start = today };
 			}
 
 			return result;
