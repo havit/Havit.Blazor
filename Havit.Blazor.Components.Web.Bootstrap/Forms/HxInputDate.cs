@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -161,11 +162,59 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				return true;
 			}
 
+			// it also works for "invalid dates" (with dots, commas, spaces...)
+			// ie. 09,09,2020 --> 9.9.2020
+			// ie. 09 09 2020 --> 9.9.2020
+			// ie. 06,05, --> 6.5.ThisYear
+			// ie. 06 05 --> 6.5.ThisYear
 			bool success = DateTimeOffset.TryParse(value, culture, DateTimeStyles.AllowWhiteSpaces, out DateTimeOffset parsedValue) && (parsedValue.TimeOfDay == TimeSpan.Zero);
 			if (success)
 			{
 				result = parsedValue;
 				return true;
+			}
+
+			Match match;
+
+			// 0105 --> 01.05.ThisYear
+			match = Regex.Match(value, "^(\\d{2})(\\d{2})$");
+			if (match.Success)
+			{
+				if (int.TryParse(match.Groups[1].Value, out int day)
+					&& int.TryParse(match.Groups[2].Value, out int month))
+				{
+					try
+					{
+						result = new DateTimeOffset(new DateTime(DateTime.Now.Year, month, day));
+						return true;
+					}
+					catch (ArgumentOutOfRangeException)
+					{
+						// NOOP
+					}
+				}
+				result = null;
+				return false;
+			}
+
+			// 01 --> 01.ThisMonth.ThisYear
+			match = Regex.Match(value, "^(\\d{2})$");
+			if (match.Success)
+			{
+				if (int.TryParse(match.Groups[1].Value, out int day))
+				{
+					try
+					{
+						result = new DateTimeOffset(new DateTime(DateTime.Now.Year, DateTime.Now.Month, day));
+						return true;
+					}
+					catch (ArgumentOutOfRangeException)
+					{
+						// NOOP
+					}
+				}
+				result = null;
+				return false;
 			}
 
 			result = null;

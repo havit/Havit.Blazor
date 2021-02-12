@@ -38,9 +38,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				builder.AddAttribute(1000, "value", CurrentValueAsString);
 				builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+				
+				builder.AddAttribute(1002, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
 
-				builder.AddAttribute(1002, "onfocusin", EventCallback.Factory.Create(this, dateRangePicker.Open));
-				builder.AddAttribute(1003, "onfocusout", EventCallback.Factory.Create(this, dateRangePicker.LostFocus));
+				builder.AddAttribute(1003, "onfocusin", EventCallback.Factory.Create(this, dateRangePicker.Open));
+				builder.AddAttribute(1004, "onfocusout", EventCallback.Factory.Create(this, dateRangePicker.LostFocus));
 
 				builder.AddEventStopPropagationAttribute(1004, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputDate nastavitelné?
 				
