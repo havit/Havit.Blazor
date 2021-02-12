@@ -120,4 +120,7 @@
   <data name="ParsingErrorMessage" xml:space="preserve">
     <value>Zadejte datum.</value>
   </data>
+  <data name="Today" xml:space="preserve">
+    <value>Dnes</value>
+  </data>
 </root>

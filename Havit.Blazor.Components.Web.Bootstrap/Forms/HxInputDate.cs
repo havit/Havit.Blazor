@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
@@ -20,6 +21,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(DateTime), typeof(DateTimeOffset) };
+
+		/// <summary>
+		/// When true, uses default dates (today).
+		/// </summary>
+		[Parameter] public bool UseDefaultDates { get; set; } = true;
+
+		/// <summary>
+		/// Custom dates. When <see cref="UseDefaultDates"/> is true, these items are used with default items.
+		/// </summary>
+		[Parameter] public IEnumerable<DateItem> Dates { get; set; }
 
 		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
@@ -64,6 +75,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(2003, nameof(BlazorDateRangePicker.DateRangePicker.SingleDatePicker), true);
 			builder.AddAttribute(2004, nameof(BlazorDateRangePicker.DateRangePicker.StartDateChanged), EventCallback.Factory.Create<DateTimeOffset?>(this, HandleStartDateChanged));
 
+			Dictionary<string, BlazorDateRangePicker.DateRange> dateRanges = GetDateRanges();
+			if ((dateRanges != null) && dateRanges.Any())
+			{
+				builder.AddAttribute(2003, nameof(BlazorDateRangePicker.DateRangePicker.Ranges), dateRanges);
+				// no DateRangeChanged event, just StartDateChanged above
+			}
 		}
 
 		/// <inheritdoc />
@@ -154,5 +171,36 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			result = null;
 			return false;
 		}
+
+		private Dictionary<string, BlazorDateRangePicker.DateRange> GetDateRanges()
+		{
+			Dictionary<string, BlazorDateRangePicker.DateRange> result = null;
+
+			if (Dates != null)
+			{
+				result = new Dictionary<string, BlazorDateRangePicker.DateRange>();
+
+				foreach (DateItem dateItem in Dates)
+				{
+					result[dateItem.Label] = new BlazorDateRangePicker.DateRange
+					{
+						Start = new DateTimeOffset(dateItem.Date),
+						End = default
+					};
+				}
+			}
+
+			if (UseDefaultDates)
+			{
+				result ??= new Dictionary<string, BlazorDateRangePicker.DateRange>();
+
+				DateTimeOffset today = DateTimeOffset.Now.Date;
+
+				result[StringLocalizer["Today"]] = new BlazorDateRangePicker.DateRange { Start = today, End = default };
+			}
+
+			return result;
+		}
+
 	}
 }

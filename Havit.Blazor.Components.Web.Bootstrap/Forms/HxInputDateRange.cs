@@ -42,10 +42,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if ((dateRanges != null) && dateRanges.Any())
 			{
 				builder.AddAttribute(2003, nameof(BlazorDateRangePicker.DateRangePicker.Ranges), dateRanges);
-				builder.AddAttribute(2004, nameof(BlazorDateRangePicker.DateRangePicker.AlwaysShowCalendars), true);
-				builder.AddAttribute(2005, nameof(BlazorDateRangePicker.DateRangePicker.ShowCustomRangeLabel), false);
-				builder.AddAttribute(2006, nameof(BlazorDateRangePicker.DateRangePicker.OnRangeSelect), EventCallback.Factory.Create<BlazorDateRangePicker.DateRange>(this, HandleRangeSelected));
-				builder.AddAttribute(2007, nameof(BlazorDateRangePicker.DateRangePicker.AutoApply), true);
+				builder.AddAttribute(2004, nameof(BlazorDateRangePicker.DateRangePicker.OnRangeSelect), EventCallback.Factory.Create<BlazorDateRangePicker.DateRange>(this, HandleRangeSelected));
 			}
 		}
 
