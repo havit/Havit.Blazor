@@ -1,4 +1,4 @@
-.drawer {
+.hx-drawer {
   position: fixed;
   height: 100vh;
   top: 0;
@@ -10,19 +10,19 @@
   flex-direction: column;
 }
 
-.drawer.drawer-sm {
+.hx-drawer.hx-drawer-sm {
   width: var(--drawer-sm-width);
 }
 
-.drawer.drawer-lg {
+.hx-drawer.hx-drawer-lg {
   width: var(--drawer-lg-width);
 }
 
-.drawer-body {
+.hx-drawer-body {
   flex: 1 0 auto;
 }
 
-.drawer.show {
+.hx-drawer.show {
   right: 0;
   box-shadow: var(--drawer-box-shadow);
 }
@@ -31,9 +31,9 @@
   right: calc(-1 * var(--drawer-width));
 }
 
-.drawer-sm.hide {
+.hx-drawer-sm.hide {
   right: calc(-1 * var(--drawer-sm-width));
 }
-.drawer-lg.hide {
+.hx-drawer-lg.hide {
   right: calc(-1 * var(--drawer-lg-width));
 }

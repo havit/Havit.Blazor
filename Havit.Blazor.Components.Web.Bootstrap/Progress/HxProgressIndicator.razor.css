@@ -1,10 +1,5 @@
-﻿.indicator {
+﻿.hx-progress-indicator {
     z-index: 1090;
     width: 55px;
     height: 55px;
-}
-
-.spinner-border {
-    width: 2.25rem;
-    height: 2.25rem;
 }

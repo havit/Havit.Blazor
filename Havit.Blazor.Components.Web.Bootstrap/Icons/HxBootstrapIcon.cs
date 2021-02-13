@@ -11,32 +11,32 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	/// <summary>
-	/// Displays bootstrap icon. See https://icons.getbootstrap.com/.
-	/// </summary>
-	internal class HxBootstrapIcon : ComponentBase
-	{
-		/// <summary>
-		/// Icon to display.
-		/// </summary>
-		[Parameter] public BootstrapIcon Icon { get; set; }
+    /// <summary>
+    /// Displays bootstrap icon. See https://icons.getbootstrap.com/.
+    /// </summary>
+    internal class HxBootstrapIcon : ComponentBase
+    {
+        /// <summary>
+        /// Icon to display.
+        /// </summary>
+        [Parameter] public BootstrapIcon Icon { get; set; }
 
-		/// <summary>
-		/// CSS Class to combine with basic icon CSS class.
-		/// </summary>
-		[Parameter]	public string CssClass { get; set; }
+        /// <summary>
+        /// CSS Class to combine with basic icon CSS class.
+        /// </summary>
+        [Parameter] public string CssClass { get; set; }
 
-		/// <inheritdoc />
-		protected override void BuildRenderTree(RenderTreeBuilder builder)
-		{
-			// no base call
+        /// <inheritdoc />
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            // no base call
 
-			// https://icons.getbootstrap.com/
+            // https://icons.getbootstrap.com/
 
-			builder.OpenElement(0, "i");
-			builder.AddAttribute(1, "class", CssClassHelper.Combine("bi-" + Icon.Name, CssClass));
+            builder.OpenElement(0, "i");
+            builder.AddAttribute(1, "class", CssClassHelper.Combine("hx-icon", "bi-" + Icon.Name, CssClass));
 
-			builder.CloseElement(); // svg
-		}
-	}
+            builder.CloseElement(); // svg
+        }
+    }
 }

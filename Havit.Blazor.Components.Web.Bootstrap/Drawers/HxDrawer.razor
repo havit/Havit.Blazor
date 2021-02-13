@@ -1,8 +1,8 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap
-<div class="@CssClassHelper.Combine("drawer", GetSizeCssClass(), GetOpenCssClass())">
+<div class="@CssClassHelper.Combine("hx-drawer", GetSizeCssClass(), GetOpenCssClass())">
 	@if (IsOpen)
 	{
-		<div class="drawer-header pt-4 px-4 d-flex align-items-center">
+		<div class="hx-drawer-header pt-4 px-4 d-flex align-items-center">
 			<div class="fs-4">
                 @HeaderText
 			    @HeaderTemplate
@@ -11,11 +11,11 @@
 		</div>
 		@if (BodyTemplate != null)
 		{
-			<div class="drawer-body p-4">@BodyTemplate</div>
+			<div class="hx-drawer-body p-4">@BodyTemplate</div>
 		}
 		@if (FooterTemplate != null)
 		{
-			<div class="drawer-footer pb-4 px-4">@FooterTemplate</div>
+			<div class="hx-drawer-footer pb-4 px-4">@FooterTemplate</div>
 		}
 	}
 </div>

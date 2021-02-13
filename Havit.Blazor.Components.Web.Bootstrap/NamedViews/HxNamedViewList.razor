@@ -3,7 +3,7 @@
 
 @if ((NamedViews != null) && NamedViews.Any())
 {
-	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+	<div class="hx-named-view dropdown-menu" aria-labelledby="dropdownMenuLink">
 		@*TODO: Nic jako prázdná položka asi nechceme*@
 		@foreach (Havit.Blazor.Components.Web.Bootstrap.NamedView<TFilterType> namedView in NamedViews)
 		{

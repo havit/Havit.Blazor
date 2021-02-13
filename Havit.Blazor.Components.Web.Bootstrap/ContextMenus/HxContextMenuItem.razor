@@ -1,11 +1,11 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-<li>
+<li class="hx-context-menu-item">
 	<a class="dropdown-item" role="button" @onclick="HandleClick" @onclick:stopPropagation="@OnClickStopPropagation">
 		@if (Icon != null)
 		{
-			<HxIcon Icon="Icon" CssClass="me-2" />
+	  <HxIcon Icon="Icon" CssClass="me-2" />
 		}
-		@Text
-		@ChildContent
-	</a>
+  @Text
+  @ChildContent
+ </a>
 </li>
