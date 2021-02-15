@@ -137,18 +137,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
 		{
+			CultureInfo culture = CultureInfo.CurrentCulture;
+
+			string workingValue = value;
+
+			// replace . with ,
+			if ((culture.NumberFormat.NumberDecimalSeparator == ",") // when decimal separator is ,
+				&& (culture.NumberFormat.NumberGroupSeparator != ".")) // and . is NOT used as group separator)
+			{
+				workingValue = workingValue.Replace(".", ",");
+			}
+
 			// omezení počtu desetinných míst
 			// pro komplikace s tím, že máme TValue a s ním se dost těžko pracuje se omezíme na řešení a úpravu vstupních dat před konverzí do cílového typu
 
-			string roundedValue = value;
-			if (Decimal.TryParse(value, IsTValueIntegerType ? NumberStyles.Integer : NumberStyles.Float, CultureInfo.CurrentCulture, out decimal parsedValue))
+			if (Decimal.TryParse(value, IsTValueIntegerType ? NumberStyles.Integer : NumberStyles.Float, culture, out decimal parsedValue))
 			{
-				roundedValue = Math.Round(parsedValue, DecimalsEffective, MidpointRounding.AwayFromZero).ToString(CultureInfo.CurrentCulture);
+				workingValue = Math.Round(parsedValue, DecimalsEffective, MidpointRounding.AwayFromZero).ToString(culture);
 			}
 
 			// konverze do cílového typu
 
-			if (BindConverter.TryConvertTo<TValue>(roundedValue, CultureInfo.CurrentCulture, out result))
+			if (BindConverter.TryConvertTo<TValue>(workingValue, culture, out result))
 			{
 				// pokud došlo jen ke změně bez změny hodnoty (třeba z 5.50 na 5.5), chceme hodnotu převést na korektní formát (5.5 na 5.50).
 				// Nestačí však StateHasChange, viz komentář v BuildRenderInput.
