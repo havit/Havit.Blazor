@@ -10,8 +10,9 @@ namespace BlazorAppTest.Pages
 {
 	public partial class FilterContextTest
 	{
-		protected FormModel model = new FormModel();
-		
+		protected FormModel model = new FormModel { Text1 = "initial value" };
+		private HxGrid<CultureInfo> myGrid;
+
 		private FilterContext<FormModel> filterContext;
 		private ChipItem[] chips;
 
@@ -23,7 +24,6 @@ namespace BlazorAppTest.Pages
 		private void HandleChipsUpdated(ChipItem[] chips)
 		{
 			this.chips = chips;
-			StateHasChanged();
 		}
 
 		private void HandleChipRemoveClick(ChipItem chipToRemove)
@@ -49,5 +49,25 @@ namespace BlazorAppTest.Pages
 			}
 		}
 		#endregion
+
+		private async Task HandleModelChanged(FormModel newModel)
+		{
+			model = newModel;
+			//StateHasChanged();
+			await myGrid.RefreshDataAsync();
+		}
+
+		private List<CultureInfo> GetCultureInfos()
+		{
+			return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).Skip(0).ToList();
+		}
+
+		private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+		{
+			await Task.Delay(3000); // simulate server call
+
+			var cultures = GetCultureInfos();
+			return request.ApplyTo(cultures);
+		}
 	}
 }

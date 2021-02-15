@@ -37,14 +37,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		// TODO: Do by šlo hezky do bázové třídy :-)
-		public Task<ChipItem[]> GetChipsAsync()
+		public async Task<ChipItem[]> GetChipsAsync()
 		{
+			await Task.Delay(100);
+
 			if (String.IsNullOrEmpty(CurrentValueAsString))
 			{
-				return Task.FromResult(new ChipItem[0]);
+				return new ChipItem[0];
 			}
 
-			return Task.FromResult(new[]
+			return new[]
 			{
 				new ChipItem
 				{
@@ -52,19 +54,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					ChipTemplate = RenderFragmentBuilder.CreateFrom(Label + ":" + CurrentValueAsString, null),
 					CanBeRemoved = true
 				}
-			});
+			};
 		}
 
-		public Task<bool> TryRemoveChipAsync(ChipItem chipToRemove)
+		public async Task<bool> TryRemoveChipAsync(ChipItem chipToRemove)
 		{
+			await Task.Delay(100);
+
 			// TODO: Možná ještě budeme porovnávat podle jiného klíče, zvalidovat možnost Expression?
 			if (!EqualityComparer<FieldIdentifier>.Default.Equals(chipToRemove.FieldIdentifier, default) && String.Equals(this.FieldIdentifier.FieldName, chipToRemove.FieldIdentifier.FieldName, StringComparison.OrdinalIgnoreCase))
 			{
 				CurrentValue = String.Empty;
-				Task.FromResult(true);
+				return true;
 			}
 
-			return Task.FromResult(false);
+			return false;
 		}
 
 		public void Dispose()

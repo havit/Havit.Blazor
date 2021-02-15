@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public class ChipItem
 	{
-		public FieldIdentifier FieldIdentifier { get; init; }
+		public FieldIdentifier FieldIdentifier { get; init; } // TODO: Do potomka?
 		public RenderFragment ChipTemplate { get; init; }
 		public bool CanBeRemoved { get; init; } = false;
 	}
