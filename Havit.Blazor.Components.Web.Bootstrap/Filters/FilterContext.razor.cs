@@ -26,7 +26,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Inject] public ILogger<FilterContext<TModel>> Logger { get; set; }
 
 		private TModel modelInEdit;
-		private TModel modelInEditStash;
 		private TModel previousModel;
 		private List<IHxChipGenerator> chipGenerators;
 		private CollectionRegistration<IHxChipGenerator> chipGeneratorsRegistration;
@@ -77,19 +76,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			Logger.LogDebug("UpdateModelAsync - NotifyChipsUpdated");
 			//await NotifyChipsUpdated();
 
-			// if there is a stashed modelInEdit (from RemoveChipt), let's get it back			
-			if (!EqualityComparer<TModel>.Default.Equals(modelInEditStash, default))
-			{
-				Logger.LogDebug("UpdateModelAsync - restore model from stash");
-				modelInEdit = modelInEditStash;
-				modelInEditStash = default;
-			}
-			else
-			{
-				Logger.LogDebug("UpdateModelAsync - cloning model");
-				modelInEdit = CloneModel(Model);
-			}
-				StateHasChanged();
+			modelInEdit = CloneModel(Model);
+			StateHasChanged();
 		}
 
 		private async Task NotifyChipsUpdated()
@@ -120,8 +108,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public void RemoveChip(ChipItem chipToRemove)
 		{
 			Logger.LogDebug("RemoveChip");
-			// Stashes the current modelInEdit. We will modify the modelInEdit on the next line. This stashing allows us to get the modelInEdit back. And this returns back users valid inputs.
-//			modelInEditStash = modelInEdit;
 			// starts to edit the Model (the clone, to be prcise)
 			modelInEdit = CloneModel(Model);
 			// notify we need to remove chip in OnAfterRender
