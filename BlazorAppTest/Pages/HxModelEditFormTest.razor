@@ -1,0 +1,28 @@
+﻿@page "/HxModelEditFormTest"
+
+<h1>HxModelEditFormTest</h1>
+
+<HxModelEditForm @bind-Model="@model">
+	<HxInputText @bind-Value="@context.Text1" BindEvent="BindEvent.OnInput" />
+	<HxSubmit Color="ThemeColor.Primary">Submit</HxSubmit>
+
+	<p>Value in @@context: @context.Text1</p>
+	<p>Value in @@model: @model.Text1</p>
+</HxModelEditForm>
+
+@code {
+	private FormModel model = new FormModel();
+
+	private class FormModel : ICloneable
+	{
+		public string Text1 { get; set; }
+
+        public object Clone()
+        {
+            return new FormModel
+            {
+                Text1 = this.Text1
+            };
+        }
+	}
+}
