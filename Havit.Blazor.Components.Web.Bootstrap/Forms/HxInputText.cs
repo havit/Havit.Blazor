@@ -27,7 +27,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		private protected override string GetTypeAttributeValue() => Type.ToString().ToLower();
 		
-		[CascadingParameter(Name = FilterContext<object>.ChipGeneratorRegistrationCascadingValueName)] public CollectionRegistration<IHxChipGenerator> ChipGeneratorsRegistration { get; set; }
+		[CascadingParameter(Name = HxFilterForm<object>.ChipGeneratorRegistrationCascadingValueName)] public CollectionRegistration<IHxChipGenerator> ChipGeneratorsRegistration { get; set; }
 
 		/// <inheritdoc />
 		protected override void OnInitialized()

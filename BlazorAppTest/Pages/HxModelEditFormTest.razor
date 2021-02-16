@@ -1,8 +1,12 @@
 ﻿@page "/HxModelEditFormTest"
+@using System.ComponentModel.DataAnnotations
 
 <h1>HxModelEditFormTest</h1>
 
 <HxModelEditForm @bind-Model="@model">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+
 	<HxInputText @bind-Value="@context.Text1" BindEvent="BindEvent.OnInput" />
 	<HxSubmit Color="ThemeColor.Primary">Submit</HxSubmit>
 
@@ -15,14 +19,9 @@
 
 	private class FormModel : ICloneable
 	{
+		[Required]
 		public string Text1 { get; set; }
 
-        public object Clone()
-        {
-            return new FormModel
-            {
-                Text1 = this.Text1
-            };
-        }
+        public object Clone() => MemberwiseClone();
 	}
 }

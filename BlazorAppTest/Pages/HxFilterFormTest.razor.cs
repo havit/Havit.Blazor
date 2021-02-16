@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace BlazorAppTest.Pages
 {
-	public partial class FilterContextTest
+	public partial class HxFilterFormTest
 	{
 		protected FormModel model = new FormModel { Text1 = "initial value" };
 		private HxGrid<CultureInfo> myGrid;
 
-		private FilterContext<FormModel> filterContext;
+		private HxFilterForm<FormModel> filterContext;
 		private ChipItem[] chips;
 
 		private async Task HandleApplyClick()

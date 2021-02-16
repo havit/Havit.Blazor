@@ -1,31 +1,29 @@
-﻿@page "/FilterContextTest"
+﻿@page "/HxFilterFormTest"
 @using System.Globalization;
 
 <h1>FilterContext</h1>
 
-<FilterContext @ref="filterContext" Context="modelContext" Model="@model" ModelChanged="HandleModelChanged" TModel="FormModel" OnChipsUpdated="HandleChipsUpdated">
-	<EditForm Model="@modelContext">
-		<DataAnnotationsValidator />
-		<ValidationSummary />
+<HxFilterForm @ref="filterContext" Model="@model" ModelChanged="HandleModelChanged" TModel="FormModel" OnChipsUpdated="HandleChipsUpdated">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
 
-		<h2>Filter</h2>
+	<h2>Filter</h2>
 
-		<HxInputText Label="Text1" @bind-Value="@modelContext.Text1" />
-		<HxInputText Label="Text2" @bind-Value="@modelContext.Text2" />
-		<HxInputText Label="Text3" @bind-Value="@modelContext.Text3" />
+	<HxInputText Label="Text1" @bind-Value="@context.Text1" />
+	<HxInputText Label="Text2" @bind-Value="@context.Text2" />
+	<HxInputText Label="Text3" @bind-Value="@context.Text3" />
 
-		<HxButton Skin="ButtonSkins.Apply" OnClick="HandleApplyClick" />
+	<HxButton Skin="ButtonSkins.Apply" OnClick="HandleApplyClick" />
 
-		<h2>Values</h2>
+	<h2>Values</h2>
 
-		<h3>Values in filter</h3>
-		<ul>
-			<li>Text1: @modelContext.Text1</li>
-			<li>Text2: @modelContext.Text2</li>
-			<li>Text3: @modelContext.Text3</li>
-		</ul>
-	</EditForm>
-</FilterContext>
+	<h3>Values in filter</h3>
+	<ul>
+		<li>Text1: @context.Text1</li>
+		<li>Text2: @context.Text2</li>
+		<li>Text3: @context.Text3</li>
+	</ul>
+</HxFilterForm>
 
 <h3>Values in model</h3>
 <ul>
