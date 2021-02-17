@@ -23,6 +23,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string ParsingErrorMessage { get; set; }
 
+		private bool forceRenderValue = false;
+		private int valueSequenceOffset = 0;
+
 		/// <inheritdoc />
 		protected override sealed void BuildRenderInput(RenderTreeBuilder builder)
 		{
@@ -36,16 +39,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.OpenElement(0, "input");
 				BuildRenderInput_AddCommonAttributes(builder, "text"); // id, type, attributes (ale jiné)
 
-				builder.AddAttribute(1000, "value", CurrentValueAsString);
-				builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+				builder.AddAttribute(1000, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 				
-				builder.AddAttribute(1002, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
+				builder.AddAttribute(1001, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
 
-				builder.AddAttribute(1003, "onfocusin", EventCallback.Factory.Create(this, dateRangePicker.Open));
-				builder.AddAttribute(1004, "onfocusout", EventCallback.Factory.Create(this, dateRangePicker.LostFocus));
-
+				builder.AddAttribute(1002, "onfocusin", EventCallback.Factory.Create(this, dateRangePicker.Open));
+				builder.AddAttribute(1003, "onfocusout", EventCallback.Factory.Create(this, dateRangePicker.LostFocus));
 				builder.AddEventStopPropagationAttribute(1004, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputDate nastavitelné?
-				
+
+				// Počítané hodnoty sekvence jsou proti smyslu sekvencí a proti veškerým obecným doporučením.
+				// Zde chceme dosáhnout toho, aby při změně uživatelského vstupu, došlo k přerenderování hodnoty, přestože se nezměnila hodnota FormatValueAsString(Value).
+				// Důvodem je scénář, kdy se zobrazí hodnota například "1.1.2020", ale uživatel ji změní na "01.1.2020". V takové situaci se nezmění CurrentValueAsString,
+				// takže atribut není vyrenderován a zůstává uživatelský vstup, tedy "01.1.2020".
+				// Více viz obdobný komentář v HxInputNumber.
+
+				checked
+				{
+					if (forceRenderValue)
+					{
+						valueSequenceOffset++;
+						forceRenderValue = false;
+					}
+					builder.AddAttribute(1005 + valueSequenceOffset, "value", CurrentValueAsString);
+				}
+
+
 				builder.CloseElement();
 			};
 
@@ -65,6 +83,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private protected abstract void BuildRenderInput_DateRangePickerAttributes(RenderTreeBuilder builder);
 
+		protected override sealed bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
+		{
+			bool success = TryParseValueFromStringCore(value, out result, out validationErrorMessage);
+			if (success && (FormatValueAsString(result) != value))
+			{
+				forceRenderValue = true;
+			}
+			return success;
+		}
+
+		protected abstract bool TryParseValueFromStringCore(string value, out TValue result, out string validationErrorMessage);
 
 		/// <summary>
 		/// Returns message for parsing error.

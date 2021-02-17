@@ -117,7 +117,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			// Zde chceme dosáhnout toho, aby při změně uživatelského vstupu, došlo k přerenderování hodnoty, přestože se nezměnila hodnota FormatValueAsString(Value).
 			// Důvodem je scénář, kdy se zobrazí hodnota například "1.00", ale uživatel ji změní na "1.0". V takové situaci se nezmění FormatValueAsString(Value),
 			// takže atribut není vyrenderován a zůstává uživatelský vstup, tedy "1.0".
-			// Jako řešení tedy použijeme hodnotu sequence 2000, 2001, 2002, čímž přimějeme Blazor, aby hodnotu přeci jen vyrenderovat (nezmění se hodnota, ale sequence).
+			// Jako řešení tedy použijeme hodnotu sequence 1005, 1006, 1007, čímž přimějeme Blazor, aby hodnotu přeci jen vyrenderovat (nezmění se hodnota, ale sequence).
 			// Zároveň ale nechceme, aby každý input se pořád znovu a znovu renderoval, takže sequence změníme jen když chceme vynutit vyrenderování hodnoty.
 			// (Původně jsem chtěl, aby se použili sequence 1000 a 1001, které se budou přepínat, avšak toto nefunguje - při přechodu z 1001 na 1000 nejspíš Blazor 
 			// nejprve (sequence 1000) přijde na to, že má value přidat a poté (sequence 1001), že má value odebrat a tak výsledkem je mizející hodnota z inputu).

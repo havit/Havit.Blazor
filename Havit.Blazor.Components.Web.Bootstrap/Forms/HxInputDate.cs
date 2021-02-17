@@ -135,7 +135,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
+		protected override bool TryParseValueFromStringCore(string value, out TValue result, out string validationErrorMessage)
 		{
 			bool success = TryParseDateTimeOffsetFromString(value, CultureInfo.CurrentCulture, out DateTimeOffset? parsedValue);
 

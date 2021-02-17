@@ -81,7 +81,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		#region TryParseValueFromString
 		/// <inheritdoc />
-		protected override bool TryParseValueFromString(string value, out DateTimeRange result, out string validationErrorMessage)
+		protected override bool TryParseValueFromStringCore(string value, out DateTimeRange result, out string validationErrorMessage)
 		{
 			if (String.IsNullOrWhiteSpace(value))
 			{
