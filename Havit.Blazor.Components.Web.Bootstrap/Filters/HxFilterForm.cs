@@ -71,7 +71,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			// starts to edit the Model (the clone, to be precise)
 			TModel newModelInEdit = CloneModel(Model);
-			chipToRemove.RemoveCallback(newModelInEdit); // process the chip removal
+			chipToRemove.RemoveAction(newModelInEdit); // process the chip removal
 			ModelInEdit = newModelInEdit; // place the model to the edit
 
 			// propagate the model in edit to the Model and notify model changed

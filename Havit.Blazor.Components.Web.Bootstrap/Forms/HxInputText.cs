@@ -14,7 +14,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Text input (also password, search, etc.)
 	/// </summary>
-	public class HxInputText : HxInputTextBase, IHxChipGenerator, IDisposable
+	public class HxInputText : HxInputTextBase
 	{
 		/// <summary>
 		/// Input type.
@@ -27,32 +27,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		private protected override string GetTypeAttributeValue() => Type.ToString().ToLower();
 		
-		[CascadingParameter(Name = HxFilterForm<object>.ChipGeneratorRegistrationCascadingValueName)] public CollectionRegistration<IHxChipGenerator> ChipGeneratorsRegistration { get; set; }
-
-		/// <inheritdoc />
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
-			ChipGeneratorsRegistration?.Register(this);
-		}
-
-		// TODO: Do by šlo hezky do bázové třídy :-)
-		public IEnumerable<ChipItem> GetChips()
-		{
-			if (!String.IsNullOrEmpty(CurrentValueAsString))
-			{
-				yield return new ChipItem
-				{
-					ChipTemplate = RenderFragmentBuilder.CreateFrom(Label + ":" + CurrentValueAsString, null),
-					Removable = true,
-					RemoveCallback = (model) => model.GetType().GetProperty(this.FieldIdentifier.FieldName).SetValue(model, String.Empty)
-				};
-			}
-		}
-
-		public void Dispose()
-		{
-			ChipGeneratorsRegistration?.Unregister(this);
-		}
+		
 	}
 }

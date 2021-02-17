@@ -23,10 +23,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public bool Removable { get; init; } = false;
 
 		/// <summary>
-		/// Remove callback called when chip should be removed.
+		/// Remove action called when chip should be removed.
 		/// It receives the model from which the chip should be removed.
 		/// It is not the same instance as the one from which the chip was generated!
 		/// </summary>
-		public Action<object> RemoveCallback { get; init; }
+		public Action<object> RemoveAction { get; init; }
 	}
 }

@@ -68,6 +68,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool ShowValidationMessage { get; set; } = true;
 
+		/// <summary>
+		/// When true, HxChipGenerator is used to generate chip item(s). Default is <c>true</c>.
+		/// </summary>
+		[Parameter] public bool GenerateChip { get; set; } = true;
+
+		/// <summary>
+		/// Chip template.
+		/// </summary>
+		[Parameter] public RenderFragment ChipTemplate { get; set; }
+
 		/// <inheritdoc />
 		[Parameter] public bool? Enabled { get; set; }
 
@@ -202,6 +212,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				builder.CloseElement();
 			}
+
+			if (GenerateChip)
+			{
+				builder.OpenRegion(10);
+				RenderChipGenerator(builder);
+				builder.CloseRegion();
+			}
 		}
 
 		/// <summary>
@@ -300,6 +317,50 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.For), ValueExpression);
 				builder.CloseComponent();
 			}
+		}
+
+		/// <summary>
+		/// Renders chip generator.
+		/// </summary>
+		protected virtual void RenderChipGenerator(RenderTreeBuilder builder)
+		{
+			if (!EqualityComparer<TValue>.Default.Equals(CurrentValue, default(TValue))) // TODO: virtual method
+			{
+				builder.OpenComponent<HxChipGenerator>(0);
+				builder.AddAttribute(1, nameof(HxChipGenerator.ChildContent), (RenderFragment)GetChipTemplate);
+				builder.AddAttribute(2, nameof(HxChipGenerator.ChipRemoveAction), GetChipRemoveAction());
+				
+				builder.CloseComponent();
+			}
+		}
+
+		/// <summary>
+		/// Returns chip template.
+		/// </summary>
+		/// <param name="builder"></param>
+		protected void GetChipTemplate(RenderTreeBuilder builder)
+		{
+			if (ChipTemplate != null)
+			{
+				builder.AddContent(0, ChipTemplate);
+			}
+			else
+			{				
+				builder.AddContent(1, Label);
+				builder.AddContent(2, ": ");
+				builder.AddContent(3, CurrentValueAsString);
+			}
+		}
+
+		/// <summary>
+		/// Returns action to remove chip from model.
+		/// </summary>
+		protected virtual Action<object> GetChipRemoveAction()
+		{
+			string fieldName = this.FieldIdentifier.FieldName; // carefully! don't use this in lambda below to allow it for GC
+			Action<object> removeAction = (model) => model.GetType().GetProperty(fieldName).SetValue(model, default(TValue));
+
+			return removeAction;
 		}
 
 		/// <summary>

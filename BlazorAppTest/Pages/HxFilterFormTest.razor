@@ -10,8 +10,12 @@
 	<h2>Filter</h2>
 
 	<HxInputText Label="Text1" @bind-Value="@context.Text1" />
-	<HxInputText Label="Text2" @bind-Value="@context.Text2" />
-	<HxInputText Label="Text3" @bind-Value="@context.Text3" />
+	<HxInputText Label="Text2" @bind-Value="@context.Text2">
+		<ChipTemplate>
+			Haha! There is also a chip with custom template! (value @context.Text2)
+		</ChipTemplate> 
+	</HxInputText>
+	<HxInputNumber Label="Number 1" @bind-Value="@context.Number1" />
 
 	<HxSubmit Skin="ButtonSkins.Apply" />
 
@@ -21,7 +25,7 @@
 	<ul>
 		<li>Text1: @context.Text1</li>
 		<li>Text2: @context.Text2</li>
-		<li>Text3: @context.Text3</li>
+		<li>Number1: @context.Number1</li>
 	</ul>
 </HxFilterForm>
 
@@ -29,7 +33,7 @@
 <ul>
 	<li>Text1: @model.Text1</li>
 	<li>Text2: @model.Text2</li>
-	<li>Text3: @model.Text3</li>
+	<li>Text3: @model.Number1</li>
 </ul>
 
 <h4>Chips</h4>

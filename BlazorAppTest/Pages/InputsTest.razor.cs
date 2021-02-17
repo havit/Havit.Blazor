@@ -9,9 +9,9 @@ namespace BlazorAppTest.Pages
 {
 	public partial class InputsTest
 	{
-		protected FormModel Model { get; } = new FormModel();
+		private FormModel model { get; set; } = new FormModel();
 
-		public class FormModel
+		public class FormModel : ICloneable
 		{
 			[Required]
 			[MaxLength(50)]
@@ -38,6 +38,8 @@ namespace BlazorAppTest.Pages
 			public bool BoolValue { get; set; }
 
 			public Havit.Blazor.Components.Web.Bootstrap.DateTimeRange DateRange { get; set; }
+
+			object ICloneable.Clone() => MemberwiseClone();
 		}
 	}
 }
