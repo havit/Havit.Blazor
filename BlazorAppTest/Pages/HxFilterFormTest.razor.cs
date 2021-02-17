@@ -11,24 +11,19 @@ namespace BlazorAppTest.Pages
 	public partial class HxFilterFormTest
 	{
 		protected FormModel model = new FormModel { Text1 = "initial value" };
-		private HxGrid<CultureInfo> myGrid;
+		private HxGrid<string> myGrid;
 
-		private HxFilterForm<FormModel> filterContext;
+		private HxFilterForm<FormModel> filterForm;
 		private ChipItem[] chips;
-
-		private async Task HandleApplyClick()
-		{
-			await filterContext.UpdateModelAsync();
-		}
 
 		private void HandleChipsUpdated(ChipItem[] chips)
 		{
 			this.chips = chips;
 		}
 
-		private void HandleChipRemoveClick(ChipItem chipToRemove)
+		private async Task HandleChipRemoveClick(ChipItem chipToRemove)
 		{
-			@filterContext.RemoveChip(chipToRemove);
+			await filterForm.RemoveChipAsync(chipToRemove);
 		}
 
 		#region Nested class FormModel
@@ -57,17 +52,15 @@ namespace BlazorAppTest.Pages
 			await myGrid.RefreshDataAsync();
 		}
 
-		private List<CultureInfo> GetCultureInfos()
-		{
-			return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).Skip(0).ToList();
-		}
-
-		private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+		private async Task<GridDataProviderResult<string>> GridDataProvider(GridDataProviderRequest<string> request)
 		{
 			await Task.Delay(3000); // simulate server call
 
-			var cultures = GetCultureInfos();
-			return request.ApplyTo(cultures);
+			var stringValues = new List<string>();
+			stringValues.Add(model.Text1);
+			stringValues.Add(model.Text2);
+			stringValues.Add(model.Text3);
+			return request.ApplyTo(stringValues);
 		}
 	}
 }

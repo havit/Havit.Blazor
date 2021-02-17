@@ -3,7 +3,7 @@
 
 <h1>FilterContext</h1>
 
-<HxFilterForm @ref="filterContext" Model="@model" ModelChanged="HandleModelChanged" TModel="FormModel" OnChipsUpdated="HandleChipsUpdated">
+<HxFilterForm @ref="filterForm" Model="@model" ModelChanged="HandleModelChanged" TModel="FormModel" OnChipsUpdated="HandleChipsUpdated">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 
@@ -13,7 +13,7 @@
 	<HxInputText Label="Text2" @bind-Value="@context.Text2" />
 	<HxInputText Label="Text3" @bind-Value="@context.Text3" />
 
-	<HxButton Skin="ButtonSkins.Apply" OnClick="HandleApplyClick" />
+	<HxSubmit Skin="ButtonSkins.Apply" />
 
 	<h2>Values</h2>
 
@@ -36,9 +36,8 @@
 
 <HxChipList Chips="@chips" OnChipRemoveClick="HandleChipRemoveClick" />
 
-<HxGrid @ref="myGrid" TItemType="CultureInfo" DataProvider="@ClientCultureInfosDataProvider">
+<HxGrid @ref="myGrid" TItemType="string" DataProvider="@GridDataProvider">
 	<Columns>
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+		<HxGridColumn TItemType="string" HeaderText="Value" ItemTextSelector="(item) => item" />
 	</Columns>
 </HxGrid>
