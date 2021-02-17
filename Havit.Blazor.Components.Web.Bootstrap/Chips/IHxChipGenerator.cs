@@ -7,6 +7,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public interface IHxChipGenerator
 	{
 		Task<ChipItem[]> GetChipsAsync();
-		Task<bool> TryRemoveChipAsync(ChipItem chipItemToRemove);
 	}
 }

@@ -43,32 +43,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (String.IsNullOrEmpty(CurrentValueAsString))
 			{
-				return new ChipItem[0];
+				return null;
 			}
 
 			return new[]
 			{
 				new ChipItem
 				{
-					FieldIdentifier = this.FieldIdentifier,
 					ChipTemplate = RenderFragmentBuilder.CreateFrom(Label + ":" + CurrentValueAsString, null),
-					CanBeRemoved = true
+					Removable = true,
+					RemoveCallback = (model) => model.GetType().GetProperty(this.FieldIdentifier.FieldName).SetValue(model, String.Empty)
 				}
 			};
-		}
-
-		public async Task<bool> TryRemoveChipAsync(ChipItem chipToRemove)
-		{
-			await Task.Delay(100);
-
-			// TODO: Možná ještě budeme porovnávat podle jiného klíče, zvalidovat možnost Expression?
-			if (!EqualityComparer<FieldIdentifier>.Default.Equals(chipToRemove.FieldIdentifier, default) && String.Equals(this.FieldIdentifier.FieldName, chipToRemove.FieldIdentifier.FieldName, StringComparison.OrdinalIgnoreCase))
-			{
-				CurrentValue = String.Empty;
-				return true;
-			}
-
-			return false;
 		}
 
 		public void Dispose()

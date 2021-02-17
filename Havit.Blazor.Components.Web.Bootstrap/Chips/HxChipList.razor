@@ -5,11 +5,11 @@
 	{
 		<span class="hx-chip badge bg-secondary">
 			@chipItem.ChipTemplate
-			@if (chipItem.CanBeRemoved)
+			@if (chipItem.Removable)
 			{
-			<span role="button" @onclick="() => HandleRemoveClick(chipItem)" @onclick:stopPropagation>
-				<HxIcon Icon="BootstrapIcon.X" />
-			</span>
+				<span role="button" @onclick="() => HandleRemoveClick(chipItem)" @onclick:stopPropagation>
+					<HxIcon Icon="BootstrapIcon.X" />
+				</span>
 			}
 		</span>
 	 }

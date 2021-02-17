@@ -20,7 +20,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private List<IHxChipGenerator> chipGenerators;
 		private CollectionRegistration<IHxChipGenerator> chipGeneratorsRegistration;
 		private bool isDisposed = false;
-		private ChipItem chipToRemoveAfterRender;
 		private bool notifyChipsUpdatedAfterRender;
 
 		public HxFilterForm()
@@ -37,11 +36,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		public override async Task UpdateModelAsync()
 		{
-			await NotifyChipsUpdated();
-			await base.UpdateModelAsync();
+			await NotifyChipsUpdatedAsync();
+			await UpdateModelWithoutChipUpdateAsync();
 		}
 
-		private async Task NotifyChipsUpdated()
+		private async Task UpdateModelWithoutChipUpdateAsync()
+		{
+			await base.UpdateModelAsync(); // call base class!
+		}
+
+		private async Task NotifyChipsUpdatedAsync()
 		{
 			var chips = await GetChipsAsync();
 			await OnChipsUpdated.InvokeAsync(chips);
@@ -53,7 +57,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			foreach (IHxChipGenerator chipGenerator in chipGenerators.ToArray())
 			{
-				result.AddRange(await chipGenerator.GetChipsAsync());
+				var chips = await chipGenerator.GetChipsAsync();
+				if (chips != null)
+				{
+					result.AddRange(chips);
+				}
 			}
 
 			return result.ToArray();
@@ -63,42 +71,30 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Tries to remove chip.
 		/// Execution is postponed to OnAfterRender, so this method cannot have a return value.
 		/// </summary>
-		public void RemoveChip(ChipItem chipToRemove)
+		public Task RemoveChipAsync(ChipItem chipToRemove)
 		{
-			// starts to edit the Model (the clone, to be prcise)
-			ModelInEdit = CloneModel(Model);
-			// notify we need to remove chip in OnAfterRender
-			chipToRemoveAfterRender = chipToRemove;
-			StateHasChanged();
+			// starts to edit the Model (the clone, to be precise)
+			TModel newModelInEdit = CloneModel(Model);
+			chipToRemove.RemoveCallback(newModelInEdit); // process the chip removal
+			ModelInEdit = newModelInEdit; // place the model to the edit
+
+			// propagate the model in edit to the Model and notify model changed
+			// if used with await the chip is removed from UI much later
+			_ = InvokeAsync(UpdateModelWithoutChipUpdateAsync);
+			notifyChipsUpdatedAfterRender = true; // notify the chips update after the model is "rendered"
+
+			return Task.CompletedTask;
 		}
 
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			// if we chould remove chip (we have a Model clone from it should be removed)
-			if (chipToRemoveAfterRender != null)
-			{
-				// Find the chip generator which is responsible for the chip and removes it.
-				// It changes the value in the model.
-				foreach (IHxChipGenerator chipGenerator in this.chipGenerators.ToArray())
-				{
-					if (await chipGenerator.TryRemoveChipAsync(chipToRemoveAfterRender))
-					{
-						break; // shortcut for performance
-					}
-				}
-
-				chipToRemoveAfterRender = null;
-
-				// Notify the model was changed.
-				await UpdateModelAsync();
-			}
-
+		
 			if (notifyChipsUpdatedAfterRender)
 			{
 				notifyChipsUpdatedAfterRender = false;
-				await NotifyChipsUpdated();
+				await NotifyChipsUpdatedAsync();
 			}
 		}
 
