@@ -63,7 +63,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			Model = ModelInEdit; 
 			previousModel = Model; // to suppress cloning Model in OnParametersSet, must be before ModelChanged is invoked!
-			await ModelChanged.InvokeAsync(ModelInEdit);
+			await ModelChanged.InvokeAsync(Model);
 
 			ModelInEdit = CloneModel(ModelInEdit);
 			StateHasChanged(); // we are changing the state - ModelInEdit.

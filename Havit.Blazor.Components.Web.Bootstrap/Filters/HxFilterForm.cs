@@ -48,6 +48,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private async Task NotifyChipsUpdatedAsync()
 		{
 			var chips = GetChips();
+
+			// Generated chips are connected to ModelInEdit.
+			// When the model is changed, the chips are updated.
+			// As a solution we create a new ModelInEdit so the one used for chips in not changed anymore so the chips do not update the content.
+			ModelInEdit = CloneModel(ModelInEdit);
+			StateHasChanged(); // also called from OnAfterRender
+
 			await OnChipsUpdated.InvokeAsync(chips);
 		}
 
