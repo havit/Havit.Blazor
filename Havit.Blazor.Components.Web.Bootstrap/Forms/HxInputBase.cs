@@ -337,7 +337,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns chip template.
 		/// </summary>
-		/// <param name="builder"></param>
 		protected void GetChipTemplate(RenderTreeBuilder builder)
 		{
 			if (ChipTemplate != null)
