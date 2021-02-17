@@ -25,11 +25,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public EventCallback<TModel> ModelChanged { get; set; }
 		
 		/// <summary>
-		/// Invoked when valid form is submitted.
-		/// </summary>
-		[Parameter] public EventCallback<EditContext> OnValidSubmit { get; set; }
-
-		/// <summary>
 		/// Child content.
 		/// </summary>
 		[Parameter] public RenderFragment<TModel> ChildContent { get; set; }
@@ -86,7 +81,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private async Task HandleValidSubmit(EditContext editContext)
 		{
 			await UpdateModelAsync();
-			await OnValidSubmit.InvokeAsync(editContext);
 		}
 
 		internal static TModel CloneModel(TModel modelToClone)
