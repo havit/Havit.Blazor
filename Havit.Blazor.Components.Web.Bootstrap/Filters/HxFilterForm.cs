@@ -47,21 +47,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task NotifyChipsUpdatedAsync()
 		{
-			var chips = await GetChipsAsync();
+			var chips = GetChips();
 			await OnChipsUpdated.InvokeAsync(chips);
 		}
 
-		private async Task<ChipItem[]> GetChipsAsync()
+		private ChipItem[] GetChips()
 		{
 			List<ChipItem> result = new List<ChipItem>();
 
 			foreach (IHxChipGenerator chipGenerator in chipGenerators.ToArray())
 			{
-				var chips = await chipGenerator.GetChipsAsync();
-				if (chips != null)
-				{
-					result.AddRange(chips);
-				}
+				result.AddRange(chipGenerator.GetChips());
 			}
 
 			return result.ToArray();

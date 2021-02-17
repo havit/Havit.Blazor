@@ -37,24 +37,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		// TODO: Do by šlo hezky do bázové třídy :-)
-		public async Task<ChipItem[]> GetChipsAsync()
+		public IEnumerable<ChipItem> GetChips()
 		{
-			await Task.Delay(100);
-
-			if (String.IsNullOrEmpty(CurrentValueAsString))
+			if (!String.IsNullOrEmpty(CurrentValueAsString))
 			{
-				return null;
-			}
-
-			return new[]
-			{
-				new ChipItem
+				yield return new ChipItem
 				{
 					ChipTemplate = RenderFragmentBuilder.CreateFrom(Label + ":" + CurrentValueAsString, null),
 					Removable = true,
 					RemoveCallback = (model) => model.GetType().GetProperty(this.FieldIdentifier.FieldName).SetValue(model, String.Empty)
-				}
-			};
+				};
+			}
 		}
 
 		public void Dispose()
