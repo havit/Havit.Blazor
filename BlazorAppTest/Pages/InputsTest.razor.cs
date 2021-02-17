@@ -9,7 +9,7 @@ namespace BlazorAppTest.Pages
 {
 	public partial class InputsTest
 	{
-		private FormModel model { get; set; } = new FormModel();
+		private FormModel model = new FormModel();
 
 		public class FormModel : ICloneable
 		{
