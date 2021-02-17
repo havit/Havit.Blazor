@@ -66,6 +66,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await ModelChanged.InvokeAsync(ModelInEdit);
 
 			ModelInEdit = CloneModel(ModelInEdit);
+			StateHasChanged(); // we are changing the state - ModelInEdit.
 		}
 
 		/// <inheritdoc />
