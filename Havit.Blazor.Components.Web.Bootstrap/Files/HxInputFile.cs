@@ -20,7 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Gets or sets the event callback that will be invoked when the collection of selected files changes.
 		/// </summary>
-		[Parameter]	public EventCallback<InputFileChangeEventArgs> OnChange { get; set; }
+		[Parameter] public EventCallback<InputFileChangeEventArgs> OnChange { get; set; }
 
 		/// <summary>
 		/// Raised during running file upload (the frequency depends on browser implementation).
@@ -51,6 +51,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Label to render before input (or after input for CheckBox).
 		/// </summary>
 		[Parameter] public RenderFragment LabelTemplate { get; set; }
+
+		/// <summary>
+		/// Hint to render after input as form-text.
+		/// </summary>
+		[Parameter] public string Hint { get; set; }
 
 		/// <summary>
 		/// Hint to render after input as form-text.
@@ -120,7 +125,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			string cssClass = CssClassHelper.Combine(CoreCssClass, CssClass);
 
 			// pokud nemáme css class, label, ani hint, budeme renderovat jako čistý input
-			bool renderDiv = !String.IsNullOrEmpty(cssClass) || !String.IsNullOrEmpty(Label) || (LabelTemplate != null) || (HintTemplate != null);
+			bool renderDiv = !String.IsNullOrEmpty(cssClass)
+				|| !String.IsNullOrEmpty(Label)
+				|| (LabelTemplate != null)
+				|| !String.IsNullOrEmpty(Hint)
+				|| (HintTemplate != null);
 
 			if (renderDiv)
 			{
@@ -202,11 +211,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual void BuildRenderHint(RenderTreeBuilder builder)
 		{
-			if (HintTemplate != null)
+			if (!String.IsNullOrEmpty(Hint) || (HintTemplate != null))
 			{
 				builder.OpenElement(1, "div");
 				builder.AddAttribute(2, "class", CoreHintCssClass);
-				builder.AddContent(3, HintTemplate);
+				builder.AddContent(3, Hint);
+				builder.AddContent(4, HintTemplate);
 				builder.CloseElement();
 			}
 		}

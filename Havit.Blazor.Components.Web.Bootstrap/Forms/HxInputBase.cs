@@ -46,6 +46,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Hint to render after input as form-text.
 		/// </summary>
+		[Parameter] public string Hint { get; set; }
+
+		/// <summary>
+		/// Hint to render after input as form-text.
+		/// </summary>
 		[Parameter] public RenderFragment HintTemplate { get; set; }
 
 		/// <summary>
@@ -150,7 +155,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			string cssClass = CssClassHelper.Combine(CoreCssClass, CssClass);
 
 			// pokud nemáme css class, label, ani hint, budeme renderovat jako čistý input
-			bool renderDiv = !String.IsNullOrEmpty(cssClass) || !String.IsNullOrEmpty(Label) || (LabelTemplate != null) || (HintTemplate != null);
+			bool renderDiv = !String.IsNullOrEmpty(cssClass)
+				|| !String.IsNullOrEmpty(Label)
+				|| (LabelTemplate != null)
+				|| !String.IsNullOrEmpty(Hint)
+				|| (HintTemplate != null);
 
 			// in checkbox label is renderead after input but we need InputId.
 			if (!String.IsNullOrEmpty(Label) || (LabelTemplate != null))
@@ -290,11 +299,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual void BuildRenderHint(RenderTreeBuilder builder)
 		{
-			if (HintTemplate != null)
+			if (!String.IsNullOrEmpty(Hint) || (HintTemplate != null))
 			{
 				builder.OpenElement(1, "div");
 				builder.AddAttribute(2, "class", CoreHintCssClass);
-				builder.AddContent(3, HintTemplate);
+				builder.AddContent(3, Hint);
+				builder.AddContent(4, HintTemplate);
 				builder.CloseElement();
 			}
 		}

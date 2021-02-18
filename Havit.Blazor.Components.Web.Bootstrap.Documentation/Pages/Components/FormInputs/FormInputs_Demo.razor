@@ -1,11 +1,7 @@
 ﻿<EditForm Model="@model">
 	<DataAnnotationsValidator />
 
-	<HxInputText Label="Text" @bind-Value="@model.Text" Placeholder="Enter text here.">
-		<HintTemplate>
-			Enter text, value is shared with all text inputs.
-		</HintTemplate>
-	</HxInputText>
+	<HxInputText Label="Text" @bind-Value="@model.Text" Placeholder="Enter text here." Hint="Enter text, value is shared with all text inputs."/>
 
 	<HxInputText Label="Text (oninput)" @bind-Value="@model.Text" BindEvent="BindEvent.OnInput">
 		<HintTemplate>
@@ -19,9 +15,8 @@
 	<HxInputTextArea Label="TextArea" @bind-Value="@model.Text" />
 
 	<HxInputNumber Label="Integer" @bind-Value="@model.IntegerValue" ParsingErrorMessage="Fix integer value." />
-	<HxInputNumber Label="Integer (nullable)" @bind-Value="@model.NullableIntegerValue" ParsingErrorMessage="Fix nullable integer value.">
-		<InputGroupBeforeTemplate>€</InputGroupBeforeTemplate>
-		<InputGroupAfterTemplate>.00</InputGroupAfterTemplate>
+	<HxInputNumber Label="Integer (nullable)" @bind-Value="@model.NullableIntegerValue" InputGroupStart="€" ParsingErrorMessage="Fix nullable integer value.">
+		<InputGroupEndTemplate>.00</InputGroupEndTemplate>
 	</HxInputNumber>
 	<HxInputNumber Label="Decimal" @bind-Value="@model.DecimalValue" ParsingErrorMessage="Fix decimal value." />
 	<HxInputNumber Label="Decimal (nullable)" @bind-Value="@model.NullableDecimalValue" ParsingErrorMessage="Fix nullable decimal value." />

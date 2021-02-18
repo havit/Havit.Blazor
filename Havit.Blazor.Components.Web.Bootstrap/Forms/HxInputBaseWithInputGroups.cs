@@ -20,14 +20,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public abstract class HxInputBaseWithInputGroups<TValue> : HxInputBase<TValue>, IInputWithSize
 	{
 		/// <summary>
-		/// Input-group before input.
+		/// Input-group at the beginning of the input.
 		/// </summary>
-		[Parameter] public RenderFragment InputGroupBeforeTemplate { get; set; }
+		[Parameter] public string InputGroupStart { get; set; }
 
 		/// <summary>
-		/// Input-group before input.
+		/// Input-group at the beginning of the input.
 		/// </summary>
-		[Parameter] public RenderFragment InputGroupAfterTemplate { get; set; }
+		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public string InputGroupEnd { get; set; }
+
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
 		/// <inheritdoc />
 		[Parameter] public InputSize InputSize { get; set; }
@@ -35,7 +45,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override void BuildRenderInputAndValidationMessage(RenderTreeBuilder builder)
 		{
-			if ((InputGroupBeforeTemplate == null) && (InputGroupAfterTemplate == null))
+			if (String.IsNullOrEmpty(InputGroupStart) && (InputGroupStartTemplate == null)
+				&& String.IsNullOrEmpty(InputGroupEnd) && (InputGroupEndTemplate == null))
 			{
 				base.BuildRenderInputAndValidationMessage(builder);
 				return;
@@ -54,11 +65,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override void BuildRenderInputDecorated(RenderTreeBuilder builder)
 		{
-			if (InputGroupBeforeTemplate != null)
+			if ((InputGroupStartTemplate != null) || (!String.IsNullOrEmpty(InputGroupStart)))
 			{
 				builder.OpenElement(1, "span");
 				builder.AddAttribute(2, "class", "input-group-text");
-				builder.AddContent(3, InputGroupBeforeTemplate);
+				builder.AddContent(3, InputGroupStart);
+				builder.AddContent(4, InputGroupStartTemplate);
 				builder.CloseElement();
 			}
 
@@ -66,11 +78,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			base.BuildRenderInputDecorated(builder);
 			builder.CloseRegion();
 
-			if (InputGroupAfterTemplate != null)
+			 if ((InputGroupEndTemplate != null) || (!String.IsNullOrEmpty(InputGroupEnd)))
 			{
 				builder.OpenElement(5, "span");
 				builder.AddAttribute(6, "class", "input-group-text");
-				builder.AddContent(7, InputGroupAfterTemplate);
+				builder.AddContent(7, InputGroupEnd);
+				builder.AddContent(8, InputGroupEndTemplate);
 				builder.CloseElement();
 			}
 		}

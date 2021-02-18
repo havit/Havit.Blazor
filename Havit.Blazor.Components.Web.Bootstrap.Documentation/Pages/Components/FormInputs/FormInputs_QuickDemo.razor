@@ -4,10 +4,10 @@
 
 	<HxInputNumber @bind-Value="@model.Age" ParsingErrorMessage="Fix age (ParsingErrorMessage)." Placeholder="Value / Placeholder">
 		<LabelTemplate>Age <span class="red">(Label/LabelTemplate)</span></LabelTemplate>
-		<InputGroupAfterTemplate>
+		<InputGroupEndTemplate>
 			years
 			&nbsp;
-			<span class="red">(InputGroupAfterTemplate)</span></InputGroupAfterTemplate>
+			<span class="red">(InputGroupEndTemplate)</span></InputGroupEndTemplate>
 		<HintTemplate>When the age is above 99 years, enter 99. <span class="red">(HintTemplate)</span></HintTemplate>
 	</HxInputNumber>
 	<HxSubmit Color="ThemeColor.Primary">Validate</HxSubmit>

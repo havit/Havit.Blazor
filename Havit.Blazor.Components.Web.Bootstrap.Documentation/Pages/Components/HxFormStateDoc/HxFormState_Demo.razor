@@ -1,11 +1,8 @@
 ﻿<EditForm Model="@model">
 	<DataAnnotationsValidator />
 
-	<HxInputSwitch Label="Enabled" @bind-Value="@model.Enabled">
-		<HintTemplate>
-			Toggle the switch to enabled/disable form state.
-		</HintTemplate>
-	</HxInputSwitch>
+	<HxInputSwitch Label="Enabled" @bind-Value="@model.Enabled" Hint="Toggle the switch to enabled/disable form state." />
+
 	<HxFormState Enabled="@model.Enabled">
 		<HxInputText Label="Text value" @bind-Value="@model.StringValue" />
 		<HxInputCheckBox Label="Bool value" @bind-Value="@model.BooleanValue" />
@@ -25,3 +22,4 @@
 		public Boolean BooleanValue { get; set; }
 	}
 }
+ 
