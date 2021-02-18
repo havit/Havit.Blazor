@@ -1,9 +1,12 @@
 ﻿@page "/HxInputFileTest"
 
-<HxInputFileCore @ref="hxInputFileComponent" UploadUrl="/file-upload-streamed/" OnProgress="HandleProgress" OnFileUploaded="HandleFileUploaded" OnUploadCompleted="HandleUploadCompleted" Multiple="true" />
-<HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="HandleUploadClick" />
+<h1>HxInputFile[Core]</h1>
 
-<table>
+<HxInputFile @ref="hxInputFileComponent" Label="HxInputFile" UploadUrl="/file-upload-streamed/" OnProgress="HandleProgress" OnFileUploaded="HandleFileUploaded" OnUploadCompleted="HandleUploadCompleted" Multiple="true" />
+
+<HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="HandleUploadClick" CssClass="my-2" />
+
+<table class="table mt-3">
 	<tr>
 		<th>FileIndex</th>
 		<th>Filename</th>
@@ -32,9 +35,10 @@
 <br />
 Completed: @uploadCompleted?.TotalSize bytes in @uploadCompleted?.FileCount files
 
+
 @code
 {
-	private HxInputFileCore hxInputFileComponent;
+	private HxInputFile hxInputFileComponent;
 	private Dictionary<int, (UploadProgressEventArgs, FileUploadedEventArgs)> files = new Dictionary<int, (UploadProgressEventArgs, FileUploadedEventArgs)>();
 	private UploadCompletedEventArgs uploadCompleted;
 
