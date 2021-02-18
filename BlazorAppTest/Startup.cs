@@ -70,6 +70,7 @@ namespace BlazorAppTest
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapBlazorHub();
+				endpoints.MapControllers();
 				endpoints.MapFallbackToPage("/_Host");
 			});
 		}
