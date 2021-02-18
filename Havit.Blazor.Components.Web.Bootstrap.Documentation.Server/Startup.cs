@@ -44,6 +44,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapRazorPages();
+				endpoints.MapControllers();
 				endpoints.MapFallbackToPage("/_Host");
 			});
 		}

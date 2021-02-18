@@ -1,0 +1,53 @@
+﻿@page "/components/hxinputfile"
+
+<h1>@nameof(HxInputFileCore)</h1>
+<p class="lead">
+	Raw component extending @nameof(InputFile) with direct upload.
+</p>
+
+<h3>Properties</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxInputFileCore.UploadUrl)</strong><br />
+		URL of the upload endpoint (see <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-5.0#upload-large-files-with-streaming">https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-5.0#upload-large-files-with-streaming</a>).
+	</li>
+	<li>
+		<strong>@nameof(HxInputFileCore.Multiple)</strong><br />
+		Single/multiple files switch.
+	</li>
+</ul>
+<h3>Methods</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxInputFileCore.StartUploadAsync)<code>(string accessToken = null)</code></strong><br />
+		Initiates the upload.
+	</li>
+</ul>
+<h3>Events</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxInputFileCore.OnChange)</strong><br />
+		Original <code>OnChange</code> event of <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/file-uploads">InputFile</a> component. Provides Blazor-side access to the files.
+	</li>
+	<li>
+		<strong>@nameof(HxInputFileCore.OnProgress)</strong><br />
+		Raised during the upload. Provides progress of individual files upload.
+	</li>
+	<li>
+		<strong>@nameof(HxInputFileCore.OnFileUploaded)</strong><br />
+		Raised when individual file upload completes (both OK or failed). Exposes server response.
+	</li>
+	<li>
+		<strong>@nameof(HxInputFileCore.OnUploadCompleted)</strong><br />
+		Raised when all files upload is completed (after last <code>@nameof(HxInputFileCore.OnUploadCompleted)</code>)
+	</li>
+</ul>
+
+<h1>@nameof(HxInputFile)</h1>
+<p class="lead">
+	Wraps @nameof(HxInputFileCore) as Bootstrap form control (incl. <code>Label</code> etc.)
+</p>
+
+<Demo Type="typeof(HxInputFile_SimpleDemo)" Title="Simple single file upload demo" />
+
+<Demo Type="typeof(HxInputFile_ComplexDemo)" Title="Complex demo" />
