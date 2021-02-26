@@ -337,7 +337,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (!EqualityComparer<TValue>.Default.Equals(CurrentValue, default(TValue))) // TODO: virtual method
 			{
 				builder.OpenComponent<HxChipGenerator>(0);
-				builder.AddAttribute(1, nameof(HxChipGenerator.ChildContent), (RenderFragment)GetChipTemplate);
+				builder.AddAttribute(1, nameof(HxChipGenerator.ChildContent), (RenderFragment)RenderChipTemplate);
 				builder.AddAttribute(2, nameof(HxChipGenerator.ChipRemoveAction), GetChipRemoveAction());
 				
 				builder.CloseComponent();
@@ -347,18 +347,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns chip template.
 		/// </summary>
-		protected void GetChipTemplate(RenderTreeBuilder builder)
+		protected void RenderChipTemplate(RenderTreeBuilder builder)
 		{
 			if (ChipTemplate != null)
 			{
 				builder.AddContent(0, ChipTemplate);
 			}
 			else
-			{				
+			{
 				builder.AddContent(1, Label);
 				builder.AddContent(2, ": ");
-				builder.AddContent(3, CurrentValueAsString);
+				builder.OpenRegion(3);
+				RenderChipValue(builder);
+				builder.CloseRegion();
 			}
+		}
+
+		protected virtual void RenderChipValue(RenderTreeBuilder builder)
+		{
+			builder.AddContent(0, CurrentValueAsString);
 		}
 
 		/// <summary>

@@ -114,10 +114,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private List<TItemType> itemsToRender;
 		private TItemType selectedItem;
 		private int selectedItemIndex;
+		private string chipValue;
 
 		/// <inheritdoc/>
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
+			chipValue = null;
+
 			RefreshState();
 
 			builder.OpenElement(0, "select");
@@ -141,10 +144,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					var item = itemsToRender[i];
 					if (item != null)
 					{
+						bool selected = (i == selectedItemIndex);
+						string text = TextSelectorImpl?.Invoke(item) ?? item?.ToString() ?? String.Empty;
+						if (selected)
+						{
+							chipValue = text;
+						}
+
 						builder.OpenElement(3000, "option");
 						builder.AddAttribute(3001, "value", i.ToString());
-						builder.AddAttribute(3002, "selected", i == selectedItemIndex);
-						builder.AddContent(3003, TextSelectorImpl?.Invoke(item) ?? item?.ToString() ?? String.Empty);
+						builder.AddAttribute(3002, "selected", selected);
+						builder.AddContent(3003, text);
 						builder.CloseElement();
 					}
 				}
@@ -227,6 +237,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 			throw new InvalidOperationException("ValueSelector property not set.");
+		}
+
+		protected override void RenderChipGenerator(RenderTreeBuilder builder)
+		{
+			if (!String.IsNullOrEmpty(chipValue))
+			{
+				base.RenderChipGenerator(builder);
+			}
+		}
+
+		protected override void RenderChipValue(RenderTreeBuilder builder)
+		{
+			builder.AddContent(0, chipValue);
 		}
 
 		string IInputWithSize.GetInputSizeCssClass()
