@@ -79,7 +79,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			Dictionary<string, BlazorDateRangePicker.DateRange> dateRanges = GetDateRanges();
 			if ((dateRanges != null) && dateRanges.Any())
 			{
-				builder.AddAttribute(2003, nameof(BlazorDateRangePicker.DateRangePicker.Ranges), dateRanges);
+				builder.AddAttribute(2005, nameof(BlazorDateRangePicker.DateRangePicker.Ranges), dateRanges);
 				// no DateRangeChanged event, just StartDateChanged above
 			}
 		}
