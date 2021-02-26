@@ -69,6 +69,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private IJSObjectReference jsModule;
 		private HxAutosuggestInput autosuggestInput;
 
+		internal string ChipValue => userInput;
+
 		private async Task SetValueItemWithEventCallback(TItemType selectedItem)
 		{
 			TValueType value = GetValueFromItem(selectedItem);

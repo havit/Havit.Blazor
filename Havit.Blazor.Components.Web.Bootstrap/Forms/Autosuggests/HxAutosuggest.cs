@@ -52,6 +52,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private protected override string CoreInputCssClass => "form-control";
 		private protected override string CoreCssClass => String.Empty;
 
+		private HxAutosuggestInternal<TItemType, TValueType> hxAutosuggestInternalComponent;
+
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenComponent<HxAutosuggestInternal<TItemType, TValueType>>(1);
@@ -67,6 +69,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItemType, TValueType>.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
 			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItemType, TValueType>.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItemType, TValueType>.ItemFromValueResolver), ItemFromValueResolver);
+			builder.AddComponentReferenceCapture(1012, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItemType, TValueType>)component);
 			builder.CloseComponent();
 		}
 
@@ -92,6 +95,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValueType result, [NotNullWhen(false)] out string validationErrorMessage)
 		{
 			throw new NotSupportedException();
+		}
+
+		protected override void RenderChipGenerator(RenderTreeBuilder builder)
+		{
+			if (!String.IsNullOrEmpty(hxAutosuggestInternalComponent?.ChipValue))
+			{
+				base.RenderChipGenerator(builder);
+			}
+		}
+
+		protected override void RenderChipValue(RenderTreeBuilder builder)
+		{
+			builder.AddContent(0, hxAutosuggestInternalComponent.ChipValue);
 		}
 	}
 }
