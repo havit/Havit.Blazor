@@ -27,9 +27,8 @@
 			request.onreadystatechange = function () {
 				if (request.readyState === 4) {
 					dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
+					uploadedCounter++;
 				};
-
-				uploadedCounter++;
 				if (uploadedCounter === files.length) {
 					dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
 				}
