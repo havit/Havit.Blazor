@@ -1,10 +1,10 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap;
 
 namespace BlazorAppTest.Pages
 {
@@ -32,7 +32,7 @@ namespace BlazorAppTest.Pages
 			[Required]
 			[MaxLength(20)]
 			public string Text1 { get; set; }
-			
+
 			public string Text2 { get; set; }
 
 			public int Number1 { get; set; } = 5;

@@ -1,8 +1,8 @@
-﻿using Havit.Blazor.Components.Web.Infrastructure;
-using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Havit.Blazor.Components.Web.Infrastructure;
+using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Sorting of the column.
 		/// </summary>
 		SortingItem<TItemType>[] GetSorting();
-		
+
 		/// <summary>
 		/// Returns header cell template.
 		/// </summary>

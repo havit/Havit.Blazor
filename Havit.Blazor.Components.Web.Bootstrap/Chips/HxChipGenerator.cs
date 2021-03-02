@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[CascadingParameter(Name = HxFilterForm<object>.ChipGeneratorRegistrationCascadingValueName)] public CollectionRegistration<IHxChipGenerator> ChipGeneratorsRegistration { get; set; }
 
 		[Parameter] public RenderFragment ChildContent { get; set; }
-		
+
 		[Parameter] public Action<object> ChipRemoveAction { get; set; }
 
 		/// <inheritdoc />

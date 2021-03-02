@@ -78,7 +78,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			base.BuildRenderInputDecorated(builder);
 			builder.CloseRegion();
 
-			 if ((InputGroupEndTemplate != null) || (!String.IsNullOrEmpty(InputGroupEnd)))
+			if ((InputGroupEndTemplate != null) || (!String.IsNullOrEmpty(InputGroupEnd)))
 			{
 				builder.OpenElement(5, "span");
 				builder.AddAttribute(6, "class", "input-group-text");

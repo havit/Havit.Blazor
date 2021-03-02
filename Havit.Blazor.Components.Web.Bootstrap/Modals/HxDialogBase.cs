@@ -1,17 +1,17 @@
-﻿using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Diagnostics.Contracts;
+using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Base class to simplify custom modal dialog implementation.
 	/// </summary>
-	public abstract class HxDialogBase<TResult> : ComponentBase		
+	public abstract class HxDialogBase<TResult> : ComponentBase
 	{
 #pragma warning disable SA1307 // Accessible fields must begin with upper-case letter
 		protected internal HxModal modal; // for HxModal @ref

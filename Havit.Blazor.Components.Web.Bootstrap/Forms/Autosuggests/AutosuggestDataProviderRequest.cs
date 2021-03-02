@@ -10,7 +10,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Autosuggest current user input.
 		/// </summary>
-		public string UserInput { get; init;  }
+		public string UserInput { get; init; }
 
 		/// <summary>
 		/// The <see cref="System.Threading.CancellationToken"/> used to relay cancellation of the request.

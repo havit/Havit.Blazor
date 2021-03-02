@@ -14,10 +14,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class HxValidationMessage<TValue> : ComponentBase, IDisposable
 	{
-		private EditContext _previousEditContext;
-		private Expression<Func<TValue>> _previousFieldAccessor; // TODO: Potřebujeme to?
-		private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
-		private FieldIdentifier _fieldIdentifier;
+		private EditContext previousEditContext;
+		private Expression<Func<TValue>> previousFieldAccessor;
+		private readonly EventHandler<ValidationStateChangedEventArgs> validationStateChangedHandler;
+		private FieldIdentifier fieldIdentifier;
 		private EditContext currentEditContext;
 
 		/// <summary>
@@ -40,7 +40,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public HxValidationMessage()
 		{
-			_validationStateChangedHandler = (sender, eventArgs) => StateHasChanged();
+			validationStateChangedHandler = (sender, eventArgs) => StateHasChanged();
 		}
 
 		/// <inheritdoc />
@@ -58,24 +58,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				throw new InvalidOperationException($"{GetType()} requires a value for the {nameof(For)} parameter.");
 			}
-			else if (For != _previousFieldAccessor)
+			else if (For != previousFieldAccessor)
 			{
-				_fieldIdentifier = FieldIdentifier.Create(For);
-				_previousFieldAccessor = For;
+				fieldIdentifier = FieldIdentifier.Create(For);
+				previousFieldAccessor = For;
 			}
 
-			if (currentEditContext != _previousEditContext)
+			if (currentEditContext != previousEditContext)
 			{
 				DetachValidationStateChangedListener();
-				currentEditContext.OnValidationStateChanged += _validationStateChangedHandler;
-				_previousEditContext = currentEditContext;
+				currentEditContext.OnValidationStateChanged += validationStateChangedHandler;
+				previousEditContext = currentEditContext;
 			}
 		}
 
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
-			List<string> messages = currentEditContext.GetValidationMessages(_fieldIdentifier).ToList();
+			List<string> messages = currentEditContext.GetValidationMessages(fieldIdentifier).ToList();
 
 			if (messages.Any())
 			{
@@ -102,9 +102,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private void DetachValidationStateChangedListener()
 		{
-			if (_previousEditContext != null)
+			if (previousEditContext != null)
 			{
-				_previousEditContext.OnValidationStateChanged -= _validationStateChangedHandler;
+				previousEditContext.OnValidationStateChanged -= validationStateChangedHandler;
 			}
 		}
 	}

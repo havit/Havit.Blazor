@@ -250,7 +250,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					|| selectedDataItems.Remove(clickedDataItem)) // or removed... But because of || item removal is performed only when the item was not added!
 				{
 					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
-				}				
+				}
 			}
 		}
 

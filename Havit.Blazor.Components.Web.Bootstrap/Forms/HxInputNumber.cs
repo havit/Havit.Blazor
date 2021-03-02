@@ -43,7 +43,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			get
 			{
-				return _decimals;
+				return decimals;
 			}
 			set
 			{
@@ -51,10 +51,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					throw new InvalidOperationException($"{nameof(Decimals)} can be set only on floating point types (not on integer types).");
 				}
-				_decimals = value;
+				decimals = value;
 			}
 		}
-		private int? _decimals;
+		private int? decimals;
 
 		/// <summary>
 		/// Gets effective value for Decimals (when not set gets 0 for integer types and 2 for floating point types.

@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Rendering;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -17,13 +17,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Model.
 		/// </summary>
-		[Parameter] public TModel Model { get;set; }
+		[Parameter] public TModel Model { get; set; }
 
 		/// <summary>
 		/// Model event callback. Invoked when valid form is updated.
 		/// </summary>
 		[Parameter] public EventCallback<TModel> ModelChanged { get; set; }
-		
+
 		/// <summary>
 		/// Child content.
 		/// </summary>
@@ -41,7 +41,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			base.OnParametersSet();
 
 			if (!EqualityComparer<TModel>.Default.Equals(previousModel, Model))
-			{				
+			{
 				ModelSet();
 				previousModel = Model;
 			}
@@ -61,7 +61,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public virtual async Task UpdateModelAsync()
 		{
-			Model = ModelInEdit; 
+			Model = ModelInEdit;
 			previousModel = Model; // to suppress cloning Model in OnParametersSet, must be before ModelChanged is invoked!
 			await ModelChanged.InvokeAsync(Model);
 

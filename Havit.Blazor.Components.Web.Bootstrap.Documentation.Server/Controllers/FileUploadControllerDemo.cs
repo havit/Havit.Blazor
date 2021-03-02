@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Net.Http.Headers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Net.Http.Headers;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server.Controllers
 {
-    public class FileUploadControllerDemo : ControllerBase
-    {
+	public class FileUploadControllerDemo : ControllerBase
+	{
 		private const int BoundaryLengthLimit = 512 * 1024;
 
 		// https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-5.0#upload-large-files-with-streaming

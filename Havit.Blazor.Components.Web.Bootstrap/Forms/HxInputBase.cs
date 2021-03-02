@@ -1,16 +1,16 @@
-﻿using Havit.Blazor.Components.Web.Infrastructure;
-using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Infrastructure;
+using Havit.Diagnostics.Contracts;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -339,7 +339,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.OpenComponent<HxChipGenerator>(0);
 				builder.AddAttribute(1, nameof(HxChipGenerator.ChildContent), (RenderFragment)RenderChipTemplate);
 				builder.AddAttribute(2, nameof(HxChipGenerator.ChipRemoveAction), GetChipRemoveAction());
-				
+
 				builder.CloseComponent();
 			}
 		}

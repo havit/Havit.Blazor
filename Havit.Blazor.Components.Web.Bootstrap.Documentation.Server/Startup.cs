@@ -29,7 +29,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-                app.UseWebAssemblyDebugging();
+				app.UseWebAssemblyDebugging();
 			}
 			else
 			{

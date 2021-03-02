@@ -189,7 +189,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 
 			suggestions = result.Data.ToList();
-			
+
 			if (suggestions?.Any() ?? false)
 			{
 				await OpenDropdownAsync();

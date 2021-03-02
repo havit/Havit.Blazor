@@ -31,7 +31,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			builder.OpenElement(0, "input");
 			BuildRenderInput_AddCommonAttributes(builder, "checkbox");
- 
+
 			builder.AddAttribute(1000, "checked", BindConverter.FormatValue(CurrentValue));
 			builder.AddAttribute(1001, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
 			builder.AddEventStopPropagationAttribute(1002, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputCheckBox nastavitelné?
@@ -42,7 +42,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override bool TryParseValueFromString(string value, out bool result, out string validationErrorMessage)
 		{
-            throw new NotSupportedException($"This component does not parse string inputs. Bind to the '{nameof(CurrentValue)}' property, not '{nameof(CurrentValueAsString)}'.");
+			throw new NotSupportedException($"This component does not parse string inputs. Bind to the '{nameof(CurrentValue)}' property, not '{nameof(CurrentValueAsString)}'.");
 		}
 	}
 }

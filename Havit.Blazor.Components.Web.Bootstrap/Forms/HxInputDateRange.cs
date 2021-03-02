@@ -70,7 +70,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			DateTime startDate = dateRange.Start.Date;
 			DateTime endDate = dateRange.End.Date;
-			
+
 			// setter includes ValueChanged + NotifyFieldChanged
 			CurrentValue = new DateTimeRange
 			{

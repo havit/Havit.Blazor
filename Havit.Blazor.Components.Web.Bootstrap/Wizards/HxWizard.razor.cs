@@ -1,11 +1,11 @@
-﻿using Havit.Linq;
-using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Linq;
+using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -17,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// The ChildContent container for <see cref="HxWizardStep"/>
 		/// </summary>
-		[Parameter]	public RenderFragment Steps { get; set; }
+		[Parameter] public RenderFragment Steps { get; set; }
 
 		private List<IHxWizardStep> steps;
 		protected CollectionRegistration<IHxWizardStep> stepsRegistration;

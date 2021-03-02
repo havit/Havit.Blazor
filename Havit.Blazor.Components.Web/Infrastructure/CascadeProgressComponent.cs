@@ -14,7 +14,7 @@ namespace Havit.Blazor.Components.Web.Infrastructure
 		/// Effective value of InProgress. When InProgress is not set, receives value from ProgressState or defaults to false.
 		/// </summary>
 		public static bool InProgressEffective(ICascadeProgressComponent component)
-		{			
+		{
 			return component.InProgress ?? component.ProgressState?.InProgress ?? false;
 		}
 	}

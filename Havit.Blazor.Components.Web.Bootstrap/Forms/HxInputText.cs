@@ -26,7 +26,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <inheritdoc />
 		private protected override string GetTypeAttributeValue() => Type.ToString().ToLower();
-		
-		
 	}
 }

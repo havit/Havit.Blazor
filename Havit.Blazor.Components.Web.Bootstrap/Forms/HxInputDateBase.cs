@@ -40,7 +40,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				BuildRenderInput_AddCommonAttributes(builder, "text"); // id, type, attributes (ale jiné)
 
 				builder.AddAttribute(1000, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-				
+
 				builder.AddAttribute(1001, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
 
 				builder.AddAttribute(1002, "onfocusin", EventCallback.Factory.Create(this, dateRangePicker.Open));

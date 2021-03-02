@@ -18,7 +18,7 @@ namespace LocalizerGenerator
 		public const string ServiceCollectionInstallerMarker = "ResourcesServiceCollectionInstaller";
 
 #pragma warning disable RS2008
-		private static readonly DiagnosticDescriptor XmlParseWarning = new DiagnosticDescriptor(id: "LG0001", title: "Cannot parse XML file", messageFormat: "Cannot parse XML file '{0}'.", category: nameof(LocalizerGenerator), DiagnosticSeverity.Warning, isEnabledByDefault: true);
+		private static readonly DiagnosticDescriptor xmlParseWarning = new DiagnosticDescriptor(id: "LG0001", title: "Cannot parse XML file", messageFormat: "Cannot parse XML file '{0}'.", category: nameof(LocalizerGenerator), DiagnosticSeverity.Warning, isEnabledByDefault: true);
 #pragma warning restore RS2008
 
 
@@ -62,7 +62,7 @@ namespace LocalizerGenerator
 					var properties = ParseResx(resx);
 					if (properties == null)
 					{
-						context.ReportDiagnostic(Diagnostic.Create(XmlParseWarning, Location.None, resx));
+						context.ReportDiagnostic(Diagnostic.Create(xmlParseWarning, Location.None, resx));
 						continue;
 					}
 					localizerBuilder.Properties.AddRange(properties);
