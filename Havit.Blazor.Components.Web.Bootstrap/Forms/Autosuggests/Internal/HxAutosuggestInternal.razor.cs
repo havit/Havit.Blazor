@@ -276,7 +276,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			return (item == null)
 				? NullText
-				: TextSelector?.Invoke(item) ?? item?.ToString() ?? String.Empty;
+				: TextSelectorHelper.GetText(TextSelector, item);
 		}
 
 		public async ValueTask DisposeAsync()

@@ -73,7 +73,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				foreach (var item in itemsToRender)
 				{
 					builder.OpenComponent(1, typeof(HxInputCheckBox));
-					builder.AddAttribute(2, nameof(HxInputCheckBox.Label), TextSelector?.Invoke(item) ?? item?.ToString() ?? String.Empty);
+					builder.AddAttribute(2, nameof(HxInputCheckBox.Label), TextSelectorHelper.GetText(TextSelector, item));
 					builder.AddAttribute(3, nameof(HxInputCheckBox.Value), Value?.Contains(item) ?? false);
 					builder.AddAttribute(4, nameof(HxInputCheckBox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
 

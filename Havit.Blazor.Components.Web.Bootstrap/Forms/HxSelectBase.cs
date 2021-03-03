@@ -145,7 +145,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					if (item != null)
 					{
 						bool selected = (i == selectedItemIndex);
-						string text = TextSelectorImpl?.Invoke(item) ?? item?.ToString() ?? String.Empty;
+						string text = TextSelectorHelper.GetText(TextSelectorImpl, item);
 						if (selected)
 						{
 							chipValue = text;
