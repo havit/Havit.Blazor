@@ -47,6 +47,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public int MinimumLength { get; set; } = 2;
 
 		/// <summary>
+		/// Short hint displayed in the input field before the user enters a value.
+		/// </summary>
+		[Parameter] public string Placeholder { get; set; }
+
+		/// <summary>
 		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
 		/// </summary>
 		[Parameter] public int Delay { get; set; } = 300;

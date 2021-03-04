@@ -11,6 +11,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 	{
 		[Parameter] public string Value { get; set; }
 
+		[Parameter] public string Placeholder { get; set; }
+
 		[Parameter] public EventCallback<string> OnInputInput { get; set; }
 
 		[Parameter] public EventCallback OnInputFocus { get; set; }

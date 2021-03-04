@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -41,6 +41,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public int Delay { get; set; } = 300;
 
+		/// <summary>
+		/// Short hint displayed in the input field before the user enters a value.
+		/// </summary>
+		[Parameter] public string Placeholder { get; set; }
+
 		/// <inheritdoc />
 		[Parameter] public InputSize InputSize { get; set; }
 
@@ -69,7 +74,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItemType, TValueType>.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
 			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItemType, TValueType>.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItemType, TValueType>.ItemFromValueResolver), ItemFromValueResolver);
-			builder.AddComponentReferenceCapture(1012, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItemType, TValueType>)component);
+			builder.AddAttribute(1012, nameof(HxAutosuggestInternal<TItemType, TValueType>.Placeholder), Placeholder);
+			builder.AddComponentReferenceCapture(1013, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItemType, TValueType>)component);
 			builder.CloseComponent();
 		}
 

@@ -1,3 +1,3 @@
 ﻿@namespace  Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<input @ref="InputElement" id="@InputId" type="text" class="@CssClass" disabled="@(!EnabledEffective)" autocomplete="false" data-bs-reference="parent" value="@Value" @oninput="HandleInput" @onfocus="HandleFocus" @onblur="HandleBlur" @onclick:stopPropagation>
+<input @ref="InputElement" id="@InputId" type="text" class="@CssClass" disabled="@(!EnabledEffective)" autocomplete="false" data-bs-reference="parent" value="@Value" @oninput="HandleInput" @onfocus="HandleFocus" @onblur="HandleBlur" @onclick:stopPropagation placeholder="@Placeholder">

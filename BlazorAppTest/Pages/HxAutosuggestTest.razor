@@ -3,13 +3,17 @@
 
 <h1>HxAutosuggest</h1>
 
-<HxAutosuggest TItemType="CultureInfo" TValueType="int" @bind-Value="@value" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" TextSelector="c => c.EnglishName" />
+<HxAutosuggest Label="Full (with initial value)" TItemType="CultureInfo" TValueType="int" @bind-Value="@value1" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" TextSelector="c => c.EnglishName" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))" />
+<p>Value: @value1</p>
 
-<p>Value: @value</p>
+<HxAutosuggest Label="Select-only (no ItemFromValueResolver)" TItemType="CultureInfo" TValueType="int" @bind-Value="@value2" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" TextSelector="c => c.EnglishName" Placeholder="Type culture name..." />
+<p>Value: @value2</p>
+
 
 @code
 {
-	private int value; //= 1029; // default value to display
+	private int value1 = 1029; // default value to display
+	private int value2; // no default value
 
 	private Task<AutosuggestDataProviderResult<CultureInfo>> ProvideSuggestions(AutosuggestDataProviderRequest request)
 	{
