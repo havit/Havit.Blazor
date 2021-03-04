@@ -192,7 +192,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			{
 				result = await DataProvider.Invoke(request);
 			}
-			catch (OperationCanceledException operationCanceledException) when (operationCanceledException.CancellationToken == cancellationToken)
+			catch (OperationCanceledException) // gRPC stack does not set the operationFailedException.CancellationToken, do not check in when-clause
 			{
 				return;
 			}
