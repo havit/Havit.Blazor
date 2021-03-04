@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
@@ -68,6 +69,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool isBlured;
 		private IJSObjectReference jsModule;
 		private HxAutosuggestInput autosuggestInput;
+		private TValueType lastKnownValue;
 
 		internal string ChipValue => userInput;
 
@@ -78,6 +80,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			if (!EqualityComparer<TValueType>.Default.Equals(Value, value))
 			{
 				Value = value;
+				lastKnownValue = Value;
 				await ValueChanged.InvokeAsync(Value);
 			}
 		}
@@ -86,17 +89,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			await base.SetParametersAsync(parameters);
 
-			Contract.Requires<InvalidOperationException>(DataProvider != null, $"Property {nameof(DataProvider)} on {GetType()} must have a value.");
+			Contract.Requires<InvalidOperationException>(DataProvider != null, $"{GetType()} requires a {nameof(DataProvider)} parameter.");
 
 			if (!EqualityComparer<TValueType>.Default.Equals(Value, default))
 			{
-				if ((ItemFromValueResolver == null) && (typeof(TValueType) == typeof(TItemType)))
+				// we do not want to re-resolve the Text (userInput) if the Value did not change
+				if (!EqualityComparer<TValueType>.Default.Equals(Value, lastKnownValue))
 				{
-					userInput = TextSelector.Invoke((TItemType)(object)Value);
-				}
-				else
-				{
-					userInput = TextSelector.Invoke(await ItemFromValueResolver(Value));
+					if ((ItemFromValueResolver == null) && (typeof(TValueType) == typeof(TItemType)))
+					{
+						userInput = TextSelector.Invoke((TItemType)(object)Value);
+					}
+					else
+					{
+						Contract.Requires<InvalidOperationException>(ItemFromValueResolver is not null, $"{GetType()} requires a {nameof(ItemFromValueResolver)} parameter.");
+						userInput = TextSelector.Invoke(await ItemFromValueResolver(Value));
+					}
 				}
 			}
 			else
@@ -104,6 +112,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				userInput = NullText;
 			}
 			userInputModified = false;
+			lastKnownValue = Value;
 		}
 
 		private async Task HandleInputInput(string newUserInput)
