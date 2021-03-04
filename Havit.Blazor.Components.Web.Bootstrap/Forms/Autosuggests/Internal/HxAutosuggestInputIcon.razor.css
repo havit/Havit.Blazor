@@ -1,0 +1,9 @@
+.hx-autosuggest-input-icon {    
+    margin-right: .875rem;
+}
+
+::deep .bi-x {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
