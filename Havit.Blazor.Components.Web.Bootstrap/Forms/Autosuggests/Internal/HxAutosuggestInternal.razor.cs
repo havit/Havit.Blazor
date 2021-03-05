@@ -111,6 +111,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 						userInput = TextSelector.Invoke(await ItemFromValueResolver(Value));
 					}
 				}
+			}
 			else
 			{
 				userInput = NullText;
