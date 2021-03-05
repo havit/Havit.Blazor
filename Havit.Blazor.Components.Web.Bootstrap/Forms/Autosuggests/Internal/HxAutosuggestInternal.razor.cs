@@ -91,9 +91,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 		}
 
-		public override async Task SetParametersAsync(ParameterView parameters)
+		protected override async Task OnParametersSetAsync()
 		{
-			await base.SetParametersAsync(parameters);
+			await base.OnParametersSetAsync();
 
 			Contract.Requires<InvalidOperationException>(DataProvider != null, $"{GetType()} requires a {nameof(DataProvider)} parameter.");
 
