@@ -42,7 +42,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (!EqualityComparer<TModel>.Default.Equals(previousModel, Model))
 			{
-				ModelSet();
+				OnModelSet();
 				previousModel = Model;
 			}
 		}
@@ -50,7 +50,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Fired when a new model is set from outside (databind, etc).
 		/// </summary>
-		protected virtual void ModelSet()
+		protected virtual void OnModelSet()
 		{
 			// we are going to let user edit a clone of the model
 			ModelInEdit = CloneModel(Model);

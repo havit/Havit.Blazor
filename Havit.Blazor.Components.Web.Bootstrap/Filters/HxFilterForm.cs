@@ -28,9 +28,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			chipGeneratorsRegistration = new CollectionRegistration<IHxChipGenerator>(chipGenerators, null, () => isDisposed);
 		}
 
-		protected override void ModelSet()
+		protected override void OnModelSet()
 		{
-			base.ModelSet();
+			base.OnModelSet();
 			notifyChipsUpdatedAfterRender = true;
 		}
 
