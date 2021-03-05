@@ -3,5 +3,7 @@
 <input @ref="InputElement" id="@InputId" type="text" class="@CssClassHelper.Combine(@CssClass,"pe-5")"
     disabled="@(!EnabledEffective)" autocomplete="false" data-bs-reference="parent" value="@Value"
     @oninput="HandleInput" @onfocus="HandleFocus" @onblur="HandleBlur" @onclick:stopPropagation
-    placeholder="@Placeholder">
-<HxAutosuggestInputIcon />
+    placeholder="@Placeholder"
+    onfocusin="this.select()">    
+
+@*onfocusin: cannot use onfocus twice (@onfocus and onfocus) *@

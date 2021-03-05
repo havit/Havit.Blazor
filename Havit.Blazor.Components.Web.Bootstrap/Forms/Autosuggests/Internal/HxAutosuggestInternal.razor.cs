@@ -75,6 +75,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private IJSObjectReference jsModule;
 		private HxAutosuggestInput autosuggestInput;
 		private TValueType lastKnownValue;
+		private bool dataProviderInProgress;
 
 		internal string ChipValue => userInput;
 
@@ -128,6 +129,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			timer?.Stop(); // if waiting for an interval, stop it
 			cancellationTokenSource?.Cancel(); // if already loading data, cancel it
+			dataProviderInProgress = false; // data provider is no more in progress				 
 
 			// start new time interval
 			if (userInput.Length >= MinimumLength)
@@ -171,6 +173,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			isBlured = true;
 			timer?.Stop(); // if waiting for an interval, stop it
 			cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
+			dataProviderInProgress = false; // data provider is no more in progress				 
 		}
 
 		private async Task UpdateSuggestionsAsync()
@@ -180,6 +183,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			cancellationTokenSource = new CancellationTokenSource();
 			CancellationToken cancellationToken = cancellationTokenSource.Token;
+
+			dataProviderInProgress = true;
+			StateHasChanged();
 
 			AutosuggestDataProviderRequest request = new AutosuggestDataProviderRequest
 			{
@@ -202,6 +208,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				return;
 			}
 
+			dataProviderInProgress = false;
 			suggestions = result.Data.ToList();
 
 			if (suggestions?.Any() ?? false)
@@ -221,6 +228,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			// user clicked on an item in the "dropdown".
 			await SetValueItemWithEventCallback(item);
 			userInput = TextSelectorEffective(item);
+		}
+
+		private async Task HandleCrossClick()
+		{
+			// user clicked on a cross button (x)
+			await SetValueItemWithEventCallback(default);
+			userInput = TextSelectorEffective(default);
 		}
 
 		protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -308,4 +322,3 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 	}
 }
-
