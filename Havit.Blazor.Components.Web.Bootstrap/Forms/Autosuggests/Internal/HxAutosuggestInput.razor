@@ -1,9 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<div class="position-relative">
-    <input @ref="InputElement" id="@InputId" type="text" class="@CssClassHelper.Combine(@CssClass,"pe-5")"
-        disabled="@(!EnabledEffective)" autocomplete="false" data-bs-reference="parent" value="@Value"
-        @oninput="HandleInput" @onfocus="HandleFocus" @onblur="HandleBlur" @onclick:stopPropagation
-        placeholder="@Placeholder">
-    <HxAutosuggestInputIcon />
-</div>
+<input @ref="InputElement" id="@InputId" type="text" class="@CssClassHelper.Combine(@CssClass,"pe-5")"
+    disabled="@(!EnabledEffective)" autocomplete="false" data-bs-reference="parent" value="@Value"
+    @oninput="HandleInput" @onfocus="HandleFocus" @onblur="HandleBlur" @onclick:stopPropagation
+    placeholder="@Placeholder">
+<HxAutosuggestInputIcon />
