@@ -23,6 +23,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string ParsingErrorMessage { get; set; }
 
+		/// <summary>
+		/// The short hint displayed in the input field before the user enters a value.
+		/// </summary>
+		[Parameter] public string Placeholder { get; set; }
+
 		private bool forceRenderValue = false;
 		private int valueSequenceOffset = 0;
 
@@ -45,6 +50,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				builder.AddAttribute(1002, "onfocusin", EventCallback.Factory.Create(this, dateRangePicker.Open));
 				builder.AddAttribute(1003, "onfocusout", EventCallback.Factory.Create(this, dateRangePicker.LostFocus));
+				builder.AddAttribute(1004, "placeholder", Placeholder);
 				builder.AddEventStopPropagationAttribute(1004, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputDate nastavitelné?
 
 				// Počítané hodnoty sekvence jsou proti smyslu sekvencí a proti veškerým obecným doporučením.
