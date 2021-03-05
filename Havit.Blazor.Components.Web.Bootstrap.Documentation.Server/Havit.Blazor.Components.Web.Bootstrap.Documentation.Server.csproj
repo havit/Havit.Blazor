@@ -17,7 +17,7 @@
 	<Target Name="CopyMissingBlazorContent" BeforeTargets="_CopyResolvedFilesToPublishAlways">
 		<!-- https://github.com/dotnet/aspnetcore/issues/28680 Missing _framework while publishing .sln -->
 		<PropertyGroup>
-			<ClientPublishWwwroot>$([System.String]::Copy('$(PublishDir)').Replace('Server','Client').Replace('PubTmp','browser-wasm\PubTmp'))wwwroot\</ClientPublishWwwroot>
+			<ClientPublishWwwroot>$([System.String]::Copy('$(PublishDir)').Replace('.Server','').Replace('PubTmp','browser-wasm\PubTmp'))wwwroot\</ClientPublishWwwroot>
 			<ServerPublishWwwroot>$(PublishDir)wwwroot\</ServerPublishWwwroot>
 		</PropertyGroup>
 
