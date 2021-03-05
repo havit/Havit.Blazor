@@ -66,13 +66,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private List<TItemType> suggestions;
 		private bool userInputModified;
 		private bool isDropdownOpened = false;
-		private bool isBlured;
+		private bool blurInProgress;
+		private bool currentlyFocused;
 		private IJSObjectReference jsModule;
 		private HxAutosuggestInput autosuggestInput;
 		private TValueType lastKnownValue;
 		private bool dataProviderInProgress;
+		private DotNetObjectReference<HxAutosuggestInternal<TItemType, TValueType>> dotnetObjectReference;
 
 		internal string ChipValue => userInput;
+
+		public HxAutosuggestInternal()
+		{
+			dotnetObjectReference = DotNetObjectReference.Create(this);
+		}
 
 		private async Task SetValueItemWithEventCallback(TItemType selectedItem)
 		{
@@ -155,17 +162,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			});
 		}
 
-		private async Task HandleFocus()
+		private async Task HandleInputFocus()
 		{
-			// when an input looses focus, close a dropdown
+			// when an input gets focus, close a dropdown
+			currentlyFocused = true;
 			await DestroyDropdownAsync();
 		}
 
 		// Kvůli updatovanání HTML a kolizi s bootstrap Dropdown nesmíme v InputBlur přerenderovat html!
 		private void HandleInputBlur()
 		{
+			currentlyFocused = false;
 			// when user clicks back button in browser this method can be called after it is disposed!
-			isBlured = true;
+			blurInProgress = true;
 			timer?.Stop(); // if waiting for an interval, stop it
 			cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
 			dataProviderInProgress = false; // data provider is no more in progress				 
@@ -221,8 +230,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private async Task HandleItemClick(TItemType item)
 		{
 			// user clicked on an item in the "dropdown".
+			// warning: HandleItemClick is called after HandleDropdownHidden! Value is set twice!
 			await SetValueItemWithEventCallback(item);
 			userInput = TextSelectorEffective(item);
+			userInputModified = false;
 		}
 
 		private async Task HandleCrossClick()
@@ -230,15 +241,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			// user clicked on a cross button (x)
 			await SetValueItemWithEventCallback(default);
 			userInput = TextSelectorEffective(default);
+			userInputModified = false;
 		}
 
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			if (isBlured)
+			if (blurInProgress)
 			{
-				isBlured = false;
+				blurInProgress = false;
 				if (userInputModified && !isDropdownOpened)
 				{
 					await SetValueItemWithEventCallback(default);
@@ -254,7 +266,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			if (!isDropdownOpened)
 			{
 				await EnsureJsModuleAsync();
-				await jsModule.InvokeVoidAsync("open", autosuggestInput.InputElement);
+				await jsModule.InvokeVoidAsync("open", autosuggestInput.InputElement, dotnetObjectReference);
 				isDropdownOpened = true;
 			}
 		}
@@ -273,6 +285,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxautosuggest.js");
 		}
+
+		[JSInvokable("HxAutosuggestInternal_HandleDropdownHidden")]
+		public async Task HandleDropdownHidden()
+		{
+			// warning: When user clicks an item HandleItemClick is called after this method!
+			if (userInputModified && !currentlyFocused)
+			{
+				await SetValueItemWithEventCallback(default);
+				userInput = TextSelectorEffective(default);
+				userInputModified = false;
+			}
+		}
+
 		#endregion
 
 		private TValueType GetValueFromItem(TItemType item)
@@ -308,6 +333,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			timer = null;
 			cancellationTokenSource?.Dispose();
 			cancellationTokenSource = null;
+
+			dotnetObjectReference.Dispose();
 
 			if (jsModule != null)
 			{
