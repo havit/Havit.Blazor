@@ -32,11 +32,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public Func<TItemType, string> TextSelector { get; set; }
 
 		/// <summary>
-		/// Text to display for null value.
-		/// </summary>
-		[Parameter] public string NullText { get; set; }
-
-		/// <summary>
 		/// Gets item from <see cref="Value"/>.
 		/// </summary>
 		[Parameter] public Func<TValueType, Task<TItemType>> ItemFromValueResolver { get; set; }
@@ -104,18 +99,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				{
 					if ((ItemFromValueResolver == null) && (typeof(TValueType) == typeof(TItemType)))
 					{
-						userInput = TextSelector.Invoke((TItemType)(object)Value);
+						userInput = TextSelectorEffective((TItemType)(object)Value);
 					}
 					else
 					{
 						Contract.Requires<InvalidOperationException>(ItemFromValueResolver is not null, $"{GetType()} requires a {nameof(ItemFromValueResolver)} parameter.");
-						userInput = TextSelector.Invoke(await ItemFromValueResolver(Value));
+						userInput = TextSelectorEffective(await ItemFromValueResolver(Value));
 					}
 				}
 			}
 			else
 			{
-				userInput = NullText;
+				userInput = TextSelectorEffective(default);
 			}
 			userInputModified = false;
 			lastKnownValue = Value;
@@ -303,7 +298,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private string TextSelectorEffective(TItemType item)
 		{
 			return (item == null)
-				? NullText
+				? String.Empty
 				: TextSelectorHelper.GetText(TextSelector, item);
 		}
 

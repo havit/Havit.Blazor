@@ -27,11 +27,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public Func<TItemType, string> TextSelector { get; set; }
 
 		/// <summary>
-		/// Text to display for null value.
-		/// </summary>
-		[Parameter] public string NullText { get; set; }
-
-		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
 		/// </summary>
 		[Parameter] public int MinimumLength { get; set; } = 2;
@@ -67,15 +62,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1002, nameof(HxAutosuggestInternal<TItemType, TValueType>.DataProvider), DataProvider);
 			builder.AddAttribute(1003, nameof(HxAutosuggestInternal<TItemType, TValueType>.ValueSelector), ValueSelector);
 			builder.AddAttribute(1004, nameof(HxAutosuggestInternal<TItemType, TValueType>.TextSelector), TextSelector);
-			builder.AddAttribute(1005, nameof(HxAutosuggestInternal<TItemType, TValueType>.NullText), NullText);
-			builder.AddAttribute(1006, nameof(HxAutosuggestInternal<TItemType, TValueType>.MinimumLength), MinimumLength);
-			builder.AddAttribute(1007, nameof(HxAutosuggestInternal<TItemType, TValueType>.Delay), Delay);
-			builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItemType, TValueType>.InputId), InputId);
-			builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItemType, TValueType>.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
-			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItemType, TValueType>.EnabledEffective), EnabledEffective);
-			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItemType, TValueType>.ItemFromValueResolver), ItemFromValueResolver);
-			builder.AddAttribute(1012, nameof(HxAutosuggestInternal<TItemType, TValueType>.Placeholder), Placeholder);
-			builder.AddComponentReferenceCapture(1013, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItemType, TValueType>)component);
+			builder.AddAttribute(1005, nameof(HxAutosuggestInternal<TItemType, TValueType>.MinimumLength), MinimumLength);
+			builder.AddAttribute(1006, nameof(HxAutosuggestInternal<TItemType, TValueType>.Delay), Delay);
+			builder.AddAttribute(1007, nameof(HxAutosuggestInternal<TItemType, TValueType>.InputId), InputId);
+			builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItemType, TValueType>.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
+			builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItemType, TValueType>.EnabledEffective), EnabledEffective);
+			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItemType, TValueType>.ItemFromValueResolver), ItemFromValueResolver);
+			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItemType, TValueType>.Placeholder), Placeholder);
+			builder.AddComponentReferenceCapture(1012, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItemType, TValueType>)component);
 			builder.CloseComponent();
 		}
 
