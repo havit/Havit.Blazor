@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web
 {
 	/// <summary>
 	/// Edit form wrapper which provides strong type model and model instance update when valid form is submitted.
@@ -84,7 +84,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await UpdateModelAsync();
 		}
 
-		internal static TModel CloneModel(TModel modelToClone)
+		protected internal static TModel CloneModel(TModel modelToClone)
 		{
 			return (TModel)((ICloneable)modelToClone).Clone(); // TODO: strategie klonování
 		}
