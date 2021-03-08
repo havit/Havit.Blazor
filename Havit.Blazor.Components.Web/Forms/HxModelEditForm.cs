@@ -86,7 +86,7 @@ namespace Havit.Blazor.Components.Web
 
 		protected internal static TModel CloneModel(TModel modelToClone)
 		{
-			return (TModel)((ICloneable)modelToClone).Clone(); // TODO: strategie klonování
+			return ModelCloner.Clone(modelToClone);
 		}
 	}
 }
