@@ -70,21 +70,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				UglyHack uglyHack = new UglyHack(); // see comment below
 
+				builder.OpenElement(1, "ul");
+				builder.AddAttribute(2, "class", "list-group");
+
 				foreach (var item in itemsToRender)
 				{
-					builder.OpenComponent(1, typeof(HxInputCheckBox));
-					builder.AddAttribute(2, nameof(HxInputCheckBox.Label), TextSelectorHelper.GetText(TextSelector, item));
-					builder.AddAttribute(3, nameof(HxInputCheckBox.Value), Value?.Contains(item) ?? false);
-					builder.AddAttribute(4, nameof(HxInputCheckBox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
+					builder.OpenElement(3, "li");
+					builder.AddAttribute(4, "class", "list-group-item");
+
+					builder.OpenComponent(5, typeof(HxInputCheckBox));
+					builder.AddAttribute(6, nameof(HxInputCheckBox.Label), TextSelectorHelper.GetText(TextSelector, item));
+					builder.AddAttribute(7, nameof(HxInputCheckBox.Value), Value?.Contains(item) ?? false);
+					builder.AddAttribute(8, nameof(HxInputCheckBox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
 
 					// We need ValueExpression. Ehm, HxInputCheckBox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 					// We have nothing to give the HxInputCheckBox. So we make own class with property which we assign to the ValueExpression.
 					// Impacts? Unknown. Maybe none.
-					builder.AddAttribute(5, nameof(HxInputCheckBox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty)); // TODO: Je tenhle workaround průchozí???
+					builder.AddAttribute(9, nameof(HxInputCheckBox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty)); // TODO: Je tenhle workaround průchozí???
 
-					builder.AddAttribute(6, nameof(HxInputCheckBox.ShowValidationMessage), false);
+					builder.AddAttribute(10, nameof(HxInputCheckBox.ShowValidationMessage), false);
 					builder.CloseComponent();
+
+					builder.CloseElement(); // li
 				}
+
+				builder.CloseElement(); // ul
 			}
 		}
 
