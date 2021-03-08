@@ -8,7 +8,8 @@
 		{
 			TItemType currentItem = item;
 			string text = TextSelector.Invoke(currentItem);
-			<HxAutosuggestItem Text="@text" OnClick="async () => await HandleItemClick(currentItem)" />
+			
+			<button class="dropdown-item" type="button" @onclick="async () => await HandleItemClick(currentItem)" @onclick:stopPropagation="true">@text</button>
 		}
 	}
 </div>

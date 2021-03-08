@@ -230,7 +230,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private async Task HandleItemClick(TItemType item)
 		{
 			// user clicked on an item in the "dropdown".
-			// warning: HandleItemClick is called after HandleDropdownHidden! Value is set twice!
 			await SetValueItemWithEventCallback(item);
 			userInput = TextSelectorEffective(item);
 			userInputModified = false;
@@ -254,7 +253,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				if (userInputModified && !isDropdownOpened)
 				{
 					await SetValueItemWithEventCallback(default);
-					userInput = String.Empty;
+					userInput = TextSelectorEffective(default);
 					userInputModified = false;
 					StateHasChanged();
 				}
@@ -289,7 +288,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[JSInvokable("HxAutosuggestInternal_HandleDropdownHidden")]
 		public async Task HandleDropdownHidden()
 		{
-			// warning: When user clicks an item HandleItemClick is called after this method!
 			if (userInputModified && !currentlyFocused)
 			{
 				await SetValueItemWithEventCallback(default);
@@ -297,7 +295,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				userInputModified = false;
 			}
 		}
-
 		#endregion
 
 		private TValueType GetValueFromItem(TItemType item)

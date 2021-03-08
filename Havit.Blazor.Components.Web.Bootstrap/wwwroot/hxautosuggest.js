@@ -17,8 +17,15 @@ export function destroy(inputElement) {
 
 function handleDropdownHidden(event) {
     event.target.removeEventListener('hidden.bs.dropdown', handleDropdownHidden);
-    event.target.hxAutosuggestDotnetObjectReference.invokeMethodAsync('HxAutosuggestInternal_HandleDropdownHidden');
-    event.target.hxAutosuggestDotnetObjectReference = null;
+
+    // In Blazor, jsinterop is "faster" then events.
+    // As a result, this method (handleDropdownHidden) is first, dropdown item click event (Blazor OnClick Event) second.
+    // But we need the item click event to fire first.
+    // Therefore we delay jsinterop for a while.
+    window.setTimeout(function (element) {
+        element.hxAutosuggestDotnetObjectReference.invokeMethodAsync('HxAutosuggestInternal_HandleDropdownHidden');
+        element.hxAutosuggestDotnetObjectReference = null;
+    }, 1, event.target);
 
 //    var dropdown = bootstrap.Dropdown.getInstance(event.inputElement);
 //    dropdown.dispose();
