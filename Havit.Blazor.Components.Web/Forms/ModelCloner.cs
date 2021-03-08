@@ -20,7 +20,7 @@ namespace Havit.Blazor.Components.Web
 		{
 			TModel modelClone;
 
-			if (TryCloneClonable(model, out modelClone))
+			if (TryCloneCloneable(model, out modelClone))
 			{
 				return modelClone;
 			}
@@ -33,7 +33,7 @@ namespace Havit.Blazor.Components.Web
 			return CloneMemberwiseClone(model);
 		}
 
-		internal static bool TryCloneClonable<TModel>(TModel model, out TModel modelClone)
+		internal static bool TryCloneCloneable<TModel>(TModel model, out TModel modelClone)
 		{
 			if (model is ICloneable)
 			{

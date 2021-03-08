@@ -14,14 +14,14 @@ namespace Havit.Blazor.Components.Web.Tests
 	public class ModelClonerTests
 	{
 		[TestMethod]
-		public void ModelCloner_TryCloneClonable()
+		public void ModelCloner_TryCloneCloneable()
 		{
 			// Arrange
 			Mock<ICloneable> modelMock = new Mock<ICloneable>(MockBehavior.Strict);
 			modelMock.Setup(m => m.Clone()).Returns(() => modelMock.Object); // we do not need true clone (in this test).
 
 			// Act
-			bool success = ModelCloner.TryCloneClonable(modelMock.Object, out ICloneable modelClone);
+			bool success = ModelCloner.TryCloneCloneable(modelMock.Object, out ICloneable modelClone);
 
 			// Assert
 			Assert.IsTrue(success);
