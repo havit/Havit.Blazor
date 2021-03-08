@@ -36,13 +36,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server.Controllers
 
 				if (hasContentDispositionHeader)
 				{
+					// TODO: THIS IS WHERE YOU PASS THE FILE STREAM TO THE FACADE, the code below is not to be directly used here!
+
 					// Don't trust the file name sent by the client. To display the file name, HTML-encode the value.
 					var trustedFileNameForDisplay = WebUtility.HtmlEncode(contentDisposition.FileName.Value);
 					var trustedFileNameForFileStorage = Path.GetRandomFileName();
-					//using (var targetStream = System.IO.File.Create(Path.Combine(Path.GetTempPath(), trustedFileNameForDisplay /* trustedFileNameForFileStorage */)))
-					//{
-					//	await section.Body.CopyToAsync(targetStream);
-					//}
+					// using (var targetStream = System.IO.File.Create(Path.Combine(Path.GetTempPath(), trustedFileNameForFileStorage)))
+					// {
+					// 	await section.Body.CopyToAsync(targetStream);
+					// }
 
 					await section.Body.CopyToAsync(Stream.Null);
 

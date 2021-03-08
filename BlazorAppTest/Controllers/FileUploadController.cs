@@ -15,25 +15,6 @@ namespace BlazorAppTest.Controllers
 	{
 		private const int BoundaryLengthLimit = 512 * 1024;
 
-		[HttpPost("/file-upload-simple/")]
-		public async Task<IActionResult> UploadFileBuffered()
-		{
-			var file = Request.Form.Files[0];
-			if (file.Length > 0)
-			{
-				var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Value.Trim('"');
-				using (var stream = System.IO.File.Create(Path.Combine(Path.GetTempPath(), file.Name)))
-				{
-					await file.CopyToAsync(stream);
-				}
-				return Ok();
-			}
-			else
-			{
-				return BadRequest();
-			}
-		}
-
 		// https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-5.0#upload-large-files-with-streaming
 		// https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/
 		[HttpPost("/file-upload-streamed/")]
@@ -58,7 +39,7 @@ namespace BlazorAppTest.Controllers
 					// Don't trust the file name sent by the client. To display the file name, HTML-encode the value.
 					var trustedFileNameForDisplay = WebUtility.HtmlEncode(contentDisposition.FileName.Value);
 					var trustedFileNameForFileStorage = Path.GetRandomFileName();
-					using (var targetStream = System.IO.File.Create(Path.Combine(Path.GetTempPath(), trustedFileNameForDisplay /* trustedFileNameForFileStorage */)))
+					using (var targetStream = System.IO.File.Create(Path.Combine(Path.GetTempPath(), trustedFileNameForDisplay /* trustedFileNameForFileStorage */)))  // TOTO JE JENOM TESTOVÁTKO, NIKDY SOUBORY POD PŮVODNÍM NÁZVEM
 					{
 						await section.Body.CopyToAsync(targetStream);
 					}
