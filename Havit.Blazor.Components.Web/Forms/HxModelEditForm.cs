@@ -15,6 +15,11 @@ namespace Havit.Blazor.Components.Web
 	public class HxModelEditForm<TModel> : ComponentBase
 	{
 		/// <summary>
+		/// Form element id.
+		/// </summary>
+		[Parameter] public string Id { get; set; }
+
+		/// <summary>
 		/// Model.
 		/// </summary>
 		[Parameter] public TModel Model { get; set; }
@@ -76,6 +81,7 @@ namespace Havit.Blazor.Components.Web
 			builder.AddAttribute(1, nameof(EditForm.Model), ModelInEdit);
 			builder.AddAttribute(2, nameof(EditForm.OnValidSubmit), EventCallback.Factory.Create<EditContext>(this, HandleValidSubmit));
 			builder.AddAttribute(3, nameof(EditForm.ChildContent), (RenderFragment<EditContext>)((EditContext _) => ChildContent?.Invoke(ModelInEdit)));
+			builder.AddAttribute(4, nameof(Id), Id);
 			builder.CloseComponent();
 		}
 
