@@ -1,5 +1,5 @@
 ﻿##################################################################################################################
-# .NET5 <EnforceCodeStyleInBuild> does not reflect TreatWarningsAsErrors => we use Error severity until fixed	 #
+# .NET5 <EnforceCodeStyleInBuild> does not reflect TreatWarningsAsWarnings => we use Warning severity until fixed	 #
 ##################################################################################################################
 
 # C# files
@@ -42,7 +42,7 @@ csharp_style_prefer_switch_expression = true:suggestion
 csharp_prefer_braces = true:suggestion
 
 # 'using' directive preferences
-csharp_using_directive_placement = outside_namespace:Error
+csharp_using_directive_placement = outside_namespace:Warning
 
 ####################################
 # C# Formatting Rules              #
@@ -79,38 +79,38 @@ dotnet_naming_rule.private_consts_should_be_pascal_case_prefixed.severity = sugg
 #### IDE analyzers options ####
 ###############################
 
-dotnet_diagnostic.IDE0009.severity = Error # Member access should be qualified
-dotnet_diagnostic.IDE0011.severity = Error # Add braces
-dotnet_diagnostic.IDE0035.severity = Error # Unreachable code detected
-dotnet_diagnostic.IDE0040.severity = Error # Use accessibility modifiers
-dotnet_diagnostic.IDE0048.severity = Error # Add parenthesis for clarity
-dotnet_diagnostic.IDE0055.severity = Error # Fix formating
-dotnet_diagnostic.IDE0065.severity = Error # Misplaced using directive
-dotnet_diagnostic.IDE1006.severity = Error # Naming Styles
+dotnet_diagnostic.IDE0009.severity = Warning # Member access should be qualified
+dotnet_diagnostic.IDE0011.severity = Warning # Add braces
+dotnet_diagnostic.IDE0035.severity = Warning # Unreachable code detected
+dotnet_diagnostic.IDE0040.severity = Warning # Use accessibility modifiers
+dotnet_diagnostic.IDE0048.severity = Warning # Add parenthesis for clarity
+dotnet_diagnostic.IDE0055.severity = Warning # Fix formating
+dotnet_diagnostic.IDE0065.severity = Warning # Misplaced using directive
+dotnet_diagnostic.IDE1006.severity = Warning # Naming Styles
 
 
 #### FxCop analyzers options ####
 # Adopted from:
 # \\topol.havit.local\Library\VS2019\CodeAnalysis\HavitMain.ruleset
 
-dotnet_diagnostic.CA1010.severity=Error
-dotnet_diagnostic.CA1012.severity=Error
-dotnet_diagnostic.CA1013.severity=Error
-dotnet_diagnostic.CA1016.severity=Error
-dotnet_diagnostic.CA1041.severity=Error
-dotnet_diagnostic.CA1044.severity=Error
-dotnet_diagnostic.CA1047.severity=Error
-dotnet_diagnostic.CA1048.severity=Error
-dotnet_diagnostic.CA1049.severity=Error
-dotnet_diagnostic.CA1050.severity=Error
-dotnet_diagnostic.CA1064.severity=Error
-dotnet_diagnostic.CA1065.severity=Error
+dotnet_diagnostic.CA1010.severity=Warning
+dotnet_diagnostic.CA1012.severity=Warning
+dotnet_diagnostic.CA1013.severity=Warning
+dotnet_diagnostic.CA1016.severity=Warning
+dotnet_diagnostic.CA1041.severity=Warning
+dotnet_diagnostic.CA1044.severity=Warning
+dotnet_diagnostic.CA1047.severity=Warning
+dotnet_diagnostic.CA1048.severity=Warning
+dotnet_diagnostic.CA1049.severity=Warning
+dotnet_diagnostic.CA1050.severity=Warning
+dotnet_diagnostic.CA1064.severity=Warning
+dotnet_diagnostic.CA1065.severity=Warning
 
 # CA1303: Method '{1}' passes a literal string as parameter '{1}' of a call to '{2}'. Retrieve the following string(s) from a resource table instead: "{3}"
 #dotnet_diagnostic.CA1303.severity=silent
 
-dotnet_diagnostic.CA1500.severity=Error
-dotnet_diagnostic.CA1504.severity=Error
+dotnet_diagnostic.CA1500.severity=Warning
+dotnet_diagnostic.CA1504.severity=Warning
 
 # CA1822: Member '{0}' does not access instance data and can be marked as static
 dotnet_diagnostic.CA1822.severity=silent
