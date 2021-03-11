@@ -40,13 +40,9 @@ namespace BlazorAppTest.Pages
 			});
 		}
 
-		protected async Task ApplyFilterRequested()
+		protected async Task NamedViewSelected(NamedView<FilterModelDto> namedView)
 		{
-			await gridComponent.RefreshDataAsync();
-		}
-
-		protected async Task NamedViewSelected(/*NamedView<GetInvoicesFilterDto> namedView*/)
-		{
+			filterModel = namedView.Filter();
 			await gridComponent.RefreshDataAsync();
 		}
 
@@ -55,25 +51,23 @@ namespace BlazorAppTest.Pages
 			await gridComponent.RefreshDataAsync();
 		}
 
-		protected Task NewInvoiceClicked()
+		private Task DeleteItemClicked(DataItemDto dataItemDto)
 		{
-			this.currentItem = new DataItemDto();
-			// OpenDetail() ?
+			_ = dataItemDto;
 			return Task.CompletedTask;
 		}
 
-		protected Task EditClicked(DataItemDto item)
+		private Task HandleSelectedDataItemChanged(DataItemDto selection)
 		{
+			currentItem = selection;
+			// await dataItemEditComponent.ShowAsync();
 			return Task.CompletedTask;
 		}
 
-		protected Task DeleteClicked(DataItemDto item)
+		private Task NewItemClicked()
 		{
-			return Task.CompletedTask;
-		}
-
-		protected Task DuplicateClicked(DataItemDto item)
-		{
+			currentItem = new DataItemDto();
+			// await dataItemEditComponent.ShowAsync();
 			return Task.CompletedTask;
 		}
 

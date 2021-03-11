@@ -4,23 +4,23 @@ using System.Text;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public class NamedView<TFilterType>
+	public class NamedView<TFilterModelType>
 	{
 		public string Name { get; }
 
-		public Func<TFilterType> Filter { get; } // TODO: Naming?
+		public Func<TFilterModelType> Filter { get; } // TODO: Naming?
 
 		public NamedView(string name) : this(name, () => default)
 		{
 			// NOOP
 		}
 
-		public NamedView(string name, TFilterType filter) : this(name, () => filter)
+		public NamedView(string name, TFilterModelType filter) : this(name, () => filter)
 		{
 			// NOOP
 		}
 
-		public NamedView(string name, Func<TFilterType> filterFunc)
+		public NamedView(string name, Func<TFilterModelType> filterFunc)
 		{
 			Name = name;
 			Filter = filterFunc;

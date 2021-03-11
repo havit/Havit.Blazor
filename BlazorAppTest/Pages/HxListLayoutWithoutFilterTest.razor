@@ -1,0 +1,29 @@
+﻿@page "/HxListLayoutWithoutFilterTest"
+
+<h1>HxListLayout - without Filter</h1>
+
+<HxListLayout Title="Nadpis" TFilterModelType="HxListLayout.NoFilter">
+	<CommandsSection>
+		@* nebo pojmenovat ButtonsSection? *@
+		<HxButton Text="Přidat fakturu" Skin="ButtonSkins.New" CssClass="ms-1" OnClick="@NewInvoiceClicked" />
+		@* ...případná další tlačítka, např. export, generátor opakovaných plateb, hromadné změny? ... *@
+		@* ...tlačítko může být i "rozbalovací? *@
+	</CommandsSection>
+	<DataSection>
+		<HxGrid @ref="gridComponent" TItemType="DataItemDto" PageSize="20" DataProvider="LoadDataItems">
+			<Columns>
+				<HxGridColumn TItemType="DataItemDto" HeaderText="Id" ItemTextSelector="@(item => item.ItemId.ToString())" SortString="@nameof(DataItemDto.ItemId)" IsDefaultSortColumn="true" />
+				<HxGridColumn TItemType="DataItemDto" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(DataItemDto.Name)" />
+			</Columns>
+			<ContextMenu Context="item">
+				<HxContextMenu>
+					<HxContextMenuItem Text="Smazat" OnClick="async () => await DeleteClicked(item)"
+									   ConfirmationQuestion="@($"Opravdu si přejete smazat {item.Name}?")" />
+				</HxContextMenu>
+			</ContextMenu>
+		</HxGrid>
+	</DataSection>
+	<DetailSection>
+		Edit: @currentItem?.ItemId
+	</DetailSection>
+</HxListLayout>

@@ -1,20 +1,18 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 @typeparam TFilterModelType
 
-<h1>HxListLayout</h1>
-
 <div class="hx-list-layout">
 	<HxCard Skin="CardSkin.None" CssClass="my-4" BodyCssClass="px-0 pt-0">
 		<HeaderTemplate>
 			<div class="row">
 				<div class="col py-1 fw-bold">
-					@if (NamedViewsSection != null)
+					@if (NamedViewsTemplate != null)
 					{
 						<div class="dropdown">
 							<span role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								@if (TitleSection != null)
+								@if (TitleTemplate != null)
 								{
-									@TitleSection
+									@TitleTemplate
 								}
 								else if (!String.IsNullOrEmpty(Title))
 								{
@@ -22,32 +20,32 @@
 								}
 								<HxIcon CssClass="ms-1" Icon="@BootstrapIcon.ChevronDown" />
 							</span>
-							@NamedViewsSection
+							@NamedViewsTemplate
 						</div>
 					}
-					else if (TitleSection != null)
+					else if (TitleTemplate != null)
 					{
-						@TitleSection
+						@TitleTemplate
 					}
 					else if (!String.IsNullOrEmpty(Title))
 					{
 						@Title
 					}
 				</div>
-				@if (SearchSection != null)
+				@if (SearchTemplate != null)
 				{
 					<div class="col">
-						@SearchSection
+						@SearchTemplate
 					</div>
 				}
 				<div class="col text-end">
-					@if (FilterSection != null)
+					@if (FilterTemplate != null)
 					{
 						<HxButton OnClick="() => FilterDrawerOpen = true" Color="ThemeColor.Secondary">Filtrovat</HxButton>
 					}
-					@if (CommandsSection != null)
+					@if (CommandsTemplate != null)
 					{
-						@CommandsSection
+						@CommandsTemplate
 					}
 				</div>
 			</div>
@@ -59,7 +57,7 @@
 					</div>
 				</div>
 			}
-			@if (FilterSection != null)
+			@if (FilterTemplate != null)
 			{
 				<HxDrawer @bind-IsOpen="@FilterDrawerOpen" RenderMode="DrawerRenderMode.Always">
 					<HeaderTemplate>
@@ -67,7 +65,7 @@
 					</HeaderTemplate>
 					<BodyTemplate>
 						<HxFilterForm @ref="filterForm" Id="@filterFormId" TModel="TFilterModelType" Model="FilterModel" ModelChanged="HandleFilterFormModelChanged" Context="filterContext" OnChipsUpdated="HandleChipUpdated">
-							@FilterSection(filterContext)
+							@FilterTemplate(filterContext)
 						</HxFilterForm>
 					</BodyTemplate>
 					<FooterTemplate>
@@ -77,8 +75,8 @@
 			}
 		</HeaderTemplate>
 		<BodyTemplate>
-			@DataSection
+			@DataTemplate
 		</BodyTemplate>
 	</HxCard>
-	@DetailSection
+	@DetailTemplate
 </div>
