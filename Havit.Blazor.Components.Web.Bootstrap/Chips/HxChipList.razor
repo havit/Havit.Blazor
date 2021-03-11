@@ -1,16 +1,16 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 @if (Chips != null)
 {
-	foreach (Havit.Blazor.Components.Web.Bootstrap.ChipItem chipItem in Chips)
-	{
-		<span class="hx-chip badge bg-secondary">
-			@chipItem.ChipTemplate
-			@if (chipItem.Removable)
-			{
-				<span role="button" @onclick="() => HandleRemoveClick(chipItem)" @onclick:stopPropagation>
-					<HxIcon Icon="BootstrapIcon.X" />
-				</span>
-			}
-		</span>
-	 }
+    foreach (Havit.Blazor.Components.Web.Bootstrap.ChipItem chipItem in Chips)
+    {
+        <span class="hx-chip badge bg-secondary d-inline-flex align-items-center">
+    @chipItem.ChipTemplate
+    @if (chipItem.Removable)
+            {
+                <button type="button" class="btn-close btn-close-white ms-1" aria-label="Close"
+                    @onclick="() => HandleRemoveClick(chipItem)" @onclick:stopPropagation>
+                </button>
+            }
+        </span>
+    }
 }
