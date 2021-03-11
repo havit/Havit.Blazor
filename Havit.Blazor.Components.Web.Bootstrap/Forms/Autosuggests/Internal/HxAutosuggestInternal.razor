@@ -3,8 +3,11 @@
 @typeparam TValueType
 
 <div id="@dropdownId" class="dropdown">
-	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput @ref="autosuggestInput" InputId="@InputId" EnabledEffective="@EnabledEffective" Value="@userInput" OnInputInput="HandleInputInput" OnInputFocus="HandleInputFocus" OnInputBlur="HandleInputBlur" Placeholder="@Placeholder" CssClass="@InputCssClass" />
-    <div class="hx-autosuggest-input-icon position-absolute top-50 end-0 translate-middle-y">
+    <Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput @ref="autosuggestInput" InputId="@InputId"
+        EnabledEffective="@EnabledEffective" Value="@userInput" OnInputInput="HandleInputInput"
+        OnInputFocus="HandleInputFocus" OnInputBlur="HandleInputBlur" Placeholder="@Placeholder"
+        CssClass="@InputCssClass" />
+    <div class="hx-autosuggest-input-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center">
         @if (dataProviderInProgress)
         {
             <div>
@@ -12,15 +15,15 @@
             </div>
         }
         else if (!EqualityComparer<TValueType>.Default.Equals(Value, default))
-        { 
-            <a role="button" @onclick="HandleCrossClick" @onclick:stopPropagation>
-                <HxIcon Icon="BootstrapIcon.X" />
-            </a>
+        {
+            <button type="button" class="btn-close" aria-label="Close" @onclick="HandleCrossClick" @onclick:stopPropagation>
+            </button>
         }
         else
-	    {
-	        <HxIcon Icon="BootstrapIcon.Search" />
-	    }
+        {
+            <HxIcon Icon="BootstrapIcon.Search" />
+        }
     </div>
-	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems TItemType="TItemType" Items="@suggestions" TextSelector="TextSelectorEffective" OnItemClick="HandleItemClick" />
+    <Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems TItemType="TItemType" Items="@suggestions"
+        TextSelector="TextSelectorEffective" OnItemClick="HandleItemClick" />
 </div>
