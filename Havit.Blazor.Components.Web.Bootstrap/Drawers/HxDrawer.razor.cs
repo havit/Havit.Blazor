@@ -22,6 +22,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
 
+		[Parameter] public DrawerRenderMode RenderMode { get; set; } = DrawerRenderMode.OpenOnly;
+
 		/// <summary>
 		/// Size of the drawer. Default is <see cref="DrawerSize.Regular"/>.
 		/// </summary>

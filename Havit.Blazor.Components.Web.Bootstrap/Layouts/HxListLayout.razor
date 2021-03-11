@@ -1,14 +1,17 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@typeparam TFilterModelType
+
+<h1>HxListLayout</h1>
+
 <div class="hx-list-layout">
-    <HxCard Skin="CardSkin.None" CssClass="my-4" BodyCssClass="px-0 pt-0">
+	<HxCard Skin="CardSkin.None" CssClass="my-4" BodyCssClass="px-0 pt-0">
 		<HeaderTemplate>
-           <div class="row">
-    			<div class="col py-1 fw-bold">
+			<div class="row">
+				<div class="col py-1 fw-bold">
 					@if (NamedViewsSection != null)
 					{
 						<div class="dropdown">
-							<span role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true"
-								  aria-expanded="false">
+							<span role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								@if (TitleSection != null)
 								{
 									@TitleSection
@@ -47,23 +50,35 @@
 						@CommandsSection
 					}
 				</div>
-            </div>
-            @if (FilterSection != null)
+			</div>
+			@if (FilterModel != null)
 			{
-				<HxDrawer @bind-IsOpen="@FilterDrawerOpen">
+				<div class="row">
+					<div class="col">
+						<HxChipList Chips="chips" OnChipRemoveClick="HandleChipRemoveClick" />
+					</div>
+				</div>
+			}
+			@if (FilterSection != null)
+			{
+				<HxDrawer @bind-IsOpen="@FilterDrawerOpen" RenderMode="DrawerRenderMode.Always">
+					<HeaderTemplate>
+						Filter
+					</HeaderTemplate>
 					<BodyTemplate>
-						<CascadingValue Value="@FilterDrawerOpen" Name="FilterDrawerOpen">
-							@* TODO pojmenování, konstanta *@ @* Kam může programátor napsat, že chce filtr by default expandovaný?
-							*@
-							@FilterSection
-						</CascadingValue>
+						<HxFilterForm @ref="filterForm" Id="@filterFormId" TModel="TFilterModelType" Model="FilterModel" ModelChanged="HandleFilterFormModelChanged" Context="filterContext" OnChipsUpdated="HandleChipUpdated">
+							@FilterSection(filterContext)
+						</HxFilterForm>
 					</BodyTemplate>
+					<FooterTemplate>
+						<HxSubmit FormId="@filterFormId" Text="Apply" Color="ThemeColor.Primary" />
+					</FooterTemplate>
 				</HxDrawer>
 			}
 		</HeaderTemplate>
 		<BodyTemplate>
 			@DataSection
 		</BodyTemplate>
-    </HxCard>
+	</HxCard>
 	@DetailSection
 </div>

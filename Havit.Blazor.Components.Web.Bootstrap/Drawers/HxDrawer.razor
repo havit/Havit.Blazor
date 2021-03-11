@@ -1,6 +1,6 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap
 <div class="@CssClassHelper.Combine("hx-drawer", GetSizeCssClass(), GetOpenCssClass())">
-	@if (IsOpen)
+	@if (IsOpen || (RenderMode == DrawerRenderMode.Always))
 	{
 		<div class="hx-drawer-header pt-4 px-4 d-flex align-items-center">
 			<div class="fs-4">

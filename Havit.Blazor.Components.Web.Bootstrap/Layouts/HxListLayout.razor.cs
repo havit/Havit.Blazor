@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public partial class HxListLayout
+	public partial class HxListLayout<TFilterModelType>
 	{
 		[Parameter] public bool FilterDrawerOpen { get; set; }
 
@@ -21,7 +21,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment SearchSection { get; set; }
 
 		// TODO: Search (předchozí) vs. Filter (zde)
-		[Parameter] public RenderFragment FilterSection { get; set; }
+		[Parameter] public RenderFragment<TFilterModelType> FilterSection { get; set; }
+
+		[Parameter] public TFilterModelType FilterModel { get; set; }
+		[Parameter] public EventCallback<TFilterModelType> FilterModelChanged { get; set; }
 
 		[Parameter] public RenderFragment NamedViewsSection { get; set; }
 
@@ -30,5 +33,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment DetailSection { get; set; }
 
 		[Parameter] public RenderFragment CommandsSection { get; set; }
+
+		private ChipItem[] chips;
+		private string filterFormId = "hx" + Guid.NewGuid().ToString("N");
+		private HxFilterForm<TFilterModelType> filterForm;
+
+		private void HandleChipUpdated(ChipItem[] chips)
+		{
+			this.chips = chips;
+		}
+
+		private async Task HandleChipRemoveClick(ChipItem chipItemToRemove)
+		{
+			await filterForm.RemoveChipAsync(chipItemToRemove);
+		}
+
+		private async Task HandleFilterFormModelChanged(TFilterModelType newFilterModel)
+		{
+			FilterModel = newFilterModel;
+			await FilterModelChanged.InvokeAsync(newFilterModel);
+			FilterDrawerOpen = false;
+		}
 	}
 }

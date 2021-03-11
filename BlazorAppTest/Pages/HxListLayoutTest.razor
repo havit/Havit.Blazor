@@ -1,0 +1,44 @@
+﻿@page "/HxListLayoutTest"
+
+
+<HxListLayout Title="Faktury vystavené" TFilterModelType="FilterModelDto" @bind-FilterModel="filterModel">
+	<NamedViewsSection>
+		<HxNamedViewList TFilterType="FilterModelDto" @bind-Filter="filterModel" NamedViews="namedViews" OnNamedViewSelected="NamedViewSelected" />
+	</NamedViewsSection>
+	<SearchSection>
+		<HxSearchBox OnQueryTextChanged="SearchRequested" /> @* Možná přímo navázat na centrální BindData? *@
+	</SearchSection>
+	<FilterSection Context="filterContext">
+		<HxInputNumber Label="ContactId" @bind-Value="filterContext.ContactId" />
+	</FilterSection>
+	<CommandsSection>
+		@* nebo pojmenovat ButtonsSection? *@
+		<HxButton Text="Přidat fakturu" Skin="ButtonSkins.New" CssClass="ms-1" OnClick="@NewInvoiceClicked" />
+		@* ...případná další tlačítka, např. export, generátor opakovaných plateb, hromadné změny? ... *@
+		@* ...tlačítko může být i "rozbalovací? *@
+	</CommandsSection>
+	<DataSection>
+		@*@bind-SelectedDataItem="@CurrentInvoice"
+			AllowSelection="true"
+			AllowSorting="true"*@
+
+		@*@bind-CurrentSorting="@CurrentSorting"*@
+		<HxGrid @ref="gridComponent" TItemType="DataItemDto" PageSize="20" DataProvider="LoadDataItems">
+			<Columns>
+				<HxGridColumn TItemType="DataItemDto" HeaderText="Id" ItemTextSelector="@(item => item.ItemId.ToString())" SortString="@nameof(DataItemDto.ItemId)" IsDefaultSortColumn="true" />
+				<HxGridColumn TItemType="DataItemDto" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(DataItemDto.Name)" />
+			</Columns>
+			<ContextMenu Context="item">
+				<HxContextMenu>
+					<HxContextMenuItem Text="Upravit" OnClick="async () => await EditClicked(item)" />
+					<HxContextMenuItem Text="Duplikovat" OnClick="async () => await DuplicateClicked(item)" />
+					<HxContextMenuItem Text="Smazat" OnClick="async () => await DeleteClicked(item)"
+									   ConfirmationQuestion="@($"Opravdu si přejete smazat {item.Name}?")" />
+				</HxContextMenu>
+			</ContextMenu>
+		</HxGrid>
+	</DataSection>
+	<DetailSection>
+		Edit: @currentItem?.ItemId
+	</DetailSection>
+</HxListLayout>
