@@ -19,25 +19,33 @@ namespace BlazorAppTest.Pages
 
 		private readonly IEnumerable<NamedView<FilterModelDto>> namedViews = new List<NamedView<FilterModelDto>>()
 		{
-			new NamedView<FilterModelDto>("Letos vystavené", () => new FilterModelDto { } ),
-			new NamedView<FilterModelDto>("Neuhrazené po splatnosti", () => new FilterModelDto { }),
-			new NamedView<FilterModelDto>("Po splatnosti > 30 dnů", () => new FilterModelDto { })
+			new NamedView<FilterModelDto>("Minimum = 1", () => new FilterModelDto { MinimumItemId = 1 } ),
+			new NamedView<FilterModelDto>("Minimum = 2", () => new FilterModelDto { MinimumItemId = 2 }),
+			new NamedView<FilterModelDto>("Minimum = 3", () => new FilterModelDto { MinimumItemId = 3 })
 		};
 
 		private Task<GridDataProviderResult<DataItemDto>> LoadDataItems(GridDataProviderRequest<DataItemDto> request)
 		{
-			List<DataItemDto> result = new List<DataItemDto>()
+			List<DataItemDto> data = new List<DataItemDto>()
 			{
 				new DataItemDto() { ItemId = 1, Name = "Jednička"},
 				new DataItemDto() { ItemId = 2, Name = "Dvojka"},
 				new DataItemDto() { ItemId = 3, Name = "Trojka"}
 			};
 
+			IEnumerable<DataItemDto> result = data.Where(i => i.ItemId >= filterModel.MinimumItemId).ToList();
+
 			return Task.FromResult(new GridDataProviderResult<DataItemDto>()
 			{
 				Data = result,
-				TotalCount = result.Count
+				TotalCount = result.Count()
 			});
+		}
+
+		private async Task HandleFilterModelChanged(FilterModelDto newFilterModel)
+		{
+			filterModel = newFilterModel;
+			await gridComponent.RefreshDataAsync();
 		}
 
 		protected async Task NamedViewSelected(NamedView<FilterModelDto> namedView)
@@ -73,7 +81,7 @@ namespace BlazorAppTest.Pages
 
 		public record FilterModelDto
 		{
-			public int ContactId { get; set; }
+			public int MinimumItemId { get; set; }
 		}
 
 		public record DataItemDto

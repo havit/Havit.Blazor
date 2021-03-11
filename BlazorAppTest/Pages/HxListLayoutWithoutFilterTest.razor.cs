@@ -32,15 +32,23 @@ namespace BlazorAppTest.Pages
 			});
 		}
 
-		protected Task NewInvoiceClicked()
+		private Task HandleSelectedDataItemChanged(DataItemDto selection)
 		{
-			this.currentItem = new DataItemDto();
-			// OpenDetail() ?
+			currentItem = selection;
+			// await dataItemEditComponent.ShowAsync();
 			return Task.CompletedTask;
 		}
 
-		protected Task DeleteClicked(DataItemDto item)
+		private Task HandleDeleteItemClicked(DataItemDto dataItemDto)
 		{
+			_ = dataItemDto;
+			return Task.CompletedTask;
+		}
+
+		private Task HandleNewItemClicked()
+		{
+			currentItem = new DataItemDto();
+			// await dataItemEditComponent.ShowAsync();
 			return Task.CompletedTask;
 		}
 

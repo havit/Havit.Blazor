@@ -2,28 +2,20 @@
 
 <h1>HxListLayout</h1>
 
-<HxListLayout Title="Nadpis" TFilterModelType="FilterModelDto" @bind-FilterModel="filterModel">
-	<NamedViewsSection>
-		<HxNamedViewList TFilterType="FilterModelDto" @bind-Filter="filterModel" NamedViews="namedViews" OnNamedViewSelected="NamedViewSelected" />
-	</NamedViewsSection>
-	<SearchSection>
-		<HxSearchBox OnQueryTextChanged="SearchRequested" /> @* Možná přímo navázat na centrální BindData? *@
-	</SearchSection>
-	<FilterSection Context="filterContext">
-		<HxInputNumber Label="ContactId" @bind-Value="filterContext.ContactId" />
-	</FilterSection>
-	<CommandsSection>
-		@* nebo pojmenovat ButtonsSection? *@
+<HxListLayout Title="Nadpis" TFilterModelType="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged">
+	<NamedViewsTemplate>
+		<HxNamedViewList TFilterType="FilterModelDto" Filter="filterModel" FilterChanged="HandleFilterModelChanged" NamedViews="namedViews" OnNamedViewSelected="NamedViewSelected" />
+	</NamedViewsTemplate>
+	<SearchTemplate>
+		<HxSearchBox OnQueryTextChanged="SearchRequested" />
+	</SearchTemplate>
+	<FilterTemplate Context="filterContext">
+		<HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumItemId" />
+	</FilterTemplate>
+	<CommandsTemplate>
 		<HxButton Text="Přidat fakturu" Skin="ButtonSkins.New" CssClass="ms-1" OnClick="NewItemClicked" />
-		@* ...případná další tlačítka, např. export, generátor opakovaných plateb, hromadné změny? ... *@
-		@* ...tlačítko může být i "rozbalovací? *@
-	</CommandsSection>
-	<DataSection>
-		@*@bind-SelectedDataItem="@CurrentInvoice"
-			AllowSelection="true"
-			AllowSorting="true"*@
-
-		@*@bind-CurrentSorting="@CurrentSorting"*@
+	</CommandsTemplate>
+	<DataTemplate>
 		<HxGrid @ref="gridComponent" TItemType="DataItemDto" PageSize="20" DataProvider="LoadDataItems" SelectedDataItem="currentItem" SelectedDataItemChanged="HandleSelectedDataItemChanged">
 			<Columns>
 				<HxGridColumn TItemType="DataItemDto" HeaderText="Id" ItemTextSelector="@(item => item.ItemId.ToString())" SortString="@nameof(DataItemDto.ItemId)" IsDefaultSortColumn="true" />
@@ -35,8 +27,8 @@
 				</HxContextMenu>
 			</ContextMenu>
 		</HxGrid>
-	</DataSection>
-	<DetailSection>
+	</DataTemplate>
+	<DetailTemplate>
 		Edit: @currentItem?.ItemId
-	</DetailSection>
+	</DetailTemplate>
 </HxListLayout>

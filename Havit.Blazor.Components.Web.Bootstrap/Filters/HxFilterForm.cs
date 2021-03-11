@@ -11,7 +11,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Edit form derived from HxModelEditForm with support for chip generators.
 	/// </summary>
-	public class HxFilterForm<TModel> : HxModelEditForm<TModel>
+	public class HxFilterForm<TModelType> : HxModelEditForm<TModelType>
 	{
 		public const string ChipGeneratorRegistrationCascadingValueName = "ChipGeneratorsRegistration";
 
@@ -77,7 +77,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public Task RemoveChipAsync(ChipItem chipToRemove)
 		{
 			// starts to edit the Model (the clone, to be precise)
-			TModel newModelInEdit = CloneModel(Model);
+			TModelType newModelInEdit = CloneModel(Model);
 			chipToRemove.RemoveAction(newModelInEdit); // process the chip removal
 			ModelInEdit = newModelInEdit; // place the model to the edit
 
