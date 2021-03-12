@@ -157,7 +157,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(101, "type", "button");
 			builder.AddAttribute(102, "class", CssClassHelper.Combine("btn-close", cssClass));
 			builder.AddAttribute(103, "data-bs-dismiss", "toast");
-			builder.AddAttribute(104, "aria-label", "Close");
 			builder.CloseElement(); // button
 		}
 

@@ -16,7 +16,7 @@
         }
         else if (!EqualityComparer<TValueType>.Default.Equals(Value, default))
         {
-            <button type="button" class="btn-close" aria-label="Close" @onclick="HandleCrossClick" @onclick:stopPropagation>
+            <button type="button" class="btn-close" @onclick="HandleCrossClick" @onclick:stopPropagation>
             </button>
         }
         else
