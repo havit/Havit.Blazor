@@ -1,7 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
 @{
-	string text = @GetText();
+	string text = GetText();
 }
 <button type="@GetButtonType()"
 	class="@CssClassHelper.Combine("hx-button","btn", GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass)"
