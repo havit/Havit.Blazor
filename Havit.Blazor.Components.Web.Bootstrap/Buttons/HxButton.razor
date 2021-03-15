@@ -1,5 +1,8 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
+@{
+	string text = @GetText();
+}
 <button type="@GetButtonType()"
 	class="@CssClassHelper.Combine("hx-button","btn", GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass)"
 	@onclick="HandleClick" @onclick:stopPropagation="this.OnClickStopPropagation"
@@ -7,11 +10,14 @@
 
 	@if ((this.Icon ?? this.Skin?.Icon) is not null)
 	{
-	 <HxIcon Icon="this.Icon ?? this.Skin?.Icon" />
-	 <span>&nbsp;</span>
+		<HxIcon Icon="this.Icon ?? this.Skin?.Icon" />
+		@if (!String.IsNullOrEmpty(text) || (ChildContent != null))
+		{
+			<span>&nbsp;</span>
+		}
 	}
 
- @GetText()
+	@text
 
- @ChildContent
+	@ChildContent
 </button>
