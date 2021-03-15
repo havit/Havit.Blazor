@@ -2,81 +2,84 @@
 @typeparam TFilterModelType
 
 <div class="hx-list-layout">
-	<HxCard Skin="CardSkin.None" CssClass="my-4" BodyCssClass="px-0 pt-0">
-		<HeaderTemplate>
-			<div class="row">
-				<div class="col py-1 fw-bold">
-					@if (NamedViewsTemplate != null)
-					{
-						<div class="dropdown">
-							<span role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								@if (TitleTemplate != null)
-								{
-									@TitleTemplate
-								}
-								else if (!String.IsNullOrEmpty(Title))
-								{
-									@Title
-								}
-								<HxIcon CssClass="ms-1" Icon="@BootstrapIcon.ChevronDown" />
-							</span>
-							@NamedViewsTemplate
-						</div>
-					}
-					else if (TitleTemplate != null)
-					{
-						@TitleTemplate
-					}
-					else if (!String.IsNullOrEmpty(Title))
-					{
-						@Title
-					}
-				</div>
-				@if (SearchTemplate != null)
-				{
-					<div class="col">
-						@SearchTemplate
-					</div>
-				}
-				<div class="col text-end">
-					@if (FilterTemplate != null)
-					{
-						<HxButton OnClick="() => FilterDrawerOpen = true" Color="ThemeColor.Secondary">Filtrovat</HxButton>
-					}
-					@if (CommandsTemplate != null)
-					{
-						@CommandsTemplate
-					}
-				</div>
-			</div>
-			@if (FilterModel != null)
-			{
-				<div class="row">
-					<div class="col">
-						<HxChipList Chips="chips" OnChipRemoveClick="HandleChipRemoveClick" />
-					</div>
-				</div>
-			}
-			@if (FilterTemplate != null)
-			{
-				<HxDrawer @bind-IsOpen="@FilterDrawerOpen" RenderMode="DrawerRenderMode.Always">
-					<HeaderTemplate>
-						Filter
-					</HeaderTemplate>
-					<BodyTemplate>
-						<HxFilterForm @ref="filterForm" Id="@filterFormId" TModelType="TFilterModelType" Model="FilterModel" ModelChanged="HandleFilterFormModelChanged" Context="filterContext" OnChipsUpdated="HandleChipUpdated">
-							@FilterTemplate(filterContext)
-						</HxFilterForm>
-					</BodyTemplate>
-					<FooterTemplate>
-						<HxSubmit FormId="@filterFormId" Text="Apply" Color="ThemeColor.Primary" />
-					</FooterTemplate>
-				</HxDrawer>
-			}
-		</HeaderTemplate>
-		<BodyTemplate>
-			@DataTemplate
-		</BodyTemplate>
-	</HxCard>
-	@DetailTemplate
+    <HxCard Skin="CardSkin.None" CssClass="my-4" BodyCssClass="px-0 pt-0">
+        <HeaderTemplate>
+            <div class="row">
+                <div class="col py-1 fw-bold d-flex align-items-center">
+                    @if (NamedViewsTemplate != null)
+                {
+                    <div class="dropdown">
+                        <span role="button" id="dropdownMenuLink" class="d-flex align-items-center"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @if (TitleTemplate != null)
+                            {
+                                @TitleTemplate
+                            }
+                            else if (!String.IsNullOrEmpty(Title))
+                            {
+                                @Title
+                            }
+                            <HxIcon CssClass="ms-1 small" Icon="@BootstrapIcon.ChevronDown" />
+                        </span>
+                        @NamedViewsTemplate
+                    </div>
+                    }
+                else if (TitleTemplate != null)
+                {
+                    @TitleTemplate
+                    }
+                else if (!String.IsNullOrEmpty(Title))
+                {
+                    @Title
+                    }
+                </div>
+                @if (SearchTemplate != null)
+                {
+                <div class="col">
+                    @SearchTemplate
+                </div>
+                }
+                <div class="col text-end">
+                    @if (FilterTemplate != null)
+                {
+                    <HxButton OnClick="() => FilterDrawerOpen = true" Color="ThemeColor.Secondary">Filtrovat</HxButton>
+                    }
+                    @if (CommandsTemplate != null)
+                {
+                    @CommandsTemplate
+                    }
+                </div>
+            </div>
+            @if (FilterModel != null)
+                {
+            <div class="row">
+                <div class="col">
+                    <HxChipList Chips="chips" OnChipRemoveClick="HandleChipRemoveClick" />
+                </div>
+            </div>
+            }
+            @if (FilterTemplate != null)
+                {
+            <HxDrawer @bind-IsOpen="@FilterDrawerOpen" RenderMode="DrawerRenderMode.Always">
+                <HeaderTemplate>
+                    Filter
+                </HeaderTemplate>
+                <BodyTemplate>
+                    <HxFilterForm @ref="filterForm" Id="@filterFormId" TModelType="TFilterModelType" Model="FilterModel"
+                        ModelChanged="HandleFilterFormModelChanged" Context="filterContext"
+                        OnChipsUpdated="HandleChipUpdated">
+                        @FilterTemplate(filterContext)
+                    </HxFilterForm>
+                </BodyTemplate>
+                <FooterTemplate>
+                    <HxSubmit FormId="@filterFormId" Text="Apply" Color="ThemeColor.Primary" />
+                </FooterTemplate>
+            </HxDrawer>
+            }
+        </HeaderTemplate>
+        <BodyTemplate>
+            @DataTemplate
+        </BodyTemplate>
+    </HxCard>
+    @DetailTemplate
 </div>
