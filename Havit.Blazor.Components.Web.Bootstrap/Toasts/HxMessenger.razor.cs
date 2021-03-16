@@ -16,7 +16,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Position of the messages. Default is <c>null</c> <see cref="HxToastContainerPosition.None"/>.
 		/// </summary>
 		[Parameter] public HxToastContainerPosition Position { get; set; } = HxToastContainerPosition.None;
-		[Parameter] public bool RemoveMessagesOnNavigation { get; set; } = true;
 		[Parameter] public string CssClass { get; set; }
 
 		[Inject] protected IHxMessengerService Messenger { get; set; }
@@ -29,19 +28,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			base.OnInitialized();
 
 			Messenger.OnMessage += Messenger_OnMessage;
-			if (RemoveMessagesOnNavigation)
-			{
-				NavigationManager.LocationChanged += NavigationManager_LocationChanged_RemoveMessagesOnNavigation;
-			}
-		}
-
-		private void NavigationManager_LocationChanged_RemoveMessagesOnNavigation(object sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
-		{
-			InvokeAsync(() =>
-			{
-				messages.Clear();
-				StateHasChanged();
-			});
 		}
 
 		private void Messenger_OnMessage(MessengerMessage message)
@@ -55,9 +41,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Receive notification from javascript when message is hidden.
+		/// Receive notification from <see cref="HxToast"/> when message is hidden.
 		/// </summary>
-		protected void HandleToastHidden(MessengerMessage message)
+		private void HandleToastHidden(MessengerMessage message)
 		{
 			messages.Remove(message);
 		}
@@ -65,10 +51,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public void Dispose()
 		{
 			Messenger.OnMessage -= Messenger_OnMessage;
-			if (RemoveMessagesOnNavigation)
-			{
-				NavigationManager.LocationChanged -= NavigationManager_LocationChanged_RemoveMessagesOnNavigation;
-			}
 		}
 	}
 }

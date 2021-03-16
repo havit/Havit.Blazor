@@ -7,9 +7,11 @@
 <HxButton Text="Add information" OnClick="HandleAddInformationButtonClick" Color="ThemeColor.Primary" />
 <HxButton Text="Add warning" OnClick="HandleAddWarningButtonClick" Color="ThemeColor.Warning" />
 <HxButton Text="Add error" OnClick="HandleAddErrorButtonClick" Color="ThemeColor.Danger" />
+<HxButton Text="With redirect" OnClick="HandleWithRedirect" Color="ThemeColor.Info" />
 
 @code{
 	[Inject] protected IHxMessengerService Messenger { get; set; }
+	[Inject] protected NavigationManager NavigationManager { get; set; }
 
 	protected override void OnAfterRender(bool firstRender)
 	{
@@ -33,6 +35,12 @@
 	private void HandleAddErrorButtonClick()
 	{
 		Messenger.AddError("Error", "Error button clicked.");
+	}
+
+	private void HandleWithRedirect()
+	{
+		Messenger.AddError("Messenger with redirect", "Content.");
+		NavigationManager.NavigateTo("/");
 	}
 }
 
