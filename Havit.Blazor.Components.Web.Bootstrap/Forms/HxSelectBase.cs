@@ -14,9 +14,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Base class for HxSelect and custom-implemented SELECT-pickers.
 	/// </summary>
-	/// <typeparam name="TValueType">Type of value.</typeparam>
-	/// <typeparam name="TItemType">Type of items.</typeparam>
-	public abstract class HxSelectBase<TValueType, TItemType> : HxInputBase<TValueType>, IInputWithSize
+	/// <typeparam name="TValue">Type of value.</typeparam>
+	/// <typeparam name="TItem">Type of items.</typeparam>
+	public abstract class HxSelectBase<TValue, TItem> : HxInputBase<TValue>, IInputWithSize
 	{
 		/// <inheritdoc />
 		[Parameter] public InputSize InputSize { get; set; }
@@ -45,12 +45,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					return false;
 				}
 
-				if (System.Nullable.GetUnderlyingType(typeof(TValueType)) != null)
+				if (System.Nullable.GetUnderlyingType(typeof(TValue)) != null)
 				{
 					return true;
 				}
 
-				if (typeof(TValueType).IsClass)
+				if (typeof(TValue).IsClass)
 				{
 					return true;
 				}
@@ -76,27 +76,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Not required when TValueType is same as TItemTime.
 		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 		/// </summary>
-		protected Func<TItemType, TValueType> ValueSelectorImpl { get; set; }
+		protected Func<TItem, TValue> ValueSelectorImpl { get; set; }
 
 		/// <summary>
 		/// Items to display. 
 		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 		/// </summary>
-		protected IEnumerable<TItemType> DataImpl { get; set; }
+		protected IEnumerable<TItem> DataImpl { get; set; }
 
 		/// <summary>
 		/// Selects text to display from item.
 		/// When not set ToString() is used.
 		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 		/// </summary>
-		protected Func<TItemType, string> TextSelectorImpl { get; set; }
+		protected Func<TItem, string> TextSelectorImpl { get; set; }
 
 		/// <summary>
 		/// Selects value to sort items. Uses <see cref="TextSelectorImpl"/> property when not set.
 		/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
 		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 		/// </summary>
-		protected Func<TItemType, IComparable> SortKeySelectorImpl { get; set; }
+		protected Func<TItem, IComparable> SortKeySelectorImpl { get; set; }
 
 		/// <summary>
 		/// When true, items are sorted before displaying in select.
@@ -110,9 +110,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private protected override string CoreInputCssClass => "form-select";
 
-		private IEqualityComparer<TValueType> comparer = EqualityComparer<TValueType>.Default;
-		private List<TItemType> itemsToRender;
-		private TItemType selectedItem;
+		private IEqualityComparer<TValue> comparer = EqualityComparer<TValue>.Default;
+		private List<TItem> itemsToRender;
+		private TItem selectedItem;
 		private int selectedItemIndex;
 		private string chipValue;
 
@@ -213,27 +213,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc/>
-		protected override bool TryParseValueFromString(string value, out TValueType result, out string validationErrorMessage)
+		protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
 		{
 			int index = int.Parse(value);
 			result = (index == -1)
-				? default(TValueType)
+				? default(TValue)
 				: GetValueFromItem(itemsToRender[index]);
 
 			validationErrorMessage = null;
 			return true;
 		}
 
-		private TValueType GetValueFromItem(TItemType item)
+		private TValue GetValueFromItem(TItem item)
 		{
 			if (ValueSelectorImpl != null)
 			{
 				return ValueSelectorImpl(item);
 			}
 
-			if (typeof(TValueType) == typeof(TItemType))
+			if (typeof(TValue) == typeof(TItem))
 			{
-				return (TValueType)(object)item;
+				return (TValue)(object)item;
 			}
 
 			throw new InvalidOperationException("ValueSelector property not set.");

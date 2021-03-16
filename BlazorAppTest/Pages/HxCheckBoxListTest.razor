@@ -4,7 +4,7 @@
 <h1>HxCheckBoxList</h1>
 
 <EditForm Model="@model">
-	<HxCheckBoxList TItemType="CultureInfo" Label="Cultures" TextSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" />
+	<HxCheckBoxList TItem="CultureInfo" Label="Cultures" TextSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" />
 </EditForm>
 
 <p>Selected values: @String.Join(", ", model.CultureInfos?.Select(item => item.EnglishName) ?? Enumerable.Empty<string>())</p>

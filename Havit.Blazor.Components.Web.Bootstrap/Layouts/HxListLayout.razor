@@ -1,5 +1,5 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-@typeparam TFilterModelType
+@typeparam TFilterModel
 
 <div class="hx-list-layout">
     <HxCard Skin="CardSkin.None" CssClass="my-4" BodyCssClass="px-0 pt-0">
@@ -65,7 +65,7 @@
                     Filter
                 </HeaderTemplate>
                 <BodyTemplate>
-                    <HxFilterForm @ref="filterForm" Id="@filterFormId" TModelType="TFilterModelType" Model="FilterModel"
+                    <HxFilterForm @ref="filterForm" Id="@filterFormId" TModel="TFilterModel" Model="FilterModel"
                         ModelChanged="HandleFilterFormModelChanged" Context="filterContext"
                         OnChipsUpdated="HandleChipUpdated">
                         @FilterTemplate(filterContext)

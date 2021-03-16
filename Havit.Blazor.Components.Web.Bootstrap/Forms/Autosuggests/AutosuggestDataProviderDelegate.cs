@@ -9,5 +9,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Data provider (delegate).
 	/// </summary>
-	public delegate Task<AutosuggestDataProviderResult<TItemType>> AutosuggestDataProviderDelegate<TItemType>(AutosuggestDataProviderRequest request);
+	public delegate Task<AutosuggestDataProviderResult<TItem>> AutosuggestDataProviderDelegate<TItem>(AutosuggestDataProviderRequest request);
 }

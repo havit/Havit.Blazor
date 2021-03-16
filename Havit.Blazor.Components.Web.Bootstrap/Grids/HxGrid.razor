@@ -1,12 +1,12 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-@typeparam TItemType
+@typeparam TItem
 
 <CascadingValue Value="@columnsListRegistration" Name="@ColumnsRegistrationCascadingValueName" IsFixed="true">
 	@*Aby se dostaly komponenty do kolekcí, musíme je dostat do renderování této komponenty. Chceme však, aby komponenty nic nevyrenderovaly. *@
 	@if (MultiSelectionEnabled)
 	{
 		bool allDataItemsSelected = (dataItemsToRender != null) && (SelectedDataItems != null) && (SelectedDataItems.Count > 0) && (dataItemsToRender.Count == SelectedDataItems.Count);
-		<MultiSelectGridColumn TItemType="TItemType"
+		<MultiSelectGridColumn TItem="TItem"
 							   AllDataItemsSelected="@allDataItemsSelected"
 							   SelectedDataItems="@SelectedDataItems"
 							   OnSelectDataItemClicked="HandleMultiSelectSelectDataItemClicked"
@@ -17,12 +17,12 @@
 	@Columns
 	@if (ContextMenu != null)
 	{
-		<ContextMenuGridColumn TItemType="TItemType" ContextMenu="ContextMenu" />
+		<ContextMenuGridColumn TItem="TItem" ContextMenu="ContextMenu" />
 	}
 </CascadingValue>
 
 @{
-	List<IHxGridColumn<TItemType>> columnsToRender = GetColumnsToRender();
+	List<IHxGridColumn<TItem>> columnsToRender = GetColumnsToRender();
 
 	if ((dataItemsToRender?.Count == 0) && (CurrentUserState.PageIndex > 0))
 	{
@@ -36,7 +36,7 @@
 			<table class="@CssClassHelper.Combine("hx-grid table table-responsible", (((SelectionEnabled || MultiSelectionEnabled) && (dataItemsToRender?.Count > 0)) ? "table-hover" : null))">
 				<thead>
 					<tr>
-						@foreach (IHxGridColumn<TItemType> column in columnsToRender)
+						@foreach (IHxGridColumn<TItem> column in columnsToRender)
 						{
 							var columnSorting = column.GetSorting();
 							bool isCurrentSorting = CurrentUserState.Sorting?.StartsWith(columnSorting) ?? false;
@@ -110,7 +110,7 @@
 					}
 					else
 					{
-						foreach (TItemType item in dataItemsToRender)
+						foreach (TItem item in dataItemsToRender)
 						{
 							if (SelectionEnabled || MultiSelectionEnabled)
 							{
@@ -118,7 +118,7 @@
 									@onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)" @onclick:stopPropagation
 									class="@((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
 
-									@foreach (IHxGridColumn<TItemType> column in columnsToRender)
+									@foreach (IHxGridColumn<TItem> column in columnsToRender)
 									{
 										// same as below in the else section
 										CellTemplate cellTemplate = column.GetItemCellTemplate(item);
@@ -134,7 +134,7 @@
 							{
 								// !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
 								<tr @onclick:stopPropagation>
-									@foreach (IHxGridColumn<TItemType> column in columnsToRender)
+									@foreach (IHxGridColumn<TItem> column in columnsToRender)
 									{
 										// same as above this else section
 										CellTemplate cellTemplate = column.GetItemCellTemplate(item);

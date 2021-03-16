@@ -10,21 +10,21 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public class HxAutosuggest<TItemType, TValueType> : HxInputBase<TValueType>, IInputWithSize
+	public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize
 	{
-		[Parameter] public AutosuggestDataProviderDelegate<TItemType> DataProvider { get; set; }
+		[Parameter] public AutosuggestDataProviderDelegate<TItem> DataProvider { get; set; }
 
 		/// <summary>
 		/// Selects value from item.
 		/// Not required when TValueType is same as TItemTime.
 		/// </summary>
-		[Parameter] public Func<TItemType, TValueType> ValueSelector { get; set; }
+		[Parameter] public Func<TItem, TValue> ValueSelector { get; set; }
 
 		/// <summary>
 		/// Selects text to display from item.
 		/// When not set <c>ToString()</c> is used.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> TextSelector { get; set; }
+		[Parameter] public Func<TItem, string> TextSelector { get; set; }
 
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
@@ -47,29 +47,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns corresponding item for (select) Value.
 		/// </summary>
-		[Parameter] public Func<TValueType, Task<TItemType>> ItemFromValueResolver { get; set; }
+		[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }
 
 		private protected override string CoreInputCssClass => "form-control";
 		private protected override string CoreCssClass => String.Empty;
 
-		private HxAutosuggestInternal<TItemType, TValueType> hxAutosuggestInternalComponent;
+		private HxAutosuggestInternal<TItem, TValue> hxAutosuggestInternalComponent;
 
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
-			builder.OpenComponent<HxAutosuggestInternal<TItemType, TValueType>>(1);
-			builder.AddAttribute(1000, nameof(HxAutosuggestInternal<TItemType, TValueType>.Value), Value);
-			builder.AddAttribute(1001, nameof(HxAutosuggestInternal<TItemType, TValueType>.ValueChanged), EventCallback.Factory.Create<TValueType>(this, HandleValueChanged));
-			builder.AddAttribute(1002, nameof(HxAutosuggestInternal<TItemType, TValueType>.DataProvider), DataProvider);
-			builder.AddAttribute(1003, nameof(HxAutosuggestInternal<TItemType, TValueType>.ValueSelector), ValueSelector);
-			builder.AddAttribute(1004, nameof(HxAutosuggestInternal<TItemType, TValueType>.TextSelector), TextSelector);
-			builder.AddAttribute(1005, nameof(HxAutosuggestInternal<TItemType, TValueType>.MinimumLength), MinimumLength);
-			builder.AddAttribute(1006, nameof(HxAutosuggestInternal<TItemType, TValueType>.Delay), Delay);
-			builder.AddAttribute(1007, nameof(HxAutosuggestInternal<TItemType, TValueType>.InputId), InputId);
-			builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItemType, TValueType>.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
-			builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItemType, TValueType>.EnabledEffective), EnabledEffective);
-			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItemType, TValueType>.ItemFromValueResolver), ItemFromValueResolver);
-			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItemType, TValueType>.Placeholder), Placeholder);
-			builder.AddComponentReferenceCapture(1012, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItemType, TValueType>)component);
+			builder.OpenComponent<HxAutosuggestInternal<TItem, TValue>>(1);
+			builder.AddAttribute(1000, nameof(HxAutosuggestInternal<TItem, TValue>.Value), Value);
+			builder.AddAttribute(1001, nameof(HxAutosuggestInternal<TItem, TValue>.ValueChanged), EventCallback.Factory.Create<TValue>(this, HandleValueChanged));
+			builder.AddAttribute(1002, nameof(HxAutosuggestInternal<TItem, TValue>.DataProvider), DataProvider);
+			builder.AddAttribute(1003, nameof(HxAutosuggestInternal<TItem, TValue>.ValueSelector), ValueSelector);
+			builder.AddAttribute(1004, nameof(HxAutosuggestInternal<TItem, TValue>.TextSelector), TextSelector);
+			builder.AddAttribute(1005, nameof(HxAutosuggestInternal<TItem, TValue>.MinimumLength), MinimumLength);
+			builder.AddAttribute(1006, nameof(HxAutosuggestInternal<TItem, TValue>.Delay), Delay);
+			builder.AddAttribute(1007, nameof(HxAutosuggestInternal<TItem, TValue>.InputId), InputId);
+			builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItem, TValue>.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
+			builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItem, TValue>.EnabledEffective), EnabledEffective);
+			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItem, TValue>.ItemFromValueResolver), ItemFromValueResolver);
+			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItem, TValue>.Placeholder), Placeholder);
+			builder.AddComponentReferenceCapture(1012, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
 			builder.CloseComponent();
 		}
 
@@ -87,12 +87,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private void HandleValueChanged(TValueType newValue)
+		private void HandleValueChanged(TValue newValue)
 		{
 			CurrentValue = newValue; // setter includes ValueChanged + NotifyFieldChanged
 		}
 
-		protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValueType result, [NotNullWhen(false)] out string validationErrorMessage)
+		protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string validationErrorMessage)
 		{
 			throw new NotSupportedException();
 		}

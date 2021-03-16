@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web
 	/// <summary>
 	/// Edit form wrapper which provides strong type model and model instance update when valid form is submitted.
 	/// </summary>
-	public class HxModelEditForm<TModelType> : ComponentBase
+	public class HxModelEditForm<TModel> : ComponentBase
 	{
 		/// <summary>
 		/// Form element id.
@@ -22,30 +22,30 @@ namespace Havit.Blazor.Components.Web
 		/// <summary>
 		/// Model.
 		/// </summary>
-		[Parameter] public TModelType Model { get; set; }
+		[Parameter] public TModel Model { get; set; }
 
 		/// <summary>
 		/// Model event callback. Invoked when valid form is updated.
 		/// </summary>
-		[Parameter] public EventCallback<TModelType> ModelChanged { get; set; }
+		[Parameter] public EventCallback<TModel> ModelChanged { get; set; }
 
 		/// <summary>
 		/// Child content.
 		/// </summary>
-		[Parameter] public RenderFragment<TModelType> ChildContent { get; set; }
+		[Parameter] public RenderFragment<TModel> ChildContent { get; set; }
 
 		/// <summary>
 		/// Model in edit (clone of Model).
 		/// </summary>
-		protected TModelType ModelInEdit { get; set; }
+		protected TModel ModelInEdit { get; set; }
 
-		private TModelType previousModel;
+		private TModel previousModel;
 
 		protected override void OnParametersSet()
 		{
 			base.OnParametersSet();
 
-			if (!EqualityComparer<TModelType>.Default.Equals(previousModel, Model))
+			if (!EqualityComparer<TModel>.Default.Equals(previousModel, Model))
 			{
 				OnModelSet();
 				previousModel = Model;
@@ -90,7 +90,7 @@ namespace Havit.Blazor.Components.Web
 			await UpdateModelAsync();
 		}
 
-		protected internal static TModelType CloneModel(TModelType modelToClone)
+		protected internal static TModel CloneModel(TModel modelToClone)
 		{
 			return ModelCloner.Clone(modelToClone);
 		}

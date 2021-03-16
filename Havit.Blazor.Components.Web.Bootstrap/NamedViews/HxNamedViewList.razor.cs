@@ -7,26 +7,24 @@ using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public partial class HxNamedViewList<TFilterType>
+	public partial class HxNamedViewList<TFilterModel>
 	{
-		// TODO: Pojmenování?
-		// TODO: IEnumerable?
-		[Parameter] public IEnumerable<NamedView<TFilterType>> NamedViews { get; set; }
+		[Parameter] public IEnumerable<NamedView<TFilterModel>> NamedViews { get; set; }
 
-		[Parameter] public TFilterType Filter { get; set; }
+		[Parameter] public TFilterModel FilterModel { get; set; }
 
-		[Parameter] public EventCallback<TFilterType> FilterChanged { get; set; }
+		[Parameter] public EventCallback<TFilterModel> FilterModelChanged { get; set; }
 
-		// TODO: Pojmenování?
-		[Parameter] public EventCallback<NamedView<TFilterType>> OnNamedViewSelected { get; set; }
+		// TODO Chceme toto nebo FilterModel?
+		[Parameter] public EventCallback<NamedView<TFilterModel>> OnNamedViewSelected { get; set; }
 
-		protected async Task HandleNamedViewClick(NamedView<TFilterType> namedView)
+		protected async Task HandleNamedViewClick(NamedView<TFilterModel> namedView)
 		{
-			TFilterType newFilter = namedView.Filter();
+			TFilterModel newFilter = namedView.Filter();
 			if (newFilter != null)
 			{
-				Filter = newFilter; // POZOR, filtr je nutno klonovat, jinak budeme měnit instanci, která je použita pro filtr (ev. musíme z filtru vždy vracet novou instanci!!! to je možný předpoklad)
-				await FilterChanged.InvokeAsync(newFilter);
+				FilterModel = newFilter; // POZOR, filtr je nutno klonovat, jinak budeme měnit instanci, která je použita pro filtr (ev. musíme z filtru vždy vracet novou instanci!!! to je možný předpoklad)
+				await FilterModelChanged.InvokeAsync(newFilter);
 			}
 
 			await OnNamedViewSelected.InvokeAsync(namedView);

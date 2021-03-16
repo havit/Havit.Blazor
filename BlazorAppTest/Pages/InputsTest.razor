@@ -34,7 +34,7 @@
 
 			<HxSelect Label="Select (TValueType: string)" @bind-Value="@context.CultureInfoName" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
 			<HxSelect Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfo" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
-			<HxSelect Label="Select (Data == null, small)" TItemType="CultureInfo" TValueType="CultureInfo" @bind-Value="@context.CultureInfo" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" />
+			<HxSelect Label="Select (Data == null, small)" TItem="CultureInfo" TValue="CultureInfo" @bind-Value="@context.CultureInfo" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" />
 
 			<HxAutosuggest Label="Autosuggest (large)" @bind-Value="@context.CultureInfo" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider" InputSize="InputSize.Large">
 				<HintTemplate>@context.CultureInfo?.DisplayName</HintTemplate>

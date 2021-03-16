@@ -17,8 +17,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Grid to display tabular data from data source.
 	/// </summary>
-	/// <typeparam name="TItemType">Type of row data item.</typeparam>
-	public partial class HxGrid<TItemType> : ComponentBase, IDisposable
+	/// <typeparam name="TItem">Type of row data item.</typeparam>
+	public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	{
 		/// <summary>
 		/// ColumnsRegistration cascading value name.
@@ -28,7 +28,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Data provider for items to render as a table.
 		/// </summary>
-		[Parameter] public GridDataProviderDelegate<TItemType> DataProvider { get; set; }
+		[Parameter] public GridDataProviderDelegate<TItem> DataProvider { get; set; }
 
 		/// <summary>
 		/// Indicates whether single data item selection is enabled. 
@@ -54,7 +54,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Context menu template.
 		/// </summary>
-		[Parameter] public RenderFragment<TItemType> ContextMenu { get; set; }
+		[Parameter] public RenderFragment<TItem> ContextMenu { get; set; }
 
 		/// <summary>
 		/// Template to render when there is empty Data (but not null).
@@ -65,25 +65,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Selected data item.
 		/// Intended for data binding.
 		/// </summary>		
-		[Parameter] public TItemType SelectedDataItem { get; set; }
+		[Parameter] public TItem SelectedDataItem { get; set; }
 
 		/// <summary>
 		/// Event fires when selected data item changes.
 		/// Intended for data binding.
 		/// </summary>		
-		[Parameter] public EventCallback<TItemType> SelectedDataItemChanged { get; set; }
+		[Parameter] public EventCallback<TItem> SelectedDataItemChanged { get; set; }
 
 		/// <summary>
 		/// Selected data items.
 		/// Intended for data binding.
 		/// </summary>		
-		[Parameter] public HashSet<TItemType> SelectedDataItems { get; set; }
+		[Parameter] public HashSet<TItem> SelectedDataItems { get; set; }
 
 		/// <summary>
 		/// Event fires when selected data items changes.
 		/// Intended for data binding.
 		/// </summary>		
-		[Parameter] public EventCallback<HashSet<TItemType>> SelectedDataItemsChanged { get; set; }
+		[Parameter] public EventCallback<HashSet<TItem>> SelectedDataItemsChanged { get; set; }
 
 		/// <summary>
 		/// Page size.
@@ -98,12 +98,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Current grid state (page, sorting).
 		/// </summary>
-		[Parameter] public GridUserState<TItemType> CurrentUserState { get; set; } = new GridUserState<TItemType>(0, null);
+		[Parameter] public GridUserState<TItem> CurrentUserState { get; set; } = new GridUserState<TItem>(0, null);
 
 		/// <summary>
 		/// Event fires when grid state is changed.
 		/// </summary>
-		[Parameter] public EventCallback<GridUserState<TItemType>> CurrentUserStateChanged { get; set; }
+		[Parameter] public EventCallback<GridUserState<TItem>> CurrentUserStateChanged { get; set; }
 
 		/// <summary>
 		/// When null (default), the InProgress value is received from cascading <see cref="ProgressState" />.
@@ -113,11 +113,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
 
-		private List<IHxGridColumn<TItemType>> columnsList;
-		private CollectionRegistration<IHxGridColumn<TItemType>> columnsListRegistration;
+		private List<IHxGridColumn<TItem>> columnsList;
+		private CollectionRegistration<IHxGridColumn<TItem>> columnsListRegistration;
 		private bool decreasePageIndexAfterRender = false;
 		private bool isDisposed = false;
-		private List<TItemType> dataItemsToRender;
+		private List<TItem> dataItemsToRender;
 		private int? totalCount;
 		private CancellationTokenSource refreshDataCancellationTokenSource;
 		private bool dataProviderInProgress;
@@ -127,8 +127,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public HxGrid()
 		{
-			columnsList = new List<IHxGridColumn<TItemType>>();
-			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItemType>>(columnsList, this.StateHasChanged, () => isDisposed);
+			columnsList = new List<IHxGridColumn<TItem>>();
+			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(columnsList, this.StateHasChanged, () => isDisposed);
 		}
 
 		/// <inheritdoc />
@@ -147,7 +147,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			// when no sorting is set, use default
 			if (firstRender && (CurrentUserState.Sorting == null))
 			{
-				SortingItem<TItemType>[] defaultSorting = GetDefaultSorting();
+				SortingItem<TItem>[] defaultSorting = GetDefaultSorting();
 				if (defaultSorting != null)
 				{
 					await SetCurrentSortingWithEventCallback(defaultSorting);
@@ -172,9 +172,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Returns columns to render.
 		/// Main goal of the method is to add ContextMenuGridColumn to the user defined columns.
 		/// </summary>
-		protected List<IHxGridColumn<TItemType>> GetColumnsToRender()
+		protected List<IHxGridColumn<TItem>> GetColumnsToRender()
 		{
-			var result = new List<IHxGridColumn<TItemType>>(columnsList);
+			var result = new List<IHxGridColumn<TItem>>(columnsList);
 			return result;
 		}
 
@@ -183,7 +183,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default sorting is required when at least one column has specified any sorting.
 		/// Default sorting is not required when there is no sorting specified on columns.
 		/// </summary>
-		private SortingItem<TItemType>[] GetDefaultSorting()
+		private SortingItem<TItem>[] GetDefaultSorting()
 		{
 			var columnsSortings = GetColumnsToRender().SelectMany(item => item.GetSorting()).ToArray();
 
@@ -202,24 +202,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return null;
 		}
 
-		private async Task SetSelectedDataItemWithEventCallback(TItemType newSelectedDataItem)
+		private async Task SetSelectedDataItemWithEventCallback(TItem newSelectedDataItem)
 		{
-			if (!EqualityComparer<TItemType>.Default.Equals(SelectedDataItem, newSelectedDataItem))
+			if (!EqualityComparer<TItem>.Default.Equals(SelectedDataItem, newSelectedDataItem))
 			{
 				SelectedDataItem = newSelectedDataItem;
 				await SelectedDataItemChanged.InvokeAsync(newSelectedDataItem);
 			}
 		}
 
-		private async Task SetSelectedDataItemsWithEventCallback(HashSet<TItemType> selectedDataItems)
+		private async Task SetSelectedDataItemsWithEventCallback(HashSet<TItem> selectedDataItems)
 		{
 			SelectedDataItems = selectedDataItems;
 			await SelectedDataItemsChanged.InvokeAsync(SelectedDataItems);
 		}
 
-		private async Task<bool> SetCurrentSortingWithEventCallback(IReadOnlyList<SortingItem<TItemType>> newSorting)
+		private async Task<bool> SetCurrentSortingWithEventCallback(IReadOnlyList<SortingItem<TItem>> newSorting)
 		{
-			CurrentUserState = new GridUserState<TItemType>(CurrentUserState.PageIndex, newSorting);
+			CurrentUserState = new GridUserState<TItem>(CurrentUserState.PageIndex, newSorting);
 			await CurrentUserStateChanged.InvokeAsync(CurrentUserState);
 			return true;
 		}
@@ -228,14 +228,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			if (CurrentUserState.PageIndex != newPageIndex)
 			{
-				CurrentUserState = new GridUserState<TItemType>(newPageIndex, CurrentUserState.Sorting);
+				CurrentUserState = new GridUserState<TItem>(newPageIndex, CurrentUserState.Sorting);
 				await CurrentUserStateChanged.InvokeAsync(CurrentUserState);
 				return true;
 			}
 			return false;
 		}
 
-		private async Task HandleSelectOrMultiSelectDataItemClick(TItemType clickedDataItem)
+		private async Task HandleSelectOrMultiSelectDataItemClick(TItem clickedDataItem)
 		{
 			Contract.Requires(SelectionEnabled || MultiSelectionEnabled);
 
@@ -245,7 +245,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 			else // MultiSelectionEnabled
 			{
-				var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItemType>();
+				var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItem>();
 				if (selectedDataItems.Add(clickedDataItem) // when the item was added
 					|| selectedDataItems.Remove(clickedDataItem)) // or removed... But because of || item removal is performed only when the item was not added!
 				{
@@ -254,7 +254,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private async Task HandleSortingClick(IEnumerable<SortingItem<TItemType>> sorting)
+		private async Task HandleSortingClick(IEnumerable<SortingItem<TItem>> sorting)
 		{
 			if (await SetCurrentSortingWithEventCallback(CurrentUserState.Sorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToList().AsReadOnly())) // when current sorting is null, use new sorting
 			{
@@ -290,7 +290,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			refreshDataCancellationTokenSource = new CancellationTokenSource();
 			CancellationToken cancellationToken = refreshDataCancellationTokenSource.Token;
 
-			GridDataProviderRequest<TItemType> request = new GridDataProviderRequest<TItemType>
+			GridDataProviderRequest<TItem> request = new GridDataProviderRequest<TItem>
 			{
 				PageIndex = CurrentUserState.PageIndex,
 				PageSize = PageSize,
@@ -298,7 +298,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				CancellationToken = cancellationToken
 			};
 
-			GridDataProviderResult<TItemType> result;
+			GridDataProviderResult<TItem> result;
 			// Multithreading: we can safelly set dataProviderInProgress, always dataProvider is going to retrieve data we are it is in in a progress.
 			dataProviderInProgress = true;
 			StateHasChanged();
@@ -329,11 +329,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 					if (result.TotalCount == null)
 					{
-						throw new InvalidOperationException($"{nameof(DataProvider)} did not set ${nameof(GridDataProviderResult<TItemType>.TotalCount)}.");
+						throw new InvalidOperationException($"{nameof(DataProvider)} did not set ${nameof(GridDataProviderResult<TItem>.TotalCount)}.");
 					}
 					else if (dataCount > result.TotalCount.Value)
 					{
-						throw new InvalidOperationException($"{nameof(DataProvider)} set ${nameof(GridDataProviderResult<TItemType>.TotalCount)} property byt the value is smaller than the number of data items.");
+						throw new InvalidOperationException($"{nameof(DataProvider)} set ${nameof(GridDataProviderResult<TItem>.TotalCount)} property byt the value is smaller than the number of data items.");
 					}
 				}
 				#endregion
@@ -341,7 +341,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				dataItemsToRender = result.Data?.ToList();
 				totalCount = result.TotalCount;
 
-				if (!EqualityComparer<TItemType>.Default.Equals(SelectedDataItem, default))
+				if (!EqualityComparer<TItem>.Default.Equals(SelectedDataItem, default))
 				{
 					if ((dataItemsToRender == null) || !dataItemsToRender.Contains(SelectedDataItem))
 					{
@@ -351,7 +351,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				if (SelectedDataItems?.Count > 0)
 				{
-					HashSet<TItemType> selectedDataItems = dataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItemType>();
+					HashSet<TItem> selectedDataItems = dataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItem>();
 					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
 				}
 
@@ -364,22 +364,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 
 		#region MultiSelect events
-		private async Task HandleMultiSelectSelectDataItemClicked(TItemType selectedDataItem)
+		private async Task HandleMultiSelectSelectDataItemClicked(TItem selectedDataItem)
 		{
 			Contract.Requires(MultiSelectionEnabled);
 
-			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItemType>();
+			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItem>();
 			if (selectedDataItems.Add(selectedDataItem))
 			{
 				await SetSelectedDataItemsWithEventCallback(selectedDataItems);
 			}
 		}
 
-		private async Task HandleMultiSelectUnselectDataItemClicked(TItemType selectedDataItem)
+		private async Task HandleMultiSelectUnselectDataItemClicked(TItem selectedDataItem)
 		{
 			Contract.Requires(MultiSelectionEnabled);
 
-			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItemType>();
+			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItem>();
 			if (selectedDataItems.Remove(selectedDataItem))
 			{
 				await SetSelectedDataItemsWithEventCallback(selectedDataItems);
@@ -390,14 +390,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			Contract.Requires(MultiSelectionEnabled);
 
-			await SetSelectedDataItemsWithEventCallback(new HashSet<TItemType>(dataItemsToRender));
+			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>(dataItemsToRender));
 		}
 
 		private async Task HandleMultiSelectSelectNoneClicked()
 		{
 			Contract.Requires(MultiSelectionEnabled);
 
-			await SetSelectedDataItemsWithEventCallback(new HashSet<TItemType>());
+			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>());
 		}
 		#endregion
 

@@ -12,29 +12,29 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public partial class HxAutosuggestInternal<TItemType, TValueType> : IAsyncDisposable
+	public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	{
-		[Parameter] public TValueType Value { get; set; }
-		[Parameter] public EventCallback<TValueType> ValueChanged { get; set; }
+		[Parameter] public TValue Value { get; set; }
+		[Parameter] public EventCallback<TValue> ValueChanged { get; set; }
 
-		[Parameter] public AutosuggestDataProviderDelegate<TItemType> DataProvider { get; set; }
+		[Parameter] public AutosuggestDataProviderDelegate<TItem> DataProvider { get; set; }
 
 		/// <summary>
 		/// Selects value from item.
-		/// Not required when TValueType is same as TItemTime.
+		/// Not required when TValue is same as TItemTime.
 		/// </summary>
-		[Parameter] public Func<TItemType, TValueType> ValueSelector { get; set; }
+		[Parameter] public Func<TItem, TValue> ValueSelector { get; set; }
 
 		/// <summary>
 		/// Selects text to display from item.
 		/// When not set ToString() is used.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> TextSelector { get; set; }
+		[Parameter] public Func<TItem, string> TextSelector { get; set; }
 
 		/// <summary>
 		/// Gets item from <see cref="Value"/>.
 		/// </summary>
-		[Parameter] public Func<TValueType, Task<TItemType>> ItemFromValueResolver { get; set; }
+		[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }
 
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
@@ -63,16 +63,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private System.Timers.Timer timer;
 		private string userInput = String.Empty;
 		private CancellationTokenSource cancellationTokenSource;
-		private List<TItemType> suggestions;
+		private List<TItem> suggestions;
 		private bool userInputModified;
 		private bool isDropdownOpened = false;
 		private bool blurInProgress;
 		private bool currentlyFocused;
 		private IJSObjectReference jsModule;
 		private HxAutosuggestInput autosuggestInput;
-		private TValueType lastKnownValue;
+		private TValue lastKnownValue;
 		private bool dataProviderInProgress;
-		private DotNetObjectReference<HxAutosuggestInternal<TItemType, TValueType>> dotnetObjectReference;
+		private DotNetObjectReference<HxAutosuggestInternal<TItem, TValue>> dotnetObjectReference;
 
 		internal string ChipValue => userInput;
 
@@ -81,11 +81,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			dotnetObjectReference = DotNetObjectReference.Create(this);
 		}
 
-		private async Task SetValueItemWithEventCallback(TItemType selectedItem)
+		private async Task SetValueItemWithEventCallback(TItem selectedItem)
 		{
-			TValueType value = GetValueFromItem(selectedItem);
+			TValue value = GetValueFromItem(selectedItem);
 
-			if (!EqualityComparer<TValueType>.Default.Equals(Value, value))
+			if (!EqualityComparer<TValue>.Default.Equals(Value, value))
 			{
 				Value = value;
 				lastKnownValue = Value;
@@ -99,14 +99,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			Contract.Requires<InvalidOperationException>(DataProvider != null, $"{GetType()} requires a {nameof(DataProvider)} parameter.");
 
-			if (!EqualityComparer<TValueType>.Default.Equals(Value, default))
+			if (!EqualityComparer<TValue>.Default.Equals(Value, default))
 			{
 				// we do not want to re-resolve the Text (userInput) if the Value did not change
-				if (!EqualityComparer<TValueType>.Default.Equals(Value, lastKnownValue))
+				if (!EqualityComparer<TValue>.Default.Equals(Value, lastKnownValue))
 				{
-					if ((ItemFromValueResolver == null) && (typeof(TValueType) == typeof(TItemType)))
+					if ((ItemFromValueResolver == null) && (typeof(TValue) == typeof(TItem)))
 					{
-						userInput = TextSelectorEffective((TItemType)(object)Value);
+						userInput = TextSelectorEffective((TItem)(object)Value);
 					}
 					else
 					{
@@ -197,7 +197,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				CancellationToken = cancellationToken
 			};
 
-			AutosuggestDataProviderResult<TItemType> result;
+			AutosuggestDataProviderResult<TItem> result;
 			try
 			{
 				result = await DataProvider.Invoke(request);
@@ -227,7 +227,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			StateHasChanged();
 		}
 
-		private async Task HandleItemClick(TItemType item)
+		private async Task HandleItemClick(TItem item)
 		{
 			// user clicked on an item in the "dropdown".
 			await SetValueItemWithEventCallback(item);
@@ -297,7 +297,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		}
 		#endregion
 
-		private TValueType GetValueFromItem(TItemType item)
+		private TValue GetValueFromItem(TItem item)
 		{
 			if (item == null)
 			{
@@ -309,15 +309,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				return ValueSelector(item);
 			}
 
-			if (typeof(TValueType) == typeof(TItemType))
+			if (typeof(TValue) == typeof(TItem))
 			{
-				return (TValueType)(object)item;
+				return (TValue)(object)item;
 			}
 
 			throw new InvalidOperationException("ValueSelector property not set.");
 		}
 
-		private string TextSelectorEffective(TItemType item)
+		private string TextSelectorEffective(TItem item)
 		{
 			return (item == null)
 				? String.Empty

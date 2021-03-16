@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Item describes one sorting criteria.
 	/// </summary>
-	public sealed class SortingItem<TItemType>
+	public sealed class SortingItem<TItem>
 	{
 		/// <summary>
 		/// Sorting as string value. Can be used to pass value between application layers (ie. WebAPI call parameter).
@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Selector function of sorting key. To be used for automatic in-memory sorting.
 		/// </summary>
-		public Expression<Func<TItemType, IComparable>> SortKeySelector { get; }
+		public Expression<Func<TItem, IComparable>> SortKeySelector { get; }
 
 		/// <summary>
 		/// Sort direction of SortString/SortKeySelector.
@@ -40,7 +40,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public SortingItem(string sortString, Expression<Func<TItemType, IComparable>> sortKeySelector, SortDirection sortDirection, int? sortDefaultOrder)
+		public SortingItem(string sortString, Expression<Func<TItem, IComparable>> sortKeySelector, SortDirection sortDirection, int? sortDefaultOrder)
 		{
 			Contract.Requires((sortString != null) || (sortKeySelector != null));
 
@@ -64,9 +64,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns the SortItem describing the same sorting with toggled direction.
 		/// </summary>
-		public SortingItem<TItemType> WithToggledSortDirection()
+		public SortingItem<TItem> WithToggledSortDirection()
 		{
-			return new SortingItem<TItemType>(SortString, SortKeySelector, SortDirection.Reverse(), SortDefaultOrder);
+			return new SortingItem<TItem>(SortString, SortKeySelector, SortDirection.Reverse(), SortDefaultOrder);
 		}
 
 		/// <inheritdoc />

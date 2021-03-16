@@ -1,6 +1,6 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
-@typeparam TItemType
-@typeparam TValueType
+@typeparam TItem
+@typeparam TValue
 
 <div id="@dropdownId" class="dropdown">
     <Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput @ref="autosuggestInput" InputId="@InputId"
@@ -14,7 +14,7 @@
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             </div>
         }
-        else if (!EqualityComparer<TValueType>.Default.Equals(Value, default))
+        else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
         {
             <button type="button" class="btn-close" @onclick="HandleCrossClick" @onclick:stopPropagation>
             </button>
@@ -24,6 +24,5 @@
             <HxIcon Icon="BootstrapIcon.Search" />
         }
     </div>
-    <Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems TItemType="TItemType" Items="@suggestions"
-        TextSelector="TextSelectorEffective" OnItemClick="HandleItemClick" />
+    <Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems TItemType="TItem" Items="@suggestions" TextSelector="TextSelectorEffective" OnItemClick="HandleItemClick" />
 </div>

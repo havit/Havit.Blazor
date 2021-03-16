@@ -13,12 +13,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Grid column base class.
 	/// </summary>
-	public abstract class HxGridColumnBase<TItemType> : ComponentBase, IHxGridColumn<TItemType>, IDisposable
+	public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TItem>, IDisposable
 	{
 		/// <summary>
 		/// Cascading parameter to register column to the grid.
 		/// </summary>
-		[CascadingParameter(Name = HxGrid<TItemType>.ColumnsRegistrationCascadingValueName)] protected CollectionRegistration<IHxGridColumn<TItemType>> ColumnsRegistration { get; set; }
+		[CascadingParameter(Name = HxGrid<TItem>.ColumnsRegistrationCascadingValueName)] protected CollectionRegistration<IHxGridColumn<TItem>> ColumnsRegistration { get; set; }
 
 		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
 
@@ -27,21 +27,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			base.OnInitialized();
 
-			Contract.Requires(ColumnsRegistration != null, $"Grid column invalid usage. Must be used in a {typeof(HxGrid<TItemType>).FullName}.");
+			Contract.Requires(ColumnsRegistration != null, $"Grid column invalid usage. Must be used in a {typeof(HxGrid<TItem>).FullName}.");
 			ColumnsRegistration.Register(this);
 		}
 
 		/// <inheritdoc />
-		CellTemplate IHxGridColumn<TItemType>.GetHeaderCellTemplate() => this.GetHeaderCellTemplate();
+		CellTemplate IHxGridColumn<TItem>.GetHeaderCellTemplate() => this.GetHeaderCellTemplate();
 
 		/// <inheritdoc />
-		CellTemplate IHxGridColumn<TItemType>.GetItemCellTemplate(TItemType item) => this.GetItemCellTemplate(item);
+		CellTemplate IHxGridColumn<TItem>.GetItemCellTemplate(TItem item) => this.GetItemCellTemplate(item);
 
 		/// <inheritdoc />
-		CellTemplate IHxGridColumn<TItemType>.GetFooterCellTemplate() => this.GetFooterCellTemplate();
+		CellTemplate IHxGridColumn<TItem>.GetFooterCellTemplate() => this.GetFooterCellTemplate();
 
 		/// <inheritdoc />
-		SortingItem<TItemType>[] IHxGridColumn<TItemType>.GetSorting() => this.GetSorting().ToArray();
+		SortingItem<TItem>[] IHxGridColumn<TItem>.GetSorting() => this.GetSorting().ToArray();
 
 		/// <summary>
 		/// Returns header cell template.
@@ -51,7 +51,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns data cell template for the specific item.
 		/// </summary>
-		protected abstract CellTemplate GetItemCellTemplate(TItemType item);
+		protected abstract CellTemplate GetItemCellTemplate(TItem item);
 
 		/// <summary>
 		/// Returns footer cell template.
@@ -61,7 +61,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns column sorting.
 		/// </summary>
-		protected abstract IEnumerable<SortingItem<TItemType>> GetSorting();
+		protected abstract IEnumerable<SortingItem<TItem>> GetSorting();
 
 		/// <inheritdoc />
 		protected override void OnAfterRender(bool firstRender)

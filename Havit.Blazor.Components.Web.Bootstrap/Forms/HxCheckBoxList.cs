@@ -12,24 +12,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Multiple choice by checkboxes.
 	/// </summary>
-	public class HxCheckBoxList<TItemType> : HxInputBase<List<TItemType>> // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014
+	public class HxCheckBoxList<TItem> : HxInputBase<List<TItem>> // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014
 	{
 		/// <summary>
 		/// Items to display. 
 		/// </summary>
-		[Parameter] public IEnumerable<TItemType> Data { get; set; }
+		[Parameter] public IEnumerable<TItem> Data { get; set; }
 
 		/// <summary>
 		/// Selects text to display from item.
 		/// When not set, ToString() is used.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> TextSelector { get; set; }
+		[Parameter] public Func<TItem, string> TextSelector { get; set; }
 
 		/// <summary>
 		/// Selects value for items sorting. When not set, <see cref="TextSelector"/> property will be used.
 		/// If you need complex sorting, pre-sort data manually or create a custom comparable property.
 		/// </summary>
-		[Parameter] public Func<TItemType, IComparable> SortKeySelector { get; set; }
+		[Parameter] public Func<TItem, IComparable> SortKeySelector { get; set; }
 
 		/// <summary>
 		/// When true, items are sorted before displaying in select.
@@ -37,11 +37,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool AutoSort { get; set; } = true;
 
-		private List<TItemType> itemsToRender;
+		private List<TItem> itemsToRender;
 
 		private void RefreshState()
 		{
-			itemsToRender = Data?.ToList() ?? new List<TItemType>();
+			itemsToRender = Data?.ToList() ?? new List<TItem>();
 
 			// AutoSort
 			if (AutoSort && (itemsToRender.Count > 1))
@@ -98,9 +98,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private void HandleValueChanged(bool @checked, TItemType item)
+		private void HandleValueChanged(bool @checked, TItem item)
 		{
-			var newValue = Value?.ToList() ?? new List<TItemType>();
+			var newValue = Value?.ToList() ?? new List<TItem>();
 			if (@checked)
 			{
 				newValue.Add(item);
@@ -113,7 +113,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			CurrentValue = newValue; // setter includes ValueChanged + NotifyFieldChanged
 		}
 
-		protected override bool TryParseValueFromString(string value, out List<TItemType> result, out string validationErrorMessage)
+		protected override bool TryParseValueFromString(string value, out List<TItem> result, out string validationErrorMessage)
 		{
 			throw new NotSupportedException();
 		}

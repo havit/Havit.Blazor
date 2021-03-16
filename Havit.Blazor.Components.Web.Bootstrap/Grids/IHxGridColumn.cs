@@ -9,12 +9,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Grid column.
 	/// </summary>
-	public interface IHxGridColumn<TItemType> : IRenderNotificationComponent
+	public interface IHxGridColumn<TItem> : IRenderNotificationComponent
 	{
 		/// <summary>
 		/// Sorting of the column.
 		/// </summary>
-		SortingItem<TItemType>[] GetSorting();
+		SortingItem<TItem>[] GetSorting();
 
 		/// <summary>
 		/// Returns header cell template.
@@ -24,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns data cell template for the specific item.
 		/// </summary>
-		CellTemplate GetItemCellTemplate(TItemType item);
+		CellTemplate GetItemCellTemplate(TItem item);
 
 		/// <summary>
 		/// Returns footer cell template.

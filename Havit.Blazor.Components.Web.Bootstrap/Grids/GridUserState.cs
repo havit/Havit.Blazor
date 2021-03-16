@@ -7,7 +7,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// User state of the <see cref="HxGrid"/>.
 	/// </summary>
-	public class GridUserState<TItemType>
+	public class GridUserState<TItem>
 	{
 		/// <summary>
 		/// Current page index.
@@ -17,12 +17,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Current sorting.
 		/// </summary>
-		public IReadOnlyList<SortingItem<TItemType>> Sorting { get; }
+		public IReadOnlyList<SortingItem<TItem>> Sorting { get; }
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public GridUserState(int pageIndex, IReadOnlyList<SortingItem<TItemType>> sorting)
+		public GridUserState(int pageIndex, IReadOnlyList<SortingItem<TItem>> sorting)
 		{
 			PageIndex = pageIndex;
 			Sorting = sorting;

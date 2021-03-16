@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Data provider request for grid data.
 	/// </summary>
-	public class GridDataProviderRequest<TItemType>
+	public class GridDataProviderRequest<TItem>
 	{
 		/// <summary>
 		/// The page index of the data segment requested.
@@ -24,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Current sorting.
 		/// </summary>
-		public IReadOnlyList<SortingItem<TItemType>> Sorting { get; init; }
+		public IReadOnlyList<SortingItem<TItem>> Sorting { get; init; }
 
 		/// <summary>
 		/// The <see cref="System.Threading.CancellationToken"/> used to relay cancellation of the request.
@@ -35,25 +35,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Process data on client side (process sorting &amp; paging) and returns result for the grid.
 		/// </summary>
 		/// <param name="data">data to process (paging and sorting will be applied)</param>
-		public GridDataProviderResult<TItemType> ApplyTo(IEnumerable<TItemType> data)
+		public GridDataProviderResult<TItem> ApplyTo(IEnumerable<TItem> data)
 		{
 			if (data == null)
 			{
-				return new GridDataProviderResult<TItemType>
+				return new GridDataProviderResult<TItem>
 				{
 					Data = null,
 					TotalCount = null
 				};
 			}
 
-			IEnumerable<TItemType> resultData = data;
+			IEnumerable<TItem> resultData = data;
 
 			#region Sorting
 			if ((Sorting != null) && Sorting.Any())
 			{
 				Contract.Assert(Sorting.All(item => item.SortKeySelector != null), "All sorting items must have set SortKeySelector property.");
 
-				IOrderedEnumerable<TItemType> orderedData = (Sorting[0].SortDirection == SortDirection.Ascending)
+				IOrderedEnumerable<TItem> orderedData = (Sorting[0].SortDirection == SortDirection.Ascending)
 					? resultData.OrderBy(Sorting[0].SortKeySelector.Compile())
 					: resultData.OrderByDescending(Sorting[0].SortKeySelector.Compile());
 
@@ -74,7 +74,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 			#endregion
 
-			return new GridDataProviderResult<TItemType>
+			return new GridDataProviderResult<TItem>
 			{
 				Data = resultData.ToList(),
 				TotalCount = data.Count()

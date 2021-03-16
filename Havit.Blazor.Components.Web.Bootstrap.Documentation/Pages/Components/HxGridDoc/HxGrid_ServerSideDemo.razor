@@ -1,7 +1,7 @@
-﻿<HxGrid TItemType="CultureInfo" DataProvider="@ServerSideCultureInfosDataProvider" PageSize="@PageSize">
+﻿<HxGrid TItem="CultureInfo" DataProvider="@ServerSideCultureInfosDataProvider" PageSize="@PageSize">
 	<Columns>
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" IsDefaultSortColumn="true" />
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />
 	</Columns>
 </HxGrid>
 

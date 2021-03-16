@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public class MultiSelectGridColumn<TItemType> : HxGridColumnBase<TItemType>
+	public class MultiSelectGridColumn<TItem> : HxGridColumnBase<TItem>
 	{
-		[Parameter] public HashSet<TItemType> SelectedDataItems { get; set; }
+		[Parameter] public HashSet<TItem> SelectedDataItems { get; set; }
 		[Parameter] public bool AllDataItemsSelected { get; set; }
 		[Parameter] public EventCallback OnSelectAllClicked { get; set; }
 		[Parameter] public EventCallback OnSelectNoneClicked { get; set; }
-		[Parameter] public EventCallback<TItemType> OnSelectDataItemClicked { get; set; }
-		[Parameter] public EventCallback<TItemType> OnUnselectDataItemClicked { get; set; }
+		[Parameter] public EventCallback<TItem> OnSelectDataItemClicked { get; set; }
+		[Parameter] public EventCallback<TItem> OnUnselectDataItemClicked { get; set; }
 
 		protected override CellTemplate GetHeaderCellTemplate()
 		{
@@ -43,7 +43,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			};
 		}
 
-		protected override CellTemplate GetItemCellTemplate(TItemType item)
+		protected override CellTemplate GetItemCellTemplate(TItem item)
 		{
 			return new CellTemplate
 			{
@@ -74,12 +74,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return new CellTemplate(RenderFragmentBuilder.Empty());
 		}
 
-		protected override IEnumerable<SortingItem<TItemType>> GetSorting()
+		protected override IEnumerable<SortingItem<TItem>> GetSorting()
 		{
-			return Enumerable.Empty<SortingItem<TItemType>>();
+			return Enumerable.Empty<SortingItem<TItem>>();
 		}
 
-		private Func<ChangeEventArgs, Task> HandleSelectDataItemClick(TItemType item, bool wasSelected)
+		private Func<ChangeEventArgs, Task> HandleSelectDataItemClick(TItem item, bool wasSelected)
 		{
 			return async (ChangeEventArgs changeEventArgs) =>
 			{

@@ -9,8 +9,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Grid column.
 	/// </summary>
-	/// <typeparam name="TItemType">Grid row data type.</typeparam>
-	public class HxGridColumn<TItemType> : HxGridColumnBase<TItemType>
+	/// <typeparam name="TItem">Grid row data type.</typeparam>
+	public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	{
 		// TODO: Suppress SA1134 je v CSPROJ, uvolnit celofiremně?
 
@@ -35,12 +35,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns text for the item.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> ItemTextSelector { get; set; }
+		[Parameter] public Func<TItem, string> ItemTextSelector { get; set; }
 
 		/// <summary>
 		/// Returns template for the item.
 		/// </summary>
-		[Parameter] public RenderFragment<TItemType> ItemTemplate { get; set; }
+		[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
 
 		/// <summary>
 		/// Returns item css class (not dependent on data).
@@ -50,7 +50,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns item css class for the specific date item.
 		/// </summary>
-		[Parameter] public Func<TItemType, string> ItemCssClassSelector { get; set; }
+		[Parameter] public Func<TItem, string> ItemCssClassSelector { get; set; }
 		#endregion
 
 		#region Footer properties
@@ -79,7 +79,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns column sorting expression for automatic grid sorting.
 		/// </summary>
-		[Parameter] public Expression<Func<TItemType, IComparable>> SortKeySelector { get; set; }
+		[Parameter] public Expression<Func<TItem, IComparable>> SortKeySelector { get; set; }
 
 		/// <summary>
 		/// Sort direction.
@@ -96,7 +96,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override CellTemplate GetHeaderCellTemplate() => new CellTemplate(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate), HeaderCssClass);
 
 		/// <inheritdoc />
-		protected override CellTemplate GetItemCellTemplate(TItemType item)
+		protected override CellTemplate GetItemCellTemplate(TItem item)
 		{
 			string cssClass = CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item));
 			return new CellTemplate(RenderFragmentBuilder.CreateFrom(ItemTextSelector?.Invoke(item), ItemTemplate?.Invoke(item)), cssClass);
@@ -106,14 +106,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override CellTemplate GetFooterCellTemplate() => new CellTemplate(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate), FooterCssClass);
 
 		/// <inheritdoc />
-		protected override IEnumerable<SortingItem<TItemType>> GetSorting()
+		protected override IEnumerable<SortingItem<TItem>> GetSorting()
 		{
 			if ((SortKeySelector == null) && String.IsNullOrEmpty(SortString))
 			{
 				yield break;
 			}
 
-			yield return new SortingItem<TItemType>(this.SortString, this.SortKeySelector, this.SortDirection, sortDefaultOrder: IsDefaultSortColumn ? 0 : (int?)null);
+			yield return new SortingItem<TItem>(this.SortString, this.SortKeySelector, this.SortDirection, sortDefaultOrder: IsDefaultSortColumn ? 0 : (int?)null);
 		}
 	}
 }

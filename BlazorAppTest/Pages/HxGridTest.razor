@@ -6,9 +6,9 @@
 <h2>Client paging, auto sorting</h2>
 <HxGrid DataProvider="@ClientCultureInfosDataProvider" @bind-SelectedDataItem="@clientSideCurrentCultureInfo" PageSize="@PageSize">
 	<Columns>
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Link">
+		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Link">
 			<ItemTemplate>
 				<a href="https://www.havit.cz" @onclick:stopPropagation>link to a page</a> @* TODO HxLink, který bude mít default stopPropagation ??? *@
 				<HxButton Text="Go" Color="ThemeColor.Secondary" Outlined="true" />
@@ -28,19 +28,19 @@
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
 
 <h2>Server paging, server sorting</h2>
-<HxGrid TItemType="CultureInfo" @ref="serverSideGrid" @bind-SelectedDataItem="@serverSideCurrentCultureInfo" DataProvider="@ServerCultureInfosDataProvider" PageSize="@PageSize" MultiSelectionEnabled="true" SelectionEnabled="false">
+<HxGrid TItem="CultureInfo" @ref="serverSideGrid" @bind-SelectedDataItem="@serverSideCurrentCultureInfo" DataProvider="@ServerCultureInfosDataProvider" PageSize="@PageSize" MultiSelectionEnabled="true" SelectionEnabled="false">
 	<Columns>
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" IsDefaultSortColumn="true" FooterText="This is a footer" />
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" IsDefaultSortColumn="true" FooterText="This is a footer" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />
 	</Columns>
 </HxGrid>
 <p>Current CultureInfo: @serverSideCurrentCultureInfo?.DisplayName</p>
 
 <h2>Empty data with @nameof(HxGrid<object>.EmptyDataTemplate)</h2>
-<HxGrid TItemType="CultureInfo" DataProvider="@EmptyCultureInfosDataProvider">
+<HxGrid TItem="CultureInfo" DataProvider="@EmptyCultureInfosDataProvider">
 	<Columns>
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" FooterText="This is a footer" />
-		<HxGridColumn TItemType="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" FooterText="This is a footer" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" />
 	</Columns>
 	<EmptyDataTemplate>
 		<HxButton Skin="ButtonSkins.New" />
