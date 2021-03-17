@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap.Layouts;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -31,6 +32,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment DetailTemplate { get; set; }
 
 		[Parameter] public RenderFragment CommandsTemplate { get; set; }
+
+		[Inject] protected IStringLocalizer<HxListLayout> Localizer { get; set; }
 
 		private ChipItem[] chips;
 		private string filterFormId = "hx" + Guid.NewGuid().ToString("N");
