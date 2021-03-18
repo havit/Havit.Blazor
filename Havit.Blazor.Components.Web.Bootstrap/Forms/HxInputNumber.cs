@@ -128,8 +128,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					valueSequenceOffset++;
 					forceRenderValue = false;
 				}
-				builder.AddAttribute(1005 + valueSequenceOffset, "value", FormatValueAsString(Value));
+				builder.AddAttribute(1006 + valueSequenceOffset, "value", FormatValueAsString(Value));
 			}
+			builder.AddElementReferenceCapture(1007 + valueSequenceOffset, elementReferece => InputElement = elementReferece);
 
 			builder.CloseElement();
 		}

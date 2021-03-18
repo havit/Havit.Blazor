@@ -37,6 +37,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1000, "checked", BindConverter.FormatValue(CurrentValue));
 			builder.AddAttribute(1001, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
 			builder.AddEventStopPropagationAttribute(1002, "onclick", true);
+			builder.AddElementReferenceCapture(1003, elementReferece => InputElement = elementReferece);
 
 			builder.CloseElement();
 		}

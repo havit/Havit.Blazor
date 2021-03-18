@@ -123,6 +123,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			lastKnownValue = Value;
 		}
 
+		public async ValueTask FocusAsync()
+		{
+			await autosuggestInput.FocusAsync();
+		}
+
 		private async Task HandleInputInput(string newUserInput)
 		{
 			// user changes an input

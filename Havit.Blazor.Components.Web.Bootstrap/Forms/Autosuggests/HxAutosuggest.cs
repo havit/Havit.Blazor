@@ -97,6 +97,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			throw new NotSupportedException();
 		}
 
+		/// <inheritdoc />
+		public override async ValueTask FocusAsync()
+		{
+			if (hxAutosuggestInternalComponent == null)
+			{
+				throw new InvalidOperationException($"Cannot focus {this.GetType()}. The method must be called after first render.");
+			}
+
+			await hxAutosuggestInternalComponent.FocusAsync();
+		}
+
 		protected override void RenderChipGenerator(RenderTreeBuilder builder)
 		{
 			if (!String.IsNullOrEmpty(hxAutosuggestInternalComponent?.ChipValue))

@@ -41,5 +41,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			await OnInputBlur.InvokeAsync(null);
 		}
+
+		public async ValueTask FocusAsync()
+		{
+			await InputElement.FocusAsync();
+		}
 	}
 }

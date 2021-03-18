@@ -116,12 +116,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected string InputId { get; private set; }
 
-		private EditContext autoCreatedEditContext;
+		/// <summary>
+		/// Input ElementReference.
+		/// Can be null. 
+		/// </summary>
+		protected ElementReference InputElement { get; set; }
 
 		/// <summary>
 		/// Elements rendering order. Overriden in the <see cref="HxInputCheckBox"/> component.
 		/// </summary>
 		protected virtual InputRenderOrder RenderOrder => InputRenderOrder.LabelInput;
+
+		private EditContext autoCreatedEditContext;
 
 		public override Task SetParametersAsync(ParameterView parameters)
 		{
@@ -379,6 +385,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return removeAction;
 		}
 
+		/// <summary>
+		/// Gives focus to an input element.
+		/// </summary>
+		public virtual async ValueTask FocusAsync()
+		{
+			if (EqualityComparer<ElementReference>.Default.Equals(InputElement, default))
+			{
+				throw new InvalidOperationException($"Cannot focus {this.GetType()}. The method must be called after first render.");
+			}
+			await InputElement.FocusAsync();
+		}
 		/// <summary>
 		/// Sets InputId to a random value when empty.
 		/// </summary>

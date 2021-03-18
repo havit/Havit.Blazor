@@ -127,7 +127,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			BuildRenderInput_AddCommonAttributes(builder, null);
 
 			builder.AddAttribute(1000, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-			builder.AddEventStopPropagationAttribute(1002, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxSelect nastavitelné?
+			builder.AddEventStopPropagationAttribute(1001, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxSelect nastavitelné?
+			builder.AddElementReferenceCapture(1002, elementReferece => InputElement = elementReferece);
 
 			if (itemsToRender != null)
 			{
