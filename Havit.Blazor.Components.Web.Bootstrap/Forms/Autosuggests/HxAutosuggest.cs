@@ -50,7 +50,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }
 
 		private protected override string CoreInputCssClass => "form-control";
-		private protected override string CoreCssClass => String.Empty;
+		private protected override string CoreCssClass => "hx-autosuggest";
 
 		private HxAutosuggestInternal<TItem, TValue> hxAutosuggestInternalComponent;
 
