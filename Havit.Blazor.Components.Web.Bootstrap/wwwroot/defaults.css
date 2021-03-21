@@ -14,4 +14,10 @@
   --sidebar-border: 1px solid #e9ecef;
   --hx-progress-overlay-color: white;
   --hx-progress-overlay-opacity: .65;
+  --hx-form-spacing: 1.25rem;
+  --hx-chip-list-spacing: .25rem;
+}
+
+.hx-form .hx-form-group, .hx-form .hx-autosuggest {
+    margin-bottom: var(--hx-form-spacing);
 }

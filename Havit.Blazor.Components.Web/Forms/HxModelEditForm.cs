@@ -82,6 +82,7 @@ namespace Havit.Blazor.Components.Web
 			builder.AddAttribute(2, nameof(EditForm.OnValidSubmit), EventCallback.Factory.Create<EditContext>(this, HandleValidSubmit));
 			builder.AddAttribute(3, nameof(EditForm.ChildContent), (RenderFragment<EditContext>)((EditContext _) => ChildContent?.Invoke(ModelInEdit)));
 			builder.AddAttribute(4, nameof(Id), Id);
+			builder.AddAttribute(2, "class", "hx-form");
 			builder.CloseComponent();
 		}
 

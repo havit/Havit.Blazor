@@ -2,3 +2,7 @@ button {
     width: .25em;
     height: .25em
 }
+
+.hx-chip {
+    margin-right: var(--hx-chip-list-spacing);
+}

@@ -5,7 +5,7 @@
     <HxCard Skin="CardSkin.None" CssClass="my-4" BodyCssClass="px-0 pt-0">
         <HeaderTemplate>
             <div class="row">
-                <div class="col py-1 fw-bold d-flex align-items-center">
+                <div class="col fw-bold d-flex align-items-center">
                     @if (NamedViewsTemplate != null)
                 {
                     <div class="dropdown">
@@ -42,7 +42,8 @@
                 <div class="col text-end">
                     @if (FilterTemplate != null)
                 {
-					<HxButton OnClick="() => FilterDrawerOpen = true" Color="ThemeColor.Secondary">@Localizer["FilterButtonText"]</HxButton>
+                    <HxButton OnClick="() => FilterDrawerOpen = true" Color="ThemeColor.Secondary">
+                        @Localizer["FilterButtonText"]</HxButton>
                     }
                     @if (CommandsTemplate != null)
                 {
@@ -61,9 +62,9 @@
             @if (FilterTemplate != null)
                 {
             <HxDrawer @bind-IsOpen="@FilterDrawerOpen" RenderMode="DrawerRenderMode.Always">
-				<HeaderTemplate>
-					@Localizer["FilterHeaderTitle"]
-				</HeaderTemplate>
+                <HeaderTemplate>
+                    @Localizer["FilterHeaderTitle"]
+                </HeaderTemplate>
                 <BodyTemplate>
                     <HxFilterForm @ref="filterForm" Id="@filterFormId" TModel="TFilterModel" Model="FilterModel"
                         ModelChanged="HandleFilterFormModelChanged" Context="filterContext"
@@ -72,7 +73,8 @@
                     </HxFilterForm>
                 </BodyTemplate>
                 <FooterTemplate>
-                    <HxSubmit FormId="@filterFormId" Text="@Localizer["FilterApplyButtonText"]" Color="ThemeColor.Primary" />
+                    <HxSubmit FormId="@filterFormId" Text="@Localizer["FilterApplyButtonText"]"
+                        Color="ThemeColor.Primary" />
                 </FooterTemplate>
             </HxDrawer>
             }
