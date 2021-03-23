@@ -34,12 +34,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[CascadingParameter] public FormState FormState { get; set; }
 
 		/// <summary>
-		/// Label to render before input (or after input for CheckBox).		
+		/// Label to render before input (or after input for Checkbox).		
 		/// </summary>
 		[Parameter] public string Label { get; set; }
 
 		/// <summary>
-		/// Label to render before input (or after input for CheckBox).
+		/// Label to render before input (or after input for Checkbox).
 		/// </summary>
 		[Parameter] public RenderFragment LabelTemplate { get; set; }
 
@@ -123,7 +123,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected ElementReference InputElement { get; set; }
 
 		/// <summary>
-		/// Elements rendering order. Overriden in the <see cref="HxInputCheckBox"/> component.
+		/// Elements rendering order. Overriden in the <see cref="HxInputCheckbox"/> component.
 		/// </summary>
 		protected virtual InputRenderOrder RenderOrder => InputRenderOrder.LabelInput;
 

@@ -10,11 +10,11 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// CheckBox input.
+	/// Checkbox input.
 	/// </summary>
-	public class HxInputCheckBox : HxInputBase<bool>
+	public class HxInputCheckbox : HxInputBase<bool>
 	{
-		[Inject] protected IStringLocalizer<HxInputCheckBox> Localizer { get; set; }
+		[Inject] protected IStringLocalizer<HxInputCheckbox> Localizer { get; set; }
 
 		/// <inheritdoc />
 		protected override InputRenderOrder RenderOrder => InputRenderOrder.InputLabel;

@@ -43,12 +43,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool Multiple { get; set; }
 
 		/// <summary>
-		/// Label to render before input (or after input for CheckBox).		
+		/// Label to render before input (or after input for Checkbox).		
 		/// </summary>
 		[Parameter] public string Label { get; set; }
 
 		/// <summary>
-		/// Label to render before input (or after input for CheckBox).
+		/// Label to render before input (or after input for Checkbox).
 		/// </summary>
 		[Parameter] public RenderFragment LabelTemplate { get; set; }
 

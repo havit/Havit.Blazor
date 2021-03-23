@@ -1,10 +1,10 @@
-﻿@page "/HxCheckBoxListTest"
+﻿@page "/HxCheckboxListTest"
 @using System.Globalization
 
-<h1>HxCheckBoxList</h1>
+<h1>HxCheckboxList</h1>
 
 <EditForm Model="@model">
-	<HxCheckBoxList TItem="CultureInfo" Label="Cultures" TextSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" />
+	<HxCheckboxList TItem="CultureInfo" Label="Cultures" TextSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" />
 </EditForm>
 
 <p>Selected values: @String.Join(", ", model.CultureInfos?.Select(item => item.EnglishName) ?? Enumerable.Empty<string>())</p>

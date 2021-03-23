@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Multiple choice by checkboxes.
 	/// </summary>
-	public class HxCheckBoxList<TItem> : HxInputBase<List<TItem>> // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014
+	public class HxCheckboxList<TItem> : HxInputBase<List<TItem>> // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014
 	{
 		/// <summary>
 		/// Items to display. 
@@ -78,17 +78,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					builder.OpenElement(3, "li");
 					builder.AddAttribute(4, "class", "list-group-item");
 
-					builder.OpenComponent(5, typeof(HxInputCheckBox));
-					builder.AddAttribute(6, nameof(HxInputCheckBox.Label), TextSelectorHelper.GetText(TextSelector, item));
-					builder.AddAttribute(7, nameof(HxInputCheckBox.Value), Value?.Contains(item) ?? false);
-					builder.AddAttribute(8, nameof(HxInputCheckBox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
+					builder.OpenComponent(5, typeof(HxInputCheckbox));
+					builder.AddAttribute(6, nameof(HxInputCheckbox.Label), TextSelectorHelper.GetText(TextSelector, item));
+					builder.AddAttribute(7, nameof(HxInputCheckbox.Value), Value?.Contains(item) ?? false);
+					builder.AddAttribute(8, nameof(HxInputCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
 
-					// We need ValueExpression. Ehm, HxInputCheckBox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
-					// We have nothing to give the HxInputCheckBox. So we make own class with property which we assign to the ValueExpression.
+					// We need ValueExpression. Ehm, HxInputCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
+					// We have nothing to give the HxInputCheckbox. So we make own class with property which we assign to the ValueExpression.
 					// Impacts? Unknown. Maybe none.
-					builder.AddAttribute(9, nameof(HxInputCheckBox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty)); // TODO: Je tenhle workaround průchozí???
+					builder.AddAttribute(9, nameof(HxInputCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty)); // TODO: Je tenhle workaround průchozí???
 
-					builder.AddAttribute(10, nameof(HxInputCheckBox.ShowValidationMessage), false);
+					builder.AddAttribute(10, nameof(HxInputCheckbox.ShowValidationMessage), false);
 					builder.CloseComponent();
 
 					builder.CloseElement(); // li
