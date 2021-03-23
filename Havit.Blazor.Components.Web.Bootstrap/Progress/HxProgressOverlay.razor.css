@@ -1,3 +1,4 @@
 .hx-progress-overlay {
     position: relative;
+    min-height: 60px;
 }
