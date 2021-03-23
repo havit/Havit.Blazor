@@ -124,11 +124,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Throws NotSupportedException - giving focus to an input element is not supported on the HxCheckBoxList.
+		/// Throws NotSupportedException - giving focus to an input element is not supported on the HxCheckboxList.
 		/// </summary>
 		public override ValueTask FocusAsync()
 		{
-			throw new NotSupportedException($"{nameof(FocusAsync)} is not supported on {nameof(HxCheckBoxList<TItem>)}.");
+			throw new NotSupportedException($"{nameof(FocusAsync)} is not supported on {nameof(HxCheckboxList<TItem>)}.");
 		}
 
 	}
