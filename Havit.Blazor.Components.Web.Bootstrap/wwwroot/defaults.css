@@ -18,6 +18,8 @@
   --hx-chip-list-spacing: .25rem;
   --hx-context-menu-button-border-radius: .2rem;
   --hx-context-menu-button-hover-background: #ced4da;
+  --hx-grid-button-hover-background: #ced4da;
+  --hx-grid-button-border-radius: .2rem;
 }
 
 .hx-form .hx-form-group, .hx-form .hx-autosuggest {

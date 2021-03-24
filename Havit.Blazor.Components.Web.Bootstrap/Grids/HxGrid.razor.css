@@ -10,3 +10,12 @@
 ::deep th:hover a .text-muted {
 	visibility: visible;
 }
+
+::deep .hx-grid-btn {
+    border-radius: var(--hx-grid-button-border-radius);
+    padding: 0 4px;
+}
+
+::deep .hx-grid-btn:hover {
+    background: var(--hx-grid-button-hover-background);
+}
