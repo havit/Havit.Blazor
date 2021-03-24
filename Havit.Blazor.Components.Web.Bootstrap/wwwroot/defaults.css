@@ -22,6 +22,7 @@
   --hx-grid-button-border-radius: .2rem;
 }
 
-.hx-form .hx-form-group, .hx-form .hx-autosuggest {
+/* Zatím nevím kam s tím. Odsazuji všechy inputy v formu kromě posledního. */
+form .hx-form-group:not(:last-child), form .hx-autosuggest:not(:last-child) {
     margin-bottom: var(--hx-form-spacing);
 }
