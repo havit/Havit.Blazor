@@ -14,8 +14,14 @@
 ::deep .hx-grid-btn {
     border-radius: var(--hx-grid-button-border-radius);
     padding: 0 4px;
+    background: transparent;
+    border: none;
 }
 
 ::deep .hx-grid-btn:hover {
-    background: var(--hx-grid-button-hover-background);
+    background: var(--hx-grid-button-hover-background); 
+}
+
+::deep .hx-grid-btn:active { 
+    color: currentColor;
 }

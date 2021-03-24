@@ -8,6 +8,12 @@
 	<Columns>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Order">
+			<ItemTemplate Context="item">
+				<HxButton Skin="ButtonSkins.Up" />
+				<HxButton Skin="ButtonSkins.Down" />  
+			</ItemTemplate>
+		</HxGridColumn>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Link">
 			<ItemTemplate>
 				<a href="https://www.havit.cz" @onclick:stopPropagation>link to a page</a> @* TODO HxLink, který bude mít default stopPropagation ??? *@

@@ -26,8 +26,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static ButtonSkin Open { get; } = new ButtonSkin(text: "Open", resourceType: typeof(ButtonSkins), color: ThemeColor.Secondary);
 		public static ButtonSkin Remove { get; } = new ButtonSkin(text: "Remove", resourceType: typeof(ButtonSkins), color: ThemeColor.Secondary);
 		public static ButtonSkin Save { get; } = new ButtonSkin(text: "Save", resourceType: typeof(ButtonSkins), color: ThemeColor.Primary);
-		public static ButtonSkin Up { get; } = new ButtonSkin(text: "Up", resourceType: typeof(ButtonSkins), color: ThemeColor.None, cssClass: "hx-grid-btn");
-		public static ButtonSkin Down { get; } = new ButtonSkin(text: "Down", resourceType: typeof(ButtonSkins), color: ThemeColor.None, cssClass: "hx-grid-btn");
+		public static ButtonSkin Up { get; } = new ButtonSkin(resourceType: typeof(ButtonSkins), color: ThemeColor.None, cssClass: "hx-grid-btn", icon: BootstrapIcon.ChevronUp);
+		public static ButtonSkin Down { get; } = new ButtonSkin(resourceType: typeof(ButtonSkins), color: ThemeColor.None, cssClass: "hx-grid-btn", icon: BootstrapIcon.ChevronDown);
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
