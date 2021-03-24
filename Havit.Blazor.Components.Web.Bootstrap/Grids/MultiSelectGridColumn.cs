@@ -25,20 +25,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				CssClass = "text-center",
 				Template = (RenderTreeBuilder builder) =>
 				{
-					builder.OpenElement(100, "div");
-					builder.AddAttribute(101, "class", "form-check form-check-inline");
+					builder.OpenElement(100, "input");
+					builder.AddAttribute(101, "type", "checkbox");
+					builder.AddAttribute(102, "class", "form-check-input");
 
-					builder.OpenElement(200, "input");
-					builder.AddAttribute(201, "type", "checkbox");
-					builder.AddAttribute(202, "class", "form-check-input");
-
-					builder.AddAttribute(203, "checked", AllDataItemsSelected);
-					builder.AddAttribute(204, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
-					builder.AddEventStopPropagationAttribute(205, "onclick", true);
+					builder.AddAttribute(103, "checked", AllDataItemsSelected);
+					builder.AddAttribute(104, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
+					builder.AddEventStopPropagationAttribute(105, "onclick", true);
 
 					builder.CloseElement(); // input
-
-					builder.CloseElement(); // div
 				}
 			};
 		}
@@ -50,21 +45,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				CssClass = "text-center",
 				Template = (RenderTreeBuilder builder) =>
 				{
-					builder.OpenElement(100, "div");
-					builder.AddAttribute(101, "class", "form-check form-check-inline");
-
-					builder.OpenElement(200, "input");
-					builder.AddAttribute(201, "type", "checkbox");
-					builder.AddAttribute(202, "class", "form-check-input");
+					builder.OpenElement(100, "input");
+					builder.AddAttribute(101, "type", "checkbox");
+					builder.AddAttribute(102, "class", "form-check-input");
 
 					bool selected = SelectedDataItems?.Contains(item) ?? false;
-					builder.AddAttribute(203, "checked", selected);
-					builder.AddAttribute(204, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectDataItemClick(item, selected)));
-					builder.AddEventStopPropagationAttribute(205, "onclick", true);
+					builder.AddAttribute(103, "checked", selected);
+					builder.AddAttribute(104, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectDataItemClick(item, selected)));
+					builder.AddEventStopPropagationAttribute(105, "onclick", true);
 
 					builder.CloseElement(); // input
-
-					builder.CloseElement(); // div
 				}
 			};
 		}
