@@ -4,9 +4,9 @@
 	string text = GetText();
 }
 <button type="@GetButtonType()"
-    class="@CssClassHelper.Combine("hx-button", GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass)"
-    @onclick="HandleClick" @onclick:stopPropagation="this.OnClickStopPropagation"
-    disabled="@(!CascadeEnabledComponent.EnabledEffective(this))" form="@FormId">
+		class="@CssClassHelper.Combine("hx-button", GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass)"
+		@onclick="HandleClick" @onclick:stopPropagation="this.OnClickStopPropagation"
+		disabled="@(!CascadeEnabledComponent.EnabledEffective(this))" form="@FormId">
 
 	@if ((this.Icon ?? this.Skin?.Icon) is not null)
 	{

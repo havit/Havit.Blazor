@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
@@ -31,6 +32,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string ConfirmationQuestion { get; set; }
 
 		/// <summary>
+		/// Skin of the menu item. Simplifies reuse of item properties.
+		/// </summary>
+		[Parameter] public ContextMenuItemSkin Skin { get; set; }
+
+		/// <summary>
 		/// Item clicked event.
 		/// </summary>
 		[Parameter] public EventCallback OnClick { get; set; }
@@ -40,6 +46,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool OnClickStopPropagation { get; set; } = true;
 
+		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 		[Inject] protected IServiceProvider ServiceProvider { get; set; } // optional IHxMessageBoxService, fallback to JS-confirm
 
@@ -49,12 +56,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			base.OnInitialized();
 
-			MessageBox = ServiceProvider.GetService<IHxMessageBoxService>();
+			MessageBox = ServiceProvider.GetService<IHxMessageBoxService>(); // conditional, does not have to be registered
 		}
 
 		public async Task HandleClick()
 		{
-			if (!String.IsNullOrEmpty(ConfirmationQuestion))
+			if (!String.IsNullOrEmpty(GetConfirmationQuestion()))
 			{
 				if (MessageBox is not null)
 				{
@@ -63,12 +70,44 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 						return; // No action
 					}
 				}
-				else if (!await JSRuntime.InvokeAsync<bool>("confirm", ConfirmationQuestion)) // TODO: HxMessageBox/HxModal spíš než JS-confirm
+				else if (!await JSRuntime.InvokeAsync<bool>("confirm", GetConfirmationQuestion()))
 				{
 					return; // No Action
 				}
 			}
 			await OnClick.InvokeAsync(null);
 		}
+
+		protected string GetText()
+		{
+			if (!String.IsNullOrEmpty(Text))
+			{
+				return this.Text;
+			}
+			else if (!String.IsNullOrEmpty(Skin?.Text))
+			{
+				return StringLocalizerFactory.GetLocalizedValue(Skin.Text, Skin.ResourceType);
+			}
+			return null;
+		}
+
+		protected string GetConfirmationQuestion()
+		{
+			if (!String.IsNullOrEmpty(ConfirmationQuestion))
+			{
+				return this.ConfirmationQuestion;
+			}
+			else if (!String.IsNullOrEmpty(Skin?.ConfirmationQuestion))
+			{
+				return StringLocalizerFactory.GetLocalizedValue(Skin.ConfirmationQuestion, Skin.ResourceType);
+			}
+			return null;
+		}
+
+		protected IconBase GetIcon()
+		{
+			return Icon ?? Skin?.Icon;
+		}
+
 	}
 }
