@@ -24,6 +24,7 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 		/// Template method to implement the data retrival logic.
 		/// You should never call this method directly, use <see cref="EnsureDataAsync"/> to load data.
 		/// This method is sequential (does not allow parallel runs), just take care of the data retrieval.
+		/// Must return non-null value, use Enumerable.Empty if needed.
 		/// </summary>
 		protected internal abstract Task<IEnumerable<TValue>> LoadDataAsync();
 
@@ -97,6 +98,7 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 					if ((Data is null) || ShouldRefresh()) // do not use previous ShouldRefresh result, the data might got refreshed in meantime
 					{
 						var rawData = await LoadDataAsync();
+						Contract.Requires<InvalidOperationException>(rawData is not null, $"{nameof(LoadDataAsync)} is required to return non-null value. Use Enumerable.Empty if needed.");
 						this.Data = rawData.ToDictionary(this.KeySelector);
 					}
 				}
