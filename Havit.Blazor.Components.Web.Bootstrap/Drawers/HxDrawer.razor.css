@@ -1,6 +1,7 @@
 .hx-drawer {
   position: fixed;
   height: 100vh;
+  max-height: 100vh;
   top: 0;
   width: var(--drawer-width);
   background: white;
@@ -16,10 +17,6 @@
 
 .hx-drawer.hx-drawer-lg {
   width: var(--drawer-lg-width);
-}
-
-.hx-drawer-body {
-  flex: 1 0 auto;
 }
 
 .hx-drawer.show {

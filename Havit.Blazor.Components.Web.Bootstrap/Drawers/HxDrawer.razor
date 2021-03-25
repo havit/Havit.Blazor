@@ -2,7 +2,7 @@
 <div class="@CssClassHelper.Combine("hx-drawer", GetSizeCssClass(), GetOpenCssClass())">
 	@if (IsOpen || (RenderMode == DrawerRenderMode.Always))
 	{
-		<div class="hx-drawer-header pt-4 px-4 d-flex align-items-center">
+		<div class="hx-drawer-header p-4 d-flex align-items-center">
 			<div class="fs-4">
                 @HeaderText
 			    @HeaderTemplate
@@ -15,7 +15,7 @@
 		}
 		@if (FooterTemplate != null)
 		{
-			<div class="hx-drawer-footer pb-4 px-4">@FooterTemplate</div>
+			<div class="hx-drawer-footer p-4">@FooterTemplate</div>
 		}
 	}
 </div>
