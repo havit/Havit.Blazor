@@ -38,7 +38,7 @@
 
 	public class CustomButtonSkins
 	{
-		public static ButtonSkin Demo { get; } = new ButtonSkin(text: "Welcome", icon: BootstrapIcon.Heart, color: ThemeColor.Danger);
+		public static ButtonSkin Demo { get; } = new ButtonSkin() { Text = "Welcome", Icon = BootstrapIcon.Heart, Color = ThemeColor.Danger };
 	};
 
 }
