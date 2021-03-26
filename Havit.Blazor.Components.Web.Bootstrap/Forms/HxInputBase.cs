@@ -94,7 +94,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// CSS class to be rendered with the wrapping div.
 		/// </summary>
-		private protected virtual string CoreCssClass => "hx-form-group";
+		private protected virtual string CoreCssClass => "hx-form-group position-relative";
 
 		/// <summary>
 		/// CSS class to be rendered with the input element.

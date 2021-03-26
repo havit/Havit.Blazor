@@ -80,7 +80,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (messages.Any())
 			{
 				builder.OpenElement(0, "div");
-				builder.AddAttribute(1, "class", "invalid-feedback");
+				builder.AddAttribute(1, "class", "invalid-tooltip");
 
 				foreach (string message in messages)
 				{
