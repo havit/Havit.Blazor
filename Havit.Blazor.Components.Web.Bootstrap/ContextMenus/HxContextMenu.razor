@@ -1,12 +1,11 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <div class="hx-context-menu">
-    <div class="dropdown d-flex">
-        <span role="button" class="hx-context-menu-btn" id="dropdownMenuButton" data-bs-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
-        </span>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-            @ChildContent
-        </ul>
-    </div>
+	<div class="dropdown d-flex">
+		<span role="button" class="hx-context-menu-btn" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @onclick:stopPropagation="true">
+			<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
+		</span>
+		<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+			@ChildContent
+		</ul>
+	</div>
 </div>
