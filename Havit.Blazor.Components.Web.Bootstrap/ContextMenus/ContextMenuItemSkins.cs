@@ -8,6 +8,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public static class ContextMenuItemSkins
 	{
-		public static ContextMenuItemSkin Delete = new ContextMenuItemSkin() { Icon = BootstrapIcon.Trash, ResourceType = typeof(ContextMenuItemSkins), Text = "Delete", ConfirmationQuestion = "DeleteConfirmation" };
+		public static ContextMenuItemSkin Delete { get; set; } = new ContextMenuItemSkin() { Icon = BootstrapIcon.Trash, ResourceType = typeof(ContextMenuItemSkins), Text = "Delete", ConfirmationQuestion = "DeleteConfirmation" };
 	}
 }

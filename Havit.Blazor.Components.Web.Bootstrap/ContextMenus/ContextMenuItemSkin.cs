@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public class ContextMenuItemSkin
+	public record ContextMenuItemSkin
 	{
 		/// <summary>
 		/// Item text.
@@ -27,6 +27,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Button resource type.
 		/// </summary>
-		public Type ResourceType { get; init; }
+		public Type ResourceType { get; set; }
 	}
 }

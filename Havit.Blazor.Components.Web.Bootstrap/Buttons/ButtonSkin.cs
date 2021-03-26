@@ -10,36 +10,36 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Button skin.
 	/// </summary>
-	public class ButtonSkin
+	public record ButtonSkin
 	{
 		/// <summary>
 		/// CSS class to be rendered with button.
 		/// </summary>
-		public string CssClass { get; init; }
+		public string CssClass { get; set; }
 
 		/// <summary>
 		/// Icon to be rendered with button.
 		/// </summary>
-		public IconBase Icon { get; init; }
+		public IconBase Icon { get; set; }
 
 		/// <summary>
 		/// Button text.
 		/// </summary>
-		public string Text { get; init; }
+		public string Text { get; set; }
 
 		/// <summary>
 		/// Bootstrap button color (style).
 		/// </summary>
-		public ThemeColor? Color { get; init; }
+		public ThemeColor? Color { get; set; }
 
 		/// <summary>
 		/// Bootstrap outline button style. See https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons.
 		/// </summary>
-		public bool? Outlined { get; init; }
+		public bool? Outlined { get; set; }
 
 		/// <summary>
 		/// Button resource type.
 		/// </summary>
-		public Type ResourceType { get; init; }
+		public Type ResourceType { get; set; }
 	}
 }
