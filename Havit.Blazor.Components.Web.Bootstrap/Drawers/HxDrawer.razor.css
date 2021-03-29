@@ -34,3 +34,8 @@
 .hx-drawer-lg.hide {
   right: calc(-1 * var(--drawer-lg-width));
 }
+
+.hx-drawer-body {
+    flex-shrink: 1;
+    overflow: auto;
+}
