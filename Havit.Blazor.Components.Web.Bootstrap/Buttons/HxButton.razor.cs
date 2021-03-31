@@ -82,6 +82,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
+		private bool clickInProgress;
+
 		protected string GetText()
 		{
 			if (!String.IsNullOrEmpty(Text))
@@ -148,7 +150,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleClick(MouseEventArgs mouseEventArgs)
 		{
-			await OnClick.InvokeAsync(mouseEventArgs);
+			if (!clickInProgress) // "single click protection" - disables OnClick until the previous one is completed
+			{
+				clickInProgress = true;
+				await Task.Yield(); // when OnClick is handled by longrunning SYNCHRONOUS task, spinner would not show - we need to return not-completed asynchronous task, so we use Task.Yield here.
+				await OnClick.InvokeAsync(mouseEventArgs);
+				clickInProgress = false;
+			}
 		}
 	}
 }

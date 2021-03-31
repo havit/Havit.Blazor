@@ -2,8 +2,8 @@
 
 <h1>HxButton</h1>
 
-<HxButton Skin="@ButtonSkins.OK" />
-<HxButton Skin="@ButtonSkins.Cancel" />
+<HxButton Skin="@ButtonSkins.OK" Icon="BootstrapIcon.Bicycle" OnClick="HandleOKClick" />
+<HxButton Skin="@ButtonSkins.Cancel" Size="ButtonSize.Large" OnClick="HandleCancelClick" />
 <HxButton Icon="BootstrapIcon.X" Skin="@ButtonSkins.Save" />
 
 <HxButton Text="Click me..." Color="ThemeColor.Warning" />
@@ -31,4 +31,15 @@
 
 		return Task.CompletedTask;
 	}
+
+	private void HandleOKClick()
+	{
+		System.Threading.Thread.Sleep(3000);
+	}
+
+	private async Task HandleCancelClick()
+	{
+		await Task.Delay(3000);
+	}
+
 }

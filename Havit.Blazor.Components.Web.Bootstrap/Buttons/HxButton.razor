@@ -6,11 +6,19 @@
 <button type="@GetButtonType()"
 		class="@CssClassHelper.Combine("hx-button", GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass)"
 		@onclick="HandleClick" @onclick:stopPropagation="this.OnClickStopPropagation"
-		disabled="@(!CascadeEnabledComponent.EnabledEffective(this))" form="@FormId">
+		disabled="@(clickInProgress || !CascadeEnabledComponent.EnabledEffective(this))" form="@FormId">
 
-	@if ((this.Icon ?? this.Skin?.Icon) is not null)
+	@if (clickInProgress || ((this.Icon ?? this.Skin?.Icon) is not null))
 	{
-		<HxIcon Icon="this.Icon ?? this.Skin?.Icon" />
+		if (clickInProgress)
+		{
+			<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+		}
+		else
+		{
+			<HxIcon Icon="this.Icon ?? this.Skin?.Icon" />
+		}
+
 		@if (!String.IsNullOrEmpty(text) || (ChildContent != null))
 		{
 			<span>&nbsp;</span>
