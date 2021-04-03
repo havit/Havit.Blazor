@@ -166,7 +166,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (!clickInProgress || !SingleClickProtection)
 			{
 				clickInProgress = true;
-				await Task.Yield(); // when OnClick is handled by longrunning SYNCHRONOUS task, spinner would not show - we need to return not-completed asynchronous task, so we use Task.Yield here.
+				if (SpinnerEffective)
+				{
+					await Task.Yield(); // when OnClick is handled by longrunning SYNCHRONOUS task, spinner would not show - we need to return not-completed asynchronous task, so we use Task.Yield here.
+				}
 				await OnClick.InvokeAsync(mouseEventArgs);
 				clickInProgress = false;
 			}
