@@ -78,9 +78,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool OnClickStopPropagation { get; set; } = true;
 
 		/// <summary>
+		/// Set <c>true</c> if you want to display a <see cref="HxSpinner"/> while the <see cref="HxButton.OnClick"/> handler is running.
+		/// </summary>
+		[Parameter] public bool? Spinner { get; set; }
+
+		/// <summary>
+		/// Set <c>false</c> if you want to allow multiple <see cref="OnClick"/> handlers in parallel. Default is <c>true</c>.
+		/// </summary>
+		[Parameter] public bool SingleClickProtection { get; set; } = true;
+
+		/// <summary>
 		/// Localization service.
 		/// </summary>
 		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
+
+		protected IconBase IconEffective => this.Icon ?? this.Skin?.Icon;
+		protected bool SpinnerEffective => this.Spinner ?? this.Skin?.Spinner ?? false;
 
 		private bool clickInProgress;
 
@@ -150,7 +163,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleClick(MouseEventArgs mouseEventArgs)
 		{
-			if (!clickInProgress) // "single click protection" - disables OnClick until the previous one is completed
+			if (!clickInProgress || !SingleClickProtection)
 			{
 				clickInProgress = true;
 				await Task.Yield(); // when OnClick is handled by longrunning SYNCHRONOUS task, spinner would not show - we need to return not-completed asynchronous task, so we use Task.Yield here.

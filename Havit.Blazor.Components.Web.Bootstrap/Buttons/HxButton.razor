@@ -8,13 +8,13 @@
 		@onclick="HandleClick" @onclick:stopPropagation="this.OnClickStopPropagation"
 		disabled="@(clickInProgress || !CascadeEnabledComponent.EnabledEffective(this))" form="@FormId">
 
-	@if (clickInProgress || ((this.Icon ?? this.Skin?.Icon) is not null))
+	@if ((this.IconEffective is not null) || (this.SpinnerEffective && clickInProgress))
 	{
-		if (clickInProgress)
+		if (this.SpinnerEffective && clickInProgress)
 		{
 			<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 		}
-		else
+		else if (this.IconEffective is not null)
 		{
 			<HxIcon Icon="this.Icon ?? this.Skin?.Icon" />
 		}

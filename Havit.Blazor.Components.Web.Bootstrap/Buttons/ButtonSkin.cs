@@ -41,5 +41,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Button resource type.
 		/// </summary>
 		public Type ResourceType { get; set; }
+
+		/// <summary>
+		/// Set <c>true</c> if you want to display a <see cref="HxSpinner"/> while the <see cref="HxButton.OnClick"/> handler is running.
+		/// </summary>
+		public bool? Spinner { get; set; }
 	}
 }

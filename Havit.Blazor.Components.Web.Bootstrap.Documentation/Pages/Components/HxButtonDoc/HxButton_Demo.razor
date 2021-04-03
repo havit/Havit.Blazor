@@ -18,7 +18,7 @@
 <h5>Button with a (standard) skin</h5>
 <p>
 	<HxButton Skin="@ButtonSkins.OK" />
-	<HxButton Skin="@ButtonSkins.Save" />
+	<HxButton Skin="@ButtonSkins.Save" OnClick="async () => await Task.Delay(3000)" Spinner="true" />
 	<HxButton Skin="@ButtonSkins.Cancel" />
 </p>
 
