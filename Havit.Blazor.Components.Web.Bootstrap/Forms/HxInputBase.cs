@@ -12,6 +12,12 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 
+// TODO Floating labels: Placeholder - exception when used
+// TODO Floating labels: InputGroups - exception when used
+// TODO Floating labels: HxAutosuggest
+// TODO Floating labels: HxCheckBoxList
+// TODO Floating labels: FloatingLabelEffective - set default value to false
+
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
@@ -64,6 +70,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string LabelCssClass { get; set; }
 
 		/// <summary>
+		/// https://getbootstrap.com/docs/5.0/forms/floating-labels/
+		/// </summary>
+		[Parameter] public bool? FloatingLabel { get; set; } = true;
+
+		/// <summary>
 		/// Custom CSS class to render with the input element.
 		/// </summary>
 		[Parameter] public string InputCssClass { get; set; }
@@ -91,10 +102,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual bool EnabledEffective => CascadeEnabledComponent.EnabledEffective(this);
 
+		protected virtual bool FloatingLabelEffective => FloatingLabel ?? true; // TODO Floating labels: TRUE jen pro účely ladění!
+
 		/// <summary>
 		/// CSS class to be rendered with the wrapping div.
 		/// </summary>
-		private protected virtual string CoreCssClass => "hx-form-group position-relative";
+		private protected virtual string CoreCssClass => CssClassHelper.Combine("hx-form-group position-relative", FloatingLabelEffective ? "form-floating" : null);
 
 		/// <summary>
 		/// CSS class to be rendered with the input element.
@@ -125,7 +138,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Elements rendering order. Overriden in the <see cref="HxInputCheckbox"/> component.
 		/// </summary>
-		protected virtual InputRenderOrder RenderOrder => InputRenderOrder.LabelInput;
+		protected virtual InputRenderOrder RenderOrder => FloatingLabelEffective ? InputRenderOrder.InputLabel : InputRenderOrder.LabelInput;
 
 		private EditContext autoCreatedEditContext;
 
@@ -298,6 +311,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(3, "type", typeValue);
 			builder.AddAttribute(4, "class", GetInputCssClassToRender());
 			builder.AddAttribute(5, "disabled", !EnabledEffective);
+			if (FloatingLabelEffective)
+			{
+				builder.AddAttribute(6, "placeholder", "placeholder"); // there must be a nonempty value (which is not visible)
+			}
 		}
 
 		/// <summary>
