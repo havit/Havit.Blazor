@@ -89,6 +89,9 @@
 	font-size: 1rem;
 	font-weight: 400;
 }
+	.main-content #sidebar-collapse .sidebar .categories li .subcategories li a.active {
+		font-weight: bold;
+	}
 .main-content
 	#sidebar-collapse
 	.sidebar

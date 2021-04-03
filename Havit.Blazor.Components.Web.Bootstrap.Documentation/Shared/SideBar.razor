@@ -1,0 +1,50 @@
+﻿@*Hamburger button*@
+<button data-bs-target="#sidebar-collapse" data-bs-toggle="collapse" class="sidebar-collapse-btn" role="button">
+	<div></div>
+	<div></div>
+	<div></div>
+</button>
+<div class="col-md-2 collapse" id="sidebar-collapse">
+	<div class="sidebar">
+		<ul class="categories">
+			<li>
+				<a data-bs-target="#form-subcategories" data-bs-toggle="collapse" aria-expanded="true" role="button">Forms</a>
+				<div class="collapse show" id="form-subcategories">
+					<ul class="subcategories">
+						<li><NavLink href="/components/forminputs">Inputs</NavLink></li>
+						<li><NavLink href="/components/hxinputfile">@nameof(HxInputFile)</NavLink></li>
+						<li><NavLink href="/components/hxformstate">@nameof(HxFormState)</NavLink></li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<a data-bs-target="#components-subcategories" data-bs-toggle="collapse" role="button" aria-expanded="true">Components</a>
+				<div class="collapse show" id="components-subcategories">
+					<ul class="subcategories">
+						<li><NavLink href="/components/hxaccordion">@nameof(HxAccordion)</NavLink></li>
+						<li><NavLink href="/components/hxbutton">@nameof(HxButton), @nameof(HxSubmit)</NavLink></li>
+						<li><NavLink href="/components/hxcard">@nameof(HxCard)</NavLink></li>
+						<li><NavLink href="/components/hxdrawer">@nameof(HxDrawer)</NavLink></li>
+						<li><NavLink href="/components/hxgrid">@nameof(HxGrid<object>)</NavLink></li>
+						<li><NavLink href="/components/hxicon">@nameof(HxIcon)</NavLink></li>
+						<li><NavLink href="/components/hxinputfile">@nameof(HxInputFile)</NavLink></li>
+						<li><NavLink href="/components/hxmessenger">@nameof(HxMessenger)</NavLink></li>
+						<li><NavLink href="/components/hxrepeater">@nameof(HxRepeater<object>)</NavLink></li>
+						<li><NavLink href="/components/HxSpinner">@nameof(HxSpinner)</NavLink></li>
+						<li><NavLink href="/components/tabs">Tabs</NavLink></li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<a data-bs-target="#dialogs-subcategories" data-bs-toggle="collapse" role="button" aria-expanded="true">Dialogs</a>
+				<div class="collapse show" id="dialogs-subcategories">
+					<ul class="subcategories">
+						<li><NavLink href="/components/hxmessagebox">@nameof(HxMessageBox)</NavLink></li>
+						<li><NavLink href="/components/hxmodal">@nameof(HxModal)</NavLink></li>
+						<li><NavLink href="/components/hxdialogbase">@nameof(HxDialogBase<object>)</NavLink></li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
