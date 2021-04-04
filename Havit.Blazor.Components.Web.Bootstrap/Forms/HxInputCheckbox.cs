@@ -29,6 +29,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private protected override string CoreLabelCssClass => "form-check-label";
 
 		/// <inheritdoc />
+		protected override void OnParametersSet()
+		{
+			base.OnParametersSet();
+
+			if (FloatingLabelEffective)
+			{
+				throw new InvalidOperationException($"Floating labes are not supported on {nameof(HxInputCheckbox)}.");
+			}
+		}
+
+		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, "input");
