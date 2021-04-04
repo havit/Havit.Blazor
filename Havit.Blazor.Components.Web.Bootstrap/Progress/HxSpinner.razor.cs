@@ -55,18 +55,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				_ => throw new InvalidOperationException($"Unknown {nameof(SpinnerSize)}: {Size}.")
 			};
 		}
-
-		protected string GetSpinnerColorCssClass()
-		{
-			if (Color == ThemeColor.None)
-			{
-				return null;
-			}
-			if (this.Color == ThemeColor.Link)
-			{
-				throw new NotSupportedException($"{nameof(HxSpinner)} does not support {nameof(ThemeColor)}.{nameof(ThemeColor.Link)}");
-			}
-			return "text-" + Color.ToString("f").ToLower();
-		}
 	}
 }
