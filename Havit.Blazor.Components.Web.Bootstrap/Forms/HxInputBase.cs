@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 
-// TODO Floating labels: HxCheckBoxList
 // TODO Floating labels: FloatingLabelEffective - set default value to false
 
 namespace Havit.Blazor.Components.Web.Bootstrap

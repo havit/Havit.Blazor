@@ -39,6 +39,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private List<TItem> itemsToRender;
 
+		protected override void OnParametersSet()
+		{
+			base.OnParametersSet();
+
+			if (FloatingLabelEffective)
+			{
+				throw new InvalidOperationException($"Floating labes are not supported on {nameof(HxCheckboxList<TItem>)}.");
+			}
+		}
+
 		private void RefreshState()
 		{
 			itemsToRender = Data?.ToList() ?? new List<TItem>();
