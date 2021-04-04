@@ -12,8 +12,6 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 
-// TODO Floating labels: FloatingLabelEffective - set default value to false
-
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
@@ -66,9 +64,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string LabelCssClass { get; set; }
 
 		/// <summary>
+		/// Enables floating labels. Not supported on all components.
 		/// https://getbootstrap.com/docs/5.0/forms/floating-labels/
 		/// </summary>
-		[Parameter] public bool? FloatingLabel { get; set; } = true;
+		[Parameter] public bool? FloatingLabel { get; set; }
 
 		/// <summary>
 		/// Custom CSS class to render with the input element.
@@ -98,7 +97,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual bool EnabledEffective => CascadeEnabledComponent.EnabledEffective(this);
 
-		protected virtual bool FloatingLabelEffective => FloatingLabel ?? true; // TODO Floating labels: TRUE jen pro účely ladění!
+		protected virtual bool FloatingLabelEffective => FloatingLabel ?? false;
 
 		/// <summary>
 		/// CSS class to be rendered with the wrapping div.

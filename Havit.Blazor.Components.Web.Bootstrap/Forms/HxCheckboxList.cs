@@ -39,6 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private List<TItem> itemsToRender;
 
+		/// <inheritdoc />
 		protected override void OnParametersSet()
 		{
 			base.OnParametersSet();
