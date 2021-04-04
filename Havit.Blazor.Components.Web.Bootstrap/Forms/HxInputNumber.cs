@@ -96,7 +96,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			base.OnParametersSet();
 
-			if (FloatingLabelEffective && !String.IsNullOrEmpty(Placeholder))
+			if ((LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
 			{
 				throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
 			}

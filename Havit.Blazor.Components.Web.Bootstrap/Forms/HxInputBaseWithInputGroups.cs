@@ -47,7 +47,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			base.OnParametersSet();
 
-			if (FloatingLabelEffective
+			if ((LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
 				&& (!String.IsNullOrEmpty(InputGroupStart) || (InputGroupStartTemplate != null) || !String.IsNullOrEmpty(InputGroupEnd) || (InputGroupEndTemplate != null)))
 			{
 				throw new InvalidOperationException($"Cannot use input groups ({nameof(InputGroupStart)}, {nameof(InputGroupStartTemplate)}, {nameof(InputGroupEnd)}, {nameof(InputGroupEndTemplate)}) with floating labels.");

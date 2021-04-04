@@ -44,7 +44,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			base.OnParametersSet();
 
-			if (FloatingLabelEffective)
+			if (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
 			{
 				throw new InvalidOperationException($"Floating labes are not supported on {nameof(HxCheckboxList<TItem>)}.");
 			}

@@ -59,7 +59,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			base.OnParametersSet();
 
-			if (FloatingLabelEffective && !String.IsNullOrEmpty(Placeholder))
+			if ((LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
 			{
 				throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
 			}
@@ -71,7 +71,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			// Floating labels renders label after inputs. But HxAutosuggest...
 			// HxAutossugest's input is rendered in HxAutosuggestInternal and is followed by (an icon and suggested values).
 			// So we pass base.BuildRenderLabel to the component to render this label after HxAutosuggest's input.
-			if (!FloatingLabelEffective)
+			if (LabelTypeEffective != Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
 			{
 				// Render label only for non-floating form.
 				base.BuildRenderLabel(builder);
@@ -93,8 +93,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItem, TValue>.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
 			builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItem, TValue>.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItem, TValue>.ItemFromValueResolver), ItemFromValueResolver);
-			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItem, TValue>.Placeholder), FloatingLabelEffective ? "placeholder" : Placeholder);
-			builder.AddAttribute(1012, nameof(HxAutosuggestInternal<TItem, TValue>.FloatingLabelEffective), FloatingLabelEffective);
+			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItem, TValue>.Placeholder), (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
+			builder.AddAttribute(1012, nameof(HxAutosuggestInternal<TItem, TValue>.LabelTypeEffective), LabelTypeEffective);
 			builder.AddAttribute(1013, nameof(HxAutosuggestInternal<TItem, TValue>.BuildRenderLabel), (RenderFragment)base.BuildRenderLabel); // base is required
 			builder.AddComponentReferenceCapture(1014, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
 			builder.CloseComponent();
