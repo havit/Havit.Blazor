@@ -1,12 +1,12 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Size for <see cref="HxButton"/>.
+	/// Size for <see cref="HxButtonGroup"/>.
 	/// </summary>
-	public enum ButtonSize
+	public enum ButtonGroupSize
 	{
 		Regular = 0,
-		Small,
-		Large
+		Small = 1,
+		Large = 2
 	}
 }
