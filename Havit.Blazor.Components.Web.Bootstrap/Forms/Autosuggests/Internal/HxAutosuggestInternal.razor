@@ -2,11 +2,15 @@
 @typeparam TItem
 @typeparam TValue
 
-<div id="@dropdownId" class="dropdown">
+<div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", FloatingLabelEffective ? "form-floating" : null)">
     <Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput @ref="autosuggestInput" InputId="@InputId"
         EnabledEffective="@EnabledEffective" Value="@userInput" OnInputInput="HandleInputInput"
         OnInputFocus="HandleInputFocus" OnInputBlur="HandleInputBlur" Placeholder="@Placeholder"
         CssClass="@InputCssClass" />
+    @if (FloatingLabelEffective)
+    {
+        @BuildRenderLabel
+    }
     <div class="hx-autosuggest-input-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center">
         @if (dataProviderInProgress)
         {

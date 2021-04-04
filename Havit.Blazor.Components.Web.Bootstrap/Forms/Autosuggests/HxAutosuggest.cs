@@ -54,6 +54,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private HxAutosuggestInternal<TItem, TValue> hxAutosuggestInternalComponent;
 
+		protected override void BuildRenderLabel(RenderTreeBuilder builder)
+		{
+			// Floating labels renders label after inputs. But HxAutosuggest...
+			// HxAutossugest's input is rendered in HxAutosuggestInternal and is followed by (an icon and suggested values).
+			// So we pass base.BuildRenderLabel to the component to render this label after HxAutosuggest's input.
+			if (!FloatingLabelEffective)
+			{
+				// Render label only for non-floating form.
+				base.BuildRenderLabel(builder);
+			}
+		}
+
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenComponent<HxAutosuggestInternal<TItem, TValue>>(1);
@@ -68,8 +80,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItem, TValue>.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
 			builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItem, TValue>.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItem, TValue>.ItemFromValueResolver), ItemFromValueResolver);
-			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItem, TValue>.Placeholder), Placeholder);
-			builder.AddComponentReferenceCapture(1012, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
+			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItem, TValue>.Placeholder), FloatingLabelEffective ? "placeholder" : Placeholder);
+			builder.AddAttribute(1012, nameof(HxAutosuggestInternal<TItem, TValue>.FloatingLabelEffective), FloatingLabelEffective);
+			builder.AddAttribute(1013, nameof(HxAutosuggestInternal<TItem, TValue>.BuildRenderLabel), (RenderFragment)base.BuildRenderLabel); // base is required
+			builder.AddComponentReferenceCapture(1014, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
 			builder.CloseComponent();
 		}
 

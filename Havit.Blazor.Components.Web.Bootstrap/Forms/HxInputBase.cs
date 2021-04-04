@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Components.Web;
 
 // TODO Floating labels: Placeholder - exception when used
 // TODO Floating labels: InputGroups - exception when used
-// TODO Floating labels: HxAutosuggest
 // TODO Floating labels: HxCheckBoxList
 // TODO Floating labels: FloatingLabelEffective - set default value to false
 

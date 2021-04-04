@@ -57,6 +57,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public bool EnabledEffective { get; set; }
 
+		[Parameter] public bool FloatingLabelEffective { get; set; }
+		
+		[Parameter] public RenderFragment BuildRenderLabel { get; set; }
+
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
