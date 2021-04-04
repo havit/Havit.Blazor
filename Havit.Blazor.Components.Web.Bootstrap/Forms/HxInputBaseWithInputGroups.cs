@@ -43,6 +43,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public InputSize InputSize { get; set; }
 
 		/// <inheritdoc />
+		protected override void OnParametersSet()
+		{
+			base.OnParametersSet();
+
+			if (FloatingLabelEffective
+				&& (!String.IsNullOrEmpty(InputGroupStart) || (InputGroupStartTemplate != null) || !String.IsNullOrEmpty(InputGroupEnd) || (InputGroupEndTemplate != null)))
+			{
+				throw new InvalidOperationException($"Cannot use input groups ({nameof(InputGroupStart)}, {nameof(InputGroupStartTemplate)}, {nameof(InputGroupEnd)}, {nameof(InputGroupEndTemplate)}) with floating labels.");
+			}
+		}
+
+		/// <inheritdoc />
 		protected override void BuildRenderInputAndValidationMessage(RenderTreeBuilder builder)
 		{
 			if (String.IsNullOrEmpty(InputGroupStart) && (InputGroupStartTemplate == null)
