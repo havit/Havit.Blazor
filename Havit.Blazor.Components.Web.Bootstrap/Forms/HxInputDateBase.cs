@@ -32,6 +32,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private int valueSequenceOffset = 0;
 
 		/// <inheritdoc />
+		protected override void OnParametersSet()
+		{
+			base.OnParametersSet();
+
+			if (FloatingLabelEffective && !String.IsNullOrEmpty(Placeholder))
+			{
+				throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
+			}
+		}
+
+		/// <inheritdoc />
 		protected override sealed void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			EnsureInputId();
@@ -89,6 +100,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private protected abstract void BuildRenderInput_DateRangePickerAttributes(RenderTreeBuilder builder);
 
+		/// <inheritdoc />
 		protected override sealed bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
 		{
 			bool success = TryParseValueFromStringCore(value, out result, out validationErrorMessage);
@@ -99,6 +111,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return success;
 		}
 
+		/// <summary>
+		/// Parses a string to create an instance of TValue.
+		/// </summary>
 		protected abstract bool TryParseValueFromStringCore(string value, out TValue result, out string validationErrorMessage);
 
 		/// <summary>

@@ -54,6 +54,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private HxAutosuggestInternal<TItem, TValue> hxAutosuggestInternalComponent;
 
+		/// <inheritdoc />
+		protected override void OnParametersSet()
+		{
+			base.OnParametersSet();
+
+			if (FloatingLabelEffective && !String.IsNullOrEmpty(Placeholder))
+			{
+				throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
+			}
+		}
+
+		/// <inheritdoc />
 		protected override void BuildRenderLabel(RenderTreeBuilder builder)
 		{
 			// Floating labels renders label after inputs. But HxAutosuggest...
@@ -66,6 +78,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
+		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenComponent<HxAutosuggestInternal<TItem, TValue>>(1);
@@ -87,6 +100,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.CloseComponent();
 		}
 
+		/// <inheritdoc />
 		protected override void BuildRenderValidationMessage(RenderTreeBuilder builder)
 		{
 			if (ShowValidationMessage)
@@ -106,6 +120,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			CurrentValue = newValue; // setter includes ValueChanged + NotifyFieldChanged
 		}
 
+		/// <inheritdoc />
 		protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string validationErrorMessage)
 		{
 			throw new NotSupportedException();
@@ -122,6 +137,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await hxAutosuggestInternalComponent.FocusAsync();
 		}
 
+		/// <inheritdoc />
 		protected override void RenderChipGenerator(RenderTreeBuilder builder)
 		{
 			if (!String.IsNullOrEmpty(hxAutosuggestInternalComponent?.ChipValue))
@@ -130,6 +146,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
+		/// <inheritdoc />
 		protected override void RenderChipValue(RenderTreeBuilder builder)
 		{
 			builder.AddContent(0, hxAutosuggestInternalComponent.ChipValue);

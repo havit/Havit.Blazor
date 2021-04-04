@@ -26,6 +26,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Placeholder { get; set; }
 
 		/// <inheritdoc />
+		protected override void OnParametersSet()
+		{
+			base.OnParametersSet();
+
+			if (FloatingLabelEffective && !String.IsNullOrEmpty(Placeholder))
+			{
+				throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
+			}
+		}
+
+		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, GetElementName());

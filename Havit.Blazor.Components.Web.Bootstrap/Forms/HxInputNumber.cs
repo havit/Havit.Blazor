@@ -92,6 +92,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private int valueSequenceOffset = 0;
 
 		/// <inheritdoc />
+		protected override void OnParametersSet()
+		{
+			base.OnParametersSet();
+
+			if (FloatingLabelEffective && !String.IsNullOrEmpty(Placeholder))
+			{
+				throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
+			}
+		}
+
+		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, "input");
