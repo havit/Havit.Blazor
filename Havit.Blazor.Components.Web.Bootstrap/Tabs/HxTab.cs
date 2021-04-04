@@ -55,18 +55,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
 
 		/// <inheritdoc />
-		protected override async Task OnInitializedAsync()
+		protected override void OnInitialized()
 		{
-			await base.OnInitializedAsync();
+			base.OnInitialized();
 
-			Contract.Assert(TabsRegistration != null, $"{nameof(HxTab)} invalid usage. Must be used in a {nameof(HxTabPanel)}.");
+			Contract.Requires<InvalidOperationException>(TabsRegistration != null, $"{nameof(HxTab)} has to be inside {nameof(HxTabPanel)}.");
 			TabsRegistration.Register(this);
 		}
 
 		/// <inheritdoc />
-		protected override async Task OnAfterRenderAsync(bool firstRender)
+		protected override void OnAfterRender(bool firstRender)
 		{
-			await base.OnAfterRenderAsync(firstRender);
+			base.OnAfterRender(firstRender);
 
 			((IRenderNotificationComponent)this).Rendered?.Invoke(this, firstRender);
 		}

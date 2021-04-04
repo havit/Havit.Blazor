@@ -1,35 +1,43 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-@{ 
-	if (!steps.Any(item => item.IsActive) && steps.Any())
-	{
-		steps[0].Activate();
-	}
-}
-
-<CascadingValue Value="stepsRegistration" Name="WizardStepsRegistration" IsFixed="true"> @*TODO: konstanta*@
-	<div class="hx-wizard d-flex flex-column flex-grow-1">
-		@*<ul class="nav nav-pills nav-justified">
-			@foreach (var step in Steps)
-			{
-				<li id="step-@(StepsIndex(step) + 1)" class="nav-item">
-					<a class="nav-link @((ActiveStep == step) ? "active" : "")" href="javascript: void(0)"
-					   @onclick="@(e=> SetActive(step))">@step.Name</a>
-				</li>
-			}
-		</ul>*@
-		<div>
-			@Steps
-		</div>
-		<div class="d-grid gap-2 d-md-block">
-			@if (CanGoBack())
-			{
-				<HxButton Text="Back" Color="ThemeColor.Secondary" OnClick="GoBackClick" />@* TODO: Localization *@
-			}
-
-			@if (CanGoNext())
-			{
-				<HxButton Text="Next" Color="ThemeColor.Primary" OnClick="GoNextClick" />@* TODO: Localization *@
-			}
-		</div>
-	</div>
+<CascadingValue Value="stepsRegistration" Name="@StepsRegistrationCascadingValueName" IsFixed="true">
+	@ChildContent
 </CascadingValue>
+
+<div class="hx-wizard d-flex flex-column flex-grow-1">
+
+	@if (ShowNavigator)
+	{
+		@* TODO: Wizzard steps navigator *@
+		<ol class="hx-wizzard-navigator my-3">
+			@foreach (HxWizardStep step in steps)
+			{
+				<li class="@(IsActiveStep(step) ? "active text-danger" : null)">@step.Name</li>
+			}
+		</ol>
+	}
+
+	@foreach (HxWizardStep step in steps)
+	{
+		@if (IsActiveStep(step))
+		{
+			<UpdatedContentRenderer Component="@step">
+				<div>
+					<div class="hx-wizard-step">
+						@step.ChildContent
+					</div>
+				</div>
+				<div class="d-grid gap-2 d-md-block">
+					@if (CanGoBack())
+					{
+						<HxButton Text="Back" Color="ThemeColor.Secondary" OnClick="GoBackClick" />@* TODO: Localization *@
+					}
+
+					@if (CanGoNext())
+					{
+						<HxButton Text="Next" Color="ThemeColor.Primary" OnClick="GoNextClick" />@* TODO: Localization *@
+					}
+				</div>
+			</UpdatedContentRenderer>
+		}
+	}
+</div>

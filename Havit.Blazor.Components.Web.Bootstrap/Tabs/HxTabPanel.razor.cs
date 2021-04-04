@@ -14,9 +14,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxTabPanel : ComponentBase, IDisposable
 	{
 		/// <summary>
-		/// ColumnsRegistration cascading value name.
+		/// TabsRegistration cascading value name.
 		/// </summary>
-		public const string TabsRegistrationCascadingValueName = "TabsRegistration";
+		internal const string TabsRegistrationCascadingValueName = "TabsRegistration";
 
 		[Parameter] public string ActiveTabId { get; set; }
 		[Parameter] public EventCallback<string> ActiveTabIdChanged { get; set; }
