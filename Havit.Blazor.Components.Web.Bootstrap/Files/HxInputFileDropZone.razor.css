@@ -11,9 +11,10 @@
 	position: relative;
 }
 
-	.hx-input-file-drop-zone:hover {
+	.hx-input-file-drop-zone:hover, .hx-input-file-drop-zone:focus {
 		background-color: var(--hx-input-file-drop-zone-hover-background-color);
 		border-color: var(--hx-input-file-drop-zone-hover-border-color);
+        box-shadow: var(--hx-input-file-drop-zone-hover-box-shadow);
 	}
 
 	.hx-input-file-drop-zone input[type=file] {
