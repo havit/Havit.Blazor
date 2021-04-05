@@ -21,12 +21,21 @@
   --hx-grid-button-hover-background: #dee2e6; /* gray-300 */
   --hx-grid-button-border-radius: .2rem;
   --hx-pager-margin: 1rem;
+  --hx-input-file-drop-zone-border-width: 2px;
+  --hx-input-file-drop-zone-border-color: #ced4da; /* gray-400 */
+  --hx-input-file-drop-zone-background-color: transparent;
+  --hx-input-file-drop-zone-hover-background-color: #f2f9ff;
+  --hx-input-file-drop-zone-hover-border-color: var(--primary);
+  --hx-input-file-drop-zone-border-radius: .3rem; /* border-radius-lg */
+  --hx-input-file-drop-zone-margin: 0;
+  --hx-input-file-drop-zone-padding: 3rem;
 }
 
 /* Zatím nevím kam s tím. Odsazuji všechy inputy ve formu. */
 form .hx-form-group, 
 form .hx-autosuggest, 
 form .form-check, 
-form .form-switch {
+form .form-switch,
+form .hx-input-file-drop-zone {
     margin-bottom: var(--hx-form-spacing);
 }
