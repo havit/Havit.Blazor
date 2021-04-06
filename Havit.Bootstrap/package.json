@@ -13,7 +13,7 @@
         "sass": "^1.32.8"
     },
     "scripts": {
-        "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css havit-bootstrap/:./ defaults.scss:defaults.css",
+        "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css bootstrap.scss:../Havit.Blazor.Components.Web.Bootstrap/wwwroot/bootstrap.css",
         "css-minify": "npm-run-all --parallel css-minify-*",
         "css-minify-main": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output . --batch --batch-suffix \".min\" \"./*.css\" \"!*.min.css\" \"!*rtl*.css\"",
         "css-minify-rtl": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output . --batch --batch-suffix \".min\" \"*rtl.css\" \"!*.min.css\"",
