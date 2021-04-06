@@ -30,7 +30,7 @@
         "watch": "npm-run-all --parallel watch-*",
         "watch-css-main": "nodemon --watch scss/ --ext scss --exec \"npm-run-all css-lint css-compile css-prefix\"",
         "watch-css-dist": "nodemon --watch dist/css/ --ext css --ignore \"dist/css/*.rtl.*\" --exec \"npm run css-rtl\"",
-        "move": "shx cp -r dist/css/* ../Havit.Blazor.Components.Web.Bootstrap/wwwroot"
+        "publish-to-blazor": "shx cp -r dist/css/* ../Havit.Blazor.Components.Web.Bootstrap/wwwroot"
     },
     "style": "dist/css/bootstrap.css",
     "sass": "scss/bootstrap.scss",
