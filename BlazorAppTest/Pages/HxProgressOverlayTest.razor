@@ -4,17 +4,19 @@
 <HxProgressState InProgress="@inProgress">
 	<HxProgressOverlay>
 		<div>Content...</div>
+		<HxButton Text="3sec progress" Color="ThemeColor.Primary" OnClick="HandleToggleProgressClick" Spinner="true" />
 	</HxProgressOverlay>
 </HxProgressState>
 
-<HxButton Text="Toggle Progress" Color="ThemeColor.Primary" OnClick="HandleToggleProgressClick" />
 <p>inProgress:  @inProgress</p>
 
 @code
 {
 	private bool inProgress = false;
-	private void HandleToggleProgressClick()
+	private async Task HandleToggleProgressClick()
 	{
-		inProgress = !inProgress;
+		inProgress = true;
+		await Task.Delay(3000);
+		inProgress = false;
 	}
 }

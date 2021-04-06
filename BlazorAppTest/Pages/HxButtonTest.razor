@@ -46,6 +46,7 @@
 	private async Task HandleCancelClick()
 	{
 		await Task.Delay(3000);
+		StateHasChanged();
+		await Task.Delay(3000);
 	}
-
 }
