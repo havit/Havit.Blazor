@@ -3,60 +3,59 @@
 @import url("havit-bootstrap/_variables.scss");
 @import url("bootstrap-icons.css");
 :root {
-    /* HxDrawer */
-    --main-bg: #f5f5f6;
-    --primary: #2e75f0; 
-
-    /* HxSidebar */
-    --sidebar-link-hover: #f2f9ff;
-    --sidebar-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* shadow-sm */
-    --sidebar-background-color: white;  
-    --sidebar-border: 1px solid #e9ecef;
-
-    /* HxDrawer */
-    --drawer-sm-width: 400px;
-    --drawer-width: 600px;
-    --drawer-lg-width: 800px;
-    --drawer-lg-width: 800px;
-    --drawer-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* shadow-sm */  
-
-    /* HxProgressOverlay */
-    --hx-progress-overlay-color: white;
-    --hx-progress-overlay-opacity: .65;
-
-    /* HxDrawer */
-    --hx-form-spacing: 1rem;
-
-    /* HxChipList */
-    --hx-chip-list-spacing: .25rem; 
-
-    /* HxContextMenu */
-    --hx-context-menu-button-border-radius: .2rem;
-    --hx-context-menu-button-hover-background: #dee2e6; /* gray-300 */  
-
-    /* HxGrid */
-    --hx-grid-button-hover-background: #dee2e6; /* gray-300 */
-    --hx-grid-button-border-radius: .2rem;
-    --hx-pager-margin: 1rem;    
-
-    /* HxInputFileDropZone */
-    --hx-input-file-drop-zone-border-width: 1px;
-    --hx-input-file-drop-zone-box-shadow: none;
-    --hx-input-file-drop-zone-hover-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-    --hx-input-file-drop-zone-border-color: #ced4da; /* gray-400 */
-    --hx-input-file-drop-zone-background-color: transparent;
-    --hx-input-file-drop-zone-hover-background-color: #f2f9ff;
-    --hx-input-file-drop-zone-hover-border-color: var(--primary);
-    --hx-input-file-drop-zone-border-radius: .3rem; /* border-radius-lg */
-    --hx-input-file-drop-zone-margin: 0;
-    --hx-input-file-drop-zone-padding: 3rem;
+  /* HxDrawer */
+  --main-bg: #f5f5f6;
+  --primary: #2e75f0;
+  /* HxSidebar */
+  --sidebar-link-hover: #f2f9ff;
+  --sidebar-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  /* shadow-sm */
+  --sidebar-background-color: white;
+  --sidebar-border: 1px solid #e9ecef;
+  /* HxDrawer */
+  --drawer-sm-width: 400px;
+  --drawer-width: 600px;
+  --drawer-lg-width: 800px;
+  --drawer-lg-width: 800px;
+  --drawer-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  /* shadow-sm */
+  /* HxProgressOverlay */
+  --hx-progress-overlay-color: white;
+  --hx-progress-overlay-opacity: .65;
+  /* HxDrawer */
+  --hx-form-spacing: 1rem;
+  /* HxChipList */
+  --hx-chip-list-spacing: .25rem;
+  /* HxContextMenu */
+  --hx-context-menu-button-border-radius: .2rem;
+  --hx-context-menu-button-hover-background: #dee2e6;
+  /* gray-300 */
+  /* HxGrid */
+  --hx-grid-button-hover-background: #dee2e6;
+  /* gray-300 */
+  --hx-grid-button-border-radius: .2rem;
+  --hx-pager-margin: 1rem;
+  /* HxInputFileDropZone */
+  --hx-input-file-drop-zone-border-width: 1px;
+  --hx-input-file-drop-zone-box-shadow: none;
+  --hx-input-file-drop-zone-hover-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  --hx-input-file-drop-zone-border-color: #ced4da;
+  /* gray-400 */
+  --hx-input-file-drop-zone-background-color: transparent;
+  --hx-input-file-drop-zone-hover-background-color: #f2f9ff;
+  --hx-input-file-drop-zone-hover-border-color: var(--primary);
+  --hx-input-file-drop-zone-border-radius: .3rem;
+  /* border-radius-lg */
+  --hx-input-file-drop-zone-margin: 0;
+  --hx-input-file-drop-zone-padding: 3rem;
 }
 
 /* Zatím nevím kam s tím. Odsazuji všechy inputy ve formu. */
-form .hx-form-group, 
-form .hx-autosuggest, 
-form .form-check, 
-form .form-switch,
-form .hx-input-file-drop-zone {
-    margin-bottom: var(--hx-form-spacing);
+form .hx-form-group,
+form .hx-autosuggest,
+form .form-check,
+form .form-switch {
+  margin-bottom: var(--hx-form-spacing);
 }
+
+/*# sourceMappingURL=defaults.css.map */
