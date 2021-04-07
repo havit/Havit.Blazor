@@ -1,0 +1,6 @@
+**/*.min.css
+**/dist/
+**/vendor/
+/_site/
+/js/coverage/
+/bootstrap/

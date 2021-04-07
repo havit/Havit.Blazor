@@ -266,3 +266,5 @@ Web/.vscode/launch.json
 /WebApplicationTest/Content/Havit.Web.ClientContent/*.css
 /WebApplicationTest/Content/Havit.Web.ClientContent/*.png
 /WebApplicationTest/Scripts/Havit.Web.ClientContent/*.js
+.DS_Store
+Havit.Bootstrap/.cache/.stylelintcache

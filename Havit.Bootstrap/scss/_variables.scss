@@ -1,32 +1,32 @@
-$light: $gray-300; 
+$light: $gray-300;
 
 $theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  "success":    $success,
-  "info":       $info,  
-  "warning":    $warning,
-  "danger":     $danger,  
-  "light":      $light,
-  "dark":       $dark,
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark,
 );
 
-$min-contrast-ratio: 3; 
+$min-contrast-ratio: 3;
 $body-bg: $gray-100;
 $border-color: $gray-200;
 $card-cap-bg: $white;
 $card-border-radius: $border-radius-lg;
 $card-border-width: 0;
 $card-inner-border-radius: subtract($card-border-radius, $card-border-width);
-$table-cell-padding-y: 0.6125rem;
+$table-cell-padding-y: .6125rem;
 $table-cell-padding-x: 1rem;
-$table-active-bg-factor: 0.05;
+$table-active-bg-factor: .05;
 $table-active-bg: rgba($black, $table-active-bg-factor);
-$table-hover-bg-factor: 0.025;  
+$table-hover-bg-factor: .025;
 $table-hover-bg: rgba($black, $table-hover-bg-factor);
 $table-group-separator-color: $border-color;
 $hr-color: $border-color;
-$hr-opacity: 1; 
+$hr-opacity: 1;
 $form-label-margin-bottom: .25rem;
 $form-label-font-size: .875rem;
 $form-label-color: $gray-600;
