@@ -2,8 +2,9 @@
 ## General notes
 1. The file structure as well as the build scripts are taken over from Bootstrap so the update process is straightforward
 2. Do not modify contents of the bootstrap folder with exception of updating the source files to new version
-3. HAVIT Bootstrap overrides are done in *scss* folder
+3. Havit.Bootstrap overrides are done in *scss* folder
 4. NodeJS resp. NPM or YARN are needed to compile the CSS
+5. Havit.Bootstrap has its own .editorconfig with different settings than HAVIT standards to comply with Bootstrap stylelint settings
 
 
 ## Update instructions
@@ -13,8 +14,8 @@
 4. Make sure that the build process is working by running the build script
 
 ## Build instructions
-There are several build scripts that take care of compiling, vendor prefixning and minifiing the Bootstrap CSS with HAVIT overrides. 
+There are several build scripts that take care of compiling, vendor prefixning and minifiing the Bootstrap CSS with HAVIT overrides.
 1. Run *yarn* command to install the dependencies
 2. Build script *css* takes care of CSS compiliation, vendor prefixing and minification and runs only once
-3. Build script *watch* acts as file-watcher and runs compilation scripts after saving changes and 
+3. Build script *watch* acts as file-watcher and runs compilation scripts after saving changes and
 4. Build script *publish-to-blazor* moves files from *dist* folder to *Havit.Blazor.Components.Web.Bootstrap/wwwroot*
