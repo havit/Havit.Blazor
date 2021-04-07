@@ -1,0 +1,9 @@
+.hx-autosuggest {
+  .form-control.is-invalid,
+  .form-control:invalid {
+    @if $enable-validation-icons {
+      padding-right: $form-select-feedback-icon-padding-end;
+      background-position: $form-select-feedback-icon-position;
+    }
+  }
+}
