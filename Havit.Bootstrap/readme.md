@@ -15,6 +15,6 @@
 ## Build instructions
 There are several build scripts that take care of compiling, vendor prefixning and minifiing the Bootstrap CSS with HAVIT overrides. 
 1. Run *yarn* command to install the dependencies
-2. Build script *css*+* takes care of CSS compiliation, vendor prefixing and minification and runs only once
+2. Build script *css* takes care of CSS compiliation, vendor prefixing and minification and runs only once
 3. Build script *watch* acts as file-watcher and runs compilation scripts after saving changes and 
 4. Build script *publish-to-blazor* moves files from *dist* folder to *Havit.Blazor.Components.Web.Bootstrap/wwwroot*
