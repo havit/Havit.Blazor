@@ -1,5 +1,5 @@
 {
-    "name": "havit-blazor-components-web-bootstrap",
+    "name": "havit-bootstrap",
     "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
     "version": "1.0.0",
     "devDependencies": {
