@@ -27,9 +27,15 @@
 	</div>
 </div>
 
+<EditForm Model="testModel" OnSubmit="HandleSubmit">
+	@testModel.Text
+	<HxSubmit Text="Submit" Color="ThemeColor.Primary" OnClick="@(async () => await Task.Delay(1000))" SingleClickProtection="true" Spinner="true" />
+</EditForm>
+
 @code
 {
 	private DateTime? lastCapturedClick = null;
+	private TestModel testModel = new TestModel() { Text = "init" };
 
 	private Task HandleCardClick()
 	{
@@ -48,5 +54,16 @@
 		await Task.Delay(3000);
 		StateHasChanged();
 		await Task.Delay(3000);
+	}
+
+	private async Task HandleSubmit()
+	{
+		await Task.Delay(2000);
+		testModel.Text = "Submit";
+	}
+
+	public class TestModel
+	{
+		public string Text { get; set; }
 	}
 }

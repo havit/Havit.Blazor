@@ -6,7 +6,7 @@
 <button type="@GetButtonType()"
 		class="@CssClassHelper.Combine("hx-button", GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass)"
 		@onclick="HandleClick" @onclick:stopPropagation="this.OnClickStopPropagation"
-		disabled="@(clickInProgress || !CascadeEnabledComponent.EnabledEffective(this))" form="@FormId">
+		disabled="@(!CascadeEnabledComponent.EnabledEffective(this))" form="@FormId">
 
 	@if ((this.IconEffective is not null) || (this.SpinnerEffective && clickInProgress))
 	{
