@@ -2750,11 +2750,11 @@ textarea.form-control-lg {
   z-index: 5;
   display: none;
   max-width: 100%;
-  padding: 0.25rem 0.5rem;
-  margin-top: 0.1rem;
-  font-size: 0.875rem;
-  color: #fff;
-  background-color: rgba(25, 135, 84, 0.9);
+  padding: 0 0;
+  margin-top: 0;
+  font-size: 0.75rem;
+  color: rgba(25, 135, 84, 0.9);
+  background-color: #fff;
   border-radius: 0.25rem;
 }
 
@@ -2832,11 +2832,11 @@ textarea.form-control-lg {
   z-index: 5;
   display: none;
   max-width: 100%;
-  padding: 0.25rem 0.5rem;
-  margin-top: 0.1rem;
-  font-size: 0.875rem;
-  color: #fff;
-  background-color: rgba(220, 53, 69, 0.9);
+  padding: 0 0;
+  margin-top: 0;
+  font-size: 0.75rem;
+  color: rgba(220, 53, 69, 0.9);
+  background-color: #fff;
   border-radius: 0.25rem;
 }
 
