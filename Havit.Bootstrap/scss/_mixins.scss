@@ -22,11 +22,11 @@
     display: none;
     max-width: 100%; // Contain to parent when possible
     padding: $form-feedback-tooltip-padding-y $form-feedback-tooltip-padding-x;
-    margin-top: 0; // HAVIT override
+    margin-top: .1rem;
     @include font-size($form-feedback-tooltip-font-size);
     line-height: $form-feedback-tooltip-line-height;
     color: $tooltip-bg-color; // HAVIT override - switched color/bg-color
-    background-color: $tooltip-color; // HAVIT override - switched color/bg-color
+    background-color: transparent; // HAVIT override - switched color/bg-color
     @include border-radius($form-feedback-tooltip-border-radius);
   }
 
