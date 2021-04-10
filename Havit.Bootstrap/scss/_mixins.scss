@@ -25,8 +25,8 @@
     margin-top: .1rem;
     @include font-size($form-feedback-tooltip-font-size);
     line-height: $form-feedback-tooltip-line-height;
-    color: $tooltip-bg-color; // HAVIT override - switched color/bg-color
-    background-color: transparent; // HAVIT override - switched color/bg-color
+    color: $tooltip-bg-color; // HAVIT override
+    background-color: transparent; // HAVIT override
     @include border-radius($form-feedback-tooltip-border-radius);
   }
 
