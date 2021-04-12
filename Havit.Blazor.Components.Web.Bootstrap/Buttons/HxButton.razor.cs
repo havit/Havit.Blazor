@@ -18,8 +18,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	{
-		/// <inheritdoc />
-		[CascadingParameter] public FormState FormState { get; set; }
+		[CascadingParameter] protected FormState FormState { get; set; }
+		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
 
 		[Parameter] public EditContext EditContext { get; set; }
 		[CascadingParameter] protected EditContext CascadingEditContext { get; set; }
@@ -147,7 +147,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					ThemeColor.Dark => "btn btn-outline-dark",
 					ThemeColor.Link => "btn btn-link",
 					ThemeColor.None => null,
-					_ => throw new InvalidOperationException($"Unknown button style {style:g}.")
+					_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} style {style:g}.")
 				};
 			}
 			return style switch
@@ -162,7 +162,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				ThemeColor.Dark => "btn btn-dark",
 				ThemeColor.Link => "btn btn-link",
 				ThemeColor.None => null,
-				_ => throw new InvalidOperationException($"Unknown button style {style:g}.")
+				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} style {style:g}.")
 			};
 		}
 
@@ -173,7 +173,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				ButtonSize.Regular => null,
 				ButtonSize.Small => "btn-sm",
 				ButtonSize.Large => "btn-lg",
-				_ => throw new InvalidOperationException($"Unknown button Size value {this.Size:g}.")
+				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} {nameof(Size)}: {this.Size}.")
 			};
 		}
 
@@ -184,10 +184,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (!clickInProgress || !SingleClickProtection)
 			{
 				clickInProgress = true;
-				if (SpinnerEffective)
-				{
-					await Task.Yield(); // when OnClick is handled by longrunning SYNCHRONOUS task, spinner would not show - we need to return not-completed asynchronous task, so we use Task.Yield here.
-				}
 				await HandleClickCore(mouseEventArgs);
 				clickInProgress = false;
 			}

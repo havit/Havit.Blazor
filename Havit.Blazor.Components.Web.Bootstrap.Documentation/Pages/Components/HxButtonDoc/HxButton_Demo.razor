@@ -36,12 +36,22 @@
 
 <h5>OnValidClick with spinner</h5>
 <EditForm Model="testModel">
+	@* Your form with validations goes here *@
 	<HxSubmit Text="Submit" Color="ThemeColor.Primary" OnValidClick="async () => await Task.Delay(1000)" />
 	<HxButton Text="Save & Print" Color="ThemeColor.Secondary" OnValidClick="async () => await Task.Delay(2000)" />
 </EditForm>
 
+<h5>Disable spinner</h5>
+<HxButton Spinner="false" Text="No spinner" OnClick="async () => await Task.Delay(2000)" Color="ThemeColor.Info" />
+
+<h5>Manual spinner</h5>
+<HxButton Spinner="showSpinner" Text="The button" OnClick="async () => await Task.Delay(2000)" Color="ThemeColor.Warning" />
+<HxButton Text="showSpinner=true" OnClick="() => showSpinner = true" Color="ThemeColor.Success" />
+<HxButton Text="showSpinner=false" OnClick="() => showSpinner = false" Color="ThemeColor.Danger" />
+
 
 @code {
+	bool showSpinner;
 
 	public class CustomButtonSkins
 	{
