@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Infrastructure;
+using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
@@ -18,6 +20,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		/// <inheritdoc />
 		[CascadingParameter] public FormState FormState { get; set; }
+
+		[Parameter] public EditContext EditContext { get; set; }
+		[CascadingParameter] protected EditContext CascadingEditContext { get; set; }
+		protected EditContext EditContextEffective => EditContext ?? CascadingEditContext;
 
 		/// <summary>
 		/// Custom css class to render with the button.
@@ -73,12 +79,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
 		/// <summary>
+		/// Raised after the button is clicked and EditContext validation succeeds.
+		/// </summary>
+		[Parameter] public EventCallback<MouseEventArgs> OnValidClick { get; set; }
+
+		/// <summary>
+		/// Raised after the button is clicked and EditContext validation fails.
+		/// </summary>
+		[Parameter] public EventCallback<MouseEventArgs> OnInvalidClick { get; set; }
+
+		/// <summary>
 		/// Stop onClick-event propagation. Deafult is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool OnClickStopPropagation { get; set; } = true;
 
 		/// <summary>
-		/// Set <c>true</c> if you want to display a <see cref="HxSpinner"/> while the <see cref="HxButton.OnClick"/> handler is running.
+		/// Set state of the embedded <see cref="HxSpinner"/>.
+		/// Leave <c>null</c> if you want automated spinner when any of the <see cref="HxButton.OnClick"/> handlers is running.
+		/// You can set an explicit <c>false</c> constant to disable (override) the spinner automation.
 		/// </summary>
 		[Parameter] public bool? Spinner { get; set; }
 
@@ -93,7 +111,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
 		protected IconBase IconEffective => this.Icon ?? this.Skin?.Icon;
-		protected bool SpinnerEffective => this.Spinner ?? this.Skin?.Spinner ?? false;
+		protected bool SpinnerEffective => this.Spinner ?? clickInProgress;
 
 		private bool clickInProgress;
 
@@ -170,8 +188,35 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					await Task.Yield(); // when OnClick is handled by longrunning SYNCHRONOUS task, spinner would not show - we need to return not-completed asynchronous task, so we use Task.Yield here.
 				}
-				await OnClick.InvokeAsync(mouseEventArgs);
+				await HandleClickCore(mouseEventArgs);
 				clickInProgress = false;
+			}
+		}
+
+		private async Task HandleClickCore(MouseEventArgs mouseEventArgs)
+		{
+			if (OnClick.HasDelegate)
+			{
+				Contract.Requires<InvalidOperationException>(!OnValidClick.HasDelegate, $"Cannot use both {nameof(OnClick)} and {nameof(OnValidClick)} parameters.");
+				Contract.Requires<InvalidOperationException>(!OnInvalidClick.HasDelegate, $"Cannot use both {nameof(OnClick)} and {nameof(OnInvalidClick)} parameters.");
+
+				await OnClick.InvokeAsync(mouseEventArgs);
+			}
+			else if (OnValidClick.HasDelegate || OnInvalidClick.HasDelegate)
+			{
+				Contract.Requires<InvalidOperationException>(EditContextEffective != null, $"{nameof(EditContext)} has to be supplied as cascading value or explicit parameter.");
+
+				var isValid = EditContextEffective.Validate(); // Original .NET comment: This will likely become ValidateAsync later
+
+				if (isValid && OnValidClick.HasDelegate)
+				{
+					await OnValidClick.InvokeAsync(mouseEventArgs);
+				}
+
+				if (!isValid && OnInvalidClick.HasDelegate)
+				{
+					await OnInvalidClick.InvokeAsync(mouseEventArgs);
+				}
 			}
 		}
 	}

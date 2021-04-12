@@ -2,20 +2,22 @@
 
 <h1>HxButton</h1>
 
-<HxButton Skin="@ButtonSkins.OK" Icon="BootstrapIcon.Bicycle" OnClick="HandleOKClick" Spinner="true" />
-<HxButton Skin="@ButtonSkins.Cancel" Size="ButtonSize.Large" OnClick="HandleCancelClick" Spinner="true" />
+<HxButton Skin="@ButtonSkins.OK" Icon="BootstrapIcon.Bicycle" OnClick="HandleOKClick" />
+<HxButton Skin="@ButtonSkins.Cancel" Size="ButtonSize.Large" OnClick="HandleCancelClick" />
 <HxButton Icon="BootstrapIcon.X" Skin="@ButtonSkins.Save" />
 
 <HxButton Text="Click me..." Color="ThemeColor.Warning" />
 <HxButton Text="Outline..." Color="ThemeColor.Danger" Outlined="true" />
 <HxButton Icon="BootstrapIcon.X" Color="ThemeColor.Warning" />
 
+<h3>HxButtonGroup</h3>
 <HxButtonGroup>
 	<HxButton Text="Button 1" Color="ThemeColor.Secondary" />
 	<HxButton Text="Button 2" Color="ThemeColor.Secondary" />
 	<HxButton Text="Button 3" Color="ThemeColor.Secondary" />
 </HxButtonGroup>
 
+<h3>OnClickStopPropagation</h3>
 <div class="card mt-4" @onclick="HandleCardClick">
 	<div class="card-header">OnClickStopPropagationTest</div>
 	<div class="card-body">
@@ -27,20 +29,44 @@
 	</div>
 </div>
 
-<EditForm Model="testModel" OnSubmit="HandleSubmit">
+<h3>EditForm</h3>
+<EditForm Model="testModel">
 	@testModel.Text
-	<HxSubmit Text="Submit" Color="ThemeColor.Primary" OnClick="@(async () => await Task.Delay(1000))" SingleClickProtection="true" Spinner="true" />
+	<HxSubmit Text="Submit" Color="ThemeColor.Primary" OnValidClick="async () => await Task.Delay(2000)" />
 </EditForm>
+
+<h3>EditContext</h3>
+<EditForm EditContext="editContext">
+	@testModel.Text
+</EditForm>
+<HxButton EditContext="editContext" Text="Submit" Color="ThemeColor.Primary" OnValidClick="async () => await Task.Delay(2000)" />
+
+<h3>Spinner manual override</h3>
+<HxButton Text="OnClick + Spinner" Spinner="inProgress" OnClick="HandleProgressClick" Color="ThemeColor.Light" />
+<HxButton Text="Spinner = true" OnClick="() => inProgress = true" Color="ThemeColor.Success" />
+<HxButton Text="Spinner = false" OnClick="() => inProgress = false" Color="ThemeColor.Danger" />
+inProgress = @inProgress
+
+<h3>Spinner disabled</h3>
+<HxButton Text="Spinner=false" Spinner="false" OnClick="async () => await Task.Delay(2000)" Color="ThemeColor.Light" />
+
 
 @code
 {
 	private DateTime? lastCapturedClick = null;
+	private bool inProgress;
+	
 	private TestModel testModel = new TestModel() { Text = "init" };
+	private EditContext editContext;
+
+	protected override void OnInitialized()
+	{
+		editContext = new EditContext(testModel);
+	}
 
 	private Task HandleCardClick()
 	{
 		lastCapturedClick = DateTime.Now;
-
 		return Task.CompletedTask;
 	}
 
@@ -56,10 +82,11 @@
 		await Task.Delay(3000);
 	}
 
-	private async Task HandleSubmit()
+	private async Task HandleProgressClick()
 	{
-		await Task.Delay(2000);
-		testModel.Text = "Submit";
+		inProgress = true;
+		await Task.Delay(3000);
+		inProgress = false;
 	}
 
 	public class TestModel

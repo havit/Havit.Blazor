@@ -41,7 +41,11 @@
 	</li>
 	<li>
 		<strong>@nameof(HxButton.Spinner)</strong><br />
-		Enables <a href="/components/@nameof(HxSpinner)">@nameof(HxSpinner)</a> while OnClick handler in progress. Default is <code>false</code> (some Skins may set the value!).
+		Set state of the embedded spinner. Leave <code>null</code> (default) if you want automated spinner when any of the <code>OnClick</code> handlers is running.
+		You can set an explicit <code>false</code> constant to disable (override) the spinner automation.
+		<div class="alert alert-warning">
+			EditForm's <code>OnSubmit</code> events are not captured for spinner automation. Use HxButton's <code>OnClick</code>, <code>OnValidClick</code> and <code>OnInvalidClick</code> instead.
+		</div>
 	</li>
 	<li>
 		<strong>@nameof(HxButton.SingleClickProtection)</strong><br />

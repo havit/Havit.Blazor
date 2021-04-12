@@ -8,9 +8,9 @@
 		@onclick="HandleClick" @onclick:stopPropagation="this.OnClickStopPropagation"
 		disabled="@(!CascadeEnabledComponent.EnabledEffective(this))" form="@FormId">
 
-	@if ((this.IconEffective is not null) || (this.SpinnerEffective && clickInProgress))
+	@if ((this.IconEffective is not null) || this.SpinnerEffective)
 	{
-		if (this.SpinnerEffective && clickInProgress)
+		if (this.SpinnerEffective)
 		{
 			<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 		}

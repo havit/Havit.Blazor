@@ -18,7 +18,7 @@
 <h5>Button with a (standard) skin</h5>
 <p>
 	<HxButton Skin="@ButtonSkins.OK" />
-	<HxButton Skin="@ButtonSkins.Save" OnClick="async () => await Task.Delay(3000)" Spinner="true" />
+	<HxButton Skin="@ButtonSkins.Save" />
 	<HxButton Skin="@ButtonSkins.Cancel" />
 </p>
 
@@ -34,10 +34,10 @@
 	<HxButton Text="Large" Size="ButtonSize.Large" Color="ThemeColor.Primary" />
 </p>
 
-<h5>Submit spinner</h5>
-<EditForm Model="testModel" OnSubmit="HandleSubmit">
-	@testModel.Text
-	<HxSubmit Text="Submit" Color="ThemeColor.Primary" OnClick="HandleClick" Spinner="true" SingleClickProtection="true" />
+<h5>OnValidClick with spinner</h5>
+<EditForm Model="testModel">
+	<HxSubmit Text="Submit" Color="ThemeColor.Primary" OnValidClick="async () => await Task.Delay(1000)" />
+	<HxButton Text="Save & Print" Color="ThemeColor.Secondary" OnValidClick="async () => await Task.Delay(2000)" />
 </EditForm>
 
 
@@ -48,24 +48,9 @@
 		public static ButtonSkin Demo { get; } = new ButtonSkin() { Text = "Welcome", Icon = BootstrapIcon.Heart, Color = ThemeColor.Danger };
 	};
 
-
-	private TestModel testModel = new TestModel() { Text = "init" };
-
-	private async Task HandleClick()
-	{
-		testModel.Text = "Click";
-		await Task.Delay(1000);
-	}
-	private async Task HandleSubmit()
-	{
-		testModel.Text = "Submit";
-		await Task.Delay(2000);
-		testModel.Text = "Done";
-	}
+	private TestModel testModel = new TestModel();
 
 	public class TestModel
 	{
-		public string Text { get; set; }
 	}
-
 }
