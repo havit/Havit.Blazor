@@ -112,6 +112,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected IconBase IconEffective => this.Icon ?? this.Skin?.Icon;
 		protected bool SpinnerEffective => this.Spinner ?? clickInProgress;
+		protected bool DisabledEffective => !CascadeEnabledComponent.EnabledEffective(this)
+			|| (SingleClickProtection && clickInProgress && (OnClick.HasDelegate || OnValidClick.HasDelegate || OnInvalidClick.HasDelegate));
 
 		private bool clickInProgress;
 
