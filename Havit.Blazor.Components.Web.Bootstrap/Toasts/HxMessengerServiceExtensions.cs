@@ -28,7 +28,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			messenger.AddMessage(new MessengerMessage
 			{
-				Icon = BootstrapIcon.InfoCircle,
+				Icon = BootstrapIcon.InfoCircleFill,
 				CssClass = "toast-information",
 				AutohideDelay = 5000,
 				Title = title,
@@ -53,7 +53,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			messenger.AddMessage(new MessengerMessage
 			{
-				Icon = BootstrapIcon.ExclamationCircle,
+				Icon = BootstrapIcon.ExclamationCircleFill,
 				CssClass = "toast-warning",
 				AutohideDelay = null,
 				Title = title,
@@ -79,7 +79,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			messenger.AddMessage(new MessengerMessage
 			{
-				Icon = BootstrapIcon.ExclamationCircleFill,
+				Icon = BootstrapIcon.XCircleFill,
 				CssClass = "toast-error",
 				AutohideDelay = null,
 				Title = title,

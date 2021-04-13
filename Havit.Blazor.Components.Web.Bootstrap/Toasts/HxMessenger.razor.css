@@ -1,0 +1,11 @@
+.hx-messenger ::deep .toast-information .hx-icon {
+    color: var(--bs-primary)
+}
+
+.hx-messenger ::deep .toast-warning .hx-icon {
+    color: var(--bs-warning)
+}
+
+.hx-messenger ::deep .toast-error .hx-icon {
+    color: var(--bs-danger)
+}
