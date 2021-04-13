@@ -18,7 +18,7 @@
   --hx-progress-overlay-color: white;
   --hx-progress-overlay-opacity: .65;
   /* HxDrawer */
-  --hx-form-spacing: 1.125rem;
+  --hx-form-spacing: 1.25rem;
   /* HxChipList */
   --hx-chip-list-spacing: .25rem;
   /* HxContextMenu */
@@ -56,4 +56,12 @@ form .hx-autosuggest,
 form .form-check,
 form .form-switch {
   margin-bottom: var(--hx-form-spacing);
+}
+
+/* Tlačítko které následuje po inputech má extra spacing kvůli validacím */
+form .hx-form-group ~ .hx-button,
+form .hx-autosuggest~ .hx-button,
+form .form-check~ .hx-button,
+form .form-switch ~ .hx-button {
+  margin-top: calc(var(--hx-form-spacing)/2);
 }
