@@ -42,6 +42,12 @@
   /* HxWizard */
   --hx-wizard-navigator-background-color: #ced4da; /* gray-400 */
   --hx-wizard-navigator-progress-background-color: var(--primary);
+  /* Breakpoints */
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
 }
 
 /* Zatím nevím kam s tím. Odsazuji všechy inputy ve formu. */
