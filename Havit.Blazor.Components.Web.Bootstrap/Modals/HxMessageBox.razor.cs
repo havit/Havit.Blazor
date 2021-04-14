@@ -152,7 +152,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					}
 					if (this.Buttons.HasFlag(MessageBoxButtons.Ok))
 					{
-						buttons.Add(new() { Id = MessageBoxButtons.Ok, Text = MessageBoxLocalizer["Ok"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ok) });
+						buttons.Add(new() { Id = MessageBoxButtons.Ok, Text = MessageBoxLocalizer["OK"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ok) });
 					}
 					break;
 			}
