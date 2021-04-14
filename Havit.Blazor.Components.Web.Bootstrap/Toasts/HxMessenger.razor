@@ -3,7 +3,7 @@
 @* TODO: jak by to mohlo vypadat https://dribbble.com/shots/14678733-Toast-Notifications-Concepts *@
 
 <div class="hx-messenger">
-    <HxToastContainer Position="this.Position" CssClass="this.CssClass">
+    <HxToastContainer Position="this.Position" CssClass="@this.CssClass">
         @foreach (MessengerMessage message in messages)
         {
             // @key is used to pair messages to HxToasts when some message disappers.
