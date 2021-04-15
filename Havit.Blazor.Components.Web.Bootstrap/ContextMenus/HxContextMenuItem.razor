@@ -1,6 +1,12 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@using Havit.Blazor.Components.Web.Infrastructure;
+
+@{
+	bool enabledEffective = CascadeEnabledComponent.EnabledEffective(this);
+}
+
 <li class="hx-context-menu-item">
-	<a class="dropdown-item" role="button" @onclick="HandleClick" @onclick:stopPropagation="@OnClickStopPropagation">
+	<a class="@CssClassHelper.Combine("dropdown-item", enabledEffective ? "" : "disabled")" role="@(enabledEffective ? "button" : "")" @onclick="HandleClick" @onclick:stopPropagation="@OnClickStopPropagation">
 		@if (GetIcon() != null)
 		{
 			<HxIcon Icon="GetIcon()" CssClass="me-2" />

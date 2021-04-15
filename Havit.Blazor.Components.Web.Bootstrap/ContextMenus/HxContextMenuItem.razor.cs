@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Infrastructure;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -9,7 +10,7 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public partial class HxContextMenuItem : ComponentBase
+	public partial class HxContextMenuItem : ComponentBase, ICascadeEnabledComponent
 	{
 		/// <summary>
 		/// Item text.
@@ -52,6 +53,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected IHxMessageBoxService MessageBox { get; set; }
 
+		/// <inheritdoc />
+		[CascadingParameter] public FormState FormState { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public bool? Enabled { get; set; }
+
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
@@ -61,6 +68,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		public async Task HandleClick()
 		{
+			if (!CascadeEnabledComponent.EnabledEffective(this))
+			{
+				return;
+			}
+
 			if (!String.IsNullOrEmpty(GetConfirmationQuestion()))
 			{
 				if (MessageBox is not null)
