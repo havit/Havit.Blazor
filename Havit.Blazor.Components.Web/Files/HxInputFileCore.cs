@@ -30,7 +30,7 @@ namespace Havit.Blazor.Components.Web
 		[Parameter] public EventCallback<FileUploadedEventArgs> OnFileUploaded { get; set; }
 
 		/// <summary>
-		/// Raised after a file is uploaded (for every single file separately).
+		/// Raised when all files are uploaded (after all <see cref="OnFileUploaded"/> events).
 		/// </summary>
 		[Parameter] public EventCallback<UploadCompletedEventArgs> OnUploadCompleted { get; set; }
 
