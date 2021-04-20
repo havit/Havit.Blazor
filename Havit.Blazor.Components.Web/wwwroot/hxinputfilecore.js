@@ -5,6 +5,11 @@
 	var totalSize = 0;
 	var uploadedCounter = 0;
 
+	if (files.length === 0) {
+		dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', 0, 0);
+		return;
+	}
+
 	for (var i = 0; i < files.length; i++) {
 		(function (curr) {
 			var index = curr;
