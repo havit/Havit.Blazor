@@ -20,7 +20,11 @@
 <ul>
 	<li>
 		<strong>@nameof(HxInputFileCore.StartUploadAsync)<code>(string accessToken = null)</code></strong><br />
-		Initiates the upload.
+		Initiates the upload (does not wait for upload completion). Use <code>@nameof(HxInputFileCore.OnUploadCompleted)</code> event.
+	</li>
+	<li>
+		<strong>@nameof(HxInputFileCore.UploadAsync)<code>(string accessToken = null)</code></strong><br />
+		Uploads the files.
 	</li>
 </ul>
 <h3>Events</h3>

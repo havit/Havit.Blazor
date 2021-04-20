@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,5 +27,10 @@ namespace Havit.Blazor.Components.Web
 		/// Total size of files uploaded.
 		/// </summary>
 		public long TotalSize { get; set; }
+
+		/// <summary>
+		/// Files uploaded (event arguments of individual OnFileUploded events).
+		/// </summary>
+		public IReadOnlyCollection<FileUploadedEventArgs> FilesUploaded { get; internal set; }
 	}
 }

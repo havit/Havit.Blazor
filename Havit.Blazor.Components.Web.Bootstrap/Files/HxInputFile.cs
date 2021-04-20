@@ -118,6 +118,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return hxInputFileCoreComponentReference?.StartUploadAsync(accessToken);
 		}
 
+		/// <summary>
+		/// Uploads the file(s).
+		/// </summary>
+		/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+		public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null)
+		{
+			return hxInputFileCoreComponentReference?.UploadAsync(accessToken);
+		}
+
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			// no base call

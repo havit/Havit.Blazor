@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -48,6 +49,8 @@ namespace Havit.Blazor.Components.Web
 
 		private DotNetObjectReference<HxInputFileCore> dotnetObjectReference;
 		private IJSObjectReference jsModule;
+		private TaskCompletionSource<UploadCompletedEventArgs> uploadCompletedTaskCompletionSource;
+		private ConcurrentBag<FileUploadedEventArgs> filesUploaded;
 
 		public HxInputFileCore()
 		{
@@ -76,8 +79,22 @@ namespace Havit.Blazor.Components.Web
 			Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(UploadUrl), $"{nameof(UploadUrl)} has to be set.");
 
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web/hxinputfilecore.js");
+			filesUploaded = new ConcurrentBag<FileUploadedEventArgs>();
 
 			await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, this.UploadUrl, accessToken);
+		}
+
+		/// <summary>
+		/// Uploads the file(s).
+		/// </summary>
+		/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+		public async Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null)
+		{
+			uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
+
+			await StartUploadAsync(accessToken);
+
+			return await uploadCompletedTaskCompletionSource.Task;
 		}
 
 		/// <summary>
@@ -112,6 +129,7 @@ namespace Havit.Blazor.Components.Web
 				ResponseStatus = (HttpStatusCode)responseStatus,
 				ResponseText = responseText,
 			};
+			filesUploaded.Add(fileUploaded);
 			await OnFileUploaded.InvokeAsync(fileUploaded);
 		}
 
@@ -123,9 +141,12 @@ namespace Havit.Blazor.Components.Web
 		{
 			var uploadCompleted = new UploadCompletedEventArgs()
 			{
+				FilesUploaded = filesUploaded,
 				FileCount = fileCount,
 				TotalSize = totalSize
 			};
+			filesUploaded = null;
+			uploadCompletedTaskCompletionSource?.TrySetResult(uploadCompleted);
 			await OnUploadCompleted.InvokeAsync(uploadCompleted);
 		}
 
