@@ -79,7 +79,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					}
 					builder.AddAttribute(1005 + valueSequenceOffset, "value", CurrentValueAsString);
 				}
-				builder.AddElementReferenceCapture(1006 + valueSequenceOffset, elementReferece => InputElement = elementReferece);
+				builder.AddElementReferenceCapture(Int32.MaxValue, elementReferece => InputElement = elementReferece);
 
 				builder.CloseElement();
 			};
