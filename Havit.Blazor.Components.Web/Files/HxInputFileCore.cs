@@ -47,6 +47,8 @@ namespace Havit.Blazor.Components.Web
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
+		public int FileCount { get; private set; }
+
 		private DotNetObjectReference<HxInputFileCore> dotnetObjectReference;
 		private IJSObjectReference jsModule;
 		private TaskCompletionSource<UploadCompletedEventArgs> uploadCompletedTaskCompletionSource;
@@ -95,6 +97,16 @@ namespace Havit.Blazor.Components.Web
 			await StartUploadAsync(accessToken);
 
 			return await uploadCompletedTaskCompletionSource.Task;
+		}
+
+		/// <summary>
+		/// Gets list of files chosen.
+		/// </summary>
+		public async Task<FileInfo[]> GetFilesAsync()
+		{
+			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web/hxinputfilecore.js");
+
+			return await jsModule.InvokeAsync<FileInfo[]>("getFiles", Id);
 		}
 
 		/// <summary>

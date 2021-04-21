@@ -6,6 +6,28 @@
 
 <HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="HandleUploadClick" CssClass="my-2" />
 
+<h4>FileInfo[] from GetFilesAsync()</h4>
+<table class="table mt-3">
+	<tr>
+		<th>Name</th>
+		<th>ContentType</th>
+		<th>Size</th>
+		<th>LastModified</th>
+	</tr>
+	<HxRepeater Data="fileInfos">
+		<ItemTemplate>
+			<tr>
+				<td>@context.Name</td>
+				<td>@context.ContentType</td>
+				<td>@context.Size</td>
+				<td>@context.LastModified</td>
+			</tr>
+		</ItemTemplate>
+	</HxRepeater>
+</table>
+<br />
+
+<h4>UploadCompletedEventArgs.FilesUploaded</h4>
 <table class="table mt-3">
 	<tr>
 		<th>FileIndex</th>
@@ -31,6 +53,8 @@
 	</HxRepeater>
 </table>
 <br />
+FileCount: @(fileInfos?.Count() ?? 0)
+<br />
 Completed: @uploadCompleted?.TotalSize bytes in @uploadCompleted?.FileCount files
 
 
@@ -39,11 +63,12 @@ Completed: @uploadCompleted?.TotalSize bytes in @uploadCompleted?.FileCount file
 	private HxInputFile hxInputFileComponent;
 	private IEnumerable<FileUploadedEventArgs> files;
 	private UploadCompletedEventArgs uploadCompleted;
+	private FileInfo[] fileInfos;
 
 	private async Task HandleUploadClick()
 	{
 		string accessToken = null;
-		
+
 		// WASM:
 		//var accessTokenResult = await AccessTokenProvider.RequestAccessToken();
 		//if (accessTokenResult.Status == AccessTokenResultStatus.Success)
@@ -53,6 +78,9 @@ Completed: @uploadCompleted?.TotalSize bytes in @uploadCompleted?.FileCount file
 		//		accessToken = token.Value;
 		//	}
 		//}
+
+		fileInfos = await hxInputFileComponent.GetFilesAsync();
+		StateHasChanged();
 
 		uploadCompleted = await hxInputFileComponent.UploadAsync(accessToken);
 		files = uploadCompleted.FilesUploaded;

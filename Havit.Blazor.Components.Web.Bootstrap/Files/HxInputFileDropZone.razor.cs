@@ -68,25 +68,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private protected HxInputFileCore hxInputFileCoreComponentReference;
 
 		/// <summary>
+		/// Gets list of files chosen.
+		/// </summary>
+		public Task<FileInfo[]> GetFilesAsync() => hxInputFileCoreComponentReference.GetFilesAsync();
+
+		/// <summary>
 		/// Starts the upload.
 		/// </summary>
 		/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 		/// <remarks>
 		/// We do not want to make the Havit.Blazor library dependant on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
 		/// </remarks>
-		public Task StartUploadAsync(string accessToken = null)
-		{
-			return hxInputFileCoreComponentReference?.StartUploadAsync(accessToken);
-		}
+		public Task StartUploadAsync(string accessToken = null) => hxInputFileCoreComponentReference?.StartUploadAsync(accessToken);
 
 		/// <summary>
 		/// Uploads the file(s).
 		/// </summary>
 		/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-		public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null)
-		{
-			return hxInputFileCoreComponentReference?.UploadAsync(accessToken);
-		}
+		public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null) => hxInputFileCoreComponentReference?.UploadAsync(accessToken);
 
 		protected Task HandleOnChange(InputFileChangeEventArgs args)
 		{

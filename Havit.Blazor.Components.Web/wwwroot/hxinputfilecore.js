@@ -44,6 +44,11 @@
 	}
 }
 
+export function getFiles(inputElementId) {
+	var inputElement = document.getElementById(inputElementId);
+	return Array.from(inputElement.files).map(e => { return { name: e.name, lastModified: e.lastModified, size: e.size, type: e.type }; });
+}
+
 export function dispose(inputElementId) {
 	var inputElement = document.getElementById(inputElementId);
 	inputElement.hxInputFileDotnetObjectReference = null;
