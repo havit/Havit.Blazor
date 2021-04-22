@@ -25,7 +25,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Child content to wrap over HxTooltip.
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
-		
+
 		[Inject] public IJSRuntime JSRuntime { get; set; }
 
 		private IJSObjectReference jsModule;
