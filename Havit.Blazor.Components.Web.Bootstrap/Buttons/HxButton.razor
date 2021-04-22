@@ -3,31 +3,34 @@
 @{
 	string text = GetText();
 }
-<button type="@GetButtonType()"
-		class="@CssClassHelper.Combine("hx-button", GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass)"
-		@onclick="HandleClick"
-		@onclick:stopPropagation="this.OnClickStopPropagation"
-		disabled="@DisabledEffective"
-		form="@FormId">
 
-	@if ((this.IconEffective is not null) || this.SpinnerEffective)
-	{
-		if (this.SpinnerEffective)
+<HxTooltip Text="@Tooltip" Placement="@TooltipPlacement">
+	<button type="@GetButtonType()"
+			class="@CssClassHelper.Combine("hx-button", GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass)"
+			@onclick="HandleClick"
+			@onclick:stopPropagation="this.OnClickStopPropagation"
+			disabled="@DisabledEffective"
+			form="@FormId">
+
+		@if ((this.IconEffective is not null) || this.SpinnerEffective)
 		{
-			<HxSpinner Size="SpinnerSize.Small" />
-		}
-		else if (this.IconEffective is not null)
-		{
-			<HxIcon Icon="this.Icon ?? this.Skin?.Icon" />
+			if (this.SpinnerEffective)
+			{
+				<HxSpinner Size="SpinnerSize.Small" />
+			}
+			else if (this.IconEffective is not null)
+			{
+				<HxIcon Icon="this.Icon ?? this.Skin?.Icon" />
+			}
+
+			@if (!String.IsNullOrEmpty(text) || (ChildContent != null))
+			{
+				<span>&nbsp;</span>
+			}
 		}
 
-		@if (!String.IsNullOrEmpty(text) || (ChildContent != null))
-		{
-			<span>&nbsp;</span>
-		}
-	}
+		@text
 
-	@text
-
-	@ChildContent
-</button>
+		@ChildContent
+	</button>
+</HxTooltip>

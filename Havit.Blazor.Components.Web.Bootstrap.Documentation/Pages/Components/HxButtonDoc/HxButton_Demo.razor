@@ -49,6 +49,9 @@
 <HxButton Text="showSpinner=true" OnClick="() => showSpinner = true" Color="ThemeColor.Success" />
 <HxButton Text="showSpinner=false" OnClick="() => showSpinner = false" Color="ThemeColor.Danger" />
 
+<h5>Button with a tooltip</h5>
+<HxButton Text="Button with a tooltip" Icon="BootstrapIcon.ClockHistory" Tooltip="This is a tooltip with  very very long text. Is this tooltip text length enought? No. So let's make it even longer. And is the tooltip text long enought now? OK..." Color="ThemeColor.Secondary" />
+
 
 @code {
 	bool showSpinner;

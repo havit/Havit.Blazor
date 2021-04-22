@@ -74,6 +74,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string FormId { get; set; }
 
 		/// <summary>
+		/// Tooltip text.
+		/// </summary>
+		[Parameter] public string Tooltip { get; set; }
+
+		/// <summary>
+		/// Tooltip placement.
+		/// </summary>
+		[Parameter] public TooltipPlacement TooltipPlacement { get; set; }
+
+		/// <summary>
 		/// Raised after the button is clicked.
 		/// </summary>
 		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }

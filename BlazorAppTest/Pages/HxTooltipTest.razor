@@ -1,0 +1,56 @@
+﻿@page "/HxTooltipTest"
+
+<h3>HxTooltip</h3>
+<p>
+	<HxTooltip Text="My tooltip">
+		<span>This text has a tooltip with default placement (top).</span>
+	</HxTooltip>
+</p>
+
+<p>
+	<HxTooltip Text="My tooltip" Placement="TooltipPlacement.Bottom">
+		<span>This text has a tooltip on the bottom side.</span>
+	</HxTooltip>
+</p>
+
+<p>
+	<HxTooltip Text="My tooltip" Placement="TooltipPlacement.Left">
+		<span>This text has a tooltip on the left side.</span>
+	</HxTooltip>
+</p>
+
+<p>
+	<HxTooltip Text="My tooltip" Placement="TooltipPlacement.Right">
+		<span>This text has a tooltip on the right side.</span>
+	</HxTooltip>
+</p>
+
+<p>
+	<HxTooltip Text="My tooltip" Placement="TooltipPlacement.Auto">
+		<span>This text has a tooltip with an auto-placement.</span>
+	</HxTooltip>
+</p>
+
+<p>
+	<HxTooltip Text="a">a</HxTooltip>
+	<HxTooltip Text="b">b</HxTooltip>
+	<HxTooltip Text="c">c</HxTooltip>
+	<HxTooltip Text="d">d</HxTooltip>
+	<HxTooltip Text="e">e</HxTooltip>
+</p>
+
+<HxButton OnClick="HandleButtonClick" Text="Increment" Tooltip="When the button is clicked the tooltip of the following tooltip is updated. Thats why we consider the tooltip to be dynamic :-)." Color="ThemeColor.Secondary" />
+
+<p>
+	<HxTooltip Text="@i.ToString()">
+		<span>This text has a dynamic tooltip.</span>
+	</HxTooltip>
+</p>
+
+@code {
+	private int i;
+	private void HandleButtonClick()
+	{
+		i++;
+	}
+}
