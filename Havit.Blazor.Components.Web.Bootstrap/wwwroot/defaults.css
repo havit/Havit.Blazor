@@ -50,11 +50,11 @@
   --breakpoint-xxl: 1400px;
 }
 
-/* Zatím nevím kam s tím. Odsazuji všechy inputy ve formu. */
-form .hx-form-group,
-form .hx-autosuggest,
-form .form-check,
-form .form-switch {
+/* Zatím nevím kam s tím. Odsazuji všechy inputy ve formu, pokud nejsou jediným potomkem. */
+form .hx-form-group:not(:only-child),
+form .hx-autosuggest:not(:only-child),
+form .form-check:not(:only-child),
+form .form-switch:not(:only-child) {
   margin-bottom: var(--hx-form-spacing);
 }
 
