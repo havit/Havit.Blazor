@@ -18,7 +18,7 @@
 			@foreach (HxWizardStep step in steps)
 			{
                 @* TODO *@
-                @* Nastavovat left/right podle vertical/horizontal varianty *@
+                @* Nastavovat left/top podle vertical/horizontal varianty *@
                 <div class="hx-wizard-step translate-middle" style="left:50%">
                     <div class="position-relative">
                         <HxButton CssClass="rounded-pill hx-wizard-step-button" Text="@(i.ToString())" Color="@(IsActiveStep(step) ? ThemeColor.Secondary : ThemeColor.Secondary)" Size="ButtonSize.Small" />
