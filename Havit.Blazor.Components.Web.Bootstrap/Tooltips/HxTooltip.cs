@@ -31,18 +31,30 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private IJSObjectReference jsModule;
 		private ElementReference spanElement;
 		private string lastText;
+		private bool shouldRenderSpan;
 
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
-			builder.OpenElement(1, "span");
-			builder.AddAttribute(2, "class", "d-inline-block");
-			builder.AddAttribute(3, "data-bs-container", "body");
-			builder.AddAttribute(4, "data-bs-trigger", "hover");
-			builder.AddAttribute(5, "data-bs-placement", Placement.ToString().ToLower());
-			builder.AddAttribute(6, "title", Text);
-			builder.AddElementReferenceCapture(7, element => spanElement = element);
+			// Once the span is rendered it does not disapper to enable spanElement to be used at OnAfterRender to safely remove a tooltip.
+			// It is not a common situation to remove a tooltip.
+			shouldRenderSpan |= !String.IsNullOrEmpty(Text);
+			if (shouldRenderSpan)
+			{
+				builder.OpenElement(1, "span");
+				builder.AddAttribute(2, "class", "d-inline-block");
+				builder.AddAttribute(3, "data-bs-container", "body");
+				builder.AddAttribute(4, "data-bs-trigger", "hover");
+				builder.AddAttribute(5, "data-bs-placement", Placement.ToString().ToLower());
+				builder.AddAttribute(6, "title", Text);
+				builder.AddElementReferenceCapture(7, element => spanElement = element);
+			}
+
 			builder.AddContent(8, ChildContent);
-			builder.CloseElement();
+
+			if (shouldRenderSpan)
+			{
+				builder.CloseElement();
+			}
 		}
 
 		protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -51,18 +63,35 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (lastText != Text)
 			{
+				// carefully, lastText can be null but Text empty string
+
+				bool shouldCreateOrUpdateTooltip = !String.IsNullOrEmpty(Text); // everytime the Text changes we need to update tooltip
+				bool shouldDestroyTooltip = String.IsNullOrEmpty(Text) && !String.IsNullOrEmpty(lastText); // when there is no tooltip anymore
 				lastText = Text;
 
 				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxtooltip.js");
-				await jsModule.InvokeVoidAsync("createOrUpdate", spanElement); // we are handling the situation when the Text changes - we need to dispose the bootstrap tooltip first
+
+				if (shouldCreateOrUpdateTooltip)
+				{
+					await jsModule.InvokeVoidAsync("createOrUpdate", spanElement);
+				}
+
+				if (shouldDestroyTooltip)
+				{
+					await jsModule.InvokeVoidAsync("destroy", spanElement);
+				}
 			}
+
 		}
 
 		public async ValueTask DisposeAsync()
 		{
 			if (jsModule != null)
 			{
-				await jsModule.InvokeVoidAsync("dispose", spanElement);
+				if (!String.IsNullOrEmpty(Text))
+				{
+					await jsModule.InvokeVoidAsync("destroy", spanElement);
+				}
 				await jsModule.DisposeAsync();
 				jsModule = null;
 			}

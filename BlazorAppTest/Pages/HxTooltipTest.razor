@@ -39,7 +39,9 @@
 	<HxTooltip Text="e">e</HxTooltip>
 </p>
 
-<HxButton OnClick="HandleButtonClick" Text="Increment" Tooltip="When the button is clicked the tooltip of the following tooltip is updated. Thats why we consider the tooltip to be dynamic :-)." Color="ThemeColor.Secondary" />
+<h4>Dynamic tooltip</h4>
+
+<HxButton OnClick="HandleIncrementButtonClick" Text="Increment" Tooltip="When the button is clicked the tooltip of the following tooltip is updated. Thats why we consider the tooltip to be dynamic :-)." Color="ThemeColor.Secondary" />
 
 <p>
 	<HxTooltip Text="@i.ToString()">
@@ -47,10 +49,35 @@
 	</HxTooltip>
 </p>
 
+<HxButton OnClick="HandleTextToggleButtonClick" Text="TextToggle" Color="ThemeColor.Secondary" />
+<p>
+	<HxTooltip Text="@text">
+		<span>This text has a dynamic tooltip.</span>
+	</HxTooltip>
+</p>
+
+
+<h4>Tooltip on button</h4>
+<HxButton Text="Long processing" OnClick="async () => await Task.Delay(5000)" Color="ThemeColor.Light" Tooltip="Tooltip" />
+
 @code {
 	private int i;
-	private void HandleButtonClick()
+	private string text;
+
+	private void HandleIncrementButtonClick()
 	{
 		i++;
+	}
+
+	private void HandleTextToggleButtonClick()
+	{
+		if (String.IsNullOrEmpty(text))
+		{
+			text = "Now there is a tooltip";
+		}
+		else
+		{
+			text = String.Empty;
+		}
 	}
 }
