@@ -120,9 +120,6 @@
   <data name="FilterApplyButtonText" xml:space="preserve">
     <value>Použij</value>
   </data>
-  <data name="FilterButtonText" xml:space="preserve">
-    <value>Filtr</value>
-  </data>
   <data name="FilterHeaderTitle" xml:space="preserve">
     <value>Filtr</value>
   </data>

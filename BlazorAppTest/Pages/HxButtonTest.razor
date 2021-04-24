@@ -5,6 +5,7 @@
 <HxButton Skin="@ButtonSkins.OK" Icon="BootstrapIcon.Bicycle" OnClick="HandleOKClick" />
 <HxButton Skin="@ButtonSkins.Cancel" Size="ButtonSize.Large" OnClick="HandleCancelClick" />
 <HxButton Icon="BootstrapIcon.X" Skin="@ButtonSkins.Save" />
+<HxButton Skin="@ButtonSkins.Filter" />
 
 <HxButton Text="Click me..." Color="ThemeColor.Warning" />
 <HxButton Text="Outline..." Color="ThemeColor.Danger" Outlined="true" />
@@ -56,7 +57,7 @@ inProgress = @inProgress
 {
 	private DateTime? lastCapturedClick = null;
 	private bool inProgress;
-	
+
 	private TestModel testModel = new TestModel() { Text = "init" };
 	private EditContext editContext;
 

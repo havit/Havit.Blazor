@@ -2,86 +2,83 @@
 @typeparam TFilterModel
 
 <div class="hx-list-layout">
-    <HxCard Skin="CardSkin.None" CssClass="my-4" BodyCssClass="px-0 pt-0">
-        <HeaderTemplate>
-            <div class="row">
-                <div class="col fw-bold d-flex align-items-center">
-                    @if (NamedViewsTemplate != null)
-                {
-                    <div class="dropdown">
-                        <span role="button" id="dropdownMenuLink" class="d-flex align-items-center"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @if (TitleTemplate != null)
-                            {
-                                @TitleTemplate
-                            }
-                            else if (!String.IsNullOrEmpty(Title))
-                            {
-                                @Title
-                            }
-                            <HxIcon CssClass="ms-1 small" Icon="@BootstrapIcon.ChevronDown" />
-                        </span>
-                        @NamedViewsTemplate
-                    </div>
-                    }
-                else if (TitleTemplate != null)
-                {
-                    @TitleTemplate
-                    }
-                else if (!String.IsNullOrEmpty(Title))
-                {
-                    @Title
-                    }
-                </div>
-                @if (SearchTemplate != null)
-                {
-                <div class="col">
-                    @SearchTemplate
-                </div>
-                }
-                <div class="col text-end">
-                    @if (FilterTemplate != null)
-                {
-                    <HxButton OnClick="() => FilterDrawerOpen = true" Skin="ButtonSkins.Filter">
-                        @Localizer["FilterButtonText"]</HxButton>
-                    }
-                    @if (CommandsTemplate != null)
-                {
-                    @CommandsTemplate
-                    }
-                </div>
-            </div>
-            @if (FilterModel != null)
-                {
-            <div class="row my-2">
-                <div class="col">
-                    <HxChipList Chips="chips" OnChipRemoveClick="HandleChipRemoveClick" />
-                </div>
-            </div>
-            }
-            @if (FilterTemplate != null)
-                {
-            <HxDrawer @bind-IsOpen="@FilterDrawerOpen" RenderMode="DrawerRenderMode.Always">
-                <HeaderTemplate>
-                    @Localizer["FilterHeaderTitle"]
-                </HeaderTemplate>
-                <BodyTemplate>
-                    <HxFilterForm @ref="filterForm" Id="@filterFormId" TModel="TFilterModel" Model="FilterModel"
-                        ModelChanged="HandleFilterFormModelChanged" Context="filterContext"
-                        OnChipsUpdated="HandleChipUpdated">
-                        @FilterTemplate(filterContext)
-                    </HxFilterForm>
-                </BodyTemplate>
-                <FooterTemplate>
-                    <HxSubmit FormId="@filterFormId" Text="@Localizer["FilterApplyButtonText"]"
-                        Color="ThemeColor.Primary" />
-                </FooterTemplate>
-            </HxDrawer>
-            }
-        </HeaderTemplate>
-        <BodyTemplate>
-            @DataTemplate
-        </BodyTemplate>
-    </HxCard>
-    @DetailTemplate
+	<HxCard Skin="CardSkin.None" CssClass="my-4" BodyCssClass="px-0 pt-0">
+		<HeaderTemplate>
+			<div class="row">
+				<div class="col fw-bold d-flex align-items-center">
+					@if (NamedViewsTemplate != null)
+					{
+						<div class="dropdown">
+							<span role="button" id="dropdownMenuLink" class="d-flex align-items-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								@if (TitleTemplate != null)
+								{
+									@TitleTemplate
+								}
+								else if (!String.IsNullOrEmpty(Title))
+								{
+									@Title
+								}
+								<HxIcon CssClass="ms-1 small" Icon="@BootstrapIcon.ChevronDown" />
+							</span>
+							@NamedViewsTemplate
+						</div>
+					}
+					else if (TitleTemplate != null)
+					{
+						@TitleTemplate
+					}
+					else if (!String.IsNullOrEmpty(Title))
+					{
+						@Title
+					}
+				</div>
+				@if (SearchTemplate != null)
+				{
+					<div class="col">
+						@SearchTemplate
+					</div>
+				}
+				<div class="col text-end">
+					@if (FilterTemplate != null)
+					{
+						<HxButton OnClick="() => FilterDrawerOpen = true" Skin="ButtonSkins.Filter" />
+					}
+					@if (CommandsTemplate != null)
+					{
+						@CommandsTemplate
+					}
+				</div>
+			</div>
+			@if (FilterModel != null)
+			{
+				<div class="row my-2">
+					<div class="col">
+						<HxChipList Chips="chips" OnChipRemoveClick="HandleChipRemoveClick" />
+					</div>
+				</div>
+			}
+			@if (FilterTemplate != null)
+			{
+				<HxDrawer @bind-IsOpen="@FilterDrawerOpen" RenderMode="DrawerRenderMode.Always">
+					<HeaderTemplate>
+						@Localizer["FilterHeaderTitle"]
+					</HeaderTemplate>
+					<BodyTemplate>
+						<HxFilterForm @ref="filterForm" Id="@filterFormId" TModel="TFilterModel" Model="FilterModel"
+									  ModelChanged="HandleFilterFormModelChanged" Context="filterContext"
+									  OnChipsUpdated="HandleChipUpdated">
+							@FilterTemplate(filterContext)
+						</HxFilterForm>
+					</BodyTemplate>
+					<FooterTemplate>
+						<HxSubmit FormId="@filterFormId" Text="@Localizer["FilterApplyButtonText"]" Color="ThemeColor.Primary" />
+					</FooterTemplate>
+				</HxDrawer>
+			}
+		</HeaderTemplate>
+		<BodyTemplate>
+			@DataTemplate
+		</BodyTemplate>
+	</HxCard>
+	@DetailTemplate
 </div>
