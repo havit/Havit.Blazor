@@ -1,0 +1,27 @@
+﻿@page "/HxInputRadioGroupTest"
+
+<EditForm Model="model" OnValidSubmit="HandleValidSubmit">
+	<DataAnnotationsValidator />
+	TODO	
+	<HxInputRadio TValue="int" Value="1" Label="První hodnota" />
+	<HxInputRadio TValue="int" Value="2" Label="Druhá hodnota" />
+	<HxInputRadio TValue="int" Value="3" Enabled="false" Label="Třetí hodnota" />
+
+	<HxSubmit Text="Submit" Color="ThemeColor.Primary" />
+</EditForm>
+
+@code
+{
+	private Model model = new Model();
+
+	private Task HandleValidSubmit()
+	{
+		return Task.CompletedTask;
+	}
+
+	public class Model
+	{
+		[System.ComponentModel.DataAnnotations.Required]
+		public int SelectedValue { get; set; }
+	}
+}
