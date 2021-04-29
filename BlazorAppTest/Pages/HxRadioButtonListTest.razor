@@ -5,7 +5,7 @@
 	<DataAnnotationsValidator/>
 	<ValidationSummary />
 
-	<HxRadioButtonList TItem="CultureInfo" TValue="int?" @bind-Value="model.SelectedId" ValueSelector="@((CultureInfo ci) => ci.LCID)" TextSelector="@((CultureInfo ci) => ci.DisplayName)" Data="@cultureInfos" />
+	<HxRadioButtonList Label="Cultures" TItem="CultureInfo" TValue="int?" @bind-Value="model.SelectedId" ValueSelector="@((CultureInfo ci) => ci.LCID)" TextSelector="@((CultureInfo ci) => ci.DisplayName)" Data="@cultureInfos" />
 	<HxSubmit Text="Submit" Color="ThemeColor.Primary" />
 </EditForm>
 
