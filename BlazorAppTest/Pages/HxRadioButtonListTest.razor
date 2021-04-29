@@ -1,0 +1,38 @@
+﻿@page "/HxRadioButtonListTest"
+@using System.Globalization
+
+<EditForm Model="model" OnValidSubmit="HandleValidSubmit">
+	<DataAnnotationsValidator/>
+	<ValidationSummary />
+
+	<HxRadioButtonList TItem="CultureInfo" TValue="int?" @bind-Value="model.SelectedId" ValueSelector="@((CultureInfo ci) => ci.LCID)" TextSelector="@((CultureInfo ci) => ci.DisplayName)" Data="@cultureInfos" />
+	<HxSubmit Text="Submit" Color="ThemeColor.Primary" />
+</EditForm>
+
+<p>Current Value: @model.SelectedId</p>
+
+@code
+{
+	private Model model = new Model();
+	private List<CultureInfo> cultureInfos;
+	private Task HandleValidSubmit()
+	{
+		return Task.CompletedTask;
+	}
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		cultureInfos = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+							.Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid?view=net-5.0#System_Globalization_CultureInfo_LCID
+							.OrderBy(c => c.EnglishName)
+							.Take(20)
+							.ToList();
+	}
+
+	public class Model
+	{
+		[System.ComponentModel.DataAnnotations.Required]
+		public int? SelectedId { get; set; }
+	}
+}
