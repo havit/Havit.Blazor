@@ -20,6 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public ThemeColor TextColor { get; set; } = ThemeColor.None;
 
 		[Parameter] public BadgeType Type { get; set; } = BadgeType.Regular;
+		[Parameter] public string CssClass { get; set; }
 
 		protected override void OnParametersSet()
 		{
