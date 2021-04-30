@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Havit.Diagnostics.Contracts;
+using Microsoft.AspNetCore.Components;
+
+namespace Havit.Blazor.Components.Web.Bootstrap
+{
+	/// <summary>
+	/// Bootstrap alert component https://getbootstrap.com/docs/5.0/components/alerts/
+	/// </summary>
+	public partial class HxAlert
+	{
+		[Parameter] public RenderFragment ChildContent { get; set; }
+		[Parameter] public ThemeColor Color { get; set; }
+		[Parameter] public bool Dismissible { get; set; }
+		[Parameter] public string CssClass { get; set; }
+
+		protected override void OnParametersSet()
+		{
+			base.OnParametersSet();
+
+			Contract.Requires<InvalidOperationException>(Color != ThemeColor.None, $"Parameter {nameof(Color)} of {nameof(HxBadge)} is required.");
+		}
+
+		public string GetColorCss()
+		{
+			return this.Color switch
+			{
+				ThemeColor.None => null,
+				ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as {nameof(HxAlert)} color."),
+				_ => "alert-" + this.Color.ToString("f").ToLower()
+			};
+		}
+
+	}
+}
