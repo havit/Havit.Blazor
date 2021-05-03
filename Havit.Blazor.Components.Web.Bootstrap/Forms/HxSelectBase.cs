@@ -136,7 +136,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					builder.OpenElement(2000, "option");
 					builder.AddAttribute(2001, "value", -1);
-					builder.AddContent(2002, NullTextImpl);
+					builder.AddAttribute(2002, "selected", selectedItemIndex == -1);
+					builder.AddContent(2003, NullTextImpl);
 					builder.CloseElement();
 				}
 

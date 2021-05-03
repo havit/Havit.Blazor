@@ -1,0 +1,11 @@
+﻿@page "/HxSelectPickerTest"
+
+<h1>HxSelectPicker (derived from HxSelectBase)</h1>
+
+<BlazorAppTest.Pages.Pickers.HxSelectPicker @bind-Value="lcid" />
+lcid: @lcid
+
+@code
+{
+	int? lcid = 1029;
+}

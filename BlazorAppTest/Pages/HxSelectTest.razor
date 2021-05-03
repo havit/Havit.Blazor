@@ -1,11 +1,19 @@
 ﻿@page "/HxSelectTest"
 
-<h1>HxSelectPicker (derived from HxSelectBase)</h1>
+<h1>HxSelect</h1>
 
-<BlazorAppTest.Pages.Pickers.HxSelectPicker @bind-Value="lcid" />
-lcid: @lcid
+<HxSelect TItem="decimal?" TValue="decimal?" Data="@data" @bind-Value="@selectedValue" NullText="-all-" />
+<p>Selected Value: @selectedValue</p>
+
+<HxButton Text="Set null" OnClick="HandleClick" Color="@ThemeColor.Primary" />
 
 @code
 {
-	int? lcid = 1029;
+	List<decimal?> data = new List<decimal?> { 1, 2, 3, 0 };
+	decimal? selectedValue;
+
+	private void HandleClick()
+	{
+		selectedValue = null;
+	}
 }
