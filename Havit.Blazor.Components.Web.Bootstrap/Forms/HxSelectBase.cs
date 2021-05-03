@@ -112,7 +112,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private IEqualityComparer<TValue> comparer = EqualityComparer<TValue>.Default;
 		private List<TItem> itemsToRender;
-		private TItem selectedItem;
 		private int selectedItemIndex;
 		private string chipValue;
 
@@ -132,7 +131,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (itemsToRender != null)
 			{
-				if (NullableEffective || (selectedItem == null))
+				if (NullableEffective || (selectedItemIndex == -1))
 				{
 					builder.OpenElement(2000, "option");
 					builder.AddAttribute(2001, "value", -1);
@@ -198,10 +197,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 
 				// set next properties for rendering
-				selectedItem = itemsToRender.FirstOrDefault(item => comparer.Equals(Value, GetValueFromItem(item))); // null when not found
-				selectedItemIndex = itemsToRender.IndexOf(selectedItem); // -1 when not found
+				selectedItemIndex = itemsToRender.FindIndex(item => comparer.Equals(Value, GetValueFromItem(item)));
 
-				if ((Value != null) && (selectedItem == null))
+				if ((Value != null) && (selectedItemIndex == -1))
 				{
 					throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
 				}
@@ -209,7 +207,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			else
 			{
 				itemsToRender = null;
-				selectedItem = default;
 				selectedItemIndex = -1;
 			}
 		}

@@ -2,14 +2,14 @@
 
 <h1>HxSelect</h1>
 
-<HxSelect TItem="decimal?" TValue="decimal?" Data="@data" @bind-Value="@selectedValue" NullText="-all-" />
+<HxSelect TItem="decimal" TValue="decimal?" Data="@data" @bind-Value="@selectedValue" NullText="-all-" ValueSelector="(v => v)" />
 <p>Selected Value: @selectedValue</p>
 
 <HxButton Text="Set null" OnClick="HandleClick" Color="@ThemeColor.Primary" />
 
 @code
 {
-	List<decimal?> data = new List<decimal?> { 1, 2, 3, 0 };
+	List<decimal> data = new List<decimal> { 1, 2, 3, 0 };
 	decimal? selectedValue;
 
 	private void HandleClick()
