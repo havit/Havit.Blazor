@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	// In Progress 
-	public partial class HxProgressOverlay : ICascadeProgressComponent
+	public partial class HxProgressOverlay
 	{
 		private bool progressIndicatorVisible;
 		private CancellationTokenSource delayCancellationTokenSource;
@@ -21,9 +21,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public static int DefaultDelay { get; set; } = 300;
 
-		[CascadingParameter] public ProgressState ProgressState { get; set; }
-
-		[Parameter] public bool? InProgress { get; set; }
+		[Parameter] public bool InProgress { get; set; }
 
 		/// <summary>
 		/// Debounce delay in miliseconds. If not set, uses the <see cref="DefaultDelay"/>.
@@ -38,7 +36,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			await base.OnParametersSetAsync();
 
-			bool shouldBeProgressIndicatorVisible = CascadeProgressComponent.InProgressEffective(this);
+			bool shouldBeProgressIndicatorVisible = InProgress;
 
 			if (shouldBeProgressIndicatorVisible && !progressIndicatorVisible)
 			{

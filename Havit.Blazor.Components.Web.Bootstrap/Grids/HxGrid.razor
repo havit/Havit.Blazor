@@ -31,7 +31,7 @@
 
 	if (columnsToRender.Any() && ((dataItemsToRender != null) || dataProviderInProgress))
 	{
-		<HxProgressOverlay InProgress="@(InProgress ?? (dataProviderInProgress ? true : null))">
+		<HxProgressOverlay InProgress="@(InProgress ?? dataProviderInProgress)">
 
 			<table class="@CssClassHelper.Combine("hx-grid table table-responsible", (((SelectionEnabled || MultiSelectionEnabled) && (dataItemsToRender?.Count > 0)) ? "table-hover" : null))">
 				<thead>

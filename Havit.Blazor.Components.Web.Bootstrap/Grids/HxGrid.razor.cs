@@ -106,8 +106,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public EventCallback<GridUserState<TItem>> CurrentUserStateChanged { get; set; }
 
 		/// <summary>
-		/// When null (default), the InProgress value is received from cascading <see cref="ProgressState" />.
-		/// To set multiple controls as disabled use <seealso cref="HxProgressState" />.
+		/// Indicates whether the grid should be displayed as "in progress".
+		/// When null (default) value is used, grid is "in progress" when retrieving data by data provider.
 		/// </summary>
 		[Parameter] public bool? InProgress { get; set; }
 

@@ -1,12 +1,10 @@
 ﻿@page "/HxProgressOverlayTest"
 <h3>HxProgressOverlay</h3>
 
-<HxProgressState InProgress="@inProgress">
-	<HxProgressOverlay>
-		<div>Content...</div>
-		<HxButton Text="3sec progress" Color="ThemeColor.Primary" OnClick="HandleToggleProgressClick" Spinner="true" />
-	</HxProgressOverlay>
-</HxProgressState>
+<HxProgressOverlay InProgress="@inProgress">
+	<div>Content...</div>
+	<HxButton Text="3sec progress" Color="ThemeColor.Primary" OnClick="HandleToggleProgressClick" Spinner="true" />
+</HxProgressOverlay>
 
 <p>inProgress:  @inProgress</p>
 
