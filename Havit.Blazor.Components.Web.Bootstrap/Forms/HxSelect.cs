@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿
+using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class HxSelect<TValue, TItem> : HxSelectBase<TValue, TItem>
 	{
 		/// <summary>
-		/// Indicates when null is a valid value.
+		/// Indicates whether null is a valid value.
 		/// </summary>
 		[Parameter]
 		public bool? Nullable

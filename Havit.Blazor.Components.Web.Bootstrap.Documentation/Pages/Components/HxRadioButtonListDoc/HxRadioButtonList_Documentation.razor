@@ -1,0 +1,33 @@
+﻿@page "/components/hxradiobuttonlist"
+
+<h1>@nameof(HxRadioButtonList<object, object>)</h1>
+<p class="lead">
+	Single-item picker.
+</p>
+
+<h3>Properties</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxRadioButtonList<object, object>.Data)</strong><br />
+		Items to display.
+	</li>
+	<li>
+		<strong>@nameof(HxRadioButtonList<object, object>.TextSelector)</strong><br />
+		Selects text to display from item. When not set <code>ToString()</code> is used.
+	</li>
+	<li>
+		<strong>@nameof(HxRadioButtonList<object, object>.ValueSelector)</strong><br />
+		Selects value from item.
+	</li>
+	<li>
+		<strong>@nameof(HxRadioButtonList<object, object>.AutoSort)</strong><br />
+		When true, items are sorted before displaying in select. Default value is <code>true</code>.
+	</li>
+	<li>
+		<strong>@nameof(HxRadioButtonList<object, object>.SortKeySelector)</strong><br />
+		Selects value to sort items. Uses <code>@nameof(HxRadioButtonList<object, object>.TextSelector)</code> property when not set.<br />
+		When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
+	</li>
+</ul>
+
+<Demo Type="typeof(HxRadioButtonList_Demo)" />
