@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	// In Progress 
-	public partial class HxProgressOverlay
+	public partial class HxProgressIndicator
 	{
 		private bool progressIndicatorVisible;
 		private CancellationTokenSource delayCancellationTokenSource;
@@ -72,7 +72,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					try
 					{
-						await Task.Delay(Delay ?? HxProgressOverlay.DefaultDelay, cancellationToken);
+						await Task.Delay(Delay ?? HxProgressIndicator.DefaultDelay, cancellationToken);
 					}
 					catch (TaskCanceledException)
 					{

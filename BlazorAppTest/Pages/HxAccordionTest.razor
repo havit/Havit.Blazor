@@ -53,10 +53,10 @@
 			<HxAccordionItem Id="1" OnExpanded="HandleExpanded" OnCollapsed="HandleCollapsed">
 				<HeaderTemplate>Accordition Item 1 (Id="1") with LazyLoaded content</HeaderTemplate>
 				<BodyTemplate>
-					<HxProgressOverlay InProgress="inProgress">
+					<HxProgressIndicator InProgress="inProgress">
 						Lazy loaded content...<br/>
 						@dataLoaded
-					</HxProgressOverlay>
+					</HxProgressIndicator>
 				</BodyTemplate>
 			</HxAccordionItem>
 			<HxAccordionItem Id="2" @ref="xxx">
