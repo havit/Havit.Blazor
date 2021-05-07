@@ -14,6 +14,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		// TODO: Suppress SA1134 je v CSPROJ, uvolnit celofiremně?
 
+		/// <summary>
+		/// Indicates whether the column is visible (otherwise the column is hidden).
+		/// </summary>
+		[Parameter] public bool Visible { get; set; } = true;
+
 		#region Header properties
 		/// <summary>
 		/// Header cell text.
@@ -91,6 +96,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool IsDefaultSortColumn { get; set; } = false;
 		#endregion
+
+		/// <inheritdoc />
+		protected override bool IsColumnVisible() => Visible;
+
+		/// <inheritdoc />
+		protected override int GetColumnOrder() => 0;
 
 		/// <inheritdoc />
 		protected override CellTemplate GetHeaderCellTemplate() => new CellTemplate(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate), HeaderCssClass);

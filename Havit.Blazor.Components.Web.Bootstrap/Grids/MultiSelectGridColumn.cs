@@ -18,6 +18,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public EventCallback<TItem> OnSelectDataItemClicked { get; set; }
 		[Parameter] public EventCallback<TItem> OnUnselectDataItemClicked { get; set; }
 
+		/// <inheritdoc />
+		protected override int GetColumnOrder() => Int32.MinValue;
+
 		protected override CellTemplate GetHeaderCellTemplate()
 		{
 			return new CellTemplate

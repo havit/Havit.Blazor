@@ -11,7 +11,7 @@
 		<HxGridColumn TItem="CultureInfo" HeaderText="Order">
 			<ItemTemplate Context="item">
 				<HxButton Skin="ButtonSkins.Up" />
-				<HxButton Skin="ButtonSkins.Down" />  
+				<HxButton Skin="ButtonSkins.Down" />
 			</ItemTemplate>
 		</HxGridColumn>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Link">
@@ -42,13 +42,14 @@
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
 
 <h2>Server paging, server sorting</h2>
-<HxGrid TItem="CultureInfo" @ref="serverSideGrid" @bind-SelectedDataItem="@serverSideCurrentCultureInfo" DataProvider="@ServerCultureInfosDataProvider" PageSize="@PageSize" MultiSelectionEnabled="true" SelectionEnabled="false">
+<HxGrid TItem="CultureInfo" @ref="serverSideGrid" @bind-SelectedDataItem="@serverSideCurrentCultureInfo" DataProvider="@ServerCultureInfosDataProvider" PageSize="@PageSize" MultiSelectionEnabled="@multiSelectionEnabled" SelectionEnabled="false">
 	<Columns>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" IsDefaultSortColumn="true" FooterText="This is a footer" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />
 	</Columns>
 </HxGrid>
 <p>Current CultureInfo: @serverSideCurrentCultureInfo?.DisplayName</p>
+<HxButton Text="Toggle multiselect" Color="ThemeColor.Primary" OnClick="() => multiSelectionEnabled = !multiSelectionEnabled" />
 
 <h2>Empty data with @nameof(HxGrid<object>.EmptyDataTemplate)</h2>
 <HxGrid TItem="CultureInfo" DataProvider="@EmptyCultureInfosDataProvider">
@@ -67,6 +68,7 @@
 	private HxGrid<CultureInfo>
 	serverSideGrid;
 
+	private bool multiSelectionEnabled = true;
 	private int skip = 0;
 
 	// LOCAL

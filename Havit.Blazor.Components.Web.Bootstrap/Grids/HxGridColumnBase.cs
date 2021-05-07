@@ -32,6 +32,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
+		bool IHxGridColumn<TItem>.IsVisible() => IsColumnVisible();
+
+		/// <inheritdoc />
+		int IHxGridColumn<TItem>.GetOrder() => this.GetColumnOrder();
+
+		/// <inheritdoc />
 		CellTemplate IHxGridColumn<TItem>.GetHeaderCellTemplate() => this.GetHeaderCellTemplate();
 
 		/// <inheritdoc />
@@ -42,6 +48,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <inheritdoc />
 		SortingItem<TItem>[] IHxGridColumn<TItem>.GetSorting() => this.GetSorting().ToArray();
+
+		/// <summary>
+		/// Indicates whether the column is visible (otherwise the column is hidden).
+		/// It is not suitable to conditionaly display the column using @if statement in the markup code.
+		/// </summary>
+		protected virtual bool IsColumnVisible() => true;
+
+		/// <summary>
+		/// Returns the column order.
+		/// </summary>
+		/// <remarks>
+		/// Currently it ensures the correct order of MultiSelectGridColumn when enabled dynamically.		
+		/// In future we can implement better in HxGridColumn to enable dynamic column order.
+		/// </remarks>
+		protected abstract int GetColumnOrder();
 
 		/// <summary>
 		/// Returns header cell template.

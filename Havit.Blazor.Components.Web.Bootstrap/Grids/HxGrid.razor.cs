@@ -174,8 +174,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected List<IHxGridColumn<TItem>> GetColumnsToRender()
 		{
-			var result = new List<IHxGridColumn<TItem>>(columnsList);
-			return result;
+			return columnsList.Where(column => column.IsVisible()).OrderBy(column => column.GetOrder()).ToList();
 		}
 
 		/// <summary>
