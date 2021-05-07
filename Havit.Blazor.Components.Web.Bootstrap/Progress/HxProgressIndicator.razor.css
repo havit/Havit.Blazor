@@ -1,6 +1,6 @@
 .hx-progress-overlay {
     position: relative;
-    height: 60px;
+    min-height: 60px;
 }
 
 .hx-progress-indicator {
