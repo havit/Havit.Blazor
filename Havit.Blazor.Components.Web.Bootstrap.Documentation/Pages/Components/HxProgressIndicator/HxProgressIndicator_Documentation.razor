@@ -1,0 +1,25 @@
+﻿@page "/components/hxprogressindicator"
+
+<h1>@nameof(HxProgressIndicator)</h1>
+<p class="lead">
+	Displays the content of the component as "in progress".
+</p>
+
+<h3>Properties</h3>
+<ul>
+	<li>
+		<strong>@nameof(HxProgressIndicator.InProgress)</strong><br />
+		Indicates whether the content should be displayed as "in progress".
+	</li>
+	<li>
+		<strong>@nameof(HxProgressIndicator.Delay)</strong><br />
+		Debounce delay in miliseconds.
+	</li>
+	<li>
+		<strong>@nameof(HxProgressIndicator.DefaultDelay) (static)</strong><br />
+		Default debounce delay in miliseconds to be used when <code>@nameof(HxProgressIndicator.Delay)</code> not set.
+		Default value is 300 ms.
+	</li>
+</ul>
+
+<Demo Type="typeof(HxProgressIndicator_Demo)" />

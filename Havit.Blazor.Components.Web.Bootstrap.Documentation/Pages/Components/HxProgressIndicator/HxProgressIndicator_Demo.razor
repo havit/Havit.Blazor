@@ -1,0 +1,20 @@
+﻿<HxProgressIndicator InProgress="@inProgress">
+	<p>Some content...</p>
+	<p>Some content...</p>
+	<p>Some content...</p>
+</HxProgressIndicator>
+
+<HxButton Text="Set progress for 3 seconds on some content..." Color="ThemeColor.Primary" OnClick="HandleToggleProgressClick" />
+
+<p>inProgress:  @inProgress</p>
+
+@code
+{
+	private bool inProgress = false;
+	private async Task HandleToggleProgressClick()
+	{
+		inProgress = true;
+		await Task.Delay(3000);
+		inProgress = false;
+	}
+}
