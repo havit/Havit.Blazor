@@ -2,21 +2,6 @@
     "name": "havit-bootstrap",
     "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
     "version": "1.0.0",
-    "devDependencies": {
-        "autoprefixer": "^10.2.5",
-        "cross-env": "^7.0.3",
-        "clean-css-cli": "^5.2.2",
-        "find-unused-sass-variables": "^3.1.0",
-        "nodemon": "^2.0.7",
-        "npm-run-all": "^4.1.5",
-        "postcss": "^8.2.8",
-        "postcss-cli": "^8.3.1",
-        "rtlcss": "^3.1.2",
-        "sass": "^1.32.8",
-        "stylelint": "^13.12.0",
-        "stylelint-config-twbs-bootstrap": "^2.1.0",
-        "shx": "0.3.3"
-    },
     "scripts": {
         "css": "npm-run-all css-compile css-prefix css-rtl css-minify",
         "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css scss/:dist/css/",
@@ -35,6 +20,21 @@
     },
     "style": "dist/css/bootstrap.css",
     "sass": "scss/bootstrap.scss",
+    "devDependencies": {
+      "autoprefixer": "^10.2.5",
+      "cross-env": "^7.0.3",
+      "clean-css-cli": "^5.3.0",
+      "find-unused-sass-variables": "^3.1.0",
+      "nodemon": "^2.0.7",
+      "npm-run-all": "^4.1.5",
+      "postcss": "^8.2.13",
+      "postcss-cli": "^8.3.1",
+      "rtlcss": "^3.1.2",
+      "sass": "^1.32.12",
+      "stylelint": "^13.13.1",
+      "stylelint-config-twbs-bootstrap": "^2.2.0",
+      "shx": "0.3.3"
+  },
     "files": [
         "dist/{css}/*.{css,map}",
         "scss/**/*.scss"
