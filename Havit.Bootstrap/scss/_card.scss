@@ -1,3 +1,7 @@
 .card {
   box-shadow: $box-shadow-sm;
 }
+
+.card-body > .hx-progress-overlay {
+  min-height: 60px;
+}
