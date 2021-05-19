@@ -111,6 +111,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool? InProgress { get; set; }
 
+		/// <summary>
+		/// Custom CSS class to render with main <code>table</code> element.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
+
 		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
 
 		private List<IHxGridColumn<TItem>> columnsList;
