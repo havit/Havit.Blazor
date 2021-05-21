@@ -36,7 +36,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Selects text to display from item.
+		/// Selects text to display from item. Also used for chip text.
 		/// When not set <c>ToString()</c> is used.
 		/// </summary>
 		[Parameter]
@@ -44,6 +44,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			get => TextSelectorImpl;
 			set => TextSelectorImpl = value;
+		}
+
+		/// <summary>
+		/// Gets html to display from item.
+		/// When not set <see cref="TextSelector"/> is used.
+		/// </summary>
+		[Parameter]
+		public RenderFragment<TItem> ItemTemplate
+		{
+			get => ItemTemplateImpl;
+			set => ItemTemplateImpl = value;
 		}
 
 		/// <summary>

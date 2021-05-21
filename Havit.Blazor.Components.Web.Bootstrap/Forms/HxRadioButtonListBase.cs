@@ -33,11 +33,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected IEnumerable<TItem> DataImpl { get; set; }
 
 		/// <summary>
-		/// Selects text to display from item.
+		/// Gets text to display from item. Used also for chip text.
 		/// When not set ToString() is used.
 		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 		/// </summary>
 		protected Func<TItem, string> TextSelectorImpl { get; set; }
+
+		/// <summary>
+		/// Gets html to display from item.
+		/// When not set <see cref="TextSelectorImpl"/> is used.
+		/// </summary>
+		protected RenderFragment<TItem> ItemTemplateImpl { get; set; }
 
 		/// <summary>
 		/// Selects value to sort items. Uses <see cref="TextSelectorImpl"/> property when not set.
@@ -105,10 +111,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (item != null)
 			{
 				bool selected = (index == selectedItemIndex);
-				string text = TextSelectorHelper.GetText(TextSelectorImpl, item);
 				if (selected)
 				{
-					chipValue = text;
+					chipValue = TextSelectorHelper.GetText(TextSelectorImpl, item);
 				}
 
 				string inputId = GroupName + "_" + index.ToString();
@@ -132,7 +137,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.OpenElement(300, "label");
 				builder.AddAttribute(301, "class", "form-check-label");
 				builder.AddAttribute(302, "for", inputId);
-				builder.AddContent(303, text);
+				if (ItemTemplateImpl != null)
+				{
+					builder.AddContent(303, ItemTemplateImpl(item));
+				}
+				else
+				{
+					builder.AddContent(304, TextSelectorHelper.GetText(TextSelectorImpl, item));
+				}
 				builder.CloseElement(); // label
 
 				builder.CloseElement(); // div
