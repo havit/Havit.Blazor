@@ -10,6 +10,9 @@ namespace Havit.Blazor.Components.Web
 {
 	public class FileInfo
 	{
+		[JsonPropertyName("index")]
+		public int FileIndex { get; set; }
+
 		[JsonPropertyName("name")]
 		public string Name { get; set; } = String.Empty;
 
