@@ -32,23 +32,19 @@
 
 </ul>
 
-<h3>Commands</h3>
-<p class="red">TODO</p>
-
 <h2>Setting (loading) data to the grid</h2>
 <h4>No paging &amp; sorting or client-side paging &amp; sorting</h4>
 <ul>
 	<li>Create a field/property for the data.</li>
 	<li>Set data to this field/property. Do not sort data.</li>
-	<li>TODO</li>
+	<li>Use the extension method <code>ApplyTo</code> (<code>request.ApplyTo(data)</code>) in the <code>@nameof(HxGrid<object>.DataProvider)</code> method to automaticky sort and page data from the field/property. While the result of the <code>@nameof(HxGrid<object>.DataProvider)</code> method is a generic <code>Task</code>, the result must be wrapped using <code>Task.FromResult</code>. It is easy, see the demo source code.</li>
 </ul>
 
 <Demo Title="Client-side paging and sorting" Type="typeof(HxGrid_ClientSideDemo)" />
 
 <h4>Server side paging &amp; sorting</h4>
 <ul>
-	<li>Create a method (DataProvider) for getting data for the specified page in the specified order and total data items count.</li>
-	<li>Assign this method to <code>@nameof(HxGrid<object>.DataProvider)</code> property (as a delegate).</li>
+	<li>Implement the <code>@nameof(HxGrid<object>.DataProvider)</code> method to delegate the paging &amp; sorting to the server side. The sample code does not have this implementation.</li>
 </ul>
 
 <Demo Title="Server-side paging and sorting" Type="typeof(HxGrid_ServerSideDemo)" />
