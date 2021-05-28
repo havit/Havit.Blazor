@@ -1,0 +1,47 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+@{
+	var renderData = GetRenderData();
+}
+
+<div class="calendar">
+	<div class="navigation">
+		<HxButton Color="ThemeColor.None" Icon="BootstrapIcon.ChevronLeft" OnClick="HandlePreviousMonthClick" />
+
+		<select @onchange="HandleYearChange" @onclick:stopPropagation>
+			@foreach (int year in renderData.Years)
+			{
+				<option value="@year" selected="@(year == DisplayMonth.Year)">@year.ToString("G")</option>
+				/* not "N" - we do not want thousands separator */
+			}
+		</select>
+
+		<select @onchange="HandleMonthChange" @onclick:stopPropagation>
+			@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
+			{
+				<option value="@monthIndex" selected="@((monthIndex + 1) == DisplayMonth.Month)">@renderData.Months[monthIndex]</option>
+			}
+		</select>
+
+		<HxButton Color="ThemeColor.None" Icon="BootstrapIcon.ChevronRight" OnClick="HandleNextMonthClick" />
+	</div>
+
+	<table>
+		<tr class="day-names">
+			@foreach (string dayOfWeek in renderData.DaysOfWeek)
+			{
+				<td>@dayOfWeek</td>
+			}
+		</tr>
+		@foreach (WeekData week in renderData.Weeks)
+		{
+			<tr class="week">
+				@foreach (DayData day in week.Days)
+				{
+					<td class="@day.CssClass">@day.DayInMonth</td>
+					// TODO: Disabled, atp. Onclick
+				}
+			</tr>
+		}
+	</table>
+</div>
