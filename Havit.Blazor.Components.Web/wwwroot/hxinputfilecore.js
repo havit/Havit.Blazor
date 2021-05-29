@@ -50,6 +50,12 @@ export function getFiles(inputElementId) {
 	return Array.from(inputElement.files).map(e => { return { index: inputElement.hxInputFileNextFileIndex++, name: e.name, lastModified: e.lastModified, size: e.size, type: e.type }; });
 }
 
+export function reset(inputElementId) {
+	var inputElement = document.getElementById(inputElementId);
+	inputElement.value = '';
+	inputElement.dispatchEvent(new Event('change'));
+}
+
 export function dispose(inputElementId) {
 	var inputElement = document.getElementById(inputElementId);
 	inputElement.hxInputFileDotnetObjectReference = null;

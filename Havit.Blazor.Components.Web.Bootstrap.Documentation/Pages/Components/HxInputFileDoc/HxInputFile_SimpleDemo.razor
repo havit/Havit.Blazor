@@ -2,7 +2,7 @@
 <HxInputFile @ref="hxInputFileComponent" Label="HxInputFile" UploadUrl="/file-upload-streamed/" OnFileUploaded="HandleFileUploaded" />
 
 <HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="HandleUploadClick" CssClass="my-2" />
-
+<HxButton Text="Clear" OnClick="@(async () => await hxInputFileComponent.ResetAsync())" Color="ThemeColor.Secondary" />
 
 OriginalFileName: @fileUploaded?.OriginalFileName
 <br />

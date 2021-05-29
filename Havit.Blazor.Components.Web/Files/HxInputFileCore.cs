@@ -110,6 +110,16 @@ namespace Havit.Blazor.Components.Web
 		}
 
 		/// <summary>
+		/// Clears associated input element and resets component to initial state.
+		/// </summary>
+		public async Task ResetAsync()
+		{
+			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web/hxinputfilecore.js");
+
+			await jsModule.InvokeVoidAsync("reset", Id);
+		}
+
+		/// <summary>
 		/// Receive upload progress notification from underlying javascript.
 		/// </summary>
 		[JSInvokable("HxInputFileCore_HandleUploadProgress")]

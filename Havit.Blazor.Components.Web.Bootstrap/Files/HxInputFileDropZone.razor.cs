@@ -73,6 +73,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public Task<FileInfo[]> GetFilesAsync() => hxInputFileCoreComponentReference.GetFilesAsync();
 
 		/// <summary>
+		/// Clears associated input-file element and resets component to initial state.
+		/// </summary>
+		public Task ResetAsync() => hxInputFileCoreComponentReference.ResetAsync();
+
+		/// <summary>
 		/// Starts the upload.
 		/// </summary>
 		/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>

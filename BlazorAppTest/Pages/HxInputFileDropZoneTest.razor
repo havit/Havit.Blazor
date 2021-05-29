@@ -6,7 +6,8 @@
 <HxInputFileDropZone />
 
 <h3>Multiple</h3>
-<HxInputFileDropZone Multiple />
+<HxInputFileDropZone @ref="component" Multiple />
+<HxButton Text="Clear" OnClick="@(async () => await component.ResetAsync())" Color="ThemeColor.Secondary" />
 
 <h3>Custom NoFilesTemplate</h3>
 <HxInputFileDropZone Multiple>
@@ -15,3 +16,8 @@
 		<div>Bla bla bla tady upload, drag sem.</div>
 	</NoFilesTemplate>
 </HxInputFileDropZone>
+
+@code
+{
+	private HxInputFileDropZone component;
+}
