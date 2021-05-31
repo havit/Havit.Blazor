@@ -75,6 +75,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			result.Weeks = new List<WeekData>(6);
 
 			DateTime currentDay = FirstDayToDisplay;
+			DateTime valueDay = Value?.Date ?? default;
+
 			for (var week = 0; week < 6; week++)
 			{
 				WeekData weekData = new WeekData();
@@ -82,12 +84,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				for (int day = 0; day < 7; day++)
 				{
+					bool clickEnabled = (currentDay.Year >= MinYear) // can click only days starting MinYear
+							&& (currentDay.Year <= MaxYear); // can click only days ending MaxYear
+					string cssClass = CssClassHelper.Combine(
+						clickEnabled ? "active" : "disabled",
+						(currentDay == valueDay) ? "selected" : null,  // currently selected day has "selected" class
+						((currentDay.Month == DisplayMonth.Month) && (currentDay.Year == DisplayMonth.Year)) ? "in" : "out"
+					);
+
 					DayData dayData = new DayData
 					{
 						Date = currentDay,
 						DayInMonth = currentDay.Day.ToString("d", Culture.DateTimeFormat),
-						CssClass = GetCssClass(currentDay),
-						Enabled = (currentDay.Year >= MinYear) && (currentDay.Year <= MaxYear)
+						CssClass = cssClass,
+						ClickEnabled = clickEnabled
 					};
 					weekData.Days.Add(dayData);
 					currentDay = currentDay.AddDays(1);
@@ -99,38 +109,46 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		}
 
-		private string GetCssClass(DateTime currentDay)
-		{
-			List<string> values = new List<string>(5);
-			return null; // TODO!
-		}
-
 		private async Task SetDisplayMonthAsync(DateTime newDisplayMonth)
 		{
 			DisplayMonth = newDisplayMonth;
 			await DisplayMonthChanged.InvokeAsync(newDisplayMonth);
 		}
 
-		private async Task HandlePreviousMonthClick()
+		private async Task HandlePreviousMonthClickAsync()
 		{
-			await SetDisplayMonthAsync(DisplayMonth.AddMonths(-1));
+			var previousMonth = DisplayMonth.AddMonths(-1);
+			if (previousMonth.Year >= MinYear)
+			{
+				await SetDisplayMonthAsync(previousMonth);
+			}
 		}
 
-		private async Task HandleNextMonthClick()
+		private async Task HandleNextMonthClickAsync()
 		{
-			await SetDisplayMonthAsync(DisplayMonth.AddMonths(1));
+			var nextMonth = DisplayMonth.AddMonths(1);
+			if (nextMonth.Year <= MaxYear)
+			{
+				await SetDisplayMonthAsync(nextMonth);
+			}
 		}
 
-		private async Task HandleYearChange(ChangeEventArgs changeEventArgs)
+		private async Task HandleYearChangeAsync(ChangeEventArgs changeEventArgs)
 		{
 			int year = int.Parse((string)changeEventArgs.Value);
 			await SetDisplayMonthAsync(new DateTime(year, DisplayMonth.Month, 1));
 		}
 
-		private async Task HandleMonthChange(ChangeEventArgs changeEventArgs)
+		private async Task HandleMonthChangeAsync(ChangeEventArgs changeEventArgs)
 		{
 			int monthIndex = int.Parse((string)changeEventArgs.Value);
 			await SetDisplayMonthAsync(new DateTime(DisplayMonth.Year, monthIndex + 1, 1));
+		}
+
+		private async Task HandleDayClickAsync(DayData day)
+		{
+			Value = day.Date;
+			await ValueChanged.InvokeAsync(day.Date);
 		}
 
 		private class RenderData
@@ -151,7 +169,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			public string CssClass { get; set; }
 			public string DayInMonth { get; set; }
 			public DateTime Date { get; set; }
-			public bool Enabled { get; set; }
+			public bool ClickEnabled { get; set; }
 		}
 	}
 }

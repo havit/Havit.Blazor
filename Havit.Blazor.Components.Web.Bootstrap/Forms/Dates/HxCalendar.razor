@@ -6,11 +6,11 @@
 
 <div class="calendar">
 	<div class="navigation">
-		<div role="button" @onclick="HandlePreviousMonthClick" >
+		<div role="button" @onclick="HandlePreviousMonthClickAsync" @onclick:stopPropagation>
 			<HxIcon Icon="@BootstrapIcon.ChevronLeft"/>
 		</div>
 
-		<select class="form-select form-select-sm mx-2" @onchange="HandleYearChange" @onclick:stopPropagation>
+		<select class="form-select form-select-sm mx-2" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
 			@foreach (int year in renderData.Years)
 			{
 				<option value="@year" selected="@(year == DisplayMonth.Year)">@year.ToString("G")</option>
@@ -18,14 +18,14 @@
 			}
 		</select>
 
-		<select class="form-select form-select-sm mx-2" @onchange="HandleMonthChange" @onclick:stopPropagation>
+		<select class="form-select form-select-sm mx-2" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
 			@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
 			{
 				<option value="@monthIndex" selected="@((monthIndex + 1) == DisplayMonth.Month)">@renderData.Months[monthIndex]</option>
 			}
 		</select>
 
-		<div role="button" @onclick="HandleNextMonthClick" >
+		<div role="button" @onclick="HandleNextMonthClickAsync" @onclick:stopPropagation>
 			<HxIcon Icon="@BootstrapIcon.ChevronRight"/>
 		</div>
 	</div>
@@ -39,11 +39,17 @@
 		</tr>
 		@foreach (WeekData week in renderData.Weeks)
 		{
-			<tr role="button" class="week">
+			<tr class="week">
 				@foreach (DayData day in week.Days)
 				{
-					<td class="@day.CssClass">@day.DayInMonth</td>
-					// TODO: Disabled, atp. Onclick
+					if (day.ClickEnabled)
+					{
+						<td class="@day.CssClass" role="button" @onclick="async () => await HandleDayClickAsync(day)" @onclick:stopPropagation>@day.DayInMonth</td>
+					}
+					else
+					{
+						<td class="@day.CssClass">@day.DayInMonth</td>
+					}
 				}
 			</tr>
 		}
