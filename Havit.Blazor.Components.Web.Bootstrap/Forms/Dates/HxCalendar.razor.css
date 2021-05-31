@@ -14,11 +14,11 @@ table td {
 }
 
 .day-names td, .week td {
-    padding: .375rem .5rem;
-    font-size: 15px;
+    padding: var(--hx-calendar-day-padding);
+    font-size: var(--hx-calendar-font-size);
 }
 
 .week td:hover {
-    background: #dedede;
-    border-radius: .5rem;
+    background: var(--hx-calendar-day-hover-background);
+    border-radius: var(--hx-calendar-day-border-radius);
 }

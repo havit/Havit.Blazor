@@ -42,6 +42,11 @@
   /* HxWizard */
   --hx-wizard-navigator-background-color: #ced4da; /* gray-400 */
   --hx-wizard-navigator-progress-background-color: var(--primary);
+  /* HxCalendar */
+  --hx-calendar-day-hover-background: #dee2e6;
+  --hx-calendar-day-border-radius: .5rem;
+  --hx-calendar-day-padding: .375rem .5rem;
+  --hx-calendar-font-size: 15px;
   /* Breakpoints */
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
