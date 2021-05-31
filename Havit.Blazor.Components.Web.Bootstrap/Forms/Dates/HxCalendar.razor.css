@@ -1,0 +1,24 @@
+.calendar {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+table td {
+    text-align: center;
+}
+
+.day-names td, .week td {
+    padding: .375rem .5rem;
+    font-size: 15px;
+}
+
+.week td:hover {
+    background: #dedede;
+    border-radius: .5rem;
+}

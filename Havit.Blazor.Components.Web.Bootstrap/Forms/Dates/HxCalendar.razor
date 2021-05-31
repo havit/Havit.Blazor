@@ -6,9 +6,11 @@
 
 <div class="calendar">
 	<div class="navigation">
-		<HxButton Color="ThemeColor.None" Icon="BootstrapIcon.ChevronLeft" OnClick="HandlePreviousMonthClick" />
+		<div role="button" @onclick="HandlePreviousMonthClick" >
+			<HxIcon Icon="@BootstrapIcon.ChevronLeft"/>
+		</div>
 
-		<select @onchange="HandleYearChange" @onclick:stopPropagation>
+		<select class="form-select form-select-sm mx-2" @onchange="HandleYearChange" @onclick:stopPropagation>
 			@foreach (int year in renderData.Years)
 			{
 				<option value="@year" selected="@(year == DisplayMonth.Year)">@year.ToString("G")</option>
@@ -16,18 +18,20 @@
 			}
 		</select>
 
-		<select @onchange="HandleMonthChange" @onclick:stopPropagation>
+		<select class="form-select form-select-sm mx-2" @onchange="HandleMonthChange" @onclick:stopPropagation>
 			@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
 			{
 				<option value="@monthIndex" selected="@((monthIndex + 1) == DisplayMonth.Month)">@renderData.Months[monthIndex]</option>
 			}
 		</select>
 
-		<HxButton Color="ThemeColor.None" Icon="BootstrapIcon.ChevronRight" OnClick="HandleNextMonthClick" />
+		<div role="button" @onclick="HandleNextMonthClick" >
+			<HxIcon Icon="@BootstrapIcon.ChevronRight"/>
+		</div>
 	</div>
 
 	<table>
-		<tr class="day-names">
+		<tr class="day-names fw-bold">
 			@foreach (string dayOfWeek in renderData.DaysOfWeek)
 			{
 				<td>@dayOfWeek</td>
@@ -35,7 +39,7 @@
 		</tr>
 		@foreach (WeekData week in renderData.Weeks)
 		{
-			<tr class="week">
+			<tr role="button" class="week">
 				@foreach (DayData day in week.Days)
 				{
 					<td class="@day.CssClass">@day.DayInMonth</td>
