@@ -116,6 +116,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
+		/// <summary>
+		/// Custom CSS class to render with header <code>tr</code> element.
+		/// </summary>
+		[Parameter] public string HeaderRowCssClass { get; set; }
+
+		/// <summary>
+		/// Custom CSS class to render with data <code>tr</code> element.
+		/// </summary>
+		[Parameter] public string ItemRowCssClass { get; set; }
+
+		/// <summary>
+		/// Returns custom CSS class to render with data <code>tr</code> element.
+		/// </summary>
+		[Parameter] public Func<TItem, string> ItemRowCssClassSelector { get; set; }
+
+		/// <summary>
+		/// Custom CSS class to render with footer <code>tr</code> element.
+		/// </summary>
+		[Parameter] public string FooterRowCssClass { get; set; }
 
 		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
 

@@ -35,7 +35,7 @@
 
 			<table class="@CssClassHelper.Combine("hx-grid table table-responsible", (((SelectionEnabled || MultiSelectionEnabled) && (dataItemsToRender?.Count > 0)) ? "table-hover" : null), CssClass)">
 				<thead>
-					<tr>
+					<tr class="@HeaderRowCssClass">
 						@foreach (IHxGridColumn<TItem> column in columnsToRender)
 						{
 							var columnSorting = column.GetSorting();
@@ -115,8 +115,12 @@
 							if (SelectionEnabled || MultiSelectionEnabled)
 							{
 								<tr role="button"
-									@onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)" @onclick:stopPropagation
-									class="@((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
+									@onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)"
+									@onclick:stopPropagation
+									class="@CssClassHelper.Combine(
+												ItemRowCssClass,
+												ItemRowCssClassSelector?.Invoke(item)),
+												@((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)">
 
 									@foreach (IHxGridColumn<TItem> column in columnsToRender)
 									{
@@ -133,7 +137,8 @@
 							else
 							{
 								// !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
-								<tr @onclick:stopPropagation>
+								<tr class="@CssClassHelper.Combine(ItemRowCssClass, ItemRowCssClassSelector?.Invoke(item))"
+									@onclick:stopPropagation>
 									@foreach (IHxGridColumn<TItem> column in columnsToRender)
 									{
 										// same as above this else section
@@ -155,7 +160,7 @@
 						&& ((dataItemsToRender?.Count > 0) || ShowFooterWhenEmptyData)) // AND (non-empty data or ShowFooterWhenEmpty)
 					{
 						<tfoot>
-							<tr>
+							<tr class="@FooterRowCssClass">
 								@foreach (CellTemplate footerCellTemplate in footerTemplates)
 								{
 									<td class="@footerCellTemplate.CssClass">@footerCellTemplate.Template</td>
