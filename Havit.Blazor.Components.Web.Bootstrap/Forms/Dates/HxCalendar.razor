@@ -10,20 +10,25 @@
 			<HxIcon Icon="@BootstrapIcon.ChevronLeft"/>
 		</div>
 
-		<select class="form-select form-select-sm mx-2" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
-			@foreach (int year in renderData.Years)
-			{
-				<option value="@year" selected="@(year == DisplayMonth.Year)">@year.ToString("G")</option>
-				/* not "N" - we do not want thousands separator */
-			}
-		</select>
-
-		<select class="form-select form-select-sm mx-2" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
-			@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
-			{
-				<option value="@monthIndex" selected="@((monthIndex + 1) == DisplayMonth.Month)">@renderData.Months[monthIndex]</option>
-			}
-		</select>
+		<div class="row gx-1">
+			<div class="col-auto">
+				<select class="form-select form-select-sm" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
+					@foreach (int year in renderData.Years)
+					{
+						<option value="@year" selected="@(year == DisplayMonth.Year)">@year.ToString("G")</option>
+						/* not "N" - we do not want thousands separator */
+					}
+				</select>
+			</div>
+			<div class="col-auto">
+				<select class="form-select form-select-sm" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
+					@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
+					{
+						<option value="@monthIndex" selected="@((monthIndex + 1) == DisplayMonth.Month)">@renderData.Months[monthIndex]</option>
+					}
+				</select>
+			</div>
+		</div>
 
 		<div role="button" @onclick="HandleNextMonthClickAsync" @onclick:stopPropagation>
 			<HxIcon Icon="@BootstrapIcon.ChevronRight"/>
