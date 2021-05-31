@@ -15,7 +15,7 @@ $min-contrast-ratio: 3;
 $body-bg: $gray-100;
 $border-color: $gray-200;
 $card-cap-bg: $white;
-$card-border-radius: $border-radius-lg;
+$card-border-radius: .75rem;
 $card-border-width: 0;
 $card-inner-border-radius: subtract($card-border-radius, $card-border-width);
 $table-cell-padding-y: .6125rem;
