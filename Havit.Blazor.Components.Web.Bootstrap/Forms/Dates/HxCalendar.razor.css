@@ -9,8 +9,14 @@
     align-items: center;
 }
 
-table td {
+td {
     text-align: center;
+    border: 1px solid transparent;
+    border-radius: var(--hx-calendar-day-border-radius);
+}
+
+.week td:hover {
+    background: var(--hx-calendar-day-hover-background);
 }
 
 .day-names td, .week td {
@@ -18,7 +24,18 @@ table td {
     font-size: var(--hx-calendar-font-size);
 }
 
-.week td:hover {
-    background: var(--hx-calendar-day-hover-background);
-    border-radius: var(--hx-calendar-day-border-radius);
+.out {
+    color: var(--hx-calendar-day-out-color);
+}
+
+.in:not(:hover) {
+    color: var(--hx-calendar-day-in-color);
+}
+
+.in.selected, 
+.in.selected:hover, 
+.out.selected, 
+.out.selected:hover {
+    background: var(--hx-calendar-day-selected-background);
+    color: var(--hx-calendar-day-selected-color);
 }

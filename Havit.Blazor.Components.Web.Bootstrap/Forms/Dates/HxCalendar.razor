@@ -4,30 +4,35 @@
 	var renderData = GetRenderData();
 }
 
+
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="From" aria-label="Username">
+  <input type="text" class="form-control" placeholder="To" aria-label="Server">
+  <button class="btn btn-secondary" type="button">
+	  <HxIcon Icon="@BootstrapIcon.ThreeDotsVertical"/>
+  </button>
+</div>
+
 <div class="calendar">
 	<div class="navigation">
 		<div role="button" @onclick="HandlePreviousMonthClickAsync" @onclick:stopPropagation>
 			<HxIcon Icon="@BootstrapIcon.ChevronLeft"/>
 		</div>
 
-		<div class="row gx-1">
-			<div class="col-auto">
-				<select class="form-select form-select-sm" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
-					@foreach (int year in renderData.Years)
-					{
-						<option value="@year">@year.ToString("G")</option>
-						/* not "N" - we do not want thousands separator */
-					}
-				</select>
-			</div>
-			<div class="col-auto">
-				<select class="form-select form-select-sm" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
-					@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
-					{
-						<option value="@monthIndex">@renderData.Months[monthIndex]</option>
-					}
-				</select>
-			</div>
+		<div class="input-group mx-1">
+			<select class="form-select form-select-sm" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
+				@foreach (int year in renderData.Years)
+				{
+					<option value="@year">@year.ToString("G")</option>
+					/* not "N" - we do not want thousands separator */
+				}
+			</select>
+			<select class="form-select form-select-sm" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
+				@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
+				{
+					<option value="@monthIndex">@renderData.Months[monthIndex]</option>
+				}
+			</select>
 		</div>
 
 		<div role="button" @onclick="HandleNextMonthClickAsync" @onclick:stopPropagation>
