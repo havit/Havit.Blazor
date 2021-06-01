@@ -1,9 +1,16 @@
 ﻿<div class="input-group mb-3">
-	<input type="text" class="form-control" placeholder="From" aria-label="Username">
-	<input type="text" class="form-control" placeholder="To" aria-label="Server">
-	<button class="btn btn-secondary" type="button">
-		<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
-	</button>
+	<input type="text" class="form-control" placeholder="From" />
+	<input type="text" class="form-control" placeholder="To" />
+	<div class="dropdown">
+		<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown"> 
+			<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
+		</button>
+		<ul class="dropdown-menu dropdown-menu-end">
+			<li><a class="dropdown-item" href="#">Today</a></li>
+			<li><a class="dropdown-item" href="#">Tomorow</a></li>
+			<li><a class="dropdown-item" href="#">Toyota</a></li>
+		</ul>
+	</div>
 </div>
 
 <HxCalendar />
