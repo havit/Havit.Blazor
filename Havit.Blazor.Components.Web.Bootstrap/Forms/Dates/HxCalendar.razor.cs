@@ -89,7 +89,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					string cssClass = CssClassHelper.Combine(
 						clickEnabled ? "active" : "disabled",
 						(currentDay == valueDay) ? "selected" : null,  // currently selected day has "selected" class
-						((currentDay.Month == DisplayMonth.Month) && (currentDay.Year == DisplayMonth.Year)) ? "in" : "out"
+						((currentDay.Month == DisplayMonth.Month) && (currentDay.Year == DisplayMonth.Year)) ? "in" : "out",
+						((currentDay.DayOfWeek == DayOfWeek.Saturday) || (currentDay.DayOfWeek == DayOfWeek.Sunday)) ? "weekend" : null
 					);
 
 					DayData dayData = new DayData
