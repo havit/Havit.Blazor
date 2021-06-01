@@ -12,19 +12,19 @@
 
 		<div class="row gx-1">
 			<div class="col-auto">
-				<select class="form-select form-select-sm" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
+				<select class="form-select form-select-sm" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
 					@foreach (int year in renderData.Years)
 					{
-						<option value="@year" selected="@(year == DisplayMonth.Year)">@year.ToString("G")</option>
+						<option value="@year">@year.ToString("G")</option>
 						/* not "N" - we do not want thousands separator */
 					}
 				</select>
 			</div>
 			<div class="col-auto">
-				<select class="form-select form-select-sm" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
+				<select class="form-select form-select-sm" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
 					@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
 					{
-						<option value="@monthIndex" selected="@((monthIndex + 1) == DisplayMonth.Month)">@renderData.Months[monthIndex]</option>
+						<option value="@monthIndex">@renderData.Months[monthIndex]</option>
 					}
 				</select>
 			</div>
