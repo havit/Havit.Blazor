@@ -20,17 +20,17 @@
 		</div>
 
 		<div class="input-group mx-1">
-			<select class="form-select form-select-sm" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
-				@foreach (int year in renderData.Years)
-				{
-					<option value="@year">@year.ToString("G")</option>
-					/* not "N" - we do not want thousands separator */
-				}
-			</select>
 			<select class="form-select form-select-sm" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
 				@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
 				{
 					<option value="@monthIndex">@renderData.Months[monthIndex]</option>
+				}
+			</select>
+			<select class="form-select form-select-sm" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
+				@foreach (int year in renderData.Years)
+				{
+					/* not "N" - we do not want thousands separator */
+					<option value="@year">@year.ToString()</option>
 				}
 			</select>
 		</div>
