@@ -19,6 +19,10 @@ td {
     background: var(--hx-calendar-day-hover-background);
 }
 
+.day-names td {
+    color: var(--hx-calendar-day-names-color);
+}
+
 .day-names td, .week td {
     padding: var(--hx-calendar-day-padding);
     font-size: var(--hx-calendar-font-size);
@@ -32,10 +36,10 @@ td {
     color: var(--hx-calendar-day-in-color);
 }
 
-.in.selected, 
-.in.selected:hover, 
-.out.selected, 
-.out.selected:hover {
+.selected.in, 
+.selected.in:hover, 
+.selected.out, 
+.selected.out:hover {
     background: var(--hx-calendar-day-selected-background);
     color: var(--hx-calendar-day-selected-color);
 }
