@@ -40,6 +40,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
+		private RenderData renderData;
+
 		protected override async Task OnParametersSetAsync()
 		{
 			await base.OnParametersSetAsync();
@@ -53,26 +55,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				await SetDisplayMonthAsync(Value.Value);
 			}
 
+			UpdateRenderData();
 		}
 
-		private RenderData GetRenderData()
+		private RenderData UpdateRenderData()
 		{
-			RenderData result = new RenderData();
-			result.DaysOfWeek = new List<string>(7);
+			renderData = new RenderData();
+			renderData.DaysOfWeek = new List<string>(7);
 
-			string[] dayNames = Culture.DateTimeFormat.ShortestDayNames;
+			string[] dayNames = Culture.DateTimeFormat.AbbreviatedDayNames;
 			DayOfWeek firstDayOfWeek = this.FirstDayOfWeek;
 
-			result.Years = Enumerable.Range(MinYear, MaxYear - MinYear + 1).Reverse().ToList();
+			renderData.Years = Enumerable.Range(MinYear, MaxYear - MinYear + 1).Reverse().ToList();
 
 			for (int i = 0; i < 7; i++)
 			{
-				result.DaysOfWeek.Add(dayNames[((int)firstDayOfWeek + i) % 7]);
+				renderData.DaysOfWeek.Add(dayNames[((int)firstDayOfWeek + i) % 7]);
 			}
 
-			result.Months = Culture.DateTimeFormat.MonthNames.Take(12).ToList(); // returns 13 items, see https://docs.microsoft.com/en-us/dotnet/api/system.globalization.datetimeformatinfo.monthnames?view=net-5.0
+			renderData.Months = Culture.DateTimeFormat.MonthNames.Take(12).ToList(); // returns 13 items, see https://docs.microsoft.com/en-us/dotnet/api/system.globalization.datetimeformatinfo.monthnames?view=net-5.0
 
-			result.Weeks = new List<WeekData>(6);
+			renderData.Weeks = new List<WeekData>(6);
 
 			DateTime currentDay = FirstDayToDisplay;
 			DateTime valueDay = Value?.Date ?? default;
@@ -105,10 +108,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					weekData.Days.Add(dayData);
 					currentDay = currentDay.AddDays(1);
 				}
-				result.Weeks.Add(weekData);
+				renderData.Weeks.Add(weekData);
 			}
 
-			return result;
+			return renderData;
 
 		}
 
@@ -124,6 +127,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (previousMonth.Year >= MinYear)
 			{
 				await SetDisplayMonthAsync(previousMonth);
+				UpdateRenderData();
 			}
 		}
 
@@ -133,6 +137,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (nextMonth.Year <= MaxYear)
 			{
 				await SetDisplayMonthAsync(nextMonth);
+				UpdateRenderData();
 			}
 		}
 
@@ -140,18 +145,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			int year = int.Parse((string)changeEventArgs.Value);
 			await SetDisplayMonthAsync(new DateTime(year, DisplayMonth.Month, 1));
+			UpdateRenderData();
 		}
 
 		private async Task HandleMonthChangeAsync(ChangeEventArgs changeEventArgs)
 		{
 			int monthIndex = int.Parse((string)changeEventArgs.Value);
 			await SetDisplayMonthAsync(new DateTime(DisplayMonth.Year, monthIndex + 1, 1));
+			UpdateRenderData();
 		}
 
 		private async Task HandleDayClickAsync(DayData day)
 		{
 			Value = day.Date;
 			await ValueChanged.InvokeAsync(day.Date);
+			UpdateRenderData();
 		}
 
 		private class RenderData

@@ -1,67 +1,57 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-@{
-	var renderData = GetRenderData();
-}
-
-
-<div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="From" aria-label="Username">
-  <input type="text" class="form-control" placeholder="To" aria-label="Server">
-  <button class="btn btn-secondary" type="button">
-	  <HxIcon Icon="@BootstrapIcon.ThreeDotsVertical"/>
-  </button>
-</div>
-
 <div class="calendar">
-	<div class="navigation">
-		<div role="button" @onclick="HandlePreviousMonthClickAsync" @onclick:stopPropagation>
-			<HxIcon Icon="@BootstrapIcon.ChevronLeft"/>
-		</div>
+	@if (renderData != null)
+	{
+		<div class="navigation">
+			<div role="button" @onclick="HandlePreviousMonthClickAsync" @onclick:stopPropagation>
+				<HxIcon Icon="@BootstrapIcon.ChevronLeft"/>
+			</div>
 
-		<div class="input-group mx-1">
-			<select class="form-select form-select-sm" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
-				@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
-				{
-					<option value="@monthIndex">@renderData.Months[monthIndex]</option>
-				}
-			</select>
-			<select class="form-select form-select-sm" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
-				@foreach (int year in renderData.Years)
-				{
-					/* not "N" - we do not want thousands separator */
-					<option value="@year">@year.ToString()</option>
-				}
-			</select>
-		</div>
-
-		<div role="button" @onclick="HandleNextMonthClickAsync" @onclick:stopPropagation>
-			<HxIcon Icon="@BootstrapIcon.ChevronRight"/>
-		</div>
-	</div>
-
-	<table>
-		<tr class="day-names fw-bold">
-			@foreach (string dayOfWeek in renderData.DaysOfWeek)
-			{
-				<td>@dayOfWeek</td>
-			}
-		</tr>
-		@foreach (WeekData week in renderData.Weeks)
-		{
-			<tr class="week">
-				@foreach (DayData day in week.Days)
-				{
-					if (day.ClickEnabled)
+			<div class="input-group mx-1">
+				<select class="form-select form-select-sm" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
+					@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
 					{
-						<td class="@day.CssClass" role="button" @onclick="async () => await HandleDayClickAsync(day)" @onclick:stopPropagation>@day.DayInMonth</td>
+						<option value="@monthIndex">@renderData.Months[monthIndex]</option>
 					}
-					else
+				</select>
+				<select class="form-select form-select-sm" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
+					@foreach (int year in renderData.Years)
 					{
-						<td class="@day.CssClass">@day.DayInMonth</td>
+						/* not "N" - we do not want thousands separator */
+						<option value="@year">@year.ToString()</option>
 					}
+				</select>
+			</div>
+
+			<div role="button" @onclick="HandleNextMonthClickAsync" @onclick:stopPropagation>
+				<HxIcon Icon="@BootstrapIcon.ChevronRight"/>
+			</div>
+		</div>
+
+		<table>
+			<tr class="day-names fw-bold">
+				@foreach (string dayOfWeek in renderData.DaysOfWeek)
+				{
+					<td>@dayOfWeek</td>
 				}
 			</tr>
-		}
-	</table>
+			@foreach (WeekData week in renderData.Weeks)
+			{
+				<tr class="week">
+					@foreach (DayData day in week.Days)
+					{
+						if (day.ClickEnabled)
+						{
+							<td class="@day.CssClass" role="button" @onclick="async () => await HandleDayClickAsync(day)" @onclick:stopPropagation>@day.DayInMonth</td>
+						}
+						else
+						{
+							<td class="@day.CssClass">@day.DayInMonth</td>
+						}
+					}
+				</tr>
+			}
+		</table>
+	}
 </div>
