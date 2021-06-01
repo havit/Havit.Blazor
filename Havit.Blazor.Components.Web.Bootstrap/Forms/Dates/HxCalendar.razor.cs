@@ -76,6 +76,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			DateTime currentDay = FirstDayToDisplay;
 			DateTime valueDay = Value?.Date ?? default;
+			DateTime today = DateTime.Today;
 
 			for (var week = 0; week < 6; week++)
 			{
@@ -90,6 +91,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 						clickEnabled ? "active" : "disabled",
 						(currentDay == valueDay) ? "selected" : null,  // currently selected day has "selected" class
 						((currentDay.Month == DisplayMonth.Month) && (currentDay.Year == DisplayMonth.Year)) ? "in" : "out",
+						(currentDay == today) ? "today" : null,
 						((currentDay.DayOfWeek == DayOfWeek.Saturday) || (currentDay.DayOfWeek == DayOfWeek.Sunday)) ? "weekend" : null
 					);
 
