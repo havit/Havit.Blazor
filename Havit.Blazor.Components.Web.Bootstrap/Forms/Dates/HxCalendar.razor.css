@@ -28,11 +28,15 @@ td {
     font-size: var(--hx-calendar-font-size);
 }
 
+.today {
+    border-color: var(--hx-calendar-day-today-border-color)
+}
+
 .out {
     color: var(--hx-calendar-day-out-color);
 }
 
-.in:not(:hover) {
+.in {
     color: var(--hx-calendar-day-in-color);
 }
 

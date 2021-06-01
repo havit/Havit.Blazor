@@ -49,6 +49,7 @@
   --hx-calendar-day-out-color: #adb5bd; /* gray-500 */
   --hx-calendar-day-in-color: unset;
   --hx-calendar-day-names-color: unset;
+  --hx-calendar-day-today-border-color: var(--primary);
   --hx-calendar-day-border-radius: 50%;
   --hx-calendar-day-padding: .375rem .5rem;
   --hx-calendar-font-size: 15px;
