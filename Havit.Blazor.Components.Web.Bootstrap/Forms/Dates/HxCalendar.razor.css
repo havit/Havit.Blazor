@@ -10,26 +10,39 @@
 }
 
 td {
+    padding: var(--hx-calendar-day-spacing);
     text-align: center;
+}
+
+td > div {
+
     border: 1px solid transparent;
     border-radius: var(--hx-calendar-day-border-radius);
 }
 
-.week td:hover {
+.week div {
+    width: var(--hx-calendar-day-width);
+    height: var(--hx-calendar-day-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.week div:hover {
     background: var(--hx-calendar-day-hover-background);
 }
 
-.day-names td {
+.day-names div {
     color: var(--hx-calendar-day-names-color);
 }
 
-.day-names td, .week td {
+.day-names div, .week div {
     padding: var(--hx-calendar-day-padding);
     font-size: var(--hx-calendar-font-size);
 }
 
 .today {
-    border-color: var(--hx-calendar-day-today-border-color)
+    border: var(--hx-calendar-day-today-border)
 }
 
 .out {

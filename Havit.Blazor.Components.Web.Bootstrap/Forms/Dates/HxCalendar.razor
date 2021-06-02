@@ -3,7 +3,7 @@
 <div class="calendar">
 	@if (renderData != null)
 	{
-		<div class="navigation">
+		<div class="navigation mb-2">
 			<div role="button" @onclick="HandlePreviousMonthClickAsync" @onclick:stopPropagation>
 				<HxIcon Icon="@BootstrapIcon.ChevronLeft"/>
 			</div>
@@ -41,14 +41,16 @@
 				<tr class="week">
 					@foreach (DayData day in week.Days)
 					{
-						if (day.ClickEnabled)
-						{
-							<td class="@day.CssClass" role="button" @onclick="async () => await HandleDayClickAsync(day)" @onclick:stopPropagation>@day.DayInMonth</td>
-						}
-						else
-						{
-							<td class="@day.CssClass">@day.DayInMonth</td>
-						}
+						<td>
+							@if (day.ClickEnabled)
+							{
+								<div class="@day.CssClass" role="button" @onclick="async () => await HandleDayClickAsync(day)" @onclick:stopPropagation>@day.DayInMonth</div>
+							}
+							else
+							{
+								<div class="@day.CssClass">@day.DayInMonth</div>
+							}
+						</td>
 					}
 				</tr>
 			}
