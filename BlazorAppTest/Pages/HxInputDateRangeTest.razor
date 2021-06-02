@@ -1,3 +1,22 @@
 ﻿@page "/HxInputDateRangeTest"
 
-<Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal />
+<EditForm Model="@model">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+
+	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal @bind-Value="@model.DateTimeRange" />
+	<button type="submit">Submit</button>
+</EditForm>
+
+@code {
+	private FormModel model = new FormModel();
+
+	private class FormModel
+	{
+		public DateTimeRange DateTimeRange { get; set; } = new DateTimeRange
+		{
+			StartDate = new DateTime(2020, 1, 1),
+			EndDate = DateTime.Today
+		};
+	}
+}
