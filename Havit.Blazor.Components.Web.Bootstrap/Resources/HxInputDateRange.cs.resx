@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EndDate" xml:space="preserve">
-    <value>do</value>
+    <value>Do</value>
   </data>
   <data name="LastMonth" xml:space="preserve">
     <value>Minulý měsíc</value>
@@ -130,7 +130,7 @@
     <value>Zadejte období.</value>
   </data>
   <data name="StartDate" xml:space="preserve">
-    <value>od</value>
+    <value>Od</value>
   </data>
   <data name="ThisMonth" xml:space="preserve">
     <value>Tento měsíc</value>

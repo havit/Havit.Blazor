@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="EndDate" xml:space="preserve">
-    <value>to</value>
+    <value>To</value>
   </data>
   <data name="LastMonth" xml:space="preserve">
     <value>Last month</value>
@@ -130,7 +130,7 @@
     <value>Enter date range.</value>
   </data>
   <data name="StartDate" xml:space="preserve">
-    <value>from</value>
+    <value>From</value>
   </data>
   <data name="ThisMonth" xml:space="preserve">
     <value>This month</value>

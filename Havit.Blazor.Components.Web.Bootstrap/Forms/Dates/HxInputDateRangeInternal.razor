@@ -1,14 +1,17 @@
-﻿<div class="input-group mb-3">
-	<input type="text" class="form-control" placeholder="From" />
-	<input type="text" class="form-control" placeholder="To" />
+﻿@namespace  Havit.Blazor.Components.Web.Bootstrap.Internal
+
+<div class="input-group mb-3">
+	<input type="text" class="form-control" placeholder="@Localizer["From"]" />
+	<input type="text" class="form-control" placeholder="@Localizer["To"]" />
 	<div class="dropdown">
-		<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown"> 
+		<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown">
 			<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
 		</button>
 		<ul class="dropdown-menu dropdown-menu-end">
-			<li><a class="dropdown-item" href="#">Today</a></li>
-			<li><a class="dropdown-item" href="#">Tomorow</a></li>
-			<li><a class="dropdown-item" href="#">Toyota</a></li>
+			<li><a class="dropdown-item" href="#">@Localizer["ThisMonth"]</a></li>
+			<li><a class="dropdown-item" href="#">@Localizer["ThisYear"]</a></li>
+			<li><a class="dropdown-item" href="#">@Localizer["LastMonth"]</a></li>
+			<li><a class="dropdown-item" href="#">@Localizer["LastYear"]</a></li>
 		</ul>
 	</div>
 </div>
