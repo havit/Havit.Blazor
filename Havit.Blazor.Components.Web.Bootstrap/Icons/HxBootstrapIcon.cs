@@ -36,7 +36,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.OpenElement(0, "i");
 			builder.AddAttribute(1, "class", CssClassHelper.Combine("hx-icon", "bi-" + Icon.Name, CssClass));
 
-			builder.CloseElement(); // svg
+			builder.CloseElement(); // i
 		}
 	}
 }
