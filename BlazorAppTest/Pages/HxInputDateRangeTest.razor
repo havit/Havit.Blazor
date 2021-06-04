@@ -1,4 +1,5 @@
 ﻿@page "/HxInputDateRangeTest"
+@namespace System.ComponentModel.DataAnnotations
 
 <EditForm Model="@model">
 	<DataAnnotationsValidator />
@@ -11,12 +12,27 @@
 @code {
 	private FormModel model = new FormModel();
 
-	private class FormModel
+	private class FormModel : IValidatableObject
 	{
 		public DateTimeRange DateTimeRange { get; set; } = new DateTimeRange
 		{
 			StartDate = new DateTime(2020, 1, 1),
 			EndDate = DateTime.Today
 		};
+
+		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+		{
+			if (DateTimeRange.StartDate == null)
+			{
+				yield return new ValidationResult("Zadejte start date.", new string[] { nameof(DateTimeRange) });
+			}
+			else
+			{
+				if (DateTimeRange.StartDate.Value.Year != 2021)
+				{
+					yield return new ValidationResult("Start date musí být v roce 2021.", new string[] { nameof(DateTimeRange) });
+				}
+			}
+		}
 	}
 }

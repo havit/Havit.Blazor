@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
@@ -13,8 +15,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 	{
 		[Inject] public IStringLocalizer<HxInputDateRange> Localizer { get; set; }
 
+		[Inject] protected IJSRuntime JSRuntime { get; set; }
+
+		private bool previousParsingFromAttemptFailed;
+		private bool previousParsingToAttemptFailed;
 		private ValidationMessageStore fromValidationMessageStore;
 		private ValidationMessageStore toValidationMessageStore;
+
+		private ElementReference fromInputElement;
+		private ElementReference toInputElement;
+		private IJSObjectReference jsModule;
+
+		protected override async Task OnInitializedAsync()
+		{
+			await base.OnInitializedAsync();
+			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxinputdaterange.js");
+		}
 
 		protected override bool TryParseValueFromString(string value, out DateTimeRange result, out string validationErrorMessage)
 		{
@@ -34,12 +50,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		protected void HandleFromChange(ChangeEventArgs changeEventArgs)
 		{
-			//bool parsingFailed;
-			fromValidationMessageStore?.Clear();
+			bool parsingFailed;
 
 			if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString((string)changeEventArgs.Value, null, out var fromDate))
 			{
-				//parsingFailed = false;
+				parsingFailed = false;
+				fromValidationMessageStore?.Clear();
 				CurrentValue = new DateTimeRange
 				{
 					StartDate = fromDate?.DateTime,
@@ -48,24 +64,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 			else
 			{
-				//parsingFailed = true;
+				parsingFailed = true;
 
 				fromValidationMessageStore ??= new ValidationMessageStore(EditContext);
+				fromValidationMessageStore.Clear();
 				fromValidationMessageStore.Add(this.FieldIdentifier, "Zadej správně FROM.");
 			}
 
-			// TODO: Jen při změně
-			EditContext.NotifyValidationStateChanged();
+			// We can skip the validation notification if we were previously valid and still are
+			if (parsingFailed || previousParsingFromAttemptFailed)
+			{
+				EditContext.NotifyValidationStateChanged();
+				previousParsingFromAttemptFailed = parsingFailed;
+			}
 		}
 
 		protected void HandleToChange(ChangeEventArgs changeEventArgs)
 		{
-			//bool parsingFailed;
-			toValidationMessageStore?.Clear();
+			bool parsingFailed;
 
 			if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString((string)changeEventArgs.Value, null, out var toDate))
 			{
-				//parsingFailed = false;
+				parsingFailed = false;
+				toValidationMessageStore?.Clear();
 				CurrentValue = new DateTimeRange
 				{
 					StartDate = Value.StartDate,
@@ -74,49 +95,131 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 			else
 			{
-				//parsingFailed = true;
+				parsingFailed = true;
 
 				toValidationMessageStore ??= new ValidationMessageStore(EditContext);
+				toValidationMessageStore.Clear();
 				toValidationMessageStore.Add(this.FieldIdentifier, "Zadej správně TO.");
 			}
 
-			// TODO: Jen při změně
-			EditContext.NotifyValidationStateChanged();
+			// We can skip the validation notification if we were previously valid and still are
+			if (parsingFailed || previousParsingToAttemptFailed)
+			{
+				EditContext.NotifyValidationStateChanged();
+				previousParsingToAttemptFailed = parsingFailed;
+			}
 		}
 
 		protected async Task HandleFromFocusAsync()
 		{
-			await Task.Yield();
+			await CloseDropDownAsync(toInputElement);
 		}
-
-		protected async Task HandleFromBlurAsync()
-		{
-			await Task.Yield();
-		}
-
-
 
 		protected async Task HandleToFocusAsync()
 		{
-			await Task.Yield();
+			await CloseDropDownAsync(fromInputElement);
 		}
 
-		protected async Task HandleToBlurAsync()
+		private async Task HandleFromClearClickAsync()
 		{
-			await Task.Yield();
+			CurrentValue = new DateTimeRange
+			{
+				StartDate = null,
+				EndDate = Value.EndDate
+			};
+
+			if (previousParsingFromAttemptFailed)
+			{
+				previousParsingFromAttemptFailed = false;
+				fromValidationMessageStore.Clear();
+				EditContext.NotifyValidationStateChanged();
+			}
+
+			await CloseDropDownAsync(fromInputElement);
 		}
 
-		//	parsingFailed = true;
+		private async Task HandleToClearClickAsync()
+		{
+			CurrentValue = new DateTimeRange
+			{
+				StartDate = Value.StartDate,
+				EndDate = null
+			};
 
-		//                   if (_parsingValidationMessages == null)
-		//                   {
-		//                       _parsingValidationMessages = new ValidationMessageStore(EditContext);
-		//}
+			if (previousParsingToAttemptFailed)
+			{
+				previousParsingToAttemptFailed = false;
+				toValidationMessageStore.Clear();
+				EditContext.NotifyValidationStateChanged();
+			}
 
-		//_parsingValidationMessages.Add(FieldIdentifier, validationErrorMessage);
+			await CloseDropDownAsync(toInputElement);
+		}
 
-		//                   // Since we're not writing to CurrentValue, we'll need to notify about modification from here
-		//                   EditContext.NotifyFieldChanged(FieldIdentifier);
-		//               }
+		private async Task HandleFromOKClickAsync()
+		{
+			await CloseDropDownAsync(fromInputElement);
+		}
+
+		private async Task HandleToOKClickAsync()
+		{
+			await CloseDropDownAsync(toInputElement);
+		}
+
+		private async Task OpenDropDownAsync(ElementReference triggerElement)
+		{
+			await jsModule.InvokeVoidAsync("open", triggerElement);
+		}
+
+		private async Task CloseDropDownAsync(ElementReference triggerElement)
+		{
+			await jsModule.InvokeVoidAsync("destroy", triggerElement);
+		}
+
+		private async Task HandleFromCalendarValueChangedAsync(DateTime? date)
+		{
+			CurrentValue = new DateTimeRange
+			{
+				StartDate = date,
+				EndDate = Value.EndDate
+			};
+
+			if (previousParsingFromAttemptFailed)
+			{
+				previousParsingFromAttemptFailed = false;
+				fromValidationMessageStore.Clear();
+				EditContext.NotifyValidationStateChanged();
+			}
+
+			await CloseDropDownAsync(fromInputElement);
+			await OpenDropDownAsync(toInputElement);
+		}
+
+		private async Task HandleToCalendarValueChanged(DateTime? date)
+		{
+			CurrentValue = new DateTimeRange
+			{
+				StartDate = Value.StartDate,
+				EndDate = date
+			};
+
+			if (previousParsingToAttemptFailed)
+			{
+				previousParsingToAttemptFailed = false;
+				toValidationMessageStore.Clear();
+				EditContext.NotifyValidationStateChanged();
+			}
+
+			await CloseDropDownAsync(toInputElement);
+		}
+
+		// <inheritdoc />
+		public async ValueTask DisposeAsync()
+		{
+			await CloseDropDownAsync(fromInputElement);
+			await CloseDropDownAsync(toInputElement);
+
+			await jsModule.DisposeAsync();
+		}
 	}
 }

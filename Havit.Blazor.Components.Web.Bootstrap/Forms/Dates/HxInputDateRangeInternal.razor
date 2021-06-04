@@ -1,17 +1,28 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 @inherits Microsoft.AspNetCore.Components.Forms.InputBase<DateTimeRange>
+@using Microsoft.Extensions.Logging
 
 <div class="input-group mb-3">
 	<div class="dropdown">
-		<input type="text" class="form-control" value="@FormatDate(Value.StartDate)" placeholder="@Localizer["From"]" data-bs-toggle="dropdown" data-bs-auto-close="false" @onchange="HandleFromChange" @onfocus="HandleFromFocusAsync" @onblur="HandleFromBlurAsync" >
-		<input type="text" class="form-control" value="@FormatDate(Value.EndDate)" placeholder="@Localizer["To"]" data-bs-toggle="dropdown" data-bs-auto-close="false" @onchange="HandleToChange" @onfocus="HandleToFocusAsync" @onblur="HandleToBlurAsync" />
+		<input type="text" @ref="fromInputElement" class="form-control" value="@FormatDate(Value.StartDate)" placeholder="@Localizer["From"]" @onchange="HandleFromChange" @onfocus="HandleFromFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" />
 		<div class="dropdown-menu">
-			<HxCalendar />
+			<HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" />
 			@*TODO: String localization*@
-			<HxButton Text="Clear" Color="ThemeColor.Secondary" />
-			<HxButton Text="OK" Color="ThemeColor.Secondary" />
+			<HxButton Text="Clear" Color="ThemeColor.Secondary" OnClick="HandleFromClearClickAsync" />
+			<HxButton Text="OK" Color="ThemeColor.Secondary" OnClick="HandleFromOKClickAsync" />
 		</div>
 	</div>
+
+	<div class="dropdown">
+		<input type="text" @ref="toInputElement" class="form-control" value="@FormatDate(Value.EndDate)" placeholder="@Localizer["To"]" @onchange="HandleToChange" @onfocus="HandleToFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" />
+		<div class="dropdown-menu">
+			<HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" />
+			@*TODO: String localization*@
+			<HxButton Text="Clear" Color="ThemeColor.Secondary" OnClick="HandleToClearClickAsync" />
+			<HxButton Text="OK" Color="ThemeColor.Secondary" OnClick="HandleToOKClickAsync" />
+		</div>
+	</div>
+
 	<div class="dropdown">
 		<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown">
 			<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
@@ -23,4 +34,6 @@
 			<li><a class="dropdown-item" href="#">@Localizer["LastYear"]</a></li>
 		</ul>
 	</div>
+	@*<div class="is-invalid"></div>
+		<HxValidationMessage For="@ValueExpression" />*@
 </div>
