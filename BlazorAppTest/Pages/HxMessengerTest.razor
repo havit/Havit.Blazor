@@ -8,6 +8,8 @@
 <HxButton Text="Add warning" OnClick="HandleAddWarningButtonClick" Color="ThemeColor.Warning" />
 <HxButton Text="Add error" OnClick="HandleAddErrorButtonClick" Color="ThemeColor.Danger" />
 <HxButton Text="With redirect" OnClick="HandleWithRedirect" Color="ThemeColor.Info" />
+<br/>
+<HxButton Text="Clear" OnClick="Messenger.Clear" Color="ThemeColor.Secondary" />
 
 @code{
 	[Inject] protected IHxMessengerService Messenger { get; set; }

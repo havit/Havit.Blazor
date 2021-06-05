@@ -27,14 +27,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			base.OnInitialized();
 
-			Messenger.OnMessage += Messenger_OnMessage;
+			Messenger.OnMessage += HandleMessage;
+			Messenger.OnClear += HandleClear;
 		}
 
-		private void Messenger_OnMessage(MessengerMessage message)
+		private void HandleMessage(MessengerMessage message)
 		{
 			InvokeAsync(() =>
 			{
 				messages.Add(message);
+
+				StateHasChanged();
+			});
+		}
+
+		private void HandleClear()
+		{
+			InvokeAsync(() =>
+			{
+				messages.Clear();
 
 				StateHasChanged();
 			});
@@ -50,7 +61,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		public void Dispose()
 		{
-			Messenger.OnMessage -= Messenger_OnMessage;
+			Messenger.OnMessage -= HandleMessage;
+			Messenger.OnClear -= HandleClear;
 		}
 	}
 }

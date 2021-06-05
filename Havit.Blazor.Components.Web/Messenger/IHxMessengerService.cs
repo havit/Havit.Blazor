@@ -15,8 +15,18 @@ namespace Havit.Blazor.Components.Web
 		public event Action<MessengerMessage> OnMessage;
 
 		/// <summary>
+		/// Subscription seam for HxMessenger component to be able to receive Clear() command.
+		/// </summary>
+		public event Action OnClear;
+
+		/// <summary>
 		/// Adds and shows message.
 		/// </summary>
 		public void AddMessage(MessengerMessage message);
+
+		/// <summary>
+		/// Removes all messages.
+		/// </summary>
+		public void Clear();
 	}
 }

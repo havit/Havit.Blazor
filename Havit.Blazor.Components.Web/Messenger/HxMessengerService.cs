@@ -12,9 +12,18 @@ namespace Havit.Blazor.Components.Web
 		public event Action<MessengerMessage> OnMessage;
 
 		/// <inheritdoc />
+		public event Action OnClear;
+
+		/// <inheritdoc />
 		public void AddMessage(MessengerMessage message)
 		{
 			OnMessage?.Invoke(message);
+		}
+
+		/// <inheritdoc />
+		public void Clear()
+		{
+			OnClear?.Invoke();
 		}
 	}
 }
