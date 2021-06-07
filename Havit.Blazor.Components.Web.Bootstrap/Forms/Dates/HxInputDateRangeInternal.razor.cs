@@ -17,10 +17,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
+		[Parameter] public bool ShowValidationMessage { get; set; } = true;
+
 		private bool fromPreviousParsingAttemptFailed;
 		private bool toPreviousParsingAttemptFailed;
 		private ValidationMessageStore fromValidationMessageStore;
 		private ValidationMessageStore toValidationMessageStore;
+
+		private FieldIdentifier fromFieldIdentifier;
+		private FieldIdentifier toFieldIdentifier;
 
 		private ElementReference fromInputElement;
 		private ElementReference toInputElement;
@@ -30,6 +35,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			await base.OnInitializedAsync();
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxinputdaterange.js");
+		}
+
+		protected override void OnParametersSet()
+		{
+			base.OnParametersSet();
+			fromFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.StartDate));
+			toFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.EndDate));
 		}
 
 		protected override bool TryParseValueFromString(string value, out DateTimeRange result, out string validationErrorMessage)
@@ -48,6 +60,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			return date.Value.ToShortDateString();
 		}
 
+		protected override async Task OnAfterRenderAsync(bool firstRender)
+		{
+			await base.OnAfterRenderAsync(firstRender);
+
+			bool fromValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(fromFieldIdentifier).Any();
+			bool toValid = !EditContext.GetValidationMessages(toFieldIdentifier).Any();
+			await jsModule.InvokeVoidAsync(fromValid ? "setInputValid" : "setInputInvalid", fromInputElement);
+			await jsModule.InvokeVoidAsync(toValid ? "setInputValid" : "setInputInvalid", toInputElement);
+		}
+
 		protected void HandleFromChange(ChangeEventArgs changeEventArgs)
 		{
 			bool parsingFailed;
@@ -61,6 +83,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					StartDate = fromDate?.DateTime,
 					EndDate = Value.EndDate
 				};
+				// TODO: Notify.FieldChanged vs. From/To_FieldIdentifier?
+
 			}
 			else
 			{
@@ -68,7 +92,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 				fromValidationMessageStore ??= new ValidationMessageStore(EditContext);
 				fromValidationMessageStore.Clear();
-				fromValidationMessageStore.Add(this.FieldIdentifier, "Zadej správně FROM.");
+				fromValidationMessageStore.Add(fromFieldIdentifier, "Zadej správně FROM.");
 			}
 
 			// We can skip the validation notification if we were previously valid and still are
@@ -92,6 +116,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					StartDate = Value.StartDate,
 					EndDate = toDate?.DateTime
 				};
+				// TODO: Notify.FieldChanged vs. From/To_FieldIdentifier?
 			}
 			else
 			{
@@ -99,7 +124,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 				toValidationMessageStore ??= new ValidationMessageStore(EditContext);
 				toValidationMessageStore.Clear();
-				toValidationMessageStore.Add(this.FieldIdentifier, "Zadej správně TO.");
+				toValidationMessageStore.Add(toFieldIdentifier, "Zadej správně TO.");
 			}
 
 			// We can skip the validation notification if we were previously valid and still are
@@ -127,6 +152,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				StartDate = null,
 				EndDate = Value.EndDate
 			};
+			// TODO: Notify.FieldChanged vs. From/To_FieldIdentifier?
 
 			if (fromPreviousParsingAttemptFailed)
 			{
@@ -145,6 +171,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				StartDate = Value.StartDate,
 				EndDate = null
 			};
+			// TODO: Notify.FieldChanged vs. From/To_FieldIdentifier?
 
 			if (toPreviousParsingAttemptFailed)
 			{
@@ -183,6 +210,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				StartDate = date,
 				EndDate = Value.EndDate
 			};
+			// TODO: Notify.FieldChanged vs. From/To_FieldIdentifier?
 
 			if (fromPreviousParsingAttemptFailed)
 			{
@@ -202,6 +230,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				StartDate = Value.StartDate,
 				EndDate = date
 			};
+			// TODO: Notify.FieldChanged vs. From/To_FieldIdentifier?
 
 			if (toPreviousParsingAttemptFailed)
 			{

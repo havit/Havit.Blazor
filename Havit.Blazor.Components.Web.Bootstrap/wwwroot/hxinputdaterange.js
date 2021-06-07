@@ -9,3 +9,11 @@ export function destroy(triggerElement) {
         dropdown.dispose();
     }
 }
+
+export function setInputValid(inputElement) {
+    inputElement.classList.remove("is-invalid");
+}
+
+export function setInputInvalid(inputElement) {
+    inputElement.classList.add("is-invalid");
+}

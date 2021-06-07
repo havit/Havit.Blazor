@@ -16,7 +16,7 @@
 	{
 		public DateTimeRange DateTimeRange { get; set; } = new DateTimeRange
 		{
-			StartDate = new DateTime(2020, 1, 1),
+			StartDate = new DateTime(2021, 1, 1),
 			EndDate = DateTime.Today
 		};
 
@@ -28,9 +28,9 @@
 			}
 			else
 			{
-				if (DateTimeRange.StartDate.Value.Year != 2021)
+				if (DateTimeRange.StartDate.Value.Year != 2020)
 				{
-					yield return new ValidationResult("Start date musí být v roce 2021.", new string[] { nameof(DateTimeRange) });
+					yield return new ValidationResult("Start date musí být v roce 2020.", new string[] { nameof(DateTimeRange) });
 				}
 			}
 		}

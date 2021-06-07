@@ -12,10 +12,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Displays a list of validation messages for a specified field within a cascaded <see cref="EditContext"/>.
 	/// </summary>
-	public class HxValidationMessage<TValue> : ComponentBase, IDisposable
+	public class HxValidationMessage : ComponentBase, IDisposable
 	{
 		private EditContext previousEditContext;
-		private Expression<Func<TValue>> previousFieldAccessor;
+		private Expression<Func<object>> previousFor;
 		private readonly EventHandler<ValidationStateChangedEventArgs> validationStateChangedHandler;
 		private FieldIdentifier fieldIdentifier;
 		private EditContext currentEditContext;
@@ -32,11 +32,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Specifies the field for which validation messages should be displayed.
+		/// Mutual exclusive with <see cref="ForFieldName"/>.
 		/// </summary>
-		[Parameter] public Expression<Func<TValue>> For { get; set; }
+		[Parameter] public Expression<Func<object>> For { get; set; }
 
 		/// <summary>
-		/// Constructs an instance of <see cref="HxValidationMessage{TValue}"/>.
+		/// Specifies the field for which validation messages should be displayed.
+		/// Mutual exclusive with <see cref="For"/>.
+		/// </summary>
+		[Parameter] public string ForFieldName { get; set; }
+
+		/// <summary>
+		/// Constructs an instance of <see cref="HxValidationMessage"/>.
 		/// </summary>
 		public HxValidationMessage()
 		{
@@ -54,14 +61,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				throw new InvalidOperationException($"{GetType()} requires a cascading parameter of type {nameof(Microsoft.AspNetCore.Components.Forms.EditContext)} or {nameof(EditContext)} property set. Use {GetType()} inside an {nameof(EditForm)}.");
 			}
 
-			if (For == null) // Not possible except if you manually specify T
+			if (For == null && String.IsNullOrEmpty(ForFieldName))
 			{
-				throw new InvalidOperationException($"{GetType()} requires a value for the {nameof(For)} parameter.");
+				throw new InvalidOperationException($"{GetType()} requires a value for the {nameof(For)} or {nameof(ForFieldName)} parameter.");
 			}
-			else if (For != previousFieldAccessor)
+
+			if (For != null && !String.IsNullOrEmpty(ForFieldName))
+			{
+				throw new InvalidOperationException($"{GetType()} requires a value for the {nameof(For)} or {nameof(ForFieldName)} parameter, but not both parameters.");
+			}
+
+			if ((For != null) && (For != previousFor))
 			{
 				fieldIdentifier = FieldIdentifier.Create(For);
-				previousFieldAccessor = For;
+				previousFor = For;
+			}
+
+			if (!String.IsNullOrEmpty(ForFieldName) && (ForFieldName != fieldIdentifier.FieldName))
+			{
+				fieldIdentifier = new FieldIdentifier(currentEditContext.Model, ForFieldName);
 			}
 
 			if (currentEditContext != previousEditContext)

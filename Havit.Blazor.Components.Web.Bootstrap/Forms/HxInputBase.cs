@@ -330,7 +330,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Renders validation message (component <see cref="HxValidationMessage{TValue}" />) when not disabled (<seealso cref="ShowValidationMessage" />).
+		/// Renders validation message (component <see cref="HxValidationMessage" />) when not disabled (<seealso cref="ShowValidationMessage" />).
 		/// </summary>
 		protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
 		{
@@ -339,12 +339,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				//<div class="invalid-feedback">
 				//Please provide a valid city.
 				//</div>
-				builder.OpenComponent<HxValidationMessage<TValue>>(1);
+				builder.OpenComponent<HxValidationMessage>(1);
 				if (autoCreatedEditContext != null)
 				{
-					builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.EditContext), autoCreatedEditContext);
+					builder.AddAttribute(2, nameof(HxValidationMessage.EditContext), autoCreatedEditContext);
 				}
-				builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.For), ValueExpression);
+				builder.AddAttribute(3, nameof(HxValidationMessage.For), ValueExpression);
 				builder.CloseComponent();
 			}
 		}
