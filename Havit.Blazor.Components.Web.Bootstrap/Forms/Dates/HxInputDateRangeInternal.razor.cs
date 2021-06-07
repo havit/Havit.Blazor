@@ -17,8 +17,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-		private bool previousParsingFromAttemptFailed;
-		private bool previousParsingToAttemptFailed;
+		private bool fromPreviousParsingAttemptFailed;
+		private bool toPreviousParsingAttemptFailed;
 		private ValidationMessageStore fromValidationMessageStore;
 		private ValidationMessageStore toValidationMessageStore;
 
@@ -72,10 +72,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 
 			// We can skip the validation notification if we were previously valid and still are
-			if (parsingFailed || previousParsingFromAttemptFailed)
+			if (parsingFailed || fromPreviousParsingAttemptFailed)
 			{
 				EditContext.NotifyValidationStateChanged();
-				previousParsingFromAttemptFailed = parsingFailed;
+				fromPreviousParsingAttemptFailed = parsingFailed;
 			}
 		}
 
@@ -103,10 +103,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 
 			// We can skip the validation notification if we were previously valid and still are
-			if (parsingFailed || previousParsingToAttemptFailed)
+			if (parsingFailed || toPreviousParsingAttemptFailed)
 			{
 				EditContext.NotifyValidationStateChanged();
-				previousParsingToAttemptFailed = parsingFailed;
+				toPreviousParsingAttemptFailed = parsingFailed;
 			}
 		}
 
@@ -128,9 +128,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				EndDate = Value.EndDate
 			};
 
-			if (previousParsingFromAttemptFailed)
+			if (fromPreviousParsingAttemptFailed)
 			{
-				previousParsingFromAttemptFailed = false;
+				fromPreviousParsingAttemptFailed = false;
 				fromValidationMessageStore.Clear();
 				EditContext.NotifyValidationStateChanged();
 			}
@@ -146,9 +146,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				EndDate = null
 			};
 
-			if (previousParsingToAttemptFailed)
+			if (toPreviousParsingAttemptFailed)
 			{
-				previousParsingToAttemptFailed = false;
+				toPreviousParsingAttemptFailed = false;
 				toValidationMessageStore.Clear();
 				EditContext.NotifyValidationStateChanged();
 			}
@@ -184,9 +184,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				EndDate = Value.EndDate
 			};
 
-			if (previousParsingFromAttemptFailed)
+			if (fromPreviousParsingAttemptFailed)
 			{
-				previousParsingFromAttemptFailed = false;
+				fromPreviousParsingAttemptFailed = false;
 				fromValidationMessageStore.Clear();
 				EditContext.NotifyValidationStateChanged();
 			}
@@ -203,9 +203,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				EndDate = date
 			};
 
-			if (previousParsingToAttemptFailed)
+			if (toPreviousParsingAttemptFailed)
 			{
-				previousParsingToAttemptFailed = false;
+				toPreviousParsingAttemptFailed = false;
 				toValidationMessageStore.Clear();
 				EditContext.NotifyValidationStateChanged();
 			}
