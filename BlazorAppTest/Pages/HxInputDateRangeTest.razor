@@ -6,11 +6,18 @@
 	<ValidationSummary />
 
 	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal @bind-Value="@model.DateTimeRange" />
+	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal @bind-Value="@model.DateTimeRange" DateRanges="@GetDateRanges()" />
 	<button type="submit">Submit</button>
 </EditForm>
 
 @code {
 	private FormModel model = new FormModel();
+
+	private IEnumerable<DateRangeItem> GetDateRanges()
+	{
+		yield return new DateRangeItem { Label = "Dnes", DateRange = new DateTimeRange { StartDate = DateTime.Today, EndDate = DateTime.Today } };
+		yield return new DateRangeItem { Label = "Celý rok", DateRange = new DateTimeRange { StartDate = new DateTime(DateTime.Today.Year, 1, 1), EndDate = new DateTime(DateTime.Today.Year, 12, 31) } };
+	}
 
 	private class FormModel : IValidatableObject
 	{

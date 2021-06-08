@@ -10,7 +10,7 @@
 			<input type="text" @ref="fromInputElement" class="form-control" value="@FormatDate(Value.StartDate)" placeholder="@Localizer["From"]" @onchange="HandleFromChange" @onfocus="HandleFromFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" />
 			@if (ShowValidationMessage)
 			{
-				<HxValidationMessage TValue="DateTimeRange" ForFieldName="@FieldIdentifier.FieldName"/>
+				<HxValidationMessage TValue="DateTimeRange" For="ValueExpression"/>
 				<HxValidationMessage TValue="DateTimeRange" ForFieldName="@fromFieldIdentifier.FieldName" />
 			}
 			<div class="dropdown-menu">
@@ -34,16 +34,19 @@
 			</div>
 		</div>
 
-		<div class="dropdown">
-			<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown">
-				<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
-			</button>
-			<ul class="dropdown-menu dropdown-menu-end">
-				<li><a class="dropdown-item" href="#">@Localizer["ThisMonth"]</a></li>
-				<li><a class="dropdown-item" href="#">@Localizer["ThisYear"]</a></li>
-				<li><a class="dropdown-item" href="#">@Localizer["LastMonth"]</a></li>
-				<li><a class="dropdown-item" href="#">@Localizer["LastYear"]</a></li>
-			</ul>
-		</div>
+		@if ((DateRanges != null) && DateRanges.Any())
+		{
+			<div class="dropdown">
+				<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown">
+					<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
+				</button>
+				<ul class="dropdown-menu dropdown-menu-end">
+					@foreach (DateRangeItem item in DateRanges)
+					{
+						<li><span class="dropdown-item" role="button" @onclick="() => HandleDateRangeClick(item.DateRange)" @onclick:stopPropagation>@item.Label</span></li>
+					}
+				</ul>
+			</div>
+		}
 	</div>
 }

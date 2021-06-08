@@ -14,11 +14,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
 	public partial class HxInputDateRangeInternal
 	{
+		[Parameter] public bool ShowValidationMessage { get; set; } = true;
+
+		[Parameter] public IEnumerable<DateRangeItem> DateRanges { get; set; }
+
 		[Inject] public IStringLocalizer<HxInputDateRange> Localizer { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-		[Parameter] public bool ShowValidationMessage { get; set; } = true;
 
 		private bool fromPreviousParsingAttemptFailed;
 		private bool toPreviousParsingAttemptFailed;
@@ -150,12 +153,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			};
 			EditContext.NotifyFieldChanged(fromFieldIdentifier);
 
-			if (fromPreviousParsingAttemptFailed)
-			{
-				fromPreviousParsingAttemptFailed = false;
-				fromValidationMessageStore.Clear();
-				EditContext.NotifyValidationStateChanged();
-			}
+			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromValidationMessageStore);
 
 			await CloseDropDownAsync(fromInputElement);
 		}
@@ -169,12 +167,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			};
 			EditContext.NotifyFieldChanged(toFieldIdentifier);
 
-			if (toPreviousParsingAttemptFailed)
-			{
-				toPreviousParsingAttemptFailed = false;
-				toValidationMessageStore.Clear();
-				EditContext.NotifyValidationStateChanged();
-			}
+			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toValidationMessageStore);
 
 			await CloseDropDownAsync(toInputElement);
 		}
@@ -210,12 +203,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			};
 			EditContext.NotifyFieldChanged(fromFieldIdentifier);
 
-			if (fromPreviousParsingAttemptFailed)
-			{
-				fromPreviousParsingAttemptFailed = false;
-				fromValidationMessageStore.Clear();
-				EditContext.NotifyValidationStateChanged();
-			}
+			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromValidationMessageStore);
 
 			await CloseDropDownAsync(fromInputElement);
 			await OpenDropDownAsync(toInputElement);
@@ -230,14 +218,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			};
 			EditContext.NotifyFieldChanged(toFieldIdentifier);
 
-			if (toPreviousParsingAttemptFailed)
-			{
-				toPreviousParsingAttemptFailed = false;
-				toValidationMessageStore.Clear();
-				EditContext.NotifyValidationStateChanged();
-			}
+			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toValidationMessageStore);
 
 			await CloseDropDownAsync(toInputElement);
+		}
+
+		protected void HandleDateRangeClick(DateTimeRange value)
+		{
+			CurrentValue = value;
+			EditContext.NotifyFieldChanged(fromFieldIdentifier);
+			EditContext.NotifyFieldChanged(toFieldIdentifier);
+
+			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromValidationMessageStore);
+			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toValidationMessageStore);
+		}
+
+		private void ClearPreviousParsingMessage(ref bool previousParsingAttemptFailed, ValidationMessageStore validationMessageStore)
+		{
+			if (previousParsingAttemptFailed)
+			{
+				previousParsingAttemptFailed = false;
+				validationMessageStore.Clear();
+				EditContext.NotifyValidationStateChanged();
+			}
 		}
 
 		// <inheritdoc />
