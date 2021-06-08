@@ -25,8 +25,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private bool fromPreviousParsingAttemptFailed;
 		private bool toPreviousParsingAttemptFailed;
-		private ValidationMessageStore fromValidationMessageStore;
-		private ValidationMessageStore toValidationMessageStore;
+		private ValidationMessageStore validationMessageStore;
 
 		private FieldIdentifier fromFieldIdentifier;
 		private FieldIdentifier toFieldIdentifier;
@@ -38,6 +37,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		protected override void OnParametersSet()
 		{
 			base.OnParametersSet();
+
+			validationMessageStore ??= new ValidationMessageStore(EditContext);
 			fromFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.StartDate));
 			toFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.EndDate));
 		}
@@ -74,10 +75,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			bool parsingFailed;
 
+			validationMessageStore.Clear(fromFieldIdentifier);
+
 			if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString((string)changeEventArgs.Value, null, out var fromDate))
 			{
 				parsingFailed = false;
-				fromValidationMessageStore?.Clear();
 				CurrentValue = new DateTimeRange
 				{
 					StartDate = fromDate?.DateTime,
@@ -88,10 +90,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			else
 			{
 				parsingFailed = true;
-
-				fromValidationMessageStore ??= new ValidationMessageStore(EditContext);
-				fromValidationMessageStore.Clear();
-				fromValidationMessageStore.Add(fromFieldIdentifier, "Zadej správně FROM.");
+				validationMessageStore.Add(fromFieldIdentifier, "Zadej správně FROM.");
 			}
 
 			// We can skip the validation notification if we were previously valid and still are
@@ -105,11 +104,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		protected void HandleToChange(ChangeEventArgs changeEventArgs)
 		{
 			bool parsingFailed;
+			validationMessageStore.Clear(toFieldIdentifier);
 
 			if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString((string)changeEventArgs.Value, null, out var toDate))
 			{
 				parsingFailed = false;
-				toValidationMessageStore?.Clear();
 				CurrentValue = new DateTimeRange
 				{
 					StartDate = Value.StartDate,
@@ -120,10 +119,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			else
 			{
 				parsingFailed = true;
-
-				toValidationMessageStore ??= new ValidationMessageStore(EditContext);
-				toValidationMessageStore.Clear();
-				toValidationMessageStore.Add(toFieldIdentifier, "Zadej správně TO.");
+				validationMessageStore.Add(toFieldIdentifier, "Zadej správně TO.");
 			}
 
 			// We can skip the validation notification if we were previously valid and still are
@@ -152,8 +148,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				EndDate = Value.EndDate
 			};
 			EditContext.NotifyFieldChanged(fromFieldIdentifier);
-
-			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromValidationMessageStore);
+			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
 
 			await CloseDropDownAsync(fromInputElement);
 		}
@@ -166,8 +161,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				EndDate = null
 			};
 			EditContext.NotifyFieldChanged(toFieldIdentifier);
-
-			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toValidationMessageStore);
+			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
 
 			await CloseDropDownAsync(toInputElement);
 		}
@@ -202,8 +196,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				EndDate = Value.EndDate
 			};
 			EditContext.NotifyFieldChanged(fromFieldIdentifier);
-
-			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromValidationMessageStore);
+			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
 
 			await CloseDropDownAsync(fromInputElement);
 			await OpenDropDownAsync(toInputElement);
@@ -217,8 +210,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				EndDate = date
 			};
 			EditContext.NotifyFieldChanged(toFieldIdentifier);
-
-			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toValidationMessageStore);
+			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
 
 			await CloseDropDownAsync(toInputElement);
 		}
@@ -229,16 +221,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			EditContext.NotifyFieldChanged(fromFieldIdentifier);
 			EditContext.NotifyFieldChanged(toFieldIdentifier);
 
-			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromValidationMessageStore);
-			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toValidationMessageStore);
+			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
+			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
 		}
 
-		private void ClearPreviousParsingMessage(ref bool previousParsingAttemptFailed, ValidationMessageStore validationMessageStore)
+		private void ClearPreviousParsingMessage(ref bool previousParsingAttemptFailed, FieldIdentifier fieldIdentifier)
 		{
 			if (previousParsingAttemptFailed)
 			{
 				previousParsingAttemptFailed = false;
-				validationMessageStore.Clear();
+				validationMessageStore.Clear(fieldIdentifier);
 				EditContext.NotifyValidationStateChanged();
 			}
 		}
