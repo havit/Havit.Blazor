@@ -6,31 +6,48 @@
 
 <HxTooltip Text="@Tooltip" Placement="@TooltipPlacement">
 	<button type="@GetButtonType()"
-			class="@CssClassHelper.Combine("hx-button", GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass)"
+			class="@CssClassHelper.Combine(CoreCssClass, GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass)"
 			@onclick="HandleClick"
 			@onclick:stopPropagation="this.OnClickStopPropagation"
 			disabled="@DisabledEffective"
 			form="@FormId">
 
-		@if ((this.IconEffective is not null) || this.SpinnerEffective)
-		{
-			if (this.SpinnerEffective)
+			@if ((IconPosition == Internal.IconPosition.Start) && ((this.IconEffective is not null) || this.SpinnerEffective))
 			{
-				<HxSpinner Size="SpinnerSize.Small" />
-			}
-			else if (this.IconEffective is not null)
-			{
-				<HxIcon Icon="this.Icon ?? this.Skin?.Icon" />
+				if (this.SpinnerEffective)
+				{
+					<HxSpinner Size="SpinnerSize.Small" />
+				}
+				else if (this.IconEffective is not null)
+				{
+					<HxIcon Icon="this.Icon ?? this.Skin?.Icon" />
+				}
+
+				@if (!String.IsNullOrEmpty(text) || (ChildContent != null))
+				{
+					<span>&nbsp;</span>
+				}
 			}
 
-			@if (!String.IsNullOrEmpty(text) || (ChildContent != null))
+			@text
+			@ChildContent
+
+			@if ((IconPosition == Internal.IconPosition.End) && ((this.IconEffective is not null) || this.SpinnerEffective))
 			{
-				<span>&nbsp;</span>
+				@if (!String.IsNullOrEmpty(text) || (ChildContent != null))
+				{
+					<span>&nbsp;</span>
+				}
+
+				if (this.SpinnerEffective)
+				{
+					<HxSpinner Size="SpinnerSize.Small" />
+				}
+				else if (this.IconEffective is not null)
+				{
+					<HxIcon Icon="this.Icon ?? this.Skin?.Icon" />
+				}
 			}
-		}
 
-		@text
-
-		@ChildContent
 	</button>
 </HxTooltip>

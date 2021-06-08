@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Havit.Blazor.Components.Web.Infrastructure;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
@@ -126,6 +127,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			|| (SingleClickProtection && clickInProgress && (OnClick.HasDelegate || OnValidClick.HasDelegate || OnInvalidClick.HasDelegate));
 
 		private bool clickInProgress;
+
+		protected virtual string CoreCssClass => "hx-button";
+
+		protected virtual IconPosition IconPosition => IconPosition.Start;
 
 		protected string GetText()
 		{
