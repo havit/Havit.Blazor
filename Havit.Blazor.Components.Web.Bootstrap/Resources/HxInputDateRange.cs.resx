@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Clear" xml:space="preserve">
+    <value>Vymazat</value>
+  </data>
   <data name="EndDate" xml:space="preserve">
     <value>Do</value>
   </data>
@@ -125,6 +128,9 @@
   </data>
   <data name="LastYear" xml:space="preserve">
     <value>Minulý rok</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="ParsingErrorMessage" xml:space="preserve">
     <value>Zadejte období.</value>

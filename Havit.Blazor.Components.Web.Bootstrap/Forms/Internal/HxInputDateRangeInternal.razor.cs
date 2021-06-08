@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
@@ -31,12 +32,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private ElementReference toInputElement;
 		private IJSObjectReference jsModule;
 
-		protected override async Task OnInitializedAsync()
-		{
-			await base.OnInitializedAsync();
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxinputdaterange.js");
-		}
-
 		protected override void OnParametersSet()
 		{
 			base.OnParametersSet();
@@ -63,6 +58,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
 			await base.OnAfterRenderAsync(firstRender);
+
+			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxinputdaterange.js");
 
 			bool fromValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(fromFieldIdentifier).Any();
 			bool toValid = !EditContext.GetValidationMessages(toFieldIdentifier).Any();
@@ -194,11 +191,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task OpenDropDownAsync(ElementReference triggerElement)
 		{
+			Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
 			await jsModule.InvokeVoidAsync("open", triggerElement);
 		}
 
 		private async Task CloseDropDownAsync(ElementReference triggerElement)
 		{
+			Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
 			await jsModule.InvokeVoidAsync("destroy", triggerElement);
 		}
 
@@ -244,10 +243,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		// <inheritdoc />
 		public async ValueTask DisposeAsync()
 		{
-			await CloseDropDownAsync(fromInputElement);
-			await CloseDropDownAsync(toInputElement);
+			if (jsModule != null)
+			{
+				await CloseDropDownAsync(fromInputElement);
+				await CloseDropDownAsync(toInputElement);
 
-			await jsModule.DisposeAsync();
+				await jsModule.DisposeAsync();
+			}
 		}
 	}
 }
