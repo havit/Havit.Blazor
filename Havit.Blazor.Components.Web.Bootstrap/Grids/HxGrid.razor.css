@@ -25,3 +25,11 @@
 ::deep .hx-grid-btn:active { 
     color: currentColor;
 }
+
+::deep .hx-context-menu {
+    opacity: 0;
+}
+
+tr:hover ::deep .hx-context-menu {
+    opacity: 1;
+}
