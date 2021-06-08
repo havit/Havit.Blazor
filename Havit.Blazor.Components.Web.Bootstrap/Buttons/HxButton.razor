@@ -6,7 +6,7 @@
 
 <HxTooltip Text="@Tooltip" Placement="@TooltipPlacement">
 	<button type="@GetButtonType()"
-			class="@CssClassHelper.Combine(CoreCssClass, GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass)"
+			class="@GetButtonCssClass()"
 			@onclick="HandleClick"
 			@onclick:stopPropagation="this.OnClickStopPropagation"
 			disabled="@DisabledEffective"

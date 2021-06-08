@@ -132,6 +132,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected virtual IconPosition IconPosition => IconPosition.Start;
 
+		protected virtual string GetButtonCssClass()
+		{
+			return CssClassHelper.Combine(CoreCssClass, GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass);
+		}
+
 		protected string GetText()
 		{
 			if (!String.IsNullOrEmpty(Text))
