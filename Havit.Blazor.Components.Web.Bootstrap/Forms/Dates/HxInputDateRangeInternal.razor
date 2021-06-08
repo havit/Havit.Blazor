@@ -2,53 +2,50 @@
 @inherits Microsoft.AspNetCore.Components.Forms.InputBase<DateTimeRange>
 @using Microsoft.Extensions.Logging
 
-<div class="input-group mb-3">
-	<div class="dropdown">
-		@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-		<input type="text" @ref="fromInputElement" class="form-control" value="@FormatDate(Value.StartDate)" placeholder="@Localizer["From"]" @onchange="HandleFromChange" @onfocus="HandleFromFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" />
-		@if (ShowValidationMessage)
-		{
-			@if (FieldIdentifier.Model != null) // null in OnInitializedAsync rendering
-			{				
-				<HxValidationMessage ForFieldName="@FieldIdentifier.FieldName"/>
-			}
-			@if (fromFieldIdentifier.Model != null) // null in OnInitializedAsync rendering
+@if ((FieldIdentifier.Model != null) && (fromFieldIdentifier.Model != null) && (toFieldIdentifier.Model != null))
+{
+	<div class="input-group mb-3">
+		<div class="dropdown">
+			@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
+			<input type="text" @ref="fromInputElement" class="form-control" value="@FormatDate(Value.StartDate)" placeholder="@Localizer["From"]" @onchange="HandleFromChange" @onfocus="HandleFromFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" />
+			@if (ShowValidationMessage)
 			{
+				<HxValidationMessage ForFieldName="@FieldIdentifier.FieldName"/>
 				<HxValidationMessage ForFieldName="@fromFieldIdentifier.FieldName" />
 			}
-		}
-		<div class="dropdown-menu">
-			<HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" />
-			@*TODO: String localization*@
-			<HxButton Text="Clear" Color="ThemeColor.Secondary" OnClick="HandleFromClearClickAsync" />
-			<HxButton Text="OK" Color="ThemeColor.Secondary" OnClick="HandleFromOKClickAsync" />
+			<div class="dropdown-menu">
+				<HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" />
+				@*TODO: String localization*@
+				<HxButton Text="Clear" Color="ThemeColor.Secondary" OnClick="HandleFromClearClickAsync" />
+				<HxButton Text="OK" Color="ThemeColor.Secondary" OnClick="HandleFromOKClickAsync" />
+			</div>
+		</div>
+
+		<div class="dropdown">
+			@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
+			<input type="text" @ref="toInputElement" class="form-control" value="@FormatDate(Value.EndDate)" placeholder="@Localizer["To"]" @onchange="HandleToChange" @onfocus="HandleToFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" />
+			@if (ShowValidationMessage)
+			{
+				<HxValidationMessage ForFieldName="@toFieldIdentifier.FieldName" />
+			}
+			<div class="dropdown-menu">
+				<HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" />
+				@*TODO: String localization*@
+				<HxButton Text="Clear" Color="ThemeColor.Secondary" OnClick="HandleToClearClickAsync" />
+				<HxButton Text="OK" Color="ThemeColor.Secondary" OnClick="HandleToOKClickAsync" />
+			</div>
+		</div>
+
+		<div class="dropdown">
+			<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown">
+				<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
+			</button>
+			<ul class="dropdown-menu dropdown-menu-end">
+				<li><a class="dropdown-item" href="#">@Localizer["ThisMonth"]</a></li>
+				<li><a class="dropdown-item" href="#">@Localizer["ThisYear"]</a></li>
+				<li><a class="dropdown-item" href="#">@Localizer["LastMonth"]</a></li>
+				<li><a class="dropdown-item" href="#">@Localizer["LastYear"]</a></li>
+			</ul>
 		</div>
 	</div>
-
-	<div class="dropdown">
-		@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-		<input type="text" @ref="toInputElement" class="form-control" value="@FormatDate(Value.EndDate)" placeholder="@Localizer["To"]" @onchange="HandleToChange" @onfocus="HandleToFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" />
-		@if (ShowValidationMessage && (toFieldIdentifier.Model != null)) // null in OnInitializedAsync rendering
-		{
-			<HxValidationMessage ForFieldName="@toFieldIdentifier.FieldName" />
-		}
-		<div class="dropdown-menu">
-			<HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" />
-			@*TODO: String localization*@
-			<HxButton Text="Clear" Color="ThemeColor.Secondary" OnClick="HandleToClearClickAsync" />
-			<HxButton Text="OK" Color="ThemeColor.Secondary" OnClick="HandleToOKClickAsync" />
-		</div>
-	</div>
-
-	<div class="dropdown">
-		<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown">
-			<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
-		</button>
-		<ul class="dropdown-menu dropdown-menu-end">
-			<li><a class="dropdown-item" href="#">@Localizer["ThisMonth"]</a></li>
-			<li><a class="dropdown-item" href="#">@Localizer["ThisYear"]</a></li>
-			<li><a class="dropdown-item" href="#">@Localizer["LastMonth"]</a></li>
-			<li><a class="dropdown-item" href="#">@Localizer["LastYear"]</a></li>
-		</ul>
-	</div>
-</div>
+}

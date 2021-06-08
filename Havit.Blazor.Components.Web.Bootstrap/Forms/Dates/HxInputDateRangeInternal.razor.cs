@@ -83,8 +83,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					StartDate = fromDate?.DateTime,
 					EndDate = Value.EndDate
 				};
-				// TODO: Notify.FieldChanged vs. From/To_FieldIdentifier?
-
+				EditContext.NotifyFieldChanged(fromFieldIdentifier);
 			}
 			else
 			{
@@ -116,7 +115,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					StartDate = Value.StartDate,
 					EndDate = toDate?.DateTime
 				};
-				// TODO: Notify.FieldChanged vs. From/To_FieldIdentifier?
+				EditContext.NotifyFieldChanged(toFieldIdentifier);
 			}
 			else
 			{
@@ -152,7 +151,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				StartDate = null,
 				EndDate = Value.EndDate
 			};
-			// TODO: Notify.FieldChanged vs. From/To_FieldIdentifier?
+			EditContext.NotifyFieldChanged(fromFieldIdentifier);
 
 			if (fromPreviousParsingAttemptFailed)
 			{
@@ -171,7 +170,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				StartDate = Value.StartDate,
 				EndDate = null
 			};
-			// TODO: Notify.FieldChanged vs. From/To_FieldIdentifier?
+			EditContext.NotifyFieldChanged(toFieldIdentifier);
 
 			if (toPreviousParsingAttemptFailed)
 			{
@@ -210,7 +209,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				StartDate = date,
 				EndDate = Value.EndDate
 			};
-			// TODO: Notify.FieldChanged vs. From/To_FieldIdentifier?
+			EditContext.NotifyFieldChanged(fromFieldIdentifier);
 
 			if (fromPreviousParsingAttemptFailed)
 			{
@@ -230,7 +229,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				StartDate = Value.StartDate,
 				EndDate = date
 			};
-			// TODO: Notify.FieldChanged vs. From/To_FieldIdentifier?
+			EditContext.NotifyFieldChanged(toFieldIdentifier);
 
 			if (toPreviousParsingAttemptFailed)
 			{
