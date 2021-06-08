@@ -10,8 +10,8 @@
 			<input type="text" @ref="fromInputElement" class="form-control" value="@FormatDate(Value.StartDate)" placeholder="@Localizer["From"]" @onchange="HandleFromChange" @onfocus="HandleFromFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" />
 			@if (ShowValidationMessage)
 			{
-				<HxValidationMessage ForFieldName="@FieldIdentifier.FieldName"/>
-				<HxValidationMessage ForFieldName="@fromFieldIdentifier.FieldName" />
+				<HxValidationMessage TValue="DateTimeRange" ForFieldName="@FieldIdentifier.FieldName"/>
+				<HxValidationMessage TValue="DateTimeRange" ForFieldName="@fromFieldIdentifier.FieldName" />
 			}
 			<div class="dropdown-menu">
 				<HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" />
@@ -26,7 +26,7 @@
 			<input type="text" @ref="toInputElement" class="form-control" value="@FormatDate(Value.EndDate)" placeholder="@Localizer["To"]" @onchange="HandleToChange" @onfocus="HandleToFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" />
 			@if (ShowValidationMessage)
 			{
-				<HxValidationMessage ForFieldName="@toFieldIdentifier.FieldName" />
+				<HxValidationMessage TValue="DateTimeRange" ForFieldName="@toFieldIdentifier.FieldName" />
 			}
 			<div class="dropdown-menu">
 				<HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" />

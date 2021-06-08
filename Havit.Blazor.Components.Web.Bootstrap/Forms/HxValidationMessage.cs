@@ -12,10 +12,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Displays a list of validation messages for a specified field within a cascaded <see cref="EditContext"/>.
 	/// </summary>
-	public class HxValidationMessage : ComponentBase, IDisposable
+	public class HxValidationMessage<TValue> : ComponentBase, IDisposable
 	{
 		private EditContext previousEditContext;
-		private Expression<Func<object>> previousFor;
+		private Expression<Func<TValue>> previousFor;
 		private readonly EventHandler<ValidationStateChangedEventArgs> validationStateChangedHandler;
 		private FieldIdentifier fieldIdentifier;
 		private EditContext currentEditContext;
@@ -34,7 +34,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Specifies the field for which validation messages should be displayed.
 		/// Mutual exclusive with <see cref="ForFieldName"/>.
 		/// </summary>
-		[Parameter] public Expression<Func<object>> For { get; set; }
+		[Parameter] public Expression<Func<TValue>> For { get; set; }
 
 		/// <summary>
 		/// Specifies the field for which validation messages should be displayed.
@@ -43,7 +43,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string ForFieldName { get; set; }
 
 		/// <summary>
-		/// Constructs an instance of <see cref="HxValidationMessage"/>.
+		/// Constructs an instance of <see cref="HxValidationMessage{TValue}"/>.
 		/// </summary>
 		public HxValidationMessage()
 		{
