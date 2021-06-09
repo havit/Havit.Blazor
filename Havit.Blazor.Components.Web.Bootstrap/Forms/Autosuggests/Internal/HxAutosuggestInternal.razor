@@ -8,9 +8,9 @@
         OnInputFocus="HandleInputFocus" OnInputBlur="HandleInputBlur" Placeholder="@Placeholder"
         CssClass="@InputCssClass" />
     @if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
-    {
-        @BuildRenderLabel
-    }
+	{
+		<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
+	}
     <div class="hx-autosuggest-input-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center">
         @if (dataProviderInProgress)
         {

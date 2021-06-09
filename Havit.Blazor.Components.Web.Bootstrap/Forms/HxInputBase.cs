@@ -24,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// Adds support for rendering bootstrap based input with validator.
 	/// See also https://v5.getbootstrap.com/docs/5.0/forms/overview/.
 	/// </summary>
-	public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledComponent
+	public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledComponent, IFormValueComponent
 	{
 		/// <summary>
 		/// CSS class used for invalid input.
@@ -64,11 +64,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string LabelCssClass { get; set; }
 
+// TODO: Odstranit?
 		/// <summary>
 		/// Label Type. Enables floating labels. Floating labels are not supported on all components.		
 		/// </summary>
 		[Parameter] public LabelType? LabelType { get; set; }
 
+// TODO: Odstranit?
 		/// <summary>
 		/// Custom CSS class to render with the input element.
 		/// </summary>
@@ -97,6 +99,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual bool EnabledEffective => CascadeEnabledComponent.EnabledEffective(this);
 
+		// TODO: Odstranit!
 		/// <summary>
 		/// Effectiv value of LabelType property.
 		/// </summary>
@@ -138,6 +141,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual LabelValueRenderOrder RenderOrder => (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueLabel : LabelValueRenderOrder.LabelValue;
 
+		string IFormValueComponent.LabelFor => this.InputId;
+		string IFormValueComponent.CoreCssClass => this.CoreCssClass;
+		string IFormValueComponent.CoreLabelCssClass => this.CoreLabelCssClass;
+		string IFormValueComponent.CoreHintCssClass => this.CoreHintCssClass;
+		LabelValueRenderOrder IFormValueComponent.RenderOrder => this.RenderOrder;
+
 		private EditContext autoCreatedEditContext;
 
 		public override Task SetParametersAsync(ParameterView parameters)
@@ -167,131 +176,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override sealed void BuildRenderTree(RenderTreeBuilder builder)
 		{
-			// no base call
-
-			string cssClass = CssClassHelper.Combine(CoreCssClass, CssClass);
-
-			// pokud nemáme css class, label, ani hint, budeme renderovat jako čistý input
-			bool renderDiv = !String.IsNullOrEmpty(cssClass)
-				|| !String.IsNullOrEmpty(Label)
-				|| (LabelTemplate != null)
-				|| !String.IsNullOrEmpty(Hint)
-				|| (HintTemplate != null);
-
 			// in checkbox label is renderead after input but we need InputId.
 			if (!String.IsNullOrEmpty(Label) || (LabelTemplate != null))
 			{
 				EnsureInputId();
 			}
 
-			if (renderDiv)
-			{
-				builder.OpenElement(1, "div");
-				if (!String.IsNullOrEmpty(cssClass))
-				{
-					builder.AddAttribute(2, "class", cssClass);
-				}
-			}
-
-			switch (RenderOrder)
-			{
-				case LabelValueRenderOrder.LabelValue:
-
-					// majority component
-
-					builder.OpenRegion(3);
-					BuildRenderLabel(builder);
-					builder.CloseRegion();
-
-					builder.OpenRegion(4);
-					BuildRenderInputAndValidationMessage(builder); // abychom mohli do inputu přidat div
-					builder.CloseRegion();
-
-					break;
-
-				case LabelValueRenderOrder.ValueLabel:
-
-					// checkbox 
-
-					builder.OpenRegion(6);
-					BuildRenderInputDecorated(builder);
-					builder.CloseRegion();
-
-					builder.OpenRegion(7);
-					BuildRenderLabel(builder);
-					builder.CloseRegion();
-
-					builder.OpenRegion(8);
-					BuildRenderValidationMessage(builder);
-					builder.CloseRegion();
-
-					break;
-
-				default: throw new InvalidOperationException($"Unknown RenderOrder: {RenderOrder}");
-			}
-
-			builder.OpenRegion(9);
-			BuildRenderHint(builder);
-			builder.CloseRegion();
-
-			if (renderDiv)
-			{
-				builder.CloseElement();
-			}
+			base.BuildRenderTree(builder);
+			HxFormValueComponentRenderer.Render(0, builder, this);
 
 			if (GenerateChip)
 			{
-				builder.OpenRegion(10);
+				builder.OpenRegion(1);
 				RenderChipGenerator(builder);
 				builder.CloseRegion();
 			}
 		}
 
-		/// <summary>
-		/// Renders input and validation.
-		/// Enables to render input-group wrapper in descendants.
-		/// </summary>
-		protected virtual void BuildRenderInputAndValidationMessage(RenderTreeBuilder builder)
+		void IFormValueComponent.RenderValue(RenderTreeBuilder builder)
 		{
-			// breaks the rule - ancesor is designed for descenant
-
-			builder.OpenRegion(1);
-			BuildRenderInputDecorated(builder);
-			builder.CloseRegion();
-
-			builder.OpenRegion(2);
-			BuildRenderValidationMessage(builder);
-			builder.CloseRegion();
-		}
-
-		/// <summary>
-		/// Renders label when properties set.
-		/// </summary>
-		protected virtual void BuildRenderLabel(RenderTreeBuilder builder)
-		{
-			//  <label for="formGroupExampleInput">Example label</label>
-			if (!String.IsNullOrEmpty(Label) || (LabelTemplate != null))
-			{
-				builder.OpenElement(1, "label");
-				builder.AddAttribute(2, "for", InputId);
-				builder.AddAttribute(3, "class", CssClassHelper.Combine(CoreLabelCssClass, LabelCssClass));
-				builder.AddEventStopPropagationAttribute(4, "onclick", true); // TODO: Chceme onclick:stopPropagation na labelech všech inputů, nebo jen checkboxy? Má to být  nastavitelné?
-				if (LabelTemplate == null)
-				{
-					builder.AddContent(5, Label);
-				}
-				builder.AddContent(6, LabelTemplate);
-				builder.CloseElement();
-			}
-		}
-
-		/// <summary>
-		/// Render input. Enables to use some wrapping html, used for input-group in descenant.
-		/// </summary>
-		protected virtual void BuildRenderInputDecorated(RenderTreeBuilder builder)
-		{
-			// breaks the rule - ancesor is designed for descenant
 			BuildRenderInput(builder);
+		}
+
+		void IFormValueComponent.RenderValidationMessage(RenderTreeBuilder builder)
+		{
+			BuildRenderValidationMessage(builder);
 		}
 
 		/// <summary>
@@ -312,21 +221,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
 			{
 				builder.AddAttribute(6, "placeholder", "placeholder"); // there must be a nonempty value (which is not visible)
-			}
-		}
-
-		/// <summary>
-		/// Renders hint when property HintTemplate set.
-		/// </summary>
-		protected virtual void BuildRenderHint(RenderTreeBuilder builder)
-		{
-			if (!String.IsNullOrEmpty(Hint) || (HintTemplate != null))
-			{
-				builder.OpenElement(1, "div");
-				builder.AddAttribute(2, "class", CoreHintCssClass);
-				builder.AddContent(3, Hint);
-				builder.AddContent(4, HintTemplate);
-				builder.CloseElement();
 			}
 		}
 

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public class FormValueComponentRenderer : ComponentBase
+	public class HxFormValueComponentRenderer : ComponentBase
 	{
 		/// <summary>
 		/// Values for component renderer.
@@ -69,14 +69,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 					break;
 
+				case LabelValueRenderOrder.ValueOnly:
+
+					// autosuggest with floating label
+					builder.OpenRegion(7);
+					BuildRenderInputGroups(builder, BuildRenderValue); // TODO: Lze zde vůbec renderovat InputGroups???
+					builder.CloseRegion();
+					
+					break;
+
 				default: throw new InvalidOperationException($"Unknown RenderOrder: {FormValueComponent.RenderOrder}");
 			}
 
-			builder.OpenRegion(7);
+			builder.OpenRegion(8);
 			BuildRenderValidationMessage(builder);
 			builder.CloseRegion();
 
-			builder.OpenRegion(8);
+			builder.OpenRegion(9);
 			BuildRenderHint(builder);
 			builder.CloseRegion();
 
@@ -92,19 +101,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		protected virtual void BuildRenderLabel(RenderTreeBuilder builder)
 		{
 			//  <label for="formGroupExampleInput">Example label</label>
-			if (!String.IsNullOrEmpty(FormValueComponent.Label) || (FormValueComponent.LabelTemplate != null))
-			{
-				builder.OpenElement(1, "label");
-				builder.AddAttribute(2, "for", FormValueComponent.LabelFor);
-				builder.AddAttribute(3, "class", CssClassHelper.Combine(FormValueComponent.CoreLabelCssClass, FormValueComponent.LabelCssClass));
-				builder.AddEventStopPropagationAttribute(4, "onclick", true); // TODO: Chceme onclick:stopPropagation na labelech všech inputů, nebo jen checkboxy? Má to být  nastavitelné?
-				if (FormValueComponent.LabelTemplate == null)
-				{
-					builder.AddContent(5, FormValueComponent.Label);
-				}
-				builder.AddContent(6, FormValueComponent.LabelTemplate);
-				builder.CloseElement();
-			}
+			builder.OpenComponent(1, typeof(HxFormValueComponentRenderer_Label));
+			builder.AddAttribute(2, nameof(HxFormValueComponentRenderer_Label.FormValueComponent), FormValueComponent);
+			builder.CloseComponent();
 		}
 
 		/// <summary>
@@ -184,7 +183,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
 		{
-			FormValueComponent.RenderValidationMessage();
+			FormValueComponent.RenderValidationMessage(builder);
 		}
 
 		private string GetInputGroupSizeCssClass(InputSize inputGroupSize)
@@ -199,14 +198,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		}
 
 		/// <summary>
-		/// Adds <see cref="FormValueComponentRenderer"/> to a builder.
+		/// Adds <see cref="HxFormValueComponentRenderer"/> to a builder.
 		/// </summary>
 		public static void Render(int sequence, RenderTreeBuilder builder, IFormValueComponent data)
 		{
 			builder.OpenRegion(sequence);
 
-			builder.OpenComponent(0, typeof(FormValueComponentRenderer));
-			builder.AddAttribute(1, nameof(FormValueComponentRenderer.FormValueComponent), data);
+			builder.OpenComponent(0, typeof(HxFormValueComponentRenderer));
+			builder.AddAttribute(1, nameof(HxFormValueComponentRenderer.FormValueComponent), data);
 			builder.CloseComponent();
 
 			builder.CloseRegion();

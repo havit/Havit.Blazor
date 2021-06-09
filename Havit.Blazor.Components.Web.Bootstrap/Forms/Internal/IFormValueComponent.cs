@@ -47,7 +47,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <summary>
 		/// Renders validation message.
 		/// </summary>
-		void RenderValidationMessage() { /* NOOP (default implementation) */ }
+		void RenderValidationMessage(RenderTreeBuilder builder) { /* NOOP (default implementation) */ }
 
 		/// <summary>
 		/// Hint to render after input as form-text.

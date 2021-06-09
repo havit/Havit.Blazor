@@ -49,6 +49,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }
 
+		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.LabelValue : LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxAutosuggestInternal */;
 		private protected override string CoreInputCssClass => "form-control";
 		private protected override string CoreCssClass => "hx-autosuggest position-relative";
 
@@ -65,18 +66,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		/// <inheritdoc />
-		protected override void BuildRenderLabel(RenderTreeBuilder builder)
-		{
-			// Floating labels renders label after inputs. But HxAutosuggest...
-			// HxAutossugest's input is rendered in HxAutosuggestInternal and is followed by (an icon and suggested values).
-			// So we pass base.BuildRenderLabel to the component to render this label after HxAutosuggest's input.
-			if (LabelTypeEffective != Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
-			{
-				// Render label only for non-floating form.
-				base.BuildRenderLabel(builder);
-			}
-		}
 
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -95,24 +84,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItem, TValue>.ItemFromValueResolver), ItemFromValueResolver);
 			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItem, TValue>.Placeholder), (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
 			builder.AddAttribute(1012, nameof(HxAutosuggestInternal<TItem, TValue>.LabelTypeEffective), LabelTypeEffective);
-			builder.AddAttribute(1013, nameof(HxAutosuggestInternal<TItem, TValue>.BuildRenderLabel), (RenderFragment)base.BuildRenderLabel); // base is required
+			builder.AddAttribute(1013, nameof(HxAutosuggestInternal<TItem, TValue>.FormValueComponent), this);
 			builder.AddComponentReferenceCapture(1014, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
 			builder.CloseComponent();
-		}
-
-		/// <inheritdoc />
-		protected override void BuildRenderValidationMessage(RenderTreeBuilder builder)
-		{
-			if (ShowValidationMessage)
-			{
-				builder.OpenElement(1, "div");
-				builder.AddAttribute(2, "class", IsValueValid() ? InvalidCssClass : null);
-				builder.CloseElement();
-
-				builder.OpenRegion(3);
-				base.BuildRenderValidationMessage(builder);
-				builder.CloseRegion();
-			}
 		}
 
 		private void HandleValueChanged(TValue newValue)

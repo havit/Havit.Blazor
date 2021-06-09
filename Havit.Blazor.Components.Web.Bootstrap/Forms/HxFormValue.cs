@@ -57,7 +57,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			base.BuildRenderTree(builder);
-			FormValueComponentRenderer.Render(0, builder, this);
+			HxFormValueComponentRenderer.Render(0, builder, this);
 		}
 
 		/// <inheritdoc />

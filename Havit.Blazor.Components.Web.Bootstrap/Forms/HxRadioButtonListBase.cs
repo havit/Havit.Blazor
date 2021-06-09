@@ -151,21 +151,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		/// <inheritdoc />
-		protected override void BuildRenderValidationMessage(RenderTreeBuilder builder)
-		{
-			if (ShowValidationMessage)
-			{
-				builder.OpenElement(1, "div");
-				builder.AddAttribute(2, "class", IsValueValid() ? InvalidCssClass : null);
-				builder.CloseElement();
-
-				builder.OpenRegion(3);
-				base.BuildRenderValidationMessage(builder);
-				builder.CloseRegion();
-			}
-		}
-
 		private void HandleInputClick(int index)
 		{
 			CurrentValue = GetValueFromItem(itemsToRender[index]);

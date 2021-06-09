@@ -59,7 +59,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public LabelType LabelTypeEffective { get; set; }
 
-		[Parameter] public RenderFragment BuildRenderLabel { get; set; }
+		[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
