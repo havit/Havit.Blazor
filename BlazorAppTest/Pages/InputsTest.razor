@@ -12,6 +12,11 @@
 			<DataAnnotationsValidator />
 			<ValidationSummary />
 
+			<HxFormValue Label="Text"  Hint="This item cannot be edited.">
+				<ValueTemplate>
+					<HxIcon Icon="@BootstrapIcon.Wrench" />Text Only...
+				</ValueTemplate>
+			</HxFormValue>
 			<HxInputText Label="Text (large)" InputSize="InputSize.Large" @bind-Value="@context.TextBasic" Hint="@context.TextBasic" />
 
 			<HxInputText Label="Text (oninput)" @bind-Value="@context.TextOnInput" BindEvent="BindEvent.OnInput" Placeholder="Model updates oninput.">

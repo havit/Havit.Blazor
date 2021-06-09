@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -17,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Inject] protected IStringLocalizer<HxInputCheckbox> Localizer { get; set; }
 
 		/// <inheritdoc />
-		protected override InputRenderOrder RenderOrder => InputRenderOrder.InputLabel;
+		protected override LabelValueRenderOrder RenderOrder => LabelValueRenderOrder.ValueLabel;
 
 		/// <inheritdoc />
 		private protected override string CoreCssClass => "form-check";

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Havit.Blazor.Components.Web.Infrastructure;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
@@ -135,7 +136,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Elements rendering order. Overriden in the <see cref="HxInputCheckbox"/> component.
 		/// </summary>
-		protected virtual InputRenderOrder RenderOrder => (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? InputRenderOrder.InputLabel : InputRenderOrder.LabelInput;
+		protected virtual LabelValueRenderOrder RenderOrder => (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueLabel : LabelValueRenderOrder.LabelValue;
 
 		private EditContext autoCreatedEditContext;
 
@@ -194,7 +195,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			switch (RenderOrder)
 			{
-				case InputRenderOrder.LabelInput:
+				case LabelValueRenderOrder.LabelValue:
 
 					// majority component
 
@@ -208,7 +209,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 					break;
 
-				case InputRenderOrder.InputLabel:
+				case LabelValueRenderOrder.ValueLabel:
 
 					// checkbox 
 
