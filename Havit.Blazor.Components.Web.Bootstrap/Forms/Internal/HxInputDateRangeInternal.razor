@@ -16,8 +16,8 @@
 		{
 			<div class="dropdown-menu">
 				<HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" />
-				<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Secondary" OnClick="HandleFromClearClickAsync" />
-				<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Secondary" OnClick="HandleFromOKClickAsync" />
+				<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Danger" OnClick="HandleFromClearClickAsync" />
+				<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" OnClick="HandleFromOKClickAsync" />
 			</div>
 		}
 	</div>
@@ -33,8 +33,8 @@
 		{
 			<div class="dropdown-menu">
 				<HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" />
-				<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Secondary" OnClick="HandleToClearClickAsync" />
-				<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Secondary" OnClick="HandleToOKClickAsync" />
+				<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Danger" OnClick="HandleToClearClickAsync" />
+				<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" OnClick="HandleToOKClickAsync" />
 			</div>
 		}
 	</div>

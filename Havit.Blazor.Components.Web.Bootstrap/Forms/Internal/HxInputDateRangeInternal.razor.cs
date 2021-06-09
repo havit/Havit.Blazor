@@ -21,7 +21,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public bool EnabledEffective { get; set; } = true;
 
 		[Parameter] public bool ShowValidationMessage { get; set; } = true;
-		
+
 		[Parameter] public List<DateRangeItem> DateRanges { get; set; }
 
 		[Parameter] public string FromParsingErrorMessageEffective { get; set; }

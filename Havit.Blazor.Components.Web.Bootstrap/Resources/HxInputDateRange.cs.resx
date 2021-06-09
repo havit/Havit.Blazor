@@ -122,7 +122,13 @@
   </data>
   <data name="EndDate" xml:space="preserve">
     <value>do</value>
-    <comment>Z důvodu zpětné kompatibility v dosavadním HxInputDateRange máme lower case, což změníme při přechodu na nový HxInputDateRange2.</comment>
+    <comment>Odebrat při přechodu na nový HxInputDateRange2.</comment>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="FromParsingErrorMessage" xml:space="preserve">
+    <value>Zadejte správně datum od.</value>
   </data>
   <data name="LastMonth" xml:space="preserve">
     <value>Minulý měsíc</value>
@@ -135,15 +141,22 @@
   </data>
   <data name="ParsingErrorMessage" xml:space="preserve">
     <value>Zadejte období.</value>
+    <comment>Odebrat při přechodu na nový HxInputDateRange2.</comment>
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>od</value>
-    <comment>Z důvodu zpětné kompatibility v dosavadním HxInputDateRange máme lower case, což změníme při přechodu na nový HxInputDateRange2.</comment>
+    <comment>Odebrat při přechodu na nový HxInputDateRange2.</comment>
   </data>
   <data name="ThisMonth" xml:space="preserve">
     <value>Tento měsíc</value>
   </data>
   <data name="ThisYear" xml:space="preserve">
     <value>Tento rok</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Do</value>
+  </data>
+  <data name="ToParsingErrorMessage" xml:space="preserve">
+    <value>Zadejte správně datum do.</value>
   </data>
 </root>

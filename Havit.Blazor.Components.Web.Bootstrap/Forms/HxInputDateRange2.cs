@@ -20,6 +20,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class HxInputDateRange2 : HxInputBase<DateTimeRange>
 	{
+		public static List<DateRangeItem> DefaultDateRanges { get; set; }
+
 		/// <summary>
 		/// When true, uses default date ranges (this month, last month, this year, last year).
 		/// </summary>
@@ -90,21 +92,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (UseDefaultDateRanges)
 			{
-				DateTime today = DateTime.Today;
+				if (DefaultDateRanges != null)
+				{
+					foreach (DateRangeItem defaultDateRangeItem in DefaultDateRanges)
+					{
+						yield return defaultDateRangeItem;
+					}
+				}
+				else
+				{
+					DateTime today = DateTime.Today;
 
-				DateTime thisMonthStart = new DateTime(today.Year, today.Month, 1);
-				DateTime thisMonthEnd = new DateTime(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month));
-				DateTime lastMonthStart = thisMonthStart.AddMonths(-1);
-				DateTime lastMonthEnd = new DateTime(lastMonthStart.Year, lastMonthStart.Month, DateTime.DaysInMonth(lastMonthStart.Year, lastMonthStart.Month));
-				DateTime thisYearStart = new DateTime(today.Year, 1, 1);
-				DateTime thisYearEnd = new DateTime(today.Year, 12, 31);
-				DateTime lastYearStart = thisYearStart.AddYears(-1);
-				DateTime lastYearEnd = thisYearEnd.AddYears(-1);
+					DateTime thisMonthStart = new DateTime(today.Year, today.Month, 1);
+					DateTime thisMonthEnd = new DateTime(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month));
+					DateTime lastMonthStart = thisMonthStart.AddMonths(-1);
+					DateTime lastMonthEnd = new DateTime(lastMonthStart.Year, lastMonthStart.Month, DateTime.DaysInMonth(lastMonthStart.Year, lastMonthStart.Month));
+					DateTime thisYearStart = new DateTime(today.Year, 1, 1);
+					DateTime thisYearEnd = new DateTime(today.Year, 12, 31);
+					DateTime lastYearStart = thisYearStart.AddYears(-1);
+					DateTime lastYearEnd = thisYearEnd.AddYears(-1);
 
-				yield return new DateRangeItem { Label = StringLocalizer["ThisMonth"], DateRange = new DateTimeRange { StartDate = thisMonthStart, EndDate = thisMonthEnd } };
-				yield return new DateRangeItem { Label = StringLocalizer["LastMonth"], DateRange = new DateTimeRange { StartDate = lastMonthStart, EndDate = lastMonthEnd } };
-				yield return new DateRangeItem { Label = StringLocalizer["ThisYear"], DateRange = new DateTimeRange { StartDate = thisYearStart, EndDate = thisYearEnd } };
-				yield return new DateRangeItem { Label = StringLocalizer["LastYear"], DateRange = new DateTimeRange { StartDate = lastYearStart, EndDate = lastYearEnd } };
+					yield return new DateRangeItem { Label = StringLocalizer["ThisMonth"], DateRange = new DateTimeRange { StartDate = thisMonthStart, EndDate = thisMonthEnd } };
+					yield return new DateRangeItem { Label = StringLocalizer["LastMonth"], DateRange = new DateTimeRange { StartDate = lastMonthStart, EndDate = lastMonthEnd } };
+					yield return new DateRangeItem { Label = StringLocalizer["ThisYear"], DateRange = new DateTimeRange { StartDate = thisYearStart, EndDate = thisYearEnd } };
+					yield return new DateRangeItem { Label = StringLocalizer["LastYear"], DateRange = new DateTimeRange { StartDate = lastYearStart, EndDate = lastYearEnd } };
+				}
 			}
 		}
 
