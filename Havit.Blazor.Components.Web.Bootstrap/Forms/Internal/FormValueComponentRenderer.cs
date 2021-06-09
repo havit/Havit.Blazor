@@ -9,9 +9,6 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	// TODO: podpora InputGroups
-	// TODO: (bude nejspíš obnášet drobnou úpravu renderování Value a ValidationMessage).
-
 	public class FormValueComponentRenderer : ComponentBase
 	{
 		/// <summary>
@@ -53,11 +50,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					builder.CloseRegion();
 
 					builder.OpenRegion(4);
-					BuildRenderValue(builder);
-					builder.CloseRegion();
-
-					builder.OpenRegion(5);
-					BuildRenderValidationMessage(builder);
+					BuildRenderInputGroups(builder, BuildRenderValue);
 					builder.CloseRegion();
 
 					break;
@@ -66,16 +59,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 					// checkbox, etc.
 
+					builder.OpenRegion(5);
+					BuildRenderInputGroups(builder, BuildRenderValue); // TODO: Lze zde vůbec renderovat InputGroups???
+					builder.CloseRegion();
+
 					builder.OpenRegion(6);
-					BuildRenderValue(builder);
-					builder.CloseRegion();
-
-					builder.OpenRegion(7);
 					BuildRenderLabel(builder);
-					builder.CloseRegion();
-
-					builder.OpenRegion(8);
-					BuildRenderValidationMessage(builder);
 					builder.CloseRegion();
 
 					break;
@@ -83,7 +72,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				default: throw new InvalidOperationException($"Unknown RenderOrder: {FormValueComponent.RenderOrder}");
 			}
 
-			builder.OpenRegion(9);
+			builder.OpenRegion(7);
+			BuildRenderValidationMessage(builder);
+			builder.CloseRegion();
+
+			builder.OpenRegion(8);
 			BuildRenderHint(builder);
 			builder.CloseRegion();
 
@@ -111,6 +104,55 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				}
 				builder.AddContent(6, FormValueComponent.LabelTemplate);
 				builder.CloseElement();
+			}
+		}
+
+		/// <summary>
+		/// Renders input groups (with content).
+		/// </summary>
+		protected virtual void BuildRenderInputGroups(RenderTreeBuilder builder, RenderFragment content)
+		{
+			IFormValueComponentWithInputGroups formValueComponentWithInputGroups = FormValueComponent as IFormValueComponentWithInputGroups;
+
+			bool shouldRenderInputGroups = (formValueComponentWithInputGroups != null)
+				&& (!String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupStart)
+					|| (formValueComponentWithInputGroups.InputGroupStartTemplate != null)
+					|| !String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupEnd)
+					|| (formValueComponentWithInputGroups.InputGroupEndTemplate != null));
+
+			if (shouldRenderInputGroups)
+			{
+				builder.OpenElement(100, "span");
+				builder.AddAttribute(101, "class", CssClassHelper.Combine("input-group", formValueComponentWithInputGroups.InputGroupCssClass, GetInputGroupSizeCssClass(formValueComponentWithInputGroups.InputGroupSize)));
+
+				if (!String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupStart))
+				{
+					builder.OpenElement(200, "span");
+					builder.AddAttribute(201, "class", "input-group-text");
+					builder.AddContent(202, formValueComponentWithInputGroups.InputGroupStart);
+					builder.CloseElement(); // span.input-group-text
+				}
+
+				builder.AddContent(300, formValueComponentWithInputGroups.InputGroupStartTemplate);
+			}
+
+			builder.OpenRegion(400);
+			content(builder);
+			builder.CloseRegion();
+
+			if (shouldRenderInputGroups)
+			{
+				if (!String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupEnd))
+				{
+					builder.OpenElement(500, "span");
+					builder.AddAttribute(501, "class", "input-group-text");
+					builder.AddContent(600, formValueComponentWithInputGroups.InputGroupEnd);
+					builder.CloseElement(); // span.input-group-text
+				}
+
+				builder.AddContent(600, formValueComponentWithInputGroups.InputGroupEndTemplate);
+
+				builder.CloseElement(); // span.input-group
 			}
 		}
 
@@ -143,6 +185,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
 		{
 			FormValueComponent.RenderValidationMessage();
+		}
+
+		private string GetInputGroupSizeCssClass(InputSize inputGroupSize)
+		{
+			return inputGroupSize switch
+			{
+				InputSize.Regular => null,
+				InputSize.Small => "input-group-sm",
+				InputSize.Large => "input-group-lg",
+				_ => throw new InvalidOperationException(inputGroupSize.ToString())
+			};
 		}
 
 		/// <summary>

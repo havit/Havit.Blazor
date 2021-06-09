@@ -9,37 +9,25 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public class HxFormValue : ComponentBase, IFormValueComponent
+	public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueComponentWithInputGroups
 	{
 		#region IFormValueComponent properties
-		/// <summary>
-		/// Custom CSS class to render with wrapping div.
-		/// </summary>
+		/// <inheritdoc />
 		[Parameter] public string CssClass { get; set; }
 
-		/// <summary>
-		/// Label to render before input/value (or after input for Checkbox).		
-		/// </summary>
+		/// <inheritdoc />
 		[Parameter] public string Label { get; set; }
 
-		/// <summary>
-		/// Label to render before input/value (or after input for Checkbox).
-		/// </summary>
+		/// <inheritdoc />
 		[Parameter] public RenderFragment LabelTemplate { get; set; }
 
-		/// <summary>
-		/// Custom CSS class to render with the label.
-		/// </summary>
+		/// <inheritdoc />
 		[Parameter] public string LabelCssClass { get; set; }
 
-		/// <summary>
-		/// Hint to render after value/input as form-text.
-		/// </summary>
+		/// <inheritdoc />
 		[Parameter] public string Hint { get; set; }
 
-		/// <summary>
-		/// Hint to render after element/input as form-text.
-		/// </summary>
+		/// <inheritdoc />
 		[Parameter] public RenderFragment HintTemplate { get; set; }
 		#endregion
 
@@ -52,6 +40,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Custom CSS class to render with the value.
 		/// </summary>
 		[Parameter] public string ValueCssClass { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public string InputGroupStart { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public string InputGroupEnd { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)

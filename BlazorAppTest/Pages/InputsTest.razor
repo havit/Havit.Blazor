@@ -13,6 +13,15 @@
 			<ValidationSummary />
 
 			<HxFormValue Label="Text"  Hint="This item cannot be edited.">
+				<InputGroupEndTemplate>
+					<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">Edit</a></li>
+						<li><a class="dropdown-item" href="#">Reset</a></li>
+						<li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="#">Remove</a></li>
+					</ul>
+				</InputGroupEndTemplate>
 				<ValueTemplate>
 					<HxIcon Icon="@BootstrapIcon.Wrench" />Text Only...
 				</ValueTemplate>
