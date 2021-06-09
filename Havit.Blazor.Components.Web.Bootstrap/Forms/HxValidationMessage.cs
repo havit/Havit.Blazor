@@ -98,7 +98,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (messages.Any())
 			{
 				builder.OpenElement(100, "div");
-				builder.AddAttribute(101, "class", "is-invalid");
+				builder.AddAttribute(101, "class", HxInputBase<object>.InvalidCssClass);
 				builder.CloseElement();
 
 				builder.OpenElement(200, "div");
