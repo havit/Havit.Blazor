@@ -121,7 +121,8 @@
     <value>Vymazat</value>
   </data>
   <data name="EndDate" xml:space="preserve">
-    <value>Do</value>
+    <value>do</value>
+    <comment>Z důvodu zpětné kompatibility v dosavadním HxInputDateRange máme lower case, což změníme při přechodu na nový HxInputDateRange2.</comment>
   </data>
   <data name="LastMonth" xml:space="preserve">
     <value>Minulý měsíc</value>
@@ -136,7 +137,8 @@
     <value>Zadejte období.</value>
   </data>
   <data name="StartDate" xml:space="preserve">
-    <value>Od</value>
+    <value>od</value>
+    <comment>Z důvodu zpětné kompatibility v dosavadním HxInputDateRange máme lower case, což změníme při přechodu na nový HxInputDateRange2.</comment>
   </data>
   <data name="ThisMonth" xml:space="preserve">
     <value>Tento měsíc</value>

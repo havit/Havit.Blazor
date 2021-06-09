@@ -5,8 +5,11 @@
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 
-	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal @bind-Value="@model.DateTimeRange" />
-	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal @bind-Value="@model.DateTimeRange" DateRanges="@GetDateRanges()" />
+	<HxInputDateRange2 @bind-Value="@model.DateTimeRange" UseDefaultDateRanges="false" ShowValidationMessage="false" />
+	<HxInputDateRange2 @bind-Value="@model.DateTimeRange" />
+	<HxInputDateRange2 @bind-Value="@model.DateTimeRange" DateRanges="@GetDateRanges()" />
+	<HxInputDateRange2 @bind-Value="@model.DateTimeRange" DateRanges="@GetDateRanges()" Enabled="false" />
+
 	<button type="submit">Submit</button>
 </EditForm>
 

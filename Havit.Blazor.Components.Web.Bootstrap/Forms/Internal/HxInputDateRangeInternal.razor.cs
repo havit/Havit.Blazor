@@ -14,14 +14,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
 	public partial class HxInputDateRangeInternal
 	{
+		[Parameter] public string FromInputId { get; set; }
+
+		[Parameter] public string InputCssClass { get; set; }
+
+		[Parameter] public bool EnabledEffective { get; set; } = true;
+
 		[Parameter] public bool ShowValidationMessage { get; set; } = true;
+		
+		[Parameter] public List<DateRangeItem> DateRanges { get; set; }
 
-		[Parameter] public IEnumerable<DateRangeItem> DateRanges { get; set; }
+		[Parameter] public string FromParsingErrorMessageEffective { get; set; }
 
-		[Inject] public IStringLocalizer<HxInputDateRange> Localizer { get; set; }
+		[Parameter] public string ToParsingErrorMessageEffective { get; set; }
+
+		[Inject] protected IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
-
 
 		private bool fromPreviousParsingAttemptFailed;
 		private bool toPreviousParsingAttemptFailed;
@@ -90,7 +99,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			else
 			{
 				parsingFailed = true;
-				validationMessageStore.Add(fromFieldIdentifier, "Zadej správně FROM.");
+				validationMessageStore.Add(fromFieldIdentifier, FromParsingErrorMessageEffective);
 			}
 
 			// We can skip the validation notification if we were previously valid and still are
@@ -119,7 +128,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			else
 			{
 				parsingFailed = true;
-				validationMessageStore.Add(toFieldIdentifier, "Zadej správně TO.");
+				validationMessageStore.Add(toFieldIdentifier, ToParsingErrorMessageEffective);
 			}
 
 			// We can skip the validation notification if we were previously valid and still are
@@ -245,6 +254,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 				await jsModule.DisposeAsync();
 			}
+
+			Dispose(false);
 		}
 	}
 }
