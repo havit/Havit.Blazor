@@ -17,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <typeparam name="TValue">
 	/// Supported values: int (Int32), long (Int64), float (Single), double, decimal.
 	/// </typeparam>
-	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>
+	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize
 	{
 		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(int), typeof(long), typeof(float), typeof(double), typeof(decimal) };
@@ -32,6 +32,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Placeholder for the input.
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public InputSize InputSize { get; set; }
 
 		/// <summary>
 		/// Gets or sets the number of decimal digits.
@@ -55,6 +58,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 		private int? decimals;
+
+		/// <inheritdoc />
+		[Parameter] public InputSize InputSize { get; set; }
 
 		/// <summary>
 		/// Gets effective value for Decimals (when not set gets 0 for integer types and 2 for floating point types.

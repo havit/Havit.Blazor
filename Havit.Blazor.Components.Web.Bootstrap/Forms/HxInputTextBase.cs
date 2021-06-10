@@ -13,7 +13,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Text-based (string) input base class.
 	/// </summary>
-	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>
+	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize
 	{
 		/// <summary>
 		/// Gets or sets the behavior when the model is updated from then input.
@@ -24,6 +24,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Placeholder for the input.
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public InputSize InputSize { get; set; }
 
 		/// <inheritdoc />
 		protected override void OnParametersSet()

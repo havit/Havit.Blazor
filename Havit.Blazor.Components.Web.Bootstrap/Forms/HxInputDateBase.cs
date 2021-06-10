@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// Base class for date inputs.
 	/// Uses a <see href="https://github.com/jdtcn/BlazorDateRangePicker">DateRangePicker</see>, follow the Get Started guide!
 	/// </summary>
-	public abstract class HxInputDateBase<TValue> : HxInputBaseWithInputGroups<TValue>
+	public abstract class HxInputDateBase<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize
 	{
 		/// <summary>
 		/// Gets or sets the error message used when displaying an a parsing error.
@@ -27,6 +27,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// The short hint displayed in the input field before the user enters a value.
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public InputSize InputSize { get; set; }
 
 		private bool forceRenderValue = false;
 		private int valueSequenceOffset = 0;
