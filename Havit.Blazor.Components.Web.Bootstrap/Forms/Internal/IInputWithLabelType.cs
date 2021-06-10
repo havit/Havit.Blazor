@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	// TODO: Není to spíš rozšíření IFormValueComponent?
-
 	/// <summary>
 	/// Input with sizing support.
 	/// </summary>

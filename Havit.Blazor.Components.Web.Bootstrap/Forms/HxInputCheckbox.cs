@@ -28,7 +28,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <inheritdoc />
 		private protected override string CoreLabelCssClass => "form-check-label";
-		
+
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
