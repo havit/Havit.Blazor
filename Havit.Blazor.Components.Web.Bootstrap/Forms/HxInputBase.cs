@@ -34,6 +34,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		[CascadingParameter] public FormState FormState { get; set; }
 
+		#region IFormValueComponent public properties
 		/// <summary>
 		/// Label to render before input (or after input for Checkbox).		
 		/// </summary>
@@ -63,12 +64,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Custom CSS class to render with the label.
 		/// </summary>
 		[Parameter] public string LabelCssClass { get; set; }
-
-// TODO: Odstranit?
-		/// <summary>
-		/// Label Type. Enables floating labels. Floating labels are not supported on all components.		
-		/// </summary>
-		[Parameter] public LabelType? LabelType { get; set; }
+		#endregion
 
 		/// <summary>
 		/// Custom CSS class to render with the input element.
@@ -98,16 +94,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual bool EnabledEffective => CascadeEnabledComponent.EnabledEffective(this);
 
-		// TODO: Odstranit!
-		/// <summary>
-		/// Effectiv value of LabelType property.
-		/// </summary>
-		protected virtual LabelType LabelTypeEffective => this.LabelType ?? Havit.Blazor.Components.Web.Bootstrap.LabelType.Regular;
-
 		/// <summary>
 		/// CSS class to be rendered with the wrapping div.
 		/// </summary>
-		private protected virtual string CoreCssClass => CssClassHelper.Combine("hx-form-group position-relative", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null);
+		private protected virtual string CoreCssClass => CssClassHelper.Combine("hx-form-group position-relative", ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)) ? "form-floating" : null);
 
 		/// <summary>
 		/// CSS class to be rendered with the input element.
@@ -138,7 +128,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Elements rendering order. Overriden in the <see cref="HxInputCheckbox"/> component.
 		/// </summary>
-		protected virtual LabelValueRenderOrder RenderOrder => (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueLabel : LabelValueRenderOrder.LabelValue;
+		protected virtual LabelValueRenderOrder RenderOrder => ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)) ? LabelValueRenderOrder.ValueLabel : LabelValueRenderOrder.LabelValue;
 
 		string IFormValueComponent.LabelFor => this.InputId;
 		string IFormValueComponent.CoreCssClass => this.CoreCssClass;
@@ -233,7 +223,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(3, "type", typeValue);
 			builder.AddAttribute(4, "class", GetInputCssClassToRender());
 			builder.AddAttribute(5, "disabled", !EnabledEffective);
-			if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
+			if ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating))
 			{
 				builder.AddAttribute(6, "placeholder", "placeholder"); // there must be a nonempty value (which is not visible)
 			}

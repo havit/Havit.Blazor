@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
+	// TODO: Není to spíš rozšíření IFormValueComponent?
+
 	/// <summary>
 	/// Input with sizing support.
 	/// </summary>
@@ -15,6 +17,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <summary>
 		/// Label type.
 		/// </summary>
-		LabelType LabelType { get; set; }
+		LabelType? LabelType { get; }
+
+		/// <summary>
+		/// Effective label type.
+		/// </summary>
+		LabelType LabelTypeEffective => this.LabelType ?? Bootstrap.LabelType.Regular;
 	}
 }

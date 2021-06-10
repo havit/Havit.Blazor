@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <typeparam name="TValue">
 	/// Supported values: int (Int32), long (Int64), float (Single), double, decimal.
 	/// </typeparam>
-	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithPlaceholder
+	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
 		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(int), typeof(long), typeof(float), typeof(double), typeof(decimal) };
@@ -36,6 +36,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <inheritdoc />
 		[Parameter] public InputSize InputSize { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public LabelType? LabelType { get; set; }
 
 		/// <summary>
 		/// Gets or sets the number of decimal digits.
@@ -94,17 +97,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private bool forceRenderValue = false;
 		private int valueSequenceOffset = 0;
-
-		/// <inheritdoc />
-		protected override void OnParametersSet()
-		{
-			base.OnParametersSet();
-
-			if ((LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
-			{
-				throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
-			}
-		}
 
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)

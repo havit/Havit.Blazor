@@ -14,7 +14,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Text-based (string) input base class.
 	/// </summary>
-	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder
+	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
 		/// <summary>
 		/// Gets or sets the behavior when the model is updated from then input.
@@ -28,6 +28,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <inheritdoc />
 		[Parameter] public InputSize InputSize { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public LabelType? LabelType { get; set; }
 
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)

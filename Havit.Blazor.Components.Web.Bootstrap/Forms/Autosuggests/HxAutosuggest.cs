@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize, IInputWithPlaceholder
+	public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
 		[Parameter] public AutosuggestDataProviderDelegate<TItem> DataProvider { get; set; }
 
@@ -44,6 +44,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		[Parameter] public InputSize InputSize { get; set; }
 
+		/// <inheritdoc />
+		[Parameter] public LabelType? LabelType { get; set; }
+
 		/// <summary>
 		/// Returns corresponding item for (select) Value.
 		/// </summary>
@@ -56,19 +59,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private HxAutosuggestInternal<TItem, TValue> hxAutosuggestInternalComponent;
 
 		/// <inheritdoc />
-		protected override void OnParametersSet()
-		{
-			base.OnParametersSet();
-
-			if ((LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
-			{
-				throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
-			}
-		}
-
-		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
+			LabelType labelTypeEffective = (this as IInputWithLabelType).LabelTypeEffective;
+
 			builder.OpenComponent<HxAutosuggestInternal<TItem, TValue>>(1);
 			builder.AddAttribute(1000, nameof(HxAutosuggestInternal<TItem, TValue>.Value), Value);
 			builder.AddAttribute(1001, nameof(HxAutosuggestInternal<TItem, TValue>.ValueChanged), EventCallback.Factory.Create<TValue>(this, HandleValueChanged));
@@ -81,8 +75,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItem, TValue>.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
 			builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItem, TValue>.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItem, TValue>.ItemFromValueResolver), ItemFromValueResolver);
-			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItem, TValue>.Placeholder), (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
-			builder.AddAttribute(1012, nameof(HxAutosuggestInternal<TItem, TValue>.LabelTypeEffective), LabelTypeEffective);
+			builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItem, TValue>.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
+			builder.AddAttribute(1012, nameof(HxAutosuggestInternal<TItem, TValue>.LabelTypeEffective), labelTypeEffective);
 			builder.AddAttribute(1013, nameof(HxAutosuggestInternal<TItem, TValue>.FormValueComponent), this);
 			builder.AddComponentReferenceCapture(1014, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
 			builder.CloseComponent();
