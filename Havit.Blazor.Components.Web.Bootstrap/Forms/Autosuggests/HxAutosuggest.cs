@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize
+	public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize, IInputWithPlaceholder
 	{
 		[Parameter] public AutosuggestDataProviderDelegate<TItem> DataProvider { get; set; }
 
@@ -65,7 +65,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
 			}
 		}
-
 
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)

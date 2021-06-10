@@ -70,7 +70,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public LabelType? LabelType { get; set; }
 
-// TODO: Odstranit?
 		/// <summary>
 		/// Custom CSS class to render with the input element.
 		/// </summary>
@@ -156,6 +155,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return base.SetParametersAsync(ParameterView.Empty); // process base method (validations & EditContext property logic)
 		}
 
+		/// <inheritdoc />
+		protected override void OnParametersSet()
+		{
+			base.OnParametersSet();
+
+			if ((this is IInputWithLabelType inputWithLabelType)
+				&& (this is IInputWithPlaceholder inputWithPlaceholder)
+				&& (inputWithLabelType.LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
+				&& !String.IsNullOrEmpty(inputWithPlaceholder.Placeholder))
+			{
+				throw new InvalidOperationException($"Cannot use {nameof(IInputWithPlaceholder.Placeholder)} with floating labels.");
+			}
+		}
 		/// <summary>
 		/// When there is no EditContext cascading parameter, lets create a new one and assing it to CascadedEditContext private property in a base InputBase class.
 		/// </summary>
@@ -181,7 +193,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				EnsureInputId();
 			}
-			
+
 			builder.OpenRegion(0);
 			base.BuildRenderTree(builder);
 			builder.CloseRegion();
@@ -225,6 +237,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				builder.AddAttribute(6, "placeholder", "placeholder"); // there must be a nonempty value (which is not visible)
 			}
+			else if (this is IInputWithPlaceholder inputWithPlaceholder)
+			{
+				builder.AddAttribute(7, "placeholder", inputWithPlaceholder.Placeholder);
+			}
+
 		}
 
 		/// <summary>

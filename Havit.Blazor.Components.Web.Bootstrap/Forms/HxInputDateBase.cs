@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -15,7 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// Base class for date inputs.
 	/// Uses a <see href="https://github.com/jdtcn/BlazorDateRangePicker">DateRangePicker</see>, follow the Get Started guide!
 	/// </summary>
-	public abstract class HxInputDateBase<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize
+	public abstract class HxInputDateBase<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithPlaceholder
 	{
 		/// <summary>
 		/// Gets or sets the error message used when displaying an a parsing error.
@@ -33,17 +34,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private bool forceRenderValue = false;
 		private int valueSequenceOffset = 0;
-
-		/// <inheritdoc />
-		protected override void OnParametersSet()
-		{
-			base.OnParametersSet();
-
-			if ((LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
-			{
-				throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
-			}
-		}
 
 		/// <inheritdoc />
 		protected override sealed void BuildRenderInput(RenderTreeBuilder builder)
@@ -64,7 +54,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				builder.AddAttribute(1002, "onfocusin", EventCallback.Factory.Create(this, dateRangePicker.Open));
 				builder.AddAttribute(1003, "onfocusout", EventCallback.Factory.Create(this, dateRangePicker.LostFocus));
-				builder.AddAttribute(1004, "placeholder", Placeholder);
 				builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 
 				// Počítané hodnoty sekvence jsou proti smyslu sekvencí a proti veškerým obecným doporučením.

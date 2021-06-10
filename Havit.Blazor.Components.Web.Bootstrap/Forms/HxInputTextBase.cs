@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -13,7 +14,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Text-based (string) input base class.
 	/// </summary>
-	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize
+	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder
 	{
 		/// <summary>
 		/// Gets or sets the behavior when the model is updated from then input.
@@ -29,17 +30,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public InputSize InputSize { get; set; }
 
 		/// <inheritdoc />
-		protected override void OnParametersSet()
-		{
-			base.OnParametersSet();
-
-			if ((LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
-			{
-				throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
-			}
-		}
-
-		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, GetElementName());
@@ -49,11 +39,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if ((maxLengthAttribute != null) && (maxLengthAttribute.Length > 0))
 			{
 				builder.AddAttribute(1000, "maxlength", maxLengthAttribute.Length);
-			}
-
-			if (!String.IsNullOrEmpty(Placeholder))
-			{
-				builder.AddAttribute(1001, "placeholder", Placeholder);
 			}
 
 			builder.AddAttribute(1002, "value", FormatValueAsString(Value));

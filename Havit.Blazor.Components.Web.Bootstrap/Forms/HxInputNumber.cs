@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -17,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <typeparam name="TValue">
 	/// Supported values: int (Int32), long (Int64), float (Single), double, decimal.
 	/// </typeparam>
-	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize
+	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithPlaceholder
 	{
 		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(int), typeof(long), typeof(float), typeof(double), typeof(decimal) };
@@ -58,9 +59,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 		private int? decimals;
-
-		/// <inheritdoc />
-		[Parameter] public InputSize InputSize { get; set; }
 
 		/// <summary>
 		/// Gets effective value for Decimals (when not set gets 0 for integer types and 2 for floating point types.
@@ -113,11 +111,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			builder.OpenElement(0, "input");
 			BuildRenderInput_AddCommonAttributes(builder, "text");
-
-			if (!String.IsNullOrEmpty(Placeholder))
-			{
-				builder.AddAttribute(1000, "placeholder", Placeholder);
-			}
 
 			if (DecimalsEffective <= 0)
 			{
