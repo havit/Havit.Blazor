@@ -59,8 +59,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 					// checkbox, etc.
 
+					if (FormValueComponent.ShouldRenderInputGroups())
+					{
+						throw new InvalidOperationException($"Cannot use Input Groups when {nameof(FormValueComponent.RenderOrder)} is {nameof(LabelValueRenderOrder.ValueLabel)}.");
+					}
+
 					builder.OpenRegion(5);
-					BuildRenderInputGroups(builder, BuildRenderValue); // TODO: Lze zde vůbec renderovat InputGroups???
+					BuildRenderInputGroups(builder, BuildRenderValue);
 					builder.CloseRegion();
 
 					builder.OpenRegion(6);
@@ -73,9 +78,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 					// autosuggest with floating label
 					builder.OpenRegion(7);
-					BuildRenderInputGroups(builder, BuildRenderValue); // TODO: Lze zde vůbec renderovat InputGroups???
+					BuildRenderInputGroups(builder, BuildRenderValue);
 					builder.CloseRegion();
-					
+
 					break;
 
 				default: throw new InvalidOperationException($"Unknown RenderOrder: {FormValueComponent.RenderOrder}");
@@ -112,12 +117,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		protected virtual void BuildRenderInputGroups(RenderTreeBuilder builder, RenderFragment content)
 		{
 			IFormValueComponentWithInputGroups formValueComponentWithInputGroups = FormValueComponent as IFormValueComponentWithInputGroups;
-
-			bool shouldRenderInputGroups = (formValueComponentWithInputGroups != null)
-				&& (!String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupStart)
-					|| (formValueComponentWithInputGroups.InputGroupStartTemplate != null)
-					|| !String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupEnd)
-					|| (formValueComponentWithInputGroups.InputGroupEndTemplate != null));
+			bool shouldRenderInputGroups = FormValueComponent.ShouldRenderInputGroups();
 
 			if (shouldRenderInputGroups)
 			{
