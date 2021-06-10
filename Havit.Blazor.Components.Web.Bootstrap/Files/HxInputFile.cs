@@ -184,7 +184,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.OpenElement(1, "label");
 				builder.AddAttribute(2, "for", InputId);
 				builder.AddAttribute(3, "class", CssClassHelper.Combine(CoreLabelCssClass, LabelCssClass));
-				builder.AddEventStopPropagationAttribute(4, "onclick", true); // TODO: Chceme onclick:stopPropagation na labelech všech inputů, nebo jen checkboxy? Má to být  nastavitelné?
+				builder.AddEventStopPropagationAttribute(4, "onclick", true);
 				if (LabelTemplate == null)
 				{
 					builder.AddContent(5, Label);

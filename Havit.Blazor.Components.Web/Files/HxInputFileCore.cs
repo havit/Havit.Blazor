@@ -63,7 +63,7 @@ namespace Havit.Blazor.Components.Web
 		{
 			base.OnParametersSet();
 
-			// TODO Temporary hack as base implementation of InputFile does not expose ElementReference (vNext: https://github.com/dotnet/aspnetcore/blob/main/src/Components/Web/src/Forms/InputFile.cs)
+			// Temporary hack as base implementation of InputFile does not expose ElementReference (vNext: https://github.com/dotnet/aspnetcore/blob/main/src/Components/Web/src/Forms/InputFile.cs)
 			AdditionalAttributes ??= new Dictionary<string, object>();
 			AdditionalAttributes["id"] = this.Id;
 			AdditionalAttributes["multiple"] = this.Multiple;

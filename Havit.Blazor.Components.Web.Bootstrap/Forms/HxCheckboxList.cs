@@ -97,7 +97,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					// We need ValueExpression. Ehm, HxInputCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 					// We have nothing to give the HxInputCheckbox. So we make own class with property which we assign to the ValueExpression.
 					// Impacts? Unknown. Maybe none.
-					builder.AddAttribute(9, nameof(HxInputCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty)); // TODO: Je tenhle workaround průchozí???
+					builder.AddAttribute(9, nameof(HxInputCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
 
 					builder.AddAttribute(10, nameof(HxInputCheckbox.ShowValidationMessage), false);
 					builder.CloseComponent();

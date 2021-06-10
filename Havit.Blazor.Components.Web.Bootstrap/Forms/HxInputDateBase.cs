@@ -62,7 +62,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.AddAttribute(1002, "onfocusin", EventCallback.Factory.Create(this, dateRangePicker.Open));
 				builder.AddAttribute(1003, "onfocusout", EventCallback.Factory.Create(this, dateRangePicker.LostFocus));
 				builder.AddAttribute(1004, "placeholder", Placeholder);
-				builder.AddEventStopPropagationAttribute(1004, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputDate nastavitelné?
+				builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 
 				// Počítané hodnoty sekvence jsou proti smyslu sekvencí a proti veškerým obecným doporučením.
 				// Zde chceme dosáhnout toho, aby při změně uživatelského vstupu, došlo k přerenderování hodnoty, přestože se nezměnila hodnota FormatValueAsString(Value).

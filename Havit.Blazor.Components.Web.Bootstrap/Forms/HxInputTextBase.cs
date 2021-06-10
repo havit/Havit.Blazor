@@ -55,7 +55,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			builder.AddAttribute(1002, "value", FormatValueAsString(Value));
 			builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-			builder.AddEventStopPropagationAttribute(1004, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputTextBase nastavitelné?
+			builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 			builder.AddElementReferenceCapture(1005, elementReferece => InputElement = elementReferece);
 
 			builder.CloseElement();
