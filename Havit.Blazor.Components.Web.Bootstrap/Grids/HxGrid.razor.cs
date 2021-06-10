@@ -112,9 +112,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? InProgress { get; set; }
 
 		/// <summary>
+		/// Custom CSS class to render with <code>div</code> element wrapping the main <code>table</code> (HxPager is not wrapped in this <code>div</code> element).
+		/// </summary>
+		[Parameter] public string TableContainerCssClass { get; set; }
+
+		/// <summary>
 		/// Custom CSS class to render with main <code>table</code> element.
 		/// </summary>
-		[Parameter] public string CssClass { get; set; }
+		[Parameter] public string TableCssClass { get; set; }
 
 		/// <summary>
 		/// Custom CSS class to render with header <code>tr</code> element.
@@ -135,6 +140,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Custom CSS class to render with footer <code>tr</code> element.
 		/// </summary>
 		[Parameter] public string FooterRowCssClass { get; set; }
+
+		/// <summary>
+		/// Custom CSS class to render with pager wrapping <code>div</code> element.
+		/// </summary>
+		[Parameter] public string PagerContainerCssClass { get; set; }
 
 		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
 
