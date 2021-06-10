@@ -33,7 +33,7 @@
 	{
 		<HxProgressIndicator InProgress="@(InProgress ?? dataProviderInProgress)">
 
-			<table class="@CssClassHelper.Combine("hx-grid table table-responsible", (((SelectionEnabled || MultiSelectionEnabled) && (dataItemsToRender?.Count > 0)) ? "table-hover" : null), CssClass)">
+			<table class="@CssClassHelper.Combine("hx-grid table", (((SelectionEnabled || MultiSelectionEnabled) && (dataItemsToRender?.Count > 0)) ? "table-hover" : null), CssClass)">
 				<thead>
 					<tr class="@HeaderRowCssClass">
 						@foreach (IHxGridColumn<TItem> column in columnsToRender)
