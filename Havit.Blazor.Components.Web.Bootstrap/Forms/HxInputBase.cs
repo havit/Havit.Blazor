@@ -181,13 +181,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				EnsureInputId();
 			}
-
+			
+			builder.OpenRegion(0);
 			base.BuildRenderTree(builder);
-			HxFormValueComponentRenderer.Render(0, builder, this);
+			builder.CloseRegion();
+
+			HxFormValueComponentRenderer.Render(1, builder, this);
 
 			if (GenerateChip)
 			{
-				builder.OpenRegion(1);
+				builder.OpenRegion(2);
 				RenderChipGenerator(builder);
 				builder.CloseRegion();
 			}

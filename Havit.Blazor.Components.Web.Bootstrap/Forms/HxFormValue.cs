@@ -56,8 +56,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
+			builder.OpenRegion(0);
 			base.BuildRenderTree(builder);
-			HxFormValueComponentRenderer.Render(0, builder, this);
+			builder.CloseRegion();
+
+			HxFormValueComponentRenderer.Render(1, builder, this);
 		}
 
 		/// <inheritdoc />
