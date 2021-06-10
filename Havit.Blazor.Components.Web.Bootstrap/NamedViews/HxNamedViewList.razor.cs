@@ -15,7 +15,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Parameter] public EventCallback<TFilterModel> FilterModelChanged { get; set; }
 
-		// TODO Chceme toto nebo FilterModel?
 		[Parameter] public EventCallback<NamedView<TFilterModel>> OnNamedViewSelected { get; set; }
 
 		protected async Task HandleNamedViewClick(NamedView<TFilterModel> namedView)

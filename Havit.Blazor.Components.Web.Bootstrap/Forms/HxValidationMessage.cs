@@ -97,13 +97,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (messages.Any())
 			{
-				builder.OpenElement(0, "div");
-				builder.AddAttribute(1, "class", "invalid-tooltip");
+				builder.OpenElement(100, "div");
+				builder.AddAttribute(101, "class", HxInputBase<object>.InvalidCssClass);
+				builder.CloseElement();
+
+				builder.OpenElement(200, "div");
+				builder.AddAttribute(201, "class", "invalid-tooltip");
 
 				foreach (string message in messages)
 				{
-					builder.OpenElement(2, "span");
-					builder.AddContent(3, message);
+					builder.OpenElement(202, "span");
+					builder.AddContent(203, message);
 					builder.CloseElement();
 				}
 

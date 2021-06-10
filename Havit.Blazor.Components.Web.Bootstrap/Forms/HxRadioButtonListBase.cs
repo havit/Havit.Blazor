@@ -76,17 +76,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			GroupName = Guid.NewGuid().ToString("N");
 		}
 
-		/// <inheritdoc />
-		protected override void OnParametersSet()
-		{
-			base.OnParametersSet();
-
-			if (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
-			{
-				throw new InvalidOperationException($"Floating labes are not supported on {nameof(HxRadioButtonListBase<TValue, TItem>)}.");
-			}
-		}
-
 		/// <inheritdoc/>
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
@@ -148,21 +137,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.CloseElement(); // label
 
 				builder.CloseElement(); // div
-			}
-		}
-
-		/// <inheritdoc />
-		protected override void BuildRenderValidationMessage(RenderTreeBuilder builder)
-		{
-			if (ShowValidationMessage)
-			{
-				builder.OpenElement(1, "div");
-				builder.AddAttribute(2, "class", IsValueValid() ? InvalidCssClass : null);
-				builder.CloseElement();
-
-				builder.OpenRegion(3);
-				base.BuildRenderValidationMessage(builder);
-				builder.CloseRegion();
 			}
 		}
 

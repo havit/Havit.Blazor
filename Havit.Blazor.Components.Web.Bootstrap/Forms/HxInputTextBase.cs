@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -13,7 +14,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Text-based (string) input base class.
 	/// </summary>
-	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>
+	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
 		/// <summary>
 		/// Gets or sets the behavior when the model is updated from then input.
@@ -26,15 +27,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Placeholder { get; set; }
 
 		/// <inheritdoc />
-		protected override void OnParametersSet()
-		{
-			base.OnParametersSet();
+		[Parameter] public InputSize InputSize { get; set; }
 
-			if ((LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
-			{
-				throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
-			}
-		}
+		/// <inheritdoc />
+		[Parameter] public LabelType? LabelType { get; set; }
 
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -48,14 +44,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.AddAttribute(1000, "maxlength", maxLengthAttribute.Length);
 			}
 
-			if (!String.IsNullOrEmpty(Placeholder))
-			{
-				builder.AddAttribute(1001, "placeholder", Placeholder);
-			}
-
 			builder.AddAttribute(1002, "value", FormatValueAsString(Value));
 			builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-			builder.AddEventStopPropagationAttribute(1004, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputTextBase nastavitelné?
+			builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 			builder.AddElementReferenceCapture(1005, elementReferece => InputElement = elementReferece);
 
 			builder.CloseElement();

@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		public string Name { get; }
 
-		public Func<TFilterModel> Filter { get; } // TODO: Naming?
+		public Func<TFilterModel> Filter { get; }
 
 		public NamedView(string name) : this(name, () => default)
 		{

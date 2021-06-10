@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -17,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <typeparam name="TValue">
 	/// Supported values: int (Int32), long (Int64), float (Single), double, decimal.
 	/// </typeparam>
-	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>
+	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
 		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(int), typeof(long), typeof(float), typeof(double), typeof(decimal) };
@@ -32,6 +33,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Placeholder for the input.
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public InputSize InputSize { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public LabelType? LabelType { get; set; }
 
 		/// <summary>
 		/// Gets or sets the number of decimal digits.
@@ -92,26 +99,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private int valueSequenceOffset = 0;
 
 		/// <inheritdoc />
-		protected override void OnParametersSet()
-		{
-			base.OnParametersSet();
-
-			if ((LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
-			{
-				throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
-			}
-		}
-
-		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, "input");
 			BuildRenderInput_AddCommonAttributes(builder, "text");
-
-			if (!String.IsNullOrEmpty(Placeholder))
-			{
-				builder.AddAttribute(1000, "placeholder", Placeholder);
-			}
 
 			if (DecimalsEffective <= 0)
 			{
@@ -122,7 +113,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			builder.AddAttribute(1002, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
 			builder.AddAttribute(1003, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-			builder.AddEventStopPropagationAttribute(1004, "onclick", true); // TODO: Chceme onclick:stopPropagation na HxInputNumber nastavitelné?
+			builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 
 			// Počítané hodnoty sekvence jsou proti smyslu sekvencí a proti veškerým obecným doporučením.
 			// Zde chceme dosáhnout toho, aby při změně uživatelského vstupu, došlo k přerenderování hodnoty, přestože se nezměnila hodnota FormatValueAsString(Value).

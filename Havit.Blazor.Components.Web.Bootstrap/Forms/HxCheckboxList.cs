@@ -39,17 +39,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private List<TItem> itemsToRender;
 
-		/// <inheritdoc />
-		protected override void OnParametersSet()
-		{
-			base.OnParametersSet();
-
-			if (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
-			{
-				throw new InvalidOperationException($"Floating labes are not supported on {nameof(HxCheckboxList<TItem>)}.");
-			}
-		}
-
 		private void RefreshState()
 		{
 			itemsToRender = Data?.ToList() ?? new List<TItem>();
@@ -97,7 +86,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					// We need ValueExpression. Ehm, HxInputCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 					// We have nothing to give the HxInputCheckbox. So we make own class with property which we assign to the ValueExpression.
 					// Impacts? Unknown. Maybe none.
-					builder.AddAttribute(9, nameof(HxInputCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty)); // TODO: Je tenhle workaround průchozí???
+					builder.AddAttribute(9, nameof(HxInputCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
 
 					builder.AddAttribute(10, nameof(HxInputCheckbox.ShowValidationMessage), false);
 					builder.CloseComponent();

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
+using Havit.Blazor.Components.Web.Infrastructure;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public partial class HxInputFile : ComponentBase
+	public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFormValueComponent
 	{
 		/// <summary>
 		/// URL of the server endpoint receiving the files.
@@ -42,6 +44,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool Multiple { get; set; }
 
+		#region IFormValueComponent public properties
 		/// <summary>
 		/// Label to render before input (or after input for Checkbox).		
 		/// </summary>
@@ -71,13 +74,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Custom CSS class to render with the label.
 		/// </summary>
 		[Parameter] public string LabelCssClass { get; set; }
+		#endregion
 
 		/// <summary>
 		/// Custom CSS class to render with the input element.
 		/// </summary>
 		[Parameter] public string InputCssClass { get; set; }
 
+		/// <inheritdoc />
 		[Parameter] public bool? Enabled { get; set; }
+
+		/// <inheritdoc />
+		[CascadingParameter] public FormState FormState { get; set; }
 
 		public int FileCount => hxInputFileCoreComponentReference.FileCount;
 
@@ -87,24 +95,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected string InputId { get; private set; } = "hx" + Guid.NewGuid().ToString("N");
 
 		/// <summary>
-		/// CSS class to be rendered with the wrapping div.
-		/// </summary>
-		private protected virtual string CoreCssClass => "";
-
-		/// <summary>
 		/// CSS class to be rendered with the input element.
 		/// </summary>
 		private protected virtual string CoreInputCssClass => "form-control";
 
-		/// <summary>
-		/// CSS class to be rendered with the label.
-		/// </summary>
-		private protected virtual string CoreLabelCssClass => "form-label";
-
-		/// <summary>
-		/// CSS class to be rendered with the hint.
-		/// </summary>
-		private protected virtual string CoreHintCssClass => "form-text";
+		string IFormValueComponent.LabelFor => this.InputId;
+		string IFormValueComponent.CoreCssClass => "";
+		string IFormValueComponent.CoreLabelCssClass => "form-label";
+		string IFormValueComponent.CoreHintCssClass => "form-text";
 
 		private protected HxInputFileCore hxInputFileCoreComponentReference;
 
@@ -135,106 +133,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
-			// no base call
-
-			string cssClass = CssClassHelper.Combine(CoreCssClass, CssClass);
-
-			// pokud nemáme css class, label, ani hint, budeme renderovat jako čistý input
-			bool renderDiv = !String.IsNullOrEmpty(cssClass)
-				|| !String.IsNullOrEmpty(Label)
-				|| (LabelTemplate != null)
-				|| !String.IsNullOrEmpty(Hint)
-				|| (HintTemplate != null);
-
-			if (renderDiv)
-			{
-				builder.OpenElement(1, "div");
-				if (!String.IsNullOrEmpty(cssClass))
-				{
-					builder.AddAttribute(2, "class", cssClass);
-				}
-			}
-
-			builder.OpenRegion(3);
-			BuildRenderLabel(builder);
+			builder.OpenRegion(0);
+			base.BuildRenderTree(builder);
 			builder.CloseRegion();
 
-			builder.OpenRegion(4);
-			BuildRenderHxInputFileCore(builder);
-			builder.CloseRegion();
-
-			builder.OpenRegion(9);
-			BuildRenderHint(builder);
-			builder.CloseRegion();
-
-			if (renderDiv)
-			{
-				builder.CloseElement();
-			}
+			HxFormValueComponentRenderer.Render(1, builder, this);
 		}
 
-		/// <summary>
-		/// Renders label when properties set.
-		/// </summary>
-		protected virtual void BuildRenderLabel(RenderTreeBuilder builder)
-		{
-			//  <label for="formGroupExampleInput">Example label</label>
-			if (!String.IsNullOrEmpty(Label) || (LabelTemplate != null))
-			{
-				builder.OpenElement(1, "label");
-				builder.AddAttribute(2, "for", InputId);
-				builder.AddAttribute(3, "class", CssClassHelper.Combine(CoreLabelCssClass, LabelCssClass));
-				builder.AddEventStopPropagationAttribute(4, "onclick", true); // TODO: Chceme onclick:stopPropagation na labelech všech inputů, nebo jen checkboxy? Má to být  nastavitelné?
-				if (LabelTemplate == null)
-				{
-					builder.AddContent(5, Label);
-				}
-				builder.AddContent(6, LabelTemplate);
-				builder.CloseElement();
-			}
-		}
-
-		/// <summary>
-		/// Render input. Enables to use some wrapping html, used for input-group in descenant.
-		/// </summary>
-		protected virtual void BuildRenderInputDecorated(RenderTreeBuilder builder)
-		{
-			// breaks the rule - ancesor is designed for descenant
-			BuildRenderHxInputFileCore(builder);
-		}
-
-		/// <summary>
-		/// Renders input.
-		/// </summary>
-		protected virtual void BuildRenderHxInputFileCore(RenderTreeBuilder builder)
+		void IFormValueComponent.RenderValue(RenderTreeBuilder builder)
 		{
 			builder.OpenComponent<HxInputFileCore>(1);
-			builder.AddAttribute(1002, nameof(HxInputFileCore.Id), this.InputId);
-			builder.AddAttribute(1003, nameof(HxInputFileCore.UploadUrl), this.UploadUrl);
-			builder.AddAttribute(1004, nameof(HxInputFileCore.Multiple), this.Multiple);
-			builder.AddAttribute(1005, nameof(HxInputFileCore.OnChange), this.OnChange);
-			builder.AddAttribute(1006, nameof(HxInputFileCore.OnProgress), this.OnProgress);
-			builder.AddAttribute(1007, nameof(HxInputFileCore.OnFileUploaded), this.OnFileUploaded);
-			builder.AddAttribute(1008, nameof(HxInputFileCore.OnUploadCompleted), this.OnUploadCompleted);
-			builder.AddAttribute(1009, "class", CssClassHelper.Combine(this.CoreInputCssClass, this.InputCssClass));
-			builder.AddComponentReferenceCapture(1001, r => hxInputFileCoreComponentReference = (HxInputFileCore)r);
+			builder.AddAttribute(1001, nameof(HxInputFileCore.Id), this.InputId);
+			builder.AddAttribute(1002, nameof(HxInputFileCore.UploadUrl), this.UploadUrl);
+			builder.AddAttribute(1003, nameof(HxInputFileCore.Multiple), this.Multiple);
+			builder.AddAttribute(1004, nameof(HxInputFileCore.OnChange), this.OnChange);
+			builder.AddAttribute(1005, nameof(HxInputFileCore.OnProgress), this.OnProgress);
+			builder.AddAttribute(1006, nameof(HxInputFileCore.OnFileUploaded), this.OnFileUploaded);
+			builder.AddAttribute(1007, nameof(HxInputFileCore.OnUploadCompleted), this.OnUploadCompleted);
+			builder.AddAttribute(1008, "class", CssClassHelper.Combine(this.CoreInputCssClass, this.InputCssClass));
+			builder.AddAttribute(1009, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
+			builder.AddComponentReferenceCapture(1010, r => hxInputFileCoreComponentReference = (HxInputFileCore)r);
 			builder.CloseComponent();
 		}
-
-		/// <summary>
-		/// Renders hint when property HintTemplate set.
-		/// </summary>
-		protected virtual void BuildRenderHint(RenderTreeBuilder builder)
-		{
-			if (!String.IsNullOrEmpty(Hint) || (HintTemplate != null))
-			{
-				builder.OpenElement(1, "div");
-				builder.AddAttribute(2, "class", CoreHintCssClass);
-				builder.AddContent(3, Hint);
-				builder.AddContent(4, HintTemplate);
-				builder.CloseElement();
-			}
-		}
-
 	}
 }

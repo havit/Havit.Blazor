@@ -12,8 +12,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <typeparam name="TItem">Grid row data type.</typeparam>
 	public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	{
-		// TODO: Suppress SA1134 je v CSPROJ, uvolnit celofiremně?
-
 		/// <summary>
 		/// Indicates whether the column is visible (otherwise the column is hidden).
 		/// </summary>

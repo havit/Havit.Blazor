@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Parameter] public RenderFragment NamedViewsTemplate { get; set; }
 
-		[Parameter] public RenderFragment SearchTemplate { get; set; } // TODO SearchTemplate
+		[Parameter] public RenderFragment SearchTemplate { get; set; }
 
 		[Parameter] public RenderFragment<TFilterModel> FilterTemplate { get; set; }
 

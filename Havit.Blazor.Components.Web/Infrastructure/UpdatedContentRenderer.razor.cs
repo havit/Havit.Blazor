@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Infrastructure
 {
-	// TODO: Naming!
 	public partial class UpdatedContentRenderer : ComponentBase, IDisposable
 	{
 		[Parameter] public IRenderNotificationComponent Component { get; set; }
