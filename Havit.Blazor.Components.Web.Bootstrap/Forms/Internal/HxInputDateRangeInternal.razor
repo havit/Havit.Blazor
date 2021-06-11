@@ -3,8 +3,7 @@
 
 @if ((FieldIdentifier.Model != null) && (fromFieldIdentifier.Model != null) && (toFieldIdentifier.Model != null))
 {
-<div class="input-group mb-3">
-	<div class="dropdown">
+	<div class="input-group mb-3 dropdown">
 		@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
 		<input @ref="fromInputElement" type="text" id="@FromInputId" class="@CssClassHelper.Combine("form-control", InputCssClass)" value="@FormatDate(Value.StartDate)" placeholder="@StringLocalizer["From"]" @onchange="HandleFromChanged" @onfocus="HandleFromFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
 		@if (ShowValidationMessage)
@@ -14,15 +13,17 @@
 		}
 		@if (EnabledEffective)
 		{
-			<div class="dropdown-menu">
-				<HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" />
-				<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Danger" OnClick="HandleFromClearClickAsync" />
-				<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" OnClick="HandleFromOKClickAsync" />
+			<div class="dropdown-menu p-3">
+				<div class="mb-3">
+					<HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" />
+				</div>
+				<div class="d-flex justify-content-between">
+					<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleFromClearClickAsync" />
+					<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleFromOKClickAsync" />
+				</div>
 			</div>
 		}
-	</div>
 
-	<div class="dropdown">
 		@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
 		<input @ref="toInputElement" type="text" class="@CssClassHelper.Combine("form-control", InputCssClass)" value="@FormatDate(Value.EndDate)" placeholder="@StringLocalizer["To"]" @onchange="HandleToChanged" @onfocus="HandleToFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
 		@if (ShowValidationMessage)
@@ -31,30 +32,31 @@
 		}
 		@if (EnabledEffective)
 		{
-			<div class="dropdown-menu">
-				<HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" />
-				<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Danger" OnClick="HandleToClearClickAsync" />
-				<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" OnClick="HandleToOKClickAsync" />
+			<div class="dropdown-menu p-3">
+				<div class="mb-3">
+					<HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" />
+				</div>
+				<div class="d-flex justify-content-between">
+					<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleToClearClickAsync" />
+					<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleToOKClickAsync" />
+				</div>
 			</div>
 		}
-	</div>
 
-	@if ((CustomDateRanges != null) && CustomDateRanges.Any())
-	{
-	<div class="dropdown">
-		<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)">
-			<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
-		</button>
-		@if (EnabledEffective)
+		@if ((CustomDateRanges != null) && CustomDateRanges.Any())
 		{
-			<ul class="dropdown-menu dropdown-menu-end">
-			@foreach (DateRangeItem item in CustomDateRanges)
+			<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)">
+				<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
+			</button>
+			@if (EnabledEffective)
 			{
-				<li><span class="dropdown-item" role="button" @onclick="() => HandleDateRangeClick(item.DateRange)" @onclick:stopPropagation>@item.Label</span></li>
+				<ul class="dropdown-menu dropdown-menu-end">
+					@foreach (DateRangeItem item in CustomDateRanges)
+					{
+						<li><span class="dropdown-item" role="button" @onclick="() => HandleDateRangeClick(item.DateRange)" @onclick:stopPropagation>@item.Label</span></li>
+					}
+				</ul>
 			}
-			</ul>
 		}
 	</div>
-		}
-</div>
 }
