@@ -80,7 +80,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		// For generating chips
 		/// <inheritdocs />
-		protected override string FormatValueAsString(TValue? value) => FormatValue(value);
+		protected override string FormatValueAsString(TValue value) => FormatValue(value);
 
 		private protected override void BuildRenderInput_AddCommonAttributes(RenderTreeBuilder builder, string typeValue)
 		{
@@ -131,7 +131,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return String.Format(message, Label, FieldIdentifier.FieldName);
 		}
 
-		internal static string FormatValue(TValue? value)
+		internal static string FormatValue(TValue value)
 		{
 			// nenabízíme hodnotu 1.1.0001, atp.
 			if (EqualityComparer<TValue>.Default.Equals(value, default))
