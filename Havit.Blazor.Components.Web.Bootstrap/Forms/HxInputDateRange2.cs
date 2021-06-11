@@ -75,6 +75,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			throw new NotSupportedException();
 		}
 
+		// For generating chips
+		/// <inheritdocs />
+		protected override string FormatValueAsString(DateTimeRange value)
+		{
+			string from = null;
+			string to = null;
+
+			if (value.StartDate != null)
+			{
+				from = StringLocalizer["From"] + " " + value.StartDate.Value.ToShortDateString();
+			}
+
+			if (value.EndDate != null)
+			{
+				to = StringLocalizer["To"] + " " + value.EndDate.Value.ToShortDateString();
+			}
+
+			return String.Join(" ", from, to);
+		}
+
 		protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out DateTimeRange result, [NotNullWhen(false)] out string validationErrorMessage)
 		{
 			throw new NotSupportedException();

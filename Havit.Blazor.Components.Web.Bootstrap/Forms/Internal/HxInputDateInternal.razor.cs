@@ -53,24 +53,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 		}
 
-		protected override string FormatValueAsString(TValue value)
-		{
-			// nenabízíme hodnotu 1.1.0001, atp.
-			if (EqualityComparer<TValue>.Default.Equals(value, default))
-			{
-				return null;
-			}
-
-			switch (value)
-			{
-				case DateTime dateTimeValue:
-					return dateTimeValue.ToShortDateString();
-				case DateTimeOffset dateTimeOffsetValue:
-					return dateTimeOffsetValue.DateTime.ToShortDateString();
-				default:
-					throw new InvalidOperationException("Unsupported type.");
-			}
-		}
+		protected override string FormatValueAsString(TValue value) => HxInputDate2<TValue>.FormatValue(value);
 
 		private void HandleValueChanged(ChangeEventArgs changeEventArgs)
 		{

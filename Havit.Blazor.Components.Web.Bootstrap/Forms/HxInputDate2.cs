@@ -78,6 +78,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		//	// NOOP
 		//}
 
+		// For generating chips
+		/// <inheritdocs />
+		protected override string FormatValueAsString(TValue? value) => FormatValue(value);
+
 		private protected override void BuildRenderInput_AddCommonAttributes(RenderTreeBuilder builder, string typeValue)
 		{
 			throw new NotSupportedException();
@@ -125,6 +129,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				? ParsingErrorMessage
 				: StringLocalizer["ParsingErrorMessage"];
 			return String.Format(message, Label, FieldIdentifier.FieldName);
+		}
+
+		internal static string FormatValue(TValue? value)
+		{
+			// nenabízíme hodnotu 1.1.0001, atp.
+			if (EqualityComparer<TValue>.Default.Equals(value, default))
+			{
+				return null;
+			}
+
+			switch (value)
+			{
+				case DateTime dateTimeValue:
+					return dateTimeValue.ToShortDateString();
+				case DateTimeOffset dateTimeOffsetValue:
+					return dateTimeOffsetValue.DateTime.ToShortDateString();
+				default:
+					throw new InvalidOperationException("Unsupported type.");
+			}
 		}
 	}
 }
