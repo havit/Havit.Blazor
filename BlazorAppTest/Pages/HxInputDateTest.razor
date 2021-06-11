@@ -7,10 +7,10 @@
 
 	<HxInputDate Label="Starý HxInputDate" @bind-Value="@model.DateTime" UseDefaultDates="false" ShowValidationMessage="false" />
 	<HxInputDate2 Label="Nový HxInputDate (default, DateTime)" @bind-Value="@model.DateTime" />
-	<HxInputDate2 Label="Nový HxInputDate (default, DateTime?)" @bind-Value="@model.NullableDateTime" />
+	<HxInputDate2 Label="Nový HxInputDate (default, DateTime?)" @bind-Value="@model.NullableDateTime" Placeholder="Datum narození" />
 	<HxInputDate2 Label="Nový HxInputDate (default, DateTimeOffset)" @bind-Value="@model.DateTimeOffset" />
 	<HxInputDate2 Label="Nový HxInputDate (default, DateTimeOffset?)" @bind-Value="@model.NullableDateTimeOffset" />
-	<HxInputDate2 Label="Nový HxInputDate (bez CustomDates)" @bind-Value="@model.DateTime" UseDefaultCustomDates="false" ShowValidationMessage="false" />
+	<HxInputDate2 Label="Nový HxInputDate (bez CustomDates, bez validací)" @bind-Value="@model.DateTime" UseDefaultDates="false" ShowValidationMessage="false" />
 	<HxInputDate2 Label="Nový HxInputDate (s vlastními CustomDates)" @bind-Value="@model.DateTime" CustomDates="@GetCustomDates()" />
 	<HxInputDate2 Label="Nový HxInputDate (disabled)" @bind-Value="@model.DateTime" CustomDates="@GetCustomDates()" Enabled="false" />
 

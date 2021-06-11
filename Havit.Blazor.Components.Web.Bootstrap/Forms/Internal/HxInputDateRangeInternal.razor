@@ -39,7 +39,7 @@
 		}
 	</div>
 
-	@if ((DateRanges != null) && DateRanges.Any())
+	@if ((CustomDateRanges != null) && CustomDateRanges.Any())
 	{
 	<div class="dropdown">
 		<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)">
@@ -48,7 +48,7 @@
 		@if (EnabledEffective)
 		{
 			<ul class="dropdown-menu dropdown-menu-end">
-			@foreach (DateRangeItem item in DateRanges)
+			@foreach (DateRangeItem item in CustomDateRanges)
 			{
 				<li><span class="dropdown-item" role="button" @onclick="() => HandleDateRangeClick(item.DateRange)" @onclick:stopPropagation>@item.Label</span></li>
 			}

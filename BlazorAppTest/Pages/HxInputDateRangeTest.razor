@@ -7,9 +7,9 @@
 
 	<HxInputDateRange Label="Starý HxInputDateRange" @bind-Value="@model.DateTimeRange" UseDefaultDateRanges="false" ShowValidationMessage="false" />
 	<HxInputDateRange2 Label="Nový HxInputDateRange (default)" @bind-Value="@model.DateTimeRange" />
-	<HxInputDateRange2 Label="Nový HxInputDateRange (bez DateRanges)" @bind-Value="@model.DateTimeRange" UseDefaultDateRanges="false" ShowValidationMessage="false" />
-	<HxInputDateRange2 Label="Nový HxInputDateRange (s vlastními DateRanges)" @bind-Value="@model.DateTimeRange" DateRanges="@GetDateRanges()" />
-	<HxInputDateRange2 Label="Nový HxInputDateRange (disabled)"  @bind-Value="@model.DateTimeRange" DateRanges="@GetDateRanges()" Enabled="false" />
+	<HxInputDateRange2 Label="Nový HxInputDateRange (bez DateRanges, bez validací)" @bind-Value="@model.DateTimeRange" UseDefaultDateRanges="false" ShowValidationMessage="false" />
+	<HxInputDateRange2 Label="Nový HxInputDateRange (s vlastními DateRanges)" @bind-Value="@model.DateTimeRange" CustomDateRanges="@GetDateRanges()" />
+	<HxInputDateRange2 Label="Nový HxInputDateRange (disabled)" @bind-Value="@model.DateTimeRange" CustomDateRanges="@GetDateRanges()" Enabled="false" />
 
 	<button type="submit">Submit</button>
 </EditForm>

@@ -18,20 +18,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Date range input.
 	/// </summary>
-	public class HxInputDate2<TValue> : HxInputBase<TValue>
+	public class HxInputDate2<TValue> : HxInputBase<TValue>, IInputWithPlaceholder
 	{
 		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(DateTime), typeof(DateTimeOffset) };
 
-		public static List<DateItem> DefaultCustomDates { get; set; }
+		public static List<DateItem> DefaultDates { get; set; }
 
 		/// <summary>
 		/// When true, uses default date ranges (this month, last month, this year, last year).
 		/// </summary>
-		[Parameter] public bool UseDefaultCustomDates { get; set; } = true;
+		[Parameter] public bool UseDefaultDates { get; set; } = true;
 
 		/// <summary>
-		/// Custom date ranges. When <see cref="UseDefaultCustomDates"/> is true, these items are used with default items.
+		/// Custom date ranges. When <see cref="UseDefaultDates"/> is true, these items are used with default items.
 		/// </summary>
 		[Parameter] public IEnumerable<DateItem> CustomDates { get; set; }
 
@@ -40,6 +40,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
 		/// </summary>
 		[Parameter] public string ParsingErrorMessage { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public string Placeholder { get; set; }
 
 		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
@@ -61,11 +64,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(102, nameof(HxInputDateInternal<TValue>.ValueExpression), ValueExpression);
 
 			builder.AddAttribute(200, nameof(HxInputDateInternal<TValue>.InputId), InputId);
-			builder.AddAttribute(200, nameof(HxInputDateInternal<TValue>.InputCssClass), InputCssClass);
-			builder.AddAttribute(200, nameof(HxInputDateInternal<TValue>.EnabledEffective), EnabledEffective);
-			builder.AddAttribute(200, nameof(HxInputDateInternal<TValue>.ParsingErrorMessageEffective), GetParsingErrorMessage());
-			//builder.AddAttribute(202, nameof(HxInputDateInternal.ShowValidationMessage), ShowValidationMessage);
-			builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.CustomDates), GetCustomDates().ToList());
+			builder.AddAttribute(201, nameof(HxInputDateInternal<TValue>.InputCssClass), InputCssClass);
+			builder.AddAttribute(202, nameof(HxInputDateInternal<TValue>.EnabledEffective), EnabledEffective);
+			builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.ParsingErrorMessageEffective), GetParsingErrorMessage());
+			builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.Placeholder), Placeholder);
+			builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.CustomDates), GetCustomDates().ToList());
 
 			builder.CloseComponent();
 		}
@@ -95,11 +98,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 			}
 
-			if (UseDefaultCustomDates)
+			if (UseDefaultDates)
 			{
-				if (DefaultCustomDates != null)
+				if (DefaultDates != null)
 				{
-					foreach (DateItem defaultDateItem in DefaultCustomDates)
+					foreach (DateItem defaultDateItem in DefaultDates)
 					{
 						yield return defaultDateItem;
 					}

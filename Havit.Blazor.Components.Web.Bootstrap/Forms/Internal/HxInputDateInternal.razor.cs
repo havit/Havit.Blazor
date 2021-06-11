@@ -25,6 +25,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public string ParsingErrorMessageEffective { get; set; }
 
+		[Parameter] public string Placeholder { get; set; }
+
 		[Inject] internal IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }

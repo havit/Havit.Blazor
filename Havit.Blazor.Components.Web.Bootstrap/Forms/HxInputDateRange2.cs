@@ -30,7 +30,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Custom date ranges. When <see cref="UseDefaultDateRanges"/> is true, these items are used with default items.
 		/// </summary>
-		[Parameter] public IEnumerable<DateRangeItem> DateRanges { get; set; }
+		[Parameter] public IEnumerable<DateRangeItem> CustomDateRanges { get; set; }
 
 		/// <summary>
 		/// Gets or sets the error message used when displaying an a &quot;from&quot; parsing error.
@@ -55,12 +55,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(102, nameof(HxInputDateRangeInternal.ValueExpression), ValueExpression);
 
 			builder.AddAttribute(200, nameof(HxInputDateRangeInternal.FromInputId), InputId);
-			builder.AddAttribute(200, nameof(HxInputDateRangeInternal.InputCssClass), InputCssClass);
-			builder.AddAttribute(200, nameof(HxInputDateRangeInternal.EnabledEffective), EnabledEffective);
-			builder.AddAttribute(200, nameof(HxInputDateRangeInternal.FromParsingErrorMessageEffective), GetFromParsingErrorMessage());
-			builder.AddAttribute(201, nameof(HxInputDateRangeInternal.ToParsingErrorMessageEffective), GetToParsingErrorMessage());
-			builder.AddAttribute(202, nameof(HxInputDateRangeInternal.ShowValidationMessage), ShowValidationMessage);
-			builder.AddAttribute(203, nameof(HxInputDateRangeInternal.DateRanges), GetDateRanges().ToList());
+			builder.AddAttribute(201, nameof(HxInputDateRangeInternal.InputCssClass), InputCssClass);
+			builder.AddAttribute(202, nameof(HxInputDateRangeInternal.EnabledEffective), EnabledEffective);
+			builder.AddAttribute(203, nameof(HxInputDateRangeInternal.FromParsingErrorMessageEffective), GetFromParsingErrorMessage());
+			builder.AddAttribute(204, nameof(HxInputDateRangeInternal.ToParsingErrorMessageEffective), GetToParsingErrorMessage());
+			builder.AddAttribute(205, nameof(HxInputDateRangeInternal.ShowValidationMessage), ShowValidationMessage);
+			builder.AddAttribute(206, nameof(HxInputDateRangeInternal.CustomDateRanges), GetCustomDateRanges().ToList());
 
 			builder.CloseComponent();
 		}
@@ -80,11 +80,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			throw new NotSupportedException();
 		}
 
-		private IEnumerable<DateRangeItem> GetDateRanges()
+		private IEnumerable<DateRangeItem> GetCustomDateRanges()
 		{
-			if (DateRanges != null)
+			if (CustomDateRanges != null)
 			{
-				foreach (DateRangeItem dateRangeItem in DateRanges)
+				foreach (DateRangeItem dateRangeItem in CustomDateRanges)
 				{
 					yield return dateRangeItem;
 				}
