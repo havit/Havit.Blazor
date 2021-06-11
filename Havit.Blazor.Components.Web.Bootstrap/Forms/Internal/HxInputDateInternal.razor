@@ -1,0 +1,40 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+@typeparam TValue
+@inherits Microsoft.AspNetCore.Components.Forms.InputBase<TValue>
+
+@if (FieldIdentifier.Model != null)
+{
+	<div class="input-group mb-3">
+		<div class="dropdown">
+			@*TODO: Placeholder*@
+			@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
+			<input @ref="dateInputElement" type="text" id="@InputId" class="@CssClassHelper.Combine("form-control", InputCssClass)" value="@CurrentValueAsString" @onchange="HandleValueChanged" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
+			@if (EnabledEffective)
+			{
+				<div class="dropdown-menu">
+					<HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" />
+					<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Danger" OnClick="HandleClearClickAsync" />
+					<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" OnClick="HandleOKClickAsync" />
+				</div>
+			}
+		</div>
+
+		@if (( CustomDates!= null) && CustomDates.Any())
+		{
+		<div class="dropdown">
+			<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)">
+				<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
+			</button>
+			@if (EnabledEffective)
+			{
+				<ul class="dropdown-menu dropdown-menu-end">
+				@foreach (DateItem item in CustomDates)
+				{
+					<li><span class="dropdown-item" role="button" @onclick="() => HandleCustomDateClick(item.Date)" @onclick:stopPropagation>@item.Label</span></li>
+				}
+				</ul>
+			}
+		</div>
+			}
+	</div>
+}

@@ -1,0 +1,45 @@
+﻿@page "/HxInputDateTest"
+@namespace System.ComponentModel.DataAnnotations
+
+<EditForm Model="@model">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+
+	<HxInputDate Label="Starý HxInputDate" @bind-Value="@model.DateTime" UseDefaultDates="false" ShowValidationMessage="false" />
+	<HxInputDate2 Label="Nový HxInputDate (default, DateTime)" @bind-Value="@model.DateTime" />
+	<HxInputDate2 Label="Nový HxInputDate (default, DateTime?)" @bind-Value="@model.NullableDateTime" />
+	<HxInputDate2 Label="Nový HxInputDate (default, DateTimeOffset)" @bind-Value="@model.DateTimeOffset" />
+	<HxInputDate2 Label="Nový HxInputDate (default, DateTimeOffset?)" @bind-Value="@model.NullableDateTimeOffset" />
+	<HxInputDate2 Label="Nový HxInputDate (bez CustomDates)" @bind-Value="@model.DateTime" UseDefaultCustomDates="false" ShowValidationMessage="false" />
+	<HxInputDate2 Label="Nový HxInputDate (s vlastními CustomDates)" @bind-Value="@model.DateTime" CustomDates="@GetCustomDates()" />
+	<HxInputDate2 Label="Nový HxInputDate (disabled)" @bind-Value="@model.DateTime" CustomDates="@GetCustomDates()" Enabled="false" />
+
+	<button type="submit">Submit</button>
+</EditForm>
+
+@code {
+	private FormModel model = new FormModel();
+
+	private IEnumerable<DateItem> GetCustomDates()
+	{
+		DateTime today = DateTime.Today;
+		yield return new DateItem { Label = "Prvního v měsíci", Date = new DateTime(today.Year, today.Month, 1) };
+		yield return new DateItem { Label = "Zítra", Date = today.AddDays(1) };
+	}
+
+	private class FormModel : IValidatableObject
+	{
+		public DateTime DateTime { get; set; } = DateTime.Today;
+		public DateTime? NullableDateTime { get; set; }
+		public DateTimeOffset DateTimeOffset { get; set; }
+		public DateTimeOffset NullableDateTimeOffset { get; set; }
+
+		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+		{
+			if (DateTime.Year != 2020)
+			{
+				yield return new ValidationResult("Datum musí být v roce 2020.", new string[] { nameof(DateTime) });
+			}
+		}
+	}
+}

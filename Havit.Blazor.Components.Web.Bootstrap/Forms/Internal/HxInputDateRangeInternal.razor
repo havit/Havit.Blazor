@@ -6,7 +6,7 @@
 <div class="input-group mb-3">
 	<div class="dropdown">
 		@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-		<input @ref="fromInputElement" type="text" id="@FromInputId" class="@CssClassHelper.Combine("form-control", InputCssClass)" value="@FormatDate(Value.StartDate)" placeholder="@StringLocalizer["From"]" @onchange="HandleFromChange" @onfocus="HandleFromFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
+		<input @ref="fromInputElement" type="text" id="@FromInputId" class="@CssClassHelper.Combine("form-control", InputCssClass)" value="@FormatDate(Value.StartDate)" placeholder="@StringLocalizer["From"]" @onchange="HandleFromChanged" @onfocus="HandleFromFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
 		@if (ShowValidationMessage)
 		{
 			<HxValidationMessage TValue="DateTimeRange" For="ValueExpression" />
@@ -24,7 +24,7 @@
 
 	<div class="dropdown">
 		@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-		<input @ref="toInputElement" type="text" class="@CssClassHelper.Combine("form-control", InputCssClass)" value="@FormatDate(Value.EndDate)" placeholder="@StringLocalizer["To"]" @onchange="HandleToChange" @onfocus="HandleToFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
+		<input @ref="toInputElement" type="text" class="@CssClassHelper.Combine("form-control", InputCssClass)" value="@FormatDate(Value.EndDate)" placeholder="@StringLocalizer["To"]" @onchange="HandleToChanged" @onfocus="HandleToFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
 		@if (ShowValidationMessage)
 		{
 			<HxValidationMessage TValue="DateTimeRange" ForFieldName="@toFieldIdentifier.FieldName" />
