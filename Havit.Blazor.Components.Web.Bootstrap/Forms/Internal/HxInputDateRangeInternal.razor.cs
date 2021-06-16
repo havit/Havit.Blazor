@@ -89,7 +89,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await jsModule.InvokeVoidAsync(toValid ? "setInputValid" : "setInputInvalid", toInputElement);
 		}
 
-		protected void HandleFromChanged(ChangeEventArgs changeEventArgs)
+		protected async Task HandleFromChangedAsync(ChangeEventArgs changeEventArgs)
 		{
 			bool parsingFailed;
 
@@ -104,6 +104,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					EndDate = Value.EndDate
 				};
 				EditContext.NotifyFieldChanged(fromFieldIdentifier);
+				await CloseDropDownAsync(fromInputElement);
 			}
 			else
 			{
@@ -119,7 +120,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 		}
 
-		protected void HandleToChanged(ChangeEventArgs changeEventArgs)
+		protected async Task HandleToChangedAsync(ChangeEventArgs changeEventArgs)
 		{
 			bool parsingFailed;
 			validationMessageStore.Clear(toFieldIdentifier);
@@ -133,6 +134,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					EndDate = toDate?.DateTime
 				};
 				EditContext.NotifyFieldChanged(toFieldIdentifier);
+				await CloseDropDownAsync(toInputElement);
 			}
 			else
 			{
