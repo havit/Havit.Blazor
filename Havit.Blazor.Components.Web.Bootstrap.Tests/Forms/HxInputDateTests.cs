@@ -12,31 +12,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms
 	public class HxInputDateTests
 	{
 		[TestMethod]
-		public void HxInputDate_GetValueFromDateTimeOffset()
-		{
-			// Arrange
-			DateTimeOffset dateTimeOffset = DateTimeOffset.Now.Date;
-
-			// Act + Assert
-
-			// DateTime
-			Assert.AreEqual(dateTimeOffset.DateTime, HxInputDate<DateTime>.GetValueFromDateTimeOffset(dateTimeOffset));
-			Assert.AreEqual(default(DateTime), HxInputDate<DateTime>.GetValueFromDateTimeOffset(null));
-
-			// DateTime?
-			Assert.AreEqual(dateTimeOffset.DateTime, HxInputDate<DateTime?>.GetValueFromDateTimeOffset(dateTimeOffset));
-			Assert.AreEqual(null, HxInputDate<DateTime?>.GetValueFromDateTimeOffset(null));
-
-			// DateTimeOffset
-			Assert.AreEqual(dateTimeOffset, HxInputDate<DateTimeOffset>.GetValueFromDateTimeOffset(dateTimeOffset));
-			Assert.AreEqual(default(DateTimeOffset), HxInputDate<DateTimeOffset>.GetValueFromDateTimeOffset(null));
-
-			// DateTimeOffset?
-			Assert.AreEqual(dateTimeOffset, HxInputDate<DateTimeOffset?>.GetValueFromDateTimeOffset(dateTimeOffset));
-			Assert.AreEqual(null, HxInputDate<DateTimeOffset?>.GetValueFromDateTimeOffset(null));
-		}
-
-		[TestMethod]
 		public void HxInputDate_TryParseDateTimeOffsetFromString()
 		{
 			// Arrange

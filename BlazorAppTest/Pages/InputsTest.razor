@@ -44,9 +44,9 @@
 			<HxInputNumber Label="Integer (nullable)" @bind-Value="@context.NullableIntegerValue" ParsingErrorMessage="Zadejte správně Integer." />
 			<HxInputNumber Label="Decimal" @bind-Value="@context.DecimalValue" ParsingErrorMessage="Zadejte správně Decimal." />
 			<HxInputNumber Label="Decimal (nullable)" @bind-Value="@context.NullableDecimalValue" ParsingErrorMessage="Zadejte správně Decimal." />
-			<HxInputDate2 Label="Date" @bind-Value="@context.DateValue" ParsingErrorMessage="Zadejte správně Date."/>
-			<HxInputDate2 Label="Date (nullable)" @bind-Value="@context.NullableDateValue" ParsingErrorMessage="Zadejte správně Date." />
-			<HxInputDateRange2 Label="DateRange" @bind-Value="@context.DateRange" FromParsingErrorMessage="Zadejte správně od." ToParsingErrorMessage="Zadejte správně do." CustomDateRanges="@(GetCustomDateRanges())" />
+			<HxInputDate Label="Date" @bind-Value="@context.DateValue" ParsingErrorMessage="Zadejte správně Date."/>
+			<HxInputDate Label="Date (nullable)" @bind-Value="@context.NullableDateValue" ParsingErrorMessage="Zadejte správně Date." />
+			<HxInputDateRange Label="DateRange" @bind-Value="@context.DateRange" FromParsingErrorMessage="Zadejte správně od." ToParsingErrorMessage="Zadejte správně do." CustomDateRanges="@(GetCustomDateRanges())" />
 
 			<HxSelect Label="Select (TValueType: string)" @bind-Value="@context.CultureInfoSelectName" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
 			<HxSelect Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfoSelect" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Forms.Internal;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -14,30 +17,36 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Date input.
-	/// Uses a <see href="https://github.com/jdtcn/BlazorDateRangePicker">DateRangePicker</see>, follow the Get Started guide!
+	/// Date range input.
 	/// </summary>
-	/// <typeparam name="TValue">Supports DateTime and DateTimeOffset.</typeparam>
-	public class HxInputDate<TValue> : HxInputDateBase<TValue>
+	public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder
 	{
 		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(DateTime), typeof(DateTimeOffset) };
 
+		public static List<DateItem> DefaultDates { get; set; }
+
 		/// <summary>
-		/// When true, uses default dates (today).
+		/// When true, uses default date ranges (this month, last month, this year, last year).
 		/// </summary>
 		[Parameter] public bool UseDefaultDates { get; set; } = true;
 
 		/// <summary>
-		/// Custom dates. When <see cref="UseDefaultDates"/> is true, these items are used with default items.
+		/// Custom date ranges. When <see cref="UseDefaultDates"/> is true, these items are used with default items.
 		/// </summary>
-		[Parameter] public IEnumerable<DateItem> Dates { get; set; }
+		[Parameter] public IEnumerable<DateItem> CustomDates { get; set; }
+
+		/// <summary>
+		/// Gets or sets the error message used when displaying a parsing error.
+		/// Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
+		/// </summary>
+		[Parameter] public string ParsingErrorMessage { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public string Placeholder { get; set; }
 
 		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
-		/// <summary>
-		/// Constructor.
-		/// </summary>
 		public HxInputDate()
 		{
 			Type undelyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
@@ -47,45 +56,83 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private protected override void BuildRenderInput_DateRangePickerAttributes(RenderTreeBuilder builder)
+		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
-			DateTimeOffset? startDate;
-			if (EqualityComparer<TValue>.Default.Equals(Value, default))
+			builder.OpenComponent(1, typeof(HxInputDateInternal<TValue>));
+
+			builder.AddAttribute(100, nameof(HxInputDateInternal<TValue>.Value), Value);
+			builder.AddAttribute(101, nameof(HxInputDateInternal<TValue>.ValueChanged), ValueChanged);
+			builder.AddAttribute(102, nameof(HxInputDateInternal<TValue>.ValueExpression), ValueExpression);
+
+			builder.AddAttribute(200, nameof(HxInputDateInternal<TValue>.InputId), InputId);
+			builder.AddAttribute(201, nameof(HxInputDateInternal<TValue>.InputCssClass), InputCssClass);
+			builder.AddAttribute(202, nameof(HxInputDateInternal<TValue>.EnabledEffective), EnabledEffective);
+			builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.ParsingErrorMessageEffective), GetParsingErrorMessage());
+			builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.Placeholder), Placeholder);
+			builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.CustomDates), GetCustomDates().ToList());
+
+			builder.CloseComponent();
+		}
+
+		//protected override void BuildRenderValidationMessage(RenderTreeBuilder builder)
+		//{
+		//	// NOOP
+		//}
+
+		// For generating chips
+		/// <inheritdocs />
+		protected override string FormatValueAsString(TValue value) => FormatValue(value);
+
+		private protected override void BuildRenderInput_AddCommonAttributes(RenderTreeBuilder builder, string typeValue)
+		{
+			throw new NotSupportedException();
+		}
+
+		protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string validationErrorMessage)
+		{
+			throw new NotSupportedException();
+		}
+
+		private IEnumerable<DateItem> GetCustomDates()
+		{
+			if (CustomDates != null)
 			{
-				startDate = null;
-			}
-			else
-			{
-				switch (Value)
+				foreach (DateItem dateItem in CustomDates)
 				{
-					case DateTime dateTimeValue:
-						startDate = new DateTimeOffset(dateTimeValue);
-						break;
-
-					case DateTimeOffset dateTimeOffsetValue:
-						startDate = dateTimeOffsetValue;
-						break;
-
-					default:
-						throw new InvalidOperationException("Unsupported type.");
+					yield return dateItem;
 				}
 			}
 
-			builder.AddAttribute(2001, nameof(BlazorDateRangePicker.DateRangePicker.StartDate), startDate);
-			builder.AddAttribute(2002, nameof(BlazorDateRangePicker.DateRangePicker.EndDate), (DateTimeOffset?)null);
-			builder.AddAttribute(2003, nameof(BlazorDateRangePicker.DateRangePicker.SingleDatePicker), true);
-			builder.AddAttribute(2004, nameof(BlazorDateRangePicker.DateRangePicker.StartDateChanged), EventCallback.Factory.Create<DateTimeOffset?>(this, HandleStartDateChanged));
-
-			Dictionary<string, BlazorDateRangePicker.DateRange> dateRanges = GetDateRanges();
-			if ((dateRanges != null) && dateRanges.Any())
+			if (UseDefaultDates)
 			{
-				builder.AddAttribute(2005, nameof(BlazorDateRangePicker.DateRangePicker.Ranges), dateRanges);
-				// no DateRangeChanged event, just StartDateChanged above
+				if (DefaultDates != null)
+				{
+					foreach (DateItem defaultDateItem in DefaultDates)
+					{
+						yield return defaultDateItem;
+					}
+				}
+				else
+				{
+					DateTime today = DateTime.Today;
+
+					yield return new DateItem { Label = StringLocalizer["Today"], Date = today };
+				}
 			}
 		}
 
-		/// <inheritdoc />
-		protected override string FormatValueAsString(TValue value)
+		/// <summary>
+		/// Returns message for a parsing error.
+		/// </summary>
+		protected virtual string GetParsingErrorMessage()
+		{
+			var message = !String.IsNullOrEmpty(ParsingErrorMessage)
+				? ParsingErrorMessage
+				: StringLocalizer["ParsingErrorMessage"];
+			return String.Format(message, Label, FieldIdentifier.FieldName);
+		}
+
+		internal static string FormatValue(TValue value)
 		{
 			// nenabízíme hodnotu 1.1.0001, atp.
 			if (EqualityComparer<TValue>.Default.Equals(value, default))
@@ -101,55 +148,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					return dateTimeOffsetValue.DateTime.ToShortDateString();
 				default:
 					throw new InvalidOperationException("Unsupported type.");
-
-			}
-		}
-
-		private void HandleStartDateChanged(DateTimeOffset? startDate)
-		{
-			CurrentValue = GetValueFromDateTimeOffset(startDate); // setter includes ValueChanged + NotifyFieldChanged
-		}
-
-		internal static TValue GetValueFromDateTimeOffset(DateTimeOffset? value)
-		{
-			if (value == null)
-			{
-				return default;
-			}
-
-			var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-
-
-			if (targetType == typeof(DateTime))
-			{
-				return (TValue)(object)value.Value.DateTime;
-			}
-			else if (targetType == typeof(DateTimeOffset))
-			{
-				return (TValue)(object)value.Value;
-			}
-			else
-			{
-				throw new InvalidOperationException("Unsupported type.");
-			}
-		}
-
-		/// <inheritdoc />
-		protected override bool TryParseValueFromStringCore(string value, out TValue result, out string validationErrorMessage)
-		{
-			bool success = TryParseDateTimeOffsetFromString(value, CultureInfo.CurrentCulture, out DateTimeOffset? parsedValue);
-
-			if (success)
-			{
-				result = GetValueFromDateTimeOffset(parsedValue);
-				validationErrorMessage = null;
-				return true;
-			}
-			else
-			{
-				result = default;
-				validationErrorMessage = GetParsingErrorMessage(StringLocalizer);
-				return false;
 			}
 		}
 
@@ -220,36 +218,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			result = null;
 			return false;
 		}
-
-		private Dictionary<string, BlazorDateRangePicker.DateRange> GetDateRanges()
-		{
-			Dictionary<string, BlazorDateRangePicker.DateRange> result = null;
-
-			if (Dates != null)
-			{
-				result = new Dictionary<string, BlazorDateRangePicker.DateRange>();
-
-				foreach (DateItem dateItem in Dates)
-				{
-					result[dateItem.Label] = new BlazorDateRangePicker.DateRange
-					{
-						Start = new DateTimeOffset(dateItem.Date),
-						End = default
-					};
-				}
-			}
-
-			if (UseDefaultDates)
-			{
-				result ??= new Dictionary<string, BlazorDateRangePicker.DateRange>();
-
-				DateTimeOffset today = DateTimeOffset.Now.Date;
-
-				result[StringLocalizer["Today"]] = new BlazorDateRangePicker.DateRange { Start = today };
-			}
-
-			return result;
-		}
-
 	}
 }

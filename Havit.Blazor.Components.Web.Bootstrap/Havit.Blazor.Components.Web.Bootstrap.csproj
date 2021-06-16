@@ -14,7 +14,6 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="BlazorDateRangePicker" Version="3.5.0" />
 		<PackageReference Include="Havit.Core" Version="2.0.17" />
 		<PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.6" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.6" />

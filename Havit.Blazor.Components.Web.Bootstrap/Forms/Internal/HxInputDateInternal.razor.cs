@@ -53,7 +53,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 		}
 
-		protected override string FormatValueAsString(TValue value) => HxInputDate2<TValue>.FormatValue(value);
+		protected override string FormatValueAsString(TValue value) => HxInputDate<TValue>.FormatValue(value);
 
 		private async Task HandleValueChangedAsync(ChangeEventArgs changeEventArgs)
 		{
