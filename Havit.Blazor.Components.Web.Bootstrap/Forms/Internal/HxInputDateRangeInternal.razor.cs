@@ -39,6 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private FieldIdentifier fromFieldIdentifier;
 		private FieldIdentifier toFieldIdentifier;
+		private string[] validationFieldNames;
 
 		private ElementReference fromInputElement;
 		private ElementReference toInputElement;
@@ -51,6 +52,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			validationMessageStore ??= new ValidationMessageStore(EditContext);
 			fromFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.StartDate));
 			toFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.EndDate));
+			validationFieldNames ??= new string[] { FieldIdentifier.FieldName, fromFieldIdentifier.FieldName, toFieldIdentifier.FieldName };
 
 			// clear parsing error after new value is set
 			if (previousValue != Value)

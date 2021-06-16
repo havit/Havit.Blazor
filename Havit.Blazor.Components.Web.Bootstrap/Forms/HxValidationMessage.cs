@@ -16,8 +16,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		private EditContext previousEditContext;
 		private Expression<Func<TValue>> previousFor;
+		private string previousForFieldName;
+		private string[] previousForFieldNames;
 		private readonly EventHandler<ValidationStateChangedEventArgs> validationStateChangedHandler;
-		private FieldIdentifier fieldIdentifier;
+		private FieldIdentifier[] fieldIdentifiers;
 		private EditContext currentEditContext;
 
 		/// <summary>
@@ -32,15 +34,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Specifies the field for which validation messages should be displayed.
-		/// Mutual exclusive with <see cref="ForFieldName"/>.
+		/// Mutual exclusive with <see cref="ForFieldName"/> and <see cref="ForFieldNames"/>.
 		/// </summary>
 		[Parameter] public Expression<Func<TValue>> For { get; set; }
 
 		/// <summary>
 		/// Specifies the field for which validation messages should be displayed.
-		/// Mutual exclusive with <see cref="For"/>.
+		/// Mutual exclusive with <see cref="For"/> and <see cref="ForFieldNames"/>.
 		/// </summary>
 		[Parameter] public string ForFieldName { get; set; }
+
+		/// <summary>
+		/// Specifies the field for which validation messages should be displayed.
+		/// Mutual exclusive with <see cref="For"/> and <see cref="ForFieldName"/>.
+		/// </summary>
+		[Parameter] public string[] ForFieldNames { get; set; }
 
 		/// <summary>
 		/// Constructs an instance of <see cref="HxValidationMessage{TValue}"/>.
@@ -61,9 +69,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				throw new InvalidOperationException($"{GetType()} requires a cascading parameter of type {nameof(Microsoft.AspNetCore.Components.Forms.EditContext)} or {nameof(EditContext)} property set. Use {GetType()} inside an {nameof(EditForm)}.");
 			}
 
-			if (For == null && String.IsNullOrEmpty(ForFieldName))
+			if (For == null && String.IsNullOrEmpty(ForFieldName) && (ForFieldNames == null))
 			{
-				throw new InvalidOperationException($"{GetType()} requires a value for the {nameof(For)} or {nameof(ForFieldName)} parameter.");
+				throw new InvalidOperationException($"{GetType()} requires a value for the {nameof(For)} or {nameof(ForFieldName)} or {nameof(ForFieldNames)} parameter.");
 			}
 
 			if (For != null && !String.IsNullOrEmpty(ForFieldName))
@@ -73,13 +81,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if ((For != null) && (For != previousFor))
 			{
-				fieldIdentifier = FieldIdentifier.Create(For);
+				fieldIdentifiers = new[] { FieldIdentifier.Create(For) };
 				previousFor = For;
 			}
 
-			if (!String.IsNullOrEmpty(ForFieldName) && (ForFieldName != fieldIdentifier.FieldName))
+			if (!String.IsNullOrEmpty(ForFieldName) && (ForFieldName != previousForFieldName))
 			{
-				fieldIdentifier = new FieldIdentifier(currentEditContext.Model, ForFieldName);
+				fieldIdentifiers = new[] { new FieldIdentifier(currentEditContext.Model, ForFieldName) };
+				previousForFieldName = ForFieldName;
+			}
+
+			if ((ForFieldNames != null) && (ForFieldNames != previousForFieldNames))
+			{
+				fieldIdentifiers = ForFieldNames.Select(forFieldName => new FieldIdentifier(currentEditContext.Model, forFieldName)).ToArray();
+				previousForFieldNames = ForFieldNames;
 			}
 
 			if (currentEditContext != previousEditContext)
@@ -93,7 +108,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
-			List<string> messages = currentEditContext.GetValidationMessages(fieldIdentifier).ToList();
+			List<string> messages = fieldIdentifiers.SelectMany(fieldIdentifier => currentEditContext.GetValidationMessages(fieldIdentifier)).ToList();
 
 			if (messages.Any())
 			{
@@ -104,16 +119,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.OpenElement(200, "div");
 				builder.AddAttribute(201, "class", "invalid-tooltip");
 
+				bool firstRendered = false;
 				foreach (string message in messages)
 				{
-					builder.OpenElement(202, "span");
-					builder.AddContent(203, message);
+					if (firstRendered)
+					{
+						builder.AddMarkupContent(202, "&nbsp;");
+					}
+					builder.OpenElement(203, "span");
+					builder.AddContent(204, message);
 					builder.CloseElement();
+
+					firstRendered = true;
 				}
 
 				builder.CloseElement();
 			}
-
 		}
 
 		/// <inheritdoc />
