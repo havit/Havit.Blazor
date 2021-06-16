@@ -74,20 +74,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		// TODO: Chceme takovou metodu? Na demo dobrá, ale jinak je spíš kontraproduktivní.
 		/// <summary>
-		/// Creates GenericPropertyComparer for the sorting by <see cref="SortingItem{TItemType}.SortString"/> and <see cref="SortingItem{TItemType}.SortDirection"/> properties.
+		/// Creates GenericPropertyComparer for the sorting by <see cref="SortingItem{TItem}.SortString"/> and <see cref="SortingItem{TItem}.SortDirection"/> properties.
 		/// </summary>
-		public static GenericPropertyComparer<T> ToGenericPropertyComparer<T>(this IEnumerable<SortingItem<T>> source)
+		public static GenericPropertyComparer<TItem> ToGenericPropertyComparer<TItem>(this IEnumerable<SortingItem<TItem>> source)
 		{
 			Contract.Requires<ArgumentNullException>(source != null, nameof(source));
 
-			return new GenericPropertyComparer<T>(source.ToSortItems());
+			return new GenericPropertyComparer<TItem>(source.ToSortItems());
 		}
 
 		// TODO: Chceme takovou metodu? Na demo dobrá, ale jinak je spíš kontraproduktivní.
 		/// <summary>
-		/// Converts <see cref="SortingItem{TItemType}"/> to <see cref="SortItem"/>.
+		/// Converts <see cref="SortingItem{TItem}"/> to <see cref="SortItem"/>.
 		/// </summary>
-		private static SortItem[] ToSortItems<T>(this IEnumerable<SortingItem<T>> source)
+		private static SortItem[] ToSortItems<TItem>(this IEnumerable<SortingItem<TItem>> source)
 		{
 			Contract.Requires<ArgumentNullException>(source != null, nameof(source));
 

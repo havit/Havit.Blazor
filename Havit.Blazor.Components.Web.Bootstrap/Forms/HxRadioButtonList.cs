@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Select. Consider creating custom picker derived from <see cref="HxRadioButtonListBase{TValueType, TItemType}"/>.
+	/// Select. Consider creating custom picker derived from <see cref="HxRadioButtonListBase{TValueType, TItem}"/>.
 	/// </summary>
 	/// <typeparam name="TValue">Type of value.</typeparam>
 	/// <typeparam name="TItem">Type of items.</typeparam>
