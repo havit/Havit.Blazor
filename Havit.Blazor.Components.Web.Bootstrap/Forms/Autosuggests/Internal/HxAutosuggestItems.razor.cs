@@ -7,19 +7,15 @@ using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public partial class HxAutosuggestItems<TItemType>
+	public partial class HxAutosuggestItems<TItem>
 	{
-		[Parameter] public List<TItemType> Items { get; set; }
+		[Parameter] public List<TItem> Items { get; set; }
 
-		[Parameter] public EventCallback<TItemType> OnItemClick { get; set; }
+		[Parameter] public EventCallback<TItem> OnItemClick { get; set; }
 
-		/// <summary>
-		/// Selects text to display from item.
-		/// When not set ToString() is used.
-		/// </summary>
-		[Parameter] public Func<TItemType, string> TextSelector { get; set; }
+		[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
 
-		private async Task HandleItemClick(TItemType value)
+		private async Task HandleItemClick(TItem value)
 		{
 			await OnItemClick.InvokeAsync(value);
 		}

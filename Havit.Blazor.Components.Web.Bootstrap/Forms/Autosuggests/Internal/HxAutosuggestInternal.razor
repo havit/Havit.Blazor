@@ -28,5 +28,16 @@
             <HxIcon Icon="BootstrapIcon.Search" />
         }
     </div>
-    <Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems TItemType="TItem" Items="@suggestions" TextSelector="TextSelectorEffective" OnItemClick="HandleItemClick" />
+    <Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems TItem="TItem" Items="@suggestions" OnItemClick="HandleItemClick">
+		<ItemTemplate>
+			@if (ItemTemplate != null)
+			{
+				<text>@ItemTemplate(context)</text>
+			}
+			else
+			{
+    			<text>@TextSelectorEffective(context)</text>
+			}
+		</ItemTemplate>
+    </Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems>
 </div>

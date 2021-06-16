@@ -32,6 +32,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public Func<TItem, string> TextSelector { get; set; }
 
 		/// <summary>
+		/// Template to display item.
+		/// </summary>
+		[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
+
+		/// <summary>
 		/// Gets item from <see cref="Value"/>.
 		/// </summary>
 		[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }

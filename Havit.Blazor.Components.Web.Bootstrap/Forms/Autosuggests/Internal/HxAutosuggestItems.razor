@@ -1,15 +1,16 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
-@typeparam TItemType
+@typeparam TItem
 
 <div class="dropdown-menu w-100">
 	@if (Items != null)
 	{
-		@foreach (TItemType item in Items)
+		@foreach (TItem item in Items)
 		{
-			TItemType currentItem = item;
-			string text = TextSelector.Invoke(currentItem);
+			TItem currentItem = item;
 			
-			<button class="dropdown-item" type="button" @onclick="async () => await HandleItemClick(currentItem)" @onclick:stopPropagation="true">@text</button>
+			<button class="dropdown-item" type="button" @onclick="async () => await HandleItemClick(currentItem)" @onclick:stopPropagation="true">
+				@ItemTemplate(currentItem)
+			</button>
 		}
 	}
 </div>
