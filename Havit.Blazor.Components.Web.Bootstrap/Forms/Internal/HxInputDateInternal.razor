@@ -4,23 +4,24 @@
 
 @if (FieldIdentifier.Model != null)
 {
-	<div class="input-group mb-3">
-		<div class="dropdown">
-			@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-			<input @ref="dateInputElement" type="text" id="@InputId" class="@CssClassHelper.Combine("form-control", InputCssClass)" value="@CurrentValueAsString" @onchange="HandleValueChanged" placeholder="@Placeholder" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
-			@if (EnabledEffective)
-			{
-				<div class="dropdown-menu">
+	<div class="input-group mb-3 dropdown">
+		@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
+		<input @ref="dateInputElement" type="text" id="@InputId" class="@CssClassHelper.Combine("form-control", InputCssClass)" value="@CurrentValueAsString" @onchange="HandleValueChanged" placeholder="@Placeholder" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
+		@if (EnabledEffective)
+		{
+			<div class="dropdown-menu p-3">
+				<div class="mb-2">
 					<HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" />
-					<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Danger" OnClick="HandleClearClickAsync" />
-					<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" OnClick="HandleOKClickAsync" />
 				</div>
-			}
-		</div>
+				<div class="d-flex justify-content-between">
+					<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" />
+					<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleOKClickAsync" />
+				</div>
+			</div>
+		}
 
 		@if (( CustomDates!= null) && CustomDates.Any())
 		{
-		<div class="dropdown">
 			<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)">
 				<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
 			</button>
@@ -33,7 +34,6 @@
 				}
 				</ul>
 			}
-		</div>
-			}
+		}
 	</div>
 }
