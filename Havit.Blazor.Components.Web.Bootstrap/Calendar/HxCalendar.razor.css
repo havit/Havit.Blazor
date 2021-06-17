@@ -10,7 +10,7 @@
 }
 
 .navigation ::deep .btn {
-    padding: 0.375rem 0.25rem !important;
+    padding: 0.375rem 0.375rem !important;
 }
 
 td {
@@ -64,8 +64,4 @@ td > div {
 .selected.out:hover {
     background: var(--hx-calendar-day-selected-background);
     color: var(--hx-calendar-day-selected-color);
-}
-
-.form-select.form-select-sm {
-    padding-right: 1rem;    
 }

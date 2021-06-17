@@ -54,7 +54,7 @@
   --hx-calendar-day-padding: .375rem .5rem;
   --hx-calendar-day-width: 2.25rem;
   --hx-calendar-day-height: 2.25rem;
-  --hx-calendar-day-spacing: .125rem;
+  --hx-calendar-day-spacing: .125rem .25rem;
   --hx-calendar-font-size: 15px;
   /* Breakpoints */
   --breakpoint-sm: 576px;
