@@ -4,11 +4,8 @@
 	@if (renderData != null)
 	{
 		<div class="navigation mb-3">
-			<div role="button" @onclick="HandlePreviousMonthClickAsync" @onclick:stopPropagation>
-				<HxIcon Icon="@BootstrapIcon.ChevronLeft"/>
-			</div>
-
 			<div class="input-group mx-1">
+				<HxButton Icon="@BootstrapIcon.ChevronLeft" Color="ThemeColor.Light" OnClickStopPropagation="true" OnClick="HandlePreviousMonthClickAsync" />
 				<select class="form-select form-select-sm" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
 					@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
 					{
@@ -22,10 +19,7 @@
 						<option value="@year">@year.ToString()</option>
 					}
 				</select>
-			</div>
-
-			<div role="button" @onclick="HandleNextMonthClickAsync" @onclick:stopPropagation>
-				<HxIcon Icon="@BootstrapIcon.ChevronRight"/>
+				<HxButton Icon="@BootstrapIcon.ChevronRight" Color="ThemeColor.Light" OnClickStopPropagation="true" OnClick="HandleNextMonthClickAsync" />
 			</div>
 		</div>
 

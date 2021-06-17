@@ -2168,7 +2168,7 @@ progress {
   color: #212529;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #ced4da;
+  border: 1px solid #dee2e6;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -4266,7 +4266,7 @@ textarea.form-control-lg {
   background-color: #fff;
   background-clip: border-box;
   border: 0 solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.3rem;
+  border-radius: 0.75rem;
 }
 .card > hr {
   margin-right: 0;
@@ -4278,13 +4278,13 @@ textarea.form-control-lg {
 }
 .card > .list-group:first-child {
   border-top-width: 0;
-  border-top-left-radius: 0.3rem;
-  border-top-right-radius: 0.3rem;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
 }
 .card > .list-group:last-child {
   border-bottom-width: 0;
-  border-bottom-right-radius: 0.3rem;
-  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
 }
 .card > .card-header + .list-group,
 .card > .list-group + .card-footer {
@@ -4323,7 +4323,7 @@ textarea.form-control-lg {
   border-bottom: 0 solid rgba(0, 0, 0, 0.125);
 }
 .card-header:first-child {
-  border-radius: 0.3rem 0.3rem 0 0;
+  border-radius: 0.75rem 0.75rem 0 0;
 }
 
 .card-footer {
@@ -4332,7 +4332,7 @@ textarea.form-control-lg {
   border-top: 0 solid rgba(0, 0, 0, 0.125);
 }
 .card-footer:last-child {
-  border-radius: 0 0 0.3rem 0.3rem;
+  border-radius: 0 0 0.75rem 0.75rem;
 }
 
 .card-header-tabs {
@@ -4354,7 +4354,7 @@ textarea.form-control-lg {
   bottom: 0;
   left: 0;
   padding: 1rem;
-  border-radius: 0.3rem;
+  border-radius: 0.75rem;
 }
 
 .card-img,
@@ -4365,14 +4365,14 @@ textarea.form-control-lg {
 
 .card-img,
 .card-img-top {
-  border-top-left-radius: 0.3rem;
-  border-top-right-radius: 0.3rem;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
 }
 
 .card-img,
 .card-img-bottom {
-  border-bottom-right-radius: 0.3rem;
-  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
 }
 
 .card-group > .card {
@@ -4418,7 +4418,11 @@ textarea.form-control-lg {
 }
 
 .card {
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}
+
+.card-body > .hx-progress-overlay {
+  min-height: 60px;
 }
 
 .accordion-button {

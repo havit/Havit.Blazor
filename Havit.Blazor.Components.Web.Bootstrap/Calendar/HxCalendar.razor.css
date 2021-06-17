@@ -9,6 +9,10 @@
     align-items: center;
 }
 
+.navigation ::deep .btn {
+    padding: 0.375rem 0.375rem !important;
+}
+
 td {
     padding: var(--hx-calendar-day-spacing);
     text-align: center;
@@ -32,11 +36,12 @@ td > div {
     background: var(--hx-calendar-day-hover-background);
 }
 
-.day-names div {
-    color: var(--hx-calendar-day-names-color);
+.day-names td {
+    color: var(--hx-calendar-day-names-color);  
+    font-size: .75rem;
 }
 
-.day-names div, .week div {
+.week div {
     padding: var(--hx-calendar-day-padding);
     font-size: var(--hx-calendar-font-size);
 }
