@@ -20,7 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static ButtonSkin Delete { get; set; } = new ButtonSkin() { Text = "Delete", ResourceType = typeof(ButtonSkins), Color = ThemeColor.Light };
 		public static ButtonSkin Edit { get; set; } = new ButtonSkin() { Text = "Edit", ResourceType = typeof(ButtonSkins), Color = ThemeColor.Light };
 		public static ButtonSkin Export { get; set; } = new ButtonSkin() { Text = "Export", ResourceType = typeof(ButtonSkins), Color = ThemeColor.Light };
-		public static ButtonSkin Filter { get; set; } = new ButtonSkin() { Icon = BootstrapIcon.Funnel, Text = "Filter", ResourceType = typeof(ButtonSkins), Color = ThemeColor.Secondary, Outlined = true };
+		public static ButtonSkin Filter { get; set; } = new ButtonSkin() { Icon = BootstrapIcon.Filter, Text = "Filter", ResourceType = typeof(ButtonSkins), Color = ThemeColor.Light };
 		public static ButtonSkin Insert { get; set; } = new ButtonSkin() { Text = "Insert", ResourceType = typeof(ButtonSkins), Color = ThemeColor.Primary };
 		public static ButtonSkin New { get; set; } = new ButtonSkin() { Text = "New", ResourceType = typeof(ButtonSkins), Color = ThemeColor.Primary };
 		public static ButtonSkin OK { get; set; } = new ButtonSkin() { Text = "OK", ResourceType = typeof(ButtonSkins), Color = ThemeColor.Primary };
