@@ -3,7 +3,7 @@
 
 @if ((FieldIdentifier.Model != null) && (fromFieldIdentifier.Model != null) && (toFieldIdentifier.Model != null))
 {
-<div class="input-group dropdown">
+<div class="hx-input-date-range input-group dropdown">
 	@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
 	<input @ref="fromInputElement" type="text" id="@FromInputId" class="@CssClassHelper.Combine("form-control", InputCssClass)" value="@FormatDate(Value.StartDate)" placeholder="@StringLocalizer["From"]" @onchange="HandleFromChangedAsync" @onfocus="HandleFromFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
 
@@ -42,7 +42,7 @@
 
 	@if ((CustomDateRanges != null) && CustomDateRanges.Any())
 	{
-		<button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)" tabindex="-1">
+		<button class="btn btn-light" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)" tabindex="-1">
 			<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
 		</button>
 		@if (EnabledEffective)
