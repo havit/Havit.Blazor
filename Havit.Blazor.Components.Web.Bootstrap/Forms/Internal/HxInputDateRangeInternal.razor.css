@@ -3,12 +3,28 @@
     border-bottom-right-radius: .25rem !important;
 }
 
-.input-group-sm > .hx-input-date > button {
+.input-group-sm > .hx-input-date-range > button {
     border-top-right-radius: .2rem;
     border-bottom-right-radius: .2rem;
 }
 
-.input-group-lg > .hx-input-date > button {
+.input-group-lg > .hx-input-date-range > button {
     border-top-right-radius: .3rem;
     border-bottom-right-radius: .3rem;
 }
+
+.hx-input-date-range:not(.custom-date-ranges) .form-control ~ .form-control {
+    border-top-right-radius: .25rem !important;
+    border-bottom-right-radius: .25rem !important;
+}
+
+.input-group-sm > .hx-input-date-range:not(.custom-date-ranges) .form-control ~ .form-control { 
+    border-top-right-radius: .2rem;
+    border-bottom-right-radius: .2rem;
+}
+
+.input-group-lg > .hx-input-date-range:not(.custom-date-ranges) .form-control ~ .form-control {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+}
+
