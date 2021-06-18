@@ -58,7 +58,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }
 
-		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.LabelValue : LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxAutosuggestInternal */;
+		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxAutosuggestInternal */ : LabelValueRenderOrder.LabelValue;
 		private protected override string CoreInputCssClass => "form-control";
 		private protected override string CoreCssClass => "hx-autosuggest position-relative";
 
