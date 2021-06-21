@@ -3,6 +3,8 @@
 
 <h1>HxAutosuggest</h1>
 
+
+
 <HxAutosuggest @ref="autosuggest1" Label="Full (with initial value)" TItem="CultureInfo" TValue="int" @bind-Value="@value1" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))">
 	<ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
 </HxAutosuggest>
@@ -11,11 +13,18 @@
 <HxAutosuggest Label="Select-only (no ItemFromValueResolver)" TItem="CultureInfo" TValue="int" @bind-Value="@value2" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" TextSelector="c => c.EnglishName" Placeholder="Type culture name..." />
 <p>Value: @value2</p>
 
-
+<HxAutosuggest Label="With empty template and custom icons" TItem="CultureInfo" MinimumLength="0" ClearIcon="BootstrapIcon.XCircleFill" SearchIcon="BootstrapIcon.QuestionCircle" TValue="int" @bind-Value="@value3" DataProvider="ProvideTemplatedSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))">
+	<ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
+	<EmptyTemplate>
+		<span class="p-2">Couldn't find any matching locale</span>
+	</EmptyTemplate>
+</HxAutosuggest>
+<p>Value: @value3</p>
 @code
 {
 	private int value1 = 1029; // default value to display
 	private int value2; // no default value
+	private int value3;
 	private HxAutosuggest<CultureInfo, int> autosuggest1;
 
 	private async Task<AutosuggestDataProviderResult<CultureInfo>> ProvideSuggestions(AutosuggestDataProviderRequest request)
@@ -32,6 +41,28 @@
 		};
 	}
 
+	private async Task<AutosuggestDataProviderResult<CultureInfo>> ProvideTemplatedSuggestions(AutosuggestDataProviderRequest request)
+	{
+
+		await Task.Delay(500);
+		if (string.IsNullOrWhiteSpace(request.UserInput))
+		{
+			return new AutosuggestDataProviderResult<CultureInfo>() { Data = null };
+		}
+		else
+		{
+			return new AutosuggestDataProviderResult<CultureInfo>()
+			{
+				Data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+								.Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid?view=net-5.0#System_Globalization_CultureInfo_LCID
+								.Where(c => c.EnglishName?.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase) ?? false)
+								.OrderBy(c => c.EnglishName)
+								.Take(10)
+								.ToList()
+			};
+		}
+	}
+
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		await base.OnAfterRenderAsync(firstRender);
@@ -41,5 +72,5 @@
 			await autosuggest1.FocusAsync();
 		}
 	}
-	
+
 }

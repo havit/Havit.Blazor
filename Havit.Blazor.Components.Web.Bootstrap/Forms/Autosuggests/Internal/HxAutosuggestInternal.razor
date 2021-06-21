@@ -11,23 +11,25 @@
 	{
 		<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
 	}
-    <div class="hx-autosuggest-input-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center">
-        @if (dataProviderInProgress)
-        {
-            <div>
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-            </div>
-        }
-        else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
-        {
-            <button type="button" class="btn-close" @onclick="HandleCrossClick" @onclick:stopPropagation>
-            </button>
-        }
-        else
-        {
-            <HxIcon Icon="BootstrapIcon.Search" />
-        }
-    </div>
+<div class="hx-autosuggest-input-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center">
+	@if (dataProviderInProgress)
+	{
+		<div>
+			<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+		</div>
+	}
+	else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
+	{
+		<div @onclick="HandleCrossClick">
+			<HxIcon Icon="ClearIcon"  />
+		</div>
+		
+	}
+	else
+	{
+		<HxIcon Icon="@SearchIcon" />
+	}
+</div>
     <Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems TItem="TItem" Items="@suggestions" OnItemClick="HandleItemClick">
 		<ItemTemplate>
 			@if (ItemTemplate != null)
@@ -39,5 +41,8 @@
     			<text>@TextSelectorEffective(context)</text>
 			}
 		</ItemTemplate>
+		<EmptyTemplate>
+			@EmptyTemplate
+		</EmptyTemplate>
     </Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems>
 </div>

@@ -32,6 +32,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
 
+
+		/// <summary>
+		/// Template to display when items are empty
+		/// </summary>
+		[Parameter] public RenderFragment EmptyTemplate { get; set; }
+
+		/// <summary>
+		/// Icon displayed in input when no item is selected
+		/// </summary>
+		[Parameter] public IconBase SearchIcon { get; set; } = BootstrapIcon.Search;
+
+		/// <summary>
+		/// Icon displayed in input on selection clear button when item is selected
+		/// </summary>
+		[Parameter] public IconBase ClearIcon { get; set; } = BootstrapIcon.X;
+
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
 		/// </summary>
@@ -85,6 +101,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1012, nameof(HxAutosuggestInternal<TItem, TValue>.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
 			builder.AddAttribute(1013, nameof(HxAutosuggestInternal<TItem, TValue>.LabelTypeEffective), labelTypeEffective);
 			builder.AddAttribute(1014, nameof(HxAutosuggestInternal<TItem, TValue>.FormValueComponent), this);
+			builder.AddAttribute(1015, nameof(HxAutosuggestInternal<TItem, TValue>.EmptyTemplate), EmptyTemplate);
+			builder.AddAttribute(1016, nameof(HxAutosuggestInternal<TItem, TValue>.SearchIcon), SearchIcon);
+			builder.AddAttribute(1017, nameof(HxAutosuggestInternal<TItem, TValue>.ClearIcon), ClearIcon);
 			builder.AddComponentReferenceCapture(1015, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
 			builder.CloseComponent();
 		}

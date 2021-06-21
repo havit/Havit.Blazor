@@ -2,15 +2,19 @@
 @typeparam TItem
 
 <div class="dropdown-menu w-100">
-	@if (Items != null)
+	@if (Items != null && Items.Any())
 	{
 		@foreach (TItem item in Items)
 		{
 			TItem currentItem = item;
-			
+
 			<button class="dropdown-item" type="button" @onclick="async () => await HandleItemClick(currentItem)" @onclick:stopPropagation="true">
 				@ItemTemplate(currentItem)
 			</button>
-		}
+		} 
+	}
+	else if (EmptyTemplate != null)
+	{
+		@EmptyTemplate
 	}
 </div>

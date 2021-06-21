@@ -37,6 +37,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
 
 		/// <summary>
+		/// Template to display when items collection is empty
+		/// </summary>
+		[Parameter] public RenderFragment EmptyTemplate { get; set; }
+
+		/// <summary>
 		/// Gets item from <see cref="Value"/>.
 		/// </summary>
 		[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }
@@ -59,6 +64,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public string InputCssClass { get; set; }
 
 		[Parameter] public string InputId { get; set; }
+
+		[Parameter] public IconBase SearchIcon { get; set; }
+
+		[Parameter] public IconBase ClearIcon { get; set; }
 
 		[Parameter] public bool EnabledEffective { get; set; }
 
@@ -180,6 +189,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			// when an input gets focus, close a dropdown
 			currentlyFocused = true;
+			if (string.IsNullOrEmpty(userInput) && MinimumLength <= 0)
+			{
+				await UpdateSuggestionsAsync();
+				return;
+			}
 			await DestroyDropdownAsync();
 		}
 
@@ -227,9 +241,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 
 			dataProviderInProgress = false;
-			suggestions = result.Data.ToList();
+			suggestions = result.Data?.ToList();
 
-			if (suggestions?.Any() ?? false)
+			if ((suggestions?.Any() ?? false) || EmptyTemplate != null)
 			{
 				await OpenDropdownAsync();
 			}
