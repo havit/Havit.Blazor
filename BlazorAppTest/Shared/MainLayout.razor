@@ -1,6 +1,37 @@
 ﻿@inherits LayoutComponentBase
 
-<HxMessenger Position="HxToastContainerPosition.TopCenter" />
-<HxMessageBoxHost />
 
-@Body
+<div class="container">
+	<h1 class="my-4">Blazor Debug App</h1>
+	<div class="row">
+		<div class="col-2">
+			<ul class="nav flex-column">
+				@foreach (var demo in GetDemos())
+				{
+					string url = "/" + demo;
+					<li class="nav-item"><a href="@url">@demo</a></li>
+				}
+			</ul>
+		</div>
+		<div class="col-10">
+			<HxCard>
+				<BodyTemplate>
+					<HxMessenger Position="HxToastContainerPosition.TopCenter" />
+					<HxMessageBoxHost />
+					@Body
+				</BodyTemplate>
+			</HxCard>
+		</div>
+	</div>
+</div>
+
+
+@code
+{
+	private IEnumerable<string> GetDemos()
+	{
+		// local debug-only implementation
+		var files = System.IO.Directory.GetFiles(System.IO.Path.Combine(System.Environment.CurrentDirectory, "Pages"), "*Test*razor");
+		return files.Select(item => System.IO.Path.GetFileNameWithoutExtension(item)).OrderBy(item => item).ToList();
+	}
+}
