@@ -13,7 +13,7 @@
 <HxAutosuggest Label="Select-only (no ItemFromValueResolver)" TItem="CultureInfo" TValue="int" @bind-Value="@value2" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" TextSelector="c => c.EnglishName" Placeholder="Type culture name..." />
 <p>Value: @value2</p>
 
-<HxAutosuggest Label="With empty template and custom icons" TItem="CultureInfo" MinimumLength="0" ClearIcon="BootstrapIcon.XCircleFill" SearchIcon="BootstrapIcon.QuestionCircle" TValue="int" @bind-Value="@value3" DataProvider="ProvideTemplatedSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))">
+<HxAutosuggest Label="With empty template and custom icons" Placeholder="Click here" TItem="CultureInfo" MinimumLength="0" ClearIcon="BootstrapIcon.XCircleFill" SearchIcon="BootstrapIcon.QuestionCircle" TValue="int" @bind-Value="@value3" DataProvider="ProvideTemplatedSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))">
 	<ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
 	<EmptyTemplate>
 		<span class="p-2">Couldn't find any matching locale</span>
