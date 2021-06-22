@@ -120,10 +120,6 @@
   <data name="Clear" xml:space="preserve">
     <value>Clear</value>
   </data>
-  <data name="EndDate" xml:space="preserve">
-    <value>to</value>
-    <comment>Odebrat při přechodu na nový HxInputDateRange2.</comment>
-  </data>
   <data name="From" xml:space="preserve">
     <value>From</value>
   </data>
@@ -138,14 +134,6 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
-  </data>
-  <data name="ParsingErrorMessage" xml:space="preserve">
-    <value>Enter date range.</value>
-    <comment>Odebrat při přechodu na nový HxInputDateRange2.</comment>
-  </data>
-  <data name="StartDate" xml:space="preserve">
-    <value>from</value>
-    <comment>Odebrat při přechodu na nový HxInputDateRange2.</comment>
   </data>
   <data name="ThisMonth" xml:space="preserve">
     <value>This month</value>
