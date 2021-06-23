@@ -21,6 +21,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	{
 		/// <summary>
+		/// Contains application-wide defaults for the <see cref="HxGrid{TItem}"/>.
+		/// </summary>
+		public static HxGridDefaults Defaults { get; } = new HxGridDefaults();
+
+		/// <summary>
 		/// ColumnsRegistration cascading value name.
 		/// </summary>
 		public const string ColumnsRegistrationCascadingValueName = "ColumnsRegistration";
@@ -147,6 +152,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string PagerContainerCssClass { get; set; }
 
 		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
+
+		/// <summary>
+		/// Return <see cref="HxGrid{TItem}"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual HxGridDefaults GetDefaults() => HxGrid<TItem>.Defaults;
 
 		private List<IHxGridColumn<TItem>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItem>> columnsListRegistration;
