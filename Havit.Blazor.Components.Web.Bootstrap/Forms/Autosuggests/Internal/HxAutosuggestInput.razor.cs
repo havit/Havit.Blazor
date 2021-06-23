@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
@@ -24,6 +25,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public string CssClass { get; set; }
 
 		[Parameter] public bool EnabledEffective { get; set; }
+
+		/// <summary>
+		/// Offset between dropdown input and dropdown menu
+		/// </summary>
+		[Parameter] public (double, double) Offset { get; set; }
 
 		internal ElementReference InputElement { get; set; }
 

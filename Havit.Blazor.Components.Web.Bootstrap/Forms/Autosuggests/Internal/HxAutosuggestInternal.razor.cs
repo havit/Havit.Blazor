@@ -75,6 +75,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
+		/// <summary>
+		/// Offset between dropdown input and dropdown menu
+		/// </summary>
+		[Parameter] public (double, double) InputOffset { get; set; }
+
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		private string dropdownId = "hx" + Guid.NewGuid().ToString("N");

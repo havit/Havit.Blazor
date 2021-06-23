@@ -6,7 +6,7 @@
     <Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput @ref="autosuggestInput" InputId="@InputId"
         EnabledEffective="@EnabledEffective" Value="@userInput" OnInputInput="HandleInputInput"
         OnInputFocus="HandleInputFocus" OnInputBlur="HandleInputBlur" Placeholder="@Placeholder"
-        CssClass="@InputCssClass" />
+        CssClass="@InputCssClass" Offset="@InputOffset"/>
     @if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
 	{
 		<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />

@@ -70,6 +70,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public LabelType? LabelType { get; set; }
 
 		/// <summary>
+		/// Offset between dropdown input and dropdown menu
+		/// </summary>
+		protected virtual (double, double) InputOffset { get; set; } = (0, 4);
+
+		/// <summary>
 		/// Returns corresponding item for (select) Value.
 		/// </summary>
 		[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }
@@ -104,7 +109,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1015, nameof(HxAutosuggestInternal<TItem, TValue>.EmptyTemplate), EmptyTemplate);
 			builder.AddAttribute(1016, nameof(HxAutosuggestInternal<TItem, TValue>.SearchIcon), SearchIcon);
 			builder.AddAttribute(1017, nameof(HxAutosuggestInternal<TItem, TValue>.ClearIcon), ClearIcon);
-			builder.AddComponentReferenceCapture(1015, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
+			builder.AddAttribute(1018, nameof(HxAutosuggestInternal<TItem, TValue>.InputOffset), InputOffset);
+			builder.AddComponentReferenceCapture(1019, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
 			builder.CloseComponent();
 		}
 
