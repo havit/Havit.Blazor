@@ -72,7 +72,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Offset between dropdown input and dropdown menu
 		/// </summary>
-		protected virtual (double, double) InputOffset { get; set; } = (0, 4);
+		protected virtual (int X, int Y) InputOffset { get; set; } = (0, 4);
 
 		/// <summary>
 		/// Returns corresponding item for (select) Value.

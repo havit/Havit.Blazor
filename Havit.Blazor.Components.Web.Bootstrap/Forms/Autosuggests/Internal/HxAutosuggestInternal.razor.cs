@@ -78,7 +78,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <summary>
 		/// Offset between dropdown input and dropdown menu
 		/// </summary>
-		[Parameter] public (double, double) InputOffset { get; set; }
+		[Parameter] public (int X, int Y) InputOffset { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
