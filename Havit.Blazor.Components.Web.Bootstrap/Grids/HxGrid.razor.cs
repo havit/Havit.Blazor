@@ -231,8 +231,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (firstRender && (ContentNavigationModeEffective == GridContentNavigationMode.Pagination))
 			{
-				await RefreshDataAsync();
-				StateHasChanged();
+				await RefreshPaginationDataCoreAsync(renderOnSuccess: true);
 			}
 
 			// when rendering page with no data, navigate one page back
