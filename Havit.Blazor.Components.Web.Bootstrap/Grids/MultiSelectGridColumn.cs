@@ -62,6 +62,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			};
 		}
 
+		protected override CellTemplate GetItemPlaceholderCellTemplate()
+		{
+			return new CellTemplate(RenderFragmentBuilder.Empty());
+		}
+
 		protected override CellTemplate GetFooterCellTemplate()
 		{
 			return new CellTemplate(RenderFragmentBuilder.Empty());

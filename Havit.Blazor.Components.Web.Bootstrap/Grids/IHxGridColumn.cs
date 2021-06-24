@@ -41,6 +41,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		CellTemplate GetItemCellTemplate(TItem item);
 
 		/// <summary>
+		/// Returns placeholder cell template.
+		/// </summary>
+		CellTemplate GetItemPlaceholderCellTemplate();
+
+		/// <summary>
 		/// Returns footer cell template.
 		/// </summary>
 		CellTemplate GetFooterCellTemplate();

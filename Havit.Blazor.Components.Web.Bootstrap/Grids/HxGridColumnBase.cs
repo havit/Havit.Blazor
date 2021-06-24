@@ -44,6 +44,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		CellTemplate IHxGridColumn<TItem>.GetItemCellTemplate(TItem item) => this.GetItemCellTemplate(item);
 
 		/// <inheritdoc />
+		CellTemplate IHxGridColumn<TItem>.GetItemPlaceholderCellTemplate() => this.GetItemPlaceholderCellTemplate();
+
+		/// <inheritdoc />
 		CellTemplate IHxGridColumn<TItem>.GetFooterCellTemplate() => this.GetFooterCellTemplate();
 
 		/// <inheritdoc />
@@ -73,6 +76,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Returns data cell template for the specific item.
 		/// </summary>
 		protected abstract CellTemplate GetItemCellTemplate(TItem item);
+
+		/// <summary>
+		/// Returns placeholder cell template.
+		/// </summary>
+		protected abstract CellTemplate GetItemPlaceholderCellTemplate();
 
 		/// <summary>
 		/// Returns footer cell template.

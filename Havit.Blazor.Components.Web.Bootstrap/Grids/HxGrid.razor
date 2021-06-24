@@ -28,6 +28,7 @@
 	bool shouldRenderEmptyData = totalCount == 0;
 	bool shouldRenderData;
 	bool shouldRenderFooter = (totalCount > 0) || ((totalCount == 0) && ShowFooterWhenEmptyData);
+	string rowHeight = (ItemRowHeight != null) ? ItemRowHeight.Value.ToString() + "px" : null;
 
 	switch (ContentNavigationModeEffective)
     {
@@ -124,7 +125,6 @@
 					}
 					@if (shouldRenderData)
 					{
-						string rowHeight = (ItemRowHeight != null) ? ItemRowHeight.Value.ToString() + "px" : null;
 
 						RenderFragment<TItem> rowTemplate = (TItem item) => @<text>
 							@if (SelectionEnabled || MultiSelectionEnabled)
@@ -177,6 +177,17 @@
 								<ItemContent>
 									@rowTemplate(@context)
 								</ItemContent>
+								<Placeholder>
+									<tr height="@rowHeight">
+										@foreach (IHxGridColumn<TItem> column in columnsToRender)
+										{
+											CellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate();
+											<td class="@placeholderCellTemplate.CssClass">
+												@placeholderCellTemplate.Template				
+											</td>
+										}
+									</tr>
+								</Placeholder>
 							</Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
 						}
 

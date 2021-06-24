@@ -4,9 +4,13 @@
 
 <h1>HxGrid with infinite scroll</h1>
 
-<HxGrid TItem="CultureInfo" DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll" TableContainerCssClass="mt-5" HeaderRowCssClass="myheader">
+<HxGrid TItem="CultureInfo" DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll" TableContainerCssClass="mt-5" ItemRowHeight="50" HeaderRowCssClass="myheader">
 	<Columns>
-		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
+			<PlaceholderTemplate>
+				Loading...
+			</PlaceholderTemplate>
+		</HxGridColumn>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
 	</Columns>
 	<ContextMenu Context="item">

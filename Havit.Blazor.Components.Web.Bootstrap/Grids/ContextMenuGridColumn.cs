@@ -23,6 +23,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override CellTemplate GetItemCellTemplate(TItem item) => new CellTemplate(ContextMenu(item));
 
 		/// <inheritdoc />
+		protected override CellTemplate GetItemPlaceholderCellTemplate() => new CellTemplate(RenderFragmentBuilder.Empty());
+
+		/// <inheritdoc />
 		protected override CellTemplate GetFooterCellTemplate() => new CellTemplate(RenderFragmentBuilder.Empty());
 
 		/// <inheritdoc />

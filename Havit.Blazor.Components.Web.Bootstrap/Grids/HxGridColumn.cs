@@ -56,6 +56,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public Func<TItem, string> ItemCssClassSelector { get; set; }
 		#endregion
 
+		/// <summary>
+		/// Placeholder cell template.
+		/// </summary>
+		[Parameter] public RenderFragment PlaceholderTemplate { get; set; }
+
 		#region Footer properties
 		/// <summary>
 		/// Footer cell text.
@@ -110,6 +115,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			string cssClass = CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item));
 			return new CellTemplate(RenderFragmentBuilder.CreateFrom(ItemTextSelector?.Invoke(item), ItemTemplate?.Invoke(item)), cssClass);
 		}
+
+		/// <inheritdoc />
+		protected override CellTemplate GetItemPlaceholderCellTemplate() => new CellTemplate(PlaceholderTemplate);
 
 		/// <inheritdoc />
 		protected override CellTemplate GetFooterCellTemplate() => new CellTemplate(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate), FooterCssClass);
