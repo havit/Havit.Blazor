@@ -53,7 +53,7 @@
 	<HxProgressIndicator InProgress="@(InProgress ?? dataProviderInProgress)">
 
 		<div class="@TableContainerCssClass">
-			<table class="@CssClassHelper.Combine("hx-grid table", ((SelectionEnabled || MultiSelectionEnabled) && shouldRenderData) ? "table-hover" : null), TableCssClass)">
+			<table class="@CssClassHelper.Combine("hx-grid table", (((SelectionEnabled || MultiSelectionEnabled) && shouldRenderData) ? "table-hover" : null), TableCssClass)">
 				<thead>
 					<tr class="@HeaderRowCssClass">
 						@foreach (IHxGridColumn<TItem> column in columnsToRender)
@@ -207,9 +207,9 @@
 			</table>
 		</div>
 			
-		@if ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) && (PageSize > 0) && (totalCount != null))
+		@if ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) && (PageSizeEffective > 0) && (totalCount != null))
 		{
-			int totalPages = (totalCount.Value + PageSize - 1) / PageSize;
+			int totalPages = (totalCount.Value + PageSizeEffective.Value - 1) / PageSizeEffective.Value;
 			if (totalPages > 1)
 			{
 				<div class="@PagerContainerCssClass">

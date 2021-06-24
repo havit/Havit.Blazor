@@ -1,5 +1,6 @@
 ﻿@page "/HxGrid_InfiniteScroll_Test"
 @using System.Globalization
+@using Microsoft.Extensions.Logging
 
 <h1>HxGrid with infinite scroll</h1>
 
@@ -16,6 +17,8 @@
 </HxGrid>
 
 @code {
+    [Inject] private ILogger<HxGrid_InfiniteScroll_Test> Logger { get; set; }
+
 	protected override Task OnInitializedAsync()
 	{
 		HxProgressIndicator.DefaultDelay = 0; // TEST
@@ -30,9 +33,12 @@
 
 	private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
 	{
+		Logger.LogInformation("Requesting culture infos.");
 		await Task.Delay(500); // simulate server call
 
 		var cultures = GetCultureInfos();
+		Logger.LogInformation($"Culture infos loaded (cancelled: {request.CancellationToken.IsCancellationRequested}).");
+
 		return request.ApplyTo(cultures);
 	}
 }

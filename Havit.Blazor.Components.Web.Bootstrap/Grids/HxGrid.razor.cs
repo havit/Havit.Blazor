@@ -98,7 +98,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Page size.		
 		/// </summary>
-		[Parameter] public int PageSize { get; set; } = 0;
+		[Parameter] public int? PageSize { get; set; } = null;
 
 		/// <summary>
 		/// Indicates whether to render footer when data are empty.
@@ -173,6 +173,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public int? OverscanCount { get; set; }
 
+		protected int? PageSizeEffective => PageSize ?? GetDefaults().PageSize;
 		protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? GetDefaults().ContentNavigationMode;
 
 		/// <summary>
@@ -228,7 +229,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 			}
 
-			if (firstRender)
+			if (firstRender && (ContentNavigationModeEffective == GridContentNavigationMode.Pagination))
 			{
 				await RefreshDataAsync();
 				StateHasChanged();
@@ -381,10 +382,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			paginationRefreshDataCancellationTokenSource = new CancellationTokenSource();
 			CancellationToken cancellationToken = paginationRefreshDataCancellationTokenSource.Token;
 
+			int? pageSizeEffective = PageSizeEffective;
 			GridDataProviderRequest<TItem> request = new GridDataProviderRequest<TItem>
 			{
-				StartIndex = PageSize * CurrentUserState.PageIndex,
-				Count = PageSize,
+				StartIndex = (pageSizeEffective ?? 0) * CurrentUserState.PageIndex,
+				Count = pageSizeEffective,
 				Sorting = CurrentUserState.Sorting,
 				CancellationToken = cancellationToken
 			};
@@ -404,11 +406,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (!cancellationToken.IsCancellationRequested)
 			{
 				#region Verify paged data information
-				if ((result.Data != null) && (this.PageSize > 0))
+				if ((result.Data != null) && (pageSizeEffective > 0))
 				{
 					int dataCount = result.Data.Count();
 
-					if (dataCount > this.PageSize)
+					if (dataCount > pageSizeEffective.Value)
 					{
 						throw new InvalidOperationException($"{nameof(DataProvider)} returned more data items then is the size od the page.");
 					}

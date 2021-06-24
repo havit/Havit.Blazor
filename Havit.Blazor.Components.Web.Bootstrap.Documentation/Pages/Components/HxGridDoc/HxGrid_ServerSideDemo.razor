@@ -14,7 +14,7 @@
 		cultureInfos.Sort(request.Sorting.ToGenericPropertyComparer()); // Just a demo. NEVER use in production code!
 		return Task.FromResult(new GridDataProviderResult<CultureInfo>
 		{
-			Data = cultureInfos.Skip(request.StartIndex).Take(request.Count).ToList(),
+			Data = cultureInfos.Skip(request.StartIndex).Take(request.Count.Value).ToList(),
 			TotalCount = cultureInfos.Count()
 		});
 	}

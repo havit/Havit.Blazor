@@ -28,5 +28,10 @@
 		/// in the page.
 		/// </summary>
 		public int OverscanCount { get; set; } = 50;
+
+		/// <summary>
+		/// Page size.
+		/// </summary>
+		public int? PageSize { get; set; } = null;
 	}
 }

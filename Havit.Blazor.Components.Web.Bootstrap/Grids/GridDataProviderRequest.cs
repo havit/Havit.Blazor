@@ -16,11 +16,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public int StartIndex { get; init; }
 
-		// TODO: Nullable
 		/// <summary>
-		/// The number od records to return. In paging mode it equals to the size of the page.		
+		/// The number od records to return. In paging mode it equals to the size of the page.				
 		/// </summary>
-		public int Count { get; init; }
+		public int? Count { get; init; }
 
 		/// <summary>
 		/// Current sorting.
@@ -38,6 +37,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <param name="data">data to process (paging and sorting will be applied)</param>
 		public GridDataProviderResult<TItem> ApplyTo(IEnumerable<TItem> data)
 		{
+			CancellationToken.ThrowIfCancellationRequested();
+
 			if (data == null)
 			{
 				return new GridDataProviderResult<TItem>
@@ -75,7 +76,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 			if (Count > 0)
 			{
-				resultData = resultData.Take(Count);
+				resultData = resultData.Take(Count.Value);
 			}
 			#endregion
 
