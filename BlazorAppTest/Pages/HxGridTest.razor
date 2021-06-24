@@ -109,7 +109,7 @@
 		{
 			TotalCount = cultures.Count(),
 			Data = cultures
-				.Skip(request.PageIndex * PageSize)
+				.Skip(request.StartIndex)
 				.Take(PageSize)
 				.ToList()
 		};

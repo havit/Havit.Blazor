@@ -12,14 +12,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class GridDataProviderRequest<TItem>
 	{
 		/// <summary>
-		/// The page index of the data segment requested.
+		/// The number of records to skip. In paging mode it equals to the the page size * page index requested.
 		/// </summary>
-		public int PageIndex { get; init; }
+		public int StartIndex { get; init; }
 
+		// TODO: Nullable
 		/// <summary>
-		/// The size of the page.
+		/// The number od records to return. In paging mode it equals to the size of the page.		
 		/// </summary>
-		public int PageSize { get; init; }
+		public int Count { get; init; }
 
 		/// <summary>
 		/// Current sorting.
@@ -67,10 +68,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 			#endregion
 
-			#region Paging
-			if (PageSize > 0)
+			#region Paging / Infinite scroll
+			if (StartIndex > 0)
 			{
-				resultData = resultData.Skip(PageSize * PageIndex).Take(PageSize);
+				resultData = resultData.Skip(StartIndex);
+			}
+			if (Count > 0)
+			{
+				resultData = resultData.Take(Count);
 			}
 			#endregion
 

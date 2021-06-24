@@ -23,7 +23,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Contains application-wide defaults for the <see cref="HxGrid{TItem}"/>.
 		/// </summary>
-		public static HxGridDefaults Defaults { get; } = new HxGridDefaults();
+		public static GridDefaults Defaults { get; } = new GridDefaults();
 
 		/// <summary>
 		/// ColumnsRegistration cascading value name.
@@ -91,7 +91,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public EventCallback<HashSet<TItem>> SelectedDataItemsChanged { get; set; }
 
 		/// <summary>
-		/// Page size.
+		/// Strategy how data are displayed in the grid (and loaded to the grid).
+		/// </summary>
+		[Parameter] public GridContentNavigationMode? ContentNavigationMode { get; set; }
+
+		/// <summary>
+		/// Page size.		
 		/// </summary>
 		[Parameter] public int PageSize { get; set; } = 0;
 
@@ -137,6 +142,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string ItemRowCssClass { get; set; }
 
 		/// <summary>
+		/// Height of the item row.
+		/// Used for infinite scroll.
+		/// </summary>
+		[Parameter] public int? ItemRowHeight { get; set; }
+
+		/// <summary>
 		/// Returns custom CSS class to render with data <code>tr</code> element.
 		/// </summary>
 		[Parameter] public Func<TItem, string> ItemRowCssClassSelector { get; set; }
@@ -154,19 +165,34 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
 
 		/// <summary>
+		/// Infinite scroll:
+		/// Gets or sets a value that determines how many additional items will be rendered
+		/// before and after the visible region. This help to reduce the frequency of rendering
+		/// during scrolling. However, higher values mean that more elements will be present
+		/// in the page.
+		/// </summary>
+		[Parameter] public int? OverscanCount { get; set; }
+
+		protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? GetDefaults().ContentNavigationMode;
+
+		/// <summary>
 		/// Return <see cref="HxGrid{TItem}"/> defaults.
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual HxGridDefaults GetDefaults() => HxGrid<TItem>.Defaults;
+		protected virtual GridDefaults GetDefaults() => HxGrid<TItem>.Defaults;
 
 		private List<IHxGridColumn<TItem>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItem>> columnsListRegistration;
-		private bool decreasePageIndexAfterRender = false;
 		private bool isDisposed = false;
-		private List<TItem> dataItemsToRender;
+
+		private bool paginationDecreasePageIndexAfterRender = false;
+		private List<TItem> paginationDataItemsToRender;
+		private CancellationTokenSource paginationRefreshDataCancellationTokenSource;
+
+		private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> infiniteScrollVirtualizeComponent;
+
 		private int? totalCount;
-		private CancellationTokenSource refreshDataCancellationTokenSource;
 		private bool dataProviderInProgress;
 
 		/// <summary>
@@ -184,6 +210,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await base.OnParametersSetAsync();
 
 			Contract.Requires<InvalidOperationException>(DataProvider != null, $"Property {nameof(DataProvider)} on {GetType()} must have a value.");
+			Contract.Requires<InvalidOperationException>(!MultiSelectionEnabled || (ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll), $"Cannot use multi selection with infinite scroll on {GetType()}.");
 		}
 
 		/// <inheritdoc />
@@ -203,15 +230,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (firstRender)
 			{
-				await RefreshDataCoreAsync(true);
+				await RefreshDataAsync();
+				StateHasChanged();
 			}
 
 			// when rendering page with no data, navigate one page back
-			if (decreasePageIndexAfterRender)
+			if (paginationDecreasePageIndexAfterRender)
 			{
-				decreasePageIndexAfterRender = false;
+				paginationDecreasePageIndexAfterRender = false;
 				await SetCurrentPageIndexWithEventCallback(CurrentUserState.PageIndex - 1);
-				await RefreshDataCoreAsync(true);
+				await RefreshPaginationDataCoreAsync(true);
 			}
 		}
 
@@ -304,7 +332,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			if (await SetCurrentSortingWithEventCallback(CurrentUserState.Sorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToList().AsReadOnly())) // when current sorting is null, use new sorting
 			{
-				await RefreshDataCoreAsync();
+				await RefreshDataAsync();
 			}
 		}
 
@@ -312,7 +340,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			if (await SetCurrentPageIndexWithEventCallback(newPageIndex))
 			{
-				await RefreshDataCoreAsync();
+				await RefreshDataAsync();
 			}
 		}
 
@@ -323,34 +351,48 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
 		public async Task RefreshDataAsync()
 		{
-			// We don't auto-render after this operation because in the typical use case, the
-			// host component calls this from one of its lifecycle methods, and will naturally
-			// re-render afterwards anyway. It's not desirable to re-render twice.
-			await RefreshDataCoreAsync(renderOnSuccess: false);
+			switch (ContentNavigationModeEffective)
+			{
+				case GridContentNavigationMode.Pagination:
+					// We don't auto-render after this operation because in the typical use case, the
+					// host component calls this from one of its lifecycle methods, and will naturally
+					// re-render afterwards anyway. It's not desirable to re-render twice.
+					await RefreshPaginationDataCoreAsync(renderOnSuccess: false);
+					break;
+
+				case GridContentNavigationMode.InfiniteScroll:
+					if (infiniteScrollVirtualizeComponent != null)
+					{
+						await infiniteScrollVirtualizeComponent.RefreshDataAsync();
+					}
+					// when infiniteScrollVirtualizeComponent, it will be rendered and data loaded so no action here is required
+					break;
+
+				default: throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
+			}
 		}
 
-		private async ValueTask RefreshDataCoreAsync(bool renderOnSuccess = false)
+		private async ValueTask RefreshPaginationDataCoreAsync(bool renderOnSuccess = false)
 		{
-			refreshDataCancellationTokenSource?.Cancel();
-			refreshDataCancellationTokenSource?.Dispose();
-			refreshDataCancellationTokenSource = new CancellationTokenSource();
-			CancellationToken cancellationToken = refreshDataCancellationTokenSource.Token;
+			Contract.Requires(ContentNavigationModeEffective == GridContentNavigationMode.Pagination);
+
+			paginationRefreshDataCancellationTokenSource?.Cancel();
+			paginationRefreshDataCancellationTokenSource?.Dispose();
+			paginationRefreshDataCancellationTokenSource = new CancellationTokenSource();
+			CancellationToken cancellationToken = paginationRefreshDataCancellationTokenSource.Token;
 
 			GridDataProviderRequest<TItem> request = new GridDataProviderRequest<TItem>
 			{
-				PageIndex = CurrentUserState.PageIndex,
-				PageSize = PageSize,
+				StartIndex = PageSize * CurrentUserState.PageIndex,
+				Count = PageSize,
 				Sorting = CurrentUserState.Sorting,
 				CancellationToken = cancellationToken
 			};
 
 			GridDataProviderResult<TItem> result;
-			// Multithreading: we can safelly set dataProviderInProgress, always dataProvider is going to retrieve data we are it is in in a progress.
-			dataProviderInProgress = true;
-			StateHasChanged();
 			try
 			{
-				result = await DataProvider.Invoke(request);
+				result = await InvokeDataProviderInternal(request);
 			}
 			catch (OperationCanceledException) // gRPC stack does not set the operationFailedException.CancellationToken, do not check in when-clause
 			{
@@ -361,8 +403,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			// do not use result from cancelled request (for the case a developer does not use the cancellation token)
 			if (!cancellationToken.IsCancellationRequested)
 			{
-				dataProviderInProgress = false; // Multithreading: we can safelly clean dataProviderInProgress only wnen received data from non-cancelled task
-
 				#region Verify paged data information
 				if ((result.Data != null) && (this.PageSize > 0))
 				{
@@ -384,12 +424,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 				#endregion
 
-				dataItemsToRender = result.Data?.ToList();
-				totalCount = result.TotalCount;
+				paginationDataItemsToRender = result.Data?.ToList();
 
 				if (!EqualityComparer<TItem>.Default.Equals(SelectedDataItem, default))
 				{
-					if ((dataItemsToRender == null) || !dataItemsToRender.Contains(SelectedDataItem))
+					if ((paginationDataItemsToRender == null) || !paginationDataItemsToRender.Contains(SelectedDataItem))
 					{
 						await SetSelectedDataItemWithEventCallback(default);
 					}
@@ -397,7 +436,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				if (SelectedDataItems?.Count > 0)
 				{
-					HashSet<TItem> selectedDataItems = dataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItem>();
+					HashSet<TItem> selectedDataItems = paginationDataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItem>();
 					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
 				}
 
@@ -408,6 +447,46 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
+		private async ValueTask<Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderResult<TItem>> VirtualizeItemsProvider(Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest request)
+		{
+			GridDataProviderRequest<TItem> gridDataProviderRequest = new GridDataProviderRequest<TItem>
+			{
+				StartIndex = request.StartIndex,
+				Count = request.Count,
+				Sorting = CurrentUserState.Sorting,
+				CancellationToken = request.CancellationToken
+			};
+
+			int? previousTotalCount = totalCount;
+
+			GridDataProviderResult<TItem> gridDataProviderResponse = await InvokeDataProviderInternal(gridDataProviderRequest);
+
+			if ((totalCount != previousTotalCount) && !request.CancellationToken.IsCancellationRequested)
+			{
+				StateHasChanged();
+			}
+
+			return new Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderResult<TItem>(gridDataProviderResponse.Data, gridDataProviderResponse.TotalCount ?? 0);
+		}
+
+
+		private async Task<GridDataProviderResult<TItem>> InvokeDataProviderInternal(GridDataProviderRequest<TItem> request)
+		{
+			// Multithreading: we can safelly set dataProviderInProgress, always dataProvider is going to retrieve data we are it is in in a progress.
+			dataProviderInProgress = true;
+			StateHasChanged();
+
+			GridDataProviderResult<TItem> result = await DataProvider.Invoke(request);
+
+			// do not use result from cancelled request (for the case a developer does not use the cancellation token)
+			if (!request.CancellationToken.IsCancellationRequested)
+			{
+				dataProviderInProgress = false; // Multithreading: we can safelly clean dataProviderInProgress only wnen received data from non-cancelled task
+				totalCount = result.TotalCount ?? result.Data.Count();
+			}
+
+			return result;
+		}
 
 		#region MultiSelect events
 		private async Task HandleMultiSelectSelectDataItemClicked(TItem selectedDataItem)
@@ -424,6 +503,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private async Task HandleMultiSelectUnselectDataItemClicked(TItem selectedDataItem)
 		{
 			Contract.Requires(MultiSelectionEnabled);
+			Contract.Requires(ContentNavigationModeEffective == GridContentNavigationMode.Pagination, "ContentNavigationModeEffective == GridContentNavigationMode.Pagination");
 
 			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItem>();
 			if (selectedDataItems.Remove(selectedDataItem))
@@ -434,14 +514,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleMultiSelectSelectAllClicked()
 		{
-			Contract.Requires(MultiSelectionEnabled);
+			Contract.Requires(MultiSelectionEnabled, nameof(MultiSelectionEnabled));
+			Contract.Requires(ContentNavigationModeEffective == GridContentNavigationMode.Pagination, "ContentNavigationModeEffective == GridContentNavigationMode.Pagination");
 
-			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>(dataItemsToRender));
+			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>(paginationDataItemsToRender));
 		}
 
 		private async Task HandleMultiSelectSelectNoneClicked()
 		{
 			Contract.Requires(MultiSelectionEnabled);
+			Contract.Requires(ContentNavigationModeEffective == GridContentNavigationMode.Pagination, "ContentNavigationModeEffective == GridContentNavigationMode.Pagination");
 
 			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>());
 		}
@@ -450,9 +532,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		public void Dispose()
 		{
-			refreshDataCancellationTokenSource?.Cancel();
-			refreshDataCancellationTokenSource?.Dispose();
-			refreshDataCancellationTokenSource = null;
+			paginationRefreshDataCancellationTokenSource?.Cancel();
+			paginationRefreshDataCancellationTokenSource?.Dispose();
+			paginationRefreshDataCancellationTokenSource = null;
 
 			isDisposed = true;
 		}
