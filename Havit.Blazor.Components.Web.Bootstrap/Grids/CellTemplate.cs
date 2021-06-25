@@ -10,6 +10,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class CellTemplate
 	{
+		public static CellTemplate Empty = new CellTemplate();
+
 		/// <summary>
 		/// Template to render cell.
 		/// </summary>
@@ -23,17 +25,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public CellTemplate()
+		public static CellTemplate Create(RenderFragment template, string cssClass = null)
 		{
-		}
+			if ((template == RenderFragmentBuilder.Empty()) && String.IsNullOrEmpty(cssClass))
+			{
+				return Empty;
+			}
 
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		public CellTemplate(RenderFragment template, string cssClass = null)
-		{
-			Template = template;
-			CssClass = cssClass;
+			return new CellTemplate
+			{
+				Template = template,
+				CssClass = cssClass
+			};
 		}
 	}
 }

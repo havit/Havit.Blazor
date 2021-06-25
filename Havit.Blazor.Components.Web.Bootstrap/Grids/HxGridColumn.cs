@@ -108,20 +108,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override int GetColumnOrder() => 0;
 
 		/// <inheritdoc />
-		protected override CellTemplate GetHeaderCellTemplate() => new CellTemplate(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate), HeaderCssClass);
+		protected override CellTemplate GetHeaderCellTemplate() => CellTemplate.Create(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate), HeaderCssClass);
 
 		/// <inheritdoc />
 		protected override CellTemplate GetItemCellTemplate(TItem item)
 		{
 			string cssClass = CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item));
-			return new CellTemplate(RenderFragmentBuilder.CreateFrom(ItemTextSelector?.Invoke(item), ItemTemplate?.Invoke(item)), cssClass);
+			return CellTemplate.Create(RenderFragmentBuilder.CreateFrom(ItemTextSelector?.Invoke(item), ItemTemplate?.Invoke(item)), cssClass);
 		}
 
 		/// <inheritdoc />
-		protected override CellTemplate GetItemPlaceholderCellTemplate(PlaceholderContext context) => (PlaceholderTemplate != null) ? new CellTemplate(PlaceholderTemplate(context)) : new CellTemplate(null);
+		protected override CellTemplate GetItemPlaceholderCellTemplate(PlaceholderContext context) => (PlaceholderTemplate != null) ? CellTemplate.Create(PlaceholderTemplate(context)) : CellTemplate.Empty;
 
 		/// <inheritdoc />
-		protected override CellTemplate GetFooterCellTemplate() => new CellTemplate(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate), FooterCssClass);
+		protected override CellTemplate GetFooterCellTemplate() => CellTemplate.Create(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate), FooterCssClass);
 
 		/// <inheritdoc />
 		protected override IEnumerable<SortingItem<TItem>> GetSorting()

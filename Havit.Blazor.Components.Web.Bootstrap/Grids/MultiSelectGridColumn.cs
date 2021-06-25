@@ -65,12 +65,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected override CellTemplate GetItemPlaceholderCellTemplate(PlaceholderContext context)
 		{
-			return new CellTemplate(RenderFragmentBuilder.Empty());
+			return CellTemplate.Empty;
 		}
 
 		protected override CellTemplate GetFooterCellTemplate()
 		{
-			return new CellTemplate(RenderFragmentBuilder.Empty());
+			return CellTemplate.Empty;
 		}
 
 		protected override IEnumerable<SortingItem<TItem>> GetSorting()
