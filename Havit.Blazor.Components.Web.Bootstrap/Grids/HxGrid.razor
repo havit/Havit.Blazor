@@ -177,13 +177,13 @@
 								<ItemContent>
 									@rowTemplate(@context)
 								</ItemContent>
-								<Placeholder>
+								<Placeholder Context="placeholderContext">
 									<tr height="@rowHeight">
 										@foreach (IHxGridColumn<TItem> column in columnsToRender)
 										{
-											CellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate();
+											CellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(placeholderContext);
 											<td class="@placeholderCellTemplate.CssClass">
-												@placeholderCellTemplate.Template				
+												@placeholderCellTemplate.Template
 											</td>
 										}
 									</tr>

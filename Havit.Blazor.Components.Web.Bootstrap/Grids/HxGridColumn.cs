@@ -1,5 +1,6 @@
 ﻿using Havit.Collections;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -59,7 +60,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Placeholder cell template.
 		/// </summary>
-		[Parameter] public RenderFragment PlaceholderTemplate { get; set; }
+		[Parameter] public RenderFragment<PlaceholderContext> PlaceholderTemplate { get; set; }
 
 		#region Footer properties
 		/// <summary>
@@ -117,7 +118,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		protected override CellTemplate GetItemPlaceholderCellTemplate() => new CellTemplate(PlaceholderTemplate);
+		protected override CellTemplate GetItemPlaceholderCellTemplate(PlaceholderContext context) => (PlaceholderTemplate != null) ? new CellTemplate(PlaceholderTemplate(context)) : new CellTemplate(null);
 
 		/// <inheritdoc />
 		protected override CellTemplate GetFooterCellTemplate() => new CellTemplate(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate), FooterCssClass);

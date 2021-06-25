@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override CellTemplate GetItemCellTemplate(TItem item) => new CellTemplate(ContextMenu(item));
 
 		/// <inheritdoc />
-		protected override CellTemplate GetItemPlaceholderCellTemplate() => new CellTemplate(RenderFragmentBuilder.Empty());
+		protected override CellTemplate GetItemPlaceholderCellTemplate(PlaceholderContext context) => new CellTemplate(RenderFragmentBuilder.Empty());
 
 		/// <inheritdoc />
 		protected override CellTemplate GetFooterCellTemplate() => new CellTemplate(RenderFragmentBuilder.Empty());
