@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	{
 		/// <summary>
-		/// Contains application-wide defaults for the <see cref="HxGrid{TItem}"/>.
+		/// Application-wide defaults for the <see cref="HxGrid{TItem}"/>.
 		/// </summary>
 		public static GridDefaults Defaults { get; } = new GridDefaults();
 
