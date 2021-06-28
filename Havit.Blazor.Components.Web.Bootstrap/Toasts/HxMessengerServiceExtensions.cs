@@ -12,6 +12,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public static class HxMessengerServiceExtensions
 	{
 		/// <summary>
+		/// Default values for extension methods.
+		/// </summary>
+		public static HxMessengerServiceExtensionsDefaults Defaults { get; } = new HxMessengerServiceExtensionsDefaults();
+
+		/// <summary>
 		/// Adds and shows an informational message. Message is automatically hidden 5 seconds after showing up.
 		/// </summary>
 		public static void AddInformation(this IHxMessengerService messenger, string message)
@@ -28,9 +33,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			messenger.AddMessage(new MessengerMessage
 			{
-				Icon = BootstrapIcon.InfoCircleFill,
-				CssClass = "hx-messenger-information",
-				AutohideDelay = 5000,
+				Icon = Defaults.InformationIcon,
+				CssClass = Defaults.InformationCssClass,
+				AutohideDelay = Defaults.InformationAutohideDelay,
 				Title = title,
 				Text = message
 			});
@@ -53,9 +58,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			messenger.AddMessage(new MessengerMessage
 			{
-				Icon = BootstrapIcon.ExclamationCircleFill,
-				CssClass = "hx-messenger-warning",
-				AutohideDelay = null,
+				Icon = Defaults.WarningIcon,
+				CssClass = Defaults.WarningCssClass,
+				AutohideDelay = Defaults.WarningAutohideDelay,
 				Title = title,
 				Text = message
 			});
@@ -79,9 +84,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			messenger.AddMessage(new MessengerMessage
 			{
-				Icon = BootstrapIcon.XCircleFill,
-				CssClass = "hx-messenger-error",
-				AutohideDelay = null,
+				Icon = Defaults.ErrorIcon,
+				CssClass = Defaults.ErrorCssClass,
+				AutohideDelay = Defaults.ErrorAutohideDelay,
 				Title = title,
 				Text = message
 			});
