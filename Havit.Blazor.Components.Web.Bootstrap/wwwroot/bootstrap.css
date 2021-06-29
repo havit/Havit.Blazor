@@ -4417,10 +4417,6 @@ textarea.form-control-lg {
   }
 }
 
-.card {
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
-}
-
 .card-body > .hx-progress-overlay {
   min-height: 60px;
 }
