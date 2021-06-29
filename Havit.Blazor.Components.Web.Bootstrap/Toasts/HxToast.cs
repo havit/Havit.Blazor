@@ -135,19 +135,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (renderContent)
 			{
 				builder.OpenElement(300, "div");
-				builder.AddAttribute(301, "class", "toast-body position-relative");
-
+				builder.AddAttribute(301, "class", !renderHeader && ShowCloseButton ? "d-flex" : null);
+				builder.OpenElement(302, "div");
+				builder.AddAttribute(303, "class", "toast-body");
 				builder.AddContent(304, ContentText);
 				builder.AddContent(305, ContentTemplate);
-
 				builder.CloseElement(); // toast-body
 
 				if (!renderHeader && ShowCloseButton)
 				{
 					builder.OpenRegion(306);
-					BuildRenderTree_CloseButton(builder, "position-absolute top-0 end-0 ms-2");
+					BuildRenderTree_CloseButton(builder, "me-2 m-auto");
 					builder.CloseRegion();
 				}
+
+				builder.CloseElement();
 			}
 
 			builder.CloseElement(); // toast
