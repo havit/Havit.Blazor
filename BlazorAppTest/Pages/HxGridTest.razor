@@ -6,7 +6,7 @@
 <h2>Client paging, auto sorting</h2>
 <HxGrid DataProvider="@ClientCultureInfosDataProvider" @bind-SelectedDataItem="@clientSideCurrentCultureInfo" PageSize="@PageSize" TableContainerCssClass="mt-5" HeaderRowCssClass="myheader">
 	<Columns>
-		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="Order">
 			<ItemTemplate Context="item">
@@ -44,7 +44,7 @@
 <h2>Server paging, server sorting</h2>
 <HxGrid TItem="CultureInfo" @ref="serverSideGrid" @bind-SelectedDataItem="@serverSideCurrentCultureInfo" DataProvider="@ServerCultureInfosDataProvider" PageSize="@PageSize" MultiSelectionEnabled="@multiSelectionEnabled" SelectionEnabled="false">
 	<Columns>
-		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" IsDefaultSortColumn="true" FooterText="This is a footer" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" FooterText="This is a footer" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />
 	</Columns>
 </HxGrid>

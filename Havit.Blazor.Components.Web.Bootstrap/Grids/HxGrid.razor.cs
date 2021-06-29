@@ -254,9 +254,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Returns default sorting and checks the default sorting settings.
-		/// Default sorting is required when at least one column has specified any sorting.
-		/// Default sorting is not required when there is no sorting specified on columns.
+		/// Returns default sorting if set.
 		/// </summary>
 		private SortingItem<TItem>[] GetDefaultSorting()
 		{
@@ -269,7 +267,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					.OrderBy(item => item.SortDefaultOrder.Value)
 					.ToArray();
 
-				Contract.Assert<InvalidOperationException>(defaultSorting.Length > 0, "Default sorting has to be set.");
 
 				return defaultSorting;
 			}
