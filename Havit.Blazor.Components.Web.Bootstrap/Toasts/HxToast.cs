@@ -135,7 +135,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (renderContent)
 			{
 				builder.OpenElement(300, "div");
-				builder.AddAttribute(301, "class", !renderHeader && ShowCloseButton ? "d-flex" : null);
+				if (!renderHeader && ShowCloseButton)
+				{
+					builder.AddAttribute(301, "class", "d-flex");
+				}
 				builder.OpenElement(302, "div");
 				builder.AddAttribute(303, "class", "toast-body");
 				builder.AddContent(304, ContentText);
