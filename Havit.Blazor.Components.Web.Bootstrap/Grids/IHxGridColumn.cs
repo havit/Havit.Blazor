@@ -34,7 +34,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns header cell template.
 		/// </summary>
-		CellTemplate GetHeaderCellTemplate();
+		CellTemplate GetHeaderCellTemplate(GridHeaderCellContext context);
 
 		/// <summary>
 		/// Returns data cell template for the specific item.
@@ -49,6 +49,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns footer cell template.
 		/// </summary>
-		CellTemplate GetFooterCellTemplate();
+		CellTemplate GetFooterCellTemplate(GridFooterCellContext context);
 	}
 }

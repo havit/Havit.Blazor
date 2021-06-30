@@ -39,7 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		int IHxGridColumn<TItem>.GetOrder() => this.GetColumnOrder();
 
 		/// <inheritdoc />
-		CellTemplate IHxGridColumn<TItem>.GetHeaderCellTemplate() => this.GetHeaderCellTemplate();
+		CellTemplate IHxGridColumn<TItem>.GetHeaderCellTemplate(GridHeaderCellContext context) => this.GetHeaderCellTemplate(context);
 
 		/// <inheritdoc />
 		CellTemplate IHxGridColumn<TItem>.GetItemCellTemplate(TItem item) => this.GetItemCellTemplate(item);
@@ -48,7 +48,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		CellTemplate IHxGridColumn<TItem>.GetItemPlaceholderCellTemplate(PlaceholderContext context) => this.GetItemPlaceholderCellTemplate(context);
 
 		/// <inheritdoc />
-		CellTemplate IHxGridColumn<TItem>.GetFooterCellTemplate() => this.GetFooterCellTemplate();
+		CellTemplate IHxGridColumn<TItem>.GetFooterCellTemplate(GridFooterCellContext context) => this.GetFooterCellTemplate(context);
 
 		/// <inheritdoc />
 		SortingItem<TItem>[] IHxGridColumn<TItem>.GetSorting() => this.GetSorting().ToArray();
@@ -71,7 +71,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns header cell template.
 		/// </summary>
-		protected abstract CellTemplate GetHeaderCellTemplate();
+		protected abstract CellTemplate GetHeaderCellTemplate(GridHeaderCellContext context);
 
 		/// <summary>
 		/// Returns data cell template for the specific item.
@@ -86,7 +86,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns footer cell template.
 		/// </summary>
-		protected abstract CellTemplate GetFooterCellTemplate();
+		protected abstract CellTemplate GetFooterCellTemplate(GridFooterCellContext context);
 
 		/// <summary>
 		/// Returns column sorting.

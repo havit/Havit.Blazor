@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment<TItem> ContextMenu { get; set; }
 
 		/// <inheritdoc />
-		protected override CellTemplate GetHeaderCellTemplate() => CellTemplate.Empty;
+		protected override CellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => CellTemplate.Empty;
 
 		/// <inheritdoc />
 		protected override CellTemplate GetItemCellTemplate(TItem item) => CellTemplate.Create(ContextMenu(item));
@@ -27,7 +27,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override CellTemplate GetItemPlaceholderCellTemplate(PlaceholderContext context) => CellTemplate.Empty;
 
 		/// <inheritdoc />
-		protected override CellTemplate GetFooterCellTemplate() => CellTemplate.Empty;
+		protected override CellTemplate GetFooterCellTemplate(GridFooterCellContext context) => CellTemplate.Empty;
 
 		/// <inheritdoc />
 		protected override IEnumerable<SortingItem<TItem>> GetSorting()

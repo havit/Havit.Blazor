@@ -274,6 +274,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return null;
 		}
 
+		/// <summary>
+		/// Returns grid header cell context.
+		/// </summary>
+		protected virtual GridHeaderCellContext CreateGridHeaderCellContext()
+		{
+			return new GridHeaderCellContext { TotalCount = totalCount };
+		}
+
+		/// <summary>
+		/// Returns grid footer cell context.
+		/// </summary>
+		protected virtual GridFooterCellContext CreateGridFooterCellContext()
+		{
+			return new GridFooterCellContext { TotalCount = totalCount };
+		}
+
 		private async Task SetSelectedDataItemWithEventCallback(TItem newSelectedDataItem)
 		{
 			if (!EqualityComparer<TItem>.Default.Equals(SelectedDataItem, newSelectedDataItem))

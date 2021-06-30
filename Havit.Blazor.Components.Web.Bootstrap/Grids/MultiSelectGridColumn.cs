@@ -22,7 +22,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override int GetColumnOrder() => Int32.MinValue;
 
-		protected override CellTemplate GetHeaderCellTemplate()
+		protected override CellTemplate GetHeaderCellTemplate(GridHeaderCellContext context)
 		{
 			return new CellTemplate
 			{
@@ -68,7 +68,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return CellTemplate.Empty;
 		}
 
-		protected override CellTemplate GetFooterCellTemplate()
+		protected override CellTemplate GetFooterCellTemplate(GridFooterCellContext context)
 		{
 			return CellTemplate.Empty;
 		}

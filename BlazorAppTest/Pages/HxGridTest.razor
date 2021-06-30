@@ -6,7 +6,11 @@
 <h2>Client paging, auto sorting</h2>
 <HxGrid DataProvider="@ClientCultureInfosDataProvider" @bind-SelectedDataItem="@clientSideCurrentCultureInfo" PageSize="@PageSize" TableContainerCssClass="mt-5" HeaderRowCssClass="myheader">
 	<Columns>
-		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
+		<HxGridColumn TItem="CultureInfo" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
+			<HeaderTemplate Context="context">
+				Display Name (total count: @context.TotalCount)
+			</HeaderTemplate>
+		</HxGridColumn>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="Order">
 			<ItemTemplate Context="item">

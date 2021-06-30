@@ -27,7 +27,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Header cell template.
 		/// </summary>
-		[Parameter] public RenderFragment HeaderTemplate { get; set; }
+		[Parameter] public RenderFragment<GridHeaderCellContext> HeaderTemplate { get; set; }
 
 		/// <summary>
 		/// Header cell css class.
@@ -71,7 +71,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Footer cell template.
 		/// </summary>
-		[Parameter] public RenderFragment FooterTemplate { get; set; }
+		[Parameter] public RenderFragment<GridFooterCellContext> FooterTemplate { get; set; }
 
 		/// <summary>
 		/// Footer cell css class.
@@ -108,7 +108,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override int GetColumnOrder() => 0;
 
 		/// <inheritdoc />
-		protected override CellTemplate GetHeaderCellTemplate() => CellTemplate.Create(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate), HeaderCssClass);
+		protected override CellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => CellTemplate.Create(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate?.Invoke(context)), HeaderCssClass);
 
 		/// <inheritdoc />
 		protected override CellTemplate GetItemCellTemplate(TItem item)
@@ -121,7 +121,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override CellTemplate GetItemPlaceholderCellTemplate(PlaceholderContext context) => (PlaceholderTemplate != null) ? CellTemplate.Create(PlaceholderTemplate(context)) : CellTemplate.Empty;
 
 		/// <inheritdoc />
-		protected override CellTemplate GetFooterCellTemplate() => CellTemplate.Create(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate), FooterCssClass);
+		protected override CellTemplate GetFooterCellTemplate(GridFooterCellContext context) => CellTemplate.Create(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate?.Invoke(context)), FooterCssClass);
 
 		/// <inheritdoc />
 		protected override IEnumerable<SortingItem<TItem>> GetSorting()
