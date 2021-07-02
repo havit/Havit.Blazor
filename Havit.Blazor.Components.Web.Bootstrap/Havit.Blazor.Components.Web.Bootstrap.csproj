@@ -9,7 +9,7 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.1.17</PackageVersion>
+		<PackageVersion>1.1.18</PackageVersion>
 		<Description>HAVIT Blazor Library - UI components based on Bootstrap 5</Description>
 	</PropertyGroup>
 	
