@@ -3,11 +3,24 @@
 	color: #2e75f0;
 }
 
-::deep th a .text-muted {
-	visibility: hidden;
+th ::deep i {
+    margin-left: .25rem;
 }
 
-::deep th:hover a .text-muted {
+::deep .sorted i {
+    color: var(--bs-primary);
+}
+
+::deep .sortable {
+    color: currentColor;
+
+}
+
+::deep .sortable i {
+    visibility: hidden;
+}
+
+::deep th:hover.sortable i {
 	visibility: visible;
 }
 

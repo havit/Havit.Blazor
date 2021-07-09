@@ -59,38 +59,37 @@
 					<tr class="@HeaderRowCssClass">
 						@{
 							GridHeaderCellContext gridHeaderCellContext = CreateGridHeaderCellContext();
-
-							foreach (IHxGridColumn<TItem> column in columnsToRender)
+						
+							@foreach (IHxGridColumn<TItem> column in columnsToRender)
 							{
 								var columnSorting = column.GetSorting();
 								bool isCurrentSorting = CurrentUserState.Sorting?.StartsWith(columnSorting) ?? false;
 								var headerCellTemplate = column.GetHeaderCellTemplate(gridHeaderCellContext);
-								string iconColor = isCurrentSorting ? "text-primary" : "text-muted";
-								<th class="@headerCellTemplate.CssClass">
-									@if (columnSorting.Any())
-									{
-										<a @onclick="async () => await HandleSortingClick(columnSorting)" @onclick:stopPropagation role="button">
-											<UpdatedContentRenderer Component="column">
-												@headerCellTemplate.Template
-											</UpdatedContentRenderer>
-											@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
-												 || (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
-											{
-												<HxIcon CssClass="@CssClassHelper.Combine("ms-1", @iconColor)" Icon="@this.GetDefaults().SortAscendingIcon" />
-											}
-											else
-											{
-												<HxIcon CssClass="@CssClassHelper.Combine("ms-1", @iconColor)" Icon="@this.GetDefaults().SortDescendingIcon" />
-											}
-										</a>
-									}
-									else
-									{
+								@if (columnSorting.Any())
+								{
+									<th @onclick="async () => await HandleSortingClick(columnSorting)" @onclick:stopPropagation role="button" class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isCurrentSorting ? "sorted" : "sortable")">
 										<UpdatedContentRenderer Component="column">
 											@headerCellTemplate.Template
 										</UpdatedContentRenderer>
-									}
-								</th>
+										@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
+										|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
+										{
+											<HxIcon Icon="@this.GetDefaults().SortAscendingIcon" />
+										}
+										else
+										{
+											<HxIcon Icon="@this.GetDefaults().SortDescendingIcon" />
+										}
+									</th>
+								}
+								else
+								{
+									<th class="@headerCellTemplate.CssClass">
+										<UpdatedContentRenderer Component="column">
+											@headerCellTemplate.Template
+										</UpdatedContentRenderer>
+									</th>
+								}
 							}
 						}
 					</tr>
