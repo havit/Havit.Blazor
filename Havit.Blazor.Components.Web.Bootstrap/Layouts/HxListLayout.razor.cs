@@ -25,8 +25,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public TFilterModel FilterModel { get; set; }
 		[Parameter] public EventCallback<TFilterModel> FilterModelChanged { get; set; }
 
-		[Parameter] public bool FilterDrawerOpen { get; set; }
-
 		[Parameter] public RenderFragment DataTemplate { get; set; }
 
 		[Parameter] public RenderFragment DetailTemplate { get; set; }
@@ -38,6 +36,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private ChipItem[] chips;
 		private string filterFormId = "hx" + Guid.NewGuid().ToString("N");
 		private HxFilterForm<TFilterModel> filterForm;
+		private HxOffcanvas filterOffcanvasComponent;
 
 		protected override void OnParametersSet()
 		{
@@ -56,11 +55,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await filterForm.RemoveChipAsync(chipItemToRemove);
 		}
 
+		private async Task HandleFilterButtonClick()
+		{
+			await filterOffcanvasComponent.ShowAsync();
+		}
+
 		private async Task HandleFilterFormModelChanged(TFilterModel newFilterModel)
 		{
 			FilterModel = newFilterModel;
 			await FilterModelChanged.InvokeAsync(newFilterModel);
-			FilterDrawerOpen = false;
+			await filterOffcanvasComponent.HideAsync();
 		}
 	}
 }

@@ -41,7 +41,7 @@
 				<div class="col text-end">
 					@if (FilterTemplate != null)
 					{
-						<HxButton OnClick="() => FilterDrawerOpen = true" Skin="ButtonSkins.Filter" />
+						<HxButton OnClick="HandleFilterButtonClick" Skin="ButtonSkins.Filter" />
 					}
 					@if (CommandsTemplate != null)
 					{
@@ -59,13 +59,17 @@
 			}
 			@if (FilterTemplate != null)
 			{
-				<HxDrawer @bind-IsOpen="@FilterDrawerOpen" RenderMode="DrawerRenderMode.Always">
+				<HxOffcanvas @ref="filterOffcanvasComponent" RenderMode="OffcanvasRenderMode.Always">
 					<HeaderTemplate>
 						@Localizer["FilterHeaderTitle"]
 					</HeaderTemplate>
 					<BodyTemplate>
-						<HxFilterForm @ref="filterForm" Id="@filterFormId" TModel="TFilterModel" Model="FilterModel"
-									  ModelChanged="HandleFilterFormModelChanged" Context="filterContext"
+						<HxFilterForm @ref="filterForm"
+									  Id="@filterFormId"
+									  TModel="TFilterModel"
+									  Model="FilterModel"
+									  ModelChanged="HandleFilterFormModelChanged"
+									  Context="filterContext"
 									  OnChipsUpdated="HandleChipUpdated">
 							@FilterTemplate(filterContext)
 						</HxFilterForm>
@@ -73,7 +77,7 @@
 					<FooterTemplate>
 						<HxSubmit FormId="@filterFormId" Text="@Localizer["FilterApplyButtonText"]" Color="ThemeColor.Primary" />
 					</FooterTemplate>
-				</HxDrawer>
+				</HxOffcanvas>
 			}
 		</HeaderTemplate>
 		<BodyTemplate>
