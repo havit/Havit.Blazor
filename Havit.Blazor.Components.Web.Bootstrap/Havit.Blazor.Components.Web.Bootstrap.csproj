@@ -9,15 +9,15 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.1.19</PackageVersion>
+		<PackageVersion>1.1.20</PackageVersion>
 		<Description>HAVIT Blazor Library - UI components based on Bootstrap 5</Description>
 	</PropertyGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="Havit.Core" Version="2.0.17" />
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.6" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.6" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.6" />
+		<PackageReference Include="Havit.Core" Version="2.0.19" />
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.7" />
 	</ItemGroup>
 
 	<ItemGroup>
