@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		internal const string HxModalInParentModalCascadingValueName = nameof(HxModalInParentModalCascadingValueName);
 
 		/// <summary>
-		/// Modal css class. Added to root div (.modal).
+		/// Modal CSS class. Added to root div (.modal).
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
@@ -34,7 +34,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment HeaderTemplate { get; set; }
 
 		/// <summary>
-		/// Header css class.
+		/// Additional header CSS class.
 		/// </summary>
 		[Parameter] public string HeaderCssClass { get; set; }
 		#endregion
@@ -46,7 +46,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment BodyTemplate { get; set; }
 
 		/// <summary>
-		/// Body css class.
+		/// Additional body CSS class.
 		/// </summary>
 		[Parameter] public string BodyCssClass { get; set; }
 		#endregion

@@ -1,0 +1,42 @@
+.hx-drawer {
+  position: fixed;
+  height: 100vh;
+  max-height: 100vh;
+  top: 0;
+  width: var(--drawer-width);
+  background: white;
+  transition: right 0.35s ease;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+}
+
+.hx-drawer.hx-drawer-sm {
+  width: var(--drawer-sm-width);
+}
+
+.hx-drawer.hx-drawer-lg {
+  width: var(--drawer-lg-width);
+}
+
+.hx-drawer.show {
+  right: 0;
+  box-shadow: var(--drawer-box-shadow);
+}
+
+.hide {
+  right: calc(-1 * var(--drawer-width));
+}
+
+.hx-drawer-sm.hide {
+  right: calc(-1 * var(--drawer-sm-width));
+}
+.hx-drawer-lg.hide {
+  right: calc(-1 * var(--drawer-lg-width));
+}
+
+.hx-drawer-body {
+    flex-shrink: 1;
+    flex-grow: 1;
+    overflow: auto;
+}

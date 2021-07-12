@@ -1,0 +1,25 @@
+@namespace Havit.Blazor.Components.Web.Bootstrap
+<div @ref="offcanvasElement" class="@CssClassHelper.Combine("offcanvas", GetPlacementCssClass(), GetSizeCssClass(), this.CssClass)"  tabindex="-1">
+	@if (opened || (this.RenderMode == OffcanvasRenderMode.Always))
+	{
+		<div class="@CssClassHelper.Combine("offcanvas-header", this.HeaderCssClass)">
+			<h5 class="offcanvas-title">
+                @HeaderText
+			    @HeaderTemplate
+            </h5>
+			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" />
+		</div>
+		@if (BodyTemplate != null)
+		{
+			<div class="offcanvas-body">
+				@BodyTemplate
+			</div>
+		}
+		@if (FooterTemplate != null)
+		{
+			<div class="@CssClassHelper.Combine("offcanvas-footer", this.FooterCssClass)">
+				@FooterTemplate
+			</div>
+		}
+	}
+</div>
