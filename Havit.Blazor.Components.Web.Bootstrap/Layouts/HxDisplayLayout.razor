@@ -6,17 +6,17 @@
 	@BodyTemplate
 	@FooterTemplate
 }
-else if (this.DisplayMode == LayoutDisplayMode.Drawer)
+else if (this.DisplayMode == LayoutDisplayMode.Offcanvas)
 {
-	<HxDrawer IsOpen="drawerIsOpen" IsOpenChanged="HandleDrawerIsOpenChanged">
+	<HxOffcanvas @ref="offcanvasComponent" OnClosed="OnClosed">
 		<HeaderTemplate>@HeaderTemplate</HeaderTemplate>
 		<BodyTemplate>@BodyTemplate</BodyTemplate>
 		<FooterTemplate>@FooterTemplate</FooterTemplate>
-	</HxDrawer>
+	</HxOffcanvas>
 }
 else if (this.DisplayMode == LayoutDisplayMode.Modal)
 {
-	<HxModal @ref="modal" OnClosed="OnClosed">
+	<HxModal @ref="modalComponent" OnClosed="OnClosed">
 		<HeaderTemplate>@HeaderTemplate</HeaderTemplate>
 		<BodyTemplate>@BodyTemplate</BodyTemplate>
 		<FooterTemplate>@FooterTemplate</FooterTemplate>

@@ -17,47 +17,30 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public LayoutDisplayMode DisplayMode { get; set; }
 		[Parameter] public EventCallback OnClosed { get; set; }
 
-		[Inject] protected ILogger<HxDisplayLayout> Logger { get; set; }
-
-		private bool drawerIsOpen;
-		private HxModal modal;
+		private HxModal modalComponent;
+		private HxOffcanvas offcanvasComponent;
 
 		public async Task ShowAsync()
 		{
-			Logger.LogDebug("ShowAsync");
-
 			if (DisplayMode == LayoutDisplayMode.Modal)
 			{
-				await modal.ShowAsync();
+				await modalComponent.ShowAsync();
 			}
-			else if (DisplayMode == LayoutDisplayMode.Drawer)
+			else if (DisplayMode == LayoutDisplayMode.Offcanvas)
 			{
-				drawerIsOpen = true;
-				StateHasChanged();
+				await offcanvasComponent.ShowAsync();
 			}
 		}
 
 		public async Task HideAsync()
 		{
-			Logger.LogDebug("HideAsync");
-
 			if (DisplayMode == LayoutDisplayMode.Modal)
 			{
-				await modal.HideAsync();
+				await modalComponent.HideAsync();
 			}
-			else if (DisplayMode == LayoutDisplayMode.Drawer)
+			else if (DisplayMode == LayoutDisplayMode.Offcanvas)
 			{
-				drawerIsOpen = false;
-				await OnClosed.InvokeAsync();
-			}
-		}
-
-		private async Task HandleDrawerIsOpenChanged(bool isOpen)
-		{
-			drawerIsOpen = isOpen;
-			if (!isOpen)
-			{
-				await OnClosed.InvokeAsync();
+				await offcanvasComponent.HideAsync();
 			}
 		}
 	}

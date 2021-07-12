@@ -3,7 +3,7 @@
 	public enum LayoutDisplayMode
 	{
 		Plain = 0,
-		Drawer,
+		Offcanvas,
 		Modal
 	}
 }
