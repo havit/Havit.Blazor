@@ -472,11 +472,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				CancellationToken = request.CancellationToken
 			};
 
-			int? previousTotalCount = totalCount;
-
 			GridDataProviderResult<TItem> gridDataProviderResponse = await InvokeDataProviderInternal(gridDataProviderRequest);
 
-			if ((totalCount != previousTotalCount) && !request.CancellationToken.IsCancellationRequested)
+			if (!request.CancellationToken.IsCancellationRequested)
 			{
 				StateHasChanged();
 			}
@@ -488,8 +486,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private async Task<GridDataProviderResult<TItem>> InvokeDataProviderInternal(GridDataProviderRequest<TItem> request)
 		{
 			// Multithreading: we can safelly set dataProviderInProgress, always dataProvider is going to retrieve data we are it is in in a progress.
-			dataProviderInProgress = true;
-			StateHasChanged();
+			if (!dataProviderInProgress)
+			{
+				dataProviderInProgress = true;
+				StateHasChanged();
+			}
 
 			GridDataProviderResult<TItem> result = await DataProvider.Invoke(request);
 
