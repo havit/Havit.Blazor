@@ -32,7 +32,7 @@ td > div {
     align-items: center;
 }
 
-.week div:hover {
+.week td[role="button"]:hover div {
     background: var(--hx-calendar-day-hover-background);
 }
 
@@ -58,10 +58,10 @@ td > div {
     color: var(--hx-calendar-day-in-color);
 }
 
-.selected.in, 
-.selected.in:hover, 
-.selected.out, 
-.selected.out:hover {
+td[role="button"]:hover .selected.in, 
+td[role="button"] .selected.in, 
+td[role="button"]:hover .selected.out, 
+td[role="button"] .selected.out {
     background: var(--hx-calendar-day-selected-background);
     color: var(--hx-calendar-day-selected-color);
 }

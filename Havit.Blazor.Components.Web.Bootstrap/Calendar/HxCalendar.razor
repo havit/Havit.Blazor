@@ -35,16 +35,20 @@
 				<tr class="week">
 					@foreach (DayData day in week.Days)
 					{
-						<td>
+						
 							@if (day.ClickEnabled)
 							{
-								<div class="@day.CssClass" role="button" @onclick="async () => await HandleDayClickAsync(day)" @onclick:stopPropagation>@day.DayInMonth</div>
+								<td role="button" @onclick="async () => await HandleDayClickAsync(day)" @onclick:stopPropagation>
+									<div class="@day.CssClass">@day.DayInMonth</div>
+								</td>
 							}
 							else
 							{
-								<div class="@day.CssClass">@day.DayInMonth</div>
+								<td>
+									<div class="@day.CssClass">@day.DayInMonth</div>
+								</td>
 							}
-						</td>
+						
 					}
 				</tr>
 			}
