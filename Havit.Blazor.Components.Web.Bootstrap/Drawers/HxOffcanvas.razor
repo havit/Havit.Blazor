@@ -3,10 +3,13 @@
 	@if (opened || (this.RenderMode == OffcanvasRenderMode.Always))
 	{
 		<div class="@CssClassHelper.Combine("offcanvas-header", this.HeaderCssClass)">
-			<h5 class="offcanvas-title">
-                @HeaderText
-			    @HeaderTemplate
-            </h5>
+			@if (HeaderText != null) 
+			{
+				<h5 class="offcanvas-title">
+					@HeaderText
+				</h5>
+			}
+			@HeaderTemplate
 			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" />
 		</div>
 		@if (BodyTemplate != null)
