@@ -1,7 +1,4 @@
-﻿using Havit.Blazor.Components.Web;
-using Havit.Blazor.Components.Web.Bootstrap;
-
-namespace Havit.Blazor.Components
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Application wide defaults for Offcanvas
