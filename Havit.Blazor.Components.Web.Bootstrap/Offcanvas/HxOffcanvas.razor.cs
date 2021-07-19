@@ -11,6 +11,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxOffcanvas
 	{
+
+		/// <summary>
+		/// Application-wide defaults for the <see cref="HxGrid{TItem}"/>.
+		/// </summary>
+		public static OffcanvasDefaults Defaults { get; } = new OffcanvasDefaults();
+
 		[Parameter] public string HeaderText { get; set; }
 
 		[Parameter] public RenderFragment HeaderTemplate { get; set; }
@@ -55,8 +61,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Indicates whether the offcanvas closes when escape key is pressed.
 		/// Default value is true.
 		/// </summary>
-		[Parameter] public bool CloseOnEscape { get; set; } = true;
+		[Parameter] public bool CloseOnEscape { get; set; }
 
+
+		[Parameter] public IconBase CloseIcon { get; set; }
 		/// <summary>
 		/// Indicates whether to apply a backdrop on body while offcanvas is open.
 		/// Default value is <c>true</c>.
@@ -73,6 +81,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Raised when offcanvas is closed (whatever reason it is).
 		/// </summary>
 		[Parameter] public EventCallback OnClosed { get; set; }
+
+		protected virtual OffcanvasDefaults GetDefaults() => HxOffcanvas.Defaults;
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -121,6 +131,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			opened = false;
 			await OnClosed.InvokeAsync(); // fires "event" dialog has been closed
 			StateHasChanged(); // ensures rerender to remove dialog from HTML
+		}
+
+
+		/// <inheritdoc />
+		protected override void OnInitialized()
+		{
+			base.OnInitialized();
+			if (CloseIcon == null)
+			{
+				CloseIcon = GetDefaults().CloseIcon;
+			}
 		}
 
 		/// <inheritdoc />

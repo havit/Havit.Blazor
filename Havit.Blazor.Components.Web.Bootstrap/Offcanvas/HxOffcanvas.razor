@@ -2,16 +2,21 @@
 <div @ref="offcanvasElement" class="@CssClassHelper.Combine("offcanvas", GetPlacementCssClass(), GetSizeCssClass(), this.CssClass)"  tabindex="-1">
 	@if (opened || (this.RenderMode == OffcanvasRenderMode.Always))
 	{
-		<div class="@CssClassHelper.Combine("offcanvas-header", this.HeaderCssClass)">
-			@if (HeaderText != null) 
-			{
-				<h5 class="offcanvas-title">
-					@HeaderText
-				</h5>
-			}
-			@HeaderTemplate
-			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" />
-		</div>
+	<div class="@CssClassHelper.Combine("offcanvas-header", this.HeaderCssClass)">
+		@if (HeaderText != null)
+		{
+			<h5 class="offcanvas-title">
+				@HeaderText
+			</h5>
+		}
+		@HeaderTemplate
+		
+		@if (CloseIcon != null)
+		{
+			<button type="button" class="btn text-reset" data-bs-dismiss="offcanvas" aria-label="Close"><HxIcon Icon="CloseIcon" /></button>
+		}
+
+	</div>
 		@if (BodyTemplate != null)
 		{
 			<div class="offcanvas-body">
