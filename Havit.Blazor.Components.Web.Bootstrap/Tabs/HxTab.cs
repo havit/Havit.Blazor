@@ -54,6 +54,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
 
+		/// <summary>
+		/// Rised when tab is activated.
+		/// </summary>
+		[Parameter] public EventCallback OnTabActivated { get; set; }
+
+		/// <summary>
+		/// Rised when tab is deactivated (another tab is activated or when <see cref="HxTabPanel"/> is disposed).
+		/// </summary>
+		[Parameter] public EventCallback OnTabDeactivated { get; set; }
+
 		/// <inheritdoc />
 		protected override void OnInitialized()
 		{
@@ -69,6 +79,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			base.OnAfterRender(firstRender);
 
 			((IRenderNotificationComponent)this).Rendered?.Invoke(this, firstRender);
+		}
+
+		internal async Task NotifyActivatedAsync()
+		{
+			await OnTabActivated.InvokeAsync();
+		}
+
+		internal async Task NotifyDeactivatedAsync()
+		{
+			await OnTabDeactivated.InvokeAsync();
 		}
 
 		/// <inheritdoc />

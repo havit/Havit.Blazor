@@ -11,7 +11,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Tab panel (container).
 	/// </summary>
-	public partial class HxTabPanel : ComponentBase, IDisposable
+	public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	{
 		/// <summary>
 		/// TabsRegistration cascading value name.
@@ -27,6 +27,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
+		private HxTab previousActiveTab;
 		private List<HxTab> tabsList;
 		private CollectionRegistration<HxTab> tabsListRegistration;
 		private bool isDisposed = false;
@@ -52,13 +53,42 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
+		protected override async Task OnParametersSetAsync()
+		{
+			await base.OnParametersSetAsync();
+			await NotifyActivationAndDeativatationAsync();
+		}
+
 		internal async Task SetActiveTabIdAsync(string newId)
 		{
 			if (this.ActiveTabId != newId)
 			{
 				ActiveTabId = newId;
 				await ActiveTabIdChanged.InvokeAsync(newId);
+
+				await NotifyActivationAndDeativatationAsync();
 			}
+		}
+
+		private async Task NotifyActivationAndDeativatationAsync()
+		{
+			HxTab activeTab = tabsList.FirstOrDefault(tab => IsActive(tab));
+			if (activeTab == previousActiveTab)
+			{
+				return;
+			}
+
+			if (previousActiveTab != null)
+			{
+				await previousActiveTab.NotifyDeactivatedAsync();
+			}
+
+			if (activeTab != null)
+			{
+				await activeTab.NotifyActivatedAsync();
+			}
+
+			previousActiveTab = activeTab;
 		}
 
 		/// <inheritdoc />
@@ -94,8 +124,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		public void Dispose()
+		public async ValueTask DisposeAsync()
 		{
+			if (!isDisposed && (previousActiveTab != null))
+			{
+				await previousActiveTab.NotifyDeactivatedAsync();
+				previousActiveTab = null;
+			}
 			isDisposed = true;
 		}
 	}
