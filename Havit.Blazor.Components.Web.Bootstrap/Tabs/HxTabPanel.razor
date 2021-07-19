@@ -11,7 +11,7 @@
 			{
 				<li class="nav-item">
 					<a class="@CssClassHelper.Combine("nav-link", IsActive(tab) ? "active" : String.Empty, CascadeEnabledComponent.EnabledEffective(tab) ? String.Empty : "disabled")"
-					   @onclick="async () => await HandleTabClick(tab)">
+					   @onclick="async () => await HandleTabClick(tab)" @onclick:stopPropagation>
 						@tab.Title
 						@tab.TitleTemplate
 					</a>

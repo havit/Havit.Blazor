@@ -7,7 +7,7 @@
 		@*TODO: Nic jako prázdná položka asi nechceme*@
 		@foreach (Havit.Blazor.Components.Web.Bootstrap.NamedView<TFilterModel> namedView in NamedViews)
 		{
-			<a class="dropdown-item" role="button" @onclick="async () => await HandleNamedViewClick(namedView)">@namedView.Name</a>
+			<a class="dropdown-item" role="button" @onclick="async () => await HandleNamedViewClick(namedView)" @onclick:stopPropagation>@namedView.Name</a>
 		}
 	</div>
 }
