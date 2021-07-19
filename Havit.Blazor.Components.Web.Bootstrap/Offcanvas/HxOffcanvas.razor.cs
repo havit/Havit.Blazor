@@ -125,6 +125,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await jsModule.InvokeVoidAsync("hide", offcanvasElement);
 		}
 
+		private async Task HandleOnCloseClick()
+		{
+			await HideAsync();
+		}
+
 		[JSInvokable("HxOffcanvas_HandleOffcanvasHidden")]
 		public async Task HandleOffcanvasHidden()
 		{
@@ -138,10 +143,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
-			if (CloseIcon == null)
-			{
-				CloseIcon = GetDefaults().CloseIcon;
-			}
+			CloseIcon = GetDefaults().CloseIcon;
+
 		}
 
 		/// <inheritdoc />

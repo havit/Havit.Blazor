@@ -13,7 +13,7 @@
 		
 		@if (CloseIcon != null)
 		{
-			<button type="button" class="btn text-reset" data-bs-dismiss="offcanvas" aria-label="Close"><HxIcon Icon="CloseIcon" /></button>
+			<div role="button"  @onclick="HandleOnCloseClick" @onclick:stopPropagation><HxIcon Icon="CloseIcon" /></div>
 		}
 
 	</div>
