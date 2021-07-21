@@ -136,8 +136,8 @@
 							height="@rowHeight"
 							class="@CssClassHelper.Combine(
 											ItemRowCssClass,
-											ItemRowCssClassSelector?.Invoke(item)),
-											@((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null)"
+											ItemRowCssClassSelector?.Invoke(item),
+											((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null))"
 							@onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)"
 							@onclick:stopPropagation>
 
