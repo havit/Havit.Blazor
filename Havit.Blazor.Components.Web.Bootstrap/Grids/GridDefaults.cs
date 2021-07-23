@@ -13,12 +13,12 @@
 		/// <summary>
 		/// Icon to display ascending sort direction.
 		/// </summary>
-		public IconBase SortAscendingIcon { get; set; } = BootstrapIcon.SortAlphaDownAlt;
+		public IconBase SortAscendingIcon { get; set; } = BootstrapIcon.SortAlphaDown;
 
 		/// <summary>
 		/// Icon to display descending sort direction.
 		/// </summary>
-		public IconBase SortDescendingIcon { get; set; } = BootstrapIcon.SortAlphaDown;
+		public IconBase SortDescendingIcon { get; set; } = BootstrapIcon.SortAlphaDownAlt;
 
 		/// <summary>
 		/// Infinite scroll:

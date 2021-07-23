@@ -74,11 +74,11 @@
 										@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
 										|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
 										{
-											<HxIcon Icon="@this.GetDefaults().SortAscendingIcon" />
+											<HxIcon Icon="@this.GetDefaults().SortDescendingIcon" />
 										}
 										else
 										{
-											<HxIcon Icon="@this.GetDefaults().SortDescendingIcon" />
+											<HxIcon Icon="@this.GetDefaults().SortAscendingIcon" />
 										}
 									</th>
 								}
