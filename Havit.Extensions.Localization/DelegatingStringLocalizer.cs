@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 
-namespace Havit.Blazor.Components.Web.Infrastructure
+namespace Havit.Extensions.Localization
 {
 	/// <summary>
 	/// Base-class for delegating IStringLocalizer implementations.

@@ -35,7 +35,7 @@ namespace LocalizerGenerator
 		{
 			builder.AppendLine("using System.CodeDom.Compiler;");
 			builder.AppendLine("using Microsoft.Extensions.Localization;");
-			builder.AppendLine("using Havit.Blazor.Components.Web.Infrastructure;");
+			builder.AppendLine("using Havit.Extensions.Localization;");
 		}
 
 		private void BuildInterface(StringBuilder builder)
