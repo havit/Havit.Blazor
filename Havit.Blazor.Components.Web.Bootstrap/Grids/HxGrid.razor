@@ -54,12 +54,12 @@
 	<HxProgressIndicator InProgress="@(InProgress ?? dataProviderInProgress)">
 
 		<div class="@TableContainerCssClass">
-			<table class="@CssClassHelper.Combine("hx-grid table", (((SelectionEnabled || MultiSelectionEnabled) && shouldRenderData) ? "table-hover" : null), TableCssClass)">
+			<table class="@CssClassHelper.Combine("hx-grid table", (((SelectionEnabled || MultiSelectionEnabled) && shouldRenderData) ? "table-hover" : null), TableCssClass, (((SelectionEnabled || MultiSelectionEnabled) && (SelectedDataItem != null || SelectedDataItems!= null))? "table-item-selected" : null))">
 				<thead>
 					<tr class="@HeaderRowCssClass">
 						@{
 							GridHeaderCellContext gridHeaderCellContext = CreateGridHeaderCellContext();
-						
+
 							@foreach (IHxGridColumn<TItem> column in columnsToRender)
 							{
 								var columnSorting = column.GetSorting();
@@ -72,7 +72,7 @@
 											@headerCellTemplate.Template
 										</UpdatedContentRenderer>
 										@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
-										|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
+									   || (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
 										{
 											<HxIcon Icon="@this.GetDefaults().SortDescendingIcon" />
 										}
