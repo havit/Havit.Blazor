@@ -60,7 +60,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			base.BuildRenderTree(builder);
 			builder.CloseRegion();
 
-			HxFormValueComponentRenderer.Render(1, builder, this);
+			HxFormValueRenderer.Current.Render(1, builder, this);
 		}
 
 		/// <inheritdoc />
