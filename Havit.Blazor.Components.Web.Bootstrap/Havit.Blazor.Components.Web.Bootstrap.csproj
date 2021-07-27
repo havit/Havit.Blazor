@@ -24,4 +24,8 @@
 		<ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
 	</ItemGroup>
 
+	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.Bootstrap.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Components.Web.Bootstrap.Documentation\wwwroot" />
+	</Target>
+
 </Project>

@@ -20,4 +20,8 @@
 		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="5.0.8" />
 	</ItemGroup>
 
+	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Components.Web.Bootstrap.Documentation\wwwroot" />
+	</Target>
+
 </Project>
