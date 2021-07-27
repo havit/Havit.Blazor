@@ -56,6 +56,8 @@
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
   --breakpoint-xxl: 1400px;
+  /* Offcanvas */
+  --hx-offcanvas-close-icon-font-size: 2rem;
 }
 
 /* Zatím nevím kam s tím. Odsazuji všechy inputy ve formu, pokud nejsou jediným potomkem. */

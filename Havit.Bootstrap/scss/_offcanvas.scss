@@ -3,3 +3,14 @@
   align-items: center;
   padding: $offcanvas-padding-y $offcanvas-padding-x;
 }
+
+.offcanvas-start, .offcanvas-end {
+
+  &.hx-offcanvas-sm {
+    width: $offcanvas-horizontal-width-sm;
+  }
+
+  &.hx-offcanvas-lg {
+    width: $offcanvas-horizontal-width-lg;
+  }
+}
