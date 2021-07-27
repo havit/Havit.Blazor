@@ -102,7 +102,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				bool selected = (index == selectedItemIndex);
 				if (selected)
 				{
-					chipValue = TextSelectorHelper.GetText(TextSelectorImpl, item);
+					chipValue = SelectorHelpers.GetText(TextSelectorImpl, item);
 				}
 
 				string inputId = GroupName + "_" + index.ToString();
@@ -132,7 +132,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 				else
 				{
-					builder.AddContent(304, TextSelectorHelper.GetText(TextSelectorImpl, item));
+					builder.AddContent(304, SelectorHelpers.GetText(TextSelectorImpl, item));
 				}
 				builder.CloseElement(); // label
 
@@ -142,7 +142,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private void HandleInputClick(int index)
 		{
-			CurrentValue = GetValueFromItem(itemsToRender[index]);
+			CurrentValue = SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, itemsToRender[index]);
 		}
 
 		private void RefreshState()
@@ -169,7 +169,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 
 				// set next properties for rendering
-				selectedItemIndex = itemsToRender.FindIndex(item => comparer.Equals(Value, GetValueFromItem(item)));
+				selectedItemIndex = itemsToRender.FindIndex(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
 
 				if ((Value != null) && (selectedItemIndex == -1))
 				{
@@ -187,21 +187,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
 		{
 			throw new NotSupportedException();
-		}
-
-		private TValue GetValueFromItem(TItem item)
-		{
-			if (ValueSelectorImpl != null)
-			{
-				return ValueSelectorImpl(item);
-			}
-
-			if (typeof(TValue) == typeof(TItem))
-			{
-				return (TValue)(object)item;
-			}
-
-			throw new InvalidOperationException("ValueSelector property not set.");
 		}
 
 		protected override void RenderChipGenerator(RenderTreeBuilder builder)

@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Multiple choice by checkboxes.
 	/// </summary>
-	public class HxCheckboxList<TItem> : HxInputBase<List<TItem>> // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014
+	public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014
 	{
 		/// <summary>
 		/// Items to display. 
@@ -24,6 +24,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// When not set, ToString() is used.
 		/// </summary>
 		[Parameter] public Func<TItem, string> TextSelector { get; set; }
+
+		/// <summary>
+		/// Selects value from item.
+		/// Not required when TValue is same as TItem.
+		/// </summary>
+		protected Func<TItem, TValue> ValueSelector { get; set; }
 
 		/// <summary>
 		/// Selects value for items sorting. When not set, <see cref="TextSelector"/> property will be used.
@@ -75,12 +81,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				foreach (var item in itemsToRender)
 				{
+					TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
+
 					builder.OpenElement(3, "li");
 					builder.AddAttribute(4, "class", "list-group-item");
 
 					builder.OpenComponent(5, typeof(HxInputCheckbox));
-					builder.AddAttribute(6, nameof(HxInputCheckbox.Label), TextSelectorHelper.GetText(TextSelector, item));
-					builder.AddAttribute(7, nameof(HxInputCheckbox.Value), Value?.Contains(item) ?? false);
+					builder.AddAttribute(6, nameof(HxInputCheckbox.Label), SelectorHelpers.GetText(TextSelector, item));
+					builder.AddAttribute(7, nameof(HxInputCheckbox.Value), Value?.Contains(value) ?? false);
 					builder.AddAttribute(8, nameof(HxInputCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
 
 					// We need ValueExpression. Ehm, HxInputCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
@@ -100,20 +108,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private void HandleValueChanged(bool @checked, TItem item)
 		{
-			var newValue = Value?.ToList() ?? new List<TItem>();
+			var newValue = Value == null ? new List<TValue>() : new List<TValue>(Value);
+			TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
 			if (@checked)
 			{
-				newValue.Add(item);
+				newValue.Add(value);
 			}
 			else
 			{
-				newValue.Remove(item);
+				newValue.Remove(value);
 			}
 
 			CurrentValue = newValue; // setter includes ValueChanged + NotifyFieldChanged
 		}
 
-		protected override bool TryParseValueFromString(string value, out List<TItem> result, out string validationErrorMessage)
+		protected override bool TryParseValueFromString(string value, out List<TValue> result, out string validationErrorMessage)
 		{
 			throw new NotSupportedException();
 		}
@@ -128,7 +137,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public override ValueTask FocusAsync()
 		{
-			throw new NotSupportedException($"{nameof(FocusAsync)} is not supported on {nameof(HxCheckboxList<TItem>)}.");
+			throw new NotSupportedException($"{nameof(FocusAsync)} is not supported on {nameof(HxCheckboxList<TValue, TItem>)}.");
 		}
 
 	}

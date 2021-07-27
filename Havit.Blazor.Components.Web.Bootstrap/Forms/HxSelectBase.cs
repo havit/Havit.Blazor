@@ -74,7 +74,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Selects value from item.
-		/// Not required when TValueType is same as TItemTime.
+		/// Not required when TValue is same as TItem.
 		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 		/// </summary>
 		protected Func<TItem, TValue> ValueSelectorImpl { get; set; }
@@ -147,7 +147,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					if (item != null)
 					{
 						bool selected = (i == selectedItemIndex);
-						string text = TextSelectorHelper.GetText(TextSelectorImpl, item);
+						string text = SelectorHelpers.GetText(TextSelectorImpl, item);
 						if (selected)
 						{
 							chipValue = text;
@@ -198,7 +198,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 
 				// set next properties for rendering
-				selectedItemIndex = itemsToRender.FindIndex(item => comparer.Equals(Value, GetValueFromItem(item)));
+				selectedItemIndex = itemsToRender.FindIndex(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
 
 				if ((Value != null) && (selectedItemIndex == -1))
 				{
@@ -218,25 +218,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			int index = int.Parse(value);
 			result = (index == -1)
 				? default(TValue)
-				: GetValueFromItem(itemsToRender[index]);
+				: SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, itemsToRender[index]);
 
 			validationErrorMessage = null;
 			return true;
-		}
-
-		private TValue GetValueFromItem(TItem item)
-		{
-			if (ValueSelectorImpl != null)
-			{
-				return ValueSelectorImpl(item);
-			}
-
-			if (typeof(TValue) == typeof(TItem))
-			{
-				return (TValue)(object)item;
-			}
-
-			throw new InvalidOperationException("ValueSelector property not set.");
 		}
 
 		protected override void RenderChipGenerator(RenderTreeBuilder builder)

@@ -106,7 +106,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task SetValueItemWithEventCallback(TItem selectedItem)
 		{
-			TValue value = GetValueFromItem(selectedItem);
+			TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, selectedItem);
 
 			if (!EqualityComparer<TValue>.Default.Equals(Value, value))
 			{
@@ -330,31 +330,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		}
 		#endregion
 
-		private TValue GetValueFromItem(TItem item)
-		{
-			if (item == null)
-			{
-				return default;
-			}
-
-			if (ValueSelector != null)
-			{
-				return ValueSelector(item);
-			}
-
-			if (typeof(TValue) == typeof(TItem))
-			{
-				return (TValue)(object)item;
-			}
-
-			throw new InvalidOperationException("ValueSelector property not set.");
-		}
-
 		private string TextSelectorEffective(TItem item)
 		{
 			return (item == null)
 				? String.Empty
-				: TextSelectorHelper.GetText(TextSelector, item);
+				: SelectorHelpers.GetText(TextSelector, item);
 		}
 
 		public async ValueTask DisposeAsync()
