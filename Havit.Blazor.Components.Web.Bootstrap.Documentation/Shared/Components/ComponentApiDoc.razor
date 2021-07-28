@@ -1,0 +1,39 @@
+﻿<h2>API</h2>
+
+<i>Debug: @debug</i>
+
+<h3>Properties</h3>
+<ul>
+    @foreach (var property in properties)
+    {
+        <li>
+            <strong>@property.PropertyInfo.Name</strong>
+            <br />
+            <div class="summary">@((MarkupString)property.Comments.Summary)</div>
+        </li>
+    }
+</ul>
+
+<h3>Events</h3>
+<ul>
+    @foreach (var currentEvent in events)
+    {
+        <li>
+            <strong>@currentEvent.PropertyInfo.Name</strong>
+            <br />
+            <div class="summary">@((MarkupString)currentEvent.Comments.Summary)</div>
+        </li>
+    }
+</ul>
+
+<h3>Methods</h3>
+<ul>
+    @foreach (var method in methods)
+    {
+        <li>
+            <strong>@method.MethodInfo.Name</strong>
+            <br />
+            <div class="summary">@((MarkupString)method.Comments.Summary)</div>
+        </li>
+    }
+</ul>
