@@ -10,11 +10,14 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using LoxSmoke.DocXml;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 {
 	public partial class ComponentApiDoc
 	{
+		// TO-DO: remove members derived from the object class, remove JSInvokable methods
+
 		[Parameter] public Type Type { get; set; }
 
 		[Inject] private NavigationManager NavigationManager { get; set; }
@@ -148,10 +151,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 					foreach (var match in matches)
 					{
+						debug += $"{match} ";
+
 						string link = match.ToString().Split('\"').LastOrDefault(); // get the part in the quotes (value of the cref attribute)
 						string[] splitLink = link.Split('.');
-
-						debug += $"{match}";
 
 						regex = new("cref=\"([A-Za-z\\.:`\\d])+\" ?/>"); // find this part of the element (beggining already replaced): cref="P:System.Text.Regex.Property" />
 						comment = regex.Replace(comment, GenerateFullLink(splitLink), 1); // replace the above with a generated link to the documentation
@@ -188,11 +191,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 				string fullLink = "";
 
-				bool isType = false;
-				if (splitLink[0][0] == 'T')
-				{
-					isType = true;
-				}
+				bool isType = IsType(splitLink);
 
 				if (isType)
 				{
@@ -231,7 +230,44 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			private string GenerateMicrosoftDocumentationLink(string[] splitLink)
 			{
-				throw new NotImplementedException();
+				bool isType = IsType(splitLink);
+
+				string fullLink = "";
+				string seeName = splitLink[^1];
+				if (isType)
+				{
+					string link = ConcatenateStringArray(splitLink);
+					fullLink = link.Split(':')[^1];
+				}
+
+				fullLink = $"href=\"https://docs.microsoft.com/en-us/dotnet/api/{fullLink}";
+				fullLink += $"\">{seeName}</a>";
+				return fullLink;
+			}
+
+			private bool IsType(string[] splitLink)
+			{
+				bool isType = false;
+				if (splitLink[0][0] == 'T')
+				{
+					isType = true;
+				}
+
+				return isType;
+			}
+
+			private string ConcatenateStringArray(string[] stringArray)
+			{
+				StringBuilder sb = new StringBuilder();
+				foreach (var text in stringArray)
+				{
+					sb.Append(text);
+					sb.Append(".");
+				}
+
+				sb.Remove(sb.Length - 1, 1);
+
+				return sb.ToString();
 			}
 		}
 
