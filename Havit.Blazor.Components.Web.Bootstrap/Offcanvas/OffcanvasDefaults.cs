@@ -6,5 +6,7 @@
 	public class OffcanvasDefaults
 	{
 		public IconBase CloseIcon { get; set; } = BootstrapIcon.X;
+
+		public bool ShouldUseCloseButton { get; set; } = true;
 	}
 }

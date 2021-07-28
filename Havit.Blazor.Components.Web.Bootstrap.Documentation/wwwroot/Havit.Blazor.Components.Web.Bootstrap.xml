@@ -349,6 +349,22 @@
             Returns true if <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" /> should render input groups (at least one input group).
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueRenderer">
+            <summary>
+            Renders <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" />.
+            The purpose of this class is to allow to use custom renderer.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueRenderer.Current">
+            <summary>
+            Current renderer.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueRenderer.Render(System.Int32,Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent)">
+            <summary>
+            Renders <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" />.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.FormValueComponent">
             <summary>
             Values for component renderer.
@@ -382,7 +398,12 @@
             Renders validation message.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.Render(System.Int32,Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent)">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueRenderer">
+            <summary>
+            Default <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" /> renderer.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueRenderer.Render(System.Int32,Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent)">
             <summary>
             Adds <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer"/> to a builder.
             </summary>
@@ -1053,38 +1074,44 @@
             Date range.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`1">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2">
             <summary>
             Multiple choice by checkboxes.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`1.Data">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Data">
             <summary>
             Items to display. 
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`1.TextSelector">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.TextSelector">
             <summary>
             Selects text to display from item.
             When not set, ToString() is used.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`1.SortKeySelector">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ValueSelector">
             <summary>
-            Selects value for items sorting. When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`1.TextSelector"/> property will be used.
+            Selects value from item.
+            Not required when TValue is same as TItem.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.SortKeySelector">
+            <summary>
+            Selects value for items sorting. When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.TextSelector"/> property will be used.
             If you need complex sorting, pre-sort data manually or create a custom comparable property.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`1.AutoSort">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.AutoSort">
             <summary>
             When true, items are sorted before displaying in select.
             Default value is true.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`1.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc/>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`1.FocusAsync">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.FocusAsync">
             <summary>
             Throws NotSupportedException - giving focus to an input element is not supported on the HxCheckboxList.
             </summary>
@@ -1778,7 +1805,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.ValueSelectorImpl">
             <summary>
             Selects value from item.
-            Not required when TValueType is same as TItemTime.
+            Not required when TValue is same as TItem.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
@@ -2932,6 +2959,18 @@
             <summary>
             Indicates whether the offcanvas closes when escape key is pressed.
             Default value is true.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CloseIcon">
+            <summary>
+            Close icon to be used to for close element when <b>ShouldUseCloseButton</b> is set to false.
+            If set to null close element wont be rendered.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.ShouldUseCloseButton">
+            <summary>
+            Switches between elements used for closing offcanvas.
+            If true button is used otherwise HxIcon is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.BackdropEnabled">

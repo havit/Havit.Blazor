@@ -66,8 +66,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool CloseOnEscape { get; set; }
 
-
+		/// <summary>
+		/// Close icon to be used to for close element when <b>ShouldUseCloseButton</b> is set to false.
+		/// If set to null close element wont be rendered.
+		/// </summary>
 		[Parameter] public IconBase CloseIcon { get; set; }
+
+		/// <summary>
+		/// Switches between elements used for closing offcanvas.
+		/// If true button is used otherwise HxIcon is used.
+		/// </summary>
+		[Parameter] public bool ShouldUseCloseButton { get; set; }
+
 		/// <summary>
 		/// Indicates whether to apply a backdrop on body while offcanvas is open.
 		/// Default value is <c>true</c>.
@@ -147,6 +157,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			base.OnInitialized();
 			CloseIcon = GetDefaults().CloseIcon;
+			ShouldUseCloseButton = GetDefaults().ShouldUseCloseButton;
 
 		}
 

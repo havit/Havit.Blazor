@@ -547,6 +547,25 @@
             If both are <c>null</c>, returns <see cref="M:Havit.Blazor.Components.Web.RenderFragmentBuilder.Empty"/>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.SelectorHelpers">
+            <summary>
+            Helper methods for selectors.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.SelectorHelpers.GetText``1(System.Func{``0,System.String},``0)">
+            <summary>
+            Returns text from item by textSelector.
+            When textSelector is null, returns item.ToString().
+            Never returns null, null values are converted to empty string.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.SelectorHelpers.GetValue``2(System.Func{``0,``1},``0)">
+            <summary>
+            When item is null, returns default(TValue).
+            Otherwise returns value from item by valueSelector.
+            When valueSelector is null and TValue is same as TItem, returns item.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2">
             <summary>
             Abstract base-class for implementation of your own dictionary-style static data store.
@@ -607,18 +626,6 @@
             <summary>
             Returns localized value when resourceType is not null (value used as resource name).
             Otherwise returns the value (without attempt to get localized value).
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.TextSelectorHelper">
-            <summary>
-            Helper methods for text selectors.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.TextSelectorHelper.GetText``1(System.Func{``0,System.String},``0)">
-            <summary>
-            Returns text from item by textSelector.
-            When textSelector is null, returns item.ToString().
-            Never returns null, null values are converted to empty string.
             </summary>
         </member>
     </members>
