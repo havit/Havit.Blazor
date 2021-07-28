@@ -13,7 +13,14 @@
 	</BodyTemplate>
 	<FooterTemplate>
 		<HxButton OnClick="HandleHide" Text="Close" Color="ThemeColor.Secondary" />
+		<HxButton OnClick="@(() => secondOffcanvasComponent.ShowAsync())" Text="Second" Color="ThemeColor.Danger" />
 	</FooterTemplate>
+</HxOffcanvas>
+
+<HxOffcanvas @ref="secondOffcanvasComponent">
+	<HeaderTemplate>
+		Second
+	</HeaderTemplate>
 </HxOffcanvas>
 
 <p>
@@ -26,6 +33,7 @@
 @code
 {
 	private HxOffcanvas offcanvasComponent;
+	private HxOffcanvas secondOffcanvasComponent;
 	private bool opened = false;
 
 	private async Task HandleOpen()

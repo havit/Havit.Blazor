@@ -1,4 +1,8 @@
 ﻿export function show(element, hxOffcanvasDotnetObjectReference, backdropEnabled, closeOnEscape, scrollingEnabled) {
+	if (window.offcanvasElement) {
+		var previousOffcanvas = bootstrap.Offcanvas.getInstance(window.offcanvasElement);
+		previousOffcanvas.hide();
+	}
 	element.hxOffcanvasDotnetObjectReference = hxOffcanvasDotnetObjectReference;
 	element.addEventListener('hidden.bs.offcanvas', handleOffcanvasHidden)
 
@@ -6,13 +10,14 @@
 		backdrop: backdropEnabled,
 		keyboard: closeOnEscape,
 		scroll: scrollingEnabled
-    });
+	});
+	window.offcanvasElement = element;
     offcanvas.show();
 }
 
 export function hide(element) {
     var offcanvas = bootstrap.Offcanvas.getInstance(element);
-    offcanvas.hide();
+	offcanvas.hide();
 }
 
 export function dispose(element) {
@@ -27,6 +32,8 @@ function handleOffcanvasHidden(event) {
 	event.target.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
 	event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasHidden');
 	event.target.hxOffcanvasDotnetObjectReference = null;
+
+	window.offcanvasElement = null;
 
     var offcanvas = bootstrap.Offcanvas.getInstance(event.target);    
     offcanvas.dispose();
