@@ -39,7 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment FooterTemplate { get; set; }
 
 		/// <summary>
-		/// Additional footer CSS class. <see cref="System.Diagnostics.Process"/> this see tag is intended for debugging and should be removed
+		/// Additional footer CSS class.
 		/// </summary>
 		[Parameter] public string FooterCssClass { get; set; }
 
@@ -194,7 +194,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				await jsModule.DisposeAsync();
 			}
 		}
-
+		
 		private string GetPlacementCssClass()
 		{
 			return this.Placement switch

@@ -2937,7 +2937,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.FooterCssClass">
             <summary>
-            Additional footer CSS class. <see cref="T:System.Diagnostics.Process"/> this see tag is intended for debugging and should be removed
+            Additional footer CSS class.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CssClass">

@@ -16,7 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 {
 	public partial class ComponentApiDoc
 	{
-		// TO-DO: remove members derived from the object class, remove JSInvokable methods
+		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		[Parameter] public Type Type { get; set; }
 
@@ -27,8 +27,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		private List<Property> properties = new();
 		private List<Property> events = new();
 		private List<Method> methods = new();
-
-		private static string debug;
+		private List<Method> staticMethods = new();
 
 		protected override void OnParametersSet()
 		{
@@ -43,7 +42,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			DocXmlReader reader = new(xPathDocument);
 			properties = GetProperties(reader);
 			events = SeparateEvents();
-			methods = GetMethods(reader);
+
+			var methods = GetMethods(reader);
+			this.methods = methods.methods;
+			staticMethods = methods.staticMethods;
 
 			StateHasChanged();
 		}
@@ -84,9 +86,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return typeProperties;
 		}
 
-		private List<Method> GetMethods(DocXmlReader reader)
+		private (List<Method> methods, List<Method> staticMethods) GetMethods(DocXmlReader reader)
 		{
 			List<Method> typeMethods = new();
+			List<Method> staticMethods = new();
 
 			foreach (var method in Type.GetMethods())
 			{
@@ -94,13 +97,43 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				newMethod.MethodInfo = method;
 				newMethod.Comments = reader.GetMethodComments(method);
 
-				if (newMethod.MethodInfo.Name.Contains("set") == false && newMethod.MethodInfo.Name.Contains("get") == false)
+				if (DetermineWhetherMethodShouldBeAdded(newMethod))
 				{
-					typeMethods.Add(newMethod);
+					if (newMethod.MethodInfo.IsStatic)
+					{
+						staticMethods.Add(newMethod);
+					}
+					else
+					{
+						typeMethods.Add(newMethod);
+					}
 				}
 			}
 
-			return typeMethods;
+			return (typeMethods, staticMethods);
+		}
+
+		private bool DetermineWhetherMethodShouldBeAdded(Method method)
+		{
+			// don't add method if it is JSInvokable
+			var customAttributes = method.MethodInfo.CustomAttributes.ToList();
+			foreach (var attribute in customAttributes)
+			{
+				if (attribute.AttributeType == typeof(Microsoft.JSInterop.JSInvokableAttribute))
+				{
+					return false;
+				}
+			}
+
+			string name = method.MethodInfo.Name;
+			List<string> objectDerivedMethods = new() { "ToString", "GetType", "Equals", "GetHashCode" };
+			List<string> derivedMethods = new() { "DisposeAsync", "SetParametersAsync" };
+			if (name.Contains("set") || name.Contains("get") || objectDerivedMethods.Contains(name) || derivedMethods.Contains(name))
+			{
+				return false;
+			}
+
+			return true;
 		}
 
 		private string GetDownloadLink()
@@ -122,6 +155,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		{
 			string response = await client.GetStringAsync(uri);
 			return response;
+		}
+
+		private string GetBootstrapComponentName()
+		{
+			return Type.Name.Replace("Hx", "");
 		}
 
 		public class Member
@@ -151,8 +189,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 					foreach (var match in matches)
 					{
-						debug += $"{match} ";
-
 						string link = match.ToString().Split('\"').LastOrDefault(); // get the part in the quotes (value of the cref attribute)
 						string[] splitLink = link.Split('.');
 
@@ -309,6 +345,58 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				}
 			}
 			private MethodComments comments;
+
+			public string GetParameters()
+			{
+				StringBuilder concatenatedParameters = new StringBuilder();
+				var parameters = MethodInfo.GetParameters();
+
+				if (parameters is null || parameters.Length == 0)
+				{
+					return "()";
+				}
+
+				concatenatedParameters.Append("(");
+				foreach (var parameter in parameters)
+				{
+					concatenatedParameters.Append($"{FormatType(parameter.ParameterType)} {parameter.Name}, ");
+				}
+				concatenatedParameters.Remove(concatenatedParameters.Length - 2, 2);
+				concatenatedParameters.Append(")");
+
+				return concatenatedParameters.ToString();
+			}
+		}
+
+		public static string FormatType(Type type)
+		{
+			string shortType = type.ToString().Split('.')[^1];
+			switch (shortType)
+			{
+				case "Int16":
+					return "short";
+				case "UInt16":
+					return "ushort";
+				case "Int32":
+					return "int";
+				case "UInt32":
+					return "uint";
+				case "Int64":
+					return "long";
+				case "UInt64":
+					return "ulong";
+				case "Boolean":
+					return "bool";
+				case "String":
+				case "Char":
+				case "Decimal":
+				case "Double":
+				case "Byte":
+				case "Sbyte":
+					return shortType.ToLower();
+			}
+
+			return shortType;
 		}
 	}
 }

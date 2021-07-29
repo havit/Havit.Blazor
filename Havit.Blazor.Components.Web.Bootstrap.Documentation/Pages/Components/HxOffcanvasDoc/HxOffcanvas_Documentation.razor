@@ -1,77 +1,10 @@
 ﻿@page "/components/HxOffcanvas"
 
-<h1>@nameof(HxOffcanvas)</h1>
+<ComponentApiDoc Type="typeof(HxOffcanvas)">
+    <div class="alert alert-warning" role="alert">
+        Similar to modals, only one offcanvas can be shown at a time.<br/>
+	    (We hide the current offcanvas if you open a new one.)
+    </div>
 
-<p class="lead">
-	<a href="https://getbootstrap.com/docs/5.0/components/offcanvas/">Bootstrap Offcanvas</a> component (aka Drawer).
-</p>
-
-<ComponentApiDoc Type="typeof(HxOffcanvas)" />
-@*<ComponentApiDoc Type="typeof(HxOffcanvas)" />
-* Header
-* Parameters
-* Event callbacks
-* Methods*@
-
-@*<h3>Parameters</h3>
-<ul>
-	<li>
-		<strong>@nameof(HxOffcanvas.HeaderText), @nameof(HxOffcanvas.HeaderTemplate)</strong><br />
-		Header.
-	</li>
-	<li>
-		<strong>@nameof(HxOffcanvas.BodyTemplate)</strong><br />
-		Body.
-	</li>
-	<li>
-		<strong>@nameof(HxOffcanvas.FooterTemplate)</strong><br />
-		Footer.
-	</li>
-	<li>
-		<strong>@nameof(HxOffcanvas.CloseOnEscape)</strong><br />
-		Indicates whether the offcanvas closes when escape key is pressed. Default value is true.
-	</li>
-	<li>
-		<strong>@nameof(HxOffcanvas.Size)</strong><br />
-		Size of the offcanvas. Default is <code>@nameof(OffcanvasSize).@nameof(OffcanvasSize.Regular)</code>.
-	</li>
-	<li>
-		<strong>@nameof(HxOffcanvas.BackdropEnabled)</strong><br />
-		Indicates whether the offcanvas uses a backdrop. Default value is true.
-	</li>
-	<li>
-		<strong>@nameof(HxOffcanvas.ScrollingEnabled)</strong><br />
-		Indicates whether body (page) scrolling is allowed while offcanvas is open. Default is <code>false</code>.
-	</li>
-	<li>
-		<strong>@nameof(HxOffcanvas.CssClass)</strong><br />
-		Offcanvas CSS class. Added to root div (.modal).
-	</li>
-	<li>
-		<strong>@nameof(HxOffcanvas.OnClosed)</strong><br />
-		Raised when offcanvas is closed (whatever reason it is).
-	</li>
-</ul>
-
-<h3>Event callbacks</h3>
-<ul>
-	<li>
-		<strong>OnClosed</strong><br />
-		Raised when offcanvas is closed (whatever reason it is).
-	</li>
-</ul>
-
-<h3>Methods</h3>
-<ul>
-	<li>
-		<strong>@nameof(HxOffcanvas.ShowAsync), @nameof(HxOffcanvas.HideAsync)</strong><br />
-		Shows / hides offcanvas. <code>Show</code> is allowed to be called although the offcanvas is already open (does nothing).
-	</li>
-</ul>*@
-
-<div class="alert alert-warning" role="alert">
-	Similar to modals, only one offcanvas can be shown at a time.<br/>
-	(We hide the current offcanvas if you open a new one.)
-</div>
-
-<Demo Title="Default behavior" Type="typeof(HxOffcanvas_Demo)" />
+    <Demo Title="Default behavior" Type="typeof(HxOffcanvas_Demo)" />
+</ComponentApiDoc>

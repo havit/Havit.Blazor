@@ -1,20 +1,35 @@
-﻿<h2>API</h2>
+﻿<h1>@Type.Name</h1>
 
-<i>Debug: @debug</i>
+@if (Type.Namespace.Contains("Bootstrap"))
+{
+    <p class="lead">
+        <a href="https://getbootstrap.com/docs/5.0/components/@GetBootstrapComponentName().ToLower()">Bootstrap @GetBootstrapComponentName()</a> component
+    </p>
+}
 
-<h3>Properties</h3>
+@ChildContent
+
+<h2>API</h2>
+
+@if (properties.Count > 0)
+{
+    <h3>Properties</h3>
+}
 <ul>
     @foreach (var property in properties)
     {
         <li>
-            <strong>@property.PropertyInfo.Name</strong>
+            <strong>@property.PropertyInfo.Name</strong> <i>(@FormatType(property.PropertyInfo.PropertyType))</i>
             <br />
             <div class="summary">@((MarkupString)property.Comments.Summary)</div>
         </li>
     }
 </ul>
 
-<h3>Events</h3>
+@if (events.Count > 0)
+{
+    <h3>Events</h3>
+}
 <ul>
     @foreach (var currentEvent in events)
     {
@@ -26,12 +41,30 @@
     }
 </ul>
 
-<h3>Methods</h3>
+@if (methods.Count > 0)
+{
+    <h3>Methods</h3>
+}
 <ul>
     @foreach (var method in methods)
     {
         <li>
-            <strong>@method.MethodInfo.Name</strong>
+            <strong></strong> <i>@FormatType(method.MethodInfo.ReturnType)</i> <strong>@method.MethodInfo.Name</strong> @method.GetParameters()
+            <br />
+            <div class="summary">@((MarkupString)method.Comments.Summary)</div>
+        </li>
+    }
+</ul>
+
+@if (staticMethods.Count > 0)
+{
+    <h3>Static Methods</h3>
+}
+<ul>
+    @foreach (var method in staticMethods)
+    {
+        <li>
+            <strong></strong> <i>@FormatType(method.MethodInfo.ReturnType)</i> <strong>@method.MethodInfo.Name</strong> @method.GetParameters()
             <br />
             <div class="summary">@((MarkupString)method.Comments.Summary)</div>
         </li>
