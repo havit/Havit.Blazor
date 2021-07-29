@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxSpinner
 	{
 		/// <summary>
-		/// Spinner type.
+		/// Spinner type. Spinner type - Border (default) or Grow.
 		/// </summary>
 		[Parameter] public SpinnerType Type { get; set; } = SpinnerType.Border;
 

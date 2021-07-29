@@ -21,6 +21,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public static int DefaultDelay { get; set; } = 300;
 
+		/// <summary>
+		/// Indicates whether the content should be displayed as "in progress".
+		/// </summary>
 		[Parameter] public bool InProgress { get; set; }
 
 		/// <summary>

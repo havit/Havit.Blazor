@@ -1,49 +1,30 @@
 ﻿@page "/components/hxaccordion"
 
-<h1>@nameof(HxAccordion)</h1>
-<p class="lead">
-	<a href="https://getbootstrap.com/docs/5.0/components/accordion/">Bootstrap Accordion</a>.
-</p>
+<ComponentApiDoc Type="typeof(HxAccordion)">
+    <Demo Type="typeof(HxAccordion_PlainDemo)" Title="Plain, No IDs" />
+    <Demo Type="typeof(HxAccordion_ComplexDemo)" Title="Complex demo" />
+</ComponentApiDoc>
 
-<h3>Properties</h3>
-<ul>
-	<li>
-		<strong>@nameof(HxAccordion.ExpandedItemId), @nameof(HxAccordion.ExpandedItemIdChanged)</strong><br />
-		Current item (ID) expanded.
-	</li>
-	<li>
-		<strong>@nameof(HxAccordion.InitialExpandedItemId)</strong><br />
-		Item (ID) to be expanded at the very beginning.
-	</li>
-	<li>
-		<strong>@nameof(HxCard.CssClass)</strong><br />
-		Additional CSS classes for the accordion container.
-	</li>
-</ul>
+<div class="alert alert-info">
+    Do not use constant value for <code>@nameof(HxAccordion.ExpandedItemId)</code> as it reverts the accordion to that item on every roundtrip. Use <code>@nameof(HxAccordion.InitialExpandedItemId)</code> to set the initial state.
+</div>
 
 <h3>@nameof(HxAccordionItem)</h3>
 <ul>
-	<li>
-		<strong>@nameof(HxAccordionItem.Id)</strong><br />
-		ID of the item. (Gets generated GUID if not set.)
-	</li>
-	<li>
-		<strong>@nameof(HxAccordionItem.HeaderTemplate), @nameof(HxAccordionItem.BodyTemplate)</strong><br />
-		Clickable header + collapsible body.
-	</li>
-	<li>
-		<strong>@nameof(HxAccordionItem.OnExpanded), @nameof(HxAccordionItem.OnCollapsed)</strong><br />
-		Callbacks available (raised after the transition as the animation ends).<br />
-	</li>
-	<li>
-		<strong>@(nameof(HxAccordionItem.ExpandAsync))(), @(nameof(HxAccordionItem.CollapseAsync))()</strong><br />
-		Allows setting state of the item.
-	</li>
+    <li>
+        <strong>@nameof(HxAccordionItem.Id)</strong><br />
+        ID of the item. (Gets generated GUID if not set.)
+    </li>
+    <li>
+        <strong>@nameof(HxAccordionItem.HeaderTemplate), @nameof(HxAccordionItem.BodyTemplate)</strong><br />
+        Clickable header + collapsible body.
+    </li>
+    <li>
+        <strong>@nameof(HxAccordionItem.OnExpanded), @nameof(HxAccordionItem.OnCollapsed)</strong><br />
+        Callbacks available (raised after the transition as the animation ends).<br />
+    </li>
+    <li>
+        <strong>@(nameof(HxAccordionItem.ExpandAsync))(), @(nameof(HxAccordionItem.CollapseAsync))()</strong><br />
+        Allows setting state of the item.
+    </li>
 </ul>
-
-<div class="alert alert-info">
-	Do not use constant value for <code>@nameof(HxAccordion.ExpandedItemId)</code> as it reverts the accordion to that item on every roundtrip. Use <code>@nameof(HxAccordion.InitialExpandedItemId)</code> to set the initial state.
-</div>
-
-<Demo Type="typeof(HxAccordion_PlainDemo)" Title="Plain, No IDs" />
-<Demo Type="typeof(HxAccordion_ComplexDemo)" Title="Complex demo" />

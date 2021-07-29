@@ -2,40 +2,9 @@
 
 <h1>Tabs (@nameof(HxTabPanel), @nameof(HxTab))</h1>
 
-<p class="lead">
-	Tabs.
-</p>
-
 <p>Use <code>@nameof(HxTabPanel)</code> as a container for <code>@nameof(HxTab)</code> components.</p>
 
-<h3>@nameof(HxTab)</h3>
-<ul>
-	<li>
-		<strong>@nameof(HxTabPanel.ActiveTabId), @nameof(HxTabPanel.ActiveTabIdChanged)</strong><br />
-		Current active tab (ID).
-	</li>
-	<li>
-		<strong>@nameof(HxTabPanel.InitialActiveTabId)</strong><br />
-		Tab (ID) to be activated at the very beginning.
-	</li>
-</ul>
-
-<h3>@nameof(HxTab) properties</h3>
-
-<ul>
-	<li>
-		<strong>@nameof(HxTab.Title), @nameof(HxTab.TitleTemplate), @nameof(HxTab.Content)</strong><br />
-		Title and content of the tab.
-	</li>
-	<li>
-		<strong>@nameof(HxTab.Enabled)</strong><br />
-		<EnabledExplanation />
-	</li>
-	<li>
-		<strong>@nameof(HxTab.Visible)</strong><br />
-		Visibility of the tab.
-	</li>
-</ul>
-
-<Demo Title="Tabs with IsInitiallyActive" Type="typeof(Tabs_InitialActiveTabId_Demo)" />
-<Demo Title="Tabs with IsCurrentlyActive" Type="typeof(Tabs_ActiveTabId_Demo)" />
+<ComponentApiDoc Type="typeof(HxTab)" SubComponent="true" DisplayBootstrapLink="false">
+    <Demo Title="Tabs with IsInitiallyActive" Type="typeof(Tabs_InitialActiveTabId_Demo)" />
+    <Demo Title="Tabs with IsCurrentlyActive" Type="typeof(Tabs_ActiveTabId_Demo)" />
+</ComponentApiDoc>

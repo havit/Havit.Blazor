@@ -9,6 +9,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxAccordion
 	{
+		/// <summary>
+		/// Additional CSS classes for the accordion container.
+		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>

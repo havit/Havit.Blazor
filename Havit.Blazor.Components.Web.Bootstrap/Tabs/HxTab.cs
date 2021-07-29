@@ -49,7 +49,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		[CascadingParameter] public FormState FormState { get; set; }
 
-		/// <inheritdoc />
+		/// <summary>
+		/// When null (default), the Enabled value is received from cascading <see cref="FormState" />.
+		/// When value is false, input is rendered as disabled.
+		/// To set multiple controls as disabled use <seealso cref="HxFormState" />.
+		/// </summary>
 		[Parameter] public bool? Enabled { get; set; }
 
 		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }

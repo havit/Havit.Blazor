@@ -4,6 +4,11 @@
         <name>Havit.Blazor.Components.Web.Bootstrap</name>
     </assembly>
     <members>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.CssClass">
+            <summary>
+            Additional CSS classes for the accordion container.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId">
             <summary>
             ID of the expanded item.
@@ -82,6 +87,21 @@
             Bootstrap alert component https://getbootstrap.com/docs/5.0/components/alerts/
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAlert.Color">
+            <summary>
+            Alert color (background). Required.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAlert.Dismissible">
+            <summary>
+            Shows the Close button and allows dissmissing of the alert.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAlert.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.BadgeType">
             <summary>
             Type (shape) for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/>
@@ -95,6 +115,21 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge">
             <summary>
             Bootstrap Badge component. https://getbootstrap.com/docs/5.0/components/badge/
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Color">
+            <summary>
+            Badge color (background). Required.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Type">
+            <summary>
+            Badge type - Regular or rounded-pills.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.CssClass">
+            <summary>
+            Any additional CSS class to apply.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonGroupOrientation">
@@ -583,6 +618,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSkin.None">
             <summary>
             Empty skin to be able to disable <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.DefaultSkin"/> locally.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.CssClass">
+            <summary>
+            Additional CSS classes for the card-container.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Skin">
+            <summary>
+            Skin to be applied. You can set a default skin to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.DefaultSkin"/>. It will be applied to any <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> without explicit skin specified.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.DefaultSkin">
@@ -3037,6 +3082,11 @@
             Default DefaultDelay is 300 ms.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.InProgress">
+            <summary>
+            Indicates whether the content should be displayed as "in progress".
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.Delay">
             <summary>
             Debounce delay in miliseconds. If not set, uses the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.DefaultDelay"/>.
@@ -3050,7 +3100,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSpinner.Type">
             <summary>
-            Spinner type.
+            Spinner type. Spinner type - Border (default) or Grow.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSpinner.Size">
@@ -3123,7 +3173,11 @@
             <inheritdoc />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Enabled">
-            <inheritdoc />
+            <summary>
+            When null (default), the Enabled value is received from cascading <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.FormState" />.
+            When value is false, input is rendered as disabled.
+            To set multiple controls as disabled use <seealso cref="T:Havit.Blazor.Components.Web.HxFormState" />.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnTabActivated">
             <summary>

@@ -15,11 +15,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
+		/// <summary>
+		/// Badge color (background). Required.
+		/// </summary>
 		[Parameter] public ThemeColor Color { get; set; }
 
 		[Parameter] public ThemeColor TextColor { get; set; } = ThemeColor.None;
 
+		/// <summary>
+		/// Badge type - Regular or rounded-pills.
+		/// </summary>
 		[Parameter] public BadgeType Type { get; set; } = BadgeType.Regular;
+
+		/// <summary>
+		/// Any additional CSS class to apply.
+		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
 		protected override void OnParametersSet()

@@ -1,15 +1,34 @@
-﻿<h1>@Type.Name</h1>
+﻿@debug
 
-@if (Type.Namespace.Contains("Bootstrap"))
+@if (SubComponent)
+{
+    <h2>@RemoveSpecialCharacters(Type.Name)</h2>
+}
+else
+{
+    <h1>@RemoveSpecialCharacters(Type.Name)</h1>
+}
+
+@if (Type.Namespace.Contains("Bootstrap") && DisplayBootstrapLink)
 {
     <p class="lead">
-        <a href="https://getbootstrap.com/docs/5.0/components/@GetBootstrapComponentName().ToLower()">Bootstrap @GetBootstrapComponentName()</a> component
+        @if (string.IsNullOrEmpty(CustomBootstrapLink) == false)
+        {
+            <a href="@CustomBootstrapLink">Bootstrap @GetBootstrapComponentName()</a> @(" component")
+        }
+        else
+        {
+            <a href="https://getbootstrap.com/docs/5.0/components/@GetBootstrapComponentName().ToLower()">Bootstrap @GetBootstrapComponentName()</a> @(" component")
+        }
     </p>
 }
 
 @ChildContent
 
-<h2>API</h2>
+@if (SubComponent == false)
+{
+    <h2>API</h2>
+}
 
 @if (properties.Count > 0)
 {
@@ -19,6 +38,10 @@
     @foreach (var property in properties)
     {
         <li>
+            @if (property.PropertyInfo.GetAccessors(false).Any(o => o.IsStatic))
+            {
+                @("static ")
+            } 
             <strong>@property.PropertyInfo.Name</strong> <i>(@FormatType(property.PropertyInfo.PropertyType))</i>
             <br />
             <div class="summary">@((MarkupString)property.Comments.Summary)</div>

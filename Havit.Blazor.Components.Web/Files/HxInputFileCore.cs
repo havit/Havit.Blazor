@@ -70,7 +70,7 @@ namespace Havit.Blazor.Components.Web
 		}
 
 		/// <summary>
-		/// Starts the upload.
+		/// Initiates the upload (does not wait for upload completion). Use OnUploadCompleted event.
 		/// </summary>
 		/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 		/// <remarks>

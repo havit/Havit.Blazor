@@ -18,7 +18,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 	{
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
+		/// <summary>
+		/// A type to generate the documentation for
+		/// </summary>
 		[Parameter] public Type Type { get; set; }
+
+		[Parameter] public bool DisplayBootstrapLink { get; set; } = true;
+		[Parameter] public string CustomBootstrapLink { get; set; }
+
+		/// <summary>
+		/// If true, removes API header, and makes the type name header smaller
+		/// </summary>
+		[Parameter] public bool SubComponent { get; set; } = false;
+
+		/// <summary>
+		/// Names of members that will be excluded from the displayed documentation
+		/// </summary>
+		[Parameter] public List<string> ExcludedMembers { get; set; } = new();
 
 		[Inject] private NavigationManager NavigationManager { get; set; }
 
@@ -28,6 +44,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		private List<Property> events = new();
 		private List<Method> methods = new();
 		private List<Method> staticMethods = new();
+
+		private static string debug;
 
 		protected override void OnParametersSet()
 		{
@@ -56,7 +74,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			foreach (var property in properties)
 			{
-				if (property.PropertyInfo.PropertyType == typeof(EventCallback<>) || property.PropertyInfo.PropertyType == typeof(EventCallback))
+				if (property.PropertyInfo.PropertyType == typeof(EventCallback<>) || property.PropertyInfo.PropertyType == typeof(EventCallback) || property.PropertyInfo.PropertyType.ToString().ToLower().Contains("event"))
 				{
 					events.Add(property);
 				}
@@ -78,7 +96,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			{
 				Property newProperty = new();
 				newProperty.PropertyInfo = property;
+
+				if (DetermineWhetherPropertyShouldBeAdded(newProperty) == false)
+				{
+					continue;
+				}
+
 				newProperty.Comments = reader.GetMemberComments(property);
+
+				if (string.IsNullOrEmpty(newProperty.Comments.Summary))
+				{
+					// newProperty.Comments = FindInheritDoc(newProperty, reader); TO-DO
+				}
 
 				typeProperties.Add(newProperty);
 			}
@@ -113,9 +142,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return (typeMethods, staticMethods);
 		}
 
+		private bool DetermineWhetherPropertyShouldBeAdded(Property property)
+		{
+			string name = property.PropertyInfo.Name;
+			List<string> byDefaultExcludedProperties = new() { "ChildContent", "Defaults", "JSRuntime" };
+			if (byDefaultExcludedProperties.Contains(name) || ExcludedMembers.Contains(name))
+			{
+				return false;
+			}
+
+			return true;
+		}
+
 		private bool DetermineWhetherMethodShouldBeAdded(Method method)
 		{
-			// don't add method if it is JSInvokable
+			// don't add a method if it is JSInvokable
 			var customAttributes = method.MethodInfo.CustomAttributes.ToList();
 			foreach (var attribute in customAttributes)
 			{
@@ -127,13 +168,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			string name = method.MethodInfo.Name;
 			List<string> objectDerivedMethods = new() { "ToString", "GetType", "Equals", "GetHashCode" };
-			List<string> derivedMethods = new() { "DisposeAsync", "SetParametersAsync" };
-			if (name.Contains("set") || name.Contains("get") || objectDerivedMethods.Contains(name) || derivedMethods.Contains(name))
+			List<string> derivedMethods = new() { "Dispose", "DisposeAsync", "SetParametersAsync", "ChildContent" };
+			if (name.Contains("set") || name.Contains("get") || objectDerivedMethods.Contains(name) || derivedMethods.Contains(name) || ExcludedMembers.Contains(name))
 			{
 				return false;
 			}
 
 			return true;
+		}
+
+		private CommonComments FindInheritDoc(Property property, DocXmlReader reader)
+		{
+			Type[] interfaces = Type.GetInterfaces();
+
+			foreach (var currentInterface in interfaces)
+			{
+				var matchingMember = currentInterface.GetMembers().Where(o => o.Name == property.PropertyInfo.Name).FirstOrDefault();
+				debug += matchingMember.Name + " " + reader.GetMemberComments(matchingMember).Summary;
+				return reader.GetMemberComments(matchingMember);
+			}
+
+			return null;
 		}
 
 		private string GetDownloadLink()
@@ -316,7 +371,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				set
 				{
 					CommonComments inputComments = value;
-					inputComments.Summary = FormatComment(inputComments.Summary);
+					try { inputComments.Summary = FormatComment(inputComments.Summary); } catch { }
 					comments = inputComments;
 				}
 				get
@@ -371,6 +426,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		public static string FormatType(Type type)
 		{
 			string shortType = type.ToString().Split('.')[^1];
+			shortType = RemoveSpecialCharacters(shortType);
+
 			switch (shortType)
 			{
 				case "Int16":
@@ -393,10 +450,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				case "Double":
 				case "Byte":
 				case "Sbyte":
+				case "Void":
 					return shortType.ToLower();
 			}
 
 			return shortType;
+		}
+
+		public static string RemoveSpecialCharacters(string text)
+		{
+			Regex regex = new("[^a-zA-Z]");
+			return regex.Replace(text, "");
 		}
 	}
 }
