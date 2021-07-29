@@ -4,10 +4,10 @@
 <h1>HxCheckboxList</h1>
 
 <EditForm Model="@model">
-	<HxCheckboxList TItem="CultureInfo" TValue="CultureInfo" Label="Cultures" TextSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" />
+	<HxCheckboxList TItem="CultureInfo" TValue="string" Label="Cultures" TextSelector="@(item => item.EnglishName)" ValueSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" />
 </EditForm>
 
-<p>Selected values: @String.Join(", ", model.CultureInfos?.Select(item => item.EnglishName) ?? Enumerable.Empty<string>())</p>
+<p>Selected values: @String.Join(", ", model.CultureInfos ?? Enumerable.Empty<string>())</p>
 
 @code
 {
@@ -20,6 +20,6 @@
 
 	private class Model
 	{
-		public List<CultureInfo> CultureInfos { get; set; }
+		public List<string> CultureInfos { get; set; }
 	}
 }

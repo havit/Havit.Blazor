@@ -29,7 +29,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Selects value from item.
 		/// Not required when TValue is same as TItem.
 		/// </summary>
-		protected Func<TItem, TValue> ValueSelector { get; set; }
+		[Parameter] public Func<TItem, TValue> ValueSelector { get; set; }
 
 		/// <summary>
 		/// Selects value for items sorting. When not set, <see cref="TextSelector"/> property will be used.
