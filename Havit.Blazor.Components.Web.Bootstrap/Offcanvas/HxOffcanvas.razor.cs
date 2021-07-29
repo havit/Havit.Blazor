@@ -194,7 +194,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				await jsModule.DisposeAsync();
 			}
 		}
-		
+
 		private string GetPlacementCssClass()
 		{
 			return this.Placement switch
