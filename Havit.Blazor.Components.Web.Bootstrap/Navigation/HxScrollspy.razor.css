@@ -1,0 +1,6 @@
+﻿.hx-scrollspy
+{
+	position: relative;
+	overflow: auto;
+	height: 100%;
+}
