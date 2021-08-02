@@ -25,7 +25,7 @@ export function dispose(element) {
     element.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
     element.hxOffcanvasDotnetObjectReference = null;
     offcanvas.hide();
-    //offcanvas.dispose(); // modal.js:318 Uncaught TypeError: Cannot read property 'style' of null
+	// offcanvas.dispose(); // offcanvas.js: 145: Cannot read property 'setAttribute' of null
 }
 
 function handleOffcanvasHidden(event) {
