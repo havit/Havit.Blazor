@@ -1,0 +1,39 @@
+﻿.nav-item {
+	font-size: 0.875rem;
+	line-height: 1;
+}
+
+::deep .nav-link, a {
+	font-size: .9rem;
+	color: var(--bs-dark);
+}
+
+::deep a.nav-link:hover, ::deep a.nav-link.active:hover, .navbar-desktop-toggler:hover {
+	background-color: var(--sidebar-link-hover);
+	color: var(--primary);
+	border-radius: 0.5rem;
+}
+
+::deep a.nav-link.active {
+	color: var(--primary);
+	background-color: transparent;
+}
+
+::deep i {
+	color: var(--primary);
+	font-size: 1rem;
+	transition: transform .35s ease;
+	transform-origin: .5em 50%;
+}
+
+::deep .bi-chevron-right {
+	font-size: .75rem;
+}
+
+::deep a[aria-expanded="true"] .bi-chevron-right {
+	transform: rotate(90deg);
+}
+
+.desktop-nav-item-collapsed .text {
+	display: none
+}
