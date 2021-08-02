@@ -1,0 +1,38 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+<li class="nav-item">
+	@if (@ChildContent is null)
+	{
+		<NavLink href="@Href" role="button" class="nav-link p-3" Match="NavLinkMatch.All" target="_top">
+			<div class="d-flex align-items-center">
+				@if (Icon != null)
+				{
+					<HxIcon Icon="Icon" />
+				}
+				<span class="text ms-3">
+					@Text
+				</span>
+			</div>
+		</NavLink>
+	}
+	else
+	{
+		<a data-bs-toggle="collapse" class="nav-link p-3" data-bs-target="#@id" href="@Href" role="button" aria-expanded="false">
+			<div class="d-flex align-items-center">
+				@if (Icon != null)
+				{
+					<HxIcon Icon="Icon" />
+				}
+				<span class="text ms-3">
+					@Text
+				</span>
+				<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="ms-auto" />
+			</div>
+		</a>
+		<div class="collapse" id="@id">
+			<ul class="nav flex-column">
+				@ChildContent
+			</ul>
+		</div>
+	}
+</li>

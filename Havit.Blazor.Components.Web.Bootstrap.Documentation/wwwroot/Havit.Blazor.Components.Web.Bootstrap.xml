@@ -2960,6 +2960,74 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNav">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap Nav</see> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.Id">
+            <summary>
+            ID of the nav which can be used for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.TargetId"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.CssClass">
+            <summary>
+            Offcanvas additional CSS class. Added to root div (.offcanvas).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.ChildContent">
+            <summary>
+            Content of the navbar.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavItem">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-item</see> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavItem.Icon">
+            <summary>
+            Icon (optional).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavItem.Text">
+            <summary>
+            Basic text representing the nav-item.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavItem.Href">
+            <summary>
+            Navigation target.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavItem.ChildContent">
+            <summary>
+            Collapsible child-content.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</see> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.TargetId">
+            <summary>
+            ID of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNav"/> or list-group with scrollspy navigation.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.CssClass">
+            <summary>
+            Offcanvas additional CSS class. Added to root div (.offcanvas).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.ChildContent">
+            <summary>
+            Content to be spyied. Elements with IDs are required (corresponding IDs to be used in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavItem.Href"/>).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc />
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas">
             <summary>
             <a href="https://getbootstrap.com/docs/5.0/components/offcanvas/">Bootstrap Offcanvas</a> component (aka Drawer).
