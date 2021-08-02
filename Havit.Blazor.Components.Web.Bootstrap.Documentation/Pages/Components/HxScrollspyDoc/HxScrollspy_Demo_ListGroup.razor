@@ -1,7 +1,4 @@
-﻿@page "/HxScrollspyTest"
-@inject NavigationManager NavigationManager
-
-<h1>Scrollspy Tests</h1>
+﻿<HxAnchorFragmentNavigation /> @* To be placed in MainLayout.razor *@
 
 <div class="list-group" id="list-example">
 	<HxScrollspyNavLink class="list-group-item list-group-item-action" Href="#par1">Par 1</HxScrollspyNavLink>
@@ -11,7 +8,7 @@
 	<HxScrollspyNavLink class="list-group-item list-group-item-action" Href="#par5">Par 5</HxScrollspyNavLink>
 </div>
 
-<div style="height:300px">
+<div style="height:250px;position:relative;">
 	<HxScrollspy TargetId="list-example">
 		<h4 id="par1">§ 1</h4>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas. Praesent efficitur odio sed orci iaculis accumsan. Sed quis quam suscipit, scelerisque velit porttitor, tristique enim. Pellentesque ac magna et metus venenatis pellentesque ullamcorper vitae felis. Vestibulum ut est mi. Ut at dignissim turpis. Pellentesque et magna non massa malesuada consectetur. Morbi in lorem nunc. Integer congue mi non sem consectetur suscipit. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>

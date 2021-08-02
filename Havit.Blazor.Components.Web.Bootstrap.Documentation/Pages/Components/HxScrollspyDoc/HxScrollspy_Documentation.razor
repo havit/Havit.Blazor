@@ -1,0 +1,25 @@
+﻿@page "/components/HxScrollspy"
+
+<ComponentApiDoc Type="typeof(HxScrollspy)">
+
+	<h2>How it works</h2>
+	<p>Scrollspy needs two components to work together. The <code>HxScrollspy</code> component to wrap
+	the area to spy on and the <code><a href="/components/HxNav">HxNav</a></code> or list-group to represent the navigation.
+	These have to be associated using <code>HxScrollspy.TargetId</code> parameter.
+	For more details see the Bootstrap documentation.</p>
+
+	<p>The scrollspy navigation has to use custom <code>HxScrollspyNavLink</code> to workaround the <code>&lt;base&gt;</code> Blazor requirement and unability of Bootstrap to interpret the <code>page#fragment</code> form of link.</p>
+
+	<p>For anchor-fragment navigation (<code>&lt;a href="#id"&gt;</code>) to work the page have to host <a href="/components/HxAnchorFragmentNavigation">HxAnchorFragmentNavigation</a> component.</p>
+
+	<div class="alert alert-warning" role="alert">
+		Current component design expects the scrollspy to by used in <b>dedicated scrollable container</b>
+		(such as <code>&lt;div&gt;</code> or <a href="/components/HxOffcanvas">HxOffcanvas</a>).<br />
+		For full-page scrollspy, the spying has to be attached directly to <code>&lt;body&gt;</code> (will be implemented later as needed?).
+	</div>
+
+	<h2>Example with list-group</h2>
+	<Demo Type="typeof(HxScrollspy_Demo_ListGroup)" />
+</ComponentApiDoc>
+
+<ComponentApiDoc Type="typeof(HxScrollspyNavLink)" />

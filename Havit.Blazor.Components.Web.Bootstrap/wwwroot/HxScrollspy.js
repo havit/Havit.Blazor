@@ -3,5 +3,4 @@
 		target: '#' + targetId
 	});
 	scrollspy.refresh();
-	console.log(targetId);
 }

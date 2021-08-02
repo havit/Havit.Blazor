@@ -17,11 +17,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// ID of the <see cref="HxNav"/> or list-group with scrollspy navigation.
 		/// </summary>
-		// [EditorRequired]
+		// TODO [EditorRequired]
 		[Parameter] public string TargetId { get; set; }
 
 		/// <summary>
-		/// Offcanvas additional CSS class. Added to root div (.offcanvas).
+		/// Scrollspy additional CSS class. Added to main div (.hx-scrollspy).
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 

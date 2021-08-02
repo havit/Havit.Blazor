@@ -2960,6 +2960,12 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAnchorFragmentNavigation">
+            <summary>
+            Temporarily (?) compensates Blazor deficiency in anchor-fragments (scrolling to <c>page#id</c> URLs). Supports navigation with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> component.
+            <see href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</see>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNav">
             <summary>
             <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap Nav</see> component.
@@ -3017,7 +3023,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.CssClass">
             <summary>
-            Offcanvas additional CSS class. Added to root div (.offcanvas).
+            Scrollspy additional CSS class. Added to main div (.hx-scrollspy).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.ChildContent">
@@ -3027,6 +3033,21 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink">
+            <summary>
+            Temporary (?) NavLink component to be used with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> where <code>#id</code> anchors are required and <code>page-route#id</code> cannot be used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.Href">
+            <summary>
+            The navigation target in <c>#id</c> form.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying <code>&lt;a&gt;</code> element.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas">
             <summary>
