@@ -40,6 +40,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		private static readonly HttpClient client = new HttpClient();
 
+		private string classSummary = string.Empty;
 		private List<Property> properties = new();
 		private List<Property> events = new();
 		private List<Method> methods = new();
@@ -58,6 +59,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			XPathDocument xPathDocument = new(textReader);
 
 			DocXmlReader reader = new(xPathDocument);
+
+			classSummary = GetClassSummary(reader);
 			properties = GetProperties(reader);
 			events = SeparateEvents();
 
@@ -86,6 +89,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 
 			return events;
+		}
+
+		private string GetClassSummary(DocXmlReader reader)
+		{
+			return reader.GetTypeComments(Type).Summary;
 		}
 
 		private List<Property> GetProperties(DocXmlReader reader)

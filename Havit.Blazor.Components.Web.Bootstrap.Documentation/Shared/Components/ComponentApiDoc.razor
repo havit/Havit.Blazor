@@ -18,7 +18,14 @@ else
         }
         else
         {
+            if (string.IsNullOrEmpty(classSummary) == false)
+            {
+                @((MarkupString)classSummary)
+            }
+            else
+            {
             <a href="https://getbootstrap.com/docs/5.0/components/@GetBootstrapComponentName().ToLower()">Bootstrap @GetBootstrapComponentName()</a> @(" component")
+            }
         }
     </p>
 }
