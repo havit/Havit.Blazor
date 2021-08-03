@@ -40,7 +40,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		private static readonly HttpClient client = new HttpClient();
 
-		private string classSummary = string.Empty;
+		private ClassMember classMember;
 		private List<Property> properties = new();
 		private List<Property> events = new();
 		private List<Method> methods = new();
@@ -60,7 +60,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			DocXmlReader reader = new(xPathDocument);
 
-			classSummary = GetClassSummary(reader);
+			classMember = GetClassMember(reader);
 			properties = GetProperties(reader);
 			events = SeparateEvents();
 
@@ -91,9 +91,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return events;
 		}
 
-		private string GetClassSummary(DocXmlReader reader)
+		private ClassMember GetClassMember(DocXmlReader reader)
 		{
-			return reader.GetTypeComments(Type).Summary;
+			return new() { Comments = reader.GetTypeComments(Type) };
 		}
 
 		private List<Property> GetProperties(DocXmlReader reader)
@@ -247,6 +247,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 					Regex regex = new("<see");
 					comment = regex.Replace(comment, "<a");
 
+					regex = new("</see>");
+					comment = regex.Replace(comment, "</a>");
+
 					regex = new("cref=\"([A-Za-z\\.:])+");
 					var matches = regex.Matches(comment);
 
@@ -368,6 +371,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 				return sb.ToString();
 			}
+		}
+
+		public class ClassMember : Member
+		{
+			public TypeComments Comments
+			{
+				get => comments;
+				set
+				{
+					TypeComments inputComments = value;
+					try { inputComments.Summary = FormatComment(inputComments.Summary); } catch { }
+					comments = inputComments;
+				}
+			}
+			private TypeComments comments;
 		}
 
 		public class Property : Member

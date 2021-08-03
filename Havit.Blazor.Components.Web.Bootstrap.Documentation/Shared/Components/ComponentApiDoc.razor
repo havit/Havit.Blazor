@@ -18,9 +18,9 @@ else
         }
         else
         {
-            if (string.IsNullOrEmpty(classSummary) == false)
+            if (string.IsNullOrEmpty(classMember?.Comments?.Summary) == false)
             {
-                @((MarkupString)classSummary)
+                @((MarkupString)classMember.Comments.Summary)
             }
             else
             {
