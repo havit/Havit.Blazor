@@ -3028,7 +3028,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.ChildContent">
             <summary>
-            Content to be spyied. Elements with IDs are required (corresponding IDs to be used in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavItem.Href"/>).
+            Content to be spied. Elements with IDs are required (corresponding IDs to be used in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavItem.Href"/>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.OnAfterRenderAsync(System.Boolean)">

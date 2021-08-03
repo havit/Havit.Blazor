@@ -26,7 +26,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
-		/// Content to be spyied. Elements with IDs are required (corresponding IDs to be used in <see cref="HxNavItem.Href"/>).
+		/// Content to be spied. Elements with IDs are required (corresponding IDs to be used in <see cref="HxNavItem.Href"/>).
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 

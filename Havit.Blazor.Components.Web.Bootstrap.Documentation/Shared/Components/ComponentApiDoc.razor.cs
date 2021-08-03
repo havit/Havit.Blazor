@@ -153,7 +153,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		private bool DetermineWhetherPropertyShouldBeAdded(Property property)
 		{
 			string name = property.PropertyInfo.Name;
-			List<string> byDefaultExcludedProperties = new() { "ChildContent", "Defaults", "JSRuntime" };
+			List<string> byDefaultExcludedProperties = new() { "Defaults", "JSRuntime" };
 			if (byDefaultExcludedProperties.Contains(name) || ExcludedMembers.Contains(name))
 			{
 				return false;
