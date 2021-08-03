@@ -1,41 +1,50 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<div class="@CssClassHelper.Combine(CollapsedDesktop ? "collapse": null, "sidebar d-flex flex-column") ">
-	<div class="@CssClassHelper.Combine(CollapsedDesktop ? "desktop-collapsed" : null,"nav-menu p-3 d-flex flex-column flex-grow-1")">
-		<div class="navbar-light mb-4 mt-2 d-flex">
+<div class="@CssClassHelper.Combine("sidebar d-flex flex-column", GetDesktopCollapsedCssClass())">
+	<div class="nav-menu d-flex w-auto flex-column p-3 bg-white ">
 
-			<a class="ms-2 me-auto text-primary fs-5 text-decoration-none d-inline-flex">
-				<div class="logo rounded-circle bg-primary text-white p-1 fs-6 d-flex aling-items-center justify-content-center">
-					<span class="logo-text">@BrandNameShort</span>
-					<span class="navbar-desktop-logo-toggler d-flex align-items-center" role="button" @onclick="ToggleDesktopNavMenu"><HxIcon CssClass="w-100" Icon="BootstrapIcon.ChevronBarRight" /></span>
-				</div>
-				<span class="app-name ms-2">@BrandName</span>
-			</a>
-
-			<button class="navbar-toggler" @onclick="ToggleMobileNavMenu">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<button class="navbar-desktop-toggler px-2 py-0 me-2" @onclick="ToggleDesktopNavMenu">
-				<HxIcon Icon="BootstrapIcon.ChevronBarLeft" />
-			</button>
+		<!--Brand-->
+		<div>
+			@if (BrandTemplate == null)
+			{
+				<a href="/" class="d-flex  align-items-center pb-3 mb-3 link-dark text-decoration-none fs-6">
+					<div class="logo rounded-circle d-flex p-1 justify-content-center align-items-center text-white">
+						<span class="logo-text">@BrandNameShort</span>
+					</div>
+					<span class="brand-name ms-2 fs-5 fw-semibold">@BrandName</span>
+				</a>
+			}
+			else
+			{
+				@BrandTemplate
+			}
 		</div>
 
-		<div class="sidebar-inner d-flex flex-column flex-grow-1 mb-auto">
-			<div class="@GetCollapsedMobileCssClass()">
-				<ul class="nav nav-pills flex-column">
-					@if (ChildContent != null)
-					{
-						<CascadingValue IsFixed="false" Name="IsDesktopCollapsed" Value="@CollapsedDesktop" TValue="bool">
-							@ChildContent
-						</CascadingValue>
-					}
-				</ul>
-			</div>
+		<!--Desktop and Mobile togglers-->
+		<div class="navbar-toggler navbar-light" @onclick="ToggleMobileNavMenu">
+			<span class="navbar-toggler-icon border rounded"></span>
+		</div>
+		<div class="navbar-desktop-toggler align-self-end" @onclick="ToggleDesktopNavMenu">
+			<HxIcon Icon="@(CollapsedDesktop ? DesktopOpenCollapseIcon : DesktopCloseCollapseIcon)" />
 		</div>
 
-		@if (LoginDisplayContent != null)
-		{
-			@LoginDisplayContent
-		}
+		<div class="@CssClassHelper.Combine("sidebar-inner flex-column mb-auto", @GetCollapsedMobileCssClass())">
+			<!--Navigation-->
+			<ul class="flex-column list-unstyled ps-0">
+				@ItemsTemplate
+			</ul>
+		</div>
+
+		<!--Login display-->
+		<div class="login-display d-flex ">
+			@if (LoginDisplayTemplate == null)
+			{
+				<span><HxIcon Icon="@LoginIcon" /> Login</span>
+			}
+			else
+			{
+				@LoginDisplayTemplate
+			}
+		</div>
 	</div>
 </div>

@@ -1,110 +1,82 @@
 ﻿
 .sidebar {
-	width: 282px;
-	height: 100vh;
+	width: auto;
+	height: auto;
 	position: sticky;
 	top: 0;
 	z-index: 100;
+	background-color: #AAA;
 }
-
 .sidebar.collapse {
 	width: 64px;
 }
-.desktop-collapsed .nav-link .text,
-.desktop-collapsed .nav-link .bi-chevron-right,
-.desktop-collapsed .login-display-nickname,
-.desktop-collapsed .app-name,
-.desktop-collapsed .hx-context-menu,
-.desktop-collapsed .navbar-desktop-toggler,
-.desktop-collapsed .sub-item {
-	display: none;
-}
-
-.logo .hx-icon {
-	display: none;
-}
-
-.desktop-collapsed.nav-menu:hover .logo .hx-icon {
-	display: block !important;
-}
-
-.desktop-collapsed.nav-menu:hover .logo .logo-text,
-.desktop-collapsed.nav-menu:hover .navbar-desktop-toggler {
-	display: none;
-}
-
-.nav-menu {
-	max-height: 100vh;
-}
 
 .sidebar-inner {
-	overflow-y: auto;
+	flex-shrink: 2;
+	display: flex;
+}
+.nav-menu {
+	height: auto;
+}
+.login-display {
+	width: 100%;
+	flex-grow: 0;
 }
 
 .navbar-toggler {
-	background-color: rgba(255, 255, 255, 0.1);
+	display: flex;
 }
 
 .navbar-desktop-toggler {
-	font-size: .75rem;
-	background-color: transparent;
-	border: none;
-	color: var(--primary);
 	display: none;
-}
-
-.navbar-desktop-logo-toggler {
-	font-size: .75rem;
-}
-
-.nav-menu:hover .navbar-desktop-toggler {
-	display: block;
-}
-
-.navbar-desktop-toggler:hover {
-	background-color: var(--sidebar-link-hover);
-	color: var(--primary);
-	border-radius: 0.5rem;
 }
 
 .logo {
 	width: 2em;
 	height: 2em;
+	background-color: var(--primary);
+}
+
+/*Mobile collapsed*/
+
+.sidebar-inner.collapse {
+	display: none
+}
+
+/*Desktop collapsed*/
+.sidebar.desktop-collapse {
+	width: 64px;
+}
+
+.sidebar.desktop-collapse .brand-name {
+	display: none;
+}
+
+.sidebar.desktop-collapse ::deep .text {
+	display: none;
+}
+
+.sidebar.desktop-collapse ::deep .collapse .hx-icon {
+	display: none;
 }
 
 @media (min-width: 768px) {
-	app {
-		flex-direction: row;
-	}
-
 	.sidebar {
-		height: 100vh;
-		position: sticky;
-		top: 0;
+		width: 280px;
+		display: flex;
+		height: 100%;
 	}
-
-	.sidebar .top-row {
-		margin: 1rem 0;
+	.nav-menu {
+		height: 100vh;
+	}
+	.navbar-desktop-toggler {
+		display: flex;
 	}
 
 	.navbar-toggler {
 		display: none;
 	}
-
-	.sidebar-inner {
-		width: 250px;
-	}
-	
-	.desktop-collapsed .sidebar-inner {
-		width: auto;
-	}
-
-	.navbar-desktop-logo-toggler{
-		display: block;
-	}
-
-	.sidebar-inner > .collapse {
-		/* Never collapse the sidebar for wide screens */
-		display: block;
+	.login-display {		
+		flex-grow: 0 ;
 	}
 }

@@ -2,7 +2,7 @@
 <h3>HxNavMenuTest</h3>
 <div>
 	<HxNavMenu BrandName="Goran" BrandNameShort="G3">
-		<ChildContent>
+		<ItemsTemplate>
 			<HxNavMenuItem Text="Osobní" Icon="BootstrapIcon.Person">
 				<HxNavMenuItem Text="Timesheety" Href="TODO" />
 				<HxNavMenuItem Text="Dovolené" Href="TODO" />
@@ -12,14 +12,13 @@
 			<HxNavMenuItem Text="Timesheety" Href="TODO" Icon="BootstrapIcon.Clock" />
 			<HxNavMenuItem Text="Finance" Href="TODO" Icon="BootstrapIcon.Wallet2" />
 			<HxNavMenuItem Text="Reporting" Href="TODO" Icon="BootstrapIcon.ClipboardData" />
-		</ChildContent>
+		</ItemsTemplate>
 	
-		<LoginDisplayContent>
+		<LoginDisplayTemplate>
 			<span><HxIcon Icon="BootstrapIcon.Person" />login</span>
-		</LoginDisplayContent>
+		</LoginDisplayTemplate>
 	</HxNavMenu>
 </div>
-
 
 @code {
 
