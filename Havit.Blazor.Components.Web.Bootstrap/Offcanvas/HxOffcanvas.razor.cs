@@ -20,8 +20,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public static OffcanvasDefaults Defaults { get; } = new OffcanvasDefaults();
 
+		/// <summary>
+		/// Text for the header.
+		/// Is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c> (in opposite to <see cref="HeaderTemplate"/> which is rendered directly into <c>offcanvas-header</c>).
+		/// </summary>
 		[Parameter] public string HeaderText { get; set; }
 
+		/// <summary>
+		/// Content for the header.
+		/// Is rendered directly into <c>offcanvas-header</c> (in opposite to <see cref="HeaderText"/> which is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c>).
+		/// </summary>
 		[Parameter] public RenderFragment HeaderTemplate { get; set; }
 
 		/// <summary>
@@ -44,7 +52,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string FooterCssClass { get; set; }
 
 		/// <summary>
-		/// Offcanvas additional CSS class. Added to root div (.offcanvas).
+		/// Offcanvas additional CSS class. Added to root <c>div</c> (<c>.offcanvas</c>).
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
@@ -62,27 +70,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Indicates whether the offcanvas closes when escape key is pressed.
-		/// Default value is true.
+		/// Default value is <c>true</c>.
 		/// </summary>
-		[Parameter] public bool CloseOnEscape { get; set; }
+		[Parameter] public bool CloseOnEscape { get; set; } = true;
 
 		/// <summary>
-		/// Close icon to be used to for close element when <b>ShouldUseCloseButton</b> is set to false.
-		/// If set to null close element wont be rendered.
+		/// Close icon to be used in header.
+		/// If set to <c>null</c>, Bootstrap default close-button will be used.
 		/// </summary>
-		[Parameter] public IconBase CloseIcon { get; set; }
+		[Parameter] public IconBase CloseButtonIcon { get; set; }
 
 		/// <summary>
-		/// Switches between elements used for closing offcanvas.
-		/// If true button is used otherwise HxIcon is used.
+		/// Indicates whether the modal shows close button in header.
+		/// Default value is <c>true</c>.
+		/// Use <see cref="CloseButtonIcon"/> to change shape of the button.
 		/// </summary>
-		[Parameter] public bool ShouldUseCloseButton { get; set; }
+		[Parameter] public bool? ShowCloseButton { get; set; }
 
 		/// <summary>
 		/// Indicates whether to apply a backdrop on body while offcanvas is open.
-		/// Default value is <c>true</c>.
+		/// Default value (from <see cref="Defaults"/>) is <c>true</c>.
 		/// </summary>
-		[Parameter] public bool BackdropEnabled { get; set; } = true;
+		[Parameter] public bool? BackdropEnabled { get; set; }
 
 		/// <summary>
 		/// Indicates whether body (page) scrolling is allowed while offcanvas is open.
@@ -98,6 +107,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected virtual OffcanvasDefaults GetDefaults() => HxOffcanvas.Defaults;
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
+
+		protected IconBase CloseButtonIconEffective => CloseButtonIcon ?? GetDefaults().CloseButtonIcon;
+		protected bool ShowCloseButtonEffective => ShowCloseButton ?? GetDefaults().ShowCloseButton;
+		protected string CssClassEffective => CssClass ?? GetDefaults().CssClass;
+		protected string HeaderCssClassEffective => HeaderCssClass ?? GetDefaults().HeaderCssClass;
+		protected string BodyCssClassEffective => BodyCssClass ?? GetDefaults().BodyCssClass;
+		protected string FooterCssClassEffective => FooterCssClass ?? GetDefaults().FooterCssClass;
+		protected bool BackdropEnabledEffective => BackdropEnabled ?? GetDefaults().BackdropEnabled;
 
 		private bool opened = false; // indicates whether the offcanvas is open
 		private bool shouldOpenOffcanvas = false; // indicates whether the offcanvas is going to be opened
@@ -138,27 +155,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await jsModule.InvokeVoidAsync("hide", offcanvasElement);
 		}
 
-		private async Task HandleOnCloseClick()
-		{
-			await HideAsync();
-		}
-
 		[JSInvokable("HxOffcanvas_HandleOffcanvasHidden")]
 		public async Task HandleOffcanvasHidden()
 		{
 			opened = false;
 			await OnClosed.InvokeAsync(); // fires "event" dialog has been closed
 			StateHasChanged(); // ensures rerender to remove dialog from HTML
-		}
-
-
-		/// <inheritdoc />
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
-			CloseIcon = GetDefaults().CloseIcon;
-			ShouldUseCloseButton = GetDefaults().ShouldUseCloseButton;
-
 		}
 
 		/// <inheritdoc />
@@ -174,7 +176,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				// Running JS interop is postponed to OnAfterAsync to ensure offcanvasElement is set.
 				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxoffcanvas.js");
-				await jsModule.InvokeVoidAsync("show", offcanvasElement, dotnetObjectReference, BackdropEnabled, CloseOnEscape, ScrollingEnabled);
+				await jsModule.InvokeVoidAsync("show", offcanvasElement, dotnetObjectReference, BackdropEnabledEffective, CloseOnEscape, ScrollingEnabled);
 			}
 		}
 

@@ -3059,6 +3059,18 @@
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderText">
+            <summary>
+            Text for the header.
+            Is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c> (in opposite to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderTemplate"/> which is rendered directly into <c>offcanvas-header</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderTemplate">
+            <summary>
+            Content for the header.
+            Is rendered directly into <c>offcanvas-header</c> (in opposite to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderText"/> which is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c>).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderCssClass">
             <summary>
             Additional header CSS class.
@@ -3076,7 +3088,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CssClass">
             <summary>
-            Offcanvas additional CSS class. Added to root div (.offcanvas).
+            Offcanvas additional CSS class. Added to root <c>div</c> (<c>.offcanvas</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Placement">
@@ -3092,25 +3104,26 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CloseOnEscape">
             <summary>
             Indicates whether the offcanvas closes when escape key is pressed.
-            Default value is true.
+            Default value is <c>true</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CloseIcon">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CloseButtonIcon">
             <summary>
-            Close icon to be used to for close element when <b>ShouldUseCloseButton</b> is set to false.
-            If set to null close element wont be rendered.
+            Close icon to be used in header.
+            If set to <c>null</c>, Bootstrap default close-button will be used.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.ShouldUseCloseButton">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.ShowCloseButton">
             <summary>
-            Switches between elements used for closing offcanvas.
-            If true button is used otherwise HxIcon is used.
+            Indicates whether the modal shows close button in header.
+            Default value is <c>true</c>.
+            Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CloseButtonIcon"/> to change shape of the button.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.BackdropEnabled">
             <summary>
             Indicates whether to apply a backdrop on body while offcanvas is open.
-            Default value is <c>true</c>.
+            Default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults"/>) is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.ScrollingEnabled">
@@ -3139,9 +3152,6 @@
             Hides the offcanvas.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnInitialized">
-            <inheritdoc />
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc />
         </member>
@@ -3150,7 +3160,33 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults">
             <summary>
-            Application wide defaults for Offcanvas
+            Application wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.HeaderCssClass">
+            <summary>
+            Additional header CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.BodyCssClass">
+            <summary>
+            Additional body CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.FooterCssClass">
+            <summary>
+            Additional footer CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.CssClass">
+            <summary>
+            Offcanvas additional CSS class. Added to root div (.offcanvas).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.BackdropEnabled">
+            <summary>
+            Indicates whether to apply a backdrop on body while offcanvas is open.
+            Default value is <c>true</c>.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasRenderMode.OpenOnly">
