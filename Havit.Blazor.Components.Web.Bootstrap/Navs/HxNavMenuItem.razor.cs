@@ -12,8 +12,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool IsSubItem { get; set; } = false;
 		[Parameter] public string CssClass { get; set; }
 
-		[CascadingParameter(Name = "IsDesktopCollapsed")] public bool IsDesktopCollapsed { get; set; }
-
 		private string id = "hx" + Guid.NewGuid().ToString("N");
 	}
 }

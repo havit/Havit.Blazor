@@ -25,7 +25,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Parameter] public RenderFragment LoginDisplayTemplate { get; set; }
 
-		private bool CollapsedMobile { get; set; } = false;
+		private bool CollapsedMobile { get; set; } = true;
 
 		private bool CollapsedDesktop { get; set; } = false;
 
@@ -36,13 +36,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private void ToggleMobileNavMenu()
 		{
 			CollapsedMobile = !CollapsedMobile;
-			CollapsedDesktop = false;
 		}
 
 		private void ToggleDesktopNavMenu()
 		{
 			CollapsedDesktop = !CollapsedDesktop;
-			CollapsedMobile = false;
 		}
 	}
 }

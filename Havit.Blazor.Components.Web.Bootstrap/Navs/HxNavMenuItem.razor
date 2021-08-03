@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Components.Routing
 
 
-<li class="nav-item @CssClassHelper.Combine(IsDesktopCollapsed? "desktop-nav-item-collapsed " : null,  IsSubItem ? "sub-item" : null, CssClass)">
+<li class="nav-item @CssClassHelper.Combine((IsSubItem ? "sub-item" : null), CssClass)">
 	@if (@ChildContent is null)
 	{
 		<NavLink href="@Href" role="button" class="nav-link p-3" Match="NavLinkMatch.All">

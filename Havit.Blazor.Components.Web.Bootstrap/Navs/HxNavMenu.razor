@@ -21,10 +21,10 @@
 		</div>
 
 		<!--Desktop and Mobile togglers-->
-		<div class="navbar-toggler navbar-light" @onclick="ToggleMobileNavMenu">
+		<div class="navbar-toggler navbar-light" role="button" @onclick="ToggleMobileNavMenu">
 			<span class="navbar-toggler-icon border rounded"></span>
 		</div>
-		<div class="navbar-desktop-toggler align-self-end" @onclick="ToggleDesktopNavMenu">
+		<div class="navbar-desktop-toggler align-self-end" role="button"  @onclick="ToggleDesktopNavMenu">
 			<HxIcon Icon="@(CollapsedDesktop ? DesktopOpenCollapseIcon : DesktopCloseCollapseIcon)" />
 		</div>
 
