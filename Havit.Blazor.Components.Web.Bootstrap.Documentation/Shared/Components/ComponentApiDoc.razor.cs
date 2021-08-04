@@ -11,11 +11,31 @@ using System.Xml.XPath;
 using LoxSmoke.DocXml;
 using System.Text.RegularExpressions;
 using System.Text;
+using System.CodeDom;
+using System.CodeDom.Compiler;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 {
 	public partial class ComponentApiDoc
 	{
+		private static readonly (string type, string name)[] typeNames =
+		{
+			new() { type = "Int16",   name = "short"   },
+			new() { type = "UInt16",  name = "ushort"  },
+			new() { type = "Int32",   name = "int"     },
+			new() { type = "UInt32",  name = "uint"    },
+			new() { type = "Int64",   name = "long"    },
+			new() { type = "UInt64",  name = "ulong"   },
+			new() { type = "Boolean", name = "bool"    },
+			new() { type = "String",  name = "string"  },
+			new() { type = "Char",    name = "char"    },
+			new() { type = "Decimal", name = "decimal" },
+			new() { type = "Double",  name = "double"  },
+			new() { type = "Byte",    name = "byte"    },
+			new() { type = "Sbyte",   name = "sbyte"   },
+			new() { type = "Void",    name = "void"    }
+		};
+
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		/// <summary>
@@ -449,38 +469,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 		}
 
-		public static string FormatType(Type type)
+		private static string ReplaceTypeNames(string type)
 		{
-			string shortType = type.ToString().Split('.')[^1];
-			shortType = RemoveSpecialCharacters(shortType);
-
-			switch (shortType)
+			foreach (var typeName in typeNames)
 			{
-				case "Int16":
-					return "short";
-				case "UInt16":
-					return "ushort";
-				case "Int32":
-					return "int";
-				case "UInt32":
-					return "uint";
-				case "Int64":
-					return "long";
-				case "UInt64":
-					return "ulong";
-				case "Boolean":
-					return "bool";
-				case "String":
-				case "Char":
-				case "Decimal":
-				case "Double":
-				case "Byte":
-				case "Sbyte":
-				case "Void":
-					return shortType.ToLower();
+				type = type.Replace(typeName.type, typeName.name);
 			}
 
-			return shortType;
+			return type;
+		}
+
+		public static string FormatType(Type type)
+		{
+			string typeName = type.FullName;
+			if (string.IsNullOrWhiteSpace(typeName))
+			{
+				return string.Empty;
+			}
+
+			typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces
+
+			var provider = CodeDomProvider.CreateProvider("CSharp");
+			var reference = new CodeTypeReference(typeName);
+
+			typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
+			return Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
 		}
 
 		public static string RemoveSpecialCharacters(string text)
