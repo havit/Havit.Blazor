@@ -39,6 +39,14 @@ namespace BlazorAppTest
 
 			services.AddHxMessenger();
 			services.AddHxMessageBoxHost();
+
+			// TESTs for Defaults
+			//HxAutosuggest.Defaults.InputSize = InputSize.Large;
+			//HxInputText.Defaults.InputSize = InputSize.Large;
+			//HxInputNumber.Defaults.InputSize = InputSize.Large;
+			//HxSelect.Defaults.InputSize = InputSize.Large;
+			//HxInputDate.Defaults.InputSize = InputSize.Large;
+			//HxInputDateRange.Defaults.InputSize = InputSize.Large;
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

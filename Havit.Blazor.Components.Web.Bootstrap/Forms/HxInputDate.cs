@@ -19,7 +19,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Date range input.
 	/// </summary>
-	public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder
+	public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, IInputWithSize
 	{
 		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(DateTime), typeof(DateTimeOffset) };
@@ -45,7 +45,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		[Parameter] public string Placeholder { get; set; }
 
+		/// <inheritdoc />
+		[Parameter] public InputSize? InputSize { get; set; }
+
 		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
+
+		/// <summary>
+		/// Returns <see cref="HxInputDate{TValue}"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual InputDateDefaults GetDefaults() => HxInputDate.Defaults;
+		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		public HxInputDate()
 		{
@@ -69,6 +80,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(202, nameof(HxInputDateInternal<TValue>.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.ParsingErrorMessageEffective), GetParsingErrorMessage());
 			builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.Placeholder), Placeholder);
+			builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.InputSize), ((IInputWithSize)this).InputSizeEffective);
 			builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.CustomDates), GetCustomDates().ToList());
 
 			builder.CloseComponent();

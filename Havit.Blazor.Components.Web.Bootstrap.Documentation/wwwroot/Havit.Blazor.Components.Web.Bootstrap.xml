@@ -443,8 +443,22 @@
             Adds <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer"/> to a builder.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.GetDefaults">
+            <summary>
+            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.DisposeAsync">
             <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal.GetDefaults">
+            <summary>
+            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal.DisposeAsync">
             <inheritdoc />
@@ -555,6 +569,11 @@
             Input-group at the end of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputDefaultsWithSize.InputSize">
+            <summary>
+            Input size.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithLabelType">
             <summary>
             Input with sizing support.
@@ -590,7 +609,7 @@
             Input size.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.GetInputSizeCssClass">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.GetInputSizeEffectiveCssClass">
             <summary>
             Returns css class to render component with desired size.
             </summary>
@@ -948,9 +967,34 @@
             The provided items by the request.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Defaults">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDefaults">
             <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
+            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDefaults.SearchIcon">
+            <summary>
+            Icon displayed in input when no item is selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDefaults.ClearIcon">
+            <summary>
+            Icon displayed in input on selection clear button when item is selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDefaults.MinimumLength">
+            <summary>
+            Minimal number of characters to start suggesting. Default is <c>2</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDefaults.Delay">
+            <summary>
+            Debounce delay in miliseconds. Default is <c>300 ms</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDefaults.InputSize">
+            <summary>
+            Input size.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ValueSelector">
@@ -1039,29 +1083,14 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.RenderChipValue(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggestDefaults">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest">
             <summary>
-            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
+            Non-generic API for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2" />.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggestDefaults.SearchIcon">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest.Defaults">
             <summary>
-            Icon displayed in input when no item is selected.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggestDefaults.ClearIcon">
-            <summary>
-            Icon displayed in input on selection clear button when item is selected.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggestDefaults.MinimumLength">
-            <summary>
-            Minimal number of characters to start suggesting. Default is <c>2</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggestDefaults.Delay">
-            <summary>
-            Debounce delay in miliseconds. Default is <c>300 ms</c>.
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.BindEvent">
@@ -1465,6 +1494,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.Placeholder">
             <inheritdoc />
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputSize">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetDefaults">
+            <summary>
+            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.FormatValueAsString(`0)">
             <inheritdocs />
         </member>
@@ -1475,13 +1514,23 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate">
             <summary>
-            Marker for resources for HxInputDate&lt;&gt;.
-            It is unfriendly to create resources for generic classes.
+            Non-generic API for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/>.
+            Marker for resources for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange">
             <summary>
             Date range input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.UseDefaultDateRanges">
@@ -1494,6 +1543,9 @@
             Custom date ranges. When <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.UseDefaultDateRanges"/> is true, these items are used with default items.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.InputSize">
+            <inheritdoc />
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromParsingErrorMessage">
             <summary>
             Gets or sets the error message used when displaying an a &quot;from&quot; parsing error.
@@ -1504,6 +1556,13 @@
             <summary>
             Gets or sets the error message used when displaying an a &quot;to&quot; parsing error.
             Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetDefaults">
+            <summary>
+            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FormatValueAsString(Havit.Blazor.Components.Web.Bootstrap.DateTimeRange)">
@@ -1561,6 +1620,13 @@
             Returns true for integer types (false for floating point types).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.GetDefaults">
+            <summary>
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.#ctor">
             <summary>
             Constructor.
@@ -1586,8 +1652,13 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber">
             <summary>
-            Marker for resources for HxInputNumber&lt;&gt;.
-            It is unfriendly to create resources for generic classes.
+            Non-generic API for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1"/>.
+            Marker for resources for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputSwitch">
@@ -1601,6 +1672,11 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputText">
             <summary>
             Text input (also password, search, etc.)
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputText.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputText"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputText.Type">
@@ -1647,6 +1723,13 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.LabelType">
             <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.GetDefaults">
+            <summary>
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputText"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
@@ -1813,6 +1896,16 @@
             Default value is <c>true</c>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect">
+            <summary>
+            Non-generic API for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/> (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2"/> and derived components respectively).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2">
             <summary>
             Base class for HxSelect and custom-implemented SELECT-pickers.
@@ -1884,6 +1977,13 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.EnabledEffective">
             <inheritdoc />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.GetDefaults">
+            <summary>
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc/>
         </member>
@@ -1937,14 +2037,64 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.System#IDisposable#Dispose">
             <inheritdoc />
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputType">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults">
             <summary>
-            Input type.
+            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.InputSize">
+            <summary>
+            Input size.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults">
+            <summary>
+            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults.InputSize">
+            <summary>
+            Input size.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputNumberDefaults">
+            <summary>
+            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberDefaults.InputSize">
+            <summary>
+            Input size.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsFormControlCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
+            <summary>
+            Returns CSS class to render input (form-control) with desired size.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsFormSelectCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
+            <summary>
+            Returns CSS class to render select (form-select) with desired size.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.StringPatternizer.TranslateInlineCharCodes(System.String)">
             <summary>
             Searches for character codes surrounded with '{' and '}' and replaces them with corresponding symbol.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTextDefaults">
+            <summary>
+            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputText"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextDefaults.InputSize">
+            <summary>
+            Input size.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputType">
+            <summary>
+            Input type.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.LabelType">
@@ -1961,6 +2111,16 @@
             <summary>
              Floating label. Not supported on all components.
             https://getbootstrap.com/docs/5.0/forms/floating-labels/
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectDefaults">
+            <summary>
+            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectDefaults.InputSize">
+            <summary>
+            Input size.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CellTemplate">

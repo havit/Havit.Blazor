@@ -17,6 +17,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class HxInputText : HxInputTextBase
 	{
 		/// <summary>
+		/// Application-wide defaults for the <see cref="HxInputText"/>.
+		/// </summary>
+		public static InputTextDefaults Defaults { get; } = new InputTextDefaults();
+
+		/// <summary>
 		/// Input type.
 		/// </summary>
 		[Parameter] public InputType Type { get; set; } = InputType.Text;

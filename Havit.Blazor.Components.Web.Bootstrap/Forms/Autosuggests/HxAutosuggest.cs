@@ -12,11 +12,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
-		/// <summary>
-		/// Application-wide defaults for the <see cref="HxAutosuggest{TItem, TValue}"/>.
-		/// </summary>
-		public static HxAutosuggestDefaults Defaults { get; } = new HxAutosuggestDefaults();
-
 		[Parameter] public AutosuggestDataProviderDelegate<TItem> DataProvider { get; set; }
 
 		/// <summary>
@@ -68,7 +63,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Placeholder { get; set; }
 
 		/// <inheritdoc />
-		[Parameter] public InputSize InputSize { get; set; }
+		[Parameter] public InputSize? InputSize { get; set; }
 
 		/// <inheritdoc />
 		[Parameter] public LabelType? LabelType { get; set; }
@@ -94,12 +89,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual HxAutosuggestDefaults GetDefaults() => HxAutosuggest<TItem, TValue>.Defaults;
+		protected virtual AutosuggestDefaults GetDefaults() => HxAutosuggest.Defaults;
+		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
-			HxAutosuggestDefaults defaults = this.GetDefaults();
+			AutosuggestDefaults defaults = this.GetDefaults();
 
 			LabelType labelTypeEffective = (this as IInputWithLabelType).LabelTypeEffective;
 

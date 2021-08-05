@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Non-generic API for <see cref="HxInputDate{TValue}"/>.
-	/// Marker for resources for <see cref="HxInputDate{TValue}"/>.
+	/// Non-generic API for <see cref="HxAutosuggest{TItem, TValue}" />.
 	/// </summary>
-	public class HxInputDate
+	public class HxAutosuggest
 	{
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputDate{TValue}"/>.
 		/// </summary>
-		public static InputDateDefaults Defaults { get; } = new InputDateDefaults();
+		public static AutosuggestDefaults Defaults { get; } = new AutosuggestDefaults();
 	}
 }

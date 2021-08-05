@@ -12,7 +12,7 @@
 			<DataAnnotationsValidator />
 			<ValidationSummary />
 
-			<HxFormValue Label="Text"  Hint="This item cannot be edited.">
+			<HxFormValue Label="Text"  Hint="This item cannot be edited." >
 				<InputGroupEndTemplate>
 					<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
 					<ul class="dropdown-menu">
@@ -52,7 +52,7 @@
 			<HxSelect Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfoSelect" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
 			<HxSelect Label="Select (Data == null, small)" TItem="CultureInfo" TValue="CultureInfo" @bind-Value="@context.CultureInfoSelect" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" />
 
-			<HxAutosuggest Label="Autosuggest (large)" @bind-Value="@context.CultureInfoAutosuggest" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider" InputSize="InputSize.Large">
+			<HxAutosuggest Label="Autosuggest" @bind-Value="@context.CultureInfoAutosuggest" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider">
 				<HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
 			</HxAutosuggest>
 

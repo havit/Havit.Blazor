@@ -12,11 +12,13 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public partial class HxInputDateRangeInternal : IAsyncDisposable
+	public partial class HxInputDateRangeInternal : IAsyncDisposable, IInputWithSize
 	{
 		[Parameter] public string FromInputId { get; set; }
 
 		[Parameter] public string InputCssClass { get; set; }
+
+		[Parameter] public InputSize? InputSize { get; set; }
 
 		[Parameter] public bool EnabledEffective { get; set; } = true;
 
@@ -44,6 +46,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private ElementReference fromInputElement;
 		private ElementReference toInputElement;
 		private IJSObjectReference jsModule;
+
+		/// <summary>
+		/// Returns <see cref="HxInputDateRange"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual InputDateRangeDefaults GetDefaults() => HxInputDateRange.Defaults;
+		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		protected override void OnParametersSet()
 		{

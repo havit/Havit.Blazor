@@ -18,9 +18,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Date range input.
 	/// </summary>
-	public class HxInputDateRange : HxInputBase<DateTimeRange>
+	public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	{
 		public static List<DateRangeItem> DefaultDateRanges { get; set; }
+
+		/// <summary>
+		/// Application-wide defaults for the <see cref="HxInputDateRange"/>.
+		/// </summary>
+		public static InputDateRangeDefaults Defaults { get; } = new InputDateRangeDefaults();
 
 		/// <summary>
 		/// When true, uses default date ranges (this month, last month, this year, last year).
@@ -31,6 +36,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Custom date ranges. When <see cref="UseDefaultDateRanges"/> is true, these items are used with default items.
 		/// </summary>
 		[Parameter] public IEnumerable<DateRangeItem> CustomDateRanges { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public InputSize? InputSize { get; set; }
 
 		/// <summary>
 		/// Gets or sets the error message used when displaying an a &quot;from&quot; parsing error.
@@ -46,6 +54,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
+		/// <summary>
+		/// Returns <see cref="HxInputDateRange"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual InputDateRangeDefaults GetDefaults() => Defaults;
+		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			builder.OpenComponent(1, typeof(HxInputDateRangeInternal));
@@ -56,6 +72,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			builder.AddAttribute(200, nameof(HxInputDateRangeInternal.FromInputId), InputId);
 			builder.AddAttribute(201, nameof(HxInputDateRangeInternal.InputCssClass), InputCssClass);
+			builder.AddAttribute(201, nameof(HxInputDateRangeInternal.InputSize), InputSize);
 			builder.AddAttribute(202, nameof(HxInputDateRangeInternal.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(203, nameof(HxInputDateRangeInternal.FromParsingErrorMessageEffective), GetFromParsingErrorMessage());
 			builder.AddAttribute(204, nameof(HxInputDateRangeInternal.ToParsingErrorMessageEffective), GetToParsingErrorMessage());

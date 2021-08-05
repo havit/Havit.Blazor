@@ -1,4 +1,5 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Forms;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -20,7 +21,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public abstract class HxSelectBase<TValue, TItem> : HxInputBase<TValue>, IInputWithSize
 	{
 		/// <inheritdoc />
-		[Parameter] public InputSize InputSize { get; set; }
+		[Parameter] public InputSize? InputSize { get; set; }
 
 		/// <summary>
 		/// Indicates when null is a valid value.
@@ -115,6 +116,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private List<TItem> itemsToRender;
 		private int selectedItemIndex;
 		private string chipValue;
+
+		/// <summary>
+		/// Return <see cref="HxInputNumber{TValue}"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual SelectDefaults GetDefaults() => HxSelect.Defaults;
+		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		string IInputWithSize.GetInputSizeEffectiveCssClass() => ((IInputWithSize)this).InputSizeEffective.AsFormSelectCssClass();
 
 		/// <inheritdoc/>
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -235,17 +245,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override void RenderChipValue(RenderTreeBuilder builder)
 		{
 			builder.AddContent(0, chipValue);
-		}
-
-		string IInputWithSize.GetInputSizeCssClass()
-		{
-			return this.InputSize switch
-			{
-				InputSize.Regular => null,
-				InputSize.Small => "form-select-sm",
-				InputSize.Large => "form-select-lg",
-				_ => throw new InvalidOperationException(InputSize.ToString())
-			};
 		}
 	}
 }

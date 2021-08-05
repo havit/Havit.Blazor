@@ -35,7 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Placeholder { get; set; }
 
 		/// <inheritdoc />
-		[Parameter] public InputSize InputSize { get; set; }
+		[Parameter] public InputSize? InputSize { get; set; }
 
 		/// <inheritdoc />
 		[Parameter] public LabelType? LabelType { get; set; }
@@ -82,6 +82,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					|| (undelyingType == typeof(long));
 			}
 		}
+
+		/// <summary>
+		/// Return <see cref="HxInputNumber{TValue}"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual InputNumberDefaults GetDefaults() => HxInputNumber.Defaults;
+		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		/// <summary>
 		/// Constructor.

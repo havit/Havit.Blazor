@@ -7,10 +7,14 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Marker for resources for HxInputNumber&lt;&gt;.
-	/// It is unfriendly to create resources for generic classes.
+	/// Non-generic API for <see cref="HxInputNumber{TValue}"/>.
+	/// Marker for resources for <see cref="HxInputNumber{TValue}"/>.
 	/// </summary>
-	internal sealed class HxInputNumber
+	public class HxInputNumber
 	{
+		/// <summary>
+		/// Application-wide defaults for the <see cref="HxAutosuggest{TItem, TValue}"/>.
+		/// </summary>
+		public static InputNumberDefaults Defaults { get; } = new InputNumberDefaults();
 	}
 }

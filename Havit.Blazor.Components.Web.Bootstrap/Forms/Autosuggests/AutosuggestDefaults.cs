@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Default values for <see cref="HxAutosuggest{TItem, TValue} "/>.
 	/// </summary>
-	public class HxAutosuggestDefaults
+	public class AutosuggestDefaults : IInputDefaultsWithSize
 	{
 		/// <summary>
 		/// Icon displayed in input when no item is selected.
@@ -31,5 +32,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public int Delay { get; set; } = 300;
 
+		/// <summary>
+		/// Input size.
+		/// </summary>
+		public InputSize InputSize { get; set; } = InputSize.Regular;
 	}
 }
