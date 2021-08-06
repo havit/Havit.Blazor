@@ -114,7 +114,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge">
             <summary>
-            Bootstrap Badge component. https://getbootstrap.com/docs/5.0/components/badge/
+            <see href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</see> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Color">

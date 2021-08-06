@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
+using static System.Net.WebRequestMethods;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Bootstrap Badge component. https://getbootstrap.com/docs/5.0/components/badge/
+	/// <see href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</see> component.
 	/// </summary>
 	public partial class HxBadge
 	{
