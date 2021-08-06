@@ -3705,6 +3705,12 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxToast.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</see> component.
+            Rendered as a span (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Text">
             <summary>
             Tooltip text to display above the content.

@@ -1,15 +1,11 @@
-﻿@page "/components/HxTooltip"
+﻿@attribute [Route("/components/" + nameof(HxTooltip))]
 
 <ComponentApiDoc Type="typeof(HxTooltip)" DisplayBootstrapLink="false">
-    <p class="lead">
-        Bootstrap Tooltip. Rendered as a span (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
-        <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">https://getbootstrap.com/docs/5.0/components/tooltips/</a>
-    </p>
+	<p>The tooltips activates on hover only.</p>
 
-    <p>The tooltips actives on hover only.</p>
+	<h3>@nameof(HxButton) support</h3>
+	The tooltip support is also embedded in <a href="/components/@nameof(HxButton)">@nameof(HxButton)</a>.
+
+	<h2>Examples</h2>
+	<Demo Type="typeof(HxTooltip_Demo)" />
 </ComponentApiDoc>
-
-<h3>@nameof(HxButton) support</h3>
-The tooltip support is also embedded in @nameof(HxButton).
-
-<Demo Type="typeof(HxTooltip_Demo)" />

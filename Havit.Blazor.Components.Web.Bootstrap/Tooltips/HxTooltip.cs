@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
+using static System.Net.WebRequestMethods;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// <see href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</see> component.
+	/// Rendered as a span (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
+	/// </summary>
 	public class HxTooltip : ComponentBase, IAsyncDisposable
 	{
 		/// <summary>
@@ -69,7 +74,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				bool shouldDestroyTooltip = String.IsNullOrEmpty(Text) && !String.IsNullOrEmpty(lastText); // when there is no tooltip anymore
 				lastText = Text;
 
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxtooltip.js");
+				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxTooltip) + ".js");
 
 				if (shouldCreateOrUpdateTooltip)
 				{
