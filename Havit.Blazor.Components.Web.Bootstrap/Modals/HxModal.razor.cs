@@ -11,7 +11,7 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Component to render modal dialog as a Bootstrap Modal.
+	/// Component to render modal dialog as a <see href="https://getbootstrap.com/docs/5.1/components/modal/">Bootstrap Modal</see>.
 	/// </summary>
 	public partial class HxModal : IAsyncDisposable
 	{
@@ -155,7 +155,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				shouldOpenModal = false;
 
 				// Running JS interop is postponed to OnAfterAsync to ensure modalElement is set.
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxmodal.js");
+				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxModal) + ".js");
 				await jsModule.InvokeVoidAsync("show", modalElement, dotnetObjectReference, UseStaticBackdrop, CloseOnEscape);
 			}
 		}
