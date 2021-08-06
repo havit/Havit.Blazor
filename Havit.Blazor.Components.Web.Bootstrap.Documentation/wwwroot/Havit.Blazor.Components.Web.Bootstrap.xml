@@ -1852,19 +1852,19 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2">
             <summary>
-            Select. Consider creating custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2"/>.
+            Select - DropDownList - single-item picker. Consider creating custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2"/>.
             </summary>
             <typeparam name="TValue">Type of value.</typeparam>
             <typeparam name="TItem">Type of items.</typeparam>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.Nullable">
             <summary>
-            Indicates whether null is a valid value.
+            Indicates whether <c>null</c> is a valid value.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.NullText">
             <summary>
-            Text to display for null value.
+            Text to display for <c>null</c> value.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.NullDataText">
@@ -1875,7 +1875,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.ValueSelector">
             <summary>
             Selects value from item.
-            Not required when TValueType is same as TItemTime.
+            Not required when <c>TValueType</c> is same as <c>TItemTime</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.Data">
@@ -1897,7 +1897,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.AutoSort">
             <summary>
-            When true, items are sorted before displaying in select.
+            When <c>true</c>, items are sorted before displaying in select.
             Default value is <c>true</c>.
             </summary>
         </member>

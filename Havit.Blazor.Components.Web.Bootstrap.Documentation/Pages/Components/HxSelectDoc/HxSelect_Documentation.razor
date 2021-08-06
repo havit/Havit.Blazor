@@ -1,45 +1,6 @@
-﻿@page "/components/hxselect"
+﻿@attribute [Route("/components/" + nameof(HxSelect))]
 
-<h1>@nameof(HxSelect<object, object>)</h1>
-<p class="lead">
-	Single-item picker.
-</p>
-
-<h3>Properties</h3>
-<ul>
-	<li>
-		<strong>@nameof(HxSelect<object, object>.AutoSort)</strong><br />
-		When true, items are sorted before displaying in select. Default value is <code>true</code>.
-	</li>
-	<li>
-		<strong>@nameof(HxSelect<object, object>.SortKeySelector)</strong><br />
-		Selects value to sort items. Uses <code>@nameof(HxRadioButtonList<object, object>.TextSelector)</code> property when not set.<br />
-		When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
-	</li>
-	<li>
-		<strong>@nameof(HxSelect<object, object>.Data)</strong><br />
-		Items to display.
-	</li>
-	<li>
-		<strong>@nameof(HxSelect<object, object>.TextSelector)</strong><br />
-		Selects text to display from item. When not set <code>ToString()</code> is used.
-	</li>
-	<li>
-		<strong>@nameof(HxSelect<object, object>.ValueSelector)</strong><br />
-		Selects value from item.
-	</li>
-	<li>
-		<strong>@nameof(HxSelect<object, object>.Nullable)</strong><br />
-		Indicates whether null is a valid value.
-	</li>
-	<li>
-		<strong>@nameof(HxSelect<object, object>.NullText)</strong><br />
-		Text to display for <code>null</code> value.
-	</li>
-	<li>
-		<strong>@nameof(HxSelect<object, object>.NullDataText)</strong><br />
-		Text to display when <code>@nameof(HxSelect<object, object>.Data)</code> is <code>null</code>.
-	</li>
-</ul>
-
-<Demo Type="typeof(HxSelect_Demo)" />
+<ComponentApiDoc Type="typeof(HxSelect<string, string>)">
+	<h2>Examples</h2>
+	<Demo Type="typeof(HxSelect_Demo)" />
+</ComponentApiDoc>

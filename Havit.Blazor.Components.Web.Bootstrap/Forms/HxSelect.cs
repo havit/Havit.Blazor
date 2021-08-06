@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +8,14 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Select. Consider creating custom picker derived from <see cref="HxSelectBase{TValueType, TItem}"/>.
+	/// Select - DropDownList - single-item picker. Consider creating custom picker derived from <see cref="HxSelectBase{TValueType, TItem}"/>.
 	/// </summary>
 	/// <typeparam name="TValue">Type of value.</typeparam>
 	/// <typeparam name="TItem">Type of items.</typeparam>
 	public class HxSelect<TValue, TItem> : HxSelectBase<TValue, TItem>
 	{
 		/// <summary>
-		/// Indicates whether null is a valid value.
+		/// Indicates whether <c>null</c> is a valid value.
 		/// </summary>
 		[Parameter]
 		public bool? Nullable
@@ -26,7 +25,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Text to display for null value.
+		/// Text to display for <c>null</c> value.
 		/// </summary>
 		[Parameter]
 		public string NullText
@@ -47,7 +46,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Selects value from item.
-		/// Not required when TValueType is same as TItemTime.
+		/// Not required when <c>TValueType</c> is same as <c>TItemTime</c>.
 		/// </summary>
 		[Parameter]
 		public Func<TItem, TValue> ValueSelector
@@ -89,7 +88,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// When true, items are sorted before displaying in select.
+		/// When <c>true</c>, items are sorted before displaying in select.
 		/// Default value is <c>true</c>.
 		/// </summary>
 		[Parameter]
