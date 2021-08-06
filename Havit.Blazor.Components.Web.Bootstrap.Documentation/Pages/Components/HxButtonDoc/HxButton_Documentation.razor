@@ -43,18 +43,18 @@
 		<strong>@nameof(HxButton.Spinner)</strong><br />
 		Set state of the embedded spinner. Leave <code>null</code> (default) if you want automated spinner when any of the <code>OnClick</code> handlers is running.
 		You can set an explicit <code>false</code> constant to disable (override) the spinner automation.
-		<div class="alert alert-warning">
+		<HxAlert Color="ThemeColor.Warning">
 			EditForm's <code>OnSubmit</code> events are not captured for spinner automation. Use HxButton's <code>OnClick</code>, <code>OnValidClick</code> and <code>OnInvalidClick</code> instead.
-		</div>
+		</HxAlert>
 	</li>
 	<li>
 		<strong>@nameof(HxButton.SingleClickProtection)</strong><br />
 		Set <code>false</code> if you want to allow multiple <code>OnClick</code> handlers in parallel. Default is <code>true</code>.
-		<div class="alert alert-info">
+		<HxAlert Color="ThemeColor.Info">
 			If (and only if) there is any of the <code>OnClick</code> handlers set, the single click protection sets the button to <code>disabled</code> during the callback (usually together with the Spinner).
 			It is intentionally not set, if there is no <code>OnClick</code> handler, as there might be an <code>OnSubmit</code> handler of the containing <code>EditForm</code>
 			set which would have been blocked if the button is disabled (see above).
-		</div>
+		</HxAlert>
 	</li>
 	<li>
 		<strong>@nameof(HxButton.Tooltip)</strong><br />

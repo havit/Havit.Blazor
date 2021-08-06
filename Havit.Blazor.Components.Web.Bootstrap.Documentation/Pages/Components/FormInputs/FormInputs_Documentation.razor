@@ -6,13 +6,13 @@
 	See also <a href="https://v5.getbootstrap.com/docs/5.0/forms/overview/">Bootstrap Forms</a>.
 </p>
 
-<div class="alert alert-info">
+<HxAlert Color="ThemeColor.Info">
 	Despite InputBase&lt;&gt; class requires to to be used within <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform">EditForm</a> with <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/data-binding">data binding</a> - they all require <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext">EditContext</a>, these components do not have such requirement.
-</div>
+</HxAlert>
 
-<div class="alert alert-info">
+<HxAlert Color="ThemeColor.Info">
 	All components stop the onclick event propagation.
-</div>
+</HxAlert>
 
 
 <Demo Title="Quick Demo" Type="@typeof(FormInputs_QuickDemo)" />
@@ -104,4 +104,5 @@
 <h2>@nameof(HxInputCheckbox)</h2>
 <h2>@nameof(HxInputSwitch)</h2>
 
+<h2>Examples</h2>
 <Demo Title="Quick Demo" Type="@typeof(FormInputs_Demo)" />

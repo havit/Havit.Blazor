@@ -2,9 +2,9 @@
 @attribute [Route("/components/" + nameof(HxAccordionItem))]
 
 <ComponentApiDoc Type="typeof(HxAccordion)">
-	<div class="alert alert-info">
+	<HxAlert Color="ThemeColor.Warning">
 		Do not use constant value for <code>@nameof(HxAccordion.ExpandedItemId)</code> as it reverts the accordion to that item on every roundtrip. Use <code>@nameof(HxAccordion.InitialExpandedItemId)</code> to set the initial state.
-	</div>
+	</HxAlert>
 
 	<h2>Examples</h2>
 	
