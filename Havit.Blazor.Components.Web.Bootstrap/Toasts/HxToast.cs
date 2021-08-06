@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
+using static System.Net.WebRequestMethods;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Toast. Not intented to be used in user code, use <see cref="HxMessenger"/>.
+	/// <see href="https://getbootstrap.com/docs/5.1/components/toasts/">Bootstrap Toast</see> component. Not intented to be used in user code, use <see cref="HxMessenger"/>.
 	/// After first render component never updates.
 	/// </summary>
 	public partial class HxToast : ComponentBase, IAsyncDisposable
@@ -177,8 +178,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (firstRender)
 			{
-				// we need to manualy setup the toast.
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxtoast.js");
+				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxToast) + ".js");
 				await jsModule.InvokeVoidAsync("show", toastElement, dotnetObjectReference);
 			}
 		}
