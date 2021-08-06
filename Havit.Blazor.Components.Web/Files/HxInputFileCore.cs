@@ -13,7 +13,10 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web
 {
-	public partial class HxInputFileCore : InputFile, IAsyncDisposable
+	/// <summary>
+	/// Raw component extending <see cref="InputFile"/> with direct upload.
+	/// </summary>
+	public class HxInputFileCore : InputFile, IAsyncDisposable
 	{
 		/// <summary>
 		/// URL of the server endpoint receiving the files.
@@ -78,9 +81,9 @@ namespace Havit.Blazor.Components.Web
 		/// </remarks>
 		public async Task StartUploadAsync(string accessToken = null)
 		{
-			Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(UploadUrl), $"{nameof(UploadUrl)} has to be set.");
+			Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(UploadUrl), nameof(UploadUrl) + " has to be set.");
 
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web/hxinputfilecore.js");
+			await EnsureJsModule();
 			filesUploaded = new ConcurrentBag<FileUploadedEventArgs>();
 
 			await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, this.UploadUrl, accessToken);
@@ -104,9 +107,13 @@ namespace Havit.Blazor.Components.Web
 		/// </summary>
 		public async Task<FileInfo[]> GetFilesAsync()
 		{
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web/hxinputfilecore.js");
-
+			await EnsureJsModule();
 			return await jsModule.InvokeAsync<FileInfo[]>("getFiles", Id);
+		}
+
+		private async Task EnsureJsModule()
+		{
+			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web/" + nameof(HxInputFileCore) + ".js");
 		}
 
 		/// <summary>
@@ -114,8 +121,7 @@ namespace Havit.Blazor.Components.Web
 		/// </summary>
 		public async Task ResetAsync()
 		{
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web/hxinputfilecore.js");
-
+			await EnsureJsModule();
 			await jsModule.InvokeVoidAsync("reset", Id);
 		}
 

@@ -127,6 +127,11 @@
             File last modification provided by the browser.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.HxInputFileCore">
+            <summary>
+            Raw component extending <see cref="T:Microsoft.AspNetCore.Components.Forms.InputFile"/> with direct upload.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.UploadUrl">
             <summary>
             URL of the server endpoint receiving the files.

@@ -1,17 +1,12 @@
-﻿@page "/components/hxinputfile"
-@*<h1>@nameof(HxInputFileCore)</h1>*@
+﻿@attribute [Route("/components/" + nameof(HxInputFile))]
+@attribute [Route("/components/" + nameof(HxInputFileCore))]
 
-<ComponentApiDoc Type="typeof(HxInputFileCore)">
-    <p class="lead">
-        Raw component extending @nameof(InputFile) with direct upload.
-    </p>
+<ComponentApiDoc Type="typeof(HxInputFile)">
+	<h2>Examples</h2>
+	<h3>Simple single file upload</h3>
+	<Demo Type="typeof(HxInputFile_SimpleDemo)" />
+	<h3>Complex demo</h3>
+	<Demo Type="typeof(HxInputFile_ComplexDemo)" />
 </ComponentApiDoc>
 
-<h1>@nameof(HxInputFile)</h1>
-<p class="lead">
-    Wraps @nameof(HxInputFileCore) as Bootstrap form control (incl. <code>Label</code> etc.)
-</p>
-
-<Demo Type="typeof(HxInputFile_SimpleDemo)" Title="Simple single file upload demo" />
-
-<Demo Type="typeof(HxInputFile_ComplexDemo)" Title="Complex demo" />
+<ComponentApiDoc Type="typeof(HxInputFileCore)" />
