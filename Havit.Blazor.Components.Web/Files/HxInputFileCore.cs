@@ -83,7 +83,7 @@ namespace Havit.Blazor.Components.Web
 		{
 			Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(UploadUrl), nameof(UploadUrl) + " has to be set.");
 
-			await EnsureJsModule();
+			await EnsureJsModuleAsync();
 			filesUploaded = new ConcurrentBag<FileUploadedEventArgs>();
 
 			await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, this.UploadUrl, accessToken);
@@ -107,11 +107,11 @@ namespace Havit.Blazor.Components.Web
 		/// </summary>
 		public async Task<FileInfo[]> GetFilesAsync()
 		{
-			await EnsureJsModule();
+			await EnsureJsModuleAsync();
 			return await jsModule.InvokeAsync<FileInfo[]>("getFiles", Id);
 		}
 
-		private async Task EnsureJsModule()
+		private async Task EnsureJsModuleAsync()
 		{
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web/" + nameof(HxInputFileCore) + ".js");
 		}
@@ -121,7 +121,7 @@ namespace Havit.Blazor.Components.Web
 		/// </summary>
 		public async Task ResetAsync()
 		{
-			await EnsureJsModule();
+			await EnsureJsModuleAsync();
 			await jsModule.InvokeVoidAsync("reset", Id);
 		}
 

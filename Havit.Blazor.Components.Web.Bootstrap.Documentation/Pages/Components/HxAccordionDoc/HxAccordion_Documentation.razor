@@ -1,30 +1,18 @@
-﻿@page "/components/hxaccordion"
+﻿@attribute [Route("/components/" + nameof(HxAccordion))]
+@attribute [Route("/components/" + nameof(HxAccordionItem))]
 
 <ComponentApiDoc Type="typeof(HxAccordion)">
-    <Demo Type="typeof(HxAccordion_PlainDemo)" Title="Plain, No IDs" />
-    <Demo Type="typeof(HxAccordion_ComplexDemo)" Title="Complex demo" />
+	<div class="alert alert-info">
+		Do not use constant value for <code>@nameof(HxAccordion.ExpandedItemId)</code> as it reverts the accordion to that item on every roundtrip. Use <code>@nameof(HxAccordion.InitialExpandedItemId)</code> to set the initial state.
+	</div>
+
+	<h2>Examples</h2>
+	
+	<h3>Plain, No IDs</h3>
+	<Demo Type="typeof(HxAccordion_PlainDemo)" />
+	
+	<h3>Complex demo</h3>
+	<Demo Type="typeof(HxAccordion_ComplexDemo)" />
 </ComponentApiDoc>
 
-<div class="alert alert-info">
-    Do not use constant value for <code>@nameof(HxAccordion.ExpandedItemId)</code> as it reverts the accordion to that item on every roundtrip. Use <code>@nameof(HxAccordion.InitialExpandedItemId)</code> to set the initial state.
-</div>
-
-<h3>@nameof(HxAccordionItem)</h3>
-<ul>
-    <li>
-        <strong>@nameof(HxAccordionItem.Id)</strong><br />
-        ID of the item. (Gets generated GUID if not set.)
-    </li>
-    <li>
-        <strong>@nameof(HxAccordionItem.HeaderTemplate), @nameof(HxAccordionItem.BodyTemplate)</strong><br />
-        Clickable header + collapsible body.
-    </li>
-    <li>
-        <strong>@nameof(HxAccordionItem.OnExpanded), @nameof(HxAccordionItem.OnCollapsed)</strong><br />
-        Callbacks available (raised after the transition as the animation ends).<br />
-    </li>
-    <li>
-        <strong>@(nameof(HxAccordionItem.ExpandAsync))(), @(nameof(HxAccordionItem.CollapseAsync))()</strong><br />
-        Allows setting state of the item.
-    </li>
-</ul>
+<ComponentApiDoc Type="typeof(HxAccordionItem)" />

@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[CascadingParameter] protected HxAccordion ParentAccordition { get; set; }
 
 		/// <summary>
-		/// Header (always visible).
+		/// Clickable header (always visible).
 		/// </summary>
 		[Parameter] public RenderFragment HeaderTemplate { get; set; }
 
@@ -28,7 +28,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment BodyTemplate { get; set; }
 
 		/// <summary>
-		/// ID of the item (<see cref="HxAccordion.ExpandedItemId"/>).
+		/// ID of the item (<see cref="HxAccordion.ExpandedItemId"/>). (Gets generated GUID if not set.)
 		/// </summary>
 		[Parameter] public string Id { get; set; } = Guid.NewGuid().ToString("N");
 
@@ -191,7 +191,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task EnsureJsModuleAsync()
 		{
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxaccordion.js");
+			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxAccordion) + ".js");
 		}
 	}
 }

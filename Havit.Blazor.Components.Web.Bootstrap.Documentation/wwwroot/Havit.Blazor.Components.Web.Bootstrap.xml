@@ -27,7 +27,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.HeaderTemplate">
             <summary>
-            Header (always visible).
+            Clickable header (always visible).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.BodyTemplate">
@@ -37,7 +37,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.Id">
             <summary>
-            ID of the item (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId"/>).
+            ID of the item (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId"/>). (Gets generated GUID if not set.)
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.OnExpanded">
