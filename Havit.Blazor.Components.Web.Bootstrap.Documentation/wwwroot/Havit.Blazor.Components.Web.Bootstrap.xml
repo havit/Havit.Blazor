@@ -287,6 +287,11 @@
             Set <c>false</c> if you want to allow multiple <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnClick"/> handlers in parallel. Default is <c>true</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying <code>&lt;button&gt;</code> element.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.StringLocalizerFactory">
             <summary>
             Localization service.
@@ -749,6 +754,101 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Enabled">
             <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DropdownDirection">
+            <summary>
+            Direction for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/>.
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#directions"/>
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DropdownDirection.Start">
+            <summary>
+            Left (in LTR).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DropdownDirection.End">
+            <summary>
+            Right (in LTR).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.Split">
+            <summary>
+            Set <c>true</c> to create a <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</see>
+            (using a <c>btn-group</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownContent">
+            <summary>
+            Custom dropdown content for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownContent.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownDivider">
+            <summary>
+            Divider for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu"/>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownHeader">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#headers">Dropdown menu header</see> for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownHeader.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem">
+            <summary>
+            Item of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.Href">
+            <summary>
+            The navigation target.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.OnClick">
+            <summary>
+            Raised when the item is clicked.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.Enabled">
+            <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu">
+            <summary>
+            Bootstrap Dropdown menu which opens when triggered.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggle">
+            <summary>
+            Bootstrap Dropdown toggle (the button) which triggers the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/> to open.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
             <summary>

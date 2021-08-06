@@ -1,0 +1,16 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+<li>
+	@if (String.IsNullOrWhiteSpace(this.Href) && (!OnClick.HasDelegate))
+	{
+		<span class="dropdown-item-text">@ChildContent</span>
+	}
+	else
+	{
+		@* FUTURE? : If <NavLink /> will be needed for menu, create a separate <HxDrodownMenuNavLinkItem />. *@
+		<a class="@CssClassHelper.Combine("dropdown-item", CascadeEnabledComponent.EnabledEffective(this) ? null : "disabled", this.CssClass)"
+		   href="@this.Href"
+		   @onclick="OnClick"
+		   @onclick:stopPropagation="true"
+		   role="button">@ChildContent</a>
+	}
+</li>

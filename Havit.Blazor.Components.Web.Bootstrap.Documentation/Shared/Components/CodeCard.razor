@@ -1,5 +1,8 @@
 ﻿<div class="card card-demo my-3">
-	<div class="card-header">@Title</div>
+	@if (!String.IsNullOrWhiteSpace(Title))
+	{
+		<div class="card-header">@Title</div>
+	}
 	<div class="card-body">
 <pre><code class="language-@(Language ?? "html")">
 	@ChildContent

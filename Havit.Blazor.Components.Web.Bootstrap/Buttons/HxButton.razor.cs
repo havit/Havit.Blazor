@@ -117,6 +117,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool SingleClickProtection { get; set; } = true;
 
 		/// <summary>
+		/// Additional attributes to be splatted onto an underlying <code>&lt;button&gt;</code> element.
+		/// </summary>
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+		/// <summary>
 		/// Localization service.
 		/// </summary>
 		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }

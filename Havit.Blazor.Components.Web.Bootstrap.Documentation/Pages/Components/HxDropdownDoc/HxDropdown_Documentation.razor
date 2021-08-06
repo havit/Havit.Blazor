@@ -1,0 +1,48 @@
+﻿@attribute [Route("/components/" + nameof(HxDropdown))]
+@attribute [Route("/components/" + nameof(HxDropdownToggle))]
+@attribute [Route("/components/" + nameof(HxDropdownMenu))]
+@attribute [Route("/components/" + nameof(HxDropdownItem))]
+@attribute [Route("/components/" + nameof(HxDropdownHeader))]
+@attribute [Route("/components/" + nameof(HxDropdownDivider))]
+@attribute [Route("/components/" + nameof(HxDropdownContent))]
+
+<ComponentApiDoc Type="typeof(HxDropdown)">
+
+	<h2>Basic structure</h2>
+	<CodeCard>
+@("<HxDropdown>")
+@("\t<HxDropdownToggle Color=\"ThemeColor.Secondary\">Dropdown button</HxDropdownToggle>")
+@("\t<HxDropdownMenu>")
+@("\t\t<HxDropdownItem Href=\"...\">Item 1</HxDropdownItem>")
+@("\t\t<HxDropdownItem OnClick=\"...\">Item 2</HxDropdownItem>")
+@("\t</HxDropdownMenu>")
+@("</HxDropdown>")
+	</CodeCard>
+
+	<h2>Examples</h2>
+
+	<h3>Single button</h3>
+	<Demo Type="typeof(HxDropdown_Demo_SingleButton)" />
+
+	<h3>Split button</h3>
+	<p>Set <code>HxDropdown.Split = "true"</code> and leave the <code>HxDrodownToggle.Text</code> empty (you can use the <code>ChildContent</code> to improve accessibility).</p>
+	<Demo Type="typeof(HxDropdown_Demo_Split)" />
+
+	<h3>Directions</h3>
+	<Demo Type="typeof(HxDropdown_Demo_Directions)" />
+
+	<h3>Header, Disabled, Active</h3>
+	<p>Set <code>CssClass="active"</code> to highlight the item. (In case of <code>NavLink</code> functionality needed, separate <code>HxDropdownMenuNavLinkItem</code> will be implemented.)</p>
+	<p>Set <code>Enabled="false"</code> to disable the item. The <code>HxFormState.Enabled</code> inheritance is also supported.</p>
+	<Demo Type="typeof(HxDropdown_Demo_HeaderDisabledActive)" />
+
+	<h3>Custom content</h3>
+	<p>Use <code>HxDropdownContent</code> instead of <code>HxDropdownMenu</code>.</p>
+	<Demo Type="typeof(HxDropdown_Demo_CustomContent)" />
+</ComponentApiDoc>
+
+<ComponentApiDoc Type="typeof(HxDropdownToggle)" />
+<ComponentApiDoc Type="typeof(HxDropdownMenu)" />
+<ComponentApiDoc Type="typeof(HxDropdownItem)" />
+<ComponentApiDoc Type="typeof(HxDropdownHeader)" />
+<ComponentApiDoc Type="typeof(HxDropdownDivider)" />

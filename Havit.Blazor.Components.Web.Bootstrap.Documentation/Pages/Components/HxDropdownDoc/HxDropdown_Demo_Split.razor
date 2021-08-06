@@ -1,0 +1,19 @@
+﻿<HxDropdown Split="true">
+	<HxButton Color="ThemeColor.Secondary" OnClick="HandleMainButtonClick">Dropdown button</HxButton>
+	<HxDropdownToggle Color="ThemeColor.Secondary">
+		<span class="visually-hidden">Toggle Dropdown</span>@* OPTIONAL (for accessibility) *@
+	</HxDropdownToggle>
+	<HxDropdownMenu>
+		<HxDropdownItem Href="#">Link with Href</HxDropdownItem>
+		<HxDropdownItem OnClick="HandleDropdownItemClick">Item with OnClick action</HxDropdownItem>
+		<HxDropdownDivider />
+		<HxDropdownItem>Something else here</HxDropdownItem>
+	</HxDropdownMenu>
+</HxDropdown>
+
+@message
+@code {
+	private string message;
+	private void HandleMainButtonClick() => message = "Main button clicked";
+	private void HandleDropdownItemClick() => message = "Dropdown item clicked";
+}

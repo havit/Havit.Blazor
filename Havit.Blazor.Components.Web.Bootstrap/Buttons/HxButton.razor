@@ -10,7 +10,8 @@
 			@onclick="HandleClick"
 			@onclick:stopPropagation="this.OnClickStopPropagation"
 			disabled="@DisabledEffective"
-			form="@FormId">
+			form="@FormId"
+			@attributes="this.AdditionalAttributes">
 
 			@if ((IconPosition == Internal.IconPosition.Start) && ((this.IconEffective is not null) || this.SpinnerEffective))
 			{

@@ -1,0 +1,14 @@
+﻿<HxDropdown>
+	<HxDropdownToggle Color="ThemeColor.Secondary">Dropdown button</HxDropdownToggle>
+	<HxDropdownMenu>
+		<HxDropdownItem Href="#">Link with Href</HxDropdownItem>
+		<HxDropdownItem OnClick="HandleDropdownItemClick">Item with OnClick action</HxDropdownItem>
+		<HxDropdownDivider />
+		<HxDropdownItem>Some text only</HxDropdownItem>
+	</HxDropdownMenu>
+</HxDropdown>
+@message
+@code {
+	private string message;
+	private void HandleDropdownItemClick() => message = "Dropdown item clicked";
+}

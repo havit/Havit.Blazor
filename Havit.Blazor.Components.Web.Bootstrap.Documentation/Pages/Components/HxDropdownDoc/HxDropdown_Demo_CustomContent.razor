@@ -1,0 +1,19 @@
+﻿<HxDropdown>
+	<HxDropdownToggle Color="ThemeColor.Secondary">Dropdown</HxDropdownToggle>
+	<HxDropdownContent CssClass="px-4 py-3">
+		<EditForm Model="model">
+			<HxInputText Label="Name" @bind-Value="model.Name" />
+			<HxInputText Label="Email address" @bind-Value="model.Email" />
+			<HxButton Text="Save" Color="ThemeColor.Primary" />
+		</EditForm>
+	</HxDropdownContent>
+</HxDropdown>
+@code
+{
+	private FormModel model = new();
+	public class FormModel
+	{
+		public string Name { get; set; }
+		public string Email { get; set; }
+	}
+}
