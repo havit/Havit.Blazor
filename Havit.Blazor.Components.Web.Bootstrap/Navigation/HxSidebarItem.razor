@@ -4,7 +4,11 @@
 <li class="@CssClassHelper.Combine("nav-item", CssClass)">
 	@if (@ChildContent is null)
 	{
-		<NavLink href="@Href" role="button" class="nav-link p-3" Match="this.Match">
+		<NavLink href="@Href"
+				 role="button"
+				 class="nav-link p-3"
+				 Match="@(this.Match ?? NavLinkMatch.All)"
+				 ActiveClass="@(((this.Match is null) || (this.Href is null)) ? String.Empty : "active")">
 			<div class="d-flex align-items-center">
 				@if (Icon != null)
 				{
@@ -18,7 +22,14 @@
 	}
 	else
 	{
-		<NavLink data-bs-toggle="collapse" class="nav-link p-3" data-bs-target="@("#" + id)" href="@(Href ?? "#")" Match="@(Href is null ? NavLinkMatch.All : this.Match)" role="button" aria-expanded="false">
+		<NavLink data-bs-toggle="collapse"
+				 class="nav-link p-3"
+				 data-bs-target="@("#" + id)"
+				 href="@Href"
+				 Match="@(this.Match ?? NavLinkMatch.All)"
+				 ActiveClass="@(((this.Match is null) || (this.Href is null)) ? String.Empty : "active")"
+				 role="button"
+				 aria-expanded="false">
 			<div class="d-flex align-items-center">
 				@if (Icon != null)
 				{

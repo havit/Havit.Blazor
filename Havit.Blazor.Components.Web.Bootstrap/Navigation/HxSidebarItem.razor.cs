@@ -23,9 +23,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// URL matching behavior for the underlying <see cref="NavLink"/>.
-		/// Default is <see cref="NavLinkMatch.Prefix"/>.
+		/// Default is <c>null</c> (none).
 		/// </summary>
-		[Parameter] public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
+		[Parameter] public NavLinkMatch? Match { get; set; }
 
 		/// <summary>
 		/// Any additional CSS class to add.
