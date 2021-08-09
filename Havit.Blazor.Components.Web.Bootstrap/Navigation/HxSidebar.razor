@@ -3,11 +3,10 @@
 <div class="@CssClassHelper.Combine("sidebar d-flex flex-column", GetDesktopCollapsedCssClass())">
 	<div class="nav-menu d-flex w-auto flex-column p-3 bg-white ">
 
-		<!--Brand-->
-		<div>
+		<div class="sidebar-brand">
 			@if (BrandTemplate == null)
 			{
-				<a href="/" class="d-flex  align-items-center pb-3 mb-3 link-dark text-decoration-none fs-6">
+				<a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none fs-6">
 					<div class="logo rounded-circle d-flex p-1 justify-content-center align-items-center text-white">
 						<span class="logo-text">@BrandNameShort</span>
 					</div>
@@ -20,31 +19,24 @@
 			}
 		</div>
 
-		<!--Desktop and Mobile togglers-->
-		<div class="navbar-toggler navbar-light" role="button" @onclick="ToggleMobileNavMenu">
+		<div class="navbar-toggler navbar-light" role="button" @onclick="HandleMobileCollapseToggleClick" @onclick:stopPropagation="true">
 			<span class="navbar-toggler-icon border rounded"></span>
 		</div>
-		<div class="navbar-desktop-toggler align-self-end" role="button"  @onclick="ToggleDesktopNavMenu">
-			<HxIcon Icon="@(CollapsedDesktop ? DesktopOpenCollapseIcon : DesktopCloseCollapseIcon)" />
+		<div class="navbar-desktop-toggler align-self-end" role="button" @onclick="HandleDesktopCollapseToggleClick" @onclick:stopPropagation="true">
+			<HxIcon Icon="@(collapsedDesktop ? DesktopExpandIcon : DesktopCollapseIcon)" />
 		</div>
 
 		<div class="@CssClassHelper.Combine("sidebar-inner flex-column mb-auto", @GetCollapsedMobileCssClass())">
-			<!--Navigation-->
 			<ul class="flex-column list-unstyled ps-0">
 				@ItemsTemplate
 			</ul>
 		</div>
 
-		<!--Login display-->
-		<div class="login-display d-flex ">
-			@if (LoginDisplayTemplate == null)
-			{
-				<span><HxIcon Icon="@LoginIcon" /> Login</span>
-			}
-			else
-			{
-				@LoginDisplayTemplate
-			}
-		</div>
+		@if (FooterTemplate is not null)
+		{
+			<div class="footer-template d-flex">
+				@FooterTemplate
+			</div>
+		}
 	</div>
 </div>
