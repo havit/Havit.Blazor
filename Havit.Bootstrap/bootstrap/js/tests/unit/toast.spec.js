@@ -467,18 +467,14 @@ describe('Toast', () => {
       fixtureEl.innerHTML = '<div></div>'
 
       const toastEl = fixtureEl.querySelector('div')
-      spyOn(toastEl, 'addEventListener').and.callThrough()
-      spyOn(toastEl, 'removeEventListener').and.callThrough()
 
       const toast = new Toast(toastEl)
 
       expect(Toast.getInstance(toastEl)).not.toBeNull()
-      expect(toastEl.addEventListener).toHaveBeenCalledWith('click', jasmine.any(Function), jasmine.any(Boolean))
 
       toast.dispose()
 
       expect(Toast.getInstance(toastEl)).toBeNull()
-      expect(toastEl.removeEventListener).toHaveBeenCalledWith('click', jasmine.any(Function), jasmine.any(Boolean))
     })
 
     it('should allow to destroy toast and hide it before that', done => {
@@ -589,6 +585,60 @@ describe('Toast', () => {
       const div = fixtureEl.querySelector('div')
 
       expect(Toast.getInstance(div)).toEqual(null)
+    })
+  })
+
+  describe('getOrCreateInstance', () => {
+    it('should return toast instance', () => {
+      fixtureEl.innerHTML = '<div></div>'
+
+      const div = fixtureEl.querySelector('div')
+      const toast = new Toast(div)
+
+      expect(Toast.getOrCreateInstance(div)).toEqual(toast)
+      expect(Toast.getInstance(div)).toEqual(Toast.getOrCreateInstance(div, {}))
+      expect(Toast.getOrCreateInstance(div)).toBeInstanceOf(Toast)
+    })
+
+    it('should return new instance when there is no toast instance', () => {
+      fixtureEl.innerHTML = '<div></div>'
+
+      const div = fixtureEl.querySelector('div')
+
+      expect(Toast.getInstance(div)).toEqual(null)
+      expect(Toast.getOrCreateInstance(div)).toBeInstanceOf(Toast)
+    })
+
+    it('should return new instance when there is no toast instance with given configuration', () => {
+      fixtureEl.innerHTML = '<div></div>'
+
+      const div = fixtureEl.querySelector('div')
+
+      expect(Toast.getInstance(div)).toEqual(null)
+      const toast = Toast.getOrCreateInstance(div, {
+        delay: 1
+      })
+      expect(toast).toBeInstanceOf(Toast)
+
+      expect(toast._config.delay).toEqual(1)
+    })
+
+    it('should return the instance when exists without given configuration', () => {
+      fixtureEl.innerHTML = '<div></div>'
+
+      const div = fixtureEl.querySelector('div')
+      const toast = new Toast(div, {
+        delay: 1
+      })
+      expect(Toast.getInstance(div)).toEqual(toast)
+
+      const toast2 = Toast.getOrCreateInstance(div, {
+        delay: 2
+      })
+      expect(toast).toBeInstanceOf(Toast)
+      expect(toast2).toEqual(toast)
+
+      expect(toast2._config.delay).toEqual(1)
     })
   })
 })
