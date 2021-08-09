@@ -1,23 +1,14 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
 <div class="@CssClassHelper.Combine("sidebar d-flex flex-column", GetDesktopCollapsedCssClass())">
-	<div class="nav-menu d-flex w-auto flex-column p-3 bg-white ">
+	<div class="nav-menu d-flex w-auto flex-column p-3 bg-white">
 
-		<div class="sidebar-brand">
-			@if (BrandTemplate == null)
-			{
-				<a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none fs-6">
-					<div class="logo rounded-circle d-flex p-1 justify-content-center align-items-center text-white">
-						<span class="logo-text">@BrandNameShort</span>
-					</div>
-					<span class="brand-name ms-2 fs-5 fw-semibold">@BrandName</span>
-				</a>
-			}
-			else
-			{
-				@BrandTemplate
-			}
-		</div>
+		@if (HeaderTemplate is not null)
+		{
+			<div class="sidebar-header">
+				@HeaderTemplate
+			</div>
+		}
 
 		<div class="navbar-toggler navbar-light" role="button" @onclick="HandleMobileCollapseToggleClick" @onclick:stopPropagation="true">
 			<span class="navbar-toggler-icon border rounded"></span>

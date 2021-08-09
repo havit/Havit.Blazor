@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Components.Routing;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Item for the <see cref="HxSidebar"/>.
+	/// </summary>
 	public partial class HxSidebarItem : ComponentBase
 	{
 		/// <summary>

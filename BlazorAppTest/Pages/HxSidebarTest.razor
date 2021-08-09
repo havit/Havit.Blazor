@@ -2,7 +2,11 @@
 <h1>HxSidebarTest</h1>
 
 <div>
-	<HxSidebar BrandName="Goran" BrandNameShort="G3">
+	<HxSidebar>
+		<HeaderTemplate>
+			<HxSidebarBrand BrandName="Brand name" BrandNameShort="BN" />
+		</HeaderTemplate>
+
 		<ItemsTemplate>
 			<HxSidebarItem Text="Match Test 1" Icon="BootstrapIcon.Person" Href="/HxSidebarTest" Match="NavLinkMatch.Prefix">
 				<HxSidebarItem Text="Item 1" Href="/HxSidebarTest#x1" Match="NavLinkMatch.All" />

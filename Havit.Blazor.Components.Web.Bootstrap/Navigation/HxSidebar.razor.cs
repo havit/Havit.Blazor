@@ -5,19 +5,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxSidebar : ComponentBase
 	{
 		/// <summary>
-		/// Brand long name (header).
+		/// Sidebar header.
 		/// </summary>
-		[Parameter] public string BrandName { get; set; }
-
-		/// <summary>
-		/// Brand short name (header).
-		/// </summary>
-		[Parameter] public string BrandNameShort { get; set; }
-
-		/// <summary>
-		/// Brand template (header).
-		/// </summary>
-		[Parameter] public RenderFragment BrandTemplate { get; set; }
+		[Parameter] public RenderFragment HeaderTemplate { get; set; }
 
 		/// <summary>
 		/// Sidebar items. Use <see cref="HxSidebarItem"/>.

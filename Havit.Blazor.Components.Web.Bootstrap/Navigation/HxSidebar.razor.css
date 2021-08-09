@@ -49,12 +49,6 @@
 	border-radius: 0.5rem;
 }
 
-.logo {
-	width: 2em;
-	height: 2em;
-	background-color: var(--primary);
-}
-
 ::deep a[aria-expanded="true"] .bi-chevron-right {
 	transform: rotate(90deg);
 }
@@ -69,7 +63,7 @@
 	width: 64px;
 }
 
-	.sidebar.desktop-collapse .brand-name,
+	.sidebar.desktop-collapse ::deep .brand-name,
 	.sidebar.desktop-collapse ::deep .text,
 	.sidebar.desktop-collapse ::deep .collapse .hx-icon {
 		display: none;
