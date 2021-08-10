@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Infrastructure;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -23,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Href { get; set; }
 
 		/// <summary>
-		/// Text.
+		/// Text of the item.
 		/// </summary>
 		[Parameter] public string Text { get; set; }
 
@@ -32,6 +33,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is <c>null</c> (disabled).
 		/// </summary>
 		[Parameter] public NavLinkMatch? Match { get; set; }
+
+		/// <summary>
+		/// Raised when the item is clicked.
+		/// </summary>
+		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
 		/// <summary>
 		/// Additional CSS class.

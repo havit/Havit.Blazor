@@ -1,5 +1,5 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<nav id="@this.Id" class="@CssClassHelper.Combine("nav", (this.Orientation == NavOrientation.Vertical) ? "flex-column" : null, this.CssClass)">
+<nav id="@this.Id" class="@CssClassHelper.Combine("nav", GetOrientationCssClass(), GetVariantCssClass(), this.CssClass)">
 	@ChildContent
 </nav>

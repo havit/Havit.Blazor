@@ -639,6 +639,19 @@
             Render value/input only. Label is not rendered (ie. <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2" /> with floating label which renders label internally).
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal">
+            <summary>
+            <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> variation which adds <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> and related stuff.
+            </summary>
+            <remarks>
+            <see href="https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682"/>
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick">
+            <summary>
+            Raised when the item is clicked.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSkin.None">
             <summary>
             Empty skin to be able to disable <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.DefaultSkin"/> locally.
@@ -3245,6 +3258,12 @@
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Horizontal"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.Variant">
+            <summary>
+            The visual variant of the nav items.
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Standard"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.Id">
             <summary>
             ID of the nav which can be used for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.TargetId"/>.
@@ -3272,13 +3291,18 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.Text">
             <summary>
-            Text.
+            Text of the item.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.Match">
             <summary>
             URL matching behavior for the underlying <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/>.
             Default is <c>null</c> (disabled).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.OnClick">
+            <summary>
+            Raised when the item is clicked.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.CssClass">
@@ -3400,7 +3424,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.Match">
             <summary>
             URL matching behavior for the underlying <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/>.
-            Default is <c>null</c> (none).
+            Default is <c>null</c> (disabled).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.CssClass">
@@ -3421,6 +3445,23 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Vertical">
             <summary>
             <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#vertical"/>
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavVariant">
+            <summary>
+            Variations for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNav"/>.
+            </summary>
+            <remarks>Can be switched to [Flags] when needed.</remarks>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs">
+            <summary>
+            Tabs. <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#tabs"/>.
+            Remember to set <c>active</c> tab (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.CssClass"/>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Pills">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills"/>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas">

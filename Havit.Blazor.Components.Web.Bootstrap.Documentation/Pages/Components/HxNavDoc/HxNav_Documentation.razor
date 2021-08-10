@@ -2,11 +2,19 @@
 @attribute [Route("/components/" + nameof(HxNavLink))]
 
 <ComponentApiDoc Type="typeof(HxNav)">
-	<h2>Base nav</h2>
+	<h3>Base nav</h3>
 	<Demo Type="typeof(HxNav_Demo_BaseNav)" />
 
-	<h2>Vertical</h2>
+	<h3>Vertical</h3>
 	<Demo Type="typeof(HxNav_Demo_Vertical)" />
+
+	<h3>Tabs</h3>
+	<p>The raw implementation requires you to set the <code>active</code> class on your own (the <code>Match</code> behavior on <code>Href</code> might help).</p>
+	<p>See <a href="/components/@nameof(HxTabPanel)">@nameof(HxTabPanel)</a> for more sophisticated implementation.</p>
+	<Demo Type="typeof(HxNav_Demo_Tabs)" />
+
+	<h3>Pills</h3>
+	<Demo Type="typeof(HxNav_Demo_Pills)" />
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxNavLink)" />
