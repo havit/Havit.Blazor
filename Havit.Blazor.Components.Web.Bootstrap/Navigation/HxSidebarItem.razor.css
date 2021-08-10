@@ -1,9 +1,9 @@
-﻿.nav-item {
+﻿::deep .nav-link {
 	font-size: 0.875rem;
 	line-height: 1;
 }
 
-::deep .nav-link, a {
+::deep a.nav-link {
 	font-size: .9rem;
 	color: var(--bs-dark);
 }

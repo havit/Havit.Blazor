@@ -3239,6 +3239,12 @@
             <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap Nav</see> component.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.Orientation">
+            <summary>
+            Orientation of the nav.
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Horizontal"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.Id">
             <summary>
             ID of the nav which can be used for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.TargetId"/>.
@@ -3246,37 +3252,51 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.CssClass">
             <summary>
-            Offcanvas additional CSS class. Added to root div (.offcanvas).
+            Additional CSS class.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.ChildContent">
             <summary>
-            Content of the navbar.
+            Content of the nav.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavItem">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavLink">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-item</see> component.
+            <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-link</see> component.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavItem.Icon">
-            <summary>
-            Icon (optional).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavItem.Text">
-            <summary>
-            Basic text representing the nav-item.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavItem.Href">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.Href">
             <summary>
             Navigation target.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavItem.ChildContent">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.Text">
             <summary>
-            Collapsible child-content.
+            Text.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.Match">
+            <summary>
+            URL matching behavior for the underlying <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/>.
+            Default is <c>null</c> (disabled).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.CssClass">
+            <summary>
+            Additional CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.Enabled">
+            <inheritdoc />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.ChildContent">
+            <summary>
+            Content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> component.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy">
@@ -3296,7 +3316,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.ChildContent">
             <summary>
-            Content to be spied. Elements with IDs are required (corresponding IDs to be used in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavItem.Href"/>).
+            Content to be spied. Elements with IDs are required (corresponding IDs to be used in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.Href"/>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.OnAfterRenderAsync(System.Boolean)">
@@ -3317,19 +3337,9 @@
             Additional attributes to be splatted onto an underlying <code>&lt;a&gt;</code> element.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.BrandName">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.HeaderTemplate">
             <summary>
-            Brand long name (header).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.BrandNameShort">
-            <summary>
-            Brand short name (header).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.BrandTemplate">
-            <summary>
-            Brand template (header).
+            Sidebar header.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.ItemsTemplate">
@@ -3352,6 +3362,26 @@
             Sidebar footer (e.g. logged user, language switch, ...).
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand">
+            <summary>
+            Brand for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.HeaderTemplate"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.BrandName">
+            <summary>
+            Brand long name.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.BrandNameShort">
+            <summary>
+            Brand short name.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem">
+            <summary>
+            Item for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.Text">
             <summary>
             Item text.
@@ -3370,7 +3400,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.Match">
             <summary>
             URL matching behavior for the underlying <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/>.
-            Default is <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
+            Default is <c>null</c> (none).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.CssClass">
@@ -3381,6 +3411,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.ChildContent">
             <summary>
             Sub-items (not intended to be used for any other purpose).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavOrientation">
+            <summary>
+            Orientation for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNav"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Vertical">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#vertical"/>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas">

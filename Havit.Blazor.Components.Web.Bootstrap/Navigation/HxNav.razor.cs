@@ -14,18 +14,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxNav
 	{
 		/// <summary>
-		/// ID of the nav which can be used for <see cref="HxScrollspy.TargetId"/>.
+		/// Orientation of the nav.
+		/// Default is <see cref="NavOrientation.Horizontal"/>.
 		/// </summary>
-		// [EditorRequired]
-		[Parameter] public string Id { get; set; } = "hx" + Guid.NewGuid().ToString("N");
+		[Parameter] public NavOrientation Orientation { get; set; } = NavOrientation.Horizontal;
 
 		/// <summary>
-		/// Offcanvas additional CSS class. Added to root div (.offcanvas).
+		/// ID of the nav which can be used for <see cref="HxScrollspy.TargetId"/>.
+		/// </summary>
+		[Parameter] public string Id { get; set; } = "hx-" + Guid.NewGuid().ToString("N");
+
+		/// <summary>
+		/// Additional CSS class.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
-		/// Content of the navbar.
+		/// Content of the nav.
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 	}

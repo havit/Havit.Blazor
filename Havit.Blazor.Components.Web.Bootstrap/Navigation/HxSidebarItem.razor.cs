@@ -7,7 +7,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Item for the <see cref="HxSidebar"/>.
 	/// </summary>
-	public partial class HxSidebarItem : ComponentBase
+	public partial class HxSidebarItem
 	{
 		/// <summary>
 		/// Item text.
@@ -41,5 +41,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		private string id = "hx" + Guid.NewGuid().ToString("N");
+		protected bool HasExpandableContent => (this.ChildContent is not null);
 	}
 }

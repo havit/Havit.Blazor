@@ -1,50 +1,33 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-@using Microsoft.AspNetCore.Components.Routing
 
-<li class="@CssClassHelper.Combine("nav-item", CssClass)">
-	@if (@ChildContent is null)
-	{
-		<NavLink href="@Href"
-				 role="button"
-				 class="nav-link p-3"
-				 Match="@(this.Match ?? NavLinkMatch.All)"
-				 ActiveClass="@(((this.Match is null) || (this.Href is null)) ? String.Empty : "active")">
-			<div class="d-flex align-items-center">
-				@if (Icon != null)
-				{
-					<HxIcon Icon="Icon" />
-				}
-				<span class="text ms-3">
-					@Text
-				</span>
-			</div>
-		</NavLink>
-	}
-	else
-	{
-		<NavLink data-bs-toggle="collapse"
-				 class="nav-link p-3"
-				 data-bs-target="@("#" + id)"
-				 href="@Href"
-				 Match="@(this.Match ?? NavLinkMatch.All)"
-				 ActiveClass="@(((this.Match is null) || (this.Href is null)) ? String.Empty : "active")"
-				 role="button"
-				 aria-expanded="false">
-			<div class="d-flex align-items-center">
-				@if (Icon != null)
-				{
-					<HxIcon Icon="Icon" />
-				}
-				<span class="text ms-3">
-					@Text
-				</span>
+<div>@* CSS Isolation (.nav-item not needed) *@
+	<HxNavLink Href="@Href"
+			   CssClass="@CssClassHelper.Combine("p-3", this.CssClass)"
+			   Match="this.Match"
+			   role="button"
+			   data-bs-toggle="@(HasExpandableContent ? "collapse" : null)"
+			   data-bs-target="@(HasExpandableContent ? "#" + id : null)"
+			   aria-expanded="@(HasExpandableContent ? "false" : null)">
+		<div class="d-flex align-items-center">
+			@if (Icon != null)
+			{
+				<HxIcon Icon="Icon" />
+			}
+			<span class="text ms-3">
+				@Text
+			</span>
+			@if (HasExpandableContent)
+			{
 				<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="ms-auto" />
-			</div>
-		</NavLink>
-		<div class="collapse" id="@id">
-			<ul class="nav flex-column">
-				@ChildContent
-			</ul>
+			}
 		</div>
-	}
-</li>
+	</HxNavLink>
+</div>
+@if (ChildContent is not null)
+{
+	<div class="collapse" id="@id">
+		<ul class="nav flex-column">
+			@ChildContent
+		</ul>
+	</div>
+}

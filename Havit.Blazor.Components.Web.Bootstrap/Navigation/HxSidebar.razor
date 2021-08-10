@@ -18,9 +18,11 @@
 		</div>
 
 		<div class="@CssClassHelper.Combine("sidebar-inner flex-column mb-auto", @GetCollapsedMobileCssClass())">
-			<ul class="flex-column list-unstyled ps-0">
+			<HxNav Orientation="NavOrientation.Vertical" CssClass="ps-0">
 				@ItemsTemplate
-			</ul>
+			</HxNav>
+			@*<ul class="flex-column list-unstyled ps-0">
+			</ul>*@
 		</div>
 
 		@if (FooterTemplate is not null)
