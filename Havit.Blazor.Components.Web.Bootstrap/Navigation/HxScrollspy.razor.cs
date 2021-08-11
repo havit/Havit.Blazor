@@ -34,16 +34,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private IJSObjectReference jsModule;
 		private ElementReference scrollspyElement;
+		private bool initialized;
 
 		/// <inheritdoc />
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			if (firstRender)
+			if (firstRender && !initialized)
 			{
 				await EnsureJsModuleAsync();
-				await jsModule.InvokeVoidAsync("activate", scrollspyElement, TargetId);
+				await jsModule.InvokeVoidAsync("initialize", scrollspyElement, TargetId);
+				initialized = true;
 			}
 		}
 
@@ -53,8 +55,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <returns></returns>
 		public async Task RefreshAsync()
 		{
-			await EnsureJsModuleAsync();
-			await jsModule.InvokeVoidAsync("refresh", scrollspyElement);
+			if (initialized)
+			{
+				await EnsureJsModuleAsync();
+				await jsModule.InvokeVoidAsync("refresh", scrollspyElement);
+			}
+			else
+			{
+				// NOOP - will be initialized OnAfterRenderAsync (a therefor the refresh is not needed)
+			}
 		}
 
 		private async Task EnsureJsModuleAsync()

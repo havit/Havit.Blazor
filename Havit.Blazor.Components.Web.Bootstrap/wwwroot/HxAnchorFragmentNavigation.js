@@ -6,8 +6,8 @@
 			element.scrollIntoView({
 				behavior: 'smooth'
 			});
+			console.debug("scrollIntoView: " + selector);
 		}
-		console.log("scrollIntoView");
 	}
 	else {
 		window.scroll(0, 0);

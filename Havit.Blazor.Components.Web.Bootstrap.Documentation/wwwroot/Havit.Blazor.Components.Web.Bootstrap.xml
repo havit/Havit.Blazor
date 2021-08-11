@@ -3248,7 +3248,9 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode.Full">
             <summary>
-            Scrolls to anchor on firstRender and whenever location changes.
+            Scrolls to anchor on <c>firstRender</c> and whenever location changes (<see cref="E:Microsoft.AspNetCore.Components.NavigationManager.LocationChanged"/>).
+            With <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> this mode is suitable only for static pages (where the size/offset of individual sections remains the same from the very beggining).
+            Use <see cref="F:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode.SamePage"/> or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode.Manual"/> for when the page contents load asynchronnously and the layout changes.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode.Manual">
@@ -3267,6 +3269,12 @@
             <summary>
             Temporarily (?) compensates Blazor deficiency in anchor-fragments (scrolling to <c>page#id</c> URLs). Supports navigation with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> component.
             <see href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</see>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAnchorFragmentNavigation.Automation">
+            <summary>
+            Level of automation.
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode.Full"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNav">

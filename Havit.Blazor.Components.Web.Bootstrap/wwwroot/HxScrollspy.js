@@ -1,4 +1,4 @@
-﻿export function activate(element, targetId) {
+﻿export function initialize(element, targetId) {
 	var scrollspy = new bootstrap.ScrollSpy(element, {
 		target: '#' + targetId
 	});
