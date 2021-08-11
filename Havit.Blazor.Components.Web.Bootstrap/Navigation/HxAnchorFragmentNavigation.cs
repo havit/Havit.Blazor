@@ -26,6 +26,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private IJSObjectReference jsModule;
 		private string lastKnownLocation;
+		private bool registerForScrollToCurrentUriFragmentAsyncOnAfterRender;
 
 		protected override void OnInitialized()
 		{
@@ -45,8 +46,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
-			if (firstRender && (Automation == AnchorFragmentNavigationAutomationMode.Full))
+			if ((firstRender && (Automation == AnchorFragmentNavigationAutomationMode.Full))
+				|| registerForScrollToCurrentUriFragmentAsyncOnAfterRender)
 			{
+				registerForScrollToCurrentUriFragmentAsyncOnAfterRender = false;
 				await ScrollToCurrentUriFragmentAsync();
 			}
 
@@ -68,9 +71,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				|| ((this.Automation == AnchorFragmentNavigationAutomationMode.SamePage)
 							&& (NavigationManager.ToAbsoluteUri(lastKnownLocation).PathAndQuery == NavigationManager.ToAbsoluteUri(args.Location).PathAndQuery)))
 			{
-				InvokeAsync(async () =>
+				InvokeAsync(() =>
 				{
-					await ScrollToCurrentUriFragmentAsync();
+					//await Task.Delay(1);
+					//await ScrollToCurrentUriFragmentAsync();
+					registerForScrollToCurrentUriFragmentAsyncOnAfterRender = true;
+					StateHasChanged();
 				});
 			}
 			lastKnownLocation = args.Location;
