@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -20,6 +21,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Href { get; set; }
 
 		/// <summary>
+		/// Raised when the item is clicked (before the navigation location is changed to <see cref="Href"/>).
+		/// </summary>
+		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+		/// <summary>
 		/// Additional attributes to be splatted onto an underlying <code>&lt;a&gt;</code> element.
 		/// </summary>
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
@@ -33,8 +39,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			Contract.Requires<InvalidOperationException>((Href is not null) && (Href.StartsWith("#")), $"{nameof(HxScrollspyNavLink)}.{nameof(HxScrollspyNavLink.Href)} has to start with #. Use only for local elements.");
 		}
 
-		private void HandleClick()
+		private async Task HandleClick(MouseEventArgs args)
 		{
+			if (OnClick.HasDelegate)
+			{
+				await OnClick.InvokeAsync(args);
+			}
 			var targetUri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri).GetLeftPart(UriPartial.Path) + Href;
 			NavigationManager.NavigateTo(targetUri);
 		}

@@ -15,43 +15,65 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class HxAnchorFragmentNavigation : ComponentBase, IAsyncDisposable
 	{
+		/// <summary>
+		/// Level of automation.
+		/// Default is <see cref="AnchorFragmentNavigationAutomationMode.Full"/>.
+		/// </summary>
+		[Parameter] public AnchorFragmentNavigationAutomationMode Automation { get; set; } = AnchorFragmentNavigationAutomationMode.Full;
+
 		[Inject] protected NavigationManager NavigationManager { get; set; }
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		private IJSObjectReference jsModule;
+		private string lastKnownLocation;
 
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
 
+			lastKnownLocation = NavigationManager.Uri;
 			NavigationManager.LocationChanged += OnLocationChanged;
+		}
+
+		public async Task ScrollToCurrentUriFragmentAsync()
+		{
+			if (!String.IsNullOrEmpty(NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Fragment))
+			{
+				await ScrollToAnchorAsync(NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Fragment);
+			}
 		}
 
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
-			if (firstRender && !String.IsNullOrEmpty(NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Fragment))
+			if (firstRender && (Automation == AnchorFragmentNavigationAutomationMode.Full))
 			{
-				await ScrollToAnchorAsync(NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Fragment);
+				await ScrollToCurrentUriFragmentAsync();
 			}
 
 			await base.OnAfterRenderAsync(firstRender);
 		}
 
-		private void OnLocationChanged(object sender, LocationChangedEventArgs args)
+		public async Task ScrollToAnchorAsync(string anchor)
 		{
-			InvokeAsync(async () =>
+			if (!String.IsNullOrEmpty(anchor))
 			{
-				await ScrollToAnchorAsync(NavigationManager.ToAbsoluteUri(args.Location).Fragment);
-			});
-		}
-
-		private async Task ScrollToAnchorAsync(string anchor = null, bool forceScroll = false)
-		{
-			if (!String.IsNullOrEmpty(anchor) || forceScroll)
-			{
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/HxAnchorFragmentNavigation.js");
+				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxAnchorFragmentNavigation) + ".js");
 				await jsModule.InvokeVoidAsync("scrollToAnchor", anchor);
 			}
+		}
+
+		private void OnLocationChanged(object sender, LocationChangedEventArgs args)
+		{
+			if ((this.Automation == AnchorFragmentNavigationAutomationMode.Full)
+				|| ((this.Automation == AnchorFragmentNavigationAutomationMode.SamePage)
+							&& (NavigationManager.ToAbsoluteUri(lastKnownLocation).PathAndQuery == NavigationManager.ToAbsoluteUri(args.Location).PathAndQuery)))
+			{
+				InvokeAsync(async () =>
+				{
+					await ScrollToCurrentUriFragmentAsync();
+				});
+			}
+			lastKnownLocation = args.Location;
 		}
 
 		async ValueTask IAsyncDisposable.DisposeAsync()

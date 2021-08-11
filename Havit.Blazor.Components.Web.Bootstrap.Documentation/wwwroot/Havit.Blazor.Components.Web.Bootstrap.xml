@@ -3241,6 +3241,28 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode">
+            <summary>
+            Automation mode for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAnchorFragmentNavigation"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode.Full">
+            <summary>
+            Scrolls to anchor on firstRender and whenever location changes.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode.Manual">
+            <summary>
+            Explicit calls to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxAnchorFragmentNavigation.ScrollToCurrentUriFragmentAsync"/> or <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxAnchorFragmentNavigation.ScrollToAnchorAsync(System.String)"/> needed.
+            Use this mode with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> when you need scrollspy to call <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.RefreshAsync"/> to recalculate the target offsets before scrolling (scrollspy does not work properly on scrolled content).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode.SamePage">
+            <summary>
+            Same as <see cref="F:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode.Manual"/> but scrolls to anchor on <see cref="E:Microsoft.AspNetCore.Components.NavigationManager.LocationChanged"/> if the page remains the same (just the #fragment portion changed).
+            Works for most scenarios when you refresh the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> after data load and then you just need to navigate over the page.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAnchorFragmentNavigation">
             <summary>
             Temporarily (?) compensates Blazor deficiency in anchor-fragments (scrolling to <c>page#id</c> URLs). Supports navigation with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> component.
@@ -3346,6 +3368,12 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.RefreshAsync">
+            <summary>
+            When using scrollspy in conjunction with adding or removing of elements from the DOM (e.g. asynchronnous data load), you’ll need to refresh the scrollspy explicitly.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink">
             <summary>
             Temporary (?) NavLink component to be used with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> where <code>#id</code> anchors are required and <code>page-route#id</code> cannot be used.
@@ -3354,6 +3382,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.Href">
             <summary>
             The navigation target in <c>#id</c> form.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.OnClick">
+            <summary>
+            Raised when the item is clicked (before the navigation location is changed to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.Href"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.AdditionalAttributes">

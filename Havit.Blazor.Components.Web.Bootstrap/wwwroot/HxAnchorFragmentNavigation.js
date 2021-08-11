@@ -7,6 +7,7 @@
 				behavior: 'smooth'
 			});
 		}
+		console.log("scrollIntoView");
 	}
 	else {
 		window.scroll(0, 0);

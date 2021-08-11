@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</see> component.
 	/// </summary>
-	public partial class HxScrollspy
+	public partial class HxScrollspy : IAsyncDisposable
 	{
 		/// <summary>
 		/// ID of the <see cref="HxNav"/> or list-group with scrollspy navigation.
@@ -42,8 +42,32 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (firstRender)
 			{
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/hxscrollspy.js");
+				await EnsureJsModuleAsync();
 				await jsModule.InvokeVoidAsync("activate", scrollspyElement, TargetId);
+			}
+		}
+
+		/// <summary>
+		/// When using scrollspy in conjunction with adding or removing of elements from the DOM (e.g. asynchronnous data load), you’ll need to refresh the scrollspy explicitly.
+		/// </summary>
+		/// <returns></returns>
+		public async Task RefreshAsync()
+		{
+			await EnsureJsModuleAsync();
+			await jsModule.InvokeVoidAsync("refresh", scrollspyElement);
+		}
+
+		private async Task EnsureJsModuleAsync()
+		{
+			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxScrollspy) + ".js");
+		}
+
+		public async ValueTask DisposeAsync()
+		{
+			if (jsModule != null)
+			{
+				await jsModule.InvokeVoidAsync("dispose", scrollspyElement);
+				await jsModule.DisposeAsync();
 			}
 		}
 	}
