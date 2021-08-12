@@ -1,102 +1,69 @@
-﻿@debug
-
-@if (SubComponent)
-{
-    <h2>@RemoveSpecialCharacters(Type.Name)</h2>
-}
-else
-{
-    <h1>@RemoveSpecialCharacters(Type.Name)</h1>
-}
-
-@if (Type.Namespace.Contains("Bootstrap") && DisplayBootstrapLink)
-{
-    <p class="lead">
-        @if (string.IsNullOrEmpty(CustomBootstrapLink) == false)
-        {
-            <a href="@CustomBootstrapLink">Bootstrap @GetBootstrapComponentName()</a> @(" component")
-        }
-        else
-        {
-            if (string.IsNullOrEmpty(classMember?.Comments?.Summary) == false)
-            {
-                @((MarkupString)classMember.Comments.Summary)
-            }
-            else
-            {
-            <a href="https://getbootstrap.com/docs/5.0/components/@GetBootstrapComponentName().ToLower()">Bootstrap @GetBootstrapComponentName()</a> @(" component")
-            }
-        }
-    </p>
-}
+﻿<h1>@RemoveSpecialCharacters(Type.Name)</h1>
 
 @ChildContent
 
-@if (SubComponent == false)
-{
-    <h2>API</h2>
-}
+<h2>API</h2>
 
 @if (properties.Count > 0)
 {
-    <h3>Properties</h3>
+	<h3>Properties</h3>
 }
 <ul>
-    @foreach (var property in properties)
-    {
-        <li>
-            @if (property.PropertyInfo.GetAccessors(false).Any(o => o.IsStatic))
-            {
-                @("static ")
-            } 
-            <strong>@property.PropertyInfo.Name</strong> <i>(@FormatType(property.PropertyInfo.PropertyType))</i>
-            <br />
-            <div class="summary">@((MarkupString)property.Comments.Summary)</div>
-        </li>
-    }
+	@foreach (var property in properties)
+	{
+		<li>
+			@if (property.PropertyInfo.GetAccessors(false).Any(o => o.IsStatic))
+			{
+				@("static ")
+			}
+			<strong>@property.PropertyInfo.Name</strong> <i>(@FormatType(property.PropertyInfo.PropertyType))</i>
+			<br />
+			<div class="summary">@((MarkupString)property.Comments.Summary)</div>
+		</li>
+	}
 </ul>
 
 @if (events.Count > 0)
 {
-    <h3>Events</h3>
+	<h3>Events</h3>
 }
 <ul>
-    @foreach (var currentEvent in events)
-    {
-        <li>
-            <strong>@currentEvent.PropertyInfo.Name</strong>
-            <br />
-            <div class="summary">@((MarkupString)currentEvent.Comments.Summary)</div>
-        </li>
-    }
+	@foreach (var currentEvent in events)
+	{
+		<li>
+			<strong>@currentEvent.PropertyInfo.Name</strong>
+			<br />
+			<div class="summary">@((MarkupString)currentEvent.Comments.Summary)</div>
+		</li>
+	}
 </ul>
 
 @if (methods.Count > 0)
 {
-    <h3>Methods</h3>
+	<h3>Methods</h3>
 }
 <ul>
-    @foreach (var method in methods)
-    {
-        <li>
-            <strong></strong> <i>@FormatType(method.MethodInfo.ReturnType)</i> <strong>@method.MethodInfo.Name</strong> @method.GetParameters()
-            <br />
-            <div class="summary">@((MarkupString)method.Comments.Summary)</div>
-        </li>
-    }
+	@foreach (var method in methods)
+	{
+		<li>
+			<strong></strong> <i>@FormatType(method.MethodInfo.ReturnType)</i> <strong>@method.MethodInfo.Name</strong> @method.GetParameters()
+			<br />
+			<div class="summary">@((MarkupString)method.Comments.Summary)</div>
+		</li>
+	}
 </ul>
 
 @if (staticMethods.Count > 0)
 {
-    <h3>Static Methods</h3>
+	<h3>Static Methods</h3>
 }
 <ul>
-    @foreach (var method in staticMethods)
-    {
-        <li>
-            <strong></strong> <i>@FormatType(method.MethodInfo.ReturnType)</i> <strong>@method.MethodInfo.Name</strong> @method.GetParameters()
-            <br />
-            <div class="summary">@((MarkupString)method.Comments.Summary)</div>
-        </li>
-    }
+	@foreach (var method in staticMethods)
+	{
+		<li>
+			<strong></strong> <i>@FormatType(method.MethodInfo.ReturnType)</i> <strong>@method.MethodInfo.Name</strong> @method.GetParameters()
+			<br />
+			<div class="summary">@((MarkupString)method.Comments.Summary)</div>
+		</li>
+	}
 </ul>

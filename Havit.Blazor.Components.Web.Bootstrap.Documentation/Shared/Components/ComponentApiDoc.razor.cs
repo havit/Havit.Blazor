@@ -43,9 +43,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		/// </summary>
 		[Parameter] public Type Type { get; set; }
 
-		[Parameter] public bool DisplayBootstrapLink { get; set; } = true;
-		[Parameter] public string CustomBootstrapLink { get; set; }
-
 		/// <summary>
 		/// If true, removes API header, and makes the type name header smaller
 		/// </summary>
@@ -65,8 +62,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		private List<Property> events = new();
 		private List<Method> methods = new();
 		private List<Method> staticMethods = new();
-
-		private static string debug;
 
 		protected override void OnParametersSet()
 		{
@@ -212,7 +207,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			foreach (var currentInterface in interfaces)
 			{
 				var matchingMember = currentInterface.GetMembers().Where(o => o.Name == property.PropertyInfo.Name).FirstOrDefault();
-				debug += matchingMember.Name + " " + reader.GetMemberComments(matchingMember).Summary;
 				return reader.GetMemberComments(matchingMember);
 			}
 

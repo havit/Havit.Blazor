@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Components.RenderTree;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Tab in tab panel.
+	/// Single tab in <see cref="HxTabPanel"/>.
 	/// </summary>
 	public class HxTab : ComponentBase, IRenderNotificationComponent, ICascadeEnabledComponent, IDisposable
 	{
@@ -47,7 +47,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool Visible { get; set; } = true;
 
 		/// <inheritdoc />
-		[CascadingParameter] public FormState FormState { get; set; }
+		[CascadingParameter] protected FormState FormState { get; set; }
+		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
 
 		/// <summary>
 		/// When null (default), the Enabled value is received from cascading <see cref="FormState" />.
@@ -59,12 +60,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
 
 		/// <summary>
-		/// Rised when tab is activated.
+		/// Rised when the tab is activated.
 		/// </summary>
 		[Parameter] public EventCallback OnTabActivated { get; set; }
 
 		/// <summary>
-		/// Rised when tab is deactivated (another tab is activated or when <see cref="HxTabPanel"/> is disposed).
+		/// Rised when the tab is deactivated (another tab is activates or when <see cref="HxTabPanel"/> is disposed).
 		/// </summary>
 		[Parameter] public EventCallback OnTabDeactivated { get; set; }
 

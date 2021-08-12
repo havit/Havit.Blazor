@@ -3716,7 +3716,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTab">
             <summary>
-            Tab in tab panel.
+            Single tab in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.TabsRegistration">
@@ -3762,12 +3762,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnTabActivated">
             <summary>
-            Rised when tab is activated.
+            Rised when the tab is activated.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnTabDeactivated">
             <summary>
-            Rised when tab is deactivated (another tab is activated or when <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/> is disposed).
+            Rised when the tab is deactivated (another tab is activates or when <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/> is disposed).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnInitialized">
@@ -3781,7 +3781,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel">
             <summary>
-            Tab panel (container).
+            Container for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTab"/>s for easier implementation of tabbed UI.
+            Encapsulates <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNav"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs"/> variant) and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavLink"/>s so you don't have to bother with them explicitly.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.TabsRegistrationCascadingValueName">
@@ -3789,14 +3790,24 @@
             TabsRegistration cascading value name.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ActiveTabId">
+            <summary>
+            ID of the active tab (@bindable).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ActiveTabIdChanged">
+            <summary>
+            Raised when ID of the active tab changes.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.InitialActiveTabId">
+            <summary>
+            ID of the tab which should be active at the very beginning.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ChildContent">
             <summary>
             Tabs.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.#ctor">
-            <summary>
-            Constructor.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.OnAfterRenderAsync(System.Boolean)">

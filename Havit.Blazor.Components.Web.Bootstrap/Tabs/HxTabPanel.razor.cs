@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Components;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Tab panel (container).
+	/// Container for <see cref="HxTab"/>s for easier implementation of tabbed UI.
+	/// Encapsulates <see cref="HxNav"/> (<see cref="NavVariant.Tabs"/> variant) and <see cref="HxNavLink"/>s so you don't have to bother with them explicitly.
 	/// </summary>
 	public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	{
@@ -18,8 +19,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		internal const string TabsRegistrationCascadingValueName = "TabsRegistration";
 
+		/// <summary>
+		/// ID of the active tab (@bindable).
+		/// </summary>
 		[Parameter] public string ActiveTabId { get; set; }
+
+		/// <summary>
+		/// Raised when ID of the active tab changes.
+		/// </summary>
 		[Parameter] public EventCallback<string> ActiveTabIdChanged { get; set; }
+
+		/// <summary>
+		/// ID of the tab which should be active at the very beginning.
+		/// </summary>
 		[Parameter] public string InitialActiveTabId { get; set; }
 
 		/// <summary>
@@ -32,9 +44,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private CollectionRegistration<HxTab> tabsListRegistration;
 		private bool isDisposed = false;
 
-		/// <summary>
-		/// Constructor.
-		/// </summary>
 		public HxTabPanel()
 		{
 			tabsList = new List<HxTab>();
