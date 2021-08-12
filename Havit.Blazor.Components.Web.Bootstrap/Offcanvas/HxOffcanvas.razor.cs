@@ -100,7 +100,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool ScrollingEnabled { get; set; } = false;
 
 		/// <summary>
-		/// Raised when offcanvas is closed (whatever reason it is).
+		/// Raised when the offcanvas is closed (whatever reason there is).
 		/// </summary>
 		[Parameter] public EventCallback OnClosed { get; set; }
 
