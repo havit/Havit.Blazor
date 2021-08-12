@@ -1,5 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
 <nav id="@this.Id" class="@CssClassHelper.Combine("nav", GetOrientationCssClass(), GetVariantCssClass(), this.CssClass)">
-	@ChildContent
+	<CascadingValue Value="@this">@* Used by HxDropdownToggle to render nav-link class *@
+		@ChildContent
+	</CascadingValue>
 </nav>

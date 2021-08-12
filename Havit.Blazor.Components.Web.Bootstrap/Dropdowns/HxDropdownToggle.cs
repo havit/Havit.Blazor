@@ -13,9 +13,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class HxDropdownToggle : HxButton
 	{
 		[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
+		[CascadingParameter] protected HxNav NavContainer { get; set; }
 
 		protected override void OnParametersSet()
 		{
+			if ((Color is null) && (NavContainer is not null))
+			{
+				Color = ThemeColor.Link;
+			}
+
 			base.OnParametersSet();
 
 			AdditionalAttributes ??= new Dictionary<string, object>();
@@ -23,6 +29,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			AdditionalAttributes["aria-expanded"] = "false";
 		}
 
-		protected override string CoreCssClass => CssClassHelper.Combine(base.CoreCssClass, "dropdown-toggle", DropdownContainer.Split ? "dropdown-toggle-split" : null);
+		protected override string CoreCssClass => CssClassHelper.Combine(base.CoreCssClass, "dropdown-toggle", DropdownContainer.Split ? "dropdown-toggle-split" : null, (NavContainer is not null) ? "nav-link" : null);
 	}
 }
