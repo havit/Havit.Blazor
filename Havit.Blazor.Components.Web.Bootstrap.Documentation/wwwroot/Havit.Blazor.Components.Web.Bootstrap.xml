@@ -3590,7 +3590,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnClosed">
             <summary>
-            Raised when offcanvas is closed (whatever reason it is).
+            Raised when the offcanvas is closed (whatever reason there is).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.#ctor">
