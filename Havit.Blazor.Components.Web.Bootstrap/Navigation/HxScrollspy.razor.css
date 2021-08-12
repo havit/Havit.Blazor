@@ -6,6 +6,6 @@
 }
 
 /* Last direct div in Scrollspy container needs to have minimal height of 100% of its parent */
-.hx-scrollspy > div:last-child {
+.hx-scrollspy ::deep > div:last-child {
 	min-height: 100%;
 }
