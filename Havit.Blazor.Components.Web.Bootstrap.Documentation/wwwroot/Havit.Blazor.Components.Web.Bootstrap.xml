@@ -280,6 +280,11 @@
             Stop onClick-event propagation. Deafult is <c>true</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnClickPreventDefault">
+            <summary>
+            Prevents the default action for the onclick event. Deafult is <c>false</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Spinner">
             <summary>
             Set state of the embedded <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSpinner"/>.

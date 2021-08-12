@@ -40,6 +40,13 @@
 		<p>Consider using <i>placeholders</i> to fix the UI layout while loading.</p>
 	</HxAlert>
 	<Demo Type="typeof(HxScrollspy_Demo_DynamicContent)" />
+
+	<h3>Custom navigation content</h3>
+	<HxAlert Color="ThemeColor.Info">
+		When using <code>HxButton</code> inside <code>HxScrollspyNavLink</code>, be sure to set s <code>OnClickStopPropagation = "true"</code>.
+		If you won't, the application will navigate to <code>/#anchor</code> of the <code>HxScrollspyNavLink</code> after <code>OnClick</code> handler completes.
+	</HxAlert>
+	<Demo Type="typeof(HxScrollspy_Demo_CustomNavigationContent)" />
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxScrollspyNavLink)" />
