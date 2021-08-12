@@ -241,40 +241,47 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		public class Member
 		{
-			protected string FormatComment(string comment)
+			protected string TryFormatComment(string comment)
 			{
-				if (string.IsNullOrEmpty(comment))
+				try
 				{
-					return string.Empty;
-				}
-
-				// <c>
-				{
-					Regex regex = new("<c>");
-					comment = regex.Replace(comment, "<code>");
-					regex = new("</c>");
-					comment = regex.Replace(comment, "</code>");
-				}
-
-				// <see cref=""/>
-				{
-					Regex regex = new("<see");
-					comment = regex.Replace(comment, "<a");
-
-					regex = new("</see>");
-					comment = regex.Replace(comment, "</a>");
-
-					regex = new("cref=\"([A-Za-z\\.:])+");
-					var matches = regex.Matches(comment);
-
-					foreach (var match in matches)
+					if (string.IsNullOrEmpty(comment))
 					{
-						string link = match.ToString().Split('\"').LastOrDefault(); // get the part in the quotes (value of the cref attribute)
-						string[] splitLink = link.Split('.');
-
-						regex = new("cref=\"([A-Za-z\\.:`\\d])+\" ?/>"); // find this part of the element (beggining already replaced): cref="P:System.Text.Regex.Property" />
-						comment = regex.Replace(comment, GenerateFullLink(splitLink), 1); // replace the above with a generated link to the documentation
+						return string.Empty;
 					}
+
+					// <c>
+					{
+						Regex regex = new("<c>");
+						comment = regex.Replace(comment, "<code>");
+						regex = new("</c>");
+						comment = regex.Replace(comment, "</code>");
+					}
+
+					// <see cref=""/>
+					{
+						Regex regex = new("<see");
+						comment = regex.Replace(comment, "<a");
+
+						regex = new("</see>");
+						comment = regex.Replace(comment, "</a>");
+
+						regex = new("cref=\"([A-Za-z\\.:])+");
+						var matches = regex.Matches(comment);
+
+						foreach (var match in matches)
+						{
+							string link = match.ToString().Split('\"').LastOrDefault(); // get the part in the quotes (value of the cref attribute)
+							string[] splitLink = link.Split('.');
+
+							regex = new("cref=\"([A-Za-z\\.:`\\d])+\" ?/>"); // find this part of the element (beggining already replaced): cref="P:System.Text.Regex.Property" />
+							comment = regex.Replace(comment, GenerateFullLink(splitLink), 1); // replace the above with a generated link to the documentation
+						}
+					}
+				}
+				catch
+				{
+					// NOOP
 				}
 
 				return comment;
@@ -395,7 +402,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				set
 				{
 					TypeComments inputComments = value;
-					try { inputComments.Summary = FormatComment(inputComments.Summary); } catch { }
+					inputComments.Summary = TryFormatComment(inputComments.Summary);
 					comments = inputComments;
 				}
 			}
@@ -411,7 +418,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				set
 				{
 					CommonComments inputComments = value;
-					try { inputComments.Summary = FormatComment(inputComments.Summary); } catch { }
+					try { inputComments.Summary = TryFormatComment(inputComments.Summary); } catch { }
 					comments = inputComments;
 				}
 				get
@@ -431,7 +438,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				set
 				{
 					MethodComments inputComments = value;
-					inputComments.Summary = FormatComment(inputComments.Summary);
+					inputComments.Summary = TryFormatComment(inputComments.Summary);
 					comments = inputComments;
 				}
 				get

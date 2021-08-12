@@ -4,6 +4,11 @@
         <name>Havit.Blazor.Components.Web.Bootstrap</name>
     </assembly>
     <members>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAccordion">
+            <summary>
+            <see cref="!:https://getbootstrap.com/docs/5.1/components/accordion/">Bootstrap accordion</see> component.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.CssClass">
             <summary>
             Additional CSS classes for the accordion container.
@@ -1116,6 +1121,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDefaults.InputSize">
             <summary>
             Input size.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2">
+            <summary>
+            Component for single item selection with dynamic suggestions (based on typed characters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ValueSelector">
@@ -3400,6 +3410,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying <code>&lt;a&gt;</code> element.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar">
+            <summary>
+            Sidebar navigation.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.HeaderTemplate">

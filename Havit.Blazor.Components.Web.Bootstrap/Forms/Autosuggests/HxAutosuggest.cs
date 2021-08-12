@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Component for single item selection with dynamic suggestions (based on typed characters).
+	/// </summary>
 	public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
 		[Parameter] public AutosuggestDataProviderDelegate<TItem> DataProvider { get; set; }

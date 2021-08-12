@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using static System.Net.WebRequestMethods;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// <see cref="https://getbootstrap.com/docs/5.1/components/accordion/">Bootstrap accordion</see> component.
+	/// </summary>
 	public partial class HxAccordion
 	{
 		/// <summary>

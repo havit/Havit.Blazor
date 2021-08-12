@@ -2,6 +2,9 @@
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Sidebar navigation.
+	/// </summary>
 	public partial class HxSidebar : ComponentBase
 	{
 		/// <summary>
