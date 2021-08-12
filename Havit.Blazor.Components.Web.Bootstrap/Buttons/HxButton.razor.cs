@@ -105,6 +105,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool OnClickStopPropagation { get; set; } = true;
 
 		/// <summary>
+		/// Prevents the default action for the onclick event. Deafult is <c>false</c>.
+		/// </summary>
+		[Parameter] public bool OnClickPreventDefault { get; set; }
+
+		/// <summary>
 		/// Set state of the embedded <see cref="HxSpinner"/>.
 		/// Leave <c>null</c> if you want automated spinner when any of the <see cref="HxButton.OnClick"/> handlers is running.
 		/// You can set an explicit <c>false</c> constant to disable (override) the spinner automation.
