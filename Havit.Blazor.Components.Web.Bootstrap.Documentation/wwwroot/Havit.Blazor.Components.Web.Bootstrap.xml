@@ -6,7 +6,7 @@
     <members>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAccordion">
             <summary>
-            <see cref="!:https://getbootstrap.com/docs/5.1/components/accordion/">Bootstrap accordion</see> component.
+            <a href="https://getbootstrap.com/docs/5.1/components/accordion/">Bootstrap accordion</a> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.CssClass">
