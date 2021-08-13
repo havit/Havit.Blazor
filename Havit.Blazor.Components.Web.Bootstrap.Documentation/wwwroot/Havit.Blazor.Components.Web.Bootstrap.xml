@@ -199,7 +199,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButton">
             <summary>
-            Button type="button".
+            Button (<c>&lt;button type="button"&gt;</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CssClass">
@@ -334,7 +334,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSubmit">
             <summary>
-            Button type="submit".
+            Button <c>&lt;button type="submit"&gt;</c>.
+            Direct ancestor of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> with exactly same API.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput.Offset">
@@ -667,9 +668,44 @@
             Empty skin to be able to disable <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.DefaultSkin"/> locally.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCard">
+            <summary>
+            <a href="https://getbootstrap.com/docs/5.1/components/card/">Bootstrap card</a> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.HeaderTemplate">
+            <summary>
+            Header content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.BodyTemplate">
+            <summary>
+            Body content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.FooterTemplate">
+            <summary>
+            Footer content.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.CssClass">
             <summary>
             Additional CSS classes for the card-container.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.HeaderCssClass">
+            <summary>
+            Additional CSS class for the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.BodyCssClass">
+            <summary>
+            Additional CSS class for the body.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.FooterCssClass">
+            <summary>
+            Additional CSS class for the footer.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Skin">
@@ -2728,21 +2764,27 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.SortString">
             <summary>
             Returns column sorting as string.
+            Use to set sorting as a string, ie. to get value to pass to backend.
+            Ignored for client-side sorting.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.SortKeySelector">
             <summary>
             Returns column sorting expression for automatic grid sorting.
+            To be used for &quot;strongly typed&quot; setting of sorting, required for client-side sorting.
+            Must be <see cref="T:System.IComparable"/>.
+            Sorting of the column does not support multiple expressions. Create an artifcial property and implement <see cref="T:System.IComparable"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.SortDirection">
             <summary>
-            Sort direction.
+            Initial sorting direction. Default is <see cref="F:Havit.Collections.SortDirection.Ascending" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.IsDefaultSortColumn">
             <summary>
             Indicates the sorting on the column is default (primary) on the grid.
+            Set <code>true</code> for the column which is to be used for default sorting.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.IsColumnVisible">
@@ -3447,6 +3489,11 @@
             Sidebar footer (e.g. logged user, language switch, ...).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CssClass">
+            <summary>
+            Additional CSS class.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand">
             <summary>
             Brand for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.HeaderTemplate"/>.
@@ -3485,7 +3532,13 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.Match">
             <summary>
             URL matching behavior for the underlying <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/>.
-            Default is <c>null</c> (disabled).
+            Default is <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.Enabled">
+            <summary>
+            Allows you to disable the item with <c>false</c>.
+            Default is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.CssClass">

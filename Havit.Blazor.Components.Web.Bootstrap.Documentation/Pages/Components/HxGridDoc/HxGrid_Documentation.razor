@@ -1,115 +1,28 @@
-﻿@page "/components/hxgrid"
-
-@*<h1>@nameof(HxGrid<object>)</h1>*@
+﻿@attribute [Route("/components/" + nameof(HxGrid))]
+@attribute [Route("/components/" + nameof(HxGridColumn<object>))]
 
 <ComponentApiDoc Type="typeof(HxGrid<object>)">
-    <p class="lead">
-        Displays tabular data from data source. Includes support for client-side and server-side paging &amp; sorting.
-    </p>
+	<p class="lead">
+		Displays tabular data from data source. Includes support for client-side and server-side paging &amp; sorting (or virtualized scrolling as needed).
+	</p>
 
-    <h2>Setting (loading) data to the grid</h2>
-    <h4>No paging &amp; sorting or client-side paging &amp; sorting</h4>
-    <ul>
-        <li>Create a field/property for the data.</li>
-        <li>Set data to this field/property. Do not sort data.</li>
-        <li>Use the extension method <code>ApplyTo</code> (<code>request.ApplyTo(data)</code>) in the <code>@nameof(HxGrid<object>.DataProvider)</code> method to automaticky sort and page data from the field/property. While the result of the <code>@nameof(HxGrid<object>.DataProvider)</code> method is a generic <code>Task</code>, the result must be wrapped using <code>Task.FromResult</code>. It is easy, see the demo source code.</li>
-    </ul>
+	<h3>No paging &amp; sorting or client-side paging &amp; sorting</h3>
+	<ul>
+		<li>Create a field/property for the data.</li>
+		<li>Set data to this field/property. Do not sort data.</li>
+		<li>Use the extension method <code>ApplyTo</code> (<code>request.ApplyTo(data)</code>) in the <code>@nameof(HxGrid<object>.DataProvider)</code> method to automaticky sort and page data from the field/property. While the result of the <code>@nameof(HxGrid<object>.DataProvider)</code> method is a generic <code>Task</code>, the result must be wrapped using <code>Task.FromResult</code>. It is easy, see the demo source code.</li>
+	</ul>
+	<Demo Title="Client-side paging and sorting" Type="typeof(HxGrid_ClientSideDemo)" />
 
-    <Demo Title="Client-side paging and sorting" Type="typeof(HxGrid_ClientSideDemo)" />
+	<h3>Server side paging &amp; sorting</h3>
+	<ul>
+		<li>Implement the <code>@nameof(HxGrid<object>.DataProvider)</code> method to delegate the paging &amp; sorting to the server side. The sample code does not have this implementation.</li>
+	</ul>
+	<Demo Type="typeof(HxGrid_ServerSideDemo)" />
 
-    <h4>Server side paging &amp; sorting</h4>
-    <ul>
-        <li>Implement the <code>@nameof(HxGrid<object>.DataProvider)</code> method to delegate the paging &amp; sorting to the server side. The sample code does not have this implementation.</li>
-    </ul>
+	<h3>Empty data</h3>
+	<Demo Type="typeof(HxGrid_EmptyDataDemo)" />
 
-    <Demo Title="Server-side paging and sorting" Type="typeof(HxGrid_ServerSideDemo)" />
-
-    <h4>Empty data</h4>
-
-    <Demo Title="Empty data" Type="typeof(HxGrid_EmptyDataDemo)" />
 </ComponentApiDoc>
 
-@*<h3>Properties</h3>
-<ul>
-	<li>
-		<strong>@nameof(HxGrid<object>.Columns)</strong><br />
-		Columns to display, see <code>@nameof(HxGridColumn<object>)</code> below.
-	</li>
-	<li>
-		<strong>@nameof(HxGrid<object>.DataProvider)</strong><br />
-		<p>Provider for access server-side data.</p>
-		<p>It should return data count and data items for the specified page in the specified order.</p>
-		<p>See client-side and server-side paging &amp; sorting demo below.</p>
-	</li>
-	<li>
-		<strong>@nameof(HxGrid<object>.CurrentUserState), @nameof(HxGrid<object>.CurrentUserStateChanged)</strong><br />
-		Current state of the grid (page index, sorting).
-	</li>
-	<li>
-		<strong>@nameof(HxGrid<object>.SelectedDataItem), @nameof(HxGrid<object>.SelectedDataItemChanged)</strong><br />
-		Currently selected item.
-	</li>
-	<li>
-		<strong>@nameof(HxGrid<object>.EmptyDataTemplate)</strong><br />
-		<p>Template to render when there are empty data (but not null).</p>
-	</li>
-
-</ul>*@
-
-@*<h2>@nameof(HxGridColumn<object>)</h2>
-<h3>Properties</h3>
-<ul>
-	<li>
-		<strong>@nameof(HxGridColumn<object>.ItemTextSelector)</strong><br />
-		Function to get text to display as grid cell content. Use to display simple text content.
-	</li>
-	<li>
-		<strong>@nameof(HxGridColumn<object>.ItemTemplate)</strong><br />
-		Template to display as grid cell content. Can be used to display complex HTML content.
-	</li>
-	<li>
-		<strong>@nameof(HxGridColumn<object>.ItemCssClass)</strong><br />
-		CSS class to be added to every content cell.
-	</li>
-	<li>
-		<strong>@nameof(HxGridColumn<object>.ItemCssClassSelector)</strong><br />
-		Function to get CSS class for the content cell (based on the data item).
-	</li>
-	<li>
-		<strong>@nameof(HxGridColumn<object>.HeaderText), @nameof(HxGridColumn<object>.HeaderTemplate), @nameof(HxGridColumn<object>.HeaderCssClass)</strong><br />
-		Column header.
-	</li>
-	<li>
-		<strong>@nameof(HxGridColumn<object>.FooterText), @nameof(HxGridColumn<object>.FooterTemplate), @nameof(HxGridColumn<object>.FooterCssClass)</strong><br />
-		Column footer.
-	</li>
-</ul>*@
-
-<ComponentApiDoc Type="typeof(HxGridColumn<object>)" SubComponent="true" />
-
-<h3>Sorting properties</h3>
-<ul>
-	<li>
-		<strong>@nameof(HxGridColumn<object>.SortKeySelector)</strong><br />
-		<p>To be used for &quot;strongly typed&quot; setting of sorting, required for client-side sorting.</p>
-		<p>Must be <code>IComparable</code>.</p>
-		<p>Sorting of the column does not support multiple expressions. Create an artifial property and implement <code>IComparable</code>.</p>
-	</li>
-	<li>
-		<strong>@nameof(HxGridColumn<object>.SortString)</strong><br />
-		<p>Use to set sorting as a string, ie. to get value to pass to backend.</p>
-		<p>Ignored for client-side sorting.</p>
-	</li>
-	<li>
-		<strong>@nameof(HxGridColumn<object>.SortDirection)</strong><br />
-		<p>Initial sorting direction. Default is <code>@Havit.Collections.SortDirection.Ascending</code>.</p>
-	</li>
-	<li>
-		<strong>@nameof(HxGridColumn<object>.IsDefaultSortColumn)</strong><br />
-		<p>Set <code>true</code> for the column which is to be used for default sorting.</p>
-	</li>
-</ul>
-
-<HxAlert Color="ThemeColor.Warning">
-	If sorting is enabled (client-side or server-side), there must be a single column with <code>@nameof(HxGridColumn<object>.IsDefaultSortColumn)</code> set to <code>true</code> (otherwise <code>InvalidOperationException</code> is thrown)!
-</HxAlert>
+<ComponentApiDoc Type="typeof(HxGridColumn<object>)" />

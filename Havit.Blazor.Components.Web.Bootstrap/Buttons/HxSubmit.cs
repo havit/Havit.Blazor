@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Button type="submit".
+	/// Button <c>&lt;button type="submit"&gt;</c>.
+	/// Direct ancestor of <see cref="HxButton"/> with exactly same API.
 	/// </summary>
 	public class HxSubmit : HxButton
 	{

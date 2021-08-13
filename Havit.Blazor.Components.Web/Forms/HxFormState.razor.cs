@@ -40,7 +40,5 @@ namespace Havit.Blazor.Components.Web
 				Enabled = Enabled ?? CascadingFormState?.Enabled,
 			};
 		}
-
 	}
-
 }

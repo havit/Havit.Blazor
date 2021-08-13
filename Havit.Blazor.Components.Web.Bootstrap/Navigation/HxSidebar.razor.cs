@@ -32,6 +32,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public RenderFragment FooterTemplate { get; set; }
 
+		/// <summary>
+		/// Additional CSS class.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
 		private bool collapsedMobile = true;
 		private bool collapsedDesktop = false;
 

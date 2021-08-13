@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
@@ -26,9 +27,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// URL matching behavior for the underlying <see cref="NavLink"/>.
-		/// Default is <c>null</c> (disabled).
+		/// Default is <see cref="NavLinkMatch.Prefix"/>.
 		/// </summary>
-		[Parameter] public NavLinkMatch? Match { get; set; }
+		[Parameter] public NavLinkMatch? Match { get; set; } = NavLinkMatch.Prefix;
+
+		/// <summary>
+		/// Allows you to disable the item with <c>false</c>.
+		/// Default is <c>true</c>.
+		/// </summary>
+		[Parameter] public bool Enabled { get; set; } = true;
 
 		/// <summary>
 		/// Any additional CSS class to add.

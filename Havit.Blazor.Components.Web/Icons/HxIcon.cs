@@ -8,6 +8,8 @@ namespace Havit.Blazor.Components.Web
 {
 	/// <summary>
 	/// Displays an icon.
+	/// Currently supports <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</a> through <code>BootstrapIcon</code> class.
+	/// You can add your own icon-set easily.
 	/// </summary>
 	public class HxIcon : ComponentBase
 	{

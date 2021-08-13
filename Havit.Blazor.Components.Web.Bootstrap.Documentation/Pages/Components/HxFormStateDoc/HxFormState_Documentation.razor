@@ -1,17 +1,10 @@
-﻿@page "/components/hxformstate"
-	
-<h1>@nameof(HxFormState)</h1>
-<p class="lead">
-	Allows propagation of form state as cascading value &amp; parameter.
-</p>
+﻿@attribute [Route("/components/" + nameof(HxFormState))]
 
-<p>Publishes @nameof(FormState) as cascading value. Allows you to enable/disable child components by one property.</p>
+<ComponentApiDoc Type="typeof(HxFormState)">
 
-<h3>Properties</h3>
-<ul>
-	<li>
-		<strong>@nameof(HxFormState.Enabled)</strong><br />				
-	</li>
-</ul>
+	<p>Publishes <code>@nameof(FormState)</code> as cascading value. Allows you to enable/disable child components by one property.</p>
 
-<Demo Type="typeof(HxFormState_Demo)" />
+	<h3>Demo</h3>
+	<Demo Type="typeof(HxFormState_Demo)" />
+
+</ComponentApiDoc>

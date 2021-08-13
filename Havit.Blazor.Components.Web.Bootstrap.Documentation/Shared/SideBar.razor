@@ -1,66 +1,93 @@
-﻿@*Hamburger button*@
-<button data-bs-target="#sidebar-collapse" data-bs-toggle="collapse" class="sidebar-collapse-btn" role="button">
-	<div></div>
-	<div></div>
-	<div></div>
-</button>
-<div class="col-md-2 collapse" id="sidebar-collapse">
-	<div class="sidebar">
-		<ul class="categories">
-			<li>
-				<a data-bs-target="#form-subcategories" data-bs-toggle="collapse" aria-expanded="true" role="button">Forms</a>
-				<div class="collapse show" id="form-subcategories">
-					<ul class="subcategories">
-						<li><NavLink href="/components/forminputs">Inputs</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxAutosuggest)}")">@nameof(HxAutosuggest)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxInputDate)}")">@nameof(HxInputDate)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxInputFile)}")">@nameof(HxInputFile)</NavLink></li>
-						<li><NavLink href="/components/hxformstate">@nameof(HxFormState)</NavLink></li>
-						<li><NavLink href="/components/HxRadioButtonList">@nameof(HxRadioButtonList<object, object>)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxSelect)}")">@nameof(HxSelect)</NavLink></li>
-					</ul>
-				</div>
-			</li>
-			<li>
-				<a data-bs-target="#components-subcategories" data-bs-toggle="collapse" role="button" aria-expanded="true">Components</a>
-				<div class="collapse show" id="components-subcategories">
-					<ul class="subcategories">
-						<li><NavLink href="@($"/components/{nameof(HxAnchorFragmentNavigation)}")">@nameof(HxAnchorFragmentNavigation)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxAccordion)}")">@nameof(HxAccordion)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxAlert)}")">@nameof(HxAlert)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxBadge)}")">@nameof(HxBadge)</NavLink></li>
-						<li><NavLink href="/components/hxbutton">@nameof(HxButton), @nameof(HxSubmit)</NavLink></li>
-						<li><NavLink href="/components/HxButtonGroup">@nameof(HxButtonGroup)</NavLink></li>
-						<li><NavLink href="/components/hxcard">@nameof(HxCard)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxDropdown)}")">@nameof(HxDropdown)</NavLink></li>
-						<li><NavLink href="/components/hxgrid">@nameof(HxGrid<object>)</NavLink></li>
-						<li><NavLink href="/components/hxicon">@nameof(HxIcon)</NavLink></li>
-						<li><NavLink href="/components/hxinputfile">@nameof(HxInputFile)</NavLink></li>
-						<li><NavLink href="/components/hxmessenger">@nameof(HxMessenger)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxNav)}")">@nameof(HxNav)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxOffcanvas)}")">@nameof(HxOffcanvas)</NavLink></li>
-						<li><NavLink href="/components/hxprogressindicator">@nameof(HxProgressIndicator)</NavLink></li>
-						<li><NavLink href="/components/hxrepeater">@nameof(HxRepeater<object>)</NavLink></li>
-						<li><NavLink href="/components/HxSpinner">@nameof(HxSpinner)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxSidebar)}")">@nameof(HxSidebar)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxScrollspy)}")">@nameof(HxScrollspy)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxTabPanel)}")">@nameof(HxTabPanel)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxToast)}")">@nameof(HxToast)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxTooltip)}")">@nameof(HxTooltip)</NavLink></li>
-					</ul>
-				</div>
-			</li>
-			<li>
-				<a data-bs-target="#dialogs-subcategories" data-bs-toggle="collapse" role="button" aria-expanded="true">Dialogs</a>
-				<div class="collapse show" id="dialogs-subcategories">
-					<ul class="subcategories">
-						<li><NavLink href="/components/hxmessagebox">@nameof(HxMessageBox)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxModal)}")">@nameof(HxModal)</NavLink></li>
-						<li><NavLink href="/components/hxdialogbase">@nameof(HxDialogBase<object>)</NavLink></li>
-						<li><NavLink href="@($"/components/{nameof(HxOffcanvas)}")">@nameof(HxOffcanvas)</NavLink></li>
-					</ul>
-				</div>
-			</li>
-		</ul>
-	</div>
-</div>
+﻿<HxSidebar>
+	<HeaderTemplate>
+		<HxSidebarBrand BrandName="Havit.Blazor" BrandNameShort="HB" />
+	</HeaderTemplate>
+	<ItemsTemplate>
+		<HxSidebarItem Text="Intro" Href="/intro" Icon="BootstrapIcon.House" />
+
+		<HxSidebarItem Text="Forms" Icon="BootstrapIcon.InputCursorText">
+			<HxSidebarItem Href="/components/forminputs" Text="Inputs" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxAutosuggest)}")" Text="@nameof(HxAutosuggest)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputDate)}")" Text="@(nameof(HxInputDate) + " [Range]")" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputFile)}")" Text="@nameof(HxInputFile)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxFormState)}")" Text="@nameof(HxFormState)" />
+			<HxSidebarItem Href="/components/HxRadioButtonList" Text="@nameof(HxRadioButtonList<object, object>)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxSelect)}")" Text="@nameof(HxSelect)" />
+		</HxSidebarItem>
+
+		<HxSidebarItem Text="Buttons & Indicators" Icon="BootstrapIcon.PlayBtn">
+			<HxSidebarItem Href="@($"/components/{nameof(HxButton)}")" Text="@(nameof(HxButton) + " & " + nameof(HxSubmit))" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxButtonGroup)}")" Text="@nameof(HxButtonGroup)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxSubmit)}")" Text="@nameof(HxSubmit)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxDropdown)}")" Text="@nameof(HxDropdown)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxBadge)}")" Text="@nameof(HxBadge)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxChipList)}")" Text="@(nameof(HxChipList) + " *TODO Doc*")" Enabled="false" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxIcon)}")" Text="@nameof(HxIcon)" />
+		</HxSidebarItem>
+
+		<HxSidebarItem Text="Data & Grid" Icon="BootstrapIcon.Table">
+			<HxSidebarItem Href="@($"/components/{nameof(HxGrid<object>)}")" Text="@nameof(HxGrid<object>)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxContextMenu)}")" Text="@(nameof(HxContextMenu) + " *TODO Doc*")" Enabled="false" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxPager)}")" Text="@(nameof(HxPager) + " *TODO Doc*")" Enabled="false" />
+		</HxSidebarItem>
+
+		<HxSidebarItem Text="Layout & Typography" Icon="BootstrapIcon.LayoutWtf">
+			<HxSidebarItem Href="@($"/components/{nameof(HxAccordion)}")" Text="@nameof(HxAccordion)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxAlert)}")" Text="@nameof(HxAlert)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxBadge)}")" Text="@nameof(HxBadge)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxCard)}")" Text="@nameof(HxCard)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxIcon)}")" Text="@nameof(HxIcon)" />
+		</HxSidebarItem>
+
+		<HxSidebarItem Text="Navigation" Icon="BootstrapIcon.SignpostSplit">
+			<HxSidebarItem Href="@($"/components/{nameof(HxAnchorFragmentNavigation)}")" Text="@nameof(HxAnchorFragmentNavigation)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxContextMenu)}")" Text="@(nameof(HxContextMenu) + " *TODO Doc*")" Enabled="false" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxDropdown)}")" Text="@nameof(HxDropdown)" />
+		</HxSidebarItem>
+
+		<HxSidebarItem Text="Modals & Interactions" Icon="BootstrapIcon.ChatText">
+			<HxSidebarItem Href="/components/hxmessagebox" Text="@nameof(HxMessageBox)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxModal)}")" Text="@nameof(HxModal)" />
+			<HxSidebarItem Href="/components/hxdialogbase" Text="@nameof(HxDialogBase<object>)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxOffcanvas)}")" Text="@nameof(HxOffcanvas)" />
+		</HxSidebarItem>
+
+		<HxSidebarItem Text="All Components" Icon="BootstrapIcon.SortAlphaDown">
+			<HxSidebarItem Href="@($"/components/{nameof(HxAnchorFragmentNavigation)}")" Text="@nameof(HxAnchorFragmentNavigation)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxAccordion)}")" Text="@nameof(HxAccordion)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxAlert)}")" Text="@nameof(HxAlert)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxAutosuggest)}")" Text="@nameof(HxAutosuggest)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxBadge)}")" Text="@nameof(HxBadge)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxButton)}")" Text="@nameof(HxButton)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxButtonGroup)}")" Text="@nameof(HxButtonGroup)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxCalendar)}")" Text="@nameof(HxCalendar)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxCard)}")" Text="@nameof(HxCard)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxChipList)}")" Text="@(nameof(HxChipList) + " *TODO Doc*")" Enabled="false" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxContextMenu)}")" Text="@(nameof(HxContextMenu) + " *TODO Doc*")" Enabled="false" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxDialogBase<object>)}")" Text="@nameof(HxDialogBase<object>)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxDropdown)}")" Text="@nameof(HxDropdown)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxFormState)}")" Text="@nameof(HxFormState)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxGrid<object>)}")" Text="@nameof(HxGrid<object>)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxIcon)}")" Text="@nameof(HxIcon)" />
+
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputDate)}")" Text="@nameof(HxInputDate)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputDateRange)}")" Text="@nameof(HxInputDateRange)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputFile)}")" Text="@nameof(HxInputFile)" />
+			<HxSidebarItem Href="/components/hxmessagebox" Text="@nameof(HxMessageBox)" />
+			<HxSidebarItem Href="/components/hxmessenger" Text="@nameof(HxMessenger)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxModal)}")" Text="@nameof(HxModal)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxNav)}")" Text="@nameof(HxNav)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxOffcanvas)}")" Text="@nameof(HxOffcanvas)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxPager)}")" Text="@(nameof(HxPager) + " *TODO Doc*")" Enabled="false" />
+			<HxSidebarItem Href="/components/hxprogressindicator" Text="@nameof(HxProgressIndicator)" />
+			<HxSidebarItem Href="/components/hxrepeater" Text="@nameof(HxRepeater<object>)" />
+			<HxSidebarItem Href="/components/HxSpinner" Text="@nameof(HxSpinner)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxSidebar)}")" Text="@nameof(HxSidebar)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxScrollspy)}")" Text="@nameof(HxScrollspy)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxSubmit)}")" Text="@nameof(HxSubmit)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxTabPanel)}")" Text="@nameof(HxTabPanel)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxToast)}")" Text="@nameof(HxToast)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxTooltip)}")" Text="@nameof(HxTooltip)" />
+		</HxSidebarItem>
+	</ItemsTemplate>
+</HxSidebar>

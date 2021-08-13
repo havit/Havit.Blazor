@@ -1,32 +1,23 @@
-﻿@page "/components/hxicon"
+﻿@attribute [Route("/components/" + nameof(HxIcon))]
 
-<h1>@nameof(HxIcon)</h1>
-<p class="lead">
-	Displays an icon. Currently supports <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</a>.
-</p>
+<ComponentApiDoc Type="typeof(HxIcon)">
 
-<p>(Internally used in <a href="/components/hxbutton">@nameof(HxButton)</a> and other components.)</p>
+	<p>(Internally used by <a href="/components/@nameof(HxButton)">@nameof(HxButton)</a> and other components.)</p>
 
-<h3>Properties</h3>
-<ul>
-	<li>
-		<strong>@nameof(Havit.Blazor.Components.Web.HxIcon.Icon)</strong><br />
-		Icon to display.
-	</li>
-</ul>
+	<h3>Icon</h3>
+	<p>Icon is a class derived from <code>@nameof(IconBase)</code> as we want to allow use of icons from different icon sets.</p>
+	<p>Currently, the library brings just one implementation - <code>@nameof(BootstrapIcon)</code>.</p>
 
-<h3>Icon</h3>
-<p>Icon is a class derived from <code>@nameof(IconBase)</code> as we want to allow use of icons from different icon sets.</p>
-<p>Currently, the library brings just one implementation - <code>@nameof(BootstrapIcon)</code>.</p>
+	<h2>BootstrapIcon</h2>
+	<p>
+		For available icons see <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons <HxIcon Icon="BootstrapIcon.BoxArrowUpRight" /></a>
+		or <TypeLink Type="typeof(BootstrapIcon)" /> members.
+	</p>
 
-<h2>BootstrapIcon</h2>
-<p>
-	For available icons see <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons <HxIcon Icon="BootstrapIcon.BoxArrowUpRight" /></a>
-	or <TypeLink Type="typeof(BootstrapIcon)" /> members.
-</p>
+	<HxAlert Color="ThemeColor.Info">
+		Under the hood, the component displays the icon using an <a href="https://icons.getbootstrap.com/#usage" target="_blank">icon font</a>.
+	</HxAlert>
 
-<HxAlert Color="ThemeColor.Info">
-	Under the hood, the component displays the icon using an <a href="https://icons.getbootstrap.com/#usage" target="_blank">icon font</a>.
-</HxAlert>
-
-<Demo Type="typeof(HxIcon_Demo)" />
+	<h3>Demo</h3>
+	<Demo Type="typeof(HxIcon_Demo)" />
+</ComponentApiDoc>

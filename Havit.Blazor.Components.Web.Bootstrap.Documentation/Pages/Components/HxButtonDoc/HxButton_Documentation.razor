@@ -1,76 +1,30 @@
-﻿@page "/components/hxbutton"
+﻿@attribute [Route("/components/" + nameof(HxButton))]
+@attribute [Route("/components/" + nameof(HxSubmit))]
 
-<h1>@nameof(HxButton), @nameof(HxSubmit)</h1>
-<p class="lead">
-	Just buttons. @nameof(HxSubmit) submits form (and causes validation) while @nameof(HxButton) does not.
-</p>
+<ComponentApiDoc Type="typeof(HxButton)">
 
-<h3>Properties</h3>
-<ul>
-	<li>
-		<strong>@nameof(HxButton.Color)</strong><br />
-		Required. Theme color of the button (<code>@nameof(ThemeColor)</code> enum).
-	</li>
-	<li>
-		<strong>@nameof(HxButton.Text)</strong><br />
-		Button text.
-	</li>
-	<li>
-		<strong>@nameof(HxButton.Icon)</strong><br />
-		Uses <a href="/components/hxbootstrapicon">HxBootstrapIcon</a> to display an icon.
-	</li>
-	<li>
-		<strong>@nameof(HxButton.ChildContent)</strong><br />
-		Content of the button when @nameof(HxButton.Text) and @nameof(HxButton.Icon) properties are not good enough for your needs.
-	</li>
-	<li>
-		<strong>@nameof(HxButton.Skin)</strong><br />
-		Skin with shared button settings. See below.
-	</li>
-	<li>
-		<strong>@nameof(HxButton.Outlined)</strong><br />
-		Bootstrap "outline" button style. See https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons.
-	</li>
-	<li>
-		<strong>@nameof(HxButton.Size)</strong><br />
-		Size of the button. See https://getbootstrap.com/docs/5.0/components/buttons/#sizes.
-	</li>
-	<li>
-		<strong>@nameof(HxButton.CssClass)</strong><br />
-		CSS class to be set to the button.
-	</li>
-	<li>
-		<strong>@nameof(HxButton.Spinner)</strong><br />
-		Set state of the embedded spinner. Leave <code>null</code> (default) if you want automated spinner when any of the <code>OnClick</code> handlers is running.
-		You can set an explicit <code>false</code> constant to disable (override) the spinner automation.
-		<HxAlert Color="ThemeColor.Warning">
-			EditForm's <code>OnSubmit</code> events are not captured for spinner automation. Use HxButton's <code>OnClick</code>, <code>OnValidClick</code> and <code>OnInvalidClick</code> instead.
-		</HxAlert>
-	</li>
-	<li>
-		<strong>@nameof(HxButton.SingleClickProtection)</strong><br />
-		Set <code>false</code> if you want to allow multiple <code>OnClick</code> handlers in parallel. Default is <code>true</code>.
-		<HxAlert Color="ThemeColor.Info">
-			If (and only if) there is any of the <code>OnClick</code> handlers set, the single click protection sets the button to <code>disabled</code> during the callback (usually together with the Spinner).
-			It is intentionally not set, if there is no <code>OnClick</code> handler, as there might be an <code>OnSubmit</code> handler of the containing <code>EditForm</code>
-			set which would have been blocked if the button is disabled (see above).
-		</HxAlert>
-	</li>
-	<li>
-		<strong>@nameof(HxButton.Tooltip)</strong><br />
-		Tooltip text.
-	</li>
-	<li>
-		<strong>@nameof(HxButton.TooltipPlacement)</strong><br />
-		Tooltip placement (position).
-	</li>
+	<h3>Spinner &amp; Single click protection</h3>
+	<HxAlert Color="ThemeColor.Warning">
+		EditForm's <code>OnSubmit</code> events are not captured for spinner automation. Use HxButton's <code>OnClick</code>, <code>OnValidClick</code> and <code>OnInvalidClick</code> instead.
+	</HxAlert>
+	<HxAlert Color="ThemeColor.Info">
+		If (and only if) there is any of the <code>OnClick</code> handlers set, the single click protection sets the button to <code>disabled</code> during the callback (usually together with the Spinner).
+		It is intentionally not set, if there is no <code>OnClick</code> handler, as there might be an <code>OnSubmit</code> handler of the containing <code>EditForm</code>
+		set which would have been blocked if the button is disabled (see above).
+	</HxAlert>
 
-</ul>
+	<h3>Skins</h3>
+	<p>Common buttons (OK, Save, Apply, Export, ...) can be defined using a skin. Skin is a shared configuration of a button defined in this library or in a custom code. Skins are localizable, embedded skins are localized (English, Czech).</p>
+	<p>Skins are used as readonly instances (strong-type), no string identifiers (such as SkinID in WebForms) are used.</p>
+	<p>See the demo on how to define custom skins. To make a skin localizable, use <code>ResourceType</code> property to set where to find the translations.</p>
+	<p>See <TypeLink Type="typeof(ButtonSkins)">available skins</TypeLink>.</p>
 
-<h3>Skins</h3>
-<p>Common buttons (OK, Save, Apply, Export, ...) can be defined using a skin. Skin is a shared configuration of a button defined in this library or in a custom code. Skins are localizable, embedded skins are localized (English, Czech).</p>
-<p>Skins are used as readonly instances (strong-type), no string identifiers (such as SkinID in WebForms) are used.</p>
-<p>See the demo on how to define custom skins. To make a skin localizable, use <code>ResourceType</code> property to set where to find the translations.</p>
-<p>See <TypeLink Type="typeof(ButtonSkins)">available skins</TypeLink>.</p>
+	<h3>Demo</h3>
+	<Demo Type="typeof(HxButton_Demo)" />
 
-<Demo Type="typeof(HxButton_Demo)" />
+	<h3>HxSubmit</h3>
+	<p>There is a <code>HxSubmit</code> component (as direct ancestor of <code>HxButton</code>) which renders as <code>&lt;button type="submit"&gt;</code>. The API is the same.</p>
+
+</ComponentApiDoc>
+
+<ComponentApiDoc Type="typeof(HxSubmit)" />

@@ -396,6 +396,8 @@
         <member name="T:Havit.Blazor.Components.Web.HxIcon">
             <summary>
             Displays an icon.
+            Currently supports <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</a> through <code>BootstrapIcon</code> class.
+            You can add your own icon-set easily.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxIcon.Icon">

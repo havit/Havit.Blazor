@@ -1,9 +1,9 @@
-﻿using Havit.Collections;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Havit.Collections;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -82,21 +82,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		#region Sorting properties
 		/// <summary>
 		/// Returns column sorting as string.
+		/// Use to set sorting as a string, ie. to get value to pass to backend.
+		/// Ignored for client-side sorting.
 		/// </summary>
 		[Parameter] public string SortString { get; set; }
 
 		/// <summary>
 		/// Returns column sorting expression for automatic grid sorting.
+		/// To be used for &quot;strongly typed&quot; setting of sorting, required for client-side sorting.
+		/// Must be <see cref="IComparable"/>.
+		/// Sorting of the column does not support multiple expressions. Create an artifcial property and implement <see cref="IComparable"/>.
 		/// </summary>
 		[Parameter] public Expression<Func<TItem, IComparable>> SortKeySelector { get; set; }
 
 		/// <summary>
-		/// Sort direction.
+		/// Initial sorting direction. Default is <see cref="SortDirection.Ascending" />.
 		/// </summary>
 		[Parameter] public SortDirection SortDirection { get; set; } = SortDirection.Ascending;
 
 		/// <summary>
 		/// Indicates the sorting on the column is default (primary) on the grid.
+		/// Set <code>true</code> for the column which is to be used for default sorting.
 		/// </summary>
 		[Parameter] public bool IsDefaultSortColumn { get; set; } = false;
 		#endregion
