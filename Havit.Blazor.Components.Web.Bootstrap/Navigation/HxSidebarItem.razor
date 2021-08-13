@@ -1,33 +1,34 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-
-<div>@* CSS Isolation (.nav-item not needed) *@
-	<HxNavLink Href="@Href"
-			   CssClass="@CssClassHelper.Combine("p-3", this.CssClass)"
-			   Match="this.Match"
-			   role="button"
-			   data-bs-toggle="@(HasExpandableContent ? "collapse" : null)"
-			   data-bs-target="@(HasExpandableContent ? "#" + id : null)"
-			   aria-expanded="@(HasExpandableContent ? "false" : null)">
-		<div class="d-flex align-items-center">
-			@if (Icon != null)
-			{
-				<HxIcon Icon="Icon" />
-			}
-			<span class="text ms-3">
-				@Text
-			</span>
-			@if (HasExpandableContent)
-			{
-				<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="ms-auto" />
-			}
-		</div>
-	</HxNavLink>
-</div>
-@if (ChildContent is not null)
-{
-	<div class="collapse" id="@id">
-		<ul class="nav flex-column">
-			@ChildContent
-		</ul>
+<div class="position-relative">
+	<div class="hx-sidebar-item">@* CSS Isolation (.nav-item not needed) *@
+		<HxNavLink Href="@Href"
+				CssClass="@CssClassHelper.Combine(this.CssClass)"
+				Match="this.Match"
+				role="button"
+				data-bs-toggle="@(HasExpandableContent ? "collapse" : null)"
+				data-bs-target="@(HasExpandableContent ? "#" + id : null)"
+				aria-expanded="@(HasExpandableContent ? "false" : null)">
+			<div class="d-flex align-items-center">
+				@if (Icon != null)
+				{
+					<HxIcon Icon="Icon" />
+				}
+				<span class="text ms-3">
+					@Text
+				</span>
+				@if (HasExpandableContent)
+				{
+					<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon ms-auto" />
+				}
+			</div>
+		</HxNavLink>
 	</div>
-}
+	@if (ChildContent is not null)
+	{
+		<div class="hx-sidebar-item-child collapse" id="@id">
+			<nav class="nav flex-column">
+				@ChildContent
+			</nav>
+		</div>
+	}
+</div>

@@ -1,22 +1,26 @@
-﻿::deep .nav-link {
-	font-size: 0.875rem;
-	line-height: 1;
+﻿.hx-sidebar-item {
+	margin-bottom: .5rem;
 }
 
-::deep a.nav-link {
+::deep .nav-link {
+	line-height: 1;
+	padding: .75rem;
 	font-size: .9rem;
 	color: var(--bs-dark);
 }
 
-::deep a.nav-link:hover, ::deep a.nav-link.active:hover, .navbar-desktop-toggler:hover {
+.hx-sidebar-item-child ::deep .nav-link {
+	padding-left: 2rem;
+	font-size: 0.875rem;
+}
+
+::deep a.nav-link:hover, 
+::deep a.nav-link.active:hover,
+::deep a.nav-link.active, 
+.navbar-desktop-toggler:hover {
 	background-color: var(--sidebar-link-hover);
 	color: var(--primary);
 	border-radius: 0.5rem;
-}
-
-::deep a.nav-link.active {
-	color: var(--primary);
-	background-color: transparent;
 }
 
 ::deep i {

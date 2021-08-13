@@ -1,7 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
 <div class="@CssClassHelper.Combine("sidebar d-flex flex-column", GetDesktopCollapsedCssClass())">
-	<div class="nav-menu d-flex w-auto flex-column p-3 bg-white">
+	<div class="nav-menu d-flex flex-column p-3 bg-white">
 
 		@if (HeaderTemplate is not null)
 		{
@@ -10,19 +10,18 @@
 			</div>
 		}
 
-		<div class="navbar-toggler navbar-light" role="button" @onclick="HandleMobileCollapseToggleClick" @onclick:stopPropagation="true">
-			<span class="navbar-toggler-icon border rounded"></span>
-		</div>
-		<div class="navbar-desktop-toggler align-self-end" role="button" @onclick="HandleDesktopCollapseToggleClick" @onclick:stopPropagation="true">
-			<HxIcon Icon="@(collapsedDesktop ? DesktopExpandIcon : DesktopCollapseIcon)" />
-		</div>
-
-		<div class="@CssClassHelper.Combine("sidebar-inner flex-column mb-auto", @GetCollapsedMobileCssClass())">
+		<div class="@CssClassHelper.Combine("sidebar-body flex-column mb-auto", @GetCollapsedMobileCssClass())">
 			<HxNav Orientation="NavOrientation.Vertical" CssClass="ps-0">
 				@ItemsTemplate
 			</HxNav>
-			@*<ul class="flex-column list-unstyled ps-0">
-			</ul>*@
+			<div class="navbar-toggler navbar-light" role="button" @onclick="HandleMobileCollapseToggleClick"
+				@onclick:stopPropagation="true">
+				<span class="navbar-toggler-icon border rounded"></span>
+			</div>
+			<div class="navbar-desktop-toggler translate-middle" role="button" @onclick="HandleDesktopCollapseToggleClick"
+				@onclick:stopPropagation="true">
+				<HxIcon Icon="@(collapsedDesktop ? DesktopExpandIcon : DesktopCollapseIcon)" />
+			</div>
 		</div>
 
 		@if (FooterTemplate is not null)

@@ -8,6 +8,10 @@
   --sidebar-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* shadow-sm */
   --sidebar-background-color: white;
   --sidebar-border: 1px solid #e9ecef;
+  --sidebar-collapsed-width: 72px;
+  --sidebar-width: 250px;
+  --sidebar-toggler-border: 1px solid #dee2e6;
+  --sidebar-toggler-background: #ffffff;
   /* HxProgressOverlay */
   --hx-progress-overlay-color: white;
   --hx-progress-overlay-opacity: .65;

@@ -1,5 +1,23 @@
 ﻿.logo {
-	width: 2em;
-	height: 2em;
+	width: 2.75em;
+	height: 2.75em;
 	background-color: var(--primary);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+}
+
+a {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	font-size: .875rem;
+	margin-bottom: 1.5rem;
+}
+
+.brand-name {
+	font-size: 1.25rem;
+	margin-left: .5rem;
 }
