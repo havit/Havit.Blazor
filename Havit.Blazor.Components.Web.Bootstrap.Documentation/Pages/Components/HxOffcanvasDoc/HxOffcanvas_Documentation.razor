@@ -1,4 +1,4 @@
-﻿@page "/components/HxOffcanvas"
+﻿@attribute [Route("/components/" + nameof(HxOffcanvas))]
 
 <ComponentApiDoc Type="typeof(HxOffcanvas)">
 	<HxAlert Color="ThemeColor.Warning">
@@ -6,10 +6,10 @@
 		(We hide the current offcanvas if you open a new one.)
 	</HxAlert>
 
-	<h2>Examples</h2>
-	<h3>Basic example</h3>
+	<h3>Usage</h3>
 	<Demo Type="typeof(HxOffcanvas_Demo)" />
 
-	<h3>Example of custom close-button icon</h3>
+	<h3>Custom close-button icon</h3>
 	<Demo Type="typeof(HxOffcanvas_Demo_CustomCloseButtonIcon)" />
+
 </ComponentApiDoc>

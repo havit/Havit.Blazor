@@ -1,28 +1,31 @@
-﻿@page "/components/hxmessagebox"
+﻿@attribute [Route("/components/" + nameof(HxMessageBox))]
+@attribute [Route("/components/" + nameof(HxMessageBoxHost))]
 
-<h1>@nameof(HxMessageBox)</h1>
-<p class="lead">
-	Component to display message-boxes.
-</p>
+<ComponentApiDoc Type="typeof(HxMessageBox)">
 
-<p><code>@nameof(HxMessageBox)</code> is a standalone component you can use in very specific cases.</p>
-<p>Usually you use the message box by using the <code>@nameof(IHxMessageBoxService)</code> injected service.</p>
+	<p><code>@nameof(HxMessageBox)</code> is a standalone component you can use in very specific cases.</p>
+	<p><strong>Usually you use the message box by using the <code>@nameof(IHxMessageBoxService)</code> injected service.</strong></p>
 
-<Demo Type="typeof(HxMessageBoxService_Demo)" Title="Basic use cases..." />
+	<h3>Usage</h3>
+	<Demo Type="typeof(HxMessageBoxService_Demo)" />
 
-<p>You should place the <code>@nameof(HxMessageBoxHost)</code> component to the layout component to make it work!</p>
-<CodeCard Title="MainLayout.razor">
-@("@inherits LayoutComponentBase")
-@("<HxMessageBoxHost />")
-@("@Body")
-</CodeCard>
+	<p>You should place the <code>@nameof(HxMessageBoxHost)</code> component to the layout component to make it work!</p>
+	<CodeCard Title="MainLayout.razor">
+		@("@inherits LayoutComponentBase")
+		@("<HxMessageBoxHost />")
+		@("@Body")
+	</CodeCard>
 
-<p>Call <code>services.AddHxMessageBoxHost()</code> in Startup.cs to configure related services.</p>
-<CodeCard Title="Startup.cs" Language="csharp">
-public void ConfigureServices(IServiceCollection services)
-{
-	// ...
-	services.AddHxMessageBoxHost();
-	// ...
-}
-</CodeCard>
+	<p>Call <code>services.AddHxMessageBoxHost()</code> in Startup.cs to configure related services.</p>
+	<CodeCard Title="Startup.cs" Language="csharp">
+		@("public void ConfigureServices(IServiceCollection services)")
+		@("{")
+		@("\t// ...")
+		@("\tservices.AddHxMessageBoxHost();")
+		@("\t// ...")
+		@("}")
+	</CodeCard>
+
+</ComponentApiDoc>
+
+<ComponentApiDoc Type="typeof(HxMessageBoxHost)" />

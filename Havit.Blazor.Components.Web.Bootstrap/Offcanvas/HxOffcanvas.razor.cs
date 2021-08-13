@@ -37,6 +37,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string HeaderCssClass { get; set; }
 
+		/// <summary>
+		/// Body content.
+		/// </summary>
 		[Parameter] public RenderFragment BodyTemplate { get; set; }
 
 		/// <summary>
@@ -44,6 +47,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string BodyCssClass { get; set; }
 
+		/// <summary>
+		/// Footer content.
+		/// </summary>
 		[Parameter] public RenderFragment FooterTemplate { get; set; }
 
 		/// <summary>

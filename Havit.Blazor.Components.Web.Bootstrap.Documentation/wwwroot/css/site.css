@@ -1,3 +1,7 @@
+:root {
+	--sidebar-width: 300px;
+}
+
 app {
 	position: relative;
 	display: flex;
@@ -83,9 +87,6 @@ app {
 .desktop-collapsed .app-name,
 .desktop-collapsed .hx-context-menu,
 .desktop-collapsed .navbar-desktop-toggler,
-.desktop-collapsed .sub-item {
-	display: none;
-}
 
 .logo .hx-icon {
 	display: none;

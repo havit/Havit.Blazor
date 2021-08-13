@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Displays message boxes initiated through <see cref="IHxMessageBoxService"/>.
+	/// To be placed in root application component / main layout.
+	/// </summary>
 	public partial class HxMessageBoxHost : ComponentBase
 	{
 		[Inject] protected IHxMessageBoxService MessageBoxService { get; set; }

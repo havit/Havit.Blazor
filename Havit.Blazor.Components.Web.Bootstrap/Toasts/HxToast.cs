@@ -11,7 +11,7 @@ using static System.Net.WebRequestMethods;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.1/components/toasts/">Bootstrap Toast</see> component. Not intented to be used in user code, use <see cref="HxMessenger"/>.
+	/// <a href="https://getbootstrap.com/docs/5.1/components/toasts/">Bootstrap Toast</a> component. Not intented to be used in user code, use <see cref="HxMessenger"/>.
 	/// After first render component never updates.
 	/// </summary>
 	public partial class HxToast : ComponentBase, IAsyncDisposable

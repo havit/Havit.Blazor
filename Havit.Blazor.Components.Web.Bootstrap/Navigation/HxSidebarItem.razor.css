@@ -33,7 +33,3 @@
 ::deep .bi-chevron-right {
 	font-size: .75rem;
 }
-
-.desktop-nav-item-collapsed .sub-item .text {
-	display: none
-}

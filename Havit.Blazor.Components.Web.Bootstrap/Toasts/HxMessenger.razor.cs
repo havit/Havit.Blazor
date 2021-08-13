@@ -8,14 +8,18 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Component wrapper displaying <see cref="HxToast"/> to show messages.
+	/// <see cref="HxToastContainer"/> wrapper for displaying <see cref="HxToast"/> messages dispatched through <see cref="IHxMessengerService"/>.
 	/// </summary>
 	public partial class HxMessenger : ComponentBase, IDisposable
 	{
 		/// <summary>
-		/// Position of the messages. Default is <c>null</c> <see cref="HxToastContainerPosition.None"/>.
+		/// Position of the messages. Default is <see cref="HxToastContainerPosition.None"/>.
 		/// </summary>
 		[Parameter] public HxToastContainerPosition Position { get; set; } = HxToastContainerPosition.None;
+
+		/// <summary>
+		/// Additional CSS class.
+		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
 		[Inject] protected IHxMessengerService Messenger { get; set; }

@@ -32,7 +32,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public const string InvalidCssClass = "is-invalid";
 
 		/// <inheritdoc />
-		[CascadingParameter] public FormState FormState { get; set; }
+		[CascadingParameter] protected FormState FormState { get; set; }
+		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
 
 		#region IFormValueComponent public properties
 		/// <summary>
@@ -305,7 +306,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Gives focus to an input element.
+		/// Gives focus to the input element.
 		/// </summary>
 		public virtual async ValueTask FocusAsync()
 		{
@@ -315,6 +316,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 			await InputElement.FocusAsync();
 		}
+
 		/// <summary>
 		/// Sets InputId to a random value when empty.
 		/// </summary>

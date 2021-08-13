@@ -119,7 +119,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</see> component.
+            <a href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</a> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Color">
@@ -655,7 +655,7 @@
             <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> variation which adds <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> and related stuff.
             </summary>
             <remarks>
-            <see href="https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682"/>
+            <a href="https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682">https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682</a>.
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick">
@@ -817,7 +817,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DropdownDirection">
             <summary>
             Direction for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/>.
-            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#directions"/>
+            <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/#directions">https://getbootstrap.com/docs/5.1/components/dropdowns/#directions</a>.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.DropdownDirection.Start">
@@ -832,7 +832,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> component.
+            <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</a> component.
             </summary>
             <remarks>
             For now HxDropdown does not implement Show/Hide methods nor OnXy events. If we need them, we will switch the implementation to JS-interop.
@@ -840,7 +840,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.Split">
             <summary>
-            Set <c>true</c> to create a <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</see>
+            Set <c>true</c> to create a <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</a>
             (using a <c>btn-group</c>).
             </summary>
         </member>
@@ -866,7 +866,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownHeader">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#headers">Dropdown menu header</see> for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu"/>.
+            <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/#headers">Dropdown menu header</a> for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownHeader.CssClass">
@@ -1567,7 +1567,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FocusAsync">
             <summary>
-            Gives focus to an input element.
+            Gives focus to the input element.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.EnsureInputId">
@@ -3169,6 +3169,11 @@
             Hides the modal as cancelled (no value is set).
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox">
+            <summary>
+            Component to display message-boxes.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Title">
             <summary>
             Title text (Header).
@@ -3209,9 +3214,31 @@
             Text for <see cref="F:Havit.Blazor.Components.Web.MessageBoxButtons.Custom"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.CssClass">
+            <summary>
+            Additional CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.OnClosed">
+            <summary>
+            Raised when the message box gets closed. Returns the button clicked.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.ShowAsync">
+            <summary>
+            Displays the message box.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost">
+            <summary>
+            Displays message boxes initiated through <see cref="T:Havit.Blazor.Components.Web.IHxMessageBoxService"/>.
+            To be placed in root application component / main layout.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxModal">
             <summary>
-            Component to render modal dialog as a <see href="https://getbootstrap.com/docs/5.1/components/modal/">Bootstrap Modal</see>.
+            Component to render modal dialog as a <a href="https://getbootstrap.com/docs/5.1/components/modal/">Bootstrap Modal</a>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CssClass">
@@ -3257,19 +3284,19 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.ShowCloseButton">
             <summary>
             Indicates whether the modal shows close button in header.
-            Default value is true.
+            Default value is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CloseOnEscape">
             <summary>
             Indicates whether the modal closes when escape key is pressed.
-            Default value is true.
+            Default value is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.UseStaticBackdrop">
             <summary>
             Indicates whether the modal uses a static backdrop.
-            Default value is true.
+            Default value is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnClosed">
@@ -3325,7 +3352,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAnchorFragmentNavigation">
             <summary>
             Temporarily (?) compensates Blazor deficiency in anchor-fragments (scrolling to <c>page#id</c> URLs). Supports navigation with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> component.
-            <see href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</see>.
+            <a href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</a>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAnchorFragmentNavigation.Automation">
@@ -3336,7 +3363,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNav">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap Nav</see> component.
+            <a href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap Nav</a> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.Orientation">
@@ -3368,7 +3395,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavLink">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-link</see> component.
+            <a href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-link</a> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.Href">
@@ -3412,7 +3439,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</see> component.
+            <a href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</a> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.TargetId">
@@ -3558,7 +3585,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Vertical">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#vertical"/>
+            <a href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#vertical">https://getbootstrap.com/docs/5.1/components/navs-tabs/#vertical</a>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavVariant">
@@ -3569,13 +3596,13 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs">
             <summary>
-            Tabs. <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#tabs"/>.
+            Tabs. <a href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#tabs">https://getbootstrap.com/docs/5.1/components/navs-tabs/#tabs</a>
             Remember to set <c>active</c> tab (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.CssClass"/>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Pills">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills"/>
+            Pills. <a href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills</a>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas">
@@ -3605,9 +3632,19 @@
             Additional header CSS class.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.BodyTemplate">
+            <summary>
+            Body content.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.BodyCssClass">
             <summary>
             Additional body CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.FooterTemplate">
+            <summary>
+            Footer content.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.FooterCssClass">
@@ -3730,6 +3767,11 @@
             Needed for HxFilterForm with HxChipList.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator">
+            <summary>
+            Displays the content of the component as "in progress".
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.DefaultDelay">
             <summary>
             Default debounce delay in miliseconds to be used when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.Delay"/> not set.
@@ -3744,6 +3786,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.Delay">
             <summary>
             Debounce delay in miliseconds. If not set, uses the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.DefaultDelay"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.ChildContent">
+            <summary>
+            Wrapped content.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSpinner">
@@ -3907,12 +3954,17 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessenger">
             <summary>
-            Component wrapper displaying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxToast"/> to show messages.
+            <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer"/> wrapper for displaying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxToast"/> messages dispatched through <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessenger.Position">
             <summary>
-            Position of the messages. Default is <c>null</c> <see cref="F:Havit.Blazor.Components.Web.Bootstrap.HxToastContainerPosition.None"/>.
+            Position of the messages. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.HxToastContainerPosition.None"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessenger.CssClass">
+            <summary>
+            Additional CSS class.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessenger.HandleToastHidden(Havit.Blazor.Components.Web.MessengerMessage)">
@@ -4012,7 +4064,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxToast">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.1/components/toasts/">Bootstrap Toast</see> component. Not intented to be used in user code, use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessenger"/>.
+            <a href="https://getbootstrap.com/docs/5.1/components/toasts/">Bootstrap Toast</a> component. Not intented to be used in user code, use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessenger"/>.
             After first render component never updates.
             </summary>
         </member>
@@ -4080,9 +4132,24 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxToast.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer.Position">
+            <summary>
+            Positioning of the toasts on screen.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer.CssClass">
+            <summary>
+            Additional CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer.ChildContent">
+            <summary>
+            Toasts to display.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</see> component.
+            <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component.
             Rendered as a span (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
             </summary>
         </member>

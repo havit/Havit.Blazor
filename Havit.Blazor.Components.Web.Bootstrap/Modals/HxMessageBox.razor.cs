@@ -9,6 +9,9 @@ using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Component to display message-boxes.
+	/// </summary>
 	public partial class HxMessageBox : ComponentBase
 	{
 		///// <summary>
@@ -56,8 +59,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string CustomButtonText { get; set; }
 
+		/// <summary>
+		/// Additional CSS class.
+		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
+		/// <summary>
+		/// Raised when the message box gets closed. Returns the button clicked.
+		/// </summary>
 		[Parameter] public EventCallback<MessageBoxButtons> OnClosed { get; set; }
 
 
@@ -66,6 +75,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private HxModal modal;
 		private bool shouldSignalClose = false;
 
+		/// <summary>
+		/// Displays the message box.
+		/// </summary>
+		/// <returns></returns>
 		public async Task ShowAsync()
 		{
 			shouldSignalClose = true;

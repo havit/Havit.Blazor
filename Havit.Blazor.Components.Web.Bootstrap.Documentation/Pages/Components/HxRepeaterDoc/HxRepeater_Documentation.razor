@@ -1,9 +1,8 @@
-﻿@page "/components/hxrepeater"
+﻿@attribute [Route("/components/" + nameof(HxRepeater<object>))]
 
 <ComponentApiDoc Type="typeof(HxRepeater<>)">
-    <p class="lead">
-        Component to display repeated items. Analogous to ASP.NET WebForms Repater control.
-    </p>
 
+    <h3>Usage</h3>
     <Demo Type="typeof(HxRepeater_Demo)" />
+
 </ComponentApiDoc>

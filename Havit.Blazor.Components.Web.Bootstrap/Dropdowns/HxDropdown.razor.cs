@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> component.
+	/// <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</a> component.
 	/// </summary>
 	/// <remarks>
 	/// For now HxDropdown does not implement Show/Hide methods nor OnXy events. If we need them, we will switch the implementation to JS-interop.
@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public DropdownDirection Direction { get; set; }
 
 		/// <summary>
-		/// Set <c>true</c> to create a <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</see>
+		/// Set <c>true</c> to create a <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</a>
 		/// (using a <c>btn-group</c>).
 		/// </summary>
 		[Parameter] public bool Split { get; set; }

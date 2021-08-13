@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	// In Progress 
+	/// <summary>
+	/// Displays the content of the component as "in progress".
+	/// </summary>
 	public partial class HxProgressIndicator
 	{
 		private bool progressIndicatorVisible;
@@ -31,6 +33,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public int? Delay { get; set; }
 
+		/// <summary>
+		/// Wrapped content.
+		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		protected EventCallback<bool> ProgressIndicatorVisibleChanged { get; set; }

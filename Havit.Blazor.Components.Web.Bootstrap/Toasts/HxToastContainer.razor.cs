@@ -9,8 +9,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxToastContainer : ComponentBase
 	{
+		/// <summary>
+		/// Positioning of the toasts on screen.
+		/// </summary>
 		[Parameter] public HxToastContainerPosition Position { get; set; }
+
+		/// <summary>
+		/// Additional CSS class.
+		/// </summary>
 		[Parameter] public string CssClass { get; set; }
+
+		/// <summary>
+		/// Toasts to display.
+		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		private string GetPositionCss()

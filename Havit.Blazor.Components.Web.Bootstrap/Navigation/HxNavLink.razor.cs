@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Components.Web;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-link</see> component.
+	/// <a href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-link</a> component.
 	/// </summary>
 	public partial class HxNavLink : ICascadeEnabledComponent
 	{

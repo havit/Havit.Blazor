@@ -1,31 +1,30 @@
-﻿@page "/components/hxmessenger"
+﻿@attribute [Route("/components/" + nameof(HxMessenger))]
 
-<h1>@nameof(HxMessenger)</h1>
-<p class="lead">
-	Component to display notification messages.
-</p>
+<ComponentApiDoc Type="typeof(HxMessenger)">
 
-<p>Component is using <code>@nameof(IHxMessengerService)</code> injected service.</p>
-<p>Informational messages are automatically hidden after 5 seconds, warning and error messages remain visible till manually closed.</p>
+	<p>Component is using <code>@nameof(IHxMessengerService)</code> injected service.</p>
+	<p>Informational messages are automatically hidden after 5 seconds, warning and error messages remain visible till manually closed.</p>
 
-<Demo Type="typeof(HxMessenger_Demo)" Title="Component adding messages..." />
+	<h3>Basic usage</h3>
+	<Demo Type="typeof(HxMessenger_Demo)" />
 
-<p>You should place the <code>@nameof(HxMessenger)</code> component itself to the layout component to make it work!</p>
-<CodeCard Title="MainLayout.razor">
+	<p>You should place the <code>@nameof(HxMessenger)</code> component itself to the layout component to make it work!</p>
+	<CodeCard Title="MainLayout.razor">
 @("@inherits LayoutComponentBase")
 @("<HxMessenger Position=\"HxToastContainerPosition.TopEnd\" />")
 @("@Body")
-</CodeCard>
+	</CodeCard>
 
-<p>Call <code>services.AddHxMessenger()</code> in Startup.cs to configure related services.</p>
-<CodeCard Title="Startup.cs" Language="csharp">
-public void ConfigureServices(IServiceCollection services)
-{
-	// ...
-	services.AddHxMessenger();
-	// ...
-}
-</CodeCard>
+	<p>Call <code>services.AddHxMessenger()</code> in <code>Startup.cs</code> to setup related services.</p>
+	<CodeCard Title="Startup.cs" Language="csharp">
+@("public void ConfigureServices(IServiceCollection services)")
+@("{")
+@("\t// ...")
+@("\tservices.AddHxMessenger();")
+@("\t// ...")
+@("}")
+	</CodeCard>
 
-<h3>Clearing messages</h3>
-<p>Use <code>messenger.Clear()</code> method if you want all messages to disappear immediately.</p>
+	<h3>Clearing messages</h3>
+	<p>Use <code>messenger.Clear()</code> method (<code>IHxMessengerService</code>) if you want all messages to disappear immediately.</p>
+</ComponentApiDoc>

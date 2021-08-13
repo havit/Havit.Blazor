@@ -10,7 +10,7 @@ using static System.Net.WebRequestMethods;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</see> component.
+	/// <a href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</a> component.
 	/// </summary>
 	public partial class HxBadge
 	{

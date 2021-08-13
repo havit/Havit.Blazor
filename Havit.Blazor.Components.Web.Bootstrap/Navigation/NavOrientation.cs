@@ -10,7 +10,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		Horizontal = 0,
 
 		/// <summary>
-		/// <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#vertical"/>
+		/// <a href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#vertical">https://getbootstrap.com/docs/5.1/components/navs-tabs/#vertical</a>.
 		/// </summary>
 		Vertical = 1
 	}

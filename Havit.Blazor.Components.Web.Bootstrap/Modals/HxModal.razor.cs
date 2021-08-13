@@ -11,7 +11,7 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Component to render modal dialog as a <see href="https://getbootstrap.com/docs/5.1/components/modal/">Bootstrap Modal</see>.
+	/// Component to render modal dialog as a <a href="https://getbootstrap.com/docs/5.1/components/modal/">Bootstrap Modal</a>.
 	/// </summary>
 	public partial class HxModal : IAsyncDisposable
 	{
@@ -65,19 +65,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Indicates whether the modal shows close button in header.
-		/// Default value is true.
+		/// Default value is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool ShowCloseButton { get; set; } = true;
 
 		/// <summary>
 		/// Indicates whether the modal closes when escape key is pressed.
-		/// Default value is true.
+		/// Default value is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool CloseOnEscape { get; set; } = true;
 
 		/// <summary>
 		/// Indicates whether the modal uses a static backdrop.
-		/// Default value is true.
+		/// Default value is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool UseStaticBackdrop { get; set; } = true;
 
