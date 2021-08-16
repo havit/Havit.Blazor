@@ -13,7 +13,7 @@
 				{
 					<HxIcon Icon="Icon" />
 				}
-				<span class="text ms-3">
+				<span class="@CssClassHelper.Combine("text", Icon == null ? null : "ms-3")">
 					@Text
 				</span>
 				@if (HasExpandableContent)

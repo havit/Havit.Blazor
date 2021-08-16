@@ -4,20 +4,25 @@
 	position: sticky;
 	top: 0;
 	z-index: 100;
-	width: var(--sidebar-width);
+	width: var(--hx-sidebar-width);
 }
 
 .sidebar.collapse {
-	width: var(--sidebar-collapsed-width);
+	width: var(--hx-sidebar-collapsed-width);
 }
 
 .sidebar-header {
-	margin-top: .5rem;
+	padding: var(--hx-sidebar-header-padding);
+}
+
+.sidebar-body {
+	padding: var(--hx-sidebar-body-padding);
 }
 
 .sidebar-footer {
 	width: 100%;
 	flex-grow: 0;
+	padding: var(--hx-sidebar-footer-padding);
 }
 
 .navbar-toggler-icon {
@@ -30,10 +35,10 @@
 	width: 2.5em;
 	height: 2.5em;
 	border-radius: 50%;
-	border: var(--sidebar-toggler-border);
+	border: var(--hx-sidebar-toggler-border);
 	align-items: center;
 	justify-content: center;
-	background-color: var(--sidebar-toggler-background);
+	background-color: var(--hx-sidebar-toggler-background);
 	transition: all 0.25s ease-in-out;
 }
 
@@ -52,7 +57,7 @@
 
 /*Desktop collapsed*/
 .sidebar.desktop-collapse {
-	width: var(--sidebar-collapsed-width);
+	width: var(--hx-sidebar-collapsed-width);
 }
 
 .sidebar.desktop-collapse ::deep .brand-name,
@@ -74,7 +79,7 @@
 @media (min-width: 768px) {
 
 	.sidebar {
-		width: var(--sidebar-width);
+		width: var(--hx-sidebar-width);
 		display: flex;
 		height: 100%;
 	}

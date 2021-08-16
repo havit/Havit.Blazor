@@ -4,16 +4,22 @@
   --main-bg: #f5f5f6;
   --primary: #2e75f0;
   /* HxSidebar */
-  --sidebar-link-hover: #f2f9ff;
-  --sidebar-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* shadow-sm */
-  --sidebar-background-color: white;
-  --sidebar-border: 1px solid #e9ecef;
-  --sidebar-collapsed-width: 72px;
-  --sidebar-width: 250px;
-  --sidebar-toggler-border: 1px solid #dee2e6;
-  --sidebar-toggler-background: #ffffff;
-  --sidebar-item-font-size: 1rem;
-  --sidebar-subitem-font-size: .75rem;
+  --hx-sidebar-link-hover: #f2f9ff;
+  --hx-sidebar-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* shadow-sm */
+  --hx-sidebar-background-color: white;
+  --hx-sidebar-border: 1px solid #e9ecef;
+  --hx-sidebar-collapsed-width: 72px;
+  --hx-sidebar-width: 250px;
+  --hx-sidebar-toggler-border: 1px solid #dee2e6;
+  --hx-sidebar-toggler-background: #ffffff;
+  --hx-sidebar-item-font-size: 1rem;
+  --hx-sidebar-item-padding: .75rem;
+  --hx-sidebar-subitem-font-size: .75rem;
+  --hx-sidebar-subitem-padding: .5rem;
+  --hx-sidebar-subitem-margin: 0 0 0 2.25rem;
+  --hx-sidebar-header-padding: 1rem;
+  --hx-sidebar-body-padding: 0 1rem;
+  --hx-sidebar-footer-padding: 1rem;
   /* HxProgressOverlay */
   --hx-progress-overlay-color: white;
   --hx-progress-overlay-opacity: .65;

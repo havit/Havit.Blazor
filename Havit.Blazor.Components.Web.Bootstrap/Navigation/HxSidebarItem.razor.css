@@ -4,21 +4,23 @@
 
 ::deep .nav-link {
 	line-height: 1;
-	padding: .75rem;
-	font-size: var(--sidebar-item-font-size);
+	padding: var(--hx-sidebar-item-padding);
+	font-size: var(--hx-sidebar-item-font-size);
 	color: var(--bs-dark);
 }
 
 .hx-sidebar-subitems ::deep .nav-link {
-	padding-left: 1.875rem;
-	font-size: var(--sidebar-subitem-font-size);
+	margin: var(--hx-sidebar-subitem-margin);
+	padding: var(--hx-sidebar-subitem-padding);
+	font-size: var(--hx-sidebar-subitem-font-size);
+	display: inline-flex;
 }
 
 ::deep a.nav-link:hover, 
 ::deep a.nav-link.active:hover,
 ::deep a.nav-link.active, 
 .navbar-desktop-toggler:hover {
-	background-color: var(--sidebar-link-hover);
+	background-color: var(--hx-sidebar-link-hover);
 	color: var(--primary);
 	border-radius: 0.5rem;
 }
