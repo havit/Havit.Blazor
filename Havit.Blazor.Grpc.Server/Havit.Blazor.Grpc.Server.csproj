@@ -7,7 +7,7 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.0.0</PackageVersion>
+		<PackageVersion>1.0.1</PackageVersion>
 		<Description>HAVIT Blazor stack - gRPC Support - server-side</Description>
 	</PropertyGroup>
 
