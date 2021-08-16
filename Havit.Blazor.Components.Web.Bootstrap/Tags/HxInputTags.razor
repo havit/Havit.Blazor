@@ -1,0 +1,24 @@
+@namespace Havit.Blazor.Components.Web.Bootstrap
+@using Havit.Blazor.Components.Web.Bootstrap.Internal
+
+<div class="hx-tag-input form-control d-flex">
+	<div class="d-flex align-items-center me-1">
+		<HxTag Text="Interní" CssClass="me-1" />
+		<HxTag Text="Přijatá" CssClass="me-1" />
+	</div>
+	<HxAutosuggestInternal TItem="string"
+						   TValue="string"
+						   DataProvider="NewItemSuggestionsDataProvider"
+						   />
+
+	@*<div style="position:relative">
+		<a id="tagDropdownLink" data-bs-toggle="dropdown" class="flex-grow-1" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">
+			<input type="text" class="border-0 w-100">
+		</a>
+		<div class="dropdown-menu" aria-labelledby="tagDropdownLink">
+			<a class="dropdown-item" href="#">Action</a>
+			<a class="dropdown-item" href="#">Another action</a>
+			<a class="dropdown-item" href="#">Something else here</a>
+		</div>
+	</div>*@
+</div>

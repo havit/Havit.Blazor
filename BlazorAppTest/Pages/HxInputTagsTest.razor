@@ -1,0 +1,15 @@
+@page "/HxInputTagsTest"
+
+<h1>HxInputTags</h1>
+
+<HxInputTags NewItemSuggestionsDataProvider="GetNewItemSuggestions" />
+
+@code {
+	private Task<AutosuggestDataProviderResult<string>> GetNewItemSuggestions(AutosuggestDataProviderRequest request)
+	{
+		return Task.FromResult(new AutosuggestDataProviderResult<string>()
+		{
+			Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString())
+		});
+	}
+}

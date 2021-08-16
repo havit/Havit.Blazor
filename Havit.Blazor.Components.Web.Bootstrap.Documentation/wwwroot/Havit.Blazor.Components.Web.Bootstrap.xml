@@ -3941,6 +3941,36 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTag">
+            <summary>
+            Single tag visual. Building block for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTag.BackgroundColor">
+            <summary>
+            Tag background color. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTag.TextColor">
+            <summary>
+            Tag text (value) color. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Dark"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTag.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTag.Text">
+            <summary>
+            Tag text (value).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTag.OnRemove">
+            <summary>
+            Raised when the remove button is clicked.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">
             <summary>
             Bootstrap theme colors https://getbootstrap.com/docs/5.0/customize/color/#theme-colors

@@ -1,6 +1,10 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap
 
-<span class="hx-tag badge bg-primary align-text-bottom me-1">
+<HxBadge Color="this.BackgroundColor"
+		 TextColor="this.TextColor"
+		 CssClass="@CssClassHelper.Combine("hx-tag", this.CssClass)">
 	@Text
-    <HxIcon Icon="@BootstrapIcon.X"/>
-</span>    
+	<span @onclick="this.OnRemove" @onclick:stopPropagation="true" role="button">
+		<HxIcon Icon="@BootstrapIcon.X" />
+	</span>
+</HxBadge>
