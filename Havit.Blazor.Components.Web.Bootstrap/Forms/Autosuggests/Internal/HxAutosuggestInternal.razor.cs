@@ -69,7 +69,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public IconBase ClearIcon { get; set; }
 
-		[Parameter] public bool EnabledEffective { get; set; }
+		[Parameter] public bool EnabledEffective { get; set; } = true;
 
 		[Parameter] public LabelType LabelTypeEffective { get; set; }
 

@@ -3,34 +3,36 @@
 @typeparam TValue
 
 <div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
-    <Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput @ref="autosuggestInput" InputId="@InputId"
-        EnabledEffective="@EnabledEffective" Value="@userInput" OnInputInput="HandleInputInput"
-        OnInputFocus="HandleInputFocus" OnInputBlur="HandleInputBlur" Placeholder="@Placeholder"
-        CssClass="@InputCssClass" Offset="@InputOffset"/>
-    @if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
+	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput @ref="autosuggestInput" InputId="@InputId"
+																	   EnabledEffective="@EnabledEffective" Value="@userInput" OnInputInput="HandleInputInput"
+																	   OnInputFocus="HandleInputFocus" OnInputBlur="HandleInputBlur" Placeholder="@Placeholder"
+																	   CssClass="@InputCssClass" Offset="@InputOffset" />
+	@if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
 	{
 		<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
 	}
-<div class="hx-autosuggest-input-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center">
-	@if (dataProviderInProgress)
-	{
-		<div>
-			<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-		</div>
-	}
-	else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
-	{
-		<div role="button" @onclick="HandleCrossClick" @onclick:stopPropagation>
-			<HxIcon Icon="ClearIcon"  />
-		</div>
-		
-	}
-	else
-	{
-		<HxIcon Icon="@SearchIcon" />
-	}
-</div>
-    <Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems TItem="TItem" Items="@suggestions" OnItemClick="HandleItemClick">
+	<div class="hx-autosuggest-input-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center">
+		@if (dataProviderInProgress)
+		{
+			<div>
+				<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+			</div>
+		}
+		else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
+		{
+			if (this.ClearIcon is not null)
+			{
+				<div role="button" @onclick="HandleCrossClick" @onclick:stopPropagation>
+					<HxIcon Icon="ClearIcon" />
+				</div>
+			}
+		}
+		else if (this.SearchIcon is not null)
+		{
+			<HxIcon Icon="@SearchIcon" />
+		}
+	</div>
+	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems TItem="TItem" Items="@suggestions" OnItemClick="HandleItemClick">
 		<ItemTemplate>
 			@if (ItemTemplate != null)
 			{
@@ -38,11 +40,11 @@
 			}
 			else
 			{
-    			<text>@TextSelectorEffective(context)</text>
+				<text>@TextSelectorEffective(context)</text>
 			}
 		</ItemTemplate>
 		<EmptyTemplate>
 			@EmptyTemplate
 		</EmptyTemplate>
-    </Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems>
+	</Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems>
 </div>
