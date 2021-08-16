@@ -20,12 +20,14 @@ namespace Havit.Blazor.Grpc.Client
 {
 	public static class GrpcClientServiceCollectionExtensions
 	{
-		public static void AddGrpcClientInfrastructure(this IServiceCollection services)
+		public static void AddGrpcClientInfrastructure(
+			this IServiceCollection services,
+			Assembly assemblyToScanForDataContracts)
 		{
 			services.AddTransient<ServerExceptionsGrpcClientInterceptor>();
 			services.AddTransient<CancellationWorkaroundGrpcClientInterceptor>();
 			services.AddTransient<GrpcWebHandler>(provider => new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
-			services.AddSingleton<ClientFactory>(ClientFactory.Create(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Create().RegisterApplicationContracts()) }, binder: new ProtoBufServiceBinder())));
+			services.AddSingleton<ClientFactory>(ClientFactory.Create(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Create().RegisterApplicationContracts(assemblyToScanForDataContracts)) }, binder: new ProtoBufServiceBinder())));
 		}
 
 		public static void AddGrpcClientsByApiContractAttributes(

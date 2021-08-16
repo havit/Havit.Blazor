@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Grpc.AspNetCore.Server;
@@ -15,10 +16,13 @@ namespace Havit.Blazor.Grpc.Server
 {
 	public static class GrpcServerServiceCollectionExtensions
 	{
-		public static void AddGrpcServerInfrastructure(this IServiceCollection services, Action<GrpcServiceOptions> configureOptions = null)
+		public static void AddGrpcServerInfrastructure(
+			this IServiceCollection services,
+			Assembly assemblyToScanForDataContracts,
+			Action<GrpcServiceOptions> configureOptions = null)
 		{
 			services.AddSingleton<ServerExceptionsGrpcServerInterceptor>();
-			services.AddSingleton(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Default.RegisterApplicationContracts()) }, binder: new ServiceBinderWithServiceResolutionFromServiceCollection(services)));
+			services.AddSingleton(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Default.RegisterApplicationContracts(assemblyToScanForDataContracts)) }, binder: new ServiceBinderWithServiceResolutionFromServiceCollection(services)));
 
 			services.AddCodeFirstGrpc(options =>
 			{
