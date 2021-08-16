@@ -44,11 +44,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		[Parameter] public Type Type { get; set; }
 
 		/// <summary>
-		/// If true, removes API header, and makes the type name header smaller
-		/// </summary>
-		[Parameter] public bool SubComponent { get; set; } = false;
-
-		/// <summary>
 		/// Names of members that will be excluded from the displayed documentation
 		/// </summary>
 		[Parameter] public List<string> ExcludedMembers { get; set; } = new();
@@ -63,8 +58,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		private static readonly HttpClient client = new HttpClient();
 
 		private ClassMember classMember;
+
 		private List<Property> properties = new();
+		private List<Property> parameters = new();
+		private List<Property> staticProperties = new();
 		private List<Property> events = new();
+
 		private List<Method> methods = new();
 		private List<Method> staticMethods = new();
 
@@ -81,7 +80,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			DocXmlReader reader = new(xPathDocument);
 
 			classMember = GetClassMember(reader);
-			properties = GetProperties(reader);
+			var properties = GetProperties(reader);
+			this.properties = properties.properties;
+			parameters = properties.parameters;
+			staticProperties = properties.staticProperties;
 			events = SeparateEvents();
 
 			var methods = GetMethods(reader);
@@ -116,9 +118,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return new() { Comments = reader.GetTypeComments(Type) };
 		}
 
-		private List<Property> GetProperties(DocXmlReader reader)
+		private (List<Property> properties, List<Property> parameters, List<Property> staticProperties) GetProperties(DocXmlReader reader)
 		{
 			List<Property> typeProperties = new();
+			List<Property> parameters = new();
+			List<Property> staticProperties = new();
 
 			foreach (var property in Type.GetProperties())
 			{
@@ -137,10 +141,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 					// newProperty.Comments = FindInheritDoc(newProperty, reader); TO-DO
 				}
 
+				if (HasParameterAttribute(newProperty))
+				{
+					parameters.Add(newProperty);
+					continue;
+				}
+				else if (IsPropertyStatic(newProperty))
+				{
+					staticProperties.Add(newProperty);
+					continue;
+				}
 				typeProperties.Add(newProperty);
 			}
 
-			return typeProperties;
+			return (typeProperties, parameters, staticProperties);
 		}
 
 		private (List<Method> methods, List<Method> staticMethods) GetMethods(DocXmlReader reader)
@@ -200,6 +214,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 
 			return true;
+		}
+
+		private bool HasParameterAttribute(Property property)
+		{
+			var customAttributes = property.PropertyInfo.CustomAttributes.ToList();
+			foreach (var attribute in customAttributes)
+			{
+				if (attribute.AttributeType == typeof(ParameterAttribute))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		private bool IsPropertyStatic(Property property)
+		{
+			return property.PropertyInfo.GetAccessors(false).Any(o => o.IsStatic);
 		}
 
 		private CommonComments FindInheritDoc(Property property, DocXmlReader reader)
