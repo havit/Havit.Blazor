@@ -84,7 +84,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			this.properties = properties.properties;
 			parameters = properties.parameters;
 			staticProperties = properties.staticProperties;
-			events = SeparateEvents();
+			events = properties.events;
 
 			var methods = GetMethods(reader);
 			this.methods = methods.methods;
@@ -118,11 +118,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return new() { Comments = reader.GetTypeComments(Type) };
 		}
 
-		private (List<Property> properties, List<Property> parameters, List<Property> staticProperties) GetProperties(DocXmlReader reader)
+		private (List<Property> properties, List<Property> parameters, List<Property> staticProperties, List<Property> events) GetProperties(DocXmlReader reader)
 		{
 			List<Property> typeProperties = new();
 			List<Property> parameters = new();
 			List<Property> staticProperties = new();
+			List<Property> events = new();
 
 			foreach (var property in Type.GetProperties())
 			{
@@ -141,20 +142,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 					// newProperty.Comments = FindInheritDoc(newProperty, reader); TO-DO
 				}
 
-				if (HasParameterAttribute(newProperty))
+				if (IsEvent(newProperty))
+				{
+					events.Add(newProperty);
+				}
+				else if (HasParameterAttribute(newProperty))
 				{
 					parameters.Add(newProperty);
-					continue;
 				}
 				else if (IsPropertyStatic(newProperty))
 				{
 					staticProperties.Add(newProperty);
-					continue;
 				}
-				typeProperties.Add(newProperty);
+				else
+				{
+					typeProperties.Add(newProperty);
+				}
 			}
 
-			return (typeProperties, parameters, staticProperties);
+			return (typeProperties, parameters, staticProperties, events);
 		}
 
 		private (List<Method> methods, List<Method> staticMethods) GetMethods(DocXmlReader reader)
@@ -233,6 +239,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		private bool IsPropertyStatic(Property property)
 		{
 			return property.PropertyInfo.GetAccessors(false).Any(o => o.IsStatic);
+		}
+
+		private bool IsEvent(Property property)
+		{
+			return property.PropertyInfo.PropertyType == typeof(EventCallback<>) || property.PropertyInfo.PropertyType == typeof(EventCallback) || property.PropertyInfo.PropertyType.ToString().ToLower().Contains("event");
 		}
 
 		private CommonComments FindInheritDoc(Property property, DocXmlReader reader)
