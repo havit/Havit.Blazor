@@ -10,7 +10,7 @@
 			</div>
 		}
 
-		<div class="@CssClassHelper.Combine("sidebar-body flex-column mb-auto", @GetCollapsedMobileCssClass())">
+		<div class="@CssClassHelper.Combine("sidebar-body flex-column mb-auto overflow-auto", @GetCollapsedMobileCssClass())">
 			<HxNav Orientation="NavOrientation.Vertical" CssClass="ps-0">
 				@ItemsTemplate
 			</HxNav>

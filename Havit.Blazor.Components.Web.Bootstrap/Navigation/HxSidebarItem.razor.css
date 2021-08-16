@@ -1,17 +1,17 @@
 ﻿.hx-sidebar-item {
-	margin-bottom: .5rem;
+	margin-bottom: .25rem;
 }
 
 ::deep .nav-link {
 	line-height: 1;
 	padding: .75rem;
-	font-size: .9rem;
+	font-size: var(--sidebar-item-font-size);
 	color: var(--bs-dark);
 }
 
-.hx-sidebar-item-child ::deep .nav-link {
-	padding-left: 2rem;
-	font-size: 0.875rem;
+.hx-sidebar-subitems ::deep .nav-link {
+	padding-left: 1.875rem;
+	font-size: var(--sidebar-subitem-font-size);
 }
 
 ::deep a.nav-link:hover, 
