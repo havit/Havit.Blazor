@@ -35,10 +35,10 @@ namespace Havit.Blazor.Grpc.Server
 
 			var mapGrpcServiceMethodInfo = typeof(GrpcEndpointRouteBuilderExtensions).GetMethod(nameof(GrpcEndpointRouteBuilderExtensions.MapGrpcService));
 
-
 			foreach (var item in interfacesAndAttributes)
 			{
 				var endpoint = (GrpcServiceEndpointConventionBuilder)mapGrpcServiceMethodInfo.MakeGenericMethod(item.Interface).Invoke(null, new[] { builder });
+
 				configureEndpointAll?.Invoke(endpoint);
 				if (item.Attribute.RequireAuthorization)
 				{

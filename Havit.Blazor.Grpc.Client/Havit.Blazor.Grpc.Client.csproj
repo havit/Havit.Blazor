@@ -7,16 +7,20 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.0.0</PackageVersion>
+		<PackageVersion>1.0.2</PackageVersion>
 		<Description>HAVIT Blazor stack - gRPC Support - client-side</Description>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Grpc.Net.Client" Version="2.38.0" />
 		<PackageReference Include="Grpc.Net.Client.Web" Version="2.38.0" />
 		<PackageReference Include="Havit.Core" Version="2.0.19" />
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.8" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
 		<PackageReference Include="protobuf-net" Version="3.0.101" />
 		<PackageReference Include="protobuf-net.Grpc.ClientFactory" Version="1.0.152" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Havit.Blazor.Grpc.Core\Havit.Blazor.Grpc.Core.csproj" />
 	</ItemGroup>
 
 </Project>
