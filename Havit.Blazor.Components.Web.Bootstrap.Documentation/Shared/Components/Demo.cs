@@ -41,15 +41,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			builder.AddAttribute(101, "class", "card card-demo my-3");
 			builder.OpenElement(200, "div");
 			builder.AddAttribute(201, "class", "card-header");
-			builder.AddContent(202, Title);
 
-			builder.OpenElement(300, "button");
-			builder.AddAttribute(301, "type", "button");
-			builder.AddAttribute(302, "class", "btn btn-info btn-sm");
-			builder.AddAttribute(303, "style", "float: right");
-			builder.AddAttribute(304, "onclick", EventCallback.Factory.Create(this, () => { showingDemo = !showingDemo; }));
-			builder.AddContent(305, showingDemo ? "source" : "demo");
-			builder.CloseElement(); // button
+			builder.OpenComponent<HxTabPanel>(300);
+			builder.AddAttribute(3001, "ChildContent", (RenderFragment)((builder2) =>
+			{
+				builder2.OpenComponent<HxTab>(302);
+				builder2.AddAttribute(303, "Id", "demo");
+				builder2.AddAttribute(304, "Title", "Demo");
+				builder2.AddAttribute(305, "OnTabActivated", EventCallback.Factory.Create(this, () => { showingDemo = true; }));
+				builder2.CloseComponent();
+
+				builder2.OpenComponent<HxTab>(354);
+				builder2.AddAttribute(356, "Id", "source");
+				builder2.AddAttribute(357, "Title", "Source");
+				builder2.AddAttribute(358, "OnTabActivated", EventCallback.Factory.Create(this, () => { showingDemo = false; }));
+				builder2.CloseComponent();
+			}));
+			builder.CloseComponent();
 
 			builder.CloseElement(); // card-header
 
