@@ -10,10 +10,8 @@
 }
 
 .hx-sidebar-subitems ::deep .nav-link {
-	margin: var(--hx-sidebar-subitem-margin);
-	padding: var(--hx-sidebar-subitem-padding);
-	font-size: var(--hx-sidebar-subitem-font-size);
-	display: inline-flex;
+	padding-left: 1.875rem;
+	font-size: var(--sidebar-subitem-font-size);
 }
 
 ::deep a.nav-link:hover, 

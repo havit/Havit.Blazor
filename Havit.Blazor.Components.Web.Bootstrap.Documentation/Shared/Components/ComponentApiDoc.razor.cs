@@ -38,6 +38,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
+		[Parameter] public RenderFragment MainContent { get; set; }
+
+		[Parameter] public RenderFragment CssVariables { get; set; }
+
 		/// <summary>
 		/// A type to generate the documentation for
 		/// </summary>

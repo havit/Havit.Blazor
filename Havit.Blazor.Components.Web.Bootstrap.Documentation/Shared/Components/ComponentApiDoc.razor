@@ -5,8 +5,17 @@
 }
 
 @ChildContent
+@MainContent
 
 <h2>API</h2>
+
+@if (CssVariables is not null)
+{
+    <h3>Css Variables</h3>
+    <ul>
+        @CssVariables
+    </ul>
+} 
 
 @if (parameters.Count > 0)
 {

@@ -1,15 +1,21 @@
 ﻿@attribute [Route("/components/" + nameof(HxOffcanvas))]
 
 <ComponentApiDoc Type="typeof(HxOffcanvas)">
-	<HxAlert Color="ThemeColor.Warning">
-		Similar to modals, only one offcanvas can be shown at a time.<br />
-		(We hide the current offcanvas if you open a new one.)
-	</HxAlert>
+    <MainContent>
+        <HxAlert Color="ThemeColor.Warning">
+            Similar to modals, only one offcanvas can be shown at a time.<br />
+            (We hide the current offcanvas if you open a new one.)
+        </HxAlert>
 
-	<h3>Usage</h3>
-	<Demo Type="typeof(HxOffcanvas_Demo)" />
+        <h3>Usage</h3>
+        <Demo Type="typeof(HxOffcanvas_Demo)" />
 
-	<h3>Custom close-button icon</h3>
-	<Demo Type="typeof(HxOffcanvas_Demo_CustomCloseButtonIcon)" />
-
+        <h3>Custom close-button icon</h3>
+        <Demo Type="typeof(HxOffcanvas_Demo_CustomCloseButtonIcon)" />
+    </MainContent>
+    <CssVariables>
+        <ComponentApiDocCssVariable Name="--hx-offcanvas-close-icon-font-size">
+            Offcanvas close icon font size. Default <code>2rem</code>.
+        </ComponentApiDocCssVariable>
+    </CssVariables>
 </ComponentApiDoc>

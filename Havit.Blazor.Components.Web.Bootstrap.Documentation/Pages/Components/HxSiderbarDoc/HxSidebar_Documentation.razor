@@ -3,8 +3,42 @@
 @attribute [Route("/components/" + nameof(HxSidebarBrand))]
 
 <ComponentApiDoc Type="typeof(HxSidebar)">
-	<h3>Demo</h3>
-	<Demo Type="typeof(HxSidebar_Demo)" />
+    <MainContent>
+        <h3>Demo</h3>
+        <Demo Type="typeof(HxSidebar_Demo)" />
+    </MainContent>
+	<CssVariables>
+        <ComponentApiDocCssVariable Name="--hx-sidebar-link-hover">
+            Color on hover. Default <code>#f2f9ff</code>.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-sidebar-box-shadow">
+            Box shadow. Default <code>0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)</code>.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-sidebar-background-color">
+            Background color. Default <code>white</code>.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-sidebar-border">
+            Border. Default <code>1px solid #e9ecef</code>.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-sidebar-collapsed-width">
+            Width of collapsed sidebar. Default <code>72px</code>.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-sidebar-width">
+            Width of the sidebar. Default <code>250px</code>.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-sidebar-toggler-border">
+            Toggler border. Default <code>1px solid #dee2e6</code>.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-sidebar-toggler-background">
+           Toggler background. Default <code>#ffffff</code>.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-sidebar-item-font-size">
+            Font size of the items. Default <code>1rem</code>.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-sidebar-subitem-font-size">
+            Font size of the subitems. Default <code>0.75rem</code>.
+        </ComponentApiDocCssVariable>
+    </CssVariables>
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxSidebarItem)" />

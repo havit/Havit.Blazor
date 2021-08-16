@@ -1,7 +1,16 @@
 ﻿@attribute [Route("/components/" + nameof(HxProgressIndicator))]
 
 <ComponentApiDoc Type="typeof(HxProgressIndicator)">
-
-    <h3>Usage</h3>
-    <Demo Type="typeof(HxProgressIndicator_Demo)" />
+    <MainContent>
+        <h3>Usage</h3>
+        <Demo Type="typeof(HxProgressIndicator_Demo)" />
+    </MainContent>
+    <CssVariables>
+        <ComponentApiDocCssVariable Name="--hx-progress-overlay-color">
+            Progress overlay color. Default <code>white</code>.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-progress-overlay-opacity">
+            Progress overlay opacity. Default <code>.65</code>.
+        </ComponentApiDocCssVariable>
+    </CssVariables>
 </ComponentApiDoc>
