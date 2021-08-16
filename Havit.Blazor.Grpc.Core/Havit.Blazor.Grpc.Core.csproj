@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+	<!-- NuGet -->
+	<Import Project="../NuGet.targets" />
+	<PropertyGroup>
+		<PackageVersion>1.0.0</PackageVersion>
+		<Description>HAVIT Blazor stack - gRPC Support - Core library for both server and client side</Description>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Havit.Core" Version="2.0.19" />
+		<PackageReference Include="protobuf-net" Version="3.0.101" />
+		<PackageReference Include="protobuf-net.Grpc" Version="1.0.152" />
+	</ItemGroup>
+
+</Project>
