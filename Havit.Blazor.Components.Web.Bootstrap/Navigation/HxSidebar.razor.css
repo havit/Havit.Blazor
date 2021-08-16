@@ -32,14 +32,16 @@
 .navbar-desktop-toggler {
 	opacity: 0;
 	display: flex;
-	width: 2.5em;
-	height: 2.5em;
+	width: 2em;
+	height: 2em;
 	border-radius: 50%;
 	border: var(--hx-sidebar-toggler-border);
 	align-items: center;
 	justify-content: center;
 	background-color: var(--hx-sidebar-toggler-background);
 	transition: all 0.25s ease-in-out;
+	color: var(--bs-gray);
+	transition: all .25s ease-in-out;
 }
 
 .navbar-desktop-toggler:hover {
@@ -99,6 +101,10 @@
 	}
 
 	.sidebar:hover .navbar-desktop-toggler {
+		opacity: .75;
+	}
+
+	.sidebar .navbar-desktop-toggler:hover {
 		opacity: 1;
 	}
 
