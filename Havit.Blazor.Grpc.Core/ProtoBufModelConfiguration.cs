@@ -14,9 +14,9 @@ namespace Havit.Blazor.Grpc.Core
 	/// </summary>
 	public static class ProtoBufModelConfiguration
 	{
-		public static RuntimeTypeModel RegisterApplicationContracts(this RuntimeTypeModel model)
+		public static RuntimeTypeModel RegisterApplicationContracts(this RuntimeTypeModel model, Assembly assemblyToScan)
 		{
-			var types = typeof(ProtoBufModelConfiguration).Assembly.GetTypes();
+			var types = assemblyToScan.GetTypes();
 
 			foreach (var type in types)
 			{
