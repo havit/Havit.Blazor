@@ -93,26 +93,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			StateHasChanged();
 		}
 
-		private List<Property> SeparateEvents()
-		{
-			List<Property> events = new();
-
-			foreach (var property in properties)
-			{
-				if (property.PropertyInfo.PropertyType == typeof(EventCallback<>) || property.PropertyInfo.PropertyType == typeof(EventCallback) || property.PropertyInfo.PropertyType.ToString().ToLower().Contains("event"))
-				{
-					events.Add(property);
-				}
-			}
-
-			foreach (var currentEvent in events)
-			{
-				properties.Remove(currentEvent);
-			}
-
-			return events;
-		}
-
 		private ClassMember GetClassMember(DocXmlReader reader)
 		{
 			return new() { Comments = reader.GetTypeComments(Type) };
@@ -295,7 +275,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return type;
 		}
 
-		public static string FormatType(Type type)
+		public static string FormatType(Type type, bool isEvent = false)
 		{
 			string typeName = type.FullName;
 			if (string.IsNullOrWhiteSpace(typeName))
@@ -309,7 +289,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			var reference = new CodeTypeReference(typeName);
 
 			typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
-			return Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
+			typeName = Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
+
+			if (isEvent)
+			{
+				typeName = Regex.Replace(typeName, "EventCallback|<|>", "");
+			}
+
+			return typeName;
 		}
 
 		public static string RemoveSpecialCharacters(string text)

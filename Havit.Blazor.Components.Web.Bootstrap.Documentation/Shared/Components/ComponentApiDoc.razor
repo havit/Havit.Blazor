@@ -71,7 +71,7 @@
         @foreach (var currentEvent in events)
         {
             <li>
-                <strong>@currentEvent.PropertyInfo.Name</strong>
+                <strong>@currentEvent.PropertyInfo.Name</strong> <i>(@FormatType(currentEvent.PropertyInfo.PropertyType, true))</i>
                 <br />
                 <div class="summary">@((MarkupString)currentEvent.Comments.Summary)</div>
             </li>
