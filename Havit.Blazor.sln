@@ -39,8 +39,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.Client", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.Core", "Havit.Blazor.Grpc.Core\Havit.Blazor.Grpc.Core.csproj", "{02D13F7C-BA47-4C07-946F-83E99B0808FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.Grpc.Client.WebAssembly", "Havit.Blazor.Grpc.Client.WebAssembly\Havit.Blazor.Grpc.Client.WebAssembly.csproj", "{D9C85141-52C5-4A29-A512-01A069422C15}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

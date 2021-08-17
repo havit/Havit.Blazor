@@ -1,0 +1,24 @@
+﻿@using System.Globalization
+
+<h1>HxCheckboxList</h1>
+
+<EditForm Model="@model">
+    <HxCheckboxList TItem="CultureInfo" TValue="string" Label="Cultures" TextSelector="@(item => item.EnglishName)" ValueSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" />
+</EditForm>
+
+<p>Selected values: @String.Join(", ", model.CultureInfos ?? Enumerable.Empty<string>())</p>
+
+@code
+{
+    private Model model = new Model();
+    private List<CultureInfo> data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+        .OrderBy(item => item.EnglishName)
+        .Take(10)
+        .OrderByDescending(i => i.ToString()) // test řazení
+        .ToList();
+
+    private class Model
+    {
+        public List<string> CultureInfos { get; set; }
+    }
+}
