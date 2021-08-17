@@ -48,7 +48,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				builder.AddAttribute(201, "class", "card-header");
 
 				builder.OpenComponent<HxTabPanel>(300);
-				builder.AddAttribute(3001, "ChildContent", (RenderFragment)((builder2) =>
+				builder.AddAttribute(301, nameof(HxTabPanel.CssClass), "card-header-tabs");
+				builder.AddAttribute(302, "ChildContent", (RenderFragment)((builder2) =>
 				{
 					builder2.OpenComponent<HxTab>(302);
 					builder2.AddAttribute(303, "Id", "demo");
