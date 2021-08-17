@@ -3,7 +3,7 @@
 	@ChildContent
 </CascadingValue>
 
-<HxNav CssClass="hx-tab-panel" Variant="NavVariant.Tabs">
+<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", this.CssClass)" Variant="NavVariant.Tabs">
 	@foreach (HxTab tab in tabsList)
 	{
 		<UpdatedContentRenderer Component="@tab">

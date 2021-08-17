@@ -3935,6 +3935,11 @@
             Tabs.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.CssClass">
+            <summary>
+            Additional CSS class.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc />
         </member>

@@ -39,6 +39,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
+		/// <summary>
+		/// Additional CSS class.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
 		private HxTab previousActiveTab;
 		private List<HxTab> tabsList;
 		private CollectionRegistration<HxTab> tabsListRegistration;
