@@ -36,6 +36,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new() { type = "Void",    name = "void"    }
 		};
 
+		private static readonly List<string> byDefaultExcludedProperties = new() { "Defaults", "JSRuntime" };
+		private static readonly List<string> objectDerivedMethods = new() { "ToString", "GetType", "Equals", "GetHashCode" };
+		private static readonly List<string> derivedMethods = new() { "Dispose", "DisposeAsync", "SetParametersAsync", "ChildContent" };
+
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		[Parameter] public RenderFragment MainContent { get; set; }
@@ -53,11 +57,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		[Parameter] public List<string> ExcludedMembers { get; set; } = new();
 
 		[Inject] private NavigationManager NavigationManager { get; set; }
-
-		private static readonly List<string> byDefaultExcludedProperties = new() { "Defaults", "JSRuntime" };
-
-		private static readonly List<string> objectDerivedMethods = new() { "ToString", "GetType", "Equals", "GetHashCode" };
-		private static readonly List<string> derivedMethods = new() { "Dispose", "DisposeAsync", "SetParametersAsync", "ChildContent" };
 
 		private static readonly HttpClient client = new HttpClient();
 
