@@ -3531,6 +3531,11 @@
             Brand long name.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.Logo">
+            <summary>
+            Brand logo.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.BrandNameShort">
             <summary>
             Brand short name.

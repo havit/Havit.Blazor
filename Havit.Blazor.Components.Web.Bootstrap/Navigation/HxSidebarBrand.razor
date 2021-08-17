@@ -1,7 +1,12 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <a href="/">
 	<div class="logo">
+		@if(Logo != null) {
+			@Logo
+		}
+		else {
 		<span class="logo-text">@BrandNameShort</span>
+		}
 	</div>
 	<span class="brand-name">@BrandName</span>
 </a>

@@ -16,6 +16,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Brand long name.
 		/// </summary>
 		[Parameter] public string BrandName { get; set; }
+		
+		/// <summary>
+		/// Brand logo.
+		/// </summary>
+		[Parameter] public RenderFragment Logo { get; set; }
 
 		/// <summary>
 		/// Brand short name.
