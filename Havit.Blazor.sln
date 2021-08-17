@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE = LICENSE
 		logo.png = logo.png
 		NuGet.targets = NuGet.targets
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Tests", "Havit.Blazor.Components.Web.Tests\Havit.Blazor.Components.Web.Tests.csproj", "{47F722AB-B5A4-49AD-899C-9E041C4E6C71}"
@@ -93,10 +94,6 @@ Global
 		{02D13F7C-BA47-4C07-946F-83E99B0808FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02D13F7C-BA47-4C07-946F-83E99B0808FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02D13F7C-BA47-4C07-946F-83E99B0808FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D9C85141-52C5-4A29-A512-01A069422C15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D9C85141-52C5-4A29-A512-01A069422C15}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D9C85141-52C5-4A29-A512-01A069422C15}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D9C85141-52C5-4A29-A512-01A069422C15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
