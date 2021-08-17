@@ -1,13 +1,15 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <div class="position-relative">
-	<div class="hx-sidebar-item">@* CSS Isolation (.nav-item not needed) *@
+	<div class="hx-sidebar-item">
+		@* CSS Isolation (.nav-item not needed) *@
 		<HxNavLink Href="@Href"
-				CssClass="@CssClassHelper.Combine(this.CssClass)"
-				Match="this.Match"
-				role="button"
-				data-bs-toggle="@(HasExpandableContent ? "collapse" : null)"
-				data-bs-target="@(HasExpandableContent ? "#" + id : null)"
-				aria-expanded="@(HasExpandableContent ? "false" : null)">
+				   CssClass="@CssClassHelper.Combine(this.CssClass)"
+				   Match="this.Match"
+				   Enabled="this.Enabled"
+				   role="button"
+				   data-bs-toggle="@(HasExpandableContent ? "collapse" : null)"
+				   data-bs-target="@(HasExpandableContent ? "#" + id : null)"
+				   aria-expanded="@(HasExpandableContent ? "false" : null)">
 			<div class="d-flex align-items-center">
 				@if (Icon != null)
 				{
