@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Grpc.AspNetCore.Server;
 using Havit.Blazor.Grpc.Core;
+using Havit.Blazor.Grpc.Server.GlobalizationLocalization;
 using Havit.Blazor.Grpc.Server.ServerExceptions;
 using Microsoft.Extensions.DependencyInjection;
 using ProtoBuf.Grpc.Configuration;
@@ -21,11 +22,13 @@ namespace Havit.Blazor.Grpc.Server
 			Assembly assemblyToScanForDataContracts,
 			Action<GrpcServiceOptions> configureOptions = null)
 		{
+			services.AddSingleton<GlobalizationLocalizationGrpcServerInterceptor>();
 			services.AddSingleton<ServerExceptionsGrpcServerInterceptor>();
 			services.AddSingleton(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Default.RegisterApplicationContracts(assemblyToScanForDataContracts)) }, binder: new ServiceBinderWithServiceResolutionFromServiceCollection(services)));
 
 			services.AddCodeFirstGrpc(options =>
 			{
+				options.Interceptors.Add<GlobalizationLocalizationGrpcServerInterceptor>();
 				options.Interceptors.Add<ServerExceptionsGrpcServerInterceptor>();
 				options.ResponseCompressionLevel = System.IO.Compression.CompressionLevel.Optimal;
 

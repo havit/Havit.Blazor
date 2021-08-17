@@ -7,7 +7,7 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.0.5</PackageVersion>
+		<PackageVersion>1.0.6</PackageVersion>
 		<Description>HAVIT Blazor stack - gRPC Support - client-side - WebAssembly specific features</Description>
 	</PropertyGroup>
 	<ItemGroup>
@@ -15,6 +15,9 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="5.0.9" />
 		<PackageReference Include="protobuf-net" Version="3.0.101" />
 		<PackageReference Include="protobuf-net.Grpc" Version="1.0.152" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Havit.Blazor.Grpc.Client\Havit.Blazor.Grpc.Client.csproj" />
 	</ItemGroup>
 
 </Project>
