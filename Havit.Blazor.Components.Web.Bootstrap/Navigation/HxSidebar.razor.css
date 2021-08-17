@@ -35,7 +35,7 @@
 	width: 2em;
 	height: 2em;
 	border-radius: 50%;
-	border: var(--hx-sidebar-toggler-border);
+	/* border: var(--hx-sidebar-toggler-border); */
 	align-items: center;
 	justify-content: center;
 	background-color: var(--hx-sidebar-toggler-background);

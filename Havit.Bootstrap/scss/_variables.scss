@@ -14,9 +14,7 @@ $theme-colors: (
 $min-contrast-ratio: 3;
 $body-bg: $gray-100;
 $border-color: $gray-200;
-$card-cap-bg: $white;
-$card-border-radius: .75rem;
-$card-border-width: 0;
+$card-border-radius: .5rem;
 $card-inner-border-radius: subtract($card-border-radius, $card-border-width);
 $table-cell-padding-y: .6125rem;
 $table-cell-padding-x: 1rem;
