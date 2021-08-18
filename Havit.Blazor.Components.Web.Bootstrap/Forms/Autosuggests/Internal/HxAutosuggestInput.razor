@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<input @ref="InputElement" id="@InputId" type="text" class="@CssClass"
+<input @ref="InputElement" id="@InputId" type="text" class="@CssClass hx-autosuggest"
     disabled="@(!EnabledEffective)" autocomplete="false" data-bs-reference="parent" data-bs-offset="@($"[{Offset.X},{Offset.Y}]")" value="@Value"
     @oninput="HandleInput" @onfocus="HandleFocus" @onblur="HandleBlur" @onclick:stopPropagation
     placeholder="@Placeholder" onfocusin="this.select()">
