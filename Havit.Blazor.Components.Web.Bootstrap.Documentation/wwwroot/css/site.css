@@ -57,3 +57,8 @@ app {
 		top: 0;
 	}
 }
+
+:not(pre)>code[class*=language-], pre[class*=language-] {
+	background-color: var(--bs-gray-100);
+	border-radius: .5rem;
+}
