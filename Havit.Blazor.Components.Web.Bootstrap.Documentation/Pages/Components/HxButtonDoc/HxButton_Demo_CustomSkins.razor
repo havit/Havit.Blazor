@@ -1,0 +1,8 @@
+﻿<HxButton Skin="@CustomButtonSkins.Demo" />
+
+@code {
+    public class CustomButtonSkins
+    {
+        public static ButtonSkin Demo { get; } = new ButtonSkin() { Text = "Welcome", Icon = BootstrapIcon.Heart, Color = ThemeColor.Danger };
+    };
+}

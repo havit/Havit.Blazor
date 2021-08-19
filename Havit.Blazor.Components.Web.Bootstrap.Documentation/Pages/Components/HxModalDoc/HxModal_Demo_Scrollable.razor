@@ -1,0 +1,28 @@
+﻿<HxButton OnClick="HandleShowClick" Color="ThemeColor.Primary">Show modal</HxButton>
+
+<HxModal @ref="myModal" HeaderText="Modal title" CssClass="modal-dialog-scrollable">
+    <BodyTemplate>
+        <p style="margin-bottom: 100vh;">
+            This is some placeholder content to show the scrolling behavior for modals. Instead of repeating the text the modal, we use an inline style set a minimum height, thereby extending the length of the overall modal and demonstrating the overflow scrolling. When content becomes longer than the height of the viewport, scrolling will move the modal as needed.
+        </p>
+    </BodyTemplate>
+    <FooterTemplate>
+        <HxButton Skin="ButtonSkins.Close" OnClick="HandleHideClick" Color="ThemeColor.Primary" />
+    </FooterTemplate>
+</HxModal>
+
+@code
+{
+    private HxModal myModal;
+
+    private async Task HandleShowClick()
+    {
+        await myModal.ShowAsync();
+    }
+
+    private async Task HandleHideClick()
+    {
+        await myModal.HideAsync();
+    }
+
+}

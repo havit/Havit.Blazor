@@ -2,29 +2,56 @@
 @attribute [Route("/components/" + nameof(HxSubmit))]
 
 <ComponentApiDoc Type="typeof(HxButton)">
+    <h3>Demo</h3>
+    <Demo Type="typeof(HxButton_Demo_Basic)" Tabs="false" />
 
-	<h3>Spinner &amp; Single click protection</h3>
-	<HxAlert Color="ThemeColor.Warning">
-		EditForm's <code>OnSubmit</code> events are not captured for spinner automation. Use HxButton's <code>OnClick</code>, <code>OnValidClick</code> and <code>OnInvalidClick</code> instead.
-	</HxAlert>
-	<HxAlert Color="ThemeColor.Info">
-		If (and only if) there is any of the <code>OnClick</code> handlers set, the single click protection sets the button to <code>disabled</code> during the callback (usually together with the Spinner).
-		It is intentionally not set, if there is no <code>OnClick</code> handler, as there might be an <code>OnSubmit</code> handler of the containing <code>EditForm</code>
-		set which would have been blocked if the button is disabled (see above).
-	</HxAlert>
+    <p>Several predefined button styles are included, each serving its own semantic purpose, with a few extras thrown in for more control.</p>
+    <Demo Type="typeof(HxButton_Demo_Colors)" />
 
-	<h3>Skins</h3>
-	<p>Common buttons (OK, Save, Apply, Export, ...) can be defined using a skin. Skin is a shared configuration of a button defined in this library or in a custom code. Skins are localizable, embedded skins are localized (English, Czech).</p>
-	<p>Skins are used as readonly instances (strong-type), no string identifiers (such as SkinID in WebForms) are used.</p>
-	<p>See the demo on how to define custom skins. To make a skin localizable, use <code>ResourceType</code> property to set where to find the translations.</p>
-	<p>See <TypeLink Type="typeof(ButtonSkins)">available skins</TypeLink>.</p>
+    <h3>Outline buttons</h3>
+    <Demo Type="typeof(HxButton_Demo_Outline)" />
 
-	<h3>Demo</h3>
-	<Demo Type="typeof(HxButton_Demo)" />
+    <h3>Sizes</h3>
+    <Demo Type="typeof(HxButton_Demo_Sizes)" Tabs="false" />
+    <Demo Type="typeof(HxButton_Demo_Sizes_Small)" Tabs="false" />
 
-	<h3>HxSubmit</h3>
-	<p>There is a <code>HxSubmit</code> component (as direct ancestor of <code>HxButton</code>) which renders as <code>&lt;button type="submit"&gt;</code>. The API is the same.</p>
+    <h3>Skins</h3>
+    <p>Common buttons (OK, Save, Apply, Export, ...) can be defined using a skin. Skin is a shared configuration of a button defined in this library or in a custom code. Skins are localizable, embedded skins are localized (English, Czech).</p>
+    <p>Skins are used as readonly instances (strong-type), no string identifiers (such as SkinID in WebForms) are used.</p>
+    <p>See the demo on how to define custom skins. To make a skin localizable, use <code>ResourceType</code> property to set where to find the translations.</p>
+    <p>See <TypeLink Type="typeof(ButtonSkins)">available skins</TypeLink>.</p>
+    <Demo Type="typeof(HxButton_Demo_Skins)" Tabs="false" />
 
+    <h3>Custom Skins</h3>
+    <p>Create custom reusable skins for the button configurations you use the most often.</p>
+    <Demo Type="typeof(HxButton_Demo_CustomSkins)" Tabs="false" />
+
+    <h3>Spinners</h3>
+    <Demo Type="typeof(HxButton_Demo_BasicSpinner)" Tabs="false" />
+
+    <h5>OnValidClick with spinner</h5>
+    <Demo Type="typeof(HxButton_Demo_OnValidClickWithSpinner)" />
+    <h5>Manual Spinner</h5>
+    <Demo Type="typeof(HxButton_Demo_ManualSpinner)" />
+
+    <h3>Spinner &amp; Single click protection</h3>
+    <HxAlert Color="ThemeColor.Warning">
+        EditForm's <code>OnSubmit</code> events are not captured for spinner automation. Use HxButton's <code>OnClick</code>, <code>OnValidClick</code> and <code>OnInvalidClick</code> instead.
+    </HxAlert>
+    <HxAlert Color="ThemeColor.Info">
+        If (and only if) there is any of the <code>OnClick</code> handlers set, the single click protection sets the button to <code>disabled</code> during the callback (usually together with the Spinner).
+        It is intentionally not set, if there is no <code>OnClick</code> handler, as there might be an <code>OnSubmit</code> handler of the containing <code>EditForm</code>
+        set which would have been blocked if the button is disabled (see above).
+    </HxAlert>
+
+    <h3>HxSubmit</h3>
+    <p>There is a <code>HxSubmit</code> component (as direct ancestor of <code>HxButton</code>) which renders as <code>&lt;button type="submit"&gt;</code>. The API is the same.</p>
+
+    <h3>Button with a badge</h3>
+    <Demo Type="typeof(HxButton_Demo_Badge)" Tabs="false" />
+
+    <h3>Button with a tooltip</h3>
+    <Demo Type="typeof(HxButton_Demo_Tooltip)" Tabs="false" />
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxSubmit)" />
