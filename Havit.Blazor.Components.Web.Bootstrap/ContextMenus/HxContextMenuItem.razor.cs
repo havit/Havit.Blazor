@@ -54,7 +54,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected IHxMessageBoxService MessageBox { get; set; }
 
 		/// <inheritdoc />
-		[CascadingParameter] public FormState FormState { get; set; }
+		[CascadingParameter] protected FormState FormState { get; set; }
+		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
 
 		/// <inheritdoc />
 		[Parameter] public bool? Enabled { get; set; }

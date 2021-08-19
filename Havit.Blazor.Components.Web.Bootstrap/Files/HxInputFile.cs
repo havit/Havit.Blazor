@@ -88,8 +88,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? Enabled { get; set; }
 
 		/// <inheritdoc />
-		[CascadingParameter] public FormState FormState { get; set; }
+		[CascadingParameter] protected FormState FormState { get; set; }
+		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
 
+		/// <summary>
+		/// Last known count of associated files.
+		/// </summary>
 		public int FileCount => hxInputFileCoreComponentReference.FileCount;
 
 		/// <summary>

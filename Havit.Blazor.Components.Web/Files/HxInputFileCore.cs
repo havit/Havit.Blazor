@@ -50,6 +50,9 @@ namespace Havit.Blazor.Components.Web
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
+		/// <summary>
+		/// Last known count of associated files.
+		/// </summary>
 		public int FileCount { get; private set; }
 
 		private DotNetObjectReference<HxInputFileCore> dotnetObjectReference;
