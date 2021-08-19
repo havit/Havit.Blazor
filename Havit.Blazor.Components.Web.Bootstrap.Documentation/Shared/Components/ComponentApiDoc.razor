@@ -72,7 +72,7 @@
 		@foreach (var method in methods)
 		{
 			<li>
-				<strong></strong> <i>@FormatType(method.MethodInfo.ReturnType)</i> <strong>@method.MethodInfo.Name</strong> @method.GetParameters()
+				<strong></strong> <i>@FormatType(method.MethodInfo.ReturnType)</i> <strong>@method.MethodInfo.Name</strong>@method.GetParameters()
 				<br />
 				<div class="summary">@((MarkupString)method.Comments.Summary)</div>
 			</li>
