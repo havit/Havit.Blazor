@@ -124,15 +124,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				builder.OpenElement(100, "span");
 				builder.AddAttribute(101, "class", CssClassHelper.Combine("input-group", formValueComponentWithInputGroups.InputGroupCssClass, GetInputGroupSizeCssClass(formValueComponentWithInputGroups.InputGroupSize)));
 
-				if (!String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupStart))
+				if (!String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupStart)
+					|| (formValueComponentWithInputGroups.InputGroupStartTemplate is not null))
 				{
 					builder.OpenElement(200, "span");
 					builder.AddAttribute(201, "class", "input-group-text");
 					builder.AddContent(202, formValueComponentWithInputGroups.InputGroupStart);
+					builder.AddContent(300, formValueComponentWithInputGroups.InputGroupStartTemplate);
 					builder.CloseElement(); // span.input-group-text
 				}
 
-				builder.AddContent(300, formValueComponentWithInputGroups.InputGroupStartTemplate);
 			}
 
 			builder.OpenRegion(400);
@@ -141,15 +142,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			if (shouldRenderInputGroups)
 			{
-				if (!String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupEnd))
+				if (!String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupEnd)
+					|| (formValueComponentWithInputGroups.InputGroupEndTemplate is not null))
 				{
 					builder.OpenElement(500, "span");
 					builder.AddAttribute(501, "class", "input-group-text");
 					builder.AddContent(600, formValueComponentWithInputGroups.InputGroupEnd);
+					builder.AddContent(601, formValueComponentWithInputGroups.InputGroupEndTemplate);
 					builder.CloseElement(); // span.input-group-text
 				}
-
-				builder.AddContent(600, formValueComponentWithInputGroups.InputGroupEndTemplate);
 
 				builder.CloseElement(); // span.input-group
 			}
