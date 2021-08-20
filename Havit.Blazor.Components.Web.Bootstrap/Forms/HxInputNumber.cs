@@ -103,7 +103,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private bool forceRenderValue = false;
+		protected bool forceRenderValue = false;
 		private int valueSequenceOffset = 0;
 
 		/// <inheritdoc />

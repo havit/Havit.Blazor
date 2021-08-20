@@ -1,0 +1,16 @@
+﻿@attribute [Route("/components/" + nameof(HxInputPercent))]
+@using Havit.Blazor.Components.Web.Bootstrap.Forms 
+
+<ComponentApiDoc Type="typeof(HxInputPercent)">
+    <HxAlert Color="ThemeColor.Warning"><HxIcon Icon="@BootstrapIcon.ExclamationTriangle" /> HxInputPercent outputs a number between <b>0 and 1</b> representing the percentages</HxAlert>
+
+    <h3>Basic example</h3>
+    <Demo Type="typeof(HxInputPercent_Demo_Basic)" Tabs="false" />
+
+    <h3>InputGroupEnd</h3>
+    <p><code>InputGroupEnd</code> is set to "%" by default.</p>
+    <Demo Type="typeof(HxInputPercent_Demo_CustomInputGroupEnd)" Tabs="false" />
+
+    <p>If you do not want any <code>InputGroupEnd</code> to appear, then set the parameter to an empty string.</p>
+    <Demo Type="typeof(HxInputPercent_Demo_NoInputGroupEnd)" Tabs="false" />
+</ComponentApiDoc>
