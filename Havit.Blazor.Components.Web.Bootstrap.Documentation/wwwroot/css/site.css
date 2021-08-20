@@ -13,7 +13,7 @@ app {
 	box-shadow: 0 0.125rem 0.25rem rgba(46, 117, 240, 0.08) !important
 }
 
-.main {
+/* .main {
 	flex: 1;
 }
 
@@ -25,7 +25,7 @@ app {
 		.main .top-row .btn-link {
 			white-space: nowrap;
 			margin-left: 1.5rem;
-		}
+		} */
 
 #blazor-error-ui {
 	background: lightyellow;
@@ -39,14 +39,14 @@ app {
 	z-index: 1000;
 }
 
-	#blazor-error-ui .dismiss {
-		cursor: pointer;
-		position: absolute;
-		right: 0.75rem;
-		top: 0.5rem;
-	}
+#blazor-error-ui .dismiss {
+	cursor: pointer;
+	position: absolute;
+	right: 0.75rem;
+	top: 0.5rem;
+}
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
 	app {
 		flex-direction: row;
 	}
@@ -56,7 +56,7 @@ app {
 		position: sticky;
 		top: 0;
 	}
-}
+} */
 
 :not(pre)>code[class*=language-], pre[class*=language-] {
 	background-color: var(--bs-gray-100);

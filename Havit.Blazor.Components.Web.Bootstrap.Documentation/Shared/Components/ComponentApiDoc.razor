@@ -13,23 +13,34 @@
 {
 	<h3>Parameters</h3>
 
-	<ul>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Parameter</th>
+				<th>Type</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
 		@foreach (var property in parameters)
 		{
-			<li>
-				@if (IsPropertyStatic(property))
-				{
-					<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">
-						@("static")
-					</HxBadge>
-				}
+			<tr>
+				<td>
+					@if (IsPropertyStatic(property))
+					{
+						<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">
+							@("static")
+						</HxBadge>
+					}
 
-				<strong>@property.PropertyInfo.Name</strong> <i>(@FormatType(property.PropertyInfo.PropertyType))</i>
-				<br />
-				<div class="summary">@((MarkupString)property.Comments.Summary)</div>
-			</li>
+					<strong>@property.PropertyInfo.Name</strong>
+				</td>
+				<td>(@FormatType(property.PropertyInfo.PropertyType))</td>
+				<td class="summary">@((MarkupString)property.Comments.Summary)</td>
+			</tr>
 		}
-	</ul>
+		</tbody>
+	</table>
 }
 
 @if (properties.Count > 0)

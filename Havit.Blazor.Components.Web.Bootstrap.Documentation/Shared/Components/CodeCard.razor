@@ -1,15 +1,13 @@
-﻿<div class="card card-demo my-3">
+﻿<div>
 	@if (!String.IsNullOrWhiteSpace(Title))
 	{
-		<div class="card-header">@Title</div>
+		<h4>@Title</h4>
 	}
-	<div class="card-body">
-		<pre>
-			<code class="language-@(Language ?? "html")">
-				@ChildContent
-			</code>
-		</pre>
-	</div>
+	<pre>
+		<code class="language-@(Language ?? "html")">
+			@ChildContent
+		</code>
+	</pre>
 </div>
 
 @code

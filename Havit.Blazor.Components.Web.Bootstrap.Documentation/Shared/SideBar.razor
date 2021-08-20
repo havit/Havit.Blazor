@@ -1,4 +1,4 @@
-﻿<HxSidebar>
+﻿<HxSidebar CssClass="border-end border-start sticky-top" >
 	<HeaderTemplate>
 		<HxSidebarBrand BrandName="Havit.Blazor">
 			<Logo>
@@ -141,4 +141,9 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxValidationMessage<object>)}")" Text="@(nameof(HxValidationMessage<object>) + " *TODO Doc*")" Enabled="false" />
         </HxSidebarItem>
 	</ItemsTemplate>
+    <FooterTemplate>
+        <div class="fs-5 px-4 py-3">
+            <a href="https://github.com/havit/Havit.Blazor" class="text-dark"><HxIcon Icon="BootstrapIcon.Github" /></a>
+        </div>
+    </FooterTemplate>
 </HxSidebar>
