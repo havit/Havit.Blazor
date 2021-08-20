@@ -163,6 +163,13 @@
             <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">MDN Web Docs - HTML attribute: accept</see>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.MaxFileSize">
+            <summary>
+            The maximum files size in bytes.
+            When exceeded, the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.
+            Default is <c>null</c> (unlimited).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Id">
             <summary>
             Input element id.

@@ -1,5 +1,12 @@
 ﻿
-<HxInputFile @ref="hxInputFileComponent" Label="HxInputFile" UploadUrl="/file-upload-streamed/" OnProgress="HandleProgress" OnFileUploaded="HandleFileUploaded" OnUploadCompleted="HandleUploadCompleted" Multiple="true" />
+<HxInputFile @ref="hxInputFileComponent"
+			 Label="HxInputFile"
+			 UploadUrl="/file-upload-streamed/"
+			 OnProgress="HandleProgress"
+			 OnFileUploaded="HandleFileUploaded"
+			 OnUploadCompleted="HandleUploadCompleted"
+			 Multiple="true"
+			 MaxFileSize="500000" />
 
 <HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="HandleUploadClick" CssClass="my-2" />
 
@@ -19,7 +26,7 @@
 			<tr>
 				<td>@context.Key</td>
 				<td>@context.Value.Item1?.OriginalFileName</td>
-				<td>@context.Value.Item1?.UploadedBytes.ToString("n0") / @context.Value.Item1.UploadSize.ToString("n0")</td>
+				<td>@context.Value.Item1?.UploadedBytes.ToString("n0") / @context.Value.Item1?.UploadSize.ToString("n0")</td>
 				<td>@context.Value.Item2?.ContentType</td>
 				<td>@context.Value.Item2?.Size.ToString("n0")</td>
 				<td>@context.Value.Item2?.LastModified</td>

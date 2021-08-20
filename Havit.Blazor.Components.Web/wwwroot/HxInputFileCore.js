@@ -1,4 +1,4 @@
-﻿export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken) {
+﻿export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize) {
 	var inputElement = document.getElementById(inputElementId);
 	var dotnetReference = hxInputFileDotnetObjectReference;
 	var files = inputElement.files;
@@ -14,6 +14,15 @@
 		(function (curr) {
 			var index = curr;
 			var file = files[curr];
+
+			if (maxFileSize && (file.size > maxFileSize)) {
+				let msg = `[${index}]${file.name} client pre-check: File size ${file.size} bytes exceeds MaxFileSize limit ${maxFileSize} bytes.`;
+				console.warn(msg);
+				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, 413, msg);
+				uploadedCounter++;
+				return;
+			}
+
 			totalSize = totalSize + file.size;
 
 			var data = new FormData();

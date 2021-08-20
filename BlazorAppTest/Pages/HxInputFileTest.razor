@@ -9,6 +9,7 @@
 			 OnFileUploaded="HandleFileUploaded"
 			 OnUploadCompleted="HandleUploadCompleted"
 			 OnChange="@(async (e) => Console.WriteLine("OnChange"))"
+			 MaxFileSize="500000"
 			 Multiple="true" />
 
 <HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="HandleUploadClick" CssClass="my-2" />
@@ -30,7 +31,7 @@
 			<tr>
 				<td>@context.Key</td>
 				<td>@context.Value.Item1?.OriginalFileName</td>
-				<td>@context.Value.Item1?.UploadedBytes / @context.Value.Item1.UploadSize</td>
+				<td>@context.Value.Item1?.UploadedBytes / @context.Value.Item1?.UploadSize</td>
 				<td>@context.Value.Item2?.ContentType</td>
 				<td>@context.Value.Item2?.Size</td>
 				<td>@context.Value.Item2?.LastModified</td>
@@ -55,7 +56,7 @@ Completed: @uploadCompleted?.TotalSize bytes in @uploadCompleted?.FileCount file
 		files.Clear();
 
 		string accessToken = null;
-		
+
 		// WASM:
 		//var accessTokenResult = await AccessTokenProvider.RequestAccessToken();
 		//if (accessTokenResult.Status == AccessTokenResultStatus.Success)

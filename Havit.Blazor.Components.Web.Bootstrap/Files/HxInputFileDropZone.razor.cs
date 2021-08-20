@@ -43,6 +43,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Single <c>false</c> or multiple <c>true</c> files upload.
 		/// </summary>
 		[Parameter] public bool Multiple { get; set; }
+		
+		/// <summary>
+		/// The maximum files size in bytes.
+		/// When exceeded, the <see cref="OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="FileUploadedEventArgs.ResponseStatus"/>.
+		/// Default is <c>null</c> (unlimited).
+		/// </summary>
+		[Parameter] public long? MaxFileSize { get; set; }
 
 		/// <summary>
 		/// Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.

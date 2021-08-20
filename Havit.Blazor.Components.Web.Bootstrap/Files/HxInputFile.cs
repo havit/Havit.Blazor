@@ -53,6 +53,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string Accept { get; set; }
 
+		/// <summary>
+		/// The maximum files size in bytes.
+		/// When exceeded, the <see cref="OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="FileUploadedEventArgs.ResponseStatus"/>.
+		/// Default is <c>null</c> (unlimited).
+		/// </summary>
+		[Parameter] public long? MaxFileSize { get; set; }
+
 		#region IFormValueComponent public properties
 		/// <summary>
 		/// Label to render before input (or after input for Checkbox).		
@@ -164,6 +171,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1006, nameof(HxInputFileCore.OnFileUploaded), this.OnFileUploaded);
 			builder.AddAttribute(1007, nameof(HxInputFileCore.OnUploadCompleted), this.OnUploadCompleted);
 			builder.AddAttribute(1007, nameof(HxInputFileCore.Accept), this.Accept);
+			builder.AddAttribute(1007, nameof(HxInputFileCore.MaxFileSize), this.MaxFileSize);
 			builder.AddAttribute(1008, "class", CssClassHelper.Combine(this.CoreInputCssClass, this.InputCssClass));
 			builder.AddAttribute(1009, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
 			builder.AddComponentReferenceCapture(1010, r => hxInputFileCoreComponentReference = (HxInputFileCore)r);

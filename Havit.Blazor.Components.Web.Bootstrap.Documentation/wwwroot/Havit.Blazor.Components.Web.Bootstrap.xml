@@ -968,6 +968,13 @@
             <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">MDN Web Docs - HTML attribute: accept</see>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.MaxFileSize">
+            <summary>
+            The maximum files size in bytes.
+            When exceeded, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.
+            Default is <c>null</c> (unlimited).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Label">
             <summary>
             Label to render before input (or after input for Checkbox).		
@@ -1077,6 +1084,13 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.Multiple">
             <summary>
             Single <c>false</c> or multiple <c>true</c> files upload.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.MaxFileSize">
+            <summary>
+            The maximum files size in bytes.
+            When exceeded, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.
+            Default is <c>null</c> (unlimited).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.Accept">

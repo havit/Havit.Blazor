@@ -51,6 +51,13 @@ namespace Havit.Blazor.Components.Web
 		[Parameter] public string Accept { get; set; }
 
 		/// <summary>
+		/// The maximum files size in bytes.
+		/// When exceeded, the <see cref="OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="FileUploadedEventArgs.ResponseStatus"/>.
+		/// Default is <c>null</c> (unlimited).
+		/// </summary>
+		[Parameter] public long? MaxFileSize { get; set; }
+
+		/// <summary>
 		/// Input element id.
 		/// </summary>
 		[Parameter] public string Id { get; set; } = "hx" + Guid.NewGuid().ToString("N");
@@ -98,7 +105,7 @@ namespace Havit.Blazor.Components.Web
 			await EnsureJsModuleAsync();
 			filesUploaded = new ConcurrentBag<FileUploadedEventArgs>();
 
-			await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, this.UploadUrl, accessToken);
+			await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, this.UploadUrl, accessToken, this.MaxFileSize);
 		}
 
 		/// <summary>
