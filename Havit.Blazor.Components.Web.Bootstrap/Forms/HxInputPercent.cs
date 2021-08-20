@@ -7,24 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Forms
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Numeric input in percentages
 	/// </summary>
 	public class HxInputPercent : HxInputNumber<decimal>
 	{
-		/// <summary>
-		/// InputGroupEnd is set to "%" by default.
-		/// </summary>
-		protected override void OnInitialized()
+		public HxInputPercent()
 		{
-			if (InputGroupEnd is null)
-			{
-				InputGroupEnd = "%";
-			}
-
-			base.OnInitialized();
+			InputGroupEnd = "%";
 		}
 
 		/// <summary>
@@ -68,8 +60,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 			if (Decimal.TryParse(value, NumberStyles.Float, culture, out decimal parsedValue))
 			{
 				decimal number = Math.Round(parsedValue, DecimalsEffective, MidpointRounding.AwayFromZero);
-				number /= 100; // divide the number by 100 to convert it to the 0-1 scale
-				number = LimitToPercentages(number);
+				number /= 100; // divide the number by 100
 
 				workingValue = number.ToString(culture);
 			}
@@ -93,24 +84,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 				validationErrorMessage = GetParsingErrorMessage();
 				return false;
 			}
-		}
-
-		/// <summary>
-		/// Keeps the number between 0 and 1.
-		/// </summary>
-		/// <param name="number"></param>
-		/// <returns></returns>
-		private decimal LimitToPercentages(decimal number)
-		{
-			if (number > 1)
-			{
-				return 1;
-			}
-			if (number < 0)
-			{
-				return 0;
-			}
-			return number;
 		}
 	}
 }

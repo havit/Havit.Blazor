@@ -1838,24 +1838,19 @@
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Forms.HxInputPercent">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent">
             <summary>
             Numeric input in percentages
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.HxInputPercent.OnInitialized">
-            <summary>
-            InputGroupEnd is set to "%" by default.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.HxInputPercent.FormatValueAsString(System.Decimal)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent.FormatValueAsString(System.Decimal)">
             <summary>
             Converts value into percentages and formats it as a string.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.HxInputPercent.TryParseValueFromString(System.String,System.Decimal@,System.String@)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent.TryParseValueFromString(System.String,System.Decimal@,System.String@)">
             <summary>
             <inheritdoc/>
             </summary>
@@ -1863,28 +1858,6 @@
             <param name="result"></param>
             <param name="validationErrorMessage"></param>
             <returns></returns>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.HxInputPercent.LimitToPercentages(System.Decimal)">
-            <summary>
-            Keeps the number between 0 and 1.
-            </summary>
-            <param name="number"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsFormControlCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
-            <summary>
-            Returns CSS class to render input (form-control) with desired size.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsFormSelectCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
-            <summary>
-            Returns CSS class to render select (form-select) with desired size.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.StringPatternizer.TranslateInlineCharCodes(System.String)">
-            <summary>
-            Searches for character codes surrounded with '{' and '}' and replaces them with corresponding symbol.
-            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputSwitch">
             <summary>
@@ -2290,6 +2263,21 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberDefaults.InputSize">
             <summary>
             Input size.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsFormControlCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
+            <summary>
+            Returns CSS class to render input (form-control) with desired size.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsFormSelectCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
+            <summary>
+            Returns CSS class to render select (form-select) with desired size.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.StringPatternizer.TranslateInlineCharCodes(System.String)">
+            <summary>
+            Searches for character codes surrounded with '{' and '}' and replaces them with corresponding symbol.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTextDefaults">

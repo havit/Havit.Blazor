@@ -1,7 +1,5 @@
-﻿@using Havit.Blazor.Components.Web.Bootstrap.Forms
-
-@*No InputGroupEnd is rendered*@
-<HxInputPercent InputGroupEnd="" @bind-Value="input" />
+﻿@*No InputGroupEnd is rendered*@
+<HxInputPercent InputGroupEnd="@null" @bind-Value="input" />
 
 @code {
     private decimal input;
