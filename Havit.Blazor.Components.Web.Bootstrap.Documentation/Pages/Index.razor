@@ -1,7 +1,37 @@
 ﻿@page "/"
 
-<div class="container rounded-lg bg-light my-3 p-5">
-	<h1 class="display-5 pb-5 pt-3">HAVIT Blazor Library</h1>
+<div>
+	<h1 class="fw-bold lh-1">HAVIT Blazor Library</h1>
 	<p class="lead">Bootstrap 5 components for ASP.NET Blazor.</p>
 </div>
+
+<h1>Introduction</h1>
+<p>HAVIT Blazor Library is a set of components, recommendations and practices to easy Blazor application development.</p>
+<p>Components implementation is based on <a href="https://v5.getbootstrap.com">Bootstrap 5</a>.</p>
+
+<h2>Installation</h2>
+
+<h3>NuGet packages</h3>
+<p>Install nuget package <strong>Havit.Blazor.Components.Web.Bootstrap</strong> which contains most of the components.</p>
+<br />
+<p>It has a dependency <strong>Havit.Blazor.Components.Web</strong> with small common functionality not dependendent on Bootstrap.</p>
+
+<h3>Bootstrap</h3>
+<p>Follow <a href="https://v5.getbootstrap.com/docs/5.0/getting-started/introduction/">Bootstrap instructions</a>.</p>
+
+<h3>Namespaces</h3>
+<p>Add these namespaces to your _Import.razor file:</p>
+<p class="p-3 bg-light rounded">
+		<code>@@using Havit.Blazor.Components.Web</code>
+		<br>
+		<code>@@using Havit.Blazor.Components.Web.Bootstrap</code>
+		@* TODO: Add next. Styling. *@
+</p>
+
+<h3>Services</h3>
+<p>Add localization services to the DI container:</p>
+<p class="p-3 bg-light rounded"><code>services.AddLocalizations();</code></p>
+<p>Add IHxMessengerService support to the DI container:</p>
+<p class="p-3 bg-light rounded"><code>services.AddHxMessenger();</code></p>
+
 
