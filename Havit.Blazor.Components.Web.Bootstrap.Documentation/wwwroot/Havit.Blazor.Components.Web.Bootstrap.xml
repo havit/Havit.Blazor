@@ -307,6 +307,21 @@
             Localization service.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonDefaults">
+            <summary>
+            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonDefaults.Size">
+            <summary>
+            Bootstrap button size. See https://getbootstrap.com/docs/5.0/components/buttons/#sizes
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonDefaults.Color">
+            <summary>
+            Bootstrap button style - theme color. See https://getbootstrap.com/docs/5.0/components/buttons/.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup">
             <summary>
             Bootstrap Button group. https://getbootstrap.com/docs/5.0/components/button-group/

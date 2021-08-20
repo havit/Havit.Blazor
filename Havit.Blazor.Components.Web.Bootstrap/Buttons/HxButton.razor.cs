@@ -19,6 +19,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	{
+		public static HxButtonDefaults Defaults { get; set; } = new();
+
 		[CascadingParameter] protected FormState FormState { get; set; }
 		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
 
@@ -54,7 +56,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Bootstrap button size. See https://getbootstrap.com/docs/5.0/components/buttons/#sizes
 		/// </summary>
-		[Parameter] public ButtonSize Size { get; set; }
+		[Parameter] public ButtonSize Size { get; set; } = Defaults.Size;
 
 		/// <summary>
 		/// Bootstrap "outline" button style. See https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons.
@@ -163,7 +165,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected string GetColorCssClass()
 		{
 			var outlined = this.Outlined ?? Skin?.Outlined ?? false;
-			var style = this.Color ?? Skin?.Color ?? throw new InvalidOperationException($"Button {nameof(Color)} has to be set - either from {nameof(Skin)} or explicitly.");
+			var style = this.Color ?? Skin?.Color ?? Defaults.Color ?? throw new InvalidOperationException($"Button {nameof(Color)} has to be set - either from {nameof(Skin)} or explicitly.");
 
 			if (outlined)
 			{
