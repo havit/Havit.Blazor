@@ -962,6 +962,12 @@
             Single <c>false</c> or multiple <c>true</c> files upload.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Accept">
+            <summary>
+            Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.
+            <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">MDN Web Docs - HTML attribute: accept</see>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Label">
             <summary>
             Label to render before input (or after input for Checkbox).		
@@ -1071,6 +1077,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.Multiple">
             <summary>
             Single <c>false</c> or multiple <c>true</c> files upload.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.Accept">
+            <summary>
+            Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.
+            <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">MDN Web Docs - HTML attribute: accept</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.NoFilesTemplate">

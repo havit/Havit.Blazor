@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
+using static System.Net.WebRequestMethods;
 
 namespace Havit.Blazor.Components.Web
 {
@@ -44,6 +45,12 @@ namespace Havit.Blazor.Components.Web
 		[Parameter] public bool Multiple { get; set; }
 
 		/// <summary>
+		/// Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.
+		/// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">MDN Web Docs - HTML attribute: accept</see>.
+		/// </summary>
+		[Parameter] public string Accept { get; set; }
+
+		/// <summary>
 		/// Input element id.
 		/// </summary>
 		[Parameter] public string Id { get; set; } = "hx" + Guid.NewGuid().ToString("N");
@@ -72,7 +79,9 @@ namespace Havit.Blazor.Components.Web
 			// Temporary hack as base implementation of InputFile does not expose ElementReference (vNext: https://github.com/dotnet/aspnetcore/blob/main/src/Components/Web/src/Forms/InputFile.cs)
 			AdditionalAttributes ??= new Dictionary<string, object>();
 			AdditionalAttributes["id"] = this.Id;
+
 			AdditionalAttributes["multiple"] = this.Multiple;
+			AdditionalAttributes["accept"] = this.Accept;
 		}
 
 		/// <summary>

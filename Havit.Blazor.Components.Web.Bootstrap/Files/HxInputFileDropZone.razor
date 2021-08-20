@@ -6,7 +6,8 @@
 					 OnProgress="this.OnProgress"
 					 OnFileUploaded="this.OnFileUploaded"
 					 OnUploadCompleted="this.OnUploadCompleted"
-					 Multiple="this.Multiple" />
+					 Multiple="this.Multiple"
+					 Accept="@this.Accept"/>
 	@if (fileCount == 0)
 	{
 		<div class="hint text-truncate">

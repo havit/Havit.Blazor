@@ -45,6 +45,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool Multiple { get; set; }
 
 		/// <summary>
+		/// Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.
+		/// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">MDN Web Docs - HTML attribute: accept</see>.
+		/// </summary>
+		[Parameter] public string Accept { get; set; }
+
+		/// <summary>
 		/// Content to render when no files are picked. Default content is displayed when not set.
 		/// </summary>
 		[Parameter] public RenderFragment NoFilesTemplate { get; set; }
