@@ -36,7 +36,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new() { type = "Void",    name = "void"    }
 		};
 
-		private static readonly List<string> byDefaultExcludedProperties = new() { "Defaults", "JSRuntime" };
+		private static readonly List<string> byDefaultExcludedProperties = new() { "JSRuntime" };
 		private static readonly List<string> objectDerivedMethods = new() { "ToString", "GetType", "Equals", "GetHashCode" };
 		private static readonly List<string> derivedMethods = new() { "Dispose", "DisposeAsync", "SetParametersAsync", "ChildContent" };
 
