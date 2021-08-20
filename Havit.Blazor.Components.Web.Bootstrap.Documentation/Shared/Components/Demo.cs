@@ -69,12 +69,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 
 			builder.OpenElement(400, "div");
-			builder.AddAttribute(401, "class", "card-body");
+			builder.AddAttribute(401, "class", "card-body p-0");
 
 			if (showingDemo || !Tabs)
 			{
-				builder.OpenComponent(500, Type);
+				builder.OpenElement(500, "div");
+				builder.AddAttribute(501, "class", "p-3");
+				builder.OpenComponent(502, Type);
 				builder.CloseComponent();
+				builder.CloseElement();
 			}
 			if (!showingDemo || !Tabs)
 			{

@@ -61,4 +61,5 @@ app {
 :not(pre)>code[class*=language-], pre[class*=language-] {
 	background-color: var(--bs-gray-100);
 	border-radius: .5rem;
+	margin: 0; 
 }
