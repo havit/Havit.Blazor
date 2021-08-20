@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Numeric input in percentages
 	/// </summary>
-	public class HxInputPercent : HxInputNumber<decimal>
+	public class HxInputPercent<TValue> : HxInputNumber<TValue>
 	{
 		public HxInputPercent()
 		{
@@ -24,15 +24,45 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		protected override string FormatValueAsString(decimal value)
+		protected override string FormatValueAsString(TValue value)
 		{
-			value *= 100; // convert value to percentages
+			switch (value)
+			{
+				case null:
+					return null;
+
+				case int @int:
+					@int *= 100;
+					return BindConverter.FormatValue(@int, CultureInfo.CurrentCulture);
+
+				case long @long:
+					@long *= 100;
+					return BindConverter.FormatValue(@long, CultureInfo.CurrentCulture);
+			}
 
 			string format = (DecimalsEffective > 0)
 				? "0." + String.Join("", Enumerable.Repeat('0', DecimalsEffective))
 				: "0";
 
-			return value.ToString(format, CultureInfo.CurrentCulture);
+			switch (value)
+			{
+				//case short @short:
+				//	return BindConverter.FormatValue(@short, CultureInfo.CurrentCulture);
+
+				case float @float:
+					@float *= 100;
+					return @float.ToString(format, CultureInfo.CurrentCulture);
+
+				case double @double:
+					@double *= 100;
+					return @double.ToString(format, CultureInfo.CurrentCulture);
+
+				case decimal @decimal:
+					@decimal *= 100;
+					return @decimal.ToString(format, CultureInfo.CurrentCulture);
+			}
+
+			throw new InvalidOperationException($"Unsupported type {value.GetType()}.");
 		}
 
 		/// <summary>
@@ -42,7 +72,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <param name="result"></param>
 		/// <param name="validationErrorMessage"></param>
 		/// <returns></returns>
-		protected override bool TryParseValueFromString(string value, out decimal result, out string validationErrorMessage)
+		protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
 		{
 			CultureInfo culture = CultureInfo.CurrentCulture;
 
@@ -57,7 +87,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			// omezení počtu desetinných míst
 
-			if (Decimal.TryParse(value, NumberStyles.Float, culture, out decimal parsedValue))
+			if (decimal.TryParse(value, NumberStyles.Float, culture, out decimal parsedValue))
 			{
 				decimal number = Math.Round(parsedValue, DecimalsEffective, MidpointRounding.AwayFromZero);
 				number /= 100; // divide the number by 100
@@ -67,7 +97,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			// konverze do cílového typu
 
-			if (BindConverter.TryConvertTo<decimal>(workingValue, culture, out result))
+			if (BindConverter.TryConvertTo<TValue>(workingValue, culture, out result))
 			{
 				// pokud došlo jen ke změně bez změny hodnoty (třeba z 5.50 na 5.5), chceme hodnotu převést na korektní formát (5.5 na 5.50).
 				// Nestačí však StateHasChange, viz komentář v BuildRenderInput.

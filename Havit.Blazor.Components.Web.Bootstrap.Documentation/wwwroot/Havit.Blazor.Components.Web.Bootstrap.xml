@@ -1838,19 +1838,19 @@
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent`1">
             <summary>
             Numeric input in percentages
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent.FormatValueAsString(System.Decimal)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent`1.FormatValueAsString(`0)">
             <summary>
             Converts value into percentages and formats it as a string.
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent.TryParseValueFromString(System.String,System.Decimal@,System.String@)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent`1.TryParseValueFromString(System.String,`0@,System.String@)">
             <summary>
             <inheritdoc/>
             </summary>
