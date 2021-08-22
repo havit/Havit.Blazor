@@ -10,68 +10,53 @@ using Microsoft.AspNetCore.Components;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Numeric input in percentages
+	/// Numeric input in percentages with value normalization (0% = 0, 100% = 1.0).
 	/// </summary>
 	public class HxInputPercent<TValue> : HxInputNumber<TValue>
 	{
+		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(float), typeof(double), typeof(decimal) };
+
 		public HxInputPercent()
 		{
+			Type undelyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+			if (!supportedTypes.Contains(undelyingType))
+			{
+				throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
+			}
+
 			InputGroupEnd = "%";
 		}
 
 		/// <summary>
 		/// Converts value into percentages and formats it as a string.
 		/// </summary>
-		/// <param name="value"></param>
-		/// <returns></returns>
 		protected override string FormatValueAsString(TValue value)
 		{
-			switch (value)
-			{
-				case null:
-					return null;
-
-				case int @int:
-					@int *= 100;
-					return BindConverter.FormatValue(@int, CultureInfo.CurrentCulture);
-
-				case long @long:
-					@long *= 100;
-					return BindConverter.FormatValue(@long, CultureInfo.CurrentCulture);
-			}
-
 			string format = (DecimalsEffective > 0)
 				? "0." + String.Join("", Enumerable.Repeat('0', DecimalsEffective))
 				: "0";
 
 			switch (value)
 			{
-				//case short @short:
-				//	return BindConverter.FormatValue(@short, CultureInfo.CurrentCulture);
-
+				case null:
+					return null;
 				case float @float:
 					@float *= 100;
 					return @float.ToString(format, CultureInfo.CurrentCulture);
-
 				case double @double:
 					@double *= 100;
 					return @double.ToString(format, CultureInfo.CurrentCulture);
-
 				case decimal @decimal:
 					@decimal *= 100;
 					return @decimal.ToString(format, CultureInfo.CurrentCulture);
+				default:
+					throw new InvalidOperationException($"Unsupported type {value.GetType()}.");
 			}
-
-			throw new InvalidOperationException($"Unsupported type {value.GetType()}.");
 		}
 
 		/// <summary>
 		/// <inheritdoc/>
 		/// </summary>
-		/// <param name="value"></param>
-		/// <param name="result"></param>
-		/// <param name="validationErrorMessage"></param>
-		/// <returns></returns>
 		protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
 		{
 			CultureInfo culture = CultureInfo.CurrentCulture;
@@ -86,7 +71,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 			// omezení počtu desetinných míst
-
 			if (decimal.TryParse(value, NumberStyles.Float, culture, out decimal parsedValue))
 			{
 				decimal number = Math.Round(parsedValue, DecimalsEffective, MidpointRounding.AwayFromZero);
@@ -96,7 +80,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 			// konverze do cílového typu
-
 			if (BindConverter.TryConvertTo<TValue>(workingValue, culture, out result))
 			{
 				// pokud došlo jen ke změně bez změny hodnoty (třeba z 5.50 na 5.5), chceme hodnotu převést na korektní formát (5.5 na 5.50).
