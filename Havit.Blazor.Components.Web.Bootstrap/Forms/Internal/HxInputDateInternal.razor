@@ -20,7 +20,14 @@
 			</div>
 		}
 
-		@if (( CustomDates!= null) && CustomDates.Any())
+		@if (CalendarIcon is not null)
+		{
+			<div class="hx-input-date-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center">
+				<HxIcon Icon="CalendarIcon" />
+			</div>
+		}
+
+		@if ((CustomDates != null) && CustomDates.Any())
 		{
 			<button class="btn btn-light" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)" tabindex="-1">
 				<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
@@ -28,10 +35,10 @@
 			@if (EnabledEffective)
 			{
 				<ul class="dropdown-menu dropdown-menu-end">
-				@foreach (DateItem item in CustomDates)
-				{
-					<li><span class="dropdown-item" role="button" @onclick="() => HandleCustomDateClick(item.Date)" @onclick:stopPropagation>@item.Label</span></li>
-				}
+					@foreach (DateItem item in CustomDates)
+					{
+						<li><span class="dropdown-item" role="button" @onclick="() => HandleCustomDateClick(item.Date)" @onclick:stopPropagation>@item.Label</span></li>
+					}
 				</ul>
 			}
 		}

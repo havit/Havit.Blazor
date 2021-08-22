@@ -1715,6 +1715,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputSize">
             <inheritdoc />
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.CalendarIcon">
+            <summary>
+            Optional icon to display within the input. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/> to set the icon for the whole project.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetDefaults">
             <summary>
             Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> defaults.
@@ -2278,6 +2283,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.InputSize">
             <summary>
             Input size.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.CalendarIcon">
+            <summary>
+            Optional icon to display within the input.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults">

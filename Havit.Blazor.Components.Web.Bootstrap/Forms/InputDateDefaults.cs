@@ -1,4 +1,5 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
+using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -11,5 +12,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Input size.
 		/// </summary>
 		public InputSize InputSize { get; set; } = InputSize.Regular;
+
+		/// <summary>
+		/// Optional icon to display within the input.
+		/// </summary>
+		[Parameter] public IconBase CalendarIcon { get; set; }
 	}
 }

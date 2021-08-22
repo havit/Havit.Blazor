@@ -48,6 +48,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		[Parameter] public InputSize? InputSize { get; set; }
 
+		/// <summary>
+		/// Optional icon to display within the input. Use <see cref="HxInputDate.Defaults"/> to set the icon for the whole project.
+		/// </summary>
+		[Parameter] public IconBase CalendarIcon { get; set; }
+
 		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
 		/// <summary>
@@ -80,8 +85,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(202, nameof(HxInputDateInternal<TValue>.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.ParsingErrorMessageEffective), GetParsingErrorMessage());
 			builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.Placeholder), Placeholder);
-			builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.InputSize), ((IInputWithSize)this).InputSizeEffective);
-			builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.CustomDates), GetCustomDates().ToList());
+			builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.InputSize), ((IInputWithSize)this).InputSizeEffective);
+			builder.AddAttribute(206, nameof(HxInputDateInternal<TValue>.CalendarIcon), CalendarIcon ?? HxInputDate.Defaults.CalendarIcon);
+			builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.CustomDates), GetCustomDates().ToList());
 
 			builder.CloseComponent();
 		}

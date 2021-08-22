@@ -12,6 +12,8 @@
 	<HxInputDate Label="HxInputDate (bez CustomDates, bez validací)" @bind-Value="@model.DateTime" UseDefaultDates="false" ShowValidationMessage="false" />
 	<HxInputDate Label="HxInputDate (s vlastními CustomDates)" @bind-Value="@model.DateTime" CustomDates="@GetCustomDates()" />
 	<HxInputDate Label="HxInputDate (disabled)" @bind-Value="@model.DateTime" CustomDates="@GetCustomDates()" Enabled="false" />
+	<HxInputDate Label="HxInputDate (s CalendarIcon)" @bind-Value="@model.DateTime" CalendarIcon="BootstrapIcon.Calendar" />
+	<HxInputDate Label="HxInputDate (s CalendarIcon, bez DefaultDates)" @bind-Value="@model.DateTime" CalendarIcon="BootstrapIcon.Calendar" UseDefaultDates="false" />
 
 	<button type="submit">Submit</button>
 </EditForm>
