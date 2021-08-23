@@ -29,8 +29,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static ButtonSkin Save { get; set; } = new ButtonSkin() { Text = "Save", ResourceType = typeof(ButtonSkins), Color = ThemeColor.Primary };
 		public static ButtonSkin Up { get; set; } = new ButtonSkin() { ResourceType = typeof(ButtonSkins), Color = ThemeColor.None, CssClass = "hx-grid-btn", Icon = BootstrapIcon.ChevronUp };
 		public static ButtonSkin Down { get; set; } = new ButtonSkin() { ResourceType = typeof(ButtonSkins), Color = ThemeColor.None, CssClass = "hx-grid-btn", Icon = BootstrapIcon.ChevronDown };
-		public static ButtonSkin CalendarPrevious { get; set; } = new ButtonSkin() { ResourceType = typeof(ButtonSkins), Color = ThemeColor.Light, Outlined = true, CssClass="text-dark", Icon = BootstrapIcon.ChevronLeft };
-		public static ButtonSkin CalendarNext { get; set; } = new ButtonSkin() { ResourceType = typeof(ButtonSkins), Color = ThemeColor.Light, Outlined = true, CssClass="text-dark", Icon = BootstrapIcon.ChevronRight };
+		public static ButtonSkin CalendarPrevious { get; set; } = new ButtonSkin() { ResourceType = typeof(ButtonSkins), Color = ThemeColor.Light, Outlined = true, CssClass = "text-dark", Icon = BootstrapIcon.ChevronLeft };
+		public static ButtonSkin CalendarNext { get; set; } = new ButtonSkin() { ResourceType = typeof(ButtonSkins), Color = ThemeColor.Light, Outlined = true, CssClass = "text-dark", Icon = BootstrapIcon.ChevronRight };
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
