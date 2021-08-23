@@ -45,7 +45,7 @@
 }
 
 .navbar-desktop-toggler:hover {
-	color: var(--primary);
+	color: var(--bs-primary);
 }
 
 ::deep a[aria-expanded="true"] .bi-chevron-right {

@@ -1,8 +1,8 @@
 ﻿.logo {
 	width: 2.75em;
 	height: 2.75em;
-	background-color: var(--primary);
-	border-radius: 50%;
+	background-color: var(--bs-primary);
+	border-radius: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: center;

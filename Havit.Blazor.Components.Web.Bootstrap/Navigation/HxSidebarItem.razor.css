@@ -21,12 +21,12 @@
 ::deep a.nav-link.active, 
 .navbar-desktop-toggler:hover {
 	background-color: var(--hx-sidebar-link-hover);
-	color: var(--primary);
+	color: var(--bs-primary);
 	border-radius: 0.5rem;
 }
 
 ::deep i {
-	color: var(--primary);
+	color: var(--bs-primary);
 	font-size: 1rem;
 	transition: transform .35s ease;
 	transform-origin: .5em 50%;
