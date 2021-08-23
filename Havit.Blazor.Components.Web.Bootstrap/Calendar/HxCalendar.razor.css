@@ -33,10 +33,6 @@ td > div {
     align-items: center;
 }
 
-.week td[role="button"]:hover div {
-    background: var(--hx-calendar-day-hover-background);
-}
-
 .day-names td {
     color: var(--hx-calendar-day-names-color);  
     font-size: .75rem;
@@ -45,10 +41,6 @@ td > div {
 .week div {
     padding: var(--hx-calendar-day-padding);
     font-size: var(--hx-calendar-font-size);
-}
-
-.today {
-    border: var(--hx-calendar-day-today-border)
 }
 
 .out {
@@ -65,4 +57,17 @@ td[role="button"]:hover .selected.out,
 td[role="button"] .selected.out {
     background: var(--hx-calendar-day-selected-background);
     color: var(--hx-calendar-day-selected-color);
+    border: var(--hx-calendar-day-selected-border);
+}
+
+.today {
+    border: var(--hx-calendar-day-today-border);
+    background: var(--hx-calendar-day-today-background);
+    color: var(--hx-calendar-day-today-color);
+}
+
+.week td[role="button"]:hover div {
+    background: var(--hx-calendar-day-hover-background);
+    color: unset;
+    border: var(--hx-calendar-day-hover-border);
 }

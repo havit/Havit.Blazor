@@ -5,7 +5,7 @@
 	{
 		<div class="navigation mb-3">
 			<div class="input-group mx-1">
-				<HxButton Icon="@BootstrapIcon.ChevronLeft" Color="ThemeColor.Light" OnClickStopPropagation="true" OnClick="HandlePreviousMonthClickAsync" />
+				<HxButton Skin="ButtonSkins.CalendarPrevious" OnClickStopPropagation="true" OnClick="HandlePreviousMonthClickAsync" />
 				<select class="form-select form-select-sm" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
 					@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
 					{
@@ -19,7 +19,7 @@
 						<option value="@year">@year.ToString()</option>
 					}
 				</select>
-				<HxButton Icon="@BootstrapIcon.ChevronRight" Color="ThemeColor.Light" OnClickStopPropagation="true" OnClick="HandleNextMonthClickAsync" />
+				<HxButton Skin="ButtonSkins.CalendarNext" OnClickStopPropagation="true" OnClick="HandleNextMonthClickAsync" />
 			</div>
 		</div>
 

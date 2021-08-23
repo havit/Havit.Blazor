@@ -2,12 +2,11 @@
 :root {
   /* MAIN */
   --main-bg: #f5f5f6;
-  --primary: #2e75f0;
   /* HxSidebar */
   --hx-sidebar-link-hover: #f2f9ff;
   --hx-sidebar-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* shadow-sm */
   --hx-sidebar-background-color: white;
-  --hx-sidebar-border: 1px solid #e9ecef;
+  --hx-sidebar-border: 1px solid var(--bs-gray-200);
   --hx-sidebar-collapsed-width: 72px;
   --hx-sidebar-width: 250px;
   --hx-sidebar-toggler-border: 1px solid #dee2e6;
@@ -29,39 +28,43 @@
   --hx-chip-list-spacing: .25rem;
   /* HxContextMenu */
   --hx-context-menu-button-border-radius: .2rem;
-  --hx-context-menu-button-hover-background: #dee2e6; /* gray-300 */
+  --hx-context-menu-button-hover-background: var(--bs-gray-300);
   /* HxGrid */
-  --hx-grid-button-hover-background: #dee2e6; /* gray-300 */
+  --hx-grid-button-hover-background: var(--bs-gray-300);
   --hx-grid-button-border-radius: .2rem;
   --hx-pager-margin: 1rem;
   /* HxInputFileDropZone */
   --hx-input-file-drop-zone-border-width: 1px;
   --hx-input-file-drop-zone-box-shadow: none;
   --hx-input-file-drop-zone-hover-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-  --hx-input-file-drop-zone-border-color: #ced4da; /* gray-400 */
+  --hx-input-file-drop-zone-border-color: var(--bs-gray-400);
   --hx-input-file-drop-zone-background-color: transparent;
   --hx-input-file-drop-zone-hover-background-color: #f2f9ff;
-  --hx-input-file-drop-zone-hover-border-color: var(--primary);
+  --hx-input-file-drop-zone-hover-border-color: var(--bs-primary);
   --hx-input-file-drop-zone-border-radius: .3rem; /* border-radius-lg */
   --hx-input-file-drop-zone-margin: 0;
   --hx-input-file-drop-zone-padding: 3rem;
   /* HxWizard */
-  --hx-wizard-navigator-background-color: #ced4da; /* gray-400 */
-  --hx-wizard-navigator-progress-background-color: var(--primary);
+  --hx-wizard-navigator-background-color: var(--bs-gray-400);
+  --hx-wizard-navigator-progress-background-color: var(--bs-primary);
   /* HxCalendar */
-  --hx-calendar-day-hover-background: #dee2e6;
-  --hx-calendar-day-selected-background: var(--primary);
+  --hx-calendar-day-hover-background: var(--bs-gray-300);
+  --hx-calendar-day-hover-border: 1px solid var(--hx-calendar-day-hover-background);
+  --hx-calendar-day-selected-background: var(--bs-primary);
   --hx-calendar-day-selected-color: white;
-  --hx-calendar-day-out-color: #adb5bd; /* gray-500 */
+  --hx-calendar-day-selected-border: 1px solid var(--bs-primary);
+  --hx-calendar-day-out-color: var(--bs-gray-500);
   --hx-calendar-day-in-color: unset;
   --hx-calendar-day-names-color: unset;
-  --hx-calendar-day-today-border: 1px solid var(--primary);
+  --hx-calendar-day-today-border: 1px solid #f2f9ff;
+  --hx-calendar-day-today-background: #f2f9ff;
+  --hx-calendar-day-today-color: var(--bs-primary);
   --hx-calendar-day-border-radius: 50%;
   --hx-calendar-day-padding: .375rem .5rem;
   --hx-calendar-day-width: 2.25rem;
   --hx-calendar-day-height: 2.25rem;
   --hx-calendar-day-spacing: .125rem .25rem;
-  --hx-calendar-font-size: 15px;
+  --hx-calendar-font-size: .875rem;
   /* Breakpoints */
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
