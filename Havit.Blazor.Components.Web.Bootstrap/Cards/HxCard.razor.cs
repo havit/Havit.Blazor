@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.1/components/card/">Bootstrap card</a> component.
+	///Bootstrap <a href="https://getbootstrap.com/docs/5.1/components/card/">Card</a> component.
 	/// </summary>
 	public partial class HxCard
 	{

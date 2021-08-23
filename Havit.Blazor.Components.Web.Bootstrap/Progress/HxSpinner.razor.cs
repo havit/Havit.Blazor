@@ -9,8 +9,7 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Bootstrap Spinner (usually indicates operation in progress).
-	/// https://getbootstrap.com/docs/5.0/components/spinners/
+	/// Bootstrap <a href="https://getbootstrap.com/docs/5.0/components/spinners/">Spinner</a> (usually indicates operation in progress).
 	/// </summary>
 	public partial class HxSpinner
 	{
