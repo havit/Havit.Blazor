@@ -684,9 +684,9 @@
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCard">
-            <summary>
-            <a href="https://getbootstrap.com/docs/5.1/components/card/">Bootstrap card</a> component.
-            </summary>
+             <summary>
+            Bootstrap <a href="https://getbootstrap.com/docs/5.1/components/card/">Card</a> component.
+             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.HeaderTemplate">
             <summary>
@@ -829,6 +829,32 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Enabled">
             <inheritdoc />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DropdownAutoClose">
+            <summary>
+            Auto-close behavior of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/> (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggle"/> respectively).
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#auto-close-behavior"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DropdownAutoClose.True">
+            <summary>
+            The dropdown will be closed by clicking outside or inside the dropdown menu. Default.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DropdownAutoClose.False">
+            <summary>
+            The dropdown will be closed by clicking the toggle button. (Also will not be closed by pressing esc key).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DropdownAutoClose.Inside">
+            <summary>
+            The dropdown will be closed (only) by clicking inside the dropdown menu.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DropdownAutoClose.Outside">
+            <summary>
+            The dropdown will be closed (only) by clicking outside the dropdown menu.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DropdownDirection">
             <summary>
             Direction for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/>.
@@ -857,6 +883,13 @@
             <summary>
             Set <c>true</c> to create a <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</a>
             (using a <c>btn-group</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.AutoClose">
+            <summary>
+            By default, the dropdown menu is closed when clicking inside or outside the dropdown menu (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.DropdownAutoClose.True"/>).
+            You can use the AutoClose parameter to change this behavior of the dropdown.
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#auto-close-behavior"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.CssClass">
@@ -3871,8 +3904,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSpinner">
             <summary>
-            Bootstrap Spinner (usually indicates operation in progress).
-            https://getbootstrap.com/docs/5.0/components/spinners/
+            Bootstrap <a href="https://getbootstrap.com/docs/5.0/components/spinners/">Spinner</a> (usually indicates operation in progress).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSpinner.Type">

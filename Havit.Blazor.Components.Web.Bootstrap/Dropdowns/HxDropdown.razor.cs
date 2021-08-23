@@ -24,13 +24,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool Split { get; set; }
 
 		/// <summary>
+		/// By default, the dropdown menu is closed when clicking inside or outside the dropdown menu (<see cref="DropdownAutoClose.True"/>).
+		/// You can use the AutoClose parameter to change this behavior of the dropdown.
+		/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#auto-close-behavior"/>.
+		/// </summary>
+		[Parameter] public DropdownAutoClose AutoClose { get; set; } = DropdownAutoClose.True;
+
+		/// <summary>
 		/// Any additional CSS class to apply.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
-		private string GetDirectionCssClass()
+		private string GetDropdownDirectionCssClass()
 		{
 			return this.Direction switch
 			{

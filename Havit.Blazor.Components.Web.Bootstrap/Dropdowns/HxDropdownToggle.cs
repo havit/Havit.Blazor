@@ -27,6 +27,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			AdditionalAttributes ??= new Dictionary<string, object>();
 			AdditionalAttributes["data-bs-toggle"] = "dropdown";
 			AdditionalAttributes["aria-expanded"] = "false";
+			AdditionalAttributes["data-bs-auto-close"] = DropdownContainer.AutoClose switch
+			{
+				DropdownAutoClose.True => "true",
+				DropdownAutoClose.False => "false",
+				DropdownAutoClose.Inside => "inside",
+				DropdownAutoClose.Outside => "outside",
+				_ => throw new InvalidOperationException($"Unknown {nameof(DropdownAutoClose)} value {DropdownContainer.AutoClose}.")
+			};
 		}
 
 		protected override string CoreCssClass => CssClassHelper.Combine(base.CoreCssClass, "dropdown-toggle", DropdownContainer.Split ? "dropdown-toggle-split" : null, (NavContainer is not null) ? "nav-link" : null);
