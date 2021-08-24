@@ -1,14 +1,18 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <div class="position-relative">
-	<div class="hx-sidebar-item">
+	
+
+	<div class="@(CssClassHelper.Combine("hx-sidebar-item", IsSidebarCollapsed ? "dropend": null))">
+		
 		@* CSS Isolation (.nav-item not needed) *@
 		<HxNavLink Href="@Href"
-				   CssClass="@CssClassHelper.Combine(this.CssClass)"
+				   CssClass="@CssClassHelper.Combine(this.CssClass, (IsSidebarCollapsed) ? "dropdown-toggle" : null)"
 				   Match="this.Match"
 				   Enabled="this.Enabled"
 				   role="button"
-				   data-bs-toggle="@(HasExpandableContent ? "collapse" : null)"
-				   data-bs-target="@(HasExpandableContent ? "#" + id : null)"
+				   id="@(IsSidebarCollapsed ? @id : null)"
+				   data-bs-toggle="@(HasExpandableContent ? ((IsSidebarCollapsed) ? "dropdown": "collapse") : null)"
+				   data-bs-target="@(HasExpandableContent && !IsSidebarCollapsed ? "#" + id : null)"
 				   aria-expanded="@(HasExpandableContent ? "false" : null)">
 			<div class="d-flex align-items-center">
 				@if (Icon != null)
@@ -23,14 +27,30 @@
 					<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon ms-auto" />
 				}
 			</div>
+
 		</HxNavLink>
+		@if (ChildContent is not null)
+		{
+			if (IsSidebarCollapsed)
+			{
+				<div class="hx-sidebar-subitems dropdown-menu" aria-labelledby="@id">
+					<nav class="nav flex-column">
+						@ChildContent
+					</nav>
+				</div>
+			}
+		}
 	</div>
 	@if (ChildContent is not null)
 	{
-		<div class="hx-sidebar-subitems collapse" id="@id">
-			<nav class="nav flex-column">
-				@ChildContent
-			</nav>
-		</div>
+		if (!IsSidebarCollapsed)
+		{
+			<div class="hx-sidebar-subitems collapse" id="@id">
+				<nav class="nav flex-column">
+					@ChildContent
+				</nav>
+			</div>
+		}
 	}
+	
 </div>

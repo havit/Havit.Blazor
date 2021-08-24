@@ -14,6 +14,11 @@
 	padding: var(--hx-sidebar-subitem-padding);
 	font-size: var(--hx-sidebar-subitem-font-size);
 	display: inline-flex;
+	color: var(--primary);
+}
+
+::deep .hx-sidebar-subitems.show .text {
+	display: inline-flex;
 }
 
 ::deep a.nav-link:hover, 

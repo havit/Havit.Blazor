@@ -42,12 +42,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
+		[CascadingParameter(Name = "IsSidebarCollapsed")] public bool IsSidebarCollapsed { get; set; }
+
 		/// <summary>
 		/// Sub-items (not intended to be used for any other purpose).
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		private string id = "hx" + Guid.NewGuid().ToString("N");
+
 		protected bool HasExpandableContent => (this.ChildContent is not null);
 	}
 }

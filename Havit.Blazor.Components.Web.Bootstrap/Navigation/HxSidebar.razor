@@ -10,16 +10,18 @@
 			</div>
 		}
 
-		<div class="@CssClassHelper.Combine("sidebar-body flex-column mb-auto overflow-auto", @GetCollapsedMobileCssClass())">
+		<div class="@CssClassHelper.Combine("sidebar-body flex-column mb-auto", ( !collapsedDesktop ? "overflow-auto": null), @GetCollapsedMobileCssClass())">
 			<HxNav Orientation="NavOrientation.Vertical" CssClass="ps-0">
-				@ItemsTemplate
+				<CascadingValue Value="@collapsedDesktop" TValue="bool" Name="IsSidebarCollapsed">
+					@ItemsTemplate
+				</CascadingValue>
 			</HxNav>
 			<div class="navbar-toggler navbar-light" role="button" @onclick="HandleMobileCollapseToggleClick"
-				@onclick:stopPropagation="true">
+				 @onclick:stopPropagation="true">
 				<span class="navbar-toggler-icon border rounded"></span>
 			</div>
 			<div class="navbar-desktop-toggler translate-middle" role="button" @onclick="HandleDesktopCollapseToggleClick"
-				@onclick:stopPropagation="true">
+				 @onclick:stopPropagation="true">
 				<HxIcon Icon="@(collapsedDesktop ? DesktopExpandIcon : DesktopCollapseIcon)" />
 			</div>
 		</div>
