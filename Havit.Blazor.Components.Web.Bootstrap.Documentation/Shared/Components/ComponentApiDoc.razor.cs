@@ -33,7 +33,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new() { type = "Double",  name = "double"  },
 			new() { type = "Byte",    name = "byte"    },
 			new() { type = "Sbyte",   name = "sbyte"   },
-			new() { type = "Void",    name = "void"    }
+			new() { type = "Void",    name = "void"    },
+			new() { type = "Object",  name = "object"  }
 		};
 
 		private static readonly List<string> byDefaultExcludedProperties = new() { "JSRuntime" };
@@ -247,6 +248,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			if (string.IsNullOrEmpty(Type.Namespace))
 			{
 				return $"{NavigationManager.BaseUri}Havit.Blazor.Components.Web.Bootstrap.xml";
+			}
+
+			if (Type.Namespace.Contains("Havit.Blazor.GoogleTagManager"))
+			{
+				return $"{NavigationManager.BaseUri}Havit.Blazor.GoogleTagManager.xml";
 			}
 
 			if (Type.Namespace.Contains("Bootstrap"))

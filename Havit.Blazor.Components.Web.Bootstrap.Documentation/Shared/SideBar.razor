@@ -11,26 +11,26 @@
 	<ItemsTemplate>
 		<HxSidebarItem Text="Getting started" Href="/" Match="NavLinkMatch.All" Icon="BootstrapIcon.House" />
 
-        <HxSidebarItem Text="Forms" Icon="BootstrapIcon.InputCursorText">
-            <HxSidebarItem Href="/components/forminputs" Text="Inputs" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxAutosuggest)}")" Text="@nameof(HxAutosuggest)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxInputCheckbox)}")" Text="@(nameof(HxInputCheckbox))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxInputDate)}")" Text="@(nameof(HxInputDate) + "[Range]")" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxInputFile)}")" Text="@(nameof(HxInputFile) + "[Core]")" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxInputFileDropZone)}")" Text="@(nameof(HxInputFileDropZone))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxInputNumber)}")" Text="@(nameof(HxInputNumber))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxInputPercent<object>)}")" Text="@(nameof(HxInputPercent<object>))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxInputSwitch)}")" Text="@(nameof(HxInputSwitch))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxInputText)}")" Text="@(nameof(HxInputText))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxInputTextArea)}")" Text="@(nameof(HxInputTextArea))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxCheckboxList<object, object>)}")" Text="@(nameof(HxCheckboxList<object, object>))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxFormState)}")" Text="@nameof(HxFormState)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxFormValue)}")" Text="@(nameof(HxFormValue) + " *TODO Doc*")" Enabled="false" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxRadioButtonList<object, object>)}")" Text="@nameof(HxRadioButtonList<object, object>)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxSelect)}")" Text="@nameof(HxSelect)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxFilterForm<object>)}")" Text="@(nameof(HxFilterForm<object>))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxValidationMessage<object>)}")" Text="@(nameof(HxValidationMessage<object>) + " *TODO Doc*")" Enabled="false" />
-        </HxSidebarItem>
+		<HxSidebarItem Text="Forms" Icon="BootstrapIcon.InputCursorText">
+			<HxSidebarItem Href="/components/forminputs" Text="Inputs" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxAutosuggest)}")" Text="@nameof(HxAutosuggest)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputCheckbox)}")" Text="@(nameof(HxInputCheckbox))" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputDate)}")" Text="@(nameof(HxInputDate) + "[Range]")" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputFile)}")" Text="@(nameof(HxInputFile) + "[Core]")" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputFileDropZone)}")" Text="@(nameof(HxInputFileDropZone))" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputNumber)}")" Text="@(nameof(HxInputNumber))" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputPercent<object>)}")" Text="@(nameof(HxInputPercent<object>))" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputSwitch)}")" Text="@(nameof(HxInputSwitch))" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputText)}")" Text="@(nameof(HxInputText))" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxInputTextArea)}")" Text="@(nameof(HxInputTextArea))" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxCheckboxList<object, object>)}")" Text="@(nameof(HxCheckboxList<object, object>))" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxFormState)}")" Text="@nameof(HxFormState)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxFormValue)}")" Text="@(nameof(HxFormValue) + " *TODO Doc*")" Enabled="false" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxRadioButtonList<object, object>)}")" Text="@nameof(HxRadioButtonList<object, object>)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxSelect)}")" Text="@nameof(HxSelect)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxFilterForm<object>)}")" Text="@(nameof(HxFilterForm<object>))" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxValidationMessage<object>)}")" Text="@(nameof(HxValidationMessage<object>) + " *TODO Doc*")" Enabled="false" />
+		</HxSidebarItem>
 
 		<HxSidebarItem Text="Buttons & Indicators" Icon="BootstrapIcon.PlayBtn">
 			<HxSidebarItem Href="@($"/components/{nameof(HxButton)}")" Text="@(nameof(HxButton) + " & " + nameof(HxSubmit))" />
@@ -85,6 +85,10 @@
 			<HxSidebarItem Href="@($"/components/{nameof(HxOffcanvas)}")" Text="@nameof(HxOffcanvas)" />
 			<HxSidebarItem Href="@($"/components/{nameof(HxMessenger)}")" Text="@nameof(HxMessenger)" />
 			<HxSidebarItem Href="@($"/components/{nameof(HxToast)}")" Text="@nameof(HxToast)" />
+		</HxSidebarItem>
+
+		<HxSidebarItem Text="Special" Icon="BootstrapIcon.Stars">
+			<HxSidebarItem Href="@($"/components/{nameof(Havit.Blazor.GoogleTagManager.HxGoogleTagManager)}")" Text="@nameof(Havit.Blazor.GoogleTagManager.HxGoogleTagManager)" />
 		</HxSidebarItem>
 
 		<HxSidebarItem Text="All Components" Icon="BootstrapIcon.SortAlphaDown">

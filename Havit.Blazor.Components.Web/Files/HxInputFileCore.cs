@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
-using static System.Net.WebRequestMethods;
 
 namespace Havit.Blazor.Components.Web
 {

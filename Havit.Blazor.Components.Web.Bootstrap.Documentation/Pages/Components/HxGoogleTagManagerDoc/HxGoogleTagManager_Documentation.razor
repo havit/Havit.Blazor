@@ -1,0 +1,22 @@
+﻿@attribute [Route("/components/" + nameof(HxGoogleTagManager))]
+@attribute [Route("/components/" + nameof(HxGoogleTagManagerPageViewTracker))]
+@using Havit.Blazor.GoogleTagManager
+
+<ComponentApiDoc Type="typeof(HxGoogleTagManager)">
+	<h3>Basic usage</h3>
+	<p>Install GTM support through application statup:</p>
+	<CodeCard Title="Program.cs" Language="csharp">
+@("builder.Services.AddHxGoogleTagManager(options =>")
+@("{")
+@("\tbuilder.Configuration.Bind(\"HxGoogleTagManager\", options);")
+@("});")
+	</CodeCard>
+</ComponentApiDoc>
+
+<ComponentApiDoc Type="typeof(HxGoogleTagManagerPageViewTracker)">
+	<h3>Basic usage</h3>
+	<p>Install GTM support through application statup (see above) and add <code>HxGoogleTagManagerPageViewTracker</code> to App/MainLayout:</p>
+	<CodeCard>
+@("<HxGoogleTagManagerPageViewTracker />")
+	</CodeCard>
+</ComponentApiDoc>

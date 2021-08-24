@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BlazorAppTest.Resources;
 using Havit.Blazor.Components.Web;
 using Havit.Blazor.Components.Web.Bootstrap;
+using Havit.Blazor.GoogleTagManager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -39,6 +40,10 @@ namespace BlazorAppTest
 
 			services.AddHxMessenger();
 			services.AddHxMessageBoxHost();
+			services.AddHxGoogleTagManager(options =>
+			{
+				options.GtmId = "GTM-W2CT4P6"; // Havit.Blazor.GoogleTagManager DEV test
+			});
 
 			// TESTs for Defaults
 			//HxAutosuggest.Defaults.InputSize = InputSize.Large;

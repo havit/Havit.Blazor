@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<NoWarn>1591;1701;1702;SA1134</NoWarn>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<!-- NuGet -->
+	<Import Project="../NuGet.targets" />
+	<PropertyGroup>
+		<PackageVersion>1.0.0</PackageVersion>
+		<Description>HAVIT Blazor Library - Google Tag Manager support (incl. optional automatic page-views tracking)</Description>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Havit.Core" Version="2.0.19" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.9" />
+	</ItemGroup>
+
+	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.GoogleTagManager.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Components.Web.Bootstrap.Documentation\wwwroot" />
+	</Target>
+
+</Project>

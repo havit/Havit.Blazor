@@ -1,0 +1,30 @@
+﻿@page "/HxGoogleTagManagerTest"
+@page "/HxGoogleTagManagerTest2"
+@page "/HxGoogleTagManagerTest3"
+@using Havit.Blazor.GoogleTagManager
+@inject IHxGoogleTagManager Gtm
+
+<h1>HxGoogleTagManager</h1>
+
+<HxButton Text="Push hx.simpleEvent" OnClick="HandlePushSimpleEventClick" Color="ThemeColor.Primary" />
+<HxButton Text="Push hx.click event with args" OnClick="HandlePushEventClick" Color="ThemeColor.Primary" />
+
+<h3>Navigation</h3>
+<a href="/HxGoogleTagManagerTest">/HxGoogleTagManagerTest</a>
+<a href="/HxGoogleTagManagerTest2">/HxGoogleTagManagerTest2</a>
+<a href="/HxGoogleTagManagerTest3">/HxGoogleTagManagerTest3</a>
+
+<HxGoogleTagManagerPageViewTracker />
+
+@code
+{
+	private async Task HandlePushSimpleEventClick()
+	{
+		await Gtm.PushEventAsync("hx.simpleEvent");
+	}
+
+	private async Task HandlePushEventClick(MouseEventArgs args)
+	{
+		await Gtm.PushEventAsync("hx.click", args);
+	}
+}
