@@ -1,4 +1,4 @@
-﻿.hx-sidebar-item {
+﻿::deep .hx-sidebar-item {
 	margin-bottom: .25rem;
 	display: block; /*Overrides the inline flex from btn-group placed by HxDropdown*/
 }

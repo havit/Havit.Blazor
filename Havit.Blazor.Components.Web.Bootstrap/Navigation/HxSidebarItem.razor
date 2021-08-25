@@ -4,11 +4,10 @@
 		@* CSS Isolation (.nav-item not needed) *@
 		
 		<HxNavLink Href="@Href"
-				   CssClass="@CssClassHelper.Combine(this.CssClass, (IsSidebarCollapsed) ? "dropdown-toggle" : null)"
+				   CssClass="@CssClassHelper.Combine(this.CssClass)"
 				   Match="this.Match"
 				   Enabled="this.Enabled"
 				   role="button"
-				
 				   data-bs-toggle="@(HasExpandableContent ? ((IsSidebarCollapsed) ? "dropdown": "collapse") : null)"
 				   data-bs-target="@(HasExpandableContent && !IsSidebarCollapsed ? "#" + id : null)"
 				   aria-expanded="@(HasExpandableContent ? "false" : null)">
