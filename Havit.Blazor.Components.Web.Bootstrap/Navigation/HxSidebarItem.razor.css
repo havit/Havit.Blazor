@@ -1,5 +1,6 @@
 ﻿.hx-sidebar-item {
 	margin-bottom: .25rem;
+	display: block; /*Overrides the inline flex from btn-group placed by HxDropdown*/
 }
 
 ::deep .nav-link {
@@ -21,9 +22,9 @@
 	display: inline-flex;
 }
 
-::deep a.nav-link:hover, 
+::deep a.nav-link:hover,
 ::deep a.nav-link.active:hover,
-::deep a.nav-link.active, 
+::deep a.nav-link.active,
 .navbar-desktop-toggler:hover {
 	background-color: var(--hx-sidebar-link-hover);
 	color: var(--bs-primary);

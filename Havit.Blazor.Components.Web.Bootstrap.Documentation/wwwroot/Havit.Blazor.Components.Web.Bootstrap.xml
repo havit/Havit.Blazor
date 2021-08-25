@@ -3605,12 +3605,12 @@
             Sidebar items. Use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.DesktopExpandIcon">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.ExpandIcon">
             <summary>
             Icon for expanding the desktop version.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.DesktopCollapseIcon">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CollapseIcon">
             <summary>
             Icon for collapsing the desktop version.
             </summary>

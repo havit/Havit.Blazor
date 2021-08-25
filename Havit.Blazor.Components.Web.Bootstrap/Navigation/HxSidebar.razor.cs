@@ -20,12 +20,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Icon for expanding the desktop version.
 		/// </summary>
-		[Parameter] public IconBase DesktopExpandIcon { get; set; } = BootstrapIcon.ChevronBarRight;
+		[Parameter] public IconBase ExpandIcon { get; set; } = BootstrapIcon.ChevronBarRight;
 
 		/// <summary>
 		/// Icon for collapsing the desktop version.
 		/// </summary>
-		[Parameter] public IconBase DesktopCollapseIcon { get; set; } = BootstrapIcon.ChevronBarLeft;
+		[Parameter] public IconBase CollapseIcon { get; set; } = BootstrapIcon.ChevronBarLeft;
 
 		/// <summary>
 		/// Sidebar footer (e.g. logged user, language switch, ...).
@@ -37,21 +37,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
-		private bool collapsedMobile = true;
-		private bool collapsedDesktop = false;
 
-		private string GetCollapsedMobileCssClass() => collapsedMobile ? "collapse" : null;
+		private string GetCollapsedCssClass() => Colapsed ? "collapsed" : null;
+		private bool Colapsed { get; set; } = false;
 
-		private string GetDesktopCollapsedCssClass() => collapsedDesktop ? "desktop-collapse" : null;
 
-		private void HandleMobileCollapseToggleClick()
+		private void HandleCollapseToggleClick()
 		{
-			collapsedMobile = !collapsedMobile;
-		}
-
-		private void HandleDesktopCollapseToggleClick()
-		{
-			collapsedDesktop = !collapsedDesktop;
+			Colapsed = !Colapsed;
 		}
 	}
 }

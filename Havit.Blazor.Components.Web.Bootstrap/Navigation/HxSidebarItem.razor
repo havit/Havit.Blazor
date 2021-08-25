@@ -1,16 +1,14 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <div class="position-relative">
-	
-
-	<div class="@(CssClassHelper.Combine("hx-sidebar-item", IsSidebarCollapsed ? "dropend": null))">
-		
+	<HxDropdown Direction="DropdownDirection.End" CssClass="hx-sidebar-item">
 		@* CSS Isolation (.nav-item not needed) *@
+		
 		<HxNavLink Href="@Href"
 				   CssClass="@CssClassHelper.Combine(this.CssClass, (IsSidebarCollapsed) ? "dropdown-toggle" : null)"
 				   Match="this.Match"
 				   Enabled="this.Enabled"
 				   role="button"
-				   id="@(IsSidebarCollapsed ? @id : null)"
+				
 				   data-bs-toggle="@(HasExpandableContent ? ((IsSidebarCollapsed) ? "dropdown": "collapse") : null)"
 				   data-bs-target="@(HasExpandableContent && !IsSidebarCollapsed ? "#" + id : null)"
 				   aria-expanded="@(HasExpandableContent ? "false" : null)">
@@ -33,14 +31,12 @@
 		{
 			if (IsSidebarCollapsed)
 			{
-				<div class="hx-sidebar-subitems dropdown-menu" aria-labelledby="@id">
-					<nav class="nav flex-column">
-						@ChildContent
-					</nav>
-				</div>
+				<HxDropdownMenu CssClass="hx-sidebar-subitems">
+					@ChildContent
+				</HxDropdownMenu>
 			}
 		}
-	</div>
+	</HxDropdown>
 	@if (ChildContent is not null)
 	{
 		if (!IsSidebarCollapsed)
@@ -52,5 +48,4 @@
 			</div>
 		}
 	}
-	
 </div>
