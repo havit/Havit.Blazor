@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Grpc.Client.ServerExceptions
 {
-	public interface IOperationFailedExceptionPublisher
+	public interface IOperationFailedExceptionGrpcClientListener
 	{
-		Task PublishAsync(string errorMessage);
+		Task ProcessAsync(string errorMessage);
 	}
 }

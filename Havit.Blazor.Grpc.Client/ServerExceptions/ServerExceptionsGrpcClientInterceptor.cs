@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 using Grpc.Core;
@@ -11,15 +12,18 @@ namespace Havit.Blazor.Grpc.Client.ServerExceptions
 {
 	public class ServerExceptionsGrpcClientInterceptor : Interceptor
 	{
-		private readonly IOperationFailedExceptionPublisher operationFailedExceptionPublisher;
+		private readonly IEnumerable<IOperationFailedExceptionGrpcClientListener> operationFailedExceptionListeners;
+		private readonly IEnumerable<IServerExceptionGrpcClientListener> serverExceptionGrpcClientListeners;
 		private readonly ILogger<ServerExceptionsGrpcClientInterceptor> logger;
 
 		// do not inject scoped services here, the scope is not available
 		public ServerExceptionsGrpcClientInterceptor(
-			IOperationFailedExceptionPublisher operationFailedExceptionPublisher,
+			IEnumerable<IOperationFailedExceptionGrpcClientListener> operationFailedExceptionListeners,
+			IEnumerable<IServerExceptionGrpcClientListener> serverExceptionGrpcClientListeners,
 			ILogger<ServerExceptionsGrpcClientInterceptor> logger)
 		{
-			this.operationFailedExceptionPublisher = operationFailedExceptionPublisher;
+			this.operationFailedExceptionListeners = operationFailedExceptionListeners;
+			this.serverExceptionGrpcClientListeners = serverExceptionGrpcClientListeners;
 			this.logger = logger;
 		}
 
@@ -45,9 +49,23 @@ namespace Havit.Blazor.Grpc.Client.ServerExceptions
 
 				logger.LogWarning($"{nameof(OperationFailedException)}: {errorMessage}");
 
-				await operationFailedExceptionPublisher.PublishAsync(errorMessage);
+				foreach (var listener in operationFailedExceptionListeners)
+				{
+					await listener.ProcessAsync(errorMessage);
+				}
 
 				throw new OperationFailedException(errorMessage);
+			}
+			catch (RpcException e)
+			{
+				foreach (var listener in serverExceptionGrpcClientListeners)
+				{
+					await listener.ProcessExceptionAsync(e);
+
+				}
+
+				ExceptionDispatchInfo.Capture(e).Throw();
+				throw; // to satisfy the compiler
 			}
 		}
 	}
