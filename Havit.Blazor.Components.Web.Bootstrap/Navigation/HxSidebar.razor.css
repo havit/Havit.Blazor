@@ -44,9 +44,22 @@
 	transition: all 0.25s ease-in-out;
 	color: var(--bs-gray);
 	transition: all .25s ease-in-out;
+	position: absolute;
+	top: 50%;
+	left: 100%;
+	opacity: 0;
 }
 
-	.navbar-toggler:hover {
+.sidebar:hover .navbar-toggler {
+	opacity: .75;
+}
+
+.sidebar .navbar-toggler:hover {
+	opacity: 1;
+}
+
+
+.navbar-toggler:hover {
 		color: var(--bs-primary);
 	}
 
@@ -67,19 +80,4 @@
 
 .nav-menu {
 	height: 100vh;
-}
-
-.navbar-toggler {
-	position: absolute;
-	top: 50%;
-	left: 100%;
-	opacity: .5
-}
-
-.sidebar:hover .navbar-toggler {
-	opacity: .75;
-}
-
-.sidebar .navbar-toggler:hover {
-	opacity: 1;
 }
