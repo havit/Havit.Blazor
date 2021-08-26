@@ -16,6 +16,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Optional icon to display within the input.
 		/// </summary>
-		[Parameter] public IconBase CalendarIcon { get; set; }
+		public IconBase CalendarIcon { get; set; }
 	}
 }
