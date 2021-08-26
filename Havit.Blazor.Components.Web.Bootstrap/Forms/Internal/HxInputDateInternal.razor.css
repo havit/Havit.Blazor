@@ -14,5 +14,13 @@
 }
 
 .hx-input-date-icon {
-	margin-right: 3rem;
+	margin-right: 1rem;
+}
+
+.custom-dates .hx-input-date-icon {
+	margin-right: 3.5rem;
+}
+
+.form-control-sm ~ .hx-input-date-icon {
+    font-size: .75rem;
 }
