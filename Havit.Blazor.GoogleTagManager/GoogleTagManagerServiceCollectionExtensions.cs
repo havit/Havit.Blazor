@@ -19,7 +19,7 @@ namespace Havit.Blazor.GoogleTagManager
 		/// <returns></returns>
 		public static IServiceCollection AddHxGoogleTagManager(this IServiceCollection services, Action<HxGoogleTagManagerOptions> configureOptions)
 		{
-			if (RuntimeInformation.IsOSPlatform(OSPlatform.Create("WEBASSEMBLY")))
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.Create("browser")))
 			{
 				services.AddSingleton<IHxGoogleTagManager, HxGoogleTagManager>();
 			}
