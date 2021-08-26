@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +19,15 @@ namespace Havit.Blazor.GoogleTagManager
 		/// <returns></returns>
 		public static IServiceCollection AddHxGoogleTagManager(this IServiceCollection services, Action<HxGoogleTagManagerOptions> configureOptions)
 		{
-			services.AddScoped<IHxGoogleTagManager, HxGoogleTagManager>();
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.Create("WEBASSEMBLY")))
+			{
+				services.AddSingleton<IHxGoogleTagManager, HxGoogleTagManager>();
+			}
+			else
+			{
+				services.AddScoped<IHxGoogleTagManager, HxGoogleTagManager>();
+			}
+
 			if (configureOptions != null)
 			{
 				services.Configure(configureOptions);
