@@ -62,18 +62,18 @@ namespace Havit.Blazor.GoogleTagManager
 		}
 
 		/// <inheritdoc/>
-		public async Task PushPageView(object additionalData = null)
+		public async Task PushPageViewAsync(object additionalData = null)
 		{
 			await PushPageViewCoreAsync(navigationManager.Uri, additionalData);
 		}
 
 		/// <inheritdoc/>
-		async Task IHxGoogleTagManager.PushPageView(LocationChangedEventArgs args)
+		async Task IHxGoogleTagManager.PushPageViewAsync(LocationChangedEventArgs args)
 		{
 			if (args is null)
 			{
 				// App firstRender
-				await PushPageView();
+				await PushPageViewAsync();
 			}
 			else
 			{

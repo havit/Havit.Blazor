@@ -16,6 +16,7 @@ namespace Havit.Blazor.GoogleTagManager
 		/// <summary>
 		/// Initializes the GTM support.
 		/// Called automatically within first <c>Push</c> call (incl. <see cref="HxGoogleTagManagerPageViewTracker"/> calls).
+		/// To be used explicitly only in those rare cases when you want to initialize GTM without pushing any data.
 		/// </summary>
 		Task InitializeAsync();
 
@@ -33,11 +34,11 @@ namespace Havit.Blazor.GoogleTagManager
 		/// Push page-view to GTM data-layer.
 		/// Consider using <see cref="HxGoogleTagManagerPageViewTracker"/> instead of manual handling.
 		/// </summary>
-		Task PushPageView(object additionalData = null);
+		Task PushPageViewAsync(object additionalData = null);
 
 		/// <summary>
 		/// Used by <see cref="HxGoogleTagManagerPageViewTracker"/> to track location changes.
 		/// </summary>
-		Task PushPageView(LocationChangedEventArgs args);
+		Task PushPageViewAsync(LocationChangedEventArgs args);
 	}
 }

@@ -24,10 +24,10 @@
         <member name="M:Havit.Blazor.GoogleTagManager.HxGoogleTagManager.PushEventAsync(System.String,System.Object)">
             <inheritdoc/>
         </member>
-        <member name="M:Havit.Blazor.GoogleTagManager.HxGoogleTagManager.PushPageView(System.Object)">
+        <member name="M:Havit.Blazor.GoogleTagManager.HxGoogleTagManager.PushPageViewAsync(System.Object)">
             <inheritdoc/>
         </member>
-        <member name="M:Havit.Blazor.GoogleTagManager.HxGoogleTagManager.Havit#Blazor#GoogleTagManager#IHxGoogleTagManager#PushPageView(Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs)">
+        <member name="M:Havit.Blazor.GoogleTagManager.HxGoogleTagManager.Havit#Blazor#GoogleTagManager#IHxGoogleTagManager#PushPageViewAsync(Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerOptions">
@@ -59,6 +59,7 @@
             <summary>
             Initializes the GTM support.
             Called automatically within first <c>Push</c> call (incl. <see cref="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker"/> calls).
+            To be used explicitly only in those rare cases when you want to initialize GTM without pushing any data.
             </summary>
         </member>
         <member name="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.PushAsync(System.Object)">
@@ -71,13 +72,13 @@
             Push event to GTM data-layer.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.PushPageView(System.Object)">
+        <member name="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.PushPageViewAsync(System.Object)">
             <summary>
             Push page-view to GTM data-layer.
             Consider using <see cref="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker"/> instead of manual handling.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.PushPageView(Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs)">
+        <member name="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.PushPageViewAsync(Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs)">
             <summary>
             Used by <see cref="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker"/> to track location changes.
             </summary>

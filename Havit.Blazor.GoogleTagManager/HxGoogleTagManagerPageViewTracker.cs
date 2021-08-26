@@ -31,7 +31,7 @@ namespace Havit.Blazor.GoogleTagManager
 			{
 				var argsToReport = locationChangedEventArgsToReportOnAfterRenderAsync;
 				locationChangedEventArgsToReportOnAfterRenderAsync = null;
-				await HxGoogleTagManager.PushPageView(argsToReport);
+				await HxGoogleTagManager.PushPageViewAsync(argsToReport);
 			}
 
 			await base.OnAfterRenderAsync(firstRender);
