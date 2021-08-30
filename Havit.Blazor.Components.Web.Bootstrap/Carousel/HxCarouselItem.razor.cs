@@ -17,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Time before automatically cycling to the next item.
 		/// </summary>
-		[Parameter] public int Interval { get; set; }
+		[Parameter] public int? Interval { get; set; }
 
 		protected override void OnParametersSet()
 		{

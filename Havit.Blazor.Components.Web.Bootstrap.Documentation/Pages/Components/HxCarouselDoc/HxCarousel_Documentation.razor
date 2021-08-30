@@ -1,0 +1,29 @@
+﻿@attribute [Route("/components/" + nameof(HxCarousel))]
+
+<ComponentApiDoc Type="typeof(HxCarousel)">
+    <HxAlert Color="ThemeColor.Warning"><HxIcon Icon="@BootstrapIcon.ExclamationTriangle" /> Carousel starts automatically sliding once it's interacted with.</HxAlert>
+    <Demo Type="typeof(HxCarousel_Demo_Controls)" />
+
+    <h3>Custom interval</h3>
+    <Demo Type="typeof(HxCarousel_Demo_SlidesOnly)" />
+
+    <h3>With indicators</h3>
+    <Demo Type="typeof(HxCarousel_Demo_Indicators)" />
+
+    @*<h3>With captions</h3>*@
+
+    <h3>Crossfade</h3>
+    <Demo Type="typeof(HxCarousel_Demo_Crossfade)" />
+
+    @*<h3>Individual <code>HxCarouselItem</code> interval</h3>
+    <Demo Type="typeof(HxCarousel_Demo_PerItemInterval)" />*@
+
+    <h3>Disable touch swiping</h3>
+    <Demo Type="typeof(HxCarousel_Demo_TouchSwiping)" />
+
+    <h3>Light variant</h3>
+    <Demo Type="typeof(HxCarousel_Demo_Light)" />
+
+    <h3>Complex example</h3>
+    <Demo Type="typeof(HxCarousel_Demo_ComplexExample)" />
+</ComponentApiDoc>

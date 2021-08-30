@@ -27,6 +27,10 @@ export function GetCarousel(id) {
     return bootstrap.Carousel.getInstance(carouselElement)
 }
 
+export function SetInterval(id, interval) {
+    GetCarousel(id).interval = interval;
+}
+
 var HxCarouselDotnetObjectReference = undefined;
 
 export function AddEventListeners(id, hxCarouselDotnetObjectReference) {

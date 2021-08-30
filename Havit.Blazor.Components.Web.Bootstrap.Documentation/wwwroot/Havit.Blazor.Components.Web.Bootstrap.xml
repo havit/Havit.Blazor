@@ -738,6 +738,21 @@
             A skin to be used for any <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> without explicit <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Skin"/> specified.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel">
+            <summary>
+            A slideshow component for cycling through elements—images or slides of text—like a carousel.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.ChildContent">
+            <summary>
+            Content of the carousel.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.CssClass">
+            <summary>
+            Carousel CSS class. Added to root div <c>.carousel</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Controls">
             <summary>
             Display controls to switch between slides.
@@ -758,6 +773,11 @@
             Animate slides with a fade transition instead of slide.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Interval">
+            <summary>
+            Delay for automatically switching slides.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.TouchSwiping">
             <summary>
             Enable or disable swiping left/right on touchscreen devices to move between slides.
@@ -771,6 +791,47 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlid">
             <summary>
             Is fired when the current slide is changed (once the transition is completed).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Items">
+            <summary>
+            A list of all <c>HxCarouselItem</c> components contained in the carousel.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideTo(System.Int32)">
+            <summary>
+            Slides to an element with the coresponding index.
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideToLastItem">
+            <summary>
+            Slides to the last item.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideToPreviousItem">
+            <summary>
+            Slides to the previous item in the collection (to the left).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideToNextItem">
+            <summary>
+            Slides to the next item in the collection (to the right).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Cycle">
+            <summary>
+            Start cycling between slides.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Pause">
+            <summary>
+            Pause cycling.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Dispose">
+            <summary>
+            Dispose the carousel.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.Interval">
