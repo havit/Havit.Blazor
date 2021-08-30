@@ -3,9 +3,10 @@
     element.addEventListener('hidden.bs.modal', handleModalHidden)
 
     var modal = new bootstrap.Modal(element, {
-        backdrop: useStaticBackdrop ? "static" : false,
+        backdrop: useStaticBackdrop ? "static" : true,
         keyboard: closeOnEscape
     });
+
     modal.show();
 }
 
