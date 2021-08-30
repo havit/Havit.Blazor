@@ -14,6 +14,9 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Include="wwwroot\HxCarousel.js" />
+	</ItemGroup>
 	
 	<ItemGroup>
 		<PackageReference Include="Havit.Core" Version="2.0.19" />

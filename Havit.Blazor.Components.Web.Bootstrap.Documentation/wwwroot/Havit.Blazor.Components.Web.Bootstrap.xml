@@ -738,6 +738,36 @@
             A skin to be used for any <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> without explicit <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Skin"/> specified.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Controls">
+            <summary>
+            Display controls to switch between slides.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Dark">
+            <summary>
+            Show controls, captions, etc. to dark colors.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Crossfade">
+            <summary>
+            Animate slides with a fade transition instead of slide.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlide">
+            <summary>
+            Is fired when the current slide is changed (at the very start of the sliding transition).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlid">
+            <summary>
+            Is fired when the current slide is changed (once the transition is completed).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.Interval">
+            <summary>
+            Time before automatically cycling to the next item.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ChipItem">
             <summary>
             Chip item to be rendered in UI.

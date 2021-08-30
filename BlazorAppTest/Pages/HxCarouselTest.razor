@@ -1,0 +1,28 @@
+﻿@page "/HxCarouselTest" 
+
+<HxCarousel @ref="carousel" Controls="true" Dark="true" OnSlid="IncrementSlidCount">
+    <HxCarouselItem Active="true">
+        Carousel Item 1
+    </HxCarouselItem>
+    <HxCarouselItem>
+        Carousel Item 2
+    </HxCarouselItem>
+    <HxCarouselItem>
+        Carousel Item 3
+    </HxCarouselItem>
+</HxCarousel>
+
+<HxButton Color="ThemeColor.Dark" OnClick="() => carousel.SlideTo(carousel.Items.Count - 2)" Text="Slide to second item from the back" />
+
+<h3>@slidCount</h3>
+
+@code {
+    private HxCarousel carousel;
+    private int slidCount;
+
+    private void IncrementSlidCount()
+    {
+        slidCount++;
+        StateHasChanged();
+    }
+}

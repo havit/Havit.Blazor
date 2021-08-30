@@ -46,7 +46,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.Client.We
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Localization", "Localization", "{201D627C-BC35-4971-95D0-5BA656E771F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.GoogleTagManager", "Havit.Blazor.GoogleTagManager\Havit.Blazor.GoogleTagManager.csproj", "{D05D6A1D-9D0E-4B0B-8A13-7A9DE32D6A3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.GoogleTagManager", "Havit.Blazor.GoogleTagManager\Havit.Blazor.GoogleTagManager.csproj", "{D05D6A1D-9D0E-4B0B-8A13-7A9DE32D6A3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
