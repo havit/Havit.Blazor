@@ -3350,6 +3350,17 @@
             Component to render modal dialog as a <a href="https://getbootstrap.com/docs/5.1/components/modal/">Bootstrap Modal</a>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CloseButtonIcon">
+            <summary>
+            Close icon to be used in header.
+            If set to <c>null</c>, Bootstrap default close-button will be used.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CssClass">
             <summary>
             Modal CSS class. Added to root div (.modal).

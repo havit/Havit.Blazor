@@ -18,6 +18,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		internal const string HxModalInParentModalCascadingValueName = nameof(HxModalInParentModalCascadingValueName);
 
 		/// <summary>
+		/// Application-wide defaults for the <see cref="HxGrid{TItem}"/>.
+		/// </summary>
+		public static ModalDefaults Defaults { get; } = new ModalDefaults();
+
+		/// <summary>
+		/// Close icon to be used in header.
+		/// If set to <c>null</c>, Bootstrap default close-button will be used.
+		/// </summary>
+		[Parameter] public IconBase CloseButtonIcon { get; set; }
+
+		/// <summary>
 		/// Modal CSS class. Added to root div (.modal).
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
@@ -67,7 +78,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Indicates whether the modal shows close button in header.
 		/// Default value is <c>true</c>.
 		/// </summary>
-		[Parameter] public bool ShowCloseButton { get; set; } = true;
+		[Parameter] public bool? ShowCloseButton { get; set; }
 
 		/// <summary>
 		/// Indicates whether the modal closes when escape key is pressed.
@@ -89,6 +100,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		[CascadingParameter(Name = HxModalInParentModalCascadingValueName)] protected bool InParentModal { get; set; } // default(bool) = false, receives True from parent HxModal
+
+		protected virtual ModalDefaults GetDefaults() => HxModal.Defaults;
+
+		protected IconBase CloseButtonIconEffective => CloseButtonIcon ?? GetDefaults().CloseButtonIcon;
+		protected bool ShowCloseButtonEffective => ShowCloseButton ?? GetDefaults().ShowCloseButton;
 
 		private bool opened = false; // indicates whether the modal is open
 		private bool shouldOpenModal = false; // indicates whether the modal is going to be opened
