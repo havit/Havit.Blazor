@@ -4,6 +4,6 @@
 	{
 		public bool ShowCloseButton { get; set; } = true;
 
-		public IconBase CloseButtonIcon { get; set; } = BootstrapIcon.X;
+		public IconBase CloseButtonIcon { get; set; }
 	}
 }
