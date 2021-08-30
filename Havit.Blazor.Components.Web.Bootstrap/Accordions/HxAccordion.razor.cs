@@ -26,6 +26,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public EventCallback<string> ExpandedItemIdChanged { get; set; }
 
 		/// <summary>
+		/// Set to true to make accordion items stay open when another item is opened.
+		/// </summary>
+		[Parameter] public bool StayOpen { get; set; }
+
+		/// <summary>
 		/// ID of the item you want to expand at the very beginning (overwrites <see cref="ExpandedItemId"/> if set).
 		/// </summary>
 		[Parameter] public string InitialExpandedItemId { get; set; }

@@ -4,7 +4,6 @@
 	element.addEventListener('hidden.bs.collapse', handleAccordionItemHidden);
 	var c = new bootstrap.Collapse(element, {
 		toggle: false,
-		parent: parentSelector
 	});
 	console.debug("AccordionItem_create[" + element.id + "]");
 }

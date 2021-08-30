@@ -20,6 +20,11 @@
             Do not use constant value as it reverts the accordion to that item on every roundtrip. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemId"/> to set the initial state.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen">
+            <summary>
+            Set to true to make accordion items stay open when another item is opened.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemId">
             <summary>
             ID of the item you want to expand at the very beginning (overwrites <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId"/> if set).
