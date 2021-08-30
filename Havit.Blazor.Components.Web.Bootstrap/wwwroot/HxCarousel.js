@@ -30,7 +30,6 @@ export function GetCarousel(id) {
 var HxCarouselDotnetObjectReference = undefined;
 
 export function AddEventListeners(id, hxCarouselDotnetObjectReference) {
-    alert('adding event listeners');
     let carouselElement = document.getElementById(id);
     HxCarouselDotnetObjectReference = hxCarouselDotnetObjectReference;
 

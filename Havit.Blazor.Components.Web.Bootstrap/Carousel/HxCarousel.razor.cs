@@ -19,6 +19,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool Controls { get; set; }
 		/// <summary>
+		/// Display indicators showing which slide is active. Can also be used to switch between slides.
+		/// </summary>
+		[Parameter] public bool Indicators { get; set; }
+		/// <summary>
 		/// Show controls, captions, etc. to dark colors.
 		/// </summary>
 		[Parameter] public bool Dark { get; set; }
@@ -27,7 +31,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool Crossfade { get; set; }
 		[Parameter] public int Interval { get; set; }
-
+		/// <summary>
+		/// Enable or disable swiping left/right on touchscreen devices to move between slides.
+		/// </summary>
+		[Parameter] public bool TouchSwiping { get; set; }
 		/// <summary>
 		/// Is fired when the current slide is changed (at the very start of the sliding transition).
 		/// </summary>
@@ -55,6 +62,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxCarousel) + ".js");
 				await jsModule.InvokeVoidAsync("AddEventListeners", id, dotnetObjectReference);
+
+				await InvokeAsync(StateHasChanged);
 			}
 		}
 

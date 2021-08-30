@@ -1,28 +1,28 @@
 ﻿@page "/HxCarouselTest" 
 
-<HxCarousel @ref="carousel" Controls="true" Dark="true" OnSlid="IncrementSlidCount">
+<HxCarousel @ref="carousel" Controls="true" Dark="true" OnSlide="IncrementSlideCount" Indicators="true" TouchSwiping="false">
     <HxCarouselItem Active="true">
-        Carousel Item 1
+        <div class="d-flex justify-content-center">Carousel Item 1</div>
     </HxCarouselItem>
     <HxCarouselItem>
-        Carousel Item 2
+        <div class="d-flex justify-content-center">Carousel Item 2</div>
     </HxCarouselItem>
     <HxCarouselItem>
-        Carousel Item 3
+        <div class="d-flex justify-content-center">Carousel Item 3</div>
     </HxCarouselItem>
 </HxCarousel>
 
 <HxButton Color="ThemeColor.Dark" OnClick="() => carousel.SlideTo(carousel.Items.Count - 2)" Text="Slide to second item from the back" />
 
-<h3>@slidCount</h3>
+<h3>Slide count: @slideCount</h3>
 
 @code {
     private HxCarousel carousel;
-    private int slidCount;
+    private int slideCount;
 
-    private void IncrementSlidCount()
+    private void IncrementSlideCount()
     {
-        slidCount++;
+        slideCount++;
         StateHasChanged();
     }
 }

@@ -1,6 +1,16 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<div id="@id" class="@CssClassHelper.Combine("carousel", "slide", Dark ? "carousel-dark" : null, Crossfade ? "carousel-fade" : null, this.CssClass)" data-bs-ride="carousel" data-bs-interval="@Interval">
+<div id="@id" class="@CssClassHelper.Combine("carousel", "slide", Dark ? "carousel-dark" : null, Crossfade ? "carousel-fade" : null, this.CssClass)" data-bs-ride="@(TouchSwiping ? "carousel" : null)" data-bs-interval="@Interval">
+    @if (Indicators)
+    {
+        <div class="carousel-indicators">
+            @for (int i = 0; i < Items.Count; i++)
+            {
+                <button type="button" data-bs-target="#@id" data-bs-slide-to="@i" class="active" aria-current="true" aria-label="Slide @i"></button>
+            }
+        </div>
+    }
+
     <div class="carousel-inner">
         <CascadingValue Value="@this" IsFixed="true">
             @ChildContent

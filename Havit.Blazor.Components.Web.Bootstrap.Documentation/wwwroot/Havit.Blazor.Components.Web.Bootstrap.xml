@@ -743,6 +743,11 @@
             Display controls to switch between slides.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Indicators">
+            <summary>
+            Display indicators showing which slide is active. Can also be used to switch between slides.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Dark">
             <summary>
             Show controls, captions, etc. to dark colors.
@@ -751,6 +756,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Crossfade">
             <summary>
             Animate slides with a fade transition instead of slide.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.TouchSwiping">
+            <summary>
+            Enable or disable swiping left/right on touchscreen devices to move between slides.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlide">
