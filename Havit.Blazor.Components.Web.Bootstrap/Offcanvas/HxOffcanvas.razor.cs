@@ -157,7 +157,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public async Task HideAsync()
 		{
-			Contract.Requires(opened);
+			Contract.Requires(opened, "Offcanvas must be open if you want to hide it.");  // We might remove this check and "do nothing" if it turns to be more convenient for consuming developers.
 			await jsModule.InvokeVoidAsync("hide", offcanvasElement);
 		}
 

@@ -1,31 +1,38 @@
 ﻿export function show(element, hxOffcanvasDotnetObjectReference, backdropEnabled, closeOnEscape, scrollingEnabled) {
 	if (window.offcanvasElement) {
-		var previousOffcanvas = bootstrap.Offcanvas.getInstance(window.offcanvasElement);
-		previousOffcanvas.hide();
+		let previousOffcanvas = bootstrap.Offcanvas.getInstance(window.offcanvasElement);
+		if (previousOffcanvas) {
+			previousOffcanvas.hide();
+		}
 	}
 	element.hxOffcanvasDotnetObjectReference = hxOffcanvasDotnetObjectReference;
 	element.addEventListener('hidden.bs.offcanvas', handleOffcanvasHidden)
 
-    var offcanvas = new bootstrap.Offcanvas(element, {
+	let offcanvas = new bootstrap.Offcanvas(element, {
 		backdrop: backdropEnabled,
 		keyboard: closeOnEscape,
 		scroll: scrollingEnabled
 	});
 	window.offcanvasElement = element;
-    offcanvas.show();
+	offcanvas.show();
 }
 
 export function hide(element) {
-    var offcanvas = bootstrap.Offcanvas.getInstance(element);
+	let offcanvas = bootstrap.Offcanvas.getInstance(element);
 	offcanvas.hide();
 }
 
 export function dispose(element) {
-    var offcanvas = bootstrap.Offcanvas.getInstance(element);
-    element.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
-    element.hxOffcanvasDotnetObjectReference = null;
-    offcanvas.hide();
-	// offcanvas.dispose(); // offcanvas.js: 145: Cannot read property 'setAttribute' of null
+	let offcanvas = bootstrap.Offcanvas.getInstance(element);
+	element.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
+	element.hxOffcanvasDotnetObjectReference = null;
+	offcanvas.hide();
+	// offcanvas.dispose(); // BS bug: offcanvas.js: 145: Cannot read property 'setAttribute' of null
+
+	if (element === window.offcanvasElement) { // another offcanvas might be already open
+		window.offcanvasElement = null;
+		console.warn("dispose-null");
+	}
 }
 
 function handleOffcanvasHidden(event) {
@@ -33,8 +40,10 @@ function handleOffcanvasHidden(event) {
 	event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasHidden');
 	event.target.hxOffcanvasDotnetObjectReference = null;
 
-	window.offcanvasElement = null;
+	let offcanvas = bootstrap.Offcanvas.getInstance(event.target);
 
-    var offcanvas = bootstrap.Offcanvas.getInstance(event.target);    
-    offcanvas.dispose();
+	if (event.target === window.offcanvasElement) { // another offcanvas might be already open
+		window.offcanvasElement = null;
+	}
+	offcanvas.dispose();
 };
