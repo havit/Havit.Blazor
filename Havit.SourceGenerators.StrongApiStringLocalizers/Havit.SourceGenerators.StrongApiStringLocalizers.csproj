@@ -11,8 +11,10 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.0.4</PackageVersion>
+		<PackageVersion>1.0.5</PackageVersion>
 		<Description>HAVIT Source Generators for generating string localizers strong API.</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 	</PropertyGroup>
 	
