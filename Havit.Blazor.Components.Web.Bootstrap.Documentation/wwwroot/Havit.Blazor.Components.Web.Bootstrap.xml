@@ -775,7 +775,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Interval">
             <summary>
-            Delay for automatically switching slides.
+            Delay for automatically switching slides. Default is 3000 ms.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.TouchSwiping">

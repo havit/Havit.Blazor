@@ -1,4 +1,8 @@
-﻿export function SlideTo(id, index) {
+﻿export function InitializeCarousel(id) {
+    GetCarousel(id).carousel();
+}
+
+export function SlideTo(id, index) {
     GetCarousel(id).to(index);
 }
 

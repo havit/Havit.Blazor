@@ -40,9 +40,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool Crossfade { get; set; }
 		/// <summary>
-		/// Delay for automatically switching slides.
+		/// Delay for automatically switching slides. Default is 3000 ms.
 		/// </summary>
-		[Parameter] public int? Interval { get; set; }
+		[Parameter] public int? Interval { get; set; } = 3000;
 		/// <summary>
 		/// Enable or disable swiping left/right on touchscreen devices to move between slides.
 		/// </summary>
@@ -78,10 +78,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxCarousel) + ".js");
 				await jsModule.InvokeVoidAsync("AddEventListeners", id, dotnetObjectReference);
 
-				if (Interval is not null)
-				{
-					SetInterval((int)Interval);
-				}
+				InitializeCarousel();
 				await InvokeAsync(StateHasChanged);
 			}
 		}
@@ -96,6 +93,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task HandleSlid()
 		{
 			await OnSlid.InvokeAsync();
+		}
+
+		private void InitializeCarousel()
+		{
+			jsModule.InvokeVoidAsync("InitializeCarousel", id);
 		}
 
 		public void SetInterval(int interval)

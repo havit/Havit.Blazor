@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<div id="@id" class="@CssClassHelper.Combine("carousel", "slide", Dark ? "carousel-dark" : null, Crossfade ? "carousel-fade" : null, this.CssClass)" data-bs-ride="@(TouchSwiping ? "carousel" : null)" data-bs-interval="@Interval" data-interval="@Interval">
+<div id="@id" class="@CssClassHelper.Combine("carousel", "slide", Dark ? "carousel-dark" : null, Crossfade ? "carousel-fade" : null, this.CssClass)" data-bs-ride="@(TouchSwiping ? "carousel" : null)" data-bs-interval="@(Interval is null ? "false" : Interval)" data-interval="@(Interval is null ? "false" : Interval)">
     @if (Indicators)
     {
         <div class="carousel-indicators">
@@ -19,7 +19,7 @@
 
     @if (Controls)
     {
-        <button class="carousel-control-prev" type="button" data-bs-target="#@id" data-bs-slide="prev">
+        <button id="@(id + "prev")" class="carousel-control-prev" type="button" data-bs-target="#@id" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
