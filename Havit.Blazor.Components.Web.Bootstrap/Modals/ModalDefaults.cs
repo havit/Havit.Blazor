@@ -28,5 +28,10 @@
 		/// Allows scrolling the modal body. Default is <c>false</c>.
 		/// </summary>
 		public bool Scrollable { get; set; } = false;
+
+		/// <summary>
+		/// Allows vertical centering of the modal. Default is <c>false</c> (horizontal only).
+		/// </summary>
+		public bool Centered { get; set; } = false;
 	}
 }

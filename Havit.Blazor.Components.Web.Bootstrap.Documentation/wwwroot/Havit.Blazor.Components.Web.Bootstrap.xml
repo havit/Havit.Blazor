@@ -3590,6 +3590,11 @@
             Allows scrolling the modal body. Default is <c>false</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Centered">
+            <summary>
+            Allows vertical centering of the modal. Default is <c>false</c> (horizontal only).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnClosed">
             <summary>
             Raised when modal is closed (whatever reason it is).
@@ -3641,6 +3646,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.Scrollable">
             <summary>
             Allows scrolling the modal body. Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.Centered">
+            <summary>
+            Allows vertical centering of the modal. Default is <c>false</c> (horizontal only).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen">

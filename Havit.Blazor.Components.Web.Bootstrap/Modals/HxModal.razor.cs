@@ -108,6 +108,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? Scrollable { get; set; }
 
 		/// <summary>
+		/// Allows vertical centering of the modal. Default is <c>false</c> (horizontal only).
+		/// </summary>
+		[Parameter] public bool? Centered { get; set; }
+
+		/// <summary>
 		/// Raised when modal is closed (whatever reason it is).
 		/// </summary>
 		[Parameter] public EventCallback OnClosed { get; set; }
@@ -244,6 +249,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (scrollableEffective)
 			{
 				return "modal-dialog-scrollable";
+			}
+			return null;
+		}
+
+
+		protected string GetModalCenteredCssClass()
+		{
+			var centeredEffective = this.Centered ?? GetDefaults().Centered;
+			if (centeredEffective)
+			{
+				return "modal-dialog-centered";
 			}
 			return null;
 		}
