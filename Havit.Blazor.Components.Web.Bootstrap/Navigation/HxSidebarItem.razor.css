@@ -11,6 +11,7 @@
 }
 
 .hx-sidebar-subitems ::deep .nav-link {
+	width: 90%;
 	margin: var(--hx-sidebar-subitem-margin);
 	padding: var(--hx-sidebar-subitem-padding);
 	font-size: var(--hx-sidebar-subitem-font-size);
