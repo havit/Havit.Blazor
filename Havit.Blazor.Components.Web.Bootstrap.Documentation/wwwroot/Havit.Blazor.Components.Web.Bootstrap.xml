@@ -683,6 +683,11 @@
             Raised when the item is clicked.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsAutosuggestInput.Offset">
+            <summary>
+            Offset between dropdown input and dropdown menu
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.MinimumLength">
             <summary>
             Minimal number of characters to start suggesting. Default is <c>2</c>.
@@ -696,6 +701,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.Delay">
             <summary>
             Debounce delay in miliseconds. Default is <c>300 ms</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputOffset">
+            <summary>
+            Offset between dropdown input and dropdown menu
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal">

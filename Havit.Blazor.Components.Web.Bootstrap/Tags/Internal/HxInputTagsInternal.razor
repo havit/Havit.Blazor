@@ -8,18 +8,31 @@
 		}
 	</div>
 	@*<HxAutosuggestInternal TItem="string"
-						   TValue="string"
-						   DataProvider="NewItemSuggestionsDataProvider"
-						   />*@
+		TValue="string"
+		DataProvider="NewItemSuggestionsDataProvider"
+		/>*@
 
-	@*<div style="position:relative">
+	<div style="position:relative">
 		<a id="tagDropdownLink" data-bs-toggle="dropdown" class="flex-grow-1" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">
-			<input type="text" class="border-0 w-100">
+			<HxInputTagsAutosuggestInput @ref="autosuggestInput"
+										 InputId="@InputId"
+										 EnabledEffective="@EnabledEffective"
+										 Value="@userInput"
+										 OnInputInput="HandleInputInput"
+										 OnInputFocus="HandleInputFocus"
+										 OnInputBlur="HandleInputBlur"
+										 Placeholder="@Placeholder"
+										 CssClass="@InputCssClass"
+										 Offset="@InputOffset" />
+			@if (dataProviderInProgress)
+			{
+				<HxSpinner Type="SpinnerType.Border" Size="SpinnerSize.Small" />
+			}
 		</a>
 		<div class="dropdown-menu" aria-labelledby="tagDropdownLink">
 			<a class="dropdown-item" href="#">Action</a>
 			<a class="dropdown-item" href="#">Another action</a>
 			<a class="dropdown-item" href="#">Something else here</a>
 		</div>
-	</div>*@
+	</div>
 </div>

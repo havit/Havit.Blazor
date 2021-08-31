@@ -49,7 +49,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public LabelType LabelTypeEffective { get; set; }
 
-		[Parameter] public RenderFragment BuildRenderLabel { get; set; }
+		/// <summary>
+		/// Offset between dropdown input and dropdown menu
+		/// </summary>
+		[Parameter] public (int X, int Y) InputOffset { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -63,9 +66,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool blurInProgress;
 		private bool currentlyFocused;
 		private IJSObjectReference jsModule;
-		//private HxAutosuggestInput autosuggestInput; // TODO: Generalizace
+		private HxInputTagsAutosuggestInput autosuggestInput;
 		//private TValue lastKnownValue;
-		//private bool dataProviderInProgress;
+		private bool dataProviderInProgress;
 		private DotNetObjectReference<HxInputTagsInternal> dotnetObjectReference;
 
 		public HxInputTagsInternal()
