@@ -5,7 +5,9 @@
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 
-	<HxInputDate Label="HxInputDate (default, DateTime)" @bind-Value="@model.DateTime" />
+	<HxInputDate Label="HxInputDate (default, DateTime) InputSize: Regular" @bind-Value="@model.DateTime" />
+	<HxInputDate InputSize="InputSize.Small" Label="HxInputDate (default, DateTime) InputSize: Small" @bind-Value="@model.DateTime" />
+	<HxInputDate InputSize="InputSize.Large" Label="HxInputDate (default, DateTime) InputSize: Large" @bind-Value="@model.DateTime" />
 	<HxInputDate Label="HxInputDate (default, DateTime?)" @bind-Value="@model.NullableDateTime" Placeholder="Datum narození" />
 	<HxInputDate Label="HxInputDate (default, DateTimeOffset)" @bind-Value="@model.DateTimeOffset" />
 	<HxInputDate Label="HxInputDate (default, DateTimeOffset?)" @bind-Value="@model.NullableDateTimeOffset" />

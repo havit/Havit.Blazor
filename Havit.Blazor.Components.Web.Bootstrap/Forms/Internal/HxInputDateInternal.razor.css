@@ -4,13 +4,13 @@
 }
 
 .input-group-sm > .hx-input-date > button, .hx-input-date:not(.custom-dates) .form-control {
-    border-top-right-radius: .2rem;
-    border-bottom-right-radius: .2rem;
+    border-top-right-radius: .2rem !important;
+    border-bottom-right-radius: .2rem !important;
 }
 
 .input-group-lg > .hx-input-date > button, .hx-input-date:not(.custom-dates) .form-control {
-    border-top-right-radius: .3rem;
-    border-bottom-right-radius: .3rem;
+    border-top-right-radius: .3rem !important;
+    border-bottom-right-radius: .3rem !important;
 }
 
 .hx-input-date-icon {
