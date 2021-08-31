@@ -1,0 +1,17 @@
+﻿<HxModal @ref="xlModal" Size="ModalSize.ExtraLarge" HeaderText="Extra large modal" />
+<HxModal @ref="lgModal" Size="ModalSize.Large" HeaderText="Large modal" />
+<HxModal @ref="modal" Size="ModalSize.Regular" HeaderText="Regular modal" />
+<HxModal @ref="smModal" Size="ModalSize.Small" HeaderText="Small modal" />
+
+<HxButton OnClick="() => xlModal.ShowAsync()" Color="ThemeColor.Primary">Extra large modal</HxButton>
+<HxButton OnClick="() => lgModal.ShowAsync()" Color="ThemeColor.Primary">Large modal</HxButton>
+<HxButton OnClick="() => modal.ShowAsync()" Color="ThemeColor.Primary">Regular modal</HxButton>
+<HxButton OnClick="() => smModal.ShowAsync()" Color="ThemeColor.Primary">Small modal</HxButton>
+
+@code
+{
+	private HxModal xlModal;
+	private HxModal lgModal;
+	private HxModal modal;
+	private HxModal smModal;
+}

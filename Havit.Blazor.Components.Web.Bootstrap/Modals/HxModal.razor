@@ -4,7 +4,7 @@
 {
 	<CascadingValue Name="@HxModalInParentModalCascadingValueName" Value="true" IsFixed="true">
 		<div @ref="modalElement" class="@CssClassHelper.Combine("hx-modal","modal fade", CssClass)" tabindex="-1">
-			<div class="modal-dialog">
+			<div class="@CssClassHelper.Combine("modal-dialog", GetModalSizeCssClass())">
 				<div class="modal-content">
 					@if (!String.IsNullOrEmpty(HeaderText) || (HeaderTemplate != null) || ShowCloseButtonEffective)
 					{

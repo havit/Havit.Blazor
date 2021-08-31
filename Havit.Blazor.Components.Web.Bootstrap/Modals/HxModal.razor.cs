@@ -23,6 +23,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static ModalDefaults Defaults { get; } = new ModalDefaults();
 
 		/// <summary>
+		/// Size of the modal.
+		/// </summary>
+		[Parameter] public ModalSize? Size { get; set; }
+
+		/// <summary>
 		/// Close icon to be used in header.
 		/// If set to <c>null</c>, Bootstrap default close-button will be used.
 		/// </summary>
@@ -192,6 +197,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				await jsModule.DisposeAsync();
 			}
 
+		}
+
+		protected string GetModalSizeCssClass()
+		{
+			var size = this.Size ?? GetDefaults().Size;
+			return size switch
+			{
+				ModalSize.Small => "modal-sm",
+				ModalSize.Regular => null,
+				ModalSize.Large => "modal-lg",
+				ModalSize.ExtraLarge => "modal-xl",
+				_ => throw new InvalidOperationException($"Unknown {nameof(ModalSize)} value {size}.")
+			};
 		}
 	}
 }
