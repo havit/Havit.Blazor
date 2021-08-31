@@ -71,6 +71,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		private List<Method> methods = new();
 		private List<Method> staticMethods = new();
 
+		private List<EnumMember> enumMembers = new();
+
+		private bool isEnum;
+
 		protected override void OnParametersSet()
 		{
 			DownloadFileAndGetSummaries();
@@ -94,7 +98,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			this.methods = methods.methods;
 			staticMethods = methods.staticMethods;
 
+			HandleEnum(reader);
+
 			StateHasChanged();
+		}
+
+		private void HandleEnum(DocXmlReader reader)
+		{
+			isEnum = Type.IsEnum;
+			if (!isEnum)
+			{
+				return;
+			}
+
+			string[] names = Type.GetEnumNames();
+			EnumComments enumComments = reader.GetEnumComments(Type);
+			for (int i = 0; i < names.Length; i++)
+			{
+				EnumMember enumMember = new();
+				enumMember.Name = names[i];
+				try { enumMember.Index = (int)Enum.Parse(Type, enumMember.Name); } catch { }
+				try { enumMember.Summary = enumComments.ValueComments.Where(o => o.Name == enumMember.Name).ToList().FirstOrDefault().Summary; } catch { }
+				enumMembers.Add(enumMember);
+			}
 		}
 
 		private ClassMember GetClassMember(DocXmlReader reader)
@@ -260,7 +286,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				return $"{NavigationManager.BaseUri}Havit.Blazor.Components.Web.Bootstrap.xml";
 			}
 
-			return $"{NavigationManager.BaseUri}Havit.Blazor.Components.Web.xml";
+			if (Type.Namespace == "Havit.Blazor.Components.Web")
+			{
+				return $"{NavigationManager.BaseUri}Havit.Blazor.Components.Web.xml";
+			}
+
+			return $"{NavigationManager.BaseUri}Havit.Blazor.Components.Web.Bootstrap.xml";
 		}
 
 		private async Task<string> GetFile(string uri)
@@ -303,6 +334,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			if (isEvent)
 			{
 				typeName = Regex.Replace(typeName, "EventCallback|<|>", "");
+			}
+
+			if (InternalTypeDoc.DetermineIfTypeIsInternal(typeName))
+			{
+				typeName = $"<a href=\"/type/{typeName}\">{typeName}</a>";
 			}
 
 			return typeName;

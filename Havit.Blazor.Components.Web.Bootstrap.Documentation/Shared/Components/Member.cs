@@ -233,4 +233,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return concatenatedParameters.ToString();
 		}
 	}
+
+	public class EnumMember : Member
+	{
+		public int Index { get; set; }
+		public string Name { get; set; }
+
+		public string Summary { get; set; }
+	}
 }
