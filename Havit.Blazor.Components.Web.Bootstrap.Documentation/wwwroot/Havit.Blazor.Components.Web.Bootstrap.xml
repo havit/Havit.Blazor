@@ -3318,11 +3318,6 @@
             Can be used for TFilterModelType to express there is no filter in the HxListLayout component.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Layouts.LayoutDetailContext">
-            <summary>
-            To be used as CascadingValue in Layouts to be able to pass between components.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1">
             <summary>
             Result of the dialog.
