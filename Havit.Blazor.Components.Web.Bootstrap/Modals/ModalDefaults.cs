@@ -10,18 +10,23 @@
 
 		/// <summary>
 		/// Close icon to be used in header.
-		/// If set to <c>null</c>, Bootstrap default close-button will be used.
+		/// If set to <c>null</c> (default), Bootstrap default close-button will be used.
 		/// </summary>
-		public IconBase CloseButtonIcon { get; set; }
+		public IconBase CloseButtonIcon { get; set; } = null;
 
 		/// <summary>
-		/// Size of the modal.
+		/// Size of the modal. Default is <see cref="ModalSize.Regular"/>.
 		/// </summary>
-		public ModalSize Size { get; set; }
+		public ModalSize Size { get; set; } = ModalSize.Regular;
 
 		/// <summary>
-		/// Fullscreen behavior of the modal.
+		/// Fullscreen behavior of the modal. Default is <see cref="ModalFullscreen.Disabled"/>.
 		/// </summary>
 		public ModalFullscreen Fullscreen { get; set; } = ModalFullscreen.Disabled;
+
+		/// <summary>
+		/// Allows scrolling the modal body. Default is <c>false</c>.
+		/// </summary>
+		public bool Scrollable { get; set; } = false;
 	}
 }

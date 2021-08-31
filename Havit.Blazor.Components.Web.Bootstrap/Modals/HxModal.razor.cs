@@ -103,6 +103,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool UseStaticBackdrop { get; set; } = true;
 
 		/// <summary>
+		/// Allows scrolling the modal body. Default is <c>false</c>.
+		/// </summary>
+		[Parameter] public bool? Scrollable { get; set; }
+
+		/// <summary>
 		/// Raised when modal is closed (whatever reason it is).
 		/// </summary>
 		[Parameter] public EventCallback OnClosed { get; set; }
@@ -206,21 +211,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected string GetModalSizeCssClass()
 		{
-			var size = this.Size ?? GetDefaults().Size;
-			return size switch
+			var sizeEffective = this.Size ?? GetDefaults().Size;
+			return sizeEffective switch
 			{
 				ModalSize.Small => "modal-sm",
 				ModalSize.Regular => null,
 				ModalSize.Large => "modal-lg",
 				ModalSize.ExtraLarge => "modal-xl",
-				_ => throw new InvalidOperationException($"Unknown {nameof(ModalSize)} value {size}.")
+				_ => throw new InvalidOperationException($"Unknown {nameof(ModalSize)} value {sizeEffective}.")
 			};
 		}
 
 		protected string GetModalFullscreenCssClass()
 		{
-			var fullscreen = this.Fullscreen ?? GetDefaults().Fullscreen;
-			return fullscreen switch
+			var fullscreenEffective = this.Fullscreen ?? GetDefaults().Fullscreen;
+			return fullscreenEffective switch
 			{
 				ModalFullscreen.Disabled => null,
 				ModalFullscreen.Always => "modal-fullscreen",
@@ -229,8 +234,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				ModalFullscreen.LargeDown => "modal-fullscreen-lg-down",
 				ModalFullscreen.ExtraLargeDown => "modal-fullscreen-xl-down",
 				ModalFullscreen.XxlDown => "modal-fullscreen-xxl-down",
-				_ => throw new InvalidOperationException($"Unknown {nameof(ModalFullscreen)} value {fullscreen}.")
+				_ => throw new InvalidOperationException($"Unknown {nameof(ModalFullscreen)} value {fullscreenEffective}.")
 			};
+		}
+
+		protected string GetModalScrollableCssClass()
+		{
+			var scrollableEffective = this.Scrollable ?? GetDefaults().Scrollable;
+			if (scrollableEffective)
+			{
+				return "modal-dialog-scrollable";
+			}
+			return null;
 		}
 	}
 }
