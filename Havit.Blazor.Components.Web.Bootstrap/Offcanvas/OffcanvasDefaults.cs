@@ -7,9 +7,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class OffcanvasDefaults
 	{
+		/// <summary>
+		/// Close icon to be used in header.
+		/// If set to <c>null</c>, Bootstrap default close-button will be used.
+		/// </summary>
 		public IconBase CloseButtonIcon { get; set; }
 
+		/// <summary>
+		/// Indicates whether the modal shows close button in header.
+		/// Default value is <c>true</c>.
+		/// Use <see cref="CloseButtonIcon"/> to change shape of the button.
+		/// </summary>
 		public bool ShowCloseButton { get; set; } = true;
+
+		/// <summary>
+		/// Indicates whether to apply a backdrop on body while offcanvas is open.
+		/// Default value is <c>true</c>.
+		/// </summary>
+		public bool BackdropEnabled { get; set; } = true;
+
+		/// <summary>
+		/// Offcanvas additional CSS class. Added to root div (.offcanvas).
+		/// </summary>
+		public string CssClass { get; set; }
 
 		/// <summary>
 		/// Additional header CSS class.
@@ -25,16 +45,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Additional footer CSS class.
 		/// </summary>
 		public string FooterCssClass { get; set; }
-
-		/// <summary>
-		/// Offcanvas additional CSS class. Added to root div (.offcanvas).
-		/// </summary>
-		public string CssClass { get; set; }
-
-		/// <summary>
-		/// Indicates whether to apply a backdrop on body while offcanvas is open.
-		/// Default value is <c>true</c>.
-		/// </summary>
-		public bool BackdropEnabled { get; set; } = true;
 	}
 }

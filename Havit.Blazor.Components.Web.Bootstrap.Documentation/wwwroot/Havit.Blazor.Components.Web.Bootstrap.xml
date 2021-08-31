@@ -3512,6 +3512,26 @@
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Title">
+            <summary>
+            Title in modal header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.HeaderTemplate">
+            <summary>
+            Header template.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.BodyTemplate">
+            <summary>
+            Body template.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.FooterTemplate">
+            <summary>
+            Footer template.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Size">
             <summary>
             Size of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalSize.Regular"/>.
@@ -3522,56 +3542,16 @@
             Fullscreen behavior of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.Disabled"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CloseButtonIcon">
-            <summary>
-            Close icon to be used in header.
-            If set to <c>null</c>, Bootstrap default close-button will be used.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CssClass">
-            <summary>
-            Modal CSS class. Added to root div (.modal).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.HeaderText">
-            <summary>
-            Header text.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.HeaderTemplate">
-            <summary>
-            Header template.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.HeaderCssClass">
-            <summary>
-            Additional header CSS class.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.BodyTemplate">
-            <summary>
-            Body template.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.BodyCssClass">
-            <summary>
-            Additional body CSS class.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.FooterTemplate">
-            <summary>
-            Footer template.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.FooterCssClass">
-            <summary>
-            Footer css class.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.ShowCloseButton">
             <summary>
             Indicates whether the modal shows close button in header.
             Default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CloseButtonIcon">
+            <summary>
+            Close icon to be used in header.
+            If set to <c>null</c>, Bootstrap default close-button will be used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CloseOnEscape">
@@ -3596,24 +3576,39 @@
             Allows vertical centering of the modal. Default is <c>false</c> (horizontal only).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CssClass">
+            <summary>
+            Modal CSS class. Added to root div (.modal).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.HeaderCssClass">
+            <summary>
+            Additional header CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.BodyCssClass">
+            <summary>
+            Additional body CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.FooterCssClass">
+            <summary>
+            Footer css class.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnClosed">
             <summary>
             Raised when modal is closed (whatever reason it is).
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.#ctor">
-            <summary>
-            Constructor.
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.ShowAsync">
             <summary>
-            Shows the modal.
+            Opens the modal.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HideAsync">
             <summary>
-            Hides the modal.
+            Closes the modal.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnAfterRenderAsync(System.Boolean)">
@@ -4014,21 +4009,16 @@
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderText">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Title">
             <summary>
-            Text for the header.
-            Is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c> (in opposite to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderTemplate"/> which is rendered directly into <c>offcanvas-header</c>).
+            Text for the title in header.
+            (Is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c> - in opposite to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderTemplate"/> which is rendered directly into <c>offcanvas-header</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderTemplate">
             <summary>
             Content for the header.
-            Is rendered directly into <c>offcanvas-header</c> (in opposite to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderText"/> which is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderCssClass">
-            <summary>
-            Additional header CSS class.
+            (Is rendered directly into <c>offcanvas-header</c> - in opposite to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Title"/> which is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.BodyTemplate">
@@ -4036,24 +4026,9 @@
             Body content.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.BodyCssClass">
-            <summary>
-            Additional body CSS class.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.FooterTemplate">
             <summary>
             Footer content.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.FooterCssClass">
-            <summary>
-            Additional footer CSS class.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CssClass">
-            <summary>
-            Offcanvas additional CSS class. Added to root <c>div</c> (<c>.offcanvas</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Placement">
@@ -4061,9 +4036,21 @@
             Placement of the offcanvas. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasPlacement.End"/> (right).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.RenderMode">
+            <summary>
+            Determines whether the content is always rendered or only if the offcanvas is open. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasRenderMode.OpenOnly"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Size">
             <summary>
             Size of the offcanvas. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSize.Regular"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.ShowCloseButton">
+            <summary>
+            Indicates whether the modal shows close button in header.
+            Default value is <c>true</c>.
+            Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CloseButtonIcon"/> to change shape of the button.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CloseOnEscape">
@@ -4078,13 +4065,6 @@
             If set to <c>null</c>, Bootstrap default close-button will be used.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.ShowCloseButton">
-            <summary>
-            Indicates whether the modal shows close button in header.
-            Default value is <c>true</c>.
-            Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CloseButtonIcon"/> to change shape of the button.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.BackdropEnabled">
             <summary>
             Indicates whether to apply a backdrop on body while offcanvas is open.
@@ -4094,7 +4074,27 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.ScrollingEnabled">
             <summary>
             Indicates whether body (page) scrolling is allowed while offcanvas is open.
-            Default value is <c>false</c>.
+            Default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults"/>) is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CssClass">
+            <summary>
+            Offcanvas additional CSS class. Added to root <c>div</c> (<c>.offcanvas</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderCssClass">
+            <summary>
+            Additional header CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.BodyCssClass">
+            <summary>
+            Additional body CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.FooterCssClass">
+            <summary>
+            Additional footer CSS class.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnClosed">
@@ -4128,6 +4128,30 @@
             Application wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.CloseButtonIcon">
+            <summary>
+            Close icon to be used in header.
+            If set to <c>null</c>, Bootstrap default close-button will be used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.ShowCloseButton">
+            <summary>
+            Indicates whether the modal shows close button in header.
+            Default value is <c>true</c>.
+            Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.CloseButtonIcon"/> to change shape of the button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.BackdropEnabled">
+            <summary>
+            Indicates whether to apply a backdrop on body while offcanvas is open.
+            Default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.CssClass">
+            <summary>
+            Offcanvas additional CSS class. Added to root div (.offcanvas).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.HeaderCssClass">
             <summary>
             Additional header CSS class.
@@ -4143,15 +4167,9 @@
             Additional footer CSS class.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.CssClass">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasRenderMode">
             <summary>
-            Offcanvas additional CSS class. Added to root div (.offcanvas).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.BackdropEnabled">
-            <summary>
-            Indicates whether to apply a backdrop on body while offcanvas is open.
-            Default value is <c>true</c>.
+            Offcanvas render mode.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasRenderMode.OpenOnly">

@@ -3,11 +3,9 @@
 	@if (opened || (this.RenderMode == OffcanvasRenderMode.Always))
 	{
 		<div class="@CssClassHelper.Combine("offcanvas-header", this.HeaderCssClassEffective)">
-			@if (HeaderText != null)
+			@if (Title != null)
 			{
-				<h5 class="offcanvas-title">
-					@HeaderText
-				</h5>
+				<h5 class="offcanvas-title">@Title</h5>
 			}
 			@HeaderTemplate
 

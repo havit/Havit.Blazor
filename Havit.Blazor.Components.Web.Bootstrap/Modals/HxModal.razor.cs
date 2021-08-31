@@ -23,6 +23,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static ModalDefaults Defaults { get; } = new ModalDefaults();
 
 		/// <summary>
+		/// Title in modal header.
+		/// </summary>
+		[Parameter] public string Title { get; set; }
+
+		/// <summary>
+		/// Header template.
+		/// </summary>
+		[Parameter] public RenderFragment HeaderTemplate { get; set; }
+
+		/// <summary>
+		/// Body template.
+		/// </summary>
+		[Parameter] public RenderFragment BodyTemplate { get; set; }
+
+		/// <summary>
+		/// Footer template.
+		/// </summary>
+		[Parameter] public RenderFragment FooterTemplate { get; set; }
+
+		/// <summary>
 		/// Size of the modal. Default is <see cref="ModalSize.Regular"/>.
 		/// </summary>
 		[Parameter] public ModalSize? Size { get; set; }
@@ -33,62 +53,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public ModalFullscreen? Fullscreen { get; set; }
 
 		/// <summary>
-		/// Close icon to be used in header.
-		/// If set to <c>null</c>, Bootstrap default close-button will be used.
-		/// </summary>
-		[Parameter] public IconBase CloseButtonIcon { get; set; }
-
-		/// <summary>
-		/// Modal CSS class. Added to root div (.modal).
-		/// </summary>
-		[Parameter] public string CssClass { get; set; }
-
-		#region Header properties
-		/// <summary>
-		/// Header text.
-		/// </summary>
-		[Parameter] public string HeaderText { get; set; }
-
-		/// <summary>
-		/// Header template.
-		/// </summary>
-		[Parameter] public RenderFragment HeaderTemplate { get; set; }
-
-		/// <summary>
-		/// Additional header CSS class.
-		/// </summary>
-		[Parameter] public string HeaderCssClass { get; set; }
-		#endregion
-
-		#region Body properties
-		/// <summary>
-		/// Body template.
-		/// </summary>
-		[Parameter] public RenderFragment BodyTemplate { get; set; }
-
-		/// <summary>
-		/// Additional body CSS class.
-		/// </summary>
-		[Parameter] public string BodyCssClass { get; set; }
-		#endregion
-
-		#region Footer properties
-		/// <summary>
-		/// Footer template.
-		/// </summary>
-		[Parameter] public RenderFragment FooterTemplate { get; set; }
-
-		/// <summary>
-		/// Footer css class.
-		/// </summary>
-		[Parameter] public string FooterCssClass { get; set; }
-		#endregion
-
-		/// <summary>
 		/// Indicates whether the modal shows close button in header.
 		/// Default value is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool? ShowCloseButton { get; set; }
+
+		/// <summary>
+		/// Close icon to be used in header.
+		/// If set to <c>null</c>, Bootstrap default close-button will be used.
+		/// </summary>
+		[Parameter] public IconBase CloseButtonIcon { get; set; }
 
 		/// <summary>
 		/// Indicates whether the modal closes when escape key is pressed.
@@ -113,13 +87,35 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? Centered { get; set; }
 
 		/// <summary>
+		/// Modal CSS class. Added to root div (.modal).
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
+		/// <summary>
+		/// Additional header CSS class.
+		/// </summary>
+		[Parameter] public string HeaderCssClass { get; set; }
+
+		/// <summary>
+		/// Additional body CSS class.
+		/// </summary>
+		[Parameter] public string BodyCssClass { get; set; }
+
+		/// <summary>
+		/// Footer css class.
+		/// </summary>
+		[Parameter] public string FooterCssClass { get; set; }
+
+		/// <summary>
 		/// Raised when modal is closed (whatever reason it is).
 		/// </summary>
 		[Parameter] public EventCallback OnClosed { get; set; }
 
+		[CascadingParameter(Name = HxModalInParentModalCascadingValueName)] protected bool InParentModal { get; set; } // default(bool) = false, receives True from parent HxModal
+
+
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-		[CascadingParameter(Name = HxModalInParentModalCascadingValueName)] protected bool InParentModal { get; set; } // default(bool) = false, receives True from parent HxModal
 
 		protected virtual ModalDefaults GetDefaults() => HxModal.Defaults;
 
@@ -132,16 +128,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private ElementReference modalElement;
 		private IJSObjectReference jsModule;
 
-		/// <summary>
-		/// Constructor.
-		/// </summary>
 		public HxModal()
 		{
 			dotnetObjectReference = DotNetObjectReference.Create(this);
 		}
 
 		/// <summary>
-		/// Shows the modal.
+		/// Opens the modal.
 		/// </summary>
 		public Task ShowAsync()
 		{
@@ -163,7 +156,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Hides the modal.
+		/// Closes the modal.
 		/// </summary>
 		public async Task HideAsync()
 		{

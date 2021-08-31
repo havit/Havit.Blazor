@@ -14,28 +14,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxOffcanvas : IAsyncDisposable
 	{
-
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxGrid{TItem}"/>.
 		/// </summary>
 		public static OffcanvasDefaults Defaults { get; } = new OffcanvasDefaults();
 
 		/// <summary>
-		/// Text for the header.
-		/// Is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c> (in opposite to <see cref="HeaderTemplate"/> which is rendered directly into <c>offcanvas-header</c>).
+		/// Text for the title in header.
+		/// (Is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c> - in opposite to <see cref="HeaderTemplate"/> which is rendered directly into <c>offcanvas-header</c>).
 		/// </summary>
-		[Parameter] public string HeaderText { get; set; }
+		[Parameter] public string Title { get; set; }
 
 		/// <summary>
 		/// Content for the header.
-		/// Is rendered directly into <c>offcanvas-header</c> (in opposite to <see cref="HeaderText"/> which is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c>).
+		/// (Is rendered directly into <c>offcanvas-header</c> - in opposite to <see cref="Title"/> which is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c>).
 		/// </summary>
 		[Parameter] public RenderFragment HeaderTemplate { get; set; }
-
-		/// <summary>
-		/// Additional header CSS class.
-		/// </summary>
-		[Parameter] public string HeaderCssClass { get; set; }
 
 		/// <summary>
 		/// Body content.
@@ -43,36 +37,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment BodyTemplate { get; set; }
 
 		/// <summary>
-		/// Additional body CSS class.
-		/// </summary>
-		[Parameter] public string BodyCssClass { get; set; }
-
-		/// <summary>
 		/// Footer content.
 		/// </summary>
 		[Parameter] public RenderFragment FooterTemplate { get; set; }
-
-		/// <summary>
-		/// Additional footer CSS class.
-		/// </summary>
-		[Parameter] public string FooterCssClass { get; set; }
-
-		/// <summary>
-		/// Offcanvas additional CSS class. Added to root <c>div</c> (<c>.offcanvas</c>).
-		/// </summary>
-		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
 		/// Placement of the offcanvas. Default is <see cref="OffcanvasPlacement.End"/> (right).
 		/// </summary>
 		[Parameter] public OffcanvasPlacement Placement { get; set; } = OffcanvasPlacement.End;
 
+		/// <summary>
+		/// Determines whether the content is always rendered or only if the offcanvas is open. Default is <see cref="OffcanvasRenderMode.OpenOnly"/>.
+		/// </summary>
 		[Parameter] public OffcanvasRenderMode RenderMode { get; set; } = OffcanvasRenderMode.OpenOnly;
 
 		/// <summary>
 		/// Size of the offcanvas. Default is <see cref="OffcanvasSize.Regular"/>.
 		/// </summary>
 		[Parameter] public OffcanvasSize Size { get; set; } = OffcanvasSize.Regular;
+
+		/// <summary>
+		/// Indicates whether the modal shows close button in header.
+		/// Default value is <c>true</c>.
+		/// Use <see cref="CloseButtonIcon"/> to change shape of the button.
+		/// </summary>
+		[Parameter] public bool? ShowCloseButton { get; set; }
 
 		/// <summary>
 		/// Indicates whether the offcanvas closes when escape key is pressed.
@@ -87,13 +76,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public IconBase CloseButtonIcon { get; set; }
 
 		/// <summary>
-		/// Indicates whether the modal shows close button in header.
-		/// Default value is <c>true</c>.
-		/// Use <see cref="CloseButtonIcon"/> to change shape of the button.
-		/// </summary>
-		[Parameter] public bool? ShowCloseButton { get; set; }
-
-		/// <summary>
 		/// Indicates whether to apply a backdrop on body while offcanvas is open.
 		/// Default value (from <see cref="Defaults"/>) is <c>true</c>.
 		/// </summary>
@@ -101,9 +83,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Indicates whether body (page) scrolling is allowed while offcanvas is open.
-		/// Default value is <c>false</c>.
+		/// Default value (from <see cref="Defaults"/>) is <c>false</c>.
 		/// </summary>
 		[Parameter] public bool ScrollingEnabled { get; set; } = false;
+
+		/// <summary>
+		/// Offcanvas additional CSS class. Added to root <c>div</c> (<c>.offcanvas</c>).
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
+		/// <summary>
+		/// Additional header CSS class.
+		/// </summary>
+		[Parameter] public string HeaderCssClass { get; set; }
+
+		/// <summary>
+		/// Additional body CSS class.
+		/// </summary>
+		[Parameter] public string BodyCssClass { get; set; }
+
+		/// <summary>
+		/// Additional footer CSS class.
+		/// </summary>
+		[Parameter] public string FooterCssClass { get; set; }
 
 		/// <summary>
 		/// Raised when the offcanvas is closed (whatever reason there is).
