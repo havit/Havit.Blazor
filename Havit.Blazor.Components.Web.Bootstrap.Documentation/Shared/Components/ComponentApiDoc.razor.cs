@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using System.Text;
 using System.CodeDom;
 using System.CodeDom.Compiler;
+using System.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 {
@@ -315,7 +316,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return type;
 		}
 
-		public static string FormatType(Type type, bool isEvent = false)
+		public static string FormatType(Type type)
 		{
 			string typeName = type.FullName;
 			if (string.IsNullOrWhiteSpace(typeName))
@@ -331,14 +332,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
 			typeName = Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
 
-			if (isEvent)
-			{
-				typeName = Regex.Replace(typeName, "EventCallback|<|>", "");
-			}
-
 			if (InternalTypeDoc.DetermineIfTypeIsInternal(typeName))
 			{
-				typeName = $"<a href=\"/type/{typeName}\">{typeName}</a>";
+				typeName = $"<a href=\"/type/{HttpUtility.UrlEncode(typeName)}\">{HttpUtility.HtmlEncode(typeName)}</a>";
+			}
+			else
+			{
+				typeName = HttpUtility.HtmlEncode(typeName);
 			}
 
 			return typeName;

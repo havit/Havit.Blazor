@@ -7,31 +7,31 @@
 @ChildContent
 @MainContent
 
-@if (isEnum)
-            {
-				<h3>Enum</h3>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-							<th>Index</th>
-                            <th>Value</th>
-							<th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var enumMember in enumMembers)
-                        {
-                            <tr>
-								<td>@enumMember.Index</td>
-                                <td>@enumMember.Name</td>
-                                <td class="summary">@((MarkupString)enumMember.Summary)</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-
 <h2>API</h2>
+
+@if (isEnum)
+{
+	<h3>Enum Values</h3>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Index</th>
+				<th>Value</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var enumMember in enumMembers)
+			{
+				<tr>
+					<td>@enumMember.Index</td>
+					<td>@enumMember.Name</td>
+					<td class="summary">@((MarkupString)enumMember.Summary)</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
 
 @if (parameters.Count > 0)
 {
@@ -40,7 +40,7 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th>Parameter</th>
+				<th>Name</th>
 				<th>Type</th>
 				<th>Description</th>
 			</tr>
@@ -74,7 +74,7 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th>Property</th>
+				<th>Name</th>
 				<th>Type</th>
 				<th>Description</th>
 			</tr>
@@ -84,7 +84,7 @@
 			{
 				<tr>
 					<td><strong>@property.PropertyInfo.Name</strong></td>
-                    <td><code>@((MarkupString)@FormatType(property.PropertyInfo.PropertyType))</code></td>
+					<td><code>@((MarkupString)@FormatType(property.PropertyInfo.PropertyType))</code></td>
 					<td class="summary">@((MarkupString)property.Comments.Summary)</td>
 				</tr>
 			}
@@ -94,26 +94,26 @@
 
 @if (events.Count > 0)
 {
-	<h3>Events</h3>
+	<h3>Event Callbacks</h3>
 
-		<table class="table table-bordered">
-			<thead>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var currentEvent in events)
+			{
 				<tr>
-					<th>Event</th>
-					<th>Type</th>
-					<th>Description</th>
+					<td><strong>@currentEvent.PropertyInfo.Name</strong> </td>
+					<td><code>@((MarkupString)@FormatType(currentEvent.PropertyInfo.PropertyType))</code></td>
+					<td class="summary">@((MarkupString)currentEvent.Comments.Summary)</td>
 				</tr>
-			</thead>
-			<tbody>
-				@foreach (var currentEvent in events)
-				{
-					<tr>
-						<td><strong>@currentEvent.PropertyInfo.Name</strong> </td>
-                        <td><code>@((MarkupString)@FormatType(currentEvent.PropertyInfo.PropertyType))</code></td>
-						<td class="summary">@((MarkupString)currentEvent.Comments.Summary)</td>
-					</tr>
-				}
-			</tbody>
+			}
+		</tbody>
 	</table>
 }
 
@@ -121,23 +121,23 @@
 {
 	<h3>Methods</h3>
 
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Method</th>
-					<th>Type</th>
-					<th>Description</th>
-				</tr>
-			</thead>
-		<tbody>
-		@foreach (var method in methods)
-		{
+	<table class="table table-bordered">
+		<thead>
 			<tr>
-				<td><strong>@method.MethodInfo.Name</strong>@method.GetParameters()</td>
-                <td><code>@((MarkupString)@FormatType(method.MethodInfo.ReturnType))</code></td>
-				<td class="summary">@((MarkupString)method.Comments.Summary)</td>
+				<th>Method</th>
+				<th>Returns</th>
+				<th>Description</th>
 			</tr>
-		}
+		</thead>
+		<tbody>
+			@foreach (var method in methods)
+			{
+				<tr>
+					<td><strong>@method.MethodInfo.Name</strong>@method.GetParameters()</td>
+					<td><code>@((MarkupString)@FormatType(method.MethodInfo.ReturnType))</code></td>
+					<td class="summary">@((MarkupString)method.Comments.Summary)</td>
+				</tr>
+			}
 		</tbody>
 	</table>
 }
@@ -159,7 +159,7 @@
 			{
 				<tr>
 					<td><strong>@property.PropertyInfo.Name</strong></td>
-                    <td><code>@((MarkupString)@FormatType(property.PropertyInfo.PropertyType))</code></td>
+					<td><code>@((MarkupString)@FormatType(property.PropertyInfo.PropertyType))</code></td>
 					<td class="summary">@((MarkupString)property.Comments.Summary)</td>
 				</tr>
 			}
@@ -184,7 +184,7 @@
 			{
 				<tr>
 					<td><strong>@method.MethodInfo.Name</strong> @method.GetParameters()</td>
-                    <td><code>@((MarkupString)@FormatType(method.MethodInfo.ReturnType))</code></td>
+					<td><code>@((MarkupString)@FormatType(method.MethodInfo.ReturnType))</code></td>
 					<td class="summary">@((MarkupString)method.Comments.Summary)</td>
 				</tr>
 			}
