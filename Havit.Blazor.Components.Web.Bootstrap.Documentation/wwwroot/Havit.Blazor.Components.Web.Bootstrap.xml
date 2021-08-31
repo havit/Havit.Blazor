@@ -22,7 +22,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen">
             <summary>
-            Set to true to make accordion items stay open when another item is opened.
+            Set to <c>true</c> to make accordion items stay open when another item is opened.
+            Default is <c>false</c>, openning another item collapses current item.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemId">
