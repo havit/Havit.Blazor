@@ -1,0 +1,144 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
+using Havit.Blazor.Components.Web.Infrastructure;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
+
+namespace Havit.Blazor.Components.Web.Bootstrap
+{
+	//ad 1) Existující vs nové: Nastavitelné
+	//ad 2) Primárně stringy, když něco jiného pro multipicker, je to bonus.Nepředpokládá se pro multipicker zakládání nových dat,
+	//ad 3) Ala grid, tj. request/response.
+
+	//4. Pořadí - prioritou je, že se při zadávání nepřeřadí, tj. nové nakonec.
+
+	public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
+	{
+		/// <summary>
+		/// Application-wide defaults for the <see cref="HxInputTags"/>.
+		/// </summary>
+		public static InputTagsDefaults Defaults { get; } = new InputTagsDefaults();
+
+		[Parameter] public bool AllowCustomTags { get; set; } = true;
+
+		[Parameter] public InputTagsDataProviderDelegate DataProvider { get; set; }
+
+		/// <summary>
+		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
+		/// </summary>
+		[Parameter] public int MinimumLength { get; set; } = 2;
+
+		/// <summary>
+		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
+		/// </summary>
+		[Parameter] public int Delay { get; set; } = 300;
+
+		/// <summary>
+		/// Short hint displayed in the input field before the user enters a value.
+		/// </summary>
+		[Parameter] public string Placeholder { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public LabelType? LabelType { get; set; }
+
+		/// <inheritdoc />
+		[Parameter] public InputSize? InputSize { get; set; }
+
+		/// <summary>
+		/// Return <see cref="HxAutosuggest{TItem, TValue}"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual InputTagsDefaults GetDefaults() => HxInputTags.Defaults;
+		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+
+		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
+		private protected override string CoreInputCssClass => "border-0 w-100";
+		private protected override string CoreCssClass => "hx-autosuggest position-relative";
+
+		private HxInputTagsInternal hxInputTagsInternalComponent;
+
+		/// <inheritdoc />
+		protected override void BuildRenderInput(RenderTreeBuilder builder)
+		{
+			var defaults = this.GetDefaults();
+
+			LabelType labelTypeEffective = (this as IInputWithLabelType).LabelTypeEffective;
+
+			builder.OpenComponent<HxInputTagsInternal>(1);
+			builder.AddAttribute(1000, nameof(HxInputTagsInternal.Value), Value);
+			builder.AddAttribute(1001, nameof(HxInputTagsInternal.ValueChanged), EventCallback.Factory.Create<List<string>>(this, HandleValueChanged));
+			builder.AddAttribute(1002, nameof(HxInputTagsInternal.DataProvider), DataProvider);
+			//builder.AddAttribute(1003, nameof(HxAutosuggestInternal<TItem, TValue>.ValueSelector), ValueSelector);
+			//builder.AddAttribute(1004, nameof(HxAutosuggestInternal<TItem, TValue>.TextSelector), TextSelector);
+			builder.AddAttribute(1005, nameof(HxInputTagsInternal.MinimumLength), MinimumLength);
+			builder.AddAttribute(1006, nameof(HxInputTagsInternal.Delay), Delay);
+			builder.AddAttribute(1007, nameof(HxInputTagsInternal.InputId), InputId);
+			builder.AddAttribute(1008, nameof(HxInputTagsInternal.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
+			builder.AddAttribute(1009, nameof(HxInputTagsInternal.EnabledEffective), EnabledEffective);
+			//builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItem, TValue>.ItemFromValueResolver), ItemFromValueResolver);
+			builder.AddAttribute(1011, nameof(HxInputTagsInternal.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
+			builder.AddAttribute(1012, nameof(HxInputTagsInternal.LabelTypeEffective), labelTypeEffective);
+			builder.AddComponentReferenceCapture(1014, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
+			builder.CloseComponent();
+		}
+
+		/// <inheritdoc />
+		protected override void BuildRenderValidationMessage(RenderTreeBuilder builder)
+		{
+			if (ShowValidationMessage)
+			{
+				builder.OpenElement(1, "div");
+				builder.AddAttribute(2, "class", IsValueValid() ? InvalidCssClass : null);
+				builder.CloseElement();
+
+				builder.OpenRegion(3);
+				base.BuildRenderValidationMessage(builder);
+				builder.CloseRegion();
+			}
+		}
+
+		private void HandleValueChanged(List<string> newValue)
+		{
+			CurrentValue = newValue; // setter includes ValueChanged + NotifyFieldChanged
+		}
+
+		/// <inheritdoc />
+		protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out List<string> result, [NotNullWhen(false)] out string validationErrorMessage)
+		{
+			throw new NotSupportedException();
+		}
+
+		/// <inheritdoc />
+		public override async ValueTask FocusAsync()
+		{
+			if (hxInputTagsInternalComponent == null)
+			{
+				throw new InvalidOperationException($"Cannot focus {this.GetType()}. The method must be called after first render.");
+			}
+
+			await hxInputTagsInternalComponent.FocusAsync();
+		}
+
+		/// <inheritdoc />
+		protected override void RenderChipGenerator(RenderTreeBuilder builder)
+		{
+			if (Value?.Any() ?? false)
+			{
+				base.RenderChipGenerator(builder);
+			}
+		}
+
+		/// <inheritdoc />
+		protected override void RenderChipValue(RenderTreeBuilder builder)
+		{
+			builder.AddContent(0, String.Join(", ", Value));
+		}
+
+	}
+}

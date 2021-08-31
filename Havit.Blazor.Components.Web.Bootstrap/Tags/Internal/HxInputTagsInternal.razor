@@ -1,15 +1,16 @@
-@namespace Havit.Blazor.Components.Web.Bootstrap
-@using Havit.Blazor.Components.Web.Bootstrap.Internal
+@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 <div class="hx-tag-input form-control d-flex">
 	<div class="d-flex align-items-center me-1">
-		<HxTag Text="Interní" CssClass="me-1" />
-		<HxTag Text="Přijatá" CssClass="me-1" />
+		@foreach (string tag in Value)
+		{
+			<HxTagInternal Text="@tag" OnRemoveClick="async() => await HandleRemoveClickAsync(tag)" CssClass="me-1" />
+		}
 	</div>
-	<HxAutosuggestInternal TItem="string"
+	@*<HxAutosuggestInternal TItem="string"
 						   TValue="string"
 						   DataProvider="NewItemSuggestionsDataProvider"
-						   />
+						   />*@
 
 	@*<div style="position:relative">
 		<a id="tagDropdownLink" data-bs-toggle="dropdown" class="flex-grow-1" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">

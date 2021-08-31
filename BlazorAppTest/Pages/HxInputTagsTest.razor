@@ -2,12 +2,14 @@
 
 <h1>HxInputTags</h1>
 
-<HxInputTags NewItemSuggestionsDataProvider="GetNewItemSuggestions" />
+<HxInputTags Label="Tags" @bind-Value="values" DataProvider="GetNewItemSuggestions" />
+<HxInputTags Label="Tags (shared Value)" @bind-Value="values" DataProvider="GetNewItemSuggestions" />
 
 @code {
-	private Task<AutosuggestDataProviderResult<string>> GetNewItemSuggestions(AutosuggestDataProviderRequest request)
+	private List<string> values = new List<string>() { "Blazor", "C#", "ASP.NET" };
+	private Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
 	{
-		return Task.FromResult(new AutosuggestDataProviderResult<string>()
+		return Task.FromResult(new InputTagsDataProviderResult()
 		{
 			Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString())
 		});

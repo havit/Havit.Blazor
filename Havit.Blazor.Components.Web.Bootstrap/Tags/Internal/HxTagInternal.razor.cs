@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
 	/// <summary>
-	/// Single tag visual. Building block for <see cref="HxInputTags"/>.
+	/// Single tag visual. Building block for <see cref="HxInputTagsInternal"/>.
 	/// </summary>
-	public partial class HxTag
+	public partial class HxTagInternal
 	{
 		/// <summary>
 		/// Tag background color. Default is <see cref="ThemeColor.Light"/>.
@@ -35,6 +35,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Raised when the remove button is clicked.
 		/// </summary>
-		[Parameter] public EventCallback OnRemove { get; set; }
+		[Parameter] public EventCallback OnRemoveClick { get; set; }
 	}
 }

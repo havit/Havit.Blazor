@@ -683,6 +683,51 @@
             Raised when the item is clicked.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.MinimumLength">
+            <summary>
+            Minimal number of characters to start suggesting. Default is <c>2</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.Placeholder">
+            <summary>
+            Short hint displayed in the input field before the user enters a value.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.Delay">
+            <summary>
+            Debounce delay in miliseconds. Default is <c>300 ms</c>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal">
+            <summary>
+            Single tag visual. Building block for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.BackgroundColor">
+            <summary>
+            Tag background color. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.TextColor">
+            <summary>
+            Tag text (value) color. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Dark"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.Text">
+            <summary>
+            Tag text (value).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.OnRemoveClick">
+            <summary>
+            Raised when the remove button is clicked.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSkin.None">
             <summary>
             Empty skin to be able to disable <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.DefaultSkin"/> locally.
@@ -1447,7 +1492,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest.Defaults">
             <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/>.
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.BindEvent">
@@ -4166,34 +4211,115 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.DisposeAsync">
             <inheritdoc />
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTag">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Defaults">
             <summary>
-            Single tag visual. Building block for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/>.
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTag.BackgroundColor">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.MinimumLength">
             <summary>
-            Tag background color. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>.
+            Minimal number of characters to start suggesting. Default is <c>2</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTag.TextColor">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Delay">
             <summary>
-            Tag text (value) color. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Dark"/>.
+            Debounce delay in miliseconds. Default is <c>300 ms</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTag.CssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Placeholder">
             <summary>
-            Any additional CSS class to apply.
+            Short hint displayed in the input field before the user enters a value.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTag.Text">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.LabelType">
+            <inheritdoc />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputSize">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.GetDefaults">
             <summary>
-            Tag text (value).
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTag.OnRemove">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.BuildRenderValidationMessage(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.TryParseValueFromString(System.String,System.Collections.Generic.List{System.String}@,System.String@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.FocusAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.RenderChipGenerator(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.RenderChipValue(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTagsDataProviderDelegate">
             <summary>
-            Raised when the remove button is clicked.
+            Data provider (delegate) for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags" />.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTagsDataProviderRequest">
+            <summary>
+            Data provider request for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/> data.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDataProviderRequest.UserInput">
+            <summary>
+            Current user input for new tag suggestions.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDataProviderRequest.CancellationToken">
+            <summary>
+            The <see cref="T:System.Threading.CancellationToken"/> used to relay cancellation of the request.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTagsDataProviderResult">
+            <summary>
+            Data provider result for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDataProviderResult.Data">
+            <summary>
+            The provided items by the request.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults">
+            <summary>
+            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.SearchIcon">
+            <summary>
+            Icon displayed in input when no item is selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.ClearIcon">
+            <summary>
+            Icon displayed in input on selection clear button when item is selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.MinimumLength">
+            <summary>
+            Minimal number of characters to start suggesting. Default is <c>2</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.Delay">
+            <summary>
+            Debounce delay in miliseconds. Default is <c>300 ms</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.InputSize">
+            <summary>
+            Input size.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">

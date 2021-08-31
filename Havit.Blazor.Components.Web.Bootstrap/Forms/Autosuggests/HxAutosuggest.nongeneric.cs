@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class HxAutosuggest
 	{
 		/// <summary>
-		/// Application-wide defaults for the <see cref="HxInputDate{TValue}"/>.
+		/// Application-wide defaults for the <see cref="HxAutosuggest{TItem, TValue}"/>.
 		/// </summary>
 		public static AutosuggestDefaults Defaults { get; } = new AutosuggestDefaults();
 	}
