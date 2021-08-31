@@ -1,4 +1,4 @@
-﻿<HxCarousel Controls="true" Indicators="true">
+﻿<HxCarousel Controls="true" Indicators="true" @ref="carousel">
     <HxCarouselItem Active="true">
         <div class="d-flex justify-content-center">Carousel Item 1</div>
     </HxCarouselItem>
@@ -9,3 +9,9 @@
         <div class="d-flex justify-content-center">Carousel Item 3</div>
     </HxCarouselItem>
 </HxCarousel>
+
+<HxButton Color="ThemeColor.Primary" OnClick="() => carousel.Initialize()" Text="Initialize" />
+
+@code {
+    private HxCarousel carousel;
+}

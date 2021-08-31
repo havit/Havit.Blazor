@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -55,6 +56,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Is fired when the current slide is changed (once the transition is completed).
 		/// </summary>
 		[Parameter] public EventCallback OnSlid { get; set; }
+		/// <summary>
+		/// Initializes the component automatically. Can't be used with indicators turned on. Default is <c>true</c>.
+		/// </summary>
+		[Parameter] public bool AutoInitialize { get; set; } = true;
 
 		/// <summary>
 		/// A list of all <c>HxCarouselItem</c> components contained in the carousel.
@@ -63,6 +68,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private string id = "hx" + Guid.NewGuid().ToString("N");
 		private DotNetObjectReference<HxCarousel> dotnetObjectReference;
+
+		private bool firstRender;
 
 		public HxCarousel()
 		{
@@ -75,11 +82,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (firstRender)
 			{
+				this.firstRender = true;
+
 				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxCarousel) + ".js");
 				await jsModule.InvokeVoidAsync("AddEventListeners", id, dotnetObjectReference);
 
-				InitializeCarousel();
+				if (AutoInitialize && !Indicators)
+				{
+					await InvokeAsync(Initialize);
+				}
 				await InvokeAsync(StateHasChanged);
+			}
+			else
+			{
+				this.firstRender = false;
 			}
 		}
 
@@ -95,9 +111,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await OnSlid.InvokeAsync();
 		}
 
-		private void InitializeCarousel()
+		public void Initialize()
 		{
 			jsModule.InvokeVoidAsync("InitializeCarousel", id);
+			jsModule.InvokeVoidAsync("ClickNextButton", id);
+			if (Interval is null)
+			{
+				SlideToPreviousItem();
+			}
+			Cycle();
 		}
 
 		public void SetInterval(int interval)

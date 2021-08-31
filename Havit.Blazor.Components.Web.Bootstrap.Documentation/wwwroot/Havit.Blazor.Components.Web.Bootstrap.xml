@@ -838,6 +838,11 @@
             Is fired when the current slide is changed (once the transition is completed).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.AutoInitialize">
+            <summary>
+            Initializes the component automatically. Can't be used with indicators turned on. Default is <c>true</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Items">
             <summary>
             A list of all <c>HxCarouselItem</c> components contained in the carousel.

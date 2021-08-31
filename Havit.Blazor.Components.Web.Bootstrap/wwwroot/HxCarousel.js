@@ -2,6 +2,10 @@
     GetCarousel(id).carousel();
 }
 
+export function ClickNextButton(id) {
+    document.getElementById(id + "next").click();
+}
+
 export function SlideTo(id, index) {
     GetCarousel(id).to(index);
 }
