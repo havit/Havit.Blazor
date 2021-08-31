@@ -63,9 +63,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool blurInProgress;
 		private bool currentlyFocused;
 		private IJSObjectReference jsModule;
-		private HxAutosuggestInput autosuggestInput; // TODO: Generalizace
-													 //private TValue lastKnownValue;
-		private bool dataProviderInProgress;
+		//private HxAutosuggestInput autosuggestInput; // TODO: Generalizace
+		//private TValue lastKnownValue;
+		//private bool dataProviderInProgress;
 		private DotNetObjectReference<HxInputTagsInternal> dotnetObjectReference;
 
 		public HxInputTagsInternal()
@@ -272,13 +272,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		// TODO!!!
 		[JSInvokable("HxInputTagsInternal_HandleDropdownHidden")]
-		public async Task HandleDropdownHidden()
+		public Task HandleDropdownHidden()
 		{
 			if (userInputModified && !currentlyFocused)
 			{
 				userInput = String.Empty;
 				userInputModified = false;
 			}
+
+			return Task.CompletedTask;
 		}
 		#endregion
 
