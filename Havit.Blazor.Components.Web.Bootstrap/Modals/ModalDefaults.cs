@@ -18,5 +18,10 @@
 		/// Size of the modal.
 		/// </summary>
 		public ModalSize Size { get; set; }
+
+		/// <summary>
+		/// Fullscreen behavior of the modal.
+		/// </summary>
+		public ModalFullscreen Fullscreen { get; set; } = ModalFullscreen.Disabled;
 	}
 }

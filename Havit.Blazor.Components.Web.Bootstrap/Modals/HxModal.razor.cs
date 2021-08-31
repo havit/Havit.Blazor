@@ -23,9 +23,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static ModalDefaults Defaults { get; } = new ModalDefaults();
 
 		/// <summary>
-		/// Size of the modal.
+		/// Size of the modal. Default is <see cref="ModalSize.Regular"/>.
 		/// </summary>
 		[Parameter] public ModalSize? Size { get; set; }
+
+		/// <summary>
+		/// Fullscreen behavior of the modal. Default is <see cref="ModalFullscreen.Disabled"/>.
+		/// </summary>
+		[Parameter] public ModalFullscreen? Fullscreen { get; set; }
 
 		/// <summary>
 		/// Close icon to be used in header.
@@ -209,6 +214,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				ModalSize.Large => "modal-lg",
 				ModalSize.ExtraLarge => "modal-xl",
 				_ => throw new InvalidOperationException($"Unknown {nameof(ModalSize)} value {size}.")
+			};
+		}
+
+		protected string GetModalFullscreenCssClass()
+		{
+			var fullscreen = this.Fullscreen ?? GetDefaults().Fullscreen;
+			return fullscreen switch
+			{
+				ModalFullscreen.Disabled => null,
+				ModalFullscreen.Always => "modal-fullscreen",
+				ModalFullscreen.SmallDown => "modal-fullscreen-sm-down",
+				ModalFullscreen.MediumDown => "modal-fullscreen-md-down",
+				ModalFullscreen.LargeDown => "modal-fullscreen-lg-down",
+				ModalFullscreen.ExtraLargeDown => "modal-fullscreen-xl-down",
+				ModalFullscreen.XxlDown => "modal-fullscreen-xxl-down",
+				_ => throw new InvalidOperationException($"Unknown {nameof(ModalFullscreen)} value {fullscreen}.")
 			};
 		}
 	}

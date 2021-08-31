@@ -3513,7 +3513,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Size">
             <summary>
-            Size of the modal.
+            Size of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalSize.Regular"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Fullscreen">
+            <summary>
+            Fullscreen behavior of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.Disabled"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CloseButtonIcon">
@@ -3621,6 +3626,51 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.Size">
             <summary>
             Size of the modal.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.Fullscreen">
+            <summary>
+            Fullscreen behavior of the modal.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen">
+            <summary>
+            Fullscreen behavior for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.Disabled">
+            <summary>
+            Fullscreen mode disabled,
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.Always">
+            <summary>
+            Always fullscreen modal.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.SmallDown">
+            <summary>
+            Fullscreen for viewports bellow "small" breakpoint (<c>576px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.MediumDown">
+            <summary>
+            Fullscreen for viewports bellow "medium" breakpoint (<c>768px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.LargeDown">
+            <summary>
+            Fullscreen for viewports bellow "large" breakpoint (<c>992px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.ExtraLargeDown">
+            <summary>
+            Fullscreen for viewports bellow "extra-large" breakpoint (<c>1200px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.XxlDown">
+            <summary>
+            Fullscreen for viewports bellow "XXL" breakpoint (<c>1400px</c>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalSize">
