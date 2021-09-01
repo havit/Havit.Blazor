@@ -1,6 +1,6 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<div class="hx-tag-input form-control d-flex">
+<div class="hx-tag-input form-control d-flex position-relative flex-grow-1	">
 	<div class="d-flex align-items-center me-1">
 		@foreach (string tag in Value)
 		{
@@ -12,7 +12,6 @@
 		DataProvider="NewItemSuggestionsDataProvider"
 		/>*@
 
-	<div style="position:relative">
 		<a id="tagDropdownLink" data-bs-toggle="dropdown" class="flex-grow-1" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">
 			<HxInputTagsAutosuggestInput @ref="autosuggestInput"
 										 InputId="@InputId"
@@ -29,10 +28,9 @@
 				<HxSpinner Type="SpinnerType.Border" Size="SpinnerSize.Small" />
 			}
 		</a>
-		<div class="dropdown-menu" aria-labelledby="tagDropdownLink">
-			<a class="dropdown-item" href="#">Action</a>
-			<a class="dropdown-item" href="#">Another action</a>
-			<a class="dropdown-item" href="#">Something else here</a>
-		</div>
+	<div class="dropdown-menu w-100" aria-labelledby="tagDropdownLink">
+		<a class="dropdown-item" href="#">Action</a>
+		<a class="dropdown-item" href="#">Another action</a>
+		<a class="dropdown-item" href="#">Something else here</a>
 	</div>
 </div>
