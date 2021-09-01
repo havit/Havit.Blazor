@@ -332,9 +332,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
 			typeName = Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
 
-			if (InternalTypeDoc.DetermineIfTypeIsInternal(typeName))
+			string typeNameForOwnDocumentation = typeName.Replace("?", "");
+			if (InternalTypeDoc.DetermineIfTypeIsInternal(typeNameForOwnDocumentation))
 			{
-				typeName = $"<a href=\"/type/{HttpUtility.UrlEncode(typeName)}\">{HttpUtility.HtmlEncode(typeName)}</a>";
+				typeName = $"<a href=\"/type/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(typeName)}</a>";
 			}
 			else
 			{
