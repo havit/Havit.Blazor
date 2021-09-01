@@ -15,6 +15,7 @@
 
 .hx-input-date-icon {
 	margin-right: 1rem;
+    z-index: 1;
 }
 
 .custom-dates .hx-input-date-icon {
