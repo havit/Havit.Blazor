@@ -45,7 +45,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 						string[] splitLink = link.Split('.');
 
 						regex = new("cref=\"([A-Za-z\\.:`\\d])+\" ?/>"); // find this part of the element (beggining already replaced): cref="P:System.Text.Regex.Property" />
-						comment = regex.Replace(comment, GenerateFullLink(splitLink), 1); // replace the above with a generated link to the documentation
+						comment = regex.Replace(comment, GenerateFullLink(splitLink, link), 1); // replace the above with a generated link to the documentation
 					}
 				}
 			}
@@ -57,11 +57,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return comment;
 		}
 
-		private string GenerateFullLink(string[] splitLink)
+		private string GenerateFullLink(string[] splitLink, string fullLink)
 		{
 			if (splitLink is null || splitLink.Length == 0)
 			{
 				return string.Empty;
+			}
+
+			string supportClassesResultLink = HandleSupportClasses(splitLink, fullLink);
+			if (supportClassesResultLink is not null)
+			{
+				return supportClassesResultLink;
 			}
 
 			if (splitLink[0].Contains("Havit"))
@@ -75,6 +81,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 
 			throw new NotSupportedException();
+		}
+
+		private string HandleSupportClasses(string[] splitLink, string fullLink)
+		{
+			if (IsEnum(splitLink))
+			{
+				string internalTypeLink = ComponentApiDoc.GenerateLinkForInternalType(splitLink[^2], false, $"{splitLink[^2]}.{splitLink[^1]}");
+				if (internalTypeLink is not null)
+				{
+					return internalTypeLink;
+				}
+			}
+
+			if (splitLink[^1] == "Defaults")
+			{
+				string internalTypeLink = ComponentApiDoc.GenerateLinkForInternalType($"{splitLink[^2].Remove(0, 2)}{splitLink[^1]}", false, $"{splitLink[^2]}.{splitLink[^1]}"); // We have to generate a type name suitable for the support type page.
+				if (internalTypeLink is not null)
+				{
+					return internalTypeLink;
+				}
+			}
+
+			return null;
 		}
 
 		private string GenerateHavitDocumentationLink(string[] splitLink)
@@ -141,6 +170,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		private bool IsType(string[] splitLink)
 		{
 			return splitLink[0][0] == 'T';
+		}
+		private bool IsEnum(string[] splitLink)
+		{
+			return splitLink[0][0] == 'F';
 		}
 
 		private string ConcatenateStringArray(string[] stringArray)

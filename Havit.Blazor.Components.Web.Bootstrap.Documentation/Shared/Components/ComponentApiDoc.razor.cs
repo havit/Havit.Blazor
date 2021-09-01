@@ -119,7 +119,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				EnumMember enumMember = new();
 				enumMember.Name = names[i];
 				try { enumMember.Index = (int)Enum.Parse(Type, enumMember.Name); } catch { }
-				try { enumMember.Summary = enumComments.ValueComments.Where(o => o.Name == enumMember.Name).ToList().FirstOrDefault().Summary; } catch { }
+				try
+				{
+					var enumValueComment = enumComments.ValueComments.Where(o => o.Name == enumMember.Name).ToList().FirstOrDefault();
+					if (enumValueComment is not null)
+					{
+						enumMember.Summary = enumValueComment.Summary;
+					}
+				}
+				catch { }
 				enumMembers.Add(enumMember);
 			}
 		}
@@ -332,10 +340,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
 			typeName = Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
 
-			string typeNameForOwnDocumentation = typeName.Replace("?", "");
-			if (InternalTypeDoc.DetermineIfTypeIsInternal(typeNameForOwnDocumentation))
+			string internalTypeName = GenerateLinkForInternalType(typeName);
+			if (internalTypeName is not null)
 			{
-				typeName = $"<a href=\"/type/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(typeName)}</a>";
+				typeName = internalTypeName;
 			}
 			else
 			{
@@ -343,6 +351,38 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 
 			return typeName;
+		}
+
+		public static string GenerateLinkForInternalType(string typeName, bool checkForInternal = true, string linkText = null)
+		{
+			string typeNameForOwnDocumentation = typeName.Replace("?", "");
+
+			if (!checkForInternal)
+			{
+				return GenerateLinkTagForInternalType(typeName, typeNameForOwnDocumentation, linkText);
+			}
+
+			if (InternalTypeDoc.DetermineIfTypeIsInternal(typeNameForOwnDocumentation))
+			{
+				return GenerateLinkTagForInternalType(typeName, typeNameForOwnDocumentation, linkText);
+			}
+
+			return null;
+		}
+
+		private static string GenerateLinkTagForInternalType(string typeName, string typeNameForOwnDocumentation, string linkText)
+		{
+			if (linkText is null)
+			{
+				linkText = typeName;
+			}
+
+			return $"<a href=\"/type/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a>";
+		}
+
+		public static bool IsComponent(Type type)
+		{
+			throw new NotImplementedException();
 		}
 
 		public static string RemoveSpecialCharacters(string text)
