@@ -15,7 +15,7 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Button (<c>&lt;button type="button"&gt;</c>).
+	/// Button (<c>&lt;button type="button"&gt;</c>). See also <see href="https://getbootstrap.com/docs/5.1/components/buttons/">Bootstrap Buttons</see>.
 	/// </summary>
 	public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	{
