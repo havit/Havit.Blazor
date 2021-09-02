@@ -1256,6 +1256,12 @@
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone">
+            <summary>
+            Ready-made UX for drag&amp;drop file upload.
+            For custom drag&amp;drop UX, us <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> and <a href="https://github.com/havit/Havit.Blazor/blob/728567c9c83a0b4ab7fe2e031bf1ff378f1b1ce7/Havit.Blazor.Components.Web.Bootstrap/Files/HxInputFileDropZone.razor.css#L20-L26">a little bit of HTML/CSS</a>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadUrl">
             <summary>
             URL of the server endpoint receiving the files.
