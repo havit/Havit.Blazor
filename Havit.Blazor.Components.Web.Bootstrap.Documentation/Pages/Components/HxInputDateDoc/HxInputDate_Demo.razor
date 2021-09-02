@@ -1,0 +1,7 @@
+﻿<EditForm Model="DateValue">
+    <HxInputDate Label="Date" @bind-Value="@DateValue" ParsingErrorMessage="Fix date value." />
+</EditForm>
+
+@code {
+    public DateTime DateValue { get; set; }
+}

@@ -1,0 +1,45 @@
+﻿<EditForm Model="@model">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+
+	<HxInputDateRange Label="HxInputDateRange (default)" @bind-Value="@model.DateTimeRange" />
+	<HxInputDateRange Label="HxInputDateRange (bez DateRanges, bez validací)" @bind-Value="@model.DateTimeRange" UseDefaultDateRanges="false" ShowValidationMessage="false" />
+	<HxInputDateRange Label="HxInputDateRange (s vlastními DateRanges)" @bind-Value="@model.DateTimeRange" CustomDateRanges="@GetDateRanges()" />
+	<HxInputDateRange Label="HxInputDateRange (disabled)" @bind-Value="@model.DateTimeRange" CustomDateRanges="@GetDateRanges()" Enabled="false" />
+
+	<button type="submit">Submit</button>
+</EditForm>
+
+@code {
+	private FormModel model = new FormModel();
+
+	private IEnumerable<DateRangeItem> GetDateRanges()
+	{
+		yield return new DateRangeItem { Label = "Dnes", DateRange = new DateTimeRange { StartDate = DateTime.Today, EndDate = DateTime.Today } };
+		yield return new DateRangeItem { Label = "Celý rok", DateRange = new DateTimeRange { StartDate = new DateTime(DateTime.Today.Year, 1, 1), EndDate = new DateTime(DateTime.Today.Year, 12, 31) } };
+	}
+
+	private class FormModel : IValidatableObject
+	{
+		public DateTimeRange DateTimeRange { get; set; } = new DateTimeRange
+		{
+			StartDate = new DateTime(2021, 1, 1),
+			EndDate = DateTime.Today
+		};
+
+		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+		{
+			if (DateTimeRange.StartDate == null)
+			{
+				yield return new ValidationResult("Enter a start date.", new string[] { nameof(DateTimeRange) });
+			}
+			else
+			{
+				if (DateTimeRange.StartDate.Value.Year != 2020)
+				{
+					yield return new ValidationResult("Start date has to fall within the year 2020.", new string[] { nameof(DateTimeRange) });
+				}
+			}
+		}
+	}
+}
