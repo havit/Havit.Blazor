@@ -5,11 +5,11 @@
 	<HxCard Skin="CardSkin.None" HeaderCssClass="bg-white" BodyCssClass="overflow-auto p-0">
 		<HeaderTemplate>
 			<div class="hx-list-layout-header hstack gap-3">
-				<div class="fw-bold d-flex align-items-center w-100">
+				<div class="fw-bold d-flex align-items-center me-auto">
 					@if (NamedViewsTemplate != null)
 					{
-								<div class="dropdown">
-									<span role="button" id="dropdownMenuLink" class="d-flex align-items-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<div class="dropdown">
+							<span role="button" id="dropdownMenuLink" class="d-flex align-items-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								@if (TitleTemplate != null)
 								{
 									@TitleTemplate
@@ -18,10 +18,10 @@
 								{
 									@Title
 								}
-										<HxIcon CssClass="ms-1 small" Icon="@BootstrapIcon.ChevronDown" />
-									</span>
+								<HxIcon CssClass="ms-1 small" Icon="@BootstrapIcon.ChevronDown" />
+							</span>
 							@NamedViewsTemplate
-								</div>
+						</div>
 					}
 					else if (TitleTemplate != null)
 					{
@@ -38,7 +38,7 @@
 				}
 				@if (FilterTemplate != null)
 				{
-							<HxButton OnClick="HandleFilterButtonClick" Skin="ButtonSkins.Filter" />
+					<HxButton OnClick="HandleFilterButtonClick" Skin="ButtonSkins.Filter" />
 				}
 				@if (CommandsTemplate != null)
 				{
@@ -47,29 +47,29 @@
 			</div>
 			@if (FilterModel != null)
 			{
-						<HxChipList Chips="chips" OnChipRemoveClick="HandleChipRemoveClick" />
+				<HxChipList Chips="chips" OnChipRemoveClick="HandleChipRemoveClick" />
 			}
 			@if (FilterTemplate != null)
 			{
-						<HxOffcanvas @ref="filterOffcanvasComponent" RenderMode="OffcanvasRenderMode.Always">
-							<HeaderTemplate>
+				<HxOffcanvas @ref="filterOffcanvasComponent" RenderMode="OffcanvasRenderMode.Always">
+					<HeaderTemplate>
 						@Localizer["FilterHeaderTitle"]
-							</HeaderTemplate>
-							<BodyTemplate>
-								<HxFilterForm @ref="filterForm"
-										Id="@filterFormId"
-										TModel="TFilterModel"
-										Model="FilterModel"
-										ModelChanged="HandleFilterFormModelChanged"
-										Context="filterContext"
-										OnChipsUpdated="HandleChipUpdated">
+					</HeaderTemplate>
+					<BodyTemplate>
+						<HxFilterForm @ref="filterForm"
+								Id="@filterFormId"
+								TModel="TFilterModel"
+								Model="FilterModel"
+								ModelChanged="HandleFilterFormModelChanged"
+								Context="filterContext"
+								OnChipsUpdated="HandleChipUpdated">
 							@FilterTemplate(filterContext)
-								</HxFilterForm>
-							</BodyTemplate>
-							<FooterTemplate>
-								<HxSubmit FormId="@filterFormId" Text="@Localizer["FilterApplyButtonText"]" Color="ThemeColor.Primary" />
-							</FooterTemplate>
-						</HxOffcanvas>
+						</HxFilterForm>
+					</BodyTemplate>
+					<FooterTemplate>
+						<HxSubmit FormId="@filterFormId" Text="@Localizer["FilterApplyButtonText"]" Color="ThemeColor.Primary" />
+					</FooterTemplate>
+				</HxOffcanvas>
 			}
 		</HeaderTemplate>
 		<BodyTemplate>
