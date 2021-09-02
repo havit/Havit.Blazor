@@ -745,9 +745,9 @@
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCard">
-             <summary>
+            <summary>
             Bootstrap <a href="https://getbootstrap.com/docs/5.1/components/card/">Card</a> component.
-             </summary>
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.HeaderTemplate">
             <summary>

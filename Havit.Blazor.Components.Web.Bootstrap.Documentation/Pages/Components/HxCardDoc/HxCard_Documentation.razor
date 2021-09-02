@@ -1,21 +1,21 @@
 ﻿@page "/components/hxcard"
 
 <ComponentApiDoc Type="typeof(HxCard)">
-    <HxAlert Color="ThemeColor.Info">
-        <h5>Careful when combining Skin with CssClass!</h5>
-        The <code>@nameof(HxCard).@nameof(HxCard.CssClass)</code> will be added to the base <code>@nameof(HxCard).@nameof(HxCard.Skin).@nameof(CardSkin.CssClass)</code>
-        (or <code>@nameof(HxCard).@nameof(HxCard.DefaultSkin).@nameof(CardSkin.CssClass)</code> respectively).<br />
-        Please note: Some of the CSS classes can behave weird when combined together, especially <a href="https://getbootstrap.com/docs/5.0/utilities/">utility classes</a> with <code>!important</code> modifier.<br />
-        Eg. for <code>class="m-3 m-5"</code> the <code>m-5</code> wins, but for <code>class="m-3 m-2"</code> the <code>m-3</code> wins.
-    </HxAlert>
 
-    <h3>Demo</h3>
-    <p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
-    <Demo Type="typeof(HxCard_Demo_Basic)" />
+	<h3>Basic Usage</h3>
+	<p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
+	<Demo Type="typeof(HxCard_Demo_Basic)" Tabs="false" />
 
-    <h3>Variants</h3>
-    <Demo Type="typeof(HxCard_Demo_Variants)" />
+	<h3>Variants</h3>
+	<Demo Type="typeof(HxCard_Demo_Variants)" />
 
-    <h3>Custom styling</h3>
-    <Demo Type="typeof(HxCard_Demo_CustomStyling)" />
+	<h3>Skins &amp; Custom styling</h3>
+	<HxAlert Color="ThemeColor.Info">
+		<h5>Careful when combining Skin with CssClass!</h5>
+		The <code>@nameof(HxCard).@nameof(HxCard.CssClass)</code> will be added to the base <code>@nameof(HxCard).@nameof(HxCard.Skin).@nameof(CardSkin.CssClass)</code>
+		(or <code>@nameof(HxCard).@nameof(HxCard.DefaultSkin).@nameof(CardSkin.CssClass)</code> respectively).<br />
+		Please note: Some of the CSS classes can behave weird when combined together, especially <a href="https://getbootstrap.com/docs/5.0/utilities/">utility classes</a> with <code>!important</code> modifier.<br />
+		Eg. for <code>class="m-3 m-5"</code> the <code>m-5</code> wins, but for <code>class="m-3 m-2"</code> the <code>m-3</code> wins.
+	</HxAlert>
+	<Demo Type="typeof(HxCard_Demo_CustomStyling)" />
 </ComponentApiDoc>
