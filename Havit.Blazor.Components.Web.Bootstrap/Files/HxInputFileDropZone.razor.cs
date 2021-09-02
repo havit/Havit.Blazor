@@ -10,6 +10,10 @@ using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Ready-made UX for drag&amp;drop file upload.
+	/// For custom drag&amp;drop UX, us <see cref="HxInputFileCore"/> and <a href="https://github.com/havit/Havit.Blazor/blob/728567c9c83a0b4ab7fe2e031bf1ff378f1b1ce7/Havit.Blazor.Components.Web.Bootstrap/Files/HxInputFileDropZone.razor.css#L20-L26">a little bit of HTML/CSS</a>.
+	/// </summary>
 	public partial class HxInputFileDropZone
 	{
 		private const int FirstFileNamesMaxCount = 3; // Might be converted to parameter if needed.
