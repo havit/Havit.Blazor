@@ -2,77 +2,77 @@
 @typeparam TFilterModel
 
 <div class="hx-list-layout">
-	<HxCard Skin="CardSkin.None" BodyCssClass="overflow-auto p-0">
-		<BodyTemplate>
-			<div class="p-3">
-				<div class="hx-list-layout-header hstack gap-3">
-					<div class="fw-bold d-flex align-items-center w-100">
-						@if (NamedViewsTemplate != null)
-						{
-							<div class="dropdown">
-								<span role="button" id="dropdownMenuLink" class="d-flex align-items-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									@if (TitleTemplate != null)
-									{
-										@TitleTemplate
-									}
-									else if (!String.IsNullOrEmpty(Title))
-									{
-										@Title
-									}
-									<HxIcon CssClass="ms-1 small" Icon="@BootstrapIcon.ChevronDown" />
-								</span>
-								@NamedViewsTemplate
-							</div>
-						}
-						else if (TitleTemplate != null)
-						{
-							@TitleTemplate
-						}
-						else if (!String.IsNullOrEmpty(Title))
-						{
-							@Title
-						}
-					</div>
-					@if (SearchTemplate != null)
+	<HxCard Skin="CardSkin.None" HeaderCssClass="bg-white" BodyCssClass="overflow-auto p-0">
+		<HeaderTemplate>
+			<div class="hx-list-layout-header hstack gap-3">
+				<div class="fw-bold d-flex align-items-center w-100">
+					@if (NamedViewsTemplate != null)
 					{
-						@SearchTemplate
+								<div class="dropdown">
+									<span role="button" id="dropdownMenuLink" class="d-flex align-items-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								@if (TitleTemplate != null)
+								{
+									@TitleTemplate
+								}
+								else if (!String.IsNullOrEmpty(Title))
+								{
+									@Title
+								}
+										<HxIcon CssClass="ms-1 small" Icon="@BootstrapIcon.ChevronDown" />
+									</span>
+							@NamedViewsTemplate
+								</div>
 					}
-					@if (FilterTemplate != null)
+					else if (TitleTemplate != null)
 					{
-						<HxButton OnClick="HandleFilterButtonClick" Skin="ButtonSkins.Filter" />
+						@TitleTemplate
 					}
-					@if (CommandsTemplate != null)
+					else if (!String.IsNullOrEmpty(Title))
 					{
-						@CommandsTemplate
+						@Title
 					}
 				</div>
-				@if (FilterModel != null)
+				@if (SearchTemplate != null)
 				{
-					<HxChipList Chips="chips" OnChipRemoveClick="HandleChipRemoveClick" />
+					@SearchTemplate
 				}
 				@if (FilterTemplate != null)
 				{
-					<HxOffcanvas @ref="filterOffcanvasComponent" RenderMode="OffcanvasRenderMode.Always">
-						<HeaderTemplate>
-							@Localizer["FilterHeaderTitle"]
-						</HeaderTemplate>
-						<BodyTemplate>
-							<HxFilterForm @ref="filterForm"
+							<HxButton OnClick="HandleFilterButtonClick" Skin="ButtonSkins.Filter" />
+				}
+				@if (CommandsTemplate != null)
+				{
+					@CommandsTemplate
+				}
+			</div>
+			@if (FilterModel != null)
+			{
+						<HxChipList Chips="chips" OnChipRemoveClick="HandleChipRemoveClick" />
+			}
+			@if (FilterTemplate != null)
+			{
+						<HxOffcanvas @ref="filterOffcanvasComponent" RenderMode="OffcanvasRenderMode.Always">
+							<HeaderTemplate>
+						@Localizer["FilterHeaderTitle"]
+							</HeaderTemplate>
+							<BodyTemplate>
+								<HxFilterForm @ref="filterForm"
 										Id="@filterFormId"
 										TModel="TFilterModel"
 										Model="FilterModel"
 										ModelChanged="HandleFilterFormModelChanged"
 										Context="filterContext"
 										OnChipsUpdated="HandleChipUpdated">
-								@FilterTemplate(filterContext)
-							</HxFilterForm>
-						</BodyTemplate>
-						<FooterTemplate>
-							<HxSubmit FormId="@filterFormId" Text="@Localizer["FilterApplyButtonText"]" Color="ThemeColor.Primary" />
-						</FooterTemplate>
-					</HxOffcanvas>
-				}
-			</div>
+							@FilterTemplate(filterContext)
+								</HxFilterForm>
+							</BodyTemplate>
+							<FooterTemplate>
+								<HxSubmit FormId="@filterFormId" Text="@Localizer["FilterApplyButtonText"]" Color="ThemeColor.Primary" />
+							</FooterTemplate>
+						</HxOffcanvas>
+			}
+		</HeaderTemplate>
+		<BodyTemplate>
 			@DataTemplate
 		</BodyTemplate>
 	</HxCard>
