@@ -330,7 +330,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup">
             <summary>
-            Bootstrap Button group. https://getbootstrap.com/docs/5.0/components/button-group/
+            Bootstrap <see href="https://getbootstrap.com/docs/5.0/components/button-group/">Button group</see>s. 
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup.Size">
