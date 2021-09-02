@@ -1,4 +1,5 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@* PERF!!! Heavily used in data-lists/grids/etc. => do not over-use subcomponents unless absolutely necessary => don't use HxDropdown components here *@
 <div class="hx-context-menu">
 	<div class="dropdown d-flex">
 		<span role="button" class="hx-context-menu-btn" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @onclick:stopPropagation>
