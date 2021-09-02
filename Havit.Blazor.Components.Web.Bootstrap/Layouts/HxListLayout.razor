@@ -8,7 +8,7 @@
 				<div class="fw-bold d-flex align-items-center me-auto">
 					@if (NamedViewsTemplate != null)
 					{
-						<div class="dropdown">
+						<div class="hx-list-layout-named-view dropdown">
 							<span role="button" id="dropdownMenuLink" class="d-flex align-items-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								@if (TitleTemplate != null)
 								{
@@ -18,7 +18,7 @@
 								{
 									@Title
 								}
-								<HxIcon CssClass="ms-1 small" Icon="@BootstrapIcon.ChevronDown" />
+								<HxIcon CssClass="ms-1" Icon="@BootstrapIcon.ChevronDown" />
 							</span>
 							@NamedViewsTemplate
 						</div>

@@ -17,3 +17,7 @@
 ::deep .hx-grid.table {
     margin-bottom: 0;
 }
+
+.hx-list-layout-named-view ::deep .hx-icon {
+    font-size: .75rem;
+}
