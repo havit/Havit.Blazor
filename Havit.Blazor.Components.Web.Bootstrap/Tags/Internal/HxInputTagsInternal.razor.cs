@@ -29,17 +29,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
 		/// </summary>
-		[Parameter] public int MinimumLength { get; set; }
+		[Parameter] public int SuggestMinimumLength { get; set; }
 
 		/// <summary>
 		/// Short hint displayed in the input field before the user enters a value.
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
 
-		/// <summary>
-		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
-		/// </summary>
-		[Parameter] public int Delay { get; set; }
+		[Parameter] public int SuggestDelay { get; set; }
 
 		[Parameter] public string InputCssClass { get; set; }
 
@@ -129,7 +126,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			dataProviderInProgress = false; // data provider is no more in progress				 
 
 			// start new time interval
-			if (userInput.Length >= MinimumLength)
+			if (userInput.Length >= SuggestMinimumLength)
 			{
 				if (timer == null)
 				{
@@ -137,7 +134,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					timer.AutoReset = false; // just once
 					timer.Elapsed += HandleTimerElapsed;
 				}
-				timer.Interval = Delay;
+				timer.Interval = SuggestDelay;
 				timer.Start();
 			}
 			else
@@ -246,7 +243,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 		}
 
-		#region OpenDropdownAsync, DestroyDropdownAsync, EnsureJsModuleAsync
 		private async Task OpenDropdownAsync()
 		{
 			if (!isDropdownOpened)
@@ -285,30 +281,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			return Task.CompletedTask;
 		}
-		#endregion
 
 		protected async Task HandleRemoveClickAsync(string tag)
 		{
 			await RemoveTagWithEventCallback(tag);
 		}
-
-
-		///// <summary>
-		///// Selects value from item.
-		///// Not required when TValue is same as TItemTime.
-		///// </summary>
-		//[Parameter] public Func<TItem, TValue> ValueSelector { get; set; }
-
-		///// <summary>
-		///// Selects text to display from item.
-		///// When not set ToString() is used.
-		///// </summary>
-		//[Parameter] public Func<TItem, string> TextSelector { get; set; }
-
-		///// <summary>
-		///// Gets item from <see cref="Value"/>.
-		///// </summary>
-		//[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }
 
 		public async ValueTask DisposeAsync()
 		{

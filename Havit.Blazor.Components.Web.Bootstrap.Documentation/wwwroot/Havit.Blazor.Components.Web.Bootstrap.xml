@@ -689,7 +689,7 @@
             Offset between dropdown input and dropdown menu
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.MinimumLength">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.SuggestMinimumLength">
             <summary>
             Minimal number of characters to start suggesting. Default is <c>2</c>.
             </summary>
@@ -697,11 +697,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.Placeholder">
             <summary>
             Short hint displayed in the input field before the user enters a value.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.Delay">
-            <summary>
-            Debounce delay in miliseconds. Default is <c>300 ms</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputOffset">
@@ -4383,12 +4378,12 @@
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.MinimumLength">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.SuggestMinimumLength">
             <summary>
             Minimal number of characters to start suggesting. Default is <c>2</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Delay">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.SuggestDelay">
             <summary>
             Debounce delay in miliseconds. Default is <c>300 ms</c>.
             </summary>
@@ -4406,7 +4401,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.GetDefaults">
             <summary>
-            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/> defaults.
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/> defaults.
             Enables to not share defaults in descandants with base classes.
             Enables to have multiple descendants which differs in the default values.
             </summary>
@@ -4461,25 +4456,15 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults">
             <summary>
-            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
+            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.SearchIcon">
-            <summary>
-            Icon displayed in input when no item is selected.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.ClearIcon">
-            <summary>
-            Icon displayed in input on selection clear button when item is selected.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.MinimumLength">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.SuggestMinimumLength">
             <summary>
             Minimal number of characters to start suggesting. Default is <c>2</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.Delay">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.SuggestDelay">
             <summary>
             Debounce delay in miliseconds. Default is <c>300 ms</c>.
             </summary>

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	// TODO Placeholder
 	//ad 1) Existující vs nové: Nastavitelné
 	//ad 2) Primárně stringy, když něco jiného pro multipicker, je to bonus.Nepředpokládá se pro multipicker zakládání nových dat,
 	//ad 3) Ala grid, tj. request/response.
@@ -31,12 +32,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
 		/// </summary>
-		[Parameter] public int MinimumLength { get; set; } = 2;
+		[Parameter] public int SuggestMinimumLength { get; set; } = 2;
 
 		/// <summary>
 		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
 		/// </summary>
-		[Parameter] public int Delay { get; set; } = 300;
+		[Parameter] public int SuggestDelay { get; set; } = 300;
 
 		/// <summary>
 		/// Short hint displayed in the input field before the user enters a value.
@@ -50,7 +51,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public InputSize? InputSize { get; set; }
 
 		/// <summary>
-		/// Return <see cref="HxAutosuggest{TItem, TValue}"/> defaults.
+		/// Return <see cref="HxInputTags"/> defaults.
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
@@ -59,7 +60,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
 		private protected override string CoreInputCssClass => "border-0 w-100";
-		private protected override string CoreCssClass => "hx-autosuggest position-relative";
+		private protected override string CoreCssClass => "hx-inputtags position-relative";
 
 		private HxInputTagsInternal hxInputTagsInternalComponent;
 
@@ -76,8 +77,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1002, nameof(HxInputTagsInternal.DataProvider), DataProvider);
 			//builder.AddAttribute(1003, nameof(HxAutosuggestInternal<TItem, TValue>.ValueSelector), ValueSelector);
 			//builder.AddAttribute(1004, nameof(HxAutosuggestInternal<TItem, TValue>.TextSelector), TextSelector);
-			builder.AddAttribute(1005, nameof(HxInputTagsInternal.MinimumLength), MinimumLength);
-			builder.AddAttribute(1006, nameof(HxInputTagsInternal.Delay), Delay);
+			builder.AddAttribute(1005, nameof(HxInputTagsInternal.SuggestMinimumLength), SuggestMinimumLength);
+			builder.AddAttribute(1006, nameof(HxInputTagsInternal.SuggestDelay), SuggestDelay);
 			builder.AddAttribute(1007, nameof(HxInputTagsInternal.InputId), InputId);
 			builder.AddAttribute(1008, nameof(HxInputTagsInternal.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
 			builder.AddAttribute(1009, nameof(HxInputTagsInternal.EnabledEffective), EnabledEffective);

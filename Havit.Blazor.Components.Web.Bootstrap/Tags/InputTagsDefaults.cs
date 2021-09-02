@@ -8,29 +8,19 @@ using Havit.Blazor.Components.Web.Bootstrap.Internal;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Default values for <see cref="HxAutosuggest{TItem, TValue} "/>.
+	/// Default values for <see cref="HxInputTags"/>.
 	/// </summary>
 	public class InputTagsDefaults : IInputDefaultsWithSize
 	{
 		/// <summary>
-		/// Icon displayed in input when no item is selected.
-		/// </summary>
-		public IconBase SearchIcon { get; set; } = BootstrapIcon.Search;
-
-		/// <summary>
-		/// Icon displayed in input on selection clear button when item is selected.
-		/// </summary>
-		public IconBase ClearIcon { get; set; } = BootstrapIcon.X;
-
-		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
 		/// </summary>
-		public int MinimumLength { get; set; } = 2;
+		public int SuggestMinimumLength { get; set; } = 2;
 
 		/// <summary>
 		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
 		/// </summary>
-		public int Delay { get; set; } = 300;
+		public int SuggestDelay { get; set; } = 300;
 
 		/// <summary>
 		/// Input size.
