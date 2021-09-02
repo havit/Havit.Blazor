@@ -2,6 +2,14 @@
     white-space: nowrap;
 }
 
-::deep .hx-grid thead tr {
+::deep .hx-grid.table thead tr {
     border-top-width: 1px;
+}
+
+::deep .hx-grid.table tbody tr:last-child td {
+    border-bottom-width: 0;
+}
+
+::deep .hx-grid.table {
+    margin-bottom: 0;
 }
