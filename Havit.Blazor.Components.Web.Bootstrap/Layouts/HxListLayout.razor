@@ -48,11 +48,7 @@
 				</div>
 				@if (FilterModel != null)
 				{
-					<div class="row my-2">
-						<div class="col">
-							<HxChipList Chips="chips" OnChipRemoveClick="HandleChipRemoveClick" />
-						</div>
-					</div>
+					<HxChipList Chips="chips" OnChipRemoveClick="HandleChipRemoveClick" />
 				}
 				@if (FilterTemplate != null)
 				{

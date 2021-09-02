@@ -25,7 +25,7 @@
   /* HxEditForm */
   --hx-form-spacing: 1.25rem;
   /* HxChipList */
-  --hx-chip-list-spacing: .25rem;
+  --hx-chiplist-chip-margin: .25rem .25rem 0 0;
   /* HxContextMenu */
   --hx-context-menu-button-border-radius: .2rem;
   --hx-context-menu-button-hover-background: var(--bs-gray-300);

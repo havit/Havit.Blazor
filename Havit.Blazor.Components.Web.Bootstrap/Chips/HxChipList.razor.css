@@ -4,5 +4,5 @@ button {
 }
 
 .hx-chip {
-    margin-right: var(--hx-chip-list-spacing);
+    margin: var(--hx-chiplist-chip-margin);
 }
