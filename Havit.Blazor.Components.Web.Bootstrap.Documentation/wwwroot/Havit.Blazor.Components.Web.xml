@@ -429,6 +429,11 @@
             CSS Class to combine with basic icon CSS class.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.HxIcon.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying HTML element.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.HxIcon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>

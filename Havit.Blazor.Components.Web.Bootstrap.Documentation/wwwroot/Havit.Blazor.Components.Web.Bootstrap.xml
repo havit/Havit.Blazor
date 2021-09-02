@@ -3369,7 +3369,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBootstrapIcon">
             <summary>
-            Displays bootstrap icon. See https://icons.getbootstrap.com/.
+            Displays bootstrap icon. See <see href="https://icons.getbootstrap.com/">https://icons.getbootstrap.com/</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBootstrapIcon.Icon">
@@ -3380,6 +3380,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBootstrapIcon.CssClass">
             <summary>
             CSS Class to combine with basic icon CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBootstrapIcon.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxBootstrapIcon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">

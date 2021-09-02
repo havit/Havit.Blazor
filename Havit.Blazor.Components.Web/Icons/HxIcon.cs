@@ -23,12 +23,18 @@ namespace Havit.Blazor.Components.Web
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying HTML element.
+		/// </summary>
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			builder.OpenComponent(1, Icon.RendererComponentType);
 			builder.AddAttribute(2, "Icon", Icon);
 			builder.AddAttribute(2, "CssClass", CssClass);
+			builder.AddMultipleAttributes(3, AdditionalAttributes);
 			builder.CloseComponent();
 		}
 	}
