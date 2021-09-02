@@ -13,8 +13,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 {
 	public class Demo : ComponentBase
 	{
-		[Parameter] public string Title { get; set; }
-
 		[Parameter] public Type Type { get; set; }
 
 		[Parameter] public bool Tabs { get; set; } = true;
