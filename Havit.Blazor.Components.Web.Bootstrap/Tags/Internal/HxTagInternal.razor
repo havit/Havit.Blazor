@@ -4,7 +4,7 @@
 		 TextColor="this.TextColor"
 		 CssClass="@CssClassHelper.Combine("hx-tag", this.CssClass)">
 	@Text
-	<span @onclick="this.OnRemoveClick" @onclick:stopPropagation="true" role="button">
+	<span class="d-inline-flex align-items-center" @onclick="this.OnRemoveClick" @onclick:stopPropagation="true" role="button">
 		<HxIcon Icon="@BootstrapIcon.X" />
 	</span>
 </HxBadge>

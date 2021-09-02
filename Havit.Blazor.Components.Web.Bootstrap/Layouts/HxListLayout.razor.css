@@ -1,0 +1,7 @@
+.hx-list-layout-header ::deep button {
+    white-space: nowrap;
+}
+
+::deep .hx-grid thead tr {
+    border-top-width: 1px;
+}

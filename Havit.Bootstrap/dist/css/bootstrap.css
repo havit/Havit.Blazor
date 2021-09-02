@@ -42,7 +42,7 @@
   --bs-info-rgb: 13, 202, 240;
   --bs-warning-rgb: 255, 193, 7;
   --bs-danger-rgb: 220, 53, 69;
-  --bs-light-rgb: 248, 249, 250;
+  --bs-light-rgb: 222, 226, 230;
   --bs-dark-rgb: 33, 37, 41;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
@@ -85,7 +85,7 @@ body {
 
 hr {
   margin: 1rem 0;
-  color: rgba(0, 0, 0, 0.125);
+  color: #dee2e6;
   background-color: currentColor;
   border: 0;
   opacity: 1;
@@ -1978,7 +1978,7 @@ progress {
   vertical-align: bottom;
 }
 .table > :not(:last-child) > :last-child > * {
-  border-bottom-color: rgba(0, 0, 0, 0.125);
+  border-bottom-color: #dee2e6;
 }
 
 .caption-top {
@@ -6854,7 +6854,7 @@ textarea.form-control-lg {
 }
 
 .border {
-  border: 1px solid rgba(0, 0, 0, 0.125) !important;
+  border: 1px solid #dee2e6 !important;
 }
 
 .border-0 {
@@ -6862,7 +6862,7 @@ textarea.form-control-lg {
 }
 
 .border-top {
-  border-top: 1px solid rgba(0, 0, 0, 0.125) !important;
+  border-top: 1px solid #dee2e6 !important;
 }
 
 .border-top-0 {
@@ -6870,7 +6870,7 @@ textarea.form-control-lg {
 }
 
 .border-end {
-  border-right: 1px solid rgba(0, 0, 0, 0.125) !important;
+  border-right: 1px solid #dee2e6 !important;
 }
 
 .border-end-0 {
@@ -6878,7 +6878,7 @@ textarea.form-control-lg {
 }
 
 .border-bottom {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+  border-bottom: 1px solid #dee2e6 !important;
 }
 
 .border-bottom-0 {
@@ -6886,7 +6886,7 @@ textarea.form-control-lg {
 }
 
 .border-start {
-  border-left: 1px solid rgba(0, 0, 0, 0.125) !important;
+  border-left: 1px solid #dee2e6 !important;
 }
 
 .border-start-0 {

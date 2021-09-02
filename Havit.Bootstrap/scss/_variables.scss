@@ -11,9 +11,11 @@ $theme-colors: (
   "dark": $dark,
 );
 
+$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
+
 $min-contrast-ratio: 3;
 $body-bg: $gray-100;
-$border-color: rgba($black, .125);
+// $border-color: rgba($black, .125);
 $nav-tabs-border-color: rgba($black, .125);
 $nav-tabs-link-active-border-color: $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-link-active-bg;
 $card-border-radius: .5rem;
@@ -25,7 +27,7 @@ $table-active-bg-factor: .05;
 $table-active-bg: rgba($black, $table-active-bg-factor);
 $table-hover-bg-factor: .025;
 $table-hover-bg: rgba($black, $table-hover-bg-factor);
-$table-group-separator-color: $border-color;
+$table-group-separator-color: $table-border-color;
 $hr-color: $border-color;
 $hr-opacity: 1;
 $form-label-margin-bottom: .25rem;
