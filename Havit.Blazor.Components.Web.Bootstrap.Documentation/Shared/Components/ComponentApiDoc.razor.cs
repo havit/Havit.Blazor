@@ -81,9 +81,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			DownloadFileAndGetSummaries();
 		}
 
-		private async void DownloadFileAndGetSummaries()
+		private void DownloadFileAndGetSummaries()
 		{
-			TextReader textReader = new StringReader(await GetFile(GetDownloadLink()));
+			TextReader textReader = new StringReader(GetSummaryFileContent());
 			XPathDocument xPathDocument = new(textReader);
 
 			DocXmlReader reader = new(xPathDocument);
@@ -102,6 +102,42 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			HandleEnum(reader);
 
 			StateHasChanged();
+		}
+
+		private string GetSummaryFileContent()
+		{
+			var assembly = Assembly.GetExecutingAssembly();
+			string resourceName = "";
+
+			if (string.IsNullOrEmpty(Type.Namespace))
+			{
+				resourceName = "Havit.Blazor.Components.Web.Bootstrap.xml";
+			}
+			else if (Type.Namespace.Contains("Havit.Blazor.GoogleTagManager"))
+			{
+				resourceName = "Havit.Blazor.GoogleTagManager.xml";
+			}
+			else if (Type.Namespace.Contains("Bootstrap"))
+			{
+				resourceName = "Havit.Blazor.Components.Web.Bootstrap.xml";
+			}
+			else if (Type.Namespace == "Havit.Blazor.Components.Web")
+			{
+				resourceName = "Havit.Blazor.Components.Web.xml";
+			}
+			else
+			{
+				resourceName = "Havit.Blazor.Components.Web.Bootstrap.xml";
+			}
+
+			resourceName = assembly.GetManifestResourceNames()
+				.Single(str => str.EndsWith(resourceName));
+
+			using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+			using (StreamReader reader = new StreamReader(stream))
+			{
+				return reader.ReadToEnd();
+			}
 		}
 
 		private void HandleEnum(DocXmlReader reader)

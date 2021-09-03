@@ -1,9 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
 	  <TargetFramework>net5.0</TargetFramework>
 	  <NoWarn>1701;1702;SA1134</NoWarn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\Havit.Blazor.Components.Web.Bootstrap.xml" />
+    <Content Remove="wwwroot\Havit.Blazor.Components.Web.xml" />
+    <Content Remove="wwwroot\Havit.Blazor.GoogleTagManager.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="wwwroot\Havit.Blazor.Components.Web.Bootstrap.xml" />
+    <EmbeddedResource Include="wwwroot\Havit.Blazor.Components.Web.xml" />
+    <EmbeddedResource Include="wwwroot\Havit.Blazor.GoogleTagManager.xml" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="LoxSmoke.DocXml" Version="3.4.5" />
