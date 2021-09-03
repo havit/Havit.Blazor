@@ -10,8 +10,9 @@
 	   data-bs-offset="@($"[{Offset.X},{Offset.Y}]")"
 	   value="@Value"
 	   @oninput="HandleInput"
-	   @onfocus="HandleFocus"
-	   @onblur="HandleBlur"
+	   @onfocus="OnInputFocus"
+	   @onblur="OnInputBlur"
+	   @onmousedown="OnInputMouseDown"
 	   @onclick:stopPropagation
 	   placeholder="@Placeholder"
 	   onfocusin="this.select()">

@@ -20,6 +20,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public EventCallback OnInputBlur { get; set; }
 
+		[Parameter] public EventCallback OnInputMouseDown { get; set; }
+
 		[Parameter] public string InputId { get; set; }
 
 		[Parameter] public string CssClass { get; set; }
@@ -36,16 +38,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private async Task HandleInput(ChangeEventArgs changeEventArgs)
 		{
 			await OnInputInput.InvokeAsync((string)changeEventArgs.Value);
-		}
-
-		private async Task HandleFocus()
-		{
-			await OnInputFocus.InvokeAsync(null);
-		}
-
-		private async Task HandleBlur()
-		{
-			await OnInputBlur.InvokeAsync(null);
 		}
 
 		public async ValueTask FocusAsync()

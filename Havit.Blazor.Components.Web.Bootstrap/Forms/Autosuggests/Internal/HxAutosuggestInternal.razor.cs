@@ -326,7 +326,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				await SetValueItemWithEventCallback(default);
 				userInput = TextSelectorEffective(default);
 				userInputModified = false;
+				StateHasChanged();
 			}
+			isDropdownOpened = false;
 		}
 		#endregion
 
