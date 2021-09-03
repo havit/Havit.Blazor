@@ -4394,6 +4394,12 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags">
+            <summary>
+            Input for entering tags.
+            Does not allow duplicate tags.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Defaults">
             <summary>
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/>.

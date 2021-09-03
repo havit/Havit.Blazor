@@ -17,6 +17,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
+		// TODO Delimiters + keyboard entry
+		// TODO InputSize
+		// TODO Chips?
+		// TODO AddTagIcon? (plus in ADOS), needed for Naked
+		// TODO Naked="true" (no border, ...)
+
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputTags"/>.
 		/// </summary>
@@ -28,17 +34,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool AllowCustomTags { get; set; } = true;
 
+		/// <summary>
+		/// Set to method providing data for tags' suggestions.
+		/// </summary>
 		[Parameter] public InputTagsDataProviderDelegate DataProvider { get; set; }
 
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
 		/// </summary>
-		[Parameter] public int SuggestMinimumLength { get; set; } = 2;
+		[Parameter] public int? SuggestMinimumLength { get; set; } = 2;
 
 		/// <summary>
 		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
 		/// </summary>
-		[Parameter] public int SuggestDelay { get; set; } = 300;
+		[Parameter] public int? SuggestDelay { get; set; } = 300;
 
 		/// <summary>
 		/// Short hint displayed in the input field before the user enters a value.
@@ -76,8 +85,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1000, nameof(HxInputTagsInternal.Value), Value);
 			builder.AddAttribute(1001, nameof(HxInputTagsInternal.ValueChanged), EventCallback.Factory.Create<List<string>>(this, HandleValueChanged));
 			builder.AddAttribute(1002, nameof(HxInputTagsInternal.DataProvider), DataProvider);
-			builder.AddAttribute(1005, nameof(HxInputTagsInternal.SuggestMinimumLength), SuggestMinimumLength);
-			builder.AddAttribute(1006, nameof(HxInputTagsInternal.SuggestDelay), SuggestDelay);
+			builder.AddAttribute(1005, nameof(HxInputTagsInternal.SuggestMinimumLength), SuggestMinimumLength ?? defaults.SuggestMinimumLength);
+			builder.AddAttribute(1006, nameof(HxInputTagsInternal.SuggestDelay), SuggestDelay ?? defaults.SuggestDelay);
 			builder.AddAttribute(1007, nameof(HxInputTagsInternal.InputId), InputId);
 			builder.AddAttribute(1008, nameof(HxInputTagsInternal.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
 			builder.AddAttribute(1009, nameof(HxInputTagsInternal.EnabledEffective), EnabledEffective);
@@ -139,6 +148,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			builder.AddContent(0, String.Join(", ", Value));
 		}
-
 	}
 }

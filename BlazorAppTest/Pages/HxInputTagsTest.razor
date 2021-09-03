@@ -1,17 +1,37 @@
 @page "/HxInputTagsTest"
+@using FluentValidation
 
 <h1>HxInputTags</h1>
 
-<HxInputTags Label="Tags" @bind-Value="values" DataProvider="GetNewItemSuggestions" />
-@*<HxInputTags Label="Tags (shared Value)" @bind-Value="values" DataProvider="GetNewItemSuggestions" />*@
+<EditForm Model="model">
+	<Blazored.FluentValidation.FluentValidationValidator />
+	<ValidationSummary />
+	<HxInputTags Label="Tags" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
+	<HxInputTags Label="Tags (shared Value)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
+	<HxSubmit Color="ThemeColor.Primary">Submit</HxSubmit>
+</EditForm>
 
 @code {
-	private List<string> values = new List<string>() { "Blazor", "C#", "ASP.NET" };
+	private MyModel model = new MyModel();
+
 	private Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
 	{
 		return Task.FromResult(new InputTagsDataProviderResult()
 		{
 			Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString())
 		});
+	}
+
+	public class MyModel
+	{
+		public List<string> Tags { get; set; } = new List<string>() { "Blazor", "C#", "ASP.NET" };
+
+		public class MyModelValidator : AbstractValidator<MyModel>
+		{
+			public MyModelValidator()
+			{
+				RuleFor(a => a.Tags).Must(t => t.Count > 3).WithMessage("At least 4 tags have to be entered.");
+			}
+		}
 	}
 }

@@ -1,6 +1,11 @@
-﻿<HxInputTags Label="Bootstrap theme colors" @bind-Value="values" DataProvider="GetNewItemSuggestions" SuggestDelay="0" SuggestMinimumLength="0" />
+﻿<HxInputTags Label="Bootstrap theme colors"
+			 @bind-Value="values"
+			 DataProvider="GetNewItemSuggestions"
+			 SuggestDelay="0"
+			 SuggestMinimumLength="0" />
 
-@code {
+@code
+{
 	private List<string> values = new List<string>() { "Primary", "Secondary" };
 	private Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
 	{
