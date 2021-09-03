@@ -6,7 +6,7 @@
 	{
 		return Task.FromResult(new InputTagsDataProviderResult()
 		{
-			Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString())
+			Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString()).Where(v => !values.Contains(v))
 		});
 	}
 }
