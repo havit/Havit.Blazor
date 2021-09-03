@@ -353,6 +353,21 @@
             Additional CSS class(es) to be added.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonToolbar.ChildContent">
+            <summary>
+            Toolbar's content
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonToolbar.AriaLabel">
+            <summary>
+            An explicit label should be set, as most assistive technologies will otherwise not announce them, despite the presence of the correct role attribute. 
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonToolbar.CssClass">
+            <summary>
+            Css class(es) to add to the element with the <c>.btn-toolbar</c> class.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSubmit">
             <summary>
             Button <c>&lt;button type="submit"&gt;</c>.
