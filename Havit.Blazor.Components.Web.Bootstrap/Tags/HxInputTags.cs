@@ -11,13 +11,10 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	// TODO Placeholder
-	//ad 1) Existující vs nové: Nastavitelné
-	//ad 2) Primárně stringy, když něco jiného pro multipicker, je to bonus.Nepředpokládá se pro multipicker zakládání nových dat,
-	//ad 3) Ala grid, tj. request/response.
-
-	//4. Pořadí - prioritou je, že se při zadávání nepřeřadí, tj. nové nakonec.
-
+	/// <summary>
+	/// Input for entering tags.
+	/// Does not allow duplicate tags.
+	/// </summary>
 	public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
 		/// <summary>
@@ -79,14 +76,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1000, nameof(HxInputTagsInternal.Value), Value);
 			builder.AddAttribute(1001, nameof(HxInputTagsInternal.ValueChanged), EventCallback.Factory.Create<List<string>>(this, HandleValueChanged));
 			builder.AddAttribute(1002, nameof(HxInputTagsInternal.DataProvider), DataProvider);
-			//builder.AddAttribute(1003, nameof(HxAutosuggestInternal<TItem, TValue>.ValueSelector), ValueSelector);
-			//builder.AddAttribute(1004, nameof(HxAutosuggestInternal<TItem, TValue>.TextSelector), TextSelector);
 			builder.AddAttribute(1005, nameof(HxInputTagsInternal.SuggestMinimumLength), SuggestMinimumLength);
 			builder.AddAttribute(1006, nameof(HxInputTagsInternal.SuggestDelay), SuggestDelay);
 			builder.AddAttribute(1007, nameof(HxInputTagsInternal.InputId), InputId);
 			builder.AddAttribute(1008, nameof(HxInputTagsInternal.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
 			builder.AddAttribute(1009, nameof(HxInputTagsInternal.EnabledEffective), EnabledEffective);
-			//builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItem, TValue>.ItemFromValueResolver), ItemFromValueResolver);
 			builder.AddAttribute(1011, nameof(HxInputTagsInternal.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
 			builder.AddAttribute(1012, nameof(HxInputTagsInternal.LabelTypeEffective), labelTypeEffective);
 			builder.AddAttribute(1013, nameof(HxInputTagsInternal.AllowCustomTags), AllowCustomTags);

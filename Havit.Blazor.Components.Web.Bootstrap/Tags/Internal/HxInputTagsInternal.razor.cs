@@ -286,7 +286,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			// user clicked on an item in the "dropdown".
 			userInput = String.Empty;
 			await AddTagWithEventCallbackAsync(tag);
-			//userInputModified = false;
+
+			if (!currentlyFocused)
+			{
+				await FocusAsync();
+			}
 		}
 
 		protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -300,9 +304,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				Console.WriteLine("OnAfterRenderAsync-blurInProgress");
 
 				blurInProgress = false;
-				await TryHandleCustomTagAsync();
-				userInput = String.Empty;
-				StateHasChanged();
+				if (!isDropdownOpened)
+				{
+					await TryHandleCustomTagAsync();
+					userInput = String.Empty;
+					StateHasChanged();
+				}
 
 				//if (userInputModified && !isDropdownOpened)
 				//{
@@ -344,21 +351,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		}
 
 		[JSInvokable("HxInputTagsInternal_HandleDropdownHidden")]
-		public Task HandleDropdownHidden()
+		public async Task HandleDropdownHidden()
 		{
 			Console.WriteLine("HandleDropdownHidden");
 
-			//await TryHandleCustomTagAsync();
-
-			//if (userInputModified && !currentlyFocused)
-			//{
-			//	userInput = String.Empty;
-			//	userInputModified = false;
-			//	StateHasChanged();
-			//}
 			isDropdownOpened = false;
 
-			return Task.CompletedTask;
+			if (!currentlyFocused)
+			{
+				await TryHandleCustomTagAsync();
+				userInput = String.Empty;
+				StateHasChanged();
+			}
 		}
 
 		protected async Task HandleRemoveClickAsync(string tag)
