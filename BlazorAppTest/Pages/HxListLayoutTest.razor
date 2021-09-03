@@ -9,18 +9,24 @@
 	<SearchTemplate>
 		<input type="text" name="TODO" id="TODO" placeholder="TODO: Vyhledávání" class="form-control">
 	</SearchTemplate>
-	<FilterTemplate Context="filterContext">
-		<HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumItemId" />
-	</FilterTemplate>
+    <FilterTemplate Context="filterContext">
+        <HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumItemId" />
+        <HxInputText Label="Name containing" @bind-Value="filterContext.NameContains" />
+        <HxInputNumber Label="Minimum Age" @bind-Value="filterContext.MinimumAge" />
+        <HxInputNumber Label="Maximum Age" @bind-Value="filterContext.MaximumAge" />
+    </FilterTemplate>
 	<CommandsTemplate>
 		<HxButton Text="Přidat" Skin="ButtonSkins.New" Icon="BootstrapIcon.Plus" OnClick="NewItemClicked" />
 	</CommandsTemplate>
 	<DataTemplate>
 		<HxGrid @ref="gridComponent" TItem="DataItemDto" PageSize="20" DataProvider="LoadDataItems" SelectedDataItem="currentItem" SelectedDataItemChanged="HandleSelectedDataItemChanged">
-			<Columns>
-				<HxGridColumn TItem="DataItemDto" HeaderText="Id" ItemTextSelector="@(item => item.ItemId.ToString())" SortString="@nameof(DataItemDto.ItemId)" IsDefaultSortColumn="true" />
-				<HxGridColumn TItem="DataItemDto" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(DataItemDto.Name)" />
-			</Columns>
+            <Columns>
+                <HxGridColumn TItem="DataItemDto" HeaderText="Id" ItemTextSelector="@(item => item.ItemId.ToString())" SortString="@nameof(DataItemDto.ItemId)" IsDefaultSortColumn="true" />
+                <HxGridColumn TItem="DataItemDto" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(DataItemDto.Name)" />
+                <HxGridColumn TItem="DataItemDto" HeaderText="Email" ItemTextSelector="@(item => item.Email)" SortString="@nameof(DataItemDto.Email)" />
+                <HxGridColumn TItem="DataItemDto" HeaderText="Phone number" ItemTextSelector="@(item => item.PhoneNumber)" SortString="@nameof(DataItemDto.PhoneNumber)" />
+                <HxGridColumn TItem="DataItemDto" HeaderText="Age" ItemTextSelector="@(item => item.Age.ToString())" SortString="@nameof(DataItemDto.Age)" />
+            </Columns>
 			<ContextMenu Context="item">
 				<HxContextMenu>
 					<HxContextMenuItem Text="Smazat" OnClick="async () => await DeleteItemClicked(item)" ConfirmationQuestion="@($"Opravdu si přejete smazat {item.Name}?")" />
