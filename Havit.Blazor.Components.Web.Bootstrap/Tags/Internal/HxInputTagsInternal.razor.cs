@@ -176,9 +176,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			});
 		}
 
-		private async Task HandleInputMouseDown()
+		private void HandleInputMouseDown()
 		{
-			Console.WriteLine("HandleInputMouseDown");
 			mouseDownFocus = true;
 		}
 
@@ -201,7 +200,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		}
 
 		// Kvůli updatovanání HTML a kolizi s bootstrap Dropdown nesmíme v InputBlur přerenderovat html!
-		private async Task HandleInputBlur()
+		private Task HandleInputBlur()
 		{
 			Console.WriteLine("HandleInputBlur");
 
@@ -211,6 +210,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			timer?.Stop(); // if waiting for an interval, stop it
 			cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
 			dataProviderInProgress = false; // data provider is no more in progress				 
+
+			return Task.CompletedTask;
 		}
 
 		private async Task TryHandleCustomTagAsync()
