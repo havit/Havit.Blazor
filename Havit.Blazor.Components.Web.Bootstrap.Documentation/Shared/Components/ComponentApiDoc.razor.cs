@@ -314,42 +314,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return null;
 		}
 
-		private string GetDownloadLink()
-		{
-			if (string.IsNullOrEmpty(Type.Namespace))
-			{
-				return $"{NavigationManager.BaseUri}Havit.Blazor.Components.Web.Bootstrap.xml";
-			}
-
-			if (Type.Namespace.Contains("Havit.Blazor.GoogleTagManager"))
-			{
-				return $"{NavigationManager.BaseUri}Havit.Blazor.GoogleTagManager.xml";
-			}
-
-			if (Type.Namespace.Contains("Bootstrap"))
-			{
-				return $"{NavigationManager.BaseUri}Havit.Blazor.Components.Web.Bootstrap.xml";
-			}
-
-			if (Type.Namespace == "Havit.Blazor.Components.Web")
-			{
-				return $"{NavigationManager.BaseUri}Havit.Blazor.Components.Web.xml";
-			}
-
-			return $"{NavigationManager.BaseUri}Havit.Blazor.Components.Web.Bootstrap.xml";
-		}
-
-		private async Task<string> GetFile(string uri)
-		{
-			string response = await client.GetStringAsync(uri);
-			return response;
-		}
-
-		private string GetBootstrapComponentName()
-		{
-			return Type.Name.Replace("Hx", "");
-		}
-
 		private static string ReplaceTypeNames(string type)
 		{
 			foreach (var typeName in typeNames)
@@ -414,11 +378,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 
 			return $"<a href=\"/type/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a>";
-		}
-
-		public static bool IsComponent(Type type)
-		{
-			throw new NotImplementedException();
 		}
 
 		public static string RemoveSpecialCharacters(string text)
