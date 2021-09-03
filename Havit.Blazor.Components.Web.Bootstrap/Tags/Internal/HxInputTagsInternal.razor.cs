@@ -20,6 +20,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 	public partial class HxInputTagsInternal
 	{
+		/// <summary>
+		/// Indicates whether you are restricted to suggested items only (<c>false</c>).
+		/// Default is <c>true</c> (you can type your own tags).
+		/// </summary>
 		[Parameter] public bool AllowCustomTags { get; set; } = true;
 
 		[Parameter] public List<string> Value { get; set; }
@@ -59,10 +63,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private string userInput = String.Empty;
 		private CancellationTokenSource cancellationTokenSource;
 		private List<string> suggestions;
-		private bool userInputModified;
+		//private bool userInputModified;
 		private bool isDropdownOpened = false;
 		private bool blurInProgress;
 		private bool currentlyFocused;
+		private bool mouseDownFocus;
 		private IJSObjectReference jsModule;
 		private HxInputTagsAutosuggestInput autosuggestInput;
 		//private TValue lastKnownValue;
@@ -129,7 +134,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			// user changes an input
 			userInput = newUserInput;
-			userInputModified = true;
+			//userInputModified = true;
 
 			timer?.Stop(); // if waiting for an interval, stop it
 			cancellationTokenSource?.Cancel(); // if already loading data, cancel it
@@ -138,20 +143,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			// start new time interval
 			if (userInput.Length >= SuggestMinimumLength)
 			{
+				var interval = SuggestDelay;
+				if (interval == 0)
+				{
+					interval = 10;
+				}
 				if (timer == null)
 				{
 					timer = new System.Timers.Timer();
 					timer.AutoReset = false; // just once
 					timer.Elapsed += HandleTimerElapsed;
 				}
-				timer.Interval = SuggestDelay;
+				timer.Interval = interval;
 				timer.Start();
 			}
 			else
 			{
 				// or close a dropdown
 				suggestions = null;
-				await DestroyDropdownAsync();
+				await TryDestroyDropdownAsync();
 			}
 		}
 
@@ -166,17 +176,32 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			});
 		}
 
+		private async Task HandleInputMouseDown()
+		{
+			Console.WriteLine("HandleInputMouseDown");
+			mouseDownFocus = true;
+		}
+
 		private async Task HandleInputFocus()
 		{
 			Console.WriteLine("HandleInputFocus");
 
 			// when an input gets focus, close a dropdown
+			if (!currentlyFocused)
+			{
+				await TryDestroyDropdownAsync();
+			}
 			currentlyFocused = true;
-			await DestroyDropdownAsync();
+
+			if (SuggestMinimumLength == 0)
+			{
+				await UpdateSuggestionsAsync(bypassShow: mouseDownFocus);
+			}
+			mouseDownFocus = false;
 		}
 
 		// Kvůli updatovanání HTML a kolizi s bootstrap Dropdown nesmíme v InputBlur přerenderovat html!
-		private void HandleInputBlur()
+		private async Task HandleInputBlur()
 		{
 			Console.WriteLine("HandleInputBlur");
 
@@ -188,7 +213,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			dataProviderInProgress = false; // data provider is no more in progress				 
 		}
 
-		private async Task UpdateSuggestionsAsync()
+		private async Task TryHandleCustomTagAsync()
+		{
+			if (!AllowCustomTags)
+			{
+				return;
+			}
+
+			var newTag = userInput?.Trim();
+			if (!String.IsNullOrWhiteSpace(newTag))
+			{
+				await AddTagWithEventCallbackAsync(newTag);
+			}
+			userInput = String.Empty;
+			//userInputModified = false;
+		}
+
+		private async Task UpdateSuggestionsAsync(bool bypassShow = false)
 		{
 			Console.WriteLine("UpdateSuggestionsAsync");
 
@@ -227,11 +268,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			if (suggestions?.Any() ?? false)
 			{
-				await OpenDropdownAsync();
+				await OpenDropdownAsync(bypassShow);
 			}
 			else
 			{
-				await DestroyDropdownAsync();
+				await TryDestroyDropdownAsync();
 			}
 
 			StateHasChanged();
@@ -242,9 +283,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			Console.WriteLine("HandleItemClick:" + tag);
 
 			// user clicked on an item in the "dropdown".
-			await AddTagWithEventCallbackAsync(tag);
 			userInput = String.Empty;
-			userInputModified = false;
+			await AddTagWithEventCallbackAsync(tag);
+			//userInputModified = false;
 		}
 
 		protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -258,28 +299,32 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				Console.WriteLine("OnAfterRenderAsync-blurInProgress");
 
 				blurInProgress = false;
-				if (userInputModified && !isDropdownOpened)
-				{
-					userInput = String.Empty;
-					userInputModified = false;
-					StateHasChanged();
-				}
+				await TryHandleCustomTagAsync();
+				userInput = String.Empty;
+				StateHasChanged();
+
+				//if (userInputModified && !isDropdownOpened)
+				//{
+				//	userInput = String.Empty;
+				//	userInputModified = false;
+				//	StateHasChanged();
+				//}
 			}
 		}
 
-		private async Task OpenDropdownAsync()
+		private async Task OpenDropdownAsync(bool bypassShow = false)
 		{
 			Console.WriteLine("OpenDropdownAsync");
 
 			if (!isDropdownOpened)
 			{
 				await EnsureJsModuleAsync();
-				await jsModule.InvokeVoidAsync("open", autosuggestInput.InputElement, dotnetObjectReference);
+				await jsModule.InvokeVoidAsync("open", autosuggestInput.InputElement, dotnetObjectReference, bypassShow);
 				isDropdownOpened = true;
 			}
 		}
 
-		private async Task DestroyDropdownAsync()
+		private async Task TryDestroyDropdownAsync()
 		{
 			Console.WriteLine("DestroyDropdownAsync");
 
@@ -297,17 +342,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxInputTags) + ".js");
 		}
 
-		// TODO!!!
 		[JSInvokable("HxInputTagsInternal_HandleDropdownHidden")]
 		public Task HandleDropdownHidden()
 		{
 			Console.WriteLine("HandleDropdownHidden");
 
-			if (userInputModified && !currentlyFocused)
-			{
-				userInput = String.Empty;
-				userInputModified = false;
-			}
+			//await TryHandleCustomTagAsync();
+
+			//if (userInputModified && !currentlyFocused)
+			//{
+			//	userInput = String.Empty;
+			//	userInputModified = false;
+			//	StateHasChanged();
+			//}
+			isDropdownOpened = false;
 
 			return Task.CompletedTask;
 		}

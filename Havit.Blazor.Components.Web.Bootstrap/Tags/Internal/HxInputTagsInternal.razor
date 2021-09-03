@@ -15,7 +15,8 @@
 									 OnInputInput="HandleInputInput"
 									 OnInputFocus="HandleInputFocus"
 									 OnInputBlur="HandleInputBlur"
-									 Placeholder="@Placeholder"
+									 OnInputMouseDown="HandleInputMouseDown"
+									 Placeholder="@((Value?.Any() ?? false) ? null : Placeholder)"
 									 CssClass="@InputCssClass"
 									 Offset="@InputOffset" />
 		@if (dataProviderInProgress)
@@ -26,9 +27,6 @@
 			<ItemTemplate>
 				@context
 			</ItemTemplate>
-			<EmptyTemplate>
-				=nic=
-			</EmptyTemplate>
 		</HxAutosuggestItems>
 	</div>
 </div>

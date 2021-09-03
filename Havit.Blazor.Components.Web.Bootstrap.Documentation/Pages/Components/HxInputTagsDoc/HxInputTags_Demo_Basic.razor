@@ -1,12 +1,13 @@
-﻿<HxInputTags Label="Tags" @bind-Value="values" DataProvider="GetNewItemSuggestions" />
+﻿<HxInputTags Label="Tags" @bind-Value="values" DataProvider="GetNewItemSuggestions" Placeholder="ThemeColors suggested" />
 
 @code {
 	private List<string> values = new List<string>() { "Blazor", "C#", "ASP.NET" };
-	private Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
+	private async Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
 	{
-		return Task.FromResult(new InputTagsDataProviderResult()
+		await Task.Delay(50); // simulate server API call
+		return new InputTagsDataProviderResult()
 		{
-			Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString())
-		});
+			Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString()).Where(v => v.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+		};
 	}
 }

@@ -704,6 +704,12 @@
             Offset between dropdown input and dropdown menu
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.AllowCustomTags">
+            <summary>
+            Indicates whether you are restricted to suggested items only (<c>false</c>).
+            Default is <c>true</c> (you can type your own tags).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.SuggestMinimumLength">
             <summary>
             Minimal number of characters to start suggesting. Default is <c>2</c>.
@@ -4391,6 +4397,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Defaults">
             <summary>
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.AllowCustomTags">
+            <summary>
+            Indicates whether you are restricted to suggested items only (<c>false</c>).
+            Default is <c>true</c> (you can type your own tags).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.SuggestMinimumLength">

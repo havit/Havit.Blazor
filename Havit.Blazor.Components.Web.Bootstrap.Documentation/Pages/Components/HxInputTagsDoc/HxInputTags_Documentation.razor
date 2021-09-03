@@ -5,4 +5,12 @@
 	<h3>Basic Usage</h3>
 	<Demo Type="typeof(HxInputTags_Demo_Basic)" />
 
+	<h3>Static suggestions</h3>
+	<p>To suggest fixed values (simmilar to <code>HxSelect</code>), setup <code>DataProvider</code> to return those values (no matter the input) and use <code>@nameof(HxInputTags.SuggestDelay)="0"</code>.</p>
+	<Demo Type="typeof(HxInputTags_Demo_FixedSuggestions)" />
+
+	<h3>Restricted tags</h3>
+	<p>If you want to restrict tags to suggested items only, set <code>@nameof(HxInputTags.AllowCustomTags)</code> to <code>false</code>.</p>
+	<Demo Type="typeof(HxInputTags_Demo_AllowCustomTags)" />
+
 </ComponentApiDoc>

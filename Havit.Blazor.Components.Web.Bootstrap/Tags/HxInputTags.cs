@@ -25,6 +25,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public static InputTagsDefaults Defaults { get; } = new InputTagsDefaults();
 
+		/// <summary>
+		/// Indicates whether you are restricted to suggested items only (<c>false</c>).
+		/// Default is <c>true</c> (you can type your own tags).
+		/// </summary>
 		[Parameter] public bool AllowCustomTags { get; set; } = true;
 
 		[Parameter] public InputTagsDataProviderDelegate DataProvider { get; set; }
@@ -85,6 +89,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			//builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItem, TValue>.ItemFromValueResolver), ItemFromValueResolver);
 			builder.AddAttribute(1011, nameof(HxInputTagsInternal.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
 			builder.AddAttribute(1012, nameof(HxInputTagsInternal.LabelTypeEffective), labelTypeEffective);
+			builder.AddAttribute(1013, nameof(HxInputTagsInternal.AllowCustomTags), AllowCustomTags);
 			builder.AddComponentReferenceCapture(1014, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
 			builder.CloseComponent();
 		}
