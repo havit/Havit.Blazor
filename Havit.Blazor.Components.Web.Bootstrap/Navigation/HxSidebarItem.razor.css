@@ -8,6 +8,7 @@
 	padding: var(--hx-sidebar-item-padding);
 	font-size: var(--hx-sidebar-item-font-size);
 	color: var(--bs-dark);
+	border-radius: 0.5rem;
 }
 
 .hx-sidebar-subitems ::deep .nav-link {
@@ -28,7 +29,6 @@
 .navbar-desktop-toggler:hover {
 	background-color: var(--hx-sidebar-link-hover);
 	color: var(--bs-primary);
-	border-radius: 0.5rem;
 }
 
 ::deep i {
