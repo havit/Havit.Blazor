@@ -1,13 +1,13 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<div class="hx-tag-input form-control d-flex position-relative flex-grow-1	">
+<div class="hx-inputtags form-control d-flex position-relative flex-grow-1	">
 	<div class="d-flex align-items-center me-1">
 		@foreach (string tag in Value)
 		{
 		<HxTagInternal Text="@tag" OnRemoveClick="async() => await HandleRemoveClickAsync(tag)" CssClass="me-1" />
 		}
 	</div>
-	<a id="tagDropdownLink" data-bs-toggle="dropdown" class="flex-grow-1" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">
+	<div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
 		<HxInputTagsAutosuggestInput @ref="autosuggestInput"
 									 InputId="@InputId"
 									 EnabledEffective="@EnabledEffective"
@@ -20,21 +20,15 @@
 									 Offset="@InputOffset" />
 		@if (dataProviderInProgress)
 		{
-			<HxSpinner Type="SpinnerType.Border" Size="SpinnerSize.Small" />
+		<HxSpinner Type="SpinnerType.Border" Size="SpinnerSize.Small" />
 		}
-	</a>
-	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems TItem="string" Items="@suggestions" OnItemClick="HandleItemClick">
-		<ItemTemplate>
-			@context
-		</ItemTemplate>
-		<EmptyTemplate>
-			=nic=
-		</EmptyTemplate>
-	</Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems>
-
-	@*<div class="dropdown-menu w-100" aria-labelledby="tagDropdownLink">
-			<a class="dropdown-item" href="#">Action</a>
-			<a class="dropdown-item" href="#">Another action</a>
-			<a class="dropdown-item" href="#">Something else here</a>
-		</div>*@
+		<HxAutosuggestItems TItem="string" Items="@suggestions" OnItemClick="HandleItemClick">
+			<ItemTemplate>
+				@context
+			</ItemTemplate>
+			<EmptyTemplate>
+				=nic=
+			</EmptyTemplate>
+		</HxAutosuggestItems>
+	</div>
 </div>

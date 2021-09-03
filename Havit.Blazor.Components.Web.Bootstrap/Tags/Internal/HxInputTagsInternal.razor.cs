@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -29,20 +30,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
 		/// </summary>
-		[Parameter] public int SuggestMinimumLength { get; set; }
+		[Parameter] public int SuggestMinimumLength { get; set; } = 2;
 
 		/// <summary>
 		/// Short hint displayed in the input field before the user enters a value.
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
 
-		[Parameter] public int SuggestDelay { get; set; }
+		[Parameter] public int SuggestDelay { get; set; } = 300;
 
 		[Parameter] public string InputCssClass { get; set; }
 
 		[Parameter] public string InputId { get; set; }
 
-		[Parameter] public bool EnabledEffective { get; set; }
+		[Parameter] public bool EnabledEffective { get; set; } = true;
 
 		[Parameter] public LabelType LabelTypeEffective { get; set; }
 
@@ -73,8 +74,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			dotnetObjectReference = DotNetObjectReference.Create(this);
 		}
 
-		private async Task AddTagWithEventCallback(string tag)
+		private async Task AddTagWithEventCallbackAsync(string tag)
 		{
+			Console.WriteLine("AddTagWithEventCallback:" + tag);
+
 			if ((Value != null) && Value.Contains(tag))
 			{
 				return;
@@ -92,8 +95,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await ValueChanged.InvokeAsync(Value);
 		}
 
-		private async Task RemoveTagWithEventCallback(string tag)
+		private async Task RemoveTagWithEventCallbackAsync(string tag)
 		{
+			Console.WriteLine("RemoveTagWithEventCallback:" + tag);
+
 			if (Value == null)
 			{
 				return;
@@ -107,16 +112,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			base.OnParametersSet();
 
+			// TODO Do we need DataProvider? For free-entry probably not...
 			Contract.Requires<InvalidOperationException>(DataProvider != null, $"{GetType()} requires a {nameof(DataProvider)} parameter.");
 		}
 
 		public async ValueTask FocusAsync()
 		{
+			Console.WriteLine("FocusAsync");
+
 			await autosuggestInput.FocusAsync();
 		}
 
 		private async Task HandleInputInput(string newUserInput)
 		{
+			Console.WriteLine("HandleInputInput:" + newUserInput);
+
 			// user changes an input
 			userInput = newUserInput;
 			userInputModified = true;
@@ -147,6 +157,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
 		{
+			Console.WriteLine("HandleTimerElapsed");
+
 			// when a time interval reached, update suggestions
 			await InvokeAsync(async () =>
 			{
@@ -156,6 +168,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleInputFocus()
 		{
+			Console.WriteLine("HandleInputFocus");
+
 			// when an input gets focus, close a dropdown
 			currentlyFocused = true;
 			await DestroyDropdownAsync();
@@ -164,6 +178,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		// Kvůli updatovanání HTML a kolizi s bootstrap Dropdown nesmíme v InputBlur přerenderovat html!
 		private void HandleInputBlur()
 		{
+			Console.WriteLine("HandleInputBlur");
+
 			currentlyFocused = false;
 			// when user clicks back button in browser this method can be called after it is disposed!
 			blurInProgress = true;
@@ -174,14 +190,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task UpdateSuggestionsAsync()
 		{
+			Console.WriteLine("UpdateSuggestionsAsync");
+
 			// Cancelation is performed in HandleInputInput method
 			cancellationTokenSource?.Dispose();
 
 			cancellationTokenSource = new CancellationTokenSource();
 			CancellationToken cancellationToken = cancellationTokenSource.Token;
 
-			dataProviderInProgress = true;
-			StateHasChanged();
+			//dataProviderInProgress = true;
+			//StateHasChanged();
 
 			InputTagsDataProviderRequest request = new InputTagsDataProviderRequest
 			{
@@ -221,18 +239,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleItemClick(string tag)
 		{
+			Console.WriteLine("HandleItemClick:" + tag);
+
 			// user clicked on an item in the "dropdown".
-			await AddTagWithEventCallback(tag);
+			await AddTagWithEventCallbackAsync(tag);
 			userInput = String.Empty;
 			userInputModified = false;
 		}
 
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
+			Console.WriteLine("OnAfterRenderAsync:" + firstRender.ToString());
+
 			await base.OnAfterRenderAsync(firstRender);
 
 			if (blurInProgress)
 			{
+				Console.WriteLine("OnAfterRenderAsync-blurInProgress");
+
 				blurInProgress = false;
 				if (userInputModified && !isDropdownOpened)
 				{
@@ -245,6 +269,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task OpenDropdownAsync()
 		{
+			Console.WriteLine("OpenDropdownAsync");
+
 			if (!isDropdownOpened)
 			{
 				await EnsureJsModuleAsync();
@@ -255,6 +281,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task DestroyDropdownAsync()
 		{
+			Console.WriteLine("DestroyDropdownAsync");
+
 			if (isDropdownOpened)
 			{
 				await EnsureJsModuleAsync();
@@ -273,6 +301,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[JSInvokable("HxInputTagsInternal_HandleDropdownHidden")]
 		public Task HandleDropdownHidden()
 		{
+			Console.WriteLine("HandleDropdownHidden");
+
 			if (userInputModified && !currentlyFocused)
 			{
 				userInput = String.Empty;
@@ -284,11 +314,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		protected async Task HandleRemoveClickAsync(string tag)
 		{
-			await RemoveTagWithEventCallback(tag);
+			Console.WriteLine("HandleRemoveClickAsync:" + tag);
+
+			await RemoveTagWithEventCallbackAsync(tag);
 		}
 
 		public async ValueTask DisposeAsync()
 		{
+			Console.WriteLine("DisposeAsync");
+
 			timer?.Dispose();
 			timer = null;
 			cancellationTokenSource?.Dispose();

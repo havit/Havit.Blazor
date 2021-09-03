@@ -1,8 +1,10 @@
 ﻿export function open(inputElement, hxAutosuggestDotnetObjectReference) {
+	console.warn("open:" + inputElement);
 	inputElement.setAttribute("data-bs-toggle", "dropdown");
 	inputElement.hxAutosuggestDotnetObjectReference = hxAutosuggestDotnetObjectReference;
 	inputElement.addEventListener('hidden.bs.dropdown', handleDropdownHidden)
 
+	console.warn("open2:" + inputElement);
 	new bootstrap.Dropdown(inputElement).show();
 }
 

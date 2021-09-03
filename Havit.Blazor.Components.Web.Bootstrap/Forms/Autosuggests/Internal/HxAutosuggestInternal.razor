@@ -3,10 +3,16 @@
 @typeparam TValue
 
 <div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
-	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput @ref="autosuggestInput" InputId="@InputId"
-																	   EnabledEffective="@EnabledEffective" Value="@userInput" OnInputInput="HandleInputInput"
-																	   OnInputFocus="HandleInputFocus" OnInputBlur="HandleInputBlur" Placeholder="@Placeholder"
-																	   CssClass="@InputCssClass" Offset="@InputOffset" />
+	<HxAutosuggestInput @ref="autosuggestInput"
+						InputId="@InputId"
+						EnabledEffective="@EnabledEffective"
+						Value="@userInput"
+						OnInputInput="HandleInputInput"
+						OnInputFocus="HandleInputFocus"
+						OnInputBlur="HandleInputBlur"
+						Placeholder="@Placeholder"
+						CssClass="@InputCssClass"
+						Offset="@InputOffset" />
 	@if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
 	{
 		<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
@@ -36,11 +42,11 @@
 		<ItemTemplate>
 			@if (ItemTemplate != null)
 			{
-				<text>@ItemTemplate(context)</text>
+			<text>@ItemTemplate(context)</text>
 			}
 			else
 			{
-				<text>@TextSelectorEffective(context)</text>
+			<text>@TextSelectorEffective(context)</text>
 			}
 		</ItemTemplate>
 		<EmptyTemplate>

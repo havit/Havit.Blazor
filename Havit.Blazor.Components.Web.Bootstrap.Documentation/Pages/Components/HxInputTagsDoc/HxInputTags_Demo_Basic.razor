@@ -1,9 +1,4 @@
-@page "/HxInputTagsTest"
-
-<h1>HxInputTags</h1>
-
-<HxInputTags Label="Tags" @bind-Value="values" DataProvider="GetNewItemSuggestions" />
-@*<HxInputTags Label="Tags (shared Value)" @bind-Value="values" DataProvider="GetNewItemSuggestions" />*@
+﻿<HxInputTags Label="Tags" @bind-Value="values" DataProvider="GetNewItemSuggestions" />
 
 @code {
 	private List<string> values = new List<string>() { "Blazor", "C#", "ASP.NET" };
