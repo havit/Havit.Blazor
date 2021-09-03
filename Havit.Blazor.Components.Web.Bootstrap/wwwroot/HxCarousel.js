@@ -39,20 +39,17 @@ export function SetInterval(id, interval) {
     GetCarousel(id).interval = interval;
 }
 
-var HxCarouselDotnetObjectReference = undefined;
-
 export function AddEventListeners(id, hxCarouselDotnetObjectReference) {
     let carouselElement = document.getElementById(id);
-    HxCarouselDotnetObjectReference = hxCarouselDotnetObjectReference;
 
-    carouselElement.addEventListener('slide.bs.carousel', OnSlide);
-    carouselElement.addEventListener('slid.bs.carousel', OnSlid);
+    carouselElement.addEventListener('slide.bs.carousel', function () { OnSlide(hxCarouselDotnetObjectReference) });
+    carouselElement.addEventListener('slid.bs.carousel', function () { OnSlid(HxCarouselDotnetObjectReference) });
 }
 
-function OnSlide() {
+function OnSlide(HxCarouselDotnetObjectReference) {
     HxCarouselDotnetObjectReference.invokeMethodAsync('HxCarousel_HandleSlide');
 }
 
-function OnSlid() {
+function OnSlid(HxCarouselDotnetObjectReference) {
     HxCarouselDotnetObjectReference.invokeMethodAsync('HxCarousel_HandleSlid');
 }
