@@ -42,6 +42,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public List<char> Delimiters { get; set; } = new() { ',', ';', ' ' };
 
 		/// <summary>
+		/// Indicates whether the add-icon (+) should be displayed.
+		/// Default is <c>false</c>.
+		/// </summary>
+		[Parameter] public bool ShowAddButtonEffective { get; set; } = false;
+
+		/// <summary>
+		/// Indicates whether a "naked" variant should be displayed (no border).
+		/// Default is <c>false</c>.
+		/// Consider enabling <see cref="HxInputTags.ShowAddButton"/> when using <c>Naked</c>.
+		/// </summary>
+		[Parameter] public bool Naked { get; set; } = false;
+
+		/// <summary>
 		/// Short hint displayed in the input field before the user enters a value.
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
@@ -378,6 +391,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		protected string GetFormControlCssClasses()
 		{
+			if (Naked)
+			{
+				return null; // TODO Naked size?
+			}
 			return CssClassHelper.Combine("form-control", this.InputSizeEffective.AsFormControlCssClass());
 		}
 

@@ -33,8 +33,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public string Text { get; set; }
 
 		/// <summary>
-		/// Raised when the remove button is clicked.
+		/// Raised when the icon is clicked.
 		/// </summary>
-		[Parameter] public EventCallback OnRemoveClick { get; set; }
+		[Parameter] public EventCallback OnIconClick { get; set; }
+
+		/// <summary>
+		/// Icon to display. Default is <see cref="BootstrapIcon.X"/>.
+		/// </summary>
+		[Parameter] public IconBase Icon { get; set; } = BootstrapIcon.X;
 	}
 }

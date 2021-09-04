@@ -726,6 +726,19 @@
             Default is comma, semicolon and space.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.ShowAddButtonEffective">
+            <summary>
+            Indicates whether the add-icon (+) should be displayed.
+            Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.Naked">
+            <summary>
+            Indicates whether a "naked" variant should be displayed (no border).
+            Default is <c>false</c>.
+            Consider enabling <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.ShowAddButton"/> when using <c>Naked</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.Placeholder">
             <summary>
             Short hint displayed in the input field before the user enters a value.
@@ -761,9 +774,14 @@
             Tag text (value).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.OnRemoveClick">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.OnIconClick">
             <summary>
-            Raised when the remove button is clicked.
+            Raised when the icon is clicked.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.Icon">
+            <summary>
+            Icon to display. Default is <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.X"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSkin.None">
@@ -4443,6 +4461,19 @@
             Default is comma, semicolon and space.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.ShowAddButton">
+            <summary>
+            Indicates whether the add-icon (+) should be displayed.
+            Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Naked">
+            <summary>
+            Indicates whether a "naked" variant should be displayed (no border).
+            Default is <c>false</c>.
+            Consider enabling <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.ShowAddButton"/> when using <c>Naked</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Placeholder">
             <summary>
             Short hint displayed in the input field before the user enters a value.
@@ -4533,6 +4564,12 @@
             <summary>
             Characters, when typed, divide the current input into separate tags.
             Default is comma, semicolon and space.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.ShowAddButton">
+            <summary>
+            Indicates whether the add-icon (+) should be displayed.
+            Default is <c>false</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">

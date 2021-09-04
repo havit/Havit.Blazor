@@ -2,11 +2,14 @@
 
 <div>
 	<HxBadge Color="this.BackgroundColor"
-		 TextColor="this.TextColor"
-		 CssClass="@CssClassHelper.Combine("hx-tag", this.CssClass)">
+			 TextColor="this.TextColor"
+			 CssClass="@CssClassHelper.Combine("hx-tag", this.CssClass)">
 		@Text
-		<span class="d-inline-flex align-items-center" @onclick="this.OnRemoveClick" @onclick:stopPropagation="true" role="button">
-			<HxIcon Icon="@BootstrapIcon.X" />
-		</span>
+		@if (this.Icon is not null)
+		{
+			<span class="@CssClassHelper.Combine("d-inline-flex align-items-center", String.IsNullOrEmpty(Text) ? null : "ms-1")" @onclick="this.OnIconClick" @onclick:stopPropagation="true" role="button">
+				<HxIcon Icon="this.Icon" />
+			</span>
+		}
 	</HxBadge>
 </div>

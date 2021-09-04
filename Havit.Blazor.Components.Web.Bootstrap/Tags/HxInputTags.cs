@@ -18,8 +18,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
 		// TODO Chips?
-		// TODO AddTagIcon? (plus in ADOS), needed for Naked
-		// TODO Naked="true" (no border, ...)
 		// TODO Do we want spinner? Configurable?
 
 		/// <summary>
@@ -53,6 +51,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is comma, semicolon and space.
 		/// </summary>
 		[Parameter] public List<char> Delimiters { get; set; }
+
+		/// <summary>
+		/// Indicates whether the add-icon (+) should be displayed.
+		/// Default is <c>false</c>.
+		/// </summary>
+		[Parameter] public bool? ShowAddButton { get; set; }
+
+		/// <summary>
+		/// Indicates whether a "naked" variant should be displayed (no border).
+		/// Default is <c>false</c>.
+		/// Consider enabling <see cref="ShowAddButton"/> when using <c>Naked</c>.
+		/// </summary>
+		[Parameter] public bool Naked { get; set; } = false;
 
 		/// <summary>
 		/// Short hint displayed in the input field before the user enters a value.
@@ -100,6 +111,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1013, nameof(HxInputTagsInternal.AllowCustomTags), AllowCustomTags);
 			builder.AddAttribute(1014, nameof(HxInputTagsInternal.Delimiters), Delimiters ?? defaults.Delimiters);
 			builder.AddAttribute(1015, nameof(HxInputTagsInternal.InputSizeEffective), ((IInputWithSize)this).InputSizeEffective);
+			builder.AddAttribute(1015, nameof(HxInputTagsInternal.ShowAddButtonEffective), ShowAddButton ?? defaults.ShowAddButton);
+			builder.AddAttribute(1015, nameof(HxInputTagsInternal.Naked), Naked);
 			builder.AddComponentReferenceCapture(1100, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
 			builder.CloseComponent();
 		}

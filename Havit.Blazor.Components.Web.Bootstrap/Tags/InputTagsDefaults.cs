@@ -32,5 +32,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is comma, semicolon and space.
 		/// </summary>
 		public List<char> Delimiters = new() { ',', ';', ' ' };
+
+		/// <summary>
+		/// Indicates whether the add-icon (+) should be displayed.
+		/// Default is <c>false</c>.
+		/// </summary>
+		public bool ShowAddButton { get; set; } = false;
 	}
 }
