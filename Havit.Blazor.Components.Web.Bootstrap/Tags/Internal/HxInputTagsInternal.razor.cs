@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Infrastructure;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
@@ -126,6 +127,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			Console.WriteLine("FocusAsync");
 
 			await autosuggestInput.FocusAsync();
+		}
+
+		protected async Task HandleInputKeyDown(KeyboardEventArgs args)
+		{
+			if ((args.Code == "Backspace") && String.IsNullOrWhiteSpace(userInput) && (Value?.Any() ?? false))
+			{
+				await RemoveTagWithEventCallbackAsync(Value.Last());
+			}
 		}
 
 		private async Task HandleInputInput(string newUserInput)

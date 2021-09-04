@@ -13,8 +13,6 @@
 	   @onfocus="OnInputFocus"
 	   @onblur="OnInputBlur"
 	   @onmousedown="OnInputMouseDown"
+	   @onkeydown="OnInputKeyDown"
 	   @onclick:stopPropagation
-	   placeholder="@Placeholder"
-	   onfocusin="this.select()">
-
-@*onfocusin: cannot use onfocus twice (@onfocus and onfocus) *@
+	   placeholder="@Placeholder">

@@ -4411,6 +4411,11 @@
             Default is <c>true</c> (you can type your own tags).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.DataProvider">
+            <summary>
+            Set to method providing data for tags' suggestions.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.SuggestMinimumLength">
             <summary>
             Minimal number of characters to start suggesting. Default is <c>2</c>.

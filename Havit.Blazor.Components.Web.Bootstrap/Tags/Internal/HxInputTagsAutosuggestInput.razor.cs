@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
@@ -22,6 +23,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public EventCallback OnInputMouseDown { get; set; }
 
+		[Parameter] public EventCallback<KeyboardEventArgs> OnInputKeyDown { get; set; }
+
 		[Parameter] public string InputId { get; set; }
 
 		[Parameter] public string CssClass { get; set; }
@@ -38,16 +41,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private async Task HandleInput(ChangeEventArgs changeEventArgs)
 		{
 			await OnInputInput.InvokeAsync((string)changeEventArgs.Value);
-		}
-
-		private async Task HandleFocus()
-		{
-			await OnInputFocus.InvokeAsync(null);
-		}
-
-		private async Task HandleBlur()
-		{
-			await OnInputBlur.InvokeAsync(null);
 		}
 
 		public async ValueTask FocusAsync()

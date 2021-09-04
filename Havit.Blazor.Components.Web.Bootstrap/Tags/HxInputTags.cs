@@ -22,6 +22,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		// TODO Chips?
 		// TODO AddTagIcon? (plus in ADOS), needed for Naked
 		// TODO Naked="true" (no border, ...)
+		// TODO Backspace - remove last tag
 
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputTags"/>.
