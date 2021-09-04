@@ -1,10 +1,10 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<div class="hx-input-tags form-control d-flex position-relative flex-grow-1 flex-wrap">
+<div class="@CssClassHelper.Combine("hx-inputtags-form-control", GetFormControlCssClasses(), "d-flex position-relative flex-grow-1 flex-wrap")">
 		@* <div class="d-flex align-items-center flex-wrap"> *@
 			@foreach (string tag in Value)
 			{
-			<HxTagInternal Text="@tag" OnRemoveClick="async() => await HandleRemoveClickAsync(tag)" />
+				<HxTagInternal Text="@tag" OnRemoveClick="async() => await HandleRemoveClickAsync(tag)" />
 			}
 		@* </div> *@
 	<div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">

@@ -7,7 +7,8 @@
 	<Blazored.FluentValidation.FluentValidationValidator />
 	<ValidationSummary />
 	<HxInputTags Label="Tags" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
-	<HxInputTags Label="Tags (shared Value)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
+	<HxInputTags Label="Tags (shared Value, Large)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Large" />
+	<HxInputTags Label="Tags (shared Value, Small)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Small" />
 	<HxSubmit Color="ThemeColor.Primary">Submit</HxSubmit>
 </EditForm>
 

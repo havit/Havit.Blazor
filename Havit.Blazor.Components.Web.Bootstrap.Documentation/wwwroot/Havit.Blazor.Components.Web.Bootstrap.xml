@@ -704,6 +704,11 @@
             Offset between dropdown input and dropdown menu
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal">
+            <summary>
+            Internal implementation for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.AllowCustomTags">
             <summary>
             Indicates whether you are restricted to suggested items only (<c>false</c>).

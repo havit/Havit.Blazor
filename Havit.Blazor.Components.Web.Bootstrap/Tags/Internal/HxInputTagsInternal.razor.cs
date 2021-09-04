@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Forms;
 using Havit.Blazor.Components.Web.Infrastructure;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
@@ -13,12 +14,9 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	//ad 1) Existující vs nové: Nastavitelné
-	//ad 2) Primárně stringy, když něco jiného pro multipicker, je to bonus.Nepředpokládá se pro multipicker zakládání nových dat,
-	//ad 3) Ala grid, tj. request/response.
-
-	//4. Pořadí - prioritou je, že se při zadávání nepřeřadí, tj. nové nakonec.
-
+	/// <summary>
+	/// Internal implementation for <see cref="HxInputTags"/>.
+	/// </summary>
 	public partial class HxInputTagsInternal
 	{
 		/// <summary>
@@ -58,6 +56,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public LabelType LabelTypeEffective { get; set; }
 
+		[Parameter] public InputSize InputSizeEffective { get; set; }
+
 		/// <summary>
 		/// Offset between dropdown input and dropdown menu
 		/// </summary>
@@ -70,14 +70,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private string userInput = String.Empty;
 		private CancellationTokenSource cancellationTokenSource;
 		private List<string> suggestions;
-		//private bool userInputModified;
 		private bool isDropdownOpened = false;
 		private bool blurInProgress;
 		private bool currentlyFocused;
 		private bool mouseDownFocus;
 		private IJSObjectReference jsModule;
 		private HxInputTagsAutosuggestInput autosuggestInput;
-		//private TValue lastKnownValue;
 		private bool dataProviderInProgress;
 		private DotNetObjectReference<HxInputTagsInternal> dotnetObjectReference;
 
@@ -392,6 +390,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			Console.WriteLine("HandleRemoveClickAsync:" + tag);
 
 			await RemoveTagWithEventCallbackAsync(tag);
+		}
+
+		protected string GetFormControlCssClasses()
+		{
+			return CssClassHelper.Combine("form-control", this.InputSizeEffective.AsFormControlCssClass());
 		}
 
 		public async ValueTask DisposeAsync()

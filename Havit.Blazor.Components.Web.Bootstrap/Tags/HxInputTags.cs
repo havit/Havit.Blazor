@@ -17,12 +17,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
-		// TODO Delimiters + keyboard entry
-		// TODO InputSize
 		// TODO Chips?
 		// TODO AddTagIcon? (plus in ADOS), needed for Naked
 		// TODO Naked="true" (no border, ...)
-		// TODO Backspace - remove last tag
 
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputTags"/>.
@@ -101,6 +98,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1012, nameof(HxInputTagsInternal.LabelTypeEffective), labelTypeEffective);
 			builder.AddAttribute(1013, nameof(HxInputTagsInternal.AllowCustomTags), AllowCustomTags);
 			builder.AddAttribute(1014, nameof(HxInputTagsInternal.Delimiters), Delimiters ?? defaults.Delimiters);
+			builder.AddAttribute(1015, nameof(HxInputTagsInternal.InputSizeEffective), ((IInputWithSize)this).InputSizeEffective);
 			builder.AddComponentReferenceCapture(1100, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
 			builder.CloseComponent();
 		}
