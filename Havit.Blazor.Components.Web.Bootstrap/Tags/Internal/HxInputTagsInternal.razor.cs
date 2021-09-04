@@ -86,8 +86,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task AddTagWithEventCallbackAsync(string tag)
 		{
-			Console.WriteLine("AddTagWithEventCallback:" + tag);
-
 			if ((Value != null) && Value.Contains(tag))
 			{
 				return;
@@ -107,8 +105,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task RemoveTagWithEventCallbackAsync(string tag)
 		{
-			Console.WriteLine("RemoveTagWithEventCallback:" + tag);
-
 			if (Value == null)
 			{
 				return;
@@ -128,8 +124,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		public async ValueTask FocusAsync()
 		{
-			Console.WriteLine("FocusAsync");
-
 			await autosuggestInput.FocusAsync();
 		}
 
@@ -143,8 +137,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleInputInput(string newUserInput)
 		{
-			Console.WriteLine("HandleInputInput:" + newUserInput);
-
 			// user changes an input
 			userInput = newUserInput ?? String.Empty;
 
@@ -162,19 +154,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			// start new time interval
 			if (userInput.Length >= SuggestMinimumLength)
 			{
-				var interval = SuggestDelay;
-				if (interval == 0)
+				if (SuggestDelay == 0)
 				{
-					interval = 10;
+					await UpdateSuggestionsAsync();
 				}
-				if (timer == null)
+				else
 				{
-					timer = new System.Timers.Timer();
-					timer.AutoReset = false; // just once
-					timer.Elapsed += HandleTimerElapsed;
+					if (timer == null)
+					{
+						timer = new System.Timers.Timer();
+						timer.AutoReset = false; // just once
+						timer.Elapsed += HandleTimerElapsed;
+					}
+					timer.Interval = SuggestDelay;
+					timer.Start();
 				}
-				timer.Interval = interval;
-				timer.Start();
 			}
 			else
 			{
@@ -186,8 +180,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
 		{
-			Console.WriteLine("HandleTimerElapsed");
-
 			// when a time interval reached, update suggestions
 			await InvokeAsync(async () =>
 			{
@@ -202,8 +194,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleInputFocus()
 		{
-			Console.WriteLine("HandleInputFocus");
-
 			// when an input gets focus, close a dropdown
 			if (!currentlyFocused)
 			{
@@ -221,8 +211,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		// Kvůli updatovanání HTML a kolizi s bootstrap Dropdown nesmíme v InputBlur přerenderovat html!
 		private Task HandleInputBlur()
 		{
-			Console.WriteLine("HandleInputBlur");
-
 			currentlyFocused = false;
 			// when user clicks back button in browser this method can be called after it is disposed!
 			blurInProgress = true;
@@ -270,14 +258,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task UpdateSuggestionsAsync(bool bypassShow = false)
 		{
-			Console.WriteLine("UpdateSuggestionsAsync");
-
 			// Cancelation is performed in HandleInputInput method
 			cancellationTokenSource?.Dispose();
 
 			cancellationTokenSource = new CancellationTokenSource();
 			CancellationToken cancellationToken = cancellationTokenSource.Token;
 
+			// TODO Do we want spinnner? Configurable?
 			//dataProviderInProgress = true;
 			//StateHasChanged();
 
@@ -319,8 +306,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleItemClick(string tag)
 		{
-			Console.WriteLine("HandleItemClick:" + tag);
-
 			// user clicked on an item in the "dropdown".
 			userInput = String.Empty;
 			await AddTagWithEventCallbackAsync(tag);
@@ -333,14 +318,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
-			Console.WriteLine("OnAfterRenderAsync:" + firstRender.ToString());
-
 			await base.OnAfterRenderAsync(firstRender);
 
 			if (blurInProgress)
 			{
-				Console.WriteLine("OnAfterRenderAsync-blurInProgress");
-
 				blurInProgress = false;
 				if (!isDropdownOpened)
 				{
@@ -348,20 +329,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					userInput = String.Empty;
 					StateHasChanged();
 				}
-
-				//if (userInputModified && !isDropdownOpened)
-				//{
-				//	userInput = String.Empty;
-				//	userInputModified = false;
-				//	StateHasChanged();
-				//}
 			}
 		}
 
 		private async Task OpenDropdownAsync(bool bypassShow = false)
 		{
-			Console.WriteLine("OpenDropdownAsync");
-
 			if (!isDropdownOpened)
 			{
 				await EnsureJsModuleAsync();
@@ -372,8 +344,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task TryDestroyDropdownAsync()
 		{
-			Console.WriteLine("DestroyDropdownAsync");
-
 			if (isDropdownOpened)
 			{
 				await EnsureJsModuleAsync();
@@ -391,8 +361,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[JSInvokable("HxInputTagsInternal_HandleDropdownHidden")]
 		public async Task HandleDropdownHidden()
 		{
-			Console.WriteLine("HandleDropdownHidden");
-
 			isDropdownOpened = false;
 
 			if (!currentlyFocused)
@@ -405,8 +373,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		protected async Task HandleRemoveClickAsync(string tag)
 		{
-			Console.WriteLine("HandleRemoveClickAsync:" + tag);
-
 			await RemoveTagWithEventCallbackAsync(tag);
 		}
 
@@ -417,8 +383,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		public async ValueTask DisposeAsync()
 		{
-			Console.WriteLine("DisposeAsync");
-
 			timer?.Dispose();
 			timer = null;
 			cancellationTokenSource?.Dispose();
@@ -431,6 +395,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				await jsModule.DisposeAsync();
 			}
 		}
-
 	}
 }
