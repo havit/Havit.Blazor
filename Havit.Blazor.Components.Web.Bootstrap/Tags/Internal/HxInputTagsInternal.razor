@@ -1,13 +1,13 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
-	<div class="hx-input-tags form-control d-flex position-relative flex-grow-1 flex-wrap">
+<div class="hx-input-tags form-control d-flex position-relative flex-grow-1 flex-wrap">
 		@* <div class="d-flex align-items-center flex-wrap"> *@
 			@foreach (string tag in Value)
 			{
 			<HxTagInternal Text="@tag" OnRemoveClick="async() => await HandleRemoveClickAsync(tag)" />
 			}
 		@* </div> *@
+	<div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
 		<HxInputTagsAutosuggestInput @ref="autosuggestInput"
 									 InputId="@InputId"
 									 EnabledEffective="@EnabledEffective"
@@ -22,7 +22,7 @@
 									 Offset="@InputOffset" />
 		@if (dataProviderInProgress)
 		{
-		<HxSpinner Type="SpinnerType.Border" Size="SpinnerSize.Small" />
+			<HxSpinner Type="SpinnerType.Border" Size="SpinnerSize.Small" />
 		}
 		<HxAutosuggestItems TItem="string" Items="@suggestions" OnItemClick="HandleItemClick">
 			<ItemTemplate>
