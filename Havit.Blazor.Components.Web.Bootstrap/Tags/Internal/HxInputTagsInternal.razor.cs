@@ -38,6 +38,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public int SuggestMinimumLength { get; set; } = 2;
 
 		/// <summary>
+		/// Characters, when typed, divide the current input into separate tags.
+		/// Default is comma, semicolon and space.
+		/// </summary>
+		[Parameter] public List<char> Delimiters { get; set; } = new() { ',', ';', ' ' };
+
+		/// <summary>
 		/// Short hint displayed in the input field before the user enters a value.
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
@@ -143,7 +149,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			// user changes an input
 			userInput = newUserInput;
-			//userInputModified = true;
+
+			// tag delimiter => new tag
+			if (!String.IsNullOrWhiteSpace(userInput) && Delimiters.Contains(userInput[userInput.Length - 1]))
+			{
+				userInput = userInput.TrimEnd(this.Delimiters.ToArray());
+				await TryHandleCustomTagAsync();
+				return;
+			}
 
 			timer?.Stop(); // if waiting for an interval, stop it
 			cancellationTokenSource?.Cancel(); // if already loading data, cancel it

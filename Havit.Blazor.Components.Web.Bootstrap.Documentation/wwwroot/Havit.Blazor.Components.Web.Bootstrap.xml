@@ -715,6 +715,12 @@
             Minimal number of characters to start suggesting. Default is <c>2</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.Delimiters">
+            <summary>
+            Characters, when typed, divide the current input into separate tags.
+            Default is comma, semicolon and space.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.Placeholder">
             <summary>
             Short hint displayed in the input field before the user enters a value.
@@ -4426,6 +4432,12 @@
             Debounce delay in miliseconds. Default is <c>300 ms</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Delimiters">
+            <summary>
+            Characters, when typed, divide the current input into separate tags.
+            Default is comma, semicolon and space.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Placeholder">
             <summary>
             Short hint displayed in the input field before the user enters a value.
@@ -4510,6 +4522,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.InputSize">
             <summary>
             Input size.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.Delimiters">
+            <summary>
+            Characters, when typed, divide the current input into separate tags.
+            Default is comma, semicolon and space.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">

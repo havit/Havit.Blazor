@@ -26,5 +26,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Input size.
 		/// </summary>
 		public InputSize InputSize { get; set; } = InputSize.Regular;
+
+		/// <summary>
+		/// Characters, when typed, divide the current input into separate tags.
+		/// Default is comma, semicolon and space.
+		/// </summary>
+		public List<char> Delimiters = new() { ',', ';', ' ' };
 	}
 }

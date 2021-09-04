@@ -51,6 +51,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public int? SuggestDelay { get; set; } = 300;
 
 		/// <summary>
+		/// Characters, when typed, divide the current input into separate tags.
+		/// Default is comma, semicolon and space.
+		/// </summary>
+		[Parameter] public List<char> Delimiters { get; set; }
+
+		/// <summary>
 		/// Short hint displayed in the input field before the user enters a value.
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
@@ -94,7 +100,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1011, nameof(HxInputTagsInternal.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
 			builder.AddAttribute(1012, nameof(HxInputTagsInternal.LabelTypeEffective), labelTypeEffective);
 			builder.AddAttribute(1013, nameof(HxInputTagsInternal.AllowCustomTags), AllowCustomTags);
-			builder.AddComponentReferenceCapture(1014, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
+			builder.AddAttribute(1014, nameof(HxInputTagsInternal.Delimiters), Delimiters ?? defaults.Delimiters);
+			builder.AddComponentReferenceCapture(1100, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
 			builder.CloseComponent();
 		}
 
