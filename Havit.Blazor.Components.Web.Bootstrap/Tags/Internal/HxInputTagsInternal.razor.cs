@@ -150,6 +150,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			// user changes an input
 			userInput = newUserInput;
 
+			timer?.Stop(); // if waiting for an interval, stop it
+			cancellationTokenSource?.Cancel(); // if already loading data, cancel it
+			dataProviderInProgress = false; // data provider is no more in progress				 
+
 			// tag delimiter => new tag
 			if (!String.IsNullOrWhiteSpace(userInput) && Delimiters.Contains(userInput[userInput.Length - 1]))
 			{
@@ -157,10 +161,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				await TryHandleCustomTagAsync();
 				return;
 			}
-
-			timer?.Stop(); // if waiting for an interval, stop it
-			cancellationTokenSource?.Cancel(); // if already loading data, cancel it
-			dataProviderInProgress = false; // data provider is no more in progress				 
 
 			// start new time interval
 			if (userInput.Length >= SuggestMinimumLength)
