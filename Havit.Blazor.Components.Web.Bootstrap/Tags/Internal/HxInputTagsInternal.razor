@@ -2,12 +2,12 @@
 
 <div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
 	<div class="hx-input-tags form-control d-flex position-relative flex-grow-1 flex-wrap">
-		<div class="d-flex align-items-center flex-wrap">
+		@* <div class="d-flex align-items-center flex-wrap"> *@
 			@foreach (string tag in Value)
 			{
 			<HxTagInternal Text="@tag" OnRemoveClick="async() => await HandleRemoveClickAsync(tag)" />
 			}
-		</div>
+		@* </div> *@
 		<HxInputTagsAutosuggestInput @ref="autosuggestInput"
 									 InputId="@InputId"
 									 EnabledEffective="@EnabledEffective"
