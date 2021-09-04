@@ -146,17 +146,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			Console.WriteLine("HandleInputInput:" + newUserInput);
 
 			// user changes an input
-			userInput = newUserInput;
+			userInput = newUserInput ?? String.Empty;
 
 			timer?.Stop(); // if waiting for an interval, stop it
 			cancellationTokenSource?.Cancel(); // if already loading data, cancel it
 			dataProviderInProgress = false; // data provider is no more in progress				 
 
-			// tag delimiter => new tag
-			if (!String.IsNullOrWhiteSpace(userInput) && Delimiters.Contains(userInput[userInput.Length - 1]))
+			// tag delimiters
+			await TryProcessCustomTagsAsync(keepLastTagForSuggestion: true);
+			if (String.IsNullOrWhiteSpace(userInput))
 			{
-				userInput = userInput.TrimEnd(this.Delimiters.ToArray());
-				await TryHandleCustomTagAsync();
 				return;
 			}
 
@@ -234,20 +233,39 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			return Task.CompletedTask;
 		}
 
-		private async Task TryHandleCustomTagAsync()
+		private async Task TryProcessCustomTagsAsync(bool keepLastTagForSuggestion = false)
 		{
 			if (!AllowCustomTags)
 			{
 				return;
 			}
 
-			var newTag = userInput?.Trim();
-			if (!String.IsNullOrWhiteSpace(newTag))
+			// tags before last delimiter
+			char[] delimitersArray = Delimiters.ToArray();
+			var delimiterIndex = userInput.IndexOfAny(delimitersArray);
+			while (delimiterIndex >= 0)
 			{
-				await AddTagWithEventCallbackAsync(newTag);
+				var tag = userInput.Substring(0, delimiterIndex).Trim(delimitersArray);
+				userInput = userInput.Substring(delimiterIndex).TrimStart(delimitersArray);
+
+				if (!String.IsNullOrWhiteSpace(tag))
+				{
+					await AddTagWithEventCallbackAsync(tag);
+				}
+
+				delimiterIndex = userInput.IndexOfAny(delimitersArray);
 			}
-			userInput = String.Empty;
-			//userInputModified = false;
+
+			// last tag
+			if (!keepLastTagForSuggestion)
+			{
+				var newTag = userInput?.Trim(delimitersArray);
+				if (!String.IsNullOrWhiteSpace(newTag))
+				{
+					await AddTagWithEventCallbackAsync(newTag);
+				}
+				userInput = String.Empty;
+			}
 		}
 
 		private async Task UpdateSuggestionsAsync(bool bypassShow = false)
@@ -326,7 +344,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				blurInProgress = false;
 				if (!isDropdownOpened)
 				{
-					await TryHandleCustomTagAsync();
+					await TryProcessCustomTagsAsync();
 					userInput = String.Empty;
 					StateHasChanged();
 				}
@@ -379,7 +397,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			if (!currentlyFocused)
 			{
-				await TryHandleCustomTagAsync();
+				await TryProcessCustomTagsAsync();
 				userInput = String.Empty;
 				StateHasChanged();
 			}
