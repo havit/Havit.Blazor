@@ -69,7 +69,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
-		private protected override string CoreInputCssClass => "border-0 w-100";
+		private protected override string CoreInputCssClass => "border-0 flex-grow-1";
 		private protected override string CoreCssClass => "hx-inputtags position-relative";
 
 		private HxInputTagsInternal hxInputTagsInternalComponent;

@@ -1,10 +1,12 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<HxBadge Color="this.BackgroundColor"
+<div>
+	<HxBadge Color="this.BackgroundColor"
 		 TextColor="this.TextColor"
 		 CssClass="@CssClassHelper.Combine("hx-tag", this.CssClass)">
-	@Text
-	<span class="d-inline-flex align-items-center" @onclick="this.OnRemoveClick" @onclick:stopPropagation="true" role="button">
-		<HxIcon Icon="@BootstrapIcon.X" />
-	</span>
-</HxBadge>
+		@Text
+		<span class="d-inline-flex align-items-center" @onclick="this.OnRemoveClick" @onclick:stopPropagation="true" role="button">
+			<HxIcon Icon="@BootstrapIcon.X" />
+		</span>
+	</HxBadge>
+</div>

@@ -73,13 +73,20 @@
   --breakpoint-xxl: 1400px;
   /* Offcanvas */
   --hx-offcanvas-close-icon-font-size: 2rem;
+  /* ListLayout */
+  --hx-list-layout-body-padding-x: 0;
+  /* TagInput */
+  --hx-tag-input-tag-margin-left: 0;
+  --hx-tag-input-tag-margin-right: .25rem;
+  --hx-tag-input-tag-margin-y: .125rem;
 }
 
 /* Zatím nevím kam s tím. Odsazuji všechy inputy ve formu, pokud nejsou jediným potomkem. */
 form .hx-form-group:not(:only-child),
 form .hx-autosuggest:not(:only-child),
 form .form-check:not(:only-child),
-form .form-switch:not(:only-child) {
+form .form-switch:not(:only-child),
+form .hx-inputtags:not(:only-child) {
   margin-bottom: var(--hx-form-spacing);
 }
 
