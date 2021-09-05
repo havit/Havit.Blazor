@@ -76,6 +76,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		[Parameter] public (int X, int Y) InputOffset { get; set; }
 
+		/// <summary>
+		/// Any additional CSS class to apply.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		private string dropdownId = "hx" + Guid.NewGuid().ToString("N");

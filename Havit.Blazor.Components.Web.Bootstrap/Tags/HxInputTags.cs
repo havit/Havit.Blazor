@@ -111,8 +111,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1013, nameof(HxInputTagsInternal.AllowCustomTags), AllowCustomTags);
 			builder.AddAttribute(1014, nameof(HxInputTagsInternal.Delimiters), Delimiters ?? defaults.Delimiters);
 			builder.AddAttribute(1015, nameof(HxInputTagsInternal.InputSizeEffective), ((IInputWithSize)this).InputSizeEffective);
-			builder.AddAttribute(1015, nameof(HxInputTagsInternal.ShowAddButtonEffective), ShowAddButton ?? defaults.ShowAddButton);
-			builder.AddAttribute(1015, nameof(HxInputTagsInternal.Naked), Naked);
+			builder.AddAttribute(1016, nameof(HxInputTagsInternal.ShowAddButtonEffective), ShowAddButton ?? defaults.ShowAddButton);
+			builder.AddAttribute(1017, nameof(HxInputTagsInternal.Naked), Naked);
+			builder.AddAttribute(1018, nameof(HxInputTagsInternal.CssClass), CssClassHelper.Combine(this.CssClass, IsValueInvalid() ? InvalidCssClass : null));
 			builder.AddComponentReferenceCapture(1100, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
 			builder.CloseComponent();
 		}
@@ -123,12 +124,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (ShowValidationMessage)
 			{
 				builder.OpenElement(1, "div");
-				builder.AddAttribute(2, "class", IsValueValid() ? InvalidCssClass : null);
-				builder.CloseElement();
+				builder.AddAttribute(2, "class", IsValueInvalid() ? InvalidCssClass : null);
 
 				builder.OpenRegion(3);
 				base.BuildRenderValidationMessage(builder);
 				builder.CloseRegion();
+
+				builder.CloseElement();
 			}
 		}
 

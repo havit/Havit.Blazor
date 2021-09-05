@@ -749,6 +749,11 @@
             Offset between dropdown input and dropdown menu
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal">
             <summary>
             Single tag visual. Building block for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal"/>.
@@ -1877,9 +1882,9 @@
             Sets InputId to a random value when empty.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.IsValueValid">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.IsValueInvalid">
             <summary>
-            Returns true when the Value is considered do be valid. Otherwise false.
+            Returns <c>true</c> when the Value is considered do be invalid. Otherwise <c>false</c>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GetInputCssClassToRender">
