@@ -165,10 +165,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			// tag delimiters
 			await TryProcessCustomTagsAsync(keepLastTagForSuggestion: true);
-			if (String.IsNullOrWhiteSpace(userInput))
-			{
-				return;
-			}
 
 			// start new time interval
 			if (userInput.Length >= SuggestMinimumLength)
