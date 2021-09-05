@@ -26,6 +26,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public bool AllowCustomTags { get; set; } = true;
 
 		[Parameter] public List<string> Value { get; set; }
+		protected List<string> ValueEffective => Value ?? new();
 		[Parameter] public EventCallback<List<string>> ValueChanged { get; set; }
 
 		[Parameter] public InputTagsDataProviderDelegate DataProvider { get; set; }
@@ -147,9 +148,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		protected async Task HandleInputKeyDown(KeyboardEventArgs args)
 		{
-			if ((args.Code == "Backspace") && String.IsNullOrWhiteSpace(userInput) && (Value?.Any() ?? false))
+			if ((args.Code == "Backspace") && String.IsNullOrWhiteSpace(userInput) && ValueEffective.Any())
 			{
-				await RemoveTagWithEventCallbackAsync(Value.Last());
+				await RemoveTagWithEventCallbackAsync(ValueEffective.Last());
 			}
 		}
 

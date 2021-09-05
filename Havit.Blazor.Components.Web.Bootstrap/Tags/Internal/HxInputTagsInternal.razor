@@ -2,7 +2,7 @@
 
 <div class="@CssClassHelper.Combine("hx-inputtags-form-control", GetFormControlCssClasses(), "d-flex position-relative flex-grow-1 flex-wrap", this.CssClass)">
 	@* <div class="d-flex align-items-center flex-wrap"> *@
-	@foreach (string tag in Value)
+	@foreach (string tag in ValueEffective)
 	{
 		<HxTagInternal Text="@tag" OnIconClick="async() => await HandleRemoveClickAsync(tag)" />
 	}
@@ -21,7 +21,7 @@
 									 OnInputBlur="HandleInputBlur"
 									 OnInputMouseDown="HandleInputMouseDown"
 									 OnInputKeyDown="HandleInputKeyDown"
-									 Placeholder="@((Value?.Any() ?? false) ? null : Placeholder)"
+									 Placeholder="@(ValueEffective.Any() ? null : Placeholder)"
 									 CssClass="@InputCssClass"
 									 Offset="@InputOffset" />
 		@if (dataProviderInProgress)
