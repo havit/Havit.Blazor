@@ -5,3 +5,9 @@
 input:focus {
 	outline: none;
 }
+
+.dropdown {
+	display: flex;
+	flex-grow: 1;
+	flex-basis: var(--hx-input-tags-input-width)
+}

@@ -77,9 +77,10 @@
 	/* ListLayout */
 	--hx-list-layout-body-padding-x: 0;
 	/* TagInput */
-	--hx-tag-input-tag-margin-left: 0;
-	--hx-tag-input-tag-margin-right: .25rem;
-	--hx-tag-input-tag-margin-y: .125rem;
+	--hx-input-tags-tag-margin-left: 0;
+	--hx-input-tags-tag-margin-right: .25rem;
+	--hx-input-tags-tag-margin-y: .125rem;
+	--hx-input-tags-input-width: 8em;
 }
 
 /* Zatím nevím kam s tím. Odsazuji všechy inputy ve formu, pokud nejsou jediným potomkem. */

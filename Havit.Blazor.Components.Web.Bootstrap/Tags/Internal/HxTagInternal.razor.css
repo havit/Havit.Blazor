@@ -1,6 +1,6 @@
 ::deep .hx-tag {
-    margin-right: var(--hx-tag-input-tag-margin-right);
-    margin-left: var(--hx-tag-input-tag-margin-left);
-    margin-top: var(--hx-tag-input-tag-margin-y);
-    margin-bottom: var(--hx-tag-input-tag-margin-y);
+    margin-right: var(--hx-input-tags-tag-margin-right);
+    margin-left: var(--hx-input-tags-tag-margin-left);
+    margin-top: var(--hx-input-tags-tag-margin-y);
+    margin-bottom: var(--hx-input-tags-tag-margin-y);
 }
