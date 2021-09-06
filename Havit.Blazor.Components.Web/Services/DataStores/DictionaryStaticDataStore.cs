@@ -91,10 +91,9 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 		{
 			if ((Data is null) || ShouldRefresh())
 			{
+				await loadLock.WaitAsync(); // basic lock (Monitor) is thread-based and cannot be used for async code
 				try
 				{
-					await loadLock.WaitAsync(); // basic lock (Monitor) is thread-based and cannot be used for async code
-
 					if ((Data is null) || ShouldRefresh()) // do not use previous ShouldRefresh result, the data might got refreshed in meantime
 					{
 						var rawData = await LoadDataAsync();

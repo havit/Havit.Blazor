@@ -105,5 +105,25 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 			sut.Verify(s => s.LoadDataAsync(), Times.Exactly(2));
 			CollectionAssert.AreEqual(new[] { "Adam", "Barbora", "Cyril" }, result.ToList());
 		}
+
+		//[TestMethod] - This test fails and should NOT!
+		public void DictionaryStaticDataStore_ManyParallelCallsShouldNotReloadData()
+		{
+			// arrange
+			var sut = new Mock<DictionaryStaticDataStore<char, string>>();
+			sut.CallBase = true;
+			sut.SetupGet(s => s.KeySelector).Returns(value => value[0]);
+			sut.Setup(s => s.LoadDataAsync()).ReturnsAsync(new[] { "Adam", "Barbora", "Cyril" }, TimeSpan.FromMilliseconds(50));
+			sut.Setup(s => s.ShouldRefresh()).Returns(false);
+
+			// act
+			Parallel.For(0, 1000, async (int i) =>
+			{
+				_ = await sut.Object.GetAllAsync();
+			});
+
+			// assert
+			sut.Verify(s => s.LoadDataAsync(), Times.Once);
+		}
 	}
 }
