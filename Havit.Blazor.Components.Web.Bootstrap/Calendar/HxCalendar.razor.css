@@ -36,6 +36,7 @@ td > div {
 .day-names td {
     color: var(--hx-calendar-day-names-color);  
     font-size: .75rem;
+    font-weight: var(--hx-calendar-day-names-font-weight);
 }
 
 .week div {
