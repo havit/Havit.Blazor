@@ -13,20 +13,6 @@ app {
 	box-shadow: 0 0.125rem 0.25rem rgba(46, 117, 240, 0.08) !important
 }
 
-/* .main {
-	flex: 1;
-}
-
-	.main .top-row {
-		justify-content: flex-end;
-	}
-
-		.main .top-row > a,
-		.main .top-row .btn-link {
-			white-space: nowrap;
-			margin-left: 1.5rem;
-		} */
-
 #blazor-error-ui {
 	background: lightyellow;
 	bottom: 0;
@@ -45,18 +31,6 @@ app {
 	right: 0.75rem;
 	top: 0.5rem;
 }
-
-/* @media (min-width: 768px) {
-	app {
-		flex-direction: row;
-	}
-
-	.sidebar {
-		height: 100vh;
-		position: sticky;
-		top: 0;
-	}
-} */
 
 :not(pre)>code[class*=language-], pre[class*=language-] {
 	background-color: var(--bs-gray-100);
