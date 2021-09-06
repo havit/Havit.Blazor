@@ -144,6 +144,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			throw new NotSupportedException();
 		}
+		protected override string GetInputCssClassToRender()
+		{
+			// we do not want 
+			string validationCssClass = IsValueInvalid() ? InvalidCssClass : null;
+			return CssClassHelper.Combine(CoreInputCssClass, InputCssClass, validationCssClass);
+		}
 
 		/// <inheritdoc />
 		public override async ValueTask FocusAsync()
