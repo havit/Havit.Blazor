@@ -143,6 +143,11 @@
             Any additional CSS class to apply.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying HTML element.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonGroupOrientation">
             <summary>
             Orientation for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup"/>.
