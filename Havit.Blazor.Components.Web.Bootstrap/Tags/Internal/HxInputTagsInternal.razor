@@ -18,14 +18,17 @@
 
 	@if (ShowAddButtonEffective && !currentlyFocused && !isDropdownOpened)
 	{
+		var showAddButtonText = !this.ValueEffective.Any() && !String.IsNullOrEmpty(AddButtonText);
+
 		<HxBadge Color="ThemeColor.Light"
 				 TextColor="ThemeColor.Dark"
 				 CssClass="hx-tag hx-tag-add-button"
 				 role="button">
-			<span class="@CssClassHelper.Combine("d-inline-flex align-items-center", String.IsNullOrEmpty(AddButtonText) ? null : "me-1")"role="button">@* We don't need to catch onClick here as it gets propagated to parent div*@
+			<span class="@CssClassHelper.Combine("d-inline-flex align-items-center", showAddButtonText ? "me-1" : null)" role="button">
+				@* We don't need to catch onClick here as it gets propagated to parent div*@
 				<HxIcon Icon="BootstrapIcon.Plus" />
 			</span>
-			@if (!this.ValueEffective.Any() && !String.IsNullOrEmpty(AddButtonText))
+			@if (showAddButtonText)
 			{
 				@AddButtonText
 			}
