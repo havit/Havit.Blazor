@@ -58,6 +58,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		/// </summary>
 		[Parameter] public List<string> ExcludedMembers { get; set; } = new();
 
+		[Parameter] public bool Delegate { get; set; }
+
 		[Inject] private NavigationManager NavigationManager { get; set; }
 
 		private static readonly HttpClient client = new HttpClient();
@@ -73,6 +75,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		private List<Method> staticMethods = new();
 
 		private List<EnumMember> enumMembers = new();
+
+		private string delegateSignature;
 
 		private bool isEnum;
 
@@ -100,6 +104,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			staticMethods = methods.staticMethods;
 
 			HandleEnum(reader);
+			HandleDelegate();
 
 			StateHasChanged();
 		}
@@ -138,6 +143,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			{
 				return reader.ReadToEnd();
 			}
+		}
+
+		private void HandleDelegate()
+		{
+			if (!Delegate)
+			{
+				return;
+			}
+
+			MethodInfo method = Type.GetMethod("Invoke");
+			delegateSignature = $"{FormatType(method.ReturnType.ToString())} {FormatType(Type)} (";
+			foreach (ParameterInfo param in method.GetParameters())
+			{
+				delegateSignature += $"{FormatType(param.ParameterType)} {param.Name}";
+			}
+			delegateSignature += ")";
+			delegateSignature = delegateSignature.Replace("object", "TItem");
 		}
 
 		private void HandleEnum(DocXmlReader reader)
@@ -327,6 +349,34 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		public static string FormatType(Type type)
 		{
 			string typeName = type.FullName;
+			if (string.IsNullOrWhiteSpace(typeName))
+			{
+				return string.Empty;
+			}
+
+			typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces
+
+			var provider = CodeDomProvider.CreateProvider("CSharp");
+			var reference = new CodeTypeReference(typeName);
+
+			typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
+			typeName = Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
+
+			string internalTypeName = GenerateLinkForInternalType(typeName);
+			if (internalTypeName is not null)
+			{
+				typeName = internalTypeName;
+			}
+			else
+			{
+				typeName = HttpUtility.HtmlEncode(typeName);
+			}
+
+			return typeName;
+		}
+
+		public static string FormatType(string typeName)
+		{
 			if (string.IsNullOrWhiteSpace(typeName))
 			{
 				return string.Empty;
