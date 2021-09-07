@@ -9,6 +9,11 @@
 
 <h2>API</h2>
 
+@if (Delegate)
+            {
+				<h6>@((MarkupString)delegateSignature)</h6>
+            } 
+
 @if (isEnum)
 {
 	<h3>Enum Values</h3>
@@ -133,7 +138,7 @@
 			@foreach (var method in methods)
 			{
 				<tr>
-					<td><strong>@method.MethodInfo.Name</strong>@method.GetParameters()</td>
+					<td><strong>@method.MethodInfo.Name</strong>@((MarkupString)@method.GetParameters())</td>
 					<td><code>@((MarkupString)@FormatType(method.MethodInfo.ReturnType))</code></td>
 					<td class="summary">@((MarkupString)method.Comments.Summary)</td>
 				</tr>
