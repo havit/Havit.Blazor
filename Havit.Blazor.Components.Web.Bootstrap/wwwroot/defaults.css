@@ -90,7 +90,7 @@ form .hx-form-group:not(:only-child),
 form .hx-autosuggest:not(:only-child),
 form .form-check:not(:only-child),
 form .form-switch:not(:only-child),
-form .hx-inputtags:not(:only-child) {
+form .hx-input-tags:not(:only-child) {
   margin-bottom: var(--hx-form-spacing);
 }
 
