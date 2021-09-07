@@ -93,7 +93,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
 		private protected override string CoreInputCssClass => "border-0 flex-grow-1";
-		private protected override string CoreCssClass => "hx-inputtags position-relative";
+		private protected override string CoreCssClass => "hx-input-tags position-relative";
 
 		private HxInputTagsInternal hxInputTagsInternalComponent;
 

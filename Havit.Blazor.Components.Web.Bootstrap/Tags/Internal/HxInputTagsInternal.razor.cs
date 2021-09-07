@@ -402,9 +402,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			if (Naked)
 			{
-				return null; // TODO Naked size?
+				return null;
 			}
 			return CssClassHelper.Combine("form-control", this.InputSizeEffective.AsFormControlCssClass());
+		}
+
+		protected string GetNakedCssClasses()
+		{
+			if (!Naked)
+			{
+				return null;
+			}
+			return CssClassHelper.Combine("hx-input-tags-naked", this.InputSizeEffective switch
+			{
+				InputSize.Regular => null,
+				InputSize.Small => "hx-input-tags-naked-sm",
+				InputSize.Large => "hx-input-tags-naked-lg",
+				_ => throw new InvalidOperationException($"Unknown {nameof(InputSize)} value {this.InputSizeEffective}.")
+			});
 		}
 
 		public async ValueTask DisposeAsync()
