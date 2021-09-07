@@ -9,6 +9,9 @@
 	<HxInputTags Label="Tags" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
 	<HxInputTags Label="Tags (shared Value, Large)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Large" />
 	<HxInputTags Label="Tags (shared Value, Small)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Small" />
+	<HxInputTags Naked Label="Tags Naked" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
+	<HxInputTags Naked Label="Tags (shared Value, Large, Naked)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Large" />
+	<HxInputTags Naked Label="Tags (shared Value, Small, Naked)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Small" />
 	<HxSubmit Color="ThemeColor.Primary">Submit</HxSubmit>
 </EditForm>
 
