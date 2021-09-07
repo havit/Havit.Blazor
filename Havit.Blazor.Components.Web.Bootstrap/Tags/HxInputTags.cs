@@ -59,6 +59,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? ShowAddButton { get; set; }
 
 		/// <summary>
+		/// Optional text for the add-button.
+		/// Displayed only when there are no tags (the <c>Value</c> is empty).
+		/// Default is <c>null</c> (none).
+		/// </summary>
+		[Parameter] public string AddButtonText { get; set; }
+
+		/// <summary>
 		/// Indicates whether a "naked" variant should be displayed (no border).
 		/// Default is <c>false</c>.
 		/// Consider enabling <see cref="ShowAddButton"/> when using <c>Naked</c>.
@@ -114,6 +121,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1016, nameof(HxInputTagsInternal.ShowAddButtonEffective), ShowAddButton ?? defaults.ShowAddButton);
 			builder.AddAttribute(1017, nameof(HxInputTagsInternal.Naked), Naked);
 			builder.AddAttribute(1018, nameof(HxInputTagsInternal.CssClass), CssClassHelper.Combine(this.CssClass, IsValueInvalid() ? InvalidCssClass : null));
+			builder.AddAttribute(1019, nameof(HxInputTagsInternal.AddButtonText), this.AddButtonText);
 			builder.AddComponentReferenceCapture(1100, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
 			builder.CloseComponent();
 		}

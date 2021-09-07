@@ -11,3 +11,10 @@ input:focus {
 	flex-grow: 1;
 	flex-basis: var(--hx-input-tags-input-width)
 }
+
+::deep .hx-tag {
+	margin-right: var(--hx-input-tags-tag-margin-right);
+	margin-left: var(--hx-input-tags-tag-margin-left);
+	margin-top: var(--hx-input-tags-tag-margin-y);
+	margin-bottom: var(--hx-input-tags-tag-margin-y);
+}

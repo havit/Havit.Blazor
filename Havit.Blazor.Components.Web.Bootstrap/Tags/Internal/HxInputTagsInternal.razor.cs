@@ -49,6 +49,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public bool ShowAddButtonEffective { get; set; } = false;
 
 		/// <summary>
+		/// Optional text for the add-button.
+		/// Displayed only when there are no tags (the <see cref="Value"/> is empty).
+		/// Default is <c>null</c> (none).
+		/// </summary>
+		[Parameter] public string AddButtonText { get; set; }
+
+		/// <summary>
 		/// Indicates whether a "naked" variant should be displayed (no border).
 		/// Default is <c>false</c>.
 		/// Consider enabling <see cref="HxInputTags.ShowAddButton"/> when using <c>Naked</c>.

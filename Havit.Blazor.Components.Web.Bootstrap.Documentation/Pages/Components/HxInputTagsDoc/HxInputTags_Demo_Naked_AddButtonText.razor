@@ -1,12 +1,12 @@
 ﻿<HxInputTags @bind-Value="values"
 			 DataProvider="GetNewItemSuggestions"
 			 ShowAddButton="true"
+			 AddButtonText="Add tag"
 			 Naked />
 
 @code
 {
-	private List<string> values = new List<string>() { "Blazor", "C#", "ASP.NET" };
-	private List<string> values2 = new List<string>();
+	private List<string> values = new List<string>();
 	private async Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
 	{
 		await Task.Delay(50); // simulate server API call

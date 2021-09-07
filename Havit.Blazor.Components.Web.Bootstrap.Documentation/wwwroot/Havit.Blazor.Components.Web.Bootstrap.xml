@@ -737,6 +737,13 @@
             Default is <c>false</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.AddButtonText">
+            <summary>
+            Optional text for the add-button.
+            Displayed only when there are no tags (the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.Value"/> is empty).
+            Default is <c>null</c> (none).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.Naked">
             <summary>
             Indicates whether a "naked" variant should be displayed (no border).
@@ -757,41 +764,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.CssClass">
             <summary>
             Any additional CSS class to apply.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal">
-            <summary>
-            Single tag visual. Building block for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.BackgroundColor">
-            <summary>
-            Tag background color. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.TextColor">
-            <summary>
-            Tag text (value) color. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Dark"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.CssClass">
-            <summary>
-            Any additional CSS class to apply.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.Text">
-            <summary>
-            Tag text (value).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.OnIconClick">
-            <summary>
-            Raised when the icon is clicked.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTagInternal.Icon">
-            <summary>
-            Icon to display. Default is <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.X"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSkin.None">
@@ -4475,6 +4447,13 @@
             <summary>
             Indicates whether the add-icon (+) should be displayed.
             Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.AddButtonText">
+            <summary>
+            Optional text for the add-button.
+            Displayed only when there are no tags (the <c>Value</c> is empty).
+            Default is <c>null</c> (none).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Naked">
