@@ -1,12 +1,12 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<div class="@CssClassHelper.Combine("hx-inputtags-form-control", GetFormControlCssClasses(), "d-flex position-relative flex-grow-1 flex-wrap align-items-center", this.CssClass)">
-	@* <div class="d-flex align-items-center flex-wrap"> *@
+<div class="@CssClassHelper.Combine("hx-input-tags", GetFormControlCssClasses(), "d-flex position-relative flex-grow-1 flex-wrap align-items-center", this.CssClass)"
+	 @onclick="async () => await autosuggestInput.FocusAsync()"
+	 @onclick:stopPropagation>
 	@foreach (string tag in ValueEffective)
 	{
 		<HxTagInternal Text="@tag" OnIconClick="async() => await HandleRemoveClickAsync(tag)" />
 	}
-	@* </div> *@
 	@if (ShowAddButtonEffective && !currentlyFocused && !isDropdownOpened)
 	{
 		<HxTagInternal Icon="BootstrapIcon.Plus" OnIconClick="async() => await autosuggestInput.FocusAsync()" />
