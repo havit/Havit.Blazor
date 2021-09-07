@@ -18,3 +18,11 @@ input:focus {
 	margin-top: var(--hx-input-tags-tag-margin-y);
 	margin-bottom: var(--hx-input-tags-tag-margin-y);
 }
+
+.hx-input-tags-naked-sm  {
+	font-size: var(--hx-input-tags-naked-font-size-sm);
+}
+
+.hx-input-tags-naked-lg  {
+	font-size: var(--hx-input-tags-naked-font-size-lg);
+}
