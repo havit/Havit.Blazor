@@ -756,6 +756,16 @@
             Short hint displayed in the input field before the user enters a value.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.TagBackgroundColor">
+            <summary>
+            Background color of the tag (also used for the AddButton).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.TagTextColor">
+            <summary>
+            Color of the tag text (also used for the AddButtonText and icons).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputOffset">
             <summary>
             Offset between dropdown input and dropdown menu
@@ -4468,6 +4478,18 @@
             Short hint displayed in the input field before the user enters a value.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.TagBackgroundColor">
+            <summary>
+            Background color of the tag (also used for the AddButton).
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.TagTextColor">
+            <summary>
+            Color of the tag text (also used for the AddButtonText and icons).
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Dark"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.LabelType">
             <inheritdoc />
         </member>
@@ -4559,6 +4581,18 @@
             <summary>
             Indicates whether the add-icon (+) should be displayed.
             Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.TagBackgroundColor">
+            <summary>
+            Background color of the tag (also used for the AddButton).
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.TagTextColor">
+            <summary>
+            Color of the tag text (also used for the AddButtonText and icons).
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Dark"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">

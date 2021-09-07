@@ -67,6 +67,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
 
+		/// <summary>
+		/// Background color of the tag (also used for the AddButton).
+		/// </summary>
+		[Parameter] public ThemeColor TagBackgroundColor { get; set; }
+
+		/// <summary>
+		/// Color of the tag text (also used for the AddButtonText and icons).
+		/// </summary>
+		[Parameter] public ThemeColor TagTextColor { get; set; }
+
 		[Parameter] public int SuggestDelay { get; set; } = 300;
 
 		[Parameter] public string InputCssClass { get; set; }

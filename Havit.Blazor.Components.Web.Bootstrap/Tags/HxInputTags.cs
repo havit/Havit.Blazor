@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
-using Havit.Blazor.Components.Web.Infrastructure;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -77,6 +75,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
 
+		/// <summary>
+		/// Background color of the tag (also used for the AddButton).
+		/// Default is <see cref="ThemeColor.Light"/>.
+		/// </summary>
+		[Parameter] public ThemeColor? TagBackgroundColor { get; set; }
+
+		/// <summary>
+		/// Color of the tag text (also used for the AddButtonText and icons).
+		/// Default is <see cref="ThemeColor.Dark"/>.
+		/// </summary>
+		[Parameter] public ThemeColor? TagTextColor { get; set; }
+
 		/// <inheritdoc />
 		[Parameter] public LabelType? LabelType { get; set; }
 
@@ -122,6 +132,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1017, nameof(HxInputTagsInternal.Naked), Naked);
 			builder.AddAttribute(1018, nameof(HxInputTagsInternal.CssClass), CssClassHelper.Combine(this.CssClass, IsValueInvalid() ? InvalidCssClass : null));
 			builder.AddAttribute(1019, nameof(HxInputTagsInternal.AddButtonText), this.AddButtonText);
+			builder.AddAttribute(1020, nameof(HxInputTagsInternal.TagBackgroundColor), this.TagBackgroundColor ?? defaults.TagBackgroundColor);
+			builder.AddAttribute(1021, nameof(HxInputTagsInternal.TagTextColor), this.TagTextColor ?? defaults.TagTextColor);
 			builder.AddComponentReferenceCapture(1100, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
 			builder.CloseComponent();
 		}

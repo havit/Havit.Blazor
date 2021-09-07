@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
+using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -38,5 +39,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is <c>false</c>.
 		/// </summary>
 		public bool ShowAddButton { get; set; } = false;
+
+		/// <summary>
+		/// Background color of the tag (also used for the AddButton).
+		/// Default is <see cref="ThemeColor.Light"/>.
+		/// </summary>
+		[Parameter] public ThemeColor TagBackgroundColor { get; set; } = ThemeColor.Light;
+
+		/// <summary>
+		/// Color of the tag text (also used for the AddButtonText and icons).
+		/// Default is <see cref="ThemeColor.Dark"/>.
+		/// </summary>
+		[Parameter] public ThemeColor TagTextColor { get; set; } = ThemeColor.Dark;
 	}
 }
