@@ -17,6 +17,13 @@ input:focus {
 	margin-left: var(--hx-input-tags-tag-margin-left);
 	margin-top: var(--hx-input-tags-tag-margin-y);
 	margin-bottom: var(--hx-input-tags-tag-margin-y);
+	display: flex;
+	align-items: center;
+}
+
+::deep .hx-icon {
+	display: flex;
+	align-items: center;
 }
 
 .hx-input-tags-naked-sm  {
@@ -25,4 +32,10 @@ input:focus {
 
 .hx-input-tags-naked-lg  {
 	font-size: var(--hx-input-tags-naked-font-size-lg);
+}
+
+.hx-tag-remove-button:hover {
+	background-color: var(--bs-dark);
+	color: var(--bs-light);
+	border-radius: 50%;
 }

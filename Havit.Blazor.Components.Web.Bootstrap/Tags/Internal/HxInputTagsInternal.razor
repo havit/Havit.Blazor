@@ -10,7 +10,7 @@
 				 TextColor="ThemeColor.Dark"
 				 CssClass="hx-tag">
 			@tag
-			<span class="d-inline-flex align-items-center ms-1" @onclick="async() => await HandleRemoveClickAsync(tag)" @onclick:stopPropagation="true" role="button">
+			<span class="d-inline-flex align-items-center ms-1 hx-tag-remove-button" @onclick="async() => await HandleRemoveClickAsync(tag)" @onclick:stopPropagation="true" role="button">
 				<HxIcon Icon="BootstrapIcon.X" />
 			</span>
 		</HxBadge>
