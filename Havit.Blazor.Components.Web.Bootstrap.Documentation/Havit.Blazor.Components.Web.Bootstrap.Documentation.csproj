@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Components\HxButtonToolbarDoc\**" />
+    <Content Remove="Pages\Components\HxButtonToolbarDoc\**" />
+    <EmbeddedResource Remove="Pages\Components\HxButtonToolbarDoc\**" />
+    <None Remove="Pages\Components\HxButtonToolbarDoc\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\Havit.Blazor.Components.Web.Bootstrap.xml" />
     <Content Remove="wwwroot\Havit.Blazor.Components.Web.xml" />
     <Content Remove="wwwroot\Havit.Blazor.GoogleTagManager.xml" />
@@ -30,10 +37,6 @@
     <ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap\Havit.Blazor.Components.Web.Bootstrap.csproj" />
     <ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
     <ProjectReference Include="..\Havit.Blazor.GoogleTagManager\Havit.Blazor.GoogleTagManager.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\Components\HxButtonToolbarDoc\" />
   </ItemGroup>
 
 	<Target Name="EmbedDemos" BeforeTargets="PrepareForBuild">
