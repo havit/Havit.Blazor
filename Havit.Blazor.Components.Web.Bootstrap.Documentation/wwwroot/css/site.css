@@ -42,8 +42,12 @@ app {
 	margin-bottom: 0.5rem;
 }
 
-.doc-content > h2:not(:first-child) {
-	margin-top: 3rem
+.doc-content > h1 {
+	margin-top: 2rem
+}
+
+.doc-content > h2 {
+	margin-top: 2rem
 }
 
 .doc-content > h3 {
