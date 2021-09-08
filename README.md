@@ -9,5 +9,5 @@
 * Blazor WASM stack with gRPC code-first communication
 * [New project template](https://github.com/havit/NewProjectTemplate-Blazor)
 
-&gt;&gt; **[Documentation & Demos](https://havit.blazor.eu)** &lt;&lt;
 
+# See [&gt;&gt;Interactive Documentation & Demos&lt;&lt;](https://havit.blazor.eu)
