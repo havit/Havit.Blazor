@@ -4491,7 +4491,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.LabelType">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputSize">
             <inheritdoc />

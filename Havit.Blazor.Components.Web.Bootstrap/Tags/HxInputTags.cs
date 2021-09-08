@@ -87,7 +87,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public ThemeColor? TagTextColor { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="HxInputBase{TValue}" />
 		[Parameter] public LabelType? LabelType { get; set; }
 
 		/// <inheritdoc />
