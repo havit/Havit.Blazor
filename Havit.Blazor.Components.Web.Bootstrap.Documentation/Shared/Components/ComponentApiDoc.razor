@@ -200,8 +200,17 @@
 @if (CssVariables is not null)
 {
 	<h3>CSS Variables</h3>
-	<ul class="list-unstyled">
-		@CssVariables
-	</ul>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Default</th>
+			</tr>
+		</thead>
+		<tbody>
+			@CssVariables
+		</tbody>
+	</table>
 }
 

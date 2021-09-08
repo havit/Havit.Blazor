@@ -346,7 +346,7 @@
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxModelEditForm`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
-            <inheritdoc />
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" />
         </member>
         <member name="M:Havit.Blazor.Components.Web.ModelCloner.Clone``1(``0)">
             <summary>
@@ -435,7 +435,7 @@
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxIcon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
-            <inheritdoc />
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" />
         </member>
         <member name="T:Havit.Blazor.Components.Web.IconBase">
             <summary>
@@ -481,16 +481,16 @@
             </summary>
         </member>
         <member name="E:Havit.Blazor.Components.Web.HxMessengerService.OnMessage">
-            <inheritdoc />
+            <inheritdoc cref="E:Havit.Blazor.Components.Web.IHxMessengerService.OnMessage" />
         </member>
         <member name="E:Havit.Blazor.Components.Web.HxMessengerService.OnClear">
-            <inheritdoc />
+            <inheritdoc cref="E:Havit.Blazor.Components.Web.IHxMessengerService.OnClear" />
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxMessengerService.AddMessage(Havit.Blazor.Components.Web.MessengerMessage)">
-            <inheritdoc />
+            <inheritdoc cref="M:Havit.Blazor.Components.Web.IHxMessengerService.AddMessage(Havit.Blazor.Components.Web.MessengerMessage)" />
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxMessengerService.Clear">
-            <inheritdoc />
+            <inheritdoc cref="M:Havit.Blazor.Components.Web.IHxMessengerService.Clear" />
         </member>
         <member name="T:Havit.Blazor.Components.Web.IHxMessengerService">
             <summary>
