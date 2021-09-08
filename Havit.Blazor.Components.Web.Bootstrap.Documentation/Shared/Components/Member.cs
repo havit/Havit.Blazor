@@ -11,8 +11,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 {
 	public abstract class Member
 	{
-		protected string TryFormatComment(string comment)
+		private Type enclosingType;
+
+		protected string TryFormatComment(string comment, Type enclosingType = null)
 		{
+			this.enclosingType = enclosingType;
+
 			try
 			{
 				if (string.IsNullOrEmpty(comment))
@@ -31,10 +35,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				// <see cref=""/>
 				{
 					Regex regex = new("<see");
-					comment = regex.Replace(comment, "<a");
+					comment = regex.Replace(comment, "<code><a");
 
 					regex = new("</see>");
-					comment = regex.Replace(comment, "</a>");
+					comment = regex.Replace(comment, "</a></code>");
 
 					regex = new("cref=\"([A-Za-z\\.:`\\d])+");
 					var matches = regex.Matches(comment);
@@ -138,10 +142,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 			else if (IsProperty(splitLink))
 			{
-				if (splitLink.Length >= 1)
+				if (splitLink.Length >= 2)
 				{
 					fullLink = $"{splitLink[^2]}#{splitLink[^1]}";
-					seeName = $"{splitLink[^2]}.{splitLink[^1]}";
+					if (PrepareLinkForFullLinkGeneration(enclosingType.Name) == splitLink[^2])
+					{
+						seeName = $"{splitLink[^1]}";
+					}
+					else
+					{
+						seeName = $"{splitLink[^2]}.{splitLink[^1]}";
+					}
 				}
 			}
 			else
@@ -234,7 +245,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			set
 			{
 				CommonComments inputComments = value;
-				try { inputComments.Summary = TryFormatComment(inputComments.Summary); } catch { }
+				try { inputComments.Summary = TryFormatComment(inputComments.Summary, PropertyInfo.DeclaringType); } catch { }
 				comments = inputComments;
 			}
 			get
