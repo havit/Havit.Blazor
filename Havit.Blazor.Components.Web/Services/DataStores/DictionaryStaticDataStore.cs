@@ -107,6 +107,6 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 				}
 			}
 		}
-		private readonly SemaphoreSlim loadLock = new SemaphoreSlim(1);
+		private readonly SemaphoreSlim loadLock = new SemaphoreSlim(1, 1);
 	}
 }
