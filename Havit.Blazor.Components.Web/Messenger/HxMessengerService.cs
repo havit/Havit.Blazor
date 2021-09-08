@@ -8,19 +8,19 @@ namespace Havit.Blazor.Components.Web
 	/// </summary>
 	internal class HxMessengerService : IHxMessengerService
 	{
-		/// <inheritdoc />
+		/// <inheritdoc cref="IHxMessengerService.OnMessage" />
 		public event Action<MessengerMessage> OnMessage;
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IHxMessengerService.OnClear" />
 		public event Action OnClear;
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IHxMessengerService.AddMessage(MessengerMessage)" />
 		public void AddMessage(MessengerMessage message)
 		{
 			OnMessage?.Invoke(message);
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IHxMessengerService.Clear" />
 		public void Clear()
 		{
 			OnClear?.Invoke();

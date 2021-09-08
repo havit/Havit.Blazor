@@ -17,16 +17,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		[Inject] protected IStringLocalizer<HxInputCheckbox> Localizer { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="LabelValueRenderOrder" />
 		protected override LabelValueRenderOrder RenderOrder => LabelValueRenderOrder.ValueLabel;
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="HxInputBase{TValue}.CoreCssClass" />
 		private protected override string CoreCssClass => "form-check";
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="HxInputBase{TValue}.CoreInputCssClass" />
 		private protected override string CoreInputCssClass => "form-check-input";
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="HxInputBase{TValue}.CoreLabelCssClass" />
 		private protected override string CoreLabelCssClass => "form-check-label";
 
 		/// <inheritdoc />

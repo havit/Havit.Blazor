@@ -44,7 +44,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 		[Parameter] public bool? Enabled { get; set; }
 
 		/// <summary>

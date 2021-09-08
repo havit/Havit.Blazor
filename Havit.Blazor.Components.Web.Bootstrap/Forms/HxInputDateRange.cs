@@ -37,7 +37,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public IEnumerable<DateRangeItem> CustomDateRanges { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="Bootstrap.InputSize" />
 		[Parameter] public InputSize? InputSize { get; set; }
 
 		/// <summary>

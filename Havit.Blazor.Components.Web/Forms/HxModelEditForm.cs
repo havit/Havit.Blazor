@@ -74,7 +74,7 @@ namespace Havit.Blazor.Components.Web
 			StateHasChanged(); // we are changing the state - ModelInEdit.
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="ComponentBase.BuildRenderTree(RenderTreeBuilder)" />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			builder.OpenComponent<EditForm>(0);

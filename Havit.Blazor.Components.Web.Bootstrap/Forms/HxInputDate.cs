@@ -42,10 +42,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string ParsingErrorMessage { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IInputWithPlaceholder.Placeholder" />
 		[Parameter] public string Placeholder { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="Bootstrap.InputSize" />
 		[Parameter] public InputSize? InputSize { get; set; }
 
 		/// <summary>

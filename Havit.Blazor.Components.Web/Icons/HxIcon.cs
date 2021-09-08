@@ -28,7 +28,7 @@ namespace Havit.Blazor.Components.Web
 		/// </summary>
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="ComponentBase.BuildRenderTree(RenderTreeBuilder)" />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			builder.OpenComponent(1, Icon.RendererComponentType);

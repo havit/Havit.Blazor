@@ -90,7 +90,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
 			await base.OnAfterRenderAsync(firstRender);

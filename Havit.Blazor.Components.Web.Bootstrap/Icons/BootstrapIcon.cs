@@ -24,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </remarks>
 	public class BootstrapIcon : IconBase
 	{
-		/// <inheritdoc />
+		/// <inheritdoc cref="IconBase.RendererComponentType" />
 		public override Type RendererComponentType => typeof(HxBootstrapIcon);
 
 		/// <summary>

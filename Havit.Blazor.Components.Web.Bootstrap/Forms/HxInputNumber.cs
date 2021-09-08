@@ -34,10 +34,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="Bootstrap.InputSize" />
 		[Parameter] public InputSize? InputSize { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="Bootstrap.LabelType" />
 		[Parameter] public LabelType? LabelType { get; set; }
 
 		/// <summary>

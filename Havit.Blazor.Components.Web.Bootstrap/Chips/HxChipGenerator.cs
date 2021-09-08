@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Parameter] public Action<object> ChipRemoveAction { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="ComponentBase.OnInitialized" />
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
