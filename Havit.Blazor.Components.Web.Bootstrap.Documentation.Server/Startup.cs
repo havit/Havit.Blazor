@@ -1,13 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Havit.Blazor.Components.Web;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -34,6 +28,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server
 			else
 			{
 				app.UseExceptionHandler("/Error"); // TODO ExceptionHandler
+
+				// old domain redirect
+				app.Use(async (context, next) =>
+				{
+
+					if (context.Request.Host.Host.Contains("havit.blazor.cz"))
+					{
+						var uriBuilder = new UriBuilder(UriHelper.GetDisplayUrl(context.Request));
+						uriBuilder.Host = "havit.blazor.eu";
+						context.Response.Redirect(uriBuilder.Uri.ToString(), permanent: true);
+
+						return;
+					}
+
+					await next();
+				});
 			}
 
 			app.UseBlazorFrameworkFiles();
