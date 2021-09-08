@@ -106,7 +106,7 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 			CollectionAssert.AreEqual(new[] { "Adam", "Barbora", "Cyril" }, result.ToList());
 		}
 
-		//[TestMethod] - This test fails and should NOT!
+		[TestMethod]
 		public void DictionaryStaticDataStore_ManyParallelCallsShouldNotReloadData()
 		{
 			// arrange
@@ -116,10 +116,11 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 			sut.Setup(s => s.LoadDataAsync()).ReturnsAsync(new[] { "Adam", "Barbora", "Cyril" }, TimeSpan.FromMilliseconds(50));
 			sut.Setup(s => s.ShouldRefresh()).Returns(false);
 
+			var store = sut.Object;
 			// act
 			Parallel.For(0, 1000, async (int i) =>
 			{
-				_ = await sut.Object.GetAllAsync();
+				_ = await store.GetAllAsync();
 			});
 
 			// assert
