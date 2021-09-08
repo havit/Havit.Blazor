@@ -6,6 +6,7 @@
 ::deep .nav-link {
 	line-height: 1;
 	padding: var(--hx-sidebar-item-padding);
+	margin: var(--hx-sidebar-item-margin);
 	font-size: var(--hx-sidebar-item-font-size);
 	color: var(--bs-dark);
 	border-radius: 0.5rem;
@@ -40,4 +41,8 @@
 
 ::deep .bi-chevron-right {
 	font-size: .75rem;
+}
+
+::deep .dropdown-menu.hx-sidebar-subitems .nav-link {
+	margin: 0 .5rem;
 }
