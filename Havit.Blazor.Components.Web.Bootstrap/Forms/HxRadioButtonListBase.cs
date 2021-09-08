@@ -59,7 +59,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected bool AutoSortImpl { get; set; } = true;
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="HxInputBase{TValue}.EnabledEffective" />
 		protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
 
 		private protected override string CoreInputCssClass => throw new NotSupportedException();

@@ -90,7 +90,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc cref="HxInputBase{TValue}" />
 		[Parameter] public LabelType? LabelType { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="Bootstrap.InputSize" />
 		[Parameter] public InputSize? InputSize { get; set; }
 
 		/// <summary>

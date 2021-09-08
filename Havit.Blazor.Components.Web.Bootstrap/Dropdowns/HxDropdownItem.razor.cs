@@ -32,7 +32,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 		[Parameter] public bool? Enabled { get; set; }
 
 		[Parameter] public RenderFragment ChildContent { get; set; }

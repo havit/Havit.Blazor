@@ -65,10 +65,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="Bootstrap.InputSize" />
 		[Parameter] public InputSize? InputSize { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="Bootstrap.LabelType" />
 		[Parameter] public LabelType? LabelType { get; set; }
 
 		/// <summary>
@@ -95,7 +95,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected virtual AutosuggestDefaults GetDefaults() => HxAutosuggest.Defaults;
 		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="ComponentBase.BuildRenderTree(RenderTreeBuilder)" />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			AutosuggestDefaults defaults = this.GetDefaults();

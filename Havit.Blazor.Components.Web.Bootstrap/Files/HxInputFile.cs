@@ -97,10 +97,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string InputCssClass { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 		[Parameter] public bool? Enabled { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="Web.FormState" />
 		[CascadingParameter] protected FormState FormState { get; set; }
 		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
 

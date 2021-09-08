@@ -20,7 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <typeparam name="TItem">Type of items.</typeparam>
 	public abstract class HxSelectBase<TValue, TItem> : HxInputBase<TValue>, IInputWithSize
 	{
-		/// <inheritdoc />
+		/// <inheritdoc cref="Bootstrap.InputSize" />
 		[Parameter] public InputSize? InputSize { get; set; }
 
 		/// <summary>
@@ -107,7 +107,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected bool AutoSortImpl { get; set; } = true;
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="HxInputBase{TValue}.EnabledEffective" />
 		protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
 
 		private protected override string CoreInputCssClass => "form-select";

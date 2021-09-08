@@ -12,22 +12,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueComponentWithInputGroups
 	{
 		#region IFormValueComponent properties
-		/// <inheritdoc />
+		/// <inheritdoc cref="IFormValueComponent.CssClass" />
 		[Parameter] public string CssClass { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IFormValueComponent.Label" />
 		[Parameter] public string Label { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IFormValueComponent.LabelTemplate" />
 		[Parameter] public RenderFragment LabelTemplate { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IFormValueComponent.LabelCssClass" />
 		[Parameter] public string LabelCssClass { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IFormValueComponent.Hint" />
 		[Parameter] public string Hint { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IFormValueComponent.HintTemplate" />
 		[Parameter] public RenderFragment HintTemplate { get; set; }
 		#endregion
 
@@ -41,16 +41,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string ValueCssClass { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IFormValueComponentWithInputGroups.InputGroupStart" />
 		[Parameter] public string InputGroupStart { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IFormValueComponentWithInputGroups.InputGroupStartTemplate" />
 		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IFormValueComponentWithInputGroups.InputGroupEnd"/>
 		[Parameter] public string InputGroupEnd { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IFormValueComponentWithInputGroups.InputGroupEndTemplate" />
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
 		/// <inheritdoc />

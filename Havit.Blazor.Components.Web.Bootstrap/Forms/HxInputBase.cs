@@ -31,7 +31,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public const string InvalidCssClass = "is-invalid";
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="Web.FormState" />
 		[CascadingParameter] protected FormState FormState { get; set; }
 		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
 
@@ -87,7 +87,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public RenderFragment ChipTemplate { get; set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 		[Parameter] public bool? Enabled { get; set; }
 
 		/// <summary>

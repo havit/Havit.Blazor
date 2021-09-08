@@ -46,7 +46,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool Visible { get; set; } = true;
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="Web.FormState" />
 		[CascadingParameter] protected FormState FormState { get; set; }
 		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
 

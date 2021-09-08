@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class HxInputSwitch : HxInputCheckbox
 	{
-		/// <inheritdoc />
+		/// <inheritdoc cref="HxInputCheckbox.CoreCssClass" />
 		private protected override string CoreCssClass => "form-check form-switch";
 	}
 }
