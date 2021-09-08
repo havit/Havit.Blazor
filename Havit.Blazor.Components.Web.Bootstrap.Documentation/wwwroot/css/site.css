@@ -9,10 +9,6 @@ app {
 	min-height: 100vh;
 }
 
-.logo {
-	box-shadow: 0 0.125rem 0.25rem rgba(46, 117, 240, 0.08) !important
-}
-
 #blazor-error-ui {
 	background: lightyellow;
 	bottom: 0;
