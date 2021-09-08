@@ -25,15 +25,38 @@ app {
 	z-index: 1000;
 }
 
-#blazor-error-ui .dismiss {
-	cursor: pointer;
-	position: absolute;
-	right: 0.75rem;
-	top: 0.5rem;
-}
+	#blazor-error-ui .dismiss {
+		cursor: pointer;
+		position: absolute;
+		right: 0.75rem;
+		top: 0.5rem;
+	}
 
-:not(pre)>code[class*=language-], pre[class*=language-] {
+:not(pre) > code[class*=language-], pre[class*=language-] {
 	background-color: var(--bs-gray-100);
 	border-radius: .5rem;
-	margin: 0; 
+	margin: 0;
 }
+
+:not(.card-body) > :not(pre) > code[class*=language-], :not(.card-body) > pre[class*=language-] {
+	margin-bottom: 0.5rem;
+}
+
+.doc-content > h2:not(:first-child) {
+	margin-top: 3rem
+}
+
+.doc-content > h3 {
+	margin-top: 2rem
+}
+
+.doc-content > ul li,
+.doc-content > ol li {
+	margin-bottom: .25rem
+}
+
+	.doc-content > ul li > p ~ ul,
+	.doc-content > ol li > p ~ ul {
+		margin-top: -.5rem;
+		margin-bottom: 1rem
+	}
