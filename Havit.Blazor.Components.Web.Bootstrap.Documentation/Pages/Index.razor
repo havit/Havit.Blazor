@@ -14,11 +14,49 @@
 <p>HAVIT Blazor Library is a set of components, recommendations and practices to easy Blazor application development.</p>
 <p>Components implementation is based on <a href="https://v5.getbootstrap.com">Bootstrap 5</a>.</p>
 
-<h2>Installation</h2>
+<h2>Getting started</h2>
 
-<h3>NuGet packages</h3>
-<p>Install nuget package <a href="https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/">Havit.Blazor.Components.Web.Bootstrap</a> which contains most of the components.</p>
-<p>It has a dependency <a href="https://www.nuget.org/packages/Havit.Blazor.Components.Web/">Havit.Blazor.Components.Web</a> with small common functionality not dependendent on Bootstrap.</p>
+<h3>Prerequisites</h3>
+<p>Havit.Blazor components have the following requirements:</p>
+<ul>
+	<li>.NET 5.0 or newer</li>
+	<li>Blazor WebAssembly or Blazor Server hosting model (other options not tested yet)</li>
+</ul>
+
+<h3>Installation</h3>
+
+<h4>1. Install the package</h4>
+<p>Find the <a href="https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/">Havit.Blazor.Components.Web.Bootstrap</a> package through NuGet Package Manager or install it with following command:</p>
+<CodeCard Language="plaintext">
+@("dotnet add package Havit.Blazor.Components.Web.Bootstrap")
+</CodeCard>
+
+<h4>2. Add CSS &amp; Bootstrap-script references</h4>
+<p>Add the following to your HTML head section, it's either <code>index.html</code> or <code>_Host.cshtml</code> depending on whether you're running WebAssembly or Server:</p>
+<CodeCard Language="html">
+@("<!-- Standard Bootstrap CSS from CDN -->")
+@("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU\" crossorigin=\"anonymous\" >")
+@("<!-- Default values for CSS Variables (+ imports Bootstrap Icons) -->")
+@("<link href=\"_content/Havit.Blazor.Components.Web.Bootstrap/defaults.css\" rel=\"stylesheet\" />")
+@("<!-- CSS Isolation -->")
+@("<link href=\"Your.Blazor.Project.Assembly.Name.styles.css\" rel=\"stylesheet\" />")
+</CodeCard>
+
+<p>If you want to use our custom Bootstrap theme (used in this documentation and demos), replace the first <code>link</code> with:</p>
+<CodeCard Language="html">
+@("<!-- Custom themed Bootstrap CSS build -->")
+@("<link href=\"_content/Havit.Bt.Blazor/css/bootstrap.css\" rel=\"stylesheet\" />")
+</CodeCard>
+
+<HxAlert Color="ThemeColor.Warning">
+	If you're using a standard Blazor template make sure to remove everything in your <code>site.css</code> and remove the <code>bootstrap.min.css</code> completely from either <code>index.html</code> or <code>_Host.cshtml</code>.
+</HxAlert>
+
+In the HTML body section of either index.html or _Host.cshtml add this:
+<CodeCard Language="html">
+@("<!-- Bootstrap JavaScript Bundle with Popper -->")
+@("<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ\" crossorigin=\"anonymous\"></script>")
+</CodeCard>
 
 <h3>Bootstrap</h3>
 <p>Follow <a href="https://v5.getbootstrap.com/docs/5.0/getting-started/introduction/">Bootstrap instructions</a>.</p>
@@ -26,10 +64,10 @@
 <h3>Namespaces</h3>
 <p>Add these namespaces to your _Import.razor file:</p>
 <p class="p-3 bg-light rounded">
-		<code>@@using Havit.Blazor.Components.Web</code>
-		<br>
-		<code>@@using Havit.Blazor.Components.Web.Bootstrap</code>
-		@* TODO: Add next. Styling. *@
+	<code>@@using Havit.Blazor.Components.Web</code>
+	<br>
+	<code>@@using Havit.Blazor.Components.Web.Bootstrap</code>
+	@* TODO: Add next. Styling. *@
 </p>
 
 <h3>Services</h3>
