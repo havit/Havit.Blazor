@@ -64,7 +64,7 @@
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.OnAfterRenderAsync(System.Boolean)">
-            <inheritdoc />
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.ExpandAsync">
             <summary>
@@ -254,7 +254,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Enabled">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.FormId">
             <summary>
@@ -960,7 +960,7 @@
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxChipGenerator.OnInitialized">
-            <inheritdoc />
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized" />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.IHxChipGenerator">
             <summary>
@@ -1033,10 +1033,10 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.FormState">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.FormState" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Enabled">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DropdownAutoClose">
             <summary>
@@ -1152,7 +1152,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.Enabled">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu">
             <summary>
@@ -1253,10 +1253,10 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Enabled">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.FormState">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.FormState" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.FileCount">
             <summary>
@@ -1512,10 +1512,10 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputSize">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.LabelType">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputOffset">
             <summary>
@@ -1535,7 +1535,7 @@
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
-            <inheritdoc />
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.TryParseValueFromString(System.String,`1@,System.String@)">
             <inheritdoc />
@@ -1657,22 +1657,22 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.CssClass">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.CssClass" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.Label">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.Label" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.LabelTemplate">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.LabelTemplate" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.LabelCssClass">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.LabelCssClass" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.Hint">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.Hint" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.HintTemplate">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.HintTemplate" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.ValueTemplate">
             <summary>
@@ -1685,16 +1685,16 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputGroupStart">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStart" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputGroupStartTemplate">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartTemplate" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputGroupEnd">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEnd"/>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputGroupEndTemplate">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate" />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
@@ -1719,7 +1719,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FormState">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.FormState" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.Label">
             <summary>
@@ -1772,7 +1772,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.Enabled">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.EnabledEffective">
             <summary>
@@ -1919,16 +1919,16 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.RenderOrder">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.CoreCssClass">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreCssClass" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.CoreInputCssClass">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.CoreLabelCssClass">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreLabelCssClass" />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
@@ -1958,10 +1958,10 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.Placeholder">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithPlaceholder.Placeholder" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputSize">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.CalendarIcon">
             <summary>
@@ -2015,7 +2015,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.InputSize">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromParsingErrorMessage">
             <summary>
@@ -2069,10 +2069,10 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.InputSize">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.LabelType">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.Decimals">
             <summary>
@@ -2153,7 +2153,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputSwitch.CoreCssClass">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.CoreCssClass" />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputText">
             <summary>
@@ -2205,10 +2205,10 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.InputSize">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.LabelType">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.GetDefaults">
             <summary>
@@ -2323,7 +2323,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.EnabledEffective">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.EnabledEffective" />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc/>
@@ -2400,7 +2400,7 @@
             <typeparam name="TItem">Type of items.</typeparam>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.InputSize">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.NullableImpl">
             <summary>
@@ -2461,7 +2461,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.EnabledEffective">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.EnabledEffective" />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.GetDefaults">
             <summary>
@@ -3392,7 +3392,7 @@
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.RendererComponentType">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.IconBase.RendererComponentType" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.Name">
             <summary>
@@ -3867,7 +3867,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.Enabled">
-            <inheritdoc />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.ChildContent">
             <summary>
@@ -4340,7 +4340,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.FormState">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.FormState" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Enabled">
             <summary>
@@ -4494,7 +4494,7 @@
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputSize">
-            <inheritdoc />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.GetDefaults">
             <summary>
