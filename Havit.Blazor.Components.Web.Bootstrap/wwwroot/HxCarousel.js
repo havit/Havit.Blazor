@@ -43,7 +43,7 @@ export function AddEventListeners(id, hxCarouselDotnetObjectReference) {
     let carouselElement = document.getElementById(id);
 
     carouselElement.addEventListener('slide.bs.carousel', function () { OnSlide(hxCarouselDotnetObjectReference) });
-    carouselElement.addEventListener('slid.bs.carousel', function () { OnSlid(HxCarouselDotnetObjectReference) });
+    carouselElement.addEventListener('slid.bs.carousel', function () { OnSlid(hxCarouselDotnetObjectReference) });
 }
 
 function OnSlide(HxCarouselDotnetObjectReference) {
