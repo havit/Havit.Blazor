@@ -22,7 +22,7 @@
 <h2>Installation</h2>
 
 <HxAlert Color="ThemeColor.Info">
-	<HxIcon Icon="BootstrapIcon.InfoCircleFill" CssClass="fs-5 me-2" />
+	<HxIcon Icon="BootstrapIcon.InfoCircle" CssClass="fs-5 me-2" />
 	We also provide a pre-configured ready to run <a href="https://github.com/havit/NewProjectTemplate-Blazor">new enterprise project template</a> which includes everything you need.
 </HxAlert>
 
@@ -32,7 +32,8 @@
 @("dotnet add package Havit.Blazor.Components.Web.Bootstrap")
 </CodeCard>
 
-<h3>2. Add CSS &amp; Bootstrap-script references</h3>
+<h3>2. Add CSS &amp; JavaScript references</h3>
+<h4>CSS</h4>
 <p>Add the following to your HTML head section, it's either <code>index.html</code> or <code>_Host.cshtml</code> depending on whether you're running WebAssembly or Server:</p>
 <CodeCard Language="html">
 @("<!-- Standard Bootstrap CSS from CDN -->")
@@ -41,7 +42,7 @@
 @("<!-- Default values for additional CSS Variables (+ import Bootstrap Icons) -->")
 @("<link href=\"_content/Havit.Blazor.Components.Web.Bootstrap/defaults.css\" rel=\"stylesheet\" />")
 @("")
-@("<!-- CSS Isolation -->")
+@("<!-- Blazor CSS Isolation -->")
 @("<link href=\"Your.Blazor.Project.Assembly.Name.styles.css\" rel=\"stylesheet\" />")
 </CodeCard>
 
@@ -57,6 +58,7 @@
 	If you're using a standard Blazor template make sure to remove unnecessary code from <code>site.css</code> and remove the <code>bootstrap.min.css</code> completely from either <code>index.html</code> or <code>_Host.cshtml</code>.
 </HxAlert>
 
+<h4>Bootstrap JavaScript Bundle with Popper</h4>
 <p>At the end of HTML <code>&lt;body&gt;</code> section of either <code>index.html</code> or <code>_Host.cshtml</code> add this:</p>
 <CodeCard Language="html">
 @("<!-- Bootstrap JavaScript Bundle with Popper -->")
