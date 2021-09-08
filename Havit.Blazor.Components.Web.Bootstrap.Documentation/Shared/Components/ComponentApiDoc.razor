@@ -188,7 +188,7 @@
 			@foreach (var method in staticMethods)
 			{
 				<tr>
-					<td><strong>@method.MethodInfo.Name</strong> @method.GetParameters()</td>
+					<td><strong>@method.MethodInfo.Name</strong> @((MarkupString)@method.GetParameters())</td>
 					<td><code>@((MarkupString)@FormatType(method.MethodInfo.ReturnType))</code></td>
 					<td class="summary">@((MarkupString)method.Comments.Summary)</td>
 				</tr>

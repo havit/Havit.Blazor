@@ -36,12 +36,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 					regex = new("</see>");
 					comment = regex.Replace(comment, "</a>");
 
-					regex = new("cref=\"([A-Za-z\\.:])+");
+					regex = new("cref=\"([A-Za-z\\.:`\\d])+");
 					var matches = regex.Matches(comment);
 
 					foreach (var match in matches)
 					{
 						string link = match.ToString().Split('\"').LastOrDefault(); // get the part in the quotes (value of the cref attribute)
+						link = PrepareLinkForFullLinkGeneration(link);
 						string[] splitLink = link.Split('.');
 
 						regex = new("cref=\"([A-Za-z\\.:`\\d])+\" ?/>"); // find this part of the element (beggining already replaced): cref="P:System.Text.Regex.Property" />
@@ -55,6 +56,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 
 			return comment;
+		}
+
+		private string PrepareLinkForFullLinkGeneration(string link)
+		{
+			Regex regex = new("`\\d");
+			return regex.Replace(link, "");
 		}
 
 		private string GenerateFullLink(string[] splitLink, string fullLink)
@@ -129,6 +136,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 					}
 				}
 			}
+			else if (IsProperty(splitLink))
+			{
+				if (splitLink.Length >= 1)
+				{
+					fullLink = $"{splitLink[^2]}#{splitLink[^1]}";
+					seeName = $"{splitLink[^2]}.{splitLink[^1]}";
+				}
+			}
 			else
 			{
 				if (splitLink.Length >= 2)
@@ -167,6 +182,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return fullLink;
 		}
 
+		private bool IsProperty(string[] splitLink)
+		{
+			return splitLink[0][0] == 'P';
+		}
 		private bool IsType(string[] splitLink)
 		{
 			return splitLink[0][0] == 'T';
