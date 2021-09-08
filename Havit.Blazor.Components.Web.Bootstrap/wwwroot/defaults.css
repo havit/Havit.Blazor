@@ -13,9 +13,10 @@
 	--hx-sidebar-toggler-background: #ffffff;
 	--hx-sidebar-item-font-size: 1rem;
 	--hx-sidebar-item-padding: .75rem;
+	--hx-sidebar-item-margin: 0 0 .25rem 0;
 	--hx-sidebar-subitem-font-size: .875rem;
 	--hx-sidebar-subitem-padding: .5rem;
-	--hx-sidebar-subitem-margin: 0 0 0 2.25rem;
+	--hx-sidebar-subitem-margin: 0 0 .25rem 2.25rem;
 	--hx-sidebar-header-padding: 1rem;
 	--hx-sidebar-body-padding: 0 1rem;
 	--hx-sidebar-footer-padding: 1rem;
