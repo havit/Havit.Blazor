@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
@@ -17,6 +15,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected override void OnParametersSet()
 		{
+			Contract.Requires<InvalidOperationException>(DropdownContainer is not null, $"{nameof(HxDropdownToggle)} has to be placed inside {nameof(HxDropdown)}.");
+
 			if ((Color is null) && (NavContainer is not null))
 			{
 				Color = ThemeColor.Link;
