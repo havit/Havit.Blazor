@@ -3,11 +3,11 @@
 	<ValidationSummary />
 
 	<HxInputDateRange Label="HxInputDateRange (default)" @bind-Value="@model.DateTimeRange" />
-	<HxInputDateRange Label="HxInputDateRange (bez DateRanges, bez validací)" @bind-Value="@model.DateTimeRange" UseDefaultDateRanges="false" ShowValidationMessage="false" />
-	<HxInputDateRange Label="HxInputDateRange (s vlastními DateRanges)" @bind-Value="@model.DateTimeRange" CustomDateRanges="@GetDateRanges()" />
+	<HxInputDateRange Label="HxInputDateRange (without DateRanges, without validations)" @bind-Value="@model.DateTimeRange" UseDefaultDateRanges="false" ShowValidationMessage="false" />
+	<HxInputDateRange Label="HxInputDateRange (custom DateRanges)" @bind-Value="@model.DateTimeRange" CustomDateRanges="@GetDateRanges()" />
 	<HxInputDateRange Label="HxInputDateRange (disabled)" @bind-Value="@model.DateTimeRange" CustomDateRanges="@GetDateRanges()" Enabled="false" />
 
-	<button type="submit">Submit</button>
+	<HxSubmit Color="ThemeColor.Primary" Text="Submit" />
 </EditForm>
 
 @code {
@@ -15,8 +15,8 @@
 
 	private IEnumerable<DateRangeItem> GetDateRanges()
 	{
-		yield return new DateRangeItem { Label = "Dnes", DateRange = new DateTimeRange { StartDate = DateTime.Today, EndDate = DateTime.Today } };
-		yield return new DateRangeItem { Label = "Celý rok", DateRange = new DateTimeRange { StartDate = new DateTime(DateTime.Today.Year, 1, 1), EndDate = new DateTime(DateTime.Today.Year, 12, 31) } };
+		yield return new DateRangeItem { Label = "Today", DateRange = new DateTimeRange { StartDate = DateTime.Today, EndDate = DateTime.Today } };
+		yield return new DateRangeItem { Label = "Whole year", DateRange = new DateTimeRange { StartDate = new DateTime(DateTime.Today.Year, 1, 1), EndDate = new DateTime(DateTime.Today.Year, 12, 31) } };
 	}
 
 	private class FormModel : IValidatableObject
