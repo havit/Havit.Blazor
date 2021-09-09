@@ -1,43 +1,49 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
-  <PropertyGroup>
-	  <TargetFramework>net5.0</TargetFramework>
-	  <NoWarn>1701;1702;SA1134</NoWarn>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<NoWarn>1701;1702;SA1134</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Pages\Components\HxButtonToolbarDoc\**" />
-    <Content Remove="Pages\Components\HxButtonToolbarDoc\**" />
-    <EmbeddedResource Remove="Pages\Components\HxButtonToolbarDoc\**" />
-    <None Remove="Pages\Components\HxButtonToolbarDoc\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Pages\Components\HxButtonToolbarDoc\**" />
+		<Content Remove="Pages\Components\HxButtonToolbarDoc\**" />
+		<EmbeddedResource Remove="Pages\Components\HxButtonToolbarDoc\**" />
+		<None Remove="Pages\Components\HxButtonToolbarDoc\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Remove="wwwroot\Havit.Blazor.Components.Web.Bootstrap.xml" />
-    <Content Remove="wwwroot\Havit.Blazor.Components.Web.xml" />
-    <Content Remove="wwwroot\Havit.Blazor.GoogleTagManager.xml" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Remove="wwwroot\Havit.Blazor.Components.Web.Bootstrap.xml" />
+		<Content Remove="wwwroot\Havit.Blazor.Components.Web.xml" />
+		<Content Remove="wwwroot\Havit.Blazor.GoogleTagManager.xml" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="wwwroot\Havit.Blazor.Components.Web.Bootstrap.xml" />
-    <EmbeddedResource Include="wwwroot\Havit.Blazor.Components.Web.xml" />
-    <EmbeddedResource Include="wwwroot\Havit.Blazor.GoogleTagManager.xml" />
-  </ItemGroup>
+	<ItemGroup>
+		<Watch Remove="wwwroot\Havit.Blazor.Components.Web.Bootstrap.xml" />
+		<Watch Remove="wwwroot\Havit.Blazor.Components.Web.xml" />
+		<Watch Remove="wwwroot\Havit.Blazor.GoogleTagManager.xml" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="LoxSmoke.DocXml" Version="3.4.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.8" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.8" />
-    <PackageReference Include="System.CodeDom" Version="5.0.0" />
-    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="wwwroot\Havit.Blazor.Components.Web.Bootstrap.xml" />
+		<EmbeddedResource Include="wwwroot\Havit.Blazor.Components.Web.xml" />
+		<EmbeddedResource Include="wwwroot\Havit.Blazor.GoogleTagManager.xml" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap\Havit.Blazor.Components.Web.Bootstrap.csproj" />
-    <ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
-    <ProjectReference Include="..\Havit.Blazor.GoogleTagManager\Havit.Blazor.GoogleTagManager.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="LoxSmoke.DocXml" Version="3.4.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.8" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.8" />
+		<PackageReference Include="System.CodeDom" Version="5.0.0" />
+		<PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap\Havit.Blazor.Components.Web.Bootstrap.csproj" />
+		<ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
+		<ProjectReference Include="..\Havit.Blazor.GoogleTagManager\Havit.Blazor.GoogleTagManager.csproj" />
+	</ItemGroup>
 
 	<Target Name="EmbedDemos" BeforeTargets="PrepareForBuild">
 		<!-- Let's embed demos sources to the assembly to be able to show sources at runtime. -->
