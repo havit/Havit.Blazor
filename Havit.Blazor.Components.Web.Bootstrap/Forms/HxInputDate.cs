@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Havit.Blazor.Components.Web.Bootstrap.Forms.Internal;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -17,13 +16,16 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Date input (custom made by HAVIT).
+	/// Date input component.
 	/// </summary>
 	public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, IInputWithSize
 	{
 		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(DateTime), typeof(DateTimeOffset) };
 
+		/// <summary>
+		/// Default dates offered in associated menu (e.g. Today, Yesterday, etc.).
+		/// </summary>
 		public static List<DateItem> DefaultDates { get; set; }
 
 		/// <summary>
@@ -92,11 +94,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.CloseComponent();
 		}
 
-		//protected override void BuildRenderValidationMessage(RenderTreeBuilder builder)
-		//{
-		//	// NOOP
-		//}
-
 		// For generating chips
 		/// <inheritdocs />
 		protected override string FormatValueAsString(TValue value) => FormatValue(value);
@@ -152,7 +149,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		internal static string FormatValue(TValue value)
 		{
-			// nenabízíme hodnotu 1.1.0001, atp.
+			// no 1.1.0001, etc.
 			if (EqualityComparer<TValue>.Default.Equals(value, default))
 			{
 				return null;
