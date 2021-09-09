@@ -17,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation
 		{
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-			builder.Services.AddLocalization();
+			builder.Services.AddHxServices();
 			builder.Services.AddHxMessenger();
 			builder.Services.AddHxMessageBoxHost();
 
