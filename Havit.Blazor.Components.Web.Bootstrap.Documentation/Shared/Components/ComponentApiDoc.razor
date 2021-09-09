@@ -10,207 +10,221 @@
 <h2>API</h2>
 
 @if (Delegate)
-            {
-				<h6>@((MarkupString)delegateSignature)</h6>
-            } 
+{
+	<h6>@((MarkupString)delegateSignature)</h6>
+}
 
 @if (isEnum)
 {
 	<h3>Enum Values</h3>
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Index</th>
-				<th>Value</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var enumMember in enumMembers)
-			{
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
 				<tr>
-					<td>@enumMember.Index</td>
-					<td>@enumMember.Name</td>
-					<td class="summary">@((MarkupString)enumMember.Summary)</td>
+					<th>Index</th>
+					<th>Value</th>
+					<th>Description</th>
 				</tr>
-			}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@foreach (var enumMember in enumMembers)
+				{
+					<tr>
+						<td>@enumMember.Index</td>
+						<td>@enumMember.Name</td>
+						<td class="summary">@((MarkupString)enumMember.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (parameters.Count > 0)
 {
 	<h3>Parameters</h3>
 
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Type</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var property in parameters)
-			{
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
 				<tr>
-					<td>
-						@if (IsPropertyStatic(property))
-						{
-							<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">
-								@("static")
-							</HxBadge>
-						}
-
-						<strong>@property.PropertyInfo.Name</strong>
-					</td>
-					<td><code>@((MarkupString)@FormatType(property.PropertyInfo.PropertyType))</code></td>
-					<td class="summary">@((MarkupString)property.Comments.Summary)</td>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
 				</tr>
-			}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@foreach (var property in parameters)
+				{
+					<tr>
+						<td>
+							@if (IsPropertyStatic(property))
+							{
+								<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">
+									@("static")
+								</HxBadge>
+							}
+
+							<strong>@property.PropertyInfo.Name</strong>
+						</td>
+						<td><code>@((MarkupString)@FormatType(property.PropertyInfo.PropertyType))</code></td>
+						<td class="summary">@((MarkupString)property.Comments.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (properties.Count > 0)
 {
 	<h3>Other properties</h3>
-
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Type</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var property in properties)
-			{
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
 				<tr>
-					<td><strong>@property.PropertyInfo.Name</strong></td>
-					<td><code>@((MarkupString)@FormatType(property.PropertyInfo.PropertyType))</code></td>
-					<td class="summary">@((MarkupString)property.Comments.Summary)</td>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
 				</tr>
-			}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@foreach (var property in properties)
+				{
+					<tr>
+						<td><strong>@property.PropertyInfo.Name</strong></td>
+						<td><code>@((MarkupString)@FormatType(property.PropertyInfo.PropertyType))</code></td>
+						<td class="summary">@((MarkupString)property.Comments.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (events.Count > 0)
 {
 	<h3>Event Callbacks</h3>
 
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Type</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var currentEvent in events)
-			{
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
 				<tr>
-					<td><strong>@currentEvent.PropertyInfo.Name</strong> </td>
-					<td><code>@((MarkupString)@FormatType(currentEvent.PropertyInfo.PropertyType))</code></td>
-					<td class="summary">@((MarkupString)currentEvent.Comments.Summary)</td>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
 				</tr>
-			}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@foreach (var currentEvent in events)
+				{
+					<tr>
+						<td><strong>@currentEvent.PropertyInfo.Name</strong> </td>
+						<td><code>@((MarkupString)@FormatType(currentEvent.PropertyInfo.PropertyType))</code></td>
+						<td class="summary">@((MarkupString)currentEvent.Comments.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (methods.Count > 0)
 {
 	<h3>Methods</h3>
-
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Method</th>
-				<th>Returns</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var method in methods)
-			{
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
 				<tr>
-					<td><strong>@method.MethodInfo.Name</strong>@((MarkupString)@method.GetParameters())</td>
-					<td><code>@((MarkupString)@FormatType(method.MethodInfo.ReturnType))</code></td>
-					<td class="summary">@((MarkupString)method.Comments.Summary)</td>
+					<th>Method</th>
+					<th>Returns</th>
+					<th>Description</th>
 				</tr>
-			}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@foreach (var method in methods)
+				{
+					<tr>
+						<td><strong>@method.MethodInfo.Name</strong>@((MarkupString)@method.GetParameters())</td>
+						<td><code>@((MarkupString)@FormatType(method.MethodInfo.ReturnType))</code></td>
+						<td class="summary">@((MarkupString)method.Comments.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (staticProperties.Count > 0)
 {
 	<h3>Static properties</h3>
 
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Property</th>
-				<th>Type</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var property in staticProperties)
-			{
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
 				<tr>
-					<td><strong>@property.PropertyInfo.Name</strong></td>
-					<td><code>@((MarkupString)@FormatType(property.PropertyInfo.PropertyType))</code></td>
-					<td class="summary">@((MarkupString)property.Comments.Summary)</td>
+					<th>Property</th>
+					<th>Type</th>
+					<th>Description</th>
 				</tr>
-			}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@foreach (var property in staticProperties)
+				{
+					<tr>
+						<td><strong>@property.PropertyInfo.Name</strong></td>
+						<td><code>@((MarkupString)@FormatType(property.PropertyInfo.PropertyType))</code></td>
+						<td class="summary">@((MarkupString)property.Comments.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (staticMethods.Count > 0)
 {
 	<h3>Static Methods</h3>
 
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Method</th>
-				<th>Type</th>
-				<th>Description</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var method in staticMethods)
-			{
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
 				<tr>
-					<td><strong>@method.MethodInfo.Name</strong> @((MarkupString)@method.GetParameters())</td>
-					<td><code>@((MarkupString)@FormatType(method.MethodInfo.ReturnType))</code></td>
-					<td class="summary">@((MarkupString)method.Comments.Summary)</td>
+					<th>Method</th>
+					<th>Type</th>
+					<th>Description</th>
 				</tr>
-			}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@foreach (var method in staticMethods)
+				{
+					<tr>
+						<td><strong>@method.MethodInfo.Name</strong> @((MarkupString)@method.GetParameters())</td>
+						<td><code>@((MarkupString)@FormatType(method.MethodInfo.ReturnType))</code></td>
+						<td class="summary">@((MarkupString)method.Comments.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (CssVariables is not null)
 {
 	<h3>CSS Variables</h3>
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Description</th>
-				<th>Default</th>
-			</tr>
-		</thead>
-		<tbody>
-			@CssVariables
-		</tbody>
-	</table>
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				@CssVariables
+			</tbody>
+		</table>
+	</div>
 }
 
