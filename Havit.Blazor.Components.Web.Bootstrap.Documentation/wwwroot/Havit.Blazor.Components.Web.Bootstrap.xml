@@ -1938,7 +1938,12 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1">
             <summary>
-            Date input (custom made by HAVIT).
+            Date input component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.DefaultDates">
+            <summary>
+            Default dates offered in associated menu (e.g. Today, Yesterday, etc.).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.UseDefaultDates">
