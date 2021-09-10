@@ -172,7 +172,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 
 			fullLink = $"href=\"/components/{fullLink}";
-			fullLink += $"\">{seeName}</a>";
+			fullLink += $"\">{seeName}</a></code>";
 			return fullLink;
 		}
 
@@ -189,7 +189,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 
 			fullLink = $"href=\"https://docs.microsoft.com/en-us/dotnet/api/{fullLink}";
-			fullLink += $"\">{seeName}</a>";
+			fullLink += $"\">{seeName}</a></code>";
 			return fullLink;
 		}
 
