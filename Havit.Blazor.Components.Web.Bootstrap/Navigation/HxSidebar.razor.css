@@ -8,6 +8,7 @@
 
 .hx-sidebar.collapsed {
 	width: var(--hx-sidebar-collapsed-width);
+	min-width: auto;
 }
 
 .hx-sidebar-header {
@@ -42,7 +43,7 @@
 	opacity: 0;
 }
 
-.hx-sidebar-toggler:hover .hx-sidebar-toggler {
+.hx-sidebar:hover .hx-sidebar-toggler {
 	opacity: .75;
 }
 
