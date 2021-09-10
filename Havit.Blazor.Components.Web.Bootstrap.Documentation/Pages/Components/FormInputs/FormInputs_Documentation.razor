@@ -20,33 +20,43 @@
 
 <h2>API</h2>
 <h3>Common component properties</h3>
-<ul>
-	<li>
-		<strong>@nameof(HxInputBase<object>.Value), @nameof(HxInputBase<object>.ValueChanged)</strong><br />
-		Value of the input.
-	</li>
-	<li>
-		<strong>@nameof(HxInputBase<object>.Label), @nameof(HxInputBase<object>.LabelTemplate)</strong><br />
-		Label to be next to the input. Label is rendered before the input.
-	</li>
-	<li>
-		<strong>@nameof(HxInputBase<object>.Hint), @nameof(HxInputBase<object>.HintTemplate)</strong><br />
-		Hint to be next to the input. Label is rendered after the input and validation message.
-	</li>
-	<li>
-		<strong>@nameof(HxInputBaseWithInputGroups<object>.InputGroupStart), @nameof(HxInputBaseWithInputGroups<object>.InputGroupEnd), @nameof(HxInputBaseWithInputGroups<object>.InputGroupStartTemplate), @nameof(HxInputBaseWithInputGroups<object>.InputGroupEndTemplate)</strong> (not all inputs)<br />
-		Templates for input groups before and after the input. See <a href="https://v5.getbootstrap.com/docs/5.0/forms/input-group/">Input group details in Bootstrap documentation</a>.
-	</li>
-	<li>
-		<strong>@nameof(HxInputBase<object>.InputCssClass)</strong><br />
-		CSS class to be set to the input.
-	</li>
-	<li>
-		<strong>@nameof(HxInputBase<object>.ShowValidationMessage)</strong><br />
-		Can be used to suppress rendering of a validation message.
-	</li>
-	<li>
-		<strong>@nameof(HxInputBase<object>.Enabled)</strong><br />
-		<EnabledExplanation />
-	</li>
-</ul>
+<div class="table-responsive">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<td>Name</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+        <tbody>
+            <tr>
+                <td><strong>@nameof(HxInputBase<object>.Value), @nameof(HxInputBase<object>.ValueChanged)</strong></td>
+                <td>Value of the input.</td>
+            </tr>
+            <tr>
+                <td><strong>@nameof(HxInputBase<object>.Label), @nameof(HxInputBase<object>.LabelTemplate)</strong></td>
+                <td>Label to be next to the input. Label is rendered before the input.</td>
+            </tr>
+            <tr>
+                <td><strong>@nameof(HxInputBase<object>.Hint), @nameof(HxInputBase<object>.HintTemplate)</strong></td>
+                <td>Hint to be next to the input. Label is rendered after the input and validation message.</td>
+            </tr>
+            <tr>
+                <td><strong>@nameof(HxInputBaseWithInputGroups<object>.InputGroupStart), @nameof(HxInputBaseWithInputGroups<object>.InputGroupEnd), @nameof(HxInputBaseWithInputGroups<object>.InputGroupStartTemplate), @nameof(HxInputBaseWithInputGroups<object>.InputGroupEndTemplate)</strong></td>
+                <td>Templates for input groups before and after the input. See<a href="https://v5.getbootstrap.com/docs/5.0/forms/input-group/">Input group details in Bootstrap documentation</a>.</td>
+            </tr>
+            <tr>
+                <td><strong>@nameof(HxInputBase<object>.InputCssClass)</strong></td>
+                <td>CSS class to be set to the input.</td>
+            </tr>
+            <tr>
+                <td><strong>@nameof(HxInputBase<object>.ShowValidationMessage)</strong></td>
+                <td>Can be used to suppress rendering of a validation message.</td>
+            </tr>
+            <tr>
+                <td><strong>@nameof(HxInputBase<object>.Enabled)</strong></td>
+                <td><EnabledExplanation /></td>
+            </tr>
+        </tbody>
+	</table>
+</div>
