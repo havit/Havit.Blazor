@@ -64,9 +64,10 @@
 .hx-sidebar.collapsed {
 	width: var(--hx-sidebar-collapsed-width);
 }
-
-.hx-sidebar.collapsed ::deep .brand-name,
-.hx-sidebar.collapsed ::deep .text,
-.hx-sidebar.collapsed ::deep .expand-icon {
-	display: none;
+@media (min-width: 768px) {
+	.hx-sidebar.collapsed ::deep .brand-name,
+	.hx-sidebar.collapsed ::deep .text,
+	.hx-sidebar.collapsed ::deep .expand-icon {	
+		display: none;
+	}
 }
