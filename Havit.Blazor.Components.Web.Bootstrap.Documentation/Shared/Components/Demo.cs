@@ -73,8 +73,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			{
 				builder.OpenElement(500, "div");
 				builder.AddAttribute(501, "class", "p-3");
-				builder.OpenComponent(502, Type);
+				builder.OpenElement(502, "div");
+				builder.AddAttribute(503, "class", "overflow-auto");
+				builder.OpenComponent(504, Type);
 				builder.CloseComponent();
+				builder.CloseElement();
 				builder.CloseElement();
 			}
 			if (!showingDemo || !Tabs)
