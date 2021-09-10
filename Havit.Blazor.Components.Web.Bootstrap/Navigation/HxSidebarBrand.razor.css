@@ -10,7 +10,7 @@
 }
 
 a {
-	display: flex;
+	display: inline-flex;
 	align-items: center;
 	text-decoration: none;
 	font-size: .875rem;

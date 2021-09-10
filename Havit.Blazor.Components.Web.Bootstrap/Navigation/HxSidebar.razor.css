@@ -1,38 +1,30 @@
-﻿.sidebar {
-	height: auto;
-	position: sticky;
-	top: 0;
-	z-index: 1020;
-	width: var(--hx-sidebar-width);
+﻿.hx-sidebar {
 	display: flex;
 	flex-direction: column;
 	flex-shrink: 0;
 	max-height: 100vh;
+	min-width: var(--hx-sidebar-min-width)
 }
 
-.sidebar.collapsed {
+.hx-sidebar.collapsed {
 	width: var(--hx-sidebar-collapsed-width);
 }
 
-.sidebar-header {
+.hx-sidebar-header {
 	padding: var(--hx-sidebar-header-padding);
 }
 
-.sidebar-body {
+.hx-sidebar-body {
 	padding: var(--hx-sidebar-body-padding);
 }
 
-.sidebar-footer {
+.hx-sidebar-footer {
 	width: 100%;
 	flex-grow: 0;
 	padding: var(--hx-sidebar-footer-padding);
 }
 
-.navbar-toggler-icon {
-	display: flex;
-}
-
-.navbar-toggler {
+.hx-sidebar-toggler {
 	display: flex;
 	width: 2em;
 	height: 2em;
@@ -50,34 +42,30 @@
 	opacity: 0;
 }
 
-.sidebar:hover .navbar-toggler {
+.hx-sidebar-toggler:hover .hx-sidebar-toggler {
 	opacity: .75;
 }
 
-.sidebar .navbar-toggler:hover {
+.hx-sidebar .hx-sidebar-toggler:hover {
 	opacity: 1;
 }
 
 
 .navbar-toggler:hover {
 		color: var(--bs-primary);
-	}
+}
 
 ::deep a[aria-expanded="true"] .bi-chevron-right {
 	transform: rotate(90deg);
 }
 
 /*Desktop collapsed*/
-.sidebar.collapsed {
+.hx-sidebar.collapsed {
 	width: var(--hx-sidebar-collapsed-width);
 }
 
-.sidebar.collapsed ::deep .brand-name,
-.sidebar.collapsed ::deep .text,
-.sidebar.collapsed ::deep .expand-icon {
+.hx-sidebar.collapsed ::deep .brand-name,
+.hx-sidebar.collapsed ::deep .text,
+.hx-sidebar.collapsed ::deep .expand-icon {
 	display: none;
-}
-
-.nav-menu {
-	height: 100vh;
 }

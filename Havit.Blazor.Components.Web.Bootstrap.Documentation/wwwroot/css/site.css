@@ -1,13 +1,8 @@
 :root {
-	--hx-sidebar-width: 300px;
+	--hx-sidebar-min-width: 320px;
 }
 
-app {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-}
+
 
 #blazor-error-ui {
 	background: lightyellow;
