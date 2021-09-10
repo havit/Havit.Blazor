@@ -145,7 +145,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				if (splitLink.Length >= 2)
 				{
 					fullLink = $"{splitLink[^2]}#{splitLink[^1]}";
-					if (PrepareLinkForFullLinkGeneration(enclosingType.Name) == splitLink[^2])
+					if (enclosingType is not null && PrepareLinkForFullLinkGeneration(enclosingType.Name) == splitLink[^2])
 					{
 						seeName = $"{splitLink[^1]}";
 					}
