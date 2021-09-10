@@ -3,7 +3,7 @@
 	flex-direction: column;
 	flex-shrink: 0;
 	max-height: 100vh;
-	min-width: var(--hx-sidebar-min-width)
+	width: var(--hx-sidebar-width);
 }
 
 .hx-sidebar.collapsed {
