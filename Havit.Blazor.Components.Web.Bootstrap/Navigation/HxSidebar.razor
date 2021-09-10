@@ -13,25 +13,25 @@
 			</div>
 		}
 
-		<div class="@CssClassHelper.Combine("hx-sidebar-body flex-column mb-auto", (!Collapsed) ? "overflow-auto": null)">
-			<HxNav Orientation="NavOrientation.Vertical" CssClass="ps-0">
-				<div class="collapse navbar-collapse d-md-block" id="@NavContentElementId">
+		<div class="collapse navbar-collapse d-md-block" id="@NavContentElementId">
+			<div class="@CssClassHelper.Combine("hx-sidebar-body flex-column mb-auto", (!Collapsed) ? "overflow-auto": null)">
+				<HxNav Orientation="NavOrientation.Vertical" CssClass="ps-0">
 					<CascadingValue Value="@this">
 						@ItemsTemplate
 					</CascadingValue>
+				</HxNav>
+				<div class="hx-sidebar-toggler translate-middle d-none d-md-flex" role="button" @onclick="HandleCollapseToggleClick"
+					 @onclick:stopPropagation="true">
+					<HxIcon Icon="@(Collapsed ? ExpandIcon : CollapseIcon)" />
 				</div>
-			</HxNav>
-			<div class="hx-sidebar-toggler translate-middle d-none d-md-flex" role="button" @onclick="HandleCollapseToggleClick"
-				 @onclick:stopPropagation="true">
-				<HxIcon Icon="@(Collapsed ? ExpandIcon : CollapseIcon)" />
 			</div>
-		</div>
 
-		@if (FooterTemplate is not null)
-		{
-			<div class="hx-sidebar-footer d-none d-md-flex">
-				@FooterTemplate
-			</div>
-		}
+			@if (FooterTemplate is not null)
+			{
+				<div class="hx-sidebar-footer d-flex">
+					@FooterTemplate
+				</div>
+			}
+		</div>
 	</div>
 </div>
