@@ -31,10 +31,10 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.CssClassHelper.Combine(System.String[])">
             <summary>
-            Join class names to one class attribute value (using space as a separator). Null or empty items in cssClasses argument are ignored.
+            Join class names to one class attribute value (using space as a separator). <c>Null</c> or empty items in cssClasses argument are ignored.
             </summary>
             <example>
-            For "btn btn-primary", null, "bt-lrg" returns "btn btn-primary bt-lrg".
+            For "btn btn-primary", <c>null</c>, "bt-lrg" returns "btn btn-primary bt-lrg".
             </example>
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Title">
@@ -79,7 +79,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.MessageBoxServiceCollectionExtensions">
             <summary>
-            Extension methods for installation of IHxMessageBoxService support.
+            Extension methods for installation of <see cref="T:Havit.Blazor.Components.Web.IHxMessageBoxService"/> support.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.MessageBoxServiceCollectionExtensions.AddHxMessageBoxHost(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
@@ -292,7 +292,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxFormState.Visible">
             <summary>
-            When false, nothing is rendered (no children). Value is not propagated, there is no where to propagate.
+            When <c>false</c>, nothing is rendered (no children). Value is not propagated, there is no where to propagate.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxFormState.ChildContent">
@@ -445,7 +445,7 @@
         <member name="P:Havit.Blazor.Components.Web.IconBase.RendererComponentType">
             <summary>
             Renderer of the icon. Must have a Icon property which receives the instance of the icon (IconBase descendant instance).
-            See BootstrapIcon and HxIcon implementations for more details.
+            See BootstrapIcon and <see cref="T:Havit.Blazor.Components.Web.HxIcon"/> implementations for more details.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Infrastructure.CascadeEnabledComponent">
@@ -470,14 +470,14 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled">
             <summary>
-            When null (default), the Enabled value is received from cascading <see cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.FormState" />.
-            When value is false, input is rendered as disabled.
+            When <c>null</c> (default), the Enabled value is received from cascading <see cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.FormState" />.
+            When value is <c>false</c>, input is rendered as disabled.
             To set multiple controls as disabled use <seealso cref="T:Havit.Blazor.Components.Web.HxFormState" />.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.HxMessengerService">
             <summary>
-            Propagating access to HxMessenger as <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService" />.
+            Propagating access to <see cref="!:HxMessenger"/> as <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService" />.
             </summary>
         </member>
         <member name="E:Havit.Blazor.Components.Web.HxMessengerService.OnMessage">
@@ -586,15 +586,15 @@
         <member name="M:Havit.Blazor.Components.Web.SelectorHelpers.GetText``1(System.Func{``0,System.String},``0)">
             <summary>
             Returns text from item by textSelector.
-            When textSelector is null, returns item.ToString().
-            Never returns null, null values are converted to empty string.
+            When textSelector is <c>null</c>, returns item.ToString().
+            Never returns <c>null</c>, <c>null</c> values are converted to empty string.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.SelectorHelpers.GetValue``2(System.Func{``0,``1},``0)">
             <summary>
-            When item is null, returns default(TValue).
+            When item is <c>null</c>, returns <c>default(TValue)</c>.
             Otherwise returns value from item by valueSelector.
-            When valueSelector is null and TValue is same as TItem, returns item.
+            When valueSelector is <c>null</c> and <c>TValue</c> is same as <c>TItem</c>, returns item.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2">
@@ -612,7 +612,7 @@
             Template method to implement the data retrival logic.
             You should never call this method directly, use <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.EnsureDataAsync"/> to load data.
             This method is sequential (does not allow parallel runs), just take care of the data retrieval.
-            Must return non-null value, use Enumerable.Empty if needed.
+            Must return non-<c>null</c> value, use Enumerable.Empty if needed.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.KeySelector">
@@ -655,7 +655,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.StringLocalizerFactoryExtensions.GetLocalizedValue(Microsoft.Extensions.Localization.IStringLocalizerFactory,System.String,System.Type)">
             <summary>
-            Returns localized value when resourceType is not null (value used as resource name).
+            Returns localized value when resourceType is not <c>null</c> (value used as resource name).
             Otherwise returns the value (without attempt to get localized value).
             </summary>
         </member>

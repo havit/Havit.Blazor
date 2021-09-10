@@ -438,7 +438,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueComponentExtensions.ShouldRenderInputGroups(Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent)">
             <summary>
-            Returns true if <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" /> should render input groups (at least one input group).
+            Returns <c>true</c> if <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" /> should render input groups (at least one input group).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueRenderer">
@@ -868,7 +868,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Interval">
             <summary>
-            Delay for automatically switching slides. Default is 3000 ms.
+            Delay for automatically switching slides. Default is <c>3000 ms</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.TouchSwiping">
@@ -949,7 +949,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ChipItem.Removable">
             <summary>
-            True when it is possible to remove the chip.
+            <c>True</c> when it is possible to remove the chip.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ChipItem.RemoveAction">
@@ -1085,7 +1085,7 @@
             <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</a> component.
             </summary>
             <remarks>
-            For now HxDropdown does not implement Show/Hide methods nor OnXy events. If we need them, we will switch the implementation to JS-interop.
+            For now <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/> does not implement Show/Hide methods nor OnXy events. If we need them, we will switch the implementation to JS-interop.
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.Split">
@@ -1644,8 +1644,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.AutoSort">
             <summary>
-            When true, items are sorted before displaying in select.
-            Default value is true.
+            When <c>true</c>, items are sorted before displaying in select.
+            Default value is <c>true</c>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -1763,7 +1763,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GenerateChip">
             <summary>
-            When true, HxChipGenerator is used to generate chip item(s). Default is <c>true</c>.
+            When <c>true</c>, HxChipGenerator is used to generate chip item(s). Default is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ChipTemplate">
@@ -1807,7 +1807,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.InputElement">
             <summary>
             Input ElementReference.
-            Can be null. 
+            Can be <c>null</c>. 
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.RenderOrder">
@@ -1881,7 +1881,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GetValueAttribute``1">
             <summary>
-            Returns attribute from the bounded property if exists. Otherwise returns null.
+            Returns attribute from the bounded property if exists. Otherwise returns <c>null</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1">
@@ -1948,12 +1948,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.UseDefaultDates">
             <summary>
-            When true, uses default date ranges (this month, last month, this year, last year).
+            When <c>true</c>, uses default date ranges (this month, last month, this year, last year).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.CustomDates">
             <summary>
-            Custom date ranges. When <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.UseDefaultDates"/> is true, these items are used with default items.
+            Custom date ranges. When <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.UseDefaultDates"/> is <c>true</c>, these items are used with default items.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.ParsingErrorMessage">
@@ -2011,12 +2011,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.UseDefaultDateRanges">
             <summary>
-            When true, uses default date ranges (this month, last month, this year, last year).
+            When <c>true</c>, uses default date ranges (this month, last month, this year, last year).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.CustomDateRanges">
             <summary>
-            Custom date ranges. When <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.UseDefaultDateRanges"/> is true, these items are used with default items.
+            Custom date ranges. When <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.UseDefaultDateRanges"/> is <c>true</c>, these items are used with default items.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.InputSize">
@@ -2059,7 +2059,7 @@
             Numeric input.
             </summary>
             <typeparam name="TValue">
-            Supported values: int (Int32), long (Int64), float (Single), double, decimal.
+            Supported values: <c>int (Int32), long (Int64), float (Single), double, decimal</c>.
             </typeparam>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.ParsingErrorMessage">
@@ -2093,7 +2093,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.IsTValueIntegerType">
             <summary>
-            Returns true for integer types (false for floating point types).
+            Returns <c>true</c> for integer types (<c>false</c> for floating point types).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.GetDefaults">
@@ -2275,7 +2275,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.AutoSort">
             <summary>
-            When true, items are sorted before displaying in select.
+            When <c>true</c>, items are sorted before displaying in select.
             Default value is <c>true</c>.
             </summary>
         </member>
@@ -2321,8 +2321,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.AutoSortImpl">
             <summary>
-            When true, items are sorted before displaying in select.
-            Default value is true.
+            When <c>true</c>, items are sorted before displaying in select.
+            Default value is <c>true</c>.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
@@ -2354,7 +2354,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.NullDataText">
             <summary>
-            Text to display when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.Data"/> is null.
+            Text to display when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.Data"/> is <c>null</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.ValueSelector">
@@ -2408,25 +2408,25 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.NullableImpl">
             <summary>
-            Indicates when null is a valid value.
+            Indicates when <c>null</c> is a valid value.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.NullableEffective">
             <summary>
-            Indicates when null is a valid value.
-            Uses (in order) to get effective value: Nullable property, RequiresAttribute on bounded property (false), Nullable type on bounded property (true), class (true), default (false).
+            Indicates when <c>null</c> is a valid value.
+            Uses (in order) to get effective value: Nullable property, RequiresAttribute on bounded property (<c>false</c>) Nullable type on bounded property (<c>true</c>), class (<c>true</c>), default (<c>false</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.NullTextImpl">
             <summary>
-            Text to display for null value.
+            Text to display for <c>null</c> value.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.NullDataTextImpl">
             <summary>
-            Text to display when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.DataImpl"/> is null.
+            Text to display when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.DataImpl"/> is <c>null</c>.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
@@ -2459,8 +2459,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.AutoSortImpl">
             <summary>
-            When true, items are sorted before displaying in select.
-            Default value is true.
+            When <c>true</c>, items are sorted before displaying in select.
+            Default value is <c>true</c>.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
@@ -2808,7 +2808,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid">
             <summary>
-            Marker for resources for HxGrid&lt;&gt;.
+            Marker for resources for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
             It is unfriendly to create resources for generic classes.
             </summary>
         </member>
@@ -2838,7 +2838,7 @@
             Indicates whether single data item selection is enabled. 
             Selection is performed by click on the item row.
             Can be combined with multiselection.
-            Default is true.
+            Default is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.MultiSelectionEnabled">
@@ -2846,7 +2846,7 @@
             Indicates whether multi data items selection is enabled. 
             Selection is performed by checkboxes in the first column.
             Can be combined with (single) selection.
-            Default is false.
+            Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Columns">
@@ -2861,7 +2861,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.EmptyDataTemplate">
             <summary>
-            Template to render when there is empty Data (but not null).
+            Template to render when there is empty Data (but not <c>null</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItem">
@@ -2916,12 +2916,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InProgress">
             <summary>
             Indicates whether the grid should be displayed as "in progress".
-            When null (default) value is used, grid is "in progress" when retrieving data by data provider.
+            When <c>null</c> (default) value is used, grid is "in progress" when retrieving data by data provider.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.TableContainerCssClass">
             <summary>
-            Custom CSS class to render with <code>div</code> element wrapping the main <code>table</code> (HxPager is not wrapped in this <code>div</code> element).
+            Custom CSS class to render with <code>div</code> element wrapping the main <code>table</code> (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <code>div</code> element).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.TableCssClass">
@@ -3177,7 +3177,7 @@
             </summary>
             <remarks>
             Currently it ensures the correct order of MultiSelectGridColumn when enabled dynamically.		
-            In future we can implement better in HxGridColumn to enable dynamic column order.
+            In future we can implement better in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1"/> to enable dynamic column order.
             </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
@@ -3256,7 +3256,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetOrder">
             <summary>
             Get column order (for scenarios where column order can be modified).
-            Default should be 0.
+            Default should be <c>0</c>.
             When columns have same order they should render in the order of their registration (Which is usually the same as the column appereance in the source code.
             But it differs when the column is displayed conditionaly using @if statement.).
             </summary>
@@ -3353,7 +3353,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItemExtensions.StartsWith``1(System.Collections.Generic.IReadOnlyList{Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}},Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}[])">
             <summary>
-            Returns true when source sortings starts with itemsToMerge.
+            Returns <c>true</c> when source sortings starts with itemsToMerge.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItemExtensions.ToggleSortDirections``1(System.Collections.Generic.IEnumerable{Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}})">
@@ -3433,7 +3433,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout.NoFilter">
             <summary>
-            Can be used for TFilterModelType to express there is no filter in the HxListLayout component.
+            Can be used for TFilterModelType to express there is no filter in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout"/> component.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1">
@@ -3443,7 +3443,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1.Successful">
             <summary>
-            True when the dialog has successful result, false then it was cancelled.
+            <c>True</c> when the dialog has successful result, <c>false</c> then it was cancelled.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1.Value">
@@ -3474,7 +3474,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1.Modal">
             <summary>
-            Returns the HxModal component which this component control. Override when you do not want to use modal field set using @ref.
+            Returns the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> component which this component control. Override when you do not want to use modal field set using @ref.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1.ShowAsync">
@@ -4255,7 +4255,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.DefaultDelay">
             <summary>
             Default debounce delay in miliseconds to be used when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.Delay"/> not set.
-            Default DefaultDelay is 300 ms.
+            Default DefaultDelay is <c>300 ms</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.InProgress">
@@ -4346,7 +4346,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Visible">
             <summary>
-            True for visible tab. Set false when tab should not be visible.
+            <c>True</c> for visible tab. Set <c>false</c> when tab should not be visible.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.FormState">
@@ -4354,8 +4354,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Enabled">
             <summary>
-            When null (default), the Enabled value is received from cascading <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.FormState" />.
-            When value is false, input is rendered as disabled.
+            When <c>null</c> (default), the Enabled value is received from cascading <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.FormState" />.
+            When value is <c>false</c>, input is rendered as disabled.
             To set multiple controls as disabled use <seealso cref="T:Havit.Blazor.Components.Web.HxFormState" />.
             </summary>
         </member>
@@ -4584,7 +4584,7 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.Delimiters">
             <summary>
             Characters, when typed, divide the current input into separate tags.
-            Default is comma, semicolon and space.
+            Default is <c>comma, semicolon and space</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.ShowAddButton">
