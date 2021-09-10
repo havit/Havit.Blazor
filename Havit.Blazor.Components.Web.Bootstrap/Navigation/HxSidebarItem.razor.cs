@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
@@ -47,11 +48,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
-		[CascadingParameter(Name = "IsSidebarCollapsed")] protected bool IsSidebarCollapsed { get; set; }
+		[CascadingParameter] protected HxSidebar ParentSidebar { get; set; }
 		[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
 
-
 		private string id = "hx" + Guid.NewGuid().ToString("N");
+
+		protected override void OnParametersSet()
+		{
+			Contract.Requires<InvalidOperationException>(ParentSidebar is not null, $"{nameof(HxSidebarItem)} has to be placed inside {nameof(HxSidebar)}.");
+		}
 
 		protected bool HasExpandableContent => (this.ChildContent is not null);
 	}

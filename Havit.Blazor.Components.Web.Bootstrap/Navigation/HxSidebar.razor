@@ -7,18 +7,23 @@
 		{
 			<div class="hx-sidebar-header d-flex align-items-center">
 				@HeaderTemplate
+				<button class="navbar-toggler navbar-light d-md-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 			</div>
 		}
 
-		<div class="@CssClassHelper.Combine("hx-sidebar-body flex-column mb-auto", (!collapsed) ? "overflow-auto": null)">
+		<div class="@CssClassHelper.Combine("hx-sidebar-body flex-column mb-auto", (!Collapsed) ? "overflow-auto": null)">
 			<HxNav Orientation="NavOrientation.Vertical" CssClass="ps-0">
-				<CascadingValue Value="@collapsed" TValue="bool" Name="IsSidebarCollapsed">
-					@ItemsTemplate
-				</CascadingValue>
+				<div class="collapse navbar-collapse d-md-block" id="navContent">
+					<CascadingValue Value="@this">
+						@ItemsTemplate
+					</CascadingValue>
+				</div>
 			</HxNav>
 			<div class="hx-sidebar-toggler translate-middle d-none d-md-flex" role="button" @onclick="HandleCollapseToggleClick"
 				 @onclick:stopPropagation="true">
-				<HxIcon Icon="@(collapsed ? ExpandIcon : CollapseIcon)" />
+				<HxIcon Icon="@(Collapsed ? ExpandIcon : CollapseIcon)" />
 			</div>
 		</div>
 

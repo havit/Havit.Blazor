@@ -31,8 +31,8 @@
 					   Match="this.Match"
 					   Enabled="this.Enabled"
 					   role="button"
-					   data-bs-toggle="@(HasExpandableContent ? ((IsSidebarCollapsed) ? "dropdown": "collapse") : null)"
-					   data-bs-target="@(HasExpandableContent && !IsSidebarCollapsed ? "#" + id : null)"
+					   data-bs-toggle="@(HasExpandableContent ? ((ParentSidebar.Collapsed) ? "dropdown": "collapse") : null)"
+					   data-bs-target="@(HasExpandableContent && !ParentSidebar.Collapsed ? "#" + id : null)"
 					   aria-expanded="@(HasExpandableContent ? "false" : null)">
 				<div class="d-flex align-items-center">
 					@if (Icon != null)
@@ -50,7 +50,7 @@
 
 			</HxNavLink>
 
-			@if (IsSidebarCollapsed)
+			@if (ParentSidebar.Collapsed)
 			{
 				<HxDropdownMenu CssClass="hx-sidebar-subitems">
 					@ChildContent
@@ -59,7 +59,7 @@
 
 		</HxDropdown>
 
-		@if (!IsSidebarCollapsed)
+		@if (!ParentSidebar.Collapsed)
 		{
 			<div class="hx-sidebar-subitems collapse" id="@id">
 				<nav class="nav flex-column">

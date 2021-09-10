@@ -5,12 +5,8 @@
 				<img src="/HAVIT-Logo-Motiv-512x512-blur.png" width="40" height="40" />
 			</Logo>
 		</HxSidebarBrand>
-		<button class="navbar-toggler navbar-light d-md-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation">
-      		<span class="navbar-toggler-icon"></span>
-    	</button>
 	</HeaderTemplate>
 	<ItemsTemplate>
-		<div class="collapse navbar-collapse d-md-block" id="navContent">
 			<HxSidebarItem Text="Getting started" Href="/" Match="NavLinkMatch.All" Icon="BootstrapIcon.House" />
 
 			<HxSidebarItem Text="Forms" Icon="BootstrapIcon.InputCursorText">
@@ -152,7 +148,6 @@
 				<HxSidebarItem Href="@($"/components/{nameof(HxValidationMessage<object>)}")" Text="@(nameof(HxValidationMessage<object>) + " *TODO Doc*")" Enabled="false" />
 			</HxSidebarItem>
 			<a href="https://github.com/havit/Havit.Blazor" class="d-block text-dark text-decoration-none d-md-none px-2 py-3 ms-1 mt-2"><HxIcon CssClass="me-2" Icon="BootstrapIcon.Github" />GitHub repository</a>
-		</div>
 	</ItemsTemplate>
     <FooterTemplate>
 		<a href="https://github.com/havit/Havit.Blazor" class="d-block text-dark text-decoration-none px-2 py-3 ms-1 mt-2"><HxIcon Icon="BootstrapIcon.Github" /><span class="ms-2 text">GitHub repository</span></a>

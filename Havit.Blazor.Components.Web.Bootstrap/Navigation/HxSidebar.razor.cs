@@ -38,13 +38,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string CssClass { get; set; }
 
 
-		private string GetCollapsedCssClass() => collapsed ? "collapsed" : null;
-		private bool collapsed { get; set; } = false;
+		private string GetCollapsedCssClass() => Collapsed ? "collapsed" : null;
+		protected internal bool Collapsed { get; set; } = false;
 
 
 		private void HandleCollapseToggleClick()
 		{
-			collapsed = !collapsed;
+			Collapsed = !Collapsed;
 		}
 	}
 }
