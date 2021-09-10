@@ -5,7 +5,7 @@
 [![Build Status](https://dev.azure.com/havit/DEV/_apis/build/status/002.HFW-HavitBlazor?branchName=master)](https://dev.azure.com/havit/DEV/_build/latest?definitionId=318&branchName=master)
 [![GitHub](https://img.shields.io/github/license/havit/Havit.Blazor)](https://github.com/havit/Havit.Blazor/blob/master/LICENSE)
 
-* Free Bootstrap 5 components for ASP.NET Blazor
+* Free Bootstrap 5 components for ASP.NET Blazor (both WebAssembly and Server)
 * Blazor WASM stack with gRPC code-first communication
 * [New project template](https://github.com/havit/NewProjectTemplate-Blazor)
 
