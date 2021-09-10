@@ -2,6 +2,8 @@
 <div>
 	@if (!HasExpandableContent)
 	{
+		<div data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
+			@* To hide the nav-content in mobile view *@
 		<HxNavLink Href="@Href"
 				   CssClass="@CssClassHelper.Combine(this.DropdownContainer is not null ? "dropdown-item" : null, this.CssClass)"
 				   Match="this.Match"
@@ -17,55 +19,54 @@
 			</div>
 
 		</HxNavLink>
-	}
-	else
-	{
+	</div>
+}
+else
+{
+	<HxDropdown Direction="DropdownDirection.End" CssClass="hx-sidebar-item">
 
+		@* CSS Isolation (.nav-item not needed) *@
 
-		<HxDropdown Direction="DropdownDirection.End" CssClass="hx-sidebar-item">
-
-			@* CSS Isolation (.nav-item not needed) *@
-
-			<HxNavLink Href="@Href"
-					   CssClass="@CssClassHelper.Combine(this.CssClass)"
-					   Match="this.Match"
-					   Enabled="this.Enabled"
-					   role="button"
-					   data-bs-toggle="@(HasExpandableContent ? ((ParentSidebar.Collapsed) ? "dropdown": "collapse") : null)"
-					   data-bs-target="@(HasExpandableContent && !ParentSidebar.Collapsed ? "#" + id : null)"
-					   aria-expanded="@(HasExpandableContent ? "false" : null)">
-				<div class="d-flex align-items-center">
-					@if (Icon != null)
-					{
-						<HxIcon Icon="Icon" />
-					}
-					<span class="@CssClassHelper.Combine("text", Icon == null ? null : "ms-3")">
-						@Text
-					</span>
-					@if (HasExpandableContent)
-					{
-						<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon ms-auto" />
-					}
-				</div>
-
-			</HxNavLink>
-
-			@if (ParentSidebar.Collapsed)
-			{
-				<HxDropdownMenu CssClass="hx-sidebar-subitems">
-					@ChildContent
-				</HxDropdownMenu>
-			}
-
-		</HxDropdown>
-
-		@if (!ParentSidebar.Collapsed)
-		{
-			<div class="hx-sidebar-subitems collapse" id="@id">
-				<nav class="nav flex-column">
-					@ChildContent
-				</nav>
+		<HxNavLink Href="@Href"
+				   CssClass="@CssClassHelper.Combine(this.CssClass)"
+				   Match="this.Match"
+				   Enabled="this.Enabled"
+				   role="button"
+				   data-bs-toggle="@(HasExpandableContent ? ((ParentSidebar.Collapsed) ? "dropdown": "collapse") : null)"
+				   data-bs-target="@(HasExpandableContent && !ParentSidebar.Collapsed ? "#" + id : null)"
+				   aria-expanded="@(HasExpandableContent ? "false" : null)">
+			<div class="d-flex align-items-center">
+				@if (Icon != null)
+				{
+					<HxIcon Icon="Icon" />
+				}
+				<span class="@CssClassHelper.Combine("text", Icon == null ? null : "ms-3")">
+					@Text
+				</span>
+				@if (HasExpandableContent)
+				{
+					<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon ms-auto" />
+				}
 			</div>
+
+		</HxNavLink>
+
+		@if (ParentSidebar.Collapsed)
+		{
+			<HxDropdownMenu CssClass="hx-sidebar-subitems">
+				@ChildContent
+			</HxDropdownMenu>
 		}
+
+	</HxDropdown>
+
+	@if (!ParentSidebar.Collapsed)
+	{
+		<div class="hx-sidebar-subitems collapse" id="@id">
+			<nav class="nav flex-column">
+				@ChildContent
+			</nav>
+		</div>
 	}
+}
 </div>

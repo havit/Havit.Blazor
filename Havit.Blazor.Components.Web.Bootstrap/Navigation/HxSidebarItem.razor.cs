@@ -51,6 +51,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[CascadingParameter] protected HxSidebar ParentSidebar { get; set; }
 		[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
 
+		[Inject] protected NavigationManager NavigationManager { get; set; }
+
 		private string id = "hx" + Guid.NewGuid().ToString("N");
 
 		protected override void OnParametersSet()
