@@ -406,7 +406,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		public static string GenerateLinkForInternalType(string typeName, bool checkForInternal = true, string linkText = null)
 		{
 			string typeNameForOwnDocumentation = typeName.Replace("?", "");
-			typeNameForOwnDocumentation = Regex.Replace(typeNameForOwnDocumentation, "Task<[a-zA-Z]+>", capture => $"{capture.Value[5..^1]}");
+			typeNameForOwnDocumentation = Regex.Replace(typeNameForOwnDocumentation, "^[^<]+", "");
+			typeNameForOwnDocumentation = Regex.Replace(typeNameForOwnDocumentation, "<[a-zA-Z]+>", capture => $"{capture.Value[1..^1]}");
 
 			if (!checkForInternal)
 			{

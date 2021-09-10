@@ -78,10 +78,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 					return (result, false);
 				}
 			}
-			catch
-			{
+			catch { }
 
+			try
+			{
+				result = Type.GetType($"Havit.Blazor.Components.Web.{typeName}, Havit.Blazor.Components.Web");
+				if (result is not null)
+				{
+					return (result, false);
+				}
 			}
+			catch { }
 
 			return (null, false);
 		}
