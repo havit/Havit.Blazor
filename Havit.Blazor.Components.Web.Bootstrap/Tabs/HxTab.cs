@@ -42,7 +42,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment Content { get; set; }
 
 		/// <summary>
-		/// True for visible tab. Set false when tab should not be visible.
+		/// <c>True</c> for visible tab. Set <c>false</c> when tab should not be visible.
 		/// </summary>
 		[Parameter] public bool Visible { get; set; } = true;
 
@@ -51,8 +51,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
 
 		/// <summary>
-		/// When null (default), the Enabled value is received from cascading <see cref="FormState" />.
-		/// When value is false, input is rendered as disabled.
+		/// When <c>null</c> (default), the Enabled value is received from cascading <see cref="FormState" />.
+		/// When value is <c>false</c>, input is rendered as disabled.
 		/// To set multiple controls as disabled use <seealso cref="HxFormState" />.
 		/// </summary>
 		[Parameter] public bool? Enabled { get; set; }

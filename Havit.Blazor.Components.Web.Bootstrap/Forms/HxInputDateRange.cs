@@ -28,12 +28,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static InputDateRangeDefaults Defaults { get; } = new InputDateRangeDefaults();
 
 		/// <summary>
-		/// When true, uses default date ranges (this month, last month, this year, last year).
+		/// When <c>true</c>, uses default date ranges (this month, last month, this year, last year).
 		/// </summary>
 		[Parameter] public bool UseDefaultDateRanges { get; set; } = true;
 
 		/// <summary>
-		/// Custom date ranges. When <see cref="UseDefaultDateRanges"/> is true, these items are used with default items.
+		/// Custom date ranges. When <see cref="UseDefaultDateRanges"/> is <c>true</c>, these items are used with default items.
 		/// </summary>
 		[Parameter] public IEnumerable<DateRangeItem> CustomDateRanges { get; set; }
 

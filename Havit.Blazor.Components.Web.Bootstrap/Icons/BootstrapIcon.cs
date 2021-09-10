@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// - Update wwwroot\bootstrap-icons.css
 	/// - Update BootstrapIcon.cs (this file) content:
 	///     1. Open BootstrapIcons.xlsx
-	///     2. Copy icon names from https://icons.getbootstrap.com/ to excel to column A via clipboard. It works surprisingly well.
+	///     2. Copy icon names from <a href="https://icons.getbootstrap.com/" /> to excel to column A via clipboard. It works surprisingly well.
 	///     3. Copy formulas in column B and next to the all rows.
 	///     4. Mark content of the F
 	///     5. Copy content to the clipboard and paste it below (replace current private fields).

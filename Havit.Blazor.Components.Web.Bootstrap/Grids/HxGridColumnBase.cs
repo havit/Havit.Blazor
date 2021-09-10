@@ -64,7 +64,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		/// <remarks>
 		/// Currently it ensures the correct order of MultiSelectGridColumn when enabled dynamically.		
-		/// In future we can implement better in HxGridColumn to enable dynamic column order.
+		/// In future we can implement better in <see cref="HxGridColumn{TItem}"/> to enable dynamic column order.
 		/// </remarks>
 		protected abstract int GetColumnOrder();
 

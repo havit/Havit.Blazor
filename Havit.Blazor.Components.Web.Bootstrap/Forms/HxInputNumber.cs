@@ -16,7 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// Numeric input.
 	/// </summary>
 	/// <typeparam name="TValue">
-	/// Supported values: int (Int32), long (Int64), float (Single), double, decimal.
+	/// Supported values: <c>int (Int32), long (Int64), float (Single), double, decimal</c>.
 	/// </typeparam>
 	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
@@ -71,7 +71,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Inject] private protected IStringLocalizer<HxInputNumber> StringLocalizer { get; set; }
 
 		/// <summary>
-		/// Returns true for integer types (false for floating point types).
+		/// Returns <c>true</c> for integer types (<c>false</c> for floating point types).
 		/// </summary>
 		private bool IsTValueIntegerType
 		{

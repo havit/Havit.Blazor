@@ -24,14 +24,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public InputSize? InputSize { get; set; }
 
 		/// <summary>
-		/// Indicates when null is a valid value.
+		/// Indicates when <c>null</c> is a valid value.
 		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 		/// </summary>
 		protected bool? NullableImpl { get; set; }
 
 		/// <summary>
-		/// Indicates when null is a valid value.
-		/// Uses (in order) to get effective value: Nullable property, RequiresAttribute on bounded property (false), Nullable type on bounded property (true), class (true), default (false).
+		/// Indicates when <c>null</c> is a valid value.
+		/// Uses (in order) to get effective value: Nullable property, RequiresAttribute on bounded property (<c>false</c>) Nullable type on bounded property (<c>true</c>), class (<c>true</c>), default (<c>false</c>).
 		/// </summary>
 		protected bool NullableEffective
 		{
@@ -62,13 +62,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Text to display for null value.
+		/// Text to display for <c>null</c> value.
 		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 		/// </summary>
 		protected string NullTextImpl { get; set; }
 
 		/// <summary>
-		/// Text to display when <see cref="DataImpl"/> is null.
+		/// Text to display when <see cref="DataImpl"/> is <c>null</c>.
 		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 		/// </summary>
 		protected string NullDataTextImpl { get; set; }
@@ -101,8 +101,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected Func<TItem, IComparable> SortKeySelectorImpl { get; set; }
 
 		/// <summary>
-		/// When true, items are sorted before displaying in select.
-		/// Default value is true.
+		/// When <c>true</c>, items are sorted before displaying in select.
+		/// Default value is <c>true</c>.
 		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 		/// </summary>
 		protected bool AutoSortImpl { get; set; } = true;

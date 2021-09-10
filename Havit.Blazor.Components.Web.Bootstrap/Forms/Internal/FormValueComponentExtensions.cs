@@ -13,7 +13,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 	public static class FormValueComponentExtensions
 	{
 		/// <summary>
-		/// Returns true if <see cref="IFormValueComponent" /> should render input groups (at least one input group).
+		/// Returns <c>true</c> if <see cref="IFormValueComponent" /> should render input groups (at least one input group).
 		/// </summary>
 		public static bool ShouldRenderInputGroups(this IFormValueComponent formValueComponent)
 		{

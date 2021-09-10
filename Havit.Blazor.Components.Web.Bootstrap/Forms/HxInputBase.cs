@@ -22,7 +22,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// Extends <see cref="InputBase{TValue}"/> class.
 	/// 
 	/// Adds support for rendering bootstrap based input with validator.
-	/// See also https://v5.getbootstrap.com/docs/5.0/forms/overview/.
+	/// See also <a href="https://v5.getbootstrap.com/docs/5.0/forms/overview/" />.
 	/// </summary>
 	public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledComponent, IFormValueComponent
 	{
@@ -78,7 +78,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool ShowValidationMessage { get; set; } = true;
 
 		/// <summary>
-		/// When true, HxChipGenerator is used to generate chip item(s). Default is <c>true</c>.
+		/// When <c>true</c>, HxChipGenerator is used to generate chip item(s). Default is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool GenerateChip { get; set; } = true;
 
@@ -122,7 +122,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Input ElementReference.
-		/// Can be null. 
+		/// Can be <c>null</c>. 
 		/// </summary>
 		protected ElementReference InputElement { get; set; }
 
@@ -343,7 +343,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Returns attribute from the bounded property if exists. Otherwise returns null.
+		/// Returns attribute from the bounded property if exists. Otherwise returns <c>null</c>.
 		/// </summary>
 		protected TAttribute GetValueAttribute<TAttribute>()
 			where TAttribute : Attribute

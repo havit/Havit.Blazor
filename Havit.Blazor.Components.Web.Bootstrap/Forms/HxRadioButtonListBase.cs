@@ -53,8 +53,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected Func<TItem, IComparable> SortKeySelectorImpl { get; set; }
 
 		/// <summary>
-		/// When true, items are sorted before displaying in select.
-		/// Default value is true.
+		/// When <c>true</c>, items are sorted before displaying in select.
+		/// Default value is <c>true</c>.
 		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 		/// </summary>
 		protected bool AutoSortImpl { get; set; } = true;

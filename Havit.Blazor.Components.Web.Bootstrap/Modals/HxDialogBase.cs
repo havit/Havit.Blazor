@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 #pragma warning restore SA1307 // Accessible fields must begin with upper-case letter
 
 		/// <summary>
-		/// Returns the HxModal component which this component control. Override when you do not want to use modal field set using @ref.
+		/// Returns the <see cref="HxModal"/> component which this component control. Override when you do not want to use modal field set using @ref.
 		/// </summary>
 		protected virtual HxModal Modal => modal;
 

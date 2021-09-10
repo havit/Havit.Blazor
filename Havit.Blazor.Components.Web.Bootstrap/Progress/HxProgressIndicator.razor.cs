@@ -19,7 +19,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Default debounce delay in miliseconds to be used when <see cref="Delay"/> not set.
-		/// Default DefaultDelay is 300 ms.
+		/// Default DefaultDelay is <c>300 ms</c>.
 		/// </summary>
 		public static int DefaultDelay { get; set; } = 300;
 

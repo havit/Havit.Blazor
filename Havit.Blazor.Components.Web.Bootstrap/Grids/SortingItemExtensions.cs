@@ -36,7 +36,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Returns true when source sortings starts with itemsToMerge.
+		/// Returns <c>true</c> when source sortings starts with itemsToMerge.
 		/// </summary>
 		internal static bool StartsWith<T>(this IReadOnlyList<SortingItem<T>> source, SortingItem<T>[] itemsToMerge)
 		{

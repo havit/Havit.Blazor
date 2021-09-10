@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web
 	public static class StringLocalizerFactoryExtensions
 	{
 		/// <summary>
-		/// Returns localized value when resourceType is not null (value used as resource name).
+		/// Returns localized value when resourceType is not <c>null</c> (value used as resource name).
 		/// Otherwise returns the value (without attempt to get localized value).
 		/// </summary>
 		public static string GetLocalizedValue(this IStringLocalizerFactory stringLocalizerFactory, string value, Type resourceType)

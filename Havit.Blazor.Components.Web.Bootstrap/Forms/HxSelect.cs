@@ -35,7 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Text to display when <see cref="Data"/> is null.
+		/// Text to display when <see cref="Data"/> is <c>null</c>.
 		/// </summary>
 		[Parameter]
 		public string NullDataText

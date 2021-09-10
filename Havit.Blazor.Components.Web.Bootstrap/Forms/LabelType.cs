@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		///  Floating label. Not supported on all components.
-		/// https://getbootstrap.com/docs/5.0/forms/floating-labels/
+		/// <a href="https://getbootstrap.com/docs/5.0/forms/floating-labels/" />
 		/// </summary>
 		Floating
 	}

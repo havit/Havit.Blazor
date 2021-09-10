@@ -24,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 		/// Template method to implement the data retrival logic.
 		/// You should never call this method directly, use <see cref="EnsureDataAsync"/> to load data.
 		/// This method is sequential (does not allow parallel runs), just take care of the data retrieval.
-		/// Must return non-null value, use Enumerable.Empty if needed.
+		/// Must return non-<c>null</c> value, use Enumerable.Empty if needed.
 		/// </summary>
 		protected internal abstract Task<IEnumerable<TValue>> LoadDataAsync();
 

@@ -21,7 +21,7 @@ namespace Havit.Blazor.Components.Web
 		[Parameter] public bool? Enabled { get; set; }
 
 		/// <summary>
-		/// When false, nothing is rendered (no children). Value is not propagated, there is no where to propagate.
+		/// When <c>false</c>, nothing is rendered (no children). Value is not propagated, there is no where to propagate.
 		/// </summary>
 		[Parameter] public bool Visible { get; set; } = true;
 

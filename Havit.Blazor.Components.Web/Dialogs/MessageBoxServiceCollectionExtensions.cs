@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Havit.Blazor.Components.Web
 {
 	/// <summary>
-	/// Extension methods for installation of IHxMessageBoxService support.
+	/// Extension methods for installation of <see cref="IHxMessageBoxService"/> support.
 	/// </summary>
 	public static class MessageBoxServiceCollectionExtensions
 	{

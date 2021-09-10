@@ -14,7 +14,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		Regular = 0,
 
 		/// <summary>
-		/// https://getbootstrap.com/docs/5.0/components/badge/#pill-badges
+		/// <a href="https://getbootstrap.com/docs/5.0/components/badge/#pill-badges"/>
 		/// </summary>
 		RoundedPill = 1
 	}

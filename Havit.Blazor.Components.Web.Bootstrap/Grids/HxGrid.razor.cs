@@ -39,7 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Indicates whether single data item selection is enabled. 
 		/// Selection is performed by click on the item row.
 		/// Can be combined with multiselection.
-		/// Default is true.
+		/// Default is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool SelectionEnabled { get; set; } = true;
 
@@ -47,7 +47,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Indicates whether multi data items selection is enabled. 
 		/// Selection is performed by checkboxes in the first column.
 		/// Can be combined with (single) selection.
-		/// Default is false.
+		/// Default is <c>false</c>.
 		/// </summary>
 		[Parameter] public bool MultiSelectionEnabled { get; set; } = false;
 
@@ -62,7 +62,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment<TItem> ContextMenu { get; set; }
 
 		/// <summary>
-		/// Template to render when there is empty Data (but not null).
+		/// Template to render when there is empty Data (but not <c>null</c>).
 		/// </summary>
 		[Parameter] public RenderFragment EmptyDataTemplate { get; set; }
 
@@ -117,12 +117,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Indicates whether the grid should be displayed as "in progress".
-		/// When null (default) value is used, grid is "in progress" when retrieving data by data provider.
+		/// When <c>null</c> (default) value is used, grid is "in progress" when retrieving data by data provider.
 		/// </summary>
 		[Parameter] public bool? InProgress { get; set; }
 
 		/// <summary>
-		/// Custom CSS class to render with <code>div</code> element wrapping the main <code>table</code> (HxPager is not wrapped in this <code>div</code> element).
+		/// Custom CSS class to render with <code>div</code> element wrapping the main <code>table</code> (<see cref="HxPager"/> is not wrapped in this <code>div</code> element).
 		/// </summary>
 		[Parameter] public string TableContainerCssClass { get; set; }
 

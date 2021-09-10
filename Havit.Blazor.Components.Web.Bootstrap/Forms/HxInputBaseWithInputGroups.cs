@@ -16,7 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// with an Microsoft.AspNetCore.Components.Forms.EditContext, which must be supplied
 	/// as a cascading parameter.
 	/// Extends <seealso cref="HxInputBase{TValue}" /> class.
-	/// Adds support for input groups, https://v5.getbootstrap.com/docs/5.0/forms/input-group/
+	/// Adds support for input groups, <a href="https://v5.getbootstrap.com/docs/5.0/forms/input-group/" />
 	/// </summary>
 	public abstract class HxInputBaseWithInputGroups<TValue> : HxInputBase<TValue>, IFormValueComponentWithInputGroups
 	{

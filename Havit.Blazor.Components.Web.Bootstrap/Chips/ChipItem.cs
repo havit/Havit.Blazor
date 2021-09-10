@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public RenderFragment ChipTemplate { get; init; }
 
 		/// <summary>
-		/// True when it is possible to remove the chip.
+		/// <c>True</c> when it is possible to remove the chip.
 		/// </summary>
 		public bool Removable { get; init; } = false;
 

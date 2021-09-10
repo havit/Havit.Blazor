@@ -11,7 +11,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</a> component.
 	/// </summary>
 	/// <remarks>
-	/// For now HxDropdown does not implement Show/Hide methods nor OnXy events. If we need them, we will switch the implementation to JS-interop.
+	/// For now <see cref="HxDropdown"/> does not implement Show/Hide methods nor OnXy events. If we need them, we will switch the implementation to JS-interop.
 	/// </remarks>
 	public partial class HxDropdown
 	{

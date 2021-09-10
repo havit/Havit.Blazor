@@ -95,7 +95,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAlert">
             <summary>
-            Bootstrap alert component https://getbootstrap.com/docs/5.0/components/alerts/
+            Bootstrap alert component <a href="https://getbootstrap.com/docs/5.0/components/alerts/" />
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAlert.Color">
@@ -120,7 +120,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.BadgeType.RoundedPill">
             <summary>
-            https://getbootstrap.com/docs/5.0/components/badge/#pill-badges
+            <a href="https://getbootstrap.com/docs/5.0/components/badge/#pill-badges"/>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge">
@@ -155,7 +155,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ButtonGroupOrientation.Vertical">
             <summary>
-            https://getbootstrap.com/docs/5.0/components/button-group/#vertical-variation
+            <a href="https://getbootstrap.com/docs/5.0/components/button-group/#vertical-variation" />
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonGroupSize">
@@ -195,7 +195,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSkin.Outlined">
             <summary>
-            Bootstrap outline button style. See https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons.
+            Bootstrap outline button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSkin.ResourceType">
@@ -235,17 +235,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Color">
             <summary>
-            Bootstrap button style - theme color. See https://getbootstrap.com/docs/5.0/components/buttons/.
+            Bootstrap button style - theme color. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Size">
             <summary>
-            Bootstrap button size. See https://getbootstrap.com/docs/5.0/components/buttons/#sizes
+            Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Outlined">
             <summary>
-            Bootstrap "outline" button style. See https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons.
+            Bootstrap "outline" button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Skin">
@@ -325,12 +325,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonDefaults.Size">
             <summary>
-            Bootstrap button size. See https://getbootstrap.com/docs/5.0/components/buttons/#sizes
+            Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonDefaults.Color">
             <summary>
-            Bootstrap button style - theme color. See https://getbootstrap.com/docs/5.0/components/buttons/.
+            Bootstrap button style - theme color. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/" />.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup">
@@ -1710,7 +1710,7 @@
             Extends <see cref="T:Microsoft.AspNetCore.Components.Forms.InputBase`1"/> class.
             
             Adds support for rendering bootstrap based input with validator.
-            See also https://v5.getbootstrap.com/docs/5.0/forms/overview/.
+            See also <a href="https://v5.getbootstrap.com/docs/5.0/forms/overview/" />.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.InvalidCssClass">
@@ -1890,7 +1890,7 @@
             with an Microsoft.AspNetCore.Components.Forms.EditContext, which must be supplied
             as a cascading parameter.
             Extends <seealso cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1" /> class.
-            Adds support for input groups, https://v5.getbootstrap.com/docs/5.0/forms/input-group/
+            Adds support for input groups, <a href="https://v5.getbootstrap.com/docs/5.0/forms/input-group/" />
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1.InputGroupStart">
@@ -2605,7 +2605,7 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating">
             <summary>
              Floating label. Not supported on all components.
-            https://getbootstrap.com/docs/5.0/forms/floating-labels/
+            <a href="https://getbootstrap.com/docs/5.0/forms/floating-labels/" />
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectDefaults">
@@ -3387,7 +3387,7 @@
             - Update wwwroot\bootstrap-icons.css
             - Update BootstrapIcon.cs (this file) content:
                 1. Open BootstrapIcons.xlsx
-                2. Copy icon names from https://icons.getbootstrap.com/ to excel to column A via clipboard. It works surprisingly well.
+                2. Copy icon names from <a href="https://icons.getbootstrap.com/" /> to excel to column A via clipboard. It works surprisingly well.
                 3. Copy formulas in column B and next to the all rows.
                 4. Mark content of the F
                 5. Copy content to the clipboard and paste it below (replace current private fields).
@@ -4305,12 +4305,12 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.SpinnerType.Border">
             <summary>
-            https://getbootstrap.com/docs/5.0/components/spinners/#border-spinner
+            <a href="https://getbootstrap.com/docs/5.0/components/spinners/#border-spinner" />
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.SpinnerType.Grow">
             <summary>
-            https://getbootstrap.com/docs/5.0/components/spinners/#growing-spinner
+            <a href="https://getbootstrap.com/docs/5.0/components/spinners/#growing-spinner" />
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTab">
@@ -4607,8 +4607,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">
             <summary>
-            Bootstrap theme colors https://getbootstrap.com/docs/5.0/customize/color/#theme-colors
-            (+ Link from predefined button styles https://getbootstrap.com/docs/5.0/components/buttons/)
+            Bootstrap theme colors <a href="https://getbootstrap.com/docs/5.0/customize/color/#theme-colors" />
+            (+ Link from predefined button styles <a href="https://getbootstrap.com/docs/5.0/components/buttons/" />)
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Link">

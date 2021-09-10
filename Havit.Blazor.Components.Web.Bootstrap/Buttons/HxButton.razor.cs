@@ -49,17 +49,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public IconBase Icon { get; set; }
 
 		/// <summary>
-		/// Bootstrap button style - theme color. See https://getbootstrap.com/docs/5.0/components/buttons/.
+		/// Bootstrap button style - theme color. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/" />.
 		/// </summary>
 		[Parameter] public ThemeColor? Color { get; set; }
 
 		/// <summary>
-		/// Bootstrap button size. See https://getbootstrap.com/docs/5.0/components/buttons/#sizes
+		/// Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />.
 		/// </summary>
 		[Parameter] public ButtonSize Size { get; set; } = Defaults.Size;
 
 		/// <summary>
-		/// Bootstrap "outline" button style. See https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons.
+		/// Bootstrap "outline" button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
 		/// </summary>
 		[Parameter] public bool? Outlined { get; set; }
 

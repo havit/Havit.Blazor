@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public sealed class DialogResult<TValue>
 	{
 		/// <summary>
-		/// True when the dialog has successful result, false then it was cancelled.
+		/// <c>True</c> when the dialog has successful result, <c>false</c> then it was cancelled.
 		/// </summary>
 		public bool Successful { get; }
 

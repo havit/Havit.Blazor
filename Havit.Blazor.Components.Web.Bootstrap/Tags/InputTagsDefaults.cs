@@ -30,7 +30,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Characters, when typed, divide the current input into separate tags.
-		/// Default is comma, semicolon and space.
+		/// Default is <c>comma, semicolon and space</c>.
 		/// </summary>
 		public List<char> Delimiters = new() { ',', ';', ' ' };
 

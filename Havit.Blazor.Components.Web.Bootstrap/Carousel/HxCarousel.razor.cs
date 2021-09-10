@@ -41,7 +41,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool Crossfade { get; set; }
 		/// <summary>
-		/// Delay for automatically switching slides. Default is 3000 ms.
+		/// Delay for automatically switching slides. Default is <c>3000 ms</c>.
 		/// </summary>
 		[Parameter] public int? Interval { get; set; } = 3000;
 		/// <summary>

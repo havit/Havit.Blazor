@@ -16,8 +16,8 @@ namespace Havit.Blazor.Components.Web.Infrastructure
 		public FormState FormState { get; set; }
 
 		/// <summary>
-		/// When null (default), the Enabled value is received from cascading <see cref="FormState" />.
-		/// When value is false, input is rendered as disabled.
+		/// When <c>null</c> (default), the Enabled value is received from cascading <see cref="FormState" />.
+		/// When value is <c>false</c>, input is rendered as disabled.
 		/// To set multiple controls as disabled use <seealso cref="HxFormState" />.
 		/// </summary>
 		public bool? Enabled { get; set; }

@@ -12,10 +12,10 @@ namespace Havit.Blazor.Components.Web
 	public static class CssClassHelper
 	{
 		/// <summary>
-		/// Join class names to one class attribute value (using space as a separator). Null or empty items in cssClasses argument are ignored.
+		/// Join class names to one class attribute value (using space as a separator). <c>Null</c> or empty items in cssClasses argument are ignored.
 		/// </summary>
 		/// <example>
-		/// For "btn btn-primary", null, "bt-lrg" returns "btn btn-primary bt-lrg".
+		/// For "btn btn-primary", <c>null</c>, "bt-lrg" returns "btn btn-primary bt-lrg".
 		/// </example>
 		public static string Combine(params string[] cssClasses)
 		{

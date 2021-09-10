@@ -69,7 +69,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// When true, items are sorted before displaying in select.
+		/// When <c>true</c>, items are sorted before displaying in select.
 		/// Default value is <c>true</c>.
 		/// </summary>
 		[Parameter]

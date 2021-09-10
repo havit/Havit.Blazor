@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Bootstrap alert component https://getbootstrap.com/docs/5.0/components/alerts/
+	/// Bootstrap alert component <a href="https://getbootstrap.com/docs/5.0/components/alerts/" />
 	/// </summary>
 	public partial class HxAlert
 	{
