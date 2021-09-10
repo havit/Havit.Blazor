@@ -44,5 +44,5 @@
 }
 
 ::deep .dropdown-menu.hx-sidebar-subitems .nav-link {
-	margin: 0 .5rem;
+	border-radius: 0;
 }

@@ -13,8 +13,8 @@
 			</div>
 		}
 
-		<div class="collapse navbar-collapse d-md-block" id="@NavContentElementId">
-			<div class="@CssClassHelper.Combine("hx-sidebar-body flex-column mb-auto", (!Collapsed) ? "overflow-auto": null)">
+		<div class="@CssClassHelper.Combine("collapse navbar-collapse d-md-flex flex-column", (!Collapsed) ? "overflow-auto": null)" id="@NavContentElementId">
+			<div class="hx-sidebar-body mb-auto w-100">
 				<HxNav Orientation="NavOrientation.Vertical" CssClass="ps-0">
 					<CascadingValue Value="@this">
 						@ItemsTemplate
