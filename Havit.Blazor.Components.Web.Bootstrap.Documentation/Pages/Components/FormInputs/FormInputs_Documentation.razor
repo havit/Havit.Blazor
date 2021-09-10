@@ -7,18 +7,19 @@
 </p>
 
 <HxAlert Color="ThemeColor.Info">
-	Despite InputBase&lt;&gt; class requires to to be used within <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editform">EditForm</a> with <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/data-binding">data binding</a> - they all require <a href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.components.forms.editcontext">EditContext</a>, these components do not have such requirement.
+	Our input-components do not require <code>&lt;EditForm&gt;</code> and can be used as standalone inputs (if you don't need the validation).
 </HxAlert>
 
 <HxAlert Color="ThemeColor.Info">
-	All components stop the onclick event propagation.
+	All components stop the <code>onClick</code> event propagation.
 </HxAlert>
 
 
 <h3>Demo</h3>
-<Demo Type="@typeof(FormInputs_QuickDemo)" />
+<Demo Type="@typeof(FormInputs_Demo)" />
 
-<h2>Common component properties</h2>
+<h2>API</h2>
+<h3>Common component properties</h3>
 <ul>
 	<li>
 		<strong>@nameof(HxInputBase<object>.Value), @nameof(HxInputBase<object>.ValueChanged)</strong><br />
@@ -49,58 +50,3 @@
 		<EnabledExplanation />
 	</li>
 </ul>
-
-<h2>@nameof(HxInputText), @nameof(HxInputTextArea)</h2>
-
-<ul>
-	<li>
-		<strong>@nameof(HxInputText.Type)</strong> (@nameof(HxInputText) only)<br />
-		Input type (@InputType.Text.ToString(), @InputType.Password.ToString(), @InputType.Search.ToString(), ...).
-	</li>
-	<li>
-		<strong>@nameof(HxInputNumber<decimal>.Placeholder)</strong>
-		Placeholder text.
-	</li>
-	<li>
-		<strong>@nameof(HxInputText.BindEvent)</strong><br />
-		Sets when to update model from input (onchange or oninput).
-	</li>
-	<li>Attribute <code>maxlength</code> is rendered when @nameof(System.ComponentModel.DataAnnotations.MaxLengthAttribute) is present on the model.</li>
-</ul>
-
-<h2>@nameof(HxInputNumber<int>)</h2>
-<ul>
-	<li>
-		<strong>@nameof(HxInputNumber<decimal>.ParsingErrorMessage)</strong><br />
-		Error message for validator when user input is not possible to parse.
-		When not set, error message is retrieved from the theme. When not set, exception is thrown.
-		{0} will be replaced by @nameof(HxInputBase<object>.Label), {1} is replaced by bounded property name.
-	</li>
-	<li>
-		<strong>@nameof(HxInputNumber<decimal>.Decimals)</strong>
-		Sets the number of decimal points, when not set, default is 2 for floating point types. Cannot be used for integer types.
-	</li>
-	<li>
-		<strong>@nameof(HxInputNumber<decimal>.Placeholder)</strong>
-		Placeholder text.
-	</li>
-	<li>
-		Supported data types: int, long, float, double and decimal (and nullable variants).
-	</li>
-</ul>
-
-<h2>@nameof(HxInputDate<DateTime>)</h2>
-<ul>
-	<li>
-		<strong>@nameof(HxInputNumber<decimal>.ParsingErrorMessage)</strong><br />
-		Error message for validator when user input is not possible to parse.
-		When not set, error message is retrieved from the theme. When not set, exception is thrown.
-		{0} will be replaced by @nameof(HxInputBase<object>.Label), {1} is replaced by bounded property name.
-	</li>
-	<li>
-		Supported data types: DateTime and DateTimeOffset (and nullable variants).
-	</li>
-</ul>
-
-<h3>Demo</h3>
-<Demo Type="@typeof(FormInputs_Demo)" />
