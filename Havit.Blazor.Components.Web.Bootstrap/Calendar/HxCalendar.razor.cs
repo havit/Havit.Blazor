@@ -8,21 +8,45 @@ using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Basic calendar building block. Used for <see cref="HxInputDate{TValue}"/> and <see cref="HxInputDateRange"/> implementation.
+	/// </summary>
 	public partial class HxCalendar
 	{
+		/// <summary>
+		/// Date selected.
+		/// </summary>
 		[Parameter] public DateTime? Value { get; set; }
+
+		/// <summary>
+		/// Raised when selected date changes.
+		/// </summary>
 		[Parameter] public EventCallback<DateTime?> ValueChanged { get; set; }
 
+		/// <summary>
+		/// Month to display.
+		/// </summary>
 		[Parameter] public DateTime DisplayMonth { get; set; }
+
+		/// <summary>
+		/// Raised when month selection changes.
+		/// </summary>
 		[Parameter] public EventCallback<DateTime> DisplayMonthChanged { get; set; }
 
+		/// <summary>
+		/// First year allowed.
+		/// </summary>
 		[Parameter] public int MinYear { get; set; } = 1900;
+
+		/// <summary>
+		/// Last year allowed.
+		/// </summary>
 		[Parameter] public int MaxYear { get; set; } = 2099;
 
 		private CultureInfo Culture => CultureInfo.CurrentUICulture;
 		private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;
-		public DateTime DisplayMonthFirstDay => new DateTime(DisplayMonth.Year, DisplayMonth.Month, 1);
-		public DateTime FirstDayToDisplay
+		protected DateTime DisplayMonthFirstDay => new DateTime(DisplayMonth.Year, DisplayMonth.Month, 1);
+		protected DateTime FirstDayToDisplay
 		{
 			get
 			{

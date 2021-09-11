@@ -1,24 +1,12 @@
 ﻿@attribute [Route("/components/" + nameof(HxInputDate))]
-@attribute [Route("/components/" + nameof(HxInputDateRange))]
-@attribute [Route("/components/" + nameof(HxCalendar))]
 
 <ComponentApiDoc Type="typeof(HxInputDate<DateTime>)">
 	
-	<h3>Examples</h3>
+	<h3>Basic usage</h3>
 	<Demo Type="typeof(HxInputDate_Demo)" Tabs="false" />
-
-	<h3>Input Date Range</h3>
-	<Demo Type="typeof(HxInputDateRange_Demo)" />
-
-	<h3>HxCalendar</h3>
-	<Demo Type="typeof(HxCalendar_Demo)" />
 
 	<h3>Calendar icon</h3>
 	<p>Optional icon can be added using <code>CalendarIcon</code> parameter:</p>
 	<Demo Type="typeof(HxInputDate_Demo_CalendarIcon)" />
 
 </ComponentApiDoc>
-
-<ComponentApiDoc Type="typeof(HxInputDateRange)" />
-
-<ComponentApiDoc Type="typeof(HxCalendar)" />

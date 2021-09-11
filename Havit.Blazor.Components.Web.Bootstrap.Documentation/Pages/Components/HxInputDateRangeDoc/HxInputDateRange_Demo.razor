@@ -1,0 +1,12 @@
+﻿<EditForm Model="@model">
+	<HxInputDateRange Label="Absence" @bind-Value="@model.DateTimeRange" />
+</EditForm>
+
+@code {
+	private FormModel model = new FormModel();
+
+	private class FormModel
+	{
+		public DateTimeRange DateTimeRange { get; set; }
+	}
+}

@@ -1,0 +1,34 @@
+﻿<EditForm Model="@model">
+	<HxInputDateRange Label="HxInputDateRange" @bind-Value="model.Range" CustomDateRanges="@GetDateRanges()" />
+</EditForm>
+
+@code {
+	private FormModel model = new FormModel();
+
+	private IEnumerable<DateRangeItem> GetDateRanges()
+	{
+		yield return new DateRangeItem
+		{
+			Label = "Today",
+			DateRange = new DateTimeRange
+			{
+				StartDate = DateTime.Today,
+				EndDate = DateTime.Today
+			}
+		};
+		yield return new DateRangeItem
+		{
+			Label = "Next year",
+			DateRange = new DateTimeRange
+			{
+				StartDate = new DateTime(DateTime.Today.Year + 1, 1, 1),
+				EndDate = new DateTime(DateTime.Today.Year + 1, 12, 31)
+			}
+		};
+	}
+
+	public class FormModel
+	{
+		public DateTimeRange Range { get; set; }
+	}
+}

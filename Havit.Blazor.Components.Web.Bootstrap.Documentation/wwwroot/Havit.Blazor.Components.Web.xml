@@ -477,7 +477,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.HxMessengerService">
             <summary>
-            Propagating access to <see cref="!:HxMessenger"/> as <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService" />.
+            Propagating access to HxMessenger as <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService" />.
             </summary>
         </member>
         <member name="E:Havit.Blazor.Components.Web.HxMessengerService.OnMessage">

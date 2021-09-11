@@ -776,6 +776,41 @@
             Any additional CSS class to apply.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar">
+            <summary>
+            Basic calendar building block. Used for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> implementation.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.Value">
+            <summary>
+            Date selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.ValueChanged">
+            <summary>
+            Raised when selected date changes.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.DisplayMonth">
+            <summary>
+            Month to display.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.DisplayMonthChanged">
+            <summary>
+            Raised when month selection changes.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.MinYear">
+            <summary>
+            First year allowed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.MaxYear">
+            <summary>
+            Last year allowed.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSkin.None">
             <summary>
             Empty skin to be able to disable <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.DefaultSkin"/> locally.
