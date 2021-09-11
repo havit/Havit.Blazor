@@ -69,6 +69,10 @@
 	--hx-calendar-font-size: .875rem;
 	/* Offcanvas */
 	--hx-offcanvas-close-icon-font-size: 2rem;
+	--hx-offcanvas-footer-padding-y: 1rem;
+	--hx-offcanvas-footer-padding-x: 1rem;
+	--hx-offcanvas-horizontal-width-sm: 400px;
+	--hx-offcanvas-horizontal-width-lg:	600px;
 	/* ListLayout */
 	--hx-list-layout-body-padding-x: 0;
 	/* TagInput */
