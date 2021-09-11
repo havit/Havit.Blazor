@@ -2979,12 +2979,6 @@ textarea.form-control-lg {
   z-index: 3;
 }
 
-.hx-autosuggest .form-control.is-invalid,
-.hx-autosuggest .form-control:invalid {
-  padding-right: 4.125rem;
-  background-position: center right 2.25rem;
-}
-
 .btn {
   display: inline-block;
   font-weight: 400;
