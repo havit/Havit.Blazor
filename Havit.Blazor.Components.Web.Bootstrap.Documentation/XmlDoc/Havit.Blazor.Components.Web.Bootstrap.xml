@@ -1798,7 +1798,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GenerateChip">
             <summary>
-            When <c>true</c>, HxChipGenerator is used to generate chip item(s). Default is <c>true</c>.
+            When <c>true</c>, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxChipGenerator"/> is used to generate chip item(s). Default is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ChipTemplate">
@@ -1807,7 +1807,11 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.Enabled">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
+            <summary>
+            When <c>null</c> (default), the <c>Enabled</c> value is received from cascading <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FormState" />.
+            When value is <c>false</c>, input is rendered as disabled.
+            To set multiple controls as disabled use <seealso cref="T:Havit.Blazor.Components.Web.HxFormState" />.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.EnabledEffective">
             <summary>
@@ -1994,7 +1998,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.ParsingErrorMessage">
             <summary>
             Gets or sets the error message used when displaying a parsing error.
-            Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
+            Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by <c>Label</c> property, <c>{1}</c> name of bounded property.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.Placeholder">

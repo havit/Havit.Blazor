@@ -78,7 +78,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool ShowValidationMessage { get; set; } = true;
 
 		/// <summary>
-		/// When <c>true</c>, HxChipGenerator is used to generate chip item(s). Default is <c>true</c>.
+		/// When <c>true</c>, <see cref="HxChipGenerator"/> is used to generate chip item(s). Default is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool GenerateChip { get; set; } = true;
 
@@ -87,7 +87,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public RenderFragment ChipTemplate { get; set; }
 
-		/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
+		/// <summary>
+		/// When <c>null</c> (default), the <c>Enabled</c> value is received from cascading <see cref="FormState" />.
+		/// When value is <c>false</c>, input is rendered as disabled.
+		/// To set multiple controls as disabled use <seealso cref="HxFormState" />.
+		/// </summary>
 		[Parameter] public bool? Enabled { get; set; }
 
 		/// <summary>

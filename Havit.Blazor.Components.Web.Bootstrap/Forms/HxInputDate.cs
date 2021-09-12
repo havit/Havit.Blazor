@@ -40,7 +40,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Gets or sets the error message used when displaying a parsing error.
-		/// Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
+		/// Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by <c>Label</c> property, <c>{1}</c> name of bounded property.
 		/// </summary>
 		[Parameter] public string ParsingErrorMessage { get; set; }
 
