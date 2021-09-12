@@ -21,21 +21,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Remove="wwwroot\Havit.Blazor.Components.Web.Bootstrap.xml" />
-		<Content Remove="wwwroot\Havit.Blazor.Components.Web.xml" />
-		<Content Remove="wwwroot\Havit.Blazor.GoogleTagManager.xml" />
+		<Watch Remove="xmldoc\Havit.Blazor.Components.Web.Bootstrap.xml" />
+		<Watch Remove="xmldoc\Havit.Blazor.Components.Web.xml" />
+		<Watch Remove="xmldoc\Havit.Blazor.GoogleTagManager.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Watch Remove="wwwroot\Havit.Blazor.Components.Web.Bootstrap.xml" />
-		<Watch Remove="wwwroot\Havit.Blazor.Components.Web.xml" />
-		<Watch Remove="wwwroot\Havit.Blazor.GoogleTagManager.xml" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Include="wwwroot\Havit.Blazor.Components.Web.Bootstrap.xml" />
-		<EmbeddedResource Include="wwwroot\Havit.Blazor.Components.Web.xml" />
-		<EmbeddedResource Include="wwwroot\Havit.Blazor.GoogleTagManager.xml" />
+		<EmbeddedResource Include="xmldoc\Havit.Blazor.Components.Web.Bootstrap.xml" />
+		<EmbeddedResource Include="xmldoc\Havit.Blazor.Components.Web.xml" />
+		<EmbeddedResource Include="xmldoc\Havit.Blazor.GoogleTagManager.xml" />
 	</ItemGroup>
 
 	<ItemGroup>

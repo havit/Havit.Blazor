@@ -25,7 +25,7 @@
 	</ItemGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.GoogleTagManager.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Components.Web.Bootstrap.Documentation\wwwroot" />
+		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.GoogleTagManager.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Components.Web.Bootstrap.Documentation\xmldoc" />
 	</Target>
 
 </Project>
