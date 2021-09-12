@@ -358,6 +358,11 @@
             Additional CSS class(es) to be added.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonToolbar">
+            <summary>
+            Bootstrap <see href="https://getbootstrap.com/docs/5.1/components/button-group/#button-toolbar">Button toolbar</see> component.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonToolbar.ChildContent">
             <summary>
             Toolbar's content
@@ -370,7 +375,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonToolbar.CssClass">
             <summary>
-            Css class(es) to add to the element with the <c>.btn-toolbar</c> class.
+            CSS class(es) to add to the HTML element with the <c>.btn-toolbar</c> class.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSubmit">
