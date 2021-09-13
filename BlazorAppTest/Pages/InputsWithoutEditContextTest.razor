@@ -5,10 +5,7 @@
 
 <HxInputText Label="Text" @bind-Value="@text" />
 
-<HxInputNumber Label="Integer (nullable)" @bind-Value="@nullableIntegerValue" ParsingErrorMessage="Zadejte správně Integer.">
-	<InputGroupStartTemplate>€</InputGroupStartTemplate>
-	<InputGroupEndTemplate>.00</InputGroupEndTemplate>
-</HxInputNumber>
+<HxInputNumber Label="Integer (nullable)" @bind-Value="@nullableIntegerValue" ParsingErrorMessage="Zadejte správně Integer." />
 
 <HxInputNumber Label="Decimal" @bind-Value="@decimalValue" ParsingErrorMessage="Zadejte správně Decimal." />
 <HxInputDate Label="Date" @bind-Value="@dateValue" ParsingErrorMessage="Zadejte správně Date." />

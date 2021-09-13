@@ -23,9 +23,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		InputSize InputGroupSize => InputSize.Regular;
 
 		/// <summary>
-		/// Input-group at the beginning of the input.
+		/// Input-group-text at the beginning of the input.
+		/// In comparison to <see cref="InputGroupStartTemplate"/> this property is rendered as <code>.input-group-text</code>.
 		/// </summary>
-		string InputGroupStart => null;
+		string InputGroupStartText => null;
 
 		/// <summary>
 		/// Input-group at the beginning of the input.
@@ -33,9 +34,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		RenderFragment InputGroupStartTemplate => null;
 
 		/// <summary>
-		/// Input-group at the end of the input.
+		/// Input-group-text at the end of the input.
+		/// In comparison to <see cref="InputGroupEndTemplate"/> this property is rendered as <code>.input-group-text</code>.
 		/// </summary>
-		string InputGroupEnd => null;
+		string InputGroupEndText => null;
 
 		/// <summary>
 		/// Input-group at the end of the input.

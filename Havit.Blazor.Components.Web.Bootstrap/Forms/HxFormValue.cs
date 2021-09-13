@@ -41,14 +41,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string ValueCssClass { get; set; }
 
-		/// <inheritdoc cref="IFormValueComponentWithInputGroups.InputGroupStart" />
-		[Parameter] public string InputGroupStart { get; set; }
+		/// <inheritdoc cref="IFormValueComponentWithInputGroups.InputGroupStartText" />
+		[Parameter] public string InputGroupStartText { get; set; }
 
 		/// <inheritdoc cref="IFormValueComponentWithInputGroups.InputGroupStartTemplate" />
 		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
 
-		/// <inheritdoc cref="IFormValueComponentWithInputGroups.InputGroupEnd"/>
-		[Parameter] public string InputGroupEnd { get; set; }
+		/// <inheritdoc cref="IFormValueComponentWithInputGroups.InputGroupEndText"/>
+		[Parameter] public string InputGroupEndText { get; set; }
 
 		/// <inheritdoc cref="IFormValueComponentWithInputGroups.InputGroupEndTemplate" />
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }

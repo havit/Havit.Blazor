@@ -18,9 +18,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		public static bool ShouldRenderInputGroups(this IFormValueComponent formValueComponent)
 		{
 			return (formValueComponent is IFormValueComponentWithInputGroups formValueComponentWithInputGroups)
-				&& (!String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupStart)
+				&& (!String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupStartText)
 					|| (formValueComponentWithInputGroups.InputGroupStartTemplate != null)
-					|| !String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupEnd)
+					|| !String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupEndText)
 					|| (formValueComponentWithInputGroups.InputGroupEndTemplate != null));
 		}
 	}

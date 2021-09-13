@@ -24,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
 			}
 
-			InputGroupEnd = "%";
+			InputGroupEndText = "%";
 		}
 
 		/// <summary>

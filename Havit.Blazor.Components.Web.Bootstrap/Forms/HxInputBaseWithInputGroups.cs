@@ -23,7 +23,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Input-group at the beginning of the input.
 		/// </summary>
-		[Parameter] public string InputGroupStart { get; set; }
+		[Parameter] public string InputGroupStartText { get; set; }
 
 		/// <summary>
 		/// Input-group at the beginning of the input.
@@ -33,7 +33,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Input-group at the end of the input.
 		/// </summary>
-		[Parameter] public string InputGroupEnd { get; set; }
+		[Parameter] public string InputGroupEndText { get; set; }
 
 		/// <summary>
 		/// Input-group at the end of the input.

@@ -1,27 +1,14 @@
 ﻿<EditForm Model="@model" OnValidSubmit="@(() => model.Text = "Validation passed... :-)")">
 	<DataAnnotationsValidator />
 
-	<HxInputText Label="Text" @bind-Value="@model.Text" Placeholder="Enter text here." Hint="Enter text, value is shared with all text inputs."/>
+	<HxInputText Label="HxInputText" @bind-Value="@model.Text" Placeholder="Enter text here." Hint="Enter text, value is shared with all text inputs."/>
 
-	<HxInputText Label="Text (oninput)" @bind-Value="@model.Text" BindEvent="BindEvent.OnInput">
-		<HintTemplate>
-			Value is updated on input event.
-		</HintTemplate>
-	</HxInputText>
+	<HxInputTextArea Label="HxInputTextArea" @bind-Value="@model.Text" />
 
-	<HxInputText Label="Text (disabled)" Enabled="false" @bind-Value="@model.Text" />
-	<HxInputText Label="Text (password)" Type="InputType.Password" @bind-Value="@model.Text" />
+	<HxInputNumber Label="HxInputNumber" @bind-Value="@model.IntegerValue" />
 
-	<HxInputTextArea Label="TextArea" @bind-Value="@model.Text" />
-
-	<HxInputNumber Label="Integer" @bind-Value="@model.IntegerValue" ParsingErrorMessage="Fix integer value." />
-	<HxInputNumber Label="Integer (nullable)" @bind-Value="@model.NullableIntegerValue" InputGroupStart="€" ParsingErrorMessage="Fix nullable integer value.">
-		<InputGroupEndTemplate>.00</InputGroupEndTemplate>
-	</HxInputNumber>
-	<HxInputNumber Label="Decimal" @bind-Value="@model.DecimalValue" ParsingErrorMessage="Fix decimal value." />
-	<HxInputNumber Label="Decimal (nullable)" @bind-Value="@model.NullableDecimalValue" ParsingErrorMessage="Fix nullable decimal value." />
-	<HxInputDate Label="Date" @bind-Value="@model.DateValue" ParsingErrorMessage="Fix date value." />
-	<HxInputDate Label="Date (nullable)" @bind-Value="@model.NullableDateValue" ParsingErrorMessage="Fix nullable date value." />
+	<HxInputDate Label="HxInputDate" @bind-Value="@model.DateValue" />
+	<HxInputDateRange Label="HxInputDateRange" @bind-Value="@model.DateTimeRangeValue" />
 
 	<HxInputCheckbox Label="Checkbox" @bind-Value="@model.BoolValue" />
 	<HxInputSwitch Label="Switch" @bind-Value="@model.BoolValue" />
@@ -42,15 +29,9 @@
 
 		public int IntegerValue { get; set; }
 
-		public int? NullableIntegerValue { get; set; }
-
-		public decimal DecimalValue { get; set; }
-
-		public decimal? NullableDecimalValue { get; set; }
-
 		public DateTime DateValue { get; set; }
 
-		public DateTime? NullableDateValue { get; set; }
+		public DateTimeRange DateTimeRangeValue { get; set; }
 
 		public bool BoolValue { get; set; }
 	}

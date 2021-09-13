@@ -611,9 +611,10 @@
             Input group size.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStart">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartText">
             <summary>
-            Input-group at the beginning of the input.
+            Input-group-text at the beginning of the input.
+            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartTemplate"/> this property is rendered as <code>.input-group-text</code>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartTemplate">
@@ -621,9 +622,10 @@
             Input-group at the beginning of the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEnd">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndText">
             <summary>
-            Input-group at the end of the input.
+            Input-group-text at the end of the input.
+            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate"/> this property is rendered as <code>.input-group-text</code>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate">
@@ -1729,14 +1731,14 @@
             Custom CSS class to render with the value.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputGroupStart">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStart" />
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputGroupStartText">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartText" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputGroupStartTemplate">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartTemplate" />
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputGroupEnd">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEnd"/>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputGroupEndText">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndText"/>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputGroupEndTemplate">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate" />
@@ -1942,7 +1944,7 @@
             Adds support for input groups, <a href="https://v5.getbootstrap.com/docs/5.0/forms/input-group/" />
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1.InputGroupStart">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1.InputGroupStartText">
             <summary>
             Input-group at the beginning of the input.
             </summary>
@@ -1952,7 +1954,7 @@
             Input-group at the beginning of the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1.InputGroupEnd">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1.InputGroupEndText">
             <summary>
             Input-group at the end of the input.
             </summary>

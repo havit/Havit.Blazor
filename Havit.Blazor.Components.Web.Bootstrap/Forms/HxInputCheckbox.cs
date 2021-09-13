@@ -21,7 +21,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override LabelValueRenderOrder RenderOrder => LabelValueRenderOrder.ValueLabel;
 
 		/// <inheritdoc cref="HxInputBase{TValue}.CoreCssClass" />
-		private protected override string CoreCssClass => "form-check";
+		private protected override string CoreCssClass => !String.IsNullOrWhiteSpace(Label) ? "form-check" : null;
 
 		/// <inheritdoc cref="HxInputBase{TValue}.CoreInputCssClass" />
 		private protected override string CoreInputCssClass => "form-check-input";
