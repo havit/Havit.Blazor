@@ -443,10 +443,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			string[] aroundLinkTexts = typeName.Split(typeNameForOwnDocumentation);
 			if (generic && aroundLinkTexts.Length == 2)
 			{
-				return $"{aroundLinkTexts[0]}<a href=\"/type/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a>{aroundLinkTexts[^1]}";
+				return $"{aroundLinkTexts[0]}<a href=\"/type/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a>{aroundLinkTexts[^1]}</code>";
 			}
 
-			return $"<a href=\"/type/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a>";
+			return $"<a href=\"/type/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a></code>";
 		}
 
 		public static string RemoveSpecialCharacters(string text)
