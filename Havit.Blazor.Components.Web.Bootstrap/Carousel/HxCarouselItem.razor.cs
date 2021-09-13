@@ -1,37 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Infrastructure;
+using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public partial class HxCarouselItem
+	public partial class HxCarouselItem : IDisposable
 	{
 		[Parameter] public RenderFragment ChildContent { get; set; }
+
 		[Parameter] public string CssClass { get; set; }
+
 		[Parameter] public bool Active { get; set; }
-		[CascadingParameter] protected HxCarousel ParentCarousel { get; set; }
+
 		/// <summary>
 		/// Time before automatically cycling to the next item.
 		/// </summary>
 		[Parameter] public int? Interval { get; set; }
 
-		protected override void OnParametersSet()
+		/// <summary>
+		/// Cascading parameter to register the tab.
+		/// </summary>
+		[CascadingParameter(Name = HxCarousel.ItemsRegistrationCascadingValueName)]
+		protected CollectionRegistration<HxCarouselItem> ItemsRegistration { get; set; }
+
+		protected override void OnInitialized()
 		{
-			if (ParentCarousel is null)
-			{
-				throw new NullReferenceException();
-			}
+			base.OnInitialized();
 
-			//Contract.Requires<InvalidOperationException>(ParentCarousel is not null, "<HxCarouselItem /> has to be placed inside <HxCarousel />.");
-
-			if (!ParentCarousel.Items.Contains(this))
-			{
-				ParentCarousel.Items.Add(this);
-			}
+			Contract.Requires<InvalidOperationException>(ItemsRegistration != null, $"{nameof(HxCarouselItem)} has to be inside {nameof(HxCarousel)}.");
+			ItemsRegistration.Register(this);
 		}
+
+		public virtual void Dispose()
+		{
+			ItemsRegistration.Unregister(this);
+		}
+
 	}
 }

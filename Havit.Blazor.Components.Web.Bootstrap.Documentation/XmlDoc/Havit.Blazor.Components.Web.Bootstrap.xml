@@ -871,6 +871,21 @@
             A skin to be used for any <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> without explicit <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Skin"/> specified.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CarouselRide">
+            <summary>
+            Behavior of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.Carousel">
+            <summary>
+            Autoplays the carousel on load.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.False">
+            <summary>
+            Autoplays the carousel after the user manually cycles the first item.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel">
             <summary>
             A slideshow component for cycling through elements—images or slides of text—like a carousel.
@@ -914,6 +929,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.TouchSwiping">
             <summary>
             Enable or disable swiping left/right on touchscreen devices to move between slides.
+            Default is <c>true</c> (enabled).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlide">
@@ -926,48 +942,42 @@
             Is fired when the current slide is changed (once the transition is completed).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.AutoInitialize">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Ride">
             <summary>
-            Initializes the component automatically. Can't be used with indicators turned on. Default is <c>true</c>.
+            Carousel ride (autoplay) behavior. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.Carousel"/> (autoplays the carousel on load).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Items">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SetIntervalAsync(System.Int32)">
             <summary>
-            A list of all <c>HxCarouselItem</c> components contained in the carousel.
+            Changes the cycling interval.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideTo(System.Int32)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideToAsync(System.Int32)">
             <summary>
             Slides to an element with the coresponding index.
             </summary>
-            <param name="index"></param>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideToLastItem">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideToPreviousItemAsync">
             <summary>
-            Slides to the last item.
+            Slides to the previous item (to the left).
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideToPreviousItem">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideToNextItemAsync">
             <summary>
-            Slides to the previous item in the collection (to the left).
+            Slides to the next item (to the right).
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideToNextItem">
-            <summary>
-            Slides to the next item in the collection (to the right).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Cycle">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.CycleAsync">
             <summary>
             Start cycling between slides.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Pause">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.PauseAsync">
             <summary>
             Pause cycling.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Dispose">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.DisposeAsync">
             <summary>
             Dispose the carousel.
             </summary>
@@ -975,6 +985,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.Interval">
             <summary>
             Time before automatically cycling to the next item.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.ItemsRegistration">
+            <summary>
+            Cascading parameter to register the tab.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ChipItem">

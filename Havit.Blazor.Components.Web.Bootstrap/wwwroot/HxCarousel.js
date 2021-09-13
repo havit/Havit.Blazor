@@ -1,9 +1,16 @@
-﻿export function InitializeCarousel(id) {
-    GetCarousel(id).carousel();
-}
+﻿export function Initialize(id, hxCarouselDotnetObjectReference, ride) {
+	var carouselElement = document.getElementById(id);
+	var carousel = new bootstrap.Carousel(carouselElement,
+		{
+			"ride": ride
+		});
 
-export function ClickNextButton(id) {
-    document.getElementById(id + "next").click();
+	carouselElement.addEventListener('slide.bs.carousel', function () { OnSlide(hxCarouselDotnetObjectReference) });
+	carouselElement.addEventListener('slid.bs.carousel', function () { OnSlid(hxCarouselDotnetObjectReference) });
+
+	if (ride === "carousel") {
+		carousel.cycle();
+	}
 }
 
 export function SlideTo(id, index) {
@@ -42,8 +49,6 @@ export function SetInterval(id, interval) {
 export function AddEventListeners(id, hxCarouselDotnetObjectReference) {
     let carouselElement = document.getElementById(id);
 
-    carouselElement.addEventListener('slide.bs.carousel', function () { OnSlide(hxCarouselDotnetObjectReference) });
-    carouselElement.addEventListener('slid.bs.carousel', function () { OnSlid(hxCarouselDotnetObjectReference) });
 }
 
 function OnSlide(HxCarouselDotnetObjectReference) {

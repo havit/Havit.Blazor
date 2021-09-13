@@ -1,34 +1,43 @@
 ﻿@attribute [Route("/components/" + nameof(HxCarousel))]
 
 <ComponentApiDoc Type="typeof(HxCarousel)">
-    <Demo Type="typeof(HxCarousel_Demo_Controls)" />
 
-    <h3>Custom interval</h3>
-    <Demo Type="typeof(HxCarousel_Demo_SlidesOnly)" />
+	<HxAlert Color="ThemeColor.Danger">
+		Always set one of the items as <code>Active="true"</code> (, otherwise the carousel won't show at all.
+	</HxAlert>
 
-    <h3>Disable automatic sliding</h3>
-    <p>If you want to disable automatic sliding, set the parameter <code>Interval</code> to <code>null</code>.</p>
-    <Demo Type="typeof(HxCarousel_Demo_NoAutoSliding)" />
+	<h3>Slides only</h3>
+	<Demo Type="typeof(HxCarousel_Demo_SlidesOnly)" />
 
-    <h3>With indicators</h3>
-    <HxAlert Color="ThemeColor.Warning"><HxIcon Icon="@BootstrapIcon.ExclamationTriangle" /> <code>HxCarousel</code> components have to be initialized. That is done automatically by default but carousels with indicators have to be initialized manually (using the <code>Initialize</code> method).</HxAlert>
-    <Demo Type="typeof(HxCarousel_Demo_Indicators)" />
+	<h3>Controls</h3>
+	<Demo Type="typeof(HxCarousel_Demo_Controls)" />
 
-    <h3>Crossfade</h3>
-    <Demo Type="typeof(HxCarousel_Demo_Crossfade)" />
+	<h3>Indicators</h3>
+	<Demo Type="typeof(HxCarousel_Demo_Indicators)" />
 
-    <h3>Individual <code>HxCarouselItem</code> interval</h3>
-    <Demo Type="typeof(HxCarousel_Demo_PerItemInterval)" />
+	<h3>Captions</h3>
+	<Demo Type="typeof(HxCarousel_Demo_Captions)" />
 
-    <h3>Disable touch swiping</h3>
-    <Demo Type="typeof(HxCarousel_Demo_TouchSwiping)" />
+	<h3>Crossfade</h3>
+	<Demo Type="typeof(HxCarousel_Demo_Crossfade)" />
 
-    <h3>Light variant</h3>
-    <Demo Type="typeof(HxCarousel_Demo_Light)" />
+	<h3>Individual <code>HxCarouselItem</code> interval</h3>
+	<p>With <code>Interval</code> parameter you can set the amount of time to delay (ms) between automatically cycling to the next item.</p>
+	<Demo Type="typeof(HxCarousel_Demo_Intervals)" />
 
-    <h3>Events</h3>
-    <Demo Type="typeof(HxCarousel_Demo_Events)" />
+	<h3>Disable automatic sliding</h3>
+	<p>If you want to disable automatic sliding, set the parameter <code>Interval</code> to <code>null</code>.</p>
+	<Demo Type="typeof(HxCarousel_Demo_NoAutoSliding)" />
 
-    <h3>Complex example</h3>
-    <Demo Type="typeof(HxCarousel_Demo_ComplexExample)" />
+	<h3>Disable touch swiping</h3>
+	<Demo Type="typeof(HxCarousel_Demo_TouchSwiping)" />
+
+	<h3>Dark variant</h3>
+	<Demo Type="typeof(HxCarousel_Demo_Dark)" />
+
+	<h3>Events</h3>
+	<Demo Type="typeof(HxCarousel_Demo_Events)" />
+
+	<h3>Programatic control</h3>
+	<Demo Type="typeof(HxCarousel_Demo_ProgramaticControl)" />
 </ComponentApiDoc>
