@@ -119,16 +119,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Changes the cycling interval.
-		/// </summary>
-		public async Task SetIntervalAsync(int interval)
-		{
-			this.Interval = interval;
-			await EnsureJsModule();
-			await jsModule.InvokeVoidAsync("SetInterval", id, interval);
-		}
-
-		/// <summary>
 		/// Slides to an element with the coresponding index.
 		/// </summary>
 		public async Task SlideToAsync(int index)

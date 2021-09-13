@@ -42,15 +42,6 @@ export function GetCarousel(id) {
     return bootstrap.Carousel.getInstance(carouselElement)
 }
 
-export function SetInterval(id, interval) {
-    GetCarousel(id).interval = interval;
-}
-
-export function AddEventListeners(id, hxCarouselDotnetObjectReference) {
-    let carouselElement = document.getElementById(id);
-
-}
-
 function OnSlide(HxCarouselDotnetObjectReference) {
     HxCarouselDotnetObjectReference.invokeMethodAsync('HxCarousel_HandleSlide');
 }

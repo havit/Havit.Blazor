@@ -947,11 +947,6 @@
             Carousel ride (autoplay) behavior. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.Carousel"/> (autoplays the carousel on load).
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SetIntervalAsync(System.Int32)">
-            <summary>
-            Changes the cycling interval.
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideToAsync(System.Int32)">
             <summary>
             Slides to an element with the coresponding index.
