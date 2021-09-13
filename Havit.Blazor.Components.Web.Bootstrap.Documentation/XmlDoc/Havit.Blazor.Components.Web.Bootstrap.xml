@@ -243,7 +243,7 @@
             Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Outlined">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Outline">
             <summary>
             Bootstrap "outline" button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
             </summary>
