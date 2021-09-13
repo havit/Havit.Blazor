@@ -406,30 +406,44 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		public static string GenerateLinkForInternalType(string typeName, bool checkForInternal = true, string linkText = null)
 		{
 			string typeNameForOwnDocumentation = typeName.Replace("?", "");
+			bool generic = false;
 			if (typeNameForOwnDocumentation.Contains('<'))
 			{
+				generic = true;
+
 				typeNameForOwnDocumentation = Regex.Replace(typeNameForOwnDocumentation, "^[^<]+", "");
 				typeNameForOwnDocumentation = Regex.Replace(typeNameForOwnDocumentation, "<[a-zA-Z]+>", capture => $"{capture.Value[1..^1]}");
 			}
 
 			if (!checkForInternal)
 			{
-				return GenerateLinkTagForInternalType(typeName, typeNameForOwnDocumentation, linkText);
+				return GenerateLinkTagForInternalType(typeName, typeNameForOwnDocumentation, linkText, generic);
 			}
 
 			if (InternalTypeDoc.DetermineIfTypeIsInternal(typeNameForOwnDocumentation))
 			{
-				return GenerateLinkTagForInternalType(typeName, typeNameForOwnDocumentation, linkText);
+				return GenerateLinkTagForInternalType(typeName, typeNameForOwnDocumentation, linkText, generic);
 			}
 
 			return null;
 		}
 
-		private static string GenerateLinkTagForInternalType(string typeName, string typeNameForOwnDocumentation, string linkText)
+		private static string GenerateLinkTagForInternalType(string typeName, string typeNameForOwnDocumentation, string linkText, bool generic)
 		{
 			if (linkText is null)
 			{
 				linkText = typeName;
+
+				if (generic)
+				{
+					linkText = typeNameForOwnDocumentation;
+				}
+			}
+
+			string[] aroundLinkTexts = typeName.Split(typeNameForOwnDocumentation);
+			if (generic && aroundLinkTexts.Length == 2)
+			{
+				return $"{aroundLinkTexts[0]}<a href=\"/type/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a>{aroundLinkTexts[^1]}";
 			}
 
 			return $"<a href=\"/type/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a>";
