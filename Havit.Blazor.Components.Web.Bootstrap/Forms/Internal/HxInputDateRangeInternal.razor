@@ -5,7 +5,7 @@
 {
 <div class="@CssClassHelper.Combine("hx-input-date-range input-group dropdown", CustomDateRanges.Any() ? "custom-date-ranges" : null)">
 	@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-	<input @ref="fromInputElement" type="text" id="@FromInputId" class="@CssClassHelper.Combine("form-control", InputCssClass, ((IInputWithSize)this).GetInputSizeEffectiveCssClass())" value="@FormatDate(Value.StartDate)" placeholder="@StringLocalizer["From"]" @onchange="HandleFromChangedAsync" @onfocus="HandleFromFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
+	<input @ref="fromInputElement" type="text" id="@FromInputId" class="@CssClassHelper.Combine("form-control", InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())" value="@FormatDate(Value.StartDate)" placeholder="@StringLocalizer["From"]" @onchange="HandleFromChangedAsync" @onfocus="HandleFromFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
 
 	@if (EnabledEffective)
 	{
@@ -21,7 +21,7 @@
 	}
 
 	@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-	<input @ref="toInputElement" type="text" class="@CssClassHelper.Combine("form-control", InputCssClass, ((IInputWithSize)this).GetInputSizeEffectiveCssClass())" value="@FormatDate(Value.EndDate)" placeholder="@StringLocalizer["To"]" @onchange="HandleToChangedAsync" @onfocus="HandleToFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
+	<input @ref="toInputElement" type="text" class="@CssClassHelper.Combine("form-control", InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())" value="@FormatDate(Value.EndDate)" placeholder="@StringLocalizer["To"]" @onchange="HandleToChangedAsync" @onfocus="HandleToFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
 	@if (EnabledEffective)
 	{
 		<div class="dropdown-menu p-3">

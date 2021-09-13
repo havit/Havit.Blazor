@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Havit.Blazor.Components.Web.Bootstrap.Forms;
-using Microsoft.AspNetCore.Components;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Forms;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
@@ -22,9 +16,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		InputSize InputSizeEffective => this.InputSize ?? GetDefaults().InputSize;
 
-		/// <summary>
-		/// Returns css class to render component with desired size.
-		/// </summary>
-		string GetInputSizeEffectiveCssClass() => this.InputSizeEffective.AsFormControlCssClass();
+		string GetInputSizeCssClass() => this.InputSizeEffective.AsFormControlCssClass();
+
+		string GetInputGroupSizeCssClass() => this.InputSizeEffective.AsInputGroupCssClass();
 	}
 }

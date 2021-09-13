@@ -671,11 +671,6 @@
             Input size.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.GetInputSizeEffectiveCssClass">
-            <summary>
-            Returns css class to render component with desired size.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder">
             <summary>
             Render order.
@@ -2619,6 +2614,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsFormControlCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
             <summary>
             Returns CSS class to render input (form-control) with desired size.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsInputGroupCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
+            <summary>
+            Returns CSS class to render input-group with desired size.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsFormSelectCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">

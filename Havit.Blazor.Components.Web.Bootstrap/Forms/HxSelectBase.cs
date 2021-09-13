@@ -124,7 +124,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual SelectDefaults GetDefaults() => HxSelect.Defaults;
 		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		string IInputWithSize.GetInputSizeEffectiveCssClass() => ((IInputWithSize)this).InputSizeEffective.AsFormSelectCssClass();
+		string IInputWithSize.GetInputSizeCssClass() => ((IInputWithSize)this).InputSizeEffective.AsFormSelectCssClass();
 
 		/// <inheritdoc/>
 		protected override void BuildRenderInput(RenderTreeBuilder builder)

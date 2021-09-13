@@ -24,6 +24,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		}
 
 		/// <summary>
+		/// Returns CSS class to render input-group with desired size.
+		/// </summary>
+		public static string AsInputGroupCssClass(this InputSize inputSize)
+		{
+			return inputSize switch
+			{
+				InputSize.Regular => null,
+				InputSize.Small => "input-group-sm",
+				InputSize.Large => "input-group-lg",
+				_ => throw new InvalidOperationException($"Unknown {nameof(InputSize)} value {inputSize}.")
+			};
+		}
+
+		/// <summary>
 		/// Returns CSS class to render select (form-select) with desired size.
 		/// </summary>
 		public static string AsFormSelectCssClass(this InputSize inputSize)
