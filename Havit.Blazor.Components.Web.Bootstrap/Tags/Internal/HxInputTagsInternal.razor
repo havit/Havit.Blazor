@@ -1,6 +1,10 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<div class="@CssClassHelper.Combine("hx-input-tags-control", GetFormControlCssClasses(), GetNakedCssClasses(), "d-flex position-relative flex-grow-1 flex-wrap align-items-center", this.CssClass)"
+<div class="@CssClassHelper.Combine("hx-input-tags-control",
+									GetFormControlCssClasses(),
+									GetNakedCssClasses(),
+									this.currentlyFocused ? "hx-input-tags-control-focused" : null,
+									"d-flex position-relative flex-grow-1 flex-wrap align-items-center", this.CssClass)"
 	 @onclick="async () => await autosuggestInput.FocusAsync()"
 	 @onclick:stopPropagation>
 
