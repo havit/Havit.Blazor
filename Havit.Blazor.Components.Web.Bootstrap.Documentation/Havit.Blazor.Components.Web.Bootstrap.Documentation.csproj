@@ -50,4 +50,7 @@
 		</ItemGroup>
 	</Target>
 
+	<PropertyGroup>
+		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+	</PropertyGroup>
 </Project>
