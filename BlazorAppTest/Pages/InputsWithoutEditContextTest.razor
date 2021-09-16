@@ -9,6 +9,7 @@
 
 <HxInputNumber Label="Decimal" @bind-Value="@decimalValue" ParsingErrorMessage="Zadejte správně Decimal." />
 <HxInputDate Label="Date" @bind-Value="@dateValue" ParsingErrorMessage="Zadejte správně Date." />
+<HxInputDateRange Label="DateRange" @bind-Value="@dateRangeValue" FromParsingErrorMessage="Zadejte správně datum od." ToParsingErrorMessage="Zadejte správně datum do." />
 
 <HxInputCheckbox Label="Checkbox" @bind-Value="@boolValue" />
 <HxInputCheckbox Label="Checkbox" CssClass="form-switch" @bind-Value="@boolValue" />
@@ -21,5 +22,6 @@
 	private int? nullableIntegerValue;
 	private decimal decimalValue;
 	private DateTime dateValue;
+	private DateTimeRange dateRangeValue;
 	private bool boolValue;
 }

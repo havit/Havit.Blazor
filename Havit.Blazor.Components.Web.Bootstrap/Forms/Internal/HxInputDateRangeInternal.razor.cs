@@ -270,7 +270,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <inheritdoc />
 		public async ValueTask DisposeAsync()
 		{
-			validationMessageStore.Clear();
+			validationMessageStore?.Clear();
 
 			if (jsModule != null)
 			{

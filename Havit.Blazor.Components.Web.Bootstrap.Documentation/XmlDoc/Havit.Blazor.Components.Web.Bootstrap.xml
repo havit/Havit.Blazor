@@ -1880,6 +1880,12 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.RenderWithAutoCreatedEditContextAsCascandingValue(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,System.Int32,Microsoft.AspNetCore.Components.RenderFragment)">
+            <summary>
+            When EditContext was automaticly created, this method renders CascandingValue component with this EditContext and the content of the renderFrament.
+            Otherwise only renderFragment is rendered.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
             Renders input.

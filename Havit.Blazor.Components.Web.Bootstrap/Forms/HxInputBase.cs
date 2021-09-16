@@ -208,6 +208,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			BuildRenderInput(builder);
 		}
 
+		/// <summary>
+		/// When EditContext was automaticly created, this method renders CascandingValue component with this EditContext and the content of the renderFrament.
+		/// Otherwise only renderFragment is rendered.
+		/// </summary>
+		private protected void RenderWithAutoCreatedEditContextAsCascandingValue(RenderTreeBuilder builder, int sequence, RenderFragment renderFragment)
+		{
+			if (autoCreatedEditContext != null)
+			{
+				builder.OpenRegion(sequence);
+				builder.OpenComponent<CascadingValue<EditContext>>(1);
+				builder.AddAttribute(2, nameof(CascadingValue<EditContext>.IsFixed), true);
+				builder.AddAttribute(3, nameof(CascadingValue<EditContext>.Value), autoCreatedEditContext);
+				builder.AddAttribute(4, nameof(CascadingValue<EditContext>.ChildContent), (object)renderFragment);
+				builder.CloseComponent();
+				builder.CloseRegion();
+			}
+			else
+			{
+				renderFragment(builder);
+			}
+		}
+
 		void IFormValueComponent.RenderValidationMessage(RenderTreeBuilder builder)
 		{
 			BuildRenderValidationMessage(builder);

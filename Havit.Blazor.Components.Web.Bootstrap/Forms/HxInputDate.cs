@@ -76,6 +76,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
+			RenderWithAutoCreatedEditContextAsCascandingValue(builder, 0, BuildRenderInputCore);
+		}
+
+		protected virtual void BuildRenderInputCore(RenderTreeBuilder builder)
+		{
 			builder.OpenComponent(1, typeof(HxInputDateInternal<TValue>));
 
 			builder.AddAttribute(100, nameof(HxInputDateInternal<TValue>.Value), Value);
