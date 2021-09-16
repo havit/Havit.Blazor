@@ -6,3 +6,7 @@ button {
     width: .25em;
     height: .25em;
 }
+
+.hx-autosuggest-input-icon div[role="button"]:not(:hover) ::deep .hx-icon {
+    opacity: .25;
+}

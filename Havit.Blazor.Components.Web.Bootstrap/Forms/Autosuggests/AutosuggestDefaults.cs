@@ -20,7 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Icon displayed in input on selection clear button when item is selected.
 		/// </summary>
-		public IconBase ClearIcon { get; set; } = BootstrapIcon.X;
+		public IconBase ClearIcon { get; set; } = BootstrapIcon.XCircleFill;
 
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
