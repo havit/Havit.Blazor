@@ -43,7 +43,7 @@ input:focus {
 	background-image: linear-gradient(to right, rgba(0,0,0,.25),rgba(0,0,0,.25));
 }
 
-.hx-input-tags-control-focused {
+.hx-input-tags-control-focused:not(.hx-input-tags-naked) {
 	border-color: var(--hx-input-tags-control-focused-border-color); /* There is a tint-color function used in Bootstrap. */
 	outline: 0;
 	box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
