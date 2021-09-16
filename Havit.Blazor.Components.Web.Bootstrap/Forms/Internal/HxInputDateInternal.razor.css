@@ -45,3 +45,7 @@
 .form-control-sm ~ .hx-input-date-icon {
     font-size: .75rem;
 }
+
+.hx-input-date-icon {
+    z-index: 10;
+}
