@@ -15,8 +15,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected override void OnParametersSet()
 		{
-			Contract.Requires<InvalidOperationException>(DropdownContainer is not null, $"{nameof(HxDropdownToggle)} has to be placed inside {nameof(HxDropdown)}.");
-
 			if ((Color is null) && (NavContainer is not null))
 			{
 				Color = ThemeColor.Link;
@@ -27,7 +25,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			AdditionalAttributes ??= new Dictionary<string, object>();
 			AdditionalAttributes["data-bs-toggle"] = "dropdown";
 			AdditionalAttributes["aria-expanded"] = "false";
-			AdditionalAttributes["data-bs-auto-close"] = DropdownContainer.AutoClose switch
+			AdditionalAttributes["data-bs-auto-close"] = (DropdownContainer?.AutoClose ?? DropdownAutoClose.True) switch
 			{
 				DropdownAutoClose.True => "true",
 				DropdownAutoClose.False => "false",
@@ -37,6 +35,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			};
 		}
 
-		protected override string CoreCssClass => CssClassHelper.Combine(base.CoreCssClass, "dropdown-toggle", DropdownContainer.Split ? "dropdown-toggle-split" : null, (NavContainer is not null) ? "nav-link" : null);
+		protected override string CoreCssClass => CssClassHelper.Combine(base.CoreCssClass, "dropdown-toggle", (DropdownContainer?.Split ?? false) ? "dropdown-toggle-split" : null, (NavContainer is not null) ? "nav-link" : null);
 	}
 }
