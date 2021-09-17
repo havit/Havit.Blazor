@@ -1,6 +1,7 @@
 ﻿@page "/"
 @namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server.Pages
 @using Havit.Blazor.Components.Web.Bootstrap.Documentation
+@model _Host
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!doctype html>
@@ -17,7 +18,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/prism-themes@1.8.0/themes/prism-vs.css" rel="stylesheet" /> @* Prism: Syntax Highlighting *@
 	<link href="/css/site.css" rel="stylesheet" />
 
-	<title>HAVIT Blazor Doc | Free Bootstrap 5 Blazor components</title>
+	<title>@Model.Title</title>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-JWLD6SQ66F"></script>
