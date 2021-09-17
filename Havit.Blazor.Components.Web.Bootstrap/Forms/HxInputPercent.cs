@@ -70,7 +70,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				workingValue = workingValue.Replace(".", ",");
 			}
 
-			// omezení počtu desetinných míst
+			// number of decimals
 			if (decimal.TryParse(value, NumberStyles.Float, culture, out decimal parsedValue))
 			{
 				decimal number = Math.Round(parsedValue, DecimalsEffective, MidpointRounding.AwayFromZero);
@@ -79,11 +79,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				workingValue = number.ToString(culture);
 			}
 
-			// konverze do cílového typu
+			// coversion to target type
 			if (BindConverter.TryConvertTo<TValue>(workingValue, culture, out result))
 			{
-				// pokud došlo jen ke změně bez změny hodnoty (třeba z 5.50 na 5.5), chceme hodnotu převést na korektní formát (5.5 na 5.50).
-				// Nestačí však StateHasChange, viz komentář v BuildRenderInput.
+				// we want to normalize the value format (e.g. from 5.5 to 5.50) if someone changes the value (from 5.50 to 5.5)
+				// StateHasChange is not enough, see BuildRenderInput comment
 				if (FormatValueAsString(result) != value)
 				{
 					forceRenderValue = true;

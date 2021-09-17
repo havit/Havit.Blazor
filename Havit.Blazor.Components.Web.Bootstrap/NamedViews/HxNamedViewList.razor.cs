@@ -22,7 +22,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			TFilterModel newFilter = namedView.Filter();
 			if (newFilter != null)
 			{
-				FilterModel = newFilter; // POZOR, filtr je nutno klonovat, jinak budeme měnit instanci, která je použita pro filtr (ev. musíme z filtru vždy vracet novou instanci!!! to je možný předpoklad)
+				FilterModel = newFilter; // POZOR, filter has to be clonned
 				await FilterModelChanged.InvokeAsync(newFilter);
 			}
 

@@ -20,9 +20,9 @@ namespace BlazorAppTest.Pages
 		{
 			List<DataItemDto> result = new List<DataItemDto>()
 			{
-				new DataItemDto() { ItemId = 1, Name = "Jednička"},
-				new DataItemDto() { ItemId = 2, Name = "Dvojka"},
-				new DataItemDto() { ItemId = 3, Name = "Trojka"}
+				new DataItemDto() { ItemId = 1, Name = "First"},
+				new DataItemDto() { ItemId = 2, Name = "Second"},
+				new DataItemDto() { ItemId = 3, Name = "Third"}
 			};
 
 			return Task.FromResult(new GridDataProviderResult<DataItemDto>()

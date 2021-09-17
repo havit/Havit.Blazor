@@ -58,7 +58,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return (sortingItem != null)
 				&& String.Equals(this.SortString, sortingItem.SortString, StringComparison.OrdinalIgnoreCase)
 				&& (((this.SortKeySelector == null) && (sortingItem.SortKeySelector == null))
-					|| this.SortKeySelector.ToString().Equals(sortingItem.SortKeySelector.ToString()) /* pro účely řazení good-enough */);
+					|| this.SortKeySelector.ToString().Equals(sortingItem.SortKeySelector.ToString()) /* good-enough for sorting */);
 		}
 
 		/// <summary>

@@ -26,8 +26,8 @@
 	private IEnumerable<DateItem> GetCustomDates()
 	{
 		DateTime today = DateTime.Today;
-		yield return new DateItem { Label = "Prvního v měsíci", Date = new DateTime(today.Year, today.Month, 1) };
-		yield return new DateItem { Label = "Zítra", Date = today.AddDays(1) };
+		yield return new DateItem { Label = "First of month", Date = new DateTime(today.Year, today.Month, 1) };
+		yield return new DateItem { Label = "Tomorrow", Date = today.AddDays(1) };
 	}
 
 	private class FormModel : IValidatableObject
@@ -41,7 +41,7 @@
 		{
 			if (DateTime.Year != 2020)
 			{
-				yield return new ValidationResult("Datum musí být v roce 2020.", new string[] { nameof(DateTime) });
+				yield return new ValidationResult("Date has to fall in year 2020.", new string[] { nameof(DateTime) });
 			}
 		}
 	}

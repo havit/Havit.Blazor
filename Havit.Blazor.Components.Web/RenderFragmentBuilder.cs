@@ -32,8 +32,8 @@ namespace Havit.Blazor.Components.Web
 
 			return (RenderTreeBuilder builder) =>
 			{
-				builder.AddContent(0, content); // null check: pokud je string null, použije prázdný řetězec
-				builder.AddContent(1, template); // null check: je použit uvnitř metody inside
+				builder.AddContent(0, content); // null check: if string null, use String.Empty
+				builder.AddContent(1, template); // null check: used inside 
 			};
 		}
 	}

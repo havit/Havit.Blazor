@@ -2,9 +2,9 @@
 
 <h1>HxListLayout - without Filter</h1>
 
-<HxListLayout Title="Nadpis" TFilterModel="HxListLayout.NoFilter">
+<HxListLayout Title="Title" TFilterModel="HxListLayout.NoFilter">
 	<CommandsTemplate>
-		<HxButton Text="Přidat fakturu" Skin="ButtonSkins.New" CssClass="ms-1" OnClick="@HandleNewItemClicked" />
+		<HxButton Text="New invoice" Skin="ButtonSkins.New" CssClass="ms-1" OnClick="@HandleNewItemClicked" />
 	</CommandsTemplate>
 	<DataTemplate>
 		<HxGrid @ref="gridComponent" TItem="DataItemDto" PageSize="20" DataProvider="LoadDataItems">
@@ -14,7 +14,7 @@
 			</Columns>
 			<ContextMenu Context="item">
 				<HxContextMenu>
-					<HxContextMenuItem Text="Smazat" OnClick="async () => await HandleDeleteItemClicked(item)" ConfirmationQuestion="@($"Opravdu si přejete smazat {item.Name}?")" />
+					<HxContextMenuItem Text="Smazat" OnClick="async () => await HandleDeleteItemClicked(item)" ConfirmationQuestion="@($"Do you realy want to delete {item.Name}?")" />
 				</HxContextMenu>
 			</ContextMenu>
 		</HxGrid>

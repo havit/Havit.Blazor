@@ -7,7 +7,7 @@
 		<HxNamedViewList TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged" NamedViews="namedViews" OnNamedViewSelected="NamedViewSelected" /> @* TODO *@
 	</NamedViewsTemplate>
 	<SearchTemplate>
-		<input type="text" name="TODO" id="TODO" placeholder="TODO: Vyhledávání" class="form-control">
+		<input type="text" name="TODO" id="TODO" placeholder="TODO: Search" class="form-control">
 	</SearchTemplate>
     <FilterTemplate Context="filterContext">
         <HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumItemId" />
@@ -16,7 +16,7 @@
         <HxInputNumber Label="Maximum Age" @bind-Value="filterContext.MaximumAge" />
     </FilterTemplate>
 	<CommandsTemplate>
-		<HxButton Text="Přidat" Skin="ButtonSkins.New" Icon="BootstrapIcon.Plus" OnClick="NewItemClicked" />
+		<HxButton Text="Add" Skin="ButtonSkins.New" Icon="BootstrapIcon.Plus" OnClick="NewItemClicked" />
 	</CommandsTemplate>
 	<DataTemplate>
 		<HxGrid @ref="gridComponent" TItem="DataItemDto" PageSize="20" DataProvider="LoadDataItems" SelectedDataItem="currentItem" SelectedDataItemChanged="HandleSelectedDataItemChanged">
@@ -29,7 +29,7 @@
             </Columns>
 			<ContextMenu Context="item">
 				<HxContextMenu>
-					<HxContextMenuItem Text="Smazat" OnClick="async () => await DeleteItemClicked(item)" ConfirmationQuestion="@($"Opravdu si přejete smazat {item.Name}?")" />
+					<HxContextMenuItem Text="Smazat" OnClick="async () => await DeleteItemClicked(item)" ConfirmationQuestion="@($"Do you realy want to delete {item.Name}?")" />
 				</HxContextMenu>
 			</ContextMenu>
 		</HxGrid>

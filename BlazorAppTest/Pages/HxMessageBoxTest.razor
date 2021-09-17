@@ -4,12 +4,12 @@
 
 <p>
 	<HxButton Text="Open MessageBox 1..." OnClick="@(async () => await box1.ShowAsync())" Color="ThemeColor.Primary" />
-	<HxMessageBox @ref="box1" Title="Jednička" Text="Já jsem jednička!" OnClosed="HandleDialogClose" />
+	<HxMessageBox @ref="box1" Title="First" Text="Number one!" OnClosed="HandleDialogClose" />
 </p>
 
 <p>
 	<HxButton Text="OkCancel..." OnClick="@(async () => await box2.ShowAsync())" Color="ThemeColor.Primary"/>
-	<HxMessageBox @ref="box2" Title="Dvojka?" Text="Chceš být dvojka?" Buttons="MessageBoxButtons.OkCancel" OnClosed="HandleDialogClose" />
+	<HxMessageBox @ref="box2" Title="Second?" Text="Number two?" Buttons="MessageBoxButtons.OkCancel" OnClosed="HandleDialogClose" />
 </p>
 
 <p>

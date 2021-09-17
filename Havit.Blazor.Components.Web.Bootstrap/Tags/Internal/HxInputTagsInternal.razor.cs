@@ -240,7 +240,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			mouseDownFocus = false;
 		}
 
-		// Kvůli updatovanání HTML a kolizi s bootstrap Dropdown nesmíme v InputBlur přerenderovat html!
+		// Due to HTML update and Bootstrap Dropdown collision we are not allowed to re-render HTML in InputBlur!
 		private Task HandleInputBlur()
 		{
 			currentlyFocused = false;

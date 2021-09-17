@@ -63,7 +63,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms
 			// shortcut, 32nd day (invalid)
 			Assert.IsFalse(HxInputDate<DateTime>.TryParseDateTimeOffsetFromString("32", culture, out _));
 
-			// čas 0:00 bohužel projde
+			// time 0:00 unfortunately passes
 			// Assert.IsFalse(HxInputDate<DateTime>.TryParseDateTimeOffsetFromString("10.02.2020 0:00", culture, out _));
 
 		}

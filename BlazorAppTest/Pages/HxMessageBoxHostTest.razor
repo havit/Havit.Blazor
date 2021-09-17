@@ -23,16 +23,16 @@
 
 	private async Task OpenMessageBox1()
 	{
-		result = await MessageBox.ShowAsync("Info", "OK jednička?", MessageBoxButtons.OkCancel);
+		result = await MessageBox.ShowAsync("Info", "OK number one?", MessageBoxButtons.OkCancel);
 	}
 
 	private async Task OpenMessageBox2()
 	{
-		result = await MessageBox.ShowAsync("Dotaz", "Chceš to dvojka?", MessageBoxButtons.YesNo);
+		result = await MessageBox.ShowAsync("Dotaz", "Do you number two?", MessageBoxButtons.YesNo);
 	}
 
 	private async Task OpenConfirm()
 	{
-		confirmResult = await MessageBox.ConfirmAsync("Chceš to?");
+		confirmResult = await MessageBox.ConfirmAsync("Confirm?");
 	}
 }

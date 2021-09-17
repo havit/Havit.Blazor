@@ -15,7 +15,7 @@
 	private List<CultureInfo> data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
 		.OrderBy(item => item.EnglishName)
 		.Take(10)
-		.OrderByDescending(i => i.ToString()) // test řazení
+		.OrderByDescending(i => i.ToString()) // sorting test
 		.ToList();
 
 	private class Model

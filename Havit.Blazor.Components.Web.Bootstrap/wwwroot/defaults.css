@@ -86,7 +86,7 @@
 	--hx-input-tags-control-focused-border-color: #86b7fe;
 }
 
-/* Zatím nevím kam s tím. Odsazuji všechy inputy ve formu, pokud nejsou jediným potomkem. */
+/* Not sure where to place. Margin for all inputs in form, if it is not the only child. */
 form .hx-form-group:not(:only-child),
 form .hx-autosuggest:not(:only-child),
 form .form-check:not(:only-child),
@@ -95,7 +95,7 @@ form .hx-input-tags:not(:only-child) {
   margin-bottom: var(--hx-form-spacing);
 }
 
-/* Tlačítko které následuje po inputech má extra spacing kvůli validacím */
+/* Button which follows inputs has extra spacing due to validation messages. */
 form .hx-form-group ~ .hx-button,
 form .hx-autosuggest~ .hx-button,
 form .form-check~ .hx-button,
