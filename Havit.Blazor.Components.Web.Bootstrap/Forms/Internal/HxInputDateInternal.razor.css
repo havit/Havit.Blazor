@@ -18,31 +18,31 @@
     z-index: 1;
 }
 
-.custom-dates .hx-input-date-icon {
+.hx-input-date-has-calendar-icon.custom-dates .hx-input-date-icon {
 	margin-right: 3.5rem;
 }
 
-.custom-dates .form-control {
+.hx-input-date-has-calendar-icon .form-control {
 	padding-right: 2.75rem;
 }
 
-.custom-dates.input-group-lg .hx-input-date-icon {
+.hx-input-date-has-calendar-icon.input-group-lg.custom-dates .hx-input-date-icon {
 	margin-right: 4.5rem;
 }
 
-.custom-dates.input-group-lg .form-control {
+.hx-input-date-has-calendar-icon.input-group-lg .form-control {
 	padding-right: 3.25rem;
 }
 
-.custom-dates.input-group-sm .hx-input-date-icon {
+.hx-input-date-has-calendar-icon.input-group-sm.custom-dates .hx-input-date-icon {
     margin-right: 2.5rem;
 }
 
-.custom-dates.input-group-sm .form-control {
+.hx-input-date-has-calendar-icon.input-group-sm .form-control {
     padding-right: 1.75rem;
 }
 
-.form-control-sm ~ .hx-input-date-icon {
+.input-group-sm > .hx-input-date-icon {
     font-size: .75rem;
 }
 
