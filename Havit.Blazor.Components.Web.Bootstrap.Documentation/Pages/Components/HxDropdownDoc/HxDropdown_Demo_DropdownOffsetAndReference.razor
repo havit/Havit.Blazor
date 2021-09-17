@@ -1,0 +1,19 @@
+﻿<HxDropdown>
+	<HxDropdownToggle Color="ThemeColor.Secondary" DropdownOffset="(30, 10)">Offset</HxDropdownToggle>
+	<HxDropdownMenu>
+		<HxDropdownItem Href="#">Item 1</HxDropdownItem>
+		<HxDropdownItem Href="#">Some item 2</HxDropdownItem>
+	</HxDropdownMenu>
+</HxDropdown>
+
+<HxDropdown Split="true">
+	<HxButton Color="ThemeColor.Secondary">Reference</HxButton>
+	<HxDropdownToggle Color="ThemeColor.Secondary" DropdownReference="parent">
+		<span class="visually-hidden">Toggle Dropdown</span>@* OPTIONAL (for accessibility) *@
+	</HxDropdownToggle>
+	<HxDropdownMenu>
+		<HxDropdownItem Href="#">Link with Href</HxDropdownItem>
+		<HxDropdownDivider />
+		<HxDropdownItem Href="#">Something else here</HxDropdownItem>
+	</HxDropdownMenu>
+</HxDropdown>

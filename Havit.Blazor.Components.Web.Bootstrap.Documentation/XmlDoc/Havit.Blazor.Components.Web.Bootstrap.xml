@@ -384,9 +384,10 @@
             Direct ancestor of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> with exactly same API.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput.Offset">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput.DropdownOffset">
             <summary>
-            Offset between dropdown input and dropdown menu
+            Offset between the dropdown and the input.
+            <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.ValueSelector">
@@ -1216,6 +1217,20 @@
             Bootstrap Dropdown toggle (the button) which triggers the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/> to open.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggle.DropdownOffset">
+            <summary>
+            Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
+            of the dropdown relative to its target.  Default is <code>(0, 2)</code>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggle.DropdownReference">
+            <summary>
+            Reference element of the dropdown menu. Accepts the values of <code>toggle</code> (default), <code>parent</code>,
+            an HTMLElement reference (e.g. <code>#id</code>) or an object providing <code>getBoundingClientRect</code>.
+            For more information refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
+            and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
             <summary>
             Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as Bootstrap form control (incl. <code>Label</code> etc.)
@@ -1510,6 +1525,11 @@
             Component for single item selection with dynamic suggestions (based on typed characters).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.DataProvider">
+            <summary>
+            Method (delegate) which provides data of the suggestions.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ValueSelector">
             <summary>
             Selects value from item.
@@ -1530,17 +1550,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.EmptyTemplate">
             <summary>
-            Template to display when items are empty
+            Template to display when items are empty.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.SearchIcon">
             <summary>
-            Icon displayed in input when no item is selected
+            Icon displayed in input when no item is selected.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ClearIcon">
             <summary>
-            Icon displayed in input on selection clear button when item is selected
+            Icon displayed in input on selection clear button when item is selected.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.MinimumLength">
@@ -1564,9 +1584,10 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputOffset">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.DropdownOffset">
             <summary>
-            Offset between dropdown input and dropdown menu
+            Offset between the dropdown and the input.
+            <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ItemFromValueResolver">

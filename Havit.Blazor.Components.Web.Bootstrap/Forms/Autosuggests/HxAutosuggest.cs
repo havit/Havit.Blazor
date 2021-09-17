@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
@@ -15,6 +12,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
+		/// <summary>
+		/// Method (delegate) which provides data of the suggestions.
+		/// </summary>
 		[Parameter] public AutosuggestDataProviderDelegate<TItem> DataProvider { get; set; }
 
 		/// <summary>
@@ -36,17 +36,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
 
 		/// <summary>
-		/// Template to display when items are empty
+		/// Template to display when items are empty.
 		/// </summary>
 		[Parameter] public RenderFragment EmptyTemplate { get; set; }
 
 		/// <summary>
-		/// Icon displayed in input when no item is selected
+		/// Icon displayed in input when no item is selected.
 		/// </summary>
 		[Parameter] public IconBase SearchIcon { get; set; }
 
 		/// <summary>
-		/// Icon displayed in input on selection clear button when item is selected
+		/// Icon displayed in input on selection clear button when item is selected.
 		/// </summary>
 		[Parameter] public IconBase ClearIcon { get; set; }
 
@@ -72,9 +72,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public LabelType? LabelType { get; set; }
 
 		/// <summary>
-		/// Offset between dropdown input and dropdown menu
+		/// Offset between the dropdown and the input.
+		/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
 		/// </summary>
-		protected virtual (int X, int Y) InputOffset { get; set; } = (0, 4);
+		protected virtual (int Skidding, int Distance) DropdownOffset { get; set; } = (0, 4);
 
 		/// <summary>
 		/// Returns corresponding item for (select) Value.
@@ -121,7 +122,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1015, nameof(HxAutosuggestInternal<TItem, TValue>.EmptyTemplate), EmptyTemplate);
 			builder.AddAttribute(1016, nameof(HxAutosuggestInternal<TItem, TValue>.SearchIcon), SearchIcon ?? defaults.SearchIcon);
 			builder.AddAttribute(1017, nameof(HxAutosuggestInternal<TItem, TValue>.ClearIcon), ClearIcon ?? defaults.ClearIcon);
-			builder.AddAttribute(1018, nameof(HxAutosuggestInternal<TItem, TValue>.InputOffset), InputOffset);
+			builder.AddAttribute(1018, nameof(HxAutosuggestInternal<TItem, TValue>.InputOffset), DropdownOffset);
 			builder.AddComponentReferenceCapture(1019, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
 			builder.CloseComponent();
 		}

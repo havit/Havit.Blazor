@@ -29,9 +29,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public bool EnabledEffective { get; set; }
 
 		/// <summary>
-		/// Offset between dropdown input and dropdown menu
+		/// Offset between the dropdown and the input.
+		/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
 		/// </summary>
-		[Parameter] public (int X, int Y) Offset { get; set; }
+		[Parameter] public (int Skidding, int Distance) DropdownOffset { get; set; }
 
 		internal ElementReference InputElement { get; set; }
 
