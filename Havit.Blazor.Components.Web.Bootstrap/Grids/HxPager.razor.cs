@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Total pages of data items.
 		/// </summary>
-		[Parameter] public int TotalPages { get; set; }  // TODO RH: Nerozdělit na TotalItems a PageSize? ...bude se to líp používat; Kdyžtak DevExpress tomu říkají PageCount
+		[Parameter] public int TotalPages { get; set; }  // TODO RH: Divide to na TotalItems a PageSize?
 
 		/// <summary>
 		/// Current page index. Zero based.
@@ -34,7 +34,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Count of numbers to display. Default value is 10.
 		/// </summary>
-		[Parameter] public int DisplayNumberCount { get; set; } = 10; // TODO RH: Rename NumberCount? Viz https://docs.telerik.com/blazor-ui/components/pager/overview; nebo VisibleNumericButtonCount (https://demos.devexpress.com/blazor/Pager)
+		[Parameter] public int DisplayNumberCount { get; set; } = 10; // TODO RH: Rename NumberCount? or VisibleNumericButtonCount #57515 Doc - Titles?
 
 		/// <summary>
 		/// Changes current page index and fires event.

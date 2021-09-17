@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	// TODO: Přesunout. Havit.Core?
+	// TODO: Move to Havit.Core?
 	public readonly struct DateTimeRange
 	{
 		public DateTime? StartDate { get; init; }

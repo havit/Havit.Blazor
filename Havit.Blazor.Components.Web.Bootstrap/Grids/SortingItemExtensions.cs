@@ -72,7 +72,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return source.Where(sourceItem => !itemsToMerge.Any(itemToMerge => itemToMerge.EqualsIgnoringSortDirection(sourceItem)));
 		}
 
-		// TODO: Chceme takovou metodu? Na demo dobrá, ale jinak je spíš kontraproduktivní.
 		/// <summary>
 		/// Creates GenericPropertyComparer for the sorting by <see cref="SortingItem{TItem}.SortString"/> and <see cref="SortingItem{TItem}.SortDirection"/> properties.
 		/// </summary>
@@ -83,7 +82,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return new GenericPropertyComparer<TItem>(source.ToSortItems());
 		}
 
-		// TODO: Chceme takovou metodu? Na demo dobrá, ale jinak je spíš kontraproduktivní.
 		/// <summary>
 		/// Converts <see cref="SortingItem{TItem}"/> to <see cref="SortItem"/>.
 		/// </summary>

@@ -27,7 +27,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server
 			}
 			else
 			{
-				app.UseExceptionHandler("/Error"); // TODO ExceptionHandler
+				app.UseExceptionHandler("/Error");
 
 				// old domain redirect
 				app.Use(async (context, next) =>
