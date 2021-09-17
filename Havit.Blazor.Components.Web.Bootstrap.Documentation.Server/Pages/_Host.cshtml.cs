@@ -15,6 +15,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server.Pages
 		{
 			var path = this.Request.Path.ToString().TrimEnd('/');
 
+			// TODO Temp, replace with .NET 6 HeadContent, duplicates MainLayout.razor.cs:OnParametersSet
+
 			var lastSegmentStart = path.LastIndexOf("/");
 			if (lastSegmentStart > 0)
 			{
