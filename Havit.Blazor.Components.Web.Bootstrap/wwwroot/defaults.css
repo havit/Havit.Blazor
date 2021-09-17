@@ -45,9 +45,6 @@
 	--hx-input-file-drop-zone-border-radius: .3rem; /* border-radius-lg */
 	--hx-input-file-drop-zone-margin: 0;
 	--hx-input-file-drop-zone-padding: 3rem;
-	/* HxWizard */
-	--hx-wizard-navigator-background-color: var(--bs-gray-400);
-	--hx-wizard-navigator-progress-background-color: var(--bs-primary);
 	/* HxCalendar */
 	--hx-calendar-day-hover-background: var(--bs-gray-300);
 	--hx-calendar-day-hover-border: 1px solid var(--hx-calendar-day-hover-background);
