@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared
 {
 	public partial class MainLayout
 	{
-		private const string TitleBase = "HAVIT Blazor Documentation";
+		private const string TitleBase = "HAVIT Blazor";
 		private const string TitleSeparator = " | ";
 
 		[Inject] protected NavigationManager NavigationManager { get; set; }
@@ -26,7 +26,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared
 				return;
 			}
 
-			title = TitleBase + TitleSeparator + "Free Bootstrap 5 Blazor components";
+			title = TitleBase + TitleSeparator + "Free Bootstrap 5 components for Blazor";
 		}
 	}
 }

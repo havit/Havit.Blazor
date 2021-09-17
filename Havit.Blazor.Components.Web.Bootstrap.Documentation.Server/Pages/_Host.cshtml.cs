@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server.Pages
 {
 	public class _Host : PageModel
 	{
-		private const string TitleBase = "HAVIT Blazor Documentation";
+		private const string TitleBase = "HAVIT Blazor";
 		private const string TitleSeparator = " | ";
 
 		public string Title { get; set; }
@@ -25,7 +25,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server.Pages
 
 			}
 
-			Title = TitleBase + TitleSeparator + "Free Bootstrap 5 Blazor components";
+			Title = TitleBase + TitleSeparator + "Free Bootstrap 5 components for Blazor";
 		}
 
 	}
