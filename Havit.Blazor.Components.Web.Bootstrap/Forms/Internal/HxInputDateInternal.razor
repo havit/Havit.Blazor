@@ -4,7 +4,12 @@
 
 @if (FieldIdentifier.Model != null)
 {
-	<div class="@CssClassHelper.Combine("hx-input-date input-group dropdown", ((IInputWithSize)this).GetInputGroupSizeCssClass(), CustomDates.Any() ? "custom-dates" : null)">
+	<div class="@CssClassHelper.Combine(
+					 "hx-input-date input-group dropdown",
+					 ((IInputWithSize)this).GetInputGroupSizeCssClass(),
+					 (this.CalendarIcon is not null) ? "hx-input-date-has-calendar-icon" : null,
+					 CustomDates.Any() ? "custom-dates" : null)">
+
 		@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
 		<input @ref="dateInputElement" type="text" id="@InputId" class="@CssClassHelper.Combine("form-control", InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())" value="@CurrentValueAsString" @onchange="HandleValueChangedAsync" placeholder="@Placeholder" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
 		@if (EnabledEffective)
