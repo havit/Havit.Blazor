@@ -6,3 +6,7 @@ input {
     background-color: inherit;
     width: 100%;
 }
+
+::placeholder {
+    color: var(--hx-input-tags-input-placeholder-color);
+}
