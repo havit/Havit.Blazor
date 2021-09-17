@@ -11,5 +11,5 @@
 }
 .offcanvas-start.hx-offcanvas-lg,
 .offcanvas-end.hx-offcanvas-lg {
-  width: var(--hx-offcanvas-horizontal-width-sm);
+  width: var(--hx-offcanvas-horizontal-width-lg);
 }
