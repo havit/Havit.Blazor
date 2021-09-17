@@ -13,36 +13,42 @@ $theme-colors: (
 
 $theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
 
-$min-contrast-ratio: 3;
-$body-bg: $gray-100;
-// $border-color: rgba($black, .125);
-$nav-tabs-border-color: rgba($black, .125);
-$nav-tabs-link-active-border-color: $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-link-active-bg;
-$card-border-radius: .5rem;
-$card-border-color: rgba($black, .125);
-$card-inner-border-radius: subtract($card-border-radius, $card-border-width);
-$table-cell-padding-y: .6125rem;
-$table-cell-padding-x: 1rem;
-$table-active-bg-factor: .05;
-$table-active-bg: rgba($black, $table-active-bg-factor);
-$table-hover-bg-factor: .025;
-$table-hover-bg: rgba($black, $table-hover-bg-factor);
-$table-group-separator-color: $table-border-color;
-$hr-color: $border-color;
-$hr-opacity: 1;
-$form-label-margin-bottom: .25rem;
-$form-label-font-size: .875rem;
-$form-label-color: $gray-600;
-$form-label-font-weight: 500;
-$form-feedback-tooltip-padding-y: 0;
-$form-feedback-tooltip-padding-x: 0;
-$form-feedback-tooltip-font-size: .75rem;
+$min-contrast-ratio:  3;
+$body-bg:             $gray-100;
 
-$input-border-color: $gray-300;
-$form-select-border-color: $gray-300;
+$nav-tabs-border-color:               rgba($black, .125);
+$nav-tabs-link-active-border-color:   $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-link-active-bg;
+
+$card-border-radius:          .5rem;
+$card-border-color:           rgba($black, .125);
+$card-inner-border-radius:    subtract($card-border-radius, $card-border-width);
+
+$table-cell-padding-y:          .6125rem;
+$table-cell-padding-x:          1rem;
+$table-active-bg-factor:        .05;
+$table-active-bg:               rgba($black, $table-active-bg-factor);
+$table-hover-bg-factor:         .025;
+$table-hover-bg:                rgba($black, $table-hover-bg-factor);
+$table-group-separator-color:   $table-border-color;
+
+$hr-color:    $border-color;
+$hr-opacity:  1;
+
+$form-label-margin-bottom:          .25rem;
+$form-label-font-size:              .875rem;
+$form-label-color:                  $gray-600;
+$form-label-font-weight:            500;
+$form-feedback-tooltip-padding-y:   0;
+$form-feedback-tooltip-padding-x:   0;
+$form-feedback-tooltip-font-size:   .75rem;
+
+$input-border-color:              $gray-300;
+$input-group-addon-border-color:  $input-border-color;
+$form-select-border-color:        $gray-300;
+
 $modal-backdrop-opacity: .25;
 
-$offcanvas-horizontal-width: 500px;
-$offcanvas-border-width: 0;
+$offcanvas-horizontal-width:  500px;
+$offcanvas-border-width:      0;
 
 $dropdown-box-shadow: $box-shadow-sm;
