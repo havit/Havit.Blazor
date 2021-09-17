@@ -123,14 +123,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1003, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 			builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 
-			// Počítané hodnoty sekvence jsou proti smyslu sekvencí a proti veškerým obecným doporučením.
-			// Zde chceme dosáhnout toho, aby při změně uživatelského vstupu, došlo k přerenderování hodnoty, přestože se nezměnila hodnota FormatValueAsString(Value).
-			// Důvodem je scénář, kdy se zobrazí hodnota například "1.00", ale uživatel ji změní na "1.0". V takové situaci se nezmění FormatValueAsString(Value),
-			// takže atribut není vyrenderován a zůstává uživatelský vstup, tedy "1.0".
-			// Jako řešení tedy použijeme hodnotu sequence 1005, 1006, 1007, čímž přimějeme Blazor, aby hodnotu přeci jen vyrenderovat (nezmění se hodnota, ale sequence).
-			// Zároveň ale nechceme, aby každý input se pořád znovu a znovu renderoval, takže sequence změníme jen když chceme vynutit vyrenderování hodnoty.
-			// (Původně jsem chtěl, aby se použili sequence 1000 a 1001, které se budou přepínat, avšak toto nefunguje - při přechodu z 1001 na 1000 nejspíš Blazor 
-			// nejprve (sequence 1000) přijde na to, že má value přidat a poté (sequence 1001), že má value odebrat a tak výsledkem je mizející hodnota z inputu).
+			// The counting sequence values violate all general recommendations.
+			// We want the value of the HxInputNumber to be updated (rerendered) when the user input changes, even if FormatValueAsString(Value) hasn't changed.
+			// The reason for this is that if a value such as "1.00" is displayed and a user modifies it to "1.0", FormatValueAsString(Value) isn't going to change,
+			// the attribute is not rerendered, so the user input stays at "1.0".
+			// To solve this issue, we will use the sequence values 1005, 1006, 1007, ... That way, we force Blazor to update the value anyway (because of the sequence change).
+			// However, we adjust the sequence only if we want to enforce the rerendering. Otherwise, the component would update all the time.
+			// (Originally, we wanted to use the sequences 1000 and 1001, which we would toggle.
+			// However, this doesn't work - Blazor probably realizes that it should add the value (sequence 1000) and then remove the value (sequence 1001), resulting in a missing value of the input.)
 			checked
 			{
 				if (forceRenderValue)
