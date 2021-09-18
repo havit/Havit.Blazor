@@ -1,12 +1,11 @@
 ﻿using System;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web.Extensions.Head;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared
 {
 	public partial class MainLayout
 	{
-		private const string TitleBase = "HAVIT Blazor";
+		private const string TitleBase = "HAVIT Blazor - Free Bootstrap 5 components";
 		private const string TitleSeparator = " | ";
 
 		[Inject] protected NavigationManager NavigationManager { get; set; }
@@ -26,7 +25,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared
 				return;
 			}
 
-			title = TitleBase + TitleSeparator + "Free Bootstrap 5 components for Blazor";
+			title = "HAVIT Blazor | Free Bootstrap 5 components for Blazor";
 		}
 	}
 }
