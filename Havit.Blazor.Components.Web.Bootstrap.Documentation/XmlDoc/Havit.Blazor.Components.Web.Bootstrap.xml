@@ -432,9 +432,10 @@
             Debounce delay in miliseconds. Default is <c>300 ms</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.InputOffset">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.DropdownOffset">
             <summary>
-            Offset between dropdown input and dropdown menu
+            Offset between the dropdown and the input.
+            <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueComponentExtensions">

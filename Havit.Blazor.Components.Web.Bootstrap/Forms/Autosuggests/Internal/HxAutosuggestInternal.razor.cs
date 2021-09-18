@@ -77,9 +77,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
 		/// <summary>
-		/// Offset between dropdown input and dropdown menu
+		/// Offset between the dropdown and the input.
+		/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
 		/// </summary>
-		[Parameter] public (int X, int Y) InputOffset { get; set; }
+		[Parameter] public (int Skidding, int Distance) DropdownOffset { get; set; } = (0, 4);
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 

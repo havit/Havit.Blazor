@@ -122,7 +122,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1015, nameof(HxAutosuggestInternal<TItem, TValue>.EmptyTemplate), EmptyTemplate);
 			builder.AddAttribute(1016, nameof(HxAutosuggestInternal<TItem, TValue>.SearchIcon), SearchIcon ?? defaults.SearchIcon);
 			builder.AddAttribute(1017, nameof(HxAutosuggestInternal<TItem, TValue>.ClearIcon), ClearIcon ?? defaults.ClearIcon);
-			builder.AddAttribute(1018, nameof(HxAutosuggestInternal<TItem, TValue>.InputOffset), DropdownOffset);
+			builder.AddAttribute(1018, nameof(HxAutosuggestInternal<TItem, TValue>.DropdownOffset), DropdownOffset);
 			builder.AddComponentReferenceCapture(1019, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
 			builder.CloseComponent();
 		}
