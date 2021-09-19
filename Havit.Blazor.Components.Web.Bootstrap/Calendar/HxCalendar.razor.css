@@ -22,7 +22,7 @@ td > div {
     border: 1px solid transparent;
     border-radius: var(--hx-calendar-day-border-radius);
     background-color: white;
-    transition: all .25s ease-in-out;
+    transition: all .15s ease-in-out;
 }
 
 .week div {
