@@ -13,6 +13,36 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxCard
 	{
 		/// <summary>
+		/// Application-wide defaults for <see cref="HxCard"/>.
+		/// </summary>
+		public static CardDefaults Defaults { get; set; } = new CardDefaults();
+
+		/// <summary>
+		/// Image to be placed in the card. For image position see <see cref="ImagePlacement"/>.
+		/// </summary>
+		[Parameter] public string ImageSrc { get; set; }
+
+		/// <summary>
+		/// Placement of the image. Default is <see cref="CardImagePlacement.Top"/>.
+		/// </summary>
+		[Parameter] public CardImagePlacement ImagePlacement { get; set; }
+
+		/// <summary>
+		/// Image <c>alt</c> attribute value.
+		/// </summary>
+		[Parameter] public string ImageAlt { get; set; }
+
+		/// <summary>
+		/// Image <c>width</c> attribute value.
+		/// </summary>
+		[Parameter] public int? ImageWidth { get; set; }
+
+		/// <summary>
+		/// Image <c>height</c> attribute value.
+		/// </summary>
+		[Parameter] public int? ImageHeight { get; set; }
+
+		/// <summary>
 		/// Header content.
 		/// </summary>
 		[Parameter] public RenderFragment HeaderTemplate { get; set; }
@@ -48,13 +78,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string FooterCssClass { get; set; }
 
 		/// <summary>
-		/// Skin to be applied. You can set a default skin to <see cref="HxCard.DefaultSkin"/>. It will be applied to any <see cref="HxCard"/> without explicit skin specified.
+		/// Additional attributes to be splatted onto an underlying HTML element.
 		/// </summary>
-		[Parameter] public CardSkin Skin { get; set; }
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
 		/// <summary>
-		/// A skin to be used for any <see cref="HxCard"/> without explicit <see cref="HxCard.Skin"/> specified.
+		/// Return <see cref="HxCard"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		public static CardSkin DefaultSkin { get; set; }
+		protected virtual CardDefaults GetDefaults() => Defaults;
 	}
 }

@@ -815,14 +815,69 @@
             Last year allowed.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSkin.None">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CardDefaults">
             <summary>
-            Empty skin to be able to disable <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.DefaultSkin"/> locally.
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardDefaults.CssClass">
+            <summary>
+            Additional CSS classes for the card-container.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardDefaults.HeaderCssClass">
+            <summary>
+            Additional CSS class for the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardDefaults.BodyCssClass">
+            <summary>
+            Additional CSS class for the body.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardDefaults.FooterCssClass">
+            <summary>
+            Additional CSS class for the footer.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CardImagePlacement">
+            <summary>
+            Placement of the image in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> component.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCard">
             <summary>
             Bootstrap <a href="https://getbootstrap.com/docs/5.1/components/card/">Card</a> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.ImageSrc">
+            <summary>
+            Image to be placed in the card. For image position see <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.ImagePlacement"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.ImagePlacement">
+            <summary>
+            Placement of the image. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CardImagePlacement.Top"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.ImageAlt">
+            <summary>
+            Image <c>alt</c> attribute value.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.ImageWidth">
+            <summary>
+            Image <c>width</c> attribute value.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.ImageHeight">
+            <summary>
+            Image <c>height</c> attribute value.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.HeaderTemplate">
@@ -860,14 +915,81 @@
             Additional CSS class for the footer.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Skin">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.AdditionalAttributes">
             <summary>
-            Skin to be applied. You can set a default skin to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.DefaultSkin"/>. It will be applied to any <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> without explicit skin specified.
+            Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.DefaultSkin">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCard.GetDefaults">
             <summary>
-            A skin to be used for any <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> without explicit <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Skin"/> specified.
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCardSubtitle">
+            <summary>
+            Bootstrap <see href="https://getbootstrap.com/docs/5.1/components/card/#titles-text-and-links">card-subtitle</see> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardSubtitle.ChildContent">
+            <summary>
+            Text content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardSubtitle.HtmlElement">
+            <summary>
+            Underlying HTML element for card-subtitle. Default is <c>h6</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardSubtitle.CssClass">
+            <summary>
+            Additional CSS class(es) for the card-subtitle element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardSubtitle.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying HTML element.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCardText">
+            <summary>
+            Bootstrap <see href="https://getbootstrap.com/docs/5.1/components/card/#titles-text-and-links">card-title</see> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardText.ChildContent">
+            <summary>
+            Text content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardText.CssClass">
+            <summary>
+            Additional CSS class(es) for the card-text element.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCardTitle">
+            <summary>
+            Bootstrap <see href="https://getbootstrap.com/docs/5.1/components/card/#titles-text-and-links">card-title</see> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardTitle.ChildContent">
+            <summary>
+            Text content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardTitle.HtmlElement">
+            <summary>
+            Underlying HTML element for card-title. Default is <c>h5</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardTitle.CssClass">
+            <summary>
+            Additional CSS class(es) for the card-title element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardTitle.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CarouselRide">
