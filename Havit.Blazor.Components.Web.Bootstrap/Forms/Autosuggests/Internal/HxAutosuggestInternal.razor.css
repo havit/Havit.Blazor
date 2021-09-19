@@ -2,11 +2,10 @@
     margin-right: 1rem;
 }
 
-button {
-    width: .25em;
-    height: .25em;
+.form-control-sm ~ .hx-autosuggest-input-icon {
+    font-size: .75rem;
 }
 
 .hx-autosuggest-input-icon div[role="button"]:not(:hover) ::deep .hx-icon {
-    opacity: .25;
+    opacity: var(--hx-autosuggest-input-close-icon-opacity);
 }
