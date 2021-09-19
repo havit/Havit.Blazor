@@ -8,9 +8,9 @@
 	<ItemGroup>
 		<PackageReference Include="LoxSmoke.DocXml" Version="3.4.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web.Extensions" Version="5.0.0-preview9.20513.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.9" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.9" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.9" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.10" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.10" />
 		<PackageReference Include="System.CodeDom" Version="5.0.0" />
 		<PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
 	</ItemGroup>
