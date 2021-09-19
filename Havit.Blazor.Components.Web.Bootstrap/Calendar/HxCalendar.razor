@@ -4,15 +4,15 @@
 	@if (renderData != null)
 	{
 		<div class="navigation mb-3">
-			<div class="input-group mx-1">
+			<div class="input-group input-group-sm mx-1">
 				<HxButton Skin="ButtonSkins.CalendarPrevious" OnClickStopPropagation="true" OnClick="HandlePreviousMonthClickAsync" />
-				<select class="form-select form-select-sm" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
+				<select class="form-select" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
 					@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
 					{
 						<option value="@monthIndex">@renderData.Months[monthIndex]</option>
 					}
 				</select>
-				<select class="form-select form-select-sm" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
+				<select class="form-select" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
 					@foreach (int year in renderData.Years)
 					{
 						/* not "N" - we do not want thousands separator */
