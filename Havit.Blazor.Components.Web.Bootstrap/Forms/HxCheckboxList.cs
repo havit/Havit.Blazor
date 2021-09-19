@@ -76,33 +76,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				UglyHack uglyHack = new UglyHack(); // see comment below
 
-				builder.OpenElement(1, "ul");
-				builder.AddAttribute(2, "class", "list-group");
-
 				foreach (var item in itemsToRender)
 				{
 					TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
 
-					builder.OpenElement(3, "li");
-					builder.AddAttribute(4, "class", "list-group-item");
-
-					builder.OpenComponent(5, typeof(HxInputCheckbox));
-					builder.AddAttribute(6, nameof(HxInputCheckbox.Label), SelectorHelpers.GetText(TextSelector, item));
-					builder.AddAttribute(7, nameof(HxInputCheckbox.Value), Value?.Contains(value) ?? false);
-					builder.AddAttribute(8, nameof(HxInputCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
+					builder.OpenComponent(1, typeof(HxInputCheckbox));
+					builder.AddAttribute(2, nameof(HxInputCheckbox.Label), SelectorHelpers.GetText(TextSelector, item));
+					builder.AddAttribute(3, nameof(HxInputCheckbox.Value), Value?.Contains(value) ?? false);
+					builder.AddAttribute(4, nameof(HxInputCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
 
 					// We need ValueExpression. Ehm, HxInputCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 					// We have nothing to give the HxInputCheckbox. So we make own class with property which we assign to the ValueExpression.
 					// Impacts? Unknown. Maybe none.
-					builder.AddAttribute(9, nameof(HxInputCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
+					builder.AddAttribute(5, nameof(HxInputCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
 
-					builder.AddAttribute(10, nameof(HxInputCheckbox.ShowValidationMessage), false);
+					builder.AddAttribute(6, nameof(HxInputCheckbox.ShowValidationMessage), false);
 					builder.CloseComponent();
-
-					builder.CloseElement(); // li
 				}
-
-				builder.CloseElement(); // ul
 			}
 		}
 
