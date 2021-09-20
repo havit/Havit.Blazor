@@ -12,12 +12,6 @@
 			</HeaderTemplate>
 		</HxGridColumn>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
-		<HxGridColumn TItem="CultureInfo" HeaderText="Order">
-			<ItemTemplate Context="item">
-				<HxButton Skin="ButtonSkins.Up" />
-				<HxButton Skin="ButtonSkins.Down" />
-			</ItemTemplate>
-		</HxGridColumn>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Link">
 			<ItemTemplate>
 				<a href="https://www.havit.cz" @onclick:stopPropagation>link to a page</a> @* TODO HxLink, který bude mít default stopPropagation ??? *@
@@ -31,8 +25,6 @@
 			<HxContextMenuItem ConfirmationQuestion="Jako fakt?" OnClick="async () => await AlarmClicked(item)">
 				<HxIcon Icon="BootstrapIcon.Alarm" /> Bacha na to!
 			</HxContextMenuItem>
-			<HxContextMenuItem Skin="ContextMenuItemSkins.Delete" />
-
 			<HxContextMenuItem Enabled="false" Text="Disabled" OnClick="async () => await AlarmClicked(item)" />
 			<HxContextMenuItem Enabled="false" ConfirmationQuestion="Jako fakt na disabled prvku?" OnClick="async () => await AlarmClicked(item)">
 				<HxIcon Icon="BootstrapIcon.Alarm" /> Disabled with icon
@@ -62,7 +54,7 @@
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" />
 	</Columns>
 	<EmptyDataTemplate>
-		<HxButton Skin="ButtonSkins.New" />
+		<HxButton Text="Create new item... " Color="ThemeColor.Primary" />
 	</EmptyDataTemplate>
 </HxGrid>
 

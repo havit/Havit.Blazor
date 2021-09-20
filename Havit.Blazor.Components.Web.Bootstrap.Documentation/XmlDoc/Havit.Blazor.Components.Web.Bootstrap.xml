@@ -148,6 +148,36 @@
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults.Size">
+            <summary>
+            Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults.CssClass">
+            <summary>
+            CSS class to be rendered with button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults.Icon">
+            <summary>
+            Icon to be rendered with button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults.Color">
+            <summary>
+            Bootstrap button color (style).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults.Outline">
+            <summary>
+            Bootstrap outline button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonGroupOrientation">
             <summary>
             Orientation for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup"/>.
@@ -166,46 +196,6 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonSize">
             <summary>
             Size for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonSkin">
-            <summary>
-            Button skin.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSkin.CssClass">
-            <summary>
-            CSS class to be rendered with button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSkin.Icon">
-            <summary>
-            Icon to be rendered with button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSkin.Text">
-            <summary>
-            Button text.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSkin.Color">
-            <summary>
-            Bootstrap button color (style).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSkin.Outlined">
-            <summary>
-            Bootstrap outline button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSkin.ResourceType">
-            <summary>
-            Button resource type.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonSkins">
-            <summary>
-            Button skins. Localized (Czech, English).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButton">
@@ -246,11 +236,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Outline">
             <summary>
             Bootstrap "outline" button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Skin">
-            <summary>
-            Skin of the button. Simplifies usage of button properties.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Enabled">
@@ -318,19 +303,11 @@
             Localization service.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonDefaults">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxButton.GetDefaults">
             <summary>
-            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonDefaults.Size">
-            <summary>
-            Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonDefaults.Color">
-            <summary>
-            Bootstrap button style - theme color. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/" />.
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup">
@@ -1143,26 +1120,6 @@
             Get chips from the component.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ContextMenuItemSkin.Text">
-            <summary>
-            Item text.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ContextMenuItemSkin.Icon">
-            <summary>
-            Item icon (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon" />).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ContextMenuItemSkin.ConfirmationQuestion">
-            <summary>
-            Displays <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox" /> to get a confirmation.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ContextMenuItemSkin.ResourceType">
-            <summary>
-            Button resource type.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu">
             <summary>
             Ready-made context menu (based on <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see>).
@@ -1186,11 +1143,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.ConfirmationQuestion">
             <summary>
             Displays <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox" /> to get a confirmation.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Skin">
-            <summary>
-            Skin of the menu item. Simplifies reuse of item properties.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.OnClick">

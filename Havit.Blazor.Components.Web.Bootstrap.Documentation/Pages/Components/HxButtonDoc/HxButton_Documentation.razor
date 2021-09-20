@@ -15,26 +15,16 @@
     <Demo Type="typeof(HxButton_Demo_Sizes)" Tabs="false" />
     <Demo Type="typeof(HxButton_Demo_Sizes_Small)" Tabs="false" />
 
-    <h3>Skins</h3>
-    <p>Common buttons (OK, Save, Apply, Export, ...) can be defined using a skin. Skin is a shared configuration of a button defined in this library or in a custom code. Skins are localizable, embedded skins are localized (English, Czech).</p>
-    <p>Skins are used as readonly instances (strong-type), no string identifiers (such as SkinID in WebForms) are used.</p>
-    <p>See the demo on how to define custom skins. To make a skin localizable, use <code>ResourceType</code> property to set where to find the translations.</p>
-    <p>See <TypeLink Type="typeof(ButtonSkins)">available skins</TypeLink>.</p>
-    <Demo Type="typeof(HxButton_Demo_Skins)" Tabs="false" />
-
-    <h3>Custom Skins</h3>
-    <p>Create custom reusable skins for the button configurations you use the most often.</p>
-    <Demo Type="typeof(HxButton_Demo_CustomSkins)" Tabs="false" />
-
     <h3>Spinners</h3>
     <Demo Type="typeof(HxButton_Demo_BasicSpinner)" Tabs="false" />
 
-    <h5>OnValidClick with spinner</h5>
+    <h4>OnValidClick with spinner</h4>
     <Demo Type="typeof(HxButton_Demo_OnValidClickWithSpinner)" />
-    <h5>Manual Spinner</h5>
+    
+    <h4>Manual Spinner</h4>
     <Demo Type="typeof(HxButton_Demo_ManualSpinner)" />
 
-    <h3>Spinner &amp; Single click protection</h3>
+    <h4>Spinner &amp; Single click protection</h4>
     <HxAlert Color="ThemeColor.Warning">
         EditForm's <code>OnSubmit</code> events are not captured for spinner automation. Use HxButton's <code>OnClick</code>, <code>OnValidClick</code> and <code>OnInvalidClick</code> instead.
     </HxAlert>
@@ -43,9 +33,6 @@
         It is intentionally not set, if there is no <code>OnClick</code> handler, as there might be an <code>OnSubmit</code> handler of the containing <code>EditForm</code>
         set which would have been blocked if the button is disabled (see above).
     </HxAlert>
-
-    <h3>HxSubmit</h3>
-    <p>There is a <code>HxSubmit</code> component (as direct ancestor of <code>HxButton</code>) which renders as <code>&lt;button type="submit"&gt;</code>. The API is the same.</p>
 
     <h3>Button with a badge</h3>
     <Demo Type="typeof(HxButton_Demo_Badge)" Tabs="false" />

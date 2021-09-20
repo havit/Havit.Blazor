@@ -5,8 +5,13 @@
 	{
 		<div class="navigation mb-3">
 			<div class="input-group input-group-sm mx-1">
-				<HxButton Skin="ButtonSkins.CalendarPrevious" OnClickStopPropagation="true" OnClick="HandlePreviousMonthClickAsync" />
-				<select class="form-select" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
+				<HxButton Icon="BootstrapIcon.ChevronLeft"
+						  Color="ThemeColor.Light"
+						  Outline="true"
+						  CssClass="text-dark"
+						  OnClickStopPropagation="true"
+						  OnClick="HandlePreviousMonthClickAsync" />
+				<select class="form-select form-select-sm" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
 					@for (int monthIndex = 0; monthIndex < renderData.Months.Count; monthIndex++)
 					{
 						<option value="@monthIndex">@renderData.Months[monthIndex]</option>
@@ -19,7 +24,12 @@
 						<option value="@year">@year.ToString()</option>
 					}
 				</select>
-				<HxButton Skin="ButtonSkins.CalendarNext" OnClickStopPropagation="true" OnClick="HandleNextMonthClickAsync" />
+				<HxButton Icon="BootstrapIcon.ChevronRight"
+						  Color="ThemeColor.Light"
+						  Outline="true"
+						  CssClass="text-dark"
+						  OnClickStopPropagation="true"
+						  OnClick="HandleNextMonthClickAsync" />
 			</div>
 		</div>
 
@@ -35,20 +45,20 @@
 				<tr class="week">
 					@foreach (DayData day in week.Days)
 					{
-						
-							@if (day.ClickEnabled)
-							{
-								<td role="button" @onclick="async () => await HandleDayClickAsync(day)" @onclick:stopPropagation>
-									<div class="@day.CssClass">@day.DayInMonth</div>
-								</td>
-							}
-							else
-							{
-								<td>
-									<div class="@day.CssClass">@day.DayInMonth</div>
-								</td>
-							}
-						
+
+						@if (day.ClickEnabled)
+						{
+							<td role="button" @onclick="async () => await HandleDayClickAsync(day)" @onclick:stopPropagation>
+								<div class="@day.CssClass">@day.DayInMonth</div>
+							</td>
+						}
+						else
+						{
+							<td>
+								<div class="@day.CssClass">@day.DayInMonth</div>
+							</td>
+						}
+
 					}
 				</tr>
 			}

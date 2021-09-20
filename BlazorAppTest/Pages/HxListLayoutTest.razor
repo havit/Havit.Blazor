@@ -2,7 +2,7 @@
 
 <h1>HxListLayout</h1>
 
-<HxListLayout Title="Nadpis" TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged">
+<HxListLayout Title="Title" TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged">
 	<NamedViewsTemplate>
 		<HxNamedViewList TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged" NamedViews="namedViews" OnNamedViewSelected="NamedViewSelected" /> @* TODO *@
 	</NamedViewsTemplate>
@@ -16,7 +16,7 @@
         <HxInputNumber Label="Maximum Age" @bind-Value="filterContext.MaximumAge" />
     </FilterTemplate>
 	<CommandsTemplate>
-		<HxButton Text="Add" Skin="ButtonSkins.New" Icon="BootstrapIcon.Plus" OnClick="NewItemClicked" />
+		<HxButton Text="Add" Icon="BootstrapIcon.Plus" Color="ThemeColor.Secondary" OnClick="NewItemClicked" />
 	</CommandsTemplate>
 	<DataTemplate>
 		<HxGrid @ref="gridComponent" TItem="DataItemDto" PageSize="20" DataProvider="LoadDataItems" SelectedDataItem="currentItem" SelectedDataItemChanged="HandleSelectedDataItemChanged">
@@ -29,7 +29,7 @@
             </Columns>
 			<ContextMenu Context="item">
 				<HxContextMenu>
-					<HxContextMenuItem Text="Smazat" OnClick="async () => await DeleteItemClicked(item)" ConfirmationQuestion="@($"Do you realy want to delete {item.Name}?")" />
+					<HxContextMenuItem Text="Delete" OnClick="async () => await DeleteItemClicked(item)" ConfirmationQuestion="@($"Do you realy want to delete {item.Name}?")" />
 				</HxContextMenu>
 			</ContextMenu>
 		</HxGrid>

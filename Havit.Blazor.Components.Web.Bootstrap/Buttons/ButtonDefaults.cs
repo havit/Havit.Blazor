@@ -8,10 +8,15 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Button skin.
+	/// Application-wide defaults for <see cref="HxButton"/>.
 	/// </summary>
-	public record ButtonSkin
+	public record ButtonDefaults
 	{
+		/// <summary>
+		/// Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />
+		/// </summary>
+		public ButtonSize Size { get; set; } = ButtonSize.Regular;
+
 		/// <summary>
 		/// CSS class to be rendered with button.
 		/// </summary>
@@ -23,11 +28,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public IconBase Icon { get; set; }
 
 		/// <summary>
-		/// Button text.
-		/// </summary>
-		public string Text { get; set; }
-
-		/// <summary>
 		/// Bootstrap button color (style).
 		/// </summary>
 		public ThemeColor? Color { get; set; }
@@ -35,11 +35,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Bootstrap outline button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
 		/// </summary>
-		public bool? Outlined { get; set; }
-
-		/// <summary>
-		/// Button resource type.
-		/// </summary>
-		public Type ResourceType { get; set; }
+		public bool Outline { get; set; } = false;
 	}
 }

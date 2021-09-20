@@ -33,11 +33,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string ConfirmationQuestion { get; set; }
 
 		/// <summary>
-		/// Skin of the menu item. Simplifies reuse of item properties.
-		/// </summary>
-		[Parameter] public ContextMenuItemSkin Skin { get; set; }
-
-		/// <summary>
 		/// Item clicked event.
 		/// </summary>
 		[Parameter] public EventCallback OnClick { get; set; }
@@ -74,7 +69,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				return;
 			}
 
-			if (!String.IsNullOrEmpty(GetConfirmationQuestion()))
+			if (!String.IsNullOrEmpty(this.ConfirmationQuestion))
 			{
 				if (MessageBox is not null)
 				{
@@ -83,44 +78,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 						return; // No action
 					}
 				}
-				else if (!await JSRuntime.InvokeAsync<bool>("confirm", GetConfirmationQuestion()))
+				else if (!await JSRuntime.InvokeAsync<bool>("confirm", this.ConfirmationQuestion))
 				{
 					return; // No Action
 				}
 			}
 			await OnClick.InvokeAsync(null);
 		}
-
-		protected string GetText()
-		{
-			if (!String.IsNullOrEmpty(Text))
-			{
-				return this.Text;
-			}
-			else if (!String.IsNullOrEmpty(Skin?.Text))
-			{
-				return StringLocalizerFactory.GetLocalizedValue(Skin.Text, Skin.ResourceType);
-			}
-			return null;
-		}
-
-		protected string GetConfirmationQuestion()
-		{
-			if (!String.IsNullOrEmpty(ConfirmationQuestion))
-			{
-				return this.ConfirmationQuestion;
-			}
-			else if (!String.IsNullOrEmpty(Skin?.ConfirmationQuestion))
-			{
-				return StringLocalizerFactory.GetLocalizedValue(Skin.ConfirmationQuestion, Skin.ResourceType);
-			}
-			return null;
-		}
-
-		protected IconBase GetIcon()
-		{
-			return Icon ?? Skin?.Icon;
-		}
-
 	}
 }

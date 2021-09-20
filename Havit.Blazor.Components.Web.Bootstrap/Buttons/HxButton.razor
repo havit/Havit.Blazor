@@ -1,9 +1,5 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-@{
-	string text = GetText();
-}
-
 <HxTooltip Text="@Tooltip" Placement="@TooltipPlacement">
 	<button type="@GetButtonType()"
 			class="@GetButtonCssClass()"
@@ -14,42 +10,41 @@
 			form="@FormId"
 			@attributes="this.AdditionalAttributes">
 
-			@if ((IconPosition == Internal.IconPosition.Start) && ((this.IconEffective is not null) || this.SpinnerEffective))
+		@if ((IconPosition == Internal.IconPosition.Start) && ((this.IconEffective is not null) || this.SpinnerEffective))
+		{
+			if (this.SpinnerEffective)
 			{
-				if (this.SpinnerEffective)
-				{
-					<HxSpinner Size="SpinnerSize.Small" />
-				}
-				else if (this.IconEffective is not null)
-				{
-					<HxIcon Icon="this.Icon ?? this.Skin?.Icon" />
-				}
-
-				@if (!String.IsNullOrEmpty(text) || (ChildContent != null))
-				{
-					<span>&nbsp;</span>
-				}
+				<HxSpinner Size="SpinnerSize.Small" />
+			}
+			else if (this.IconEffective is not null)
+			{
+				<HxIcon Icon="this.IconEffective" />
 			}
 
-			@text
-			@ChildContent
-
-			@if ((IconPosition == Internal.IconPosition.End) && ((this.IconEffective is not null) || this.SpinnerEffective))
+			@if (!String.IsNullOrEmpty(this.Text) || (ChildContent != null))
 			{
-				@if (!String.IsNullOrEmpty(text) || (ChildContent != null))
-				{
-					<span>&nbsp;</span>
-				}
+				<span>&nbsp;</span>
+			}
+		}
 
-				if (this.SpinnerEffective)
-				{
-					<HxSpinner Size="SpinnerSize.Small" />
-				}
-				else if (this.IconEffective is not null)
-				{
-					<HxIcon Icon="this.Icon ?? this.Skin?.Icon" />
-				}
+		@this.Text
+		@ChildContent
+
+		@if ((IconPosition == Internal.IconPosition.End) && ((this.IconEffective is not null) || this.SpinnerEffective))
+		{
+			@if (!String.IsNullOrEmpty(this.Text) || (ChildContent != null))
+			{
+				<span>&nbsp;</span>
 			}
 
+			if (this.SpinnerEffective)
+			{
+				<HxSpinner Size="SpinnerSize.Small" />
+			}
+			else if (this.IconEffective is not null)
+			{
+				<HxIcon Icon="this.IconEffective" />
+			}
+		}
 	</button>
 </HxTooltip>

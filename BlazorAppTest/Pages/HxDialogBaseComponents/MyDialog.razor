@@ -2,14 +2,14 @@
 
 <HxModal Title="What is on your dice?" @ref="modal">
 	<BodyTemplate>
-		<HxButton Text="1" Color="ThemeColor.Secondary" OnClick="async () => await HideAsync(1)" />
-		<HxButton Text="2" Color="ThemeColor.Secondary" OnClick="async () => await HideAsync(2)" />
-		<HxButton Text="3" Color="ThemeColor.Secondary" OnClick="async () => await HideAsync(3)" />
-		<HxButton Text="4" Color="ThemeColor.Secondary" OnClick="async () => await HideAsync(4)" />
-		<HxButton Text="5" Color="ThemeColor.Secondary" OnClick="async () => await HideAsync(5)" />
-		<HxButton Text="6" Color="ThemeColor.Secondary" OnClick="async () => await HideAsync(6)" />
+		<HxButton Text="1" Color="ThemeColor.Primary" OnClick="async () => await HideAsync(1)" />
+		<HxButton Text="2" Color="ThemeColor.Primary" OnClick="async () => await HideAsync(2)" />
+		<HxButton Text="3" Color="ThemeColor.Primary" OnClick="async () => await HideAsync(3)" />
+		<HxButton Text="4" Color="ThemeColor.Primary" OnClick="async () => await HideAsync(4)" />
+		<HxButton Text="5" Color="ThemeColor.Primary" OnClick="async () => await HideAsync(5)" />
+		<HxButton Text="6" Color="ThemeColor.Primary" OnClick="async () => await HideAsync(6)" />
 	</BodyTemplate>
 	<FooterTemplate>
-		<HxButton Skin="ButtonSkins.Close" Color="ThemeColor.Secondary" OnClick="async () => await HideAsCancelledAsync()" />
+		<HxButton Text="Close" Color="ThemeColor.Secondary" OnClick="async () => await HideAsCancelledAsync()" />
 	</FooterTemplate>
 </HxModal>

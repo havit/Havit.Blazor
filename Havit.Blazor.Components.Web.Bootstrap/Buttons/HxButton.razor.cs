@@ -19,7 +19,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	{
-		public static HxButtonDefaults Defaults { get; set; } = new();
+		public static ButtonDefaults Defaults { get; set; } = new();
 
 		[CascadingParameter] protected FormState FormState { get; set; }
 		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
@@ -56,17 +56,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />.
 		/// </summary>
-		[Parameter] public ButtonSize Size { get; set; } = Defaults.Size;
+		[Parameter] public ButtonSize? Size { get; set; }
 
 		/// <summary>
 		/// Bootstrap "outline" button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
 		/// </summary>
 		[Parameter] public bool? Outline { get; set; }
-
-		/// <summary>
-		/// Skin of the button. Simplifies usage of button properties.
-		/// </summary>
-		[Parameter] public ButtonSkin Skin { get; set; }
 
 		/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 		[Parameter] public bool? Enabled { get; set; }
@@ -133,7 +128,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
-		protected IconBase IconEffective => this.Icon ?? this.Skin?.Icon;
+		/// <summary>
+		/// Return <see cref="HxButton"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual ButtonDefaults GetDefaults() => Defaults;
+
+		protected IconBase IconEffective => this.Icon ?? GetDefaults().Icon;
 		protected bool SpinnerEffective => this.Spinner ?? clickInProgress;
 		protected bool DisabledEffective => !CascadeEnabledComponent.EnabledEffective(this)
 			|| (SingleClickProtection && clickInProgress && (OnClick.HasDelegate || OnValidClick.HasDelegate || OnInvalidClick.HasDelegate));
@@ -146,30 +148,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected virtual string GetButtonCssClass()
 		{
-			return CssClassHelper.Combine(CoreCssClass, GetColorCssClass(), GetSizeCssClass(), this.Skin?.CssClass, this.CssClass);
-		}
-
-		protected string GetText()
-		{
-			if (!String.IsNullOrEmpty(Text))
-			{
-				return this.Text;
-			}
-			else if (!String.IsNullOrEmpty(Skin?.Text))
-			{
-				return StringLocalizerFactory.GetLocalizedValue(Skin.Text, Skin.ResourceType);
-			}
-			return null;
+			return CssClassHelper.Combine(CoreCssClass, GetColorCssClass(), GetSizeCssClass(), this.CssClass ?? GetDefaults().CssClass);
 		}
 
 		protected string GetColorCssClass()
 		{
-			var outline = this.Outline ?? Skin?.Outlined ?? false;
-			var style = this.Color ?? Skin?.Color ?? Defaults.Color ?? throw new InvalidOperationException($"Button {nameof(Color)} has to be set - either from {nameof(Skin)} or explicitly.");
+			var outlineEffective = this.Outline ?? GetDefaults().Outline;
+			var colorEffective = this.Color ?? GetDefaults().Color ?? throw new InvalidOperationException($"Button {nameof(Color)} has to be set - either from {nameof(ButtonDefaults)} or explicitly.");
 
-			if (outline)
+			if (outlineEffective)
 			{
-				return style switch
+				return colorEffective switch
 				{
 					ThemeColor.Primary => "btn btn-outline-primary",
 					ThemeColor.Secondary => "btn btn-outline-secondary",
@@ -181,10 +170,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					ThemeColor.Dark => "btn btn-outline-dark",
 					ThemeColor.Link => "btn btn-link",
 					ThemeColor.None => null,
-					_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} style {style:g}.")
+					_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {colorEffective:g}.")
 				};
 			}
-			return style switch
+			return colorEffective switch
 			{
 				ThemeColor.Primary => "btn btn-primary",
 				ThemeColor.Secondary => "btn btn-secondary",
@@ -196,18 +185,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				ThemeColor.Dark => "btn btn-dark",
 				ThemeColor.Link => "btn btn-link",
 				ThemeColor.None => null,
-				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} style {style:g}.")
+				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {colorEffective:g}.")
 			};
 		}
 
 		protected string GetSizeCssClass()
 		{
-			return this.Size switch
+			var sizeEffective = this.Size ?? GetDefaults().Size;
+
+			return sizeEffective switch
 			{
 				ButtonSize.Regular => null,
 				ButtonSize.Small => "btn-sm",
 				ButtonSize.Large => "btn-lg",
-				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} {nameof(Size)}: {this.Size}.")
+				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} {nameof(Size)}: {sizeEffective}.")
 			};
 		}
 

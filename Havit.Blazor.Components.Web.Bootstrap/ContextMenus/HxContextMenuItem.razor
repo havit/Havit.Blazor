@@ -7,11 +7,11 @@
 
 <li class="hx-context-menu-item">
 	<a class="@CssClassHelper.Combine("dropdown-item", enabledEffective ? "" : "disabled")" role="@(enabledEffective ? "button" : "")" @onclick="HandleClick" @onclick:stopPropagation="@OnClickStopPropagation">
-		@if (GetIcon() != null)
+		@if (this.Icon is not null)
 		{
-			<HxIcon Icon="GetIcon()" CssClass="me-2" />
+			<HxIcon Icon="this.Icon" CssClass="me-2" />
 		}
-		@GetText()
+		@this.Text
 		@ChildContent
 	</a>
 </li>

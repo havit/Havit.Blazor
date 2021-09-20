@@ -4,7 +4,7 @@
 
 <HxListLayout Title="Title" TFilterModel="HxListLayout.NoFilter">
 	<CommandsTemplate>
-		<HxButton Text="New invoice" Skin="ButtonSkins.New" CssClass="ms-1" OnClick="@HandleNewItemClicked" />
+		<HxButton Text="New invoice" Color="ThemeColor.Secondary" CssClass="ms-1" OnClick="@HandleNewItemClicked" />
 	</CommandsTemplate>
 	<DataTemplate>
 		<HxGrid @ref="gridComponent" TItem="DataItemDto" PageSize="20" DataProvider="LoadDataItems">

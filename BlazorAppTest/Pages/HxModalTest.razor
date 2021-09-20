@@ -11,7 +11,9 @@
 
 		<HxModal @ref="myNestedModal" />
 	</BodyTemplate>
-	<FooterTemplate><HxButton Skin="ButtonSkins.Close" OnClick="HandleHideClick" Color="ThemeColor.Primary" /></FooterTemplate>
+	<FooterTemplate>
+		<HxButton Text="Close" OnClick="HandleHideClick" Color="ThemeColor.Secondary" />
+	</FooterTemplate>
 </HxModal>
 
 @code

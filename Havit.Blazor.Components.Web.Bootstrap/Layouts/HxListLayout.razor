@@ -2,7 +2,7 @@
 @typeparam TFilterModel
 
 <div class="hx-list-layout">
-	<HxCard Skin="CardSkin.None" HeaderCssClass="bg-white" BodyCssClass="overflow-auto p-0">
+	<HxCard HeaderCssClass="bg-white" BodyCssClass="overflow-auto p-0">
 		<HeaderTemplate>
 			<div class="hx-list-layout-header hstack gap-3">
 				<div class="fw-bold d-flex align-items-center me-auto">
@@ -38,7 +38,7 @@
 				}
 				@if (FilterTemplate != null)
 				{
-					<HxButton OnClick="HandleFilterButtonClick" Skin="ButtonSkins.Filter" />
+					<HxButton OnClick="HandleFilterButtonClick" Icon="BootstrapIcon.Filter" Color="ThemeColor.Light" />
 				}
 				@if (CommandsTemplate != null)
 				{
