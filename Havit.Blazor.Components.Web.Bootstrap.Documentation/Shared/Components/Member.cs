@@ -32,13 +32,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 					comment = regex.Replace(comment, "</code>");
 				}
 
-				// <see cref=""/>
+				// <see cref=""/> + other <see> variantions
 				{
 					Regex regex = new("<see");
-					comment = regex.Replace(comment, "<code><a");
+					comment = regex.Replace(comment, "<a");
+
+					regex = new("<a cref=");
+					comment = regex.Replace(comment, "<code><a cref=");
 
 					regex = new("</see>");
-					comment = regex.Replace(comment, "</a></code>");
+					comment = regex.Replace(comment, "</a>");
 
 					regex = new("cref=\"([A-Za-z\\.:`\\d])+");
 					var matches = regex.Matches(comment);
