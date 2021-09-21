@@ -1,0 +1,19 @@
+﻿@attribute [Route("/components/" + nameof(HxCollapse))]
+@attribute [Route("/components/" + nameof(HxCollapseToggleButton))]
+
+<ComponentApiDoc Type="typeof(HxCollapse)">
+
+	<h3>Basic Usage</h3>
+	<Demo Type="typeof(HxCollapse_Demo_Basic)" Tabs="false" />
+
+	<h3>Horizontal</h3>
+	<p>You can change the animation direction with <code>CollapseDirection</code> parameter.</p>
+	<Demo Type="typeof(HxCollapse_Demo_Horizontal)" />
+
+	<h3>Multiple targets</h3>
+	<p>You can use the <code>CollapseTarget</code> selector to toggle multiple targets.</p>
+	<Demo Type="typeof(HxCollapse_Demo_MultipleTargets)" />
+
+</ComponentApiDoc>
+
+<ComponentApiDoc Type="typeof(HxCollapseToggleButton)" />

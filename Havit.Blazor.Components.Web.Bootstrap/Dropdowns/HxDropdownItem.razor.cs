@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Components.Web;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Item of the <see cref="HxDropdownMenu"/>.
+	/// Generic item for the <see cref="HxDropdownMenu"/>.
 	/// </summary>
 	public partial class HxDropdownItem : ICascadeEnabledComponent
 	{
@@ -21,11 +21,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Any additional CSS class to apply.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
-
-		/// <summary>
-		/// The navigation target.
-		/// </summary>
-		[Parameter] public string Href { get; set; }
 
 		/// <summary>
 		/// Raised when the item is clicked.

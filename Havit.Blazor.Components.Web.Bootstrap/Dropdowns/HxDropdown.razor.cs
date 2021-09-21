@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</a> component.
+	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component.
 	/// </summary>
-	/// <remarks>
-	/// For now <see cref="HxDropdown"/> does not implement Show/Hide methods nor OnXy events. If we need them, we will switch the implementation to JS-interop.
-	/// </remarks>
 	public partial class HxDropdown
 	{
 		[Parameter] public DropdownDirection Direction { get; set; }
@@ -37,7 +30,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
-		private string GetDropdownDirectionCssClass()
+		[CascadingParameter] protected HxNavbar NavbarContainer { get; set; }
+
+		protected string GetDropdownDirectionCssClass()
 		{
 			return this.Direction switch
 			{
@@ -47,6 +42,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				DropdownDirection.End => "dropend",
 				_ => throw new InvalidOperationException($"Unknown {nameof(DropdownDirection)} value {Direction}.")
 			};
+		}
+
+		protected string GetCssClass()
+		{
+			/*
+				.btn-group
+				The basic.dropdown class brings just position:relative requirement(+ directions within other variations).
+				.btn-group is needed for Split buttons AND brings default in-row positioning to behave like regular buttons.
+				It is used in almost all Bootstrap samples. Might be replaced with more appropriate class if needed.
+				.btn-group cannot be used in Navbar as it breaks responsiveness.
+			*/
+			return CssClassHelper.Combine(
+				GetDropdownDirectionCssClass(),
+				((this.NavbarContainer is null) || this.Split) ? "btn-group" : null,
+				this.CssClass);
 		}
 	}
 }

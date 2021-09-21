@@ -1,0 +1,27 @@
+﻿<p>
+	<HxCollapseToggleButton Text="Toggle first" CollapseTarget="#myCollapse1" Color="ThemeColor.Primary" />
+	<HxCollapseToggleButton Text="Toggle second" CollapseTarget="#myCollapse2" Color="ThemeColor.Primary" />
+	<HxCollapseToggleButton Text="Toggle both" CollapseTarget=".myCollapse" Color="ThemeColor.Primary" />
+</p>
+<div class="row">
+	<div class="col">
+		<HxCollapse Id="myCollapse1" CssClass="myCollapse">
+			<HxCard>
+				<BodyTemplate>
+					Some placeholder content for the first collapse component of this multi-collapse example.
+					This panel is hidden by default but revealed when the user activates the relevant trigger.
+				</BodyTemplate>
+			</HxCard>
+		</HxCollapse>
+	</div>
+	<div class="col">
+		<HxCollapse Id="myCollapse2" CssClass="myCollapse">
+			<HxCard>
+				<BodyTemplate>
+					Some placeholder content for the second collapse component of this multi-collapse example.
+					This panel is hidden by default but revealed when the user activates the relevant trigger.
+				</BodyTemplate>
+			</HxCard>
+		</HxCollapse>
+	</div>
+</div>

@@ -39,7 +39,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
-		protected string GetOrientationCssClass()
+		[CascadingParameter] protected HxNavbar NavbarContainer { get; set; }
+
+		protected virtual string GetCoreCssClass()
+		{
+			if (NavbarContainer is not null)
+			{
+				return "navbar-nav";
+			}
+			return "nav";
+		}
+
+		protected virtual string GetOrientationCssClass()
 		{
 			return this.Orientation switch
 			{
@@ -49,7 +60,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			};
 		}
 
-		protected string GetVariantCssClass()
+		protected virtual string GetVariantCssClass()
 		{
 			return this.Variant switch
 			{

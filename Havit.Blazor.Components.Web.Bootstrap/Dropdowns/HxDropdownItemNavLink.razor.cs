@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Havit.Blazor.Components.Web.Infrastructure;
-using Microsoft.AspNetCore.Components;
+﻿using Havit.Blazor.Components.Web.Infrastructure;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
+using System;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-link</a> component.
+	/// <see cref="NavLink"/> item for the <see cref="HxDropdownMenu"/>.
 	/// </summary>
-	public partial class HxNavLink : ICascadeEnabledComponent
+	public partial class HxDropdownItemNavLink : ICascadeEnabledComponent
 	{
 		[CascadingParameter] protected FormState FormState { get; set; }
 		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
