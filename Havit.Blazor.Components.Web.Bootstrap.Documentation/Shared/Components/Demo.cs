@@ -86,7 +86,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				}
 
 				builder.OpenElement(602, "code");
-				builder.AddAttribute(603, "class", "language-html");
+				builder.AddAttribute(603, "class", "language-cshtml");
 				builder.AddContent(604, code.Trim());
 				builder.CloseElement();
 

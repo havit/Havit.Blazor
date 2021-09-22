@@ -41,7 +41,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 			return Path.GetExtension(File).ToLower() switch
 			{
-				".razor" => "html",
+				".razor" => "cshtml",
+				".cshtml" => "cshtml",
 				".html" => "html",
 				".css" => "css",
 				".cs" => "csharp",
