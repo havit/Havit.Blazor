@@ -24,10 +24,13 @@
 	}
 
 :not(pre) > code[class*=language-], pre[class*=language-] {
-	background-color: var(--bs-gray-100);
 	border-radius: .5rem;
 	border: 0; /* to override Prism VS theme */
 	margin: 0;
+}
+
+:not(pre) > code[class*=language-], pre[class*=language-].gray-background {
+	background-color: var(--bs-gray-100);
 }
 
 :not(.card-body) > :not(pre) > code[class*=language-], :not(.card-body) > pre[class*=language-] {

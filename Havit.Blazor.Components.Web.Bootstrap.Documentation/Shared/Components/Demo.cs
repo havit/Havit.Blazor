@@ -80,10 +80,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			if (!showingDemo || !Tabs)
 			{
 				builder.OpenElement(600, "pre");
-				builder.OpenElement(601, "code");
-				builder.AddAttribute(602, "class", "language-html");
-				builder.AddContent(603, code.Trim());
+				if (!Tabs)
+				{
+					builder.AddAttribute(601, "class", "gray-background");
+				}
+
+				builder.OpenElement(602, "code");
+				builder.AddAttribute(603, "class", "language-html");
+				builder.AddContent(604, code.Trim());
 				builder.CloseElement();
+
 				builder.CloseElement();
 			}
 
