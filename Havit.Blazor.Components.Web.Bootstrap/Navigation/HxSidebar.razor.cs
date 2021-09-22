@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Sidebar navigation.
+	/// Sidebar component - responsive navigation sidebar.
 	/// </summary>
 	public partial class HxSidebar : ComponentBase
 	{

@@ -29,7 +29,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static List<DateItem> DefaultDates { get; set; }
 
 		/// <summary>
-		/// When <c>true</c>, uses default date ranges (this month, last month, this year, last year).
+		/// When <c>true</c>, uses default dates (from <see cref="DefaultDates"/>, e.g. Today).
 		/// </summary>
 		[Parameter] public bool UseDefaultDates { get; set; } = true;
 

@@ -1,7 +1,5 @@
-﻿<EditForm Model="value">
-	<HxInputDate CalendarIcon="BootstrapIcon.Calendar" @bind-Value="value" />
-	<HxInputDate CalendarIcon="BootstrapIcon.Calendar" UseDefaultDates="false" @bind-Value="value" />
-</EditForm>
+﻿<HxInputDate CalendarIcon="BootstrapIcon.Calendar" @bind-Value="value" CssClass="mb-3" />
+<HxInputDate CalendarIcon="BootstrapIcon.Calendar" UseDefaultDates="false" @bind-Value="value" />
 
 @code {
 	private DateTime value;

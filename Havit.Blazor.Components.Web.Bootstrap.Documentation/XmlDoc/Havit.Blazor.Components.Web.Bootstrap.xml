@@ -2203,7 +2203,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.UseDefaultDates">
             <summary>
-            When <c>true</c>, uses default date ranges (this month, last month, this year, last year).
+            When <c>true</c>, uses default dates (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.DefaultDates"/>, e.g. Today).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.CustomDates">
@@ -4301,7 +4301,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar">
             <summary>
-            Sidebar navigation.
+            Sidebar component - responsive navigation sidebar.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.HeaderTemplate">
