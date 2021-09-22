@@ -37,7 +37,7 @@
 
 	private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
 	{
-		Logger.LogInformation("Requesting culture infos.");
+		Logger.LogInformation($"Requesting culture infos[{request.StartIndex}, {request.Count}].");
 		await Task.Delay(500); // simulate server call
 
 		var cultures = GetCultureInfos();
