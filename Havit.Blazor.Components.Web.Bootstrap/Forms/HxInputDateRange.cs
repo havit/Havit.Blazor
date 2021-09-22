@@ -52,6 +52,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string ToParsingErrorMessage { get; set; }
 
+		/// <summary>
+		/// Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendars should be visible.<br/>
+		/// Default is <c>true</c> (configurable in <see cref="HxInputDateRange.Defaults"/>).
+		/// </summary>
+		[Parameter] public bool? ShowCalendarButtons { get; set; }
+
 		[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
 		/// <summary>
@@ -69,6 +75,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected virtual void BuildRenderInputCore(RenderTreeBuilder builder)
 		{
+			var defaults = GetDefaults();
+
 			builder.OpenComponent(1, typeof(HxInputDateRangeInternal));
 
 			builder.AddAttribute(100, nameof(HxInputDateRangeInternal.Value), Value);
@@ -83,6 +91,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(204, nameof(HxInputDateRangeInternal.ToParsingErrorMessageEffective), GetToParsingErrorMessage());
 			builder.AddAttribute(205, nameof(HxInputDateRangeInternal.ShowValidationMessage), ShowValidationMessage);
 			builder.AddAttribute(206, nameof(HxInputDateRangeInternal.CustomDateRanges), GetCustomDateRanges().ToList());
+			builder.AddAttribute(207, nameof(HxInputDateRangeInternal.ShowCalendarButtons), ShowCalendarButtons ?? defaults.ShowCalendarButtons);
 
 			builder.CloseComponent();
 		}

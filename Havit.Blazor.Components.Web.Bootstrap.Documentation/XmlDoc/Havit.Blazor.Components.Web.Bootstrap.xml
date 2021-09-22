@@ -2228,6 +2228,12 @@
             Optional icon to display within the input. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/> to set the icon for the whole project.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.ShowCalendarButtons">
+            <summary>
+            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
+            Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetDefaults">
             <summary>
             Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> defaults.
@@ -2287,6 +2293,12 @@
             <summary>
             Gets or sets the error message used when displaying an a &quot;to&quot; parsing error.
             Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ShowCalendarButtons">
+            <summary>
+            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendars should be visible.<br/>
+            Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetDefaults">
@@ -2797,6 +2809,12 @@
             Optional icon to display within the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.ShowCalendarButtons">
+            <summary>
+            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
+            Default is <c>true</c>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults">
             <summary>
             Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> and derived components.
@@ -2805,6 +2823,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults.InputSize">
             <summary>
             Input size.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults.ShowCalendarButtons">
+            <summary>
+            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendars should be visible.<br/>
+            Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputNumberDefaults">

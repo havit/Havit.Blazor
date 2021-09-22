@@ -30,6 +30,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public string ToParsingErrorMessageEffective { get; set; }
 
+		[Parameter] public bool ShowCalendarButtons { get; set; } = true;
+
 		[Inject] protected IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }

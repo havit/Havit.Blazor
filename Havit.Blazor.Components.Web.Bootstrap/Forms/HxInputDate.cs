@@ -55,6 +55,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public IconBase CalendarIcon { get; set; }
 
+		/// <summary>
+		/// Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
+		/// Default is <c>true</c> (configurable in <see cref="HxInputDate.Defaults"/>).
+		/// </summary>
+		[Parameter] public bool? ShowCalendarButtons { get; set; }
+
+
 		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
 		/// <summary>
@@ -81,6 +88,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected virtual void BuildRenderInputCore(RenderTreeBuilder builder)
 		{
+			var defaults = GetDefaults();
+
 			builder.OpenComponent(1, typeof(HxInputDateInternal<TValue>));
 
 			builder.AddAttribute(100, nameof(HxInputDateInternal<TValue>.Value), Value);
@@ -93,8 +102,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.ParsingErrorMessageEffective), GetParsingErrorMessage());
 			builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.Placeholder), Placeholder);
 			builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.InputSize), ((IInputWithSize)this).InputSizeEffective);
-			builder.AddAttribute(206, nameof(HxInputDateInternal<TValue>.CalendarIcon), CalendarIcon ?? HxInputDate.Defaults.CalendarIcon);
+			builder.AddAttribute(206, nameof(HxInputDateInternal<TValue>.CalendarIcon), CalendarIcon ?? defaults.CalendarIcon);
 			builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.CustomDates), GetCustomDates().ToList());
+			builder.AddAttribute(208, nameof(HxInputDateInternal<TValue>.ShowCalendarButtons), ShowCalendarButtons ?? defaults.ShowCalendarButtons);
 
 			builder.CloseComponent();
 		}

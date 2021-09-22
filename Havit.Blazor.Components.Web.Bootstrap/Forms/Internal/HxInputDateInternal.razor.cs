@@ -31,6 +31,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public IconBase CalendarIcon { get; set; }
 
+		[Parameter] public bool ShowCalendarButtons { get; set; } = true;
+
 		[Inject] internal IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
