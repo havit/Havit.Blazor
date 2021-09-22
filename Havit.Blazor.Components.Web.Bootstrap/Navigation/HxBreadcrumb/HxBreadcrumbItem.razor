@@ -1,0 +1,8 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+@if (Active)
+{
+    <li class="breadcrumb-item active" aria-current="page">@Text</li>
+}
+else
+{ <li class="breadcrumb-item"><a href="@Link">@Text</a></li>}

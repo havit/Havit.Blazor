@@ -4091,6 +4091,31 @@
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode.Full"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb.ChildContent">
+            <summary>
+            Child content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb.Divider">
+            <summary>
+            Breadcrumb divider. Default is <c>/</c>. Enter either a character (such as <c>></c>) or use an embedded SVG icon.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem.Active">
+            <summary>
+            Determines whether the <c>HxBreadcrumbItem</c> is active (use for a page that the user is currently on).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem.Link">
+            <summary>
+            The link of the breadcrumb (a page where the user will be led on click).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem.Text">
+            <summary>
+            Text of the link (usually a name of the page).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNav">
             <summary>
             <a href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap Nav</a> component.

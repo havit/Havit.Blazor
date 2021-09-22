@@ -1,0 +1,7 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+<nav style="--bs-breadcrumb-divider: @(Divider.Length > 1 ? Divider : $"'{Divider}'");" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        @ChildContent
+    </ol>
+</nav>
