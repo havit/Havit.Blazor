@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.1/components/navbar/">Bootstrap 5 Collapse</see> component.
+	/// <see href="https://getbootstrap.com/docs/5.1/components/collapse/">Bootstrap 5 Collapse</see> component.
 	/// </summary>
-	public partial class HxCollapse
+	public partial class HxCollapse : IAsyncDisposable
 	{
 		/// <summary>
 		/// Element ID. To be referenced by <see cref="HxCollapseToggleButton.CollapseTarget"/>.
@@ -22,12 +24,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public CollapseDirection CollapseDirection { get; set; }
 
 		/// <summary>
+		/// If parent is provided, then all collapsible elements under the specified parent will be closed when this collapsible item is shown.
+		/// (Similar to traditional accordion behavior.)
+		/// </summary>
+		[Parameter] public string Parent { get; set; }
+
+		/// <summary>
 		/// Additional CSS class.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
-		/// Content of the navbar.
+		/// Content of the collapse.
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
@@ -39,6 +47,96 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			// to be able to use another default value in ancestors (HxNavbarCollapse)
 			this.Id = parameters.GetValueOrDefault(nameof(Id), defaultId);
+		}
+
+		/// <summary>
+		/// This event is fired when a collapse element has been made visible to the user (will wait for CSS transitions to complete).
+		/// </summary>
+		[Parameter] public EventCallback<string> OnShown { get; set; }
+
+		/// <summary>
+		/// This event is fired when a collapse element has been hidden from the user (will wait for CSS transitions to complete).
+		/// </summary>
+		[Parameter] public EventCallback<string> OnHidden { get; set; }
+
+		[Inject] protected IJSRuntime JSRuntime { get; set; }
+
+		private ElementReference collapseHtmlElement;
+		private DotNetObjectReference<HxCollapse> dotnetObjectReference;
+		private IJSObjectReference jsModule;
+
+		public HxCollapse()
+		{
+			dotnetObjectReference = DotNetObjectReference.Create(this);
+		}
+
+		/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
+		protected override async Task OnAfterRenderAsync(bool firstRender)
+		{
+			await base.OnAfterRenderAsync(firstRender);
+
+			if (firstRender)
+			{
+				await EnsureJsModuleAsync();
+				await jsModule.InvokeVoidAsync("initialize", collapseHtmlElement, dotnetObjectReference);
+			}
+		}
+
+		/// <summary>
+		/// Expands the item.
+		/// </summary>
+		public async Task ShowAsync()
+		{
+			await EnsureJsModuleAsync();
+			await jsModule.InvokeVoidAsync("show", collapseHtmlElement);
+		}
+
+		/// <summary>
+		/// Collapses the item.
+		/// </summary>
+		public async Task HideAsync()
+		{
+			await EnsureJsModuleAsync();
+			await jsModule.InvokeVoidAsync("hide", collapseHtmlElement);
+		}
+
+		/// <summary>
+		/// Receives notification from javascript when item is shown.
+		/// </summary>
+		/// <remarks>
+		/// the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
+		/// this covers both user-interaction (DOM state) and Blazor-interaction (HxAccordition.ExpandedItemId change)
+		/// </remarks>
+		[JSInvokable("HxCollapse_HandleJsShown")]
+		public async Task HandleJsShown()
+		{
+			await OnShown.InvokeAsync(this.Id);
+		}
+
+		/// <summary>
+		/// Receives notification from javascript when item is hidden.
+		/// </summary>
+		[JSInvokable("HxCollapse_HandleJsHidden")]
+		public async Task HandleJsHidden()
+		{
+			await OnHidden.InvokeAsync(this.Id);
+		}
+
+		/// <inheritdoc/>
+		public async ValueTask DisposeAsync()
+		{
+			if (jsModule != null)
+			{
+				await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
+				await jsModule.DisposeAsync();
+			}
+
+			dotnetObjectReference.Dispose();
+		}
+
+		private async Task EnsureJsModuleAsync()
+		{
+			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxCollapse) + ".js");
 		}
 
 		protected virtual string GetCssClass()

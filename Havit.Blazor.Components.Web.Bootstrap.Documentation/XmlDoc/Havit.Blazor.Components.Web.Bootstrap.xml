@@ -1138,7 +1138,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.1/components/navbar/">Bootstrap 5 Collapse</see> component.
+            <see href="https://getbootstrap.com/docs/5.1/components/collapse/">Bootstrap 5 Collapse</see> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.Id">
@@ -1153,6 +1153,12 @@
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CollapseDirection.Vertical"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.Parent">
+            <summary>
+            If parent is provided, then all collapsible elements under the specified parent will be closed when this collapsible item is shown.
+            (Similar to traditional accordion behavior.)
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.CssClass">
             <summary>
             Additional CSS class.
@@ -1160,8 +1166,48 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.ChildContent">
             <summary>
-            Content of the navbar.
+            Content of the collapse.
             </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.OnShown">
+            <summary>
+            This event is fired when a collapse element has been made visible to the user (will wait for CSS transitions to complete).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.OnHidden">
+            <summary>
+            This event is fired when a collapse element has been hidden from the user (will wait for CSS transitions to complete).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.ShowAsync">
+            <summary>
+            Expands the item.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.HideAsync">
+            <summary>
+            Collapses the item.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.HandleJsShown">
+            <summary>
+            Receives notification from javascript when item is shown.
+            </summary>
+            <remarks>
+            the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
+            this covers both user-interaction (DOM state) and Blazor-interaction (HxAccordition.ExpandedItemId change)
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.HandleJsHidden">
+            <summary>
+            Receives notification from javascript when item is hidden.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.DisposeAsync">
+            <inheritdoc/>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapseToggleButton">
             <summary>
@@ -4098,7 +4144,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb.Divider">
             <summary>
-            Breadcrumb divider. Default is <c>/</c>. Enter either a character (such as <c>></c>) or use an embedded SVG icon.
+            Breadcrumb divider. Default is <c>/</c>. Enter either a character (such as <c>></c>) or use an embedded SVG icon. Disable the divider with the value <c>none</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem.Active">
