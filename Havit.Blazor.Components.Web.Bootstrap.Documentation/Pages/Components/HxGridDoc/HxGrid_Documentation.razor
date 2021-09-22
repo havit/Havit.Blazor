@@ -23,6 +23,10 @@
 
         <h3>Empty data</h3>
         <Demo Type="typeof(HxGrid_EmptyDataDemo)" />
+
+        <h3>Virtualized</h3>
+        <HxAlert Color="ThemeColor.Warning"><HxIcon Icon="@BootstrapIcon.ExclamationTriangleFill" /> The <code>ItemRowHeight</code> parameter has to be set for the virtualization to work properly. The default value is 50 pixels.</HxAlert>
+        <Demo Type="typeof(HxGrid_VirtualizedDemo)" />
     </MainContent>
 	<CssVariables>
         <ComponentApiDocCssVariable Name="--hx-grid-button-hover-background" Default="#dee2e6">
