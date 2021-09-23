@@ -1964,7 +1964,7 @@ progress {
   margin-bottom: 1rem;
   color: #212529;
   vertical-align: top;
-  border-color: #dee2e6;
+  border-color: #e9ecef;
 }
 .table > :not(caption) > * > * {
   padding: 0.6125rem 1rem;
@@ -1979,7 +1979,7 @@ progress {
   vertical-align: bottom;
 }
 .table > :not(:last-child) > :last-child > * {
-  border-bottom-color: #dee2e6;
+  border-bottom-color: #e9ecef;
 }
 
 .caption-top {
