@@ -35,12 +35,12 @@ input:focus {
 }
 
 .hx-tag-remove-button:hover {
-	background-color: rgba(0,0,0,.25);
+	background-color: rgba(0,0,0,var(--hx-input-tags-tag-hover-transparency));
 	border-radius: 50%;
 }
 
 ::deep .hx-tag-add-button:hover {
-	background-image: linear-gradient(to right, rgba(0,0,0,.25),rgba(0,0,0,.25));
+	background-image: linear-gradient(to right, rgba(0,0,0,var(--hx-input-tags-tag-hover-transparency)),rgba(0,0,0,var(--hx-input-tags-tag-hover-transparency));
 }
 
 .hx-input-tags-control-focused:not(.hx-input-tags-naked) {
