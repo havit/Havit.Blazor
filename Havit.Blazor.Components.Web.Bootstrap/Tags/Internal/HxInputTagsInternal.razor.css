@@ -40,7 +40,7 @@ input:focus {
 }
 
 ::deep .hx-tag-add-button:hover {
-	background-image: linear-gradient(to right, rgba(0,0,0,var(--hx-input-tags-tag-hover-transparency)),rgba(0,0,0,var(--hx-input-tags-tag-hover-transparency));
+	background-image: linear-gradient(to right, rgba(0,0,0,var(--hx-input-tags-tag-hover-transparency)),rgba(0,0,0,var(--hx-input-tags-tag-hover-transparency)));
 }
 
 .hx-input-tags-control-focused:not(.hx-input-tags-naked) {
