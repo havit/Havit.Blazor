@@ -3144,7 +3144,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1">
             <summary>
-            Grid to display tabular data from data source.
+            Grid to display tabular data from data source. Includes support for client-side and server-side paging &amp; sorting (or virtualized scrolling as needed).
             </summary>
             <typeparam name="TItem">Type of row data item.</typeparam>
         </member>

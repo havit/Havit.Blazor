@@ -1,49 +1,39 @@
 ﻿<h6>@((MarkupString)debug)</h6>
 
 <div style="height: 400px; overflow-y: scroll;">
-    <HxGrid TItem="CultureInfo" DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll" TableContainerCssClass="mt-5" ItemRowHeight="50" HeaderRowCssClass="myheader">
-        <Columns>
-            <HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
-                <PlaceholderTemplate>
-                    Loading...
-                </PlaceholderTemplate>
-            </HxGridColumn>
-            <HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
-        </Columns>
-        <ContextMenu Context="item">
-            <HxContextMenu>
-                <HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
-            </HxContextMenu>
-        </ContextMenu>
-    </HxGrid>
+	<HxGrid TItem="CultureInfo"
+			DataProvider="@ClientCultureInfosDataProvider"
+			ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
+			ItemRowHeight="50">
+		<Columns>
+			<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
+				<PlaceholderTemplate>
+					Loading...
+				</PlaceholderTemplate>
+			</HxGridColumn>
+			<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+		</Columns>
+		<ContextMenu Context="item">
+			<HxContextMenu>
+				<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
+			</HxContextMenu>
+		</ContextMenu>
+	</HxGrid>
 </div>
 
 @code {
-    private string debug = "";
+	private string debug = "";
 
-    protected override Task OnInitializedAsync()
-    {
-        HxProgressIndicator.DefaultDelay = 0; // TEST
+	private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+	{
+		debug = $"{debug}Requesting culture infos: StartIndex={request.StartIndex}, Count={request.Count}<br />";
+		StateHasChanged();
 
-        return base.OnInitializedAsync();
-    }
+		await Task.Delay(500); // simulate server call
+		var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName).ToList();
 
-    private List<CultureInfo> GetCultureInfos()
-    {
-        return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).ToList();
-    }
-
-    private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
-    {
-        debug = $"{debug}Requesting culture infos: start index: {request.StartIndex}, count: {request.Count}<br />";
-        StateHasChanged();
-
-        await Task.Delay(500); // simulate server call
-
-        var cultures = GetCultureInfos();
-
-        return request.ApplyTo(cultures);
-    }
+		return request.ApplyTo(cultures);
+	}
 }
 
 

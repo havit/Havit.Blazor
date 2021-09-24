@@ -2,43 +2,47 @@
 @attribute [Route("/components/" + nameof(HxGridColumn<object>))]
 
 <ComponentApiDoc Type="typeof(HxGrid<object>)">
-    <MainContent>
-        <p class="lead">
-            Displays tabular data from data source. Includes support for client-side and server-side paging &amp; sorting (or virtualized scrolling as needed).
-        </p>
+	<MainContent>
+		<h3>Client-side data processing</h3>
+		<ul>
+			<li>Create a field/property for the data.</li>
+			<li>Set data to this field/property. Do not sort data.</li>
+			<li>Use the extension method <code>ApplyTo</code> (<code>request.ApplyTo(data)</code>) in the <code>@nameof(HxGrid<object>.DataProvider)</code> method to automaticky sort and page data from the field/property. While the result of the <code>@nameof(HxGrid<object>.DataProvider)</code> method is a generic <code>Task</code>, the result must be wrapped using <code>Task.FromResult</code>. It is easy, see the demo source code.</li>
+		</ul>
+		<Demo Type="typeof(HxGrid_ClientSideDemo)" />
 
-        <h3>No paging &amp; sorting or client-side paging &amp; sorting</h3>
-        <ul>
-            <li>Create a field/property for the data.</li>
-            <li>Set data to this field/property. Do not sort data.</li>
-            <li>Use the extension method <code>ApplyTo</code> (<code>request.ApplyTo(data)</code>) in the <code>@nameof(HxGrid<object>.DataProvider)</code> method to automaticky sort and page data from the field/property. While the result of the <code>@nameof(HxGrid<object>.DataProvider)</code> method is a generic <code>Task</code>, the result must be wrapped using <code>Task.FromResult</code>. It is easy, see the demo source code.</li>
-        </ul>
-        <Demo Type="typeof(HxGrid_ClientSideDemo)" />
+		<h3>Server side paging &amp; sorting</h3>
+		<ul>
+			<li>Implement the <code>@nameof(HxGrid<object>.DataProvider)</code> method to delegate the paging &amp; sorting to the server side. The sample code does not have this implementation.</li>
+		</ul>
+		<Demo Type="typeof(HxGrid_ServerSideDemo)" />
 
-        <h3>Server side paging &amp; sorting</h3>
-        <ul>
-            <li>Implement the <code>@nameof(HxGrid<object>.DataProvider)</code> method to delegate the paging &amp; sorting to the server side. The sample code does not have this implementation.</li>
-        </ul>
-        <Demo Type="typeof(HxGrid_ServerSideDemo)" />
+		<h3>Empty data</h3>
+		<Demo Type="typeof(HxGrid_EmptyDataDemo)" />
 
-        <h3>Empty data</h3>
-        <Demo Type="typeof(HxGrid_EmptyDataDemo)" />
+		<h3>Infinite scroll (Virtualized)</h3>
+		<p>
+			You can switch from paging to infinite-scoll by setting <code>ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"</code>.
+			Use a Placeholder (<code>&lt;Placeholder&gt;...&lt;/Placeholder&gt;</code>) to display content until the item data is available.
+		</p>
+		<HxAlert Color="ThemeColor.Warning">
+			<HxIcon Icon="@BootstrapIcon.ExclamationTriangleFill" />
+			The <code>ItemRowHeight</code> parameter should be set for the virtualization to work properly. The default value is 50 pixels.
+		</HxAlert>
+		<Demo Type="typeof(HxGrid_VirtualizedDemo)" />
+	</MainContent>
 
-        <h3>Virtualized</h3>
-        <HxAlert Color="ThemeColor.Warning"><HxIcon Icon="@BootstrapIcon.ExclamationTriangleFill" /> The <code>ItemRowHeight</code> parameter has to be set for the virtualization to work properly. The default value is 50 pixels.</HxAlert>
-        <Demo Type="typeof(HxGrid_VirtualizedDemo)" />
-    </MainContent>
 	<CssVariables>
-        <ComponentApiDocCssVariable Name="--hx-grid-button-hover-background" Default="#dee2e6">
-            Grid button background color on hover.
-        </ComponentApiDocCssVariable>
-        <ComponentApiDocCssVariable Name="--hx-grid-button-border-radius" Default=".2rem">
-            Grid button border radius.
-        </ComponentApiDocCssVariable>
-        <ComponentApiDocCssVariable Name="--hx-pager-margin" Default="1rem">
-            Pager margin.
-        </ComponentApiDocCssVariable>
-    </CssVariables>
+		<ComponentApiDocCssVariable Name="--hx-grid-button-hover-background" Default="#dee2e6">
+			Grid button background color on hover.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-grid-button-border-radius" Default=".2rem">
+			Grid button border radius.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-pager-margin" Default="1rem">
+			Pager margin.
+		</ComponentApiDocCssVariable>
+	</CssVariables>
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxGridColumn<object>)" />
