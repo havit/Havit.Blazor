@@ -169,7 +169,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					ThemeColor.Light => "btn btn-outline-light",
 					ThemeColor.Dark => "btn btn-outline-dark",
 					ThemeColor.Link => "btn btn-link",
-					ThemeColor.None => null,
+					ThemeColor.None => "btn",
 					_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {colorEffective:g}.")
 				};
 			}
@@ -184,7 +184,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				ThemeColor.Light => "btn btn-light",
 				ThemeColor.Dark => "btn btn-dark",
 				ThemeColor.Link => "btn btn-link",
-				ThemeColor.None => null,
+				ThemeColor.None => "btn",
 				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {colorEffective:g}.")
 			};
 		}
