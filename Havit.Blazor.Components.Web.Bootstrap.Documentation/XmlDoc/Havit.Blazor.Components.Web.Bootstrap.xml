@@ -747,6 +747,11 @@
             Color of the tag text (also used for the AddButtonText and icons).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.CoreFormControlCssClass">
+            <summary>
+            CSS of the wrapping .form-control container (corresponds to InputCssClass on regular inputs)
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputOffset">
             <summary>
             Offset between dropdown input and dropdown menu
@@ -5026,9 +5031,6 @@
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.BuildRenderValidationMessage(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.TryParseValueFromString(System.String,System.Collections.Generic.List{System.String}@,System.String@)">

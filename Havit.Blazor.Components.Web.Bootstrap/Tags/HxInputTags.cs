@@ -102,7 +102,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
-		private protected override string CoreInputCssClass => "border-0 flex-grow-1";
 		private protected override string CoreCssClass => "hx-input-tags position-relative";
 
 		private HxInputTagsInternal hxInputTagsInternalComponent;
@@ -121,7 +120,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1005, nameof(HxInputTagsInternal.SuggestMinimumLength), SuggestMinimumLength ?? defaults.SuggestMinimumLength);
 			builder.AddAttribute(1006, nameof(HxInputTagsInternal.SuggestDelay), SuggestDelay ?? defaults.SuggestDelay);
 			builder.AddAttribute(1007, nameof(HxInputTagsInternal.InputId), InputId);
-			builder.AddAttribute(1008, nameof(HxInputTagsInternal.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
+			builder.AddAttribute(1008, nameof(HxInputTagsInternal.CoreFormControlCssClass), GetInputCssClassToRender()); // we want to shift original input-classes to the wrapping .form-control container
 			builder.AddAttribute(1009, nameof(HxInputTagsInternal.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(1011, nameof(HxInputTagsInternal.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
 			builder.AddAttribute(1012, nameof(HxInputTagsInternal.LabelTypeEffective), labelTypeEffective);
@@ -138,22 +137,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.CloseComponent();
 		}
 
-		/// <inheritdoc />
-		protected override void BuildRenderValidationMessage(RenderTreeBuilder builder)
-		{
-			if (ShowValidationMessage)
-			{
-				builder.OpenElement(1, "div");
-				builder.AddAttribute(2, "class", IsValueInvalid() ? InvalidCssClass : null);
-
-				builder.OpenRegion(3);
-				base.BuildRenderValidationMessage(builder);
-				builder.CloseRegion();
-
-				builder.CloseElement();
-			}
-		}
-
 		private void HandleValueChanged(List<string> newValue)
 		{
 			CurrentValue = newValue; // setter includes ValueChanged + NotifyFieldChanged
@@ -163,12 +146,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out List<string> result, [NotNullWhen(false)] out string validationErrorMessage)
 		{
 			throw new NotSupportedException();
-		}
-		protected override string GetInputCssClassToRender()
-		{
-			// we do not want 
-			string validationCssClass = IsValueInvalid() ? InvalidCssClass : null;
-			return CssClassHelper.Combine(CoreInputCssClass, InputCssClass, validationCssClass);
 		}
 
 		/// <inheritdoc />

@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap.Forms;
-using Havit.Blazor.Components.Web.Infrastructure;
-using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
@@ -79,7 +75,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public int SuggestDelay { get; set; } = 300;
 
-		[Parameter] public string InputCssClass { get; set; }
+		/// <summary>
+		/// CSS of the wrapping .form-control container (corresponds to InputCssClass on regular inputs)
+		/// </summary>
+		[Parameter] public string CoreFormControlCssClass { get; set; }
 
 		[Parameter] public string InputId { get; set; }
 
@@ -409,7 +408,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			{
 				return null;
 			}
-			return CssClassHelper.Combine("form-control", this.InputSizeEffective.AsFormControlCssClass());
+			return CssClassHelper.Combine(this.CoreFormControlCssClass, this.InputSizeEffective.AsFormControlCssClass());
 		}
 
 		protected string GetNakedCssClasses()
