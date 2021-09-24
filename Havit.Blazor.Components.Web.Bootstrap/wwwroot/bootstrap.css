@@ -309,6 +309,7 @@ caption {
 }
 
 th {
+  font-weight: 500;
   text-align: inherit;
   text-align: -webkit-match-parent;
 }
