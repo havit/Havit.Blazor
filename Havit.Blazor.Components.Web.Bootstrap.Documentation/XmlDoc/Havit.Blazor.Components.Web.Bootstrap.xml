@@ -872,6 +872,11 @@
             Footer content.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.ChildContent">
+            <summary>
+            Generic card content (outside <c>.card-body</c>).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.CssClass">
             <summary>
             Additional CSS classes for the card-container.

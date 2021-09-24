@@ -29,6 +29,7 @@
 			</div>
 		}
 	}
+	@ChildContent
 	@if (!String.IsNullOrWhiteSpace(this.ImageSrc) && (this.ImagePlacement == CardImagePlacement.Bottom))
 	{
 		<img src="@this.ImageSrc"

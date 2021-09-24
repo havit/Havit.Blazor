@@ -58,6 +58,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment FooterTemplate { get; set; }
 
 		/// <summary>
+		/// Generic card content (outside <c>.card-body</c>).
+		/// </summary>
+		[Parameter] public RenderFragment ChildContent { get; set; }
+
+		/// <summary>
 		/// Additional CSS classes for the card-container.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
