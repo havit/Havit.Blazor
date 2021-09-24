@@ -2145,14 +2145,6 @@ progress {
     -webkit-overflow-scrolling: touch;
   }
 }
-.table {
-  font-size: 0.875rem;
-}
-.table th {
-  font-weight: 500;
-  background-color: rgba(0, 0, 0, 0.025);
-}
-
 .form-label {
   margin-bottom: 0.25rem;
   font-size: 0.875rem;
