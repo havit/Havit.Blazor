@@ -150,14 +150,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await ValueChanged.InvokeAsync(Value);
 		}
 
-		protected override void OnParametersSet()
-		{
-			base.OnParametersSet();
-
-			// TODO Do we need DataProvider? For free-entry probably not...
-			Contract.Requires<InvalidOperationException>(DataProvider != null, $"{GetType()} requires a {nameof(DataProvider)} parameter.");
-		}
-
 		public async ValueTask FocusAsync()
 		{
 			await autosuggestInput.FocusAsync();
@@ -183,30 +175,33 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			// tag delimiters
 			await TryProcessCustomTagsAsync(keepLastTagForSuggestion: true);
 
-			// start new time interval
-			if (userInput.Length >= SuggestMinimumLength)
+			if (DataProvider is not null)
 			{
-				if (SuggestDelay == 0)
+				if (userInput.Length >= SuggestMinimumLength)
 				{
-					await UpdateSuggestionsAsync();
+					if (SuggestDelay == 0)
+					{
+						await UpdateSuggestionsAsync();
+					}
+					else
+					{
+						// start new time interval
+						if (timer == null)
+						{
+							timer = new System.Timers.Timer();
+							timer.AutoReset = false; // just once
+							timer.Elapsed += HandleTimerElapsed;
+						}
+						timer.Interval = SuggestDelay;
+						timer.Start();
+					}
 				}
 				else
 				{
-					if (timer == null)
-					{
-						timer = new System.Timers.Timer();
-						timer.AutoReset = false; // just once
-						timer.Elapsed += HandleTimerElapsed;
-					}
-					timer.Interval = SuggestDelay;
-					timer.Start();
+					// or close a dropdown
+					suggestions = null;
+					await TryDestroyDropdownAsync();
 				}
-			}
-			else
-			{
-				// or close a dropdown
-				suggestions = null;
-				await TryDestroyDropdownAsync();
 			}
 		}
 
