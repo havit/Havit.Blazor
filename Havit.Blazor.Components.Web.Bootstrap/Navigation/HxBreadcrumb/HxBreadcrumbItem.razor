@@ -2,7 +2,17 @@
 
 @if (Active)
 {
-    <li class="breadcrumb-item active" aria-current="page">@Text</li>
+	<li class="breadcrumb-item active" aria-current="page">
+		@Text
+		@ChildContent
+	</li>
 }
 else
-{ <li class="breadcrumb-item"><a href="@Href">@Text</a></li>}
+{
+	<li class="breadcrumb-item">
+		<a href="@Href">
+			@Text
+			@ChildContent
+		</a>
+	</li>
+}

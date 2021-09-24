@@ -4139,7 +4139,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb">
             <summary>
-            Indicate the current page’s location within a navigational hierarchy.
+            <see href="https://getbootstrap.com/docs/5.1/components/breadcrumb/">Bootstrap 5 Breadcrumb</see> component.<br />
+            Indicates the current page’s location within a navigational hierarchy.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb.ChildContent">
@@ -4149,23 +4150,24 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb.Divider">
             <summary>
-            Breadcrumb divider. Default is <c>/</c>. Enter either a character (such as <c>></c>) or use an embedded SVG icon. Disable the divider with <c>null</c>.
+            Breadcrumb divider. Default is <c>/</c>.
+            Enter either a character (such as <c>></c>) or use an embedded SVG icon.
+            Disable the divider with <c>null</c>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb.IsDividerImage">
             <summary>
             Indicates whether the Divider is an image or a text.
             </summary>
-            <returns></returns>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem.ChildContent">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem">
             <summary>
-            Additional content of the <c>HxBreadcrumbItem</c>.
+            Item for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem.Active">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem.Text">
             <summary>
-            Determines whether the <c>HxBreadcrumbItem</c> is active (use for a page that the user is currently on).
+            Item text (usually a name of the page).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem.Href">
@@ -4173,9 +4175,14 @@
             The link of the breadcrumb (a page where the user will be led on click).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem.Text">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem.Active">
             <summary>
-            Text of the link (usually a name of the page).
+            Determines whether the <c>HxBreadcrumbItem</c> is active (use for a page that the user is currently on).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem.ChildContent">
+            <summary>
+            Itme content.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNav">
