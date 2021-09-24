@@ -1,0 +1,7 @@
+﻿<HxListGroup>
+    @*Loop through all the colors for the HxListGroupItem*@
+    @foreach (var color in Enum.GetValues(typeof(ThemeColor)))
+    {
+        <HxListGroupItem Color="(ThemeColor)color">@((ThemeColor)color)</HxListGroupItem>
+    }
+</HxListGroup>
