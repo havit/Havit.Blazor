@@ -1,0 +1,11 @@
+﻿.list-group-numbered .list-group-item {
+    counter-increment: list-group-counter;
+}
+
+.list-group-numbered .list-group-item::before {
+    content: counter(list-group-counter) ". ";
+}
+
+.list-group-item-action {
+    cursor: pointer;
+}

@@ -1,0 +1,92 @@
+﻿@page "/HxListGroupTest"
+
+<HxListGroup>
+    <HxListGroupItem>An item</HxListGroupItem>
+    <HxListGroupItem>A second item</HxListGroupItem>
+    <HxListGroupItem>A third item</HxListGroupItem>
+    <HxListGroupItem>A fourth item</HxListGroupItem>
+    <HxListGroupItem>And a fifth one</HxListGroupItem>
+</HxListGroup>
+
+<br />
+
+<HxListGroup>
+    <HxListGroupItem Active="true">An active item</HxListGroupItem>
+    <HxListGroupItem>A second item</HxListGroupItem>
+    <HxListGroupItem>A third item</HxListGroupItem>
+    <HxListGroupItem>A fourth item</HxListGroupItem>
+    <HxListGroupItem Disabled="true">A disabled item</HxListGroupItem>
+</HxListGroup>
+
+<br />
+
+<HxListGroup Numbered="true">
+    <HxListGroupItem>An item</HxListGroupItem>
+    <HxListGroupItem>A second item</HxListGroupItem>
+    <HxListGroupItem>A third item</HxListGroupItem>
+    <HxListGroupItem>A fourth item</HxListGroupItem>
+    <HxListGroupItem>And a fifth one</HxListGroupItem>
+</HxListGroup>
+
+<br />
+
+<HxListGroup Flush="true">
+    <HxListGroupItem>An item</HxListGroupItem>
+    <HxListGroupItem>A second item</HxListGroupItem>
+    <HxListGroupItem>A third item</HxListGroupItem>
+    <HxListGroupItem>A fourth item</HxListGroupItem>
+    <HxListGroupItem>And a fifth one</HxListGroupItem>
+</HxListGroup>
+
+<br />
+
+<HxListGroup Horizontal="true">
+    <HxListGroupItem>An item</HxListGroupItem>
+    <HxListGroupItem>A second item</HxListGroupItem>
+    <HxListGroupItem>A third item</HxListGroupItem>
+    <HxListGroupItem>A fourth item</HxListGroupItem>
+    <HxListGroupItem>And a fifth one</HxListGroupItem>
+</HxListGroup>
+
+<br />
+
+<HxListGroup Horizontal="true" EqualWidthItems="true">
+    <HxListGroupItem>An item</HxListGroupItem>
+    <HxListGroupItem>A second item</HxListGroupItem>
+    <HxListGroupItem>A third item</HxListGroupItem>
+    <HxListGroupItem>A fourth item</HxListGroupItem>
+    <HxListGroupItem>And a fifth one</HxListGroupItem>
+</HxListGroup>
+
+<br />
+
+<HxListGroup>
+    @*Loop through all the colors for the HxListGroupItem*@
+    @foreach (var color in Enum.GetValues(typeof(ThemeColor)))
+    {
+        <HxListGroupItem Color="(ThemeColor)color">@((ThemeColor)color)</HxListGroupItem>
+    }
+</HxListGroup>
+
+<br />
+
+<HxListGroup>
+    <HxListGroupItem Button="true" OnClick="() => SetLastButtonClicked(1)">An item</HxListGroupItem>
+    <HxListGroupItem Button="true" OnClick="() => SetLastButtonClicked(2)">A second item</HxListGroupItem>
+    <HxListGroupItem Button="true" OnClick="() => SetLastButtonClicked(3)">A third item</HxListGroupItem>
+    <HxListGroupItem Button="true" OnClick="() => SetLastButtonClicked(4)">A fourth item</HxListGroupItem>
+    <HxListGroupItem Button="true" OnClick="() => SetLastButtonClicked(5)">And a fifth one</HxListGroupItem>
+</HxListGroup>
+
+<br />
+<div>@lastButtonClicked</div>
+
+@code {
+    private string lastButtonClicked;
+
+    private void SetLastButtonClicked(int number)
+    {
+        lastButtonClicked = $"Item number {number} has been clicked!";
+        InvokeAsync(StateHasChanged);
+    }
+}
