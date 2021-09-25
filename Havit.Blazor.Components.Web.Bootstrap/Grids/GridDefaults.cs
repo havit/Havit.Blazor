@@ -34,8 +34,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Page size.
+		/// Default is <c>20</c>.
 		/// </summary>
-		public int? PageSize { get; set; } = null;
+		public int PageSize { get; set; } = 20;
 
 		/// <summary>
 		/// Indicates whether to render footer when data are empty.

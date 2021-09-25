@@ -3104,6 +3104,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.PageSize">
             <summary>
             Page size.
+            Default is <c>20</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.ShowFooterWhenEmptyData">

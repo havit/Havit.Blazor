@@ -175,7 +175,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public int? OverscanCount { get; set; }
 
-		protected int? PageSizeEffective => PageSize ?? GetDefaults().PageSize;
+		protected int PageSizeEffective => PageSize ?? GetDefaults().PageSize;
 		protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? GetDefaults().ContentNavigationMode;
 
 		/// <summary>

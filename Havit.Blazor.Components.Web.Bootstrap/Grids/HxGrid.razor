@@ -225,7 +225,7 @@
 
 		@if ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) && (PageSizeEffective > 0) && (totalCount != null))
 		{
-			int totalPages = (totalCount.Value + PageSizeEffective.Value - 1) / PageSizeEffective.Value;
+			int totalPages = (totalCount.Value + PageSizeEffective - 1) / PageSizeEffective;
 			if (totalPages > 1)
 			{
 				<div class="@(PagerContainerCssClass ?? defaults.PagerContainerCssClass)">
