@@ -27,8 +27,10 @@
 	bool shouldRenderLoadingData = totalCount == null;
 	bool shouldRenderEmptyData = totalCount == 0;
 	bool shouldRenderData;
-	bool shouldRenderFooter = (totalCount > 0) || ((totalCount == 0) && ShowFooterWhenEmptyData);
-	string rowHeight = (ItemRowHeight != null) ? ItemRowHeight.Value.ToString() + "px" : null;
+	var defaults = GetDefaults();
+	bool shouldRenderFooter = (totalCount > 0) || ((totalCount == 0) && (this.ShowFooterWhenEmptyData ?? defaults.ShowFooterWhenEmptyData));
+	var rowHeightValue = (ItemRowHeight ?? defaults.ItemRowHeight);
+	string rowHeight = rowHeightValue.ToString() + "px";
 
 	switch (ContentNavigationModeEffective)
 	{
@@ -53,10 +55,10 @@
 {
 	<HxProgressIndicator InProgress="@(InProgress ?? dataProviderInProgress)">
 
-		<div class="@TableContainerCssClass">
-			<table class="@CssClassHelper.Combine("hx-grid table", (((SelectionEnabled || MultiSelectionEnabled) && shouldRenderData) ? "table-hover" : null), TableCssClass, (((SelectionEnabled || MultiSelectionEnabled) && (SelectedDataItem != null || SelectedDataItems!= null))? "table-item-selected" : null))">
+		<div class="@(TableContainerCssClass ?? defaults.TableContainerCssClass)">
+			<table class="@CssClassHelper.Combine("hx-grid table", (((SelectionEnabled || MultiSelectionEnabled) && shouldRenderData) ? "table-hover" : null), (TableCssClass ?? defaults.TableCssClass), (((SelectionEnabled || MultiSelectionEnabled) && (SelectedDataItem != null || SelectedDataItems!= null))? "table-item-selected" : null))">
 				<thead>
-					<tr class="@HeaderRowCssClass">
+					<tr class="@(HeaderRowCssClass ?? defaults.HeaderRowCssClass)">
 						@{
 							GridHeaderCellContext gridHeaderCellContext = CreateGridHeaderCellContext();
 
@@ -135,7 +137,7 @@
 						<tr role="button"
 							height="@rowHeight"
 							class="@CssClassHelper.Combine(
-											ItemRowCssClass,
+											(ItemRowCssClass ?? defaults.ItemRowCssClass),
 											ItemRowCssClassSelector?.Invoke(item),
 											((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null))"
 							@onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)"
@@ -157,7 +159,7 @@
 					{
 						// !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
 						<tr height="@rowHeight"
-							class="@CssClassHelper.Combine(ItemRowCssClass, ItemRowCssClassSelector?.Invoke(item))"
+							class="@CssClassHelper.Combine((ItemRowCssClass ?? defaults.ItemRowCssClass), ItemRowCssClassSelector?.Invoke(item))"
 							@onclick:stopPropagation>
 							@foreach (IHxGridColumn<TItem> column in columnsToRender)
 							{
@@ -175,7 +177,7 @@
 
 				@if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
 				{
-					<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@(ItemRowHeight ?? 50f)" OverscanCount="@(OverscanCount ?? GetDefaults().OverscanCount)">
+					<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@(ItemRowHeight ?? defaults.ItemRowHeight)" OverscanCount="@(OverscanCount ?? GetDefaults().OverscanCount)">
 						<ItemContent>
 							@rowTemplate(@context)
 						</ItemContent>
@@ -209,7 +211,7 @@
 						&& shouldRenderFooter)
 					{
 						<tfoot>
-							<tr class="@FooterRowCssClass">
+							<tr class="@(FooterRowCssClass ?? defaults.FooterRowCssClass)">
 								@foreach (CellTemplate footerCellTemplate in footerTemplates)
 								{
 									<td class="@footerCellTemplate.CssClass">@footerCellTemplate.Template</td>
@@ -226,7 +228,7 @@
 			int totalPages = (totalCount.Value + PageSizeEffective.Value - 1) / PageSizeEffective.Value;
 			if (totalPages > 1)
 			{
-				<div class="@PagerContainerCssClass">
+				<div class="@(PagerContainerCssClass ?? defaults.PagerContainerCssClass)">
 					<HxPager TotalPages="@totalPages"
 							 CurrentPageIndex="@CurrentUserState.PageIndex"
 							 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged" />

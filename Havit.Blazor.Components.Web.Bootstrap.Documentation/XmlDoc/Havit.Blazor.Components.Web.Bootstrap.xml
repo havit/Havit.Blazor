@@ -3106,6 +3106,50 @@
             Page size.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.ShowFooterWhenEmptyData">
+            <summary>
+            Indicates whether to render footer when data are empty.
+            Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.TableContainerCssClass">
+            <summary>
+            Custom CSS class to render with <code>div</code> element wrapping the main <code>table</code>
+            (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <code>div</code> element).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.TableCssClass">
+            <summary>
+            Custom CSS class to render with main <code>table</code> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.HeaderRowCssClass">
+            <summary>
+            Custom CSS class to render with header <code>tr</code> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.ItemRowCssClass">
+            <summary>
+            Custom CSS class to render with data <code>tr</code> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.ItemRowHeight">
+            <summary>
+            Height of the item row.
+            Used for infinite scroll.
+            Default is <c>50px</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.FooterRowCssClass">
+            <summary>
+            Custom CSS class to render with footer <code>tr</code> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.PagerContainerCssClass">
+            <summary>
+            Custom CSS class to render with pager wrapping <code>div</code> element.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext">
             <summary>
             Grid footer cell context.
@@ -3283,6 +3327,7 @@
             <summary>
             Height of the item row.
             Used for infinite scroll.
+            Default is <c>50px</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowCssClassSelector">
@@ -3306,7 +3351,8 @@
             Gets or sets a value that determines how many additional items will be rendered
             before and after the visible region. This help to reduce the frequency of rendering
             during scrolling. However, higher values mean that more elements will be present
-            in the page.
+            in the page.<br/>
+            Default is <c>50</c>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetDefaults">

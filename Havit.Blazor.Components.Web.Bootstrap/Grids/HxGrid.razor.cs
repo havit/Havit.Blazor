@@ -103,7 +103,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Indicates whether to render footer when data are empty.
 		/// </summary>
-		[Parameter] public bool ShowFooterWhenEmptyData { get; set; } = false;
+		[Parameter] public bool? ShowFooterWhenEmptyData { get; set; } = false;
 
 		/// <summary>
 		/// Current grid state (page, sorting).
@@ -144,8 +144,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Height of the item row.
 		/// Used for infinite scroll.
+		/// Default is <c>50px</c>.
 		/// </summary>
-		[Parameter] public int? ItemRowHeight { get; set; }
+		[Parameter] public float? ItemRowHeight { get; set; }
 
 		/// <summary>
 		/// Returns custom CSS class to render with data <code>tr</code> element.
@@ -169,7 +170,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Gets or sets a value that determines how many additional items will be rendered
 		/// before and after the visible region. This help to reduce the frequency of rendering
 		/// during scrolling. However, higher values mean that more elements will be present
-		/// in the page.
+		/// in the page.<br/>
+		/// Default is <c>50</c>.
 		/// </summary>
 		[Parameter] public int? OverscanCount { get; set; }
 
