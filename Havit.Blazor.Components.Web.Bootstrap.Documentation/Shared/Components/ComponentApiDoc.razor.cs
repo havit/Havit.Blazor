@@ -32,6 +32,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new() { type = "Char",    name = "char"    },
 			new() { type = "Decimal", name = "decimal" },
 			new() { type = "Double",  name = "double"  },
+			new() { type = "Single",  name = "float"   },
 			new() { type = "Byte",    name = "byte"    },
 			new() { type = "Sbyte",   name = "sbyte"   },
 			new() { type = "Void",    name = "void"    },
@@ -443,10 +444,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			string[] aroundLinkTexts = typeName.Split(typeNameForOwnDocumentation);
 			if (generic && aroundLinkTexts.Length == 2)
 			{
-				return $"{aroundLinkTexts[0]}<a href=\"/type/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a>{aroundLinkTexts[^1]}</code>";
+				return $"{aroundLinkTexts[0]}<a href=\"/types/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a>{aroundLinkTexts[^1]}</code>";
 			}
 
-			return $"<a href=\"/type/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a></code>";
+			return $"<a href=\"/types/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a></code>";
 		}
 
 		public static string RemoveSpecialCharacters(string text)
