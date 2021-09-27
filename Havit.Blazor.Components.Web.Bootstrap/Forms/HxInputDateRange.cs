@@ -16,7 +16,7 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Date range input.
+	/// Date range picker. Form input component for entering start date and end date.
 	/// </summary>
 	public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	{

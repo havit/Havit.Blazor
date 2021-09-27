@@ -16,7 +16,7 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Date input component.
+	/// Date picker. Form input component for entering a date.
 	/// </summary>
 	public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, IInputWithSize
 	{

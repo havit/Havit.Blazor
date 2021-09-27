@@ -2249,7 +2249,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1">
             <summary>
-            Date input component.
+            Date picker. Form input component for entering a date.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.DefaultDates">
@@ -2318,7 +2318,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange">
             <summary>
-            Date range input.
+            Date range picker. Form input component for entering start date and end date.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults">
@@ -3846,12 +3846,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroup.Horizontal">
             <summary>
-            If <c>true</c>, changes the layout of the list group items from vertical to horizontal across all breakpoints. Cannot be combined with flush list groups.
+            Changes the layout of the list group items from vertical to horizontal. Cannot be combined with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroup.Flush"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroup.EqualWidthItems">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroup.CssClass">
             <summary>
-            If <c>true</c>, items will have equal width. Use only when the <code>HxListGroup</code> is horizontal.
+            Additional CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroup.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> component.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItem">
@@ -3883,6 +3888,102 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItem.OnClick">
             <summary>
             An event that is fired when the <code>HxListGroupItem</code> is clicked.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItem.CssClass">
+            <summary>
+            Additional CSS class.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.1/components/list-group/#links-and-buttons">Bootstrap 5 List group link item</see> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.Href">
+            <summary>
+            Navigation target.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.Text">
+            <summary>
+            Text of the item.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.Match">
+            <summary>
+            URL matching behavior for the underlying <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/>.
+            Default is <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
+            You can set the value to <c>null</c> to disable the matching.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.OnClick">
+            <summary>
+            Raised when the item is clicked.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.Active">
+            <summary>
+            Indicates the current active selection.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.CssClass">
+            <summary>
+            Additional CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.Enabled">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.ChildContent">
+            <summary>
+            Content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> component.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal">
+            <summary>
+            Responsive horizontal setting (breakpoint) for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroup"/>.
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.Never"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.Never">
+            <summary>
+            Never Horizontal, always vertical.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.SmallUp">
+            <summary>
+            Horizontal for viewports above "small" breakpoint (<c>576px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.MediumUp">
+            <summary>
+            Horizontal for viewports above "medium" breakpoint (<c>768px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.LargeUp">
+            <summary>
+            Horizontal for viewports above "large" breakpoint (<c>992px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.ExtraLargeUp">
+            <summary>
+            Horizontal for viewports above "extra-large" breakpoint (<c>1200px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.XxlUp">
+            <summary>
+            Horizontal for viewports above "XXL" breakpoint (<c>1400px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.Always">
+            <summary>
+            Always horizontal, never vertical.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1">

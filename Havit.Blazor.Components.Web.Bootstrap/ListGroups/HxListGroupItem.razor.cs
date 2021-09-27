@@ -33,6 +33,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public EventCallback OnClick { get; set; }
 
+		/// <summary>
+		/// Additional CSS class.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
 		[CascadingParameter] protected HxListGroup ListGroupContainer { get; set; }
 
 		private string GetClasses()
@@ -42,14 +47,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				Active ? "active" : null,
 				Enabled ? null : "disabled",
 				OnClick.HasDelegate ? "list-group-item-action" : null,
-				Color is not null ? GetColorCss() : null,
-				ListGroupContainer.EqualWidthItems ? "flex-fill" : null);
+				GetColorCssClass(),
+				this.CssClass);
 		}
 
-		private string GetColorCss()
+		private string GetColorCssClass()
 		{
 			return Color switch
 			{
+				null => null,
 				ThemeColor.None => null,
 				_ => "list-group-item-" + this.Color.Value.ToString("f").ToLower()
 			};

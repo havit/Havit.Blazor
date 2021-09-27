@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<div class="@GetClasses()">
+<div class="@GetClasses()" @attributes="this.AdditionalAttributes">
     <CascadingValue Value="this" TValue="HxListGroup" IsFixed="true">
         @ChildContent
     </CascadingValue>

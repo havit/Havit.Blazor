@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -24,23 +27,43 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool Numbered { get; set; }
 
 		/// <summary>
-		/// If <c>true</c>, changes the layout of the list group items from vertical to horizontal across all breakpoints. Cannot be combined with flush list groups.
+		/// Changes the layout of the list group items from vertical to horizontal. Cannot be combined with <see cref="Flush"/>.
 		/// </summary>
-		[Parameter] public bool Horizontal { get; set; }
+		[Parameter] public ListGroupHorizontal Horizontal { get; set; } = ListGroupHorizontal.Never;
 
 		/// <summary>
-		/// If <c>true</c>, items will have equal width. Use only when the <code>HxListGroup</code> is horizontal.
+		/// Additional CSS class.
 		/// </summary>
-		[Parameter] public bool EqualWidthItems { get; set; }
+		[Parameter] public string CssClass { get; set; }
 
-		private string GetClasses()
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying <see cref="NavLink"/> component.
+		/// </summary>
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+		protected virtual string GetClasses()
 		{
 			return CssClassHelper.Combine(
 				"list-group",
-				Flush ? "list-group-flush" : null,
-				Numbered ? "list-group-numbered" : null,
-				Horizontal && !Flush ? "list-group-horizontal" : null, // Horizontal cannot be combined with Flush
-				EqualWidthItems && Horizontal ? "flex-fill" : null); // EqualWidthItems has to be combined with Horizontal
+				this.Flush ? "list-group-flush" : null,
+				this.Numbered ? "list-group-numbered" : null,
+				GetHorizontalCssClass(),
+				this.CssClass);
+		}
+
+		protected virtual string GetHorizontalCssClass()
+		{
+			return this.Horizontal switch
+			{
+				ListGroupHorizontal.Never => null,
+				ListGroupHorizontal.Always => "list-group-horizontal",
+				ListGroupHorizontal.SmallUp => "list-group-horizontal-sm",
+				ListGroupHorizontal.MediumUp => "list-group-horizontal-md",
+				ListGroupHorizontal.LargeUp => "list-group-horizontal-lg",
+				ListGroupHorizontal.ExtraLargeUp => "list-group-horizontal-xl",
+				ListGroupHorizontal.XxlUp => "list-group-horizontal-xxl",
+				_ => throw new InvalidOperationException($"Unknown {nameof(ListGroupHorizontal)} value {this.Horizontal}.")
+			};
 		}
 	}
 }
