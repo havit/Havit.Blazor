@@ -25,17 +25,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Current value (proportion of the progress bar that is taken up).
 		/// </summary>
-		[Parameter] public int Value { get; set; }
+		[Parameter] public float Value { get; set; }
 
 		/// <summary>
 		/// Lowest possible value. Default is <c>0</c>.
 		/// </summary>
-		[Parameter] public int MinValue { get; set; } = 0;
+		[Parameter] public float? MinValue { get; set; }
 
 		/// <summary>
 		/// Highest possible value. Default is <c>100</c>.
 		/// </summary>
-		[Parameter] public int MaxValue { get; set; } = 100;
+		[Parameter] public float? MaxValue { get; set; }
 
 		/// <summary>
 		/// Text to be displayed on the progress bar.
@@ -50,38 +50,63 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// If <c>true</c>, applies a stripe via CSS gradient over the progress bar's background color.
 		/// </summary>
-		[Parameter] public bool Striped { get; set; }
+		[Parameter] public bool? Striped { get; set; }
 
 		/// <summary>
 		/// If <c>true</c>, stripes are animated right to left via CSS3 animations, stripes are automatically switched on.
 		/// </summary>
-		[Parameter] public bool Animated { get; set; }
+		[Parameter] public bool? Animated { get; set; }
+
+		[CascadingParameter] protected HxProgress ProgressBarContainer { get; set; }
+
+		protected override void OnParametersSet()
+		{
+			if (ProgressBarContainer is not null)
+			{
+				if (!MinValue.HasValue)
+				{
+					MinValue = ProgressBarContainer.MinValue;
+				}
+				if (!MaxValue.HasValue)
+				{
+					MaxValue = ProgressBarContainer.MaxValue;
+				}
+				if (!Striped.HasValue)
+				{
+					Striped = ProgressBarContainer.Striped;
+				}
+				if (!Animated.HasValue)
+				{
+					Animated = ProgressBarContainer.Animated;
+				}
+			}
+		}
 
 		private string GetStripedCssClass()
 		{
 			string classes = "";
 
-			if (Striped)
-			{
-				classes = "progress-bar-striped";
-			}
-
-			if (Animated)
+			if (Animated.GetValueOrDefault())
 			{
 				classes = "progress-bar-striped progress-bar-animated";
+			}
+			else if (Striped.GetValueOrDefault())
+			{
+				classes = "progress-bar-striped";
 			}
 
 			return classes;
 		}
 
-		private string GetColorCssClass()
+		private int GetNormalizedValue()
 		{
-			return Color switch
+			if (MinValue == 0 && MaxValue == 100)
 			{
-				null => null,
-				ThemeColor.None => null,
-				_ => "bg-" + this.Color.Value.ToString("f").ToLower()
-			};
+				return (int)Value;
+			}
+
+			float normalized = (float)((100f / (MaxValue - MinValue) * (Value - MaxValue)) + 100f);
+			return (int)normalized;
 		}
 	}
 }

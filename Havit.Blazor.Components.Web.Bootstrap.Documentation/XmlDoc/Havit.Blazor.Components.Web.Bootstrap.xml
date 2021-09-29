@@ -4995,6 +4995,26 @@
             Height of all inner progress bars. Default is <c>15</c> pixels.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgress.MinValue">
+            <summary>
+            Lowest possible value. Default is <c>0</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgress.MaxValue">
+            <summary>
+            Highest possible value. Default is <c>100</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgress.Striped">
+            <summary>
+            If <c>true</c>, applies a stripe via CSS gradient over the progress bar's background color.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgress.Animated">
+            <summary>
+            If <c>true</c>, stripes are animated right to left via CSS3 animations, stripes are automatically switched on.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar">
             <summary>
             A progress bar to be placed inside <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress" />.
