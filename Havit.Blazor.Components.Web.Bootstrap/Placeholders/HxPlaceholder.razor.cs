@@ -15,6 +15,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxPlaceholder : ILayoutColumnComponent
 	{
+		/// <summary>
+		/// Application-wide defaults for <see cref="HxPlaceholder"/>.
+		/// </summary>
+		public static PlaceholderDefaults Defaults { get; set; } = new();
+
 		/// <inheritdoc cref="ILayoutColumnComponent.Columns"/>
 		[Parameter] public string Columns { get; set; }
 
@@ -34,6 +39,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string ColumnsXxlUp { get; set; }
 
 		/// <summary>
+		/// Size of the placeholder.
+		/// </summary>
+		[Parameter] public PlaceholderSize? Size { get; set; }
+
+		/// <summary>
+		/// Color of the placeholder.
+		/// </summary>
+		[Parameter] public ThemeColor? Color { get; set; }
+
+		/// <summary>
 		/// Optional content of the placeholder (usualy not used).
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
@@ -48,12 +63,47 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
+		[CascadingParameter] protected HxPlaceholderContainer PlaceholderContainer { get; set; }
+
+		protected override void OnParametersSet()
+		{
+			if (PlaceholderContainer is not null)
+			{
+				if (!Size.HasValue)
+				{
+					Size = PlaceholderContainer.Size;
+				}
+				if (!Color.HasValue)
+				{
+					Color = PlaceholderContainer.Color;
+				}
+				if (string.IsNullOrEmpty(CssClass))
+				{
+					CssClass = Defaults.CssClass;
+				}
+			}
+		}
+
 		protected virtual string GetCssClass()
 		{
 			return CssClassHelper.Combine(
 				"placeholder",
 				this.GetColumnsCssClasses(),
+				ThemeColorExtensions.ToBackgroundColorCss(Color.GetValueOrDefault()),
+				GetSizeCssClass(),
 				this.CssClass);
+		}
+
+		private string GetSizeCssClass()
+		{
+			return this.Size switch
+			{
+				PlaceholderSize.Regular => null,
+				PlaceholderSize.Small => "placeholder-sm",
+				PlaceholderSize.ExtraSmall => "placeholder-xs",
+				PlaceholderSize.Large => "placeholder-lg",
+				_ => throw new InvalidOperationException($"Unknown {nameof(HxPlaceholder)}.{nameof(Size)} value {this.Size:g}.")
+			};
 		}
 	}
 }

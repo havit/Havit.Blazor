@@ -1,0 +1,12 @@
+﻿@*Loop through all the colors for the placeholder*@
+<HxPlaceholderContainer>
+    @foreach (var color in Enum.GetValues(typeof(ThemeColor)))
+    {
+        if ((ThemeColor)color == ThemeColor.Link)
+        {
+            continue;
+        }
+
+        <HxPlaceholder Color="(ThemeColor)color" Columns="12" />
+    }
+</HxPlaceholderContainer>

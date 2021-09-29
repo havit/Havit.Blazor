@@ -5021,6 +5021,11 @@
             Use loading placeholders for your components or pages to indicate something may still be loading.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Columns">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.Columns"/>
         </member>
@@ -5038,6 +5043,16 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.ColumnsXxlUp">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsXxlUp"/>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Size">
+            <summary>
+            Size of the placeholder.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Color">
+            <summary>
+            Color of the placeholder.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.ChildContent">
             <summary>
@@ -5057,6 +5072,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Animation">
             <summary>
             Animation of the placeholders in container.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Size">
+            <summary>
+            Size of the placeholder.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Color">
+            <summary>
+            Color of the placeholder.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.ChildContent">
@@ -5092,6 +5117,31 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.Wave">
             <summary>
             Wave animation.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.Size">
+            <summary>
+            Size of the placeholder.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.Color">
+            <summary>
+            Color of the placeholder.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.Animation">
+            <summary>
+            Animation of the placeholders in container.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.ContainerCssClass">
+            <summary>
+            Additional CSS class for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.CssClass">
+            <summary>
+            Additional CSS class for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>s (for the children of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/>s).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress">

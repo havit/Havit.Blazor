@@ -16,6 +16,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public PlaceholderAnimation Animation { get; set; }
 
 		/// <summary>
+		/// Size of the placeholder.
+		/// </summary>
+		[Parameter] public PlaceholderSize Size { get; set; }
+
+		/// <summary>
+		/// Color of the placeholder.
+		/// </summary>
+		[Parameter] public ThemeColor Color { get; set; }
+
+		/// <summary>
 		/// Content of the placeholder container (put your <see cref="HxPlaceholder"/>s here).
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
@@ -24,6 +34,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Additional CSS class.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
+
+		public HxPlaceholderContainer()
+		{
+			Animation = HxPlaceholder.Defaults.Animation;
+			Size = HxPlaceholder.Defaults.Size;
+			Color = HxPlaceholder.Defaults.Color;
+			CssClass = HxPlaceholder.Defaults.ContainerCssClass;
+		}
 
 		/// <summary>
 		/// Additional attributes to be splatted onto an underlying HTML element.
