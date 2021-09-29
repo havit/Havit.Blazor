@@ -4974,6 +4974,77 @@
             Needed for HxFilterForm with HxChipList.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.1/components/progress/">Bootstrap 5 Progress</see> component.<br/>
+            A wrapping component for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgress.ChildContent">
+            <summary>
+            Content consisting of one or multiple <c>HxProgressBar</c> components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgress.CssClass">
+            <summary>
+            Additional CSS classes for the progress.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgress.Height">
+            <summary>
+            Height of all inner progress bars. Default is <c>15</c> pixels.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar">
+            <summary>
+            A progress bar to be placed inside <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.ChildContent">
+            <summary>
+            Inner content of the progress bar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.CssClass">
+            <summary>
+            Additional CSS classes to be applied to the progress bar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.Value">
+            <summary>
+            Current value (proportion of the progress bar that is taken up).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.MinValue">
+            <summary>
+            Lowest possible value. Default is <c>0</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.MaxValue">
+            <summary>
+            Highest possible value. Default is <c>100</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.Label">
+            <summary>
+            Text to be displayed on the progress bar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.Color">
+            <summary>
+            Fill (background) color of the progress bar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.Striped">
+            <summary>
+            If <c>true</c>, applies a stripe via CSS gradient over the progress bar's background color.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.Animated">
+            <summary>
+            If <c>true</c>, stripes are animated right to left via CSS3 animations. Has to be combined with <c>Striped</c>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator">
             <summary>
             Displays the content of the component as "in progress".
