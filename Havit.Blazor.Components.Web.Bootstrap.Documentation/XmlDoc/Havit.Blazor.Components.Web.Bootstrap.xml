@@ -5042,7 +5042,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.Animated">
             <summary>
-            If <c>true</c>, stripes are animated right to left via CSS3 animations. Has to be combined with <c>Striped</c>.
+            If <c>true</c>, stripes are animated right to left via CSS3 animations, stripes are automatically switched on.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator">

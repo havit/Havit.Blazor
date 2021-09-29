@@ -53,7 +53,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool Striped { get; set; }
 
 		/// <summary>
-		/// If <c>true</c>, stripes are animated right to left via CSS3 animations. Has to be combined with <c>Striped</c>.
+		/// If <c>true</c>, stripes are animated right to left via CSS3 animations, stripes are automatically switched on.
 		/// </summary>
 		[Parameter] public bool Animated { get; set; }
 
@@ -64,11 +64,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (Striped)
 			{
 				classes = "progress-bar-striped";
+			}
 
-				if (Animated)
-				{
-					classes = "progress-bar-striped progress-bar-animated";
-				}
+			if (Animated)
+			{
+				classes = "progress-bar-striped progress-bar-animated";
 			}
 
 			return classes;
