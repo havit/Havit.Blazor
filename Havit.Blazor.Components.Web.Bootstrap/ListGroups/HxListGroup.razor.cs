@@ -37,7 +37,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
-		/// Additional attributes to be splatted onto an underlying <see cref="NavLink"/> component.
+		/// Additional attributes to be splatted onto an underlying <see cref="HxListGroup"/> component.
 		/// </summary>
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 

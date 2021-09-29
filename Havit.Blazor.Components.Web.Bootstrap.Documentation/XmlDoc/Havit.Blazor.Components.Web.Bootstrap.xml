@@ -3897,7 +3897,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroup.AdditionalAttributes">
             <summary>
-            Additional attributes to be splatted onto an underlying <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> component.
+            Additional attributes to be splatted onto an underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroup"/> component.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItem">
