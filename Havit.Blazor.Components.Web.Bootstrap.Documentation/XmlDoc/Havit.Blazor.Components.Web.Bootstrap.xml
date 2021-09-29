@@ -3823,6 +3823,47 @@
             Can be used for TFilterModelType to express there is no filter in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout"/> component.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.Columns">
+            <summary>
+            Number of template columns to span. Responsive setting for all devices including the extra-small ones (XS) bellow "small" breakpoint (<c>576 px</c>).<br />
+            The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c> or <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsSmallUp">
+            <summary>
+            Number of template columns to span for viewports above "small" breakpoint (<c>576px</c>).<br/>
+            The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c> or <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsMediumUp">
+            <summary>
+            Number of template columns to span for viewports above "medium" breakpoint (<c>768px</c>).<br/>
+            The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c> or <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsLargeUp">
+            <summary>
+            Number of template columns to span for viewports above "large" breakpoint (<c>992px</c>).<br/>
+            The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c> or <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsExtraLargeUp">
+            <summary>
+            Number of template columns to span for viewports above "large" breakpoint (<c>1200px</c>).<br/>
+            The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c> or <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsXxlUp">
+            <summary>
+            Number of template columns to span for viewports above "XXL" breakpoint (<c>1400px</c>).<br/>
+            The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c> or <c>true</c>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Layouts.LayoutColumnComponentExtensions.GetColumnsCssClasses(Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent)">
+            <summary>
+            Returns CSS classes representing column layout of the component.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroup">
             <summary>
             <see href="https://getbootstrap.com/docs/5.1/components/list-group/">Bootstrap 5 List group</see> component.<br/>
@@ -4972,6 +5013,85 @@
             <summary>
             Offcanvas content is always rendered (and hidden with CSS if not open).
             Needed for HxFilterForm with HxChipList.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.1/components/placeholders/">Bootstrap 5 Placeholder</see> component, aka Skeleton.<br/>
+            Use loading placeholders for your components or pages to indicate something may still be loading.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Columns">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.Columns"/>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.ColumnsSmallUp">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsSmallUp"/>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.ColumnsMediumUp">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsMediumUp"/>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.ColumnsLargeUp">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsLargeUp"/>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.ColumnsExtraLargeUp">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsExtraLargeUp"/>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.ColumnsXxlUp">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsXxlUp"/>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.ChildContent">
+            <summary>
+            Optional content of the placeholder (usualy not used).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.CssClass">
+            <summary>
+            Additional CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying HTML element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Animation">
+            <summary>
+            Animation of the placeholders in container.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.ChildContent">
+            <summary>
+            Content of the placeholder container (put your <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>s here).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.CssClass">
+            <summary>
+            Additional CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying HTML element.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation">
+            <summary>
+            Animation of the placeholders (for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Animation"/>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.None">
+            <summary>
+            No animation.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.Glow">
+            <summary>
+            Glow animation.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.Wave">
+            <summary>
+            Wave animation.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress">
