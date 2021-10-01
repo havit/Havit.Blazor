@@ -1,20 +1,8 @@
-﻿@*Loop through all the colors for the badge*@
-@foreach (var color in Enum.GetValues(typeof(ThemeColor)))
-{
-    @*Following colors aren't available for the HxBadge, so they are excluded*@
-    @if ((ThemeColor)color == ThemeColor.None || (ThemeColor)color == ThemeColor.Link)
-    {
-        continue;
-    }
-
-    <div style="display: inline-block; margin-right: 0.5rem;">
-        @if ((ThemeColor)color == ThemeColor.Warning || (ThemeColor)color == ThemeColor.Info || (ThemeColor)color == ThemeColor.Light)
-        {
-            <HxBadge Type="BadgeType.RoundedPill" TextColor="ThemeColor.Dark" Color="(ThemeColor)color">@((ThemeColor)color)</HxBadge>
-        }
-        else
-        {
-            <HxBadge Type="BadgeType.RoundedPill" Color="(ThemeColor)color">@((ThemeColor)color)</HxBadge>
-        }
-    </div>
-}
+﻿<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Primary">Primary</HxBadge>
+<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Secondary">Secondary</HxBadge>
+<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Success">Success</HxBadge>
+<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Danger">Danger</HxBadge>
+<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Warning" TextColor="ThemeColor.Dark">Warning</HxBadge>
+<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Info" TextColor="ThemeColor.Dark">Info</HxBadge>
+<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Light" TextColor="ThemeColor.Dark">Light</HxBadge>
+<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Dark">Dark</HxBadge>

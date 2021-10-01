@@ -1,20 +1,8 @@
-﻿@*Loop through all the colors for the badge*@
-@foreach (var color in Enum.GetValues(typeof(ThemeColor)))
-{
-    @*Following colors aren't available for the HxBadge, so they are excluded*@
-    @if ((ThemeColor)color == ThemeColor.None || (ThemeColor)color == ThemeColor.Link)
-    {
-        continue;
-    }
-
-    <div style="display: inline-block; margin-right: 0.5rem;">
-        @if ((ThemeColor)color == ThemeColor.Warning || (ThemeColor)color == ThemeColor.Info || (ThemeColor)color == ThemeColor.Light)
-        {
-            <HxBadge TextColor="ThemeColor.Dark" Color="(ThemeColor)color">@((ThemeColor)color)</HxBadge>
-        }
-        else
-        {
-            <HxBadge Color="(ThemeColor)color">@((ThemeColor)color)</HxBadge>
-        }
-    </div>
-}
+﻿<HxBadge Color="ThemeColor.Primary">Primary</HxBadge>
+<HxBadge Color="ThemeColor.Secondary">Secondary</HxBadge>
+<HxBadge Color="ThemeColor.Success">Success</HxBadge>
+<HxBadge Color="ThemeColor.Danger">Danger</HxBadge>
+<HxBadge Color="ThemeColor.Warning" TextColor="ThemeColor.Dark">Warning</HxBadge>
+<HxBadge Color="ThemeColor.Info" TextColor="ThemeColor.Dark">Info</HxBadge>
+<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">Light</HxBadge>
+<HxBadge Color="ThemeColor.Dark">Dark</HxBadge>

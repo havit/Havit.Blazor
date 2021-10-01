@@ -1,20 +1,87 @@
-﻿@*Loop through all the button variants*@
-@foreach (var color in Enum.GetValues(typeof(ThemeColor)))
-{
-    @*Exclude the button with no styling*@
-    @if ((int)color == 0)
-    {
-        continue;
-    }
-    
-    <div style="display: inline-block; margin: 0 0.5rem 0.5rem 0;">
-        <HxDropdown>
-            <HxDropdownToggle Color="(ThemeColor)color">Dropdown button</HxDropdownToggle>
-            <HxDropdownMenu>
-                <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
-                <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
-                <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
-            </HxDropdownMenu>
-        </HxDropdown>
-    </div>
-}
+﻿<div style="display: inline-block; margin: 0 0.5rem 0.5rem 0;">
+    <HxDropdown>
+        <HxDropdownToggle Color="ThemeColor.Primary">Dropdown button</HxDropdownToggle>
+        <HxDropdownMenu>
+            <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+        </HxDropdownMenu>
+    </HxDropdown>
+</div>
+
+<div style="display: inline-block; margin: 0 0.5rem 0.5rem 0;">
+    <HxDropdown>
+        <HxDropdownToggle Color="ThemeColor.Secondary">Dropdown button</HxDropdownToggle>
+        <HxDropdownMenu>
+            <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+        </HxDropdownMenu>
+    </HxDropdown>
+</div>
+
+<div style="display: inline-block; margin: 0 0.5rem 0.5rem 0;">
+    <HxDropdown>
+        <HxDropdownToggle Color="ThemeColor.Success">Dropdown button</HxDropdownToggle>
+        <HxDropdownMenu>
+            <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+        </HxDropdownMenu>
+    </HxDropdown>
+</div>
+
+<div style="display: inline-block; margin: 0 0.5rem 0.5rem 0;">
+    <HxDropdown>
+        <HxDropdownToggle Color="ThemeColor.Danger">Dropdown button</HxDropdownToggle>
+        <HxDropdownMenu>
+            <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+        </HxDropdownMenu>
+    </HxDropdown>
+</div>
+
+<div style="display: inline-block; margin: 0 0.5rem 0.5rem 0;">
+    <HxDropdown>
+        <HxDropdownToggle Color="ThemeColor.Warning">Dropdown button</HxDropdownToggle>
+        <HxDropdownMenu>
+            <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+        </HxDropdownMenu>
+    </HxDropdown>
+</div>
+
+<div style="display: inline-block; margin: 0 0.5rem 0.5rem 0;">
+    <HxDropdown>
+        <HxDropdownToggle Color="ThemeColor.Info">Dropdown button</HxDropdownToggle>
+        <HxDropdownMenu>
+            <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+        </HxDropdownMenu>
+    </HxDropdown>
+</div>
+
+<div style="display: inline-block; margin: 0 0.5rem 0.5rem 0;">
+    <HxDropdown>
+        <HxDropdownToggle Color="ThemeColor.Light">Dropdown button</HxDropdownToggle>
+        <HxDropdownMenu>
+            <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+        </HxDropdownMenu>
+    </HxDropdown>
+</div>
+
+<div style="display: inline-block; margin: 0 0.5rem 0.5rem 0;">
+    <HxDropdown>
+        <HxDropdownToggle Color="ThemeColor.Dark">Dropdown button</HxDropdownToggle>
+        <HxDropdownMenu>
+            <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+        </HxDropdownMenu>
+    </HxDropdown>
+</div>

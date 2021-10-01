@@ -1,20 +1,9 @@
-﻿@*Loop through all the colors for the badge*@
-@foreach (var color in Enum.GetValues(typeof(ThemeColor)))
-{
-    @*Following colors aren't available for the HxBadge, so they are excluded*@
-    @if ((ThemeColor)color == ThemeColor.None)
-    {
-        continue;
-    }
-
-    <div style="display: inline-block; margin-right: 0.5rem;">
-        @if ((ThemeColor)color == ThemeColor.Warning || (ThemeColor)color == ThemeColor.Info || (ThemeColor)color == ThemeColor.Light)
-        {
-            <HxButton Outline="true" TextColor="ThemeColor.Dark" Color="(ThemeColor)color">@((ThemeColor)color)</HxButton>
-        }
-        else
-        {
-            <HxButton Outline="true" Color="(ThemeColor)color">@((ThemeColor)color)</HxButton>
-        }
-    </div>
-}
+﻿<HxButton Outline="true" Color="ThemeColor.Primary" Text="Primary" />
+<HxButton Outline="true" Color="ThemeColor.Secondary" Text="Secondary" />
+<HxButton Outline="true" Color="ThemeColor.Success" Text="Success" />
+<HxButton Outline="true" Color="ThemeColor.Danger" Text="Danger" />
+<HxButton Outline="true" Color="ThemeColor.Warning" Text="Warning" />
+<HxButton Outline="true" Color="ThemeColor.Info" Text="Info" />
+<HxButton Outline="true" Color="ThemeColor.Light" Text="Light" />
+<HxButton Outline="true" Color="ThemeColor.Dark" Text="Dark" />
+<HxButton Outline="true" Color="ThemeColor.Link" Text="Link" />
