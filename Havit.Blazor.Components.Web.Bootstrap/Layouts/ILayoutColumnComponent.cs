@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Layouts
 {
+	/// <summary>
+	/// Interface for column-sized components (e.g. <see cref="HxPlaceholder"/>).
+	/// </summary>
 	public interface ILayoutColumnComponent
 	{
 		/// <summary>
-		/// Number of template columns to span. Responsive setting for all devices including the extra-small ones (XS) bellow "small" breakpoint (<c>576 px</c>).<br />
-		/// The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c> or <c>true</c>.
+		/// Number of template columns to span. Responsive setting for all devices including the extra-small ones (XS) bellow "small" breakpoint (<c>576px</c>).<br />
+		/// The value can be any integer number between <c>1</c> and <c>12</c> (<c>.col-1</c>), <c>auto</c> (<c>.col-auto</c>) or <c>true</c> (<c>.col</c>).
 		/// </summary>
 		string Columns { get; set; }
 
