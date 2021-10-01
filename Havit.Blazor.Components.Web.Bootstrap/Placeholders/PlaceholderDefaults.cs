@@ -6,20 +6,23 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Settings for the <see cref="HxPlaceholder.Defaults"/>.
+	/// </summary>
 	public class PlaceholderDefaults
 	{
 		/// <summary>
-		/// Size of the placeholder.
+		/// Size of the placeholder. Default is <see cref="PlaceholderSize.Regular"/>.
 		/// </summary>
 		public PlaceholderSize Size { get; set; } = PlaceholderSize.Regular;
 
 		/// <summary>
-		/// Color of the placeholder.
+		/// Color of the placeholder. Default is <see cref="ThemeColor.None"/> (= use Bootstrap default placeholder color).
 		/// </summary>
 		public ThemeColor Color { get; set; } = ThemeColor.None;
 
 		/// <summary>
-		/// Animation of the placeholders in container.
+		/// Animation of the placeholders in container. Default is <see cref="PlaceholderAnimation.None"/> (no animation).
 		/// </summary>
 		public PlaceholderAnimation Animation { get; set; } = PlaceholderAnimation.None;
 

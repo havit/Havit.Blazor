@@ -24,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
-		/// Height of all inner progress bars. Default is <c>15</c> pixels.
+		/// Height of all inner progress bars. Default is <c>15px</c>.
 		/// </summary>
 		[Parameter] public int Height { get; set; } = 15;
 
