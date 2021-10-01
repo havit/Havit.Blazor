@@ -1,16 +1,14 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="d-flex w-100 min-vh-100">
-	<HxMessenger Position="HxToastContainerPosition.BottomCenter" />
-	<HxMessageBoxHost />
+<HxMessenger Position="HxToastContainerPosition.MiddleCenter" />
+<HxMessageBoxHost />
 
-	<div class="d-flex flex-wrap flex-grow-1 flex-md-nowrap">
-		<HxSidebar CssClass="sticky-top">
-			...
-		</HxSidebar>
+<div class="container-xxl d-md-flex min-vh-100">
+	<HxSidebar CssClass="sticky-top">
+		...
+	</HxSidebar>
 
-		<div class="doc-content main p-4 flex-grow-1 overflow-hidden">
-			@Body
-		</div>
+	<div class="doc-content main p-4 flex-grow-1 overflow-hidden">
+		@Body
 	</div>
 </div>
