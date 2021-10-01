@@ -22,11 +22,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public ThemeColor Color { get; set; } = ThemeColor.None;
 
 		/// <summary>
-		/// Animation of the placeholders in container. Default is <see cref="PlaceholderAnimation.None"/> (no animation).
-		/// </summary>
-		public PlaceholderAnimation Animation { get; set; } = PlaceholderAnimation.None;
-
-		/// <summary>
 		/// Additional CSS class for <see cref="HxPlaceholder"/>s (for the children of <see cref="HxPlaceholderContainer"/>s).
 		/// </summary>
 		public string CssClass { get; set; }

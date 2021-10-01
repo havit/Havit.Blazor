@@ -11,9 +11,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxPlaceholderContainer
 	{
 		/// <summary>
+		/// Application-wide defaults for <see cref="HxPlaceholderContainer"/>.
+		/// </summary>
+		public static PlaceholderContainerDefaults Defaults { get; set; } = new();
+
+		/// <summary>
 		/// Animation of the placeholders in container.
 		/// </summary>
-		[Parameter] public PlaceholderAnimation Animation { get; set; }
+		[Parameter] public PlaceholderAnimation? Animation { get; set; }
 
 		/// <summary>
 		/// Size of the placeholder.
@@ -40,16 +45,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
+		/// <summary>
+		/// Return <see cref="HxPlaceholderContainer"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual PlaceholderContainerDefaults GetDefaults() => Defaults;
+
 		protected virtual string GetCssClass()
 		{
 			return CssClassHelper.Combine(
 				GetAnimationCssClass(),
-				this.CssClass);
+				this.CssClass ?? GetDefaults().CssClass);
 		}
 
 		private string GetAnimationCssClass()
 		{
-			return this.Animation switch
+			return (this.Animation ?? GetDefaults().Animation) switch
 			{
 				PlaceholderAnimation.None => null,
 				PlaceholderAnimation.Glow => "placeholder-glow",
