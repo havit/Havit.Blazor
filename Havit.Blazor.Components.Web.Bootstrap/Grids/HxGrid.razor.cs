@@ -142,9 +142,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string ItemRowCssClass { get; set; }
 
 		/// <summary>
-		/// Height of the item row.
-		/// Used for infinite scroll.
-		/// Default is <c>50px</c>.
+		/// Height of the item row used for infinite scroll calculations.
+		/// Default value is <c>41px</c> (row-height of regular table-row within Bootstrap 5 default theme).
 		/// </summary>
 		[Parameter] public float? ItemRowHeight { get; set; }
 

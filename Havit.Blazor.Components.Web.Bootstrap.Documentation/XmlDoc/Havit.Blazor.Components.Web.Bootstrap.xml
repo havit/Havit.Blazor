@@ -3092,6 +3092,12 @@
             Icon to display descending sort direction.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.ItemRowHeight">
+            <summary>
+            Height of the item row used for infinite scroll calculations.
+            Default value is <c>41px</c> (row-height of regular table-row within Bootstrap 5 default theme).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.OverscanCount">
             <summary>
             Infinite scroll:
@@ -3132,13 +3138,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.ItemRowCssClass">
             <summary>
             Custom CSS class to render with data <code>tr</code> element.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.ItemRowHeight">
-            <summary>
-            Height of the item row.
-            Used for infinite scroll.
-            Default is <c>50px</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.FooterRowCssClass">
@@ -3326,9 +3325,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowHeight">
             <summary>
-            Height of the item row.
-            Used for infinite scroll.
-            Default is <c>50px</c>.
+            Height of the item row used for infinite scroll calculations.
+            Default value is <c>41px</c> (row-height of regular table-row within Bootstrap 5 default theme).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowCssClassSelector">
@@ -5131,19 +5129,24 @@
             Wave animation.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults">
+            <summary>
+            Settings for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Defaults"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.Size">
             <summary>
-            Size of the placeholder.
+            Size of the placeholder. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderSize.Regular"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.Color">
             <summary>
-            Color of the placeholder.
+            Color of the placeholder. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> (= use Bootstrap default placeholder color).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.Animation">
             <summary>
-            Animation of the placeholders in container.
+            Animation of the placeholders in container. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.None"/> (no animation).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.ContainerCssClass">

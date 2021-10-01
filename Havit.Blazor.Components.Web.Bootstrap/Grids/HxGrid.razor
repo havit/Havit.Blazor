@@ -2,7 +2,7 @@
 @typeparam TItem
 
 <CascadingValue Value="@columnsListRegistration" Name="@ColumnsRegistrationCascadingValueName" IsFixed="true">
-	@*Aby se dostaly komponenty do kolekcí, musíme je dostat do renderování této komponenty. Chceme však, aby komponenty nic nevyrenderovaly. *@
+	@* To get the components to the collections, we have to let them render with this component. Still we don't want them to render any output. *@
 	@if (MultiSelectionEnabled)
 	{
 		bool allDataItemsSelected = (paginationDataItemsToRender != null) && (SelectedDataItems != null) && (SelectedDataItems.Count > 0) && (paginationDataItemsToRender.Count == SelectedDataItems.Count);
@@ -74,7 +74,7 @@
 											@headerCellTemplate.Template
 										</UpdatedContentRenderer>
 										@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
-									   || (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
+									 || (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
 										{
 											<HxIcon Icon="@this.GetDefaults().SortDescendingIcon" />
 										}
@@ -135,11 +135,11 @@
 					@if (SelectionEnabled || MultiSelectionEnabled)
 					{
 						<tr role="button"
-							height="@rowHeight"
+							height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
 							class="@CssClassHelper.Combine(
-											(ItemRowCssClass ?? defaults.ItemRowCssClass),
-											ItemRowCssClassSelector?.Invoke(item),
-											((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null))"
+													(ItemRowCssClass ?? defaults.ItemRowCssClass),
+													ItemRowCssClassSelector?.Invoke(item),
+													((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null))"
 							@onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)"
 							@onclick:stopPropagation>
 
@@ -158,7 +158,7 @@
 					else
 					{
 						// !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
-						<tr height="@rowHeight"
+						<tr height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
 							class="@CssClassHelper.Combine((ItemRowCssClass ?? defaults.ItemRowCssClass), ItemRowCssClassSelector?.Invoke(item))"
 							@onclick:stopPropagation>
 							@foreach (IHxGridColumn<TItem> column in columnsToRender)

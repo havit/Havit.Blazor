@@ -24,6 +24,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public IconBase SortDescendingIcon { get; set; } = BootstrapIcon.SortAlphaDownAlt;
 
 		/// <summary>
+		/// Height of the item row used for infinite scroll calculations.
+		/// Default value is <c>41px</c> (row-height of regular table-row within Bootstrap 5 default theme).
+		/// </summary>
+		public float ItemRowHeight { get; set; } = 41;
+
+		/// <summary>
 		/// Infinite scroll:
 		/// Gets or sets a value that determines how many additional items will be rendered
 		/// before and after the visible region. This help to reduce the frequency of rendering
@@ -64,13 +70,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Custom CSS class to render with data <code>tr</code> element.
 		/// </summary>
 		public string ItemRowCssClass { get; set; }
-
-		/// <summary>
-		/// Height of the item row.
-		/// Used for infinite scroll.
-		/// Default is <c>50px</c>.
-		/// </summary>
-		public float ItemRowHeight { get; set; } = 50;
 
 		/// <summary>
 		/// Custom CSS class to render with footer <code>tr</code> element.
