@@ -35,12 +35,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
+		/// <summary>
+		/// CSS class for the <see cref="HxPlaceholder"/>s contained in this container.
+		/// </summary>
+		public string ChildrenCssClass { get; set; }
+
+		/// <summary>
+		/// Return <see cref="HxPlaceholder"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual PlaceholderDefaults GetDefaults() => HxPlaceholder.Defaults;
+
 		public HxPlaceholderContainer()
 		{
-			Animation = HxPlaceholder.Defaults.Animation;
-			Size = HxPlaceholder.Defaults.Size;
-			Color = HxPlaceholder.Defaults.Color;
-			CssClass = HxPlaceholder.Defaults.ContainerCssClass;
+			Animation = GetDefaults().Animation;
+			Size = GetDefaults().Size;
+			Color = GetDefaults().Color;
+			CssClass = GetDefaults().ContainerCssClass;
+			ChildrenCssClass = GetDefaults().CssClass;
 		}
 
 		/// <summary>

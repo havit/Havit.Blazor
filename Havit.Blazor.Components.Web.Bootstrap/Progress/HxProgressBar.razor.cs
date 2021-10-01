@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,38 +60,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[CascadingParameter] protected HxProgress ProgressBarContainer { get; set; }
 
-		protected override void OnParametersSet()
-		{
-			if (ProgressBarContainer is not null)
-			{
-				if (!MinValue.HasValue)
-				{
-					MinValue = ProgressBarContainer.MinValue;
-				}
-				if (!MaxValue.HasValue)
-				{
-					MaxValue = ProgressBarContainer.MaxValue;
-				}
-				if (!Striped.HasValue)
-				{
-					Striped = ProgressBarContainer.Striped;
-				}
-				if (!Animated.HasValue)
-				{
-					Animated = ProgressBarContainer.Animated;
-				}
-			}
-		}
+		protected float MinValueEffective => MinValue ?? ProgressBarContainer.MinValue;
+		protected float MaxValueEffective => MaxValue ?? ProgressBarContainer.MaxValue;
+		protected bool StripedEffective => Striped ?? ProgressBarContainer.Striped;
+		protected bool AnimatedEffective => Animated ?? ProgressBarContainer.Animated;
 
 		private string GetStripedCssClass()
 		{
 			string classes = "";
 
-			if (Animated.GetValueOrDefault())
+			if (AnimatedEffective)
 			{
 				classes = "progress-bar-striped progress-bar-animated";
 			}
-			else if (Striped.GetValueOrDefault())
+			else if (StripedEffective)
 			{
 				classes = "progress-bar-striped";
 			}
@@ -100,12 +83,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private int GetNormalizedValue()
 		{
-			if (MinValue == 0 && MaxValue == 100)
+			if (MinValueEffective == 0 && MaxValueEffective == 100)
 			{
 				return (int)Value;
 			}
 
-			float normalized = (float)((100f / (MaxValue - MinValue) * (Value - MaxValue)) + 100f);
+			float normalized = (float)((100f / (MaxValueEffective - MinValueEffective) * (Value - MaxValueEffective)) + 100f);
 			return (int)normalized;
 		}
 	}

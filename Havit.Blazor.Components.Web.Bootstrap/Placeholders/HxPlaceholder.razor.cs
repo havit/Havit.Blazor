@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,38 +66,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[CascadingParameter] protected HxPlaceholderContainer PlaceholderContainer { get; set; }
 
-		protected override void OnParametersSet()
-		{
-			if (PlaceholderContainer is not null)
-			{
-				if (!Size.HasValue)
-				{
-					Size = PlaceholderContainer.Size;
-				}
-				if (!Color.HasValue)
-				{
-					Color = PlaceholderContainer.Color;
-				}
-				if (string.IsNullOrEmpty(CssClass))
-				{
-					CssClass = Defaults.CssClass;
-				}
-			}
-		}
+		protected PlaceholderSize SizeEffective => Size ?? PlaceholderContainer.Size;
+		protected ThemeColor ColorEffective => Color ?? PlaceholderContainer.Color;
+		protected string CssClassEffective => CssClass ?? PlaceholderContainer.ChildrenCssClass;
 
 		protected virtual string GetCssClass()
 		{
 			return CssClassHelper.Combine(
 				"placeholder",
 				this.GetColumnsCssClasses(),
-				ThemeColorExtensions.ToBackgroundColorCss(Color.GetValueOrDefault()),
+				ThemeColorExtensions.ToBackgroundColorCss(ColorEffective),
 				GetSizeCssClass(),
-				this.CssClass);
+				this.CssClassEffective);
 		}
 
 		private string GetSizeCssClass()
 		{
-			return this.Size switch
+			return this.SizeEffective switch
 			{
 				PlaceholderSize.Regular => null,
 				PlaceholderSize.Small => "placeholder-sm",

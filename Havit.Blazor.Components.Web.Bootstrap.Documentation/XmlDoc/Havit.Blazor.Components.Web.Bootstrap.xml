@@ -5094,6 +5094,18 @@
             Additional CSS class.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.ChildrenCssClass">
+            <summary>
+            CSS class for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>s contained in this container.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.GetDefaults">
+            <summary>
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying HTML element.
