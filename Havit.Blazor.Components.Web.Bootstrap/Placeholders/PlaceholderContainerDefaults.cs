@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Settings for the <see cref="HxPlaceholderContainer.Defaults"/>.
+	/// </summary>
 	public class PlaceholderContainerDefaults
 	{
 		/// <summary>
@@ -14,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public PlaceholderAnimation Animation { get; set; } = PlaceholderAnimation.None;
 
 		/// <summary>
-		/// Additional CSS class for <see cref="HxPlaceholder"/>s (for the children of <see cref="HxPlaceholderContainer"/>s).
+		/// Additional CSS class for <see cref="HxPlaceholderContainer"/>.
 		/// </summary>
 		public string CssClass { get; set; }
 	}

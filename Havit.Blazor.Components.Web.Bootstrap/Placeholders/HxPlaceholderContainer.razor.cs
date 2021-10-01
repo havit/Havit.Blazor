@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Components.Routing;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Optional container for the <see cref="HxPlaceholder"/> components where you can set the animation and some common properties
+	/// for all placeholders contained.
+	/// </summary>
 	public partial class HxPlaceholderContainer
 	{
 		/// <summary>

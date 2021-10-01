@@ -5074,6 +5074,17 @@
             Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer">
+            <summary>
+            Optional container for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/> components where you can set the animation and some common properties
+            for all placeholders contained.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Animation">
             <summary>
             Animation of the placeholders in container.
@@ -5104,6 +5115,13 @@
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.GetDefaults">
+            <summary>
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation">
             <summary>
             Animation of the placeholders (for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Animation"/>).
@@ -5124,6 +5142,21 @@
             Wave animation.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerDefaults">
+            <summary>
+            Settings for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Defaults"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerDefaults.Animation">
+            <summary>
+            Animation of the placeholders in container. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.None"/> (no animation).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerDefaults.CssClass">
+            <summary>
+            Additional CSS class for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults">
             <summary>
             Settings for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Defaults"/>.
@@ -5139,14 +5172,9 @@
             Color of the placeholder. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> (= use Bootstrap default placeholder color).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.Animation">
-            <summary>
-            Animation of the placeholders in container. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.None"/> (no animation).
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.CssClass">
             <summary>
-            Additional CSS class for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>s (for the children of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/>s).
+            Additional CSS class for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress">

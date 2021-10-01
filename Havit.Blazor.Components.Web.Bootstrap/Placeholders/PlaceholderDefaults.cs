@@ -22,7 +22,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public ThemeColor Color { get; set; } = ThemeColor.None;
 
 		/// <summary>
-		/// Additional CSS class for <see cref="HxPlaceholder"/>s (for the children of <see cref="HxPlaceholderContainer"/>s).
+		/// Additional CSS class for <see cref="HxPlaceholder"/>.
 		/// </summary>
 		public string CssClass { get; set; }
 	}
