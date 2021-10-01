@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Web.Extensions.Head;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server.Pages
@@ -26,6 +27,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server.Pages
 
 			Title = "HAVIT Blazor | Free Bootstrap 5 components for Blazor";
 		}
-
 	}
 }
