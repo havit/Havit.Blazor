@@ -33,10 +33,6 @@
 	background-color: var(--bs-gray-100);
 }
 
-:not(.card-body) > :not(pre) > code[class*=language-], :not(.card-body) > pre[class*=language-] {
-	margin-bottom: 0.5rem;
-}
-
 .doc-content > h1 {
 	margin-top: 1rem
 }
