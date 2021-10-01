@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -20,6 +21,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			var cultureInfo = new CultureInfo("en-US");
+			CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+			CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
