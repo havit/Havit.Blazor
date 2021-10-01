@@ -7,7 +7,7 @@
 }
 
 .hx-sidebar.collapsed {
-	width: var(--hx-sidebar-collapsed-width);
+	flex-basis: var(--hx-sidebar-collapsed-width);
 	min-width: auto;
 }
 
