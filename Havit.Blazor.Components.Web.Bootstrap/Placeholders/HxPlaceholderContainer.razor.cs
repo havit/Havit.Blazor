@@ -18,12 +18,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Size of the placeholder.
 		/// </summary>
-		[Parameter] public PlaceholderSize Size { get; set; }
+		[Parameter] public PlaceholderSize? Size { get; set; }
 
 		/// <summary>
 		/// Color of the placeholder.
 		/// </summary>
-		[Parameter] public ThemeColor Color { get; set; }
+		[Parameter] public ThemeColor? Color { get; set; }
 
 		/// <summary>
 		/// Content of the placeholder container (put your <see cref="HxPlaceholder"/>s here).
@@ -34,27 +34,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Additional CSS class.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
-
-		/// <summary>
-		/// CSS class for the <see cref="HxPlaceholder"/>s contained in this container.
-		/// </summary>
-		public string ChildrenCssClass { get; set; }
-
-		/// <summary>
-		/// Return <see cref="HxPlaceholder"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual PlaceholderDefaults GetDefaults() => HxPlaceholder.Defaults;
-
-		public HxPlaceholderContainer()
-		{
-			Animation = GetDefaults().Animation;
-			Size = GetDefaults().Size;
-			Color = GetDefaults().Color;
-			CssClass = GetDefaults().ContainerCssClass;
-			ChildrenCssClass = GetDefaults().CssClass;
-		}
 
 		/// <summary>
 		/// Additional attributes to be splatted onto an underlying HTML element.

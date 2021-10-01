@@ -27,11 +27,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public PlaceholderAnimation Animation { get; set; } = PlaceholderAnimation.None;
 
 		/// <summary>
-		/// Additional CSS class for the <see cref="HxPlaceholderContainer"/>.
-		/// </summary>
-		public string ContainerCssClass { get; set; }
-
-		/// <summary>
 		/// Additional CSS class for <see cref="HxPlaceholder"/>s (for the children of <see cref="HxPlaceholderContainer"/>s).
 		/// </summary>
 		public string CssClass { get; set; }

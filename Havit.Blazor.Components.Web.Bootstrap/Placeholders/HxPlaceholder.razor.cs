@@ -66,9 +66,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[CascadingParameter] protected HxPlaceholderContainer PlaceholderContainer { get; set; }
 
-		protected PlaceholderSize SizeEffective => Size ?? PlaceholderContainer.Size;
-		protected ThemeColor ColorEffective => Color ?? PlaceholderContainer.Color;
-		protected string CssClassEffective => CssClass ?? PlaceholderContainer.ChildrenCssClass;
+		protected PlaceholderSize SizeEffective => Size ?? PlaceholderContainer?.Size ?? GetDefaults().Size;
+		protected ThemeColor ColorEffective => Color ?? PlaceholderContainer?.Color ?? GetDefaults().Color;
+		protected string CssClassEffective => CssClass ?? GetDefaults().CssClass;
+
+		/// <summary>
+		/// Return <see cref="HxPlaceholder"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual PlaceholderDefaults GetDefaults() => HxPlaceholder.Defaults;
 
 		protected virtual string GetCssClass()
 		{
