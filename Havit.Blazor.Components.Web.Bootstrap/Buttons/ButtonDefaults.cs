@@ -30,7 +30,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Bootstrap button color (style).
 		/// </summary>
-		public ThemeColor? Color { get; set; }
+		public ThemeColor? Color { get; set; } = ThemeColor.None;
 
 		/// <summary>
 		/// Bootstrap outline button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
