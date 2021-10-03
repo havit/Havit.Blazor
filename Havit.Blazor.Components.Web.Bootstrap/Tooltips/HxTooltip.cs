@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
-using static System.Net.WebRequestMethods;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component.
-	/// Rendered as a <c>span</c> wrapper (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
+	/// <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component, activates on hover.<br />
+	/// Rendered as a <c>span</c> wrapper to fully support tooltips on disabled elements (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
 	/// </summary>
 	public class HxTooltip : ComponentBase, IAsyncDisposable
 	{
@@ -22,9 +21,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Text { get; set; }
 
 		/// <summary>
-		/// Tooltip placement.
+		/// Tooltip placement. Default is <see cref="TooltipPlacement.Top"/>.
 		/// </summary>
-		[Parameter] public TooltipPlacement Placement { get; set; }
+		[Parameter] public TooltipPlacement Placement { get; set; } = TooltipPlacement.Top;
 
 		/// <summary>
 		/// Custom CSS class to render with the tooltip.
@@ -32,7 +31,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
-		/// Custom CSS class to render with the <c>span</c> wrapper.
+		/// Custom CSS class to render with the <c>span</c> wrapper of the child-content.
 		/// </summary>
 		[Parameter] public string WrapperCssClass { get; set; }
 

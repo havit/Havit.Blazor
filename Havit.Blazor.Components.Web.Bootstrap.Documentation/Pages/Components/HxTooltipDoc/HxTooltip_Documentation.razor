@@ -1,11 +1,18 @@
 ﻿@attribute [Route("/components/" + nameof(HxTooltip))]
 
 <ComponentApiDoc Type="typeof(HxTooltip)">
-	<p>The tooltips activate on hover only.</p>
+
+	<HxAlert Color="ThemeColor.Warning">
+		<HxIcon Icon="BootstrapIcon.ExclamationCircle" CssClass="fs-5 me-2" />
+		The tooltip wrapper gets rendered only if <code>Text</code> or <code>WrapperCssClass</code> parameters is set.
+		If both are <code>null</code> or empty, only the <code>ChildContent</code> is rendered.
+	</HxAlert>
+
+	<h3>Basic Usage</h3>
+	<Demo Type="typeof(HxTooltip_Demo_BasicUsage)" Tabs="false" />
 
 	<h3>@nameof(HxButton) support</h3>
-	The tooltip support is also embedded in <a href="/components/@nameof(HxButton)">@nameof(HxButton)</a>.
+	<p>The tooltip support is also embedded in <a href="/components/@nameof(HxButton)">@nameof(HxButton)</a> component via <code>Tooltip</code> parameter.</p>
+	<Demo Type="typeof(HxTooltip_Demo_Button)" Tabs="false" />
 
-	<h3>Usage</h3>
-	<Demo Type="typeof(HxTooltip_Demo)" />
 </ComponentApiDoc>

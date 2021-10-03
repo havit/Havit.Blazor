@@ -3018,7 +3018,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll">
             <summary>
-            Use infinite scroll
+            Use infinite scroll (virtualized).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderDelegate`1">
@@ -5866,8 +5866,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component.
-            Rendered as a <c>span</c> wrapper (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
+            <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component, activates on hover.<br />
+            Rendered as a <c>span</c> wrapper to fully support tooltips on disabled elements (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Text">
@@ -5877,7 +5877,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Placement">
             <summary>
-            Tooltip placement.
+            Tooltip placement. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Top"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.CssClass">
@@ -5887,12 +5887,22 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.WrapperCssClass">
             <summary>
-            Custom CSS class to render with the <c>span</c> wrapper.
+            Custom CSS class to render with the <c>span</c> wrapper of the child-content.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.ChildContent">
             <summary>
             Child content to wrap over HxTooltip.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement">
+            <summary>
+            Placement of the tooltip for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Auto">
+            <summary>
+            When is specified, it will dynamically reorient the tooltip.
             </summary>
         </member>
     </members>

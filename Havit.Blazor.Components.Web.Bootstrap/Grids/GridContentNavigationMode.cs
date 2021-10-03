@@ -17,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		Pagination = 0,
 
 		/// <summary>
-		/// Use infinite scroll
+		/// Use infinite scroll (virtualized).
 		/// </summary>
 		InfiniteScroll
 
