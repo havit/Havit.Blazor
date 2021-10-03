@@ -12,21 +12,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component.
-	/// Rendered as a span (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
+	/// Rendered as a <c>span</c> wrapper (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
 	/// </summary>
 	public class HxTooltip : ComponentBase, IAsyncDisposable
 	{
-
-		/// <summary>
-		/// Custom css class to render with the tooltip.
-		/// </summary>
-		[Parameter] public string CssClass { get; set; }
-
-		/// <summary>
-		/// Custom css class to render with the span container.
-		/// </summary>
-		[Parameter] public string SpanCssClass { get; set; }
-
 		/// <summary>
 		/// Tooltip text to display above the content.
 		/// </summary>
@@ -36,6 +25,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Tooltip placement.
 		/// </summary>
 		[Parameter] public TooltipPlacement Placement { get; set; }
+
+		/// <summary>
+		/// Custom CSS class to render with the tooltip.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
+		/// <summary>
+		/// Custom CSS class to render with the <c>span</c> wrapper.
+		/// </summary>
+		[Parameter] public string WrapperCssClass { get; set; }
 
 		/// <summary>
 		/// Child content to wrap over HxTooltip.
@@ -53,15 +52,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			// Once the span is rendered it does not disapper to enable spanElement to be used at OnAfterRender to safely remove a tooltip.
 			// It is not a common situation to remove a tooltip.
-			shouldRenderSpan |= !String.IsNullOrEmpty(Text);
+			shouldRenderSpan |= !String.IsNullOrEmpty(Text) || !String.IsNullOrWhiteSpace(this.WrapperCssClass);
 			if (shouldRenderSpan)
 			{
 				builder.OpenElement(1, "span");
-				builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", SpanCssClass));
+				builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", WrapperCssClass));
 				builder.AddAttribute(3, "data-bs-container", "body");
 				builder.AddAttribute(4, "data-bs-trigger", "hover");
 				builder.AddAttribute(5, "data-bs-placement", Placement.ToString().ToLower());
-				builder.AddAttribute(6, "data-bs-custom-class", CssClass)
+				builder.AddAttribute(6, "data-bs-custom-class", CssClass);
 				builder.AddAttribute(7, "title", Text);
 				builder.AddElementReferenceCapture(8, element => spanElement = element);
 			}
@@ -98,7 +97,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					await jsModule.InvokeVoidAsync("destroy", spanElement);
 				}
 			}
-
 		}
 
 		public async ValueTask DisposeAsync()
