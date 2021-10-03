@@ -16,6 +16,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class HxTooltip : ComponentBase, IAsyncDisposable
 	{
+
+		/// <summary>
+		/// Custom css class to render with the tooltip.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
+		/// <summary>
+		/// Custom css class to render with the span container.
+		/// </summary>
+		[Parameter] public string SpanCssClass { get; set; }
+
 		/// <summary>
 		/// Tooltip text to display above the content.
 		/// </summary>
@@ -46,12 +57,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (shouldRenderSpan)
 			{
 				builder.OpenElement(1, "span");
-				builder.AddAttribute(2, "class", "d-inline-block");
+				builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", SpanCssClass));
 				builder.AddAttribute(3, "data-bs-container", "body");
 				builder.AddAttribute(4, "data-bs-trigger", "hover");
 				builder.AddAttribute(5, "data-bs-placement", Placement.ToString().ToLower());
-				builder.AddAttribute(6, "title", Text);
-				builder.AddElementReferenceCapture(7, element => spanElement = element);
+				builder.AddAttribute(6, "data-bs-custom-class", CssClass)
+				builder.AddAttribute(7, "title", Text);
+				builder.AddElementReferenceCapture(8, element => spanElement = element);
 			}
 
 			builder.AddContent(8, ChildContent);
