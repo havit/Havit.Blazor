@@ -5867,7 +5867,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip">
             <summary>
             <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component.
-            Rendered as a span (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
+            Rendered as a <c>span</c> wrapper (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Text">
@@ -5878,6 +5878,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Placement">
             <summary>
             Tooltip placement.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.CssClass">
+            <summary>
+            Custom CSS class to render with the tooltip.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.WrapperCssClass">
+            <summary>
+            Custom CSS class to render with the <c>span</c> wrapper.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.ChildContent">
