@@ -19,27 +19,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	{
+		/// <summary>
+		/// Application-wide defaults for <see cref="HxButton"/> and derived components.
+		/// </summary>
 		public static ButtonDefaults Defaults { get; set; } = new();
 
-		[CascadingParameter] protected FormState FormState { get; set; }
-		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
-
-		[Parameter] public EditContext EditContext { get; set; }
-		[CascadingParameter] protected EditContext CascadingEditContext { get; set; }
-		protected EditContext EditContextEffective => EditContext ?? CascadingEditContext;
-
 		/// <summary>
-		/// Custom css class to render with the button.
-		/// </summary>
-		[Parameter] public string CssClass { get; set; }
-
-		/// <summary>
-		/// Label of the button.
+		/// Text of the button.
 		/// </summary>
 		[Parameter] public string Text { get; set; }
 
 		/// <summary>
-		/// Button template.
+		/// Button content.
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
@@ -49,22 +40,38 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public IconBase Icon { get; set; }
 
 		/// <summary>
-		/// Bootstrap button style - theme color. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/" />.
+		/// Button color.
 		/// </summary>
 		[Parameter] public ThemeColor? Color { get; set; }
 
 		/// <summary>
-		/// Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />.
+		/// Button size. Default is <see cref="ButtonSize.Regular"/>.
 		/// </summary>
 		[Parameter] public ButtonSize? Size { get; set; }
 
 		/// <summary>
-		/// Bootstrap "outline" button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
+		/// <see href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
 		/// </summary>
 		[Parameter] public bool? Outline { get; set; }
 
+		/// <summary>
+		/// Custom CSS class to render with the <c>&lt;button /&gt;</c>.<br />
+		/// When using <see cref="Tooltip"/> you might want to use <see cref="TooltipWrapperCssClass"/> instead of <see cref="CssClass" /> to get the desired result.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
 		/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 		[Parameter] public bool? Enabled { get; set; }
+
+		[CascadingParameter] protected FormState FormState { get; set; }
+		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+
+		/// <summary>
+		/// Associated <see cref="EditContext"/>.
+		/// </summary>
+		[Parameter] public EditContext EditContext { get; set; }
+		[CascadingParameter] protected EditContext CascadingEditContext { get; set; }
+		protected EditContext EditContextEffective => EditContext ?? CascadingEditContext;
 
 		/// <summary>
 		/// Specifies the form the button belongs to.
@@ -72,7 +79,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string FormId { get; set; }
 
 		/// <summary>
-		/// Tooltip text.
+		/// Tooltip text.<br/>
+		/// If set, a <c>span</c> wrapper will be rendered around the <c>&lt;button /&gt;</c>. For most scenarios you will then use <see cref="TooltipWrapperCssClass"/> instead of <see cref="CssClass"/>.
 		/// </summary>
 		[Parameter] public string Tooltip { get; set; }
 
@@ -80,6 +88,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Tooltip placement.
 		/// </summary>
 		[Parameter] public TooltipPlacement TooltipPlacement { get; set; }
+
+		/// <summary>
+		/// Custom CSS class to render with the tooltip.
+		/// </summary>
+		[Parameter] public string TooltipCssClass { get; set; }
+
+		/// <summary>
+		/// Custom CSS class to render with the tooltip <c>span</c> wrapper of the <c>&lt;button /&gt;</c>.<br />
+		/// If set, the <c>span</c> wrapper will be rendered no matter the <see cref="Tooltip"/> text is set or not.
+		/// </summary>
+		[Parameter] public string TooltipWrapperCssClass { get; set; }
 
 		/// <summary>
 		/// Raised after the button is clicked.
