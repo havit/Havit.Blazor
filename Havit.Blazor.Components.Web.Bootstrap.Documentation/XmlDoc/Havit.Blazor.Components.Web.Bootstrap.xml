@@ -318,7 +318,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.AdditionalAttributes">
             <summary>
-            Additional attributes to be splatted onto an underlying <code>&lt;button&gt;</code> element.
+            Additional attributes to be splatted onto an underlying <c>&lt;button&gt;</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.StringLocalizerFactory">
@@ -616,7 +616,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartText">
             <summary>
             Input-group-text at the beginning of the input.
-            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartTemplate"/> this property is rendered as <code>.input-group-text</code>.
+            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartTemplate"/> this property is rendered as <c>.input-group-text</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartTemplate">
@@ -627,7 +627,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndText">
             <summary>
             Input-group-text at the end of the input.
-            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate"/> this property is rendered as <code>.input-group-text</code>.
+            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate"/> this property is rendered as <c>.input-group-text</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate">
@@ -1251,7 +1251,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapseToggleButton.CollapseTarget">
             <summary>
             Target selector of the toggle.
-            Use <code>#id</code> to reference single <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/> or <code>.class</code> for multiple <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/>s.
+            Use <c>#id</c> to reference single <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/> or <c>.class</c> for multiple <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/>s.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu">
@@ -1476,20 +1476,20 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggle.DropdownOffset">
             <summary>
             Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
-            of the dropdown relative to its target.  Default is <code>(0, 2)</code>.
+            of the dropdown relative to its target.  Default is <c>(0, 2)</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggle.DropdownReference">
             <summary>
-            Reference element of the dropdown menu. Accepts the values of <code>toggle</code> (default), <code>parent</code>,
-            an HTMLElement reference (e.g. <code>#id</code>) or an object providing <code>getBoundingClientRect</code>.
+            Reference element of the dropdown menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
+            an HTMLElement reference (e.g. <c>#id</c>) or an object providing <c>getBoundingClientRect</c>.
             For more information refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
             and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
             <summary>
-            Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as Bootstrap form control (incl. <code>Label</code> etc.)
+            Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as Bootstrap form control (incl. <c>Label</c> etc.)
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.UploadUrl">
@@ -3144,33 +3144,33 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.TableContainerCssClass">
             <summary>
-            Custom CSS class to render with <code>div</code> element wrapping the main <code>table</code>
-            (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <code>div</code> element).
+            Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c>
+            (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <c>div</c> element).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.TableCssClass">
             <summary>
-            Custom CSS class to render with main <code>table</code> element.
+            Custom CSS class to render with main <c>table</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.HeaderRowCssClass">
             <summary>
-            Custom CSS class to render with header <code>tr</code> element.
+            Custom CSS class to render with header <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.ItemRowCssClass">
             <summary>
-            Custom CSS class to render with data <code>tr</code> element.
+            Custom CSS class to render with data <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.FooterRowCssClass">
             <summary>
-            Custom CSS class to render with footer <code>tr</code> element.
+            Custom CSS class to render with footer <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.PagerContainerCssClass">
             <summary>
-            Custom CSS class to render with pager wrapping <code>div</code> element.
+            Custom CSS class to render with pager wrapping <c>div</c> element.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext">
@@ -3328,22 +3328,22 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.TableContainerCssClass">
             <summary>
-            Custom CSS class to render with <code>div</code> element wrapping the main <code>table</code> (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <code>div</code> element).
+            Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c> (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <c>div</c> element).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.TableCssClass">
             <summary>
-            Custom CSS class to render with main <code>table</code> element.
+            Custom CSS class to render with main <c>table</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.HeaderRowCssClass">
             <summary>
-            Custom CSS class to render with header <code>tr</code> element.
+            Custom CSS class to render with header <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowCssClass">
             <summary>
-            Custom CSS class to render with data <code>tr</code> element.
+            Custom CSS class to render with data <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowHeight">
@@ -3354,17 +3354,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowCssClassSelector">
             <summary>
-            Returns custom CSS class to render with data <code>tr</code> element.
+            Returns custom CSS class to render with data <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.FooterRowCssClass">
             <summary>
-            Custom CSS class to render with footer <code>tr</code> element.
+            Custom CSS class to render with footer <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PagerContainerCssClass">
             <summary>
-            Custom CSS class to render with pager wrapping <code>div</code> element.
+            Custom CSS class to render with pager wrapping <c>div</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.OverscanCount">
@@ -3515,7 +3515,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.IsDefaultSortColumn">
             <summary>
             Indicates the sorting on the column is default (primary) on the grid.
-            Set <code>true</code> for the column which is to be used for default sorting.
+            Set <c>true</c> for the column which is to be used for default sorting.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.IsColumnVisible">
@@ -3954,7 +3954,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItem.OnClick">
             <summary>
-            An event that is fired when the <code>HxListGroupItem</code> is clicked.
+            An event that is fired when the <c>HxListGroupItem</c> is clicked.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItem.CssClass">
@@ -4662,7 +4662,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink">
             <summary>
-            Temporary (?) NavLink component to be used with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> where <code>#id</code> anchors are required and <code>page-route#id</code> cannot be used.
+            Temporary (?) NavLink component to be used with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> where <c>#id</c> anchors are required and <c>page-route#id</c> cannot be used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.Href">
@@ -4677,7 +4677,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.AdditionalAttributes">
             <summary>
-            Additional attributes to be splatted onto an underlying <code>&lt;a&gt;</code> element.
+            Additional attributes to be splatted onto an underlying <c>&lt;a&gt;</c> element.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar">

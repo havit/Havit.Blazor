@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Components.Web;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Temporary (?) NavLink component to be used with <see cref="HxScrollspy"/> where <code>#id</code> anchors are required and <code>page-route#id</code> cannot be used.
+	/// Temporary (?) NavLink component to be used with <see cref="HxScrollspy"/> where <c>#id</c> anchors are required and <c>page-route#id</c> cannot be used.
 	/// </summary>
 	public partial class HxScrollspyNavLink
 	{
@@ -26,7 +26,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 
 		/// <summary>
-		/// Additional attributes to be splatted onto an underlying <code>&lt;a&gt;</code> element.
+		/// Additional attributes to be splatted onto an underlying <c>&lt;a&gt;</c> element.
 		/// </summary>
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 

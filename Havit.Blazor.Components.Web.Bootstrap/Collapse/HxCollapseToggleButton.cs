@@ -13,7 +13,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		/// <summary>
 		/// Target selector of the toggle.
-		/// Use <code>#id</code> to reference single <see cref="HxCollapse"/> or <code>.class</code> for multiple <see cref="HxCollapse"/>s.
+		/// Use <c>#id</c> to reference single <see cref="HxCollapse"/> or <c>.class</c> for multiple <see cref="HxCollapse"/>s.
 		/// </summary>
 		[Parameter] public string CollapseTarget { get; set; }
 

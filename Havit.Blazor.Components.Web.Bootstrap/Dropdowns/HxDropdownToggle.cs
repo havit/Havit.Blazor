@@ -11,13 +11,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		/// <summary>
 		/// Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
-		/// of the dropdown relative to its target.  Default is <code>(0, 2)</code>.
+		/// of the dropdown relative to its target.  Default is <c>(0, 2)</c>.
 		/// </summary>
 		[Parameter] public (int Skidding, int Distance)? DropdownOffset { get; set; }
 
 		/// <summary>
-		/// Reference element of the dropdown menu. Accepts the values of <code>toggle</code> (default), <code>parent</code>,
-		/// an HTMLElement reference (e.g. <code>#id</code>) or an object providing <code>getBoundingClientRect</code>.
+		/// Reference element of the dropdown menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
+		/// an HTMLElement reference (e.g. <c>#id</c>) or an object providing <c>getBoundingClientRect</c>.
 		/// For more information refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
 		/// and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
 		/// </summary>
