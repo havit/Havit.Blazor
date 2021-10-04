@@ -16,15 +16,13 @@ $theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
 $min-contrast-ratio:  3;
 $body-bg:             $gray-100;
 
-$nav-tabs-border-color:               rgba($black, .125);
+$nav-tabs-border-color:               rgba($black, .0875);
 $nav-tabs-link-active-border-color:   $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-link-active-bg;
 
 $card-border-radius:          .5rem;
-$card-border-color:           rgba($black, .125);
+$card-border-color:           rgba($black, .0875);
 $card-inner-border-radius:    subtract($card-border-radius, $card-border-width);
 
-$table-cell-padding-y:          .6125rem;
-$table-cell-padding-x:          1rem;
 $table-active-bg-factor:        .05;
 $table-active-bg:               rgba($black, $table-active-bg-factor);
 $table-hover-bg-factor:         .025;

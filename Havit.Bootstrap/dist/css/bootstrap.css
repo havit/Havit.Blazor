@@ -302,8 +302,8 @@ table {
 }
 
 caption {
-  padding-top: 0.6125rem;
-  padding-bottom: 0.6125rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   color: #6c757d;
   text-align: left;
 }
@@ -1968,7 +1968,7 @@ progress {
   border-color: #e9ecef;
 }
 .table > :not(caption) > * > * {
-  padding: 0.6125rem 1rem;
+  padding: 0.5rem 0.5rem;
   background-color: var(--bs-table-bg);
   border-bottom-width: 1px;
   box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
@@ -3943,7 +3943,7 @@ textarea.form-control-lg {
 }
 
 .nav-tabs {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.0875);
 }
 .nav-tabs .nav-link {
   margin-bottom: -1px;
@@ -3965,7 +3965,7 @@ textarea.form-control-lg {
 .nav-tabs .nav-item.show .nav-link {
   color: #495057;
   background-color: #fff;
-  border-color: rgba(0, 0, 0, 0.125) rgba(0, 0, 0, 0.125) #fff;
+  border-color: rgba(0, 0, 0, 0.0875) rgba(0, 0, 0, 0.0875) #fff;
 }
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
@@ -4497,7 +4497,7 @@ textarea.form-control-lg {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: 1px solid rgba(0, 0, 0, 0.0875);
   border-radius: 0.5rem;
 }
 .card > hr {
@@ -4549,7 +4549,7 @@ textarea.form-control-lg {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.0875);
 }
 .card-header:first-child {
   border-radius: calc(0.5rem - 1px) calc(0.5rem - 1px) 0 0;
@@ -4558,7 +4558,7 @@ textarea.form-control-lg {
 .card-footer {
   padding: 0.5rem 1rem;
   background-color: rgba(0, 0, 0, 0.03);
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  border-top: 1px solid rgba(0, 0, 0, 0.0875);
 }
 .card-footer:last-child {
   border-radius: 0 0 calc(0.5rem - 1px) calc(0.5rem - 1px);
