@@ -17,7 +17,6 @@
 	padding: var(--hx-sidebar-subitem-padding);
 	font-size: var(--hx-sidebar-subitem-font-size);
 	display: flex;
-	color: var(--primary);
 }
 
 ::deep .hx-sidebar-subitems.show .text {
