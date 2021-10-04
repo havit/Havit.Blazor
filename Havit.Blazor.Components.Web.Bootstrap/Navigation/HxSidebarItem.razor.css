@@ -8,8 +8,8 @@
 	padding: var(--hx-sidebar-item-padding);
 	margin: var(--hx-sidebar-item-margin);
 	font-size: var(--hx-sidebar-item-font-size);
-	color: var(--bs-dark);
-	border-radius: 0.5rem;
+	color: var(--hx-sidebar-item-color);
+	border-radius: var(--hx-sidebar-item-border-radius);
 }
 
 .hx-sidebar-subitems ::deep .nav-link {
@@ -28,11 +28,11 @@
 ::deep a.nav-link.active,
 .navbar-desktop-toggler:hover {
 	background-color: var(--hx-sidebar-link-hover);
-	color: var(--bs-primary);
+	color: var(--hx-sidebar-item-hover-color);
 }
 
 ::deep i {
-	color: var(--bs-primary);
+	color: var(--hx-sidebar-item-icon-color);
 	font-size: 1rem;
 	transition: transform .35s ease;
 	transform-origin: .5em 50%;
