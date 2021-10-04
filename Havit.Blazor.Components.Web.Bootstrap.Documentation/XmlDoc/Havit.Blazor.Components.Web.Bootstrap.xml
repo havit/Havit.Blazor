@@ -333,6 +333,12 @@
             Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CoreCssClass">
+            <summary>
+            Gets basic CSS class(es) which get rendered to every single button. <br/>
+            Default implementation is <c>"hx-button btn"</c>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup">
             <summary>
             Bootstrap <see href="https://getbootstrap.com/docs/5.0/components/button-group/">Button group</see>s. 

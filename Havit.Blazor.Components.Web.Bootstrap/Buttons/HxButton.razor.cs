@@ -161,7 +161,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private bool clickInProgress;
 
-		protected virtual string CoreCssClass => "hx-button";
+		/// <summary>
+		/// Gets basic CSS class(es) which get rendered to every single button. <br/>
+		/// Default implementation is <c>"hx-button btn"</c>.
+		/// </summary>
+		protected virtual string CoreCssClass => "hx-button btn";
 
 		protected virtual IconPosition IconPosition => IconPosition.Start;
 
@@ -179,31 +183,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				return colorEffective switch
 				{
-					ThemeColor.Primary => "btn btn-outline-primary",
-					ThemeColor.Secondary => "btn btn-outline-secondary",
-					ThemeColor.Success => "btn btn-outline-success",
-					ThemeColor.Danger => "btn btn-outline-danger",
-					ThemeColor.Warning => "btn btn-outline-warning",
-					ThemeColor.Info => "btn btn-outline-info",
-					ThemeColor.Light => "btn btn-outline-light",
-					ThemeColor.Dark => "btn btn-outline-dark",
-					ThemeColor.Link => "btn btn-link",
-					ThemeColor.None => "btn",
+					ThemeColor.Primary => "btn-outline-primary",
+					ThemeColor.Secondary => "btn-outline-secondary",
+					ThemeColor.Success => "btn-outline-success",
+					ThemeColor.Danger => "btn-outline-danger",
+					ThemeColor.Warning => "btn-outline-warning",
+					ThemeColor.Info => "btn-outline-info",
+					ThemeColor.Light => "btn-outline-light",
+					ThemeColor.Dark => "btn-outline-dark",
+					ThemeColor.Link => "btn-link",
+					ThemeColor.None => null,
 					_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {colorEffective:g}.")
 				};
 			}
 			return colorEffective switch
 			{
-				ThemeColor.Primary => "btn btn-primary",
-				ThemeColor.Secondary => "btn btn-secondary",
-				ThemeColor.Success => "btn btn-success",
-				ThemeColor.Danger => "btn btn-danger",
-				ThemeColor.Warning => "btn btn-warning",
-				ThemeColor.Info => "btn btn-info",
-				ThemeColor.Light => "btn btn-light",
-				ThemeColor.Dark => "btn btn-dark",
-				ThemeColor.Link => "btn btn-link",
-				ThemeColor.None => "btn",
+				ThemeColor.Primary => "btn-primary",
+				ThemeColor.Secondary => "btn-secondary",
+				ThemeColor.Success => "btn-success",
+				ThemeColor.Danger => "btn-danger",
+				ThemeColor.Warning => "btn-warning",
+				ThemeColor.Info => "btn-info",
+				ThemeColor.Light => "btn-light",
+				ThemeColor.Dark => "btn-dark",
+				ThemeColor.Link => "btn-link",
+				ThemeColor.None => null,
 				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {colorEffective:g}.")
 			};
 		}
