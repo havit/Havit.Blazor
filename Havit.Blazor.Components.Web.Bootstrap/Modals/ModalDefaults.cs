@@ -1,5 +1,10 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿using Microsoft.AspNetCore.Components;
+
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Settings for <see cref="HxModal.Defaults"/>.
+	/// </summary>
 	public class ModalDefaults
 	{
 		/// <summary>
@@ -33,5 +38,30 @@
 		/// Allows vertical centering of the modal. Default is <c>false</c> (horizontal only).
 		/// </summary>
 		public bool Centered { get; set; } = false;
+
+		/// <summary>
+		/// Additional CSS class for the main element (<c>div.modal</c>).
+		/// </summary>
+		public string CssClass { get; set; }
+
+		/// <summary>
+		/// Additional CSS class for the dialog (<c>div.modal-dialog</c> element).
+		/// </summary>
+		public string DialogCssClass { get; set; }
+
+		/// <summary>
+		/// Additional header CSS class.
+		/// </summary>
+		public string HeaderCssClass { get; set; }
+
+		/// <summary>
+		/// Additional body CSS class.
+		/// </summary>
+		public string BodyCssClass { get; set; }
+
+		/// <summary>
+		/// Footer css class.
+		/// </summary>
+		public string FooterCssClass { get; set; }
 	}
 }

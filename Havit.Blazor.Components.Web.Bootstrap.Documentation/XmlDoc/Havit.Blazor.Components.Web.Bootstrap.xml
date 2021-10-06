@@ -4260,7 +4260,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CssClass">
             <summary>
-            Modal CSS class. Added to root <c>div</c> (<c>.modal</c>).
+            Additional CSS class for the main element (<c>div.modal</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.DialogCssClass">
+            <summary>
+            Additional CSS class for the dialog (<c>div.modal-dialog</c> element).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.HeaderCssClass">
@@ -4293,6 +4298,11 @@
             Closes the modal.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults">
+            <summary>
+            Settings for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.ShowCloseButton">
             <summary>
             Indicates whether the modal shows close button in header.
@@ -4323,6 +4333,31 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.Centered">
             <summary>
             Allows vertical centering of the modal. Default is <c>false</c> (horizontal only).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.CssClass">
+            <summary>
+            Additional CSS class for the main element (<c>div.modal</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.DialogCssClass">
+            <summary>
+            Additional CSS class for the dialog (<c>div.modal-dialog</c> element).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.HeaderCssClass">
+            <summary>
+            Additional header CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.BodyCssClass">
+            <summary>
+            Additional body CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.FooterCssClass">
+            <summary>
+            Footer css class.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen">

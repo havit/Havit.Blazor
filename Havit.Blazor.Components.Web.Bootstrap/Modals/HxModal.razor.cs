@@ -86,9 +86,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? Centered { get; set; }
 
 		/// <summary>
-		/// Modal CSS class. Added to root <c>div</c> (<c>.modal</c>).
+		/// Additional CSS class for the main element (<c>div.modal</c>).
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
+
+		/// <summary>
+		/// Additional CSS class for the dialog (<c>div.modal-dialog</c> element).
+		/// </summary>
+		[Parameter] public string DialogCssClass { get; set; }
 
 		/// <summary>
 		/// Additional header CSS class.
@@ -136,7 +141,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public Task ShowAsync()
 		{
 			opened = true; // mark modal as opened
-			shouldOpenModal = true; // mak modal to be shown in OnAfterRender			
+			shouldOpenModal = true; // mark modal to be shown in OnAfterRender			
 
 			StateHasChanged(); // ensures render modal HTML
 
@@ -155,7 +160,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task HandleModalHidden()
 		{
 			opened = false;
-			await OnClosed.InvokeAsync(); // fires "event" dialog has been closed
+			await OnClosed.InvokeAsync();
 			StateHasChanged(); // ensures rerender to remove dialog from HTML
 		}
 
@@ -192,7 +197,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		}
 
-		protected string GetModalSizeCssClass()
+		protected string GetDialogSizeCssClass()
 		{
 			var sizeEffective = this.Size ?? GetDefaults().Size;
 			return sizeEffective switch
@@ -205,7 +210,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			};
 		}
 
-		protected string GetModalFullscreenCssClass()
+		protected string GetDialogFullscreenCssClass()
 		{
 			var fullscreenEffective = this.Fullscreen ?? GetDefaults().Fullscreen;
 			return fullscreenEffective switch
@@ -221,7 +226,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			};
 		}
 
-		protected string GetModalScrollableCssClass()
+		protected string GetDialogScrollableCssClass()
 		{
 			var scrollableEffective = this.Scrollable ?? GetDefaults().Scrollable;
 			if (scrollableEffective)
@@ -231,8 +236,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return null;
 		}
 
-
-		protected string GetModalCenteredCssClass()
+		protected string GetDialogCenteredCssClass()
 		{
 			var centeredEffective = this.Centered ?? GetDefaults().Centered;
 			if (centeredEffective)
