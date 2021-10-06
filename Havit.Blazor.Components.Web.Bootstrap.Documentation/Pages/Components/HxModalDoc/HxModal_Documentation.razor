@@ -2,12 +2,17 @@
 
 <ComponentApiDoc Type="typeof(HxModal)">
 
-	<HxAlert Color="ThemeColor.Warning">
-		Modals cannot be nested - you cannot have a modal inside another modal.
+	<HxAlert Color="ThemeColor.Warning" CssClass="d-flex">
+		<div class="col-auto me-3">
+			<HxIcon Icon="BootstrapIcon.ExclamationTriangle" CssClass="fs-5" />
+		</div>
+		<div class="col">
+			Bootstrap only supports one modal window at a time. Nested modals aren’t supported are believed to be poor user experiences.
+		</div>
 	</HxAlert>
 
 	<h3>Usage</h3>
-	<Demo Type="typeof(HxModal_Demo)" />
+	<Demo Type="typeof(HxModal_Demo)" Tabs="false" />
 
 	<h3>Static backdrop</h3>
 	<p>When backdrop is <b>not</b> set to static, the modal will close when clicking outside it. Click the button below to try it.</p>

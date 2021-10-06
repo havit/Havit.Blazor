@@ -4254,12 +4254,13 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Centered">
             <summary>
-            Allows vertical centering of the modal. Default is <c>false</c> (horizontal only).
+            Allows vertical centering of the modal.<br/>
+            Default is <c>false</c> (horizontal only).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CssClass">
             <summary>
-            Modal CSS class. Added to root div (.modal).
+            Modal CSS class. Added to root <c>div</c> (<c>.modal</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.HeaderCssClass">
@@ -4291,12 +4292,6 @@
             <summary>
             Closes the modal.
             </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnAfterRenderAsync(System.Boolean)">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.DisposeAsync">
-            <inheritdoc />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.ShowCloseButton">
             <summary>

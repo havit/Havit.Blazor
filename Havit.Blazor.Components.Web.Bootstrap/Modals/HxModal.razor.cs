@@ -15,8 +15,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxModal : IAsyncDisposable
 	{
-		internal const string HxModalInParentModalCascadingValueName = nameof(HxModalInParentModalCascadingValueName);
-
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxGrid{TItem}"/>.
 		/// </summary>
@@ -82,12 +80,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? Scrollable { get; set; }
 
 		/// <summary>
-		/// Allows vertical centering of the modal. Default is <c>false</c> (horizontal only).
+		/// Allows vertical centering of the modal.<br/>
+		/// Default is <c>false</c> (horizontal only).
 		/// </summary>
 		[Parameter] public bool? Centered { get; set; }
 
 		/// <summary>
-		/// Modal CSS class. Added to root div (.modal).
+		/// Modal CSS class. Added to root <c>div</c> (<c>.modal</c>).
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
@@ -110,8 +109,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Raised when modal is closed (whatever reason it is).
 		/// </summary>
 		[Parameter] public EventCallback OnClosed { get; set; }
-
-		[CascadingParameter(Name = HxModalInParentModalCascadingValueName)] protected bool InParentModal { get; set; } // default(bool) = false, receives True from parent HxModal
 
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
@@ -138,15 +135,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public Task ShowAsync()
 		{
-			Contract.Requires(!opened);
-
-			// We prevent only showing nested modal.
-			// The component can be present in *.razor file, but it cannot be shown (opened).
-			if (InParentModal)
-			{
-				throw new InvalidOperationException("Modals cannot be nested.");
-			}
-
 			opened = true; // mark modal as opened
 			shouldOpenModal = true; // mak modal to be shown in OnAfterRender			
 
@@ -160,7 +148,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public async Task HideAsync()
 		{
-			Contract.Requires(opened);
 			await jsModule.InvokeVoidAsync("hide", modalElement);
 		}
 
@@ -172,7 +159,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			StateHasChanged(); // ensures rerender to remove dialog from HTML
 		}
 
-		/// <inheritdoc />
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
 			await base.OnAfterRenderAsync(firstRender);
@@ -189,7 +175,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		/// <inheritdoc />
 		public async ValueTask DisposeAsync()
 		{
 			if (opened)
