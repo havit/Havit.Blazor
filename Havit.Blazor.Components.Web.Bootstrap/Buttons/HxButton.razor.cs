@@ -40,7 +40,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public IconBase Icon { get; set; }
 
 		/// <summary>
-		/// Button color.
+		/// Bootstrap button style - theme color.<br />
+		/// Default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
 		/// </summary>
 		[Parameter] public ThemeColor? Color { get; set; }
 

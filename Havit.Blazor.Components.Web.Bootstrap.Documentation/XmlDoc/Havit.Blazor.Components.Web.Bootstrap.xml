@@ -170,7 +170,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults.Color">
             <summary>
-            Bootstrap button color (style).
+            Bootstrap button color (style). Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults.Outline">
@@ -225,7 +225,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Color">
             <summary>
-            Button color.
+            Bootstrap button style - theme color.<br />
+            Default is taken from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Defaults"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> if not customized).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Size">
