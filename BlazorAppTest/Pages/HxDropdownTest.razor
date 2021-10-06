@@ -2,13 +2,19 @@
 
 <h1>HxDropdown</h1>
 
-<HxDropdown>
-	<HxDropdownToggle Color="ThemeColor.Primary" Text="Dropdown toggle"/>
-    <HxDropdownContent>
-        <HxDropdownHeader>Header</HxDropdownHeader>
-        <HxDropdownItemNavLink Href="#">Action</HxDropdownItemNavLink>
-        <HxDropdownItemNavLink Href="#">Another action</HxDropdownItemNavLink>
-        <HxDropdownDivider />
-        <HxDropdownItemNavLink Href="#">Something else here</HxDropdownItemNavLink>
-    </HxDropdownContent>
+<HxDropdown AutoClose="DropdownAutoClose.Outside">
+	<HxDropdownToggle Color="ThemeColor.Primary" CssClass="@(IsBold ? "fw-bold" : null)">Show dropdown</HxDropdownToggle>
+	<HxDropdownContent>
+		<div class="row m-3" style="min-width: 100px;">
+			<div class="col">
+				<div>
+					<HxInputCheckbox @bind-Value="IsBold" Label="Toggle button text bold" />
+				</div>
+			</div>
+		</div>
+	</HxDropdownContent>
 </HxDropdown>
+
+@code {
+	private bool IsBold { get; set; } = false;
+}
