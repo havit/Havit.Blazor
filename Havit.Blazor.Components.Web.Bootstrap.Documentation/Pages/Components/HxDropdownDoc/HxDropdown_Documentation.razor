@@ -1,5 +1,5 @@
 ﻿@attribute [Route("/components/" + nameof(HxDropdown))]
-@attribute [Route("/components/" + nameof(HxDropdownToggle))]
+@attribute [Route("/components/" + nameof(HxDropdownToggleButton))]
 @attribute [Route("/components/" + nameof(HxDropdownMenu))]
 @attribute [Route("/components/" + nameof(HxDropdownItem))]
 @attribute [Route("/components/" + nameof(HxDropdownHeader))]
@@ -43,7 +43,10 @@
 	<Demo Type="typeof(HxDropdown_Demo_CustomContent)" />
 
 	<h3>Dropdown offset and reference</h3>
-	<p>You can change the location of the dropdown by setting the <code>HxDropdownToggle.DropdownOffset</code> and/or <code>HxDropdownToggle.DropdownReference</code>.</p>
+	<p>
+		You can change the location of the dropdown by setting the <code>@nameof(HxDropdownToggleButton).@nameof(HxDropdownToggleButton.DropdownOffset)</code>
+		and/or <code>@nameof(HxDropdownToggleButton).@nameof(HxDropdownToggleButton.DropdownReference)</code>.
+	</p>
 	<Demo Type="typeof(HxDropdown_Demo_DropdownOffsetAndReference)" />
 
 	<h3>Auto close behavior</h3>
@@ -59,7 +62,7 @@
 	<Demo Type="typeof(HxDropdown_Demo_Dark)" />
 </ComponentApiDoc>
 
-<ComponentApiDoc Type="typeof(HxDropdownToggle)" />
+<ComponentApiDoc Type="typeof(HxDropdownToggleButton)" />
 <ComponentApiDoc Type="typeof(HxDropdownMenu)" />
 <ComponentApiDoc Type="typeof(HxDropdownHeader)" />
 <ComponentApiDoc Type="typeof(HxDropdownItemNavLink)" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Auto-close behavior of the <see cref="HxDropdown"/> (<see cref="HxDropdownToggle"/> respectively).
+	/// Auto-close behavior of the <see cref="HxDropdown"/> (<see cref="HxDropdownToggleButton"/> respectively).
 	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#auto-close-behavior"/>.
 	/// </summary>
 	public enum DropdownAutoClose

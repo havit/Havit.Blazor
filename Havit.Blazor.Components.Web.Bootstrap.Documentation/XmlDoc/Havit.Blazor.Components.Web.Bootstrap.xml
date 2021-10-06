@@ -1303,7 +1303,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DropdownAutoClose">
             <summary>
-            Auto-close behavior of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/> (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggle"/> respectively).
+            Auto-close behavior of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/> (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton"/> respectively).
             <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#auto-close-behavior"/>.
             </summary>
         </member>
@@ -1474,18 +1474,18 @@
             Any additional CSS class to apply.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggle">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton">
             <summary>
-            Bootstrap Dropdown toggle (the button) which triggers the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/> to open.
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/> to open.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggle.DropdownOffset">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.DropdownOffset">
             <summary>
             Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
             of the dropdown relative to its target.  Default is <c>(0, 2)</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggle.DropdownReference">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.DropdownReference">
             <summary>
             Reference element of the dropdown menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
             an HTMLElement reference (e.g. <c>#id</c>) or an object providing <c>getBoundingClientRect</c>.

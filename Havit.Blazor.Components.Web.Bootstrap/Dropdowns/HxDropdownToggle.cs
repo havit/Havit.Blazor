@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Components;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Bootstrap Dropdown toggle (the button) which triggers the <see cref="HxDropdown"/> to open.
+	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdown"/> to open.
 	/// </summary>
-	public class HxDropdownToggle : HxButton
+	public class HxDropdownToggleButton : HxButton
 	{
 		/// <summary>
 		/// Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
