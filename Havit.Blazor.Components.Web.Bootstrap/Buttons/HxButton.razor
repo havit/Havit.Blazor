@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<HxTooltip Text="@Tooltip" Placement="@TooltipPlacement">
+<HxTooltip Text="@Tooltip" Placement="@TooltipPlacement" CssClass="@TooltipCssClass" WrapperCssClass="@TooltipWrapperCssClass">
 	<button type="@GetButtonType()"
 			class="@GetButtonCssClass()"
 			@onclick="HandleClick"

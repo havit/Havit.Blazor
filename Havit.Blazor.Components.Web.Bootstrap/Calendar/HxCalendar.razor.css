@@ -21,7 +21,7 @@ td {
 td > div {
     border: 1px solid transparent;
     border-radius: var(--hx-calendar-day-border-radius);
-    background-color: white;
+    background-color: transparent;
     transition: all .15s ease-in-out;
 }
 

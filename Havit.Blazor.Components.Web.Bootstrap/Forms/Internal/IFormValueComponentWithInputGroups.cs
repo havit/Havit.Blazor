@@ -24,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		/// <summary>
 		/// Input-group-text at the beginning of the input.
-		/// In comparison to <see cref="InputGroupStartTemplate"/> this property is rendered as <code>.input-group-text</code>.
+		/// In comparison to <see cref="InputGroupStartTemplate"/> this property is rendered as <c>.input-group-text</c>.
 		/// </summary>
 		string InputGroupStartText => null;
 
@@ -35,7 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		/// <summary>
 		/// Input-group-text at the end of the input.
-		/// In comparison to <see cref="InputGroupEndTemplate"/> this property is rendered as <code>.input-group-text</code>.
+		/// In comparison to <see cref="InputGroupEndTemplate"/> this property is rendered as <c>.input-group-text</c>.
 		/// </summary>
 		string InputGroupEndText => null;
 

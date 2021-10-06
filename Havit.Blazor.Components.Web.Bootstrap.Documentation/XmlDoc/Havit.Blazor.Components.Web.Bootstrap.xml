@@ -203,19 +203,19 @@
             Button (<c>&lt;button type="button"&gt;</c>). See also <see href="https://getbootstrap.com/docs/5.1/components/buttons/">Bootstrap Buttons</see>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Defaults">
             <summary>
-            Custom css class to render with the button.
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> and derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Text">
             <summary>
-            Label of the button.
+            Text of the button.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.ChildContent">
             <summary>
-            Button template.
+            Button content.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Icon">
@@ -231,16 +231,27 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Size">
             <summary>
-            Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />.
+            Button size. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonSize.Regular"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Outline">
             <summary>
-            Bootstrap "outline" button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
+            <see href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CssClass">
+            <summary>
+            Custom CSS class to render with the <c>&lt;button /&gt;</c>.<br />
+            When using <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Tooltip"/> you might want to use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.TooltipWrapperCssClass"/> instead of <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CssClass" /> to get the desired result.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Enabled">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.EditContext">
+            <summary>
+            Associated <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.EditContext"/>.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.FormId">
             <summary>
@@ -249,12 +260,24 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Tooltip">
             <summary>
-            Tooltip text.
+            Tooltip text.<br/>
+            If set, a <c>span</c> wrapper will be rendered around the <c>&lt;button /&gt;</c>. For most scenarios you will then use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.TooltipWrapperCssClass"/> instead of <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CssClass"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.TooltipPlacement">
             <summary>
             Tooltip placement.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.TooltipCssClass">
+            <summary>
+            Custom CSS class to render with the tooltip.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.TooltipWrapperCssClass">
+            <summary>
+            Custom CSS class to render with the tooltip <c>span</c> wrapper of the <c>&lt;button /&gt;</c>.<br />
+            If set, the <c>span</c> wrapper will be rendered no matter the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Tooltip"/> text is set or not.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnClick">
@@ -296,7 +319,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.AdditionalAttributes">
             <summary>
-            Additional attributes to be splatted onto an underlying <code>&lt;button&gt;</code> element.
+            Additional attributes to be splatted onto an underlying <c>&lt;button&gt;</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.StringLocalizerFactory">
@@ -309,6 +332,12 @@
             Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> defaults.
             Enables to not share defaults in descandants with base classes.
             Enables to have multiple descendants which differs in the default values.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CoreCssClass">
+            <summary>
+            Gets basic CSS class(es) which get rendered to every single button. <br/>
+            Default implementation is <c>"hx-button btn"</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup">
@@ -359,7 +388,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSubmit">
             <summary>
             Button <c>&lt;button type="submit"&gt;</c>.
-            Direct ancestor of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> with exactly same API.
+            Direct ancestor of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> with the same API.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput.DropdownOffset">
@@ -594,7 +623,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartText">
             <summary>
             Input-group-text at the beginning of the input.
-            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartTemplate"/> this property is rendered as <code>.input-group-text</code>.
+            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartTemplate"/> this property is rendered as <c>.input-group-text</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartTemplate">
@@ -605,7 +634,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndText">
             <summary>
             Input-group-text at the end of the input.
-            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate"/> this property is rendered as <code>.input-group-text</code>.
+            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate"/> this property is rendered as <c>.input-group-text</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate">
@@ -1229,7 +1258,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapseToggleButton.CollapseTarget">
             <summary>
             Target selector of the toggle.
-            Use <code>#id</code> to reference single <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/> or <code>.class</code> for multiple <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/>s.
+            Use <c>#id</c> to reference single <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/> or <c>.class</c> for multiple <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/>s.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu">
@@ -1454,20 +1483,20 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggle.DropdownOffset">
             <summary>
             Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
-            of the dropdown relative to its target.  Default is <code>(0, 2)</code>.
+            of the dropdown relative to its target.  Default is <c>(0, 2)</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggle.DropdownReference">
             <summary>
-            Reference element of the dropdown menu. Accepts the values of <code>toggle</code> (default), <code>parent</code>,
-            an HTMLElement reference (e.g. <code>#id</code>) or an object providing <code>getBoundingClientRect</code>.
+            Reference element of the dropdown menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
+            an HTMLElement reference (e.g. <c>#id</c>) or an object providing <c>getBoundingClientRect</c>.
             For more information refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
             and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
             <summary>
-            Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as Bootstrap form control (incl. <code>Label</code> etc.)
+            Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as Bootstrap form control (incl. <c>Label</c> etc.)
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.UploadUrl">
@@ -3019,7 +3048,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll">
             <summary>
-            Use infinite scroll
+            Use infinite scroll (virtualized).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderDelegate`1">
@@ -3122,33 +3151,33 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.TableContainerCssClass">
             <summary>
-            Custom CSS class to render with <code>div</code> element wrapping the main <code>table</code>
-            (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <code>div</code> element).
+            Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c>
+            (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <c>div</c> element).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.TableCssClass">
             <summary>
-            Custom CSS class to render with main <code>table</code> element.
+            Custom CSS class to render with main <c>table</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.HeaderRowCssClass">
             <summary>
-            Custom CSS class to render with header <code>tr</code> element.
+            Custom CSS class to render with header <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.ItemRowCssClass">
             <summary>
-            Custom CSS class to render with data <code>tr</code> element.
+            Custom CSS class to render with data <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.FooterRowCssClass">
             <summary>
-            Custom CSS class to render with footer <code>tr</code> element.
+            Custom CSS class to render with footer <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.PagerContainerCssClass">
             <summary>
-            Custom CSS class to render with pager wrapping <code>div</code> element.
+            Custom CSS class to render with pager wrapping <c>div</c> element.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext">
@@ -3306,22 +3335,22 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.TableContainerCssClass">
             <summary>
-            Custom CSS class to render with <code>div</code> element wrapping the main <code>table</code> (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <code>div</code> element).
+            Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c> (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <c>div</c> element).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.TableCssClass">
             <summary>
-            Custom CSS class to render with main <code>table</code> element.
+            Custom CSS class to render with main <c>table</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.HeaderRowCssClass">
             <summary>
-            Custom CSS class to render with header <code>tr</code> element.
+            Custom CSS class to render with header <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowCssClass">
             <summary>
-            Custom CSS class to render with data <code>tr</code> element.
+            Custom CSS class to render with data <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowHeight">
@@ -3332,17 +3361,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowCssClassSelector">
             <summary>
-            Returns custom CSS class to render with data <code>tr</code> element.
+            Returns custom CSS class to render with data <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.FooterRowCssClass">
             <summary>
-            Custom CSS class to render with footer <code>tr</code> element.
+            Custom CSS class to render with footer <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PagerContainerCssClass">
             <summary>
-            Custom CSS class to render with pager wrapping <code>div</code> element.
+            Custom CSS class to render with pager wrapping <c>div</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.OverscanCount">
@@ -3493,7 +3522,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.IsDefaultSortColumn">
             <summary>
             Indicates the sorting on the column is default (primary) on the grid.
-            Set <code>true</code> for the column which is to be used for default sorting.
+            Set <c>true</c> for the column which is to be used for default sorting.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.IsColumnVisible">
@@ -3822,10 +3851,15 @@
             Can be used for TFilterModelType to express there is no filter in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout"/> component.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent">
+            <summary>
+            Interface for column-sized components (e.g. <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.Columns">
             <summary>
-            Number of template columns to span. Responsive setting for all devices including the extra-small ones (XS) bellow "small" breakpoint (<c>576 px</c>).<br />
-            The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c> or <c>true</c>.
+            Number of template columns to span. Responsive setting for all devices including the extra-small ones (XS) bellow "small" breakpoint (<c>576px</c>).<br />
+            The value can be any integer number between <c>1</c> and <c>12</c> (<c>.col-1</c>), <c>auto</c> (<c>.col-auto</c>) or <c>true</c> (<c>.col</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsSmallUp">
@@ -3927,7 +3961,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItem.OnClick">
             <summary>
-            An event that is fired when the <code>HxListGroupItem</code> is clicked.
+            An event that is fired when the <c>HxListGroupItem</c> is clicked.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItem.CssClass">
@@ -4635,7 +4669,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink">
             <summary>
-            Temporary (?) NavLink component to be used with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> where <code>#id</code> anchors are required and <code>page-route#id</code> cannot be used.
+            Temporary (?) NavLink component to be used with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> where <c>#id</c> anchors are required and <c>page-route#id</c> cannot be used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.Href">
@@ -4650,7 +4684,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.AdditionalAttributes">
             <summary>
-            Additional attributes to be splatted onto an underlying <code>&lt;a&gt;</code> element.
+            Additional attributes to be splatted onto an underlying <c>&lt;a&gt;</c> element.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar">
@@ -5075,6 +5109,42 @@
             Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.1/components/placeholders/">Bootstrap 5 placeholder</see> in form of a button.<br/>
+            Derives from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> (adds <c>placeholder</c> class and changes <c>Enabled</c> default to <c>false</c>).<br/>
+            Set the size of the button by using the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.Columns"/> parameter.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.Columns">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.Columns"/>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.ColumnsSmallUp">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsSmallUp"/>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.ColumnsMediumUp">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsMediumUp"/>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.ColumnsLargeUp">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsLargeUp"/>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.ColumnsExtraLargeUp">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsExtraLargeUp"/>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.ColumnsXxlUp">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsXxlUp"/>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer">
+            <summary>
+            Optional container for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/> components where you can set the animation and some common properties
+            for all placeholders contained.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Animation">
             <summary>
             Animation of the placeholders in container.
@@ -5105,6 +5175,13 @@
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.GetDefaults">
+            <summary>
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation">
             <summary>
             Animation of the placeholders (for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Animation"/>).
@@ -5125,6 +5202,21 @@
             Wave animation.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerDefaults">
+            <summary>
+            Settings for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Defaults"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerDefaults.Animation">
+            <summary>
+            Animation of the placeholders in container. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.None"/> (no animation).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerDefaults.CssClass">
+            <summary>
+            Additional CSS class for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults">
             <summary>
             Settings for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Defaults"/>.
@@ -5140,14 +5232,14 @@
             Color of the placeholder. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> (= use Bootstrap default placeholder color).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.Animation">
-            <summary>
-            Animation of the placeholders in container. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.None"/> (no animation).
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.CssClass">
             <summary>
-            Additional CSS class for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>s (for the children of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/>s).
+            Additional CSS class for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderSize">
+            <summary>
+            Size for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/> component.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress">
@@ -5804,8 +5896,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component.
-            Rendered as a span (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
+            <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component, activates on hover.<br />
+            Rendered as a <c>span</c> wrapper to fully support tooltips on disabled elements (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Text">
@@ -5815,12 +5907,32 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Placement">
             <summary>
-            Tooltip placement.
+            Tooltip placement. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Top"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.CssClass">
+            <summary>
+            Custom CSS class to render with the tooltip.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.WrapperCssClass">
+            <summary>
+            Custom CSS class to render with the <c>span</c> wrapper of the child-content.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.ChildContent">
             <summary>
             Child content to wrap over HxTooltip.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement">
+            <summary>
+            Placement of the tooltip for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Auto">
+            <summary>
+            When is specified, it will dynamically reorient the tooltip.
             </summary>
         </member>
     </members>

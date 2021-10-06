@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap.Layouts;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Routing;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -75,7 +73,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual PlaceholderDefaults GetDefaults() => HxPlaceholder.Defaults;
+		protected virtual PlaceholderDefaults GetDefaults() => Defaults;
 
 		protected virtual string GetCssClass()
 		{

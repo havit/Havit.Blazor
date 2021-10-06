@@ -19,27 +19,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	{
+		/// <summary>
+		/// Application-wide defaults for <see cref="HxButton"/> and derived components.
+		/// </summary>
 		public static ButtonDefaults Defaults { get; set; } = new();
 
-		[CascadingParameter] protected FormState FormState { get; set; }
-		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
-
-		[Parameter] public EditContext EditContext { get; set; }
-		[CascadingParameter] protected EditContext CascadingEditContext { get; set; }
-		protected EditContext EditContextEffective => EditContext ?? CascadingEditContext;
-
 		/// <summary>
-		/// Custom css class to render with the button.
-		/// </summary>
-		[Parameter] public string CssClass { get; set; }
-
-		/// <summary>
-		/// Label of the button.
+		/// Text of the button.
 		/// </summary>
 		[Parameter] public string Text { get; set; }
 
 		/// <summary>
-		/// Button template.
+		/// Button content.
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
@@ -55,17 +46,33 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public ThemeColor? Color { get; set; }
 
 		/// <summary>
-		/// Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />.
+		/// Button size. Default is <see cref="ButtonSize.Regular"/>.
 		/// </summary>
 		[Parameter] public ButtonSize? Size { get; set; }
 
 		/// <summary>
-		/// Bootstrap "outline" button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
+		/// <see href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
 		/// </summary>
 		[Parameter] public bool? Outline { get; set; }
 
+		/// <summary>
+		/// Custom CSS class to render with the <c>&lt;button /&gt;</c>.<br />
+		/// When using <see cref="Tooltip"/> you might want to use <see cref="TooltipWrapperCssClass"/> instead of <see cref="CssClass" /> to get the desired result.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
 		/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 		[Parameter] public bool? Enabled { get; set; }
+
+		[CascadingParameter] protected FormState FormState { get; set; }
+		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+
+		/// <summary>
+		/// Associated <see cref="EditContext"/>.
+		/// </summary>
+		[Parameter] public EditContext EditContext { get; set; }
+		[CascadingParameter] protected EditContext CascadingEditContext { get; set; }
+		protected EditContext EditContextEffective => EditContext ?? CascadingEditContext;
 
 		/// <summary>
 		/// Specifies the form the button belongs to.
@@ -73,7 +80,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string FormId { get; set; }
 
 		/// <summary>
-		/// Tooltip text.
+		/// Tooltip text.<br/>
+		/// If set, a <c>span</c> wrapper will be rendered around the <c>&lt;button /&gt;</c>. For most scenarios you will then use <see cref="TooltipWrapperCssClass"/> instead of <see cref="CssClass"/>.
 		/// </summary>
 		[Parameter] public string Tooltip { get; set; }
 
@@ -81,6 +89,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Tooltip placement.
 		/// </summary>
 		[Parameter] public TooltipPlacement TooltipPlacement { get; set; }
+
+		/// <summary>
+		/// Custom CSS class to render with the tooltip.
+		/// </summary>
+		[Parameter] public string TooltipCssClass { get; set; }
+
+		/// <summary>
+		/// Custom CSS class to render with the tooltip <c>span</c> wrapper of the <c>&lt;button /&gt;</c>.<br />
+		/// If set, the <c>span</c> wrapper will be rendered no matter the <see cref="Tooltip"/> text is set or not.
+		/// </summary>
+		[Parameter] public string TooltipWrapperCssClass { get; set; }
 
 		/// <summary>
 		/// Raised after the button is clicked.
@@ -120,7 +139,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool SingleClickProtection { get; set; } = true;
 
 		/// <summary>
-		/// Additional attributes to be splatted onto an underlying <code>&lt;button&gt;</code> element.
+		/// Additional attributes to be splatted onto an underlying <c>&lt;button&gt;</c> element.
 		/// </summary>
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
@@ -143,7 +162,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private bool clickInProgress;
 
-		protected virtual string CoreCssClass => "hx-button";
+		/// <summary>
+		/// Gets basic CSS class(es) which get rendered to every single button. <br/>
+		/// Default implementation is <c>"hx-button btn"</c>.
+		/// </summary>
+		protected virtual string CoreCssClass => "hx-button btn";
 
 		protected virtual IconPosition IconPosition => IconPosition.Start;
 
@@ -161,31 +184,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				return colorEffective switch
 				{
-					ThemeColor.Primary => "btn btn-outline-primary",
-					ThemeColor.Secondary => "btn btn-outline-secondary",
-					ThemeColor.Success => "btn btn-outline-success",
-					ThemeColor.Danger => "btn btn-outline-danger",
-					ThemeColor.Warning => "btn btn-outline-warning",
-					ThemeColor.Info => "btn btn-outline-info",
-					ThemeColor.Light => "btn btn-outline-light",
-					ThemeColor.Dark => "btn btn-outline-dark",
-					ThemeColor.Link => "btn btn-link",
-					ThemeColor.None => "btn",
+					ThemeColor.Primary => "btn-outline-primary",
+					ThemeColor.Secondary => "btn-outline-secondary",
+					ThemeColor.Success => "btn-outline-success",
+					ThemeColor.Danger => "btn-outline-danger",
+					ThemeColor.Warning => "btn-outline-warning",
+					ThemeColor.Info => "btn-outline-info",
+					ThemeColor.Light => "btn-outline-light",
+					ThemeColor.Dark => "btn-outline-dark",
+					ThemeColor.Link => "btn-link",
+					ThemeColor.None => null,
 					_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {colorEffective:g}.")
 				};
 			}
 			return colorEffective switch
 			{
-				ThemeColor.Primary => "btn btn-primary",
-				ThemeColor.Secondary => "btn btn-secondary",
-				ThemeColor.Success => "btn btn-success",
-				ThemeColor.Danger => "btn btn-danger",
-				ThemeColor.Warning => "btn btn-warning",
-				ThemeColor.Info => "btn btn-info",
-				ThemeColor.Light => "btn btn-light",
-				ThemeColor.Dark => "btn btn-dark",
-				ThemeColor.Link => "btn btn-link",
-				ThemeColor.None => "btn",
+				ThemeColor.Primary => "btn-primary",
+				ThemeColor.Secondary => "btn-secondary",
+				ThemeColor.Success => "btn-success",
+				ThemeColor.Danger => "btn-danger",
+				ThemeColor.Warning => "btn-warning",
+				ThemeColor.Info => "btn-info",
+				ThemeColor.Light => "btn-light",
+				ThemeColor.Dark => "btn-dark",
+				ThemeColor.Link => "btn-link",
+				ThemeColor.None => null,
 				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {colorEffective:g}.")
 			};
 		}

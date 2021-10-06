@@ -29,7 +29,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public ThemeColor? Color { get; set; }
 
 		/// <summary>
-		/// An event that is fired when the <code>HxListGroupItem</code> is clicked.
+		/// An event that is fired when the <c>HxListGroupItem</c> is clicked.
 		/// </summary>
 		[Parameter] public EventCallback OnClick { get; set; }
 

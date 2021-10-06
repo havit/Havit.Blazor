@@ -51,33 +51,33 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public bool ShowFooterWhenEmptyData { get; set; } = false;
 
 		/// <summary>
-		/// Custom CSS class to render with <code>div</code> element wrapping the main <code>table</code>
-		/// (<see cref="HxPager"/> is not wrapped in this <code>div</code> element).
+		/// Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c>
+		/// (<see cref="HxPager"/> is not wrapped in this <c>div</c> element).
 		/// </summary>
 		public string TableContainerCssClass { get; set; }
 
 		/// <summary>
-		/// Custom CSS class to render with main <code>table</code> element.
+		/// Custom CSS class to render with main <c>table</c> element.
 		/// </summary>
 		public string TableCssClass { get; set; }
 
 		/// <summary>
-		/// Custom CSS class to render with header <code>tr</code> element.
+		/// Custom CSS class to render with header <c>tr</c> element.
 		/// </summary>
 		public string HeaderRowCssClass { get; set; }
 
 		/// <summary>
-		/// Custom CSS class to render with data <code>tr</code> element.
+		/// Custom CSS class to render with data <c>tr</c> element.
 		/// </summary>
 		public string ItemRowCssClass { get; set; }
 
 		/// <summary>
-		/// Custom CSS class to render with footer <code>tr</code> element.
+		/// Custom CSS class to render with footer <c>tr</c> element.
 		/// </summary>
 		public string FooterRowCssClass { get; set; }
 
 		/// <summary>
-		/// Custom CSS class to render with pager wrapping <code>div</code> element.
+		/// Custom CSS class to render with pager wrapping <c>div</c> element.
 		/// </summary>
 		public string PagerContainerCssClass { get; set; }
 	}

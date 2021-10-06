@@ -102,7 +102,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Indicates the sorting on the column is default (primary) on the grid.
-		/// Set <code>true</code> for the column which is to be used for default sorting.
+		/// Set <c>true</c> for the column which is to be used for default sorting.
 		/// </summary>
 		[Parameter] public bool IsDefaultSortColumn { get; set; } = false;
 		#endregion

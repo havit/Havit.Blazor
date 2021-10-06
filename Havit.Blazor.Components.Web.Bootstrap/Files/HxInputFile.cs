@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Wraps <see cref="HxInputFileCore"/> as Bootstrap form control (incl. <code>Label</code> etc.)
+	/// Wraps <see cref="HxInputFileCore"/> as Bootstrap form control (incl. <c>Label</c> etc.)
 	/// </summary>
 	public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFormValueComponent
 	{

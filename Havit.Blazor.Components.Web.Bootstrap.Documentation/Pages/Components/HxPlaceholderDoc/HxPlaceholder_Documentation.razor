@@ -1,11 +1,13 @@
 ﻿@attribute [Route("/components/" + nameof(HxPlaceholder))]
+@attribute [Route("/components/" + nameof(HxPlaceholderContainer))]
+@attribute [Route("/components/" + nameof(HxPlaceholderButton))]
 
 <ComponentApiDoc Type="typeof(HxPlaceholder)">
 	<h3>Example</h3>
 	<Demo Type="typeof(HxPlaceholder_Demo_BasicExample)" Tabs="false" />
 
 	<h3>Width</h3>
-	<p>You can change the width through the <code>Columns</code> parameter.</p>
+	<p>You can change the width through the <code>Columns</code> parameter (+ responsive variants with breakpoints).</p>
 	<Demo Type="typeof(HxPlaceholder_Demo_Width)" Tabs="false" />
 
 	<h3>Color</h3>
@@ -18,3 +20,6 @@
 	<p>Use animations to better convey the perception of something being <i>actively</i> loaded.</p>
 	<Demo Type="typeof(HxPlaceholder_Demo_Animation)" Tabs="false" />
 </ComponentApiDoc>
+
+<ComponentApiDoc Type="typeof(HxPlaceholderContainer)" />
+<ComponentApiDoc Type="typeof(HxPlaceholderButton)" />

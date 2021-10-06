@@ -3,7 +3,9 @@
 <HxMessenger Position="HxToastContainerPosition.MiddleCenter" />
 <HxMessageBoxHost />
 
-<div class="container-xxl d-md-flex min-vh-100">
+@* Add .container-xxl or similar, if you want to limit page width as this documentation does. *@
+<div class="d-md-flex min-vh-100">
+
 	<HxSidebar CssClass="sticky-top">
 		...
 	</HxSidebar>
@@ -11,4 +13,5 @@
 	<div class="main p-4 flex-grow-1 overflow-hidden">
 		@Body
 	</div>
+
 </div>

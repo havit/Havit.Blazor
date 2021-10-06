@@ -2,43 +2,54 @@
 @attribute [Route("/components/" + nameof(HxSubmit))]
 
 <ComponentApiDoc Type="typeof(HxButton)">
-    <h3>Demo</h3>
-    <Demo Type="typeof(HxButton_Demo_Basic)" Tabs="false" />
+	<h3>Demo</h3>
+	<Demo Type="typeof(HxButton_Demo_Basic)" Tabs="false" />
 
-    <p>Several predefined button styles are included, each serving its own semantic purpose, with a few extras thrown in for more control.</p>
-    <Demo Type="typeof(HxButton_Demo_Colors)" />
+	<p>Several predefined button styles are included, each serving its own semantic purpose, with a few extras thrown in for more control.</p>
+	<Demo Type="typeof(HxButton_Demo_Colors)" />
 
-    <h3>Outline buttons</h3>
-    <Demo Type="typeof(HxButton_Demo_Outline)" />
+	<h3>Outline buttons</h3>
+	<p>You can remove the background with <code>Outline="true"</code>:</p>
+	<Demo Type="typeof(HxButton_Demo_Outline)" />
 
-    <h3>Sizes</h3>
-    <Demo Type="typeof(HxButton_Demo_Sizes)" Tabs="false" />
-    <Demo Type="typeof(HxButton_Demo_Sizes_Small)" Tabs="false" />
+	<h3>Sizes</h3>
+	<Demo Type="typeof(HxButton_Demo_Sizes)" Tabs="false" />
+	<Demo Type="typeof(HxButton_Demo_Sizes_Small)" Tabs="false" />
 
-    <h3>Spinners</h3>
-    <Demo Type="typeof(HxButton_Demo_BasicSpinner)" Tabs="false" />
+	<h3>Spinners</h3>
+	<Demo Type="typeof(HxButton_Demo_BasicSpinner)" Tabs="false" />
 
-    <h4>OnValidClick with spinner</h4>
-    <Demo Type="typeof(HxButton_Demo_OnValidClickWithSpinner)" />
-    
-    <h4>Manual Spinner</h4>
-    <Demo Type="typeof(HxButton_Demo_ManualSpinner)" />
+	<h4>OnValidClick with spinner</h4>
+	<Demo Type="typeof(HxButton_Demo_OnValidClickWithSpinner)" />
 
-    <h4>Spinner &amp; Single click protection</h4>
-    <HxAlert Color="ThemeColor.Warning">
-        EditForm's <code>OnSubmit</code> events are not captured for spinner automation. Use HxButton's <code>OnClick</code>, <code>OnValidClick</code> and <code>OnInvalidClick</code> instead.
-    </HxAlert>
-    <HxAlert Color="ThemeColor.Info">
-        If (and only if) there is any of the <code>OnClick</code> handlers set, the single click protection sets the button to <code>disabled</code> during the callback (usually together with the Spinner).
-        It is intentionally not set, if there is no <code>OnClick</code> handler, as there might be an <code>OnSubmit</code> handler of the containing <code>EditForm</code>
-        set which would have been blocked if the button is disabled (see above).
-    </HxAlert>
+	<h4>Manual Spinner</h4>
+	<Demo Type="typeof(HxButton_Demo_ManualSpinner)" />
 
-    <h3>Button with a badge</h3>
-    <Demo Type="typeof(HxButton_Demo_Badge)" Tabs="false" />
+	<h4>Spinner &amp; Single click protection</h4>
+	<HxAlert Color="ThemeColor.Warning">
+		EditForm's <code>OnSubmit</code> events are not captured for spinner automation. Use HxButton's <code>OnClick</code>, <code>OnValidClick</code> and <code>OnInvalidClick</code> instead.
+	</HxAlert>
+	<HxAlert Color="ThemeColor.Info">
+		If (and only if) there is any of the <code>OnClick</code> handlers set, the single click protection sets the button to <code>disabled</code> during the callback (usually together with the Spinner).
+		It is intentionally not set, if there is no <code>OnClick</code> handler, as there might be an <code>OnSubmit</code> handler of the containing <code>EditForm</code>
+		set which would have been blocked if the button is disabled (see above).
+	</HxAlert>
 
-    <h3>Button with a tooltip</h3>
-    <Demo Type="typeof(HxButton_Demo_Tooltip)" Tabs="false" />
+	<h3>Button with a badge</h3>
+	<Demo Type="typeof(HxButton_Demo_Badge)" Tabs="false" />
+
+	<h3>Button with a tooltip</h3>
+	<p>You can use <code>Tooltip</code> parameter to set button's tooltip:</p>
+	<Demo Type="typeof(HxButton_Demo_Tooltip)" Tabs="false" />
+	<h4>Tooltip, wrapper and CSS classes</h4>
+	<HxAlert Color="ThemeColor.Warning">
+		<HxIcon Icon="BootstrapIcon.ExclamationCircle" CssClass="fs-5 me-2" />
+		The <code>&lt;button /&gt;</code> is wrapped with a <code>&lt;span&gt;...&lt;/span&gt;</code> wrapper whenever a <code>Tooltip</code> (or <code>TooltipWrapperCssClass</code>) is set.
+		For most scenarios you will then use <code>TooltipWrapperCssClass</code> for your layout classes no matter there is a chance the tooltip text remains unset (e.g. in dynamic scenarios).
+	</HxAlert>
+	<Demo Type="typeof(HxButton_Demo_TooltipCssClasses)" Tabs="false" />
+
+
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxSubmit)" />
