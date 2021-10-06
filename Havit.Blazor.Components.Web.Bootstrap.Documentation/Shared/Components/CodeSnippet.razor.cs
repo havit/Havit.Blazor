@@ -16,7 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		private string code;
 
-		protected override void OnParametersSet()
+		protected override async Task OnParametersSetAsync()
 		{
 			if (!String.IsNullOrWhiteSpace(File))
 			{
@@ -26,7 +26,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				{
 					using (StreamReader reader = new StreamReader(stream))
 					{
-						code = reader.ReadToEnd();
+						code = await reader.ReadToEndAsync();
 					}
 				}
 			}

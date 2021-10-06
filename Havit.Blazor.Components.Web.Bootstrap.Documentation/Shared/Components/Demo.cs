@@ -20,20 +20,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		private bool showingDemo = true;
+		private string code;
 
-		protected override void BuildRenderTree(RenderTreeBuilder builder)
+		protected override async Task OnParametersSetAsync()
 		{
-			var resourceName = Type.FullName + ".razor";
-			string code;
-
-			using (Stream stream = Type.Assembly.GetManifestResourceStream(resourceName))
+			if (code is null)
 			{
-				using (StreamReader reader = new StreamReader(stream))
+				var resourceName = Type.FullName + ".razor";
+
+				using (Stream stream = Type.Assembly.GetManifestResourceStream(resourceName))
 				{
-					code = reader.ReadToEnd();
+					using (StreamReader reader = new StreamReader(stream))
+					{
+						code = await reader.ReadToEndAsync();
+					}
 				}
 			}
 
+		}
+
+		protected override void BuildRenderTree(RenderTreeBuilder builder)
+		{
 			// no base call
 			builder.AddMarkupContent(0, "<!--googleoff: index-->"); // source: https://perishablepress.com/tell-google-to-not-index-certain-parts-of-your-page/
 
