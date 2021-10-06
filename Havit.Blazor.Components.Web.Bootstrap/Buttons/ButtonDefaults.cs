@@ -28,7 +28,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public IconBase Icon { get; set; }
 
 		/// <summary>
-		/// Bootstrap button color (style).
+		/// Bootstrap button color (style). Default is <see cref="ThemeColor.None"/>.
 		/// </summary>
 		public ThemeColor? Color { get; set; } = ThemeColor.None;
 
