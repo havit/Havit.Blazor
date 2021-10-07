@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxOffcanvas : IAsyncDisposable
 	{
 		/// <summary>
-		/// Application-wide defaults for the <see cref="HxGrid{TItem}"/>.
+		/// Application-wide defaults for the <see cref="HxOffcanvas"/>.
 		/// </summary>
 		public static OffcanvasDefaults Defaults { get; } = new OffcanvasDefaults();
 
