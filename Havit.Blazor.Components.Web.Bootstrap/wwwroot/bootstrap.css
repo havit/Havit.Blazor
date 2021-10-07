@@ -86,7 +86,7 @@ body {
 
 hr {
   margin: 1rem 0;
-  color: #dee2e6;
+  color: #e9ecef;
   background-color: currentColor;
   border: 0;
   opacity: 1;
@@ -5547,7 +5547,7 @@ textarea.form-control-lg {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1rem;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid #e9ecef;
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px);
 }
@@ -6825,7 +6825,7 @@ textarea.form-control-lg {
 }
 
 .border {
-  border: 1px solid #dee2e6 !important;
+  border: 1px solid #e9ecef !important;
 }
 
 .border-0 {
@@ -6833,7 +6833,7 @@ textarea.form-control-lg {
 }
 
 .border-top {
-  border-top: 1px solid #dee2e6 !important;
+  border-top: 1px solid #e9ecef !important;
 }
 
 .border-top-0 {
@@ -6841,7 +6841,7 @@ textarea.form-control-lg {
 }
 
 .border-end {
-  border-right: 1px solid #dee2e6 !important;
+  border-right: 1px solid #e9ecef !important;
 }
 
 .border-end-0 {
@@ -6849,7 +6849,7 @@ textarea.form-control-lg {
 }
 
 .border-bottom {
-  border-bottom: 1px solid #dee2e6 !important;
+  border-bottom: 1px solid #e9ecef !important;
 }
 
 .border-bottom-0 {
@@ -6857,7 +6857,7 @@ textarea.form-control-lg {
 }
 
 .border-start {
-  border-left: 1px solid #dee2e6 !important;
+  border-left: 1px solid #e9ecef !important;
 }
 
 .border-start-0 {

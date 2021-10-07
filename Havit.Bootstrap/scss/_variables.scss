@@ -15,6 +15,7 @@ $theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
 
 $min-contrast-ratio:  3;
 $body-bg:             $gray-100;
+$border-color:        $gray-200;
 
 $nav-tabs-border-color:               rgba($black, .0875);
 $nav-tabs-link-active-border-color:   $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-link-active-bg;
@@ -27,7 +28,7 @@ $table-active-bg-factor:        .05;
 $table-active-bg:               rgba($black, $table-active-bg-factor);
 $table-hover-bg-factor:         .025;
 $table-hover-bg:                rgba($black, $table-hover-bg-factor);
-$table-border-color:            $gray-200;
+$table-border-color:            $border-color;
 $table-group-separator-color:   $table-border-color;
 $table-th-font-weight:          500;
 
@@ -46,7 +47,8 @@ $input-border-color:              $gray-300;
 $input-group-addon-border-color:  $input-border-color;
 $form-select-border-color:        $gray-300;
 
-$modal-backdrop-opacity: .25;
+$modal-backdrop-opacity:      .25;
+$modal-header-border-color:   $border-color;
 
 $offcanvas-horizontal-width:  500px;
 $offcanvas-border-width:      0;
