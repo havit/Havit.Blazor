@@ -1,7 +1,17 @@
 ﻿@attribute [Route("/components/" + nameof(HxContextMenu))]
 
 <ComponentApiDoc Type="typeof(HxContextMenu)">
-    <Demo Type="typeof(HxContextMenu_Demo)" Tabs="false" />
+    <MainContent>
+        <Demo Type="typeof(HxContextMenu_Demo)" Tabs="false" />
+    </MainContent>
+    <CssVariables>
+        <ComponentApiDocCssVariable Name="--hx-context-menu-button-border-radius" Default=".2rem">
+            Border radius.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-context-menu-button-hover-background" Default="var(--bs-gray-300)">
+            Background of the context menu button on hover.
+        </ComponentApiDocCssVariable>
+    </CssVariables>
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxContextMenuItem)" />
