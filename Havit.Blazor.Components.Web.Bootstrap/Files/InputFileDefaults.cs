@@ -8,7 +8,7 @@ using Havit.Blazor.Components.Web.Bootstrap.Internal;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Application-wide defaults for the <see cref="HxInputFile"/>.
+	/// Defaults for the <see cref="HxInputFile"/>.
 	/// </summary>
 	public class InputFileDefaults : IInputDefaultsWithSize
 	{

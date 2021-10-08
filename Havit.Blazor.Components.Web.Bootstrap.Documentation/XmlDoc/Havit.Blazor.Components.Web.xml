@@ -132,6 +132,11 @@
             Raw component extending <see cref="T:Microsoft.AspNetCore.Components.Forms.InputFile"/> with direct upload.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.UploadUrl">
             <summary>
             URL of the server endpoint receiving the files.
@@ -167,7 +172,7 @@
             <summary>
             The maximum files size in bytes.
             When exceeded, the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.
-            Default is <c>null</c> (unlimited).
+            Default is <c>long.MaxValue</c> (unlimited).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Id">
@@ -178,6 +183,13 @@
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.FileCount">
             <summary>
             Last known count of associated files.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.GetDefaults">
+            <summary>
+            Returns <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.StartUploadAsync(System.String)">
@@ -218,6 +230,18 @@
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.HandleUploadCompleted(System.Int32,System.Int64)">
             <summary>
             Receive upload finished notification from underlying javascript.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.InputFileCoreDefaults">
+            <summary>
+            Defaults for the <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.InputFileCoreDefaults.MaxFileSize">
+            <summary>
+            The maximum files size in bytes.
+            When exceeded, the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.
+            Default is <c>long.MaxValue</c> (unlimited).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.UploadCompletedEventArgs">

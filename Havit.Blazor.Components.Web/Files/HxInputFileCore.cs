@@ -19,6 +19,11 @@ namespace Havit.Blazor.Components.Web
 	public class HxInputFileCore : InputFile, IAsyncDisposable
 	{
 		/// <summary>
+		/// Application-wide defaults for the <see cref="HxInputFileCore"/>.
+		/// </summary>
+		public static InputFileCoreDefaults Defaults { get; } = new();
+
+		/// <summary>
 		/// URL of the server endpoint receiving the files.
 		/// </summary>
 		[Parameter] public string UploadUrl { get; set; }
@@ -52,7 +57,7 @@ namespace Havit.Blazor.Components.Web
 		/// <summary>
 		/// The maximum files size in bytes.
 		/// When exceeded, the <see cref="OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="FileUploadedEventArgs.ResponseStatus"/>.
-		/// Default is <c>null</c> (unlimited).
+		/// Default is <c>long.MaxValue</c> (unlimited).
 		/// </summary>
 		[Parameter] public long? MaxFileSize { get; set; }
 
@@ -72,6 +77,15 @@ namespace Havit.Blazor.Components.Web
 		private IJSObjectReference jsModule;
 		private TaskCompletionSource<UploadCompletedEventArgs> uploadCompletedTaskCompletionSource;
 		private ConcurrentBag<FileUploadedEventArgs> filesUploaded;
+
+		/// <summary>
+		/// Returns <see cref="HxInputFileCore"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual InputFileCoreDefaults GetDefaults() => Defaults;
+
+		protected long? MaxFileSizeEffective => MaxFileSize ?? Defaults.MaxFileSize;
 
 		public HxInputFileCore()
 		{
@@ -104,7 +118,7 @@ namespace Havit.Blazor.Components.Web
 			await EnsureJsModuleAsync();
 			filesUploaded = new ConcurrentBag<FileUploadedEventArgs>();
 
-			await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, this.UploadUrl, accessToken, this.MaxFileSize);
+			await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, UploadUrl, accessToken, MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective);
 		}
 
 		/// <summary>

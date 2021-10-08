@@ -20,7 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputFile"/>.
 		/// </summary>
-		public static InputFileDefaults Defaults { get; } = new InputFileDefaults();
+		public static InputFileDefaults Defaults { get; } = new();
 
 		/// <summary>
 		/// URL of the server endpoint receiving the files.
