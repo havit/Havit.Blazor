@@ -1,0 +1,16 @@
+﻿<HxChipList Chips="@chips" />
+
+@code
+{
+    private ChipItem[] chips =
+    {
+        new(){ChipTemplate = GetRenderFragment("one")},
+        new(){ChipTemplate = GetRenderFragment("two")},
+        new(){ChipTemplate = GetRenderFragment("three")}
+    };
+
+    private static RenderFragment GetRenderFragment(string text) => builder =>
+    {
+        builder.AddContent(1, text);
+    };
+}

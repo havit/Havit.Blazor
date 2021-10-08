@@ -48,7 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Localization", "Localizatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.GoogleTagManager", "Havit.Blazor.GoogleTagManager\Havit.Blazor.GoogleTagManager.csproj", "{D05D6A1D-9D0E-4B0B-8A13-7A9DE32D6A3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.Components.Web.Bootstrap.Documentation.Tests", "Havit.Blazor.Components.Web.Bootstrap.Documentation.Tests\Havit.Blazor.Components.Web.Bootstrap.Documentation.Tests.csproj", "{53DE26D4-4393-4BAC-B6BF-8BD02EF02EB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap.Documentation.Tests", "Havit.Blazor.Components.Web.Bootstrap.Documentation.Tests\Havit.Blazor.Components.Web.Bootstrap.Documentation.Tests.csproj", "{53DE26D4-4393-4BAC-B6BF-8BD02EF02EB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
