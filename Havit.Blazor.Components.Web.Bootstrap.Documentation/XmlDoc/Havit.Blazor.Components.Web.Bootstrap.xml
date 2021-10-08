@@ -1499,6 +1499,11 @@
             Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as Bootstrap form control (incl. <c>Label</c> etc.)
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.UploadUrl">
             <summary>
             URL of the server endpoint receiving the files.
@@ -1572,6 +1577,11 @@
             Custom CSS class to render with the label.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InputSize">
+            <summary>
+            Size of the input.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InputCssClass">
             <summary>
             Custom CSS class to render with the input element.
@@ -1622,6 +1632,13 @@
             Uploads the file(s).
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.GetDefaults">
+            <summary>
+            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone">
             <summary>
@@ -1711,6 +1728,16 @@
             Uploads the file(s).
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputFileDefaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputFileDefaults.InputSize">
+            <summary>
+            Input size.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1">
             <summary>

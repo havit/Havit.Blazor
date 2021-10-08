@@ -15,8 +15,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Wraps <see cref="HxInputFileCore"/> as Bootstrap form control (incl. <c>Label</c> etc.)
 	/// </summary>
-	public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFormValueComponent
+	public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFormValueComponent, IInputWithSize
 	{
+		/// <summary>
+		/// Application-wide defaults for the <see cref="HxInputFile"/>.
+		/// </summary>
+		public static InputFileDefaults Defaults { get; } = new InputFileDefaults();
+
 		/// <summary>
 		/// URL of the server endpoint receiving the files.
 		/// </summary>
@@ -93,6 +98,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		#endregion
 
 		/// <summary>
+		/// Size of the input.
+		/// </summary>
+		[Parameter] public InputSize? InputSize { get; set; }
+
+		/// <summary>
 		/// Custom CSS class to render with the input element.
 		/// </summary>
 		[Parameter] public string InputCssClass { get; set; }
@@ -151,6 +161,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 		public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null) => hxInputFileCoreComponentReference?.UploadAsync(accessToken);
 
+		/// <summary>
+		/// Returns <see cref="HxInputFile"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual InputFileDefaults GetDefaults() => Defaults;
+		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			builder.OpenRegion(0);
@@ -172,8 +190,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1007, nameof(HxInputFileCore.OnUploadCompleted), this.OnUploadCompleted);
 			builder.AddAttribute(1007, nameof(HxInputFileCore.Accept), this.Accept);
 			builder.AddAttribute(1007, nameof(HxInputFileCore.MaxFileSize), this.MaxFileSize);
-			builder.AddAttribute(1008, "class", CssClassHelper.Combine(this.CoreInputCssClass, this.InputCssClass));
-			builder.AddAttribute(1009, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
+			builder.AddAttribute(1009, "class", CssClassHelper.Combine(this.CoreInputCssClass, this.InputCssClass, (this is IInputWithSize inputWithSize) ? inputWithSize.GetInputSizeCssClass() : null));
+			builder.AddAttribute(1010, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
 			builder.AddComponentReferenceCapture(1010, r => hxInputFileCoreComponentReference = (HxInputFileCore)r);
 			builder.CloseComponent();
 		}
