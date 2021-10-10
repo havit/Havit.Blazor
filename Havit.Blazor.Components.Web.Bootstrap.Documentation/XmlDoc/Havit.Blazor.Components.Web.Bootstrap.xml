@@ -1150,6 +1150,22 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxChipGenerator.OnInitialized">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized" />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxChipList">
+            <summary>
+            Presents a list of chips as badges.<br/>
+            Usualy being used to present filter-criteria gathered by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.Chips">
+            <summary>
+            Chips to be presented.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.OnChipRemoveClick">
+            <summary>
+            Called when chip remove button is clicked.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.IHxChipGenerator">
             <summary>
             Used in a component which can generate chips.
