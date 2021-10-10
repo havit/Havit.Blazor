@@ -85,7 +85,7 @@ namespace Havit.Blazor.Components.Web
 		/// </summary>
 		protected virtual InputFileCoreDefaults GetDefaults() => Defaults;
 
-		protected long? MaxFileSizeEffective => MaxFileSize ?? Defaults.MaxFileSize;
+		protected long? MaxFileSizeEffective => MaxFileSize ?? GetDefaults().MaxFileSize;
 
 		public HxInputFileCore()
 		{
