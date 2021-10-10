@@ -2014,6 +2014,11 @@
             Throws NotSupportedException - giving focus to an input element is not supported on the HxCheckboxList.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxFormValue">
+            <summary>
+            Displays a read-only value in the form control visual (as <c>.form-control</c>, with label, border, etc.).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.CssClass">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.CssClass" />
         </member>
@@ -2031,6 +2036,11 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.HintTemplate">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.HintTemplate" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.Value">
+            <summary>
+            Value to be presented.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.ValueTemplate">
             <summary>

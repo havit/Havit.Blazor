@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// Displays a read-only value in the form control visual (as <c>.form-control</c>, with label, border, etc.).
+	/// </summary>
 	public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueComponentWithInputGroups
 	{
-		#region IFormValueComponent properties
 		/// <inheritdoc cref="IFormValueComponent.CssClass" />
 		[Parameter] public string CssClass { get; set; }
 
@@ -29,7 +31,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <inheritdoc cref="IFormValueComponent.HintTemplate" />
 		[Parameter] public RenderFragment HintTemplate { get; set; }
-		#endregion
+
+		/// <summary>
+		/// Value to be presented.
+		/// </summary>
+		[Parameter] public string Value { get; set; }
 
 		/// <summary>
 		/// Template to render value.
@@ -68,7 +74,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			builder.OpenElement(0, "div");
 			builder.AddAttribute(1, "class", CssClassHelper.Combine("form-control", ValueCssClass));
-			builder.AddContent(2, ValueTemplate);
+			builder.AddContent(2, Value);
+			builder.AddContent(3, ValueTemplate);
 			builder.CloseElement();
 		}
 	}
