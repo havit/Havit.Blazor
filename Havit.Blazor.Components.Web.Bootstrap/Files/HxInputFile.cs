@@ -188,11 +188,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1005, nameof(HxInputFileCore.OnProgress), this.OnProgress);
 			builder.AddAttribute(1006, nameof(HxInputFileCore.OnFileUploaded), this.OnFileUploaded);
 			builder.AddAttribute(1007, nameof(HxInputFileCore.OnUploadCompleted), this.OnUploadCompleted);
-			builder.AddAttribute(1007, nameof(HxInputFileCore.Accept), this.Accept);
-			builder.AddAttribute(1007, nameof(HxInputFileCore.MaxFileSize), this.MaxFileSize);
-			builder.AddAttribute(1009, "class", CssClassHelper.Combine(this.CoreInputCssClass, this.InputCssClass, (this is IInputWithSize inputWithSize) ? inputWithSize.GetInputSizeCssClass() : null));
-			builder.AddAttribute(1010, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
-			builder.AddComponentReferenceCapture(1010, r => hxInputFileCoreComponentReference = (HxInputFileCore)r);
+			builder.AddAttribute(1008, nameof(HxInputFileCore.Accept), this.Accept);
+			builder.AddAttribute(1009, nameof(HxInputFileCore.MaxFileSize), this.MaxFileSize);
+			builder.AddAttribute(1010, "class", CssClassHelper.Combine(this.CoreInputCssClass, this.InputCssClass, (this is IInputWithSize inputWithSize) ? inputWithSize.GetInputSizeCssClass() : null));
+			builder.AddAttribute(1011, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
+			builder.AddComponentReferenceCapture(1012, r => hxInputFileCoreComponentReference = (HxInputFileCore)r);
 			builder.CloseComponent();
 		}
 	}
