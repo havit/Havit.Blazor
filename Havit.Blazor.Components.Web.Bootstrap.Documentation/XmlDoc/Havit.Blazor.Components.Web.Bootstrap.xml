@@ -2888,7 +2888,9 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1">
             <summary>
-            Displays a list of validation messages for a specified field within a cascaded <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.EditContext"/>.
+            Displays a list of validation messages for a specified field within a cascaded <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.EditContext"/>.<br />
+            Reimplementation of <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessage`1"/> as <see href="">Bootstrap 5 validation</see> (using <c>.invalid-tooltip</c>).<br/>
+            Used by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1"/> and derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.CascadingEditContext">
