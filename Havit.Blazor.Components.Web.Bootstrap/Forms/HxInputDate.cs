@@ -62,12 +62,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? ShowCalendarButtons { get; set; }
 
 		/// <summary>
-		/// Minimal value to choose from calendar.
+		/// First date selectable from the dropdown calendar.<br />
+		/// Default is <c>1.1.1900</c> (configurable from <see cref="HxInputDate.Defaults"/>).
 		/// </summary>
 		[Parameter] public DateTime? MinDate { get; set; }
 
 		/// <summary>
-		/// Maximal value to choose from calendar.
+		/// Last date selectable from the dropdown calendar.<br />
+		/// Default is <c>31.12.2099</c> (configurable from <see cref="HxInputDate.Defaults"/>).
 		/// </summary>
 		[Parameter] public DateTime? MaxDate { get; set; }
 

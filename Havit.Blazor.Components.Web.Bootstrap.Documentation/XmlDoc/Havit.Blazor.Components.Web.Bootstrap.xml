@@ -844,12 +844,14 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.MinDate">
             <summary>
-            Minimal value to choose from calendar.
+            First date selectable from the calendar.<br/>
+            Default is <c>1.1.1900</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.MaxDate">
             <summary>
-            Maximal value to choose from calendar.
+            Last date selectable from the calendar.<br />
+            Default is <c>31.12.2099</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.Defaults"/>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.GetDefaults">
@@ -2407,12 +2409,14 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.MinDate">
             <summary>
-            Minimal value to choose from calendar.
+            First date selectable from the dropdown calendar.<br />
+            Default is <c>1.1.1900</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.MaxDate">
             <summary>
-            Maximal value to choose from calendar.
+            Last date selectable from the dropdown calendar.<br />
+            Default is <c>31.12.2099</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetDefaults">
@@ -2484,12 +2488,14 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.MinDate">
             <summary>
-            Minimal value to choose from calendar.
+            First date selectable from the dropdown calendar.<br />
+            Default is <c>1.1.1900</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.MaxDate">
             <summary>
-            Maximal value to choose from calendar.
+            Last date selectable from the dropdown calendar.<br />
+            Default is <c>31.12.2099</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetDefaults">
@@ -3010,12 +3016,14 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.MinDate">
             <summary>
-            Minimal value to choose from calendar.
+            First date selectable from the dropdown calendar.
+            Default is <c>1.1.1900</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.MaxDate">
             <summary>
-            Maximal value to choose from calendar.
+            Last date selectable from the dropdown calendar.
+            Default is <c>31.12.2099</c>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults">
@@ -3036,12 +3044,14 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults.MinDate">
             <summary>
-            Minimal value to choose from calendar.
+            First date selectable from the dropdown calendar.
+            Default is <c>1.1.1900</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults.MaxDate">
             <summary>
-            Maximal value to choose from calendar.
+            Last date selectable from the dropdown calendar.
+            Default is <c>31.12.2099</c>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputNumberDefaults">
