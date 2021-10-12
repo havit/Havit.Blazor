@@ -36,6 +36,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public DateTime MaxDateEffective { get; set; }
 
+		[Parameter] public CalendarCustomizationProviderDelegate CalendarCustomizationProviderEffective { get; set; }
+
 		[Inject] protected IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
@@ -105,6 +107,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			bool toValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(toFieldIdentifier).Any();
 			await jsModule.InvokeVoidAsync(fromValid ? "setInputValid" : "setInputInvalid", fromInputElement);
 			await jsModule.InvokeVoidAsync(toValid ? "setInputValid" : "setInputInvalid", toInputElement);
+		}
+
+		private CalendarCustomizationResult GetCalendarCustomizationFrom(CalendarCustomizationRequest request)
+		{
+			return CalendarCustomizationProviderEffective?.Invoke(request with { Target = CalendarCustomizationTarget.InputDateRangeFrom }) ?? null;
+		}
+
+		private CalendarCustomizationResult GetCalendarCustomizationTo(CalendarCustomizationRequest request)
+		{
+			return CalendarCustomizationProviderEffective?.Invoke(request with { Target = CalendarCustomizationTarget.InputDateRangeTo }) ?? null;
 		}
 
 		protected async Task HandleFromChangedAsync(ChangeEventArgs changeEventArgs)

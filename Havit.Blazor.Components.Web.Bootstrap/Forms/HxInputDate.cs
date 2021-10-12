@@ -73,6 +73,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public DateTime? MaxDate { get; set; }
 
+		/// <summary>
+		/// Customizes date selection in calendar.
+		/// </summary>
+		[Parameter] public CalendarCustomizationProviderDelegate CalendarCustomizationProvider { get; set; }
+
 		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
 		/// <summary>
@@ -118,6 +123,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(208, nameof(HxInputDateInternal<TValue>.ShowCalendarButtons), ShowCalendarButtons ?? defaults.ShowCalendarButtons);
 			builder.AddAttribute(209, nameof(HxInputDateInternal<TValue>.MinDateEffective), MinDate ?? defaults.MinDate);
 			builder.AddAttribute(210, nameof(HxInputDateInternal<TValue>.MaxDateEffective), MaxDate ?? defaults.MaxDate);
+			builder.AddAttribute(210, nameof(HxInputDateInternal<TValue>.CalendarCustomizationProviderEffective), CalendarCustomizationProvider ?? defaults.CalendarCustomizationProvider);
 
 			builder.CloseComponent();
 		}

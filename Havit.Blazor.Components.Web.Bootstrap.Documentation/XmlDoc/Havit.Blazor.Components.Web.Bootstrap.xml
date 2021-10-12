@@ -792,6 +792,69 @@
             Any additional CSS class to apply.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CalendarCustomizationProviderDelegate">
+            <summary>
+            Calendar display customization provider.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CalendarCustomizationRequest">
+            <summary>
+            Calendar display customization request.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarCustomizationRequest.Target">
+            <summary>
+            Who is asking for a customization.
+            Useful for distinquishing From and To inputs in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarCustomizationRequest.Date">
+            <summary>
+            Customized date.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CalendarCustomizationResult">
+            <summary>
+            Calendar display customization result.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarCustomizationResult.Enabled">
+            <summary>
+            Indicates whether the date is enabled.
+            Default value is true.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarCustomizationResult.CssClass">
+            <summary>
+            Specifies css class for the date date.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CalendarCustomizationTarget">
+            <summary>
+            Calendar display customization target.
+            Useful for distinquishing From and To inputs in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarCustomizationTarget.Calendar">
+            <summary>
+            Customization is for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarCustomizationTarget.InputDate">
+            <summary>
+            Customization is for a calendar in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarCustomizationTarget.InputDateRangeFrom">
+            <summary>
+            Customization is for a calendar for From in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarCustomizationTarget.InputDateRangeTo">
+            <summary>
+            Customization is for a calendar for To in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange" />.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CalendarDefaults">
             <summary>
             Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar"/>.
@@ -852,6 +915,11 @@
             <summary>
             Last date selectable from the calendar.<br />
             Default is <c>31.12.2099</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.Defaults"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.CustomizationProvider">
+            <summary>
+            Customizes date selection in calendar.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.GetDefaults">
@@ -2419,6 +2487,11 @@
             Default is <c>31.12.2099</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.CalendarCustomizationProvider">
+            <summary>
+            Customizes date selection in calendar.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetDefaults">
             <summary>
             Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> defaults.
@@ -2496,6 +2569,11 @@
             <summary>
             Last date selectable from the dropdown calendar.<br />
             Default is <c>31.12.2099</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.CalendarCustomizationProvider">
+            <summary>
+            Customizes date selection in calendar.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetDefaults">
@@ -3026,6 +3104,11 @@
             Default is <c>31.12.2099</c>
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.CalendarCustomizationProvider">
+            <summary>
+            Customizes date selection in calendar.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults">
             <summary>
             Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> and derived components.
@@ -3052,6 +3135,11 @@
             <summary>
             Last date selectable from the dropdown calendar.
             Default is <c>31.12.2099</c>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults.CalendarCustomizationProvider">
+            <summary>
+            Customizes date selection in calendar.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputNumberDefaults">

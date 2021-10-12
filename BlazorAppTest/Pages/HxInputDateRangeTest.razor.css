@@ -1,0 +1,6 @@
+﻿::deep .green {
+	color: lightgreen;
+}
+::deep .red {
+	color: red;
+}

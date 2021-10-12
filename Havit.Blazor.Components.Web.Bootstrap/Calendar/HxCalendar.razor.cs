@@ -47,6 +47,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public DateTime? MaxDate { get; set; }
 
+		/// <summary>
+		/// Customizes date selection in calendar.
+		/// </summary>
+		[Parameter] public CalendarCustomizationProviderDelegate CustomizationProvider { get; set; }
+
 		private DateTime MinDateEffective => MinDate ?? GetDefaults().MinDate;
 		private DateTime MaxDateEffective => MaxDate ?? GetDefaults().MaxDate;
 
@@ -79,6 +84,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		private RenderData renderData;
+		private Dictionary<DateTime, CalendarCustomizationResult> customizations;
 
 		protected override async Task OnParametersSetAsync()
 		{
@@ -138,14 +144,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				for (int day = 0; day < 7; day++)
 				{
+					CalendarCustomizationResult customization = GetCustomization(currentDay);
+
 					bool clickEnabled = (currentDay >= minDateEffective) // can click only days starting MinDate
-							&& (currentDay <= maxDateEffective); // can click only days ending MaxDate
+							&& (currentDay <= maxDateEffective) && (customization?.Enabled ?? true); // can click only days ending MaxDate
 					string cssClass = CssClassHelper.Combine(
 						clickEnabled ? "active" : "disabled",
 						(currentDay == valueDay) ? "selected" : null,  // currently selected day has "selected" class
 						((currentDay.Month == DisplayMonth.Month) && (currentDay.Year == DisplayMonth.Year)) ? "in" : "out",
 						(currentDay == today) ? "today" : null,
-						((currentDay.DayOfWeek == DayOfWeek.Saturday) || (currentDay.DayOfWeek == DayOfWeek.Sunday)) ? "weekend" : null
+						((currentDay.DayOfWeek == DayOfWeek.Saturday) || (currentDay.DayOfWeek == DayOfWeek.Sunday)) ? "weekend" : null,
+						customization?.CssClass
 					);
 
 					DayData dayData = new DayData
@@ -163,6 +172,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			renderData.PreviousMonthEnabled = minDateEffective < DisplayMonth; // DisplayMonth is always the first fay of month
 			renderData.NextMonthEnabled = maxDateEffective > new DateTime(DisplayMonth.Year, DisplayMonth.Month, DateTime.DaysInMonth(DisplayMonth.Year, DisplayMonth.Month));
+		}
+
+		private CalendarCustomizationResult GetCustomization(DateTime day)
+		{
+			if (CustomizationProvider == null)
+			{
+				return null;
+			}
+
+			customizations ??= new Dictionary<DateTime, CalendarCustomizationResult>();
+
+			if (customizations.TryGetValue(day, out CalendarCustomizationResult result))
+			{
+				return result;
+			}
+
+			result = CustomizationProvider.Invoke(new CalendarCustomizationRequest
+			{
+				Target = CalendarCustomizationTarget.Calendar,
+				Date = day
+			});
+			customizations.Add(day, result);
+			return result;
 		}
 
 		private async Task SetDisplayMonthAsync(DateTime newDisplayMonth)

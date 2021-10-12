@@ -16,7 +16,7 @@
 		{
 			<div class="dropdown-menu p-3">
 				<div class="mb-2">
-					<HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective"/>
+					<HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" CustomizationProvider="GetCalendarCustomization" />
 				</div>
 				@if (ShowCalendarButtons)
 				{

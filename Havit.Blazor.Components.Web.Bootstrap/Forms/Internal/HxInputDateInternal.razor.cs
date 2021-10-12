@@ -37,6 +37,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public DateTime MaxDateEffective { get; set; }
 
+		[Parameter] public CalendarCustomizationProviderDelegate CalendarCustomizationProviderEffective { get; set; }
+
 		[Inject] internal IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
@@ -113,6 +115,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxInputDateRange) + ".js");
 		}
 
+		private CalendarCustomizationResult GetCalendarCustomization(CalendarCustomizationRequest request)
+		{
+			return CalendarCustomizationProviderEffective?.Invoke(request with { Target = CalendarCustomizationTarget.InputDate }) ?? null;
+		}
 		private async Task HandleClearClickAsync()
 		{
 			CurrentValue = default;

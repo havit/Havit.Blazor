@@ -30,5 +30,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is <c>31.12.2099</c>
 		/// </summary>
 		public DateTime MaxDate { get; set; } = CalendarDefaults.DefaultMaxDate;
+
+		/// <summary>
+		/// Customizes date selection in calendar.
+		/// </summary>
+		public CalendarCustomizationProviderDelegate CalendarCustomizationProvider { get; set; } = (request) => null;
 	}
 }
