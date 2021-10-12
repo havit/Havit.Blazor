@@ -5,27 +5,27 @@
 	/* HxAutosuggest */
 	--hx-autosuggest-input-close-icon-opacity: .25;
 	/* HxSidebar */
-	--hx-sidebar-link-hover: #f2f9ff;
-	--hx-sidebar-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* shadow-sm */
-	--hx-sidebar-background-color: white;
-	--hx-sidebar-border: 1px solid var(--bs-gray-200);
-	--hx-sidebar-collapsed-width: 72px;
-	--hx-sidebar-width: 250px;
-	--hx-sidebar-toggler-border: 1px solid #dee2e6;
-	--hx-sidebar-toggler-background: #ffffff;
-	--hx-sidebar-item-font-size: 1rem;
-	--hx-sidebar-item-padding: .75rem;
-	--hx-sidebar-item-color: var(--bs-dark);
-	--hx-sidebar-item-hover-color: var(--bs-primary);
-	--hx-sidebar-item-icon-color: var(--bs-primary);
-	--hx-sidebar-item-border-radius: .5rem;
-	--hx-sidebar-item-margin: 0 0 .25rem 0;
-	--hx-sidebar-subitem-font-size: .875rem;
-	--hx-sidebar-subitem-padding: .5rem;
-	--hx-sidebar-subitem-margin: 0 0 .25rem 2.25rem;
-	--hx-sidebar-header-padding: 1rem;
-	--hx-sidebar-body-padding: 0 1rem;
-	--hx-sidebar-footer-padding: 1rem;
+	--hx-sidebar-link-hover: 				#f2f9ff;
+	--hx-sidebar-box-shadow: 				0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* shadow-sm */
+	--hx-sidebar-background-color: 			white;
+	--hx-sidebar-border: 					1px solid var(--bs-gray-200);
+	--hx-sidebar-collapsed-width: 			72px;
+	--hx-sidebar-width: 					250px;
+	--hx-sidebar-toggler-border: 			1px solid #dee2e6;
+	--hx-sidebar-toggler-background: 		#ffffff;
+	--hx-sidebar-item-font-size: 			1rem;
+	--hx-sidebar-item-padding: 				.75rem;
+	--hx-sidebar-item-color: 				var(--bs-dark);
+	--hx-sidebar-item-hover-color: 			var(--bs-primary);
+	--hx-sidebar-item-icon-color: 			var(--bs-primary);
+	--hx-sidebar-item-border-radius: 		.5rem;
+	--hx-sidebar-item-margin: 				0 0 .25rem 0;
+	--hx-sidebar-subitem-font-size: 		.875rem;
+	--hx-sidebar-subitem-padding: 			.5rem;
+	--hx-sidebar-subitem-margin: 			0 0 .25rem 2.25rem;
+	--hx-sidebar-header-padding: 			1rem;
+	--hx-sidebar-body-padding: 				0 1rem;
+	--hx-sidebar-footer-padding: 			1rem;
 	/* HxProgressOverlay */
 	--hx-progress-overlay-color: white;
 	--hx-progress-overlay-opacity: .65;
@@ -34,60 +34,61 @@
 	/* HxChipList */
 	--hx-chiplist-chip-margin: 0.75rem 0.25rem .375rem 0;
 	/* HxContextMenu */
-	--hx-context-menu-button-border-radius: .325rem;
-	--hx-context-menu-button-hover-background: var(--bs-gray-300);
+	--hx-context-menu-button-border-radius: 	.325rem;
+	--hx-context-menu-button-hover-background: 	var(--bs-gray-300);
 	/* HxGrid */
-	--hx-grid-button-hover-background: var(--bs-gray-300);
-	--hx-grid-button-border-radius: .2rem;
-	--hx-pager-margin: 1rem;
+	--hx-grid-button-hover-background: 		var(--bs-gray-300);
+	--hx-grid-button-border-radius: 		.2rem;
+	--hx-pager-margin: 						1rem;
 	/* HxInputFileDropZone */
-	--hx-input-file-drop-zone-border-width: 1px;
-	--hx-input-file-drop-zone-box-shadow: none;
-	--hx-input-file-drop-zone-hover-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-	--hx-input-file-drop-zone-border-color: var(--bs-gray-400);
-	--hx-input-file-drop-zone-background-color: transparent;
-	--hx-input-file-drop-zone-hover-background-color: #f2f9ff;
-	--hx-input-file-drop-zone-hover-border-color: var(--bs-primary);
-	--hx-input-file-drop-zone-border-radius: .3rem; /* border-radius-lg */
-	--hx-input-file-drop-zone-margin: 0;
-	--hx-input-file-drop-zone-padding: 3rem;
+	--hx-input-file-drop-zone-border-width: 				1px;
+	--hx-input-file-drop-zone-box-shadow: 					none;
+	--hx-input-file-drop-zone-hover-box-shadow: 			0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+	--hx-input-file-drop-zone-border-color: 				var(--bs-gray-400);
+	--hx-input-file-drop-zone-background-color: 			transparent;
+	--hx-input-file-drop-zone-hover-background-color: 		#f2f9ff;
+	--hx-input-file-drop-zone-hover-border-color: 			var(--bs-primary);
+	--hx-input-file-drop-zone-border-radius: 				.3rem; /* border-radius-lg */
+	--hx-input-file-drop-zone-margin: 						0;
+	--hx-input-file-drop-zone-padding: 						3rem;
 	/* HxCalendar */
-	--hx-calendar-day-hover-background: var(--bs-gray-300);
-	--hx-calendar-day-hover-border: 1px solid var(--hx-calendar-day-hover-background);
-	--hx-calendar-day-selected-background: var(--bs-primary);
-	--hx-calendar-day-selected-color: white;
-	--hx-calendar-day-selected-border: 1px solid var(--bs-primary);
-	--hx-calendar-day-out-color: var(--bs-gray-500);
-	--hx-calendar-day-in-color: unset;
-	--hx-calendar-day-names-color: unset;
-	--hx-calendar-day-names-font-weight: 700;
-	--hx-calendar-day-today-border: 1px solid #f2f9ff;
-	--hx-calendar-day-today-background: #f2f9ff;
-	--hx-calendar-day-today-color: var(--bs-primary);
-	--hx-calendar-day-border-radius: 50%;
-	--hx-calendar-day-padding: .375rem .5rem;
-	--hx-calendar-day-width: 2.25rem;
-	--hx-calendar-day-height: 2.25rem;
-	--hx-calendar-day-spacing: .125rem .25rem;
-	--hx-calendar-font-size: .875rem;
+	--hx-calendar-day-hover-background: 				var(--bs-gray-200);
+	--hx-calendar-day-hover-border: 					1px solid var(--hx-calendar-day-hover-background);
+	--hx-calendar-day-selected-background:				var(--bs-primary);
+	--hx-calendar-day-selected-color: 					white;
+	--hx-calendar-day-selected-border: 					1px solid var(--bs-primary);
+	--hx-calendar-day-out-color: 						var(--bs-gray-500);
+	--hx-calendar-day-in-color: 						unset;
+	--hx-calendar-day-names-color: 						unset;
+	--hx-calendar-day-names-font-weight: 				700;
+	--hx-calendar-navigation-button-hover-background: 	var(--bs-gray-200);
+	--hx-calendar-day-today-border: 					1px solid #f2f9ff;
+	--hx-calendar-day-today-background: 				#f2f9ff;
+	--hx-calendar-day-today-color: 						var(--bs-primary);
+	--hx-calendar-day-border-radius: 					.25rem;
+	--hx-calendar-day-padding: 							.375rem .5rem;
+	--hx-calendar-day-width: 							2.25rem;
+	--hx-calendar-day-height: 							2.25rem;
+	--hx-calendar-day-spacing: 							.125rem .25rem;
+	--hx-calendar-font-size: 							.875rem;
 	/* Offcanvas */
-	--hx-offcanvas-close-icon-font-size: 2rem;
-	--hx-offcanvas-footer-padding-y: 1rem;
-	--hx-offcanvas-footer-padding-x: 1rem;
-	--hx-offcanvas-horizontal-width-sm: 400px;
-	--hx-offcanvas-horizontal-width-lg:	600px;
+	--hx-offcanvas-close-icon-font-size: 		2rem;
+	--hx-offcanvas-footer-padding-y: 			1rem;
+	--hx-offcanvas-footer-padding-x: 			1rem;
+	--hx-offcanvas-horizontal-width-sm: 		400px;
+	--hx-offcanvas-horizontal-width-lg:			600px;
 	/* ListLayout */
 	--hx-list-layout-body-padding-x: 0;
 	/* TagInput */
-	--hx-input-tags-tag-margin-left: 0;
-	--hx-input-tags-tag-margin-right: .25rem;
-	--hx-input-tags-tag-margin-y: .125rem;
-	--hx-input-tags-tag-hover-transparency: .1;
-	--hx-input-tags-input-width: 3em;
-	--hx-input-tags-input-placeholder-color: var(--bs-gray-600);
-	--hx-input-tags-naked-font-size-lg: 1.25em;
-	--hx-input-tags-naked-font-size-sm: .875em;
-	--hx-input-tags-control-focused-border-color: #86b7fe;
+	--hx-input-tags-tag-margin-left: 				0;
+	--hx-input-tags-tag-margin-right: 				.25rem;
+	--hx-input-tags-tag-margin-y: 					.125rem;
+	--hx-input-tags-tag-hover-transparency: 		.1;
+	--hx-input-tags-input-width: 					3em;
+	--hx-input-tags-input-placeholder-color: 		var(--bs-gray-600);
+	--hx-input-tags-naked-font-size-lg: 			1.25em;
+	--hx-input-tags-naked-font-size-sm: 			.875em;
+	--hx-input-tags-control-focused-border-color: 	#86b7fe;
 }
 
 /* Not sure where to place. Margin for all inputs in form, if it is not the only child. */
