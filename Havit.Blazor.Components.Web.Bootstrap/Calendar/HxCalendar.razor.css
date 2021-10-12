@@ -5,12 +5,28 @@
 
 .navigation {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
 
-.navigation ::deep .btn {
-    padding: 0.375rem 0.375rem !important;
+.form-select {
+    margin: 0 .125rem;
+    padding: 0.25rem 1.75rem 0.25rem 0.5rem;
+    background-size: 9px 9px;
+}
+
+.form-select:not(:hover) {
+    background-image: none;
+    width: fit-content;
+    border-color: transparent;
+}
+
+::deep .btn:hover {
+    background-color: var(--hx-calendar-navigation-button-hover-background);
+}
+
+.form-select:focus:not(:hover) {
+    box-shadow: none;
 }
 
 td {

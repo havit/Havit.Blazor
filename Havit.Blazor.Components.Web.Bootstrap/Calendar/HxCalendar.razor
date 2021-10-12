@@ -4,35 +4,33 @@
 	@if (renderData != null)
 	{
 		<div class="navigation mb-3">
-			<div class="input-group input-group-sm mx-1">
-				<HxButton Icon="BootstrapIcon.ChevronLeft"
-						  Color="ThemeColor.Light"
-						  Outline="true"
-						  CssClass="text-dark"
-						  Enabled="@renderData.PreviousMonthEnabled"
-						  OnClickStopPropagation="true"
-						  OnClick="HandlePreviousMonthClickAsync" />
+			<HxButton Icon="BootstrapIcon.ChevronLeft"
+					  CssClass="text-dark"
+					  Size="ButtonSize.Small"
+					  Enabled="@renderData.PreviousMonthEnabled"
+					  OnClickStopPropagation="true"
+					  OnClick="HandlePreviousMonthClickAsync" />
+			<div class="d-inline-flex">
 				<select class="form-select form-select-sm" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
 					@foreach (var month in renderData.Months)
 					{
 						<option value="@month.Index" disabled="@(!month.Enabled)">@month.Name</option>
 					}
 				</select>
-				<select class="form-select" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
+				<select class="form-select form-select-sm" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
 					@foreach (int year in renderData.Years)
 					{
 						/* not "N" - we do not want thousands separator */
 						<option value="@year">@year.ToString()</option>
 					}
 				</select>
-				<HxButton Icon="BootstrapIcon.ChevronRight"
-						  Color="ThemeColor.Light"
-						  Outline="true"
-						  CssClass="text-dark"
-						  Enabled="@renderData.NextMonthEnabled"
-						  OnClickStopPropagation="true"
-						  OnClick="HandleNextMonthClickAsync" />
 			</div>
+			<HxButton Icon="BootstrapIcon.ChevronRight"
+					  CssClass="text-dark"
+					  Size="ButtonSize.Small"
+					  Enabled="@renderData.NextMonthEnabled"
+					  OnClickStopPropagation="true"
+					  OnClick="HandleNextMonthClickAsync" />
 		</div>
 
 		<table>
