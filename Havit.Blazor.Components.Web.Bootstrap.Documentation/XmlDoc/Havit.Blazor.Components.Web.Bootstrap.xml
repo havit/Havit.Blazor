@@ -792,6 +792,31 @@
             Any additional CSS class to apply.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CalendarDefaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarDefaults.DefaultMinDate">
+            <summary>
+            Internal HFW shared default.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarDefaults.DefaultMaxDate">
+            <summary>
+            Internal HFW shared default.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarDefaults.MinDate">
+            <summary>
+            Minimal value to choose from calendar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarDefaults.MaxDate">
+            <summary>
+            Maximal value to choose from calendar.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar">
             <summary>
             Basic calendar building block. Used for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> implementation.
@@ -817,14 +842,21 @@
             Raised when month selection changes.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.MinYear">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.MinDate">
             <summary>
-            First year allowed.
+            Minimal value to choose from calendar.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.MaxYear">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.MaxDate">
             <summary>
-            Last year allowed.
+            Maximal value to choose from calendar.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.GetDefaults">
+            <summary>
+            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CardDefaults">
@@ -2373,6 +2405,16 @@
             Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.MinDate">
+            <summary>
+            Minimal value to choose from calendar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.MaxDate">
+            <summary>
+            Maximal value to choose from calendar.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetDefaults">
             <summary>
             Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> defaults.
@@ -2438,6 +2480,16 @@
             <summary>
             Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendars should be visible.<br/>
             Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.MinDate">
+            <summary>
+            Minimal value to choose from calendar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.MaxDate">
+            <summary>
+            Maximal value to choose from calendar.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetDefaults">
@@ -2956,6 +3008,16 @@
             Default is <c>true</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.MinDate">
+            <summary>
+            Minimal value to choose from calendar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.MaxDate">
+            <summary>
+            Maximal value to choose from calendar.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults">
             <summary>
             Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> and derived components.
@@ -2970,6 +3032,16 @@
             <summary>
             Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendars should be visible.<br/>
             Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults.MinDate">
+            <summary>
+            Minimal value to choose from calendar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults.MaxDate">
+            <summary>
+            Maximal value to choose from calendar.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputNumberDefaults">

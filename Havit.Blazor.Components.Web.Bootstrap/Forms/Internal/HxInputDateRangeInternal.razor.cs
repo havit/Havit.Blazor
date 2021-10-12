@@ -32,6 +32,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public bool ShowCalendarButtons { get; set; } = true;
 
+		[Parameter] public DateTime MinDateEffective { get; set; }
+
+		[Parameter] public DateTime MaxDateEffective { get; set; }
+
 		[Inject] protected IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }

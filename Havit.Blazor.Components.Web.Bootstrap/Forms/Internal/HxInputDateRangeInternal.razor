@@ -11,7 +11,7 @@
 		{
 			<div class="dropdown-menu p-3">
 				<div class="mb-2">
-					<HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" />
+					<HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" />
 				</div>
 				@if (ShowCalendarButtons)
 				{
@@ -29,11 +29,10 @@
 		{
 			<div class="dropdown-menu p-3">
 				<div class="mb-2">
-					<HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" />
+					<HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" />
 				</div>
 				@if (ShowCalendarButtons)
 				{
-
 					<div class="d-flex justify-content-between">
 						<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleToClearClickAsync" />
 						<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleToOKClickAsync" />

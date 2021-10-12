@@ -13,6 +13,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxCalendar
 	{
+		public static CalendarDefaults Defaults { get; set; } = new CalendarDefaults();
+
 		/// <summary>
 		/// Date selected.
 		/// </summary>
@@ -34,14 +36,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public EventCallback<DateTime> DisplayMonthChanged { get; set; }
 
 		/// <summary>
-		/// First year allowed.
+		/// Minimal value to choose from calendar.
 		/// </summary>
-		[Parameter] public int MinYear { get; set; } = 1900;
+		[Parameter] public DateTime? MinDate { get; set; }
 
 		/// <summary>
-		/// Last year allowed.
+		/// Maximal value to choose from calendar.
 		/// </summary>
-		[Parameter] public int MaxYear { get; set; } = 2099;
+		[Parameter] public DateTime? MaxDate { get; set; }
+
+		private DateTime MinDateEffective => MinDate ?? GetDefaults().MinDate;
+		private DateTime MaxDateEffective => MaxDate ?? GetDefaults().MaxDate;
+
+		/// <summary>
+		/// Returns <see cref="HxCalendar"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual CalendarDefaults GetDefaults() => Defaults;
 
 		private CultureInfo Culture => CultureInfo.CurrentUICulture;
 		private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;
@@ -82,7 +94,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			UpdateRenderData();
 		}
 
-		private RenderData UpdateRenderData()
+		private void UpdateRenderData()
 		{
 			renderData = new RenderData();
 			renderData.DaysOfWeek = new List<string>(7);
@@ -90,7 +102,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			string[] dayNames = Culture.DateTimeFormat.AbbreviatedDayNames;
 			DayOfWeek firstDayOfWeek = this.FirstDayOfWeek;
 
-			renderData.Years = Enumerable.Range(MinYear, MaxYear - MinYear + 1).Reverse().ToList();
+			DateTime minDateEffective = MinDateEffective;
+			DateTime maxDateEffective = MaxDateEffective;
+			int minYear = minDateEffective.Year;
+			int maxYear = maxDateEffective.Year;
+
+			renderData.Years = Enumerable.Range(minYear, maxYear - minYear + 1).Reverse().ToList();
 
 			for (int i = 0; i < 7; i++)
 			{
@@ -112,8 +129,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				for (int day = 0; day < 7; day++)
 				{
-					bool clickEnabled = (currentDay.Year >= MinYear) // can click only days starting MinYear
-							&& (currentDay.Year <= MaxYear); // can click only days ending MaxYear
+					bool clickEnabled = (currentDay >= minDateEffective) // can click only days starting MinDate
+							&& (currentDay <= maxDateEffective); // can click only days ending MaxDate
 					string cssClass = CssClassHelper.Combine(
 						clickEnabled ? "active" : "disabled",
 						(currentDay == valueDay) ? "selected" : null,  // currently selected day has "selected" class
@@ -134,13 +151,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 				renderData.Weeks.Add(weekData);
 			}
-
-			return renderData;
-
 		}
 
 		private async Task SetDisplayMonthAsync(DateTime newDisplayMonth)
 		{
+			newDisplayMonth = new[] { newDisplayMonth, new DateTime(MinDateEffective.Year, MinDateEffective.Month, 1) }.Max();
+			newDisplayMonth = new[] { newDisplayMonth, new DateTime(MaxDateEffective.Year, MaxDateEffective.Month, 1) }.Min();
+
 			DisplayMonth = newDisplayMonth;
 			await DisplayMonthChanged.InvokeAsync(newDisplayMonth);
 		}
@@ -148,21 +165,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private async Task HandlePreviousMonthClickAsync()
 		{
 			var previousMonth = DisplayMonth.AddMonths(-1);
-			if (previousMonth.Year >= MinYear)
-			{
-				await SetDisplayMonthAsync(previousMonth);
-				UpdateRenderData();
-			}
+			await SetDisplayMonthAsync(previousMonth);
+			UpdateRenderData();
 		}
 
 		private async Task HandleNextMonthClickAsync()
 		{
 			var nextMonth = DisplayMonth.AddMonths(1);
-			if (nextMonth.Year <= MaxYear)
-			{
-				await SetDisplayMonthAsync(nextMonth);
-				UpdateRenderData();
-			}
+			await SetDisplayMonthAsync(nextMonth);
+			UpdateRenderData();
 		}
 
 		private async Task HandleYearChangeAsync(ChangeEventArgs changeEventArgs)

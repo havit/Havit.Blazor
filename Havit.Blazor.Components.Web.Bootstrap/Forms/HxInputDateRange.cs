@@ -58,6 +58,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool? ShowCalendarButtons { get; set; }
 
+		/// <summary>
+		/// Minimal value to choose from calendar.
+		/// </summary>
+		[Parameter] public DateTime? MinDate { get; set; }
+
+		/// <summary>
+		/// Maximal value to choose from calendar.
+		/// </summary>
+		[Parameter] public DateTime? MaxDate { get; set; }
+
 		[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
 		/// <summary>
@@ -92,6 +102,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(205, nameof(HxInputDateRangeInternal.ShowValidationMessage), ShowValidationMessage);
 			builder.AddAttribute(206, nameof(HxInputDateRangeInternal.CustomDateRanges), GetCustomDateRanges().ToList());
 			builder.AddAttribute(207, nameof(HxInputDateRangeInternal.ShowCalendarButtons), ShowCalendarButtons ?? defaults.ShowCalendarButtons);
+			builder.AddAttribute(208, nameof(HxInputDateRangeInternal.MinDateEffective), MinDate ?? defaults.MinDate);
+			builder.AddAttribute(219, nameof(HxInputDateRangeInternal.MaxDateEffective), MaxDate ?? defaults.MaxDate);
 
 			builder.CloseComponent();
 		}

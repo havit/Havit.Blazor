@@ -1,4 +1,5 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
+﻿using System;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
@@ -23,5 +24,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is <c>true</c>.
 		/// </summary>
 		public bool ShowCalendarButtons { get; set; } = true;
+
+		/// <summary>
+		/// Minimal value to choose from calendar.
+		/// </summary>
+		public DateTime MinDate { get; set; } = CalendarDefaults.DefaultMinDate;
+
+		/// <summary>
+		/// Maximal value to choose from calendar.
+		/// </summary>
+		public DateTime MaxDate { get; set; } = CalendarDefaults.DefaultMaxDate;
 	}
 }
