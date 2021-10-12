@@ -114,7 +114,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				renderData.DaysOfWeek.Add(dayNames[((int)firstDayOfWeek + i) % 7]);
 			}
 
-			renderData.Months = Culture.DateTimeFormat.MonthNames.Take(12).ToList(); // returns 13 items, see https://docs.microsoft.com/en-us/dotnet/api/system.globalization.datetimeformatinfo.monthnames?view=net-5.0
+			renderData.Months = Culture.DateTimeFormat.MonthNames.Take(12) // returns 13 items, see https://docs.microsoft.com/en-us/dotnet/api/system.globalization.datetimeformatinfo.monthnames?view=net-5.0
+				.Select((name, index) => new MonthData
+				{
+					Index = index,
+					Name = name,
+					Enabled = (new DateTime(DisplayMonth.Year, index + 1, DateTime.DaysInMonth(DisplayMonth.Year, index + 1)) >= MinDate) && (new DateTime(DisplayMonth.Year, index + 1, 1) <= MaxDateEffective)
+				})
+				.ToList();
 
 			renderData.Weeks = new List<WeekData>(6);
 
@@ -151,6 +158,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 				renderData.Weeks.Add(weekData);
 			}
+
+			renderData.PreviousMonthEnabled = minDateEffective < DisplayMonth; // DisplayMonth is always the first fay of month
+			renderData.NextMonthEnabled = maxDateEffective > new DateTime(DisplayMonth.Year, DisplayMonth.Month, DateTime.DaysInMonth(DisplayMonth.Year, DisplayMonth.Month));
 		}
 
 		private async Task SetDisplayMonthAsync(DateTime newDisplayMonth)
@@ -200,9 +210,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private class RenderData
 		{
 			public List<string> DaysOfWeek { get; set; }
-			public List<string> Months { get; set; }
+			public List<MonthData> Months { get; set; }
 			public List<int> Years { get; set; }
 			public List<WeekData> Weeks { get; set; }
+			public bool PreviousMonthEnabled { get; set; }
+			public bool NextMonthEnabled { get; set; }
 		}
 
 		private class WeekData
@@ -217,5 +229,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			public DateTime Date { get; set; }
 			public bool ClickEnabled { get; set; }
 		}
+
+		private class MonthData
+		{
+			public int Index { get; set; }
+			public string Name { get; set; }
+			public bool Enabled { get; set; }
+		}
+
 	}
 }
