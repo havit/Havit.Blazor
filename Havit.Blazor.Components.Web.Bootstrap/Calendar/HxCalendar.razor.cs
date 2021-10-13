@@ -127,7 +127,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					Index = index,
 					Name = name,
-					Enabled = (new DateTime(DisplayMonth.Year, index + 1, DateTime.DaysInMonth(DisplayMonth.Year, index + 1)) >= MinDate) && (new DateTime(DisplayMonth.Year, index + 1, 1) <= MaxDateEffective)
+					Enabled = (new DateTime(DisplayMonth.Year, index + 1, DateTime.DaysInMonth(DisplayMonth.Year, index + 1)) >= minDateEffective) && (new DateTime(DisplayMonth.Year, index + 1, 1) <= maxDateEffective)
 				})
 				.ToList();
 
