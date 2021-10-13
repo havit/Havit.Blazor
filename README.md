@@ -1,4 +1,4 @@
-﻿﻿# HAVIT Blazor
+﻿# HAVIT Blazor - Bootstrap 5 component bundle
 
 [![Nuget](https://img.shields.io/nuget/v/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
 [![Nuget](https://img.shields.io/nuget/dt/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
@@ -73,7 +73,7 @@
 * [`HxTooltip`](https://havit.blazor.eu/components/HxTooltip) - <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component, activates on hover.
 * [`HxTabPanel`](https://havit.blazor.eu/components/HxTabPanel) - Container for <code><a href="https://www.havit.blazor.eu/components/HxTab/">HxTab</a></code>s.
 * [`HxListGroup`](https://havit.blazor.eu/components/HxListGroup) - <a href="https://getbootstrap.com/docs/5.1/components/list-group/">Bootstrap 5 List group</a> component.
-* [`HxListLayout`](https://havit.blazor.eu/components/HxListLayout) - 
+* [`HxListLayout`](https://havit.blazor.eu/components/HxListLayout) - Page layout for data presentation (usualy `HxGrid` with filter in `HxOffcanvas`).
 * [`HxFormValue`](https://havit.blazor.eu/components/HxFormValue) - Displays a read-only value in the form control visual (as <code>.form-control</code>, with label, border, etc.).
 
 ## Navigation
