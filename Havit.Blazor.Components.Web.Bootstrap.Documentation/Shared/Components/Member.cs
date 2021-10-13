@@ -13,6 +13,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 	{
 		private Type enclosingType;
 
+		private bool generic;
+
 		protected string TryFormatComment(string comment, Type enclosingType = null)
 		{
 			this.enclosingType = enclosingType;
@@ -67,6 +69,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		private string PrepareLinkForFullLinkGeneration(string link)
 		{
+			generic = IsGeneric(link); // this information is used later to generate a Microsoft documentation link
+
 			Regex regex = new("`\\d");
 			return regex.Replace(link, "");
 		}
@@ -191,7 +195,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				fullLink = link.Split(':')[^1];
 			}
 
-			fullLink = $"href=\"https://docs.microsoft.com/en-us/dotnet/api/{fullLink}";
+			string genericTypeLinkSuffix = generic ? "-1" : "";
+
+			fullLink = $"href=\"https://docs.microsoft.com/en-us/dotnet/api/{fullLink}{genericTypeLinkSuffix}";
 			fullLink += $"\">{seeName}</a></code>";
 			return fullLink;
 		}
@@ -207,6 +213,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		private bool IsEnum(string[] splitLink)
 		{
 			return splitLink[0][0] == 'F';
+		}
+
+		private bool IsGeneric(string link)
+		{
+			return link.Contains('`');
 		}
 
 		private string ConcatenateStringArray(string[] stringArray)
