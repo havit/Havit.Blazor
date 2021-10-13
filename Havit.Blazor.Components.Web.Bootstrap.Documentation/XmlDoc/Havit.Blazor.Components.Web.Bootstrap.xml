@@ -4076,6 +4076,12 @@
             Can be used for TFilterModelType to express there is no filter in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout"/> component.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1">
+            <summary>
+            Page layout for data presentation (usualy <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/> with filter in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/>).
+            </summary>
+            <typeparam name="TFilterModel"></typeparam>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent">
             <summary>
             Interface for column-sized components (e.g. <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>).

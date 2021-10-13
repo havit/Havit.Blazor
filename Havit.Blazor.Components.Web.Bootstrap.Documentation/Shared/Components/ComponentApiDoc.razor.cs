@@ -352,7 +352,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			string typeName = type.FullName;
 			if (string.IsNullOrWhiteSpace(typeName))
 			{
-				return string.Empty;
+				typeName = type.AssemblyQualifiedName;
+				if (string.IsNullOrWhiteSpace(typeName))
+				{
+					typeName = type.Name;
+					if (string.IsNullOrWhiteSpace(typeName))
+					{
+						return string.Empty;
+					}
+				}
 			}
 
 			typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces
@@ -408,7 +416,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		{
 			string typeNameForOwnDocumentation = typeName.Replace("?", "");
 			bool generic = false;
-			if (typeNameForOwnDocumentation.Contains('<'))
+			if (Regex.Matches(typeNameForOwnDocumentation, "<").Count == 1)
 			{
 				generic = true;
 
