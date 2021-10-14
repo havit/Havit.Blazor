@@ -7,6 +7,10 @@
 	background-color: var(--hx-sidebar-background-color);
 }
 
+.nav-menu {
+	max-height: 100vh;
+}
+
 .hx-sidebar.collapsed {
 	flex-basis: var(--hx-sidebar-collapsed-width);
 	min-width: auto;
