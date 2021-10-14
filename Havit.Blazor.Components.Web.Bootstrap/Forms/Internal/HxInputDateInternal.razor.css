@@ -22,8 +22,12 @@
 	margin-right: 3.5rem;
 }
 
+.hx-input-date-has-calendar-icon .is-invalid {
+    background-position: right calc(0.375em + 2rem) center;
+}
+
 .hx-input-date-has-calendar-icon .form-control {
-	padding-right: 2.75rem;
+	padding-right: 4.25rem;
 }
 
 .hx-input-date-has-calendar-icon.input-group-lg.custom-dates .hx-input-date-icon {
@@ -31,7 +35,7 @@
 }
 
 .hx-input-date-has-calendar-icon.input-group-lg .form-control {
-	padding-right: 3.25rem;
+	padding-right: 4.75rem;
 }
 
 .hx-input-date-has-calendar-icon.input-group-sm.custom-dates .hx-input-date-icon {
@@ -39,7 +43,7 @@
 }
 
 .hx-input-date-has-calendar-icon.input-group-sm .form-control {
-    padding-right: 1.75rem;
+    padding-right: 4rem;
 }
 
 .input-group-sm > .hx-input-date-icon {
