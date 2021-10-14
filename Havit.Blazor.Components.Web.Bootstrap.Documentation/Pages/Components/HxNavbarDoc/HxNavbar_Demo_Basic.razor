@@ -16,10 +16,12 @@
 			</HxDropdown>
 			<HxNavLink Enabled="false">Disabled</HxNavLink>
 		</HxNav>
-		<div class="d-flex">
-			<HxInputText CssClass="me-2" Placeholder="Search" @bind-Value="@query" />
-			<HxSubmit Color="ThemeColor.Success" Outline="true">Search</HxSubmit>
-		</div>
+			<EditForm Model="@query">
+				<div class="d-flex">
+						<HxInputText CssClass="me-2" Placeholder="Search" @bind-Value="@query" />
+						<HxSubmit Color="ThemeColor.Success" Outline="true">Search</HxSubmit>
+				</div>
+			</EditForm>
 	</HxNavbarCollapse>
 </HxNavbar>
 
