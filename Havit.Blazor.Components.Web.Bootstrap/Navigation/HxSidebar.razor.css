@@ -4,6 +4,7 @@
 	flex-shrink: 0;
 	max-height: 100vh;
 	flex-basis: var(--hx-sidebar-width);
+	background-color: var(--hx-sidebar-background-color);
 }
 
 .hx-sidebar.collapsed {
