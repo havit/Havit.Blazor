@@ -41,6 +41,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		#region Private fields
+		private static BootstrapIcon activity;
 		private static BootstrapIcon alarm;
 		private static BootstrapIcon alarmFill;
 		private static BootstrapIcon alignBottom;
@@ -52,6 +53,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon alt;
 		private static BootstrapIcon app;
 		private static BootstrapIcon appIndicator;
+		private static BootstrapIcon apple;
 		private static BootstrapIcon archive;
 		private static BootstrapIcon archiveFill;
 		private static BootstrapIcon arrow90DegDown;
@@ -179,6 +181,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon batteryCharging;
 		private static BootstrapIcon batteryFull;
 		private static BootstrapIcon batteryHalf;
+		private static BootstrapIcon behance;
 		private static BootstrapIcon bell;
 		private static BootstrapIcon bellFill;
 		private static BootstrapIcon bellSlash;
@@ -578,12 +581,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon doorOpenFill;
 		private static BootstrapIcon dot;
 		private static BootstrapIcon download;
+		private static BootstrapIcon dribbble;
 		private static BootstrapIcon droplet;
 		private static BootstrapIcon dropletFill;
 		private static BootstrapIcon dropletHalf;
 		private static BootstrapIcon earbuds;
 		private static BootstrapIcon easel;
 		private static BootstrapIcon easelFill;
+		private static BootstrapIcon easel2;
+		private static BootstrapIcon easel2Fill;
+		private static BootstrapIcon easel3;
+		private static BootstrapIcon easel3Fill;
 		private static BootstrapIcon egg;
 		private static BootstrapIcon eggFill;
 		private static BootstrapIcon eggFried;
@@ -637,6 +645,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon eyedropper;
 		private static BootstrapIcon eyeglasses;
 		private static BootstrapIcon facebook;
+		private static BootstrapIcon fan;
 		private static BootstrapIcon file;
 		private static BootstrapIcon fileArrowDown;
 		private static BootstrapIcon fileArrowDownFill;
@@ -775,6 +784,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon filterRight;
 		private static BootstrapIcon filterSquare;
 		private static BootstrapIcon filterSquareFill;
+		private static BootstrapIcon fingerprint;
 		private static BootstrapIcon flag;
 		private static BootstrapIcon flagFill;
 		private static BootstrapIcon flower1;
@@ -818,7 +828,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon globe2;
 		private static BootstrapIcon google;
 		private static BootstrapIcon graphDown;
+		private static BootstrapIcon graphDownArrow;
 		private static BootstrapIcon graphUp;
+		private static BootstrapIcon graphUpArrow;
 		private static BootstrapIcon grid;
 		private static BootstrapIcon grid1X2;
 		private static BootstrapIcon grid1X2Fill;
@@ -873,6 +885,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon houseFill;
 		private static BootstrapIcon hr;
 		private static BootstrapIcon hurricane;
+		private static BootstrapIcon hypnotize;
 		private static BootstrapIcon image;
 		private static BootstrapIcon imageAlt;
 		private static BootstrapIcon imageFill;
@@ -946,6 +959,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon lightningCharge;
 		private static BootstrapIcon lightningChargeFill;
 		private static BootstrapIcon lightningFill;
+		private static BootstrapIcon line;
 		private static BootstrapIcon link;
 		private static BootstrapIcon link45Deg;
 		private static BootstrapIcon linkedin;
@@ -958,6 +972,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon listUl;
 		private static BootstrapIcon @lock;
 		private static BootstrapIcon lockFill;
+		private static BootstrapIcon magic;
 		private static BootstrapIcon mailbox;
 		private static BootstrapIcon mailbox2;
 		private static BootstrapIcon map;
@@ -966,6 +981,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon markdownFill;
 		private static BootstrapIcon mask;
 		private static BootstrapIcon mastodon;
+		private static BootstrapIcon medium;
 		private static BootstrapIcon megaphone;
 		private static BootstrapIcon megaphoneFill;
 		private static BootstrapIcon menuApp;
@@ -981,6 +997,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon micFill;
 		private static BootstrapIcon micMute;
 		private static BootstrapIcon micMuteFill;
+		private static BootstrapIcon microsoft;
 		private static BootstrapIcon minecart;
 		private static BootstrapIcon minecartLoaded;
 		private static BootstrapIcon moisture;
@@ -1033,6 +1050,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon pauseCircle;
 		private static BootstrapIcon pauseCircleFill;
 		private static BootstrapIcon pauseFill;
+		private static BootstrapIcon paypal;
 		private static BootstrapIcon peace;
 		private static BootstrapIcon peaceFill;
 		private static BootstrapIcon pen;
@@ -1059,7 +1077,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon personLinesFill;
 		private static BootstrapIcon personPlus;
 		private static BootstrapIcon personPlusFill;
+		private static BootstrapIcon personRolodex;
 		private static BootstrapIcon personSquare;
+		private static BootstrapIcon personVideo;
+		private static BootstrapIcon personVideo2;
+		private static BootstrapIcon personVideo3;
+		private static BootstrapIcon personWorkspace;
 		private static BootstrapIcon personX;
 		private static BootstrapIcon personXFill;
 		private static BootstrapIcon phone;
@@ -1078,6 +1101,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon pinFill;
 		private static BootstrapIcon pinMap;
 		private static BootstrapIcon pinMapFill;
+		private static BootstrapIcon pinterest;
 		private static BootstrapIcon pip;
 		private static BootstrapIcon pipFill;
 		private static BootstrapIcon play;
@@ -1111,6 +1135,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon questionOctagonFill;
 		private static BootstrapIcon questionSquare;
 		private static BootstrapIcon questionSquareFill;
+		private static BootstrapIcon radioactive;
 		private static BootstrapIcon rainbow;
 		private static BootstrapIcon receipt;
 		private static BootstrapIcon receiptCutoff;
@@ -1175,6 +1200,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon shop;
 		private static BootstrapIcon shopWindow;
 		private static BootstrapIcon shuffle;
+		private static BootstrapIcon signal;
 		private static BootstrapIcon signpost;
 		private static BootstrapIcon signpost2;
 		private static BootstrapIcon signpost2Fill;
@@ -1216,6 +1242,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon slashSquareFill;
 		private static BootstrapIcon sliders;
 		private static BootstrapIcon smartwatch;
+		private static BootstrapIcon snapchat;
 		private static BootstrapIcon snow;
 		private static BootstrapIcon snow2;
 		private static BootstrapIcon snow3;
@@ -1237,10 +1264,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon speedometer;
 		private static BootstrapIcon speedometer2;
 		private static BootstrapIcon spellcheck;
+		private static BootstrapIcon spotify;
 		private static BootstrapIcon square;
 		private static BootstrapIcon squareFill;
 		private static BootstrapIcon squareHalf;
 		private static BootstrapIcon stack;
+		private static BootstrapIcon stackOverflow;
 		private static BootstrapIcon star;
 		private static BootstrapIcon starFill;
 		private static BootstrapIcon starHalf;
@@ -1259,6 +1288,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon stoplightsFill;
 		private static BootstrapIcon stopwatch;
 		private static BootstrapIcon stopwatchFill;
+		private static BootstrapIcon strava;
 		private static BootstrapIcon subtract;
 		private static BootstrapIcon suitClub;
 		private static BootstrapIcon suitClubFill;
@@ -1371,6 +1401,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon vectorPen;
 		private static BootstrapIcon viewList;
 		private static BootstrapIcon viewStacked;
+		private static BootstrapIcon vimeo;
 		private static BootstrapIcon vinyl;
 		private static BootstrapIcon vinylFill;
 		private static BootstrapIcon voicemail;
@@ -1388,6 +1419,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon wallet2;
 		private static BootstrapIcon watch;
 		private static BootstrapIcon water;
+		private static BootstrapIcon webcam;
+		private static BootstrapIcon webcamFill;
 		private static BootstrapIcon whatsapp;
 		private static BootstrapIcon wifi;
 		private static BootstrapIcon wifi1;
@@ -1397,6 +1430,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon window;
 		private static BootstrapIcon windowDock;
 		private static BootstrapIcon windowSidebar;
+		private static BootstrapIcon windows;
+		private static BootstrapIcon wordpress;
 		private static BootstrapIcon wrench;
 		private static BootstrapIcon x;
 		private static BootstrapIcon xCircle;
@@ -1408,12 +1443,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static BootstrapIcon xOctagonFill;
 		private static BootstrapIcon xSquare;
 		private static BootstrapIcon xSquareFill;
+		private static BootstrapIcon yinYang;
 		private static BootstrapIcon youtube;
 		private static BootstrapIcon zoomIn;
 		private static BootstrapIcon zoomOut;
 		#endregion
 
 		#region Public properties
+		public static BootstrapIcon Activity => activity ??= new BootstrapIcon("activity");
 		public static BootstrapIcon Alarm => alarm ??= new BootstrapIcon("alarm");
 		public static BootstrapIcon AlarmFill => alarmFill ??= new BootstrapIcon("alarm-fill");
 		public static BootstrapIcon AlignBottom => alignBottom ??= new BootstrapIcon("align-bottom");
@@ -1425,6 +1462,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon Alt => alt ??= new BootstrapIcon("alt");
 		public static BootstrapIcon App => app ??= new BootstrapIcon("app");
 		public static BootstrapIcon AppIndicator => appIndicator ??= new BootstrapIcon("app-indicator");
+		public static BootstrapIcon Apple => apple ??= new BootstrapIcon("apple");
 		public static BootstrapIcon Archive => archive ??= new BootstrapIcon("archive");
 		public static BootstrapIcon ArchiveFill => archiveFill ??= new BootstrapIcon("archive-fill");
 		public static BootstrapIcon Arrow90DegDown => arrow90DegDown ??= new BootstrapIcon("arrow-90deg-down");
@@ -1552,6 +1590,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon BatteryCharging => batteryCharging ??= new BootstrapIcon("battery-charging");
 		public static BootstrapIcon BatteryFull => batteryFull ??= new BootstrapIcon("battery-full");
 		public static BootstrapIcon BatteryHalf => batteryHalf ??= new BootstrapIcon("battery-half");
+		public static BootstrapIcon Behance => behance ??= new BootstrapIcon("behance");
 		public static BootstrapIcon Bell => bell ??= new BootstrapIcon("bell");
 		public static BootstrapIcon BellFill => bellFill ??= new BootstrapIcon("bell-fill");
 		public static BootstrapIcon BellSlash => bellSlash ??= new BootstrapIcon("bell-slash");
@@ -1951,12 +1990,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon DoorOpenFill => doorOpenFill ??= new BootstrapIcon("door-open-fill");
 		public static BootstrapIcon Dot => dot ??= new BootstrapIcon("dot");
 		public static BootstrapIcon Download => download ??= new BootstrapIcon("download");
+		public static BootstrapIcon Dribbble => dribbble ??= new BootstrapIcon("dribbble");
 		public static BootstrapIcon Droplet => droplet ??= new BootstrapIcon("droplet");
 		public static BootstrapIcon DropletFill => dropletFill ??= new BootstrapIcon("droplet-fill");
 		public static BootstrapIcon DropletHalf => dropletHalf ??= new BootstrapIcon("droplet-half");
 		public static BootstrapIcon Earbuds => earbuds ??= new BootstrapIcon("earbuds");
 		public static BootstrapIcon Easel => easel ??= new BootstrapIcon("easel");
 		public static BootstrapIcon EaselFill => easelFill ??= new BootstrapIcon("easel-fill");
+		public static BootstrapIcon Easel2 => easel2 ??= new BootstrapIcon("easel2");
+		public static BootstrapIcon Easel2Fill => easel2Fill ??= new BootstrapIcon("easel2-fill");
+		public static BootstrapIcon Easel3 => easel3 ??= new BootstrapIcon("easel3");
+		public static BootstrapIcon Easel3Fill => easel3Fill ??= new BootstrapIcon("easel3-fill");
 		public static BootstrapIcon Egg => egg ??= new BootstrapIcon("egg");
 		public static BootstrapIcon EggFill => eggFill ??= new BootstrapIcon("egg-fill");
 		public static BootstrapIcon EggFried => eggFried ??= new BootstrapIcon("egg-fried");
@@ -2010,6 +2054,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon Eyedropper => eyedropper ??= new BootstrapIcon("eyedropper");
 		public static BootstrapIcon Eyeglasses => eyeglasses ??= new BootstrapIcon("eyeglasses");
 		public static BootstrapIcon Facebook => facebook ??= new BootstrapIcon("facebook");
+		public static BootstrapIcon Fan => fan ??= new BootstrapIcon("fan");
 		public static BootstrapIcon File => file ??= new BootstrapIcon("file");
 		public static BootstrapIcon FileArrowDown => fileArrowDown ??= new BootstrapIcon("file-arrow-down");
 		public static BootstrapIcon FileArrowDownFill => fileArrowDownFill ??= new BootstrapIcon("file-arrow-down-fill");
@@ -2148,6 +2193,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon FilterRight => filterRight ??= new BootstrapIcon("filter-right");
 		public static BootstrapIcon FilterSquare => filterSquare ??= new BootstrapIcon("filter-square");
 		public static BootstrapIcon FilterSquareFill => filterSquareFill ??= new BootstrapIcon("filter-square-fill");
+		public static BootstrapIcon Fingerprint => fingerprint ??= new BootstrapIcon("fingerprint");
 		public static BootstrapIcon Flag => flag ??= new BootstrapIcon("flag");
 		public static BootstrapIcon FlagFill => flagFill ??= new BootstrapIcon("flag-fill");
 		public static BootstrapIcon Flower1 => flower1 ??= new BootstrapIcon("flower1");
@@ -2191,7 +2237,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon Globe2 => globe2 ??= new BootstrapIcon("globe2");
 		public static BootstrapIcon Google => google ??= new BootstrapIcon("google");
 		public static BootstrapIcon GraphDown => graphDown ??= new BootstrapIcon("graph-down");
+		public static BootstrapIcon GraphDownArrow => graphDownArrow ??= new BootstrapIcon("graph-down-arrow");
 		public static BootstrapIcon GraphUp => graphUp ??= new BootstrapIcon("graph-up");
+		public static BootstrapIcon GraphUpArrow => graphUpArrow ??= new BootstrapIcon("graph-up-arrow");
 		public static BootstrapIcon Grid => grid ??= new BootstrapIcon("grid");
 		public static BootstrapIcon Grid1X2 => grid1X2 ??= new BootstrapIcon("grid-1x2");
 		public static BootstrapIcon Grid1X2Fill => grid1X2Fill ??= new BootstrapIcon("grid-1x2-fill");
@@ -2246,6 +2294,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon HouseFill => houseFill ??= new BootstrapIcon("house-fill");
 		public static BootstrapIcon Hr => hr ??= new BootstrapIcon("hr");
 		public static BootstrapIcon Hurricane => hurricane ??= new BootstrapIcon("hurricane");
+		public static BootstrapIcon Hypnotize => hypnotize ??= new BootstrapIcon("hypnotize");
 		public static BootstrapIcon Image => image ??= new BootstrapIcon("image");
 		public static BootstrapIcon ImageAlt => imageAlt ??= new BootstrapIcon("image-alt");
 		public static BootstrapIcon ImageFill => imageFill ??= new BootstrapIcon("image-fill");
@@ -2319,6 +2368,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon LightningCharge => lightningCharge ??= new BootstrapIcon("lightning-charge");
 		public static BootstrapIcon LightningChargeFill => lightningChargeFill ??= new BootstrapIcon("lightning-charge-fill");
 		public static BootstrapIcon LightningFill => lightningFill ??= new BootstrapIcon("lightning-fill");
+		public static BootstrapIcon Line => line ??= new BootstrapIcon("line");
 		public static BootstrapIcon Link => link ??= new BootstrapIcon("link");
 		public static BootstrapIcon Link45Deg => link45Deg ??= new BootstrapIcon("link-45deg");
 		public static BootstrapIcon Linkedin => linkedin ??= new BootstrapIcon("linkedin");
@@ -2331,6 +2381,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon ListUl => listUl ??= new BootstrapIcon("list-ul");
 		public static BootstrapIcon Lock => @lock ??= new BootstrapIcon("lock");
 		public static BootstrapIcon LockFill => lockFill ??= new BootstrapIcon("lock-fill");
+		public static BootstrapIcon Magic => magic ??= new BootstrapIcon("magic");
 		public static BootstrapIcon Mailbox => mailbox ??= new BootstrapIcon("mailbox");
 		public static BootstrapIcon Mailbox2 => mailbox2 ??= new BootstrapIcon("mailbox2");
 		public static BootstrapIcon Map => map ??= new BootstrapIcon("map");
@@ -2339,6 +2390,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon MarkdownFill => markdownFill ??= new BootstrapIcon("markdown-fill");
 		public static BootstrapIcon Mask => mask ??= new BootstrapIcon("mask");
 		public static BootstrapIcon Mastodon => mastodon ??= new BootstrapIcon("mastodon");
+		public static BootstrapIcon Medium => medium ??= new BootstrapIcon("medium");
 		public static BootstrapIcon Megaphone => megaphone ??= new BootstrapIcon("megaphone");
 		public static BootstrapIcon MegaphoneFill => megaphoneFill ??= new BootstrapIcon("megaphone-fill");
 		public static BootstrapIcon MenuApp => menuApp ??= new BootstrapIcon("menu-app");
@@ -2354,6 +2406,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon MicFill => micFill ??= new BootstrapIcon("mic-fill");
 		public static BootstrapIcon MicMute => micMute ??= new BootstrapIcon("mic-mute");
 		public static BootstrapIcon MicMuteFill => micMuteFill ??= new BootstrapIcon("mic-mute-fill");
+		public static BootstrapIcon Microsoft => microsoft ??= new BootstrapIcon("microsoft");
 		public static BootstrapIcon Minecart => minecart ??= new BootstrapIcon("minecart");
 		public static BootstrapIcon MinecartLoaded => minecartLoaded ??= new BootstrapIcon("minecart-loaded");
 		public static BootstrapIcon Moisture => moisture ??= new BootstrapIcon("moisture");
@@ -2406,6 +2459,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon PauseCircle => pauseCircle ??= new BootstrapIcon("pause-circle");
 		public static BootstrapIcon PauseCircleFill => pauseCircleFill ??= new BootstrapIcon("pause-circle-fill");
 		public static BootstrapIcon PauseFill => pauseFill ??= new BootstrapIcon("pause-fill");
+		public static BootstrapIcon Paypal => paypal ??= new BootstrapIcon("paypal");
 		public static BootstrapIcon Peace => peace ??= new BootstrapIcon("peace");
 		public static BootstrapIcon PeaceFill => peaceFill ??= new BootstrapIcon("peace-fill");
 		public static BootstrapIcon Pen => pen ??= new BootstrapIcon("pen");
@@ -2432,7 +2486,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon PersonLinesFill => personLinesFill ??= new BootstrapIcon("person-lines-fill");
 		public static BootstrapIcon PersonPlus => personPlus ??= new BootstrapIcon("person-plus");
 		public static BootstrapIcon PersonPlusFill => personPlusFill ??= new BootstrapIcon("person-plus-fill");
+		public static BootstrapIcon PersonRolodex => personRolodex ??= new BootstrapIcon("person-rolodex");
 		public static BootstrapIcon PersonSquare => personSquare ??= new BootstrapIcon("person-square");
+		public static BootstrapIcon PersonVideo => personVideo ??= new BootstrapIcon("person-video");
+		public static BootstrapIcon PersonVideo2 => personVideo2 ??= new BootstrapIcon("person-video2");
+		public static BootstrapIcon PersonVideo3 => personVideo3 ??= new BootstrapIcon("person-video3");
+		public static BootstrapIcon PersonWorkspace => personWorkspace ??= new BootstrapIcon("person-workspace");
 		public static BootstrapIcon PersonX => personX ??= new BootstrapIcon("person-x");
 		public static BootstrapIcon PersonXFill => personXFill ??= new BootstrapIcon("person-x-fill");
 		public static BootstrapIcon Phone => phone ??= new BootstrapIcon("phone");
@@ -2451,6 +2510,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon PinFill => pinFill ??= new BootstrapIcon("pin-fill");
 		public static BootstrapIcon PinMap => pinMap ??= new BootstrapIcon("pin-map");
 		public static BootstrapIcon PinMapFill => pinMapFill ??= new BootstrapIcon("pin-map-fill");
+		public static BootstrapIcon Pinterest => pinterest ??= new BootstrapIcon("pinterest");
 		public static BootstrapIcon Pip => pip ??= new BootstrapIcon("pip");
 		public static BootstrapIcon PipFill => pipFill ??= new BootstrapIcon("pip-fill");
 		public static BootstrapIcon Play => play ??= new BootstrapIcon("play");
@@ -2484,6 +2544,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon QuestionOctagonFill => questionOctagonFill ??= new BootstrapIcon("question-octagon-fill");
 		public static BootstrapIcon QuestionSquare => questionSquare ??= new BootstrapIcon("question-square");
 		public static BootstrapIcon QuestionSquareFill => questionSquareFill ??= new BootstrapIcon("question-square-fill");
+		public static BootstrapIcon Radioactive => radioactive ??= new BootstrapIcon("radioactive");
 		public static BootstrapIcon Rainbow => rainbow ??= new BootstrapIcon("rainbow");
 		public static BootstrapIcon Receipt => receipt ??= new BootstrapIcon("receipt");
 		public static BootstrapIcon ReceiptCutoff => receiptCutoff ??= new BootstrapIcon("receipt-cutoff");
@@ -2548,6 +2609,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon Shop => shop ??= new BootstrapIcon("shop");
 		public static BootstrapIcon ShopWindow => shopWindow ??= new BootstrapIcon("shop-window");
 		public static BootstrapIcon Shuffle => shuffle ??= new BootstrapIcon("shuffle");
+		public static BootstrapIcon Signal => signal ??= new BootstrapIcon("signal");
 		public static BootstrapIcon Signpost => signpost ??= new BootstrapIcon("signpost");
 		public static BootstrapIcon Signpost2 => signpost2 ??= new BootstrapIcon("signpost-2");
 		public static BootstrapIcon Signpost2Fill => signpost2Fill ??= new BootstrapIcon("signpost-2-fill");
@@ -2589,6 +2651,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon SlashSquareFill => slashSquareFill ??= new BootstrapIcon("slash-square-fill");
 		public static BootstrapIcon Sliders => sliders ??= new BootstrapIcon("sliders");
 		public static BootstrapIcon Smartwatch => smartwatch ??= new BootstrapIcon("smartwatch");
+		public static BootstrapIcon Snapchat => snapchat ??= new BootstrapIcon("snapchat");
 		public static BootstrapIcon Snow => snow ??= new BootstrapIcon("snow");
 		public static BootstrapIcon Snow2 => snow2 ??= new BootstrapIcon("snow2");
 		public static BootstrapIcon Snow3 => snow3 ??= new BootstrapIcon("snow3");
@@ -2610,10 +2673,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon Speedometer => speedometer ??= new BootstrapIcon("speedometer");
 		public static BootstrapIcon Speedometer2 => speedometer2 ??= new BootstrapIcon("speedometer2");
 		public static BootstrapIcon Spellcheck => spellcheck ??= new BootstrapIcon("spellcheck");
+		public static BootstrapIcon Spotify => spotify ??= new BootstrapIcon("spotify");
 		public static BootstrapIcon Square => square ??= new BootstrapIcon("square");
 		public static BootstrapIcon SquareFill => squareFill ??= new BootstrapIcon("square-fill");
 		public static BootstrapIcon SquareHalf => squareHalf ??= new BootstrapIcon("square-half");
 		public static BootstrapIcon Stack => stack ??= new BootstrapIcon("stack");
+		public static BootstrapIcon StackOverflow => stackOverflow ??= new BootstrapIcon("stack-overflow");
 		public static BootstrapIcon Star => star ??= new BootstrapIcon("star");
 		public static BootstrapIcon StarFill => starFill ??= new BootstrapIcon("star-fill");
 		public static BootstrapIcon StarHalf => starHalf ??= new BootstrapIcon("star-half");
@@ -2632,6 +2697,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon StoplightsFill => stoplightsFill ??= new BootstrapIcon("stoplights-fill");
 		public static BootstrapIcon Stopwatch => stopwatch ??= new BootstrapIcon("stopwatch");
 		public static BootstrapIcon StopwatchFill => stopwatchFill ??= new BootstrapIcon("stopwatch-fill");
+		public static BootstrapIcon Strava => strava ??= new BootstrapIcon("strava");
 		public static BootstrapIcon Subtract => subtract ??= new BootstrapIcon("subtract");
 		public static BootstrapIcon SuitClub => suitClub ??= new BootstrapIcon("suit-club");
 		public static BootstrapIcon SuitClubFill => suitClubFill ??= new BootstrapIcon("suit-club-fill");
@@ -2744,6 +2810,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon VectorPen => vectorPen ??= new BootstrapIcon("vector-pen");
 		public static BootstrapIcon ViewList => viewList ??= new BootstrapIcon("view-list");
 		public static BootstrapIcon ViewStacked => viewStacked ??= new BootstrapIcon("view-stacked");
+		public static BootstrapIcon Vimeo => vimeo ??= new BootstrapIcon("vimeo");
 		public static BootstrapIcon Vinyl => vinyl ??= new BootstrapIcon("vinyl");
 		public static BootstrapIcon VinylFill => vinylFill ??= new BootstrapIcon("vinyl-fill");
 		public static BootstrapIcon Voicemail => voicemail ??= new BootstrapIcon("voicemail");
@@ -2761,6 +2828,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon Wallet2 => wallet2 ??= new BootstrapIcon("wallet2");
 		public static BootstrapIcon Watch => watch ??= new BootstrapIcon("watch");
 		public static BootstrapIcon Water => water ??= new BootstrapIcon("water");
+		public static BootstrapIcon Webcam => webcam ??= new BootstrapIcon("webcam");
+		public static BootstrapIcon WebcamFill => webcamFill ??= new BootstrapIcon("webcam-fill");
 		public static BootstrapIcon Whatsapp => whatsapp ??= new BootstrapIcon("whatsapp");
 		public static BootstrapIcon Wifi => wifi ??= new BootstrapIcon("wifi");
 		public static BootstrapIcon Wifi1 => wifi1 ??= new BootstrapIcon("wifi-1");
@@ -2770,6 +2839,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon Window => window ??= new BootstrapIcon("window");
 		public static BootstrapIcon WindowDock => windowDock ??= new BootstrapIcon("window-dock");
 		public static BootstrapIcon WindowSidebar => windowSidebar ??= new BootstrapIcon("window-sidebar");
+		public static BootstrapIcon Windows => windows ??= new BootstrapIcon("windows");
+		public static BootstrapIcon Wordpress => wordpress ??= new BootstrapIcon("wordpress");
 		public static BootstrapIcon Wrench => wrench ??= new BootstrapIcon("wrench");
 		public static BootstrapIcon X => x ??= new BootstrapIcon("x");
 		public static BootstrapIcon XCircle => xCircle ??= new BootstrapIcon("x-circle");
@@ -2781,10 +2852,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public static BootstrapIcon XOctagonFill => xOctagonFill ??= new BootstrapIcon("x-octagon-fill");
 		public static BootstrapIcon XSquare => xSquare ??= new BootstrapIcon("x-square");
 		public static BootstrapIcon XSquareFill => xSquareFill ??= new BootstrapIcon("x-square-fill");
+		public static BootstrapIcon YinYang => yinYang ??= new BootstrapIcon("yin-yang");
 		public static BootstrapIcon Youtube => youtube ??= new BootstrapIcon("youtube");
 		public static BootstrapIcon ZoomIn => zoomIn ??= new BootstrapIcon("zoom-in");
 		public static BootstrapIcon ZoomOut => zoomOut ??= new BootstrapIcon("zoom-out");
-
 		#endregion
 	}
 }
