@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Havit.Blazor.Components.Web;
+using System.Globalization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation
 {
@@ -16,6 +17,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation
 		public static async Task Main(string[] args)
 		{
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+			var cultureInfo = new CultureInfo("en-US");
+			CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+			CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 			builder.Services.AddHxServices();
 			builder.Services.AddHxMessenger();
