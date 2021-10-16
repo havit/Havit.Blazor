@@ -1,1 +1,5 @@
-﻿<HxCalendar />
+﻿<HxCalendar @bind-Value="value" />
+@code
+{
+	private DateTime? value = DateTime.Today;
+}

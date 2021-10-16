@@ -2,21 +2,41 @@
 
 <ComponentApiDoc Type="typeof(HxInputDate<DateTime>)">
 
-    <HxAlert Color="ThemeColor.Warning">
-        <HxIcon Icon="BootstrapIcon.ExclamationTriangleFill" /> <code>HxInputDate</code> does not support <code>InputGroups</code>. Learn more about them <a href="/components/Inputs#InputGroups">here</a>.
-    </HxAlert>
+	<HxAlert Color="ThemeColor.Warning">
+		<HxIcon Icon="BootstrapIcon.ExclamationTriangleFill" /> <code>HxInputDate</code> does not support <code>InputGroups</code>. Learn more about them <a href="/components/Inputs#InputGroups">here</a>.
+	</HxAlert>
 
-    <h3>Basic usage</h3>
-    <Demo Type="typeof(HxInputDate_Demo)" Tabs="false" />
+	<h3>Basic usage</h3>
+	<Demo Type="typeof(HxInputDate_Demo)" Tabs="false" />
 
-    <h3>Calendar icon</h3>
-    <p>Optional icon can be added using <code>CalendarIcon</code> parameter:</p>
-    <Demo Type="typeof(HxInputDate_Demo_CalendarIcon)" />
+	<h3>Calendar icon</h3>
+	<p>Optional icon can be added using <code>CalendarIcon</code> parameter:</p>
+	<Demo Type="typeof(HxInputDate_Demo_CalendarIcon)" />
 
-    <h3>Buttons in calendar</h3>
-    <p>The <i>Clear</i> and <i>OK</i> buttons in calendar can be hidden by setting <code>ShowCalendarButtons="false"</code>.</p>
-    <Demo Type="typeof(HxInputDate_Demo_CalendarButtons)" />
+	<h3>Buttons in calendar</h3>
+	<p>The <i>Clear</i> and <i>OK</i> buttons in calendar can be hidden by setting <code>ShowCalendarButtons="false"</code>.</p>
+	<Demo Type="typeof(HxInputDate_Demo_CalendarButtons)" />
 
-    <h3>Sizes</h3>
-    <Demo Type="typeof(HxInputDate_Demo_InputSize)" />
+	<h3>Sizes</h3>
+	<Demo Type="typeof(HxInputDate_Demo_InputSize)" />
+
+	<h3>Dropdown calendar customization</h3>
+	<p>
+		You can change rendering of weekend days by defining your own CSS rule for <code>.weekend</code> class.
+		The disabled days get <code>.disabled</code> class.
+	</p>
+	<HxAlert Color="ThemeColor.Warning">
+		<HxIcon Icon="BootstrapIcon.ExclamationTriangleFill" /> Disabling dates with the techniques below won't prevent the user from entering disabled dates manualy. You still have to validate the value.
+	</HxAlert>
+
+	<h4>MinDate, MaxDate</h4>
+	<p>You can limit the dropdown calendar values by setting <code>MinDate</code> and/or <code>MaxDate</code>.</p>
+	<Demo Type="typeof(HxInputDate_Demo_MinDateMaxDate)" />
+
+	<h4>Calendar date customization</h4>
+	<p>
+		You can customize the dropdown calendar dates with <code>CalendarDateCustomizationProvider</code>. You can disable individual dates
+		(<code>Enabled="false"</code>) or set specific CSS class (<code>CssClass="...")</code>.
+	</p>
+	<Demo Type="typeof(HxInputDate_Demo_CalendarDateCustomization)" />
 </ComponentApiDoc>
