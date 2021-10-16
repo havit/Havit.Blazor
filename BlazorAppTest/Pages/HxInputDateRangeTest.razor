@@ -6,7 +6,7 @@
 		<DataAnnotationsValidator />
 		<ValidationSummary />
 
-		<HxInputDateRange Label="HxInputDateRange (default)" @bind-Value="@model.DateTimeRange" CalendarCustomizationProvider="GetCalendarCustomization" />
+		<HxInputDateRange Label="HxInputDateRange (default)" @bind-Value="@model.DateTimeRange" CalendarDateCustomizationProvider="GetCalendarDateCustomization" />
 		<HxInputDateRange Label="HxInputDateRange (bez DateRanges, bez validací)" @bind-Value="@model.DateTimeRange" UseDefaultDateRanges="false" ShowValidationMessage="false" />
 		<HxInputDateRange Label="HxInputDateRange (s vlastními DateRanges)" @bind-Value="@model.DateTimeRange" CustomDateRanges="@GetDateRanges()" />
 		<HxInputDateRange Label="HxInputDateRange (disabled)" @bind-Value="@model.DateTimeRange" CustomDateRanges="@GetDateRanges()" Enabled="false" />
@@ -24,15 +24,15 @@
 			yield return new DateRangeItem { Label = "Celý rok", DateRange = new DateTimeRange { StartDate = new DateTime(DateTime.Today.Year, 1, 1), EndDate = new DateTime(DateTime.Today.Year, 12, 31) } };
 		}
 
-		private CalendarCustomizationResult GetCalendarCustomization(CalendarCustomizationRequest request)
+		private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request)
 		{
-			return (request.Target == CalendarCustomizationTarget.InputDateRangeFrom)
-				? new CalendarCustomizationResult
+			return (request.Target == CalendarDateCustomizationTarget.InputDateRangeFrom)
+				? new CalendarDateCustomizationResult
 				{
 					Enabled = request.Date.Day <= 20,
 					CssClass = request.Date.Day == 1 ? "green" : ""
 				}
-				: new CalendarCustomizationResult
+				: new CalendarDateCustomizationResult
 				{
 					Enabled = request.Date.Day >= 10,
 					CssClass = request.Date.Day == DateTime.DaysInMonth(request.Date.Year, request.Date.Month) ? "red" : ""

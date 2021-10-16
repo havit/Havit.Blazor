@@ -60,20 +60,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// First date selectable from the dropdown calendar.<br />
-		/// Default is <c>1.1.1900</c> (configurable from <see cref="HxInputDate.Defaults"/>).
+		/// Default is <c>1.1.1900</c> (configurable from <see cref="HxInputDateRange.Defaults"/>).
 		/// </summary>
 		[Parameter] public DateTime? MinDate { get; set; }
 
 		/// <summary>
 		/// Last date selectable from the dropdown calendar.<br />
-		/// Default is <c>31.12.2099</c> (configurable from <see cref="HxInputDate.Defaults"/>).
+		/// Default is <c>31.12.2099</c> (configurable from <see cref="HxInputDateRange.Defaults"/>).
 		/// </summary>
 		[Parameter] public DateTime? MaxDate { get; set; }
 
 		/// <summary>
-		/// Customizes date selection in calendar.
+		/// Allows customization of the dates in dropdown calendars.<br />
+		/// Default customization is configurable with <see cref="HxInputDateRange.Defaults"/>.
 		/// </summary>
-		[Parameter] public CalendarCustomizationProviderDelegate CalendarCustomizationProvider { get; set; }
+		[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
 
 		[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
@@ -111,7 +112,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(207, nameof(HxInputDateRangeInternal.ShowCalendarButtons), ShowCalendarButtons ?? defaults.ShowCalendarButtons);
 			builder.AddAttribute(208, nameof(HxInputDateRangeInternal.MinDateEffective), MinDate ?? defaults.MinDate);
 			builder.AddAttribute(219, nameof(HxInputDateRangeInternal.MaxDateEffective), MaxDate ?? defaults.MaxDate);
-			builder.AddAttribute(220, nameof(HxInputDateRangeInternal.CalendarCustomizationProviderEffective), CalendarCustomizationProvider ?? defaults.CalendarCustomizationProvider);
+			builder.AddAttribute(220, nameof(HxInputDateRangeInternal.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProvider ?? defaults.CalendarDateCustomizationProvider);
 
 			builder.CloseComponent();
 		}

@@ -36,7 +36,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public DateTime MaxDateEffective { get; set; }
 
-		[Parameter] public CalendarCustomizationProviderDelegate CalendarCustomizationProviderEffective { get; set; }
+		[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective { get; set; }
 
 		[Inject] protected IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
@@ -109,14 +109,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await jsModule.InvokeVoidAsync(toValid ? "setInputValid" : "setInputInvalid", toInputElement);
 		}
 
-		private CalendarCustomizationResult GetCalendarCustomizationFrom(CalendarCustomizationRequest request)
+		private CalendarDateCustomizationResult GetCalendarDateCustomizationFrom(CalendarDateCustomizationRequest request)
 		{
-			return CalendarCustomizationProviderEffective?.Invoke(request with { Target = CalendarCustomizationTarget.InputDateRangeFrom }) ?? null;
+			return CalendarDateCustomizationProviderEffective?.Invoke(request with { Target = CalendarDateCustomizationTarget.InputDateRangeFrom }) ?? null;
 		}
 
-		private CalendarCustomizationResult GetCalendarCustomizationTo(CalendarCustomizationRequest request)
+		private CalendarDateCustomizationResult GetCalendarDateCustomizationTo(CalendarDateCustomizationRequest request)
 		{
-			return CalendarCustomizationProviderEffective?.Invoke(request with { Target = CalendarCustomizationTarget.InputDateRangeTo }) ?? null;
+			return CalendarDateCustomizationProviderEffective?.Invoke(request with { Target = CalendarDateCustomizationTarget.InputDateRangeTo }) ?? null;
 		}
 
 		protected async Task HandleFromChangedAsync(ChangeEventArgs changeEventArgs)

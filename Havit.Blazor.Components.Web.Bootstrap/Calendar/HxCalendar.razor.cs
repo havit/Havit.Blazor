@@ -48,9 +48,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public DateTime? MaxDate { get; set; }
 
 		/// <summary>
-		/// Customizes date selection in calendar.
+		/// Allows customization of the dates in calendar.<br />
 		/// </summary>
-		[Parameter] public CalendarCustomizationProviderDelegate CustomizationProvider { get; set; }
+		[Parameter] public CalendarDateCustomizationProviderDelegate DateCustomizationProvider { get; set; }
 
 		private DateTime MinDateEffective => MinDate ?? GetDefaults().MinDate;
 		private DateTime MaxDateEffective => MaxDate ?? GetDefaults().MaxDate;
@@ -84,7 +84,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		private RenderData renderData;
-		private Dictionary<DateTime, CalendarCustomizationResult> customizations;
+		private Dictionary<DateTime, CalendarDateCustomizationResult> customizations;
 
 		protected override async Task OnParametersSetAsync()
 		{
@@ -144,7 +144,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				for (int day = 0; day < 7; day++)
 				{
-					CalendarCustomizationResult customization = GetCustomization(currentDay);
+					CalendarDateCustomizationResult customization = GetCustomization(currentDay);
 
 					bool clickEnabled = (currentDay >= minDateEffective) // can click only days starting MinDate
 							&& (currentDay <= maxDateEffective) && (customization?.Enabled ?? true); // can click only days ending MaxDate
@@ -174,23 +174,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			renderData.NextMonthEnabled = maxDateEffective > new DateTime(DisplayMonth.Year, DisplayMonth.Month, DateTime.DaysInMonth(DisplayMonth.Year, DisplayMonth.Month));
 		}
 
-		private CalendarCustomizationResult GetCustomization(DateTime day)
+		private CalendarDateCustomizationResult GetCustomization(DateTime day)
 		{
-			if (CustomizationProvider == null)
+			if (DateCustomizationProvider == null)
 			{
 				return null;
 			}
 
-			customizations ??= new Dictionary<DateTime, CalendarCustomizationResult>();
+			customizations ??= new Dictionary<DateTime, CalendarDateCustomizationResult>();
 
-			if (customizations.TryGetValue(day, out CalendarCustomizationResult result))
+			if (customizations.TryGetValue(day, out CalendarDateCustomizationResult result))
 			{
 				return result;
 			}
 
-			result = CustomizationProvider.Invoke(new CalendarCustomizationRequest
+			result = DateCustomizationProvider.Invoke(new CalendarDateCustomizationRequest
 			{
-				Target = CalendarCustomizationTarget.Calendar,
+				Target = CalendarDateCustomizationTarget.Calendar,
 				Date = day
 			});
 			customizations.Add(day, result);
