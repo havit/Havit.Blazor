@@ -880,6 +880,11 @@
             Maximal value to choose from calendar.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarDefaults.DateCustomizationProvider">
+            <summary>
+            Allows customization of the dates in dropdown calendars.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar">
             <summary>
             Basic calendar building block. Used for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> implementation.

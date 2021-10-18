@@ -30,5 +30,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Maximal value to choose from calendar.
 		/// </summary>
 		public DateTime MaxDate { get; set; } = DefaultMaxDate;
+
+		/// <summary>
+		/// Allows customization of the dates in dropdown calendars.
+		/// </summary>
+		public CalendarDateCustomizationProviderDelegate DateCustomizationProvider { get; set; }
 	}
 }

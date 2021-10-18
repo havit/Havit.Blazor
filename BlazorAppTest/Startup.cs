@@ -52,6 +52,7 @@ namespace BlazorAppTest
 			//HxSelect.Defaults.InputSize = InputSize.Large;
 			//HxInputDate.Defaults.InputSize = InputSize.Large;
 			//HxInputDateRange.Defaults.InputSize = InputSize.Large;
+			HxCalendar.Defaults.DateCustomizationProvider = request => new CalendarDateCustomizationResult { Enabled = request.Date < DateTime.Today };
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

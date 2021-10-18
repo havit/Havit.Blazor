@@ -137,6 +137,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			DateTime valueDay = Value?.Date ?? default;
 			DateTime today = DateTime.Today;
 
+			var dateCustomizationProvider = DateCustomizationProvider ?? GetDefaults().DateCustomizationProvider;
+
 			for (var week = 0; week < 6; week++)
 			{
 				WeekData weekData = new WeekData();
@@ -144,7 +146,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				for (int day = 0; day < 7; day++)
 				{
-					CalendarDateCustomizationResult customization = GetCustomization(currentDay);
+					CalendarDateCustomizationResult customization = GetDateCustomization(dateCustomizationProvider, currentDay);
 
 					bool clickEnabled = (currentDay >= minDateEffective) // can click only days starting MinDate
 							&& (currentDay <= maxDateEffective) && (customization?.Enabled ?? true); // can click only days ending MaxDate
@@ -174,9 +176,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			renderData.NextMonthEnabled = maxDateEffective > new DateTime(DisplayMonth.Year, DisplayMonth.Month, DateTime.DaysInMonth(DisplayMonth.Year, DisplayMonth.Month));
 		}
 
-		private CalendarDateCustomizationResult GetCustomization(DateTime day)
+		private CalendarDateCustomizationResult GetDateCustomization(CalendarDateCustomizationProviderDelegate dateCustomizationProvider, DateTime day)
 		{
-			if (DateCustomizationProvider == null)
+			if (dateCustomizationProvider == null)
 			{
 				return null;
 			}
@@ -188,7 +190,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				return result;
 			}
 
-			result = DateCustomizationProvider.Invoke(new CalendarDateCustomizationRequest
+			result = dateCustomizationProvider.Invoke(new CalendarDateCustomizationRequest
 			{
 				Target = CalendarDateCustomizationTarget.Calendar,
 				Date = day
