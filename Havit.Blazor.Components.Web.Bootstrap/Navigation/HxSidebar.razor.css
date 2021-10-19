@@ -2,12 +2,12 @@
 	display: flex;
 	flex-direction: column;
 	flex-shrink: 0;
-	max-height: 100vh;
 	flex-basis: var(--hx-sidebar-width);
 	background-color: var(--hx-sidebar-background-color);
 }
 
-.nav-menu {
+.hx-sidebar.sticky-top,
+.hx-sidebar.sticky-top .nav-menu {
 	max-height: 100vh;
 }
 
