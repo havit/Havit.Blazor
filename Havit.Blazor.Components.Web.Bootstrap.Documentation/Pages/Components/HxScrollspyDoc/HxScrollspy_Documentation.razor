@@ -27,7 +27,7 @@
 	<Demo Type="typeof(HxScrollspy_Demo_ListGroup)" />
 
 	<h3>Dynamic content (async loaded data)</h3>
-	<HxAlert Color="ThemeColor.Warning">
+	<DocAlert Type="DocAlertType.Warning">
 		<p>
 			Bootstrap scrollspy calculates offsets of individual sections when activated (i.e. <code>OnAfterRenderAsync</code> within first render). If the content changes dynamicaly,
 			you have to refresh the offsets manually by calling <code>HxScrollspy.RefreshAsync()</code>.
@@ -38,14 +38,14 @@
 			and calling <code>HxAnchorFragmentNavigation.ScrollToCurrentUriFragmentAsync()</code>).
 		</p>
 		<p>Consider using <i>placeholders</i> to fix the UI layout while loading.</p>
-	</HxAlert>
+	</DocAlert>
 	<Demo Type="typeof(HxScrollspy_Demo_DynamicContent)" />
 
 	<h3>Custom navigation content</h3>
-	<HxAlert Color="ThemeColor.Info">
+	<DocAlert>
 		When using <code>HxButton</code> inside <code>HxScrollspyNavLink</code>, be sure to set s <code>OnClickStopPropagation = "true"</code>.
 		If you won't, the application will navigate to <code>/#anchor</code> of the <code>HxScrollspyNavLink</code> after <code>OnClick</code> handler completes.
-	</HxAlert>
+	</DocAlert>
 	<Demo Type="typeof(HxScrollspy_Demo_CustomNavigationContent)" />
 </ComponentApiDoc>
 

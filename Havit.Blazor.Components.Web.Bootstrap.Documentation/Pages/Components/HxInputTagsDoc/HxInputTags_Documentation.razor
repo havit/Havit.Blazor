@@ -2,9 +2,9 @@
 
 <ComponentApiDoc Type="typeof(HxInputTags)">
 
-    <HxAlert Color="ThemeColor.Warning">
-        <HxIcon Icon="BootstrapIcon.ExclamationTriangleFill" /> <code>HxInputTags</code> does not support additional <code>InputGroups</code>. Learn more about them <a href="/components/Inputs#InputGroups">here</a>.
-    </HxAlert>
+    <DocAlert Type="DocAlertType.Warning">
+        <code>HxInputTags</code> does not support additional <code>InputGroups</code>. Learn more about them <a href="/components/Inputs#InputGroups">here</a>.
+    </DocAlert>
 
 	<h3>Basic Usage</h3>
 	<Demo Type="typeof(HxInputTags_Demo_Basic)" />
@@ -22,10 +22,10 @@
 
 	<h3>Restricted tags</h3>
 	<p>If you want to restrict tags to suggested items only, set <code>@nameof(HxInputTags.AllowCustomTags)</code> to <code>false</code>.</p>
-	<HxAlert Color="ThemeColor.Info">
+	<DocAlert>
 		Current @nameof(HxInputTags) implementation for <code>AllowCustomTags="false""</code> allows adding tags only from suggestions (dropdown).
 		Keyboard support might be implemented in future (we have to check the added tags with DataProvider to apply the restriction).
-	</HxAlert>
+	</DocAlert>
 	<Demo Type="typeof(HxInputTags_Demo_AllowCustomTags)" />
 
 	<h3>Colors</h3>

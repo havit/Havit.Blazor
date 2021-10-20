@@ -23,10 +23,9 @@
 
 <h2>Installation</h2>
 
-<HxAlert Color="ThemeColor.Info">
-	<HxIcon Icon="BootstrapIcon.InfoCircle" CssClass="fs-5 me-2" />
+<DocAlert Type="DocAlertType.Info">
 	We also provide a pre-configured ready to run <a href="https://github.com/havit/NewProjectTemplate-Blazor">new enterprise project template</a> which includes everything you need.
-</HxAlert>
+</DocAlert>
 
 <h3>1. Install the package</h3>
 <p>Find the <a href="https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/">Havit.Blazor.Components.Web.Bootstrap</a> package through NuGet Package Manager or install it with following command:</p>
@@ -41,10 +40,9 @@
 <CodeSnippet File="~\Pages\GettingStarted_CustomCSS.CodeSnippet.html" />
 <p>You can reference your own or any other Bootstrap build/theme in a same way.</p>
 
-<HxAlert Color="ThemeColor.Warning">
-	<HxIcon Icon="BootstrapIcon.ExclamationTriangle" CssClass="fs-5 me-2" />
+<DocAlert Type="DocAlertType.Warning">
 	If you're using a standard Blazor template make sure to remove unnecessary code from <code>site.css</code> and remove the <code>bootstrap.min.css</code> completely from either <code>index.html</code> or <code>_Host.cshtml</code>.
-</HxAlert>
+</DocAlert>
 
 <h4>Bootstrap JavaScript Bundle with Popper</h4>
 <p>At the end of HTML <code>&lt;body&gt;</code> section of either <code>index.html</code> or <code>_Host.cshtml</code> add this:</p>
@@ -76,8 +74,7 @@
 <p>Now you are ready to use all the components in your razor files. They come with <code>Hx</code> prefix. IntelliSense will be your friend...</p>
 <Demo Type="typeof(GettingStarted_Demo)" Tabs="false" />
 
-<HxAlert Color="ThemeColor.Light">
-	<HxIcon Icon="BootstrapIcon.InfoCircle" CssClass="fs-5 me-2" />
+<DocAlert Type="DocAlertType.Info" Color="ThemeColor.Light">
 	This whole documentation is built using the Havit.Blazor library and is running as Blazor WebAssembly ASP.NET Core Hosted project with server-prerendering.
 	See <a href="https://github.com/havit/Havit.Blazor/tree/master/Havit.Blazor.Components.Web.Bootstrap.Documentation">documentation source code on GitHub</a>.
-</HxAlert>
+</DocAlert>

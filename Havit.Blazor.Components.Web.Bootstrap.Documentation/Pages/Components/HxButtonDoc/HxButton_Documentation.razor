@@ -26,14 +26,14 @@
 	<Demo Type="typeof(HxButton_Demo_ManualSpinner)" />
 
 	<h4>Spinner &amp; Single click protection</h4>
-	<HxAlert Color="ThemeColor.Warning">
+	<DocAlert Type="DocAlertType.Warning">
 		EditForm's <code>OnSubmit</code> events are not captured for spinner automation. Use HxButton's <code>OnClick</code>, <code>OnValidClick</code> and <code>OnInvalidClick</code> instead.
-	</HxAlert>
-	<HxAlert Color="ThemeColor.Info">
+	</DocAlert>
+	<DocAlert Type="DocAlertType.Info" IconEnabled="false">
 		If (and only if) there is any of the <code>OnClick</code> handlers set, the single click protection sets the button to <code>disabled</code> during the callback (usually together with the Spinner).
 		It is intentionally not set, if there is no <code>OnClick</code> handler, as there might be an <code>OnSubmit</code> handler of the containing <code>EditForm</code>
 		set which would have been blocked if the button is disabled (see above).
-	</HxAlert>
+	</DocAlert>
 
 	<h3>Button with a badge</h3>
 	<Demo Type="typeof(HxButton_Demo_Badge)" Tabs="false" />
@@ -42,13 +42,11 @@
 	<p>You can use <code>Tooltip</code> parameter to set button's tooltip:</p>
 	<Demo Type="typeof(HxButton_Demo_Tooltip)" Tabs="false" />
 	<h4>Tooltip, wrapper and CSS classes</h4>
-	<HxAlert Color="ThemeColor.Warning">
-		<HxIcon Icon="BootstrapIcon.ExclamationCircle" CssClass="fs-5 me-2" />
+	<DocAlert Type="DocAlertType.Warning">
 		The <code>&lt;button /&gt;</code> is wrapped with a <code>&lt;span&gt;...&lt;/span&gt;</code> wrapper whenever a <code>Tooltip</code> (or <code>TooltipWrapperCssClass</code>) is set.
 		For most scenarios you will then use <code>TooltipWrapperCssClass</code> for your layout classes no matter there is a chance the tooltip text remains unset (e.g. in dynamic scenarios).
-	</HxAlert>
+	</DocAlert>
 	<Demo Type="typeof(HxButton_Demo_TooltipCssClasses)" Tabs="false" />
-
 
 </ComponentApiDoc>
 
