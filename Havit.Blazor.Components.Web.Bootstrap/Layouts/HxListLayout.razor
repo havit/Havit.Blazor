@@ -51,10 +51,7 @@
 			}
 			@if (FilterTemplate != null)
 			{
-				<HxOffcanvas @ref="filterOffcanvasComponent" RenderMode="OffcanvasRenderMode.Always">
-					<HeaderTemplate>
-						@Localizer["FilterHeaderTitle"]
-					</HeaderTemplate>
+				<HxOffcanvas @ref="filterOffcanvasComponent" RenderMode="OffcanvasRenderMode.Always" Title="@Localizer["FilterHeaderTitle"]">
 					<BodyTemplate>
 						<HxFilterForm @ref="filterForm"
 								Id="@filterFormId"
