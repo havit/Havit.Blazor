@@ -1,4 +1,4 @@
-﻿<HxGrid @ref="grid" MultiSelectionEnabled="true" SelectedDataItemsChanged="UpdateGrid" TItem="CultureInfo" DataProvider="ClientSideProcessingDataProvider" PageSize="10">
+﻿<HxGrid MultiSelectionEnabled="true" @bind-SelectedDataItems="selectedCultureInfos" TItem="CultureInfo" DataProvider="ClientSideProcessingDataProvider" PageSize="10">
     <Columns>
         <HxGridColumn TItem="CultureInfo" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
         <HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
@@ -16,19 +16,11 @@
 </p>
 
 @code {
-    private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
-
     private HashSet<CultureInfo> selectedCultureInfos = new();
-    private HxGrid<CultureInfo> grid;
+    private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
 
     private Task<GridDataProviderResult<CultureInfo>> ClientSideProcessingDataProvider(GridDataProviderRequest<CultureInfo> request)
     {
         return Task.FromResult(request.ApplyTo(localCultureInfos));
-    }
-
-    private void UpdateGrid()
-    {
-        selectedCultureInfos = grid.SelectedDataItems;
-        InvokeAsync(StateHasChanged);
     }
 }

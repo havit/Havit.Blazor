@@ -34,7 +34,19 @@
 		<h3>Context menu</h3>
 		<Demo Type="typeof(HxGrid_Demo_ContextMenu)" />
 
-		<h3>Multiselect</h3>
+		<h3>Multiselect with checkboxes</h3>
+		<p>You can let the user select multiple rows with <code>@nameof(HxGrid<object>.MultiSelectionEnabled)="true"</code>, selected items are represented by <code>@nameof(HxGrid<object>.SelectedDataItems)</code> parameter (bindable).</p>
+		<HxAlert Color="ThemeColor.Info">
+			<div class="row">
+				<div class="col-auto">
+					<HxIcon Icon="@BootstrapIcon.InfoCircle" CssClass="fs-5" />
+				</div>
+				<div class="col">
+					<p><code>@nameof(HxGrid<object>.SelectedDataItems)</code> contains only visible items. Items are removed from the selection if they are not rendered (e.g. after paging, sorting, ...).</p>
+					<p><code>@nameof(HxGrid<object>.MultiSelectionEnabled)</code> cannot be combined with <code>@nameof(GridContentNavigationMode.InfiniteScroll)</code>.</p>
+				</div>
+			</div>
+		</HxAlert>
 		<Demo Type="typeof(HxGrid_Demo_Multiselect)" />
 	</MainContent>
 
