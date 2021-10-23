@@ -4,7 +4,7 @@
 
 <HxDropdown AutoClose="DropdownAutoClose.Outside">
 	<HxDropdownToggleButton Color="ThemeColor.Primary" CssClass="@(IsBold ? "fw-bold" : null)">Show dropdown</HxDropdownToggleButton>
-	<HxDropdownContent>
+	<HxDropdownContent CssClass="@(IsBold ? "bg-light" : null)">
 		<div class="row m-3" style="min-width: 100px;">
 			<div class="col">
 				<div>
@@ -16,5 +16,5 @@
 </HxDropdown>
 
 @code {
-	private bool IsBold { get; set; } = false;
+    private bool IsBold { get; set; } = false;
 }

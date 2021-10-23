@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <CascadingValue Value="@this" IsFixed="true">
-	<div class="@GetCssClass()">
+	<div @ref="dropdownElement" class="@GetCssClass()">
 		@ChildContent
 	</div>
 </CascadingValue>

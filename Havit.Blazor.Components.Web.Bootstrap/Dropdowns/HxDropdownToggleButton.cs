@@ -62,6 +62,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			CssClassHelper.Combine(
 				base.CoreCssClass,
 				"dropdown-toggle",
+				(DropdownContainer?.IsOpen ?? false) ? "show" : null,
 				(DropdownContainer?.Split ?? false) ? "dropdown-toggle-split" : null,
 				(NavContainer is not null) ? "nav-link" : null);
 	}

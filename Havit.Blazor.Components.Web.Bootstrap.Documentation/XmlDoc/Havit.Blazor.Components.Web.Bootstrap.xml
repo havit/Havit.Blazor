@@ -1490,6 +1490,35 @@
             Any additional CSS class to apply.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.OnShown">
+            <summary>
+            Raised after the dropdown is shown.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.OnHidden">
+            <summary>
+            Raised after the dropdown is hidden.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.HandleJsShown">
+            <summary>
+            Receives notification from javascript when dropdown is shown.
+            </summary>
+            <remarks>
+            the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.HandleJsHidden">
+            <summary>
+            Receives notification from javascript when item is hidden.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.DisposeAsync">
+            <inheritdoc/>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownContent">
             <summary>
             Custom dropdown content for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/>.
