@@ -22,50 +22,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		/// <summary>
-		/// Css classes for the contained <c>HxIcon</c> component. Default is <c>fs-5 me-2</c>.
-		/// </summary>
-		[Parameter] public string IconCssClass { get; set; }
-
-		/// <summary>
 		/// Additional attributes to be splatted onto an underlying <c>HxAlert</c> component.
 		/// </summary>
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
-
-		/// <summary>
-		/// Use this parameter to override alert color determined by the <c>DocAlert.Type</c> property.
-		/// </summary>
-		[Parameter] public ThemeColor? Color { get; set; }
-
-		/// <summary>
-		/// Use this parameter to override the icon determined by the <c>DocAlert.Type</c> property.
-		/// </summary>
-		[Parameter] public BootstrapIcon Icon { get; set; }
-
-		/// <summary>
-		/// If <c>false</c>, no <c>HxIcon</c> component is rendered. Default is <c>true</c>.
-		/// </summary>
-		[Parameter] public bool IconEnabled { get; set; } = true;
-
-		public DocAlert()
-		{
-			IconCssClass = "fs-5 me-2";
-		}
-
-		private RenderFragment GetIcon()
-		{
-			if (!IconEnabled)
-			{
-				return null;
-			}
-
-			return builder =>
-			{
-				builder.OpenComponent<HxIcon>(1);
-				builder.AddAttribute(2, nameof(HxIcon.Icon), Icon ?? GetBootstrapIcon());
-				builder.AddAttribute(3, nameof(HxIcon.CssClass), IconCssClass);
-				builder.CloseComponent();
-			};
-		}
 
 		private BootstrapIcon GetBootstrapIcon()
 		{
@@ -80,11 +39,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		private ThemeColor GetColor()
 		{
-			if (Color is not null)
-			{
-				return Color.Value;
-			}
-
 			return Type switch
 			{
 				DocAlertType.Info => ThemeColor.Info,

@@ -1,4 +1,10 @@
 ﻿<HxAlert Color="GetColor()" @attributes="AdditionalAttributes">
-    @GetIcon()
-    @ChildContent
+	<div class="row">
+		<div class="col-auto align-top">
+			<HxIcon Icon="GetBootstrapIcon()" CssClass="fs-5 lh-sm" />
+		</div>
+		<div class="col">
+			@ChildContent
+		</div>
+	</div>
 </HxAlert>

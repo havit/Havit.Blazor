@@ -29,7 +29,7 @@
 	<DocAlert Type="DocAlertType.Warning">
 		EditForm's <code>OnSubmit</code> events are not captured for spinner automation. Use HxButton's <code>OnClick</code>, <code>OnValidClick</code> and <code>OnInvalidClick</code> instead.
 	</DocAlert>
-	<DocAlert Type="DocAlertType.Info" IconEnabled="false">
+	<DocAlert Type="DocAlertType.Info">
 		If (and only if) there is any of the <code>OnClick</code> handlers set, the single click protection sets the button to <code>disabled</code> during the callback (usually together with the Spinner).
 		It is intentionally not set, if there is no <code>OnClick</code> handler, as there might be an <code>OnSubmit</code> handler of the containing <code>EditForm</code>
 		set which would have been blocked if the button is disabled (see above).
