@@ -3,11 +3,56 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Services.DataStores
 {
+	/// <summary>
+	/// Base-interface for Blazor dictionary-based static-data stores.
+	/// </summary>
 	public interface IDictionaryStaticDataStore<TKey, TValue>
 	{
-		void Clear();
+		/// <summary>
+		/// To be called before any data-retrival to load/refresh the data.<br/>
+		/// Is automatically called before all asynchronous data-retrieval calls.
+		/// You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any sychronnous API.<br/>
+		/// </summary>
+		Task EnsureDataAsync();
+
+		/// <summary>
+		/// Indicates whether the store has valid data.
+		/// </summary>
+		bool IsLoaded { get; }
+
+		/// <summary>
+		/// Returns all data from the store (includes data load if needed).
+		/// </summary>
 		Task<IEnumerable<TValue>> GetAllAsync();
+
+		/// <summary>
+		/// Returns all data from the store (requires <see cref="EnsureDataAsync"/> to be called first).
+		/// </summary>
+		IEnumerable<TValue> GetAll();
+
+		/// <summary>
+		/// Retrieves value from dictionary (includes data load if needed). Throws exception when key not found.
+		/// </summary>
 		Task<TValue> GetByKeyAsync(TKey key);
-		Task<TValue> TryGetByKeyAsync(TKey key);
+
+		/// <summary>
+		/// Retrieves value from dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Throws exception when key not found.
+		/// </summary>
+		TValue GetByKey(TKey key);
+
+		/// <summary>
+		/// Retrieves value from dictionary (includes data load if needed). Returns <c>default</c> when not found.
+		/// </summary>
+		Task<TValue> TryGetByKeyAsync(TKey key, TValue defaultValue = default);
+
+		/// <summary>
+		/// Retrieves value from dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
+		/// </summary>
+		TValue TryGetByKey(TKey key, TValue defaultValue = default);
+
+		/// <summary>
+		/// Throws away all the data.
+		/// </summary>
+		void Clear();
 	}
 }

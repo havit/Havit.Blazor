@@ -34,44 +34,76 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 		protected internal abstract Func<TValue, TKey> KeySelector { get; }
 
 		/// <summary>
+		/// Indicates whether the store has valid data.
+		/// </summary>
+		public bool IsLoaded => (Data is not null) && !ShouldRefresh();
+
+		/// <summary>
 		/// Template method to implement your own logic of data expiration/refresh.
-		/// Gets called within all data-retrieval calls to check for refreshment need.
+		/// Gets called within all data-retrieval calls to check for refreshment need.<br />
+		/// Can be implemented as "<c>=> false</c>" if you do not want the data to ever expire.
 		/// </summary>
 		protected internal abstract bool ShouldRefresh();
 
+		/// <summary>
+		/// Returns all data from the store (includes data load if needed).
+		/// </summary>
 		public async Task<IEnumerable<TValue>> GetAllAsync()
 		{
 			await EnsureDataAsync();
+			return GetAll();
+		}
 
+		/// <summary>
+		/// Returns all data from the store (requires <see cref="EnsureDataAsync"/> to be called first).
+		/// </summary>
+		public IEnumerable<TValue> GetAll()
+		{
+			ThrowIfNotLoaded();
 			return Data.Values;
 		}
 
 		/// <summary>
-		/// Retrieves value from dictionary. Throws exception when not found.
+		/// Retrieves value from dictionary (includes data load if needed). Throws exception when key not found.
 		/// </summary>
 		public async Task<TValue> GetByKeyAsync(TKey key)
 		{
-			Contract.Requires<ArgumentNullException>(key is not null);
-
 			await EnsureDataAsync();
+			return GetByKey(key);
+		}
 
+		/// <summary>
+		/// Retrieves value from dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Throws exception when key not found.
+		/// </summary>
+		public TValue GetByKey(TKey key)
+		{
+			Contract.Requires<ArgumentNullException>(key is not null);
+			ThrowIfNotLoaded();
 			return this.Data[key];
 		}
 
 		/// <summary>
-		/// Retrieves value from dictionary. Returns <c>default</c> when not found.
+		/// Retrieves value from dictionary (includes data load if needed). Returns <c>default</c> when not found.
 		/// </summary>
-		public async Task<TValue> TryGetByKeyAsync(TKey key)
+		public async Task<TValue> TryGetByKeyAsync(TKey key, TValue defaultValue = default)
+		{
+			await EnsureDataAsync();
+			return TryGetByKey(key, defaultValue);
+		}
+
+		/// <summary>
+		/// Retrieves value from dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
+		/// </summary>
+		public TValue TryGetByKey(TKey key, TValue defaultValue = default)
 		{
 			Contract.Requires<ArgumentNullException>(key is not null);
-
-			await EnsureDataAsync();
+			ThrowIfNotLoaded();
 
 			if (this.Data.TryGetValue(key, out var value))
 			{
 				return value;
 			}
-			return default;
+			return defaultValue;
 		}
 
 		/// <summary>
@@ -83,11 +115,13 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 		}
 
 		/// <summary>
-		/// To be called before any data-retrival to load/refresh the data.
+		/// To be called before any data-retrival to load/refresh the data.<br/>
+		/// Is automatically called before all asynchronous data-retrieval calls.
+		/// You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any sychronnous API.<br/>
 		/// Uses <see cref="ShouldRefresh"/> to check for refreshment request.
 		/// Uses lock to prevent multiple parallel loads.
 		/// </summary>
-		protected internal async Task EnsureDataAsync()
+		public async Task EnsureDataAsync()
 		{
 			if ((Data is null) || ShouldRefresh())
 			{
@@ -108,5 +142,10 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 			}
 		}
 		private readonly SemaphoreSlim loadLock = new SemaphoreSlim(1, 1);
+
+		private void ThrowIfNotLoaded()
+		{
+			Contract.Requires<InvalidOperationException>(Data is not null, $"Data not loaded. You have to call {nameof(EnsureDataAsync)} first.");
+		}
 	}
 }

@@ -13,7 +13,7 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 	public class DictionaryStaticDataStoreTests
 	{
 		[TestMethod]
-		public async Task DictionaryStaticDataStore_FirstLoad()
+		public async Task DictionaryStaticDataStore_FirstLoad_Async()
 		{
 			// arrange
 			var sut = new Mock<DictionaryStaticDataStore<char, string>>();
@@ -24,6 +24,27 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 
 			// act
 			var result = await sut.Object.GetAllAsync();
+			var isLoaded = sut.Object.IsLoaded;
+
+			// assert
+			CollectionAssert.AreEqual(new[] { "Adam", "Barbora", "Cyril" }, result.ToList());
+			sut.Verify(s => s.LoadDataAsync(), Times.Once);
+			Assert.IsTrue(isLoaded);
+		}
+
+		[TestMethod]
+		public async Task DictionaryStaticDataStore_FirstLoad_Sync()
+		{
+			// arrange
+			var sut = new Mock<DictionaryStaticDataStore<char, string>>();
+			sut.CallBase = true;
+			sut.SetupGet(s => s.KeySelector).Returns(value => value[0]);
+			sut.Setup(s => s.LoadDataAsync()).ReturnsAsync(new[] { "Adam", "Barbora", "Cyril" });
+			sut.Setup(s => s.ShouldRefresh()).Returns(false);
+
+			// act
+			await sut.Object.EnsureDataAsync();
+			var result = sut.Object.GetAll();
 
 			// assert
 			CollectionAssert.AreEqual(new[] { "Adam", "Barbora", "Cyril" }, result.ToList());
@@ -48,6 +69,24 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 		}
 
 		[TestMethod]
+		public async Task DictionaryStaticDataStore_GetByKey()
+		{
+			// arrange
+			var sut = new Mock<DictionaryStaticDataStore<char, string>>();
+			sut.CallBase = true;
+			sut.SetupGet(s => s.KeySelector).Returns(value => value[0]);
+			sut.Setup(s => s.LoadDataAsync()).ReturnsAsync(new[] { "Adam", "Barbora", "Cyril" });
+			sut.Setup(s => s.ShouldRefresh()).Returns(false);
+
+			// act
+			await sut.Object.EnsureDataAsync();
+			var result = sut.Object.GetByKey('A');
+
+			// assert
+			Assert.AreEqual("Adam", result);
+		}
+
+		[TestMethod]
 		public async Task DictionaryStaticDataStore_SecondCallShouldUseExistingData()
 		{
 			// arrange
@@ -59,13 +98,14 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 			_ = await sut.Object.GetAllAsync();
 
 			// act
+			var isLoaded = sut.Object.IsLoaded;
 			var result = await sut.Object.GetAllAsync();
 
 			// assert
+			Assert.IsTrue(isLoaded);
 			sut.Verify(s => s.LoadDataAsync(), Times.Once);
 			CollectionAssert.AreEqual(new[] { "Adam", "Barbora", "Cyril" }, result.ToList());
 		}
-
 
 		[TestMethod]
 		public async Task DictionaryStaticDataStore_ShouldRefresh_SecondCallShouldReloadData()
@@ -79,9 +119,11 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 			_ = await sut.Object.GetAllAsync();
 
 			// act
+			var isLoaded = sut.Object.IsLoaded;
 			var result = await sut.Object.GetAllAsync();
 
 			// assert
+			Assert.IsFalse(isLoaded);
 			sut.Verify(s => s.LoadDataAsync(), Times.Exactly(2));
 			CollectionAssert.AreEqual(new[] { "Adam", "Barbora", "Cyril" }, result.ToList());
 		}
@@ -99,9 +141,11 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 
 			// act
 			sut.Object.Clear();
+			var isLoaded = sut.Object.IsLoaded;
 			var result = await sut.Object.GetAllAsync();
 
 			// assert
+			Assert.IsFalse(isLoaded);
 			sut.Verify(s => s.LoadDataAsync(), Times.Exactly(2));
 			CollectionAssert.AreEqual(new[] { "Adam", "Barbora", "Cyril" }, result.ToList());
 		}
@@ -125,6 +169,42 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 
 			// assert
 			sut.Verify(s => s.LoadDataAsync(), Times.Once);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidOperationException))]
+		public void DictionaryStaticDataStore_SyncNotLoaded_ShouldRaiseException()
+		{
+			// arrange
+			var sut = new Mock<DictionaryStaticDataStore<char, string>>();
+			sut.CallBase = true;
+			sut.SetupGet(s => s.KeySelector).Returns(value => value[0]);
+			sut.Setup(s => s.LoadDataAsync()).ReturnsAsync(new[] { "Adam", "Barbora", "Cyril" });
+			sut.Setup(s => s.ShouldRefresh()).Returns(false);
+
+			// act
+			var result = sut.Object.GetAll();
+
+			// assert
+			// expected exception
+		}
+
+
+		[TestMethod]
+		public void DictionaryStaticDataStore_IsLoadedBeforeLoad_ShouldReturnFalse()
+		{
+			// arrange
+			var sut = new Mock<DictionaryStaticDataStore<char, string>>();
+			sut.CallBase = true;
+			sut.SetupGet(s => s.KeySelector).Returns(value => value[0]);
+			sut.Setup(s => s.LoadDataAsync()).ReturnsAsync(new[] { "Adam", "Barbora", "Cyril" });
+			sut.Setup(s => s.ShouldRefresh()).Returns(false);
+
+			// act
+			var isLoaded = sut.Object.IsLoaded;
+
+			// assert
+			Assert.IsFalse(isLoaded);
 		}
 	}
 }
