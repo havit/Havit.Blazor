@@ -32,7 +32,7 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 
 		/// <summary>
 		/// Retrieves value from dictionary (includes data load if needed). Throws exception when key not found.
-		/// </summary
+		/// </summary>
 		Task<TValue> GetByKeyAsync(TKey key);
 
 		/// <summary>

@@ -727,7 +727,11 @@
             Returns all data from the store (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first).
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetByKeyAsync(`0)" -->
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetByKeyAsync(`0)">
+            <summary>
+            Retrieves value from dictionary (includes data load if needed). Throws exception when key not found.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetByKey(`0)">
             <summary>
             Retrieves value from dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Throws exception when key not found.
