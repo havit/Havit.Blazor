@@ -53,3 +53,7 @@
 .hx-input-date-icon {
     z-index: 10;
 }
+
+.form-floating label {
+    z-index: 10;
+}
