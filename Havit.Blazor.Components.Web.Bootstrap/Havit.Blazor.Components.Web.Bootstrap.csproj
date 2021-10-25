@@ -29,7 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap.InternalCodeGenerators\Havit.Blazor.Components.Web.Bootstrap.InternalCodeGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators\Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 		<ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
 	</ItemGroup>
 

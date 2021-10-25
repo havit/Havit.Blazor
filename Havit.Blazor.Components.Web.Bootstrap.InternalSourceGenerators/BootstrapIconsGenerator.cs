@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.InternalCodeGenerators
+namespace Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators
 {
 	[Generator]
 	public class BootstrapIconsGenerator : ISourceGenerator
