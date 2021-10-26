@@ -160,7 +160,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected bool DisabledEffective => !CascadeEnabledComponent.EnabledEffective(this)
 			|| (SingleClickProtection && clickInProgress && (OnClick.HasDelegate || OnValidClick.HasDelegate || OnInvalidClick.HasDelegate));
 
-		private bool clickInProgress;
+		protected bool clickInProgress;
+		protected ElementReference buttonElementReference;
 
 		/// <summary>
 		/// Gets basic CSS class(es) which get rendered to every single button. <br/>

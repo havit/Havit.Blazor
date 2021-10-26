@@ -3,8 +3,8 @@
 <h1>HxDropdown</h1>
 
 <HxDropdown AutoClose="DropdownAutoClose.Outside">
-	<HxDropdownToggleButton Color="ThemeColor.Primary" CssClass="@(IsBold ? "fw-bold" : null)">Show dropdown</HxDropdownToggleButton>
-	<HxDropdownContent>
+	<HxDropdownToggleButton @ref="dropdownToggleComponent" Color="ThemeColor.Primary" CssClass="@(IsBold ? "fw-bold" : null)">Show dropdown</HxDropdownToggleButton>
+	<HxDropdownContent CssClass="@(IsBold ? "bg-light" : null)">
 		<div class="row m-3" style="min-width: 100px;">
 			<div class="col">
 				<div>
@@ -15,6 +15,11 @@
 	</HxDropdownContent>
 </HxDropdown>
 
+<HxButton OnClick="() => dropdownToggleComponent.ShowAsync()">Show</HxButton>
+<HxButton OnClick="() => dropdownToggleComponent.HideAsync()">Hide</HxButton>
+
+
 @code {
+	private HxDropdownToggleButton dropdownToggleComponent;
 	private bool IsBold { get; set; } = false;
 }

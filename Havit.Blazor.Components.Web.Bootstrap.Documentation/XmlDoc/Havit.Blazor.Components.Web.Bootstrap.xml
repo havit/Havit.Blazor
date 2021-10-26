@@ -1617,6 +1617,45 @@
             and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnShown">
+            <summary>
+            Fired when the dropdown has been made visible to the user and CSS transitions have completed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnHidden">
+            <summary>
+            Fired when the dropdown has finished being hidden from the user and CSS transitions have completed.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.ShowAsync">
+            <summary>
+            Shows the dropdown menu.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.HideAsync">
+            <summary>
+            Hides the dropdown menu.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.HandleJsShown">
+            <summary>
+            Receives notification from javascript when dropdown is shown.
+            </summary>
+            <remarks>
+            the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.HandleJsHidden">
+            <summary>
+            Receives notification from javascript when item is hidden.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.DisposeAsync">
+            <inheritdoc/>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
             <summary>
             Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as Bootstrap form control (incl. <c>Label</c> etc.)

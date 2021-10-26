@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Dropdowns;
 using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
@@ -6,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component.
 	/// </summary>
-	public partial class HxDropdown
+	public partial class HxDropdown : IDropdownContainer
 	{
 		[Parameter] public DropdownDirection Direction { get; set; }
 
@@ -31,6 +33,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		[CascadingParameter] protected HxNavbar NavbarContainer { get; set; }
+
+		bool IDropdownContainer.IsOpen { get; set; }
 
 		protected string GetDropdownDirectionCssClass()
 		{
