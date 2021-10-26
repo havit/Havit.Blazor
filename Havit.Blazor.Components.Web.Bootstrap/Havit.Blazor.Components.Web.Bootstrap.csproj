@@ -9,11 +9,17 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.4.4</PackageVersion>
+		<PackageVersion>1.4.6</PackageVersion>
 		<Description>HAVIT Blazor Library - Free Bootstrap 5 components for ASP.NET Blazor</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://havit.blazor.eu</PackageProjectUrl>
 	</PropertyGroup>
+	
+	<ItemGroup>
+	  <!-- We need this to NOT distribute the file in the nuget. -->
+	  <Content Remove="Icons\bootstrap-icons.json" />
+	  <None Include="Icons\bootstrap-icons.json" />
+	</ItemGroup>
 	
 	<ItemGroup>
 		<PackageReference Include="Havit.Core" Version="2.0.20" />
@@ -23,6 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators\Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 		<ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
 	</ItemGroup>
 

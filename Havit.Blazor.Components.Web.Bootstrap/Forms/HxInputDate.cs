@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Date picker. Form input component for entering a date.
 	/// </summary>
-	public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, IInputWithSize
+	public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, IInputWithSize, IInputWithLabelType
 	{
 		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(DateTime), typeof(DateTimeOffset) };
@@ -81,6 +81,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
+		/// <inheritdoc cref="Bootstrap.LabelType" />
+		[Parameter] public LabelType? LabelType { get; set; }
+
 		/// <summary>
 		/// Returns <see cref="HxInputDate{TValue}"/> defaults.
 		/// Enables to not share defaults in descandants with base classes.
@@ -88,6 +91,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual InputDateDefaults GetDefaults() => HxInputDate.Defaults;
 		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+
+		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputDateInternal */ : LabelValueRenderOrder.LabelValue;
 
 		public HxInputDate()
 		{
@@ -106,6 +111,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected virtual void BuildRenderInputCore(RenderTreeBuilder builder)
 		{
 			var defaults = GetDefaults();
+			LabelType labelTypeEffective = (this as IInputWithLabelType).LabelTypeEffective;
 
 			builder.OpenComponent(1, typeof(HxInputDateInternal<TValue>));
 
@@ -117,14 +123,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(201, nameof(HxInputDateInternal<TValue>.InputCssClass), GetInputCssClassToRender());
 			builder.AddAttribute(202, nameof(HxInputDateInternal<TValue>.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.ParsingErrorMessageEffective), GetParsingErrorMessage());
-			builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.Placeholder), Placeholder);
+			builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
+
 			builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.InputSize), ((IInputWithSize)this).InputSizeEffective);
 			builder.AddAttribute(206, nameof(HxInputDateInternal<TValue>.CalendarIcon), CalendarIcon ?? defaults.CalendarIcon);
 			builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.CustomDates), GetCustomDates().ToList());
 			builder.AddAttribute(208, nameof(HxInputDateInternal<TValue>.ShowCalendarButtons), ShowCalendarButtons ?? defaults.ShowCalendarButtons);
 			builder.AddAttribute(209, nameof(HxInputDateInternal<TValue>.MinDateEffective), MinDate ?? defaults.MinDate);
 			builder.AddAttribute(210, nameof(HxInputDateInternal<TValue>.MaxDateEffective), MaxDate ?? defaults.MaxDate);
-			builder.AddAttribute(210, nameof(HxInputDateInternal<TValue>.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProvider ?? defaults.CalendarDateCustomizationProvider);
+			builder.AddAttribute(211, nameof(HxInputDateInternal<TValue>.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProvider ?? defaults.CalendarDateCustomizationProvider);
+			builder.AddAttribute(212, nameof(HxInputDateInternal<TValue>.LabelTypeEffective), labelTypeEffective);
+			builder.AddAttribute(213, nameof(HxInputDateInternal<TValue>.FormValueComponent), this);
 
 			builder.CloseComponent();
 		}

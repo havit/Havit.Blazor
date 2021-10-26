@@ -25,10 +25,9 @@
 			You can switch from paging to infinite-scoll by setting <code>ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"</code>.
 			Use a Placeholder (<code>&lt;Placeholder&gt;...&lt;/Placeholder&gt;</code>) to display content until the item data is available.
 		</p>
-		<HxAlert Color="ThemeColor.Warning">
-			<HxIcon Icon="@BootstrapIcon.ExclamationTriangleFill" />
+		<DocAlert Type="DocAlertType.Warning">
 			The <code>ItemRowHeight</code> parameter should be set for the virtualization to work properly. The default value is 50 pixels.
-		</HxAlert>
+		</DocAlert>
 		<Demo Type="typeof(HxGrid_VirtualizedDemo)" />
 
 		<h3>Context menu</h3>
@@ -36,17 +35,10 @@
 
 		<h3>Multiselect with checkboxes</h3>
 		<p>You can let the user select multiple rows with <code>@nameof(HxGrid<object>.MultiSelectionEnabled)="true"</code>, selected items are represented by <code>@nameof(HxGrid<object>.SelectedDataItems)</code> parameter (bindable).</p>
-		<HxAlert Color="ThemeColor.Info">
-			<div class="row">
-				<div class="col-auto">
-					<HxIcon Icon="@BootstrapIcon.InfoCircle" CssClass="fs-5" />
-				</div>
-				<div class="col">
-					<p><code>@nameof(HxGrid<object>.SelectedDataItems)</code> contains only visible items. Items are removed from the selection if they are not rendered (e.g. after paging, sorting, ...).</p>
-					<p><code>@nameof(HxGrid<object>.MultiSelectionEnabled)</code> cannot be combined with <code>@nameof(GridContentNavigationMode.InfiniteScroll)</code>.</p>
-				</div>
-			</div>
-		</HxAlert>
+		<DocAlert>
+			<code>@nameof(HxGrid<object>.SelectedDataItems)</code> contains only visible items. Items are removed from the selection if they are not rendered (e.g. after paging, sorting, ...).
+			<code>@nameof(HxGrid<object>.MultiSelectionEnabled)</code> cannot be combined with <code>@nameof(GridContentNavigationMode.InfiniteScroll)</code>.
+		</DocAlert>
 		<Demo Type="typeof(HxGrid_Demo_Multiselect)" />
 	</MainContent>
 

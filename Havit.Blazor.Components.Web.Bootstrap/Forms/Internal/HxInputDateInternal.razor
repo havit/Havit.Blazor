@@ -8,47 +8,52 @@
 					 "hx-input-date input-group dropdown",
 					 ((IInputWithSize)this).GetInputGroupSizeCssClass(),
 					 (this.CalendarIcon is not null) ? "hx-input-date-has-calendar-icon" : null,
+					 (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null,
 					 CustomDates.Any() ? "custom-dates" : null)">
 
-		@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-		<input @ref="dateInputElement" type="text" id="@InputId" class="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())" value="@CurrentValueAsString" @onchange="HandleValueChangedAsync" placeholder="@Placeholder" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
+	@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
+	<input @ref="dateInputElement" type="text" id="@InputId" class="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())" value="@CurrentValueAsString" @onchange="HandleValueChangedAsync" placeholder="@Placeholder" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
+	@if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
+	{
+		<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
+	}
+	@if (EnabledEffective)
+	{
+		<div class="dropdown-menu p-3">
+			<div class="mb-2">
+				<HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" />
+			</div>
+			@if (ShowCalendarButtons)
+			{
+				<div class="d-flex justify-content-between">
+					<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" />
+					<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleOKClickAsync" />
+				</div>
+			}
+		</div>
+	}
+
+	@if (CalendarIcon is not null)
+	{
+		<div class="hx-input-date-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center">
+			<HxIcon Icon="CalendarIcon" />
+		</div>
+	}
+
+	@if ((CustomDates != null) && CustomDates.Any())
+	{
+		<button class="btn btn-light" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)" tabindex="-1">
+			<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
+		</button>
 		@if (EnabledEffective)
 		{
-			<div class="dropdown-menu p-3">
-				<div class="mb-2">
-					<HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" />
-				</div>
-				@if (ShowCalendarButtons)
+			<ul class="dropdown-menu dropdown-menu-end">
+				@foreach (DateItem item in CustomDates)
 				{
-					<div class="d-flex justify-content-between">
-						<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" />
-						<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleOKClickAsync" />
-					</div>
+					<li><span class="dropdown-item" role="button" @onclick="() => HandleCustomDateClick(item.Date)" @onclick:stopPropagation>@item.Label</span></li>
 				}
-			</div>
+			</ul>
 		}
-
-		@if (CalendarIcon is not null)
-		{
-			<div class="hx-input-date-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center">
-				<HxIcon Icon="CalendarIcon" />
-			</div>
-		}
-
-		@if ((CustomDates != null) && CustomDates.Any())
-		{
-			<button class="btn btn-light" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)" tabindex="-1">
-				<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
-			</button>
-			@if (EnabledEffective)
-			{
-				<ul class="dropdown-menu dropdown-menu-end">
-					@foreach (DateItem item in CustomDates)
-					{
-						<li><span class="dropdown-item" role="button" @onclick="() => HandleCustomDateClick(item.Date)" @onclick:stopPropagation>@item.Label</span></li>
-					}
-				</ul>
-			}
-		}
-	</div>
-}
+	}
+</div>
+	}
