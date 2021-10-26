@@ -39,6 +39,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective { get; set; }
 
+		[Parameter] public LabelType LabelTypeEffective { get; set; }
+
+		[Parameter] public IFormValueComponent FormValueComponent { get; set; }
+
 		[Inject] internal IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }

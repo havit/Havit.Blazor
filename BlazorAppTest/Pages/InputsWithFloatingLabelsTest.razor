@@ -31,13 +31,13 @@
 			<HxInputNumber LabelType="LabelType.Floating" Label="Integer (nullable)" @bind-Value="@context.NullableIntegerValue" ParsingErrorMessage="Enter correct Integer." />
 			<HxInputNumber LabelType="LabelType.Floating" Label="Decimal" @bind-Value="@context.DecimalValue" ParsingErrorMessage="Enter correct Decimal." />
 			<HxInputNumber LabelType="LabelType.Floating" Label="Decimal (nullable)" @bind-Value="@context.NullableDecimalValue" ParsingErrorMessage="Enter correct Decimal." />
-			@*<HxInputDate LabelType="LabelType.Floating" Label="Date" @bind-Value="@context.DateValue" ParsingErrorMessage="Enter correct Date."/>
+			<HxInputDate LabelType="LabelType.Floating" Label="Date" @bind-Value="@context.DateValue" ParsingErrorMessage="Enter correct Date." />
 			<HxInputDate LabelType="LabelType.Floating" Label="Date (nullable)" @bind-Value="@context.NullableDateValue" ParsingErrorMessage="Enter correct Date." />
-			<HxInputDateRange LabelType="LabelType.Floating" Label="DateRange" @bind-Value="@context.DateRange" ParsingErrorMessage="Enter correct DateRange." DateRanges="@(GetCustomDateRanges())" />
+			@*<HxInputDateRange LabelType="LabelType.Floating" Label="DateRange" @bind-Value="@context.DateRange" ParsingErrorMessage="Enter correct DateRange." DateRanges="@(GetCustomDateRanges())" />
 
-			<HxSelect LabelType="LabelType.Floating" Label="Select (TValueType: string)" @bind-Value="@context.CultureInfoSelectName" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
-			<HxSelect LabelType="LabelType.Floating" Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfoSelect" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
-			<HxSelect LabelType="LabelType.Floating" Label="Select (Data == null, small)" TItem="CultureInfo" TValue="CultureInfo" @bind-Value="@context.CultureInfoSelect" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" />*@
+		<HxSelect LabelType="LabelType.Floating" Label="Select (TValueType: string)" @bind-Value="@context.CultureInfoSelectName" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
+		<HxSelect LabelType="LabelType.Floating" Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfoSelect" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
+		<HxSelect LabelType="LabelType.Floating" Label="Select (Data == null, small)" TItem="CultureInfo" TValue="CultureInfo" @bind-Value="@context.CultureInfoSelect" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" />*@
 
 			<HxAutosuggest LabelType="LabelType.Floating" Label="Autosuggest (large)" @bind-Value="@context.CultureInfoAutosuggest" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider" InputSize="InputSize.Large">
 				<HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>

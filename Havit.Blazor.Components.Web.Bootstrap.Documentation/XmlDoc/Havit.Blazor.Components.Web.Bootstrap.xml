@@ -2498,6 +2498,9 @@
             Default customization is configurable with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.LabelType">
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetDefaults">
             <summary>
             Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> defaults.

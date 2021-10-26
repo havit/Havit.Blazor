@@ -54,6 +54,7 @@
     z-index: 10;
 }
 
-.form-floating label {
+::deep.form-floating label {
+    /* ::deep.form-floating - there MUST NOT be a space between ::deep and .form-floating */
     z-index: 10;
 }
