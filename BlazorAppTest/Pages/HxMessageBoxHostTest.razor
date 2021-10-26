@@ -33,6 +33,9 @@
 
 	private async Task OpenConfirm()
 	{
-		confirmResult = await MessageBox.ConfirmAsync("Confirm?");
+		if (await MessageBox.ConfirmAsync("Confirm?"))
+		{
+			await MessageBox.ConfirmAsync("Confirm2?");
+		}
 	}
 }
