@@ -1,0 +1,32 @@
+﻿<EditForm Model="@model" OnValidSubmit="@(() => model.Text = "Validation passed... :-)")">
+    <DataAnnotationsValidator />
+
+    <HxInputText LabelType="LabelType.Floating" Label="HxInputText" @bind-Value="@model.Text" Hint="Enter text, value is shared with all text inputs." />
+
+    <HxInputTextArea LabelType="LabelType.Floating" Label="HxInputTextArea" @bind-Value="@model.Text" />
+
+    <HxInputNumber LabelType="LabelType.Floating" Label="HxInputNumber" @bind-Value="@model.IntegerValue" />
+    <HxInputNumber LabelType="LabelType.Floating" Label="HxInputNumber" @bind-Value="@model.IntegerValueNullable" />
+
+    <HxSubmit Color="ThemeColor.Primary">Validate</HxSubmit>
+
+</EditForm>
+
+@code
+{
+    protected DemoModel model = new DemoModel();
+
+    public class DemoModel
+    {
+        [Required(ErrorMessage = "Enter text.")]
+        [MaxLength(50, ErrorMessage = "Maximum length of text is 50 letters.")]
+        public string Text { get; set; }
+
+        [Range(1, Int32.MaxValue, ErrorMessage = "Enter a positive whole number.")]
+        public int IntegerValue { get; set; }
+
+        [Required(ErrorMessage = "Enter a number.")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "Enter a positive whole number.")]
+        public int? IntegerValueNullable { get; set; }
+    }
+}
