@@ -1,7 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 
-<div class="dropdown-menu w-100">
+<div class="@CssClassHelper.Combine("dropdown-menu", CssClass)">
 	@if (Items != null && Items.Any())
 	{
 		@foreach (TItem item in Items)

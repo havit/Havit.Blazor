@@ -38,7 +38,7 @@
 			<HxIcon Icon="@SearchIcon" />
 		}
 	</div>
-	<Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems TItem="TItem" Items="@suggestions" OnItemClick="HandleItemClick">
+	<HxAutosuggestItems CssClass="w-100" TItem="TItem" Items="@suggestions" OnItemClick="HandleItemClick">
 		<ItemTemplate>
 			@if (ItemTemplate != null)
 			{
@@ -52,5 +52,5 @@
 		<EmptyTemplate>
 			@EmptyTemplate
 		</EmptyTemplate>
-	</Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems>
+	</HxAutosuggestItems>
 </div>

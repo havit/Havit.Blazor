@@ -16,6 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
 
 		[Parameter] public RenderFragment EmptyTemplate { get; set; }
+		[Parameter] public string CssClass { get; set; }
 
 		private async Task HandleItemClick(TItem value)
 		{
