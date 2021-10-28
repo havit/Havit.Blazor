@@ -792,6 +792,30 @@
             Any additional CSS class to apply.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase">
+            <summary>
+            Common implementation for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPopover"/>.
+            </summary>
+            <remarks>
+            We do not want HxPopover to derive from HxTooltip directly as we want
+            to keep the API consistent, e.g. HxPopover.Placement = PopoverPlacement.Auto, not TooltipPlacement.Auto or anything else.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.CssClass">
+            <summary>
+            Custom CSS class to add.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.WrapperCssClass">
+            <summary>
+            Custom CSS class to render with the <c>span</c> wrapper of the child-content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.ChildContent">
+            <summary>
+            Child content to wrap.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CalendarDateCustomizationProviderDelegate">
             <summary>
             Allows customization of specific date in calendar (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar"/>, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/>, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/>).
@@ -6198,6 +6222,26 @@
             Toasts to display.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Title">
+            <summary>
+            Popover title.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Content">
+            <summary>
+            Popover content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Placement">
+            <summary>
+            Popover placement. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement.Right"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Trigger">
+            <summary>
+            Popover trigger(s). Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PopoverTrigger.Click"/>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip">
             <summary>
             <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component, activates on hover.<br />
@@ -6206,7 +6250,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Text">
             <summary>
-            Tooltip text to display above the content.
+            Tooltip text.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Placement">
@@ -6214,19 +6258,24 @@
             Tooltip placement. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Top"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.CssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Trigger">
             <summary>
-            Custom CSS class to render with the tooltip.
+            Tooltip trigger(s). Default is <c><see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger.Hover"/> | <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger.Focus"/></c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.WrapperCssClass">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement">
             <summary>
-            Custom CSS class to render with the <c>span</c> wrapper of the child-content.
+            Placement of the popover for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPopover"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.ChildContent">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement.Auto">
             <summary>
-            Child content to wrap over HxTooltip.
+            When is specified, it will dynamically reorient the popover.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopoverTrigger">
+            <summary>
+            Triggers for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPopover"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement">
@@ -6237,6 +6286,11 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Auto">
             <summary>
             When is specified, it will dynamically reorient the tooltip.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger">
+            <summary>
+            Triggers for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip"/>.
             </summary>
         </member>
     </members>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.JSInterop;
@@ -13,102 +14,45 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component, activates on hover.<br />
 	/// Rendered as a <c>span</c> wrapper to fully support tooltips on disabled elements (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
 	/// </summary>
-	public class HxTooltip : ComponentBase, IAsyncDisposable
+	public class HxTooltip : HxTooltipInternalBase
 	{
 		/// <summary>
-		/// Tooltip text to display above the content.
+		/// Tooltip text.
 		/// </summary>
-		[Parameter] public string Text { get; set; }
+		[Parameter]
+		public string Text
+		{
+			get => base.TitleInternal;
+			set => base.TitleInternal = value;
+		}
 
 		/// <summary>
 		/// Tooltip placement. Default is <see cref="TooltipPlacement.Top"/>.
 		/// </summary>
-		[Parameter] public TooltipPlacement Placement { get; set; } = TooltipPlacement.Top;
-
-		/// <summary>
-		/// Custom CSS class to render with the tooltip.
-		/// </summary>
-		[Parameter] public string CssClass { get; set; }
-
-		/// <summary>
-		/// Custom CSS class to render with the <c>span</c> wrapper of the child-content.
-		/// </summary>
-		[Parameter] public string WrapperCssClass { get; set; }
-
-		/// <summary>
-		/// Child content to wrap over HxTooltip.
-		/// </summary>
-		[Parameter] public RenderFragment ChildContent { get; set; }
-
-		[Inject] public IJSRuntime JSRuntime { get; set; }
-
-		private IJSObjectReference jsModule;
-		private ElementReference spanElement;
-		private string lastText;
-		private bool shouldRenderSpan;
-
-		protected override void BuildRenderTree(RenderTreeBuilder builder)
+		[Parameter]
+		public TooltipPlacement Placement
 		{
-			// Once the span is rendered it does not disapper to enable spanElement to be used at OnAfterRender to safely remove a tooltip.
-			// It is not a common situation to remove a tooltip.
-			shouldRenderSpan |= !String.IsNullOrEmpty(Text) || !String.IsNullOrWhiteSpace(this.WrapperCssClass);
-			if (shouldRenderSpan)
-			{
-				builder.OpenElement(1, "span");
-				builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", WrapperCssClass));
-				builder.AddAttribute(3, "data-bs-container", "body");
-				builder.AddAttribute(4, "data-bs-trigger", "hover");
-				builder.AddAttribute(5, "data-bs-placement", Placement.ToString().ToLower());
-				builder.AddAttribute(6, "data-bs-custom-class", CssClass);
-				builder.AddAttribute(7, "title", Text);
-				builder.AddElementReferenceCapture(8, element => spanElement = element);
-			}
-
-			builder.AddContent(8, ChildContent);
-
-			if (shouldRenderSpan)
-			{
-				builder.CloseElement();
-			}
+			get => base.PlacementInternal;
+			set => base.PlacementInternal = value;
 		}
 
-		protected override async Task OnAfterRenderAsync(bool firstRender)
+		/// <summary>
+		/// Tooltip trigger(s). Default is <c><see cref="TooltipTrigger.Hover"/> | <see cref="TooltipTrigger.Focus"/></c>.
+		/// </summary>
+		[Parameter]
+		public TooltipTrigger Trigger
 		{
-			await base.OnAfterRenderAsync(firstRender);
-
-			if (lastText != Text)
-			{
-				// carefully, lastText can be null but Text empty string
-
-				bool shouldCreateOrUpdateTooltip = !String.IsNullOrEmpty(Text); // everytime the Text changes we need to update tooltip
-				bool shouldDestroyTooltip = String.IsNullOrEmpty(Text) && !String.IsNullOrEmpty(lastText); // when there is no tooltip anymore
-				lastText = Text;
-
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxTooltip) + ".js");
-
-				if (shouldCreateOrUpdateTooltip)
-				{
-					await jsModule.InvokeVoidAsync("createOrUpdate", spanElement);
-				}
-
-				if (shouldDestroyTooltip)
-				{
-					await jsModule.InvokeVoidAsync("destroy", spanElement);
-				}
-			}
+			get => base.TriggerInternal;
+			set => base.TriggerInternal = value;
 		}
 
-		public async ValueTask DisposeAsync()
+
+		protected override string JsModuleName => nameof(HxTooltip);
+
+		public HxTooltip()
 		{
-			if (jsModule != null)
-			{
-				if (!String.IsNullOrEmpty(Text))
-				{
-					await jsModule.InvokeVoidAsync("destroy", spanElement);
-				}
-				await jsModule.DisposeAsync();
-				jsModule = null;
-			}
+			this.Placement = TooltipPlacement.Top;
+			this.Trigger = TooltipTrigger.Hover | TooltipTrigger.Focus;
 		}
 	}
 }

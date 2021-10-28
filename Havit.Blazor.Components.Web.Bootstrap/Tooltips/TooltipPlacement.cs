@@ -12,13 +12,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public enum TooltipPlacement
 	{
 		Top = 0,
-		Bottom,
-		Left,
-		Right,
+		Bottom = 1,
+		Left = 2,
+		Right = 3,
 
 		/// <summary>
 		/// When is specified, it will dynamically reorient the tooltip.
 		/// </summary>
-		Auto
+		Auto = 4
 	}
 }

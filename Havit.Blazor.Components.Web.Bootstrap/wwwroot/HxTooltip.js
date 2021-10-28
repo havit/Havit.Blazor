@@ -1,4 +1,5 @@
-﻿export function createOrUpdate(element) {
+﻿// has to be aligned with HxPopover.js!
+export function createOrUpdate(element) {
 	destroy(element);
 	new bootstrap.Tooltip(element)
 }

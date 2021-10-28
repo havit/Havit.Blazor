@@ -1,0 +1,13 @@
+﻿@attribute [Route("/components/" + nameof(HxPopover))]
+
+<ComponentApiDoc Type="typeof(HxPopover)">
+
+	<DocAlert Type="DocAlertType.Warning">
+		The popover wrapper gets rendered only if <code>Title</code> or <code>WrapperCssClass</code> parameters is set.
+		If all are <code>null</code> or empty, only the <code>ChildContent</code> is rendered.
+	</DocAlert>
+
+	<h3>Basic Usage</h3>
+	<Demo Type="typeof(HxPopover_Demo_BasicUsage)" Tabs="false" />
+
+</ComponentApiDoc>
