@@ -801,6 +801,12 @@
             to keep the API consistent, e.g. HxPopover.Placement = PopoverPlacement.Auto, not TooltipPlacement.Auto or anything else.
             </remarks>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.Html">
+            <summary>
+            Allows you to insert HTML. If <c>false</c>, <c>innerText</c> property will be used to insert content into the DOM.
+            Use text if you're worried about XSS attacks.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.CssClass">
             <summary>
             Custom CSS class to add.

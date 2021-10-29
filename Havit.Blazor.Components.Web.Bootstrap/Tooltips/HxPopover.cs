@@ -51,6 +51,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		protected override string JsModuleName => nameof(HxPopover);
+		protected override string DataBsToggle => "popover";
 
 		public HxPopover()
 		{

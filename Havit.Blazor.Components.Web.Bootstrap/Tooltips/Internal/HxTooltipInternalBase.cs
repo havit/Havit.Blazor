@@ -24,6 +24,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		protected TooltipTrigger TriggerInternal { get; set; }
 
 		/// <summary>
+		/// Allows you to insert HTML. If <c>false</c>, <c>innerText</c> property will be used to insert content into the DOM.
+		/// Use text if you're worried about XSS attacks.
+		/// </summary>
+		[Parameter] public bool Html { get; set; }
+
+		/// <summary>
 		/// Custom CSS class to add.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
@@ -41,10 +47,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Inject] public IJSRuntime JSRuntime { get; set; }
 
 		protected abstract string JsModuleName { get; }
+		protected abstract string DataBsToggle { get; }
 
 		private IJSObjectReference jsModule;
 		private ElementReference spanElement;
 		private string lastTitle;
+		private string lastContent;
 		private bool shouldRenderSpan;
 
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -68,10 +76,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					// used only by HxPopover
 					builder.AddAttribute(8, "data-bs-content", ContentInternal);
 				}
-				builder.AddElementReferenceCapture(10, element => spanElement = element);
+				if (Html)
+				{
+					builder.AddAttribute(9, "data-bs-html", "true");
+				}
+				builder.AddAttribute(10, "data-bs-toggle", DataBsToggle);
+				builder.AddElementReferenceCapture(11, element => spanElement = element);
 			}
 
-			builder.AddContent(8, ChildContent);
+			builder.AddContent(20, ChildContent);
 
 			if (shouldRenderSpan)
 			{
@@ -96,13 +109,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			if (lastTitle != TitleInternal)
+			if ((lastTitle != TitleInternal) || (lastContent != ContentInternal))
 			{
 				// carefully, lastText can be null but Text empty string
 
-				bool shouldCreateOrUpdateTooltip = !String.IsNullOrEmpty(TitleInternal); // everytime the Text changes we need to update tooltip
-				bool shouldDestroyTooltip = String.IsNullOrEmpty(TitleInternal) && !String.IsNullOrEmpty(lastTitle); // when there is no tooltip anymore
+				bool shouldCreateOrUpdateTooltip = !String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal);
+				bool shouldDestroyTooltip = String.IsNullOrEmpty(TitleInternal)
+					&& String.IsNullOrEmpty(ContentInternal)
+					&& (!String.IsNullOrEmpty(lastTitle) || !String.IsNullOrEmpty(lastContent));
+
 				lastTitle = TitleInternal;
+				lastContent = ContentInternal;
 
 				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + JsModuleName + ".js");
 
@@ -122,7 +139,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			if (jsModule != null)
 			{
-				if (!String.IsNullOrEmpty(TitleInternal))
+				if (!String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal))
 				{
 					await jsModule.InvokeVoidAsync("destroy", spanElement);
 				}
@@ -130,6 +147,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				jsModule = null;
 			}
 		}
-
 	}
 }

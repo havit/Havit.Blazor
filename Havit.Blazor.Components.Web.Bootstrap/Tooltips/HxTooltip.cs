@@ -48,6 +48,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 
 		protected override string JsModuleName => nameof(HxTooltip);
+		protected override string DataBsToggle => "tooltip";
 
 		public HxTooltip()
 		{
