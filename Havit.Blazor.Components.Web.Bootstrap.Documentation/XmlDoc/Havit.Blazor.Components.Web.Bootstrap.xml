@@ -6228,6 +6228,12 @@
             Toasts to display.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPopover">
+            <summary>
+            <a href="https://getbootstrap.com/docs/5.1/components/popovers/">Bootstrap Popover</a> component.<br />
+            Rendered as a <c>span</c> wrapper to fully support popovers on disabled elements (see example in <a href="https://getbootstrap.com/docs/5.1/components/popovers/#disabled-elements">Disabled elements</a> in the Bootstrap popover documentation).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Title">
             <summary>
             Popover title.
