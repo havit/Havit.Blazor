@@ -73,7 +73,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Inject] protected IStringLocalizer<HxMessageBox> MessageBoxLocalizer { get; set; }
 
 		private HxModal modal;
-		private bool shouldSignalClose = false;
+		private MessageBoxButtons? result;
 
 		/// <summary>
 		/// Displays the message box.
@@ -81,24 +81,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <returns></returns>
 		public async Task ShowAsync()
 		{
-			shouldSignalClose = true;
+			result = null;
 			await modal.ShowAsync();
 		}
 
 		private async Task HandleButtonClick(MessageBoxButtons button)
 		{
-			shouldSignalClose = false;
-			await modal.HideAsync();  // fires HxModal.OnClosed => We have shouldSignalClose to prevent raising our OnClose twice
-			await OnClosed.InvokeAsync(button);
+			result = button;
+			await modal.HideAsync();  // fires HxModal.OnClose
 		}
 
 		private async Task HandleModalClosed()
 		{
-			if (shouldSignalClose)
-			{
-				await OnClosed.InvokeAsync(MessageBoxButtons.None);
-				shouldSignalClose = false;
-			}
+			await OnClosed.InvokeAsync(result ?? MessageBoxButtons.None);
 		}
 
 		private List<ButtonDefinition> GetButtonsToRender()

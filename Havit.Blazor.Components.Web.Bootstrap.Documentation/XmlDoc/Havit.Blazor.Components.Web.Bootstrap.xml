@@ -4622,7 +4622,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnClosed">
             <summary>
-            Raised when modal is closed (whatever reason it is).
+            This event is fired when the modal has finished being hidden from the user (will wait for CSS transitions to complete).<br/>
+            This can be caused by <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HideAsync"/>, close-button, <kbd>Esc</kbd> key or other interaction.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.ShowAsync">
@@ -4633,6 +4634,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HideAsync">
             <summary>
             Closes the modal.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HandleModalHidden">
+            <summary>
+            Receives notification from JS for <c>hidden.bs.modal</c> event.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults">

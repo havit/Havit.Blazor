@@ -111,7 +111,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string FooterCssClass { get; set; }
 
 		/// <summary>
-		/// Raised when modal is closed (whatever reason it is).
+		/// This event is fired when the modal has finished being hidden from the user (will wait for CSS transitions to complete).<br/>
+		/// This can be caused by <see cref="HideAsync"/>, close-button, <kbd>Esc</kbd> key or other interaction.
 		/// </summary>
 		[Parameter] public EventCallback OnClosed { get; set; }
 
@@ -156,6 +157,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await jsModule.InvokeVoidAsync("hide", modalElement);
 		}
 
+		/// <summary>
+		/// Receives notification from JS for <c>hidden.bs.modal</c> event.
+		/// </summary>
 		[JSInvokable("HxModal_HandleModalHidden")]
 		public async Task HandleModalHidden()
 		{
