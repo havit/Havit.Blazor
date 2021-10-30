@@ -103,7 +103,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Shows the dropdown menu.
+		/// Shows the dropdown.
 		/// </summary>
 		public async Task ShowAsync()
 		{
@@ -112,7 +112,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Hides the dropdown menu.
+		/// Hides the dropdown.
 		/// </summary>
 		public async Task HideAsync()
 		{

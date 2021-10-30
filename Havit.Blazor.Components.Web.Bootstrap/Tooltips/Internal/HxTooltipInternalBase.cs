@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Havit.Blazor.Components.Web.Bootstrap.Dropdowns;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
@@ -44,16 +45,33 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
+		/// <summary>
+		/// Fired when the content has been made visible to the user and CSS transitions have completed.
+		/// </summary>
+		[Parameter] public EventCallback OnShown { get; set; }
+
+		/// <summary>
+		/// Fired when the content has finished being hidden from the user and CSS transitions have completed.
+		/// </summary>
+		[Parameter] public EventCallback OnHidden { get; set; }
+
+
 		[Inject] public IJSRuntime JSRuntime { get; set; }
 
 		protected abstract string JsModuleName { get; }
 		protected abstract string DataBsToggle { get; }
 
+		private DotNetObjectReference<HxTooltipInternalBase> dotnetObjectReference;
 		private IJSObjectReference jsModule;
 		private ElementReference spanElement;
 		private string lastTitle;
 		private string lastContent;
 		private bool shouldRenderSpan;
+
+		protected HxTooltipInternalBase()
+		{
+			dotnetObjectReference = DotNetObjectReference.Create(this);
+		}
 
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
@@ -121,11 +139,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				lastTitle = TitleInternal;
 				lastContent = ContentInternal;
 
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + JsModuleName + ".js");
+				await EnsureJsModuleAsync();
 
 				if (shouldCreateOrUpdateTooltip)
 				{
-					await jsModule.InvokeVoidAsync("createOrUpdate", spanElement);
+					await jsModule.InvokeVoidAsync("createOrUpdate", spanElement, dotnetObjectReference);
 				}
 
 				if (shouldDestroyTooltip)
@@ -133,6 +151,50 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					await jsModule.InvokeVoidAsync("destroy", spanElement);
 				}
 			}
+		}
+
+		private async Task EnsureJsModuleAsync()
+		{
+			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + JsModuleName + ".js");
+		}
+
+		/// <summary>
+		/// Shows the component.
+		/// </summary>
+		public async Task ShowAsync()
+		{
+			await EnsureJsModuleAsync();
+			await jsModule.InvokeVoidAsync("show", spanElement);
+		}
+
+		/// <summary>
+		/// Hides the component.
+		/// </summary>
+		public async Task HideAsync()
+		{
+			await EnsureJsModuleAsync();
+			await jsModule.InvokeVoidAsync("hide", spanElement);
+		}
+
+		/// <summary>
+		/// Receives notification from javascript when content is shown.
+		/// </summary>
+		/// <remarks>
+		/// the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
+		/// </remarks>
+		[JSInvokable("HxHandleJsShown")]
+		public async Task HandleJsShown()
+		{
+			await OnShown.InvokeAsync();
+		}
+
+		/// <summary>
+		/// Receives notification from javascript when content is hidden.
+		/// </summary>
+		[JSInvokable("HxHandleJsHidden")]
+		public async Task HandleJsHidden()
+		{
+			await OnHidden.InvokeAsync();
 		}
 
 		public async ValueTask DisposeAsync()

@@ -822,6 +822,39 @@
             Child content to wrap.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.OnShown">
+            <summary>
+            Fired when the content has been made visible to the user and CSS transitions have completed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.OnHidden">
+            <summary>
+            Fired when the content has finished being hidden from the user and CSS transitions have completed.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.ShowAsync">
+            <summary>
+            Shows the component.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.HideAsync">
+            <summary>
+            Hides the component.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.HandleJsShown">
+            <summary>
+            Receives notification from javascript when content is shown.
+            </summary>
+            <remarks>
+            the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.HandleJsHidden">
+            <summary>
+            Receives notification from javascript when content is hidden.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CalendarDateCustomizationProviderDelegate">
             <summary>
             Allows customization of specific date in calendar (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar"/>, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/>, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/>).
@@ -1662,12 +1695,12 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.ShowAsync">
             <summary>
-            Shows the dropdown menu.
+            Shows the dropdown.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.HideAsync">
             <summary>
-            Hides the dropdown menu.
+            Hides the dropdown.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.HandleJsShown">
