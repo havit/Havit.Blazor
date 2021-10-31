@@ -1,32 +1,37 @@
 ﻿<EditForm Model="@model" OnValidSubmit="() => SetValidationStatus(true)" OnInvalidSubmit="() => SetValidationStatus(false)">
-    <DataAnnotationsValidator />
+	<DataAnnotationsValidator />
 
-    <div>@validationMessage</div>
+	<div>@validationMessage</div>
 
-    <HxInputText @bind-Value="@model.Text" Placeholder="Text" />
-    <HxSubmit Color="ThemeColor.Primary" Text="Submit" />
+	@* Parent element serves as reference for .is-invalid-tooltip *@
+	<div class="position-relative">
+		<HxValidationMessage For="() => model.Text" />
+	</div>
 
-    <HxValidationMessage For="() => model.Text" />
+	<div class="pt-4"></div>	<hr />
+	<HxInputText @bind-Value="@model.Text" Placeholder="Text" ShowValidationMessage="false" />
+	<HxSubmit Color="ThemeColor.Primary" Text="Submit" />
+
 </EditForm>
 
 @code {
-    private DemoModel model = new();
-    private string validationMessage = string.Empty;
+	private DemoModel model = new();
+	private string validationMessage = string.Empty;
 
-    private void SetValidationStatus(bool validationStatus)
-    {
-        if (validationStatus)
-        {
-            validationMessage = "Validation passed!";
-            return;
-        }
+	private void SetValidationStatus(bool validationStatus)
+	{
+		if (validationStatus)
+		{
+			validationMessage = "Validation passed!";
+			return;
+		}
 
-        validationMessage = string.Empty;
-    }
+		validationMessage = string.Empty;
+	}
 
-    protected class DemoModel
-    {
-        [Required(ErrorMessage = "A text has to be written.")]
-        public string Text { get; set; }
-    }
+	protected class DemoModel
+	{
+		[Required(ErrorMessage = "A text has to be written.")]
+		public string Text { get; set; }
+	}
 }

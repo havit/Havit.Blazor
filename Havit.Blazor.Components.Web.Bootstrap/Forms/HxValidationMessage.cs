@@ -11,7 +11,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Displays a list of validation messages for a specified field within a cascaded <see cref="EditContext"/>.<br />
-	/// Reimplementation of <see cref="ValidationMessage{TValue}"/> as <see href="">Bootstrap 5 validation</see> (using <c>.invalid-tooltip</c>).<br/>
+	/// Reimplementation of Blazor <see cref="ValidationMessage{TValue}"/> as <see href="https://getbootstrap.com/docs/5.1/forms/validation/">Bootstrap 5 validation</see> (using <c>.invalid-tooltip</c>).<br/>
 	/// Used by <see cref="HxInputBase{TValue}"/> and derived components.
 	/// </summary>
 	public class HxValidationMessage<TValue> : ComponentBase, IDisposable

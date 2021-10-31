@@ -1,5 +1,18 @@
 ﻿@attribute [Route("/components/" + nameof(HxValidationMessage<string>))]
 
 <ComponentApiDoc Type="typeof(HxValidationMessage<>)">
-    <Demo Type="typeof(HxValidationMessage_Demo)" Tabs="false" />
+    <DocAlert Type="DocAlertType.Warning">
+        The structure of <code>HxValidationMessage</code> will most likely change in near future.<br/>
+        Current rendering with <code>.invalid-tooltip</code> will be changed to Bootstrap basic <code>.is-invalid</code>.<br/>
+        See <a href="https://github.com/havit/Havit.Blazor/issues/28">https://github.com/havit/Havit.Blazor/issues/28</a> for more details.
+    </DocAlert>
+
+    <p>You usualy don't use the <code>@nameof(HxValidationMessage<object>)</code> in your code. It is encapsulated in <code>HxInputXy</code> components.</p>
+
+    <h3>Custom validation message</h3>
+    <p>
+        You can disable the encapsulated validation message with <code>ShowValidationMessage="false"</code> and use
+        your own instance of <code>HxValidationMessage</code>.
+    </p>
+    <Demo Type="typeof(HxValidationMessage_Demo)" />
 </ComponentApiDoc>
