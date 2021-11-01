@@ -22,15 +22,19 @@
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<!-- Pokud se nuget balíček Microsoft.SourceLink.Vsts.Git (předchůdce současného Microsoft.SourceLink.AzureRepos.Git)
-         dostane do WebForms projektu, rozbije restorování nuget balíčků, bohužel nepomáhá ani jedno podmínění pomocí Condition.
-         Proto nepoužíváme Directory.Build.targets,  který by se automaticky použil pro všechny projekty,
-         ale do projektů importujeme tento NuGet.targets.
-         Chování balíčku Microsoft.SourceLink.AzureRepos.Git neověřuji, předpokládám, že jde víceméně jen o přejmenování.
-    -->
-		<PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" Version="1.0.0" PrivateAssets="All" />
-	</ItemGroup>
+	<!-- Pokud se nuget balíček Microsoft.SourceLink.Vsts.Git (předchůdce současného Microsoft.SourceLink.AzureRepos.Git)
+    dostane do WebForms projektu, rozbije restorování nuget balíčků, bohužel nepomáhá ani jedno podmínění pomocí Condition.
+    Proto nepoužíváme Directory.Build.targets,  který by se automaticky použil pro všechny projekty,
+    ale do projektů importujeme tento NuGet.targets.
+    Chování balíčku Microsoft.SourceLink.AzureRepos.Git neověřuji, předpokládám, že jde víceméně jen o přejmenování. -->
+	<!-- Choose/When: https://stackoverflow.com/a/61991596/4202832 -->
+	<Choose>
+		<When Condition="'$(PublishDirectory)' != ''">
+			<ItemGroup>
+				<PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" Version="1.0.0" PrivateAssets="All" />
+			</ItemGroup>
+		</When>
+	</Choose>
 
 	<!-- Publish NuGet -->
 	<PropertyGroup>
