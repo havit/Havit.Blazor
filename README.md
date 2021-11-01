@@ -49,6 +49,7 @@
 * [`HxSpinner`](https://havit.blazor.eu/components/HxSpinner) - Bootstrap <a href="https://getbootstrap.com/docs/5.0/components/spinners/">Spinner</a> (usually indicates operation in progress).
 * [`HxProgressIndicator`](https://havit.blazor.eu/components/HxProgressIndicator) - Displays the content of the component as "in progress".
 * [`HxTooltip`](https://havit.blazor.eu/components/HxTooltip) - <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component, activates on hover.
+* [`HxPopover`](https://havit.blazor.eu/components/HxPopover) - <a href="https://getbootstrap.com/docs/5.0/components/popovers/">Bootstrap Popover</a> component.
 
 ## Data & Grid
 
