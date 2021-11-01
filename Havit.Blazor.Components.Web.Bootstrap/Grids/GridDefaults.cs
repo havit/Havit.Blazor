@@ -45,6 +45,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public int PageSize { get; set; } = 20;
 
 		/// <summary>
+		/// Number of rows with placeholders to render.
+		/// Default is <c>5</c>.
+		/// </summary>
+		public int PlaceholdersRowCount { get; set; } = 5;
+
+		/// <summary>
 		/// Indicates whether to render footer when data are empty.
 		/// Default is <c>false</c>.
 		/// </summary>

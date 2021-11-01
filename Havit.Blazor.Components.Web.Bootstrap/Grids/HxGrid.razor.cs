@@ -62,6 +62,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment<TItem> ContextMenu { get; set; }
 
 		/// <summary>
+		/// Template to render when "first" data are loading.
+		/// This template is not used when loading data for sorting or paging operations.
+		/// </summary>
+		[Parameter] public RenderFragment LoadingDataTemplate { get; set; }
+
+		/// <summary>
 		/// Template to render when there is empty Data (but not <c>null</c>).
 		/// </summary>
 		[Parameter] public RenderFragment EmptyDataTemplate { get; set; }
@@ -165,6 +171,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
 
 		/// <summary>
+		/// Number of rows with placeholders to render.
+		/// When value is zero, placeholders are not used.
+		/// When <see cref="LoadingDataTemplate" /> is set, placeholder are not used.
+		/// </summary>
+		[Parameter] public int? PlaceholdersRowCount { get; set; }
+
+		/// <summary>
 		/// Infinite scroll:
 		/// Gets or sets a value that determines how many additional items will be rendered
 		/// before and after the visible region. This help to reduce the frequency of rendering
@@ -175,6 +188,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public int? OverscanCount { get; set; }
 
 		protected int PageSizeEffective => PageSize ?? GetDefaults().PageSize;
+		protected int PlaceholdersRowCountEffective => PlaceholdersRowCount ?? GetDefaults().PlaceholdersRowCount;
 		protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? GetDefaults().ContentNavigationMode;
 
 		/// <summary>

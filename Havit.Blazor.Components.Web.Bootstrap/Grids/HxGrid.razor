@@ -25,6 +25,9 @@
 	List<IHxGridColumn<TItem>> columnsToRender = GetColumnsToRender();
 
 	bool shouldRenderLoadingData = totalCount == null;
+	bool shouldRenderLoadingDataWithLoadingTemplate = shouldRenderLoadingData && (LoadingDataTemplate != null);
+	bool shouldRenderLoadingDataWithPlaceholders = shouldRenderLoadingData && !shouldRenderLoadingDataWithLoadingTemplate && (PlaceholdersRowCountEffective > 0);
+
 	bool shouldRenderEmptyData = totalCount == 0;
 	bool shouldRenderData;
 	var defaults = GetDefaults();
@@ -53,7 +56,7 @@
 
 @if (columnsToRender.Any() && (shouldRenderLoadingData || shouldRenderEmptyData || shouldRenderData))
 {
-	<HxProgressIndicator InProgress="@(InProgress ?? dataProviderInProgress)">
+	<HxProgressIndicator InProgress="@(InProgress ?? (dataProviderInProgress /* indicates data loading */ && !shouldRenderLoadingDataWithPlaceholders /* but not when placeholders are used - in such case we are indicating data loading using the placeholders */))">
 
 		<div class="@(TableContainerCssClass ?? defaults.TableContainerCssClass)">
 			<table class="@CssClassHelper.Combine("hx-grid table", (((SelectionEnabled || MultiSelectionEnabled) && shouldRenderData) ? "table-hover" : null), (TableCssClass ?? defaults.TableCssClass), (((SelectionEnabled || MultiSelectionEnabled) && (SelectedDataItem != null || SelectedDataItems!= null))? "table-item-selected" : null))">
@@ -99,14 +102,43 @@
 				<tbody>
 					@if (shouldRenderLoadingData)
 					{
-						<tr>
-							<td colspan="@columnsToRender.Count">
-								<div class="text-center text-secondary my-5">
-									<div class="fs-3"><HxIcon Icon="@BootstrapIcon.InboxFill" /></div>
-									<div>@HxGridLocalizer["LoadingData"]</div>
-								</div>
-							</td>
-						</tr>
+						@if (shouldRenderLoadingDataWithPlaceholders)
+						{
+							int rowsToRender = PlaceholdersRowCountEffective;
+							int pageOffset = CurrentUserState.PageIndex * PageSizeEffective;
+
+							for (int i = 0; i < rowsToRender; i++)
+							{
+								GridPlaceholderCellContext placeholderContext = new GridPlaceholderCellContext { Index = pageOffset + i };
+								<tr>
+									@foreach (IHxGridColumn<TItem> column in columnsToRender)
+									{
+										CellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(placeholderContext);
+										<td class="@placeholderCellTemplate.CssClass">
+											@placeholderCellTemplate.Template
+										</td>
+									}
+								</tr>
+							}
+						}
+						else
+						{
+							<tr>
+								<td colspan="@columnsToRender.Count">
+									@if (shouldRenderLoadingDataWithLoadingTemplate)
+									{
+										@LoadingDataTemplate
+									}
+									else
+									{
+										<div class="text-center text-secondary my-5">
+											<div class="fs-3"><HxIcon Icon="@BootstrapIcon.InboxFill" /></div>
+											<div>@HxGridLocalizer["LoadingData"]</div>
+										</div>
+									}
+								</td>
+							</tr>
+						}
 					}
 					@if (shouldRenderEmptyData)
 					{
@@ -185,7 +217,7 @@
 							<tr height="@rowHeight">
 								@foreach (IHxGridColumn<TItem> column in columnsToRender)
 								{
-									CellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(placeholderContext);
+									CellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
 									<td class="@placeholderCellTemplate.CssClass">
 										@placeholderCellTemplate.Template
 									</td>

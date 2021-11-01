@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Havit.Collections;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
+using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -60,7 +60,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Placeholder cell template.
 		/// </summary>
-		[Parameter] public RenderFragment<PlaceholderContext> PlaceholderTemplate { get; set; }
+		[Parameter] public RenderFragment<GridPlaceholderCellContext> PlaceholderTemplate { get; set; }
 
 		#region Footer properties
 		/// <summary>
@@ -124,7 +124,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		protected override CellTemplate GetItemPlaceholderCellTemplate(PlaceholderContext context) => (PlaceholderTemplate != null) ? CellTemplate.Create(PlaceholderTemplate(context)) : CellTemplate.Empty;
+		protected override CellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => CellTemplate.Create((PlaceholderTemplate != null) ? PlaceholderTemplate(context) : GetDefaultItemPlaceholder(context));
+
+		private RenderFragment GetDefaultItemPlaceholder(GridPlaceholderCellContext context)
+		{
+			return (RenderTreeBuilder builder) =>
+			{
+				builder.OpenComponent<HxPlaceholderContainer>(100);
+				builder.AddAttribute(101, nameof(HxPlaceholderContainer.Animation), PlaceholderAnimation.Glow);
+				builder.AddAttribute(102, nameof(HxPlaceholderContainer.ChildContent), (RenderFragment)((RenderTreeBuilder builder2) =>
+				{
+					builder2.OpenComponent<HxPlaceholder>(200);
+					builder2.AddAttribute(201, nameof(HxPlaceholder.Columns), placeholderColumns[context.Index % placeholderColumns.Length]);
+					builder2.CloseComponent(); // HxPlaceholder
+				}));
+
+				builder.CloseComponent(); // HxPlaceholderContainer
+			};
+		}
+		private readonly string[] placeholderColumns = new[] { "6", "9", "4", "10", "5", "2", "7" };
+
 
 		/// <inheritdoc />
 		protected override CellTemplate GetFooterCellTemplate(GridFooterCellContext context) => CellTemplate.Create(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate?.Invoke(context)), FooterCssClass);

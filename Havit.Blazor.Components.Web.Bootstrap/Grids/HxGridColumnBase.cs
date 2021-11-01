@@ -7,7 +7,6 @@ using Havit.Blazor.Components.Web.Infrastructure;
 using Havit.Collections;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -45,7 +44,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		CellTemplate IHxGridColumn<TItem>.GetItemCellTemplate(TItem item) => this.GetItemCellTemplate(item);
 
 		/// <inheritdoc />
-		CellTemplate IHxGridColumn<TItem>.GetItemPlaceholderCellTemplate(PlaceholderContext context) => this.GetItemPlaceholderCellTemplate(context);
+		CellTemplate IHxGridColumn<TItem>.GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => this.GetItemPlaceholderCellTemplate(context);
 
 		/// <inheritdoc />
 		CellTemplate IHxGridColumn<TItem>.GetFooterCellTemplate(GridFooterCellContext context) => this.GetFooterCellTemplate(context);
@@ -81,7 +80,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns placeholder cell template.
 		/// </summary>
-		protected abstract CellTemplate GetItemPlaceholderCellTemplate(PlaceholderContext context);
+		protected abstract CellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context);
 
 		/// <summary>
 		/// Returns footer cell template.

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Havit.Blazor.Components.Web.Infrastructure;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -44,7 +43,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns placeholder cell template.
 		/// </summary>
-		CellTemplate GetItemPlaceholderCellTemplate(PlaceholderContext context);
+		CellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context);
 
 		/// <summary>
 		/// Returns footer cell template.

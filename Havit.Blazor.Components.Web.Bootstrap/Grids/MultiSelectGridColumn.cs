@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -63,7 +62,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			};
 		}
 
-		protected override CellTemplate GetItemPlaceholderCellTemplate(PlaceholderContext context)
+		protected override CellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context)
 		{
 			return CellTemplate.Empty;
 		}
