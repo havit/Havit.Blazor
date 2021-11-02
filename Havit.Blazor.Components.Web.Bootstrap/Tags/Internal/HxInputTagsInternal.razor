@@ -14,13 +14,16 @@
 				 TextColor="this.TagTextColor"
 				 CssClass="hx-tag">
 			@tag
-			<span class="d-inline-flex align-items-center ms-1 hx-tag-remove-button" @onclick="async() => await HandleRemoveClickAsync(tag)" @onclick:stopPropagation="true" role="button">
-				<HxIcon Icon="BootstrapIcon.X" />
-			</span>
+			@if (this.EnabledEffective)
+			{
+				<span class="d-inline-flex align-items-center ms-1 hx-tag-remove-button" @onclick="async () => await HandleRemoveClickAsync(tag)" @onclick:stopPropagation="true" role="button">
+					<HxIcon Icon="BootstrapIcon.X" />
+				</span>
+			}
 		</HxBadge>
 	}
 
-	@if (ShowAddButtonEffective && !currentlyFocused && !isDropdownOpened)
+	@if (ShowAddButtonEffective && EnabledEffective && !currentlyFocused && !isDropdownOpened)
 	{
 		var showAddButtonText = !this.ValueEffective.Any() && !String.IsNullOrEmpty(AddButtonText);
 
