@@ -6375,5 +6375,46 @@
             Triggers for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip"/>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.TreeViews.HxTreeView`1">
+            <summary>
+            Component to display hierarchy data structure. Roadmap: virtualization, asynchronous data loading, multi-column, templates.
+            </summary>
+            <typeparam name="TItem">Type of tree data item.</typeparam>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TreeViews.HxTreeView`1.Items">
+            <summary>
+            Collection of hierarchy data to display
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TreeViews.HxTreeView`1.Content">
+            <summary>
+            Selector to display content from data item
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TreeViews.HxTreeView`1.Badge">
+            <summary>
+            Selector to display badge from data item. Can be null
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TreeViews.HxTreeView`1.BadgeColor">
+            <summary>
+            Selector to display badge color from data item. Can be null
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TreeViews.HxTreeView`1.Icon">
+            <summary>
+            Selector to display icon from data item. Can be null
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TreeViews.HxTreeView`1.Children">
+            <summary>
+            Selector to display children collection for current data item. Children collection should have same type as current item.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TreeViews.HxTreeView`1.OnItemSelected">
+            <summary>
+            Callback which runs when any item in tree selected.
+            </summary>
+        </member>
     </members>
 </doc>
