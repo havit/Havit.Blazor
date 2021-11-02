@@ -1,0 +1,44 @@
+.hx-tree-item {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  padding: 5px;
+  font-size: 14px;
+  border-radius: var(--hx-treeview-item-border-radius);
+  background-color: var(--hx-treeview-item-background);
+  color: var(--hx-treeview-item-color);
+}
+.hx-tree-item.selected {
+  background-color: var(--hx-treeview-item-selected-background);
+  color: var(--hx-treeview-item-selected-color);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;  
+}
+.hx-tree-item:hover  {
+  background-color: var(--hx-treeview-item-hover-background);
+  color: var(--hx-treeview-item-hover-color);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+} 
+.hx-tree-item .hx-tree-title-value {
+  flex: 1;
+}
+.hx-tree-item .icon {
+  color: var(--hx-sidebar-item-hover-color);
+  margin-right: 5px;
+}
+.hx-tree-item .expander {
+  color: var(--hx-sidebar-item-hover-color);
+  transform: rotate(0deg);
+  transition: transform 0.15s;
+}
+.hx-tree-item .expander.expanded {
+  transform: rotate(90deg);
+  transition: transform 0.15s;
+}
+.hx-tree-item .hx-tree-title-expander {
+  flex: 0 0 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*# sourceMappingURL=HxTreeViewItem.razor.css.map */

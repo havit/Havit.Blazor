@@ -1,0 +1,32 @@
+@namespace Havit.Blazor.Components.Web.Bootstrap.TreeViews 
+@typeparam TValue
+
+
+<div class="hx-tree-item @(Value.IsSelected ? "selected" : "")" style="padding-left: @PaddingLeft" onclick="@OnItemClicked">
+    <div class="hx-tree-item-expander expander @(Value.IsExpanded ? "expanded" : "")">
+        @if (Value.HasChildren)
+        {
+            <div><HxIcon Icon="@BootstrapIcon.ChevronRight"/></div>
+        }
+    </div>
+    @if (Value.Icon != null)
+    {
+        <div class="icon"><HxIcon Icon="@Value.Icon" /></div>
+    }
+    <div class="hx-tree-item-value">@Value.Title</div>
+    @if (!string.IsNullOrEmpty(Value.Badge))
+    {
+        <div>
+            <HxBadge Color="@Value.BadgeColor">@Value.Badge</HxBadge>
+        </div>
+    }
+</div>
+
+
+@if (Value.HasChildren && Value.IsExpanded)
+{
+    foreach (var item in @Value.Children)
+    {
+        <HxTreeViewItem TValue="TValue" Value="item"/>
+    }
+}

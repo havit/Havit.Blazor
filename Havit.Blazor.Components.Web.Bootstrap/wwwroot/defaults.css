@@ -89,6 +89,14 @@
 	--hx-input-tags-naked-font-size-lg: 			1.25em;
 	--hx-input-tags-naked-font-size-sm: 			.875em;
 	--hx-input-tags-control-focused-border-color: 	#86b7fe;
+	/* TreeView */
+	--hx-treeview-item-border-radius:				3px;
+	--hx-treeview-item-color:						var(--bs-dark);
+	--hx-treeview-item-hover-color:					var(--bs-primary);
+	--hx-treeview-item-selected-color:				var(--bs-primary);
+	--hx-treeview-item-background:					white;
+	--hx-treeview-item-hover-background:			#f2f9ff;
+	--hx-treeview-item-selected-background:			#f2f9ff;
 }
 
 /* Not sure where to place. Margin for all inputs in form, if it is not the only child. */

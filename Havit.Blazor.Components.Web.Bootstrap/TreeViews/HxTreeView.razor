@@ -1,0 +1,18 @@
+@namespace Havit.Blazor.Components.Web.Bootstrap.TreeViews
+@typeparam TValue
+
+<div class="hx-treeview">
+    @if (wrappers?.Any() != true)
+    {
+        @("loading...")
+    }
+    else
+    {
+        <div>
+            @foreach (var wrapper in wrappers)
+            {
+                <HxTreeViewItem TValue="TValue" Value="wrapper"/>
+            }
+        </div>
+    }
+</div>
