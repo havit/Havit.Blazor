@@ -59,6 +59,8 @@
 	--hx-calendar-day-selected-border: 					1px solid var(--bs-primary);
 	--hx-calendar-day-out-color: 						var(--bs-gray-500);
 	--hx-calendar-day-in-color: 						unset;
+	--hx-calendar-day-disabled-opacity: 				.5;
+	--hx-calendar-day-disabled-text-decoration: 		line-through;
 	--hx-calendar-day-names-color: 						unset;
 	--hx-calendar-day-names-font-weight: 				700;
 	--hx-calendar-navigation-button-hover-background: 	var(--bs-gray-200);

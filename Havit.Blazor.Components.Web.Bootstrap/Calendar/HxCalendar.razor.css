@@ -1,4 +1,4 @@
-.calendar {
+.hx-calendar {
     display: inline-flex;
     flex-direction: column;
 }
@@ -66,6 +66,11 @@ td > div {
 
 .in {
     color: var(--hx-calendar-day-in-color);
+}
+
+.disabled {
+    opacity: var(--hx-calendar-day-disabled-opacity);
+    text-decoration: var(--hx-calendar-day-disabled-text-decoration);
 }
 
 td[role="button"]:hover .selected.in, 
