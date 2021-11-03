@@ -78,7 +78,8 @@
 	--hx-offcanvas-horizontal-width-sm: 		400px;
 	--hx-offcanvas-horizontal-width-lg:			600px;
 	/* ListLayout */
-	--hx-list-layout-body-padding-x: 0;
+	--hx-list-layout-body-padding-x: 		0;
+	--hx-list-layout-table-font-size: 		.875rem;
 	/* TagInput */
 	--hx-input-tags-tag-margin-left: 				0;
 	--hx-input-tags-tag-margin-right: 				.25rem;
