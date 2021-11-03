@@ -12,11 +12,14 @@
 	<HxInputTags ShowAddButton="true" AddButtonText="Add tag" Naked Label="Tags Naked" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
 	<HxInputTags ShowAddButton="true" AddButtonText="Add tag" Naked Label="Tags (shared Value, Large, Naked)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Large" />
 	<HxInputTags ShowAddButton="true" AddButtonText="Add tag" Naked Label="Tags (shared Value, Small, Naked)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Small" />
-	<HxSubmit CssClass="mt-2" Color="ThemeColor.Primary">Submit</HxSubmit>
+	<HxButton CssClass="mt-2" Color="ThemeColor.Primary" OnClick="HandleValidClick">Save</HxButton>
 </EditForm>
+
+ddd: @tags
 
 @code {
 	private MyModel model = new MyModel();
+	string tags;
 
 	private Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
 	{
@@ -37,5 +40,11 @@
 				RuleFor(a => a.Tags).Must(t => t.Count > 3).WithMessage("At least 4 tags have to be entered.");
 			}
 		}
+	}
+
+	public void HandleValidClick()
+	{
+		tags = "bž" + String.Join(',', model.Tags);
+		StateHasChanged();
 	}
 }
