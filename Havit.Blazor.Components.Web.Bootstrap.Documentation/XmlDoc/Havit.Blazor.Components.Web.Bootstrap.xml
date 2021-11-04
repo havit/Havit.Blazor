@@ -6379,7 +6379,7 @@
             <summary>
             Component to display hierarchy data structure. Roadmap: virtualization, asynchronous data loading, multi-column, templates.
             </summary>
-            <typeparam name="TItem">Type of tree data item.</typeparam>
+            <typeparam name="TValue">Type of tree data item.</typeparam>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.TreeViews.HxTreeView`1.Items">
             <summary>
