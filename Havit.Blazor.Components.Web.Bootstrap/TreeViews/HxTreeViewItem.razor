@@ -2,7 +2,7 @@
 @typeparam TValue
 
 
-<div class="hx-tree-item @(Value.IsSelected ? "selected" : "")" style="padding-left: @PaddingLeft" onclick="@OnItemClicked">
+<div class="hx-tree-item @(Value.IsSelected ? "selected" : "")" style="padding-left: @PaddingLeft" @onclick="@OnItemClicked">
     <div class="hx-tree-item-expander expander @(Value.IsExpanded ? "expanded" : "")">
         @if (Value.HasChildren)
         {
