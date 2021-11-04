@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Components;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.TreeViews
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public partial class HxTreeViewItem<TValue> : ComponentBase
 	{

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.TreeViews
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public class ValueWrapper<TValue> : INotifyPropertyChanged
 	{

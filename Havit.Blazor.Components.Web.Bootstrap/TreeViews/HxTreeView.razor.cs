@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.TreeViews
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Component to display hierarchy data structure. Roadmap: virtualization, asynchronous data loading, multi-column, templates.
