@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Havit.Blazor.Components.Web.Bootstrap.Dropdowns;
+using static System.Net.WebRequestMethods;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
@@ -29,6 +30,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// Use text if you're worried about XSS attacks.
 		/// </summary>
 		[Parameter] public bool Html { get; set; }
+
+		/// <summary>
+		/// Enable or disable the sanitization. If activated HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.1/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
+		/// </summary>
+		[Parameter] public bool Sanitize { get; set; } = true;
 
 		/// <summary>
 		/// Custom CSS class to add.
@@ -143,7 +149,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 				if (shouldCreateOrUpdateTooltip)
 				{
-					await jsModule.InvokeVoidAsync("createOrUpdate", spanElement, dotnetObjectReference);
+					var options = new
+					{
+						Sanitize = this.Sanitize
+					};
+					await jsModule.InvokeVoidAsync("createOrUpdate", spanElement, dotnetObjectReference, options);
 				}
 
 				if (shouldDestroyTooltip)

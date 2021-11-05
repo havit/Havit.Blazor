@@ -807,6 +807,11 @@
             Use text if you're worried about XSS attacks.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.Sanitize">
+            <summary>
+            Enable or disable the sanitization. If activated HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.1/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.CssClass">
             <summary>
             Custom CSS class to add.
