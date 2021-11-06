@@ -49,6 +49,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public Func<TValue, IEnumerable<TValue>> ChildrenSelector { get; set; }
 
 		/// <summary>
+		/// Additional CSS class to be applied.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
+		/// <summary>
 		/// Raised when an item in the tree is selected.
 		/// </summary>
 		[Parameter] public EventCallback<TValue> OnItemSelected { get; set; }

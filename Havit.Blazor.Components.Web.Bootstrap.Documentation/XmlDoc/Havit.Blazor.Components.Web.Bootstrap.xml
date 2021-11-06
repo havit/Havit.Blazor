@@ -6414,6 +6414,11 @@
             Selector to display children collection for current data item. Children collection should have same type as current item.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.CssClass">
+            <summary>
+            Additional CSS class to be applied.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.OnItemSelected">
             <summary>
             Raised when an item in the tree is selected.

@@ -1,7 +1,7 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap
 @typeparam TValue
 
-<div class="hx-treeview">
+<div class="@CssClassHelper.Combine("hx-treeview", this.CssClass)">
     @if (wrappers?.Any() != true)
     {
         @("loading...")
