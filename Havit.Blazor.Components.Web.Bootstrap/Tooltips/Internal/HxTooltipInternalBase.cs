@@ -81,7 +81,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
-			// Once the span is rendered it does not disapper to enable spanElement to be used at OnAfterRender to safely remove a tooltip/popover.
+			// Once the span is rendered it does not disappear to enable spanElement to be used at OnAfterRender to safely remove a tooltip/popover.
 			// It is not a common situation to remove a tooltip/popover.
 			shouldRenderSpan |= !String.IsNullOrEmpty(TitleInternal)
 								|| !String.IsNullOrWhiteSpace(this.WrapperCssClass)
