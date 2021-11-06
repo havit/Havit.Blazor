@@ -4,9 +4,9 @@
             TValue="Directory"
             OnItemSelected="@(p => SelectedDirectory = p)"
             Items="@FileSystem"
-            Content="@(p => p.Name)"
-            Children="@(p => p.SubDirectories)"
-            Icon="@(p => p.Icon)"/>
+            ContentSelector="@(p => p.Name)"
+            ChildrenSelector="@(p => p.SubDirectories)"
+            IconSelector="@(p => p.Icon)"/>
     </div>
     <div class="col-4">
         @if (SelectedDirectory == null)

@@ -8,11 +8,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public class ValueWrapper<TValue> : INotifyPropertyChanged
 	{
-		private readonly Func<TValue, string> titleGetter;
-		private readonly Func<TValue, string> badgeGetter;
-		private readonly Func<TValue, ThemeColor> badgeColorGetter;
-		private readonly Func<TValue, string> iconGetter;
-		private readonly Func<TValue, IEnumerable<TValue>> childrenGetter;
+		private readonly Func<TValue, string> titleSelector;
+		private readonly Func<TValue, string> badgeSelector;
+		private readonly Func<TValue, ThemeColor> badgeColorSelector;
+		private readonly Func<TValue, string> iconSelector;
+		private readonly Func<TValue, IEnumerable<TValue>> childrenSelector;
 		private readonly Action<ValueWrapper<TValue>> onItemSelected;
 
 		private string badge;
@@ -28,32 +28,32 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		public ValueWrapper(TValue value,
 			int level,
-			Func<TValue, string> title,
-			Func<TValue, string> badge,
-			Func<TValue, ThemeColor> badgeColor,
-			Func<TValue, string> icon,
-			Func<TValue, IEnumerable<TValue>> children,
+			Func<TValue, string> titleSelector,
+			Func<TValue, string> badgeSelector,
+			Func<TValue, ThemeColor> badgeColorSelector,
+			Func<TValue, string> iconSelector,
+			Func<TValue, IEnumerable<TValue>> childrenSelector,
 			Action<ValueWrapper<TValue>> onItemSelected
 		)
 		{
 			Value = value;
 			Level = level;
-			iconGetter = icon;
-			titleGetter = title;
-			badgeGetter = badge;
-			childrenGetter = children;
-			badgeColorGetter = badgeColor;
+			this.iconSelector = iconSelector;
+			this.titleSelector = titleSelector;
+			this.badgeSelector = badgeSelector;
+			this.childrenSelector = childrenSelector;
+			this.badgeColorSelector = badgeColorSelector;
 
 			this.onItemSelected = onItemSelected;
 
-			Console.WriteLine($@"ValueWrapper created {title(Value)}");
+			Console.WriteLine($@"ValueWrapper created {titleSelector(Value)}");
 		}
 
 		public TValue Value { get; }
 
-		public string Title => title ??= titleGetter(Value);
+		public string Title => title ??= titleSelector(Value);
 
-		public BootstrapIcon Icon => icon ??= (GetBootstrapIconByName(iconGetter?.Invoke(Value)));
+		public BootstrapIcon Icon => icon ??= (GetBootstrapIconByName(iconSelector?.Invoke(Value)));
 
 		public ThemeColor BadgeColor
 		{
@@ -64,16 +64,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					return badgeColor.Value;
 				}
 
-				if (badgeColorGetter == null)
+				if (badgeColorSelector == null)
 				{
 					return (badgeColor = ThemeColor.None).Value;
 				}
 
-				return (badgeColor = badgeColorGetter(Value)).Value;
+				return (badgeColor = badgeColorSelector(Value)).Value;
 			}
 		}
 
-		public string Badge => badge ??= badgeGetter?.Invoke(Value);
+		public string Badge => badge ??= badgeSelector?.Invoke(Value);
 
 		public bool IsSelected
 		{
@@ -100,9 +100,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			get => isExpanded;
 			set
 			{
-				Console.WriteLine($"{titleGetter(Value)} IsExpanded changed from {isExpanded} to {value}");
+				Console.WriteLine($"{titleSelector(Value)} IsExpanded changed from {isExpanded} to {value}");
 				isExpanded = value;
-				Console.WriteLine($"{titleGetter(Value)} IsExpanded changed to {isExpanded}");
+				Console.WriteLine($"{titleSelector(Value)} IsExpanded changed to {isExpanded}");
 				OnPropertyChanged(nameof(IsExpanded));
 			}
 		}
@@ -118,17 +118,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					return children;
 				}
 
-				children = childrenGetter == null
+				children = childrenSelector == null
 					? Array.Empty<ValueWrapper<TValue>>()
-					: childrenGetter(Value)?.Select(value =>
+					: childrenSelector(Value)?.Select(value =>
 							new ValueWrapper<TValue>(
 								value,
 								Level + 1,
-								titleGetter,
-								badgeGetter,
-								badgeColorGetter,
-								iconGetter,
-								childrenGetter,
+								titleSelector,
+								badgeSelector,
+								badgeColorSelector,
+								iconSelector,
+								childrenSelector,
 								onItemSelected))
 						.ToArray();
 
@@ -136,7 +136,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		public bool HasChildren => hasChildren ??= (childrenGetter != null && childrenGetter(Value)?.Any() == true);
+		public bool HasChildren => hasChildren ??= (childrenSelector != null && childrenSelector(Value)?.Any() == true);
 
 		private BootstrapIcon GetBootstrapIconByName(string name)
 		{

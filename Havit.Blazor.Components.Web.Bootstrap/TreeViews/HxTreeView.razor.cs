@@ -16,37 +16,37 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private ValueWrapper<TValue> selectedWrapper;
 
 		/// <summary>
-		/// Collection of hierarchy data to display
+		/// Collection of hierarchy data to display.
 		/// </summary>
 		[Parameter] public ICollection<TValue> Items { get; set; }
 
 		/// <summary>
-		/// Selector to display content from data item
+		/// Selector to display content from data item.
 		/// </summary>
-		[Parameter] public Func<TValue, string> Content { get; set; }
+		[Parameter] public Func<TValue, string> ContentSelector { get; set; }
 
 		/// <summary>
-		/// Selector to display badge from data item. Can be null
+		/// Selector to display badge from data item.
 		/// </summary>
-		[Parameter] public Func<TValue, string> Badge { get; set; }
+		[Parameter] public Func<TValue, string> BadgeSelector { get; set; }
 
 		/// <summary>
-		/// Selector to display badge color from data item. Can be null
+		/// Selector to display badge color from data item.
 		/// </summary>
-		[Parameter] public Func<TValue, ThemeColor> BadgeColor { get; set; }
+		[Parameter] public Func<TValue, ThemeColor> BadgeColorSelector { get; set; }
 
 		/// <summary>
-		/// Selector to display icon from data item. Can be null
+		/// Selector to display icon from data item.
 		/// </summary>
-		[Parameter] public Func<TValue, string> Icon { get; set; }
+		[Parameter] public Func<TValue, string> IconSelector { get; set; }
 
 		/// <summary>
 		/// Selector to display children collection for current data item. Children collection should have same type as current item.
 		/// </summary>
-		[Parameter] public Func<TValue, IEnumerable<TValue>> Children { get; set; }
+		[Parameter] public Func<TValue, IEnumerable<TValue>> ChildrenSelector { get; set; }
 
 		/// <summary>
-		/// Callback which runs when any item in tree selected.
+		/// Raised when an item in the tree is selected.
 		/// </summary>
 		[Parameter] public EventCallback<TValue> OnItemSelected { get; set; }
 
@@ -57,13 +57,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private void RebuildWrappers()
 		{
-			if (Items == null || Content == null)
+			if ((Items == null) || (ContentSelector == null))
 			{
 				return;
 			}
 
 			wrappers = new ValueWrapper<TValue>[Items.Count];
-			wrappers = Items.Select(p => new ValueWrapper<TValue>(p, 0, Content, Badge, BadgeColor, Icon, Children, InternalOnItemSelected)).ToArray();
+			wrappers = Items.Select(p => new ValueWrapper<TValue>(value: p, level: 0, ContentSelector, BadgeSelector, BadgeColorSelector, IconSelector, ChildrenSelector, InternalOnItemSelected)).ToArray();
 		}
 
 		private void InternalOnItemSelected(ValueWrapper<TValue> wrapper)
