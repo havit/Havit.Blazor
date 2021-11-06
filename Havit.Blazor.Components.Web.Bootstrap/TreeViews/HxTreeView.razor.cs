@@ -7,8 +7,11 @@ using Microsoft.AspNetCore.Components;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Component to display hierarchy data structure. Roadmap: virtualization, asynchronous data loading, multi-column, templates.
+	/// Component to display hierarchy data structure.
 	/// </summary>
+	/// <remarks>
+	///  Roadmap: virtualization, asynchronous data loading, multi-column, templates.
+	/// </remarks>
 	/// <typeparam name="TValue">Type of tree data item.</typeparam>
 	public partial class HxTreeView<TValue> : ComponentBase
 	{
