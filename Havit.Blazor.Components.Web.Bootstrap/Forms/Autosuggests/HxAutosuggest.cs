@@ -19,7 +19,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Selects value from item.
-		/// Not required when TValueType is same as TItemTime.
+		/// Not required when <c>TValue</c> is same as  <c>TItem</c>.
 		/// </summary>
 		[Parameter] public Func<TItem, TValue> ValueSelector { get; set; }
 
