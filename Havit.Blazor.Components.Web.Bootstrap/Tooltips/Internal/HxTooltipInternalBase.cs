@@ -37,6 +37,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public bool Sanitize { get; set; } = true;
 
 		/// <summary>
+		/// Offset of the component relative to its target (ChildContent).
+		/// </summary>
+		[Parameter] public (int X, int Y) Offset { get; set; }
+
+		/// <summary>
 		/// Custom CSS class to add.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
@@ -105,6 +110,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					builder.AddAttribute(9, "data-bs-html", "true");
 				}
 				builder.AddAttribute(10, "data-bs-toggle", DataBsToggle);
+				if (Offset != (default, default))
+				{
+					builder.AddAttribute(11, "data-bs-offset", $"{Offset.X},{Offset.Y}");
+				}
 				builder.AddElementReferenceCapture(11, element => spanElement = element);
 			}
 
