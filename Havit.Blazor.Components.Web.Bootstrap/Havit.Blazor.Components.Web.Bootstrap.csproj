@@ -13,11 +13,16 @@
 		<Description>HAVIT Blazor Library - Free Bootstrap 5 components for ASP.NET Blazor</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://havit.blazor.eu</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	
 	<ItemGroup>
 	  <!-- We need this to NOT distribute the file in the nuget. -->
 	  <Content Remove="Icons\bootstrap-icons.json" />
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	  <None Include="Icons\bootstrap-icons.json" />
 	</ItemGroup>
 	
