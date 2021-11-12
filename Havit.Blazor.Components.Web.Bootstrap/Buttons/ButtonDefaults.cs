@@ -28,6 +28,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public IconBase Icon { get; set; }
 
 		/// <summary>
+		/// Position of the icon within the button. Default is <see cref="ButtonIconPlacement.Start" />
+		/// </summary>
+		public ButtonIconPlacement IconPlacement { get; set; } = ButtonIconPlacement.Start;
+
+
+		/// <summary>
 		/// Bootstrap button color (style). Default is <see cref="ThemeColor.None"/>.
 		/// </summary>
 		public ThemeColor? Color { get; set; } = ThemeColor.None;
