@@ -8,7 +8,7 @@
 [![GitHub](https://img.shields.io/github/stars/havit/Havit.Blazor)](https://github.com/havit/Havit.Blazor/)
 
 * Free Bootstrap 5 components for ASP.NET Blazor
-* .NET5+ with Blazor WebAssembly or Blazor Server (other hosting models not tested yet)
+* .NET 5.0+ with Blazor WebAssembly or Blazor Server (other hosting models not tested yet, .NET 6.0 fully supported)
 * [Enterprise project template](https://github.com/havit/NewProjectTemplate-Blazor) (optional) - layered architecture, EF Core, gRPC code-first, ...
 
 
