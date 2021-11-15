@@ -1,5 +1,4 @@
-﻿![HAVIT Blazor - Bootstrap 5 component bundle](/logo.png)
-# HAVIT Blazor - Bootstrap 5 component bundle
+﻿# HAVIT Blazor - Bootstrap 5 component bundle
 
 [![Nuget](https://img.shields.io/nuget/v/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
 [![Nuget](https://img.shields.io/nuget/dt/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
