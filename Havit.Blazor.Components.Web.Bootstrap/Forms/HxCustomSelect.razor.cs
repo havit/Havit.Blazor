@@ -2,8 +2,8 @@ using System;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-    public partial class HxCustomSelect
-    {
-        
-    }
+	public partial class HxCustomSelect
+	{
+
+	}
 }
