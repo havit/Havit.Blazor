@@ -1,7 +1,4 @@
-.hx-treeview {
+.hx-tree-view {
   height: 100%;
-  border-radius: 3px;
-  border: solid 1px lightgray;
-  padding: 5px;
   overflow-y: auto;
 }

@@ -2,18 +2,25 @@
 @typeparam TValue
 
 
-<div class="hx-tree-item @(Value.IsSelected ? "selected" : "")" style="padding-left: @PaddingLeft" @onclick="@OnItemClicked">
+<div class="hx-tree-item @(Value.IsSelected ? "selected" : "")" @onclick="@OnItemClicked">
+    @for (int i = 0; i < Value.Level; i++) {
+        <div class="hx-tree-item-spacer"></div>
+    }
     <div class="hx-tree-item-expander expander @(Value.IsExpanded ? "expanded" : "")">
         @if (Value.HasChildren)
         {
-            <div><HxIcon Icon="@BootstrapIcon.ChevronRight"/></div>
+            <div>
+                <HxIcon Icon="@BootstrapIcon.ChevronRight"/>
+            </div>
         }
     </div>
     @if (Value.Icon != null)
     {
-        <div class="icon"><HxIcon Icon="@Value.Icon" /></div>
+        <div class="icon">
+            <HxIcon Icon="@Value.Icon" />
+        </div>
     }
-    <div class="hx-tree-item-value">@Value.Title</div>
+    <div title="@Value.Title" class="hx-tree-item-value text-nowrap text-truncate">@Value.Title</div>
     @if (!string.IsNullOrEmpty(Value.Badge))
     {
         <div>
