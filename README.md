@@ -100,4 +100,5 @@
 
 ## Special
 
+* [`HxDynamicElement`](https://havit.blazor.eu/components/HxDynamicElement) - Renders an element with the specified name, attributes and child-content.
 * [`HxGoogleTagManager`](https://havit.blazor.eu/components/HxGoogleTagManager) - Support for <a href="https://developers.google.com/tag-manager/devguide">Google Tag Manager</a> - initialization and pushing data to data-layer.

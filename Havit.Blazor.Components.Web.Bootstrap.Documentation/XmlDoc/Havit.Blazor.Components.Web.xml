@@ -397,6 +397,41 @@
             The value to be tracked.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.HxDynamicElement">
+            <summary>
+            Renders an element with the specified name, attributes and child-content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.ElementName">
+            <summary>
+            Gets or sets the name of the element to render.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClick">
+            <summary>
+            Raised after the element is clicked.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClickStopPropagation">
+            <summary>
+            Stop onClick-event propagation. Deafult is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClickPreventDefault">
+            <summary>
+            Prevents the default action for the onclick event. Deafult is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.ElementRef">
+            <summary>
+            Element reference.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.ElementRefChanged">
+            <summary>
+            Action (synchronnous, not an EventCallback) called when the element's reference got captured.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.HxRepeater`1">
             <summary>
             A data-bound list component that allows custom layout by repeating a specified template for each item displayed in the list.
