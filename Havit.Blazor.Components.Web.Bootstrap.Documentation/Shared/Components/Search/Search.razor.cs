@@ -256,15 +256,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxNamedViewList", "HxNamedViewList", "HxListLayout")
 		};
 
-		private async Task<AutosuggestDataProviderResult<SearchItem>> ProvideSuggestions(AutosuggestDataProviderRequest request)
+		private Task<AutosuggestDataProviderResult<SearchItem>> ProvideSuggestions(AutosuggestDataProviderRequest request)
 		{
 			var userInput = request.UserInput.Trim();
 			StringComparison comparisonType = StringComparison.OrdinalIgnoreCase;
 
-			return new AutosuggestDataProviderResult<SearchItem>
+			return Task.FromResult(new AutosuggestDataProviderResult<SearchItem>
 			{
 				Data = searchItems.Where(si => si.Title.Contains(userInput, comparisonType) || si.Keywords.Contains(userInput, comparisonType)).OrderBy(si => si.Title.Length).Take(5)
-			};
+			});
 		}
 
 		public void NavigateToSelectedPage(SearchItem searchItem)
