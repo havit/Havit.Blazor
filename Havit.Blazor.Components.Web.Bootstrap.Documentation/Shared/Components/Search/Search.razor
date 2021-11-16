@@ -1,0 +1,15 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
+@using System.Globalization
+
+<HxAutosuggest Placeholder="Search"
+               TItem="SearchItem"
+               TValue="SearchItem"
+               @bind-Value="@SelectedResult"
+               MinimumLength="1"
+               CssClass="sidebar-search"
+               DataProvider="ProvideSuggestions">
+    <ItemTemplate Context="searchItem">@searchItem.Title</ItemTemplate>
+    <EmptyTemplate>
+        <span class="p-2">No matches found</span>
+    </EmptyTemplate>
+</HxAutosuggest>

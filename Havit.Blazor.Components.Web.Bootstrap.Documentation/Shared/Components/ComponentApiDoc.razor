@@ -7,7 +7,10 @@
 @ChildContent
 @MainContent
 
-<h2>API</h2>
+@if (parameters is not null || properties is not null || events is not null || staticMethods is not null || staticProperties is not null || CssVariables is not null)
+{
+	<h2>API</h2>
+}
 
 @if (Delegate)
 {
