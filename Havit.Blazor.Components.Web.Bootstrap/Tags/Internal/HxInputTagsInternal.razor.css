@@ -44,7 +44,7 @@ input:focus {
 }
 
 .hx-input-tags-control-focused:not(.hx-input-tags-naked) {
-	border-color: var(--hx-input-tags-control-focused-border-color); /* There is a tint-color function used in Bootstrap. */
+	box-shadow: var(--hx-input-tags-control-focused-box-shadow);
+	border-color: var(--hx-input-tags-control-focused-border-color);
 	outline: 0;
-	box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
 }
