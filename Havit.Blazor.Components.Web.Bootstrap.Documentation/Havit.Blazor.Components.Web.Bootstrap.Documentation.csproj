@@ -38,7 +38,7 @@
 		<Compile Remove="**/*.CodeSnippet.*" />
 		<EmbeddedResource Include="**/*.CodeSnippet.*" />
 		<None Remove="Pages\Components\HxListGroupDoc\HxListGroup_Documentation.razor.css" />
-		<None Remove="Pages\Components\HxSiderbarDoc\HxSidebar_Setup.CodeSnippet.css" />
+		<None Remove="Pages\Components\HxSidebarDoc\HxSidebar_Setup.CodeSnippet.css" />
 		<Content Include="Pages\Components\HxListGroupDoc\HxListGroup_Documentation.razor.css" />
 		<EmbeddedResource Update="**/*.CodeSnippet.*">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
