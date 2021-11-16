@@ -1270,6 +1270,76 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.DisposeAsync">
             <inheritdoc/>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/> to open.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.ElementName">
+            <summary>
+            Gets or sets the name of the element to render.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.DropdownReference">
+            <summary>
+            Reference element of the dropdown menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
+            an HTMLElement reference (e.g. <c>#id</c>) or an object providing <c>getBoundingClientRect</c>.
+            For more information refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
+            and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.DropdownOffset">
+            <summary>
+            Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
+            of the dropdown relative to its target.  Default is <c>(0, 2)</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.CssClass">
+            <summary>
+            Custom CSS class to render with the toggle element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnShown">
+            <summary>
+            Fired when the dropdown has been made visible to the user and CSS transitions have completed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnHidden">
+            <summary>
+            Fired when the dropdown has finished being hidden from the user and CSS transitions have completed.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.ShowAsync">
+            <summary>
+            Shows the dropdown.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.HideAsync">
+            <summary>
+            Hides the dropdown.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.HandleJsShown">
+            <summary>
+            Receives notification from javascript when dropdown is shown.
+            </summary>
+            <remarks>
+            the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.HandleJsHidden">
+            <summary>
+            Receives notification from javascript when item is hidden.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.DisposeAsync">
+            <inheritdoc/>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.IHxDropdownToggle">
+            <summary>
+            Interface to help keep the dropdown-toggle implementations aligned.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
             <summary>
             Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as Bootstrap form control (incl. <c>Label</c> etc.)

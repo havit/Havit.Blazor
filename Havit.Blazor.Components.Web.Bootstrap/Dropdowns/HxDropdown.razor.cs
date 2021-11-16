@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Havit.Blazor.Components.Web.Bootstrap.Dropdowns;
 using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap

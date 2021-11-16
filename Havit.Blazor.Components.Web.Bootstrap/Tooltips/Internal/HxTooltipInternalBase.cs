@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using Havit.Blazor.Components.Web.Bootstrap.Dropdowns;
-using static System.Net.WebRequestMethods;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {

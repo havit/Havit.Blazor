@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
@@ -10,13 +13,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdown"/> to open.
 	/// </summary>
-	public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownToggle
+	public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncDisposable
 	{
 		/// <summary>
-		/// Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
-		/// of the dropdown relative to its target.  Default is <c>(0, 2)</c>.
+		/// Gets or sets the name of the element to render.
 		/// </summary>
-		[Parameter] public (int Skidding, int Distance)? DropdownOffset { get; set; }
+		[Parameter] public string ElementName { get; set; } = "span";
 
 		/// <summary>
 		/// Reference element of the dropdown menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
@@ -24,44 +26,54 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// For more information refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
 		/// and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
 		/// </summary>
-		[Parameter] public string DropdownReference { get; set; }
+		public string DropdownReference { get; set; }
+
+		/// <summary>
+		/// Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
+		/// of the dropdown relative to its target.  Default is <c>(0, 2)</c>.
+		/// </summary>
+		public (int Skidding, int Distance)? DropdownOffset { get; set; }
+
+		/// <summary>
+		/// Custom CSS class to render with the toggle element.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
+		[Parameter] public RenderFragment ChildContent { get; set; }
+
+		[Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> AdditionalAttributes { get; set; }
 
 		/// <summary>
 		/// Fired when the dropdown has been made visible to the user and CSS transitions have completed.
 		/// </summary>
-		[Parameter] public EventCallback OnShown { get; set; }
+		public EventCallback OnShown { get; set; }
 
 		/// <summary>
 		/// Fired when the dropdown has finished being hidden from the user and CSS transitions have completed.
 		/// </summary>
-		[Parameter] public EventCallback OnHidden { get; set; }
+		public EventCallback OnHidden { get; set; }
 
 		[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
-		[CascadingParameter] protected HxNav NavContainer { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-		private DotNetObjectReference<HxDropdownToggleButton> dotnetObjectReference;
+		private ElementReference elementReference;
+		private DotNetObjectReference<HxDropdownToggleElement> dotnetObjectReference;
 		private IJSObjectReference jsModule;
 
-		public HxDropdownToggleButton()
+		public HxDropdownToggleElement()
 		{
 			dotnetObjectReference = DotNetObjectReference.Create(this);
 		}
 
-		protected override void OnParametersSet()
+		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
-			if ((Color is null) && (NavContainer is not null))
-			{
-				Color = ThemeColor.Link;
-			}
+			builder.OpenElement(0, ElementName);
 
-			base.OnParametersSet();
+			builder.AddAttribute(1, "data-bs-toggle", "dropdown");
+			builder.AddAttribute(2, "aria-expanded", "false");
 
-			AdditionalAttributes ??= new Dictionary<string, object>();
-			AdditionalAttributes["data-bs-toggle"] = "dropdown";
-			AdditionalAttributes["aria-expanded"] = "false";
-			AdditionalAttributes["data-bs-auto-close"] = (DropdownContainer?.AutoClose ?? DropdownAutoClose.True) switch
+			var dataBsAutoCloseAttributeValue = (DropdownContainer?.AutoClose ?? DropdownAutoClose.True) switch
 			{
 				DropdownAutoClose.True => "true",
 				DropdownAutoClose.False => "false",
@@ -69,36 +81,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				DropdownAutoClose.Outside => "outside",
 				_ => throw new InvalidOperationException($"Unknown {nameof(DropdownAutoClose)} value {DropdownContainer.AutoClose}.")
 			};
+			builder.AddAttribute(3, "data-bs-auto-close", dataBsAutoCloseAttributeValue);
 
 			if (this.DropdownOffset is not null)
 			{
-				AdditionalAttributes["data-bs-offset"] = $"{DropdownOffset.Value.Skidding},{DropdownOffset.Value.Distance}";
+				builder.AddAttribute(4, "data-bs-offset", $"{DropdownOffset.Value.Skidding},{DropdownOffset.Value.Distance}");
 			}
 
 			if (!String.IsNullOrWhiteSpace(this.DropdownReference))
 			{
-				AdditionalAttributes["data-bs-reference"] = this.DropdownReference;
+				builder.AddAttribute(5, "data-bs-reference", this.DropdownReference);
 			}
-		}
+			builder.AddAttribute(6, "class", this.CssClass);
 
-		protected override string CoreCssClass =>
-			CssClassHelper.Combine(
-				base.CoreCssClass,
-				"dropdown-toggle",
-				((DropdownContainer as IDropdownContainer)?.IsOpen ?? false) ? "show" : null,
-				(DropdownContainer?.Split ?? false) ? "dropdown-toggle-split" : null,
-				(NavContainer is not null) ? "nav-link" : null);
+			builder.AddMultipleAttributes(99, AdditionalAttributes);
+			builder.AddElementReferenceCapture(4, capturedRef => elementReference = capturedRef);
+			builder.AddContent(5, ChildContent);
 
-
-		/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
-		protected override async Task OnAfterRenderAsync(bool firstRender)
-		{
-			await base.OnAfterRenderAsync(firstRender);
-			if (firstRender)
-			{
-				await EnsureJsModuleAsync();
-				await jsModule.InvokeVoidAsync("create", buttonElementReference, dotnetObjectReference);
-			}
+			builder.CloseElement();
 		}
 
 		/// <summary>
@@ -107,7 +107,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task ShowAsync()
 		{
 			await EnsureJsModuleAsync();
-			await jsModule.InvokeVoidAsync("show", buttonElementReference);
+			await jsModule.InvokeVoidAsync("show", elementReference);
 		}
 
 		/// <summary>
@@ -116,7 +116,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task HideAsync()
 		{
 			await EnsureJsModuleAsync();
-			await jsModule.InvokeVoidAsync("hide", buttonElementReference);
+			await jsModule.InvokeVoidAsync("hide", elementReference);
 		}
 
 		/// <summary>
@@ -152,7 +152,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			if (jsModule != null)
 			{
-				await jsModule.InvokeVoidAsync("dispose", buttonElementReference);
+				await jsModule.InvokeVoidAsync("dispose", elementReference);
 				await jsModule.DisposeAsync();
 			}
 

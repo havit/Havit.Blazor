@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Dropdowns
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public interface IDropdownContainer
 	{

@@ -1,5 +1,6 @@
 ﻿@attribute [Route("/components/" + nameof(HxDropdown))]
 @attribute [Route("/components/" + nameof(HxDropdownToggleButton))]
+@attribute [Route("/components/" + nameof(HxDropdownToggleElement))]
 @attribute [Route("/components/" + nameof(HxDropdownMenu))]
 @attribute [Route("/components/" + nameof(HxDropdownItem))]
 @attribute [Route("/components/" + nameof(HxDropdownHeader))]
@@ -42,6 +43,13 @@
 	<p>Use <code>HxDropdownContent</code> instead of <code>HxDropdownMenu</code>.</p>
 	<Demo Type="typeof(HxDropdown_Demo_CustomContent)" />
 
+    	<h3>Custom toggle element</h3>
+	<p>
+        Use <code>HxDropdownToggleElement</code> (with <code>ElementName="..."</code>) instead of <code>HxDropdownToggleButton</code> to create custom toggler.
+        (Usually you will add <code>role="button"</code> to apply pointer cursor type.)
+    </p>
+	<Demo Type="typeof(HxDropdown_Demo_CustomToggleElement)" />
+
 	<h3>Dropdown offset and reference</h3>
 	<p>
 		You can change the location of the dropdown by setting the <code>@nameof(HxDropdownToggleButton).@nameof(HxDropdownToggleButton.DropdownOffset)</code>
@@ -63,6 +71,7 @@
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxDropdownToggleButton)" />
+<ComponentApiDoc Type="typeof(HxDropdownToggleElement)" />
 <ComponentApiDoc Type="typeof(HxDropdownMenu)" />
 <ComponentApiDoc Type="typeof(HxDropdownHeader)" />
 <ComponentApiDoc Type="typeof(HxDropdownItemNavLink)" />
