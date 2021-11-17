@@ -40,6 +40,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public IconBase Icon { get; set; }
 
 		/// <summary>
+		/// Position of the icon within the button. Default is <see cref="ButtonIconPlacement.Start" /> (configurable through <see cref="HxButton.Defaults"/>).
+		/// </summary>
+		[Parameter] public ButtonIconPlacement? IconPlacement { get; set; }
+
+		/// <summary>
 		/// Bootstrap button style - theme color.<br />
 		/// Default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
 		/// </summary>
@@ -156,6 +161,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected virtual ButtonDefaults GetDefaults() => Defaults;
 
 		protected IconBase IconEffective => this.Icon ?? GetDefaults().Icon;
+		protected ButtonIconPlacement IconPlacementEffective => this.IconPlacement ?? GetDefaults().IconPlacement;
 		protected bool SpinnerEffective => this.Spinner ?? clickInProgress;
 		protected bool DisabledEffective => !CascadeEnabledComponent.EnabledEffective(this)
 			|| (SingleClickProtection && clickInProgress && (OnClick.HasDelegate || OnValidClick.HasDelegate || OnInvalidClick.HasDelegate));
@@ -169,7 +175,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual string CoreCssClass => "hx-button btn";
 
-		protected virtual IconPosition IconPosition => IconPosition.Start;
 
 		protected virtual string GetButtonCssClass()
 		{

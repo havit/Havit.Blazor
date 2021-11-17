@@ -4,10 +4,11 @@
 [![Nuget](https://img.shields.io/nuget/dt/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
 [![Build Status](https://dev.azure.com/havit/DEV/_apis/build/status/002.HFW-HavitBlazor?branchName=master)](https://dev.azure.com/havit/DEV/_build/latest?definitionId=318&branchName=master)
 [![GitHub](https://img.shields.io/github/license/havit/Havit.Blazor)](https://github.com/havit/Havit.Blazor/blob/master/LICENSE)
+[![GitHub](https://img.shields.io/github/stars/havit/Havit.Blazor)](https://github.com/havit/Havit.Blazor/)
 
-* Free Bootstrap 5 components for ASP.NET Blazor (both WebAssembly and Server)
-* Blazor WASM stack with gRPC code-first communication
-* [New project template](https://github.com/havit/NewProjectTemplate-Blazor)
+* Free Bootstrap 5 components for ASP.NET Blazor
+* .NET 5.0+ with Blazor WebAssembly or Blazor Server (other hosting models not tested yet, .NET 6.0 fully supported)
+* [Enterprise project template](https://github.com/havit/NewProjectTemplate-Blazor) (optional) - layered architecture, EF Core, gRPC code-first, ...
 
 
 # See [&gt;&gt;Interactive Documentation & Demos&lt;&lt;](https://havit.blazor.eu)
@@ -99,4 +100,5 @@
 
 ## Special
 
+* [`HxDynamicElement`](https://havit.blazor.eu/components/HxDynamicElement) - Renders an element with the specified name, attributes and child-content.
 * [`HxGoogleTagManager`](https://havit.blazor.eu/components/HxGoogleTagManager) - Support for <a href="https://developers.google.com/tag-manager/devguide">Google Tag Manager</a> - initialization and pushing data to data-layer.

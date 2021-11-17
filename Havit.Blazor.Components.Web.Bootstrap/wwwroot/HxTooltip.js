@@ -1,10 +1,10 @@
 ﻿// has to be aligned with HxPopover.js!
-export function createOrUpdate(element, hxDotnetObjectReference) {
+export function createOrUpdate(element, hxDotnetObjectReference, options) {
 	destroy(element);
 	element.hxDotnetObjectReference = hxDotnetObjectReference;
 	element.addEventListener('shown.bs.tooltip', handleShown);
 	element.addEventListener('hidden.bs.tooltip', handleHidden);
-	new bootstrap.Tooltip(element)
+	new bootstrap.Tooltip(element, options);
 }
 
 export function show(element) {

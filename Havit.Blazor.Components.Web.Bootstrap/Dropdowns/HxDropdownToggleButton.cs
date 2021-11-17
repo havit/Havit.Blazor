@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
-using Havit.Blazor.Components.Web.Bootstrap.Dropdowns;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -11,7 +10,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdown"/> to open.
 	/// </summary>
-	public class HxDropdownToggleButton : HxButton, IAsyncDisposable
+	public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownToggle
 	{
 		/// <summary>
 		/// Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>

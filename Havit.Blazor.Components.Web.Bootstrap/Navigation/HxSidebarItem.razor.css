@@ -27,7 +27,7 @@
 ::deep a.nav-link.active:hover,
 ::deep a.nav-link.active,
 .navbar-desktop-toggler:hover {
-	background-color: var(--hx-sidebar-link-hover);
+	background-color: rgba(var(--hx-sidebar-item-hover-background-color), var(--hx-sidebar-item-hover-background-opacity));
 	color: var(--hx-sidebar-item-hover-color);
 }
 

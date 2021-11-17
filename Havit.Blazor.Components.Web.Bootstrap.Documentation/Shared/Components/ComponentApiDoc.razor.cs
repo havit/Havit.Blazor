@@ -371,6 +371,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
 			typeName = Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
 
+			typeName = ConstructGenericTypeName(type, typeName) ?? typeName;
+
 			string internalTypeName = GenerateLinkForInternalType(typeName);
 			if (internalTypeName is not null)
 			{
@@ -410,6 +412,71 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 
 			return typeName;
+		}
+
+		private static string ConstructGenericTypeName(Type type, string typeName)
+		{
+			if (!type.IsGenericType || !typeName.ToLower().Contains("object"))
+			{
+				return null;
+			}
+
+			var genericArguments = type.GetGenericTypeDefinition()
+				.GetGenericArguments();
+			var genericArgumentNamesFromFullTypeName = GetGenericParameterNamesFromFullTypeName(typeName);
+			List<string> genericParameterNames = new();
+
+			if (genericArgumentNamesFromFullTypeName.Count != genericArguments.Length)
+			{
+				return null;
+			}
+			for (int i = 0; i < genericArguments.Length; i++)
+			{
+				if (genericArgumentNamesFromFullTypeName[i].Contains("object"))
+				{
+					genericParameterNames.Add(FormatGenericParameterName(genericArguments[i].Name));
+				}
+				else
+				{
+					genericParameterNames.Add(genericArgumentNamesFromFullTypeName[i].Trim());
+				}
+			}
+
+			if (genericParameterNames is null || genericParameterNames.Count == 0)
+			{
+				return null;
+			}
+
+			// Constructing the generic type name from a list of generic type name parameters.
+			typeName = typeName.Split('<').FirstOrDefault() + "<";
+			genericParameterNames.ForEach(n => typeName += $"{n}, ");
+
+			typeName = typeName.Remove(typeName.Length - 2, 2);
+			typeName += ">";
+
+			return typeName;
+		}
+
+		private static List<string> GetGenericParameterNamesFromFullTypeName(string typeName)
+		{
+			string allGenericParameterNames = typeName.Split('<').LastOrDefault().Replace(">", "");
+			return allGenericParameterNames.Split(',').ToList();
+		}
+
+		private static string FormatGenericParameterName(string genericParameterName)
+		{
+			if (genericParameterName == "T") // When a generic type parameter is named "TItem", then when retrieved with reflection, it's name is only "T".
+			{
+				return "TItem";
+			}
+			else if (genericParameterName == "TResult")
+			{
+				return "TValue";
+			}
+			else
+			{
+				return genericParameterName;
+			}
 		}
 
 		public static string GenerateLinkForInternalType(string typeName, bool checkForInternal = true, string linkText = null)

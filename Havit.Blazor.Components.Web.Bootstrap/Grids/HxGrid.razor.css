@@ -1,14 +1,9 @@
-.selected {
-	background-color: #f2f9ff;
-	color: #2e75f0;
-}
-
 th ::deep i {
     margin-left: .25rem;
 }
 
 ::deep .sorted i {
-    color: var(--bs-primary);
+    color: var(--hx-grid-sorted-icon-color);
 }
 
 ::deep .sortable {
@@ -26,7 +21,7 @@ th ::deep i {
 
 ::deep .hx-grid-btn {
     border-radius: var(--hx-grid-button-border-radius);
-    padding: 0 4px;
+    padding: 0 .25rem;
     background: transparent;
     border: none;
 }

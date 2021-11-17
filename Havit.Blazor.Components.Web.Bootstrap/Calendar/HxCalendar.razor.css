@@ -1,4 +1,4 @@
-.calendar {
+.hx-calendar {
     display: inline-flex;
     flex-direction: column;
 }
@@ -68,6 +68,11 @@ td > div {
     color: var(--hx-calendar-day-in-color);
 }
 
+.disabled {
+    opacity: var(--hx-calendar-day-disabled-opacity);
+    text-decoration: var(--hx-calendar-day-disabled-text-decoration);
+}
+
 td[role="button"]:hover .selected.in, 
 td[role="button"] .selected.in, 
 td[role="button"]:hover .selected.out, 
@@ -79,7 +84,7 @@ td[role="button"] .selected.out {
 
 .today {
     border: var(--hx-calendar-day-today-border);
-    background: var(--hx-calendar-day-today-background);
+    background-color: rgba(var(--hx-calendar-day-today-background), var(--hx-calendar-day-today-background-opacity));
     color: var(--hx-calendar-day-today-color);
 }
 

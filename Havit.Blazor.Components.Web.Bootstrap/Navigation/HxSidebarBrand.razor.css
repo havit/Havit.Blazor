@@ -1,12 +1,12 @@
 ﻿.logo {
 	width: 2.75em;
 	height: 2.75em;
-	background-color: var(--bs-primary);
-	border-radius: 10px;
+	background-color: var(--hx-sidebar-brand-logo-background-color);
+	border-radius: var(--hx-sidebar-brand-logo-border-radius);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: white;
+	color: var(--hx-sidebar-brand-logo-color);
 }
 
 a {
@@ -19,4 +19,5 @@ a {
 .brand-name {
 	font-size: 1.25rem;
 	margin-left: .5rem;
+	color: var(--hx-sidebar-brand-name-color);
 }

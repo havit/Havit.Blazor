@@ -2,20 +2,32 @@
     white-space: nowrap;
 }
 
-::deep .hx-grid.table tbody tr:last-child td {
+::deep .hx-grid tr:last-child td {
     border-bottom-width: 0;
 }
 
-::deep .hx-grid.table tbody tr:last-child td:first-child {
+::deep .hx-grid tr:last-child td:first-child {
     border-bottom-left-radius: .5rem;
 }
 
-::deep .hx-grid.table tbody tr:last-child td:last-child {
+::deep .hx-grid tr:last-child td:last-child {
     border-bottom-right-radius: .5rem;
 }
 
-::deep .hx-grid.table {
+::deep .hx-grid td:first-child,
+::deep .hx-grid th:first-child {
+    padding-left: 1rem;
+}
+
+::deep .hx-grid td:last-child,
+::deep .hx-grid th:last-child {
+    padding-right: 1rem;
+}
+
+::deep .hx-grid {
+    --hx-context-menu-button-border-radius: .25rem;
     margin-bottom: 0;
+    font-size: var(--hx-list-layout-table-font-size);
 }
 
 .hx-list-layout-named-view ::deep .hx-icon {

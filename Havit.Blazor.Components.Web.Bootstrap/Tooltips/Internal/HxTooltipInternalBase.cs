@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using Havit.Blazor.Components.Web.Bootstrap.Dropdowns;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
@@ -29,6 +28,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// Use text if you're worried about XSS attacks.
 		/// </summary>
 		[Parameter] public bool Html { get; set; }
+
+		/// <summary>
+		/// Enable or disable the sanitization. If activated HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.1/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
+		/// </summary>
+		[Parameter] public bool Sanitize { get; set; } = true;
+
+		/// <summary>
+		/// Offset of the component relative to its target (ChildContent).
+		/// </summary>
+		[Parameter] public (int X, int Y) Offset { get; set; }
 
 		/// <summary>
 		/// Custom CSS class to add.
@@ -75,7 +84,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
-			// Once the span is rendered it does not disapper to enable spanElement to be used at OnAfterRender to safely remove a tooltip/popover.
+			// Once the span is rendered it does not disappear to enable spanElement to be used at OnAfterRender to safely remove a tooltip/popover.
 			// It is not a common situation to remove a tooltip/popover.
 			shouldRenderSpan |= !String.IsNullOrEmpty(TitleInternal)
 								|| !String.IsNullOrWhiteSpace(this.WrapperCssClass)
@@ -99,6 +108,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					builder.AddAttribute(9, "data-bs-html", "true");
 				}
 				builder.AddAttribute(10, "data-bs-toggle", DataBsToggle);
+				if (Offset != (default, default))
+				{
+					builder.AddAttribute(11, "data-bs-offset", $"{Offset.X},{Offset.Y}");
+				}
 				builder.AddElementReferenceCapture(11, element => spanElement = element);
 			}
 
@@ -143,7 +156,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 				if (shouldCreateOrUpdateTooltip)
 				{
-					await jsModule.InvokeVoidAsync("createOrUpdate", spanElement, dotnetObjectReference);
+					var options = new
+					{
+						Sanitize = this.Sanitize
+					};
+					await jsModule.InvokeVoidAsync("createOrUpdate", spanElement, dotnetObjectReference, options);
 				}
 
 				if (shouldDestroyTooltip)
