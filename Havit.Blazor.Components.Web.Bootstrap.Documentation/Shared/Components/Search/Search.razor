@@ -6,7 +6,8 @@
                TValue="SearchItem"
                @bind-Value="@SelectedResult"
                MinimumLength="1"
-               CssClass="sidebar-search"
+               Delay="1"               
+               CssClass="sidebar-search my-2"
                DataProvider="ProvideSuggestions">
     <ItemTemplate Context="searchItem">@searchItem.Title</ItemTemplate>
     <EmptyTemplate>

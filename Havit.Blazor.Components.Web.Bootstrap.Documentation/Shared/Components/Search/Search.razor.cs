@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
@@ -263,7 +264,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			return Task.FromResult(new AutosuggestDataProviderResult<SearchItem>
 			{
-				Data = searchItems.Where(si => si.Title.Contains(userInput, comparisonType) || si.Keywords.Contains(userInput, comparisonType)).OrderBy(si => si.Title.Length).Take(5)
+				Data = searchItems
+						.Where(si => si.Title.Contains(userInput, comparisonType) || si.Keywords.Contains(userInput, comparisonType))
+						.OrderBy(si => si.Level).ThenBy(si => si.Title)
+						.Take(5)
 			});
 		}
 

@@ -64,17 +64,6 @@
 	flex-wrap: wrap;
 }
 
-.sidebar-search {
-	width: 100%;
-	margin-top: 1rem;
-}
-
 .collapsed.sidebar .sidebar-search {
 	display: none;
-}
-
-@media (max-width: 780px){
-	.sidebar-search {
-		display: none;
-	}
 }
