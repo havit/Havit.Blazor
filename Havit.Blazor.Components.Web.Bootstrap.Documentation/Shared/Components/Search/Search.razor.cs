@@ -75,7 +75,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			new("/components/HxValidationMessage", "HxValidationMessage", "form"),
 
-			new("/components/HxButton", "HxSubmit", "send form button"),
+			new("/components/HxSubmit#HxSubmit", "HxSubmit", "send form button"),
 
 			new("/components/HxButtonGroup", "HxButtonGroup", "collection"),
 			new("/components/HxButtonGroup", "HxButtonGroup > Outlined Styles", ""),
@@ -214,7 +214,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxNav", "HxNav > Pills", ""),
 			new("/components/HxNav", "HxNav > Dropdowns", ""),
 
-			new("/components/HxNavLink", "HxNavLink", "href redirect navigation"),
+			new("/components/HxNavLink#HxNavLink", "HxNavLink", "href redirect navigation"),
 
 			new("/components/HxScrollspy", "HxScrollspy", "anchor navigation link"),
 			new("/components/HxScrollspy", "HxScrollspy > Static content", "HxNav list group"),
