@@ -29,16 +29,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/Inputs", "Inputs > Input groups", ""),
 			new("/components/Inputs", "Inputs > Floating labels", ""),
 
-			new("/components/HxAutosuggest", "HxAutosuggest", ""),
+			new("/components/HxAutosuggest", "HxAutosuggest", "autocomplete"),
 
-			new("/components/HxCalendar", "HxCalendar", "date"),
+			new("/components/HxCalendar", "HxCalendar", "datepicker"),
 
 			new("/components/HxInputCheckbox", "HxInputCheckbox", ""),
 
-			new("/components/HxInputDate", "HxInputDate", ""),
+			new("/components/HxInputDate", "HxInputDate", "datepicker"),
 			new("/components/HxInputDate", "HxInputDate > Dropdown calendar customization", ""),
 
-			new("/components/HxInputDateRange", "HxInputDateRange", "period"),
+			new("/components/HxInputDateRange", "HxInputDateRange", "period datepicker"),
 			new("/components/HxInputDateRange", "HxInputDateRange > Dropdown calendar customization", ""),
 
 			new("/components/HxInputFile", "HxInputFile[Core]", "upload single multiple"),
@@ -49,33 +49,33 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			new("/components/HxInputNumber", "HxInputNumber", ""),
 
-			new("/components/HxInputPercent", "HxInputPercent", "normalization"),
+			new("/components/HxInputPercent", "HxInputPercent", "normalization hxinputnumber"),
 			new("/components/HxInputPercent", "HxInputPercent > InputGroupEnd", ""),
 
-			new("/components/HxInputSwitch", "HxInputSwitch", ""),
+			new("/components/HxInputSwitch", "HxInputSwitch", "hxradiobutton"),
 
-			new("/components/HxInputTags", "HxInputTags", "keywords naked restricted"),
+			new("/components/HxInputTags", "HxInputTags", "keywords naked restricted suggestion"),
 			new("/components/HxInputTags", "HxInputTags > Static suggestions", ""),
 
 			new("/components/HxInputText", "HxInputText", "field password search"),
 
-			new("/components/HxInputTextArea", "HxInputTextArea", "field multi line"),
+			new("/components/HxInputTextArea", "HxInputTextArea", "field multiline"),
 
-			new("/components/HxCheckboxList", "HxCheckboxList", ""),
+			new("/components/HxCheckboxList", "HxCheckboxList", "multiselect"),
 
 			new("/components/HxFormState", "HxFormState", ""),
 
 			new("/components/HxFormValue", "HxFormValue", ""),
 
-			new("/components/HxRadioButtonList", "HxRadioButtonList", ""),
+			new("/components/HxRadioButtonList", "HxRadioButtonList", "multiselect"),
 
-			new("/components/HxSelect", "HxSelect", "picker"),
+			new("/components/HxSelect", "HxSelect", "dropdownlist picker"),
 
 			new("/components/HxFilterForm", "HxFilterForm", "HxListLayout"),
 
-			new("/components/HxValidationMessage", "HxValidationMessage", ""),
+			new("/components/HxValidationMessage", "HxValidationMessage", "form"),
 
-			new("/components/HxButton", "HxSubmit", "send form"),
+			new("/components/HxButton", "HxSubmit", "send form button"),
 
 			new("/components/HxButtonGroup", "HxButtonGroup", "collection"),
 			new("/components/HxButtonGroup", "HxButtonGroup > Outlined Styles", ""),
@@ -85,7 +85,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			new("/components/HxButtonToolbar", "HxButtonToolbar", ""),
 
-			new("/components/HxDropdown", "HxDropdown", ""),
+			new("/components/HxDropdown", "HxDropdown", "collapse tooltip popover popup popper"),
 			new("/components/HxDropdown", "HxDropdown > Split button", ""),
 			new("/components/HxDropdown", "HxDropdown > Directions", ""),
 			new("/components/HxDropdown", "HxDropdown > Header, Disabled, Active", ""),
@@ -102,49 +102,49 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxBadge", "HxBadge > Background colors", ""),
 			new("/components/HxBadge", "HxBadge > Pill badges", ""),
 
-			new("/components/HxChipList", "HxChipList", "tags"),
+			new("/components/HxChipList", "HxChipList", "tags badges"),
 
-			new("/components/HxIcon", "HxIcon", "bootstrap"),
+			new("/components/HxIcon", "HxIcon", "bootstrap picture image font"),
 
-			new("/components/HxSpinner", "HxSpinner", "loading"),
+			new("/components/HxSpinner", "HxSpinner", "loading progress placeholder skeleton"),
 			new("/components/HxSpinner", "HxSpinner > Border spinner", ""),
 			new("/components/HxSpinner", "HxSpinner > Colors", ""),
 			new("/components/HxSpinner", "HxSpinner > Growing spinner", ""),
 
-			new("/components/HxProgressIndicator", "HxProgressIndicator", "loading"),
+			new("/components/HxProgressIndicator", "HxProgressIndicator", "loading spinner"),
 
-			new("/components/HxTooltip", "HxTooltip", "hover"),
+			new("/components/HxTooltip", "HxTooltip", "hover popup popover dropdown popper"),
 			new("/components/HxTooltip", "HxTooltip > HxButton support", ""),
 			new("/components/HxTooltip", "HxTooltip > Placement", ""),
 			new("/components/HxTooltip", "HxTooltip > HTML content", ""),
 			new("/components/HxTooltip", "HxTooltip > Programmability", ""),
 
-			new("/components/HxPopover", "HxPopover", "hover"),
+			new("/components/HxPopover", "HxPopover", "hover tooltip popper dropdown"),
 			new("/components/HxPopover", "HxPopover > Placement", ""),
 			new("/components/HxPopover", "HxPopover > HTML content", ""),
 			new("/components/HxPopover", "HxPopover > HTML sanitization", ""),
 			new("/components/HxPopover", "HxPopover > Dismiss on next click", ""),
 			new("/components/HxPopover", "HxPopover > Programmability", ""),
 
-			new("/components/HxGrid", "HxGrid", "data row column"),
+			new("/components/HxGrid", "HxGrid", "data row column table datalist"),
 			new("/components/HxGrid", "HxGrid > Client-side data processing", ""),
 			new("/components/HxGrid", "HxGrid > Server-side paging & sorting", ""),
 			new("/components/HxGrid", "HxGrid > Infinite scroll (Virtualized)", ""),
 			new("/components/HxGrid", "HxGrid > Context menu", ""),
 			new("/components/HxGrid", "HxGrid > Multiselect with checkboxes", ""),
 
-			new("/components/HxContextMenu", "HxContextMenu", "drop"),
+			new("/components/HxContextMenu", "HxContextMenu", "dropdown popup"),
 
-			new("/components/HxPager", "HxPager", "list"),
+			new("/components/HxPager", "HxPager", "list pagination"),
 
-			new("/components/HxRepeater", "HxRepeater", "multi clone"),
+			new("/components/HxRepeater", "HxRepeater", "multi clone foreach iterator iterate"),
 
 			new("/components/HxAccordion", "HxAccordion", "collapse"),
 			new("/components/HxAccordion", "HxAccordion > Plain, No IDs", ""),
 			new("/components/HxAccordion", "HxAccordion > Flush", ""),
 			new("/components/HxAccordion", "HxAccordion > Stay open", ""),
 
-			new("/components/HxAlert", "HxAlert", "message warning exclamation"),
+			new("/components/HxAlert", "HxAlert", "message warning exclamation panel"),
 			new("/components/HxAlert", "HxAlert > Icons", ""),
 			new("/components/HxAlert", "HxAlert > Additional content", ""),
 			new("/components/HxAlert", "HxAlert > Dissmissible", ""),
@@ -155,7 +155,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxCard", "HxCard > Images", ""),
 			new("/components/HxCard", "HxCard > Variants", ""),
 
-			new("/components/HxCarousel", "HxCarousel", "slide"),
+			new("/components/HxCarousel", "HxCarousel", "slider jumbotron"),
 			new("/components/HxCarousel", "HxCarousel > Controls", ""),
 			new("/components/HxCarousel", "HxCarousel > Indicators", ""),
 			new("/components/HxCarousel", "HxCarousel > Captions", ""),
@@ -166,17 +166,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxCarousel", "HxCarousel > Events", ""),
 			new("/components/HxCarousel", "HxCarousel > Touch swiping", ""),
 
-			new("/components/HxCollapse", "HxCollapse", ""),
+			new("/components/HxCollapse", "HxCollapse", "accordion dropdown expand"),
 			new("/components/HxCollapse", "HxCollapse > Horizontal", ""),
 			new("/components/HxCollapse", "HxCollapse > Multiple targets", ""),
 
-			new("/components/HxPlaceholder", "HxPlaceholder", "loading"),
+			new("/components/HxPlaceholder", "HxPlaceholder", "loading skeleton spinner progress"),
 			new("/components/HxPlaceholder", "HxPlaceholder > Width", ""),
 			new("/components/HxPlaceholder", "HxPlaceholder > Color", ""),
 			new("/components/HxPlaceholder", "HxPlaceholder > Sizing", ""),
 			new("/components/HxPlaceholder", "HxPlaceholder > Animation", ""),
 
-			new("/components/HxProgress", "HxProgress", "loading bar normalization"),
+			new("/components/HxProgress", "HxProgress", "loading bar indicator"),
 			new("/components/HxProgress", "HxProgress > Labels", ""),
 			new("/components/HxProgress", "HxProgress > Height", ""),
 			new("/components/HxProgress", "HxProgress > Backgrounds", ""),
@@ -186,7 +186,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxProgress", "HxProgress > Scale", ""),
 			new("/components/HxProgress", "HxProgress > Interactive", ""),
 
-			new("/components/HxTabPanel", "HxTabPanel", "page"),
+			new("/components/HxTabPanel", "HxTabPanel", "page tabs"),
 
 			new("/components/HxListGroup", "HxListGroup", "item"),
 			new("/components/HxListGroup", "HxListGroup > Active and disabled items", ""),
@@ -199,7 +199,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxListGroup", "HxListGroup > With badges", ""),
 			new("/components/HxListGroup", "HxListGroup > Custom content", ""),
 
-			new("/components/HxListLayout", "HxListLayout", "data presentation"),
+			new("/components/HxListLayout", "HxListLayout", "data presentation filter"),
 
 			new("/components/HxNavbar", "HxNavbar", "navigation header"),
 			new("/components/HxNavbar", "HxNavbar > Brand", "image icon"),
@@ -214,27 +214,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxNav", "HxNav > Pills", ""),
 			new("/components/HxNav", "HxNav > Dropdowns", ""),
 
-			new("/components/HxNavLink", "HxNavLink", "href redirect"),
+			new("/components/HxNavLink", "HxNavLink", "href redirect navigation"),
 
-			new("/components/HxScrollspy", "HxScrollspy", "anchor"),
+			new("/components/HxScrollspy", "HxScrollspy", "anchor navigation link"),
 			new("/components/HxScrollspy", "HxScrollspy > Static content", "HxNav list group"),
 			new("/components/HxScrollspy", "HxScrollspy > Dynamic content", "async loaded"),
 
-			new("/components/HxBreadcrumb", "HxBreadcrumb", "navigation"),
+			new("/components/HxBreadcrumb", "HxBreadcrumb", "navigation link"),
 			new("/components/HxBreadcrumb", "HxBreadcrumb > Dividers", ""),
 
 			new("/components/HxAnchorFragmentNavigation", "HxAnchorFragmentNavigation", "id scroll"),
 
-			new("/components/HxMessageBox", "HxMessageBox", "pop-up full-screen dialog"),
+			new("/components/HxMessageBox", "HxMessageBox", "pop-up full-screen dialog modal confirm"),
 
-			new("/components/HxModal", "HxModal", "pop-up full-screen dialog"),
+			new("/components/HxModal", "HxModal", "popup fullscreen dialog messagebox"),
 			new("/components/HxModal", "HxModal > Static backdrop", ""),
 			new("/components/HxModal", "HxModal > Scrolling long content", ""),
 			new("/components/HxModal", "HxModal > Vertically centered", ""),
 			new("/components/HxModal", "HxModal > Optional sizes", ""),
 			new("/components/HxModal", "HxModal > Fullscreen Modal", ""),
 
-			new("/components/HxDialogBase", "HxDialogBase", "custom dialog"),
+			new("/components/HxDialogBase", "HxDialogBase", "custom dialog modal messagebox"),
 
 			new("/components/HxOffcanvas", "HxOffcanvas", "drawer"),
 			new("/components/HxOffcanvas", "HxOffcanvas > Custom close-button icon", ""),
@@ -242,13 +242,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxOffcanvas", "HxOffcanvas > Backdrop", ""),
 			new("/components/HxOffcanvas", "HxOffcanvas > Size", ""),
 
-			new("/components/HxMessenger", "HxMessenger", "pop-up warning alert"),
+			new("/components/HxMessenger", "HxMessenger", "popup warning alert toaster"),
 
-			new("/components/HxToast", "HxToast", ""),
+			new("/components/HxToast", "HxToast", "messenger"),
 
-			new("/components/HxGoogleTagManager", "HxGoogleTagManager", ""),
+			new("/components/HxGoogleTagManager", "HxGoogleTagManager", "gtm ga analytics"),
 
-			new("/components/HxButton", "HxButton", "click"),
+			new("/components/HxButton", "HxButton", "click submit input"),
 			new("/components/HxButton", "HxButton > Outline buttons", ""),
 			new("/components/HxButton", "HxButton > With a badge", ""),
 			new("/components/HxButton", "HxButton > With a tooltip", ""),
@@ -266,7 +266,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			{
 				Data = searchItems
 						.Where(si => si.Title.Contains(userInput, comparisonType) || si.Keywords.Contains(userInput, comparisonType))
-						.OrderBy(si => si.Level).ThenBy(si => si.Title)
+						.OrderBy(si => si.Level)
+							.ThenByDescending(si => si.Title.Contains(userInput, comparisonType))
+							.ThenBy(si => si.Title)
 						.Take(5)
 			});
 		}
