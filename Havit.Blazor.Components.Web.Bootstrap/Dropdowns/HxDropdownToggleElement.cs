@@ -54,6 +54,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public EventCallback OnHidden { get; set; }
 
 		[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
+		[CascadingParameter] protected HxNav NavContainer { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -92,13 +93,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				builder.AddAttribute(5, "data-bs-reference", this.DropdownReference);
 			}
-			builder.AddAttribute(6, "class", this.CssClass);
+			builder.AddAttribute(6, "class", GetCssClass());
 
 			builder.AddMultipleAttributes(99, AdditionalAttributes);
 			builder.AddElementReferenceCapture(4, capturedRef => elementReference = capturedRef);
 			builder.AddContent(5, ChildContent);
 
 			builder.CloseElement();
+		}
+
+		protected virtual string GetCssClass()
+		{
+			return CssClassHelper.Combine(
+				this.CssClass,
+				"dropdown-toggle",
+				((DropdownContainer as IDropdownContainer)?.IsOpen ?? false) ? "show" : null,
+				(DropdownContainer?.Split ?? false) ? "dropdown-toggle-split" : null,
+				(NavContainer is not null) ? "nav-link" : null);
 		}
 
 		/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
