@@ -101,6 +101,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.CloseElement();
 		}
 
+		/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
+		protected override async Task OnAfterRenderAsync(bool firstRender)
+		{
+			await base.OnAfterRenderAsync(firstRender);
+			if (firstRender)
+			{
+				await EnsureJsModuleAsync();
+				await jsModule.InvokeVoidAsync("create", elementReference, dotnetObjectReference);
+			}
+		}
+
 		/// <summary>
 		/// Shows the dropdown.
 		/// </summary>
