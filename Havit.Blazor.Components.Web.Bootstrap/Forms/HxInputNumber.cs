@@ -112,12 +112,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.OpenElement(0, "input");
 			BuildRenderInput_AddCommonAttributes(builder, "text");
 
-			if (DecimalsEffective <= 0)
-			{
-				// We can use inputmode numeric when we do not want to enter decimals. It displays a keyboard without a key for a decimal point.
-				// We do not use inputmode decimal because browser (ie. Safari on iPhone) displays a keyboard with a decimal point key depending on device settings (language & keyboard).
-				builder.AddAttribute(1001, "inputmode", "numeric");
-			}
+			// We can use inputmode numeric when we do not want to enter decimals. It displays a keyboard without a key for a decimal point.
+			builder.AddAttribute(1001, "inputmode", DecimalsEffective <= 0 ? "numeric" : "decimal")
 
 			builder.AddAttribute(1002, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
 			builder.AddAttribute(1003, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
