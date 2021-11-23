@@ -2,7 +2,7 @@
 
 <ComponentApiDoc Type="typeof(HxScrollspy)">
 
-	<h2>How it works</h2>
+	<h2 id="HowItWorks">How it works</h2>
 	<p>
 		Scrollspy needs two components to work together. The <code>HxScrollspy</code> component to wrap
 		the area to spy on and the <a href="/components/@nameof(HxNav)"><code>@nameof(HxNav)</code></a> or a list-group (with <code><a href="/components/@nameof(HxScrollspyNavLink)">@nameof(HxScrollspyNavLink)</a>s</code>) to represent the navigation.
@@ -20,13 +20,13 @@
 		For full-page scrollspy, the spying has to be attached directly to <code>&lt;body&gt;</code> (will be implemented later as needed?).
 	</div>
 
-	<h3>Static content with <code>HxNav</code> navigation</h3>
+	<h3 id="StaticContentHxNavNavigation">Static content with <code>HxNav</code> navigation</h3>
 	<Demo Type="typeof(HxScrollspy_Demo_HxNav)" />
 
-	<h3>Static content with list-group navigation</h3>
+	<h3 id="StaticContentListGroupNavigation">Static content with list-group navigation</h3>
 	<Demo Type="typeof(HxScrollspy_Demo_ListGroup)" />
 
-	<h3>Dynamic content (async loaded data)</h3>
+	<h3 id="DynamicContent">Dynamic content (async loaded data)</h3>
 	<DocAlert Type="DocAlertType.Warning">
 		<p>
 			Bootstrap scrollspy calculates offsets of individual sections when activated (i.e. <code>OnAfterRenderAsync</code> within first render). If the content changes dynamicaly,
@@ -41,7 +41,7 @@
 	</DocAlert>
 	<Demo Type="typeof(HxScrollspy_Demo_DynamicContent)" />
 
-	<h3>Custom navigation content</h3>
+	<h3 id="CustomNavigationContent">Custom navigation content</h3>
 	<DocAlert>
 		When using <code>HxButton</code> inside <code>HxScrollspyNavLink</code>, be sure to set s <code>OnClickStopPropagation = "true"</code>.
 		If you won't, the application will navigate to <code>/#anchor</code> of the <code>HxScrollspyNavLink</code> after <code>OnClick</code> handler completes.

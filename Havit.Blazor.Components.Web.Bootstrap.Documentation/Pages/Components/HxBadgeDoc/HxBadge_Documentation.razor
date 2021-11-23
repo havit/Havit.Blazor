@@ -1,28 +1,28 @@
 ﻿@attribute [Route("/components/" + nameof(HxBadge))]
 
 <ComponentApiDoc Type="typeof(HxBadge)">
-    <h3>Examples</h3>
+    <h3 id="Examples">Examples</h3>
     <p>Badges scale to match the size of the immediate parent element by using relative font sizing and <code>em</code> units. As of Bootstrap v5, badges no longer have focus or hover styles for links.</p>
     
-    <h3>Headings</h3>
+    <h3 id="Headings">Headings</h3>
     <Demo Type="typeof(HxBadge_Demo_Headings)" Tabs="false" />
 
-    <h3>Buttons</h3>
+    <h3 id="Buttons">Buttons</h3>
     <p>Badges can be used as part of links or buttons to provide a counter.</p>
     <Demo Type="typeof(HxBadge_Demo_Buttons)" Tabs="false" />
 
-    <h3>Positioned</h3>
+    <h3 id="Positioned">Positioned</h3>
     <p>Use utilities to modify a <code>HxBadge</code> and position it in the corner of a link or button.</p>
     <Demo Type="typeof(HxBadge_Demo_Positioned)" Tabs="false" />
 
     @*<p>you can add the <code>rounded-circle</code> class and leave the content empty for a more generic indicator.</p>
     <demo type="typeof(hxbadge_demo_positined2)" tabs="false" />*@
 
-    <h3>Background colors</h3>
+    <h3 id="BackgroundColors">Background colors</h3>
     <p>Use our background utility classes to quickly change the appearance of a badge. Please note that when using Bootstrap’s default <code>.bg-light</code>, you’ll likely need a text color utility like <code>.text-dark</code> for proper styling. This is because background utilities do not set anything but <code>background-color</code>.</p>
     <Demo Type="typeof(HxBadge_Demo_Colors)" />
 
-    <h3>Pill badges</h3>
+    <h3 id="PillBadges">Pill badges</h3>
     <p>Use the <code>.rounded-pill</code> utility class to make badges more rounded with a larger <code>border-radius</code>.</p>
     <Demo Type="typeof(HxBadge_Demo_Pills)" />
 </ComponentApiDoc>

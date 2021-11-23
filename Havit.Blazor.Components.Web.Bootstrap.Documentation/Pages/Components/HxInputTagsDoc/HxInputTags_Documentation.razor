@@ -6,21 +6,21 @@
 			<code>HxInputTags</code> does not support additional <code>InputGroups</code>. Learn more about them <a href="/components/Inputs#InputGroups">here</a>.
 		</DocAlert>
 
-		<h3>Basic Usage</h3>
+		<h3 id="BasicUsage">Basic Usage</h3>
 		<Demo Type="typeof(HxInputTags_Demo_Basic)" />
 
-		<h3>Static suggestions</h3>
+		<h3 id="StaticSuggestions">Static suggestions</h3>
 		<p>
 			To offer fixed list of suggestions (simmilar to <code>HxSelect</code>), setup <code>DataProvider</code> to return those values (no matter the input)
 			and use <code>@nameof(HxInputTags.SuggestDelay)="0"</code> together with <code>@nameof(HxInputTags.SuggestMinimumLength)="0"</code>.
 		</p>
 		<Demo Type="typeof(HxInputTags_Demo_FixedSuggestions)" />
 
-		<h3>No suggestions</h3>
+		<h3 id="NoSuggestions">No suggestions</h3>
 		<p>If you don't want to use any suggestions and let the user add tags manualy, just leave the <code>DataProvider</code> unset (<code>null</code>).</p>
 		<Demo Type="typeof(HxInputTags_Demo_NoSuggestions)" />
 
-		<h3>Restricted tags</h3>
+		<h3 id="RestrictedTags">Restricted tags</h3>
 		<p>If you want to restrict tags to suggested items only, set <code>@nameof(HxInputTags.AllowCustomTags)</code> to <code>false</code>.</p>
 		<DocAlert>
 			Current @nameof(HxInputTags) implementation for <code>AllowCustomTags="false""</code> allows adding tags only from suggestions (dropdown).
@@ -28,23 +28,23 @@
 		</DocAlert>
 		<Demo Type="typeof(HxInputTags_Demo_AllowCustomTags)" />
 
-		<h3>Colors</h3>
+		<h3 id="Colors">Colors</h3>
 		<p>Use <code>TagBackgroundColor</code> and <code>TagTextColor</code> to adjust colors.</p>
 		<Demo Type="typeof(HxInputTags_Demo_Colors)" />
 
-		<h3>Naked</h3>
+		<h3 id="Naked">Naked</h3>
 		<p>Consider enabling <code>@nameof(HxInputTags.ShowAddButton)</code> when using <code>@nameof(HxInputTags.Naked)</code>.</p>
 		<Demo Type="typeof(HxInputTags_Demo_Naked)" />
 
-		<h4>Naked sizes</h4>
+		<h4 id="NakedSizes">Naked sizes</h4>
 		<p>Use <code>InputSize</code> parameter.</p>
 		<Demo Type="typeof(HxInputTags_Demo_Naked_InputSize)" />
 
-		<h3>Add-button text</h3>
+		<h3 id="AddButtonText">Add-button text</h3>
 		<p>You might want to set custom <code>@nameof(HxInputTags.AddButtonText)</code> especially for <code>@nameof(HxInputTags.Naked)</code> input.</p>
 		<Demo Type="typeof(HxInputTags_Demo_Naked_AddButtonText)" />
 
-		<h3>Disabled</h3>
+		<h3 id="Disabled">Disabled</h3>
 		<p>You can disable the input by setting <code>Enabled="false"</code>.</p>
 		<Demo Type="typeof(HxInputTags_Demo_Disabled)" />
 	</MainContent>
