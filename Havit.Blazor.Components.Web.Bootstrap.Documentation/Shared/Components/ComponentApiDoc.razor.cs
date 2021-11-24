@@ -39,8 +39,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new() { type = "Object",  name = "object"  }
 		};
 
-		private static readonly List<string> byDefaultExcludedProperties = new() { "JSRuntime" };
-		private static readonly List<string> objectDerivedMethods = new() { "ToString", "GetType", "Equals", "GetHashCode" };
+		private static readonly Dictionary<string, string> inputBaseSummaries = new()
+		{
+			{ "AdditionalAttributes", "A collection of additional attributes that will be applied to the created element." },
+			{ "Value", "Value of the input. This should be used with two-way binding." },
+			{ "ValueExpression", "An expression that identifies the bound value." },
+			{ "ValueChanged", "A callback that updates the bound value." },
+			{ "ChildContent", "Content of the component." }
+		};
+
+		private static readonly List<string> byDefaultExcludedProperties = new() { "JSRuntime", "SetParametersAsync" };
+		private static readonly List<string> objectDerivedMethods = new() { "ToString", "GetType", "Equals", "GetHashCode", "ReferenceEquals" };
 		private static readonly List<string> derivedMethods = new() { "Dispose", "DisposeAsync", "SetParametersAsync", "ChildContent" };
 
 		[Parameter] public RenderFragment ChildContent { get; set; }
@@ -65,6 +74,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		private static readonly HttpClient client = new HttpClient();
 
+		private DocXmlReader webReader;
+		private DocXmlReader bootstrapReader;
+
 		private ClassMember classMember;
 
 		private List<Property> properties = new();
@@ -81,6 +93,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		private bool isEnum;
 
+		private BindingFlags bindingFlags = BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
+
 		protected override void OnParametersSet()
 		{
 			DownloadFileAndGetSummaries();
@@ -88,10 +102,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		private void DownloadFileAndGetSummaries()
 		{
-			TextReader textReader = new StringReader(GetSummaryFileContent());
-			XPathDocument xPathDocument = new(textReader);
-
-			DocXmlReader reader = new(xPathDocument);
+			bootstrapReader = LoadDocXmlReader("Havit.Blazor.Components.Web.Bootstrap.xml");
+			webReader = LoadDocXmlReader("Havit.Blazor.Components.Web.xml");
+			DocXmlReader reader = LoadDocXmlReaderBasedOnNamespace(Type.Namespace);
 
 			classMember = GetClassMember(reader);
 			var properties = GetProperties(reader);
@@ -110,31 +123,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			StateHasChanged();
 		}
 
-		private string GetSummaryFileContent()
+		private DocXmlReader LoadDocXmlReader(string resourceName)
 		{
 			var assembly = Assembly.GetExecutingAssembly();
-			string resourceName = "";
-
-			if (string.IsNullOrEmpty(Type.Namespace))
-			{
-				resourceName = "Havit.Blazor.Components.Web.Bootstrap.xml";
-			}
-			else if (Type.Namespace.Contains("Havit.Blazor.GoogleTagManager"))
-			{
-				resourceName = "Havit.Blazor.GoogleTagManager.xml";
-			}
-			else if (Type.Namespace.Contains("Bootstrap"))
-			{
-				resourceName = "Havit.Blazor.Components.Web.Bootstrap.xml";
-			}
-			else if (Type.Namespace == "Havit.Blazor.Components.Web")
-			{
-				resourceName = "Havit.Blazor.Components.Web.xml";
-			}
-			else
-			{
-				resourceName = "Havit.Blazor.Components.Web.Bootstrap.xml";
-			}
 
 			resourceName = assembly.GetManifestResourceNames()
 				.Single(str => str.EndsWith(resourceName));
@@ -142,7 +133,34 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			using (Stream stream = assembly.GetManifestResourceStream(resourceName))
 			using (StreamReader reader = new StreamReader(stream))
 			{
-				return reader.ReadToEnd();
+				TextReader textReader = new StringReader(reader.ReadToEnd());
+				XPathDocument xPathDocument = new(textReader);
+
+				return new(xPathDocument);
+			}
+		}
+
+		private DocXmlReader LoadDocXmlReaderBasedOnNamespace(string typeNamespace)
+		{
+			if (string.IsNullOrEmpty(typeNamespace))
+			{
+				return bootstrapReader;
+			}
+			else if (typeNamespace.Contains("Havit.Blazor.GoogleTagManager"))
+			{
+				return LoadDocXmlReader("Havit.Blazor.GoogleTagManager.xml");
+			}
+			else if (typeNamespace.Contains("Bootstrap"))
+			{
+				return bootstrapReader;
+			}
+			else if (typeNamespace == "Havit.Blazor.Components.Web")
+			{
+				return webReader;
+			}
+			else
+			{
+				return bootstrapReader;
 			}
 		}
 
@@ -203,7 +221,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			List<Property> staticProperties = new();
 			List<Property> events = new();
 
-			foreach (var property in Type.GetProperties())
+			foreach (var property in Type.GetProperties(bindingFlags))
 			{
 				Property newProperty = new();
 				newProperty.PropertyInfo = property;
@@ -214,6 +232,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				}
 
 				newProperty.Comments = reader.GetMemberComments(property);
+				if (string.IsNullOrWhiteSpace(newProperty.Comments.Summary))
+				{
+					string summary = string.Empty;
+					inputBaseSummaries.TryGetValue(newProperty.PropertyInfo.Name, out summary);
+					if (summary is not null)
+					{
+						newProperty.Comments.Summary = summary;
+					}
+
+					if (string.IsNullOrWhiteSpace(newProperty.Comments.Summary))
+					{
+						newProperty.Comments = webReader.GetMemberComments(property);
+						if (string.IsNullOrWhiteSpace(newProperty.Comments.Summary))
+						{
+							newProperty.Comments = bootstrapReader.GetMemberComments(property);
+						}
+					}
+				}
 
 				if (string.IsNullOrEmpty(newProperty.Comments.Summary))
 				{
@@ -246,7 +282,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			List<Method> typeMethods = new();
 			List<Method> staticMethods = new();
 
-			foreach (var method in Type.GetMethods())
+			foreach (var method in Type.GetMethods(bindingFlags))
 			{
 				Method newMethod = new();
 				newMethod.MethodInfo = method;
