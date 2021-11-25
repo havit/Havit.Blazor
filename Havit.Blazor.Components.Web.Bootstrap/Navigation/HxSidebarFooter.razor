@@ -1,0 +1,18 @@
+@namespace Havit.Blazor.Components.Web.Bootstrap
+
+<div>
+    <HxNavLink Href="@Href" 
+               CssClass="@CssClassHelper.Combine(this.CssClass)" 
+               Match="this.Match">
+        <div class="d-flex align-items-center">
+            @if (Icon != null)
+            {
+                <HxIcon Icon="Icon" />
+            }
+            <span class="@CssClassHelper.Combine("text", Icon == null ? null : "ms-3")">
+                @Text
+            </span>
+        </div>
+
+    </HxNavLink>
+</div>

@@ -42,12 +42,12 @@
 					{
 						<HxIcon Icon="Icon" />
 					}
-					<span class="@CssClassHelper.Combine("text", Icon == null ? null : "ms-3")">
+					<span class="@CssClassHelper.Combine("text me-auto", Icon == null ? null : "ms-3")">
 						@Text
 					</span>
 					@if (HasExpandableContent)
 					{
-						<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon ms-auto" />
+						<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon" />
 					}
 				</div>
 

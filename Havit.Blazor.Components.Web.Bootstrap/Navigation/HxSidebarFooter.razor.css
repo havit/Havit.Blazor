@@ -1,0 +1,13 @@
+::deep .nav-link {
+	line-height: 1;
+	padding: var(--hx-sidebar-footer-item-padding);
+	margin: var(--hx-sidebar-footer-item-margin);
+	font-size: var(--hx-sidebar-footer-item-font-size);
+	color: var(--hx-sidebar-footer-item-color);
+	border-radius: var(--hx-sidebar-footer-item-radius);
+}
+
+::deep .nav-link:hover {
+	background-color: rgba(var(--hx-sidebar-footer-item-hover-background-color), var(--hx-sidebar-footer-item-hover-background-opacity));
+	color: var(--hx-sidebar-footer-item-hover-color);
+}

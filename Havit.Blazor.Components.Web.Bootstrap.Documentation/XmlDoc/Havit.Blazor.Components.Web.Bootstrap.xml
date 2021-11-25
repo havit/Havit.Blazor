@@ -5250,6 +5250,43 @@
             Brand short name.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter">
+            <summary>
+            Item for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.Text">
+            <summary>
+            Item text.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.Icon">
+            <summary>
+            Item icon (optional).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.Href">
+            <summary>
+            Item navigation target.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.Match">
+            <summary>
+            URL matching behavior for the underlying <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/>.
+            Default is <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.CssClass">
+            <summary>
+            Allows you to disable the item with <c>false</c>.
+            Default is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.ChildContent">
+            <summary>
+            Sub-items (not intended to be used for any other purpose).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem">
             <summary>
             Item for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/>.
