@@ -57,7 +57,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var property in parameters)
+				@foreach (var property in parameters.OrderBy(p => p.PropertyInfo.Name))
 				{
 					<tr>
 						<td>
@@ -92,7 +92,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var property in properties)
+				@foreach (var property in properties.OrderBy(p => p.PropertyInfo.Name))
 				{
 					<tr>
 						<td><strong>@property.PropertyInfo.Name</strong></td>
@@ -107,7 +107,7 @@
 
 @if (events.Count > 0)
 {
-	<h3>Event Callbacks</h3>
+	<h3>Event callbacks</h3>
 
 	<div class="table-responsive">
 		<table class="table table-bordered">
@@ -119,7 +119,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var currentEvent in events)
+				@foreach (var currentEvent in events.OrderBy(e => e.PropertyInfo.Name))
 				{
 					<tr>
 						<td><strong>@currentEvent.PropertyInfo.Name</strong> </td>
@@ -145,7 +145,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var method in methods)
+				@foreach (var method in methods.OrderBy(m => m.MethodInfo.Name))
 				{
 					<tr>
 						<td><strong>@method.MethodInfo.Name</strong>@((MarkupString)@method.GetParameters())</td>
@@ -172,7 +172,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var property in staticProperties)
+				@foreach (var property in staticProperties.OrderBy(p => p.PropertyInfo.Name))
 				{
 					<tr>
 						<td><strong>@property.PropertyInfo.Name</strong></td>
@@ -199,7 +199,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var method in staticMethods)
+				@foreach (var method in staticMethods.OrderBy(m => m.MethodInfo.Name))
 				{
 					<tr>
 						<td><strong>@method.MethodInfo.Name</strong> @((MarkupString)@method.GetParameters())</td>
