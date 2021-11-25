@@ -116,7 +116,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.OpenComponent(1, typeof(HxInputDateInternal<TValue>));
 
 			builder.AddAttribute(100, nameof(HxInputDateInternal<TValue>.Value), Value);
-			builder.AddAttribute(101, nameof(HxInputDateInternal<TValue>.ValueChanged), ValueChanged);
+			builder.AddAttribute(101, nameof(HxInputDateInternal<TValue>.ValueChanged), EventCallback.Factory.Create<TValue>(this, value => CurrentValue = Value));
 			builder.AddAttribute(102, nameof(HxInputDateInternal<TValue>.ValueExpression), ValueExpression);
 
 			builder.AddAttribute(200, nameof(HxInputDateInternal<TValue>.InputId), InputId);

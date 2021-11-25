@@ -155,6 +155,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleInputInput(string newUserInput)
 		{
+			Contract.Requires<InvalidOperationException>(EnabledEffective, $"The {GetType().Name} component is in a disabled state.");
+
 			// user changes an input
 			userInput = newUserInput;
 			userInputModified = true;
@@ -194,6 +196,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleInputFocus()
 		{
+			if (!EnabledEffective)
+			{
+				return;
+			}
+
 			// when an input gets focus, close a dropdown
 			currentlyFocused = true;
 			if (string.IsNullOrEmpty(userInput) && MinimumLength <= 0)
@@ -207,6 +214,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		// Due to HTML update and Bootstrap Dropdown collision we are not allowed to re-render HTML in InputBlur!
 		private void HandleInputBlur()
 		{
+			if (!EnabledEffective)
+			{
+				return;
+			}
+
 			currentlyFocused = false;
 			// when user clicks back button in browser this method can be called after it is disposed!
 			blurInProgress = true;

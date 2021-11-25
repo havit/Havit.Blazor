@@ -133,6 +133,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			RefreshState();
 
+			bool enabledEffective = this.EnabledEffective;
+
 			builder.OpenElement(0, "select");
 			BuildRenderInput_AddCommonAttributes(builder, null);
 
@@ -142,7 +144,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (itemsToRender != null)
 			{
-				if (NullableEffective || (selectedItemIndex == -1))
+				if ((NullableEffective && !enabledEffective) || (selectedItemIndex == -1))
 				{
 					builder.OpenElement(2000, "option");
 					builder.AddAttribute(2001, "value", -1);
@@ -157,17 +159,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					if (item != null)
 					{
 						bool selected = (i == selectedItemIndex);
-						string text = SelectorHelpers.GetText(TextSelectorImpl, item);
-						if (selected)
-						{
-							chipValue = text;
-						}
 
-						builder.OpenElement(3000, "option");
-						builder.AddAttribute(3001, "value", i.ToString());
-						builder.AddAttribute(3002, "selected", selected);
-						builder.AddContent(3003, text);
-						builder.CloseElement();
+						if (enabledEffective || selected) /* when not enabled only selected item is rendered */
+						{
+							string text = SelectorHelpers.GetText(TextSelectorImpl, item);
+
+							builder.OpenElement(3000, "option");
+							builder.SetKey(i.ToString());
+							builder.AddAttribute(3001, "value", i.ToString());
+							builder.AddAttribute(3002, "selected", selected);
+							builder.AddContent(3003, text);
+							builder.CloseElement();
+
+							if (selected)
+							{
+								chipValue = text;
+							}
+						}
 					}
 				}
 			}

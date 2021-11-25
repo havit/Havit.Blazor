@@ -3,21 +3,26 @@
 
 <h1>HxInputTags</h1>
 
-<EditForm Model="model">
-	<Blazored.FluentValidation.FluentValidationValidator />
-	<ValidationSummary />
-	<HxInputTags Label="Tags" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
-	<HxInputTags Label="Tags (shared Value, Large)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Large" />
-	<HxInputTags Label="Tags (shared Value, Small)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Small" />
-	<HxInputTags ShowAddButton="true" AddButtonText="Add tag" Naked Label="Tags Naked" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
-	<HxInputTags ShowAddButton="true" AddButtonText="Add tag" Naked Label="Tags (shared Value, Large, Naked)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Large" />
-	<HxInputTags ShowAddButton="true" AddButtonText="Add tag" Naked Label="Tags (shared Value, Small, Naked)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Small" />
-	<HxButton CssClass="mt-2" Color="ThemeColor.Primary" OnClick="HandleValidClick">Save</HxButton>
-</EditForm>
+<HxInputSwitch Label="Enabled" @bind-Value="@enabled" />
+
+<HxFormState Enabled="@enabled">
+	<EditForm Model="model">
+		<Blazored.FluentValidation.FluentValidationValidator />
+		<ValidationSummary />
+		<HxInputTags Label="Tags" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
+		<HxInputTags Label="Tags (shared Value, Large)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Large" />
+		<HxInputTags Label="Tags (shared Value, Small)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Small" />
+		<HxInputTags ShowAddButton="true" AddButtonText="Add tag" Naked Label="Tags Naked" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
+		<HxInputTags ShowAddButton="true" AddButtonText="Add tag" Naked Label="Tags (shared Value, Large, Naked)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Large" />
+		<HxInputTags ShowAddButton="true" AddButtonText="Add tag" Naked Label="Tags (shared Value, Small, Naked)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Small" />
+		<HxButton CssClass="mt-2" Color="ThemeColor.Primary" OnClick="HandleValidClick">Save</HxButton>
+	</EditForm>
+</HxFormState>
 
 ddd: @tags
 
 @code {
+	private bool enabled = true;
 	private MyModel model = new MyModel();
 	string tags;
 

@@ -2,19 +2,23 @@
 
 <h1>HxInputFile[Core]</h1>
 
-<HxInputFile @ref="hxInputFileComponent"
-			 Label="HxInputFile"
-			 UploadUrl="/file-upload-streamed/"
-			 OnProgress="HandleProgress"
-			 OnFileUploaded="HandleFileUploaded"
-			 OnUploadCompleted="HandleUploadCompleted"
-			 OnChange="@(async (e) => Console.WriteLine("OnChange"))"
-			 MaxFileSize="500000"
-			 Multiple="true" />
+<HxInputSwitch Label="Enabled" @bind-Value="@enabled" />
 
-<HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="HandleUploadClick" CssClass="my-2" />
-<HxButton Text="Clear" OnClick="@(async () => await hxInputFileComponent.ResetAsync())" Color="ThemeColor.Secondary" />
+<HxFormState Enabled="@enabled">
+	<HxInputFile @ref="hxInputFileComponent"
+				 Label="HxInputFile"
+				 UploadUrl="/file-upload-streamed/"
+				 OnProgress="HandleProgress"
+				 OnFileUploaded="HandleFileUploaded"
+				 OnUploadCompleted="HandleUploadCompleted"
+				 OnChange="@(async (e) => Console.WriteLine("OnChange"))"
+				 MaxFileSize="500000"
+				 Multiple="true" />
 
+	<HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="HandleUploadClick" CssClass="my-2" />
+	<HxButton Text="Clear" OnClick="@(async () => await hxInputFileComponent.ResetAsync())" Color="ThemeColor.Secondary" />
+
+</HxFormState>
 <table class="table mt-3">
 	<tr>
 		<th>FileIndex</th>
@@ -47,6 +51,7 @@ Completed: @uploadCompleted?.TotalSize bytes in @uploadCompleted?.FileCount file
 
 @code
 {
+	private bool enabled = true;
 	private HxInputFile hxInputFileComponent;
 	private Dictionary<int, (UploadProgressEventArgs, FileUploadedEventArgs)> files = new Dictionary<int, (UploadProgressEventArgs, FileUploadedEventArgs)>();
 	private UploadCompletedEventArgs uploadCompleted;

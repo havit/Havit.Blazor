@@ -2510,6 +2510,23 @@
             Elements rendering order. Overriden in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox"/> component.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CurrentValue">
+            <summary>
+            Gets or sets the current value of the input.
+            Setter can be used only when the component is enabled.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CurrentValueAsString">
+            <summary>
+            Gets or sets the current value of the input, represented as a string.
+            Setter can be used only when the component is enabled.
+            </summary>
+            <remarks>
+            Although CurrentValueAsString calls CurrentValue we MUST implement the check here because
+            CurrentValue is not virtual, so CurrentValueAsString calls CurrentValue in a base class.
+            There is no such check.
+            </remarks>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.OnParametersSet">
             <inheritdoc />
         </member>
@@ -2583,6 +2600,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GetValueAttribute``1">
             <summary>
             Returns attribute from the bounded property if exists. Otherwise returns <c>null</c>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ThrowIfNotEnabled">
+            <summary>
+            Throws <see cref="T:System.InvalidOperationException" /> when the component is disabled.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1">

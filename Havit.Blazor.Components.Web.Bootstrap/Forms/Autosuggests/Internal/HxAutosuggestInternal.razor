@@ -17,40 +17,43 @@
 	{
 		<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
 	}
-	<div class="hx-autosuggest-input-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center">
-		@if (dataProviderInProgress)
-		{
-			<div>
-				<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-			</div>
-		}
-		else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
-		{
-			if (this.ClearIcon is not null)
+	@if (EnabledEffective)
+	{
+		<div class="hx-autosuggest-input-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center">
+			@if (dataProviderInProgress)
 			{
-				<div role="button" @onclick="HandleCrossClick" @onclick:stopPropagation>
-					<HxIcon Icon="ClearIcon" />
+				<div>
+					<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 				</div>
 			}
-		}
-		else if (this.SearchIcon is not null)
-		{
-			<HxIcon Icon="@SearchIcon" />
-		}
-	</div>
-	<HxAutosuggestItems CssClass="w-100" TItem="TItem" Items="@suggestions" OnItemClick="HandleItemClick">
-		<ItemTemplate>
-			@if (ItemTemplate != null)
+			else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
 			{
-			<text>@ItemTemplate(context)</text>
+				if (this.ClearIcon is not null)
+				{
+					<div role="button" @onclick="HandleCrossClick" @onclick:stopPropagation>
+						<HxIcon Icon="ClearIcon" />
+					</div>
+				}
 			}
-			else
+			else if (this.SearchIcon is not null)
 			{
-			<text>@TextSelectorEffective(context)</text>
+				<HxIcon Icon="@SearchIcon" />
 			}
-		</ItemTemplate>
-		<EmptyTemplate>
-			@EmptyTemplate
-		</EmptyTemplate>
-	</HxAutosuggestItems>
+		</div>
+		<HxAutosuggestItems CssClass="w-100" TItem="TItem" Items="@suggestions" OnItemClick="HandleItemClick">
+			<ItemTemplate>
+				@if (ItemTemplate != null)
+				{
+					<text>@ItemTemplate(context)</text>
+				}
+				else
+				{
+					<text>@TextSelectorEffective(context)</text>
+				}
+			</ItemTemplate>
+			<EmptyTemplate>
+				@EmptyTemplate
+			</EmptyTemplate>
+		</HxAutosuggestItems>
+	}
 </div>

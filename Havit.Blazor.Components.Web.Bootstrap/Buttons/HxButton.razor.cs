@@ -236,6 +236,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleClick(MouseEventArgs mouseEventArgs)
 		{
+			Contract.Requires<InvalidOperationException>(!DisabledEffective, $"The {GetType().Name} component is in a disabled state.");
+
 			if (!clickInProgress || !SingleClickProtection)
 			{
 				clickInProgress = true;

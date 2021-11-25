@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
@@ -238,6 +239,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleDayClickAsync(DayData day)
 		{
+			Contract.Requires<InvalidOperationException>(day.ClickEnabled, "The selected date is disabled."); // Just for case, the disabled date does not use event handler.
+
 			Value = day.Date;
 			await ValueChanged.InvokeAsync(day.Date);
 			UpdateRenderData();
