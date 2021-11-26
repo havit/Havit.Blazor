@@ -7,7 +7,7 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.0.9</PackageVersion>
+		<PackageVersion>1.0.10</PackageVersion>
 		<Description>HAVIT Blazor stack - gRPC Support - client-side - WebAssembly specific features</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>

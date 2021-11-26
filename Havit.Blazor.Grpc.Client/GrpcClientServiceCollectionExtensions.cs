@@ -27,7 +27,7 @@ namespace Havit.Blazor.Grpc.Client
 		{
 			services.AddTransient<ServerExceptionsGrpcClientInterceptor>();
 			services.AddSingleton<GlobalizationLocalizationGrpcClientInterceptor>();
-			services.AddSingleton<HttpReferrerGrpcClientInterceptor>();
+			services.AddSingleton<ClientUriGrpcClientInterceptor>();
 			services.AddTransient<CancellationWorkaroundGrpcClientInterceptor>();
 			services.AddTransient<GrpcWebHandler>(provider => new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
 			services.AddSingleton<ClientFactory>(ClientFactory.Create(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Create().RegisterApplicationContracts(assemblyToScanForDataContracts)) }, binder: new ProtoBufServiceBinder())));
@@ -63,7 +63,7 @@ namespace Havit.Blazor.Grpc.Client
 				grpcClient
 					.ConfigurePrimaryHttpMessageHandler<GrpcWebHandler>()
 					.AddInterceptor<GlobalizationLocalizationGrpcClientInterceptor>()
-					.AddInterceptor<HttpReferrerGrpcClientInterceptor>()
+					.AddInterceptor<ClientUriGrpcClientInterceptor>()
 					.AddInterceptor<ServerExceptionsGrpcClientInterceptor>()
 					.AddInterceptor<CancellationWorkaroundGrpcClientInterceptor>();
 
