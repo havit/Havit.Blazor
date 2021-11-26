@@ -38,7 +38,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators
 				sb.AppendLine("	{");
 				foreach (string line in lines)
 				{
-					if (!line.Contains("\""))
+					if (!line.Contains("\"") || line.Contains("//"))
 					{
 						continue;
 					}
