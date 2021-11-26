@@ -1,4 +1,8 @@
 ﻿export function create(element, hxAccordionItemDotnetObjectReference, parentSelector) {
+	if (element == null || hxAccordionItemDotnetObjectReference == null) {
+		return;
+    }
+
 	element.hxAccordionItemDotnetObjectReference = hxAccordionItemDotnetObjectReference;
 	element.addEventListener('shown.bs.collapse', handleAccordionItemShown);
 	element.addEventListener('hidden.bs.collapse', handleAccordionItemHidden);
@@ -14,23 +18,39 @@ function handleAccordionItemShown(event) {
 };
 
 export function show(element) {
+	if (element == null) {
+		return;
+    }
+
 	console.debug("AccordionItem_show[" + element.id + "]");
 	var c = bootstrap.Collapse.getInstance(element);
 	c.show();
 };
 
 export function hide(element) {
+	if (element == null) {
+		return;
+    }
+
 	console.debug("AccordionItem_hide[" + element.id + "]");
 	var c = bootstrap.Collapse.getInstance(element);
 	c.hide();
 };
 
 function handleAccordionItemHidden(event) {
+	if (element == null) {
+		return;
+    }
+
 	event.target.hxAccordionItemDotnetObjectReference.invokeMethodAsync('HxAccordionItem_HandleJsHidden');
 	console.debug("AccordionItem_hidden[" + event.target.id + "]");
 };
 
 export function dispose(element) {
+	if (element == null) {
+		return;
+    }
+
 	element.removeEventListener('shown.bs.collapse', handleAccordionItemShown);
 	element.removeEventListener('hidden.bs.collapse', handleAccordionItemHidden);
 	element.hxAccordionItemDotnetObjectReference = null;

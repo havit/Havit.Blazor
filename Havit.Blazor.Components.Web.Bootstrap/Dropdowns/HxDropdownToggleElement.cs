@@ -119,7 +119,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender)
 			{
 				await EnsureJsModuleAsync();
-				await jsModule.InvokeVoidAsync("create", elementReference, dotnetObjectReference);
+
+				try
+				{
+					await jsModule.InvokeVoidAsync("create", elementReference, dotnetObjectReference);
+				}
+				catch { }
 			}
 		}
 

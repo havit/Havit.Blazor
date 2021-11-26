@@ -1,5 +1,14 @@
 ﻿export function Initialize(id, hxCarouselDotnetObjectReference, ride) {
-	var carouselElement = document.getElementById(id);
+    if (hxCarouselDotnetObjectReference == null) {
+        return;
+    }
+
+    var carouselElement = document.getElementById(id);
+
+    if (carouselElement == null) {
+        return;
+    }
+
 	var carousel = new bootstrap.Carousel(carouselElement,
 		{
 			"ride": ride
@@ -34,7 +43,14 @@ export function Pause(id) {
 }
 
 export function Dispose(id) {
-    GetCarousel(id).dispose();
+    if (id == null) {
+        return;
+    }
+
+    var carousel = GetCarousel(id);
+    if (carousel != null) {
+        carousel.dispose();
+    }
 }
 
 export function GetCarousel(id) {

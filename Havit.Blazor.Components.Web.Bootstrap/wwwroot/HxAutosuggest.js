@@ -1,4 +1,8 @@
 ﻿export function open(inputElement, hxAutosuggestDotnetObjectReference) {
+    if (inputElement == null || hxAutosuggestDotnetObjectReference == null) {
+        return;
+    }
+
     inputElement.setAttribute("data-bs-toggle", "dropdown");
     inputElement.hxAutosuggestDotnetObjectReference = hxAutosuggestDotnetObjectReference;
     inputElement.addEventListener('hidden.bs.dropdown', handleDropdownHidden)
@@ -7,6 +11,10 @@
 }
 
 export function destroy(inputElement) {
+    if (inputElement == null) {
+        return;
+    }
+
     inputElement.removeAttribute("data-bs-toggle", "dropdown");
     var dropdown = bootstrap.Dropdown.getInstance(inputElement);
     if (dropdown) {

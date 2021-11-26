@@ -18,6 +18,10 @@
 }
 
 export function destroy(inputElement) {
+	if (inputElement == null) {
+		return;
+    }
+
 	console.warn("destroy");
 	inputElement.removeAttribute("data-bs-toggle", "dropdown");
 	var dropdown = bootstrap.Dropdown.getInstance(inputElement);

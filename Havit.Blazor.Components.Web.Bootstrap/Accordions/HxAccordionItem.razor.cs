@@ -99,7 +99,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				Logger.LogDebug($"OnAfterRenderAsync_create[{idEffective}]");
 				await EnsureJsModuleAsync();
-				await jsModule.InvokeVoidAsync("create", collapseHtmlElement, dotnetObjectReference, "#" + ParentAccordition.Id);
+
+				try
+				{
+					// If the user leaves the page before the accordion is loaded, then this produces an exception.
+					await jsModule.InvokeVoidAsync("create", collapseHtmlElement, dotnetObjectReference, "#" + ParentAccordition.Id);
+				}
+				catch { }
 			}
 
 			isInitialized = true;

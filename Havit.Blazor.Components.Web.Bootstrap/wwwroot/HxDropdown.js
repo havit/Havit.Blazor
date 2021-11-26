@@ -1,4 +1,8 @@
 ﻿export function create(element, hxDropdownDotnetObjectReference) {
+	if (element == null || hxDropdownDotnetObjectReference == null) {
+		return;
+	}
+
 	element.hxDropdownDotnetObjectReference = hxDropdownDotnetObjectReference;
 	element.addEventListener('shown.bs.dropdown', handleDropdownShown);
 	element.addEventListener('hidden.bs.dropdown', handleDropdownHidden);
@@ -24,6 +28,10 @@ function handleDropdownHidden(event) {
 };
 
 export function dispose(element) {
+	if (element == null) {
+		return;
+    }
+
 	element.removeEventListener('shown.bs.dropdown', handleDropdownShown);
 	element.removeEventListener('hidden.bs.dropdown', handleDropdownHidden);
 	element.hxDropdownDotnetObjectReference = null;

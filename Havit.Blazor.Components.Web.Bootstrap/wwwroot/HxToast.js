@@ -1,4 +1,8 @@
 ﻿export function show(element, hxToastDotnetObjectReference) {
+	if (element == null || hxToastDotnetObjectReference == null) {
+		return;
+	}
+
 	element.hxToastDotnetObjectReference = hxToastDotnetObjectReference;
 	element.addEventListener('hidden.bs.toast', handleToastHidden);
 
@@ -7,6 +11,10 @@
 }
 
 export function dispose(element) {
+	if (element == null) {
+		return;
+    }
+
 	element.removeEventListener('hidden.bs.toast', handleToastHidden);
 	element.hxToastDotnetObjectReference = null;
 }

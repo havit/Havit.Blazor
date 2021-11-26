@@ -1,4 +1,8 @@
 ﻿export function show(element, hxModalDotnetObjectReference, useStaticBackdrop, closeOnEscape) {
+    if (element == null || hxModalDotnetObjectReference == null) {
+        return;
+    }
+
     element.hxModalDotnetObjectReference = hxModalDotnetObjectReference;
     element.addEventListener('hidden.bs.modal', handleModalHidden)
 
@@ -16,6 +20,10 @@ export function hide(element) {
 }
 
 export function dispose(element) {
+    if (element == null) {
+        return;
+    }
+
     var modal = bootstrap.Modal.getInstance(element);
     element.removeEventListener('hidden.bs.modal', handleModalHidden);
     element.hxModalDotnetObjectReference = null;

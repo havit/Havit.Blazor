@@ -3,6 +3,10 @@
 }
     
 export function destroy(triggerElement) {
+    if (triggerElement == null) {
+        return;
+    }
+
     var dropdown = bootstrap.Dropdown.getInstance(triggerElement);
     if (dropdown) {
         dropdown.hide();

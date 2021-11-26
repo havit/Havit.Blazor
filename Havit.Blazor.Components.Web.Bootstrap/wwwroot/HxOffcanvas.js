@@ -1,4 +1,8 @@
 ﻿export function show(element, hxOffcanvasDotnetObjectReference, backdropEnabled, closeOnEscape, scrollingEnabled) {
+	if (element == null || hxOffcanvasDotnetObjectReference == null) {
+		return;
+	}
+
 	if (window.offcanvasElement) {
 		let previousOffcanvas = bootstrap.Offcanvas.getInstance(window.offcanvasElement);
 		if (previousOffcanvas) {
@@ -23,6 +27,10 @@ export function hide(element) {
 }
 
 export function dispose(element) {
+	if (element == null) {
+		return;
+    }
+
 	let offcanvas = bootstrap.Offcanvas.getInstance(element);
 	element.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
 	element.hxOffcanvasDotnetObjectReference = null;

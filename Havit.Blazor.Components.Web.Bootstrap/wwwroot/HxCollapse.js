@@ -1,4 +1,8 @@
 ﻿export function initialize(element, hxCollapseDotnetObjectReference) {
+	if (element == null || hxCollapseDotnetObjectReference == null) {
+		return;
+	}
+
 	element.hxCollapseDotnetObjectReference = hxCollapseDotnetObjectReference;
 	element.addEventListener('shown.bs.collapse', handleCollapseShown);
 	element.addEventListener('hidden.bs.collapse', handleCollapseHidden);
@@ -26,6 +30,10 @@ function handleCollapseHidden(event) {
 };
 
 export function dispose(element) {
+	if (element == null) {
+		return;
+    }
+
 	element.removeEventListener('shown.bs.collapse', handleCollapseShown);
 	element.removeEventListener('hidden.bs.collapse', handleCollapseHidden);
 	element.hxCollapseDotnetObjectReference = null;
