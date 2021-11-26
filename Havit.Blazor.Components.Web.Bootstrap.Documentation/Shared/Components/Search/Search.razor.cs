@@ -23,6 +23,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 		}
 
+		private string userInput;
+
 		private readonly List<SearchItem> searchItems = new()
 		{
 			new("/components/Inputs", "Inputs", "form"),
@@ -263,17 +265,32 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		private Task<AutosuggestDataProviderResult<SearchItem>> ProvideSuggestions(AutosuggestDataProviderRequest request)
 		{
-			var userInput = request.UserInput.Trim();
+			this.userInput = request.UserInput.Trim();
 
 			return Task.FromResult(new AutosuggestDataProviderResult<SearchItem>
 			{
-				Data = searchItems
-						.Where(si => si.GetRelevance(userInput) > 0)
-						.OrderBy(si => si.Level)
-							.ThenByDescending(si => si.GetRelevance(userInput))
-							.ThenBy(si => si.Title)
-						.Take(5)
+				Data = GetSearchItems()
 			});
+		}
+
+		private IEnumerable<SearchItem> GetSearchItems()
+		{
+			return searchItems
+					.Where(si => si.GetRelevance(userInput) > 0)
+					.OrderBy(si => si.Level)
+						.ThenByDescending(si => si.GetRelevance(userInput))
+						.ThenBy(si => si.Title)
+					.Take(5);
+		}
+
+		private void NavigateToFirstResult()
+		{
+			var firstSearchResult = GetSearchItems().FirstOrDefault();
+
+			if (firstSearchResult != null)
+			{
+				NavigateToSelectedPage(firstSearchResult);
+			}
 		}
 
 		public void NavigateToSelectedPage(SearchItem searchItem)
