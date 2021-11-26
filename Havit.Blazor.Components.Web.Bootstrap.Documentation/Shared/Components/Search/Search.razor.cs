@@ -260,14 +260,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		private Task<AutosuggestDataProviderResult<SearchItem>> ProvideSuggestions(AutosuggestDataProviderRequest request)
 		{
 			var userInput = request.UserInput.Trim();
-			StringComparison comparisonType = StringComparison.OrdinalIgnoreCase;
 
 			return Task.FromResult(new AutosuggestDataProviderResult<SearchItem>
 			{
 				Data = searchItems
-						.Where(si => si.Title.Contains(userInput, comparisonType) || si.Keywords.Contains(userInput, comparisonType))
+						.Where(si => si.GetRelevance(userInput) > 0)
 						.OrderBy(si => si.Level)
-							.ThenByDescending(si => si.Title.Contains(userInput, comparisonType))
+							.ThenByDescending(si => si.GetRelevance(userInput))
 							.ThenBy(si => si.Title)
 						.Take(5)
 			});
