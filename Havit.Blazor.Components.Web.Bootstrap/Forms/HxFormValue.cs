@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Forms;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -12,8 +13,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Displays a read-only value in the form control visual (as <c>.form-control</c>, with label, border, etc.).
 	/// </summary>
-	public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueComponentWithInputGroups
+	public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueComponentWithInputGroups, IInputWithSize
 	{
+		/// <summary>
+		/// Application-wide defaults for <see cref="HxFormValue"/> and derived components.
+		/// </summary>
+		public static FormValueDefaults Defaults { get; set; } = new();
+
 		/// <inheritdoc cref="IFormValueComponent.CssClass" />
 		[Parameter] public string CssClass { get; set; }
 
@@ -59,6 +65,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc cref="IFormValueComponentWithInputGroups.InputGroupEndTemplate" />
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+		/// <inheritdoc cref="Bootstrap.InputSize" />
+		[Parameter] public InputSize? InputSize { get; set; }
+
+		/// <summary>
+		/// Return <see cref="HxFormValue"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants that differ in the default values.
+		/// </summary>
+		protected virtual FormValueDefaults GetDefaults() => Defaults;
+		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults();
+
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
@@ -73,7 +90,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public void RenderValue(RenderTreeBuilder builder)
 		{
 			builder.OpenElement(0, "div");
-			builder.AddAttribute(1, "class", CssClassHelper.Combine("form-control", ValueCssClass));
+			builder.AddAttribute(1, "class", CssClassHelper.Combine("form-control", ((IInputWithSize)this).GetInputSizeCssClass(), ValueCssClass));
 			builder.AddContent(2, Value);
 			builder.AddContent(3, ValueTemplate);
 			builder.CloseElement();

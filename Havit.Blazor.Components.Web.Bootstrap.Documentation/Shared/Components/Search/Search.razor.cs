@@ -66,6 +66,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxFormState", "HxFormState", ""),
 
 			new("/components/HxFormValue", "HxFormValue", ""),
+			new("/components/HxFormValue#Sizing", "HxFormValue > Sizing", ""),
+			new("/components/HxFormValue#InputGroups", "HxFormValue > Input Groups", ""),
+			new("/components/HxFormValue#CustomContent", "HxFormValue > Custom Content", ""),
 
 			new("/components/HxRadioButtonList", "HxRadioButtonList", "multiselect"),
 
@@ -82,6 +85,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxButtonGroup#ButtonToolbar", "HxButtonGroup > Button toolbar", "combine"),
 			new("/components/HxButtonGroup#Nesting", "HxButtonGroup > Nesting", ""),
 			new("/components/HxButtonGroup#VerticalOrientation", "HxButtonGroup > Vertical orientation", ""),
+			new("/components/HxButtonGroup#CheckboxGroup", "HxButtonGroup > With checkboxes", ""),
 
 			new("/components/HxButtonToolbar", "HxButtonToolbar", ""),
 

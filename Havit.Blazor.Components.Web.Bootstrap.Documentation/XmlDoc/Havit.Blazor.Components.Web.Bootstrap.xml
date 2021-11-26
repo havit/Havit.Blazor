@@ -2295,6 +2295,36 @@
             Date range.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Forms.FormValueDefaults">
+            <summary>
+            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxFormValue"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Forms.FormValueDefaults.InputSize">
+            <summary>
+            Input size.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsFormControlCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
+            <summary>
+            Returns CSS class to render input (form-control) with desired size.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsInputGroupCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
+            <summary>
+            Returns CSS class to render input-group with desired size.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsFormSelectCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
+            <summary>
+            Returns CSS class to render select (form-select) with desired size.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.StringPatternizer.TranslateInlineCharCodes(System.String)">
+            <summary>
+            Searches for character codes surrounded with '{' and '}' and replaces them with corresponding symbol.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2">
             <summary>
             Multiple choice by checkboxes.
@@ -2342,6 +2372,11 @@
             Displays a read-only value in the form control visual (as <c>.form-control</c>, with label, border, etc.).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxFormValue"/> and derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.CssClass">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.CssClass" />
         </member>
@@ -2386,6 +2421,16 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputGroupEndTemplate">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputSize">
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.GetDefaults">
+            <summary>
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxFormValue"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants that differ in the default values.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
@@ -3382,26 +3427,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberDefaults.InputSize">
             <summary>
             Input size.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsFormControlCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
-            <summary>
-            Returns CSS class to render input (form-control) with desired size.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsInputGroupCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
-            <summary>
-            Returns CSS class to render input-group with desired size.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsFormSelectCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
-            <summary>
-            Returns CSS class to render select (form-select) with desired size.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.StringPatternizer.TranslateInlineCharCodes(System.String)">
-            <summary>
-            Searches for character codes surrounded with '{' and '}' and replaces them with corresponding symbol.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTextDefaults">
