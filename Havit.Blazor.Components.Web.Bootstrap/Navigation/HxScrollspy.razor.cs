@@ -44,11 +44,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender && !initialized)
 			{
 				await EnsureJsModuleAsync();
-				try
-				{
-					await jsModule.InvokeVoidAsync("initialize", scrollspyElement, TargetId);
-				}
-				catch { }
+				await jsModule.InvokeVoidAsync("initialize", scrollspyElement, TargetId);
 				initialized = true;
 			}
 		}

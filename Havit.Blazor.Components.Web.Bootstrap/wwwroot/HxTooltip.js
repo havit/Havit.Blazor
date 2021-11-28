@@ -1,9 +1,5 @@
 ﻿// has to be aligned with HxPopover.js!
 export function createOrUpdate(element, hxDotnetObjectReference, options) {
-	if (element == null || hxDotnetObjectReference == null) {
-		return;
-	}
-
 	destroy(element);
 	element.hxDotnetObjectReference = hxDotnetObjectReference;
 	element.addEventListener('shown.bs.tooltip', handleShown);
@@ -30,10 +26,6 @@ function handleHidden(event) {
 };
 
 export function destroy(element) {
-	if (element == null) {
-		return;
-    }
-
 	element.removeEventListener('shown.bs.tooltip', handleShown);
 	element.removeEventListener('hidden.bs.tooltip', handleHidden);
 	element.hxDotnetObjectReference = null;
