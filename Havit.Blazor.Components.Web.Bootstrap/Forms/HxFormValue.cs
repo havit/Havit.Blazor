@@ -65,7 +65,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc cref="IFormValueComponentWithInputGroups.InputGroupEndTemplate" />
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
-		/// <inheritdoc cref="Bootstrap.InputSize" />
+		/// <inheritdoc cref="IInputWithSize.InputSize" />
 		[Parameter] public InputSize? InputSize { get; set; }
 
 		/// <summary>

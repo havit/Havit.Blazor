@@ -2302,7 +2302,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Forms.FormValueDefaults.InputSize">
             <summary>
-            Input size.
+            Input size. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.InputSize.Regular"/>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.InputSizeExtensions.AsFormControlCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
@@ -2423,7 +2423,7 @@
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputSize">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.InputSize" />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.GetDefaults">
             <summary>
