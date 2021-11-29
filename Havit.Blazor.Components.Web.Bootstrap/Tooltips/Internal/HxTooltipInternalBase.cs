@@ -76,6 +76,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private string lastTitle;
 		private string lastContent;
 		private bool shouldRenderSpan;
+		private bool isInitialized;
 
 		protected HxTooltipInternalBase()
 		{
@@ -145,7 +146,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				// carefully, lastText can be null but Text empty string
 
 				bool shouldCreateOrUpdateTooltip = !String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal);
-				bool shouldDestroyTooltip = String.IsNullOrEmpty(TitleInternal)
+
+				bool shouldDestroyTooltip =
+					isInitialized
+					&& String.IsNullOrEmpty(TitleInternal)
 					&& String.IsNullOrEmpty(ContentInternal)
 					&& (!String.IsNullOrEmpty(lastTitle) || !String.IsNullOrEmpty(lastContent));
 
@@ -161,11 +165,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 						Sanitize = this.Sanitize
 					};
 					await jsModule.InvokeVoidAsync("createOrUpdate", spanElement, dotnetObjectReference, options);
+					isInitialized = true;
 				}
 
 				if (shouldDestroyTooltip)
 				{
 					await jsModule.InvokeVoidAsync("destroy", spanElement);
+					isInitialized = false;
 				}
 			}
 		}
@@ -218,12 +224,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			if (jsModule != null)
 			{
-				if (!String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal))
+				if (isInitialized
+					&& (!String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal)))
 				{
 					await jsModule.InvokeVoidAsync("destroy", spanElement);
 				}
 				await jsModule.DisposeAsync();
 				jsModule = null;
+				isInitialized = false;
 			}
 		}
 	}
