@@ -69,6 +69,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private ElementReference toastElement;
 		private DotNetObjectReference<HxToast> dotnetObjectReference;
 		private IJSObjectReference jsModule;
+		private bool disposed;
 
 		public HxToast()
 		{
@@ -179,6 +180,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender)
 			{
 				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxToast) + ".js");
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("show", toastElement, dotnetObjectReference);
 			}
 		}
@@ -201,6 +206,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		public async ValueTask DisposeAsync()
 		{
+			disposed = true;
+
 			if (jsModule != null)
 			{
 				await jsModule.InvokeVoidAsync("dispose", toastElement);
