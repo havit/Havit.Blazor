@@ -5,29 +5,45 @@
 			previousOffcanvas.hide();
 		}
 	}
+
+	if (!element) {
+		return;
+	}
+
 	element.hxOffcanvasDotnetObjectReference = hxOffcanvasDotnetObjectReference;
 	element.addEventListener('hidden.bs.offcanvas', handleOffcanvasHidden)
+	window.offcanvasElement = element;
 
 	let offcanvas = new bootstrap.Offcanvas(element, {
 		backdrop: backdropEnabled,
 		keyboard: closeOnEscape,
 		scroll: scrollingEnabled
 	});
-	window.offcanvasElement = element;
-	offcanvas.show();
+	if (offcanvas) {
+		offcanvas.show();
+	}
 }
 
 export function hide(element) {
-	let offcanvas = bootstrap.Offcanvas.getInstance(element);
-	offcanvas.hide();
+	let o = bootstrap.Offcanvas.getInstance(element);
+	if (o) {
+		o.hide();
+	}
 }
 
 export function dispose(element) {
-	let offcanvas = bootstrap.Offcanvas.getInstance(element);
+	if (!element) {
+		return;
+	}
+
 	element.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
 	element.hxOffcanvasDotnetObjectReference = null;
-	offcanvas.hide();
-	// offcanvas.dispose(); // BS bug: offcanvas.js: 145: Cannot read property 'setAttribute' of null
+
+	let o = bootstrap.Offcanvas.getInstance(element);
+	if (o) {
+		o.hide();
+		o.dispose();
+	}
 
 	if (element === window.offcanvasElement) { // another offcanvas might be already open
 		window.offcanvasElement = null;
@@ -36,14 +52,6 @@ export function dispose(element) {
 }
 
 function handleOffcanvasHidden(event) {
-	event.target.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
 	event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasHidden');
-	event.target.hxOffcanvasDotnetObjectReference = null;
-
-	let offcanvas = bootstrap.Offcanvas.getInstance(event.target);
-
-	if (event.target === window.offcanvasElement) { // another offcanvas might be already open
-		window.offcanvasElement = null;
-	}
-	offcanvas.dispose();
-};
+	dispose(event.target);
+}

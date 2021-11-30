@@ -129,6 +129,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private DotNetObjectReference<HxOffcanvas> dotnetObjectReference;
 		private ElementReference offcanvasElement;
 		private IJSObjectReference jsModule;
+		private bool disposed;
 
 		/// <summary>
 		/// Constructor.
@@ -182,8 +183,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				// the line must be prior to JSRuntime (because BuildRenderTree/OnAfterRender[Async] is called twice; in the bad order of lines the JSRuntime would be also called twice).
 				shouldOpenOffcanvas = false;
 
-				// Running JS interop is postponed to OnAfterAsync to ensure offcanvasElement is set.
+				// Running JS interop is postponed to OnAfterRenderAsync to ensure offcanvasElement is set.
 				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxOffcanvas) + ".js");
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("show", offcanvasElement, dotnetObjectReference, BackdropEnabledEffective, CloseOnEscape, ScrollingEnabled);
 			}
 		}
@@ -191,6 +196,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		public async ValueTask DisposeAsync()
 		{
+			disposed = true;
+
 			if (opened)
 			{
 				// We need to remove backdrop when leaving "page" when HxOffcanvas is shown (opened).
