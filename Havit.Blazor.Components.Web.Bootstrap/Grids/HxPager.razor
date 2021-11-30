@@ -31,7 +31,7 @@
 
 	@if (pageFromInclusive > 0)
 	{
-		<li class="page-item"><a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(pageFromInclusive - 1)" @onclick:stopPropagation>...</a></li>
+		<li class="page-item d-none d-md-block"><a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(pageFromInclusive - 1)" @onclick:stopPropagation>...</a></li>
 	}
 
 	@for (int i = pageFromInclusive; i < pageToExclusive; i++)
@@ -45,13 +45,13 @@
 		}
 		else
 		{
-			<li class="page-item"><a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(j)" @onclick:stopPropagation>@((j + 1).ToString("N0"))</a></li>
+			<li class="page-item d-none d-md-block"><a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(j)" @onclick:stopPropagation>@((j + 1).ToString("N0"))</a></li>
 		}
 	}
 
 	@if (pageToExclusive < (this.TotalPages - 1))
 	{
-		<li class="page-item"><a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(pageToExclusive)" @onclick:stopPropagation>...</a></li>
+		<li class="page-item d-none d-md-block"><a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(pageToExclusive)" @onclick:stopPropagation>...</a></li>
 	}
 
 	@if (showPreviousNext)
