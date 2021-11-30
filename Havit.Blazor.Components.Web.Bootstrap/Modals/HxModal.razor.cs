@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Havit.Diagnostics.Contracts;
@@ -130,6 +131,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private DotNetObjectReference<HxModal> dotnetObjectReference;
 		private ElementReference modalElement;
 		private IJSObjectReference jsModule;
+		private bool disposed;
 
 		public HxModal()
 		{
@@ -180,25 +182,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				// Running JS interop is postponed to OnAfterAsync to ensure modalElement is set.
 				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxModal) + ".js");
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("show", modalElement, dotnetObjectReference, UseStaticBackdrop, CloseOnEscape);
 			}
-		}
-
-		public async ValueTask DisposeAsync()
-		{
-			if (opened)
-			{
-				// We need to remove backdrop when leaving "page" when HxModal is shown (opened).
-				await jsModule.InvokeVoidAsync("dispose", modalElement);
-			}
-
-			dotnetObjectReference.Dispose();
-
-			if (jsModule != null)
-			{
-				await jsModule.DisposeAsync();
-			}
-
 		}
 
 		protected string GetDialogSizeCssClass()
@@ -248,6 +237,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				return "modal-dialog-centered";
 			}
 			return null;
+		}
+
+		public async ValueTask DisposeAsync()
+		{
+			disposed = true;
+
+			if (opened)
+			{
+				// We need to remove backdrop when leaving "page" when HxModal is shown (opened).
+				await jsModule.InvokeVoidAsync("dispose", modalElement);
+			}
+
+			dotnetObjectReference.Dispose();
+
+			if (jsModule != null)
+			{
+				await jsModule.DisposeAsync();
+			}
 		}
 	}
 }
