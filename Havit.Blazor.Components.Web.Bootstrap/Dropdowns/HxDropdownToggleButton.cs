@@ -43,6 +43,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private DotNetObjectReference<HxDropdownToggleButton> dotnetObjectReference;
 		private IJSObjectReference jsModule;
+		private bool disposed;
 
 		public HxDropdownToggleButton()
 		{
@@ -97,6 +98,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender)
 			{
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("create", buttonElementReference, dotnetObjectReference);
 			}
 		}
@@ -150,6 +155,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc/>
 		public async ValueTask DisposeAsync()
 		{
+			disposed = true;
+
 			if (jsModule != null)
 			{
 				await jsModule.InvokeVoidAsync("dispose", buttonElementReference);

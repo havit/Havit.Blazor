@@ -77,6 +77,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private string lastContent;
 		private bool shouldRenderSpan;
 		private bool isInitialized;
+		private bool disposed;
 
 		protected HxTooltipInternalBase()
 		{
@@ -141,7 +142,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			if ((lastTitle != TitleInternal) || (lastContent != ContentInternal))
+			if (!disposed
+				&& ((lastTitle != TitleInternal) || (lastContent != ContentInternal)))
 			{
 				// carefully, lastText can be null but Text empty string
 
@@ -222,6 +224,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		public async ValueTask DisposeAsync()
 		{
+			disposed = true;
+
 			if (jsModule != null)
 			{
 				if (isInitialized
@@ -233,6 +237,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				jsModule = null;
 				isInitialized = false;
 			}
+
+			dotnetObjectReference.Dispose();
 		}
 	}
 }
