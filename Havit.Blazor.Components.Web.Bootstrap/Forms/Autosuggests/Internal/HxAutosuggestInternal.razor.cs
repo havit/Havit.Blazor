@@ -93,6 +93,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool isDropdownOpened = false;
 		private bool blurInProgress;
 		private bool currentlyFocused;
+		private bool disposed;
 		private IJSObjectReference jsModule;
 		private HxAutosuggestInput autosuggestInput;
 		private TValue lastKnownValue;
@@ -312,6 +313,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			if (!isDropdownOpened)
 			{
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("open", autosuggestInput.InputElement, dotnetObjectReference);
 				isDropdownOpened = true;
 			}
@@ -355,18 +360,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		public async ValueTask DisposeAsync()
 		{
+			disposed = true;
+
 			timer?.Dispose();
 			timer = null;
 			cancellationTokenSource?.Dispose();
 			cancellationTokenSource = null;
 
-			dotnetObjectReference.Dispose();
+			dotnetObjectReference?.Dispose();
 
 			if (jsModule != null)
 			{
 				await jsModule.DisposeAsync();
 			}
 		}
-
 	}
 }
