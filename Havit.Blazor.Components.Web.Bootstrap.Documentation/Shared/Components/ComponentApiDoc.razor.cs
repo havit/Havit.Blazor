@@ -401,10 +401,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces
 
+#pragma warning disable CA1416 // Validate platform compatibility
 			var provider = CodeDomProvider.CreateProvider("CSharp");
 			var reference = new CodeTypeReference(typeName);
 
 			typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
+#pragma warning restore CA1416 // Validate platform compatibility
 			typeName = Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
 
 			typeName = ConstructGenericTypeName(type, typeName) ?? typeName;
@@ -431,10 +433,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces
 
+#pragma warning disable CA1416 // Validate platform compatibility
 			var provider = CodeDomProvider.CreateProvider("CSharp");
 			var reference = new CodeTypeReference(typeName);
 
 			typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
+#pragma warning restore CA1416 // Validate platform compatibility
 			typeName = Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
 
 			string internalTypeName = GenerateLinkForInternalType(typeName);
