@@ -77,6 +77,7 @@ namespace Havit.Blazor.Components.Web
 		private IJSObjectReference jsModule;
 		private TaskCompletionSource<UploadCompletedEventArgs> uploadCompletedTaskCompletionSource;
 		private ConcurrentBag<FileUploadedEventArgs> filesUploaded;
+		private bool disposed;
 
 		/// <summary>
 		/// Returns <see cref="HxInputFileCore"/> defaults.
@@ -118,6 +119,10 @@ namespace Havit.Blazor.Components.Web
 			await EnsureJsModuleAsync();
 			filesUploaded = new ConcurrentBag<FileUploadedEventArgs>();
 
+			if (disposed)
+			{
+				return;
+			}
 			await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, UploadUrl, accessToken, MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective);
 		}
 
@@ -212,6 +217,8 @@ namespace Havit.Blazor.Components.Web
 
 		public async ValueTask DisposeAsync()
 		{
+			disposed = true;
+
 			((IDisposable)this).Dispose();
 
 			if (jsModule != null)
