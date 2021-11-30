@@ -263,6 +263,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxNamedViewList", "HxNamedViewList", "HxListLayout")
 		};
 
+		private HxAutosuggest<SearchItem, SearchItem> autosuggest;
+
+		private bool wasFocused = false;
+
+		protected override async Task OnAfterRenderAsync(bool firstRender)
+		{
+			if (firstRender && !wasFocused)
+			{
+				wasFocused = true;
+				await Task.Delay(1);
+				await autosuggest.FocusAsync();
+			}
+		}
+
 		private Task<AutosuggestDataProviderResult<SearchItem>> ProvideSuggestions(AutosuggestDataProviderRequest request)
 		{
 			this.userInput = request.UserInput.Trim();
