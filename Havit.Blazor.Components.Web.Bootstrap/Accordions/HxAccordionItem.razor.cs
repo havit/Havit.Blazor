@@ -54,6 +54,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private bool lastKnownStateIsExpanded;
 		private bool isInitialized;
 		private bool isInTransition;
+		private bool disposed;
 
 		public HxAccordionItem()
 		{
@@ -74,12 +75,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					if (!lastKnownStateIsExpanded && IsSetToBeExpanded())
 					{
-						Logger.LogDebug($"OnParametersSetAsync_Expand[{idEffective}]");
 						await ExpandAsync();
 					}
 					else if (lastKnownStateIsExpanded && String.IsNullOrEmpty(ParentAccordition.ExpandedItemId))
 					{
-						Logger.LogDebug($"OnParametersSetAsync_Collapse[{idEffective}]");
 						await CollapseAsync();
 					}
 				}
@@ -97,8 +96,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (firstRender)
 			{
-				Logger.LogDebug($"OnAfterRenderAsync_create[{idEffective}]");
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("create", collapseHtmlElement, dotnetObjectReference, "#" + ParentAccordition.Id);
 			}
 
@@ -172,18 +174,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			StateHasChanged();
 		}
 
-		/// <inheritdoc/>
-		public async ValueTask DisposeAsync()
-		{
-			if (jsModule != null)
-			{
-				await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
-				await jsModule.DisposeAsync();
-			}
-
-			dotnetObjectReference.Dispose();
-		}
-
 		private bool IsSetToBeExpanded()
 		{
 			return (this.Id == ParentAccordition.ExpandedItemId);
@@ -192,6 +182,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private async Task EnsureJsModuleAsync()
 		{
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxAccordion) + ".js");
+		}
+
+		/// <inheritdoc/>
+		public async ValueTask DisposeAsync()
+		{
+			disposed = true;
+
+			if (jsModule != null)
+			{
+				await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
+				await jsModule.DisposeAsync();
+			}
+
+			dotnetObjectReference.Dispose();
 		}
 	}
 }
