@@ -39,16 +39,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
-		private string defaultId = "hx" + Guid.NewGuid().ToString("N");
-
-		public override async Task SetParametersAsync(ParameterView parameters)
-		{
-			await base.SetParametersAsync(parameters);
-
-			// to be able to use another default value in ancestors (HxNavbarCollapse)
-			this.Id = parameters.GetValueOrDefault(nameof(Id), defaultId);
-		}
-
 		/// <summary>
 		/// This event is fired when a collapse element has been made visible to the user (will wait for CSS transitions to complete).
 		/// </summary>
@@ -64,10 +54,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private ElementReference collapseHtmlElement;
 		private DotNetObjectReference<HxCollapse> dotnetObjectReference;
 		private IJSObjectReference jsModule;
+		private string defaultId = "hx" + Guid.NewGuid().ToString("N");
+		private bool disposed;
 
 		public HxCollapse()
 		{
 			dotnetObjectReference = DotNetObjectReference.Create(this);
+		}
+
+		public override async Task SetParametersAsync(ParameterView parameters)
+		{
+			await base.SetParametersAsync(parameters);
+
+			// to be able to use another default value in ancestors (HxNavbarCollapse)
+			this.Id = parameters.GetValueOrDefault(nameof(Id), defaultId);
 		}
 
 		/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
@@ -78,6 +78,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender)
 			{
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("initialize", collapseHtmlElement, dotnetObjectReference);
 			}
 		}
@@ -122,18 +126,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await OnHidden.InvokeAsync(this.Id);
 		}
 
-		/// <inheritdoc/>
-		public async ValueTask DisposeAsync()
-		{
-			if (jsModule != null)
-			{
-				await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
-				await jsModule.DisposeAsync();
-			}
-
-			dotnetObjectReference.Dispose();
-		}
-
 		private async Task EnsureJsModuleAsync()
 		{
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxCollapse) + ".js");
@@ -145,6 +137,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				"collapse",
 				this.CollapseDirection == CollapseDirection.Horizontal ? "collapse-horizontal" : null,
 				this.CssClass);
+		}
+
+		/// <inheritdoc/>
+		public async ValueTask DisposeAsync()
+		{
+			disposed = true;
+
+			if (jsModule != null)
+			{
+				await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
+				await jsModule.DisposeAsync();
+			}
+
+			dotnetObjectReference?.Dispose();
 		}
 	}
 }
