@@ -1,51 +1,74 @@
-﻿export function Initialize(id, hxCarouselDotnetObjectReference, ride) {
-	var carouselElement = document.getElementById(id);
-	var carousel = new bootstrap.Carousel(carouselElement,
+﻿export function initialize(element, hxCarouselDotnetObjectReference, ride) {
+	if (!element) {
+		return;
+	}
+	var carousel = new bootstrap.Carousel(element,
 		{
 			"ride": ride
 		});
 
-	carouselElement.addEventListener('slide.bs.carousel', function () { OnSlide(hxCarouselDotnetObjectReference) });
-	carouselElement.addEventListener('slid.bs.carousel', function () { OnSlid(hxCarouselDotnetObjectReference) });
+	element.hxCarouselDotnetObjectReference = hxCarouselDotnetObjectReference;
+	element.addEventListener('slide.bs.carousel', handleSlide);
+	element.addEventListener('slid.bs.carousel', handleSlid);
 
 	if (ride === "carousel") {
 		carousel.cycle();
 	}
 }
-
-export function SlideTo(id, index) {
-    GetCarousel(id).to(index);
+export function slideTo(element, index) {
+	var c = bootstrap.Carousel.getInstance(element);
+	if (c) {
+		c.to(index);
+	}
 }
 
-export function Previous(id) {
-    GetCarousel(id).prev();
+export function previous(element) {
+	var c = bootstrap.Carousel.getInstance(element);
+	if (c) {
+		c.prev();
+	}
 }
 
-export function Next(id) {
-    GetCarousel(id).next();
+export function next(element) {
+	var c = bootstrap.Carousel.getInstance(element);
+	if (c) {
+		c.next();
+	}
 }
 
-export function Cycle(id) {
-    GetCarousel(id).cycle();
+export function cycle(element) {
+	var c = bootstrap.Carousel.getInstance(element);
+	if (c) {
+		c.cycle();
+	}
 }
 
-export function Pause(id) {
-    GetCarousel(id).pause();
+export function pause(element) {
+	var c = bootstrap.Carousel.getInstance(element);
+	if (c) {
+		c.pause();
+	}
 }
 
-export function Dispose(id) {
-    GetCarousel(id).dispose();
+function handleSlide(event) {
+	event.target.hxCarouselDotnetObjectReference.invokeMethodAsync('HxCarousel_HandleSlide');
 }
 
-export function GetCarousel(id) {
-    var carouselElement = document.getElementById(id);
-    return bootstrap.Carousel.getInstance(carouselElement)
+function handleSlid(event) {
+	event.target.hxCarouselDotnetObjectReference.invokeMethodAsync('HxCarousel_HandleSlid');
 }
 
-function OnSlide(HxCarouselDotnetObjectReference) {
-    HxCarouselDotnetObjectReference.invokeMethodAsync('HxCarousel_HandleSlide');
-}
+export function dispose(element) {
+	if (!element) {
+		return;
+	}
 
-function OnSlid(HxCarouselDotnetObjectReference) {
-    HxCarouselDotnetObjectReference.invokeMethodAsync('HxCarousel_HandleSlid');
+	element.removeEventListener('slide.bs.carousel', handleSlide);
+	element.removeEventListener('slid.bs.carousel', handleSlid);
+	element.hxCarouselDotnetObjectReference = null;
+
+	var c = bootstrap.Carousel.getInstance(element);
+	if (c) {
+		c.dispose();
+	}
 }
