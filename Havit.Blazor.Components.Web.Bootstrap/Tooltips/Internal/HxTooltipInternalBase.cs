@@ -166,6 +166,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					{
 						Sanitize = this.Sanitize
 					};
+					if (disposed)
+					{
+						return;
+					}
 					await jsModule.InvokeVoidAsync("createOrUpdate", spanElement, dotnetObjectReference, options);
 					isInitialized = true;
 				}
