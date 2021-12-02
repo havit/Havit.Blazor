@@ -26,13 +26,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// For more information refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
 		/// and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
 		/// </summary>
-		public string DropdownReference { get; set; }
+		[Parameter] public string DropdownReference { get; set; }
 
 		/// <summary>
 		/// Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
 		/// of the dropdown relative to its target.  Default is <c>(0, 2)</c>.
 		/// </summary>
-		public (int Skidding, int Distance)? DropdownOffset { get; set; }
+		[Parameter] public (int Skidding, int Distance)? DropdownOffset { get; set; }
 
 		/// <summary>
 		/// Custom CSS class to render with the toggle element.
@@ -46,12 +46,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Fired when the dropdown has been made visible to the user and CSS transitions have completed.
 		/// </summary>
-		public EventCallback OnShown { get; set; }
+		[Parameter] public EventCallback OnShown { get; set; }
 
 		/// <summary>
 		/// Fired when the dropdown has finished being hidden from the user and CSS transitions have completed.
 		/// </summary>
-		public EventCallback OnHidden { get; set; }
+		[Parameter] public EventCallback OnHidden { get; set; }
 
 		[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
 		[CascadingParameter] protected HxNav NavContainer { get; set; }
