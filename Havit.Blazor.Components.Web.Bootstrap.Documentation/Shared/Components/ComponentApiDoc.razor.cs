@@ -110,6 +110,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			var properties = GetProperties(reader);
 			this.properties = properties.properties;
 			parameters = properties.parameters;
+			parameters.OrderByDescending(p => p.EditorRequired);
+
 			staticProperties = properties.staticProperties;
 			events = properties.events;
 
