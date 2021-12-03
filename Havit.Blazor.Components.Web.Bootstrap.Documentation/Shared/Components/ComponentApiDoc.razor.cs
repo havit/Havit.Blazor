@@ -260,8 +260,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				{
 					events.Add(newProperty);
 				}
-				else if (HasParameterAttribute(newProperty))
+				else if (HasParameterAttribute(newProperty, out bool editorRequired))
 				{
+					newProperty.EditorRequired = editorRequired;
 					parameters.Add(newProperty);
 				}
 				else if (IsPropertyStatic(newProperty))
@@ -336,18 +337,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return true;
 		}
 
-		private bool HasParameterAttribute(Property property)
+		private bool HasParameterAttribute(Property property, out bool editorRequired)
 		{
 			var customAttributes = property.PropertyInfo.CustomAttributes.ToList();
+
+			bool hasParameterAttribute = false;
+			editorRequired = false;
+
 			foreach (var attribute in customAttributes)
 			{
 				if (attribute.AttributeType == typeof(ParameterAttribute))
 				{
-					return true;
+					hasParameterAttribute = true;
+				}
+				else if (attribute.AttributeType == typeof(EditorRequiredAttribute))
+				{
+					editorRequired = true;
 				}
 			}
 
-			return false;
+			return hasParameterAttribute;
 		}
 
 		private bool IsPropertyStatic(Property property)

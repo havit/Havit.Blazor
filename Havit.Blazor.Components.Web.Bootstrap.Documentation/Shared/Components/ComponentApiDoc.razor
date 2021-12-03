@@ -61,6 +61,12 @@
 				{
 					<tr>
 						<td>
+							@if (property.EditorRequired)
+							{
+								<HxBadge Color="ThemeColor.Warning" CssClass="me-2">
+									@("REQUIRED")
+								</HxBadge>
+							}
 							@if (IsPropertyStatic(property))
 							{
 								<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">

@@ -253,6 +253,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 	public class Property : Member
 	{
 		public PropertyInfo PropertyInfo { get; set; }
+		public bool EditorRequired { get; set; }
 
 		public CommonComments Comments
 		{
