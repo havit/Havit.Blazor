@@ -2327,7 +2327,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2">
             <summary>
-            Multiple choice by checkboxes.
+            Renders a multi-selection list of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox"/> controls.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Data">
@@ -2357,6 +2357,11 @@
             <summary>
             When <c>true</c>, items are sorted before displaying in select.
             Default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Inline">
+            <summary>
+            Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -2684,6 +2689,11 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox">
             <summary>
             Checkbox input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.Inline">
+            <summary>
+            Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.RenderOrder">
@@ -3104,6 +3114,11 @@
             </summary>
             <typeparam name="TValue">Type of value.</typeparam>
             <typeparam name="TItem">Type of items.</typeparam>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.Inline">
+            <summary>
+            Allows grouping radios on the same horizontal row by rendering them inline. Default is <c>false</c>.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ValueSelectorImpl">
             <summary>

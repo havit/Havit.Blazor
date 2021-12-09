@@ -3,11 +3,11 @@
 <EditForm Model="@model">
     <HxCheckboxList TItem="CultureInfo"
                     TValue="string"
-                    Label="Cultures"
                     TextSelector="@(item => item.EnglishName)"
                     ValueSelector="@(item => item.EnglishName)"
                     Data="@data"
-                    @bind-Value="@model.CultureInfos" />
+                    @bind-Value="@model.CultureInfos"
+                    Inline="true" />
 </EditForm>
 
 <p>Selected values: @String.Join(", ", model.CultureInfos ?? Enumerable.Empty<string>())</p>

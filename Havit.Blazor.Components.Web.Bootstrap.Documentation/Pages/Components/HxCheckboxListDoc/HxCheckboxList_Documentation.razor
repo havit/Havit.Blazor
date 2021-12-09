@@ -1,5 +1,10 @@
 ﻿@attribute [Route("/components/" + nameof(HxCheckboxList<string,bool>))]
 
 <ComponentApiDoc Type="typeof(HxCheckboxList<string,bool>)">
-    <Demo Type="typeof(HxCheckboxList_Demo)" />
+    <h3>Basic usage</h3>
+    <Demo Type="typeof(HxCheckboxList_Demo)" Tabs="false" />
+
+    <h3 id="Inline">Inline</h3>
+    <p>Group checkboxes on the same horizontal row by adding <code>Inline="true"</code>.</p>
+    <Demo Type="typeof(HxCheckboxList_Demo_Inline)" />
 </ComponentApiDoc>
