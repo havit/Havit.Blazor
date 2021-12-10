@@ -432,6 +432,25 @@
             Action (synchronnous, not an EventCallback) called when the element's reference got captured.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.HxRedirectTo">
+            <summary>
+            Rendering a <c>HxRedirectTo</c> will navigate to a new location.<br/>
+            Can be used in <c>AuthorizeRouteView</c>, <c>Router</c> and such components to process redirection to login page, error page or such.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.HxRedirectTo.Uri">
+            <summary>
+            URI to navigate to.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.HxRedirectTo.ForceLoad">
+            <summary>
+            If <c>true</c>, bypasses client-side routing and forces the browser to load the new
+            page from the server, whether or not the URI would normally be handled by the
+            client-side router.<br/>
+            Default is <c>false</c>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.HxRepeater`1">
             <summary>
             A data-bound list component that allows custom layout by repeating a specified template for each item displayed in the list.

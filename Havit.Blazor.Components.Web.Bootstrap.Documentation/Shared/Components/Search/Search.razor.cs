@@ -252,6 +252,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			new("/components/HxToast", "HxToast", "messenger"),
 
+			new("/components/HxDynamicElement", "HxDynamicElement", "dynamiccomponent html"),
+			new("/components/HxRedirectTo", "HxRedirectTo", "navigateto 302 301 moved navigationmanager"),
 			new("/components/HxGoogleTagManager", "HxGoogleTagManager", "gtm ga analytics"),
 
 			new("/components/HxButton", "HxButton", "click submit input"),
