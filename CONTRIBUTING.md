@@ -6,11 +6,14 @@ Thank you for contributing to HAVIT Blazor and making it even better. We are hap
 	and [Framework Design Guidelines](https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/)
 * Respect our `.editorconfig` requirements (you can suggest changing them).
 
-## Design Guidelines
-* Prefer ease of user over complex functionality.
+## Naming Guidelines
 * Preserve original [Bootstrap](https://getbootstrap.com/) naming whenever possible (adjust to comply with .NET coding standards).
 * Follow existing [Blazor](https://github.com/dotnet/aspnetcore/tree/main/src/Components) naming whenever possible.
-* Prefix all event parameters with `On`, e.g. `OnClosed`, `OnShown`, `OnFileUploaded`.
+* Prefix all event parameters with `On`, e.g. `OnClosed`, `OnShown`, `OnFileUploaded` (except `XyChanged` callbacks).
+* Suffix all `Func`-parameters returning a projection with `Selector`, e.g. `TextSelector`,  `CssClassSelector`, `ValueSelector`. See [`HxSelect`](https://havit.blazor.eu/components/HxSelect) for samples.
+
+## Design Guidelines
+* Prefer ease of user over complex functionality.
 * Allow interception of the events in derived components by using the virtual `InvokeOnEventNameAsync()` methods
 ```csharp
 [Parameter] public EventCallback OnClosed { get; set; }
