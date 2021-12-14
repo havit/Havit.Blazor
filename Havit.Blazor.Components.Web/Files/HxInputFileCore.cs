@@ -32,16 +32,28 @@ namespace Havit.Blazor.Components.Web
 		/// Raised during running file upload (the frequency depends on browser implementation).
 		/// </summary>
 		[Parameter] public EventCallback<UploadProgressEventArgs> OnProgress { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnProgress"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnProgressAsync(UploadProgressEventArgs args) => OnProgress.InvokeAsync(args);
 
 		/// <summary>
 		/// Raised after a file is uploaded (for every single file separately).
 		/// </summary>
 		[Parameter] public EventCallback<FileUploadedEventArgs> OnFileUploaded { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnFileUploaded"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnFileUploadedAsync(FileUploadedEventArgs args) => OnFileUploaded.InvokeAsync(args);
 
 		/// <summary>
 		/// Raised when all files are uploaded (after all <see cref="OnFileUploaded"/> events).
 		/// </summary>
 		[Parameter] public EventCallback<UploadCompletedEventArgs> OnUploadCompleted { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnUploadCompleted"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnUploadCompletedAsync(UploadCompletedEventArgs args) => OnUploadCompleted.InvokeAsync(args);
 
 		/// <summary>
 		/// Single <c>false</c> or multiple <c>true</c> files upload.
@@ -175,7 +187,7 @@ namespace Havit.Blazor.Components.Web
 				UploadedBytes = loaded,
 				UploadSize = total
 			};
-			await OnProgress.InvokeAsync(uploadProgress);
+			await InvokeOnProgressAsync(uploadProgress);
 		}
 
 		/// <summary>
@@ -195,7 +207,7 @@ namespace Havit.Blazor.Components.Web
 				ResponseText = responseText,
 			};
 			filesUploaded.Add(fileUploaded);
-			await OnFileUploaded.InvokeAsync(fileUploaded);
+			await InvokeOnFileUploadedAsync(fileUploaded);
 		}
 
 		/// <summary>
@@ -212,7 +224,7 @@ namespace Havit.Blazor.Components.Web
 			};
 			filesUploaded = null;
 			uploadCompletedTaskCompletionSource?.TrySetResult(uploadCompleted);
-			await OnUploadCompleted.InvokeAsync(uploadCompleted);
+			await InvokeOnUploadCompletedAsync(uploadCompleted);
 		}
 
 		public async ValueTask DisposeAsync()

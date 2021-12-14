@@ -3,9 +3,9 @@
 	<HxInputFileCore @ref="hxInputFileCoreComponentReference"
 					 UploadUrl="@this.UploadUrl"
 					 OnChange="HandleOnChange"
-					 OnProgress="this.OnProgress"
-					 OnFileUploaded="this.OnFileUploaded"
-					 OnUploadCompleted="this.OnUploadCompleted"
+					 OnProgress="InvokeOnProgressAsync"
+					 OnFileUploaded="InvokeOnFileUploadedAsync"
+					 OnUploadCompleted="InvokeOnUploadCompletedAsync"
 					 Multiple="this.Multiple"
 					 MaxFileSize="this.MaxFileSize"
 					 Accept="@this.Accept"/>

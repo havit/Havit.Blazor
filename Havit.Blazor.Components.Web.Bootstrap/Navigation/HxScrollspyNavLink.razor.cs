@@ -24,6 +24,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Raised when the item is clicked (before the navigation location is changed to <see cref="Href"/>).
 		/// </summary>
 		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnClick"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
 
 		/// <summary>
 		/// Additional attributes to be splatted onto an underlying <c>&lt;a&gt;</c> element.
@@ -41,10 +45,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleClick(MouseEventArgs args)
 		{
-			if (OnClick.HasDelegate)
-			{
-				await OnClick.InvokeAsync(args);
-			}
+			await InvokeOnClickAsync(args);
 			var targetUri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri).GetLeftPart(UriPartial.Path) + Href;
 			NavigationManager.NavigateTo(targetUri);
 		}

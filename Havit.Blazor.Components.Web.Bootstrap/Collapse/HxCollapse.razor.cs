@@ -43,11 +43,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// This event is fired when a collapse element has been made visible to the user (will wait for CSS transitions to complete).
 		/// </summary>
 		[Parameter] public EventCallback<string> OnShown { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnShown"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnShownAsync(string elementId) => OnShown.InvokeAsync(elementId);
 
 		/// <summary>
 		/// This event is fired when a collapse element has been hidden from the user (will wait for CSS transitions to complete).
 		/// </summary>
 		[Parameter] public EventCallback<string> OnHidden { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnHidden"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnHiddenAsync(string elementId) => OnHidden.InvokeAsync(elementId);
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -114,7 +122,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxCollapse_HandleJsShown")]
 		public async Task HandleJsShown()
 		{
-			await OnShown.InvokeAsync(this.Id);
+			await InvokeOnShownAsync(this.Id);
 		}
 
 		/// <summary>
@@ -123,7 +131,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxCollapse_HandleJsHidden")]
 		public async Task HandleJsHidden()
 		{
-			await OnHidden.InvokeAsync(this.Id);
+			await InvokeOnHiddenAsync(this.Id);
 		}
 
 		private async Task EnsureJsModuleAsync()

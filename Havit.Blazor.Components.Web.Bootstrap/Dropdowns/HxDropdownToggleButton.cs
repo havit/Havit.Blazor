@@ -30,11 +30,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Fired when the dropdown has been made visible to the user and CSS transitions have completed.
 		/// </summary>
 		[Parameter] public EventCallback OnShown { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnShown"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnShownAsync() => OnShown.InvokeAsync();
 
 		/// <summary>
 		/// Fired when the dropdown has finished being hidden from the user and CSS transitions have completed.
 		/// </summary>
 		[Parameter] public EventCallback OnHidden { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnHidden"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnHiddenAsync() => OnHidden.InvokeAsync();
 
 		[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
 		[CascadingParameter] protected HxNav NavContainer { get; set; }
@@ -134,7 +142,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task HandleJsShown()
 		{
 			((IDropdownContainer)DropdownContainer).IsOpen = true;
-			await OnShown.InvokeAsync();
+			await InvokeOnShownAsync();
 		}
 
 		/// <summary>
@@ -144,7 +152,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task HandleJsHidden()
 		{
 			((IDropdownContainer)DropdownContainer).IsOpen = false;
-			await OnHidden.InvokeAsync();
+			await InvokeOnHiddenAsync();
 		}
 
 		private async Task EnsureJsModuleAsync()

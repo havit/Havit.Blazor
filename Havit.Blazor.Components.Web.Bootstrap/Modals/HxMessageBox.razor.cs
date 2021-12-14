@@ -69,6 +69,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public EventCallback<MessageBoxButtons> OnClosed { get; set; }
 
+		/// <summary>
+		/// Triggers the <see cref="OnClosed"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnClosedAsync(MessageBoxButtons button) => OnClosed.InvokeAsync(button);
+
 
 		[Inject] protected IStringLocalizer<HxMessageBox> MessageBoxLocalizer { get; set; }
 
@@ -93,7 +98,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleModalClosed()
 		{
-			await OnClosed.InvokeAsync(result ?? MessageBoxButtons.None);
+			await InvokeOnClosedAsync(result ?? MessageBoxButtons.None);
 		}
 
 		private List<ButtonDefinition> GetButtonsToRender()

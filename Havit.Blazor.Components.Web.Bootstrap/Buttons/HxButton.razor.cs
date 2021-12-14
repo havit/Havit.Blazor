@@ -110,16 +110,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Raised after the button is clicked.
 		/// </summary>
 		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnClick"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
 
 		/// <summary>
 		/// Raised after the button is clicked and EditContext validation succeeds.
 		/// </summary>
 		[Parameter] public EventCallback<MouseEventArgs> OnValidClick { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnValidClick"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnValidClickAsync(MouseEventArgs args) => OnValidClick.InvokeAsync(args);
 
 		/// <summary>
 		/// Raised after the button is clicked and EditContext validation fails.
 		/// </summary>
 		[Parameter] public EventCallback<MouseEventArgs> OnInvalidClick { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnInvalidClick"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnInvalidClickAsync(MouseEventArgs args) => OnInvalidClick.InvokeAsync(args);
 
 		/// <summary>
 		/// Stop onClick-event propagation. Deafult is <c>true</c>.
@@ -253,7 +265,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				Contract.Requires<InvalidOperationException>(!OnValidClick.HasDelegate, $"Cannot use both {nameof(OnClick)} and {nameof(OnValidClick)} parameters.");
 				Contract.Requires<InvalidOperationException>(!OnInvalidClick.HasDelegate, $"Cannot use both {nameof(OnClick)} and {nameof(OnInvalidClick)} parameters.");
 
-				await OnClick.InvokeAsync(mouseEventArgs);
+				await InvokeOnClickAsync(mouseEventArgs);
 			}
 			else if (OnValidClick.HasDelegate || OnInvalidClick.HasDelegate)
 			{
@@ -263,12 +275,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				if (isValid && OnValidClick.HasDelegate)
 				{
-					await OnValidClick.InvokeAsync(mouseEventArgs);
+					await InvokeOnValidClickAsync(mouseEventArgs);
 				}
 
 				if (!isValid && OnInvalidClick.HasDelegate)
 				{
-					await OnInvalidClick.InvokeAsync(mouseEventArgs);
+					await InvokeOnInvalidClickAsync(mouseEventArgs);
 				}
 			}
 		}

@@ -27,6 +27,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Parameter] public TFilterModel FilterModel { get; set; }
 		[Parameter] public EventCallback<TFilterModel> FilterModelChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="FilterModelChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeFilterModelChangedAsync(TFilterModel newFilterModel) => FilterModelChanged.InvokeAsync(newFilterModel);
 
 		[Parameter] public RenderFragment DataTemplate { get; set; }
 
@@ -66,7 +70,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private async Task HandleFilterFormModelChanged(TFilterModel newFilterModel)
 		{
 			FilterModel = newFilterModel;
-			await FilterModelChanged.InvokeAsync(newFilterModel);
+			await InvokeFilterModelChangedAsync(newFilterModel);
 			await filterOffcanvasComponent.HideAsync();
 		}
 	}

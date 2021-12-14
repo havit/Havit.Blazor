@@ -37,12 +37,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Is not raised for the initial rendering even if the item is not collapsed (no transition happened).
 		/// </summary>
 		[Parameter] public EventCallback<string> OnExpanded { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnExpanded"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnExpandedAsync(string expandedItemId) => OnExpanded.InvokeAsync(expandedItemId);
 
 		/// <summary>
 		/// Raised after the transition from this item (the animation is finished).
 		/// Is not raised for the initial rendering even if the item is collapsed (no transition happened).
 		/// </summary>
 		[Parameter] public EventCallback<string> OnCollapsed { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnCollapsed"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnCollapsedAsync(string collapsedItemId) => OnCollapsed.InvokeAsync(collapsedItemId);
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 		[Inject] protected ILogger<HxAccordionItem> Logger { get; set; }
@@ -147,7 +155,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				await ParentAccordition.SetExpandedItemIdAsync(this.Id);
 			}
 
-			await OnExpanded.InvokeAsync(this.Id);
+			await InvokeOnExpandedAsync(this.Id);
 
 			StateHasChanged();
 		}
@@ -169,7 +177,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				// if there has been no other HxAccorditionItem set as expanded yet, clear the selection
 				await ParentAccordition.SetExpandedItemIdAsync(null);
 			}
-			await OnCollapsed.InvokeAsync(this.Id);
+			await InvokeOnCollapsedAsync(this.Id);
 
 			StateHasChanged();
 		}

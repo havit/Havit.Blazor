@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -31,7 +33,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// An event that is fired when the <c>HxListGroupItem</c> is clicked.
 		/// </summary>
-		[Parameter] public EventCallback OnClick { get; set; }
+		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnClick"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
 
 		/// <summary>
 		/// Additional CSS class.

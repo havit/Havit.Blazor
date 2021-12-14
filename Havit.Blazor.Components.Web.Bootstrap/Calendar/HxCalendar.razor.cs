@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -25,6 +26,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Raised when selected date changes.
 		/// </summary>
 		[Parameter] public EventCallback<DateTime?> ValueChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="ValueChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeValueChangedAsync(DateTime? newValue) => ValueChanged.InvokeAsync(newValue);
 
 		/// <summary>
 		/// Month to display.
@@ -35,6 +40,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Raised when month selection changes.
 		/// </summary>
 		[Parameter] public EventCallback<DateTime> DisplayMonthChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="DisplayMonthChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeDisplayMonthChangedAsync(DateTime newValue) => DisplayMonthChanged.InvokeAsync(newValue);
 
 		/// <summary>
 		/// First date selectable from the calendar.<br/>
@@ -206,7 +215,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			newDisplayMonth = new[] { newDisplayMonth, new DateTime(MaxDateEffective.Year, MaxDateEffective.Month, 1) }.Min();
 
 			DisplayMonth = newDisplayMonth;
-			await DisplayMonthChanged.InvokeAsync(newDisplayMonth);
+			await InvokeDisplayMonthChangedAsync(newDisplayMonth);
 		}
 
 		private async Task HandlePreviousMonthClickAsync()
@@ -242,7 +251,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			Contract.Requires<InvalidOperationException>(day.ClickEnabled, "The selected date is disabled."); // Just for case, the disabled date does not use event handler.
 
 			Value = day.Date;
-			await ValueChanged.InvokeAsync(day.Date);
+			await InvokeValueChangedAsync(day.Date);
 			UpdateRenderData();
 		}
 
@@ -275,6 +284,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			public string Name { get; set; }
 			public bool Enabled { get; set; }
 		}
-
 	}
 }

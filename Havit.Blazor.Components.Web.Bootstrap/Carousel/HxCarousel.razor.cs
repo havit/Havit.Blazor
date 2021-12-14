@@ -58,11 +58,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Is fired when the current slide is changed (at the very start of the sliding transition).
 		/// </summary>
 		[Parameter] public EventCallback OnSlide { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnSlide"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnSlideAsync() => OnSlide.InvokeAsync();
+
 
 		/// <summary>
 		/// Is fired when the current slide is changed (once the transition is completed).
 		/// </summary>
 		[Parameter] public EventCallback OnSlid { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnSlid"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnSlidAsync() => OnSlid.InvokeAsync();
 
 		/// <summary>
 		/// Carousel ride (autoplay) behavior. Default is <see cref="CarouselRide.Carousel"/> (autoplays the carousel on load).
@@ -114,13 +123,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxCarousel_HandleSlide")]
 		public async Task HandleSlide()
 		{
-			await OnSlide.InvokeAsync();
+			await InvokeOnSlideAsync();
 		}
 
 		[JSInvokable("HxCarousel_HandleSlid")]
 		public async Task HandleSlid()
 		{
-			await OnSlid.InvokeAsync();
+			await InvokeOnSlidAsync();
 		}
 
 		/// <summary>

@@ -3,7 +3,7 @@
 <li>
 	<HxNavLinkInternal href="@Href"
 					   Match="@(this.Match ?? NavLinkMatch.All)"
-					   OnClick="@this.OnClick"
+					   OnClick="InvokeOnClickAsync"
 					   class="@CssClassHelper.Combine("dropdown-item", CascadeEnabledComponent.EnabledEffective(this) ? null : "disabled", this.CssClass)"
 					   ActiveClass="@(((this.Match is null) || (this.Href is null)) ? String.Empty : "active")"
 					   tabindex="@(CascadeEnabledComponent.EnabledEffective(this) ? null : "-1")"

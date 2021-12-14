@@ -57,10 +57,20 @@
             Is not raised for the initial rendering even if the item is not collapsed (no transition happened).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.InvokeOnExpandedAsync(System.String)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.OnExpanded"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.OnCollapsed">
             <summary>
             Raised after the transition from this item (the animation is finished).
             Is not raised for the initial rendering even if the item is collapsed (no transition happened).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.InvokeOnCollapsedAsync(System.String)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.OnCollapsed"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.OnAfterRenderAsync(System.Boolean)">
@@ -300,14 +310,29 @@
             Raised after the button is clicked.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxButton.InvokeOnClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnClick"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnValidClick">
             <summary>
             Raised after the button is clicked and EditContext validation succeeds.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxButton.InvokeOnValidClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnValidClick"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnInvalidClick">
             <summary>
             Raised after the button is clicked and EditContext validation fails.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxButton.InvokeOnInvalidClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnInvalidClick"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnClickStopPropagation">
@@ -514,6 +539,11 @@
             Raised when selected date changes.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.InvokeValueChangedAsync(System.Nullable{System.DateTime})">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.ValueChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.DisplayMonth">
             <summary>
             Month to display.
@@ -522,6 +552,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.DisplayMonthChanged">
             <summary>
             Raised when month selection changes.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.InvokeDisplayMonthChangedAsync(System.DateTime)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.DisplayMonthChanged"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.MinDate">
@@ -796,9 +831,19 @@
             Is fired when the current slide is changed (at the very start of the sliding transition).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.InvokeOnSlideAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlide"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlid">
             <summary>
             Is fired when the current slide is changed (once the transition is completed).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.InvokeOnSlidAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlid"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Ride">
@@ -887,6 +932,11 @@
             Called when chip remove button is clicked.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxChipList.InvokeOnChipRemoveClickAsync(Havit.Blazor.Components.Web.Bootstrap.ChipItem)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.OnChipRemoveClick"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.IHxChipGenerator">
             <summary>
             Used in a component which can generate chips.
@@ -951,9 +1001,19 @@
             This event is fired when a collapse element has been made visible to the user (will wait for CSS transitions to complete).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.InvokeOnShownAsync(System.String)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.OnShown"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.OnHidden">
             <summary>
             This event is fired when a collapse element has been hidden from the user (will wait for CSS transitions to complete).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.InvokeOnHiddenAsync(System.String)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.OnHidden"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.OnAfterRenderAsync(System.Boolean)">
@@ -1026,6 +1086,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.OnClick">
             <summary>
             Item clicked event.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.InvokeOnClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.OnClick"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.OnClickStopPropagation">
@@ -1144,6 +1209,11 @@
             Raised when the item is clicked.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.InvokeOnClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.OnClick"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.Enabled">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>
@@ -1172,6 +1242,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemNavLink.OnClick">
             <summary>
             Raised when the item is clicked.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemNavLink.InvokeOnClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemNavLink.OnClick"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemNavLink.CssClass">
@@ -1236,9 +1311,19 @@
             Fired when the dropdown has been made visible to the user and CSS transitions have completed.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.InvokeOnShownAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnShown"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnHidden">
             <summary>
             Fired when the dropdown has finished being hidden from the user and CSS transitions have completed.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.InvokeOnHiddenAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnHidden"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnAfterRenderAsync(System.Boolean)">
@@ -1304,9 +1389,19 @@
             Fired when the dropdown has been made visible to the user and CSS transitions have completed.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.InvokeOnShownAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnShown"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnHidden">
             <summary>
             Fired when the dropdown has finished being hidden from the user and CSS transitions have completed.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.InvokeOnHiddenAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnHidden"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnAfterRenderAsync(System.Boolean)">
@@ -1363,9 +1458,19 @@
             Gets or sets the event callback that will be invoked when the collection of selected files changes.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InvokeOnChangeAsync(Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnChange"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnProgress">
             <summary>
             Raised during running file upload (the frequency depends on browser implementation).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InvokeOnProgressAsync(Havit.Blazor.Components.Web.UploadProgressEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnProgress"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnFileUploaded">
@@ -1373,9 +1478,19 @@
             Raised after a file is uploaded (for every single file separately).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InvokeOnFileUploadedAsync(Havit.Blazor.Components.Web.FileUploadedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnFileUploaded"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnUploadCompleted">
             <summary>
-            Raised after a file is uploaded (for every single file separately).
+            Raised when all files are uploaded (after all <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnFileUploaded"/> events).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InvokeOnUploadCompletedAsync(Havit.Blazor.Components.Web.UploadCompletedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnUploadCompleted"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Multiple">
@@ -1505,9 +1620,19 @@
             Gets or sets the event callback that will be invoked when the collection of selected files changes.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InvokeOnChangeAsync(Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnChange"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnProgress">
             <summary>
             Raised during running file upload (the frequency depends on browser implementation).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InvokeOnProgressAsync(Havit.Blazor.Components.Web.UploadProgressEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnProgress"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnFileUploaded">
@@ -1515,9 +1640,19 @@
             Raised after a file is uploaded (for every single file separately).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InvokeOnFileUploadedAsync(Havit.Blazor.Components.Web.FileUploadedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnFileUploaded"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnUploadCompleted">
             <summary>
-            Raised after a file is uploaded (for every single file separately).
+            Raised when all files are uploaded (after all <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnFileUploaded"/> events).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InvokeOnUploadCompletedAsync(Havit.Blazor.Components.Web.UploadCompletedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnUploadCompleted"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.Multiple">
@@ -1591,6 +1726,11 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1">
             <summary>
             Edit form derived from HxModelEditForm with support for chip generators.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1.InvokeOnChipsUpdatedAsync(Havit.Blazor.Components.Web.Bootstrap.ChipItem[])">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1.OnChipsUpdated"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1.RemoveChipAsync(Havit.Blazor.Components.Web.Bootstrap.ChipItem)">
@@ -3811,6 +3951,11 @@
             Intended for data binding.
             </summary>		
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InvokeSelectedDataItemChangedAsync(`0)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItems">
             <summary>
             Selected data items.
@@ -3822,6 +3967,11 @@
             Event fires when selected data items changes.
             Intended for data binding.
             </summary>		
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InvokeSelectedDataItemsChangedAsync(System.Collections.Generic.HashSet{`0})">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemsChanged"/> event. Allows interception of the event in derived components.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ContentNavigationMode">
             <summary>
@@ -3846,6 +3996,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserStateChanged">
             <summary>
             Event fires when grid state is changed.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InvokeCurrentUserStateChangedAsync(Havit.Blazor.Components.Web.Bootstrap.GridUserState{`0})">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserStateChanged"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InProgress">
@@ -4175,6 +4330,11 @@
             Event raised where page index is changed.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPager.InvokeCurrentPageIndexChangedAsync(System.Int32)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.CurrentPageIndexChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.DisplayNumberCount">
             <summary>
             Count of numbers to display. Default value is 10.
@@ -4379,6 +4539,11 @@
             </summary>
             <typeparam name="TFilterModel"></typeparam>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.InvokeFilterModelChangedAsync(`0)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.FilterModelChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent">
             <summary>
             Interface for column-sized components (e.g. <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>).
@@ -4492,6 +4657,11 @@
             An event that is fired when the <c>HxListGroupItem</c> is clicked.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItem.InvokeOnClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItem.OnClick"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItem.CssClass">
             <summary>
             Additional CSS class.
@@ -4522,6 +4692,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.OnClick">
             <summary>
             Raised when the item is clicked.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.InvokeOnClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.OnClick"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.Active">
@@ -4699,6 +4874,11 @@
             Raised when the message box gets closed. Returns the button clicked.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.InvokeOnClosedAsync(Havit.Blazor.Components.Web.MessageBoxButtons)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.OnClosed"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.ShowAsync">
             <summary>
             Displays the message box.
@@ -4817,6 +4997,21 @@
             This can be caused by <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HideAsync"/>, close-button, <kbd>Esc</kbd> key or other interaction.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.InvokeOnClosedAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnClosed"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnShown">
+            <summary>
+            This event is fired when an offcanvas element has been made visible to the user (will wait for CSS transitions to complete).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.InvokeOnShownAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnShown"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.ShowAsync">
             <summary>
             Opens the modal.
@@ -4830,6 +5025,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HandleModalHidden">
             <summary>
             Receives notification from JS for <c>hidden.bs.modal</c> event.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HandleModalShown">
+            <summary>
+            Receives notification from JS for <c>shown.bs.modal</c> event.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults">
@@ -4957,6 +5157,16 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalSize.ExtraLarge">
             <summary>
             Extra large. Modal max-width: 1140px.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.InvokeFilterModelChangedAsync(`0)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.FilterModelChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.InvokeOnNamedViewSelectedAsync(Havit.Blazor.Components.Web.Bootstrap.NamedView{`0})">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.OnNamedViewSelected"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode">
@@ -5184,6 +5394,11 @@
             Raised when the item is clicked.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.InvokeOnClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.OnClick"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.CssClass">
             <summary>
             Additional CSS class.
@@ -5244,6 +5459,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.OnClick">
             <summary>
             Raised when the item is clicked (before the navigation location is changed to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.Href"/>).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.InvokeOnClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.OnClick"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.AdditionalAttributes">
@@ -5564,7 +5784,22 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnClosed">
             <summary>
-            Raised when the offcanvas is closed (whatever reason there is).
+            This event is fired when an offcanvas element has been hidden from the user (will wait for CSS transitions to complete).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.InvokeOnClosedAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnClosed"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnShown">
+            <summary>
+            This event is fired when an offcanvas element has been made visible to the user (will wait for CSS transitions to complete).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.InvokeOnShownAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnShown"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.#ctor">
@@ -5580,6 +5815,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HideAsync">
             <summary>
             Hides the offcanvas.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HandleOffcanvasShown">
+            <summary>
+            Receives notification from JS for <c>shown.bs.offcanvas</c> event.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnAfterRenderAsync(System.Boolean)">

@@ -28,6 +28,10 @@ namespace Havit.Blazor.Components.Web
 		/// Model event callback. Invoked when valid form is updated.
 		/// </summary>
 		[Parameter] public EventCallback<TModel> ModelChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="ModelChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeModelChangedAsync(TModel newValue) => ModelChanged.InvokeAsync(newValue);
 
 		/// <summary>
 		/// Child content.
@@ -68,7 +72,7 @@ namespace Havit.Blazor.Components.Web
 		{
 			Model = ModelInEdit;
 			previousModel = Model; // to suppress cloning Model in OnParametersSet, must be before ModelChanged is invoked!
-			await ModelChanged.InvokeAsync(Model);
+			await InvokeModelChangedAsync(Model);
 
 			ModelInEdit = CloneModel(ModelInEdit);
 			StateHasChanged(); // we are changing the state - ModelInEdit.

@@ -147,14 +147,29 @@
             Raised during running file upload (the frequency depends on browser implementation).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.InvokeOnProgressAsync(Havit.Blazor.Components.Web.UploadProgressEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnProgress"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded">
             <summary>
             Raised after a file is uploaded (for every single file separately).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.InvokeOnFileUploadedAsync(Havit.Blazor.Components.Web.FileUploadedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.OnUploadCompleted">
             <summary>
             Raised when all files are uploaded (after all <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> events).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.InvokeOnUploadCompletedAsync(Havit.Blazor.Components.Web.UploadCompletedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnUploadCompleted"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Multiple">
@@ -349,6 +364,11 @@
             Model event callback. Invoked when valid form is updated.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.HxModelEditForm`1.InvokeModelChangedAsync(`0)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.HxModelEditForm`1.ModelChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxModelEditForm`1.ChildContent">
             <summary>
             Child content.
@@ -410,6 +430,11 @@
         <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClick">
             <summary>
             Raised after the element is clicked.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.HxDynamicElement.InvokeOnClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClick"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClickStopPropagation">
@@ -673,6 +698,11 @@
             When item is <c>null</c>, returns <c>default(TValue)</c>.
             Otherwise returns value from item by valueSelector.
             When valueSelector is <c>null</c> and <c>TValue</c> is same as <c>TItem</c>, returns item.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.ServiceCollectionExtensions.AddHxServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds services needed for HAVIT Blazor library.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2">

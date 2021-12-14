@@ -83,6 +83,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Intended for data binding.
 		/// </summary>		
 		[Parameter] public EventCallback<TItem> SelectedDataItemChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="SelectedDataItemChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeSelectedDataItemChangedAsync(TItem selectedDataItem) => SelectedDataItemChanged.InvokeAsync(selectedDataItem);
 
 		/// <summary>
 		/// Selected data items.
@@ -95,6 +99,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Intended for data binding.
 		/// </summary>		
 		[Parameter] public EventCallback<HashSet<TItem>> SelectedDataItemsChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="SelectedDataItemsChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeSelectedDataItemsChangedAsync(HashSet<TItem> selectedDataItems) => SelectedDataItemsChanged.InvokeAsync(selectedDataItems);
 
 		/// <summary>
 		/// Strategy how data are displayed in the grid (and loaded to the grid).
@@ -120,6 +128,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Event fires when grid state is changed.
 		/// </summary>
 		[Parameter] public EventCallback<GridUserState<TItem>> CurrentUserStateChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="CurrentUserStateChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeCurrentUserStateChangedAsync(GridUserState<TItem> newGridUserState) => CurrentUserStateChanged.InvokeAsync(newGridUserState);
 
 		/// <summary>
 		/// Indicates whether the grid should be displayed as "in progress".
@@ -309,20 +321,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (!EqualityComparer<TItem>.Default.Equals(SelectedDataItem, newSelectedDataItem))
 			{
 				SelectedDataItem = newSelectedDataItem;
-				await SelectedDataItemChanged.InvokeAsync(newSelectedDataItem);
+				await InvokeSelectedDataItemChangedAsync(newSelectedDataItem);
 			}
 		}
 
 		private async Task SetSelectedDataItemsWithEventCallback(HashSet<TItem> selectedDataItems)
 		{
 			SelectedDataItems = selectedDataItems;
-			await SelectedDataItemsChanged.InvokeAsync(SelectedDataItems);
+			await InvokeSelectedDataItemsChangedAsync(SelectedDataItems);
 		}
 
 		private async Task<bool> SetCurrentSortingWithEventCallback(IReadOnlyList<SortingItem<TItem>> newSorting)
 		{
 			CurrentUserState = new GridUserState<TItem>(CurrentUserState.PageIndex, newSorting);
-			await CurrentUserStateChanged.InvokeAsync(CurrentUserState);
+			await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 			return true;
 		}
 
@@ -331,7 +343,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (CurrentUserState.PageIndex != newPageIndex)
 			{
 				CurrentUserState = new GridUserState<TItem>(newPageIndex, CurrentUserState.Sorting);
-				await CurrentUserStateChanged.InvokeAsync(CurrentUserState);
+				await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 				return true;
 			}
 			return false;
