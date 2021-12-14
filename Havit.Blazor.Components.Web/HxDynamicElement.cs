@@ -23,6 +23,10 @@ namespace Havit.Blazor.Components.Web
 		/// Raised after the element is clicked.
 		/// </summary>
 		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnClick"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
 
 		/// <summary>
 		/// Stop onClick-event propagation. Deafult is <c>false</c>.
@@ -53,15 +57,16 @@ namespace Havit.Blazor.Components.Web
 		{
 			builder.OpenElement(0, ElementName);
 
-			builder.AddEventPreventDefaultAttribute(1, "onclick", OnClickPreventDefault);
-			builder.AddEventStopPropagationAttribute(2, "onclick", OnClickStopPropagation);
-			builder.AddMultipleAttributes(3, AdditionalAttributes);
-			builder.AddElementReferenceCapture(4, capturedRef =>
+			builder.AddAttribute(1, "onclick", InvokeOnClickAsync);
+			builder.AddEventPreventDefaultAttribute(2, "onclick", OnClickPreventDefault);
+			builder.AddEventStopPropagationAttribute(3, "onclick", OnClickStopPropagation);
+			builder.AddMultipleAttributes(4, AdditionalAttributes);
+			builder.AddElementReferenceCapture(5, capturedRef =>
 			{
 				ElementRef = capturedRef;
 				ElementRefChanged?.Invoke(ElementRef);
 			});
-			builder.AddContent(5, ChildContent);
+			builder.AddContent(6, ChildContent);
 
 			builder.CloseElement();
 		}
