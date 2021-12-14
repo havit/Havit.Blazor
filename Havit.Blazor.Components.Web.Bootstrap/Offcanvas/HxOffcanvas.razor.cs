@@ -108,9 +108,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string FooterCssClass { get; set; }
 
 		/// <summary>
-		/// Raised when the offcanvas is closed (whatever reason there is).
+		/// This event is fired when an offcanvas element has been hidden from the user (will wait for CSS transitions to complete).
 		/// </summary>
 		[Parameter] public EventCallback OnClosed { get; set; }
+
+		/// <summary>
+		/// Triggers the <see cref="OnClosed"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnClosedAsync() => OnClosed.InvokeAsync();
+
+		/// <summary>
+		/// This event is fired when an offcanvas element has been made visible to the user (will wait for CSS transitions to complete).
+		/// </summary>
+		[Parameter] public EventCallback OnShown { get; set; }
+
+		/// <summary>
+		/// Triggers the <see cref="OnShown"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnShownAsync() => OnShown.InvokeAsync();
+
 
 		protected virtual OffcanvasDefaults GetDefaults() => HxOffcanvas.Defaults;
 
@@ -150,7 +166,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 			opened = true; // mark offcanvas as opened
 
-			StateHasChanged(); // ensures render offcanvas HTML
+			StateHasChanged(); // ensures rendering offcanvas HTML
 
 			return Task.CompletedTask;
 		}
@@ -168,8 +184,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task HandleOffcanvasHidden()
 		{
 			opened = false;
-			await OnClosed.InvokeAsync(); // fires "event" dialog has been closed
-			StateHasChanged(); // ensures rerender to remove dialog from HTML
+			await InvokeOnClosedAsync();
+			StateHasChanged(); // ensures rerender to remove the control from HTML
+		}
+
+		/// <summary>
+		/// Receives notification from JS for <c>shown.bs.offcanvas</c> event.
+		/// </summary>
+		[JSInvokable("HxOffcanvas_HandleOffcanvasShown")]
+		public async Task HandleOffcanvasShown()
+		{
+			await InvokeOnShownAsync();
 		}
 
 		/// <inheritdoc />

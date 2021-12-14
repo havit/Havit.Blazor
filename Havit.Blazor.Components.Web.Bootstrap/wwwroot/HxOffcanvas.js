@@ -11,7 +11,8 @@
 	}
 
 	element.hxOffcanvasDotnetObjectReference = hxOffcanvasDotnetObjectReference;
-	element.addEventListener('hidden.bs.offcanvas', handleOffcanvasHidden)
+	element.addEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
+	element.addEventListener('shown.bs.offcanvas', handleOffcanvasShown);
 	window.offcanvasElement = element;
 
 	let offcanvas = new bootstrap.Offcanvas(element, {
@@ -31,12 +32,22 @@ export function hide(element) {
 	}
 }
 
+function handleOffcanvasShown(event) {
+	event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasShown');
+}
+
+function handleOffcanvasHidden(event) {
+	event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasHidden');
+	dispose(event.target);
+}
+
 export function dispose(element) {
 	if (!element) {
 		return;
 	}
 
 	element.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
+	element.removeEventListener('shown.bs.offcanvas', handleOffcanvasShown);
 	element.hxOffcanvasDotnetObjectReference = null;
 
 	let o = bootstrap.Offcanvas.getInstance(element);
@@ -47,11 +58,5 @@ export function dispose(element) {
 
 	if (element === window.offcanvasElement) { // another offcanvas might be already open
 		window.offcanvasElement = null;
-		console.warn("dispose-null");
 	}
-}
-
-function handleOffcanvasHidden(event) {
-	event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasHidden');
-	dispose(event.target);
 }

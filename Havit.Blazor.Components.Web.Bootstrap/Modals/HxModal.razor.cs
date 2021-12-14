@@ -117,6 +117,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public EventCallback OnClosed { get; set; }
 
+		/// <summary>
+		/// Triggers the <see cref="OnClosed"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnClosedAsync() => OnClosed.InvokeAsync();
+
+		/// <summary>
+		/// This event is fired when an offcanvas element has been made visible to the user (will wait for CSS transitions to complete).
+		/// </summary>
+		[Parameter] public EventCallback OnShown { get; set; }
+
+		/// <summary>
+		/// Triggers the <see cref="OnShown"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnShownAsync() => OnShown.InvokeAsync();
+
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -166,8 +181,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task HandleModalHidden()
 		{
 			opened = false;
-			await OnClosed.InvokeAsync();
+			await InvokeOnClosedAsync();
 			StateHasChanged(); // ensures rerender to remove dialog from HTML
+		}
+
+		/// <summary>
+		/// Receives notification from JS for <c>shown.bs.modal</c> event.
+		/// </summary>
+		[JSInvokable("HxModal_HandleModalShown")]
+		public async Task HandleModalShown()
+		{
+			await InvokeOnShownAsync();
 		}
 
 		protected override async Task OnAfterRenderAsync(bool firstRender)
