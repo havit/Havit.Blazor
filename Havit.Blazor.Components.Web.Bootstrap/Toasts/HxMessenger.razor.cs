@@ -29,8 +29,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected override void OnInitialized()
 		{
-			base.OnInitialized();
-
 			Messenger.OnMessage += HandleMessage;
 			Messenger.OnClear += HandleClear;
 		}

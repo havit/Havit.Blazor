@@ -2352,9 +2352,19 @@
             Fired when the content has been made visible to the user and CSS transitions have completed.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.InvokeOnShownAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.OnShown"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.OnHidden">
             <summary>
             Fired when the content has finished being hidden from the user and CSS transitions have completed.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.InvokeOnHiddenAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.OnHidden"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.ShowAsync">
@@ -6291,9 +6301,19 @@
             Rised when the tab is activated.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.InvokeOnTabActivatedAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnTabActivated"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnTabDeactivated">
             <summary>
             Rised when the tab is deactivated (another tab is activates or when <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/> is disposed).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.InvokeOnTabDeactivatedAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnTabDeactivated"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnInitialized">
@@ -6324,6 +6344,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ActiveTabIdChanged">
             <summary>
             Raised when ID of the active tab changes.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.InvokeActiveTabIdChangedAsync(System.String)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ActiveTabIdChanged"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.InitialActiveTabId">
@@ -6704,6 +6729,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToast.OnToastHidden">
             <summary>
             Fires when toast is hidden (button or autohide).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxToast.InvokeOnToastHiddenAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxToast.OnToastHidden"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxToast.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">

@@ -58,11 +58,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// Fired when the content has been made visible to the user and CSS transitions have completed.
 		/// </summary>
 		[Parameter] public EventCallback OnShown { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnShown"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnShownAsync() => OnShown.InvokeAsync();
 
 		/// <summary>
 		/// Fired when the content has finished being hidden from the user and CSS transitions have completed.
 		/// </summary>
 		[Parameter] public EventCallback OnHidden { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnHidden"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnHiddenAsync() => OnHidden.InvokeAsync();
 
 
 		[Inject] public IJSRuntime JSRuntime { get; set; }
@@ -214,7 +222,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[JSInvokable("HxHandleJsShown")]
 		public async Task HandleJsShown()
 		{
-			await OnShown.InvokeAsync();
+			await InvokeOnShownAsync();
 		}
 
 		/// <summary>
@@ -223,7 +231,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[JSInvokable("HxHandleJsHidden")]
 		public async Task HandleJsHidden()
 		{
-			await OnHidden.InvokeAsync();
+			await InvokeOnHiddenAsync();
 		}
 
 		public async ValueTask DisposeAsync()

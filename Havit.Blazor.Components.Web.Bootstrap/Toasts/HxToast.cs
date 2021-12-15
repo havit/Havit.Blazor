@@ -65,6 +65,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Fires when toast is hidden (button or autohide).
 		/// </summary>
 		[Parameter] public EventCallback OnToastHidden { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnToastHidden"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnToastHiddenAsync() => OnToastHidden.InvokeAsync();
 
 		private ElementReference toastElement;
 		private DotNetObjectReference<HxToast> dotnetObjectReference;
@@ -200,7 +204,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxToast_HandleToastHidden")]
 		public async Task HandleToastHidden()
 		{
-			await OnToastHidden.InvokeAsync(null);
+			await InvokeOnToastHiddenAsync();
 		}
 
 		/// <inheritdoc />

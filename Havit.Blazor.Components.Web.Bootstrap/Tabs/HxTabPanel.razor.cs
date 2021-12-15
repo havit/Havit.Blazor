@@ -28,6 +28,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Raised when ID of the active tab changes.
 		/// </summary>
 		[Parameter] public EventCallback<string> ActiveTabIdChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="ActiveTabIdChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeActiveTabIdChangedAsync(string newActiveTabId) => ActiveTabIdChanged.InvokeAsync(newActiveTabId);
 
 		/// <summary>
 		/// ID of the tab which should be active at the very beginning.
@@ -78,8 +82,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (this.ActiveTabId != newId)
 			{
 				ActiveTabId = newId;
-				await ActiveTabIdChanged.InvokeAsync(newId);
-
+				await InvokeActiveTabIdChangedAsync(newId);
 				await NotifyActivationAndDeativatationAsync();
 			}
 		}

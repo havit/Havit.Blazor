@@ -6,6 +6,7 @@ using Havit.Blazor.Components.Web.Infrastructure;
 using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.RenderTree;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -63,11 +64,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Rised when the tab is activated.
 		/// </summary>
 		[Parameter] public EventCallback OnTabActivated { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnTabActivated"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnTabActivatedAsync() => OnTabActivated.InvokeAsync();
 
 		/// <summary>
 		/// Rised when the tab is deactivated (another tab is activates or when <see cref="HxTabPanel"/> is disposed).
 		/// </summary>
 		[Parameter] public EventCallback OnTabDeactivated { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnTabDeactivated"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnTabDeactivatedAsync() => OnTabDeactivated.InvokeAsync();
 
 		/// <inheritdoc />
 		protected override void OnInitialized()
@@ -88,12 +97,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		internal async Task NotifyActivatedAsync()
 		{
-			await OnTabActivated.InvokeAsync();
+			await InvokeOnTabActivatedAsync();
 		}
 
 		internal async Task NotifyDeactivatedAsync()
 		{
-			await OnTabDeactivated.InvokeAsync();
+			await InvokeOnTabDeactivatedAsync();
 		}
 
 		/// <inheritdoc />
