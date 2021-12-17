@@ -61,7 +61,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			messages.Remove(message);
 		}
 
-		public void Dispose()
+		public virtual void Dispose()
 		{
 			Messenger.OnMessage -= HandleMessage;
 			Messenger.OnClear -= HandleClear;

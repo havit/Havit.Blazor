@@ -180,7 +180,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Dispose the carousel.
 		/// </summary>
-		public async ValueTask DisposeAsync()
+		public virtual async ValueTask DisposeAsync()
 		{
 			disposed = true;
 

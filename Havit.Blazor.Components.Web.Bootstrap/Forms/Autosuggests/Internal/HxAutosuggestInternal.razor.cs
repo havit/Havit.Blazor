@@ -358,21 +358,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				: SelectorHelpers.GetText(TextSelector, item);
 		}
 
-		public async ValueTask DisposeAsync()
+		public virtual async ValueTask DisposeAsync()
 		{
 			disposed = true;
 
 			timer?.Dispose();
 			timer = null;
+
 			cancellationTokenSource?.Dispose();
 			cancellationTokenSource = null;
-
-			dotnetObjectReference?.Dispose();
 
 			if (jsModule != null)
 			{
 				await jsModule.DisposeAsync();
 			}
+
+			dotnetObjectReference?.Dispose();
 		}
 	}
 }

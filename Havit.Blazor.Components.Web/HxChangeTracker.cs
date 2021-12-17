@@ -65,7 +65,7 @@ namespace Havit.Blazor.Components.Web
 			builder.AddContent(0, ChildContent);
 		}
 
-		public void Dispose()
+		public virtual void Dispose()
 		{
 			Logger.LogDebug("Dispose: Value.PropertyChanged -= Value_PropertyChanged;");
 			Value.PropertyChanged -= Value_PropertyChanged;

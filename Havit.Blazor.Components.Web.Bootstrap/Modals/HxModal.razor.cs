@@ -263,22 +263,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return null;
 		}
 
-		public async ValueTask DisposeAsync()
+		public virtual async ValueTask DisposeAsync()
 		{
 			disposed = true;
 
-			if (opened)
+			if (jsModule != null)
 			{
-				// We need to remove backdrop when leaving "page" when HxModal is shown (opened).
-				await jsModule.InvokeVoidAsync("dispose", modalElement);
+				if (opened)
+				{
+					// We need to remove backdrop when leaving "page" when HxModal is shown (opened).
+					await jsModule.InvokeVoidAsync("dispose", modalElement);
+				}
+
+				await jsModule.DisposeAsync();
 			}
 
 			dotnetObjectReference.Dispose();
-
-			if (jsModule != null)
-			{
-				await jsModule.DisposeAsync();
-			}
 		}
 	}
 }

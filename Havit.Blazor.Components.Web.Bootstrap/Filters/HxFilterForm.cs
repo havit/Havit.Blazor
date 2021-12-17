@@ -114,7 +114,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.CloseComponent();
 		}
 
-		public void Dispose()
+		public virtual void Dispose() // TODO Missing IDisposable ?!
 		{
 			isDisposed = true;
 		}

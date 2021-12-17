@@ -227,7 +227,7 @@ namespace Havit.Blazor.Components.Web
 			await InvokeOnUploadCompletedAsync(uploadCompleted);
 		}
 
-		public async ValueTask DisposeAsync()
+		public virtual async ValueTask DisposeAsync()
 		{
 			disposed = true;
 

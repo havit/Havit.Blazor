@@ -3510,7 +3510,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.System#IDisposable#Dispose">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.Dispose">
             <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults">

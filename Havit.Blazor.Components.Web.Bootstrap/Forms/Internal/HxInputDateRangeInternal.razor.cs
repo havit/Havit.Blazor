@@ -286,7 +286,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		}
 
 		/// <inheritdoc />
-		public async ValueTask DisposeAsync()
+		public virtual async ValueTask DisposeAsync()
 		{
 			validationMessageStore?.Clear();
 
