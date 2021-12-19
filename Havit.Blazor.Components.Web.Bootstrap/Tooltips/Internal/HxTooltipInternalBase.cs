@@ -102,7 +102,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			if (shouldRenderSpan)
 			{
 				builder.OpenElement(1, "span");
-				builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", WrapperCssClass));
+				builder.AddAttribute(2, "class", WrapperCssClass);
 				builder.AddAttribute(3, "data-bs-container", "body");
 				builder.AddAttribute(4, "data-bs-trigger", GetTriggers());
 				builder.AddAttribute(5, "data-bs-placement", PlacementInternal.ToString().ToLower());
