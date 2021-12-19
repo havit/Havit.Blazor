@@ -88,6 +88,7 @@
 * [`HxBreadcrumb`](https://havit.blazor.eu/components/HxBreadcrumb) - <a href="https://getbootstrap.com/docs/5.1/components/breadcrumb/">Bootstrap 5 Breadcrumb</a> component. Indicates the current page’s location within a navigational hierarchy.
 * [`HxAnchorFragmentNavigation`](https://havit.blazor.eu/components/HxAnchorFragmentNavigation) - Compensates Blazor deficiency in anchor-fragments (scrolling to <code>page#id</code> URLs).
 * [`HxTabPanel`](https://havit.blazor.eu/components/HxTabPanel) - Container for <code><a href="/components/HxTab/">HxTab</a></code>s for easier implementation of tabbed UI.
+* [`HxRedirectTo`](https://havit.blazor.eu/components/HxRedirectTo) - Rendering a HxRedirectTo will navigate to a new location.
 
 ## Modals & Interactions
 
