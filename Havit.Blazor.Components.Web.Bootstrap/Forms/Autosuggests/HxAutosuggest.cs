@@ -93,13 +93,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual AutosuggestDefaults GetDefaults() => HxAutosuggest.Defaults;
-		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		protected virtual AutosuggestSettings GetDefaults() => HxAutosuggest.Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		/// <inheritdoc cref="ComponentBase.BuildRenderTree(RenderTreeBuilder)" />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
-			AutosuggestDefaults defaults = this.GetDefaults();
+			AutosuggestSettings defaults = this.GetDefaults();
 
 			LabelType labelTypeEffective = (this as IInputWithLabelType).LabelTypeEffective;
 

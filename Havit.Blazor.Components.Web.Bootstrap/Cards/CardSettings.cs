@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Application-wide defaults for <see cref="HxCard"/>.
+	/// Settings for <see cref="HxCard"/>.
 	/// </summary>
-	public class CardDefaults
+	public class CardSettings
 	{
 		/// <summary>
 		/// Additional CSS classes for the card-container.

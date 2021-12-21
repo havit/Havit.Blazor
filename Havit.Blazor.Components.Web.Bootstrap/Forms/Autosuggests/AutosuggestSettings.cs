@@ -8,9 +8,9 @@ using Havit.Blazor.Components.Web.Bootstrap.Internal;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Default values for <see cref="HxAutosuggest{TItem, TValue} "/>.
+	/// Settings for <see cref="HxAutosuggest{TItem, TValue} "/>.
 	/// </summary>
-	public class AutosuggestDefaults : IInputDefaultsWithSize
+	public class AutosuggestSettings : IInputSettingsWithSize
 	{
 		/// <summary>
 		/// Icon displayed in input when no item is selected.

@@ -3,9 +3,9 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Settings for <see cref="HxModal.Defaults"/>.
+	/// Settings for the <see cref="HxModal"/> component
 	/// </summary>
-	public class ModalDefaults
+	public class ModalSettings
 	{
 		/// <summary>
 		/// Indicates whether the modal shows close button in header.

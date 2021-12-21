@@ -89,8 +89,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual InputDateDefaults GetDefaults() => HxInputDate.Defaults;
-		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		protected virtual InputDateSettings GetDefaults() => HxInputDate.Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputDateInternal */ : LabelValueRenderOrder.LabelValue;
 

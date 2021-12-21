@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		InputSize? InputSize { get; set; }
 
-		IInputDefaultsWithSize GetDefaults();
+		IInputSettingsWithSize GetDefaults();
 
 		InputSize InputSizeEffective => this.InputSize ?? GetDefaults().InputSize;
 

@@ -8,9 +8,9 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Application-wide defaults for <see cref="HxButton"/>.
+	/// Settings for <see cref="HxButton"/> and derived components.
 	/// </summary>
-	public record ButtonDefaults
+	public record ButtonSettings
 	{
 		/// <summary>
 		/// Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />
@@ -18,12 +18,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public ButtonSize Size { get; set; } = ButtonSize.Regular;
 
 		/// <summary>
-		/// CSS class to be rendered with button.
+		/// CSS class to be rendered with the button.
 		/// </summary>
 		public string CssClass { get; set; }
 
 		/// <summary>
-		/// Icon to be rendered with button.
+		/// Icon to be rendered with the button.
 		/// </summary>
 		public IconBase Icon { get; set; }
 

@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxCalendar
 	{
-		public static CalendarDefaults Defaults { get; set; } = new CalendarDefaults();
+		public static CalendarSettings Defaults { get; set; } = new CalendarSettings();
 
 		/// <summary>
 		/// Date selected.
@@ -70,7 +70,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual CalendarDefaults GetDefaults() => Defaults;
+		protected virtual CalendarSettings GetDefaults() => Defaults;
 
 		private CultureInfo Culture => CultureInfo.CurrentUICulture;
 		private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;

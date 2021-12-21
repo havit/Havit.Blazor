@@ -3,9 +3,9 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Default values for <see cref="HxSelect{TValue, TItem}"/> and derived components.
+	/// Settings for the <see cref="HxSelect{TValue, TItem}"/> component.
 	/// </summary>
-	public class SelectDefaults : IInputDefaultsWithSize
+	public class SelectSettings : IInputSettingsWithSize
 	{
 		/// <summary>
 		/// Input size.

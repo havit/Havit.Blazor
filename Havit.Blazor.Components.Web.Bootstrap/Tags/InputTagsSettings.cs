@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Components;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Default values for <see cref="HxInputTags"/>.
+	/// Settings for the <see cref="HxInputTags"/> component.
 	/// </summary>
-	public class InputTagsDefaults : IInputDefaultsWithSize
+	public class InputTagsSettings : IInputSettingsWithSize
 	{
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.

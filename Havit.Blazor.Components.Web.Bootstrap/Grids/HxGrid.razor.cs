@@ -23,7 +23,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxGrid{TItem}"/>.
 		/// </summary>
-		public static GridDefaults Defaults { get; } = new GridDefaults();
+		public static GridSettings Defaults { get; } = new GridSettings();
 
 		/// <summary>
 		/// ColumnsRegistration cascading value name.
@@ -208,7 +208,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual GridDefaults GetDefaults() => HxGrid<TItem>.Defaults;
+		protected virtual GridSettings GetDefaults() => HxGrid<TItem>.Defaults;
 
 		private List<IHxGridColumn<TItem>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItem>> columnsListRegistration;

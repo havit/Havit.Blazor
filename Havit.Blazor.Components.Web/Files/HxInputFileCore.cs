@@ -21,7 +21,7 @@ namespace Havit.Blazor.Components.Web
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputFileCore"/>.
 		/// </summary>
-		public static InputFileCoreDefaults Defaults { get; } = new();
+		public static InputFileCoreSettings Defaults { get; } = new();
 
 		/// <summary>
 		/// URL of the server endpoint receiving the files.
@@ -96,7 +96,7 @@ namespace Havit.Blazor.Components.Web
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual InputFileCoreDefaults GetDefaults() => Defaults;
+		protected virtual InputFileCoreSettings GetDefaults() => Defaults;
 
 		protected long? MaxFileSizeEffective => MaxFileSize ?? GetDefaults().MaxFileSize;
 

@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for <see cref="HxFormValue"/> and derived components.
 		/// </summary>
-		public static FormValueDefaults Defaults { get; set; } = new();
+		public static FormValueSettings Defaults { get; set; } = new();
 
 		/// <inheritdoc cref="IFormValueComponent.CssClass" />
 		[Parameter] public string CssClass { get; set; }
@@ -73,8 +73,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants that differ in the default values.
 		/// </summary>
-		protected virtual FormValueDefaults GetDefaults() => Defaults;
-		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults();
+		protected virtual FormValueSettings GetDefaults() => Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults();
 
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)

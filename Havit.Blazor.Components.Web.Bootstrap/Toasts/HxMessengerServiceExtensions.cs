@@ -14,7 +14,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Default values for extension methods.
 		/// </summary>
-		public static HxMessengerServiceExtensionsDefaults Defaults { get; } = new HxMessengerServiceExtensionsDefaults();
+		public static MessengerServiceExtensionsSettings Defaults { get; } = new MessengerServiceExtensionsSettings();
 
 		/// <summary>
 		/// Adds and shows an informational message. Message is automatically hidden 5 seconds after showing up.

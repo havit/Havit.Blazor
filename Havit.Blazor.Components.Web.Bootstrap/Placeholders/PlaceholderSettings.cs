@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Settings for the <see cref="HxPlaceholder.Defaults"/>.
+	/// Settings for the <see cref="HxPlaceholder"/> component.
 	/// </summary>
-	public class PlaceholderDefaults
+	public class PlaceholderSettings
 	{
 		/// <summary>
 		/// Size of the placeholder. Default is <see cref="PlaceholderSize.Regular"/>.

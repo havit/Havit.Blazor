@@ -15,6 +15,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxAutosuggest{TItem, TValue}"/>.
 		/// </summary>
-		public static InputNumberDefaults Defaults { get; } = new InputNumberDefaults();
+		public static InputNumberSettings Defaults { get; } = new InputNumberSettings();
 	}
 }

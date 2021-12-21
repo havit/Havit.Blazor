@@ -25,7 +25,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputDateRange"/>.
 		/// </summary>
-		public static InputDateRangeDefaults Defaults { get; } = new InputDateRangeDefaults();
+		public static InputDateRangeSettings Defaults { get; } = new InputDateRangeSettings();
 
 		/// <summary>
 		/// When <c>true</c>, uses default date ranges (this month, last month, this year, last year).
@@ -83,8 +83,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual InputDateRangeDefaults GetDefaults() => Defaults;
-		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		protected virtual InputDateRangeSettings GetDefaults() => Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{

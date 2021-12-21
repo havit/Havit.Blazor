@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Components;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Application-wide defaults for <see cref="HxGrid{TItem}"/>.
+	/// Settings for <see cref="HxGrid{TItem}"/>.
 	/// </summary>
-	public class GridDefaults
+	public class GridSettings
 	{
 		/// <summary>
 		/// Strategy how data are displayed in the grid (and loaded to the grid).

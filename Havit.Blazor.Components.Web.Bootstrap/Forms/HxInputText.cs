@@ -19,7 +19,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputText"/>.
 		/// </summary>
-		public static InputTextDefaults Defaults { get; } = new InputTextDefaults();
+		public static InputTextSettings Defaults { get; } = new InputTextSettings();
 
 		/// <summary>
 		/// Input type.

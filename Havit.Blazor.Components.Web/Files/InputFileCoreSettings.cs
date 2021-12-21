@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web
 	/// <summary>
 	/// Defaults for the <see cref="HxInputFileCore"/>.
 	/// </summary>
-	public class InputFileCoreDefaults
+	public class InputFileCoreSettings
 	{
 		/// <summary>
 		/// The maximum files size in bytes.

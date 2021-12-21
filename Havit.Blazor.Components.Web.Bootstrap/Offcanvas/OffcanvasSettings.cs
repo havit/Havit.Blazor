@@ -3,9 +3,9 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Application wide defaults for <see cref="HxOffcanvas"/>.
+	/// Settings for the <see cref="HxOffcanvas"/> component.
 	/// </summary>
-	public class OffcanvasDefaults
+	public class OffcanvasSettings
 	{
 		/// <summary>
 		/// Close icon to be used in header.
@@ -27,7 +27,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public bool BackdropEnabled { get; set; } = true;
 
 		/// <summary>
-		/// Offcanvas additional CSS class. Added to root div (.offcanvas).
+		/// Offcanvas additional CSS class. Added to root div (<c>.offcanvas</c>).
 		/// </summary>
 		public string CssClass { get; set; }
 

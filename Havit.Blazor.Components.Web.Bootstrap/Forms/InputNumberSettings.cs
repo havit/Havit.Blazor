@@ -3,9 +3,9 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Default values for <see cref="HxInputText"/> and derived components.
+	/// Settings for the <see cref="HxInputNumber{TValue}"/> component.
 	/// </summary>
-	public class InputTextDefaults : IInputDefaultsWithSize
+	public class InputNumberSettings : IInputSettingsWithSize
 	{
 		/// <summary>
 		/// Input size.

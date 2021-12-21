@@ -247,12 +247,12 @@
             Receive upload finished notification from underlying javascript.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.InputFileCoreDefaults">
+        <member name="T:Havit.Blazor.Components.Web.InputFileCoreSettings">
             <summary>
             Defaults for the <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.InputFileCoreDefaults.MaxFileSize">
+        <member name="P:Havit.Blazor.Components.Web.InputFileCoreSettings.MaxFileSize">
             <summary>
             The maximum files size in bytes.
             When exceeded, the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.

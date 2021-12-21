@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for <see cref="HxCard"/>.
 		/// </summary>
-		public static CardDefaults Defaults { get; set; } = new CardDefaults();
+		public static CardSettings Defaults { get; set; } = new CardSettings();
 
 		/// <summary>
 		/// Image to be placed in the card. For image position see <see cref="ImagePlacement"/>.
@@ -92,6 +92,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual CardDefaults GetDefaults() => Defaults;
+		protected virtual CardSettings GetDefaults() => Defaults;
 	}
 }

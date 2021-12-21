@@ -17,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for <see cref="HxPlaceholderContainer"/>.
 		/// </summary>
-		public static PlaceholderContainerDefaults Defaults { get; set; } = new();
+		public static PlaceholderContainerSettings Defaults { get; set; } = new();
 
 		/// <summary>
 		/// Animation of the placeholders in container.
@@ -54,7 +54,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual PlaceholderContainerDefaults GetDefaults() => Defaults;
+		protected virtual PlaceholderContainerSettings GetDefaults() => Defaults;
 
 		protected virtual string GetCssClass()
 		{

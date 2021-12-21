@@ -19,7 +19,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxGrid{TItem}"/>.
 		/// </summary>
-		public static ModalDefaults Defaults { get; } = new ModalDefaults();
+		public static ModalSettings Defaults { get; } = new ModalSettings();
 
 		/// <summary>
 		/// Title in modal header.
@@ -136,7 +136,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 
-		protected virtual ModalDefaults GetDefaults() => HxModal.Defaults;
+		protected virtual ModalSettings GetDefaults() => HxModal.Defaults;
 
 		protected IconBase CloseButtonIconEffective => CloseButtonIcon ?? GetDefaults().CloseButtonIcon;
 		protected bool ShowCloseButtonEffective => ShowCloseButton ?? GetDefaults().ShowCloseButton;

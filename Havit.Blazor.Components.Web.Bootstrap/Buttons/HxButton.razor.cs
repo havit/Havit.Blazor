@@ -22,7 +22,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for <see cref="HxButton"/> and derived components.
 		/// </summary>
-		public static ButtonDefaults Defaults { get; set; } = new();
+		public static ButtonSettings Defaults { get; set; } = new();
 
 		/// <summary>
 		/// Text of the button.
@@ -170,7 +170,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual ButtonDefaults GetDefaults() => Defaults;
+		protected virtual ButtonSettings GetDefaults() => Defaults;
 
 		protected IconBase IconEffective => this.Icon ?? GetDefaults().Icon;
 		protected ButtonIconPlacement IconPlacementEffective => this.IconPlacement ?? GetDefaults().IconPlacement;
@@ -196,7 +196,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected string GetColorCssClass()
 		{
 			var outlineEffective = this.Outline ?? GetDefaults().Outline;
-			var colorEffective = this.Color ?? GetDefaults().Color ?? throw new InvalidOperationException($"Button {nameof(Color)} has to be set - either from {nameof(ButtonDefaults)} or explicitly.");
+			var colorEffective = this.Color ?? GetDefaults().Color ?? throw new InvalidOperationException($"Button {nameof(Color)} has to be set - either from {nameof(ButtonSettings)} or explicitly.");
 
 			if (outlineEffective)
 			{

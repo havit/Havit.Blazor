@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 {
+
 	/// <summary>
-	/// Defaults for the <see cref="HxInputFile"/>.
+	/// Settings for <see cref="HxFormValue"/>.
 	/// </summary>
-	public class InputFileDefaults : IInputDefaultsWithSize
+	public class FormValueSettings : IInputSettingsWithSize
 	{
 		/// <summary>
-		/// Input size.
+		/// Input size. Default is <see cref="InputSize.Regular"/>.
 		/// </summary>
 		public InputSize InputSize { get; set; } = InputSize.Regular;
 	}

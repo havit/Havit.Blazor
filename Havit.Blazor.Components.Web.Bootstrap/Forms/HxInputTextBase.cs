@@ -37,8 +37,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual InputTextDefaults GetDefaults() => HxInputText.Defaults;
-		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		protected virtual InputTextSettings GetDefaults() => HxInputText.Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)

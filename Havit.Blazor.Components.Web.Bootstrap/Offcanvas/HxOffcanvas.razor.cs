@@ -17,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxOffcanvas"/>.
 		/// </summary>
-		public static OffcanvasDefaults Defaults { get; } = new OffcanvasDefaults();
+		public static OffcanvasSettings Defaults { get; } = new OffcanvasSettings();
 
 		/// <summary>
 		/// Text for the title in header.
@@ -128,7 +128,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected virtual Task InvokeOnShownAsync() => OnShown.InvokeAsync();
 
 
-		protected virtual OffcanvasDefaults GetDefaults() => HxOffcanvas.Defaults;
+		protected virtual OffcanvasSettings GetDefaults() => HxOffcanvas.Defaults;
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 

@@ -60,8 +60,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual InputDateRangeDefaults GetDefaults() => HxInputDateRange.Defaults;
-		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		protected virtual InputDateRangeSettings GetDefaults() => HxInputDateRange.Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		protected override void OnParametersSet()
 		{

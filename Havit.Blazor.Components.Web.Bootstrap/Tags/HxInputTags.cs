@@ -21,7 +21,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputTags"/>.
 		/// </summary>
-		public static InputTagsDefaults Defaults { get; } = new InputTagsDefaults();
+		public static InputTagsSettings Defaults { get; } = new InputTagsSettings();
 
 		/// <summary>
 		/// Indicates whether you are restricted to suggested items only (<c>false</c>).
@@ -98,8 +98,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual InputTagsDefaults GetDefaults() => HxInputTags.Defaults;
-		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		protected virtual InputTagsSettings GetDefaults() => HxInputTags.Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
 		private protected override string CoreCssClass => "hx-input-tags position-relative";

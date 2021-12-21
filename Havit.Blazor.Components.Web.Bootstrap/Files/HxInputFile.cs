@@ -20,7 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputFile"/>.
 		/// </summary>
-		public static InputFileDefaults Defaults { get; } = new();
+		public static InputFileSettings Defaults { get; } = new();
 
 		/// <summary>
 		/// URL of the server endpoint receiving the files.
@@ -182,8 +182,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual InputFileDefaults GetDefaults() => Defaults;
-		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		protected virtual InputFileSettings GetDefaults() => Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{

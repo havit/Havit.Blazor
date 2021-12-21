@@ -158,41 +158,6 @@
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults">
-            <summary>
-            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults.Size">
-            <summary>
-            Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults.CssClass">
-            <summary>
-            CSS class to be rendered with button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults.Icon">
-            <summary>
-            Icon to be rendered with button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults.IconPlacement">
-            <summary>
-            Position of the icon within the button. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonIconPlacement.Start" />
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults.Color">
-            <summary>
-            Bootstrap button color (style). Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonDefaults.Outline">
-            <summary>
-            Bootstrap outline button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonGroupOrientation">
             <summary>
             Orientation for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup"/>.
@@ -211,6 +176,41 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonIconPlacement">
             <summary>
             Position of the icon within the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings">
+            <summary>
+            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.Size">
+            <summary>
+            Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.CssClass">
+            <summary>
+            CSS class to be rendered with the button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.Icon">
+            <summary>
+            Icon to be rendered with the button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.IconPlacement">
+            <summary>
+            Position of the icon within the button. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonIconPlacement.Start" />
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.Color">
+            <summary>
+            Bootstrap button color (style). Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.Outline">
+            <summary>
+            Bootstrap outline button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonSize">
@@ -494,32 +494,32 @@
             Customization is for the <i>To</i> dropdown calendar in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange" />.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CalendarDefaults">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings">
             <summary>
-            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar"/>.
+            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarDefaults.DefaultMinDate">
-            <summary>
-            Internal HFW shared default.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarDefaults.DefaultMaxDate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings.DefaultMinDate">
             <summary>
             Internal HFW shared default.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarDefaults.MinDate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings.DefaultMaxDate">
+            <summary>
+            Internal HFW shared default.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings.MinDate">
             <summary>
             Minimal value to choose from calendar.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarDefaults.MaxDate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings.MaxDate">
             <summary>
             Maximal value to choose from calendar.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarDefaults.DateCustomizationProvider">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings.DateCustomizationProvider">
             <summary>
             Allows customization of the dates in dropdown calendars.
             </summary>
@@ -583,34 +583,34 @@
             Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CardDefaults">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CardImagePlacement">
             <summary>
-            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>.
+            Placement of the image in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> component.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardDefaults.CssClass">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CardSettings">
+            <summary>
+            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSettings.CssClass">
             <summary>
             Additional CSS classes for the card-container.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardDefaults.HeaderCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSettings.HeaderCssClass">
             <summary>
             Additional CSS class for the header.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardDefaults.BodyCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSettings.BodyCssClass">
             <summary>
             Additional CSS class for the body.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardDefaults.FooterCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSettings.FooterCssClass">
             <summary>
             Additional CSS class for the footer.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CardImagePlacement">
-            <summary>
-            Placement of the image in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> component.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCard">
@@ -1713,12 +1713,12 @@
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputFileDefaults">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputFileSettings">
             <summary>
-            Defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/>.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/> component.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputFileDefaults.InputSize">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputFileSettings.InputSize">
             <summary>
             Input size.
             </summary>
@@ -1769,32 +1769,32 @@
             The provided items by the request.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDefaults">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings">
             <summary>
-            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
+            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDefaults.SearchIcon">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.SearchIcon">
             <summary>
             Icon displayed in input when no item is selected.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDefaults.ClearIcon">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.ClearIcon">
             <summary>
             Icon displayed in input on selection clear button when item is selected.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDefaults.MinimumLength">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.MinimumLength">
             <summary>
             Minimal number of characters to start suggesting. Default is <c>2</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDefaults.Delay">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.Delay">
             <summary>
             Debounce delay in miliseconds. Default is <c>300 ms</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDefaults.InputSize">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.InputSize">
             <summary>
             Input size.
             </summary>
@@ -2157,7 +2157,7 @@
             Input-group at the end of the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputDefaultsWithSize.InputSize">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputSettingsWithSize.InputSize">
             <summary>
             Input size.
             </summary>
@@ -2445,12 +2445,12 @@
             Date range.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Forms.FormValueDefaults">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Forms.FormValueSettings">
             <summary>
-            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxFormValue"/> and derived components.
+            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxFormValue"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Forms.FormValueDefaults.InputSize">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Forms.FormValueSettings.InputSize">
             <summary>
             Input size. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.InputSize.Regular"/>.
             </summary>
@@ -3513,93 +3513,93 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.Dispose">
             <inheritdoc />
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings">
             <summary>
-            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> and derived components.
+            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.InputSize">
-            <summary>
-            Input size.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.CalendarIcon">
-            <summary>
-            Optional icon to display within the input.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.ShowCalendarButtons">
-            <summary>
-            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
-            Default is <c>true</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.MinDate">
-            <summary>
-            First date selectable from the dropdown calendar.
-            Default is <c>1.1.1900</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.MaxDate">
-            <summary>
-            Last date selectable from the dropdown calendar.
-            Default is <c>31.12.2099</c>
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateDefaults.CalendarDateCustomizationProvider">
-            <summary>
-            Allows customization of the dates in dropdown calendars.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults">
-            <summary>
-            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> and derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults.InputSize">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.InputSize">
             <summary>
             Input size.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults.ShowCalendarButtons">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ShowCalendarButtons">
             <summary>
             Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendars should be visible.<br/>
             Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults.MinDate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.MinDate">
             <summary>
             First date selectable from the dropdown calendar.
             Default is <c>1.1.1900</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults.MaxDate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.MaxDate">
             <summary>
             Last date selectable from the dropdown calendar.
             Default is <c>31.12.2099</c>
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeDefaults.CalendarDateCustomizationProvider">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.CalendarDateCustomizationProvider">
             <summary>
             Allows customization of the dates in dropdown calendars.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputNumberDefaults">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings">
             <summary>
-            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1"/> and derived components.
+            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberDefaults.InputSize">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.InputSize">
             <summary>
             Input size.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTextDefaults">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.CalendarIcon">
             <summary>
-            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputText"/> and derived components.
+            Optional icon to display within the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextDefaults.InputSize">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.ShowCalendarButtons">
+            <summary>
+            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
+            Default is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.MinDate">
+            <summary>
+            First date selectable from the dropdown calendar.
+            Default is <c>1.1.1900</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.MaxDate">
+            <summary>
+            Last date selectable from the dropdown calendar.
+            Default is <c>31.12.2099</c>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.CalendarDateCustomizationProvider">
+            <summary>
+            Allows customization of the dates in dropdown calendars.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputSize">
+            <summary>
+            Input size.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputText"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.InputSize">
             <summary>
             Input size.
             </summary>
@@ -3625,12 +3625,12 @@
             <a href="https://getbootstrap.com/docs/5.0/forms/floating-labels/" />
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectDefaults">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">
             <summary>
-            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/> and derived components.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/> component.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectDefaults.InputSize">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.InputSize">
             <summary>
             Input size.
             </summary>
@@ -3749,90 +3749,6 @@
             The total item count in the source (for pagination and infinite scroll).
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridDefaults">
-            <summary>
-            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.ContentNavigationMode">
-            <summary>
-            Strategy how data are displayed in the grid (and loaded to the grid).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.SortAscendingIcon">
-            <summary>
-            Icon to display ascending sort direction.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.SortDescendingIcon">
-            <summary>
-            Icon to display descending sort direction.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.ItemRowHeight">
-            <summary>
-            Height of the item row used for infinite scroll calculations.
-            Default value is <c>41px</c> (row-height of regular table-row within Bootstrap 5 default theme).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.OverscanCount">
-            <summary>
-            Infinite scroll:
-            Gets or sets a value that determines how many additional items will be rendered
-            before and after the visible region. This help to reduce the frequency of rendering
-            during scrolling. However, higher values mean that more elements will be present
-            in the page.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.PageSize">
-            <summary>
-            Page size.
-            Default is <c>20</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.PlaceholdersRowCount">
-            <summary>
-            Number of rows with placeholders to render.
-            Default is <c>5</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.ShowFooterWhenEmptyData">
-            <summary>
-            Indicates whether to render footer when data are empty.
-            Default is <c>false</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.TableContainerCssClass">
-            <summary>
-            Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c>
-            (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <c>div</c> element).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.TableCssClass">
-            <summary>
-            Custom CSS class to render with main <c>table</c> element.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.HeaderRowCssClass">
-            <summary>
-            Custom CSS class to render with header <c>tr</c> element.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.ItemRowCssClass">
-            <summary>
-            Custom CSS class to render with data <c>tr</c> element.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.FooterRowCssClass">
-            <summary>
-            Custom CSS class to render with footer <c>tr</c> element.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDefaults.PagerContainerCssClass">
-            <summary>
-            Custom CSS class to render with pager wrapping <c>div</c> element.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext">
             <summary>
             Grid footer cell context.
@@ -3863,6 +3779,90 @@
             Index of the row.		
             It reflects current page index when <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination" /> mode is used
             (ie. when the page size is 10, then on the third page indexes are 20-29).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridSettings">
+            <summary>
+            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ContentNavigationMode">
+            <summary>
+            Strategy how data are displayed in the grid (and loaded to the grid).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.SortAscendingIcon">
+            <summary>
+            Icon to display ascending sort direction.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.SortDescendingIcon">
+            <summary>
+            Icon to display descending sort direction.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ItemRowHeight">
+            <summary>
+            Height of the item row used for infinite scroll calculations.
+            Default value is <c>41px</c> (row-height of regular table-row within Bootstrap 5 default theme).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.OverscanCount">
+            <summary>
+            Infinite scroll:
+            Gets or sets a value that determines how many additional items will be rendered
+            before and after the visible region. This help to reduce the frequency of rendering
+            during scrolling. However, higher values mean that more elements will be present
+            in the page.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PageSize">
+            <summary>
+            Page size.
+            Default is <c>20</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PlaceholdersRowCount">
+            <summary>
+            Number of rows with placeholders to render.
+            Default is <c>5</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ShowFooterWhenEmptyData">
+            <summary>
+            Indicates whether to render footer when data are empty.
+            Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.TableContainerCssClass">
+            <summary>
+            Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c>
+            (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <c>div</c> element).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.TableCssClass">
+            <summary>
+            Custom CSS class to render with main <c>table</c> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.HeaderRowCssClass">
+            <summary>
+            Custom CSS class to render with header <c>tr</c> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ItemRowCssClass">
+            <summary>
+            Custom CSS class to render with data <c>tr</c> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.FooterRowCssClass">
+            <summary>
+            Custom CSS class to render with footer <c>tr</c> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PagerContainerCssClass">
+            <summary>
+            Custom CSS class to render with pager wrapping <c>div</c> element.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState`1">
@@ -5042,68 +5042,6 @@
             Receives notification from JS for <c>shown.bs.modal</c> event.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults">
-            <summary>
-            Settings for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.ShowCloseButton">
-            <summary>
-            Indicates whether the modal shows close button in header.
-            Default value is <c>true</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.CloseButtonIcon">
-            <summary>
-            Close icon to be used in header.
-            If set to <c>null</c> (default), Bootstrap default close-button will be used.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.Size">
-            <summary>
-            Size of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalSize.Regular"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.Fullscreen">
-            <summary>
-            Fullscreen behavior of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.Disabled"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.Scrollable">
-            <summary>
-            Allows scrolling the modal body. Default is <c>false</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.Centered">
-            <summary>
-            Allows vertical centering of the modal. Default is <c>false</c> (horizontal only).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.CssClass">
-            <summary>
-            Additional CSS class for the main element (<c>div.modal</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.DialogCssClass">
-            <summary>
-            Additional CSS class for the dialog (<c>div.modal-dialog</c> element).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.HeaderCssClass">
-            <summary>
-            Additional header CSS class.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.BodyCssClass">
-            <summary>
-            Additional body CSS class.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalDefaults.FooterCssClass">
-            <summary>
-            Footer css class.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen">
             <summary>
             Fullscreen behavior for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/>.
@@ -5142,6 +5080,68 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.XxlDown">
             <summary>
             Fullscreen for viewports bellow "XXL" breakpoint (<c>1400px</c>).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> component
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.ShowCloseButton">
+            <summary>
+            Indicates whether the modal shows close button in header.
+            Default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.CloseButtonIcon">
+            <summary>
+            Close icon to be used in header.
+            If set to <c>null</c> (default), Bootstrap default close-button will be used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Size">
+            <summary>
+            Size of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalSize.Regular"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Fullscreen">
+            <summary>
+            Fullscreen behavior of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.Disabled"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Scrollable">
+            <summary>
+            Allows scrolling the modal body. Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Centered">
+            <summary>
+            Allows vertical centering of the modal. Default is <c>false</c> (horizontal only).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.CssClass">
+            <summary>
+            Additional CSS class for the main element (<c>div.modal</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.DialogCssClass">
+            <summary>
+            Additional CSS class for the dialog (<c>div.modal-dialog</c> element).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.HeaderCssClass">
+            <summary>
+            Additional header CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.BodyCssClass">
+            <summary>
+            Additional body CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.FooterCssClass">
+            <summary>
+            Footer css class.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalSize">
@@ -5838,50 +5838,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.DisposeAsync">
             <inheritdoc />
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults">
-            <summary>
-            Application wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.CloseButtonIcon">
-            <summary>
-            Close icon to be used in header.
-            If set to <c>null</c>, Bootstrap default close-button will be used.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.ShowCloseButton">
-            <summary>
-            Indicates whether the modal shows close button in header.
-            Default value is <c>true</c>.
-            Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.CloseButtonIcon"/> to change shape of the button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.BackdropEnabled">
-            <summary>
-            Indicates whether to apply a backdrop on body while offcanvas is open.
-            Default value is <c>true</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.CssClass">
-            <summary>
-            Offcanvas additional CSS class. Added to root div (.offcanvas).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.HeaderCssClass">
-            <summary>
-            Additional header CSS class.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.BodyCssClass">
-            <summary>
-            Additional body CSS class.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasDefaults.FooterCssClass">
-            <summary>
-            Additional footer CSS class.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasRenderMode">
             <summary>
             Offcanvas render mode.
@@ -5897,6 +5853,50 @@
             <summary>
             Offcanvas content is always rendered (and hidden with CSS if not open).
             Needed for HxFilterForm with HxChipList.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.CloseButtonIcon">
+            <summary>
+            Close icon to be used in header.
+            If set to <c>null</c>, Bootstrap default close-button will be used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.ShowCloseButton">
+            <summary>
+            Indicates whether the modal shows close button in header.
+            Default value is <c>true</c>.
+            Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.CloseButtonIcon"/> to change shape of the button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.BackdropEnabled">
+            <summary>
+            Indicates whether to apply a backdrop on body while offcanvas is open.
+            Default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.CssClass">
+            <summary>
+            Offcanvas additional CSS class. Added to root div (<c>.offcanvas</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.HeaderCssClass">
+            <summary>
+            Additional header CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.BodyCssClass">
+            <summary>
+            Additional body CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.FooterCssClass">
+            <summary>
+            Additional footer CSS class.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder">
@@ -6053,37 +6053,37 @@
             Wave animation.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerDefaults">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerSettings">
             <summary>
-            Settings for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Defaults"/>.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/> component.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerDefaults.Animation">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerSettings.Animation">
             <summary>
             Animation of the placeholders in container. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.None"/> (no animation).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerDefaults.CssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerSettings.CssClass">
             <summary>
             Additional CSS class for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/>.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderSettings">
             <summary>
-            Settings for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Defaults"/>.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/> component.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.Size">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderSettings.Size">
             <summary>
             Size of the placeholder. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderSize.Regular"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.Color">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderSettings.Color">
             <summary>
             Color of the placeholder. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> (= use Bootstrap default placeholder color).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderDefaults.CssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderSettings.CssClass">
             <summary>
             Additional CSS class for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>.
             </summary>
@@ -6510,45 +6510,45 @@
             The provided items by the request.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings">
             <summary>
-            Default values for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/>.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/> component.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.SuggestMinimumLength">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.SuggestMinimumLength">
             <summary>
             Minimal number of characters to start suggesting. Default is <c>2</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.SuggestDelay">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.SuggestDelay">
             <summary>
             Debounce delay in miliseconds. Default is <c>300 ms</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.InputSize">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.InputSize">
             <summary>
             Input size.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.Delimiters">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.Delimiters">
             <summary>
             Characters, when typed, divide the current input into separate tags.
             Default is <c>comma, semicolon and space</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.ShowAddButton">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.ShowAddButton">
             <summary>
             Indicates whether the add-icon (+) should be displayed.
             Default is <c>false</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.TagBackgroundColor">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.TagBackgroundColor">
             <summary>
             Background color of the tag (also used for the AddButton).
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsDefaults.TagTextColor">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.TagTextColor">
             <summary>
             Color of the tag text (also used for the AddButtonText and icons).
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Dark"/>.
@@ -6623,56 +6623,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensions.AddError(Havit.Blazor.Components.Web.IHxMessengerService,System.String,System.String)">
             <summary>
             Adds and shows an error message.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensionsDefaults">
-            <summary>
-            Defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensions"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensionsDefaults.InformationIcon">
-            <summary>
-            Default icon for information. Default is <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.InfoCircleFill"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensionsDefaults.InformationCssClass">
-            <summary>
-            Default css class for information. Default is <c>hx-messenger-information</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensionsDefaults.InformationAutohideDelay">
-            <summary>
-            Default autohide delay for information (in miliseconds). Default is <c>5000</c> ms.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensionsDefaults.WarningIcon">
-            <summary>
-            Default icon for warnings. Default is <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.ExclamationCircleFill"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensionsDefaults.WarningCssClass">
-            <summary>
-            Default css class for warnings. Default is <c>hx-messenger-warning</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensionsDefaults.WarningAutohideDelay">
-            <summary>
-            Default autohide delay for warnings (in miliseconds). Default is <c>null</c> (do not autohide).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensionsDefaults.ErrorIcon">
-            <summary>
-            Default icon for errors. Default is <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.XCircleFill"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensionsDefaults.ErrorCssClass">
-            <summary>
-            Default css class for errors. Default is <c>hx-messenger-error</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensionsDefaults.ErrorAutohideDelay">
-            <summary>
-            Default autohide delay for errors (in miliseconds). Default is <c>null</c> (do not autohide).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxToast">
@@ -6763,6 +6713,56 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer.ChildContent">
             <summary>
             Toasts to display.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings">
+            <summary>
+            Defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensions"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.InformationIcon">
+            <summary>
+            Default icon for information. Default is <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.InfoCircleFill"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.InformationCssClass">
+            <summary>
+            Default css class for information. Default is <c>hx-messenger-information</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.InformationAutohideDelay">
+            <summary>
+            Default autohide delay for information (in miliseconds). Default is <c>5000</c> ms.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.WarningIcon">
+            <summary>
+            Default icon for warnings. Default is <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.ExclamationCircleFill"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.WarningCssClass">
+            <summary>
+            Default css class for warnings. Default is <c>hx-messenger-warning</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.WarningAutohideDelay">
+            <summary>
+            Default autohide delay for warnings (in miliseconds). Default is <c>null</c> (do not autohide).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.ErrorIcon">
+            <summary>
+            Default icon for errors. Default is <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.XCircleFill"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.ErrorCssClass">
+            <summary>
+            Default css class for errors. Default is <c>hx-messenger-error</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.ErrorAutohideDelay">
+            <summary>
+            Default autohide delay for errors (in miliseconds). Default is <c>null</c> (do not autohide).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPopover">
