@@ -6572,7 +6572,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessenger.Position">
             <summary>
-            Position of the messages. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.HxToastContainerPosition.None"/>.
+            Position of the messages. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ToastContainerPosition.None"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessenger.CssClass">

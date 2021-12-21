@@ -13,9 +13,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxMessenger : ComponentBase, IDisposable
 	{
 		/// <summary>
-		/// Position of the messages. Default is <see cref="HxToastContainerPosition.None"/>.
+		/// Position of the messages. Default is <see cref="ToastContainerPosition.None"/>.
 		/// </summary>
-		[Parameter] public HxToastContainerPosition Position { get; set; } = HxToastContainerPosition.None;
+		[Parameter] public ToastContainerPosition Position { get; set; } = ToastContainerPosition.None;
 
 		/// <summary>
 		/// Additional CSS class.
