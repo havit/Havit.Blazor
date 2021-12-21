@@ -25,8 +25,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		private string userInput;
 
+		private const int DefaultsLevel = 2;
+		private const int EnumsLevel = 2;
+		private const int EventArgsLevel = 2;
+		private const int DelegatesLevel = 2;
+
 		private readonly List<SearchItem> searchItems = new()
 		{
+			// Components and other pages
+
 			new("/components/Inputs", "Inputs", "form"),
 			new("/components/Inputs#InputGroups", "Inputs > Input groups", ""),
 			new("/components/Inputs#FloatingLabels", "Inputs > Floating labels", ""),
@@ -262,7 +269,96 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxButton#WithTooltip", "HxButton > With a tooltip", ""),
 			new("/components/HxButton#Icons", "HxButton > Icons", ""),
 
-			new("/components/HxNamedViewList", "HxNamedViewList", "HxListLayout")
+			new("/components/HxNamedViewList", "HxNamedViewList", "HxListLayout"),
+
+			// Support types
+
+			// Defaults (settings)
+
+			new("/types/CalendarSettings", "Calendar Settings", "defaults", DefaultsLevel),
+			new("/types/CardSettings", "Card Settings", "defaults", DefaultsLevel),
+			new("/types/InputFileSettings", "InputFile Settings", "defaults", DefaultsLevel),
+			new("/types/AutosuggestSettings", "Autosuggest Settings", "defaults", DefaultsLevel),
+			new("/types/FormValueSettings", "FormValue Settings", "defaults", DefaultsLevel),
+			new("/types/InputDateRangeSettings", "InputDateRange Settings", "defaults", DefaultsLevel),
+			new("/types/InputDateSettings", "InputDate Settings", "defaults", DefaultsLevel),
+			new("/types/InputNumberSettings", "InputNumber Settings", "defaults", DefaultsLevel),
+			new("/types/InputTextSettings", "InputText Settings", "defaults", DefaultsLevel),
+			new("/types/SelectSettings", "Select Settings", "defaults", DefaultsLevel),
+			new("/types/GridSettings", "Grid Settings", "defaults", DefaultsLevel),
+			new("/types/Modal Settings", "Modal Settings", "defaults", DefaultsLevel),
+			new("/types/OffcanvasSettings", "Offcanvas Settings", "defaults", DefaultsLevel),
+			new("/types/PlaceholderContainerSettings", "PlaceholderContainer Settings", "defaults", DefaultsLevel),
+			new("/types/PlaceholderSettings", "Placeholder Settings", "defaults", DefaultsLevel),
+			new("/types/InputTagsSettings", "InputTags Settings", "defaults", DefaultsLevel),
+			new("/types/MessengerServiceExtensionsSettings", "MessengerServiceExtensions Settings", "defaults", DefaultsLevel),
+			new("/types/InputFileCoreSettings", "InputFileCore Settings", "defaults", DefaultsLevel),
+
+			// Enums
+
+			new("/types/BadgeType", "BadgeType", "enum shape", EnumsLevel),
+			new("/types/ButtonGroupOrientation", "ButtonGroupOrientation", "enum", EnumsLevel),
+			new("/types/ButtonGroupSize", "ButtonGroupSize", "enum", EnumsLevel),
+			new("/types/ButtonIconPlacement", "ButtonIconPlacement", "enum", EnumsLevel),
+			new("/types/ButtonSize", "ButtonSize", "enum", EnumsLevel),
+			new("/types/CardImagePlacement", "CardImagePlacement", "enum", EnumsLevel),
+			new("/types/CarouselRide", "CarouselRide", "enum", EnumsLevel),
+			new("/types/CollapseDirection", "CollapseDirection", "enum", EnumsLevel),
+			new("/types/DropdownAutoClose", "DropdownAutoClose", "enum", EnumsLevel),
+			new("/types/DropdownDirection", "DropdownDirection", "enum", EnumsLevel),
+			new("/types/BindEvent", "BindEvent", "enum", EnumsLevel),
+			new("/types/InputSize", "InputSize", "enum", EnumsLevel),
+			new("/types/InputType", "InputType", "enum", EnumsLevel),
+			new("/types/LabelValueRenderOrder", "LabelValueRenderOrder", "enum", EnumsLevel),
+			new("/types/LabelType", "LabelType", "enum", EnumsLevel),
+			new("/types/GridContentNavigationMode", "GridContentNavigationMode", "enum", EnumsLevel),
+			new("/types/ListGroupHorizontal", "ListGroupHorizontal", "enum", EnumsLevel),
+			new("/types/ModalFullscreen", "ModalFullscreen", "enum behavior", EnumsLevel),
+			new("/types/ModalSize", "ModalSize", "enum", EnumsLevel),
+			new("/types/AnchorFragmentNavigationAutomationMode", "AnchorFragmentNavigationAutomationMode", "enum", EnumsLevel),
+			new("/types/NavbarColorScheme", "NavbarColorScheme", "enum", EnumsLevel),
+			new("/types/NavbarExpand", "NavbarExpand", "enum responsive expand breakpoint", EnumsLevel),
+			new("/types/NavOrientation", "NavOrientation", "enum", EnumsLevel),
+			new("/types/NavVariant", "NavVariant", "enum", EnumsLevel),
+			new("/types/OffcanvasPlacement", "OffcanvasPlacement", "enum", EnumsLevel),
+			new("/types/OffcanvasRenderMode", "OffcanvasRenderMode", "enum", EnumsLevel),
+			new("/types/OffcanvasSize", "OffcanvasSize", "enum", EnumsLevel),
+			new("/types/PlaceholderAnimation", "PlaceholderAnimation", "enum", EnumsLevel),
+			new("/types/PlaceholderSize", "PlaceholderSize", "enum", EnumsLevel),
+			new("/types/SpinnerSize", "SpinnerSize", "enum", EnumsLevel),
+			new("/types/SpinnerType", "SpinnerType", "enum", EnumsLevel),
+			new("/types/ThemeColor", "ThemeColor", "enum", EnumsLevel),
+			new("/types/ToastContainerPosition", "ToastContainerPosition", "enum", EnumsLevel),
+			new("/types/PopoverPlacement", "PopoverPlacement", "enum", EnumsLevel),
+			new("/types/PopoverTrigger", "PopoverTrigger", "enum", EnumsLevel),
+			new("/types/TooltipPlacement", "TooltipPlacement", "enum", EnumsLevel),
+			new("/types/TooltipTrigger", "TooltipTrigger", "enum", EnumsLevel),
+			new("/types/MessageBoxButtons", "MessageBoxButtons", "enum", EnumsLevel),
+
+			// Event arguments
+
+			new("/types/FileUploadedEventArgs", "FileUploadedEventArgs", "argument event", EventArgsLevel),
+			new("/types/UploadCompletedEventArgs", "UploadCompletedEventArgs", "argument event", EventArgsLevel),
+			new("/types/UploadProgressEventArgs", "UploadProgressEventArgs", "argument event", EventArgsLevel),
+
+			// Delegates
+
+			new("/types/CalendarDateCustomizationProviderDelegate", "CalendarDateCustomizationProviderDelegate", "delegate action", DelegatesLevel),
+			new("/types/CalendarDateCustomizationResult", "CalendarDateCustomizationResult", "delegate", DelegatesLevel),
+			new("/types/CalendarDateCustomizationRequest", "CalendarDateCustomizationRequest", "delegate", DelegatesLevel),
+
+			new("/types/AutosuggestDataProviderDelegate", "AutosuggestDataProviderDelegate", "delegate action", DelegatesLevel),
+			new("/types/AutosuggestDataProviderResult", "AutosuggestDataProviderResult", "delegate", DelegatesLevel),
+			new("/types/AutosuggestDataProviderRequest", "AutosuggestDataProviderRequest", "delegate", DelegatesLevel),
+
+			new("/types/GridDataProviderDelegate", "GridDataProviderDelegate", "delegate action", DelegatesLevel),
+			new("/types/GridDataProviderResult", "GridDataProviderResult", "delegate", DelegatesLevel),
+			new("/types/GridDataProviderRequest", "GridDataProviderRequest", "delegate", DelegatesLevel),
+
+			new("/types/InputTagsDataProviderDelegate", "InputTagsDataProviderDelegate", "delegate action", DelegatesLevel),
+			new("/types/InputTagsDataProviderResult", "InputTagsDataProviderResult", "delegate", DelegatesLevel),
+			new("/types/InputTagsDataProviderRequest", "InputTagsDataProviderRequest", "delegate", DelegatesLevel)
+
 		};
 
 		private HxAutosuggest<SearchItem, SearchItem> autosuggest;
