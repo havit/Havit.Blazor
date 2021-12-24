@@ -8,14 +8,14 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Settings for <see cref="HxButton"/> and derived components.
+	/// Settings for the <see cref="HxButton"/> and derived components.
 	/// </summary>
 	public record ButtonSettings
 	{
 		/// <summary>
-		/// Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />
+		/// Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />.
 		/// </summary>
-		public ButtonSize Size { get; set; } = ButtonSize.Regular;
+		public ButtonSize? Size { get; set; }
 
 		/// <summary>
 		/// CSS class to be rendered with the button.
@@ -28,19 +28,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public IconBase Icon { get; set; }
 
 		/// <summary>
-		/// Position of the icon within the button. Default is <see cref="ButtonIconPlacement.Start" />
+		/// Position of the icon within the button.
 		/// </summary>
-		public ButtonIconPlacement IconPlacement { get; set; } = ButtonIconPlacement.Start;
-
+		public ButtonIconPlacement? IconPlacement { get; set; }
 
 		/// <summary>
-		/// Bootstrap button color (style). Default is <see cref="ThemeColor.None"/>.
+		/// Bootstrap button color (style).
 		/// </summary>
-		public ThemeColor? Color { get; set; } = ThemeColor.None;
+		public ThemeColor? Color { get; set; }
 
 		/// <summary>
 		/// Bootstrap outline button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
 		/// </summary>
-		public bool Outline { get; set; } = false;
+		public bool? Outline { get; set; } = false;
 	}
 }

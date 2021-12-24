@@ -10,10 +10,37 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Component to display message-boxes.
+	/// Component to display message-boxes.<br/>
+	/// Usually used via <see cref="HxMessageBoxService"/> and <see cref="HxMessageBoxHost"/>.
 	/// </summary>
 	public partial class HxMessageBox : ComponentBase
 	{
+		/// <summary>
+		/// Application-wide defaults for <see cref="HxButton"/> and derived components.
+		/// </summary>
+		public static MessageBoxSettings Defaults { get; set; }
+
+		static HxMessageBox()
+		{
+			Defaults = new MessageBoxSettings()
+			{
+				PrimaryButtonSettings = new ButtonSettings()
+				{
+					Color = ThemeColor.Primary,
+				},
+				SecondaryButtonSettings = new ButtonSettings()
+				{
+					Color = ThemeColor.Secondary,
+				},
+			};
+		}
+
+		/// <summary>
+		/// Returns <see cref="HxMessageBox"/> defaults.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual MessageBoxSettings GetDefaults() => Defaults;
+
 		///// <summary>
 		///// Header icon.
 		///// </summary>
@@ -58,6 +85,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Text for <see cref="MessageBoxButtons.Custom"/>.
 		/// </summary>
 		[Parameter] public string CustomButtonText { get; set; }
+
+		/// <summary>
+		/// Settings for the dialog primary button.
+		/// </summary>
+		[Parameter] public ButtonSettings PrimaryButtonSettings { get; set; }
+		protected ButtonSettings PrimaryButtonSettingsEffective => this.PrimaryButtonSettings ?? GetDefaults().PrimaryButtonSettings ?? throw new InvalidOperationException(nameof(PrimaryButtonSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
+
+		/// <summary>
+		/// Settings for dialog secondary button(s).
+		/// </summary>
+		[Parameter] public ButtonSettings SecondaryButtonSettings { get; set; }
+		protected ButtonSettings SecondaryButtonSettingsEffective => this.SecondaryButtonSettings ?? GetDefaults().SecondaryButtonSettings ?? throw new InvalidOperationException(nameof(SecondaryButtonSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
 
 		/// <summary>
 		/// Additional CSS class.

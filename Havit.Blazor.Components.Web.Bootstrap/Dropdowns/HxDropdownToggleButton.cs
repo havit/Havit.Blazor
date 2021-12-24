@@ -13,6 +13,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownToggle
 	{
 		/// <summary>
+		/// Application-wide defaults for <see cref="HxDropdownToggleButton"/> and derived components.
+		/// </summary>
+		public static new ButtonSettings Defaults { get; set; }
+
+		static HxDropdownToggleButton()
+		{
+			Defaults = HxButton.Defaults with
+			{
+				Color = ThemeColor.Link
+			};
+		}
+
+		/// <inheritdoc cref="HxButton.GetDefaults"/>
+		protected override ButtonSettings GetDefaults() => Defaults;
+
+		/// <summary>
 		/// Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
 		/// of the dropdown relative to its target.  Default is <c>(0, 2)</c>.
 		/// </summary>

@@ -17,8 +17,7 @@
 		{
 			<HxButton Text="@button.Text"
 					  OnClick="@(() => HandleButtonClick(button.Id))"
-					  Color="@((button.IsPrimary ?? false) ? ThemeColor.Primary : ThemeColor.Secondary)"
-					  Outline="false" />
+					  Settings="@((button.IsPrimary ?? false) ? this.PrimaryButtonSettingsEffective : this.SecondaryButtonSettingsEffective)" />
 		}
 	</FooterTemplate>
 </HxModal>
