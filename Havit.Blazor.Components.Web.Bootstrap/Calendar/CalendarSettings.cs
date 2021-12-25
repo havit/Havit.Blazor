@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Settings for <see cref="HxCalendar"/>.
 	/// </summary>
-	public class CalendarSettings
+	public record CalendarSettings
 	{
 		/// <summary>
 		/// Internal HFW shared default.

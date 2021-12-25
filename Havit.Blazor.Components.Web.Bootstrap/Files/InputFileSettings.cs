@@ -10,7 +10,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Settings for the <see cref="HxInputFile"/> component.
 	/// </summary>
-	public class InputFileSettings : IInputSettingsWithSize
+	public record InputFileSettings : IInputSettingsWithSize
 	{
 		/// <summary>
 		/// Input size.

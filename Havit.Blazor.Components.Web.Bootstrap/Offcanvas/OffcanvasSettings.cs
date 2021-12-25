@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Settings for the <see cref="HxOffcanvas"/> component.
 	/// </summary>
-	public class OffcanvasSettings
+	public record OffcanvasSettings
 	{
 		/// <summary>
 		/// Close icon to be used in header.

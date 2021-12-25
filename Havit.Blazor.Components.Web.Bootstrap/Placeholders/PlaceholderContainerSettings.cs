@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Settings for the <see cref="HxPlaceholderContainer"/> component.
 	/// </summary>
-	public class PlaceholderContainerSettings
+	public record PlaceholderContainerSettings
 	{
 		/// <summary>
 		/// Animation of the placeholders in container. Default is <see cref="PlaceholderAnimation.None"/> (no animation).

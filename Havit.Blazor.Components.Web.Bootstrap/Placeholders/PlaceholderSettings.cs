@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Settings for the <see cref="HxPlaceholder"/> component.
 	/// </summary>
-	public class PlaceholderSettings
+	public record PlaceholderSettings
 	{
 		/// <summary>
 		/// Size of the placeholder. Default is <see cref="PlaceholderSize.Regular"/>.

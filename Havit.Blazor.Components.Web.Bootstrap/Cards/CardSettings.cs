@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Settings for <see cref="HxCard"/>.
 	/// </summary>
-	public class CardSettings
+	public record CardSettings
 	{
 		/// <summary>
 		/// Additional CSS classes for the card-container.

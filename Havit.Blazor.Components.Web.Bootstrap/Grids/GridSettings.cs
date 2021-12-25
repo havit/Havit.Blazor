@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Settings for <see cref="HxGrid{TItem}"/>.
 	/// </summary>
-	public class GridSettings
+	public record GridSettings
 	{
 		/// <summary>
 		/// Strategy how data are displayed in the grid (and loaded to the grid).
