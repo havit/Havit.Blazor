@@ -29,7 +29,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Returns <see cref="HxButton"/> defaults.
+		/// Returns component defaults.
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
 		protected virtual ButtonSettings GetDefaults() => Defaults;
@@ -59,7 +59,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Position of the icon within the button. Default is <see cref="ButtonIconPlacement.Start" /> (configurable through <see cref="HxButton.Defaults"/>).
 		/// </summary>
 		[Parameter] public ButtonIconPlacement? IconPlacement { get; set; }
-		protected ButtonIconPlacement IconPlacementEffective => this.IconPlacement ?? this.Settings?.IconPlacement ?? GetDefaults().IconPlacement ?? throw new InvalidOperationException(nameof(IconPlacement) + " default for " + nameof(HxButton) + " has to be set.");
+		protected ButtonIconPlacement IconPlacementEffective => this.IconPlacement ?? this.Settings?.IconPlacement ?? GetDefaults()?.IconPlacement ?? throw new InvalidOperationException(nameof(IconPlacement) + " default for " + nameof(HxButton) + " has to be set.");
 
 		/// <summary>
 		/// Bootstrap button style - theme color.<br />
