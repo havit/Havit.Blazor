@@ -230,7 +230,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxButton.GetDefaults">
             <summary>
-            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> defaults.
+            Returns application-wide defaults for the component.
             Enables overriding defaults in descandants (use separate set of defaults).
             </summary>
         </member>
@@ -500,17 +500,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings">
             <summary>
-            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings.DefaultMinDate">
-            <summary>
-            Internal HFW shared default.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings.DefaultMaxDate">
-            <summary>
-            Internal HFW shared default.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar"/> and derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings.MinDate">
@@ -531,6 +521,32 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar">
             <summary>
             Basic calendar building block. Used for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> implementation.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.DefaultMinDate">
+            <summary>
+            Internal HFW shared default.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.DefaultMaxDate">
+            <summary>
+            Internal HFW shared default.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar"/>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.GetDefaults">
+            <summary>
+            Returns component defaults.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.Defaults"/>, overriden by individual parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.Value">
@@ -577,14 +593,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.DateCustomizationProvider">
             <summary>
-            Allows customization of the dates in calendar.<br />
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.GetDefaults">
-            <summary>
-            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants which differs in the default values.
+            Allows customization of the dates in calendar.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CardImagePlacement">
@@ -2880,10 +2889,18 @@
             <summary>
             Date picker. Form input component for entering a date.
             </summary>
+            <remarks>
+            Defaults located in separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate"/>.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.DefaultDates">
             <summary>
             Default dates offered in associated menu (e.g. Today, Yesterday, etc.).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>, overriden by individual parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.UseDefaultDates">
@@ -2942,9 +2959,8 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetDefaults">
             <summary>
-            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants which differs in the default values.
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.FormatValueAsString(`0)">
@@ -2974,6 +2990,17 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults">
             <summary>
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>, overriden by individual parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.UseDefaultDateRanges">
@@ -3023,13 +3050,6 @@
             <summary>
             Allows customization of the dates in dropdown calendars.<br />
             Default customization is configurable with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetDefaults">
-            <summary>
-            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FormatValueAsString(Havit.Blazor.Components.Web.Bootstrap.DateTimeRange)">
@@ -3538,19 +3558,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ShowCalendarButtons">
             <summary>
             Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendars should be visible.<br/>
-            Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.MinDate">
             <summary>
             First date selectable from the dropdown calendar.
-            Default is <c>1.1.1900</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.MaxDate">
             <summary>
             Last date selectable from the dropdown calendar.
-            Default is <c>31.12.2099</c>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.CalendarDateCustomizationProvider">
@@ -3576,19 +3593,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.ShowCalendarButtons">
             <summary>
             Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
-            Default is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.MinDate">
             <summary>
             First date selectable from the dropdown calendar.
-            Default is <c>1.1.1900</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.MaxDate">
             <summary>
             Last date selectable from the dropdown calendar.
-            Default is <c>31.12.2099</c>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.CalendarDateCustomizationProvider">

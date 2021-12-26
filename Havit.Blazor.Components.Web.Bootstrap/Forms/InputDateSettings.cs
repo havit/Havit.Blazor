@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Input size.
 		/// </summary>
-		public InputSize InputSize { get; set; } = InputSize.Regular;
+		public InputSize? InputSize { get; set; }
 
 		/// <summary>
 		/// Optional icon to display within the input.
@@ -21,25 +21,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
-		/// Default is <c>true</c>.
 		/// </summary>
-		public bool ShowCalendarButtons { get; set; } = true;
+		public bool? ShowCalendarButtons { get; set; }
 
 		/// <summary>
 		/// First date selectable from the dropdown calendar.
-		/// Default is <c>1.1.1900</c>.
 		/// </summary>
-		public DateTime MinDate { get; set; } = CalendarSettings.DefaultMinDate;
+		public DateTime? MinDate { get; set; }
 
 		/// <summary>
 		/// Last date selectable from the dropdown calendar.
-		/// Default is <c>31.12.2099</c>
 		/// </summary>
-		public DateTime MaxDate { get; set; } = CalendarSettings.DefaultMaxDate;
+		public DateTime? MaxDate { get; set; }
 
 		/// <summary>
 		/// Allows customization of the dates in dropdown calendars.
 		/// </summary>
-		public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; } = (request) => null;
+		public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
 	}
 }

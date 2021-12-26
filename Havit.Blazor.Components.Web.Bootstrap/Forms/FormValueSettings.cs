@@ -16,6 +16,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Forms
 		/// <summary>
 		/// Input size. Default is <see cref="InputSize.Regular"/>.
 		/// </summary>
-		public InputSize InputSize { get; set; } = InputSize.Regular;
+		public InputSize? InputSize { get; set; } = Bootstrap.InputSize.Regular;
 	}
 }

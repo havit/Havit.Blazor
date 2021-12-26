@@ -18,6 +18,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Date picker. Form input component for entering a date.
 	/// </summary>
+	/// <remarks>
+	/// Defaults located in separate non-generic type <see cref="HxInputDate"/>.
+	/// </remarks>
 	public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, IInputWithSize, IInputWithLabelType
 	{
 		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
@@ -27,6 +30,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default dates offered in associated menu (e.g. Today, Yesterday, etc.).
 		/// </summary>
 		public static List<DateItem> DefaultDates { get; set; }
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDate.Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public InputDateSettings Settings { get; set; }
 
 		/// <summary>
 		/// When <c>true</c>, uses default dates (from <see cref="DefaultDates"/>, e.g. Today).
@@ -54,30 +62,36 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Optional icon to display within the input. Use <see cref="HxInputDate.Defaults"/> to set the icon for the whole project.
 		/// </summary>
 		[Parameter] public IconBase CalendarIcon { get; set; }
+		protected IconBase CalendarIconEffective => this.CalendarIcon ?? this.Settings?.CalendarIcon ?? this.GetDefaults().CalendarIcon;
+
 
 		/// <summary>
 		/// Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
 		/// Default is <c>true</c> (configurable in <see cref="HxInputDate.Defaults"/>).
 		/// </summary>
 		[Parameter] public bool? ShowCalendarButtons { get; set; }
+		protected bool ShowCalendarButtonsEffective => this.ShowCalendarButtons ?? this.Settings?.ShowCalendarButtons ?? this.GetDefaults().ShowCalendarButtons ?? throw new InvalidOperationException(nameof(ShowCalendarButtons) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 		/// <summary>
 		/// First date selectable from the dropdown calendar.<br />
 		/// Default is <c>1.1.1900</c> (configurable from <see cref="HxInputDate.Defaults"/>).
 		/// </summary>
 		[Parameter] public DateTime? MinDate { get; set; }
+		protected DateTime MinDateEffective => this.MinDate ?? this.Settings?.MinDate ?? GetDefaults().MinDate ?? throw new InvalidOperationException(nameof(MinDate) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 		/// <summary>
 		/// Last date selectable from the dropdown calendar.<br />
 		/// Default is <c>31.12.2099</c> (configurable from <see cref="HxInputDate.Defaults"/>).
 		/// </summary>
 		[Parameter] public DateTime? MaxDate { get; set; }
+		protected DateTime MaxDateEffective => this.MaxDate ?? this.Settings?.MaxDate ?? this.GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 		/// <summary>
 		/// Allows customization of the dates in dropdown calendar.<br />
 		/// Default customization is configurable with <see cref="HxInputDate.Defaults"/>.
 		/// </summary>
 		[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
+		protected CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective => this.CalendarDateCustomizationProvider ?? this.Settings?.CalendarDateCustomizationProvider ?? GetDefaults().CalendarDateCustomizationProvider;
 
 		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
@@ -85,12 +99,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public LabelType? LabelType { get; set; }
 
 		/// <summary>
-		/// Returns <see cref="HxInputDate{TValue}"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
+		/// Returns application-wide defaults for the component.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
 		protected virtual InputDateSettings GetDefaults() => HxInputDate.Defaults;
 		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
 
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputDateInternal */ : LabelValueRenderOrder.LabelValue;
 
@@ -110,7 +124,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected virtual void BuildRenderInputCore(RenderTreeBuilder builder)
 		{
-			var defaults = GetDefaults();
 			LabelType labelTypeEffective = (this as IInputWithLabelType).LabelTypeEffective;
 
 			builder.OpenComponent(1, typeof(HxInputDateInternal<TValue>));
@@ -126,12 +139,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
 
 			builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.InputSize), ((IInputWithSize)this).InputSizeEffective);
-			builder.AddAttribute(206, nameof(HxInputDateInternal<TValue>.CalendarIcon), CalendarIcon ?? defaults.CalendarIcon);
+			builder.AddAttribute(206, nameof(HxInputDateInternal<TValue>.CalendarIcon), this.CalendarIconEffective);
 			builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.CustomDates), GetCustomDates().ToList());
-			builder.AddAttribute(208, nameof(HxInputDateInternal<TValue>.ShowCalendarButtons), ShowCalendarButtons ?? defaults.ShowCalendarButtons);
-			builder.AddAttribute(209, nameof(HxInputDateInternal<TValue>.MinDateEffective), MinDate ?? defaults.MinDate);
-			builder.AddAttribute(210, nameof(HxInputDateInternal<TValue>.MaxDateEffective), MaxDate ?? defaults.MaxDate);
-			builder.AddAttribute(211, nameof(HxInputDateInternal<TValue>.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProvider ?? defaults.CalendarDateCustomizationProvider);
+			builder.AddAttribute(208, nameof(HxInputDateInternal<TValue>.ShowCalendarButtonsEffective), ShowCalendarButtonsEffective);
+			builder.AddAttribute(209, nameof(HxInputDateInternal<TValue>.MinDateEffective), MinDateEffective);
+			builder.AddAttribute(210, nameof(HxInputDateInternal<TValue>.MaxDateEffective), MaxDateEffective);
+			builder.AddAttribute(211, nameof(HxInputDateInternal<TValue>.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProviderEffective);
 			builder.AddAttribute(212, nameof(HxInputDateInternal<TValue>.LabelTypeEffective), labelTypeEffective);
 			builder.AddAttribute(213, nameof(HxInputDateInternal<TValue>.FormValueComponent), this);
 

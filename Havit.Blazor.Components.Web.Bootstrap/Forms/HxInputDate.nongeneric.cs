@@ -15,6 +15,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputDate{TValue}"/>.
 		/// </summary>
-		public static InputDateSettings Defaults { get; } = new InputDateSettings();
+		public static InputDateSettings Defaults { get; set; }
+
+		static HxInputDate()
+		{
+			Defaults = new InputDateSettings()
+			{
+				InputSize = InputSize.Regular,
+				MinDate = HxCalendar.DefaultMinDate,
+				MaxDate = HxCalendar.DefaultMaxDate,
+				ShowCalendarButtons = true,
+			};
+		}
 	}
 }

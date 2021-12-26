@@ -26,7 +26,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Input size.
 		/// </summary>
-		public InputSize InputSize { get; set; } = InputSize.Regular;
+		public InputSize? InputSize { get; set; } = Bootstrap.InputSize.Regular;
 
 		/// <summary>
 		/// Characters, when typed, divide the current input into separate tags.

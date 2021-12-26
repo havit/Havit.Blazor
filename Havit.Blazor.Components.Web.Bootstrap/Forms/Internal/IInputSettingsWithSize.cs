@@ -11,6 +11,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <summary>
 		/// Input size.
 		/// </summary>
-		InputSize InputSize { get; }
+		InputSize? InputSize { get; }
 	}
 }

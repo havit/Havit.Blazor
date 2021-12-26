@@ -15,7 +15,41 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxCalendar
 	{
-		public static CalendarSettings Defaults { get; set; } = new CalendarSettings();
+		/// <summary>
+		/// Internal HFW shared default.
+		/// </summary>
+		internal static DateTime DefaultMinDate => new DateTime(1900, 1, 1);
+
+		/// <summary>
+		/// Internal HFW shared default.
+		/// </summary>
+		internal static DateTime DefaultMaxDate => new DateTime(2099, 12, 31);
+
+		/// <summary>
+		/// Application-wide defaults for the <see cref="HxCalendar"/>.
+		/// </summary>
+		public static CalendarSettings Defaults { get; set; }
+
+		static HxCalendar()
+		{
+			Defaults = new CalendarSettings()
+			{
+				MinDate = DefaultMinDate,
+				MaxDate = DefaultMaxDate
+			};
+		}
+
+		/// <summary>
+		/// Returns component defaults.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual CalendarSettings GetDefaults() => Defaults;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public CalendarSettings Settings { get; set; }
+
 
 		/// <summary>
 		/// Date selected.
@@ -50,27 +84,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is <c>1.1.1900</c> (configurable from <see cref="HxCalendar.Defaults"/>).
 		/// </summary>
 		[Parameter] public DateTime? MinDate { get; set; }
+		protected DateTime MinDateEffective => this.MinDate ?? this.Settings?.MinDate ?? GetDefaults().MinDate ?? throw new InvalidOperationException(nameof(MinDate) + " default for " + nameof(HxCalendar) + " has to be set.");
 
 		/// <summary>
 		/// Last date selectable from the calendar.<br />
 		/// Default is <c>31.12.2099</c> (configurable from <see cref="HxCalendar.Defaults"/>).
 		/// </summary>
 		[Parameter] public DateTime? MaxDate { get; set; }
+		protected DateTime MaxDateEffective => this.MaxDate ?? this.Settings?.MaxDate ?? this.GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxCalendar) + " has to be set.");
 
 		/// <summary>
-		/// Allows customization of the dates in calendar.<br />
+		/// Allows customization of the dates in calendar.
 		/// </summary>
 		[Parameter] public CalendarDateCustomizationProviderDelegate DateCustomizationProvider { get; set; }
-
-		private DateTime MinDateEffective => MinDate ?? GetDefaults().MinDate;
-		private DateTime MaxDateEffective => MaxDate ?? GetDefaults().MaxDate;
-
-		/// <summary>
-		/// Returns <see cref="HxCalendar"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual CalendarSettings GetDefaults() => Defaults;
+		protected CalendarDateCustomizationProviderDelegate DateCustomizationProviderEffective => this.DateCustomizationProvider ?? this.Settings?.DateCustomizationProvider ?? GetDefaults().DateCustomizationProvider;
 
 		private CultureInfo Culture => CultureInfo.CurrentUICulture;
 		private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;
@@ -147,8 +174,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			DateTime valueDay = Value?.Date ?? default;
 			DateTime today = DateTime.Today;
 
-			var dateCustomizationProvider = DateCustomizationProvider ?? GetDefaults().DateCustomizationProvider;
-
 			for (var week = 0; week < 6; week++)
 			{
 				WeekData weekData = new WeekData();
@@ -156,7 +181,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				for (int day = 0; day < 7; day++)
 				{
-					CalendarDateCustomizationResult customization = GetDateCustomization(dateCustomizationProvider, currentDay);
+					CalendarDateCustomizationResult customization = GetDateCustomization(DateCustomizationProviderEffective, currentDay);
 
 					bool clickEnabled = (currentDay >= minDateEffective) // can click only days starting MinDate
 							&& (currentDay <= maxDateEffective) && (customization?.Enabled ?? true); // can click only days ending MaxDate
