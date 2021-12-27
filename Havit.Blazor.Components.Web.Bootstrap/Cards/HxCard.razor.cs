@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-
-namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Bootstrap <a href="https://getbootstrap.com/docs/5.1/components/card/">Card</a> component.
@@ -13,9 +6,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxCard
 	{
 		/// <summary>
-		/// Application-wide defaults for <see cref="HxCard"/>.
+		/// Application-wide defaults for <see cref="HxCard"/> and derived components.
 		/// </summary>
-		public static CardSettings Defaults { get; set; } = new CardSettings();
+		public static CardSettings Defaults { get; set; }
+
+		static HxCard()
+		{
+			Defaults = new CardSettings();
+		}
+
+		/// <summary>
+		/// Returns application-wide defaults for the component.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual CardSettings GetDefaults() => Defaults;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public CardSettings Settings { get; set; }
 
 		/// <summary>
 		/// Image to be placed in the card. For image position see <see cref="ImagePlacement"/>.
@@ -66,32 +75,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Additional CSS classes for the card-container.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
+		protected string CssClassEffective => this.CssClass ?? this.Settings?.CssClass ?? GetDefaults().CssClass;
 
 		/// <summary>
 		/// Additional CSS class for the header.
 		/// </summary>
 		[Parameter] public string HeaderCssClass { get; set; }
+		protected string HeaderCssClassEffective => this.HeaderCssClass ?? this.Settings?.HeaderCssClass ?? GetDefaults().HeaderCssClass;
 
 		/// <summary>
 		/// Additional CSS class for the body.
 		/// </summary>
 		[Parameter] public string BodyCssClass { get; set; }
+		protected string BodyCssClassEffective => this.BodyCssClass ?? this.Settings?.BodyCssClass ?? GetDefaults().BodyCssClass;
 
 		/// <summary>
 		/// Additional CSS class for the footer.
 		/// </summary>
 		[Parameter] public string FooterCssClass { get; set; }
+		protected string FooterCssClassEffective => this.FooterCssClass ?? this.Settings?.FooterCssClass ?? GetDefaults().FooterCssClass;
 
 		/// <summary>
 		/// Additional attributes to be splatted onto an underlying HTML element.
 		/// </summary>
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
-
-		/// <summary>
-		/// Return <see cref="HxCard"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual CardSettings GetDefaults() => Defaults;
 	}
 }

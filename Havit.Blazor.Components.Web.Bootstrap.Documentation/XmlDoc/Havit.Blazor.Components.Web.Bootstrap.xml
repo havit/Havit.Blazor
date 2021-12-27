@@ -633,7 +633,18 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Defaults">
             <summary>
-            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>.
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCard.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Defaults"/>, overriden by individual parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.ImageSrc">
@@ -704,13 +715,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying HTML element.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCard.GetDefaults">
-            <summary>
-            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCardSubtitle">
