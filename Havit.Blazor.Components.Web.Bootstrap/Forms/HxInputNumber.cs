@@ -15,13 +15,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Numeric input.
 	/// </summary>
-	/// <typeparam name="TValue">
-	/// Supported values: <c>int (Int32), long (Int64), float (Single), double, decimal</c>.
-	/// </typeparam>
+	/// <remarks>
+	/// Defaults located in separate non-generic type <see cref="HxInputNumber"/>.
+	/// </remarks>
+	/// <typeparam name="TValue">Supported values: <c>int (Int32), long (Int64), float (Single), double, decimal</c>.</typeparam>
 	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
 		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(int), typeof(long), typeof(float), typeof(double), typeof(decimal) };
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputNumber.Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public InputNumberSettings Settings { get; set; }
+
+		/// <summary>
+		/// Returns application-wide defaults for the component.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual InputNumberSettings GetDefaults() => HxInputNumber.Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
 
 		/// <summary>
 		/// Gets or sets the error message used when displaying an a parsing error.
@@ -82,14 +96,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					|| (undelyingType == typeof(long));
 			}
 		}
-
-		/// <summary>
-		/// Return <see cref="HxInputNumber{TValue}"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual InputNumberSettings GetDefaults() => HxInputNumber.Defaults;
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		/// <summary>
 		/// Constructor.

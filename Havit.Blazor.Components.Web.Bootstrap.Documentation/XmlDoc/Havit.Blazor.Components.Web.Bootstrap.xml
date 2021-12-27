@@ -1832,11 +1832,9 @@
             <summary>
             Component for single item selection with dynamic suggestions (based on typed characters).
             </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Defaults">
-            <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/> and derived components.
-            </summary>
+            <remarks>
+            Defaults located in separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest"/>.
+            </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetDefaults">
             <summary>
@@ -1846,7 +1844,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Settings">
             <summary>
-            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Defaults"/>, overriden by individual parameters).
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest.Defaults"/>, overriden by individual parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.DataProvider">
@@ -1941,7 +1939,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest.Defaults">
             <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/> and derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput.DropdownOffset">
@@ -3086,9 +3084,21 @@
             <summary>
             Numeric input.
             </summary>
-            <typeparam name="TValue">
-            Supported values: <c>int (Int32), long (Int64), float (Single), double, decimal</c>.
-            </typeparam>
+            <remarks>
+            Defaults located in separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber"/>.
+            </remarks>
+            <typeparam name="TValue">Supported values: <c>int (Int32), long (Int64), float (Single), double, decimal</c>.</typeparam>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber.Defaults"/>, overriden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.ParsingErrorMessage">
             <summary>
@@ -3124,13 +3134,6 @@
             Returns <c>true</c> for integer types (<c>false</c> for floating point types).
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.GetDefaults">
-            <summary>
-            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants which differs in the default values.
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.#ctor">
             <summary>
             Constructor.
@@ -3162,7 +3165,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber.Defaults">
             <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/> and derived components.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent`1">
@@ -3629,7 +3632,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings">
             <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1"/> component.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1"/> and derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputSize">

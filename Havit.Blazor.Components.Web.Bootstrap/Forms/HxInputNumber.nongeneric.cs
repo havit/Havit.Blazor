@@ -13,8 +13,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class HxInputNumber
 	{
 		/// <summary>
-		/// Application-wide defaults for the <see cref="HxAutosuggest{TItem, TValue}"/>.
+		/// Application-wide defaults for the <see cref="HxAutosuggest{TItem, TValue}"/> and derived components.
 		/// </summary>
-		public static InputNumberSettings Defaults { get; } = new InputNumberSettings();
+		public static InputNumberSettings Defaults { get; set; }
+
+		static HxInputNumber()
+		{
+			Defaults = new InputNumberSettings()
+			{
+				InputSize = InputSize.Regular,
+			};
+		}
 	}
 }
