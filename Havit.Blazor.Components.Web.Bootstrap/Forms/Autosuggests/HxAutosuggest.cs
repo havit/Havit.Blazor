@@ -10,35 +10,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Component for single item selection with dynamic suggestions (based on typed characters).
 	/// </summary>
+	/// <remarks>
+	/// Defaults located in separate non-generic type <see cref="HxAutosuggest"/>.
+	/// </remarks>
 	public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
-		/// <summary>
-		/// Application-wide defaults for the <see cref="HxInputFile"/> and derived components.
-		/// </summary>
-		public static AutosuggestSettings Defaults { get; set; }
-
-		static HxAutosuggest()
-		{
-			Defaults = new AutosuggestSettings()
-			{
-				InputSize = Bootstrap.InputSize.Regular,
-				SearchIcon = BootstrapIcon.Search,
-				ClearIcon = BootstrapIcon.XCircleFill,
-				MinimumLength = 2,
-				Delay = 300,
-			};
-		}
-
 		/// <summary>
 		/// Returns application-wide defaults for the component.
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
-		protected virtual AutosuggestSettings GetDefaults() => Defaults;
+		protected virtual AutosuggestSettings GetDefaults() => HxAutosuggest.Defaults;
 		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
 
 		/// <summary>
-		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxAutosuggest.Defaults"/>, overriden by individual parameters).
 		/// </summary>
 		[Parameter] public AutosuggestSettings Settings { get; set; }
 
