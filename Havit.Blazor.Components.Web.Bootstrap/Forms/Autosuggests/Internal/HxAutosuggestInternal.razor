@@ -28,16 +28,16 @@
 			}
 			else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
 			{
-				if (this.ClearIcon is not null)
+				if (this.ClearIconEffective is not null)
 				{
 					<div role="button" @onclick="HandleCrossClick" @onclick:stopPropagation>
-						<HxIcon Icon="ClearIcon" />
+						<HxIcon Icon="ClearIconEffective" />
 					</div>
 				}
 			}
-			else if (this.SearchIcon is not null)
+			else if (this.SearchIconEffective is not null)
 			{
-				<HxIcon Icon="@SearchIcon" />
+				<HxIcon Icon="@SearchIconEffective" />
 			}
 		</div>
 		<HxAutosuggestItems CssClass="w-100" TItem="TItem" Items="@suggestions" OnItemClick="HandleItemClick">

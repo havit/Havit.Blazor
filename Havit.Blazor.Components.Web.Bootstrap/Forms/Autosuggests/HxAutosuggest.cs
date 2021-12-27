@@ -13,6 +13,36 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
 		/// <summary>
+		/// Application-wide defaults for the <see cref="HxInputFile"/> and derived components.
+		/// </summary>
+		public static AutosuggestSettings Defaults { get; set; }
+
+		static HxAutosuggest()
+		{
+			Defaults = new AutosuggestSettings()
+			{
+				InputSize = Bootstrap.InputSize.Regular,
+				SearchIcon = BootstrapIcon.Search,
+				ClearIcon = BootstrapIcon.XCircleFill,
+				MinimumLength = 2,
+				Delay = 300,
+			};
+		}
+
+		/// <summary>
+		/// Returns application-wide defaults for the component.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual AutosuggestSettings GetDefaults() => Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public AutosuggestSettings Settings { get; set; }
+
+		/// <summary>
 		/// Method (delegate) which provides data of the suggestions.
 		/// </summary>
 		[Parameter] public AutosuggestDataProviderDelegate<TItem> DataProvider { get; set; }
@@ -44,21 +74,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Icon displayed in input when no item is selected.
 		/// </summary>
 		[Parameter] public IconBase SearchIcon { get; set; }
+		protected IconBase SearchIconEffective => this.SearchIcon ?? this.Settings?.SearchIcon ?? GetDefaults().SearchIcon;
 
 		/// <summary>
 		/// Icon displayed in input on selection clear button when item is selected.
 		/// </summary>
 		[Parameter] public IconBase ClearIcon { get; set; }
+		protected IconBase ClearIconEffective => this.ClearIcon ?? this.Settings?.ClearIcon ?? GetDefaults().ClearIcon;
 
 		/// <summary>
 		/// Minimal number of characters to start suggesting.
 		/// </summary>
 		[Parameter] public int? MinimumLength { get; set; }
+		protected int MinimumLengthEffective => this.MinimumLength ?? this.Settings?.MinimumLength ?? GetDefaults().MinimumLength ?? throw new InvalidOperationException(nameof(MinimumLength) + " default for " + nameof(HxAutosuggest) + " has to be set.");
 
 		/// <summary>
 		/// Debounce delay in miliseconds.
 		/// </summary>
 		[Parameter] public int? Delay { get; set; }
+		protected int DelayEffective => this.Delay ?? this.Settings?.Delay ?? GetDefaults().Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxAutosuggest) + " has to be set.");
 
 		/// <summary>
 		/// Short hint displayed in the input field before the user enters a value.
@@ -88,19 +122,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private HxAutosuggestInternal<TItem, TValue> hxAutosuggestInternalComponent;
 
-		/// <summary>
-		/// Return <see cref="HxAutosuggest{TItem, TValue}"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual AutosuggestSettings GetDefaults() => HxAutosuggest.Defaults;
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-
 		/// <inheritdoc cref="ComponentBase.BuildRenderTree(RenderTreeBuilder)" />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
-			AutosuggestSettings defaults = this.GetDefaults();
-
 			LabelType labelTypeEffective = (this as IInputWithLabelType).LabelTypeEffective;
 
 			builder.OpenComponent<HxAutosuggestInternal<TItem, TValue>>(1);
@@ -110,8 +134,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1003, nameof(HxAutosuggestInternal<TItem, TValue>.ValueSelector), ValueSelector);
 			builder.AddAttribute(1004, nameof(HxAutosuggestInternal<TItem, TValue>.TextSelector), TextSelector);
 			builder.AddAttribute(1005, nameof(HxAutosuggestInternal<TItem, TValue>.ItemTemplate), ItemTemplate);
-			builder.AddAttribute(1006, nameof(HxAutosuggestInternal<TItem, TValue>.MinimumLength), MinimumLength ?? defaults.MinimumLength);
-			builder.AddAttribute(1007, nameof(HxAutosuggestInternal<TItem, TValue>.Delay), Delay ?? defaults.Delay);
+			builder.AddAttribute(1006, nameof(HxAutosuggestInternal<TItem, TValue>.MinimumLengthEffective), MinimumLengthEffective);
+			builder.AddAttribute(1007, nameof(HxAutosuggestInternal<TItem, TValue>.DelayEffective), DelayEffective);
 			builder.AddAttribute(1008, nameof(HxAutosuggestInternal<TItem, TValue>.InputId), InputId);
 			builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItem, TValue>.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
 			builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItem, TValue>.EnabledEffective), EnabledEffective);
@@ -120,8 +144,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1013, nameof(HxAutosuggestInternal<TItem, TValue>.LabelTypeEffective), labelTypeEffective);
 			builder.AddAttribute(1014, nameof(HxAutosuggestInternal<TItem, TValue>.FormValueComponent), this);
 			builder.AddAttribute(1015, nameof(HxAutosuggestInternal<TItem, TValue>.EmptyTemplate), EmptyTemplate);
-			builder.AddAttribute(1016, nameof(HxAutosuggestInternal<TItem, TValue>.SearchIcon), SearchIcon ?? defaults.SearchIcon);
-			builder.AddAttribute(1017, nameof(HxAutosuggestInternal<TItem, TValue>.ClearIcon), ClearIcon ?? defaults.ClearIcon);
+			builder.AddAttribute(1016, nameof(HxAutosuggestInternal<TItem, TValue>.SearchIconEffective), SearchIconEffective);
+			builder.AddAttribute(1017, nameof(HxAutosuggestInternal<TItem, TValue>.ClearIconEffective), ClearIconEffective);
 			builder.AddAttribute(1018, nameof(HxAutosuggestInternal<TItem, TValue>.DropdownOffset), DropdownOffset);
 			builder.AddComponentReferenceCapture(1019, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
 			builder.CloseComponent();

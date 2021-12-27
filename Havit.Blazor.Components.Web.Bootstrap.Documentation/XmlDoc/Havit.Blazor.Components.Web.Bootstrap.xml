@@ -1800,7 +1800,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings">
             <summary>
-            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/>.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/> and derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.SearchIcon">
@@ -1815,12 +1815,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.MinimumLength">
             <summary>
-            Minimal number of characters to start suggesting. Default is <c>2</c>.
+            Minimal number of characters to start suggesting.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.Delay">
             <summary>
-            Debounce delay in miliseconds. Default is <c>300 ms</c>.
+            Debounce delay in miliseconds.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.InputSize">
@@ -1831,6 +1831,22 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2">
             <summary>
             Component for single item selection with dynamic suggestions (based on typed characters).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Defaults"/>, overriden by individual parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.DataProvider">
@@ -1903,13 +1919,6 @@
             Returns corresponding item for (select) Value.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetDefaults">
-            <summary>
-            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants which differs in the default values.
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" />
         </member>
@@ -1968,7 +1977,7 @@
             Gets item from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.Value"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.MinimumLength">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.MinimumLengthEffective">
             <summary>
             Minimal number of characters to start suggesting. Default is <c>2</c>.
             </summary>
@@ -1978,7 +1987,7 @@
             Short hint displayed in the input field before the user enters a value.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.Delay">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.DelayEffective">
             <summary>
             Debounce delay in miliseconds. Default is <c>300 ms</c>.
             </summary>

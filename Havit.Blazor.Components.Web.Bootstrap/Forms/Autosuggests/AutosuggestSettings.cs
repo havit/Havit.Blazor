@@ -1,40 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Havit.Blazor.Components.Web.Bootstrap.Internal;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Settings for <see cref="HxAutosuggest{TItem, TValue} "/>.
+	/// Settings for the <see cref="HxAutosuggest{TItem, TValue} "/> and derived components.
 	/// </summary>
 	public record AutosuggestSettings : IInputSettingsWithSize
 	{
 		/// <summary>
 		/// Icon displayed in input when no item is selected.
 		/// </summary>
-		public IconBase SearchIcon { get; set; } = BootstrapIcon.Search;
+		public IconBase SearchIcon { get; set; }
 
 		/// <summary>
 		/// Icon displayed in input on selection clear button when item is selected.
 		/// </summary>
-		public IconBase ClearIcon { get; set; } = BootstrapIcon.XCircleFill;
+		public IconBase ClearIcon { get; set; }
 
 		/// <summary>
-		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
+		/// Minimal number of characters to start suggesting.
 		/// </summary>
-		public int MinimumLength { get; set; } = 2;
+		public int? MinimumLength { get; set; }
 
 		/// <summary>
-		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
+		/// Debounce delay in miliseconds.
 		/// </summary>
-		public int Delay { get; set; } = 300;
+		public int? Delay { get; set; }
 
 		/// <summary>
 		/// Input size.
 		/// </summary>
-		public InputSize? InputSize { get; set; } = Bootstrap.InputSize.Regular;
+		public InputSize? InputSize { get; set; }
 	}
 }
