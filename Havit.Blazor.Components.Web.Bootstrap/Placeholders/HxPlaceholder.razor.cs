@@ -15,9 +15,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxPlaceholder : ILayoutColumnComponent
 	{
 		/// <summary>
-		/// Application-wide defaults for <see cref="HxPlaceholder"/>.
+		/// Application-wide defaults for the <see cref="HxPlaceholder"/> and derived components.
 		/// </summary>
-		public static PlaceholderSettings Defaults { get; set; } = new();
+		public static PlaceholderSettings Defaults { get; set; }
+
+		static HxPlaceholder()
+		{
+			Defaults = new PlaceholderSettings()
+			{
+				Color = ThemeColor.None,
+				Size = PlaceholderSize.Regular,
+			};
+		}
+
+		/// <summary>
+		/// Returns application-wide defaults for the component.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual PlaceholderSettings GetDefaults() => Defaults;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public PlaceholderSettings Settings { get; set; }
 
 		/// <inheritdoc cref="ILayoutColumnComponent.Columns"/>
 		[Parameter] public string Columns { get; set; }
@@ -41,11 +61,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Size of the placeholder.
 		/// </summary>
 		[Parameter] public PlaceholderSize? Size { get; set; }
+		protected PlaceholderSize SizeEffective => this.Size ?? this.Settings?.Size ?? PlaceholderContainer?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxPlaceholder) + " has to be set.");
 
 		/// <summary>
 		/// Color of the placeholder.
 		/// </summary>
 		[Parameter] public ThemeColor? Color { get; set; }
+		protected ThemeColor ColorEffective => this.Color ?? this.Settings?.Color ?? PlaceholderContainer?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxPlaceholder) + " has to be set.");
 
 		/// <summary>
 		/// Optional content of the placeholder (usualy not used).
@@ -56,6 +78,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Additional CSS class.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
+		protected string CssClassEffective => this.CssClass ?? this.Settings?.CssClass ?? GetDefaults().CssClass;
 
 		/// <summary>
 		/// Additional attributes to be splatted onto an underlying HTML element.
@@ -63,17 +86,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
 		[CascadingParameter] protected HxPlaceholderContainer PlaceholderContainer { get; set; }
-
-		protected PlaceholderSize SizeEffective => Size ?? PlaceholderContainer?.Size ?? GetDefaults().Size;
-		protected ThemeColor ColorEffective => Color ?? PlaceholderContainer?.Color ?? GetDefaults().Color;
-		protected string CssClassEffective => CssClass ?? GetDefaults().CssClass;
-
-		/// <summary>
-		/// Return <see cref="HxPlaceholder"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual PlaceholderSettings GetDefaults() => Defaults;
 
 		protected virtual string GetCssClass()
 		{
@@ -93,7 +105,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				PlaceholderSize.Small => "placeholder-sm",
 				PlaceholderSize.ExtraSmall => "placeholder-xs",
 				PlaceholderSize.Large => "placeholder-lg",
-				_ => throw new InvalidOperationException($"Unknown {nameof(HxPlaceholder)}.{nameof(Size)} value {this.Size:g}.")
+				_ => throw new InvalidOperationException($"Unknown {nameof(HxPlaceholder)}.{nameof(Size)} value {this.SizeEffective:g}.")
 			};
 		}
 	}

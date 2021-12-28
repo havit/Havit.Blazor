@@ -6052,7 +6052,18 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Defaults">
             <summary>
-            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>.
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Defaults"/>, overriden by individual parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Columns">
@@ -6098,13 +6109,6 @@
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.GetDefaults">
-            <summary>
-            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants which differs in the default values.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton">
             <summary>
             <see href="https://getbootstrap.com/docs/5.1/components/placeholders/">Bootstrap 5 placeholder</see> in form of a button.<br/>
@@ -6138,7 +6142,18 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Defaults">
             <summary>
-            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/>.
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Defaults"/>, overriden by individual parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Animation">
@@ -6148,12 +6163,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Size">
             <summary>
-            Size of the placeholder.
+            Size of the placeholders (propagated to the child <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>s).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Color">
             <summary>
-            Color of the placeholder.
+            Color of the placeholders (propagated to the child <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>s).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.ChildContent">
@@ -6169,13 +6184,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying HTML element.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.GetDefaults">
-            <summary>
-            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation">
@@ -6200,12 +6208,12 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerSettings">
             <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/> component.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/> and derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerSettings.Animation">
             <summary>
-            Animation of the placeholders in container. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.None"/> (no animation).
+            Animation of the placeholders in container.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerSettings.CssClass">
@@ -6215,17 +6223,17 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderSettings">
             <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/> component.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/> and derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderSettings.Size">
             <summary>
-            Size of the placeholder. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderSize.Regular"/>.
+            Size of the placeholder.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderSettings.Color">
             <summary>
-            Color of the placeholder. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> (= use Bootstrap default placeholder color).
+            Explicit color of the placeholder.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderSettings.CssClass">
