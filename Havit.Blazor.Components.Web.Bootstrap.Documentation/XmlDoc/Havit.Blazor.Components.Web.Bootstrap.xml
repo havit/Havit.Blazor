@@ -2282,12 +2282,12 @@
             Default is <c>true</c> (you can type your own tags).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.SuggestMinimumLength">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.SuggestMinimumLengthEffective">
             <summary>
             Minimal number of characters to start suggesting. Default is <c>2</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.Delimiters">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.DelimitersEffective">
             <summary>
             Characters, when typed, divide the current input into separate tags.
             Default is comma, semicolon and space.
@@ -2318,12 +2318,12 @@
             Short hint displayed in the input field before the user enters a value.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.TagBackgroundColor">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.TagBackgroundColorEffective">
             <summary>
             Background color of the tag (also used for the AddButton).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.TagTextColor">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.TagTextColorEffective">
             <summary>
             Color of the tag text (also used for the AddButtonText and icons).
             </summary>
@@ -6487,6 +6487,17 @@
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/>.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Defaults"/>, overriden by individual parameters).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.AllowCustomTags">
             <summary>
             Indicates whether you are restricted to suggested items only (<c>false</c>).
@@ -6557,13 +6568,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputSize">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.GetDefaults">
-            <summary>
-            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants which differs in the default values.
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
@@ -6616,12 +6620,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.SuggestMinimumLength">
             <summary>
-            Minimal number of characters to start suggesting. Default is <c>2</c>.
+            Minimal number of characters to start suggesting.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.SuggestDelay">
             <summary>
-            Debounce delay in miliseconds. Default is <c>300 ms</c>.
+            Debounce delay in miliseconds.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.InputSize">
@@ -6629,28 +6633,24 @@
             Input size.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.Delimiters">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.Delimiters">
             <summary>
             Characters, when typed, divide the current input into separate tags.
-            Default is <c>comma, semicolon and space</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.ShowAddButton">
             <summary>
             Indicates whether the add-icon (+) should be displayed.
-            Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.TagBackgroundColor">
             <summary>
             Background color of the tag (also used for the AddButton).
-            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.TagTextColor">
             <summary>
             Color of the tag text (also used for the AddButtonText and icons).
-            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Dark"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">

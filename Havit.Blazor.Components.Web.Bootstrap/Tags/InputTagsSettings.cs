@@ -14,42 +14,38 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public record InputTagsSettings : IInputSettingsWithSize
 	{
 		/// <summary>
-		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
+		/// Minimal number of characters to start suggesting.
 		/// </summary>
-		public int SuggestMinimumLength { get; set; } = 2;
+		public int? SuggestMinimumLength { get; set; }
 
 		/// <summary>
-		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
+		/// Debounce delay in miliseconds.
 		/// </summary>
-		public int SuggestDelay { get; set; } = 300;
+		public int? SuggestDelay { get; set; }
 
 		/// <summary>
 		/// Input size.
 		/// </summary>
-		public InputSize? InputSize { get; set; } = Bootstrap.InputSize.Regular;
+		public InputSize? InputSize { get; set; }
 
 		/// <summary>
 		/// Characters, when typed, divide the current input into separate tags.
-		/// Default is <c>comma, semicolon and space</c>.
 		/// </summary>
-		public List<char> Delimiters = new() { ',', ';', ' ' };
+		public List<char> Delimiters { get; set; }
 
 		/// <summary>
 		/// Indicates whether the add-icon (+) should be displayed.
-		/// Default is <c>false</c>.
 		/// </summary>
-		public bool ShowAddButton { get; set; } = false;
+		public bool? ShowAddButton { get; set; }
 
 		/// <summary>
 		/// Background color of the tag (also used for the AddButton).
-		/// Default is <see cref="ThemeColor.Light"/>.
 		/// </summary>
-		[Parameter] public ThemeColor TagBackgroundColor { get; set; } = ThemeColor.Light;
+		public ThemeColor? TagBackgroundColor { get; set; }
 
 		/// <summary>
 		/// Color of the tag text (also used for the AddButtonText and icons).
-		/// Default is <see cref="ThemeColor.Dark"/>.
 		/// </summary>
-		[Parameter] public ThemeColor TagTextColor { get; set; } = ThemeColor.Dark;
+		public ThemeColor? TagTextColor { get; set; }
 	}
 }

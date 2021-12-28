@@ -10,8 +10,8 @@
 
 	@foreach (string tag in ValueEffective)
 	{
-		<HxBadge Color="this.TagBackgroundColor"
-				 TextColor="this.TagTextColor"
+		<HxBadge Color="this.TagBackgroundColorEffective"
+				 TextColor="this.TagTextColorEffective"
 				 CssClass="hx-tag">
 			@tag
 			@if (this.EnabledEffective)
@@ -27,8 +27,8 @@
 	{
 		var showAddButtonText = !this.ValueEffective.Any() && !String.IsNullOrEmpty(AddButtonText);
 
-		<HxBadge Color="this.TagBackgroundColor"
-				 TextColor="this.TagTextColor"
+		<HxBadge Color="this.TagBackgroundColorEffective"
+				 TextColor="this.TagTextColorEffective"
 				 CssClass="hx-tag hx-tag-add-button"
 				 role="button">
 			<span class="@CssClassHelper.Combine("d-inline-flex align-items-center", showAddButtonText ? "me-1" : null)" role="button">
