@@ -5814,7 +5814,18 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults">
             <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/>.
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults"/>, overriden by individual parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Title">
@@ -5982,14 +5993,35 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.ShowCloseButton">
             <summary>
             Indicates whether the modal shows close button in header.
-            Default value is <c>true</c>.
             Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.CloseButtonIcon"/> to change shape of the button.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.BackdropEnabled">
             <summary>
             Indicates whether to apply a backdrop on body while offcanvas is open.
-            Default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.Placement">
+            <summary>
+            Placement of the offcanvas.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.Size">
+            <summary>
+            Size of the offcanvas.<br/>
+            </summary>
+            <remarks>
+            Consider customization of the offcanvas CSS variables instead of changing the Size application-wide.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.CloseOnEscape">
+            <summary>
+            Indicates whether the offcanvas closes when escape key is pressed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.ScrollingEnabled">
+            <summary>
+            Indicates whether body (page) scrolling is allowed while offcanvas is open.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.CssClass">
