@@ -2483,7 +2483,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Forms.FormValueSettings">
             <summary>
-            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxFormValue"/>.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxFormValue"/> and derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Forms.FormValueSettings.InputSize">
@@ -2568,6 +2568,17 @@
             Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxFormValue"/> and derived components.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.Defaults"/>, overriden by individual parameters).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.CssClass">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.CssClass" />
         </member>
@@ -2615,13 +2626,6 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputSize">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.InputSize" />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.GetDefaults">
-            <summary>
-            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxFormValue"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants that differ in the default values.
-            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
