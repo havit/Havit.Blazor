@@ -30,9 +30,8 @@
 
 	bool shouldRenderEmptyData = totalCount == 0;
 	bool shouldRenderData;
-	var defaults = GetDefaults();
-	bool shouldRenderFooter = (totalCount > 0) || ((totalCount == 0) && (this.ShowFooterWhenEmptyData ?? defaults.ShowFooterWhenEmptyData));
-	var rowHeightValue = (ItemRowHeight ?? defaults.ItemRowHeight);
+	bool shouldRenderFooter = (totalCount > 0) || ((totalCount == 0) && this.ShowFooterWhenEmptyDataEffective);
+	var rowHeightValue = ItemRowHeightEffective;
 	string rowHeight = rowHeightValue.ToString() + "px";
 
 	switch (ContentNavigationModeEffective)
@@ -58,10 +57,10 @@
 {
 	<HxProgressIndicator InProgress="@(InProgress ?? (dataProviderInProgress /* indicates data loading */ && !shouldRenderLoadingDataWithPlaceholders /* but not when placeholders are used - in such case we are indicating data loading using the placeholders */))">
 
-		<div class="@(TableContainerCssClass ?? defaults.TableContainerCssClass)">
-			<table class="@CssClassHelper.Combine("hx-grid table", (((SelectionEnabled || MultiSelectionEnabled) && shouldRenderData) ? "table-hover" : null), (TableCssClass ?? defaults.TableCssClass), (((SelectionEnabled || MultiSelectionEnabled) && (SelectedDataItem != null || SelectedDataItems!= null))? "table-item-selected" : null))">
+		<div class="@TableContainerCssClassEffective">
+			<table class="@CssClassHelper.Combine("hx-grid table", (((SelectionEnabled || MultiSelectionEnabled) && shouldRenderData) ? "table-hover" : null), TableCssClassEffective, (((SelectionEnabled || MultiSelectionEnabled) && (SelectedDataItem != null || SelectedDataItems!= null))? "table-item-selected" : null))">
 				<thead>
-					<tr class="@(HeaderRowCssClass ?? defaults.HeaderRowCssClass)">
+					<tr class="@HeaderRowCssClassEffective">
 						@{
 							GridHeaderCellContext gridHeaderCellContext = CreateGridHeaderCellContext();
 
@@ -169,7 +168,7 @@
 						<tr role="button"
 							height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
 							class="@CssClassHelper.Combine(
-													(ItemRowCssClass ?? defaults.ItemRowCssClass),
+													ItemRowCssClassEffective,
 													ItemRowCssClassSelector?.Invoke(item),
 													((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null))"
 							@onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)"
@@ -191,7 +190,7 @@
 					{
 						// !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
 						<tr height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
-							class="@CssClassHelper.Combine((ItemRowCssClass ?? defaults.ItemRowCssClass), ItemRowCssClassSelector?.Invoke(item))"
+							class="@CssClassHelper.Combine(ItemRowCssClassEffective, ItemRowCssClassSelector?.Invoke(item))"
 							@onclick:stopPropagation>
 							@foreach (IHxGridColumn<TItem> column in columnsToRender)
 							{
@@ -209,7 +208,7 @@
 
 				@if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
 				{
-					<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@(ItemRowHeight ?? defaults.ItemRowHeight)" OverscanCount="@(OverscanCount ?? GetDefaults().OverscanCount)">
+					<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective">
 						<ItemContent>
 							@rowTemplate(@context)
 						</ItemContent>
@@ -243,7 +242,7 @@
 						&& shouldRenderFooter)
 					{
 						<tfoot>
-							<tr class="@(FooterRowCssClass ?? defaults.FooterRowCssClass)">
+							<tr class="@FooterRowCssClassEffective">
 								@foreach (CellTemplate footerCellTemplate in footerTemplates)
 								{
 									<td class="@footerCellTemplate.CssClass">@footerCellTemplate.Template</td>
@@ -260,7 +259,7 @@
 			int totalPages = (totalCount.Value + PageSizeEffective - 1) / PageSizeEffective;
 			if (totalPages > 1)
 			{
-				<div class="@(PagerContainerCssClass ?? defaults.PagerContainerCssClass)">
+				<div class="@PagerCssClassEffective">
 					<HxPager TotalPages="@totalPages"
 							 CurrentPageIndex="@CurrentUserState.PageIndex"
 							 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged" />

@@ -3849,7 +3849,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridSettings">
             <summary>
-            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/> and derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ContentNavigationMode">
@@ -3869,13 +3869,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ItemRowHeight">
             <summary>
-            Height of the item row used for infinite scroll calculations.
-            Default value is <c>41px</c> (row-height of regular table-row within Bootstrap 5 default theme).
+            Height of the item row used for infinite scroll calculations (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.OverscanCount">
             <summary>
-            Infinite scroll:
+            Infinite scroll (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/>):
             Gets or sets a value that determines how many additional items will be rendered
             before and after the visible region. This help to reduce the frequency of rendering
             during scrolling. However, higher values mean that more elements will be present
@@ -3884,20 +3883,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PageSize">
             <summary>
-            Page size.
-            Default is <c>20</c>.
+            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PlaceholdersRowCount">
             <summary>
             Number of rows with placeholders to render.
-            Default is <c>5</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ShowFooterWhenEmptyData">
             <summary>
             Indicates whether to render footer when data are empty.
-            Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.TableContainerCssClass">
@@ -3926,9 +3922,9 @@
             Custom CSS class to render with footer <c>tr</c> element.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PagerContainerCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PagerCssClass">
             <summary>
-            Custom CSS class to render with pager wrapping <c>div</c> element.
+            Custom CSS class to render with pager.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState`1">
@@ -3953,8 +3949,16 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid">
             <summary>
+            Non-generic API for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/> component.
+            </summary>
+            <remarks>
             Marker for resources for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
             It is unfriendly to create resources for generic classes.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/> and derived components.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1">
@@ -3963,14 +3967,14 @@
             </summary>
             <typeparam name="TItem">Type of row data item.</typeparam>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Defaults">
-            <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
-            </summary>
-        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ColumnsRegistrationCascadingValueName">
             <summary>
             ColumnsRegistration cascading value name.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid.Defaults"/>, overriden by individual parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider">
@@ -4056,12 +4060,13 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PageSize">
             <summary>
-            Page size.		
+            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ShowFooterWhenEmptyData">
             <summary>
             Indicates whether to render footer when data are empty.
+            Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserState">
@@ -4081,8 +4086,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InProgress">
             <summary>
-            Indicates whether the grid should be displayed as "in progress".
-            When <c>null</c> (default) value is used, grid is "in progress" when retrieving data by data provider.
+            Indicates when the grid should be displayed as "in progress".
+            When not set (<c>null</c>), grid progress is automatically tracked when retrieving data by data provider.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.TableContainerCssClass">
@@ -4121,9 +4126,9 @@
             Custom CSS class to render with footer <c>tr</c> element.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PagerContainerCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PagerCssClass">
             <summary>
-            Custom CSS class to render with pager wrapping <c>div</c> element.
+            Custom CSS class to add to the pager.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PlaceholdersRowCount">
@@ -4131,6 +4136,7 @@
             Number of rows with placeholders to render.
             When value is zero, placeholders are not used.
             When <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadingDataTemplate" /> is set, placeholder are not used.
+            Default is <c>5</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.OverscanCount">
@@ -4145,9 +4151,8 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetDefaults">
             <summary>
-            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants which differs in the default values.
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.#ctor">
