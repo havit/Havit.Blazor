@@ -62,6 +62,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		protected virtual InputDateSettings GetDefaults() => HxInputDate.Defaults;
 		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		IInputSettingsWithSize IInputWithSize.GetSettings() => null; // internal component
 
 		protected override void OnParametersSet()
 		{
