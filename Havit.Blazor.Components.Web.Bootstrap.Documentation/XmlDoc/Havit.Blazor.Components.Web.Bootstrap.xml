@@ -469,7 +469,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarDateCustomizationResult.CssClass">
             <summary>
-            Specifies additional CSS class for the date date.
+            Specifies additional CSS class for the date.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CalendarDateCustomizationTarget">
@@ -4419,6 +4419,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.DisplayNumberCount">
             <summary>
             Count of numbers to display. Default value is 10.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.CssClass">
+            <summary>
+            Any additional CSS class to apply.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPager.SetCurrentPageIndexTo(System.Int32)">

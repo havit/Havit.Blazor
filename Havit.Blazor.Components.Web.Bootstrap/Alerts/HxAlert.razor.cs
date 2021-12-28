@@ -14,14 +14,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxAlert
 	{
 		[Parameter] public RenderFragment ChildContent { get; set; }
+
 		/// <summary>
 		/// Alert color (background). Required.
 		/// </summary>
 		[Parameter] public ThemeColor Color { get; set; }
+
 		/// <summary>
 		/// Shows the Close button and allows dissmissing of the alert.
 		/// </summary>
 		[Parameter] public bool Dismissible { get; set; }
+
 		/// <summary>
 		/// Any additional CSS class to apply.
 		/// </summary>

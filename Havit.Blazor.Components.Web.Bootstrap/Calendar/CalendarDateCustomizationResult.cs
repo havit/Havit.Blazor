@@ -12,7 +12,7 @@
 		public bool Enabled { get; init; } = true;
 
 		/// <summary>
-		/// Specifies additional CSS class for the date date.
+		/// Specifies additional CSS class for the date.
 		/// </summary>
 		public string CssClass { get; init; }
 	}

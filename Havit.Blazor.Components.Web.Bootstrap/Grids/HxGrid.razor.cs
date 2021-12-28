@@ -191,9 +191,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string PagerCssClass { get; set; }
 		protected string PagerCssClassEffective => this.PagerCssClass ?? this.Settings?.PagerCssClass ?? GetDefaults().PagerCssClass;
 
-
-		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
-
 		/// <summary>
 		/// Number of rows with placeholders to render.
 		/// When value is zero, placeholders are not used.
@@ -219,6 +216,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
 		protected virtual GridSettings GetDefaults() => HxGrid.Defaults;
+
+		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
 
 		private List<IHxGridColumn<TItem>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItem>> columnsListRegistration;

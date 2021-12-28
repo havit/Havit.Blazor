@@ -259,11 +259,10 @@
 			int totalPages = (totalCount.Value + PageSizeEffective - 1) / PageSizeEffective;
 			if (totalPages > 1)
 			{
-				<div class="@PagerCssClassEffective">
-					<HxPager TotalPages="@totalPages"
-							 CurrentPageIndex="@CurrentUserState.PageIndex"
-							 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged" />
-				</div>
+				<HxPager TotalPages="@totalPages"
+						 CurrentPageIndex="@CurrentUserState.PageIndex"
+						 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged"
+                         CssClass="@PagerCssClassEffective" />
 			}
 		}
 
