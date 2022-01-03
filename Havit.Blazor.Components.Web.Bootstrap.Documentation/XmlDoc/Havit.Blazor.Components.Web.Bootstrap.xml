@@ -4937,9 +4937,9 @@
             Content (body) text.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.ContentTemplate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.BodyTemplate">
             <summary>
-            Content (body) template.
+            Body (content) template.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.ShowCloseButton">
