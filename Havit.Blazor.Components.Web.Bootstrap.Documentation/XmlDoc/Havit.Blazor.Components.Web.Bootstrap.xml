@@ -4927,9 +4927,9 @@
             Title text (Header).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.TitleTemplate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.HeaderTemplate">
             <summary>
-            Title template (Header).
+            Header template (Header).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Text">

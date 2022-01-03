@@ -8,7 +8,8 @@
 			  CustomButtonText="@request.CustomButtonText"
 			  ShowCloseButton="@request.ShowCloseButton"
 			  CssClass="@request.CssClass"
-			  OnClosed="HandleClosed">
-	<TitleTemplate>@request.TitleTemplate</TitleTemplate>
+			  OnClosed="HandleClosed"
+              @attributes="@request.AdditionalAttributes">
+	<HeaderTemplate>@request.HeaderTemplate</HeaderTemplate>
 	<ContentTemplate>@request.ContentTemplate</ContentTemplate>
 </HxMessageBox>

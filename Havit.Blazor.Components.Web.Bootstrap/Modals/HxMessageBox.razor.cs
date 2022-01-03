@@ -52,9 +52,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Title { get; set; }
 
 		/// <summary>
-		/// Title template (Header).
+		/// Header template (Header).
 		/// </summary>
-		[Parameter] public RenderFragment TitleTemplate { get; set; }
+		[Parameter] public RenderFragment HeaderTemplate { get; set; }
 
 		/// <summary>
 		/// Content (body) text.
@@ -62,9 +62,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Text { get; set; }
 
 		/// <summary>
-		/// Content (body) template.
+		/// Body (content) template.
 		/// </summary>
-		[Parameter] public RenderFragment ContentTemplate { get; set; }
+		[Parameter] public RenderFragment BodyTemplate { get; set; }
 
 		/// <summary>
 		/// Indicates whether to show close button.

@@ -3,14 +3,13 @@
 @* TODO Buttons order? *@
 @* TODO Focus + Enter *@
 
-<HxModal @ref="modal" CssClass="@this.CssClass" ShowCloseButton="@this.ShowCloseButton" OnClosed="HandleModalClosed">
+<HxModal @ref="modal" Title="@Title" CssClass="@this.CssClass" ShowCloseButton="@this.ShowCloseButton" OnClosed="HandleModalClosed">
 	<HeaderTemplate>
-		@Title
-		@TitleTemplate
+		@HeaderTemplate
 	</HeaderTemplate>
 	<BodyTemplate>
 		@Text
-		@ContentTemplate
+		@BodyTemplate
 	</BodyTemplate>
 	<FooterTemplate>
 		@foreach (var button in GetButtonsToRender())

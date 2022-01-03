@@ -39,12 +39,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Title">
             <summary>
-            Title text (Header).
+            Title in the header.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.TitleTemplate">
+        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.HeaderTemplate">
             <summary>
-            Title template (Header).
+            Template for the header.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Text">
@@ -75,6 +75,11 @@
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.CustomButtonText">
             <summary>
             Text for <see cref="F:Havit.Blazor.Components.Web.MessageBoxButtons.Custom"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying UI component.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.MessageBoxServiceCollectionExtensions">
