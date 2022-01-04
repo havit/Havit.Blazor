@@ -528,6 +528,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 			GridDataProviderResult<TItem> result = await DataProvider.Invoke(request);
+			Contract.Requires<ArgumentException>(result != null, "The " + nameof(DataProvider) + " should never return null. Instance of " + nameof(GridDataProviderResult<TItem>) + " has to be returned.");
+			Contract.Requires<ArgumentException>(result.Data != null, "The " + nameof(DataProvider) + "." + nameof(GridDataProviderResult<TItem>.Data) + " returned should never be null. Use Enumerable.Empty if there is no data to display.");
 
 			// do not use result from cancelled request (for the case a developer does not use the cancellation token)
 			if (!request.CancellationToken.IsCancellationRequested)
