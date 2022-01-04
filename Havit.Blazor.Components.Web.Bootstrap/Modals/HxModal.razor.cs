@@ -26,6 +26,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			};
 		}
 
+		/// <summary>
 		/// Returns application-wide defaults for the component.
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
