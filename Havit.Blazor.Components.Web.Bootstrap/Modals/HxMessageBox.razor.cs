@@ -32,6 +32,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					Color = ThemeColor.Secondary,
 				},
+				ModalSettings = new()
 			};
 		}
 
@@ -67,9 +68,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment BodyTemplate { get; set; }
 
 		/// <summary>
-		/// Indicates whether to show close button.
+		/// Indicates whether to show the close button.
+		/// Default is taken from the underlying <see cref="HxModal"/> (<c>true</c>).
 		/// </summary>
-		[Parameter] public bool ShowCloseButton { get; set; } = true;
+		[Parameter] public bool? ShowCloseButton { get; set; }
 
 		/// <summary>
 		/// Buttons to show. Default is <see cref="MessageBoxButtons.Ok"/>.
@@ -99,19 +101,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected ButtonSettings SecondaryButtonSettingsEffective => this.SecondaryButtonSettings ?? GetDefaults().SecondaryButtonSettings ?? throw new InvalidOperationException(nameof(SecondaryButtonSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
 
 		/// <summary>
-		/// Additional CSS class.
+		/// Settings for underlying <see cref="HxModal"/> component.
 		/// </summary>
-		[Parameter] public string CssClass { get; set; }
+		[Parameter] public ModalSettings ModalSettings { get; set; }
+		protected ModalSettings ModalSettingsEffective => this.ModalSettings ?? GetDefaults().ModalSettings ?? throw new InvalidOperationException(nameof(ModalSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
 
 		/// <summary>
 		/// Raised when the message box gets closed. Returns the button clicked.
 		/// </summary>
 		[Parameter] public EventCallback<MessageBoxButtons> OnClosed { get; set; }
-
 		/// <summary>
 		/// Triggers the <see cref="OnClosed"/> event. Allows interception of the event in derived components.
 		/// </summary>
 		protected virtual Task InvokeOnClosedAsync(MessageBoxButtons button) => OnClosed.InvokeAsync(button);
+
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying <see cref="HxModal"/>.
+		/// </summary>
+		[Parameter] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
 
 		[Inject] protected IStringLocalizer<HxMessageBox> MessageBoxLocalizer { get; set; }

@@ -4946,7 +4946,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.ShowCloseButton">
             <summary>
-            Indicates whether to show close button.
+            Indicates whether to show the close button.
+            Default is taken from the underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> (<c>true</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Buttons">
@@ -4974,9 +4975,9 @@
             Settings for dialog secondary button(s).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.CssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.ModalSettings">
             <summary>
-            Additional CSS class.
+            Settings for underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.OnClosed">
@@ -4987,6 +4988,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.InvokeOnClosedAsync(Havit.Blazor.Components.Web.MessageBoxButtons)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.OnClosed"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.ShowAsync">
@@ -5009,6 +5015,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults">
             <summary>
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Havit.Blazor.Components.Web.Bootstrap.HxModal.GetDefaults" -->
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults"/>, overriden by individual parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Title">
@@ -5088,17 +5100,22 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.HeaderCssClass">
             <summary>
-            Additional header CSS class.
+            Additional header CSS class (<c>div.modal-header</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.BodyCssClass">
             <summary>
-            Additional body CSS class.
+            Additional body CSS class (<c>div.modal-body</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.ContentCssClass">
+            <summary>
+            Additional content CSS class (<c>div.modal-content</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.FooterCssClass">
             <summary>
-            Footer css class.
+            Additional footer CSS class (<c>div.modal-footer</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnClosed">
@@ -5157,6 +5174,11 @@
             Settings for dialog secondary button(s).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.ModalSettings">
+            <summary>
+            Settings for underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> component.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen">
             <summary>
             Fullscreen behavior for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/>.
@@ -5205,33 +5227,41 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.ShowCloseButton">
             <summary>
             Indicates whether the modal shows close button in header.
-            Default value is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.CloseButtonIcon">
             <summary>
             Close icon to be used in header.
-            If set to <c>null</c> (default), Bootstrap default close-button will be used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.CloseOnEscape">
+            <summary>
+            Indicates whether the modal closes when escape key is pressed.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Size">
             <summary>
-            Size of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalSize.Regular"/>.
+            Size of the modal.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Fullscreen">
             <summary>
-            Fullscreen behavior of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.Disabled"/>.
+            Fullscreen behavior of the modal.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.UseStaticBackdrop">
+            <summary>
+            Indicates whether the modal uses a static backdrop.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Scrollable">
             <summary>
-            Allows scrolling the modal body. Default is <c>false</c>.
+            Allows scrolling the modal body.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Centered">
             <summary>
-            Allows vertical centering of the modal. Default is <c>false</c> (horizontal only).
+            Allows vertical centering of the modal.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.CssClass">
@@ -5246,17 +5276,22 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.HeaderCssClass">
             <summary>
-            Additional header CSS class.
+            Additional header CSS class (<c>div.modal-header</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.ContentCssClass">
+            <summary>
+            Additional content CSS class (<c>div.modal-content</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.BodyCssClass">
             <summary>
-            Additional body CSS class.
+            Additional body CSS class (<c>div.modal-body</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.FooterCssClass">
             <summary>
-            Footer css class.
+            Additional footer CSS class (<c>div.modal-footer</c>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalSize">

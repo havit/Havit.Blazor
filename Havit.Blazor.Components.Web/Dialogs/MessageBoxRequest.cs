@@ -49,10 +49,8 @@ namespace Havit.Blazor.Components.Web
 		/// </summary>
 		public string CustomButtonText { get; set; }
 
-		public string CssClass { get; set; }
-
 		/// <summary>
-		/// Additional attributes to be splatted onto an underlying UI component.
+		/// Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxModal).
 		/// </summary>
 		public Dictionary<string, object> AdditionalAttributes { get; set; }
 	}

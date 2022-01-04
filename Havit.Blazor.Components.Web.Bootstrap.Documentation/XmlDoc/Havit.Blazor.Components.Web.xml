@@ -79,7 +79,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.AdditionalAttributes">
             <summary>
-            Additional attributes to be splatted onto an underlying UI component.
+            Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxModal).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.MessageBoxServiceCollectionExtensions">

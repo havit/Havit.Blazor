@@ -20,5 +20,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Settings for dialog secondary button(s).
 		/// </summary>
 		public ButtonSettings SecondaryButtonSettings { get; set; }
+
+		/// <summary>
+		/// Settings for underlying <see cref="HxModal"/> component.
+		/// </summary>
+		public ModalSettings ModalSettings { get; set; }
 	}
 }
