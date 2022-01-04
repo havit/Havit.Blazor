@@ -32,9 +32,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				if (String.IsNullOrWhiteSpace(this.Label))
 				{
-					return null;
+					return "position-relative";
 				}
-				return CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null);
+				return CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null, "position-relative");
 			}
 		}
 

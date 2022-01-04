@@ -5017,7 +5017,12 @@
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Havit.Blazor.Components.Web.Bootstrap.HxModal.GetDefaults" -->
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Settings">
             <summary>
             Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults"/>, overriden by individual parameters).
