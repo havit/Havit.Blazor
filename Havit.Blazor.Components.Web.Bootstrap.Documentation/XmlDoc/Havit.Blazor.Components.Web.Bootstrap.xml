@@ -3979,7 +3979,9 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider">
             <summary>
-            Data provider for items to render as a table.
+            Data provider for items to render.<br />
+            The provider should always return initialized instance of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderResult`1"/>
+            (use async-await to obtain the data, initialize with <c>Enumerable.Empty</c> if there are no data to display).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectionEnabled">

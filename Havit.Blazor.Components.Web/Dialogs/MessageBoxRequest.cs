@@ -25,9 +25,9 @@ namespace Havit.Blazor.Components.Web
 		public string Text { get; set; }
 
 		/// <summary>
-		/// Content (body) template.
+		/// Body (content) template.
 		/// </summary>
-		public RenderFragment ContentTemplate { get; set; }
+		public RenderFragment BodyTemplate { get; set; }
 
 		/// <summary>
 		/// Indicates whether to show close button.
