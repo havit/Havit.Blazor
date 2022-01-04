@@ -31,7 +31,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public GridSettings Settings { get; set; }
 
 		/// <summary>
-		/// Data provider for items to render as a table.
+		/// Data provider for items to render.<br />
+		/// The provider should always return initialized instance of <see cref="GridDataProviderResult{TItem}"/>
+		/// (use async-await to obtain the data, initialize with <c>Enumerable.Empty</c> if there are no data to display).
 		/// </summary>
 		[Parameter] public GridDataProviderDelegate<TItem> DataProvider { get; set; }
 
