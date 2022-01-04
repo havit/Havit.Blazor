@@ -9,35 +9,43 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	{
 		/// <summary>
 		/// Indicates whether the modal shows close button in header.
-		/// Default value is <c>true</c>.
 		/// </summary>
-		public bool ShowCloseButton { get; set; } = true;
+		public bool? ShowCloseButton { get; set; }
 
 		/// <summary>
 		/// Close icon to be used in header.
-		/// If set to <c>null</c> (default), Bootstrap default close-button will be used.
 		/// </summary>
-		public IconBase CloseButtonIcon { get; set; } = null;
+		public IconBase CloseButtonIcon { get; set; }
 
 		/// <summary>
-		/// Size of the modal. Default is <see cref="ModalSize.Regular"/>.
+		/// Indicates whether the modal closes when escape key is pressed.
 		/// </summary>
-		public ModalSize Size { get; set; } = ModalSize.Regular;
+		public bool? CloseOnEscape { get; set; }
 
 		/// <summary>
-		/// Fullscreen behavior of the modal. Default is <see cref="ModalFullscreen.Disabled"/>.
+		/// Size of the modal.
 		/// </summary>
-		public ModalFullscreen Fullscreen { get; set; } = ModalFullscreen.Disabled;
+		public ModalSize? Size { get; set; }
 
 		/// <summary>
-		/// Allows scrolling the modal body. Default is <c>false</c>.
+		/// Fullscreen behavior of the modal.
 		/// </summary>
-		public bool Scrollable { get; set; } = false;
+		public ModalFullscreen? Fullscreen { get; set; }
 
 		/// <summary>
-		/// Allows vertical centering of the modal. Default is <c>false</c> (horizontal only).
+		/// Indicates whether the modal uses a static backdrop.
 		/// </summary>
-		public bool Centered { get; set; } = false;
+		public bool? UseStaticBackdrop { get; set; }
+
+		/// <summary>
+		/// Allows scrolling the modal body.
+		/// </summary>
+		public bool? Scrollable { get; set; }
+
+		/// <summary>
+		/// Allows vertical centering of the modal.
+		/// </summary>
+		public bool? Centered { get; set; }
 
 		/// <summary>
 		/// Additional CSS class for the main element (<c>div.modal</c>).
@@ -50,17 +58,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public string DialogCssClass { get; set; }
 
 		/// <summary>
-		/// Additional header CSS class.
+		/// Additional header CSS class (<c>div.modal-header</c>).
 		/// </summary>
 		public string HeaderCssClass { get; set; }
 
 		/// <summary>
-		/// Additional body CSS class.
+		/// Additional content CSS class (<c>div.modal-content</c>).
+		/// </summary>
+		public string ContentCssClass { get; set; }
+
+		/// <summary>
+		/// Additional body CSS class (<c>div.modal-body</c>).
 		/// </summary>
 		public string BodyCssClass { get; set; }
 
 		/// <summary>
-		/// Footer css class.
+		/// Additional footer CSS class (<c>div.modal-footer</c>).
 		/// </summary>
 		public string FooterCssClass { get; set; }
 	}
