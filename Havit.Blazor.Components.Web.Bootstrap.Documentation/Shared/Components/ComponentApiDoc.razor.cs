@@ -394,6 +394,36 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return type;
 		}
 
+		private string FormatMethod(Type type)
+		{
+			string formattedName = FormatType(type);
+
+			if (!formattedName.Contains("IAsyncResult"))
+			{
+				return formattedName;
+			}
+
+			string typeName = null;
+			if (!string.IsNullOrEmpty(delegateSignature))
+			{
+				string[] charSplit = delegateSignature.Split(new[] { '<', '>', '/', '\"' });
+				string[] slashSplit = delegateSignature.Split("&lt;");
+
+				var charSplitResult = charSplit.ToList().FirstOrDefault(s => s.Contains("Result"));
+				if (charSplitResult.Contains("&lt;"))
+				{
+					typeName = slashSplit.ToList().FirstOrDefault(s => s.Contains("Result"));
+				}
+				else
+				{
+					typeName = charSplitResult;
+				}
+			}
+			typeName ??= $"{Type.Name.Replace("Provider", "").Replace("Delegate", "")}Result";
+
+			return $"IAsyncResult<<a href=\"/types/{typeName}\">{typeName}</a>>";
+		}
+
 		public static string FormatType(Type type)
 		{
 			string typeName = type.FullName;
