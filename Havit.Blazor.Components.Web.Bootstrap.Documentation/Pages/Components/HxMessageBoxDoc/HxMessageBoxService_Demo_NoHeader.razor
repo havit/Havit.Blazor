@@ -1,0 +1,17 @@
+﻿<HxButton Text="Open MessageBox" OnClick="OpenMessageBox" Color="ThemeColor.Primary" />
+
+@code
+{
+	[Inject] protected IHxMessageBoxService MessageBox { get; set; }
+
+	private async Task OpenMessageBox()
+	{
+		_ = await MessageBox.ShowAsync(new MessageBoxRequest()
+        {
+            Text = "This is the text",
+            Title = null,
+            ShowCloseButton = false,
+            Buttons = MessageBoxButtons.Ok
+        });
+	}
+}

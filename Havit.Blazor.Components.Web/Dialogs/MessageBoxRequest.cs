@@ -32,7 +32,7 @@ namespace Havit.Blazor.Components.Web
 		/// <summary>
 		/// Indicates whether to show close button.
 		/// </summary>
-		public bool ShowCloseButton { get; set; }
+		public bool? ShowCloseButton { get; set; }
 
 		/// <summary>
 		/// Buttons to show.
