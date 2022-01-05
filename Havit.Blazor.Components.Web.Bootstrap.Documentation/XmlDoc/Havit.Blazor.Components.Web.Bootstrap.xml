@@ -4616,6 +4616,16 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxBootstrapIcon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout">
+            <summary>
+            Non-generic API for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1"/> and derived components.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout.NoFilter">
             <summary>
             Can be used for TFilterModelType to express there is no filter in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout"/> component.
@@ -4627,9 +4637,35 @@
             </summary>
             <typeparam name="TFilterModel"></typeparam>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.GetDefaults">
+            <summary>
+            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox"/> defaults.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.InvokeFilterModelChangedAsync(`0)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.FilterModelChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.CardSettings">
+            <summary>
+            Settings for the wrapping <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.FilterOpenButtonSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> opening filtering offcanvas.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.FilterSubmitButtonSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> submitting the filter.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.FilterOffcanvasSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> with the filter.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent">
@@ -4676,6 +4712,31 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Layouts.LayoutColumnComponentExtensions.GetColumnsCssClasses(Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent)">
             <summary>
             Returns CSS classes representing column layout of the component.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ListLayoutSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ListLayoutSettings.CardSettings">
+            <summary>
+            Settings for the wrapping <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ListLayoutSettings.FilterOpenButtonSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> opening filtering offcanvas.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ListLayoutSettings.FilterSubmitButtonSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> submitting the filter.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ListLayoutSettings.FilterOffcanvasSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> with the filter.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroup">

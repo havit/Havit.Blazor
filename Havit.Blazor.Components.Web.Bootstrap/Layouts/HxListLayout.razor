@@ -2,7 +2,7 @@
 @typeparam TFilterModel
 
 <div class="hx-list-layout">
-	<HxCard HeaderCssClass="bg-white" BodyCssClass="overflow-auto p-0">
+	<HxCard Settings="this.CardSettingsEffective">
 		<HeaderTemplate>
 			<div class="hx-list-layout-header hstack gap-3">
 				<div class="fw-bold d-flex align-items-center me-auto">
@@ -38,7 +38,7 @@
 				}
 				@if (FilterTemplate != null)
 				{
-					<HxButton OnClick="HandleFilterButtonClick" Icon="BootstrapIcon.Filter" Color="ThemeColor.Light" />
+					<HxButton Settings="this.FilterOpenButtonSettingsEffective" OnClick="HandleFilterButtonClick" />
 				}
 				@if (CommandsTemplate != null)
 				{
@@ -51,7 +51,7 @@
 			}
 			@if (FilterTemplate != null)
 			{
-				<HxOffcanvas @ref="filterOffcanvasComponent" RenderMode="OffcanvasRenderMode.Always" Title="@Localizer["FilterHeaderTitle"]">
+				<HxOffcanvas @ref="filterOffcanvasComponent" RenderMode="OffcanvasRenderMode.Always" Title="@Localizer["FilterHeaderTitle"]" Settings="this.FilterOffcanvasSettingsEffective">
 					<BodyTemplate>
 						<HxFilterForm @ref="filterForm"
 								Id="@filterFormId"
@@ -64,14 +64,14 @@
 						</HxFilterForm>
 					</BodyTemplate>
 					<FooterTemplate>
-						<HxSubmit FormId="@filterFormId" Text="@Localizer["FilterApplyButtonText"]" Color="ThemeColor.Primary" />
+						<HxSubmit Settings="this.FilterSubmitButtonSettingsEffective" FormId="@filterFormId" Text="@Localizer["FilterApplyButtonText"]" />
 					</FooterTemplate>
 				</HxOffcanvas>
 			}
 		</HeaderTemplate>
-		<BodyTemplate>
+		<ChildContent>
 			@DataTemplate
-		</BodyTemplate>
+		</ChildContent>
 	</HxCard>
 	@DetailTemplate
 </div>
