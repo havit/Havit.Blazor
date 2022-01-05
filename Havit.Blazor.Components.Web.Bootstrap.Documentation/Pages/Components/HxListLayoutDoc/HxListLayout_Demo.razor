@@ -9,7 +9,7 @@
         <HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumItemId" />
     </FilterTemplate>
     <CommandsTemplate>
-        <HxButton Text="Add an invoice" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" CssClass="ms-1" OnClick="NewItemClicked" />
+        <HxButton Text="New item" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" CssClass="ms-1" OnClick="NewItemClicked" />
     </CommandsTemplate>
     <DataTemplate>
         <HxGrid @ref="gridComponent" TItem="DataItemDto" PageSize="20" DataProvider="LoadDataItems" SelectedDataItem="currentItem" SelectedDataItemChanged="HandleSelectedDataItemChanged">
