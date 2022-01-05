@@ -32,8 +32,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Data provider for items to render.<br />
-		/// The provider should always return initialized instance of <see cref="GridDataProviderResult{TItem}"/>
-		/// (use async-await to obtain the data, initialize with <c>Enumerable.Empty</c> if there are no data to display).
+		/// The provider should always return instance of <see cref="GridDataProviderResult{TItem}"/>, <c>null</c> is not allowed.
 		/// </summary>
 		[Parameter] public GridDataProviderDelegate<TItem> DataProvider { get; set; }
 
@@ -531,13 +530,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			GridDataProviderResult<TItem> result = await DataProvider.Invoke(request);
 			Contract.Requires<ArgumentException>(result != null, "The " + nameof(DataProvider) + " should never return null. Instance of " + nameof(GridDataProviderResult<TItem>) + " has to be returned.");
-			Contract.Requires<ArgumentException>(result.Data != null, "The " + nameof(DataProvider) + "." + nameof(GridDataProviderResult<TItem>.Data) + " returned should never be null. Use Enumerable.Empty if there is no data to display.");
 
 			// do not use result from cancelled request (for the case a developer does not use the cancellation token)
 			if (!request.CancellationToken.IsCancellationRequested)
 			{
 				dataProviderInProgress = false; // Multithreading: we can safelly clean dataProviderInProgress only wnen received data from non-cancelled task
-				totalCount = result.TotalCount ?? result.Data.Count();
+				totalCount = result.TotalCount ?? result.Data?.Count() ?? 0;
 			}
 
 			return result;

@@ -18,9 +18,8 @@
         <Demo Type="typeof(HxGrid_ServerSideDemo)" />
 
         <DocAlert Type="DocAlertType.Warning">
-            The <code>@nameof(HxGrid).@nameof(HxGrid<object>.DataProvider)</code> should always return an initialized instance of <code>@nameof(GridDataProviderResult<object>)</code>.
+            The <code>@nameof(HxGrid).@nameof(HxGrid<object>.DataProvider)</code> should always return an instance of <code>@nameof(GridDataProviderResult<object>)</code>, <code>null</code> is not allowed.
             The method you provide is <code>async</code> and should <code>await</code> the data if needed (loading progress is indicated in meantime).
-            If you do not have any data to display, use <code>Enumerable.Empty</code> to build the result.
         </DocAlert>
 
         <h3 id="EmptyData">Empty data</h3>
