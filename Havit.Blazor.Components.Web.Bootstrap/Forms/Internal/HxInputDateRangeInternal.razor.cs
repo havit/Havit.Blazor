@@ -30,7 +30,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public string ToParsingErrorMessageEffective { get; set; }
 
-		[Parameter] public bool ShowCalendarButtons { get; set; } = true;
+		[Parameter] public bool ShowCalendarButtonsEffective { get; set; } = true;
 
 		[Parameter] public DateTime MinDateEffective { get; set; }
 
@@ -60,8 +60,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual InputDateRangeDefaults GetDefaults() => HxInputDateRange.Defaults;
-		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		protected virtual InputDateRangeSettings GetDefaults() => HxInputDateRange.Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		IInputSettingsWithSize IInputWithSize.GetSettings() => null; // internal component
 
 		protected override void OnParametersSet()
 		{

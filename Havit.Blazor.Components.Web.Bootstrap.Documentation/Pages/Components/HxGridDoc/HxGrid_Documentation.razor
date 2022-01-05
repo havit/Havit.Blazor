@@ -2,57 +2,63 @@
 @attribute [Route("/components/" + nameof(HxGridColumn<object>))]
 
 <ComponentApiDoc Type="typeof(HxGrid<object>)">
-	<MainContent>
-		<h3 id="ClientSideDataProcessing">Client-side data processing</h3>
-		<ul>
-			<li>Create a field/property for the data.</li>
-			<li>Set data to this field/property. Do not sort data.</li>
-			<li>Use the extension method <code>ApplyTo</code> (<code>request.ApplyTo(data)</code>) in the <code>@nameof(HxGrid<object>.DataProvider)</code> method to automatically sort and page data from the field/property. While the result of the <code>@nameof(HxGrid<object>.DataProvider)</code> method is a generic <code>Task</code>, the result must be wrapped using <code>Task.FromResult</code>. It is easy, see the demo source code.</li>
-		</ul>
-		<Demo Type="typeof(HxGrid_ClientSideDemo)" />
+    <MainContent>
+        <h3 id="ClientSideDataProcessing">Client-side data processing</h3>
+        <ul>
+            <li>Create a field/property for the data.</li>
+            <li>Set data to this field/property. Do not sort data.</li>
+            <li>Use the extension method <code>ApplyTo</code> (<code>request.ApplyTo(data)</code>) in the <code>@nameof(HxGrid<object>.DataProvider)</code> method to automatically sort and page data from the field/property. While the result of the <code>@nameof(HxGrid<object>.DataProvider)</code> method is a generic <code>Task</code>, the result must be wrapped using <code>Task.FromResult</code>. It is easy, see the demo source code.</li>
+        </ul>
+        <Demo Type="typeof(HxGrid_ClientSideDemo)" />
 
-		<h3 id="ServerSidePagingAndSorting">Server side paging &amp; sorting</h3>
-		<ul>
-			<li>Implement the <code>@nameof(HxGrid<object>.DataProvider)</code> method to delegate the paging &amp; sorting to the server side. The sample code does not have this implementation.</li>
-		</ul>
-		<Demo Type="typeof(HxGrid_ServerSideDemo)" />
+        <h3 id="ServerSidePagingAndSorting">Server side paging &amp; sorting</h3>
+        <ul>
+            <li>Implement the <code>@nameof(HxGrid<object>.DataProvider)</code> method to delegate the paging &amp; sorting to the server side. The sample code does not have this implementation.</li>
+        </ul>
+        <Demo Type="typeof(HxGrid_ServerSideDemo)" />
 
-		<h3 id="EmptyData">Empty data</h3>
-		<Demo Type="typeof(HxGrid_EmptyDataDemo)" />
+        <DocAlert Type="DocAlertType.Warning">
+            The <code>@nameof(HxGrid).@nameof(HxGrid<object>.DataProvider)</code> should always return an initialized instance of <code>@nameof(GridDataProviderResult<object>)</code>.
+            The method you provide is <code>async</code> and should <code>await</code> the data if needed (loading progress is indicated in meantime).
+            If you do not have any data to display, use <code>Enumerable.Empty</code> to build the result.
+        </DocAlert>
 
-		<h3 id="InfiniteScroll">Infinite scroll (Virtualized)</h3>
-		<p>
-			You can switch from paging to infinite-scoll by setting <code>ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"</code>.
-			Use a Placeholder (<code>&lt;Placeholder&gt;...&lt;/Placeholder&gt;</code>) to display content until the item data is available.
-		</p>
-		<DocAlert Type="DocAlertType.Warning">
-			The <code>ItemRowHeight</code> parameter should be set for the virtualization to work properly. The default value is 50 pixels.
-		</DocAlert>
-		<Demo Type="typeof(HxGrid_VirtualizedDemo)" />
+        <h3 id="EmptyData">Empty data</h3>
+        <Demo Type="typeof(HxGrid_EmptyDataDemo)" />
 
-		<h3 id="ContextMenu">Context menu</h3>
-		<Demo Type="typeof(HxGrid_Demo_ContextMenu)" />
+        <h3 id="InfiniteScroll">Infinite scroll (Virtualized)</h3>
+        <p>
+            You can switch from paging to infinite-scoll by setting <code>ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"</code>.
+            Use a Placeholder (<code>&lt;Placeholder&gt;...&lt;/Placeholder&gt;</code>) to display content until the item data is available.
+        </p>
+        <DocAlert Type="DocAlertType.Warning">
+            The <code>ItemRowHeight</code> parameter should be set for the virtualization to work properly. The default value is 50 pixels.
+        </DocAlert>
+        <Demo Type="typeof(HxGrid_VirtualizedDemo)" />
 
-		<h3 id="Multiselect">Multiselect with checkboxes</h3>
-		<p>You can let the user select multiple rows with <code>@nameof(HxGrid<object>.MultiSelectionEnabled)="true"</code>, selected items are represented by <code>@nameof(HxGrid<object>.SelectedDataItems)</code> parameter (bindable).</p>
-		<DocAlert>
-			<code>@nameof(HxGrid<object>.SelectedDataItems)</code> contains only visible items. Items are removed from the selection if they are not rendered (e.g. after paging, sorting, ...).
-			<code>@nameof(HxGrid<object>.MultiSelectionEnabled)</code> cannot be combined with <code>@nameof(GridContentNavigationMode.InfiniteScroll)</code>.
-		</DocAlert>
-		<Demo Type="typeof(HxGrid_Demo_Multiselect)" />
-	</MainContent>
+        <h3 id="ContextMenu">Context menu</h3>
+        <Demo Type="typeof(HxGrid_Demo_ContextMenu)" />
 
-	<CssVariables>
-		<ComponentApiDocCssVariable Name="--hx-grid-button-hover-background" Default="var(--bs-gray-300)">
-			Grid button background color on hover.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-grid-button-border-radius" Default=".2rem">
-			Grid button border radius.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-grid-sorted-icon-color" Default="var(--bs-primary)">
-			Color of the sorted icon.
-		</ComponentApiDocCssVariable>
-	</CssVariables>
+        <h3 id="Multiselect">Multiselect with checkboxes</h3>
+        <p>You can let the user select multiple rows with <code>@nameof(HxGrid<object>.MultiSelectionEnabled)="true"</code>, selected items are represented by <code>@nameof(HxGrid<object>.SelectedDataItems)</code> parameter (bindable).</p>
+        <DocAlert>
+            <code>@nameof(HxGrid<object>.SelectedDataItems)</code> contains only visible items. Items are removed from the selection if they are not rendered (e.g. after paging, sorting, ...).
+            <code>@nameof(HxGrid<object>.MultiSelectionEnabled)</code> cannot be combined with <code>@nameof(GridContentNavigationMode.InfiniteScroll)</code>.
+        </DocAlert>
+        <Demo Type="typeof(HxGrid_Demo_Multiselect)" />
+    </MainContent>
+
+    <CssVariables>
+        <ComponentApiDocCssVariable Name="--hx-grid-button-hover-background" Default="var(--bs-gray-300)">
+            Grid button background color on hover.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-grid-button-border-radius" Default=".2rem">
+            Grid button border radius.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-grid-sorted-icon-color" Default="var(--bs-primary)">
+            Color of the sorted icon.
+        </ComponentApiDocCssVariable>
+    </CssVariables>
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxGridColumn<object>)" />

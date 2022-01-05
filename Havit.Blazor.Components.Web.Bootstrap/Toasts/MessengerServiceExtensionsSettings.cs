@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Defaults for <see cref="HxMessengerServiceExtensions"/>.
 	/// </summary>
-	public class HxMessengerServiceExtensionsDefaults
+	public record MessengerServiceExtensionsSettings
 	{
 		/// <summary>
 		/// Default icon for information. Default is <see cref="BootstrapIcon.InfoCircleFill"/>.

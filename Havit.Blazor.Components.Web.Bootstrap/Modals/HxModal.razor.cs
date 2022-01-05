@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -19,7 +10,32 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxGrid{TItem}"/>.
 		/// </summary>
-		public static ModalDefaults Defaults { get; } = new ModalDefaults();
+		public static ModalSettings Defaults { get; }
+
+		static HxModal()
+		{
+			Defaults = new ModalSettings()
+			{
+				ShowCloseButton = true,
+				CloseOnEscape = true,
+				Size = ModalSize.Regular,
+				Fullscreen = ModalFullscreen.Disabled,
+				UseStaticBackdrop = true,
+				Scrollable = false,
+				Centered = false,
+			};
+		}
+
+		/// <summary>
+		/// Returns application-wide defaults for the component.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual ModalSettings GetDefaults() => Defaults;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public ModalSettings Settings { get; set; }
 
 		/// <summary>
 		/// Title in modal header.
@@ -45,71 +61,90 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Size of the modal. Default is <see cref="ModalSize.Regular"/>.
 		/// </summary>
 		[Parameter] public ModalSize? Size { get; set; }
+		protected ModalSize SizeEffective => this.Size ?? this.Settings?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxModal) + " has to be set.");
 
 		/// <summary>
 		/// Fullscreen behavior of the modal. Default is <see cref="ModalFullscreen.Disabled"/>.
 		/// </summary>
 		[Parameter] public ModalFullscreen? Fullscreen { get; set; }
+		protected ModalFullscreen FullscreenEffective => this.Fullscreen ?? this.Settings?.Fullscreen ?? GetDefaults().Fullscreen ?? throw new InvalidOperationException(nameof(Fullscreen) + " default for " + nameof(HxModal) + " has to be set.");
 
 		/// <summary>
 		/// Indicates whether the modal shows close button in header.
 		/// Default value is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool? ShowCloseButton { get; set; }
+		protected bool ShowCloseButtonEffective => this.ShowCloseButton ?? this.Settings?.ShowCloseButton ?? GetDefaults().ShowCloseButton ?? throw new InvalidOperationException(nameof(ShowCloseButton) + " default for " + nameof(HxModal) + " has to be set.");
 
 		/// <summary>
 		/// Close icon to be used in header.
 		/// If set to <c>null</c>, Bootstrap default close-button will be used.
 		/// </summary>
 		[Parameter] public IconBase CloseButtonIcon { get; set; }
+		protected IconBase CloseButtonIconEffective => this.CloseButtonIcon ?? this.Settings?.CloseButtonIcon ?? GetDefaults().CloseButtonIcon;
 
 		/// <summary>
 		/// Indicates whether the modal closes when escape key is pressed.
 		/// Default value is <c>true</c>.
 		/// </summary>
-		[Parameter] public bool CloseOnEscape { get; set; } = true;
+		[Parameter] public bool? CloseOnEscape { get; set; }
+		protected bool CloseOnEscapeEffective => this.CloseOnEscape ?? this.Settings?.CloseOnEscape ?? GetDefaults().CloseOnEscape ?? throw new InvalidOperationException(nameof(CloseOnEscape) + " default for " + nameof(HxModal) + " has to be set.");
 
 		/// <summary>
 		/// Indicates whether the modal uses a static backdrop.
 		/// Default value is <c>true</c>.
 		/// </summary>
-		[Parameter] public bool UseStaticBackdrop { get; set; } = true;
+		[Parameter] public bool? UseStaticBackdrop { get; set; }
+		protected bool UseStaticBackdropEffective => this.UseStaticBackdrop ?? this.Settings?.UseStaticBackdrop ?? GetDefaults().UseStaticBackdrop ?? throw new InvalidOperationException(nameof(UseStaticBackdrop) + " default for " + nameof(HxModal) + " has to be set.");
 
 		/// <summary>
 		/// Allows scrolling the modal body. Default is <c>false</c>.
 		/// </summary>
 		[Parameter] public bool? Scrollable { get; set; }
+		protected bool ScrollableEffective => this.Scrollable ?? this.Settings?.Scrollable ?? GetDefaults().Scrollable ?? throw new InvalidOperationException(nameof(Scrollable) + " default for " + nameof(HxModal) + " has to be set.");
 
 		/// <summary>
 		/// Allows vertical centering of the modal.<br/>
 		/// Default is <c>false</c> (horizontal only).
 		/// </summary>
 		[Parameter] public bool? Centered { get; set; }
+		protected bool CenteredEffective => this.Centered ?? this.Settings?.Centered ?? GetDefaults().Centered ?? throw new InvalidOperationException(nameof(Centered) + " default for " + nameof(HxModal) + " has to be set.");
 
 		/// <summary>
 		/// Additional CSS class for the main element (<c>div.modal</c>).
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
+		protected string CssClassEffective => this.CssClass ?? this.Settings?.CssClass ?? GetDefaults().CssClass;
 
 		/// <summary>
 		/// Additional CSS class for the dialog (<c>div.modal-dialog</c> element).
 		/// </summary>
 		[Parameter] public string DialogCssClass { get; set; }
+		protected string DialogCssClassEffective => this.DialogCssClass ?? this.Settings?.DialogCssClass ?? GetDefaults().DialogCssClass;
 
 		/// <summary>
-		/// Additional header CSS class.
+		/// Additional header CSS class (<c>div.modal-header</c>).
 		/// </summary>
 		[Parameter] public string HeaderCssClass { get; set; }
+		protected string HeaderCssClassEffective => this.HeaderCssClass ?? this.Settings?.HeaderCssClass ?? GetDefaults().HeaderCssClass;
 
 		/// <summary>
-		/// Additional body CSS class.
+		/// Additional body CSS class (<c>div.modal-body</c>).
 		/// </summary>
 		[Parameter] public string BodyCssClass { get; set; }
+		protected string BodyCssClassEffective => this.BodyCssClass ?? this.Settings?.BodyCssClass ?? GetDefaults().BodyCssClass;
 
 		/// <summary>
-		/// Footer css class.
+		/// Additional content CSS class (<c>div.modal-content</c>).
+		/// </summary>
+		[Parameter] public string ContentCssClass { get; set; }
+		protected string ContentCssClassEffective => this.ContentCssClass ?? this.Settings?.ContentCssClass ?? GetDefaults().ContentCssClass;
+
+		/// <summary>
+		/// Additional footer CSS class (<c>div.modal-footer</c>).
 		/// </summary>
 		[Parameter] public string FooterCssClass { get; set; }
+		protected string FooterCssClassEffective => this.FooterCssClass ?? this.Settings?.FooterCssClass ?? GetDefaults().FooterCssClass;
 
 		/// <summary>
 		/// This event is fired when the modal has finished being hidden from the user (will wait for CSS transitions to complete).<br/>
@@ -135,11 +170,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-
-		protected virtual ModalDefaults GetDefaults() => HxModal.Defaults;
-
-		protected IconBase CloseButtonIconEffective => CloseButtonIcon ?? GetDefaults().CloseButtonIcon;
-		protected bool ShowCloseButtonEffective => ShowCloseButton ?? GetDefaults().ShowCloseButton;
 
 		private bool opened = false; // indicates whether the modal is open
 		private bool shouldOpenModal = false; // indicates whether the modal is going to be opened
@@ -210,27 +240,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					return;
 				}
-				await jsModule.InvokeVoidAsync("show", modalElement, dotnetObjectReference, UseStaticBackdrop, CloseOnEscape);
+				await jsModule.InvokeVoidAsync("show", modalElement, dotnetObjectReference, this.UseStaticBackdropEffective, this.CloseOnEscapeEffective);
 			}
 		}
 
 		protected string GetDialogSizeCssClass()
 		{
-			var sizeEffective = this.Size ?? GetDefaults().Size;
-			return sizeEffective switch
+			return this.SizeEffective switch
 			{
 				ModalSize.Small => "modal-sm",
 				ModalSize.Regular => null,
 				ModalSize.Large => "modal-lg",
 				ModalSize.ExtraLarge => "modal-xl",
-				_ => throw new InvalidOperationException($"Unknown {nameof(ModalSize)} value {sizeEffective}.")
+				_ => throw new InvalidOperationException($"Unknown {nameof(ModalSize)} value {this.SizeEffective}.")
 			};
 		}
 
 		protected string GetDialogFullscreenCssClass()
 		{
-			var fullscreenEffective = this.Fullscreen ?? GetDefaults().Fullscreen;
-			return fullscreenEffective switch
+			return this.FullscreenEffective switch
 			{
 				ModalFullscreen.Disabled => null,
 				ModalFullscreen.Always => "modal-fullscreen",
@@ -239,14 +267,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				ModalFullscreen.LargeDown => "modal-fullscreen-lg-down",
 				ModalFullscreen.ExtraLargeDown => "modal-fullscreen-xl-down",
 				ModalFullscreen.XxlDown => "modal-fullscreen-xxl-down",
-				_ => throw new InvalidOperationException($"Unknown {nameof(ModalFullscreen)} value {fullscreenEffective}.")
+				_ => throw new InvalidOperationException($"Unknown {nameof(ModalFullscreen)} value {this.FullscreenEffective}.")
 			};
 		}
 
 		protected string GetDialogScrollableCssClass()
 		{
-			var scrollableEffective = this.Scrollable ?? GetDefaults().Scrollable;
-			if (scrollableEffective)
+			if (this.ScrollableEffective)
 			{
 				return "modal-dialog-scrollable";
 			}
@@ -255,8 +282,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected string GetDialogCenteredCssClass()
 		{
-			var centeredEffective = this.Centered ?? GetDefaults().Centered;
-			if (centeredEffective)
+			if (this.CenteredEffective)
 			{
 				return "modal-dialog-centered";
 			}

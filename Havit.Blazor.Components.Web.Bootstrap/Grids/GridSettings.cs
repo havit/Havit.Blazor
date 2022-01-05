@@ -1,60 +1,53 @@
-﻿using System;
-using Microsoft.AspNetCore.Components;
-
-namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Application-wide defaults for <see cref="HxGrid{TItem}"/>.
+	/// Settings for the <see cref="HxGrid{TItem}"/> and derived components.
 	/// </summary>
-	public class GridDefaults
+	public record GridSettings
 	{
 		/// <summary>
 		/// Strategy how data are displayed in the grid (and loaded to the grid).
 		/// </summary>
-		public GridContentNavigationMode ContentNavigationMode { get; set; } = GridContentNavigationMode.Pagination;
+		public GridContentNavigationMode? ContentNavigationMode { get; set; }
 
 		/// <summary>
 		/// Icon to display ascending sort direction.
 		/// </summary>
-		public IconBase SortAscendingIcon { get; set; } = BootstrapIcon.SortAlphaDown;
+		public IconBase SortAscendingIcon { get; set; }
 
 		/// <summary>
 		/// Icon to display descending sort direction.
 		/// </summary>
-		public IconBase SortDescendingIcon { get; set; } = BootstrapIcon.SortAlphaDownAlt;
+		public IconBase SortDescendingIcon { get; set; }
 
 		/// <summary>
-		/// Height of the item row used for infinite scroll calculations.
-		/// Default value is <c>41px</c> (row-height of regular table-row within Bootstrap 5 default theme).
+		/// Height of the item row used for infinite scroll calculations (<see cref="GridContentNavigationMode.InfiniteScroll"/>).
 		/// </summary>
-		public float ItemRowHeight { get; set; } = 41;
+		public float? ItemRowHeight { get; set; }
 
 		/// <summary>
-		/// Infinite scroll:
+		/// Infinite scroll (<see cref="GridContentNavigationMode.InfiniteScroll"/>):
 		/// Gets or sets a value that determines how many additional items will be rendered
 		/// before and after the visible region. This help to reduce the frequency of rendering
 		/// during scrolling. However, higher values mean that more elements will be present
 		/// in the page.
 		/// </summary>
-		public int OverscanCount { get; set; } = 50;
+		public int? OverscanCount { get; set; }
 
 		/// <summary>
-		/// Page size.
-		/// Default is <c>20</c>.
+		/// Page size for <see cref="GridContentNavigationMode.Pagination"/>.
 		/// </summary>
-		public int PageSize { get; set; } = 20;
+		public int? PageSize { get; set; }
 
 		/// <summary>
 		/// Number of rows with placeholders to render.
-		/// Default is <c>5</c>.
 		/// </summary>
-		public int PlaceholdersRowCount { get; set; } = 5;
+		public int? PlaceholdersRowCount { get; set; }
 
 		/// <summary>
 		/// Indicates whether to render footer when data are empty.
-		/// Default is <c>false</c>.
 		/// </summary>
-		public bool ShowFooterWhenEmptyData { get; set; } = false;
+		public bool? ShowFooterWhenEmptyData { get; set; }
 
 		/// <summary>
 		/// Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c>
@@ -83,8 +76,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public string FooterRowCssClass { get; set; }
 
 		/// <summary>
-		/// Custom CSS class to render with pager wrapping <c>div</c> element.
+		/// Custom CSS class to render with pager.
 		/// </summary>
-		public string PagerContainerCssClass { get; set; }
+		public string PagerCssClass { get; set; }
 	}
 }

@@ -10,45 +10,48 @@ namespace Havit.Blazor.Components.Web
 	public struct MessageBoxRequest
 	{
 		/// <summary>
-		/// Title text (Header).
+		/// Title in the header.
 		/// </summary>
-		[Parameter] public string Title { get; set; }
+		public string Title { get; set; }
 
 		/// <summary>
-		/// Title template (Header).
+		/// Template for the header.
 		/// </summary>
-		[Parameter] public RenderFragment TitleTemplate { get; set; }
+		public RenderFragment HeaderTemplate { get; set; }
 
 		/// <summary>
 		/// Content (body) text.
 		/// </summary>
-		[Parameter] public string Text { get; set; }
+		public string Text { get; set; }
 
 		/// <summary>
-		/// Content (body) template.
+		/// Body (content) template.
 		/// </summary>
-		[Parameter] public RenderFragment ContentTemplate { get; set; }
+		public RenderFragment BodyTemplate { get; set; }
 
 		/// <summary>
 		/// Indicates whether to show close button.
 		/// </summary>
-		[Parameter] public bool ShowCloseButton { get; set; }
+		public bool? ShowCloseButton { get; set; }
 
 		/// <summary>
 		/// Buttons to show.
 		/// </summary>
-		[Parameter] public MessageBoxButtons Buttons { get; set; }
+		public MessageBoxButtons Buttons { get; set; }
 
 		/// <summary>
 		/// Primary button (if you want to override the default).
 		/// </summary>
-		[Parameter] public MessageBoxButtons? PrimaryButton { get; set; }
+		public MessageBoxButtons? PrimaryButton { get; set; }
 
 		/// <summary>
 		/// Text for <see cref="MessageBoxButtons.Custom"/>.
 		/// </summary>
-		[Parameter] public string CustomButtonText { get; set; }
+		public string CustomButtonText { get; set; }
 
-		[Parameter] public string CssClass { get; set; }
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxModal).
+		/// </summary>
+		public Dictionary<string, object> AdditionalAttributes { get; set; }
 	}
 }

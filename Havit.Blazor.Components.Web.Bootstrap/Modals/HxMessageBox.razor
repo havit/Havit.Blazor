@@ -3,22 +3,23 @@
 @* TODO Buttons order? *@
 @* TODO Focus + Enter *@
 
-<HxModal @ref="modal" CssClass="@this.CssClass" ShowCloseButton="@this.ShowCloseButton" OnClosed="HandleModalClosed">
-	<HeaderTemplate>
-		@Title
-		@TitleTemplate
-	</HeaderTemplate>
-	<BodyTemplate>
-		@Text
-		@ContentTemplate
-	</BodyTemplate>
-	<FooterTemplate>
-		@foreach (var button in GetButtonsToRender())
-		{
-			<HxButton Text="@button.Text"
-					  OnClick="@(() => HandleButtonClick(button.Id))"
-					  Color="@((button.IsPrimary ?? false) ? ThemeColor.Primary : ThemeColor.Secondary)"
-					  Outline="false" />
-		}
-	</FooterTemplate>
+<HxModal @ref="modal"
+         Title="@Title"
+         ShowCloseButton="this.ShowCloseButton"
+         Settings="this.ModalSettingsEffective"
+         OnClosed="HandleModalClosed"
+         HeaderTemplate="this.HeaderTemplate"
+         @attributes="this.AdditionalAttributes">
+    <BodyTemplate>
+        @Text
+        @BodyTemplate
+    </BodyTemplate>
+    <FooterTemplate>
+        @foreach (var button in GetButtonsToRender())
+        {
+            <HxButton Text="@button.Text"
+                  OnClick="@(() => HandleButtonClick(button.Id))"
+                  Settings="@((button.IsPrimary ?? false) ? this.PrimaryButtonSettingsEffective : this.SecondaryButtonSettingsEffective)" />
+        }
+    </FooterTemplate>
 </HxModal>

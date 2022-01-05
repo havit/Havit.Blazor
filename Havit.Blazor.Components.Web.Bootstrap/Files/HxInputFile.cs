@@ -1,14 +1,6 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Havit.Blazor.Components.Web.Infrastructure;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -18,9 +10,30 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFormValueComponent, IInputWithSize
 	{
 		/// <summary>
-		/// Application-wide defaults for the <see cref="HxInputFile"/>.
+		/// Application-wide defaults for the <see cref="HxInputFile"/> and derived components.
 		/// </summary>
-		public static InputFileDefaults Defaults { get; } = new();
+		public static InputFileSettings Defaults { get; set; }
+
+		static HxInputFile()
+		{
+			Defaults = new InputFileSettings()
+			{
+				InputSize = Bootstrap.InputSize.Regular,
+			};
+		}
+
+		/// <summary>
+		/// Returns application-wide defaults for the component.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual InputFileSettings GetDefaults() => Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public InputDateRangeSettings Settings { get; set; }
 
 		/// <summary>
 		/// URL of the server endpoint receiving the files.
@@ -176,14 +189,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 		public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null) => hxInputFileCoreComponentReference?.UploadAsync(accessToken);
-
-		/// <summary>
-		/// Returns <see cref="HxInputFile"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual InputFileDefaults GetDefaults() => Defaults;
-		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{

@@ -21,7 +21,27 @@ namespace Havit.Blazor.Components.Web
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputFileCore"/>.
 		/// </summary>
-		public static InputFileCoreDefaults Defaults { get; } = new();
+		public static InputFileCoreSettings Defaults { get; }
+
+		static HxInputFileCore()
+		{
+			Defaults = new InputFileCoreSettings()
+			{
+				MaxFileSize = long.MaxValue
+			};
+		}
+
+		/// <summary>
+		/// Returns component defaults.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual InputFileCoreSettings GetDefaults() => Defaults;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public InputFileCoreSettings Settings { get; set; }
+
 
 		/// <summary>
 		/// URL of the server endpoint receiving the files.
@@ -72,6 +92,7 @@ namespace Havit.Blazor.Components.Web
 		/// Default is <c>long.MaxValue</c> (unlimited).
 		/// </summary>
 		[Parameter] public long? MaxFileSize { get; set; }
+		protected long MaxFileSizeEffective => this.MaxFileSize ?? this.Settings?.MaxFileSize ?? GetDefaults().MaxFileSize ?? throw new InvalidOperationException(nameof(MaxFileSize) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 		/// <summary>
 		/// Input element id.
@@ -91,14 +112,6 @@ namespace Havit.Blazor.Components.Web
 		private ConcurrentBag<FileUploadedEventArgs> filesUploaded;
 		private bool disposed;
 
-		/// <summary>
-		/// Returns <see cref="HxInputFileCore"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual InputFileCoreDefaults GetDefaults() => Defaults;
-
-		protected long? MaxFileSizeEffective => MaxFileSize ?? GetDefaults().MaxFileSize;
 
 		public HxInputFileCore()
 		{

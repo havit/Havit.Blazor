@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Application-wide defaults for <see cref="HxCard"/>.
+	/// Settings for <see cref="HxCard"/>.
 	/// </summary>
-	public class CardDefaults
+	public record CardSettings
 	{
 		/// <summary>
 		/// Additional CSS classes for the card-container.

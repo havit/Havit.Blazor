@@ -3,13 +3,13 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Default values for <see cref="HxInputText"/> and derived components.
+	/// Settings for the <see cref="HxSelect{TValue, TItem}"/> component.
 	/// </summary>
-	public class InputTextDefaults : IInputDefaultsWithSize
+	public record SelectSettings : IInputSettingsWithSize
 	{
 		/// <summary>
 		/// Input size.
 		/// </summary>
-		public InputSize InputSize { get; set; } = InputSize.Regular;
+		public InputSize? InputSize { get; set; }
 	}
 }

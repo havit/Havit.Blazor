@@ -14,12 +14,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		public int Level { get; set; }
 
 		public SearchItem() { }
-		public SearchItem(string href, string title, string keywords)
+		public SearchItem(string href, string title, string keywords, int level = 0)
 		{
 			Href = href;
 			Title = title;
 			Keywords = keywords;
-			Level = title.Count(c => c == '>');
+
+			if (level == 0)
+			{
+				Level = title.Count(c => c == '>');
+			}
+			else
+			{
+				Level = level;
+			}
 		}
 
 		public int GetRelevance(string userInput)

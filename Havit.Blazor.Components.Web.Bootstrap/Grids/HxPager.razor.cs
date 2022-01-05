@@ -41,6 +41,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public int DisplayNumberCount { get; set; } = 10; // TODO RH: Rename NumberCount? or VisibleNumericButtonCount #57515 Doc - Titles?
 
 		/// <summary>
+		/// Any additional CSS class to apply.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
+		/// <summary>
 		/// Changes current page index and fires event.
 		/// </summary>
 		protected async Task SetCurrentPageIndexTo(int newPageIndex)

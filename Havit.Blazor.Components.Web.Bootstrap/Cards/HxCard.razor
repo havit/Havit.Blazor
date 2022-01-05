@@ -1,47 +1,47 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-<div class="@CssClassHelper.Combine("card", this.CssClass ?? GetDefaults().CssClass)" @attributes="this.AdditionalAttributes">
-	@if (HeaderTemplate is not null)
-	{
-		<div class="@CssClassHelper.Combine("card-header", this.HeaderCssClass ?? GetDefaults().HeaderCssClass)">
-			@HeaderTemplate
-		</div>
-	}
-	@if (!String.IsNullOrWhiteSpace(this.ImageSrc) && ((this.ImagePlacement == CardImagePlacement.Top) || (this.ImagePlacement == CardImagePlacement.Overlay)))
-	{
-	<img src="@this.ImageSrc"
-		 alt="@this.ImageAlt"
-		 class="@(this.ImagePlacement == CardImagePlacement.Top ? "card-img-top" : "card-img")"
-		 width="@this.ImageWidth"
-		 height="@this.ImageHeight" />
-	}
-	@if (BodyTemplate is not null)
-	{
-		if (this.ImagePlacement != CardImagePlacement.Overlay)
-		{
-			<div class="@CssClassHelper.Combine("card-body", this.BodyCssClass ?? GetDefaults().BodyCssClass)">
-				@BodyTemplate
-			</div>
-		}
-		else
-		{
-			<div class="@CssClassHelper.Combine("card-img-overlay", this.BodyCssClass ?? GetDefaults().BodyCssClass)">
-				@BodyTemplate
-			</div>
-		}
-	}
-	@ChildContent
-	@if (!String.IsNullOrWhiteSpace(this.ImageSrc) && (this.ImagePlacement == CardImagePlacement.Bottom))
-	{
-		<img src="@this.ImageSrc"
-			 alt="@this.ImageAlt"
-			 class="card-img-bottom"
-			 width="@this.ImageWidth"
-			 height="@this.ImageHeight" />
-	}
-	@if (FooterTemplate is not null)
-	{
-		<div class="@CssClassHelper.Combine("card-footer", this.FooterCssClass ?? GetDefaults().FooterCssClass)">
-			@FooterTemplate
-		</div>
-	}
+<div class="@CssClassHelper.Combine("card", this.CssClassEffective)" @attributes="this.AdditionalAttributes">
+    @if (HeaderTemplate is not null)
+    {
+        <div class="@CssClassHelper.Combine("card-header", this.HeaderCssClassEffective)">
+            @HeaderTemplate
+        </div>
+    }
+    @if (!String.IsNullOrWhiteSpace(this.ImageSrc) && ((this.ImagePlacement == CardImagePlacement.Top) || (this.ImagePlacement == CardImagePlacement.Overlay)))
+    {
+        <img src="@this.ImageSrc"
+             alt="@this.ImageAlt"
+             class="@(this.ImagePlacement == CardImagePlacement.Top ? "card-img-top" : "card-img")"
+             width="@this.ImageWidth"
+             height="@this.ImageHeight" />
+    }
+    @if (BodyTemplate is not null)
+    {
+        if (this.ImagePlacement != CardImagePlacement.Overlay)
+        {
+            <div class="@CssClassHelper.Combine("card-body", this.BodyCssClassEffective)">
+                @BodyTemplate
+            </div>
+        }
+        else
+        {
+            <div class="@CssClassHelper.Combine("card-img-overlay", this.BodyCssClassEffective)">
+                @BodyTemplate
+            </div>
+        }
+    }
+    @ChildContent
+    @if (!String.IsNullOrWhiteSpace(this.ImageSrc) && (this.ImagePlacement == CardImagePlacement.Bottom))
+    {
+        <img src="@this.ImageSrc"
+             alt="@this.ImageAlt"
+             class="card-img-bottom"
+             width="@this.ImageWidth"
+             height="@this.ImageHeight" />
+    }
+    @if (FooterTemplate is not null)
+    {
+        <div class="@CssClassHelper.Combine("card-footer", this.FooterCssClassEffective)">
+            @FooterTemplate
+        </div>
+    }
 </div>

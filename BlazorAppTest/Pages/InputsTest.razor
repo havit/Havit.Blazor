@@ -5,169 +5,181 @@
 <h1>Inputs</h1>
 
 <div class="card" @onclick="HandleCardClick">
-	<div class="card-header">OnClick propagation test</div>
-	<div class="card-body">
+    <div class="card-header">OnClick propagation test</div>
+    <div class="card-body">
 
-		<HxInputSwitch Label="Enabled" @bind-Value="@enabled" />
+        <HxInputSwitch Label="Enabled" @bind-Value="@enabled" />
 
-		<HxFormState Enabled="@enabled">
+        <HxFormState Enabled="@enabled">
 
-			<HxFilterForm @ref="filterForm" @bind-Model="@model" OnChipsUpdated="HandleChipUpdated">
-				<DataAnnotationsValidator />
-				<ValidationSummary />
+            <HxFilterForm @ref="filterForm" @bind-Model="@model" OnChipsUpdated="HandleChipUpdated">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
 
-				<HxFormValue Label="Text" Hint="This item cannot be edited.">
-					<InputGroupEndTemplate>
-						<HxDropdown>
-							<HxDropdownToggleButton Text="Dropdown" Color="ThemeColor.Secondary" Outline="true" />
-							<HxDropdownMenu>
-								<HxDropdownItemNavLink Href="#">Item 1</HxDropdownItemNavLink>
-								<HxDropdownItemNavLink Href="#">Item 2</HxDropdownItemNavLink>
-							</HxDropdownMenu>
-						</HxDropdown>
-					</InputGroupEndTemplate>
-					<ValueTemplate>
-						<HxIcon Icon="@BootstrapIcon.Wrench" />Text Only...
-					</ValueTemplate>
-				</HxFormValue>
-				<HxInputText Label="Text (large)" InputSize="InputSize.Large" @bind-Value="@context.TextBasic" Hint="@context.TextBasic" />
+                <HxFormValue Label="Text" Hint="This item cannot be edited.">
+                    <InputGroupEndTemplate>
+                        <HxDropdown>
+                            <HxDropdownToggleButton Text="Dropdown" Color="ThemeColor.Secondary" Outline="true" />
+                            <HxDropdownMenu>
+                                <HxDropdownItemNavLink Href="#">Item 1</HxDropdownItemNavLink>
+                                <HxDropdownItemNavLink Href="#">Item 2</HxDropdownItemNavLink>
+                            </HxDropdownMenu>
+                        </HxDropdown>
+                    </InputGroupEndTemplate>
+                    <ValueTemplate>
+                        <HxIcon Icon="@BootstrapIcon.Wrench" />Text Only...
+                    </ValueTemplate>
+                </HxFormValue>
+                <HxInputText Label="Text (large)" InputSize="InputSize.Large" @bind-Value="@context.TextBasic" Hint="@context.TextBasic" />
 
-				<HxInputText Label="Text (oninput)" @bind-Value="@context.TextOnInput" BindEvent="BindEvent.OnInput" Placeholder="Model updates oninput.">
-					<HintTemplate>
-						Hint: @context.TextOnInput
-					</HintTemplate>
-				</HxInputText>
+                <HxInputText Label="Text (oninput)" @bind-Value="@context.TextOnInput" BindEvent="BindEvent.OnInput" Placeholder="Model updates oninput.">
+                    <HintTemplate>
+                        Hint: @context.TextOnInput
+                    </HintTemplate>
+                </HxInputText>
 
-				<HxInputText Label="Text (always disabled)" Enabled="false" @bind-Value="@context.TextDisabled" />
-				<HxInputText Label="Text (password)" Type="InputType.Password" @bind-Value="@context.TextPassword" />
-				<HxInputText Label="Text (email)" Type="InputType.Email" @bind-Value="@context.TextEmail" />
+                <HxInputText Label="Text (always disabled)" Enabled="false" @bind-Value="@context.TextDisabled" />
+                <HxInputText Label="Text (password)" Type="InputType.Password" @bind-Value="@context.TextPassword" />
+                <HxInputText Label="Text (email)" Type="InputType.Email" @bind-Value="@context.TextEmail" />
 
-				<HxInputTextArea Label="TextArea" @bind-Value="@context.TextLong" />
+                <HxInputTextArea Label="TextArea" @bind-Value="@context.TextLong" />
 
-				<HxInputNumber Label="Integer" @bind-Value="@context.IntegerValue" InputGroupStartText="€" InputGroupEndText=".00" ParsingErrorMessage="Enter correct Integer." />
-				<HxInputNumber Label="Integer (nullable)" @bind-Value="@context.NullableIntegerValue" ParsingErrorMessage="Enter correct Integer." />
-				<HxInputNumber Label="Decimal" @bind-Value="@context.DecimalValue" ParsingErrorMessage="Enter correct Decimal." />
-				<HxInputNumber Label="Decimal (nullable)" @bind-Value="@context.NullableDecimalValue" ParsingErrorMessage="Enter correct Decimal." />
-				<HxInputDate Label="Date" @bind-Value="@context.DateValue" ParsingErrorMessage="Enter correct Date." />
-				<HxInputDate Label="Date (nullable)" @bind-Value="@context.NullableDateValue" ParsingErrorMessage="Enter correct Date." />
-				<HxInputDateRange Label="DateRange" @bind-Value="@context.DateRange" FromParsingErrorMessage="Enter correct From." ToParsingErrorMessage="Enter correct To." CustomDateRanges="@(GetCustomDateRanges())" />
+                <HxInputNumber Label="Integer" @bind-Value="@context.IntegerValue" InputGroupStartText="€" InputGroupEndText=".00" ParsingErrorMessage="Enter correct Integer." />
+                <HxInputNumber Label="Integer (nullable)" @bind-Value="@context.NullableIntegerValue" ParsingErrorMessage="Enter correct Integer." />
+                <HxInputNumber Label="Decimal" @bind-Value="@context.DecimalValue" ParsingErrorMessage="Enter correct Decimal." />
+                <HxInputNumber Label="Decimal (nullable)" @bind-Value="@context.NullableDecimalValue" ParsingErrorMessage="Enter correct Decimal." />
+                <HxInputDate Label="Date" @bind-Value="@context.DateValue" ParsingErrorMessage="Enter correct Date." />
+                <HxInputDate Label="Date (nullable)" @bind-Value="@context.NullableDateValue" ParsingErrorMessage="Enter correct Date." />
+                <HxInputDateRange Label="DateRange" @bind-Value="@context.DateRange" FromParsingErrorMessage="Enter correct From." ToParsingErrorMessage="Enter correct To." CustomDateRanges="@(GetCustomDateRanges())" />
 
-				<HxSelect Label="Select (TValueType: string)" @bind-Value="@context.CultureInfoSelectName" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
-				<HxSelect Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfoSelect" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
-				<HxSelect Label="Select (Data == null, small)" TItem="CultureInfo" TValue="CultureInfo" @bind-Value="@context.CultureInfoSelect" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" />
+                <HxSelect Label="Select (TValueType: string)" @bind-Value="@context.CultureInfoSelectName" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
+                <HxSelect Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfoSelect" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
+                <HxSelect Label="Select (Data == null, small)" TItem="CultureInfo" TValue="CultureInfo" @bind-Value="@context.CultureInfoSelect" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" />
 
-				<HxAutosuggest Label="Autosuggest" @bind-Value="@context.CultureInfoAutosuggest" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider">
-					<HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
-				</HxAutosuggest>
+                <HxAutosuggest Label="Autosuggest" @bind-Value="@context.CultureInfoAutosuggest" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider">
+                    <HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
+                </HxAutosuggest>
 
-				<HxInputCheckbox Label="Checkbox" @bind-Value="@context.BoolCheckbox" Enabled="false" Hint="@context.BoolCheckbox.ToString()" />
+                <HxInputCheckbox Label="Checkbox" @bind-Value="@context.BoolCheckbox" Enabled="false" Hint="@context.BoolCheckbox.ToString()" />
 
-				<HxInputSwitch Label="Switch" @bind-Value="@context.BoolSwitch" />
+                <HxInputSwitch Label="Switch" @bind-Value="@context.BoolSwitch" />
 
-				<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
-			</HxFilterForm>
-		</HxFormState>
-	</div>
-	<div class="card-footer">
-		<p>Last captured click: @lastCapturedClick</p>
-		<HxChipList Chips="@chips" OnChipRemoveClick="HandleChipRemoveClick" />
-	</div>
+                <HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
+            </HxFilterForm>
+        </HxFormState>
+    </div>
+    <div class="card-footer">
+        <p>Last captured click: @lastCapturedClick</p>
+        <HxChipList Chips="@chips" OnChipRemoveClick="HandleChipRemoveClick" />
+    </div>
 </div>
 
 @code
 {
-	private bool enabled = true;
-	private FormModel model = new FormModel();
-	private HxFilterForm<FormModel> filterForm;
-	private ChipItem[] chips;
-	private DateTime? lastCapturedClick = null;
-	private List<CultureInfo> cultureInfos = new List<CultureInfo> { CultureInfo.GetCultureInfo("cs-CZ"), CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sk-SK"), CultureInfo.GetCultureInfo("es-ES") };
+    private bool enabled = true;
+    private FormModel model = new FormModel();
+    private HxFilterForm<FormModel> filterForm;
+    private ChipItem[] chips;
+    private DateTime? lastCapturedClick = null;
+    private List<CultureInfo> cultureInfos = new List<CultureInfo> { CultureInfo.GetCultureInfo("cs-CZ"), CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sk-SK"), CultureInfo.GetCultureInfo("es-ES") };
 
-	private Task HandleCardClick()
-	{
-		lastCapturedClick = DateTime.Now;
+    private Task HandleCardClick()
+    {
+        lastCapturedClick = DateTime.Now;
 
-		return Task.CompletedTask;
-	}
+        return Task.CompletedTask;
+    }
 
-	private Task<AutosuggestDataProviderResult<CultureInfo>> CulturesAutosuggestDataProvider(AutosuggestDataProviderRequest request)
-	{
-		return Task.FromResult(
-		new AutosuggestDataProviderResult<CultureInfo>
-		{
-			Data = cultureInfos.Where(item => item.DisplayName.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase)).ToList()
-		});
-	}
+    private Task<AutosuggestDataProviderResult<CultureInfo>> CulturesAutosuggestDataProvider(AutosuggestDataProviderRequest request)
+    {
+        return Task.FromResult(
+        new AutosuggestDataProviderResult<CultureInfo>
+            {
+                Data = cultureInfos.Where(item => item.DisplayName.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase)).ToList()
+            });
+    }
 
-	private IEnumerable<DateRangeItem> GetCustomDateRanges()
-	{
-		yield return new DateRangeItem { Label = "Starting next year", DateRange = new DateTimeRange { StartDate = new DateTime(DateTime.Today.Year + 1, 1, 1) } };
-		yield return new DateRangeItem { Label = "Starting tomorrow", DateRange = new DateTimeRange { StartDate = DateTime.Today.AddDays(1) } };
-	}
+    private IEnumerable<DateRangeItem> GetCustomDateRanges()
+    {
+        yield return new DateRangeItem { Label = "Starting next year", DateRange = new DateTimeRange { StartDate = new DateTime(DateTime.Today.Year + 1, 1, 1) } };
+        yield return new DateRangeItem { Label = "Starting tomorrow", DateRange = new DateTimeRange { StartDate = DateTime.Today.AddDays(1) } };
+    }
 
-	private void HandleChipUpdated(ChipItem[] chips)
-	{
-		this.chips = chips;
-	}
+    private void HandleChipUpdated(ChipItem[] chips)
+    {
+        this.chips = chips;
+    }
 
-	private async Task HandleChipRemoveClick(ChipItem chipItemToRemove)
-	{
-		await filterForm.RemoveChipAsync(chipItemToRemove);
-	}
+    private async Task HandleChipRemoveClick(ChipItem chipItemToRemove)
+    {
+        await filterForm.RemoveChipAsync(chipItemToRemove);
+    }
 
 
-	public class FormModel : ICloneable
-	{
-		[Required]
-		[MaxLength(50)]
-		public string TextBasic { get; set; } = "Basic value";
+    public class FormModel : ICloneable, IValidatableObject
+    {
+        [Required]
+        [MaxLength(50)]
+        public string TextBasic { get; set; } = "Basic value";
 
-		[Required]
-		[MaxLength(50)]
-		public string TextOnInput { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string TextOnInput { get; set; }
 
-		public string TextDisabled { get; set; }
+        public string TextDisabled { get; set; }
 
-		[Required]
-		[MaxLength(50)]
-		public string TextPassword { get; set; } = "Password";
+        [Required]
+        [MaxLength(50)]
+        public string TextPassword { get; set; } = "Password";
 
-		[Required]
-		[MaxLength(50)]
-		public string TextEmail { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string TextEmail { get; set; }
 
-		[Required]
-		public string TextLong { get; set; }
+        [Required]
+        public string TextLong { get; set; }
 
-		public int IntegerValue { get; set; }
+        public int IntegerValue { get; set; }
 
-		public int? NullableIntegerValue { get; set; }
+        public int? NullableIntegerValue { get; set; }
 
-		public decimal DecimalValue { get; set; }
+        public decimal DecimalValue { get; set; }
 
-		public decimal? NullableDecimalValue { get; set; }
+        public decimal? NullableDecimalValue { get; set; }
 
-		public DateTime DateValue { get; set; } = DateTime.Today;
+        public DateTime DateValue { get; set; } = DateTime.Today;
 
-		public DateTime? NullableDateValue { get; set; }
+        public DateTime? NullableDateValue { get; set; }
 
-		[Required]
-		public string CultureInfoSelectName { get; set; }
+        [Required]
+        public string CultureInfoSelectName { get; set; }
 
-		[Required]
-		public CultureInfo CultureInfoSelect { get; set; }
+        [Required]
+        public CultureInfo CultureInfoSelect { get; set; }
 
-		[Required]
-		public CultureInfo CultureInfoAutosuggest { get; set; }
+        [Required]
+        public CultureInfo CultureInfoAutosuggest { get; set; }
 
-		[Required]
-		public bool BoolCheckbox { get; set; } = true;
+        [Required,]
+        public bool BoolCheckbox { get; set; } = true;
 
-		[Required]
-		public bool BoolSwitch { get; set; } = true;
+        [Required]
+        public bool BoolSwitch { get; set; } = true;
 
-		public Havit.Blazor.Components.Web.Bootstrap.DateTimeRange DateRange { get; set; }
+        public Havit.Blazor.Components.Web.Bootstrap.DateTimeRange DateRange { get; set; }
 
-		object ICloneable.Clone() => MemberwiseClone();
-	}
+        object ICloneable.Clone() => MemberwiseClone();
+
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+        {
+            if (BoolSwitch)
+            {
+                yield return new ValidationResult("Switch has to be turned off", new string[] { nameof(BoolSwitch) });
+            }
+            if (BoolCheckbox)
+            {
+                yield return new ValidationResult("Checkbox has to be turned off", new string[] { nameof(BoolCheckbox) });
+            }
+        }
+    }
 }

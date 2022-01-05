@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public interface IInputDefaultsWithSize
+	public interface IInputSettingsWithSize
 	{
 		/// <summary>
 		/// Input size.
 		/// </summary>
-		InputSize InputSize { get; }
+		InputSize? InputSize { get; }
 	}
 }

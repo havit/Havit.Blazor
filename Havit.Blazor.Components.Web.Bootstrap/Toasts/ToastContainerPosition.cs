@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public enum HxToastContainerPosition
+	public enum ToastContainerPosition
 	{
 		None = 0,
 		TopStart = 1,
