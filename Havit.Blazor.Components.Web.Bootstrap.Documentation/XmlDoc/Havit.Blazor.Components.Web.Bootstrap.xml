@@ -4633,7 +4633,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1">
             <summary>
-            Page layout for data presentation (usualy <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/> with filter in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/>).
+            Data presentation component composed of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/> for data, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> for manual filtering and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1"/> for pre-defined filters.
             </summary>
             <typeparam name="TFilterModel"></typeparam>
         </member>

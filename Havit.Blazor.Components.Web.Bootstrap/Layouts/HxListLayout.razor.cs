@@ -10,7 +10,7 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Page layout for data presentation (usualy <see cref="HxGrid"/> with filter in <see cref="HxOffcanvas"/>).
+	/// Data presentation component composed of <see cref="HxGrid"/> for data, <see cref="HxOffcanvas"/> for manual filtering and <see cref="HxNamedViewList{T}"/> for pre-defined filters.
 	/// </summary>
 	/// <typeparam name="TFilterModel"></typeparam>
 	public partial class HxListLayout<TFilterModel>
