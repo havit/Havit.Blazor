@@ -251,6 +251,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			};
 		}
 
+		protected string GetTooltipWrapperCssClass()
+		{
+			bool tooltipWillRenderSpan = !String.IsNullOrEmpty(Tooltip) || !String.IsNullOrWhiteSpace(this.TooltipWrapperCssClass);
+			if (tooltipWillRenderSpan)
+			{
+				return CssClassHelper.Combine("d-inline-block", this.TooltipWrapperCssClass);
+			}
+			return null;
+		}
+
 		private protected virtual string GetButtonType() => "button";
 
 		private async Task HandleClick(MouseEventArgs mouseEventArgs)
