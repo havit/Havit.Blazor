@@ -3946,6 +3946,15 @@
             <summary>
             Constructor.
             </summary>
+            <remarks>
+            For backward compatibility in custom projects.
+            Once upon a time this one was the only constructor.
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserState`1.#ctor">
+            <summary>
+            Constructor.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid">
             <summary>

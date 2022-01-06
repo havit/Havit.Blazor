@@ -127,7 +127,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Current grid state (page, sorting).
 		/// </summary>
-		[Parameter] public GridUserState<TItem> CurrentUserState { get; set; } = new GridUserState<TItem>(0, null);
+		[Parameter] public GridUserState<TItem> CurrentUserState { get; set; } = new GridUserState<TItem>();
 
 		/// <summary>
 		/// Event fires when grid state is changed.
@@ -227,6 +227,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private bool paginationDecreasePageIndexAfterRender = false;
 		private List<TItem> paginationDataItemsToRender;
 		private CancellationTokenSource paginationRefreshDataCancellationTokenSource;
+		private GridUserState<TItem> previousUserState;
+		private bool firstRenderCompleted = false;
 
 		private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> infiniteScrollVirtualizeComponent;
 
@@ -248,7 +250,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await base.OnParametersSetAsync();
 
 			Contract.Requires<InvalidOperationException>(DataProvider != null, $"Property {nameof(DataProvider)} on {GetType()} must have a value.");
+			Contract.Requires<InvalidOperationException>(CurrentUserState != null, $"Property {nameof(CurrentUserState)} on {GetType()} must have a value.");
 			Contract.Requires<InvalidOperationException>(!MultiSelectionEnabled || (ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll), $"Cannot use multi selection with infinite scroll on {GetType()}.");
+
+			if (firstRenderCompleted && (previousUserState != CurrentUserState)) /* after first render previousUserState cannot be null */
+			{
+				// await: This adds one more render before OnParameterSetAsync is finished.
+				// We consider it safe because we already have some data.
+				// But for a moment (before data is refreshed (= before OnParametersSetAsync is finished), the component is rendered with a new user state and with old data).
+				await RefreshDataAsync();
+			}
+			previousUserState = CurrentUserState;
 		}
 
 		/// <inheritdoc />
@@ -278,6 +290,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				await SetCurrentPageIndexWithEventCallback(CurrentUserState.PageIndex - 1);
 				await RefreshPaginationDataCoreAsync(true);
 			}
+
+			firstRenderCompleted = true;
 		}
 
 		/// <summary>
@@ -343,7 +357,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task<bool> SetCurrentSortingWithEventCallback(IReadOnlyList<SortingItem<TItem>> newSorting)
 		{
-			CurrentUserState = new GridUserState<TItem>(CurrentUserState.PageIndex, newSorting);
+			CurrentUserState = CurrentUserState with { Sorting = newSorting };
+			previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
 			await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 			return true;
 		}
@@ -352,7 +367,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			if (CurrentUserState.PageIndex != newPageIndex)
 			{
-				CurrentUserState = new GridUserState<TItem>(newPageIndex, CurrentUserState.Sorting);
+				CurrentUserState = CurrentUserState with { PageIndex = newPageIndex };
+				previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
 				await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 				return true;
 			}
