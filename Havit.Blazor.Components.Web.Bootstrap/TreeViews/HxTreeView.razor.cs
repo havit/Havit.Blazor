@@ -41,7 +41,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Selector to display icon from data item.
 		/// </summary>
-		[Parameter] public Func<TValue, string> IconSelector { get; set; }
+		[Parameter] public Func<TValue, IconBase> IconSelector { get; set; }
 
 		/// <summary>
 		/// Selector to display children collection for current data item. Children collection should have same type as current item.

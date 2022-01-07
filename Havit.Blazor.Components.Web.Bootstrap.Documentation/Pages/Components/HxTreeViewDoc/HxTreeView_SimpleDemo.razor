@@ -29,33 +29,33 @@
 	{
 		fileSystem = new[]
 		{
-			new Directory("C:\\", nameof(BootstrapIcon.Folder))
+			new Directory("C:\\", BootstrapIcon.Folder)
 			{
 				Subdirectories = new[]
 				{
-					new Directory("Program Files", nameof(BootstrapIcon.Gem))
+					new Directory("Program Files", BootstrapIcon.Gem)
 					{
 						Subdirectories = new[] { new Directory("Visual Studio 2022"), new Directory("Rider 2021.3"), new Directory("VS Code"), new Directory("Borland Pascal") }
 					},
-					new Directory("Users", nameof(BootstrapIcon.Person))
+					new Directory("Users", BootstrapIcon.Person)
 					{
 						Subdirectories = new[] { new Directory("Vladimir"), new Directory("Jhosav"), new Directory("Ben"), new Directory("Admin") }
 					},
-					new Directory("Data", nameof(BootstrapIcon.Person))
+					new Directory("Data", BootstrapIcon.Person)
 					{
-						Subdirectories = new[] { new Directory("Open Office"), new Directory("Git", nameof(BootstrapIcon.Magic)), new Directory("Autocad") }
+						Subdirectories = new[] { new Directory("Open Office"), new Directory("Git", BootstrapIcon.Magic), new Directory("Autocad") }
 					},
 				}
 			},
-			new Directory("D:\\", BootstrapIcon.Folder2.Name)
+			new Directory("D:\\", BootstrapIcon.Folder2)
 			{
 				Subdirectories = new[]
 				{
-					new Directory("Games", nameof(BootstrapIcon.Play))
+					new Directory("Games", BootstrapIcon.Play)
 					{
 						Subdirectories = new[] { new Directory("Cyberpunk 2077"), new Directory("The Witcher 3"), new Directory("Tetris"), new Directory("Little Big Adventure 2: Twinsen's Odyssey") }
 					},
-					new Directory("Music", nameof(BootstrapIcon.FileMusic))
+					new Directory("Music", BootstrapIcon.FileMusic)
 					{
 						Subdirectories = new[] { new Directory("Queen"), new Directory("Metallica"), new Directory("AC/DC") }
 					}
@@ -66,7 +66,7 @@
 
 	public class Directory
 	{
-		public Directory(string name, string icon = null, string message = null, ThemeColor? severity = null)
+		public Directory(string name, IconBase icon = null, string message = null, ThemeColor? severity = null)
 		{
 			Name = name;
 			Icon = icon;
@@ -76,7 +76,7 @@
 
 		public string Name { get; }
 
-		public string Icon { get; set; }
+		public IconBase Icon { get; set; }
 
 		public string Message { get; set; }
 

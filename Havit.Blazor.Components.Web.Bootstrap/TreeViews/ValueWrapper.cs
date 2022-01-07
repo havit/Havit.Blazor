@@ -11,14 +11,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private readonly Func<TValue, string> titleSelector;
 		private readonly Func<TValue, string> badgeSelector;
 		private readonly Func<TValue, ThemeColor> badgeColorSelector;
-		private readonly Func<TValue, string> iconSelector;
+		private readonly Func<TValue, IconBase> iconSelector;
 		private readonly Func<TValue, IEnumerable<TValue>> childrenSelector;
 		private readonly Action<ValueWrapper<TValue>> onItemSelected;
 
 		private string badge;
 		private string title;
 		private bool? hasChildren;
-		private BootstrapIcon icon;
+		private IconBase icon;
 		private ValueWrapper<TValue>[] children;
 		private ThemeColor? badgeColor;
 		private bool isSelected;
@@ -31,7 +31,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			Func<TValue, string> titleSelector,
 			Func<TValue, string> badgeSelector,
 			Func<TValue, ThemeColor> badgeColorSelector,
-			Func<TValue, string> iconSelector,
+			Func<TValue, IconBase> iconSelector,
 			Func<TValue, IEnumerable<TValue>> childrenSelector,
 			Action<ValueWrapper<TValue>> onItemSelected
 		)
@@ -53,7 +53,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		public string Title => title ??= titleSelector(Value);
 
-		public BootstrapIcon Icon => icon ??= (GetBootstrapIconByName(iconSelector?.Invoke(Value)));
+		public IconBase Icon => icon ??= iconSelector(Value);
 
 		public ThemeColor BadgeColor
 		{
@@ -137,24 +137,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		public bool HasChildren => hasChildren ??= (childrenSelector != null && childrenSelector(Value)?.Any() == true);
-
-		private BootstrapIcon GetBootstrapIconByName(string name)
-		{
-			if (string.IsNullOrEmpty(name))
-			{
-				return null;
-			}
-
-			var propertyIcon = typeof(BootstrapIcon).GetProperties()
-				.FirstOrDefault(p => string.Compare(p.Name, name, StringComparison.OrdinalIgnoreCase) == 0);
-
-			if (propertyIcon == null)
-			{
-				throw new ArgumentException($"Icon with name {name} doesn't exist.");
-			}
-
-			return propertyIcon.GetValue(null, null) as BootstrapIcon;
-		}
 
 		protected virtual void OnPropertyChanged(string propertyName = null)
 			=> PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
