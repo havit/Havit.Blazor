@@ -2,11 +2,11 @@
 @typeparam TValue
 
 
-<div class="hx-tree-item @(Value.IsSelected ? "selected" : "")" @onclick="@OnItemClicked">
+<div class="hx-tree-view-item @(Value.IsSelected ? "selected" : "")" @onclick="@OnItemClicked">
     @for (int i = 0; i < Value.Level; i++) {
-        <div class="hx-tree-item-spacer"></div>
+        <div class="hx-tree-view-item-spacer"></div>
     }
-    <div class="hx-tree-item-expander expander @(Value.IsExpanded ? "expanded" : "")">
+    <div class="hx-tree-view-item-expander @(Value.IsExpanded ? "expanded" : "")">
         @if (Value.HasChildren)
         {
             <div>
@@ -16,11 +16,11 @@
     </div>
     @if (Value.Icon != null)
     {
-        <div class="icon">
+        <div class="hx-tree-view-item-icon">
             <HxIcon Icon="@Value.Icon" />
         </div>
     }
-    <div title="@Value.Title" class="hx-tree-item-value text-nowrap text-truncate">@Value.Title</div>
+    <div title="@Value.Title" class="hx-tree-view-item-value text-nowrap text-truncate">@Value.Title</div>
 </div>
 
 
