@@ -10,6 +10,8 @@
 
 <HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="HandleUploadClick" CssClass="my-2" />
 
+<HxButton Text="Cancel" Color="ThemeColor.Danger" OnClick="() => hxInputFileComponent.ResetAsync()" />
+
 <table class="table mt-3">
 	<tr>
 		<th>FileIndex</th>

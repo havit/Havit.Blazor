@@ -1,10 +1,21 @@
 ﻿var nextFile = new Array(); // Stores the next files to upload for different uploads.
+var requests =
+{
+	"id": new Array()
+};
+var cancelled =
+{
+	"id": false
+};
 
 export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads) {
 	var inputElement = document.getElementById(inputElementId);
 	var dotnetReference = hxInputFileDotnetObjectReference;
 	var files = inputElement.files;
 	var totalSize = 0;
+
+	requests[inputElementId] = new Array();
+	cancelled[inputElementId] = false;
 
 	let uploadIndex = nextFile.length;
 
@@ -16,10 +27,18 @@ export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadE
 		nextFile.push(maxParallelUploads);
     }
 
-	uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, maxParallelUploads, 0, uploadEndpointUrl, uploadIndex);
+	uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, maxParallelUploads, 0, uploadEndpointUrl, uploadIndex, inputElementId);
 }
 
-function uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, endIndex, startIndex, uploadEndpointUrl, uploadIndex) {
+function uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, endIndex, startIndex, uploadEndpointUrl, uploadIndex, inputElementId) {
+	console.log(inputElementId);
+	console.log(cancelled[inputElementId]);
+
+	if (cancelled[inputElementId] === true) {
+		console.log("cancelled");
+		return;
+    }
+
 	if (files.length === 0) {
 		dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', 0, 0);
 		return;
@@ -44,24 +63,27 @@ function uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize
 			var data = new FormData();
 			data.append('file', file, file.name);
 
-			var request = new XMLHttpRequest();
-			request.open('POST', uploadEndpointUrl, true);
+			var requestId = requests[inputElementId].length;
+
+			requests[inputElementId].push(new XMLHttpRequest());
+
+			requests[inputElementId][requestId].open('POST', uploadEndpointUrl, true);
 
 			if (accessToken) {
-				request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+				requests[inputElementId][requestId].setRequestHeader('Authorization', 'Bearer ' + accessToken);
 			}
 
-			request.upload.onprogress = function (e) {
+			requests[inputElementId][requestId].upload.onprogress = function (e) {
 				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadProgress', index, file.name, e.loaded, e.total);
 			};
-			request.onreadystatechange = function () {
-				if (request.readyState === 4) {
-					dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
+			requests[inputElementId][requestId].onreadystatechange = function () {
+				if (requests[inputElementId][requestId].readyState === 4) {
+					dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, requests[inputElementId][requestId].status, requests[inputElementId][requestId].responseText);
 
 					if (nextFile[uploadIndex] < files.length) {
 						console.log(nextFile[uploadIndex]);
 
-						uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, nextFile[uploadIndex] + 1, nextFile[uploadIndex], uploadEndpointUrl, uploadIndex);
+						uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, nextFile[uploadIndex] + 1, nextFile[uploadIndex], uploadEndpointUrl, uploadIndex, inputElementId);
 						nextFile[uploadIndex] = nextFile[uploadIndex] + 1;
                     }
 				};
@@ -70,7 +92,7 @@ function uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize
 				}
 			}
 
-			request.send(data);
+			requests[inputElementId][requestId].send(data);
 		}(i));
 	}
 }
@@ -82,9 +104,12 @@ export function getFiles(inputElementId) {
 }
 
 export function reset(inputElementId) {
-	var inputElement = document.getElementById(inputElementId);
-	inputElement.value = '';
-	inputElement.dispatchEvent(new Event('change'));
+	console.log("cancel button pressed " + inputElementId);
+
+	cancelled[inputElementId] = true;
+	for (const request of requests[inputElementId]) {
+		request.abort();
+    }
 }
 
 export function dispose(inputElementId) {
