@@ -24,9 +24,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public ICollection<TValue> Items { get; set; }
 
 		/// <summary>
-		/// Selector to display content from data item.
+		/// Selector to display item title from data item.
 		/// </summary>
-		[Parameter] public Func<TValue, string> ContentSelector { get; set; }
+		[Parameter] public Func<TValue, string> TitleSelector { get; set; }
 
 		/// <summary>
 		/// Selector to display icon from data item.
@@ -55,13 +55,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private void RebuildWrappers()
 		{
-			if ((Items == null) || (ContentSelector == null))
+			if ((Items == null) || (TitleSelector == null))
 			{
 				return;
 			}
 
 			wrappers = new ValueWrapper<TValue>[Items.Count];
-			wrappers = Items.Select(p => new ValueWrapper<TValue>(value: p, level: 0, ContentSelector, IconSelector, ChildrenSelector, InternalOnItemSelected)).ToArray();
+			wrappers = Items.Select(p => new ValueWrapper<TValue>(value: p, level: 0, TitleSelector, IconSelector, ChildrenSelector, InternalOnItemSelected)).ToArray();
 		}
 
 		private void InternalOnItemSelected(ValueWrapper<TValue> wrapper)
