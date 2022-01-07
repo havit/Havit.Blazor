@@ -132,6 +132,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			string fullLink = "";
 
 			bool isType = IsType(splitLink);
+			bool isProperty = IsProperty(splitLink);
 
 			if (isType)
 			{
@@ -147,7 +148,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 					}
 				}
 			}
-			else if (IsProperty(splitLink))
+			else if (isProperty)
 			{
 				if (splitLink.Length >= 2)
 				{
@@ -178,7 +179,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				seeName = splitLink[^1];
 			}
 
-			fullLink = $"href=\"/components/{fullLink}";
+			if (enclosingType is null || enclosingType.FullName.Contains("Hx") || !isProperty)
+			{
+				fullLink = $"href=\"/components/{fullLink}";
+			}
+			else
+			{
+				fullLink = $"href=\"/types/{fullLink}";
+			}
 			fullLink += $"\">{seeName}</a></code>";
 			return fullLink;
 		}
@@ -253,6 +261,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 	public class Property : Member
 	{
 		public PropertyInfo PropertyInfo { get; set; }
+		public bool EditorRequired { get; set; }
 
 		public CommonComments Comments
 		{

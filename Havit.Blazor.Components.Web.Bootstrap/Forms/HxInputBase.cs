@@ -135,6 +135,39 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual LabelValueRenderOrder RenderOrder => ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)) ? LabelValueRenderOrder.ValueLabel : LabelValueRenderOrder.LabelValue;
 
+		/// <summary>
+		/// Gets or sets the current value of the input.
+		/// Setter can be used only when the component is enabled.
+		/// </summary>
+		protected new TValue CurrentValue
+		{
+			get => base.CurrentValue;
+			set
+			{
+				ThrowIfNotEnabled();
+				base.CurrentValue = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the current value of the input, represented as a string.
+		/// Setter can be used only when the component is enabled.
+		/// </summary>
+		/// <remarks>
+		/// Although CurrentValueAsString calls CurrentValue we MUST implement the check here because
+		/// CurrentValue is not virtual, so CurrentValueAsString calls CurrentValue in a base class.
+		/// There is no such check.
+		/// </remarks>
+		protected new string CurrentValueAsString
+		{
+			get => base.CurrentValueAsString;
+			set
+			{
+				ThrowIfNotEnabled();
+				base.CurrentValueAsString = value;
+			}
+		}
+
 		string IFormValueComponent.LabelFor => this.InputId;
 		string IFormValueComponent.CoreCssClass => this.CoreCssClass;
 		string IFormValueComponent.CoreLabelCssClass => this.CoreLabelCssClass;
@@ -375,6 +408,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			where TAttribute : Attribute
 		{
 			return FieldIdentifier.Model.GetType().GetMember(FieldIdentifier.FieldName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Single().GetCustomAttribute<TAttribute>();
+		}
+
+		/// <summary>
+		/// Throws <see cref="System.InvalidOperationException" /> when the component is disabled.
+		/// </summary>
+		protected void ThrowIfNotEnabled()
+		{
+			Contract.Requires<InvalidOperationException>(EnabledEffective, $"The {GetType().Name} component is in a disabled state.");
 		}
 	}
 }

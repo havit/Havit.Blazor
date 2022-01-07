@@ -6,3 +6,7 @@
 .hx-context-menu-btn:hover {
     background: var(--hx-context-menu-button-hover-background);
 }
+
+.hx-context-menu {
+    display: inline-block;
+}

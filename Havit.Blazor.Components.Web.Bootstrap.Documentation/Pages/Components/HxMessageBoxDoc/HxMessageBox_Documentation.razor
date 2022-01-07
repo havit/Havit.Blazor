@@ -3,18 +3,32 @@
 
 <ComponentApiDoc Type="typeof(HxMessageBox)">
 
-	<p><code>@nameof(HxMessageBox)</code> is a standalone component you can use in very specific cases.</p>
-	<p><strong>Usually you use the message box by using the <code>@nameof(IHxMessageBoxService)</code> injected service.</strong></p>
+    <DocAlert Type="DocAlertType.Info">
+        <code>@nameof(HxMessageBox)</code> is a implementation component you use directly only in rare specific cases.<br />
+        Usually you use the message box by using the <code>@nameof(IHxMessageBoxService)</code> injected service and its
+        <code>ShowAsync</code> method (or derived extension methods).<br />
+    </DocAlert>
 
-	<h3>Usage</h3>
-	<Demo Type="typeof(HxMessageBoxService_Demo)" />
+    <h3 id="Usage">Basic usage</h3>
+    <p>Inject the <code>@nameof(IHxMessageBoxService)</code> to your code and use one of it's methods to raise the message box:</p>
+    <ul>
+        <li><code>Task&lt;MessageBoxButtons&gt; ShowAsync(MessageBoxRequest request)</code> - original method</li>
+        <li><code>Task&lt;MessageBoxButtons&gt; ShowAsync(string title, string text, MessageBoxButtons buttons = MessageBoxButtons.Ok, MessageBoxButtons? primaryButton = null, string customButtonText = null)</code> - extension method</li>
+        <li><code>Task&lt;bool&gt; ConfirmAsync(string title, string text)</code> - extension method</li>
+        <li>...or you can add your own extension method</li>
+    </ul>
+    <Demo Type="typeof(HxMessageBoxService_Demo)" Tabs="false" />
 
-	<p>You should place the <code>@nameof(HxMessageBoxHost)</code> component to <code>MainLayout.razor</code> (or <code>App.razor</code>) to make it work!</p>
-	<CodeSnippet File="~\Pages\Components\HxMessageBoxDoc\HxMessageBox_HostDeployment.CodeSnippet.razor" />
+    <h4>Required setup</h4>
+    <p>You should place the <code>@nameof(HxMessageBoxHost)</code> component to <code>MainLayout.razor</code> (or <code>App.razor</code>) to make it work!</p>
+    <CodeSnippet File="~\Pages\Components\HxMessageBoxDoc\HxMessageBox_HostDeployment.CodeSnippet.razor" />
 
-	<p>Register required services using <code>services.AddHxMessageBoxHost()</code> from <code>Startup.cs</code> (Blazor Server) or <code>Program.cs</code> (Blazor WebAssembly).</p>
-	<CodeSnippet File="~\Pages\Components\HxMessageBoxDoc\HxMessageBox_RegisterService.CodeSnippet.cs" />
+    <p>Register required services using <code>services.AddHxMessageBoxHost()</code> from <code>Startup.cs</code> (Blazor Server) or <code>Program.cs</code> (Blazor WebAssembly).</p>
+    <CodeSnippet File="~\Pages\Components\HxMessageBoxDoc\HxMessageBox_RegisterService.CodeSnippet.cs" />
 
+    <h3>No header</h3>
+    <p>If you clear the <code>Title</code>, <code>HeaderTemplate</code> and set <code>ShowCloseButton="false"</code>, the header won't show up.</p>
+    <Demo Type="typeof(HxMessageBoxService_Demo_NoHeader)" />
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxMessageBoxHost)" />

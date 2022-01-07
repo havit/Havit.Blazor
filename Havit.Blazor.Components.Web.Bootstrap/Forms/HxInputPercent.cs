@@ -32,23 +32,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected override string FormatValueAsString(TValue value)
 		{
-			string format = (DecimalsEffective > 0)
-				? "0." + String.Join("", Enumerable.Repeat('0', DecimalsEffective))
-				: "0";
-
 			switch (value)
 			{
 				case null:
 					return null;
 				case float @float:
 					@float *= 100;
-					return @float.ToString(format, CultureInfo.CurrentCulture);
+					return base.FormatValueAsString((TValue)(object)@float);
 				case double @double:
 					@double *= 100;
-					return @double.ToString(format, CultureInfo.CurrentCulture);
+					return base.FormatValueAsString((TValue)(object)@double);
 				case decimal @decimal:
 					@decimal *= 100;
-					return @decimal.ToString(format, CultureInfo.CurrentCulture);
+					return base.FormatValueAsString((TValue)(object)@decimal);
 				default:
 					throw new InvalidOperationException($"Unsupported type {value.GetType()}.");
 			}
@@ -59,44 +55,32 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
 		{
-			CultureInfo culture = CultureInfo.CurrentCulture;
+			bool success = base.TryParseValueFromString(value, out result, out validationErrorMessage);
 
-			string workingValue = value;
-
-			// replace . with ,
-			if ((culture.NumberFormat.NumberDecimalSeparator == ",") // when decimal separator is ,
-				&& (culture.NumberFormat.NumberGroupSeparator != ".")) // and . is NOT used as group separator)
+			if (!success)
 			{
-				workingValue = workingValue.Replace(".", ",");
-			}
-
-			// number of decimals
-			if (decimal.TryParse(value, NumberStyles.Float, culture, out decimal parsedValue))
-			{
-				decimal number = Math.Round(parsedValue, DecimalsEffective, MidpointRounding.AwayFromZero);
-				number /= 100; // divide the number by 100
-
-				workingValue = number.ToString(culture);
-			}
-
-			// coversion to target type
-			if (BindConverter.TryConvertTo<TValue>(workingValue, culture, out result))
-			{
-				// we want to normalize the value format (e.g. from 5.5 to 5.50) if someone changes the value (from 5.50 to 5.5)
-				// StateHasChange is not enough, see BuildRenderInput comment
-				if (FormatValueAsString(result) != value)
-				{
-					forceRenderValue = true;
-				}
-
-				validationErrorMessage = null;
-				return true;
-			}
-			else
-			{
-				validationErrorMessage = GetParsingErrorMessage();
 				return false;
 			}
+
+			switch (result)
+			{
+				case float @float:
+					@float /= 100;
+					result = (TValue)(object)@float;
+					break;
+				case double @double:
+					@double /= 100;
+					result = (TValue)(object)@double;
+					break;
+				case decimal @decimal:
+					@decimal /= 100;
+					result = (TValue)(object)@decimal;
+					break;
+				default:
+					throw new InvalidOperationException($"Unsupported type {value.GetType()}.");
+			}
+
+			return true;
 		}
 	}
 }

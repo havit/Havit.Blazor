@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -13,25 +13,6 @@
 		<ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap\Havit.Blazor.Components.Web.Bootstrap.csproj" />
 		<ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
 	</ItemGroup>
-
-	<Target Name="CopyMissingBlazorContent" BeforeTargets="_CopyResolvedFilesToPublishAlways">
-		<!-- https://github.com/dotnet/aspnetcore/issues/28680 Missing _framework while publishing .sln -->
-		<PropertyGroup>
-			<ClientPublishWwwroot>$([System.String]::Copy('$(PublishDir)').Replace('.Server','').Replace('PubTmp','browser-wasm\PubTmp'))wwwroot\</ClientPublishWwwroot>
-			<ServerPublishWwwroot>$(PublishDir)wwwroot\</ServerPublishWwwroot>
-		</PropertyGroup>
-
-		<Message Text="ClientPublishWwwroot: $(ClientPublishWwwroot)" Importance="High" />
-		<Message Text="ServerPublishWwwroot: $(ServerPublishWwwroot)" Importance="High" />
-
-		<Delete Files="$(ServerPublishWwwroot)**\*.*" />
-
-		<CreateItem Include="$(ClientPublishWwwroot)**\*.*">
-			<Output TaskParameter="Include" ItemName="FilesToCopy" />
-		</CreateItem>
-
-		<Copy SourceFiles="@(FilesToCopy)" DestinationFiles="@(FilesToCopy->'$(ServerPublishWwwroot)%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" Retries="3" RetryDelayMilliseconds="300" />
-	</Target>
 
 	<Target Name="TfsPublish" AfterTargets="AfterPublish" Condition="'$(PublishDirectory)' != ''">
 		<ItemGroup>

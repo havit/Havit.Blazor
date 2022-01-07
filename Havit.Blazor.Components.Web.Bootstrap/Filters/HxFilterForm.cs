@@ -16,6 +16,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public const string ChipGeneratorRegistrationCascadingValueName = "ChipGeneratorsRegistration";
 
 		[Parameter] public EventCallback<ChipItem[]> OnChipsUpdated { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnChipsUpdated"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnChipsUpdatedAsync(ChipItem[] newChips) => OnChipsUpdated.InvokeAsync(newChips);
 
 		private List<IHxChipGenerator> chipGenerators;
 		private CollectionRegistration<IHxChipGenerator> chipGeneratorsRegistration;
@@ -55,7 +59,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			ModelInEdit = CloneModel(ModelInEdit);
 			StateHasChanged(); // also called from OnAfterRender
 
-			await OnChipsUpdated.InvokeAsync(chips);
+			await InvokeOnChipsUpdatedAsync(chips);
 		}
 
 		private ChipItem[] GetChips()
@@ -110,7 +114,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.CloseComponent();
 		}
 
-		public void Dispose()
+		public virtual void Dispose() // TODO Missing IDisposable ?!
 		{
 			isDisposed = true;
 		}

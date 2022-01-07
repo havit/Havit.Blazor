@@ -1,14 +1,6 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Havit.Blazor.Components.Web.Infrastructure;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -18,9 +10,30 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFormValueComponent, IInputWithSize
 	{
 		/// <summary>
-		/// Application-wide defaults for the <see cref="HxInputFile"/>.
+		/// Application-wide defaults for the <see cref="HxInputFile"/> and derived components.
 		/// </summary>
-		public static InputFileDefaults Defaults { get; } = new();
+		public static InputFileSettings Defaults { get; set; }
+
+		static HxInputFile()
+		{
+			Defaults = new InputFileSettings()
+			{
+				InputSize = Bootstrap.InputSize.Regular,
+			};
+		}
+
+		/// <summary>
+		/// Returns application-wide defaults for the component.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual InputFileSettings GetDefaults() => Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public InputDateRangeSettings Settings { get; set; }
 
 		/// <summary>
 		/// URL of the server endpoint receiving the files.
@@ -31,21 +44,37 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Gets or sets the event callback that will be invoked when the collection of selected files changes.
 		/// </summary>
 		[Parameter] public EventCallback<InputFileChangeEventArgs> OnChange { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnChange"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnChangeAsync(InputFileChangeEventArgs args) => OnChange.InvokeAsync(args);
 
 		/// <summary>
 		/// Raised during running file upload (the frequency depends on browser implementation).
 		/// </summary>
 		[Parameter] public EventCallback<UploadProgressEventArgs> OnProgress { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnProgress"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnProgressAsync(UploadProgressEventArgs args) => OnProgress.InvokeAsync(args);
 
 		/// <summary>
 		/// Raised after a file is uploaded (for every single file separately).
 		/// </summary>
 		[Parameter] public EventCallback<FileUploadedEventArgs> OnFileUploaded { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnFileUploaded"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnFileUploadedAsync(FileUploadedEventArgs args) => OnFileUploaded.InvokeAsync(args);
 
 		/// <summary>
-		/// Raised after a file is uploaded (for every single file separately).
+		/// Raised when all files are uploaded (after all <see cref="OnFileUploaded"/> events).
 		/// </summary>
 		[Parameter] public EventCallback<UploadCompletedEventArgs> OnUploadCompleted { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnUploadCompleted"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnUploadCompletedAsync(UploadCompletedEventArgs args) => OnUploadCompleted.InvokeAsync(args);
 
 		/// <summary>
 		/// Single <c>false</c> or multiple <c>true</c> files upload.
@@ -161,14 +190,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 		public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null) => hxInputFileCoreComponentReference?.UploadAsync(accessToken);
 
-		/// <summary>
-		/// Returns <see cref="HxInputFile"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual InputFileDefaults GetDefaults() => Defaults;
-		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			builder.OpenRegion(0);
@@ -184,10 +205,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1001, nameof(HxInputFileCore.Id), this.InputId);
 			builder.AddAttribute(1002, nameof(HxInputFileCore.UploadUrl), this.UploadUrl);
 			builder.AddAttribute(1003, nameof(HxInputFileCore.Multiple), this.Multiple);
-			builder.AddAttribute(1004, nameof(HxInputFileCore.OnChange), this.OnChange);
-			builder.AddAttribute(1005, nameof(HxInputFileCore.OnProgress), this.OnProgress);
-			builder.AddAttribute(1006, nameof(HxInputFileCore.OnFileUploaded), this.OnFileUploaded);
-			builder.AddAttribute(1007, nameof(HxInputFileCore.OnUploadCompleted), this.OnUploadCompleted);
+			builder.AddAttribute(1004, nameof(HxInputFileCore.OnChange), EventCallback.Factory.Create<InputFileChangeEventArgs>(this, InvokeOnChangeAsync));
+			builder.AddAttribute(1005, nameof(HxInputFileCore.OnProgress), EventCallback.Factory.Create<UploadProgressEventArgs>(this, InvokeOnProgressAsync));
+			builder.AddAttribute(1006, nameof(HxInputFileCore.OnFileUploaded), EventCallback.Factory.Create<FileUploadedEventArgs>(this, InvokeOnFileUploadedAsync));
+			builder.AddAttribute(1007, nameof(HxInputFileCore.OnUploadCompleted), EventCallback.Factory.Create<UploadCompletedEventArgs>(this, InvokeOnUploadCompletedAsync));
 			builder.AddAttribute(1008, nameof(HxInputFileCore.Accept), this.Accept);
 			builder.AddAttribute(1009, nameof(HxInputFileCore.MaxFileSize), this.MaxFileSize);
 			builder.AddAttribute(1010, "class", CssClassHelper.Combine(this.CoreInputCssClass, this.InputCssClass, (this is IInputWithSize inputWithSize) ? inputWithSize.GetInputSizeCssClass() : null));

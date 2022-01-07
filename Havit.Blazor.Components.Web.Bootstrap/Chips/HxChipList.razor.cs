@@ -19,10 +19,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Called when chip remove button is clicked.
 		/// </summary>
 		[Parameter] public EventCallback<ChipItem> OnChipRemoveClick { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnChipRemoveClick"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnChipRemoveClickAsync(ChipItem chipRemoved) => OnChipRemoveClick.InvokeAsync(chipRemoved);
 
 		public async Task HandleRemoveClick(ChipItem chipItemToRemove)
 		{
-			await OnChipRemoveClick.InvokeAsync(chipItemToRemove);
+			await InvokeOnChipRemoveClickAsync(chipItemToRemove);
 		}
 	}
 }

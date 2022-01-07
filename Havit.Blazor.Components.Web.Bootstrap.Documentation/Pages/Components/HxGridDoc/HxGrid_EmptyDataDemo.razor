@@ -1,4 +1,4 @@
-﻿<HxGrid TItem="CultureInfo" DataProvider="EmptyCultureInfosDataProvider">
+﻿<HxGrid TItem="CultureInfo" TableContainerCssClass="table-responsive" DataProvider="EmptyCultureInfosDataProvider">
 	<Columns>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
@@ -11,7 +11,7 @@
 		await Task.Delay(3000);
 		return new GridDataProviderResult<CultureInfo>
 		{
-			Data = new List<CultureInfo>(),
+			Data = null,
 			TotalCount = 0
 		};
 	}

@@ -23,7 +23,7 @@
 			<div class="mb-2">
 				<HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" />
 			</div>
-			@if (ShowCalendarButtons)
+			@if (ShowCalendarButtonsEffective)
 			{
 				<div class="d-flex justify-content-between">
 					<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" />

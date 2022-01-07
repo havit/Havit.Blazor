@@ -4,7 +4,7 @@
 	 aria-current="@Active"
 	 aria-disabled="@(!Enabled)"
 	 role="@(this.OnClick.HasDelegate ? "button" : null)"
-	 @onclick="OnClick"
+	 @onclick="InvokeOnClickAsync"
 	 @onclick:stopPropagation="this.OnClick.HasDelegate">
 	@ChildContent
 </div>

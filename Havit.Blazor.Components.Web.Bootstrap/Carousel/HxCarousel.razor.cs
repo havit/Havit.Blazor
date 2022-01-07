@@ -58,11 +58,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Is fired when the current slide is changed (at the very start of the sliding transition).
 		/// </summary>
 		[Parameter] public EventCallback OnSlide { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnSlide"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnSlideAsync() => OnSlide.InvokeAsync();
+
 
 		/// <summary>
 		/// Is fired when the current slide is changed (once the transition is completed).
 		/// </summary>
 		[Parameter] public EventCallback OnSlid { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnSlid"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnSlidAsync() => OnSlid.InvokeAsync();
 
 		/// <summary>
 		/// Carousel ride (autoplay) behavior. Default is <see cref="CarouselRide.Carousel"/> (autoplays the carousel on load).
@@ -76,9 +85,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private IJSObjectReference jsModule;
 		private string id = "hx" + Guid.NewGuid().ToString("N");
 		private DotNetObjectReference<HxCarousel> dotnetObjectReference;
+		private ElementReference elementReference;
 		private List<HxCarouselItem> items;
 		private CollectionRegistration<HxCarouselItem> itemsRegistration;
-		private bool isDisposed = false;
+		private bool disposed = false;
 
 		public HxCarousel()
 		{
@@ -86,7 +96,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			items = new List<HxCarouselItem>();
 			itemsRegistration = new CollectionRegistration<HxCarouselItem>(items,
 				this.StateHasChanged,
-				() => isDisposed);
+				() => disposed);
 		}
 
 		protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -96,7 +106,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender)
 			{
 				await EnsureJsModule();
-				await jsModule.InvokeVoidAsync("Initialize", id, dotnetObjectReference, Ride.ToString().ToLower());
+				if (disposed)
+				{
+					return;
+				}
+				await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference, Ride.ToString().ToLower());
 			}
 		}
 
@@ -109,13 +123,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxCarousel_HandleSlide")]
 		public async Task HandleSlide()
 		{
-			await OnSlide.InvokeAsync();
+			await InvokeOnSlideAsync();
 		}
 
 		[JSInvokable("HxCarousel_HandleSlid")]
 		public async Task HandleSlid()
 		{
-			await OnSlid.InvokeAsync();
+			await InvokeOnSlidAsync();
 		}
 
 		/// <summary>
@@ -124,7 +138,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task SlideToAsync(int index)
 		{
 			await EnsureJsModule();
-			await jsModule.InvokeVoidAsync("SlideTo", id, index);
+			await jsModule.InvokeVoidAsync("slideTo", elementReference, index);
 		}
 
 		/// <summary>
@@ -133,7 +147,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task SlideToPreviousItemAsync()
 		{
 			await EnsureJsModule();
-			await jsModule.InvokeVoidAsync("Previous", id);
+			await jsModule.InvokeVoidAsync("previous", elementReference);
 		}
 
 		/// <summary>
@@ -142,7 +156,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task SlideToNextItemAsync()
 		{
 			await EnsureJsModule();
-			await jsModule.InvokeVoidAsync("Next", id);
+			await jsModule.InvokeVoidAsync("next", elementReference);
 		}
 
 		/// <summary>
@@ -151,7 +165,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task CycleAsync()
 		{
 			await EnsureJsModule();
-			await jsModule.InvokeVoidAsync("Cycle", id);
+			await jsModule.InvokeVoidAsync("cycle", elementReference);
 		}
 
 		/// <summary>
@@ -160,21 +174,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task PauseAsync()
 		{
 			await EnsureJsModule();
-			await jsModule.InvokeVoidAsync("Pause", id);
+			await jsModule.InvokeVoidAsync("pause", elementReference);
 		}
 
 		/// <summary>
 		/// Dispose the carousel.
 		/// </summary>
-		public async ValueTask DisposeAsync()
+		public virtual async ValueTask DisposeAsync()
 		{
-			isDisposed = true;
+			disposed = true;
 
 			if (jsModule is not null)
 			{
-				await jsModule.InvokeVoidAsync("Dispose", id);
+				await jsModule.InvokeVoidAsync("dispose", elementReference);
 				await jsModule.DisposeAsync();
 			}
+
+			dotnetObjectReference?.Dispose();
 		}
 	}
 }

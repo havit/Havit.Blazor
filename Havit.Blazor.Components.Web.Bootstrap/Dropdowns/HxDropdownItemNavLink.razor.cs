@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System;
+using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -36,6 +37,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Raised when the item is clicked.
 		/// </summary>
 		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnClick"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
 
 		/// <summary>
 		/// Additional CSS class.

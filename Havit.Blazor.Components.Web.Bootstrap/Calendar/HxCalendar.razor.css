@@ -17,8 +17,10 @@
 
 .form-select:not(:hover) {
     background-image: none;
+    background-color: transparent;
     width: fit-content;
     border-color: transparent;
+    transition: 0.15s ease-in-out;
 }
 
 ::deep .btn:hover {

@@ -1,0 +1,34 @@
+﻿<EditForm Model="model">
+    <HxRadioButtonList TItem="Person"
+                       TValue="string"
+                       Data="@people"
+                       @bind-Value="@model.SelectedPersonInitials"
+                       TextSelector="@(p => p.Name)"
+                       ValueSelector="@(p => p.Initials)"
+                       Inline="true" />
+</EditForm>
+
+<p>Selected initials: @model.SelectedPersonInitials</p>
+
+@code {
+    private FormModel model = new FormModel();
+
+    private List<Person> people = new List<Person>
+    {
+        new Person { Name = "Starr Ringo", Initials = "RS" },
+        new Person { Name = "Lennon John", Initials = "JL" },
+        new Person { Name = "McCartney Pail", Initials = "PMC" },
+        new Person { Name = "Harrison George", Initials = "GH" }
+    };
+
+    public class FormModel
+    {
+        public string SelectedPersonInitials { get; set; }
+    }
+
+    public class Person
+    {
+        public string Name { get; set; }
+        public string Initials { get; set; }
+    }
+}

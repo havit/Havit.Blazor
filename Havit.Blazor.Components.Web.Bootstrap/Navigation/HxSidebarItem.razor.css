@@ -1,5 +1,4 @@
 ﻿::deep .hx-sidebar-item {
-	margin-bottom: .25rem;
 	display: block; /*Overrides the inline flex from btn-group placed by HxDropdown*/
 }
 
@@ -33,13 +32,13 @@
 
 ::deep i {
 	color: var(--hx-sidebar-item-icon-color);
-	font-size: 1rem;
 	transition: transform .35s ease;
 	transform-origin: .5em 50%;
 }
 
 ::deep .bi-chevron-right {
 	font-size: .75rem;
+	margin-left: .5rem;
 }
 
 ::deep .dropdown-menu.hx-sidebar-subitems .nav-link {

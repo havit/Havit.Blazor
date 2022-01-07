@@ -20,6 +20,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	{
 		/// <summary>
+		/// Allows grouping radios on the same horizontal row by rendering them inline. Default is <c>false</c>.
+		/// </summary>
+		[Parameter] public bool Inline { get; set; }
+
+		/// <summary>
 		/// Selects value from item.
 		/// Not required when TValueType is same as TItemTime.
 		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
@@ -108,10 +113,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				string inputId = GroupName + "_" + index.ToString();
 
 				builder.OpenElement(100, "div");
-				builder.AddAttribute(101, "class", "form-check");
+
+				// TODO CoreCssClass
+				builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null));
 
 				builder.OpenElement(200, "input");
-				builder.AddAttribute(201, "class", "form-check-input"); // TODO CoreCssClass
+				builder.AddAttribute(201, "class", "form-check-input");
 				builder.AddAttribute(202, "type", "radio");
 				builder.AddAttribute(203, "name", GroupName);
 				builder.AddAttribute(204, "id", inputId);

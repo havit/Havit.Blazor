@@ -1,7 +1,7 @@
 ﻿@page "/HxSidebarTest"
 <h1>HxSidebarTest</h1>
 
-<div class="border d-inline-flex">
+<div class="border d-inline-block">
 	<HxSidebar>
 		<HeaderTemplate>
 			<HxSidebarBrand BrandName="Brand name" BrandNameShort="BN" />
@@ -31,7 +31,7 @@
 		</ItemsTemplate>
 
 		<FooterTemplate>
-			<span><HxIcon Icon="BootstrapIcon.Person" />login</span>
+			<HxSidebarFooter Href="https://github.com/havit/Havit.Blazor" Icon="BootstrapIcon.Github" Text="GitHub repository" />
 		</FooterTemplate>
 	</HxSidebar>
 </div>

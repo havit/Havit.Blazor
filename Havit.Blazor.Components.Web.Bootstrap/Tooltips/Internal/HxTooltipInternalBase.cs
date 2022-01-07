@@ -58,11 +58,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// Fired when the content has been made visible to the user and CSS transitions have completed.
 		/// </summary>
 		[Parameter] public EventCallback OnShown { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnShown"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnShownAsync() => OnShown.InvokeAsync();
 
 		/// <summary>
 		/// Fired when the content has finished being hidden from the user and CSS transitions have completed.
 		/// </summary>
 		[Parameter] public EventCallback OnHidden { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnHidden"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnHiddenAsync() => OnHidden.InvokeAsync();
 
 
 		[Inject] public IJSRuntime JSRuntime { get; set; }
@@ -76,6 +84,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private string lastTitle;
 		private string lastContent;
 		private bool shouldRenderSpan;
+		private bool isInitialized;
+		private bool disposed;
 
 		protected HxTooltipInternalBase()
 		{
@@ -92,7 +102,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			if (shouldRenderSpan)
 			{
 				builder.OpenElement(1, "span");
-				builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", WrapperCssClass));
+				builder.AddAttribute(2, "class", WrapperCssClass);
 				builder.AddAttribute(3, "data-bs-container", "body");
 				builder.AddAttribute(4, "data-bs-trigger", GetTriggers());
 				builder.AddAttribute(5, "data-bs-placement", PlacementInternal.ToString().ToLower());
@@ -140,12 +150,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			if ((lastTitle != TitleInternal) || (lastContent != ContentInternal))
+			if (!disposed
+				&& ((lastTitle != TitleInternal) || (lastContent != ContentInternal)))
 			{
 				// carefully, lastText can be null but Text empty string
 
 				bool shouldCreateOrUpdateTooltip = !String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal);
-				bool shouldDestroyTooltip = String.IsNullOrEmpty(TitleInternal)
+
+				bool shouldDestroyTooltip =
+					isInitialized
+					&& String.IsNullOrEmpty(TitleInternal)
 					&& String.IsNullOrEmpty(ContentInternal)
 					&& (!String.IsNullOrEmpty(lastTitle) || !String.IsNullOrEmpty(lastContent));
 
@@ -160,12 +174,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					{
 						Sanitize = this.Sanitize
 					};
+					if (disposed)
+					{
+						return;
+					}
 					await jsModule.InvokeVoidAsync("createOrUpdate", spanElement, dotnetObjectReference, options);
+					isInitialized = true;
 				}
 
 				if (shouldDestroyTooltip)
 				{
 					await jsModule.InvokeVoidAsync("destroy", spanElement);
+					isInitialized = false;
 				}
 			}
 		}
@@ -202,7 +222,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[JSInvokable("HxHandleJsShown")]
 		public async Task HandleJsShown()
 		{
-			await OnShown.InvokeAsync();
+			await InvokeOnShownAsync();
 		}
 
 		/// <summary>
@@ -211,20 +231,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[JSInvokable("HxHandleJsHidden")]
 		public async Task HandleJsHidden()
 		{
-			await OnHidden.InvokeAsync();
+			await InvokeOnHiddenAsync();
 		}
 
-		public async ValueTask DisposeAsync()
+		public virtual async ValueTask DisposeAsync()
 		{
+			disposed = true;
+
 			if (jsModule != null)
 			{
-				if (!String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal))
+				if (isInitialized
+					&& (!String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal)))
 				{
 					await jsModule.InvokeVoidAsync("destroy", spanElement);
 				}
 				await jsModule.DisposeAsync();
 				jsModule = null;
+				isInitialized = false;
 			}
+
+			dotnetObjectReference.Dispose();
 		}
 	}
 }

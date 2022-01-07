@@ -38,7 +38,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
-		protected EventCallback<bool> ProgressIndicatorVisibleChanged { get; set; }
+		protected EventCallback<bool> ProgressIndicatorVisibleChanged { get; set; }  // TODO Needed?
 
 		protected override async Task OnParametersSetAsync()
 		{

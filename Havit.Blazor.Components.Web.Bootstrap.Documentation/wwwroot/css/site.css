@@ -59,3 +59,22 @@
 		margin-top: -.5rem;
 		margin-bottom: 1rem
 	}
+
+.sidebar .hx-sidebar-header {
+	flex-wrap: wrap;
+}
+
+.collapsed.sidebar .sidebar-search {
+	display: none;
+}
+
+.calendar-demo {
+	max-width: 100%;
+	overflow: auto;
+}
+
+@media screen and (min-width: 800px) {
+	.calendar-demo {
+		overflow: visible;
+	}
+}

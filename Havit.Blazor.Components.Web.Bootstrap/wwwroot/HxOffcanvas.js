@@ -5,45 +5,58 @@
 			previousOffcanvas.hide();
 		}
 	}
+
+	if (!element) {
+		return;
+	}
+
 	element.hxOffcanvasDotnetObjectReference = hxOffcanvasDotnetObjectReference;
-	element.addEventListener('hidden.bs.offcanvas', handleOffcanvasHidden)
+	element.addEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
+	element.addEventListener('shown.bs.offcanvas', handleOffcanvasShown);
+	window.offcanvasElement = element;
 
 	let offcanvas = new bootstrap.Offcanvas(element, {
 		backdrop: backdropEnabled,
 		keyboard: closeOnEscape,
 		scroll: scrollingEnabled
 	});
-	window.offcanvasElement = element;
-	offcanvas.show();
+	if (offcanvas) {
+		offcanvas.show();
+	}
 }
 
 export function hide(element) {
-	let offcanvas = bootstrap.Offcanvas.getInstance(element);
-	offcanvas.hide();
+	let o = bootstrap.Offcanvas.getInstance(element);
+	if (o) {
+		o.hide();
+	}
 }
 
-export function dispose(element) {
-	let offcanvas = bootstrap.Offcanvas.getInstance(element);
-	element.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
-	element.hxOffcanvasDotnetObjectReference = null;
-	offcanvas.hide();
-	// offcanvas.dispose(); // BS bug: offcanvas.js: 145: Cannot read property 'setAttribute' of null
-
-	if (element === window.offcanvasElement) { // another offcanvas might be already open
-		window.offcanvasElement = null;
-		console.warn("dispose-null");
-	}
+function handleOffcanvasShown(event) {
+	event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasShown');
 }
 
 function handleOffcanvasHidden(event) {
-	event.target.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
 	event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasHidden');
-	event.target.hxOffcanvasDotnetObjectReference = null;
+	dispose(event.target);
+}
 
-	let offcanvas = bootstrap.Offcanvas.getInstance(event.target);
+export function dispose(element) {
+	if (!element) {
+		return;
+	}
 
-	if (event.target === window.offcanvasElement) { // another offcanvas might be already open
+	element.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
+	element.removeEventListener('shown.bs.offcanvas', handleOffcanvasShown);
+	element.hxOffcanvasDotnetObjectReference = null;
+
+	let o = bootstrap.Offcanvas.getInstance(element);
+	if (o) {
+		o.hide();
+		o.dispose();
+	}
+
+	if (element === window.offcanvasElement) { // another offcanvas might be already open
 		window.offcanvasElement = null;
 	}
-	offcanvas.dispose();
-};
+}

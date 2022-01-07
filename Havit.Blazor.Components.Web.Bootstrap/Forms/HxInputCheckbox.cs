@@ -15,13 +15,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class HxInputCheckbox : HxInputBase<bool>
 	{
+		/// <summary>
+		/// Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.
+		/// </summary>
+		[Parameter] public bool Inline { get; set; }
+
 		[Inject] protected IStringLocalizer<HxInputCheckbox> Localizer { get; set; }
 
 		/// <inheritdoc cref="LabelValueRenderOrder" />
 		protected override LabelValueRenderOrder RenderOrder => LabelValueRenderOrder.ValueLabel;
 
 		/// <inheritdoc cref="HxInputBase{TValue}.CoreCssClass" />
-		private protected override string CoreCssClass => !String.IsNullOrWhiteSpace(Label) ? "form-check" : null;
+		private protected override string CoreCssClass
+		{
+			get
+			{
+				if (String.IsNullOrWhiteSpace(this.Label))
+				{
+					return "position-relative";
+				}
+				return CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null, "position-relative");
+			}
+		}
 
 		/// <inheritdoc cref="HxInputBase{TValue}.CoreInputCssClass" />
 		private protected override string CoreInputCssClass => "form-check-input";

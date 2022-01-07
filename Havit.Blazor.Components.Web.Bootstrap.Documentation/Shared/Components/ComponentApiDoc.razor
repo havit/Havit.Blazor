@@ -1,4 +1,4 @@
-﻿<h1>@RemoveSpecialCharacters(Type.Name)</h1>
+﻿<h1 id="@RemoveSpecialCharacters(Type.Name)">@RemoveSpecialCharacters(Type.Name)</h1>
 @if (!String.IsNullOrWhiteSpace(classMember?.Comments?.Summary))
 {
 	<p class="lead">@((MarkupString)classMember.Comments.Summary)</p>
@@ -7,7 +7,10 @@
 @ChildContent
 @MainContent
 
-<h2>API</h2>
+@if (parameters is not null || properties is not null || events is not null || staticMethods is not null || staticProperties is not null || CssVariables is not null)
+{
+	<h2>API</h2>
+}
 
 @if (Delegate)
 {
@@ -54,10 +57,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var property in parameters)
+				@foreach (var property in parameters.OrderBy(p => p.PropertyInfo.Name))
 				{
 					<tr>
 						<td>
+							@if (property.EditorRequired)
+							{
+								<HxBadge Color="ThemeColor.Warning" CssClass="me-2">
+									@("REQUIRED")
+								</HxBadge>
+							}
 							@if (IsPropertyStatic(property))
 							{
 								<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">
@@ -89,7 +98,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var property in properties)
+				@foreach (var property in properties.OrderBy(p => p.PropertyInfo.Name))
 				{
 					<tr>
 						<td><strong>@property.PropertyInfo.Name</strong></td>
@@ -104,7 +113,7 @@
 
 @if (events.Count > 0)
 {
-	<h3>Event Callbacks</h3>
+	<h3>Event callbacks</h3>
 
 	<div class="table-responsive">
 		<table class="table table-bordered">
@@ -116,7 +125,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var currentEvent in events)
+				@foreach (var currentEvent in events.OrderBy(e => e.PropertyInfo.Name))
 				{
 					<tr>
 						<td><strong>@currentEvent.PropertyInfo.Name</strong> </td>
@@ -142,11 +151,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var method in methods)
+				@foreach (var method in methods.OrderBy(m => m.MethodInfo.Name))
 				{
 					<tr>
 						<td><strong>@method.MethodInfo.Name</strong>@((MarkupString)@method.GetParameters())</td>
-						<td><code>@((MarkupString)@FormatType(method.MethodInfo.ReturnType))</code></td>
+						<td><code>@((MarkupString)@FormatMethod(method.MethodInfo.ReturnType))</code></td>
 						<td class="summary">@((MarkupString)method.Comments.Summary)</td>
 					</tr>
 				}
@@ -169,7 +178,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var property in staticProperties)
+				@foreach (var property in staticProperties.OrderBy(p => p.PropertyInfo.Name))
 				{
 					<tr>
 						<td><strong>@property.PropertyInfo.Name</strong></td>
@@ -196,7 +205,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var method in staticMethods)
+				@foreach (var method in staticMethods.OrderBy(m => m.MethodInfo.Name))
 				{
 					<tr>
 						<td><strong>@method.MethodInfo.Name</strong> @((MarkupString)@method.GetParameters())</td>

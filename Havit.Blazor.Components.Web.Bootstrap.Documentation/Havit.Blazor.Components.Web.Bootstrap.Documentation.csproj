@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<NoWarn>1701;1702;SA1134</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="LoxSmoke.DocXml" Version="3.4.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web.Extensions" Version="5.0.0-preview9.20513.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.10" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.10" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.10" />
-		<PackageReference Include="System.CodeDom" Version="5.0.0" />
-		<PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.0" />
+		<PackageReference Include="System.CodeDom" Version="6.0.0" />
+		<PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -38,7 +38,6 @@
 		<Compile Remove="**/*.CodeSnippet.*" />
 		<EmbeddedResource Include="**/*.CodeSnippet.*" />
 		<None Remove="Pages\Components\HxListGroupDoc\HxListGroup_Documentation.razor.css" />
-		<None Remove="Pages\Components\HxSiderbarDoc\HxSidebar_Setup.CodeSnippet.css" />
 		<Content Include="Pages\Components\HxListGroupDoc\HxListGroup_Documentation.razor.css" />
 		<EmbeddedResource Update="**/*.CodeSnippet.*">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>

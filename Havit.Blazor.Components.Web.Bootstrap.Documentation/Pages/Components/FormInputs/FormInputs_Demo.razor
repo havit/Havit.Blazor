@@ -1,7 +1,7 @@
 ﻿<EditForm Model="@model" OnValidSubmit="@(() => model.Text = "Validation passed... :-)")">
 	<DataAnnotationsValidator />
 
-	<HxInputText Label="HxInputText" @bind-Value="@model.Text" Placeholder="Enter text here." Hint="Enter text, value is shared with all text inputs."/>
+	<HxInputText Label="HxInputText" @bind-Value="@model.Text" Placeholder="Enter text here." Hint="Hint: Enter text, value is shared with all text inputs."/>
 
 	<HxInputTextArea Label="HxInputTextArea" @bind-Value="@model.Text" />
 
@@ -36,7 +36,7 @@
         [DateTimeRangeValidator(ErrorMessage = "Start and end dates have to be set.")]
         public DateTimeRange DateTimeRangeValue { get; set; }
 
-        [Range(typeof(bool), "true", "true", ErrorMessage = " ")]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Has to be enabled.")]
         public bool BoolValue { get; set; }
 
         public class DateTimeRangeValidator : ValidationAttribute

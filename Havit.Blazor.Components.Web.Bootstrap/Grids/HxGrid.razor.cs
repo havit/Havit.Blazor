@@ -21,17 +21,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	{
 		/// <summary>
-		/// Application-wide defaults for the <see cref="HxGrid{TItem}"/>.
-		/// </summary>
-		public static GridDefaults Defaults { get; } = new GridDefaults();
-
-		/// <summary>
 		/// ColumnsRegistration cascading value name.
 		/// </summary>
 		public const string ColumnsRegistrationCascadingValueName = "ColumnsRegistration";
 
 		/// <summary>
-		/// Data provider for items to render as a table.
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxGrid.Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public GridSettings Settings { get; set; }
+
+		/// <summary>
+		/// Data provider for items to render.<br />
+		/// The provider should always return instance of <see cref="GridDataProviderResult{TItem}"/>, <c>null</c> is not allowed.
 		/// </summary>
 		[Parameter] public GridDataProviderDelegate<TItem> DataProvider { get; set; }
 
@@ -83,6 +84,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Intended for data binding.
 		/// </summary>		
 		[Parameter] public EventCallback<TItem> SelectedDataItemChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="SelectedDataItemChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeSelectedDataItemChangedAsync(TItem selectedDataItem) => SelectedDataItemChanged.InvokeAsync(selectedDataItem);
 
 		/// <summary>
 		/// Selected data items.
@@ -95,35 +100,47 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Intended for data binding.
 		/// </summary>		
 		[Parameter] public EventCallback<HashSet<TItem>> SelectedDataItemsChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="SelectedDataItemsChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeSelectedDataItemsChangedAsync(HashSet<TItem> selectedDataItems) => SelectedDataItemsChanged.InvokeAsync(selectedDataItems);
 
 		/// <summary>
 		/// Strategy how data are displayed in the grid (and loaded to the grid).
 		/// </summary>
 		[Parameter] public GridContentNavigationMode? ContentNavigationMode { get; set; }
+		protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? this.Settings?.ContentNavigationMode ?? GetDefaults().ContentNavigationMode ?? throw new InvalidOperationException(nameof(ContentNavigationMode) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
-		/// Page size.		
+		/// Page size for <see cref="GridContentNavigationMode.Pagination"/>.
 		/// </summary>
-		[Parameter] public int? PageSize { get; set; } = null;
+		[Parameter] public int? PageSize { get; set; }
+		protected int PageSizeEffective => this.PageSize ?? this.Settings?.PageSize ?? GetDefaults().PageSize ?? throw new InvalidOperationException(nameof(PageSize) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
 		/// Indicates whether to render footer when data are empty.
+		/// Default is <c>false</c>.
 		/// </summary>
-		[Parameter] public bool? ShowFooterWhenEmptyData { get; set; } = false;
+		[Parameter] public bool? ShowFooterWhenEmptyData { get; set; }
+		protected bool ShowFooterWhenEmptyDataEffective => this.ShowFooterWhenEmptyData ?? this.Settings?.ShowFooterWhenEmptyData ?? GetDefaults().ShowFooterWhenEmptyData ?? throw new InvalidOperationException(nameof(ShowFooterWhenEmptyData) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
 		/// Current grid state (page, sorting).
 		/// </summary>
-		[Parameter] public GridUserState<TItem> CurrentUserState { get; set; } = new GridUserState<TItem>(0, null);
+		[Parameter] public GridUserState<TItem> CurrentUserState { get; set; } = new GridUserState<TItem>();
 
 		/// <summary>
 		/// Event fires when grid state is changed.
 		/// </summary>
 		[Parameter] public EventCallback<GridUserState<TItem>> CurrentUserStateChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="CurrentUserStateChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeCurrentUserStateChangedAsync(GridUserState<TItem> newGridUserState) => CurrentUserStateChanged.InvokeAsync(newGridUserState);
 
 		/// <summary>
-		/// Indicates whether the grid should be displayed as "in progress".
-		/// When <c>null</c> (default) value is used, grid is "in progress" when retrieving data by data provider.
+		/// Indicates when the grid should be displayed as "in progress".
+		/// When not set (<c>null</c>), grid progress is automatically tracked when retrieving data by data provider.
 		/// </summary>
 		[Parameter] public bool? InProgress { get; set; }
 
@@ -131,27 +148,32 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c> (<see cref="HxPager"/> is not wrapped in this <c>div</c> element).
 		/// </summary>
 		[Parameter] public string TableContainerCssClass { get; set; }
+		protected string TableContainerCssClassEffective => this.TableContainerCssClass ?? this.Settings?.TableContainerCssClass ?? GetDefaults().TableContainerCssClass;
 
 		/// <summary>
 		/// Custom CSS class to render with main <c>table</c> element.
 		/// </summary>
 		[Parameter] public string TableCssClass { get; set; }
+		protected string TableCssClassEffective => this.TableCssClass ?? this.Settings?.TableCssClass ?? GetDefaults().TableCssClass;
 
 		/// <summary>
 		/// Custom CSS class to render with header <c>tr</c> element.
 		/// </summary>
 		[Parameter] public string HeaderRowCssClass { get; set; }
+		protected string HeaderRowCssClassEffective => this.HeaderRowCssClass ?? this.Settings?.HeaderRowCssClass ?? GetDefaults().HeaderRowCssClass;
 
 		/// <summary>
 		/// Custom CSS class to render with data <c>tr</c> element.
 		/// </summary>
 		[Parameter] public string ItemRowCssClass { get; set; }
+		protected string ItemRowCssClassEffective => this.ItemRowCssClass ?? this.Settings?.ItemRowCssClass ?? GetDefaults().ItemRowCssClass;
 
 		/// <summary>
 		/// Height of the item row used for infinite scroll calculations.
 		/// Default value is <c>41px</c> (row-height of regular table-row within Bootstrap 5 default theme).
 		/// </summary>
 		[Parameter] public float? ItemRowHeight { get; set; }
+		protected float ItemRowHeightEffective => this.ItemRowHeight ?? this.Settings?.ItemRowHeight ?? GetDefaults().ItemRowHeight ?? throw new InvalidOperationException(nameof(ItemRowHeight) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
 		/// Returns custom CSS class to render with data <c>tr</c> element.
@@ -162,20 +184,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Custom CSS class to render with footer <c>tr</c> element.
 		/// </summary>
 		[Parameter] public string FooterRowCssClass { get; set; }
+		protected string FooterRowCssClassEffective => this.FooterRowCssClass ?? this.Settings?.FooterRowCssClass ?? GetDefaults().FooterRowCssClass;
 
 		/// <summary>
-		/// Custom CSS class to render with pager wrapping <c>div</c> element.
+		/// Custom CSS class to add to the pager.
 		/// </summary>
-		[Parameter] public string PagerContainerCssClass { get; set; }
-
-		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
+		[Parameter] public string PagerCssClass { get; set; }
+		protected string PagerCssClassEffective => this.PagerCssClass ?? this.Settings?.PagerCssClass ?? GetDefaults().PagerCssClass;
 
 		/// <summary>
 		/// Number of rows with placeholders to render.
 		/// When value is zero, placeholders are not used.
 		/// When <see cref="LoadingDataTemplate" /> is set, placeholder are not used.
+		/// Default is <c>5</c>.
 		/// </summary>
 		[Parameter] public int? PlaceholdersRowCount { get; set; }
+		protected int PlaceholdersRowCountEffective => this.PlaceholdersRowCount ?? this.Settings?.PlaceholdersRowCount ?? GetDefaults().PlaceholdersRowCount ?? throw new InvalidOperationException(nameof(PlaceholdersRowCount) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
 		/// Infinite scroll:
@@ -186,17 +210,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is <c>50</c>.
 		/// </summary>
 		[Parameter] public int? OverscanCount { get; set; }
-
-		protected int PageSizeEffective => PageSize ?? GetDefaults().PageSize;
-		protected int PlaceholdersRowCountEffective => PlaceholdersRowCount ?? GetDefaults().PlaceholdersRowCount;
-		protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? GetDefaults().ContentNavigationMode;
+		protected int OverscanCountEffective => this.OverscanCount ?? this.Settings?.OverscanCount ?? GetDefaults().OverscanCount ?? throw new InvalidOperationException(nameof(OverscanCount) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
-		/// Return <see cref="HxGrid{TItem}"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
+		/// Returns application-wide defaults for the component.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
-		protected virtual GridDefaults GetDefaults() => HxGrid<TItem>.Defaults;
+		protected virtual GridSettings GetDefaults() => HxGrid.Defaults;
+
+		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
 
 		private List<IHxGridColumn<TItem>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItem>> columnsListRegistration;
@@ -205,6 +227,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private bool paginationDecreasePageIndexAfterRender = false;
 		private List<TItem> paginationDataItemsToRender;
 		private CancellationTokenSource paginationRefreshDataCancellationTokenSource;
+		private GridUserState<TItem> previousUserState;
+		private bool firstRenderCompleted = false;
 
 		private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> infiniteScrollVirtualizeComponent;
 
@@ -226,7 +250,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await base.OnParametersSetAsync();
 
 			Contract.Requires<InvalidOperationException>(DataProvider != null, $"Property {nameof(DataProvider)} on {GetType()} must have a value.");
+			Contract.Requires<InvalidOperationException>(CurrentUserState != null, $"Property {nameof(CurrentUserState)} on {GetType()} must have a value.");
 			Contract.Requires<InvalidOperationException>(!MultiSelectionEnabled || (ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll), $"Cannot use multi selection with infinite scroll on {GetType()}.");
+
+			if (firstRenderCompleted && (previousUserState != CurrentUserState)) /* after first render previousUserState cannot be null */
+			{
+				// await: This adds one more render before OnParameterSetAsync is finished.
+				// We consider it safe because we already have some data.
+				// But for a moment (before data is refreshed (= before OnParametersSetAsync is finished), the component is rendered with a new user state and with old data).
+				await RefreshDataAsync();
+			}
+			previousUserState = CurrentUserState;
 		}
 
 		/// <inheritdoc />
@@ -256,6 +290,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				await SetCurrentPageIndexWithEventCallback(CurrentUserState.PageIndex - 1);
 				await RefreshPaginationDataCoreAsync(true);
 			}
+
+			firstRenderCompleted = true;
 		}
 
 		/// <summary>
@@ -309,20 +345,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (!EqualityComparer<TItem>.Default.Equals(SelectedDataItem, newSelectedDataItem))
 			{
 				SelectedDataItem = newSelectedDataItem;
-				await SelectedDataItemChanged.InvokeAsync(newSelectedDataItem);
+				await InvokeSelectedDataItemChangedAsync(newSelectedDataItem);
 			}
 		}
 
 		private async Task SetSelectedDataItemsWithEventCallback(HashSet<TItem> selectedDataItems)
 		{
 			SelectedDataItems = selectedDataItems;
-			await SelectedDataItemsChanged.InvokeAsync(SelectedDataItems);
+			await InvokeSelectedDataItemsChangedAsync(SelectedDataItems);
 		}
 
 		private async Task<bool> SetCurrentSortingWithEventCallback(IReadOnlyList<SortingItem<TItem>> newSorting)
 		{
-			CurrentUserState = new GridUserState<TItem>(CurrentUserState.PageIndex, newSorting);
-			await CurrentUserStateChanged.InvokeAsync(CurrentUserState);
+			CurrentUserState = CurrentUserState with { Sorting = newSorting };
+			previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
+			await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 			return true;
 		}
 
@@ -330,8 +367,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			if (CurrentUserState.PageIndex != newPageIndex)
 			{
-				CurrentUserState = new GridUserState<TItem>(newPageIndex, CurrentUserState.Sorting);
-				await CurrentUserStateChanged.InvokeAsync(CurrentUserState);
+				CurrentUserState = CurrentUserState with { PageIndex = newPageIndex };
+				previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
+				await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 				return true;
 			}
 			return false;
@@ -507,12 +545,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 			GridDataProviderResult<TItem> result = await DataProvider.Invoke(request);
+			Contract.Requires<ArgumentException>(result != null, "The " + nameof(DataProvider) + " should never return null. Instance of " + nameof(GridDataProviderResult<TItem>) + " has to be returned.");
 
 			// do not use result from cancelled request (for the case a developer does not use the cancellation token)
 			if (!request.CancellationToken.IsCancellationRequested)
 			{
 				dataProviderInProgress = false; // Multithreading: we can safelly clean dataProviderInProgress only wnen received data from non-cancelled task
-				totalCount = result.TotalCount ?? result.Data.Count();
+				totalCount = result.TotalCount ?? result.Data?.Count() ?? 0;
 			}
 
 			return result;
@@ -560,7 +599,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		#endregion
 
 		/// <inheritdoc />
-		public void Dispose()
+		public virtual void Dispose()
 		{
 			paginationRefreshDataCancellationTokenSource?.Cancel();
 			paginationRefreshDataCancellationTokenSource?.Dispose();

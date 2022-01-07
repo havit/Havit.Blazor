@@ -17,6 +17,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
 		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputText.Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public InputTextSettings Settings { get; set; }
+
+		/// <summary>
+		/// Return <see cref="HxInputText"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected abstract InputTextSettings GetDefaults();
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
+
+		/// <summary>
 		/// Gets or sets the behavior when the model is updated from then input.
 		/// </summary>
 		[Parameter] public BindEvent BindEvent { get; set; } = BindEvent.OnChange;
@@ -31,14 +45,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <inheritdoc cref="Bootstrap.LabelType" />
 		[Parameter] public LabelType? LabelType { get; set; }
-
-		/// <summary>
-		/// Return <see cref="HxInputText"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual InputTextDefaults GetDefaults() => HxInputText.Defaults;
-		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)

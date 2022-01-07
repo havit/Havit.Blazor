@@ -1,17 +1,28 @@
 ﻿export function open(inputElement, hxAutosuggestDotnetObjectReference) {
+	if (!inputElement) {
+		return;
+	}
     inputElement.setAttribute("data-bs-toggle", "dropdown");
     inputElement.hxAutosuggestDotnetObjectReference = hxAutosuggestDotnetObjectReference;
     inputElement.addEventListener('hidden.bs.dropdown', handleDropdownHidden)
 
-    new bootstrap.Dropdown(inputElement).show();
+	var d = new bootstrap.Dropdown(inputElement);
+	if (d) {
+		d.show();
+	}
 }
 
 export function destroy(inputElement) {
-    inputElement.removeAttribute("data-bs-toggle", "dropdown");
-    var dropdown = bootstrap.Dropdown.getInstance(inputElement);
-    if (dropdown) {
-        dropdown.hide();
-        dropdown.dispose();
+	if (!inputElement) {
+		return;
+	}
+
+	inputElement.removeAttribute("data-bs-toggle", "dropdown");
+
+    var d = bootstrap.Dropdown.getInstance(inputElement);
+    if (d) {
+        d.hide();
+        d.dispose();
     }
 }
 
@@ -27,7 +38,8 @@ function handleDropdownHidden(event) {
         element.hxAutosuggestDotnetObjectReference = null;
     }, 1, event.target);
 
-//    var dropdown = bootstrap.Dropdown.getInstance(event.inputElement);
-//    dropdown.dispose();
+	var d = bootstrap.Dropdown.getInstance(event.inputElement);
+	if (d) {
+		dropdown.dispose();
+	}
 };
-

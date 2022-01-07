@@ -24,6 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string ExpandedItemId { get; set; }
 		[Parameter] public EventCallback<string> ExpandedItemIdChanged { get; set; }
+		protected virtual Task InvokeExpandedItemIdChangedAsync(string newExpandedItemId) => ExpandedItemIdChanged.InvokeAsync(newExpandedItemId);
 
 		/// <summary>
 		/// Set to <c>true</c> to make accordion items stay open when another item is opened.
@@ -55,7 +56,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (this.ExpandedItemId != newId)
 			{
 				ExpandedItemId = newId;
-				await ExpandedItemIdChanged.InvokeAsync(newId);
+				await InvokeExpandedItemIdChangedAsync(newId);
 			}
 		}
 	}
