@@ -2,17 +2,8 @@
 @typeparam TValue
 
 <div class="@CssClassHelper.Combine("hx-tree-view", this.CssClass)">
-    @if (wrappers?.Any() != true)
+    @foreach (var wrapper in wrappers)
     {
-        @("loading...")
-    }
-    else
-    {
-        <div>
-            @foreach (var wrapper in wrappers)
-            {
-                <HxTreeViewItem TValue="TValue" Value="wrapper"/>
-            }
-        </div>
+        <HxTreeViewItem TValue="TValue" Value="wrapper" />
     }
 </div>

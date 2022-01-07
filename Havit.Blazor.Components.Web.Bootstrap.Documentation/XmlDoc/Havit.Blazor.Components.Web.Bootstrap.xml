@@ -7120,9 +7120,9 @@
             Collection of hierarchy data to display.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.ContentSelector">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.TitleSelector">
             <summary>
-            Selector to display content from data item.
+            Selector to display item title from data item.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.IconSelector">
