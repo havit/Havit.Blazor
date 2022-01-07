@@ -110,6 +110,19 @@
 	--hx-input-tags-naked-font-size-sm: 			.875em;
 	--hx-input-tags-control-focused-box-shadow: 	0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
 	--hx-input-tags-control-focused-border-color: 	var(--bs-primary);
+	/* TreeView */
+	--hx-tree-view-item-border-radius:				.25rem;
+	--hx-tree-view-item-color:						var(--bs-dark);
+	--hx-tree-view-item-hover-color:					var(--bs-primary);
+	--hx-tree-view-item-selected-color:				var(--bs-primary);
+	--hx-tree-view-item-background:					white;
+	--hx-tree-view-item-hover-background:			#f2f9ff;
+	--hx-tree-view-item-selected-background:			#f2f9ff;
+	--hx-tree-view-item-spacer-width: 				1rem;
+	--hx-tree-view-item-icon-margin: 				0 .25rem 0 0;
+	--hx-tree-view-item-font-size:					.75rem;
+	--hx-tree-view-item-padding:						.25rem .5rem;
+	--hx-tree-view-item-margin:						0 0 .125rem 0;
 }
 
 /* Not sure where to place. Margin for all inputs in form, if it is not the only child. */

@@ -7106,5 +7106,51 @@
             Triggers for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip"/>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1">
+            <summary>
+            Component to display hierarchy data structure.
+            </summary>
+            <typeparam name="TItem">Type of tree data item.</typeparam>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.Items">
+            <summary>
+            Collection of hierarchy data to display.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.SelectedItem">
+            <summary>
+            Selected data item.
+            </summary>		
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.SelectedItemChanged">
+            <summary>
+            Event fires when selected data item changes.
+            </summary>		
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.InvokeSelectedDataItemChangedAsync(`0)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.SelectedItemChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.TitleSelector">
+            <summary>
+            Selector to display item title from data item.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.IconSelector">
+            <summary>
+            Selector to display icon from data item.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.ChildrenSelector">
+            <summary>
+            Selector to display children collection for current data item. Children collection should have same type as current item.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.CssClass">
+            <summary>
+            Additional CSS class to be applied.
+            </summary>
+        </member>
     </members>
 </doc>
