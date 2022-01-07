@@ -2,9 +2,9 @@ using System;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Components;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public partial class HxTreeViewItem<TValue> : ComponentBase
+	public partial class HxTreeViewItemInternal<TValue> : ComponentBase
 	{
 		[Parameter] public ValueWrapper<TValue> Value { get; set; }
 

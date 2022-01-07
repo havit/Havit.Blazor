@@ -1,9 +1,10 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap
+@using Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TValue
 
 <div class="@CssClassHelper.Combine("hx-tree-view", this.CssClass)">
     @foreach (var wrapper in wrappers)
     {
-        <HxTreeViewItem TValue="TValue" Value="wrapper" />
+        <HxTreeViewItemInternal TValue="TValue" Value="wrapper" />
     }
 </div>

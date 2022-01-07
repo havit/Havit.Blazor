@@ -1,4 +1,4 @@
-@namespace Havit.Blazor.Components.Web.Bootstrap 
+@namespace Havit.Blazor.Components.Web.Bootstrap.Internal 
 @typeparam TValue
 
 
@@ -28,6 +28,6 @@
 {
     foreach (var item in @Value.Children)
     {
-        <HxTreeViewItem TValue="TValue" Value="item"/>
+        <HxTreeViewItemInternal TValue="TValue" Value="item"/>
     }
 }
