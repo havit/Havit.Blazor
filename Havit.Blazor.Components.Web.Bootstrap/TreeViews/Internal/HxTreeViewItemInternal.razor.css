@@ -11,15 +11,15 @@
 	transition: all 0.15s ease-in-out;
 }
 
-	.hx-tree-view-item.selected {
-		background-color: var(--hx-tree-view-item-selected-background);
-		color: var(--hx-tree-view-item-selected-color);
-	}
+.hx-tree-view-item.selected {
+	background-color: rgba(var(--hx-tree-view-item-selected-background), var(--hx-tree-view-item-hover-background-opacity));
+	color: var(--hx-tree-view-item-selected-color);
+}
 
-	.hx-tree-view-item:hover {
-		background-color: var(--hx-tree-view-item-hover-background);
-		color: var(--hx-tree-view-item-hover-color);
-	}
+.hx-tree-view-item:hover {
+	background-color: rgba(var(--hx-tree-view-item-hover-background), var(--hx-tree-view-item-hover-background-opacity));
+	color: var(--hx-tree-view-item-hover-color);
+}
 
 .hx-tree-view-item-spacer {
 	flex: 0 0 var(--hx-tree-view-item-spacer-width);
@@ -39,6 +39,6 @@
 	transform: rotate(0deg);
 }
 
-	.hx-tree-view-item-expander.expanded {
-		transform: rotate(90deg);
-	}
+.hx-tree-view-item-expander.expanded {
+	transform: rotate(90deg);
+}

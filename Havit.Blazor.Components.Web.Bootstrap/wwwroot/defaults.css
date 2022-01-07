@@ -103,7 +103,7 @@
 	--hx-input-tags-tag-margin-left: 				0;
 	--hx-input-tags-tag-margin-right: 				.25rem;
 	--hx-input-tags-tag-margin-y: 					.125rem;
-	--hx-input-tags-tag-hover-transparency: 		.1;
+	--hx-input-tags-tag-hover-opacity: 				.1;
 	--hx-input-tags-input-width: 					3em;
 	--hx-input-tags-input-placeholder-color: 		var(--bs-gray-600);
 	--hx-input-tags-naked-font-size-lg: 			1.25em;
@@ -116,8 +116,9 @@
 	--hx-tree-view-item-hover-color:					var(--bs-primary);
 	--hx-tree-view-item-selected-color:				var(--bs-primary);
 	--hx-tree-view-item-background:					white;
-	--hx-tree-view-item-hover-background:			#f2f9ff;
-	--hx-tree-view-item-selected-background:			#f2f9ff;
+	--hx-tree-view-item-hover-background:			var(--bs-primary-rgb);
+	--hx-tree-view-item-hover-background-opacity:	.1;
+	--hx-tree-view-item-selected-background:		var(--bs-primary-rgb);
 	--hx-tree-view-item-spacer-width: 				1rem;
 	--hx-tree-view-item-icon-margin: 				0 .25rem 0 0;
 	--hx-tree-view-item-font-size:					.75rem;
@@ -126,18 +127,18 @@
 }
 
 /* Not sure where to place. Margin for all inputs in form, if it is not the only child. */
-form .hx-form-group:not(:only-child),
-form .hx-autosuggest:not(:only-child),
-form .form-check:not(:only-child),
-form .form-switch:not(:only-child),
-form .hx-input-tags:not(:only-child) {
+form .hx-form-group:not(:only-child):not(:only-of-type),
+form .hx-autosuggest:not(:only-child):not(:only-of-type),
+form .form-check:not(:only-child):not(:only-of-type),
+form .form-switch:not(:only-child):not(:only-of-type),
+form .hx-input-tags:not(:only-child):not(:only-of-type) {
   margin-bottom: var(--hx-form-spacing);
 }
 
 /* Button which follows inputs has extra spacing due to validation messages. */
 form .hx-form-group ~ .hx-button,
-form .hx-autosuggest~ .hx-button,
-form .form-check~ .hx-button,
+form .hx-autosuggest ~ .hx-button,
+form .form-check ~ .hx-button,
 form .form-switch ~ .hx-button {
   margin-top: calc(var(--hx-form-spacing)/2);
 }
