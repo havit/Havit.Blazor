@@ -109,7 +109,11 @@ export function reset(inputElementId) {
 	cancelled[inputElementId] = true;
 	for (const request of requests[inputElementId]) {
 		request.abort();
-    }
+	}
+
+	var inputElement = document.getElementById(inputElementId);
+	inputElement.value = '';
+	inputElement.dispatchEvent(new Event('change'));
 }
 
 export function dispose(inputElementId) {
