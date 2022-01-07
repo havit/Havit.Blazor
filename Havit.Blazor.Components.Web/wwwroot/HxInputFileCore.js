@@ -1,4 +1,4 @@
-﻿var nextFile = 0;
+﻿var nextFile = new Array(); // Stores the next files to upload for different uploads.
 
 export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads) {
 	var inputElement = document.getElementById(inputElementId);
@@ -6,18 +6,20 @@ export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadE
 	var files = inputElement.files;
 	var totalSize = 0;
 
+	let uploadIndex = nextFile.length;
+
 	if (maxParallelUploads > files.length) {
 		maxParallelUploads = files.length;
-		nextFile = files.length;
+		nextFile.push(files.length);
 	}
 	else {
-		nextFile = maxParallelUploads;
+		nextFile.push(maxParallelUploads);
     }
 
-	uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, maxParallelUploads, 0, uploadEndpointUrl);
+	uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, maxParallelUploads, 0, uploadEndpointUrl, uploadIndex);
 }
 
-function uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, endIndex, startIndex, uploadEndpointUrl) {
+function uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, endIndex, startIndex, uploadEndpointUrl, uploadIndex) {
 	if (files.length === 0) {
 		dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', 0, 0);
 		return;
@@ -56,12 +58,14 @@ function uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize
 				if (request.readyState === 4) {
 					dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
 
-					if (nextFile < files.length) {
-						uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, nextFile + 1, nextFile, uploadEndpointUrl);
-						nextFile++;
+					if (nextFile[uploadIndex] < files.length) {
+						console.log(nextFile[uploadIndex]);
+
+						uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, nextFile[uploadIndex] + 1, nextFile[uploadIndex], uploadEndpointUrl, uploadIndex);
+						nextFile[uploadIndex] = nextFile[uploadIndex] + 1;
                     }
 				};
-				if (nextFile >= files.length) {
+				if (nextFile[uploadIndex] >= files.length) {
 					dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
 				}
 			}
