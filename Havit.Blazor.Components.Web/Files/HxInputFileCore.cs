@@ -92,6 +92,12 @@ namespace Havit.Blazor.Components.Web
 		/// Default is <c>long.MaxValue</c> (unlimited).
 		/// </summary>
 		[Parameter] public long? MaxFileSize { get; set; }
+
+		/// <summary>
+		/// Maximum number of concurrent uploads.
+		/// </summary>
+		[Parameter] public int MaxParallelUploads { get; set; }
+
 		protected long MaxFileSizeEffective => this.MaxFileSize ?? this.Settings?.MaxFileSize ?? GetDefaults().MaxFileSize ?? throw new InvalidOperationException(nameof(MaxFileSize) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 		/// <summary>
@@ -148,7 +154,7 @@ namespace Havit.Blazor.Components.Web
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, UploadUrl, accessToken, MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective);
+			await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, UploadUrl, accessToken, MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective, MaxParallelUploads);
 		}
 
 		/// <summary>
@@ -219,7 +225,7 @@ namespace Havit.Blazor.Components.Web
 				ResponseStatus = (HttpStatusCode)responseStatus,
 				ResponseText = responseText,
 			};
-			filesUploaded.Add(fileUploaded);
+			filesUploaded?.Add(fileUploaded);
 			await InvokeOnFileUploadedAsync(fileUploaded);
 		}
 

@@ -206,6 +206,11 @@
             Default is <c>long.MaxValue</c> (unlimited).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.MaxParallelUploads">
+            <summary>
+            Maximum number of concurrent uploads.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Id">
             <summary>
             Input element id.

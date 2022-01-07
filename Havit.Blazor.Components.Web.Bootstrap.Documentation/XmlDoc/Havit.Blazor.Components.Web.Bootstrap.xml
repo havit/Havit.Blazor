@@ -1534,6 +1534,11 @@
             Single <c>false</c> or multiple <c>true</c> files upload.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.MaxParallelUploads">
+            <summary>
+            Maximum number of concurrent uploads.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Accept">
             <summary>
             Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.
