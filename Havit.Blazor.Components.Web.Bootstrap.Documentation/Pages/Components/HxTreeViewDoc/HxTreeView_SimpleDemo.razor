@@ -5,7 +5,7 @@
             OnItemSelected="@(p => selectedDirectory = p)"
             Items="@fileSystem"
 			CssClass="border rounded p-2"
-            ContentSelector="@(p => p.Name)"
+            TitleSelector="@(p => p.Name)"
             ChildrenSelector="@(p => p.Subdirectories)"
             IconSelector="@(p => p.Icon)" />
     </div>
