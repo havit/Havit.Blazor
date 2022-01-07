@@ -7125,16 +7125,6 @@
             Selector to display content from data item.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.BadgeSelector">
-            <summary>
-            Selector to display badge from data item.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.BadgeColorSelector">
-            <summary>
-            Selector to display badge color from data item.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.IconSelector">
             <summary>
             Selector to display icon from data item.

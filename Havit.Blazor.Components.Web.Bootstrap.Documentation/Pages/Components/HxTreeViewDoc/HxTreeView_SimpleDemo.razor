@@ -7,7 +7,7 @@
 			CssClass="border rounded p-2"
             ContentSelector="@(p => p.Name)"
             ChildrenSelector="@(p => p.Subdirectories)"
-            IconSelector="@(p => p.Icon)"/>
+            IconSelector="@(p => p.Icon)" />
     </div>
     <div class="col-4">
         @if (selectedDirectory == null)

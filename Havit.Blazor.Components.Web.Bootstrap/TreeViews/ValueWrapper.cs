@@ -9,18 +9,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class ValueWrapper<TValue> : INotifyPropertyChanged
 	{
 		private readonly Func<TValue, string> titleSelector;
-		private readonly Func<TValue, string> badgeSelector;
-		private readonly Func<TValue, ThemeColor> badgeColorSelector;
 		private readonly Func<TValue, IconBase> iconSelector;
 		private readonly Func<TValue, IEnumerable<TValue>> childrenSelector;
 		private readonly Action<ValueWrapper<TValue>> onItemSelected;
 
-		private string badge;
 		private string title;
 		private bool? hasChildren;
 		private IconBase icon;
 		private ValueWrapper<TValue>[] children;
-		private ThemeColor? badgeColor;
 		private bool isSelected;
 		private bool isExpanded;
 
@@ -29,8 +25,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public ValueWrapper(TValue value,
 			int level,
 			Func<TValue, string> titleSelector,
-			Func<TValue, string> badgeSelector,
-			Func<TValue, ThemeColor> badgeColorSelector,
 			Func<TValue, IconBase> iconSelector,
 			Func<TValue, IEnumerable<TValue>> childrenSelector,
 			Action<ValueWrapper<TValue>> onItemSelected
@@ -40,9 +34,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			Level = level;
 			this.iconSelector = iconSelector;
 			this.titleSelector = titleSelector;
-			this.badgeSelector = badgeSelector;
 			this.childrenSelector = childrenSelector;
-			this.badgeColorSelector = badgeColorSelector;
 
 			this.onItemSelected = onItemSelected;
 
@@ -54,26 +46,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public string Title => title ??= titleSelector(Value);
 
 		public IconBase Icon => icon ??= iconSelector(Value);
-
-		public ThemeColor BadgeColor
-		{
-			get
-			{
-				if (badgeColor != null)
-				{
-					return badgeColor.Value;
-				}
-
-				if (badgeColorSelector == null)
-				{
-					return (badgeColor = ThemeColor.None).Value;
-				}
-
-				return (badgeColor = badgeColorSelector(Value)).Value;
-			}
-		}
-
-		public string Badge => badge ??= badgeSelector?.Invoke(Value);
 
 		public bool IsSelected
 		{
@@ -125,8 +97,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 								value,
 								Level + 1,
 								titleSelector,
-								badgeSelector,
-								badgeColorSelector,
 								iconSelector,
 								childrenSelector,
 								onItemSelected))
@@ -140,6 +110,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected virtual void OnPropertyChanged(string propertyName = null)
 			=> PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
 	}
 }

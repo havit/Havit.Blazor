@@ -29,16 +29,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public Func<TValue, string> ContentSelector { get; set; }
 
 		/// <summary>
-		/// Selector to display badge from data item.
-		/// </summary>
-		[Parameter] public Func<TValue, string> BadgeSelector { get; set; }
-
-		/// <summary>
-		/// Selector to display badge color from data item.
-		/// </summary>
-		[Parameter] public Func<TValue, ThemeColor> BadgeColorSelector { get; set; }
-
-		/// <summary>
 		/// Selector to display icon from data item.
 		/// </summary>
 		[Parameter] public Func<TValue, IconBase> IconSelector { get; set; }
@@ -71,7 +61,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 			wrappers = new ValueWrapper<TValue>[Items.Count];
-			wrappers = Items.Select(p => new ValueWrapper<TValue>(value: p, level: 0, ContentSelector, BadgeSelector, BadgeColorSelector, IconSelector, ChildrenSelector, InternalOnItemSelected)).ToArray();
+			wrappers = Items.Select(p => new ValueWrapper<TValue>(value: p, level: 0, ContentSelector, IconSelector, ChildrenSelector, InternalOnItemSelected)).ToArray();
 		}
 
 		private void InternalOnItemSelected(ValueWrapper<TValue> wrapper)
