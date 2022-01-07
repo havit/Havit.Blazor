@@ -1,33 +1,46 @@
-@namespace Havit.Blazor.Components.Web.Bootstrap.Internal 
-@typeparam TValue
+@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+@typeparam TItem
 
+@{
+    var icon = SelectorHelpers.GetValue<TItem, IconBase>(this.IconSelector, this.Item);
+    var title = SelectorHelpers.GetText(this.TitleSelector, this.Item);
+    var children = SelectorHelpers.GetValue<TItem, IEnumerable<TItem>>(this.ChildrenSelector, this.Item);
+    var hasChildren = children?.Any() ?? false;
+    var isSelected = this.Item.Equals(this.TreeViewContainer.SelectedItem);
+}
 
-<div class="hx-tree-view-item @(Value.IsSelected ? "selected" : "")" @onclick="@OnItemClicked">
-    @for (int i = 0; i < Value.Level; i++) {
+<div class="hx-tree-view-item @(isSelected ? "selected" : "")" @onclick="@HandleItemClicked">
+    @for (int i = 0; i < this.Level; i++)
+    {
         <div class="hx-tree-view-item-spacer"></div>
     }
-    <div class="hx-tree-view-item-expander @(Value.IsExpanded ? "expanded" : "")">
-        @if (Value.HasChildren)
+    <div class="hx-tree-view-item-expander @(this.IsExpanded ? "expanded" : "")">
+        @if (hasChildren)
         {
             <div>
-                <HxIcon Icon="@BootstrapIcon.ChevronRight"/>
+                <HxIcon Icon="@BootstrapIcon.ChevronRight" />
             </div>
         }
     </div>
-    @if (Value.Icon != null)
+    @if (icon != null)
     {
         <div class="hx-tree-view-item-icon">
-            <HxIcon Icon="@Value.Icon" />
+            <HxIcon Icon="@icon" />
         </div>
     }
-    <div title="@Value.Title" class="hx-tree-view-item-value text-nowrap text-truncate">@Value.Title</div>
+    <div title="@title" class="hx-tree-view-item-title text-nowrap text-truncate">@title</div>
 </div>
 
-
-@if (Value.HasChildren && Value.IsExpanded)
+@if (this.IsExpanded && hasChildren)
 {
-    foreach (var item in @Value.Children)
+    foreach (var item in children)
     {
-        <HxTreeViewItemInternal TValue="TValue" Value="item"/>
+        <HxTreeViewItemInternal TItem="TItem"
+                        Item="item"
+                        TitleSelector="this.TitleSelector"
+                        IconSelector="this.IconSelector"
+                        ChildrenSelector="this.ChildrenSelector"
+                        Level="@(this.Level + 1)"
+                        OnItemSelected="this.OnItemSelected" />
     }
 }

@@ -1,84 +1,56 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
-using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Component to display hierarchy data structure.
 	/// </summary>
-	/// <remarks>
-	///  Roadmap: virtualization, asynchronous data loading, multi-column, templates.
-	/// </remarks>
-	/// <typeparam name="TValue">Type of tree data item.</typeparam>
-	public partial class HxTreeView<TValue> : ComponentBase
+	/// <typeparam name="TItem">Type of tree data item.</typeparam>
+	public partial class HxTreeView<TItem> : ComponentBase
 	{
-		private ValueWrapper<TValue>[] wrappers;
-		private ValueWrapper<TValue> selectedWrapper;
-
 		/// <summary>
 		/// Collection of hierarchy data to display.
 		/// </summary>
-		[Parameter] public ICollection<TValue> Items { get; set; }
+		[Parameter] public IEnumerable<TItem> Items { get; set; }
+
+		/// <summary>
+		/// Selected data item.
+		/// </summary>		
+		[Parameter] public TItem SelectedItem { get; set; }
+
+		/// <summary>
+		/// Event fires when selected data item changes.
+		/// </summary>		
+		[Parameter] public EventCallback<TItem> SelectedItemChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="SelectedItemChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeSelectedDataItemChangedAsync(TItem selectedDataItem) => SelectedItemChanged.InvokeAsync(selectedDataItem);
 
 		/// <summary>
 		/// Selector to display item title from data item.
 		/// </summary>
-		[Parameter] public Func<TValue, string> TitleSelector { get; set; }
+		[Parameter] public Func<TItem, string> TitleSelector { get; set; }
 
 		/// <summary>
 		/// Selector to display icon from data item.
 		/// </summary>
-		[Parameter] public Func<TValue, IconBase> IconSelector { get; set; }
+		[Parameter] public Func<TItem, IconBase> IconSelector { get; set; }
 
 		/// <summary>
 		/// Selector to display children collection for current data item. Children collection should have same type as current item.
 		/// </summary>
-		[Parameter] public Func<TValue, IEnumerable<TValue>> ChildrenSelector { get; set; }
+		[Parameter] public Func<TItem, IEnumerable<TItem>> ChildrenSelector { get; set; }
 
 		/// <summary>
 		/// Additional CSS class to be applied.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
-		/// <summary>
-		/// Raised when an item in the tree is selected.
-		/// </summary>
-		[Parameter] public EventCallback<TValue> OnItemSelected { get; set; }
-
-		protected override void OnInitialized()
+		private async Task HandleItemSelected(TItem newSelectedItem)
 		{
-			RebuildWrappers();
-		}
-
-		private void RebuildWrappers()
-		{
-			if ((Items == null) || (TitleSelector == null))
-			{
-				return;
-			}
-
-			wrappers = new ValueWrapper<TValue>[Items.Count];
-			wrappers = Items.Select(p => new ValueWrapper<TValue>(value: p, level: 0, TitleSelector, IconSelector, ChildrenSelector, InternalOnItemSelected)).ToArray();
-		}
-
-		private void InternalOnItemSelected(ValueWrapper<TValue> wrapper)
-		{
-			if (selectedWrapper != null)
-			{
-				selectedWrapper.IsSelected = false;
-			}
-
-			selectedWrapper = wrapper;
-			selectedWrapper.IsSelected = true;
-
-			if (OnItemSelected.HasDelegate)
-			{
-				OnItemSelected.InvokeAsync(wrapper.Value);
-			}
+			this.SelectedItem = newSelectedItem;
+			await InvokeSelectedDataItemChangedAsync(this.SelectedItem);
 		}
 	}
 }

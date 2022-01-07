@@ -7110,14 +7110,26 @@
             <summary>
             Component to display hierarchy data structure.
             </summary>
-            <remarks>
-             Roadmap: virtualization, asynchronous data loading, multi-column, templates.
-            </remarks>
-            <typeparam name="TValue">Type of tree data item.</typeparam>
+            <typeparam name="TItem">Type of tree data item.</typeparam>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.Items">
             <summary>
             Collection of hierarchy data to display.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.SelectedItem">
+            <summary>
+            Selected data item.
+            </summary>		
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.SelectedItemChanged">
+            <summary>
+            Event fires when selected data item changes.
+            </summary>		
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.InvokeSelectedDataItemChangedAsync(`0)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.SelectedItemChanged"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.TitleSelector">
@@ -7138,11 +7150,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.CssClass">
             <summary>
             Additional CSS class to be applied.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.OnItemSelected">
-            <summary>
-            Raised when an item in the tree is selected.
             </summary>
         </member>
     </members>

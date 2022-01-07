@@ -4,14 +4,25 @@ using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public partial class HxTreeViewItemInternal<TValue> : ComponentBase
+	public partial class HxTreeViewItemInternal<TItem> : ComponentBase
 	{
-		[Parameter] public ValueWrapper<TValue> Value { get; set; }
+		[Parameter] public TItem Item { get; set; }
+		[Parameter] public EventCallback<TItem> OnItemSelected { get; set; }
 
-		private void OnItemClicked()
+		[Parameter] public bool IsExpanded { get; set; }
+
+		[Parameter] public Func<TItem, string> TitleSelector { get; set; }
+		[Parameter] public Func<TItem, IconBase> IconSelector { get; set; }
+		[Parameter] public Func<TItem, IEnumerable<TItem>> ChildrenSelector { get; set; }
+		[Parameter] public int Level { get; set; }
+
+		[CascadingParameter] protected HxTreeView<TItem> TreeViewContainer { get; set; }
+
+		private async Task HandleItemClicked()
 		{
-			Value.IsExpanded = !Value.IsExpanded;
-			Value.IsSelected = true;
+			this.IsExpanded = !this.IsExpanded;
+
+			await this.OnItemSelected.InvokeAsync(this.Item);
 		}
 	}
 }

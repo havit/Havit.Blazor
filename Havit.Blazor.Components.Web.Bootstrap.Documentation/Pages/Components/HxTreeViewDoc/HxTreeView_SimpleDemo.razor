@@ -1,13 +1,12 @@
 <div class="row">
     <div class="col-4" style="height: 400px">
-        <HxTreeView
-            TValue="Directory"
-            OnItemSelected="@(p => selectedDirectory = p)"
-            Items="@fileSystem"
-			CssClass="border rounded p-2"
-            TitleSelector="@(p => p.Name)"
-            ChildrenSelector="@(p => p.Subdirectories)"
-            IconSelector="@(p => p.Icon)" />
+        <HxTreeView TItem="Directory"
+                    @bind-SelectedItem="selectedDirectory"
+                    Items="@fileSystem"
+                    CssClass="border rounded p-2"
+                    TitleSelector="@(p => p.Name)"
+                    ChildrenSelector="@(p => p.Subdirectories)"
+                    IconSelector="@(p => p.Icon)" />
     </div>
     <div class="col-4">
         @if (selectedDirectory == null)
@@ -22,67 +21,69 @@
 </div>
 
 @code {
-	private Directory selectedDirectory;
-	private Directory[] fileSystem;
+    private Directory selectedDirectory;
+    private Directory[] fileSystem;
 
-	protected override void OnInitialized()
-	{
-		fileSystem = new[]
-		{
-			new Directory("C:\\", BootstrapIcon.Folder)
-			{
-				Subdirectories = new[]
-				{
-					new Directory("Program Files", BootstrapIcon.Gem)
-					{
-						Subdirectories = new[] { new Directory("Visual Studio 2022"), new Directory("Rider 2021.3"), new Directory("VS Code"), new Directory("Borland Pascal") }
-					},
-					new Directory("Users", BootstrapIcon.Person)
-					{
-						Subdirectories = new[] { new Directory("Vladimir"), new Directory("Jhosav"), new Directory("Ben"), new Directory("Admin") }
-					},
-					new Directory("Data", BootstrapIcon.Person)
-					{
-						Subdirectories = new[] { new Directory("Open Office"), new Directory("Git", BootstrapIcon.Magic), new Directory("Autocad") }
-					},
-				}
-			},
-			new Directory("D:\\", BootstrapIcon.Folder2)
-			{
-				Subdirectories = new[]
-				{
-					new Directory("Games", BootstrapIcon.Play)
-					{
-						Subdirectories = new[] { new Directory("Cyberpunk 2077"), new Directory("The Witcher 3"), new Directory("Tetris"), new Directory("Little Big Adventure 2: Twinsen's Odyssey") }
-					},
-					new Directory("Music", BootstrapIcon.FileMusic)
-					{
-						Subdirectories = new[] { new Directory("Queen"), new Directory("Metallica"), new Directory("AC/DC") }
-					}
-				}
-			}
-		};
-	}
+    protected override void OnInitialized()
+    {
+        fileSystem = new[]
+            {
+            new Directory("C:\\", BootstrapIcon.Folder)
+            {
+                Subdirectories = new[]
+                {
+                    new Directory("Program Files", BootstrapIcon.Gem)
+                    {
+                        Subdirectories = new[] { new Directory("Visual Studio 2022"), new Directory("Rider 2021.3"), new Directory("VS Code"), new Directory("Borland Pascal") }
+                    },
+                    new Directory("Users", BootstrapIcon.Person)
+                    {
+                        Subdirectories = new[] { new Directory("Vladimir"), new Directory("Jhosav"), new Directory("Ben"), new Directory("Admin") }
+                    },
+                    new Directory("Data", BootstrapIcon.Person)
+                    {
+                        Subdirectories = new[] { new Directory("Open Office"), new Directory("Git", BootstrapIcon.Magic), new Directory("Autocad") }
+                    },
+                }
+            },
+            new Directory("D:\\", BootstrapIcon.Folder2)
+            {
+                Subdirectories = new[]
+                {
+                    new Directory("Games", BootstrapIcon.Play)
+                    {
+                        Subdirectories = new[] { new Directory("Cyberpunk 2077"), new Directory("The Witcher 3"), new Directory("Tetris"), new Directory("Little Big Adventure 2: Twinsen's Odyssey") }
+                    },
+                    new Directory("Music", BootstrapIcon.FileMusic)
+                    {
+                        Subdirectories = new[] { new Directory("Queen"), new Directory("Metallica"), new Directory("AC/DC") }
+                    }
+                }
+            }
+        };
 
-	public class Directory
-	{
-		public Directory(string name, IconBase icon = null, string message = null, ThemeColor? severity = null)
-		{
-			Name = name;
-			Icon = icon;
-			Message = message;
-			Severity = severity;
-		}
+        selectedDirectory = fileSystem.First();
+    }
 
-		public string Name { get; }
+    public class Directory
+    {
+        public Directory(string name, IconBase icon = null, string message = null, ThemeColor? severity = null)
+        {
+            Name = name;
+            Icon = icon;
+            Message = message;
+            Severity = severity;
+        }
 
-		public IconBase Icon { get; set; }
+        public string Name { get; }
 
-		public string Message { get; set; }
+        public IconBase Icon { get; set; }
 
-		public ThemeColor? Severity { get; set; }
+        public string Message { get; set; }
 
-		public Directory[] Subdirectories { get; set; }
-	}
+        public ThemeColor? Severity { get; set; }
+
+        public Directory[] Subdirectories { get; set; }
+    }
 
 }

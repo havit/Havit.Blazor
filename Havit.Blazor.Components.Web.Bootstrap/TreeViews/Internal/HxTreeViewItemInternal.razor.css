@@ -25,7 +25,7 @@
 	flex: 0 0 var(--hx-tree-view-item-spacer-width);
 }
 
-.hx-tree-view-item-value {
+.hx-tree-view-item-title {
 	flex: 1;
 }
 
