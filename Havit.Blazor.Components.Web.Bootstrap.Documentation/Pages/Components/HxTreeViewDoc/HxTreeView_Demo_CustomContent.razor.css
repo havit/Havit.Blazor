@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: center;
     border-radius: .25rem;
+    flex-shrink: 0;
 }
 
 .btn-plus ::deep .hx-icon {

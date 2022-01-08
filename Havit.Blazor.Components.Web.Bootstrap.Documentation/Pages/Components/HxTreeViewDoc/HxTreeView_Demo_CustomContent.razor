@@ -7,12 +7,15 @@
                     ItemChildrenSelector="@(p => p.Subdirectories)"
                     ItemIconSelector="@(p => p.Icon)">
             <ItemTemplate>
-                @context.Name
-                @if (context.Subdirectories?.Any() ?? false)
-                {
-                    <HxBadge CssClass="mx-2" TextColor="ThemeColor.Dark" Color="ThemeColor.Light">@context.Subdirectories?.Length</HxBadge>
-                }
-                <div role="button" @onclick:stopPropagation class="btn-plus ms-auto"><HxIcon Icon="BootstrapIcon.Plus" /></div>
+                    <div class="text-truncate">            
+                        @context.Name
+                    </div>
+                    @if (context.Subdirectories?.Any() ?? false)
+                    {
+                        <HxBadge CssClass="mx-2" TextColor="ThemeColor.Dark" Color="ThemeColor.Light">@context.Subdirectories?.Length</HxBadge>
+                    }
+                    <div role="button" @onclick:stopPropagation class="btn-plus ms-auto"><HxIcon Icon="BootstrapIcon.Plus" /></div>
+
             </ItemTemplate>
         </HxTreeView>
     </div>
