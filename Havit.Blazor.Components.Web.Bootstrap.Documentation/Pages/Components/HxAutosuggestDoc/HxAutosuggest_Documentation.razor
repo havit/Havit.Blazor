@@ -1,5 +1,12 @@
 ﻿@attribute [Route("/components/" + nameof(HxAutosuggest))]
 
 <ComponentApiDoc Type="typeof(HxAutosuggest<string, string>)">
-    <Demo Type="typeof(HxAutosuggest_Demo_Basic)" />
+    <MainContent>
+        <Demo Type="typeof(HxAutosuggest_Demo_Basic)" />
+    </MainContent>
+    <CssVariables>
+        <ComponentApiDocCssVariable Name="--hx-autosuggest-input-close-icon-opacity" Default=".25">
+            Opacity of the close icon.
+        </ComponentApiDocCssVariable>
+    </CssVariables>
 </ComponentApiDoc>

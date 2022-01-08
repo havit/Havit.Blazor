@@ -2,55 +2,66 @@
 @attribute [Route("/components/" + nameof(HxSubmit))]
 
 <ComponentApiDoc Type="typeof(HxButton)">
-	<h3>Demo</h3>
-	<Demo Type="typeof(HxButton_Demo_Basic)" Tabs="false" />
+    <h3 id="Demo">Demo</h3>
+    <Demo Type="typeof(HxButton_Demo_Basic)" Tabs="false" />
 
-	<p>Several predefined button styles are included, each serving its own semantic purpose, with a few extras thrown in for more control.</p>
-	<Demo Type="typeof(HxButton_Demo_Colors)" />
+    <p>Several predefined button styles are included, each serving its own semantic purpose, with a few extras thrown in for more control.</p>
+    <Demo Type="typeof(HxButton_Demo_Colors)" />
 
-	<h3>Outline buttons</h3>
-	<p>You can remove the background with <code>Outline="true"</code>:</p>
-	<Demo Type="typeof(HxButton_Demo_Outline)" />
+    <h3 id="OutlineButtons">Outline buttons</h3>
+    <p>You can remove the background with <code>Outline="true"</code>:</p>
+    <Demo Type="typeof(HxButton_Demo_Outline)" />
 
-	<h3>Sizes</h3>
-	<Demo Type="typeof(HxButton_Demo_Sizes)" Tabs="false" />
-	<Demo Type="typeof(HxButton_Demo_Sizes_Small)" Tabs="false" />
+    <h3 id="Sizes">Sizes</h3>
+    <Demo Type="typeof(HxButton_Demo_Sizes)" Tabs="false" />
+    <Demo Type="typeof(HxButton_Demo_Sizes_Small)" Tabs="false" />
 
-    <h3>Icons</h3>
+    <h3 id="Icons">Icons</h3>
     <p>You can add an icon to the button by using the <code>Icon</code> parameter. The position of the icon can be changed with <code>IconPlacement</code>.</p>
-	<Demo Type="typeof(HxButton_Demo_Icons)" />
+    <Demo Type="typeof(HxButton_Demo_Icons)" />
 
-	<h3>Spinners</h3>
-	<Demo Type="typeof(HxButton_Demo_BasicSpinner)" Tabs="false" />
+    <h3 id="Spinners">Spinners</h3>
+    <p>Button will show a spinner whenever the <code>OnClick</code> handler returns an incomplete awaitable <code>Task</code>.</p>
+    <Demo Type="typeof(HxButton_Demo_BasicSpinner)" Tabs="false" />
 
-	<h4>OnValidClick with spinner</h4>
-	<Demo Type="typeof(HxButton_Demo_OnValidClickWithSpinner)" />
+    <h4>OnValidClick with spinner</h4>
+    <Demo Type="typeof(HxButton_Demo_OnValidClickWithSpinner)" />
 
-	<h4>Manual Spinner</h4>
-	<Demo Type="typeof(HxButton_Demo_ManualSpinner)" />
+    <h4>Manual Spinner</h4>
+    <Demo Type="typeof(HxButton_Demo_ManualSpinner)" />
 
-	<h4>Spinner &amp; Single click protection</h4>
-	<DocAlert Type="DocAlertType.Warning">
-		EditForm's <code>OnSubmit</code> events are not captured for spinner automation. Use HxButton's <code>OnClick</code>, <code>OnValidClick</code> and <code>OnInvalidClick</code> instead.
-	</DocAlert>
-	<DocAlert Type="DocAlertType.Info">
-		If (and only if) there is any of the <code>OnClick</code> handlers set, the single click protection sets the button to <code>disabled</code> during the callback (usually together with the Spinner).
-		It is intentionally not set, if there is no <code>OnClick</code> handler, as there might be an <code>OnSubmit</code> handler of the containing <code>EditForm</code>
-		set which would have been blocked if the button is disabled (see above).
-	</DocAlert>
+    <h4>Spinner &amp; Single click protection</h4>
+    <DocAlert Type="DocAlertType.Warning">
+        EditForm's <code>OnSubmit</code> events are not captured for spinner automation. Use HxButton's <code>OnClick</code>, <code>OnValidClick</code> and <code>OnInvalidClick</code> instead.
+    </DocAlert>
+    <DocAlert Type="DocAlertType.Info">
+        If (and only if) there is any of the <code>OnClick</code> handlers set, the single click protection sets the button to <code>disabled</code> during the callback (usually together with the Spinner).
+        It is intentionally not set, if there is no <code>OnClick</code> handler, as there might be an <code>OnSubmit</code> handler of the containing <code>EditForm</code>
+        set which would have been blocked if the button is disabled (see above).
+    </DocAlert>
 
-	<h3>Button with a badge</h3>
-	<Demo Type="typeof(HxButton_Demo_Badge)" Tabs="false" />
+    <h3 id="WithBadge">Button with a badge</h3>
+    <Demo Type="typeof(HxButton_Demo_Badge)" Tabs="false" />
 
-	<h3>Button with a tooltip</h3>
-	<p>You can use <code>Tooltip</code> parameter to set button's tooltip:</p>
-	<Demo Type="typeof(HxButton_Demo_Tooltip)" Tabs="false" />
-	<h4>Tooltip, wrapper and CSS classes</h4>
-	<DocAlert Type="DocAlertType.Warning">
-		The <code>&lt;button /&gt;</code> is wrapped with a <code>&lt;span&gt;...&lt;/span&gt;</code> wrapper whenever a <code>Tooltip</code> (or <code>TooltipWrapperCssClass</code>) is set.
-		For most scenarios you will then use <code>TooltipWrapperCssClass</code> for your layout classes no matter there is a chance the tooltip text remains unset (e.g. in dynamic scenarios).
-	</DocAlert>
-	<Demo Type="typeof(HxButton_Demo_TooltipCssClasses)" Tabs="false" />
+    <h3 id="WithTooltip">Button with a tooltip</h3>
+    <p>You can use <code>Tooltip</code> parameter to set button's tooltip:</p>
+    <Demo Type="typeof(HxButton_Demo_Tooltip)" Tabs="false" />
+    <h4>Tooltip, wrapper and CSS classes</h4>
+    <DocAlert Type="DocAlertType.Warning">
+        <p>
+            The <code>&lt;button /&gt;</code> is wrapped with a <code>&lt;span&gt;...&lt;/span&gt;</code> wrapper whenever a <code>Tooltip</code> (or <code>TooltipWrapperCssClass</code>) is set.
+            For most scenarios you will then use <code>TooltipWrapperCssClass</code> for your layout classes no matter there is a chance the tooltip text remains unset (e.g. in dynamic scenarios).>
+        </p>
+        <p>
+            The wrapping <code>&lt;span&gt;...&lt;/span&gt;</code> is always decorated with <code>.d-inline-block</code> class (combined with <code>TooltipWrapperCssClass</code>) to align the behavior with plain <code>.btn</code>.
+            Feel free to override the behavior by setting <code>TooltipWrapperCssClass</code> to any other <a href="https://getbootstrap.com/docs/5.1/utilities/display/">display utility class</a> of your choice.
+        </p>
+        <p>
+            Sometimes the wrapping <code>&lt;span&gt;...&lt;/span&gt;</code> breaks the HTML structure anticipated by some Bootstrap components,
+            i.e. <a href="/components/HxButtonGroup">button-groups (<code>HxButtonGroup</code>)</a>. Combining button tooltips with button-groups is not supported.
+        </p>
+    </DocAlert>
+    <Demo Type="typeof(HxButton_Demo_TooltipCssClasses)" Tabs="false" />
 
 </ComponentApiDoc>
 

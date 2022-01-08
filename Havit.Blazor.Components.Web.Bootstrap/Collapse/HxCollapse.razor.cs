@@ -39,7 +39,36 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
+		/// <summary>
+		/// This event is fired when a collapse element has been made visible to the user (will wait for CSS transitions to complete).
+		/// </summary>
+		[Parameter] public EventCallback<string> OnShown { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnShown"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnShownAsync(string elementId) => OnShown.InvokeAsync(elementId);
+
+		/// <summary>
+		/// This event is fired when a collapse element has been hidden from the user (will wait for CSS transitions to complete).
+		/// </summary>
+		[Parameter] public EventCallback<string> OnHidden { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnHidden"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnHiddenAsync(string elementId) => OnHidden.InvokeAsync(elementId);
+
+		[Inject] protected IJSRuntime JSRuntime { get; set; }
+
+		private ElementReference collapseHtmlElement;
+		private DotNetObjectReference<HxCollapse> dotnetObjectReference;
+		private IJSObjectReference jsModule;
 		private string defaultId = "hx" + Guid.NewGuid().ToString("N");
+		private bool disposed;
+
+		public HxCollapse()
+		{
+			dotnetObjectReference = DotNetObjectReference.Create(this);
+		}
 
 		public override async Task SetParametersAsync(ParameterView parameters)
 		{
@@ -47,27 +76,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			// to be able to use another default value in ancestors (HxNavbarCollapse)
 			this.Id = parameters.GetValueOrDefault(nameof(Id), defaultId);
-		}
-
-		/// <summary>
-		/// This event is fired when a collapse element has been made visible to the user (will wait for CSS transitions to complete).
-		/// </summary>
-		[Parameter] public EventCallback<string> OnShown { get; set; }
-
-		/// <summary>
-		/// This event is fired when a collapse element has been hidden from the user (will wait for CSS transitions to complete).
-		/// </summary>
-		[Parameter] public EventCallback<string> OnHidden { get; set; }
-
-		[Inject] protected IJSRuntime JSRuntime { get; set; }
-
-		private ElementReference collapseHtmlElement;
-		private DotNetObjectReference<HxCollapse> dotnetObjectReference;
-		private IJSObjectReference jsModule;
-
-		public HxCollapse()
-		{
-			dotnetObjectReference = DotNetObjectReference.Create(this);
 		}
 
 		/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
@@ -78,6 +86,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender)
 			{
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("initialize", collapseHtmlElement, dotnetObjectReference);
 			}
 		}
@@ -110,7 +122,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxCollapse_HandleJsShown")]
 		public async Task HandleJsShown()
 		{
-			await OnShown.InvokeAsync(this.Id);
+			await InvokeOnShownAsync(this.Id);
 		}
 
 		/// <summary>
@@ -119,19 +131,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxCollapse_HandleJsHidden")]
 		public async Task HandleJsHidden()
 		{
-			await OnHidden.InvokeAsync(this.Id);
-		}
-
-		/// <inheritdoc/>
-		public async ValueTask DisposeAsync()
-		{
-			if (jsModule != null)
-			{
-				await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
-				await jsModule.DisposeAsync();
-			}
-
-			dotnetObjectReference.Dispose();
+			await InvokeOnHiddenAsync(this.Id);
 		}
 
 		private async Task EnsureJsModuleAsync()
@@ -145,6 +145,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				"collapse",
 				this.CollapseDirection == CollapseDirection.Horizontal ? "collapse-horizontal" : null,
 				this.CssClass);
+		}
+
+		/// <inheritdoc/>
+		public virtual async ValueTask DisposeAsync()
+		{
+			disposed = true;
+
+			if (jsModule != null)
+			{
+				await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
+				await jsModule.DisposeAsync();
+			}
+
+			dotnetObjectReference?.Dispose();
 		}
 	}
 }

@@ -2,28 +2,47 @@
 @attribute [Route("/components/" + nameof(HxButtonToolbar))]
 
 <ComponentApiDoc Type="typeof(HxButtonGroup)">
-    <h3>Basic Usage</h3>
+    <h3 id="BasicUsage">Basic Usage</h3>
     <Demo Type="typeof(HxButtonGroup_Demo)" Tabs="false" />
 
-    <h3>Outlined Styles</h3>
-    <Demo Type="typeof(HxButtonGroup_Demo_Outlined)" Tabs="false" />
+    <h3 id="OutlinedStyles">Outlined Styles</h3>
+    <Demo Type="typeof(HxButtonGroup_Demo_Outlined)" />
 
-    <h3>Button toolbar</h3>
+    <h3 id="ButtonToolbar">Button toolbar</h3>
     <p>Use <code>HxButtonToolbar</code> and combine sets of button groups into button toolbars for more complex components. Use utility classes as needed to space out groups, buttons, and more.</p>
     <Demo Type="typeof(HxButtonToolbar_Demo)" />
 
     <p>Feel free to mix input groups with button groups in your toolbars. Similar to the example above, you’ll likely need some utilities though to space things properly.</p>
     <Demo Type="typeof(HxButtonToolbar_Demo_2)" />
 
-    <h3>Sizing</h3>
+    <h3 id="Sizing">Sizing</h3>
     <Demo Type="typeof(HxButtonGroup_Demo_Sizes)" />
 
-    <h3>Nesting</h3>
+    <h3 id="Nesting">Nesting</h3>
     <p>Place a <code>HxButtonGroup</code> within another <code>HxButtonGroup</code> when you want dropdown menus mixed with a series of buttons.</p>
     <Demo Type="typeof(HxButtonGroup_Demo_Nesting)" />
 
-    <h3>Vertical orientation</h3>
-    <Demo Type="typeof(HxButtonGroup_Demo_Vertical)" Tabs="false" />
+    <h3 id="VerticalOrientation">Vertical orientation</h3>
+    <Demo Type="typeof(HxButtonGroup_Demo_Vertical)" />
+
+    <h3 id="CheckboxesAndRadios">Checkbox and radio button groups</h3>
+    <p>Combine button-like checkbox and radio toggle components into a seamless looking button group.</p>
+    <Demo Type="typeof(HxButtonGroup_Demo_Checkboxes)" />
+    <Demo Type="typeof(HxButtonGroup_Demo_Radios)" />
+
+    <h3 id="ButtonsWithTooltips">Buttons with tooltips (known issue)</h3>
+    <DocAlert Type="DocAlertType.Warning">
+        <p>
+            Adding a <code>Tooltip</code> or <code>TooltipWrapperCssClass</code> to any <code>HxButton</code> adds wrapping
+            <code>&lt;span&gt;...&lt;/span&gt;</code> to the button (to support tooltips on disabled buttons).
+        </p>
+        <p>
+            Sometimes the wrapping <code>&lt;span&gt;...&lt;/span&gt;</code> breaks the HTML structure anticipated by some Bootstrap components
+            and button-group is one of them. Combining button tooltips with button-groups is not supported.
+        </p>
+    </DocAlert>
+    <Demo Type="typeof(HxButtonGroup_Demo_Tooltips)" />
+
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxButtonToolbar)" />

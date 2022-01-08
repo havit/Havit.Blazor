@@ -20,6 +20,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <typeparam name="TItem">Type of items.</typeparam>
 	public abstract class HxSelectBase<TValue, TItem> : HxInputBase<TValue>, IInputWithSize
 	{
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxSelect.Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public SelectSettings Settings { get; set; }
+
+		/// <summary>
+		/// Return <see cref="HxInputNumber{TValue}"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual SelectSettings GetDefaults() => HxSelect.Defaults;
+		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
+		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
+
 		/// <inheritdoc cref="Bootstrap.InputSize" />
 		[Parameter] public InputSize? InputSize { get; set; }
 
@@ -117,21 +131,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private int selectedItemIndex;
 		private string chipValue;
 
-		/// <summary>
-		/// Return <see cref="HxInputNumber{TValue}"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual SelectDefaults GetDefaults() => HxSelect.Defaults;
-		IInputDefaultsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		string IInputWithSize.GetInputSizeCssClass() => ((IInputWithSize)this).InputSizeEffective.AsFormSelectCssClass();
-
 		/// <inheritdoc/>
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
 			chipValue = null;
 
 			RefreshState();
+
+			bool enabledEffective = this.EnabledEffective;
 
 			builder.OpenElement(0, "select");
 			BuildRenderInput_AddCommonAttributes(builder, null);
@@ -142,7 +149,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (itemsToRender != null)
 			{
-				if (NullableEffective || (selectedItemIndex == -1))
+				if ((NullableEffective && !enabledEffective) || (selectedItemIndex == -1))
 				{
 					builder.OpenElement(2000, "option");
 					builder.AddAttribute(2001, "value", -1);
@@ -157,17 +164,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					if (item != null)
 					{
 						bool selected = (i == selectedItemIndex);
-						string text = SelectorHelpers.GetText(TextSelectorImpl, item);
-						if (selected)
-						{
-							chipValue = text;
-						}
 
-						builder.OpenElement(3000, "option");
-						builder.AddAttribute(3001, "value", i.ToString());
-						builder.AddAttribute(3002, "selected", selected);
-						builder.AddContent(3003, text);
-						builder.CloseElement();
+						if (enabledEffective || selected) /* when not enabled only selected item is rendered */
+						{
+							string text = SelectorHelpers.GetText(TextSelectorImpl, item);
+
+							builder.OpenElement(3000, "option");
+							builder.SetKey(i.ToString());
+							builder.AddAttribute(3001, "value", i.ToString());
+							builder.AddAttribute(3002, "selected", selected);
+							builder.AddContent(3003, text);
+							builder.CloseElement();
+
+							if (selected)
+							{
+								chipValue = text;
+							}
+						}
 					}
 				}
 			}

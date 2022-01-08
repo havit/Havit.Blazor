@@ -1,7 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <li>
 	<span class="@CssClassHelper.Combine("dropdown-item", CascadeEnabledComponent.EnabledEffective(this) ? null : "disabled", this.CssClass)"
-		  @onclick="OnClick"
+		  @onclick="InvokeOnClickAsync"
 		  @onclick:stopPropagation="true"
 		  role="button">
 		@ChildContent

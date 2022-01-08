@@ -1,5 +1,13 @@
 ﻿@attribute [Route("/components/" + nameof(HxChipList))]
 
 <ComponentApiDoc Type="typeof(HxChipList)">
-    <Demo Type="typeof(HxChipList_Demo)" Tabs="false" />
+    <MainContent>
+        <Demo Type="typeof(HxChipList_Demo)" Tabs="false" />
+    </MainContent>
+    <CssVariables>
+        <ComponentApiDocCssVariable Name="--hx-chiplist-chip-margin" Default="0.75rem 0.25rem .375rem 0">
+            Margin of the chips.
+        </ComponentApiDocCssVariable>
+    </CssVariables>
+
 </ComponentApiDoc>

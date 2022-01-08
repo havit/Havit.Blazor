@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Infrastructure;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
@@ -36,6 +37,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Item clicked event.
 		/// </summary>
 		[Parameter] public EventCallback OnClick { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnClick"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
 
 		/// <summary>
 		/// Stop onClick-event propagation. Deafult is <c>true</c>.
@@ -62,7 +67,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			MessageBox = ServiceProvider.GetService<IHxMessageBoxService>(); // conditional, does not have to be registered
 		}
 
-		public async Task HandleClick()
+		public async Task HandleClick(MouseEventArgs args)
 		{
 			if (!CascadeEnabledComponent.EnabledEffective(this))
 			{
@@ -83,7 +88,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					return; // No Action
 				}
 			}
-			await OnClick.InvokeAsync(null);
+
+			await InvokeOnClickAsync(args);
 		}
 	}
 }

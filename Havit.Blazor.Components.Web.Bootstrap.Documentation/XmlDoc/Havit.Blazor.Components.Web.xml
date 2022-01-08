@@ -39,12 +39,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Title">
             <summary>
-            Title text (Header).
+            Title in the header.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.TitleTemplate">
+        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.HeaderTemplate">
             <summary>
-            Title template (Header).
+            Template for the header.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Text">
@@ -52,9 +52,9 @@
             Content (body) text.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.ContentTemplate">
+        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.BodyTemplate">
             <summary>
-            Content (body) template.
+            Body (content) template.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.ShowCloseButton">
@@ -75,6 +75,11 @@
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.CustomButtonText">
             <summary>
             Text for <see cref="F:Havit.Blazor.Components.Web.MessageBoxButtons.Custom"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxModal).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.MessageBoxServiceCollectionExtensions">
@@ -137,6 +142,17 @@
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/>.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.GetDefaults">
+            <summary>
+            Returns component defaults.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Defaults"/>, overriden by individual parameters).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.UploadUrl">
             <summary>
             URL of the server endpoint receiving the files.
@@ -147,14 +163,29 @@
             Raised during running file upload (the frequency depends on browser implementation).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.InvokeOnProgressAsync(Havit.Blazor.Components.Web.UploadProgressEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnProgress"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded">
             <summary>
             Raised after a file is uploaded (for every single file separately).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.InvokeOnFileUploadedAsync(Havit.Blazor.Components.Web.FileUploadedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.OnUploadCompleted">
             <summary>
             Raised when all files are uploaded (after all <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> events).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.InvokeOnUploadCompletedAsync(Havit.Blazor.Components.Web.UploadCompletedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnUploadCompleted"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Multiple">
@@ -183,13 +214,6 @@
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.FileCount">
             <summary>
             Last known count of associated files.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.GetDefaults">
-            <summary>
-            Returns <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.StartUploadAsync(System.String)">
@@ -232,16 +256,15 @@
             Receive upload finished notification from underlying javascript.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.InputFileCoreDefaults">
+        <member name="T:Havit.Blazor.Components.Web.InputFileCoreSettings">
             <summary>
             Defaults for the <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.InputFileCoreDefaults.MaxFileSize">
+        <member name="P:Havit.Blazor.Components.Web.InputFileCoreSettings.MaxFileSize">
             <summary>
             The maximum files size in bytes.
             When exceeded, the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.
-            Default is <c>long.MaxValue</c> (unlimited).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.UploadCompletedEventArgs">
@@ -349,6 +372,11 @@
             Model event callback. Invoked when valid form is updated.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.HxModelEditForm`1.InvokeModelChangedAsync(`0)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.HxModelEditForm`1.ModelChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxModelEditForm`1.ChildContent">
             <summary>
             Child content.
@@ -412,6 +440,11 @@
             Raised after the element is clicked.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.HxDynamicElement.InvokeOnClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClick"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClickStopPropagation">
             <summary>
             Stop onClick-event propagation. Deafult is <c>false</c>.
@@ -430,6 +463,25 @@
         <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.ElementRefChanged">
             <summary>
             Action (synchronnous, not an EventCallback) called when the element's reference got captured.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.HxRedirectTo">
+            <summary>
+            Rendering a <c>HxRedirectTo</c> will navigate to a new location.<br/>
+            Can be used in <c>AuthorizeRouteView</c>, <c>Router</c> and such components to process redirection to login page, error page or such.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.HxRedirectTo.Uri">
+            <summary>
+            URI to navigate to.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.HxRedirectTo.ForceLoad">
+            <summary>
+            If <c>true</c>, bypasses client-side routing and forces the browser to load the new
+            page from the server, whether or not the URI would normally be handled by the
+            client-side router.<br/>
+            Default is <c>false</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.HxRepeater`1">
@@ -654,6 +706,11 @@
             When item is <c>null</c>, returns <c>default(TValue)</c>.
             Otherwise returns value from item by valueSelector.
             When valueSelector is <c>null</c> and <c>TValue</c> is same as <c>TItem</c>, returns item.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.ServiceCollectionExtensions.AddHxServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds services needed for HAVIT Blazor library.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2">

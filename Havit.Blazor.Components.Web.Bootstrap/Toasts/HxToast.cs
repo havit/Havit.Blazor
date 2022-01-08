@@ -65,10 +65,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Fires when toast is hidden (button or autohide).
 		/// </summary>
 		[Parameter] public EventCallback OnToastHidden { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnToastHidden"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnToastHiddenAsync() => OnToastHidden.InvokeAsync();
 
 		private ElementReference toastElement;
 		private DotNetObjectReference<HxToast> dotnetObjectReference;
 		private IJSObjectReference jsModule;
+		private bool disposed;
 
 		public HxToast()
 		{
@@ -179,6 +184,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender)
 			{
 				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxToast) + ".js");
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("show", toastElement, dotnetObjectReference);
 			}
 		}
@@ -195,12 +204,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxToast_HandleToastHidden")]
 		public async Task HandleToastHidden()
 		{
-			await OnToastHidden.InvokeAsync(null);
+			await InvokeOnToastHiddenAsync();
 		}
 
 		/// <inheritdoc />
-		public async ValueTask DisposeAsync()
+		public virtual async ValueTask DisposeAsync()
 		{
+			disposed = true;
+
 			if (jsModule != null)
 			{
 				await jsModule.InvokeVoidAsync("dispose", toastElement);

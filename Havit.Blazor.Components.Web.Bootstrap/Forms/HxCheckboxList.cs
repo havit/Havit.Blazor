@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Multiple choice by checkboxes.
+	/// Renders a multi-selection list of <see cref="HxInputCheckbox"/> controls.
 	/// </summary>
 	public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014
 	{
@@ -42,6 +42,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default value is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool AutoSort { get; set; } = true;
+
+		/// <summary>
+		/// Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.
+		/// </summary>
+		[Parameter] public bool Inline { get; set; }
 
 		private List<TItem> itemsToRender;
 
@@ -81,16 +86,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
 
 					builder.OpenComponent(1, typeof(HxInputCheckbox));
+
 					builder.AddAttribute(2, nameof(HxInputCheckbox.Label), SelectorHelpers.GetText(TextSelector, item));
 					builder.AddAttribute(3, nameof(HxInputCheckbox.Value), Value?.Contains(value) ?? false);
 					builder.AddAttribute(4, nameof(HxInputCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
+					builder.AddAttribute(5, nameof(HxInputCheckbox.Enabled), EnabledEffective);
 
 					// We need ValueExpression. Ehm, HxInputCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 					// We have nothing to give the HxInputCheckbox. So we make own class with property which we assign to the ValueExpression.
 					// Impacts? Unknown. Maybe none.
-					builder.AddAttribute(5, nameof(HxInputCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
+					builder.AddAttribute(6, nameof(HxInputCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
 
-					builder.AddAttribute(6, nameof(HxInputCheckbox.ShowValidationMessage), false);
+					builder.AddAttribute(7, nameof(HxInputCheckbox.ShowValidationMessage), false);
+					builder.AddAttribute(8, nameof(HxInputCheckbox.Inline), this.Inline);
+
 					builder.CloseComponent();
 				}
 			}

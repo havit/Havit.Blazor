@@ -62,6 +62,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			this.Placement = PopoverPlacement.Right;
 			this.Trigger = PopoverTrigger.Click;
 		}
-
 	}
 }

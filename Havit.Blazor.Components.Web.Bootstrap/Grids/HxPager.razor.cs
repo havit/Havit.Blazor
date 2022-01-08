@@ -30,11 +30,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Event raised where page index is changed.
 		/// </summary>
 		[Parameter] public EventCallback<int> CurrentPageIndexChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="CurrentPageIndexChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeCurrentPageIndexChangedAsync(int newPageIndex) => CurrentPageIndexChanged.InvokeAsync(newPageIndex);
 
 		/// <summary>
 		/// Count of numbers to display. Default value is 10.
 		/// </summary>
 		[Parameter] public int DisplayNumberCount { get; set; } = 10; // TODO RH: Rename NumberCount? or VisibleNumericButtonCount #57515 Doc - Titles?
+
+		/// <summary>
+		/// Any additional CSS class to apply.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
 		/// Changes current page index and fires event.
@@ -45,7 +54,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			Contract.Requires(newPageIndex < TotalPages, nameof(newPageIndex));
 
 			CurrentPageIndex = newPageIndex;
-			await CurrentPageIndexChanged.InvokeAsync(CurrentPageIndex);
+			await InvokeCurrentPageIndexChangedAsync(CurrentPageIndex);
 		}
 	}
 }

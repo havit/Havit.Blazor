@@ -5746,6 +5746,13 @@ textarea.form-control-lg {
     border-radius: 0;
   }
 }
+.invalid-tooltip > span {
+  white-space: nowrap;
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .tooltip {
   position: absolute;
   z-index: 1080;

@@ -140,7 +140,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		void IDisposable.Dispose()
+		public virtual void Dispose()
 		{
 			DetachValidationStateChangedListener();
 		}

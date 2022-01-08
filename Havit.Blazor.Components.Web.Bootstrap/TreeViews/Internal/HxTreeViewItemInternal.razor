@@ -1,0 +1,54 @@
+@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+@typeparam TItem
+
+@{
+    var icon = this.IconSelector?.Invoke(this.Item) ?? null;
+    var title = this.TitleSelector?.Invoke(this.Item) ?? null;
+    var children = this.ChildrenSelector(this.Item);
+    var hasChildren = children?.Any() ?? false;
+    var isSelected = this.Item.Equals(this.TreeViewContainer.SelectedItem);
+}
+
+<div class="hx-tree-view-item @(isSelected ? "selected" : "")" @onclick="@HandleItemClicked">
+    @for (int i = 0; i < this.Level; i++)
+    {
+        <div class="hx-tree-view-item-spacer"></div>
+    }
+    <div class="hx-tree-view-item-expander @(this.IsExpanded ? "expanded" : "")">
+        @if (hasChildren)
+        {
+            <div>
+                <HxIcon Icon="@BootstrapIcon.ChevronRight" />
+            </div>
+        }
+    </div>
+    @if (icon != null)
+    {
+        <div class="hx-tree-view-item-icon">
+            <HxIcon Icon="@icon" />
+        </div>
+    }
+    @if (title is not null)
+    {
+        <div title="@title" class="hx-tree-view-item-title text-nowrap text-truncate">@title</div>
+    }
+    @if (ContentTemplate is not null)
+    {
+        @ContentTemplate(this.Item)
+    }
+</div>
+
+@if (this.IsExpanded && hasChildren)
+{
+    foreach (var item in children)
+    {
+        <HxTreeViewItemInternal TItem="TItem"
+                        Item="item"
+                        TitleSelector="this.TitleSelector"
+                        IconSelector="this.IconSelector"
+                        ChildrenSelector="this.ChildrenSelector"
+                        Level="@(this.Level + 1)"
+                        ContentTemplate="this.ContentTemplate"
+                        OnItemSelected="this.OnItemSelected" />
+    }
+}

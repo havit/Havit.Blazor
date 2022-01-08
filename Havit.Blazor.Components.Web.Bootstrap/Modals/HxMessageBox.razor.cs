@@ -10,10 +10,38 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Component to display message-boxes.
+	/// Component to display message-boxes.<br/>
+	/// Usually used via <see cref="HxMessageBoxService"/> and <see cref="HxMessageBoxHost"/>.
 	/// </summary>
 	public partial class HxMessageBox : ComponentBase
 	{
+		/// <summary>
+		/// Application-wide defaults for <see cref="HxButton"/> and derived components.
+		/// </summary>
+		public static MessageBoxSettings Defaults { get; set; }
+
+		static HxMessageBox()
+		{
+			Defaults = new MessageBoxSettings()
+			{
+				PrimaryButtonSettings = new ButtonSettings()
+				{
+					Color = ThemeColor.Primary,
+				},
+				SecondaryButtonSettings = new ButtonSettings()
+				{
+					Color = ThemeColor.Secondary,
+				},
+				ModalSettings = new()
+			};
+		}
+
+		/// <summary>
+		/// Returns <see cref="HxMessageBox"/> defaults.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual MessageBoxSettings GetDefaults() => Defaults;
+
 		///// <summary>
 		///// Header icon.
 		///// </summary>
@@ -25,9 +53,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Title { get; set; }
 
 		/// <summary>
-		/// Title template (Header).
+		/// Header template (Header).
 		/// </summary>
-		[Parameter] public RenderFragment TitleTemplate { get; set; }
+		[Parameter] public RenderFragment HeaderTemplate { get; set; }
 
 		/// <summary>
 		/// Content (body) text.
@@ -35,14 +63,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Text { get; set; }
 
 		/// <summary>
-		/// Content (body) template.
+		/// Body (content) template.
 		/// </summary>
-		[Parameter] public RenderFragment ContentTemplate { get; set; }
+		[Parameter] public RenderFragment BodyTemplate { get; set; }
 
 		/// <summary>
-		/// Indicates whether to show close button.
+		/// Indicates whether to show the close button.
+		/// Default is taken from the underlying <see cref="HxModal"/> (<c>true</c>).
 		/// </summary>
-		[Parameter] public bool ShowCloseButton { get; set; } = true;
+		[Parameter] public bool? ShowCloseButton { get; set; }
 
 		/// <summary>
 		/// Buttons to show. Default is <see cref="MessageBoxButtons.Ok"/>.
@@ -60,14 +89,36 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string CustomButtonText { get; set; }
 
 		/// <summary>
-		/// Additional CSS class.
+		/// Settings for the dialog primary button.
 		/// </summary>
-		[Parameter] public string CssClass { get; set; }
+		[Parameter] public ButtonSettings PrimaryButtonSettings { get; set; }
+		protected ButtonSettings PrimaryButtonSettingsEffective => this.PrimaryButtonSettings ?? GetDefaults().PrimaryButtonSettings ?? throw new InvalidOperationException(nameof(PrimaryButtonSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
+
+		/// <summary>
+		/// Settings for dialog secondary button(s).
+		/// </summary>
+		[Parameter] public ButtonSettings SecondaryButtonSettings { get; set; }
+		protected ButtonSettings SecondaryButtonSettingsEffective => this.SecondaryButtonSettings ?? GetDefaults().SecondaryButtonSettings ?? throw new InvalidOperationException(nameof(SecondaryButtonSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
+
+		/// <summary>
+		/// Settings for underlying <see cref="HxModal"/> component.
+		/// </summary>
+		[Parameter] public ModalSettings ModalSettings { get; set; }
+		protected ModalSettings ModalSettingsEffective => this.ModalSettings ?? GetDefaults().ModalSettings ?? throw new InvalidOperationException(nameof(ModalSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
 
 		/// <summary>
 		/// Raised when the message box gets closed. Returns the button clicked.
 		/// </summary>
 		[Parameter] public EventCallback<MessageBoxButtons> OnClosed { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnClosed"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnClosedAsync(MessageBoxButtons button) => OnClosed.InvokeAsync(button);
+
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying <see cref="HxModal"/>.
+		/// </summary>
+		[Parameter] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
 
 		[Inject] protected IStringLocalizer<HxMessageBox> MessageBoxLocalizer { get; set; }
@@ -93,7 +144,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleModalClosed()
 		{
-			await OnClosed.InvokeAsync(result ?? MessageBoxButtons.None);
+			await InvokeOnClosedAsync(result ?? MessageBoxButtons.None);
 		}
 
 		private List<ButtonDefinition> GetButtonsToRender()

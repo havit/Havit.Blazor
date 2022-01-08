@@ -2,15 +2,15 @@
 
 <ComponentApiDoc Type="typeof(HxInputFileDropZone)">
 	<MainContent>
-		<p>See <a href="/components/@nameof(HxInputFileCore)">@nameof(HxInputFileCore)</a> for upload demos.</p>
+		<p>See <a href="/components/@nameof(HxInputFileCore)#SingleFileUpload">@nameof(HxInputFileCore)</a> for upload demos.</p>
 
-		<h3>Single</h3>
+		<h3 id="Single">Single</h3>
 		<Demo Type="typeof(HxInputFileDropZone_Demo_Single)" Tabs="false" />
 
-		<h3>Multiple</h3>
+		<h3 id="Multiple">Multiple</h3>
 		<Demo Type="typeof(HxInputFileDropZone_Demo_Multiple)" Tabs="false" />
 
-		<h3>Custom NoFilesTemplate</h3>
+		<h3 id="CustomNoFilesTemplate">Custom NoFilesTemplate</h3>
 		<Demo Type="typeof(HxInputFileDropZone_Demo_NoFilesTemplate)" />
 	</MainContent>
     <CssVariables>
@@ -23,7 +23,7 @@
         <ComponentApiDocCssVariable Name="--hx-input-file-drop-zone-hover-box-shadow" Default="0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25)">
             Box shadow of the drop zone on hover.
         </ComponentApiDocCssVariable>
-        <ComponentApiDocCssVariable Name="--hx-input-file-drop-zone-border-color" Default="#ced4da">
+        <ComponentApiDocCssVariable Name="--hx-input-file-drop-zone-border-color" Default="var(--bs-gray-400)">
             Border color.
         </ComponentApiDocCssVariable>
         <ComponentApiDocCssVariable Name="--hx-input-file-drop-zone-background-color" Default="transparent">

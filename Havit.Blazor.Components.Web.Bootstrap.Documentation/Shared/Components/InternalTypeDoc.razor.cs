@@ -16,6 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			{ "AutosuggestDataProviderDelegate", typeof(AutosuggestDataProviderDelegate<>) },
 			{ "GridDataProviderDelegate", typeof(GridDataProviderDelegate<>) },
 			{ "InputTagsDataProviderDelegate", typeof(InputTagsDataProviderDelegate) },
+			{ "CalendarDateCustomizationProviderDelegate", typeof(CalendarDateCustomizationProviderDelegate) }
 		};
 
 		[Parameter] public string TypeText { get; set; }

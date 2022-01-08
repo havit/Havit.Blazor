@@ -26,13 +26,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// For more information refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
 		/// and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
 		/// </summary>
-		public string DropdownReference { get; set; }
+		[Parameter] public string DropdownReference { get; set; }
 
 		/// <summary>
 		/// Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
 		/// of the dropdown relative to its target.  Default is <c>(0, 2)</c>.
 		/// </summary>
-		public (int Skidding, int Distance)? DropdownOffset { get; set; }
+		[Parameter] public (int Skidding, int Distance)? DropdownOffset { get; set; }
 
 		/// <summary>
 		/// Custom CSS class to render with the toggle element.
@@ -46,12 +46,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Fired when the dropdown has been made visible to the user and CSS transitions have completed.
 		/// </summary>
-		public EventCallback OnShown { get; set; }
+		[Parameter] public EventCallback OnShown { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnShown"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnShownAsync() => OnShown.InvokeAsync();
 
 		/// <summary>
 		/// Fired when the dropdown has finished being hidden from the user and CSS transitions have completed.
 		/// </summary>
-		public EventCallback OnHidden { get; set; }
+		[Parameter] public EventCallback OnHidden { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnHidden"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnHiddenAsync() => OnHidden.InvokeAsync();
 
 		[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
 		[CascadingParameter] protected HxNav NavContainer { get; set; }
@@ -61,6 +69,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private ElementReference elementReference;
 		private DotNetObjectReference<HxDropdownToggleElement> dotnetObjectReference;
 		private IJSObjectReference jsModule;
+		private bool disposed;
 
 		public HxDropdownToggleElement()
 		{
@@ -119,6 +128,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender)
 			{
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("create", elementReference, dotnetObjectReference);
 			}
 		}
@@ -151,7 +164,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task HandleJsShown()
 		{
 			((IDropdownContainer)DropdownContainer).IsOpen = true;
-			await OnShown.InvokeAsync();
+			await InvokeOnShownAsync();
 		}
 
 		/// <summary>
@@ -161,7 +174,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task HandleJsHidden()
 		{
 			((IDropdownContainer)DropdownContainer).IsOpen = false;
-			await OnHidden.InvokeAsync();
+			await InvokeOnHiddenAsync();
 		}
 
 		private async Task EnsureJsModuleAsync()
@@ -170,8 +183,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc/>
-		public async ValueTask DisposeAsync()
+		public virtual async ValueTask DisposeAsync()
 		{
+			disposed = true;
+
 			if (jsModule != null)
 			{
 				await jsModule.InvokeVoidAsync("dispose", elementReference);

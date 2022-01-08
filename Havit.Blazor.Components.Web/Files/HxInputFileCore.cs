@@ -21,7 +21,27 @@ namespace Havit.Blazor.Components.Web
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputFileCore"/>.
 		/// </summary>
-		public static InputFileCoreDefaults Defaults { get; } = new();
+		public static InputFileCoreSettings Defaults { get; }
+
+		static HxInputFileCore()
+		{
+			Defaults = new InputFileCoreSettings()
+			{
+				MaxFileSize = long.MaxValue
+			};
+		}
+
+		/// <summary>
+		/// Returns component defaults.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual InputFileCoreSettings GetDefaults() => Defaults;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public InputFileCoreSettings Settings { get; set; }
+
 
 		/// <summary>
 		/// URL of the server endpoint receiving the files.
@@ -32,16 +52,28 @@ namespace Havit.Blazor.Components.Web
 		/// Raised during running file upload (the frequency depends on browser implementation).
 		/// </summary>
 		[Parameter] public EventCallback<UploadProgressEventArgs> OnProgress { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnProgress"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnProgressAsync(UploadProgressEventArgs args) => OnProgress.InvokeAsync(args);
 
 		/// <summary>
 		/// Raised after a file is uploaded (for every single file separately).
 		/// </summary>
 		[Parameter] public EventCallback<FileUploadedEventArgs> OnFileUploaded { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnFileUploaded"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnFileUploadedAsync(FileUploadedEventArgs args) => OnFileUploaded.InvokeAsync(args);
 
 		/// <summary>
 		/// Raised when all files are uploaded (after all <see cref="OnFileUploaded"/> events).
 		/// </summary>
 		[Parameter] public EventCallback<UploadCompletedEventArgs> OnUploadCompleted { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnUploadCompleted"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnUploadCompletedAsync(UploadCompletedEventArgs args) => OnUploadCompleted.InvokeAsync(args);
 
 		/// <summary>
 		/// Single <c>false</c> or multiple <c>true</c> files upload.
@@ -60,6 +92,7 @@ namespace Havit.Blazor.Components.Web
 		/// Default is <c>long.MaxValue</c> (unlimited).
 		/// </summary>
 		[Parameter] public long? MaxFileSize { get; set; }
+		protected long MaxFileSizeEffective => this.MaxFileSize ?? this.Settings?.MaxFileSize ?? GetDefaults().MaxFileSize ?? throw new InvalidOperationException(nameof(MaxFileSize) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 		/// <summary>
 		/// Input element id.
@@ -77,15 +110,8 @@ namespace Havit.Blazor.Components.Web
 		private IJSObjectReference jsModule;
 		private TaskCompletionSource<UploadCompletedEventArgs> uploadCompletedTaskCompletionSource;
 		private ConcurrentBag<FileUploadedEventArgs> filesUploaded;
+		private bool disposed;
 
-		/// <summary>
-		/// Returns <see cref="HxInputFileCore"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual InputFileCoreDefaults GetDefaults() => Defaults;
-
-		protected long? MaxFileSizeEffective => MaxFileSize ?? GetDefaults().MaxFileSize;
 
 		public HxInputFileCore()
 		{
@@ -118,6 +144,10 @@ namespace Havit.Blazor.Components.Web
 			await EnsureJsModuleAsync();
 			filesUploaded = new ConcurrentBag<FileUploadedEventArgs>();
 
+			if (disposed)
+			{
+				return;
+			}
 			await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, UploadUrl, accessToken, MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective);
 		}
 
@@ -170,7 +200,7 @@ namespace Havit.Blazor.Components.Web
 				UploadedBytes = loaded,
 				UploadSize = total
 			};
-			await OnProgress.InvokeAsync(uploadProgress);
+			await InvokeOnProgressAsync(uploadProgress);
 		}
 
 		/// <summary>
@@ -190,7 +220,7 @@ namespace Havit.Blazor.Components.Web
 				ResponseText = responseText,
 			};
 			filesUploaded.Add(fileUploaded);
-			await OnFileUploaded.InvokeAsync(fileUploaded);
+			await InvokeOnFileUploadedAsync(fileUploaded);
 		}
 
 		/// <summary>
@@ -207,11 +237,13 @@ namespace Havit.Blazor.Components.Web
 			};
 			filesUploaded = null;
 			uploadCompletedTaskCompletionSource?.TrySetResult(uploadCompleted);
-			await OnUploadCompleted.InvokeAsync(uploadCompleted);
+			await InvokeOnUploadCompletedAsync(uploadCompleted);
 		}
 
-		public async ValueTask DisposeAsync()
+		public virtual async ValueTask DisposeAsync()
 		{
+			disposed = true;
+
 			((IDisposable)this).Dispose();
 
 			if (jsModule != null)

@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Havit.Blazor.Components.Web.Bootstrap.Internal;
-using Havit.Blazor.Components.Web.Infrastructure;
+﻿using Havit.Blazor.Components.Web.Infrastructure;
 using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
@@ -22,7 +13,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Application-wide defaults for <see cref="HxButton"/> and derived components.
 		/// </summary>
-		public static ButtonDefaults Defaults { get; set; } = new();
+		public static ButtonSettings Defaults { get; set; }
+
+		static HxButton()
+		{
+			Defaults = new ButtonSettings()
+			{
+				Size = ButtonSize.Regular,
+				IconPlacement = ButtonIconPlacement.Start,
+				Color = ThemeColor.None,
+				CssClass = null,
+				Outline = false,
+				Icon = null
+			};
+		}
+
+		/// <summary>
+		/// Returns application-wide defaults for the component.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual ButtonSettings GetDefaults() => Defaults;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public ButtonSettings Settings { get; set; }
 
 		/// <summary>
 		/// Text of the button.
@@ -38,33 +53,39 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Icon to render into the button.
 		/// </summary>
 		[Parameter] public IconBase Icon { get; set; }
+		protected IconBase IconEffective => this.Icon ?? this.Settings?.Icon ?? GetDefaults().Icon;
 
 		/// <summary>
 		/// Position of the icon within the button. Default is <see cref="ButtonIconPlacement.Start" /> (configurable through <see cref="HxButton.Defaults"/>).
 		/// </summary>
 		[Parameter] public ButtonIconPlacement? IconPlacement { get; set; }
+		protected ButtonIconPlacement IconPlacementEffective => this.IconPlacement ?? this.Settings?.IconPlacement ?? GetDefaults()?.IconPlacement ?? throw new InvalidOperationException(nameof(IconPlacement) + " default for " + nameof(HxButton) + " has to be set.");
 
 		/// <summary>
 		/// Bootstrap button style - theme color.<br />
 		/// Default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
 		/// </summary>
 		[Parameter] public ThemeColor? Color { get; set; }
+		protected ThemeColor ColorEffective => this.Color ?? this.Settings?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(ThemeColor) + " default for " + nameof(HxButton) + " has to be set.");
 
 		/// <summary>
 		/// Button size. Default is <see cref="ButtonSize.Regular"/>.
 		/// </summary>
 		[Parameter] public ButtonSize? Size { get; set; }
+		protected ButtonSize SizeEffective => this.Size ?? this.Settings?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxButton) + " has to be set.");
 
 		/// <summary>
 		/// <see href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
 		/// </summary>
 		[Parameter] public bool? Outline { get; set; }
+		protected bool OutlineEffective => this.Outline ?? this.Settings?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxButton) + " has to be set.");
 
 		/// <summary>
 		/// Custom CSS class to render with the <c>&lt;button /&gt;</c>.<br />
 		/// When using <see cref="Tooltip"/> you might want to use <see cref="TooltipWrapperCssClass"/> instead of <see cref="CssClass" /> to get the desired result.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
+		protected string CssClassEffective => this.CssClass ?? this.Settings?.CssClass ?? GetDefaults().CssClass;
 
 		/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 		[Parameter] public bool? Enabled { get; set; }
@@ -110,16 +131,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Raised after the button is clicked.
 		/// </summary>
 		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnClick"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
 
 		/// <summary>
 		/// Raised after the button is clicked and EditContext validation succeeds.
 		/// </summary>
 		[Parameter] public EventCallback<MouseEventArgs> OnValidClick { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnValidClick"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnValidClickAsync(MouseEventArgs args) => OnValidClick.InvokeAsync(args);
 
 		/// <summary>
 		/// Raised after the button is clicked and EditContext validation fails.
 		/// </summary>
 		[Parameter] public EventCallback<MouseEventArgs> OnInvalidClick { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnInvalidClick"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnInvalidClickAsync(MouseEventArgs args) => OnInvalidClick.InvokeAsync(args);
 
 		/// <summary>
 		/// Stop onClick-event propagation. Deafult is <c>true</c>.
@@ -153,15 +186,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
-		/// <summary>
-		/// Return <see cref="HxButton"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual ButtonDefaults GetDefaults() => Defaults;
-
-		protected IconBase IconEffective => this.Icon ?? GetDefaults().Icon;
-		protected ButtonIconPlacement IconPlacementEffective => this.IconPlacement ?? GetDefaults().IconPlacement;
 		protected bool SpinnerEffective => this.Spinner ?? clickInProgress;
 		protected bool DisabledEffective => !CascadeEnabledComponent.EnabledEffective(this)
 			|| (SingleClickProtection && clickInProgress && (OnClick.HasDelegate || OnValidClick.HasDelegate || OnInvalidClick.HasDelegate));
@@ -178,17 +202,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected virtual string GetButtonCssClass()
 		{
-			return CssClassHelper.Combine(CoreCssClass, GetColorCssClass(), GetSizeCssClass(), this.CssClass ?? GetDefaults().CssClass);
+			return CssClassHelper.Combine(CoreCssClass, GetColorCssClass(), GetSizeCssClass(), this.CssClassEffective);
 		}
 
 		protected string GetColorCssClass()
 		{
-			var outlineEffective = this.Outline ?? GetDefaults().Outline;
-			var colorEffective = this.Color ?? GetDefaults().Color ?? throw new InvalidOperationException($"Button {nameof(Color)} has to be set - either from {nameof(ButtonDefaults)} or explicitly.");
-
-			if (outlineEffective)
+			if (this.OutlineEffective)
 			{
-				return colorEffective switch
+				return this.ColorEffective switch
 				{
 					ThemeColor.Primary => "btn-outline-primary",
 					ThemeColor.Secondary => "btn-outline-secondary",
@@ -200,10 +221,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					ThemeColor.Dark => "btn-outline-dark",
 					ThemeColor.Link => "btn-link",
 					ThemeColor.None => null,
-					_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {colorEffective:g}.")
+					_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {this.ColorEffective:g}.")
 				};
 			}
-			return colorEffective switch
+			return this.ColorEffective switch
 			{
 				ThemeColor.Primary => "btn-primary",
 				ThemeColor.Secondary => "btn-secondary",
@@ -215,27 +236,37 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				ThemeColor.Dark => "btn-dark",
 				ThemeColor.Link => "btn-link",
 				ThemeColor.None => null,
-				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {colorEffective:g}.")
+				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {this.ColorEffective:g}.")
 			};
 		}
 
 		protected string GetSizeCssClass()
 		{
-			var sizeEffective = this.Size ?? GetDefaults().Size;
-
-			return sizeEffective switch
+			return this.SizeEffective switch
 			{
 				ButtonSize.Regular => null,
 				ButtonSize.Small => "btn-sm",
 				ButtonSize.Large => "btn-lg",
-				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} {nameof(Size)}: {sizeEffective}.")
+				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} {nameof(Size)}: {this.SizeEffective}.")
 			};
+		}
+
+		protected string GetTooltipWrapperCssClass()
+		{
+			bool tooltipWillRenderSpan = !String.IsNullOrEmpty(Tooltip) || !String.IsNullOrWhiteSpace(this.TooltipWrapperCssClass);
+			if (tooltipWillRenderSpan)
+			{
+				return CssClassHelper.Combine("d-inline-block", this.TooltipWrapperCssClass);
+			}
+			return null;
 		}
 
 		private protected virtual string GetButtonType() => "button";
 
 		private async Task HandleClick(MouseEventArgs mouseEventArgs)
 		{
+			Contract.Requires<InvalidOperationException>(!DisabledEffective, $"The {GetType().Name} component is in a disabled state.");
+
 			if (!clickInProgress || !SingleClickProtection)
 			{
 				clickInProgress = true;
@@ -251,7 +282,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				Contract.Requires<InvalidOperationException>(!OnValidClick.HasDelegate, $"Cannot use both {nameof(OnClick)} and {nameof(OnValidClick)} parameters.");
 				Contract.Requires<InvalidOperationException>(!OnInvalidClick.HasDelegate, $"Cannot use both {nameof(OnClick)} and {nameof(OnInvalidClick)} parameters.");
 
-				await OnClick.InvokeAsync(mouseEventArgs);
+				await InvokeOnClickAsync(mouseEventArgs);
 			}
 			else if (OnValidClick.HasDelegate || OnInvalidClick.HasDelegate)
 			{
@@ -261,12 +292,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				if (isValid && OnValidClick.HasDelegate)
 				{
-					await OnValidClick.InvokeAsync(mouseEventArgs);
+					await InvokeOnValidClickAsync(mouseEventArgs);
 				}
 
 				if (!isValid && OnInvalidClick.HasDelegate)
 				{
-					await OnInvalidClick.InvokeAsync(mouseEventArgs);
+					await InvokeOnInvalidClickAsync(mouseEventArgs);
 				}
 			}
 		}

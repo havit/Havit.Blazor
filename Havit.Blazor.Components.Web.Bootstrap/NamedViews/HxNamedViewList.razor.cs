@@ -14,19 +14,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public TFilterModel FilterModel { get; set; }
 
 		[Parameter] public EventCallback<TFilterModel> FilterModelChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="FilterModelChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeFilterModelChangedAsync(TFilterModel newFilterModel) => FilterModelChanged.InvokeAsync(newFilterModel);
 
 		[Parameter] public EventCallback<NamedView<TFilterModel>> OnNamedViewSelected { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnNamedViewSelected"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnNamedViewSelectedAsync(NamedView<TFilterModel> namedViewSelected) => OnNamedViewSelected.InvokeAsync(namedViewSelected);
 
 		protected async Task HandleNamedViewClick(NamedView<TFilterModel> namedView)
 		{
 			TFilterModel newFilter = namedView.Filter();
 			if (newFilter != null)
 			{
-				FilterModel = newFilter; // POZOR, filter has to be clonned
-				await FilterModelChanged.InvokeAsync(newFilter);
+				FilterModel = newFilter; // BEWARE, filter has to be clonned
+				await InvokeFilterModelChangedAsync(newFilter);
 			}
 
-			await OnNamedViewSelected.InvokeAsync(namedView);
+			await InvokeOnNamedViewSelectedAsync(namedView);
 		}
 	}
 }

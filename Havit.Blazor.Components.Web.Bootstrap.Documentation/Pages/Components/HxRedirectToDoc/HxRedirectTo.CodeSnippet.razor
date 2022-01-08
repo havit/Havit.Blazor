@@ -1,0 +1,22 @@
+﻿<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    @if (context.User.Identity?.IsAuthenticated != true)
+                    {
+                        <HxRedirectTo Uri="@($"authentication/login?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}")" />
+                    }
+                    else
+                    {
+                        <HxRedirectTo Uri="errors/NotAuthorized" />
+                    }
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <HxRedirectTo Uri="errors/NotFound" />
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>

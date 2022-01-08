@@ -1,0 +1,21 @@
+.btn-plus {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .25rem;
+    flex-shrink: 0;
+}
+
+.btn-plus ::deep .hx-icon {
+    opacity: 0;
+}
+
+::deep .hx-tree-view-item:hover .btn-plus .hx-icon {
+    opacity: 1;
+}
+
+.btn-plus:hover {
+    background-color: rgba(var(--bs-primary-rgb), .1);
+}

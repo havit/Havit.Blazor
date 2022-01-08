@@ -30,13 +30,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
 		/// </summary>
-		[Parameter] public int SuggestMinimumLength { get; set; } = 2;
+		[Parameter] public int SuggestMinimumLengthEffective { get; set; } = 2;
 
 		/// <summary>
 		/// Characters, when typed, divide the current input into separate tags.
 		/// Default is comma, semicolon and space.
 		/// </summary>
-		[Parameter] public List<char> Delimiters { get; set; } = new() { ',', ';', ' ' };
+		[Parameter] public List<char> DelimitersEffective { get; set; } = new() { ',', ';', ' ' };
 
 		/// <summary>
 		/// Indicates whether the add-icon (+) should be displayed.
@@ -66,14 +66,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <summary>
 		/// Background color of the tag (also used for the AddButton).
 		/// </summary>
-		[Parameter] public ThemeColor TagBackgroundColor { get; set; }
+		[Parameter] public ThemeColor TagBackgroundColorEffective { get; set; }
 
 		/// <summary>
 		/// Color of the tag text (also used for the AddButtonText and icons).
 		/// </summary>
-		[Parameter] public ThemeColor TagTextColor { get; set; }
+		[Parameter] public ThemeColor TagTextColorEffective { get; set; }
 
-		[Parameter] public int SuggestDelay { get; set; } = 300;
+		[Parameter] public int SuggestDelayEffective { get; set; } = 300;
 
 		/// <summary>
 		/// CSS of the wrapping .form-control container (corresponds to InputCssClass on regular inputs)
@@ -109,6 +109,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool blurInProgress;
 		private bool currentlyFocused;
 		private bool mouseDownFocus;
+		private bool disposed;
 		private IJSObjectReference jsModule;
 		private HxInputTagsAutosuggestInput autosuggestInput;
 		private bool dataProviderInProgress;
@@ -176,9 +177,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			if (DataProvider is not null)
 			{
-				if (userInput.Length >= SuggestMinimumLength)
+				if (userInput.Length >= SuggestMinimumLengthEffective)
 				{
-					if (SuggestDelay == 0)
+					if (SuggestDelayEffective == 0)
 					{
 						await UpdateSuggestionsAsync();
 					}
@@ -191,7 +192,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 							timer.AutoReset = false; // just once
 							timer.Elapsed += HandleTimerElapsed;
 						}
-						timer.Interval = SuggestDelay;
+						timer.Interval = SuggestDelayEffective;
 						timer.Start();
 					}
 				}
@@ -227,7 +228,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 			currentlyFocused = true;
 
-			if (SuggestMinimumLength == 0)
+			if (SuggestMinimumLengthEffective == 0)
 			{
 				await UpdateSuggestionsAsync(bypassShow: mouseDownFocus);
 			}
@@ -255,7 +256,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 
 			// tags before last delimiter
-			char[] delimitersArray = Delimiters.ToArray();
+			char[] delimitersArray = DelimitersEffective.ToArray();
 			var delimiterIndex = userInput.IndexOfAny(delimitersArray);
 			while (delimiterIndex >= 0)
 			{
@@ -363,6 +364,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			if (!isDropdownOpened)
 			{
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("open", autosuggestInput.InputElement, dotnetObjectReference, bypassShow);
 				isDropdownOpened = true;
 			}
@@ -426,19 +431,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			});
 		}
 
-		public async ValueTask DisposeAsync()
+		public virtual async ValueTask DisposeAsync()
 		{
+			disposed = true;
+
 			timer?.Dispose();
 			timer = null;
+
 			cancellationTokenSource?.Dispose();
 			cancellationTokenSource = null;
-
-			dotnetObjectReference.Dispose();
 
 			if (jsModule != null)
 			{
 				await jsModule.DisposeAsync();
 			}
+
+			dotnetObjectReference.Dispose();
 		}
 	}
 }

@@ -50,7 +50,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <summary>
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
 		/// </summary>
-		[Parameter] public int MinimumLength { get; set; } = 2;
+		[Parameter] public int MinimumLengthEffective { get; set; } = 2;
 
 		/// <summary>
 		/// Short hint displayed in the input field before the user enters a value.
@@ -60,15 +60,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <summary>
 		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
 		/// </summary>
-		[Parameter] public int Delay { get; set; } = 300;
+		[Parameter] public int DelayEffective { get; set; } = 300;
 
 		[Parameter] public string InputCssClass { get; set; }
 
 		[Parameter] public string InputId { get; set; }
 
-		[Parameter] public IconBase SearchIcon { get; set; }
+		[Parameter] public IconBase SearchIconEffective { get; set; }
 
-		[Parameter] public IconBase ClearIcon { get; set; }
+		[Parameter] public IconBase ClearIconEffective { get; set; }
 
 		[Parameter] public bool EnabledEffective { get; set; } = true;
 
@@ -93,6 +93,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool isDropdownOpened = false;
 		private bool blurInProgress;
 		private bool currentlyFocused;
+		private bool disposed;
 		private IJSObjectReference jsModule;
 		private HxAutosuggestInput autosuggestInput;
 		private TValue lastKnownValue;
@@ -155,6 +156,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleInputInput(string newUserInput)
 		{
+			Contract.Requires<InvalidOperationException>(EnabledEffective, $"The {GetType().Name} component is in a disabled state.");
+
 			// user changes an input
 			userInput = newUserInput;
 			userInputModified = true;
@@ -164,7 +167,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			dataProviderInProgress = false; // data provider is no more in progress				 
 
 			// start new time interval
-			if (userInput.Length >= MinimumLength)
+			if (userInput.Length >= MinimumLengthEffective)
 			{
 				if (timer == null)
 				{
@@ -172,7 +175,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					timer.AutoReset = false; // just once
 					timer.Elapsed += HandleTimerElapsed;
 				}
-				timer.Interval = Delay;
+				timer.Interval = DelayEffective;
 				timer.Start();
 			}
 			else
@@ -194,9 +197,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleInputFocus()
 		{
+			if (!EnabledEffective)
+			{
+				return;
+			}
+
 			// when an input gets focus, close a dropdown
 			currentlyFocused = true;
-			if (string.IsNullOrEmpty(userInput) && MinimumLength <= 0)
+			if (string.IsNullOrEmpty(userInput) && MinimumLengthEffective <= 0)
 			{
 				await UpdateSuggestionsAsync();
 				return;
@@ -207,6 +215,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		// Due to HTML update and Bootstrap Dropdown collision we are not allowed to re-render HTML in InputBlur!
 		private void HandleInputBlur()
 		{
+			if (!EnabledEffective)
+			{
+				return;
+			}
+
 			currentlyFocused = false;
 			// when user clicks back button in browser this method can be called after it is disposed!
 			blurInProgress = true;
@@ -300,6 +313,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			if (!isDropdownOpened)
 			{
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("open", autosuggestInput.InputElement, dotnetObjectReference);
 				isDropdownOpened = true;
 			}
@@ -341,20 +358,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				: SelectorHelpers.GetText(TextSelector, item);
 		}
 
-		public async ValueTask DisposeAsync()
+		public virtual async ValueTask DisposeAsync()
 		{
+			disposed = true;
+
 			timer?.Dispose();
 			timer = null;
+
 			cancellationTokenSource?.Dispose();
 			cancellationTokenSource = null;
-
-			dotnetObjectReference.Dispose();
 
 			if (jsModule != null)
 			{
 				await jsModule.DisposeAsync();
 			}
-		}
 
+			dotnetObjectReference?.Dispose();
+		}
 	}
 }

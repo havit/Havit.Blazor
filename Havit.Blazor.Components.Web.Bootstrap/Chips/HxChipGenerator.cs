@@ -32,7 +32,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			};
 		}
 
-		public void Dispose()
+		public virtual void Dispose()
 		{
 			ChipGeneratorsRegistration?.Unregister(this);
 		}

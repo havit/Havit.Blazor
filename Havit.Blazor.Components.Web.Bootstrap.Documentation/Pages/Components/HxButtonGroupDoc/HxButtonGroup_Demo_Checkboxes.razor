@@ -1,0 +1,23 @@
+﻿<EditForm Model="@model">
+    <HxButtonGroup>
+        <InputCheckbox @bind-Value="model.checkbox1" id="checkbox1" class="btn-check" />
+        <label class="btn btn-outline-primary" for="checkbox1">Checkbox 1</label>
+
+        <InputCheckbox @bind-Value="model.checkbox2" id="checkbox2" class="btn-check" />
+        <label class="btn btn-outline-primary" for="checkbox2">Checkbox 2</label>
+
+        <InputCheckbox @bind-Value="model.checkbox3" id="checkbox3" class="btn-check" />
+        <label class="btn btn-outline-primary" for="checkbox3">Checkbox 3</label>
+    </HxButtonGroup>
+</EditForm>
+
+@code {
+    private DemoModel model = new();
+
+    class DemoModel
+    {
+        public bool checkbox1 { get; set; } = false;
+        public bool checkbox2 { get; set; } = false;
+        public bool checkbox3 { get; set; } = false;
+    }
+}
