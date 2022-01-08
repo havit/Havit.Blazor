@@ -9,9 +9,10 @@
             <HxTreeViewItemInternal TItem="TItem"
                                 Item="item"
                                 Level="0"
-                                TitleSelector="this.TitleSelector"
-                                IconSelector="this.IconSelector"
-                                ChildrenSelector="this.ChildrenSelector"
+                                TitleSelector="this.ItemTitleSelector"
+                                IconSelector="this.ItemIconSelector"
+                                ChildrenSelector="this.ItemChildrenSelector"
+                                ContentTemplate="this.ItemTemplate"
                                 OnItemSelected="HandleItemSelected" />
         }
     </CascadingValue>

@@ -15,6 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public Func<TItem, IconBase> IconSelector { get; set; }
 		[Parameter] public Func<TItem, IEnumerable<TItem>> ChildrenSelector { get; set; }
 		[Parameter] public int Level { get; set; }
+		[Parameter] public RenderFragment<TItem> ContentTemplate { get; set; }
 
 		[CascadingParameter] protected HxTreeView<TItem> TreeViewContainer { get; set; }
 

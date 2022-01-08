@@ -4,9 +4,9 @@
                     @bind-SelectedItem="selectedDirectory"
                     Items="@fileSystem"
                     CssClass="border rounded p-2"
-                    TitleSelector="@(p => p.Name)"
-                    ChildrenSelector="@(p => p.Subdirectories)"
-                    IconSelector="@(p => p.Icon)" />
+                    ItemTitleSelector="@(p => p.Name)"
+                    ItemChildrenSelector="@(p => p.Subdirectories)"
+                    ItemIconSelector="@(p => p.Icon)" />
     </div>
     <div class="col-4">
         @if (selectedDirectory == null)

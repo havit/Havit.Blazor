@@ -2,9 +2,9 @@
 @typeparam TItem
 
 @{
-    var icon = SelectorHelpers.GetValue<TItem, IconBase>(this.IconSelector, this.Item);
-    var title = SelectorHelpers.GetText(this.TitleSelector, this.Item);
-    var children = SelectorHelpers.GetValue<TItem, IEnumerable<TItem>>(this.ChildrenSelector, this.Item);
+    var icon = this.IconSelector?.Invoke(this.Item) ?? null;
+    var title = this.TitleSelector?.Invoke(this.Item) ?? null;
+    var children = this.ChildrenSelector(this.Item);
     var hasChildren = children?.Any() ?? false;
     var isSelected = this.Item.Equals(this.TreeViewContainer.SelectedItem);
 }
@@ -28,7 +28,14 @@
             <HxIcon Icon="@icon" />
         </div>
     }
-    <div title="@title" class="hx-tree-view-item-title text-nowrap text-truncate">@title</div>
+    @if (title is not null)
+    {
+        <div title="@title" class="hx-tree-view-item-title text-nowrap text-truncate">@title</div>
+    }
+    @if (ContentTemplate is not null)
+    {
+        @ContentTemplate(this.Item)
+    }
 </div>
 
 @if (this.IsExpanded && hasChildren)
@@ -41,6 +48,7 @@
                         IconSelector="this.IconSelector"
                         ChildrenSelector="this.ChildrenSelector"
                         Level="@(this.Level + 1)"
+                        ContentTemplate="this.ContentTemplate"
                         OnItemSelected="this.OnItemSelected" />
     }
 }
