@@ -7,16 +7,12 @@
                     ItemChildrenSelector="@(p => p.Subdirectories)"
                     ItemIconSelector="@(p => p.Icon)">
             <ItemTemplate>
-                <HxPopover Title="@context.Name" Content="@context.Hint" WrapperCssClass="d-flex" Trigger="PopoverTrigger.Hover">
-                    <div class="flex-grow-1 text-nowrap text-truncate">
-                        @context.Name
-                        @if (context.Subdirectories?.Any() ?? false)
-                        {
-                            <sup class="px-2"><HxBadge Color="ThemeColor.Light">@context.Subdirectories?.Length</HxBadge></sup>
-                        }
-                    </div>
-                </HxPopover>
-                <HxIcon Icon="BootstrapIcon.Plus" />
+                @context.Name
+                @if (context.Subdirectories?.Any() ?? false)
+                {
+                    <HxBadge CssClass="mx-2" TextColor="ThemeColor.Dark" Color="ThemeColor.Light">@context.Subdirectories?.Length</HxBadge>
+                }
+                <div role="button" @onclick:stopPropagation class="btn-plus ms-auto"><HxIcon Icon="BootstrapIcon.Plus" /></div>
             </ItemTemplate>
         </HxTreeView>
     </div>
