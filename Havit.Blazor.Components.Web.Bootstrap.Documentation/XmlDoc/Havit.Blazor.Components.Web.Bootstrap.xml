@@ -3110,6 +3110,19 @@
             Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.InputMode">
+            <summary>
+            Hint to browsers as to the type of virtual keyboard configuration to use when editing.<br/>
+            If not set (neither with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.Settings"/> nor <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber.Defaults"/>, i.e. <c>null</c>),
+            the <see cref="F:Havit.Blazor.Components.Web.InputMode.Numeric"/>	will be used for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.Decimals"/> equal to <c>0</c>.
+            </summary>
+            <remarks>
+            We cannot set <see cref="F:Havit.Blazor.Components.Web.InputMode.Decimal"/> for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.Decimals"/> greater that <c>0</c>
+            as the users with keyboard locale not matching the application locale won't be able to enter decimal point
+            (is <kbd>,</kbd> in some locales and <kbd>.</kbd> in others).<br />
+            Feel free to set the InputMode on your own as needed.
+            </remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.Placeholder">
             <summary>
             Placeholder for the input.
@@ -3660,6 +3673,11 @@
             Input size.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputMode">
+            <summary>
+            Hint to browsers as to the type of virtual keyboard configuration to use when editing.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputText"/> and derived components.
@@ -3668,11 +3686,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.InputSize">
             <summary>
             Input size.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputType">
-            <summary>
-            Input type.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.LabelType">

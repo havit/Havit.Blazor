@@ -44,6 +44,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string ParsingErrorMessage { get; set; }
 
 		/// <summary>
+		/// Hint to browsers as to the type of virtual keyboard configuration to use when editing.<br/>
+		/// If not set (neither with <see cref="Settings"/> nor <see cref="HxInputNumber.Defaults"/>, i.e. <c>null</c>),
+		/// the <see cref="InputMode.Numeric"/>	will be used for <see cref="Decimals"/> equal to <c>0</c>.
+		/// </summary>
+		/// <remarks>
+		/// We cannot set <see cref="InputMode.Decimal"/> for <see cref="Decimals"/> greater that <c>0</c>
+		/// as the users with keyboard locale not matching the application locale won't be able to enter decimal point
+		/// (is <kbd>,</kbd> in some locales and <kbd>.</kbd> in others).<br />
+		/// Feel free to set the InputMode on your own as needed.
+		/// </remarks>
+		[Parameter] public InputMode? InputMode { get; set; }
+		protected InputMode? InputModeEffective => this.InputMode ?? this.Settings?.InputMode ?? this.GetDefaults()?.InputMode;
+
+		/// <summary>
 		/// Placeholder for the input.
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
@@ -118,11 +132,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.OpenElement(0, "input");
 			BuildRenderInput_AddCommonAttributes(builder, "text");
 
-			if (DecimalsEffective <= 0)
+			var inputMode = this.InputModeEffective;
+			if ((inputMode is null) && (DecimalsEffective == 0))
 			{
-				// We can use inputmode numeric when we do not want to enter decimals. It displays a keyboard without a key for a decimal point.
-				// We do not use inputmode decimal because browser (ie. Safari on iPhone) displays a keyboard with a decimal point key depending on device settings (language & keyboard).
-				builder.AddAttribute(1001, "inputmode", "numeric");
+				inputMode = Web.InputMode.Numeric;
+			}
+			if (inputMode is not null)
+			{
+				builder.AddAttribute(1001, "inputmode", inputMode.Value.ToString("f").ToLower());
 			}
 
 			builder.AddAttribute(1002, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
