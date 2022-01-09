@@ -31,6 +31,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
 
 		/// <summary>
+		/// Hint to browsers as to the type of virtual keyboard configuration to use when editing.<br/>
+		/// Default is <c>null</c> (not set).
+		/// </summary>
+		[Parameter] public InputMode? InputMode { get; set; }
+		protected InputMode? InputModeEffective => this.InputMode ?? this.Settings?.InputMode ?? this.GetDefaults()?.InputMode;
+
+		/// <summary>
 		/// Gets or sets the behavior when the model is updated from then input.
 		/// </summary>
 		[Parameter] public BindEvent BindEvent { get; set; } = BindEvent.OnChange;
@@ -60,6 +67,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			builder.AddAttribute(1002, "value", FormatValueAsString(Value));
 			builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+
+			if (this.InputModeEffective is not null)
+			{
+				builder.AddAttribute(1004, "inputmode", this.InputModeEffective.Value.ToString("f").ToLower());
+			}
+
 			builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 			builder.AddElementReferenceCapture(1005, elementReferece => InputElement = elementReferece);
 

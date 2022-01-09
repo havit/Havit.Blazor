@@ -3264,6 +3264,12 @@
             Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.InputMode">
+            <summary>
+            Hint to browsers as to the type of virtual keyboard configuration to use when editing.<br/>
+            Default is <c>null</c> (not set).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.BindEvent">
             <summary>
             Gets or sets the behavior when the model is updated from then input.
@@ -3686,6 +3692,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.InputSize">
             <summary>
             Input size.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.InputMode">
+            <summary>
+            Hint to browsers as to the type of virtual keyboard configuration to use when editing.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.LabelType">
