@@ -11,12 +11,12 @@
 	<HxInputDate Label="HxInputDate (default, DateTime?)" @bind-Value="@model.NullableDateTime" Placeholder="Datum narození" />
 	<HxInputDate Label="HxInputDate (default, DateTimeOffset)" @bind-Value="@model.DateTimeOffset" />
 	<HxInputDate Label="HxInputDate (default, DateTimeOffset?)" @bind-Value="@model.NullableDateTimeOffset" />
-	<HxInputDate Label="HxInputDate (bez CustomDates, bez validací)" @bind-Value="@model.DateTime" UseDefaultDates="false" ShowValidationMessage="false" />
-	<HxInputDate Label="HxInputDate (s vlastními CustomDates)" @bind-Value="@model.DateTime" CustomDates="@GetCustomDates()" />
-	<HxInputDate Label="HxInputDate (disabled)" @bind-Value="@model.DateTime" CustomDates="@GetCustomDates()" Enabled="false" />
-	<HxInputDate Label="HxInputDate (s CalendarIcon)" @bind-Value="@model.DateTime" CalendarIcon="BootstrapIcon.Calendar" />
-	<HxInputDate Label="HxInputDate (s CalendarIcon, bez DefaultDates)" @bind-Value="@model.DateTime" CalendarIcon="BootstrapIcon.Calendar" UseDefaultDates="false" />
-	<HxInputDate Label="HxInputDate (s MinDate, MaxDate)" @bind-Value="@model.DateTime" MinDate="new DateTime(1920, 3, 5)" MaxDate="new DateTime(1999, 6, 15)" UseDefaultDates="false" CalendarDateCustomizationProvider="GetCalendarDateCustomization" />
+	<HxInputDate Label="HxInputDate (wo/ PredefinedDates, wo/ validation)" @bind-Value="@model.DateTime" ShowPrefefinedDates="false" ShowValidationMessage="false" />
+	<HxInputDate Label="HxInputDate (custom PredefinedDates)" @bind-Value="@model.DateTime" PredefinedDates="@GetPredefinedDates()" />
+	<HxInputDate Label="HxInputDate (disabled)" @bind-Value="@model.DateTime" PredefinedDates="@GetPredefinedDates()" Enabled="false" />
+	<HxInputDate Label="HxInputDate (w/ CalendarIcon)" @bind-Value="@model.DateTime" CalendarIcon="BootstrapIcon.Calendar" />
+	<HxInputDate Label="HxInputDate (w/ CalendarIcon, wo/ PredefinedDates)" @bind-Value="@model.DateTime" CalendarIcon="BootstrapIcon.Calendar" ShowPrefefinedDates="false" />
+	<HxInputDate Label="HxInputDate (w/ MinDate, MaxDate)" @bind-Value="@model.DateTime" MinDate="new DateTime(1920, 3, 5)" MaxDate="new DateTime(1999, 6, 15)" ShowPrefefinedDates="false" CalendarDateCustomizationProvider="GetCalendarDateCustomization" />
 
 	<button type="submit">Submit</button>
 </EditForm>
@@ -24,11 +24,11 @@
 @code {
 	private FormModel model = new FormModel();
 
-	private IEnumerable<DateItem> GetCustomDates()
+	private IEnumerable<InputDatePredefinedDatesItem> GetPredefinedDates()
 	{
 		DateTime today = DateTime.Today;
-		yield return new DateItem { Label = "First of month", Date = new DateTime(today.Year, today.Month, 1) };
-		yield return new DateItem { Label = "Tomorrow", Date = today.AddDays(1) };
+		yield return new InputDatePredefinedDatesItem { Label = "First of month", Date = new DateTime(today.Year, today.Month, 1) };
+		yield return new InputDatePredefinedDatesItem { Label = "Tomorrow", Date = today.AddDays(1) };
 	}
 
 	private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request) => new CalendarDateCustomizationResult { Enabled = request.Date.Day % 2 != 0 };

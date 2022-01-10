@@ -21,7 +21,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public bool EnabledEffective { get; set; } = true;
 
-		[Parameter] public List<DateItem> CustomDates { get; set; }
+		[Parameter] public bool ShowPredefinedDatesEffective { get; set; }
+		[Parameter] public IEnumerable<InputDatePredefinedDatesItem> PredefinedDatesEffective { get; set; }
 
 		[Parameter] public string ParsingErrorMessageEffective { get; set; }
 
@@ -29,7 +30,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public InputSize? InputSize { get; set; }
 
-		[Parameter] public IconBase CalendarIcon { get; set; }
+		[Parameter] public IconBase CalendarIconEffective { get; set; }
 
 		[Parameter] public bool ShowCalendarButtonsEffective { get; set; } = true;
 

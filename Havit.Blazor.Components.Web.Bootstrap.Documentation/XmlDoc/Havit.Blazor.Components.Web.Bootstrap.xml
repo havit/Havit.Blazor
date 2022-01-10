@@ -2497,21 +2497,6 @@
             Gets the name of event as string.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DateItem">
-            <summary>
-            Date item for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate" />.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DateItem.Label">
-            <summary>
-            Custom label.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DateItem.Date">
-            <summary>
-            Date.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DateRangeItem">
             <summary>
             Date range item for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange" />.
@@ -2966,11 +2951,6 @@
             Defaults located in separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate"/>.
             </remarks>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.DefaultDates">
-            <summary>
-            Default dates offered in associated menu (e.g. Today, Yesterday, etc.).
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetDefaults">
             <summary>
             Returns application-wide defaults for the component.
@@ -2990,14 +2970,14 @@
             Simmilar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.Settings"/> in components descandants (by returning a derived settings class).
             </remarks>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.UseDefaultDates">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.ShowPrefefinedDates">
             <summary>
-            When <c>true</c>, uses default dates (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.DefaultDates"/>, e.g. Today).
+            When enabled (default is <c>true</c>), shows predefined days (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.PredefinedDates"/>, e.g. Today).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.CustomDates">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.PredefinedDates">
             <summary>
-            Custom date ranges. When <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.UseDefaultDates"/> is <c>true</c>, these items are used with default items.
+            Predefined dates to be displayed.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.ParsingErrorMessage">
@@ -3698,6 +3678,26 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.Dispose">
             <inheritdoc />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem">
+            <summary>
+            Item for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.PredefinedDates" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.Label">
+            <summary>
+            Custom label.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.ResourceType">
+            <summary>
+            Resource type for IStringLocalizer&lt;ResourceType&gt; where the localization will be searched.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.Date">
+            <summary>
+            Date.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings">
             <summary>
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/>.
@@ -3761,6 +3761,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.CalendarDateCustomizationProvider">
             <summary>
             Allows customization of the dates in dropdown calendars.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.ShowPrefefinedDates">
+            <summary>
+            When enabled, shows predefined days (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.PredefinedDates"/>, e.g. Today).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.PredefinedDates">
+            <summary>
+            Predefined dates to be displayed.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings">

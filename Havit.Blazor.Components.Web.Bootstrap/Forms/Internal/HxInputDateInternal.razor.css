@@ -1,16 +1,16 @@
-.hx-input-date > button, .hx-input-date:not(.custom-dates) .form-control {
-    border-top-right-radius: .25rem !important;
-    border-bottom-right-radius: .25rem !important;
+.hx-input-date > button, .hx-input-date:not(.hx-input-date-predefined-dates) .form-control {
+	border-top-right-radius: .25rem !important;
+	border-bottom-right-radius: .25rem !important;
 }
 
-.input-group-sm > .hx-input-date > button, .hx-input-date:not(.custom-dates) .form-control {
-    border-top-right-radius: .2rem !important;
-    border-bottom-right-radius: .2rem !important;
+.input-group-sm > .hx-input-date > button, .hx-input-date:not(.hx-input-date-predefined-dates) .form-control {
+	border-top-right-radius: .2rem !important;
+	border-bottom-right-radius: .2rem !important;
 }
 
-.input-group-lg > .hx-input-date > button, .hx-input-date:not(.custom-dates) .form-control {
-    border-top-right-radius: .3rem !important;
-    border-bottom-right-radius: .3rem !important;
+.input-group-lg > .hx-input-date > button, .hx-input-date:not(.hx-input-date-predefined-dates) .form-control {
+	border-top-right-radius: .3rem !important;
+	border-bottom-right-radius: .3rem !important;
 }
 
 .hx-input-date-icon {
@@ -18,7 +18,7 @@
     z-index: 1;
 }
 
-.hx-input-date-has-calendar-icon.custom-dates .hx-input-date-icon {
+.hx-input-date-has-calendar-icon.hx-input-date-predefined-dates .hx-input-date-icon {
 	margin-right: 3.5rem;
 }
 
@@ -30,7 +30,7 @@
 	padding-right: 4.25rem;
 }
 
-.hx-input-date-has-calendar-icon.input-group-lg.custom-dates .hx-input-date-icon {
+.hx-input-date-has-calendar-icon.input-group-lg.hx-input-date-predefined-dates .hx-input-date-icon {
 	margin-right: 4.5rem;
 }
 
@@ -38,8 +38,8 @@
 	padding-right: 4.75rem;
 }
 
-.hx-input-date-has-calendar-icon.input-group-sm.custom-dates .hx-input-date-icon {
-    margin-right: 2.5rem;
+.hx-input-date-has-calendar-icon.input-group-sm.hx-input-date-predefined-dates .hx-input-date-icon {
+	margin-right: 2.5rem;
 }
 
 .hx-input-date-has-calendar-icon.input-group-sm .form-control {
