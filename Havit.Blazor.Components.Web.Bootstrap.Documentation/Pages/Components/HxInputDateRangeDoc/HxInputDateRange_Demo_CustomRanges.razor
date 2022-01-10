@@ -1,11 +1,11 @@
-﻿<HxInputDateRange Label="HxInputDateRange" @bind-Value="value" CustomDateRanges="@GetDateRanges()" />
+﻿<HxInputDateRange Label="HxInputDateRange" @bind-Value="value" PredefinedDateRanges="@GetCustomDateRanges()" />
 
 @code {
 	private DateTimeRange value;
 
-	private IEnumerable<DateRangeItem> GetDateRanges()
+	private IEnumerable<InputDateRangePredefinedRangesItem> GetCustomDateRanges()
 	{
-		yield return new DateRangeItem
+		yield return new InputDateRangePredefinedRangesItem()
 		{
 			Label = "Today",
 			DateRange = new DateTimeRange
@@ -14,7 +14,7 @@
 				EndDate = DateTime.Today
 			}
 		};
-		yield return new DateRangeItem
+		yield return new InputDateRangePredefinedRangesItem()
 		{
 			Label = "Next year",
 			DateRange = new DateTimeRange

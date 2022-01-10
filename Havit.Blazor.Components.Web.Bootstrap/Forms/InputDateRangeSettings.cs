@@ -32,5 +32,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Allows customization of the dates in dropdown calendars.
 		/// </summary>
 		public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
+
+		/// <summary>
+		/// When enabled, shows predefined day ranges (from <see cref="HxInputDateRange.PredefinedDateRanges"/>, e.g. Today).
+		/// </summary>
+		public bool? ShowPredefinedDateRanges { get; set; }
+
+		/// <summary>
+		/// Predefined date ranges to be displayed.
+		/// </summary>
+		public IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRanges { get; set; }
 	}
 }

@@ -24,7 +24,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public bool ShowValidationMessage { get; set; } = true;
 
-		[Parameter] public List<DateRangeItem> CustomDateRanges { get; set; }
+		[Parameter] public bool ShowPredefinedDateRangesEffective { get; set; }
+		[Parameter] public IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRangesEffective { get; set; }
 
 		[Parameter] public string FromParsingErrorMessageEffective { get; set; }
 
@@ -38,7 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective { get; set; }
 
-		[Inject] protected IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
+		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 

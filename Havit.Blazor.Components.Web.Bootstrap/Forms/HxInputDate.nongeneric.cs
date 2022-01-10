@@ -19,7 +19,7 @@
 				MinDate = HxCalendar.DefaultMinDate,
 				MaxDate = HxCalendar.DefaultMaxDate,
 				ShowCalendarButtons = true,
-				ShowPrefefinedDates = true,
+				ShowPredefinedDates = true,
 				PredefinedDates = new List<InputDatePredefinedDatesItem>() { new InputDatePredefinedDatesItem() { Label = "Today", ResourceType = typeof(HxInputDate), Date = DateTime.Today } }
 			};
 		}

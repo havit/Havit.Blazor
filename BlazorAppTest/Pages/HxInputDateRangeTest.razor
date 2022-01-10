@@ -7,9 +7,9 @@
 		<ValidationSummary />
 
 		<HxInputDateRange Label="HxInputDateRange (default)" @bind-Value="@model.DateTimeRange" CalendarDateCustomizationProvider="GetCalendarDateCustomization" />
-		<HxInputDateRange Label="HxInputDateRange (no DateRanges, no validation)" @bind-Value="@model.DateTimeRange" UseDefaultDateRanges="false" ShowValidationMessage="false" />
-		<HxInputDateRange Label="HxInputDateRange (custom DateRanges)" @bind-Value="@model.DateTimeRange" CustomDateRanges="@GetDateRanges()" />
-		<HxInputDateRange Label="HxInputDateRange (disabled)" @bind-Value="@model.DateTimeRange" CustomDateRanges="@GetDateRanges()" Enabled="false" />
+		<HxInputDateRange Label="HxInputDateRange (no DateRanges, no validation)" @bind-Value="@model.DateTimeRange" ShowPredefinedDateRanges="false" ShowValidationMessage="false" />
+		<HxInputDateRange Label="HxInputDateRange (custom DateRanges)" @bind-Value="@model.DateTimeRange" PredefinedDateRanges="@GetPredefinedDateRanges()" />
+		<HxInputDateRange Label="HxInputDateRange (disabled)" @bind-Value="@model.DateTimeRange" PredefinedDateRanges="@GetPredefinedDateRanges()" Enabled="false" />
 
 		<button type="submit">Submit</button>
 	</EditForm>
@@ -18,10 +18,10 @@
 	@code {
 		private FormModel model = new FormModel();
 
-		private IEnumerable<DateRangeItem> GetDateRanges()
+		private IEnumerable<InputDateRangePredefinedRangesItem> GetPredefinedDateRanges()
 		{
-			yield return new DateRangeItem { Label = "Today", DateRange = new DateTimeRange { StartDate = DateTime.Today, EndDate = DateTime.Today } };
-			yield return new DateRangeItem { Label = "Whole year", DateRange = new DateTimeRange { StartDate = new DateTime(DateTime.Today.Year, 1, 1), EndDate = new DateTime(DateTime.Today.Year, 12, 31) } };
+			yield return new InputDateRangePredefinedRangesItem { Label = "Today", DateRange = new DateTimeRange { StartDate = DateTime.Today, EndDate = DateTime.Today } };
+			yield return new InputDateRangePredefinedRangesItem { Label = "Whole year", DateRange = new DateTimeRange { StartDate = new DateTime(DateTime.Today.Year, 1, 1), EndDate = new DateTime(DateTime.Today.Year, 12, 31) } };
 		}
 
 		private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request)

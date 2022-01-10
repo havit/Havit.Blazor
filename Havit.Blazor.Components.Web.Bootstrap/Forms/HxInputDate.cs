@@ -51,8 +51,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// When enabled (default is <c>true</c>), shows predefined days (from <see cref="PredefinedDates"/>, e.g. Today).
 		/// </summary>
-		[Parameter] public bool? ShowPrefefinedDates { get; set; }
-		protected bool ShowPrefefinedDatesEffective => this.ShowPrefefinedDates ?? this.Settings?.ShowPrefefinedDates ?? GetDefaults().ShowPrefefinedDates ?? throw new InvalidOperationException(nameof(ShowPrefefinedDates) + " default for " + nameof(HxInputDate) + " has to be set.");
+		[Parameter] public bool? ShowPredefinedDates { get; set; }
+		protected bool ShowPredefinedDatesEffective => this.ShowPredefinedDates ?? this.Settings?.ShowPredefinedDates ?? GetDefaults().ShowPredefinedDates ?? throw new InvalidOperationException(nameof(ShowPredefinedDates) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 		/// <summary>
 		/// Predefined dates to be displayed.
@@ -147,7 +147,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.InputSize), ((IInputWithSize)this).InputSizeEffective);
 			builder.AddAttribute(206, nameof(HxInputDateInternal<TValue>.CalendarIconEffective), this.CalendarIconEffective);
 			builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.PredefinedDatesEffective), this.PredefinedDatesEffective);
-			builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.ShowPredefinedDatesEffective), this.ShowPrefefinedDatesEffective);
+			builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.ShowPredefinedDatesEffective), this.ShowPredefinedDatesEffective);
 			builder.AddAttribute(208, nameof(HxInputDateInternal<TValue>.ShowCalendarButtonsEffective), ShowCalendarButtonsEffective);
 			builder.AddAttribute(209, nameof(HxInputDateInternal<TValue>.MinDateEffective), MinDateEffective);
 			builder.AddAttribute(210, nameof(HxInputDateInternal<TValue>.MaxDateEffective), MaxDateEffective);

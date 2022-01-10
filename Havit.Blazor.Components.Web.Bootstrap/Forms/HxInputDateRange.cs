@@ -20,8 +20,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	{
-		public static List<DateRangeItem> DefaultDateRanges { get; set; }
-
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputDateRange"/>.
 		/// </summary>
@@ -29,12 +27,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		static HxInputDateRange()
 		{
+			DateTime today = DateTime.Today;
+
+			DateTime thisMonthStart = new DateTime(today.Year, today.Month, 1);
+			DateTime thisMonthEnd = new DateTime(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month));
+			DateTime lastMonthStart = thisMonthStart.AddMonths(-1);
+			DateTime lastMonthEnd = new DateTime(lastMonthStart.Year, lastMonthStart.Month, DateTime.DaysInMonth(lastMonthStart.Year, lastMonthStart.Month));
+			DateTime thisYearStart = new DateTime(today.Year, 1, 1);
+			DateTime thisYearEnd = new DateTime(today.Year, 12, 31);
+			DateTime lastYearStart = thisYearStart.AddYears(-1);
+			DateTime lastYearEnd = thisYearEnd.AddYears(-1);
+
 			Defaults = new InputDateRangeSettings()
 			{
 				InputSize = Bootstrap.InputSize.Regular,
 				MinDate = HxCalendar.DefaultMinDate,
 				MaxDate = HxCalendar.DefaultMaxDate,
 				ShowCalendarButtons = true,
+				ShowPredefinedDateRanges = true,
+				PredefinedDateRanges = new[]
+				{
+					new InputDateRangePredefinedRangesItem { Label = "ThisMonth", DateRange = new DateTimeRange { StartDate = thisMonthStart, EndDate = thisMonthEnd }, ResourceType = typeof(HxInputDateRange) },
+					new InputDateRangePredefinedRangesItem { Label = "LastMonth", DateRange = new DateTimeRange { StartDate = lastMonthStart, EndDate = lastMonthEnd }, ResourceType = typeof(HxInputDateRange) },
+					new InputDateRangePredefinedRangesItem { Label = "ThisYear", DateRange = new DateTimeRange { StartDate = thisYearStart, EndDate = thisYearEnd }, ResourceType = typeof(HxInputDateRange) },
+					new InputDateRangePredefinedRangesItem { Label = "LastYear", DateRange = new DateTimeRange { StartDate = lastYearStart, EndDate = lastYearEnd }, ResourceType = typeof(HxInputDateRange) },
+				}
 			};
 		}
 
@@ -61,14 +78,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 
 		/// <summary>
-		/// When <c>true</c>, uses default date ranges (this month, last month, this year, last year).
+		/// When enabled (default is <c>true</c>), shows predefined days (from <see cref="PredefinedDateRanges"/>, e.g. Today).
 		/// </summary>
-		[Parameter] public bool UseDefaultDateRanges { get; set; } = true;
+		[Parameter] public bool? ShowPredefinedDateRanges { get; set; }
+		protected bool ShowPredefinedDateRangesEffective => this.ShowPredefinedDateRanges ?? this.Settings?.ShowPredefinedDateRanges ?? GetDefaults().ShowPredefinedDateRanges ?? throw new InvalidOperationException(nameof(ShowPredefinedDateRanges) + " default for " + nameof(HxInputDateRange) + " has to be set.");
 
 		/// <summary>
-		/// Custom date ranges. When <see cref="UseDefaultDateRanges"/> is <c>true</c>, these items are used with default items.
+		/// Predefined dates to be displayed.
 		/// </summary>
-		[Parameter] public IEnumerable<DateRangeItem> CustomDateRanges { get; set; }
+		[Parameter] public IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRanges { get; set; }
+		private IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRangesEffective => this.PredefinedDateRanges ?? this.GetSettings()?.PredefinedDateRanges ?? GetDefaults().PredefinedDateRanges;
 
 		/// <inheritdoc cref="Bootstrap.InputSize" />
 		[Parameter] public InputSize? InputSize { get; set; }
@@ -135,7 +154,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(203, nameof(HxInputDateRangeInternal.FromParsingErrorMessageEffective), GetFromParsingErrorMessage());
 			builder.AddAttribute(204, nameof(HxInputDateRangeInternal.ToParsingErrorMessageEffective), GetToParsingErrorMessage());
 			builder.AddAttribute(205, nameof(HxInputDateRangeInternal.ShowValidationMessage), ShowValidationMessage);
-			builder.AddAttribute(206, nameof(HxInputDateRangeInternal.CustomDateRanges), GetCustomDateRanges().ToList());
+			builder.AddAttribute(206, nameof(HxInputDateRangeInternal.PredefinedDateRangesEffective), this.PredefinedDateRangesEffective);
+			builder.AddAttribute(206, nameof(HxInputDateRangeInternal.ShowPredefinedDateRangesEffective), this.ShowPredefinedDateRangesEffective);
 			builder.AddAttribute(207, nameof(HxInputDateRangeInternal.ShowCalendarButtonsEffective), ShowCalendarButtonsEffective);
 			builder.AddAttribute(208, nameof(HxInputDateRangeInternal.MinDateEffective), MinDateEffective);
 			builder.AddAttribute(219, nameof(HxInputDateRangeInternal.MaxDateEffective), MaxDateEffective);
@@ -177,46 +197,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out DateTimeRange result, [NotNullWhen(false)] out string validationErrorMessage)
 		{
 			throw new NotSupportedException();
-		}
-
-		private IEnumerable<DateRangeItem> GetCustomDateRanges()
-		{
-			if (CustomDateRanges != null)
-			{
-				foreach (DateRangeItem dateRangeItem in CustomDateRanges)
-				{
-					yield return dateRangeItem;
-				}
-			}
-
-			if (UseDefaultDateRanges)
-			{
-				if (DefaultDateRanges != null)
-				{
-					foreach (DateRangeItem defaultDateRangeItem in DefaultDateRanges)
-					{
-						yield return defaultDateRangeItem;
-					}
-				}
-				else
-				{
-					DateTime today = DateTime.Today;
-
-					DateTime thisMonthStart = new DateTime(today.Year, today.Month, 1);
-					DateTime thisMonthEnd = new DateTime(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month));
-					DateTime lastMonthStart = thisMonthStart.AddMonths(-1);
-					DateTime lastMonthEnd = new DateTime(lastMonthStart.Year, lastMonthStart.Month, DateTime.DaysInMonth(lastMonthStart.Year, lastMonthStart.Month));
-					DateTime thisYearStart = new DateTime(today.Year, 1, 1);
-					DateTime thisYearEnd = new DateTime(today.Year, 12, 31);
-					DateTime lastYearStart = thisYearStart.AddYears(-1);
-					DateTime lastYearEnd = thisYearEnd.AddYears(-1);
-
-					yield return new DateRangeItem { Label = StringLocalizer["ThisMonth"], DateRange = new DateTimeRange { StartDate = thisMonthStart, EndDate = thisMonthEnd } };
-					yield return new DateRangeItem { Label = StringLocalizer["LastMonth"], DateRange = new DateTimeRange { StartDate = lastMonthStart, EndDate = lastMonthEnd } };
-					yield return new DateRangeItem { Label = StringLocalizer["ThisYear"], DateRange = new DateTimeRange { StartDate = thisYearStart, EndDate = thisYearEnd } };
-					yield return new DateRangeItem { Label = StringLocalizer["LastYear"], DateRange = new DateTimeRange { StartDate = lastYearStart, EndDate = lastYearEnd } };
-				}
-			}
 		}
 
 		/// <summary>

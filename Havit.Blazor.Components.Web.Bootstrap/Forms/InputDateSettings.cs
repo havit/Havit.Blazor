@@ -42,12 +42,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// When enabled, shows predefined days (from <see cref="HxInputDate{TValue}.PredefinedDates"/>, e.g. Today).
 		/// </summary>
-		public bool? ShowPrefefinedDates { get; set; }
+		public bool? ShowPredefinedDates { get; set; }
 
 		/// <summary>
 		/// Predefined dates to be displayed.
 		/// </summary>
-		public List<InputDatePredefinedDatesItem> PredefinedDates { get; set; }
-
+		public IEnumerable<InputDatePredefinedDatesItem> PredefinedDates { get; set; }
 	}
 }
