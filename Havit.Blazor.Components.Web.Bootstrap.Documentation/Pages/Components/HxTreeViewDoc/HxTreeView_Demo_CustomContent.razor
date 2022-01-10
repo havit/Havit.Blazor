@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-4" style="height: 400px">
+    <div class="col-lg-4" style="height: 400px">
         <HxTreeView TItem="Directory"
                     @bind-SelectedItem="selectedDirectory"
                     Items="@fileSystem"
@@ -19,7 +19,7 @@
             </ItemTemplate>
         </HxTreeView>
     </div>
-    <div class="col-4">
+    <div class="col-lg-4">
         @if (selectedDirectory == null)
         {
             <p>No directory selected.</p>
