@@ -21,6 +21,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public ThemeColor Color { get; set; }
 
+		/// <summary>
+		/// Color of badge text. Use <see cref="Color"/> for the background color.
+		/// Default is <see cref="ThemeColor.None"/> (color automatically selected to work with chosen background color).
+		/// </summary>
 		[Parameter] public ThemeColor TextColor { get; set; } = ThemeColor.None;
 
 		/// <summary>

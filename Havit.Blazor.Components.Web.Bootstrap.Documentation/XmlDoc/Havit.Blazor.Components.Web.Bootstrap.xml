@@ -143,6 +143,12 @@
             Badge color (background). Required.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.TextColor">
+            <summary>
+            Color of badge text. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Color"/> for the background color.
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> (color automatically selected to work with chosen background color).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Type">
             <summary>
             Badge type - Regular or rounded-pills.
@@ -3799,8 +3805,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating">
             <summary>
-             Floating label. Not supported on all components.
-            <a href="https://getbootstrap.com/docs/5.0/forms/floating-labels/" />
+            <see href="https://getbootstrap.com/docs/5.0/forms/floating-labels/">Floating label</see>. (Not supported on all components.)
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">
