@@ -24,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual Task InvokeOnChipRemoveClickAsync(ChipItem chipRemoved) => OnChipRemoveClick.InvokeAsync(chipRemoved);
 
-		public async Task HandleRemoveClick(ChipItem chipItemToRemove)
+		private async Task HandleRemoveClick(ChipItem chipItemToRemove)
 		{
 			await InvokeOnChipRemoveClickAsync(chipItemToRemove);
 		}
