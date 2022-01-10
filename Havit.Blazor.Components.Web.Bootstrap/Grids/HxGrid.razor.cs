@@ -267,6 +267,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				// await: This adds one more render before OnParameterSetAsync is finished.
 				// We consider it safe because we already have some data.
 				// But for a moment (before data is refreshed (= before OnParametersSetAsync is finished), the component is rendered with a new user state and with old data).
+				previousUserState = CurrentUserState;
 				await RefreshDataAsync();
 			}
 			previousUserState = CurrentUserState;
