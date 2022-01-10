@@ -26,7 +26,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
 		protected virtual FormValueSettings GetDefaults() => Defaults;
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
@@ -40,7 +39,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 		/// </remarks>
 		protected virtual FormValueSettings GetSettings() => this.Settings;
-		IInputSettingsWithSize IInputWithSize.GetSettings() => GetSettings();
 
 
 		/// <inheritdoc cref="IFormValueComponent.CssClass" />
@@ -88,8 +86,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc cref="IFormValueComponentWithInputGroups.InputGroupEndTemplate" />
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
-		/// <inheritdoc cref="IInputWithSize.InputSize" />
+		/// <summary>
+		/// Size of the input.
+		/// </summary>
 		[Parameter] public InputSize? InputSize { get; set; }
+		protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxFormValue) + " has to be set.");
+		InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
 
 
 		/// <inheritdoc />

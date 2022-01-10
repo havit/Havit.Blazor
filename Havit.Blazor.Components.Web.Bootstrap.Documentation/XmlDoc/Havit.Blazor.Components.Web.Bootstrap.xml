@@ -1947,7 +1947,9 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputSize">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
+            <summary>
+            Size of the input.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
@@ -2111,22 +2113,8 @@
             Adds <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer"/> to a builder.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.GetDefaults">
-            <summary>
-            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants which differs in the default values.
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.DisposeAsync">
             <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal.GetDefaults">
-            <summary>
-            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> defaults.
-            Enables to not share defaults in descandants with base classes.
-            Enables to have multiple descendants which differs in the default values.
-            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal.DisposeAsync">
             <inheritdoc />
@@ -2274,7 +2262,7 @@
             Input with sizing support.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.InputSize">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.InputSizeEffective">
             <summary>
             Input size.
             </summary>
@@ -2649,7 +2637,9 @@
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.InputSize">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.InputSize" />
+            <summary>
+            Size of the input.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
@@ -2975,7 +2965,9 @@
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithPlaceholder.Placeholder" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputSize">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
+            <summary>
+            Size of the input.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.CalendarIcon">
             <summary>
@@ -3068,18 +3060,20 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.InputSize">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
+            <summary>
+            Size of the input.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromParsingErrorMessage">
             <summary>
             Gets or sets the error message used when displaying an a &quot;from&quot; parsing error.
-            Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
+            Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by Label property, <c>{1}</c> name of bounded property.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ToParsingErrorMessage">
             <summary>
             Gets or sets the error message used when displaying an a &quot;to&quot; parsing error.
-            Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
+            Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by Label property, <c>{1}</c> name of bounded property.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ShowCalendarButtons">
@@ -3172,7 +3166,9 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.InputSize">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
+            <summary>
+            Size of the input.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
@@ -3332,7 +3328,9 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.InputSize">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
+            <summary>
+            Size of the input.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
@@ -3545,7 +3543,9 @@
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.InputSize">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
+            <summary>
+            Size of the input.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.NullableImpl">
             <summary>
@@ -6921,7 +6921,9 @@
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputSize">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.InputSize" />
+            <summary>
+            Size of the input.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />

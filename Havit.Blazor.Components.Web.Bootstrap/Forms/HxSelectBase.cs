@@ -26,7 +26,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
 		protected virtual SelectSettings GetDefaults() => HxSelect.Defaults;
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="HxSelect.Defaults"/>, overriden by individual parameters).
@@ -40,11 +39,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 		/// </remarks>
 		protected virtual SelectSettings GetSettings() => this.Settings;
-		IInputSettingsWithSize IInputWithSize.GetSettings() => GetSettings();
 
 
-		/// <inheritdoc cref="Bootstrap.InputSize" />
+		/// <summary>
+		/// Size of the input.
+		/// </summary>
 		[Parameter] public InputSize? InputSize { get; set; }
+		protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSelect) + " has to be set.");
+		InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
 
 		/// <summary>
 		/// Indicates when <c>null</c> is a valid value.

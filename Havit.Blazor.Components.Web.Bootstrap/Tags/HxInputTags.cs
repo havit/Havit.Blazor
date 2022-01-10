@@ -36,7 +36,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
 		protected virtual InputTagsSettings GetDefaults() => Defaults;
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
@@ -50,7 +49,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 		/// </remarks>
 		protected virtual InputTagsSettings GetSettings() => this.Settings;
-		IInputSettingsWithSize IInputWithSize.GetSettings() => GetSettings();
 
 
 		/// <summary>
@@ -126,8 +124,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc cref="HxInputBase{TValue}" />
 		[Parameter] public LabelType? LabelType { get; set; }
 
-		/// <inheritdoc cref="Bootstrap.InputSize" />
+		/// <summary>
+		/// Size of the input.
+		/// </summary>
 		[Parameter] public InputSize? InputSize { get; set; }
+		protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputTags) + " has to be set.");
+		InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
 
 
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;

@@ -18,7 +18,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public string InputCssClass { get; set; }
 
-		[Parameter] public InputSize? InputSize { get; set; }
+		[Parameter] public InputSize InputSizeEffective { get; set; }
 
 		[Parameter] public bool EnabledEffective { get; set; } = true;
 
@@ -55,15 +55,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private ElementReference fromInputElement;
 		private ElementReference toInputElement;
 		private IJSObjectReference jsModule;
-
-		/// <summary>
-		/// Returns <see cref="HxInputDateRange"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual InputDateRangeSettings GetDefaults() => HxInputDateRange.Defaults;
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		IInputSettingsWithSize IInputWithSize.GetSettings() => null; // internal component
 
 		protected override void OnParametersSet()
 		{

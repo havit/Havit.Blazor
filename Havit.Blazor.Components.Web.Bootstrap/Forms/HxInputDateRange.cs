@@ -60,7 +60,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
 		protected virtual InputDateRangeSettings GetDefaults() => Defaults;
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
@@ -74,7 +73,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 		/// </remarks>
 		protected virtual InputDateRangeSettings GetSettings() => this.Settings;
-		IInputSettingsWithSize IInputWithSize.GetSettings() => GetSettings();
 
 
 		/// <summary>
@@ -89,18 +87,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRanges { get; set; }
 		private IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRangesEffective => this.PredefinedDateRanges ?? this.GetSettings()?.PredefinedDateRanges ?? GetDefaults().PredefinedDateRanges;
 
-		/// <inheritdoc cref="Bootstrap.InputSize" />
+		/// <summary>
+		/// Size of the input.
+		/// </summary>
 		[Parameter] public InputSize? InputSize { get; set; }
+		protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputDateRange) + " has to be set.");
+		InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
 
 		/// <summary>
 		/// Gets or sets the error message used when displaying an a &quot;from&quot; parsing error.
-		/// Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
+		/// Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by Label property, <c>{1}</c> name of bounded property.
 		/// </summary>
 		[Parameter] public string FromParsingErrorMessage { get; set; }
 
 		/// <summary>
 		/// Gets or sets the error message used when displaying an a &quot;to&quot; parsing error.
-		/// Used with String.Format(...), {0} is replaced by Label property, {1} name of bounded property.
+		/// Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by Label property, <c>{1}</c> name of bounded property.
 		/// </summary>
 		[Parameter] public string ToParsingErrorMessage { get; set; }
 
@@ -149,7 +151,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			builder.AddAttribute(200, nameof(HxInputDateRangeInternal.FromInputId), InputId);
 			builder.AddAttribute(201, nameof(HxInputDateRangeInternal.InputCssClass), GetInputCssClassToRender());
-			builder.AddAttribute(201, nameof(HxInputDateRangeInternal.InputSize), InputSize);
+			builder.AddAttribute(201, nameof(HxInputDateRangeInternal.InputSizeEffective), this.InputSizeEffective);
 			builder.AddAttribute(202, nameof(HxInputDateRangeInternal.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(203, nameof(HxInputDateRangeInternal.FromParsingErrorMessageEffective), GetFromParsingErrorMessage());
 			builder.AddAttribute(204, nameof(HxInputDateRangeInternal.ToParsingErrorMessageEffective), GetToParsingErrorMessage());

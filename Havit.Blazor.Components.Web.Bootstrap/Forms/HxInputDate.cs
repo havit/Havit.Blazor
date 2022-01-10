@@ -31,7 +31,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
 		protected virtual InputDateSettings GetDefaults() => HxInputDate.Defaults;
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDate.Defaults"/>, overriden by individual parameters).
@@ -45,7 +44,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 		/// </remarks>
 		protected virtual InputDateSettings GetSettings() => this.Settings;
-		IInputSettingsWithSize IInputWithSize.GetSettings() => GetSettings();
 
 
 		/// <summary>
@@ -69,8 +67,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc cref="IInputWithPlaceholder.Placeholder" />
 		[Parameter] public string Placeholder { get; set; }
 
-		/// <inheritdoc cref="Bootstrap.InputSize" />
+		/// <summary>
+		/// Size of the input.
+		/// </summary>
 		[Parameter] public InputSize? InputSize { get; set; }
+		protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputDate) + " has to be set.");
+		InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
 
 		/// <summary>
 		/// Optional icon to display within the input. Use <see cref="HxInputDate.Defaults"/> to set the icon for the whole project.
@@ -144,7 +146,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.ParsingErrorMessageEffective), GetParsingErrorMessage());
 			builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
 
-			builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.InputSize), ((IInputWithSize)this).InputSizeEffective);
+			builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.InputSizeEffective), this.InputSizeEffective);
 			builder.AddAttribute(206, nameof(HxInputDateInternal<TValue>.CalendarIconEffective), this.CalendarIconEffective);
 			builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.PredefinedDatesEffective), this.PredefinedDatesEffective);
 			builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.ShowPredefinedDatesEffective), this.ShowPredefinedDatesEffective);

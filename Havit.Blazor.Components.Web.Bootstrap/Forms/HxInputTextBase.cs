@@ -23,7 +23,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
 		protected abstract InputTextSettings GetDefaults();
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputText.Defaults"/>, overriden by individual parameters).
@@ -37,7 +36,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 		/// </remarks>
 		protected virtual InputTextSettings GetSettings() => this.Settings;
-		IInputSettingsWithSize IInputWithSize.GetSettings() => GetSettings();
 
 
 		/// <summary>
@@ -57,8 +55,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
 
-		/// <inheritdoc cref="Bootstrap.InputSize" />
+		/// <summary>
+		/// Size of the input.
+		/// </summary>
 		[Parameter] public InputSize? InputSize { get; set; }
+		protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputNumber) + " has to be set.");
+		InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
 
 		/// <inheritdoc cref="Bootstrap.LabelType" />
 		[Parameter] public LabelType? LabelType { get; set; }
@@ -83,8 +85,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.AddAttribute(1004, "inputmode", this.InputModeEffective.Value.ToString("f").ToLower());
 			}
 
-			builder.AddEventStopPropagationAttribute(1004, "onclick", true);
-			builder.AddElementReferenceCapture(1005, elementReferece => InputElement = elementReferece);
+			builder.AddEventStopPropagationAttribute(1005, "onclick", true);
+			builder.AddElementReferenceCapture(1006, elementReferece => InputElement = elementReferece);
 
 			builder.CloseElement();
 		}
