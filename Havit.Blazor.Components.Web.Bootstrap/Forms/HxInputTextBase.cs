@@ -16,10 +16,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
-		/// <summary>
-		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputText.Defaults"/>, overriden by individual parameters).
-		/// </summary>
-		[Parameter] public InputTextSettings Settings { get; set; }
 
 		/// <summary>
 		/// Return <see cref="HxInputText"/> defaults.
@@ -28,14 +24,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected abstract InputTextSettings GetDefaults();
 		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputText.Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public InputTextSettings Settings { get; set; }
+
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual InputTextSettings GetSettings() => this.Settings;
+		IInputSettingsWithSize IInputWithSize.GetSettings() => GetSettings();
+
 
 		/// <summary>
 		/// Hint to browsers as to the type of virtual keyboard configuration to use when editing.<br/>
 		/// Default is <c>null</c> (not set).
 		/// </summary>
 		[Parameter] public InputMode? InputMode { get; set; }
-		protected InputMode? InputModeEffective => this.InputMode ?? this.Settings?.InputMode ?? this.GetDefaults()?.InputMode;
+		protected InputMode? InputModeEffective => this.InputMode ?? this.GetSettings()?.InputMode ?? this.GetDefaults()?.InputMode;
 
 		/// <summary>
 		/// Gets or sets the behavior when the model is updated from then input.

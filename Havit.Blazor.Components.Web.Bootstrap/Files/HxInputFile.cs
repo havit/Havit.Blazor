@@ -28,12 +28,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual InputFileSettings GetDefaults() => Defaults;
 		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
 		/// </summary>
-		[Parameter] public InputDateRangeSettings Settings { get; set; }
+		[Parameter] public InputFileSettings Settings { get; set; }
+
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual InputFileSettings GetSettings() => this.Settings;
+		IInputSettingsWithSize IInputWithSize.GetSettings() => GetSettings();
+
 
 		/// <summary>
 		/// URL of the server endpoint receiving the files.

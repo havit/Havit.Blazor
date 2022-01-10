@@ -21,12 +21,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual AutosuggestSettings GetDefaults() => HxAutosuggest.Defaults;
 		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="HxAutosuggest.Defaults"/>, overriden by individual parameters).
 		/// </summary>
 		[Parameter] public AutosuggestSettings Settings { get; set; }
+
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual AutosuggestSettings GetSettings() => this.Settings;
+		IInputSettingsWithSize IInputWithSize.GetSettings() => GetSettings();
+
 
 		/// <summary>
 		/// Method (delegate) which provides data of the suggestions.
@@ -60,25 +69,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Icon displayed in input when no item is selected.
 		/// </summary>
 		[Parameter] public IconBase SearchIcon { get; set; }
-		protected IconBase SearchIconEffective => this.SearchIcon ?? this.Settings?.SearchIcon ?? GetDefaults().SearchIcon;
+		protected IconBase SearchIconEffective => this.SearchIcon ?? this.GetSettings()?.SearchIcon ?? GetDefaults().SearchIcon;
 
 		/// <summary>
 		/// Icon displayed in input on selection clear button when item is selected.
 		/// </summary>
 		[Parameter] public IconBase ClearIcon { get; set; }
-		protected IconBase ClearIconEffective => this.ClearIcon ?? this.Settings?.ClearIcon ?? GetDefaults().ClearIcon;
+		protected IconBase ClearIconEffective => this.ClearIcon ?? this.GetSettings()?.ClearIcon ?? GetDefaults().ClearIcon;
 
 		/// <summary>
 		/// Minimal number of characters to start suggesting.
 		/// </summary>
 		[Parameter] public int? MinimumLength { get; set; }
-		protected int MinimumLengthEffective => this.MinimumLength ?? this.Settings?.MinimumLength ?? GetDefaults().MinimumLength ?? throw new InvalidOperationException(nameof(MinimumLength) + " default for " + nameof(HxAutosuggest) + " has to be set.");
+		protected int MinimumLengthEffective => this.MinimumLength ?? this.GetSettings()?.MinimumLength ?? GetDefaults().MinimumLength ?? throw new InvalidOperationException(nameof(MinimumLength) + " default for " + nameof(HxAutosuggest) + " has to be set.");
 
 		/// <summary>
 		/// Debounce delay in miliseconds.
 		/// </summary>
 		[Parameter] public int? Delay { get; set; }
-		protected int DelayEffective => this.Delay ?? this.Settings?.Delay ?? GetDefaults().Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxAutosuggest) + " has to be set.");
+		protected int DelayEffective => this.Delay ?? this.GetSettings()?.Delay ?? GetDefaults().Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxAutosuggest) + " has to be set.");
 
 		/// <summary>
 		/// Short hint displayed in the input field before the user enters a value.

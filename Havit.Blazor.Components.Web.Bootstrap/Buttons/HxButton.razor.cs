@@ -40,6 +40,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public ButtonSettings Settings { get; set; }
 
 		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual ButtonSettings GetSettings() => this.Settings;
+
+		/// <summary>
 		/// Text of the button.
 		/// </summary>
 		[Parameter] public string Text { get; set; }
@@ -53,39 +61,39 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Icon to render into the button.
 		/// </summary>
 		[Parameter] public IconBase Icon { get; set; }
-		protected IconBase IconEffective => this.Icon ?? this.Settings?.Icon ?? GetDefaults().Icon;
+		protected IconBase IconEffective => this.Icon ?? this.GetSettings()?.Icon ?? GetDefaults().Icon;
 
 		/// <summary>
 		/// Position of the icon within the button. Default is <see cref="ButtonIconPlacement.Start" /> (configurable through <see cref="HxButton.Defaults"/>).
 		/// </summary>
 		[Parameter] public ButtonIconPlacement? IconPlacement { get; set; }
-		protected ButtonIconPlacement IconPlacementEffective => this.IconPlacement ?? this.Settings?.IconPlacement ?? GetDefaults()?.IconPlacement ?? throw new InvalidOperationException(nameof(IconPlacement) + " default for " + nameof(HxButton) + " has to be set.");
+		protected ButtonIconPlacement IconPlacementEffective => this.IconPlacement ?? this.GetSettings()?.IconPlacement ?? GetDefaults()?.IconPlacement ?? throw new InvalidOperationException(nameof(IconPlacement) + " default for " + nameof(HxButton) + " has to be set.");
 
 		/// <summary>
 		/// Bootstrap button style - theme color.<br />
 		/// Default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
 		/// </summary>
 		[Parameter] public ThemeColor? Color { get; set; }
-		protected ThemeColor ColorEffective => this.Color ?? this.Settings?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(ThemeColor) + " default for " + nameof(HxButton) + " has to be set.");
+		protected ThemeColor ColorEffective => this.Color ?? this.GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(ThemeColor) + " default for " + nameof(HxButton) + " has to be set.");
 
 		/// <summary>
 		/// Button size. Default is <see cref="ButtonSize.Regular"/>.
 		/// </summary>
 		[Parameter] public ButtonSize? Size { get; set; }
-		protected ButtonSize SizeEffective => this.Size ?? this.Settings?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxButton) + " has to be set.");
+		protected ButtonSize SizeEffective => this.Size ?? this.GetSettings()?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxButton) + " has to be set.");
 
 		/// <summary>
 		/// <see href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
 		/// </summary>
 		[Parameter] public bool? Outline { get; set; }
-		protected bool OutlineEffective => this.Outline ?? this.Settings?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxButton) + " has to be set.");
+		protected bool OutlineEffective => this.Outline ?? this.GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxButton) + " has to be set.");
 
 		/// <summary>
 		/// Custom CSS class to render with the <c>&lt;button /&gt;</c>.<br />
 		/// When using <see cref="Tooltip"/> you might want to use <see cref="TooltipWrapperCssClass"/> instead of <see cref="CssClass" /> to get the desired result.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
-		protected string CssClassEffective => this.CssClass ?? this.Settings?.CssClass ?? GetDefaults().CssClass;
+		protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 		/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 		[Parameter] public bool? Enabled { get; set; }

@@ -25,17 +25,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(int), typeof(long), typeof(float), typeof(double), typeof(decimal) };
 
 		/// <summary>
-		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputNumber.Defaults"/>, overriden by individual parameters).
-		/// </summary>
-		[Parameter] public InputNumberSettings Settings { get; set; }
-
-		/// <summary>
 		/// Returns application-wide defaults for the component.
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
 		protected virtual InputNumberSettings GetDefaults() => HxInputNumber.Defaults;
 		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputNumber.Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public InputNumberSettings Settings { get; set; }
+
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual InputNumberSettings GetSettings() => this.Settings;
+		IInputSettingsWithSize IInputWithSize.GetSettings() => GetSettings();
+
 
 		/// <summary>
 		/// Gets or sets the error message used when displaying an a parsing error.
@@ -55,7 +64,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Feel free to set the InputMode on your own as needed.
 		/// </remarks>
 		[Parameter] public InputMode? InputMode { get; set; }
-		protected InputMode? InputModeEffective => this.InputMode ?? this.Settings?.InputMode ?? this.GetDefaults()?.InputMode;
+		protected InputMode? InputModeEffective => this.InputMode ?? this.GetSettings()?.InputMode ?? this.GetDefaults()?.InputMode;
 
 		/// <summary>
 		/// Placeholder for the input.

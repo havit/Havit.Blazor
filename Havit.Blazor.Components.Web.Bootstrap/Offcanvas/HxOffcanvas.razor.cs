@@ -44,6 +44,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public OffcanvasSettings Settings { get; set; }
 
 		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual OffcanvasSettings GetSettings() => this.Settings;
+
+
+		/// <summary>
 		/// Text for the title in header.
 		/// (Is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c> - in opposite to <see cref="HeaderTemplate"/> which is rendered directly into <c>offcanvas-header</c>).
 		/// </summary>
@@ -69,7 +78,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Placement of the offcanvas. Default is <see cref="OffcanvasPlacement.End"/> (right).
 		/// </summary>
 		[Parameter] public OffcanvasPlacement? Placement { get; set; }
-		protected OffcanvasPlacement PlacementEffective => this.Placement ?? this.Settings?.Placement ?? GetDefaults().Placement ?? throw new InvalidOperationException(nameof(Placement) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+		protected OffcanvasPlacement PlacementEffective => this.Placement ?? this.GetSettings()?.Placement ?? GetDefaults().Placement ?? throw new InvalidOperationException(nameof(Placement) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 		/// <summary>
 		/// Determines whether the content is always rendered or only if the offcanvas is open. Default is <see cref="OffcanvasRenderMode.OpenOnly"/>.
@@ -80,7 +89,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Size of the offcanvas. Default is <see cref="OffcanvasSize.Regular"/>.
 		/// </summary>
 		[Parameter] public OffcanvasSize? Size { get; set; }
-		protected OffcanvasSize SizeEffective => this.Size ?? this.Settings?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+		protected OffcanvasSize SizeEffective => this.Size ?? this.GetSettings()?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 		/// <summary>
 		/// Indicates whether the modal shows close button in header.
@@ -88,59 +97,59 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Use <see cref="CloseButtonIcon"/> to change shape of the button.
 		/// </summary>
 		[Parameter] public bool? ShowCloseButton { get; set; }
-		protected bool ShowCloseButtonEffective => this.ShowCloseButton ?? this.Settings?.ShowCloseButton ?? GetDefaults().ShowCloseButton ?? throw new InvalidOperationException(nameof(ShowCloseButton) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+		protected bool ShowCloseButtonEffective => this.ShowCloseButton ?? this.GetSettings()?.ShowCloseButton ?? GetDefaults().ShowCloseButton ?? throw new InvalidOperationException(nameof(ShowCloseButton) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 		/// <summary>
 		/// Indicates whether the offcanvas closes when escape key is pressed.
 		/// Default value is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool? CloseOnEscape { get; set; }
-		protected bool CloseOnEscapeEffective => this.CloseOnEscape ?? this.Settings?.CloseOnEscape ?? GetDefaults().CloseOnEscape ?? throw new InvalidOperationException(nameof(CloseOnEscape) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+		protected bool CloseOnEscapeEffective => this.CloseOnEscape ?? this.GetSettings()?.CloseOnEscape ?? GetDefaults().CloseOnEscape ?? throw new InvalidOperationException(nameof(CloseOnEscape) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 		/// <summary>
 		/// Close icon to be used in header.
 		/// If set to <c>null</c>, Bootstrap default close-button will be used.
 		/// </summary>
 		[Parameter] public IconBase CloseButtonIcon { get; set; }
-		protected IconBase CloseButtonIconEffective => this.CloseButtonIcon ?? this.Settings?.CloseButtonIcon ?? GetDefaults().CloseButtonIcon;
+		protected IconBase CloseButtonIconEffective => this.CloseButtonIcon ?? this.GetSettings()?.CloseButtonIcon ?? GetDefaults().CloseButtonIcon;
 
 		/// <summary>
 		/// Indicates whether to apply a backdrop on body while offcanvas is open.
 		/// Default value (from <see cref="Defaults"/>) is <c>true</c>.
 		/// </summary>
 		[Parameter] public bool? BackdropEnabled { get; set; }
-		protected bool BackdropEnabledEffective => this.BackdropEnabled ?? this.Settings?.BackdropEnabled ?? GetDefaults().BackdropEnabled ?? throw new InvalidOperationException(nameof(BackdropEnabled) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+		protected bool BackdropEnabledEffective => this.BackdropEnabled ?? this.GetSettings()?.BackdropEnabled ?? GetDefaults().BackdropEnabled ?? throw new InvalidOperationException(nameof(BackdropEnabled) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 		/// <summary>
 		/// Indicates whether body (page) scrolling is allowed while offcanvas is open.
 		/// Default value (from <see cref="Defaults"/>) is <c>false</c>.
 		/// </summary>
 		[Parameter] public bool? ScrollingEnabled { get; set; }
-		protected bool ScrollingEnabledEffective => this.ScrollingEnabled ?? this.Settings?.ScrollingEnabled ?? GetDefaults().ScrollingEnabled ?? throw new InvalidOperationException(nameof(ScrollingEnabled) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+		protected bool ScrollingEnabledEffective => this.ScrollingEnabled ?? this.GetSettings()?.ScrollingEnabled ?? GetDefaults().ScrollingEnabled ?? throw new InvalidOperationException(nameof(ScrollingEnabled) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 		/// <summary>
 		/// Offcanvas additional CSS class. Added to root <c>div</c> (<c>.offcanvas</c>).
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
-		protected string CssClassEffective => this.CssClass ?? this.Settings?.CssClass ?? GetDefaults().CssClass;
+		protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 		/// <summary>
 		/// Additional header CSS class.
 		/// </summary>
 		[Parameter] public string HeaderCssClass { get; set; }
-		protected string HeaderCssClassEffective => this.HeaderCssClass ?? this.Settings?.HeaderCssClass ?? GetDefaults().HeaderCssClass;
+		protected string HeaderCssClassEffective => this.HeaderCssClass ?? this.GetSettings()?.HeaderCssClass ?? GetDefaults().HeaderCssClass;
 
 		/// <summary>
 		/// Additional body CSS class.
 		/// </summary>
 		[Parameter] public string BodyCssClass { get; set; }
-		protected string BodyCssClassEffective => this.BodyCssClass ?? this.Settings?.BodyCssClass ?? GetDefaults().BodyCssClass;
+		protected string BodyCssClassEffective => this.BodyCssClass ?? this.GetSettings()?.BodyCssClass ?? GetDefaults().BodyCssClass;
 
 		/// <summary>
 		/// Additional footer CSS class.
 		/// </summary>
 		[Parameter] public string FooterCssClass { get; set; }
-		protected string FooterCssClassEffective => this.FooterCssClass ?? this.Settings?.FooterCssClass ?? GetDefaults().FooterCssClass;
+		protected string FooterCssClassEffective => this.FooterCssClass ?? this.GetSettings()?.FooterCssClass ?? GetDefaults().FooterCssClass;
 
 		/// <summary>
 		/// This event is fired when an offcanvas element has been hidden from the user (will wait for CSS transitions to complete).

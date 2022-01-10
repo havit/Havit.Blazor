@@ -21,18 +21,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public abstract class HxSelectBase<TValue, TItem> : HxInputBase<TValue>, IInputWithSize
 	{
 		/// <summary>
-		/// Set of settings to be applied to the component instance (overrides <see cref="HxSelect.Defaults"/>, overriden by individual parameters).
-		/// </summary>
-		[Parameter] public SelectSettings Settings { get; set; }
-
-		/// <summary>
 		/// Return <see cref="HxInputNumber{TValue}"/> defaults.
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
 		protected virtual SelectSettings GetDefaults() => HxSelect.Defaults;
 		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxSelect.Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public SelectSettings Settings { get; set; }
+
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual SelectSettings GetSettings() => this.Settings;
+		IInputSettingsWithSize IInputWithSize.GetSettings() => GetSettings();
+
 
 		/// <inheritdoc cref="Bootstrap.InputSize" />
 		[Parameter] public InputSize? InputSize { get; set; }

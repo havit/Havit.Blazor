@@ -44,12 +44,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual InputDateRangeSettings GetDefaults() => Defaults;
 		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
 		/// </summary>
 		[Parameter] public InputDateRangeSettings Settings { get; set; }
+
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual InputDateRangeSettings GetSettings() => this.Settings;
+		IInputSettingsWithSize IInputWithSize.GetSettings() => GetSettings();
+
 
 		/// <summary>
 		/// When <c>true</c>, uses default date ranges (this month, last month, this year, last year).
@@ -81,28 +90,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is <c>true</c> (configurable in <see cref="HxInputDateRange.Defaults"/>).
 		/// </summary>
 		[Parameter] public bool? ShowCalendarButtons { get; set; }
-		protected bool ShowCalendarButtonsEffective => this.ShowCalendarButtons ?? this.Settings?.ShowCalendarButtons ?? this.GetDefaults().ShowCalendarButtons ?? throw new InvalidOperationException(nameof(ShowCalendarButtons) + " default for " + nameof(HxInputDateRange) + " has to be set.");
+		protected bool ShowCalendarButtonsEffective => this.ShowCalendarButtons ?? this.GetSettings()?.ShowCalendarButtons ?? this.GetDefaults().ShowCalendarButtons ?? throw new InvalidOperationException(nameof(ShowCalendarButtons) + " default for " + nameof(HxInputDateRange) + " has to be set.");
 
 		/// <summary>
 		/// First date selectable from the dropdown calendar.<br />
 		/// Default is <c>1.1.1900</c> (configurable from <see cref="HxInputDateRange.Defaults"/>).
 		/// </summary>
 		[Parameter] public DateTime? MinDate { get; set; }
-		protected DateTime MinDateEffective => this.MinDate ?? this.Settings?.MinDate ?? GetDefaults().MinDate ?? throw new InvalidOperationException(nameof(MinDate) + " default for " + nameof(HxInputDateRange) + " has to be set.");
+		protected DateTime MinDateEffective => this.MinDate ?? this.GetSettings()?.MinDate ?? GetDefaults().MinDate ?? throw new InvalidOperationException(nameof(MinDate) + " default for " + nameof(HxInputDateRange) + " has to be set.");
 
 		/// <summary>
 		/// Last date selectable from the dropdown calendar.<br />
 		/// Default is <c>31.12.2099</c> (configurable from <see cref="HxInputDateRange.Defaults"/>).
 		/// </summary>
 		[Parameter] public DateTime? MaxDate { get; set; }
-		protected DateTime MaxDateEffective => this.MaxDate ?? this.Settings?.MaxDate ?? this.GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxInputDateRange) + " has to be set.");
+		protected DateTime MaxDateEffective => this.MaxDate ?? this.GetSettings()?.MaxDate ?? this.GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxInputDateRange) + " has to be set.");
 
 		/// <summary>
 		/// Allows customization of the dates in dropdown calendars.<br />
 		/// Default customization is configurable with <see cref="HxInputDateRange.Defaults"/>.
 		/// </summary>
 		[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
-		protected CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective => this.CalendarDateCustomizationProvider ?? this.Settings?.CalendarDateCustomizationProvider ?? GetDefaults().CalendarDateCustomizationProvider;
+		protected CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective => this.CalendarDateCustomizationProvider ?? this.GetSettings()?.CalendarDateCustomizationProvider ?? GetDefaults().CalendarDateCustomizationProvider;
 
 		[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 

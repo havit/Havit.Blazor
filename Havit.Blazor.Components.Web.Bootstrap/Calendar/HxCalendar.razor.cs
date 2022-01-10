@@ -50,6 +50,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public CalendarSettings Settings { get; set; }
 
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual CalendarSettings GetSettings() => this.Settings;
+
 
 		/// <summary>
 		/// Date selected.
@@ -84,20 +92,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is <c>1.1.1900</c> (configurable from <see cref="HxCalendar.Defaults"/>).
 		/// </summary>
 		[Parameter] public DateTime? MinDate { get; set; }
-		protected DateTime MinDateEffective => this.MinDate ?? this.Settings?.MinDate ?? GetDefaults().MinDate ?? throw new InvalidOperationException(nameof(MinDate) + " default for " + nameof(HxCalendar) + " has to be set.");
+		protected DateTime MinDateEffective => this.MinDate ?? this.GetSettings()?.MinDate ?? GetDefaults().MinDate ?? throw new InvalidOperationException(nameof(MinDate) + " default for " + nameof(HxCalendar) + " has to be set.");
 
 		/// <summary>
 		/// Last date selectable from the calendar.<br />
 		/// Default is <c>31.12.2099</c> (configurable from <see cref="HxCalendar.Defaults"/>).
 		/// </summary>
 		[Parameter] public DateTime? MaxDate { get; set; }
-		protected DateTime MaxDateEffective => this.MaxDate ?? this.Settings?.MaxDate ?? this.GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxCalendar) + " has to be set.");
+		protected DateTime MaxDateEffective => this.MaxDate ?? this.GetSettings()?.MaxDate ?? this.GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxCalendar) + " has to be set.");
 
 		/// <summary>
 		/// Allows customization of the dates in calendar.
 		/// </summary>
 		[Parameter] public CalendarDateCustomizationProviderDelegate DateCustomizationProvider { get; set; }
-		protected CalendarDateCustomizationProviderDelegate DateCustomizationProviderEffective => this.DateCustomizationProvider ?? this.Settings?.DateCustomizationProvider ?? GetDefaults().DateCustomizationProvider;
+		protected CalendarDateCustomizationProviderDelegate DateCustomizationProviderEffective => this.DateCustomizationProvider ?? this.GetSettings()?.DateCustomizationProvider ?? GetDefaults().DateCustomizationProvider;
 
 		private CultureInfo Culture => CultureInfo.CurrentUICulture;
 		private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;

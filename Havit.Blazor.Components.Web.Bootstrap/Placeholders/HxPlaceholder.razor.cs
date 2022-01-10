@@ -39,6 +39,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public PlaceholderSettings Settings { get; set; }
 
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual PlaceholderSettings GetSettings() => this.Settings;
+
+
 		/// <inheritdoc cref="ILayoutColumnComponent.Columns"/>
 		[Parameter] public string Columns { get; set; }
 
@@ -61,13 +70,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Size of the placeholder.
 		/// </summary>
 		[Parameter] public PlaceholderSize? Size { get; set; }
-		protected PlaceholderSize SizeEffective => this.Size ?? this.Settings?.Size ?? PlaceholderContainer?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxPlaceholder) + " has to be set.");
+		protected PlaceholderSize SizeEffective => this.Size ?? this.GetSettings()?.Size ?? PlaceholderContainer?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxPlaceholder) + " has to be set.");
 
 		/// <summary>
 		/// Color of the placeholder.
 		/// </summary>
 		[Parameter] public ThemeColor? Color { get; set; }
-		protected ThemeColor ColorEffective => this.Color ?? this.Settings?.Color ?? PlaceholderContainer?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxPlaceholder) + " has to be set.");
+		protected ThemeColor ColorEffective => this.Color ?? this.GetSettings()?.Color ?? PlaceholderContainer?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxPlaceholder) + " has to be set.");
 
 		/// <summary>
 		/// Optional content of the placeholder (usualy not used).
@@ -78,7 +87,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Additional CSS class.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
-		protected string CssClassEffective => this.CssClass ?? this.Settings?.CssClass ?? GetDefaults().CssClass;
+		protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 		/// <summary>
 		/// Additional attributes to be splatted onto an underlying HTML element.

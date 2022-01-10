@@ -153,6 +153,14 @@
             Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Defaults"/>, overriden by individual parameters).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.GetSettings">
+            <summary>
+            Returns optional set of component settings.
+            </summary>
+            <remarks>
+            Simmilar to <see cref="M:Havit.Blazor.Components.Web.HxInputFileCore.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Settings"/> in components descandants (by returning a derived settings class).
+            </remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.UploadUrl">
             <summary>
             URL of the server endpoint receiving the files.

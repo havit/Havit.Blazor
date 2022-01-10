@@ -27,6 +27,15 @@
 		[Parameter] public CardSettings Settings { get; set; }
 
 		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual CardSettings GetSettings() => this.Settings;
+
+
+		/// <summary>
 		/// Image to be placed in the card. For image position see <see cref="ImagePlacement"/>.
 		/// </summary>
 		[Parameter] public string ImageSrc { get; set; }
@@ -75,25 +84,25 @@
 		/// Additional CSS classes for the card-container.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
-		protected string CssClassEffective => this.CssClass ?? this.Settings?.CssClass ?? GetDefaults().CssClass;
+		protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 		/// <summary>
 		/// Additional CSS class for the header.
 		/// </summary>
 		[Parameter] public string HeaderCssClass { get; set; }
-		protected string HeaderCssClassEffective => this.HeaderCssClass ?? this.Settings?.HeaderCssClass ?? GetDefaults().HeaderCssClass;
+		protected string HeaderCssClassEffective => this.HeaderCssClass ?? this.GetSettings()?.HeaderCssClass ?? GetDefaults().HeaderCssClass;
 
 		/// <summary>
 		/// Additional CSS class for the body.
 		/// </summary>
 		[Parameter] public string BodyCssClass { get; set; }
-		protected string BodyCssClassEffective => this.BodyCssClass ?? this.Settings?.BodyCssClass ?? GetDefaults().BodyCssClass;
+		protected string BodyCssClassEffective => this.BodyCssClass ?? this.GetSettings()?.BodyCssClass ?? GetDefaults().BodyCssClass;
 
 		/// <summary>
 		/// Additional CSS class for the footer.
 		/// </summary>
 		[Parameter] public string FooterCssClass { get; set; }
-		protected string FooterCssClassEffective => this.FooterCssClass ?? this.Settings?.FooterCssClass ?? GetDefaults().FooterCssClass;
+		protected string FooterCssClassEffective => this.FooterCssClass ?? this.GetSettings()?.FooterCssClass ?? GetDefaults().FooterCssClass;
 
 		/// <summary>
 		/// Additional attributes to be splatted onto an underlying HTML element.
