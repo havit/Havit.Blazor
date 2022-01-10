@@ -26,8 +26,8 @@
 			@if (ShowCalendarButtonsEffective)
 			{
 				<div class="d-flex justify-content-between">
-					<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" />
-					<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleOKClickAsync" />
+					<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDate))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" />
+					<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("OK", typeof(HxInputDate))" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleOKClickAsync" />
 				</div>
 			}
 		</div>
@@ -50,7 +50,7 @@
 			<ul class="dropdown-menu dropdown-menu-end">
 				@foreach (var item in PredefinedDatesEffective)
 				{
-					<li><span class="dropdown-item" role="button" @onclick="() => HandleCustomDateClick(item.Date)" @onclick:stopPropagation>@item.Label</span></li>
+					<li><span class="dropdown-item" role="button" @onclick="() => HandleCustomDateClick(item.Date)" @onclick:stopPropagation>@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)</span></li>
 				}
 			</ul>
 		}
