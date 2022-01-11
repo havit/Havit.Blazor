@@ -58,6 +58,7 @@
 * [`HxContextMenu`](https://havit.blazor.eu/components/HxContextMenu) - Ready-made context menu.
 * [`HxPager`](https://havit.blazor.eu/components/HxPager) - Pager.
 * [`HxRepeater`](https://havit.blazor.eu/components/HxRepeater) - A data-bound list component.
+* [`HxTreeView`](https://havit.blazor.eu/components/HxTreeView) - Component to display hierarchy data structure.
 
 ## Layout & Typography
 
@@ -67,6 +68,7 @@
 * [`HxCard`](https://havit.blazor.eu/components/HxCard) - Bootstrap <a href="https://getbootstrap.com/docs/5.1/components/card/">Card</a> component.
 * [`HxCarousel`](https://havit.blazor.eu/components/HxCarousel) - A slideshow component for cycling through elements—images or slides of text—like a carousel.
 * [`HxCollapse`](https://havit.blazor.eu/components/HxCollapse) - <a href="https://getbootstrap.com/docs/5.1/components/collapse/">Bootstrap 5 Collapse</a> component.
+* [`HxDropdown`](https://havit.blazor.eu/components/HxDropdown) - [Bootstrap 5 Dropdown](https://getbootstrap.com/docs/5.1/components/dropdowns/).
 * [`HxIcon`](https://havit.blazor.eu/components/HxIcon) - Displays an icon.
 * [`HxSpinner`](https://havit.blazor.eu/components/HxSpinner) - Bootstrap <a href="https://getbootstrap.com/docs/5.0/components/spinners/">Spinner</a> (usually indicates operation in progress).
 * [`HxPlaceholder`](https://havit.blazor.eu/components/HxPlaceholder) - <a href="https://getbootstrap.com/docs/5.1/components/placeholders/">Bootstrap 5 Placeholder</a> component, aka Skeleton.
@@ -87,6 +89,8 @@
 * [`HxScrollspy`](https://havit.blazor.eu/components/HxScrollspy) - <a href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</a> component.
 * [`HxBreadcrumb`](https://havit.blazor.eu/components/HxBreadcrumb) - <a href="https://getbootstrap.com/docs/5.1/components/breadcrumb/">Bootstrap 5 Breadcrumb</a> component. Indicates the current page’s location within a navigational hierarchy.
 * [`HxAnchorFragmentNavigation`](https://havit.blazor.eu/components/HxAnchorFragmentNavigation) - Compensates Blazor deficiency in anchor-fragments (scrolling to <code>page#id</code> URLs).
+* [`HxContextMenu`](https://havit.blazor.eu/components/HxContextMenu) - Ready-made context menu.
+* [`HxDropdown`](https://havit.blazor.eu/components/HxDropdown) - [Bootstrap 5 Dropdown](https://getbootstrap.com/docs/5.1/components/dropdowns/).
 * [`HxTabPanel`](https://havit.blazor.eu/components/HxTabPanel) - Container for <code><a href="/components/HxTab/">HxTab</a></code>s for easier implementation of tabbed UI.
 * [`HxRedirectTo`](https://havit.blazor.eu/components/HxRedirectTo) - Rendering a HxRedirectTo will navigate to a new location.
 
