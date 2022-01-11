@@ -43,9 +43,18 @@ namespace Havit.Blazor.GoogleTagManager
 			StateHasChanged();
 		}
 
-		public virtual void Dispose()
+		public void Dispose()
 		{
-			NavigationManager.LocationChanged -= OnLocationChanged;
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				NavigationManager.LocationChanged -= OnLocationChanged;
+			}
 		}
 	}
 }

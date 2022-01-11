@@ -46,9 +46,18 @@ namespace Havit.Blazor.Components.Web.Infrastructure
 			}
 		}
 
-		public virtual void Dispose()
+		public void Dispose()
 		{
-			DetachIfPossible();
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				DetachIfPossible();
+			}
 		}
 	}
 }

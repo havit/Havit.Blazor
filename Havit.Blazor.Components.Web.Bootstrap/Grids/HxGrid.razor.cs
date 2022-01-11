@@ -609,13 +609,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		#endregion
 
 		/// <inheritdoc />
-		public virtual void Dispose()
+		public void Dispose()
 		{
-			paginationRefreshDataCancellationTokenSource?.Cancel();
-			paginationRefreshDataCancellationTokenSource?.Dispose();
-			paginationRefreshDataCancellationTokenSource = null;
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
 
-			isDisposed = true;
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				paginationRefreshDataCancellationTokenSource?.Cancel();
+				paginationRefreshDataCancellationTokenSource?.Dispose();
+				paginationRefreshDataCancellationTokenSource = null;
+
+				isDisposed = true;
+			}
 		}
 	}
 }
