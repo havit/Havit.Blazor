@@ -11,7 +11,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Edit form derived from HxModelEditForm with support for chip generators.
 	/// </summary>
-	public class HxFilterForm<TModel> : HxModelEditForm<TModel>
+	public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable
 	{
 		public const string ChipGeneratorRegistrationCascadingValueName = "ChipGeneratorsRegistration";
 
@@ -114,7 +114,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.CloseComponent();
 		}
 
-		public virtual void Dispose() // TODO Missing IDisposable ?!
+		public virtual void Dispose()
 		{
 			isDisposed = true;
 		}
