@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Company>HAVIT, s.r.o.</Company>
-		<Copyright>Copyright HAVIT, s.r.o., 2021</Copyright>
+		<Copyright>Copyright HAVIT, s.r.o., 2022</Copyright>
 		<VersionPrefix>2.0.0</VersionPrefix>
 		<AssemblyVersion>2.0.0.0</AssemblyVersion>
 		<Product>HAVIT Blazor Library</Product>
