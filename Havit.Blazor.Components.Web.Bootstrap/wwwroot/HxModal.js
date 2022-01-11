@@ -4,8 +4,8 @@
 	}
 
 	element.hxModalDotnetObjectReference = hxModalDotnetObjectReference;
-	element.addEventListener('hidden.bs.modal', handleModalHidden)
-	element.addEventListener('shown.bs.modal', handleModalShown)
+	element.addEventListener('hidden.bs.modal', handleModalHidden);
+	element.addEventListener('shown.bs.modal', handleModalShown);
 
 	var modal = new bootstrap.Modal(element, {
 		backdrop: useStaticBackdrop ? "static" : true,
