@@ -167,7 +167,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected virtual Task InvokeOnClosedAsync() => OnClosed.InvokeAsync();
 
 		/// <summary>
-		/// This event is fired when an offcanvas element has been made visible to the user (will wait for CSS transitions to complete).
+		/// This event is fired when an modal element has been made visible to the user (will wait for CSS transitions to complete).
 		/// </summary>
 		[Parameter] public EventCallback OnShown { get; set; }
 
