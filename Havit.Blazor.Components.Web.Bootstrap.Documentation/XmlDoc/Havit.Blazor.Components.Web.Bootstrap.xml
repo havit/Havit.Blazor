@@ -6635,11 +6635,29 @@
             Displays the content of the component as "in progress".
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.DefaultDelay">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.Defaults">
             <summary>
-            Default debounce delay in miliseconds to be used when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.Delay"/> not set.
-            Default DefaultDelay is <c>300 ms</c>.
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator"/>.
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.Defaults"/>, overriden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.GetSettings">
+            <summary>
+            Returns optional set of component settings.
+            </summary>
+            <remarks>
+            Simmilar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.Settings"/> in components descandants (by returning a derived settings class).
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.InProgress">
             <summary>
@@ -6648,7 +6666,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.Delay">
             <summary>
-            Debounce delay in miliseconds. If not set, uses the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.DefaultDelay"/>.
+            Debounce delay in miliseconds. Default is <c>300 ms</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.ChildContent">
@@ -6679,6 +6697,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSpinner.CssClass">
             <summary>
             Additional CSS class to be applied.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ProgressIndicatorSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ProgressIndicatorSettings.Delay">
+            <summary>
+            Debounce delay in miliseconds.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SpinnerSize">

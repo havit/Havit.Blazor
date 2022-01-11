@@ -14,14 +14,37 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public partial class HxProgressIndicator
 	{
-		private bool progressIndicatorVisible;
-		private CancellationTokenSource delayCancellationTokenSource;
+		/// <summary>
+		/// Application-wide defaults for the <see cref="HxProgressIndicator"/>.
+		/// </summary>
+		public static ProgressIndicatorSettings Defaults { get; set; }
+
+		static HxProgressIndicator()
+		{
+			Defaults = new ProgressIndicatorSettings()
+			{
+				Delay = 300,
+			};
+		}
 
 		/// <summary>
-		/// Default debounce delay in miliseconds to be used when <see cref="Delay"/> not set.
-		/// Default DefaultDelay is <c>300 ms</c>.
+		/// Returns application-wide defaults for the component.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
-		public static int DefaultDelay { get; set; } = 300;
+		protected virtual ProgressIndicatorSettings GetDefaults() => Defaults;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public ProgressIndicatorSettings Settings { get; set; }
+
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual ProgressIndicatorSettings GetSettings() => this.Settings;
 
 		/// <summary>
 		/// Indicates whether the content should be displayed as "in progress".
@@ -29,9 +52,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool InProgress { get; set; }
 
 		/// <summary>
-		/// Debounce delay in miliseconds. If not set, uses the <see cref="DefaultDelay"/>.
+		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
 		/// </summary>
 		[Parameter] public int? Delay { get; set; }
+		protected int DelayEffective => this.Delay ?? GetSettings()?.Delay ?? GetDefaults()?.Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxProgressIndicator) + " has to be set.");
 
 		/// <summary>
 		/// Wrapped content.
@@ -39,6 +63,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		protected EventCallback<bool> ProgressIndicatorVisibleChanged { get; set; }  // TODO Needed?
+
+		private bool progressIndicatorVisible;
+		private CancellationTokenSource delayCancellationTokenSource;
 
 		protected override async Task OnParametersSetAsync()
 		{
@@ -80,7 +107,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					try
 					{
-						await Task.Delay(Delay ?? HxProgressIndicator.DefaultDelay, cancellationToken);
+						await Task.Delay(DelayEffective, cancellationToken);
 					}
 					catch (TaskCanceledException)
 					{
