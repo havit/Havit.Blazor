@@ -1,12 +1,4 @@
 ﻿var nextFile = new Array(); // Stores the next files to upload for different uploads.
-var requests =
-{
-	"id": new Array()
-};
-var cancelled =
-{
-	"id": false
-};
 
 export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads) {
 	var inputElement = document.getElementById(inputElementId);
@@ -14,8 +6,8 @@ export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadE
 	var files = inputElement.files;
 	var totalSize = 0;
 
-	requests[inputElementId] = new Array();
-	cancelled[inputElementId] = false;
+	inputElement.requests = new Array();
+	inputElement.cancelled = false;
 
 	let uploadIndex = nextFile.length;
 
@@ -27,14 +19,13 @@ export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadE
 		nextFile.push(maxParallelUploads);
     }
 
-	uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, maxParallelUploads, 0, uploadEndpointUrl, uploadIndex, inputElementId);
+	uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, maxParallelUploads, 0, uploadEndpointUrl, uploadIndex, inputElementId, inputElement);
 }
 
-function uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, endIndex, startIndex, uploadEndpointUrl, uploadIndex, inputElementId) {
+function uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, endIndex, startIndex, uploadEndpointUrl, uploadIndex, inputElementId, inputElement) {
 	console.log(inputElementId);
-	console.log(cancelled[inputElementId]);
 
-	if (cancelled[inputElementId] === true) {
+	if (inputElement && inputElement.cancelled && inputElement.cancelled === true) {
 		console.log("cancelled");
 		return;
     }
@@ -63,27 +54,26 @@ function uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize
 			var data = new FormData();
 			data.append('file', file, file.name);
 
-			var requestId = requests[inputElementId].length;
+			var request = new XMLHttpRequest();
+			inputElement.requests.push(request);
 
-			requests[inputElementId].push(new XMLHttpRequest());
-
-			requests[inputElementId][requestId].open('POST', uploadEndpointUrl, true);
+			request.open('POST', uploadEndpointUrl, true);
 
 			if (accessToken) {
-				requests[inputElementId][requestId].setRequestHeader('Authorization', 'Bearer ' + accessToken);
+				request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
 			}
 
-			requests[inputElementId][requestId].upload.onprogress = function (e) {
+			request.upload.onprogress = function (e) {
 				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadProgress', index, file.name, e.loaded, e.total);
 			};
-			requests[inputElementId][requestId].onreadystatechange = function () {
-				if (requests[inputElementId][requestId].readyState === 4) {
-					dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, requests[inputElementId][requestId].status, requests[inputElementId][requestId].responseText);
+			request.onreadystatechange = function () {
+				if (request.readyState === 4) {
+					dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
 
 					if (nextFile[uploadIndex] < files.length) {
 						console.log(nextFile[uploadIndex]);
 
-						uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, nextFile[uploadIndex] + 1, nextFile[uploadIndex], uploadEndpointUrl, uploadIndex, inputElementId);
+						uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize, nextFile[uploadIndex] + 1, nextFile[uploadIndex], uploadEndpointUrl, uploadIndex, inputElementId, inputElement);
 						nextFile[uploadIndex] = nextFile[uploadIndex] + 1;
                     }
 				};
@@ -92,7 +82,7 @@ function uploadFiles(files, accessToken, maxFileSize, dotnetReference, totalSize
 				}
 			}
 
-			requests[inputElementId][requestId].send(data);
+			request.send(data);
 		}(i));
 	}
 }
@@ -104,14 +94,13 @@ export function getFiles(inputElementId) {
 }
 
 export function reset(inputElementId) {
-	console.log("cancel button pressed " + inputElementId);
+	var inputElement = document.getElementById(inputElementId);
 
-	cancelled[inputElementId] = true;
-	for (const request of requests[inputElementId]) {
+	inputElement.cancelled = true;
+	for (const request of inputElement.requests) {
 		request.abort();
 	}
 
-	var inputElement = document.getElementById(inputElementId);
 	inputElement.value = '';
 	inputElement.dispatchEvent(new Event('change'));
 }
