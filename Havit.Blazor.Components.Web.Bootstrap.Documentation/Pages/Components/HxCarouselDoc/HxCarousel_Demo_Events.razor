@@ -11,12 +11,22 @@
 </HxCarousel>
 
 <p>Slide count: @slideCount</p>
+@if (eventArgs is not null)
+{
+	<p>
+		From: @eventArgs.From <br />
+		To: @eventArgs.To <br />
+		Direction: @eventArgs.Direction
+	</p>
+}
 
 @code {
 	private int slideCount;
+	private CarouselSlideEventArgs eventArgs;
 
-	private void IncrementSlideCount()
+	private void IncrementSlideCount(CarouselSlideEventArgs eventArgs)
 	{
+		this.eventArgs = eventArgs;
 		slideCount++;
 	}
 }

@@ -842,6 +842,21 @@
             Autoplays the carousel after the user manually cycles the first item.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CarouselSlideEventArgs.From">
+            <summary>
+            Slide from which the sliding transition began.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CarouselSlideEventArgs.To">
+            <summary>
+            Slide to which the carousel started sliding or has slid.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CarouselSlideEventArgs.Direction">
+            <summary>
+            Direction of sliding (<c>left</c> or <c>right</c>).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel">
             <summary>
             A slideshow component for cycling through elements—images or slides of text—like a carousel.
@@ -893,7 +908,7 @@
             Is fired when the current slide is changed (at the very start of the sliding transition).
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.InvokeOnSlideAsync">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.InvokeOnSlideAsync(Havit.Blazor.Components.Web.Bootstrap.CarouselSlideEventArgs)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlide"/> event. Allows interception of the event in derived components.
             </summary>
@@ -903,7 +918,7 @@
             Is fired when the current slide is changed (once the transition is completed).
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.InvokeOnSlidAsync">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.InvokeOnSlidAsync(Havit.Blazor.Components.Web.Bootstrap.CarouselSlideEventArgs)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlid"/> event. Allows interception of the event in derived components.
             </summary>
