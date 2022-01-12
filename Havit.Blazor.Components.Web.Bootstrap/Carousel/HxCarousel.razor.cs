@@ -78,6 +78,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public CarouselRide Ride { get; set; } = CarouselRide.Carousel;
 
+		/// <summary>
+		/// Carousel pause behavior. Default is <see cref="CarouselPause.Hover"/> (carousel will stop sliding on hover).
+		/// </summary>
+		[Parameter] public CarouselPause Pause { get; set; } = CarouselPause.Hover;
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -110,7 +114,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					return;
 				}
-				await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference, Ride.ToString().ToLower());
+				await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference, Ride.ToString().ToLower(), Pause.ToString().ToLower());
 			}
 		}
 

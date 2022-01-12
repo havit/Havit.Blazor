@@ -812,6 +812,21 @@
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CarouselPause">
+            <summary>
+            Behavior of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselPause.Hover">
+            <summary>
+            Carousel will stop sliding on hover.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselPause.False">
+            <summary>
+            Carousel won't stop sliding on hover.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CarouselRide">
             <summary>
             Behavior of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel"/>.
@@ -896,6 +911,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Ride">
             <summary>
             Carousel ride (autoplay) behavior. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.Carousel"/> (autoplays the carousel on load).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Pause">
+            <summary>
+            Carousel pause behavior. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselPause.Hover"/> (carousel will stop sliding on hover).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideToAsync(System.Int32)">
@@ -5363,7 +5383,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnShown">
             <summary>
-            This event is fired when an offcanvas element has been made visible to the user (will wait for CSS transitions to complete).
+            This event is fired when an modal element has been made visible to the user (will wait for CSS transitions to complete).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.InvokeOnShownAsync">

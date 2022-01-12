@@ -1,10 +1,11 @@
-﻿export function initialize(element, hxCarouselDotnetObjectReference, ride) {
+﻿export function initialize(element, hxCarouselDotnetObjectReference, ride, pause) {
 	if (!element) {
 		return;
 	}
 	var carousel = new bootstrap.Carousel(element,
 		{
-			"ride": ride
+			"ride": ride,
+			"pause": pause
 		});
 
 	element.hxCarouselDotnetObjectReference = hxCarouselDotnetObjectReference;
