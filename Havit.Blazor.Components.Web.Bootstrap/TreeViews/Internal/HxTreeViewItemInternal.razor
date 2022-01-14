@@ -14,7 +14,7 @@
     {
         <div class="hx-tree-view-item-spacer"></div>
     }
-    <div class="hx-tree-view-item-expander @(this.IsExpanded ? "expanded" : "")">
+    <div class="hx-tree-view-item-expander @(this.IsExpanded ? "expanded" : "")"  @onclick="HandleItemExpanderClicked" @onclick:stopPropagation="true">
         @if (hasChildren)
         {
             <div>

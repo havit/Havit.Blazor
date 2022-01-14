@@ -17,9 +17,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleItemClicked()
 		{
+			await this.OnItemSelected.InvokeAsync(this.Item);
+		}
+
+		private Task HandleItemExpanderClicked()
+		{
 			this.IsExpanded = !this.IsExpanded;
 
-			await this.OnItemSelected.InvokeAsync(this.Item);
+			return Task.CompletedTask;
 		}
 	}
 }
