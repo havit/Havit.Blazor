@@ -89,9 +89,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool Multiple { get; set; }
 
 		/// <summary>
-		/// Maximum number of concurrent uploads.
+		/// Maximum number of concurrent uploads. Default is <c>6</c> (from <see cref="HxInputFileCore"/>).
 		/// </summary>
-		[Parameter] public int MaxParallelUploads { get; set; } = int.MaxValue;
+		[Parameter] public int? MaxParallelUploads { get; set; }
 
 		/// <summary>
 		/// Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.

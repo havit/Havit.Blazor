@@ -216,7 +216,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.MaxParallelUploads">
             <summary>
-            Maximum number of concurrent uploads.
+            Maximum number of concurrent uploads. Default is <c>6</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Id">
@@ -278,6 +278,11 @@
             <summary>
             The maximum files size in bytes.
             When exceeded, the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.InputFileCoreSettings.MaxParallelUploads">
+            <summary>
+            Maximum number of concurrent uploads.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.UploadCompletedEventArgs">

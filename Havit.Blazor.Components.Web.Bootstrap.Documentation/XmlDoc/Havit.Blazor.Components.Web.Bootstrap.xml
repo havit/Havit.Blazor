@@ -1609,7 +1609,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.MaxParallelUploads">
             <summary>
-            Maximum number of concurrent uploads.
+            Maximum number of concurrent uploads. Default is <c>6</c> (from <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Accept">
