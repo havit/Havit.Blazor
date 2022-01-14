@@ -106,9 +106,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		public virtual void Dispose()
+		public void Dispose()
 		{
-			TabsRegistration.Unregister(this);
+			Dispose(true);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				TabsRegistration.Unregister(this);
+			}
 		}
 	}
 }

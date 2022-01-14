@@ -13,7 +13,7 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.3.0-pre8</PackageVersion>
+		<PackageVersion>2.0.0</PackageVersion>
 		<Description>HAVIT Blazor Library - Free UI components and supportive classes</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://havit.blazor.eu</PackageProjectUrl>

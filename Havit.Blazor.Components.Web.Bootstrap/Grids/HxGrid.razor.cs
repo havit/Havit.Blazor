@@ -31,6 +31,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public GridSettings Settings { get; set; }
 
 		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual GridSettings GetSettings() => this.Settings;
+
+
+		/// <summary>
 		/// Data provider for items to render.<br />
 		/// The provider should always return instance of <see cref="GridDataProviderResult{TItem}"/>, <c>null</c> is not allowed.
 		/// </summary>
@@ -109,20 +118,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Strategy how data are displayed in the grid (and loaded to the grid).
 		/// </summary>
 		[Parameter] public GridContentNavigationMode? ContentNavigationMode { get; set; }
-		protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? this.Settings?.ContentNavigationMode ?? GetDefaults().ContentNavigationMode ?? throw new InvalidOperationException(nameof(ContentNavigationMode) + " default for " + nameof(HxGrid) + " has to be set.");
+		protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? this.GetSettings()?.ContentNavigationMode ?? GetDefaults().ContentNavigationMode ?? throw new InvalidOperationException(nameof(ContentNavigationMode) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
 		/// Page size for <see cref="GridContentNavigationMode.Pagination"/>.
 		/// </summary>
 		[Parameter] public int? PageSize { get; set; }
-		protected int PageSizeEffective => this.PageSize ?? this.Settings?.PageSize ?? GetDefaults().PageSize ?? throw new InvalidOperationException(nameof(PageSize) + " default for " + nameof(HxGrid) + " has to be set.");
+		protected int PageSizeEffective => this.PageSize ?? this.GetSettings()?.PageSize ?? GetDefaults().PageSize ?? throw new InvalidOperationException(nameof(PageSize) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
 		/// Indicates whether to render footer when data are empty.
 		/// Default is <c>false</c>.
 		/// </summary>
 		[Parameter] public bool? ShowFooterWhenEmptyData { get; set; }
-		protected bool ShowFooterWhenEmptyDataEffective => this.ShowFooterWhenEmptyData ?? this.Settings?.ShowFooterWhenEmptyData ?? GetDefaults().ShowFooterWhenEmptyData ?? throw new InvalidOperationException(nameof(ShowFooterWhenEmptyData) + " default for " + nameof(HxGrid) + " has to be set.");
+		protected bool ShowFooterWhenEmptyDataEffective => this.ShowFooterWhenEmptyData ?? this.GetSettings()?.ShowFooterWhenEmptyData ?? GetDefaults().ShowFooterWhenEmptyData ?? throw new InvalidOperationException(nameof(ShowFooterWhenEmptyData) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
 		/// Current grid state (page, sorting).
@@ -148,32 +157,32 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c> (<see cref="HxPager"/> is not wrapped in this <c>div</c> element).
 		/// </summary>
 		[Parameter] public string TableContainerCssClass { get; set; }
-		protected string TableContainerCssClassEffective => this.TableContainerCssClass ?? this.Settings?.TableContainerCssClass ?? GetDefaults().TableContainerCssClass;
+		protected string TableContainerCssClassEffective => this.TableContainerCssClass ?? this.GetSettings()?.TableContainerCssClass ?? GetDefaults().TableContainerCssClass;
 
 		/// <summary>
 		/// Custom CSS class to render with main <c>table</c> element.
 		/// </summary>
 		[Parameter] public string TableCssClass { get; set; }
-		protected string TableCssClassEffective => this.TableCssClass ?? this.Settings?.TableCssClass ?? GetDefaults().TableCssClass;
+		protected string TableCssClassEffective => this.TableCssClass ?? this.GetSettings()?.TableCssClass ?? GetDefaults().TableCssClass;
 
 		/// <summary>
 		/// Custom CSS class to render with header <c>tr</c> element.
 		/// </summary>
 		[Parameter] public string HeaderRowCssClass { get; set; }
-		protected string HeaderRowCssClassEffective => this.HeaderRowCssClass ?? this.Settings?.HeaderRowCssClass ?? GetDefaults().HeaderRowCssClass;
+		protected string HeaderRowCssClassEffective => this.HeaderRowCssClass ?? this.GetSettings()?.HeaderRowCssClass ?? GetDefaults().HeaderRowCssClass;
 
 		/// <summary>
 		/// Custom CSS class to render with data <c>tr</c> element.
 		/// </summary>
 		[Parameter] public string ItemRowCssClass { get; set; }
-		protected string ItemRowCssClassEffective => this.ItemRowCssClass ?? this.Settings?.ItemRowCssClass ?? GetDefaults().ItemRowCssClass;
+		protected string ItemRowCssClassEffective => this.ItemRowCssClass ?? this.GetSettings()?.ItemRowCssClass ?? GetDefaults().ItemRowCssClass;
 
 		/// <summary>
 		/// Height of the item row used for infinite scroll calculations.
 		/// Default value is <c>41px</c> (row-height of regular table-row within Bootstrap 5 default theme).
 		/// </summary>
 		[Parameter] public float? ItemRowHeight { get; set; }
-		protected float ItemRowHeightEffective => this.ItemRowHeight ?? this.Settings?.ItemRowHeight ?? GetDefaults().ItemRowHeight ?? throw new InvalidOperationException(nameof(ItemRowHeight) + " default for " + nameof(HxGrid) + " has to be set.");
+		protected float ItemRowHeightEffective => this.ItemRowHeight ?? this.GetSettings()?.ItemRowHeight ?? GetDefaults().ItemRowHeight ?? throw new InvalidOperationException(nameof(ItemRowHeight) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
 		/// Returns custom CSS class to render with data <c>tr</c> element.
@@ -184,13 +193,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Custom CSS class to render with footer <c>tr</c> element.
 		/// </summary>
 		[Parameter] public string FooterRowCssClass { get; set; }
-		protected string FooterRowCssClassEffective => this.FooterRowCssClass ?? this.Settings?.FooterRowCssClass ?? GetDefaults().FooterRowCssClass;
+		protected string FooterRowCssClassEffective => this.FooterRowCssClass ?? this.GetSettings()?.FooterRowCssClass ?? GetDefaults().FooterRowCssClass;
 
 		/// <summary>
 		/// Custom CSS class to add to the pager.
 		/// </summary>
 		[Parameter] public string PagerCssClass { get; set; }
-		protected string PagerCssClassEffective => this.PagerCssClass ?? this.Settings?.PagerCssClass ?? GetDefaults().PagerCssClass;
+		protected string PagerCssClassEffective => this.PagerCssClass ?? this.GetSettings()?.PagerCssClass ?? GetDefaults().PagerCssClass;
 
 		/// <summary>
 		/// Number of rows with placeholders to render.
@@ -199,7 +208,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is <c>5</c>.
 		/// </summary>
 		[Parameter] public int? PlaceholdersRowCount { get; set; }
-		protected int PlaceholdersRowCountEffective => this.PlaceholdersRowCount ?? this.Settings?.PlaceholdersRowCount ?? GetDefaults().PlaceholdersRowCount ?? throw new InvalidOperationException(nameof(PlaceholdersRowCount) + " default for " + nameof(HxGrid) + " has to be set.");
+		protected int PlaceholdersRowCountEffective => this.PlaceholdersRowCount ?? this.GetSettings()?.PlaceholdersRowCount ?? GetDefaults().PlaceholdersRowCount ?? throw new InvalidOperationException(nameof(PlaceholdersRowCount) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
 		/// Infinite scroll:
@@ -210,7 +219,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is <c>50</c>.
 		/// </summary>
 		[Parameter] public int? OverscanCount { get; set; }
-		protected int OverscanCountEffective => this.OverscanCount ?? this.Settings?.OverscanCount ?? GetDefaults().OverscanCount ?? throw new InvalidOperationException(nameof(OverscanCount) + " default for " + nameof(HxGrid) + " has to be set.");
+		protected int OverscanCountEffective => this.OverscanCount ?? this.GetSettings()?.OverscanCount ?? GetDefaults().OverscanCount ?? throw new InvalidOperationException(nameof(OverscanCount) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
 		/// Returns application-wide defaults for the component.
@@ -258,6 +267,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				// await: This adds one more render before OnParameterSetAsync is finished.
 				// We consider it safe because we already have some data.
 				// But for a moment (before data is refreshed (= before OnParametersSetAsync is finished), the component is rendered with a new user state and with old data).
+				previousUserState = CurrentUserState;
 				await RefreshDataAsync();
 			}
 			previousUserState = CurrentUserState;
@@ -599,13 +609,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		#endregion
 
 		/// <inheritdoc />
-		public virtual void Dispose()
+		public void Dispose()
 		{
-			paginationRefreshDataCancellationTokenSource?.Cancel();
-			paginationRefreshDataCancellationTokenSource?.Dispose();
-			paginationRefreshDataCancellationTokenSource = null;
+			Dispose(true);
+		}
 
-			isDisposed = true;
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				paginationRefreshDataCancellationTokenSource?.Cancel();
+				paginationRefreshDataCancellationTokenSource?.Dispose();
+				paginationRefreshDataCancellationTokenSource = null;
+
+				isDisposed = true;
+			}
 		}
 	}
 }

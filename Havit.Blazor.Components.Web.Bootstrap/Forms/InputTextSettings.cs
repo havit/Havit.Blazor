@@ -11,5 +11,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Input size.
 		/// </summary>
 		public InputSize? InputSize { get; set; }
+
+		/// <summary>
+		/// Hint to browsers as to the type of virtual keyboard configuration to use when editing.
+		/// </summary>
+		public InputMode? InputMode { get; set; }
 	}
 }

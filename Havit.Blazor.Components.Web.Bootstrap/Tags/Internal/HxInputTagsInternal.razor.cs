@@ -431,7 +431,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			});
 		}
 
-		public virtual async ValueTask DisposeAsync()
+
+		public async ValueTask DisposeAsync()
+		{
+			await DisposeAsyncCore().ConfigureAwait(false);
+
+			//Dispose(disposing: false);
+		}
+
+		protected virtual async ValueTask DisposeAsyncCore()
 		{
 			disposed = true;
 

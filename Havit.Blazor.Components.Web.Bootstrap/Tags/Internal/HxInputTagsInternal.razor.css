@@ -35,16 +35,21 @@ input:focus {
 }
 
 .hx-tag-remove-button:hover {
-	background-color: rgba(0,0,0,var(--hx-input-tags-tag-hover-transparency));
+	background-color: rgba(0,0,0,var(--hx-input-tags-tag-hover-opacity));
 	border-radius: 50%;
 }
 
 ::deep .hx-tag-add-button:hover {
-	background-image: linear-gradient(to right, rgba(0,0,0,var(--hx-input-tags-tag-hover-transparency)),rgba(0,0,0,var(--hx-input-tags-tag-hover-transparency)));
+	background-image: linear-gradient(to right, rgba(0,0,0,var(--hx-input-tags-tag-hover-opacity)),rgba(0,0,0,var(--hx-input-tags-tag-hover-opacity)));
 }
 
 .hx-input-tags-control-focused:not(.hx-input-tags-naked) {
 	box-shadow: var(--hx-input-tags-control-focused-box-shadow);
 	border-color: var(--hx-input-tags-control-focused-border-color);
 	outline: 0;
+}
+
+.hx-input-tags-control:not(.hx-input-tags-naked) ::deep .hx-input-tags-autosuggest-input {
+	border: 0;
+	flex-grow: 0;
 }

@@ -89,6 +89,13 @@ namespace Havit.Blazor.GoogleTagManager
 
 		public async ValueTask DisposeAsync()
 		{
+			await DisposeAsyncCore().ConfigureAwait(false);
+
+			//Dispose(disposing: false);
+		}
+
+		protected virtual async ValueTask DisposeAsyncCore()
+		{
 			if (jsModule is not null)
 			{
 				await jsModule.DisposeAsync();

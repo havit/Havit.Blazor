@@ -21,15 +21,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public bool EnabledEffective { get; set; } = true;
 
-		[Parameter] public List<DateItem> CustomDates { get; set; }
+		[Parameter] public bool ShowPredefinedDatesEffective { get; set; }
+		[Parameter] public IEnumerable<InputDatePredefinedDatesItem> PredefinedDatesEffective { get; set; }
 
 		[Parameter] public string ParsingErrorMessageEffective { get; set; }
 
 		[Parameter] public string Placeholder { get; set; }
 
-		[Parameter] public InputSize? InputSize { get; set; }
+		[Parameter] public InputSize InputSizeEffective { get; set; }
 
-		[Parameter] public IconBase CalendarIcon { get; set; }
+		[Parameter] public IconBase CalendarIconEffective { get; set; }
 
 		[Parameter] public bool ShowCalendarButtonsEffective { get; set; } = true;
 
@@ -43,9 +44,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
-		[Inject] internal IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
+
+		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
+
 
 		private TValue previousValue;
 
@@ -54,15 +57,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private ElementReference dateInputElement;
 		private IJSObjectReference jsModule;
-
-		/// <summary>
-		/// Returns <see cref="HxInputDate{TValue}"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual InputDateSettings GetDefaults() => HxInputDate.Defaults;
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		IInputSettingsWithSize IInputWithSize.GetSettings() => null; // internal component
 
 		protected override void OnParametersSet()
 		{
@@ -213,7 +207,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		}
 
 		/// <inheritdoc />
-		public virtual async ValueTask DisposeAsync()
+
+		public async ValueTask DisposeAsync()
+		{
+			await DisposeAsyncCore().ConfigureAwait(false);
+
+			//Dispose(disposing: false);
+		}
+
+		protected virtual async ValueTask DisposeAsyncCore()
 		{
 			validationMessageStore?.Clear();
 

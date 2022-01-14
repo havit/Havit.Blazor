@@ -7,18 +7,13 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Date range item for <see cref="HxInputDateRange" />.
+	/// Settings for the <see cref="HxProgressIndicator"/> and derived components.
 	/// </summary>
-	public class DateRangeItem
+	public record ProgressIndicatorSettings
 	{
 		/// <summary>
-		/// Custom label.
+		/// Debounce delay in miliseconds.
 		/// </summary>
-		public string Label { get; set; }
-
-		/// <summary>
-		/// Date range.
-		/// </summary>
-		public DateTimeRange DateRange { get; set; }
+		public int? Delay { get; set; }
 	}
 }

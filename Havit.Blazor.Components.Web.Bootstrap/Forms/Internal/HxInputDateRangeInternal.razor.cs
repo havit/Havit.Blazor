@@ -18,13 +18,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public string InputCssClass { get; set; }
 
-		[Parameter] public InputSize? InputSize { get; set; }
+		[Parameter] public InputSize InputSizeEffective { get; set; }
 
 		[Parameter] public bool EnabledEffective { get; set; } = true;
 
 		[Parameter] public bool ShowValidationMessage { get; set; } = true;
 
-		[Parameter] public List<DateRangeItem> CustomDateRanges { get; set; }
+		[Parameter] public bool ShowPredefinedDateRangesEffective { get; set; }
+		[Parameter] public IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRangesEffective { get; set; }
 
 		[Parameter] public string FromParsingErrorMessageEffective { get; set; }
 
@@ -38,7 +39,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective { get; set; }
 
-		[Inject] protected IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
+		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -54,15 +55,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private ElementReference fromInputElement;
 		private ElementReference toInputElement;
 		private IJSObjectReference jsModule;
-
-		/// <summary>
-		/// Returns <see cref="HxInputDateRange"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual InputDateRangeSettings GetDefaults() => HxInputDateRange.Defaults;
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		IInputSettingsWithSize IInputWithSize.GetSettings() => null; // internal component
 
 		protected override void OnParametersSet()
 		{
@@ -287,7 +279,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		}
 
 		/// <inheritdoc />
-		public virtual async ValueTask DisposeAsync()
+		public async ValueTask DisposeAsync()
+		{
+			await DisposeAsyncCore().ConfigureAwait(false);
+
+			//Dispose(disposing: false);
+		}
+
+		protected virtual async ValueTask DisposeAsyncCore()
 		{
 			validationMessageStore?.Clear();
 

@@ -25,17 +25,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(int), typeof(long), typeof(float), typeof(double), typeof(decimal) };
 
 		/// <summary>
+		/// Returns application-wide defaults for the component.
+		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// </summary>
+		protected virtual InputNumberSettings GetDefaults() => HxInputNumber.Defaults;
+
+		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputNumber.Defaults"/>, overriden by individual parameters).
 		/// </summary>
 		[Parameter] public InputNumberSettings Settings { get; set; }
 
 		/// <summary>
-		/// Returns application-wide defaults for the component.
-		/// Enables overriding defaults in descandants (use separate set of defaults).
+		/// Returns optional set of component settings.
 		/// </summary>
-		protected virtual InputNumberSettings GetDefaults() => HxInputNumber.Defaults;
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual InputNumberSettings GetSettings() => this.Settings;
+
 
 		/// <summary>
 		/// Gets or sets the error message used when displaying an a parsing error.
@@ -44,12 +51,30 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string ParsingErrorMessage { get; set; }
 
 		/// <summary>
+		/// Hint to browsers as to the type of virtual keyboard configuration to use when editing.<br/>
+		/// If not set (neither with <see cref="Settings"/> nor <see cref="HxInputNumber.Defaults"/>, i.e. <c>null</c>),
+		/// the <see cref="InputMode.Numeric"/>	will be used for <see cref="Decimals"/> equal to <c>0</c>.
+		/// </summary>
+		/// <remarks>
+		/// We cannot set <see cref="InputMode.Decimal"/> for <see cref="Decimals"/> greater that <c>0</c>
+		/// as the users with keyboard locale not matching the application locale won't be able to enter decimal point
+		/// (is <kbd>,</kbd> in some locales and <kbd>.</kbd> in others).<br />
+		/// Feel free to set the InputMode on your own as needed.
+		/// </remarks>
+		[Parameter] public InputMode? InputMode { get; set; }
+		protected InputMode? InputModeEffective => this.InputMode ?? this.GetSettings()?.InputMode ?? this.GetDefaults()?.InputMode;
+
+		/// <summary>
 		/// Placeholder for the input.
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
 
-		/// <inheritdoc cref="Bootstrap.InputSize" />
+		/// <summary>
+		/// Size of the input.
+		/// </summary>
 		[Parameter] public InputSize? InputSize { get; set; }
+		protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputNumber) + " has to be set.");
+		InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
 
 		/// <inheritdoc cref="Bootstrap.LabelType" />
 		[Parameter] public LabelType? LabelType { get; set; }
@@ -118,11 +143,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.OpenElement(0, "input");
 			BuildRenderInput_AddCommonAttributes(builder, "text");
 
-			if (DecimalsEffective <= 0)
+			var inputMode = this.InputModeEffective;
+			if ((inputMode is null) && (DecimalsEffective == 0))
 			{
-				// We can use inputmode numeric when we do not want to enter decimals. It displays a keyboard without a key for a decimal point.
-				// We do not use inputmode decimal because browser (ie. Safari on iPhone) displays a keyboard with a decimal point key depending on device settings (language & keyboard).
-				builder.AddAttribute(1001, "inputmode", "numeric");
+				inputMode = Web.InputMode.Numeric;
+			}
+			if (inputMode is not null)
+			{
+				builder.AddAttribute(1001, "inputmode", inputMode.Value.ToString("f").ToLower());
 			}
 
 			builder.AddAttribute(1002, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked

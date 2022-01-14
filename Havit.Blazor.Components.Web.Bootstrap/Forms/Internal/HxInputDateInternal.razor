@@ -7,9 +7,9 @@
 	<div class="@CssClassHelper.Combine(
 					 "hx-input-date input-group dropdown",
 					 ((IInputWithSize)this).GetInputGroupSizeCssClass(),
-					 (this.CalendarIcon is not null) ? "hx-input-date-has-calendar-icon" : null,
+					 (this.CalendarIconEffective is not null) ? "hx-input-date-has-calendar-icon" : null,
 					 (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null,
-					 CustomDates.Any() ? "custom-dates" : null)">
+					 (ShowPredefinedDatesEffective && (PredefinedDatesEffective?.Any() ?? false)) ? "hx-input-date-predefined-dates" : null)">
 
 	@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
 	<input @ref="dateInputElement" type="text" id="@InputId" class="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())" value="@CurrentValueAsString" @onchange="HandleValueChangedAsync" placeholder="@Placeholder" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
@@ -26,21 +26,21 @@
 			@if (ShowCalendarButtonsEffective)
 			{
 				<div class="d-flex justify-content-between">
-					<HxButton Text="@StringLocalizer["Clear"]" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" />
-					<HxButton Text="@StringLocalizer["OK"]" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleOKClickAsync" />
+					<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDate))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" />
+					<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("OK", typeof(HxInputDate))" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleOKClickAsync" />
 				</div>
 			}
 		</div>
 	}
 
-	@if (CalendarIcon is not null)
+	@if (CalendarIconEffective is not null)
 	{
 		<div class="hx-input-date-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center">
-			<HxIcon Icon="CalendarIcon" />
+			<HxIcon Icon="CalendarIconEffective" />
 		</div>
 	}
 
-	@if ((CustomDates != null) && CustomDates.Any())
+	@if (ShowPredefinedDatesEffective && (this.PredefinedDatesEffective != null) && PredefinedDatesEffective.Any())
 	{
 		<button class="btn btn-light" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)" tabindex="-1">
 			<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
@@ -48,9 +48,9 @@
 		@if (EnabledEffective)
 		{
 			<ul class="dropdown-menu dropdown-menu-end">
-				@foreach (DateItem item in CustomDates)
+				@foreach (var item in PredefinedDatesEffective)
 				{
-					<li><span class="dropdown-item" role="button" @onclick="() => HandleCustomDateClick(item.Date)" @onclick:stopPropagation>@item.Label</span></li>
+					<li><span class="dropdown-item" role="button" @onclick="() => HandleCustomDateClick(item.Date)" @onclick:stopPropagation>@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)</span></li>
 				}
 			</ul>
 		}

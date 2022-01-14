@@ -53,7 +53,7 @@
 									 OnInputMouseDown="HandleInputMouseDown"
 									 OnInputKeyDown="HandleInputKeyDown"
 									 Placeholder="@(ValueEffective.Any() ? null : Placeholder)"
-									 CssClass="border-0 flex-grow-1"
+									 CssClass="@CssClassHelper.Combine("hx-input-tags-autosuggest-input", Naked ? "form-control" : String.Empty)"
 									 Offset="@InputOffset" />
 		@if (dataProviderInProgress)
 		{

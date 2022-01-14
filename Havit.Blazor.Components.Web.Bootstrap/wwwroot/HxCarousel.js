@@ -1,10 +1,11 @@
-﻿export function initialize(element, hxCarouselDotnetObjectReference, ride) {
+﻿export function initialize(element, hxCarouselDotnetObjectReference, ride, pause) {
 	if (!element) {
 		return;
 	}
 	var carousel = new bootstrap.Carousel(element,
 		{
-			"ride": ride
+			"ride": ride,
+			"pause": pause
 		});
 
 	element.hxCarouselDotnetObjectReference = hxCarouselDotnetObjectReference;
@@ -51,11 +52,11 @@ export function pause(element) {
 }
 
 function handleSlide(event) {
-	event.target.hxCarouselDotnetObjectReference.invokeMethodAsync('HxCarousel_HandleSlide');
+	event.target.hxCarouselDotnetObjectReference.invokeMethodAsync('HxCarousel_HandleSlide', event.from, event.to, event.direction);
 }
 
 function handleSlid(event) {
-	event.target.hxCarouselDotnetObjectReference.invokeMethodAsync('HxCarousel_HandleSlid');
+	event.target.hxCarouselDotnetObjectReference.invokeMethodAsync('HxCarousel_HandleSlid', event.from, event.to, event.direction);
 }
 
 export function dispose(element) {

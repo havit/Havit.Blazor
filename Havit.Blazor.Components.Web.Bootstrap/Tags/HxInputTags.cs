@@ -36,13 +36,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
 		protected virtual InputTagsSettings GetDefaults() => Defaults;
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
 		/// </summary>
 		[Parameter] public InputTagsSettings Settings { get; set; }
+
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual InputTagsSettings GetSettings() => this.Settings;
+
 
 		/// <summary>
 		/// Indicates whether you are restricted to suggested items only (<c>false</c>).
@@ -59,27 +66,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Minimal number of characters to start suggesting. Default is <c>2</c>.
 		/// </summary>
 		[Parameter] public int? SuggestMinimumLength { get; set; }
-		protected int SuggestMinimumLengthEffective => this.SuggestMinimumLength ?? this.Settings?.SuggestMinimumLength ?? this.GetDefaults().SuggestMinimumLength ?? throw new InvalidOperationException(nameof(SuggestMinimumLength) + " default for " + nameof(HxInputTags) + " has to be set.");
+		protected int SuggestMinimumLengthEffective => this.SuggestMinimumLength ?? this.GetSettings()?.SuggestMinimumLength ?? this.GetDefaults().SuggestMinimumLength ?? throw new InvalidOperationException(nameof(SuggestMinimumLength) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 		/// <summary>
 		/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
 		/// </summary>
 		[Parameter] public int? SuggestDelay { get; set; }
-		protected int SuggestDelayEffective => this.SuggestDelay ?? this.Settings?.SuggestDelay ?? this.GetDefaults().SuggestDelay ?? throw new InvalidOperationException(nameof(SuggestDelay) + " default for " + nameof(HxInputTags) + " has to be set.");
+		protected int SuggestDelayEffective => this.SuggestDelay ?? this.GetSettings()?.SuggestDelay ?? this.GetDefaults().SuggestDelay ?? throw new InvalidOperationException(nameof(SuggestDelay) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 		/// <summary>
 		/// Characters, when typed, divide the current input into separate tags.
 		/// Default is comma, semicolon and space.
 		/// </summary>
 		[Parameter] public List<char> Delimiters { get; set; }
-		protected List<char> DelimitersEffective => this.Delimiters ?? this.Settings?.Delimiters ?? this.GetDefaults().Delimiters ?? throw new InvalidOperationException(nameof(Delimiters) + " default for " + nameof(HxInputTags) + " has to be set.");
+		protected List<char> DelimitersEffective => this.Delimiters ?? this.GetSettings()?.Delimiters ?? this.GetDefaults().Delimiters ?? throw new InvalidOperationException(nameof(Delimiters) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 		/// <summary>
 		/// Indicates whether the add-icon (+) should be displayed.
 		/// Default is <c>false</c>.
 		/// </summary>
 		[Parameter] public bool? ShowAddButton { get; set; }
-		protected bool ShowAddButtonEffective => this.ShowAddButton ?? this.Settings?.ShowAddButton ?? this.GetDefaults().ShowAddButton ?? throw new InvalidOperationException(nameof(ShowAddButton) + " default for " + nameof(HxInputDate) + " has to be set.");
+		protected bool ShowAddButtonEffective => this.ShowAddButton ?? this.GetSettings()?.ShowAddButton ?? this.GetDefaults().ShowAddButton ?? throw new InvalidOperationException(nameof(ShowAddButton) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 		/// <summary>
 		/// Optional text for the add-button.
@@ -105,20 +112,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is <see cref="ThemeColor.Light"/>.
 		/// </summary>
 		[Parameter] public ThemeColor? TagBackgroundColor { get; set; }
-		protected ThemeColor TagBackgroundColorEffective => this.TagBackgroundColor ?? this.Settings?.TagBackgroundColor ?? this.GetDefaults().TagBackgroundColor ?? throw new InvalidOperationException(nameof(TagBackgroundColor) + " default for " + nameof(HxInputDate) + " has to be set.");
+		protected ThemeColor TagBackgroundColorEffective => this.TagBackgroundColor ?? this.GetSettings()?.TagBackgroundColor ?? this.GetDefaults().TagBackgroundColor ?? throw new InvalidOperationException(nameof(TagBackgroundColor) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 		/// <summary>
 		/// Color of the tag text (also used for the AddButtonText and icons).
 		/// Default is <see cref="ThemeColor.Dark"/>.
 		/// </summary>
 		[Parameter] public ThemeColor? TagTextColor { get; set; }
-		protected ThemeColor TagTextColorEffective => this.TagTextColor ?? this.Settings?.TagTextColor ?? this.GetDefaults().TagTextColor ?? throw new InvalidOperationException(nameof(TagTextColor) + " default for " + nameof(HxInputDate) + " has to be set.");
+		protected ThemeColor TagTextColorEffective => this.TagTextColor ?? this.GetSettings()?.TagTextColor ?? this.GetDefaults().TagTextColor ?? throw new InvalidOperationException(nameof(TagTextColor) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 		/// <inheritdoc cref="HxInputBase{TValue}" />
 		[Parameter] public LabelType? LabelType { get; set; }
 
-		/// <inheritdoc cref="Bootstrap.InputSize" />
+		/// <summary>
+		/// Size of the input.
+		/// </summary>
 		[Parameter] public InputSize? InputSize { get; set; }
+		protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputTags) + " has to be set.");
+		InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
 
 
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;

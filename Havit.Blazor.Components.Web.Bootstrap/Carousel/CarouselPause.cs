@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Date item for <see cref="HxInputDate" />.
+	/// Behavior of the <see cref="HxCarousel"/>.
 	/// </summary>
-	public class DateItem
+	public enum CarouselPause
 	{
 		/// <summary>
-		/// Custom label.
+		/// Carousel will stop sliding on hover.
 		/// </summary>
-		public string Label { get; set; }
+		Hover = 0,
 
 		/// <summary>
-		/// Date.
+		/// Carousel won't stop sliding on hover.
 		/// </summary>
-		public DateTime Date { get; set; }
+		False = 1
 	}
 }

@@ -39,10 +39,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public PlaceholderContainerSettings Settings { get; set; }
 
 		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual PlaceholderContainerSettings GetSettings() => this.Settings;
+
+
+		/// <summary>
 		/// Animation of the placeholders in container.
 		/// </summary>
 		[Parameter] public PlaceholderAnimation? Animation { get; set; }
-		protected PlaceholderAnimation AnimationEffective => this.Animation ?? this.Settings?.Animation ?? GetDefaults().Animation ?? throw new InvalidOperationException(nameof(Animation) + " default for " + nameof(HxPlaceholderContainer) + " has to be set.");
+		protected PlaceholderAnimation AnimationEffective => this.Animation ?? this.GetSettings()?.Animation ?? GetDefaults().Animation ?? throw new InvalidOperationException(nameof(Animation) + " default for " + nameof(HxPlaceholderContainer) + " has to be set.");
 
 		/// <summary>
 		/// Size of the placeholders (propagated to the child <see cref="HxPlaceholder"/>s).
@@ -63,7 +72,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Additional CSS class.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
-		protected string CssClassEffective => this.CssClass ?? this.Settings?.CssClass ?? GetDefaults().CssClass;
+		protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 		/// <summary>
 		/// Additional attributes to be splatted onto an underlying HTML element.

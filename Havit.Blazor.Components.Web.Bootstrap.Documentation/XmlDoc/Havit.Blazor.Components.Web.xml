@@ -153,6 +153,14 @@
             Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Defaults"/>, overriden by individual parameters).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.GetSettings">
+            <summary>
+            Returns optional set of component settings.
+            </summary>
+            <remarks>
+            Simmilar to <see cref="M:Havit.Blazor.Components.Web.HxInputFileCore.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Settings"/> in components descandants (by returning a derived settings class).
+            </remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.UploadUrl">
             <summary>
             URL of the server endpoint receiving the files.
@@ -404,6 +412,101 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxModelEditForm`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.InputMode">
+            <summary>
+            Enum for <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode">HTML input modes</see>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputMode.Text">
+            <summary>
+            Standard input keyboard for the user's current locale.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputMode.None">
+            <summary>
+            No virtual keyboard. For when the page implements its own keyboard input control.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputMode.Decimal">
+            <summary>
+            Fractional numeric input keyboard containing the digits and decimal separator for the user's locale
+            (typically <kbd>.</kbd> or <kbd>,</kbd>). Devices may or may not show a minus key (<kbd>-</kbd>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputMode.Numeric">
+            <summary>
+            Numeric input keyboard, but only requires the digits <kbd>0</kbd>–<kbd>9</kbd>. Devices may or may not show a minus key.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputMode.Tel">
+            <summary>
+            A telephone keypad input, including the digits <kbd>0</kbd>–<kbd>9</kbd>, the asterisk (<kbd>*</kbd>), and the pound (<kbd>#</kbd>) key.
+            Inputs that *require* a telephone number should typically use <c>InputType.Tel</c> instead.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputMode.Search">
+            <summary>
+            A virtual keyboard optimized for search input. For instance, the return/submit key may be labeled
+            “Search”, along with possible other optimizations. Inputs that require a search query should typically
+            use <c>InputType.Search</c> instead.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputMode.Email">
+            <summary>
+            A virtual keyboard optimized for entering email addresses. Typically includes the <kbd>@</kbd> character
+            as well as other optimizations. Inputs that require email addresses should typically use <c>InputType.Email</c> instead.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputMode.Url">
+            <summary>
+            A keypad optimized for entering URLs. This may have the <kbd>/</kbd> key more prominent, for example.
+            Enhanced features could include history access and so on. Inputs that require a URL should typically
+            use <c>InputType.Url</c> instead.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.InputType">
+            <summary>
+            Enum for <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types">HTML input types</see>.
+            </summary>
+            <remarks>
+            As the enum is currently used only for <c>HxInputText</c> component, only relevant types are included.
+            As all the values will by needed, they can be added any later (add restrictions/validation to <c>HxInputText</c> then).
+            </remarks>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputType.Text">
+            <summary>
+            The default value. A single-line text field. Line-breaks are automatically removed from the input value.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputType.Email">
+            <summary>
+            A field for editing an email address. Looks like a <see cref="F:Havit.Blazor.Components.Web.InputType.Text"/> input, but has validation parameters
+            and relevant keyboard in supporting browsers and devices with dynamic keyboards.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputType.Password">
+            <summary>
+            A single-line text field whose value is obscured. Will alert user if site is not secure.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputType.Search">
+            <summary>
+            A single-line text field for entering search strings. Line-breaks are automatically removed from the input value.
+            May include a delete icon in supporting browsers that can be used to clear the field. Displays a search icon instead
+            of enter key on some devices with dynamic keypads.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputType.Tel">
+            <summary>
+            	A control for entering a telephone number. Displays a telephone keypad in some devices with dynamic keypads.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputType.Url">
+            <summary>
+            A field for entering a URL. Looks like a <see cref="F:Havit.Blazor.Components.Web.InputType.Text"/> input, but has validation parameters and relevant
+            keyboard in supporting browsers and devices with dynamic keyboards.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.ModelCloner.Clone``1(``0)">
             <summary>

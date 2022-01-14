@@ -65,10 +65,18 @@ namespace Havit.Blazor.Components.Web
 			builder.AddContent(0, ChildContent);
 		}
 
-		public virtual void Dispose()
+		public void Dispose()
 		{
-			Logger.LogDebug("Dispose: Value.PropertyChanged -= Value_PropertyChanged;");
-			Value.PropertyChanged -= Value_PropertyChanged;
+			Dispose(true);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				Logger.LogDebug("Dispose: Value.PropertyChanged -= Value_PropertyChanged;");
+				Value.PropertyChanged -= Value_PropertyChanged;
+			}
 		}
 	}
 }

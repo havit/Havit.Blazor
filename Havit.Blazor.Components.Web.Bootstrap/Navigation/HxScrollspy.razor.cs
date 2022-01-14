@@ -71,7 +71,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxScrollspy) + ".js");
 		}
 
-		public virtual async ValueTask DisposeAsync()
+
+		public async ValueTask DisposeAsync()
+		{
+			await DisposeAsyncCore().ConfigureAwait(false);
+
+			//Dispose(disposing: false);
+		}
+
+		protected virtual async ValueTask DisposeAsyncCore()
 		{
 			if (jsModule != null)
 			{

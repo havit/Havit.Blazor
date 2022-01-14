@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Non-generic API for <see cref="HxInputDate{TValue}"/>.
@@ -25,6 +19,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				MinDate = HxCalendar.DefaultMinDate,
 				MaxDate = HxCalendar.DefaultMaxDate,
 				ShowCalendarButtons = true,
+				ShowPredefinedDates = true,
+				PredefinedDates = new List<InputDatePredefinedDatesItem>() { new InputDatePredefinedDatesItem() { Label = "Today", ResourceType = typeof(HxInputDate), Date = DateTime.Today } }
 			};
 		}
 	}

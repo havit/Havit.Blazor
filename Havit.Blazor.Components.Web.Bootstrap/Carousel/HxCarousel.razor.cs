@@ -57,27 +57,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Is fired when the current slide is changed (at the very start of the sliding transition).
 		/// </summary>
-		[Parameter] public EventCallback OnSlide { get; set; }
+		[Parameter] public EventCallback<CarouselSlideEventArgs> OnSlide { get; set; }
 		/// <summary>
 		/// Triggers the <see cref="OnSlide"/> event. Allows interception of the event in derived components.
 		/// </summary>
-		protected virtual Task InvokeOnSlideAsync() => OnSlide.InvokeAsync();
+		protected virtual Task InvokeOnSlideAsync(CarouselSlideEventArgs eventArgs) => OnSlide.InvokeAsync(eventArgs);
 
 
 		/// <summary>
 		/// Is fired when the current slide is changed (once the transition is completed).
 		/// </summary>
-		[Parameter] public EventCallback OnSlid { get; set; }
+		[Parameter] public EventCallback<CarouselSlideEventArgs> OnSlid { get; set; }
 		/// <summary>
 		/// Triggers the <see cref="OnSlid"/> event. Allows interception of the event in derived components.
 		/// </summary>
-		protected virtual Task InvokeOnSlidAsync() => OnSlid.InvokeAsync();
+		protected virtual Task InvokeOnSlidAsync(CarouselSlideEventArgs eventArgs) => OnSlid.InvokeAsync(eventArgs);
 
 		/// <summary>
 		/// Carousel ride (autoplay) behavior. Default is <see cref="CarouselRide.Carousel"/> (autoplays the carousel on load).
 		/// </summary>
 		[Parameter] public CarouselRide Ride { get; set; } = CarouselRide.Carousel;
 
+		/// <summary>
+		/// Carousel pause behavior. Default is <see cref="CarouselPause.Hover"/> (carousel will stop sliding on hover).
+		/// </summary>
+		[Parameter] public CarouselPause Pause { get; set; } = CarouselPause.Hover;
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -110,7 +114,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					return;
 				}
-				await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference, Ride.ToString().ToLower());
+				await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference, Ride.ToString().ToLower(), Pause.ToString().ToLower());
 			}
 		}
 
@@ -121,15 +125,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 
 		[JSInvokable("HxCarousel_HandleSlide")]
-		public async Task HandleSlide()
+		public async Task HandleSlide(int from, int to, string direction)
 		{
-			await InvokeOnSlideAsync();
+			CarouselSlideEventArgs eventArgs = new()
+			{
+				From = from,
+				To = to,
+				Direction = direction
+			};
+
+			await InvokeOnSlideAsync(eventArgs);
 		}
 
 		[JSInvokable("HxCarousel_HandleSlid")]
-		public async Task HandleSlid()
+		public async Task HandleSlid(int from, int to, string direction)
 		{
-			await InvokeOnSlidAsync();
+			CarouselSlideEventArgs eventArgs = new()
+			{
+				From = from,
+				To = to,
+				Direction = direction
+			};
+
+			await InvokeOnSlidAsync(eventArgs);
 		}
 
 		/// <summary>
@@ -180,7 +198,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Dispose the carousel.
 		/// </summary>
-		public virtual async ValueTask DisposeAsync()
+		public async ValueTask DisposeAsync()
+		{
+			await DisposeAsyncCore().ConfigureAwait(false);
+
+			//Dispose(disposing: false);
+		}
+
+		protected virtual async ValueTask DisposeAsyncCore()
 		{
 			disposed = true;
 

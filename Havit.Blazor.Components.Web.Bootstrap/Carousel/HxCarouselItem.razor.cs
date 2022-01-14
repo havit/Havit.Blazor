@@ -36,9 +36,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			ItemsRegistration.Register(this);
 		}
 
-		public virtual void Dispose()
+		public void Dispose()
 		{
-			ItemsRegistration.Unregister(this);
+			Dispose(true);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				ItemsRegistration.Unregister(this);
+			}
 		}
 
 	}

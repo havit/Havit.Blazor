@@ -42,6 +42,14 @@ namespace Havit.Blazor.Components.Web
 		/// </summary>
 		[Parameter] public InputFileCoreSettings Settings { get; set; }
 
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual InputFileCoreSettings GetSettings() => this.Settings;
+
 
 		/// <summary>
 		/// URL of the server endpoint receiving the files.
@@ -92,13 +100,12 @@ namespace Havit.Blazor.Components.Web
 		/// Default is <c>long.MaxValue</c> (unlimited).
 		/// </summary>
 		[Parameter] public long? MaxFileSize { get; set; }
+		protected long MaxFileSizeEffective => this.MaxFileSize ?? this.GetSettings()?.MaxFileSize ?? GetDefaults().MaxFileSize ?? throw new InvalidOperationException(nameof(MaxFileSize) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 		/// <summary>
 		/// Maximum number of concurrent uploads.
 		/// </summary>
 		[Parameter] public int MaxParallelUploads { get; set; }
-
-		protected long MaxFileSizeEffective => this.MaxFileSize ?? this.Settings?.MaxFileSize ?? GetDefaults().MaxFileSize ?? throw new InvalidOperationException(nameof(MaxFileSize) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 		/// <summary>
 		/// Input element id.
@@ -246,10 +253,19 @@ namespace Havit.Blazor.Components.Web
 			await InvokeOnUploadCompletedAsync(uploadCompleted);
 		}
 
-		public virtual async ValueTask DisposeAsync()
+
+		public async ValueTask DisposeAsync()
+		{
+			await DisposeAsyncCore().ConfigureAwait(false);
+
+			//Dispose(disposing: false);
+		}
+
+		protected virtual async ValueTask DisposeAsyncCore()
 		{
 			disposed = true;
 
+			// Microsoft violates the pattern - there is no protected virtual voud Dispose(bool) method and the IDisposable implementation is explicit.
 			((IDisposable)this).Dispose();
 
 			if (jsModule != null)

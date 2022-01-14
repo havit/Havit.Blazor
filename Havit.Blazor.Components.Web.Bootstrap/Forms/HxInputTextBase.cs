@@ -16,10 +16,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
-		/// <summary>
-		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputText.Defaults"/>, overriden by individual parameters).
-		/// </summary>
-		[Parameter] public InputTextSettings Settings { get; set; }
 
 		/// <summary>
 		/// Return <see cref="HxInputText"/> defaults.
@@ -27,8 +23,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
 		protected abstract InputTextSettings GetDefaults();
-		IInputSettingsWithSize IInputWithSize.GetDefaults() => GetDefaults(); // might be replaced with C# vNext convariant return types on interfaces
-		IInputSettingsWithSize IInputWithSize.GetSettings() => this.Settings;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputText.Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public InputTextSettings Settings { get; set; }
+
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		/// <remarks>
+		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// </remarks>
+		protected virtual InputTextSettings GetSettings() => this.Settings;
+
+
+		/// <summary>
+		/// Hint to browsers as to the type of virtual keyboard configuration to use when editing.<br/>
+		/// Default is <c>null</c> (not set).
+		/// </summary>
+		[Parameter] public InputMode? InputMode { get; set; }
+		protected InputMode? InputModeEffective => this.InputMode ?? this.GetSettings()?.InputMode ?? this.GetDefaults()?.InputMode;
 
 		/// <summary>
 		/// Gets or sets the behavior when the model is updated from then input.
@@ -40,8 +55,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string Placeholder { get; set; }
 
-		/// <inheritdoc cref="Bootstrap.InputSize" />
+		/// <summary>
+		/// Size of the input.
+		/// </summary>
 		[Parameter] public InputSize? InputSize { get; set; }
+		protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputNumber) + " has to be set.");
+		InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
 
 		/// <inheritdoc cref="Bootstrap.LabelType" />
 		[Parameter] public LabelType? LabelType { get; set; }
@@ -60,8 +79,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			builder.AddAttribute(1002, "value", FormatValueAsString(Value));
 			builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-			builder.AddEventStopPropagationAttribute(1004, "onclick", true);
-			builder.AddElementReferenceCapture(1005, elementReferece => InputElement = elementReferece);
+
+			if (this.InputModeEffective is not null)
+			{
+				builder.AddAttribute(1004, "inputmode", this.InputModeEffective.Value.ToString("f").ToLower());
+			}
+
+			builder.AddEventStopPropagationAttribute(1005, "onclick", true);
+			builder.AddElementReferenceCapture(1006, elementReferece => InputElement = elementReferece);
 
 			builder.CloseElement();
 		}

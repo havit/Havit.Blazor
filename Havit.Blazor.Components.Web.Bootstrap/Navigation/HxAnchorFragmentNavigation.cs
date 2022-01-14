@@ -82,7 +82,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			lastKnownLocation = args.Location;
 		}
 
-		public virtual async ValueTask DisposeAsync()
+
+		public async ValueTask DisposeAsync()
+		{
+			await DisposeAsyncCore().ConfigureAwait(false);
+
+			//Dispose(disposing: false);
+		}
+
+		protected virtual async ValueTask DisposeAsyncCore()
 		{
 			NavigationManager.LocationChanged -= OnLocationChanged;
 

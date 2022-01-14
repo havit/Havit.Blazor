@@ -140,9 +140,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		public virtual void Dispose()
+		public void Dispose()
 		{
-			DetachValidationStateChangedListener();
+			Dispose(true);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				DetachValidationStateChangedListener();
+			}
 		}
 
 		private void DetachValidationStateChangedListener()

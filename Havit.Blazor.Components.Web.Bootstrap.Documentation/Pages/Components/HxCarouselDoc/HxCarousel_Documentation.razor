@@ -32,6 +32,13 @@
 	<h3 id="TouchSwiping">Disable touch swiping</h3>
 	<Demo Type="typeof(HxCarousel_Demo_TouchSwiping)" />
 
+	<h3 id="SlideOnHover">Disable pausing on hover</h3>
+	<p>
+        Set <code>@nameof(HxCarousel.Pause)="@nameof(CarouselPause).@nameof(CarouselPause.False)"</code> to disable pausing the carousel on <code>mouseenter</code>.
+        By default (<code>@nameof(HxCarousel.Pause)="@nameof(CarouselPause).@nameof(CarouselPause.Hover)"</code>), the carousel pauses the cycling on <code>mouseenter</code> and resumes the cycling on <code>mouseleave</code>.
+    </p>
+	<Demo Type="typeof(HxCarousel_Demo_Pause)" />
+
 	<h3 id="DarkVariant">Dark variant</h3>
 	<Demo Type="typeof(HxCarousel_Demo_Dark)" />
 
