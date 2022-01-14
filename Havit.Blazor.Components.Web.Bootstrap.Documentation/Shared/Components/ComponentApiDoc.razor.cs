@@ -171,7 +171,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 
 			MethodInfo method = Type.GetMethod("Invoke");
-			delegateSignature = $"{FormatType(method.ReturnType.ToString())} {FormatType(Type)} (";
+			delegateSignature = $"{FormatType(method.ReturnType.ToString())} {FormatType(Type, asLink: false)}(";
 			foreach (ParameterInfo param in method.GetParameters())
 			{
 				delegateSignature += $"{FormatType(param.ParameterType)} {param.Name}";
@@ -421,7 +421,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			return $"IAsyncResult<<a href=\"/types/{typeName}\">{typeName}</a>>";
 		}
 
-		public static string FormatType(Type type)
+		public static string FormatType(Type type, bool asLink = true)
 		{
 			string typeName = type.FullName;
 			if (string.IsNullOrWhiteSpace(typeName))
@@ -449,7 +449,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			typeName = ConstructGenericTypeName(type, typeName) ?? typeName;
 
-			string internalTypeName = GenerateLinkForInternalType(typeName);
+			string internalTypeName = null;
+			if (asLink)
+			{
+				internalTypeName = GenerateLinkForInternalType(typeName);
+			}
 			if (internalTypeName is not null)
 			{
 				typeName = internalTypeName;
