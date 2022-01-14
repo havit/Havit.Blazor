@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Havit.Blazor.Components.Web
+﻿namespace Havit.Blazor.Components.Web
 {
 	/// <summary>
 	/// Allows child components to register to an owner component via this class shared as cascading value &amp; parameter.

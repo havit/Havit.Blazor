@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Used in a component which can generate chips.

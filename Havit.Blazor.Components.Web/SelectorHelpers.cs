@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Havit.Blazor.Components.Web
+﻿namespace Havit.Blazor.Components.Web
 {
 	/// <summary>
 	/// Helper methods for selectors.

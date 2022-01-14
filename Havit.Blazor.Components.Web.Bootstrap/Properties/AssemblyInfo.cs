@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Runtime.CompilerServices;
 
 // In a class library there must be present ResourceLocationAttribute otherwise developer can change where resources should be located.
 // To understand this well see comment in ResourceManagerStringLocalizerFactory.GetResourcePath (https://github.com/aspnet/Localization/blob/c283dfb56cd9620edfae644f1229d8231e9cfc0e/src/Microsoft.Extensions.Localization/ResourceManagerStringLocalizerFactory.cs#L249).

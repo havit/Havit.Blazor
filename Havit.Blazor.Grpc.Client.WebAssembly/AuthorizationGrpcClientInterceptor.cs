@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Grpc.Core.Interceptors;
 using Grpc.Core;
-using static Grpc.Core.Interceptors.Interceptor;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
 namespace Havit.Blazor.Grpc.Client.WebAssembly

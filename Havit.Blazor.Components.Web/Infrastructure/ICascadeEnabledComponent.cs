@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Components;
-
-namespace Havit.Blazor.Components.Web.Infrastructure
+﻿namespace Havit.Blazor.Components.Web.Infrastructure
 {
 	/// <summary>
 	/// Component which can be enabled/disabled in a cascade.

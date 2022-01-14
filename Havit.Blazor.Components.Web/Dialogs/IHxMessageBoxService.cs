@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Havit.Blazor.Components.Web
+﻿namespace Havit.Blazor.Components.Web
 {
 	public interface IHxMessageBoxService
 	{

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-
-namespace Havit.Blazor.Components.Web
+﻿namespace Havit.Blazor.Components.Web
 {
 	/// <summary>
 	/// Rendering a <c>HxRedirectTo</c> will navigate to a new location.<br/>

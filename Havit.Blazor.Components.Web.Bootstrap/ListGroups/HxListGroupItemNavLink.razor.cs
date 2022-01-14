@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Havit.Blazor.Components.Web.Infrastructure;
-using Microsoft.AspNetCore.Components;
+﻿using Havit.Blazor.Components.Web.Infrastructure;
 using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {

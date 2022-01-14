@@ -1,7 +1,3 @@
-using System;
-using System.ComponentModel;
-using Microsoft.AspNetCore.Components;
-
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
 	public partial class HxTreeViewItemInternal<TItem> : ComponentBase

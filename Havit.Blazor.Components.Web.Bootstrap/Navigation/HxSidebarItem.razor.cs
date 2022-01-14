@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
+﻿using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace Havit.Blazor.Components.Web.Bootstrap

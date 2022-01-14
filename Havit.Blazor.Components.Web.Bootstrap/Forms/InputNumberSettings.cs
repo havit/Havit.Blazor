@@ -1,5 +1,4 @@
-﻿using System;
-using Havit.Blazor.Components.Web.Bootstrap.Internal;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {

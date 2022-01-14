@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Havit.Blazor.Components.Web.Services.DataStores
+﻿namespace Havit.Blazor.Components.Web.Services.DataStores
 {
 	public interface IStaticDataStore<TValue>
 	{

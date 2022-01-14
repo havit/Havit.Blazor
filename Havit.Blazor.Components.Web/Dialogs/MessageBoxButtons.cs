@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Havit.Blazor.Components.Web
+﻿namespace Havit.Blazor.Components.Web
 {
 	[Flags]
 	public enum MessageBoxButtons

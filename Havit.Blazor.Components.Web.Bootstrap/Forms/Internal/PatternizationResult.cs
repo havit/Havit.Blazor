@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Havit.Blazor.Components.Web.Bootstrap.Forms.Internal
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Forms.Internal
 {
 	// source: https://www.codeproject.com/Articles/1135909/String-parsing-with-custom-patterns
 

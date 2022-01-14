@@ -1,11 +1,6 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms.Internal
 {

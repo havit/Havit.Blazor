@@ -1,15 +1,5 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Forms;
-using Havit.Blazor.Components.Web.Bootstrap.Internal;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
-using System;
-using System.Collections.Generic;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
