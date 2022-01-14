@@ -9,69 +9,66 @@
 
 	var nextFile = maxParallelUploads;
 
-	function uploadFiles(startIndex, endIndex) {
-		console.log(inputElementId);
-
-		if (inputElement && inputElement.cancelled && inputElement.cancelled === true) {
-			return;
-		}
-
-		if (files.length === 0) {
-			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', 0, 0);
-			return;
-		}
-
-		for (var i = startIndex; i < endIndex; i++) {
-			(function (curr) {
-				var index = curr;
-				var file = files[curr];
-
-				if (maxFileSize && (file.size > maxFileSize)) {
-					let msg = `[${index}]${file.name} client pre-check: File size ${file.size} bytes exceeds MaxFileSize limit ${maxFileSize} bytes.`;
-					console.warn(msg);
-					dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, 413, msg);
-					return;
-				}
-
-				if (file && file.size) {
-					totalSize = totalSize + file.size;
-				}
-
-				var data = new FormData();
-				data.append('file', file, file.name);
-
-				var request = new XMLHttpRequest();
-				inputElement.requests.push(request);
-
-				request.open('POST', uploadEndpointUrl, true);
-
-				if (accessToken) {
-					request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-				}
-
-				request.upload.onprogress = function (e) {
-					dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadProgress', index, file.name, e.loaded, e.total);
-				};
-				request.onreadystatechange = function () {
-					if (request.readyState === 4) {
-						dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
-
-						if (nextFile < files.length) {
-							uploadFiles(nextFile, nextFile + 1);
-							nextFile++;
-						}
-					};
-					if (nextFile >= files.length) {
-						dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
-					}
-				}
-
-				request.send(data);
-			}(i));
-		}
+	if (inputElement && inputElement.cancelled && inputElement.cancelled === true) {
+		return;
 	}
 
-	uploadFiles(0, Math.min(files.length, maxParallelUploads));
+	if (files.length === 0) {
+		dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', 0, 0);
+		return;
+	}
+
+	for (var i = 0; i < Math.min(files.length, maxParallelUploads); i++) {
+		(function (curr) {
+			uploadFile(curr);
+		}(i));
+	}
+
+	function uploadFile(index) {
+		var file = files[index];
+
+		if (maxFileSize && (file.size > maxFileSize)) {
+			let msg = `[${index}]${file.name} client pre-check: File size ${file.size} bytes exceeds MaxFileSize limit ${maxFileSize} bytes.`;
+			console.warn(msg);
+			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, 413, msg);
+			return;
+		}
+
+		if (file && file.size) {
+			totalSize = totalSize + file.size;
+		}
+
+		var data = new FormData();
+		data.append('file', file, file.name);
+
+		var request = new XMLHttpRequest();
+		inputElement.requests.push(request);
+
+		request.open('POST', uploadEndpointUrl, true);
+
+		if (accessToken) {
+			request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+		}
+
+		request.upload.onprogress = function (e) {
+			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadProgress', index, file.name, e.loaded, e.total);
+		};
+		request.onreadystatechange = function () {
+			if (request.readyState === 4) {
+				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
+
+				if (nextFile < files.length) {
+					uploadFile(nextFile);
+					nextFile++;
+				}
+			};
+			if (nextFile >= files.length) {
+				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
+			}
+		}
+
+		request.send(data);
+    }
 }
 
 export function getFiles(inputElementId) {
