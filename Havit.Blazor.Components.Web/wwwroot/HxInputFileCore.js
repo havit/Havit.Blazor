@@ -9,10 +9,6 @@
 
 	var nextFile = maxParallelUploads;
 
-	if (inputElement && inputElement.cancelled && inputElement.cancelled === true) {
-		return;
-	}
-
 	if (files.length === 0) {
 		dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', 0, 0);
 		return;
@@ -25,6 +21,11 @@
 	}
 
 	function uploadFile(index) {
+
+		if (inputElement && inputElement.cancelled && inputElement.cancelled === true) {
+			return;
+		}
+
 		var file = files[index];
 
 		if (maxFileSize && (file.size > maxFileSize)) {
