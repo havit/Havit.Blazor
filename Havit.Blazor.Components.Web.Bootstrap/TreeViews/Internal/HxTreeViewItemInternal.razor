@@ -9,7 +9,7 @@
     var isSelected = this.Item.Equals(this.TreeViewContainer.SelectedItem);
 }
 
-<div class="hx-tree-view-item @(isSelected ? "selected" : "")" @onclick="@HandleItemClicked">
+<div class="hx-tree-view-item @(isSelected ? "selected" : "")" @onclick="@HandleItemClicked" @onclick:stopPropagation="true">
     @for (int i = 0; i < this.Level; i++)
     {
         <div class="hx-tree-view-item-spacer"></div>
