@@ -20,7 +20,8 @@ namespace Havit.Blazor.Components.Web
 		{
 			Defaults = new InputFileCoreSettings()
 			{
-				MaxFileSize = long.MaxValue
+				MaxFileSize = long.MaxValue,
+				MaxParallelUploads = 6
 			};
 		}
 
@@ -96,6 +97,12 @@ namespace Havit.Blazor.Components.Web
 		protected long MaxFileSizeEffective => this.MaxFileSize ?? this.GetSettings()?.MaxFileSize ?? GetDefaults().MaxFileSize ?? throw new InvalidOperationException(nameof(MaxFileSize) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 		/// <summary>
+		/// Maximum number of concurrent uploads. Default is <c>6</c>.
+		/// </summary>
+		[Parameter] public int? MaxParallelUploads { get; set; }
+		protected int MaxParallelUploadsEffective => this.MaxParallelUploads ?? this.GetSettings()?.MaxParallelUploads ?? this.GetDefaults().MaxParallelUploads ?? throw new InvalidOperationException(nameof(MaxParallelUploads) + " default for " + nameof(HxInputFileCore) + " has to be set.");
+
+		/// <summary>
 		/// Input element id.
 		/// </summary>
 		[Parameter] public string Id { get; set; } = "hx" + Guid.NewGuid().ToString("N");
@@ -149,7 +156,7 @@ namespace Havit.Blazor.Components.Web
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, UploadUrl, accessToken, MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective);
+			await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, UploadUrl, accessToken, MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective, MaxParallelUploadsEffective);
 		}
 
 		/// <summary>
@@ -220,7 +227,7 @@ namespace Havit.Blazor.Components.Web
 				ResponseStatus = (HttpStatusCode)responseStatus,
 				ResponseText = responseText,
 			};
-			filesUploaded.Add(fileUploaded);
+			filesUploaded?.Add(fileUploaded);
 			await InvokeOnFileUploadedAsync(fileUploaded);
 		}
 

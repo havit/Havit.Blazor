@@ -89,6 +89,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool Multiple { get; set; }
 
 		/// <summary>
+		/// Maximum number of concurrent uploads. Default is <c>6</c> (from <see cref="HxInputFileCore"/>).
+		/// </summary>
+		[Parameter] public int? MaxParallelUploads { get; set; }
+
+		/// <summary>
 		/// Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.
 		/// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">MDN Web Docs - HTML attribute: accept</see>.
 		/// </summary>
@@ -220,9 +225,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1007, nameof(HxInputFileCore.OnUploadCompleted), EventCallback.Factory.Create<UploadCompletedEventArgs>(this, InvokeOnUploadCompletedAsync));
 			builder.AddAttribute(1008, nameof(HxInputFileCore.Accept), this.Accept);
 			builder.AddAttribute(1009, nameof(HxInputFileCore.MaxFileSize), this.MaxFileSize);
-			builder.AddAttribute(1010, "class", CssClassHelper.Combine(this.CoreInputCssClass, this.InputCssClass, (this is IInputWithSize inputWithSize) ? inputWithSize.GetInputSizeCssClass() : null));
-			builder.AddAttribute(1011, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
-			builder.AddComponentReferenceCapture(1012, r => hxInputFileCoreComponentReference = (HxInputFileCore)r);
+			builder.AddAttribute(1010, nameof(HxInputFileCore.MaxParallelUploads), this.MaxParallelUploads);
+			builder.AddAttribute(1011, "class", CssClassHelper.Combine(this.CoreInputCssClass, this.InputCssClass, (this is IInputWithSize inputWithSize) ? inputWithSize.GetInputSizeCssClass() : null));
+			builder.AddAttribute(1012, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
+			builder.AddComponentReferenceCapture(1013, r => hxInputFileCoreComponentReference = (HxInputFileCore)r);
 			builder.CloseComponent();
 		}
 	}

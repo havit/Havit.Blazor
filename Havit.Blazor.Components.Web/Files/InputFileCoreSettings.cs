@@ -10,5 +10,10 @@
 		/// When exceeded, the <see cref="HxInputFileCore.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="FileUploadedEventArgs.ResponseStatus"/>.
 		/// </summary>
 		public long? MaxFileSize { get; set; }
+
+		/// <summary>
+		/// Maximum number of concurrent uploads.
+		/// </summary>
+		public int? MaxParallelUploads { get; set; }
 	}
 }
