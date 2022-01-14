@@ -46,9 +46,9 @@
         </DocAlert>
         <Demo Type="typeof(HxGrid_Demo_Multiselect)" />
 
-        <h3 id="InlineEditting">Inline-editting</h3>
-        <p>To achieve an inline-editting experience, simply specify the content of the <code>ItemTemplate</code> on <code>HxGridColumn</code> and omit the <code>ItemTextSelector</code> parameter.</p>
-        <Demo Type="typeof(HxGrid_Demo_InlineEditting)" />
+        <h3 id="inline-editing">Inline-editing</h3>
+        <p>To achieve an inline-editing experience, you can use the <code>SelectedDataItem</code> and render editing UI for such items. Simply specify the content of the <code>ItemTemplate</code> in <code>HxGridColumn</code> and use the <code>SelectedDataItemChanged</code> event to save changes (or you can add a column with command buttons).</p>
+        <Demo Type="typeof(HxGrid_Demo_InlineEditing)" />
     </MainContent>
 
     <CssVariables>

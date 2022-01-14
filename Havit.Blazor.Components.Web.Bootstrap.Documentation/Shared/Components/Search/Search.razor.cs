@@ -143,7 +143,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxGrid#InfiniteScroll", "HxGrid > Infinite scroll (Virtualized)", ""),
 			new("/components/HxGrid#ContextMenu", "HxGrid > Context menu", ""),
 			new("/components/HxGrid#Multiselect", "HxGrid > Multiselect with checkboxes", ""),
-			new("/components/HxGrid#InlineEditting", "HxGrid > Inline-editting", ""),
+			new("/components/HxGrid#inline-editing", "HxGrid > Inline-editing", ""),
 
 			new("/components/HxContextMenu", "HxContextMenu", "dropdown popup"),
 
