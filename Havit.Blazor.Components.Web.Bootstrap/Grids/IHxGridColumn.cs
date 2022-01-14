@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using Havit.Blazor.Components.Web.Infrastructure;
-using Microsoft.AspNetCore.Components;
+﻿using Havit.Blazor.Components.Web.Infrastructure;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {

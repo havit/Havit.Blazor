@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Havit.Blazor.Components.Web.Services.DataStores
+﻿namespace Havit.Blazor.Components.Web.Services.DataStores
 {
 	/// <summary>
 	/// Base-interface for Blazor dictionary-based static-data stores.

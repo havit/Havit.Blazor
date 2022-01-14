@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap;
-using Microsoft.AspNetCore.Server.IIS.Core;
 
 namespace BlazorAppTest.Pages.Pickers
 {

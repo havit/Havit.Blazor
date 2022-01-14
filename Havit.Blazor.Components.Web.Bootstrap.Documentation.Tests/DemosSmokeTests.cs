@@ -2,13 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bunit;
-using Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages.Components.HxButtonDoc;
-using Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages.Components.HxPagerDoc;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Tests

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Grpc.Core.Interceptors;
-using Grpc.Core;
+﻿using Grpc.Core.Interceptors;
 using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Grpc.Client.HttpHeaders

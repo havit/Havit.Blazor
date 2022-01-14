@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-using Microsoft.AspNetCore.Components;
-
-namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.1/components/navbar/">Bootstrap 5 Navbar</see> component - responsive navigation header.<br/>

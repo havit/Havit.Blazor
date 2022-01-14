@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-
-namespace Havit.Blazor.Components.Web.Infrastructure
+﻿namespace Havit.Blazor.Components.Web.Infrastructure
 {
 	public interface IRenderNotificationComponent
 	{

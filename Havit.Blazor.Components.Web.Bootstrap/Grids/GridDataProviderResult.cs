@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Data provider result for grid data.
