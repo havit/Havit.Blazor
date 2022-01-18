@@ -9,7 +9,7 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>2.0.2</PackageVersion>
+		<PackageVersion>2.0.3</PackageVersion>
 		<Description>HAVIT Blazor Library - Free Bootstrap 5 components for ASP.NET Blazor</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://havit.blazor.eu</PackageProjectUrl>
@@ -27,10 +27,10 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="Havit.Core" Version="2.0.20" />
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.10" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.10" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="5.0.10" />
+		<PackageReference Include="Havit.Core" Version="2.0.21" />
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.13" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.13" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

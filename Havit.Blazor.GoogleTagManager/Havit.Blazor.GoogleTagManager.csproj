@@ -13,15 +13,15 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.0.5</PackageVersion>
+		<PackageVersion>1.0.6</PackageVersion>
 		<Description>HAVIT Blazor Library - Google Tag Manager support (incl. optional automatic page-views tracking)</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Havit.Core" Version="2.0.20" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.10" />
+		<PackageReference Include="Havit.Core" Version="2.0.21" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.13" />
 	</ItemGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
