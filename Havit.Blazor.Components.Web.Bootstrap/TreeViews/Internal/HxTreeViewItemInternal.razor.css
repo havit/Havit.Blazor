@@ -9,9 +9,17 @@
 	background-color: var(--hx-tree-view-item-background);
 	color: var(--hx-tree-view-item-color);
 	transition: all 0.15s ease-in-out;
+	border-width: var(--hx-tree-view-item-border-width);
+	border-color: var(--hx-tree-view-item-border-color);
+	border-style: var(--hx-tree-view-item-border-style);
 }
 
-.hx-tree-view-item.selected {
+.hx-tree-view-item + .hx-tree-view-item {
+	border-top-width: 0;
+}
+
+.hx-tree-view-item.selected,
+.hx-tree-view-item.selected:hover {
 	background-color: rgba(var(--hx-tree-view-item-selected-background), var(--hx-tree-view-item-hover-background-opacity));
 	color: var(--hx-tree-view-item-selected-color);
 }
