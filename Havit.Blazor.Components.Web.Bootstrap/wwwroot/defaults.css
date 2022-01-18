@@ -109,7 +109,7 @@
 	--hx-input-tags-naked-font-size-lg: 			1.25em;
 	--hx-input-tags-naked-font-size-sm: 			.875em;
 	--hx-input-tags-control-focused-box-shadow: 	0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
-	--hx-input-tags-control-focused-border-color: 	var(--bs-primary);
+	--hx-input-tags-control-focused-border-color: 	rgba(var(--bs-primary-rgb), .3);
 	/* TreeView */
 	--hx-tree-view-item-border-radius:				3px;
 	--hx-tree-view-item-border-width:				0;
