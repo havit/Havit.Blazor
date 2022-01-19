@@ -9,6 +9,8 @@
 
 	var nextFile = maxParallelUploads;
 
+	var completedUploads = 0;
+
 	if (files.length === 0) {
 		dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', 0, 0);
 		return;
@@ -31,6 +33,12 @@
 		if (maxFileSize && (file.size > maxFileSize)) {
 			let msg = `[${index}]${file.name} client pre-check: File size ${file.size} bytes exceeds MaxFileSize limit ${maxFileSize} bytes.`;
 			console.warn(msg);
+
+			if (nextFile < files.length) {
+				uploadFile(nextFile);
+				nextFile++;
+			}
+
 			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, 413, msg);
 			return;
 		}
@@ -56,6 +64,7 @@
 		};
 		request.onreadystatechange = function () {
 			if (request.readyState === 4) {
+				completedUploads++;
 				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
 
 				if (nextFile < files.length) {
@@ -63,7 +72,7 @@
 					nextFile++;
 				}
 			};
-			if (nextFile >= files.length) {
+			if (completedUploads === files.length) {
 				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
 			}
 		}
