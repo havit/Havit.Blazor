@@ -34,12 +34,13 @@
 			let msg = `[${index}]${file.name} client pre-check: File size ${file.size} bytes exceeds MaxFileSize limit ${maxFileSize} bytes.`;
 			console.warn(msg);
 
+			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, 413, msg);
+
 			if (nextFile < files.length) {
 				uploadFile(nextFile);
 				nextFile++;
 			}
 
-			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, 413, msg);
 			return;
 		}
 
