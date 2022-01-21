@@ -205,7 +205,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		protected override sealed void BuildRenderTree(RenderTreeBuilder builder)
+		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			// in checkbox label is renderead after input but we need InputId.
 			if (!String.IsNullOrEmpty(Label) || (LabelTemplate != null))

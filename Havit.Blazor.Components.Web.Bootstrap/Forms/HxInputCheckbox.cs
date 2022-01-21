@@ -13,6 +13,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool Inline { get; set; }
 
+		/// <summary>
+		/// Color of the checkbox when used within a <see cref="HxButtonGroup"/>.
+		/// </summary>
+		[Parameter] public ThemeColor? ButtonColor { get; set; }
+
 		[Inject] protected IStringLocalizer<HxInputCheckbox> Localizer { get; set; }
 
 		/// <inheritdoc cref="LabelValueRenderOrder" />
@@ -32,15 +37,37 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc cref="HxInputBase{TValue}.CoreInputCssClass" />
-		private protected override string CoreInputCssClass => "form-check-input";
+		private protected override string CoreInputCssClass => ButtonStyle ? "btn-check" : "form-check-input";
 
 		/// <inheritdoc cref="HxInputBase{TValue}.CoreLabelCssClass" />
-		private protected override string CoreLabelCssClass => "form-check-label";
+		private protected override string CoreLabelCssClass => ButtonStyle ? $"btn {ButtonColor.Value.ToOutlineButtonColorCss()}" : "form-check-label";
+
+		private bool ButtonStyle => ButtonColor is not null;
+
+		protected override void BuildRenderTree(RenderTreeBuilder builder)
+		{
+			if (ButtonStyle)
+			{
+				RenderCheckbox(builder);
+			}
+			else
+			{
+				base.BuildRenderTree(builder);
+			}
+		}
 
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
-			builder.OpenElement(0, "input");
+			if (!ButtonStyle)
+			{
+				RenderCheckbox(builder);
+			}
+		}
+
+		private void RenderCheckbox(RenderTreeBuilder builder)
+		{
+			builder.OpenElement(1, "input");
 			BuildRenderInput_AddCommonAttributes(builder, "checkbox");
 
 			builder.AddAttribute(1000, "checked", BindConverter.FormatValue(CurrentValue));

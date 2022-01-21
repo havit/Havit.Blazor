@@ -2940,6 +2940,11 @@
             Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.ButtonColor">
+            <summary>
+            Color of the checkbox when used within a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.RenderOrder">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder" />
         </member>
@@ -3443,6 +3448,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.Inline">
             <summary>
             Allows grouping radios on the same horizontal row by rendering them inline. Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ButtonColor">
+            <summary>
+            Color of the radio when used within a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ButtonColorSelector">
+            <summary>
+            Selects ButtonColor from item.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ValueSelectorImpl">

@@ -15,6 +15,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool Inline { get; set; }
 
 		/// <summary>
+		/// Color of the radio when used within a <see cref="HxButtonGroup"/>.
+		/// </summary>
+		[Parameter] public ThemeColor? ButtonColor { get; set; }
+
+		/// <summary>
+		/// Selects ButtonColor from item.
+		/// </summary>
+		[Parameter] public Func<TItem, ThemeColor> ButtonColorSelector { get; set; }
+
+		/// <summary>
 		/// Selects value from item.
 		/// Not required when TValueType is same as TItemTime.
 		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
@@ -66,13 +76,35 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected string GroupName { get; private set; }
 
+		private bool ButtonStyle => ButtonColor is not null || ButtonColorSelector is not null;
+
 		protected HxRadioButtonListBase()
 		{
 			GroupName = Guid.NewGuid().ToString("N");
 		}
 
+		protected override void BuildRenderTree(RenderTreeBuilder builder)
+		{
+			if (ButtonStyle)
+			{
+				RenderRadios(builder);
+			}
+			else
+			{
+				base.BuildRenderTree(builder);
+			}
+		}
+
 		/// <inheritdoc/>
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
+		{
+			if (!ButtonStyle)
+			{
+				RenderRadios(builder);
+			}
+		}
+
+		protected void RenderRadios(RenderTreeBuilder builder)
 		{
 			chipValue = null;
 
@@ -102,13 +134,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				string inputId = GroupName + "_" + index.ToString();
 
-				builder.OpenElement(100, "div");
+				if (!ButtonStyle)
+				{
+					builder.OpenElement(100, "div");
 
-				// TODO CoreCssClass
-				builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null));
+					// TODO CoreCssClass
+					builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null));
+				}
 
 				builder.OpenElement(200, "input");
-				builder.AddAttribute(201, "class", "form-check-input");
+				builder.AddAttribute(201, "class", "form-check-input" + (ButtonStyle ? " btn-check" : string.Empty));
 				builder.AddAttribute(202, "type", "radio");
 				builder.AddAttribute(203, "name", GroupName);
 				builder.AddAttribute(204, "id", inputId);
@@ -121,7 +156,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.CloseElement(); // input
 
 				builder.OpenElement(300, "label");
-				builder.AddAttribute(301, "class", "form-check-label");
+				builder.AddAttribute(301, "class", "form-check-label" + (ButtonStyle ? $" btn {GetButtonColor(index).ToOutlineButtonColorCss()}" : string.Empty));
 				builder.AddAttribute(302, "for", inputId);
 				if (ItemTemplateImpl != null)
 				{
@@ -133,8 +168,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 				builder.CloseElement(); // label
 
-				builder.CloseElement(); // div
+				if (!ButtonStyle)
+				{
+					builder.CloseElement(); // div
+				}
 			}
+		}
+
+		private ThemeColor GetButtonColor(int index)
+		{
+			if (ButtonColorSelector is not null)
+			{
+				return (ThemeColor)(object)SelectorHelpers.GetValue<TItem, ThemeColor>(ButtonColorSelector, itemsToRender[index]);
+			}
+
+			return ButtonColor.Value;
 		}
 
 		private void HandleInputClick(int index)
