@@ -1140,6 +1140,27 @@
             Use <c>#id</c> to reference single <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/> or <c>.class</c> for multiple <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/>s.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapseToggleElement">
+            <summary>
+            Bootstrap Collapse toggle triggering the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/> to toggle.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapseToggleElement.ElementName">
+            <summary>
+            Gets or sets the name of the element to render.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapseToggleElement.CssClass">
+            <summary>
+            Custom CSS class to render with the toggle element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapseToggleElement.CollapseTarget">
+            <summary>
+            Target selector of the toggle.
+            Use <c>#id</c> to reference single <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/> or <c>.class</c> for multiple <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/>s.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu">
             <summary>
             Ready-made context menu (based on <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see>).
