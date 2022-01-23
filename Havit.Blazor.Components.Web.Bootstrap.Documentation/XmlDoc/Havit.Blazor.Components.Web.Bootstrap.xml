@@ -123,6 +123,31 @@
             Any additional CSS class to apply.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.BadgeSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.BadgeSettings.Color">
+            <summary>
+            Badge color (background).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.BadgeSettings.TextColor">
+            <summary>
+            Color of badge text. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BadgeSettings.Color"/> for the background color.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.BadgeSettings.Type">
+            <summary>
+            Badge type - Regular or rounded-pills.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.BadgeSettings.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.BadgeType">
             <summary>
             Type (shape) for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/>
@@ -138,9 +163,33 @@
             <a href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</a> component.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxBadge.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Defaults"/>, overriden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxBadge.GetSettings">
+            <summary>
+            Returns optional set of component settings.
+            </summary>
+            <remarks>
+            Simmilar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxBadge.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Settings"/> in components descandants (by returning a derived settings class).
+            </remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Color">
             <summary>
-            Badge color (background). Required.
+            Badge color (background).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.TextColor">
@@ -151,7 +200,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Type">
             <summary>
-            Badge type - Regular or rounded-pills.
+            Badge type - Regular or rounded-pills. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.BadgeType.Regular"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.CssClass">
@@ -2413,14 +2462,9 @@
             Short hint displayed in the input field before the user enters a value.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.TagBackgroundColorEffective">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.TagBadgeSettingsEffective">
             <summary>
-            Background color of the tag (also used for the AddButton).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.TagTextColorEffective">
-            <summary>
-            Color of the tag text (also used for the AddButtonText and icons).
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.CoreFormControlCssClass">
@@ -6994,16 +7038,10 @@
             Short hint displayed in the input field before the user enters a value.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.TagBackgroundColor">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.TagBadgeSettings">
             <summary>
-            Background color of the tag (also used for the AddButton).
-            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.TagTextColor">
-            <summary>
-            Color of the tag text (also used for the AddButtonText and icons).
-            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Dark"/>.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags.
+            Default is <c>Color="<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>"</c> and <c>TextColor="<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Dark"/>"</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.LabelType">
@@ -7089,14 +7127,9 @@
             Indicates whether the add-icon (+) should be displayed.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.TagBackgroundColor">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.TagBadgeSettings">
             <summary>
-            Background color of the tag (also used for the AddButton).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.TagTextColor">
-            <summary>
-            Color of the tag text (also used for the AddButtonText and icons).
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">

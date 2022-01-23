@@ -26,8 +26,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				SuggestDelay = 300,
 				Delimiters = new() { ',', ';', ' ' },
 				ShowAddButton = false,
-				TagBackgroundColor = ThemeColor.Light,
-				TagTextColor = ThemeColor.Dark,
+				TagBadgeSettings = new BadgeSettings()
+				{
+					Color = ThemeColor.Light,
+					TextColor = ThemeColor.Dark,
+				}
 			};
 		}
 
@@ -86,7 +89,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is <c>false</c>.
 		/// </summary>
 		[Parameter] public bool? ShowAddButton { get; set; }
-		protected bool ShowAddButtonEffective => this.ShowAddButton ?? this.GetSettings()?.ShowAddButton ?? this.GetDefaults().ShowAddButton ?? throw new InvalidOperationException(nameof(ShowAddButton) + " default for " + nameof(HxInputDate) + " has to be set.");
+		protected bool ShowAddButtonEffective => this.ShowAddButton ?? this.GetSettings()?.ShowAddButton ?? this.GetDefaults().ShowAddButton ?? throw new InvalidOperationException(nameof(ShowAddButton) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 		/// <summary>
 		/// Optional text for the add-button.
@@ -108,18 +111,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Placeholder { get; set; }
 
 		/// <summary>
-		/// Background color of the tag (also used for the AddButton).
-		/// Default is <see cref="ThemeColor.Light"/>.
+		/// Settings for the <see cref="HxBadge"/> used to render tags.
+		/// Default is <c>Color="<see cref="ThemeColor.Light"/>"</c> and <c>TextColor="<see cref="ThemeColor.Dark"/>"</c>.
 		/// </summary>
-		[Parameter] public ThemeColor? TagBackgroundColor { get; set; }
-		protected ThemeColor TagBackgroundColorEffective => this.TagBackgroundColor ?? this.GetSettings()?.TagBackgroundColor ?? this.GetDefaults().TagBackgroundColor ?? throw new InvalidOperationException(nameof(TagBackgroundColor) + " default for " + nameof(HxInputDate) + " has to be set.");
-
-		/// <summary>
-		/// Color of the tag text (also used for the AddButtonText and icons).
-		/// Default is <see cref="ThemeColor.Dark"/>.
-		/// </summary>
-		[Parameter] public ThemeColor? TagTextColor { get; set; }
-		protected ThemeColor TagTextColorEffective => this.TagTextColor ?? this.GetSettings()?.TagTextColor ?? this.GetDefaults().TagTextColor ?? throw new InvalidOperationException(nameof(TagTextColor) + " default for " + nameof(HxInputDate) + " has to be set.");
+		[Parameter] public BadgeSettings TagBadgeSettings { get; set; }
+		protected BadgeSettings TagBadgeSettingsEffective => this.TagBadgeSettings ?? this.GetSettings()?.TagBadgeSettings ?? this.GetDefaults().TagBadgeSettings ?? throw new InvalidOperationException(nameof(TagBadgeSettings) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 		/// <inheritdoc cref="HxInputBase{TValue}" />
 		[Parameter] public LabelType? LabelType { get; set; }
@@ -160,8 +156,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1017, nameof(HxInputTagsInternal.Naked), Naked);
 			builder.AddAttribute(1018, nameof(HxInputTagsInternal.CssClass), CssClassHelper.Combine(this.CssClass, IsValueInvalid() ? InvalidCssClass : null));
 			builder.AddAttribute(1019, nameof(HxInputTagsInternal.AddButtonText), this.AddButtonText);
-			builder.AddAttribute(1020, nameof(HxInputTagsInternal.TagBackgroundColorEffective), this.TagBackgroundColorEffective);
-			builder.AddAttribute(1021, nameof(HxInputTagsInternal.TagTextColorEffective), this.TagTextColorEffective);
+			builder.AddAttribute(1020, nameof(HxInputTagsInternal.TagBadgeSettingsEffective), this.TagBadgeSettingsEffective);
 			builder.AddComponentReferenceCapture(1100, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
 			builder.CloseComponent();
 		}

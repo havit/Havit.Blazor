@@ -58,14 +58,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public string Placeholder { get; set; }
 
 		/// <summary>
-		/// Background color of the tag (also used for the AddButton).
+		/// Settings for the <see cref="HxBadge"/> used to render tags.
 		/// </summary>
-		[Parameter] public ThemeColor TagBackgroundColorEffective { get; set; }
-
-		/// <summary>
-		/// Color of the tag text (also used for the AddButtonText and icons).
-		/// </summary>
-		[Parameter] public ThemeColor TagTextColorEffective { get; set; }
+		[Parameter] public BadgeSettings TagBadgeSettingsEffective { get; set; }
 
 		[Parameter] public int SuggestDelayEffective { get; set; } = 300;
 

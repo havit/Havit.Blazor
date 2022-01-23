@@ -33,13 +33,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public bool? ShowAddButton { get; set; }
 
 		/// <summary>
-		/// Background color of the tag (also used for the AddButton).
+		/// Settings for the <see cref="HxBadge"/> used to render tags.
 		/// </summary>
-		public ThemeColor? TagBackgroundColor { get; set; }
-
-		/// <summary>
-		/// Color of the tag text (also used for the AddButtonText and icons).
-		/// </summary>
-		public ThemeColor? TagTextColor { get; set; }
+		public BadgeSettings TagBadgeSettings { get; set; }
 	}
 }
