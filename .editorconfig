@@ -110,6 +110,7 @@ dotnet_diagnostic.CA1504.severity=Warning
 
 # CA1822: Member '{0}' does not access instance data and can be marked as static
 dotnet_diagnostic.CA1822.severity=silent
+csharp_style_namespace_declarations=file_scoped:silent
 
 [*/Migrations/*.cs]
 generated_code=true
