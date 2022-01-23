@@ -74,7 +74,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
 		/// </summary>
 		[Parameter] public ThemeColor? Color { get; set; }
-		protected ThemeColor ColorEffective => this.Color ?? this.GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(ThemeColor) + " default for " + nameof(HxButton) + " has to be set.");
+		protected ThemeColor ColorEffective => this.Color ?? this.GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxButton) + " has to be set.");
 
 		/// <summary>
 		/// Button size. Default is <see cref="ButtonSize.Regular"/>.
