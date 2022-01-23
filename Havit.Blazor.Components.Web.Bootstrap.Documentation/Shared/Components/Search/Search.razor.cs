@@ -181,6 +181,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxCollapse", "HxCollapse", "accordion dropdown expand"),
 			new("/components/HxCollapse#Horizontal", "HxCollapse > Horizontal", ""),
 			new("/components/HxCollapse#MultipleTargets", "HxCollapse > Multiple targets", ""),
+			new("/components/HxCollapseToggleButton", "HxCollapseToggleButton", ""),
+			new("/components/HxCollapseToggleElement", "HxCollapseToggleElement", ""),
 
 			new("/components/HxPlaceholder", "HxPlaceholder", "loading skeleton spinner progress"),
 			new("/components/HxPlaceholder#Width", "HxPlaceholder > Width", ""),
