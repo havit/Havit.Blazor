@@ -1,0 +1,13 @@
+﻿@page "/HxInputTextTests"
+
+<h1>HxInputText</h1>
+
+<h2>Custom formatting</h2>
+
+<MyInputText @bind-Value="@value" />
+@value
+
+@code
+{
+    private string value;
+}
