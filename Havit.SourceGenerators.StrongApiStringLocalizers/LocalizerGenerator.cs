@@ -36,13 +36,12 @@ namespace LocalizerGenerator
 				}
 
 				var syntaxRoot = syntaxTree.GetRoot();
-				var namespaceNode = (NamespaceDeclarationSyntax)syntaxRoot.ChildNodes().Where(x => x.IsKind(SyntaxKind.NamespaceDeclaration)).FirstOrDefault();
-				if (namespaceNode == null)
+
+				var namespaceBase = FindNamespaceName(syntaxRoot);
+				if (namespaceBase == null)
 				{
 					continue;
 				}
-
-				var namespaceBase = namespaceNode.Name.ToString();
 
 				var registrationsBuilder = new RegistrationsBuilder();
 				registrationsBuilder.Namespace = namespaceBase;
@@ -102,6 +101,23 @@ namespace LocalizerGenerator
 			{
 				return null;
 			}
+		}
+
+		private static string FindNamespaceName(SyntaxNode syntaxRoot)
+		{
+			var namespaceNode = (BaseNamespaceDeclarationSyntax)syntaxRoot.ChildNodes().Where(x => x.IsKind(SyntaxKind.NamespaceDeclaration)).FirstOrDefault();
+			if (namespaceNode != null)
+			{
+				return namespaceNode.Name.ToString();
+			}
+
+			var fileScopedNamespaceNode = (BaseNamespaceDeclarationSyntax)syntaxRoot.ChildNodes().Where(x => x.IsKind(SyntaxKind.FileScopedNamespaceDeclaration)).FirstOrDefault();
+			if (fileScopedNamespaceNode != null)
+			{
+				return fileScopedNamespaceNode.Name.ToString();
+			}
+
+			return null;
 		}
 	}
 }
