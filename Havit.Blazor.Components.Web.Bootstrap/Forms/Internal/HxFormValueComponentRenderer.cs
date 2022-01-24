@@ -14,7 +14,8 @@
 
 			string cssClass = CssClassHelper.Combine(FormValueComponent.CoreCssClass, FormValueComponent.CssClass);
 
-			// pokud nemáme css class, label, ani hint, budeme renderovat jen jako "Value"
+			// Without any CssClass, Label, not Hint, we will render just the "Value"
+			// TODO ValidationMessage rendering is dependant on wrapping div with.position-relative!?
 			bool renderDiv = !String.IsNullOrEmpty(cssClass)
 				|| !String.IsNullOrEmpty(FormValueComponent.Label)
 				|| (FormValueComponent.LabelTemplate != null)
