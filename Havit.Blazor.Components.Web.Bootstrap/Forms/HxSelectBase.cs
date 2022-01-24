@@ -150,7 +150,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (itemsToRender != null)
 			{
-				if ((NullableEffective && !enabledEffective) || (selectedItemIndex == -1))
+				if ((NullableEffective && enabledEffective) || (selectedItemIndex == -1))
 				{
 					builder.OpenElement(2000, "option");
 					builder.AddAttribute(2001, "value", -1);
