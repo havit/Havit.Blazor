@@ -9,10 +9,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Bootstrap Collapse toggle triggering the <see cref="HxCollapse"/> to toggle.
 	/// </summary>
-	public class HxCollapseToggleElement : ComponentBase
+	public class HxCollapseToggleElement : ComponentBase, IHxCollapseToggle
 	{
 		/// <summary>
-		/// Gets or sets the name of the element to render.
+		/// Gets or sets the name of the element to render. Default is <c>span</c>.
 		/// </summary>
 		[Parameter] public string ElementName { get; set; } = "span";
 
@@ -22,8 +22,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string CssClass { get; set; }
 
 		[Parameter] public RenderFragment ChildContent { get; set; }
-
-		[Parameter] public string Text { get; set; }
 
 		[Parameter(CaptureUnmatchedValues = true)] public IDictionary<string, object> AdditionalAttributes { get; set; }
 
@@ -37,7 +35,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			builder.OpenElement(0, ElementName);
 
-			builder.AddAttribute(1, "class", GetCssClass());
+			builder.AddAttribute(1, "class", this.CssClass);
 			builder.AddAttribute(2, "data-bs-toggle", "collapse");
 			builder.AddAttribute(3, "aria-expanded", false);
 
@@ -52,17 +50,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 			builder.AddMultipleAttributes(6, AdditionalAttributes);
-			builder.AddMarkupContent(7, Text);
 			builder.AddContent(8, ChildContent);
 
 			builder.CloseElement();
 
 			base.BuildRenderTree(builder);
-		}
-
-		protected virtual string GetCssClass()
-		{
-			return CssClass;
 		}
 	}
 }

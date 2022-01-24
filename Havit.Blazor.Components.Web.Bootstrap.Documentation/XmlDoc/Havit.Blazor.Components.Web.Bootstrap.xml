@@ -1196,7 +1196,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapseToggleElement.ElementName">
             <summary>
-            Gets or sets the name of the element to render.
+            Gets or sets the name of the element to render. Default is <c>span</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapseToggleElement.CssClass">
@@ -1208,6 +1208,11 @@
             <summary>
             Target selector of the toggle.
             Use <c>#id</c> to reference single <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/> or <c>.class</c> for multiple <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/>s.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.IHxCollapseToggle">
+            <summary>
+            Interface to help keep the collapse-toggle implementations aligned.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu">
@@ -1522,7 +1527,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.ElementName">
             <summary>
-            Gets or sets the name of the element to render.
+            Gets or sets the name of the element to render. Default is <c>span</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.DropdownReference">

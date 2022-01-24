@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncDisposable
 	{
 		/// <summary>
-		/// Gets or sets the name of the element to render.
+		/// Gets or sets the name of the element to render. Default is <c>span</c>.
 		/// </summary>
 		[Parameter] public string ElementName { get; set; } = "span";
 

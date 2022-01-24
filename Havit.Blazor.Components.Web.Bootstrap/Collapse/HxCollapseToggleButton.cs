@@ -4,7 +4,7 @@
 	/// Bootstrap Collapse toggle (in form of button) which triggers the <see cref="HxCollapse"/> to toggle.
 	/// Derived from <see cref="HxButton"/> (incl. <see cref="HxButton.Defaults"/> inheritance).
 	/// </summary>
-	public class HxCollapseToggleButton : HxButton
+	public class HxCollapseToggleButton : HxButton, IHxCollapseToggle
 	{
 		/// <summary>
 		/// Target selector of the toggle.
