@@ -1,14 +1,17 @@
 ﻿<HxInputTags Label="Tags"
 			 @bind-Value="values"
 			 DataProvider="GetNewItemSuggestions"
-			 TagBackgroundColor="ThemeColor.Success"
-			 TagTextColor="ThemeColor.None" />
+			 TagBadgeSettings="@(new BadgeSettings() { Color=ThemeColor.Primary })" />
 
 <HxInputTags Label="Tags"
 			 @bind-Value="values"
 			 DataProvider="GetNewItemSuggestions"
-			 TagBackgroundColor="ThemeColor.Dark"
-			 TagTextColor="ThemeColor.None" />
+			 TagBadgeSettings="@(new BadgeSettings() { Color=ThemeColor.Danger })" />
+
+<HxInputTags Label="Tags"
+			 @bind-Value="values"
+			 DataProvider="GetNewItemSuggestions"
+			 TagBadgeSettings="@(new BadgeSettings() { Color=ThemeColor.Warning, TextColor=ThemeColor.Dark })" />
 
 @code
 {
