@@ -2,7 +2,7 @@
 @typeparam TItem
 @typeparam TValue
 
-<div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
+<div id="@dropdownId" class="@CssClassHelper.Combine("hx-autosuggest dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
 	<HxAutosuggestInput @ref="autosuggestInput"
 						InputId="@InputId"
 						EnabledEffective="@EnabledEffective"
