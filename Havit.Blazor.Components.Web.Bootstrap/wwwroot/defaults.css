@@ -110,6 +110,7 @@
 	--hx-input-tags-naked-font-size-sm: 			.875em;
 	--hx-input-tags-control-focused-box-shadow: 	0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
 	--hx-input-tags-control-focused-border-color: 	rgba(var(--bs-primary-rgb), .3);
+	--hx-input-tags-remove-button-margin:			0 0 0 .25rem;
 	/* TreeView */
 	--hx-tree-view-item-border-radius:				3px;
 	--hx-tree-view-item-border-width:				0;

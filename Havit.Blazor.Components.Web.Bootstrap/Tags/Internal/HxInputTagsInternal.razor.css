@@ -1,5 +1,9 @@
 .hx-input-tags-control {
 	position: relative;
+	display: flex;
+	flex-grow: 1;
+	flex-wrap: wrap;
+	align-items: center;
 }
 
 input:focus {
@@ -32,6 +36,12 @@ input:focus {
 
 .hx-input-tags-naked-lg  {
 	font-size: var(--hx-input-tags-naked-font-size-lg);
+}
+
+.hx-tag-remove-button {
+	display: inline-flex;
+	align-items: center;
+	margin: var(--hx-input-tags-remove-button-margin);
 }
 
 .hx-tag-remove-button:hover {
