@@ -1,18 +1,16 @@
-.hx-chip {
+::deep .badge {
     margin: var(--hx-chiplist-chip-margin);
     display: inline-flex;
     align-items: center;
-    color: var(--hx-chiplist-chip-text-color);
-    background-color: var(--hx-chiplist-chip-background-color);
 }
 
-.hx-chip-remove-btn {
+::deep .hx-chip-remove-btn {
     display: flex;
     align-items: center;
     margin: var(--hx-chiplist-chip-remove-btn-margin);
     opacity: .5;
 }
 
-.hx-chip-remove-btn:hover {
+::deep .hx-chip-remove-btn:hover {
     opacity: 1;
 }

@@ -48,9 +48,7 @@
 	--hx-form-spacing: 1.25rem;
 	/* HxChipList */
 	--hx-chiplist-chip-margin:				0.75rem 0.25rem .375rem 0;
-	--hx-chiplist-chip-text-color:			var(--bs-gray-900);
-	--hx-chiplist-chip-margin: 0.75rem 0.25rem .375rem 0;
-	--hx-chiplist-chip-remove-btn-margin: 0 0 0 .25rem;
+	--hx-chiplist-chip-remove-btn-margin: 	0 0 0 .25rem;
 	/* HxContextMenu */
 	--hx-context-menu-button-border-radius: 	.325rem;
 	--hx-context-menu-button-hover-background: 	var(--bs-gray-300);
