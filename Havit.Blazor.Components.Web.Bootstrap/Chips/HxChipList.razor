@@ -3,14 +3,15 @@
 {
     foreach (Havit.Blazor.Components.Web.Bootstrap.ChipItem chipItem in Chips)
     {
-        <span class="hx-chip badge">
+        <HxBadge>
             @chipItem.ChipTemplate
             @if (chipItem.Removable)
             {
-                <button type="button" class="btn-close btn-close ms-1"
+                <span role="button" class="hx-chip-remove-btn"
                     @onclick="() => HandleRemoveClick(chipItem)" @onclick:stopPropagation>
-                </button>
+                    <HxIcon Icon="BootstrapIcon.X" />
+                </span>
             }
-        </span>
+        </HxBadge>
     }
 }

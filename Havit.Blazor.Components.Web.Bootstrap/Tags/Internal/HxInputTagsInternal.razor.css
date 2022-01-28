@@ -42,15 +42,11 @@ input:focus {
 	display: inline-flex;
 	align-items: center;
 	margin: var(--hx-input-tags-remove-button-margin);
+	opacity: .6125;
 }
 
 .hx-tag-remove-button:hover {
-	background-color: rgba(0,0,0,var(--hx-input-tags-tag-hover-opacity));
-	border-radius: 50%;
-}
-
-::deep .hx-tag-add-button:hover {
-	background-image: linear-gradient(to right, rgba(0,0,0,var(--hx-input-tags-tag-hover-opacity)),rgba(0,0,0,var(--hx-input-tags-tag-hover-opacity)));
+	opacity: 1;
 }
 
 .hx-input-tags-control-focused:not(.hx-input-tags-naked) {
