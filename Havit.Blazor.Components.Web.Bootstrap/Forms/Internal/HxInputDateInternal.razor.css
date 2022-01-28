@@ -14,8 +14,28 @@
 }
 
 .hx-input-date-icon {
+	display: flex;
+	align-items: center;
 	margin-right: 1rem;
-    z-index: 1;
+	z-index: 1;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+	pointer-events: none;
+}
+
+.hx-input-date-dropdown {
+	padding: var(--hx-input-date-dropdown-padding);
+}
+
+.hx-input-date-calendar {
+	margin-bottom: var(--hx-input-date-calendar-margin-bottom);
+}
+
+.hx-input-date-dropdown-buttons {
+	display: flex;
+	justify-content: space-between;
 }
 
 .hx-input-date-has-calendar-icon.hx-input-date-predefined-dates .hx-input-date-icon {

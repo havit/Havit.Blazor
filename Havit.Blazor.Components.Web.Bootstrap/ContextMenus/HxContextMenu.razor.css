@@ -10,3 +10,7 @@
 .hx-context-menu {
     display: inline-block;
 }
+
+.hx-context-menu .dropdown {
+    display: flex;
+}

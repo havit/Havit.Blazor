@@ -16,3 +16,16 @@
 .form-control {
     background-clip: border-box;
 }
+
+.hx-input-date-range-dropdown {
+    padding: var(--hx-input-date-range-dropdown-padding);
+}
+
+.hx-input-date-range-calendar {
+    margin-bottom: var(--hx-input-date-range-calendar-margin-bottom);
+}
+
+.hx-input-date-range-buttons {
+    display: flex;
+    justify-content: space-between;
+}

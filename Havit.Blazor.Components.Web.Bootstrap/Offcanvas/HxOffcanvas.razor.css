@@ -13,3 +13,8 @@
 .offcanvas-end.hx-offcanvas-lg {
   width: var(--hx-offcanvas-horizontal-width-lg);
 }
+
+.offcanvas-close-button {
+    --bs-text-opacity: 1;
+    color: inherit;
+}

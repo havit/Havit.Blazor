@@ -11,3 +11,8 @@
 	background-color: rgba(var(--hx-sidebar-footer-item-hover-background-color), var(--hx-sidebar-footer-item-hover-background-opacity));
 	color: var(--hx-sidebar-footer-item-hover-color);
 }
+
+::deep .hx-sidebar-footer-navlink {
+	display: flex;
+	align-items: center;
+}

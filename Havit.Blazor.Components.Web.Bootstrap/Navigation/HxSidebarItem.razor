@@ -8,9 +8,9 @@
 				   Enabled="this.Enabled">
 
 			@* To hide the nav-content in mobile view *@
-			<div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="stretched-link flex-grow-1">
+			<div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="hx-sidebar-item-nav-content stretched-link">
 
-				<div class="align-items-center">
+				<div class="hx-sidebar-nav-content-inner">
 					@if (Icon != null)
 					{
 						<HxIcon Icon="Icon" />
@@ -37,12 +37,12 @@
 					   data-bs-toggle="@(HasExpandableContent ? ((ParentSidebar.Collapsed) ? "dropdown": "collapse") : null)"
 					   data-bs-target="@(HasExpandableContent && !ParentSidebar.Collapsed ? "#" + id : null)"
 					   aria-expanded="@(HasExpandableContent ? "false" : null)">
-				<div class="d-flex align-items-center">
+				<div class="hx-sidebar-item-navlink-content">
 					@if (Icon != null)
 					{
 						<HxIcon Icon="Icon" />
 					}
-					<span class="@CssClassHelper.Combine("text me-auto", Icon == null ? null : "ms-3")">
+					<span class="@CssClassHelper.Combine("text", Icon == null ? null : "no-icon")">
 						@Text
 					</span>
 					@if (HasExpandableContent)
@@ -65,7 +65,7 @@
 		@if (!ParentSidebar.Collapsed)
 		{
 			<div class="hx-sidebar-subitems collapse" id="@id">
-				<nav class="nav flex-column">
+				<nav class="nav hx-sidebar-collapsed-nav">
 					@ChildContent
 				</nav>
 			</div>

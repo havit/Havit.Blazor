@@ -58,3 +58,12 @@ input:focus {
 	border-color: var(--hx-input-tags-control-focused-border-color);
 	outline: 0;
 }
+
+.hx-input-tags-badge-with-add-button-shown {
+	display: inline-flex;
+	align-items: center;
+}
+
+.hx-input-tags-badge-with-add-button-shown.with-text {
+	margin-block-end: var(--hx-input-tags-badge-with-add-button-and-text);
+}

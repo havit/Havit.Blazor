@@ -5,11 +5,11 @@
 	<HxCard Settings="this.CardSettingsEffective">
 		<HeaderTemplate>
 			<div class="hx-list-layout-header hstack gap-3">
-				<div class="fw-bold d-flex align-items-center me-auto">
+				<div class="hx-list-layout-header-dropdown">
 					@if (NamedViewsTemplate != null)
 					{
 						<div class="hx-list-layout-named-view dropdown">
-							<span role="button" id="dropdownMenuLink" class="d-flex align-items-center" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span role="button" id="dropdownMenuLink" class="hx-list-layout-dropdown-menu-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								@if (TitleTemplate != null)
 								{
 									@TitleTemplate

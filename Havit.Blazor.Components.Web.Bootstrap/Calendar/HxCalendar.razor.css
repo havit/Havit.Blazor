@@ -9,6 +9,14 @@
     align-items: center;
 }
 
+.navigation-button {
+    color: var(--hx-calendar-navigation-button-text-color);
+}
+
+.month-year-select {
+    display: inline-flex;
+}
+
 .form-select {
     margin: 0 .125rem;
     padding: 0.25rem 1.75rem 0.25rem 0.5rem;

@@ -9,13 +9,13 @@
 
 		@if (EnabledEffective)
 		{
-			<div class="dropdown-menu p-3">
-				<div class="mb-2">
+			<div class="hx-input-date-range-dropdown dropdown-menu">
+				<div class="hx-input-date-range-calendar">
 					<HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" />
 				</div>
 				@if (ShowCalendarButtonsEffective)
 				{
-					<div class="d-flex justify-content-between">
+					<div class="hx-input-date-range-buttons">
 						<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleFromClearClickAsync" />
 						<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("OK", typeof(HxInputDateRange))" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleFromOKClickAsync" />
 					</div>
@@ -27,13 +27,13 @@
 		<input @ref="toInputElement" type="text" class="@CssClassHelper.Combine(this.InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())" value="@FormatDate(Value.EndDate)" placeholder="@StringLocalizerFactory.GetLocalizedValue("To", typeof(HxInputDateRange))" @onchange="HandleToChangedAsync" @onfocus="HandleToFocusAsync" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
 		@if (EnabledEffective)
 		{
-			<div class="dropdown-menu p-3">
-				<div class="mb-2">
+			<div class="hx-input-date-range-dropdown dropdown-menu">
+				<div class="hx-input-date-range-calendar">
 					<HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" />
 				</div>
 				@if (ShowCalendarButtonsEffective)
 				{
-					<div class="d-flex justify-content-between">
+					<div class="hx-input-date-range-buttons">
 						<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleToClearClickAsync" />
 						<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("OK", typeof(HxInputDateRange))"  Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleToOKClickAsync" />
 					</div>

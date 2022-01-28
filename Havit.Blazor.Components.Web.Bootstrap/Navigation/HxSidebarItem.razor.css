@@ -2,6 +2,14 @@
 	display: block; /*Overrides the inline flex from btn-group placed by HxDropdown*/
 }
 
+::deep .hx-sidebar-item-nav-content {
+	flex-grow: 1;
+}
+
+::deep .hx-sidebar-item-nav-content-inner {
+	align-items: center;
+}
+
 ::deep .nav-link {
 	line-height: 1;
 	padding: var(--hx-sidebar-item-padding);
@@ -9,6 +17,11 @@
 	font-size: var(--hx-sidebar-item-font-size);
 	color: var(--hx-sidebar-item-color);
 	border-radius: var(--hx-sidebar-item-border-radius);
+}
+
+::deep .hx-sidebar-item-navlink-content {
+	display: flex;
+	align-items: center;
 }
 
 .hx-sidebar-subitems ::deep .nav-link {
@@ -20,6 +33,18 @@
 
 ::deep .hx-sidebar-subitems.show .text {
 	display: inline-flex;
+}
+
+::deep .hx-sidebar-item .text {
+	margin-right: auto;
+}
+
+::deep .hx-sidebar-item .text.no-icon {
+	margin-left: var(--hx-sidebar-item-navlink-no-icon-text-margin-left);
+}
+
+::deep .hx-sidebar-collapsed-nav {
+	flex-direction: column;
 }
 
 ::deep a.nav-link:hover,

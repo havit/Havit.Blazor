@@ -2,6 +2,18 @@
     white-space: nowrap;
 }
 
+::deep .hx-list-layout-header-dropdown {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    font-weight: var(--hx-list-layout-header-dropdown-font-weight);
+}
+
+::deep .hx-list-layout-dropdown-menu-link {
+    display: flex;
+    align-items: center;
+}
+
 ::deep .hx-grid tr:last-child td {
     border-bottom-width: 0;
 }

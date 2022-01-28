@@ -29,7 +29,7 @@
         <HxBadge Settings="this.TagBadgeSettingsEffective"
              CssClass="@CssClassHelper.Combine("hx-tag hx-tag-add-button", this.TagBadgeSettingsEffective.CssClass)"
              role="button">
-            <span class="@CssClassHelper.Combine("d-inline-flex align-items-center", showAddButtonText ? "me-1" : null)" role="button">
+            <span class="@CssClassHelper.Combine("hx-input-tags-badge-with-add-button-shown", showAddButtonText ? "with-text" : null)" role="button">
                 @* We don't need to catch onClick here as it gets propagated to parent div*@
                 <HxIcon Icon="BootstrapIcon.PlusLg" />
             </span>

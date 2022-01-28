@@ -19,13 +19,13 @@
 	}
 	@if (EnabledEffective)
 	{
-		<div class="dropdown-menu p-3">
-			<div class="mb-2">
+		<div class="dropdown-menu hx-input-date-dropdown">
+			<div class="hx-input-date-calendar">
 				<HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" />
 			</div>
 			@if (ShowCalendarButtonsEffective)
 			{
-				<div class="d-flex justify-content-between">
+				<div class="hx-input-date-dropdown-buttons">
 					<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDate))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" />
 					<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("OK", typeof(HxInputDate))" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleOKClickAsync" />
 				</div>
@@ -35,7 +35,7 @@
 
 	@if (CalendarIconEffective is not null)
 	{
-		<div class="hx-input-date-icon position-absolute top-50 end-0 translate-middle-y d-flex align-items-center pe-none">
+		<div class="hx-input-date-icon">
 			<HxIcon Icon="CalendarIconEffective" />
 		</div>
 	}

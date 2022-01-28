@@ -1,5 +1,11 @@
-.hx-autosuggest-input-icon {    
+.hx-autosuggest-input-icon {
+    display: flex;
+    align-items: center;
     margin-right: 1rem;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
 }
 
 .form-control-sm ~ .hx-autosuggest-input-icon {

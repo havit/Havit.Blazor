@@ -5,4 +5,8 @@ button {
 
 .hx-chip {
     margin: var(--hx-chiplist-chip-margin);
+    display: inline-flex;
+    align-items: center;
+    color: var(--hx-chiplist-chip-text-color);
+    background-color: var(--hx-chiplist-chip-background-color);
 }

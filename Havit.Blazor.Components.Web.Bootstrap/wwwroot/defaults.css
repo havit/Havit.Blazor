@@ -21,6 +21,7 @@
 	--hx-sidebar-item-icon-color: 						var(--bs-primary);
 	--hx-sidebar-item-border-radius: 					.5rem;
 	--hx-sidebar-item-margin: 							0 0 .25rem 0;
+	--hx-sidebar-item-navlink-no-icon-text-margin-left: 1rem;
 	--hx-sidebar-subitem-font-size: 					.875rem;
 	--hx-sidebar-subitem-padding: 						.5rem;
 	--hx-sidebar-subitem-margin: 						0 0 .25rem 2.25rem;
@@ -46,10 +47,13 @@
 	/* HxEditForm */
 	--hx-form-spacing: 1.25rem;
 	/* HxChipList */
-	--hx-chiplist-chip-margin: 0.75rem 0.25rem .375rem 0;
+	--hx-chiplist-chip-margin:				0.75rem 0.25rem .375rem 0;
+	--hx-chiplist-chip-text-color:			var(--bs-gray-900);
+	--hx-chiplist-chip-background-color:	#dee2e6;
 	/* HxContextMenu */
 	--hx-context-menu-button-border-radius: 	.325rem;
 	--hx-context-menu-button-hover-background: 	var(--bs-gray-300);
+	--hx-context-menu-item-icon-margin-right:	0.5rem;
 	/* HxGrid */
 	--hx-grid-button-hover-background: 				var(--bs-gray-300);
 	--hx-grid-button-border-radius: 				.2rem;
@@ -80,6 +84,7 @@
 	--hx-calendar-day-names-color: 						unset;
 	--hx-calendar-day-names-font-weight: 				700;
 	--hx-calendar-navigation-button-hover-background: 	var(--bs-gray-200);
+	--hx-calendar-navigation-button-text-color:			var(--bs-gray-900);
 	--hx-calendar-day-today-border: 					1px solid transparent;
 	--hx-calendar-day-today-background: 				var(--bs-primary-rgb);
 	--hx-calendar-day-today-background-opacity: 		.05;
@@ -97,8 +102,9 @@
 	--hx-offcanvas-horizontal-width-sm: 		400px;
 	--hx-offcanvas-horizontal-width-lg:			600px;
 	/* ListLayout */
-	--hx-list-layout-body-padding-x: 		0;
-	--hx-list-layout-table-font-size: 		.875rem;
+	--hx-list-layout-body-padding-x: 				0;
+	--hx-list-layout-table-font-size: 				.875rem;
+	--hx-list-layout-header-dropdown-font-weight:	700;
 	/* TagInput */
 	--hx-input-tags-tag-margin-left: 				0;
 	--hx-input-tags-tag-margin-right: 				.25rem;
@@ -128,6 +134,19 @@
 	--hx-tree-view-item-font-size:					.75rem;
 	--hx-tree-view-item-padding:					.25rem .5rem;
 	--hx-tree-view-item-margin:						0 0 .125rem 0;
+	/* HxInputDate */
+	--hx-input-date-dropdown-padding:				1rem;
+	--hx-input-date-calendar-margin-bottom:			0.5rem;
+	/* HxInputDateRange */
+	--hx-input-date-range-dropdown-padding:			1rem;
+	--hx-input-date-range-calendar-margin-bottom:	0.5rem;
+	/* HxProgressIndicator */
+	--hx-progress-indicator-background:				white;
+	--hx-progress-indicator-spinner-color:			blue;
+	/* HxInputTags */
+	--hx-input-tags-badge-with-add-button-and-text:	0.25rem;
+	/* HxToastContainer */
+	--hx-toast-container-margin:					0.5rem;
 }
 
 /* Not sure where to place. Margin for all inputs in form, if it is not the only child. */

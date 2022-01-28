@@ -1,0 +1,9 @@
+﻿.hx-carousel-caption {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .hx-carousel-caption {
+        display: block;
+    }
+}

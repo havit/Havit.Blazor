@@ -5,12 +5,12 @@
 	{
 		<div class="navigation mb-3">
 			<HxButton Icon="BootstrapIcon.ChevronLeft"
-					  CssClass="text-dark"
+					  CssClass="navigation-button"
 					  Size="ButtonSize.Small"
 					  Enabled="@renderData.PreviousMonthEnabled"
 					  OnClickStopPropagation="true"
 					  OnClick="HandlePreviousMonthClickAsync" />
-			<div class="d-inline-flex">
+			<div class="month-year-select">
 				<select class="form-select form-select-sm" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
 					@foreach (var month in renderData.Months)
 					{
@@ -26,7 +26,7 @@
 				</select>
 			</div>
 			<HxButton Icon="BootstrapIcon.ChevronRight"
-					  CssClass="text-dark"
+					  CssClass="navigation-button"
 					  Size="ButtonSize.Small"
 					  Enabled="@renderData.NextMonthEnabled"
 					  OnClickStopPropagation="true"
