@@ -1,6 +1,7 @@
 ﻿@page "/InputsTest"
 @using System.Globalization;
 @using System.ComponentModel.DataAnnotations
+@using Havit
 
 <h1>Inputs</h1>
 
@@ -160,7 +161,7 @@
         [Required]
         public bool BoolSwitch { get; set; } = true;
 
-        public Havit.Blazor.Components.Web.Bootstrap.DateTimeRange DateRange { get; set; }
+        public DateTimeRange DateRange { get; set; }
 
         object ICloneable.Clone() => MemberwiseClone();
 

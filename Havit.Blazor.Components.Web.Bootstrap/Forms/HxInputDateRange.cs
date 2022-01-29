@@ -36,10 +36,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				ShowPredefinedDateRanges = true,
 				PredefinedDateRanges = new[]
 				{
-					new InputDateRangePredefinedRangesItem { Label = "ThisMonth", DateRange = new DateTimeRange { StartDate = thisMonthStart, EndDate = thisMonthEnd }, ResourceType = typeof(HxInputDateRange) },
-					new InputDateRangePredefinedRangesItem { Label = "LastMonth", DateRange = new DateTimeRange { StartDate = lastMonthStart, EndDate = lastMonthEnd }, ResourceType = typeof(HxInputDateRange) },
-					new InputDateRangePredefinedRangesItem { Label = "ThisYear", DateRange = new DateTimeRange { StartDate = thisYearStart, EndDate = thisYearEnd }, ResourceType = typeof(HxInputDateRange) },
-					new InputDateRangePredefinedRangesItem { Label = "LastYear", DateRange = new DateTimeRange { StartDate = lastYearStart, EndDate = lastYearEnd }, ResourceType = typeof(HxInputDateRange) },
+					new InputDateRangePredefinedRangesItem { Label = "ThisMonth", DateRange = new DateTimeRange(thisMonthStart, thisMonthEnd), ResourceType = typeof(HxInputDateRange) },
+					new InputDateRangePredefinedRangesItem { Label = "LastMonth", DateRange = new DateTimeRange(lastMonthStart, lastMonthEnd), ResourceType = typeof(HxInputDateRange) },
+					new InputDateRangePredefinedRangesItem { Label = "ThisYear", DateRange = new DateTimeRange(thisYearStart, thisYearEnd), ResourceType = typeof(HxInputDateRange) },
+					new InputDateRangePredefinedRangesItem { Label = "LastYear", DateRange = new DateTimeRange(lastYearStart, lastYearEnd), ResourceType = typeof(HxInputDateRange) },
 				}
 			};
 		}

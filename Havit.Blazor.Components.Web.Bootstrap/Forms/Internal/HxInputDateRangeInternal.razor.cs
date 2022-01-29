@@ -116,11 +116,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString((string)changeEventArgs.Value, null, out var fromDate))
 			{
 				parsingFailed = false;
-				CurrentValue = new DateTimeRange
-				{
-					StartDate = fromDate?.DateTime,
-					EndDate = Value.EndDate
-				};
+				CurrentValue = Value with { StartDate = fromDate?.DateTime };
 				EditContext.NotifyFieldChanged(fromFieldIdentifier);
 				await CloseDropDownAsync(fromInputElement);
 			}
@@ -146,11 +142,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString((string)changeEventArgs.Value, null, out var toDate))
 			{
 				parsingFailed = false;
-				CurrentValue = new DateTimeRange
-				{
-					StartDate = Value.StartDate,
-					EndDate = toDate?.DateTime
-				};
+				CurrentValue = Value with { EndDate = toDate?.DateTime };
 				EditContext.NotifyFieldChanged(toFieldIdentifier);
 				await CloseDropDownAsync(toInputElement);
 			}
@@ -180,11 +172,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleFromClearClickAsync()
 		{
-			CurrentValue = new DateTimeRange
-			{
-				StartDate = null,
-				EndDate = Value.EndDate
-			};
+			CurrentValue = Value with { StartDate = null };
 			EditContext.NotifyFieldChanged(fromFieldIdentifier);
 			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
 
@@ -193,11 +181,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleToClearClickAsync()
 		{
-			CurrentValue = new DateTimeRange
-			{
-				StartDate = Value.StartDate,
-				EndDate = null
-			};
+			CurrentValue = Value with { EndDate = null };
 			EditContext.NotifyFieldChanged(toFieldIdentifier);
 			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
 
@@ -228,11 +212,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleFromCalendarValueChangedAsync(DateTime? date)
 		{
-			CurrentValue = new DateTimeRange
-			{
-				StartDate = date,
-				EndDate = Value.EndDate
-			};
+			CurrentValue = Value with { StartDate = date };
 			EditContext.NotifyFieldChanged(fromFieldIdentifier);
 			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
 
@@ -242,11 +222,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleToCalendarValueChanged(DateTime? date)
 		{
-			CurrentValue = new DateTimeRange
-			{
-				StartDate = Value.StartDate,
-				EndDate = date
-			};
+			CurrentValue = Value with { EndDate = date };
 			EditContext.NotifyFieldChanged(toFieldIdentifier);
 			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
 

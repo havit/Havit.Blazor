@@ -14,9 +14,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.41.0" />
+		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.42.0" />
 		<PackageReference Include="Havit.AspNetCore" Version="2.0.9" />
-		<PackageReference Include="Havit.Core" Version="2.0.21" />
+		<PackageReference Include="Havit.Core" Version="2.0.23" />
 		<PackageReference Include="protobuf-net" Version="3.0.101" />
 		<PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.0.152" />
 		<!-- Workaround for vilnerability in System.Text.Encodings.Web 4.5.0 -->
