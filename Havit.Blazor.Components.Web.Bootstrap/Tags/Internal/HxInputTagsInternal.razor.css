@@ -17,10 +17,7 @@ input:focus {
 }
 
 ::deep .hx-tag {
-	margin-right: var(--hx-input-tags-tag-margin-right);
-	margin-left: var(--hx-input-tags-tag-margin-left);
-	margin-top: var(--hx-input-tags-tag-margin-y);
-	margin-bottom: var(--hx-input-tags-tag-margin-y);
+	margin: var(--hx-input-tags-tag-margin);
 	display: flex;
 	align-items: center;
 }
@@ -55,11 +52,6 @@ input:focus {
 	outline: 0;
 }
 
-.hx-input-tags-badge-with-add-button-shown {
-	display: inline-flex;
-	align-items: center;
-}
-
-.hx-input-tags-badge-with-add-button-shown.with-text {
-	margin-block-end: var(--hx-input-tags-badge-with-add-button-and-text);
+.hx-tag-add-button-text {
+	margin: var(--hx-input-tags-add-button-text-margin);
 }

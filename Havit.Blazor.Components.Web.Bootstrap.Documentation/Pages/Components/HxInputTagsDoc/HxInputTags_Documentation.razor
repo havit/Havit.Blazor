@@ -29,7 +29,7 @@
 		<Demo Type="typeof(HxInputTags_Demo_AllowCustomTags)" />
 
 		<h3 id="Colors">Colors</h3>
-		<p>Use <code>TagBackgroundColor</code> and <code>TagTextColor</code> to adjust colors.</p>
+		<p>Use <code>TagBackgroundColor</code> and <code>TagTextColor</code> via <code>TagBadgeSettings</code> to adjust colors.</p>
 		<Demo Type="typeof(HxInputTags_Demo_Colors)" />
 
 		<h3 id="Naked">Naked</h3>
@@ -50,17 +50,8 @@
 	</MainContent>
 
 	<CssVariables>
-		<ComponentApiDocCssVariable Name="--hx-input-tags-tag-margin-left" Default="0">
-			Left margin of tags.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-input-tags-tag-margin-right" Default=".25rem">
-			Right margin of tags.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-input-tags-tag-margin-y" Default=".125rem">
-			Top and bottom margin of tags.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-input-tags-tag-hover-opacity" Default=".1">
-			Tag background color opacity on hover.
+		<ComponentApiDocCssVariable Name="--hx-input-tags-tag-margin" Default="0 .25rem 0 0">
+			Margin of tags.
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-input-tags-input-width" Default="3em">
 			Input width.
@@ -79,6 +70,9 @@
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-input-tags-control-focused-border-color" Default="rgba(var(--bs-primary-rgb), .3)">
 			Border color of the control when focused (as the color is not exposed via CSS variables from Bootstrap, we use rgba derivate from --bs-primary-rgb and the color is not 100% accurate).
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-input-tags-add-button-text-margin" Default="rgba(var(--bs-primary-rgb), .3)">
+			Margin of an add button text.
 		</ComponentApiDocCssVariable>
 
 	</CssVariables>
