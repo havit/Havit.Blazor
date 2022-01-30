@@ -44,6 +44,9 @@ $form-feedback-tooltip-padding-y:   0;
 $form-feedback-tooltip-padding-x:   0;
 $form-feedback-tooltip-font-size:   .75rem;
 
+$form-switch-color:                 $white;
+$form-switch-bg-image:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color}'/></svg>");
+
 $input-border-color:              $gray-300;
 $input-group-addon-border-color:  $input-border-color;
 $form-select-border-color:        $gray-300;

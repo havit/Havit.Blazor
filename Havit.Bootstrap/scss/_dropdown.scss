@@ -1,0 +1,12 @@
+.dropdown-menu {
+  gap: .25rem;
+  padding: .5rem;
+}
+
+.dropdown-menu.show {
+  display: grid;
+}
+
+.dropdown-item {
+  border-radius: .25rem;
+}

@@ -2148,6 +2148,11 @@ progress {
     -webkit-overflow-scrolling: touch;
   }
 }
+.form-switch .form-check-input {
+  background-color: var(--bs-gray-300);
+  border-color: var(--bs-gray-300);
+}
+
 .form-label {
   margin-bottom: 0.25rem;
   font-size: 0.875rem;
@@ -2532,7 +2537,7 @@ textarea.form-control-lg {
 .form-switch .form-check-input {
   width: 2em;
   margin-right: -2.5em;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
   background-position: right center;
   border-radius: 2em;
   transition: background-position 0.15s ease-in-out;
@@ -3817,6 +3822,19 @@ textarea.form-control-lg {
 }
 .dropdown-menu-dark .dropdown-header {
   color: #adb5bd;
+}
+
+.dropdown-menu {
+  gap: 0.25rem;
+  padding: 0.5rem;
+}
+
+.dropdown-menu.show {
+  display: grid;
+}
+
+.dropdown-item {
+  border-radius: 0.25rem;
 }
 
 .btn-group,
