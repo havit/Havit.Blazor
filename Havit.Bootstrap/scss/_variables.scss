@@ -17,7 +17,9 @@ $min-contrast-ratio:  3;
 $body-bg:             $gray-100;
 $border-color:        $gray-200;
 
-$box-shadow-sm:       0 .125rem .5rem rgba($black, .075);
+$box-shadow:                  0 .5rem 1rem rgba($black, .1);
+$box-shadow-sm:               0 .125rem .25rem rgba($black, .05);
+$box-shadow-lg:               0 1rem 3rem rgba($black, .15);
 
 $nav-tabs-border-color:               rgba($black, .0875);
 $nav-tabs-link-active-border-color:   $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-link-active-bg;
@@ -32,9 +34,6 @@ $table-hover-bg-factor:         .025;
 $table-hover-bg:                rgba($black, $table-hover-bg-factor);
 $table-border-color:            $border-color;
 $table-group-separator-color:   $table-border-color;
-
-$hr-color:    $border-color;
-$hr-opacity:  1;
 
 $form-label-margin-bottom:          .25rem;
 $form-label-font-size:              .875rem;
@@ -51,9 +50,25 @@ $input-border-color:              $gray-300;
 $input-group-addon-border-color:  $input-border-color;
 $form-select-border-color:        $gray-300;
 
+$form-check-input-border:         1px solid $gray-300;
+
 $modal-backdrop-opacity:      .25;
 $modal-header-border-color:   $border-color;
 
 $offcanvas-horizontal-width:  500px;
 
-$dropdown-box-shadow: $box-shadow-sm;
+$dropdown-box-shadow:     $box-shadow-sm;
+$dropdown-border-color:   rgba($black, .0875);
+$dropdown-divider-bg:     $dropdown-border-color;
+
+$accordion-border-color:    rgba($black, .0875);
+
+$popover-border-color:      rgba($black, .125);
+
+$toast-border-color:            rgba($black, .0875);
+
+$modal-content-border-color:    rgba($black, .125);
+
+$list-group-border-color:           rgba($black, .0875);
+
+$hr-opacity: .125;
