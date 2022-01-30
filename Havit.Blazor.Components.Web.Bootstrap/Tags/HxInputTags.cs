@@ -9,9 +9,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
-		// TODO Chips?
-		// TODO Do we want spinner? Configurable?
-
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputTags"/>.
 		/// </summary>

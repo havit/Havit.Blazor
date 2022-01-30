@@ -4,6 +4,7 @@
 									GetFormControlCssClasses(),
 									GetNakedCssClasses(),
 									this.currentlyFocused ? "hx-input-tags-control-focused" : null,
+                                    this.EnabledEffective ? null : "hx-input-tags-control-disabled",
 									this.CssClass)"
      @onclick="async () => await autosuggestInput.FocusAsync()"
      @onclick:stopPropagation>
