@@ -52,6 +52,10 @@ input:focus {
 	outline: 0;
 }
 
+.hx-input-tags-control-focused:not(.hx-input-tags-naked) {
+	background-color: var(--bs-gray-200);
+}
+
 .hx-tag-add-button-text {
 	margin: var(--hx-input-tags-add-button-text-margin);
 }
