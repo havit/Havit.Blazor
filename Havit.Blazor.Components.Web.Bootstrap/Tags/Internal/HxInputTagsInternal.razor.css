@@ -52,7 +52,7 @@ input:focus {
 	outline: 0;
 }
 
-.hx-input-tags-control-focused:not(.hx-input-tags-naked) {
+.hx-input-tags-control-disabled:not(.hx-input-tags-naked) {
 	background-color: var(--bs-gray-200);
 }
 
