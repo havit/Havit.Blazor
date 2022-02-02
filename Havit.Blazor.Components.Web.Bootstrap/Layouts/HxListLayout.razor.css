@@ -1,3 +1,7 @@
+.hx-list-layout ::deep .card-body {
+    border-bottom: 1px solid var(--bs-gray-200);
+}
+
 .hx-list-layout-header ::deep button {
     white-space: nowrap;
 }
@@ -6,7 +10,6 @@
     display: flex;
     align-items: center;
     margin-right: auto;
-    font-weight: var(--hx-list-layout-header-dropdown-font-weight);
 }
 
 .hx-list-layout-dropdown-menu-link {
@@ -40,6 +43,11 @@
     --hx-context-menu-button-border-radius: .25rem;
     margin-bottom: 0;
     font-size: var(--hx-list-layout-table-font-size);
+}
+
+.hx-list-layout-named-view .card-title {
+    display: flex;
+    align-items: center;
 }
 
 .hx-list-layout-named-view ::deep .hx-icon {
