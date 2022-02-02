@@ -9,11 +9,11 @@
     align-items: center;
 }
 
-.navigation-button {
+.hx-calendar-navigation-button {
     color: var(--hx-calendar-navigation-button-text-color);
 }
 
-.month-year-select {
+.hx-calendar-month-year-select {
     display: inline-flex;
 }
 
