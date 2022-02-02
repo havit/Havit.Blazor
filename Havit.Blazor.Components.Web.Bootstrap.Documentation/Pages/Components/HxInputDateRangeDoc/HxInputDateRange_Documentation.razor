@@ -1,40 +1,50 @@
 ﻿@attribute [Route("/components/" + nameof(HxInputDateRange))]
 
 <ComponentApiDoc Type="typeof(HxInputDateRange)">
+	<MainContent>
+		<DocAlert Type="DocAlertType.Warning">
+			<code>HxInputDateRange</code> does not support additional <code>InputGroups</code>. Learn more about them <a href="/components/Inputs#InputGroups">here</a>.
+		</DocAlert>
 
-	<DocAlert Type="DocAlertType.Warning">
-		<code>HxInputDateRange</code> does not support additional <code>InputGroups</code>. Learn more about them <a href="/components/Inputs#InputGroups">here</a>.
-	</DocAlert>
+		<h3 id="BasicUsage">Basic Usage</h3>
+		<Demo Type="typeof(HxInputDateRange_Demo)" Tabs="false" />
 
-	<h3 id="BasicUsage">Basic Usage</h3>
-	<Demo Type="typeof(HxInputDateRange_Demo)" Tabs="false" />
+		<h3 id="Buttons">Buttons in calendar</h3>
+		<p>The <i>Clear</i> and <i>OK</i> buttons in calendars can be hidden by setting <code>ShowCalendarButtons="false"</code>.</p>
+		<Demo Type="typeof(HxInputDateRange_Demo_CalendarButtons)" />
 
-	<h3 id="Buttons">Buttons in calendar</h3>
-	<p>The <i>Clear</i> and <i>OK</i> buttons in calendars can be hidden by setting <code>ShowCalendarButtons="false"</code>.</p>
-	<Demo Type="typeof(HxInputDateRange_Demo_CalendarButtons)" />
+		<h3 id="CustomRanges">Predefined date ranges</h3>
+		<p>Customization of predefined date ranges is possible with <code>PredefinedDateRanges</code> and <code>ShowPredefinedDateRanges</code> parameters.</p>
+		<Demo Type="typeof(HxInputDateRange_Demo_CustomRanges)" />
 
-	<h3 id="CustomRanges">Predefined date ranges</h3>
-    <p>Customization of predefined date ranges is possible with <code>PredefinedDateRanges</code> and <code>ShowPredefinedDateRanges</code> parameters.</p>
-	<Demo Type="typeof(HxInputDateRange_Demo_CustomRanges)" />
+		<h3 id="CalendarsCustomization">Dropdown calendars customization</h3>
+		<p>
+			You can change rendering of weekend days by defining your own CSS rule for <code>.weekend</code> class.
+			The disabled days get <code>.disabled</code> class.
+		</p>
+		<DocAlert Type="DocAlertType.Warning">
+			Disabling dates with the techniques below won't prevent the user from entering disabled dates manualy. You still have to validate the value.
+		</DocAlert>
 
-	<h3 id="CalendarsCustomization">Dropdown calendars customization</h3>
-	<p>
-		You can change rendering of weekend days by defining your own CSS rule for <code>.weekend</code> class.
-		The disabled days get <code>.disabled</code> class.
-	</p>
-	<DocAlert Type="DocAlertType.Warning">
-		Disabling dates with the techniques below won't prevent the user from entering disabled dates manualy. You still have to validate the value.
-	</DocAlert>
+		<h4 id="MinDateMaxDate">MinDate, MaxDate</h4>
+		<p>You can limit the dropdown calendars (both <i>From</i> and <i>To</i> together) enabled dates by setting <code>MinDate</code> and/or <code>MaxDate</code>.</p>
+		<Demo Type="typeof(HxInputDateRange_Demo_MinDateMaxDate)" />
 
-	<h4 id="MinDateMaxDate">MinDate, MaxDate</h4>
-	<p>You can limit the dropdown calendars (both <i>From</i> and <i>To</i> together) enabled dates by setting <code>MinDate</code> and/or <code>MaxDate</code>.</p>
-	<Demo Type="typeof(HxInputDateRange_Demo_MinDateMaxDate)" />
+		<h4 id="DateCustomization">Calendars date customization</h4>
+		<p>
+			You can customize the dropdown calendars' dates with <code>CalendarDateCustomizationProvider</code>. You can disable individual dates
+			(<code>Enabled="false"</code>) or set specific CSS class (<code>CssClass="...")</code>.
+		</p>
+		<Demo Type="typeof(HxInputDateRange_Demo_CalendarDateCustomization)" />
 
-	<h4 id="DateCustomization">Calendars date customization</h4>
-	<p>
-		You can customize the dropdown calendars' dates with <code>CalendarDateCustomizationProvider</code>. You can disable individual dates
-		(<code>Enabled="false"</code>) or set specific CSS class (<code>CssClass="...")</code>.
-	</p>
-	<Demo Type="typeof(HxInputDateRange_Demo_CalendarDateCustomization)" />
+	</MainContent>
+	<CssVariables>
+		<ComponentApiDocCssVariable Name="--hx-input-date-range-dropdown-padding" Default="1rem">
+			Padding of the dropdown.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-input-date-range-calendar-margin-bottom" Default="0.5rem">
+			Margin bottom of the calendar.
+		</ComponentApiDocCssVariable>
+	</CssVariables>
 
 </ComponentApiDoc>

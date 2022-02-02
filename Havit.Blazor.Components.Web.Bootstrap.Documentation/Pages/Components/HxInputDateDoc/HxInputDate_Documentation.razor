@@ -1,42 +1,52 @@
 ﻿@attribute [Route("/components/" + nameof(HxInputDate))]
 
 <ComponentApiDoc Type="typeof(HxInputDate<DateTime>)">
+	<MainContent>
+		<DocAlert Type="DocAlertType.Warning">
+			<code>HxInputDate</code> does not support <code>InputGroups</code>. Learn more about them <a href="/components/Inputs#InputGroups">here</a>.
+		</DocAlert>
 
-	<DocAlert Type="DocAlertType.Warning">
-		<code>HxInputDate</code> does not support <code>InputGroups</code>. Learn more about them <a href="/components/Inputs#InputGroups">here</a>.
-	</DocAlert>
+		<h3 id="BasicUsage">Basic usage</h3>
+		<Demo Type="typeof(HxInputDate_Demo)" Tabs="false" />
 
-	<h3 id="BasicUsage">Basic usage</h3>
-	<Demo Type="typeof(HxInputDate_Demo)" Tabs="false" />
+		<h3 id="CalendarIcon">Calendar icon</h3>
+		<p>Optional icon can be added using <code>CalendarIcon</code> parameter:</p>
+		<Demo Type="typeof(HxInputDate_Demo_CalendarIcon)" />
 
-	<h3 id="CalendarIcon">Calendar icon</h3>
-	<p>Optional icon can be added using <code>CalendarIcon</code> parameter:</p>
-	<Demo Type="typeof(HxInputDate_Demo_CalendarIcon)" />
+		<h3 id="Buttons">Buttons in calendar</h3>
+		<p>The <i>Clear</i> and <i>OK</i> buttons in calendar can be hidden by setting <code>ShowCalendarButtons="false"</code>.</p>
+		<Demo Type="typeof(HxInputDate_Demo_CalendarButtons)" />
 
-	<h3 id="Buttons">Buttons in calendar</h3>
-	<p>The <i>Clear</i> and <i>OK</i> buttons in calendar can be hidden by setting <code>ShowCalendarButtons="false"</code>.</p>
-	<Demo Type="typeof(HxInputDate_Demo_CalendarButtons)" />
+		<h3 id="Sizes">Sizes</h3>
+		<Demo Type="typeof(HxInputDate_Demo_InputSize)" />
 
-	<h3 id="Sizes">Sizes</h3>
-	<Demo Type="typeof(HxInputDate_Demo_InputSize)" />
+		<h3 id="CalendarCustomization">Dropdown calendar customization</h3>
+		<p>
+			You can change rendering of weekend days by defining your own CSS rule for <code>.weekend</code> class.
+			The disabled days get <code>.disabled</code> class.
+		</p>
+		<DocAlert Type="DocAlertType.Warning">
+			Disabling dates with the techniques below won't prevent the user from entering disabled dates manualy. You still have to validate the value.
+		</DocAlert>
 
-	<h3 id="CalendarCustomization">Dropdown calendar customization</h3>
-	<p>
-		You can change rendering of weekend days by defining your own CSS rule for <code>.weekend</code> class.
-		The disabled days get <code>.disabled</code> class.
-	</p>
-	<DocAlert Type="DocAlertType.Warning">
-		Disabling dates with the techniques below won't prevent the user from entering disabled dates manualy. You still have to validate the value.
-	</DocAlert>
+		<h4 id="MinDateMaxDate">MinDate, MaxDate</h4>
+		<p>You can limit the dropdown calendar values by setting <code>MinDate</code> and/or <code>MaxDate</code>.</p>
+		<Demo Type="typeof(HxInputDate_Demo_MinDateMaxDate)" />
 
-	<h4 id="MinDateMaxDate">MinDate, MaxDate</h4>
-	<p>You can limit the dropdown calendar values by setting <code>MinDate</code> and/or <code>MaxDate</code>.</p>
-	<Demo Type="typeof(HxInputDate_Demo_MinDateMaxDate)" />
-
-	<h4 id="DateCustomization">Calendar date customization</h4>
-	<p>
-		You can customize the dropdown calendar dates with <code>CalendarDateCustomizationProvider</code>. You can disable individual dates
-		(<code>Enabled="false"</code>) or set specific CSS class (<code>CssClass="...")</code>.
-	</p>
-	<Demo Type="typeof(HxInputDate_Demo_CalendarDateCustomization)" />
+		<h4 id="DateCustomization">Calendar date customization</h4>
+		<p>
+			You can customize the dropdown calendar dates with <code>CalendarDateCustomizationProvider</code>. You can disable individual dates
+			(<code>Enabled="false"</code>) or set specific CSS class (<code>CssClass="...")</code>.
+		</p>
+		<Demo Type="typeof(HxInputDate_Demo_CalendarDateCustomization)" />
+	</MainContent>
+	<CssVariables>
+		<ComponentApiDocCssVariable Name="--hx-input-date-dropdown-padding" Default="1rem">
+			Padding of the dropdown.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-input-date-calendar-margin-bottom" Default="0.5rem">
+			Margin bottom of the calendar.
+		</ComponentApiDocCssVariable>
+	</CssVariables>
+	
 </ComponentApiDoc>
