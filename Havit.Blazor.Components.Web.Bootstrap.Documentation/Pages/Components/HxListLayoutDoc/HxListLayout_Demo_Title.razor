@@ -1,13 +1,4 @@
-﻿<HxListLayout Title="Title" TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged">
-    <NamedViewsTemplate>
-        <HxNamedViewList TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged" NamedViews="namedViews" OnNamedViewSelected="NamedViewSelected" /> @* TODO *@
-    </NamedViewsTemplate>
-    <SearchTemplate>
-        
-    </SearchTemplate>
-    <FilterTemplate Context="filterContext">
-        <HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumLCID" />
-    </FilterTemplate>
+﻿<HxListLayout Title="Culture infos" TFilterModel="FilterModelDto">
     <CommandsTemplate>
         <HxButton Text="New item" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="NewItemClicked" />
     </CommandsTemplate>
@@ -36,15 +27,7 @@
     [Inject] protected NavigationManager NavigationManager { get; set; }
 
     private EditableCultureInfo currentItem;
-    private FilterModelDto filterModel = new FilterModelDto();
     private HxGrid<EditableCultureInfo> gridComponent;
-
-    private readonly IEnumerable<NamedView<FilterModelDto>> namedViews = new List<NamedView<FilterModelDto>>()
-        {
-            new NamedView<FilterModelDto>("Minimum = 1", () => new FilterModelDto { MinimumLCID = 1 } ),
-            new NamedView<FilterModelDto>("Minimum = 50", () => new FilterModelDto { MinimumLCID = 50 }),
-            new NamedView<FilterModelDto>("Minimum = 100", () => new FilterModelDto { MinimumLCID = 100 })
-        };
 
     private List<EditableCultureInfo> localEditableCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).Select(c => new EditableCultureInfo()
         {
@@ -56,21 +39,9 @@
 
     private Task<GridDataProviderResult<EditableCultureInfo>> LoadDataItems(GridDataProviderRequest<EditableCultureInfo> request)
     {
-        IEnumerable<EditableCultureInfo> result = localEditableCultureInfos.Where(i => i.LCID >= filterModel.MinimumLCID).ToList();
+        IEnumerable<EditableCultureInfo> result = localEditableCultureInfos.ToList();
 
         return Task.FromResult(request.ApplyTo(result));
-    }
-
-    private async Task HandleFilterModelChanged(FilterModelDto newFilterModel)
-    {
-        filterModel = newFilterModel;
-        await gridComponent.RefreshDataAsync();
-    }
-
-    protected async Task NamedViewSelected(NamedView<FilterModelDto> namedView)
-    {
-        filterModel = namedView.Filter();
-        await gridComponent.RefreshDataAsync();
     }
 
     private async Task DeleteItemClicked(EditableCultureInfo editableCultureInfo)
@@ -90,13 +61,10 @@
     {
         currentItem = new();
         // await dataItemEditComponent.ShowAsync();
-    return Task.CompletedTask;
+        return Task.CompletedTask;
     }
 
-    public record FilterModelDto
-    {
-        public int MinimumLCID { get; set; }
-    }
+    public record FilterModelDto { }
 
     private record EditableCultureInfo
     {

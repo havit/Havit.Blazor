@@ -214,6 +214,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxListGroup#CustomContent", "HxListGroup > Custom content", ""),
 
 			new("/components/HxListLayout", "HxListLayout", "data presentation filter"),
+			new("/components/HxListLayout#TitleTemplate", "HxListLayout > Title template", ""),
+			new("/components/HxListLayout#Search", "HxListLayout > Search", ""),
+			new("/components/HxListLayout#NamedViews", "HxListLayout > Named views", ""),
 
 			new("/components/HxNavbar", "HxNavbar", "navigation header"),
 			new("/components/HxNavbar#Brand", "HxNavbar > Brand", "image icon"),
