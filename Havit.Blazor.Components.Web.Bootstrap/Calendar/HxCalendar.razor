@@ -11,13 +11,13 @@
 					  OnClickStopPropagation="true"
 					  OnClick="HandlePreviousMonthClickAsync" />
 			<div class="hx-calendar-month-year-select">
-				<select class="form-select form-select-sm" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
+				<select class="form-select form-select-sm" aria-label="Month" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
 					@foreach (var month in renderData.Months)
 					{
 						<option value="@month.Index" disabled="@(!month.Enabled)">@month.Name</option>
 					}
 				</select>
-				<select class="form-select form-select-sm" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
+				<select class="form-select form-select-sm" aria-label="Year" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
 					@foreach (int year in renderData.Years)
 					{
 						/* not "N" - we do not want thousands separator */
