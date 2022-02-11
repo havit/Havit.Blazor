@@ -3,7 +3,7 @@
 
 <ComponentApiDoc Type="typeof(HxGrid<object>)">
     <MainContent>
-        <h3 id="ClientSideDataProcessing">Client-side data processing</h3>
+        <SectionTitle Id="ClientSideDataProcessing">Client-side data processing</SectionTitle>
         <ul>
             <li>Create a field/property for the data.</li>
             <li>Set data to this field/property. Do not sort data.</li>
@@ -11,7 +11,7 @@
         </ul>
         <Demo Type="typeof(HxGrid_ClientSideDemo)" />
 
-        <h3 id="ServerSidePagingAndSorting">Server side paging &amp; sorting</h3>
+        <SectionTitle Id="ServerSidePagingAndSorting">Server side paging &amp; sorting</SectionTitle>
         <ul>
             <li>Implement the <code>@nameof(HxGrid<object>.DataProvider)</code> method to delegate the paging &amp; sorting to the server side. The sample code does not have this implementation.</li>
         </ul>
@@ -22,10 +22,10 @@
             The method you provide is <code>async</code> and should <code>await</code> the data if needed (loading progress is indicated in meantime).
         </DocAlert>
 
-        <h3 id="EmptyData">Empty data</h3>
+        <SectionTitle Id="EmptyData" />
         <Demo Type="typeof(HxGrid_EmptyDataDemo)" />
 
-        <h3 id="InfiniteScroll">Infinite scroll (Virtualized)</h3>
+        <SectionTitle Id="InfiniteScroll">Infinite scroll (Virtualized)</SectionTitle>
         <p>
             You can switch from paging to infinite-scoll by setting <code>ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"</code>.
             Use a Placeholder (<code>&lt;Placeholder&gt;...&lt;/Placeholder&gt;</code>) to display content until the item data is available.
@@ -35,10 +35,10 @@
         </DocAlert>
         <Demo Type="typeof(HxGrid_VirtualizedDemo)" />
 
-        <h3 id="ContextMenu">Context menu</h3>
+        <SectionTitle Id="ContextMenu" />
         <Demo Type="typeof(HxGrid_Demo_ContextMenu)" />
 
-        <h3 id="Multiselect">Multiselect with checkboxes</h3>
+        <SectionTitle Id="Multiselect">Multiselect with checkboxes</SectionTitle>
         <p>You can let the user select multiple rows with <code>@nameof(HxGrid<object>.MultiSelectionEnabled)="true"</code>, selected items are represented by <code>@nameof(HxGrid<object>.SelectedDataItems)</code> parameter (bindable).</p>
         <DocAlert>
             <code>@nameof(HxGrid<object>.SelectedDataItems)</code> contains only visible items. Items are removed from the selection if they are not rendered (e.g. after paging, sorting, ...).
@@ -46,7 +46,7 @@
         </DocAlert>
         <Demo Type="typeof(HxGrid_Demo_Multiselect)" />
 
-        <h3 id="inline-editing">Inline-editing</h3>
+        <SectionTitle Id="inline-editing">Inline-editing</SectionTitle>
         <p>To achieve an inline-editing experience, you can use the <code>SelectedDataItem</code> and render editing UI for such items. Simply specify the content of the <code>ItemTemplate</code> in <code>HxGridColumn</code> and use the <code>SelectedDataItemChanged</code> event to save changes (or you can add a column with command buttons).</p>
         <Demo Type="typeof(HxGrid_Demo_InlineEditing)" />
     </MainContent>

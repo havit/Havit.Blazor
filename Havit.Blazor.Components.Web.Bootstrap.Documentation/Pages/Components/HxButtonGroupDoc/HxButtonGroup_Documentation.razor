@@ -2,35 +2,35 @@
 @attribute [Route("/components/" + nameof(HxButtonToolbar))]
 
 <ComponentApiDoc Type="typeof(HxButtonGroup)">
-    <h3 id="BasicUsage">Basic Usage</h3>
+    <SectionTitle Id="BasicUsage">Basic Usage</SectionTitle>
     <Demo Type="typeof(HxButtonGroup_Demo)" Tabs="false" />
 
-    <h3 id="OutlinedStyles">Outlined Styles</h3>
+    <SectionTitle Id="OutlinedStyles">Outlined Styles</SectionTitle>
     <Demo Type="typeof(HxButtonGroup_Demo_Outlined)" />
 
-    <h3 id="ButtonToolbar">Button toolbar</h3>
+    <SectionTitle Id="ButtonToolbar">Button toolbar</SectionTitle>
     <p>Use <code>HxButtonToolbar</code> and combine sets of button groups into button toolbars for more complex components. Use utility classes as needed to space out groups, buttons, and more.</p>
     <Demo Type="typeof(HxButtonToolbar_Demo)" />
 
     <p>Feel free to mix input groups with button groups in your toolbars. Similar to the example above, you’ll likely need some utilities though to space things properly.</p>
     <Demo Type="typeof(HxButtonToolbar_Demo_2)" />
 
-    <h3 id="Sizing">Sizing</h3>
+    <SectionTitle Id="Sizing">Sizing</SectionTitle>
     <Demo Type="typeof(HxButtonGroup_Demo_Sizes)" />
 
-    <h3 id="Nesting">Nesting</h3>
+    <SectionTitle Id="Nesting">Nesting</SectionTitle>
     <p>Place a <code>HxButtonGroup</code> within another <code>HxButtonGroup</code> when you want dropdown menus mixed with a series of buttons.</p>
     <Demo Type="typeof(HxButtonGroup_Demo_Nesting)" />
 
-    <h3 id="VerticalOrientation">Vertical orientation</h3>
+    <SectionTitle Id="VerticalOrientation">Vertical orientation</SectionTitle>
     <Demo Type="typeof(HxButtonGroup_Demo_Vertical)" />
 
-    <h3 id="CheckboxesAndRadios">Checkbox and radio button groups</h3>
+    <SectionTitle Id="CheckboxesAndRadios">Checkbox and radio button groups</SectionTitle>
     <p>Combine button-like checkbox and radio toggle components into a seamless looking button group.</p>
     <Demo Type="typeof(HxButtonGroup_Demo_Checkboxes)" />
     <Demo Type="typeof(HxButtonGroup_Demo_Radios)" />
 
-    <h3 id="ButtonsWithTooltips">Buttons with tooltips (known issue)</h3>
+    <SectionTitle Id="ButtonsWithTooltips">Buttons with tooltips (known issue)</SectionTitle>
     <DocAlert Type="DocAlertType.Warning">
         <p>
             Adding a <code>Tooltip</code> or <code>TooltipWrapperCssClass</code> to any <code>HxButton</code> adds wrapping
