@@ -4,6 +4,6 @@
     font-size: 0.875rem;
 }
 
-.hx-context-menu-item-icon {
+::deep .hx-context-menu-item-icon {
     margin-right: var(--hx-context-menu-item-icon-margin-right);
 }
