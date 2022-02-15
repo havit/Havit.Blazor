@@ -24,7 +24,6 @@ input:focus {
 
 ::deep .hx-icon {
 	display: flex;
-	align-items: center;
 }
 
 .hx-input-tags-naked-sm  {
