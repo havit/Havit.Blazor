@@ -6,5 +6,7 @@
 	public partial class HxContextMenu
 	{
 		[Parameter] public RenderFragment ChildContent { get; set; }
+
+		private string id = "hx" + Guid.NewGuid().ToString("N");
 	}
 }
