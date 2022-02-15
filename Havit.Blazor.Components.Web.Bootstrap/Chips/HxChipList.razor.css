@@ -11,6 +11,10 @@
     opacity: .5;
 }
 
+::deep .hx-chip-remove-btn .hx-icon {
+    display: flex;
+}
+
 ::deep .hx-chip-remove-btn:hover {
     opacity: 1;
 }
