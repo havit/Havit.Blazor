@@ -146,6 +146,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxGrid#inline-editing", "HxGrid > Inline-editing", ""),
 
 			new("/components/HxContextMenu", "HxContextMenu", "dropdown popup"),
+			new("/components/HxContextMenu#Icons", "HxContextMenu > Icons", ""),
 
 			new("/components/HxPager", "HxPager", "list pagination"),
 
