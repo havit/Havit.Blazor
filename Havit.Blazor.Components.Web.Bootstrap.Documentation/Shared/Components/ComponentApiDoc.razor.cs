@@ -69,8 +69,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		[Inject] private NavigationManager NavigationManager { get; set; }
 
-		private static readonly HttpClient client = new HttpClient();
-
 		private DocXmlReader webReader;
 		private DocXmlReader bootstrapReader;
 
