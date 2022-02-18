@@ -16,8 +16,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared
 		{
 			var path = new Uri(this.NavigationManager.Uri).AbsolutePath.TrimEnd('/');
 
-			// TODO Temp, replace with .NET 6 HeadContent, duplicates _Host.cshtml.cs:OnGet
-
 			var lastSegmentStart = path.LastIndexOf("/");
 			if (lastSegmentStart > 0)
 			{

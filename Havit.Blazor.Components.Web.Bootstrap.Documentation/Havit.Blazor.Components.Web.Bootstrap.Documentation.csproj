@@ -7,7 +7,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="LoxSmoke.DocXml" Version="3.4.5" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web.Extensions" Version="5.0.0-preview9.20513.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.1" PrivateAssets="all" />
 		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.1" />
