@@ -6,7 +6,7 @@
 	--hx-autosuggest-input-close-icon-opacity: .25;
 	/* HxSidebar */
 	--hx-sidebar-box-shadow: 							0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* shadow-sm */
-	--hx-sidebar-background-color: 						white;
+	--hx-sidebar-background-color: 						transparent;
 	--hx-sidebar-border: 								1px solid var(--bs-gray-200);
 	--hx-sidebar-collapsed-width: 						72px;
 	--hx-sidebar-width: 								250px;
@@ -30,6 +30,8 @@
 	--hx-sidebar-brand-logo-background-color: 			var(--bs-primary);
 	--hx-sidebar-brand-logo-border-radius: 				.625rem;
 	--hx-sidebar-brand-logo-color: 						white;
+	--hx-sidebar-brand-logo-width: 						2.75;
+	--hx-sidebar-brand-logo-height: 					2.75;
 	--hx-sidebar-brand-name-color: 						var(--bs-dark);
 	--hx-sidebar-brand-name-font-weight: 				600;
 	--hx-sidebar-footer-padding: 						1rem;

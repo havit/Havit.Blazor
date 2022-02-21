@@ -1,6 +1,6 @@
 ﻿.logo {
-	width: 2.75em;
-	height: 2.75em;
+	width: var(--hx-sidebar-brand-logo-width);
+	height: var(--hx-sidebar-brand-logo-height);
 	background-color: var(--hx-sidebar-brand-logo-background-color);
 	border-radius: var(--hx-sidebar-brand-logo-border-radius);
 	display: flex;
