@@ -18,7 +18,7 @@ public partial class Sidebar
 		var result = await client.GetStringAsync("https://bootswatch.com/api/5.json");
 		themes = JsonConvert.DeserializeObject<ThemeHolder>(result).Themes;
 
-		themes = themes.Prepend(new() { Name = "Bootstrap 5", CssCdn = "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" }).ToList();
+		themes = themes.Prepend(new() { Name = "Bootstrap 5", CssCdn = "FULL_LINK_HARDCODED_IN_RAZOR" }).ToList();
 	}
 }
 
