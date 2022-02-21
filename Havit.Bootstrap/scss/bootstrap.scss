@@ -9,9 +9,13 @@
 // Configuration
 @import "../bootstrap/scss/functions";
 
-$light: #dee2e6;
-$blue:  #2097d0;
+$light:   #dee2e6;
+$blue:    #009de0;
+$red:     #f93a25;
+$green:   #1c9e0b;
 $primary: $blue;
+$danger:  $red;
+$success: $green;
 
 @import "../bootstrap/scss/variables";
 @import "variables";
