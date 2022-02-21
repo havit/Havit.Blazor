@@ -2,7 +2,7 @@
     <HeaderTemplate>
         <HxSidebarBrand BrandName="HAVIT Blazor">
             <Logo>
-                <img src="/HAVIT-Logo-Motiv-512x512-blur.png" width="40" height="40" />
+                <img src="/logo.png" width="35" height="35" />
             </Logo>
         </HxSidebarBrand>
     </HeaderTemplate>
@@ -174,7 +174,7 @@
         </HxSidebarItem>
     </ItemsTemplate>
     <FooterTemplate>
-        <HxSelect Label="Theme" TItem="Theme" TValue="Theme" Data="themes" @bind-Value="selectedTheme" TextSelector="t => t.Name" Nullable="true" NullText="Havit.Blazor" />
+        <HxSelect Label="Theme" TItem="Theme" CssClass="w-100" TValue="Theme" Data="themes" @bind-Value="selectedTheme" TextSelector="t => t.Name" Nullable="true" NullText="Havit.Blazor" />
     </FooterTemplate>
 </HxSidebar>
 

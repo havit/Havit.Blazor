@@ -1,20 +1,5 @@
-$light: $gray-300;
-
-$theme-colors: (
-  "primary": $primary,
-  "secondary": $secondary,
-  "success": $success,
-  "info": $info,
-  "warning": $warning,
-  "danger": $danger,
-  "light": $light,
-  "dark": $dark,
-);
-
-$theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
 
 $min-contrast-ratio:  3;
-$body-bg:             $gray-100;
 $border-color:        $gray-200;
 
 $box-shadow:                  0 .5rem 1rem rgba($black, .1);

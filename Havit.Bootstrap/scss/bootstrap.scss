@@ -8,6 +8,11 @@
 // scss-docs-start import-stack
 // Configuration
 @import "../bootstrap/scss/functions";
+
+$light: #dee2e6;
+$blue:  #2097d0;
+$primary: $blue;
+
 @import "../bootstrap/scss/variables";
 @import "variables";
 @import "../bootstrap/scss/mixins";
