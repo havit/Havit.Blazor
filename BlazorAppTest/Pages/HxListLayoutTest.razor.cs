@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap;
@@ -88,12 +89,22 @@ namespace BlazorAppTest.Pages
 			return Task.CompletedTask;
 		}
 
+		private async Task<InputTagsDataProviderResult> GetTagsSuggestions(InputTagsDataProviderRequest request)
+		{
+			await Task.Delay(50); // simulate server API call
+			return new InputTagsDataProviderResult()
+			{
+				Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString()).Where(v => v.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+			};
+		}
+
 		public record FilterModelDto
 		{
 			public int MinimumItemId { get; set; }
 			public string NameContains { get; set; }
 			public int MinimumAge { get; set; }
 			public int MaximumAge { get; set; }
+			public List<string> Tags { get; set; }
 		}
 
 		public record DataItemDto

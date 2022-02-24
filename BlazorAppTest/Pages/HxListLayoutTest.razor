@@ -14,6 +14,7 @@
         <HxInputText Label="Name containing" @bind-Value="filterContext.NameContains" />
         <HxInputNumber Label="Minimum Age" @bind-Value="filterContext.MinimumAge" />
         <HxInputNumber Label="Maximum Age" @bind-Value="filterContext.MaximumAge" />
+    <HxInputTags Label="Tags (ThemeColor)" @bind-Value="filterContext.Tags" DataProvider="GetTagsSuggestions"/>
     </FilterTemplate>
 	<CommandsTemplate>
 		<HxButton Text="Add" Icon="BootstrapIcon.Plus" Color="ThemeColor.Secondary" OnClick="NewItemClicked" />

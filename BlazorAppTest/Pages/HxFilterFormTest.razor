@@ -16,6 +16,7 @@
 		</ChipTemplate> 
 	</HxInputText>
 	<HxInputNumber Label="Number 1" @bind-Value="@context.Number1" />
+    <HxInputTags Label="Tags (ThemeColor)" @bind-Value="@context.Tags" DataProvider="GetTagsSuggestions"/>
 
 	<HxSubmit Text="Apply" Color="ThemeColor.Primary" />
 

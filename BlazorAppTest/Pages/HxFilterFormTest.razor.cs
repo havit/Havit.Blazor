@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap;
 
@@ -35,6 +36,8 @@ namespace BlazorAppTest.Pages
 
 			public int Number1 { get; set; } = 5;
 
+			public List<string> Tags { get; set; }
+
 			public object Clone() => MemberwiseClone();
 		}
 		#endregion
@@ -55,6 +58,15 @@ namespace BlazorAppTest.Pages
 			stringValues.Add(model.Text2);
 			stringValues.Add(model.Number1.ToString());
 			return request.ApplyTo(stringValues);
+		}
+
+		private async Task<InputTagsDataProviderResult> GetTagsSuggestions(InputTagsDataProviderRequest request)
+		{
+			await Task.Delay(50); // simulate server API call
+			return new InputTagsDataProviderResult()
+			{
+				Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString()).Where(v => v.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+			};
 		}
 	}
 }
