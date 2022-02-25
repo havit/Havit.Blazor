@@ -9,6 +9,10 @@
 	</p>
 
 	<SectionTitle Id="StandaloneDemo" />
+    <DocAlert Type="DocAlertType.Warning">
+        <code>HxFilterForm</code> component has to be kept rendered to work propertly with <code><a href="/components/HxChipList">HxChipList</a></code>.<br/>
+        Beware of <code><a href="/components/HxOffcanvas">HxOffcanvas</a></code> where you have to set <code>RenderModer="OffcanvasRenderModer.Always"</code> to prevent removing the component from rendering when offcanvas is closed.
+    </DocAlert>
 	<Demo Type="typeof(HxFilterForm_Demo)" />
 
 </ComponentApiDoc>

@@ -82,7 +82,7 @@
 			_ = InvokeAsync(UpdateModelWithoutChipUpdateAsync);
 
 			notifyChipsUpdatedAfterRender = true; // notify the chips update after the model is "rendered"
-			StateHasChanged();
+			StateHasChanged(); // added as fix for #59236 HxListLayout/HxFilterForm - loses all chips, when one of chips gets removed
 
 			return Task.CompletedTask;
 		}
