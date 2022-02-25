@@ -80,7 +80,9 @@
 			// propagate the model in edit to the Model and notify model changed
 			// if used with await the chip is removed from UI much later
 			_ = InvokeAsync(UpdateModelWithoutChipUpdateAsync);
+
 			notifyChipsUpdatedAfterRender = true; // notify the chips update after the model is "rendered"
+			StateHasChanged();
 
 			return Task.CompletedTask;
 		}

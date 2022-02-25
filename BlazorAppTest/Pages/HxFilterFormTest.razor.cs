@@ -17,11 +17,13 @@ namespace BlazorAppTest.Pages
 
 		private void HandleChipsUpdated(ChipItem[] chips)
 		{
+			Console.WriteLine("HandleChipsUpdated");
 			this.chips = chips;
 		}
 
 		private async Task HandleChipRemoveClick(ChipItem chipToRemove)
 		{
+			Console.WriteLine("HandleChipRemoveClick");
 			await filterForm.RemoveChipAsync(chipToRemove);
 		}
 
