@@ -5,6 +5,7 @@
 	flex-basis: var(--hx-sidebar-width);
 	flex-grow: 1;
 	background-color: var(--hx-sidebar-background-color);
+	max-height: 100vh;
 }
 
 .hx-sidebar-collapse {
