@@ -1,11 +1,22 @@
-﻿export function create(element, hxDropdownDotnetObjectReference) {
+﻿export function create(element, hxDropdownDotnetObjectReference, reference) {
 	if (!element) {
 		return;
 	}
 	element.hxDropdownDotnetObjectReference = hxDropdownDotnetObjectReference;
 	element.addEventListener('shown.bs.dropdown', handleDropdownShown);
 	element.addEventListener('hidden.bs.dropdown', handleDropdownHidden);
-	var d = new bootstrap.Dropdown(element);
+
+	if (reference) {
+		console.warn(reference);
+		var referenceOption = document.querySelector(reference);
+		console.warn(referenceOption);
+		var d = new bootstrap.Dropdown(element, {
+			reference: referenceOption
+		});
+	}
+	else {
+		var d = new bootstrap.Dropdown(element);
+	}
 }
 
 export function show(element) {

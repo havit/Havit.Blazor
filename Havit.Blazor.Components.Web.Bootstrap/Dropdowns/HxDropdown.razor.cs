@@ -25,6 +25,11 @@
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying <c>div</c> element.
+		/// </summary>
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		[CascadingParameter] protected HxNavbar NavbarContainer { get; set; }

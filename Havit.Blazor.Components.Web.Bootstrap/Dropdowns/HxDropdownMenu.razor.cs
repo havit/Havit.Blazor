@@ -12,6 +12,11 @@
 
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying <c>ul</c> element.
+		/// </summary>
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
 		[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
 
 		protected string GetCssClass() =>

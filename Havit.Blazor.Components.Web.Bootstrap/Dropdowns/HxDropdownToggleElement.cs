@@ -90,10 +90,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.AddAttribute(4, "data-bs-offset", $"{DropdownOffset.Value.Skidding},{DropdownOffset.Value.Distance}");
 			}
 
-			if (!String.IsNullOrWhiteSpace(this.DropdownReference))
-			{
-				builder.AddAttribute(5, "data-bs-reference", this.DropdownReference);
-			}
+			builder.AddAttribute(5, "data-bs-reference", DropdownToggleExtensions.GetDropdownDataBsReference(this));
 			builder.AddAttribute(6, "class", GetCssClass());
 
 			builder.AddMultipleAttributes(99, AdditionalAttributes);
@@ -124,7 +121,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					return;
 				}
-				await jsModule.InvokeVoidAsync("create", elementReference, dotnetObjectReference);
+				await jsModule.InvokeVoidAsync("create", elementReference, dotnetObjectReference, DropdownToggleExtensions.GetDropdownJsOptionsReference(this));
 			}
 		}
 

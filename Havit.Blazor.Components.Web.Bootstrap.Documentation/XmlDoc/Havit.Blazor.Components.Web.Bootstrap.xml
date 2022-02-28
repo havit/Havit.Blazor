@@ -1326,6 +1326,11 @@
             Any additional CSS class to apply.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying <c>div</c> element.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownContent">
             <summary>
             Custom dropdown content for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/>.
@@ -1442,6 +1447,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu.CssClass">
             <summary>
             Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying <c>ul</c> element.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton">
@@ -6335,7 +6345,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HideAsync">
             <summary>
-            Hides the offcanvas.
+            Hides the offcanvas (if opened).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HandleOffcanvasShown">

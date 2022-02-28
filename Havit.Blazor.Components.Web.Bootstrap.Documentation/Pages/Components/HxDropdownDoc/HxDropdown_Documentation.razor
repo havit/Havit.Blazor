@@ -12,63 +12,76 @@
 
 <ComponentApiDoc Type="typeof(HxDropdown)">
 
-	<h2 id="BasicStructure">Basic structure</h2>
-	<CodeSnippet File="~\Pages\Components\HxDropdownDoc\HxDropdown_BasicStructure.CodeSnippet.razor" />
+    <h2 id="BasicStructure">Basic structure</h2>
+    <CodeSnippet File="~\Pages\Components\HxDropdownDoc\HxDropdown_BasicStructure.CodeSnippet.razor" />
 
-	<h2 id="Examples">Examples</h2>
+    <h2 id="Examples">Examples</h2>
 
-	<SectionTitle Id="SingleButton" />
-	<Demo Type="typeof(HxDropdown_Demo_SingleButton)" />
+    <SectionTitle Id="SingleButton" />
+    <Demo Type="typeof(HxDropdown_Demo_SingleButton)" />
 
-	<SectionTitle Id="ButtonVariants" />
-	<Demo Type="typeof(HxDropdown_Demo_All_Colors)" />
+    <SectionTitle Id="ButtonVariants" />
+    <Demo Type="typeof(HxDropdown_Demo_All_Colors)" />
 
-	<SectionTitle Id="SplitButton" />
-	<p>Set <code>HxDropdown.Split = "true"</code> and leave the <code>HxDrodownToggle.Text</code> empty (you can use the <code>ChildContent</code> to improve accessibility).</p>
-	<Demo Type="typeof(HxDropdown_Demo_Split)" />
+    <SectionTitle Id="SplitButton" />
+    <p>Set <code>HxDropdown.Split = "true"</code> and leave the <code>HxDrodownToggle.Text</code> empty (you can use the <code>ChildContent</code> to improve accessibility).</p>
+    <Demo Type="typeof(HxDropdown_Demo_Split)" />
 
-	<SectionTitle Id="Sizing" />
-	<p>HxDropdowns work with buttons of all sizes, including default and split dropdown buttons.</p>
-	<Demo Type="typeof(HxDropdown_Demo_Large)" />
-	<Demo Type="typeof(HxDropdown_Demo_Small)" />
+    <SectionTitle Id="Sizing" />
+    <p>HxDropdowns work with buttons of all sizes, including default and split dropdown buttons.</p>
+    <Demo Type="typeof(HxDropdown_Demo_Large)" />
+    <Demo Type="typeof(HxDropdown_Demo_Small)" />
 
-	<SectionTitle Id="Directions" />
-	<Demo Type="typeof(HxDropdown_Demo_Directions)" />
+    <SectionTitle Id="Directions" />
+    <Demo Type="typeof(HxDropdown_Demo_Directions)" />
 
-	<SectionTitle Id="HeaderDisabledActive">Header, Disabled, Active</SectionTitle>
-	<p>Set <code>CssClass="active"</code> to highlight the item. (In case of <code>NavLink</code> functionality needed, separate <code>HxDropdownMenuNavLinkItem</code> will be implemented.)</p>
-	<p>Set <code>Enabled="false"</code> to disable the item. The <code>HxFormState.Enabled</code> inheritance is also supported.</p>
-	<Demo Type="typeof(HxDropdown_Demo_HeaderDisabledActive)" />
+    <SectionTitle Id="HeaderDisabledActive">Header, Disabled, Active</SectionTitle>
+    <p>Set <code>CssClass="active"</code> to highlight the item. (In case of <code>NavLink</code> functionality needed, separate <code>HxDropdownMenuNavLinkItem</code> will be implemented.)</p>
+    <p>Set <code>Enabled="false"</code> to disable the item. The <code>HxFormState.Enabled</code> inheritance is also supported.</p>
+    <Demo Type="typeof(HxDropdown_Demo_HeaderDisabledActive)" />
 
-	<SectionTitle Id="CustomContent" />
-	<p>Use <code>HxDropdownContent</code> instead of <code>HxDropdownMenu</code>.</p>
-	<Demo Type="typeof(HxDropdown_Demo_CustomContent)" />
+    <SectionTitle Id="CustomContent" />
+    <p>Use <code>HxDropdownContent</code> instead of <code>HxDropdownMenu</code>.</p>
+    <Demo Type="typeof(HxDropdown_Demo_CustomContent)" />
 
     <SectionTitle Id="CustomToggleElement" />
-	<p>
+    <p>
         Use <code>HxDropdownToggleElement</code> (with <code>ElementName="..."</code>) instead of <code>HxDropdownToggleButton</code> to create custom toggler.
         (Usually you will add <code>role="button"</code> to apply pointer cursor type.)
     </p>
-	<Demo Type="typeof(HxDropdown_Demo_CustomToggleElement)" />
+    <Demo Type="typeof(HxDropdown_Demo_CustomToggleElement)" />
 
-	<SectionTitle Id="OffsetAndreference">Dropdown offset and reference</SectionTitle>
-	<p>
-		You can change the location of the dropdown by setting the <code>@nameof(HxDropdownToggleButton).@nameof(HxDropdownToggleButton.DropdownOffset)</code>
-		and/or <code>@nameof(HxDropdownToggleButton).@nameof(HxDropdownToggleButton.DropdownReference)</code>.
-	</p>
-	<Demo Type="typeof(HxDropdown_Demo_DropdownOffsetAndReference)" />
+    <SectionTitle Id="OffsetAndreference">Dropdown offset and reference</SectionTitle>
+    <p>
+        You can change the location of the dropdown by setting the <code>@nameof(HxDropdownToggleButton).@nameof(HxDropdownToggleButton.DropdownOffset)</code>
+        and/or <code>@nameof(HxDropdownToggleButton).@nameof(HxDropdownToggleButton.DropdownReference)</code>.
+    </p>
+    <Demo Type="typeof(HxDropdown_Demo_DropdownOffsetAndReference)" />
 
-	<SectionTitle Id="AutoCloseBehavior" />
-	<p>By default, the dropdown menu is closed when clicking inside or outside the dropdown menu. You can use the <code>AutoClose</code> parameter to change this behavior of the dropdown.</p>
-	<Demo Type="typeof(HxDropdown_Demo_AutoClose)" />
+    <SectionTitle Id="CustomReference">Reference to custom HTML element</SectionTitle>
+    <p>
+        Bootstrap's dropdown relies on specific structure where the dropdown-toggle and dropdown-menu are direct ancestors of common parent.
+        When you cannot stick with this structure (e.g. by adding <code>Tooltip</code> wrapping the button with <code>span</code>), you have to use
+        explicit <code>DropdownReference</code>.<br/>
+        Specific structure of <code>#id</code> gets recognized and handed over to the underlying Bootstraps dropdown.
+    </p>
+    <DocAlert Type="DocAlertType.Danger">
+        Bootstrap 5.1.3 does not handle HTMLElement-references correctly. This is already <a href="https://github.com/twbs/bootstrap/commit/5f1c542d677add524c94054ba8583269d81d87d0">fixed</a>, but not released.<br />
+        You might get <code>TypeError: Failed to execute 'getComputedStyle' on 'Window': parameter 1 is not of type 'Element'.</code>
+    </DocAlert>
+    <Demo Type="typeof(HxDropdown_Demo_DropdownReference)" />
 
-	<SectionTitle Id="NavWithDropdown" />
-	<p>You can use <code>HxDropdown</code> inside <code><a href="/components/@nameof(HxNav)">@nameof(HxNav)</a></code>.</p>
-	<Demo Type="typeof(HxNav_Demo_Dropdowns)" />
+    <SectionTitle Id="AutoCloseBehavior" />
+    <p>By default, the dropdown menu is closed when clicking inside or outside the dropdown menu. You can use the <code>AutoClose</code> parameter to change this behavior of the dropdown.</p>
+    <Demo Type="typeof(HxDropdown_Demo_AutoClose)" />
 
-	<SectionTitle Id="DarkDropdowns" />
-	<p>Opt into darker dropdowns to match a dark navbar or custom style by adding <code>.dropdown-menu-dark</code> onto a <code>HxDropdownMenu</code> component.</p>
-	<Demo Type="typeof(HxDropdown_Demo_Dark)" />
+    <SectionTitle Id="NavWithDropdown" />
+    <p>You can use <code>HxDropdown</code> inside <code><a href="/components/@nameof(HxNav)">@nameof(HxNav)</a></code>.</p>
+    <Demo Type="typeof(HxNav_Demo_Dropdowns)" />
+
+    <SectionTitle Id="DarkDropdowns" />
+    <p>Opt into darker dropdowns to match a dark navbar or custom style by adding <code>.dropdown-menu-dark</code> onto a <code>HxDropdownMenu</code> component.</p>
+    <Demo Type="typeof(HxDropdown_Demo_Dark)" />
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxDropdownToggleButton)" />
