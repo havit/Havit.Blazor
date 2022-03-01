@@ -28,5 +28,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public bool? Enabled { get; set; }
 
 		[Parameter] public RenderFragment ChildContent { get; set; }
+
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying <c>li&gt;span</c> element.
+		/// </summary>
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 	}
 }
