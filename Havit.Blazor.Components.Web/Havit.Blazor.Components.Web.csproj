@@ -13,16 +13,16 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>2.0.3</PackageVersion>
+		<PackageVersion>2.0.4</PackageVersion>
 		<Description>HAVIT Blazor Library - Free UI components and supportive classes</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://havit.blazor.eu</PackageProjectUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Havit.Core" Version="2.0.23" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.13" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.1" />
+		<PackageReference Include="Havit.Core" Version="2.0.25" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.14" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.2" />
 	</ItemGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">

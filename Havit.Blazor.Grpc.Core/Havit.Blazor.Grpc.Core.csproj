@@ -7,13 +7,13 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.0.10</PackageVersion>
+		<PackageVersion>1.0.11</PackageVersion>
 		<Description>HAVIT Blazor stack - gRPC Support - Core library for both server and client side</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Havit.Core" Version="2.0.23" />
+		<PackageReference Include="Havit.Core" Version="2.0.25" />
 		<PackageReference Include="protobuf-net" Version="3.0.101" />
 		<PackageReference Include="protobuf-net.Grpc" Version="1.0.152" />
 	</ItemGroup>

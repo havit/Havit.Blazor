@@ -7,16 +7,16 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.0.11</PackageVersion>
+		<PackageVersion>1.0.12</PackageVersion>
 		<Description>HAVIT Blazor stack - gRPC Support - server-side</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.42.0" />
+		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.43.0" />
 		<PackageReference Include="Havit.AspNetCore" Version="2.0.9" />
-		<PackageReference Include="Havit.Core" Version="2.0.23" />
+		<PackageReference Include="Havit.Core" Version="2.0.25" />
 		<PackageReference Include="protobuf-net" Version="3.0.101" />
 		<PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.0.152" />
 		<!-- Workaround for vilnerability in System.Text.Encodings.Web 4.5.0 -->
