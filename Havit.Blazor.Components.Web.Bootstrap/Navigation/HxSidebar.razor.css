@@ -5,7 +5,6 @@
 	flex-basis: var(--hx-sidebar-width);
 	flex-grow: 1;
 	background-color: var(--hx-sidebar-background-color);
-	max-height: 100vh;
 }
 
 .hx-sidebar-collapse {
@@ -13,10 +12,13 @@
 	flex-grow: 1;
 }
 
-.hx-sidebar.sticky-top,
-.hx-sidebar.sticky-top .nav-menu {
-	max-height: 100vh;
+@media (min-width: 768px) {
+	.hx-sidebar,
+	.hx-sidebar .nav-menu {
+		max-height: 100vh;
+	}
 }
+
 
 .hx-sidebar.collapsed {
 	flex-basis: var(--hx-sidebar-collapsed-width);
