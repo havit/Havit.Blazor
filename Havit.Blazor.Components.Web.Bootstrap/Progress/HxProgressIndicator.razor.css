@@ -10,7 +10,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: var(--hx-progress-indocator-background);
+    background: var(--hx-progress-indicator-background);
     border-radius: 50%;
     display: flex;
     justify-content: center;
