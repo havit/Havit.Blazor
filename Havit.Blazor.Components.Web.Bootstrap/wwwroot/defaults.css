@@ -141,7 +141,7 @@
 	--hx-input-date-range-calendar-margin-bottom:	0.5rem;
 	/* HxProgressIndicator */
 	--hx-progress-indicator-background:				white;
-	--hx-progress-indicator-spinner-color:			blue;
+	--hx-progress-indicator-spinner-color:			var(--bs-primary);
 	/* HxToastContainer */
 	--hx-toast-container-margin:					0.5rem;
 }
