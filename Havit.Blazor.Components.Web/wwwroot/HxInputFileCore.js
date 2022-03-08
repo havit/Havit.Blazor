@@ -90,10 +90,16 @@ export function getFiles(inputElementId) {
 
 export function reset(inputElementId) {
 	var inputElement = document.getElementById(inputElementId);
+	if (!inputElement) {
+		return;
+	}
 
 	inputElement.cancelled = true;
-	for (const request of inputElement.requests) {
-		request.abort();
+
+	if (inputElement.requests) {
+		for (const request of inputElement.requests) {
+			request.abort();
+		}
 	}
 
 	inputElement.value = '';
