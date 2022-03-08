@@ -3,24 +3,33 @@
 
 <ComponentApiDoc Type="typeof(HxGrid<object>)">
     <MainContent>
-        <SectionTitle Id="ClientSideDataProcessing">Client-side data processing</SectionTitle>
-        <ul>
-            <li>Create a field/property for the data.</li>
-            <li>Set data to this field/property. Do not sort data.</li>
-            <li>Use the extension method <code>ApplyTo</code> (<code>request.ApplyTo(data)</code>) in the <code>@nameof(HxGrid<object>.DataProvider)</code> method to automatically sort and page data from the field/property. While the result of the <code>@nameof(HxGrid<object>.DataProvider)</code> method is a generic <code>Task</code>, the result must be wrapped using <code>Task.FromResult</code>. It is easy, see the demo source code.</li>
-        </ul>
-        <Demo Type="typeof(HxGrid_ClientSideDemo)" />
 
-        <SectionTitle Id="ServerSidePagingAndSorting">Server side paging &amp; sorting</SectionTitle>
-        <ul>
-            <li>Implement the <code>@nameof(HxGrid<object>.DataProvider)</code> method to delegate the paging &amp; sorting to the server side. The sample code does not have this implementation.</li>
-        </ul>
-        <Demo Type="typeof(HxGrid_ServerSideDemo)" />
+        <h2>Data-binding</h2>
+        <p>
+            Implement the <code>@nameof(HxGrid<object>.DataProvider)</code> method which is provided with a "request"
+            (requested sorting and paging) and returns a "result" (items to display and total count of items).
+        </p>
+        <Demo Type="typeof(HxGrid_Demo_DataProvider)" />
+
+        <SectionTitle Id="ApplyTo">Automatic sorting and paging</SectionTitle>
+        <p>
+            If you have your <code>IEnumerable</code> data-source ready (all items), you can use the <code>request.ApplyTo(data)</code>
+            extension method to apply sorting and paging automatically.
+        </p>
+        <Demo Type="typeof(HxGrid_Demo_ApplyTo)" />
 
         <DocAlert Type="DocAlertType.Warning">
             The <code>@nameof(HxGrid).@nameof(HxGrid<object>.DataProvider)</code> should always return an instance of <code>@nameof(GridDataProviderResult<object>)</code>, <code>null</code> is not allowed.
             The method you provide is <code>async</code> and should <code>await</code> the data if needed (loading progress is indicated in meantime).
         </DocAlert>
+
+        <SectionTitle Id="RefreshData">Refreshing data</SectionTitle>
+        <p>
+            Whenever you need to refresh data in the grid (e.g. when the filter to be applied changes),
+            call the <code>gridComponent.RefreshDataAsync()</code> method to let the grid know
+            it should ask the <code>DataProvider</code> for fresh data.
+        </p>
+        <Demo Type="typeof(HxGrid_Demo_RefreshData)" />
 
         <SectionTitle Id="EmptyData" />
         <Demo Type="typeof(HxGrid_EmptyDataDemo)" />

@@ -1,5 +1,4 @@
-﻿<HxGrid @ref="grid"
-        SelectedDataItem="selectedDataItem"
+﻿<HxGrid SelectedDataItem="selectedDataItem"
         SelectedDataItemChanged="HandleSelectedDataItemChanged"
         TItem="EditableCultureInfo"
         TableContainerCssClass="table-responsive"
@@ -8,7 +7,7 @@
     <Columns>
         <HxGridColumn TItem="EditableCultureInfo" HeaderText="LCID" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true">
             <ItemTemplate Context="item">
-                @if (grid.SelectedDataItem == item)
+                @if (selectedDataItem == item)
                 {
                     <HxInputNumber @bind-Value="item.LCID" />
                 }
@@ -20,7 +19,7 @@
         </HxGridColumn>
         <HxGridColumn TItem="EditableCultureInfo" HeaderText="DisplayName" SortKeySelector="@(item => item.DisplayName)">
             <ItemTemplate Context="item">
-                @if (grid.SelectedDataItem == item)
+                @if (selectedDataItem == item)
                 {
                     <HxInputText @bind-Value="item.DisplayName" />
                 }
@@ -32,7 +31,7 @@
         </HxGridColumn>
         <HxGridColumn TItem="EditableCultureInfo" HeaderText="Name" SortKeySelector="@(item => item.Name)">
             <ItemTemplate Context="item">
-                @if (grid.SelectedDataItem == item)
+                @if (selectedDataItem == item)
                 {
                     <HxInputText @bind-Value="item.Name" />
                 }
@@ -44,7 +43,7 @@
         </HxGridColumn>
         <HxGridColumn TItem="EditableCultureInfo" HeaderText="EnglishName" SortKeySelector="@(item => item.EnglishName)">
             <ItemTemplate Context="item">
-                @if (grid.SelectedDataItem == item)
+                @if (selectedDataItem == item)
                 {
                     <HxInputText @bind-Value="item.EnglishName" />
                 }
@@ -58,7 +57,6 @@
 </HxGrid>
 
 @code {
-    private HxGrid<EditableCultureInfo> grid;
     private EditableCultureInfo selectedDataItem;
     private List<EditableCultureInfo> localEditableCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).Select(c => new EditableCultureInfo()
         {

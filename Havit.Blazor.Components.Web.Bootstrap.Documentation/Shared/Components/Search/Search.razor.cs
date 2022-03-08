@@ -138,8 +138,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxPopover#Programmability", "HxPopover > Programmability", ""),
 
 			new("/components/HxGrid", "HxGrid", "data row column table datalist"),
-			new("/components/HxGrid#ClientSideDataProcessing", "HxGrid > Client-side data processing", ""),
-			new("/components/HxGrid#ServerSidePagingAndSorting", "HxGrid > Server-side paging & sorting", ""),
+			new("/components/HxGrid#DataProvider", "HxGrid > Data-binding", ""),
 			new("/components/HxGrid#InfiniteScroll", "HxGrid > Infinite scroll (Virtualized)", ""),
 			new("/components/HxGrid#ContextMenu", "HxGrid > Context menu", ""),
 			new("/components/HxGrid#Multiselect", "HxGrid > Multiselect with checkboxes", ""),

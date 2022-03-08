@@ -1379,6 +1379,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.Enabled">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying <c>li&gt;span</c> element.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemNavLink">
             <summary>
             <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> item for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu"/>.

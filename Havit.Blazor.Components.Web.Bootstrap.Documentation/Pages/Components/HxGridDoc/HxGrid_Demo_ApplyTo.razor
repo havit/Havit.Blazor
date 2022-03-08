@@ -1,4 +1,4 @@
-﻿<HxGrid TItem="CultureInfo" TableContainerCssClass="table-responsive" DataProvider="ClientSideProcessingDataProvider" PageSize="10">
+﻿<HxGrid TItem="CultureInfo" TableContainerCssClass="table-responsive" DataProvider="GetGridData" PageSize="10">
 	<Columns>
 		<HxGridColumn TItem="CultureInfo" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
@@ -10,7 +10,7 @@
 @code {
 	private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
 
-	private Task<GridDataProviderResult<CultureInfo>> ClientSideProcessingDataProvider(GridDataProviderRequest<CultureInfo> request)
+	private Task<GridDataProviderResult<CultureInfo>> GetGridData(GridDataProviderRequest<CultureInfo> request)
 	{
 		return Task.FromResult(request.ApplyTo(localCultureInfos));
 	}
