@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 @using Havit.Blazor.Components.Web.Bootstrap.Internal
-<li>
+<li class="@this.ContainerCssClass">
 	<HxNavLinkInternal href="@Href"
 					   Match="@(this.Match ?? NavLinkMatch.All)"
 					   OnClick="InvokeOnClickAsync"

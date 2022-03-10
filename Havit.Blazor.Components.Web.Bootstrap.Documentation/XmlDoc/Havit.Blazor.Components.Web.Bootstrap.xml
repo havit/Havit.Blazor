@@ -1346,6 +1346,16 @@
             Divider for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownDivider.CssClass">
+            <summary>
+            Additional CSS class for underlying <c>li&gt;hr</c> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownDivider.ContainerCssClass">
+            <summary>
+            Additional CSS class for underlying <c>li</c> container (wrapping the main <c>hr</c> inside).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownHeader">
             <summary>
             <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/#headers">Dropdown menu header</a> for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu"/>.
@@ -1363,7 +1373,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.CssClass">
             <summary>
-            Any additional CSS class to apply.
+            Additional CSS class for underlying <c>li&gt;span</c> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.ContainerCssClass">
+            <summary>
+            Additional CSS class for underlying <c>li</c> container (wrapping the main <c>span</c> inside).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.OnClick">
@@ -1421,6 +1436,11 @@
             Additional CSS class.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemNavLink.ContainerCssClass">
+            <summary>
+            Additional CSS class for underlying <c>li</c> container (wrapping the main <c>a</c> inside).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemNavLink.Enabled">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>
@@ -1442,6 +1462,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemText.CssClass">
             <summary>
             Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemText.ContainerCssClass">
+            <summary>
+            Additional CSS class for underlying <c>li</c> container (wrapping the main <c>span</c> inside).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu">

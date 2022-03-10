@@ -11,9 +11,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
 
 		/// <summary>
-		/// Any additional CSS class to apply.
+		/// Additional CSS class for underlying <c>li&gt;span</c> element.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
+
+		/// <summary>
+		/// Additional CSS class for underlying <c>li</c> container (wrapping the main <c>span</c> inside).
+		/// </summary>
+		[Parameter] public string ContainerCssClass { get; set; }
 
 		/// <summary>
 		/// Raised when the item is clicked.

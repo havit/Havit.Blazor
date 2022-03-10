@@ -42,6 +42,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
+		/// <summary>
+		/// Additional CSS class for underlying <c>li</c> container (wrapping the main <c>a</c> inside).
+		/// </summary>
+		[Parameter] public string ContainerCssClass { get; set; }
+
 		/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 		[Parameter] public bool? Enabled { get; set; }
 

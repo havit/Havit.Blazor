@@ -10,6 +10,11 @@
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
+		/// <summary>
+		/// Additional CSS class for underlying <c>li</c> container (wrapping the main <c>span</c> inside).
+		/// </summary>
+		[Parameter] public string ContainerCssClass { get; set; }
+
 		[Parameter] public RenderFragment ChildContent { get; set; }
 	}
 }
