@@ -5,9 +5,6 @@
                 <img src="/logo.png" width="35" height="35" />
             </Logo>
         </HxSidebarBrand>
-        <a href="https://github.com/havit/Havit.Blazor" class="ms-4">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" style="width:1.25rem"/>
-        </a>
     </HeaderTemplate>
     <ItemsTemplate>
         <Search />
@@ -177,7 +174,12 @@
         </HxSidebarItem>
     </ItemsTemplate>
     <FooterTemplate>
+
         <HxSelect Label="Theme" TItem="Theme" CssClass="w-100" TValue="Theme" Data="themes" @bind-Value="selectedTheme" TextSelector="t => t.Name" Nullable="true" NullText="Havit.Blazor" />
+        <a href="https://github.com/havit/Havit.Blazor" class="text-decoration-none text-dark d-flex align-items-center ms-auto">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" style="width:1.25rem" class="m-3 mb-2 me-2 align-self-end"/>
+        </a>
+
     </FooterTemplate>
 </HxSidebar>
 
