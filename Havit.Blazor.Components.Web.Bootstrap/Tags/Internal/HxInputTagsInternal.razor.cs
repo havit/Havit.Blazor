@@ -126,6 +126,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				Value.Add(tag);
 			}
 			await ValueChanged.InvokeAsync(Value);
+
+			await FocusAsync();
 		}
 
 		private async Task RemoveTagWithEventCallbackAsync(string tag)
