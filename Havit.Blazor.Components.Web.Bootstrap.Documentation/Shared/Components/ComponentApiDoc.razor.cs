@@ -67,8 +67,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		[Parameter] public bool Delegate { get; set; }
 
-		[Inject] private NavigationManager NavigationManager { get; set; }
-
 		private DocXmlReader webReader;
 		private DocXmlReader bootstrapReader;
 
@@ -326,7 +324,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 
 			string name = method.MethodInfo.Name;
-			if (name.Contains("set") || name.Contains("get") || objectDerivedMethods.Contains(name) || derivedMethods.Contains(name) || ExcludedMembers.Contains(name))
+			if (name.StartsWith("set") || name.StartsWith("get") || objectDerivedMethods.Contains(name) || derivedMethods.Contains(name) || ExcludedMembers.Contains(name))
 			{
 				return false;
 			}
