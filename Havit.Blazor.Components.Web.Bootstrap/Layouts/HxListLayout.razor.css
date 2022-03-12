@@ -21,14 +21,6 @@
     border-bottom-width: 0;
 }
 
-::deep .hx-grid tr:last-child td:first-child {
-    border-bottom-left-radius: .5rem;
-}
-
-::deep .hx-grid tr:last-child td:last-child {
-    border-bottom-right-radius: .5rem;
-}
-
 ::deep .hx-grid td:first-child,
 ::deep .hx-grid th:first-child {
     padding-left: 1rem;
