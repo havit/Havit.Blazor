@@ -127,6 +127,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 			await ValueChanged.InvokeAsync(Value);
 
+			// helps handling of the TAB-key, the cursor "stays in" (returns to) the input after adding new tag
+			// side-effect (not sure if wanted), the cursor returns to the input even if you click somewhere with the mouse
 			await FocusAsync();
 		}
 

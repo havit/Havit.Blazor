@@ -8,7 +8,7 @@
 		{
 			TItem currentItem = item;
 
-			<button class="dropdown-item text-truncate" type="button" @onclick="async () => await HandleItemClick(currentItem)" @onclick:stopPropagation="true">
+			<button class="dropdown-item text-truncate" type="button" @onclick="async () => await HandleItemClick(currentItem)" @onclick:stopPropagation="true" tabindex="-1">
 				@ItemTemplate(currentItem)
 			</button>
 		} 
