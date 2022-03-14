@@ -44,6 +44,10 @@
 		</EmbeddedResource>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="GenericTypePlaceholders\" />
+	</ItemGroup>
+
 	<Target Name="EmbedDemos" BeforeTargets="PrepareForBuild">
 		<!-- Let's embed demos sources to the assembly to be able to show sources at runtime. -->
 		<ItemGroup>
