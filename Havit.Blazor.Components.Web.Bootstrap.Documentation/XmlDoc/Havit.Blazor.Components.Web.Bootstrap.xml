@@ -3983,6 +3983,107 @@
             <see href="https://getbootstrap.com/docs/5.0/forms/floating-labels/">Floating label</see>. (Not supported on all components.)
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1">
+            <summary>
+            A full-text search component.
+            </summary>
+            <typeparam name="TItem"></typeparam>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Freetext">
+            <summary>
+            Text written by the user (input text).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnFreetextSelected">
+            <summary>
+            Occurs, when the enter key is pressed or when the freetext item is selected in the dropdown menu.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnItemSelected">
+            <summary>
+            Occurs, when any item other than freetext is selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Placeholder">
+            <summary>
+            Placeholder text for the search input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.EmptyTemplate">
+            <summary>
+            Rendered when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.DataProvider" /> doesn't return any data.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.EmptyInputTemplate">
+            <summary>
+            Rendered when no input is present.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.SearchIcon">
+            <summary>
+            Icon of the input, when no text is written.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ClearIcon">
+            <summary>
+            Icon of the input, when text is written allowing the user to clear the text.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Label">
+            <summary>
+            Label of the input field.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.LabelType">
+            <summary>
+            Label type of the input field.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.MinimumLength">
+            <summary>
+            Minimum lenght to call the data provider (display any results).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ShowFreetextItem">
+            <summary>
+            Whether the freetext item, intended to confirm freetext selection, should be displayed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.FreetextEnabled">
+            <summary>
+            Whether freetext should be enabled, if disabled <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnFreetextSelected"/> won't ever get called.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchBoxDataProviderDelegate`1">
+            <summary>
+            Data provider (delegate).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchBoxDataProviderRequest">
+            <summary>
+            Data provider request for search box data.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxDataProviderRequest.UserInput">
+            <summary>
+            Current input (freetext) of the search box.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxDataProviderRequest.CancellationToken">
+            <summary>
+            The <see cref="T:System.Threading.CancellationToken"/> used to relay cancellation of the request.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchBoxDataProviderResult`1">
+            <summary>
+            Data provider result for search box data.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxDataProviderResult`1.Data">
+            <summary>
+            Items provided by the request.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/> component.

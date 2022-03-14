@@ -1,0 +1,72 @@
+﻿<HxSearchBox
+    DataProvider="ProvideSearchResults"
+    TitleSelector="i => i.Title"
+    SubtitleSelector="i => i.Subtitle"
+    IconSelector="i => i.Icon"
+    TItem="SearchBoxItem"
+    Placeholder="Search"
+    ClearIcon="BootstrapIcon.Trash"
+    OnFreetextSelected="OnFreetextSelected">
+    <EmptyTemplate>
+        No results found.
+    </EmptyTemplate>
+    <EmptyInputTemplate>
+        Welcome to the <code>HxSearchBox</code> demo.
+    </EmptyInputTemplate>
+
+</HxSearchBox>
+
+<p>
+    Selected freetext: @selectedFreetext
+</p>
+
+@code {
+    private string selectedFreetext = string.Empty;
+
+    List<SearchBoxItem> Data { get; set; } = new()
+    {
+        new()
+        {
+            Title = "Table",
+            Subtitle = "$5000",
+            Icon = BootstrapIcon.Table
+        },
+        new()
+        {
+            Title = "Mouse",
+            Subtitle = "$40",
+            Icon = BootstrapIcon.Mouse
+        },
+        new()
+        {
+            Title = "Door",
+            Subtitle = "$100",
+            Icon = BootstrapIcon.DoorClosed
+        }
+    };
+
+    private void OnFreetextSelected(string text)
+    {
+        selectedFreetext = text;
+        InvokeAsync(StateHasChanged);
+    }
+
+    async Task<SearchBoxDataProviderResult<SearchBoxItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+    {
+        SearchBoxDataProviderResult<SearchBoxItem> result = new()
+        {
+            Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(request.UserInput)).ToArray()
+        };
+
+        await InvokeAsync(StateHasChanged);
+
+        return result;
+    }
+
+    class SearchBoxItem
+    {
+        public string Title { get; set; }
+        public string Subtitle { get; set; }
+        public BootstrapIcon Icon { get; set; }
+    }
+}

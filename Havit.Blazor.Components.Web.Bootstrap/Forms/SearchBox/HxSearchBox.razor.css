@@ -1,0 +1,22 @@
+﻿::deep .dropdown-toggle::after {
+    display: none;
+}
+
+::deep .input-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    color: var(--bs-primary);
+    z-index: 1;
+}
+
+::deep .input-icon-start {
+    font-size: 13px;
+    left: 9px;
+}
+
+::deep .input-icon-end {
+    right: .75rem;
+}

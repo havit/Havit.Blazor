@@ -1,4 +1,49 @@
-﻿@*<HxSearchBox TItem="typ"
+﻿@page "/HxSearchBoxTest"
+
+<HxSearchBox DataProvider="ProvideSearchResults" TItem="SearchBoxItem" />
+
+@code {
+    List<SearchBoxItem> Data { get; set; } = new()
+    {
+        new()
+        {
+            Title = "Table",
+            Subtitle = "$5000",
+            Icon = BootstrapIcon.Table
+        },
+        new()
+        {
+            Title = "Mouse",
+            Subtitle = "$40",
+            Icon = BootstrapIcon.Mouse
+        },
+        new()
+        {
+            Title = "Door",
+            Subtitle = "$100",
+            Icon = BootstrapIcon.DoorClosed
+        }
+    };
+
+    Task<SearchBoxDataProviderResult<SearchBoxItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+    {
+        SearchBoxDataProviderResult<SearchBoxItem> result = new()
+        {
+            Data = Data.Where(i => i.Title.Contains(request.UserInput)).ToArray()
+        };
+
+        return Task.FromResult(result);
+    }
+
+    class SearchBoxItem
+    {
+        public string Title { get; set; }
+        public string Subtitle { get; set; }
+        public BootstrapIcon Icon { get; set; }
+    }
+}
+
+@*<HxSearchBox TItem="typ"
     DataProvider=""
     ClearIcon
     SearchIcon

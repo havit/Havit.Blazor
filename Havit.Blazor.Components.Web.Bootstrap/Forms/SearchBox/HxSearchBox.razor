@@ -1,0 +1,77 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@typeparam TItem
+
+<HxDropdown CssClass="@CssClass" AutoClose="DropdownAutoClose.True">
+	<HxDropdownToggleElement ElementName="div">
+		<div class="position-relative">
+			<form @onsubmit="HandleFreetextSelected">
+				<HxInputText
+					@bind-Value="Freetext"
+					InputMode="InputMode.Search"
+					BindEvent="BindEvent.OnInput"
+					Enabled="Enabled"
+					Placeholder="@Placeholder"
+					Label="@Label"
+					LabelType="LabelType" />
+
+				@if (!string.IsNullOrEmpty(Freetext) && ClearIcon is not null)
+				{
+					<div role="button" class="input-icon input-icon-end" @onclick="ClearInput">
+						<HxIcon Icon="ClearIcon" />
+					</div>
+				}
+				else if (SearchIcon is not null)
+				{
+					<div class="input-icon input-icon-end">
+						<HxIcon Icon="SearchIcon" />
+					</div>
+				}
+			</form>
+		</div>
+	</HxDropdownToggleElement>
+
+	<HxDropdownMenu>
+		@if (searchResults.Count > 0 && Freetext.Length >= MinimumLength)
+		{
+			@foreach (var item in searchResults)
+			{
+				string title = TitleSelector?.Invoke(item) ?? null;
+				string subtitle = SubtitleSelector?.Invoke(item) ?? null;
+				IconBase icon = IconSelector?.Invoke(item) ?? null;
+
+				<HxDropdownItem CssClass="@ItemCssClass" OnClick="() => HandleItemSelected(item)">
+					@if (ItemTemplate is null)
+					{
+						<HxSearchBoxItem Title="@title" Subtitle="@subtitle" Icon="@icon" />
+					}
+					else
+					{
+						@ItemTemplate(item)
+					}
+				</HxDropdownItem>
+			}
+		}
+		else if (Freetext is not null && Freetext.Length >= MinimumLength)
+		{
+			@EmptyTemplate
+		}
+		else
+		{
+			@EmptyInputTemplate
+		}
+
+		@if (Freetext is not null && Freetext.Length >= MinimumLength && ShowFreetextItem)
+		{
+			<HxDropdownItem CssClass="@ItemCssClass" OnClick="HandleFreetextSelected">
+				@if (FreetextItemTemplate is null)
+				{
+					<HxSearchBoxItem Title="@Freetext" Icon="@SearchIcon" />
+				}
+				else
+				{
+					@FreetextItemTemplate(Freetext)
+				}
+			</HxDropdownItem>
+		}
+	</HxDropdownMenu>
+</HxDropdown>
