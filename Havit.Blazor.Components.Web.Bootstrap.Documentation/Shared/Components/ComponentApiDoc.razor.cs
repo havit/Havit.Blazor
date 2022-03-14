@@ -173,7 +173,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				delegateSignature += $"{FormatType(param.ParameterType)} {param.Name}";
 			}
 			delegateSignature += ")";
-			delegateSignature = delegateSignature.Replace("object", "TItem");
 		}
 
 		private void HandleEnum(DocXmlReader reader)

@@ -1,7 +1,7 @@
-﻿@attribute [Route("/components/" + nameof(HxRadioButtonList<object, object>))]
-@attribute [Route("/components/" + nameof(HxRadioButtonListBase<object, object>))]
+﻿@attribute [Route("/components/" + nameof(HxRadioButtonList<TValue, TItem>))]
+@attribute [Route("/components/" + nameof(HxRadioButtonListBase<TValue, TItem>))]
 
-<ComponentApiDoc Type="typeof(HxRadioButtonList<object, object>)">
+<ComponentApiDoc Type="typeof(HxRadioButtonList<TValue, TItem>)">
 
     <SectionTitle Id="Usage" />
     <Demo Type="typeof(HxRadioButtonList_Demo)" />

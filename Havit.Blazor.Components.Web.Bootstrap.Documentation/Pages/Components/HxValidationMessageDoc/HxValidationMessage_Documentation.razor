@@ -1,6 +1,6 @@
-﻿@attribute [Route("/components/" + nameof(HxValidationMessage<string>))]
+﻿@attribute [Route("/components/" + nameof(HxValidationMessage<TValue>))]
 
-<ComponentApiDoc Type="typeof(HxValidationMessage<>)">
+<ComponentApiDoc Type="typeof(HxValidationMessage<TValue>)">
     <DocAlert Type="DocAlertType.Warning">
         The structure of <code>HxValidationMessage</code> will most likely change in near future.<br/>
         Current rendering with <code>.invalid-tooltip</code> will be changed to Bootstrap basic <code>.is-invalid</code>.<br/>
