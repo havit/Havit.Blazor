@@ -1,13 +1,13 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-@if (Icon is not null)
-{
-	<div class="d-inline-flex align-items-center justify-content-center">
-		<HxIcon CssClass="d-inline-block" Icon="Icon" />
-	</div>
-}
+<div class="@(!string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(Subtitle) ? "d-flex align-items-center" : null)">
+    @if (Icon is not null)
+	{
+		<HxIcon CssClass="d-inline-block me-2" Icon="Icon" />
+	}
 
-<div class="h-100 d-inline-block">
-	<strong>@Title</strong><br />
-	<small>@Subtitle</small>
+	<div class="h-100 d-inline-block">
+		<strong>@Title</strong><br />
+		<small>@Subtitle</small>
+	</div>
 </div>

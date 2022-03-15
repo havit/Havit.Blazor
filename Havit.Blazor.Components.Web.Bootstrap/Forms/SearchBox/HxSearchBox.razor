@@ -1,9 +1,11 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 @typeparam TItem
 
-<HxDropdown CssClass="@CssClass" AutoClose="DropdownAutoClose.True">
-	<HxDropdownToggleElement ElementName="div">
-		<div class="position-relative">
+@* TO-DO: odstranění defaultního obsahu toggle elementu *@
+
+<HxDropdown CssClass="@CssClass" AutoClose="DropdownAutoClose.Outside">
+	<HxDropdownToggleElement CssClass="remove-after" id="@dropdownToggleElementId" OnShown="() => SetDropdownMenuVisibility(true)" OnHidden="() => SetDropdownMenuVisibility(false)" ElementName="div">
+		<div class="position-relative" @onmouseup="EnsureDropdownMenuVisibility" @onfocusin="MakeDropdownMenuVisible">
 			<form @onsubmit="HandleFreetextSelected">
 				<HxInputText
 					@bind-Value="Freetext"
@@ -39,7 +41,7 @@
 				string subtitle = SubtitleSelector?.Invoke(item) ?? null;
 				IconBase icon = IconSelector?.Invoke(item) ?? null;
 
-				<HxDropdownItem CssClass="@ItemCssClass" OnClick="() => HandleItemSelected(item)">
+				<button class="@ItemCssClassEffective" @onclick="() => HandleItemSelected(item)">
 					@if (ItemTemplate is null)
 					{
 						<HxSearchBoxItem Title="@title" Subtitle="@subtitle" Icon="@icon" />
@@ -48,7 +50,7 @@
 					{
 						@ItemTemplate(item)
 					}
-				</HxDropdownItem>
+				</button>
 			}
 		}
 		else if (Freetext is not null && Freetext.Length >= MinimumLength)
@@ -62,7 +64,7 @@
 
 		@if (Freetext is not null && Freetext.Length >= MinimumLength && ShowFreetextItem)
 		{
-			<HxDropdownItem CssClass="@ItemCssClass" OnClick="HandleFreetextSelected">
+			<button class="@ItemCssClassEffective" @onclick="HandleFreetextSelected">
 				@if (FreetextItemTemplate is null)
 				{
 					<HxSearchBoxItem Title="@Freetext" Icon="@SearchIcon" />
@@ -71,7 +73,7 @@
 				{
 					@FreetextItemTemplate(Freetext)
 				}
-			</HxDropdownItem>
+			</button>
 		}
 	</HxDropdownMenu>
 </HxDropdown>

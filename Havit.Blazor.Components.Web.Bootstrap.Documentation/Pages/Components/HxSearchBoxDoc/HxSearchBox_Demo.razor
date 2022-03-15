@@ -6,6 +6,7 @@
     TItem="SearchBoxItem"
     Placeholder="Search"
     ClearIcon="BootstrapIcon.Trash"
+    OnItemSelected="OnItemSelected"
     OnFreetextSelected="OnFreetextSelected">
     <EmptyTemplate>
         No results found.
@@ -17,10 +18,12 @@
 </HxSearchBox>
 
 <p>
+    Selected item: @selectedItem?.Title <br />
     Selected freetext: @selectedFreetext
 </p>
 
 @code {
+    private SearchBoxItem selectedItem;
     private string selectedFreetext = string.Empty;
 
     List<SearchBoxItem> Data { get; set; } = new()
@@ -28,22 +31,27 @@
         new()
         {
             Title = "Table",
-            Subtitle = "$5000",
+            Subtitle = "50 000",
             Icon = BootstrapIcon.Table
         },
         new()
         {
             Title = "Mouse",
-            Subtitle = "$40",
+            Subtitle = "400",
             Icon = BootstrapIcon.Mouse
         },
         new()
         {
             Title = "Door",
-            Subtitle = "$100",
+            Subtitle = "1000",
             Icon = BootstrapIcon.DoorClosed
         }
     };
+
+    private void OnItemSelected(SearchBoxItem item)
+    {
+        selectedItem = item;
+    }
 
     private void OnFreetextSelected(string text)
     {

@@ -1,5 +1,6 @@
 ﻿::deep .dropdown-toggle::after {
-    display: none;
+    content: none !important;
+    display: none !important;
 }
 
 ::deep .input-icon {

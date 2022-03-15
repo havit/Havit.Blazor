@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -99,7 +100,25 @@ public partial class HxSearchBox<TItem>
 	/// </summary>
 	[Parameter] public bool FreetextEnabled { get; set; } = true;
 
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
+
+	protected string ItemCssClassCore => "dropdown-item";
+	protected string ItemCssClassEffective => $"{ItemCssClassCore} {ItemCssClass}";
+
+	private IJSObjectReference jsModule;
+	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
+
 	private List<TItem> searchResults = new();
+
+	private bool dropdownMenuVisible = false;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await EnsureJsModule();
+		}
+	}
 
 	public async Task ClearInput()
 	{
@@ -137,13 +156,45 @@ public partial class HxSearchBox<TItem>
 
 	protected async Task HandleFreetextSelected()
 	{
-		if (FreetextEnabled)
+		if (FreetextEnabled && Freetext.Length >= MinimumLength)
 		{
 			await OnFreetextSelected.InvokeAsync(Freetext);
+			await ToggleDropdownMenu();
 		}
 	}
 	protected async Task HandleItemSelected(TItem item)
 	{
+		await ToggleDropdownMenu();
 		await OnItemSelected.InvokeAsync(item);
+	}
+
+	protected async Task EnsureJsModule()
+	{
+		jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxSearchBox<TItem>) + ".js");
+	}
+
+	private async Task EnsureDropdownMenuVisibility()
+	{
+		if (dropdownMenuVisible)
+		{
+			await jsModule.InvokeVoidAsync("clickElement", dropdownToggleElementId);
+		}
+	}
+	private async Task MakeDropdownMenuVisible()
+	{
+		if (!dropdownMenuVisible)
+		{
+			await ToggleDropdownMenu();
+		}
+	}
+	private async Task ToggleDropdownMenu()
+	{
+		await jsModule.InvokeVoidAsync("clickElement", dropdownToggleElementId);
+	}
+
+	private async Task SetDropdownMenuVisibility(bool value)
+	{
+		dropdownMenuVisible = value;
+		await InvokeAsync(StateHasChanged);
 	}
 }
