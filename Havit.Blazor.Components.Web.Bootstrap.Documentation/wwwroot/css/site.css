@@ -78,7 +78,3 @@
 		overflow: visible;
 	}
 }
-
-.dropdown-toggle::after {
-	display: none !important;
-}
