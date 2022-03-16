@@ -65,8 +65,22 @@ public partial class HxSearchBox<TItem>
 	/// </summary>
 	[Parameter] public RenderFragment EmptyInputTemplate { get; set; }
 
+	/// <summary>
+	/// Css classes for the wrapping <c>div</c>.
+	/// </summary>
+	[Parameter] public string WrapperCssClass { get; set; }
+	/// <summary>
+	/// Additional css classes for the dropdown.
+	/// </summary>
 	[Parameter] public string CssClass { get; set; }
+	/// <summary>
+	/// Additional css classes for the items in the dropdown menu.
+	/// </summary>
 	[Parameter] public string ItemCssClass { get; set; }
+	/// <summary>
+	/// Additional css classes for the search box.
+	/// </summary>
+	[Parameter] public string InputCssClass { get; set; }
 
 	/// <summary>
 	/// Icon of the input, when no text is written.
@@ -156,7 +170,7 @@ public partial class HxSearchBox<TItem>
 
 	protected async Task HandleFreetextSelected()
 	{
-		if (FreetextEnabled && Freetext.Length >= MinimumLength)
+		if (FreetextEnabled)
 		{
 			await OnFreetextSelected.InvokeAsync(Freetext);
 			await ToggleDropdownMenu();
@@ -164,8 +178,9 @@ public partial class HxSearchBox<TItem>
 	}
 	protected async Task HandleItemSelected(TItem item)
 	{
-		await ToggleDropdownMenu();
 		await OnItemSelected.InvokeAsync(item);
+		await ToggleDropdownMenu();
+		await ClearInput();
 	}
 
 	protected async Task EnsureJsModule()

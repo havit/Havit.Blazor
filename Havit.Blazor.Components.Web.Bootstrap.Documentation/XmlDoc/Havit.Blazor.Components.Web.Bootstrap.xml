@@ -4019,6 +4019,26 @@
             Rendered when no input is present.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.WrapperCssClass">
+            <summary>
+            Css classes for the wrapping <c>div</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.CssClass">
+            <summary>
+            Additional css classes for the dropdown.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemCssClass">
+            <summary>
+            Additional css classes for the items in the dropdown menu.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputCssClass">
+            <summary>
+            Additional css classes for the search box.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.SearchIcon">
             <summary>
             Icon of the input, when no text is written.
