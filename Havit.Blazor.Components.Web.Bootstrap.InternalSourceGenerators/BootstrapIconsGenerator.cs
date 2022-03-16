@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators
@@ -63,7 +64,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators
 		private string GetPropertyNameFromIconName(string iconName)
 		{
 			string[] segments = iconName.Split('-');
-			return String.Join("", segments.Select(segment => segment.Substring(0, 1).ToUpper() + segment.Substring(1)));
+			var propertyName = String.Join("", segments.Select(segment => segment.Substring(0, 1).ToUpper() + segment.Substring(1)));
+			if (!SyntaxFacts.IsValidIdentifier(propertyName))
+			{
+				// e.g. "123" => "_123"
+				propertyName = "_" + propertyName;
+			}
+			return propertyName;
 		}
 
 		private string GetFieldNameFromPropertyName(string propertyName)
