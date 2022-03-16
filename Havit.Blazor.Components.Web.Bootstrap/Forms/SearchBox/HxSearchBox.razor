@@ -4,7 +4,7 @@
 <div class="@WrapperCssClass">
     <HxDropdown CssClass="@CssClass" AutoClose="DropdownAutoClose.Outside">
 		<HxDropdownToggleElement id="@dropdownToggleElementId" OnShown="() => SetDropdownMenuVisibility(true)" OnHidden="() => SetDropdownMenuVisibility(false)" ElementName="div">
-			<div class="position-relative mb-0" @onmouseup="EnsureDropdownMenuVisibility" @onfocusin="MakeDropdownMenuVisible">
+			<div class="position-relative" @onmouseup="EnsureDropdownMenuVisibility" @onfocusin="MakeDropdownMenuVisible">
 				<form @onsubmit="HandleFreetextSelected">
 					<HxInputText
 						@bind-Value="Freetext"
@@ -13,7 +13,8 @@
 						Enabled="Enabled"
 						Placeholder="@Placeholder"
 						Label="@Label"
-						LabelType="LabelType" />
+						LabelType="LabelType"
+						CssClass="@CssClassHelper.Combine(InputCssClass, "mb-0")" />
 
 					@if (!string.IsNullOrEmpty(Freetext) && ClearIcon is not null)
 					{

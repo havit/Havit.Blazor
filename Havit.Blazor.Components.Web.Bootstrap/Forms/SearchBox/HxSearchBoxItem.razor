@@ -7,7 +7,14 @@
 	}
 
 	<div class="h-100 d-inline-block">
-		<strong>@Title</strong><br />
-		<small>@Subtitle</small>
+		@if (!string.IsNullOrEmpty(Subtitle))
+		{
+			<strong>@Title</strong><br />
+			<small>@Subtitle</small>
+		}
+		else
+		{
+			@Title
+		}
 	</div>
 </div>
