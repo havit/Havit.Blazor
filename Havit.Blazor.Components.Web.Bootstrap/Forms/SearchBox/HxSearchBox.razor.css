@@ -1,5 +1,6 @@
 ﻿::deep .dropdown,
-::deep .dropdown-toggle {
+::deep .dropdown-toggle,
+::deep .dropdown-menu {
     width: 100%;
 }
 
