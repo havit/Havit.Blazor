@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Havit.Blazor.Components.Web.Bootstrap;
+namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 public partial class HxSearchBoxItem
 {

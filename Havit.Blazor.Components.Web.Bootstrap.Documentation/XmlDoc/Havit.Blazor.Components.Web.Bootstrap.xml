@@ -3983,15 +3983,59 @@
             <see href="https://getbootstrap.com/docs/5.0/forms/floating-labels/">Floating label</see>. (Not supported on all components.)
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox">
+            <summary>
+            Non-generic API for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1"/> and derived components.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1">
             <summary>
             A full-text search component.
             </summary>
             <typeparam name="TItem"></typeparam>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox.Defaults"/>, overriden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.GetSettings">
+            <summary>
+            Returns optional set of component settings.
+            </summary>
+            <remarks>
+            Simmilar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Settings"/> in components descandants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.DataProvider">
+            <summary>
+            Method (delegate) which provides data of the suggestions.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Enabled">
+            <summary>
+            Allows you to disable the input. Default is <c>true</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Freetext">
             <summary>
             Text written by the user (input text).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InvokeFreetextChangedAsync(System.String)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.FreetextChanged"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnFreetextSelected">
@@ -3999,14 +4043,49 @@
             Occurs, when the enter key is pressed or when the freetext item is selected in the dropdown menu.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InvokeOnFreetextSelectedAsync(System.String)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnFreetextSelected"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnItemSelected">
             <summary>
             Occurs, when any item other than freetext is selected.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InvokeOnItemSelectedAsync(`0)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnItemSelected"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Placeholder">
             <summary>
             Placeholder text for the search input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemTitleSelector">
+            <summary>
+            Selector to display item title from data item.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemSubtitleSelector">
+            <summary>
+            Selector to display item subtitle from data item.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemIconSelector">
+            <summary>
+            Selector to display icon from data item.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemTemplate">
+            <summary>
+            Template for the item content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.FreetextItemTemplate">
+            <summary>
+            Template for the freetext item content.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.EmptyTemplate">
@@ -4016,12 +4095,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.EmptyInputTemplate">
             <summary>
-            Rendered when no input is present.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.WrapperCssClass">
-            <summary>
-            Css classes for the wrapping <c>div</c>.
+            Rendered when no input (freetext) is present (e.g. initial state).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.CssClass">
@@ -4031,12 +4105,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemCssClass">
             <summary>
-            Additional css classes for the items in the dropdown menu.
+            Additional CSS classes for the items in the dropdown menu.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputCssClass">
             <summary>
-            Additional css classes for the search box.
+            Additional CSS classes for the search box input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.SearchIcon">
@@ -4061,7 +4135,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.MinimumLength">
             <summary>
-            Minimum lenght to call the data provider (display any results).
+            Minimum lenght to call the data provider (display any results). Default is <c>2</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ShowFreetextItem">
@@ -4102,6 +4176,51 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxDataProviderResult`1.Data">
             <summary>
             Items provided by the request.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.SearchIcon">
+            <summary>
+            Icon displayed in input when no item is selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.ClearIcon">
+            <summary>
+            Icon displayed in input on selection clear button when item is selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.MinimumLength">
+            <summary>
+            Minimal number of characters to start suggesting.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.Delay">
+            <summary>
+            Debounce delay in miliseconds.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.InputSize">
+            <summary>
+            Input size.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.CssClass">
+            <summary>
+            Additional CSS classes for the wrapping <c>div</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.ItemCssClass">
+            <summary>
+            Additional CSS classes for the items in the dropdown menu.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.InputCssClass">
+            <summary>
+            Additional CSS classes for the search box input.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">

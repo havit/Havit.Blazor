@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -13,139 +8,180 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <typeparam name="TItem"></typeparam>
 public partial class HxSearchBox<TItem>
 {
+	/// <summary>
+	/// Returns application-wide defaults for the component.
+	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// </summary>
+	protected virtual SearchBoxSettings GetDefaults() => HxSearchBox.Defaults;
+
+	/// <summary>
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxSearchBox.Defaults"/>, overriden by individual parameters).
+	/// </summary>
+	[Parameter] public SearchBoxSettings Settings { get; set; }
+
+	/// <summary>
+	/// Returns optional set of component settings.
+	/// </summary>
+	/// <remarks>
+	/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// </remarks>
+	protected virtual SearchBoxSettings GetSettings() => this.Settings;
+
+	/// <summary>
+	/// Method (delegate) which provides data of the suggestions.
+	/// </summary>
 	[Parameter] public SearchBoxDataProviderDelegate<TItem> DataProvider { get; set; }
 
+	/// <summary>
+	/// Allows you to disable the input. Default is <c>true</c>.
+	/// </summary>
 	[Parameter] public bool Enabled { get; set; } = true;
 
 	/// <summary>
 	/// Text written by the user (input text).
 	/// </summary>
 	[Parameter]
-	public string Freetext
-	{
-		get
-		{
-			return freetext;
-		}
-		set
-		{
-			freetext = value;
-			_ = HandleFreetextValueChanged();
-		}
-	}
-	private string freetext;
+	public string Freetext { get; set; }
 	[Parameter] public EventCallback<string> FreetextChanged { get; set; }
+	/// <summary>
+	/// Triggers the <see cref="FreetextChanged"/> event. Allows interception of the event in derived components.
+	/// </summary>
+	protected virtual Task InvokeFreetextChangedAsync(string newFreetextValue) => FreetextChanged.InvokeAsync(newFreetextValue);
+
 	/// <summary>
 	/// Occurs, when the enter key is pressed or when the freetext item is selected in the dropdown menu.
 	/// </summary>
 	[Parameter] public EventCallback<string> OnFreetextSelected { get; set; }
 	/// <summary>
+	/// Triggers the <see cref="OnFreetextSelected"/> event. Allows interception of the event in derived components.
+	/// </summary>
+	protected virtual Task InvokeOnFreetextSelectedAsync(string freetextValue) => OnFreetextSelected.InvokeAsync(freetextValue);
+
+	/// <summary>
 	/// Occurs, when any item other than freetext is selected.
 	/// </summary>
 	[Parameter] public EventCallback<TItem> OnItemSelected { get; set; }
+	/// <summary>
+	/// Triggers the <see cref="OnItemSelected"/> event. Allows interception of the event in derived components.
+	/// </summary>
+	protected virtual Task InvokeOnItemSelectedAsync(TItem selectedItem) => OnItemSelected.InvokeAsync(selectedItem);
 
 	/// <summary>
 	/// Placeholder text for the search input.
 	/// </summary>
 	[Parameter] public string Placeholder { get; set; }
 
-	[Parameter] public Func<TItem, string> TitleSelector { get; set; }
-	[Parameter] public Func<TItem, string> SubtitleSelector { get; set; }
-	[Parameter] public Func<TItem, IconBase> IconSelector { get; set; }
+	/// <summary>
+	/// Selector to display item title from data item.
+	/// </summary>
+	[Parameter] public Func<TItem, string> ItemTitleSelector { get; set; }
 
+	/// <summary>
+	/// Selector to display item subtitle from data item.
+	/// </summary>
+	[Parameter] public Func<TItem, string> ItemSubtitleSelector { get; set; }
+
+	/// <summary>
+	/// Selector to display icon from data item.
+	/// </summary>
+	[Parameter] public Func<TItem, IconBase> ItemIconSelector { get; set; }
+
+	/// <summary>
+	/// Template for the item content.
+	/// </summary>
 	[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
+
+	/// <summary>
+	/// Template for the freetext item content.
+	/// </summary>
 	[Parameter] public RenderFragment<string> FreetextItemTemplate { get; set; }
 
 	/// <summary>
 	/// Rendered when the <see cref="DataProvider" /> doesn't return any data.
 	/// </summary>
 	[Parameter] public RenderFragment EmptyTemplate { get; set; }
+
 	/// <summary>
-	/// Rendered when no input is present.
+	/// Rendered when no input (freetext) is present (e.g. initial state).
 	/// </summary>
 	[Parameter] public RenderFragment EmptyInputTemplate { get; set; }
 
 	/// <summary>
-	/// Css classes for the wrapping <c>div</c>.
-	/// </summary>
-	[Parameter] public string WrapperCssClass { get; set; }
-	/// <summary>
 	/// Additional css classes for the dropdown.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
+	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
+
 	/// <summary>
-	/// Additional css classes for the items in the dropdown menu.
+	/// Additional CSS classes for the items in the dropdown menu.
 	/// </summary>
 	[Parameter] public string ItemCssClass { get; set; }
+	protected string ItemCssClassEffective => this.ItemCssClass ?? this.GetSettings()?.ItemCssClass ?? GetDefaults().ItemCssClass;
+
 	/// <summary>
-	/// Additional css classes for the search box.
+	/// Additional CSS classes for the search box input.
 	/// </summary>
 	[Parameter] public string InputCssClass { get; set; }
+	protected string InputCssClassEffective => this.ItemCssClass ?? this.GetSettings()?.InputCssClass ?? GetDefaults().InputCssClass;
 
 	/// <summary>
 	/// Icon of the input, when no text is written.
 	/// </summary>
-	[Parameter] public IconBase SearchIcon { get; set; } = BootstrapIcon.Search;
+	[Parameter] public IconBase SearchIcon { get; set; }
+	protected IconBase SearchIconEffective => this.SearchIcon ?? this.GetSettings()?.SearchIcon ?? GetDefaults().SearchIcon;
+
 	/// <summary>
 	/// Icon of the input, when text is written allowing the user to clear the text.
 	/// </summary>
 	[Parameter] public IconBase ClearIcon { get; set; }
+	protected IconBase ClearIconEffective => this.ClearIcon ?? this.GetSettings()?.ClearIcon ?? GetDefaults().ClearIcon;
 
 	/// <summary>
 	/// Label of the input field.
 	/// </summary>
 	[Parameter] public string Label { get; set; }
+
 	/// <summary>
 	/// Label type of the input field.
 	/// </summary>
 	[Parameter] public LabelType LabelType { get; set; }
 
 	/// <summary>
-	/// Minimum lenght to call the data provider (display any results).
+	/// Minimum lenght to call the data provider (display any results). Default is <c>2</c>.
 	/// </summary>
-	[Parameter] public int MinimumLength { get; set; } = 1;
+	[Parameter] public int? MinimumLength { get; set; }
+	protected int MinimumLengthEffective => this.MinimumLength ?? this.GetSettings()?.MinimumLength ?? GetDefaults().MinimumLength ?? throw new InvalidOperationException(nameof(MinimumLength) + " default for " + nameof(HxSearchBox) + " has to be set.");
 
 	/// <summary>
 	/// Whether the freetext item, intended to confirm freetext selection, should be displayed.
 	/// </summary>
 	[Parameter] public bool ShowFreetextItem { get; set; } = true;
+
 	/// <summary>
 	/// Whether freetext should be enabled, if disabled <see cref="OnFreetextSelected"/> won't ever get called.
 	/// </summary>
 	[Parameter] public bool FreetextEnabled { get; set; } = true;
 
-	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	protected string ItemCssClassCore => "dropdown-item";
-	protected string ItemCssClassEffective => $"{ItemCssClassCore} {ItemCssClass}";
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	private IJSObjectReference jsModule;
 	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
-
 	private List<TItem> searchResults = new();
-
 	private bool dropdownMenuVisible = false;
 
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-		{
-			await EnsureJsModule();
-		}
-	}
-
-	public async Task ClearInput()
+	public async Task ClearInputAsync()
 	{
 		if (Freetext != string.Empty)
 		{
 			Freetext = string.Empty;
-			await HandleFreetextValueChanged();
+			await HandleFreetextValueChanged(String.Empty);
 		}
 	}
 
-	public async Task UpdateSuggestions()
+	public async Task UpdateSuggestionsAsync()
 	{
-		if (string.IsNullOrEmpty(Freetext) || Freetext.Length < MinimumLength)
+		if (string.IsNullOrEmpty(Freetext) || Freetext.Length < MinimumLengthEffective)
 		{
 			return;
 		}
@@ -162,25 +198,27 @@ public partial class HxSearchBox<TItem>
 		await InvokeAsync(StateHasChanged);
 	}
 
-	protected async Task HandleFreetextValueChanged()
+	protected async Task HandleFreetextValueChanged(string newFreetextValue)
 	{
-		await FreetextChanged.InvokeAsync();
-		await UpdateSuggestions();
+		this.Freetext = newFreetextValue;
+		await InvokeFreetextChangedAsync(newFreetextValue);
+		await UpdateSuggestionsAsync();
 	}
 
 	protected async Task HandleFreetextSelected()
 	{
 		if (FreetextEnabled)
 		{
-			await OnFreetextSelected.InvokeAsync(Freetext);
+			await InvokeOnFreetextSelectedAsync(this.Freetext);
 			await ToggleDropdownMenu();
 		}
 	}
+
 	protected async Task HandleItemSelected(TItem item)
 	{
-		await OnItemSelected.InvokeAsync(item);
+		await InvokeOnItemSelectedAsync(item);
 		await ToggleDropdownMenu();
-		await ClearInput();
+		await ClearInputAsync();
 	}
 
 	protected async Task EnsureJsModule()
@@ -192,6 +230,7 @@ public partial class HxSearchBox<TItem>
 	{
 		if (dropdownMenuVisible)
 		{
+			await EnsureJsModule();
 			await jsModule.InvokeVoidAsync("clickElement", dropdownToggleElementId);
 		}
 	}
@@ -204,6 +243,7 @@ public partial class HxSearchBox<TItem>
 	}
 	private async Task ToggleDropdownMenu()
 	{
+		await EnsureJsModule();
 		await jsModule.InvokeVoidAsync("clickElement", dropdownToggleElementId);
 	}
 

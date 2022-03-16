@@ -1,13 +1,16 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@using Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 
-<div class="@WrapperCssClass">
-    <HxDropdown CssClass="@CssClass" AutoClose="DropdownAutoClose.Outside">
+<div class="@CssClassEffective">
+    <HxDropdown AutoClose="DropdownAutoClose.Outside">
 		<HxDropdownToggleElement id="@dropdownToggleElementId" OnShown="() => SetDropdownMenuVisibility(true)" OnHidden="() => SetDropdownMenuVisibility(false)" ElementName="div">
 			<div class="position-relative" @onmouseup="EnsureDropdownMenuVisibility" @onfocusin="MakeDropdownMenuVisible">
 				<form @onsubmit="HandleFreetextSelected">
 					<HxInputText
-						@bind-Value="Freetext"
+						Value="@Freetext"
+                        ValueChanged="HandleFreetextValueChanged"
+                        ValueExpression="() => this.Freetext"
 						InputMode="InputMode.Search"
 						BindEvent="BindEvent.OnInput"
 						Enabled="Enabled"
@@ -16,16 +19,16 @@
 						LabelType="LabelType"
 						CssClass="@CssClassHelper.Combine(InputCssClass, "mb-0")" />
 
-					@if (!string.IsNullOrEmpty(Freetext) && ClearIcon is not null)
+					@if (!string.IsNullOrEmpty(Freetext) && (ClearIconEffective is not null))
 					{
-						<div role="button" class="input-icon input-icon-end" @onclick="ClearInput">
-							<HxIcon Icon="ClearIcon" />
+						<div role="button" class="input-icon input-icon-end" @onclick="ClearInputAsync">
+							<HxIcon Icon="ClearIconEffective" />
 						</div>
 					}
-					else if (SearchIcon is not null)
+					else if (SearchIconEffective is not null)
 					{
 						<div class="input-icon input-icon-end">
-							<HxIcon Icon="SearchIcon" />
+							<HxIcon Icon="SearchIconEffective" />
 						</div>
 					}
 				</form>
@@ -33,15 +36,15 @@
 		</HxDropdownToggleElement>
 
 		<HxDropdownMenu>
-			@if (searchResults.Count > 0 && Freetext.Length >= MinimumLength)
+			@if ((searchResults.Count > 0) && (Freetext.Length >= MinimumLengthEffective))
 			{
 				@foreach (var item in searchResults)
 				{
-					string title = TitleSelector?.Invoke(item) ?? null;
-					string subtitle = SubtitleSelector?.Invoke(item) ?? null;
-					IconBase icon = IconSelector?.Invoke(item) ?? null;
+					string title = ItemTitleSelector?.Invoke(item) ?? null;
+					string subtitle = ItemSubtitleSelector?.Invoke(item) ?? null;
+					IconBase icon = ItemIconSelector?.Invoke(item) ?? null;
 
-					<button class="@ItemCssClassEffective" @onclick="() => HandleItemSelected(item)">
+					<button class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="() => HandleItemSelected(item)">
 						@if (ItemTemplate is null)
 						{
 							<HxSearchBoxItem Title="@title" Subtitle="@subtitle" Icon="@icon" />
@@ -53,7 +56,7 @@
 					</button>
 				}
 			}
-			else if (Freetext is not null && Freetext.Length >= MinimumLength)
+			else if ((Freetext is not null) && (Freetext.Length >= MinimumLengthEffective))
 			{
 				@EmptyTemplate
 			}
@@ -62,12 +65,12 @@
 				@EmptyInputTemplate
 			}
 
-			@if (Freetext is not null && Freetext.Length >= MinimumLength && ShowFreetextItem)
+			@if ((Freetext is not null) && (Freetext.Length >= MinimumLengthEffective) && ShowFreetextItem)
 			{
 				<button class="@ItemCssClassEffective" @onclick="HandleFreetextSelected">
 					@if (FreetextItemTemplate is null)
 					{
-						<HxSearchBoxItem Title="@Freetext" Icon="@SearchIcon" />
+						<HxSearchBoxItem Title="@Freetext" Icon="@SearchIconEffective" />
 					}
 					else
 					{
