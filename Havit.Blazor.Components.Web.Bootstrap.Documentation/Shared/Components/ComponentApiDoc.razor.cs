@@ -509,14 +509,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 			for (int i = 0; i < genericArguments.Length; i++)
 			{
-				if (genericArgumentNamesFromFullTypeName[i].Contains("object"))
-				{
-					genericParameterNames.Add(FormatGenericParameterName(genericArguments[i].Name));
-				}
-				else
-				{
-					genericParameterNames.Add(genericArgumentNamesFromFullTypeName[i].Trim());
-				}
+				genericParameterNames.Add(genericArgumentNamesFromFullTypeName[i].Trim());
+			}
+
+			foreach (var parameter in genericParameterNames)
+			{
+				Console.WriteLine(parameter);
 			}
 
 			if (genericParameterNames is null || genericParameterNames.Count == 0)
