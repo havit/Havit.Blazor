@@ -1,4 +1,9 @@
-﻿::deep .dropdown-toggle::after {
+﻿::deep .dropdown,
+::deep .dropdown-toggle {
+    width: 100%;
+}
+
+::deep .dropdown-toggle::after {
     content: none !important;
 }
 
