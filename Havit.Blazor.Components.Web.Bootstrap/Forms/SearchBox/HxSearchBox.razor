@@ -67,7 +67,7 @@
 
 			@if ((Freetext is not null) && (Freetext.Length >= MinimumLengthEffective) && ShowFreetextItem)
 			{
-				<button class="@ItemCssClassEffective" @onclick="HandleFreetextSelected">
+				<button class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="HandleFreetextSelected">
 					@if (FreetextItemTemplate is null)
 					{
 						<HxSearchBoxItem Title="@Freetext" Icon="@SearchIconEffective" />
