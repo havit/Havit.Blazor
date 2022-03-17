@@ -18,3 +18,8 @@
 ::deep .hx-chip-remove-btn:hover {
     opacity: 1;
 }
+
+::deep .hx-chip-label {
+    font-weight: var(--hx-chiplist-chip-label-font-weight);
+    margin-right: var(--hx-chiplist-chip-label-margin);
+}
