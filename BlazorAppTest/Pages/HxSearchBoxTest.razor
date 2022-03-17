@@ -42,39 +42,3 @@
         public BootstrapIcon Icon { get; set; }
     }
 }
-
-@*<HxSearchBox TItem="typ"
-    DataProvider=""
-    ClearIcon
-    SearchIcon
-    CssClass
-    Delay
-    xxx Label zatím ne
-    MinimumLength
-    StartupContentTemplate
-    OnItemSelected="..."
-    OnFreetextSelected="..."
-    ShowFreetextItem="true|false"
-    FreetextEnabled="true|false"
-    Freetext, FreetextChanged
-    TitleSelector, SubtitleSelector, IconSelector
-    ItemCssClass
-    Placeholder>
-    <EmptyDataTemplate>
-         zobrazuje se, pokud DataProvider nevrátí žádná data
-    </EmptyDataTemplate>
-    <ItemTemplate Context="item">
-        <div>@item.Icon</div>
-        <div>@item.Text</div>
-    </Item>
-    <FreetextItemTemplate Context="freetext">
-        @freetext je string, který je zadán
-        Když je zadáno FreetextItemTemplate, tak nerenderovat standardní podobu FreetextItem, ale jen dle Template
-    </FreetextItemTemplate>
-    <EmptyInputTemplate>
-        zobrazuje se, pokud je searchbox prázdný (než začně uživatel typovat vstupn, nebo když ho umaže na prázdný)
-    </EmptyInputTemplate>
-
-* nepotřebujeme Value, ValueChanged, ValueExpression, ...
-    * ItemFromValueResolver
-*@

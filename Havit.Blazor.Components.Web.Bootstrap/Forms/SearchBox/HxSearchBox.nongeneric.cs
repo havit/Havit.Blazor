@@ -16,7 +16,7 @@ public static class HxSearchBox
 		{
 			InputSize = Bootstrap.InputSize.Regular,
 			SearchIcon = BootstrapIcon.Search,
-			ClearIcon = BootstrapIcon.XCircleFill,
+			ClearIcon = BootstrapIcon.XLg,
 			MinimumLength = 2,
 			Delay = 300,
 		};

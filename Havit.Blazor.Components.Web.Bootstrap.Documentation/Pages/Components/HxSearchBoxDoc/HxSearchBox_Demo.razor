@@ -1,73 +1,73 @@
-﻿<HxSearchBox
-    DataProvider="ProvideSearchResults"
-    ItemTitleSelector="i => i.Title"
-    ItemSubtitleSelector="i => i.Subtitle"
-    ItemIconSelector="i => i.Icon"
-    TItem="SearchBoxItem"
-    Placeholder="Search"
-    OnItemSelected="OnItemSelected"
-    OnFreetextSelected="OnFreetextSelected">
+﻿<HxSearchBox DataProvider="ProvideSearchResults"
+             ItemTitleSelector="i => i.Title"
+             ItemSubtitleSelector="i => i.Subtitle"
+             ItemIconSelector="i => i.Icon"
+             TItem="SearchBoxItem"
+             Placeholder="Search"
+             OnItemSelected="OnItemSelected"
+             AllowTextQuery="false"
+             @bind-TextQuery="textQuery"
+             OnTextQueryTriggered="OnTextQueryTriggered">
     <EmptyTemplate>
         No results found.
     </EmptyTemplate>
-@*    <EmptyInputTemplate>
+    @*    <EmptyInputTemplate>
         Welcome to the <code>HxSearchBox</code> demo.
-    </EmptyInputTemplate>
-*@
+        </EmptyInputTemplate>
+    *@
 </HxSearchBox>
 
 <p>
     Selected item: @selectedItem?.Title <br />
-    Selected freetext: @selectedFreetext
+    Triggered text-query: @triggeredTextQuery<br />
+    Bound text-query: @textQuery<br />
 </p>
 
 @code {
     private SearchBoxItem selectedItem;
-    private string selectedFreetext = string.Empty;
+    private string triggeredTextQuery;
+    private string textQuery;
 
     List<SearchBoxItem> Data { get; set; } = new()
-    {
-        new()
         {
-            Title = "Table",
-            Subtitle = "50 000",
-            Icon = BootstrapIcon.Table
-        },
-        new()
-        {
-            Title = "Mouse",
-            Subtitle = "400",
-            Icon = BootstrapIcon.Mouse
-        },
-        new()
-        {
-            Title = "Door",
-            Subtitle = "1000",
-            Icon = BootstrapIcon.DoorClosed
-        }
-    };
+            new()
+            {
+                Title = "Table",
+                Subtitle = "50 000",
+                Icon = BootstrapIcon.Table
+            },
+            new()
+            {
+                Title = "Mouse",
+                Subtitle = "400",
+                Icon = BootstrapIcon.Mouse
+            },
+            new()
+            {
+                Title = "Door",
+                Subtitle = "1000",
+                Icon = BootstrapIcon.DoorClosed
+            }
+        };
 
     private void OnItemSelected(SearchBoxItem item)
     {
         selectedItem = item;
     }
 
-    private void OnFreetextSelected(string text)
+    private void OnTextQueryTriggered(string text)
     {
-        selectedFreetext = text;
-        InvokeAsync(StateHasChanged);
+        triggeredTextQuery = text;
     }
 
-    async Task<SearchBoxDataProviderResult<SearchBoxItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+    Task<SearchBoxDataProviderResult<SearchBoxItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
     {
         SearchBoxDataProviderResult<SearchBoxItem> result = new()
-        {
-            Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(request.UserInput)).ToArray()
-        };
+            {
+                Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(request.UserInput)).ToArray()
+            };
 
-        await InvokeAsync(StateHasChanged);
-
-        return result;
+        return Task.FromResult(result);
     }
 
     class SearchBoxItem

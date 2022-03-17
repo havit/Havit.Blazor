@@ -4073,29 +4073,30 @@
             Allows you to disable the input. Default is <c>true</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Freetext">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.TextQuery">
             <summary>
             Text written by the user (input text).
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InvokeFreetextChangedAsync(System.String)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InvokeTextQueryChangedAsync(System.String)">
             <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.FreetextChanged"/> event. Allows interception of the event in derived components.
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.TextQueryChanged"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnFreetextSelected">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnTextQueryTriggered">
             <summary>
-            Occurs, when the enter key is pressed or when the freetext item is selected in the dropdown menu.
+            Raised, when the enter key is pressed or when the text-query item is selected in the dropdown menu.
+            (Does not trigger when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.AllowTextQuery"/> is <c>false</c>.)
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InvokeOnFreetextSelectedAsync(System.String)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InvokeOnTextQueryTriggeredAsync(System.String)">
             <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnFreetextSelected"/> event. Allows interception of the event in derived components.
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnTextQueryTriggered"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnItemSelected">
             <summary>
-            Occurs, when any item other than freetext is selected.
+            Occurs, when any of suggested items (other than plain text-query) is selected.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InvokeOnItemSelectedAsync(`0)">
@@ -4128,9 +4129,9 @@
             Template for the item content.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.FreetextItemTemplate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.TextQueryItemTemplate">
             <summary>
-            Template for the freetext item content.
+            Template for the text-query item content (requires <c><see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.AllowTextQuery"/>="true"</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.EmptyTemplate">
@@ -4140,7 +4141,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.EmptyInputTemplate">
             <summary>
-            Rendered when no input (freetext) is present (e.g. initial state).
+            Rendered when no input is entered (i.e. initial state).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.CssClass">
@@ -4183,14 +4184,14 @@
             Minimum lenght to call the data provider (display any results). Default is <c>2</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ShowFreetextItem">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Delay">
             <summary>
-            Whether the freetext item, intended to confirm freetext selection, should be displayed.
+            Debounce delay in miliseconds. Default is <c>300</c> ms.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.FreetextEnabled">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.AllowTextQuery">
             <summary>
-            Whether freetext should be enabled, if disabled <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnFreetextSelected"/> won't ever get called.
+            Indicates whether text-query mode is enabled (accepts free text in addition to suggested items).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchBoxDataProviderDelegate`1">
@@ -4205,7 +4206,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxDataProviderRequest.UserInput">
             <summary>
-            Current input (freetext) of the search box.
+            Current input entered in the search box.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxDataProviderRequest.CancellationToken">

@@ -41,24 +41,25 @@ public partial class HxSearchBox<TItem>
 	/// Text written by the user (input text).
 	/// </summary>
 	[Parameter]
-	public string Freetext { get; set; }
-	[Parameter] public EventCallback<string> FreetextChanged { get; set; }
+	public string TextQuery { get; set; }
+	[Parameter] public EventCallback<string> TextQueryChanged { get; set; }
 	/// <summary>
-	/// Triggers the <see cref="FreetextChanged"/> event. Allows interception of the event in derived components.
+	/// Triggers the <see cref="TextQueryChanged"/> event. Allows interception of the event in derived components.
 	/// </summary>
-	protected virtual Task InvokeFreetextChangedAsync(string newFreetextValue) => FreetextChanged.InvokeAsync(newFreetextValue);
+	protected virtual Task InvokeTextQueryChangedAsync(string newTextQueryValue) => TextQueryChanged.InvokeAsync(newTextQueryValue);
 
 	/// <summary>
-	/// Occurs, when the enter key is pressed or when the freetext item is selected in the dropdown menu.
+	/// Raised, when the enter key is pressed or when the text-query item is selected in the dropdown menu.
+	/// (Does not trigger when <see cref="AllowTextQuery"/> is <c>false</c>.)
 	/// </summary>
-	[Parameter] public EventCallback<string> OnFreetextSelected { get; set; }
+	[Parameter] public EventCallback<string> OnTextQueryTriggered { get; set; }
 	/// <summary>
-	/// Triggers the <see cref="OnFreetextSelected"/> event. Allows interception of the event in derived components.
+	/// Triggers the <see cref="OnTextQueryTriggered"/> event. Allows interception of the event in derived components.
 	/// </summary>
-	protected virtual Task InvokeOnFreetextSelectedAsync(string freetextValue) => OnFreetextSelected.InvokeAsync(freetextValue);
+	protected virtual Task InvokeOnTextQueryTriggeredAsync(string textQuery) => OnTextQueryTriggered.InvokeAsync(textQuery);
 
 	/// <summary>
-	/// Occurs, when any item other than freetext is selected.
+	/// Occurs, when any of suggested items (other than plain text-query) is selected.
 	/// </summary>
 	[Parameter] public EventCallback<TItem> OnItemSelected { get; set; }
 	/// <summary>
@@ -92,9 +93,9 @@ public partial class HxSearchBox<TItem>
 	[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
 
 	/// <summary>
-	/// Template for the freetext item content.
+	/// Template for the text-query item content (requires <c><see cref="AllowTextQuery"/>="true"</c>).
 	/// </summary>
-	[Parameter] public RenderFragment<string> FreetextItemTemplate { get; set; }
+	[Parameter] public RenderFragment<string> TextQueryItemTemplate { get; set; }
 
 	/// <summary>
 	/// Rendered when the <see cref="DataProvider" /> doesn't return any data.
@@ -102,7 +103,7 @@ public partial class HxSearchBox<TItem>
 	[Parameter] public RenderFragment EmptyTemplate { get; set; }
 
 	/// <summary>
-	/// Rendered when no input (freetext) is present (e.g. initial state).
+	/// Rendered when no input is entered (i.e. initial state).
 	/// </summary>
 	[Parameter] public RenderFragment EmptyInputTemplate { get; set; }
 
@@ -153,14 +154,15 @@ public partial class HxSearchBox<TItem>
 	protected int MinimumLengthEffective => this.MinimumLength ?? this.GetSettings()?.MinimumLength ?? GetDefaults().MinimumLength ?? throw new InvalidOperationException(nameof(MinimumLength) + " default for " + nameof(HxSearchBox) + " has to be set.");
 
 	/// <summary>
-	/// Whether the freetext item, intended to confirm freetext selection, should be displayed.
+	/// Debounce delay in miliseconds. Default is <c>300</c> ms.
 	/// </summary>
-	[Parameter] public bool ShowFreetextItem { get; set; } = true;
+	[Parameter] public int? Delay { get; set; }
+	protected int DelayEffective => this.Delay ?? this.GetSettings()?.Delay ?? GetDefaults().Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxSearchBox) + " has to be set.");
 
 	/// <summary>
-	/// Whether freetext should be enabled, if disabled <see cref="OnFreetextSelected"/> won't ever get called.
+	/// Indicates whether text-query mode is enabled (accepts free text in addition to suggested items).
 	/// </summary>
-	[Parameter] public bool FreetextEnabled { get; set; } = true;
+	[Parameter] public bool AllowTextQuery { get; set; } = true;
 
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
@@ -172,24 +174,24 @@ public partial class HxSearchBox<TItem>
 
 	public async Task ClearInputAsync()
 	{
-		if (Freetext != string.Empty)
+		if (TextQuery != string.Empty)
 		{
-			Freetext = string.Empty;
-			await HandleFreetextValueChanged(String.Empty);
+			TextQuery = string.Empty;
+			await HandleTextQueryValueChanged(String.Empty);
 		}
 	}
 
 	public async Task UpdateSuggestionsAsync()
 	{
-		if (string.IsNullOrEmpty(Freetext) || Freetext.Length < MinimumLengthEffective)
+		if (string.IsNullOrEmpty(TextQuery) || TextQuery.Length < MinimumLengthEffective)
 		{
 			return;
 		}
 
 		SearchBoxDataProviderRequest request = new()
 		{
-			UserInput = Freetext,
-			CancellationToken = default
+			UserInput = TextQuery,
+			CancellationToken = default // TODO debounce Delay
 		};
 
 		var result = await DataProvider.Invoke(request);
@@ -198,18 +200,18 @@ public partial class HxSearchBox<TItem>
 		await InvokeAsync(StateHasChanged);
 	}
 
-	protected async Task HandleFreetextValueChanged(string newFreetextValue)
+	protected async Task HandleTextQueryValueChanged(string newTextQuery)
 	{
-		this.Freetext = newFreetextValue;
-		await InvokeFreetextChangedAsync(newFreetextValue);
+		this.TextQuery = newTextQuery;
+		await InvokeTextQueryChangedAsync(newTextQuery);
 		await UpdateSuggestionsAsync();
 	}
 
-	protected async Task HandleFreetextSelected()
+	protected async Task HandleTextQueryTriggered()
 	{
-		if (FreetextEnabled)
+		if (AllowTextQuery)
 		{
-			await InvokeOnFreetextSelectedAsync(this.Freetext);
+			await InvokeOnTextQueryTriggeredAsync(this.TextQuery);
 			await ToggleDropdownMenu();
 		}
 	}

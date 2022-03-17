@@ -14,7 +14,6 @@
     transform: translateY(-50%);
     display: flex;
     align-items: center;
-    color: var(--bs-secondary);
     z-index: 1;
 }
 

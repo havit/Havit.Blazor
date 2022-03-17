@@ -13,7 +13,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public class SearchBoxDataProviderRequest
 {
 	/// <summary>
-	/// Current input (freetext) of the search box.
+	/// Current input entered in the search box.
 	/// </summary>
 	public string UserInput { get; init; }
 

@@ -6,11 +6,11 @@
     <HxDropdown AutoClose="DropdownAutoClose.Outside">
 		<HxDropdownToggleElement id="@dropdownToggleElementId" OnShown="() => SetDropdownMenuVisibility(true)" OnHidden="() => SetDropdownMenuVisibility(false)" ElementName="div">
 			<div class="position-relative" @onmouseup="EnsureDropdownMenuVisibility" @onfocusin="MakeDropdownMenuVisible">
-				<form @onsubmit="HandleFreetextSelected">
+				<form @onsubmit="HandleTextQueryTriggered">
 					<HxInputText
-						Value="@Freetext"
-                        ValueChanged="HandleFreetextValueChanged"
-                        ValueExpression="() => this.Freetext"
+						Value="@TextQuery"
+                        ValueChanged="HandleTextQueryValueChanged"
+                        ValueExpression="() => this.TextQuery"
 						InputMode="InputMode.Search"
 						BindEvent="BindEvent.OnInput"
 						Enabled="Enabled"
@@ -19,7 +19,7 @@
 						LabelType="LabelType"
 						CssClass="@CssClassHelper.Combine(InputCssClass, "mb-0")" />
 
-					@if (!string.IsNullOrEmpty(Freetext) && (ClearIconEffective is not null))
+					@if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null))
 					{
 						<div role="button" class="input-icon input-icon-end" @onclick="ClearInputAsync">
 							<HxIcon Icon="ClearIconEffective" />
@@ -36,7 +36,7 @@
 		</HxDropdownToggleElement>
 
 		<HxDropdownMenu>
-			@if ((searchResults.Count > 0) && (Freetext.Length >= MinimumLengthEffective))
+			@if ((searchResults.Count > 0) && (TextQuery.Length >= MinimumLengthEffective))
 			{
 				@foreach (var item in searchResults)
 				{
@@ -56,7 +56,7 @@
 					</button>
 				}
 			}
-			else if ((Freetext is not null) && (Freetext.Length >= MinimumLengthEffective))
+			else if ((TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
 			{
 				@EmptyTemplate
 			}
@@ -65,16 +65,16 @@
 				@EmptyInputTemplate
 			}
 
-			@if ((Freetext is not null) && (Freetext.Length >= MinimumLengthEffective) && ShowFreetextItem)
+			@if (AllowTextQuery && (TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
 			{
-				<button class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="HandleFreetextSelected">
-					@if (FreetextItemTemplate is null)
+				<button class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="HandleTextQueryTriggered">
+					@if (TextQueryItemTemplate is null)
 					{
-						<HxSearchBoxItem Title="@Freetext" Icon="@SearchIconEffective" />
+						<HxSearchBoxItem Title="@TextQuery" Icon="@SearchIconEffective" />
 					}
 					else
 					{
-						@FreetextItemTemplate(Freetext)
+						@TextQueryItemTemplate(TextQuery)
 					}
 				</button>
 			}
