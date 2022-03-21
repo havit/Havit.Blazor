@@ -70,6 +70,10 @@ namespace Havit.Blazor.Grpc.Client
 				{
 					configureGrpcClientWithAuthorization?.Invoke(grpcClient);
 				}
+
+				// NET6 failing GC workaround https://github.com/dotnet/runtime/issues/62054
+				// services.AddSingleton<Func<TService>>(sp => () => sp.GetRequiredService<TService>());
+				services.AddSingleton(typeof(Func<>).MakeGenericType(item.Interface), sp => () => sp.GetRequiredService(item.Interface));
 			}
 		}
 	}
