@@ -11,6 +11,7 @@ using Havit.Blazor.Grpc.Core;
 using Havit.ComponentModel;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
+using ProtoBuf.Grpc.ClientFactory;
 using ProtoBuf.Grpc.Configuration;
 using ProtoBuf.Meta;
 
@@ -40,8 +41,7 @@ namespace Havit.Blazor.Grpc.Client
 										   from apiContractAttribute in type.GetCustomAttributes(typeof(ApiContractAttribute), false).Cast<ApiContractAttribute>()
 										   select new { Interface = type, Attribute = apiContractAttribute }).ToArray();
 
-			var addCodeFirstGrpcClientMethodInfo = typeof(ProtoBuf.Grpc.ClientFactory.ServicesExtensions)
-				.GetMethod(nameof(ProtoBuf.Grpc.ClientFactory.ServicesExtensions.AddCodeFirstGrpcClient), new[] { typeof(IServiceCollection), typeof(Action<IServiceProvider, GrpcClientFactoryOptions>) });
+			var addGrpcClientCoreMethodInfo = typeof(GrpcClientServiceCollectionExtensions).GetMethod(nameof(AddGrpcClientCore));
 
 			Action<IServiceProvider, GrpcClientFactoryOptions> configureClientAction = (provider, options) =>
 			{
@@ -53,28 +53,30 @@ namespace Havit.Blazor.Grpc.Client
 
 			foreach (var item in interfacesAndAttributes)
 			{
-				// services.AddCodeFirstGrpcClient<TService>(configureClientAction)
-				var grpcClient = (IHttpClientBuilder)addCodeFirstGrpcClientMethodInfo.MakeGenericMethod(item.Interface)
-					.Invoke(null, new object[] { services, configureClientAction });
-
-				grpcClient
-					.ConfigurePrimaryHttpMessageHandler<GrpcWebHandler>()
-					.AddInterceptor<GlobalizationLocalizationGrpcClientInterceptor>()
-					.AddInterceptor<ClientUriGrpcClientInterceptor>()
-					.AddInterceptor<ServerExceptionsGrpcClientInterceptor>()
-					.AddInterceptor<CancellationWorkaroundGrpcClientInterceptor>();
-
-				configureGrpClientAll?.Invoke(grpcClient);
-
-				if (item.Attribute.RequireAuthorization)
-				{
-					configureGrpcClientWithAuthorization?.Invoke(grpcClient);
-				}
-
-				// NET6 failing GC workaround https://github.com/dotnet/runtime/issues/62054
-				// services.AddSingleton<Func<TService>>(sp => () => sp.GetRequiredService<TService>());
-				services.AddSingleton(typeof(Func<>).MakeGenericType(item.Interface), sp => () => sp.GetRequiredService(item.Interface));
+				// AddGrpcClientCore<TService>(services, configureClientAction, configureGrpcClientWithAuthorization, configureGrpClientAll);
+				var grpcClient = (IHttpClientBuilder)addGrpcClientCoreMethodInfo.MakeGenericMethod(item.Interface)
+					.Invoke(null, new object[] { services, configureClientAction, item.Attribute.RequireAuthorization ? configureGrpcClientWithAuthorization : null, configureGrpClientAll });
 			}
+		}
+
+		private static void AddGrpcClientCore<TService>(
+			this IServiceCollection services,
+			Action<IServiceProvider, GrpcClientFactoryOptions> configureClientAction,
+			Action<IHttpClientBuilder> configureGrpcClientWithAuthorization = null,
+			Action<IHttpClientBuilder> configureGrpClientAll = null)
+			where TService : class
+		{
+			var grpcClient = services.AddCodeFirstGrpcClient<TService>(configureClientAction)
+				.ConfigurePrimaryHttpMessageHandler<GrpcWebHandler>()
+				.AddInterceptor<GlobalizationLocalizationGrpcClientInterceptor>()
+				.AddInterceptor<ClientUriGrpcClientInterceptor>()
+				.AddInterceptor<ServerExceptionsGrpcClientInterceptor>()
+				.AddInterceptor<CancellationWorkaroundGrpcClientInterceptor>();
+
+			configureGrpClientAll?.Invoke(grpcClient);
+			configureGrpcClientWithAuthorization?.Invoke(grpcClient);
+
+			services.AddSingleton<Func<TService>>(sp => () => sp.GetRequiredService<TService>());
 		}
 	}
 }
