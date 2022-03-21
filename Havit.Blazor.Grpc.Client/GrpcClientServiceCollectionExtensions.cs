@@ -41,32 +41,30 @@ namespace Havit.Blazor.Grpc.Client
 										   from apiContractAttribute in type.GetCustomAttributes(typeof(ApiContractAttribute), false).Cast<ApiContractAttribute>()
 										   select new { Interface = type, Attribute = apiContractAttribute }).ToArray();
 
-			var addGrpcClientCoreMethodInfo = typeof(GrpcClientServiceCollectionExtensions).GetMethod(nameof(AddGrpcClientCore));
-
-			Action<IServiceProvider, GrpcClientFactoryOptions> configureClientAction = (provider, options) =>
-			{
-				var navigationManager = provider.GetRequiredService<NavigationManager>();
-				var backendUrl = navigationManager.BaseUri;
-
-				options.Address = new Uri(backendUrl);
-			};
+			var addGrpcClientCoreMethodInfo = typeof(GrpcClientServiceCollectionExtensions).GetMethod(nameof(AddGrpcClientCore), BindingFlags.NonPublic | BindingFlags.Static);
 
 			foreach (var item in interfacesAndAttributes)
 			{
-				// AddGrpcClientCore<TService>(services, configureClientAction, configureGrpcClientWithAuthorization, configureGrpClientAll);
+				// services.AddGrpcClientCore<TService>(configureGrpcClientWithAuthorization, configureGrpClientAll);
 				var grpcClient = (IHttpClientBuilder)addGrpcClientCoreMethodInfo.MakeGenericMethod(item.Interface)
-					.Invoke(null, new object[] { services, configureClientAction, item.Attribute.RequireAuthorization ? configureGrpcClientWithAuthorization : null, configureGrpClientAll });
+					.Invoke(null, new object[] { services, item.Attribute.RequireAuthorization ? configureGrpcClientWithAuthorization : null, configureGrpClientAll });
 			}
 		}
 
 		private static void AddGrpcClientCore<TService>(
 			this IServiceCollection services,
-			Action<IServiceProvider, GrpcClientFactoryOptions> configureClientAction,
 			Action<IHttpClientBuilder> configureGrpcClientWithAuthorization = null,
 			Action<IHttpClientBuilder> configureGrpClientAll = null)
 			where TService : class
 		{
-			var grpcClient = services.AddCodeFirstGrpcClient<TService>(configureClientAction)
+			var grpcClient = services
+				.AddCodeFirstGrpcClient<TService>((provider, options) =>
+				{
+					var navigationManager = provider.GetRequiredService<NavigationManager>();
+					var backendUrl = navigationManager.BaseUri;
+
+					options.Address = new Uri(backendUrl);
+				})
 				.ConfigurePrimaryHttpMessageHandler<GrpcWebHandler>()
 				.AddInterceptor<GlobalizationLocalizationGrpcClientInterceptor>()
 				.AddInterceptor<ClientUriGrpcClientInterceptor>()
@@ -76,6 +74,7 @@ namespace Havit.Blazor.Grpc.Client
 			configureGrpClientAll?.Invoke(grpcClient);
 			configureGrpcClientWithAuthorization?.Invoke(grpcClient);
 
+			// NET6 failing GC workaround https://github.com/dotnet/runtime/issues/62054
 			services.AddSingleton<Func<TService>>(sp => () => sp.GetRequiredService<TService>());
 		}
 	}

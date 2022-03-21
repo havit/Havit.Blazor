@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+		<PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
+		<PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Havit.Blazor.Grpc.Client\Havit.Blazor.Grpc.Client.csproj" />
+		<ProjectReference Include="..\Havit.Blazor.Grpc.TestContracts\Havit.Blazor.Grpc.TestContracts.csproj" />
+	</ItemGroup>
+
+</Project>
