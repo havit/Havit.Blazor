@@ -4,7 +4,7 @@
 [![Nuget](https://img.shields.io/nuget/dt/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
 [![Build Status](https://dev.azure.com/havit/DEV/_apis/build/status/002.HFW-HavitBlazor?branchName=master)](https://dev.azure.com/havit/DEV/_build/latest?definitionId=318&branchName=master)
 [![GitHub](https://img.shields.io/github/license/havit/Havit.Blazor)](https://github.com/havit/Havit.Blazor/blob/master/LICENSE)
-[![GitHub](https://img.shields.io/github/stars/havit/Havit.Blazor)](https://github.com/havit/Havit.Blazor/)<br/>
+[![GitHub](https://img.shields.io/github/stars/havit/Havit.Blazor)](https://github.com/havit/Havit.Blazor/)  
 [![#StandWithUkraine](https://img.shields.io/badge/%23StandWithUkraine-Russian%20warship%2C%20go%20f%23ck%20yourself-blue)](https://www.peopleinneed.net/what-we-do/humanitarian-aid-and-development/ukraine)
 
 * Free Bootstrap 5 components for ASP.NET Blazor
@@ -48,10 +48,10 @@
 * [`HxBadge`](https://havit.blazor.eu/components/HxBadge) - [Bootstrap Badge](https://getbootstrap.com/docs/5.0/components/badge/) component.
 * [`HxChipList`](https://havit.blazor.eu/components/HxChipList) - Presents a list of chips as badges.
 * [`HxIcon`](https://havit.blazor.eu/components/HxIcon) - Displays an icon.
-* [`HxSpinner`](https://havit.blazor.eu/components/HxSpinner) - Bootstrap <a href="https://getbootstrap.com/docs/5.0/components/spinners/">Spinner</a> (usually indicates operation in progress).
+* [`HxSpinner`](https://havit.blazor.eu/components/HxSpinner) - Bootstrap [Spinner](https://getbootstrap.com/docs/5.0/components/spinners/) (usually indicates operation in progress).
 * [`HxProgressIndicator`](https://havit.blazor.eu/components/HxProgressIndicator) - Displays the content of the component as "in progress".
-* [`HxTooltip`](https://havit.blazor.eu/components/HxTooltip) - <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component, activates on hover.
-* [`HxPopover`](https://havit.blazor.eu/components/HxPopover) - <a href="https://getbootstrap.com/docs/5.0/components/popovers/">Bootstrap Popover</a> component.
+* [`HxTooltip`](https://havit.blazor.eu/components/HxTooltip) - [Bootstrap Tooltip](https://getbootstrap.com/docs/5.0/components/tooltips/) component, activates on hover.
+* [`HxPopover`](https://havit.blazor.eu/components/HxPopover) - [Bootstrap Popover](https://getbootstrap.com/docs/5.0/components/popovers/) component.
 
 ## Data & Grid
 
@@ -63,48 +63,48 @@
 
 ## Layout & Typography
 
-* [`HxAccordion`](https://havit.blazor.eu/components/HxAccordion) - <a href="https://getbootstrap.com/docs/5.1/components/accordion/">Bootstrap accordion</a> component.
+* [`HxAccordion`](https://havit.blazor.eu/components/HxAccordion) - [Bootstrap accordion](https://getbootstrap.com/docs/5.1/components/accordion/) component.
 * [`HxAlert`](https://havit.blazor.eu/components/HxAlert) - Bootstrap Alert.
-* [`HxBadge`](https://havit.blazor.eu/components/HxBadge) - <a href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</a> component.
-* [`HxCard`](https://havit.blazor.eu/components/HxCard) - Bootstrap <a href="https://getbootstrap.com/docs/5.1/components/card/">Card</a> component.
+* [`HxBadge`](https://havit.blazor.eu/components/HxBadge) - [Bootstrap Badge](https://getbootstrap.com/docs/5.0/components/badge/) component.
+* [`HxCard`](https://havit.blazor.eu/components/HxCard) - [Bootstrap Card](https://getbootstrap.com/docs/5.1/components/card/) component.
 * [`HxCarousel`](https://havit.blazor.eu/components/HxCarousel) - A slideshow component for cycling through elements—images or slides of text—like a carousel.
-* [`HxCollapse`](https://havit.blazor.eu/components/HxCollapse) - <a href="https://getbootstrap.com/docs/5.1/components/collapse/">Bootstrap 5 Collapse</a> component.
+* [`HxCollapse`](https://havit.blazor.eu/components/HxCollapse) - [Bootstrap 5 Collapse](https://getbootstrap.com/docs/5.1/components/collapse/) component.
 * [`HxDropdown`](https://havit.blazor.eu/components/HxDropdown) - [Bootstrap 5 Dropdown](https://getbootstrap.com/docs/5.1/components/dropdowns/).
 * [`HxIcon`](https://havit.blazor.eu/components/HxIcon) - Displays an icon.
-* [`HxSpinner`](https://havit.blazor.eu/components/HxSpinner) - Bootstrap <a href="https://getbootstrap.com/docs/5.0/components/spinners/">Spinner</a> (usually indicates operation in progress).
-* [`HxPlaceholder`](https://havit.blazor.eu/components/HxPlaceholder) - <a href="https://getbootstrap.com/docs/5.1/components/placeholders/">Bootstrap 5 Placeholder</a> component, aka Skeleton.
-* [`HxProgress`](https://havit.blazor.eu/components/HxProgress) - <a href="https://getbootstrap.com/docs/5.1/components/progress/">Bootstrap 5 Progress</a> component.
+* [`HxSpinner`](https://havit.blazor.eu/components/HxSpinner) - [Bootstrap Spinner](https://getbootstrap.com/docs/5.0/components/spinners/) (usually indicates operation in progress).
+* [`HxPlaceholder`](https://havit.blazor.eu/components/HxPlaceholder) - [Bootstrap 5 Placeholder](https://getbootstrap.com/docs/5.1/components/placeholders/) component, aka Skeleton.
+* [`HxProgress`](https://havit.blazor.eu/components/HxProgress) - [Bootstrap 5 Progress](https://getbootstrap.com/docs/5.1/components/progress/) component.
 * [`HxProgressIndicator`](https://havit.blazor.eu/components/HxProgressIndicator) - Displays the content of the component as "in progress".
-* [`HxTooltip`](https://havit.blazor.eu/components/HxTooltip) - <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component, activates on hover.
-* [`HxTabPanel`](https://havit.blazor.eu/components/HxTabPanel) - Container for <code><a href="https://www.havit.blazor.eu/components/HxTab/">HxTab</a></code>s.
-* [`HxListGroup`](https://havit.blazor.eu/components/HxListGroup) - <a href="https://getbootstrap.com/docs/5.1/components/list-group/">Bootstrap 5 List group</a> component.
+* [`HxTooltip`](https://havit.blazor.eu/components/HxTooltip) - [Bootstrap Tooltip](https://getbootstrap.com/docs/5.0/components/tooltips/) component, activates on hover.
+* [`HxTabPanel`](https://havit.blazor.eu/components/HxTabPanel) - Container for `HxTab`.
+* [`HxListGroup`](https://havit.blazor.eu/components/HxListGroup) - [Bootstrap 5 List group](https://getbootstrap.com/docs/5.1/components/list-group/) component.
 * [`HxListLayout`](https://havit.blazor.eu/components/HxListLayout) - Page layout for data presentation (usualy `HxGrid` with filter in `HxOffcanvas`).
-* [`HxFormValue`](https://havit.blazor.eu/components/HxFormValue) - Displays a read-only value in the form control visual (as <code>.form-control</code>, with label, border, etc.).
+* [`HxFormValue`](https://havit.blazor.eu/components/HxFormValue) - Displays a read-only value in the form control visual (as `.form-control`, with label, border, etc.).
 
 ## Navigation
 
-* [`HxNavbar`](https://havit.blazor.eu/components/HxNavbar) - <a href="https://getbootstrap.com/docs/5.1/components/navbar/">Bootstrap 5 Navbar</a> component - responsive navigation header.
+* [`HxNavbar`](https://havit.blazor.eu/components/HxNavbar) - [Bootstrap 5 Navbar](https://getbootstrap.com/docs/5.1/components/navbar/) component - responsive navigation header.
 * [`HxSidebar`](https://havit.blazor.eu/components/HxSidebar) - Sidebar component - responsive navigation sidebar.
-* [`HxNav`](https://havit.blazor.eu/components/HxNav) - <a href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap Nav</a> component.
-* [`HxNavLink`](https://havit.blazor.eu/components/HxNavLink) - <a href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap Nav</a> component.
-* [`HxScrollspy`](https://havit.blazor.eu/components/HxScrollspy) - <a href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</a> component.
-* [`HxBreadcrumb`](https://havit.blazor.eu/components/HxBreadcrumb) - <a href="https://getbootstrap.com/docs/5.1/components/breadcrumb/">Bootstrap 5 Breadcrumb</a> component. Indicates the current page’s location within a navigational hierarchy.
+* [`HxNav`](https://havit.blazor.eu/components/HxNav) - [Bootstrap Nav](https://getbootstrap.com/docs/5.0/components/navs-tabs/) component.
+* [`HxNavLink`](https://havit.blazor.eu/components/HxNavLink) - [Bootstrap Nav](https://getbootstrap.com/docs/5.0/components/navs-tabs/) component.
+* [`HxScrollspy`](https://havit.blazor.eu/components/HxScrollspy) - [Bootstrap Scrollspy](https://getbootstrap.com/docs/5.0/components/scrollspy/) component.
+* [`HxBreadcrumb`](https://havit.blazor.eu/components/HxBreadcrumb) - [Bootstrap 5 Breadcrumb](https://getbootstrap.com/docs/5.1/components/breadcrumb/) component. Indicates the current page’s location within a navigational hierarchy.
 * [`HxAnchorFragmentNavigation`](https://havit.blazor.eu/components/HxAnchorFragmentNavigation) - Compensates Blazor deficiency in anchor-fragments (scrolling to <code>page#id</code> URLs).
 * [`HxContextMenu`](https://havit.blazor.eu/components/HxContextMenu) - Ready-made context menu.
 * [`HxDropdown`](https://havit.blazor.eu/components/HxDropdown) - [Bootstrap 5 Dropdown](https://getbootstrap.com/docs/5.1/components/dropdowns/).
-* [`HxTabPanel`](https://havit.blazor.eu/components/HxTabPanel) - Container for <code><a href="/components/HxTab/">HxTab</a></code>s for easier implementation of tabbed UI.
-* [`HxRedirectTo`](https://havit.blazor.eu/components/HxRedirectTo) - Rendering a HxRedirectTo will navigate to a new location.
+* [`HxTabPanel`](https://havit.blazor.eu/components/HxTabPanel) - Container for `HxTab` for easier implementation of tabbed UI.
+* [`HxRedirectTo`](https://havit.blazor.eu/components/HxRedirectTo) - Rendering a `HxRedirectTo` will navigate to a new location.
 
 ## Modals & Interactions
 
 * [`HxMessageBox`](https://havit.blazor.eu/components/HxMessageBox) - Component to display message-boxes.
-* [`HxModal`](https://havit.blazor.eu/components/HxModal) - Component to render modal dialog as a <a href="https://getbootstrap.com/docs/5.1/components/modal/">Bootstrap Modal</a>.
+* [`HxModal`](https://havit.blazor.eu/components/HxModal) - Component to render modal dialog as a [Bootstrap Modal](https://getbootstrap.com/docs/5.1/components/modal/).
 * [`HxDialogBase`](https://havit.blazor.eu/components/HxDialogBase) - Base class to simplify custom modal dialog implementation.
-* [`HxOffcanvas`](https://havit.blazor.eu/components/HxOffcanvas) - <a href="https://getbootstrap.com/docs/5.0/components/offcanvas/">Bootstrap Offcanvas</a> component (aka Drawer).
-* [`HxMessenger`](https://havit.blazor.eu/components/HxMessenger) - <code><a href="/components/HxToastContainer/">HxToastContainer</a></code> wrapper for displaying <code><a href="/components/HxToast/">HxToast</a></code> messages dispatched through <code><a href="/components/IHxMessengerService/">IHxMessengerService</a></code>.
-* [`HxToast`](https://havit.blazor.eu/components/HxToast) - <a href="https://getbootstrap.com/docs/5.1/components/toasts/">Bootstrap Toast</a> component. Not intented to be used in user code, use <code><a href="/components/HxMessenger/">HxMessenger</a></code>.
+* [`HxOffcanvas`](https://havit.blazor.eu/components/HxOffcanvas) - [Bootstrap Offcanvas](https://getbootstrap.com/docs/5.0/components/offcanvas/) component (aka Drawer).
+* [`HxMessenger`](https://havit.blazor.eu/components/HxMessenger) - `HxToastContainer` wrapper for displaying `HxToast` messages dispatched through `IHxMessengerService`.
+* [`HxToast`](https://havit.blazor.eu/components/HxToast) - [Bootstrap Toast](https://getbootstrap.com/docs/5.1/components/toasts/) component. Not intented to be used in user code, use `HxMessenger`.
 
 ## Special
 
 * [`HxDynamicElement`](https://havit.blazor.eu/components/HxDynamicElement) - Renders an element with the specified name, attributes and child-content.
-* [`HxGoogleTagManager`](https://havit.blazor.eu/components/HxGoogleTagManager) - Support for <a href="https://developers.google.com/tag-manager/devguide">Google Tag Manager</a> - initialization and pushing data to data-layer.
+* [`HxGoogleTagManager`](https://havit.blazor.eu/components/HxGoogleTagManager) - Support for [Google Tag Manager](https://developers.google.com/tag-manager/devguide) - initialization and pushing data to data-layer.
