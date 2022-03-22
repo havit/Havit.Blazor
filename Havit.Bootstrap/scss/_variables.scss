@@ -9,7 +9,7 @@ $box-shadow-lg:               0 1rem 3rem rgba($black, .15);
 $nav-tabs-border-color:               rgba($black, .075);
 $nav-tabs-link-active-border-color:   $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-link-active-bg;
 
-$card-border-radius:          .5rem;
+$card-border-radius:          $border-radius-lg;
 $card-border-color:           rgba($black, .075);
 $card-inner-border-radius:    subtract($card-border-radius, $card-border-width);
 $card-cap-bg:                 rgba($black, .075);
@@ -52,9 +52,13 @@ $accordion-border-color:    rgba($black, .0875);
 $popover-border-color:      rgba($black, .125);
 
 $toast-border-color:            rgba($black, .0875);
+$toast-padding-x:                   1rem;
+$toast-padding-y:                   .75rem;
 
 $modal-content-border-color:    rgba($black, .125);
 
 $list-group-border-color:           rgba($black, .0875);
 
 $hr-opacity: .125;
+
+$nav-tabs-link-hover-border-color:  transparent;

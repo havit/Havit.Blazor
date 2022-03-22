@@ -17,6 +17,10 @@ $primary: $blue;
 $danger:  $red;
 $success: $green;
 
+$border-radius:               .375rem;
+$border-radius-sm:            .25rem;
+$border-radius-lg:            .5rem;
+
 @import "../bootstrap/scss/variables";
 @import "variables";
 @import "../bootstrap/scss/mixins";
@@ -51,6 +55,7 @@ $success: $green;
 @import "../bootstrap/scss/list-group";
 @import "../bootstrap/scss/close";
 @import "../bootstrap/scss/toasts";
+@import "toasts";
 @import "../bootstrap/scss/modal";
 @import "tooltip";
 @import "../bootstrap/scss/tooltip";
