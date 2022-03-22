@@ -1,3 +1,11 @@
 .card-body > .hx-progress-overlay {
   min-height: 60px;
 }
+
+.card-header {
+  border-bottom: none;
+}
+
+.card-footer {
+  border-top: none;
+}

@@ -4670,6 +4670,14 @@ textarea.form-control-lg {
   min-height: 60px;
 }
 
+.card-header {
+  border-bottom: none;
+}
+
+.card-footer {
+  border-top: none;
+}
+
 .accordion-button {
   position: relative;
   display: flex;
