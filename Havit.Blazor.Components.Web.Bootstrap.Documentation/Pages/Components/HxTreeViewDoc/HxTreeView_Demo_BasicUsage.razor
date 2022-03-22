@@ -56,8 +56,9 @@
                     },
                     new Directory("Music", BootstrapIcon.FileMusic)
                     {
-                        Subdirectories = new[] { new Directory("Queen"), new Directory("Metallica"), new Directory("AC/DC") }
-                    }
+                        Subdirectories = new[] { new Directory("Queen") { Subdirectories = new[] { new Directory("Live Killers"), new Directory("Live Magic") }}, new Directory("Metallica"), new Directory("AC/DC") }
+                    },
+                    new Directory("Images", BootstrapIcon.Image)
                 }
             }
         };

@@ -50,3 +50,10 @@
 .hx-tree-view-item-expander.expanded {
 	transform: rotate(90deg);
 }
+
+.hx-tree-view-item-expander-container {
+	width: var(--hx-tree-view-expander-container-width);;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

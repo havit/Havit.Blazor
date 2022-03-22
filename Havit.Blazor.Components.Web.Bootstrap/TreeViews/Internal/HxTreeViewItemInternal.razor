@@ -14,11 +14,13 @@
     {
         <div class="hx-tree-view-item-spacer"></div>
     }
-    <div class="hx-tree-view-item-expander @(this.IsExpanded ? "expanded" : "")"  @onclick="HandleItemExpanderClicked" @onclick:stopPropagation="true">
+    <div class="hx-tree-view-item-expander-container">
         @if (hasChildren)
         {
-            <div>
-                <HxIcon Icon="@BootstrapIcon.ChevronRight" />
+            <div class="hx-tree-view-item-expander @(this.IsExpanded ? "expanded" : "")"  @onclick="HandleItemExpanderClicked" @onclick:stopPropagation="true">
+                    <div>
+                        <HxIcon Icon="@BootstrapIcon.ChevronRight" />
+                    </div>
             </div>
         }
     </div>
