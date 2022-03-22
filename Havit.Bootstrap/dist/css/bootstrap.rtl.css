@@ -3963,7 +3963,7 @@ textarea.form-control-lg {
 }
 
 .nav-tabs {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.0875);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.075);
 }
 .nav-tabs .nav-link {
   margin-bottom: -1px;
@@ -3985,7 +3985,7 @@ textarea.form-control-lg {
 .nav-tabs .nav-item.show .nav-link {
   color: #495057;
   background-color: #fff;
-  border-color: rgba(0, 0, 0, 0.0875) rgba(0, 0, 0, 0.0875) #fff;
+  border-color: rgba(0, 0, 0, 0.075) rgba(0, 0, 0, 0.075) #fff;
 }
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
@@ -4517,7 +4517,7 @@ textarea.form-control-lg {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.0875);
+  border: 1px solid rgba(0, 0, 0, 0.075);
   border-radius: 0.5rem;
 }
 .card > hr {
@@ -4568,8 +4568,8 @@ textarea.form-control-lg {
 .card-header {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.0875);
+  background-color: rgba(0, 0, 0, 0.075);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.075);
 }
 .card-header:first-child {
   border-radius: calc(0.5rem - 1px) calc(0.5rem - 1px) 0 0;
@@ -4577,8 +4577,8 @@ textarea.form-control-lg {
 
 .card-footer {
   padding: 0.5rem 1rem;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-top: 1px solid rgba(0, 0, 0, 0.0875);
+  background-color: rgba(0, 0, 0, 0.075);
+  border-top: 1px solid rgba(0, 0, 0, 0.075);
 }
 .card-footer:last-child {
   border-radius: 0 0 calc(0.5rem - 1px) calc(0.5rem - 1px);
