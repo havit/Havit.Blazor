@@ -177,7 +177,8 @@ public partial class HxSearchBox<TItem>
 		if (TextQuery != string.Empty)
 		{
 			TextQuery = string.Empty;
-			await HandleTextQueryValueChanged(String.Empty);
+			await HandleTextQueryValueChanged(string.Empty);
+			await HandleTextQueryTriggered();
 		}
 	}
 
