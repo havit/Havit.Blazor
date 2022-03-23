@@ -27,7 +27,13 @@
 						LabelType="LabelType"
 						CssClass="@CssClassHelper.Combine(InputCssClass, "mb-0")" />
 
-					@if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null))
+					@if (dataProviderInProgress)
+					{
+						<div class="input-icon input-icon-end">
+							<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+						</div>
+					}
+					else if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null))
 					{
 						<div role="button" class="input-icon input-icon-end" @onclick="ClearInputAsync">
 							<HxIcon Icon="ClearIconEffective" />
