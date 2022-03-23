@@ -334,7 +334,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.OpenElement(0, "span");
 				builder.AddAttribute(1, "class", "hx-chip-label");
 				builder.AddContent(2, Label);
-				builder.AddContent(3, ":");
+				builder.AddContent(3, ": ");
 				builder.CloseElement();
 				builder.OpenRegion(4);
 				RenderChipValue(builder);

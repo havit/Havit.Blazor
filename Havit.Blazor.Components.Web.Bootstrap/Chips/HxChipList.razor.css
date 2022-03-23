@@ -12,7 +12,7 @@
     display: flex;
     align-items: center;
     margin: var(--hx-chiplist-chip-remove-btn-margin);
-    opacity: .5;
+    opacity: var(--hx-chiplist-chip-remove-btn-opacity);
 }
 
 ::deep .hx-chip-remove-btn .hx-icon {
@@ -26,4 +26,5 @@
 ::deep .hx-chip-label {
     font-weight: var(--hx-chiplist-chip-label-font-weight);
     margin-right: var(--hx-chiplist-chip-label-margin);
+    opacity: var(--hx-chiplist-chip-label-opacity);
 }
