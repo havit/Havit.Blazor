@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using System.Threading;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -176,6 +177,10 @@ public partial class HxSearchBox<TItem>
 	private HxDropdownToggleElement dropdownToggle;
 	private bool dropdownMenuActive = false;
 
+	private System.Timers.Timer timer;
+	private CancellationTokenSource cancellationTokenSource;
+	private bool dataProviderInProgress;
+
 	public async Task ClearInputAsync()
 	{
 		if (TextQuery != string.Empty)
@@ -193,14 +198,38 @@ public partial class HxSearchBox<TItem>
 			return;
 		}
 
+		// Cancelation is performed in HandleTextQueryValueChanged method
+		cancellationTokenSource?.Dispose();
+
+		cancellationTokenSource = new CancellationTokenSource();
+		CancellationToken cancellationToken = cancellationTokenSource.Token;
+
+		dataProviderInProgress = true;
+		StateHasChanged();
+
 		SearchBoxDataProviderRequest request = new()
 		{
 			UserInput = TextQuery,
-			CancellationToken = default // TODO debounce Delay
+			CancellationToken = cancellationToken
 		};
+		SearchBoxDataProviderResult<TItem> result = null;
 
-		var result = await DataProvider.Invoke(request);
-		searchResults = result.Data.ToList();
+		try
+		{
+			result = await DataProvider.Invoke(request);
+		}
+		catch (OperationCanceledException)
+		{
+			return;
+		}
+
+		if (cancellationToken.IsCancellationRequested)
+		{
+			return;
+		}
+
+		dataProviderInProgress = false;
+		searchResults = result?.Data.ToList();
 
 		StateHasChanged();
 	}
@@ -208,6 +237,26 @@ public partial class HxSearchBox<TItem>
 	protected async Task HandleTextQueryValueChanged(string newTextQuery)
 	{
 		this.TextQuery = newTextQuery;
+
+		timer?.Stop(); // if waiting for an interval, stop it
+		cancellationTokenSource?.Cancel(); // if already loading data, cancel it
+		dataProviderInProgress = false; // data provider is no more in progress				 
+
+		// start new time interval
+		if (TextQuery.Length >= MinimumLengthEffective)
+		{
+			if (timer == null)
+			{
+				timer = new System.Timers.Timer
+				{
+					AutoReset = false // just once
+				};
+				timer.Elapsed += HandleTimerElapsed;
+			}
+			timer.Interval = DelayEffective;
+			timer.Start();
+		}
+
 		if (ShouldDropdownMenuBeDisplayed())
 		{
 			await ShowDropdownMenu();
@@ -218,6 +267,21 @@ public partial class HxSearchBox<TItem>
 		}
 		await InvokeTextQueryChangedAsync(newTextQuery);
 		await UpdateSuggestionsAsync();
+	}
+
+	private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
+	{
+		// when a time interval reached, update suggestions
+		await InvokeAsync(async () =>
+		{
+			await UpdateSuggestionsAsync();
+		});
+	}
+	private void HandleInputBlur()
+	{
+		timer?.Stop(); // if waiting for an interval, stop it
+		cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
+		dataProviderInProgress = false; // data provider is no more in progress				 
 	}
 
 	protected async Task HandleTextQueryTriggered()
@@ -253,6 +317,10 @@ public partial class HxSearchBox<TItem>
 		await dropdownToggle.HideAsync();
 	}
 
+	/// <summary>
+	/// If the <see cref="EmptyInputTemplate"/> is empty, we don't want to display anything when nothing (or below the minimum amount of characters) is typed into the input.
+	/// </summary>
+	/// <returns></returns>
 	protected bool ShouldDropdownMenuBeDisplayed()
 	{
 		if (EmptyInputTemplate is null && (TextQuery is null || TextQuery.Length < MinimumLengthEffective))

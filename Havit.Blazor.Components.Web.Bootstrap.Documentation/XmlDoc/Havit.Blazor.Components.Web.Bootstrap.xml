@@ -4200,6 +4200,12 @@
             Indicates whether text-query mode is enabled (accepts free text in addition to suggested items).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ShouldDropdownMenuBeDisplayed">
+            <summary>
+            If the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.EmptyInputTemplate"/> is empty, we don't want to display anything when nothing (or below the minimum amount of characters) is typed into the input.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchBoxDataProviderDelegate`1">
             <summary>
             Data provider (delegate).
