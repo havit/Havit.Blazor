@@ -138,6 +138,12 @@ public partial class HxSearchBox<TItem>
 	protected IconBase ClearIconEffective => this.ClearIcon ?? this.GetSettings()?.ClearIcon ?? GetDefaults().ClearIcon;
 
 	/// <summary>
+	/// Offset between the dropdown and the input.
+	/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
+	/// </summary>
+	[Parameter] public (int Skidding, int Distance) DropdownOffset { get; set; } = (0, 4);
+
+	/// <summary>
 	/// Label of the input field.
 	/// </summary>
 	[Parameter] public string Label { get; set; }
@@ -164,13 +170,11 @@ public partial class HxSearchBox<TItem>
 	/// </summary>
 	[Parameter] public bool AllowTextQuery { get; set; } = true;
 
-
-	[Inject] protected IJSRuntime JSRuntime { get; set; }
-
-	private IJSObjectReference jsModule;
 	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
+	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
 	private List<TItem> searchResults = new();
-	private bool dropdownMenuVisible = false;
+	private HxDropdownToggleElement dropdownToggle;
+	private bool dropdownMenuActive = false;
 
 	public async Task ClearInputAsync()
 	{
@@ -198,12 +202,20 @@ public partial class HxSearchBox<TItem>
 		var result = await DataProvider.Invoke(request);
 		searchResults = result.Data.ToList();
 
-		await InvokeAsync(StateHasChanged);
+		StateHasChanged();
 	}
 
 	protected async Task HandleTextQueryValueChanged(string newTextQuery)
 	{
 		this.TextQuery = newTextQuery;
+		if (ShouldDropdownMenuBeDisplayed())
+		{
+			await ShowDropdownMenu();
+		}
+		else if (dropdownMenuActive)
+		{
+			await HideDropdownMenu();
+		}
 		await InvokeTextQueryChangedAsync(newTextQuery);
 		await UpdateSuggestionsAsync();
 	}
@@ -213,46 +225,41 @@ public partial class HxSearchBox<TItem>
 		if (AllowTextQuery)
 		{
 			await InvokeOnTextQueryTriggeredAsync(this.TextQuery);
-			await ToggleDropdownMenu();
 		}
 	}
 
 	protected async Task HandleItemSelected(TItem item)
 	{
 		await InvokeOnItemSelectedAsync(item);
-		await ToggleDropdownMenu();
 		await ClearInputAsync();
 	}
 
-	protected async Task EnsureJsModule()
+	protected async Task OnDropdownMenuShown()
 	{
-		jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxSearchBox<TItem>) + ".js");
-	}
+		dropdownMenuActive = true;
 
-	private async Task EnsureDropdownMenuVisibility()
-	{
-		if (dropdownMenuVisible)
+		if (!ShouldDropdownMenuBeDisplayed())
 		{
-			await EnsureJsModule();
-			await jsModule.InvokeVoidAsync("clickElement", dropdownToggleElementId);
+			await HideDropdownMenu();
 		}
 	}
-	private async Task MakeDropdownMenuVisible()
+
+	protected async Task ShowDropdownMenu()
 	{
-		if (!dropdownMenuVisible)
-		{
-			await ToggleDropdownMenu();
-		}
+		await dropdownToggle.ShowAsync();
 	}
-	private async Task ToggleDropdownMenu()
+	protected async Task HideDropdownMenu()
 	{
-		await EnsureJsModule();
-		await jsModule.InvokeVoidAsync("clickElement", dropdownToggleElementId);
+		await dropdownToggle.HideAsync();
 	}
 
-	private async Task SetDropdownMenuVisibility(bool value)
+	protected bool ShouldDropdownMenuBeDisplayed()
 	{
-		dropdownMenuVisible = value;
-		await InvokeAsync(StateHasChanged);
+		if (EmptyInputTemplate is null && (TextQuery is null || TextQuery.Length < MinimumLengthEffective))
+		{
+			return false;
+		}
+
+		return true;
 	}
 }

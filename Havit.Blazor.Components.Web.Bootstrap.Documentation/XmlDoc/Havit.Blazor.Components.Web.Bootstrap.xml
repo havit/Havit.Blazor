@@ -4169,6 +4169,12 @@
             Icon of the input, when text is written allowing the user to clear the text.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.DropdownOffset">
+            <summary>
+            Offset between the dropdown and the input.
+            <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Label">
             <summary>
             Label of the input field.

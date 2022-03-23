@@ -2,10 +2,18 @@
 @using Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 
-<div class="@CssClassEffective">
+<div id="@dropdownId" class="@CssClassEffective">
     <HxDropdown AutoClose="DropdownAutoClose.Outside">
-		<HxDropdownToggleElement id="@dropdownToggleElementId" OnShown="() => SetDropdownMenuVisibility(true)" OnHidden="() => SetDropdownMenuVisibility(false)" ElementName="div">
-			<div class="position-relative" @onmouseup="EnsureDropdownMenuVisibility" @onfocusin="MakeDropdownMenuVisible">
+		<HxDropdownToggleElement
+			@ref="dropdownToggle"
+			ElementName="div"
+			DropdownReference="@("#" + dropdownId)"
+			DropdownOffset="@DropdownOffset"
+			OnShown="OnDropdownMenuShown"
+			OnHidden="() => dropdownMenuActive = false"
+			id="@dropdownToggleElementId">
+
+			<div class="position-relative">
 				<form @onsubmit="HandleTextQueryTriggered">
 					<HxInputText
 						Value="@TextQuery"
