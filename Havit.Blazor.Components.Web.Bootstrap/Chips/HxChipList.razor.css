@@ -1,5 +1,9 @@
+.hx-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--hx-chiplist-gap);
+}
 ::deep .badge {
-    margin: var(--hx-chiplist-chip-margin);
     display: inline-flex;
     align-items: center;
 }
