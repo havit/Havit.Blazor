@@ -4185,6 +4185,11 @@
             Label type of the input field.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputSize">
+            <summary>
+            Input size of the input field.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.MinimumLength">
             <summary>
             Minimum lenght to call the data provider (display any results). Default is <c>2</c>.

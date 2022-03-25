@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
@@ -153,6 +154,12 @@ public partial class HxSearchBox<TItem>
 	/// Label type of the input field.
 	/// </summary>
 	[Parameter] public LabelType LabelType { get; set; }
+
+	/// <summary>
+	/// Input size of the input field.
+	/// </summary>
+	[Parameter] public InputSize? InputSize { get; set; }
+	protected InputSize InputSizeEffective => this.InputSize ?? this.GetSettings()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSearchBox) + " has to be set.");
 
 	/// <summary>
 	/// Minimum lenght to call the data provider (display any results). Default is <c>2</c>.
