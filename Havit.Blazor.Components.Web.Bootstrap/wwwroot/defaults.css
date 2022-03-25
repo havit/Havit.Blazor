@@ -152,23 +152,6 @@
 	--hx-toast-container-margin:					0.5rem;
 }
 
-/* Not sure where to place. Margin for all inputs in form, if it is not the only child. */
-form .hx-form-group:not(:only-child):not(:only-of-type),
-form .hx-autosuggest:not(:only-child):not(:only-of-type),
-form .form-check:not(:only-child):not(:only-of-type),
-form .form-switch:not(:only-child):not(:only-of-type),
-form .hx-input-tags:not(:only-child):not(:only-of-type) {
-  margin-bottom: var(--hx-form-spacing);
-}
-
-/* Button which follows inputs has extra spacing due to validation messages. */
-form .hx-form-group ~ .hx-button,
-form .hx-autosuggest ~ .hx-button,
-form .form-check ~ .hx-button,
-form .form-switch ~ .hx-button {
-  margin-top: calc(var(--hx-form-spacing)/2);
-}
-/* 
 form {
 	display: grid;
 	gap: 1.5rem;
@@ -176,5 +159,4 @@ form {
 
 form > .hx-button {
 	justify-self: start;
-} */
-
+}
