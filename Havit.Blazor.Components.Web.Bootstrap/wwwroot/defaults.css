@@ -154,7 +154,7 @@
 
 form {
 	display: grid;
-	gap: 1.5rem;
+	gap: var(--hx-form-spacing);
 }
 
 form > .hx-button {
