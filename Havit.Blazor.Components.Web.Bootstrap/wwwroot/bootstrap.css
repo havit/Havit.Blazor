@@ -3839,6 +3839,10 @@ textarea.form-control-lg {
   border-radius: 0.25rem;
 }
 
+.btn-sm ~ .dropdown-menu, .btn-group-sm > .btn ~ .dropdown-menu {
+  font-size: 0.875rem;
+}
+
 .btn-group,
 .btn-group-vertical {
   position: relative;

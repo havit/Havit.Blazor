@@ -10,3 +10,7 @@
 .dropdown-item {
   border-radius: .25rem;
 }
+
+.btn-sm ~ .dropdown-menu {
+  font-size: .875rem;
+}
