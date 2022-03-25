@@ -159,7 +159,7 @@ public partial class HxSearchBox<TItem>
 	/// Input size of the input field.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => this.InputSize ?? this.GetSettings()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSearchBox) + " has to be set.");
+	protected InputSize InputSizeEffective => this.InputSize ?? this.GetSettings()?.InputSize ?? this.GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSearchBox) + " has to be set.");
 
 	/// <summary>
 	/// Minimum lenght to call the data provider (display any results). Default is <c>2</c>.
