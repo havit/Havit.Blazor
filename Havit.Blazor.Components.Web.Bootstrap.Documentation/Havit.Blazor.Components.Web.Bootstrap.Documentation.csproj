@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<NoWarn>1701;1702;SA1134</NoWarn>
 	</PropertyGroup>
 
@@ -37,8 +38,6 @@
 		<Content Remove="**/*.CodeSnippet.*" />
 		<Compile Remove="**/*.CodeSnippet.*" />
 		<EmbeddedResource Include="**/*.CodeSnippet.*" />
-		<None Remove="Pages\Components\HxListGroupDoc\HxListGroup_Documentation.razor.css" />
-		<Content Include="Pages\Components\HxListGroupDoc\HxListGroup_Documentation.razor.css" />
 		<EmbeddedResource Update="**/*.CodeSnippet.*">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
