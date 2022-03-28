@@ -36,6 +36,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public Func<TItem, IconBase> ItemIconSelector { get; set; }
 
 		/// <summary>
+		/// Item CSS class (same for all items).
+		/// </summary>
+		[Parameter] public string ItemCssClass { get; set; }
+
+		/// <summary>
+		/// Selector for item CSS class.
+		/// </summary>
+		[Parameter] public Func<TItem, string> ItemCssClassSelector { get; set; }
+
+		/// <summary>
 		/// Selector to display children collection for current data item. Children collection should have same type as current item.
 		/// </summary>
 		[Parameter] public Func<TItem, IEnumerable<TItem>> ItemChildrenSelector { get; set; }

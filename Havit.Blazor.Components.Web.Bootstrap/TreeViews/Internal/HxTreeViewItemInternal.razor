@@ -4,12 +4,13 @@
 @{
     var icon = this.IconSelector?.Invoke(this.Item) ?? null;
     var title = this.TitleSelector?.Invoke(this.Item) ?? null;
+    var cssClassFromSelector = this.CssClassSelector?.Invoke(this.Item) ?? null;
     var children = this.ChildrenSelector(this.Item);
     var hasChildren = children?.Any() ?? false;
     var isSelected = this.Item.Equals(this.TreeViewContainer.SelectedItem);
 }
 
-<div class="hx-tree-view-item @(isSelected ? "selected" : "")" @onclick="@HandleItemClicked" @onclick:stopPropagation="true">
+<div class="@CssClassHelper.Combine("hx-tree-view-item", isSelected ? "selected" : "", this.CssClass, cssClassFromSelector)" @onclick="@HandleItemClicked" @onclick:stopPropagation="true">
     @for (int i = 0; i < this.Level; i++)
     {
         <div class="hx-tree-view-item-spacer"></div>
@@ -48,6 +49,8 @@
                         Item="item"
                         TitleSelector="this.TitleSelector"
                         IconSelector="this.IconSelector"
+                        CssClass="@this.CssClass"
+                        CssClassSelector="this.CssClassSelector"
                         ChildrenSelector="this.ChildrenSelector"
                         Level="@(this.Level + 1)"
                         ContentTemplate="this.ContentTemplate"

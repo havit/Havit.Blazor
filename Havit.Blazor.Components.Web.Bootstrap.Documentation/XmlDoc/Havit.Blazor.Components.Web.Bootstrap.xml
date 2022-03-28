@@ -7804,6 +7804,16 @@
             Selector to display icon from data item.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.ItemCssClass">
+            <summary>
+            Item CSS class (same for all items).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.ItemCssClassSelector">
+            <summary>
+            Selector for item CSS class.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.ItemChildrenSelector">
             <summary>
             Selector to display children collection for current data item. Children collection should have same type as current item.
