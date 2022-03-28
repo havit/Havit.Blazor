@@ -4911,7 +4911,7 @@ textarea.form-control-lg {
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: 0.375rem;
+  border-radius: 0.25rem;
 }
 .badge:empty {
   display: none;
