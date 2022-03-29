@@ -1,7 +1,7 @@
 ﻿.dropdown-menu {
     width: 100%;
     overflow: auto;
-    height: var(--hx-multi-select-dropdown-menu-height);
+    max-height: var(--hx-multi-select-dropdown-menu-height);
 }
 
 .form-control[readonly] {
