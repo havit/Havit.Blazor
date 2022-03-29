@@ -113,6 +113,7 @@
 	--hx-list-layout-table-font-size: 				.875rem;
 	/* HxMultiSelect */
 	--hx-multi-select-background-color: 			var(--bs-white);
+	--hx-multi-select-dropdown-menu-height:			300px;
 	/* TagInput */
 	--hx-input-tags-tag-margin: 					0 .25rem 0 0;
 	--hx-input-tags-input-width: 					3em;
