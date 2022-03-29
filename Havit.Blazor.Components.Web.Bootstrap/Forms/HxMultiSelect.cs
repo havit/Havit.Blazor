@@ -16,7 +16,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <typeparam name="TItem">Type of items.</typeparam>
 public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
 {
-	// TODO: Kliknutí na checkbox je OK, kliknutí na label spustí v InputTests validace
 	// TODO: Renderování chipu/chipů
 	// TODO: Naming EmptyText
 	// TODO: Naming AndMoreText, AndMoreAfter
