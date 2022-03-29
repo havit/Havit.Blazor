@@ -1,3 +1,7 @@
 ﻿.dropdown-menu {
     width: 100%;
 }
+
+.form-control[readonly] {
+    background-color: var(--hx-multi-select-background-color);
+}
