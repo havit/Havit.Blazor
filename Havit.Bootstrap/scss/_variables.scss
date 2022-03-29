@@ -14,7 +14,7 @@ $nav-tabs-link-active-border-color:   $nav-tabs-border-color $nav-tabs-border-co
 $card-border-radius:          $border-radius-lg;
 $card-border-color:           rgba($black, .075);
 $card-inner-border-radius:    subtract($card-border-radius, $card-border-width);
-$card-cap-bg:                 rgba($black, .075);
+$card-cap-bg:                 rgba($black, .0375);
 
 $table-active-bg-factor:        .05;
 $table-active-bg:               rgba($black, $table-active-bg-factor);
@@ -63,4 +63,4 @@ $list-group-border-color:           rgba($black, .0875);
 
 $hr-opacity: .125;
 
-$nav-tabs-link-hover-border-color:  transparent;
+// $nav-tabs-link-hover-border-color:  transparent;

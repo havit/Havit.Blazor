@@ -3979,7 +3979,7 @@ textarea.form-control-lg {
   border-top-right-radius: 0.375rem;
 }
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
-  border-color: transparent;
+  border-color: #e9ecef #e9ecef #dee2e6;
   isolation: isolate;
 }
 .nav-tabs .nav-link.disabled {
@@ -4574,7 +4574,7 @@ textarea.form-control-lg {
 .card-header {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: rgba(0, 0, 0, 0.0375);
   border-bottom: 1px solid rgba(0, 0, 0, 0.075);
 }
 .card-header:first-child {
@@ -4583,7 +4583,7 @@ textarea.form-control-lg {
 
 .card-footer {
   padding: 0.5rem 1rem;
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: rgba(0, 0, 0, 0.0375);
   border-top: 1px solid rgba(0, 0, 0, 0.075);
 }
 .card-footer:last-child {
@@ -4676,12 +4676,8 @@ textarea.form-control-lg {
   min-height: 60px;
 }
 
-.card-header {
-  border-bottom: none;
-}
-
-.card-footer {
-  border-top: none;
+.card-header, .card-footer {
+  border-color: rgba(0, 0, 0, 0.0375);
 }
 
 .accordion-button {

@@ -2,10 +2,6 @@
   min-height: 60px;
 }
 
-.card-header {
-  border-bottom: none;
-}
-
-.card-footer {
-  border-top: none;
+.card-header, .card-footer {
+  border-color: rgba($black,.0375);
 }
