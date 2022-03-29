@@ -5,3 +5,8 @@
 .form-control[readonly] {
     background-color: var(--hx-multi-select-background-color);
 }
+
+button.dropdown-item,
+.form-control[readonly] {
+    cursor: default;
+}
