@@ -3546,6 +3546,71 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.TryParseValueFromString(System.String,System.String@,System.String@)">
             <inheritdoc />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2">
+            <summary>
+            Select - DropDown &amp; Check box list - multi-item picker.
+            </summary>
+            <typeparam name="TValue">Type of value.</typeparam>
+            <typeparam name="TItem">Type of items.</typeparam>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.Data">
+            <summary>
+            Items to display. 
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.TextSelector">
+            <summary>
+            Selects text to display from item.
+            When not set, ToString() is used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.ValueSelector">
+            <summary>
+            Selects value from item.
+            Not required when TValue is same as TItem.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.SortKeySelector">
+            <summary>
+            Selects value for items sorting. When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.TextSelector"/> property will be used.
+            If you need complex sorting, pre-sort data manually or create a custom comparable property.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.AutoSort">
+            <summary>
+            When <c>true</c>, items are sorted before displaying in select.
+            Default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.EmptyText">
+            <summary>
+            Text to display when the selection is empty (the Value property is null or empty).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.AndMoreText">
+            <summary>
+            Text text to display after <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.AndMoreAfter" /> items count.
+            Formatted with count of more items.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.AndMoreAfter">
+            <summary>
+            This is the maximum number of items. Next items are shown using <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.AndMoreText"/>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FocusAsync">
+            <summary>
+            Throws NotSupportedException - giving focus to an input element is not supported on the HxMultiSelect.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect">
+            <summary>
+             Marker for resources for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1"/>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2">
             <summary>
             Select. Consider creating custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2"/>.

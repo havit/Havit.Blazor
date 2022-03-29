@@ -57,6 +57,8 @@
                 <HxSelect Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfoSelect" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
                 <HxSelect Label="Select (Data == null, small)" TItem="CultureInfo" TValue="CultureInfo" @bind-Value="@context.CultureInfoSelect" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" />
 
+                <HxMultiSelect Label="MultiSelect" @bind-Value="@context.CultureInfoMultiSelectNames" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
+                
                 <HxAutosuggest Label="Autosuggest" @bind-Value="@context.CultureInfoAutosuggest" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider">
                     <HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
                 </HxAutosuggest>
@@ -148,6 +150,9 @@
 
         [Required]
         public string CultureInfoSelectName { get; set; }
+
+        [Required]
+        public List<string> CultureInfoMultiSelectNames { get; set; }
 
         [Required]
         public CultureInfo CultureInfoSelect { get; set; }

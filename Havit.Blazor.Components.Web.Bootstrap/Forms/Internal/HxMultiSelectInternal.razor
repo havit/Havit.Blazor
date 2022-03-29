@@ -1,0 +1,40 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+@typeparam TValue
+@typeparam TItem
+
+<div class="hx-checkbox-dropdownlist dropdown" role="listbox">
+    <div data-bs-toggle="@(EnabledEffective ? "dropdown" : null)" data-bs-auto-close="outside">
+        <input
+            @ref="inputElement"
+            type="text"
+            id="@InputId"
+            class="@(CssClassHelper.Combine("form-control form-select user-select-none", InputCssClass))"
+            value="@InputText"
+            disabled="@(!EnabledEffective)"
+            readonly="true" />
+    </div>
+
+    <ul class="dropdown-menu"> @* Must be always rendered otherwise does not work after disable->enabled scenario *@
+        @if (EnabledEffective)
+        {
+            for (int i = 0; i < ItemsToRender.Count; i++)
+            {
+                string checkboxElementId = InputId + "_" + i.ToString();
+
+                var item = ItemsToRender[i];
+                TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
+
+                bool itemSelected = Value?.Contains(value) ?? false;
+
+                <button class="dropdown-item" role="option" @onclick="async () => await HandleItemSelectionChangedAsync(!itemSelected, item)">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="@checkboxElementId" checked="@itemSelected">
+                        <label class="form-check-label" for="@checkboxElementId">
+                            @SelectorHelpers.GetText(TextSelector, item)
+                        </label>
+                    </div>
+                </button>
+            }
+        }
+    </ul>
+</div>
