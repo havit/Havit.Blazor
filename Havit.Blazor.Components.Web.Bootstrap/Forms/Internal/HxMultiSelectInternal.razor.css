@@ -16,3 +16,7 @@ button.dropdown-item,
 .form-check {
     margin-bottom: 0;
 }
+
+.form-check-input {
+    margin-left: -1.625em;
+}
