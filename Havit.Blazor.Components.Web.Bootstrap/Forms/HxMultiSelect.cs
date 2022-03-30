@@ -17,10 +17,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
 {
 	// TODO: Renderování chipu/chipů
-	// TODO: Naming EmptyText
-	// TODO: Naming AndMoreText, AndMoreAfter
-	// TODO: Func<List<TItem>, string> SelectionTextSelector?
-	// TODO: Template pro items?
 
 	/// <summary>
 	/// Items to display. 
@@ -55,19 +51,6 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
 	/// Text to display when the selection is empty (the Value property is null or empty).
 	/// </summary>
 	[Parameter] public string EmptyText { get; set; }
-
-	/// <summary>
-	/// Text text to display after <see cref="AndMoreAfter" /> items count.
-	/// Formatted with count of more items.
-	/// </summary>
-	[Parameter] public string AndMoreText { get; set; }
-
-	/// <summary>
-	/// This is the maximum number of items. Next items are shown using <see cref="AndMoreText"/>.
-	/// </summary>
-	[Parameter] public int AndMoreAfter { get; set; } = 3;
-
-	[Inject] private IStringLocalizer<HxMultiSelect> StringLocalizer { get; set; }
 
 	private List<TItem> itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
@@ -157,22 +140,6 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
 
 		// Take itemsToRender because they are sorted.
 		List<TItem> selectedItems = itemsToRender.Where(item => Value.Contains(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item))).ToList();
-
-		if (AndMoreAfter == 0)
-		{
-			return String.Join(", ", selectedItems.Select(TextSelector));
-		}
-		else
-		{
-			string result = String.Join(", ", selectedItems.Take(AndMoreAfter).Select(TextSelector));
-			int moreItemsCount = selectedItems.Count - AndMoreAfter;
-
-			if (moreItemsCount > 0)
-			{
-				string text = AndMoreText ?? StringLocalizer["AndMore"];
-				result += " " + String.Format(text, moreItemsCount);
-			}
-			return result;
-		}
+		return String.Join(", ", selectedItems.Select(TextSelector));
 	}
 }

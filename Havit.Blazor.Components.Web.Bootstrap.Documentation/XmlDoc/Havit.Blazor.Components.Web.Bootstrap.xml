@@ -3587,17 +3587,6 @@
             Text to display when the selection is empty (the Value property is null or empty).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.AndMoreText">
-            <summary>
-            Text text to display after <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.AndMoreAfter" /> items count.
-            Formatted with count of more items.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.AndMoreAfter">
-            <summary>
-            This is the maximum number of items. Next items are shown using <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.AndMoreText"/>.
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FocusAsync">
             <summary>
             Throws NotSupportedException - giving focus to an input element is not supported on the HxMultiSelect.
@@ -3605,11 +3594,6 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc/>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect">
-            <summary>
-             Marker for resources for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1"/>.
-            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2">
             <summary>
