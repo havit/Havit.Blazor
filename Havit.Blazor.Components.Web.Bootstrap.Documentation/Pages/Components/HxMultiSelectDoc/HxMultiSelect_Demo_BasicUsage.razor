@@ -1,0 +1,28 @@
+﻿<HxMultiSelect Label="Band members"
+               TItem="Person"
+               TValue="string"
+               Data="@people"
+               @bind-Value="@selectedPersonsInitials"
+               TextSelector="@(p => p.Name)"
+               ValueSelector="@(p => p.Initials)"
+               EmptyText="-- pick here --" />
+
+<p>Selected initials: @String.Join(' ', selectedPersonsInitials)</p>
+
+@code {
+    private List<Person> people;
+    private List<string> selectedPersonsInitials { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        people = new List<Person>
+        {
+            new Person("Starr Ringo", "RS"),
+            new Person("Lennon John", "JL"),
+            new Person("McCartney Pail", "PMC"),
+            new Person("Harrison George", "GH")
+        };
+    }
+
+    internal record Person(string Name, string Initials);
+}

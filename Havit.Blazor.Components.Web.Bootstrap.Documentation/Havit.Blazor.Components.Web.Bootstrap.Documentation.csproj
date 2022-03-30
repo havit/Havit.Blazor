@@ -47,6 +47,10 @@
 	  <Folder Include="GenericTypePlaceholders\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Include="Pages\Components\HxMultiSelectDoc\HxMultiSelect_Documentation.razor" />
+	</ItemGroup>
+
 	<Target Name="EmbedDemos" BeforeTargets="PrepareForBuild">
 		<!-- Let's embed demos sources to the assembly to be able to show sources at runtime. -->
 		<ItemGroup>

@@ -5,14 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Select - DropDown &amp; Check box list - multi-item picker.
+/// MultiSelect. Unlike a normal select, multiselect allows the user to select multiple options at once.
 /// </summary>
-/// <typeparam name="TValue">Type of value.</typeparam>
+/// <typeparam name="TValue">Type of values.</typeparam>
 /// <typeparam name="TItem">Type of items.</typeparam>
 public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
 {
@@ -22,31 +23,31 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
 	[Parameter] public IEnumerable<TItem> Data { get; set; }
 
 	/// <summary>
-	/// Selects text to display from item.
-	/// When not set, ToString() is used.
+	/// Selects text to display from item.<br/>
+	/// When not set, <c>ToString()</c> is used.
 	/// </summary>
 	[Parameter] public Func<TItem, string> TextSelector { get; set; }
 
 	/// <summary>
-	/// Selects value from item.
-	/// Not required when TValue is same as TItem.
+	/// Selects value from item.<br/>
+	/// Not required when <c>TValue</c> is same as <c>TItem</c>.
 	/// </summary>
 	[Parameter] public Func<TItem, TValue> ValueSelector { get; set; }
 
 	/// <summary>
-	/// Selects value for items sorting. When not set, <see cref="TextSelector"/> property will be used.
+	/// Selects value for items sorting. When not set, <see cref="TextSelector"/> property will be used.<br/>
 	/// If you need complex sorting, pre-sort data manually or create a custom comparable property.
 	/// </summary>
 	[Parameter] public Func<TItem, IComparable> SortKeySelector { get; set; }
 
 	/// <summary>
-	/// When <c>true</c>, items are sorted before displaying in select.
+	/// When set to <c>false</c>, items will no longer be sorted.<br/>
 	/// Default value is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool AutoSort { get; set; } = true;
 
 	/// <summary>
-	/// Text to display when the selection is empty (the Value property is null or empty).
+	/// Text to display when the selection is empty (the <c>Value</c> property is <c>null</c> or empty).
 	/// </summary>
 	[Parameter] public string EmptyText { get; set; }
 
@@ -96,9 +97,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
 		throw new NotSupportedException();
 	}
 
-	/// <summary>
-	/// Throws NotSupportedException - giving focus to an input element is not supported on the HxMultiSelect.
-	/// </summary>
+	/// <inheritdoc cref="HxInputBase{TValue}.FocusAsync"/>
 	public override async ValueTask FocusAsync()
 	{
 		if (hxMultiSelectInternalComponent == null)

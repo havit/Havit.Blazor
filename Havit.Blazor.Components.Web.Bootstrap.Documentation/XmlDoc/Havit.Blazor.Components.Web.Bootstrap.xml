@@ -3563,9 +3563,9 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2">
             <summary>
-            Select - DropDown &amp; Check box list - multi-item picker.
+            MultiSelect. Unlike a normal select, multiselect allows the user to select multiple options at once.
             </summary>
-            <typeparam name="TValue">Type of value.</typeparam>
+            <typeparam name="TValue">Type of values.</typeparam>
             <typeparam name="TItem">Type of items.</typeparam>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.Data">
@@ -3575,37 +3575,35 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.TextSelector">
             <summary>
-            Selects text to display from item.
-            When not set, ToString() is used.
+            Selects text to display from item.<br/>
+            When not set, <c>ToString()</c> is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.ValueSelector">
             <summary>
-            Selects value from item.
-            Not required when TValue is same as TItem.
+            Selects value from item.<br/>
+            Not required when <c>TValue</c> is same as <c>TItem</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.SortKeySelector">
             <summary>
-            Selects value for items sorting. When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.TextSelector"/> property will be used.
+            Selects value for items sorting. When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.TextSelector"/> property will be used.<br/>
             If you need complex sorting, pre-sort data manually or create a custom comparable property.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.AutoSort">
             <summary>
-            When <c>true</c>, items are sorted before displaying in select.
+            When set to <c>false</c>, items will no longer be sorted.<br/>
             Default value is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.EmptyText">
             <summary>
-            Text to display when the selection is empty (the Value property is null or empty).
+            Text to display when the selection is empty (the <c>Value</c> property is <c>null</c> or empty).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FocusAsync">
-            <summary>
-            Throws NotSupportedException - giving focus to an input element is not supported on the HxMultiSelect.
-            </summary>
+            <inheritdoc cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FocusAsync"/>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc/>
