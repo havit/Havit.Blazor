@@ -39,7 +39,7 @@
 
                 <HxInputText Label="Text (always disabled)" Enabled="false" @bind-Value="@context.TextDisabled" />
                 <HxInputText Label="Text (password)" Type="InputType.Password" @bind-Value="@context.TextPassword" />
-                <HxInputText Label="Text (email)" Type="InputType.Email" @bind-Value="@context.TextEmail" />
+                @*<HxInputText Label="Text (email)" Type="InputType.Email" @bind-Value="@context.TextEmail" />*@
 
                 <HxInputTextArea Label="TextArea" @bind-Value="@context.TextLong" />
 
@@ -61,7 +61,7 @@
                     <HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
                 </HxAutosuggest>
 
-                <HxInputCheckbox Label="Checkbox" @bind-Value="@context.BoolCheckbox" Enabled="false" Hint="@context.BoolCheckbox.ToString()" />
+                <HxInputCheckbox Label="Checkbox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()" />
 
                 <HxInputSwitch Label="Switch" @bind-Value="@context.BoolSwitch" />
 
@@ -127,9 +127,9 @@
         [MaxLength(50)]
         public string TextPassword { get; set; } = "Password";
 
-        [Required]
-        [MaxLength(50)]
-        public string TextEmail { get; set; }
+        //[Required]
+        //[MaxLength(50)]
+        //public string TextEmail { get; set; }
 
         [Required]
         public string TextLong { get; set; }
