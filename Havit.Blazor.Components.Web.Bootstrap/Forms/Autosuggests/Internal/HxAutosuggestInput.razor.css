@@ -1,3 +1,8 @@
 ﻿.hx-autosuggest {
     padding-right: 2.5rem;
 }
+
+.form-control.is-invalid {
+    background-position: center right 2.25rem;
+    padding-right: 4.125rem;
+}
