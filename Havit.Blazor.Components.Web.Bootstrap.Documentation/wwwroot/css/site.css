@@ -2,8 +2,6 @@
 	--hx-sidebar-width: 320px;
 }
 
-
-
 #blazor-error-ui {
 	background: lightyellow;
 	bottom: 0;
@@ -62,6 +60,10 @@
 
 .sidebar .hx-sidebar-header {
 	flex-wrap: wrap;
+}
+
+.sidebar .hx-sidebar-body {
+	overflow: hidden;
 }
 
 .collapsed.sidebar .sidebar-search {
