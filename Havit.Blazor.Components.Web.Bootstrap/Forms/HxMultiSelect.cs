@@ -16,8 +16,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <typeparam name="TItem">Type of items.</typeparam>
 public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
 {
-	// TODO: Renderování chipu/chipů
-
 	/// <summary>
 	/// Items to display. 
 	/// </summary>
@@ -119,7 +117,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
 		builder.OpenComponent<HxMultiSelectInternal<TValue, TItem>>(100);
 		builder.AddAttribute(101, nameof(HxMultiSelectInternal<TValue, TItem>.InputId), InputId);
 		builder.AddAttribute(102, nameof(HxMultiSelectInternal<TValue, TItem>.InputCssClass), GetInputCssClassToRender());
-		builder.AddAttribute(103, nameof(HxMultiSelectInternal<TValue, TItem>.InputText), GetInputText());
+		builder.AddAttribute(103, nameof(HxMultiSelectInternal<TValue, TItem>.InputText), CurrentValueAsString);
 		builder.AddAttribute(104, nameof(HxMultiSelectInternal<TValue, TItem>.EnabledEffective), EnabledEffective);
 		builder.AddAttribute(105, nameof(HxMultiSelectInternal<TValue, TItem>.ItemsToRender), itemsToRender);
 		builder.AddAttribute(106, nameof(HxMultiSelectInternal<TValue, TItem>.TextSelector), TextSelector);
@@ -131,15 +129,31 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
 		builder.CloseComponent();
 	}
 
-	private string GetInputText()
+	/// <inheritdoc />
+	protected override string FormatValueAsString(List<TValue> value)
 	{
-		if (!Value?.Any() ?? true)
+		// Used for CurrentValueAsString (which is used for the input element and for the chip generator.
+
+		if (!value?.Any() ?? true)
 		{
+			// don't care about chip generator, it does not call this method for null/empty value
 			return EmptyText;
 		}
 
 		// Take itemsToRender because they are sorted.
-		List<TItem> selectedItems = itemsToRender.Where(item => Value.Contains(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item))).ToList();
+		List<TItem> selectedItems = itemsToRender.Where(item => value.Contains(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item))).ToList();
 		return String.Join(", ", selectedItems.Select(TextSelector));
+	}
+
+	/// <inheritdoc />
+	protected override bool ShouldRenderChipGenerator()
+	{
+		return CurrentValue?.Any() ?? false;
+	}
+
+	/// <inheritdoc />
+	protected override List<TValue> GetChipRemoveValue()
+	{
+		return new List<TValue>();
 	}
 }

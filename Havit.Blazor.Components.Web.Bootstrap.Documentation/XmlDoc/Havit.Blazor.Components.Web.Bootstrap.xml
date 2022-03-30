@@ -3016,6 +3016,16 @@
             Renders chip generator.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ShouldRenderChipGenerator">
+            <summary>
+            Returns true when chip should be rendered.
+            Supposed to make decision based on CurrentValue.
+            </summary>
+            <remarks>
+            This method is called only when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GenerateChip" /> is <c>true</c>.
+            The implementation of the method is not supposed to use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GenerateChip" /> property itself.
+            </remarks>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.RenderChipTemplate(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
             Returns chip template.
@@ -3024,6 +3034,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GetChipRemoveAction">
             <summary>
             Returns action to remove chip from model.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GetChipRemoveValue">
+            <summary>
+            Returns a value to be used to remove a chip.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FocusAsync">
@@ -3594,6 +3609,15 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FormatValueAsString(System.Collections.Generic.List{`0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.ShouldRenderChipGenerator">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.GetChipRemoveValue">
+            <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2">
             <summary>

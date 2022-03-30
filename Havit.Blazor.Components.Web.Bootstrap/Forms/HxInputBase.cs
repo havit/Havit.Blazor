@@ -219,7 +219,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			HxFormValueRenderer.Current.Render(1, builder, this);
 
-			if (GenerateChip)
+			if (GenerateChip && ShouldRenderChipGenerator())
 			{
 				builder.OpenRegion(2);
 				RenderChipGenerator(builder);
@@ -310,14 +310,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual void RenderChipGenerator(RenderTreeBuilder builder)
 		{
-			if (!EqualityComparer<TValue>.Default.Equals(CurrentValue, default(TValue))) // TODO: virtual method
-			{
-				builder.OpenComponent<HxChipGenerator>(0);
-				builder.AddAttribute(1, nameof(HxChipGenerator.ChildContent), (RenderFragment)RenderChipTemplate);
-				builder.AddAttribute(2, nameof(HxChipGenerator.ChipRemoveAction), GetChipRemoveAction());
+			builder.OpenComponent<HxChipGenerator>(0);
+			builder.AddAttribute(1, nameof(HxChipGenerator.ChildContent), (RenderFragment)RenderChipTemplate);
+			builder.AddAttribute(2, nameof(HxChipGenerator.ChipRemoveAction), GetChipRemoveAction());
 
-				builder.CloseComponent();
-			}
+			builder.CloseComponent();
+		}
+
+		/// <summary>
+		/// Returns true when chip should be rendered.
+		/// Supposed to make decision based on CurrentValue.
+		/// </summary>
+		/// <remarks>
+		/// This method is called only when <see cref="GenerateChip" /> is <c>true</c>.
+		/// The implementation of the method is not supposed to use <see cref="GenerateChip" /> property itself.
+		/// </remarks>
+		protected virtual bool ShouldRenderChipGenerator()
+		{
+			return !EqualityComparer<TValue>.Default.Equals(CurrentValue, default(TValue));
 		}
 
 		/// <summary>
@@ -352,10 +362,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual Action<object> GetChipRemoveAction()
 		{
-			string fieldName = this.FieldIdentifier.FieldName; // carefully! don't use this in lambda below to allow it for GC
-			Action<object> removeAction = (model) => model.GetType().GetProperty(fieldName).SetValue(model, default(TValue));
+			string fieldName = this.FieldIdentifier.FieldName; // carefully! don't use "this" in lambda below to allow it for GC
+			TValue value = GetChipRemoveValue(); // carefully! don't use the method call in lambda below to allow "this" for GC
+			Action<object> removeAction = (model) => model.GetType().GetProperty(fieldName).SetValue(model, value);
 
 			return removeAction;
+		}
+
+		/// <summary>
+		/// Returns a value to be used to remove a chip.
+		/// </summary>
+		protected virtual TValue GetChipRemoveValue()
+		{
+			return default(TValue);
 		}
 
 		/// <summary>
