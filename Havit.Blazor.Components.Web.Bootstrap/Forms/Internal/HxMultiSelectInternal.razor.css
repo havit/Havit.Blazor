@@ -12,3 +12,7 @@ button.dropdown-item,
 .form-control[readonly] {
     cursor: default;
 }
+
+.form-check {
+    margin-bottom: 0;
+}
