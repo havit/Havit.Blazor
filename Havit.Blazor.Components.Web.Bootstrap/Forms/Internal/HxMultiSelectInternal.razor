@@ -28,7 +28,7 @@
 
                 <button class="dropdown-item" role="option" @onclick="async () => await HandleItemSelectionChangedAsync(!itemSelected, item)" @onclick:preventDefault>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="@checkboxElementId" checked="@itemSelected" tabindex="-1" />
+                        <input class="form-check-input" type="checkbox" id="@checkboxElementId" checked="@itemSelected" tabindex="-1" @onclick:stopPropagation />
                         <label class="form-check-label" for="@checkboxElementId">
                             @SelectorHelpers.GetText(TextSelector, item)
                         </label>
