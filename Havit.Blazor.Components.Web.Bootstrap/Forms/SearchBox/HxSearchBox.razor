@@ -73,11 +73,11 @@
 			}
 			else if ((TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
 			{
-				@EmptyTemplate
+				@NotFoundTemplate
 			}
 			else
 			{
-				@EmptyInputTemplate
+				@DefaultContentTemplate
 			}
 
 			@if (AllowTextQuery && (TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))

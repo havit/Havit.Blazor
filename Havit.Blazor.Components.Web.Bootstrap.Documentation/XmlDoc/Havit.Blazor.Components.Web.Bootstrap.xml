@@ -4205,12 +4205,12 @@
             Template for the text-query item content (requires <c><see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.AllowTextQuery"/>="true"</c>).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.EmptyTemplate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.NotFoundTemplate">
             <summary>
             Rendered when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.DataProvider" /> doesn't return any data.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.EmptyInputTemplate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.DefaultContentTemplate">
             <summary>
             Rendered when no input is entered (i.e. initial state).
             </summary>
@@ -4278,7 +4278,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ShouldDropdownMenuBeDisplayed">
             <summary>
-            If the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.EmptyInputTemplate"/> is empty, we don't want to display anything when nothing (or below the minimum amount of characters) is typed into the input.
+            If the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.DefaultContentTemplate"/> is empty, we don't want to display anything when nothing (or below the minimum amount of characters) is typed into the input.
             </summary>
             <returns></returns>
         </member>

@@ -102,12 +102,12 @@ public partial class HxSearchBox<TItem>
 	/// <summary>
 	/// Rendered when the <see cref="DataProvider" /> doesn't return any data.
 	/// </summary>
-	[Parameter] public RenderFragment EmptyTemplate { get; set; }
+	[Parameter] public RenderFragment NotFoundTemplate { get; set; }
 
 	/// <summary>
 	/// Rendered when no input is entered (i.e. initial state).
 	/// </summary>
-	[Parameter] public RenderFragment EmptyInputTemplate { get; set; }
+	[Parameter] public RenderFragment DefaultContentTemplate { get; set; }
 
 	/// <summary>
 	/// Additional css classes for the dropdown.
@@ -325,12 +325,12 @@ public partial class HxSearchBox<TItem>
 	}
 
 	/// <summary>
-	/// If the <see cref="EmptyInputTemplate"/> is empty, we don't want to display anything when nothing (or below the minimum amount of characters) is typed into the input.
+	/// If the <see cref="DefaultContentTemplate"/> is empty, we don't want to display anything when nothing (or below the minimum amount of characters) is typed into the input.
 	/// </summary>
 	/// <returns></returns>
 	protected bool ShouldDropdownMenuBeDisplayed()
 	{
-		if (EmptyInputTemplate is null && (TextQuery is null || TextQuery.Length < MinimumLengthEffective))
+		if (DefaultContentTemplate is null && (TextQuery is null || TextQuery.Length < MinimumLengthEffective))
 		{
 			return false;
 		}
