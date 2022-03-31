@@ -9,7 +9,7 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>2.2.8</PackageVersion>
+		<PackageVersion>2.3.0-pre1</PackageVersion>
 		<Description>HAVIT Blazor Library - Free Bootstrap 5 components for ASP.NET Blazor</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://havit.blazor.eu</PackageProjectUrl>
