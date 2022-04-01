@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// A full-text search component.
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public partial class HxSearchBox<TItem>
+public partial class HxSearchBox<TItem> : IAsyncDisposable
 {
 	/// <summary>
 	/// Returns application-wide defaults for the component.
@@ -336,5 +336,21 @@ public partial class HxSearchBox<TItem>
 		}
 
 		return true;
+	}
+
+	public async ValueTask DisposeAsync()
+	{
+		await DisposeAsyncCore().ConfigureAwait(false);
+	}
+
+	protected virtual async ValueTask DisposeAsyncCore()
+	{
+		timer?.Dispose();
+		timer = null;
+
+		cancellationTokenSource?.Dispose();
+		cancellationTokenSource = null;
+
+		await dropdownToggle.DisposeAsync();
 	}
 }
