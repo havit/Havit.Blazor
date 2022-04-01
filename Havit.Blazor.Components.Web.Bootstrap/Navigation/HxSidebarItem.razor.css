@@ -66,6 +66,11 @@
 	margin-left: .5rem;
 }
 
+::deep .dropdown-menu {
+	max-height: 100vh;
+	overflow: auto;
+}
+
 ::deep .dropdown-menu.hx-sidebar-subitems .nav-link {
 	border-radius: 0;
 }
