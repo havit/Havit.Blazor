@@ -156,10 +156,11 @@
 }
 
 form {
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	gap: var(--hx-form-spacing);
 }
 
 form > .hx-button {
-	justify-self: start;
+	align-self: start;
 }
