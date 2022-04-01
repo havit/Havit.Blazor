@@ -3,10 +3,11 @@
 @typeparam TItem
 
 <div id="@dropdownId" class="@CssClassEffective">
-    <HxDropdown AutoClose="DropdownAutoClose.Outside">
+    <HxDropdown AutoClose="DropdownAutoClose.Outside" >
 		<HxDropdownToggleElement
 			@ref="dropdownToggle"
 			ElementName="div"
+			CssClass="@(initialized ? null : "disabled")"
 			DropdownReference="@("#" + dropdownId)"
 			DropdownOffset="@DropdownOffset"
 			OnShown="OnDropdownMenuShown"

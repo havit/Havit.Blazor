@@ -183,10 +183,19 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private List<TItem> searchResults = new();
 	private HxDropdownToggleElement dropdownToggle;
 	private bool dropdownMenuActive = false;
+	private bool initialized = false;
 
 	private System.Timers.Timer timer;
 	private CancellationTokenSource cancellationTokenSource;
 	private bool dataProviderInProgress;
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		if (firstRender)
+		{
+			initialized = true;
+		}
+	}
 
 	public async Task ClearInputAsync()
 	{
