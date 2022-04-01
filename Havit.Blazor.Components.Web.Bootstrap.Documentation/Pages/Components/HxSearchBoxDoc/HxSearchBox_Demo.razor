@@ -66,7 +66,7 @@
 
         return new()
             {
-                Data = Data.Where(i => true || i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(request.UserInput)).ToArray()
+                Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(request.UserInput)).ToArray()
             };
     }
 

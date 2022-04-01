@@ -294,6 +294,7 @@ public partial class HxSearchBox<TItem>
 	{
 		if (AllowTextQuery)
 		{
+			await HideDropdownMenu();
 			await InvokeOnTextQueryTriggeredAsync(this.TextQuery);
 		}
 	}
