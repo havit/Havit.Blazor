@@ -273,7 +273,6 @@ public partial class HxSearchBox<TItem>
 			await HideDropdownMenu();
 		}
 		await InvokeTextQueryChangedAsync(newTextQuery);
-		await UpdateSuggestionsAsync();
 	}
 
 	private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
