@@ -27,11 +27,11 @@
 	--hx-sidebar-subitem-margin: 						0 0 .25rem 2.25rem;
 	--hx-sidebar-header-padding: 						1rem;
 	--hx-sidebar-body-padding: 							0 1rem;
-	--hx-sidebar-brand-logo-background-color: 			transparent;
+	--hx-sidebar-brand-logo-background-color: 			var(--bs-primary);
 	--hx-sidebar-brand-logo-border-radius: 				.625rem;
 	--hx-sidebar-brand-logo-color: 						white;
-	--hx-sidebar-brand-logo-width: 						2.75;
-	--hx-sidebar-brand-logo-height: 					2.75;
+	--hx-sidebar-brand-logo-width: 						2.25rem;
+	--hx-sidebar-brand-logo-height: 					2.25rem;
 	--hx-sidebar-brand-name-color: 						var(--bs-dark);
 	--hx-sidebar-brand-name-font-weight: 				600;
 	--hx-sidebar-footer-padding: 						1rem;
