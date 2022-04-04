@@ -7,9 +7,7 @@
 	element.addEventListener('hidden.bs.dropdown', handleDropdownHidden);
 
 	if (reference) {
-		console.warn(reference);
 		var referenceOption = document.querySelector(reference);
-		console.warn(referenceOption);
 		var d = new bootstrap.Dropdown(element, {
 			reference: referenceOption
 		});

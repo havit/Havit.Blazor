@@ -512,11 +512,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				genericParameterNames.Add(genericArgumentNamesFromFullTypeName[i].Trim());
 			}
 
-			foreach (var parameter in genericParameterNames)
-			{
-				Console.WriteLine(parameter);
-			}
-
 			if (genericParameterNames is null || genericParameterNames.Count == 0)
 			{
 				return null;
