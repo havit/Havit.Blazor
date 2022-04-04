@@ -6,15 +6,14 @@
              Placeholder="Search"
              OnItemSelected="OnItemSelected"
              AllowTextQuery="true"
-             Delay="5000"
              @bind-TextQuery="textQuery"
              OnTextQueryTriggered="OnTextQueryTriggered">
-    @*    <DefaultContentTemplate>
+    <DefaultContentTemplate>
         DefaultContentTemplate
-        </DefaultContentTemplate>
-        <NotFoundTemplate>
+    </DefaultContentTemplate>
+    <NotFoundTemplate>
         NotFoundTemplate
-        </NotFoundTemplate>*@
+    </NotFoundTemplate>
 </HxSearchBox>
 
 <p class="mt-3">
@@ -30,24 +29,9 @@
 
     List<SearchBoxItem> Data { get; set; } = new()
         {
-            new()
-            {
-                Title = "Table",
-                Subtitle = "50 000",
-                Icon = BootstrapIcon.Table
-            },
-            new()
-            {
-                Title = "Mouse",
-                Subtitle = "400",
-                Icon = BootstrapIcon.Mouse
-            },
-            new()
-            {
-                Title = "Door",
-                Subtitle = "1000",
-                Icon = BootstrapIcon.DoorClosed
-            }
+            new() { Title = "Table", Subtitle = "50 000", Icon = BootstrapIcon.Table },
+            new() { Title = "Mouse", Subtitle = "400", Icon = BootstrapIcon.Mouse },
+            new() { Title = "Door", Subtitle = "1000", Icon = BootstrapIcon.DoorClosed }
         };
 
     private void OnItemSelected(SearchBoxItem item)
@@ -62,11 +46,11 @@
 
     private async Task<SearchBoxDataProviderResult<SearchBoxItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
     {
-        await Task.Delay(500); // imitate slower server API
+        await Task.Delay(400); // imitate slower server API
 
         return new()
             {
-                Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(request.UserInput)).ToArray()
+                Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
             };
     }
 
