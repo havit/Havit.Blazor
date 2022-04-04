@@ -1,5 +1,6 @@
 :root {
 	--hx-sidebar-width: 320px;
+	--hx-sidebar-brand-logo-background-color: unset;
 }
 
 #blazor-error-ui {
