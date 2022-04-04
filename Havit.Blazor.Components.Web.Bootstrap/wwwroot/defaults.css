@@ -5,9 +5,7 @@
 	/* HxAutosuggest */
 	--hx-autosuggest-input-close-icon-opacity: .25;
 	/* HxSidebar */
-	--hx-sidebar-box-shadow: 							0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* shadow-sm */
 	--hx-sidebar-background-color: 						transparent;
-	--hx-sidebar-border: 								1px solid var(--bs-gray-200);
 	--hx-sidebar-collapsed-width: 						72px;
 	--hx-sidebar-width: 								250px;
 	--hx-sidebar-toggler-border: 						1px solid var(--bs-gray-200);
@@ -27,7 +25,7 @@
 	--hx-sidebar-subitem-margin: 						0 0 .25rem 2.25rem;
 	--hx-sidebar-header-padding: 						1rem;
 	--hx-sidebar-body-padding: 							0 1rem;
-	--hx-sidebar-brand-logo-background-color: 			var(--bs-primary);
+	--hx-sidebar-brand-logo-background-color: 			unset;
 	--hx-sidebar-brand-logo-border-radius: 				.625rem;
 	--hx-sidebar-brand-logo-color: 						white;
 	--hx-sidebar-brand-logo-width: 						2.25rem;
