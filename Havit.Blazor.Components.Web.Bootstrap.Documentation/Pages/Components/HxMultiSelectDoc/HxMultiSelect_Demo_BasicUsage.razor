@@ -5,7 +5,7 @@
                @bind-Value="@selectedPersonsInitials"
                TextSelector="@(p => p.Name)"
                ValueSelector="@(p => p.Initials)"
-               EmptyText="-- pick here --"
+               EmptyText="-select values-"
                NullDataText="Loading band members..." />
 
 <p class="mt-3">Selected initials: @String.Join(' ', selectedPersonsInitials)</p>
@@ -16,8 +16,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-		await base.OnInitializedAsync();
-		await Task.Delay(3000);
+		await Task.Delay(1000); // simulates slow server API call
 
         people = new List<Person>
         {
@@ -28,5 +27,5 @@
         };
     }
 
-    internal record Person(string Name, string Initials);
+    private record Person(string Name, string Initials);
 }
