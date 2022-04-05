@@ -4,7 +4,7 @@
     max-height: var(--hx-multi-select-dropdown-menu-height);
 }
 
-.form-control[readonly] {
+.form-control[readonly]:not([disabled]) {
     background-color: var(--hx-multi-select-background-color);
 }
 
