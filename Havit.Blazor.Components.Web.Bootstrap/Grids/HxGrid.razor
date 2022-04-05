@@ -163,47 +163,47 @@
 					{
 
 						RenderFragment<TItem> rowTemplate = (TItem item) =>@<text>
-					@if (SelectionEnabled || MultiSelectionEnabled)
-					{
-						<tr role="button"
-							height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
-							class="@CssClassHelper.Combine(
-													ItemRowCssClassEffective,
-													ItemRowCssClassSelector?.Invoke(item),
-													((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null))"
-							@onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)"
-							@onclick:stopPropagation>
+					        @if (SelectionEnabled || MultiSelectionEnabled)
+					        {
+						        <tr role="button"
+							        height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
+							        class="@CssClassHelper.Combine(
+													        ItemRowCssClassEffective,
+													        ItemRowCssClassSelector?.Invoke(item),
+													        ((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null))"
+							        @onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)"
+							        @onclick:stopPropagation>
 
-							@foreach (IHxGridColumn<TItem> column in columnsToRender)
-							{
-								// same as below in the else section
-								CellTemplate cellTemplate = column.GetItemCellTemplate(item);
-								<td class="@cellTemplate.CssClass">
-									<UpdatedContentRenderer Component="column">
-										@cellTemplate.Template
-									</UpdatedContentRenderer>
-								</td>
-							}
-						</tr>
-					}
-					else
-					{
-						// !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
-						<tr height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
-							class="@CssClassHelper.Combine(ItemRowCssClassEffective, ItemRowCssClassSelector?.Invoke(item))"
-							@onclick:stopPropagation>
-							@foreach (IHxGridColumn<TItem> column in columnsToRender)
-							{
-								// same as above this else section
-								CellTemplate cellTemplate = column.GetItemCellTemplate(item);
-								<td class="@cellTemplate.CssClass">
-									<UpdatedContentRenderer Component="column">
-										@cellTemplate.Template
-									</UpdatedContentRenderer>
-								</td>
-							}
-						</tr>
-					}
+							        @foreach (IHxGridColumn<TItem> column in columnsToRender)
+							        {
+								        // same as below in the else section
+								        CellTemplate cellTemplate = column.GetItemCellTemplate(item);
+								        <td class="@cellTemplate.CssClass">
+									        <UpdatedContentRenderer Component="column">
+										        @cellTemplate.Template
+									        </UpdatedContentRenderer>
+								        </td>
+							        }
+						        </tr>
+					        }
+					        else
+					        {
+						        // !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
+						        <tr height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
+							        class="@CssClassHelper.Combine(ItemRowCssClassEffective, ItemRowCssClassSelector?.Invoke(item))"
+							        @onclick:stopPropagation>
+							        @foreach (IHxGridColumn<TItem> column in columnsToRender)
+							        {
+								        // same as above this else section
+								        CellTemplate cellTemplate = column.GetItemCellTemplate(item);
+								        <td class="@cellTemplate.CssClass">
+									        <UpdatedContentRenderer Component="column">
+										        @cellTemplate.Template
+									        </UpdatedContentRenderer>
+								        </td>
+							        }
+						        </tr>
+					        }
 						</text>;
 
 				@if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)

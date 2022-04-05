@@ -2,7 +2,7 @@
 @implements IDisposable
 <h1>Issue 102</h1>
 
-<HxGrid @ref="gridComponent" TItem="int" DataProvider="GetData">
+<HxGrid @ref="gridComponent" TItem="int" DataProvider="GetData" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll" >
     <Columns>
         <HxGridColumn TItem="int" HeaderText="Number" ItemTextSelector="@(i => i.ToString())" />
     </Columns>
@@ -26,10 +26,10 @@
     {
         counter += 1;
 
-        if (counter >= 20)
+        if (counter >= 10)
         {
             timer.Stop();
-        }
+        }                                               
 
         InvokeAsync(async () =>
         {

@@ -280,7 +280,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (firstRender && (ContentNavigationModeEffective == GridContentNavigationMode.Pagination))
 			{
-				await RefreshPaginationDataCoreAsync(renderOnSuccess: true);
+				await RefreshPaginationDataCoreAsync();
 			}
 
 			// when rendering page with no data, navigate one page back
@@ -288,7 +288,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				paginationDecreasePageIndexAfterRender = false;
 				await SetCurrentPageIndexWithEventCallback(CurrentUserState.PageIndex - 1);
-				await RefreshPaginationDataCoreAsync(true);
+				await RefreshPaginationDataCoreAsync();
 			}
 
 			firstRenderCompleted = true;
@@ -420,10 +420,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			switch (ContentNavigationModeEffective)
 			{
 				case GridContentNavigationMode.Pagination:
-					// We don't auto-render after this operation because in the typical use case, the
-					// host component calls this from one of its lifecycle methods, and will naturally
-					// re-render afterwards anyway. It's not desirable to re-render twice.
-					await RefreshPaginationDataCoreAsync(renderOnSuccess: false);
+					await RefreshPaginationDataCoreAsync();
 					break;
 
 				case GridContentNavigationMode.InfiniteScroll:
@@ -438,7 +435,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private async ValueTask RefreshPaginationDataCoreAsync(bool renderOnSuccess = false)
+		private async ValueTask RefreshPaginationDataCoreAsync()
 		{
 			Contract.Requires(ContentNavigationModeEffective == GridContentNavigationMode.Pagination);
 
@@ -507,10 +504,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
 				}
 
-				if (renderOnSuccess)
-				{
-					StateHasChanged();
-				}
+				// hide InProgress & show data
+				StateHasChanged();
 			}
 		}
 
@@ -528,6 +523,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (!request.CancellationToken.IsCancellationRequested)
 			{
+				// hide InProgress
 				StateHasChanged();
 			}
 
