@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Havit.Blazor.Components.Web.Bootstrap.Forms;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
@@ -15,8 +16,38 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// </summary>
 /// <typeparam name="TValue">Type of values.</typeparam>
 /// <typeparam name="TItem">Type of items.</typeparam>
-public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
+public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWithSize
 {
+	/// <summary>
+	/// Return <see cref="HxMultiSelect{TValue, TItem}"/> defaults.
+	/// Enables to not share defaults in descandants with base classes.
+	/// Enables to have multiple descendants which differs in the default values.
+	/// </summary>
+	protected virtual MultiSelectSettings GetDefaults() => HxMultiSelect.Defaults;
+
+	/// <summary>
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxMultiSelect.Defaults"/>, overriden by individual parameters).
+	/// </summary>
+	[Parameter] public MultiSelectSettings Settings { get; set; }
+
+	/// <summary>
+	/// Returns optional set of component settings.
+	/// </summary>
+	/// <remarks>
+	/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// </remarks>
+	protected virtual MultiSelectSettings GetSettings() => this.Settings;
+
+	/// <summary>
+	/// Size of the input.
+	/// </summary>
+	[Parameter] public InputSize? InputSize { get; set; }
+	protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxMultiSelect) + " has to be set.");
+	InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
+	string IInputWithSize.GetInputSizeCssClass() => this.InputSizeEffective.AsFormSelectCssClass();
+
+	private protected override string CoreInputCssClass => "form-select user-select-none";
+
 	/// <summary>
 	/// Items to display. 
 	/// </summary>

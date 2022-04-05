@@ -12,7 +12,7 @@
             @ref="inputElement"
             type="text"
             id="@InputId"
-            class="@(CssClassHelper.Combine("form-control form-select user-select-none", InputCssClass))"
+            class="@InputCssClass"
             value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
             disabled="@(!enabled)"
             readonly="true" />

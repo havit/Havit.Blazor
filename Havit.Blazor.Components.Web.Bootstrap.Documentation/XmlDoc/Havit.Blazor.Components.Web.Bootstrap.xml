@@ -3568,6 +3568,31 @@
             <typeparam name="TValue">Type of values.</typeparam>
             <typeparam name="TItem">Type of items.</typeparam>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.GetDefaults">
+            <summary>
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect.Defaults"/>, overriden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.GetSettings">
+            <summary>
+            Returns optional set of component settings.
+            </summary>
+            <remarks>
+            Simmilar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.Settings"/> in components descandants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputSize">
+            <summary>
+            Size of the input.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.Data">
             <summary>
             Items to display. 
@@ -3621,6 +3646,16 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.GetChipRemoveValue">
             <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect">
+            <summary>
+            Non-generic API for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2"/>.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2">
             <summary>
@@ -3795,7 +3830,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.GetDefaults">
             <summary>
-            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1"/> defaults.
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/> defaults.
             Enables to not share defaults in descandants with base classes.
             Enables to have multiple descendants which differs in the default values.
             </summary>
@@ -4102,6 +4137,16 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating">
             <summary>
             <see href="https://getbootstrap.com/docs/5.0/forms/floating-labels/">Floating label</see>. (Not supported on all components.)
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.InputSize">
+            <summary>
+            Input size.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox">
