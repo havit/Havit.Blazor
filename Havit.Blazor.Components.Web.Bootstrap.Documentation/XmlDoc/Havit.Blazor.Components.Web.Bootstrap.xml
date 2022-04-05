@@ -2843,6 +2843,18 @@
             CSS class used for invalid input.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GetDefaults">
+            <summary>
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ValidationMessageDisplayMode">
+            <summary>
+            Spe
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FormState">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.FormState" />
         </member>
@@ -3054,6 +3066,16 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ThrowIfNotEnabled">
             <summary>
             Throws <see cref="T:System.InvalidOperationException" /> when the component is disabled.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase">
+            <summary>
+            Non-generic API for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1"/> and derived components.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1">
@@ -3940,6 +3962,11 @@
             Mutual exclusive with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.For"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldName"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.DisplayMode">
+            <summary>
+            Specifies how the validation message should be displayed.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.#ctor">
             <summary>
             Constructs an instance of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1"/>.
@@ -4107,6 +4134,16 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputSizeExtensions.AsFormSelectCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
             <summary>
             Returns CSS class to render select (form-select) with desired size.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputsSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputsSettings.ValidationMessageDisplayMode">
+            <summary>
+            Specifies how the validation message should be displayed.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings">
@@ -4415,6 +4452,31 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.InputSize">
             <summary>
             Input size.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode">
+            <summary>
+            Validation message display mode.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.Regular">
+            <summary>
+            Validation message is displayed in the regular way.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.Tooltip">
+            <summary>
+            Validation message is displayed as a tooltip.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.KeepSpace">
+            <summary>
+            Validation message with space reservation.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayModeExtensions">
+            <summary>
+            Extension methods to <see cref="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode" />.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CellTemplate">

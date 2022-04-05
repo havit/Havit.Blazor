@@ -47,6 +47,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string[] ForFieldNames { get; set; }
 
 		/// <summary>
+		/// Specifies how the validation message should be displayed.
+		/// </summary>
+		[Parameter] public ValidationMessageDisplayMode DisplayMode { get; set; } = ValidationMessageDisplayMode.Regular;
+
+		/// <summary>
 		/// Constructs an instance of <see cref="HxValidationMessage{TValue}"/>.
 		/// </summary>
 		public HxValidationMessage()
@@ -113,7 +118,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				builder.CloseElement();
 
 				builder.OpenElement(200, "div");
-				builder.AddAttribute(201, "class", "invalid-tooltip");
+				builder.AddAttribute(201, "class", DisplayMode.AsCssClass());
 
 				bool firstRendered = false;
 				foreach (string message in messages)

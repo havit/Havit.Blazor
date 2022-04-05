@@ -22,6 +22,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public const string InvalidCssClass = "is-invalid";
 
+		/// <summary>
+		/// Return <see cref="HxInputBase{TValue}"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual InputsSettings GetDefaults() => HxInputBase.Defaults;
+
+		/// <summary>
+		/// Spe
+		/// </summary>
+		[Parameter] public ValidationMessageDisplayMode? ValidationMessageDisplayMode { get; set; }
+		protected ValidationMessageDisplayMode ValidationMessageDisplayModeEffective => this.ValidationMessageDisplayMode ?? /*this.Settings?.ShowPredefinedDates ??*/ GetDefaults().ValidationMessageDisplayMode ?? throw new InvalidOperationException(nameof(ValidationMessageDisplayMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
+
 		/// <inheritdoc cref="Web.FormState" />
 		[CascadingParameter] protected FormState FormState { get; set; }
 		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
@@ -301,6 +314,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.EditContext), autoCreatedEditContext);
 				}
 				builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.For), ValueExpression);
+				builder.AddAttribute(4, nameof(HxValidationMessage<TValue>.DisplayMode), ValidationMessageDisplayModeEffective);
 				builder.CloseComponent();
 			}
 		}
