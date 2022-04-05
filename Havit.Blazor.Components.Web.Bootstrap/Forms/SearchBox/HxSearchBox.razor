@@ -7,7 +7,7 @@
 		<HxDropdownToggleElement
 			@ref="dropdownToggle"
 			ElementName="div"
-			CssClass="@(initialized ? null : "disabled")"
+			CssClass="@(initialized || DefaultContentTemplate is not null ? null : "disabled")"
 			DropdownReference="@("#" + dropdownId)"
 			DropdownOffset="@DropdownOffset"
 			OnShown="OnDropdownMenuShown"

@@ -301,7 +301,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	protected async Task HandleTextQueryTriggered()
 	{
-		if (AllowTextQuery)
+		if (AllowTextQuery && (TextQuery.Length >= MinimumLengthEffective || TextQuery.Length == 0))
 		{
 			await HideDropdownMenu();
 			await InvokeOnTextQueryTriggeredAsync(this.TextQuery);
