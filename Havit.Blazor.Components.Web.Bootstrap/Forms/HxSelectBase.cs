@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public abstract class HxSelectBase<TValue, TItem> : HxInputBase<TValue>, IInputWithSize
 	{
 		/// <summary>
-		/// Return <see cref="HxInputNumber{TValue}"/> defaults.
+		/// Return <see cref="HxSelect{TValue, TItem}"/> defaults.
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
