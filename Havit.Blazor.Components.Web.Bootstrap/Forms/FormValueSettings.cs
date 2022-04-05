@@ -1,6 +1,6 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Forms
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Settings for the <see cref="HxFormValue"/> and derived components.
