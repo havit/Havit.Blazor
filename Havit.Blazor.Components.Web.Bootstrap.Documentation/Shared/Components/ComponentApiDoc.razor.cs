@@ -103,7 +103,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			var properties = GetProperties(reader);
 			this.properties = properties.properties;
 			parameters = properties.parameters;
-			parameters.OrderByDescending(p => p.EditorRequired);
+			parameters = parameters.OrderByDescending(p => p.EditorRequired).ToList();
 
 			staticProperties = properties.staticProperties;
 			events = properties.events;
@@ -215,7 +215,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			List<Property> staticProperties = new();
 			List<Property> events = new();
 
-			foreach (var property in Type.GetProperties(bindingFlags))
+			List<PropertyInfo> propertyInfos = Type.GetProperties(bindingFlags).ToList();
+
+			// Generic components have their defaults stored in a separate non-generic class to simplify access, therefore, we have to load this classes properties as well.
+			if (Type.IsGenericType)
+			{
+				Type nongenericType = Type.GetType($"Havit.Blazor.Components.Web.Bootstrap.{RemoveSpecialCharacters(Type.Name)}, Havit.Blazor.Components.Web.Bootstrap");
+				if (nongenericType is not null)
+				{
+					propertyInfos = propertyInfos.Concat(nongenericType.GetProperties(bindingFlags)).ToList();
+				}
+			}
+
+			foreach (var property in propertyInfos)
 			{
 				Property newProperty = new();
 				newProperty.PropertyInfo = property;
@@ -228,8 +240,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				newProperty.Comments = reader.GetMemberComments(property);
 				if (string.IsNullOrWhiteSpace(newProperty.Comments.Summary))
 				{
-					string summary = string.Empty;
-					inputBaseSummaries.TryGetValue(newProperty.PropertyInfo.Name, out summary);
+					inputBaseSummaries.TryGetValue(newProperty.PropertyInfo.Name, out string summary);
 					if (summary is not null)
 					{
 						newProperty.Comments.Summary = summary;
