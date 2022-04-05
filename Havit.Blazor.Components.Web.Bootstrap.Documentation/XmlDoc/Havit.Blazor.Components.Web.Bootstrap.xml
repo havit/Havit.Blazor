@@ -3506,6 +3506,13 @@
             Simmilar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.Settings"/> in components descandants (by returning a derived settings class).
             </remarks>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.MaxLength">
+            <summary>
+            The maximum number of characters (UTF-16 code units) that the user can enter.<br />
+            If parameter value isn't specified, <see cref="T:System.ComponentModel.DataAnnotations.MaxLengthAttribute"/> of the <c>Value</c> is checked and used.<br />
+            If not specified either, the user can enter an unlimited number of characters.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.InputMode">
             <summary>
             Hint to browsers as to the type of virtual keyboard configuration to use when editing.<br/>
