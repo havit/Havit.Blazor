@@ -263,6 +263,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxMessenger", "HxMessenger", "popup warning alert toaster"),
 
 			new("/components/HxToast", "HxToast", "messenger"),
+			new("/components/HxSearchBox", "HxSearchBox", "autosuggest autocomplete searchbar omnibox input"),
 
 			new("/components/HxTreeView", "HxTreeView", "hierarchy"),
 
