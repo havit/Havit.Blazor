@@ -157,9 +157,9 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(106, nameof(HxMultiSelectInternal<TValue, TItem>.TextSelector), TextSelector);
 		builder.AddAttribute(107, nameof(HxMultiSelectInternal<TValue, TItem>.ValueSelector), ValueSelector);
 		builder.AddAttribute(108, nameof(HxMultiSelectInternal<TValue, TItem>.Value), Value);
-		builder.AddAttribute(108, nameof(HxMultiSelectInternal<TValue, TItem>.NullDataText), NullDataText);
-		builder.AddAttribute(109, nameof(HxMultiSelectInternal<TValue, TItem>.ItemSelectionChanged), EventCallback.Factory.Create<HxMultiSelectInternal<TValue, TItem>.SelectionChangedArgs>(this, args => HandleItemSelectionChanged(args.Checked, args.Item)));
-		builder.AddComponentReferenceCapture(110, r => hxMultiSelectInternalComponent = (HxMultiSelectInternal<TValue, TItem>)r);
+		builder.AddAttribute(109, nameof(HxMultiSelectInternal<TValue, TItem>.NullDataText), NullDataText);
+		builder.AddAttribute(110, nameof(HxMultiSelectInternal<TValue, TItem>.ItemSelectionChanged), EventCallback.Factory.Create<HxMultiSelectInternal<TValue, TItem>.SelectionChangedArgs>(this, args => HandleItemSelectionChanged(args.Checked, args.Item)));
+		builder.AddComponentReferenceCapture(111, r => hxMultiSelectInternalComponent = (HxMultiSelectInternal<TValue, TItem>)r);
 
 		builder.CloseComponent();
 	}
