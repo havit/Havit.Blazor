@@ -6,7 +6,7 @@
 <HxInputSwitch Label="Enabled" @bind-Value="@enabled" />
 
 <EditForm Model="@model">
-	<HxMultiSelect TItem="CultureInfo" TValue="string" Label="Cultures" EmptyText="(nothing)" TextSelector="@(item => item.EnglishName)" ValueSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" Enabled="@enabled" />
+	<HxMultiSelect TItem="CultureInfo" TValue="string" Label="Cultures" EmptyText="(nothing)" TextSelector="@(item => item.EnglishName)" ValueSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" NullDataText="loading..." Enabled="@enabled" />
 </EditForm>
 
 <p>Selected values: @String.Join(", ", model.CultureInfos ?? Enumerable.Empty<string>())</p>
@@ -15,11 +15,19 @@
 {
 	private bool enabled = true;
 	private Model model = new Model();
-	private List<CultureInfo> data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+	private List<CultureInfo> data;
+
+	protected override async Task OnParametersSetAsync()
+	{
+		await base.OnParametersSetAsync();
+		await Task.Delay(3000);
+
+		data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
 		.OrderBy(item => item.EnglishName)
 		.Take(100)
 		.OrderByDescending(i => i.ToString()) // sorting test
 		.ToList();
+	}
 
 	private class Model
 	{

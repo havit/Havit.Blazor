@@ -2,20 +2,24 @@
 @typeparam TValue
 @typeparam TItem
 
+@{
+    bool enabled = EnabledEffective && (ItemsToRender != null);
+}
+
 <div class="hx-checkbox-dropdownlist dropdown" role="listbox">
-    <div data-bs-toggle="@(EnabledEffective ? "dropdown" : null)" data-bs-auto-close="outside">
+    <div data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
         <input
             @ref="inputElement"
             type="text"
             id="@InputId"
             class="@(CssClassHelper.Combine("form-control form-select user-select-none", InputCssClass))"
-            value="@InputText"
-            disabled="@(!EnabledEffective)"
+            value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
+            disabled="@(!enabled)"
             readonly="true" />
     </div>
 
     <ul class="dropdown-menu"> @* Must be always rendered otherwise does not work after disable->enabled scenario *@
-        @if (EnabledEffective)
+        @if (enabled)
         {
             for (int i = 0; i < ItemsToRender.Count; i++)
             {

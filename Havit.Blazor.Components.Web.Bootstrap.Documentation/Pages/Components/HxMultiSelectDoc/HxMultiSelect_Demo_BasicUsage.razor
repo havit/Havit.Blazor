@@ -5,7 +5,8 @@
                @bind-Value="@selectedPersonsInitials"
                TextSelector="@(p => p.Name)"
                ValueSelector="@(p => p.Initials)"
-               EmptyText="-- pick here --" />
+               EmptyText="-- pick here --"
+               NullDataText="Loading band members..." />
 
 <p class="mt-3">Selected initials: @String.Join(' ', selectedPersonsInitials)</p>
 
@@ -13,8 +14,11 @@
     private List<Person> people;
     private List<string> selectedPersonsInitials { get; set; } = new();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
+		await base.OnInitializedAsync();
+		await Task.Delay(3000);
+
         people = new List<Person>
         {
             new Person("Starr Ringo", "RS"),

@@ -51,15 +51,20 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
 	/// </summary>
 	[Parameter] public string EmptyText { get; set; }
 
+	/// <summary>
+	/// Text to display when <see cref="Data"/> is <c>null</c>.
+	/// </summary>
+	[Parameter] public string NullDataText { get; set; }
+
 	private List<TItem> itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
 
 	private void RefreshState()
 	{
-		itemsToRender = Data?.ToList() ?? new List<TItem>();
+		itemsToRender = Data?.ToList();
 
 		// AutoSort
-		if (AutoSort && (itemsToRender.Count > 1))
+		if (AutoSort && (itemsToRender?.Count > 1))
 		{
 			if (SortKeySelector != null)
 			{
@@ -122,6 +127,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
 		builder.AddAttribute(106, nameof(HxMultiSelectInternal<TValue, TItem>.TextSelector), TextSelector);
 		builder.AddAttribute(107, nameof(HxMultiSelectInternal<TValue, TItem>.ValueSelector), ValueSelector);
 		builder.AddAttribute(108, nameof(HxMultiSelectInternal<TValue, TItem>.Value), Value);
+		builder.AddAttribute(108, nameof(HxMultiSelectInternal<TValue, TItem>.NullDataText), NullDataText);
 		builder.AddAttribute(109, nameof(HxMultiSelectInternal<TValue, TItem>.ItemSelectionChanged), EventCallback.Factory.Create<HxMultiSelectInternal<TValue, TItem>.SelectionChangedArgs>(this, args => HandleItemSelectionChanged(args.Checked, args.Item)));
 		builder.AddComponentReferenceCapture(110, r => hxMultiSelectInternalComponent = (HxMultiSelectInternal<TValue, TItem>)r);
 
@@ -131,9 +137,10 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>
 	/// <inheritdoc />
 	protected override string FormatValueAsString(List<TValue> value)
 	{
-		// Used for CurrentValueAsString (which is used for the input element and for the chip generator.
+		// Used for CurrentValueAsString (which is used for the input element and for the chip generator).
+		// Thats why we do not use NullDataText here.
 
-		if (!value?.Any() ?? true)
+		if ((!value?.Any() ?? true) || (Data == null))
 		{
 			// don't care about chip generator, it does not call this method for null/empty value
 			return EmptyText;

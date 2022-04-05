@@ -25,6 +25,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public List<TValue> Value { get; set; }
 
+		[Parameter] public string NullDataText { get; set; }
+
 		[Parameter] public EventCallback<SelectionChangedArgs> ItemSelectionChanged { get; set; }
 
 		private ElementReference inputElement;

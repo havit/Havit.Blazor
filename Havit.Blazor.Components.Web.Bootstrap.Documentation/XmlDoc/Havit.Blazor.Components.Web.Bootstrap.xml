@@ -3602,6 +3602,11 @@
             Text to display when the selection is empty (the <c>Value</c> property is <c>null</c> or empty).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.NullDataText">
+            <summary>
+            Text to display when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.Data"/> is <c>null</c>.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FocusAsync">
             <inheritdoc cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FocusAsync"/>
         </member>
