@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Displays the content of the component as "in progress".
 	/// </summary>
-	public partial class HxProgressIndicator
+	public partial class HxProgressIndicator : IDisposable
 	{
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxProgressIndicator"/>.
@@ -58,67 +58,79 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected EventCallback<bool> ProgressIndicatorVisibleChanged { get; set; }  // TODO Needed?
 
 		private bool progressIndicatorVisible;
-		private CancellationTokenSource delayCancellationTokenSource;
+		private System.Timers.Timer timer;
 
 		protected override async Task OnParametersSetAsync()
 		{
 			await base.OnParametersSetAsync();
-
 			bool shouldBeProgressIndicatorVisible = InProgress;
 
 			if (shouldBeProgressIndicatorVisible && !progressIndicatorVisible)
 			{
 				// start showing progress indicator (when not already started)
-				StartInProgressWithDelay();
+				if (DelayEffective == 0)
+				{
+					await StartInProgressAsync();
+				}
+				else
+				{
+					StartInProgressWithDelay();
+				}
 			}
 			else if (!shouldBeProgressIndicatorVisible)
 			{
+				timer?.Stop();
 				if (progressIndicatorVisible)
 				{
-					// hide progress indicator if visible
+					// hide progress indicator if visible					
 					progressIndicatorVisible = false;
 					await ProgressIndicatorVisibleChanged.InvokeAsync(progressIndicatorVisible);
 				}
-
-				if (delayCancellationTokenSource != null)
-				{
-					// cancel showing progress indicator
-					delayCancellationTokenSource.Cancel();
-					delayCancellationTokenSource = null;
-				}
 			}
+		}
+
+		private async Task StartInProgressAsync()
+		{
+			progressIndicatorVisible = true;
+			await ProgressIndicatorVisibleChanged.InvokeAsync(progressIndicatorVisible);
 		}
 
 		private void StartInProgressWithDelay()
 		{
-			if (delayCancellationTokenSource == null)
+			if (timer == null)
 			{
-				delayCancellationTokenSource = new CancellationTokenSource();
-				CancellationToken cancellationToken = delayCancellationTokenSource.Token;
-
-				Task.Run(async () =>
+				timer = new System.Timers.Timer();
+				timer.AutoReset = false; // run once
+				timer.Elapsed += (_, _) =>
 				{
-					try
+					_ = InvokeAsync(async () =>
 					{
-						await Task.Delay(DelayEffective, cancellationToken);
-					}
-					catch (TaskCanceledException)
-					{
-						// NOOP
-					}
-
-					if (!cancellationToken.IsCancellationRequested)
-					{
-						await InvokeAsync(async () =>
+						// condition InProgress:
+						// Critical for times around TimerDelay - timer can rise elapsed and InvokeAsync "plan" the action to run.
+						// But before it is run, OnParametersSetAsync can be called and switch of the progress bar.
+						if (InProgress)
 						{
-							progressIndicatorVisible = true;
-							await ProgressIndicatorVisibleChanged.InvokeAsync(progressIndicatorVisible);
+							await StartInProgressAsync();
 							StateHasChanged();
-						});
-					}
-				});
+						}
+					});
+				};
 			}
+			timer.Interval = DelayEffective;
+			timer.Start(); // does nothing when already started (that's what we need here)
 		}
 
+		public void Dispose()
+		{
+			Dispose(true);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				timer?.Dispose();
+			}
+		}
 	}
 }
