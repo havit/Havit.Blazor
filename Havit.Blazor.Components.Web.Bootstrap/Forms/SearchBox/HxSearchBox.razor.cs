@@ -349,7 +349,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	public async ValueTask DisposeAsync()
 	{
-		await DisposeAsyncCore().ConfigureAwait(false);
+		await DisposeAsyncCore();
 	}
 
 	protected virtual async ValueTask DisposeAsyncCore()
