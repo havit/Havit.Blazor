@@ -214,10 +214,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private async Task HandleInputFocus()
 		{
 			// when an input gets focus, close a dropdown
-			if (!currentlyFocused)
-			{
-				await TryDestroyDropdownAsync();
-			}
 			currentlyFocused = true;
 
 			if (SuggestMinimumLengthEffective == 0)
@@ -383,15 +379,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[JSInvokable("HxInputTagsInternal_HandleDropdownHidden")]
 		public async Task HandleDropdownHidden()
-		{
-			isDropdownOpened = false;
-
+		{			
 			if (!currentlyFocused)
 			{
 				await TryProcessCustomTagsAsync();
 				userInput = String.Empty;
 				StateHasChanged();
 			}
+			await TryDestroyDropdownAsync();
 		}
 
 		protected async Task HandleRemoveClickAsync(string tag)
