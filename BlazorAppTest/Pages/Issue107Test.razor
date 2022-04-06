@@ -1,0 +1,43 @@
+﻿@page "/Issue107Test"
+<h1>Issue 107</h1>
+
+<HxTabPanel>
+    <HxTab Title="First">
+        <Content>
+            <HxGrid TItem="int" DataProvider="GetData">
+                <Columns>
+                    <HxGridColumn TItem="int" HeaderText="Number" ItemTextSelector="@(i => i.ToString())" />
+                    <HxGridColumn TItem="int" HeaderText="Number" ItemTextSelector="@(i => i.ToString())" />
+                    <HxGridColumn TItem="int" HeaderText="Number" ItemTextSelector="@(i => i.ToString())" />
+                </Columns>
+            </HxGrid>
+            </Content>
+    </HxTab>
+    <HxTab Title="Second">
+        <Content>
+
+        </Content>
+    </HxTab>
+</HxTabPanel>
+   
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await Task.Delay(100);
+        await Task.Delay(100);
+        await Task.Delay(100);
+    }
+
+    private async Task<GridDataProviderResult<int>> GetData(GridDataProviderRequest<int> request)
+    {
+        await Task.Delay(100);
+        return new GridDataProviderResult<int>
+        {
+            Data = Enumerable.Range(1, 10).ToList(),
+            TotalCount = 10
+        };
+    }
+
+}
