@@ -2,7 +2,7 @@
 @implements IDisposable
 <h1>Issue 102</h1>
 
-<HxGrid @ref="gridComponent" TItem="int" DataProvider="GetData" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll" >
+<HxGrid @ref="gridComponent" TItem="int" DataProvider="GetData">
     <Columns>
         <HxGridColumn TItem="int" HeaderText="Number" ItemTextSelector="@(i => i.ToString())" />
     </Columns>
