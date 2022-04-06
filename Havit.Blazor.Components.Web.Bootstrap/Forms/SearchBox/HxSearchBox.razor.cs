@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// A full-text search component.
+/// A search input component witch automatic suggestions, initial dropdown template and free-text queries support.
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 public partial class HxSearchBox<TItem> : IAsyncDisposable

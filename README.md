@@ -36,6 +36,8 @@
 * [`HxFormValue`](https://havit.blazor.eu/components/HxFormValue) - Displays a read-only value in the form control visual.
 * [`HxRadioButtonList`](https://havit.blazor.eu/components/HxRadioButtonList) - Select.
 * [`HxSelect`](https://havit.blazor.eu/components/HxSelect) - Select - DropDownList - single-item picker.
+* [`HxMultiSelect`](https://havit.blazor.eu/components/HxMultiSelect) - Unlike a normal select, multiselect allows the user to select multiple options at once.
+* [`HxSearchBox`](https://havit.blazor.eu/components/HxSearchBox) - A search input component witch automatic suggestions, initial dropdown template and free-text queries support.
 * [`HxFilterForm`](https://havit.blazor.eu/components/HxFilterForm) - Edit form derived from HxModelEditForm with support for chip generators.
 * [`HxValidationMessage`](https://havit.blazor.eu/components/HxValidationMessage) - Displays a list of validation messages for a specified field.
 
