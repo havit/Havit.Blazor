@@ -200,7 +200,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				await UpdateSuggestionsAsync();
 				return;
 			}
-			await DestroyDropdownAsync();
 		}
 
 		// Due to HTML update and Bootstrap Dropdown collision we are not allowed to re-render HTML in InputBlur!
@@ -338,7 +337,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				userInputModified = false;
 				StateHasChanged();
 			}
-			isDropdownOpened = false;
+			await DestroyDropdownAsync();
 		}
 		#endregion
 
