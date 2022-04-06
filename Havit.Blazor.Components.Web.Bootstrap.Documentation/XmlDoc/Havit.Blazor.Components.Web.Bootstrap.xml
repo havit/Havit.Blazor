@@ -4168,7 +4168,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1">
             <summary>
-            A full-text search component.
+            A search input component witch automatic suggestions, initial dropdown template and free-text queries support.
             </summary>
             <typeparam name="TItem"></typeparam>
         </member>
