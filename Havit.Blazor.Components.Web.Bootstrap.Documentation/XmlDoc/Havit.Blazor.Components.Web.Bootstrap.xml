@@ -7932,6 +7932,12 @@
             Selector to display icon from data item.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.ItemInitialExpandedSelector">
+            <summary>
+            Selector for initial expansion state for data item.<br/>
+            Default state is <c>false</c> (collapsed).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.ItemCssClass">
             <summary>
             Item CSS class (same for all items).

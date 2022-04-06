@@ -36,6 +36,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public Func<TItem, IconBase> ItemIconSelector { get; set; }
 
 		/// <summary>
+		/// Selector for initial expansion state for data item.<br/>
+		/// Default state is <c>false</c> (collapsed).
+		/// </summary>
+		[Parameter] public Func<TItem, bool> ItemInitialExpandedSelector { get; set; }
+
+		/// <summary>
 		/// Item CSS class (same for all items).
 		/// </summary>
 		[Parameter] public string ItemCssClass { get; set; }

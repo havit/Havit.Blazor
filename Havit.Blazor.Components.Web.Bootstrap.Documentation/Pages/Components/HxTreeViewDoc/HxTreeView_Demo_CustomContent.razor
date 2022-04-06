@@ -6,6 +6,7 @@
                     CssClass="border rounded p-2"
                     ItemCssClass="fst-italic"
                     ItemCssClassSelector="@(p => p.Name.Equals("Users") ? "text-primary" : String.Empty)"
+                    ItemInitialExpandedSelector="@(p => p.Name == "C:\\")"
                     ItemChildrenSelector="@(p => p.Subdirectories)"
                     ItemIconSelector="@(p => p.Icon)">
             <ItemTemplate>

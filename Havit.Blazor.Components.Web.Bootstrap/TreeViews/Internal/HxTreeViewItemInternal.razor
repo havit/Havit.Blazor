@@ -8,6 +8,7 @@
     var children = this.ChildrenSelector(this.Item);
     var hasChildren = children?.Any() ?? false;
     var isSelected = this.Item.Equals(this.TreeViewContainer.SelectedItem);
+    this.IsExpanded ??= this.InitialExpandedSelector?.Invoke(this.Item) ?? false;
 }
 
 <div class="@CssClassHelper.Combine("hx-tree-view-item", isSelected ? "selected" : "", this.CssClass, cssClassFromSelector)" @onclick="@HandleItemClicked" @onclick:stopPropagation="true">
@@ -18,7 +19,7 @@
     <div class="hx-tree-view-item-expander-container">
         @if (hasChildren)
         {
-            <div class="hx-tree-view-item-expander @(this.IsExpanded ? "expanded" : "")"  @onclick="HandleItemExpanderClicked" @onclick:stopPropagation="true">
+            <div class="hx-tree-view-item-expander @(this.IsExpanded.Value ? "expanded" : "")"  @onclick="HandleItemExpanderClicked" @onclick:stopPropagation="true">
                     <div>
                         <HxIcon Icon="@BootstrapIcon.ChevronRight" />
                     </div>
@@ -41,7 +42,7 @@
     }
 </div>
 
-@if (this.IsExpanded && hasChildren)
+@if (this.IsExpanded.Value && hasChildren)
 {
     foreach (var item in children)
     {
