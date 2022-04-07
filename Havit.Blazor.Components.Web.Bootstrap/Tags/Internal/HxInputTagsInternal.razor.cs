@@ -121,7 +121,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 			else
 			{
-				Value = new List<string>(Value); // do not change the insntace, create a copy!
+				Value = new List<string>(Value); // do not change the instance, create a copy!
 				Value.Add(tag);
 			}
 			await ValueChanged.InvokeAsync(Value);
@@ -379,7 +379,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[JSInvokable("HxInputTagsInternal_HandleDropdownHidden")]
 		public async Task HandleDropdownHidden()
-		{			
+		{
 			if (!currentlyFocused)
 			{
 				await TryProcessCustomTagsAsync();
