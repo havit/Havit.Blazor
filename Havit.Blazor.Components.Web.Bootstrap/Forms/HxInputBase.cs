@@ -364,7 +364,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			string fieldName = this.FieldIdentifier.FieldName; // carefully! don't use "this" in lambda below to allow it for GC
 			TValue value = GetChipRemoveValue(); // carefully! don't use the method call in lambda below to allow "this" for GC
-			Action<object> removeAction = (model) => model.GetType().GetProperty(fieldName).SetValue(model, value);
+			Action<object> removeAction = (model) =>
+			{
+				var propertyInfo = model.GetType().GetProperty(fieldName);
+				Contract.Assert(propertyInfo is not null, "Invalid FieldIdentifier. Check ValueExpression parameter.");
+				propertyInfo.SetValue(model, value);
+			};
 
 			return removeAction;
 		}
