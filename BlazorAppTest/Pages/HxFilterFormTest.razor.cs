@@ -40,6 +40,8 @@ namespace BlazorAppTest.Pages
 
 			public List<string> Tags { get; set; }
 
+			public ThemeColor Color { get; set; } = ThemeColor.Primary;
+
 			public object Clone() => MemberwiseClone();
 		}
 		#endregion

@@ -248,14 +248,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return true;
 		}
 
-		protected override void RenderChipGenerator(RenderTreeBuilder builder)
-		{
-			if (!String.IsNullOrEmpty(chipValue))
-			{
-				base.RenderChipGenerator(builder);
-			}
-		}
-
 		protected override void RenderChipValue(RenderTreeBuilder builder)
 		{
 			builder.AddContent(0, chipValue);

@@ -17,6 +17,11 @@
 	</HxInputText>
 	<HxInputNumber Label="Number 1" @bind-Value="@context.Number1" />
     <HxInputTags Label="Tags (ThemeColor)" @bind-Value="@context.Tags" DataProvider="GetTagsSuggestions"/>
+    <HxSelect Label="Select"
+        TItem="ThemeColor"
+        TValue="ThemeColor"
+        @bind-Value="@context.Color"
+        Data="Enum.GetValues<ThemeColor>()" />
 
 	<HxSubmit Text="Apply" Color="ThemeColor.Primary" />
 
