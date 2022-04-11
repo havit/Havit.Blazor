@@ -14,6 +14,13 @@ namespace BlazorAppTest.Pages
 
 		private HxFilterForm<FormModel> filterForm;
 		private ChipItem[] chips;
+		private ThemeColor[] selectData;
+
+		protected override async Task OnInitializedAsync()
+		{
+			await Task.Delay(100);
+			selectData = Enum.GetValues<ThemeColor>();
+		}
 
 		private void HandleChipsUpdated(ChipItem[] chips)
 		{
