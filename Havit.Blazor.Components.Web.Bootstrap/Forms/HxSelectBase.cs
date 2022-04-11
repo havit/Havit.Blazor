@@ -250,6 +250,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected override void RenderChipValue(RenderTreeBuilder builder)
 		{
+			if ((chipValue is null) && (Value != null) && (DataImpl != null))
+			{
+				// fallback for initial rendering without chipValue
+				var item = DataImpl.FirstOrDefault(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
+				chipValue = SelectorHelpers.GetText(TextSelectorImpl, item);
+			}
 			builder.AddContent(0, chipValue);
 		}
 
