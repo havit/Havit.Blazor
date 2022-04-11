@@ -5,44 +5,44 @@
 
 <h2>Client paging, auto sorting</h2>
 <HxGrid DataProvider="@ClientCultureInfosDataProvider" @bind-SelectedDataItem="@clientSideCurrentCultureInfo" PageSize="@PageSize" TableContainerCssClass="mt-5" HeaderRowCssClass="myheader">
-	<Columns>
-		<HxGridColumn TItem="CultureInfo" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
-			<HeaderTemplate Context="context">
-				Display Name (total count: @context.TotalCount)
-			</HeaderTemplate>
-		</HxGridColumn>
-		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
-		<HxGridColumn TItem="CultureInfo" HeaderText="Link">
-			<ItemTemplate>
-				<a href="https://www.havit.cz" @onclick:stopPropagation>link to a page</a> @* TODO HxLink, který bude mít default stopPropagation ??? *@
-				<HxButton Text="Go" Color="ThemeColor.Secondary" Outline="true" />
-			</ItemTemplate>
-		</HxGridColumn>
-	</Columns>
-	<ContextMenu Context="item">
-		<HxContextMenu>
-			<HxContextMenuItem Text="Nastavit jako výchozí" OnClick="async () => await AlarmClicked(item)" />
-			<HxContextMenuItem ConfirmationQuestion="Jako fakt?" OnClick="async () => await AlarmClicked(item)">
-				<HxIcon Icon="BootstrapIcon.Alarm" /> Bacha na to!
-			</HxContextMenuItem>
-			<HxContextMenuItem Enabled="false" Text="Disabled" OnClick="async () => await AlarmClicked(item)" />
-			<HxContextMenuItem Enabled="false" ConfirmationQuestion="Jako fakt na disabled prvku?" OnClick="async () => await AlarmClicked(item)">
-				<HxIcon Icon="BootstrapIcon.Alarm" /> Disabled with icon
-			</HxContextMenuItem>
-			<HxContextMenuItem Enabled="@item.Name.StartsWith("a")" Text="Conditionaly Disabled" OnClick="async () => await AlarmClicked(item)" />
+    <Columns>
+        <HxGridColumn TItem="CultureInfo" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
+            <HeaderTemplate Context="context">
+                Display Name (total count: @context.TotalCount)
+            </HeaderTemplate>
+        </HxGridColumn>
+        <HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+        <HxGridColumn TItem="CultureInfo" HeaderText="Link">
+            <ItemTemplate>
+                <a href="https://www.havit.cz" @onclick:stopPropagation>link to a page</a> @* TODO HxLink, který bude mít default stopPropagation ??? *@
+                <HxButton Text="Go" Color="ThemeColor.Secondary" Outline="true" />
+            </ItemTemplate>
+        </HxGridColumn>
+    </Columns>
+    <ContextMenu Context="item">
+        <HxContextMenu>
+            <HxContextMenuItem Text="Nastavit jako výchozí" OnClick="async () => await AlarmClicked(item)" />
+            <HxContextMenuItem ConfirmationQuestion="Jako fakt?" OnClick="async () => await AlarmClicked(item)">
+                <HxIcon Icon="BootstrapIcon.Alarm" /> Bacha na to!
+            </HxContextMenuItem>
+            <HxContextMenuItem Enabled="false" Text="Disabled" OnClick="async () => await AlarmClicked(item)" />
+            <HxContextMenuItem Enabled="false" ConfirmationQuestion="Jako fakt na disabled prvku?" OnClick="async () => await AlarmClicked(item)">
+                <HxIcon Icon="BootstrapIcon.Alarm" /> Disabled with icon
+            </HxContextMenuItem>
+            <HxContextMenuItem Enabled="@item.Name.StartsWith("a")" Text="Conditionaly Disabled" OnClick="async () => await AlarmClicked(item)" />
 
-		</HxContextMenu>
-	</ContextMenu>
+        </HxContextMenu>
+    </ContextMenu>
 </HxGrid>
 <p>Current CultureInfo: @clientSideCurrentCultureInfo?.DisplayName</p>
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
 
 <h2>Server paging, server sorting</h2>
 <HxGrid TItem="CultureInfo" @ref="serverSideGrid" @bind-SelectedDataItem="@serverSideCurrentCultureInfo" DataProvider="@ServerCultureInfosDataProvider" @bind-CurrentUserState="serverSideGridUserState" PageSize="@PageSize" MultiSelectionEnabled="@multiSelectionEnabled" SelectionEnabled="false">
-	<Columns>
-		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" FooterText="This is a footer" />
-		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />
-	</Columns>
+    <Columns>
+        <HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" FooterText="This is a footer" />
+        <HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />
+    </Columns>
 </HxGrid>
 <p>Current CultureInfo: @serverSideCurrentCultureInfo?.DisplayName</p>
 <HxButton Text="Toggle multiselect" Color="ThemeColor.Secondary" OnClick="() => multiSelectionEnabled = !multiSelectionEnabled" />
@@ -50,88 +50,90 @@
 
 <h2>Empty data with @nameof(HxGrid<object>.EmptyDataTemplate)</h2>
 <HxGrid TItem="CultureInfo" DataProvider="@EmptyCultureInfosDataProvider">
-	<Columns>
-		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" FooterText="This is a footer" />
-		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" />
-	</Columns>
-	<EmptyDataTemplate>
-		<HxButton Text="Create new item... " Color="ThemeColor.Primary" />
-	</EmptyDataTemplate>
+    <Columns>
+        <HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" FooterText="This is a footer" />
+        <HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" />
+    </Columns>
+    <EmptyDataTemplate>
+        <HxGridEmptyDataTemplateDefaultContent>
+            <HxButton Text="Create new item... " Color="ThemeColor.Primary" />
+        </HxGridEmptyDataTemplateDefaultContent>
+    </EmptyDataTemplate>
 </HxGrid>
 
 @code {
-	private const int PageSize = 10;
+    private const int PageSize = 10;
 
-	private HxGrid<CultureInfo>
-	serverSideGrid;
+    private HxGrid<CultureInfo>
+    serverSideGrid;
 
-	private bool multiSelectionEnabled = true;
-	private int skip = 0;
+    private bool multiSelectionEnabled = true;
+    private int skip = 0;
 
-	// LOCAL
-	private CultureInfo clientSideCurrentCultureInfo = null;
+    // LOCAL
+    private CultureInfo clientSideCurrentCultureInfo = null;
 
-	// SERVER SIDE (simulation)
-	private GridUserState<CultureInfo> serverSideGridUserState = new GridUserState<CultureInfo>();
-	private CultureInfo serverSideCurrentCultureInfo = null;
-	private CultureInfo clickedItem = null;
+    // SERVER SIDE (simulation)
+    private GridUserState<CultureInfo> serverSideGridUserState = new GridUserState<CultureInfo>();
+    private CultureInfo serverSideCurrentCultureInfo = null;
+    private CultureInfo clickedItem = null;
 
-	protected override Task OnInitializedAsync()
-	{
-		HxProgressIndicator.Defaults.Delay = 0; // TEST
+    protected override Task OnInitializedAsync()
+    {
+        HxProgressIndicator.Defaults.Delay = 0; // TEST
 
-		return base.OnInitializedAsync();
-	}
+        return base.OnInitializedAsync();
+    }
 
-	private List<CultureInfo> GetCultureInfos()
-	{
-		return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).Skip(skip).ToList();
-	}
+    private List<CultureInfo> GetCultureInfos()
+    {
+        return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).Skip(skip).ToList();
+    }
 
-	private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
-	{
-		await Task.Delay(3000); // simulate server call
+    private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+    {
+        await Task.Delay(3000); // simulate server call
 
-		var cultures = GetCultureInfos();
-		return request.ApplyTo(cultures);
-	}
+        var cultures = GetCultureInfos();
+        return request.ApplyTo(cultures);
+    }
 
-	private async Task<GridDataProviderResult<CultureInfo>> ServerCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
-	{
-		await Task.Delay(3000); // simulate server call
+    private async Task<GridDataProviderResult<CultureInfo>> ServerCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+    {
+        await Task.Delay(3000); // simulate server call
 
-		var cultures = GetCultureInfos();
-		cultures.Sort(request.Sorting.ToGenericPropertyComparer());
+        var cultures = GetCultureInfos();
+        cultures.Sort(request.Sorting.ToGenericPropertyComparer());
 
-		return new GridDataProviderResult<CultureInfo>()
-		{
-			TotalCount = cultures.Count(),
-			Data = cultures
-				.Skip(request.StartIndex)
-				.Take(PageSize)
-				.ToList()
-		};
-	}
+        return new GridDataProviderResult<CultureInfo>()
+            {
+                TotalCount = cultures.Count(),
+                Data = cultures
+                    .Skip(request.StartIndex)
+                    .Take(PageSize)
+                    .ToList()
+            };
+    }
 
-	//private void HandleServerSideGridNextPageButtonClick()
-	//{
-	//	serverSideGridUserState = serverSideGridUserState with { PageIndex = serverSideGridUserState.PageIndex + 1 };
-	//}
+    //private void HandleServerSideGridNextPageButtonClick()
+    //{
+    //	serverSideGridUserState = serverSideGridUserState with { PageIndex = serverSideGridUserState.PageIndex + 1 };
+    //}
 
-	private async Task<GridDataProviderResult<CultureInfo>> EmptyCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
-	{
-		await Task.Delay(3000);
-		return new GridDataProviderResult<CultureInfo>
-		{
-			Data = new List<CultureInfo>(),
-			TotalCount = 0
-		};
-	}
+    private async Task<GridDataProviderResult<CultureInfo>> EmptyCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+    {
+        await Task.Delay(3000);
+        return new GridDataProviderResult<CultureInfo>
+            {
+                Data = new List<CultureInfo>(),
+                TotalCount = 0
+            };
+    }
 
 
-	private Task AlarmClicked(System.Globalization.CultureInfo item)
-	{
-		clickedItem = item;
-		return Task.CompletedTask;
-	}
+    private Task AlarmClicked(System.Globalization.CultureInfo item)
+    {
+        clickedItem = item;
+        return Task.CompletedTask;
+    }
 }

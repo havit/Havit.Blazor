@@ -144,17 +144,14 @@
 						<tr>
 							<td colspan="@columnsToRender.Count">
 
-								<div class="text-center text-secondary my-5">
-									<div class="fs-3"><HxIcon Icon="@BootstrapIcon.Inbox" /></div>
-									<div>@HxGridLocalizer["NoData"]</div>
-
-									@if (EmptyDataTemplate != null)
-									{
-										<div class="my-3">
-											@EmptyDataTemplate
-										</div>
-									}
-								</div>
+								@if (EmptyDataTemplate != null)
+								{
+                                    @EmptyDataTemplate
+                                }
+                                else
+                                {
+                                    <HxGridEmptyDataTemplateDefaultContent />
+                                }
 
 							</td>
 						</tr>
