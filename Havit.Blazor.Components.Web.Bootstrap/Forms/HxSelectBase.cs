@@ -253,6 +253,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if ((chipValue is null) && (Value != null) && (DataImpl != null))
 			{
 				// fallback for initial rendering without chipValue
+				// does not help when DataImpl is not set yet (loaded asynchronously)
 				var item = DataImpl.FirstOrDefault(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
 				chipValue = SelectorHelpers.GetText(TextSelectorImpl, item);
 			}
