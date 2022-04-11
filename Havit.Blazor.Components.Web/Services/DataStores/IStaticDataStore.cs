@@ -23,7 +23,7 @@
 		/// <summary>
 		/// Returns value from the store (requires <see cref="EnsureDataAsync"/> to be called first).
 		/// </summary>
-		TValue GetValue();
+		TValue GetValue(bool throwIfNotLoaded = false);
 
 		/// <summary>
 		/// Returns value from the store (includes data load if needed).

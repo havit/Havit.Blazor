@@ -866,7 +866,7 @@
             Returns all data from the store (includes data load if needed).
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.GetAll">
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.GetAll(System.Boolean)">
             <summary>
             Returns all data from the store (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first).
             </summary>
@@ -876,7 +876,7 @@
             Retrieves value from dictionary (includes data load if needed). Throws exception when key not found.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.GetByKey(`0)">
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.GetByKey(`0,System.Boolean)">
             <summary>
             Retrieves value from dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Throws exception when key not found.
             </summary>
@@ -886,7 +886,7 @@
             Retrieves value from dictionary (includes data load if needed). Returns <c>default</c> when not found.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.TryGetByKey(`0,`1)">
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.TryGetByKey(`0,`1,System.Boolean)">
             <summary>
             Retrieves value from dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
             </summary>
@@ -927,7 +927,7 @@
             Returns all data from the store (includes data load if needed).
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetAll">
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetAll(System.Boolean)">
             <summary>
             Returns all data from the store (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first).
             </summary>
@@ -937,7 +937,7 @@
             Retrieves value from dictionary (includes data load if needed). Throws exception when key not found.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetByKey(`0)">
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetByKey(`0,System.Boolean)">
             <summary>
             Retrieves value from dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Throws exception when key not found.
             </summary>
@@ -947,7 +947,7 @@
             Retrieves value from dictionary (includes data load if needed). Returns <c>default</c> when not found.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.TryGetByKey(`0,`1)">
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.TryGetByKey(`0,`1,System.Boolean)">
             <summary>
             Retrieves value from dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
             </summary>
@@ -974,7 +974,7 @@
             Throws away all the data.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.GetValue">
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.GetValue(System.Boolean)">
             <summary>
             Returns value from the store (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.EnsureDataAsync"/> to be called first).
             </summary>
@@ -1019,7 +1019,7 @@
             Returns value from the store (includes data load if needed).
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.GetValue">
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.GetValue(System.Boolean)">
             <summary>
             Returns value from the store (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.EnsureDataAsync"/> to be called first).
             </summary>

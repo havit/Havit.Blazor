@@ -48,10 +48,13 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 		/// <summary>
 		/// Returns value from the store (requires <see cref="EnsureDataAsync"/> to be called first).
 		/// </summary>
-		public TValue GetValue()
+		public TValue GetValue(bool throwIfNotLoaded = false)
 		{
-			ThrowIfNotLoaded();
-			return Data;
+			if (VerifyIsLoaded(throwIfNotLoaded))
+			{
+				return Data;
+			}
+			return default;
 		}
 
 		/// <summary>
@@ -91,9 +94,17 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 		}
 		private readonly SemaphoreSlim loadLock = new SemaphoreSlim(1, 1);
 
-		private void ThrowIfNotLoaded()
+		private bool VerifyIsLoaded(bool throwIfNotLoaded)
 		{
-			Contract.Requires<InvalidOperationException>(Data is not null, $"Data not loaded. You have to call {nameof(EnsureDataAsync)} first.");
+			if (Data is not null)
+			{
+				return true;
+			}
+			if (throwIfNotLoaded)
+			{
+				throw new InvalidOperationException($"Data not loaded. You have to call {nameof(EnsureDataAsync)} first.");
+			}
+			return false;
 		}
 	}
 }

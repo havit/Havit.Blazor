@@ -25,7 +25,7 @@
 		/// <summary>
 		/// Returns all data from the store (requires <see cref="EnsureDataAsync"/> to be called first).
 		/// </summary>
-		IEnumerable<TValue> GetAll();
+		IEnumerable<TValue> GetAll(bool throwIfNotLoaded = false);
 
 		/// <summary>
 		/// Retrieves value from dictionary (includes data load if needed). Throws exception when key not found.
@@ -35,7 +35,7 @@
 		/// <summary>
 		/// Retrieves value from dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Throws exception when key not found.
 		/// </summary>
-		TValue GetByKey(TKey key);
+		TValue GetByKey(TKey key, bool throwIfNotLoaded = false);
 
 		/// <summary>
 		/// Retrieves value from dictionary (includes data load if needed). Returns <c>default</c> when not found.
@@ -45,7 +45,7 @@
 		/// <summary>
 		/// Retrieves value from dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
 		/// </summary>
-		TValue TryGetByKey(TKey key, TValue defaultValue = default);
+		TValue TryGetByKey(TKey key, TValue defaultValue = default, bool throwIfNotLoaded = false);
 
 		/// <summary>
 		/// Throws away all the data.

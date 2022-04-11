@@ -171,7 +171,24 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 
 		[TestMethod]
 		[ExpectedException(typeof(InvalidOperationException))]
-		public void DictionaryStaticDataStore_SyncNotLoaded_ShouldRaiseException()
+		public void DictionaryStaticDataStore_SyncWithThrowIfNotLoaded_ShouldRaiseException()
+		{
+			// arrange
+			var sut = new Mock<DictionaryStaticDataStore<char, string>>();
+			sut.CallBase = true;
+			sut.SetupGet(s => s.KeySelector).Returns(value => value[0]);
+			sut.Setup(s => s.LoadDataAsync()).ReturnsAsync(new[] { "Adam", "Barbora", "Cyril" });
+			sut.Setup(s => s.ShouldRefresh()).Returns(false);
+
+			// act
+			var result = sut.Object.GetAll(throwIfNotLoaded: true);
+
+			// assert
+			// expected exception
+		}
+
+		[TestMethod]
+		public void DictionaryStaticDataStore_SyncNotLoaded_ShouldReturnDefaultValue()
 		{
 			// arrange
 			var sut = new Mock<DictionaryStaticDataStore<char, string>>();
@@ -184,7 +201,7 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 			var result = sut.Object.GetAll();
 
 			// assert
-			// expected exception
+			Assert.IsNull(result);
 		}
 
 
