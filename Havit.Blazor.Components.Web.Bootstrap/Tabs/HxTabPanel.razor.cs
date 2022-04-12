@@ -3,8 +3,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Container for <see cref="HxTab"/>s for easier implementation of tabbed UI.
-	/// Encapsulates <see cref="HxNav"/> (<see cref="NavVariant.Tabs"/> variant) and <see cref="HxNavLink"/>s so you don't have to bother with them explicitly.
+	/// Container for <see cref="HxTab"/>s for easier implementation of tabbed UI.<br/>
+	/// Encapsulates <see cref="HxNav"/> (<see cref="NavVariant.Tabs"/> variant as default) and <see cref="HxNavLink"/>s so you don't have to bother with them explicitly.
 	/// </summary>
 	public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	{
@@ -12,6 +12,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// TabsRegistration cascading value name.
 		/// </summary>
 		internal const string TabsRegistrationCascadingValueName = "TabsRegistration";
+
+		/// <summary>
+		/// The visual variant of the nav items.
+		/// Default is <see cref="NavVariant.Tabs"/>.
+		/// </summary>
+		[Parameter] public NavVariant NavVariant { get; set; } = NavVariant.Tabs;
 
 		/// <summary>
 		/// ID of the active tab (@bindable).

@@ -3,7 +3,6 @@
 	/// <summary>
 	/// Variations for <see cref="HxNav"/>.
 	/// </summary>
-	/// <remarks>Can be switched to [Flags] when needed.</remarks>
 	public enum NavVariant
 	{
 		Standard = 0,

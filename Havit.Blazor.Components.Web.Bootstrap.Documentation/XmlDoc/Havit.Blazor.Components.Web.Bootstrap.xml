@@ -6644,7 +6644,6 @@
             <summary>
             Variations for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNav"/>.
             </summary>
-            <remarks>Can be switched to [Flags] when needed.</remarks>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs">
             <summary>
@@ -7382,13 +7381,19 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel">
             <summary>
-            Container for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTab"/>s for easier implementation of tabbed UI.
-            Encapsulates <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNav"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs"/> variant) and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavLink"/>s so you don't have to bother with them explicitly.
+            Container for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTab"/>s for easier implementation of tabbed UI.<br/>
+            Encapsulates <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNav"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs"/> variant as default) and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavLink"/>s so you don't have to bother with them explicitly.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.TabsRegistrationCascadingValueName">
             <summary>
             TabsRegistration cascading value name.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.NavVariant">
+            <summary>
+            The visual variant of the nav items.
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ActiveTabId">

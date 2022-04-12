@@ -2,11 +2,20 @@
 @attribute [Route("/components/" + nameof(HxTab))]
 
 <ComponentApiDoc Type="typeof(HxTabPanel)">
-	<SectionTitle Id="TabsWithIsInitiallyActive">Tabs with IsInitiallyActive</SectionTitle>
-	<Demo Type="typeof(HxTabPanel_Demo_InitialActiveTabId)" />
+	<SectionTitle Id="basic-usage">Basic usage</SectionTitle>
+	<Demo Type="typeof(HxTabPanel_Demo_BasicUsage)" Tabs="false" />
 
-	<SectionTitle Id="TabsWithIsCurrentlyActive">Tabs with IsCurrentlyActive</SectionTitle>
+	<SectionTitle Id="active-tab">Getting/setting active tab programatically</SectionTitle>
 	<Demo Type="typeof(HxTabPanel_Demo_ActiveTabId)" />
+
+	<SectionTitle Id="nav-variants">Nav variants</SectionTitle>
+    <p>You can choose any variant of <code>nav</code> using the <code>@nameof(HxTabPanel.NavVariant)</code> parameter.</p>
+	<h4>Tabs</h4>
+    <Demo Type="typeof(HxTabPanel_Demo_NavVariantTabs)" />
+	<h4>Pills</h4>
+	<Demo Type="typeof(HxTabPanel_Demo_NavVariantPills)" />
+	<h4>Standard</h4>
+	<Demo Type="typeof(HxTabPanel_Demo_NavVariantStandard)" />
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxTab)" />
