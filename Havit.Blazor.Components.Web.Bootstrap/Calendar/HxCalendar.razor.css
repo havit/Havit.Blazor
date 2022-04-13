@@ -3,7 +3,7 @@
     flex-direction: column;
 }
 
-.navigation {
+.hx-calendar-navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -51,23 +51,20 @@ td > div {
     transition: all .15s ease-in-out;
 }
 
-.week div {
+.hx-calendar-week div {
     width: var(--hx-calendar-day-width);
     height: var(--hx-calendar-day-height);
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: var(--hx-calendar-day-padding);
+    font-size: var(--hx-calendar-font-size);
 }
 
-.day-names td {
+.hx-calendar-day-names td {
     color: var(--hx-calendar-day-names-color);  
     font-size: .75rem;
     font-weight: var(--hx-calendar-day-names-font-weight);
-}
-
-.week div {
-    padding: var(--hx-calendar-day-padding);
-    font-size: var(--hx-calendar-font-size);
 }
 
 .out {
@@ -92,13 +89,13 @@ td[role="button"] .selected.out {
     border: var(--hx-calendar-day-selected-border);
 }
 
-.today {
+.hx-calendar-today {
     border: var(--hx-calendar-day-today-border);
     background-color: rgba(var(--hx-calendar-day-today-background), var(--hx-calendar-day-today-background-opacity));
     color: var(--hx-calendar-day-today-color);
 }
 
-.week td[role="button"]:hover div {
+.hx-calendar-week td[role="button"]:hover div {
     background: var(--hx-calendar-day-hover-background);
     color: unset;
     border: var(--hx-calendar-day-hover-border);

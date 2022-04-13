@@ -13,7 +13,7 @@
 			{
 				if (CloseButtonIconEffective is null)
 				{
-					<button type="button" class="btn-close offcanvas-close-button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					<button type="button" class="btn-close hx-offcanvas-close-button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 				}
 				else
 				{
@@ -29,7 +29,7 @@
 		}
 		@if (FooterTemplate != null)
 		{
-			<div class="@CssClassHelper.Combine("offcanvas-footer", this.FooterCssClassEffective)">
+			<div class="@CssClassHelper.Combine("hx-offcanvas-footer", this.FooterCssClassEffective)">
 				@FooterTemplate
 			</div>
 		}

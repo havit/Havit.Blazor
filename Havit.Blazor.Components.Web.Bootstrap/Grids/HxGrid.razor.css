@@ -2,20 +2,20 @@ th ::deep i {
     margin-left: .25rem;
 }
 
-::deep .sorted i {
+::deep .hx-grid-sorted i {
     color: var(--hx-grid-sorted-icon-color);
 }
 
-::deep .sortable {
+::deep .hx-grid-sortable {
     color: currentColor;
 
 }
 
-::deep .sortable i {
+::deep .hx-grid-sortable i {
     visibility: hidden;
 }
 
-::deep th:hover.sortable i {
+::deep th:hover.hx-grid-sortable i {
 	visibility: visible;
 }
 

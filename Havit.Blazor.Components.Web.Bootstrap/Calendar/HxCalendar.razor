@@ -3,7 +3,7 @@
 <div class="hx-calendar">
 	@if (renderData != null)
 	{
-		<div class="navigation mb-3">
+		<div class="hx-calendar-navigation mb-3">
 			<HxButton Icon="BootstrapIcon.ChevronLeft"
 					  CssClass="hx-calendar-navigation-button"
 					  Size="ButtonSize.Small"
@@ -34,7 +34,7 @@
 		</div>
 
 		<table>
-			<tr class="day-names">
+			<tr class="hx-calendar-day-names">
 				@foreach (string dayOfWeek in renderData.DaysOfWeek)
 				{
 					<td>@dayOfWeek</td>
@@ -42,7 +42,7 @@
 			</tr>
 			@foreach (WeekData week in renderData.Weeks)
 			{
-				<tr class="week">
+				<tr class="hx-calendar-week">
 					@foreach (DayData day in week.Days)
 					{
 

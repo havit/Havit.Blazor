@@ -8,7 +8,7 @@
     content: none !important;
 }
 
-::deep .input-icon {
+::deep .hx-search-box-input-icon {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -17,11 +17,6 @@
     z-index: 1;
 }
 
-::deep .input-icon-start {
-    font-size: 13px;
-    left: 9px;
-}
-
-::deep .input-icon-end {
+::deep .hx-search-box-input-icon-end {
     right: .75rem;
 }

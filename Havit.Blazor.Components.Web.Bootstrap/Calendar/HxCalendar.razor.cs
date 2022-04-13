@@ -190,7 +190,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 						clickEnabled ? "active" : "disabled",
 						(currentDay == valueDay) ? "selected" : null,  // currently selected day has "selected" class
 						((currentDay.Month == DisplayMonth.Month) && (currentDay.Year == DisplayMonth.Year)) ? "in" : "out",
-						(currentDay == today) ? "today" : null,
+						(currentDay == today) ? "hx-calendar-today" : null,
 						((currentDay.DayOfWeek == DayOfWeek.Saturday) || (currentDay.DayOfWeek == DayOfWeek.Sunday)) ? "weekend" : null,
 						customization?.CssClass
 					);

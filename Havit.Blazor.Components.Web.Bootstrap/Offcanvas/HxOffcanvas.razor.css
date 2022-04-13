@@ -1,4 +1,4 @@
-.offcanvas-footer {
+.hx-offcanvas-footer {
   display: flex;
   align-items: center;
   padding: var(--hx-offcanvas-footer-padding-y)
@@ -14,7 +14,7 @@
   width: var(--hx-offcanvas-horizontal-width-lg);
 }
 
-.offcanvas-close-button {
+.hx-offcanvas-close-button {
     --bs-text-opacity: 1;
     color: inherit;
 }
