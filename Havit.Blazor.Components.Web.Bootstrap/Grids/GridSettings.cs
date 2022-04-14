@@ -79,5 +79,10 @@
 		/// Custom CSS class to render with pager.
 		/// </summary>
 		public string PagerCssClass { get; set; }
+
+		/// <summary>
+		/// Allow the table to be scrolled horizontally with ease accross any breakpoint.
+		/// </summary>
+		public bool? IsResponsive { get; set; }
 	}
 }

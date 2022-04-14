@@ -4655,6 +4655,11 @@
             Custom CSS class to render with pager.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.IsResponsive">
+            <summary>
+            Allow the table to be scrolled horizontally with ease accross any breakpoint.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState`1">
             <summary>
             User state of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/>.

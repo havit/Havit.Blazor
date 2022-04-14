@@ -57,7 +57,7 @@
 {
 	<HxProgressIndicator InProgress="@(InProgress ?? (dataProviderInProgress /* indicates data loading */ && !shouldRenderLoadingDataWithPlaceholders /* but not when placeholders are used - in such case we are indicating data loading using the placeholders */))">
 
-		<div class="@TableContainerCssClassEffective">
+		<div class="@CssClassHelper.Combine(IsResponsiveEffective ? "table-responsive" : null, TableContainerCssClassEffective)">
 			<table class="@CssClassHelper.Combine("hx-grid table", (((SelectionEnabled || MultiSelectionEnabled) && shouldRenderData) ? "table-hover" : null), TableCssClassEffective, (((SelectionEnabled || MultiSelectionEnabled) && (SelectedDataItem != null || SelectedDataItems!= null))? "table-item-selected" : null))">
 				<thead>
 					<tr class="@HeaderRowCssClassEffective">

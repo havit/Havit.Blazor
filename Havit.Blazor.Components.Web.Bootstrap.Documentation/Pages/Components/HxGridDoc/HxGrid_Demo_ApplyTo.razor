@@ -1,4 +1,4 @@
-﻿<HxGrid TItem="CultureInfo" TableContainerCssClass="table-responsive" DataProvider="GetGridData" PageSize="10">
+﻿<HxGrid TItem="CultureInfo" IsResponsive="true" DataProvider="GetGridData" PageSize="10">
 	<Columns>
 		<HxGridColumn TItem="CultureInfo" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />

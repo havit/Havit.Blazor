@@ -1,4 +1,4 @@
-﻿<HxGrid MultiSelectionEnabled="true" TableContainerCssClass="table-responsive" @bind-SelectedDataItems="selectedCultureInfos" TItem="CultureInfo" DataProvider="ClientSideProcessingDataProvider" PageSize="10">
+﻿<HxGrid MultiSelectionEnabled="true" IsResponsive="true" @bind-SelectedDataItems="selectedCultureInfos" TItem="CultureInfo" DataProvider="ClientSideProcessingDataProvider" PageSize="10">
     <Columns>
         <HxGridColumn TItem="CultureInfo" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
         <HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />

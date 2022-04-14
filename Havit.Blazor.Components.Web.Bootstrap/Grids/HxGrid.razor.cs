@@ -211,6 +211,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public int? OverscanCount { get; set; }
 		protected int OverscanCountEffective => this.OverscanCount ?? this.GetSettings()?.OverscanCount ?? GetDefaults().OverscanCount ?? throw new InvalidOperationException(nameof(OverscanCount) + " default for " + nameof(HxGrid) + " has to be set.");
 
+		[Parameter] public bool? IsResponsive { get; set; }
+		protected bool IsResponsiveEffective => this.IsResponsive ?? this.GetSettings()?.IsResponsive ?? GetDefaults().IsResponsive ?? throw new InvalidOperationException(nameof(IsResponsive) + " default for " + nameof(HxGrid) + " has to be set.");
+
 		/// <summary>
 		/// Returns application-wide defaults for the component.
 		/// Enables overriding defaults in descandants (use separate set of defaults).
