@@ -45,8 +45,13 @@
 
         public class DateTimeRangeValidator : ValidationAttribute
         {
-            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
             {
+                if (value is null || validationContext is null || validationContext.MemberName is null)
+                {
+                    return null;
+                }
+
                 DateTimeRange dateTimeRange = (DateTimeRange)value;
                 if (dateTimeRange.StartDate is null || dateTimeRange.EndDate is null)
                 {

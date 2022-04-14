@@ -11,10 +11,14 @@ public partial class AllTests
 		int sequence = 1;
 
 		List<string?> routes = GetRoutesToRender(typeof(HxAlertTest).Assembly);
-		routes.RemoveAll(r => string.IsNullOrEmpty(r));
 
 		foreach (var route in routes)
 		{
+			if (route is null)
+			{
+				continue;
+			}
+
 			builder.OpenElement(sequence++, "p");
 			builder.OpenElement(sequence++, "a");
 			builder.AddAttribute(sequence++, "href", "/all-tests#" + route.Remove(0, 1));

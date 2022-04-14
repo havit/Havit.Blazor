@@ -1,4 +1,3 @@
-using BlazorRTLAppTest.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Havit.Blazor.Components.Web;
@@ -9,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddHxServices();
 builder.Services.AddHxMessageBoxHost();
 builder.Services.AddHxMessenger();
