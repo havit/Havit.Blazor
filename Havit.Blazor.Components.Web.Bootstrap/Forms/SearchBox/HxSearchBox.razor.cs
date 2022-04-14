@@ -184,6 +184,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private HxDropdownToggleElement dropdownToggle;
 	private bool dropdownMenuActive = false;
 	private bool initialized = false;
+	/// <summary>
+	/// Shows whether the <see cref="TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
+	/// </summary>
+	private bool textQueryHasBeenBelowMinimumLength = true;
 
 	private System.Timers.Timer timer;
 	private CancellationTokenSource cancellationTokenSource;
@@ -209,6 +213,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	public async Task UpdateSuggestionsAsync()
 	{
+		await HideDropdownMenu();
+
 		if (string.IsNullOrEmpty(TextQuery) || TextQuery.Length < MinimumLengthEffective)
 		{
 			return;
@@ -247,6 +253,9 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		dataProviderInProgress = false;
 		searchResults = result?.Data.ToList();
 
+		textQueryHasBeenBelowMinimumLength = false;
+		await ShowDropdownMenu();
+
 		StateHasChanged();
 	}
 
@@ -271,6 +280,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			}
 			timer.Interval = DelayEffective;
 			timer.Start();
+		}
+		else
+		{
+			textQueryHasBeenBelowMinimumLength = true;
 		}
 
 		if (ShouldDropdownMenuBeDisplayed())
@@ -339,6 +352,11 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// <returns></returns>
 	protected bool ShouldDropdownMenuBeDisplayed()
 	{
+		if (textQueryHasBeenBelowMinimumLength && (TextQuery is not null && TextQuery.Length >= MinimumLengthEffective))
+		{
+			return false;
+		}
+
 		if (DefaultContentTemplate is null && (TextQuery is null || TextQuery.Length < MinimumLengthEffective))
 		{
 			return false;
