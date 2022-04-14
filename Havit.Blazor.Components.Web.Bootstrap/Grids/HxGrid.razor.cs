@@ -211,6 +211,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public int? OverscanCount { get; set; }
 		protected int OverscanCountEffective => this.OverscanCount ?? this.GetSettings()?.OverscanCount ?? GetDefaults().OverscanCount ?? throw new InvalidOperationException(nameof(OverscanCount) + " default for " + nameof(HxGrid) + " has to be set.");
 
+		/// <summary>
+		/// Allows the table to be scrolled horizontally with ease accross any breakpoint (adds the <c>table-responsive</c> class to the table).
+		/// </summary>
 		[Parameter] public bool? IsResponsive { get; set; }
 		protected bool IsResponsiveEffective => this.IsResponsive ?? this.GetSettings()?.IsResponsive ?? GetDefaults().IsResponsive ?? throw new InvalidOperationException(nameof(IsResponsive) + " default for " + nameof(HxGrid) + " has to be set.");
 

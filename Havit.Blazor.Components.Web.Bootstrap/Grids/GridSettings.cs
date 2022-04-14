@@ -81,7 +81,7 @@
 		public string PagerCssClass { get; set; }
 
 		/// <summary>
-		/// Allow the table to be scrolled horizontally with ease accross any breakpoint.
+		/// Allows the table to be scrolled horizontally with ease accross any breakpoint (adds the <c>table-responsive</c> class to the table).
 		/// </summary>
 		public bool? IsResponsive { get; set; }
 	}
