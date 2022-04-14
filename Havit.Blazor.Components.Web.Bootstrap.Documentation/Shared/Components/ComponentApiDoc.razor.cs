@@ -192,7 +192,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 				try { enumMember.Index = (int)Enum.Parse(Type, enumMember.Name); } catch { }
 				try
 				{
-					var enumValueComment = enumComments.ValueComments.Where(o => o.Name == enumMember.Name).ToList().FirstOrDefault();
+					var enumValueComment = enumComments.ValueComments
+						.Where(o => o.Value == i)
+						.ToList()
+						.FirstOrDefault(c => !string.IsNullOrEmpty(c.Summary));
+
 					if (enumValueComment is not null)
 					{
 						enumMember.Summary = enumValueComment.Summary;

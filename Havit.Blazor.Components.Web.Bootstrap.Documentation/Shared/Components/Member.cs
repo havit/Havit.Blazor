@@ -124,7 +124,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		private string GenerateHavitDocumentationLink(string[] splitLink)
 		{
-			bool containsHx = false;
+			bool containsHx = splitLink.Any(t => t.Contains("hx", StringComparison.OrdinalIgnoreCase));
 			string seeName = "";
 
 			string fullLink = "";
@@ -249,7 +249,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			set
 			{
 				TypeComments inputComments = value;
-				inputComments.Summary = TryFormatComment(inputComments.Summary);
+				try { inputComments.Summary = TryFormatComment(inputComments.Summary); } catch { }
 				comments = inputComments;
 			}
 		}
@@ -286,7 +286,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			set
 			{
 				MethodComments inputComments = value;
-				inputComments.Summary = TryFormatComment(inputComments.Summary);
+				try { inputComments.Summary = TryFormatComment(inputComments.Summary); } catch { }
 				comments = inputComments;
 			}
 			get
@@ -323,6 +323,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		public int Index { get; set; }
 		public string Name { get; set; }
 
-		public string Summary { get; set; }
+		public string Summary
+		{
+			get
+			{
+				return summary;
+			}
+			set
+			{
+				try
+				{
+					summary = TryFormatComment(value);
+				}
+				catch
+				{
+					summary = value;
+				}
+
+			}
+		}
+		private string summary;
 	}
 }
