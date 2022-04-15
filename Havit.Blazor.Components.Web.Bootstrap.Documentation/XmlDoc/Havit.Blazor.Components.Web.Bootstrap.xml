@@ -4657,7 +4657,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.IsResponsive">
             <summary>
-            Allow the table to be scrolled horizontally with ease accross any breakpoint.
+            Allows the table to be scrolled horizontally with ease accross any breakpoint (adds the <c>table-responsive</c> class to the table).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState`1">
@@ -4898,6 +4898,11 @@
             during scrolling. However, higher values mean that more elements will be present
             in the page.<br/>
             Default is <c>50</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.IsResponsive">
+            <summary>
+            Allows the table to be scrolled horizontally with ease accross any breakpoint (adds the <c>table-responsive</c> class to the table).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetDefaults">
