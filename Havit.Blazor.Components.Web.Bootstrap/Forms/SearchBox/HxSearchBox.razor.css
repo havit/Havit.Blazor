@@ -1,7 +1,7 @@
 ﻿::deep .dropdown,
-::deep .dropdown-toggle,
+::deep div[data-bs-toggle="dropdown"],
 ::deep .dropdown-menu {
-    width: 100%;
+	width: 100%;
 }
 
 ::deep .dropdown-toggle::after {
