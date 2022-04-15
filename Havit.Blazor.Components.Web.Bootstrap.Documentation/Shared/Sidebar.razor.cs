@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,8 +16,15 @@ public partial class Sidebar
 
 	protected override async Task OnInitializedAsync()
 	{
-		var result = await client.GetStringAsync("https://bootswatch.com/api/5.json");
-		themes = JsonConvert.DeserializeObject<ThemeHolder>(result).Themes;
+		try
+		{
+			var result = await client.GetStringAsync("https://bootswatch.com/api/5.json");
+			themes = JsonConvert.DeserializeObject<ThemeHolder>(result).Themes;
+		}
+		catch
+		{
+			Console.WriteLine("Unable to fetch themes from Bootswatch API.");
+		}
 
 		themes = themes.Prepend(new() { Name = "Bootstrap 5", CssCdn = "FULL_LINK_HARDCODED_IN_RAZOR" }).ToList();
 	}
