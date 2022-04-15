@@ -4,10 +4,6 @@
 	width: 100%;
 }
 
-::deep .dropdown-toggle::after {
-    content: none !important;
-}
-
 ::deep .hx-search-box-input-icon {
     position: absolute;
     top: 50%;
