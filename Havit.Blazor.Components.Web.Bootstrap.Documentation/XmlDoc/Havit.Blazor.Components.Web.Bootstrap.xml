@@ -273,6 +273,17 @@
             Size for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CloseButtonSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CloseButtonSettings.Dark">
+            <summary>
+            Toggles between the light and dark version of the button.
+            Default is <c>true</c>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButton">
             <summary>
             Button (<c>&lt;button type="button"&gt;</c>). See also <see href="https://getbootstrap.com/docs/5.1/components/buttons/">Bootstrap Buttons</see>.
@@ -490,6 +501,28 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonToolbar.CssClass">
             <summary>
             CSS class(es) to add to the HTML element with the <c>.btn-toolbar</c> class.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton">
+            <summary>
+            A simple close button for dismissing content like modals and alerts.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.Dark">
+            <summary>
+            Toggles between the light and dark version of the button.
+            Default is <c>true</c>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSubmit">
