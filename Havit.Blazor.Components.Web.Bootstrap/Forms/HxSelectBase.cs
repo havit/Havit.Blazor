@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	/// <typeparam name="TValue">Type of value.</typeparam>
 	/// <typeparam name="TItem">Type of items.</typeparam>
-	public abstract class HxSelectBase<TValue, TItem> : HxInputBase<TValue>, IInputWithSize
+	public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<TValue>, IInputWithSize
 	{
 		/// <summary>
 		/// Return <see cref="HxSelect{TValue, TItem}"/> defaults.
