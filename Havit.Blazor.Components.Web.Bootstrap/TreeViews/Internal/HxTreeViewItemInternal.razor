@@ -11,7 +11,8 @@
     this.IsExpanded ??= this.InitialExpandedSelector?.Invoke(this.Item) ?? false;
 }
 
-<div class="@CssClassHelper.Combine("hx-tree-view-item", isSelected ? "selected" : "", this.CssClass, cssClassFromSelector)" @onclick="@HandleItemClicked" @onclick:stopPropagation="true">
+<div @ondrop="OnDrop" ondragover="event.preventDefault();">
+    <div draggable="true" @ondragstart="OnDragStart" class="@CssClassHelper.Combine("hx-tree-view-item", isSelected ? "selected" : "", this.CssClass, cssClassFromSelector)" @onclick="@HandleItemClicked" @onclick:stopPropagation="true">
     @for (int i = 0; i < this.Level; i++)
     {
         <div class="hx-tree-view-item-spacer"></div>
@@ -41,6 +42,7 @@
         @ContentTemplate(this.Item)
     }
 </div>
+</div>
 
 @if (this.IsExpanded.Value && hasChildren)
 {
@@ -55,6 +57,7 @@
                         ChildrenSelector="this.ChildrenSelector"
                         Level="@(this.Level + 1)"
                         ContentTemplate="this.ContentTemplate"
-                        OnItemSelected="this.OnItemSelected" />
+                        OnItemSelected="this.OnItemSelected"
+                        Siblings="children" />
     }
 }

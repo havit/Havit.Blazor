@@ -22,43 +22,43 @@
 
 @code {
     private Directory selectedDirectory;
-    private Directory[] fileSystem;
+    private List<Directory> fileSystem;
 
     protected override void OnInitialized()
     {
-        fileSystem = new[]
+        fileSystem = new()
             {
             new Directory("C:\\", BootstrapIcon.Folder)
             {
-                Subdirectories = new[]
+                Subdirectories = new()
                 {
                     new Directory("Program Files", BootstrapIcon.Gem)
                     {
-                        Subdirectories = new[] { new Directory("Visual Studio 2022"), new Directory("Rider 2021.3"), new Directory("VS Code"), new Directory("Borland Pascal") }
+                        Subdirectories = new() { new Directory("Visual Studio 2022") { Subdirectories = new() }, new Directory("Rider 2021.3") { Subdirectories = new() }, new Directory("VS Code") { Subdirectories = new() }, new Directory("Borland Pascal") { Subdirectories = new() } }
                     },
                     new Directory("Users", BootstrapIcon.Person)
                     {
-                        Subdirectories = new[] { new Directory("Vladimir"), new Directory("Jhosav"), new Directory("Ben"), new Directory("Admin") }
+                        Subdirectories = new() { new Directory("Vladimir") { Subdirectories = new() }, new Directory("Jhosav") { Subdirectories = new() }, new Directory("Ben") { Subdirectories = new() }, new Directory("Admin") { Subdirectories = new() } }
                     },
                     new Directory("Data", BootstrapIcon.Person)
                     {
-                        Subdirectories = new[] { new Directory("Open Office"), new Directory("Git", BootstrapIcon.Magic), new Directory("Autocad") }
+                        Subdirectories = new() { new Directory("Open Office") { Subdirectories = new() }, new Directory("Git", BootstrapIcon.Magic) { Subdirectories = new() }, new Directory("Autocad") { Subdirectories = new() } }
                     },
                 }
             },
             new Directory("D:\\", BootstrapIcon.Folder2)
             {
-                Subdirectories = new[]
+                Subdirectories = new()
                 {
                     new Directory("Games", BootstrapIcon.Play)
                     {
-                        Subdirectories = new[] { new Directory("Cyberpunk 2077"), new Directory("The Witcher 3"), new Directory("Tetris"), new Directory("Little Big Adventure 2: Twinsen's Odyssey") }
+                        Subdirectories = new() { new Directory("Cyberpunk 2077") { Subdirectories = new() }, new Directory("The Witcher 3") { Subdirectories = new() }, new Directory("Tetris") { Subdirectories = new() }, new Directory("Little Big Adventure 2: Twinsen's Odyssey") { Subdirectories = new() } }
                     },
                     new Directory("Music", BootstrapIcon.FileMusic)
                     {
-                        Subdirectories = new[] { new Directory("Queen") { Subdirectories = new[] { new Directory("Live Killers"), new Directory("Live Magic") }}, new Directory("Metallica"), new Directory("AC/DC") }
+                        Subdirectories = new() { new Directory("Queen") { Subdirectories = new() { new Directory("Live Killers") { Subdirectories = new() }, new Directory("Live Magic") { Subdirectories = new() } }}, new Directory("Metallica") { Subdirectories = new() }, new Directory("AC/DC") { Subdirectories = new() } }
                     },
-                    new Directory("Images", BootstrapIcon.Image)
+                    new Directory("Images", BootstrapIcon.Image) { Subdirectories = new() }
                 }
             }
         };
@@ -84,7 +84,12 @@
 
         public ThemeColor? Severity { get; set; }
 
-        public Directory[] Subdirectories { get; set; }
+        public List<Directory> Subdirectories { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
 }

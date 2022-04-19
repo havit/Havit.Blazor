@@ -1,3 +1,5 @@
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
+
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
@@ -9,7 +11,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Collection of hierarchy data to display.
 		/// </summary>
-		[Parameter] public IEnumerable<TItem> Items { get; set; }
+		[Parameter] public ICollection<TItem> Items { get; set; }
 
 		/// <summary>
 		/// Selected data item.
@@ -54,7 +56,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Selector to display children collection for current data item. Children collection should have same type as current item.
 		/// </summary>
-		[Parameter] public Func<TItem, IEnumerable<TItem>> ItemChildrenSelector { get; set; }
+		[Parameter] public Func<TItem, ICollection<TItem>> ItemChildrenSelector { get; set; }
 
 		/// <summary>
 		/// Template for the item content.
@@ -66,10 +68,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
+		public TItem TransportedItem { get; set; }
+		public ICollection<TItem> TransportedItemsSiblings { get; set; }
+
 		private async Task HandleItemSelected(TItem newSelectedItem)
 		{
 			this.SelectedItem = newSelectedItem;
 			await InvokeSelectedDataItemChangedAsync(this.SelectedItem);
+		}
+
+		public async Task UpdateItemsAsync()
+		{
+			await InvokeAsync(StateHasChanged);
 		}
 	}
 }

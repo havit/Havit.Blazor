@@ -2693,6 +2693,17 @@
             Receives notification from javascript when content is hidden.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTreeViewItemInternal`1.OnDragStart">
+            <summary>
+            Sets the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.TransportedItem"/> to point to this item when it's being dragged.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTreeViewItemInternal`1.OnDrop">
+            <summary>
+            Gets called when an item is dropped onto this item.
+            Adds the dropped item to this items children.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.BindEvent">
             <summary>
             Event to use for data-binding.
