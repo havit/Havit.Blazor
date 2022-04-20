@@ -47,15 +47,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool previousParsingAttemptFailed;
 		private ValidationMessageStore validationMessageStore;
 
-		private DotNetObjectReference<HxInputDateInternal<TValue>> dotNetObjectReference;
-
 		private ElementReference dateInputElement;
 		private IJSObjectReference jsModule;
-
-		public HxInputDateInternal()
-		{
-			dotNetObjectReference = DotNetObjectReference.Create(this);
-		}
 
 		protected override void OnParametersSet()
 		{
