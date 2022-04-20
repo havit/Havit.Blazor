@@ -21,6 +21,7 @@
     margin: 0 .125rem;
     padding: 0.25rem 1.75rem 0.25rem 0.5rem;
     background-size: 9px 9px;
+    cursor: pointer;
 }
 
 .form-select:not(:hover) {

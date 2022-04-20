@@ -47,8 +47,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool previousParsingAttemptFailed;
 		private ValidationMessageStore validationMessageStore;
 
+		private DotNetObjectReference<HxInputDateInternal<TValue>> dotNetObjectReference;
+
 		private ElementReference dateInputElement;
 		private IJSObjectReference jsModule;
+
+		public HxInputDateInternal()
+		{
+			dotNetObjectReference = DotNetObjectReference.Create(this);
+		}
 
 		protected override void OnParametersSet()
 		{
@@ -104,6 +111,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await base.OnAfterRenderAsync(firstRender);
 
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxInputDateRange) + ".js");
+
+			await jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", dateInputElement);
 		}
 
 		private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request)
@@ -123,16 +132,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await CloseDropDownAsync(dateInputElement);
 		}
 
-		//private async Task OpenDropDownAsync(ElementReference triggerElement)
-		//{
-		//	Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
-		//	await jsModule.InvokeVoidAsync("open", triggerElement);
-		//}
+		private async Task OpenDropDownAsync(ElementReference triggerElement)
+		{
+			Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
+			await jsModule.InvokeVoidAsync("open", triggerElement);
+		}
 
 		private async Task CloseDropDownAsync(ElementReference triggerElement)
 		{
 			Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
 			await jsModule.InvokeVoidAsync("destroy", triggerElement);
+		}
+
+		private async Task ToggleDropDownAsync(ElementReference triggerElement)
+		{
+			Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
+			await jsModule.InvokeVoidAsync("toggle", triggerElement);
 		}
 
 		private async Task HandleCalendarValueChangedAsync(DateTime? date)
