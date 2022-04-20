@@ -1,4 +1,5 @@
-﻿# HAVIT Blazor - Bootstrap 5 component bundle
+﻿
+# HAVIT Blazor - Bootstrap 5 component bundle
 
 [![Nuget](https://img.shields.io/nuget/v/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
 [![Nuget](https://img.shields.io/nuget/dt/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
@@ -43,8 +44,10 @@
 
 ## Buttons & Indicators
 
+* [`HxButton`](https://havit.blazor.eu/components/HxButton) - Bootstrap [button](https://getbootstrap.com/docs/5.1/components/buttons/).
 * [`HxButtonGroup`](https://havit.blazor.eu/components/HxButtonGroup) - Bootstrap [ButtonGroups](https://getbootstrap.com/docs/5.0/components/button-group/). 
 * [`HxButtonToolbar`](https://havit.blazor.eu/components/HxButtonToolbar) - Bootstrap [ButtonGroups](https://getbootstrap.com/docs/5.0/components/button-group/).
+* [`HxCloseButton`](https://havit.blazor.eu/components/HxCloseButton) - Bootstrap [close-button](https://getbootstrap.com/docs/5.1/components/close-button/).
 * [`HxSubmit`](https://havit.blazor.eu/components/HxSubmit) - Submit button.
 * [`HxDropdown`](https://havit.blazor.eu/components/HxDropdown) - [Bootstrap 5 Dropdown](https://getbootstrap.com/docs/5.1/components/dropdowns/).
 * [`HxBadge`](https://havit.blazor.eu/components/HxBadge) - [Bootstrap Badge](https://getbootstrap.com/docs/5.0/components/badge/) component.
