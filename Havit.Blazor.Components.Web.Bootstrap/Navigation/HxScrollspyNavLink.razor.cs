@@ -14,6 +14,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Href { get; set; }
 
 		/// <summary>
+		/// Additional CSS class.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
+		/// <summary>
 		/// Raised when the item is clicked (before the navigation location is changed to <see cref="Href"/>).
 		/// </summary>
 		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }

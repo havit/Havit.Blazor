@@ -6478,6 +6478,11 @@
             The navigation target in <c>#id</c> form.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.CssClass">
+            <summary>
+            Additional CSS class.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.OnClick">
             <summary>
             Raised when the item is clicked (before the navigation location is changed to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.Href"/>).
