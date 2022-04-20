@@ -36,7 +36,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/Inputs#InputGroups", "Inputs > Input groups", ""),
 			new("/components/Inputs#FloatingLabels", "Inputs > Floating labels", ""),
 
-			new("/components/HxAutosuggest", "HxAutosuggest", "autocomplete"),
+			new("/components/HxAutosuggest", "HxAutosuggest", "autocomplete search typeahead select"),
 
 			new("/components/HxCalendar", "HxCalendar", "datepicker"),
 
