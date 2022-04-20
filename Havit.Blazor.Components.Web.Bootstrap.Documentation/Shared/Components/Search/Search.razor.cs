@@ -279,7 +279,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			new("/components/HxNamedViewList", "HxNamedViewList", "HxListLayout"),
 
-			new("/components/HxCloseButton", "HxCloseButton", "dismiss"),
+			new("/components/HxCloseButton", "HxCloseButton", "dismiss cross x"),
 			new("/components/HxCloseButton#DisabledState", "HxCloseButton > Disabled state", ""),
 			new("/components/HxCloseButton#WhiteVariant", "HxCloseButton > White variant", ""),
 
