@@ -18,12 +18,12 @@ public class HxCloseButton : HxButton
 
 	/// <summary>
 	/// Toggles between the light and dark version of the button.
-	/// Default is <c>true</c>.
+	/// Default is <c>false</c>.
 	/// </summary>
-	[Parameter] public bool? Dark { get; set; }
-	protected bool DarkEffective => Dark ?? GetDefaults().Dark ?? throw new InvalidOperationException(nameof(Dark) + " default for " + nameof(HxCloseButton) + " has to be set.");
+	[Parameter] public bool? White { get; set; }
+	protected bool WhiteEffective => White ?? GetDefaults().White ?? throw new InvalidOperationException(nameof(White) + " default for " + nameof(HxCloseButton) + " has to be set.");
 
-	protected override string CoreCssClass => $"{base.CoreCssClass} btn-close " + (!DarkEffective ? "btn-close-white" : string.Empty);
+	protected override string CoreCssClass => $"{base.CoreCssClass} btn-close " + (WhiteEffective ? "btn-close-white" : string.Empty);
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
@@ -44,7 +44,7 @@ public class HxCloseButton : HxButton
 	{
 		Defaults = new CloseButtonSettings()
 		{
-			Dark = true
+			White = false
 		};
 	}
 }

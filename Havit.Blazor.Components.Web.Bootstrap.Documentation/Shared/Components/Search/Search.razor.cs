@@ -281,7 +281,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			new("/components/HxCloseButton", "HxCloseButton", "dismiss"),
 			new("/components/HxCloseButton#DisabledState", "HxCloseButton > Disabled state", ""),
-			new("/components/HxCloseButton#LightVariant", "HxCloseButton > Light variant", ""),
+			new("/components/HxCloseButton#WhiteVariant", "HxCloseButton > White variant", ""),
 
 			// Support types
 

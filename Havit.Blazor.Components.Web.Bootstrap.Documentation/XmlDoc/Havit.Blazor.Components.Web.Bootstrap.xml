@@ -278,10 +278,10 @@
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton"/> and derived components.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CloseButtonSettings.Dark">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CloseButtonSettings.White">
             <summary>
             Toggles between the light and dark version of the button.
-            Default is <c>true</c>.
+            Default is <c>false</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButton">
@@ -513,10 +513,10 @@
             Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton"/> and derived components.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.Dark">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.White">
             <summary>
             Toggles between the light and dark version of the button.
-            Default is <c>true</c>.
+            Default is <c>false</c>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.GetDefaults">
