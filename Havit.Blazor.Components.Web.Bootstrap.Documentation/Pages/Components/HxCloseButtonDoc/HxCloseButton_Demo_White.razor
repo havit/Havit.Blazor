@@ -1,13 +1,2 @@
-﻿<div class="bg-dark w-100 h-100 p-2 rounded">
-    <HxCloseButton White="true" OnClick="OnCloseButtonClick" />
-</div>
-
-@code {
-    [Inject] protected IHxMessengerService Messenger { get; set; }
-
-    private void OnCloseButtonClick()
-    {
-        Messenger.AddInformation("Click", "HxCloseButton has been clicked!");
-    }
-}
-
+﻿<HxCloseButton White="true" />
+<HxCloseButton White="true" Enabled="false" />

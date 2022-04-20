@@ -13,6 +13,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		[Parameter] public bool Tabs { get; set; } = true;
 
+		[Parameter] public string DemoCardCssClass { get; set; }
+
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		private bool showingDemo = true;
@@ -75,7 +77,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			if (showingDemo || !Tabs)
 			{
 				builder.OpenElement(500, "div");
-				builder.AddAttribute(501, "class", "p-3");
+				builder.AddAttribute(501, "class", CssClassHelper.Combine("p-3", this.DemoCardCssClass));
 				builder.OpenComponent(504, Type);
 				builder.CloseComponent();
 				builder.CloseElement();
