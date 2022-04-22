@@ -35,7 +35,7 @@
 
 	@if (CalendarIconEffective is not null)
 	{
-		<div @onclick="() => ToggleDropDownAsync(dateInputElement)" class="hx-input-date-icon">
+		<div @ref="iconWrapperElement" class="hx-input-date-icon">
 			<HxIcon Icon="CalendarIconEffective" />
 		</div>
 	}

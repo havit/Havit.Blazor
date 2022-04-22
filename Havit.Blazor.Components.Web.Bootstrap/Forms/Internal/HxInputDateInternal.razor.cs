@@ -48,6 +48,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private ValidationMessageStore validationMessageStore;
 
 		private ElementReference dateInputElement;
+		private ElementReference iconWrapperElement;
 		private IJSObjectReference jsModule;
 
 		protected override void OnParametersSet()
@@ -105,7 +106,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxInputDateRange) + ".js");
 
-			await jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", dateInputElement);
+			await jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", dateInputElement, (this.CalendarIconEffective is not null) ? iconWrapperElement : null);
 		}
 
 		private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request)
