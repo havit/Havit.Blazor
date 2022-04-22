@@ -1,11 +1,7 @@
 ﻿export function addOpenAndCloseEventListeners(triggerElement, iconWrapperElement) {
-	console.warn("addOpenAndCloseEventListeners");
 	if (!triggerElement) {
 		return;
 	}
-
-	triggerElement.addEventListener('shown.bs.dropdown', handleDropdownShown);
-	triggerElement.addEventListener('hidden.bs.dropdown', handleDropdownHidden);
 
 	if (!iconWrapperElement) {
 		return;
@@ -16,7 +12,6 @@
 }
 
 export function open(triggerElement) {
-	console.warn("open");
 	if (!triggerElement) {
 		return;
 	}
@@ -25,28 +20,12 @@ export function open(triggerElement) {
 }
 
 function handleIconClick(event) {
-	console.warn("icon-click");
 	var triggerElement = event.currentTarget.triggerElement;
 	triggerElement.click();
 	event.stopPropagation();
 }
 
-export function toggle(triggerElement) {
-	console.warn("toggle");
-	if (!triggerElement) {
-		return;
-	}
-
-	if (triggerElement.dropdownMenuShown) {
-		destroy(triggerElement);
-	}
-	else {
-		open(triggerElement);
-	}
-}
-
 export function destroy(triggerElement) {
-	console.warn("destroy");
 	if (!triggerElement) {
 		return;
 	}
@@ -57,16 +36,6 @@ export function destroy(triggerElement) {
 		dropdown.dispose();
 	}
 }
-
-function handleDropdownShown(event) {
-	console.warn("shown");
-	event.target.dropdownMenuShown = true;
-}
-
-function handleDropdownHidden(event) {
-	console.warn("hidden");
-	event.target.dropdownMenuShown = false;
-};
 
 export function setInputValid(inputElement) {
 	if (!inputElement) {
