@@ -57,7 +57,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			tabsList = new List<HxTab>();
 			tabsListRegistration = new CollectionRegistration<HxTab>(tabsList,
-				this.StateHasChanged,
+				async () => await InvokeAsync(this.StateHasChanged),
 				() => isDisposed);
 		}
 

@@ -247,7 +247,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public HxGrid()
 		{
 			columnsList = new List<IHxGridColumn<TItem>>();
-			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(columnsList, this.StateHasChanged, () => isDisposed);
+			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(columnsList, async () => await InvokeAsync(this.StateHasChanged), () => isDisposed);
 		}
 
 		/// <inheritdoc />

@@ -95,7 +95,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			dotnetObjectReference = DotNetObjectReference.Create(this);
 			items = new List<HxCarouselItem>();
 			itemsRegistration = new CollectionRegistration<HxCarouselItem>(items,
-				this.StateHasChanged,
+				async () => await InvokeAsync(this.StateHasChanged),
 				() => disposed);
 		}
 

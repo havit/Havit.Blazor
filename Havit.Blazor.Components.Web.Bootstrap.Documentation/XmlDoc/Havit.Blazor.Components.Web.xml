@@ -9,10 +9,15 @@
             Allows child components to register to an owner component via this class shared as cascading value &amp; parameter.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.CollectionRegistration`1.#ctor(System.Collections.Generic.ICollection{`0},System.Action,System.Func{System.Boolean},System.Action{`0},System.Action{`0})">
+        <member name="M:Havit.Blazor.Components.Web.CollectionRegistration`1.#ctor(System.Collections.Generic.ICollection{`0},System.Func{System.Threading.Tasks.Task},System.Func{System.Boolean},System.Action{`0},System.Action{`0})">
             <summary>
             Constructor.
             </summary>
+            <param name="collection">Collection to add/remove components.</param>
+            <param name="stateHasChangedAction">Action to call StateHasChanged method. Due to server prerendering issue in .NET 5, the StateHasChanged must be called inside InvokeAsync, so the action is awaitable.</param>
+            <param name="isOwnerDisposedFunc">Function to return if the holding component is disposed.</param>
+            <param name="itemAddedCallback">Callback to call when the component is added to the collection.</param>
+            <param name="itemRemovedCallback">Callback to call when the component is removed from thecollection.</param>
         </member>
         <member name="M:Havit.Blazor.Components.Web.CollectionRegistration`1.Register(`0)">
             <summary>
