@@ -22,3 +22,7 @@ a {
 	color: var(--hx-sidebar-brand-name-color);
 	font-weight: var(--hx-sidebar-brand-name-font-weight);
 }
+
+.collapsed .hx-sidebar-brand-name {
+	display: none;
+}
