@@ -81,9 +81,9 @@
 	width: var(--hx-sidebar-collapsed-width);
 }
 @media (min-width: 768px) {
-	.hx-sidebar.collapsed ::deep .brand-name,
+	.hx-sidebar.collapsed ::deep .hx-sidebar-brand-name,
 	.hx-sidebar.collapsed ::deep .text,
-	.hx-sidebar.collapsed ::deep .expand-icon {	
+	.hx-sidebar.collapsed ::deep .expand-icon {
 		display: none;
 	}
 }
