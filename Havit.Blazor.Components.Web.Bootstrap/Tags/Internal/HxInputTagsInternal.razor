@@ -1,18 +1,27 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
+<div class="@(HasInputGroupsEffective ? "input-group" : null)">
+
+@if (InputGroupStartText is not null)
+{
+    <span class="input-group-text">@InputGroupStartText</span>
+}
+    
+@InputGroupStartTemplate
+
 <div class="@CssClassHelper.Combine("hx-input-tags-control",
 									GetFormControlCssClasses(),
 									GetNakedCssClasses(),
 									this.currentlyFocused ? "hx-input-tags-control-focused" : null,
                                     this.EnabledEffective ? null : "hx-input-tags-control-disabled",
 									this.CssClass)"
-     @onclick="async () => await autosuggestInput.FocusAsync()"
-     @onclick:stopPropagation>
+        @onclick="async () => await autosuggestInput.FocusAsync()"
+        @onclick:stopPropagation>
 
     @foreach (string tag in ValueEffective)
     {
         <HxBadge Settings="this.TagBadgeSettingsEffective"
-             CssClass="@CssClassHelper.Combine("hx-tag", this.TagBadgeSettingsEffective.CssClass)">@* Looks weird but should work :-D *@
+                CssClass="@CssClassHelper.Combine("hx-tag", this.TagBadgeSettingsEffective.CssClass)">@* Looks weird but should work :-D *@
             @tag
             @if (this.EnabledEffective)
             {
@@ -28,8 +37,8 @@
         var showAddButtonText = !this.ValueEffective.Any() && !String.IsNullOrEmpty(AddButtonText);
 
         <HxBadge Settings="this.TagBadgeSettingsEffective"
-             CssClass="@CssClassHelper.Combine("hx-tag hx-tag-add-button", this.TagBadgeSettingsEffective.CssClass)"
-             role="button" tabindex="0">
+                CssClass="@CssClassHelper.Combine("hx-tag hx-tag-add-button", this.TagBadgeSettingsEffective.CssClass)"
+                role="button" tabindex="0">
             <span class="hx-tag-add-button-icon" role="button">
                 @* We don't need to catch onClick here as it gets propagated to parent div*@
                 <HxIcon Icon="BootstrapIcon.PlusLg" />
@@ -43,17 +52,17 @@
 
     <div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
         <HxInputTagsAutosuggestInput @ref="autosuggestInput"
-                                     InputId="@InputId"
-                                     EnabledEffective="@EnabledEffective"
-                                     Value="@userInput"
-                                     OnInputInput="HandleInputInput"
-                                     OnInputFocus="HandleInputFocus"
-                                     OnInputBlur="HandleInputBlur"
-                                     OnInputMouseDown="HandleInputMouseDown"
-                                     OnInputKeyDown="HandleInputKeyDown"
-                                     Placeholder="@(ValueEffective.Any() ? null : Placeholder)"
-                                     CssClass="border-0 flex-grow-1"
-                                     Offset="@InputOffset" />
+                                        InputId="@InputId"
+                                        EnabledEffective="@EnabledEffective"
+                                        Value="@userInput"
+                                        OnInputInput="HandleInputInput"
+                                        OnInputFocus="HandleInputFocus"
+                                        OnInputBlur="HandleInputBlur"
+                                        OnInputMouseDown="HandleInputMouseDown"
+                                        OnInputKeyDown="HandleInputKeyDown"
+                                        Placeholder="@(ValueEffective.Any() ? null : Placeholder)"
+                                        CssClass="border-0 flex-grow-1"
+                                        Offset="@InputOffset" />
         @if (dataProviderInProgress)
         {
             <HxSpinner Type="SpinnerType.Border" Size="SpinnerSize.Small" />
@@ -64,5 +73,14 @@
             </ItemTemplate>
         </HxAutosuggestItems>
     </div>
+
+</div>
+
+@InputGroupEndTemplate
+
+@if (InputGroupEndText is not null)
+{
+    <span class="input-group-text">@InputGroupEndText</span>
+}
 
 </div>

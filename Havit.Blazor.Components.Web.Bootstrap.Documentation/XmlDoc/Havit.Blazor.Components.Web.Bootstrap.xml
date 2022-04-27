@@ -2611,6 +2611,26 @@
             Any additional CSS class to apply.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputGroupStartText">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputGroupStartTemplate">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputGroupEndText">
+            <summary>
+            Input-group at the end of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputGroupEndTemplate">
+            <summary>
+            Input-group at the end of the input.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase">
             <summary>
             Common implementation for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPopover"/>.
@@ -7586,6 +7606,26 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputSize">
             <summary>
             Size of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputGroupStartText">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputGroupStartTemplate">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputGroupEndText">
+            <summary>
+            Input-group at the end of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputGroupEndTemplate">
+            <summary>
+            Input-group at the end of the input.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">

@@ -128,6 +128,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
 		private protected override string CoreCssClass => "hx-input-tags position-relative";
 
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public string InputGroupStartText { get; set; }
+
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public string InputGroupEndText { get; set; }
+
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
 		private HxInputTagsInternal hxInputTagsInternalComponent;
 
 		/// <inheritdoc />
@@ -154,6 +174,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1018, nameof(HxInputTagsInternal.CssClass), CssClassHelper.Combine(this.CssClass, IsValueInvalid() ? InvalidCssClass : null));
 			builder.AddAttribute(1019, nameof(HxInputTagsInternal.AddButtonText), this.AddButtonText);
 			builder.AddAttribute(1020, nameof(HxInputTagsInternal.TagBadgeSettingsEffective), this.TagBadgeSettingsEffective);
+			builder.AddAttribute(1021, nameof(HxInputTagsInternal.InputGroupStartText), this.InputGroupStartText);
+			builder.AddAttribute(1022, nameof(HxInputTagsInternal.InputGroupEndText), this.InputGroupEndText);
+			builder.AddAttribute(1023, nameof(HxInputTagsInternal.InputGroupStartTemplate), this.InputGroupStartTemplate);
+			builder.AddAttribute(1024, nameof(HxInputTagsInternal.InputGroupEndTemplate), this.InputGroupEndTemplate);
 			builder.AddComponentReferenceCapture(1100, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
 			builder.CloseComponent();
 		}
