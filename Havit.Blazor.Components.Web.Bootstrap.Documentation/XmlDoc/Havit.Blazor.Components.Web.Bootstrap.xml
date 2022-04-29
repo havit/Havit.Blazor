@@ -2413,6 +2413,26 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.InputGroupStartText">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.InputGroupStartTemplate">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.InputGroupEndText">
+            <summary>
+            Input-group at the end of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.InputGroupEndTemplate">
+            <summary>
+            Input-group at the end of the input.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent">
             <summary>
             Represents properties (and methods) of a component rendering a form value (ie. form inputs).
@@ -3756,6 +3776,26 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.NullDataText">
             <summary>
             Text to display when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.Data"/> is <c>null</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputGroupStartText">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputGroupStartTemplate">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputGroupEndText">
+            <summary>
+            Input-group at the end of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputGroupEndTemplate">
+            <summary>
+            Input-group at the end of the input.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FocusAsync">

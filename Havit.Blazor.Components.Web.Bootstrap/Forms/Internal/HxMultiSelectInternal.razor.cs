@@ -29,6 +29,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public EventCallback<SelectionChangedArgs> ItemSelectionChanged { get; set; }
 
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public string InputGroupStartText { get; set; }
+
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public string InputGroupEndText { get; set; }
+
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
+		protected bool HasInputGroupsEffective => InputGroupStartText is not null || InputGroupStartTemplate is not null || InputGroupEndText is not null || InputGroupEndTemplate is not null;
+
 		private ElementReference inputElement;
 
 		private async Task HandleItemSelectionChangedAsync(bool newChecked, TItem item)

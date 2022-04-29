@@ -86,6 +86,26 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// </summary>
 	[Parameter] public string NullDataText { get; set; }
 
+	/// <summary>
+	/// Input-group at the beginning of the input.
+	/// </summary>
+	[Parameter] public string InputGroupStartText { get; set; }
+
+	/// <summary>
+	/// Input-group at the beginning of the input.
+	/// </summary>
+	[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+
+	/// <summary>
+	/// Input-group at the end of the input.
+	/// </summary>
+	[Parameter] public string InputGroupEndText { get; set; }
+
+	/// <summary>
+	/// Input-group at the end of the input.
+	/// </summary>
+	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
 	private List<TItem> itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
 
@@ -159,6 +179,10 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(108, nameof(HxMultiSelectInternal<TValue, TItem>.Value), Value);
 		builder.AddAttribute(109, nameof(HxMultiSelectInternal<TValue, TItem>.NullDataText), NullDataText);
 		builder.AddAttribute(110, nameof(HxMultiSelectInternal<TValue, TItem>.ItemSelectionChanged), EventCallback.Factory.Create<HxMultiSelectInternal<TValue, TItem>.SelectionChangedArgs>(this, args => HandleItemSelectionChanged(args.Checked, args.Item)));
+		builder.AddAttribute(111, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupStartText), InputGroupStartText);
+		builder.AddAttribute(112, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupStartTemplate), InputGroupStartTemplate);
+		builder.AddAttribute(113, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndText), InputGroupEndText);
+		builder.AddAttribute(114, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndTemplate), InputGroupEndTemplate);
 		builder.AddComponentReferenceCapture(111, r => hxMultiSelectInternalComponent = (HxMultiSelectInternal<TValue, TItem>)r);
 
 		builder.CloseComponent();
