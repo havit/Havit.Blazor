@@ -73,7 +73,30 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		[Parameter] public (int Skidding, int Distance) DropdownOffset { get; set; } = (0, 4);
 
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public string InputGroupStartText { get; set; }
+
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public string InputGroupEndText { get; set; }
+
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
+
+		protected bool HasInputGroupsEffective => InputGroupStartText is not null || InputGroupStartTemplate is not null || InputGroupEndText is not null || InputGroupEndTemplate is not null;
+		protected bool HasAnyInputGroupEnd => InputGroupEndText is not null || InputGroupEndTemplate is not null;
 
 		private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
 		private System.Timers.Timer timer;
