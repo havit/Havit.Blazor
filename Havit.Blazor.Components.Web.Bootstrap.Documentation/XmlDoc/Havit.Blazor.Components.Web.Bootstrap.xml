@@ -4507,6 +4507,26 @@
             Indicates whether text-query mode is enabled (accepts free text in addition to suggested items).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputGroupStartText">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputGroupStartTemplate">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputGroupEndText">
+            <summary>
+            Input-group at the end of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputGroupEndTemplate">
+            <summary>
+            Input-group at the end of the input.
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.textQueryHasBeenBelowMinimumLength">
             <summary>
             Shows whether the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.TextQuery"/> has been below minimum required length recently (before data provider loading is completed).

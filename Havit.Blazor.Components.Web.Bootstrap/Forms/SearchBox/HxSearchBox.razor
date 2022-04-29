@@ -27,25 +27,32 @@
 						Label="@Label"
 						LabelType="LabelType"
 						InputSize="this.InputSizeEffective"
-						CssClass="@CssClassHelper.Combine(InputCssClass, "mb-0")" />
+						CssClass="@CssClassHelper.Combine(InputCssClass, "mb-0")"
+						InputGroupStartText="@InputGroupStartText"
+						InputGroupEndText="@InputGroupEndText"
+						InputGroupStartTemplate="@InputGroupStartTemplate"
+						InputGroupEndTemplate="@InputGroupEndTemplate" />
 
-					@if (dataProviderInProgress)
+                    @if (InputGroupEndText is null && InputGroupEndTemplate is null)
 					{
-						<div class="hx-search-box-input-icon hx-search-box-input-icon-end">
-							<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-						</div>
-					}
-					else if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null))
-					{
-						<div role="button" class="hx-search-box-input-icon hx-search-box-input-icon-end" @onclick="ClearInputAsync">
-							<HxIcon Icon="ClearIconEffective" />
-						</div>
-					}
-					else if (SearchIconEffective is not null)
-					{
-						<div class="hx-search-box-input-icon hx-search-box-input-icon-end">
-							<HxIcon Icon="SearchIconEffective" />
-						</div>
+                        if (dataProviderInProgress)
+						{
+							<div class="hx-search-box-input-icon hx-search-box-input-icon-end">
+								<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+							</div>
+						}
+						else if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null))
+						{
+							<div role="button" class="hx-search-box-input-icon hx-search-box-input-icon-end" @onclick="ClearInputAsync">
+								<HxIcon Icon="ClearIconEffective" />
+							</div>
+						}
+						else if (SearchIconEffective is not null)
+						{
+							<div class="hx-search-box-input-icon hx-search-box-input-icon-end">
+								<HxIcon Icon="SearchIconEffective" />
+							</div>
+						}
 					}
 				</form>
 			</div>

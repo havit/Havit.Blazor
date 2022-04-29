@@ -178,6 +178,26 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// </summary>
 	[Parameter] public bool AllowTextQuery { get; set; } = true;
 
+	/// <summary>
+	/// Input-group at the beginning of the input.
+	/// </summary>
+	[Parameter] public string InputGroupStartText { get; set; }
+
+	/// <summary>
+	/// Input-group at the beginning of the input.
+	/// </summary>
+	[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+
+	/// <summary>
+	/// Input-group at the end of the input.
+	/// </summary>
+	[Parameter] public string InputGroupEndText { get; set; }
+
+	/// <summary>
+	/// Input-group at the end of the input.
+	/// </summary>
+	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
 	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
 	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
 	private List<TItem> searchResults = new();
