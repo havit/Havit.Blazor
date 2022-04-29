@@ -19,8 +19,15 @@
 	@InputGroupStartTemplate
 
 	@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-	<input @ref="dateInputElement" type="text" id="@InputId" class="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())" value="@CurrentValueAsString" @onchange="HandleValueChangedAsync" placeholder="@Placeholder" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
+	<input @ref="dateInputElement" type="text" id="@InputId" class="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())" style="@GetInputStyle()" value="@CurrentValueAsString" @onchange="HandleValueChangedAsync" placeholder="@Placeholder" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
 	
+	@InputGroupEndTemplate
+
+	@if (InputGroupEndText is not null)
+	{
+		<span class="@CssClassHelper.Combine("input-group-text", RenderPredefinedDates ? null : " rounded-end")">@InputGroupEndText</span>
+	}
+
 	@if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
 	{
 		<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
@@ -42,7 +49,7 @@
 		</div>
 	}
 
-	@if (CalendarIconEffective is not null)
+	@if (CalendarIconEffective is not null && !HasInputGroupsEffective)
 	{
 		<div @onclick="() => ToggleDropDownAsync(dateInputElement)" class="hx-input-date-icon">
 			<HxIcon Icon="CalendarIconEffective" />

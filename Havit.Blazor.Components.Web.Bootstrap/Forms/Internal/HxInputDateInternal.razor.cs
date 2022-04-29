@@ -129,6 +129,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", dateInputElement);
 		}
 
+		protected virtual string GetInputStyle()
+		{
+			return (InputGroupEndText is not null || InputGroupEndTemplate is not null) ? "border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important;" : null;
+		}
+
 		private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request)
 		{
 			return CalendarDateCustomizationProviderEffective?.Invoke(request with { Target = CalendarDateCustomizationTarget.InputDate }) ?? null;
