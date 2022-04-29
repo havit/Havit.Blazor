@@ -69,6 +69,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private ValidationMessageStore validationMessageStore;
 
 		private ElementReference dateInputElement;
+		private ElementReference iconWrapperElement;
 		private IJSObjectReference jsModule;
 
 		protected override void OnParametersSet()
@@ -126,7 +127,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxInputDateRange) + ".js");
 
-			await jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", dateInputElement);
+			await jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", dateInputElement, (this.CalendarIconEffective is not null) ? iconWrapperElement : null);
 		}
 
 		protected virtual string GetInputStyle()
@@ -149,12 +150,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private async Task HandleOKClickAsync()
 		{
 			await CloseDropDownAsync(dateInputElement);
-		}
-
-		private async Task OpenDropDownAsync(ElementReference triggerElement)
-		{
-			Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
-			await jsModule.InvokeVoidAsync("open", triggerElement);
 		}
 
 		private async Task CloseDropDownAsync(ElementReference triggerElement)
