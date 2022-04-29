@@ -34,13 +34,34 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public LabelType LabelTypeEffective { get; set; }
 
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public string InputGroupStartText { get; set; }
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public string InputGroupEndText { get; set; }
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
 		[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
 
 		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
+
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
+		protected bool HasInputGroupsEffective => InputGroupStartText is not null || InputGroupEndText is not null || InputGroupStartTemplate is not null || InputGroupEndTemplate is not null;
+
+		protected bool RenderPredefinedDates => ShowPredefinedDatesEffective && (this.PredefinedDatesEffective != null) && PredefinedDatesEffective.Any();
 
 		private TValue previousValue;
 

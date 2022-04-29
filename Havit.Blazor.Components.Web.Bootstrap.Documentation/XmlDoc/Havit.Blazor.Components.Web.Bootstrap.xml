@@ -2347,6 +2347,26 @@
             Adds <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer"/> to a builder.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.InputGroupStartText">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.InputGroupStartTemplate">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.InputGroupEndText">
+            <summary>
+            Input-group at the end of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.InputGroupEndTemplate">
+            <summary>
+            Input-group at the end of the input.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.DisposeAsync">
             <inheritdoc />
         </member>
@@ -3249,6 +3269,26 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputGroupStartText">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputGroupStartTemplate">
+            <summary>
+            Input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputGroupEndText">
+            <summary>
+            Input-group at the end of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputGroupEndTemplate">
+            <summary>
+            Input-group at the end of the input.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.FormatValueAsString(`0)">
             <inheritdocs />

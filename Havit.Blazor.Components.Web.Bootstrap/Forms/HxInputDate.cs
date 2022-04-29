@@ -107,6 +107,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputDateInternal */ : LabelValueRenderOrder.LabelValue;
 
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public string InputGroupStartText { get; set; }
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public string InputGroupEndText { get; set; }
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
 		public HxInputDate()
 		{
 			Type undelyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
@@ -147,6 +164,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(211, nameof(HxInputDateInternal<TValue>.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProviderEffective);
 			builder.AddAttribute(212, nameof(HxInputDateInternal<TValue>.LabelTypeEffective), labelTypeEffective);
 			builder.AddAttribute(213, nameof(HxInputDateInternal<TValue>.FormValueComponent), this);
+
+			builder.AddAttribute(214, nameof(HxInputDateInternal<TValue>.InputGroupStartText), this.InputGroupStartText);
+			builder.AddAttribute(215, nameof(HxInputDateInternal<TValue>.InputGroupEndText), this.InputGroupEndText);
+			builder.AddAttribute(216, nameof(HxInputDateInternal<TValue>.InputGroupStartTemplate), this.InputGroupStartTemplate);
+			builder.AddAttribute(217, nameof(HxInputDateInternal<TValue>.InputGroupEndTemplate), this.InputGroupEndTemplate);
 
 			builder.CloseComponent();
 		}

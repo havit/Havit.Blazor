@@ -11,12 +11,21 @@
 					 (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null,
 					 (ShowPredefinedDatesEffective && (PredefinedDatesEffective?.Any() ?? false)) ? "hx-input-date-predefined-dates" : null)">
 
+	@if (InputGroupStartText is not null)
+	{
+		<span class="input-group-text">@InputGroupStartText</span>
+	}
+    
+	@InputGroupStartTemplate
+
 	@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
 	<input @ref="dateInputElement" type="text" id="@InputId" class="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())" value="@CurrentValueAsString" @onchange="HandleValueChangedAsync" placeholder="@Placeholder" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
+	
 	@if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
 	{
 		<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
 	}
+
 	@if (EnabledEffective)
 	{
 		<div class="dropdown-menu hx-input-date-dropdown">
@@ -40,7 +49,7 @@
 		</div>
 	}
 
-	@if (ShowPredefinedDatesEffective && (this.PredefinedDatesEffective != null) && PredefinedDatesEffective.Any())
+	@if (RenderPredefinedDates)
 	{
 		<button class="btn btn-light" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)" tabindex="-1">
 			<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
@@ -55,5 +64,7 @@
 			</ul>
 		}
 	}
-</div>
-	}
+	
+	</div>
+
+}
