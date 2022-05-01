@@ -49,7 +49,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
-		protected bool HasInputGroupsEffective => InputGroupStartText is not null || InputGroupStartTemplate is not null || InputGroupEndText is not null || InputGroupEndTemplate is not null;
+		protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
 		private ElementReference inputElement;
 
