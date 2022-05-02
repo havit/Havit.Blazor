@@ -96,11 +96,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			{
 				builder.OpenElement(1, "span");
 				builder.AddAttribute(2, "class", WrapperCssClass);
-				builder.AddAttribute(3, "data-bs-container", "body");
-				builder.AddAttribute(4, "data-bs-trigger", GetTriggers());
-				builder.AddAttribute(5, "data-bs-placement", PlacementInternal.ToString().ToLower());
-				builder.AddAttribute(6, "data-bs-custom-class", CssClass);
-				builder.AddAttribute(7, "title", TitleInternal);
+				builder.AddAttribute(3, "data-bs-trigger", GetTriggers().Replace("hover", "hover focus"));
+				builder.AddAttribute(4, "data-bs-placement", PlacementInternal.ToString().ToLower());
+				builder.AddAttribute(5, "data-bs-custom-class", CssClass);
+				builder.AddAttribute(6, "title", TitleInternal);
 				if (!String.IsNullOrWhiteSpace(ContentInternal))
 				{
 					// used only by HxPopover
@@ -136,6 +135,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					result = result + " " + flag.ToString().ToLower();
 				}
 			}
+
 			return result?.Trim();
 		}
 
