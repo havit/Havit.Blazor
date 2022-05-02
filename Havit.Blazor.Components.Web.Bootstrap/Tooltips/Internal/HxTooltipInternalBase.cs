@@ -135,7 +135,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 					result = result + " " + flag.ToString().ToLower();
 				}
 			}
-
 			return result?.Trim();
 		}
 
