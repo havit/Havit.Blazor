@@ -122,7 +122,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		private RenderData renderData;
-		private Dictionary<DateTime, CalendarDateCustomizationResult> customizations;
 
 		protected override async Task OnParametersSetAsync()
 		{
@@ -219,20 +218,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				return null;
 			}
 
-			customizations ??= new Dictionary<DateTime, CalendarDateCustomizationResult>();
-
-			if (customizations.TryGetValue(day, out CalendarDateCustomizationResult result))
-			{
-				return result;
-			}
-
-			result = dateCustomizationProvider.Invoke(new CalendarDateCustomizationRequest
+			return dateCustomizationProvider.Invoke(new CalendarDateCustomizationRequest
 			{
 				Target = CalendarDateCustomizationTarget.Calendar,
 				Date = day
 			});
-			customizations.Add(day, result);
-			return result;
 		}
 
 		private async Task SetDisplayMonthAsync(DateTime newDisplayMonth)
