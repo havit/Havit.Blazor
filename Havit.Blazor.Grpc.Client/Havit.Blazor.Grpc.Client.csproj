@@ -7,7 +7,8 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.1.0</PackageVersion>
+		<!-- GrpcPackagesVersion - variable from Directory.Build.props -->
+		<PackageVersion>$(GrpcPackagesVersion)</PackageVersion>
 		<Description>HAVIT Blazor stack - gRPC Support - client-side</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>

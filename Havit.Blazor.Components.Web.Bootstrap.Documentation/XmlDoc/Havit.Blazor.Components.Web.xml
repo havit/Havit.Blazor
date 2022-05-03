@@ -886,12 +886,12 @@
             Retrieves value from dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Throws exception when key not found.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.TryGetByKeyAsync(`0,`1)">
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.GetByKeyOrDefaultAsync(`0,`1)">
             <summary>
             Retrieves value from dictionary (includes data load if needed). Returns <c>default</c> when not found.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.TryGetByKey(`0,`1,System.Boolean)">
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.GetByKeyOrDefault(`0,`1,System.Boolean)">
             <summary>
             Retrieves value from dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
             </summary>
@@ -947,12 +947,12 @@
             Retrieves value from dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Throws exception when key not found.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.TryGetByKeyAsync(`0,`1)">
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetByKeyOrDefaultAsync(`0,`1)">
             <summary>
             Retrieves value from dictionary (includes data load if needed). Returns <c>default</c> when not found.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.TryGetByKey(`0,`1,System.Boolean)">
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetByKeyOrDefault(`0,`1,System.Boolean)">
             <summary>
             Retrieves value from dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
             </summary>
