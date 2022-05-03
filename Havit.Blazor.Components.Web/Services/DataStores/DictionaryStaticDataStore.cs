@@ -87,16 +87,16 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 		/// <summary>
 		/// Retrieves value from dictionary (includes data load if needed). Returns <c>default</c> when not found.
 		/// </summary>
-		public async Task<TValue> TryGetByKeyAsync(TKey key, TValue defaultValue = default)
+		public async Task<TValue> GetByKeyOrDefaultAsync(TKey key, TValue defaultValue = default)
 		{
 			await EnsureDataAsync();
-			return TryGetByKey(key, defaultValue);
+			return GetByKeyOrDefault(key, defaultValue);
 		}
 
 		/// <summary>
 		/// Retrieves value from dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
 		/// </summary>
-		public TValue TryGetByKey(TKey key, TValue defaultValue = default, bool throwIfNotLoaded = false)
+		public TValue GetByKeyOrDefault(TKey key, TValue defaultValue = default, bool throwIfNotLoaded = false)
 		{
 			Contract.Requires<ArgumentNullException>(key is not null);
 

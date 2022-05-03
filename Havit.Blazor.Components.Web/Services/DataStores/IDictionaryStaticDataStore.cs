@@ -40,12 +40,12 @@
 		/// <summary>
 		/// Retrieves value from dictionary (includes data load if needed). Returns <c>default</c> when not found.
 		/// </summary>
-		Task<TValue> TryGetByKeyAsync(TKey key, TValue defaultValue = default);
+		Task<TValue> GetByKeyOrDefaultAsync(TKey key, TValue defaultValue = default);
 
 		/// <summary>
 		/// Retrieves value from dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
 		/// </summary>
-		TValue TryGetByKey(TKey key, TValue defaultValue = default, bool throwIfNotLoaded = false);
+		TValue GetByKeyOrDefault(TKey key, TValue defaultValue = default, bool throwIfNotLoaded = false);
 
 		/// <summary>
 		/// Throws away all the data.
