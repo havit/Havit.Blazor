@@ -19,7 +19,7 @@
 	@InputGroupStartTemplate
 
 	@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-	<input @ref="dateInputElement" type="text" id="@InputId" class="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())" style="@GetInputStyle()" value="@CurrentValueAsString" @onchange="HandleValueChangedAsync" placeholder="@Placeholder" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
+	<input @ref="dateInputElement" type="text" id="@InputId" class="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass(), HasEndInputGroupEffective ? "hx-input-date-no-right-border" : null)" value="@CurrentValueAsString" @onchange="HandleValueChangedAsync" placeholder="@Placeholder" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
 	
 	@InputGroupEndTemplate
 
@@ -49,7 +49,7 @@
 		</div>
 	}
 
-	@if (CalendarIconEffective is not null && !HasInputGroupsEffective)
+	@if (RenderIcon)
 	{
 		<div @ref="iconWrapperElement" class="hx-input-date-icon">
 			<HxIcon Icon="CalendarIconEffective" />

@@ -60,8 +60,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
+		protected bool HasEndInputGroupEffective => !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupEndTemplate is not null);
 
 		protected bool RenderPredefinedDates => ShowPredefinedDatesEffective && (this.PredefinedDatesEffective != null) && PredefinedDatesEffective.Any();
+		protected bool RenderIcon => CalendarIconEffective is not null && !HasInputGroupsEffective;
 
 		private TValue previousValue;
 
@@ -127,12 +129,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxInputDateRange) + ".js");
 
-			await jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", dateInputElement, (this.CalendarIconEffective is not null) ? iconWrapperElement : null);
-		}
-
-		protected virtual string GetInputStyle()
-		{
-			return (InputGroupEndText is not null || InputGroupEndTemplate is not null) ? "border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important;" : null;
+			if (RenderIcon)
+			{
+				await jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", dateInputElement, (this.CalendarIconEffective is not null) ? iconWrapperElement : null);
+			}
 		}
 
 		private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request)
