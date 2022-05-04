@@ -74,6 +74,11 @@
     z-index: 10;
 }
 
+.hx-input-date.input-group input.form-control.hx-input-date-no-right-border {
+	border-top-right-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+}
+
 ::deep.form-floating label {
     /* ::deep.form-floating - there MUST NOT be a space between ::deep and .form-floating */
     z-index: 10;
