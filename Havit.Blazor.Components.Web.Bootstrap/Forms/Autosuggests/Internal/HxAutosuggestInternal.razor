@@ -2,7 +2,7 @@
 @typeparam TItem
 @typeparam TValue
 
-<div id="@dropdownId" class="@CssClassHelper.Combine("hx-autosuggest dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null, HasInputGroupsEffective ? "input-group" : null)">
+<div id="@dropdownId" class="@CssClassHelper.Combine("hx-autosuggest dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null, HasInputGroupsEffective ? "input-group" : null, InputGroupCssClass)">
 	@if (InputGroupStartText is not null)
 	{
 		<span class="input-group-text">@InputGroupStartText</span>

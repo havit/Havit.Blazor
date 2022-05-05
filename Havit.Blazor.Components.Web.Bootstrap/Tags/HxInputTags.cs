@@ -129,6 +129,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private protected override string CoreCssClass => "hx-input-tags position-relative";
 
 		/// <summary>
+		/// Custom CSS class to render with input-group span.
+		/// </summary>
+		[Parameter] public string InputGroupCssClass { get; set; }
+
+		/// <summary>
 		/// Input-group at the beginning of the input.
 		/// </summary>
 		[Parameter] public string InputGroupStartText { get; set; }
@@ -178,6 +183,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1022, nameof(HxInputTagsInternal.InputGroupEndText), this.InputGroupEndText);
 			builder.AddAttribute(1023, nameof(HxInputTagsInternal.InputGroupStartTemplate), this.InputGroupStartTemplate);
 			builder.AddAttribute(1024, nameof(HxInputTagsInternal.InputGroupEndTemplate), this.InputGroupEndTemplate);
+			builder.AddAttribute(1025, nameof(HxInputTagsInternal.InputGroupCssClass), this.InputGroupCssClass);
 			builder.AddComponentReferenceCapture(1100, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
 			builder.CloseComponent();
 		}

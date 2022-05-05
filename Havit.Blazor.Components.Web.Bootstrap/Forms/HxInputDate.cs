@@ -108,6 +108,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputDateInternal */ : LabelValueRenderOrder.LabelValue;
 
 		/// <summary>
+		/// Custom CSS class to render with input-group span.
+		/// </summary>
+		[Parameter] public string InputGroupCssClass { get; set; }
+
+		/// <summary>
 		/// Input-group at the beginning of the input.
 		/// </summary>
 		[Parameter] public string InputGroupStartText { get; set; }
@@ -169,6 +174,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(215, nameof(HxInputDateInternal<TValue>.InputGroupEndText), this.InputGroupEndText);
 			builder.AddAttribute(216, nameof(HxInputDateInternal<TValue>.InputGroupStartTemplate), this.InputGroupStartTemplate);
 			builder.AddAttribute(217, nameof(HxInputDateInternal<TValue>.InputGroupEndTemplate), this.InputGroupEndTemplate);
+			builder.AddAttribute(218, nameof(HxInputDateInternal<TValue>.InputGroupCssClass), this.InputGroupCssClass);
 
 			builder.CloseComponent();
 		}

@@ -7,9 +7,11 @@
 	<div class="@CssClassHelper.Combine(
 					 "hx-input-date input-group dropdown",
 					 ((IInputWithSize)this).GetInputGroupSizeCssClass(),
+                     InputSizeEffective.AsInputGroupCssClass(),
 					 (this.CalendarIconEffective is not null) ? "hx-input-date-has-calendar-icon" : null,
 					 (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null,
-					 (ShowPredefinedDatesEffective && (PredefinedDatesEffective?.Any() ?? false)) ? "hx-input-date-predefined-dates" : null)">
+					 (ShowPredefinedDatesEffective && (PredefinedDatesEffective?.Any() ?? false)) ? "hx-input-date-predefined-dates" : null,
+					 InputGroupCssClass)">
 
 	@if (InputGroupStartText is not null)
 	{
