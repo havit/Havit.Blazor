@@ -7,7 +7,7 @@
 }
 
 <div class="hx-checkbox-dropdownlist dropdown" role="listbox">
-    <div class="@(HasInputGroupsEffective ? "input-group" : null)" data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
+    <div class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputGroupCssClass)" data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
         @if (InputGroupStartText is not null)
         {
             <span class="input-group-text">@InputGroupStartText</span>

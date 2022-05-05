@@ -1,6 +1,6 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<div class="@(HasInputGroupsEffective ? "input-group" : null)">
+<span class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputSizeEffective.AsInputGroupCssClass(), InputGroupCssClass)">
 
 @if (InputGroupStartText is not null)
 {
@@ -83,4 +83,4 @@
     <span class="input-group-text">@InputGroupEndText</span>
 }
 
-</div>
+</span>

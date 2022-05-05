@@ -2298,6 +2298,11 @@
             <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.InputGroupCssClass">
+            <summary>
+            Custom CSS class to render with input-group span.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.InputGroupStartText">
             <summary>
             Input-group at the beginning of the input.
@@ -2387,6 +2392,11 @@
             Adds <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer"/> to a builder.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.InputGroupCssClass">
+            <summary>
+            Custom CSS class to render with input-group span.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.InputGroupStartText">
             <summary>
             Input-group at the beginning of the input.
@@ -2412,6 +2422,11 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal.DisposeAsync">
             <inheritdoc />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.InputGroupCssClass">
+            <summary>
+            Custom CSS class to render with input-group span.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.InputGroupStartText">
             <summary>
@@ -2689,6 +2704,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.CssClass">
             <summary>
             Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputGroupCssClass">
+            <summary>
+            Custom CSS class to render with input-group span.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputGroupStartText">
@@ -3329,6 +3349,11 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputGroupCssClass">
+            <summary>
+            Custom CSS class to render with input-group span.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputGroupStartText">
             <summary>
@@ -7746,6 +7771,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputSize">
             <summary>
             Size of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputGroupCssClass">
+            <summary>
+            Custom CSS class to render with input-group span.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputGroupStartText">

@@ -30,6 +30,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public EventCallback<SelectionChangedArgs> ItemSelectionChanged { get; set; }
 
 		/// <summary>
+		/// Custom CSS class to render with input-group span.
+		/// </summary>
+		[Parameter] public string InputGroupCssClass { get; set; }
+
+
+		/// <summary>
 		/// Input-group at the beginning of the input.
 		/// </summary>
 		[Parameter] public string InputGroupStartText { get; set; }
