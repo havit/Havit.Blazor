@@ -122,12 +122,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
 
 		/// <summary>
-		/// Input-group at the end of the input.
+		/// Input-group at the end of the input.<br/>
+		/// Hides the search icon when used!
 		/// </summary>
 		[Parameter] public string InputGroupEndText { get; set; }
 
 		/// <summary>
-		/// Input-group at the end of the input.
+		/// Input-group at the end of the input.<br/>
+		/// Hides the search icon when used!
 		/// </summary>
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 

@@ -2211,12 +2211,14 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupEndText">
             <summary>
-            Input-group at the end of the input.
+            Input-group at the end of the input.<br/>
+            Hides the search icon when used!
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupEndTemplate">
             <summary>
-            Input-group at the end of the input.
+            Input-group at the end of the input.<br/>
+            Hides the search icon when used!
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -4544,12 +4546,14 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputGroupEndText">
             <summary>
-            Input-group at the end of the input.
+            Input-group at the end of the input.<br/>
+            Hides the search icon when used!
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputGroupEndTemplate">
             <summary>
-            Input-group at the end of the input.
+            Input-group at the end of the input.<br/>
+            Hides the search icon when used!
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.textQueryHasBeenBelowMinimumLength">
