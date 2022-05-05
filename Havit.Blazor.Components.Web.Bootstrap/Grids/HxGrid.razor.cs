@@ -8,6 +8,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// Grid to display tabular data from data source. Includes support for client-side and server-side paging &amp; sorting (or virtualized scrolling as needed).
 	/// </summary>
 	/// <typeparam name="TItem">Type of row data item.</typeparam>
+#if NET6_0_OR_GREATER
+	[CascadingTypeParameter(nameof(TItem))]
+#endif
 	public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	{
 		/// <summary>
@@ -28,11 +31,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </remarks>
 		protected virtual GridSettings GetSettings() => this.Settings;
 
-
 		/// <summary>
 		/// Data provider for items to render.<br />
 		/// The provider should always return instance of <see cref="GridDataProviderResult{TItem}"/>, <c>null</c> is not allowed.
 		/// </summary>
+#if NET6_0_OR_GREATER
+		[EditorRequired]
+#endif
 		[Parameter] public GridDataProviderDelegate<TItem> DataProvider { get; set; }
 
 		/// <summary>
@@ -54,6 +59,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Columns template.
 		/// </summary>
+#if NET6_0_OR_GREATER
+		[EditorRequired]
+#endif
 		[Parameter] public RenderFragment Columns { get; set; }
 
 		/// <summary>
