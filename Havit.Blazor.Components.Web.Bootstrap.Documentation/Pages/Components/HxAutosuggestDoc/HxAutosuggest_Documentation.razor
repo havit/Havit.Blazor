@@ -2,6 +2,10 @@
 
 <ComponentApiDoc Type="typeof(HxAutosuggest<TItem, TValue>)">
     <MainContent>
+            <DocAlert Type="DocAlertType.Warning">
+                Although <code>HxAutosuggest</code> supports <a href="/components/Inputs#InputGroups">input groups</a>, ending input groups conflict with the search icon, therefore, when <code>InputGroupEndText</code> or <code>InputGroupEndTemplate</code> are set, the search icon is not displayed.
+            </DocAlert>
+
         <Demo Type="typeof(HxAutosuggest_Demo_Basic)" />
     </MainContent>
     <CssVariables>

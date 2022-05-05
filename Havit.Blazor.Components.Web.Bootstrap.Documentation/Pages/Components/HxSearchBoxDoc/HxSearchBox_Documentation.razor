@@ -1,5 +1,9 @@
 ﻿@attribute [Route("/components/" + nameof(HxSearchBox<TItem>))]
 
 <ComponentApiDoc Type="typeof(HxSearchBox<TItem>)">
+    <DocAlert Type="DocAlertType.Warning">
+        Although <code>HxSearchBox</code> supports <a href="/components/Inputs#InputGroups">input groups</a>, ending input groups conflict with the search icon, therefore, when <code>InputGroupEndText</code> or <code>InputGroupEndTemplate</code> are set, the search icon is not displayed.
+    </DocAlert>
+
     <Demo Type="typeof(HxSearchBox_Demo)" />
 </ComponentApiDoc>
