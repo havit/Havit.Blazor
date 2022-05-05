@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
 		<NoWarn>1591;1701;1702;SA1134</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
@@ -30,7 +30,6 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.14" />
 		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.2" />
 	</ItemGroup>
 
