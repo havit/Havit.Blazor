@@ -22,7 +22,8 @@
             class="@InputCssClass"
             value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
             disabled="@(!enabled)"
-            readonly="true" />
+            readonly="true"
+            @attributes="this.AdditionalAttributes" />
 
         @InputGroupEndTemplate
 

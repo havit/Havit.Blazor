@@ -26,6 +26,11 @@
 		/// </summary>
 		[Parameter] public (int Skidding, int Distance) DropdownOffset { get; set; }
 
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying HTML element.
+		/// </summary>
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
 		internal ElementReference InputElement { get; set; }
 
 		private async Task HandleInput(ChangeEventArgs changeEventArgs)

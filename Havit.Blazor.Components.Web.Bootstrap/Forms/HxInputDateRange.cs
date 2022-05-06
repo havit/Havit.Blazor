@@ -152,6 +152,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(219, nameof(HxInputDateRangeInternal.MaxDateEffective), MaxDateEffective);
 			builder.AddAttribute(220, nameof(HxInputDateRangeInternal.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProviderEffective);
 
+			builder.AddMultipleAttributes(300, this.AdditionalAttributes);
+
 			builder.CloseComponent();
 		}
 

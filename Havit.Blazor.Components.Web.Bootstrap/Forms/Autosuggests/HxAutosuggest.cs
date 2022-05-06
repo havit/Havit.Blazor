@@ -144,6 +144,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			LabelType labelTypeEffective = (this as IInputWithLabelType).LabelTypeEffective;
 
 			builder.OpenComponent<HxAutosuggestInternal<TItem, TValue>>(1);
+
 			builder.AddAttribute(1000, nameof(HxAutosuggestInternal<TItem, TValue>.Value), Value);
 			builder.AddAttribute(1001, nameof(HxAutosuggestInternal<TItem, TValue>.ValueChanged), EventCallback.Factory.Create<TValue>(this, HandleValueChanged));
 			builder.AddAttribute(1002, nameof(HxAutosuggestInternal<TItem, TValue>.DataProvider), DataProvider);
@@ -167,7 +168,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1023, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartTemplate), this.InputGroupStartTemplate);
 			builder.AddAttribute(1024, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndText), this.InputGroupEndText);
 			builder.AddAttribute(1025, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndTemplate), this.InputGroupEndTemplate);
-			builder.AddComponentReferenceCapture(1019, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
+
+			builder.AddMultipleAttributes(2000, this.AdditionalAttributes);
+
+			builder.AddComponentReferenceCapture(3000, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
+
 			builder.CloseComponent();
 		}
 

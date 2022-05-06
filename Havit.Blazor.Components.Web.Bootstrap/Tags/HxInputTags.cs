@@ -184,6 +184,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1023, nameof(HxInputTagsInternal.InputGroupStartTemplate), this.InputGroupStartTemplate);
 			builder.AddAttribute(1024, nameof(HxInputTagsInternal.InputGroupEndTemplate), this.InputGroupEndTemplate);
 			builder.AddAttribute(1025, nameof(HxInputTagsInternal.InputGroupCssClass), this.InputGroupCssClass);
+
+			builder.AddMultipleAttributes(1090, this.AdditionalAttributes);
+
 			builder.AddComponentReferenceCapture(1100, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
 			builder.CloseComponent();
 		}

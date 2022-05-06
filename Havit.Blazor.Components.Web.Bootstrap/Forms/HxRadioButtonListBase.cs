@@ -118,6 +118,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				int j = index;
 				builder.AddAttribute(208, "onclick", EventCallback.Factory.Create(this, () => HandleInputClick(j)));
 				builder.AddEventStopPropagationAttribute(209, "onclick", true);
+				builder.AddMultipleAttributes(250, this.AdditionalAttributes);
 				builder.CloseElement(); // input
 
 				builder.OpenElement(300, "label");

@@ -19,7 +19,8 @@
 						OnInputBlur="HandleInputBlur"
 						Placeholder="@Placeholder"
 						CssClass="@((!HasAnyInputGroupEnd ? "rounded-end " : null) + InputCssClass)"
-						DropdownOffset="@DropdownOffset" />
+						DropdownOffset="@DropdownOffset"
+                        AdditionalAttributes="this.AdditionalAttributes" />
 
 	@InputGroupEndTemplate
 

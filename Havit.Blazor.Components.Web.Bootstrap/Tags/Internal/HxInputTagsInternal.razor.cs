@@ -111,6 +111,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying HTML input.
+		/// </summary>
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);

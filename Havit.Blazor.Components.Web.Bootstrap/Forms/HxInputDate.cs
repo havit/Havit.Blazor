@@ -99,12 +99,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
 		protected CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective => this.CalendarDateCustomizationProvider ?? this.GetSettings()?.CalendarDateCustomizationProvider ?? GetDefaults().CalendarDateCustomizationProvider;
 
-		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
-
 		/// <inheritdoc cref="Bootstrap.LabelType" />
 		[Parameter] public LabelType? LabelType { get; set; }
-
-
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputDateInternal */ : LabelValueRenderOrder.LabelValue;
 
 		/// <summary>
@@ -128,6 +124,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Input-group at the end of the input.
 		/// </summary>
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
+
+		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
+
 
 		public HxInputDate()
 		{
@@ -175,6 +175,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(216, nameof(HxInputDateInternal<TValue>.InputGroupStartTemplate), this.InputGroupStartTemplate);
 			builder.AddAttribute(217, nameof(HxInputDateInternal<TValue>.InputGroupEndTemplate), this.InputGroupEndTemplate);
 			builder.AddAttribute(218, nameof(HxInputDateInternal<TValue>.InputGroupCssClass), this.InputGroupCssClass);
+
+			builder.AddMultipleAttributes(300, this.AdditionalAttributes);
 
 			builder.CloseComponent();
 		}

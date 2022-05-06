@@ -4,7 +4,7 @@
 
 @if (FieldIdentifier.Model != null)
 {
-	<div class="@CssClassHelper.Combine(
+    <div class="@CssClassHelper.Combine(
 					 "hx-input-date input-group dropdown",
 					 ((IInputWithSize)this).GetInputGroupSizeCssClass(),
                      InputSizeEffective.AsInputGroupCssClass(),
@@ -13,67 +13,76 @@
 					 (ShowPredefinedDatesEffective && (PredefinedDatesEffective?.Any() ?? false)) ? "hx-input-date-predefined-dates" : null,
 					 InputGroupCssClass)">
 
-	@if (InputGroupStartText is not null)
-	{
-		<span class="input-group-text">@InputGroupStartText</span>
-	}
-    
-	@InputGroupStartTemplate
+        @if (InputGroupStartText is not null)
+        {
+            <span class="input-group-text">@InputGroupStartText</span>
+        }
 
-	@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-	<input @ref="dateInputElement" type="text" id="@InputId" class="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass(), HasEndInputGroupEffective ? "hx-input-date-no-right-border" : null)" value="@CurrentValueAsString" @onchange="HandleValueChangedAsync" placeholder="@Placeholder" data-bs-toggle="dropdown" data-bs-auto-close="outside" disabled="@(!EnabledEffective)" />
-	
-	@InputGroupEndTemplate
+        @InputGroupStartTemplate
 
-	@if (InputGroupEndText is not null)
-	{
-		<span class="@CssClassHelper.Combine("input-group-text", RenderPredefinedDates ? null : " rounded-end")">@InputGroupEndText</span>
-	}
+        @*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
+        <input @ref="dateInputElement"
+           type="text"
+           id="@InputId"
+           class="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass(), HasEndInputGroupEffective ? "hx-input-date-no-right-border" : null)"
+           value="@CurrentValueAsString" @onchange="HandleValueChangedAsync"
+           placeholder="@Placeholder"
+           data-bs-toggle="dropdown"
+           data-bs-auto-close="outside"
+           disabled="@(!EnabledEffective)"
+           @attributes="AdditionalAttributes" />
 
-	@if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
-	{
-		<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
-	}
+        @InputGroupEndTemplate
 
-	@if (EnabledEffective)
-	{
-		<div class="dropdown-menu hx-input-date-dropdown">
-			<div class="hx-input-date-calendar">
-				<HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" />
-			</div>
-			@if (ShowCalendarButtonsEffective)
-			{
-				<div class="hx-input-date-dropdown-buttons">
-					<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDate))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" />
-					<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("OK", typeof(HxInputDate))" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleOKClickAsync" />
-				</div>
-			}
-		</div>
-	}
+        @if (InputGroupEndText is not null)
+        {
+            <span class="@CssClassHelper.Combine("input-group-text", RenderPredefinedDates ? null : " rounded-end")">@InputGroupEndText</span>
+        }
 
-	@if (RenderIcon)
-	{
-		<div @ref="iconWrapperElement" class="hx-input-date-icon">
-			<HxIcon Icon="CalendarIconEffective" />
-		</div>
-	}
+        @if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
+        {
+            <HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
+        }
 
-	@if (RenderPredefinedDates)
-	{
-		<button class="btn btn-light" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)" tabindex="-1">
-			<HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
-		</button>
-		@if (EnabledEffective)
-		{
-			<ul class="dropdown-menu dropdown-menu-end">
-				@foreach (var item in PredefinedDatesEffective)
-				{
-					<li><span class="dropdown-item" role="button" @onclick="() => HandleCustomDateClick(item.Date)" @onclick:stopPropagation>@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)</span></li>
-				}
-			</ul>
-		}
-	}
-	
-	</div>
+        @if (EnabledEffective)
+        {
+            <div class="dropdown-menu hx-input-date-dropdown">
+                <div class="hx-input-date-calendar">
+                    <HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" />
+                </div>
+                @if (ShowCalendarButtonsEffective)
+                {
+                    <div class="hx-input-date-dropdown-buttons">
+                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDate))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" />
+                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("OK", typeof(HxInputDate))" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleOKClickAsync" />
+                    </div>
+                }
+            </div>
+        }
+
+        @if (RenderIcon)
+        {
+            <div @ref="iconWrapperElement" class="hx-input-date-icon">
+                <HxIcon Icon="CalendarIconEffective" />
+            </div>
+        }
+
+        @if (RenderPredefinedDates)
+        {
+            <button class="btn btn-light" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)" tabindex="-1">
+                <HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
+            </button>
+            @if (EnabledEffective)
+            {
+                <ul class="dropdown-menu dropdown-menu-end">
+                    @foreach (var item in PredefinedDatesEffective)
+                    {
+                        <li><span class="dropdown-item" role="button" @onclick="() => HandleCustomDateClick(item.Date)" @onclick:stopPropagation>@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)</span></li>
+                    }
+                </ul>
+            }
+        }
+
+    </div>
 
 }

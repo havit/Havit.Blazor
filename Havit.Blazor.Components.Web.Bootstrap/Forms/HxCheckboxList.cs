@@ -93,6 +93,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					builder.AddAttribute(7, nameof(HxInputCheckbox.ShowValidationMessage), false);
 					builder.AddAttribute(8, nameof(HxInputCheckbox.Inline), this.Inline);
 
+					builder.AddMultipleAttributes(100, this.AdditionalAttributes);
+
 					builder.CloseComponent();
 				}
 			}

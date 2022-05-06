@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public partial class HxInputDateRangeInternal : IAsyncDisposable, IInputWithSize
+	public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsyncDisposable, IInputWithSize
 	{
 		[Parameter] public string FromInputId { get; set; }
 

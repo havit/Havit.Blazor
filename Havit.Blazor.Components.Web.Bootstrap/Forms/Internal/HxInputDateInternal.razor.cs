@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public partial class HxInputDateInternal<TValue> : IAsyncDisposable, IInputWithSize
+	public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisposable, IInputWithSize
 	{
 		[Parameter] public string InputId { get; set; }
 
@@ -60,7 +60,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 
 		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
-
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 

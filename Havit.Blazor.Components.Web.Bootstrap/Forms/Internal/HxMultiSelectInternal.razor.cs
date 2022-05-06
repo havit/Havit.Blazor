@@ -34,7 +34,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		[Parameter] public string InputGroupCssClass { get; set; }
 
-
 		/// <summary>
 		/// Input-group at the beginning of the input.
 		/// </summary>
@@ -54,6 +53,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// Input-group at the end of the input.
 		/// </summary>
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying HTML element.
+		/// </summary>
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
 		protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
