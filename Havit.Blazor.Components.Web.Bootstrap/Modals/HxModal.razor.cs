@@ -244,7 +244,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				shouldOpenModal = false;
 
 				// Running JS interop is postponed to OnAfterAsync to ensure modalElement is set.
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxModal) + ".js");
+				jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModule(nameof(HxModal));
 				if (disposed)
 				{
 					return;

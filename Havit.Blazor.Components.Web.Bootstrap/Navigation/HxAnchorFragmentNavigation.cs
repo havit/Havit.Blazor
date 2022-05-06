@@ -54,7 +54,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			if (!String.IsNullOrEmpty(anchor))
 			{
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxAnchorFragmentNavigation) + ".js");
+				jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModule(nameof(HxAnchorFragmentNavigation));
 				await jsModule.InvokeVoidAsync("scrollToAnchor", anchor);
 			}
 		}

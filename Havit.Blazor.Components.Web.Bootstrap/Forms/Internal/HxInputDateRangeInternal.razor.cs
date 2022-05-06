@@ -87,7 +87,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxInputDateRange) + ".js");
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModule(nameof(HxInputDateRange));
 
 			bool fromValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(fromFieldIdentifier).Any();
 			bool toValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(toFieldIdentifier).Any();

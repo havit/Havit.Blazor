@@ -353,7 +353,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task EnsureJsModuleAsync()
 		{
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxAutosuggest) + ".js");
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModule(nameof(HxAutosuggest));
 		}
 
 		[JSInvokable("HxAutosuggestInternal_HandleDropdownHidden")]

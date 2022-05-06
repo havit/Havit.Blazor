@@ -239,7 +239,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				shouldOpenOffcanvas = false;
 
 				// Running JS interop is postponed to OnAfterRenderAsync to ensure offcanvasElement is set.
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxOffcanvas) + ".js");
+				jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModule(nameof(HxOffcanvas));
 				if (disposed)
 				{
 					return;
