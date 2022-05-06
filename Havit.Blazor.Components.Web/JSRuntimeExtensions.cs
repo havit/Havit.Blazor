@@ -4,16 +4,28 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web;
 public static class JSRuntimeExtensions
 {
-	public static ValueTask<IJSObjectReference> ImportHavitBlazorWebModule(this IJSRuntime jsRuntime, string moduleNameWithoutExtension)
+	public static ValueTask<IJSObjectReference> ImportModule(this IJSRuntime jsRuntime, string modulePath, Assembly assemblyForVersionInfo = null)
 	{
-		var path = "./_content/Havit.Blazor.Components.Web/" + moduleNameWithoutExtension + ".js?v=" + GetVersionIdentifier();
-		return jsRuntime.InvokeAsync<IJSObjectReference>("import", path);
+		Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(modulePath));
+
+		if (assemblyForVersionInfo is not null)
+		{
+			modulePath = modulePath + "?v=" + GetAssemblyVersionIdentifierForUri(assemblyForVersionInfo);
+		}
+		return jsRuntime.InvokeAsync<IJSObjectReference>("import", modulePath);
 	}
 
-	private static string GetVersionIdentifier()
+	internal static ValueTask<IJSObjectReference> ImportHavitBlazorWebModule(this IJSRuntime jsRuntime, string moduleNameWithoutExtension)
 	{
-		versionIdentifier ??= Uri.EscapeDataString(((AssemblyInformationalVersionAttribute)Attribute.GetCustomAttribute(typeof(HxDynamicElement).Assembly, typeof(AssemblyInformationalVersionAttribute), false)).InformationalVersion);
-		return versionIdentifier;
+		versionIdentifierHavitBlazorWeb ??= GetAssemblyVersionIdentifierForUri(typeof(HxDynamicElement).Assembly);
+
+		var path = "./_content/Havit.Blazor.Components.Web/" + moduleNameWithoutExtension + ".js?v=" + versionIdentifierHavitBlazorWeb;
+		return jsRuntime.InvokeAsync<IJSObjectReference>("import", path);
 	}
-	private static string versionIdentifier;
+	private static string versionIdentifierHavitBlazorWeb;
+
+	internal static string GetAssemblyVersionIdentifierForUri(Assembly assembly)
+	{
+		return Uri.EscapeDataString(((AssemblyInformationalVersionAttribute)Attribute.GetCustomAttribute(assembly, typeof(AssemblyInformationalVersionAttribute), false)).InformationalVersion);
+	}
 }
