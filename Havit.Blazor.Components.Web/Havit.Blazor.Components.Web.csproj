@@ -8,6 +8,8 @@
 
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
+		<InternalsVisibleTo Include="Havit.Blazor.Components.Web.Tests" />
+		<InternalsVisibleTo Include="Havit.Blazor.Components.Web.Bootstrap" />
 	</ItemGroup>
 
 	<!-- NuGet -->

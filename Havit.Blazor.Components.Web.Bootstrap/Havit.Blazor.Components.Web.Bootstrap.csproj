@@ -6,6 +6,12 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="Havit.Blazor.Components.Web.Bootstrap.Tests" />
+		<InternalsVisibleTo Include="Havit.Blazor.Components.Web.Bootstrap.Documentation" />
+	</ItemGroup>
+
+
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
