@@ -2548,7 +2548,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithLabelType">
             <summary>
-            Input with sizing support.
+            Input with label type.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithLabelType.LabelType">
