@@ -167,7 +167,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task EnsureJsModuleAsync()
 		{
-			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModule(nameof(HxDropdown));
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxDropdown));
 		}
 
 		/// <inheritdoc/>

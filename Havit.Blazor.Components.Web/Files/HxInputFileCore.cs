@@ -183,7 +183,7 @@ namespace Havit.Blazor.Components.Web
 
 		private async Task EnsureJsModuleAsync()
 		{
-			jsModule ??= await JSRuntime.ImportHavitBlazorWebModule(nameof(HxInputFileCore));
+			jsModule ??= await JSRuntime.ImportHavitBlazorWebModuleAsync(nameof(HxInputFileCore));
 		}
 
 		/// <summary>

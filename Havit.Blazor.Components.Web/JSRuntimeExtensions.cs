@@ -4,7 +4,7 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web;
 public static class JSRuntimeExtensions
 {
-	public static ValueTask<IJSObjectReference> ImportModule(this IJSRuntime jsRuntime, string modulePath, Assembly assemblyForVersionInfo = null)
+	public static ValueTask<IJSObjectReference> ImportModuleAsync(this IJSRuntime jsRuntime, string modulePath, Assembly assemblyForVersionInfo = null)
 	{
 		Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(modulePath));
 
@@ -15,7 +15,7 @@ public static class JSRuntimeExtensions
 		return jsRuntime.InvokeAsync<IJSObjectReference>("import", modulePath);
 	}
 
-	internal static ValueTask<IJSObjectReference> ImportHavitBlazorWebModule(this IJSRuntime jsRuntime, string moduleNameWithoutExtension)
+	internal static ValueTask<IJSObjectReference> ImportHavitBlazorWebModuleAsync(this IJSRuntime jsRuntime, string moduleNameWithoutExtension)
 	{
 		versionIdentifierHavitBlazorWeb ??= GetAssemblyVersionIdentifierForUri(typeof(HxDynamicElement).Assembly);
 

@@ -132,7 +132,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModule(nameof(HxInputDateRange));
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDateRange));
 
 			if (RenderIcon)
 			{

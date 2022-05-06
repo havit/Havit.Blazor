@@ -185,7 +185,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task EnsureJsModuleAsync()
 		{
-			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModule(JsModuleName);
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(JsModuleName);
 		}
 
 		/// <summary>

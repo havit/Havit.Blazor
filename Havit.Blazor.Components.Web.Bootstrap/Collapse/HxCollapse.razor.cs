@@ -132,7 +132,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task EnsureJsModuleAsync()
 		{
-			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModule(nameof(HxCollapse));
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxCollapse));
 		}
 
 		protected virtual string GetCssClass()

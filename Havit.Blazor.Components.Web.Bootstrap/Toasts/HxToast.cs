@@ -175,7 +175,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (firstRender)
 			{
-				jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModule(nameof(HxToast));
+				jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxToast));
 				if (disposed)
 				{
 					return;

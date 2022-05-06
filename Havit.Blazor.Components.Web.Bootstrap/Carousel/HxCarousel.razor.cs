@@ -116,7 +116,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected async Task EnsureJsModule()
 		{
-			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModule(nameof(HxCarousel));
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxCarousel));
 		}
 
 

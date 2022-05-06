@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 public static class JSRuntimeExtensions
 {
-	internal static ValueTask<IJSObjectReference> ImportHavitBlazorBootstrapModule(this IJSRuntime jsRuntime, string moduleNameWithoutExtension)
+	internal static ValueTask<IJSObjectReference> ImportHavitBlazorBootstrapModuleAsync(this IJSRuntime jsRuntime, string moduleNameWithoutExtension)
 	{
 		versionIdentifierHavitBlazorBootstrap ??= Havit.Blazor.Components.Web.JSRuntimeExtensions.GetAssemblyVersionIdentifierForUri(typeof(ThemeColor).Assembly);
 
