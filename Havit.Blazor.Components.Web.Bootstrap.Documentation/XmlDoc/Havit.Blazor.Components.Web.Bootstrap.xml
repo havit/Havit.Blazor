@@ -5188,6 +5188,14 @@
             Indicates whether the column is visible (otherwise the column is hidden).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Order">
+            <summary>
+            The order (display index) of the column.
+            Columns are displayed in the order of this property.
+            Columns with the same value are displayed in the order of appereance in the code (when the columns are not conditinaly displayed with @if).
+            </summary>
+            <exception cref="T:System.ArgumentException">Value is <c>Int32.MinValue</c> or <c>Int32.MaxValue</c>.</exception>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.HeaderText">
             <summary>
             Header cell text.

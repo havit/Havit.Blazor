@@ -6,17 +6,17 @@
 <h2>Client paging, auto sorting</h2>
 <HxGrid DataProvider="@ClientCultureInfosDataProvider" @bind-SelectedDataItem="@clientSideCurrentCultureInfo" PageSize="@PageSize" TableContainerCssClass="mt-5" HeaderRowCssClass="myheader">
     <Columns>
-        <HxGridColumn TItem="CultureInfo" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
-            <HeaderTemplate Context="context">
-                Display Name (total count: @context.TotalCount)
-            </HeaderTemplate>
-        </HxGridColumn>
-        <HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
-        <HxGridColumn TItem="CultureInfo" HeaderText="Link">
+        <HxGridColumn Order="3" TItem="CultureInfo" HeaderText="Link">
             <ItemTemplate>
                 <a href="https://www.havit.cz" @onclick:stopPropagation>link to a page</a> @* TODO HxLink, který bude mít default stopPropagation ??? *@
                 <HxButton Text="Go" Color="ThemeColor.Secondary" Outline="true" />
             </ItemTemplate>
+        </HxGridColumn>
+        <HxGridColumn Order="2" TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+        <HxGridColumn Order="1" TItem="CultureInfo" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
+            <HeaderTemplate Context="context">
+                Display Name (total count: @context.TotalCount)
+            </HeaderTemplate>
         </HxGridColumn>
     </Columns>
     <ContextMenu Context="item">
