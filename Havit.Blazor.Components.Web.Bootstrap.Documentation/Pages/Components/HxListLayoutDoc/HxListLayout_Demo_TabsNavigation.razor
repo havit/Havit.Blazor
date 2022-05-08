@@ -1,7 +1,14 @@
-﻿<HxTabPanel>
-    <HxTab Title="Neutral">
-        <Content>
-            <HxListLayout CardSettings="cardSettings" Title="Neutral cultures" TFilterModel="FilterModelDto">
+﻿<HxCard HeaderCssClass="pb-0 border-bottom-0">
+    <HeaderTemplate>
+        <HxTabPanel ActiveTabIdChanged="TabIdChanged">
+            @foreach (var tab in tabNames)
+            {
+                <HxTab Id="@tab" Title="@tab" />
+            }
+        </HxTabPanel>
+    </HeaderTemplate>
+    <BodyTemplate>
+            <HxListLayout CardSettings="GetCardSettings(tabNames[0])" Title="Neutral cultures" TFilterModel="FilterModelDto">
                 <DataTemplate>
                     <HxGrid ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="CultureInfo" PageSize="10" DataProvider="LoadNeutralCultures">
                         <Columns>
@@ -14,11 +21,8 @@
                     </HxGrid>
                 </DataTemplate>
             </HxListLayout>
-        </Content>
-    </HxTab>
-    <HxTab Title="Specific">
-        <Content>
-            <HxListLayout CardSettings="cardSettings" Title="Specific cultures" TFilterModel="FilterModelDto">
+            
+            <HxListLayout CardSettings="GetCardSettings(tabNames[1])" Title="Specific cultures" TFilterModel="FilterModelDto">
                 <DataTemplate>
                     <HxGrid TableCssClass="border-0" ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="CultureInfo" PageSize="10" DataProvider="LoadSpecificCultures">
                         <Columns>
@@ -31,11 +35,8 @@
                     </HxGrid>
                 </DataTemplate>
             </HxListLayout>
-        </Content>
-    </HxTab>
-    <HxTab Title="Installed">
-        <Content>
-            <HxListLayout CardSettings="cardSettings" Title="Installed cultures" TFilterModel="FilterModelDto">
+
+            <HxListLayout CardSettings="GetCardSettings(tabNames[2])" Title="Installed cultures" TFilterModel="FilterModelDto">
                 <DataTemplate>
                     <HxGrid TableCssClass="border-0" ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="CultureInfo" PageSize="10" DataProvider="LoadInstalledWin32Cultures">
                         <Columns>
@@ -48,17 +49,46 @@
                     </HxGrid>
                 </DataTemplate>
             </HxListLayout>
-        </Content>
-    </HxTab>
-</HxTabPanel>
-
+    </BodyTemplate>
+</HxCard>
 
 @code {
+    private string activeTabId = "Neutral";
+    private List<string> tabNames = new()
+    {
+        "Neutral cultures",
+        "Specific cultures",
+        "Installed cultures"
+    };
+
+    private void TabIdChanged(string tabId)
+    {
+        activeTabId = tabId;
+        StateHasChanged();
+    }
+
     private CardSettings cardSettings = new()
     {
         CssClass = "border-0" // Removing borders in order to fit the HxListLayout into the HxTabPanel nicely.
     };
-    
+
+    private CardSettings hiddenCardSettings = new()
+    {
+        CssClass = "d-none"
+    };
+
+    private CardSettings GetCardSettings(string tabName)
+    {
+        if (tabName == activeTabId)
+        {
+            return cardSettings;
+        }
+        else
+        {
+            return hiddenCardSettings;
+        }
+    }
+
     private Task<GridDataProviderResult<CultureInfo>> LoadInstalledWin32Cultures(GridDataProviderRequest<CultureInfo> request)
     {
         IEnumerable<CultureInfo> result = CultureInfo.GetCultures(CultureTypes.InstalledWin32Cultures).ToList();
