@@ -73,7 +73,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Gets or sets the number of decimal digits.
-		/// Can be used only for floating point types, for integer types throws exception.
+		/// Can be used only for floating point types, for integer types throws exception (for values other than 0).
 		/// When not set, 2 decimal digits are used.
 		/// </summary>
 		[Parameter]
@@ -85,7 +85,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 			set
 			{
-				if (IsTValueIntegerType)
+				if ((value != 0) && IsTValueIntegerType)
 				{
 					throw new InvalidOperationException($"{nameof(Decimals)} can be set only on floating point types (not on integer types).");
 				}
