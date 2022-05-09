@@ -1,6 +1,6 @@
-﻿<HxCard HeaderCssClass="pb-0 border-bottom-0">
+﻿<HxCard BodyCssClass="p-0">
     <HeaderTemplate>
-        <HxTabPanel ActiveTabIdChanged="TabIdChanged">
+        <HxTabPanel CssClass="card-header-tabs" ActiveTabIdChanged="TabIdChanged">
             @foreach (var tab in tabNames)
             {
                 <HxTab Id="@tab" Title="@tab" />
@@ -24,7 +24,7 @@
             
             <HxListLayout CardSettings="GetCardSettings(tabNames[1])" Title="Specific cultures" TFilterModel="FilterModelDto">
                 <DataTemplate>
-                    <HxGrid TableCssClass="border-0" ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="CultureInfo" PageSize="10" DataProvider="LoadSpecificCultures">
+                    <HxGrid ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="CultureInfo" PageSize="10" DataProvider="LoadSpecificCultures">
                         <Columns>
                             <HxGridColumn TItem="CultureInfo" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
 		                    <HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
@@ -38,7 +38,7 @@
 
             <HxListLayout CardSettings="GetCardSettings(tabNames[2])" Title="Installed cultures" TFilterModel="FilterModelDto">
                 <DataTemplate>
-                    <HxGrid TableCssClass="border-0" ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="CultureInfo" PageSize="10" DataProvider="LoadInstalledWin32Cultures">
+                    <HxGrid ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="CultureInfo" PageSize="10" DataProvider="LoadInstalledWin32Cultures">
                         <Columns>
                             <HxGridColumn TItem="CultureInfo" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
 		                    <HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
