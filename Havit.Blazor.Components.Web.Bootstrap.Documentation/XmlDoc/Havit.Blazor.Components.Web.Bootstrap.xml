@@ -1717,6 +1717,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.DisposeAsync">
             <inheritdoc/>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.IDropdownContainer">
+            <summary>
+            Helps keeping some properties/methods hidden from regular API (accesible via interface).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.IHxDropdownToggle">
             <summary>
             Interface to help keep the dropdown-toggle implementations aligned.

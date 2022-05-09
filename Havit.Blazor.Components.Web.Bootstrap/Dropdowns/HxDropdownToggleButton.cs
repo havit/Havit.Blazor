@@ -149,7 +149,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxDropdown_HandleJsShown")]
 		public async Task HandleJsShown()
 		{
-			((IDropdownContainer)DropdownContainer).IsOpen = true;
+			if (DropdownContainer is IDropdownContainer container)
+			{
+				container.IsOpen = true;
+			}
 			await InvokeOnShownAsync();
 		}
 
@@ -159,7 +162,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxDropdown_HandleJsHidden")]
 		public async Task HandleJsHidden()
 		{
-			((IDropdownContainer)DropdownContainer).IsOpen = false;
+			if (DropdownContainer is IDropdownContainer container)
+			{
+				container.IsOpen = false;
+			}
 			await InvokeOnHiddenAsync();
 		}
 
