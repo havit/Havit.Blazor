@@ -1,7 +1,7 @@
 ﻿::deep .dropdown,
 ::deep div[data-bs-toggle="dropdown"],
 ::deep .dropdown-menu {
-	width: 100%;
+	width: 100%; /* override for current .btn-group, see issue #117 */
 }
 
 ::deep .hx-search-box-input-icon {
