@@ -52,7 +52,6 @@ export function dispose(element) {
 
 	let o = bootstrap.Offcanvas.getInstance(element);
 	if (o) {
-		o.hide();
 		o.dispose();
 	}
 
