@@ -1,14 +1,10 @@
-﻿<HxCard BodyCssClass="p-0">
-    <HeaderTemplate>
-        <HxTabPanel CssClass="card-header-tabs" ActiveTabIdChanged="TabIdChanged">
-            @foreach (var tab in tabNames)
-            {
-                <HxTab Id="@tab" Title="@tab" />
-            }
-        </HxTabPanel>
-    </HeaderTemplate>
-    <BodyTemplate>
-            <HxListLayout CardSettings="GetCardSettings(tabNames[0])" Title="Neutral cultures" TFilterModel="FilterModelDto">
+﻿@page "/Issue125Test"
+@using System.Globalization
+
+<HxTabPanel>
+    <HxTab Title="Neutral">
+        <Content>
+            <HxListLayout Title="Neutral cultures" TFilterModel="FilterModelDto">
                 <DataTemplate>
                     <HxGrid ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="CultureInfo" PageSize="10" DataProvider="LoadNeutralCultures">
                         <Columns>
@@ -16,13 +12,16 @@
 		                    <HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
 		                    <HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
 		                    <HxGridColumn TItem="CultureInfo" HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)"  />
-	
+
                         </Columns>
                     </HxGrid>
                 </DataTemplate>
             </HxListLayout>
-            
-            <HxListLayout CardSettings="GetCardSettings(tabNames[1])" Title="Specific cultures" TFilterModel="FilterModelDto">
+        </Content>
+    </HxTab>
+    <HxTab Title="Specific">
+        <Content>
+            <HxListLayout Title="Specific cultures" TFilterModel="FilterModelDto">
                 <DataTemplate>
                     <HxGrid ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="CultureInfo" PageSize="10" DataProvider="LoadSpecificCultures">
                         <Columns>
@@ -30,13 +29,16 @@
 		                    <HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
 		                    <HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
 		                    <HxGridColumn TItem="CultureInfo" HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)"  />
-	
+
                         </Columns>
                     </HxGrid>
                 </DataTemplate>
             </HxListLayout>
-
-            <HxListLayout CardSettings="GetCardSettings(tabNames[2])" Title="Installed cultures" TFilterModel="FilterModelDto">
+        </Content>
+    </HxTab>
+    <HxTab Title="Installed">
+        <Content>
+            <HxListLayout Title="Installed cultures" TFilterModel="FilterModelDto">
                 <DataTemplate>
                     <HxGrid ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="CultureInfo" PageSize="10" DataProvider="LoadInstalledWin32Cultures">
                         <Columns>
@@ -44,51 +46,16 @@
 		                    <HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
 		                    <HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
 		                    <HxGridColumn TItem="CultureInfo" HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)"  />
-	
+
                         </Columns>
                     </HxGrid>
                 </DataTemplate>
             </HxListLayout>
-    </BodyTemplate>
-</HxCard>
+        </Content>
+    </HxTab>
+</HxTabPanel>
 
 @code {
-    private string activeTabId = "Neutral";
-    private List<string> tabNames = new()
-    {
-        "Neutral cultures",
-        "Specific cultures",
-        "Installed cultures"
-    };
-
-    private void TabIdChanged(string tabId)
-    {
-        activeTabId = tabId;
-        StateHasChanged();
-    }
-
-    private CardSettings cardSettings = new()
-    {
-        CssClass = "border-0" // Removing borders in order to fit the HxListLayout into the HxTabPanel nicely.
-    };
-
-    private CardSettings hiddenCardSettings = new()
-    {
-        CssClass = "d-none"
-    };
-
-    private CardSettings GetCardSettings(string tabName)
-    {
-        if (tabName == activeTabId)
-        {
-            return cardSettings;
-        }
-        else
-        {
-            return hiddenCardSettings;
-        }
-    }
-
     private Task<GridDataProviderResult<CultureInfo>> LoadInstalledWin32Cultures(GridDataProviderRequest<CultureInfo> request)
     {
         IEnumerable<CultureInfo> result = CultureInfo.GetCultures(CultureTypes.InstalledWin32Cultures).ToList();
