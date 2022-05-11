@@ -78,10 +78,10 @@
 	--hx-input-file-drop-zone-padding: 						3rem;
 	/* HxCalendar */
 	--hx-calendar-day-hover-background: 				var(--bs-gray-200);
-	--hx-calendar-day-hover-border: 					1px solid var(--hx-calendar-day-hover-background);
+	--hx-calendar-day-hover-border: 					none;
 	--hx-calendar-day-selected-background:				var(--bs-primary);
 	--hx-calendar-day-selected-color: 					white;
-	--hx-calendar-day-selected-border: 					1px solid var(--bs-primary);
+	--hx-calendar-day-selected-border: 					none;
 	--hx-calendar-day-out-color: 						var(--bs-gray-500);
 	--hx-calendar-day-in-color: 						unset;
 	--hx-calendar-day-disabled-opacity: 				.5;
@@ -90,7 +90,7 @@
 	--hx-calendar-day-names-font-weight: 				700;
 	--hx-calendar-navigation-button-hover-background: 	var(--bs-gray-200);
 	--hx-calendar-navigation-button-text-color:			var(--bs-gray-900);
-	--hx-calendar-day-today-border: 					1px solid transparent;
+	--hx-calendar-day-today-border: 					none;
 	--hx-calendar-day-today-background: 				var(--bs-primary-rgb);
 	--hx-calendar-day-today-background-opacity: 		.05;
 	--hx-calendar-day-today-color: 						var(--bs-primary);
