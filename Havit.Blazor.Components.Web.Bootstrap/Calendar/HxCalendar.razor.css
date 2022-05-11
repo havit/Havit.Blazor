@@ -58,7 +58,6 @@ td > div {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: var(--hx-calendar-day-padding);
     font-size: var(--hx-calendar-font-size);
 }
 
