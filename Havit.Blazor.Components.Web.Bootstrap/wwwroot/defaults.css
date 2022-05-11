@@ -98,7 +98,7 @@
 	--hx-calendar-day-padding: 							.375rem .5rem;
 	--hx-calendar-day-width: 							2.25rem;
 	--hx-calendar-day-height: 							2.25rem;
-	--hx-calendar-day-spacing: 							.125rem .25rem;
+	--hx-calendar-day-spacing: 							.125rem;
 	--hx-calendar-font-size: 							.875rem;
 	/* Offcanvas */
 	--hx-offcanvas-close-icon-font-size: 		2rem;
@@ -142,7 +142,7 @@
 	--hx-tree-view-expander-container-width:		1rem;
 	/* HxInputDate */
 	--hx-input-date-dropdown-padding:				1rem;
-	--hx-input-date-calendar-margin-bottom:			0.5rem;
+	--hx-input-date-calendar-margin-bottom:			0;
 	/* HxInputDateRange */
 	--hx-input-date-range-dropdown-padding:			1rem;
 	--hx-input-date-range-calendar-margin-bottom:	0.5rem;
