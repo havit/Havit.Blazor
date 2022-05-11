@@ -10,7 +10,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// ID of the <see cref="HxNav"/> or list-group with scrollspy navigation.
 		/// </summary>
-		// TODO [EditorRequired]
+#if NET6_0_OR_GREATER
+		[EditorRequired]
+#endif
 		[Parameter] public string TargetId { get; set; }
 
 		/// <summary>
