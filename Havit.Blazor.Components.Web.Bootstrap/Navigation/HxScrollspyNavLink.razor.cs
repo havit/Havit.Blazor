@@ -10,7 +10,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// The navigation target in <c>#id</c> form.
 		/// </summary>
-		// TODO [EditorRequired]
+#if NET6_0_OR_GREATER
+		[EditorRequired]
+#endif
 		[Parameter] public string Href { get; set; }
 
 		/// <summary>

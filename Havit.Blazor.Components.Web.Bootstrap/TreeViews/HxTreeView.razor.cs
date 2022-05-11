@@ -9,6 +9,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Collection of hierarchy data to display.
 		/// </summary>
+#if NET6_0_OR_GREATER
+		[EditorRequired]
+#endif
 		[Parameter] public IEnumerable<TItem> Items { get; set; }
 
 		/// <summary>

@@ -37,6 +37,9 @@
 		/// <summary>
 		/// Items to be rendered.
 		/// </summary>
+#if NET6_0_OR_GREATER
+		[EditorRequired]
+#endif
 		[Parameter] public IEnumerable<TItem> Data { get; set; }
 	}
 }
