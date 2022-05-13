@@ -5,7 +5,8 @@
 		<HxNavLink Href="@Href"
 				   CssClass="@CssClassHelper.Combine(this.DropdownContainer is not null ? "dropdown-item" : null, this.CssClass, "position-relative")"
 				   Match="this.Match"
-				   Enabled="this.Enabled">
+				   Enabled="this.Enabled"
+				   id="@navLinkId">
 
 			@* To hide the nav-content in mobile view *@
 			<div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="hx-sidebar-item-nav-content stretched-link">
@@ -33,6 +34,7 @@
 					   CssClass="@CssClassHelper.Combine(this.CssClass)"
 					   Match="this.Match"
 					   Enabled="this.Enabled"
+                       id="@navLinkId"
 					   role="button"
 					   data-bs-toggle="@(HasExpandableContent ? ((ParentSidebar.Collapsed) ? "dropdown": "collapse") : null)"
 					   data-bs-target="@(HasExpandableContent && !ParentSidebar.Collapsed ? "#" + id : null)"
@@ -66,7 +68,9 @@
 		{
 			<div class="hx-sidebar-subitems collapse" id="@id">
 				<nav class="nav hx-sidebar-collapsed-nav">
-					@ChildContent
+                    <CascadingValue IsFixed="true" Value="this">
+                        @ChildContent
+					</CascadingValue>
 				</nav>
 			</div>
 		}

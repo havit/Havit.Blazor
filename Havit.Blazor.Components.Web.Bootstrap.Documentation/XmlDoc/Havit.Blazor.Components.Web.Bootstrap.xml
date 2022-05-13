@@ -6861,6 +6861,30 @@
             Sub-items (not intended to be used for any other purpose).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.OnLocationChanged(System.Object,Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs)">
+            <summary>
+            A function to be called when the location changes.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.ExpandParentIfActive">
+            <summary>
+            Checks if the nav link has the ".active" class and therefore corresponds to the current URL, then expands the parent item if those conditions are met.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.EnsureJsModule">
+            <summary>
+            Ensures the JS module is loaded.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.Expand">
+            <summary>
+            Shows the sub-items of this item by adding the <c>.show</c> class.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavbarColorScheme">
             <summary>
             Color scheme for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar"/>.<br/>
