@@ -1,5 +1,6 @@
 ﻿@attribute [Route("/components/" + nameof(HxDropdown))]
 @attribute [Route("/components/HxDropdownToggle")]
+@attribute [Route("/components/" + nameof(HxDropdownButtonGroup))]
 @attribute [Route("/components/" + nameof(HxDropdownToggleButton))]
 @attribute [Route("/components/" + nameof(HxDropdownToggleElement))]
 @attribute [Route("/components/" + nameof(HxDropdownMenu))]
@@ -13,7 +14,11 @@
 <ComponentApiDoc Type="typeof(HxDropdown)">
 
     <h2 id="BasicStructure">Basic structure</h2>
+    <p>Dropdowns are usualy used in combination with a button. For such case use the <code>HxDropdownButtonGroup</code> with <code>HxDropdownToggleButton</code>.</p>
     <CodeSnippet File="~\Pages\Components\HxDropdownDoc\HxDropdown_BasicStructure.CodeSnippet.razor" />
+
+    <p>You can also create your own dropdown by using the plain <code>HxDropdown</code> and <code>HxDropdownToggleElement</code>.</p>
+    <CodeSnippet File="~\Pages\Components\HxDropdownDoc\HxDropdown_BasicStructure_CustomToggle.CodeSnippet.razor" />
 
     <h2 id="Examples">Examples</h2>
 
@@ -24,7 +29,7 @@
     <Demo Type="typeof(HxDropdown_Demo_All_Colors)" />
 
     <SectionTitle Id="SplitButton" />
-    <p>Set <code>HxDropdown.Split = "true"</code> and leave the <code>HxDrodownToggle.Text</code> empty (you can use the <code>ChildContent</code> to improve accessibility).</p>
+    <p>Set <code>HxDropdownButtonGroup.Split="true"</code> and leave the <code>HxDrodownButtonToggle.Text</code> empty (you can use the <code>ChildContent</code> to improve accessibility).</p>
     <Demo Type="typeof(HxDropdown_Demo_Split)" />
 
     <SectionTitle Id="Sizing" />
@@ -47,7 +52,8 @@
     <SectionTitle Id="CustomToggleElement" />
     <p>
         Use <code>HxDropdownToggleElement</code> (with <code>ElementName="..."</code>) instead of <code>HxDropdownToggleButton</code> to create custom toggler.
-        (Usually you will add <code>role="button"</code> to apply pointer cursor type.)
+        (Usually you will add <code>role="button"</code> to apply pointer cursor type.) Use plain <code>HxDropdown</code> instead of <code>HxDropdownButtongGroup</code>
+        to have more control over the dropdown.
     </p>
     <Demo Type="typeof(HxDropdown_Demo_CustomToggleElement)" />
 
@@ -84,6 +90,7 @@
     <Demo Type="typeof(HxDropdown_Demo_Dark)" />
 </ComponentApiDoc>
 
+<ComponentApiDoc Type="typeof(HxDropdownButtonGroup)" />
 <ComponentApiDoc Type="typeof(HxDropdownToggleButton)" />
 <ComponentApiDoc Type="typeof(HxDropdownToggleElement)" />
 <ComponentApiDoc Type="typeof(HxDropdownMenu)" />

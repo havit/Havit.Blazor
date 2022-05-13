@@ -78,6 +78,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			base.OnParametersSet();
 
+			if ((DropdownContainer is not null) && (DropdownContainer is not HxDropdownButtonGroup))
+			{
+				throw new InvalidOperationException("HxDropdownToggleButton is expected to used inside HxDropdownButtonGroup rather than generic HxDropdown (breaking-change in v2.6.0).");
+			}
+
 			AdditionalAttributes ??= new Dictionary<string, object>();
 			AdditionalAttributes["data-bs-toggle"] = "dropdown";
 			AdditionalAttributes["aria-expanded"] = "false";
@@ -103,7 +108,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				base.CoreCssClass,
 				"dropdown-toggle",
 				((DropdownContainer as IDropdownContainer)?.IsOpen ?? false) ? "show" : null,
-				(DropdownContainer?.Split ?? false) ? "dropdown-toggle-split" : null,
+				((DropdownContainer as HxDropdownButtonGroup)?.Split ?? false) ? "dropdown-toggle-split" : null,
 				(NavContainer is not null) ? "nav-link" : null);
 
 

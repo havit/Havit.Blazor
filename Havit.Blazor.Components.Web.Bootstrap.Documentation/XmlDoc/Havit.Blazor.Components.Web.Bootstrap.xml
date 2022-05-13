@@ -1384,13 +1384,13 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component.
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component.<br />
+            For buttons with dropdowns use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownButtonGroup"/>.<br />
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.Split">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.Direction">
             <summary>
-            Set <c>true</c> to create a <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</a>
-            (using a <c>btn-group</c>).
+            Direction in which the dropdown is opened.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.AutoClose">
@@ -1408,6 +1408,18 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying <c>div</c> element.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownButtonGroup">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component for dropdown-buttons.<br />
+            For generic dropdowns use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownButtonGroup.Split">
+            <summary>
+            Set <c>true</c> to create a <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</a>
+            (using a <c>btn-group</c>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownContent">
@@ -1647,6 +1659,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.ElementName">
             <summary>
             Gets or sets the name of the element to render. Default is <c>span</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.Caret">
+            <summary>
+            Gets or sets whether to display caret in the toggle.<br />
+            Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.DropdownReference">
