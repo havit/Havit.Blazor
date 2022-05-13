@@ -145,12 +145,19 @@
 	--hx-input-date-calendar-margin-bottom:			0;
 	/* HxInputDateRange */
 	--hx-input-date-range-dropdown-padding:			1rem;
-	--hx-input-date-range-calendar-margin-bottom:	0.5rem;
+	--hx-input-date-range-calendar-margin-bottom:	.5rem;
 	/* HxProgressIndicator */
 	--hx-progress-indicator-background:				white;
 	--hx-progress-indicator-spinner-color:			var(--bs-primary);
 	/* HxToastContainer */
-	--hx-toast-container-margin:					0.5rem;
+	--hx-toast-container-margin:					.5rem;
+	/* HxSearchBox */
+	--hx-search-box-item-icon-margin: 				0 .5rem 0 0;
+	--hx-search-box-item-icon-font-size:			inherit;
+	--hx-search-box-item-title-font-size:			inherit;
+	--hx-search-box-item-title-color:				inherit;
+	--hx-search-box-item-subtitle-color:			var(--bs-secondary);
+	--hx-search-box-item-subtitle-font-size:		.75rem;
 }
 
 form {
