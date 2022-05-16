@@ -223,7 +223,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 	}
 
-	public async Task ClearInputAsync()
+	protected async Task ClearInputAsync()
 	{
 		if (TextQuery != string.Empty)
 		{
@@ -233,7 +233,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 	}
 
-	public async Task UpdateSuggestionsAsync()
+	protected async Task UpdateSuggestionsAsync()
 	{
 		await HideDropdownMenu();
 
