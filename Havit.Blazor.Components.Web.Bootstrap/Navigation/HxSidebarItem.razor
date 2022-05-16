@@ -34,9 +34,9 @@
 					   Match="this.Match"
 					   Enabled="this.Enabled"
 					   role="button"
-					   data-bs-toggle="@(HasExpandableContent ? ((ParentSidebar.Collapsed) ? "dropdown": "collapse") : null)"
-					   data-bs-target="@(HasExpandableContent && !ParentSidebar.Collapsed ? "#" + id : null)"
-					   aria-expanded="@(HasExpandableContent ? "false" : null)">
+					   data-bs-toggle="@(ParentSidebar.Collapsed ? "dropdown": "collapse")"
+					   data-bs-target="@(!ParentSidebar.Collapsed ? "#" + id : null)"
+					   aria-expanded="false">
 				<div class="hx-sidebar-item-navlink-content">
 					@if (Icon != null)
 					{
@@ -45,10 +45,7 @@
 					<span class="@CssClassHelper.Combine("text", Icon == null ? null : "no-icon")">
 						@Text
 					</span>
-					@if (HasExpandableContent)
-					{
-						<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon" />
-					}
+					<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon" />
 				</div>
 
 			</HxNavLink>
