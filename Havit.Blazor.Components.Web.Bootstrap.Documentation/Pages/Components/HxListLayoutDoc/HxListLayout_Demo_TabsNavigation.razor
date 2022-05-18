@@ -8,7 +8,7 @@
         </HxTabPanel>
     </HeaderTemplate>
     <BodyTemplate>
-            <HxListLayout CardSettings="GetCardSettings(tabNames[0])" Title="Neutral cultures" TFilterModel="FilterModelDto">
+            <HxListLayout CardSettings="GetCardSettings(tabNames[0])" Responsive="true" Title="Neutral cultures" TFilterModel="FilterModelDto">
                 <DataTemplate>
                     <HxGrid ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="CultureInfo" PageSize="10" DataProvider="LoadNeutralCultures">
                         <Columns>
