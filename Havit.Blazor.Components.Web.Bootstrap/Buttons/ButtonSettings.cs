@@ -6,7 +6,7 @@
 	public record ButtonSettings
 	{
 		/// <summary>
-		/// Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />.
+		/// <see href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes">Bootstrap button size</see>.
 		/// </summary>
 		public ButtonSize? Size { get; set; }
 
@@ -31,7 +31,7 @@
 		public ThemeColor? Color { get; set; }
 
 		/// <summary>
-		/// Bootstrap outline button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
+		/// <see href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons">Bootstrap outline button style</see>.
 		/// </summary>
 		public bool? Outline { get; set; } = false;
 	}

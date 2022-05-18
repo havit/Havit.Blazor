@@ -3,12 +3,12 @@
 	public enum SpinnerType
 	{
 		/// <summary>
-		/// <a href="https://getbootstrap.com/docs/5.0/components/spinners/#border-spinner" />
+		/// <see href="https://getbootstrap.com/docs/5.0/components/spinners/#border-spinner">https://getbootstrap.com/docs/5.0/components/spinners/#border-spinner</see>
 		/// </summary>
 		Border = 1,
 
 		/// <summary>
-		/// <a href="https://getbootstrap.com/docs/5.0/components/spinners/#growing-spinner" />
+		/// <see href="https://getbootstrap.com/docs/5.0/components/spinners/#growing-spinner">https://getbootstrap.com/docs/5.0/components/spinners/#growing-spinner</see>
 		/// </summary>
 		Grow = 2
 	}

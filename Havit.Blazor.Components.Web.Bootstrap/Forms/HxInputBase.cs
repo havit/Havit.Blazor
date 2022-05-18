@@ -13,7 +13,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// Extends <see cref="InputBase{TValue}"/> class.
 	/// 
 	/// Adds support for rendering bootstrap based input with validator.
-	/// See also <a href="https://v5.getbootstrap.com/docs/5.0/forms/overview/" />.
+	/// See also <see href="https://getbootstrap.com/docs/5.0/forms/overview/">https://getbootstrap.com/docs/5.0/forms/overview/</see>.
 	/// </summary>
 	public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledComponent, IFormValueComponent
 	{

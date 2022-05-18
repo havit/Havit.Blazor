@@ -8,15 +8,14 @@
 		[Parameter] public DropdownDirection Direction { get; set; }
 
 		/// <summary>
-		/// Set <c>true</c> to create a <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</a>
-		/// (using a <c>btn-group</c>).
+		/// Set <c>true</c> to create a <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</see> (using a <c>btn-group</c>).
 		/// </summary>
 		[Parameter] public bool Split { get; set; }
 
 		/// <summary>
 		/// By default, the dropdown menu is closed when clicking inside or outside the dropdown menu (<see cref="DropdownAutoClose.True"/>).
 		/// You can use the AutoClose parameter to change this behavior of the dropdown.
-		/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#auto-close-behavior"/>.
+		/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#auto-close-behavior">https://getbootstrap.com/docs/5.1/components/dropdowns/#auto-close-behavior</see>.
 		/// </summary>
 		[Parameter] public DropdownAutoClose AutoClose { get; set; } = DropdownAutoClose.True;
 
