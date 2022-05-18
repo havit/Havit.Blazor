@@ -20,6 +20,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public NavVariant NavVariant { get; set; } = NavVariant.Tabs;
 
 		/// <summary>
+		/// </summary>
+		[Parameter] public RenderMode RenderMode { get; set; } = RenderMode.Standard;
+
+		/// <summary>
 		/// ID of the active tab (@bindable).
 		/// </summary>
 		[Parameter] public string ActiveTabId { get; set; }
