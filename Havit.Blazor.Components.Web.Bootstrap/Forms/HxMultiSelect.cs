@@ -106,6 +106,12 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+	/// <summary>
+	/// Text content of the input.
+	/// If set, overrides default behavior, which is displaying selected items' texts separated by a comma.
+	/// </summary>
+	[Parameter] public string InputText { get; set; }
+
 	private List<TItem> itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
 
@@ -171,7 +177,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.OpenComponent<HxMultiSelectInternal<TValue, TItem>>(100);
 		builder.AddAttribute(101, nameof(HxMultiSelectInternal<TValue, TItem>.InputId), InputId);
 		builder.AddAttribute(102, nameof(HxMultiSelectInternal<TValue, TItem>.InputCssClass), GetInputCssClassToRender());
-		builder.AddAttribute(103, nameof(HxMultiSelectInternal<TValue, TItem>.InputText), CurrentValueAsString);
+		builder.AddAttribute(103, nameof(HxMultiSelectInternal<TValue, TItem>.InputText), InputText ?? CurrentValueAsString);
 		builder.AddAttribute(104, nameof(HxMultiSelectInternal<TValue, TItem>.EnabledEffective), EnabledEffective);
 		builder.AddAttribute(105, nameof(HxMultiSelectInternal<TValue, TItem>.ItemsToRender), itemsToRender);
 		builder.AddAttribute(106, nameof(HxMultiSelectInternal<TValue, TItem>.TextSelector), TextSelector);
