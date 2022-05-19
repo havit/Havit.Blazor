@@ -2,14 +2,6 @@
 	display: block; /*Overrides the inline flex from btn-group placed by HxDropdown*/
 }
 
-::deep .hx-sidebar-item-nav-content {
-	flex-grow: 1;
-}
-
-::deep .hx-sidebar-item-nav-content-inner {
-	align-items: center;
-}
-
 ::deep .nav-link {
 	line-height: 1;
 	padding: var(--hx-sidebar-item-padding);
@@ -21,7 +13,10 @@
 
 ::deep .hx-sidebar-item-navlink-content {
 	display: flex;
+	flex-direction: row;
 	align-items: center;
+	align-self: stretch;
+	gap: .75rem;
 }
 
 .hx-sidebar-subitems ::deep .nav-link {
@@ -37,10 +32,6 @@
 
 ::deep .hx-sidebar-item .text {
 	margin-right: auto;
-}
-
-::deep .hx-sidebar-item .text.no-icon {
-	margin-left: var(--hx-sidebar-item-navlink-no-icon-text-margin-left);
 }
 
 ::deep .hx-sidebar-collapsed-nav {
@@ -69,8 +60,4 @@
 ::deep .dropdown-menu {
 	max-height: 100vh;
 	overflow: auto;
-}
-
-::deep .dropdown-menu.hx-sidebar-subitems .nav-link {
-	border-radius: 0;
 }

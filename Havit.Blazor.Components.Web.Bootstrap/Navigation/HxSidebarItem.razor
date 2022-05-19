@@ -8,14 +8,14 @@
 				   Enabled="this.Enabled">
 
 			@* To hide the nav-content in mobile view *@
-			<div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="hx-sidebar-item-nav-content stretched-link">
+			<div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="stretched-link">
 
-				<div class="hx-sidebar-nav-content-inner">
+				<div class="hx-sidebar-item-navlink-content">
 					@if (Icon != null)
 					{
 						<HxIcon Icon="Icon" />
 					}
-					<span class="@CssClassHelper.Combine("text", Icon == null ? null : "ms-3")">
+					<span class="text">
 						@Text
 					</span>
 				</div>
@@ -42,7 +42,7 @@
 					{
 						<HxIcon Icon="Icon" />
 					}
-					<span class="@CssClassHelper.Combine("text", Icon == null ? null : "no-icon")">
+					<span class="text">
 						@Text
 					</span>
 					<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon" />
