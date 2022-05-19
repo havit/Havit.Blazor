@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	/// <typeparam name="TValue">Type of value.</typeparam>
 	/// <typeparam name="TItem">Type of items.</typeparam>
-	public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<TValue>, IInputWithSize
+	public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithLabelType
 	{
 		/// <summary>
 		/// Return <see cref="HxSelect{TValue, TItem}"/> defaults.
@@ -21,6 +21,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Set of settings to be applied to the component instance (overrides <see cref="HxSelect.Defaults"/>, overriden by individual parameters).
 		/// </summary>
 		[Parameter] public SelectSettings Settings { get; set; }
+
+		[Parameter] public LabelType? LabelType { get; set; }
 
 		/// <summary>
 		/// Returns optional set of component settings.
@@ -141,7 +143,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			bool enabledEffective = this.EnabledEffective;
 
-			builder.OpenElement(0, "select");
+			builder.OpenElement(100, "select");
 			BuildRenderInput_AddCommonAttributes(builder, null);
 
 			builder.AddAttribute(1000, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));

@@ -6,7 +6,7 @@
     <members>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAccordion">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.1/components/accordion/">Bootstrap accordion</a> component.
+            <see href="https://getbootstrap.com/docs/5.1/components/accordion/">Bootstrap accordion</see> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.CssClass">
@@ -105,7 +105,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAlert">
             <summary>
-            Bootstrap alert component <a href="https://getbootstrap.com/docs/5.0/components/alerts/" />
+            <see href="https://getbootstrap.com/docs/5.0/components/alerts/">Bootstrap alert</see> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAlert.Color">
@@ -155,12 +155,12 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.BadgeType.RoundedPill">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.0/components/badge/#pill-badges"/>
+            <see href="https://getbootstrap.com/docs/5.0/components/badge/#pill-badges">https://getbootstrap.com/docs/5.0/components/badge/#pill-badges</see>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</a> component.
+            <see href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</see> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Defaults">
@@ -220,7 +220,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ButtonGroupOrientation.Vertical">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.0/components/button-group/#vertical-variation" />
+            <see href="https://getbootstrap.com/docs/5.0/components/button-group/#vertical-variation">https://getbootstrap.com/docs/5.0/components/button-group/#vertical-variation</see>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonGroupSize">
@@ -240,7 +240,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.Size">
             <summary>
-            Bootstrap button size. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes" />.
+            <see href="https://getbootstrap.com/docs/5.0/components/buttons/#sizes">Bootstrap button size</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.CssClass">
@@ -265,7 +265,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.Outline">
             <summary>
-            Bootstrap outline button style. See <a href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons" />.
+            <see href="https://getbootstrap.com/docs/5.0/components/buttons/#outline-buttons">Bootstrap outline button style</see>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonSize">
@@ -733,7 +733,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCard">
             <summary>
-            Bootstrap <a href="https://getbootstrap.com/docs/5.1/components/card/">Card</a> component.
+            <see href="https://getbootstrap.com/docs/5.1/components/card/">Bootstrap card</see> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Defaults">
@@ -1369,7 +1369,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DropdownDirection">
             <summary>
             Direction for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/>.
-            <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/#directions">https://getbootstrap.com/docs/5.1/components/dropdowns/#directions</a>.
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#directions">https://getbootstrap.com/docs/5.1/components/dropdowns/#directions</see>.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.DropdownDirection.Start">
@@ -1384,20 +1384,19 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component.<br />
-            For buttons with dropdowns use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownButtonGroup"/>.<br />
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.Direction">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.Split">
             <summary>
-            Direction in which the dropdown is opened.
+            Set <c>true</c> to create a <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</see> (using a <c>btn-group</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.AutoClose">
             <summary>
             By default, the dropdown menu is closed when clicking inside or outside the dropdown menu (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.DropdownAutoClose.True"/>).
             You can use the AutoClose parameter to change this behavior of the dropdown.
-            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#auto-close-behavior"/>.
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#auto-close-behavior">https://getbootstrap.com/docs/5.1/components/dropdowns/#auto-close-behavior</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.CssClass">
@@ -1408,18 +1407,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying <c>div</c> element.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownButtonGroup">
-            <summary>
-            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component for dropdown-buttons.<br />
-            For generic dropdowns use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownButtonGroup.Split">
-            <summary>
-            Set <c>true</c> to create a <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</a>
-            (using a <c>btn-group</c>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownContent">
@@ -1449,7 +1436,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownHeader">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/#headers">Dropdown menu header</a> for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu"/>.
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#headers">Dropdown menu header</see> for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownHeader.CssClass">
@@ -1659,12 +1646,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.ElementName">
             <summary>
             Gets or sets the name of the element to render. Default is <c>span</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.Caret">
-            <summary>
-            Gets or sets whether to display caret in the toggle.<br />
-            Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.DropdownReference">
@@ -1931,7 +1912,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone">
             <summary>
             Ready-made UX for drag&amp;drop file upload.
-            For custom drag&amp;drop UX, use <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> and <a href="https://github.com/havit/Havit.Blazor/blob/728567c9c83a0b4ab7fe2e031bf1ff378f1b1ce7/Havit.Blazor.Components.Web.Bootstrap/Files/HxInputFileDropZone.razor.css#L20-L26">a little bit of HTML/CSS</a>.
+            For custom drag&amp;drop UX, use <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> and <see href="https://github.com/havit/Havit.Blazor/blob/728567c9c83a0b4ab7fe2e031bf1ff378f1b1ce7/Havit.Blazor.Components.Web.Bootstrap/Files/HxInputFileDropZone.razor.css#L20-L26">a little bit of HTML/CSS</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadUrl">
@@ -2666,7 +2647,7 @@
             <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> variation which adds <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> and related stuff.
             </summary>
             <remarks>
-            <a href="https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682">https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682</a>.
+            <see href="https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682">https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682</see>.
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick">
@@ -3034,7 +3015,7 @@
             Extends <see cref="T:Microsoft.AspNetCore.Components.Forms.InputBase`1"/> class.
             
             Adds support for rendering bootstrap based input with validator.
-            See also <a href="https://v5.getbootstrap.com/docs/5.0/forms/overview/" />.
+            See also <see href="https://getbootstrap.com/docs/5.0/forms/overview/">https://getbootstrap.com/docs/5.0/forms/overview/</see>.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.InvalidCssClass">
@@ -3261,7 +3242,7 @@
             with an Microsoft.AspNetCore.Components.Forms.EditContext, which must be supplied
             as a cascading parameter.
             Extends <seealso cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1" /> class.
-            Adds support for input groups, <a href="https://v5.getbootstrap.com/docs/5.0/forms/input-group/" />
+            Adds support for input groups, <see href="https://getbootstrap.com/docs/5.0/forms/input-group/">https://getbootstrap.com/docs/5.0/forms/input-group/</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1.InputGroupStartText">
@@ -3695,7 +3676,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTextArea">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.0/forms/floating-labels/#textareas" target="_blank">Textarea</a>.
+            <see href="https://getbootstrap.com/docs/5.0/forms/floating-labels/#textareas" target="_blank">Textarea</see>.
             To set a custom height, do not use the rows attribute. Instead, set an explicit height (either inline or via custom CSS).
             </summary>
         </member>
@@ -6099,7 +6080,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxModal">
             <summary>
-            Component to render modal dialog as a <a href="https://getbootstrap.com/docs/5.1/components/modal/">Bootstrap Modal</a>.
+            Component to render modal dialog as a <see href="https://getbootstrap.com/docs/5.1/components/modal/">Bootstrap Modal</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults">
@@ -6459,7 +6440,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAnchorFragmentNavigation">
             <summary>
             Temporarily (?) compensates Blazor deficiency in anchor-fragments (scrolling to <c>page#id</c> URLs). Supports navigation with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> component.
-            <a href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</a>.
+            <see href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAnchorFragmentNavigation.Automation">
@@ -6518,7 +6499,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNav">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap Nav</a> component.
+            <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap Nav</see> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.Orientation">
@@ -6632,7 +6613,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavLink">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-link</a> component.
+            <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-link</see> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.Href">
@@ -6682,7 +6663,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</a> component.
+            <see href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</see> component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.TargetId">
@@ -6932,7 +6913,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Vertical">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#vertical">https://getbootstrap.com/docs/5.1/components/navs-tabs/#vertical</a>.
+            <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#vertical">https://getbootstrap.com/docs/5.1/components/navs-tabs/#vertical</see>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavVariant">
@@ -6942,18 +6923,18 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs">
             <summary>
-            Tabs. <a href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#tabs">https://getbootstrap.com/docs/5.1/components/navs-tabs/#tabs</a>
+            Tabs. <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#tabs">https://getbootstrap.com/docs/5.1/components/navs-tabs/#tabs</see>
             Remember to set <c>active</c> tab (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.CssClass"/>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Pills">
             <summary>
-            Pills. <a href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills</a>
+            Pills. <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills</see>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.0/components/offcanvas/">Bootstrap Offcanvas</a> component (aka Drawer).
+            <see href="https://getbootstrap.com/docs/5.0/components/offcanvas/">Bootstrap Offcanvas</see> component (aka Drawer).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults">
@@ -7551,7 +7532,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSpinner">
             <summary>
-            Bootstrap <a href="https://getbootstrap.com/docs/5.0/components/spinners/">Spinner</a> (usually indicates operation in progress).
+            Bootstrap <see href="https://getbootstrap.com/docs/5.0/components/spinners/">Spinner</see> (usually indicates operation in progress).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSpinner.Type">
@@ -7591,12 +7572,12 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.SpinnerType.Border">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.0/components/spinners/#border-spinner" />
+            <see href="https://getbootstrap.com/docs/5.0/components/spinners/#border-spinner">https://getbootstrap.com/docs/5.0/components/spinners/#border-spinner</see>
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.SpinnerType.Grow">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.0/components/spinners/#growing-spinner" />
+            <see href="https://getbootstrap.com/docs/5.0/components/spinners/#growing-spinner">https://getbootstrap.com/docs/5.0/components/spinners/#growing-spinner</see>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTab">
@@ -7935,8 +7916,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">
             <summary>
-            Bootstrap theme colors <a href="https://getbootstrap.com/docs/5.0/customize/color/#theme-colors" />
-            (+ Link from predefined button styles <a href="https://getbootstrap.com/docs/5.0/components/buttons/" />)
+            Bootstrap theme colors <see href="https://getbootstrap.com/docs/5.0/customize/color/#theme-colors">https://getbootstrap.com/docs/5.0/customize/color/#theme-colors</see>
+            (+ Link from predefined button styles <see href="https://getbootstrap.com/docs/5.0/components/buttons/">https://getbootstrap.com/docs/5.0/components/buttons/</see>)
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Link">
@@ -8006,7 +7987,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxToast">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.1/components/toasts/">Bootstrap Toast</a> component. Not intented to be used in user code, use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessenger"/>.
+            <see href="https://getbootstrap.com/docs/5.1/components/toasts/">Bootstrap Toast</see> component. Not intented to be used in user code, use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessenger"/>.
             After first render component never updates.
             </summary>
         </member>
@@ -8146,8 +8127,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPopover">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.1/components/popovers/">Bootstrap Popover</a> component.<br />
-            Rendered as a <c>span</c> wrapper to fully support popovers on disabled elements (see example in <a href="https://getbootstrap.com/docs/5.1/components/popovers/#disabled-elements">Disabled elements</a> in the Bootstrap popover documentation).
+            <see href="https://getbootstrap.com/docs/5.1/components/popovers/">Bootstrap Popover</see> component.<br />
+            Rendered as a <c>span</c> wrapper to fully support popovers on disabled elements (see example in <see href="https://getbootstrap.com/docs/5.1/components/popovers/#disabled-elements">Disabled elements</see> in the Bootstrap popover documentation).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Title">
@@ -8172,8 +8153,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip">
             <summary>
-            <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component, activates on hover.<br />
-            Rendered as a <c>span</c> wrapper to fully support tooltips on disabled elements (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
+            <see href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</see> component, activates on hover.<br />
+            Rendered as a <c>span</c> wrapper to fully support tooltips on disabled elements (see example in <see href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</see> in the Bootstrap tooltip documentation).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Text">

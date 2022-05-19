@@ -4,7 +4,7 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.0/components/offcanvas/">Bootstrap Offcanvas</a> component (aka Drawer).
+	/// <see href="https://getbootstrap.com/docs/5.0/components/offcanvas/">Bootstrap Offcanvas</see> component (aka Drawer).
 	/// </summary>
 	public partial class HxOffcanvas : IAsyncDisposable
 	{

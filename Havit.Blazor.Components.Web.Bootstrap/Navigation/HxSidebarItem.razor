@@ -8,14 +8,14 @@
 				   Enabled="this.Enabled">
 
 			@* To hide the nav-content in mobile view *@
-			<div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="hx-sidebar-item-nav-content stretched-link">
+			<div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="stretched-link">
 
-				<div class="hx-sidebar-nav-content-inner">
+				<div class="hx-sidebar-item-navlink-content">
 					@if (Icon != null)
 					{
 						<HxIcon Icon="Icon" />
 					}
-					<span class="@CssClassHelper.Combine("text", Icon == null ? null : "ms-3")">
+					<span class="text">
 						@Text
 					</span>
 				</div>
@@ -34,21 +34,18 @@
 					   Match="this.Match"
 					   Enabled="this.Enabled"
 					   role="button"
-					   data-bs-toggle="@(HasExpandableContent ? ((ParentSidebar.Collapsed) ? "dropdown": "collapse") : null)"
-					   data-bs-target="@(HasExpandableContent && !ParentSidebar.Collapsed ? "#" + id : null)"
-					   aria-expanded="@(HasExpandableContent ? "false" : null)">
+					   data-bs-toggle="@(ParentSidebar.Collapsed ? "dropdown": "collapse")"
+					   data-bs-target="@(!ParentSidebar.Collapsed ? "#" + id : null)"
+					   aria-expanded="false">
 				<div class="hx-sidebar-item-navlink-content">
 					@if (Icon != null)
 					{
 						<HxIcon Icon="Icon" />
 					}
-					<span class="@CssClassHelper.Combine("text", Icon == null ? null : "no-icon")">
+					<span class="text">
 						@Text
 					</span>
-					@if (HasExpandableContent)
-					{
-						<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon" />
-					}
+					<HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon" />
 				</div>
 
 			</HxNavLink>

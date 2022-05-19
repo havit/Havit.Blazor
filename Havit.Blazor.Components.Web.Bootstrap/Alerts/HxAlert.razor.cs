@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Bootstrap alert component <a href="https://getbootstrap.com/docs/5.0/components/alerts/" />
+	/// <see href="https://getbootstrap.com/docs/5.0/components/alerts/">Bootstrap alert</see> component.
 	/// </summary>
 	public partial class HxAlert
 	{

@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.0/forms/floating-labels/#textareas" target="_blank">Textarea</a>.
+	/// <see href="https://getbootstrap.com/docs/5.0/forms/floating-labels/#textareas" target="_blank">Textarea</see>.
 	/// To set a custom height, do not use the rows attribute. Instead, set an explicit height (either inline or via custom CSS).
 	/// </summary>
 	public class HxInputTextArea : HxInputText

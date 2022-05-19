@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</a> component.
+	/// <see href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</see> component.
 	/// </summary>
 	public partial class HxBadge
 	{
