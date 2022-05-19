@@ -1,16 +1,15 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component.
+	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component.<br />
+	/// For buttons with dropdowns use <see cref="HxDropdownButtonGroup"/>.<br />
 	/// </summary>
 	public partial class HxDropdown : IDropdownContainer
 	{
-		[Parameter] public DropdownDirection Direction { get; set; }
-
 		/// <summary>
-		/// Set <c>true</c> to create a <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</see> (using a <c>btn-group</c>).
+		/// Direction in which the dropdown is opened.
 		/// </summary>
-		[Parameter] public bool Split { get; set; }
+		[Parameter] public DropdownDirection Direction { get; set; }
 
 		/// <summary>
 		/// By default, the dropdown menu is closed when clicking inside or outside the dropdown menu (<see cref="DropdownAutoClose.True"/>).
@@ -31,8 +30,6 @@
 
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
-		[CascadingParameter] protected HxNavbar NavbarContainer { get; set; }
-
 		bool IDropdownContainer.IsOpen { get; set; }
 
 		protected string GetDropdownDirectionCssClass()
@@ -47,19 +44,6 @@
 			};
 		}
 
-		protected string GetCssClass()
-		{
-			/*
-				.btn-group
-				The basic.dropdown class brings just position:relative requirement(+ directions within other variations).
-				.btn-group is needed for Split buttons AND brings default in-row positioning to behave like regular buttons.
-				It is used in almost all Bootstrap samples. Might be replaced with more appropriate class if needed.
-				.btn-group cannot be used in Navbar as it breaks responsiveness.
-			*/
-			return CssClassHelper.Combine(
-				GetDropdownDirectionCssClass(),
-				((this.NavbarContainer is null) || this.Split) ? "btn-group" : null,
-				this.CssClass);
-		}
+		protected virtual string GetCoreCssClass() => null;
 	}
 }
