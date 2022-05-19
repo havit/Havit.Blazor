@@ -86,7 +86,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender)
 			{
 				// re-render to allow child-parent propagation of IsMatch logic for initial expansion
-				StateHasChanged();
+				// StateHasChanged();
+				// TODO ...the HxSidebarItem rerenders 3x event without the StateHasChanged
 			}
 		}
 
