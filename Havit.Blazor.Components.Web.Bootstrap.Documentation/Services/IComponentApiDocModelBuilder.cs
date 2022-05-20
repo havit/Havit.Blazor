@@ -3,5 +3,5 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 public interface IComponentApiDocModelBuilder
 {
-	ComponentApiDocModel BuildModel(Type type, bool isDelegate, List<string> excludedMembers);
+	ComponentApiDocModel BuildModel(Type type, bool isDelegate);
 }

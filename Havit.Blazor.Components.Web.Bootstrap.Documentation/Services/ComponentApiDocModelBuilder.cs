@@ -14,7 +14,6 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 	private DocXmlReader bootstrapReader;
 	private Type Type;
 	private bool isDelegate;
-	private List<string> excludedMembers;
 	private ComponentApiDocModel model;
 
 	private static readonly Dictionary<string, string> inputBaseSummaries = new()
@@ -32,11 +31,10 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 
 	private BindingFlags bindingFlags = BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
 
-	public ComponentApiDocModel BuildModel(Type type, bool isDelegate, List<string> excludedMembers)
+	public ComponentApiDocModel BuildModel(Type type, bool isDelegate)
 	{
 		this.Type = type;
 		this.isDelegate = isDelegate;
-		this.excludedMembers = excludedMembers;
 
 		model = new ComponentApiDocModel();
 		bootstrapReader = LoadDocXmlReader("Havit.Blazor.Components.Web.Bootstrap.xml");
@@ -261,7 +259,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 	private bool DetermineWhetherPropertyShouldBeAdded(PropertyModel property)
 	{
 		string name = property.PropertyInfo.Name;
-		if (byDefaultExcludedProperties.Contains(name) || this.excludedMembers.Contains(name))
+		if (byDefaultExcludedProperties.Contains(name))
 		{
 			return false;
 		}
@@ -282,7 +280,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		}
 
 		string name = method.MethodInfo.Name;
-		if (name.StartsWith("set") || name.StartsWith("get") || objectDerivedMethods.Contains(name) || derivedMethods.Contains(name) || excludedMembers.Contains(name))
+		if (name.StartsWith("set") || name.StartsWith("get") || objectDerivedMethods.Contains(name) || derivedMethods.Contains(name))
 		{
 			return false;
 		}

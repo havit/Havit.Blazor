@@ -172,7 +172,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
 			}
 
 			// Default case: if "Hx" wasn't found anywhere, it couldn't be detected what part to use in the link, so the default part will be chosen
-			if (fullLink.Length == 0 || containsHx == false && isType)
+			if ((fullLink.Length == 0) || ((containsHx == false) && isType))
 			{
 				fullLink = splitLink[^1];
 				seeName = splitLink[^1];

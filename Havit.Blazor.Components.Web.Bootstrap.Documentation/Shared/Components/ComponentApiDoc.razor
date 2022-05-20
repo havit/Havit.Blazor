@@ -25,7 +25,7 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>Index</th>
+					<th>Name</th>
 					<th>Value</th>
 					<th>Description</th>
 				</tr>
@@ -34,8 +34,8 @@
 				@foreach (var enumMember in model.EnumMembers)
 				{
 					<tr>
-						<td>@enumMember.Index</td>
 						<td>@enumMember.Name</td>
+						<td>@enumMember.Index</td>
 						<td class="summary">@((MarkupString)enumMember.Summary)</td>
 					</tr>
 				}
