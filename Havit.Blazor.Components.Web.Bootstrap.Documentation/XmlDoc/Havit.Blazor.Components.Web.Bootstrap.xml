@@ -5418,7 +5418,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.OnAfterRender(System.Boolean)">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Dispose">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.DisposeAsync">
             <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPager">
