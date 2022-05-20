@@ -112,6 +112,11 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// </summary>
 	[Parameter] public string InputText { get; set; }
 
+	/// <summary>
+	/// Set the content of the element used to toggle the dropdown.
+	/// </summary>
+	[Parameter] public RenderFragment ToggleTemplate { get; set; }
+
 	private List<TItem> itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
 
@@ -189,6 +194,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(112, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupStartTemplate), InputGroupStartTemplate);
 		builder.AddAttribute(113, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndText), InputGroupEndText);
 		builder.AddAttribute(114, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndTemplate), InputGroupEndTemplate);
+		builder.AddAttribute(115, nameof(HxMultiSelectInternal<TValue, TItem>.ToggleTemplate), ToggleTemplate);
 
 		builder.AddMultipleAttributes(200, this.AdditionalAttributes);
 

@@ -27,6 +27,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public string NullDataText { get; set; }
 
+		/// <summary>
+		/// Set the content of the element used to toggle the dropdown.
+		/// </summary>
+		[Parameter] public RenderFragment ToggleTemplate { get; set; }
+
 		[Parameter] public EventCallback<SelectionChangedArgs> ItemSelectionChanged { get; set; }
 
 		/// <summary>

@@ -80,7 +80,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxRadioButtonList", "HxRadioButtonList", "multiselect"),
 
 			new("/components/HxSelect", "HxSelect", "dropdownlist picker"),
+
 			new("/components/HxMultiSelect", "HxMultiSelect", "dropdownlist picker checkbox multiple"),
+			new("/components/HxMultiSelect#CustomToggle", "HxMultiSelect > Custom toggle", ""),
 
 			new("/components/HxFilterForm", "HxFilterForm", "HxListLayout"),
 

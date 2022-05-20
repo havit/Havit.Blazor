@@ -2439,6 +2439,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal.DisposeAsync">
             <inheritdoc />
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.ToggleTemplate">
+            <summary>
+            Set the content of the element used to toggle the dropdown.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.InputGroupCssClass">
             <summary>
             Custom CSS class to render with input-group span.
@@ -3853,6 +3858,11 @@
             <summary>
             Text content of the input.
             If set, overrides default behavior, which is displaying selected items' texts separated by a comma.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.ToggleTemplate">
+            <summary>
+            Set the content of the element used to toggle the dropdown.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FocusAsync">
