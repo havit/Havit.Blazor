@@ -7620,6 +7620,16 @@
             Tab title.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.TitleCssClass">
+            <summary>
+            Css classes to be applied to the tab element for navigation.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.ContentCssClass">
+            <summary>
+            Additional css classes to be applied to the tab content.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.TitleTemplate">
             <summary>
             Tab title template.
