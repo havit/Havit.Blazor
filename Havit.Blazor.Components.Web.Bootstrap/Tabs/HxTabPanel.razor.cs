@@ -20,8 +20,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public NavVariant NavVariant { get; set; } = NavVariant.Tabs;
 
 		/// <summary>
+		/// Whether to wrap the tab panel in a card with the tab navigation in the header.
 		/// </summary>
-		[Parameter] public RenderMode RenderMode { get; set; } = RenderMode.Standard;
+		[Parameter] public TabPanelRenderMode RenderMode { get; set; }
+
+		/// <summary>
+		/// Card settings for the wrapping card.
+		/// Applies only if <see cref="RenderMode"/> is set to <see cref="TabPanelRenderMode.Card"/>.
+		/// </summary>
+		[Parameter] public CardSettings CardSettings { get; set; }
 
 		/// <summary>
 		/// ID of the active tab (@bindable).
