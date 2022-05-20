@@ -202,6 +202,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxProgress#Interactive", "HxProgress > Interactive", ""),
 
 			new("/components/HxTabPanel", "HxTabPanel", "page tabs"),
+			new("/components/HxTabPanel#NavVariants", "HxTabPanel > Nav variants", ""),
+			new("/components/HxTabPanel#CardMode", "HxTabPanel > Card mode", "RenderMode"),
 
 			new("/components/HxListGroup", "HxListGroup", "item"),
 			new("/components/HxListGroup#ActiveAndDisabledItems", "HxListGroup > Active and disabled items", ""),
