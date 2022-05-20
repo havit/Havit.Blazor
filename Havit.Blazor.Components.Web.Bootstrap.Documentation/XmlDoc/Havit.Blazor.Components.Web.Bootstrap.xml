@@ -7622,12 +7622,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.TitleCssClass">
             <summary>
-            Css classes to be applied to the tab element for navigation.
+            CSS class(es) to be applied to the tab title (navigation).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.ContentCssClass">
             <summary>
-            Additional css classes to be applied to the tab content.
+            Additional CSS class(es) to be applied to the tab content (pane).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.TitleTemplate">

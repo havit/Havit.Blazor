@@ -3,11 +3,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using LoxSmoke.DocXml;
+using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
+using Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
+namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
 {
-	public abstract class Member
+	public abstract class MemberModel
 	{
 		private Type enclosingType;
 
@@ -103,7 +104,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 		{
 			if (IsEnum(splitLink))
 			{
-				string internalTypeLink = ComponentApiDoc.GenerateLinkForInternalType(splitLink[^2], false, $"{splitLink[^2]}.{splitLink[^1]}");
+				string internalTypeLink = ApiRenderer.GenerateLinkForInternalType(splitLink[^2], false, $"{splitLink[^2]}.{splitLink[^1]}");
 				if (internalTypeLink is not null)
 				{
 					return internalTypeLink;
@@ -112,7 +113,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			if (splitLink[^1] == "Defaults")
 			{
-				string internalTypeLink = ComponentApiDoc.GenerateLinkForInternalType($"{splitLink[^2].Remove(0, 2)}{splitLink[^1]}", false, $"{splitLink[^2]}.{splitLink[^1]}"); // We have to generate a type name suitable for the support type page.
+				string internalTypeLink = ApiRenderer.GenerateLinkForInternalType($"{splitLink[^2].Remove(0, 2)}{splitLink[^1]}", false, $"{splitLink[^2]}.{splitLink[^1]}"); // We have to generate a type name suitable for the support type page.
 				if (internalTypeLink is not null)
 				{
 					return internalTypeLink;
@@ -171,7 +172,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			}
 
 			// Default case: if "Hx" wasn't found anywhere, it couldn't be detected what part to use in the link, so the default part will be chosen
-			if (fullLink.Length == 0 || (containsHx == false && isType))
+			if (fullLink.Length == 0 || containsHx == false && isType)
 			{
 				fullLink = splitLink[^1];
 				seeName = splitLink[^1];
@@ -239,109 +240,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 			return sb.ToString();
 		}
-	}
-
-	public class ClassMember : Member
-	{
-		public TypeComments Comments
-		{
-			get => comments;
-			set
-			{
-				TypeComments inputComments = value;
-				try { inputComments.Summary = TryFormatComment(inputComments.Summary); } catch { }
-				comments = inputComments;
-			}
-		}
-		private TypeComments comments;
-	}
-
-	public class Property : Member
-	{
-		public PropertyInfo PropertyInfo { get; set; }
-		public bool EditorRequired { get; set; }
-
-		public CommonComments Comments
-		{
-			set
-			{
-				CommonComments inputComments = value;
-				try { inputComments.Summary = TryFormatComment(inputComments.Summary, PropertyInfo.DeclaringType); } catch { }
-				comments = inputComments;
-			}
-			get
-			{
-				return comments;
-			}
-		}
-		private CommonComments comments;
-	}
-
-	public class Method : Member
-	{
-		public MethodInfo MethodInfo { get; set; }
-
-		public MethodComments Comments
-		{
-			set
-			{
-				MethodComments inputComments = value;
-				try { inputComments.Summary = TryFormatComment(inputComments.Summary); } catch { }
-				comments = inputComments;
-			}
-			get
-			{
-				return comments;
-			}
-		}
-		private MethodComments comments;
-
-		public string GetParameters()
-		{
-			StringBuilder concatenatedParameters = new StringBuilder();
-			var parameters = MethodInfo.GetParameters();
-
-			if (parameters is null || parameters.Length == 0)
-			{
-				return "()";
-			}
-
-			concatenatedParameters.Append("(");
-			foreach (var parameter in parameters)
-			{
-				concatenatedParameters.Append($"{ComponentApiDoc.FormatType(parameter.ParameterType)} {parameter.Name}, ");
-			}
-			concatenatedParameters.Remove(concatenatedParameters.Length - 2, 2);
-			concatenatedParameters.Append(")");
-
-			return concatenatedParameters.ToString();
-		}
-	}
-
-	public class EnumMember : Member
-	{
-		public int Index { get; set; }
-		public string Name { get; set; }
-
-		public string Summary
-		{
-			get
-			{
-				return summary;
-			}
-			set
-			{
-				try
-				{
-					summary = TryFormatComment(value);
-				}
-				catch
-				{
-					summary = value;
-				}
-
-			}
-		}
-		private string summary;
 	}
 }
