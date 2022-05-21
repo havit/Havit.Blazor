@@ -29,37 +29,6 @@ public static class ApiRenderer
 		new() { type = "Object",  name = "object"  }
 	};
 
-	public static string FormatType(string typeName)
-	{
-		if (string.IsNullOrWhiteSpace(typeName))
-		{
-			return string.Empty;
-		}
-
-		typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces
-
-#pragma warning disable CA1416 // Validate platform compatibility
-		var provider = CodeDomProvider.CreateProvider("CSharp");
-		var reference = new CodeTypeReference(typeName);
-
-		typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
-#pragma warning restore CA1416 // Validate platform compatibility
-		//typeName = ReplaceTypeNames(typeName);
-		typeName = Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
-
-		string internalTypeName = GenerateLinkForInternalType(typeName);
-		if (internalTypeName is not null)
-		{
-			typeName = internalTypeName;
-		}
-		else
-		{
-			typeName = HttpUtility.HtmlEncode(typeName);
-		}
-
-		return typeName;
-	}
-
 	public static string FormatType(Type type, bool asLink = true)
 	{
 		string typeName = type.FullName;
@@ -76,15 +45,13 @@ public static class ApiRenderer
 			}
 		}
 
-		// TODO Duplicate code, see FormatType above
-
 		typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces
 
 #pragma warning disable CA1416 // Validate platform compatibility
 		var provider = CodeDomProvider.CreateProvider("CSharp");
 		var reference = new CodeTypeReference(typeName);
 
-		typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
+		typeName = SimplifyTypeNames(provider.GetTypeOutput(reference));
 #pragma warning restore CA1416 // Validate platform compatibility
 		//typeName = ReplaceTypeNames(typeName);
 		typeName = Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
@@ -108,9 +75,9 @@ public static class ApiRenderer
 		return typeName;
 	}
 
-	public static string FormatMethod(Type type, ComponentApiDocModel model)
+	public static string FormatMethodReturnType(Type returnType, ComponentApiDocModel model)
 	{
-		string formattedName = FormatType(type);
+		string formattedName = FormatType(returnType);
 
 		if (!formattedName.Contains("IAsyncResult"))
 		{
@@ -133,28 +100,12 @@ public static class ApiRenderer
 				typeName = charSplitResult;
 			}
 		}
-		typeName ??= $"{type.Name.Replace("Provider", "").Replace("Delegate", "")}Result";
+		typeName ??= $"{returnType.Name.Replace("Provider", "").Replace("Delegate", "")}Result";
 
 		return $"IAsyncResult<<a href=\"/types/{typeName}\">{typeName}</a>>";
 	}
 
-	public static string FormatGenericParameterName(string genericParameterName)
-	{
-		if (genericParameterName == "T") // When a generic type parameter is named "TItem", then when retrieved with reflection, it's name is only "T".
-		{
-			return "TItem";
-		}
-		else if (genericParameterName == "TResult")
-		{
-			return "TValue";
-		}
-		else
-		{
-			return genericParameterName;
-		}
-	}
-
-	public static string ReplaceTypeNames(string type)
+	public static string SimplifyTypeNames(string type)
 	{
 		foreach (var typeName in typeNames)
 		{

@@ -2,27 +2,31 @@
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Model;
 using LoxSmoke.DocXml;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 
 public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 {
-	private Type type;
-	private ComponentApiDocModel model;
-
 	private static readonly Dictionary<string, string> inputBaseSummaries = new()
 		{
 			{ "AdditionalAttributes", "A collection of additional attributes that will be applied to the created element." },
 			{ "Value", "Value of the input. This should be used with two-way binding." },
 			{ "ValueExpression", "An expression that identifies the bound value." },
 			{ "ValueChanged", "A callback that updates the bound value." },
-			{ "ChildContent", "Content of the component." }
+			{ "ChildContent", "Content of the component." },
+			{ "Enabled", "When <code>null</code> (default), the Enabled value is received from cascading <code>FormState</code>.\n"
+						+ "When value is <code>false</code>, input is rendered as disabled.\n"
+						+ "To set multiple controls as disabled use <code>HxFormState</code>." }
 		};
 
-	private static readonly List<string> byDefaultExcludedProperties = new() { "JSRuntime", "SetParametersAsync" };
-	private static readonly List<string> objectDerivedMethods = new() { "ToString", "GetType", "Equals", "GetHashCode", "ReferenceEquals" };
-	private static readonly List<string> derivedMethods = new() { "Dispose", "DisposeAsync", "SetParametersAsync", "ChildContent" };
-	private BindingFlags bindingFlags = BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
+	private static readonly List<string> ignoredMethods = new()
+	{
+		"ToString", "GetType", "Equals", "GetHashCode", "ReferenceEquals",
+		"Dispose", "DisposeAsync", "SetParametersAsync", "ChildContent"
+	};
+
+	private const BindingFlags CommonBindingFlags = BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
 
 	private readonly IDocXmlProvider docXmlProvider;
 
@@ -33,28 +37,18 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 
 	public ComponentApiDocModel BuildModel(Type type, bool isDelegate)
 	{
-		this.type = type;
-
-		model = new ComponentApiDocModel();
+		var model = new ComponentApiDocModel();
+		model.Type = type;
 		model.IsDelegate = isDelegate;
 
-		DocXmlReader reader = LoadDocXmlReaderBasedOnNamespace(this.type.Namespace);
+		DocXmlReader reader = LoadDocXmlReaderBasedOnNamespace(type.Namespace);
 
-		model.Class = GetClassModel(reader);
-		var propertiesExtracted = GetProperties(reader);
-		model.Properties = propertiesExtracted.properties;
-		var parameters = propertiesExtracted.parameters;
-		model.Parameters = parameters.OrderByDescending(p => p.EditorRequired).ToList();
+		MapClassModel(reader, model);
+		MapProperties(reader, model);
+		MapMethods(reader, model);
 
-		model.StaticProperties = propertiesExtracted.staticProperties;
-		model.Events = propertiesExtracted.events;
-
-		var methodsExtracted = GetMethods(reader);
-		model.Methods = methodsExtracted.methods;
-		model.StaticMethods = methodsExtracted.staticMethods;
-
-		HandleEnum(reader);
-		HandleDelegate();
+		AdjustDelegate(model);
+		MapEnum(reader, model);
 
 		return model;
 	}
@@ -83,42 +77,42 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		}
 	}
 
-	private void HandleDelegate()
+	private void AdjustDelegate(ComponentApiDocModel model)
 	{
 		if (!model.IsDelegate)
 		{
 			return;
 		}
 
-		MethodInfo method = type.GetMethod("Invoke");
-		model.DelegateSignature = $"{ApiRenderer.FormatType(method.ReturnType.ToString())} {ApiRenderer.FormatType(type, asLink: false)}(";
-		foreach (ParameterInfo param in method.GetParameters())
+		MethodInfo invokeMethodInfo = model.Type.GetMethod("Invoke");
+		model.DelegateSignature = $"{ApiRenderer.FormatType(invokeMethodInfo.ReturnType, asLink: false)} {ApiRenderer.FormatType(model.Type, asLink: false)}(";
+		foreach (ParameterInfo param in invokeMethodInfo.GetParameters())
 		{
 			model.DelegateSignature += $"{ApiRenderer.FormatType(param.ParameterType)} {param.Name}";
 		}
 		model.DelegateSignature += ")";
 	}
 
-	private void HandleEnum(DocXmlReader reader)
+	private void MapEnum(DocXmlReader reader, ComponentApiDocModel model)
 	{
-		model.IsEnum = type.IsEnum;
+		model.IsEnum = model.Type.IsEnum;
 		if (!model.IsEnum)
 		{
 			return;
 		}
 
-		string[] names = type.GetEnumNames();
-		EnumComments enumComments = reader.GetEnumComments(type);
+		string[] names = model.Type.GetEnumNames();
+		var values = model.Type.GetEnumValues();
+		EnumComments enumComments = reader.GetEnumComments(model.Type);
 		for (int i = 0; i < names.Length; i++)
 		{
-			EnumModel enumMember = new();
+			var enumMember = new EnumModel();
 			enumMember.Name = names[i];
-			try { enumMember.Index = (int)Enum.Parse(type, enumMember.Name); } catch { }
+			enumMember.Value = (int)values.GetValue(i);
 			try
 			{
 				var enumValueComment = enumComments.ValueComments
 					.Where(o => o.Value == i)
-					.ToList()
 					.FirstOrDefault(c => !string.IsNullOrEmpty(c.Summary));
 
 				if (enumValueComment is not null)
@@ -131,117 +125,93 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		}
 	}
 
-	private ClassModel GetClassModel(DocXmlReader reader)
+	private void MapClassModel(DocXmlReader reader, ComponentApiDocModel model)
 	{
-		return new() { Comments = reader.GetTypeComments(type) };
+		model.Class = new ClassModel()
+		{
+			Comments = reader.GetTypeComments(model.Type)
+		};
 	}
 
-	private (List<PropertyModel> properties, List<PropertyModel> parameters, List<PropertyModel> staticProperties, List<PropertyModel> events) GetProperties(DocXmlReader reader)
+	private void MapProperties(DocXmlReader reader, ComponentApiDocModel model)
 	{
-		List<PropertyModel> typeProperties = new();
-		List<PropertyModel> parameters = new();
-		List<PropertyModel> staticProperties = new();
-		List<PropertyModel> events = new();
-
-		List<PropertyInfo> propertyInfos = type.GetProperties(bindingFlags).ToList();
+		List<PropertyInfo> propertyInfos = model.Type.GetProperties(CommonBindingFlags).ToList();
 
 		// Generic components have their defaults stored in a separate non-generic class to simplify access, therefore, we have to load this classes properties as well.
-		if (type.IsGenericType)
+		if (model.Type.IsGenericType)
 		{
-			Type nongenericType = Type.GetType($"Havit.Blazor.Components.Web.Bootstrap.{ApiRenderer.RemoveSpecialCharacters(type.Name)}, Havit.Blazor.Components.Web.Bootstrap");
+			Type nongenericType = Type.GetType($"Havit.Blazor.Components.Web.Bootstrap.{ApiRenderer.RemoveSpecialCharacters(model.Type.Name)}, Havit.Blazor.Components.Web.Bootstrap");
 			if (nongenericType is not null)
 			{
-				propertyInfos = propertyInfos.Concat(nongenericType.GetProperties(bindingFlags)).ToList();
+				propertyInfos = propertyInfos.Concat(nongenericType.GetProperties(CommonBindingFlags)).ToList();
 			}
 		}
 
-		foreach (var property in propertyInfos)
+		foreach (var propertyInfo in propertyInfos)
 		{
-			PropertyModel newProperty = new();
-			newProperty.PropertyInfo = property;
+			var newProperty = new PropertyModel();
+			newProperty.PropertyInfo = propertyInfo;
+			newProperty.Comments = reader.GetMemberComments(propertyInfo);
 
-			if (DetermineWhetherPropertyShouldBeAdded(newProperty) == false)
-			{
-				continue;
-			}
-
-			newProperty.Comments = reader.GetMemberComments(property);
 			if (string.IsNullOrWhiteSpace(newProperty.Comments.Summary))
 			{
-				inputBaseSummaries.TryGetValue(newProperty.PropertyInfo.Name, out string summary);
-				if (summary is not null)
+				if (inputBaseSummaries.TryGetValue(newProperty.PropertyInfo.Name, out string summary))
 				{
 					newProperty.Comments.Summary = summary;
 				}
-
-				if (string.IsNullOrWhiteSpace(newProperty.Comments.Summary))
-				{
-					newProperty.Comments = docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.xml").GetMemberComments(property);
-					if (string.IsNullOrWhiteSpace(newProperty.Comments.Summary))
-					{
-						newProperty.Comments = docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.xml").GetMemberComments(property);
-					}
-				}
 			}
 
-			if (string.IsNullOrEmpty(newProperty.Comments.Summary))
+			if (IsEventCallback(newProperty))
 			{
-				// newProperty.Comments = FindInheritDoc(newProperty, reader); TO-DO
+				model.Events.Add(newProperty);
 			}
-
-			if (IsEvent(newProperty))
+			else if (propertyInfo.GetCustomAttribute<ParameterAttribute>() is not null)
 			{
-				events.Add(newProperty);
-			}
-			else if (HasParameterAttribute(newProperty, out bool editorRequired))
-			{
-				newProperty.EditorRequired = editorRequired;
-				parameters.Add(newProperty);
+				newProperty.EditorRequired = (propertyInfo.GetCustomAttribute<EditorRequiredAttribute>() is not null);
+				model.Parameters.Add(newProperty);
 			}
 			else if (newProperty.IsStatic)
 			{
-				staticProperties.Add(newProperty);
+				model.StaticProperties.Add(newProperty);
 			}
 			else
 			{
-				typeProperties.Add(newProperty);
+				model.Properties.Add(newProperty);
 			}
 		}
-
-		return (typeProperties, parameters, staticProperties, events);
 	}
 
-	private (List<MethodModel> methods, List<MethodModel> staticMethods) GetMethods(DocXmlReader reader)
+	private void MapMethods(DocXmlReader reader, ComponentApiDocModel model)
 	{
-		List<MethodModel> typeMethods = new();
-		List<MethodModel> staticMethods = new();
-
-		foreach (var method in type.GetMethods(bindingFlags))
+		foreach (var methodInfo in model.Type.GetMethods(CommonBindingFlags))
 		{
-			MethodModel newMethod = new();
-			newMethod.MethodInfo = method;
-			newMethod.Comments = reader.GetMethodComments(method);
-
-			if (DetermineWhetherMethodShouldBeAdded(newMethod))
+			if (ShouldIncludeMethod(methodInfo))
 			{
+				var newMethod = new MethodModel();
+				newMethod.MethodInfo = methodInfo;
+				newMethod.Comments = reader.GetMethodComments(methodInfo);
+
 				if (newMethod.MethodInfo.IsStatic)
 				{
-					staticMethods.Add(newMethod);
+					model.StaticMethods.Add(newMethod);
 				}
 				else
 				{
-					typeMethods.Add(newMethod);
+					model.Methods.Add(newMethod);
 				}
 			}
 		}
-
-		return (typeMethods, staticMethods);
 	}
 
-	private bool DetermineWhetherPropertyShouldBeAdded(PropertyModel property)
+	private bool ShouldIncludeMethod(MethodInfo methodInfo)
 	{
-		string name = property.PropertyInfo.Name;
-		if (byDefaultExcludedProperties.Contains(name))
+		if (methodInfo.GetCustomAttribute<JSInvokableAttribute>() is not null)
+		{
+			return false;
+		}
+
+		string name = methodInfo.Name;
+		if (name.StartsWith("set") || name.StartsWith("get") || ignoredMethods.Contains(name))
 		{
 			return false;
 		}
@@ -249,64 +219,8 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		return true;
 	}
 
-	private bool DetermineWhetherMethodShouldBeAdded(MethodModel method)
-	{
-		// don't add a method if it is JSInvokable
-		var customAttributes = method.MethodInfo.CustomAttributes.ToList();
-		foreach (var attribute in customAttributes)
-		{
-			if (attribute.AttributeType == typeof(Microsoft.JSInterop.JSInvokableAttribute))
-			{
-				return false;
-			}
-		}
-
-		string name = method.MethodInfo.Name;
-		if (name.StartsWith("set") || name.StartsWith("get") || objectDerivedMethods.Contains(name) || derivedMethods.Contains(name))
-		{
-			return false;
-		}
-
-		return true;
-	}
-
-	private bool HasParameterAttribute(PropertyModel property, out bool editorRequired)
-	{
-		var customAttributes = property.PropertyInfo.CustomAttributes.ToList();
-
-		bool hasParameterAttribute = false;
-		editorRequired = false;
-
-		foreach (var attribute in customAttributes)
-		{
-			if (attribute.AttributeType == typeof(ParameterAttribute))
-			{
-				hasParameterAttribute = true;
-			}
-			else if (attribute.AttributeType == typeof(EditorRequiredAttribute))
-			{
-				editorRequired = true;
-			}
-		}
-
-		return hasParameterAttribute;
-	}
-
-	private bool IsEvent(PropertyModel property)
+	private bool IsEventCallback(PropertyModel property)
 	{
 		return property.PropertyInfo.PropertyType == typeof(EventCallback<>) || property.PropertyInfo.PropertyType == typeof(EventCallback);
-	}
-
-	private CommonComments FindInheritDoc(PropertyModel property, DocXmlReader reader)
-	{
-		Type[] interfaces = type.GetInterfaces();
-
-		foreach (var currentInterface in interfaces)
-		{
-			var matchingMember = currentInterface.GetMembers().Where(o => o.Name == property.PropertyInfo.Name).FirstOrDefault();
-			return reader.GetMemberComments(matchingMember);
-		}
-
-		return null;
 	}
 }

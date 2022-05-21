@@ -35,7 +35,7 @@
 				{
 					<tr>
 						<td>@enumMember.Name</td>
-						<td>@enumMember.Index</td>
+						<td>@enumMember.Value</td>
 						<td class="summary">@((MarkupString)enumMember.Summary)</td>
 					</tr>
 				}
@@ -152,7 +152,7 @@
 				{
 					<tr>
 						<td><strong>@method.MethodInfo.Name</strong>@((MarkupString)@method.GetParameters())</td>
-						<td><code>@((MarkupString)ApiRenderer.FormatMethod(method.MethodInfo.ReturnType, model))</code></td>
+						<td><code>@((MarkupString)ApiRenderer.FormatMethodReturnType(method.MethodInfo.ReturnType, model))</code></td>
 						<td class="summary">@((MarkupString)method.Comments.Summary)</td>
 					</tr>
 				}

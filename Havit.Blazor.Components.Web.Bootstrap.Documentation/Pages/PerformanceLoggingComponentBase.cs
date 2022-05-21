@@ -39,7 +39,7 @@ public class PerformanceLoggingComponentBase : ComponentBase
 		TimeSpan now = DateTime.Now.TimeOfDay;
 		timeStart ??= now;
 		timeLast ??= now;
-		Logger.LogDebug($"{this.GetType().Name}({this.GetHashCode()})_{message}: {(now - timeStart.Value).TotalMilliseconds} ms (+ {(now - timeLast.Value).TotalMilliseconds} ms)");
+		Logger.LogInformation($"{this.GetType().Name}({this.GetHashCode()})_{message}: {(now - timeStart.Value).TotalMilliseconds} ms (+ {(now - timeLast.Value).TotalMilliseconds} ms)");
 		timeLast = now;
 	}
 }
