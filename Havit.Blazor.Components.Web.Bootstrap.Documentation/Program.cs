@@ -20,6 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation
 			builder.Services.AddHxMessageBoxHost();
 
 			builder.Services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
+			builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
 
 			await builder.Build().RunAsync();
 		}

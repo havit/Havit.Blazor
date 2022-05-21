@@ -1,8 +1,5 @@
 ﻿using System.Reflection;
-using System.Text;
-using System.Xml.XPath;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Model;
-using Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 using LoxSmoke.DocXml;
 using Microsoft.AspNetCore.Components;
 
@@ -10,10 +7,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 
 public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 {
-	private DocXmlReader webReader;
-	private DocXmlReader bootstrapReader;
-	private Type Type;
-	private bool isDelegate;
+	private Type type;
 	private ComponentApiDocModel model;
 
 	private static readonly Dictionary<string, string> inputBaseSummaries = new()
@@ -28,18 +22,23 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 	private static readonly List<string> byDefaultExcludedProperties = new() { "JSRuntime", "SetParametersAsync" };
 	private static readonly List<string> objectDerivedMethods = new() { "ToString", "GetType", "Equals", "GetHashCode", "ReferenceEquals" };
 	private static readonly List<string> derivedMethods = new() { "Dispose", "DisposeAsync", "SetParametersAsync", "ChildContent" };
-
 	private BindingFlags bindingFlags = BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
+
+	private readonly IDocXmlProvider docXmlProvider;
+
+	public ComponentApiDocModelBuilder(IDocXmlProvider docXmlProvider)
+	{
+		this.docXmlProvider = docXmlProvider;
+	}
 
 	public ComponentApiDocModel BuildModel(Type type, bool isDelegate)
 	{
-		this.Type = type;
-		this.isDelegate = isDelegate;
+		this.type = type;
 
 		model = new ComponentApiDocModel();
-		bootstrapReader = LoadDocXmlReader("Havit.Blazor.Components.Web.Bootstrap.xml");
-		webReader = LoadDocXmlReader("Havit.Blazor.Components.Web.xml");
-		DocXmlReader reader = LoadDocXmlReaderBasedOnNamespace(Type.Namespace);
+		model.IsDelegate = isDelegate;
+
+		DocXmlReader reader = LoadDocXmlReaderBasedOnNamespace(this.type.Namespace);
 
 		model.Class = GetClassModel(reader);
 		var propertiesExtracted = GetProperties(reader);
@@ -60,56 +59,39 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		return model;
 	}
 
-	private DocXmlReader LoadDocXmlReader(string resourceName)
-	{
-		var assembly = Assembly.GetExecutingAssembly();
-
-		resourceName = assembly.GetManifestResourceNames()
-			.Single(str => str.EndsWith(resourceName));
-
-		using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-		using (StreamReader reader = new StreamReader(stream))
-		{
-			TextReader textReader = new StringReader(reader.ReadToEnd());
-			XPathDocument xPathDocument = new(textReader);
-
-			return new(xPathDocument);
-		}
-	}
-
 	private DocXmlReader LoadDocXmlReaderBasedOnNamespace(string typeNamespace)
 	{
 		if (string.IsNullOrEmpty(typeNamespace))
 		{
-			return bootstrapReader;
+			return docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.xml");
 		}
 		else if (typeNamespace.Contains("Havit.Blazor.GoogleTagManager"))
 		{
-			return LoadDocXmlReader("Havit.Blazor.GoogleTagManager.xml");
+			return docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.GoogleTagManager.xml");
 		}
 		else if (typeNamespace.Contains("Bootstrap"))
 		{
-			return bootstrapReader;
+			return docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.xml");
 		}
 		else if (typeNamespace == "Havit.Blazor.Components.Web")
 		{
-			return webReader;
+			return docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.xml");
 		}
 		else
 		{
-			return bootstrapReader;
+			return docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.xml");
 		}
 	}
 
 	private void HandleDelegate()
 	{
-		if (!isDelegate)
+		if (!model.IsDelegate)
 		{
 			return;
 		}
 
-		MethodInfo method = Type.GetMethod("Invoke");
-		model.DelegateSignature = $"{ApiRenderer.FormatType(method.ReturnType.ToString())} {ApiRenderer.FormatType(Type, asLink: false)}(";
+		MethodInfo method = type.GetMethod("Invoke");
+		model.DelegateSignature = $"{ApiRenderer.FormatType(method.ReturnType.ToString())} {ApiRenderer.FormatType(type, asLink: false)}(";
 		foreach (ParameterInfo param in method.GetParameters())
 		{
 			model.DelegateSignature += $"{ApiRenderer.FormatType(param.ParameterType)} {param.Name}";
@@ -119,19 +101,19 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 
 	private void HandleEnum(DocXmlReader reader)
 	{
-		model.IsEnum = Type.IsEnum;
+		model.IsEnum = type.IsEnum;
 		if (!model.IsEnum)
 		{
 			return;
 		}
 
-		string[] names = Type.GetEnumNames();
-		EnumComments enumComments = reader.GetEnumComments(Type);
+		string[] names = type.GetEnumNames();
+		EnumComments enumComments = reader.GetEnumComments(type);
 		for (int i = 0; i < names.Length; i++)
 		{
 			EnumModel enumMember = new();
 			enumMember.Name = names[i];
-			try { enumMember.Index = (int)Enum.Parse(Type, enumMember.Name); } catch { }
+			try { enumMember.Index = (int)Enum.Parse(type, enumMember.Name); } catch { }
 			try
 			{
 				var enumValueComment = enumComments.ValueComments
@@ -151,7 +133,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 
 	private ClassModel GetClassModel(DocXmlReader reader)
 	{
-		return new() { Comments = reader.GetTypeComments(Type) };
+		return new() { Comments = reader.GetTypeComments(type) };
 	}
 
 	private (List<PropertyModel> properties, List<PropertyModel> parameters, List<PropertyModel> staticProperties, List<PropertyModel> events) GetProperties(DocXmlReader reader)
@@ -161,12 +143,12 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		List<PropertyModel> staticProperties = new();
 		List<PropertyModel> events = new();
 
-		List<PropertyInfo> propertyInfos = Type.GetProperties(bindingFlags).ToList();
+		List<PropertyInfo> propertyInfos = type.GetProperties(bindingFlags).ToList();
 
 		// Generic components have their defaults stored in a separate non-generic class to simplify access, therefore, we have to load this classes properties as well.
-		if (Type.IsGenericType)
+		if (type.IsGenericType)
 		{
-			Type nongenericType = Type.GetType($"Havit.Blazor.Components.Web.Bootstrap.{ApiRenderer.RemoveSpecialCharacters(Type.Name)}, Havit.Blazor.Components.Web.Bootstrap");
+			Type nongenericType = Type.GetType($"Havit.Blazor.Components.Web.Bootstrap.{ApiRenderer.RemoveSpecialCharacters(type.Name)}, Havit.Blazor.Components.Web.Bootstrap");
 			if (nongenericType is not null)
 			{
 				propertyInfos = propertyInfos.Concat(nongenericType.GetProperties(bindingFlags)).ToList();
@@ -194,10 +176,10 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 
 				if (string.IsNullOrWhiteSpace(newProperty.Comments.Summary))
 				{
-					newProperty.Comments = webReader.GetMemberComments(property);
+					newProperty.Comments = docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.xml").GetMemberComments(property);
 					if (string.IsNullOrWhiteSpace(newProperty.Comments.Summary))
 					{
-						newProperty.Comments = bootstrapReader.GetMemberComments(property);
+						newProperty.Comments = docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.xml").GetMemberComments(property);
 					}
 				}
 			}
@@ -234,7 +216,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		List<MethodModel> typeMethods = new();
 		List<MethodModel> staticMethods = new();
 
-		foreach (var method in Type.GetMethods(bindingFlags))
+		foreach (var method in type.GetMethods(bindingFlags))
 		{
 			MethodModel newMethod = new();
 			newMethod.MethodInfo = method;
@@ -317,7 +299,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 
 	private CommonComments FindInheritDoc(PropertyModel property, DocXmlReader reader)
 	{
-		Type[] interfaces = Type.GetInterfaces();
+		Type[] interfaces = type.GetInterfaces();
 
 		foreach (var currentInterface in interfaces)
 		{

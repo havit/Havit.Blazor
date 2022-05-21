@@ -8,12 +8,12 @@
 @ChildContent
 @MainContent
 
-@if (model.Parameters is not null || model.Properties is not null || model.Events is not null || model.StaticMethods is not null || model.StaticProperties is not null || CssVariables is not null)
+@if (model.HasValues || CssVariables is not null)
 {
 	<h2>API</h2>
 }
 
-@if (Delegate)
+@if (model.IsDelegate)
 {
 	<h6><code>@((MarkupString)model.DelegateSignature)</code></h6>
 }
@@ -58,24 +58,20 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var property in model.Parameters.OrderBy(p => p.PropertyInfo.Name))
+				@foreach (var property in model.Parameters.OrderByDescending(p => p.EditorRequired).ThenBy(p => p.PropertyInfo.Name))
 				{
 					<tr>
 						<td>
-							@if (property.EditorRequired)
-							{
-								<HxBadge Color="ThemeColor.Warning" CssClass="me-2">
-									@("REQUIRED")
-								</HxBadge>
-							}
 							@if (property.IsStatic)
 							{
-								<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">
-									@("static")
-								</HxBadge>
+								<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">static</HxBadge>
 							}
 
 							<strong>@property.PropertyInfo.Name</strong>
+							@if (property.EditorRequired)
+							{
+								<sup><HxBadge Color="ThemeColor.Warning" CssClass="ms-2">REQUIRED</HxBadge></sup>
+							}
 						</td>
 						<td><code>@((MarkupString)ApiRenderer.FormatType(property.PropertyInfo.PropertyType))</code></td>
 						<td class="summary">@((MarkupString)property.Comments.Summary)</td>
@@ -139,7 +135,7 @@
 	</div>
 }
 
-@if (model.Methods.Any())
+@if (!model.IsEnum && model.Methods.Any())
 {
 	<h3>Methods</h3>
 	<div class="table-responsive">
@@ -192,7 +188,7 @@
 	</div>
 }
 
-@if (model.StaticMethods.Any())
+@if (!model.IsEnum && model.StaticMethods.Any())
 {
 	<h3>Static Methods</h3>
 
