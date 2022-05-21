@@ -39,12 +39,12 @@ public static class ApiRenderer
 		typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces
 
 #pragma warning disable CA1416 // Validate platform compatibility
-		//var provider = CodeDomProvider.CreateProvider("CSharp");
-		//var reference = new CodeTypeReference(typeName);
+		var provider = CodeDomProvider.CreateProvider("CSharp");
+		var reference = new CodeTypeReference(typeName);
 
-		//typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
+		typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
 #pragma warning restore CA1416 // Validate platform compatibility
-		typeName = ReplaceTypeNames(typeName);
+		//typeName = ReplaceTypeNames(typeName);
 		typeName = Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
 
 		string internalTypeName = GenerateLinkForInternalType(typeName);
@@ -81,12 +81,12 @@ public static class ApiRenderer
 		typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces
 
 #pragma warning disable CA1416 // Validate platform compatibility
-		//var provider = CodeDomProvider.CreateProvider("CSharp");
-		//var reference = new CodeTypeReference(typeName);
+		var provider = CodeDomProvider.CreateProvider("CSharp");
+		var reference = new CodeTypeReference(typeName);
 
-		//typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
+		typeName = ReplaceTypeNames(provider.GetTypeOutput(reference));
 #pragma warning restore CA1416 // Validate platform compatibility
-		typeName = ReplaceTypeNames(typeName);
+		//typeName = ReplaceTypeNames(typeName);
 		typeName = Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
 
 		typeName = ConstructGenericTypeName(type, typeName) ?? typeName;

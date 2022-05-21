@@ -30,12 +30,16 @@ public class PerformanceLoggingComponentBase : ComponentBase
 		base.OnAfterRender(firstRender);
 
 		LogTimeElapsed("OnAfterRender");
+		timeStart = null;
+		timeLast = null;
 	}
 
 	protected void LogTimeElapsed(string message)
 	{
 		TimeSpan now = DateTime.Now.TimeOfDay;
-		Logger.LogInformation($"{message}: {(now - timeStart.Value).TotalMilliseconds} ms (+ {(now - timeLast.Value).TotalMilliseconds} ms)");
+		timeStart ??= now;
+		timeLast ??= now;
+		Logger.LogInformation($"{this.GetType().Name}({this.GetHashCode()})_{message}: {(now - timeStart.Value).TotalMilliseconds} ms (+ {(now - timeLast.Value).TotalMilliseconds} ms)");
 		timeLast = now;
 	}
 }
