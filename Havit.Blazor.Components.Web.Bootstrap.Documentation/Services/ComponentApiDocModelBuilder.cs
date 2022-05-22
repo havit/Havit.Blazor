@@ -21,7 +21,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 	};
 
 	private static readonly List<string> ignoredMethods = new()
- {
+	{
 		"ToString",
 		"GetType",
 		"Equals",
@@ -31,7 +31,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		"DisposeAsync",
 		"SetParametersAsync",
 		"ChildContent"
- };
+	};
 
 	private const BindingFlags CommonBindingFlags = BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
 
