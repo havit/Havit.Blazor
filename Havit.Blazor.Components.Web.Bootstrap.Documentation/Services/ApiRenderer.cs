@@ -4,12 +4,13 @@ using System.Text.RegularExpressions;
 using System.Web;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Model;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages;
+using Microsoft.CSharp;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 
 public static class ApiRenderer
 {
-	private static readonly (string type, string name)[] typeNames =
+	private static readonly (string type, string name)[] typeSimplifications =
 	{
 		new() { type = "Int16",   name = "short"   },
 		new() { type = "UInt16",  name = "ushort"  },
@@ -31,32 +32,28 @@ public static class ApiRenderer
 
 	public static string FormatType(Type type, bool asLink = true)
 	{
-		string typeName = type.FullName;
-		if (string.IsNullOrWhiteSpace(typeName))
+		string typeName = type.ToString();  // e.g. "System.Collections.Generic.List`1[System.String]"
+
+		typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces (TODO also removes parents of nested types)
+
+		// simplify known types
+		foreach (var typeSimplification in typeSimplifications)
 		{
-			typeName = type.AssemblyQualifiedName;
-			if (string.IsNullOrWhiteSpace(typeName))
-			{
-				typeName = type.Name;
-				if (string.IsNullOrWhiteSpace(typeName))
-				{
-					return string.Empty;
-				}
-			}
+			typeName = typeName.Replace(typeSimplification.type, typeSimplification.name);
 		}
 
-		typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces
+		typeName = typeName.Replace("`1", String.Empty);
+		typeName = typeName.Replace("`2", String.Empty);
+		typeName = typeName.Replace("`3", String.Empty);
+		typeName = typeName.Replace('[', '<');
+		typeName = typeName.Replace(']', '>');
+		typeName = typeName.Replace(",", ", ");
 
-#pragma warning disable CA1416 // Validate platform compatibility
-		var provider = CodeDomProvider.CreateProvider("CSharp");
-		var reference = new CodeTypeReference(typeName);
-
-		typeName = SimplifyTypeNames(provider.GetTypeOutput(reference));
-#pragma warning restore CA1416 // Validate platform compatibility
-		//typeName = ReplaceTypeNames(typeName);
-		typeName = Regex.Replace(typeName, "Nullable<[a-zA-Z]+>", capture => $"{capture.Value[9..^1]}?");
-
-		typeName = ConstructGenericTypeName(type, typeName) ?? typeName;
+		if (typeName.StartsWith("Nullable<"))
+		{
+			typeName = typeName.Replace("Nullable<", String.Empty);
+			typeName = typeName.Substring(0, typeName.Length - 1) + "?";
+		}
 
 		string internalTypeName = null;
 		if (asLink)
@@ -103,16 +100,6 @@ public static class ApiRenderer
 		typeName ??= $"{returnType.Name.Replace("Provider", "").Replace("Delegate", "")}Result";
 
 		return $"IAsyncResult<<a href=\"/types/{typeName}\">{typeName}</a>>";
-	}
-
-	public static string SimplifyTypeNames(string type)
-	{
-		foreach (var typeName in typeNames)
-		{
-			type = type.Replace(typeName.type, typeName.name);
-		}
-
-		return type;
 	}
 
 
