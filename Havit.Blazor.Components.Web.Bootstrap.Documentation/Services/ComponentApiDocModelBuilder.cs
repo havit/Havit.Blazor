@@ -9,16 +9,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 {
 	private static readonly Dictionary<string, string> inputBaseSummaries = new()
-		{
-			{ "AdditionalAttributes", "A collection of additional attributes that will be applied to the created element." },
-			{ "Value", "Value of the input. This should be used with two-way binding." },
-			{ "ValueExpression", "An expression that identifies the bound value." },
-			{ "ValueChanged", "A callback that updates the bound value." },
-			{ "ChildContent", "Content of the component." },
-			{ "Enabled", "When <code>null</code> (default), the Enabled value is received from cascading <code>FormState</code>.\n"
-						+ "When value is <code>false</code>, input is rendered as disabled.\n"
-						+ "To set multiple controls as disabled use <code>HxFormState</code>." }
-		};
+	{
+		{ "AdditionalAttributes", "A collection of additional attributes that will be applied to the created element." },
+		{ "Value", "Value of the input. This should be used with two-way binding." },
+		{ "ValueExpression", "An expression that identifies the bound value." },
+		{ "ValueChanged", "A callback that updates the bound value." },
+		{ "ChildContent", "Content of the component." },
+		{ "Enabled", "When <code>null</code> (default), the Enabled value is received from cascading <code>FormState</code>.\n"
+			+ "When value is <code>false</code>, input is rendered as disabled.\n"
+			+ "To set multiple controls as disabled use <code>HxFormState</code>." }
+	};
 
 	private static readonly List<string> ignoredMethods = new()
 	{
