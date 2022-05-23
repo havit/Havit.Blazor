@@ -1,8 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component.<br />
-	/// For buttons with dropdowns use <see cref="HxDropdownButtonGroup"/>.<br />
+	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> generic component.<br />
+	/// For buttons with dropdowns use more specific <see cref="HxDropdownButtonGroup"/>.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDropdown">https://havit.blazor.eu/components/HxDropdown</see>
 	/// </summary>
 	public partial class HxDropdown : IDropdownContainer

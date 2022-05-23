@@ -33,7 +33,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			builder.CloseElement();
 		}
-
-
 	}
 }
