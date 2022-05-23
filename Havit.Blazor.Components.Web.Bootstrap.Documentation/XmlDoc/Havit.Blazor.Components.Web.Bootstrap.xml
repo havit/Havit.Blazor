@@ -6844,6 +6844,13 @@
             Default is <see cref="F:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.ExpandOnMatch">
+            <summary>
+            Set to <c>false</c> if you don't want to expand the sidebar if URL matches.<br/>
+            Default is <c>true</c>.
+            NOTE: The expansion is only applied on initial load, the sidebar does not track the URL changes (this may change in the future).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.Enabled">
             <summary>
             Allows you to disable the item with <c>false</c>.

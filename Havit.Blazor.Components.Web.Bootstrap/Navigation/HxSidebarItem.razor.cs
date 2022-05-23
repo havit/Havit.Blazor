@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
@@ -30,6 +29,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Default is <see cref="NavLinkMatch.Prefix"/>.
 		/// </summary>
 		[Parameter] public NavLinkMatch? Match { get; set; } = NavLinkMatch.Prefix;
+
+		/// <summary>
+		/// Set to <c>false</c> if you don't want to expand the sidebar if URL matches.<br/>
+		/// Default is <c>true</c>.
+		/// NOTE: The expansion is only applied on initial load, the sidebar does not track the URL changes (this may change in the future).
+		/// </summary>
+		[Parameter] public bool ExpandOnMatch { get; set; } = true;
 
 		/// <summary>
 		/// Allows you to disable the item with <c>false</c>.
@@ -78,18 +84,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			isMatch = ShouldMatch(NavigationManager.Uri);
 		}
 
-		protected bool ShouldBeExpandedOnLoad => this.childItems.Any(i => i.isMatch);
+		protected bool ShouldBeExpanded => ExpandOnMatch && this.childItems.Any(i => i.isMatch && i.ExpandOnMatch);
 		protected bool HasExpandableContent => (this.ChildContent is not null);
 
+		/*
+		 * Explicit StateHasChanged() not needed as there is one already in ChildItemsRegistration.Register()? 
+		 * 
 		protected override void OnAfterRender(bool firstRender)
 		{
 			if (firstRender)
 			{
 				// re-render to allow child-parent propagation of IsMatch logic for initial expansion
-				// StateHasChanged();
-				// TODO ...the HxSidebarItem rerenders 3x event without the StateHasChanged
+				StateHasChanged();
 			}
 		}
+		*/
 
 		public async ValueTask DisposeAsync()
 		{

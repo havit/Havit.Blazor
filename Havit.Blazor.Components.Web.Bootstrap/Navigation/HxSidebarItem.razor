@@ -1,7 +1,12 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+@{
+    Console.WriteLine($"HxSidebarItem[{this.Text}, {this.GetHashCode()}]_Render: {Environment.StackTrace.Replace("\n", " -> ")}");
+}
+
 <CascadingValue Value="this" IsFixed="true">
     <div>
-        @if (!HasExpandableContent)
+        @if (!HasExpandableContent)                                           
         {
             <HxNavLink Href="@Href"
                    CssClass="@CssClassHelper.Combine(this.DropdownContainer is not null ? "dropdown-item" : null, this.CssClass, "position-relative")"
@@ -34,7 +39,7 @@
                        role="button"
                        data-bs-toggle="@(ParentSidebar.Collapsed ? "dropdown": "collapse")"
                        data-bs-target="@(!ParentSidebar.Collapsed ? "#" + id : null)"
-                       aria-expanded="@(this.ShouldBeExpandedOnLoad)">
+                       aria-expanded="@(this.ShouldBeExpanded)">
                     <div class="hx-sidebar-item-navlink-content">
                         @if (Icon != null)
                         {
@@ -59,7 +64,7 @@
 
             @if (!ParentSidebar.Collapsed)
             {
-                <div class="@CssClassHelper.Combine("hx-sidebar-subitems collapse", this.ShouldBeExpandedOnLoad ? "show" : null)" id="@id">
+                <div class="@CssClassHelper.Combine("hx-sidebar-subitems collapse", this.ShouldBeExpanded ? "show" : null)" id="@id">
                     <nav class="nav hx-sidebar-collapsed-nav">
                         @ChildContent
                     </nav>
