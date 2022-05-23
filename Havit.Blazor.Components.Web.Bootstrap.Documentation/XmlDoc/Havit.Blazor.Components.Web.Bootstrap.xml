@@ -1384,12 +1384,13 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component.
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component.<br />
+            For buttons with dropdowns use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownButtonGroup"/>.<br />
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.Split">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.Direction">
             <summary>
-            Set <c>true</c> to create a <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</see> (using a <c>btn-group</c>).
+            Direction in which the dropdown is opened.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.AutoClose">
@@ -1407,6 +1408,18 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdown.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying <c>div</c> element.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownButtonGroup">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap 5 Dropdown</see> component for dropdown-buttons.<br />
+            For generic dropdowns use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownButtonGroup.Split">
+            <summary>
+            Set <c>true</c> to create a <a href="https://getbootstrap.com/docs/5.1/components/dropdowns/#split-button">split dropdown</a>
+            (using a <c>btn-group</c>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownContent">
@@ -1646,6 +1659,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.ElementName">
             <summary>
             Gets or sets the name of the element to render. Default is <c>span</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.Caret">
+            <summary>
+            Gets or sets whether to display caret in the toggle.<br />
+            Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.DropdownReference">
@@ -3520,7 +3539,7 @@
             <remarks>
             Defaults located in separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber"/>.
             </remarks>
-            <typeparam name="TValue">Supported values: <c>int (Int32), long (Int64), float (Single), double, decimal</c>.</typeparam>
+            <typeparam name="TValue">Supported values: <c>byte (Byte), sbyte (SByte), short (Int16), ushort(UInt16), int (Int32), uint(UInt32), long (Int64), ulong(UInt64), float (Single), double (Double) and decimal (Decimal)</c>.</typeparam>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.GetDefaults">
             <summary>
@@ -5399,7 +5418,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.OnAfterRender(System.Boolean)">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Dispose">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.DisposeAsync">
             <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPager">
@@ -7606,6 +7625,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Title">
             <summary>
             Tab title.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.TitleCssClass">
+            <summary>
+            CSS class(es) to be applied to the tab title (navigation).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.ContentCssClass">
+            <summary>
+            Additional CSS class(es) to be applied to the tab content (pane).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.TitleTemplate">

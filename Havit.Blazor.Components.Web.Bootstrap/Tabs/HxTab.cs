@@ -26,6 +26,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string Title { get; set; }
 
 		/// <summary>
+		/// CSS class(es) to be applied to the tab title (navigation).
+		/// </summary>
+		[Parameter] public string TitleCssClass { get; set; }
+
+		/// <summary>
+		/// Additional CSS class(es) to be applied to the tab content (pane).
+		/// </summary>
+		[Parameter] public string ContentCssClass { get; set; }
+
+		/// <summary>
 		/// Tab title template.
 		/// </summary>
 		[Parameter] public RenderFragment TitleTemplate { get; set; }

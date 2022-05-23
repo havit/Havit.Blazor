@@ -10,7 +10,7 @@
 			@if (tab.Visible)
 			{
 				<HxNavLink OnClick="async () => await HandleTabClick(tab)"
-						   CssClass="@(IsActive(tab) ? "active" : null)"
+						   CssClass="@CssClassHelper.Combine(IsActive(tab) ? "active" : null, tab.TitleCssClass)"
 						   Enabled="CascadeEnabledComponent.EnabledEffective(tab)">
 					@tab.Title
 					@tab.TitleTemplate
@@ -26,7 +26,7 @@
 		<UpdatedContentRenderer Component="@tab">
 			@if (tab.Visible)
 			{
-				<div class="@CssClassHelper.Combine("tab-pane", IsActive(tab) ? "active" : String.Empty)">
+				<div class="@CssClassHelper.Combine("tab-pane", IsActive(tab) ? "active" : String.Empty, tab.ContentCssClass)">
 					@tab.Content
 				</div>
 			}

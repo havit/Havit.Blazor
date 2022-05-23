@@ -20,3 +20,7 @@ button.dropdown-item,
 .form-check-input {
     margin-left: -1.625em;
 }
+
+.hx-multi-select-input:hover {
+    cursor: default;
+}

@@ -1,0 +1,27 @@
+﻿@page "/HxInputNumberTest"
+
+<HxInputNumber Label="byte" @bind-Value="_byte" Hint="@_byte?.ToString()" />
+<HxInputNumber Label="sbyte" @bind-Value="_sbyte" Hint="@_sbyte?.ToString()" />
+<HxInputNumber Label="short" @bind-Value="_short" Hint="@_short?.ToString()" />
+<HxInputNumber Label="ushort" @bind-Value="_ushort" Hint="@_ushort?.ToString()" />
+<HxInputNumber Label="int" @bind-Value="_int" Hint="@_uint?.ToString()"/>
+<HxInputNumber Label="uint" @bind-Value="_uint" Hint="@_uint?.ToString()" />
+<HxInputNumber Label="long" @bind-Value="_long" Hint="@_long?.ToString()" />
+<HxInputNumber Label="ulong" @bind-Value="_ulong" Hint="@_ulong?.ToString()" />
+<HxInputNumber Label="float" @bind-Value="_float" Hint="@_float?.ToString()" />
+<HxInputNumber Label="double" @bind-Value="_double" Hint="@_double?.ToString()" />
+<HxInputNumber Label="decimal" @bind-Value="_decimal" Hint="@_decimal?.ToString()" />
+
+@code {
+	private byte? _byte;
+	private sbyte? _sbyte;
+	private short? _short;
+	private ushort? _ushort;
+	private int? _int;
+	private uint? _uint;
+	private long? _long;
+	private ulong? _ulong;
+	private float? _float;
+	private double? _double;
+	private decimal? _decimal;
+}

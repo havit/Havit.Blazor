@@ -13,6 +13,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string ElementName { get; set; } = "span";
 
 		/// <summary>
+		/// Gets or sets whether to display caret in the toggle.<br />
+		/// Default is <c>false</c>.
+		/// </summary>
+		[Parameter] public bool Caret { get; set; }
+
+		/// <summary>
 		/// Reference element of the dropdown menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
 		/// an HTMLElement reference (e.g. <c>#id</c>) or an object providing <c>getBoundingClientRect</c>.
 		/// For more information refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
@@ -102,10 +108,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected virtual string GetCssClass()
 		{
+			/*
+			 * Despite the name the .dropdown-toggle is the class which does nothing else than the caret (arrow ::after and no-wrap to prevent caret wraping).
+			 * If it later turns out to be used for other reasons we will need to add the .dropdown-toggle-no-caret class to prevent the caret from being displayed.
+			 */
 			return CssClassHelper.Combine(
 				this.CssClass,
+				(this.Caret ? "dropdown-toggle" : null),
 				((DropdownContainer as IDropdownContainer)?.IsOpen ?? false) ? "show" : null,
-				(DropdownContainer?.Split ?? false) ? "dropdown-toggle-split" : null,
+				((DropdownContainer as HxDropdownButtonGroup)?.Split ?? false) ? "dropdown-toggle-split" : null,
 				(NavContainer is not null) ? "nav-link" : null);
 		}
 

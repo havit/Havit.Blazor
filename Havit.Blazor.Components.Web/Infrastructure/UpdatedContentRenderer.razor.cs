@@ -9,17 +9,22 @@ namespace Havit.Blazor.Components.Web.Infrastructure
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		private Action detachAction;
+		private IRenderNotificationComponent attachedComponent;
 
 		protected override void OnParametersSet()
 		{
 			base.OnParametersSet();
 
-			DetachIfPossible();
-			if (Component != null)
+			if (attachedComponent != this.Component)
 			{
-				var component = Component;
-				component.Rendered += FilterRenderedHandler;
-				detachAction = () => { component.Rendered -= FilterRenderedHandler; };
+				DetachIfPossible();
+				if (this.Component != null)
+				{
+					var component = this.Component;
+					component.Rendered += FilterRenderedHandler;
+					detachAction = () => { component.Rendered -= FilterRenderedHandler; };
+				}
+				attachedComponent = this.Component;
 			}
 		}
 

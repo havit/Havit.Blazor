@@ -1,15 +1,13 @@
-﻿<div style="display: inline-block">
-    <HxDropdown>
-        <HxDropdownToggleButton Size="ButtonSize.Small" Color="ThemeColor.Secondary">Small button</HxDropdownToggleButton>
-        <HxDropdownMenu>
-            <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
-            <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
-            <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
-        </HxDropdownMenu>
-    </HxDropdown>
-</div>
+﻿<HxDropdownButtonGroup>
+    <HxDropdownToggleButton Size="ButtonSize.Small" Color="ThemeColor.Secondary">Small button</HxDropdownToggleButton>
+    <HxDropdownMenu>
+        <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+        <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+        <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+    </HxDropdownMenu>
+</HxDropdownButtonGroup>
 
-<HxDropdown Split="true">
+<HxDropdownButtonGroup Split="true">
     <HxButton Color="ThemeColor.Secondary" Size="ButtonSize.Small">Small split button</HxButton>
     <HxDropdownToggleButton Color="ThemeColor.Secondary" Size="ButtonSize.Small">
         <span class="visually-hidden">Toggle Dropdown</span>@* OPTIONAL (for accessibility) *@
@@ -19,4 +17,4 @@
         <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
         <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
     </HxDropdownMenu>
-</HxDropdown>
+</HxDropdownButtonGroup>
