@@ -10,11 +10,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <remarks>
 	/// Defaults located in separate non-generic type <see cref="HxInputNumber"/>.
 	/// </remarks>
-	/// <typeparam name="TValue">Supported values: <c>int (Int32), long (Int64), float (Single), double, decimal</c>.</typeparam>
+	/// <typeparam name="TValue">Supported values: <c>byte (Byte), sbyte (SByte), short (Int16), ushort(UInt16), int (Int32), uint(UInt32), long (Int64), ulong(UInt64), float (Single), double (Double) and decimal (Decimal)</c>.</typeparam>
 	public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
-		// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
-		private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(int), typeof(long), typeof(float), typeof(double), typeof(decimal) };
+		// DO NOT FORGET TO MAINTAIN DOCUMENTATION! (documentation comment of this class)
+		private static HashSet<Type> supportedTypes = new HashSet<Type>
+		{
+			typeof(byte),
+			typeof(sbyte),
+			typeof(short),
+			typeof(ushort),
+			typeof(int),
+			typeof(uint),
+			typeof(long),
+			typeof(ulong),
+			typeof(float),
+			typeof(double),
+			typeof(decimal)
+		};
 
 		/// <summary>
 		/// Returns application-wide defaults for the component.
@@ -109,8 +122,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			get
 			{
 				Type undelyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-				return (undelyingType == typeof(int))
-					|| (undelyingType == typeof(long));
+				return (undelyingType == typeof(byte))
+					|| (undelyingType == typeof(sbyte))
+					|| (undelyingType == typeof(short))
+					|| (undelyingType == typeof(ushort))
+					|| (undelyingType == typeof(int))
+					|| (undelyingType == typeof(uint))
+					|| (undelyingType == typeof(long))
+					|| (undelyingType == typeof(ulong));
 			}
 		}
 
@@ -193,9 +212,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				workingValue = Math.Round(parsedValue, DecimalsEffective, MidpointRounding.AwayFromZero).ToString(culture);
 			}
 
-			// konverze do cílového typu
+			// conversion to the target type
+			// BindConverter has a first-class citizen support for a lot of types (byte, short, int, long) but not for sbyte, ushort, uint, ulong.
+			// These second-citizen types fallback to TypeConverter (TypeDescriptor.GetConverter(...))).
+			// This converter throws ArgumentException when the value cannot be converted to the target type despite the method is "Try...".
+			bool success;
+			try
+			{
+				success = BindConverter.TryConvertTo<TValue>(workingValue, culture, out result);
+			}
+			catch (ArgumentException)
+			{
+				result = default;
+				success = false;
+			}
 
-			if (BindConverter.TryConvertTo<TValue>(workingValue, culture, out result))
+			if (success)
 			{
 				// pokud došlo jen ke změně bez změny hodnoty (třeba z 5.50 na 5.5), chceme hodnotu převést na korektní formát (5.5 na 5.50).
 				// Nestačí však StateHasChange, viz komentář v BuildRenderInput.
@@ -221,27 +253,46 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <returns>A string representation of the value.</returns>
 		protected override string FormatValueAsString(TValue value)
 		{
+			// integer types
 			switch (value)
 			{
 				case null:
 					return null;
 
+				// mostly used first
 				case int @int:
-					return BindConverter.FormatValue(@int, CultureInfo.CurrentCulture);
+					return @int.ToString(CultureInfo.CurrentCulture);
 
 				case long @long:
-					return BindConverter.FormatValue(@long, CultureInfo.CurrentCulture);
+					return @long.ToString(CultureInfo.CurrentCulture);
+
+				case short @short:
+					return @short.ToString(CultureInfo.CurrentCulture);
+
+				case byte @byte:
+					return @byte.ToString(CultureInfo.CurrentCulture);
+
+				// signed/unsigned integer variants
+				case sbyte @sbyte:
+					return @sbyte.ToString(CultureInfo.CurrentCulture);
+
+				case ushort @ushort:
+					return @ushort.ToString(CultureInfo.CurrentCulture);
+
+				case uint @uint:
+					return @uint.ToString(CultureInfo.CurrentCulture);
+
+				case ulong @ulong:
+					return @ulong.ToString(CultureInfo.CurrentCulture);
 			}
 
+			// floating-point types
 			string format = (DecimalsEffective > 0)
 				? "0." + String.Join("", Enumerable.Repeat('0', DecimalsEffective))
 				: "0";
 
 			switch (value)
 			{
-				//case short @short:
-				//	return BindConverter.FormatValue(@short, CultureInfo.CurrentCulture);
-
 				case float @float:
 					return @float.ToString(format, CultureInfo.CurrentCulture);
 
