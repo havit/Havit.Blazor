@@ -2,6 +2,7 @@
 {
 	/// <summary>
 	/// Propagates form states as a cascading parementer to child components.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxFormState">https://havit.blazor.eu/components/HxFormState</see>
 	/// </summary>
 	public partial class HxFormState
 	{

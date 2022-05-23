@@ -3,6 +3,7 @@
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.1/components/breadcrumb/">Bootstrap 5 Breadcrumb</see> component.<br />
 	/// Indicates the current page’s location within a navigational hierarchy.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxBreadcrumb">https://havit.blazor.eu/components/HxBreadcrumb</see>
 	/// </summary>
 	public partial class HxBreadcrumb
 	{

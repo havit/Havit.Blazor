@@ -6,6 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Date range picker. Form input component for entering start date and end date.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputDateRange">https://havit.blazor.eu/components/HxInputDateRange</see>
 	/// </summary>
 	public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	{

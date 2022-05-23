@@ -6,6 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Numeric input.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputNumber">https://havit.blazor.eu/components/HxInputNumber</see>
 	/// </summary>
 	/// <remarks>
 	/// Defaults located in separate non-generic type <see cref="HxInputNumber"/>.

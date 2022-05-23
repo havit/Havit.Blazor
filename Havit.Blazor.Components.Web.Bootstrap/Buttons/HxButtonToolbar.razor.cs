@@ -2,6 +2,7 @@
 {
 	/// <summary>
 	/// Bootstrap <see href="https://getbootstrap.com/docs/5.1/components/button-group/#button-toolbar">Button toolbar</see> component.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButtonToolbar">https://havit.blazor.eu/components/HxButtonToolbar</see>
 	/// </summary>
 	public partial class HxButtonToolbar
 	{

@@ -4,6 +4,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// A slideshow component for cycling through elements—images or slides of text—like a carousel.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCarousel">https://havit.blazor.eu/components/HxCarousel</see>
 	/// </summary>
 	public partial class HxCarousel : IAsyncDisposable
 	{

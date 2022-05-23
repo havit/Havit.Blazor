@@ -3,6 +3,7 @@
 	/// <summary>
 	/// Presents a list of chips as badges.<br/>
 	/// Usualy being used to present filter-criteria gathered by <see cref="HxFilterForm{TModel}"/>.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxChipList">https://havit.blazor.eu/components/HxChipList</see>
 	/// </summary>
 	public partial class HxChipList
 	{

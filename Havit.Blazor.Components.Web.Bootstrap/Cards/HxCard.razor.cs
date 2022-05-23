@@ -2,6 +2,7 @@
 {
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.1/components/card/">Bootstrap card</see> component.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCard">https://havit.blazor.eu/components/HxCard</see>
 	/// </summary>
 	public partial class HxCard
 	{

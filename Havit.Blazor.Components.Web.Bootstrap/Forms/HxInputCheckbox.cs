@@ -5,6 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Checkbox input.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputCheckbox">https://havit.blazor.eu/components/HxInputCheckbox</see>
 	/// </summary>
 	public class HxInputCheckbox : HxInputBase<bool>
 	{

@@ -3,6 +3,7 @@
 	/// <summary>
 	/// A data-bound list component that allows custom layout by repeating a specified template for each item displayed in the list.
 	/// Analogous to ASP.NET WebForms Repeater control.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxRepeater">https://havit.blazor.eu/components/HxRepeater</see>
 	/// </summary>
 	/// <typeparam name="TItem">item type</typeparam>
 	public partial class HxRepeater<TItem> : ComponentBase

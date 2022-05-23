@@ -2,6 +2,7 @@
 {
 	/// <summary>
 	/// Edit form derived from HxModelEditForm with support for chip generators.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxFilterForm">https://havit.blazor.eu/components/HxFilterForm</see>
 	/// </summary>
 	public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable
 	{

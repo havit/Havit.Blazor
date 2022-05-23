@@ -5,6 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Data presentation component composed of <see cref="HxGrid"/> for data, <see cref="HxOffcanvas"/> for manual filtering and <see cref="HxNamedViewList{T}"/> for pre-defined filters.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListLayout">https://havit.blazor.eu/components/HxListLayout</see>
 	/// </summary>
 	/// <typeparam name="TFilterModel"></typeparam>
 	public partial class HxListLayout<TFilterModel>

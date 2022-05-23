@@ -6,6 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Wraps <see cref="HxInputFileCore"/> as Bootstrap form control (incl. <c>Label</c> etc.)
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputFile">https://havit.blazor.eu/components/HxInputFile</see>
 	/// </summary>
 	public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFormValueComponent, IInputWithSize
 	{

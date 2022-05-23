@@ -2,6 +2,7 @@
 {
 	/// <summary>
 	/// <see cref="HxToastContainer"/> wrapper for displaying <see cref="HxToast"/> messages dispatched through <see cref="IHxMessengerService"/>.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMessenger">https://havit.blazor.eu/components/HxMessenger</see>
 	/// </summary>
 	public partial class HxMessenger : ComponentBase, IDisposable
 	{

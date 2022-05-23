@@ -8,6 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Date picker. Form input component for entering a date.
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputDate">https://havit.blazor.eu/components/HxInputDate</see>
 	/// </summary>
 	/// <remarks>
 	/// Defaults located in separate non-generic type <see cref="HxInputDate"/>.

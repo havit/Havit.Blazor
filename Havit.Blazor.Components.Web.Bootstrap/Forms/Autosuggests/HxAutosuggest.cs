@@ -5,6 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Component for single item selection with dynamic suggestions (based on typed characters).
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAutosuggest">https://havit.blazor.eu/components/HxAutosuggest</see>
 	/// </summary>
 	/// <remarks>
 	/// Defaults located in separate non-generic type <see cref="HxAutosuggest"/>.

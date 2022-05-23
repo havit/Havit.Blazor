@@ -12,6 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// MultiSelect. Unlike a normal select, multiselect allows the user to select multiple options at once.
+/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMultiSelect">https://havit.blazor.eu/components/HxMultiSelect</see>
 /// </summary>
 /// <typeparam name="TValue">Type of values.</typeparam>
 /// <typeparam name="TItem">Type of items.</typeparam>
