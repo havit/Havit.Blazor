@@ -98,14 +98,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxButtonToolbar", "HxButtonToolbar", ""),
 
 			new("/components/HxDropdown", "HxDropdown", "collapse tooltip popover popup popper"),
-			new("/components/HxDropdown#SplitButton", "HxDropdown > Split button", ""),
-			new("/components/HxDropdown#Directions", "HxDropdown > Directions", ""),
-			new("/components/HxDropdown#HeaderDisabledActive", "HxDropdown > Header, Disabled, Active", ""),
-			new("/components/HxDropdown#CustomContent", "HxDropdown > Custom content", ""),
-			new("/components/HxDropdown#OffsetAndreference", "HxDropdown > Offset and reference", ""),
-			new("/components/HxDropdown#AutoCloseBehavior", "HxDropdown > Auto close behavior", ""),
-			new("/components/HxDropdown#NavWithDropdown", "HxDropdown > Nav with dropdown", ""),
-			new("/components/HxDropdown#DarkDropdowns", "HxDropdown > Dark dropdowns", ""),
+			new("/components/HxDropdownButtonGroup", "HxDropdownButtonGroup", "collapse tooltip popover popup popper"),
 
 			new("/components/HxBadge", "HxBadge", "chip tag"),
 			new("/components/HxBadge#Headings", "HxBadge > Headings", ""),
