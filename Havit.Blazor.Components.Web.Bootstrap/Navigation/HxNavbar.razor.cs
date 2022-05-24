@@ -2,7 +2,8 @@
 {
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.1/components/navbar/">Bootstrap 5 Navbar</see> component - responsive navigation header.<br/>
-	/// With support for branding, navigation, and more, including support for the collapse plugin.
+	/// With support for branding, navigation, and more, including support for the collapse plugin.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNavbar">https://havit.blazor.eu/components/HxNavbar</see>
 	/// </summary>
 	public partial class HxNavbar
 	{

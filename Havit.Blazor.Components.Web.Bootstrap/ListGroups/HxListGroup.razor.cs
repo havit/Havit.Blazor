@@ -2,7 +2,8 @@
 {
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.1/components/list-group/">Bootstrap 5 List group</see> component.<br/>
-	/// List groups are a flexible and powerful component for displaying a series of content.
+	/// List groups are a flexible and powerful component for displaying a series of content.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListGroup">https://havit.blazor.eu/components/HxListGroup</see>
 	/// </summary>
 	public partial class HxListGroup
 	{

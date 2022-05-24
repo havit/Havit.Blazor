@@ -8,7 +8,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Bootstrap <see href="https://getbootstrap.com/docs/5.1/components/close-button/">close-button</see> component.<br />
-/// A simple close button for dismissing content like modals and alerts.
+/// A simple close button for dismissing content like modals and alerts.<br />
+/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCloseButton">https://havit.blazor.eu/components/HxCloseButton</see>
 /// </summary>
 public class HxCloseButton : HxButton
 {

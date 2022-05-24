@@ -3,7 +3,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Pager.
+	/// Pager.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPager">https://havit.blazor.eu/components/HxPager</see>
 	/// </summary>
 	public partial class HxPager : ComponentBase
 	{

@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.1/components/card/">Bootstrap card</see> component.
+	/// <see href="https://getbootstrap.com/docs/5.1/components/card/">Bootstrap card</see> component.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCard">https://havit.blazor.eu/components/HxCard</see>
 	/// </summary>
 	public partial class HxCard
 	{

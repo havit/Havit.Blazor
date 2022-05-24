@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Bootstrap <see href="https://getbootstrap.com/docs/5.0/components/button-group/">Button group</see>s. 
+	/// Bootstrap <see href="https://getbootstrap.com/docs/5.0/components/button-group/">Button group</see>s.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButtonGroup">https://havit.blazor.eu/components/HxButtonGroup</see>
 	/// </summary>
 	public partial class HxButtonGroup
 	{
