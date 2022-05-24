@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Edit form derived from HxModelEditForm with support for chip generators.
+	/// Edit form derived from HxModelEditForm with support for chip generators.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxFilterForm">https://havit.blazor.eu/components/HxFilterForm</see>
 	/// </summary>
 	public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable

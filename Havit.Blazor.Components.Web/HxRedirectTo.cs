@@ -2,7 +2,7 @@
 {
 	/// <summary>
 	/// Rendering a <c>HxRedirectTo</c> will navigate to a new location.<br/>
-	/// Can be used in <c>AuthorizeRouteView</c>, <c>Router</c> and such components to process redirection to login page, error page or such.
+	/// Can be used in <c>AuthorizeRouteView</c>, <c>Router</c> and such components to process redirection to login page, error page or such.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxRedirectTo">https://havit.blazor.eu/components/HxRedirectTo</see>
 	/// </summary>
 	public class HxRedirectTo : ComponentBase

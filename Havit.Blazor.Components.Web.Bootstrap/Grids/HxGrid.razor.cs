@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Grid to display tabular data from data source. Includes support for client-side and server-side paging &amp; sorting (or virtualized scrolling as needed).
+	/// Grid to display tabular data from data source. Includes support for client-side and server-side paging &amp; sorting (or virtualized scrolling as needed).<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxGrid">https://havit.blazor.eu/components/HxGrid</see>
 	/// </summary>
 	/// <typeparam name="TItem">Type of row data item.</typeparam>

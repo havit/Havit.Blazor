@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Displays a read-only value in the form control visual (as <c>.form-control</c>, with label, border, etc.).
+	/// Displays a read-only value in the form control visual (as <c>.form-control</c>, with label, border, etc.).<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxFormValue">https://havit.blazor.eu/components/HxFormValue</see>
 	/// </summary>
 	public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueComponentWithInputGroups, IInputWithSize

@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Base class to simplify custom modal dialog implementation.
+	/// Base class to simplify custom modal dialog implementation.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDialogBase">https://havit.blazor.eu/components/HxDialogBase</see>
 	/// </summary>
 	public abstract class HxDialogBase<TResult> : ComponentBase

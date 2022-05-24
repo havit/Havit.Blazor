@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see cref="HxToastContainer"/> wrapper for displaying <see cref="HxToast"/> messages dispatched through <see cref="IHxMessengerService"/>.
+	/// <see cref="HxToastContainer"/> wrapper for displaying <see cref="HxToast"/> messages dispatched through <see cref="IHxMessengerService"/>.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMessenger">https://havit.blazor.eu/components/HxMessenger</see>
 	/// </summary>
 	public partial class HxMessenger : ComponentBase, IDisposable

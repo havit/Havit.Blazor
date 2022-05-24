@@ -9,6 +9,7 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.GoogleTagManager
 {
 	///<summary>
+	///<br />
 	///Full documentation and demos: <see href="https://havit.blazor.eu/components/HxGoogleTagManager">https://havit.blazor.eu/components/HxGoogleTagManager</see>
 	/// </summary>
 	/// <inheritdoc/>

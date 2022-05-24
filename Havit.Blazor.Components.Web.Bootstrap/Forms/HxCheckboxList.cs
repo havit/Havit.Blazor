@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Renders a multi-selection list of <see cref="HxInputCheckbox"/> controls.
+	/// Renders a multi-selection list of <see cref="HxInputCheckbox"/> controls.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckboxList">https://havit.blazor.eu/components/HxCheckboxList</see>
 	/// </summary>
 	public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014

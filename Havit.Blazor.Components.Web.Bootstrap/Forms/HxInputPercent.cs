@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Numeric input in percentages with value normalization (0% = 0, 100% = 1.0).
+	/// Numeric input in percentages with value normalization (0% = 0, 100% = 1.0).<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputPercent">https://havit.blazor.eu/components/HxInputPercent</see>
 	/// </summary>
 	public class HxInputPercent<TValue> : HxInputNumber<TValue>

@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Select - DropDownList - single-item picker. Consider creating custom picker derived from <see cref="HxSelectBase{TValueType, TItem}"/>.
+	/// Select - DropDownList - single-item picker. Consider creating custom picker derived from <see cref="HxSelectBase{TValueType, TItem}"/>.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSelect">https://havit.blazor.eu/components/HxSelect</see>
 	/// </summary>
 	/// <typeparam name="TValue">Type of value.</typeparam>

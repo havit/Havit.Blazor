@@ -2,7 +2,7 @@
 {
 	/// <summary>
 	/// Displays an icon.
-	/// Currently supports <see href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</see> through <c>BootstrapIcon</c> class.
+	/// Currently supports <see href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</see> through <c>BootstrapIcon</c> class.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxIcon">https://havit.blazor.eu/components/HxIcon</see>
 	/// You can add your own icon-set easily.
 	/// </summary>

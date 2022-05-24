@@ -4,7 +4,7 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Checkbox input.
+	/// Checkbox input.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputCheckbox">https://havit.blazor.eu/components/HxInputCheckbox</see>
 	/// </summary>
 	public class HxInputCheckbox : HxInputBase<bool>

@@ -2,7 +2,7 @@
 {
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.1/components/progress/">Bootstrap 5 Progress</see> component.<br/>
-	/// A wrapping component for the <see cref="HxProgressBar" />.
+	/// A wrapping component for the <see cref="HxProgressBar" />.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxProgress">https://havit.blazor.eu/components/HxProgress</see>
 	/// </summary>
 	public partial class HxProgress
