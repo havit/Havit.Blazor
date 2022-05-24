@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <br />
+	/// List of named-views for <see cref="HxListLayout{TFilterModel}" />.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNamedViewList">https://havit.blazor.eu/components/HxNamedViewList</see>
 	/// </summary>
 
