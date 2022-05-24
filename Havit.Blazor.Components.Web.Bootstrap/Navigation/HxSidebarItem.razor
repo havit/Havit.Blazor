@@ -1,9 +1,4 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-
-@{
-    Console.WriteLine($"HxSidebarItem[{this.Text}, {this.GetHashCode()}]_Render: {Environment.StackTrace.Replace("\n", " -> ")}");
-}
-
 <CascadingValue Value="this" IsFixed="true">
     <div>
         @if (!HasExpandableContent)                                           
