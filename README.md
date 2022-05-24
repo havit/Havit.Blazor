@@ -12,6 +12,8 @@
 * .NET 5.0+ with Blazor WebAssembly or Blazor Server (other hosting models not tested yet, .NET 6.0 fully supported)
 * [Enterprise project template](https://github.com/havit/NewProjectTemplate-Blazor) (optional) - layered architecture, EF Core, gRPC code-first, ...
 
+If you enjoy using [HAVIT Blazor](https://havit.blazor.eu/), you can [become a sponsor](https://github.com/sponsors/havit). Your sponsorship will allow us to devote time to features and issues requested by the community (i.e. not required by our own projects) ❤️.
+
 
 # See [&gt;&gt;Interactive Documentation & Demos&lt;&lt;](https://havit.blazor.eu)
 

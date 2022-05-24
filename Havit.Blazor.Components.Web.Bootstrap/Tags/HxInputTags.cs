@@ -5,7 +5,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Input for entering tags.
-	/// Does not allow duplicate tags.
+	/// Does not allow duplicate tags.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputTags">https://havit.blazor.eu/components/HxInputTags</see>
 	/// </summary>
 	public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{

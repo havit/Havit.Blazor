@@ -13,9 +13,6 @@
 	<NullTemplate>
 		Loading...
 	</NullTemplate>
-	<EmptyTemplate>
-		No data.
-	</EmptyTemplate>
 </HxRepeater>
 
 @code
@@ -24,15 +21,11 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		await Task.Delay(2000);
+        await Task.Delay(1000); // imitate data load latency
+        
 		data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
 			.OrderBy(item => item.EnglishName)
 			.Take(10)
 			.ToList();
-
-		StateHasChanged();
-
-		await Task.Delay(5000);
-		data = new List<CultureInfo>(); // empty
 	}
 }

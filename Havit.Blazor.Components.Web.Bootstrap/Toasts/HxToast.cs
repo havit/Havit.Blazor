@@ -3,8 +3,9 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.1/components/toasts/">Bootstrap Toast</a> component. Not intented to be used in user code, use <see cref="HxMessenger"/>.
-	/// After first render component never updates.
+	/// <see href="https://getbootstrap.com/docs/5.1/components/toasts/">Bootstrap Toast</see> component. Not intented to be used in user code, use <see cref="HxMessenger"/>.
+	/// After first render component never updates.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxToast">https://havit.blazor.eu/components/HxToast</see>
 	/// </summary>
 	public partial class HxToast : ComponentBase, IAsyncDisposable
 	{

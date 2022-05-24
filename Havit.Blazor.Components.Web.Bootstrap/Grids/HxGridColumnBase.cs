@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Grid column base class.
 	/// </summary>
-	public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TItem>, IDisposable
+	public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TItem>, IAsyncDisposable
 	{
 		/// <summary>
 		/// Cascading parameter to register column to the grid.
@@ -94,17 +94,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		public void Dispose()
+		public async ValueTask DisposeAsync()
 		{
-			Dispose(true);
+			await DisposeAsyncCore();
 		}
 
-		protected virtual void Dispose(bool disposing)
+		protected virtual async Task DisposeAsyncCore()
 		{
-			if (disposing)
-			{
-				ColumnsRegistration.Unregister(this);
-			}
+			await ColumnsRegistration.Unregister(this);
 		}
 	}
 }

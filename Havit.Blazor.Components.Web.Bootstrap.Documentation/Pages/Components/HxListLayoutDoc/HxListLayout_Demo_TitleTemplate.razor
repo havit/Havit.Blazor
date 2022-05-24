@@ -6,7 +6,7 @@
         <HxButton Text="New item" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="NewItemClicked" />
     </CommandsTemplate>
     <DataTemplate>
-        <HxGrid @ref="gridComponent" ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="EditableCultureInfo" PageSize="10" DataProvider="LoadDataItems" SelectedDataItem="currentItem" SelectedDataItemChanged="HandleSelectedDataItemChanged">
+        <HxGrid @ref="gridComponent" Responsive="true" ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="EditableCultureInfo" PageSize="10" DataProvider="LoadDataItems" SelectedDataItem="currentItem" SelectedDataItemChanged="HandleSelectedDataItemChanged">
             <Columns>
                 <HxGridColumn TItem="EditableCultureInfo" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
 		        <HxGridColumn TItem="EditableCultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />

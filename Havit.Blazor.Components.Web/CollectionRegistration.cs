@@ -49,7 +49,14 @@
 			{
 				if (stateHasChangedAction != null)
 				{
-					await stateHasChangedAction.Invoke();
+					try
+					{
+						await stateHasChangedAction.Invoke();
+					}
+					catch (ObjectDisposedException)
+					{
+						// NOOP
+					}
 				}
 			}
 		}

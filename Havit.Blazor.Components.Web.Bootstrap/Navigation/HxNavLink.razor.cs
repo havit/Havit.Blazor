@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Components.Routing;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-link</a> component.
+	/// <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-link</see> component.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNavLink#HxNavLink">https://havit.blazor.eu/components/HxNavLink#HxNavLink</see>
 	/// </summary>
 	public partial class HxNavLink : ICascadeEnabledComponent
 	{

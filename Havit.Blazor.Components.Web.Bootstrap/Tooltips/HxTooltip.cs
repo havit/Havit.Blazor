@@ -3,8 +3,9 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</a> component, activates on hover.<br />
-	/// Rendered as a <c>span</c> wrapper to fully support tooltips on disabled elements (see example in <a href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</a> in the Bootstrap tooltip documentation).
+	/// <see href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</see> component, activates on hover.<br />
+	/// Rendered as a <c>span</c> wrapper to fully support tooltips on disabled elements (see example in <see href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</see> in the Bootstrap tooltip documentation).<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTooltip">https://havit.blazor.eu/components/HxTooltip</see>
 	/// </summary>
 	public class HxTooltip : HxTooltipInternalBase
 	{

@@ -3,7 +3,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Displays the content of the component as "in progress".
+	/// Displays the content of the component as "in progress".<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxProgressIndicator">https://havit.blazor.eu/components/HxProgressIndicator</see>
 	/// </summary>
 	public partial class HxProgressIndicator : IDisposable
 	{

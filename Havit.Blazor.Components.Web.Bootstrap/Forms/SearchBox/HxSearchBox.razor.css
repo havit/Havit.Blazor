@@ -16,3 +16,11 @@
 ::deep .hx-search-box-input-icon-end {
     right: .75rem;
 }
+
+.dropdown-item:not(:active) ::deep .hx-search-box-item-title {
+    color: var(--hx-search-box-item-title-color);
+}
+
+.dropdown-item:not(:active) ::deep .hx-search-box-item-subtitle {
+    color: var(--hx-search-box-item-subtitle-color);
+}

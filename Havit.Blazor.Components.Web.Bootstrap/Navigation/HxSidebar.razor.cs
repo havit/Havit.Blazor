@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Sidebar component - responsive navigation sidebar.
+	/// Sidebar component - responsive navigation sidebar.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSidebar">https://havit.blazor.eu/components/HxSidebar</see>
 	/// </summary>
 	public partial class HxSidebar : ComponentBase
 	{

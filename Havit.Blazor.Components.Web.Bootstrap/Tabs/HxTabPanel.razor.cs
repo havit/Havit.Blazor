@@ -4,7 +4,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Container for <see cref="HxTab"/>s for easier implementation of tabbed UI.<br/>
-	/// Encapsulates <see cref="HxNav"/> (<see cref="NavVariant.Tabs"/> variant as default) and <see cref="HxNavLink"/>s so you don't have to bother with them explicitly.
+	/// Encapsulates <see cref="HxNav"/> (<see cref="NavVariant.Tabs"/> variant as default) and <see cref="HxNavLink"/>s so you don't have to bother with them explicitly.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTabPanel">https://havit.blazor.eu/components/HxTabPanel</see>
 	/// </summary>
 	public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	{

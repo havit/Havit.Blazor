@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared;
 
@@ -18,12 +19,14 @@ public partial class Sidebar
 	{
 		try
 		{
-			var result = await client.GetStringAsync("https://bootswatch.com/api/5.json");
-			themes = JsonConvert.DeserializeObject<ThemeHolder>(result).Themes;
+			var result = await client.GetStreamAsync("https://bootswatch.com/api/5.json");
+			var themesHolder = await JsonSerializer.DeserializeAsync<ThemeHolder>(result, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+			themes = themesHolder.Themes;
 		}
 		catch
 		{
 			Console.WriteLine("Unable to fetch themes from Bootswatch API.");
+			themes = new();
 		}
 
 		themes = themes.Prepend(new() { Name = "Bootstrap 5", CssCdn = "FULL_LINK_HARDCODED_IN_RAZOR" }).ToList();

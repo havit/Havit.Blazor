@@ -3,14 +3,17 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</a> component.
+	/// <see href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</see> component.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxScrollspy">https://havit.blazor.eu/components/HxScrollspy</see>
 	/// </summary>
 	public partial class HxScrollspy : IAsyncDisposable
 	{
 		/// <summary>
 		/// ID of the <see cref="HxNav"/> or list-group with scrollspy navigation.
 		/// </summary>
-		// TODO [EditorRequired]
+#if NET6_0_OR_GREATER
+		[EditorRequired]
+#endif
 		[Parameter] public string TargetId { get; set; }
 
 		/// <summary>

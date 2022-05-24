@@ -1,0 +1,17 @@
+.hx-search-box-item {
+    display: flex;
+    align-items: center;
+}
+
+::deep .hx-search-box-item-icon {
+    margin: var(--hx-search-box-item-icon-margin);
+    font-size: var(--hx-search-box-item-icon-font-size);
+}
+
+.hx-search-box-item-title {
+    font-size: var(--hx-search-box-item-title-font-size);
+}
+
+.hx-search-box-item-subtitle {
+    font-size: var(--hx-search-box-item-subtitle-font-size);
+}

@@ -1,4 +1,5 @@
-﻿using Havit.Diagnostics.Contracts;
+﻿using System.Diagnostics;
+using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
@@ -6,7 +7,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Item for the <see cref="HxSidebar"/>.
 	/// </summary>
-	public partial class HxSidebarItem
+	public partial class HxSidebarItem : IAsyncDisposable
 	{
 		/// <summary>
 		/// Item text.
@@ -30,6 +31,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public NavLinkMatch? Match { get; set; } = NavLinkMatch.Prefix;
 
 		/// <summary>
+		/// Set to <c>false</c> if you don't want to expand the sidebar if URL matches.<br/>
+		/// Default is <c>true</c>.
+		/// NOTE: The expansion is only applied on initial load, the sidebar does not track the URL changes (this may change in the future).
+		/// </summary>
+		[Parameter] public bool ExpandOnMatch { get; set; } = true;
+
+		/// <summary>
 		/// Allows you to disable the item with <c>false</c>.
 		/// Default is <c>true</c>.
 		/// </summary>
@@ -46,17 +54,144 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		[CascadingParameter] protected HxSidebar ParentSidebar { get; set; }
+		[CascadingParameter] protected HxSidebarItem ParentSidebarItem { get; set; }
 		[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
 
 		[Inject] protected NavigationManager NavigationManager { get; set; }
 
 		private string id = "hx" + Guid.NewGuid().ToString("N");
+		protected List<HxSidebarItem> childItems;
+		internal CollectionRegistration<HxSidebarItem> ChildItemsRegistration { get; }
+		protected bool isDisposed;
+		protected bool isMatch;
+
+		public HxSidebarItem()
+		{
+			childItems = new();
+			ChildItemsRegistration = new(childItems, async () => await InvokeAsync(this.StateHasChanged), () => isDisposed);
+		}
+
+		protected override void OnInitialized()
+		{
+			ParentSidebarItem?.ChildItemsRegistration.Register(this);
+		}
 
 		protected override void OnParametersSet()
 		{
 			Contract.Requires<InvalidOperationException>(ParentSidebar is not null, $"{nameof(HxSidebarItem)} has to be placed inside {nameof(HxSidebar)}.");
+
+			_hrefAbsolute = (Href == null) ? null : NavigationManager.ToAbsoluteUri(Href).AbsoluteUri;
+			isMatch = ShouldMatch(NavigationManager.Uri);
 		}
 
+		protected bool ShouldBeExpanded => ExpandOnMatch && this.childItems.Any(i => i.isMatch && i.ExpandOnMatch);
 		protected bool HasExpandableContent => (this.ChildContent is not null);
+
+		/*
+		 * Explicit StateHasChanged() not needed as there is one already in ChildItemsRegistration.Register()? 
+		 * 
+		protected override void OnAfterRender(bool firstRender)
+		{
+			if (firstRender)
+			{
+				// re-render to allow child-parent propagation of IsMatch logic for initial expansion
+				StateHasChanged();
+			}
+		}
+		*/
+
+		public async ValueTask DisposeAsync()
+		{
+			await DisposeAsyncCore();
+
+			//Dispose(disposing: false);
+
+			isDisposed = true;
+		}
+
+		protected virtual async ValueTask DisposeAsyncCore()
+		{
+			if (ParentSidebarItem is not null)
+			{
+				await ParentSidebarItem.ChildItemsRegistration.Unregister(this);
+			}
+		}
+
+		#region ShouldMatch (initial expansion) logic replicated from NavLink
+#pragma warning disable IDE1006 // Naming Styles
+		private string _hrefAbsolute;
+#pragma warning restore IDE1006 // Naming Styles
+		private bool ShouldMatch(string currentUriAbsolute)
+		{
+			if (_hrefAbsolute == null)
+			{
+				return false;
+			}
+
+			if (EqualsHrefExactlyOrIfTrailingSlashAdded(currentUriAbsolute))
+			{
+				return true;
+			}
+
+			if (Match == NavLinkMatch.Prefix
+				&& IsStrictlyPrefixWithSeparator(currentUriAbsolute, _hrefAbsolute))
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		private bool EqualsHrefExactlyOrIfTrailingSlashAdded(string currentUriAbsolute)
+		{
+			Debug.Assert(_hrefAbsolute != null);
+
+			if (string.Equals(currentUriAbsolute, _hrefAbsolute, StringComparison.OrdinalIgnoreCase))
+			{
+				return true;
+			}
+
+			if (currentUriAbsolute.Length == _hrefAbsolute.Length - 1)
+			{
+				// Special case: highlight links to http://host/path/ even if you're
+				// at http://host/path (with no trailing slash)
+				//
+				// This is because the router accepts an absolute URI value of "same
+				// as base URI but without trailing slash" as equivalent to "base URI",
+				// which in turn is because it's common for servers to return the same page
+				// for http://host/vdir as they do for host://host/vdir/ as it's no
+				// good to display a blank page in that case.
+				if (_hrefAbsolute[_hrefAbsolute.Length - 1] == '/'
+					&& _hrefAbsolute.StartsWith(currentUriAbsolute, StringComparison.OrdinalIgnoreCase))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		private static bool IsStrictlyPrefixWithSeparator(string value, string prefix)
+		{
+			var prefixLength = prefix.Length;
+			if (value.Length > prefixLength)
+			{
+				return value.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+					&& (
+						// Only match when there's a separator character either at the end of the
+						// prefix or right after it.
+						// Example: "/abc" is treated as a prefix of "/abc/def" but not "/abcdef"
+						// Example: "/abc/" is treated as a prefix of "/abc/def" but not "/abcdef"
+						prefixLength == 0
+						|| !char.IsLetterOrDigit(prefix[prefixLength - 1])
+						|| !char.IsLetterOrDigit(value[prefixLength])
+					);
+			}
+			else
+			{
+				return false;
+			}
+		}
+		#endregion
 	}
 }

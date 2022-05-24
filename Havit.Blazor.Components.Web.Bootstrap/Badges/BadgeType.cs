@@ -8,7 +8,7 @@
 		Regular = 0,
 
 		/// <summary>
-		/// <a href="https://getbootstrap.com/docs/5.0/components/badge/#pill-badges"/>
+		/// <see href="https://getbootstrap.com/docs/5.0/components/badge/#pill-badges">https://getbootstrap.com/docs/5.0/components/badge/#pill-badges</see>
 		/// </summary>
 		RoundedPill = 1
 	}

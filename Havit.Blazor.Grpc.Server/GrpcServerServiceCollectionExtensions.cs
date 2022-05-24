@@ -20,7 +20,7 @@ namespace Havit.Blazor.Grpc.Server
 		{
 			services.AddSingleton<GlobalizationLocalizationGrpcServerInterceptor>();
 			services.AddSingleton<ServerExceptionsGrpcServerInterceptor>();
-			services.AddSingleton(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Default.RegisterApplicationContracts(assemblyToScanForDataContracts)) }, binder: new ServiceBinderWithServiceResolutionFromServiceCollection(services)));
+			services.AddSingleton(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Create().RegisterApplicationContracts(assemblyToScanForDataContracts)) }, binder: new ServiceBinderWithServiceResolutionFromServiceCollection(services)));
 
 			services.AddCodeFirstGrpc(options =>
 			{

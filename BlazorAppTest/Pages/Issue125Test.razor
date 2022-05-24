@@ -6,7 +6,7 @@
         <Content>
             <HxListLayout Title="Neutral cultures" TFilterModel="FilterModelDto">
                 <DataTemplate>
-                    <HxGrid ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="CultureInfo" PageSize="10" DataProvider="LoadNeutralCultures">
+                    <HxGrid ContentNavigationMode="GridContentNavigationMode.Pagination" Responsive="true" TItem="CultureInfo" PageSize="10" DataProvider="LoadNeutralCultures">
                         <Columns>
                             <HxGridColumn TItem="CultureInfo" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
 		                    <HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />

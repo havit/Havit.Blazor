@@ -5,7 +5,8 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// A search input component witch automatic suggestions, initial dropdown template and free-text queries support.
+/// A search input component witch automatic suggestions, initial dropdown template and free-text queries support.<br />
+/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSearchBox">https://havit.blazor.eu/components/HxSearchBox</see>
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 public partial class HxSearchBox<TItem> : IAsyncDisposable
@@ -223,7 +224,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 	}
 
-	public async Task ClearInputAsync()
+	protected async Task ClearInputAsync()
 	{
 		if (TextQuery != string.Empty)
 		{
@@ -233,7 +234,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 	}
 
-	public async Task UpdateSuggestionsAsync()
+	protected async Task UpdateSuggestionsAsync()
 	{
 		await HideDropdownMenu();
 

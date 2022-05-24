@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Select. Consider creating custom picker derived from <see cref="HxRadioButtonListBase{TValueType, TItem}"/>.
+	/// Select. Consider creating custom picker derived from <see cref="HxRadioButtonListBase{TValueType, TItem}"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxRadioButtonList">https://havit.blazor.eu/components/HxRadioButtonList</see>
 	/// </summary>
 	/// <typeparam name="TValue">Type of value.</typeparam>
 	/// <typeparam name="TItem">Type of items.</typeparam>

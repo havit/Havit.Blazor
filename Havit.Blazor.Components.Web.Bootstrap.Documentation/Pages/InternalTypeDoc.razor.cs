@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
+namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages
 {
 	public partial class InternalTypeDoc
 	{

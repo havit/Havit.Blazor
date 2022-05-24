@@ -29,7 +29,7 @@
     background-color: transparent;
     width: fit-content;
     border-color: transparent;
-    transition: 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
 }
 
 ::deep .btn:hover {
@@ -46,7 +46,7 @@ td {
 }
 
 td > div {
-    border: 1px solid transparent;
+    border: var(--hx-calendar-day-border-radius);
     border-radius: var(--hx-calendar-day-border-radius);
     background-color: transparent;
     transition: all .15s ease-in-out;
