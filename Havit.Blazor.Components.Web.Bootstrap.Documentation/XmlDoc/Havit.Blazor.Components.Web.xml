@@ -347,7 +347,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.HxFormState">
             <summary>
-            Propagates form states as a cascading parementer to child components.
+            Propagates form states as a cascading parementer to child components.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxFormState">https://havit.blazor.eu/components/HxFormState</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxFormState.CascadingFormState">
@@ -545,7 +546,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.HxDynamicElement">
             <summary>
-            Renders an element with the specified name, attributes and child-content.
+            Renders an element with the specified name, attributes and child-content.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDynamicElement">https://havit.blazor.eu/components/HxDynamicElement</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.ElementName">
@@ -586,7 +588,8 @@
         <member name="T:Havit.Blazor.Components.Web.HxRedirectTo">
             <summary>
             Rendering a <c>HxRedirectTo</c> will navigate to a new location.<br/>
-            Can be used in <c>AuthorizeRouteView</c>, <c>Router</c> and such components to process redirection to login page, error page or such.
+            Can be used in <c>AuthorizeRouteView</c>, <c>Router</c> and such components to process redirection to login page, error page or such.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxRedirectTo">https://havit.blazor.eu/components/HxRedirectTo</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxRedirectTo.Uri">
@@ -605,7 +608,8 @@
         <member name="T:Havit.Blazor.Components.Web.HxRepeater`1">
             <summary>
             A data-bound list component that allows custom layout by repeating a specified template for each item displayed in the list.
-            Analogous to ASP.NET WebForms Repeater control.
+            Analogous to ASP.NET WebForms Repeater control.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxRepeater">https://havit.blazor.eu/components/HxRepeater</see>
             </summary>
             <typeparam name="TItem">item type</typeparam>
         </member>
@@ -644,7 +648,8 @@
         <member name="T:Havit.Blazor.Components.Web.HxIcon">
             <summary>
             Displays an icon.
-            Currently supports <see href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</see> through <c>BootstrapIcon</c> class.
+            Currently supports <see href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</see> through <c>BootstrapIcon</c> class.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxIcon">https://havit.blazor.eu/components/HxIcon</see>
             You can add your own icon-set easily.
             </summary>
         </member>

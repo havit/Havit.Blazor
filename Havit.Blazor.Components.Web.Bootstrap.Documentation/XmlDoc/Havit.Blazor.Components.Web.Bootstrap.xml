@@ -6,7 +6,8 @@
     <members>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAccordion">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.1/components/accordion/">Bootstrap accordion</see> component.
+            <see href="https://getbootstrap.com/docs/5.1/components/accordion/">Bootstrap accordion</see> component.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAccordion">https://havit.blazor.eu/components/HxAccordion</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.CssClass">
@@ -105,7 +106,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAlert">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.0/components/alerts/">Bootstrap alert</see> component.
+            <see href="https://getbootstrap.com/docs/5.0/components/alerts/">Bootstrap alert</see> component.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAlert">https://havit.blazor.eu/components/HxAlert</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAlert.Color">
@@ -160,7 +162,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</see> component.
+            <see href="https://getbootstrap.com/docs/5.0/components/badge/">Bootstrap Badge</see> component.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxBadge">https://havit.blazor.eu/components/HxBadge</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBadge.Defaults">
@@ -286,7 +289,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButton">
             <summary>
-            Button (<c>&lt;button type="button"&gt;</c>). See also <see href="https://getbootstrap.com/docs/5.1/components/buttons/">Bootstrap Buttons</see>.
+            Button (<c>&lt;button type="button"&gt;</c>). See also <see href="https://getbootstrap.com/docs/5.1/components/buttons/">Bootstrap Buttons</see>.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButton">https://havit.blazor.eu/components/HxButton</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Defaults">
@@ -460,7 +464,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup">
             <summary>
-            Bootstrap <see href="https://getbootstrap.com/docs/5.0/components/button-group/">Button group</see>s. 
+            Bootstrap <see href="https://getbootstrap.com/docs/5.0/components/button-group/">Button group</see>s.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButtonGroup">https://havit.blazor.eu/components/HxButtonGroup</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup.Size">
@@ -485,7 +490,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonToolbar">
             <summary>
-            Bootstrap <see href="https://getbootstrap.com/docs/5.1/components/button-group/#button-toolbar">Button toolbar</see> component.
+            Bootstrap <see href="https://getbootstrap.com/docs/5.1/components/button-group/#button-toolbar">Button toolbar</see> component.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButtonToolbar">https://havit.blazor.eu/components/HxButtonToolbar</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonToolbar.ChildContent">
@@ -506,7 +512,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton">
             <summary>
             Bootstrap <see href="https://getbootstrap.com/docs/5.1/components/close-button/">close-button</see> component.<br />
-            A simple close button for dismissing content like modals and alerts.
+            A simple close button for dismissing content like modals and alerts.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCloseButton">https://havit.blazor.eu/components/HxCloseButton</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.Defaults">
@@ -529,7 +536,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSubmit">
             <summary>
             Button <c>&lt;button type="submit"&gt;</c>.
-            Direct ancestor of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> with the same API.
+            Direct ancestor of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> with the same API.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSubmit#HxSubmit">https://havit.blazor.eu/components/HxSubmit#HxSubmit</see>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CalendarDateCustomizationProviderDelegate">
@@ -617,7 +625,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar">
             <summary>
-            Basic calendar building block. Used for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> implementation.
+            Basic calendar building block. Used for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> implementation.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCalendar">https://havit.blazor.eu/components/HxCalendar</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.DefaultMinDate">
@@ -733,7 +742,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCard">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.1/components/card/">Bootstrap card</see> component.
+            <see href="https://getbootstrap.com/docs/5.1/components/card/">Bootstrap card</see> component.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCard">https://havit.blazor.eu/components/HxCard</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Defaults">
@@ -942,7 +952,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel">
             <summary>
-            A slideshow component for cycling through elements—images or slides of text—like a carousel.
+            A slideshow component for cycling through elements—images or slides of text—like a carousel.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCarousel">https://havit.blazor.eu/components/HxCarousel</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.ChildContent">
@@ -1094,7 +1105,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxChipList">
             <summary>
             Presents a list of chips as badges.<br/>
-            Usualy being used to present filter-criteria gathered by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1"/>.
+            Usualy being used to present filter-criteria gathered by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1"/>.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxChipList">https://havit.blazor.eu/components/HxChipList</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.Defaults">
@@ -1175,7 +1187,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.1/components/collapse/">Bootstrap 5 Collapse</see> component.
+            <see href="https://getbootstrap.com/docs/5.1/components/collapse/">Bootstrap 5 Collapse</see> component.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCollapse">https://havit.blazor.eu/components/HxCollapse</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.Id">
@@ -1296,7 +1309,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu">
             <summary>
-            Ready-made context menu (based on <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see>).
+            Ready-made context menu (based on <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see>).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxContextMenu">https://havit.blazor.eu/components/HxContextMenu</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Text">
@@ -1748,7 +1762,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
             <summary>
-            Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as Bootstrap form control (incl. <c>Label</c> etc.)
+            Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as Bootstrap form control (incl. <c>Label</c> etc.)<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputFile">https://havit.blazor.eu/components/HxInputFile</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Defaults">
@@ -1932,7 +1947,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone">
             <summary>
             Ready-made UX for drag&amp;drop file upload.
-            For custom drag&amp;drop UX, use <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> and <see href="https://github.com/havit/Havit.Blazor/blob/728567c9c83a0b4ab7fe2e031bf1ff378f1b1ce7/Havit.Blazor.Components.Web.Bootstrap/Files/HxInputFileDropZone.razor.css#L20-L26">a little bit of HTML/CSS</see>.
+            For custom drag&amp;drop UX, use <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> and <see href="https://github.com/havit/Havit.Blazor/blob/728567c9c83a0b4ab7fe2e031bf1ff378f1b1ce7/Havit.Blazor.Components.Web.Bootstrap/Files/HxInputFileDropZone.razor.css#L20-L26">a little bit of HTML/CSS</see>.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputFileDropZone">https://havit.blazor.eu/components/HxInputFileDropZone</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadUrl">
@@ -2050,7 +2066,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1">
             <summary>
-            Edit form derived from HxModelEditForm with support for chip generators.
+            Edit form derived from HxModelEditForm with support for chip generators.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxFilterForm">https://havit.blazor.eu/components/HxFilterForm</see>
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1.InvokeOnChipsUpdatedAsync(Havit.Blazor.Components.Web.Bootstrap.ChipItem[])">
@@ -2126,7 +2143,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2">
             <summary>
-            Component for single item selection with dynamic suggestions (based on typed characters).
+            Component for single item selection with dynamic suggestions (based on typed characters).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAutosuggest">https://havit.blazor.eu/components/HxAutosuggest</see>
             </summary>
             <remarks>
             Defaults located in separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest"/>.
@@ -2897,7 +2915,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2">
             <summary>
-            Renders a multi-selection list of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox"/> controls.
+            Renders a multi-selection list of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox"/> controls.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckboxList">https://havit.blazor.eu/components/HxCheckboxList</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Data">
@@ -2944,7 +2963,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxFormValue">
             <summary>
-            Displays a read-only value in the form control visual (as <c>.form-control</c>, with label, border, etc.).
+            Displays a read-only value in the form control visual (as <c>.form-control</c>, with label, border, etc.).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxFormValue">https://havit.blazor.eu/components/HxFormValue</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.Defaults">
@@ -3287,7 +3307,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox">
             <summary>
-            Checkbox input.
+            Checkbox input.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputCheckbox">https://havit.blazor.eu/components/HxInputCheckbox</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.Inline">
@@ -3315,7 +3336,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1">
             <summary>
-            Date picker. Form input component for entering a date.
+            Date picker. Form input component for entering a date.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputDate">https://havit.blazor.eu/components/HxInputDate</see>
             </summary>
             <remarks>
             Defaults located in separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate"/>.
@@ -3442,7 +3464,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange">
             <summary>
-            Date range picker. Form input component for entering start date and end date.
+            Date range picker. Form input component for entering start date and end date.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputDateRange">https://havit.blazor.eu/components/HxInputDateRange</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults">
@@ -3535,7 +3558,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1">
             <summary>
-            Numeric input.
+            Numeric input.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputNumber">https://havit.blazor.eu/components/HxInputNumber</see>
             </summary>
             <remarks>
             Defaults located in separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber"/>.
@@ -3646,7 +3670,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent`1">
             <summary>
-            Numeric input in percentages with value normalization (0% = 0, 100% = 1.0).
+            Numeric input in percentages with value normalization (0% = 0, 100% = 1.0).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputPercent">https://havit.blazor.eu/components/HxInputPercent</see>
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent`1.FormatValueAsString(`0)">
@@ -3661,7 +3686,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputSwitch">
             <summary>
-            Switch input.
+            Switch input.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputSwitch">https://havit.blazor.eu/components/HxInputSwitch</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputSwitch.CoreCssClass">
@@ -3674,7 +3700,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputText.Defaults">
             <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/> and derived components.
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/> and derived components.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputText">https://havit.blazor.eu/components/HxInputText</see>
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputText.GetDefaults">
@@ -3697,7 +3724,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTextArea">
             <summary>
             <see href="https://getbootstrap.com/docs/5.0/forms/floating-labels/#textareas" target="_blank">Textarea</see>.
-            To set a custom height, do not use the rows attribute. Instead, set an explicit height (either inline or via custom CSS).
+            To set a custom height, do not use the rows attribute. Instead, set an explicit height (either inline or via custom CSS).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputTextArea">https://havit.blazor.eu/components/HxInputTextArea</see>
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextArea.GetElementName">
@@ -3780,7 +3808,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2">
             <summary>
-            MultiSelect. Unlike a normal select, multiselect allows the user to select multiple options at once.
+            MultiSelect. Unlike a normal select, multiselect allows the user to select multiple options at once.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMultiSelect">https://havit.blazor.eu/components/HxMultiSelect</see>
             </summary>
             <typeparam name="TValue">Type of values.</typeparam>
             <typeparam name="TItem">Type of items.</typeparam>
@@ -3896,7 +3925,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2">
             <summary>
-            Select. Consider creating custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2"/>.
+            Select. Consider creating custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2"/>.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxRadioButtonList">https://havit.blazor.eu/components/HxRadioButtonList</see>
             </summary>
             <typeparam name="TValue">Type of value.</typeparam>
             <typeparam name="TItem">Type of items.</typeparam>
@@ -3999,7 +4029,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2">
             <summary>
-            Select - DropDownList - single-item picker. Consider creating custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2"/>.
+            Select - DropDownList - single-item picker. Consider creating custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2"/>.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSelect">https://havit.blazor.eu/components/HxSelect</see>
             </summary>
             <typeparam name="TValue">Type of value.</typeparam>
             <typeparam name="TItem">Type of items.</typeparam>
@@ -4161,7 +4192,8 @@
             <summary>
             Displays a list of validation messages for a specified field within a cascaded <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.EditContext"/>.<br />
             Reimplementation of Blazor <see cref="T:Microsoft.AspNetCore.Components.Forms.ValidationMessage`1"/> as <see href="https://getbootstrap.com/docs/5.1/forms/validation/">Bootstrap 5 validation</see> (using <c>.invalid-tooltip</c>).<br/>
-            Used by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1"/> and derived components.
+            Used by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1"/> and derived components.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxValidationMessage">https://havit.blazor.eu/components/HxValidationMessage</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.CascadingEditContext">
@@ -4413,7 +4445,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1">
             <summary>
-            A search input component witch automatic suggestions, initial dropdown template and free-text queries support.
+            A search input component witch automatic suggestions, initial dropdown template and free-text queries support.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSearchBox">https://havit.blazor.eu/components/HxSearchBox</see>
             </summary>
             <typeparam name="TItem"></typeparam>
         </member>
@@ -4972,7 +5005,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1">
             <summary>
-            Grid to display tabular data from data source. Includes support for client-side and server-side paging &amp; sorting (or virtualized scrolling as needed).
+            Grid to display tabular data from data source. Includes support for client-side and server-side paging &amp; sorting (or virtualized scrolling as needed).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxGrid">https://havit.blazor.eu/components/HxGrid</see>
             </summary>
             <typeparam name="TItem">Type of row data item.</typeparam>
         </member>
@@ -5424,7 +5458,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPager">
             <summary>
-            Pager.
+            Pager.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPager">https://havit.blazor.eu/components/HxPager</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.TotalPages">
@@ -5663,7 +5698,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1">
             <summary>
-            Data presentation component composed of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/> for data, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> for manual filtering and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1"/> for pre-defined filters.
+            Data presentation component composed of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/> for data, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> for manual filtering and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1"/> for pre-defined filters.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListLayout">https://havit.blazor.eu/components/HxListLayout</see>
             </summary>
             <typeparam name="TFilterModel"></typeparam>
         </member>
@@ -5772,7 +5808,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroup">
             <summary>
             <see href="https://getbootstrap.com/docs/5.1/components/list-group/">Bootstrap 5 List group</see> component.<br/>
-            List groups are a flexible and powerful component for displaying a series of content.
+            List groups are a flexible and powerful component for displaying a series of content.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListGroup">https://havit.blazor.eu/components/HxListGroup</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroup.ChildContent">
@@ -5975,7 +6012,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1">
             <summary>
-            Base class to simplify custom modal dialog implementation.
+            Base class to simplify custom modal dialog implementation.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDialogBase">https://havit.blazor.eu/components/HxDialogBase</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1.Modal">
@@ -6001,7 +6039,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox">
             <summary>
             Component to display message-boxes.<br/>
-            Usually used via <see cref="T:Havit.Blazor.Components.Web.HxMessageBoxService"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost"/>.
+            Usually used via <see cref="T:Havit.Blazor.Components.Web.HxMessageBoxService"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost"/>.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMessageBox">https://havit.blazor.eu/components/HxMessageBox</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Defaults">
@@ -6100,7 +6139,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxModal">
             <summary>
-            Component to render modal dialog as a <see href="https://getbootstrap.com/docs/5.1/components/modal/">Bootstrap Modal</see>.
+            Component to render modal dialog as a <see href="https://getbootstrap.com/docs/5.1/components/modal/">Bootstrap Modal</see>.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxModal">https://havit.blazor.eu/components/HxModal</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults">
@@ -6423,6 +6463,12 @@
             Extra large. Modal max-width: 1140px.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1">
+            <summary>
+            List of named-views for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1" />.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNamedViewList">https://havit.blazor.eu/components/HxNamedViewList</see>
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.InvokeFilterModelChangedAsync(`0)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.FilterModelChanged"/> event. Allows interception of the event in derived components.
@@ -6460,7 +6506,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAnchorFragmentNavigation">
             <summary>
             Temporarily (?) compensates Blazor deficiency in anchor-fragments (scrolling to <c>page#id</c> URLs). Supports navigation with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> component.
-            <see href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</see>.
+            <see href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</see>.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAnchorFragmentNavigation">https://havit.blazor.eu/components/HxAnchorFragmentNavigation</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAnchorFragmentNavigation.Automation">
@@ -6472,7 +6519,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb">
             <summary>
             <see href="https://getbootstrap.com/docs/5.1/components/breadcrumb/">Bootstrap 5 Breadcrumb</see> component.<br />
-            Indicates the current page’s location within a navigational hierarchy.
+            Indicates the current page’s location within a navigational hierarchy.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxBreadcrumb">https://havit.blazor.eu/components/HxBreadcrumb</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb.ChildContent">
@@ -6519,7 +6567,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNav">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap Nav</see> component.
+            <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap Nav</see> component.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNav">https://havit.blazor.eu/components/HxNav</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.Orientation">
@@ -6552,7 +6601,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar">
             <summary>
             <see href="https://getbootstrap.com/docs/5.1/components/navbar/">Bootstrap 5 Navbar</see> component - responsive navigation header.<br/>
-            With support for branding, navigation, and more, including support for the collapse plugin.
+            With support for branding, navigation, and more, including support for the collapse plugin.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNavbar">https://havit.blazor.eu/components/HxNavbar</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbar.Color">
@@ -6633,7 +6683,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavLink">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-link</see> component.
+            <see href="https://getbootstrap.com/docs/5.0/components/navs-tabs/">Bootstrap nav-link</see> component.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNavLink#HxNavLink">https://havit.blazor.eu/components/HxNavLink#HxNavLink</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.Href">
@@ -6683,7 +6734,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</see> component.
+            <see href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</see> component.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxScrollspy">https://havit.blazor.eu/components/HxScrollspy</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.TargetId">
@@ -6742,7 +6794,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar">
             <summary>
-            Sidebar component - responsive navigation sidebar.
+            Sidebar component - responsive navigation sidebar.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSidebar">https://havit.blazor.eu/components/HxSidebar</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.HeaderTemplate">
@@ -6961,7 +7014,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.0/components/offcanvas/">Bootstrap Offcanvas</see> component (aka Drawer).
+            <see href="https://getbootstrap.com/docs/5.0/components/offcanvas/">Bootstrap Offcanvas</see> component (aka Drawer).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxOffcanvas">https://havit.blazor.eu/components/HxOffcanvas</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults">
@@ -7207,7 +7261,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder">
             <summary>
             <see href="https://getbootstrap.com/docs/5.1/components/placeholders/">Bootstrap 5 Placeholder</see> component, aka Skeleton.<br/>
-            Use loading placeholders for your components or pages to indicate something may still be loading.
+            Use loading placeholders for your components or pages to indicate something may still be loading.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPlaceholder">https://havit.blazor.eu/components/HxPlaceholder</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Defaults">
@@ -7425,7 +7480,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress">
             <summary>
             <see href="https://getbootstrap.com/docs/5.1/components/progress/">Bootstrap 5 Progress</see> component.<br/>
-            A wrapping component for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar" />.
+            A wrapping component for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar" />.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxProgress">https://havit.blazor.eu/components/HxProgress</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgress.ChildContent">
@@ -7515,7 +7571,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator">
             <summary>
-            Displays the content of the component as "in progress".
+            Displays the content of the component as "in progress".<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxProgressIndicator">https://havit.blazor.eu/components/HxProgressIndicator</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.Defaults">
@@ -7559,7 +7616,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSpinner">
             <summary>
-            Bootstrap <see href="https://getbootstrap.com/docs/5.0/components/spinners/">Spinner</see> (usually indicates operation in progress).
+            Bootstrap <see href="https://getbootstrap.com/docs/5.0/components/spinners/">Spinner</see> (usually indicates operation in progress).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSpinner">https://havit.blazor.eu/components/HxSpinner</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSpinner.Type">
@@ -7695,7 +7753,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel">
             <summary>
             Container for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTab"/>s for easier implementation of tabbed UI.<br/>
-            Encapsulates <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNav"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs"/> variant as default) and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavLink"/>s so you don't have to bother with them explicitly.
+            Encapsulates <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNav"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs"/> variant as default) and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavLink"/>s so you don't have to bother with them explicitly.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTabPanel">https://havit.blazor.eu/components/HxTabPanel</see>
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.TabsRegistrationCascadingValueName">
@@ -7753,7 +7812,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags">
             <summary>
             Input for entering tags.
-            Does not allow duplicate tags.
+            Does not allow duplicate tags.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputTags">https://havit.blazor.eu/components/HxInputTags</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Defaults">
@@ -7964,7 +8024,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessenger">
             <summary>
-            <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer"/> wrapper for displaying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxToast"/> messages dispatched through <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService"/>.
+            <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer"/> wrapper for displaying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxToast"/> messages dispatched through <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService"/>.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMessenger">https://havit.blazor.eu/components/HxMessenger</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessenger.Position">
@@ -8025,7 +8086,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxToast">
             <summary>
             <see href="https://getbootstrap.com/docs/5.1/components/toasts/">Bootstrap Toast</see> component. Not intented to be used in user code, use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessenger"/>.
-            After first render component never updates.
+            After first render component never updates.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxToast">https://havit.blazor.eu/components/HxToast</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToast.JSRuntime">
@@ -8165,7 +8227,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPopover">
             <summary>
             <see href="https://getbootstrap.com/docs/5.1/components/popovers/">Bootstrap Popover</see> component.<br />
-            Rendered as a <c>span</c> wrapper to fully support popovers on disabled elements (see example in <see href="https://getbootstrap.com/docs/5.1/components/popovers/#disabled-elements">Disabled elements</see> in the Bootstrap popover documentation).
+            Rendered as a <c>span</c> wrapper to fully support popovers on disabled elements (see example in <see href="https://getbootstrap.com/docs/5.1/components/popovers/#disabled-elements">Disabled elements</see> in the Bootstrap popover documentation).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPopover">https://havit.blazor.eu/components/HxPopover</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Title">
@@ -8191,7 +8254,8 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip">
             <summary>
             <see href="https://getbootstrap.com/docs/5.0/components/tooltips/">Bootstrap Tooltip</see> component, activates on hover.<br />
-            Rendered as a <c>span</c> wrapper to fully support tooltips on disabled elements (see example in <see href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</see> in the Bootstrap tooltip documentation).
+            Rendered as a <c>span</c> wrapper to fully support tooltips on disabled elements (see example in <see href="https://getbootstrap.com/docs/5.0/components/tooltips/#disabled-elements">Disabled elements</see> in the Bootstrap tooltip documentation).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTooltip">https://havit.blazor.eu/components/HxTooltip</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Text">
@@ -8241,7 +8305,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1">
             <summary>
-            Component to display hierarchy data structure.
+            Component to display hierarchy data structure.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTreeView">https://havit.blazor.eu/components/HxTreeView</see>
             </summary>
             <typeparam name="TItem">Type of tree data item.</typeparam>
         </member>
