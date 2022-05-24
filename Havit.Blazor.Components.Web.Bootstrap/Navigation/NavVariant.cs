@@ -5,6 +5,9 @@
 	/// </summary>
 	public enum NavVariant
 	{
+		/// <summary>
+		/// Base <c>nav</c>.
+		/// </summary>
 		Standard = 0,
 
 		/// <summary>
@@ -14,8 +17,8 @@
 		Tabs = 1,
 
 		/// <summary>
-		/// Pills. <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills</see>
+		/// Pills <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills</see>.
 		/// </summary>
-		Pills = 3
+		Pills = 2
 	}
 }

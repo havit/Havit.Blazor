@@ -7001,6 +7001,11 @@
             Variations for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNav"/>.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Standard">
+            <summary>
+            Base <c>nav</c>.
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs">
             <summary>
             Tabs. <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#tabs">https://getbootstrap.com/docs/5.1/components/navs-tabs/#tabs</see>
@@ -7009,7 +7014,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Pills">
             <summary>
-            Pills. <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills</see>
+            Pills <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills</see>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas">
