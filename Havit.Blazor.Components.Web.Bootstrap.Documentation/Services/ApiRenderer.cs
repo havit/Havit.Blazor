@@ -155,7 +155,7 @@ public static class ApiRenderer
 	{
 		string typeNameForOwnDocumentation = typeName.Replace("?", "");
 		bool generic = false;
-		if (Regex.Matches(typeNameForOwnDocumentation, "<").Count == 1)
+		if (Regex.Matches(typeNameForOwnDocumentation, "<").Count == 1 && !typeNameForOwnDocumentation.Contains("Delegate")) // When a delegate is presented, we don't want to show only the generic data type's name contained in the signature but the whole name.
 		{
 			generic = true;
 
@@ -196,5 +196,4 @@ public static class ApiRenderer
 
 		return $"<a href=\"/types/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a></code>";
 	}
-
 }
