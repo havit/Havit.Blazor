@@ -1,4 +1,4 @@
-﻿<HxTabPanel InitialActiveTabId="tab2" RenderMode="TabPanelRenderMode.Card" CardSettings="cardSettings">
+﻿<HxTabPanel InitialActiveTabId="tab2" RenderMode="TabPanelRenderMode.Card">
 	<HxTab Title="First tab">
 		<Content>This is the first tab.</Content>
 	</HxTab>
@@ -10,10 +10,3 @@
 		<TitleTemplate>Disabled tab</TitleTemplate>
 	</HxTab>
 </HxTabPanel>
-
-@code {
-	private CardSettings cardSettings = new()
-	{
-		HeaderCssClass="pb-0 border-bottom-0"
-	};
-}

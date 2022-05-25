@@ -6,7 +6,7 @@
 
 @{
     RenderFragment tabsNavigation =
-		@<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", this.CssClass)" Variant="this.NavVariant">
+		@<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), this.CssClass)" Variant="this.NavVariant">
 		    @foreach (HxTab tab in tabsList)
 		    {
 			    <UpdatedContentRenderer Component="@tab">
