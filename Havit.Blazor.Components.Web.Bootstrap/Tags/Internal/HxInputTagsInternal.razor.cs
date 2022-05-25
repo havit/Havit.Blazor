@@ -112,6 +112,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
 		/// <summary>
+		/// Label to render before input.
+		/// </summary>
+		[Parameter] public string Label { get; set; }
+
+		/// <summary>
 		/// Additional attributes to be splatted onto an underlying HTML input.
 		/// </summary>
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
@@ -122,6 +127,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
 		private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
+		private string InputTagsControlId = "hx" + Guid.NewGuid().ToString("N");
 		private System.Timers.Timer timer;
 		private string userInput = String.Empty;
 		private CancellationTokenSource cancellationTokenSource;

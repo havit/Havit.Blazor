@@ -1,6 +1,6 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<span class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputSizeEffective.AsInputGroupCssClass(), InputGroupCssClass)">
+<span class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputSizeEffective.AsInputGroupCssClass(), InputGroupCssClass, "form-floating")">
 
 @if (InputGroupStartText is not null)
 {
@@ -9,7 +9,7 @@
     
 @InputGroupStartTemplate
 
-<div class="@CssClassHelper.Combine("hx-input-tags-control",
+<div id="@InputTagsControlId" class="@CssClassHelper.Combine("hx-input-tags-control",
 									GetFormControlCssClasses(),
 									GetNakedCssClasses(),
 									this.currentlyFocused ? "hx-input-tags-control-focused" : null,
@@ -50,7 +50,7 @@
         </HxBadge>
     }
 
-    <div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
+    <div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)">
         <HxInputTagsAutosuggestInput @ref="autosuggestInput"
                                         InputId="@InputId"
                                         EnabledEffective="@EnabledEffective"
@@ -64,6 +64,7 @@
                                         CssClass="border-0 flex-grow-1"
                                         Offset="@InputOffset"
                                         AdditionalAttributes="@this.AdditionalAttributes" />
+            
         @if (dataProviderInProgress)
         {
             <HxSpinner Type="SpinnerType.Border" Size="SpinnerSize.Small" />
@@ -74,8 +75,12 @@
             </ItemTemplate>
         </HxAutosuggestItems>
     </div>
-
 </div>
+
+@if (LabelTypeEffective == LabelType.Floating)
+{
+    <label class="form-label" for="@InputTagsControlId">@Label</label>
+}
 
 @InputGroupEndTemplate
 
