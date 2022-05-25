@@ -196,10 +196,4 @@ public static class ApiRenderer
 
 		return $"<a href=\"/types/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a></code>";
 	}
-
-	private static bool IsGridDelegate(string typeName)
-	{
-		return typeName.Contains("GridDataProviderDelegate");
-	}
-
 }
