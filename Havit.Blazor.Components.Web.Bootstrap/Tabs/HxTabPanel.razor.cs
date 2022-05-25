@@ -60,9 +60,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
-		protected virtual string CardHeaderTabsCssClassCore => "card-header-tabs";
-		protected virtual string CardHeaderPillsCssClassCore => "card-header-pills";
-
 		private HxTab previousActiveTab;
 		private List<HxTab> tabsList;
 		private CollectionRegistration<HxTab> tabsListRegistration;
@@ -164,11 +161,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (NavVariant == NavVariant.Pills)
 			{
-				return CardHeaderPillsCssClassCore;
+				return "card-header-pills";
 			}
 			else if (NavVariant == NavVariant.Tabs)
 			{
-				return CardHeaderTabsCssClassCore;
+				return "card-header-tabs";
 			}
 
 			return null;
