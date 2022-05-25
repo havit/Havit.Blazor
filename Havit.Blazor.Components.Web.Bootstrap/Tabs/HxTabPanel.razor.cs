@@ -21,6 +21,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public NavVariant NavVariant { get; set; } = NavVariant.Tabs;
 
 		/// <summary>
+		/// Whether to wrap the tab panel in a card with the tab navigation in the header.
+		/// </summary>
+		[Parameter] public TabPanelRenderMode RenderMode { get; set; }
+
+		/// <summary>
+		/// Card settings for the wrapping card.
+		/// Applies only if <see cref="RenderMode"/> is set to <see cref="TabPanelRenderMode.Card"/>.
+		/// </summary>
+		[Parameter] public CardSettings CardSettings { get; set; }
+
+		/// <summary>
 		/// ID of the active tab (@bindable).
 		/// </summary>
 		[Parameter] public string ActiveTabId { get; set; }
@@ -139,6 +150,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private bool IsActive(HxTab tab)
 		{
 			return ActiveTabId == tab.Id;
+		}
+
+		protected string GetNavCssClassInCardMode()
+		{
+			if (RenderMode != TabPanelRenderMode.Card)
+			{
+				return null;
+			}
+
+			if (NavVariant == NavVariant.Pills)
+			{
+				return "card-header-pills";
+			}
+			else if (NavVariant == NavVariant.Tabs)
+			{
+				return "card-header-tabs";
+			}
+
+			return null;
 		}
 
 		/// <inheritdoc />
