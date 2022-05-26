@@ -2,7 +2,8 @@
 {
 	/// <summary>
 	/// Indicates date in which calendar is to be customized.
-	/// Allows distinquishing From and To inputs in <see cref="HxInputDateRange"/>.
+	/// Allows distinquishing From and To inputs in <see cref="HxInputDateRange"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/CalendarDateCustomizationTarget">https://havit.blazor.eu/types/CalendarDateCustomizationTarget</see>
 	/// </summary>
 	public class CalendarDateCustomizationTarget
 	{

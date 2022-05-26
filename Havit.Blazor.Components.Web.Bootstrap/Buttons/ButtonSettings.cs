@@ -1,7 +1,9 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿
+namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Settings for the <see cref="HxButton"/> and derived components.
+	/// Settings for the <see cref="HxButton"/> and derived components.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/ButtonSettings">https://havit.blazor.eu/types/ButtonSettings</see>
 	/// </summary>
 	public record ButtonSettings
 	{

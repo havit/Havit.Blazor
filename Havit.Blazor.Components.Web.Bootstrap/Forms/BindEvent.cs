@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Event to use for data-binding.
+	/// Event to use for data-binding.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/BindEvent">https://havit.blazor.eu/types/BindEvent</see>
 	/// </summary>
 	public enum BindEvent
 	{

@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Offcanvas render mode.
+	/// Offcanvas render mode.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/OffcanvasRenderMode">https://havit.blazor.eu/types/OffcanvasRenderMode</see>
 	/// </summary>
 	public enum OffcanvasRenderMode
 	{

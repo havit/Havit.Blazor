@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Type (shape) for <see cref="HxBadge"/>
+	/// Type (shape) for <see cref="HxBadge"/><br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/BadgeType">https://havit.blazor.eu/types/BadgeType</see>
 	/// </summary>
 	public enum BadgeType
 	{

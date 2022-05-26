@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Size for <see cref="HxModal"/>.
+	/// Size for <see cref="HxModal"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/ModalSize">https://havit.blazor.eu/types/ModalSize</see>
 	/// </summary>
 	public enum ModalSize
 	{

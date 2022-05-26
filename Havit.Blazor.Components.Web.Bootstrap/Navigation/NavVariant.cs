@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Variations for <see cref="HxNav"/>.
+	/// Variations for <see cref="HxNav"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/NavVariant">https://havit.blazor.eu/types/NavVariant</see>
 	/// </summary>
 	public enum NavVariant
 	{

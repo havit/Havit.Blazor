@@ -3,7 +3,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Data provider request for <see cref="HxInputTags"/> data.
+	/// Data provider request for <see cref="HxInputTags"/> data.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/InputTagsDataProviderRequest">https://havit.blazor.eu/types/InputTagsDataProviderRequest</see>
 	/// </summary>
 	public class InputTagsDataProviderRequest
 	{

@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Settings for <see cref="HxCard"/>.
+	/// Settings for <see cref="HxCard"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/CardSettings">https://havit.blazor.eu/types/CardSettings</see>
 	/// </summary>
 	public record CardSettings
 	{

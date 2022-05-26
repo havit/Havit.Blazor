@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Placement of the popover for <see cref="HxPopover"/>.
+	/// Placement of the popover for <see cref="HxPopover"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/PopoverPlacement">https://havit.blazor.eu/types/PopoverPlacement</see>
 	/// </summary>
 	public enum PopoverPlacement
 	{

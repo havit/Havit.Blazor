@@ -2,7 +2,8 @@
 {
 	/// <summary>
 	/// Direction of the animation for <see cref="HxCollapse"/>.
-	/// Default is <see cref="Vertical"/>.
+	/// Default is <see cref="Vertical"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCollapse">https://havit.blazor.eu/components/HxCollapse</see>
 	/// </summary>
 	public enum CollapseDirection
 	{

@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Settings for the <see cref="HxOffcanvas"/> component.
+	/// Settings for the <see cref="HxOffcanvas"/> component.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/OffcanvasSettings">https://havit.blazor.eu/types/OffcanvasSettings</see>
 	/// </summary>
 	public record OffcanvasSettings
 	{

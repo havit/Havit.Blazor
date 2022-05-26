@@ -1,5 +1,9 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	/// <summary>
+	/// <br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/SpinnerType">https://havit.blazor.eu/types/SpinnerType</see>
+	/// </summary>
 	public enum SpinnerType
 	{
 		/// <summary>

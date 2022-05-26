@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Settings for the <see cref="HxMessageBox"/> and derived components.
+	/// Settings for the <see cref="HxMessageBox"/> and derived components.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/MessageBoxSettings">https://havit.blazor.eu/types/MessageBoxSettings</see>
 	/// </summary>
 	public record MessageBoxSettings
 	{

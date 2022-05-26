@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Orientation for <see cref="HxButtonGroup"/>.
+	/// Orientation for <see cref="HxButtonGroup"/>.<br />
+	///Full documentation and demos: <see href="https://havit.blazor.eu/types/ButtonGroupOrientation">https://havit.blazor.eu/types/ButtonGroupOrientation</see> 
 	/// </summary>
 	public enum ButtonGroupOrientation
 	{

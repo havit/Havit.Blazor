@@ -3,7 +3,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Settings for the <see cref="HxAutosuggest{TItem, TValue} "/> and derived components.
+	/// Settings for the <see cref="HxAutosuggest{TItem, TValue} "/> and derived components.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/AutosuggestSettings">https://havit.blazor.eu/types/AutosuggestSettings</see>
 	/// </summary>
 	public record AutosuggestSettings : IInputSettingsWithSize
 	{

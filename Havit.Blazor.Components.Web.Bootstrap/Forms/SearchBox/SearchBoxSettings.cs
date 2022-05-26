@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Settings for the <see cref="HxSearchBox{TItem} "/> and derived components.
+/// Settings for the <see cref="HxSearchBox{TItem} "/> and derived components.<br />
+/// Full documentation and demos: <see href="https://havit.blazor.eu/types/SearchBoxSettings">https://havit.blazor.eu/types/SearchBoxSettings</see>
 /// </summary>
 public class SearchBoxSettings
 {

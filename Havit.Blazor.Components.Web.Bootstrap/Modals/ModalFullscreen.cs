@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Fullscreen behavior for <see cref="HxModal"/>.
+	/// Fullscreen behavior for <see cref="HxModal"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/ModalFullscreen">https://havit.blazor.eu/types/ModalFullscreen</see>
 	/// </summary>
 	public enum ModalFullscreen
 	{

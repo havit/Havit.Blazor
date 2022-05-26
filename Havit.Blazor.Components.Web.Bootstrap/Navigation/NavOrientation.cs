@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Orientation for <see cref="HxNav"/>.
+	/// Orientation for <see cref="HxNav"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/NavOrientation">https://havit.blazor.eu/types/NavOrientation</see>
 	/// </summary>
 	public enum NavOrientation
 	{

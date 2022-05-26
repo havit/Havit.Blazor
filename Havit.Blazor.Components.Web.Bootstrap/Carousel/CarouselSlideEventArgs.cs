@@ -3,7 +3,8 @@
 	public class CarouselSlideEventArgs
 	{
 		/// <summary>
-		/// Slide from which the sliding transition began.
+		/// Slide from which the sliding transition began.<br />
+		/// Full documentation and demos: <see href="https://havit.blazor.eu/types/CarouselSlideEventArgs">https://havit.blazor.eu/types/CarouselSlideEventArgs</see>
 		/// </summary>
 		public int From { get; set; }
 		/// <summary>

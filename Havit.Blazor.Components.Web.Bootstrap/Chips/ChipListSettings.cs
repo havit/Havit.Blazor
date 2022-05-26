@@ -3,7 +3,8 @@
 public class ChipListSettings
 {
 	/// <summary>
-	/// Settings for the <see cref="HxBadge"/> used to render chips.
+	/// Settings for the <see cref="HxBadge"/> used to render chips.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/ChipListSettings">https://havit.blazor.eu/types/ChipListSettings</see>
 	/// </summary>
 	public BadgeSettings ChipBadgeSettings { get; set; }
 

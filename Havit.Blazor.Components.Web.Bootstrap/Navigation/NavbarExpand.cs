@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Responsive expand setting (breakpoint) for <see cref="HxNavbar"/>.
+	/// Responsive expand setting (breakpoint) for <see cref="HxNavbar"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/NavbarExpand">https://havit.blazor.eu/types/NavbarExpand</see>
 	/// </summary>
 	public enum NavbarExpand
 	{

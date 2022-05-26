@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Settings for the <see cref="HxGrid{TItem}"/> and derived components.
+	/// Settings for the <see cref="HxGrid{TItem}"/> and derived components.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/GridSettings">https://havit.blazor.eu/types/GridSettings</see>
 	/// </summary>
 	public record GridSettings
 	{

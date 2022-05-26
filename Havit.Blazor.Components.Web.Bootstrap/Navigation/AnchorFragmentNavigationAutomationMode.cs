@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Automation mode for <see cref="HxAnchorFragmentNavigation"/>.
+	/// Automation mode for <see cref="HxAnchorFragmentNavigation"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/AnchorFragmentNavigationAutomationMode">https://havit.blazor.eu/types/AnchorFragmentNavigationAutomationMode</see>
 	/// </summary>
 	public enum AnchorFragmentNavigationAutomationMode
 	{

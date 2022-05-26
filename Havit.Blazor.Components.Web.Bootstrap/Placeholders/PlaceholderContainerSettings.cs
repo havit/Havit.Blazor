@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Settings for the <see cref="HxPlaceholderContainer"/> and derived components.
+	/// Settings for the <see cref="HxPlaceholderContainer"/> and derived components.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/PlaceholderContainerSettings">https://havit.blazor.eu/types/PlaceholderContainerSettings</see>
 	/// </summary>
 	public record PlaceholderContainerSettings
 	{

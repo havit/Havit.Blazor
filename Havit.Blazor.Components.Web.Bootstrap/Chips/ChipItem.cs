@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Chip item to be rendered in UI.
+	/// Chip item to be rendered in UI.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/ChipItem">https://havit.blazor.eu/types/ChipItem</see>
 	/// </summary>
 	public class ChipItem
 	{

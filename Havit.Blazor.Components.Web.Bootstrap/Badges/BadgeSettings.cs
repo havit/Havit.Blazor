@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Settings for the <see cref="HxBadge"/> and derived components.
+/// Settings for the <see cref="HxBadge"/> and derived components.<br />
+/// Full documentation and demos: <see href="https://havit.blazor.eu/types/BadgeSettings">https://havit.blazor.eu/types/BadgeSettings</see>
 /// </summary>
 public record BadgeSettings
 {

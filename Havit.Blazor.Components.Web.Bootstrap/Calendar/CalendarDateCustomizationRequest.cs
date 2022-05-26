@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Customization request for specific date in calendar (<see cref="HxCalendar"/>, <see cref="HxInputDate{TValue}"/>, <see cref="HxInputDateRange"/>).
+	/// Customization request for specific date in calendar (<see cref="HxCalendar"/>, <see cref="HxInputDate{TValue}"/>, <see cref="HxInputDateRange"/>).<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/CalendarDateCustomizationRequest">https://havit.blazor.eu/types/CalendarDateCustomizationRequest</see>
 	/// </summary>
 	public record CalendarDateCustomizationRequest
 	{

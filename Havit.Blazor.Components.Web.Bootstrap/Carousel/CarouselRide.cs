@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Behavior of the <see cref="HxCarousel"/>.
+	/// Behavior of the <see cref="HxCarousel"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/CarouselRide">https://havit.blazor.eu/types/CarouselRide</see>
 	/// </summary>
 	public enum CarouselRide
 	{

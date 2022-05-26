@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Responsive horizontal setting (breakpoint) for <see cref="HxListGroup"/>.
+	/// Responsive horizontal setting (breakpoint) for <see cref="HxListGroup"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/ListGroupHorizontal">https://havit.blazor.eu/types/ListGroupHorizontal</see>
 	/// Default is <see cref="Never"/>.
 	/// </summary>
 	public enum ListGroupHorizontal

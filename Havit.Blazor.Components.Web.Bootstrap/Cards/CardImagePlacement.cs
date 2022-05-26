@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Placement of the image in the <see cref="HxCard"/> component.
+	/// Placement of the image in the <see cref="HxCard"/> component.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/CardImagePlacement">https://havit.blazor.eu/types/CardImagePlacement</see>
 	/// </summary>
 	public enum CardImagePlacement
 	{

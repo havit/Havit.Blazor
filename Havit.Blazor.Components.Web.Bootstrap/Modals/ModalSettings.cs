@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Settings for the <see cref="HxModal"/> component
+	/// Settings for the <see cref="HxModal"/> component<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/types/ModalSettings">https://havit.blazor.eu/types/ModalSettings</see>
 	/// </summary>
 	public record ModalSettings
 	{
