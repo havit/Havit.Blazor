@@ -32,6 +32,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public Func<TItem, IComparable> SortKeySelector { get; set; }
 
 		/// <summary>
+		/// Additional css classes for the <see cref="HxInputCheckbox" />.
+		/// </summary>
+		[Parameter] public Func<TItem, string> CssClassSelector { get; set; }
+
+		/// <summary>
+		/// Additional css classes for the input element of the <see cref="HxInputCheckbox" />.
+		/// </summary>
+		[Parameter] public Func<TItem, string> InputCssClassSelector { get; set; }
+
+		/// <summary>
+		/// Additional css classes for the label of the <see cref="HxInputCheckbox" />.
+		/// </summary>
+		[Parameter] public Func<TItem, string> LabelCssClassSelector { get; set; }
+
+		/// <summary>
 		/// When <c>true</c>, items are sorted before displaying in select.
 		/// Default value is <c>true</c>.
 		/// </summary>
@@ -86,13 +101,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					builder.AddAttribute(4, nameof(HxInputCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
 					builder.AddAttribute(5, nameof(HxInputCheckbox.Enabled), EnabledEffective);
 
+					builder.AddAttribute(6, nameof(HxInputCheckbox.CssClass), (CssClassSelector is not null) ? SelectorHelpers.GetText(CssClassSelector, item) : null);
+					builder.AddAttribute(7, nameof(HxInputCheckbox.InputCssClass), (InputCssClassSelector is not null) ? SelectorHelpers.GetText(InputCssClassSelector, item) : null);
+					builder.AddAttribute(8, nameof(HxInputCheckbox.LabelCssClass), (LabelCssClassSelector is not null) ? SelectorHelpers.GetText(LabelCssClassSelector, item) : null);
+
 					// We need ValueExpression. Ehm, HxInputCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 					// We have nothing to give the HxInputCheckbox. So we make own class with property which we assign to the ValueExpression.
 					// Impacts? Unknown. Maybe none.
-					builder.AddAttribute(6, nameof(HxInputCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
+					builder.AddAttribute(50, nameof(HxInputCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
 
-					builder.AddAttribute(7, nameof(HxInputCheckbox.ShowValidationMessage), false);
-					builder.AddAttribute(8, nameof(HxInputCheckbox.Inline), this.Inline);
+					builder.AddAttribute(51, nameof(HxInputCheckbox.ShowValidationMessage), false);
+					builder.AddAttribute(52, nameof(HxInputCheckbox.Inline), this.Inline);
 
 					builder.AddMultipleAttributes(100, this.AdditionalAttributes);
 

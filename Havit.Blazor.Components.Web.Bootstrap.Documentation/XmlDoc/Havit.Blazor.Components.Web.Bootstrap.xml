@@ -2942,6 +2942,21 @@
             If you need complex sorting, pre-sort data manually or create a custom comparable property.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.CssClassSelector">
+            <summary>
+            Additional css classes for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.InputCssClassSelector">
+            <summary>
+            Additional css classes for the input element of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.LabelCssClassSelector">
+            <summary>
+            Additional css classes for the label of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox" />.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.AutoSort">
             <summary>
             When <c>true</c>, items are sorted before displaying in select.
