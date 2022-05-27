@@ -1,6 +1,6 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<span class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputSizeEffective.AsInputGroupCssClass(), InputGroupCssClass, "form-floating")">
+<span class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputSizeEffective.AsInputGroupCssClass(), InputGroupCssClass, (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)">
 
 @if (InputGroupStartText is not null)
 {
@@ -50,7 +50,7 @@
         </HxBadge>
     }
 
-    <div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)">
+    <div id="@dropdownId" class="dropdown">
         <HxInputTagsAutosuggestInput @ref="autosuggestInput"
                                         InputId="@InputId"
                                         EnabledEffective="@EnabledEffective"
