@@ -112,7 +112,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
 		/// <summary>
-		/// Label to render after the input. Renders only when <see cref="LabelTypeEffective"/> is <see cref="LabelType.Floating" />.
+		/// Label to render after the input. Renders only when <see cref="LabelTypeEffective"/> is <see cref="LabelType.Floating" />, the wrapping <see cref="HxInputTags"/> renders the label on its own for other cases.
 		/// </summary>
 		[Parameter] public string Label { get; set; }
 
