@@ -23,7 +23,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Whether to wrap the tab panel in a card with the tab navigation in the header.
 		/// </summary>
-		[Parameter] public TabPanelRenderMode RenderMode { get; set; }
+		[Parameter] public TabPanelRenderMode RenderMode { get; set; } = TabPanelRenderMode.Standard;
 
 		/// <summary>
 		/// Card settings for the wrapping card.
