@@ -1,8 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Switch input.<br />
-	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputSwitch">https://havit.blazor.eu/components/HxInputSwitch</see>
+	/// Switch input.<br/>
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputSwitch">https://havit.blazor.eu/components/HxInputSwitch</see>.
 	/// </summary>
 	public class HxInputSwitch : HxInputCheckbox
 	{

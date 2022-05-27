@@ -7,7 +7,7 @@
 	{
 		/// <summary>
 		/// Application-wide defaults for the <see cref="HxInputFile"/> and derived components.<br />
-		/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputText">https://havit.blazor.eu/components/HxInputText</see>
+		/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputText">https://havit.blazor.eu/components/HxInputText</see>.
 		/// </summary>
 		public static InputTextSettings Defaults { get; set; }
 
