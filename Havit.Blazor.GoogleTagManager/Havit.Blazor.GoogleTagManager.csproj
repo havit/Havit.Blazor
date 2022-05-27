@@ -20,8 +20,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Havit.Core" Version="2.0.25" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.14" />
+		<PackageReference Include="Havit.Core" Version="2.0.26" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.17" />
 	</ItemGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">

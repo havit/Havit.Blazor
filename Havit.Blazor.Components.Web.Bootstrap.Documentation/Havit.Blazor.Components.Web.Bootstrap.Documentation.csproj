@@ -8,10 +8,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="LoxSmoke.DocXml" Version="3.4.5" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.2" />
-		<PackageReference Include="System.Text.Json" Version="6.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.5" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.5" />
+		<PackageReference Include="System.Text.Json" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -43,16 +43,6 @@
 		<EmbeddedResource Update="**/*.CodeSnippet.*">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="Pages\Components\HxMultiSelectDoc\HxMultiSelect_Documentation.razor" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Update="Pages\Components\HxGridDoc\HxGrid_Demo_Hover.razor">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	  </Content>
 	</ItemGroup>
 
 	<Target Name="EmbedDemos" BeforeTargets="PrepareForBuild">
