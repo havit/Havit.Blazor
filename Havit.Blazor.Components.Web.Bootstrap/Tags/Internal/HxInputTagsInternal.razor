@@ -9,7 +9,7 @@
     
 @InputGroupStartTemplate
 
-<div id="@InputTagsControlId" class="@CssClassHelper.Combine("hx-input-tags-control",
+<div id="@inputTagsControlId" class="@CssClassHelper.Combine("hx-input-tags-control",
 									GetFormControlCssClasses(),
 									GetNakedCssClasses(),
 									this.currentlyFocused ? "hx-input-tags-control-focused" : null,
@@ -79,7 +79,7 @@
 
 @if (LabelTypeEffective == LabelType.Floating)
 {
-    <label class="form-label" for="@InputTagsControlId">@Label</label>
+    <label class="form-label" for="@inputTagsControlId">@Label</label>
 }
 
 @InputGroupEndTemplate

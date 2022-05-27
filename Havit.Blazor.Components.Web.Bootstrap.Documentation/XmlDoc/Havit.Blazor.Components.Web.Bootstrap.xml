@@ -2792,7 +2792,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.Label">
             <summary>
-            Label to render before input.
+            Label to render after the input. Renders only when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.LabelTypeEffective"/> is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.AdditionalAttributes">
