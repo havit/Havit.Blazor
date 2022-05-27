@@ -59,6 +59,14 @@
         <SectionTitle Id="inline-editing">Inline-editing</SectionTitle>
         <p>To achieve an inline-editing experience, you can use the <code>SelectedDataItem</code> and render editing UI for such items. Simply specify the content of the <code>ItemTemplate</code> in <code>HxGridColumn</code> and use the <code>SelectedDataItemChanged</code> event to save changes (or you can add a column with command buttons).</p>
         <Demo Type="typeof(HxGrid_Demo_InlineEditing)" />
+
+        <SectionTitle Id="hover">Hoverable rows</SectionTitle>
+        <p>You can set <code>@nameof(HxGrid<TItem>.Hover)</code> parameter to enable/disable hover state on rows. If not set, hover state is enabled if the grid has selection enabled.</p>
+        <Demo Type="typeof(HxGrid_Demo_Hover)" />
+
+        <SectionTitle Id="striped">Striped rows</SectionTitle>
+        <p>You can set <code>@nameof(HxGrid<TItem>.Striped)</code> parameter to adds zebra-striping (alternating rows).</p>
+        <Demo Type="typeof(HxGrid_Demo_Striped)" />
     </MainContent>
 
     <CssVariables>

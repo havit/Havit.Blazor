@@ -26,7 +26,8 @@
 				PageSize = 20,
 				PlaceholdersRowCount = 5,
 				ShowFooterWhenEmptyData = false,
-				Responsive = false
+				Responsive = false,
+				Striped = false
 			};
 		}
 	}

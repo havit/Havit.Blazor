@@ -228,6 +228,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected bool ResponsiveEffective => this.Responsive ?? this.GetSettings()?.Responsive ?? GetDefaults().Responsive ?? throw new InvalidOperationException(nameof(Responsive) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
+		/// Enables hover state on table rows within a <c>&lt;tbody&gt;</c> (sets the <c>table-hover</c> class on the table).<br />
+		/// If not set (default) the table is hoverable when selection is enabled.
+		/// </summary>
+		[Parameter] public bool? Hover { get; set; }
+		protected bool? HoverEffective => this.Hover ?? this.GetSettings()?.Hover ?? GetDefaults().Hover;
+
+		/// <summary>
+		/// Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> (alternating rows).<br />
+		/// Default is <c>false</c>.
+		/// </summary>
+		[Parameter] public bool? Striped { get; set; }
+		protected bool StripedEffective => this.Striped ?? this.GetSettings()?.Striped ?? GetDefaults().Striped ?? throw new InvalidOperationException(nameof(Striped) + " default for " + nameof(HxGrid) + " has to be set.");
+
+		/// <summary>
 		/// Returns application-wide defaults for the component.
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
@@ -317,6 +331,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected List<IHxGridColumn<TItem>> GetColumnsToRender()
 		{
 			return columnsList.Where(column => column.IsVisible()).OrderBy(column => column.GetOrder()).ToList();
+		}
+
+		/// <summary>
+		/// Returns CSS class for the <c>&lt;table&gt;</c> element.
+		/// </summary>
+		/// <remarks>
+		/// Overriden in 176.BT2 project to allow setting background-color for grids with selected items.
+		/// </remarks>
+		/// <param name="rendersData">Indicates whether the grid renders data (<c>false</c> when the grid has no items to render or the data have not been loaded yet).</param>
+		protected virtual string GetTableElementCssClass(bool rendersData)
+		{
+			bool hoverable = rendersData && (this.HoverEffective ?? (this.SelectionEnabled || this.MultiSelectionEnabled));
+			return CssClassHelper.Combine("hx-grid table",
+				hoverable ? "table-hover" : null,
+				this.StripedEffective ? "table-striped" : null,
+				this.TableCssClassEffective);
 		}
 
 		/// <summary>

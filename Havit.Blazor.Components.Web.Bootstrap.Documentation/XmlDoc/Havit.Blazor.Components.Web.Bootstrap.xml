@@ -4960,6 +4960,16 @@
             Allows the table to be scrolled horizontally with ease accross any breakpoint (adds the <c>table-responsive</c> class to the table).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.Hover">
+            <summary>
+            Enables hover state on table rows within a <c>&lt;tbody&gt;</c> (sets the <c>table-hover</c> class on the table).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.Striped">
+            <summary>
+            Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> (alternating rows).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState`1">
             <summary>
             User state of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/>.
@@ -4987,20 +4997,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserState`1.#ctor">
             <summary>
             Constructor.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid">
-            <summary>
-            Non-generic API for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/> component.
-            </summary>
-            <remarks>
-            Marker for resources for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
-            It is unfriendly to create resources for generic classes.
-            </remarks>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid.Defaults">
-            <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/> and derived components.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1">
@@ -5207,6 +5203,18 @@
             Default is <c>false</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Hover">
+            <summary>
+            Enables hover state on table rows within a <c>&lt;tbody&gt;</c> (sets the <c>table-hover</c> class on the table).<br />
+            If not set (default) the table is hoverable when selection is enabled.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Striped">
+            <summary>
+            Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> (alternating rows).<br />
+            Default is <c>false</c>.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetDefaults">
             <summary>
             Returns application-wide defaults for the component.
@@ -5229,6 +5237,15 @@
             Returns columns to render.
             Main goal of the method is to add ContextMenuGridColumn to the user defined columns.
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetTableElementCssClass(System.Boolean)">
+            <summary>
+            Returns CSS class for the <c>&lt;table&gt;</c> element.
+            </summary>
+            <remarks>
+            Overriden in 176.BT2 project to allow setting background-color for grids with selected items.
+            </remarks>
+            <param name="rendersData">Indicates whether the grid renders data (<c>false</c> when the grid has no items to render or the data have not been loaded yet).</param>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetDefaultSorting">
             <summary>
@@ -5254,6 +5271,20 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Dispose">
             <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid">
+            <summary>
+            Non-generic API for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/> component.
+            </summary>
+            <remarks>
+            Marker for resources for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
+            It is unfriendly to create resources for generic classes.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/> and derived components.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1">
             <summary>
