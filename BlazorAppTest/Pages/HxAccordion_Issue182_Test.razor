@@ -1,0 +1,70 @@
+﻿@page "/HxAccordion_Issue182_Test"
+
+<h1><a href="https://github.com/havit/Havit.Blazor/issues/182">https://github.com/havit/Havit.Blazor/issues/182</a></h1>
+
+<button class="btn btn-primary" @onclick="SortItems">@(AscOrder ? "Sort Asc": "Sort Desc")</button>
+<Havit.Blazor.Components.Web.Bootstrap.HxAccordion>
+    @foreach (var team in TeamItems)
+    {
+        <Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem Id="@team.Id.ToString()">
+            <HeaderTemplate>
+                <div>@team.Name</div>
+            </HeaderTemplate>
+            <BodyTemplate>
+                <Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator>
+                    <Havit.Blazor.Components.Web.Bootstrap.HxListGroup>
+                        @foreach (var player in team.Players)
+                        {
+                            <div class="row">
+                                <div class="col-sm">Name:   <p>@player.Name</p></div>
+                                <div class="col-sm">Age:    <p>@player.Age</p></div>
+                                <div class="col-sm">Jersey# <p>@player.Jersey</p></div>
+                            </div>
+                        }
+                    </Havit.Blazor.Components.Web.Bootstrap.HxListGroup>
+                </Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator>
+            </BodyTemplate>
+        </Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem>
+    }
+</Havit.Blazor.Components.Web.Bootstrap.HxAccordion>
+
+@code {
+    private List<Team> SortedTeams;
+    private List<Team> TeamItems => SortedTeams ?? Teams;
+    private List<Team> TeamsWithoutSorting => Teams;
+    private bool AscOrder = false;
+    private List<Team> Teams = new List<Team>
+    {
+        new Team() { Id=1, Name= "Celtics",     Players = new List<Player>(){ new Player() { Name="Jason", Age=20,Jersey= 1 }, new Player() { Name="Ja", Age=31,Jersey= 19 }}},
+        new Team() { Id=2, Name= "Mavs",        Players = new List<Player>(){ new Player() { Name="Mike", Age=21,Jersey= 12 }, new Player() { Name = "Jason", Age = 36, Jersey = 29 }}},
+        new Team() { Id=3, Name= "Heat",        Players = new List<Player>(){ new Player() { Name="Larry", Age=22,Jersey= 13 },new Player() { Name = "Lebron", Age = 32, Jersey = 39 }}},
+        new Team() { Id=4, Name= "Spurs",       Players = new List<Player>(){ new Player() { Name="Allan", Age=23,Jersey= 14 },new Player() { Name="Tony", Age=34,Jersey= 49 }}},
+        new Team() { Id=5, Name= "Warriors",    Players = new List<Player>(){ new Player() { Name="Irving", Age=24,Jersey= 15},new Player() { Name="Mike", Age=37,Jersey= 59 }}},
+    };
+
+    private void SortItems()
+    {
+        if (AscOrder)
+            SortedTeams = Teams.OrderBy(x => x.Name).ToList();
+        else
+            SortedTeams = Teams.OrderByDescending(x => x.Name).ToList();
+
+        AscOrder = !AscOrder;
+    }
+
+
+
+    public class Team
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<Player> Players { get; set; }
+    }
+
+    public class Player
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public int Jersey { get; set; }
+    }
+}
