@@ -1,14 +1,16 @@
-﻿<HxButton Text="Show" OnClick="() => collapseComponent.ShowAsync()" Color="ThemeColor.Primary" />
-<HxButton Text="Hide" OnClick="() => collapseComponent.HideAsync()" Color="ThemeColor.Primary" />
+﻿<p>
+    <HxButton Text="Show" OnClick="() => collapseComponent.ShowAsync()" Color="ThemeColor.Primary" />
+    <HxButton Text="Hide" OnClick="() => collapseComponent.HideAsync()" Color="ThemeColor.Primary" />
+</p>
 <HxCollapse @ref="collapseComponent" Id="myCollapse" CssClass="mt-3">
-	<HxCard>
-		<BodyTemplate>
-			Some placeholder content for the collapse component.
-			This panel is hidden by default but revealed when the user activates the relevant trigger.
-		</BodyTemplate>
-	</HxCard>
+    <HxCard>
+        <BodyTemplate>
+            Some placeholder content for the collapse component.
+            This panel is hidden by default but revealed when the user activates the relevant trigger.
+        </BodyTemplate>
+    </HxCard>
 </HxCollapse>
 
 @code {
-	private HxCollapse collapseComponent;
+    private HxCollapse collapseComponent;
 }
