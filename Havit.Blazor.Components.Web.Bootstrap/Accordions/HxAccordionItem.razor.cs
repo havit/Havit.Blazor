@@ -57,6 +57,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private bool isInTransition;
 		//private bool disposed;
 		private HxCollapse collapseComponent;
+		private string currentId;
 
 		//public HxAccordionItem()
 		//{
@@ -68,6 +69,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await base.OnParametersSetAsync();
 
 			Contract.Requires<InvalidOperationException>(ParentAccordition is not null, "<HxAccordionItem /> has to be placed inside <HxAccordition />.");
+
+			// Issue #182
+			// If the accordion items change dynamically, the instances of HxAccordionItem get completely different parameters.
+			// HxAccordionItem tracks state (expanded/collapsed) and this state would apply to completely different items after such change.
+			// We can either reset the internal state when the accordion items change, but as the component with completely different parameters
+			// is considered being another item, we decided to force the user to set the @key for such dynamic items
+			// (and force Blazor to create new components for such scenarios).
+			if ((currentId is not null) && (this.Id != currentId))
+			{
+				throw new InvalidOperationException("HxAccordionItem.Id cannot be changed. Use @key with same value as Id to force Blazor recreate the component if Id changes.");
+			}
+			else
+			{
+				currentId = this.Id;
+			}
 
 			idEffective = ParentAccordition.Id + "-" + this.Id;
 

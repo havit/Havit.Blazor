@@ -6,7 +6,7 @@
 <Havit.Blazor.Components.Web.Bootstrap.HxAccordion @bind-ExpandedItemId="expandedItemId">
     @foreach (var team in TeamItems)
     {
-        <Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem Id="@team.Id.ToString()">
+        <Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem Id="@team.Id.ToString()" @key="@team.Id">
             <HeaderTemplate>
                 <div>@team.Name</div>
             </HeaderTemplate>
@@ -31,7 +31,7 @@
 ExpandedItemId: @expandedItemId
 
 @code {
-    private string expandedItemId;
+    private string expandedItemId = "2";
     private List<Team> SortedTeams;
     private List<Team> TeamItems => SortedTeams ?? Teams;
     private List<Team> TeamsWithoutSorting => Teams;
