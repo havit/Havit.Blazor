@@ -61,6 +61,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private IJSObjectReference jsModule;
 		private string defaultId = "hx" + Guid.NewGuid().ToString("N");
 		private bool disposed;
+		private bool isShown;
+		private bool showInProgress;
+		private bool hideInProgress;
 
 		public HxCollapse()
 		{
@@ -97,6 +100,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task ShowAsync()
 		{
 			await EnsureJsModuleAsync();
+			showInProgress = true;
 			await jsModule.InvokeVoidAsync("show", collapseHtmlElement);
 		}
 
@@ -106,6 +110,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task HideAsync()
 		{
 			await EnsureJsModuleAsync();
+			hideInProgress = true;
 			await jsModule.InvokeVoidAsync("hide", collapseHtmlElement);
 		}
 
@@ -119,7 +124,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxCollapse_HandleJsShown")]
 		public async Task HandleJsShown()
 		{
+			isShown = true;
+			bool wasInProgress = showInProgress;
+			showInProgress = false;
 			await InvokeOnShownAsync(this.Id);
+
+			if (wasInProgress)
+			{
+				// ShouldRender() disables rendering when transitioning from hidden to shown.
+				// It therefore needs to be called explicitly after the event is handled.
+				StateHasChanged();
+			}
 		}
 
 		/// <summary>
@@ -128,7 +143,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxCollapse_HandleJsHidden")]
 		public async Task HandleJsHidden()
 		{
+			isShown = false;
+			bool wasInProgress = hideInProgress;
+			hideInProgress = false;
 			await InvokeOnHiddenAsync(this.Id);
+
+			if (wasInProgress)
+			{
+				// ShouldRender() disables rendering when transitioning from shown to hidden.
+				// It therefore needs to be called explicitly after the event is handled.
+				StateHasChanged();
+			}
 		}
 
 		private async Task EnsureJsModuleAsync()
@@ -141,7 +166,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return CssClassHelper.Combine(
 				"collapse",
 				this.CollapseDirection == CollapseDirection.Horizontal ? "collapse-horizontal" : null,
+				isShown ? "show" : null,
 				this.CssClass);
+		}
+
+		protected override bool ShouldRender()
+		{
+			if (showInProgress || hideInProgress)
+			{
+				// do not re-render if the transition (animation) is in progress
+				return false;
+			}
+			return base.ShouldRender();
 		}
 
 		/// <inheritdoc/>
