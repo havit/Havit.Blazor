@@ -109,12 +109,16 @@
 		protected virtual void BuildRenderInputGroups(RenderTreeBuilder builder, RenderFragment content)
 		{
 			IFormValueComponentWithInputGroups formValueComponentWithInputGroups = FormValueComponent as IFormValueComponentWithInputGroups;
+			IInputWithSize formValueComponentWithSize = FormValueComponent as IInputWithSize;
+
 			bool shouldRenderInputGroups = FormValueComponent.ShouldRenderInputGroups();
 
 			if (shouldRenderInputGroups)
 			{
 				builder.OpenElement(100, "span");
-				builder.AddAttribute(101, "class", CssClassHelper.Combine("input-group", formValueComponentWithInputGroups.InputGroupCssClass, GetInputGroupSizeCssClass(formValueComponentWithInputGroups.InputGroupSize)));
+				builder.AddAttribute(101, "class", CssClassHelper.Combine("input-group",
+					formValueComponentWithInputGroups.InputGroupCssClass,
+					GetInputGroupSizeCssClass(formValueComponentWithSize is null ? formValueComponentWithInputGroups.InputGroupSize : formValueComponentWithSize.InputSizeEffective)));
 
 				if (!String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupStartText))
 				{
