@@ -87,7 +87,7 @@
             Collapses the item.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.HandleJsShown">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.HandleCollapseShown">
             <summary>
             Receives notification from javascript when item is shown.
             </summary>
@@ -96,13 +96,10 @@
             this covers both user-interaction (DOM state) and Blazor-interaction (HxAccordition.ExpandedItemId change)
             </remarks>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.HandleJsHidden">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.IsSetToBeExpanded">
             <summary>
             Receives notification from javascript when item is hidden.
             </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.DisposeAsync">
-            <inheritdoc/>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAlert">
             <summary>
@@ -1237,6 +1234,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.InvokeOnHiddenAsync(System.String)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.OnHidden"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying <c>div</c> element.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.OnAfterRenderAsync(System.Boolean)">

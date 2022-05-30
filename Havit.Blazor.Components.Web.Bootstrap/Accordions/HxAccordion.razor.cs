@@ -50,6 +50,7 @@
 			{
 				ExpandedItemId = newId;
 				await InvokeExpandedItemIdChangedAsync(newId);
+				StateHasChanged();
 			}
 		}
 	}

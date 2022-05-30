@@ -3,7 +3,7 @@
 <h1><a href="https://github.com/havit/Havit.Blazor/issues/182">https://github.com/havit/Havit.Blazor/issues/182</a></h1>
 
 <button class="btn btn-primary" @onclick="SortItems">@(AscOrder ? "Sort Asc": "Sort Desc")</button>
-<Havit.Blazor.Components.Web.Bootstrap.HxAccordion>
+<Havit.Blazor.Components.Web.Bootstrap.HxAccordion @bind-ExpandedItemId="expandedItemId">
     @foreach (var team in TeamItems)
     {
         <Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem Id="@team.Id.ToString()">
@@ -28,7 +28,10 @@
     }
 </Havit.Blazor.Components.Web.Bootstrap.HxAccordion>
 
+ExpandedItemId: @expandedItemId
+
 @code {
+    private string expandedItemId;
     private List<Team> SortedTeams;
     private List<Team> TeamItems => SortedTeams ?? Teams;
     private List<Team> TeamsWithoutSorting => Teams;

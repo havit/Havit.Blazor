@@ -54,6 +54,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual Task InvokeOnHiddenAsync(string elementId) => OnHidden.InvokeAsync(elementId);
 
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying <c>div</c> element.
+		/// </summary>
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		private ElementReference collapseHtmlElement;
