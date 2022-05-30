@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Single item for <see cref="HxAccordion"/>.
 	/// </summary>
-	public partial class HxAccordionItem : ComponentBase //, IAsyncDisposable
+	public partial class HxAccordionItem : ComponentBase
 	{
 		[CascadingParameter] protected HxAccordion ParentAccordition { get; set; }
 
@@ -45,24 +45,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual Task InvokeOnCollapsedAsync(string collapsedItemId) => OnCollapsed.InvokeAsync(collapsedItemId);
 
-		//[Inject] protected IJSRuntime JSRuntime { get; set; }
-		[Inject] protected ILogger<HxAccordionItem> Logger { get; set; }
-
 		private string idEffective;
-		//private ElementReference collapseHtmlElement;
-		//private DotNetObjectReference<HxAccordionItem> dotnetObjectReference;
-		//private IJSObjectReference jsModule;
 		private bool lastKnownStateIsExpanded;
 		private bool isInitialized;
 		private bool isInTransition;
-		//private bool disposed;
 		private HxCollapse collapseComponent;
 		private string currentId;
-
-		//public HxAccordionItem()
-		//{
-		//	dotnetObjectReference = DotNetObjectReference.Create(this);
-		//}
 
 		protected override async Task OnParametersSetAsync()
 		{
@@ -112,16 +100,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			//if (firstRender)
-			//{
-			//	await EnsureJsModuleAsync();
-			//	if (disposed)
-			//	{
-			//		return;
-			//	}
-			//	await jsModule.InvokeVoidAsync("create", collapseHtmlElement, dotnetObjectReference, "#" + ParentAccordition.Id);
-			//}
-
 			isInitialized = true;
 		}
 
@@ -132,8 +110,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			isInTransition = true;
 			await collapseComponent.ShowAsync();
-			//await EnsureJsModuleAsync();
-			//await jsModule.InvokeVoidAsync("show", collapseHtmlElement);
 		}
 
 		/// <summary>
@@ -143,34 +119,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			isInTransition = true;
 			await collapseComponent.HideAsync();
-			//await EnsureJsModuleAsync();
-			//await jsModule.InvokeVoidAsync("hide", collapseHtmlElement);
 		}
-
-		/// <summary>
-		/// Receives notification from javascript when item is shown.
-		/// </summary>
-		/// <remarks>
-		/// the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
-		/// this covers both user-interaction (DOM state) and Blazor-interaction (HxAccordition.ExpandedItemId change)
-		/// </remarks>
-		//[JSInvokable("HxAccordionItem_HandleJsShown")]
-		//public async Task HandleJsShown()
-		//{
-		//	Logger.LogDebug($"HandleJsShown[{idEffective}]");
-
-		//	lastKnownStateIsExpanded = true;
-		//	isInTransition = false;
-
-		//	if (!IsSetToBeExpanded())
-		//	{
-		//		await ParentAccordition.SetExpandedItemIdAsync(this.Id);
-		//	}
-
-		//	await InvokeOnExpandedAsync(this.Id);
-
-		//	StateHasChanged();
-		//}
 
 		private async Task HandleCollapseShown()
 		{
@@ -199,58 +148,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await InvokeOnCollapsedAsync(this.Id);
 		}
 
-		/// <summary>
-		/// Receives notification from javascript when item is hidden.
-		/// </summary>
-		//[JSInvokable("HxAccordionItem_HandleJsHidden")]
-		//public async Task HandleJsHidden()
-		//{
-		//	Logger.LogDebug($"HandleJsHidden[{idEffective}]");
-
-		//	lastKnownStateIsExpanded = false;
-		//	isInTransition = false;
-
-		//	// hidden-event usually comes AFTER the shown-event of the other HxAccorditionItem
-		//	if (IsSetToBeExpanded())
-		//	{
-		//		// if there has been no other HxAccorditionItem set as expanded yet, clear the selection
-		//		await ParentAccordition.SetExpandedItemIdAsync(null);
-		//	}
-		//	await InvokeOnCollapsedAsync(this.Id);
-
-		//	StateHasChanged();
-		//}
-
 		private bool IsSetToBeExpanded()
 		{
 			return (this.Id == ParentAccordition.ExpandedItemId);
 		}
-
-		//private async Task EnsureJsModuleAsync()
-		//{
-		//	jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxAccordion));
-		//}
-
-		/// <inheritdoc/>
-
-		//public async ValueTask DisposeAsync()
-		//{
-		//	await DisposeAsyncCore();
-
-		//	//Dispose(disposing: false);
-		//}
-
-		//protected virtual async ValueTask DisposeAsyncCore()
-		//{
-		//	disposed = true;
-
-		//	if (jsModule != null)
-		//	{
-		//		await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
-		//		await jsModule.DisposeAsync();
-		//	}
-
-		//	dotnetObjectReference.Dispose();
-		//}
 	}
 }

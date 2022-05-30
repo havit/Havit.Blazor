@@ -5,13 +5,6 @@
             @HeaderTemplate
         </button>
     </h2>
-    @*
-    <div @ref="collapseHtmlElement" id="collapse-@idEffective" class="@CssClassHelper.Combine("accordion-collapse collapse", lastKnownStateIsExpanded ? "show" : null)" aria-labelledby="header-@idEffective" data-bs-parent="@(!ParentAccordition.StayOpen ? $"#{ParentAccordition.Id}" : null)">
-    <div class="accordion-body">
-    @BodyTemplate
-    </div>
-    </div>
-    *@
     <HxCollapse @ref="collapseComponent"
                 Id="@("collapse-" + idEffective)"
                 Parent="@(!ParentAccordition.StayOpen ? $"#{ParentAccordition.Id}" : null)"
