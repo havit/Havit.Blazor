@@ -18,9 +18,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		/// <summary>
+		/// Additional CSS class(es) for the menu item.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
+		/// <summary>
 		/// Item icon (use <see cref="BootstrapIcon" />).
 		/// </summary>
 		[Parameter] public IconBase Icon { get; set; }
+
+		/// <summary>
+		/// Additional CSS class(es) for the context menu item icon.
+		/// </summary>
+		[Parameter] public string IconCssClass { get; set; }
 
 		/// <summary>
 		/// Displays <see cref="HxMessageBox" /> to get a confirmation.

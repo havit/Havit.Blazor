@@ -1316,6 +1316,37 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxContextMenu">https://havit.blazor.eu/components/HxContextMenu</see>
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.CssClass">
+            <summary>
+            Additional CSS class(es) for the context menu.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.DropdownCssClass">
+            <summary>
+            Additional CSS class(es) for the context menu dropdown (container).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.DropdownMenuCssClass">
+            <summary>
+            Additional CSS class(es) for the context menu dropdown menu.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.Icon">
+            <summary>
+            Icon holding the menu (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon" /> or any other <see cref="T:Havit.Blazor.Components.Web.IconBase"/>).<br />
+            Default is <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.ThreeDotsVertical"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.IconCssClass">
+            <summary>
+            Additional CSS class(es) for the context menu icon.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.ChildContent">
+            <summary>
+            Items of the context menu. Use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem"/> components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Text">
             <summary>
             Item text.
@@ -1326,9 +1357,19 @@
             Custom item content to be rendered.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.CssClass">
+            <summary>
+            Additional CSS class(es) for the menu item.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Icon">
             <summary>
             Item icon (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon" />).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.IconCssClass">
+            <summary>
+            Additional CSS class(es) for the context menu item icon.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.ConfirmationQuestion">
