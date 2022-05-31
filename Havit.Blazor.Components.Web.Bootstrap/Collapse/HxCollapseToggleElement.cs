@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Bootstrap Collapse toggle triggering the <see cref="HxCollapse"/> to toggle.
+	/// Bootstrap Collapse toggle triggering the <see cref="HxCollapse"/> to toggle.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCollapseToggleElement">https://havit.blazor.eu/components/HxCollapseToggleElement</see>
 	/// </summary>
 	public class HxCollapseToggleElement : ComponentBase, IHxCollapseToggle
 	{

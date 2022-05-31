@@ -3,7 +3,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
 	/// <summary>
-	/// <see cref="NavLink"/> variation which adds <see cref="OnClick"/> and related stuff.
+	/// <see cref="NavLink"/> variation which adds <see cref="OnClick"/> and related stuff.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNavLink#HxNavLinkInternal">https://havit.blazor.eu/components/HxNavLink#HxNavLinkInternal</see>
 	/// </summary>
 	/// <remarks>
 	/// <see href="https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682">https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682</see>.

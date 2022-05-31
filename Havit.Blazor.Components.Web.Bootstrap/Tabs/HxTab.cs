@@ -4,7 +4,8 @@ using Havit.Diagnostics.Contracts;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Single tab in <see cref="HxTabPanel"/>.
+	/// Single tab in <see cref="HxTabPanel"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTab">https://havit.blazor.eu/components/HxTab</see>
 	/// </summary>
 	public class HxTab : ComponentBase, IRenderNotificationComponent, ICascadeEnabledComponent, IDisposable
 	{
