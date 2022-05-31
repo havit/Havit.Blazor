@@ -1,8 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Interface to help keep the dropdown-toggle implementations aligned.<br />
-	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDropdownToggle">https://havit.blazor.eu/components/HxDropdownToggle</see>
+	/// Interface to help keep the dropdown-toggle implementations aligned.
 	/// </summary>
 	internal interface IHxDropdownToggle
 	{
