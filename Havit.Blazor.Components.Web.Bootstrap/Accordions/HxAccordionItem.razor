@@ -1,7 +1,12 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-<div class="hx-accordion-item accordion-item">
-    <h2 class="accordion-header" id="header-@idEffective">
-        <button class="@CssClassHelper.Combine("accordion-button", lastKnownStateIsExpanded ? null : "collapsed")" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@idEffective" aria-expanded="@lastKnownStateIsExpanded" aria-controls="collapse-@idEffective">
+<div class="@CssClassHelper.Combine("hx-accordion-item accordion-item", this.CssClass)">
+    <h2 class="@CssClassHelper.Combine("accordion-header", this.HeaderCssClass)" id="header-@idEffective">
+        <button type="button"
+                class="@CssClassHelper.Combine("accordion-button", lastKnownStateIsExpanded ? null : "collapsed")"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse-@idEffective"
+                aria-expanded="@lastKnownStateIsExpanded"
+                aria-controls="collapse-@idEffective">
             @HeaderTemplate
         </button>
     </h2>
@@ -12,7 +17,7 @@
                 OnShown="HandleCollapseShown"
                 OnHidden="HandleCollapseHidden"
                 aria-labelledby="@("header-" + idEffective)">
-        <div class="accordion-body">
+        <div class="@CssClassHelper.Combine("accordion-body", this.BodyCssClass)">
             @BodyTemplate
         </div>
     </HxCollapse>

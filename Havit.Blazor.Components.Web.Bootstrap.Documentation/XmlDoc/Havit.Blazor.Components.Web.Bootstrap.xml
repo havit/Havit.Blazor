@@ -74,6 +74,21 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.OnCollapsed"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.CssClass">
+            <summary>
+            Additional CSS class(es) for the accordion item.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.HeaderCssClass">
+            <summary>
+            Additional CSS class(es) for the accordion item header (<c>.accordion-header</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.BodyCssClass">
+            <summary>
+            Additional CSS class(es) for the accordion item body (<c>.accordion-body</c>).
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
         </member>

@@ -45,12 +45,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual Task InvokeOnCollapsedAsync(string collapsedItemId) => OnCollapsed.InvokeAsync(collapsedItemId);
 
+		/// <summary>
+		/// Additional CSS class(es) for the accordion item.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
+
+		/// <summary>
+		/// Additional CSS class(es) for the accordion item header (<c>.accordion-header</c>).
+		/// </summary>
+		[Parameter] public string HeaderCssClass { get; set; }
+
+		/// <summary>
+		/// Additional CSS class(es) for the accordion item body (<c>.accordion-body</c>).
+		/// </summary>
+		[Parameter] public string BodyCssClass { get; set; }
+
+		private string currentId;
 		private string idEffective;
 		private bool lastKnownStateIsExpanded;
 		private bool isInitialized;
 		private bool isInTransition;
 		private HxCollapse collapseComponent;
-		private string currentId;
 
 		protected override async Task OnParametersSetAsync()
 		{
@@ -64,9 +79,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			// We can either reset the internal state when the accordion items change, but as the component with completely different parameters
 			// is considered being another item, we decided to force the user to set the @key for such dynamic items
 			// (and force Blazor to create new components for such scenarios).
+			// If this turns out to be a problem, we can also consider extracting the whole HxAccordionItem to HxAccordionItemInternal and set the @key for it.
 			if ((currentId is not null) && (this.Id != currentId))
 			{
-				throw new InvalidOperationException("HxAccordionItem.Id cannot be changed. Use @key with same value as Id to force Blazor recreate the component if Id changes.");
+				throw new InvalidOperationException("HxAccordionItem.Id cannot be changed. Use @key with same value as Id to help Blazor mapping the right components.");
 			}
 			else
 			{
