@@ -3,8 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Generic item for the <see cref="HxDropdownMenu"/>.<br />
-	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDropdownItem">https://havit.blazor.eu/components/HxDropdownItem</see>
+	/// Generic item for the <see cref="HxDropdownMenu"/>.
 	/// </summary>
 	public partial class HxDropdownItem : ICascadeEnabledComponent
 	{

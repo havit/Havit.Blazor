@@ -2,8 +2,7 @@
 {
 	/// <summary>
 	/// Bootstrap Collapse toggle (in form of button) which triggers the <see cref="HxCollapse"/> to toggle.
-	/// Derived from <see cref="HxButton"/> (incl. <see cref="HxButton.Defaults"/> inheritance).<br />
-	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCollapseToggleButton">https://havit.blazor.eu/components/HxCollapseToggleButton</see>
+	/// Derived from <see cref="HxButton"/> (incl. <see cref="HxButton.Defaults"/> inheritance).
 	/// </summary>
 	public class HxCollapseToggleButton : HxButton, IHxCollapseToggle
 	{
