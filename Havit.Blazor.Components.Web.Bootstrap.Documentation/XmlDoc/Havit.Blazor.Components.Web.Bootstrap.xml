@@ -2591,11 +2591,6 @@
             Custom CSS class to render with input-group span.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupSize">
-            <summary>
-            Input group size.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartText">
             <summary>
             Input-group-text at the beginning of the input.

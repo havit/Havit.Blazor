@@ -11,11 +11,6 @@
 		string InputGroupCssClass => null;
 
 		/// <summary>
-		/// Input group size.
-		/// </summary>
-		InputSize InputGroupSize => InputSize.Regular;
-
-		/// <summary>
 		/// Input-group-text at the beginning of the input.
 		/// In comparison to <see cref="InputGroupStartTemplate"/> this property is rendered as <c>.input-group-text</c>.
 		/// </summary>
