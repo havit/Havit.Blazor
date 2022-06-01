@@ -28,6 +28,14 @@
     <p>Set <code>Enabled="false"</code> to disable the item. The <code>HxFormState.Enabled</code> inheritance is also supported.</p>
     <Demo Type="typeof(HxDropdown_Demo_HeaderDisabledActive)" />
 
+    <SectionTitle Id="MenuAlignment" />
+    <p>By default, a dropdown menu is automatically positioned 100% from the top and along the left side of its parent. You can change this with the <code>HxDropdownMenu.Alignment</code> parameter. By default, no alignment classes are applied.</p>
+    <DocAlert Type="DocAlertType.Warning">
+        <p>When you supply the <code>HxDropdownMenu.Alignment</code> parameter, it is only applied when the dropdown menu wouldn't overflow (no part is covered), otherwise, the dropdown menu is positioned automatically by Popper.</p>
+        <p>If you want to force the set alignment, then add the <code>data-bs-display</code> attribute to the <a href="/components/HxDropdown#HxDropdownToggleElement">HxDropdownToggleElement</a> (<a href="/components/HxDropdown#HxDropdownToggleButton">HxDropdownToggleButton</a>) and set it to <code>static</code>.</p>
+    </DocAlert>
+    <Demo Type="typeof(HxDropdown_Demo_MenuAlignment)" />
+
     <SectionTitle Id="custom-content">Custom content</SectionTitle>
     <p>Use <code>HxDropdownContent</code> instead of <code>HxDropdownMenu</code>.</p>
     <Demo Type="typeof(HxDropdown_Demo_CustomContent)" />
