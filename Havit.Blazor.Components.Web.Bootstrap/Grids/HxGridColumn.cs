@@ -132,17 +132,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override int GetColumnOrder() => Order;
 
 		/// <inheritdoc />
-		protected override CellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => CellTemplate.Create(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate?.Invoke(context)), HeaderCssClass);
+		protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate?.Invoke(context)), HeaderCssClass);
 
 		/// <inheritdoc />
-		protected override CellTemplate GetItemCellTemplate(TItem item)
+		protected override GridCellTemplate GetItemCellTemplate(TItem item)
 		{
 			string cssClass = CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item));
-			return CellTemplate.Create(RenderFragmentBuilder.CreateFrom(ItemTextSelector?.Invoke(item), ItemTemplate?.Invoke(item)), cssClass);
+			return GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(ItemTextSelector?.Invoke(item), ItemTemplate?.Invoke(item)), cssClass);
 		}
 
 		/// <inheritdoc />
-		protected override CellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => CellTemplate.Create((PlaceholderTemplate != null) ? PlaceholderTemplate(context) : GetDefaultItemPlaceholder(context));
+		protected override GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => GridCellTemplate.Create((PlaceholderTemplate != null) ? PlaceholderTemplate(context) : GetDefaultItemPlaceholder(context));
 
 		private RenderFragment GetDefaultItemPlaceholder(GridPlaceholderCellContext context)
 		{
@@ -164,7 +164,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 
 		/// <inheritdoc />
-		protected override CellTemplate GetFooterCellTemplate(GridFooterCellContext context) => CellTemplate.Create(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate?.Invoke(context)), FooterCssClass);
+		protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context) => GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate?.Invoke(context)), FooterCssClass);
 
 		/// <inheritdoc />
 		protected override IEnumerable<SortingItem<TItem>> GetSorting()

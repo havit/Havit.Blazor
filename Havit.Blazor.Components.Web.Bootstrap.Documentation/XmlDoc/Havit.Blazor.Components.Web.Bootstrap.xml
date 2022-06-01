@@ -2773,6 +2773,9 @@
             Searches for character codes surrounded with '{' and '}' and replaces them with corresponding symbol.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetColumnOrder">
+            <inheritdoc />
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal">
             <summary>
             <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> variation which adds <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> and related stuff.
@@ -4822,22 +4825,22 @@
             Input size.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CellTemplate">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate">
             <summary>
             Cell template.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CellTemplate.Template">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate.Template">
             <summary>
             Template to render cell.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CellTemplate.CssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate.CssClass">
             <summary>
             Css class of the cell.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.CellTemplate.Create(Microsoft.AspNetCore.Components.RenderFragment,System.String)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate.Create(Microsoft.AspNetCore.Components.RenderFragment,System.String)">
             <summary>
             Constructor.
             </summary>
@@ -5673,9 +5676,6 @@
             <summary>
             Returns footer cell template.
             </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.MultiSelectGridColumn`1.GetColumnOrder">
-            <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1">
             <summary>

@@ -1,6 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public class MultiSelectGridColumn<TItem> : HxGridColumnBase<TItem>
+	public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 	{
 		[Parameter] public HashSet<TItem> SelectedDataItems { get; set; }
 		[Parameter] public bool AllDataItemsSelected { get; set; }
@@ -12,9 +12,9 @@
 		/// <inheritdoc />
 		protected override int GetColumnOrder() => Int32.MinValue;
 
-		protected override CellTemplate GetHeaderCellTemplate(GridHeaderCellContext context)
+		protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context)
 		{
-			return new CellTemplate
+			return new GridCellTemplate
 			{
 				CssClass = "text-center",
 				Template = (RenderTreeBuilder builder) =>
@@ -32,9 +32,9 @@
 			};
 		}
 
-		protected override CellTemplate GetItemCellTemplate(TItem item)
+		protected override GridCellTemplate GetItemCellTemplate(TItem item)
 		{
-			return new CellTemplate
+			return new GridCellTemplate
 			{
 				CssClass = "text-center",
 				Template = (RenderTreeBuilder builder) =>
@@ -53,14 +53,14 @@
 			};
 		}
 
-		protected override CellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context)
+		protected override GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context)
 		{
-			return CellTemplate.Empty;
+			return GridCellTemplate.Empty;
 		}
 
-		protected override CellTemplate GetFooterCellTemplate(GridFooterCellContext context)
+		protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context)
 		{
-			return CellTemplate.Empty;
+			return GridCellTemplate.Empty;
 		}
 
 		protected override IEnumerable<SortingItem<TItem>> GetSorting()

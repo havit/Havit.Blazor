@@ -3,9 +3,9 @@
 	/// <summary>
 	/// Cell template.
 	/// </summary>
-	public class CellTemplate
+	public class GridCellTemplate
 	{
-		public static CellTemplate Empty = new CellTemplate();
+		public static GridCellTemplate Empty = new GridCellTemplate();
 
 		/// <summary>
 		/// Template to render cell.
@@ -20,14 +20,14 @@
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		public static CellTemplate Create(RenderFragment template, string cssClass = null)
+		public static GridCellTemplate Create(RenderFragment template, string cssClass = null)
 		{
 			if ((template == RenderFragmentBuilder.Empty()) && String.IsNullOrEmpty(cssClass))
 			{
 				return Empty;
 			}
 
-			return new CellTemplate
+			return new GridCellTemplate
 			{
 				Template = template,
 				CssClass = cssClass

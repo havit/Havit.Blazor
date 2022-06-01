@@ -32,16 +32,16 @@
 		[Parameter] public RenderFragment<TItem> ChildContent { get; set; }
 
 		/// <inheritdoc />
-		protected override CellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => CellTemplate.Empty;
+		protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => GridCellTemplate.Empty;
 
 		/// <inheritdoc />
-		protected override CellTemplate GetItemCellTemplate(TItem item) => CellTemplate.Create(ChildContent(item));
+		protected override GridCellTemplate GetItemCellTemplate(TItem item) => GridCellTemplate.Create(ChildContent(item));
 
 		/// <inheritdoc />
-		protected override CellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => CellTemplate.Empty;
+		protected override GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => GridCellTemplate.Empty;
 
 		/// <inheritdoc />
-		protected override CellTemplate GetFooterCellTemplate(GridFooterCellContext context) => CellTemplate.Empty;
+		protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context) => GridCellTemplate.Empty;
 
 		/// <inheritdoc />
 		protected override IEnumerable<SortingItem<TItem>> GetSorting()

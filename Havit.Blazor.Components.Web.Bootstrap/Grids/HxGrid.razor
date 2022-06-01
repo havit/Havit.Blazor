@@ -1,4 +1,5 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@using Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 
 <CascadingValue Value="@columnsListRegistration" Name="@ColumnsRegistrationCascadingValueName" IsFixed="true">
@@ -6,7 +7,7 @@
 	@if (MultiSelectionEnabled)
 	{
 		bool allDataItemsSelected = (paginationDataItemsToRender != null) && (SelectedDataItems != null) && (SelectedDataItems.Count > 0) && (paginationDataItemsToRender.Count == SelectedDataItems.Count);
-		<MultiSelectGridColumn TItem="TItem"
+		<HxMultiSelectGridColumnInternal TItem="TItem"
 							   AllDataItemsSelected="@allDataItemsSelected"
 							   SelectedDataItems="@SelectedDataItems"
 							   OnSelectDataItemClicked="HandleMultiSelectSelectDataItemClicked"
@@ -112,7 +113,7 @@
 								<tr>
 									@foreach (IHxGridColumn<TItem> column in columnsToRender)
 									{
-										CellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(placeholderContext);
+										GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(placeholderContext);
 										<td class="@placeholderCellTemplate.CssClass">
 											@placeholderCellTemplate.Template
 										</td>
@@ -174,7 +175,7 @@
 							        @foreach (IHxGridColumn<TItem> column in columnsToRender)
 							        {
 								        // same as below in the else section
-								        CellTemplate cellTemplate = column.GetItemCellTemplate(item);
+								        GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
 								        <td class="@cellTemplate.CssClass">
 									        <UpdatedContentRenderer Component="column">
 										        @cellTemplate.Template
@@ -192,7 +193,7 @@
 							        @foreach (IHxGridColumn<TItem> column in columnsToRender)
 							        {
 								        // same as above this else section
-								        CellTemplate cellTemplate = column.GetItemCellTemplate(item);
+								        GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
 								        <td class="@cellTemplate.CssClass">
 									        <UpdatedContentRenderer Component="column">
 										        @cellTemplate.Template
@@ -213,7 +214,7 @@
 							<tr height="@rowHeight">
 								@foreach (IHxGridColumn<TItem> column in columnsToRender)
 								{
-									CellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
+									GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
 									<td class="@placeholderCellTemplate.CssClass">
 										@placeholderCellTemplate.Template
 									</td>
@@ -234,13 +235,13 @@
 				</tbody>
 				@{
 					GridFooterCellContext gridFooterCellContext = CreateGridFooterCellContext();
-					CellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate(gridFooterCellContext)).ToArray();
+					GridCellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate(gridFooterCellContext)).ToArray();
 					if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null) // there must be a tempate
 						&& shouldRenderFooter)
 					{
 						<tfoot>
 							<tr class="@FooterRowCssClassEffective">
-								@foreach (CellTemplate footerCellTemplate in footerTemplates)
+								@foreach (GridCellTemplate footerCellTemplate in footerTemplates)
 								{
 									<td class="@footerCellTemplate.CssClass">@footerCellTemplate.Template</td>
 								}

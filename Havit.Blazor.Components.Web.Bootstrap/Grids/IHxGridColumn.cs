@@ -29,21 +29,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns header cell template.
 		/// </summary>
-		CellTemplate GetHeaderCellTemplate(GridHeaderCellContext context);
+		GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context);
 
 		/// <summary>
 		/// Returns data cell template for the specific item.
 		/// </summary>
-		CellTemplate GetItemCellTemplate(TItem item);
+		GridCellTemplate GetItemCellTemplate(TItem item);
 
 		/// <summary>
 		/// Returns placeholder cell template.
 		/// </summary>
-		CellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context);
+		GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context);
 
 		/// <summary>
 		/// Returns footer cell template.
 		/// </summary>
-		CellTemplate GetFooterCellTemplate(GridFooterCellContext context);
+		GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context);
 	}
 }
