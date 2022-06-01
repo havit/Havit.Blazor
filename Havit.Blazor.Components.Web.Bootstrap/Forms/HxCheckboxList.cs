@@ -13,8 +13,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public IEnumerable<TItem> Data { get; set; }
 
-		[Obsolete("Use ItemTextSelector instead, as TextSelector is deprecated.")]
-		[Parameter] public Func<TItem, string> TextSelector
+		/// <summary>
+		/// TextSelector is obsolete, please use ItemTextSelector instead.
+		/// </summary>
+		[Parameter]
+		[Obsolete("TextSelector is obsolete, please use ItemTextSelector instead.")]
+		public Func<TItem, string> TextSelector
 		{
 			get => ItemTextSelector;
 			set => ItemTextSelector = value;
@@ -26,9 +30,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public Func<TItem, string> ItemTextSelector { get; set; }
 
-
-		[Obsolete("Use ItemValueSelector instead, as ValueSelector is deprecated.")]
-		[Parameter] public Func<TItem, TValue> ValueSelector
+		/// <summary>
+		/// ValueSelector is obsolete, please use ItemValueSelector instead.
+		/// </summary>
+		[Parameter]
+		[Obsolete("ValueSelector is obsolete, please use ItemValueSelector instead.")]
+		public Func<TItem, TValue> ValueSelector
 		{
 			get => ItemValueSelector;
 			set => ItemValueSelector = value;
@@ -40,9 +47,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public Func<TItem, TValue> ItemValueSelector { get; set; }
 
-
-		[Obsolete("Use ItemSortKeySelector instead, as SortKeySelector is deprecated.")]
-		[Parameter] public Func<TItem, IComparable> SortKeySelector
+		/// <summary>
+		/// SortKeySelector is obsolete, please use ItemSortKeySelector instead.
+		/// </summary>
+		[Parameter]
+		[Obsolete("SortKeySelector is obsolete, please use ItemSortKeySelector instead.")]
+		public Func<TItem, IComparable> SortKeySelector
 		{
 			get => ItemSortKeySelector;
 			set => ItemSortKeySelector = value;
@@ -55,19 +65,34 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public Func<TItem, IComparable> ItemSortKeySelector { get; set; }
 
 		/// <summary>
-		/// Additional css classes for the <see cref="HxInputCheckbox" />.
+		/// Additional CSS class(es) for underlying <see cref="HxInputCheckbox" />.
+		/// </summary>
+		[Parameter] public string ItemCssClass { get; set; }
+
+		/// <summary>
+		/// Additional CSS class(es) for the <see cref="HxInputCheckbox" />.
 		/// </summary>
 		[Parameter] public Func<TItem, string> ItemCssClassSelector { get; set; }
 
 		/// <summary>
-		/// Additional css classes for the input element of the <see cref="HxInputCheckbox" />.
+		/// Additional CSS class(es) for the input element of the <see cref="HxInputCheckbox" />.
+		/// </summary>
+		[Parameter] public string ItemInputCssClass { get; set; }
+
+		/// <summary>
+		/// Additional CSS class(es) for the input element of the <see cref="HxInputCheckbox" />.
 		/// </summary>
 		[Parameter] public Func<TItem, string> ItemInputCssClassSelector { get; set; }
 
 		/// <summary>
-		/// Additional css classes for the label of the <see cref="HxInputCheckbox" />.
+		/// Additional CSS class(es) for the text of the <see cref="HxInputCheckbox" />.
 		/// </summary>
-		[Parameter] public Func<TItem, string> ItemLabelCssClassSelector { get; set; }
+		[Parameter] public string ItemTextCssClass { get; set; }
+
+		/// <summary>
+		/// Additional CSS class(es) for the text of the <see cref="HxInputCheckbox" />.
+		/// </summary>
+		[Parameter] public Func<TItem, string> ItemTextCssClassSelector { get; set; }
 
 		/// <summary>
 		/// When <c>true</c>, items are sorted before displaying in select.
@@ -124,9 +149,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					builder.AddAttribute(4, nameof(HxInputCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
 					builder.AddAttribute(5, nameof(HxInputCheckbox.Enabled), EnabledEffective);
 
-					builder.AddAttribute(6, nameof(HxInputCheckbox.CssClass), (ItemCssClassSelector is not null) ? SelectorHelpers.GetText(ItemCssClassSelector, item) : null);
-					builder.AddAttribute(7, nameof(HxInputCheckbox.InputCssClass), (ItemInputCssClassSelector is not null) ? SelectorHelpers.GetText(ItemInputCssClassSelector, item) : null);
-					builder.AddAttribute(8, nameof(HxInputCheckbox.LabelCssClass), (ItemLabelCssClassSelector is not null) ? SelectorHelpers.GetText(ItemLabelCssClassSelector, item) : null);
+					builder.AddAttribute(6, nameof(HxInputCheckbox.CssClass), CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item)));
+					builder.AddAttribute(7, nameof(HxInputCheckbox.InputCssClass), CssClassHelper.Combine(ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)));
+					builder.AddAttribute(8, nameof(HxInputCheckbox.LabelCssClass), CssClassHelper.Combine(ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
 
 					// We need ValueExpression. Ehm, HxInputCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 					// We have nothing to give the HxInputCheckbox. So we make own class with property which we assign to the ValueExpression.
