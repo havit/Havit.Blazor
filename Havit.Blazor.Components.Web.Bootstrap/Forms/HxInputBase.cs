@@ -28,12 +28,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		#region IFormValueComponent public properties
 		/// <summary>
-		/// Label to render before input (or after input for Checkbox).		
+		/// Label text.
 		/// </summary>
 		[Parameter] public string Label { get; set; }
 
 		/// <summary>
-		/// Label to render before input (or after input for Checkbox).
+		/// Label content.
 		/// </summary>
 		[Parameter] public RenderFragment LabelTemplate { get; set; }
 
