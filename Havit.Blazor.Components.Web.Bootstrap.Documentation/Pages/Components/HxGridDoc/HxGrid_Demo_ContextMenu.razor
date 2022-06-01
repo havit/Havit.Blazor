@@ -4,12 +4,12 @@
         <HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
         <HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" />
         <HxGridColumn TItem="CultureInfo" HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)" />
+        <HxContextMenuGridColumn TItem="CultureInfo" Context="item">
+            <HxContextMenu>
+                <HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" OnClick="() => DeleteItem(item)" />
+            </HxContextMenu>
+        </HxContextMenuGridColumn>
     </Columns>
-    <ContextMenu Context="item">
-        <HxContextMenu>
-            <HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" OnClick="() => DeleteItem(item)" />
-        </HxContextMenu>
-    </ContextMenu>
 </HxGrid>
 
 @code {

@@ -66,7 +66,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment Columns { get; set; }
 
 		/// <summary>
-		/// Context menu template.
+		/// Context menu template (positioned as last column).<br/>
+		/// NOTE: This parameter will be most likely removed in vNext, use <see cref="HxContextMenuGridColumn{TItem}"/> in <see cref="Columns"/> instead.
 		/// </summary>
 		[Parameter] public RenderFragment<TItem> ContextMenu { get; set; }
 
@@ -326,7 +327,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Returns columns to render.
-		/// Main goal of the method is to add ContextMenuGridColumn to the user defined columns.
 		/// </summary>
 		protected List<IHxGridColumn<TItem>> GetColumnsToRender()
 		{

@@ -4842,34 +4842,6 @@
             Constructor.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ContextMenuGridColumn`1">
-            <summary>
-            Column displaying the context menu in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ContextMenuGridColumn`1.ContextMenu">
-            <summary>
-            Context menu template.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.ContextMenuGridColumn`1.GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.ContextMenuGridColumn`1.GetItemCellTemplate(`0)">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.ContextMenuGridColumn`1.GetItemPlaceholderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext)">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.ContextMenuGridColumn`1.GetFooterCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext)">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.ContextMenuGridColumn`1.GetSorting">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.ContextMenuGridColumn`1.GetColumnOrder">
-            <inheritdoc />
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode">
             <summary>
             Strategy how data are displayed in the grid (and loaded to the grid).
@@ -5092,6 +5064,42 @@
             Constructor.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1">
+            <summary>
+            Column for displaying the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu"/> in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.Order">
+            <summary>
+            The order (display index) of the column.
+            Columns are displayed in the order of this property.
+            Columns with the same value are displayed in the order of appereance in the code (when the columns are not conditionaly displayed using @if).
+            </summary>
+            <exception cref="T:System.ArgumentException">Value is <c>Int32.MinValue</c> or <c>Int32.MaxValue</c>.</exception>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.ChildContent">
+            <summary>
+            Context menu template.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetItemCellTemplate(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetItemPlaceholderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetFooterCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetSorting">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetColumnOrder">
+            <inheritdoc />
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1">
             <summary>
             Grid to display tabular data from data source. Includes support for client-side and server-side paging &amp; sorting (or virtualized scrolling as needed).<br />
@@ -5146,7 +5154,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ContextMenu">
             <summary>
-            Context menu template.
+            Context menu template (positioned as last column).<br/>
+            NOTE: This parameter will be most likely removed in vNext, use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1"/> in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Columns"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadingDataTemplate">
@@ -5328,7 +5337,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetColumnsToRender">
             <summary>
             Returns columns to render.
-            Main goal of the method is to add ContextMenuGridColumn to the user defined columns.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetTableElementCssClass(System.Boolean)">

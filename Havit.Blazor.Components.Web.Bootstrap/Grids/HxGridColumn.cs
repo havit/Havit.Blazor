@@ -31,10 +31,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				// MultiSelectGridColumn uses Int32.MinValue and we do not want to enable column to have same value.
 				Contract.Requires<ArgumentException>(value != Int32.MinValue);
 
-				// This is to ensure ContextMenuGridColumn is displayed always as the last column.
-				// ContextMenuGridColumn uses Int32.MaxValue and we do not want to enable column to have same value.
-				Contract.Requires<ArgumentException>(value != Int32.MaxValue);
-
 				order = value;
 			}
 		}

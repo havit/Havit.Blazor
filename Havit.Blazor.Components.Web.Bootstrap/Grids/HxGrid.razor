@@ -17,7 +17,7 @@
 	@Columns
 	@if (ContextMenu != null)
 	{
-		<ContextMenuGridColumn TItem="TItem" ContextMenu="ContextMenu" />
+		<HxContextMenuGridColumn TItem="TItem" ChildContent="ContextMenu" Order="Int32.MaxValue" />
 	}
 </CascadingValue>
 
