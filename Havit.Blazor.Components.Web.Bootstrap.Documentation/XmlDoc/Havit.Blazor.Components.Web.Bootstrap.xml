@@ -2924,35 +2924,35 @@
             Items to display. 
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.TextSelector">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemTextSelector">
             <summary>
             Selects text to display from item.
             When not set, ToString() is used.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ValueSelector">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemValueSelector">
             <summary>
             Selects value from item.
             Not required when TValue is same as TItem.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.SortKeySelector">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemSortKeySelector">
             <summary>
             Selects value for items sorting. When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.TextSelector"/> property will be used.
             If you need complex sorting, pre-sort data manually or create a custom comparable property.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.CssClassSelector">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemCssClassSelector">
             <summary>
             Additional css classes for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox" />.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.InputCssClassSelector">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemInputCssClassSelector">
             <summary>
             Additional css classes for the input element of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox" />.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.LabelCssClassSelector">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemLabelCssClassSelector">
             <summary>
             Additional css classes for the label of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox" />.
             </summary>

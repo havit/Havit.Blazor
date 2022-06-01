@@ -13,38 +13,61 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public IEnumerable<TItem> Data { get; set; }
 
+		[Obsolete("Use ItemTextSelector instead, as TextSelector is deprecated.")]
+		[Parameter] public Func<TItem, string> TextSelector
+		{
+			get => ItemTextSelector;
+			set => ItemTextSelector = value;
+		}
+
 		/// <summary>
 		/// Selects text to display from item.
 		/// When not set, ToString() is used.
 		/// </summary>
-		[Parameter] public Func<TItem, string> TextSelector { get; set; }
+		[Parameter] public Func<TItem, string> ItemTextSelector { get; set; }
+
+
+		[Obsolete("Use ItemValueSelector instead, as ValueSelector is deprecated.")]
+		[Parameter] public Func<TItem, TValue> ValueSelector
+		{
+			get => ItemValueSelector;
+			set => ItemValueSelector = value;
+		}
 
 		/// <summary>
 		/// Selects value from item.
 		/// Not required when TValue is same as TItem.
 		/// </summary>
-		[Parameter] public Func<TItem, TValue> ValueSelector { get; set; }
+		[Parameter] public Func<TItem, TValue> ItemValueSelector { get; set; }
+
+
+		[Obsolete("Use ItemSortKeySelector instead, as SortKeySelector is deprecated.")]
+		[Parameter] public Func<TItem, IComparable> SortKeySelector
+		{
+			get => ItemSortKeySelector;
+			set => ItemSortKeySelector = value;
+		}
 
 		/// <summary>
 		/// Selects value for items sorting. When not set, <see cref="TextSelector"/> property will be used.
 		/// If you need complex sorting, pre-sort data manually or create a custom comparable property.
 		/// </summary>
-		[Parameter] public Func<TItem, IComparable> SortKeySelector { get; set; }
+		[Parameter] public Func<TItem, IComparable> ItemSortKeySelector { get; set; }
 
 		/// <summary>
 		/// Additional css classes for the <see cref="HxInputCheckbox" />.
 		/// </summary>
-		[Parameter] public Func<TItem, string> CssClassSelector { get; set; }
+		[Parameter] public Func<TItem, string> ItemCssClassSelector { get; set; }
 
 		/// <summary>
 		/// Additional css classes for the input element of the <see cref="HxInputCheckbox" />.
 		/// </summary>
-		[Parameter] public Func<TItem, string> InputCssClassSelector { get; set; }
+		[Parameter] public Func<TItem, string> ItemInputCssClassSelector { get; set; }
 
 		/// <summary>
 		/// Additional css classes for the label of the <see cref="HxInputCheckbox" />.
 		/// </summary>
-		[Parameter] public Func<TItem, string> LabelCssClassSelector { get; set; }
+		[Parameter] public Func<TItem, string> ItemLabelCssClassSelector { get; set; }
 
 		/// <summary>
 		/// When <c>true</c>, items are sorted before displaying in select.
@@ -66,13 +89,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			// AutoSort
 			if (AutoSort && (itemsToRender.Count > 1))
 			{
-				if (SortKeySelector != null)
+				if (ItemSortKeySelector != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.SortKeySelector).ToList();
+					itemsToRender = itemsToRender.OrderBy(this.ItemSortKeySelector).ToList();
 				}
-				else if (TextSelector != null)
+				else if (ItemTextSelector != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.TextSelector).ToList();
+					itemsToRender = itemsToRender.OrderBy(this.ItemTextSelector).ToList();
 				}
 				else
 				{
@@ -92,18 +115,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 				foreach (var item in itemsToRender)
 				{
-					TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
+					TValue value = SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelector, item);
 
 					builder.OpenComponent(1, typeof(HxInputCheckbox));
 
-					builder.AddAttribute(2, nameof(HxInputCheckbox.Label), SelectorHelpers.GetText(TextSelector, item));
+					builder.AddAttribute(2, nameof(HxInputCheckbox.Label), SelectorHelpers.GetText(ItemTextSelector, item));
 					builder.AddAttribute(3, nameof(HxInputCheckbox.Value), Value?.Contains(value) ?? false);
 					builder.AddAttribute(4, nameof(HxInputCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
 					builder.AddAttribute(5, nameof(HxInputCheckbox.Enabled), EnabledEffective);
 
-					builder.AddAttribute(6, nameof(HxInputCheckbox.CssClass), (CssClassSelector is not null) ? SelectorHelpers.GetText(CssClassSelector, item) : null);
-					builder.AddAttribute(7, nameof(HxInputCheckbox.InputCssClass), (InputCssClassSelector is not null) ? SelectorHelpers.GetText(InputCssClassSelector, item) : null);
-					builder.AddAttribute(8, nameof(HxInputCheckbox.LabelCssClass), (LabelCssClassSelector is not null) ? SelectorHelpers.GetText(LabelCssClassSelector, item) : null);
+					builder.AddAttribute(6, nameof(HxInputCheckbox.CssClass), (ItemCssClassSelector is not null) ? SelectorHelpers.GetText(ItemCssClassSelector, item) : null);
+					builder.AddAttribute(7, nameof(HxInputCheckbox.InputCssClass), (ItemInputCssClassSelector is not null) ? SelectorHelpers.GetText(ItemInputCssClassSelector, item) : null);
+					builder.AddAttribute(8, nameof(HxInputCheckbox.LabelCssClass), (ItemLabelCssClassSelector is not null) ? SelectorHelpers.GetText(ItemLabelCssClassSelector, item) : null);
 
 					// We need ValueExpression. Ehm, HxInputCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 					// We have nothing to give the HxInputCheckbox. So we make own class with property which we assign to the ValueExpression.
@@ -123,7 +146,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private void HandleValueChanged(bool @checked, TItem item)
 		{
 			var newValue = Value == null ? new List<TValue>() : new List<TValue>(Value);
-			TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
+			TValue value = SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelector, item);
 			if (@checked)
 			{
 				newValue.Add(value);

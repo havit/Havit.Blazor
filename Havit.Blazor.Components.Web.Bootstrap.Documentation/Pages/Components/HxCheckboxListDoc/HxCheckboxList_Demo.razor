@@ -4,8 +4,8 @@
     <HxCheckboxList TItem="CultureInfo"
                     TValue="string"
                     Label="Cultures"
-                    TextSelector="@(item => item.EnglishName)"
-                    ValueSelector="@(item => item.EnglishName)"
+                    ItemTextSelector="@(item => item.EnglishName)"
+                    ItemValueSelector="@(item => item.EnglishName)"
                     Data="@data"
                     @bind-Value="@model.CultureInfos" />
 </EditForm>
