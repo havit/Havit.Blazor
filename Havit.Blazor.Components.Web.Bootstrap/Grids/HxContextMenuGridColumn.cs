@@ -27,6 +27,16 @@
 		private int order = 0;
 
 		/// <summary>
+		/// Returns item css class (not dependent on data).
+		/// </summary>
+		[Parameter] public string ItemCssClass { get; set; }
+
+		/// <summary>
+		/// Returns item css class for the specific date item.
+		/// </summary>
+		[Parameter] public Func<TItem, string> ItemCssClassSelector { get; set; }
+
+		/// <summary>
 		/// Context menu template.
 		/// </summary>
 		[Parameter] public RenderFragment<TItem> ChildContent { get; set; }
@@ -35,7 +45,11 @@
 		protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => GridCellTemplate.Empty;
 
 		/// <inheritdoc />
-		protected override GridCellTemplate GetItemCellTemplate(TItem item) => GridCellTemplate.Create(ChildContent(item));
+		protected override GridCellTemplate GetItemCellTemplate(TItem item)
+		{
+			string cssClass = CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item));
+			return GridCellTemplate.Create(ChildContent(item), cssClass);
+		}
 
 		/// <inheritdoc />
 		protected override GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => GridCellTemplate.Empty;

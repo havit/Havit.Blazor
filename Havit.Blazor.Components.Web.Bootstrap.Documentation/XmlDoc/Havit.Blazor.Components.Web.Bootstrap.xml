@@ -5125,6 +5125,16 @@
             </summary>
             <exception cref="T:System.ArgumentException">Value is <c>Int32.MinValue</c> or <c>Int32.MaxValue</c>.</exception>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.ItemCssClass">
+            <summary>
+            Returns item css class (not dependent on data).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.ItemCssClassSelector">
+            <summary>
+            Returns item css class for the specific date item.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.ChildContent">
             <summary>
             Context menu template.
