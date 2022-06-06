@@ -33,7 +33,10 @@
 
 		protected virtual async Task DisposeAsyncCore()
 		{
-			await ChipGeneratorsRegistration?.UnregisterAsync(this);
+			if (this.ChipGeneratorsRegistration != null)
+			{
+				await ChipGeneratorsRegistration.UnregisterAsync(this);
+			}
 		}
 	}
 }
