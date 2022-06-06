@@ -113,7 +113,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			if (ParentSidebarItem is not null)
 			{
-				await ParentSidebarItem.ChildItemsRegistration.Unregister(this);
+				await ParentSidebarItem.ChildItemsRegistration.UnregisterAsync(this);
 			}
 		}
 

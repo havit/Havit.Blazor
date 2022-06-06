@@ -1071,6 +1071,9 @@
             Cascading parameter to register the tab.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.DisposeAsync">
+            <inheritdoc />
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ChipItem">
             <summary>
             Chip item to be rendered in UI.
@@ -1105,6 +1108,9 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxChipGenerator.OnInitialized">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxChipGenerator.DisposeAsync">
+            <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxChipList">
             <summary>
@@ -7955,7 +7961,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnAfterRender(System.Boolean)">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.Dispose">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.DisposeAsync">
             <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel">

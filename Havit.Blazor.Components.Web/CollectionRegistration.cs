@@ -41,7 +41,7 @@
 		/// <summary>
 		/// Unregisters from the collection and call state has changed (when owner is not disposed).
 		/// </summary>
-		public async Task Unregister(TItem item)
+		public async Task UnregisterAsync(TItem item)
 		{
 			collection.Remove(item);
 			itemRemovedCallback?.Invoke(item);

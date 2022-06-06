@@ -24,7 +24,7 @@
             Registers to the collection and call state has changed.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.CollectionRegistration`1.Unregister(`0)">
+        <member name="M:Havit.Blazor.Components.Web.CollectionRegistration`1.UnregisterAsync(`0)">
             <summary>
             Unregisters from the collection and call state has changed (when owner is not disposed).
             </summary>

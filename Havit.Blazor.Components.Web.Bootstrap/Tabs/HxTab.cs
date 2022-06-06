@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Single tab in <see cref="HxTabPanel"/>.
 	/// </summary>
-	public class HxTab : ComponentBase, IRenderNotificationComponent, ICascadeEnabledComponent, IDisposable
+	public class HxTab : ComponentBase, IRenderNotificationComponent, ICascadeEnabledComponent, IAsyncDisposable
 	{
 		/// <summary>
 		/// Cascading parameter to register the tab.
@@ -109,17 +109,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		public void Dispose()
+		public async ValueTask DisposeAsync()
 		{
-			Dispose(true);
+			await DisposeAsyncCore();
 		}
 
-		protected virtual void Dispose(bool disposing)
+		protected virtual async Task DisposeAsyncCore()
 		{
-			if (disposing)
-			{
-				TabsRegistration.Unregister(this);
-			}
+			await TabsRegistration.UnregisterAsync(this);
 		}
 	}
 }
