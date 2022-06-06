@@ -13,8 +13,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[CascadingParameter(Name = HxGrid<TItem>.ColumnsRegistrationCascadingValueName)] protected CollectionRegistration<IHxGridColumn<TItem>> ColumnsRegistration { get; set; }
 
-		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
-
 		/// <inheritdoc />
 		protected override void OnInitialized()
 		{
@@ -84,14 +82,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Returns column sorting.
 		/// </summary>
 		protected abstract IEnumerable<SortingItem<TItem>> GetSorting();
-
-		/// <inheritdoc />
-		protected override void OnAfterRender(bool firstRender)
-		{
-			base.OnAfterRender(firstRender);
-
-			((IRenderNotificationComponent)this).Rendered?.Invoke(this, firstRender);
-		}
 
 		/// <inheritdoc />
 		public async ValueTask DisposeAsync()

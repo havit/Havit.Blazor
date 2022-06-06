@@ -73,9 +73,7 @@
 								@if (columnSorting.Any())
 								{
 									<th @onclick="async () => await HandleSortingClick(columnSorting)" @onclick:stopPropagation role="button" class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable")">
-										<UpdatedContentRenderer Component="column">
-											@headerCellTemplate.Template
-										</UpdatedContentRenderer>
+										@headerCellTemplate.Template
 										@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
 									 || (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
 										{
@@ -90,9 +88,7 @@
 								else
 								{
 									<th class="@headerCellTemplate.CssClass">
-										<UpdatedContentRenderer Component="column">
-											@headerCellTemplate.Template
-										</UpdatedContentRenderer>
+										@headerCellTemplate.Template
 									</th>
 								}
 							}
@@ -177,9 +173,7 @@
 								        // same as below in the else section
 								        GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
 								        <td class="@cellTemplate.CssClass">
-									        <UpdatedContentRenderer Component="column">
-										        @cellTemplate.Template
-									        </UpdatedContentRenderer>
+									        @cellTemplate.Template
 								        </td>
 							        }
 						        </tr>
@@ -195,9 +189,7 @@
 								        // same as above this else section
 								        GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
 								        <td class="@cellTemplate.CssClass">
-									        <UpdatedContentRenderer Component="column">
-										        @cellTemplate.Template
-									        </UpdatedContentRenderer>
+									        @cellTemplate.Template
 								        </td>
 							        }
 						        </tr>
