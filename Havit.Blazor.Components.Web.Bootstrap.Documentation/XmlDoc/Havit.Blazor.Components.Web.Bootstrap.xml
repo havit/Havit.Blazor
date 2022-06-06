@@ -708,6 +708,12 @@
             Allows customization of the dates in calendar.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.RefreshAsync">
+            <summary>
+            Refreshes the calendar.
+            Useful when the customization needs to be updated.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CardImagePlacement">
             <summary>
             Placement of the image in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> component.

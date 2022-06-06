@@ -2,4 +2,25 @@
 
 <h1>HxCalendar</h1>
 
-<HxCalendar />
+<HxCalendar @ref="calendar" DateCustomizationProvider="HandleDateCustomization"/>
+
+<HxButton Text="Refresh" Color="ThemeColor.Secondary" OnClick="HandleClickAsync" />
+
+@code {
+    private HxCalendar calendar;
+    int i = 0;
+
+    private async Task HandleClickAsync()
+    {
+        i = (i + 1) % 30;
+        await calendar.RefreshAsync();
+    }
+
+    private CalendarDateCustomizationResult HandleDateCustomization(CalendarDateCustomizationRequest request)
+    {
+        return new CalendarDateCustomizationResult
+        {
+            Enabled = request.Date.Day > i
+        };
+    }
+}

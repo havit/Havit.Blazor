@@ -52,7 +52,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </remarks>
 		protected virtual CalendarSettings GetSettings() => this.Settings;
 
-
 		/// <summary>
 		/// Date selected.
 		/// </summary>
@@ -142,6 +141,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 			UpdateRenderData();
+		}
+
+		/// <summary>
+		/// Refreshes the calendar.
+		/// Useful when the customization needs to be updated.
+		/// </summary>
+		public Task RefreshAsync()
+		{
+			StateHasChanged();
+			return Task.CompletedTask;
 		}
 
 		private void UpdateRenderData()
