@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Single tab in <see cref="HxTabPanel"/>.
 	/// </summary>
-	public class HxTab : ComponentBase, IRenderNotificationComponent, ICascadeEnabledComponent, IDisposable
+	public class HxTab : ComponentBase, ICascadeEnabledComponent, IDisposable
 	{
 		/// <summary>
 		/// Cascading parameter to register the tab.
@@ -61,8 +61,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool? Enabled { get; set; }
 
-		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
-
 		/// <summary>
 		/// Rised when the tab is activated.
 		/// </summary>
@@ -88,14 +86,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			Contract.Requires<InvalidOperationException>(TabsRegistration != null, $"{nameof(HxTab)} has to be inside {nameof(HxTabPanel)}.");
 			TabsRegistration.Register(this);
-		}
-
-		/// <inheritdoc />
-		protected override void OnAfterRender(bool firstRender)
-		{
-			base.OnAfterRender(firstRender);
-
-			((IRenderNotificationComponent)this).Rendered?.Invoke(this, firstRender);
 		}
 
 		internal async Task NotifyActivatedAsync()

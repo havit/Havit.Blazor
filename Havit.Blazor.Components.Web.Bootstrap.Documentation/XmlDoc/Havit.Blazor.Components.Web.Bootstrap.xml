@@ -7949,9 +7949,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnInitialized">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnAfterRender(System.Boolean)">
-            <inheritdoc />
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.Dispose">
             <inheritdoc />
         </member>
