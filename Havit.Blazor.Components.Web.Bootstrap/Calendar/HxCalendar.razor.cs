@@ -123,16 +123,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		private RenderData renderData;
+		private DateTime? lastKnownValue;
 
 		protected override async Task OnParametersSetAsync()
 		{
 			await base.OnParametersSetAsync();
 
+			bool lastKnownValueChanged = lastKnownValue != Value;
+			lastKnownValue = Value;
+
 			if (DisplayMonth == default)
 			{
 				await SetDisplayMonthAsync(Value ?? DateTime.Today);
 			}
-			else if ((Value != null) && ((DisplayMonth.Year != Value.Value.Year) || (DisplayMonth.Month != Value.Value.Month)))
+			else if ((Value != null) && lastKnownValueChanged && ((DisplayMonth.Year != Value.Value.Year) || (DisplayMonth.Month != Value.Value.Month)))
 			{
 				await SetDisplayMonthAsync(Value.Value);
 			}
@@ -268,6 +272,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			Contract.Requires<InvalidOperationException>(day.ClickEnabled, "The selected date is disabled."); // Just for case, the disabled date does not use event handler.
 
 			Value = day.Date;
+			lastKnownValue = day.Date;
 			await InvokeValueChangedAsync(day.Date);
 			UpdateRenderData();
 		}
