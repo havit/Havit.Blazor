@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Grid column.
 	/// </summary>
-	public interface IHxGridColumn<TItem> : IRenderNotificationComponent
+	public interface IHxGridColumn<TItem>
 	{
 		/// <summary>
 		/// Indicates whether the column is visible (otherwise the column is hidden).
