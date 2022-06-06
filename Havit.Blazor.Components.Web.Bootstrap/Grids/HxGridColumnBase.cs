@@ -91,7 +91,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected virtual async Task DisposeAsyncCore()
 		{
-			await ColumnsRegistration.Unregister(this);
+			await ColumnsRegistration.UnregisterAsync(this);
 		}
 	}
 }

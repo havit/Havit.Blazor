@@ -1,37 +1,39 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap
-<div @ref="offcanvasElement" class="@CssClassHelper.Combine("offcanvas", GetPlacementCssClass(), GetSizeCssClass(), this.CssClassEffective)" tabindex="-1">
-	@if (opened || (this.RenderMode == OffcanvasRenderMode.Always))
-	{
-		<div class="@CssClassHelper.Combine("offcanvas-header", this.HeaderCssClassEffective)">
-			@if (Title != null)
-			{
-				<h5 class="offcanvas-title">@Title</h5>
-			}
-			@HeaderTemplate
+<div @ref="offcanvasElement"
+     class="@CssClassHelper.Combine("offcanvas", GetPlacementCssClass(), GetSizeCssClass(), opened ? "show" : null, this.CssClassEffective)"
+     tabindex="-1">
+    @if (opened || (this.RenderMode == OffcanvasRenderMode.Always))
+    {
+        <div class="@CssClassHelper.Combine("offcanvas-header", this.HeaderCssClassEffective)">
+            @if (Title != null)
+            {
+                <h5 class="offcanvas-title">@Title</h5>
+            }
+            @HeaderTemplate
 
-			@if (ShowCloseButtonEffective)
-			{
-				if (CloseButtonIconEffective is null)
-				{
-					<button type="button" class="btn-close hx-offcanvas-close-button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-				}
-				else
-				{
-					<div role="button" data-bs-dismiss="offcanvas" aria-label="Close"><HxIcon Icon="CloseButtonIconEffective" /></div>
-				}
-			}
-		</div>
-		@if (BodyTemplate != null)
-		{
-			<div class="@CssClassHelper.Combine("offcanvas-body", this.BodyCssClassEffective)">
-				@BodyTemplate
-			</div>
-		}
-		@if (FooterTemplate != null)
-		{
-			<div class="@CssClassHelper.Combine("hx-offcanvas-footer", this.FooterCssClassEffective)">
-				@FooterTemplate
-			</div>
-		}
-	}
+            @if (ShowCloseButtonEffective)
+            {
+                if (CloseButtonIconEffective is null)
+                {
+                    <button type="button" class="btn-close hx-offcanvas-close-button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                }
+                else
+                {
+                    <div role="button" data-bs-dismiss="offcanvas" aria-label="Close"><HxIcon Icon="CloseButtonIconEffective" /></div>
+                }
+            }
+        </div>
+        @if (BodyTemplate != null)
+        {
+            <div class="@CssClassHelper.Combine("offcanvas-body", this.BodyCssClassEffective)">
+                @BodyTemplate
+            </div>
+        }
+        @if (FooterTemplate != null)
+        {
+            <div class="@CssClassHelper.Combine("hx-offcanvas-footer", this.FooterCssClassEffective)">
+                @FooterTemplate
+            </div>
+        }
+    }
 </div>

@@ -146,9 +146,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.OpenElement(100, "select");
 			BuildRenderInput_AddCommonAttributes(builder, null);
 
-			builder.AddAttribute(1000, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-			builder.AddEventStopPropagationAttribute(1001, "onclick", true);
-			builder.AddElementReferenceCapture(1002, elementReferece => InputElement = elementReferece);
+			builder.AddAttribute(1000, "value", selectedItemIndex);
+			builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+			builder.SetUpdatesAttributeName("value");
+			builder.AddEventStopPropagationAttribute(1002, "onclick", true);
+			builder.AddElementReferenceCapture(1003, elementReferece => InputElement = elementReferece);
 
 			if (itemsToRender != null)
 			{
@@ -156,7 +158,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					builder.OpenElement(2000, "option");
 					builder.AddAttribute(2001, "value", -1);
-					builder.AddAttribute(2002, "selected", selectedItemIndex == -1);
 					builder.AddContent(2003, NullTextImpl);
 					builder.CloseElement();
 				}
@@ -175,7 +176,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 							builder.OpenElement(3000, "option");
 							builder.SetKey(i.ToString());
 							builder.AddAttribute(3001, "value", i.ToString());
-							builder.AddAttribute(3002, "selected", selected);
 							builder.AddContent(3003, text);
 							builder.CloseElement();
 

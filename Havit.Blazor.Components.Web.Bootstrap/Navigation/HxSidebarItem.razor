@@ -34,7 +34,7 @@
                        role="button"
                        data-bs-toggle="@(ParentSidebar.Collapsed ? "dropdown": "collapse")"
                        data-bs-target="@(!ParentSidebar.Collapsed ? "#" + id : null)"
-                       aria-expanded="@(this.ShouldBeExpanded)">
+                       aria-expanded="@(this.ShouldBeExpanded ? "true" : "false")">
                     <div class="hx-sidebar-item-navlink-content">
                         @if (Icon != null)
                         {
