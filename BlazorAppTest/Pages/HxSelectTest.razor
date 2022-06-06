@@ -2,18 +2,29 @@
 
 <h1>HxSelect</h1>
 
-<HxSelect TItem="decimal" TValue="decimal?" Data="@data" @bind-Value="@selectedValue" NullText="-all-" ValueSelector="(v => v)" />
+<HxSelect TItem="int" TValue="int?" Data="@data" Value="@selectedValue" ValueExpression="@(() => selectedValue)" ValueChanged="HandleChange" NullText="-all-" ValueSelector="(v => v)" />
 <p>Selected Value: @selectedValue</p>
-
-<HxButton Text="Set null" OnClick="HandleClick" Color="@ThemeColor.Primary" />
 
 @code
 {
-	List<decimal> data = new List<decimal> { 1, 2, 3, 0 };
-	decimal? selectedValue;
+	List<int> data;
+	int? selectedValue;
 
-	private void HandleClick()
+	protected override void OnInitialized()
 	{
-		selectedValue = null;
+		base.OnInitialized();
+		data = GetData(null); //0..9
 	}
+
+	private void HandleChange(int? newSelectedValue)
+	{
+		// Do not set selectedValue = Let it has always null value!
+		data = GetData(newSelectedValue); // 0..9 except newSelectedValue
+	}
+
+	private List<int> GetData(int? newSelectedValue)
+	{
+		return Enumerable.Range(0, 10).Except(new int[] { newSelectedValue ?? -1 }).ToList();	
+	}
+
 }
