@@ -1,4 +1,5 @@
-﻿@attribute [Route("/components/" + nameof(HxCard))]
+﻿@using Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages.Components.HxTabPanelDoc
+@attribute [Route("/components/" + nameof(HxCard))]
 @attribute [Route("/components/" + nameof(HxCardText))]
 @attribute [Route("/components/" + nameof(HxCardTitle))]
 @attribute [Route("/components/" + nameof(HxCardSubtitle))]
@@ -25,6 +26,10 @@
 	<Demo Type="typeof(HxCard_Demo_NavigationTabs)" />
 	<Demo Type="typeof(HxCard_Demo_NavigationPills)" />
 
+    <SectionTitle Id="tab-panel">Navigation with HxTabPanel</SectionTitle>
+    <p>With <code>&lt;HxTabPanel RenderMode="TabPanelRenderMode.Card"&gt;</code>, the tab navigation is placed in the card header and tab contents go into the card body.</p>
+    <Demo Type="typeof(HxTabPanel_Demo_CardMode)" />
+
 	<SectionTitle Id="Images" />
 	<Demo Type="typeof(HxCard_Demo_ImageTop)" />
 	<Demo Type="typeof(HxCard_Demo_ImageBottom)" />
@@ -42,6 +47,7 @@
 
 	<SectionTitle Id="Variants" />
 	<Demo Type="typeof(HxCard_Demo_Variants)" />
+
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxCardText)" />
