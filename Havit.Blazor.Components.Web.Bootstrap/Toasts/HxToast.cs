@@ -15,6 +15,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		/// <summary>
+		/// Color-scheme.
+		/// </summary>
+		[Parameter] public ThemeColor? Color { get; set; }
+
+		/// <summary>
 		/// Delay in miliseconds to automatically hide toast.
 		/// </summary>
 		[Parameter] public int? AutohideDelay { get; set; }
@@ -87,7 +92,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(101, "role", "alert");
 			builder.AddAttribute(102, "aria-live", "assertive");
 			builder.AddAttribute(103, "aria-atomic", "true");
-			builder.AddAttribute(104, "class", CssClassHelper.Combine("toast", CssClass));
+			builder.AddAttribute(104, "class", CssClassHelper.Combine("toast", Color?.ToBackgroundColorCss(), HasContrastColor() ? "text-white" : null, CssClass));
 
 			if (AutohideDelay != null)
 			{
@@ -164,9 +169,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			builder.OpenElement(100, "button");
 			builder.AddAttribute(101, "type", "button");
-			builder.AddAttribute(102, "class", CssClassHelper.Combine("btn-close", cssClass));
+			builder.AddAttribute(102, "class", CssClassHelper.Combine("btn-close", HasContrastColor() ? "btn-close-white" : null, cssClass));
 			builder.AddAttribute(103, "data-bs-dismiss", "toast");
 			builder.CloseElement(); // button
+		}
+
+		private bool HasContrastColor()
+		{
+			return this.Color switch
+			{
+				null => false,
+				ThemeColor.Primary => true,
+				ThemeColor.Secondary => true,
+				ThemeColor.Success => true,
+				ThemeColor.Danger => true,
+				ThemeColor.Warning => false,
+				ThemeColor.Info => false,
+				ThemeColor.Light => false,
+				ThemeColor.Dark => true,
+				_ => throw new InvalidOperationException($"Unknown {nameof(Color)}: {this.Color}")
+			};
 		}
 
 		/// <inheritdoc />

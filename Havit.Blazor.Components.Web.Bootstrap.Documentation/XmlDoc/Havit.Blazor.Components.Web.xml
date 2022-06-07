@@ -763,7 +763,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessengerMessage.Icon">
             <summary>
-            Message icon.
+            Message icon (header).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessengerMessage.CssClass">
@@ -778,12 +778,22 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessengerMessage.Title">
             <summary>
-            Message title.
+            Message title (header).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.MessengerMessage.HeaderTemplate">
+            <summary>
+            Custom message header
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessengerMessage.Text">
             <summary>
             Message text (body).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.MessengerMessage.ContentTemplate">
+            <summary>
+            Custom message body (content).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.MessengerServiceCollectionExtensions">
