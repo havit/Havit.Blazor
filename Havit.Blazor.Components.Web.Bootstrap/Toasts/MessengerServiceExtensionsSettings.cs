@@ -6,14 +6,9 @@
 	public record MessengerServiceExtensionsSettings
 	{
 		/// <summary>
-		/// Default icon for information. Default is <see cref="BootstrapIcon.InfoCircleFill"/>.
+		/// Color-scheme of informational messages.
 		/// </summary>
-		public IconBase InformationIcon { get; set; } = BootstrapIcon.InfoCircleFill;
-
-		/// <summary>
-		/// Default css class for information. Default is <c>hx-messenger-information</c>.
-		/// </summary>
-		public string InformationCssClass { get; set; } = "hx-messenger-information";
+		public ThemeColor InformationColor { get; set; } = ThemeColor.Primary;
 
 		/// <summary>
 		/// Default autohide delay for information (in miliseconds). Default is <c>5000</c> ms.
@@ -21,14 +16,9 @@
 		public int? InformationAutohideDelay { get; set; } = 5000;
 
 		/// <summary>
-		/// Default icon for warnings. Default is <see cref="BootstrapIcon.ExclamationCircleFill"/>.
+		/// Color-scheme of informational messages.
 		/// </summary>
-		public IconBase WarningIcon { get; set; } = BootstrapIcon.ExclamationCircleFill;
-
-		/// <summary>
-		/// Default css class for warnings. Default is <c>hx-messenger-warning</c>.
-		/// </summary>
-		public string WarningCssClass { get; set; } = "hx-messenger-warning";
+		public ThemeColor WarningColor { get; set; } = ThemeColor.Warning;
 
 		/// <summary>
 		/// Default autohide delay for warnings (in miliseconds). Default is <c>null</c> (do not autohide).
@@ -36,14 +26,9 @@
 		public int? WarningAutohideDelay { get; set; } = null;
 
 		/// <summary>
-		/// Default icon for errors. Default is <see cref="BootstrapIcon.XCircleFill"/>.
+		/// Color-scheme of informational messages.
 		/// </summary>
-		public IconBase ErrorIcon { get; set; } = BootstrapIcon.XCircleFill;
-
-		/// <summary>
-		/// Default css class for errors. Default is <c>hx-messenger-error</c>.
-		/// </summary>
-		public string ErrorCssClass { get; set; } = "hx-messenger-error";
+		public ThemeColor ErrorColor { get; set; } = ThemeColor.Danger;
 
 		/// <summary>
 		/// Default autohide delay for errors (in miliseconds). Default is <c>null</c> (do not autohide).

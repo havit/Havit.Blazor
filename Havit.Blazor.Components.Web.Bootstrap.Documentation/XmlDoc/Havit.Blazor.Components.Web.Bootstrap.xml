@@ -7955,9 +7955,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnInitialized">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnAfterRender(System.Boolean)">
-            <inheritdoc />
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.DisposeAsync">
             <inheritdoc />
         </member>
@@ -8244,6 +8241,11 @@
             To be used for buttons only.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapMessengerMessage.Color">
+            <summary>
+            Color-scheme of the message.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessenger">
             <summary>
             <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer"/> wrapper for displaying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxToast"/> messages dispatched through <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService"/>.<br />
@@ -8315,6 +8317,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToast.JSRuntime">
             <summary>
             JS Runtime.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToast.Color">
+            <summary>
+            Color-scheme.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToast.AutohideDelay">
@@ -8401,14 +8408,9 @@
             Defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessengerServiceExtensions"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.InformationIcon">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.InformationColor">
             <summary>
-            Default icon for information. Default is <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.InfoCircleFill"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.InformationCssClass">
-            <summary>
-            Default css class for information. Default is <c>hx-messenger-information</c>.
+            Color-scheme of informational messages.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.InformationAutohideDelay">
@@ -8416,14 +8418,9 @@
             Default autohide delay for information (in miliseconds). Default is <c>5000</c> ms.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.WarningIcon">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.WarningColor">
             <summary>
-            Default icon for warnings. Default is <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.ExclamationCircleFill"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.WarningCssClass">
-            <summary>
-            Default css class for warnings. Default is <c>hx-messenger-warning</c>.
+            Color-scheme of informational messages.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.WarningAutohideDelay">
@@ -8431,14 +8428,9 @@
             Default autohide delay for warnings (in miliseconds). Default is <c>null</c> (do not autohide).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.ErrorIcon">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.ErrorColor">
             <summary>
-            Default icon for errors. Default is <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.XCircleFill"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.ErrorCssClass">
-            <summary>
-            Default css class for errors. Default is <c>hx-messenger-error</c>.
+            Color-scheme of informational messages.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.ErrorAutohideDelay">
