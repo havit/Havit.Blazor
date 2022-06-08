@@ -52,6 +52,11 @@
 	transform-origin: .5em 50%;
 }
 
+::deep a.nav-link:hover i,
+::deep a.nav-link.active:hover i {
+	color: var(--hx-sidebar-item-hover-icon-color);
+}
+
 ::deep .bi-chevron-right {
 	font-size: .75rem;
 	margin-left: .5rem;
