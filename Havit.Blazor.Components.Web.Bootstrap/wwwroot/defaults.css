@@ -106,7 +106,6 @@
 	--hx-offcanvas-horizontal-width-sm: 		400px;
 	--hx-offcanvas-horizontal-width-lg:			600px;
 	/* ListLayout */
-	--hx-list-layout-body-padding-x: 				0;
 	--hx-list-layout-table-font-size: 				.875rem;
 	/* HxMultiSelect */
 	--hx-multi-select-background-color: 			var(--bs-white);
