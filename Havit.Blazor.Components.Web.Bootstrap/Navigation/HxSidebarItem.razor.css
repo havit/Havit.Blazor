@@ -53,7 +53,7 @@
 }
 
 ::deep a.nav-link:hover i,
-::deep a.nav-link.active:hover i {
+::deep a.nav-link.active i {
 	color: var(--hx-sidebar-item-hover-icon-color);
 }
 
