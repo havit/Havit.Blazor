@@ -193,6 +193,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		public async Task ShowAsync()
 		{
+			if (!isInitialized)
+			{
+				return;
+			}
+
 			await EnsureJsModuleAsync();
 			await jsModule.InvokeVoidAsync("show", spanElement);
 		}
@@ -202,6 +207,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		public async Task HideAsync()
 		{
+			if (!isInitialized)
+			{
+				return;
+			}
+
 			await EnsureJsModuleAsync();
 			await jsModule.InvokeVoidAsync("hide", spanElement);
 		}

@@ -201,6 +201,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected bool clickInProgress;
 		protected ElementReference buttonElementReference;
+		private HxTooltip tooltipComponent;
 
 		/// <summary>
 		/// Gets basic CSS class(es) which get rendered to every single button. <br/>
@@ -286,6 +287,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleClickCore(MouseEventArgs mouseEventArgs)
 		{
+			// #209 [HxButton] Tooltip does not hide when the button opens HxModal
+			// We disable the button (SingleClickProtection) and disabled buttons do not raise any events (the tooltip won't receive mouseout and stays visible).
+			await tooltipComponent.HideAsync();
+
 			if (OnClick.HasDelegate)
 			{
 				Contract.Requires<InvalidOperationException>(!OnValidClick.HasDelegate, $"Cannot use both {nameof(OnClick)} and {nameof(OnValidClick)} parameters.");
