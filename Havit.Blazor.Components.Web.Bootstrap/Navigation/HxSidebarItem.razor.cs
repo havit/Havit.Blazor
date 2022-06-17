@@ -49,9 +49,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
+		/// Inner custom content for the <see cref="HxSidebarItem"/>.
+		/// </summary>
+		[Parameter] public RenderFragment ContentTemplate { get; set; }
+
+		/// <summary>
 		/// Sub-items (not intended to be used for any other purpose).
 		/// </summary>
-		[Parameter] public RenderFragment ChildContent { get; set; }
+		[Parameter] public RenderFragment SubItems { get; set; }
+
+		/// <summary>
+		/// Use the <see cref="SubItems"/> parameter instead as <see cref="ChildContent"/> is deprecated.
+		/// </summary>
+		[Parameter]
+		[Obsolete("ChildContent is obsolete, please use the SubItems parameter instead.")]
+		public RenderFragment ChildContent
+		{
+			set => SubItems = value;
+			get => SubItems;
+		}
 
 		[CascadingParameter] protected HxSidebar ParentSidebar { get; set; }
 		[CascadingParameter] protected HxSidebarItem ParentSidebarItem { get; set; }
@@ -85,7 +101,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		protected bool ShouldBeExpanded => ExpandOnMatch && this.childItems.Any(i => i.isMatch && i.ExpandOnMatch);
-		protected bool HasExpandableContent => (this.ChildContent is not null);
+		protected bool HasExpandableContent => (this.SubItems is not null);
 
 		/*
 		 * Explicit StateHasChanged() not needed as there is one already in ChildItemsRegistration.Register()? 
