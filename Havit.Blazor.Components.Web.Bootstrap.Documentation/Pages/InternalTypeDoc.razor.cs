@@ -48,7 +48,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages
 			}
 		}
 
-		private static (Type type, bool isDelegate) GetType(string typeName)
+		internal static (Type type, bool isDelegate) GetType(string typeName)
 		{
 			Type result;
 

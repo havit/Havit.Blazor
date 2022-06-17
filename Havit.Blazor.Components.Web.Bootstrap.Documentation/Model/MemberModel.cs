@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
+using Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
+using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
 {
@@ -128,6 +130,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
 
 			bool isType = IsType(splitLink);
 			bool isProperty = IsProperty(splitLink);
+			bool isComponent = true;
 
 			if (isType)
 			{
@@ -142,6 +145,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
 						break;
 					}
 				}
+
+				isComponent = InternalTypeDoc.GetType(splitLink[^1]).type?.IsSubclassOf(typeof(ComponentBase)) ?? false;
 			}
 			else if (isProperty)
 			{
@@ -157,6 +162,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
 						seeName = $"{splitLink[^2]}.{splitLink[^1]}";
 					}
 				}
+
+				isComponent = InternalTypeDoc.GetType(splitLink[^2]).type?.IsSubclassOf(typeof(ComponentBase)) ?? false;
 			}
 			else
 			{
@@ -174,7 +181,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
 				seeName = splitLink[^1];
 			}
 
-			if (enclosingType is null || enclosingType.FullName.Contains("Hx") || !isProperty)
+			if ((enclosingType is null || enclosingType.FullName.Contains("Hx") || !isProperty) && isComponent)
 			{
 				fullLink = $"href=\"/components/{fullLink}";
 			}
