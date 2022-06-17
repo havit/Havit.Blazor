@@ -21,8 +21,16 @@
 					</CascadingValue>
 				</HxNav>
 				<div class="hx-sidebar-toggler d-md-flex" role="button" @onclick="HandleCollapseToggleClick"
-					 @onclick:stopPropagation="true">
-					<HxIcon Icon="@(Collapsed ? ExpandIcon : CollapseIcon)" />
+					@onclick:stopPropagation="true">
+                    
+					@if (TogglerTemplate is null)
+					{
+						<HxIcon Icon="@(Collapsed ? ExpandIcon : CollapseIcon)" />
+					}
+					else
+					{
+						@TogglerTemplate
+					}
 				</div>
 			</div>
 
