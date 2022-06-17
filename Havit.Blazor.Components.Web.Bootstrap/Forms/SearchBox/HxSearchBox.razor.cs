@@ -286,9 +286,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	{
 		this.TextQuery = newTextQuery;
 
-		timer?.Stop(); // if waiting for an interval, stop it
-		cancellationTokenSource?.Cancel(); // if already loading data, cancel it
-		dataProviderInProgress = false; // data provider is no more in progress				 
+		CancelDataProviderAndDebounce();
 
 		// start new time interval
 		if (TextQuery.Length >= MinimumLengthEffective)
@@ -330,15 +328,22 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	}
 	private void HandleInputBlur()
 	{
+		CancelDataProviderAndDebounce();
+	}
+
+	private void CancelDataProviderAndDebounce()
+	{
 		timer?.Stop(); // if waiting for an interval, stop it
 		cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
-		dataProviderInProgress = false; // data provider is no more in progress				 
+		dataProviderInProgress = false; // data provider is no more in progress
 	}
 
 	protected async Task HandleTextQueryTriggered()
 	{
 		if (AllowTextQuery && (TextQuery.Length >= MinimumLengthEffective || TextQuery.Length == 0))
 		{
+			CancelDataProviderAndDebounce();
+
 			await HideDropdownMenu();
 			await InvokeOnTextQueryTriggeredAsync(this.TextQuery);
 		}
