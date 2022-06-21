@@ -1,0 +1,11 @@
+﻿<HxButton Settings="settings" Text="Fullscreen" />
+<HxButton Settings="settings" Text="Open" />
+
+@code {
+    private ButtonSettings settings = new()
+        {
+            Color = ThemeColor.Primary,
+            Icon = BootstrapIcon.Fullscreen,
+            Outline=true
+        };
+}
