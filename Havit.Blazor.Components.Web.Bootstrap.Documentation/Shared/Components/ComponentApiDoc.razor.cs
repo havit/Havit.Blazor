@@ -25,6 +25,6 @@ public partial class ComponentApiDoc
 
 	protected override void OnParametersSet()
 	{
-		model ??= ComponentApiDocModelBuilder.BuildModel(this.Type, this.Delegate);
+		model = ComponentApiDocModelBuilder.BuildModel(this.Type, this.Delegate);
 	}
 }
