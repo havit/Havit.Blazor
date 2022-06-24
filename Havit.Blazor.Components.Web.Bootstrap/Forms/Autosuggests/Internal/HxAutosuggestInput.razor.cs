@@ -14,6 +14,8 @@
 
 		[Parameter] public EventCallback OnInputMouseDown { get; set; }
 
+		[Parameter] public EventCallback OnEnter { get; set; }
+
 		[Parameter] public string InputId { get; set; }
 
 		[Parameter] public string CssClass { get; set; }
@@ -36,6 +38,14 @@
 		private async Task HandleInput(ChangeEventArgs changeEventArgs)
 		{
 			await OnInputInput.InvokeAsync((string)changeEventArgs.Value);
+		}
+
+		private async Task HandleKeyDown(KeyboardEventArgs keyboardEventArgs)
+		{
+			if (keyboardEventArgs.Code == "Enter" || keyboardEventArgs.Code == "NumpadEnter")
+			{
+				await OnEnter.InvokeAsync();
+			}
 		}
 
 		public async ValueTask FocusAsync()

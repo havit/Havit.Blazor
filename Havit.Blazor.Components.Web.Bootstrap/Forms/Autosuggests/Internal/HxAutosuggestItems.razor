@@ -4,14 +4,40 @@
 <div class="@CssClassHelper.Combine("dropdown-menu", CssClass)">
 	@if (Items != null && Items.Any())
 	{
-		@foreach (TItem item in Items)
+		foreach (TItem item in Items)
 		{
 			TItem currentItem = item;
 
-			<button class="dropdown-item text-truncate" type="button" @onclick="async () => await HandleItemClick(currentItem)" @onclick:stopPropagation="true" tabindex="-1">
-				@ItemTemplate(currentItem)
-			</button>
-		} 
+			@* Not tracking the onfocusin and out events when HightlightFirstSuggestion is false, so that performance doesn't take a hit when it's not necessary. *@
+			if (HighlightFirstSuggestion)
+			{
+				<button
+					@onfocusin="() => hasFocusCount++"
+					@onfocusout="() => hasFocusCount--"
+					class="@CssClassHelper.Combine("dropdown-item text-truncate", (currentItem.Equals(Items.FirstOrDefault()) && HighlightFirstSuggestion && hasFocusCount == 0) ? "hx-autosuggest-items-item-focus" : null)"
+					type="button"
+					@onclick="async () => await HandleItemClick(currentItem)"
+					@onclick:stopPropagation="true"
+					tabindex="-1">
+
+					@ItemTemplate(currentItem)
+
+				</button>
+			}
+			else
+			{
+				<button
+					class="dropdown-item text-truncate"
+					type="button"
+					@onclick="async () => await HandleItemClick(currentItem)"
+					@onclick:stopPropagation="true"
+					tabindex="-1">
+
+					@ItemTemplate(currentItem)
+
+				</button>
+			}
+		}
 	}
 	else if (EmptyTemplate != null)
 	{
