@@ -14,7 +14,7 @@ public static class ApiHelper
 	{
 		try
 		{
-			Type type = GetType(typeText).type;
+			Type type = GetType(typeText);
 			if (type is null)
 			{
 				return false;
@@ -27,7 +27,12 @@ public static class ApiHelper
 		}
 	}
 
-	public static (Type type, bool isDelegate) GetType(string typeName)
+	public static bool IsDelegate(Type type)
+	{
+		return typeof(Delegate).IsAssignableFrom(type);
+	}
+
+	public static Type GetType(string typeName)
 	{
 		Type result;
 
@@ -42,7 +47,7 @@ public static class ApiHelper
 		delegateTypes.TryGetValue(typeName, out result);
 		if (result is not null)
 		{
-			return (result, true);
+			return result; //  (result, true);
 		}
 
 		try
@@ -50,7 +55,7 @@ public static class ApiHelper
 			result = Type.GetType($"Havit.Blazor.Components.Web.Bootstrap.{typeName}, Havit.Blazor.Components.Web.Bootstrap");
 			if (result is not null)
 			{
-				return (result, false);
+				return result; // (result, false);
 			}
 		}
 		catch { }
@@ -60,12 +65,12 @@ public static class ApiHelper
 			result = Type.GetType($"Havit.Blazor.Components.Web.{typeName}, Havit.Blazor.Components.Web");
 			if (result is not null)
 			{
-				return (result, false);
+				return result; // ;
 			}
 		}
 		catch { }
 
-		return (null, false);
+		return null; // (null, false);
 	}
 
 	private static int? GetOpeningBracePosition(string text)

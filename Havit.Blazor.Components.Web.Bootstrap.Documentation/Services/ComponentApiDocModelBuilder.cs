@@ -42,11 +42,11 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		this.docXmlProvider = docXmlProvider;
 	}
 
-	public ComponentApiDocModel BuildModel(Type type, bool isDelegate)
+	public ComponentApiDocModel BuildModel(Type type)
 	{
 		var model = new ComponentApiDocModel();
 		model.Type = type;
-		model.IsDelegate = isDelegate;
+		model.IsDelegate = ApiHelper.IsDelegate(type);
 
 		DocXmlReader reader = LoadDocXmlReaderBasedOnNamespace(type.Namespace);
 
