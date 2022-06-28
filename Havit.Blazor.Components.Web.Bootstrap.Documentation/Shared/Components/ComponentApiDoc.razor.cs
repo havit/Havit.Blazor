@@ -17,14 +17,12 @@ public partial class ComponentApiDoc
 	/// </summary>
 	[Parameter] public Type Type { get; set; }
 
-	[Parameter] public bool Delegate { get; set; }
-
 	[Inject] protected IComponentApiDocModelBuilder ComponentApiDocModelBuilder { get; set; }
 
 	private ComponentApiDocModel model;
 
 	protected override void OnParametersSet()
 	{
-		model ??= ComponentApiDocModelBuilder.BuildModel(this.Type, this.Delegate);
+		model = ComponentApiDocModelBuilder.BuildModel(this.Type);
 	}
 }
