@@ -335,7 +335,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	{
 		timer?.Stop(); // if waiting for an interval, stop it
 		cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
-		dataProviderInProgress = false; // data provider is no more in progress
+		dataProviderInProgress = false; // data provider is no longer in progress
 	}
 
 	protected async Task HandleTextQueryTriggered()
