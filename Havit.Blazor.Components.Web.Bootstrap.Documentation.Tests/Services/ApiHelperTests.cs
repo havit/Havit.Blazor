@@ -16,10 +16,10 @@ public class ApiHelperTests
 	public void ApiHelper_GetType_IsDelegate(string typeName, bool expected)
 	{
 		// arrange
-		var type = ApiHelper.GetType(typeName);
+		var type = ApiTypeHelper.GetType(typeName);
 
 		// act
-		var actual = ApiHelper.IsDelegate(type);
+		var actual = ApiTypeHelper.IsDelegate(type);
 
 		// assert
 		Assert.AreEqual(expected, actual);

@@ -168,7 +168,7 @@ public static class ApiRenderer
 			return GenerateLinkTagForInternalType(typeName, typeNameForOwnDocumentation, linkText, generic);
 		}
 
-		if (ApiHelper.DetermineIfTypeIsInternal(typeNameForOwnDocumentation))
+		if (ApiTypeHelper.IsLibraryType(typeNameForOwnDocumentation))
 		{
 			return GenerateLinkTagForInternalType(typeName, typeNameForOwnDocumentation, linkText, generic);
 		}

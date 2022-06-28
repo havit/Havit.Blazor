@@ -144,7 +144,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
 					}
 				}
 
-				isComponent = ApiHelper.GetType(splitLink[^1])?.IsSubclassOf(typeof(ComponentBase)) ?? false;
+				isComponent = ApiTypeHelper.GetType(splitLink[^1])?.IsSubclassOf(typeof(ComponentBase)) ?? false;
 			}
 			else if (isProperty)
 			{
@@ -161,7 +161,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
 					}
 				}
 
-				isComponent = ApiHelper.GetType(splitLink[^2])?.IsSubclassOf(typeof(ComponentBase)) ?? false;
+				isComponent = ApiTypeHelper.GetType(splitLink[^2])?.IsSubclassOf(typeof(ComponentBase)) ?? false;
 			}
 			else
 			{

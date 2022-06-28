@@ -46,7 +46,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 	{
 		var model = new ComponentApiDocModel();
 		model.Type = type;
-		model.IsDelegate = ApiHelper.IsDelegate(type);
+		model.IsDelegate = ApiTypeHelper.IsDelegate(type);
 
 		DocXmlReader reader = LoadDocXmlReaderBasedOnNamespace(type.Namespace);
 

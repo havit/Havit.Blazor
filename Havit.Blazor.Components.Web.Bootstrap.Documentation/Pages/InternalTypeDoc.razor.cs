@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages
 		{
 			try
 			{
-				type = ApiHelper.GetType(TypeText);
+				type = ApiTypeHelper.GetType(TypeText);
 			}
 			catch
 			{
