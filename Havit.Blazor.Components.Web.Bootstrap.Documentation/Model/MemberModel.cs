@@ -1,8 +1,6 @@
-﻿using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
-using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
 {
@@ -146,7 +144,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
 					}
 				}
 
-				isComponent = InternalTypeDoc.GetType(splitLink[^1]).type?.IsSubclassOf(typeof(ComponentBase)) ?? false;
+				isComponent = ApiHelper.GetType(splitLink[^1]).type?.IsSubclassOf(typeof(ComponentBase)) ?? false;
 			}
 			else if (isProperty)
 			{
@@ -163,7 +161,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
 					}
 				}
 
-				isComponent = InternalTypeDoc.GetType(splitLink[^2]).type?.IsSubclassOf(typeof(ComponentBase)) ?? false;
+				isComponent = ApiHelper.GetType(splitLink[^2]).type?.IsSubclassOf(typeof(ComponentBase)) ?? false;
 			}
 			else
 			{
