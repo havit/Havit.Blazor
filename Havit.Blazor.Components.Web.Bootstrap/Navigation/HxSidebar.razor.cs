@@ -34,7 +34,7 @@
 		/// <summary>
 		/// Vertical toggler (desktop version) to be rendered instead of the <see cref="ExpandIcon"/> and <see cref="CollapseIcon"/> icon.
 		/// </summary>
-		[Parameter] public RenderFragment TogglerTemplate { get; set; }
+		[Parameter] public RenderFragment<SidebarTogglerTemplateContext> TogglerTemplate { get; set; }
 
 		/// <summary>
 		/// Additional CSS class.
