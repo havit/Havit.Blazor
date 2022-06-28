@@ -3,13 +3,13 @@
 public static class ApiTypeHelper
 {
 	private static readonly Dictionary<string, Type> delegateTypes = new()
-		{
-			{ "AutosuggestDataProviderDelegate", typeof(AutosuggestDataProviderDelegate<>) },
-			{ "GridDataProviderDelegate", typeof(GridDataProviderDelegate<>) },
-			{ "InputTagsDataProviderDelegate", typeof(InputTagsDataProviderDelegate) },
-			{ "CalendarDateCustomizationProviderDelegate", typeof(CalendarDateCustomizationProviderDelegate) },
-			{ "SearchBoxDataProviderDelegate", typeof(SearchBoxDataProviderDelegate<>) },
-		};
+	{
+		["AutosuggestDataProviderDelegate"] = typeof(AutosuggestDataProviderDelegate<>),
+		["GridDataProviderDelegate"] = typeof(GridDataProviderDelegate<>),
+		["InputTagsDataProviderDelegate"] = typeof(InputTagsDataProviderDelegate),
+		["CalendarDateCustomizationProviderDelegate"] = typeof(CalendarDateCustomizationProviderDelegate),
+		["SearchBoxDataProviderDelegate"] = typeof(SearchBoxDataProviderDelegate<>),
+	};
 
 	public static bool IsLibraryType(string typeText)
 	{
