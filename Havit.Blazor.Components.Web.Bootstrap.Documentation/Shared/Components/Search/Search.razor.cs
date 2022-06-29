@@ -112,11 +112,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxValidationMessage", "HxValidationMessage", "form"),
 
 			// Concepts
-			new("/concepts/SettingsAndDefaults", "Settings & Defaults", ""),
-			new("/concepts/Settings", "Settings", ""),
-			new("/concepts/Defaults", "Defaults", ""),
-			new("/concepts/SettingsAndDefaults#Overriding", "Settings & Defaults > Overriding", "override"),
-			new("/concepts/SettingsAndDefaults#WhereToSet", "Defaults > Where to set", ""),
+			new("/concepts/settings-and-defaults", "Settings & Defaults", ""),
 
 			// Supportive types
 
