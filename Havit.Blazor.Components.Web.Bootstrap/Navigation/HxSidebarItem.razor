@@ -12,21 +12,16 @@
                 <div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="hx-sidebar-item-nav-content stretched-link">
 
                     <div class="hx-sidebar-nav-content-inner">
-                        @if (ContentTemplate is null)
+                        @if (Icon is not null)
                         {
-                            if (Icon != null)
-                            {
-                                <HxIcon Icon="Icon" />
-                            }
+                            <HxIcon Icon="Icon" />
+                        }
+
+                        @ContentTemplate
                             
-                            <span class="@CssClassHelper.Combine("text", Icon == null ? null : "ms-3")">
-                                @Text
-                            </span>
-                        }
-                        else
-                        {
-                            @ContentTemplate
-                        }
+                        <span class="@CssClassHelper.Combine("text", Icon == null ? null : "ms-3")">
+                            @Text
+                        </span>
                     </div>
 
                 </div>
@@ -44,23 +39,18 @@
                        data-bs-target="@(!ParentSidebar.Collapsed ? "#" + id : null)"
                        aria-expanded="@(this.ShouldBeExpanded ? "true" : "false")">
                     <div class="hx-sidebar-item-navlink-content">
-                        @if (ContentTemplate is null)
+                        @if (Icon is not null)
                         {
-                            if (Icon != null)
-                            {
-                                <HxIcon Icon="Icon" />
-                            }
-                            <span class="text">
-                                @Text
-                            </span>
+                            <HxIcon Icon="Icon" />
+                        }
 
-                            <HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon" />
-                        }
-                        else
-                        {
-                            @ContentTemplate
-                        }
-                        
+                        @ContentTemplate
+
+                        <span class="text">
+                            @Text
+                        </span>
+
+                        <HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon" />
                     </div>
 
                 </HxNavLink>
@@ -68,7 +58,7 @@
                 @if (ParentSidebar.Collapsed)
                 {
                     <HxDropdownMenu CssClass="hx-sidebar-subitems">
-                        @SubItems
+                        @ChildContent
                     </HxDropdownMenu>
                 }
 
@@ -78,7 +68,7 @@
             {
                 <div class="@CssClassHelper.Combine("hx-sidebar-subitems collapse", this.ShouldBeExpanded ? "show" : null)" id="@id">
                     <nav class="nav hx-sidebar-collapsed-nav">
-                        @SubItems
+                        @ChildContent
                     </nav>
                 </div>
             }
