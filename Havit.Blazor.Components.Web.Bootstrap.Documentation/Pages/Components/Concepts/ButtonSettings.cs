@@ -2,10 +2,7 @@
 
 public static class AppButtonSettings
 {
-	/// <summary>
-	/// We can derive the settings from the defaults using the with statement.
-	/// </summary>
-	public static ButtonSettings MainButton { get; } = HxButton.Defaults with
+	public static ButtonSettings MainButton { get; } = new()
 	{
 		Color = ThemeColor.Primary,
 		Icon = BootstrapIcon.Fullscreen
