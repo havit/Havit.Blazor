@@ -11,12 +11,12 @@
 		/// <summary>
 		/// Visually highlights the first suggestion.
 		/// </summary>
-		[Parameter] public bool HighlightFirstSuggestion { get; set; }
+		[Parameter] public bool HighlightFirstSuggestionEffective { get; set; }
 
 		[Parameter] public RenderFragment EmptyTemplate { get; set; }
 		[Parameter] public string CssClass { get; set; }
 
-		private int hasFocusCount = 0;
+		private bool hasFocus = false;
 
 		private ElementReference FirstItemReference
 		{

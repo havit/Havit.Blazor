@@ -1,4 +1,3 @@
 ﻿::deep .hx-autosuggest-items-item-focus {
-    background-color: #e9ecef !important;
-    outline: -webkit-focus-ring-color auto 1px !important;
+    background-color: var(--bs-gray-200) !important;
 }

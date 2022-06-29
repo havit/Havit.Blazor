@@ -35,6 +35,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// If true, the first suggestion is highlighted until another is chosen by the user.
 		/// </summary>
-		public bool? HighlightFirstSuggestion { get; set; } = true;
+		public bool? HighlightFirstSuggestion { get; set; }
 	}
 }

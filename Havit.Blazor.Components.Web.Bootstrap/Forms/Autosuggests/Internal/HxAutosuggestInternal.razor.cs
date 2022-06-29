@@ -101,7 +101,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <summary>
 		/// If true, the first suggestion is highlighted until another is chosen by the user.
 		/// </summary>
-		[Parameter] public bool HighlightFirstSuggestion { get; set; }
+		[Parameter] public bool HighlightFirstSuggestionEffective { get; set; }
 
 		/// <summary>
 		/// Additional attributes to be splatted onto an underlying HTML element.
@@ -222,7 +222,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <returns></returns>
 		private async Task HandleInputEnterKeyDown()
 		{
-			if (HighlightFirstSuggestion)
+			if (HighlightFirstSuggestionEffective)
 			{
 				await HandleItemClick(suggestions.FirstOrDefault());
 			}

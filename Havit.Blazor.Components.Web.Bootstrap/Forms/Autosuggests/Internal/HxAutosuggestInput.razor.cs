@@ -42,7 +42,7 @@
 
 		private async Task HandleKeyDown(KeyboardEventArgs keyboardEventArgs)
 		{
-			if (keyboardEventArgs.Code == "Enter" || keyboardEventArgs.Code == "NumpadEnter")
+			if ((keyboardEventArgs.Code == "Enter") || (keyboardEventArgs.Code == "NumpadEnter"))
 			{
 				await OnEnter.InvokeAsync();
 			}

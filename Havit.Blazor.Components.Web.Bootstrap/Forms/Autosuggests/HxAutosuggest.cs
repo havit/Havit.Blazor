@@ -103,7 +103,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// If true, the first suggestion is highlighted until another is chosen by the user.
 		/// </summary>
 		[Parameter] public bool? HighlightFirstSuggestion { get; set; }
-		protected bool HightlightFirstSuggestionEffective => this.HighlightFirstSuggestion ?? GetSettings()?.HighlightFirstSuggestion ?? GetDefaults()?.HighlightFirstSuggestion ?? throw new InvalidOperationException(nameof(HighlightFirstSuggestion) + " default for " + nameof(HxAutosuggest) + " has to be set.");
+		protected bool HighlightFirstSuggestionEffective => this.HighlightFirstSuggestion ?? GetSettings()?.HighlightFirstSuggestion ?? GetDefaults()?.HighlightFirstSuggestion ?? throw new InvalidOperationException(nameof(HighlightFirstSuggestion) + " default for " + nameof(HxAutosuggest) + " has to be set.");
 
 		/// <summary>
 		/// Offset between the dropdown and the input.
@@ -175,7 +175,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1023, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartTemplate), this.InputGroupStartTemplate);
 			builder.AddAttribute(1024, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndText), this.InputGroupEndText);
 			builder.AddAttribute(1025, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndTemplate), this.InputGroupEndTemplate);
-			builder.AddAttribute(1026, nameof(HxAutosuggestInternal<TItem, TValue>.HighlightFirstSuggestion), this.HighlightFirstSuggestion);
+			builder.AddAttribute(1026, nameof(HxAutosuggestInternal<TItem, TValue>.HighlightFirstSuggestionEffective), this.HighlightFirstSuggestionEffective);
 
 			builder.AddMultipleAttributes(2000, this.AdditionalAttributes);
 

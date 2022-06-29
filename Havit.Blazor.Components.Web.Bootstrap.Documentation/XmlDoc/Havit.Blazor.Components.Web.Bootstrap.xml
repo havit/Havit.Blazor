@@ -2492,7 +2492,7 @@
             Input-group at the end of the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.HighlightFirstSuggestion">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.HighlightFirstSuggestionEffective">
             <summary>
             If true, the first suggestion is highlighted until another is chosen by the user.
             </summary>
@@ -2508,7 +2508,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems`1.HighlightFirstSuggestion">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems`1.HighlightFirstSuggestionEffective">
             <summary>
             Visually highlights the first suggestion.
             </summary>

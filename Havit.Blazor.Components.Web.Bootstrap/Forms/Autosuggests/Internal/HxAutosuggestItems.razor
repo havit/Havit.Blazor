@@ -8,35 +8,18 @@
 		{
 			TItem currentItem = item;
 
-			@* Not tracking the onfocusin and out events when HightlightFirstSuggestion is false, so that performance doesn't take a hit when it's not necessary. *@
-			if (HighlightFirstSuggestion)
-			{
-				<button
-					@onfocusin="() => hasFocusCount++"
-					@onfocusout="() => hasFocusCount--"
-					class="@CssClassHelper.Combine("dropdown-item text-truncate", (currentItem.Equals(Items.FirstOrDefault()) && HighlightFirstSuggestion && hasFocusCount == 0) ? "hx-autosuggest-items-item-focus" : null)"
-					type="button"
-					@onclick="async () => await HandleItemClick(currentItem)"
-					@onclick:stopPropagation="true"
-					tabindex="-1">
+			<button
+				@onfocusin="@(HighlightFirstSuggestionEffective ? (() => hasFocus = true) : null)"
+				@onfocusout="@(HighlightFirstSuggestionEffective ? (() => hasFocus = false) : null)"
+				class="@CssClassHelper.Combine("dropdown-item text-truncate", (currentItem.Equals(Items.FirstOrDefault()) && HighlightFirstSuggestionEffective && !hasFocus) ? "hx-autosuggest-items-item-focus" : null)"
+				type="button"
+				@onclick="async () => await HandleItemClick(currentItem)"
+				@onclick:stopPropagation="true"
+				tabindex="-1">
 
-					@ItemTemplate(currentItem)
+				@ItemTemplate(currentItem)
 
-				</button>
-			}
-			else
-			{
-				<button
-					class="dropdown-item text-truncate"
-					type="button"
-					@onclick="async () => await HandleItemClick(currentItem)"
-					@onclick:stopPropagation="true"
-					tabindex="-1">
-
-					@ItemTemplate(currentItem)
-
-				</button>
-			}
+			</button>
 		}
 	}
 	else if (EmptyTemplate != null)
