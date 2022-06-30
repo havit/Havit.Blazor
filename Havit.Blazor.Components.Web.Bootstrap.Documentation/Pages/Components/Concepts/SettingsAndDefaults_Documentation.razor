@@ -62,28 +62,4 @@ HxButton.Defaults.Icon = BootstrapIcon.Fullscreen;
 <Demo Type="typeof(SettingsAndDefaults_Demo_Settings)" />
 
 <p>Setting application-wide collection of settings used for varying buttons serving different purposes.</p>
-<CodeSnippet Language="cs">public static class AppButtonSettings
-{
-	/// <summary>
-	/// We can derive the settings from the defaults using the with statement.
-	/// </summary>
-	public static ButtonSettings MainButton { get; } = HxButton.Defaults with
-	{
-		Color = ThemeColor.Primary,
-		Icon = BootstrapIcon.Fullscreen
-	};
-
-	public static ButtonSettings SecondaryButton { get; } = new()
-	{
-		Color = ThemeColor.Secondary,
-		Outline = true
-	};
-
-	public static ButtonSettings CloseButton { get; } = new()
-	{
-		Color = ThemeColor.Danger,
-		Outline = true,
-		Icon = BootstrapIcon.X
-	};
-}
-</CodeSnippet>
+<CodeSnippet Language="cs" File="~\Pages\Components\Concepts\AppButtonSettings.CodeSnippet.cs" />
