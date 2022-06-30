@@ -50,6 +50,10 @@
 		/// Fires when the sidebar is expanded or collapsed.
 		/// </summary>
 		[Parameter] public EventCallback<bool> CollapsedChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="CollapsedChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeCollapsedChangedAsync(bool collapsed) => CollapsedChanged.InvokeAsync(collapsed);
 
 		protected internal string NavContentElementId => Id + "-nav-content";
 
@@ -59,7 +63,7 @@
 		private async Task HandleCollapseToggleClick()
 		{
 			Collapsed = !Collapsed;
-			await CollapsedChanged.InvokeAsync(Collapsed);
+			await InvokeCollapsedChangedAsync(Collapsed);
 		}
 	}
 }

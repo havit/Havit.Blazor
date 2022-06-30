@@ -7040,6 +7040,11 @@
             Fires when the sidebar is expanded or collapsed.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.InvokeCollapsedChangedAsync(System.Boolean)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CollapsedChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand">
             <summary>
             Brand for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.HeaderTemplate"/>.
