@@ -1,4 +1,4 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages.Components.Concepts;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages.Concepts;
 
 public static class AppButtonSettings
 {
