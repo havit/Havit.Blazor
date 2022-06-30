@@ -111,6 +111,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxTreeView", "HxTreeView", "hierarchy"),
 			new("/components/HxValidationMessage", "HxValidationMessage", "form"),
 
+			// Concepts
+			new("/concepts/settings-and-defaults", "Settings & Defaults", ""),
+
 			// Supportive types
 
 			// Defaults (settings)
