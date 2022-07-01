@@ -67,16 +67,18 @@
 					string subtitle = ItemSubtitleSelector?.Invoke(item) ?? null;
 					IconBase icon = ItemIconSelector?.Invoke(item) ?? null;
 
-					<button class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="() => HandleItemSelected(item)">
-						@if (ItemTemplate is null)
-						{
-							<HxSearchBoxItem Title="@title" Subtitle="@subtitle" Icon="@icon" />
-						}
-						else
-						{
-							@ItemTemplate(item)
-						}
-					</button>
+					<li class="overflow-hidden">
+						<a tabindex="0" class="@CssClassHelper.Combine("dropdown-item overflow-hidden", ItemCssClassEffective)" @onclick="() => HandleItemSelected(item)">
+							@if (ItemTemplate is null)
+							{
+								<HxSearchBoxItem Title="@title" Subtitle="@subtitle" Icon="@icon" />
+							}
+							else
+							{
+								@ItemTemplate(item)
+							}
+						</a>
+					</li>
 				}
 			}
 			else if ((TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
@@ -90,16 +92,18 @@
 
 			@if (AllowTextQuery && (TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
 			{
-				<button class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="HandleTextQueryTriggered">
-					@if (TextQueryItemTemplate is null)
-					{
-						<HxSearchBoxItem Title="@TextQuery" Icon="@SearchIconEffective" />
-					}
-					else
-					{
-						@TextQueryItemTemplate(TextQuery)
-					}
-				</button>
+				<li class="overflow-hidden">
+					<a tabindex="0" class="@CssClassHelper.Combine("dropdown-item overflow-hidden", ItemCssClassEffective)" @onclick="HandleTextQueryTriggered">
+						@if (TextQueryItemTemplate is null)
+						{
+							<HxSearchBoxItem Title="@TextQuery" Icon="@SearchIconEffective" />
+						}
+						else
+						{
+							@TextQueryItemTemplate(TextQuery)
+						}
+					</a>
+				</li>
 			}
 		</HxDropdownMenu>
 	</HxDropdown>

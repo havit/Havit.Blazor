@@ -42,16 +42,28 @@
 		/// </summary>
 		[Parameter] public string Id { get; set; } = "hx-" + Guid.NewGuid().ToString("N");
 
-		protected internal bool Collapsed { get; set; } = false;
+		/// <summary>
+		/// Indicates whether the <see cref="HxSidebar"/> is collapsed, can be used to alter the state (expand or collapse the sidebar).
+		/// </summary>
+		[Parameter] public bool Collapsed { get; set; } = false;
+		/// <summary>
+		/// Fires when the sidebar is expanded or collapsed.
+		/// </summary>
+		[Parameter] public EventCallback<bool> CollapsedChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="CollapsedChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeCollapsedChangedAsync(bool collapsed) => CollapsedChanged.InvokeAsync(collapsed);
+
 		protected internal string NavContentElementId => Id + "-nav-content";
 
 
 		private string GetCollapsedCssClass() => Collapsed ? "collapsed" : null;
 
-
-		private void HandleCollapseToggleClick()
+		private async Task HandleCollapseToggleClick()
 		{
 			Collapsed = !Collapsed;
+			await InvokeCollapsedChangedAsync(Collapsed);
 		}
 	}
 }

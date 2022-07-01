@@ -82,7 +82,7 @@
 }
 @media (min-width: 768px) {
 	.hx-sidebar.collapsed ::deep .hx-sidebar-brand-name,
-	.hx-sidebar.collapsed ::deep .hx-sidebar-item-content,
+	.hx-sidebar.collapsed ::deep .hx-sidebar-item-navlink-content-inner,
 	.hx-sidebar.collapsed ::deep .expand-icon {
 		display: none;
 	}
