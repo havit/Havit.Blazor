@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdown"/> to open.
+	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdown"/> to open.
 	/// </summary>
 	public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncDisposable
 	{
@@ -22,7 +22,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Reference element of the dropdown menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
 		/// an HTMLElement reference (e.g. <c>#id</c>) or an object providing <c>getBoundingClientRect</c>.
 		/// For more information refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
-		/// and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
+		/// and <see href="https://popper.js.org/docs/v2/virtual-elements">virtual element docs</see>.
 		/// </summary>
 		[Parameter] public string DropdownReference { get; set; }
 
