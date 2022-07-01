@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Displays bootstrap icon. See <see href="https://icons.getbootstrap.com/">https://icons.getbootstrap.com/</see>.
+	/// Displays bootstrap icon. See <see href="https://icons.getbootstrap.com">https://icons.getbootstrap.com</see>.
 	/// </summary>
 	internal class HxBootstrapIcon : ComponentBase
 	{
