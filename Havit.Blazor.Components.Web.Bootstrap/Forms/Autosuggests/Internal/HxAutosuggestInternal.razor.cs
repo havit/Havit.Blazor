@@ -99,6 +99,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
 		/// <summary>
+		/// If true, the first suggestion is highlighted until another is chosen by the user.
+		/// </summary>
+		[Parameter] public bool HighlightFirstSuggestionEffective { get; set; }
+
+		/// <summary>
 		/// Additional attributes to be splatted onto an underlying HTML element.
 		/// </summary>
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
@@ -208,6 +213,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				// or close a dropdown
 				suggestions = null;
 				await DestroyDropdownAsync();
+			}
+		}
+
+		/// <summary>
+		/// Select the first suggested item when an enter key is pressed.
+		/// </summary>
+		/// <returns></returns>
+		private async Task HandleInputEnterKeyDown()
+		{
+			if (HighlightFirstSuggestionEffective)
+			{
+				await HandleItemClick(suggestions.FirstOrDefault());
 			}
 		}
 

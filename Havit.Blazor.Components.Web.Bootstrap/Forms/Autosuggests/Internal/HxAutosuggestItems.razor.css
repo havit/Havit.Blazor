@@ -1,0 +1,3 @@
+﻿::deep .hx-autosuggest-items-item-highlighted {
+    background-color: var(--hx-autosuggest-item-highlighted-background-color);
+}

@@ -238,16 +238,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 					.Take(5);
 		}
 
-		private void NavigateToFirstResult()
-		{
-			var firstSearchResult = GetSearchItems().FirstOrDefault();
-
-			if (firstSearchResult != null)
-			{
-				NavigateToSelectedPage(firstSearchResult);
-			}
-		}
-
 		public void NavigateToSelectedPage(SearchItem searchItem)
 		{
 			NavigationManager.NavigateTo(searchItem.Href);
