@@ -49,6 +49,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
+		/// Inner custom content for the <see cref="HxSidebarItem"/>.
+		/// </summary>
+		[Parameter] public RenderFragment ContentTemplate { get; set; }
+
+		/// <summary>
 		/// Sub-items (not intended to be used for any other purpose).
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }

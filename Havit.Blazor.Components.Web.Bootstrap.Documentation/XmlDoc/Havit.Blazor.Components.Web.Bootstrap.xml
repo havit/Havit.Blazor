@@ -7146,6 +7146,11 @@
             Any additional CSS class to add.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.ContentTemplate">
+            <summary>
+            Inner custom content for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.ChildContent">
             <summary>
             Sub-items (not intended to be used for any other purpose).

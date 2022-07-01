@@ -1,7 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <CascadingValue Value="this" IsFixed="true">
     <div>
-        @if (!HasExpandableContent)                                           
+        @if (!HasExpandableContent)
         {
             <HxNavLink Href="@Href"
                    CssClass="@CssClassHelper.Combine(this.DropdownContainer is not null ? "dropdown-item" : null, this.CssClass, "position-relative")"
@@ -10,15 +10,19 @@
 
                 @* To hide the nav-content in mobile view *@
                 <div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="stretched-link">
-
                     <div class="hx-sidebar-item-navlink-content">
-                        @if (Icon != null)
+                        @if (Icon is not null)
                         {
                             <HxIcon Icon="Icon" />
                         }
-                        <span class="text">
-                            @Text
-                        </span>                                      
+
+                        <span class="hx-sidebar-item-navlink-content-inner">
+                            @ContentTemplate
+
+                            <span>
+                                @Text
+                            </span>
+                        </span>
                     </div>
 
                 </div>
@@ -36,13 +40,19 @@
                        data-bs-target="@(!ParentSidebar.Collapsed ? "#" + id : null)"
                        aria-expanded="@(this.ShouldBeExpanded ? "true" : "false")">
                     <div class="hx-sidebar-item-navlink-content">
-                        @if (Icon != null)
+                        @if (Icon is not null)
                         {
                             <HxIcon Icon="Icon" />
                         }
-                        <span class="text">
-                            @Text
+
+                        <span class="hx-sidebar-item-navlink-content-inner">
+                            @ContentTemplate
+
+                            <span>
+                                @Text
+                            </span>
                         </span>
+
                         <HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon" />
                     </div>
 
