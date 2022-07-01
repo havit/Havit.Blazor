@@ -1,41 +1,21 @@
-﻿<div style="--hx-sidebar-brand-logo-background-color: var(--bs-primary);">
-	<HxSidebar>
-		<HeaderTemplate>
-			<HxSidebarBrand BrandName="Brand name" BrandNameShort="BN" />
-		</HeaderTemplate>
-		<ItemsTemplate>
-			<HxSidebarItem Icon="BootstrapIcon.Person" Href="test">
-				<ContentTemplate>
-					Notifications <HxBadge Color="ThemeColor.Primary">8</HxBadge>
-				</ContentTemplate>
-				<ChildContent>
-					<HxSidebarItem Icon="BootstrapIcon.Wallet2" Text="First child item" Href="#x1" Match="NavLinkMatch.All">
-						<ContentTemplate>
-							<span class="text-primary ms-3">It</span><span class="text-secondary">em</span> 1
-						</ContentTemplate>
-					</HxSidebarItem>
-					<HxSidebarItem Text="Another item" Href="TODO" />
-					<HxSidebarItem Text="Item 3" Href="TODO" />
-					<HxSidebarItem Text="Another item 4" Href="TODO" />
-				</ChildContent>
-			</HxSidebarItem>
-			<HxSidebarItem Text="Plain section" Icon="BootstrapIcon.Person">
-				<HxSidebarItem Text="Item 1" Href="/HxSidebarTest#x1" Match="NavLinkMatch.All" />
-				<HxSidebarItem Text="Another item" Href="TODO" />
-				<HxSidebarItem Text="Item 3" Href="TODO" />
-				<HxSidebarItem Text="Another item 4" Href="TODO" />
-			</HxSidebarItem>
-			<HxSidebarItem Text="Subitems with icons" Href="TODO" Icon="BootstrapIcon.Clock">
-				<HxSidebarItem Text="Item 1" Icon="BootstrapIcon.Person" Href="#" />
-				<HxSidebarItem Text="Another item" Icon="BootstrapIcon.Clock" Href="TODO" />
-				<HxSidebarItem Text="Item 3" Icon="BootstrapIcon.Wallet2" Href="TODO" />
-				<HxSidebarItem Text="Another item 4" Icon="BootstrapIcon.ClipboardData" Href="TODO" />
-			</HxSidebarItem>
-			<HxSidebarItem Text="First-level item 1" Href="TODO" Icon="BootstrapIcon.Wallet2" />
-			<HxSidebarItem Text="First-level item 1" Href="TODO" Icon="BootstrapIcon.ClipboardData" />
-		</ItemsTemplate>
-		<FooterTemplate>
-			<HxSidebarFooter Text="login" Icon="BootstrapIcon.Person" />
-		</FooterTemplate>
-	</HxSidebar>
-</div>
+﻿<HxSidebar>
+    <ItemsTemplate>
+        <HxSidebarItem Icon="BootstrapIcon.Person" Href="test">
+            <ContentTemplate>
+                Notifications <HxBadge Color="ThemeColor.Primary">8</HxBadge>
+            </ContentTemplate>
+            <ChildContent>
+                <HxSidebarItem Icon="BootstrapIcon.Wallet2" Text="First child item" Href="#x1" Match="NavLinkMatch.All" />
+                <HxSidebarItem Text="Another item" Href="TODO" />
+                <HxSidebarItem Text="Item 3" Href="TODO" />
+                <HxSidebarItem Text="Another item 4" Href="TODO" />
+            </ChildContent>
+        </HxSidebarItem>
+        <HxSidebarItem Text="Plain section" Icon="BootstrapIcon.Person">
+            <HxSidebarItem Text="Item 1" Href="/HxSidebarTest#x1" Match="NavLinkMatch.All" />
+            <HxSidebarItem Text="Another item" Href="TODO" />
+            <HxSidebarItem Text="Item 3" Href="TODO" />
+            <HxSidebarItem Text="Another item 4" Href="TODO" />
+        </HxSidebarItem>
+    </ItemsTemplate>
+</HxSidebar>
