@@ -10,17 +10,18 @@
 
                 @* To hide the nav-content in mobile view *@
                 <div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="hx-sidebar-item-nav-content stretched-link">
-
                     <div class="hx-sidebar-nav-content-inner">
                         @if (Icon is not null)
                         {
                             <HxIcon Icon="Icon" />
                         }
 
-                        @ContentTemplate
+                        <span class="hx-sidebar-item-content">
+                            @ContentTemplate
                             
-                        <span class="@CssClassHelper.Combine("text", Icon == null ? null : "ms-3")">
-                            @Text
+                            <span class="@CssClassHelper.Combine(Icon == null ? null : "ms-3")">
+                                @Text
+                            </span>
                         </span>
                     </div>
 
@@ -44,10 +45,12 @@
                             <HxIcon Icon="Icon" />
                         }
 
-                        @ContentTemplate
+                        <span class="hx-sidebar-item-content">
+                            @ContentTemplate
 
-                        <span class="text">
-                            @Text
+                            <span>
+                                @Text
+                            </span>
                         </span>
 
                         <HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon" />
