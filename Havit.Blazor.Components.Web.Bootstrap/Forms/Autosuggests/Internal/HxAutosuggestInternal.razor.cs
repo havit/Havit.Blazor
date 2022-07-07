@@ -225,6 +225,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			if (HighlightFirstSuggestionEffective)
 			{
 				await HandleItemClick(suggestions.FirstOrDefault());
+				await DestroyDropdownAsync();
 			}
 		}
 
