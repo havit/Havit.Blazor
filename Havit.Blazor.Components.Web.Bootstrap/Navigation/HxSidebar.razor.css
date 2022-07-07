@@ -41,7 +41,14 @@
 }
 
 .hx-sidebar-toggler {
-	display: none;
+	position: absolute;
+	top: 50%;
+	left: 100%;
+	transform: translate(-50%, -50%);
+}
+
+.hx-sidebar-toggler-icon-wrapper {
+	opacity: 0;
 	width: 2em;
 	height: 2em;
 	border-radius: 50%;
@@ -49,24 +56,17 @@
 	align-items: center;
 	justify-content: center;
 	background-color: var(--hx-sidebar-toggler-background);
-	transition: all 0.25s ease-in-out;
 	color: var(--bs-gray);
 	transition: all .25s ease-in-out;
-	position: absolute;
-	top: 50%;
-	left: 100%;
-	opacity: 0;
-	transform: translate(-50%, -50%);
 }
 
-.hx-sidebar:hover .hx-sidebar-toggler {
+.hx-sidebar:hover .hx-sidebar-toggler-icon-wrapper {
 	opacity: .75;
 }
 
-.hx-sidebar .hx-sidebar-toggler:hover {
+.hx-sidebar .hx-sidebar-toggler-icon-wrapper:hover {
 	opacity: 1;
 }
-
 
 .navbar-toggler:hover {
 		color: var(--bs-primary);

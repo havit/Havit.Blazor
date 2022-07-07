@@ -26,20 +26,22 @@
 			<HxSidebarItem Text="First-level item 1" Href="TODO" Icon="BootstrapIcon.ClipboardData" />
 		</ItemsTemplate>
 		<TogglerTemplate>
-			@if (context.Collapsed)
-			{
-				<span style="transform: rotate(-90deg); font-size: 0.5rem;">
-					OPEN
-				</span>
-				<HxIcon Icon="BootstrapIcon.CaretRight" />
-			}
-			else
-			{
-				<HxIcon Icon="BootstrapIcon.CaretLeft" />
-				<span style="transform: rotate(90deg); font-size: 0.5rem;">
-					CLOSE
-				</span>
-			}
+			<div class="d-flex">
+				@if (context.Collapsed)
+				{
+					<span style="transform: translateX(10px) rotate(-90deg); font-size: 0.5rem;">
+						OPEN
+					</span>
+					<HxIcon Icon="BootstrapIcon.CaretRight" />
+				}
+				else
+				{
+					<HxIcon Icon="BootstrapIcon.CaretLeft" />
+					<span style="transform: translateX(-10px) rotate(90deg); font-size: 0.5rem;">
+						CLOSE
+					</span>
+				}
+			</div>
 		</TogglerTemplate>
 		<FooterTemplate>
 			<HxSidebarFooter Text="login" Icon="BootstrapIcon.Person" />

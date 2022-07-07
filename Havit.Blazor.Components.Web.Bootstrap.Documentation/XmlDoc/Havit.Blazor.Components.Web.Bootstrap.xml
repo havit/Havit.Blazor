@@ -7228,6 +7228,11 @@
             Pills <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills</see>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext">
+            <summary>
+            Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate" />.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext.Collapsed">
             <summary>
             Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed or expanded.
