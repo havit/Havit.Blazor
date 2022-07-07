@@ -71,6 +71,16 @@ public static class ApiTypeHelper
 		}
 		catch { }
 
+		try
+		{
+			result = typeof(HxButton).Assembly.GetTypes().Where((t) => t.FullName.Contains(typeName)).FirstOrDefault();
+			if (result is not null)
+			{
+				return result;
+			}
+		}
+		catch { }
+
 		return null;
 	}
 }
