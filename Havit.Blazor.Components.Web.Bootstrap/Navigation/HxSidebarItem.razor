@@ -52,12 +52,9 @@
 
                 </HxNavLink>
 
-                @if (ParentSidebar.Collapsed)
-                {
-                    <HxDropdownMenu CssClass="hx-sidebar-subitems">
-                        @ChildContent
-                    </HxDropdownMenu>
-                }
+                <HxDropdownMenu CssClass="@CssClassHelper.Combine("hx-sidebar-subitems", ParentSidebar.Collapsed ? null : "d-none")">
+                    @ChildContent
+                </HxDropdownMenu>
 
             </HxDropdown>
 
