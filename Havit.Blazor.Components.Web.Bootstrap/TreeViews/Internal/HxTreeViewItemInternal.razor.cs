@@ -18,16 +18,38 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[CascadingParameter] protected HxTreeView<TItem> TreeViewContainer { get; set; }
 
+		private HxCollapse collapseComponent;
+		private bool animating;
+
 		private async Task HandleItemClicked()
 		{
 			await this.OnItemSelected.InvokeAsync(this.Item);
 		}
 
-		private Task HandleItemExpanderClicked()
+		private async Task HandleItemExpanderClicked()
 		{
-			this.IsExpanded = !this.IsExpanded;
+			if (animating)
+			{
+				return;
+			}
 
-			return Task.CompletedTask;
+			animating = true;
+
+			if (this.IsExpanded.GetValueOrDefault())
+			{
+				this.IsExpanded = false;
+				await collapseComponent.HideAsync();
+			}
+			else
+			{
+				this.IsExpanded = true;
+				await collapseComponent.ShowAsync();
+			}
+		}
+
+		private void HandleAnimationCompleted()
+		{
+			animating = false;
 		}
 	}
 }

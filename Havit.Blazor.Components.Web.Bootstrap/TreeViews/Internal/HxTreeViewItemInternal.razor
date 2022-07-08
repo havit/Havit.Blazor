@@ -42,19 +42,27 @@
     }
 </div>
 
-@if (this.IsExpanded.Value && hasChildren)
+@if (hasChildren)
 {
-    foreach (var item in children)
-    {
-        <HxTreeViewItemInternal TItem="TItem"
-                        Item="item"
-                        TitleSelector="this.TitleSelector"
-                        IconSelector="this.IconSelector"
-                        CssClass="@this.CssClass"
-                        CssClassSelector="this.CssClassSelector"
-                        ChildrenSelector="this.ChildrenSelector"
-                        Level="@(this.Level + 1)"
-                        ContentTemplate="this.ContentTemplate"
-                        OnItemSelected="this.OnItemSelected" />
-    }
+    <HxCollapse
+        @ref="collapseComponent"
+        CollapseDirection="CollapseDirection.Vertical"
+        OnShown="HandleAnimationCompleted"
+        OnHidden="HandleAnimationCompleted">
+
+        @foreach (var item in children)
+        {
+            <HxTreeViewItemInternal TItem="TItem"
+                            Item="item"
+                            TitleSelector="this.TitleSelector"
+                            IconSelector="this.IconSelector"
+                            CssClass="@this.CssClass"
+                            CssClassSelector="this.CssClassSelector"
+                            ChildrenSelector="this.ChildrenSelector"
+                            Level="@(this.Level + 1)"
+                            ContentTemplate="this.ContentTemplate"
+                            OnItemSelected="this.OnItemSelected" />
+        }
+
+    </HxCollapse>
 }
