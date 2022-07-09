@@ -3979,7 +3979,7 @@ textarea.form-control-lg {
   border-top-right-radius: 0.375rem;
 }
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
-  border-color: #e9ecef #e9ecef #dee2e6;
+  border-color: transparent;
   isolation: isolate;
 }
 .nav-tabs .nav-link.disabled {

@@ -111,6 +111,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxTreeView", "HxTreeView", "hierarchy"),
 			new("/components/HxValidationMessage", "HxValidationMessage", "form"),
 
+			// Concepts
+			new("/concepts/defaults-and-settings", "Defaults & Settings", "configuration themes wide preset"),
+
 			// Supportive types
 
 			// Defaults (settings)
@@ -233,16 +236,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 						.ThenByDescending(si => si.GetRelevance(userInput))
 						.ThenBy(si => si.Title)
 					.Take(5);
-		}
-
-		private void NavigateToFirstResult()
-		{
-			var firstSearchResult = GetSearchItems().FirstOrDefault();
-
-			if (firstSearchResult != null)
-			{
-				NavigateToSelectedPage(firstSearchResult);
-			}
 		}
 
 		public void NavigateToSelectedPage(SearchItem searchItem)

@@ -1,0 +1,21 @@
+﻿<HxSidebar>
+    <ItemsTemplate>
+        <HxSidebarItem Icon="BootstrapIcon.Person" Href="test">
+            <ContentTemplate>
+                Notifications <HxBadge Color="ThemeColor.Primary">8</HxBadge>
+            </ContentTemplate>
+            <ChildContent>
+                <HxSidebarItem Icon="BootstrapIcon.Wallet2" Text="First child item" Href="#x1" Match="NavLinkMatch.All" />
+                <HxSidebarItem Text="Another item" Href="TODO" />
+                <HxSidebarItem Text="Item 3" Href="TODO" />
+                <HxSidebarItem Text="Another item 4" Href="TODO" />
+            </ChildContent>
+        </HxSidebarItem>
+        <HxSidebarItem Text="Plain section" Icon="BootstrapIcon.Person">
+            <HxSidebarItem Text="Item 1" Href="/HxSidebarTest#x1" Match="NavLinkMatch.All" />
+            <HxSidebarItem Text="Another item" Href="TODO" />
+            <HxSidebarItem Text="Item 3" Href="TODO" />
+            <HxSidebarItem Text="Another item 4" Href="TODO" />
+        </HxSidebarItem>
+    </ItemsTemplate>
+</HxSidebar>

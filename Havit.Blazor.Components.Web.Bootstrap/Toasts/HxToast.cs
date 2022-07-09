@@ -153,7 +153,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					builder.OpenRegion(306);
 					builder.OpenElement(307, "div");
-					builder.AddAttribute(308, "class", "me-2 m-auto");
+					builder.AddAttribute(308, "class", "me-3 m-auto");
 					BuildRenderTree_CloseButton(builder, null);
 					builder.CloseElement();
 					builder.CloseRegion();

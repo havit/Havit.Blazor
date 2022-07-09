@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+	  <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
   </PropertyGroup>
 
 	<!-- NuGet -->
@@ -15,10 +15,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.46.0" />
+		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.47.0" />
 		<PackageReference Include="Havit.AspNetCore" Version="2.0.9" />
 		<PackageReference Include="Havit.Core" Version="2.0.26" />
-		<PackageReference Include="protobuf-net" Version="3.1.4" />
+		<PackageReference Include="protobuf-net" Version="3.1.17" />
 		<PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.0.152" />
 		<!-- Workaround for vulnerability in System.Text.Encodings.Web 4.5.0 -->
 		<PackageReference Include="System.Text.Encodings.Web" Version="6.0.0" />

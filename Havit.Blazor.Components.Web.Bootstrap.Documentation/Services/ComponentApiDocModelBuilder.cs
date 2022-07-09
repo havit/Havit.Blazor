@@ -42,20 +42,26 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		this.docXmlProvider = docXmlProvider;
 	}
 
-	public ComponentApiDocModel BuildModel(Type type, bool isDelegate)
+	public ComponentApiDocModel BuildModel(Type type)
 	{
 		var model = new ComponentApiDocModel();
 		model.Type = type;
-		model.IsDelegate = isDelegate;
+		model.IsDelegate = ApiTypeHelper.IsDelegate(type);
 
 		DocXmlReader reader = LoadDocXmlReaderBasedOnNamespace(type.Namespace);
 
 		MapClassModel(reader, model);
-		MapProperties(reader, model);
-		MapMethods(reader, model);
 
-		AdjustDelegate(model);
-		MapEnum(reader, model);
+		if (model.IsDelegate)
+		{
+			AdjustDelegate(model);
+		}
+		else
+		{
+			MapProperties(reader, model);
+			MapMethods(reader, model);
+			MapEnum(reader, model);
+		}
 
 		return model;
 	}
@@ -86,10 +92,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 
 	private void AdjustDelegate(ComponentApiDocModel model)
 	{
-		if (!model.IsDelegate)
-		{
-			return;
-		}
+		Contract.Requires<InvalidOperationException>(model.IsDelegate);
 
 		MethodInfo invokeMethodInfo = model.Type.GetMethod("Invoke");
 		model.DelegateSignature = $"{ApiRenderer.FormatType(invokeMethodInfo.ReturnType, asLink: false)} {ApiRenderer.FormatType(model.Type, asLink: false)}(";

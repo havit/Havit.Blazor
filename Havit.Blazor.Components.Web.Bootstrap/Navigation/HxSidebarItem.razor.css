@@ -26,11 +26,11 @@
 	display: flex;
 }
 
-::deep .hx-sidebar-subitems.show .text {
+::deep .hx-sidebar-subitems.show .hx-sidebar-item-navlink-content-inner {
 	display: inline-flex;
 }
 
-::deep .hx-sidebar-item .text {
+::deep .hx-sidebar-item .hx-sidebar-item-navlink-content-inner {
 	margin-right: auto;
 }
 

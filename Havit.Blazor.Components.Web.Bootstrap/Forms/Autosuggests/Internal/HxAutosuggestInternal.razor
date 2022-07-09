@@ -17,6 +17,7 @@
 						OnInputInput="HandleInputInput"
 						OnInputFocus="HandleInputFocus"
 						OnInputBlur="HandleInputBlur"
+						OnEnter="HandleInputEnterKeyDown"
 						Placeholder="@Placeholder"
 						CssClass="@((!HasAnyInputGroupEnd ? "rounded-end " : null) + InputCssClass)"
 						DropdownOffset="@DropdownOffset"
@@ -56,7 +57,7 @@
 				<HxIcon Icon="@SearchIconEffective" />
 			}
 		</div>
-		<HxAutosuggestItems CssClass="w-100" TItem="TItem" Items="@suggestions" OnItemClick="HandleItemClick">
+		<HxAutosuggestItems CssClass="w-100" TItem="TItem" Items="@suggestions" OnItemClick="HandleItemClick" HighlightFirstSuggestionEffective="HighlightFirstSuggestionEffective">
 			<ItemTemplate>
 				@if (ItemTemplate != null)
 				{
