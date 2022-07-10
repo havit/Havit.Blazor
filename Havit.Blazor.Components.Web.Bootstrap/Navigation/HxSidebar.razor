@@ -20,9 +20,19 @@
 						@ItemsTemplate
 					</CascadingValue>
 				</HxNav>
-				<div class="hx-sidebar-toggler d-md-flex" role="button" @onclick="HandleCollapseToggleClick"
-					 @onclick:stopPropagation="true">
-					<HxIcon Icon="@(Collapsed ? ExpandIcon : CollapseIcon)" />
+				<div class="hx-sidebar-toggler" role="button" @onclick="HandleCollapseToggleClick"
+					@onclick:stopPropagation="true">
+                    
+					@if (TogglerTemplate is null)
+					{
+						<div class="hx-sidebar-toggler-icon-wrapper d-md-flex">
+							<HxIcon CssClass="hx-sidebar-toggler-icon" Icon="@(Collapsed ? ExpandIcon : CollapseIcon)" />
+						</div>
+					}
+					else
+					{
+						@TogglerTemplate(new() { Collapsed = this.Collapsed })
+					}
 				</div>
 			</div>
 

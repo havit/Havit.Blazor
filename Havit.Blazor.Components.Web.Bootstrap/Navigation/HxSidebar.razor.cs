@@ -17,12 +17,12 @@
 		[Parameter] public RenderFragment ItemsTemplate { get; set; }
 
 		/// <summary>
-		/// Icon for expanding the desktop version.
+		/// Icon for expanding the desktop version. Use <see cref="TogglerTemplate" /> for more specific customization.
 		/// </summary>
 		[Parameter] public IconBase ExpandIcon { get; set; } = BootstrapIcon.ChevronBarRight;
 
 		/// <summary>
-		/// Icon for collapsing the desktop version.
+		/// Icon for collapsing the desktop version. Use <see cref="TogglerTemplate" /> for more specific customization.
 		/// </summary>
 		[Parameter] public IconBase CollapseIcon { get; set; } = BootstrapIcon.ChevronBarLeft;
 
@@ -30,6 +30,11 @@
 		/// Sidebar footer (e.g. logged user, language switch, ...).
 		/// </summary>
 		[Parameter] public RenderFragment FooterTemplate { get; set; }
+
+		/// <summary>
+		/// Vertical toggler (desktop version) to be rendered instead of the <see cref="ExpandIcon"/> and <see cref="CollapseIcon"/> icon.
+		/// </summary>
+		[Parameter] public RenderFragment<SidebarTogglerTemplateContext> TogglerTemplate { get; set; }
 
 		/// <summary>
 		/// Additional CSS class.

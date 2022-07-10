@@ -7032,17 +7032,22 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.ExpandIcon">
             <summary>
-            Icon for expanding the desktop version.
+            Icon for expanding the desktop version. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate" /> for more specific customization.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CollapseIcon">
             <summary>
-            Icon for collapsing the desktop version.
+            Icon for collapsing the desktop version. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate" /> for more specific customization.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.FooterTemplate">
             <summary>
             Sidebar footer (e.g. logged user, language switch, ...).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate">
+            <summary>
+            Vertical toggler (desktop version) to be rendered instead of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.ExpandIcon"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CollapseIcon"/> icon.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CssClass">
@@ -7267,6 +7272,16 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Pills">
             <summary>
             Pills <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills</see>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext">
+            <summary>
+            Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext.Collapsed">
+            <summary>
+            Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed or expanded.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas">
