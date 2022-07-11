@@ -60,6 +60,12 @@
 		/// </summary>
 		protected virtual Task InvokeCollapsedChangedAsync(bool collapsed) => CollapsedChanged.InvokeAsync(collapsed);
 
+		/// <summary>
+		/// Breakpoint below which the sidebar switches to mobile version (exclusive).<br/>
+		/// Default is <see cref="SidebarResponsiveBreakpoint.Medium"/>.
+		/// </summary>
+		[Parameter] public SidebarResponsiveBreakpoint ResponsiveBreakpoint { get; set; } = SidebarResponsiveBreakpoint.Medium;
+
 		protected internal string NavContentElementId => Id + "-nav-content";
 
 
@@ -69,6 +75,20 @@
 		{
 			Collapsed = !Collapsed;
 			await InvokeCollapsedChangedAsync(Collapsed);
+		}
+
+		private string GetResponsiveCssClass(string cssClassPattern)
+		{
+			return this.ResponsiveBreakpoint switch
+			{
+				SidebarResponsiveBreakpoint.None => cssClassPattern.Replace("-??-", "-"), // !!! Simplified for the use case of this component.
+				SidebarResponsiveBreakpoint.Small => cssClassPattern.Replace("??", "sm"),
+				SidebarResponsiveBreakpoint.Medium => cssClassPattern.Replace("??", "md"),
+				SidebarResponsiveBreakpoint.Large => cssClassPattern.Replace("??", "lg"),
+				SidebarResponsiveBreakpoint.ExtraLarge => cssClassPattern.Replace("??", "xl"),
+				SidebarResponsiveBreakpoint.Xxl => cssClassPattern.Replace("??", "xxl"),
+				_ => throw new InvalidOperationException($"Unknown nameof(ResponsiveBreakpoint) value {this.ResponsiveBreakpoint}")
+			};
 		}
 	}
 }

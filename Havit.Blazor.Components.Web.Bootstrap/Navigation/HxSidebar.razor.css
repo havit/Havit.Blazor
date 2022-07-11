@@ -69,7 +69,7 @@
 }
 
 .navbar-toggler:hover {
-		color: var(--bs-primary);
+	color: var(--bs-primary);
 }
 
 ::deep a[aria-expanded="true"] .bi-chevron-right {
@@ -80,10 +80,9 @@
 .hx-sidebar.collapsed {
 	width: var(--hx-sidebar-collapsed-width);
 }
-@media (min-width: 768px) {
+
 	.hx-sidebar.collapsed ::deep .hx-sidebar-brand-name,
 	.hx-sidebar.collapsed ::deep .hx-sidebar-item-navlink-content-inner,
 	.hx-sidebar.collapsed ::deep .expand-icon {
 		display: none;
 	}
-}

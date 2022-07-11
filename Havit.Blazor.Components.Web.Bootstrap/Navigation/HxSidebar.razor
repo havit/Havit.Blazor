@@ -1,47 +1,54 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<div class="@CssClassHelper.Combine("hx-sidebar flex-md-grow-0", GetCollapsedCssClass(), this.CssClass)" id="@Id">
-	<div class="nav-menu d-flex flex-column flex-grow-1 position-relative">
+<div class="@CssClassHelper.Combine("hx-sidebar", GetResponsiveCssClass("flex-??-grow-0"), GetCollapsedCssClass(), this.CssClass)" id="@Id">
+    <div class="nav-menu d-flex flex-column flex-grow-1 position-relative">
 
-		@if (HeaderTemplate is not null)
-		{
-			<div class="hx-sidebar-header d-flex align-items-center">
-				@HeaderTemplate
-				<button class="navbar-toggler navbar-light d-md-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#@NavContentElementId" aria-controls="@NavContentElementId" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-			</div>
-		}
+        @if (HeaderTemplate is not null)
+        {
+            <div class="hx-sidebar-header d-flex align-items-center">
+                @HeaderTemplate
+                <button
+                    class="@CssClassHelper.Combine("navbar-toggler navbar-light ms-auto", GetResponsiveCssClass("d-??-none"))"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#@NavContentElementId"
+                    aria-controls="@NavContentElementId"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        }
 
-		<div class="@CssClassHelper.Combine("hx-sidebar-collapse collapse d-md-flex", (!Collapsed) ? "overflow-auto": null)" id="@NavContentElementId">
-			<div class="hx-sidebar-body mb-auto w-100">
-				<HxNav Orientation="NavOrientation.Vertical" CssClass="ps-0">
-					<CascadingValue Value="@this">
-						@ItemsTemplate
-					</CascadingValue>
-				</HxNav>
-				<div class="hx-sidebar-toggler" role="button" @onclick="HandleCollapseToggleClick"
-					@onclick:stopPropagation="true">
-                    
-					@if (TogglerTemplate is null)
-					{
-						<div class="hx-sidebar-toggler-icon-wrapper d-md-flex">
-							<HxIcon CssClass="hx-sidebar-toggler-icon" Icon="@(Collapsed ? ExpandIcon : CollapseIcon)" />
-						</div>
-					}
-					else
-					{
-						@TogglerTemplate(new() { Collapsed = this.Collapsed })
-					}
-				</div>
-			</div>
+        <div class="@CssClassHelper.Combine("hx-sidebar-collapse collapse", GetResponsiveCssClass("d-??-flex"), (!Collapsed) ? "overflow-auto": null)" id="@NavContentElementId">
+            <div class="hx-sidebar-body mb-auto w-100">
+                <HxNav Orientation="NavOrientation.Vertical" CssClass="ps-0">
+                    <CascadingValue Value="@this">
+                        @ItemsTemplate
+                    </CascadingValue>
+                </HxNav>
+                <div class="hx-sidebar-toggler" role="button" @onclick="HandleCollapseToggleClick"
+                     @onclick:stopPropagation="true">
 
-			@if (FooterTemplate is not null)
-			{
-				<div class="hx-sidebar-footer">
-					@FooterTemplate
-				</div>
-			}
-		</div>
-	</div>
+                    @if (TogglerTemplate is null)
+                    {
+                        <div class="@CssClassHelper.Combine("hx-sidebar-toggler-icon-wrapper", GetResponsiveCssClass("d-??-flex"))">
+                            <HxIcon CssClass="hx-sidebar-toggler-icon" Icon="@(Collapsed ? ExpandIcon : CollapseIcon)" />
+                        </div>
+                    }
+                    else
+                    {
+                        @TogglerTemplate(new() { Collapsed = this.Collapsed })
+                    }
+                </div>
+            </div>
+
+            @if (FooterTemplate is not null)
+            {
+                <div class="hx-sidebar-footer">
+                    @FooterTemplate
+                </div>
+            }
+        </div>
+    </div>
 </div>
