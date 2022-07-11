@@ -22,7 +22,7 @@
 				SortAscendingIcon = BootstrapIcon.SortAlphaDown,
 				SortDescendingIcon = BootstrapIcon.SortAlphaDownAlt,
 				ItemRowHeight = 41, // 41px = row-height of regular table-row within Bootstrap 5 default theme
-				OverscanCount = 50,
+				OverscanCount = 3,
 				PageSize = 20,
 				PlaceholdersRowCount = 5,
 				ShowFooterWhenEmptyData = false,
