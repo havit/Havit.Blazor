@@ -31,6 +31,8 @@
 }
 
 ::deep .hx-sidebar-item .hx-sidebar-item-navlink-content-inner {
+	display: flex;
+	align-items: center;
 	margin-right: auto;
 }
 
