@@ -8,24 +8,22 @@ using Microsoft.AspNetCore.Components.Forms;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
-// To-Do: BindEvent - onchange / oninput
-
 /// <summary>
 /// Allows the user to select a number in a specified range using a slider.
 /// </summary>
-public class HxInputSlider : HxInputBase<float>
+public class HxInputRange : HxInputBase<float>
 {
 	/// <summary>
-	/// Application-wide defaults for the <see cref="HxInputSlider"/>.
+	/// Application-wide defaults for the <see cref="HxInputRange"/>.
 	/// </summary>
-	public static SliderSettings Defaults { get; set; }
+	public static RangeSettings Defaults { get; set; }
 
 	/// <summary>
-	/// Return <see cref="HxInputSlider"/> defaults.
+	/// Return <see cref="HxInputRange"/> defaults.
 	/// Enables to not share defaults in descandants with base classes.
 	/// Enables to have multiple descendants which differs in the default values.
 	/// </summary>
-	protected virtual SliderSettings GetDefaults() => HxInputSlider.Defaults;
+	protected virtual RangeSettings GetDefaults() => HxInputRange.Defaults;
 
 	/// <summary>
 	/// Minimum value.
@@ -40,7 +38,7 @@ public class HxInputSlider : HxInputBase<float>
 	protected float MaxEffective => Max ?? GetDefaults().Max;
 
 	/// <summary>
-	/// By default, slider inputs snap to integer values. To change this, you can specify a step value.
+	/// By default, <code>HxInputRange</code> snaps to integer values. To change this, you can specify a step value.
 	/// </summary>
 	[Parameter] public float? Step { get; set; }
 	protected virtual float? StepEffective => Step ?? GetDefaults()?.Step;
@@ -49,13 +47,13 @@ public class HxInputSlider : HxInputBase<float>
 	/// Instructs whether the <c>Value</c> is going to be updated <c>oninput</c> (immediately), or <c>onchange</c> (usually <c>onmouseup</c>).
 	/// </summary>
 	[Parameter] public BindEvent? BindEvent { get; set; }
-	protected virtual BindEvent BindEventEffective => BindEvent ?? GetDefaults()?.BindEvent ?? throw new InvalidOperationException(nameof(BindEvent) + " default for " + nameof(HxInputSlider) + " has to be set.");
+	protected virtual BindEvent BindEventEffective => BindEvent ?? GetDefaults()?.BindEvent ?? throw new InvalidOperationException(nameof(BindEvent) + " default for " + nameof(HxInputRange) + " has to be set.");
 
 	private protected override string CoreInputCssClass => "form-range";
 
-	static HxInputSlider()
+	static HxInputRange()
 	{
-		Defaults = new SliderSettings()
+		Defaults = new RangeSettings()
 		{
 			Min = 0,
 			Max = 100,
@@ -96,6 +94,6 @@ public class HxInputSlider : HxInputBase<float>
 
 	protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out float result, [NotNullWhen(false)] out string validationErrorMessage)
 	{
-		throw new InvalidOperationException("HxInputSlider displays no text value and receives the initial value as float, therefore, this method must not be called.");
+		throw new InvalidOperationException("HxInputRange displays no text value and receives the initial value as float, therefore, this method must not be called.");
 	}
 }

@@ -3837,39 +3837,39 @@
             <inheritdoc/>
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputSlider">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange">
             <summary>
             Allows the user to select a number in a specified range using a slider.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputSlider.Defaults">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.Defaults">
             <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputSlider"/>.
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange"/>.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputSlider.GetDefaults">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.GetDefaults">
             <summary>
-            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputSlider"/> defaults.
+            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange"/> defaults.
             Enables to not share defaults in descandants with base classes.
             Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputSlider.Min">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.Min">
             <summary>
             Minimum value.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputSlider.Max">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.Max">
             <summary>
             Maximum value.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputSlider.Step">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.Step">
             <summary>
-            By default, slider inputs snap to integer values. To change this, you can specify a step value.
+            By default, <code>HxInputRange</code> snaps to integer values. To change this, you can specify a step value.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputSlider.BindEvent">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.BindEvent">
             <summary>
             Instructs whether the <c>Value</c> is going to be updated <c>oninput</c> (immediately), or <c>onchange</c> (usually <c>onmouseup</c>).
             </summary>
@@ -4623,6 +4623,33 @@
             Input size.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.RangeSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RangeSettings.Min">
+            <summary>
+            Minimum value.
+            Default is <c>0</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RangeSettings.Max">
+            <summary>
+            Maximum value.
+            Default is <c>100</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RangeSettings.Step">
+            <summary>
+            By default, slider inputs snap to integer values. To change this, you can specify a step value.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RangeSettings.BindEvent">
+            <summary>
+            Instructs whether the <code>Value</code> is going to be updated instantly, or <code>onchange</code> (usually <code>onmouseup</code>).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox">
             <summary>
             Non-generic API for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1" />.
@@ -4917,33 +4944,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.InputSize">
             <summary>
             Input size.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SliderSettings">
-            <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputSlider"/> component.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SliderSettings.Min">
-            <summary>
-            Minimum value.
-            Default is <c>0</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SliderSettings.Max">
-            <summary>
-            Maximum value.
-            Default is <c>100</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SliderSettings.Step">
-            <summary>
-            By default, slider inputs snap to integer values. To change this, you can specify a step value.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SliderSettings.BindEvent">
-            <summary>
-            Instructs whether the <code>Value</code> is going to be updated instantly, or <code>onchange</code> (usually <code>onmouseup</code>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate">

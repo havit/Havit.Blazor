@@ -1,23 +1,23 @@
-﻿@attribute [Route("/components/" + nameof(HxInputSlider))]
+﻿@attribute [Route("/components/" + nameof(HxInputRange))]
 
-<ComponentApiDoc Type="typeof(HxInputSlider)">
+<ComponentApiDoc Type="typeof(HxInputRange)">
 
-    <Demo Type="typeof(HxInputSlider_Demo)" />
+    <Demo Type="typeof(HxInputRange_Demo)" />
 
     <SectionTitle Id="disabled" Title="Disabled" />
     <p>Set the <code>Enabled</code> parameter to <code>false</code> in order to give the input a grayed out appearance and make it not interactable.</p>
-    <Demo Type="typeof(HxInputSlider_Demo_Disabled)" />
+    <Demo Type="typeof(HxInputRange_Demo_Disabled)" />
 
     <SectionTitle Id="min-max" Title="Min and max" />
     <p>By default, the component's value is kept between <code>0</code> and <code>100</code>, you may adjust these values by setting the <code>Min</code> and <code>Max</code> parameters.</p>
-    <Demo Type="typeof(HxInputSlider_Demo_MinMax)" />
+    <Demo Type="typeof(HxInputRange_Demo_MinMax)" />
 
     <SectionTitle Id="steps" Title="Steps" />
-    <p>By default, <code>HxInputSlider</code> "snaps" to integer values. To change this, you can supply a value to the <code>Step</code> parameter.</p>
-    <Demo Type="typeof(HxInputSlider_Demo_Steps)" />
+    <p>By default, <code>HxInputRange</code> "snaps" to integer values. To change this, you can supply a value to the <code>Step</code> parameter.</p>
+    <Demo Type="typeof(HxInputRange_Demo_Steps)" />
 
     <SectionTitle Id="bind-event" Title="Bind event" />
     <p>Decides whether the <code>Value</code> is going to be updated <code>onchange</code> or <code>oninput</code> (immediately). Default is <code>BindEvent.OnChange</code>.</p>
-    <Demo Type="typeof(HxInputSlider_Demo_BindEvent)" />
+    <Demo Type="typeof(HxInputRange_Demo_BindEvent)" />
 
 </ComponentApiDoc>

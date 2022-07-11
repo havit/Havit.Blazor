@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Settings for the <see cref="HxInputSlider"/> component.
+/// Settings for the <see cref="HxInputRange"/> component.
 /// </summary>
-public class SliderSettings
+public class RangeSettings
 {
 	/// <summary>
 	/// Minimum value.
