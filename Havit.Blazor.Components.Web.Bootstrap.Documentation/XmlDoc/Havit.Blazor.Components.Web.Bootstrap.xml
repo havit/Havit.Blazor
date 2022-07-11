@@ -7076,6 +7076,12 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CollapsedChanged"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.ResponsiveBreakpoint">
+            <summary>
+            Breakpoint below which the sidebar switches to mobile version (exclusive).<br/>
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Medium"/>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand">
             <summary>
             Brand for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.HeaderTemplate"/>.
@@ -7272,6 +7278,36 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Pills">
             <summary>
             Pills <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills</see>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.None">
+            <summary>
+            Mobile mode disabled, allways render as sidebar.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Small">
+            <summary>
+            Mobile for viewports bellow "small" breakpoint (<c>576px</c>, exclusive).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Medium">
+            <summary>
+            Mobile for viewports bellow "medium" breakpoint (<c>768px</c>, exclusive).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Large">
+            <summary>
+            Mobile for viewports bellow "large" breakpoint (<c>992px</c>, exclusive).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.ExtraLarge">
+            <summary>
+            Mobile for viewports bellow "extra-large" breakpoint (<c>1200px</c>, exclusive).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Xxl">
+            <summary>
+            Mobile for viewports bellow "XXL" breakpoint (<c>1400px</c>, exclusive).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext">
