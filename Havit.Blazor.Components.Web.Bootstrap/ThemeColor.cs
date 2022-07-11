@@ -2,7 +2,7 @@
 {
 	/// <summary>
 	/// Bootstrap theme colors <see href="https://getbootstrap.com/docs/5.0/customize/color/#theme-colors">https://getbootstrap.com/docs/5.0/customize/color/#theme-colors</see>
-	/// (+ Link from predefined button styles <see href="https://getbootstrap.com/docs/5.0/components/buttons">https://getbootstrap.com/docs/5.0/components/buttons</see>)
+	/// (+ Link from predefined button styles <see href="https://getbootstrap.com/docs/5.0/components/buttons/">https://getbootstrap.com/docs/5.0/components/buttons/</see>)
 	/// </summary>
 	public enum ThemeColor
 	{

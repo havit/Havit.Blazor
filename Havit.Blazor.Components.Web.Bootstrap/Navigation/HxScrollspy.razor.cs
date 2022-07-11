@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.0/components/scrollspy">Bootstrap Scrollspy</see> component.<br />
+	/// <see href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</see> component.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxScrollspy">https://havit.blazor.eu/components/HxScrollspy</see>
 	/// </summary>
 	public partial class HxScrollspy : IAsyncDisposable
