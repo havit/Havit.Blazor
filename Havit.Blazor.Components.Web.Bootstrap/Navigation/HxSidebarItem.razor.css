@@ -30,7 +30,7 @@
 	display: inline-flex;
 }
 
-::deep .hx-sidebar-item .hx-sidebar-item-navlink-content-inner {
+::deep .hx-sidebar-item-navlink-content-inner {
 	margin-right: auto;
 }
 
