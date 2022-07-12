@@ -58,7 +58,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task DelayedStateHasChanged()
 		{
-			await Task.Delay(1);
+			await Task.Delay(50);
 			StateHasChanged();
 		}
 
