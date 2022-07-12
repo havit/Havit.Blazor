@@ -1,16 +1,6 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 
-@{
-    var icon = this.IconSelector?.Invoke(this.Item) ?? null;
-    var title = this.TitleSelector?.Invoke(this.Item) ?? null;
-    var cssClassFromSelector = this.CssClassSelector?.Invoke(this.Item) ?? null;
-    var children = this.ChildrenSelector(this.Item);
-    var hasChildren = children?.Any() ?? false;
-    var isSelected = this.Item.Equals(this.TreeViewContainer.SelectedItem);
-    this.IsExpanded ??= this.InitialExpandedSelector?.Invoke(this.Item) ?? false;
-}
-
 <div class="@CssClassHelper.Combine("hx-tree-view-item", isSelected ? "selected" : "", this.CssClass, cssClassFromSelector)" @onclick="@HandleItemClicked" @onclick:stopPropagation="true">
     @for (int i = 0; i < this.Level; i++)
     {
@@ -19,7 +9,7 @@
     <div class="hx-tree-view-item-expander-container">
         @if (hasChildren)
         {
-            <div class="hx-tree-view-item-expander @(this.IsExpanded.Value ? "expanded" : "")"  @onclick="HandleItemExpanderClicked" @onclick:stopPropagation="true">
+            <div class="hx-tree-view-item-expander @(this.IsExpanded.GetValueOrDefault() ? "expanded" : "")"  @onclick="HandleItemExpanderClicked" @onclick:stopPropagation="true">
                     <div>
                         <HxIcon Icon="@BootstrapIcon.ChevronRight" />
                     </div>
