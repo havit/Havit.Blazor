@@ -134,7 +134,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
 			{
 				for (int i = splitLink.Length - 1; i >= 0; i--) // loop through the array from the back, prepend the current part, and stop once the component name is reached
 				{
-					fullLink = $"{splitLink[i]}/{fullLink}";
+					fullLink = $"{splitLink[i]}";
 
 					if (splitLink[i].Contains("Hx"))
 					{

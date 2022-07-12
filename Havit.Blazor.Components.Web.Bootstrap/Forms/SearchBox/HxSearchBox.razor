@@ -68,7 +68,7 @@
 					IconBase icon = ItemIconSelector?.Invoke(item) ?? null;
 
 					<li class="overflow-hidden">
-						<a tabindex="0" class="@CssClassHelper.Combine("dropdown-item overflow-hidden", ItemCssClassEffective)" @onclick="() => HandleItemSelected(item)">
+						<a tabindex="0" class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="() => HandleItemSelected(item)">
 							@if (ItemTemplate is null)
 							{
 								<HxSearchBoxItem Title="@title" Subtitle="@subtitle" Icon="@icon" />
@@ -93,7 +93,7 @@
 			@if (AllowTextQuery && (TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
 			{
 				<li class="overflow-hidden">
-					<a tabindex="0" class="@CssClassHelper.Combine("dropdown-item overflow-hidden", ItemCssClassEffective)" @onclick="HandleTextQueryTriggered">
+					<a tabindex="0" class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="HandleTextQueryTriggered">
 						@if (TextQueryItemTemplate is null)
 						{
 							<HxSearchBoxItem Title="@TextQuery" Icon="@SearchIconEffective" />

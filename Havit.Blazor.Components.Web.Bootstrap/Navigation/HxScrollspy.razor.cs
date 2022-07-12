@@ -31,6 +31,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private IJSObjectReference jsModule;
 		private ElementReference scrollspyElement;
 		private bool initialized;
+		private bool disposed;
 
 		/// <inheritdoc />
 		protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -40,6 +41,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender && !initialized)
 			{
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("initialize", scrollspyElement, TargetId);
 				initialized = true;
 			}
@@ -54,6 +59,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (initialized)
 			{
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("refresh", scrollspyElement);
 			}
 			else
@@ -77,6 +86,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected virtual async ValueTask DisposeAsyncCore()
 		{
+			disposed = true;
+
 			if (jsModule != null)
 			{
 				await jsModule.InvokeVoidAsync("dispose", scrollspyElement);

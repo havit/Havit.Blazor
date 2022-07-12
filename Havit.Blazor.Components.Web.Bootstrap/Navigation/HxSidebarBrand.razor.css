@@ -1,12 +1,18 @@
 ﻿.hx-sidebar-brand-logo {
 	width: var(--hx-sidebar-brand-logo-width);
 	height: var(--hx-sidebar-brand-logo-height);
-	background-color: var(--hx-sidebar-brand-logo-background-color);
-	border-radius: var(--hx-sidebar-brand-logo-border-radius);
+}
+
+.hx-sidebar-brand-shortname {
+	background-color: var(--hx-sidebar-brand-shortname-background-color);
+	border-radius: var(--hx-sidebar-brand-shortname-border-radius);
+	width: var(--hx-sidebar-brand-shortname-width);
+	height: var(--hx-sidebar-brand-shortname-height);
+	font-weight: var(--hx-sidebar-brand-shortname-font-weight);
+	color: var(--hx-sidebar-brand-shortname-color);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: var(--hx-sidebar-brand-logo-color);
 }
 
 a {
