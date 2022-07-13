@@ -3495,6 +3495,11 @@
             Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.Reverse">
+            <summary>
+            Put the checkbox on the opposite side - first text, then checkbox.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.RenderOrder">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder" />
         </member>

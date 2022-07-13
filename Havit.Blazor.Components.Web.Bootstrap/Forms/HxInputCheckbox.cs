@@ -14,6 +14,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool Inline { get; set; }
 
+		/// <summary>
+		/// Put the checkbox on the opposite side - first text, then checkbox.
+		/// </summary>
+		[Parameter] public bool Reverse { get; set; }
+
 		[Inject] protected IStringLocalizer<HxInputCheckbox> Localizer { get; set; }
 
 		/// <inheritdoc cref="LabelValueRenderOrder" />
@@ -28,7 +33,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					return "position-relative";
 				}
-				return CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null, "position-relative");
+				return CssClassHelper.Combine(
+					"form-check",
+					this.Inline ? "form-check-inline" : null,
+					"position-relative",
+					this.Reverse ? "form-check-reverse" : null);
 			}
 		}
 
