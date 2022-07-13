@@ -7382,6 +7382,11 @@
             Placement of the offcanvas. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasPlacement.End"/> (right).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.ResponsiveBreakpoint">
+            <summary>
+            Breakpoint below which the contents are rendered outside the viewport in an offcanvas (above this breakpoint, the offcanvas body is rendered inside the viewport).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.RenderMode">
             <summary>
             Determines whether the content is always rendered or only if the offcanvas is open. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasRenderMode.OpenOnly"/>.
@@ -7506,6 +7511,36 @@
             Needed for HxFilterForm with HxChipList.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.None">
+            <summary>
+            Offcanvas disabled, always render contents inside the viewport.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.Small">
+            <summary>
+            Render contents outside the viewport in an offcanvas when below the "small" breakpoint (<c>576px</c>, exclusive).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.Medium">
+            <summary>
+            Render contents outside the viewport in an offcanvas when below the "medium" breakpoint (<c>768px</c>, exclusive).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.Large">
+            <summary>
+            Render contents outside the viewport in an offcanvas when below the "large" breakpoint (<c>992px</c>, exclusive).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.ExtraLarge">
+            <summary>
+            Render contents outside the viewport in an offcanvas when bellow "extra-large" breakpoint (<c>1200px</c>, exclusive).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.Xxl">
+            <summary>
+            Render contents outside the viewport in an offcanvas when bellow "XXL" breakpoint (<c>1400px</c>, exclusive).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> component.
@@ -7526,6 +7561,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.BackdropEnabled">
             <summary>
             Indicates whether to apply a backdrop on body while offcanvas is open.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.ResponsiveBreakpoint">
+            <summary>
+            Breakpoint below which the contents are rendered outside the viewport in an offcanvas (above this breakpoint, the offcanvas body is rendered inside the viewport).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.Placement">

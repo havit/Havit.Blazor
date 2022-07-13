@@ -23,6 +23,11 @@
 		public bool? BackdropEnabled { get; set; }
 
 		/// <summary>
+		/// Breakpoint below which the contents are rendered outside the viewport in an offcanvas (above this breakpoint, the offcanvas body is rendered inside the viewport).
+		/// </summary>
+		public OffcanvasResponsiveBreakpoint? ResponsiveBreakpoint { get; set; }
+
+		/// <summary>
 		/// Placement of the offcanvas.
 		/// </summary>
 		public OffcanvasPlacement? Placement { get; set; }

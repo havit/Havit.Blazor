@@ -21,6 +21,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				ShowCloseButton = true,
 				BackdropEnabled = true,
 				Placement = OffcanvasPlacement.End,
+				ResponsiveBreakpoint = OffcanvasResponsiveBreakpoint.None,
 				Size = OffcanvasSize.Regular,
 				CloseOnEscape = true,
 				ScrollingEnabled = false,
@@ -74,6 +75,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public OffcanvasPlacement? Placement { get; set; }
 		protected OffcanvasPlacement PlacementEffective => this.Placement ?? this.GetSettings()?.Placement ?? GetDefaults().Placement ?? throw new InvalidOperationException(nameof(Placement) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+
+		/// <summary>
+		/// Breakpoint below which the contents are rendered outside the viewport in an offcanvas (above this breakpoint, the offcanvas body is rendered inside the viewport).
+		/// </summary>
+		[Parameter] public OffcanvasResponsiveBreakpoint? ResponsiveBreakpoint { get; set; }
+		protected OffcanvasResponsiveBreakpoint ResponsiveBreakpointEffective => this.ResponsiveBreakpoint ?? this.GetSettings()?.ResponsiveBreakpoint ?? GetDefaults().ResponsiveBreakpoint ?? throw new InvalidOperationException(nameof(ResponsiveBreakpoint) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 		/// <summary>
 		/// Determines whether the content is always rendered or only if the offcanvas is open. Default is <see cref="OffcanvasRenderMode.OpenOnly"/>.
@@ -274,6 +281,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 			dotnetObjectReference.Dispose();
+		}
+
+		private string GetOffcanvasResponsiveCssClass()
+		{
+			return this.ResponsiveBreakpointEffective switch
+			{
+				OffcanvasResponsiveBreakpoint.None => "offcanvas",
+				OffcanvasResponsiveBreakpoint.Small => "offcanvas-sm",
+				OffcanvasResponsiveBreakpoint.Medium => "offcanvas-md",
+				OffcanvasResponsiveBreakpoint.Large => "offcanvas-lg",
+				OffcanvasResponsiveBreakpoint.ExtraLarge => "offcanvas-xl",
+				OffcanvasResponsiveBreakpoint.Xxl => "offcanvas-xxl",
+				_ => throw new InvalidOperationException($"Unknown {nameof(HxOffcanvas)}.{nameof(ResponsiveBreakpoint)} value {this.ResponsiveBreakpointEffective:g}.")
+			};
 		}
 
 		private string GetPlacementCssClass()

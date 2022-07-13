@@ -1,0 +1,22 @@
+﻿<HxButton OnClick="HandleOpen" Text="Open" Color="ThemeColor.Primary" CssClass="d-lg-none" />
+
+<HxOffcanvas @ref="offcanvasComponent" Title="Title" ResponsiveBreakpoint="OffcanvasResponsiveBreakpoint.Large">
+	<BodyTemplate>
+		<p class="mb-0">This is content within an <code>.offcanvas-lg</code>.</p>
+	</BodyTemplate>
+</HxOffcanvas>
+
+@code
+{
+	private HxOffcanvas offcanvasComponent;
+
+	private async Task HandleOpen()
+	{
+		await offcanvasComponent.ShowAsync();
+	}
+
+	private async Task HandleHide()
+	{
+		await offcanvasComponent.HideAsync();
+	}
+}
