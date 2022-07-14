@@ -1,6 +1,22 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 
+@{
+    IconBase icon = this.IconSelector?.Invoke(this.Item) ?? null;
+    string title = this.TitleSelector?.Invoke(this.Item) ?? null;
+    string cssClassFromSelector = this.CssClassSelector?.Invoke(this.Item) ?? null;
+    IEnumerable<TItem> children = this.ChildrenSelector(this.Item);
+    bool hasChildren = children?.Any() ?? false;
+    bool isSelected = this.Item.Equals(this.TreeViewContainer.SelectedItem);
+    bool shouldBeInitiallyExpanded = this.InitialExpandedSelector?.Invoke(this.Item) ?? false;
+
+    if (!hasBeenInitiallyExpanded && shouldBeInitiallyExpanded && hasChildren)
+    {
+        hasBeenInitiallyExpanded = true;
+        IsExpanded = true;
+    }
+}
+
 <div class="@CssClassHelper.Combine("hx-tree-view-item", isSelected ? "selected" : "", this.CssClass, cssClassFromSelector)" @onclick="@HandleItemClicked" @onclick:stopPropagation="true">
     @for (int i = 0; i < this.Level; i++)
     {
@@ -38,7 +54,8 @@
         @ref="collapseComponent"
         CollapseDirection="CollapseDirection.Vertical"
         OnShown="HandleAnimationCompleted"
-        OnHidden="HandleAnimationCompleted">
+        OnHidden="HandleAnimationCompleted"
+        InitiallyExpanded="shouldBeInitiallyExpanded">
 
         @foreach (var item in children)
         {

@@ -1224,6 +1224,11 @@
             Additional CSS class.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.InitiallyExpanded">
+            <summary>
+            Determines whether the collapse will be open or closed (expanded or collapsed) when first rendered.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.ChildContent">
             <summary>
             Content of the collapse.
@@ -3011,6 +3016,28 @@
             <summary>
             Receives notification from javascript when content is hidden.
             </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTreeViewItemInternal`1.animating">
+            <summary>
+            Indicates whether the collapse is currently animating (expanding or collapsing).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTreeViewItemInternal`1.hasBeenInitiallyExpanded">
+            <summary>
+            Indicates whether initial (first render) expansion has already taken place.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTreeViewItemInternal`1.Expand">
+            <summary>
+            Expand the item with an animation.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTreeViewItemInternal`1.Collapse">
+            <summary>
+            Collapse the item with an animation.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.BindEvent">
             <summary>

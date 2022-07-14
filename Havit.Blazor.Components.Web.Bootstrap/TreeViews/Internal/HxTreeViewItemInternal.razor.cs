@@ -18,49 +18,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[CascadingParameter] protected HxTreeView<TItem> TreeViewContainer { get; set; }
 
-		private HxCollapse collapseComponent;
-		private bool animating;
+		protected HxCollapse collapseComponent;
+		/// <summary>
+		/// Indicates whether the collapse is currently animating (expanding or collapsing).
+		/// </summary>
+		protected bool animating;
 
-		private bool initialExpansionStarted = false;
-
-		private IconBase icon;
-		private string title;
-		private string cssClassFromSelector;
-		private IEnumerable<TItem> children;
-		private bool hasChildren => children?.Any() ?? false;
-		private bool isSelected => this.Item.Equals(this.TreeViewContainer.SelectedItem);
-
-		protected override void OnParametersSet()
-		{
-			icon = this.IconSelector?.Invoke(this.Item) ?? null;
-			title = this.TitleSelector?.Invoke(this.Item) ?? null;
-			cssClassFromSelector = this.CssClassSelector?.Invoke(this.Item) ?? null;
-			children = this.ChildrenSelector(this.Item);
-		}
-
-		protected override async Task OnAfterRenderAsync(bool firstRender)
-		{
-			if (!initialExpansionStarted && !firstRender)
-			{
-				this.IsExpanded ??= this.InitialExpandedSelector?.Invoke(this.Item) ?? false;
-
-				if (this.IsExpanded.GetValueOrDefault() && collapseComponent is not null)
-				{
-					initialExpansionStarted = true;
-					await Expand();
-				}
-			}
-			else if (firstRender)
-			{
-				Task delayedStateHasChanged = DelayedStateHasChanged();
-			}
-		}
-
-		private async Task DelayedStateHasChanged()
-		{
-			await Task.Delay(50);
-			StateHasChanged();
-		}
+		/// <summary>
+		/// Indicates whether initial (first render) expansion has already taken place.
+		/// </summary>
+		protected bool hasBeenInitiallyExpanded;
 
 		private async Task HandleItemClicked()
 		{
@@ -69,11 +36,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task HandleItemExpanderClicked()
 		{
-			if (animating)
-			{
-				return;
-			}
-
 			if (this.IsExpanded.GetValueOrDefault())
 			{
 				await Collapse();
@@ -84,16 +46,33 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 		}
 
-		private async Task Expand()
+		/// <summary>
+		/// Expand the item with an animation.
+		/// </summary>
+		/// <returns></returns>
+		public async Task Expand()
 		{
+			if (collapseComponent is null || animating)
+			{
+				return;
+			}
+
 			animating = true;
 			IsExpanded = true;
-			StateHasChanged();
 			await collapseComponent.ShowAsync();
 		}
 
-		private async Task Collapse()
+		/// <summary>
+		/// Collapse the item with an animation.
+		/// </summary>
+		/// <returns></returns>
+		public async Task Collapse()
 		{
+			if (collapseComponent is null || animating)
+			{
+				return;
+			}
+
 			animating = true;
 			IsExpanded = false;
 			await collapseComponent.HideAsync();

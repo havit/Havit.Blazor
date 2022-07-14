@@ -32,6 +32,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
+		/// Determines whether the collapse will be open or closed (expanded or collapsed) when first rendered.
+		/// </summary>
+		[Parameter] public bool InitiallyExpanded { get; set; }
+
+		/// <summary>
 		/// Content of the collapse.
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
@@ -70,6 +75,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private bool isShown;
 		private bool showInProgress;
 		private bool hideInProgress;
+		private bool parametersHaveBeenSet;
 
 		public HxCollapse()
 		{
@@ -97,6 +103,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					return;
 				}
 				await jsModule.InvokeVoidAsync("initialize", collapseHtmlElement, dotnetObjectReference);
+			}
+		}
+
+		protected override void OnParametersSet()
+		{
+			if (InitiallyExpanded && !parametersHaveBeenSet)
+			{
+				parametersHaveBeenSet = true;
+				isShown = true;
 			}
 		}
 
