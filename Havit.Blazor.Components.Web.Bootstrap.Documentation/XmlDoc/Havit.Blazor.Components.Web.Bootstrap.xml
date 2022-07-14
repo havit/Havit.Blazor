@@ -4817,6 +4817,14 @@
             Shows whether the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.HandleKeyPress(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,System.Action)">
+            <summary>
+            If enter is pressed, specified action is taken.
+            </summary>
+            <param name="keyboardEventArgs"></param>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ShouldDropdownMenuBeDisplayed">
             <summary>
             If the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.DefaultContentTemplate"/> is empty, we don't want to display anything when nothing (or below the minimum amount of characters) is typed into the input.

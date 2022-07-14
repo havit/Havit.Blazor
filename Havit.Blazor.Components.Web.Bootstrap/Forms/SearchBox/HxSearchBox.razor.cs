@@ -355,6 +355,20 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		await ClearInputAsync();
 	}
 
+	/// <summary>
+	/// If enter is pressed, specified action is taken.
+	/// </summary>
+	/// <param name="keyboardEventArgs"></param>
+	/// <param name="action"></param>
+	/// <returns></returns>
+	protected void HandleKeyPress(KeyboardEventArgs keyboardEventArgs, Action action)
+	{
+		if ((keyboardEventArgs.Code == "Enter") || (keyboardEventArgs.Code == "NumpadEnter"))
+		{
+			action();
+		}
+	}
+
 	protected async Task OnDropdownMenuShown()
 	{
 		dropdownMenuActive = true;
