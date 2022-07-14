@@ -16,44 +16,57 @@ public class HxInputRange : HxInputBase<float>
 	/// <summary>
 	/// Application-wide defaults for the <see cref="HxInputRange"/>.
 	/// </summary>
-	public static RangeSettings Defaults { get; set; }
+	public static InputRangeSettings Defaults { get; set; }
 
 	/// <summary>
 	/// Return <see cref="HxInputRange"/> defaults.
 	/// Enables to not share defaults in descandants with base classes.
 	/// Enables to have multiple descendants which differs in the default values.
 	/// </summary>
-	protected virtual RangeSettings GetDefaults() => HxInputRange.Defaults;
+	protected virtual InputRangeSettings GetDefaults() => HxInputRange.Defaults;
+
+	/// <summary>
+	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+	/// </summary>
+	[Parameter] public InputRangeSettings Settings { get; set; }
+
+	/// <summary>
+	/// Returns an optional set of component settings.
+	/// </summary>
+	/// <remarks>
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> for components descendants (by returning a derived settings class).
+	/// </remarks>
+	protected virtual InputRangeSettings GetSettings() => this.Settings;
 
 	/// <summary>
 	/// Minimum value.
 	/// </summary>
 	[Parameter] public float? Min { get; set; }
-	protected float MinEffective => Min ?? GetDefaults().Min;
+	protected float MinEffective => Min ?? GetSettings()?.Min ?? GetDefaults()?.Min ?? throw new InvalidOperationException(nameof(Min) + " default for " + nameof(HxInputRange) + " has to be set.");
 
 	/// <summary>
 	/// Maximum value.
 	/// </summary>
 	[Parameter] public float? Max { get; set; }
-	protected float MaxEffective => Max ?? GetDefaults().Max;
+	protected float MaxEffective => Max ?? GetSettings()?.Max ?? GetDefaults()?.Max ?? throw new InvalidOperationException(nameof(Max) + " default for " + nameof(HxInputRange) + " has to be set");
 
 	/// <summary>
 	/// By default, <code>HxInputRange</code> snaps to integer values. To change this, you can specify a step value.
 	/// </summary>
 	[Parameter] public float? Step { get; set; }
-	protected virtual float? StepEffective => Step ?? GetDefaults()?.Step;
+	protected virtual float? StepEffective => Step ?? GetDefaults()?.Step ?? GetDefaults()?.Step;
 
 	/// <summary>
 	/// Instructs whether the <c>Value</c> is going to be updated <c>oninput</c> (immediately), or <c>onchange</c> (usually <c>onmouseup</c>).
 	/// </summary>
 	[Parameter] public BindEvent? BindEvent { get; set; }
-	protected virtual BindEvent BindEventEffective => BindEvent ?? GetDefaults()?.BindEvent ?? throw new InvalidOperationException(nameof(BindEvent) + " default for " + nameof(HxInputRange) + " has to be set.");
+	protected virtual BindEvent BindEventEffective => BindEvent ?? GetSettings()?.BindEvent ?? GetDefaults()?.BindEvent ?? throw new InvalidOperationException(nameof(BindEvent) + " default for " + nameof(HxInputRange) + " has to be set.");
 
 	private protected override string CoreInputCssClass => "form-range";
 
 	static HxInputRange()
 	{
-		Defaults = new RangeSettings()
+		Defaults = new InputRangeSettings()
 		{
 			Min = 0,
 			Max = 100,

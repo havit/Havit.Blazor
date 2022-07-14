@@ -3854,6 +3854,19 @@
             Enables to have multiple descendants which differs in the default values.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.Defaults"/>, overriden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.Settings"/> for components descendants (by returning a derived settings class).
+            </remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.Min">
             <summary>
             Minimum value.
@@ -4568,6 +4581,33 @@
             Hint to browsers as to the type of virtual keyboard configuration to use when editing.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings.Min">
+            <summary>
+            Minimum value.
+            Default is <c>0</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings.Max">
+            <summary>
+            Maximum value.
+            Default is <c>100</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings.Step">
+            <summary>
+            By default, slider inputs snap to integer values. To change this, you can specify a step value.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings.BindEvent">
+            <summary>
+            Instructs whether the <code>Value</code> is going to be updated instantly, or <code>onchange</code> (usually <code>onmouseup</code>).
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputSizeExtensions.AsFormControlCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
             <summary>
             Returns CSS class to render input (form-control) with desired size.
@@ -4621,33 +4661,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.InputSize">
             <summary>
             Input size.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.RangeSettings">
-            <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange"/> component.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RangeSettings.Min">
-            <summary>
-            Minimum value.
-            Default is <c>0</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RangeSettings.Max">
-            <summary>
-            Maximum value.
-            Default is <c>100</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RangeSettings.Step">
-            <summary>
-            By default, slider inputs snap to integer values. To change this, you can specify a step value.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RangeSettings.BindEvent">
-            <summary>
-            Instructs whether the <code>Value</code> is going to be updated instantly, or <code>onchange</code> (usually <code>onmouseup</code>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox">
