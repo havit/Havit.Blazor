@@ -11,22 +11,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Allows the user to select a number in a specified range using a slider.
 /// </summary>
-public class HxInputRange : HxInputBase<float>
+public class HxInputRange<TValue> : HxInputBase<TValue> where TValue : struct
 {
 	/// <summary>
-	/// Application-wide defaults for the <see cref="HxInputRange"/>.
-	/// </summary>
-	public static InputRangeSettings Defaults { get; set; }
-
-	/// <summary>
-	/// Return <see cref="HxInputRange"/> defaults.
+	/// Returns <see cref="HxInputRange"/> defaults.
 	/// Enables to not share defaults in descandants with base classes.
 	/// Enables to have multiple descendants which differs in the default values.
 	/// </summary>
 	protected virtual InputRangeSettings GetDefaults() => HxInputRange.Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputRange.Defaults"/>, overriden by individual parameters).
 	/// </summary>
 	[Parameter] public InputRangeSettings Settings { get; set; }
 
@@ -39,40 +34,27 @@ public class HxInputRange : HxInputBase<float>
 	protected virtual InputRangeSettings GetSettings() => this.Settings;
 
 	/// <summary>
-	/// Minimum value.
-	/// </summary>
-	[Parameter] public float? Min { get; set; }
-	protected float MinEffective => Min ?? GetSettings()?.Min ?? GetDefaults()?.Min ?? throw new InvalidOperationException(nameof(Min) + " default for " + nameof(HxInputRange) + " has to be set.");
-
-	/// <summary>
-	/// Maximum value.
-	/// </summary>
-	[Parameter] public float? Max { get; set; }
-	protected float MaxEffective => Max ?? GetSettings()?.Max ?? GetDefaults()?.Max ?? throw new InvalidOperationException(nameof(Max) + " default for " + nameof(HxInputRange) + " has to be set");
-
-	/// <summary>
 	/// By default, <code>HxInputRange</code> snaps to integer values. To change this, you can specify a step value.
 	/// </summary>
-	[Parameter] public float? Step { get; set; }
-	protected virtual float? StepEffective => Step ?? GetDefaults()?.Step ?? GetDefaults()?.Step;
+	[Parameter] public TValue? Step { get; set; }
+
+	/// <summary>
+	/// Minimum value. Default is 0.
+	/// </summary>
+	[Parameter] public TValue? Min { get; set; }
+
+	/// <summary>
+	/// Maximum value. Default is 100.
+	/// </summary>
+	[Parameter] public TValue? Max { get; set; }
 
 	/// <summary>
 	/// Instructs whether the <c>Value</c> is going to be updated <c>oninput</c> (immediately), or <c>onchange</c> (usually <c>onmouseup</c>).
 	/// </summary>
 	[Parameter] public BindEvent? BindEvent { get; set; }
-	protected virtual BindEvent BindEventEffective => BindEvent ?? GetSettings()?.BindEvent ?? GetDefaults()?.BindEvent ?? throw new InvalidOperationException(nameof(BindEvent) + " default for " + nameof(HxInputRange) + " has to be set.");
+	protected virtual BindEvent BindEventEffective => BindEvent ?? GetSettings()?.BindEvent ?? GetDefaults()?.BindEvent ?? throw new InvalidOperationException(nameof(BindEvent) + " default for " + nameof(HxInputRange<TValue>) + " has to be set.");
 
 	private protected override string CoreInputCssClass => "form-range";
-
-	static HxInputRange()
-	{
-		Defaults = new InputRangeSettings()
-		{
-			Min = 0,
-			Max = 100,
-			BindEvent = Bootstrap.BindEvent.OnChange
-		};
-	}
 
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
@@ -84,10 +66,10 @@ public class HxInputRange : HxInputBase<float>
 		builder.AddAttribute(4, "value", BindConverter.FormatValue(Value));
 		builder.AddAttribute(5, BindEventEffective.ToEventName(), EventCallback.Factory.CreateBinder(this, async value => await HandleValueChanged(value), Value));
 
-		builder.AddAttribute(10, "min", MinEffective);
-		builder.AddAttribute(11, "max", MaxEffective);
+		builder.AddAttribute(10, "min", Min);
+		builder.AddAttribute(11, "max", Max);
 
-		builder.AddAttribute(15, "step", StepEffective);
+		builder.AddAttribute(15, "step", Step);
 
 		builder.AddAttribute(20, "disabled", !EnabledEffective);
 
@@ -99,13 +81,13 @@ public class HxInputRange : HxInputBase<float>
 		builder.CloseElement();
 	}
 
-	protected async Task HandleValueChanged(float value)
+	protected async Task HandleValueChanged(TValue value)
 	{
 		Value = value;
 		await ValueChanged.InvokeAsync(Value);
 	}
 
-	protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out float result, [NotNullWhen(false)] out string validationErrorMessage)
+	protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string validationErrorMessage)
 	{
 		throw new InvalidOperationException("HxInputRange displays no text value and receives the initial value as float, therefore, this method must not be called.");
 	}
