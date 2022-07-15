@@ -7280,6 +7280,16 @@
             Pills <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills</see>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarItemContentTemplateContext">
+            <summary>
+            Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.ContentTemplate" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarItemContentTemplateContext.Collapsed">
+            <summary>
+            Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/> is collapsed or expanded. Is <c>null</c> when item has no expandable content.
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.None">
             <summary>
             Mobile mode disabled, allways render as sidebar.

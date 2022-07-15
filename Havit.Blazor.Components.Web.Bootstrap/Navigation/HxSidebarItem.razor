@@ -17,7 +17,10 @@
                         }
 
                         <span class="hx-sidebar-item-navlink-content-inner">
-                            @ContentTemplate
+                            @if (ContentTemplate is not null)
+                            {
+                                @ContentTemplate(new(){ Collapsed = null })
+                            }
                             @Text
                         </span>
                     </div>
@@ -35,7 +38,10 @@
                     }
 
                     <span class="hx-sidebar-item-navlink-content-inner">
-                        @ContentTemplate
+                        @if (ContentTemplate is not null)
+                        {
+                            @ContentTemplate(new(){ Collapsed = this.Collapsed })
+                        }
                         @Text
                     </span>
 
@@ -80,11 +86,16 @@
 
                 </HxNavLink>
 
-                <div class="@CssClassHelper.Combine("hx-sidebar-subitems collapse", this.ShouldBeExpanded ? "show" : null)" id="@id">
+                <HxCollapse
+                    Id="@id"
+                    @ref="collapseComponent"
+                    CssClass="hx-sidebar-subitems"
+                    OnShown="() => collapsed = false"
+                    OnHidden="() => collapsed = true"> @* Add following attribute: InitiallyExpanded="ShouldBeExpanded" (waiting for https://github.com/havit/Havit.Blazor/pull/246) *@
                     <nav class="nav hx-sidebar-collapsed-nav">
                         @ChildContent
                     </nav>
-                </div>
+                </HxCollapse>
             }
         }
     </div>

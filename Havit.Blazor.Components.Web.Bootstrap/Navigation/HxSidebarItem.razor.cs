@@ -51,7 +51,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Inner custom content for the <see cref="HxSidebarItem"/>.
 		/// </summary>
-		[Parameter] public RenderFragment ContentTemplate { get; set; }
+		[Parameter] public RenderFragment<SidebarItemContentTemplateContext> ContentTemplate { get; set; }
 
 		/// <summary>
 		/// Sub-items (not intended to be used for any other purpose).
@@ -64,7 +64,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Inject] protected NavigationManager NavigationManager { get; set; }
 
+		public bool Collapsed => collapsed;
+		protected bool collapsed;
+
 		private string id = "hx" + Guid.NewGuid().ToString("N");
+		private HxCollapse collapseComponent;
 		protected List<HxSidebarItem> childItems;
 		internal CollectionRegistration<HxSidebarItem> ChildItemsRegistration { get; }
 		protected bool isDisposed;
@@ -104,6 +108,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 		*/
+
+		public async Task Expand()
+		{
+			await collapseComponent?.ShowAsync();
+		}
+
+		public async Task Collapse()
+		{
+			await collapseComponent?.HideAsync();
+		}
 
 		public async ValueTask DisposeAsync()
 		{
