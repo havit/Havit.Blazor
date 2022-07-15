@@ -187,7 +187,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 
 		builder.AddMultipleAttributes(200, this.AdditionalAttributes);
 
-		builder.AddComponentReferenceCapture(111, r => hxMultiSelectInternalComponent = (HxMultiSelectInternal<TValue, TItem>)r);
+		builder.AddComponentReferenceCapture(300, r => hxMultiSelectInternalComponent = (HxMultiSelectInternal<TValue, TItem>)r);
 
 		builder.CloseComponent();
 	}
