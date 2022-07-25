@@ -29,3 +29,17 @@
     display: flex;
     justify-content: space-between;
 }
+
+::deep .hx-dropdown-with-calendar {
+    flex-grow: 1;
+}
+
+::deep .hx-border-radius-start-0 {
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+}
+
+::deep .hx-border-radius-end-0 {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
