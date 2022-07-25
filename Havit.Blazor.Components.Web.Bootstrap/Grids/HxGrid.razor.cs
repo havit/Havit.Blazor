@@ -115,6 +115,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected virtual Task InvokeSelectedDataItemsChangedAsync(HashSet<TItem> selectedDataItems) => SelectedDataItemsChanged.InvokeAsync(selectedDataItems);
 
 		/// <summary>
+		/// Event fires when an item (row) is clicked.
+		/// </summary>
+		[Parameter] public EventCallback<TItem> OnDataItemClicked { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnDataItemClicked"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
+		protected virtual Task InvokeOnDataItemClickedAsync(TItem item) => OnDataItemClicked.InvokeAsync(item);
+
+		/// <summary>
 		/// Strategy how data are displayed in the grid (and loaded to the grid).
 		/// </summary>
 		[Parameter] public GridContentNavigationMode? ContentNavigationMode { get; set; }
@@ -423,7 +434,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task HandleSelectOrMultiSelectDataItemClick(TItem clickedDataItem)
 		{
-			Contract.Requires(SelectionEnabled || MultiSelectionEnabled);
+			await InvokeOnDataItemClickedAsync(clickedDataItem);
 
 			if (SelectionEnabled)
 			{

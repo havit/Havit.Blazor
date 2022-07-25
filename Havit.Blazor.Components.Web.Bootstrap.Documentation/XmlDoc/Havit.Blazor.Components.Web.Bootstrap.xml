@@ -5299,6 +5299,18 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemsChanged"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.OnDataItemClicked">
+            <summary>
+            Event fires when an item (row) is clicked.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InvokeOnDataItemClickedAsync(`0)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.OnDataItemClicked"/> event. Allows interception of the event in derived components.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ContentNavigationMode">
             <summary>
             Strategy how data are displayed in the grid (and loaded to the grid).
