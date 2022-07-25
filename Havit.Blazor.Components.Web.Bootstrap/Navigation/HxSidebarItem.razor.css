@@ -19,7 +19,8 @@
 	gap: .75rem;
 }
 
-::deep .hx-sidebar-subitems .nav-link {
+::deep .hx-sidebar-subitems.collapse .nav-link,
+::deep .hx-sidebar-subitems.collapsing .nav-link {
 	margin: var(--hx-sidebar-subitem-margin);
 	padding: var(--hx-sidebar-subitem-padding);
 	font-size: var(--hx-sidebar-subitem-font-size);
