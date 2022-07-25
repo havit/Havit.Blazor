@@ -19,11 +19,12 @@
 	<p>Use <code>HxCollapseToggleElement</code> (<code>with ElementName="..."</code>) instead of <code>HxCollapseToggleButton</code> to create custom toggler (usually you will add <code>role="button"</code> to apply pointer cursor type).</p>
 	<Demo Type="typeof(HxCollapse_Demo_CustomToggleElement)" />
 
-	<SectionTitle Id="InitiallyExpanded" />
-	<p>Decide whether the collapse will be open or closed (expanded or collapsed) when first rendered.</p>
+	<SectionTitle Id="InitiallyExpanded" Title="Start as expanded" />
+	<p>The <code>HxCollapse</code> starts in collapsed state by default. If you want it to be expanded, set the <code>InitiallyExpanded</code> parameter:</p>
 	<Demo Type="typeof(HxCollapse_Demo_InitiallyExpanded)" />
 
 	<SectionTitle Id="Programming" />
+    <p>You can use <code>ShowAsync()</code> and <code>HideAsync()</code> methods to expand/collapse the component from your code.</p>
 	<Demo Type="typeof(HxCollapse_Demo_Programming)" />
 
 </ComponentApiDoc>
