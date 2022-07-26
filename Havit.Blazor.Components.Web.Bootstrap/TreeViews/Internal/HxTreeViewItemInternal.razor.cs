@@ -24,10 +24,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		protected bool animating;
 
-		/// <summary>
-		/// Indicates whether initial (first render) expansion has already taken place.
-		/// </summary>
-		protected bool hasBeenInitiallyExpanded;
+		protected bool initiallyExpanded;
+
+		protected override void OnInitialized()
+		{
+			initiallyExpanded = this.InitialExpandedSelector?.Invoke(this.Item) ?? false;
+			if (initiallyExpanded)
+			{
+				IsExpanded = true;
+			}
+		}
 
 		private async Task HandleItemClicked()
 		{
@@ -78,8 +84,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await collapseComponent.HideAsync();
 		}
 
-		private void HandleAnimationCompleted()
+		private void HandleExpansionCompleted()
 		{
+			IsExpanded = true;
+			animating = false;
+		}
+
+		private void HandleCollapseCompleted()
+		{
+			IsExpanded = false;
 			animating = false;
 		}
 	}

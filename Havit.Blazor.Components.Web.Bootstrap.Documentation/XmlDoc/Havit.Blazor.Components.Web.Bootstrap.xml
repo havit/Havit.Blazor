@@ -3022,11 +3022,6 @@
             Indicates whether the collapse is currently animating (expanding or collapsing).
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTreeViewItemInternal`1.hasBeenInitiallyExpanded">
-            <summary>
-            Indicates whether initial (first render) expansion has already taken place.
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTreeViewItemInternal`1.Expand">
             <summary>
             Expand the item with an animation.

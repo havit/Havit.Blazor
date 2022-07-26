@@ -75,7 +75,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private bool isShown;
 		private bool showInProgress;
 		private bool hideInProgress;
-		private bool parametersHaveBeenSet;
 
 		public HxCollapse()
 		{
@@ -106,11 +105,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		protected override void OnParametersSet()
+		protected override void OnInitialized()
 		{
-			if (InitiallyExpanded && !parametersHaveBeenSet)
+			if (InitiallyExpanded)
 			{
-				parametersHaveBeenSet = true;
 				isShown = true;
 			}
 		}

@@ -8,13 +8,6 @@
     IEnumerable<TItem> children = this.ChildrenSelector(this.Item);
     bool hasChildren = children?.Any() ?? false;
     bool isSelected = this.Item.Equals(this.TreeViewContainer.SelectedItem);
-    bool shouldBeInitiallyExpanded = this.InitialExpandedSelector?.Invoke(this.Item) ?? false;
-
-    if (!hasBeenInitiallyExpanded && shouldBeInitiallyExpanded && hasChildren)
-    {
-        hasBeenInitiallyExpanded = true;
-        IsExpanded = true;
-    }
 }
 
 <div class="@CssClassHelper.Combine("hx-tree-view-item", isSelected ? "selected" : "", this.CssClass, cssClassFromSelector)" @onclick="@HandleItemClicked" @onclick:stopPropagation="true">
@@ -53,9 +46,9 @@
     <HxCollapse
         @ref="collapseComponent"
         CollapseDirection="CollapseDirection.Vertical"
-        OnShown="HandleAnimationCompleted"
-        OnHidden="HandleAnimationCompleted"
-        InitiallyExpanded="shouldBeInitiallyExpanded">
+        OnShown="HandleExpansionCompleted"
+        OnHidden="HandleCollapseCompleted"
+        InitiallyExpanded="initiallyExpanded">
 
         @foreach (var item in children)
         {
