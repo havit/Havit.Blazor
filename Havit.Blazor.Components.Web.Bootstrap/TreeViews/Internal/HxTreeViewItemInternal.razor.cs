@@ -44,11 +44,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			if (this.IsExpanded.GetValueOrDefault())
 			{
-				await Collapse();
+				await CollapseAsync();
 			}
 			else
 			{
-				await Expand();
+				await ExpandAsync();
 			}
 		}
 
@@ -56,7 +56,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// Expand the item with an animation.
 		/// </summary>
 		/// <returns></returns>
-		public async Task Expand()
+		protected async Task ExpandAsync()
 		{
 			if (collapseComponent is null || animating)
 			{
@@ -72,7 +72,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// Collapse the item with an animation.
 		/// </summary>
 		/// <returns></returns>
-		public async Task Collapse()
+		protected async Task CollapseAsync()
 		{
 			if (collapseComponent is null || animating)
 			{

@@ -52,7 +52,9 @@
 
         @foreach (var item in children)
         {
-            <HxTreeViewItemInternal TItem="TItem"
+            <HxTreeViewItemInternal
+                            @key="item"
+                            TItem="TItem"
                             Item="item"
                             TitleSelector="this.TitleSelector"
                             IconSelector="this.IconSelector"
