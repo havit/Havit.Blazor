@@ -7097,10 +7097,22 @@
             Brand logo.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.LogoShort">
+            <summary>
+            Brand logo to be displayed when the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.BrandNameShort">
             <summary>
             Brand short name.
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.GetCssClass(System.String)">
+            <summary>
+            Adjusts the css class for the element to be hidden when the containg sidebar is collapsed.
+            </summary>
+            <param name="cssClass"></param>
+            <returns></returns>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter">
             <summary>

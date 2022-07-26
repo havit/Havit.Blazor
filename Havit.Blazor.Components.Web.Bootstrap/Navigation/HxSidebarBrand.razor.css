@@ -1,4 +1,6 @@
-﻿.hx-sidebar-brand-logo {
+﻿.hx-sidebar-brand-logo,
+.hx-sidebar-brand-logo-short,
+.hx-sidebar-brand-logo-normal {
 	width: var(--hx-sidebar-brand-logo-width);
 	height: var(--hx-sidebar-brand-logo-height);
 }
@@ -13,6 +15,15 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.hx-sidebar-brand-logo-short,
+.collapsed .hx-hide-when-in-collapsed-sidebar {
+	display: none;
+}
+
+.collapsed .hx-sidebar-brand-logo-short {
+	display: block;
 }
 
 a {

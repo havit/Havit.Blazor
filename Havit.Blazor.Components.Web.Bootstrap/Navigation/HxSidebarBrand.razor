@@ -1,10 +1,22 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <a href="./">
-	@if(Logo != null) {
-		<div class="hx-sidebar-brand-logo">@Logo</div>
+	@if (Logo != null)
+	{
+		<div class="@GetCssClass("hx-sidebar-brand-logo")">
+			@Logo
+		</div>
 	}
-	else {
-		<div class="hx-sidebar-brand-shortname">@BrandNameShort</div>
+	else
+	{
+		<span class="@GetCssClass("hx-sidebar-brand-shortname")">@BrandNameShort</span>
 	}
+
+	@if (LogoShort != null)
+	{
+		<div class="hx-sidebar-brand-logo-short">
+			@LogoShort
+		</div>
+	}
+
 	<span class="hx-sidebar-brand-name">@BrandName</span>
 </a>
