@@ -18,13 +18,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[CascadingParameter] protected HxTreeView<TItem> TreeViewContainer { get; set; }
 
-		protected HxCollapse collapseComponent;
-		/// <summary>
-		/// Indicates whether the collapse is currently animating (expanding or collapsing).
-		/// </summary>
-		protected bool animating;
-
-		protected bool initiallyExpanded;
+		private string collapseId = "hx" + Guid.NewGuid().ToString("N");
+		private bool initiallyExpanded;
 
 		protected override void OnInitialized()
 		{
@@ -40,60 +35,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await this.OnItemSelected.InvokeAsync(this.Item);
 		}
 
-		private async Task HandleItemExpanderClicked()
+		private void HandleAnimationCompleted()
 		{
-			if (this.IsExpanded.GetValueOrDefault())
-			{
-				await CollapseAsync();
-			}
-			else
-			{
-				await ExpandAsync();
-			}
-		}
-
-		/// <summary>
-		/// Expand the item with an animation.
-		/// </summary>
-		/// <returns></returns>
-		protected async Task ExpandAsync()
-		{
-			if (collapseComponent is null || animating)
-			{
-				return;
-			}
-
-			animating = true;
-			IsExpanded = true;
-			await collapseComponent.ShowAsync();
-		}
-
-		/// <summary>
-		/// Collapse the item with an animation.
-		/// </summary>
-		/// <returns></returns>
-		protected async Task CollapseAsync()
-		{
-			if (collapseComponent is null || animating)
-			{
-				return;
-			}
-
-			animating = true;
-			IsExpanded = false;
-			await collapseComponent.HideAsync();
-		}
-
-		private void HandleExpansionCompleted()
-		{
-			IsExpanded = true;
-			animating = false;
-		}
-
-		private void HandleCollapseCompleted()
-		{
-			IsExpanded = false;
-			animating = false;
+			StateHasChanged();
 		}
 	}
 }

@@ -47,7 +47,7 @@
 	transform: rotate(0deg);
 }
 
-.hx-tree-view-item-expander.expanded {
+.hx-tree-view-item-expander-container:not(.collapsed) .hx-tree-view-item-expander {
 	transform: rotate(90deg);
 }
 

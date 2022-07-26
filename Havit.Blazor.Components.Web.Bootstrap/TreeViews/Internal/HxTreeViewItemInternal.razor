@@ -15,16 +15,14 @@
     {
         <div class="hx-tree-view-item-spacer"></div>
     }
-    <div class="hx-tree-view-item-expander-container">
+    <HxCollapseToggleElement ElementName="div" CollapseTarget="@($"#{collapseId}")" CssClass="hx-tree-view-item-expander-container">
         @if (hasChildren)
         {
-            <div class="hx-tree-view-item-expander @(this.IsExpanded.GetValueOrDefault() ? "expanded" : "")"  @onclick="HandleItemExpanderClicked" @onclick:stopPropagation="true">
-                    <div>
-                        <HxIcon Icon="@BootstrapIcon.ChevronRight" />
-                    </div>
+            <div class="hx-tree-view-item-expander">
+                <HxIcon Icon="@BootstrapIcon.ChevronRight" />
             </div>
         }
-    </div>
+    </HxCollapseToggleElement>
     @if (icon != null)
     {
         <div class="hx-tree-view-item-icon">
@@ -44,11 +42,11 @@
 @if (hasChildren)
 {
     <HxCollapse
-        @ref="collapseComponent"
+        Id="@collapseId"
         CollapseDirection="CollapseDirection.Vertical"
-        OnShown="HandleExpansionCompleted"
-        OnHidden="HandleCollapseCompleted"
-        InitiallyExpanded="initiallyExpanded">
+        InitiallyExpanded="initiallyExpanded"
+        OnShown="HandleAnimationCompleted"
+        OnHidden="HandleAnimationCompleted">
 
         @foreach (var item in children)
         {
