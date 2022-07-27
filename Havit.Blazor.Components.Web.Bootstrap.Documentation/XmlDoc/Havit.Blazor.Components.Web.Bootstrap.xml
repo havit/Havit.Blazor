@@ -7290,12 +7290,7 @@
             Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.LogoTemplate" />.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarCollapsedContext">
-            <summary>
-            Context indicating whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed or expanded.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarCollapsedContext.Collapsed">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarBrandLogoTemplateContext.SidebarCollapsed">
             <summary>
             Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed or expanded.
             </summary>
@@ -7333,6 +7328,11 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext">
             <summary>
             Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext.SidebarCollapsed">
+            <summary>
+            Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed or expanded.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas">
