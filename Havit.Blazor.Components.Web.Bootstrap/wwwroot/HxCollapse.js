@@ -4,6 +4,8 @@
 	}
 
 	element.hxCollapseDotnetObjectReference = hxCollapseDotnetObjectReference;
+	element.addEventListener('show.bs.collapse', handleCollapseShow);
+	element.addEventListener('hide.bs.collapse', handleCollapseHide);
 	element.addEventListener('shown.bs.collapse', handleCollapseShown);
 	element.addEventListener('hidden.bs.collapse', handleCollapseHidden);
 
@@ -26,6 +28,14 @@ export function hide(element) {
 	}
 };
 
+function handleCollapseShow(event) {
+	event.target.hxCollapseDotnetObjectReference.invokeMethodAsync('HxCollapse_HandleJsShow');
+}
+
+function handleCollapseHide(event) {
+	event.target.hxCollapseDotnetObjectReference.invokeMethodAsync('HxCollapse_HandleJsHide');
+}
+
 function handleCollapseShown(event) {
 	event.target.hxCollapseDotnetObjectReference.invokeMethodAsync('HxCollapse_HandleJsShown');
 };
@@ -39,6 +49,8 @@ export function dispose(element) {
 		return;
 	}
 
+	element.removeEventListener('show.bs.collapse', handleCollapseShow);
+	element.removeEventListener('hide.bs.collapse', handleCollapseHide);
 	element.removeEventListener('shown.bs.collapse', handleCollapseShown);
 	element.removeEventListener('hidden.bs.collapse', handleCollapseHidden);
 	element.hxCollapseDotnetObjectReference = null;

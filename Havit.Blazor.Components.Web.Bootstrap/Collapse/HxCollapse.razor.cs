@@ -37,6 +37,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
 		/// <summary>
+		/// This event fires immediately when the <c>show</c> method is called.
+		/// </summary>
+		[Parameter] public EventCallback<string> OnShow { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnShow"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnShowAsync(string elementId) => OnShow.InvokeAsync(elementId);
+
+		/// <summary>
+		/// This event is fired immediately when the <c>hide</c> method has been called.
+		/// </summary>
+		[Parameter] public EventCallback<string> OnHide { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="OnHide"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeOnHideAsync(string elementId) => OnHide.InvokeAsync(elementId);
+
+		/// <summary>
 		/// This event is fired when a collapse element has been made visible to the user (will wait for CSS transitions to complete).
 		/// </summary>
 		[Parameter] public EventCallback<string> OnShown { get; set; }
@@ -121,11 +139,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Receives notification from javascript when item is shown.
+		/// Receives notification from javascript when <c>show</c> method is called on the collapse.
 		/// </summary>
 		/// <remarks>
-		/// the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
-		/// this covers both user-interaction (DOM state) and Blazor-interaction (HxAccordition.ExpandedItemId change)
+		/// Covers both user-interaction (DOM state) and Blazor-interaction.
+		/// </remarks>
+		[JSInvokable("HxCollapse_HandleJsShow")]
+		public async Task HandleJsShow()
+		{
+			await InvokeOnShowAsync(this.Id);
+		}
+
+		[JSInvokable("HxCollapse_HandleJsHide")]
+		public async Task HandleJsHide()
+		{
+			await InvokeOnHideAsync(this.Id);
+		}
+
+		/// <summary>
+		/// Receives notification from javascript when <c>hide</c> method is called on the collapse.
+		/// </summary>
+		/// <remarks>
+		/// Covers both user-interaction (DOM state) and Blazor-interaction.
 		/// </remarks>
 		[JSInvokable("HxCollapse_HandleJsShown")]
 		public async Task HandleJsShown()
