@@ -1224,6 +1224,11 @@
             Additional CSS class.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.InitiallyExpanded">
+            <summary>
+            Determines whether the collapse will be open or closed (expanded or collapsed) when first rendered.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.ChildContent">
             <summary>
             Content of the collapse.
@@ -1267,6 +1272,11 @@
             Collapses the item.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.HandleJsShow">
+            <summary>
+            Receives notification from javascript when item is about to start showing.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.HandleJsShown">
             <summary>
             Receives notification from javascript when item is shown.
@@ -1275,6 +1285,11 @@
             the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
             this covers both user-interaction (DOM state) and Blazor-interaction (HxAccordition.ExpandedItemId change)
             </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.HandleJsHide">
+            <summary>
+            Receives notification from javascript when item is about to hide.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.HandleJsHidden">
             <summary>

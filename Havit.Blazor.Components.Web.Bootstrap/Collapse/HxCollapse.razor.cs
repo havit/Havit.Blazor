@@ -32,6 +32,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
+		/// Determines whether the collapse will be open or closed (expanded or collapsed) when first rendered.
+		/// </summary>
+		[Parameter] public bool InitiallyExpanded { get; set; }
+
+		/// <summary>
 		/// Content of the collapse.
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
@@ -100,6 +105,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
+		protected override void OnInitialized()
+		{
+			if (InitiallyExpanded)
+			{
+				isShown = true;
+			}
+		}
+
 		/// <summary>
 		/// Expands the item.
 		/// </summary>
@@ -118,6 +131,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			await EnsureJsModuleAsync();
 			hideInProgress = true;
 			await jsModule.InvokeVoidAsync("hide", collapseHtmlElement);
+		}
+
+		/// <summary>
+		/// Receives notification from javascript when item is about to start showing.
+		/// </summary>
+		[JSInvokable("HxCollapse_HandleJsShow")]
+		public void HandleJsShow()
+		{
+			showInProgress = true;
 		}
 
 		/// <summary>
@@ -141,6 +163,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				// It therefore needs to be called explicitly after the event is handled.
 				StateHasChanged();
 			}
+		}
+
+		/// <summary>
+		/// Receives notification from javascript when item is about to hide.
+		/// </summary>
+		[JSInvokable("HxCollapse_HandleJsHide")]
+		public void HandleJsHide()
+		{
+			hideInProgress = true;
 		}
 
 		/// <summary>
