@@ -7092,14 +7092,9 @@
             Brand long name.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.Logo">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.LogoTemplate">
             <summary>
             Brand logo.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.LogoShort">
-            <summary>
-            Brand logo to be displayed when the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.BrandNameShort">
@@ -7107,12 +7102,10 @@
             Brand short name.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.GetCssClass(System.String)">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.ParentSidebar">
             <summary>
-            Adjusts the css class for the element to be hidden when the containg sidebar is collapsed.
+            <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> containing the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand"/>.
             </summary>
-            <param name="cssClass"></param>
-            <returns></returns>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter">
             <summary>
@@ -7292,6 +7285,21 @@
             Pills <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills</see>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarBrandLogoTemplateContext">
+            <summary>
+            Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.LogoTemplate" />.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarCollapsedContext">
+            <summary>
+            Context indicating whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed or expanded.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarCollapsedContext.Collapsed">
+            <summary>
+            Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed or expanded.
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.None">
             <summary>
             Mobile mode disabled, allways render as sidebar.
@@ -7325,11 +7333,6 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext">
             <summary>
             Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate" />.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext.Collapsed">
-            <summary>
-            Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed or expanded.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas">

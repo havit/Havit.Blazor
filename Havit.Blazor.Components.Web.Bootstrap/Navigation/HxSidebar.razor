@@ -6,7 +6,9 @@
         @if (HeaderTemplate is not null)
         {
             <div class="hx-sidebar-header d-flex align-items-center">
-                @HeaderTemplate
+                <CascadingValue Value="@this">
+                    @HeaderTemplate
+                </CascadingValue>
                 <button
                     class="@CssClassHelper.Combine("navbar-toggler navbar-light ms-auto", GetResponsiveCssClass("d-??-none"))"
                     type="button"
