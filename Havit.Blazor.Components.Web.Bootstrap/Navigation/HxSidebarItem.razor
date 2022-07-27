@@ -19,7 +19,7 @@
                         <span class="hx-sidebar-item-navlink-content-inner">
                             @if (ContentTemplate is not null)
                             {
-                                @ContentTemplate(new(){ Collapsed = null })
+                                @ContentTemplate(new(){ ItemExpanded = null })
                             }
                             @Text
                         </span>
@@ -40,7 +40,7 @@
                     <span class="hx-sidebar-item-navlink-content-inner">
                         @if (ContentTemplate is not null)
                         {
-                            @ContentTemplate(new(){ Collapsed = this.Collapsed })
+                            @ContentTemplate(new(){ ItemExpanded = this.expanded })
                         }
                         @Text
                     </span>
@@ -90,8 +90,8 @@
                     Id="@id"
                     @ref="collapseComponent"
                     CssClass="hx-sidebar-subitems"
-                    OnShown="() => collapsed = false"
-                    OnHidden="() => collapsed = true"
+                    OnShown="() => expanded = true"
+                    OnHidden="() => expanded = false"
                     InitiallyExpanded="ShouldBeExpanded">
                     <nav class="nav hx-sidebar-collapsed-nav">
                         @ChildContent

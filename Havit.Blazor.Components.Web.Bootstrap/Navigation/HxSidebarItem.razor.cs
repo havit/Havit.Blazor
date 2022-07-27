@@ -64,15 +64,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Inject] protected NavigationManager NavigationManager { get; set; }
 
-		public bool Collapsed => collapsed;
-		protected bool collapsed;
-
 		private string id = "hx" + Guid.NewGuid().ToString("N");
 		private HxCollapse collapseComponent;
+
 		protected List<HxSidebarItem> childItems;
 		internal CollectionRegistration<HxSidebarItem> ChildItemsRegistration { get; }
+
 		protected bool isDisposed;
 		protected bool isMatch;
+
+		protected bool expanded;
 
 		public HxSidebarItem()
 		{

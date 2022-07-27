@@ -7300,7 +7300,7 @@
             Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.ContentTemplate" />.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarItemContentTemplateContext.Collapsed">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarItemContentTemplateContext.ItemExpanded">
             <summary>
             Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/> is collapsed or expanded. Is <c>null</c> when item has no expandable content.
             </summary>

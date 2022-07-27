@@ -14,5 +14,5 @@ public class SidebarItemContentTemplateContext
 	/// <summary>
 	/// Indicates whether a <see cref="HxSidebarItem"/> is collapsed or expanded. Is <c>null</c> when item has no expandable content.
 	/// </summary>
-	public bool? Collapsed { get; set; }
+	public bool? ItemExpanded { get; set; }
 }
