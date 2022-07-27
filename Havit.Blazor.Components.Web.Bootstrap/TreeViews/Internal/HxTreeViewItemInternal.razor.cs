@@ -34,10 +34,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			await this.OnItemSelected.InvokeAsync(this.Item);
 		}
-
-		private void HandleAnimationCompleted()
-		{
-			StateHasChanged();
-		}
 	}
 }

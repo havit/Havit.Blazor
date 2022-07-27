@@ -134,6 +134,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
+		/// Receives notification from javascript when item is about to start showing.
+		/// </summary>
+		[JSInvokable("HxCollapse_HandleJsShow")]
+		public void HandleJsShow()
+		{
+			showInProgress = true;
+		}
+
+		/// <summary>
 		/// Receives notification from javascript when item is shown.
 		/// </summary>
 		/// <remarks>
@@ -154,6 +163,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				// It therefore needs to be called explicitly after the event is handled.
 				StateHasChanged();
 			}
+		}
+
+		/// <summary>
+		/// Receives notification from javascript when item is about to hide.
+		/// </summary>
+		[JSInvokable("HxCollapse_HandleJsHide")]
+		public void HandleJsHide()
+		{
+			hideInProgress = true;
 		}
 
 		/// <summary>
