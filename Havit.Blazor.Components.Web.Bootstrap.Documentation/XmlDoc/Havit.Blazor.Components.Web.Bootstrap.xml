@@ -7091,10 +7091,22 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CollapsedChanged"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.MultipleItemsExpansion">
+            <summary>
+            Whether multiple items can be in expanded state at once.
+            If set to <c>false</c>, upon item expansion, all other items are collapsed.
+            Default is <c>true</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.ResponsiveBreakpoint">
             <summary>
             Breakpoint below which the sidebar switches to mobile version (exclusive).<br/>
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Medium"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.navId">
+            <summary>
+            Id of the immediate parent of the contained <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/> components.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand">
