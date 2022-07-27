@@ -91,7 +91,8 @@
                     @ref="collapseComponent"
                     CssClass="hx-sidebar-subitems"
                     OnShown="() => collapsed = false"
-                    OnHidden="() => collapsed = true"> @* Add following attribute: InitiallyExpanded="ShouldBeExpanded" (waiting for https://github.com/havit/Havit.Blazor/pull/246) *@
+                    OnHidden="() => collapsed = true"
+                    InitiallyExpanded="ShouldBeExpanded">
                     <nav class="nav hx-sidebar-collapsed-nav">
                         @ChildContent
                     </nav>
