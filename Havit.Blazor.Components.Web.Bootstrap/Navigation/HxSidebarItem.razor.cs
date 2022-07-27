@@ -109,12 +109,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 		*/
 
-		public async Task Expand()
+		public async Task ExpandAsync()
 		{
 			await collapseComponent?.ShowAsync();
 		}
 
-		public async Task Collapse()
+		public async Task CollapseAsync()
 		{
 			await collapseComponent?.HideAsync();
 		}
