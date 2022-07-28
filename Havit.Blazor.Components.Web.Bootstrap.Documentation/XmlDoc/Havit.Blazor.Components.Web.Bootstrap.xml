@@ -1224,6 +1224,11 @@
             Additional CSS class.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.InitiallyExpanded">
+            <summary>
+            Determines whether the collapse will be open or closed (expanded or collapsed) when first rendered.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.ChildContent">
             <summary>
             Content of the collapse.
@@ -1254,6 +1259,11 @@
             Additional attributes to be splatted onto an underlying <c>div</c> element.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.shouldToggle">
+            <summary>
+            Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefor we will remember the request for Show and initialize the collapse with toggle=true.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
         </member>
@@ -1267,6 +1277,11 @@
             Collapses the item.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.HandleJsShow">
+            <summary>
+            Receives notification from javascript when item is about to start showing.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.HandleJsShown">
             <summary>
             Receives notification from javascript when item is shown.
@@ -1275,6 +1290,11 @@
             the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
             this covers both user-interaction (DOM state) and Blazor-interaction (HxAccordition.ExpandedItemId change)
             </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.HandleJsHide">
+            <summary>
+            Receives notification from javascript when item is about to hide.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.HandleJsHidden">
             <summary>
@@ -7076,10 +7096,22 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CollapsedChanged"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.MultipleItemsExpansion">
+            <summary>
+            Whether multiple items can be in expanded state at once.
+            If set to <c>false</c>, upon item expansion, all other items are collapsed.
+            Default is <c>true</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.ResponsiveBreakpoint">
             <summary>
             Breakpoint below which the sidebar switches to mobile version (exclusive).<br/>
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Medium"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.navId">
+            <summary>
+            Id of the immediate parent of the contained <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/> components.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand">
@@ -7092,7 +7124,7 @@
             Brand long name.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.LogoTemplate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.Logo">
             <summary>
             Brand logo.
             </summary>
@@ -7100,11 +7132,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.BrandNameShort">
             <summary>
             Brand short name.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.ParentSidebar">
-            <summary>
-            <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> containing the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter">
@@ -7285,14 +7312,14 @@
             Pills <see href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.1/components/navs-tabs/#pills</see>.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarBrandLogoTemplateContext">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarItemContentTemplateContext">
             <summary>
-            Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.LogoTemplate" />.
+            Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.ContentTemplate" />.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarBrandLogoTemplateContext.SidebarCollapsed">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarItemContentTemplateContext.ItemExpanded">
             <summary>
-            Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed or expanded.
+            Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/> is collapsed or expanded. Is <c>null</c> when item has no expandable content.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.None">
@@ -7330,7 +7357,7 @@
             Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate" />.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext.SidebarCollapsed">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext.Collapsed">
             <summary>
             Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed or expanded.
             </summary>

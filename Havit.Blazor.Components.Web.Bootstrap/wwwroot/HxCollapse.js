@@ -1,14 +1,16 @@
-﻿export function initialize(element, hxCollapseDotnetObjectReference) {
+﻿export function initialize(element, hxCollapseDotnetObjectReference, shouldToggle) {
 	if (!element) {
 		return;
 	}
 
 	element.hxCollapseDotnetObjectReference = hxCollapseDotnetObjectReference;
+	element.addEventListener('show.bs.collapse', handleCollapseShow);
 	element.addEventListener('shown.bs.collapse', handleCollapseShown);
+	element.addEventListener('hide.bs.collapse', handleCollapseHide);
 	element.addEventListener('hidden.bs.collapse', handleCollapseHidden);
 
 	var c = new bootstrap.Collapse(element, {
-		toggle: false,
+		toggle: shouldToggle,
 	});
 }
 
@@ -26,10 +28,15 @@ export function hide(element) {
 	}
 };
 
+function handleCollapseShow(event) {
+	event.target.hxCollapseDotnetObjectReference.invokeMethodAsync('HxCollapse_HandleJsShow');
+};
 function handleCollapseShown(event) {
 	event.target.hxCollapseDotnetObjectReference.invokeMethodAsync('HxCollapse_HandleJsShown');
 };
-
+function handleCollapseHide(event) {
+	event.target.hxCollapseDotnetObjectReference.invokeMethodAsync('HxCollapse_HandleJsHide');
+};
 function handleCollapseHidden(event) {
 	event.target.hxCollapseDotnetObjectReference.invokeMethodAsync('HxCollapse_HandleJsHidden');
 };
@@ -39,7 +46,9 @@ export function dispose(element) {
 		return;
 	}
 
+	element.removeEventListener('show.bs.collapse', handleCollapseShow);
 	element.removeEventListener('shown.bs.collapse', handleCollapseShown);
+	element.removeEventListener('hide.bs.collapse', handleCollapseHide);
 	element.removeEventListener('hidden.bs.collapse', handleCollapseHidden);
 	element.hxCollapseDotnetObjectReference = null;
 
