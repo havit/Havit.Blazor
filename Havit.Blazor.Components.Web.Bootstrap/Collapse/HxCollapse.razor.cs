@@ -75,6 +75,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private bool isShown;
 		private bool showInProgress;
 		private bool hideInProgress;
+		private bool initialized;
+
+		/// <summary>
+		/// Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefor we will remember the request for Show and initialize the collapse with toggle=true.
+		/// </summary>
+		private bool shouldToggle;
 
 		public HxCollapse()
 		{
@@ -92,6 +98,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
+
 			await base.OnAfterRenderAsync(firstRender);
 
 			if (firstRender)
@@ -101,7 +108,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					return;
 				}
-				await jsModule.InvokeVoidAsync("initialize", collapseHtmlElement, dotnetObjectReference);
+				await jsModule.InvokeVoidAsync("initialize", collapseHtmlElement, dotnetObjectReference, shouldToggle);
+				initialized = true;
 			}
 		}
 
@@ -118,9 +126,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public async Task ShowAsync()
 		{
-			await EnsureJsModuleAsync();
-			showInProgress = true;
-			await jsModule.InvokeVoidAsync("show", collapseHtmlElement);
+			if (initialized)
+			{
+				await EnsureJsModuleAsync();
+				showInProgress = true;
+				await jsModule.InvokeVoidAsync("show", collapseHtmlElement);
+			}
+			else
+			{
+				shouldToggle = true;
+			}
 		}
 
 		/// <summary>

@@ -1,4 +1,4 @@
-﻿export function initialize(element, hxCollapseDotnetObjectReference) {
+﻿export function initialize(element, hxCollapseDotnetObjectReference, shouldToggle) {
 	if (!element) {
 		return;
 	}
@@ -10,7 +10,7 @@
 	element.addEventListener('hidden.bs.collapse', handleCollapseHidden);
 
 	var c = new bootstrap.Collapse(element, {
-		toggle: false,
+		toggle: shouldToggle,
 	});
 }
 
