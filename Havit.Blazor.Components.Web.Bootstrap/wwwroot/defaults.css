@@ -125,7 +125,7 @@
 	--hx-input-tags-add-button-text-margin:				0 0 0 .25rem;
 	--hx-input-tags-remove-button-margin:			0 0 0 .25rem;
 	/* TreeView */
-	--hx-tree-view-item-border-radius:				3px;
+	--hx-tree-view-item-border-radius:				.25rem;
 	--hx-tree-view-item-border-width:				0;
 	--hx-tree-view-item-border-style:				unset;
 	--hx-tree-view-item-border-color:				unset;
