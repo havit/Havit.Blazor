@@ -65,20 +65,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Inject] protected NavigationManager NavigationManager { get; set; }
 
 		private string id = "hx" + Guid.NewGuid().ToString("N");
-		private HxCollapse collapseComponent;
 
 		protected List<HxSidebarItem> childItems;
 		internal CollectionRegistration<HxSidebarItem> ChildItemsRegistration { get; }
 
-		protected bool isDisposed;
+		protected HxCollapse collapseComponent;
+		protected bool disposed;
 		protected bool isMatch;
-
 		protected bool expanded;
 
 		public HxSidebarItem()
 		{
 			childItems = new();
-			ChildItemsRegistration = new(childItems, async () => await InvokeAsync(this.StateHasChanged), () => isDisposed);
+			ChildItemsRegistration = new(childItems, async () => await InvokeAsync(this.StateHasChanged), () => disposed);
 		}
 
 		protected override void OnInitialized()
@@ -97,18 +96,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected bool ShouldBeExpanded => ExpandOnMatch && this.childItems.Any(i => i.isMatch && i.ExpandOnMatch);
 		protected bool HasExpandableContent => (this.ChildContent is not null);
 
-		/*
-		 * Explicit StateHasChanged() not needed as there is one already in ChildItemsRegistration.Register()? 
-		 * 
-		protected override void OnAfterRender(bool firstRender)
+		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
-			if (firstRender)
+			if (firstRender && ShouldBeExpanded)
 			{
-				// re-render to allow child-parent propagation of IsMatch logic for initial expansion
-				StateHasChanged();
+				await collapseComponent.ShowAsync();
 			}
 		}
-		*/
+
+		private void HandleCollapseShown()
+		{
+			expanded = true;
+		}
+
+		private void HandleCollapseHidden()
+		{
+			expanded = false;
+		}
 
 		public async ValueTask DisposeAsync()
 		{
@@ -116,7 +120,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			//Dispose(disposing: false);
 
-			isDisposed = true;
+			disposed = true;
 		}
 
 		protected virtual async ValueTask DisposeAsyncCore()

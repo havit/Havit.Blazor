@@ -40,7 +40,7 @@
                     <span class="hx-sidebar-item-navlink-content-inner">
                         @if (ContentTemplate is not null)
                         {
-                            @ContentTemplate(new(){ ItemExpanded = this.expanded })
+                            @ContentTemplate(new() { ItemExpanded = this.expanded })
                         }
                         @Text
                     </span>
@@ -58,7 +58,7 @@
                            Enabled="this.Enabled"
                            role="button"
                            data-bs-toggle="dropdown"
-                           aria-expanded="@(this.ShouldBeExpanded ? "true" : "false")">
+                           aria-expanded="@(this.expanded ? "true" : "false")">
                         
                            @itemNavLinkContent
 
@@ -80,7 +80,7 @@
                         role="button"
                         data-bs-toggle="collapse"
                         data-bs-target="@("#" + id)"
-                        aria-expanded="@(this.ShouldBeExpanded ? "true" : "false")">
+                        aria-expanded="@(this.expanded ? "true" : "false")">
 
                         @itemNavLinkContent
 
@@ -91,9 +91,8 @@
                     Parent="@(ParentSidebar.MultipleItemsExpansion ? null : $"#{ParentSidebar.navId}")"
                     @ref="collapseComponent"
                     CssClass="hx-sidebar-subitems"
-                    OnShown="() => expanded = true"
-                    OnHidden="() => expanded = false"
-                    InitiallyExpanded="ShouldBeExpanded">
+                    OnShown="HandleCollapseShown"
+                    OnHidden="HandleCollapseHidden">
                     <nav class="nav hx-sidebar-collapsed-nav">
                         @ChildContent
                     </nav>
