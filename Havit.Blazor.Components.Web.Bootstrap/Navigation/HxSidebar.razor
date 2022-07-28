@@ -6,7 +6,9 @@
         @if (HeaderTemplate is not null)
         {
             <div class="hx-sidebar-header d-flex align-items-center">
-                @HeaderTemplate
+                <CascadingValue Value="@this">
+                    @HeaderTemplate
+                </CascadingValue>
                 <button
                     class="@CssClassHelper.Combine("navbar-toggler navbar-light ms-auto", GetResponsiveCssClass("d-??-none"))"
                     type="button"
@@ -23,7 +25,7 @@
         <div class="@CssClassHelper.Combine("hx-sidebar-collapse collapse", GetResponsiveCssClass("d-??-flex"), (!Collapsed) ? "overflow-auto": null)" id="@NavContentElementId">
             <div class="hx-sidebar-body mb-auto w-100">
                 <HxNav Id="@navId" Orientation="NavOrientation.Vertical" CssClass="ps-0">
-                    <CascadingValue Value="@this">
+                    <CascadingValue Value="@this" IsFixed="true">
                         @ItemsTemplate
                     </CascadingValue>
                 </HxNav>
@@ -38,7 +40,7 @@
                     }
                     else
                     {
-                        @TogglerTemplate(new() { Collapsed = this.Collapsed })
+                        @TogglerTemplate(new() { SidebarCollapsed = this.Collapsed })
                     }
                 </div>
             </div>
