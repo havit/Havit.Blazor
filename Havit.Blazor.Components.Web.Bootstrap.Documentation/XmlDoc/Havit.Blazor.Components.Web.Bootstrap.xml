@@ -1259,6 +1259,11 @@
             Additional attributes to be splatted onto an underlying <c>div</c> element.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.shouldToggle">
+            <summary>
+            Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefor we will remember the request for Show and initialize the collapse with toggle=true.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
         </member>
