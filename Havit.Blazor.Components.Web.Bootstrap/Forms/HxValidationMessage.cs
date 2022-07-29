@@ -121,7 +121,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					if (firstRendered)
 					{
-						builder.AddMarkupContent(202, "&nbsp;");
+						builder.AddMarkupContent(202, " ");
 					}
 					builder.OpenElement(203, "span");
 					builder.AddContent(204, message);
