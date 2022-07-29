@@ -14,16 +14,9 @@ namespace Havit.Blazor.Grpc.Core
 		{
 			var types = assemblyToScan.GetTypes();
 
-			RegisterTypes(model, types);
-
-			return model;
-		}
-
-		private static void RegisterTypes(RuntimeTypeModel model, Type[] types)
-		{
 			foreach (var type in types)
 			{
-				if (type.IsInterface || !type.IsPublic || type.IsGenericType || type.IsAbstract)
+				if (type.IsInterface || (!type.IsPublic && !type.IsNestedPublic) || type.IsGenericType || type.IsAbstract)
 				{
 					continue;
 				}
@@ -36,9 +29,9 @@ namespace Havit.Blazor.Grpc.Core
 					modelType.AddField(fieldNumber, property.Name);
 					fieldNumber++;
 				}
-
-				RegisterTypes(model, type.GetNestedTypes());
 			}
+
+			return model;
 		}
 	}
 }
