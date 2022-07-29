@@ -37,7 +37,7 @@ namespace Havit.Blazor.Grpc.Core
 					fieldNumber++;
 				}
 
-				//RegisterTypes(model, type.GetNestedTypes());
+				RegisterTypes(model, type.GetNestedTypes());
 			}
 		}
 	}
