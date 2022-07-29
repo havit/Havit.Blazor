@@ -38,5 +38,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Sub-items (not intended to be used for any other purpose).
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
+
+		[CascadingParameter] protected HxSidebar ParentSidebar { get; set; }
 	}
 }

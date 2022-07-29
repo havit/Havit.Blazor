@@ -1,4 +1,5 @@
-﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+﻿
+@namespace Havit.Blazor.Components.Web.Bootstrap
 
 <div class="@CssClassHelper.Combine("hx-sidebar", GetResponsiveCssClass("flex-??-grow-0"), GetCollapsedCssClass(), this.CssClass)" id="@Id">
     <div class="nav-menu d-flex flex-column flex-grow-1 position-relative">
@@ -47,9 +48,11 @@
 
             @if (FooterTemplate is not null)
             {
-                <div class="hx-sidebar-footer">
-                    @FooterTemplate
-                </div>
+	            <div class="hx-sidebar-footer">
+		            <CascadingValue Value="@this">
+			            @FooterTemplate
+		            </CascadingValue>
+	            </div>
             }
         </div>
     </div>
