@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using ProtoBuf.Meta;
 
 namespace Havit.Blazor.Grpc.Core
@@ -13,9 +14,16 @@ namespace Havit.Blazor.Grpc.Core
 		{
 			var types = assemblyToScan.GetTypes();
 
+			RegisterTypes(model, types);
+
+			return model;
+		}
+
+		private static void RegisterTypes(RuntimeTypeModel model, Type[] types)
+		{
 			foreach (var type in types)
 			{
-				if (type.IsInterface || !type.IsPublic || type.IsGenericType)
+				if (type.IsInterface || !type.IsPublic || type.IsGenericType || type.IsAbstract)
 				{
 					continue;
 				}
@@ -28,9 +36,9 @@ namespace Havit.Blazor.Grpc.Core
 					modelType.AddField(fieldNumber, property.Name);
 					fieldNumber++;
 				}
-			}
 
-			return model;
+				//RegisterTypes(model, type.GetNestedTypes());
+			}
 		}
 	}
 }
