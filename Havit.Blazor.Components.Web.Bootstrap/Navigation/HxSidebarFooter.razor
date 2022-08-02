@@ -9,12 +9,9 @@
             {
                 <HxIcon Icon="Icon" />
             }
-            @if (!ParentSidebar.Collapsed)
-            {
-	            <span class="@CssClassHelper.Combine("text", Icon == null ? null : "ms-3")">
-		            @Text
-	            </span>
-            }
+            <span class="@CssClassHelper.Combine("text", Icon == null ? null : "ms-3")">
+                @Text
+            </span>
         </div>
 
     </HxNavLink>
