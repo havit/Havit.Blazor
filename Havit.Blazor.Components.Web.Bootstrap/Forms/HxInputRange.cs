@@ -49,7 +49,8 @@ public class HxInputRange<TValue> : HxInputBase<TValue> where TValue : struct
 	[Parameter] public TValue? Max { get; set; }
 
 	/// <summary>
-	/// Instructs whether the <c>Value</c> is going to be updated <c>oninput</c> (immediately), or <c>onchange</c> (usually <c>onmouseup</c>).
+	/// Instructs whether the <c>Value</c> is going to be updated <c>oninput</c> (immediately), or <c>onchange</c> (usually <c>onmouseup</c>).<br />
+	/// Default is <see cref="BindEvent.OnChange"/>.
 	/// </summary>
 	[Parameter] public BindEvent? BindEvent { get; set; }
 	protected virtual BindEvent BindEventEffective => BindEvent ?? GetSettings()?.BindEvent ?? GetDefaults()?.BindEvent ?? throw new InvalidOperationException(nameof(BindEvent) + " default for " + nameof(HxInputRange<TValue>) + " has to be set.");
