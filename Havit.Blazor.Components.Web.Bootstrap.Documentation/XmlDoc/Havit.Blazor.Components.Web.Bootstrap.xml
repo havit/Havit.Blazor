@@ -312,7 +312,7 @@
             Returns optional set of component settings.
             </summary>
             <remarks>
-            Simmilar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxButton.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Settings"/> in components descandants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxButton.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Settings"/> in components descandants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Text">
@@ -5951,6 +5951,19 @@
             Enables overriding defaults in descandants (use separate set of defaults).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout.Defaults"/>, overriden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.GetSettings">
+            <summary>
+            Returns optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.Settings"/> in components descandants (by returning a derived settings class).
+            </remarks>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.InvokeFilterModelChangedAsync(`0)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.FilterModelChanged"/> event. Allows interception of the event in derived components.
@@ -5974,6 +5987,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.FilterOffcanvasSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> with the filter.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.CssClass">
+            <summary>
+            Additional CSS classes for the wrapping <c>div</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent">
@@ -6025,6 +6043,11 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ListLayoutSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ListLayoutSettings.CssClass">
+            <summary>
+            Additional CSS classes for the wrapping <c>div</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ListLayoutSettings.CardSettings">
