@@ -6,6 +6,11 @@
 	public record ListLayoutSettings
 	{
 		/// <summary>
+		/// Additional CSS classes for the wrapping <c>div</c>.
+		/// </summary>
+		public string CssClass { get; set; }
+
+		/// <summary>
 		/// Settings for the wrapping <see cref="HxCard"/>.
 		/// </summary>
 		public CardSettings CardSettings { get; set; }
