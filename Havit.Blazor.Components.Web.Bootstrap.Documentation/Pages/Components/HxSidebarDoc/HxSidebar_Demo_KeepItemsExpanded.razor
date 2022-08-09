@@ -1,0 +1,19 @@
+﻿<HxSidebar KeepItemsExpanded="true">
+    <HeaderTemplate>
+        <HxSidebarBrand BrandName="Brand name" BrandNameShort="BN"/>
+    </HeaderTemplate>
+
+    <ItemsTemplate>
+        <HxSidebarItem Text="Dashboard" Href="TODO" Icon="BootstrapIcon.Columns"/>
+        <HxSidebarItem Text="Employees (plain)" Icon="BootstrapIcon.People">
+            <HxSidebarItem Text="Overview" Href="/HxSidebarTest#x1" Match="NavLinkMatch.All"/>
+            <HxSidebarItem Text="Absences" Href="TODO"/>
+        </HxSidebarItem>
+        <HxSidebarItem Text="Mine (with icons)" Href="TODO" Icon="BootstrapIcon.Person">
+            <HxSidebarItem Text="Overview" Icon="BootstrapIcon.Wallet2" Href="#"/>
+            <HxSidebarItem Text="Timesheets" Icon="BootstrapIcon.Clock"Href="TODO"/>
+            <HxSidebarItem Text="Absences" Icon="BootstrapIcon.Exclamation" Href="TODO"/>
+        </HxSidebarItem>
+        <HxSidebarItem Text="Administration" Href="TODO" Icon="BootstrapIcon.Gear"/>
+    </ItemsTemplate>
+</HxSidebar>
