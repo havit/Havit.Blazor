@@ -10,6 +10,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxOffcanvas : IAsyncDisposable
 	{
 		/// <summary>
+		/// A value that is passed to the Offcanvas constructor (in JS), when <see cref="Backdrop"/> is set to <see cref="OffcanvasBackdrop.Static"/>.
+		/// </summary>
+		private const string StaticBackdropValue = "static";
+
+		/// <summary>
 		/// Application-wide defaults for the <see cref="HxOffcanvas"/> and derived components.
 		/// </summary>
 		public static OffcanvasSettings Defaults { get; }
@@ -19,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			Defaults = new OffcanvasSettings()
 			{
 				ShowCloseButton = true,
-				BackdropEnabled = true,
+				Backdrop = OffcanvasBackdrop.True,
 				Placement = OffcanvasPlacement.End,
 				ResponsiveBreakpoint = OffcanvasResponsiveBreakpoint.None,
 				Size = OffcanvasSize.Regular,
@@ -46,7 +51,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 		/// </remarks>
 		protected virtual OffcanvasSettings GetSettings() => this.Settings;
-
 
 		/// <summary>
 		/// Text for the title in header.
@@ -119,8 +123,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Indicates whether to apply a backdrop on body while offcanvas is open.
 		/// Default value (from <see cref="Defaults"/>) is <c>true</c>.
 		/// </summary>
-		[Parameter] public bool? BackdropEnabled { get; set; }
-		protected bool BackdropEnabledEffective => this.BackdropEnabled ?? this.GetSettings()?.BackdropEnabled ?? GetDefaults().BackdropEnabled ?? throw new InvalidOperationException(nameof(BackdropEnabled) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+		[Parameter] public OffcanvasBackdrop? Backdrop { get; set; }
+		protected OffcanvasBackdrop BackdropEffective => this.Backdrop ?? this.GetSettings()?.Backdrop ?? GetDefaults().Backdrop ?? throw new InvalidOperationException(nameof(Backdrop) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 		/// <summary>
 		/// Indicates whether body (page) scrolling is allowed while offcanvas is open.
@@ -252,7 +256,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					return;
 				}
-				await jsModule.InvokeVoidAsync("show", offcanvasElement, dotnetObjectReference, BackdropEnabledEffective, CloseOnEscapeEffective, ScrollingEnabledEffective);
+				await jsModule.InvokeVoidAsync("show", offcanvasElement, dotnetObjectReference, GetBackdropSetupValue(BackdropEffective), CloseOnEscapeEffective, ScrollingEnabledEffective);
+			}
+		}
+
+		/// <summary>
+		/// Formats a <see cref="OffcanvasBackdrop"/> for offcanvas initialization in JS (it expects a boolean or the string "static").
+		/// </summary>
+		/// <param name="backdrop"></param>
+		/// <returns></returns>
+		private object GetBackdropSetupValue(OffcanvasBackdrop backdrop)
+		{
+			if (backdrop == OffcanvasBackdrop.Static)
+			{
+				return StaticBackdropValue;
+			}
+			else if (backdrop == OffcanvasBackdrop.True)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 

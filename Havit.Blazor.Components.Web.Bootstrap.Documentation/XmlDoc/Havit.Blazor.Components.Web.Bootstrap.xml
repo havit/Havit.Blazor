@@ -7331,6 +7331,11 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxOffcanvas">https://havit.blazor.eu/components/HxOffcanvas</see>
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.StaticBackdropValue">
+            <summary>
+            A value that is passed to the Offcanvas constructor (in JS), when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Backdrop"/> is set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.Static"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults">
             <summary>
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> and derived components.
@@ -7416,7 +7421,7 @@
             If set to <c>null</c>, Bootstrap default close-button will be used.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.BackdropEnabled">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Backdrop">
             <summary>
             Indicates whether to apply a backdrop on body while offcanvas is open.
             Default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults"/>) is <c>true</c>.
@@ -7491,8 +7496,30 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.GetBackdropSetupValue(Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop)">
+            <summary>
+            Formats a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop"/> for offcanvas initialization in JS (it expects a boolean or the string "static").
+            </summary>
+            <param name="backdrop"></param>
+            <returns></returns>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.DisposeAsync">
             <inheritdoc />
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.False">
+            <summary>
+            No backdrop will be rendered. User can interact with other parts of the app while the offcanvas is open.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.True">
+            <summary>
+            A backdrop will be rendered. Offcanvas will be closed upon clicking on the backdrop.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.Static">
+            <summary>
+            A static backdrop will be rendered. Offcanvas will not be closed upon clicking on the backdrop.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasRenderMode">
             <summary>
@@ -7558,7 +7585,7 @@
             Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.CloseButtonIcon"/> to change shape of the button.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.BackdropEnabled">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.Backdrop">
             <summary>
             Indicates whether to apply a backdrop on body while offcanvas is open.
             </summary>

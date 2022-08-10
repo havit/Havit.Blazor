@@ -20,7 +20,7 @@
 		/// <summary>
 		/// Indicates whether to apply a backdrop on body while offcanvas is open.
 		/// </summary>
-		public bool? BackdropEnabled { get; set; }
+		public OffcanvasBackdrop? Backdrop { get; set; }
 
 		/// <summary>
 		/// Breakpoint below which the contents are rendered outside the viewport in an offcanvas (above this breakpoint, the offcanvas body is rendered inside the viewport).
