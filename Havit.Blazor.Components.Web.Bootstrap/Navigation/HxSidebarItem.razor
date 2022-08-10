@@ -65,7 +65,7 @@
                     </HxNavLink>
 
                     <HxDropdownMenu CssClass="hx-sidebar-subitems">
-                        @ChildContent
+                        @ChildContent(new() { SidebarCollapsed = ParentSidebar.Collapsed })
                     </HxDropdownMenu>
 
                 </HxDropdown>
@@ -94,7 +94,7 @@
                     OnShown="HandleCollapseShown"
                     OnHidden="HandleCollapseHidden">
                     <nav class="nav hx-sidebar-collapsed-nav">
-                        @ChildContent
+                        @ChildContent(new() { SidebarCollapsed = ParentSidebar.Collapsed })
                     </nav>
                 </HxCollapse>
             }

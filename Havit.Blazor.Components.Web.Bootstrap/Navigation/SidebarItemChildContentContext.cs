@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Context provided to the <see cref="HxSidebar.TogglerTemplate" />.
+/// Context provided to the <see cref="HxSidebarItem.ChildContent" />.
 /// </summary>
-public class SidebarTogglerTemplateContext
+public class SidebarItemChildContentContext
 {
 	/// <summary>
 	/// Indicates whether the containing <see cref="HxSidebar"/> is collapsed or expanded.
