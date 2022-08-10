@@ -10,7 +10,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxOffcanvas : IAsyncDisposable
 	{
 		/// <summary>
-		/// A value that is passed to the Offcanvas constructor (in JS), when <see cref="Backdrop"/> is set to <see cref="OffcanvasBackdrop.Static"/>.
+		/// A value that is passed to the offcanvas constructor (in JS), when <see cref="Backdrop"/> is set to <see cref="OffcanvasBackdrop.Static"/>.
 		/// </summary>
 		private const string StaticBackdropValue = "static";
 
@@ -121,7 +121,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Indicates whether to apply a backdrop on body while offcanvas is open.
-		/// Default value (from <see cref="Defaults"/>) is <c>true</c>.
+		/// If set to <see cref="OffcanvasBackdrop.Static"/>, the offcanvas cannot be closed by clicking on the backdrop.
+		/// Default value (from <see cref="Defaults"/>) is <see cref="OffcanvasBackdrop.True"/>.
 		/// </summary>
 		[Parameter] public OffcanvasBackdrop? Backdrop { get; set; }
 		protected OffcanvasBackdrop BackdropEffective => this.Backdrop ?? this.GetSettings()?.Backdrop ?? GetDefaults().Backdrop ?? throw new InvalidOperationException(nameof(Backdrop) + " default for " + nameof(HxOffcanvas) + " has to be set.");
