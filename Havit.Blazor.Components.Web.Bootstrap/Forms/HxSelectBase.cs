@@ -189,10 +189,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 			else
 			{
+				Console.WriteLine("Items are null");
+
 				if (!String.IsNullOrEmpty(NullDataTextImpl))
 				{
 					builder.OpenElement(4000, "option");
-					builder.AddAttribute(4001, "selected", true);
+					builder.AddAttribute(4001, "value", -1);
 					builder.AddContent(4002, NullDataTextImpl);
 					builder.CloseElement();
 				}
