@@ -64,7 +64,7 @@
 	--hx-context-menu-item-icon-margin-right:	0.5rem;
 	/* HxGrid */
 	--hx-grid-button-hover-background: 				var(--bs-gray-300);
-	--hx-grid-button-border-radius: 				.2rem;
+	--hx-grid-button-border-radius: 				.25rem;
 	--hx-grid-sorted-icon-color: 					var(--bs-primary);
 	/* HxPager */
 	--hx-pager-margin: 						1rem;
