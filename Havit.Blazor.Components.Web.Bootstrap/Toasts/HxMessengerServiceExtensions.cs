@@ -29,7 +29,9 @@
 			{
 				Color = Defaults.InformationColor,
 				AutohideDelay = Defaults.InformationAutohideDelay,
-				ContentTemplate = BuildContentTemplate(title, message)
+				ContentTemplate = BuildContentTemplate(title, message),
+				Title = title,
+				Text = message
 			});
 		}
 
@@ -52,9 +54,10 @@
 			{
 				Color = Defaults.WarningColor,
 				AutohideDelay = Defaults.WarningAutohideDelay,
-				ContentTemplate = BuildContentTemplate(title, message)
+				ContentTemplate = BuildContentTemplate(title, message),
+				Title = title,
+				Text = message
 			});
-
 		}
 
 		/// <summary>
@@ -76,7 +79,9 @@
 			{
 				Color = Defaults.ErrorColor,
 				AutohideDelay = Defaults.ErrorAutohideDelay,
-				ContentTemplate = BuildContentTemplate(title, message)
+				ContentTemplate = BuildContentTemplate(title, message),
+				Title = title,
+				Text = message
 			});
 		}
 

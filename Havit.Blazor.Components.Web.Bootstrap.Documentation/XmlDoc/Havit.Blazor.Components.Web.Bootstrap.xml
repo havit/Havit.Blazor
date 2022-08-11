@@ -8411,6 +8411,11 @@
             Position of the messages. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ToastContainerPosition.None"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessenger.OnMessageClosed">
+            <summary>
+            Fires when a message (a toast) is hidden by close-button click or through auto-hide.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessenger.CssClass">
             <summary>
             Additional CSS class.

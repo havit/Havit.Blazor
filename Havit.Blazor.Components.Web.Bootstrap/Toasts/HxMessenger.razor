@@ -5,13 +5,12 @@
         @foreach (MessengerMessage message in messages)
         {
             // @key is used to pair messages to HxToasts when some message disappers.
+            // We are not passing the Title and Text properties of the MessengerMessage to the HxToast because we are using them to build the ContentTemplate.
             <HxToast @key="@message.Key"
                         Color="@((message as BootstrapMessengerMessage)?.Color)"
                     CssClass="@message.CssClass"
                     HeaderIcon="@message.Icon"
-                    HeaderText="@message.Title"
                     HeaderTemplate="@message.HeaderTemplate"
-                    ContentText="@message.Text"
                     ContentTemplate="@message.ContentTemplate"
                     AutohideDelay="@message.AutohideDelay"
                     OnToastHidden="() => HandleToastHidden(message)" />

@@ -12,6 +12,11 @@
 		[Parameter] public ToastContainerPosition Position { get; set; } = ToastContainerPosition.None;
 
 		/// <summary>
+		/// Fires when a message (a toast) is hidden by close-button click or through auto-hide.
+		/// </summary>
+		[Parameter] public EventCallback<MessengerMessage> OnMessageClosed { get; set; }
+
+		/// <summary>
 		/// Additional CSS class.
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
@@ -50,9 +55,10 @@
 		/// <summary>
 		/// Receive notification from <see cref="HxToast"/> when message is hidden.
 		/// </summary>
-		private void HandleToastHidden(MessengerMessage message)
+		private async void HandleToastHidden(MessengerMessage message)
 		{
 			messages.Remove(message);
+			await OnMessageClosed.InvokeAsync(message);
 		}
 
 		public void Dispose()
