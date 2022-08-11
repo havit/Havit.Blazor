@@ -7327,6 +7327,16 @@
             Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed or expanded.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarFooterTemplateContext">
+            <summary>
+            Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.FooterTemplate" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarFooterTemplateContext.SidebarCollapsed">
+            <summary>
+            Indicates whether the containing <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed or expanded.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarItemContentTemplateContext">
             <summary>
             Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.ContentTemplate" />.
