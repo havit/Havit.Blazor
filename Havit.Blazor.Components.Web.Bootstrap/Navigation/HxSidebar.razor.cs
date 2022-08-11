@@ -29,7 +29,7 @@
 		/// <summary>
 		/// Sidebar footer (e.g. logged user, language switch, ...).
 		/// </summary>
-		[Parameter] public RenderFragment FooterTemplate { get; set; }
+		[Parameter] public RenderFragment<SidebarFooterTemplateContext> FooterTemplate { get; set; }
 
 		/// <summary>
 		/// Vertical toggler (desktop version) to be rendered instead of the <see cref="ExpandIcon"/> and <see cref="CollapseIcon"/> icon.

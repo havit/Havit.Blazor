@@ -48,7 +48,7 @@
             @if (FooterTemplate is not null)
             {
                 <div class="hx-sidebar-footer">
-                    @FooterTemplate
+                    @FooterTemplate(new() { SidebarCollapsed = this.Collapsed })
                 </div>
             }
         </div>
