@@ -111,6 +111,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			{
 				parsingFailed = true;
 				validationMessageStore.Add(FieldIdentifier, ParsingErrorMessageEffective);
+				await CloseDropDownAsync(dateInputElement);
 			}
 
 			// We can skip the validation notification if we were previously valid and still are
