@@ -28,7 +28,7 @@
 
             @if (!String.IsNullOrEmpty(this.Text) || (ChildContent != null))
             {
-                <text>&nbsp;</text>
+                <span class="hx-button-icon-text-spacer"></span>
             }
         }
 
@@ -39,7 +39,7 @@
         {
             @if (!String.IsNullOrEmpty(this.Text) || (ChildContent != null))
             {
-                <text>&nbsp;</text>
+                <span class="hx-button-text-icon-spacer"></span>
             }
 
             if (this.SpinnerEffective)
