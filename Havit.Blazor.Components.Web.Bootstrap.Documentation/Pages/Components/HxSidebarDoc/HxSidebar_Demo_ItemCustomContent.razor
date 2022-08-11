@@ -6,12 +6,12 @@
             </ContentTemplate>
             <ChildContent>
                 <HxSidebarItem Icon="BootstrapIcon.Wallet" Href="#x1" Match="NavLinkMatch.All">
-                    <ContentTemplate>
+                    <ContentTemplate Context="contentTemplateContext">
                         Received payments <HxBadge Color="ThemeColor.Primary" CssClass="ms-2">3</HxBadge>
                     </ContentTemplate>
                 </HxSidebarItem> 
                 <HxSidebarItem Icon="BootstrapIcon.Wallet2" Href="#x1" Match="NavLinkMatch.All">
-                    <ContentTemplate>
+                    <ContentTemplate Context="contentTemplateContext">
                         Pending payments <HxBadge Color="ThemeColor.Primary" CssClass="ms-2">5</HxBadge>
                     </ContentTemplate>
                 </HxSidebarItem>
