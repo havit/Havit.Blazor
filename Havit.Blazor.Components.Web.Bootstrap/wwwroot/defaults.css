@@ -5,6 +5,8 @@
 	/* HxAutosuggest */
 	--hx-autosuggest-input-close-icon-opacity: .25;
 	--hx-autosuggest-item-highlighted-background-color: var(--bs-gray-200);
+	/* HxButton */
+	--hx-button-space-between-text-icon:				0.25rem;
 	/* HxSidebar */
 	--hx-sidebar-background-color: 						transparent;
 	--hx-sidebar-collapsed-width: 						72px;
