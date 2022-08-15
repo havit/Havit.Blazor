@@ -10,8 +10,10 @@
 
 .hx-search-box-item-title {
     font-size: var(--hx-search-box-item-title-font-size);
+	display: block;
 }
 
 .hx-search-box-item-subtitle {
     font-size: var(--hx-search-box-item-subtitle-font-size);
+	display: block;
 }
