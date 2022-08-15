@@ -2,26 +2,17 @@
 
 <h1>HxSelect</h1>
 
-<HxSelect TItem="int" TValue="int?" Data="@data" ValueChanged="HandleChange" NullText="-all-" ValueSelector="(v => v)" />
+<HxSelect TItem="int" TValue="int?" Data="@data" @bind-Value="selectedNumber" NullDataText="Loading numbers..." NullText="-all-" ValueSelector="(v => v)" />
 
 @code
 {
-	List<int> data;
+	private List<int> data;
+	private int? selectedNumber;
 
-	protected override void OnInitialized()
+	protected override async Task OnInitializedAsync()
 	{
-		base.OnInitialized();
-		data = GetData(null); //0..9
-	}
-
-	private void HandleChange(int? newSelectedValue)
-	{
-		// Do not set selectedValue = Let it has always null value!
-		data = GetData(newSelectedValue); // 0..9 except newSelectedValue
-	}
-
-	private List<int> GetData(int? newSelectedValue)
-	{
-		return Enumerable.Range(0, 10).Except(new int[] { newSelectedValue ?? -1 }).ToList();	
+		await base.OnInitializedAsync();
+		await Task.Delay(3000);
+		data = Enumerable.Range(0, 10).ToList();
 	}
 }
