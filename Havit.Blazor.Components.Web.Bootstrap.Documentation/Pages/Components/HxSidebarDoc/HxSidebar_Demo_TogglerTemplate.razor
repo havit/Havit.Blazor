@@ -21,15 +21,15 @@
 		<div class="d-flex">
 			@if (context.SidebarCollapsed)
 			{
-				<span style="transform: translateX(10px) rotate(-90deg); font-size: 0.5rem;">
+				<span style="transform: translateX(15px) rotate(-90deg); font-size: 0.5rem;">
 					OPEN
 				</span>
 				<HxIcon Icon="BootstrapIcon.CaretRight" />
 			}
 			else
 			{
-				<HxIcon Icon="BootstrapIcon.CaretLeft" />
-				<span style="transform: translateX(-10px) rotate(90deg); font-size: 0.5rem;">
+				<HxIcon CssClass="ms-2" Icon="BootstrapIcon.CaretLeft" />
+				<span style="transform: translateX(-15px) rotate(90deg); font-size: 0.5rem;">
 					CLOSE
 				</span>
 			}
