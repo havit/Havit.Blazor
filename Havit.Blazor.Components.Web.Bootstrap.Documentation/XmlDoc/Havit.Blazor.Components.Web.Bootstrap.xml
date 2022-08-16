@@ -3841,6 +3841,7 @@
             <summary>
             Allows the user to select a number in a specified range using a slider.
             </summary>
+            <typeparam name="TValue">Supported values: <c>byte (Byte), sbyte (SByte), short (Int16), ushort(UInt16), int (Int32), uint(UInt32), long (Int64), ulong(UInt64), float (Single), double (Double) and decimal (Decimal)</c>.</typeparam>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.GetDefaults">
             <summary>
@@ -3869,17 +3870,18 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Min">
             <summary>
-            Minimum value. Default is 0.
+            Minimum value.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Max">
             <summary>
-            Maximum value. Default is 100.
+            Maximum value.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.BindEvent">
             <summary>
-            Instructs whether the <c>Value</c> is going to be updated <c>oninput</c> (immediately), or <c>onchange</c> (usually <c>onmouseup</c>).
+            Instructs whether the <c>Value</c> is going to be updated <c>oninput</c> (immediately), or <c>onchange</c> (usually <c>onmouseup</c>).<br />
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.BindEvent.OnChange"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.Defaults">

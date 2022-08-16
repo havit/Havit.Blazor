@@ -11,8 +11,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Allows the user to select a number in a specified range using a slider.
 /// </summary>
-public class HxInputRange<TValue> : HxInputBase<TValue> where TValue : struct
+/// <typeparam name="TValue">Supported values: <c>byte (Byte), sbyte (SByte), short (Int16), ushort(UInt16), int (Int32), uint(UInt32), long (Int64), ulong(UInt64), float (Single), double (Double) and decimal (Decimal)</c>.</typeparam>
+public class HxInputRange<TValue> : HxInputBase<TValue>
 {
+	// DO NOT FORGET TO MAINTAIN DOCUMENTATION! (documentation comment of this class)
+	private static HashSet<Type> supportedTypes = new HashSet<Type>
+	{
+		typeof(byte),
+		typeof(sbyte),
+		typeof(short),
+		typeof(ushort),
+		typeof(int),
+		typeof(uint),
+		typeof(long),
+		typeof(ulong),
+		typeof(float),
+		typeof(double),
+		typeof(decimal)
+	};
+
 	/// <summary>
 	/// Returns <see cref="HxInputRange"/> defaults.
 	/// Enables to not share defaults in descandants with base classes.
@@ -36,17 +53,23 @@ public class HxInputRange<TValue> : HxInputBase<TValue> where TValue : struct
 	/// <summary>
 	/// By default, <code>HxInputRange</code> snaps to integer values. To change this, you can specify a step value.
 	/// </summary>
-	[Parameter] public TValue? Step { get; set; }
+	[Parameter] public TValue Step { get; set; }
 
 	/// <summary>
-	/// Minimum value. Default is 0.
+	/// Minimum value.
 	/// </summary>
-	[Parameter] public TValue? Min { get; set; }
+#if NET6_0_OR_GREATER
+	[EditorRequired]
+#endif
+	[Parameter] public TValue Min { get; set; }
 
 	/// <summary>
-	/// Maximum value. Default is 100.
+	/// Maximum value.
 	/// </summary>
-	[Parameter] public TValue? Max { get; set; }
+#if NET6_0_OR_GREATER
+	[EditorRequired]
+#endif
+	[Parameter] public TValue Max { get; set; }
 
 	/// <summary>
 	/// Instructs whether the <c>Value</c> is going to be updated <c>oninput</c> (immediately), or <c>onchange</c> (usually <c>onmouseup</c>).<br />
@@ -56,6 +79,16 @@ public class HxInputRange<TValue> : HxInputBase<TValue> where TValue : struct
 	protected virtual BindEvent BindEventEffective => BindEvent ?? GetSettings()?.BindEvent ?? GetDefaults()?.BindEvent ?? throw new InvalidOperationException(nameof(BindEvent) + " default for " + nameof(HxInputRange<TValue>) + " has to be set.");
 
 	private protected override string CoreInputCssClass => "form-range";
+
+	public HxInputRange()
+	{
+		Type undelyingType = typeof(TValue);
+
+		if (!supportedTypes.Contains(undelyingType))
+		{
+			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
+		}
+	}
 
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{

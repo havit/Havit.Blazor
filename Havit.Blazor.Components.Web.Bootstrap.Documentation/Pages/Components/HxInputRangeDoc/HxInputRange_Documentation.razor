@@ -1,6 +1,6 @@
-﻿@attribute [Route("/components/" + nameof(HxInputRange<TValueType>))]
+﻿@attribute [Route("/components/" + nameof(HxInputRange<TValue>))]
 
-<ComponentApiDoc Type="typeof(HxInputRange<TValueType>)">
+<ComponentApiDoc Type="typeof(HxInputRange<TValue>)">
 
     <Demo Type="typeof(HxInputRange_Demo)" />
 
@@ -9,7 +9,7 @@
     <Demo Type="typeof(HxInputRange_Demo_Disabled)" />
 
     <SectionTitle Id="min-max" Title="Min and max" />
-    <p>By default, the component's value is kept between <code>0</code> and <code>100</code>, you may adjust these values by setting the <code>Min</code> and <code>Max</code> parameters.</p>
+    <p>The <code>Min</code> and <code>Max</code> parameters have to be set for the component to function properly.</p>
     <Demo Type="typeof(HxInputRange_Demo_MinMax)" />
 
     <SectionTitle Id="steps" Title="Steps" />
