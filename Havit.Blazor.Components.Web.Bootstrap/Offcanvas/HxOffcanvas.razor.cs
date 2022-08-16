@@ -1,5 +1,3 @@
-using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
@@ -269,14 +267,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				if (opened)
 				{
 #if NET6_0_OR_GREATER
-				try
-				{
-					await jsModule.InvokeVoidAsync("dispose", offcanvasElement);
-				}
-				catch (JSDisconnectedException)
-				{
-					// NOOP
-				}
+					try
+					{
+						await jsModule.InvokeVoidAsync("dispose", offcanvasElement);
+					}
+					catch (JSDisconnectedException)
+					{
+						// NOOP
+					}
 #else
 					await jsModule.InvokeVoidAsync("dispose", offcanvasElement);
 #endif
