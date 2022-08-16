@@ -1,5 +1,9 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
+@{
+	int? tabindexValue = EnableKeyboardNavigation ? null /* null = do not render the tabindex attribute */ : -1;
+}
+
 <div class="hx-calendar">
 	@if (renderData != null)
 	{
@@ -8,16 +12,17 @@
 					  CssClass="hx-calendar-navigation-button"
 					  Size="ButtonSize.Small"
 					  Enabled="@renderData.PreviousMonthEnabled"
-					  OnClickStopPropagation="true"
-					  OnClick="HandlePreviousMonthClickAsync" />
+					  OnClickStopPropagation="true"					  
+					  OnClick="HandlePreviousMonthClickAsync"
+					  tabindex="@tabindexValue" />
 			<div class="hx-calendar-month-year-select">
-				<select class="form-select form-select-sm" aria-label="Month" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
+				<select class="form-select form-select-sm" aria-label="Month" tabindex="@tabindexValue" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
 					@foreach (var month in renderData.Months)
 					{
 						<option value="@month.Index" disabled="@(!month.Enabled)">@month.Name</option>
 					}
 				</select>
-				<select class="form-select form-select-sm" aria-label="Year" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
+				<select class="form-select form-select-sm" aria-label="Year" tabindex="@tabindexValue" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
 					@foreach (int year in renderData.Years)
 					{
 						/* not "N" - we do not want thousands separator */
@@ -30,7 +35,8 @@
 					  Size="ButtonSize.Small"
 					  Enabled="@renderData.NextMonthEnabled"
 					  OnClickStopPropagation="true"
-					  OnClick="HandleNextMonthClickAsync" />
+					  OnClick="HandleNextMonthClickAsync"
+					  tabindex="@tabindexValue" />
 		</div>
 
 		<table>

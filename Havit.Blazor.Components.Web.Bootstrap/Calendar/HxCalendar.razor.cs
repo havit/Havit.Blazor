@@ -100,6 +100,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public CalendarDateCustomizationProviderDelegate DateCustomizationProvider { get; set; }
 		protected CalendarDateCustomizationProviderDelegate DateCustomizationProviderEffective => this.DateCustomizationProvider ?? this.GetSettings()?.DateCustomizationProvider ?? GetDefaults().DateCustomizationProvider;
 
+		/// <summary>
+		/// Indicates whether the keyboard navigation is enabled. When disabled, the calendar renders tabindex="-1" on interactive elements.
+		/// Default is <c>true</c> (tabindex attribute is not rendered).
+		/// </summary>
+		[Parameter] public bool EnableKeyboardNavigation { get; set; } = true;
+
 		private CultureInfo Culture => CultureInfo.CurrentUICulture;
 		private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;
 		protected DateTime DisplayMonthFirstDay => new DateTime(DisplayMonth.Year, DisplayMonth.Month, 1);

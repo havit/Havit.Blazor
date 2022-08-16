@@ -25,7 +25,7 @@
            type="text"
            id="@InputId"
            class="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass(), HasEndInputGroupEffective ? "hx-input-date-no-right-border" : null)"
-           value="@CurrentValueAsString" @onchange="HandleValueChangedAsync"
+           value="@CurrentValueAsString" @onchange="HandleValueChanged"
            placeholder="@Placeholder"
            data-bs-toggle="dropdown"
            data-bs-auto-close="outside"
@@ -48,13 +48,13 @@
         {
             <div class="dropdown-menu hx-input-date-dropdown">
                 <div class="hx-input-date-calendar">
-                    <HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" />
+                    <HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" EnableKeyboardNavigation="false" />
                 </div>
                 @if (ShowCalendarButtonsEffective)
                 {
                     <div class="hx-input-date-dropdown-buttons">
-                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDate))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" />
-                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("OK", typeof(HxInputDate))" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleOKClickAsync" />
+                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDate))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" tabindex="-1" />
+                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("OK", typeof(HxInputDate))" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleOKClickAsync" tabindex="-1"  />
                     </div>
                 }
             </div>

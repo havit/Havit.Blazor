@@ -95,7 +95,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		protected override string FormatValueAsString(TValue value) => HxInputDate<TValue>.FormatValue(value);
 
-		private async Task HandleValueChangedAsync(ChangeEventArgs changeEventArgs)
+		private void HandleValueChanged(ChangeEventArgs changeEventArgs)
 		{
 			// HandleValueChanged is used instead of TryParseValueFromString
 			// When TryParseValueFromString is used, invalid input is replaced by previous value.		
@@ -106,7 +106,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			{
 				parsingFailed = false;
 				CurrentValue = GetValueFromDateTimeOffset(date);
-				await CloseDropDownAsync(dateInputElement);
 			}
 			else
 			{
