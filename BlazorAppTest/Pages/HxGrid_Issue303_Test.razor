@@ -11,13 +11,13 @@
 </HxGrid>
 
 @code {
-    private async Task<GridDataProviderResult<CultureInfo>> EmptyCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+    private Task<GridDataProviderResult<CultureInfo>> EmptyCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
     {
         //await Task.Delay(3);
-        return new GridDataProviderResult<CultureInfo>
+        return Task.FromResult(new GridDataProviderResult<CultureInfo>
             {
                 Data = null,
                 TotalCount = 0
-            };
+            });
     }
 }
