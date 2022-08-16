@@ -108,7 +108,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			return CalendarDateCustomizationProviderEffective?.Invoke(request with { Target = CalendarDateCustomizationTarget.InputDateRangeTo }) ?? null;
 		}
 
-		protected async Task HandleFromChangedAsync(ChangeEventArgs changeEventArgs)
+		protected void HandleFromChanged(ChangeEventArgs changeEventArgs)
 		{
 			bool parsingFailed;
 
@@ -119,7 +119,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				parsingFailed = false;
 				CurrentValue = Value with { StartDate = fromDate?.DateTime };
 				EditContext.NotifyFieldChanged(fromFieldIdentifier);
-				await CloseDropDownAsync(fromInputElement);
 			}
 			else
 			{
@@ -135,7 +134,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 		}
 
-		protected async Task HandleToChangedAsync(ChangeEventArgs changeEventArgs)
+		protected void HandleToChanged(ChangeEventArgs changeEventArgs)
 		{
 			bool parsingFailed;
 			validationMessageStore.Clear(toFieldIdentifier);
@@ -145,7 +144,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				parsingFailed = false;
 				CurrentValue = Value with { EndDate = toDate?.DateTime };
 				EditContext.NotifyFieldChanged(toFieldIdentifier);
-				await CloseDropDownAsync(toInputElement);
 			}
 			else
 			{

@@ -12,7 +12,7 @@
            class="@CssClassHelper.Combine(this.InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())"
            value="@FormatDate(Value.StartDate)"
            placeholder="@StringLocalizerFactory.GetLocalizedValue("From", typeof(HxInputDateRange))"
-           @onchange="HandleFromChangedAsync"
+           @onchange="HandleFromChanged"
            @onfocus="HandleFromFocusAsync"
            data-bs-toggle="dropdown"
            data-bs-auto-close="outside"
@@ -23,13 +23,13 @@
         {
             <div class="hx-input-date-range-dropdown dropdown-menu">
                 <div class="hx-input-date-range-calendar">
-                    <HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" />
+                    <HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" KeyboardNavigation="false" />
                 </div>
                 @if (ShowCalendarButtonsEffective)
                 {
                     <div class="hx-input-date-range-buttons">
-                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleFromClearClickAsync" />
-                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("OK", typeof(HxInputDateRange))" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleFromOKClickAsync" />
+                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleFromClearClickAsync" tabindex="-1" />
+                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("OK", typeof(HxInputDateRange))" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleFromOKClickAsync" tabindex="-1" />
                     </div>
                 }
             </div>
@@ -41,7 +41,7 @@
            class="@CssClassHelper.Combine(this.InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())"
            value="@FormatDate(Value.EndDate)"
            placeholder="@StringLocalizerFactory.GetLocalizedValue("To", typeof(HxInputDateRange))"
-           @onchange="HandleToChangedAsync"
+           @onchange="HandleToChanged"
            @onfocus="HandleToFocusAsync"
            data-bs-toggle="dropdown"
            data-bs-auto-close="outside"
@@ -52,13 +52,13 @@
         {
             <div class="hx-input-date-range-dropdown dropdown-menu">
                 <div class="hx-input-date-range-calendar">
-                    <HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" />
+                    <HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" KeyboardNavigation="false" />
                 </div>
                 @if (ShowCalendarButtonsEffective)
                 {
                     <div class="hx-input-date-range-buttons">
-                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleToClearClickAsync" />
-                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("OK", typeof(HxInputDateRange))" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleToOKClickAsync" />
+                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleToClearClickAsync" tabindex="-1" />
+                        <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("OK", typeof(HxInputDateRange))" Color="ThemeColor.Primary" Size="ButtonSize.Small" OnClick="HandleToOKClickAsync" tabindex="-1" />
                     </div>
                 }
             </div>

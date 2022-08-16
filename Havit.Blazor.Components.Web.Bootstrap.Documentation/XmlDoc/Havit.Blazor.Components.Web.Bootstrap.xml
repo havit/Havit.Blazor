@@ -708,7 +708,7 @@
             Allows customization of the dates in calendar.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.EnableKeyboardNavigation">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.KeyboardNavigation">
             <summary>
             Indicates whether the keyboard navigation is enabled. When disabled, the calendar renders tabindex="-1" on interactive elements.
             Default is <c>true</c> (tabindex attribute is not rendered).

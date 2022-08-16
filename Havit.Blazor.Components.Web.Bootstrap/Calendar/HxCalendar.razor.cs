@@ -104,7 +104,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Indicates whether the keyboard navigation is enabled. When disabled, the calendar renders tabindex="-1" on interactive elements.
 		/// Default is <c>true</c> (tabindex attribute is not rendered).
 		/// </summary>
-		[Parameter] public bool EnableKeyboardNavigation { get; set; } = true;
+		[Parameter] public bool KeyboardNavigation { get; set; } = true;
 
 		private CultureInfo Culture => CultureInfo.CurrentUICulture;
 		private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;
