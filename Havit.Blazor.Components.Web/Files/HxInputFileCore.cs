@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Net;
 using Havit.Diagnostics.Contracts;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 
@@ -265,7 +266,18 @@ namespace Havit.Blazor.Components.Web
 
 			if (jsModule != null)
 			{
+#if NET6_0_OR_GREATER
+				try
+				{
+					await jsModule.InvokeVoidAsync("dispose", Id);
+				}
+				catch (JSDisconnectedException)
+				{
+					// NOOP
+				}
+#else
 				await jsModule.InvokeVoidAsync("dispose", Id);
+#endif
 				await jsModule.DisposeAsync();
 			}
 

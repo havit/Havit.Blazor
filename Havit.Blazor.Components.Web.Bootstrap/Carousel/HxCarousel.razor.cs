@@ -208,7 +208,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (jsModule is not null)
 			{
+#if NET6_0_OR_GREATER
+				try
+				{
+					await jsModule.InvokeVoidAsync("dispose", elementReference);
+				}
+				catch (JSDisconnectedException)
+				{
+					// NOOP
+				}
+#else
 				await jsModule.InvokeVoidAsync("dispose", elementReference);
+#endif
 				await jsModule.DisposeAsync();
 			}
 

@@ -1,4 +1,5 @@
 ﻿using Havit.Diagnostics.Contracts;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
@@ -246,7 +247,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			if (jsModule != null)
 			{
+#if NET6_0_OR_GREATER
+				try
+				{
+					await CloseDropDownAsync(dateInputElement);
+				}
+				catch (JSDisconnectedException)
+				{
+					// NOOP
+				}
+#else
 				await CloseDropDownAsync(dateInputElement);
+#endif
 
 				await jsModule.DisposeAsync();
 			}

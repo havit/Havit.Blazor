@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -237,7 +238,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (jsModule != null)
 			{
+#if NET6_0_OR_GREATER
+				try
+				{
+					await jsModule.InvokeVoidAsync("dispose", toastElement);
+				}
+				catch (JSDisconnectedException)
+				{
+					// NOOP
+				}
+#else
 				await jsModule.InvokeVoidAsync("dispose", toastElement);
+#endif
 				await jsModule.DisposeAsync();
 			}
 
