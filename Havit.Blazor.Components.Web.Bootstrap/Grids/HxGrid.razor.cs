@@ -37,6 +37,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// The provider should always return instance of <see cref="GridDataProviderResult{TItem}"/>, <c>null</c> is not allowed.
 		/// </summary>
 #if NET6_0_OR_GREATER
+
 		[EditorRequired]
 #endif
 		[Parameter] public GridDataProviderDelegate<TItem> DataProvider { get; set; }
@@ -121,7 +122,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? this.GetSettings()?.ContentNavigationMode ?? GetDefaults().ContentNavigationMode ?? throw new InvalidOperationException(nameof(ContentNavigationMode) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
-		/// Page size for <see cref="GridContentNavigationMode.Pagination"/>.
+		/// Page size for <see cref="GridContentNavigationMode.Pagination"/>. Set <c>0</c> to disable paging.
 		/// </summary>
 		[Parameter] public int? PageSize { get; set; }
 		protected int PageSizeEffective => this.PageSize ?? this.GetSettings()?.PageSize ?? GetDefaults().PageSize ?? throw new InvalidOperationException(nameof(PageSize) + " default for " + nameof(HxGrid) + " has to be set.");
