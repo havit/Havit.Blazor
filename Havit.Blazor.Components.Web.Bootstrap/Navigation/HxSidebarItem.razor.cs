@@ -74,8 +74,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected bool isMatch;
 		protected bool expanded;
 
-		protected bool ShouldBeInitiallyExpanded => expanded && (ParentSidebar?.KeepItemsExpanded ?? false);
-
 		public HxSidebarItem()
 		{
 			childItems = new();
@@ -118,13 +116,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		public async ValueTask DisposeAsync()
 		{
-			// When the HxSidebarItem is disposed and we don't want to keep expanded items expanded after a collapse and an expansion of the parent sidebar, then we need to set expanded=false, because when this HxSidebarItem is going to be rendered again, it will be in the default initial state - collapsed (closed).
-			// On the other hand, if we want to keep expanded items expanded after a collapse and an expansion of the parent sidebar, we need to hold information about the previous state, so that we can set InitiallyExpanded=previousExpansionState on the HxCollapse.
-			if (ParentSidebar?.KeepItemsExpanded == false)
-			{
-				expanded = false;
-			}
-
 			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
