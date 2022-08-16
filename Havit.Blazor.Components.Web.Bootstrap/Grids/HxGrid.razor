@@ -198,34 +198,34 @@
 					        }
 						</text>;
 
-				@if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
-				{
-					<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective">
-						<ItemContent>
-							@rowTemplate(@context)
-						</ItemContent>
-						<Placeholder Context="placeholderContext">
-							<tr height="@rowHeight">
-								@foreach (IHxGridColumn<TItem> column in columnsToRender)
-								{
-									GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
-									<td class="@placeholderCellTemplate.CssClass">
-										@placeholderCellTemplate.Template
-									</td>
-								}
-							</tr>
-						</Placeholder>
-					</Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
-				}
+				        @if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
+				        {
+					        <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective">
+						        <ItemContent>
+							        @rowTemplate(@context)
+						        </ItemContent>
+						        <Placeholder Context="placeholderContext">
+							        <tr height="@rowHeight">
+								        @foreach (IHxGridColumn<TItem> column in columnsToRender)
+								        {
+									        GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
+									        <td class="@placeholderCellTemplate.CssClass">
+										        @placeholderCellTemplate.Template
+									        </td>
+								        }
+							        </tr>
+						        </Placeholder>
+					        </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
+				        }
 
-				@if (ContentNavigationModeEffective == GridContentNavigationMode.Pagination)
-				{
-					foreach (TItem item in paginationDataItemsToRender)
-					{
-						@rowTemplate(item)
-					}
-				}
-			}
+				        @if (ContentNavigationModeEffective == GridContentNavigationMode.Pagination)
+				        {
+					        foreach (TItem item in paginationDataItemsToRender)
+					        {
+						        @rowTemplate(item)
+					        }
+				        }
+			        }
 				</tbody>
 				@{
 					GridFooterCellContext gridFooterCellContext = CreateGridFooterCellContext();

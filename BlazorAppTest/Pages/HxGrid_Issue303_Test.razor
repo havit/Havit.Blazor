@@ -1,0 +1,23 @@
+﻿@page "/HxGrid_Issue303_Test"
+@using System.Globalization
+
+@* DOES NOT REPRO IN BLAZOR SERVER !!! *@
+
+<HxGrid TItem="CultureInfo" Responsive="true" DataProvider="EmptyCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll">
+    <Columns>
+        <HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
+        <HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" />
+    </Columns>
+</HxGrid>
+
+@code {
+    private async Task<GridDataProviderResult<CultureInfo>> EmptyCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+    {
+        //await Task.Delay(3);
+        return new GridDataProviderResult<CultureInfo>
+            {
+                Data = null,
+                TotalCount = 0
+            };
+    }
+}
