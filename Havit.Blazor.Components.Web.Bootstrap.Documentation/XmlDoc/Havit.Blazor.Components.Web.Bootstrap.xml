@@ -5082,7 +5082,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PageSize">
             <summary>
-            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/>.
+            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/>. Set <c>0</c> to disable paging.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PlaceholdersRowCount">
@@ -5326,7 +5326,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PageSize">
             <summary>
-            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/>.
+            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/>. Set <c>0</c> to disable paging.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ShowFooterWhenEmptyData">
