@@ -17,6 +17,10 @@
     background-clip: border-box;
 }
 
+.hx-input-date-range {
+    flex-wrap: nowrap;
+}
+
 .hx-input-date-range-dropdown {
     padding: var(--hx-input-date-range-dropdown-padding);
 }
@@ -32,6 +36,8 @@
 
 ::deep .hx-dropdown-with-calendar {
     flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 ::deep .hx-border-radius-start-0 {
