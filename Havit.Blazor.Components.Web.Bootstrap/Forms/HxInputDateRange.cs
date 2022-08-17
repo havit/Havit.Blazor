@@ -141,16 +141,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			builder.AddAttribute(200, nameof(HxInputDateRangeInternal.FromInputId), InputId);
 			builder.AddAttribute(201, nameof(HxInputDateRangeInternal.InputCssClass), GetInputCssClassToRender());
-			builder.AddAttribute(201, nameof(HxInputDateRangeInternal.InputSizeEffective), this.InputSizeEffective);
-			builder.AddAttribute(202, nameof(HxInputDateRangeInternal.EnabledEffective), EnabledEffective);
-			builder.AddAttribute(203, nameof(HxInputDateRangeInternal.FromParsingErrorMessageEffective), GetFromParsingErrorMessage());
-			builder.AddAttribute(204, nameof(HxInputDateRangeInternal.ToParsingErrorMessageEffective), GetToParsingErrorMessage());
-			builder.AddAttribute(205, nameof(HxInputDateRangeInternal.ShowValidationMessage), ShowValidationMessage);
-			builder.AddAttribute(206, nameof(HxInputDateRangeInternal.PredefinedDateRangesEffective), this.PredefinedDateRangesEffective);
-			builder.AddAttribute(206, nameof(HxInputDateRangeInternal.ShowPredefinedDateRangesEffective), this.ShowPredefinedDateRangesEffective);
-			builder.AddAttribute(207, nameof(HxInputDateRangeInternal.ShowCalendarButtonsEffective), ShowCalendarButtonsEffective);
-			builder.AddAttribute(208, nameof(HxInputDateRangeInternal.MinDateEffective), MinDateEffective);
-			builder.AddAttribute(219, nameof(HxInputDateRangeInternal.MaxDateEffective), MaxDateEffective);
+			builder.AddAttribute(202, nameof(HxInputDateRangeInternal.InvalidCssClass), InvalidCssClass);
+			builder.AddAttribute(203, nameof(HxInputDateRangeInternal.InputSizeEffective), this.InputSizeEffective);
+			builder.AddAttribute(204, nameof(HxInputDateRangeInternal.EnabledEffective), EnabledEffective);
+			builder.AddAttribute(205, nameof(HxInputDateRangeInternal.FromParsingErrorMessageEffective), GetFromParsingErrorMessage());
+			builder.AddAttribute(206, nameof(HxInputDateRangeInternal.ToParsingErrorMessageEffective), GetToParsingErrorMessage());
+			builder.AddAttribute(207, nameof(HxInputDateRangeInternal.ShowValidationMessage), ShowValidationMessage);
+			builder.AddAttribute(208, nameof(HxInputDateRangeInternal.PredefinedDateRangesEffective), this.PredefinedDateRangesEffective);
+			builder.AddAttribute(209, nameof(HxInputDateRangeInternal.ShowPredefinedDateRangesEffective), this.ShowPredefinedDateRangesEffective);
+			builder.AddAttribute(210, nameof(HxInputDateRangeInternal.ShowCalendarButtonsEffective), ShowCalendarButtonsEffective);
+			builder.AddAttribute(211, nameof(HxInputDateRangeInternal.MinDateEffective), MinDateEffective);
+			builder.AddAttribute(212, nameof(HxInputDateRangeInternal.MaxDateEffective), MaxDateEffective);
 			builder.AddAttribute(220, nameof(HxInputDateRangeInternal.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProviderEffective);
 
 			builder.AddMultipleAttributes(300, this.AdditionalAttributes);

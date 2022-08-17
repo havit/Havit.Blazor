@@ -133,7 +133,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			if (RenderIcon)
 			{
-				jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDateRange));
+				jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDate));
 				await jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", hxDropdownToggleElement.ElementReference, (this.CalendarIconEffective is not null) ? iconWrapperElement : null);
 			}
 		}
