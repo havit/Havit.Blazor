@@ -1,7 +1,7 @@
 {
     "name": "havit-bootstrap",
     "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-    "version": "5.1.3",
+    "version": "5.2.0",
     "scripts": {
         "css": "npm-run-all css-compile css-prefix css-rtl css-minify",
         "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css scss/:dist/css/",

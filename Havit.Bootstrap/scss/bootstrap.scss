@@ -9,18 +9,8 @@
 // Configuration
 @import "../bootstrap/scss/functions";
 
-$light:   #dee2e6;
-$blue:    #009de0;
-$red:     #f93a25;
-$green:   #1c9e0b;
-$primary: $blue;
-$danger:  $red;
-$success: $green;
-
-$border-radius:               .375rem;
-$border-radius-sm:            .25rem;
-$border-radius-lg:            .5rem;
-
+@import "../bootstrap/scss/maps";
+@import "maps";
 @import "../bootstrap/scss/variables";
 @import "variables";
 @import "../bootstrap/scss/mixins";

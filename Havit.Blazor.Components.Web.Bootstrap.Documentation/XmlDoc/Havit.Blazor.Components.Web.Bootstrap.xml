@@ -7333,7 +7333,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.StaticBackdropValue">
             <summary>
-            A value that is passed to the Offcanvas constructor (in JS), when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Backdrop"/> is set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.Static"/>.
+            A value that is passed to the offcanvas constructor (in JS), when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Backdrop"/> is set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.Static"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults">
@@ -7424,7 +7424,8 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Backdrop">
             <summary>
             Indicates whether to apply a backdrop on body while offcanvas is open.
-            Default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults"/>) is <c>true</c>.
+            If set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.Static"/>, the offcanvas cannot be closed by clicking on the backdrop.
+            Default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults"/>) is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.True"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.ScrollingEnabled">
