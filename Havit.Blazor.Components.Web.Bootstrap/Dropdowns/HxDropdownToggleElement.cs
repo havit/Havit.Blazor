@@ -64,6 +64,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
+		/// <summary>
+		/// Returns the element reference of rendered element.
+		/// </summary>
+		internal ElementReference ElementReference => elementReference;
+
 		private ElementReference elementReference;
 		private DotNetObjectReference<HxDropdownToggleElement> dotnetObjectReference;
 		private IJSObjectReference jsModule;
