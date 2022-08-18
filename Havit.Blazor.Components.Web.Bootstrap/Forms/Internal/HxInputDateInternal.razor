@@ -4,14 +4,15 @@
 
 @if (FieldIdentifier.Model != null)
 {
-    <div> @* root div element ensures Blazor CSS isolation works well *@
+    <div class="@CssClassHelper.Combine(
+                                    "hx-input-date-wrapper input-group",
+                                    ((IInputWithSize)this).GetInputGroupSizeCssClass(),
+                                    InputSizeEffective.AsInputGroupCssClass(),
+                                    (ShowPredefinedDatesEffective && (PredefinedDatesEffective?.Any() ?? false)) ? "hx-input-date-predefined-dates" : null,
+                                    (this.CalendarIconEffective is not null) ? "hx-input-date-has-calendar-icon" : null)">
         <HxDropdown CssClass="@CssClassHelper.Combine(
-					     "hx-input-date input-group",
-					     ((IInputWithSize)this).GetInputGroupSizeCssClass(),
-                         InputSizeEffective.AsInputGroupCssClass(),
-					     (this.CalendarIconEffective is not null) ? "hx-input-date-has-calendar-icon" : null,
+					     "hx-input-date",
 					     (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null,
-					     (ShowPredefinedDatesEffective && (PredefinedDatesEffective?.Any() ?? false)) ? "hx-input-date-predefined-dates" : null,
 					     InputGroupCssClass)"
                     AutoClose="DropdownAutoClose.Outside">
 
@@ -25,7 +26,7 @@
             <HxDropdownToggleElement
                 @ref="hxDropdownToggleElement"
                 ElementName="input"
-                CssClass="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass(), HasEndInputGroupEffective ? "hx-input-date-no-right-border" : null)"
+                CssClass="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())"
                 type="text"
                 id="@InputId"
                 value="@CurrentValueAsString" @onchange="HandleValueChanged"
@@ -60,17 +61,12 @@
                     }
                 </HxDropdownContent>
             }
+        </HxDropdown>
 
-            @if (RenderIcon)
-            {
-                <div @ref="iconWrapperElement" class="hx-input-date-icon">
-                    <HxIcon Icon="CalendarIconEffective" />
-                </div>
-            }
-
+        <HxDropdown CssClass="@(((IInputWithSize)this).GetInputGroupSizeCssClass())">
             @if (RenderPredefinedDates)
             {
-                <button class="btn btn-light" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)" tabindex="-1">
+                <button class="btn btn-light hx-input-date-predefined-dates-button" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)" tabindex="-1">
                     <HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
                 </button>
                 @if (EnabledEffective)
@@ -84,6 +80,13 @@
                 }
             }
         </HxDropdown>
+
+        @if (RenderIcon)
+        {
+            <div @ref="iconWrapperElement" class="hx-input-date-icon">
+                <HxIcon Icon="CalendarIconEffective" />
+            </div>
+        }
     </div>
 
 }

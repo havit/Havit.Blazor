@@ -1,14 +1,17 @@
-.hx-input-date > button, .hx-input-date:not(.hx-input-date-predefined-dates) .form-control {
+.hx-input-date > .hx-input-date-predefined-dates-button,
+.hx-input-date-wrapper:not(.hx-input-date-predefined-dates) .form-control {
 	border-top-right-radius: .25rem !important;
 	border-bottom-right-radius: .25rem !important;
 }
 
-.input-group-sm > .hx-input-date > button, .hx-input-date:not(.hx-input-date-predefined-dates) .form-control {
+.input-group-sm .hx-input-date-predefined-dates-button,
+.hx-input-date-wrapper:not(.hx-input-date-predefined-dates) .form-control {
 	border-top-right-radius: .2rem !important;
 	border-bottom-right-radius: .2rem !important;
 }
 
-.input-group-lg > .hx-input-date > button, .hx-input-date:not(.hx-input-date-predefined-dates) .form-control {
+.input-group-lg .hx-input-date-predefined-dates-button,
+.hx-input-date-wrapper:not(.hx-input-date-predefined-dates) .form-control {
 	border-top-right-radius: .3rem !important;
 	border-bottom-right-radius: .3rem !important;
 }
@@ -74,11 +77,29 @@
 	z-index: 10;
 }
 
-.hx-input-date.input-group input.form-control.hx-input-date-no-right-border {
+.hx-input-date-predefined-dates ::deep input.form-control {
 	border-top-right-radius: 0 !important;
 	border-bottom-right-radius: 0 !important;
 }
 
 ::deep .form-floating label {
 	z-index: 10;
+}
+
+.hx-input-date-wrapper {
+	width: 100%;
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+}
+
+::deep .hx-input-date {
+	flex-grow: 1;
+	flex-shrink: 1;
+	min-width: 0;
+}
+
+::deep .hx-input-date-predefined-dates-button {
+	border-bottom-left-radius: 0 !important;
+	border-top-left-radius: 0 !important;
 }
