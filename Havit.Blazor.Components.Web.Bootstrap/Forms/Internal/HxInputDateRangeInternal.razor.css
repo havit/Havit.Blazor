@@ -40,6 +40,10 @@
     min-width: 0;
 }
 
+::deep .hx-dropdown-with-calendar:focus-within {
+    z-index: 4; /* Assures that the inputs' box shadows are always fully visible (rendered on top). */
+}
+
 ::deep .hx-border-radius-start-0 {
     border-bottom-left-radius: 0 !important;
     border-top-left-radius: 0 !important;
