@@ -115,9 +115,30 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 			List<string> messages = fieldIdentifiers.SelectMany(fieldIdentifier => currentEditContext.GetValidationMessages(fieldIdentifier)).ToList();
+			bool isValid = !messages.Any();
 
-			if (messages.Any())
+			if (isValid)
 			{
+				// when there is no validation message, render "nothing"
+				// practically, we need to render div for keepspace
+				if (DisplayMode == ValidationMessageDisplayMode.KeepSpace)
+				{
+					builder.OpenElement(200, "div");
+					builder.AddAttribute(201, "class", DisplayMode.AsCssClass());
+					builder.CloseElement();
+				}
+			}
+			else
+			{
+				// TODO JK: AFAIR &nbsp; replaced in master
+
+				/*
+					<div class="is-invalid">
+						<div class="invalid-feedback|invalid-tooltip|invalid-feedback-keepspace">
+							<span>Validation message 1</span>&nbsp;<span>Validation message 2</span>
+						</div>
+					</div>
+				*/
 				builder.OpenElement(100, "div");
 				builder.AddAttribute(101, "class", HxInputBase<object>.InvalidCssClass);
 				builder.CloseElement();

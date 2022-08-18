@@ -1,0 +1,51 @@
+﻿@page "/HxValidationMessageTest"
+@namespace System.ComponentModel.DataAnnotations
+
+<h4>Instructions</h4>
+<ul>
+	<li>This demo shows on submit as many validation errors, as you enter to the input.</li>
+	<li>To check the floating labels and validation message, leave the input empty.</li>
+	<li>Try different browser sizes (ie. &quot;mobile screen size&quot;).</li>
+</ul>
+
+<h4>Test</h4>
+
+<EditForm Model="@model">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+
+	<HxInputNumber Label="None" @bind-Value="@model.Value" ValidationMessageDisplayMode="ValidationMessageDisplayMode.None" />
+	<HxInputNumber Label="Regular" @bind-Value="@model.Value" ValidationMessageDisplayMode="ValidationMessageDisplayMode.Regular" />
+	<HxInputNumber Label="Tooltip" @bind-Value="@model.Value" ValidationMessageDisplayMode="ValidationMessageDisplayMode.Tooltip" />
+	<HxInputNumber Label="Keepspace" @bind-Value="@model.Value" ValidationMessageDisplayMode="ValidationMessageDisplayMode.KeepSpace" />
+	<HxInputNumber Label="None (floating labels)" @bind-Value="@model.Value" LabelType="LabelType.Floating" ValidationMessageDisplayMode="ValidationMessageDisplayMode.None" />
+	<HxInputNumber Label="Regular (floating labels)" @bind-Value="@model.Value" LabelType="LabelType.Floating" ValidationMessageDisplayMode="ValidationMessageDisplayMode.Regular" />
+	<HxInputNumber Label="Tooltip (floating labels)" @bind-Value="@model.Value" LabelType="LabelType.Floating" ValidationMessageDisplayMode="ValidationMessageDisplayMode.Tooltip" />
+	<HxInputNumber Label="Keepspace (floating labels)" @bind-Value="@model.Value" LabelType="LabelType.Floating" ValidationMessageDisplayMode="ValidationMessageDisplayMode.KeepSpace" />
+
+	<button type="submit">Submit</button>
+</EditForm>
+
+@code {
+	private FormModel model = new FormModel();
+
+	private class FormModel : IValidatableObject
+	{
+		public int? Value { get; set; } = 6;
+
+		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+		{
+			if (Value == null)
+			{
+				yield return new ValidationResult($"Validation message for missing Value.", new string[] { nameof(Value) });
+			}
+			else
+			{
+				for (int i = 0; i < Value; i++)
+				{
+					yield return new ValidationResult($"Validation message {i + 1} for Value.", new string[] { nameof(Value) });
+				}
+			}
+		}
+	}
+}
