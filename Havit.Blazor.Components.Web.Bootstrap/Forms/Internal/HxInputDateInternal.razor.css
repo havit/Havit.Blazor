@@ -28,15 +28,15 @@
 	cursor: pointer;
 }
 
-.hx-input-date-dropdown {
+::deep .hx-input-date .dropdown-menu {
 	padding: var(--hx-input-date-dropdown-padding);
 }
 
-.hx-input-date-calendar {
+::deep .hx-input-date-calendar {
 	margin-bottom: var(--hx-input-date-calendar-margin-bottom);
 }
 
-.hx-input-date-dropdown-buttons {
+::deep .hx-input-date-dropdown-buttons {
 	display: flex;
 	justify-content: space-between;
 }

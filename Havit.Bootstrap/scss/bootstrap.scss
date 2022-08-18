@@ -9,10 +9,17 @@
 // Configuration
 @import "../bootstrap/scss/functions";
 
-@import "../bootstrap/scss/maps";
-@import "maps";
+$light:   #dee2e6;
+$blue:    #009de0;
+$red:     #f93a25;
+$green:   #1c9e0b;
+$primary: $blue;
+$danger:  $red;
+$success: $green;
+
 @import "../bootstrap/scss/variables";
 @import "variables";
+@import "../bootstrap/scss/maps";
 @import "../bootstrap/scss/mixins";
 @import "mixins";
 @import "../bootstrap/scss/utilities";
