@@ -1,10 +1,12 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.1/components/toasts/">Bootstrap Toast</a> component. Not intented to be used in user code, use <see cref="HxMessenger"/>.
-	/// After first render component never updates.
+	/// <see href="https://getbootstrap.com/docs/5.1/components/toasts/">Bootstrap Toast</see> component. Not intented to be used in user code, use <see cref="HxMessenger"/>.
+	/// After first render component never updates.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxToast">https://havit.blazor.eu/components/HxToast</see>
 	/// </summary>
 	public partial class HxToast : ComponentBase, IAsyncDisposable
 	{
@@ -12,6 +14,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// JS Runtime.
 		/// </summary>
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
+
+		/// <summary>
+		/// Color-scheme.
+		/// </summary>
+		[Parameter] public ThemeColor? Color { get; set; }
 
 		/// <summary>
 		/// Delay in miliseconds to automatically hide toast.
@@ -86,7 +93,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(101, "role", "alert");
 			builder.AddAttribute(102, "aria-live", "assertive");
 			builder.AddAttribute(103, "aria-atomic", "true");
-			builder.AddAttribute(104, "class", CssClassHelper.Combine("toast", CssClass));
+			builder.AddAttribute(104, "class", CssClassHelper.Combine("toast", Color?.ToBackgroundColorCss(), HasContrastColor() ? "text-white" : null, CssClass));
 
 			if (AutohideDelay != null)
 			{
@@ -147,7 +154,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					builder.OpenRegion(306);
 					builder.OpenElement(307, "div");
-					builder.AddAttribute(308, "class", "me-2 m-auto");
+					builder.AddAttribute(308, "class", "me-3 m-auto");
 					BuildRenderTree_CloseButton(builder, null);
 					builder.CloseElement();
 					builder.CloseRegion();
@@ -163,9 +170,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			builder.OpenElement(100, "button");
 			builder.AddAttribute(101, "type", "button");
-			builder.AddAttribute(102, "class", CssClassHelper.Combine("btn-close", cssClass));
+			builder.AddAttribute(102, "class", CssClassHelper.Combine("btn-close", HasContrastColor() ? "btn-close-white" : null, cssClass));
 			builder.AddAttribute(103, "data-bs-dismiss", "toast");
 			builder.CloseElement(); // button
+		}
+
+		private bool HasContrastColor()
+		{
+			return this.Color switch
+			{
+				null => false,
+				ThemeColor.Primary => true,
+				ThemeColor.Secondary => true,
+				ThemeColor.Success => true,
+				ThemeColor.Danger => true,
+				ThemeColor.Warning => false,
+				ThemeColor.Info => false,
+				ThemeColor.Light => false,
+				ThemeColor.Dark => true,
+				_ => throw new InvalidOperationException($"Unknown {nameof(Color)}: {this.Color}")
+			};
 		}
 
 		/// <inheritdoc />
@@ -175,7 +199,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (firstRender)
 			{
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxToast) + ".js");
+				jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxToast));
 				if (disposed)
 				{
 					return;
@@ -203,7 +227,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}
@@ -214,7 +238,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (jsModule != null)
 			{
+#if NET6_0_OR_GREATER
+				try
+				{
+					await jsModule.InvokeVoidAsync("dispose", toastElement);
+				}
+				catch (JSDisconnectedException)
+				{
+					// NOOP
+				}
+#else
 				await jsModule.InvokeVoidAsync("dispose", toastElement);
+#endif
 				await jsModule.DisposeAsync();
 			}
 

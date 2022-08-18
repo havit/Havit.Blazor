@@ -1,35 +1,54 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
 <CascadingValue Value="@tabsListRegistration" Name="@TabsRegistrationCascadingValueName" IsFixed="true">
 	@ChildContent
 </CascadingValue>
 
-<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", this.CssClass)" Variant="NavVariant.Tabs">
-	@foreach (HxTab tab in tabsList)
-	{
-		<UpdatedContentRenderer Component="@tab">
-			@if (tab.Visible)
+@{
+    RenderFragment tabsNavigation =
+		@<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), this.CssClass)" Variant="this.NavVariant">
+		    @foreach (HxTab tab in tabsList)
+		    {
+				@if (tab.Visible)
+				{
+					<HxNavLink OnClick="async () => await HandleTabClick(tab)"
+							    CssClass="@CssClassHelper.Combine((IsActive(tab) ? "active" : null), tab.TitleCssClass)"
+							    Enabled="CascadeEnabledComponent.EnabledEffective(tab)">
+						@tab.Title
+						@tab.TitleTemplate
+					</HxNavLink>
+				}
+		    }
+		</HxNav>;
+    
+    RenderFragment tabsContent =
+		@<div class="tab-content">
+			@foreach (HxTab tab in tabsList)
 			{
-				<HxNavLink OnClick="async () => await HandleTabClick(tab)"
-						   CssClass="@(IsActive(tab) ? "active" : null)"
-						   Enabled="CascadeEnabledComponent.EnabledEffective(tab)">
-					@tab.Title
-					@tab.TitleTemplate
-				</HxNavLink>
+				@if (tab.Visible)
+				{
+					<div class="@CssClassHelper.Combine("tab-pane", (IsActive(tab) ? "active" : String.Empty), tab.ContentCssClass)">
+						@tab.Content
+					</div>
+				}
 			}
-		</UpdatedContentRenderer>
-	}
-</HxNav>
+		</div>;
+}
 
-<div class="tab-content">
-	@foreach (HxTab tab in tabsList)
-	{
-		<UpdatedContentRenderer Component="@tab">
-			@if (tab.Visible)
-			{
-				<div class="@CssClassHelper.Combine("tab-pane", IsActive(tab) ? "active" : String.Empty)">
-					@tab.Content
-				</div>
-			}
-		</UpdatedContentRenderer>
-	}
-</div>
+@if (RenderMode == TabPanelRenderMode.Standard)
+{
+	@tabsNavigation
+    @tabsContent
+}
+
+@if (RenderMode == TabPanelRenderMode.Card)
+{
+    <HxCard Settings="CardSettings">
+        <HeaderTemplate>
+            @tabsNavigation
+        </HeaderTemplate>
+        <BodyTemplate>
+            @tabsContent
+        </BodyTemplate>
+    </HxCard>
+}

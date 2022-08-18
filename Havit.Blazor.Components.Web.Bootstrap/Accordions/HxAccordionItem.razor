@@ -1,13 +1,24 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-<div class="hx-accordion-item accordion-item">
-	<h2 class="accordion-header" id="header-@idEffective">
-		<button class="@CssClassHelper.Combine("accordion-button", lastKnownStateIsExpanded ? null : "collapsed")" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@idEffective" aria-expanded="@lastKnownStateIsExpanded" aria-controls="collapse-@idEffective">
-			@HeaderTemplate
-		</button>
-	</h2>
-	<div @ref="collapseHtmlElement" id="collapse-@idEffective" class="@CssClassHelper.Combine("accordion-collapse collapse", lastKnownStateIsExpanded ? "show" : null)" aria-labelledby="header-@idEffective" data-bs-parent="@(!ParentAccordition.StayOpen ? $"#{ParentAccordition.Id}" : null)">
-		<div class="accordion-body">
-			@BodyTemplate
-		</div>
-	</div>
+<div class="@CssClassHelper.Combine("hx-accordion-item accordion-item", this.CssClass)">
+    <h2 class="@CssClassHelper.Combine("accordion-header", this.HeaderCssClass)" id="header-@idEffective">
+        <button type="button"
+                class="@CssClassHelper.Combine("accordion-button", lastKnownStateIsExpanded ? null : "collapsed")"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse-@idEffective"
+                aria-expanded="@lastKnownStateIsExpanded"
+                aria-controls="collapse-@idEffective">
+            @HeaderTemplate
+        </button>
+    </h2>
+    <HxCollapse @ref="collapseComponent"
+                Id="@("collapse-" + idEffective)"
+                Parent="@(!ParentAccordition.StayOpen ? $"#{ParentAccordition.Id}" : null)"
+                CssClass="@CssClassHelper.Combine("accordion-collapse", !isInitialized && IsSetToBeExpanded() ? "show" : null)"
+                OnShown="HandleCollapseShown"
+                OnHidden="HandleCollapseHidden"
+                aria-labelledby="@("header-" + idEffective)">
+        <div class="@CssClassHelper.Combine("accordion-body", this.BodyCssClass)">
+            @BodyTemplate
+        </div>
+    </HxCollapse>
 </div>

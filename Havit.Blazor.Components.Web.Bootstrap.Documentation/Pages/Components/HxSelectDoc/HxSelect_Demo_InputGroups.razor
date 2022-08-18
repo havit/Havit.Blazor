@@ -1,0 +1,27 @@
+﻿<HxSelect Label="Band member"
+          TItem="Person"
+          TValue="string"
+          InputGroupStartText="Select name"
+          Data="people"
+          @bind-Value="value"
+          Nullable="false"
+          TextSelector="@(p => p.Name)"
+          ValueSelector="@(p => p.Initials)" />
+
+@code {
+    private string value = "RS";
+    private List<Person> people;
+
+    protected override void OnInitialized()
+    {
+        people = new List<Person>
+        {
+            new Person("Starr Ringo", "RS"),
+            new Person("Lennon John", "JL"),
+            new Person("McCartney Paul", "PMC"),
+            new Person("Harrison George", "GH")
+        };
+    }
+
+    record Person(string Name, string Initials);
+}

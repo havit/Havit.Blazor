@@ -3,7 +3,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Bootstrap <a href="https://getbootstrap.com/docs/5.0/components/spinners/">Spinner</a> (usually indicates operation in progress).
+	/// Bootstrap <see href="https://getbootstrap.com/docs/5.0/components/spinners/">Spinner</see> (usually indicates operation in progress).<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSpinner">https://havit.blazor.eu/components/HxSpinner</see>
 	/// </summary>
 	public partial class HxSpinner
 	{

@@ -1,15 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFrameworks>net6.0;net5.0</TargetFrameworks>
+		<ImplicitUsings>true</ImplicitUsings>
 		<NoWarn>1591;1701;1702;SA1134</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="Havit.Blazor.Components.Web.Bootstrap.Tests" />
+		<InternalsVisibleTo Include="Havit.Blazor.Components.Web.Bootstrap.Documentation" />
+	</ItemGroup>
+
+
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>2.3.0-pre4</PackageVersion>
+		<!-- ComponentsPackagesVersion - variable from Directory.Build.props -->
+		<PackageVersion>$(ComponentsPackagesVersion)</PackageVersion>
 		<Description>HAVIT Blazor Library - Free Bootstrap 5 components for ASP.NET Blazor</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://havit.blazor.eu</PackageProjectUrl>
@@ -29,8 +37,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.14" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.6" />
 	</ItemGroup>
 
 	<ItemGroup>

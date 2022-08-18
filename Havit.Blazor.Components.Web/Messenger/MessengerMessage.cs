@@ -11,7 +11,7 @@
 		public string Key { get; } = Guid.NewGuid().ToString("N");
 
 		/// <summary>
-		/// Message icon.
+		/// Message icon (header).
 		/// </summary>
 		public IconBase Icon { get; set; }
 
@@ -26,13 +26,23 @@
 		public int? AutohideDelay { get; set; }
 
 		/// <summary>
-		/// Message title.
+		/// Message title (header).
 		/// </summary>
 		public string Title { get; set; }
+
+		/// <summary>
+		/// Custom message header
+		/// </summary>
+		public RenderFragment HeaderTemplate { get; set; }
 
 		/// <summary>
 		/// Message text (body).
 		/// </summary>
 		public string Text { get; set; }
+
+		/// <summary>
+		/// Custom message body (content).
+		/// </summary>
+		public RenderFragment ContentTemplate { get; set; }
 	}
 }

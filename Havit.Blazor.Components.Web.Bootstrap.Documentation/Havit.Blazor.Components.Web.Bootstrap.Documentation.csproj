@@ -8,12 +8,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="LoxSmoke.DocXml" Version="3.4.5" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.2" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-		<PackageReference Include="System.CodeDom" Version="6.0.0" />
-		<PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.6" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.6" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.6" />
+		<PackageReference Include="System.Text.Json" Version="6.0.5" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -36,19 +34,15 @@
 
 	<ItemGroup>
 		<Content Remove="**/*.CodeSnippet.*" />
+		<Content Remove="GenericTypePlaceholders\**" />
 		<Compile Remove="**/*.CodeSnippet.*" />
+		<Compile Remove="GenericTypePlaceholders\**" />
 		<EmbeddedResource Include="**/*.CodeSnippet.*" />
+		<EmbeddedResource Remove="GenericTypePlaceholders\**" />
+		<None Remove="GenericTypePlaceholders\**" />
 		<EmbeddedResource Update="**/*.CodeSnippet.*">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="GenericTypePlaceholders\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="Pages\Components\HxMultiSelectDoc\HxMultiSelect_Documentation.razor" />
 	</ItemGroup>
 
 	<Target Name="EmbedDemos" BeforeTargets="PrepareForBuild">

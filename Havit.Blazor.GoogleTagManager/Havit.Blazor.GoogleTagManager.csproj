@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFrameworks>net6.0;net5.0</TargetFrameworks>
 		<NoWarn>1591;1701;1702;SA1134</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
@@ -20,8 +20,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Havit.Core" Version="2.0.25" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.14" />
+		<PackageReference Include="Havit.Core" Version="2.0.26" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.17" />
 	</ItemGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">

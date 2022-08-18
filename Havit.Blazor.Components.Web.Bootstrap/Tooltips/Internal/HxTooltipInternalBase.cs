@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
@@ -185,7 +186,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task EnsureJsModuleAsync()
 		{
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + JsModuleName + ".js");
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(JsModuleName);
 		}
 
 		/// <summary>
@@ -193,6 +194,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		public async Task ShowAsync()
 		{
+			if (!isInitialized)
+			{
+				return;
+			}
+
 			await EnsureJsModuleAsync();
 			await jsModule.InvokeVoidAsync("show", spanElement);
 		}
@@ -202,6 +208,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		public async Task HideAsync()
 		{
+			if (!isInitialized)
+			{
+				return;
+			}
+
 			await EnsureJsModuleAsync();
 			await jsModule.InvokeVoidAsync("hide", spanElement);
 		}
@@ -230,7 +241,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}
@@ -241,10 +252,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			if (jsModule != null)
 			{
-				if (isInitialized
-					&& (!String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal)))
+				if (isInitialized && (!String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal)))
 				{
+#if NET6_0_OR_GREATER
+					try
+					{
+						await jsModule.InvokeVoidAsync("destroy", spanElement);
+					}
+					catch (JSDisconnectedException)
+					{
+						// NOOP
+					}
+#else
 					await jsModule.InvokeVoidAsync("destroy", spanElement);
+#endif
 				}
 				await jsModule.DisposeAsync();
 				jsModule = null;

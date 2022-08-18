@@ -2,7 +2,14 @@
 @typeparam TItem
 @typeparam TValue
 
-<div id="@dropdownId" class="@CssClassHelper.Combine("hx-autosuggest dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
+<div id="@dropdownId" class="@CssClassHelper.Combine("hx-autosuggest dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null, HasInputGroupsEffective ? "input-group" : null, InputGroupCssClass)">
+	@if (InputGroupStartText is not null)
+	{
+		<span class="input-group-text">@InputGroupStartText</span>
+	}
+    
+	@InputGroupStartTemplate
+	
 	<HxAutosuggestInput @ref="autosuggestInput"
 						InputId="@InputId"
 						EnabledEffective="@EnabledEffective"
@@ -10,16 +17,26 @@
 						OnInputInput="HandleInputInput"
 						OnInputFocus="HandleInputFocus"
 						OnInputBlur="HandleInputBlur"
+						OnEnter="HandleInputEnterKeyDown"
 						Placeholder="@Placeholder"
-						CssClass="@InputCssClass"
-						DropdownOffset="@DropdownOffset" />
+						CssClass="@((!HasAnyInputGroupEnd ? "rounded-end " : null) + InputCssClass)"
+						DropdownOffset="@DropdownOffset"
+                        AdditionalAttributes="this.AdditionalAttributes" />
+
+	@InputGroupEndTemplate
+
+	@if (InputGroupEndText is not null)
+	{
+		<span class="input-group-text rounded-end">@InputGroupEndText</span>
+	}
+
 	@if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
 	{
 		<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
 	}
 	@if (EnabledEffective)
 	{
-		<div class="hx-autosuggest-input-icon">
+		<div class="@CssClassHelper.Combine("hx-autosuggest-input-icon", HasAnyInputGroupEnd ? "d-none" : null)">
 			@if (dataProviderInProgress)
 			{
 				<div>
@@ -40,7 +57,7 @@
 				<HxIcon Icon="@SearchIconEffective" />
 			}
 		</div>
-		<HxAutosuggestItems CssClass="w-100" TItem="TItem" Items="@suggestions" OnItemClick="HandleItemClick">
+		<HxAutosuggestItems CssClass="w-100" TItem="TItem" Items="@suggestions" OnItemClick="HandleItemClick" HighlightFirstSuggestionEffective="HighlightFirstSuggestionEffective">
 			<ItemTemplate>
 				@if (ItemTemplate != null)
 				{

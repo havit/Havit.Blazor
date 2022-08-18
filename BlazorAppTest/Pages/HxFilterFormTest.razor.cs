@@ -14,6 +14,13 @@ namespace BlazorAppTest.Pages
 
 		private HxFilterForm<FormModel> filterForm;
 		private ChipItem[] chips;
+		private ThemeColor[] selectData;
+
+		protected override async Task OnInitializedAsync()
+		{
+			await Task.Delay(100);
+			selectData = Enum.GetValues<ThemeColor>();
+		}
 
 		private void HandleChipsUpdated(ChipItem[] chips)
 		{
@@ -39,6 +46,8 @@ namespace BlazorAppTest.Pages
 			public int Number1 { get; set; } = 5;
 
 			public List<string> Tags { get; set; }
+
+			public ThemeColor Color { get; set; } = ThemeColor.Primary;
 
 			public object Clone() => MemberwiseClone();
 		}

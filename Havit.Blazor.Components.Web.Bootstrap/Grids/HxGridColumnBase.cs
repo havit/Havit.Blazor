@@ -6,14 +6,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Grid column base class.
 	/// </summary>
-	public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TItem>, IDisposable
+	public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TItem>, IAsyncDisposable
 	{
 		/// <summary>
 		/// Cascading parameter to register column to the grid.
 		/// </summary>
 		[CascadingParameter(Name = HxGrid<TItem>.ColumnsRegistrationCascadingValueName)] protected CollectionRegistration<IHxGridColumn<TItem>> ColumnsRegistration { get; set; }
-
-		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
 
 		/// <inheritdoc />
 		protected override void OnInitialized()
@@ -31,16 +29,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		int IHxGridColumn<TItem>.GetOrder() => this.GetColumnOrder();
 
 		/// <inheritdoc />
-		CellTemplate IHxGridColumn<TItem>.GetHeaderCellTemplate(GridHeaderCellContext context) => this.GetHeaderCellTemplate(context);
+		GridCellTemplate IHxGridColumn<TItem>.GetHeaderCellTemplate(GridHeaderCellContext context) => this.GetHeaderCellTemplate(context);
 
 		/// <inheritdoc />
-		CellTemplate IHxGridColumn<TItem>.GetItemCellTemplate(TItem item) => this.GetItemCellTemplate(item);
+		GridCellTemplate IHxGridColumn<TItem>.GetItemCellTemplate(TItem item) => this.GetItemCellTemplate(item);
 
 		/// <inheritdoc />
-		CellTemplate IHxGridColumn<TItem>.GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => this.GetItemPlaceholderCellTemplate(context);
+		GridCellTemplate IHxGridColumn<TItem>.GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => this.GetItemPlaceholderCellTemplate(context);
 
 		/// <inheritdoc />
-		CellTemplate IHxGridColumn<TItem>.GetFooterCellTemplate(GridFooterCellContext context) => this.GetFooterCellTemplate(context);
+		GridCellTemplate IHxGridColumn<TItem>.GetFooterCellTemplate(GridFooterCellContext context) => this.GetFooterCellTemplate(context);
 
 		/// <inheritdoc />
 		SortingItem<TItem>[] IHxGridColumn<TItem>.GetSorting() => this.GetSorting().ToArray();
@@ -63,22 +61,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Returns header cell template.
 		/// </summary>
-		protected abstract CellTemplate GetHeaderCellTemplate(GridHeaderCellContext context);
+		protected abstract GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context);
 
 		/// <summary>
 		/// Returns data cell template for the specific item.
 		/// </summary>
-		protected abstract CellTemplate GetItemCellTemplate(TItem item);
+		protected abstract GridCellTemplate GetItemCellTemplate(TItem item);
 
 		/// <summary>
 		/// Returns placeholder cell template.
 		/// </summary>
-		protected abstract CellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context);
+		protected abstract GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context);
 
 		/// <summary>
 		/// Returns footer cell template.
 		/// </summary>
-		protected abstract CellTemplate GetFooterCellTemplate(GridFooterCellContext context);
+		protected abstract GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context);
 
 		/// <summary>
 		/// Returns column sorting.
@@ -86,25 +84,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected abstract IEnumerable<SortingItem<TItem>> GetSorting();
 
 		/// <inheritdoc />
-		protected override void OnAfterRender(bool firstRender)
+		public async ValueTask DisposeAsync()
 		{
-			base.OnAfterRender(firstRender);
-
-			((IRenderNotificationComponent)this).Rendered?.Invoke(this, firstRender);
+			await DisposeAsyncCore();
 		}
 
-		/// <inheritdoc />
-		public void Dispose()
+		protected virtual async Task DisposeAsyncCore()
 		{
-			Dispose(true);
-		}
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				ColumnsRegistration.Unregister(this);
-			}
+			await ColumnsRegistration.UnregisterAsync(this);
 		}
 	}
 }

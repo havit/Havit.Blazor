@@ -11,7 +11,8 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// MultiSelect. Unlike a normal select, multiselect allows the user to select multiple options at once.
+/// MultiSelect. Unlike a normal select, multiselect allows the user to select multiple options at once.<br />
+/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMultiSelect">https://havit.blazor.eu/components/HxMultiSelect</see>
 /// </summary>
 /// <typeparam name="TValue">Type of values.</typeparam>
 /// <typeparam name="TItem">Type of items.</typeparam>
@@ -45,7 +46,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
 	string IInputWithSize.GetInputSizeCssClass() => this.InputSizeEffective.AsFormSelectCssClass();
 
-	private protected override string CoreInputCssClass => "form-select user-select-none";
+	private protected override string CoreInputCssClass => "hx-multi-select-input form-select user-select-none";
 
 	/// <summary>
 	/// Items to display. 
@@ -85,6 +86,26 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// Text to display when <see cref="Data"/> is <c>null</c>.
 	/// </summary>
 	[Parameter] public string NullDataText { get; set; }
+
+	/// <summary>
+	/// Input-group at the beginning of the input.
+	/// </summary>
+	[Parameter] public string InputGroupStartText { get; set; }
+
+	/// <summary>
+	/// Input-group at the beginning of the input.
+	/// </summary>
+	[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+
+	/// <summary>
+	/// Input-group at the end of the input.
+	/// </summary>
+	[Parameter] public string InputGroupEndText { get; set; }
+
+	/// <summary>
+	/// Input-group at the end of the input.
+	/// </summary>
+	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
 	private List<TItem> itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
@@ -159,7 +180,14 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(108, nameof(HxMultiSelectInternal<TValue, TItem>.Value), Value);
 		builder.AddAttribute(109, nameof(HxMultiSelectInternal<TValue, TItem>.NullDataText), NullDataText);
 		builder.AddAttribute(110, nameof(HxMultiSelectInternal<TValue, TItem>.ItemSelectionChanged), EventCallback.Factory.Create<HxMultiSelectInternal<TValue, TItem>.SelectionChangedArgs>(this, args => HandleItemSelectionChanged(args.Checked, args.Item)));
-		builder.AddComponentReferenceCapture(111, r => hxMultiSelectInternalComponent = (HxMultiSelectInternal<TValue, TItem>)r);
+		builder.AddAttribute(111, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupStartText), InputGroupStartText);
+		builder.AddAttribute(112, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupStartTemplate), InputGroupStartTemplate);
+		builder.AddAttribute(113, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndText), InputGroupEndText);
+		builder.AddAttribute(114, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndTemplate), InputGroupEndTemplate);
+
+		builder.AddMultipleAttributes(200, this.AdditionalAttributes);
+
+		builder.AddComponentReferenceCapture(300, r => hxMultiSelectInternalComponent = (HxMultiSelectInternal<TValue, TItem>)r);
 
 		builder.CloseComponent();
 	}

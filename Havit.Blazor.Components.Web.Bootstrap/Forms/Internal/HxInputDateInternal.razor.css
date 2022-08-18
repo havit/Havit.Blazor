@@ -22,7 +22,7 @@
 	top: 50%;
 	right: 0;
 	transform: translateY(-50%);
-	pointer-events: none;
+	cursor: pointer;
 }
 
 .hx-input-date-dropdown {
@@ -72,6 +72,11 @@
 
 .hx-input-date-icon {
     z-index: 10;
+}
+
+.hx-input-date.input-group input.form-control.hx-input-date-no-right-border {
+	border-top-right-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
 }
 
 ::deep.form-floating label {

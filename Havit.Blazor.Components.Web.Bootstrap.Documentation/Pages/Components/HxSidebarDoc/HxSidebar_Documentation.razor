@@ -7,7 +7,27 @@
 		<SectionTitle Id="Demo" />
 		<Demo Type="typeof(HxSidebar_Demo)" />
 
-		<SectionTitle Id="ResponsiveLayout" />
+		<SectionTitle Id="Logo" />
+		<p>Use your own custom logo in the sidebar header by setting the <code>LogoTemplate</code> parameter (<code>RenderFragment</code>) on the <code>HxSidebarBrand</code> component.</p>
+		<Demo Type="typeof(HxSidebar_Demo_Logo)" />
+
+		<SectionTitle Id="item-custom-content">Custom content for items</SectionTitle>
+		<p>If you'd like to include more than just an icon and text in the <code>HxSidebarItem</code>, you can do so with the <code>ContentTemplate</code> parameter.</p>
+		<Demo Type="typeof(HxSidebar_Demo_ItemCustomContent)" />
+
+		<SectionTitle Id="multiple-items-expansion">Multiple items expansion</SectionTitle>
+		<p>If you set <code>MultipleItemsExpansion="false"</code>, upon item expansion, all other items are collapsed. If <code>true</code> (default), multiple items can be expanded at one time.</p>
+		<Demo Type="typeof(HxSidebar_Demo_MultipleItemsExpansion)" />
+
+		<SectionTitle Id="expand-collapse">Expand & collapse programmatically</SectionTitle>
+		<p>Use bindable <code>Collapsed</code> parameter to set or track sidebar state.</p>
+		<Demo Type="typeof(HxSidebar_Demo_ProgramaticallyExpandCollapse)" />
+
+		<SectionTitle Id="custom-toggler" Title="Custom toggler" />
+		<p>With <code>TogglerTemplate</code> you can set a custom toggler for the desktop version to be rendered instead of the default <a href="/HxSidebar#ExpandIcon">ExpandIcon</a> and <a href="/HxSidebar#CollapseIcon">CollapseIcon</a>. Render varying content based on the <a href="/types/SidebarTogglerTemplateContext">SidebarTogglerTemplateContext</a>.</p>
+		<Demo Type="typeof(HxSidebar_Demo_TogglerTemplate)" />
+
+		<SectionTitle Id="ResponsiveLayout" Title="Responsive layout sample" />
 		<p>
 			To achieve responsiveness of the sidebar (such as this documentation site has) you need to adjust application layout.
 			The main layout might look like:
@@ -53,6 +73,9 @@
 		<ComponentApiDocCssVariable Name="--hx-sidebar-item-hover-color" Default="var(--bs-primary)">
 			Color of the items on hover.
 		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-item-hover-icon-color" Default="var(--bs-primary)">
+			Color of the items icon on hover.
+		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-item-hover-background-color" Default="var(--bs-primary-rgb)">
 			Background color of the items on hover.
 		</ComponentApiDocCssVariable>
@@ -62,16 +85,13 @@
 		<ComponentApiDocCssVariable Name="--hx-sidebar-item-margin" Default="0 0 .25rem 0">
 			Margin of the items.
 		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-navlink-no-icon-text-margin-left" Default="1rem">
-			Left margin of the item navlink text when no icon is set.
-		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-subitem-font-size" Default=".875rem">
 			Font size of the subitems.
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-subitem-padding" Default=".5rem">
 			Padding of the subitems.
 		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-subitem-margin" Default="0 0 .25rem 2.25rem">
+		<ComponentApiDocCssVariable Name="--hx-sidebar-subitem-margin" Default="0 0 .25rem 2rem">
 			Margin of the subitems.
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-header-padding" Default="1rem">
@@ -83,20 +103,29 @@
 		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-padding" Default="1rem">
 			Padding of the sidebar footer.
 		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-logo-background-color" Default="var(--bs-primary)">
-			Background color of the brand logo.
+		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-shortname-background-color" Default="var(--bs-primary)">
+			Background color of the brand short name.
 		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-logo-border-radius" Default=".625rem">
-			Border radius of the brand logo.
+		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-shortname-border-radius" Default=".625rem">
+			Border radius of the brand short name.
 		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-logo-width" Default="2.25rem">
+		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-shortname-color" Default="var(--bs-white)">
+			Color of the brand short name.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-shortname-width" Default="2.5rem">
+			Width of the brand short name.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-shortname-height" Default="2.5rem">
+			Height of the brand short name.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-shortname-font-weight" Default="600">
+			Font weight of the brand short name.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-logo-width" Default="2.5rem">
 			Width of the brand logo.
 		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-logo-height" Default="2.25rem">
+		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-logo-height" Default="2.5rem">
 			Height of the brand logo.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-logo-color" Default="white">
-			Color of the brand logo.
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-name-color" Default="var(--bs-dark)">
 			Color of the brand name.

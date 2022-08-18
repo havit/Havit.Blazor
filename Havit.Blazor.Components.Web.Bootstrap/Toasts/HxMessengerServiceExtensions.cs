@@ -1,6 +1,4 @@
-﻿using Havit.Diagnostics.Contracts;
-
-namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Extension methods for <see cref="IHxMessengerService"/>.
@@ -27,13 +25,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
 
-			messenger.AddMessage(new MessengerMessage
+			messenger.AddMessage(new BootstrapMessengerMessage()
 			{
-				Icon = Defaults.InformationIcon,
-				CssClass = Defaults.InformationCssClass,
+				Color = Defaults.InformationColor,
 				AutohideDelay = Defaults.InformationAutohideDelay,
-				Title = title,
-				Text = message
+				ContentTemplate = BuildContentTemplate(title, message)
 			});
 		}
 
@@ -52,13 +48,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
 
-			messenger.AddMessage(new MessengerMessage
+			messenger.AddMessage(new BootstrapMessengerMessage()
 			{
-				Icon = Defaults.WarningIcon,
-				CssClass = Defaults.WarningCssClass,
+				Color = Defaults.WarningColor,
 				AutohideDelay = Defaults.WarningAutohideDelay,
-				Title = title,
-				Text = message
+				ContentTemplate = BuildContentTemplate(title, message)
 			});
 
 		}
@@ -78,14 +72,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
 
-			messenger.AddMessage(new MessengerMessage
+			messenger.AddMessage(new BootstrapMessengerMessage()
 			{
-				Icon = Defaults.ErrorIcon,
-				CssClass = Defaults.ErrorCssClass,
+				Color = Defaults.ErrorColor,
 				AutohideDelay = Defaults.ErrorAutohideDelay,
-				Title = title,
-				Text = message
+				ContentTemplate = BuildContentTemplate(title, message)
 			});
+		}
+
+		private static RenderFragment BuildContentTemplate(string title, string text)
+		{
+			return (RenderTreeBuilder builder) =>
+			{
+				if (title != null)
+				{
+					builder.OpenElement(1, "div");
+					builder.AddAttribute(2, "class", "fw-bold");
+					builder.AddContent(3, title);
+					builder.CloseElement();
+				}
+
+				builder.AddContent(10, text);
+			};
 		}
 	}
 }

@@ -1,30 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFrameworks>net6.0;net5.0</TargetFrameworks>
 		<NoWarn>1591;1701;1702;SA1134</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
+		<InternalsVisibleTo Include="Havit.Blazor.Components.Web.Tests" />
+		<InternalsVisibleTo Include="Havit.Blazor.Components.Web.Bootstrap" />
 	</ItemGroup>
 
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>2.0.5</PackageVersion>
+		<!-- ComponentsPackagesVersion - variable from Directory.Build.props -->
+		<PackageVersion>$(ComponentsPackagesVersion)</PackageVersion>
 		<Description>HAVIT Blazor Library - Free UI components and supportive classes</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://havit.blazor.eu</PackageProjectUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Havit.Core" Version="2.0.25" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.14" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.2" />
+		<PackageReference Include="Havit.Core" Version="2.0.26" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.6" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.17" Condition="'$(TargetFramework)' == 'net5.0'" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.6" Condition="'$(TargetFramework)' == 'net6.0'" />
 	</ItemGroup>
-
+	
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
 		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Components.Web.Bootstrap.Documentation\xmldoc" />
 	</Target>

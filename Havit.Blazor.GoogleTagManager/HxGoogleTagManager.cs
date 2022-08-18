@@ -8,6 +8,10 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.GoogleTagManager
 {
+	///<summary>
+	/// Adds Google Tag Manager to the application and manages communication with GTM JavaScript (data-layer).<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxGoogleTagManager">https://havit.blazor.eu/components/HxGoogleTagManager</see>
+	/// </summary>
 	/// <inheritdoc/>
 	public class HxGoogleTagManager : IHxGoogleTagManager, IAsyncDisposable
 	{
@@ -85,7 +89,7 @@ namespace Havit.Blazor.GoogleTagManager
 
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}

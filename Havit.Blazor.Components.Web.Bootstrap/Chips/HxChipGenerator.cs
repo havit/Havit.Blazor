@@ -1,6 +1,6 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public class HxChipGenerator : ComponentBase, IHxChipGenerator, IDisposable
+	public class HxChipGenerator : ComponentBase, IHxChipGenerator, IAsyncDisposable
 	{
 		[CascadingParameter(Name = HxFilterForm<object>.ChipGeneratorRegistrationCascadingValueName)] public CollectionRegistration<IHxChipGenerator> ChipGeneratorsRegistration { get; set; }
 
@@ -25,16 +25,17 @@
 			};
 		}
 
-		public void Dispose()
+		/// <inheritdoc />
+		public async ValueTask DisposeAsync()
 		{
-			Dispose(true);
+			await DisposeAsyncCore();
 		}
 
-		protected virtual void Dispose(bool disposing)
+		protected virtual async Task DisposeAsyncCore()
 		{
-			if (disposing)
+			if (this.ChipGeneratorsRegistration != null)
 			{
-				ChipGeneratorsRegistration?.Unregister(this);
+				await ChipGeneratorsRegistration.UnregisterAsync(this);
 			}
 		}
 	}

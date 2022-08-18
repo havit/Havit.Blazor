@@ -7,7 +7,14 @@
 }
 
 <div class="hx-checkbox-dropdownlist dropdown" role="listbox">
-    <div data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
+    <div class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputGroupCssClass)" data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
+        @if (InputGroupStartText is not null)
+        {
+            <span class="input-group-text">@InputGroupStartText</span>
+        }
+    
+        @InputGroupStartTemplate
+        
         <input
             @ref="inputElement"
             type="text"
@@ -15,7 +22,15 @@
             class="@InputCssClass"
             value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
             disabled="@(!enabled)"
-            readonly="true" />
+            readonly="true"
+            @attributes="this.AdditionalAttributes" />
+
+        @InputGroupEndTemplate
+
+        @if (InputGroupEndText is not null)
+        {
+            <span class="input-group-text">@InputGroupEndText</span>
+        }
     </div>
 
     <ul class="dropdown-menu"> @* Must be always rendered otherwise does not work after disable->enabled scenario *@

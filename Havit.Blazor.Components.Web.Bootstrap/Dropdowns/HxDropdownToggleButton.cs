@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdown"/> to open.
+	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdownButtonGroup"/> to open.
 	/// </summary>
 	public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownToggle
 	{
@@ -78,6 +78,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			base.OnParametersSet();
 
+			if ((DropdownContainer is not null) && (DropdownContainer is not HxDropdownButtonGroup))
+			{
+				throw new InvalidOperationException("HxDropdownToggleButton is expected to used inside HxDropdownButtonGroup rather than generic HxDropdown (breaking-change in v2.6.0).");
+			}
+
 			AdditionalAttributes ??= new Dictionary<string, object>();
 			AdditionalAttributes["data-bs-toggle"] = "dropdown";
 			AdditionalAttributes["aria-expanded"] = "false";
@@ -103,7 +108,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				base.CoreCssClass,
 				"dropdown-toggle",
 				((DropdownContainer as IDropdownContainer)?.IsOpen ?? false) ? "show" : null,
-				(DropdownContainer?.Split ?? false) ? "dropdown-toggle-split" : null,
+				((DropdownContainer as HxDropdownButtonGroup)?.Split ?? false) ? "dropdown-toggle-split" : null,
 				(NavContainer is not null) ? "nav-link" : null);
 
 
@@ -149,7 +154,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxDropdown_HandleJsShown")]
 		public async Task HandleJsShown()
 		{
-			((IDropdownContainer)DropdownContainer).IsOpen = true;
+			if (DropdownContainer is IDropdownContainer container)
+			{
+				container.IsOpen = true;
+			}
 			await InvokeOnShownAsync();
 		}
 
@@ -159,20 +167,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxDropdown_HandleJsHidden")]
 		public async Task HandleJsHidden()
 		{
-			((IDropdownContainer)DropdownContainer).IsOpen = false;
+			if (DropdownContainer is IDropdownContainer container)
+			{
+				container.IsOpen = false;
+			}
 			await InvokeOnHiddenAsync();
 		}
 
 		private async Task EnsureJsModuleAsync()
 		{
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/Havit.Blazor.Components.Web.Bootstrap/{nameof(HxDropdown)}.js");
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxDropdown));
 		}
 
 		/// <inheritdoc/>
 
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}
@@ -183,7 +194,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (jsModule != null)
 			{
+#if NET6_0_OR_GREATER
+				try
+				{
+					await jsModule.InvokeVoidAsync("dispose", buttonElementReference);
+				}
+				catch (JSDisconnectedException)
+				{
+					// NOOP
+				}
+#else
 				await jsModule.InvokeVoidAsync("dispose", buttonElementReference);
+#endif
 				await jsModule.DisposeAsync();
 			}
 

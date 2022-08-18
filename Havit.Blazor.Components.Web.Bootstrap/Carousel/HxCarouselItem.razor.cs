@@ -2,7 +2,7 @@
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
-	public partial class HxCarouselItem : IDisposable
+	public partial class HxCarouselItem : IAsyncDisposable
 	{
 		[Parameter] public RenderFragment ChildContent { get; set; }
 
@@ -29,18 +29,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			ItemsRegistration.Register(this);
 		}
 
-		public void Dispose()
+		/// <inheritdoc />
+		public async ValueTask DisposeAsync()
 		{
-			Dispose(true);
+			await DisposeAsyncCore();
 		}
 
-		protected virtual void Dispose(bool disposing)
+		protected virtual async Task DisposeAsyncCore()
 		{
-			if (disposing)
-			{
-				ItemsRegistration.Unregister(this);
-			}
+			await ItemsRegistration.UnregisterAsync(this);
 		}
-
 	}
 }

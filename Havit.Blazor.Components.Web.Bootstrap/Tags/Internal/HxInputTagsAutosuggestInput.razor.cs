@@ -27,6 +27,8 @@
 		/// </summary>
 		[Parameter] public (int X, int Y) Offset { get; set; }
 
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
 		internal ElementReference InputElement { get; set; }
 
 		private async Task HandleInput(ChangeEventArgs changeEventArgs)

@@ -3,7 +3,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Bootstrap alert component <a href="https://getbootstrap.com/docs/5.0/components/alerts/" />
+	/// <see href="https://getbootstrap.com/docs/5.0/components/alerts/">Bootstrap alert</see> component.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAlert">https://havit.blazor.eu/components/HxAlert</see>
 	/// </summary>
 	public partial class HxAlert
 	{
@@ -12,6 +13,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Alert color (background). Required.
 		/// </summary>
+#if NET6_0_OR_GREATER
+		[EditorRequired]
+#endif
 		[Parameter] public ThemeColor Color { get; set; }
 
 		/// <summary>

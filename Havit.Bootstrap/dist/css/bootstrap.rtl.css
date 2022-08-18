@@ -3977,7 +3977,7 @@ textarea.form-control-lg {
   border-top-left-radius: 0.375rem;
 }
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
-  border-color: #e9ecef #e9ecef #dee2e6;
+  border-color: transparent;
   isolation: isolate;
 }
 .nav-tabs .nav-link.disabled {
@@ -5557,7 +5557,7 @@ textarea.form-control-lg {
   pointer-events: auto;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
   outline: 0;
 }
@@ -6345,7 +6345,7 @@ textarea.form-control-lg {
   top: 0;
   right: 0;
   width: 500px;
-  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
   transform: translateX(100%);
 }
 
@@ -6353,7 +6353,7 @@ textarea.form-control-lg {
   top: 0;
   left: 0;
   width: 500px;
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
   transform: translateX(-100%);
 }
 
@@ -6363,7 +6363,7 @@ textarea.form-control-lg {
   right: 0;
   height: 30vh;
   max-height: 100%;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   transform: translateY(-100%);
 }
 
@@ -6372,7 +6372,7 @@ textarea.form-control-lg {
   right: 0;
   height: 30vh;
   max-height: 100%;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
   transform: translateY(100%);
 }
 

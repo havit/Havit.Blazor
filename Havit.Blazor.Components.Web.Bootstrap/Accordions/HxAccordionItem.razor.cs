@@ -1,13 +1,12 @@
 ﻿using Havit.Diagnostics.Contracts;
 using Microsoft.Extensions.Logging;
-using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Single item for <see cref="HxAccordion"/>.
 	/// </summary>
-	public partial class HxAccordionItem : ComponentBase, IAsyncDisposable
+	public partial class HxAccordionItem : ComponentBase
 	{
 		[CascadingParameter] protected HxAccordion ParentAccordition { get; set; }
 
@@ -46,28 +45,49 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual Task InvokeOnCollapsedAsync(string collapsedItemId) => OnCollapsed.InvokeAsync(collapsedItemId);
 
-		[Inject] protected IJSRuntime JSRuntime { get; set; }
-		[Inject] protected ILogger<HxAccordionItem> Logger { get; set; }
+		/// <summary>
+		/// Additional CSS class(es) for the accordion item.
+		/// </summary>
+		[Parameter] public string CssClass { get; set; }
 
+		/// <summary>
+		/// Additional CSS class(es) for the accordion item header (<c>.accordion-header</c>).
+		/// </summary>
+		[Parameter] public string HeaderCssClass { get; set; }
+
+		/// <summary>
+		/// Additional CSS class(es) for the accordion item body (<c>.accordion-body</c>).
+		/// </summary>
+		[Parameter] public string BodyCssClass { get; set; }
+
+		private string currentId;
 		private string idEffective;
-		private ElementReference collapseHtmlElement;
-		private DotNetObjectReference<HxAccordionItem> dotnetObjectReference;
-		private IJSObjectReference jsModule;
 		private bool lastKnownStateIsExpanded;
 		private bool isInitialized;
 		private bool isInTransition;
-		private bool disposed;
-
-		public HxAccordionItem()
-		{
-			dotnetObjectReference = DotNetObjectReference.Create(this);
-		}
+		private HxCollapse collapseComponent;
 
 		protected override async Task OnParametersSetAsync()
 		{
 			await base.OnParametersSetAsync();
 
 			Contract.Requires<InvalidOperationException>(ParentAccordition is not null, "<HxAccordionItem /> has to be placed inside <HxAccordition />.");
+
+			// Issue #182
+			// If the accordion items change dynamically, the instances of HxAccordionItem get completely different parameters.
+			// HxAccordionItem tracks state (expanded/collapsed) and this state would apply to completely different items after such change.
+			// We can either reset the internal state when the accordion items change, but as the component with completely different parameters
+			// is considered being another item, we decided to force the user to set the @key for such dynamic items
+			// (and force Blazor to create new components for such scenarios).
+			// If this turns out to be a problem, we can also consider extracting the whole HxAccordionItem to HxAccordionItemInternal and set the @key for it.
+			if ((currentId is not null) && (this.Id != currentId))
+			{
+				throw new InvalidOperationException("HxAccordionItem.Id cannot be changed. Use @key with same value as Id to help Blazor mapping the right components.");
+			}
+			else
+			{
+				currentId = this.Id;
+			}
 
 			idEffective = ParentAccordition.Id + "-" + this.Id;
 
@@ -96,16 +116,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			if (firstRender)
-			{
-				await EnsureJsModuleAsync();
-				if (disposed)
-				{
-					return;
-				}
-				await jsModule.InvokeVoidAsync("create", collapseHtmlElement, dotnetObjectReference, "#" + ParentAccordition.Id);
-			}
-
 			isInitialized = true;
 		}
 
@@ -115,8 +125,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task ExpandAsync()
 		{
 			isInTransition = true;
-			await EnsureJsModuleAsync();
-			await jsModule.InvokeVoidAsync("show", collapseHtmlElement);
+			await collapseComponent.ShowAsync();
 		}
 
 		/// <summary>
@@ -125,22 +134,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task CollapseAsync()
 		{
 			isInTransition = true;
-			await EnsureJsModuleAsync();
-			await jsModule.InvokeVoidAsync("hide", collapseHtmlElement);
+			await collapseComponent.HideAsync();
 		}
 
-		/// <summary>
-		/// Receives notification from javascript when item is shown.
-		/// </summary>
-		/// <remarks>
-		/// the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
-		/// this covers both user-interaction (DOM state) and Blazor-interaction (HxAccordition.ExpandedItemId change)
-		/// </remarks>
-		[JSInvokable("HxAccordionItem_HandleJsShown")]
-		public async Task HandleJsShown()
+		private async Task HandleCollapseShown()
 		{
-			Logger.LogDebug($"HandleJsShown[{idEffective}]");
-
 			lastKnownStateIsExpanded = true;
 			isInTransition = false;
 
@@ -150,18 +148,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 			await InvokeOnExpandedAsync(this.Id);
-
-			StateHasChanged();
 		}
 
-		/// <summary>
-		/// Receives notification from javascript when item is hidden.
-		/// </summary>
-		[JSInvokable("HxAccordionItem_HandleJsHidden")]
-		public async Task HandleJsHidden()
+		private async Task HandleCollapseHidden()
 		{
-			Logger.LogDebug($"HandleJsHidden[{idEffective}]");
-
 			lastKnownStateIsExpanded = false;
 			isInTransition = false;
 
@@ -172,40 +162,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				await ParentAccordition.SetExpandedItemIdAsync(null);
 			}
 			await InvokeOnCollapsedAsync(this.Id);
-
-			StateHasChanged();
 		}
 
 		private bool IsSetToBeExpanded()
 		{
 			return (this.Id == ParentAccordition.ExpandedItemId);
-		}
-
-		private async Task EnsureJsModuleAsync()
-		{
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxAccordion) + ".js");
-		}
-
-		/// <inheritdoc/>
-
-		public async ValueTask DisposeAsync()
-		{
-			await DisposeAsyncCore().ConfigureAwait(false);
-
-			//Dispose(disposing: false);
-		}
-
-		protected virtual async ValueTask DisposeAsyncCore()
-		{
-			disposed = true;
-
-			if (jsModule != null)
-			{
-				await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
-				await jsModule.DisposeAsync();
-			}
-
-			dotnetObjectReference.Dispose();
 		}
 	}
 }

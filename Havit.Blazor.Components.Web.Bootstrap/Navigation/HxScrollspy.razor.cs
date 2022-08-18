@@ -1,16 +1,20 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</a> component.
+	/// <see href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</see> component.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxScrollspy">https://havit.blazor.eu/components/HxScrollspy</see>
 	/// </summary>
 	public partial class HxScrollspy : IAsyncDisposable
 	{
 		/// <summary>
 		/// ID of the <see cref="HxNav"/> or list-group with scrollspy navigation.
 		/// </summary>
-		// TODO [EditorRequired]
+#if NET6_0_OR_GREATER
+		[EditorRequired]
+#endif
 		[Parameter] public string TargetId { get; set; }
 
 		/// <summary>
@@ -28,6 +32,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private IJSObjectReference jsModule;
 		private ElementReference scrollspyElement;
 		private bool initialized;
+		private bool disposed;
 
 		/// <inheritdoc />
 		protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -37,6 +42,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender && !initialized)
 			{
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("initialize", scrollspyElement, TargetId);
 				initialized = true;
 			}
@@ -51,6 +60,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (initialized)
 			{
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("refresh", scrollspyElement);
 			}
 			else
@@ -61,22 +74,35 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private async Task EnsureJsModuleAsync()
 		{
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxScrollspy) + ".js");
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollspy));
 		}
 
 
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}
 
 		protected virtual async ValueTask DisposeAsyncCore()
 		{
+			disposed = true;
+
 			if (jsModule != null)
 			{
+#if NET6_0_OR_GREATER
+				try
+				{
+					await jsModule.InvokeVoidAsync("dispose", scrollspyElement);
+				}
+				catch (JSDisconnectedException)
+				{
+					// NOOP
+				}
+#else
 				await jsModule.InvokeVoidAsync("dispose", scrollspyElement);
+#endif
 				await jsModule.DisposeAsync();
 			}
 		}

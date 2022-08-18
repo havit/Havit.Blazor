@@ -130,8 +130,7 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(InvalidOperationException))]
-		public void StaticDataStore_SyncNotLoaded_ShouldRaiseException()
+		public void StaticDataStore_SyncNotLoaded_ShouldReturnDefault()
 		{
 			// arrange
 			var sut = new Mock<StaticDataStore<string>>();
@@ -141,6 +140,22 @@ namespace Havit.Blazor.Components.Web.Tests.DataStores
 
 			// act
 			var result = sut.Object.GetValue();
+
+			Assert.IsNull(result);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidOperationException))]
+		public void StaticDataStore_SyncThrowIfNotLoaded_ShouldRaiseException()
+		{
+			// arrange
+			var sut = new Mock<StaticDataStore<string>>();
+			sut.CallBase = true;
+			sut.Setup(s => s.LoadDataAsync()).ReturnsAsync("Adam");
+			sut.Setup(s => s.ShouldRefresh()).Returns(false);
+
+			// act
+			var result = sut.Object.GetValue(throwIfNotLoaded: true);
 
 			// assert
 			// expected exception

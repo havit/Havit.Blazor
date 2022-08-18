@@ -86,7 +86,40 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		[Parameter] public string CssClass { get; set; }
 
+		/// <summary>
+		/// Custom CSS class to render with input-group span.
+		/// </summary>
+		[Parameter] public string InputGroupCssClass { get; set; }
+
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public string InputGroupStartText { get; set; }
+
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public string InputGroupEndText { get; set; }
+
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying HTML input.
+		/// </summary>
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
+
+		protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
 		private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
 		private System.Timers.Timer timer;
@@ -121,7 +154,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 			else
 			{
-				Value = new List<string>(Value); // do not change the insntace, create a copy!
+				Value = new List<string>(Value); // do not change the instance, create a copy!
 				Value.Add(tag);
 			}
 			await ValueChanged.InvokeAsync(Value);
@@ -214,10 +247,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private async Task HandleInputFocus()
 		{
 			// when an input gets focus, close a dropdown
-			if (!currentlyFocused)
-			{
-				await TryDestroyDropdownAsync();
-			}
 			currentlyFocused = true;
 
 			if (SuggestMinimumLengthEffective == 0)
@@ -378,20 +407,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private async Task EnsureJsModuleAsync()
 		{
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxInputTags) + ".js");
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputTags));
 		}
 
 		[JSInvokable("HxInputTagsInternal_HandleDropdownHidden")]
 		public async Task HandleDropdownHidden()
 		{
-			isDropdownOpened = false;
-
 			if (!currentlyFocused)
 			{
 				await TryProcessCustomTagsAsync();
 				userInput = String.Empty;
 				StateHasChanged();
 			}
+			await TryDestroyDropdownAsync();
 		}
 
 		protected async Task HandleRemoveClickAsync(string tag)
@@ -423,10 +451,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			});
 		}
 
-
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}

@@ -3,97 +3,106 @@
 @typeparam TItem
 
 <div id="@dropdownId" class="@CssClassEffective">
-    <HxDropdown AutoClose="DropdownAutoClose.Outside" >
-		<HxDropdownToggleElement
-			@ref="dropdownToggle"
-			ElementName="div"
-			CssClass="@(initialized ? null : "disabled")"
-			DropdownReference="@("#" + dropdownId)"
-			DropdownOffset="@DropdownOffset"
-			OnShown="OnDropdownMenuShown"
-			OnHidden="() => dropdownMenuActive = false"
-			id="@dropdownToggleElementId">
+    <HxDropdown AutoClose="DropdownAutoClose.Outside">
+        <HxDropdownToggleElement @ref="dropdownToggle"
+                                 ElementName="div"
+                                 CssClass="@(initialized || DefaultContentTemplate is not null ? null : "disabled")"
+                                 DropdownReference="@("#" + dropdownId)"
+                                 DropdownOffset="@DropdownOffset"
+                                 OnShown="OnDropdownMenuShown"
+                                 OnHidden="() => dropdownMenuActive = false"
+                                 id="@dropdownToggleElementId">
 
-			<div class="position-relative">
-				<form @onsubmit="HandleTextQueryTriggered" @onfocusout="HandleInputBlur">
-					<HxInputText
-						Value="@TextQuery"
-                        ValueChanged="HandleTextQueryValueChanged"
-                        ValueExpression="() => this.TextQuery"
-						InputMode="InputMode.Search"
-						BindEvent="BindEvent.OnInput"
-						Enabled="Enabled"
-						Placeholder="@Placeholder"
-						Label="@Label"
-						LabelType="LabelType"
-						InputSize="this.InputSizeEffective"
-						CssClass="@CssClassHelper.Combine(InputCssClass, "mb-0")" />
+            <div class="position-relative">
+                <form @onsubmit="HandleTextQueryTriggered" @onfocusout="HandleInputBlur">
+                    <HxInputText Value="@TextQuery"
+                                 ValueChanged="HandleTextQueryValueChanged"
+                                 ValueExpression="() => this.TextQuery"
+                                 InputMode="InputMode.Search"
+                                 BindEvent="BindEvent.OnInput"
+                                 Enabled="Enabled"
+                                 Placeholder="@Placeholder"
+                                 Label="@Label"
+                                 LabelType="LabelType"
+                                 InputSize="this.InputSizeEffective"
+                                 CssClass="InputCssClass"
+                                 InputGroupStartText="@InputGroupStartText"
+                                 InputGroupEndText="@InputGroupEndText"
+                                 InputGroupStartTemplate="@InputGroupStartTemplate"
+                                 InputGroupEndTemplate="@InputGroupEndTemplate" />
 
-					@if (dataProviderInProgress)
-					{
-						<div class="input-icon input-icon-end">
-							<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-						</div>
-					}
-					else if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null))
-					{
-						<div role="button" class="input-icon input-icon-end" @onclick="ClearInputAsync">
-							<HxIcon Icon="ClearIconEffective" />
-						</div>
-					}
-					else if (SearchIconEffective is not null)
-					{
-						<div class="input-icon input-icon-end">
-							<HxIcon Icon="SearchIconEffective" />
-						</div>
-					}
-				</form>
-			</div>
-		</HxDropdownToggleElement>
+                    @if (InputGroupEndText is null && InputGroupEndTemplate is null)
+                    {
+                        if (dataProviderInProgress)
+                        {
+                            <div class="hx-search-box-input-icon hx-search-box-input-icon-end">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            </div>
+                        }
+                        else if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null))
+                        {
+                            <div role="button" class="hx-search-box-input-icon hx-search-box-input-icon-end" @onclick="ClearInputAsync">
+                                <HxIcon Icon="ClearIconEffective" />
+                            </div>
+                        }
+                        else if (SearchIconEffective is not null)
+                        {
+                            <div class="hx-search-box-input-icon hx-search-box-input-icon-end">
+                                <HxIcon Icon="SearchIconEffective" />
+                            </div>
+                        }
+                    }
+                </form>
+            </div>
+        </HxDropdownToggleElement>
 
-		<HxDropdownMenu>
-			@if ((searchResults.Count > 0) && (TextQuery.Length >= MinimumLengthEffective))
-			{
-				@foreach (var item in searchResults)
-				{
-					string title = ItemTitleSelector?.Invoke(item) ?? null;
-					string subtitle = ItemSubtitleSelector?.Invoke(item) ?? null;
-					IconBase icon = ItemIconSelector?.Invoke(item) ?? null;
+        <HxDropdownMenu>
+            @if ((searchResults.Count > 0) && (TextQuery.Length >= MinimumLengthEffective))
+            {
+                @foreach (var item in searchResults)
+                {
+                    string title = ItemTitleSelector?.Invoke(item) ?? null;
+                    string subtitle = ItemSubtitleSelector?.Invoke(item) ?? null;
+                    IconBase icon = ItemIconSelector?.Invoke(item) ?? null;
 
-					<button class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="() => HandleItemSelected(item)">
-						@if (ItemTemplate is null)
-						{
-							<HxSearchBoxItem Title="@title" Subtitle="@subtitle" Icon="@icon" />
-						}
-						else
-						{
-							@ItemTemplate(item)
-						}
-					</button>
-				}
-			}
-			else if ((TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
-			{
-				@NotFoundTemplate
-			}
-			else
-			{
-				@DefaultContentTemplate
-			}
+                    <li class="overflow-hidden">
+                        <button type="button" tabindex="0" class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="() => HandleItemSelected(item)">
+                            @if (ItemTemplate is null)
+                            {
+                                <HxSearchBoxItem Title="@title" Subtitle="@subtitle" Icon="@icon" />
+                            }
+                            else
+                            {
+                                @ItemTemplate(item)
+                            }
+                        </button>
+                    </li>
+                }
+            }
+            else if ((TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
+            {
+                @NotFoundTemplate
+            }
+            else
+            {
+                @DefaultContentTemplate
+            }
 
-			@if (AllowTextQuery && (TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
-			{
-				<button class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="HandleTextQueryTriggered">
-					@if (TextQueryItemTemplate is null)
-					{
-						<HxSearchBoxItem Title="@TextQuery" Icon="@SearchIconEffective" />
-					}
-					else
-					{
-						@TextQueryItemTemplate(TextQuery)
-					}
-				</button>
-			}
-		</HxDropdownMenu>
-	</HxDropdown>
+            @if (AllowTextQuery && (TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
+            {
+                <li class="overflow-hidden">
+                    <button type="button" tabindex="0" class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="HandleTextQueryTriggered">
+                        @if (TextQueryItemTemplate is null)
+                        {
+                            <HxSearchBoxItem Title="@TextQuery" Icon="@SearchIconEffective" />
+                        }
+                        else
+                        {
+                            @TextQueryItemTemplate(TextQuery)
+                        }
+                    </button>
+                </li>
+            }
+        </HxDropdownMenu>
+    </HxDropdown>
 </div>

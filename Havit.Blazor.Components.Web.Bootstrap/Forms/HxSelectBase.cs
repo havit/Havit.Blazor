@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	/// <typeparam name="TValue">Type of value.</typeparam>
 	/// <typeparam name="TItem">Type of items.</typeparam>
-	public abstract class HxSelectBase<TValue, TItem> : HxInputBase<TValue>, IInputWithSize
+	public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithLabelType
 	{
 		/// <summary>
 		/// Return <see cref="HxSelect{TValue, TItem}"/> defaults.
@@ -21,6 +21,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Set of settings to be applied to the component instance (overrides <see cref="HxSelect.Defaults"/>, overriden by individual parameters).
 		/// </summary>
 		[Parameter] public SelectSettings Settings { get; set; }
+
+		[Parameter] public LabelType? LabelType { get; set; }
 
 		/// <summary>
 		/// Returns optional set of component settings.
@@ -141,12 +143,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			bool enabledEffective = this.EnabledEffective;
 
-			builder.OpenElement(0, "select");
+			builder.OpenElement(100, "select");
 			BuildRenderInput_AddCommonAttributes(builder, null);
 
-			builder.AddAttribute(1000, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-			builder.AddEventStopPropagationAttribute(1001, "onclick", true);
-			builder.AddElementReferenceCapture(1002, elementReferece => InputElement = elementReferece);
+			builder.AddAttribute(1000, "value", selectedItemIndex);
+			builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+			builder.SetUpdatesAttributeName("value");
+			builder.AddEventStopPropagationAttribute(1002, "onclick", true);
+			builder.AddElementReferenceCapture(1003, elementReferece => InputElement = elementReferece);
 
 			if (itemsToRender != null)
 			{
@@ -154,7 +158,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					builder.OpenElement(2000, "option");
 					builder.AddAttribute(2001, "value", -1);
-					builder.AddAttribute(2002, "selected", selectedItemIndex == -1);
 					builder.AddContent(2003, NullTextImpl);
 					builder.CloseElement();
 				}
@@ -173,7 +176,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 							builder.OpenElement(3000, "option");
 							builder.SetKey(i.ToString());
 							builder.AddAttribute(3001, "value", i.ToString());
-							builder.AddAttribute(3002, "selected", selected);
 							builder.AddContent(3003, text);
 							builder.CloseElement();
 
@@ -190,7 +192,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				if (!String.IsNullOrEmpty(NullDataTextImpl))
 				{
 					builder.OpenElement(4000, "option");
-					builder.AddAttribute(4001, "selected", true);
+					builder.AddAttribute(4001, "value", -1);
 					builder.AddContent(4002, NullDataTextImpl);
 					builder.CloseElement();
 				}
@@ -248,16 +250,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return true;
 		}
 
-		protected override void RenderChipGenerator(RenderTreeBuilder builder)
-		{
-			if (!String.IsNullOrEmpty(chipValue))
-			{
-				base.RenderChipGenerator(builder);
-			}
-		}
-
 		protected override void RenderChipValue(RenderTreeBuilder builder)
 		{
+			if ((chipValue is null) && (Value != null) && (DataImpl != null))
+			{
+				// fallback for initial rendering without chipValue
+				// does not help when DataImpl is not set yet (loaded asynchronously)
+				var item = DataImpl.FirstOrDefault(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
+				chipValue = SelectorHelpers.GetText(TextSelectorImpl, item);
+			}
 			builder.AddContent(0, chipValue);
 		}
 

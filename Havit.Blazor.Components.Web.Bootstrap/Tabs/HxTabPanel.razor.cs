@@ -3,8 +3,9 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Container for <see cref="HxTab"/>s for easier implementation of tabbed UI.
-	/// Encapsulates <see cref="HxNav"/> (<see cref="NavVariant.Tabs"/> variant) and <see cref="HxNavLink"/>s so you don't have to bother with them explicitly.
+	/// Container for <see cref="HxTab"/>s for easier implementation of tabbed UI.<br/>
+	/// Encapsulates <see cref="HxNav"/> (<see cref="NavVariant.Tabs"/> variant as default) and <see cref="HxNavLink"/>s so you don't have to bother with them explicitly.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTabPanel">https://havit.blazor.eu/components/HxTabPanel</see>
 	/// </summary>
 	public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	{
@@ -12,6 +13,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// TabsRegistration cascading value name.
 		/// </summary>
 		internal const string TabsRegistrationCascadingValueName = "TabsRegistration";
+
+		/// <summary>
+		/// The visual variant of the nav items.
+		/// Default is <see cref="NavVariant.Tabs"/>.
+		/// </summary>
+		[Parameter] public NavVariant NavVariant { get; set; } = NavVariant.Tabs;
+
+		/// <summary>
+		/// Whether to wrap the tab panel in a card with the tab navigation in the header.
+		/// </summary>
+		[Parameter] public TabPanelRenderMode RenderMode { get; set; } = TabPanelRenderMode.Standard;
+
+		/// <summary>
+		/// Card settings for the wrapping card.
+		/// Applies only if <see cref="RenderMode"/> is set to <see cref="TabPanelRenderMode.Card"/>.
+		/// </summary>
+		[Parameter] public CardSettings CardSettings { get; set; }
 
 		/// <summary>
 		/// ID of the active tab (@bindable).
@@ -51,7 +69,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			tabsList = new List<HxTab>();
 			tabsListRegistration = new CollectionRegistration<HxTab>(tabsList,
-				this.StateHasChanged,
+				async () => await InvokeAsync(this.StateHasChanged),
 				() => isDisposed);
 		}
 
@@ -134,11 +152,30 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return ActiveTabId == tab.Id;
 		}
 
+		protected string GetNavCssClassInCardMode()
+		{
+			if (RenderMode != TabPanelRenderMode.Card)
+			{
+				return null;
+			}
+
+			if (NavVariant == NavVariant.Pills)
+			{
+				return "card-header-pills";
+			}
+			else if (NavVariant == NavVariant.Tabs)
+			{
+				return "card-header-tabs";
+			}
+
+			return null;
+		}
+
 		/// <inheritdoc />
 
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}

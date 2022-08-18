@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web
 {
 	/// <summary>
-	/// Propagates form states as a cascading parementer to child components.
+	/// Propagates form states as a cascading parementer to child components.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxFormState">https://havit.blazor.eu/components/HxFormState</see>
 	/// </summary>
 	public partial class HxFormState
 	{

@@ -43,7 +43,6 @@ export function dispose(element) {
 
 	var modal = bootstrap.Modal.getInstance(element);
 	if (modal) {
-		modal.hide();
 		modal.dispose();
 	}
 }

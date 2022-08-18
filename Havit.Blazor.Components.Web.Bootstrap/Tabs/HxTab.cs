@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Single tab in <see cref="HxTabPanel"/>.
 	/// </summary>
-	public class HxTab : ComponentBase, IRenderNotificationComponent, ICascadeEnabledComponent, IDisposable
+	public class HxTab : ComponentBase, ICascadeEnabledComponent, IAsyncDisposable
 	{
 		/// <summary>
 		/// Cascading parameter to register the tab.
@@ -24,6 +24,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Tab title.
 		/// </summary>
 		[Parameter] public string Title { get; set; }
+
+		/// <summary>
+		/// CSS class(es) to be applied to the tab title (navigation).
+		/// </summary>
+		[Parameter] public string TitleCssClass { get; set; }
+
+		/// <summary>
+		/// Additional CSS class(es) to be applied to the tab content (pane).
+		/// </summary>
+		[Parameter] public string ContentCssClass { get; set; }
 
 		/// <summary>
 		/// Tab title template.
@@ -50,8 +60,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// To set multiple controls as disabled use <seealso cref="HxFormState" />.
 		/// </summary>
 		[Parameter] public bool? Enabled { get; set; }
-
-		RenderedEventHandler IRenderNotificationComponent.Rendered { get; set; }
 
 		/// <summary>
 		/// Rised when the tab is activated.
@@ -80,14 +88,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			TabsRegistration.Register(this);
 		}
 
-		/// <inheritdoc />
-		protected override void OnAfterRender(bool firstRender)
-		{
-			base.OnAfterRender(firstRender);
-
-			((IRenderNotificationComponent)this).Rendered?.Invoke(this, firstRender);
-		}
-
 		internal async Task NotifyActivatedAsync()
 		{
 			await InvokeOnTabActivatedAsync();
@@ -99,17 +99,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <inheritdoc />
-		public void Dispose()
+		public async ValueTask DisposeAsync()
 		{
-			Dispose(true);
+			await DisposeAsyncCore();
 		}
 
-		protected virtual void Dispose(bool disposing)
+		protected virtual async Task DisposeAsyncCore()
 		{
-			if (disposing)
-			{
-				TabsRegistration.Unregister(this);
-			}
+			await TabsRegistration.UnregisterAsync(this);
 		}
 	}
 }

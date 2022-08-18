@@ -109,12 +109,17 @@
 		protected virtual void BuildRenderInputGroups(RenderTreeBuilder builder, RenderFragment content)
 		{
 			IFormValueComponentWithInputGroups formValueComponentWithInputGroups = FormValueComponent as IFormValueComponentWithInputGroups;
+			IInputWithSize formValueComponentWithSize = FormValueComponent as IInputWithSize;
+
 			bool shouldRenderInputGroups = FormValueComponent.ShouldRenderInputGroups();
 
 			if (shouldRenderInputGroups)
 			{
 				builder.OpenElement(100, "span");
-				builder.AddAttribute(101, "class", CssClassHelper.Combine("input-group", formValueComponentWithInputGroups.InputGroupCssClass, GetInputGroupSizeCssClass(formValueComponentWithInputGroups.InputGroupSize)));
+				builder.AddAttribute(101, "class", CssClassHelper.Combine(
+					"input-group",
+					formValueComponentWithInputGroups.InputGroupCssClass,
+					formValueComponentWithSize is not null ? formValueComponentWithSize.InputSizeEffective.AsInputGroupCssClass() : null));
 
 				if (!String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupStartText))
 				{
@@ -182,17 +187,6 @@
 		protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
 		{
 			FormValueComponent.RenderValidationMessage(builder);
-		}
-
-		private string GetInputGroupSizeCssClass(InputSize inputGroupSize)
-		{
-			return inputGroupSize switch
-			{
-				InputSize.Regular => null,
-				InputSize.Small => "input-group-sm",
-				InputSize.Large => "input-group-lg",
-				_ => throw new InvalidOperationException(inputGroupSize.ToString())
-			};
 		}
 	}
 }

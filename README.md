@@ -1,4 +1,5 @@
-﻿# HAVIT Blazor - Bootstrap 5 component bundle
+﻿
+# HAVIT Blazor - Bootstrap 5 component bundle
 
 [![Nuget](https://img.shields.io/nuget/v/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
 [![Nuget](https://img.shields.io/nuget/dt/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
@@ -10,6 +11,8 @@
 * Free Bootstrap 5 components for ASP.NET Blazor
 * .NET 5.0+ with Blazor WebAssembly or Blazor Server (other hosting models not tested yet, .NET 6.0 fully supported)
 * [Enterprise project template](https://github.com/havit/NewProjectTemplate-Blazor) (optional) - layered architecture, EF Core, gRPC code-first, ...
+
+If you enjoy using [HAVIT Blazor](https://havit.blazor.eu/), you can [become a sponsor](https://github.com/sponsors/havit). Your sponsorship will allow us to devote time to features and issues requested by the community (i.e. not required by our own projects) ❤️.
 
 
 # See [&gt;&gt;Interactive Documentation & Demos&lt;&lt;](https://havit.blazor.eu)
@@ -36,13 +39,17 @@
 * [`HxFormValue`](https://havit.blazor.eu/components/HxFormValue) - Displays a read-only value in the form control visual.
 * [`HxRadioButtonList`](https://havit.blazor.eu/components/HxRadioButtonList) - Select.
 * [`HxSelect`](https://havit.blazor.eu/components/HxSelect) - Select - DropDownList - single-item picker.
+* [`HxMultiSelect`](https://havit.blazor.eu/components/HxMultiSelect) - Unlike a normal select, multiselect allows the user to select multiple options at once.
+* [`HxSearchBox`](https://havit.blazor.eu/components/HxSearchBox) - A search input component witch automatic suggestions, initial dropdown template and free-text queries support.
 * [`HxFilterForm`](https://havit.blazor.eu/components/HxFilterForm) - Edit form derived from HxModelEditForm with support for chip generators.
 * [`HxValidationMessage`](https://havit.blazor.eu/components/HxValidationMessage) - Displays a list of validation messages for a specified field.
 
 ## Buttons & Indicators
 
+* [`HxButton`](https://havit.blazor.eu/components/HxButton) - Bootstrap [button](https://getbootstrap.com/docs/5.1/components/buttons/).
 * [`HxButtonGroup`](https://havit.blazor.eu/components/HxButtonGroup) - Bootstrap [ButtonGroups](https://getbootstrap.com/docs/5.0/components/button-group/). 
 * [`HxButtonToolbar`](https://havit.blazor.eu/components/HxButtonToolbar) - Bootstrap [ButtonGroups](https://getbootstrap.com/docs/5.0/components/button-group/).
+* [`HxCloseButton`](https://havit.blazor.eu/components/HxCloseButton) - Bootstrap [close-button](https://getbootstrap.com/docs/5.1/components/close-button/).
 * [`HxSubmit`](https://havit.blazor.eu/components/HxSubmit) - Submit button.
 * [`HxDropdown`](https://havit.blazor.eu/components/HxDropdown) - [Bootstrap 5 Dropdown](https://getbootstrap.com/docs/5.1/components/dropdowns/).
 * [`HxBadge`](https://havit.blazor.eu/components/HxBadge) - [Bootstrap Badge](https://getbootstrap.com/docs/5.0/components/badge/) component.

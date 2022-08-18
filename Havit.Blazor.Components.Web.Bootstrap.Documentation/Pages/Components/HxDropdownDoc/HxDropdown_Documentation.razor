@@ -1,6 +1,5 @@
 ﻿@attribute [Route("/components/" + nameof(HxDropdown))]
 @attribute [Route("/components/HxDropdownToggle")]
-@attribute [Route("/components/" + nameof(HxDropdownToggleButton))]
 @attribute [Route("/components/" + nameof(HxDropdownToggleElement))]
 @attribute [Route("/components/" + nameof(HxDropdownMenu))]
 @attribute [Route("/components/" + nameof(HxDropdownItem))]
@@ -8,50 +7,41 @@
 @attribute [Route("/components/" + nameof(HxDropdownDivider))]
 @attribute [Route("/components/" + nameof(HxDropdownContent))]
 
+@inherits PerformanceLoggingComponentBase
 @using Components.HxNavDoc
+
 
 <ComponentApiDoc Type="typeof(HxDropdown)">
 
-    <h2 id="BasicStructure">Basic structure</h2>
-    <CodeSnippet File="~\Pages\Components\HxDropdownDoc\HxDropdown_BasicStructure.CodeSnippet.razor" />
+    <SectionTitle Id="basic-usage">Basic usage</SectionTitle>
+    <p>
+        Use <code>HxDropdown</code> and <code>HxDropdownToggleElement</code> (with <code>ElementName="..."</code>) to create dropdown with custom toggler.
+        (Usually you will add <code>role="button"</code> to apply pointer cursor type.)
+    </p>
+    <Demo Type="typeof(HxDropdown_Demo_Basic)" Tabs="false" />
 
-    <h2 id="Examples">Examples</h2>
-
-    <SectionTitle Id="SingleButton" />
-    <Demo Type="typeof(HxDropdown_Demo_SingleButton)" />
-
-    <SectionTitle Id="ButtonVariants" />
-    <Demo Type="typeof(HxDropdown_Demo_All_Colors)" />
-
-    <SectionTitle Id="SplitButton" />
-    <p>Set <code>HxDropdown.Split = "true"</code> and leave the <code>HxDrodownToggle.Text</code> empty (you can use the <code>ChildContent</code> to improve accessibility).</p>
-    <Demo Type="typeof(HxDropdown_Demo_Split)" />
-
-    <SectionTitle Id="Sizing" />
-    <p>HxDropdowns work with buttons of all sizes, including default and split dropdown buttons.</p>
-    <Demo Type="typeof(HxDropdown_Demo_Large)" />
-    <Demo Type="typeof(HxDropdown_Demo_Small)" />
-
-    <SectionTitle Id="Directions" />
+    <SectionTitle Id="directions">Directions</SectionTitle>
     <Demo Type="typeof(HxDropdown_Demo_Directions)" />
 
-    <SectionTitle Id="HeaderDisabledActive">Header, Disabled, Active</SectionTitle>
+    <SectionTitle Id="header-disabled-active">Header, Disabled, Active</SectionTitle>
     <p>Set <code>CssClass="active"</code> to highlight the item. (In case of <code>NavLink</code> functionality needed, separate <code>HxDropdownMenuNavLinkItem</code> will be implemented.)</p>
     <p>Set <code>Enabled="false"</code> to disable the item. The <code>HxFormState.Enabled</code> inheritance is also supported.</p>
     <Demo Type="typeof(HxDropdown_Demo_HeaderDisabledActive)" />
 
-    <SectionTitle Id="CustomContent" />
+    <SectionTitle Id="MenuAlignment" />
+    <p>By default, a dropdown menu is automatically positioned 100% from the top and along the left side of its parent. You can change this with the <code>HxDropdownMenu.Alignment</code> parameter. By default, no alignment classes are applied.</p>
+    <DocAlert Type="DocAlertType.Warning">
+        <p>When you supply the <code>HxDropdownMenu.Alignment</code> parameter, it is only applied when the dropdown menu wouldn't overflow (no part is covered), otherwise, the dropdown menu is positioned automatically by Popper.</p>
+        <p>If you want to force the set alignment, then add the <code>data-bs-display</code> attribute to the <a href="/components/HxDropdown#HxDropdownToggleElement">HxDropdownToggleElement</a> (<a href="/components/HxDropdown#HxDropdownToggleButton">HxDropdownToggleButton</a>) and set it to <code>static</code>.</p>
+    </DocAlert>
+    <Demo Type="typeof(HxDropdown_Demo_MenuAlignment)" />
+
+    <SectionTitle Id="custom-content">Custom content</SectionTitle>
     <p>Use <code>HxDropdownContent</code> instead of <code>HxDropdownMenu</code>.</p>
     <Demo Type="typeof(HxDropdown_Demo_CustomContent)" />
 
-    <SectionTitle Id="CustomToggleElement" />
-    <p>
-        Use <code>HxDropdownToggleElement</code> (with <code>ElementName="..."</code>) instead of <code>HxDropdownToggleButton</code> to create custom toggler.
-        (Usually you will add <code>role="button"</code> to apply pointer cursor type.)
-    </p>
-    <Demo Type="typeof(HxDropdown_Demo_CustomToggleElement)" />
 
-    <SectionTitle Id="OffsetAndreference">Dropdown offset and reference</SectionTitle>
+    <SectionTitle Id="offset-reference">Dropdown offset and reference</SectionTitle>
     <p>
         You can change the location of the dropdown by setting the <code>@nameof(HxDropdownToggleButton).@nameof(HxDropdownToggleButton.DropdownOffset)</code>
         and/or <code>@nameof(HxDropdownToggleButton).@nameof(HxDropdownToggleButton.DropdownReference)</code>.
@@ -71,7 +61,7 @@
     </DocAlert>
     <Demo Type="typeof(HxDropdown_Demo_DropdownReference)" />
 
-    <SectionTitle Id="AutoCloseBehavior" />
+    <SectionTitle Id="autoclose-behavior">AutoClose behavior</SectionTitle>
     <p>By default, the dropdown menu is closed when clicking inside or outside the dropdown menu. You can use the <code>AutoClose</code> parameter to change this behavior of the dropdown.</p>
     <Demo Type="typeof(HxDropdown_Demo_AutoClose)" />
 
@@ -79,12 +69,11 @@
     <p>You can use <code>HxDropdown</code> inside <code><a href="/components/@nameof(HxNav)">@nameof(HxNav)</a></code>.</p>
     <Demo Type="typeof(HxNav_Demo_Dropdowns)" />
 
-    <SectionTitle Id="DarkDropdowns" />
+    <SectionTitle Id="dark">Dark dropdowns</SectionTitle>
     <p>Opt into darker dropdowns to match a dark navbar or custom style by adding <code>.dropdown-menu-dark</code> onto a <code>HxDropdownMenu</code> component.</p>
     <Demo Type="typeof(HxDropdown_Demo_Dark)" />
 </ComponentApiDoc>
 
-<ComponentApiDoc Type="typeof(HxDropdownToggleButton)" />
 <ComponentApiDoc Type="typeof(HxDropdownToggleElement)" />
 <ComponentApiDoc Type="typeof(HxDropdownMenu)" />
 <ComponentApiDoc Type="typeof(HxDropdownHeader)" />

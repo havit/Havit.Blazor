@@ -3,7 +3,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// A slideshow component for cycling through elements—images or slides of text—like a carousel.
+	/// A slideshow component for cycling through elements—images or slides of text—like a carousel.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCarousel">https://havit.blazor.eu/components/HxCarousel</see>
 	/// </summary>
 	public partial class HxCarousel : IAsyncDisposable
 	{
@@ -95,7 +96,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			dotnetObjectReference = DotNetObjectReference.Create(this);
 			items = new List<HxCarouselItem>();
 			itemsRegistration = new CollectionRegistration<HxCarouselItem>(items,
-				this.StateHasChanged,
+				async () => await InvokeAsync(this.StateHasChanged),
 				() => disposed);
 		}
 
@@ -116,7 +117,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected async Task EnsureJsModule()
 		{
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxCarousel) + ".js");
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxCarousel));
 		}
 
 
@@ -196,7 +197,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}
@@ -207,7 +208,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (jsModule is not null)
 			{
+#if NET6_0_OR_GREATER
+				try
+				{
+					await jsModule.InvokeVoidAsync("dispose", elementReference);
+				}
+				catch (JSDisconnectedException)
+				{
+					// NOOP
+				}
+#else
 				await jsModule.InvokeVoidAsync("dispose", elementReference);
+#endif
 				await jsModule.DisposeAsync();
 			}
 

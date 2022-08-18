@@ -22,14 +22,9 @@
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
 	</PropertyGroup>
 
-	<!-- Choose/When: https://stackoverflow.com/a/61991596/4202832 -->
-	<Choose>
-		<When Condition="'$(PublishDirectory)' != ''">
-			<ItemGroup>
-				<PackageReference Include="Microsoft.SourceLink.AzureRepos.Git" Version="1.0.0" PrivateAssets="All" />
-			</ItemGroup>
-		</When>
-	</Choose>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+	</ItemGroup>
 
 	<!-- Publish NuGet -->
 	<PropertyGroup>

@@ -1,11 +1,12 @@
 ﻿using Havit.Diagnostics.Contracts;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public partial class HxInputDateInternal<TValue> : IAsyncDisposable, IInputWithSize
+	public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisposable, IInputWithSize
 	{
 		[Parameter] public string InputId { get; set; }
 
@@ -34,6 +35,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public LabelType LabelTypeEffective { get; set; }
 
+		/// <summary>
+		/// Custom CSS class to render with input-group span.
+		/// </summary>
+		[Parameter] public string InputGroupCssClass { get; set; }
+
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public string InputGroupStartText { get; set; }
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public string InputGroupEndText { get; set; }
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
 		[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
 
@@ -41,6 +64,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
+		protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
+		protected bool HasEndInputGroupEffective => !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupEndTemplate is not null);
+
+		protected bool RenderPredefinedDates => ShowPredefinedDatesEffective && (this.PredefinedDatesEffective != null) && PredefinedDatesEffective.Any();
+		protected bool RenderIcon => CalendarIconEffective is not null && !HasInputGroupsEffective;
 
 		private TValue previousValue;
 
@@ -48,6 +76,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private ValidationMessageStore validationMessageStore;
 
 		private ElementReference dateInputElement;
+		private ElementReference iconWrapperElement;
 		private IJSObjectReference jsModule;
 
 		protected override void OnParametersSet()
@@ -66,7 +95,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		protected override string FormatValueAsString(TValue value) => HxInputDate<TValue>.FormatValue(value);
 
-		private async Task HandleValueChangedAsync(ChangeEventArgs changeEventArgs)
+		private void HandleValueChanged(ChangeEventArgs changeEventArgs)
 		{
 			// HandleValueChanged is used instead of TryParseValueFromString
 			// When TryParseValueFromString is used, invalid input is replaced by previous value.		
@@ -77,7 +106,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			{
 				parsingFailed = false;
 				CurrentValue = GetValueFromDateTimeOffset(date);
-				await CloseDropDownAsync(dateInputElement);
 			}
 			else
 			{
@@ -103,7 +131,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxInputDateRange) + ".js");
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDateRange));
+
+			if (RenderIcon)
+			{
+				await jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", dateInputElement, (this.CalendarIconEffective is not null) ? iconWrapperElement : null);
+			}
 		}
 
 		private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request)
@@ -123,16 +156,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await CloseDropDownAsync(dateInputElement);
 		}
 
-		//private async Task OpenDropDownAsync(ElementReference triggerElement)
-		//{
-		//	Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
-		//	await jsModule.InvokeVoidAsync("open", triggerElement);
-		//}
-
 		private async Task CloseDropDownAsync(ElementReference triggerElement)
 		{
 			Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
 			await jsModule.InvokeVoidAsync("destroy", triggerElement);
+		}
+
+		private async Task ToggleDropDownAsync(ElementReference triggerElement)
+		{
+			Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
+			await jsModule.InvokeVoidAsync("toggle", triggerElement);
 		}
 
 		private async Task HandleCalendarValueChangedAsync(DateTime? date)
@@ -202,7 +235,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}
@@ -213,7 +246,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			if (jsModule != null)
 			{
+#if NET6_0_OR_GREATER
+				try
+				{
+					await CloseDropDownAsync(dateInputElement);
+				}
+				catch (JSDisconnectedException)
+				{
+					// NOOP
+				}
+#else
 				await CloseDropDownAsync(dateInputElement);
+#endif
 
 				await jsModule.DisposeAsync();
 			}

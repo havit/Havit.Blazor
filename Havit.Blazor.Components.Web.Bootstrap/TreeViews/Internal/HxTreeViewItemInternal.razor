@@ -2,12 +2,12 @@
 @typeparam TItem
 
 @{
-    var icon = this.IconSelector?.Invoke(this.Item) ?? null;
-    var title = this.TitleSelector?.Invoke(this.Item) ?? null;
-    var cssClassFromSelector = this.CssClassSelector?.Invoke(this.Item) ?? null;
-    var children = this.ChildrenSelector(this.Item);
-    var hasChildren = children?.Any() ?? false;
-    var isSelected = this.Item.Equals(this.TreeViewContainer.SelectedItem);
+    IconBase icon = this.IconSelector?.Invoke(this.Item) ?? null;
+    string title = this.TitleSelector?.Invoke(this.Item) ?? null;
+    string cssClassFromSelector = this.CssClassSelector?.Invoke(this.Item) ?? null;
+    IEnumerable<TItem> children = this.ChildrenSelector(this.Item);
+    bool hasChildren = children?.Any() ?? false;
+    bool isSelected = this.Item.Equals(this.TreeViewContainer.SelectedItem);
 }
 
 <div class="@CssClassHelper.Combine("hx-tree-view-item", isSelected ? "selected" : "", this.CssClass, cssClassFromSelector)" @onclick="@HandleItemClicked" @onclick:stopPropagation="true">
@@ -15,16 +15,14 @@
     {
         <div class="hx-tree-view-item-spacer"></div>
     }
-    <div class="hx-tree-view-item-expander-container">
+    <HxCollapseToggleElement ElementName="div" CollapseTarget="@($"#{collapseId}")" CssClass="hx-tree-view-item-expander-container">
         @if (hasChildren)
         {
-            <div class="hx-tree-view-item-expander @(this.IsExpanded ? "expanded" : "")"  @onclick="HandleItemExpanderClicked" @onclick:stopPropagation="true">
-                    <div>
-                        <HxIcon Icon="@BootstrapIcon.ChevronRight" />
-                    </div>
+            <div class="hx-tree-view-item-expander">
+                <HxIcon Icon="@BootstrapIcon.ChevronRight" />
             </div>
         }
-    </div>
+    </HxCollapseToggleElement>
     @if (icon != null)
     {
         <div class="hx-tree-view-item-icon">
@@ -41,19 +39,29 @@
     }
 </div>
 
-@if (this.IsExpanded && hasChildren)
+@if (hasChildren)
 {
-    foreach (var item in children)
-    {
-        <HxTreeViewItemInternal TItem="TItem"
-                        Item="item"
-                        TitleSelector="this.TitleSelector"
-                        IconSelector="this.IconSelector"
-                        CssClass="@this.CssClass"
-                        CssClassSelector="this.CssClassSelector"
-                        ChildrenSelector="this.ChildrenSelector"
-                        Level="@(this.Level + 1)"
-                        ContentTemplate="this.ContentTemplate"
-                        OnItemSelected="this.OnItemSelected" />
-    }
+    <HxCollapse
+        Id="@collapseId"
+        CollapseDirection="CollapseDirection.Vertical"
+        InitiallyExpanded="initiallyExpanded"
+    >
+
+        @foreach (var item in children)
+        {
+            <HxTreeViewItemInternal
+                            @key="item"
+                            TItem="TItem"
+                            Item="item"
+                            TitleSelector="this.TitleSelector"
+                            IconSelector="this.IconSelector"
+                            CssClass="@this.CssClass"
+                            CssClassSelector="this.CssClassSelector"
+                            ChildrenSelector="this.ChildrenSelector"
+                            Level="@(this.Level + 1)"
+                            ContentTemplate="this.ContentTemplate"
+                            OnItemSelected="this.OnItemSelected" />
+        }
+
+    </HxCollapse>
 }

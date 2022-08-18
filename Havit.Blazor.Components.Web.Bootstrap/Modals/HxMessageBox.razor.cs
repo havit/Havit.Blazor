@@ -4,7 +4,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Component to display message-boxes.<br/>
-	/// Usually used via <see cref="HxMessageBoxService"/> and <see cref="HxMessageBoxHost"/>.
+	/// Usually used via <see cref="HxMessageBoxService"/> and <see cref="HxMessageBoxHost"/>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMessageBox">https://havit.blazor.eu/components/HxMessageBox</see>
 	/// </summary>
 	public partial class HxMessageBox : ComponentBase
 	{

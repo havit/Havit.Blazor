@@ -42,6 +42,8 @@ $form-check-input-border:         1px solid $gray-300;
 
 $modal-backdrop-opacity:      .25;
 $modal-header-border-color:   $border-color;
+$modal-content-border-color:  rgba($black, .05);
+$offcanvas-border-color:      $modal-content-border-color;
 
 $offcanvas-horizontal-width:  500px;
 
@@ -53,14 +55,12 @@ $accordion-border-color:    rgba($black, .0875);
 
 $popover-border-color:      rgba($black, .125);
 
-$toast-border-color:            rgba($black, .0875);
-$toast-padding-x:                   1rem;
-$toast-padding-y:                   .75rem;
-
-$modal-content-border-color:    rgba($black, .125);
+$toast-border-color:        rgba($black, .0875);
+$toast-padding-x:           1rem;
+$toast-padding-y:           .75rem;
 
 $list-group-border-color:           rgba($black, .0875);
 
 $hr-opacity: .125;
 
-// $nav-tabs-link-hover-border-color:  transparent;
+$nav-tabs-link-hover-border-color:  transparent;

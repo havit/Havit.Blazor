@@ -46,16 +46,19 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 		public async Task<IEnumerable<TValue>> GetAllAsync()
 		{
 			await EnsureDataAsync();
-			return GetAll();
+			return GetAll(throwIfNotLoaded: true);
 		}
 
 		/// <summary>
 		/// Returns all data from the store (requires <see cref="EnsureDataAsync"/> to be called first).
 		/// </summary>
-		public IEnumerable<TValue> GetAll()
+		public IEnumerable<TValue> GetAll(bool throwIfNotLoaded = false)
 		{
-			ThrowIfNotLoaded();
-			return Data.Values;
+			if (VerifyIsLoaded(throwIfNotLoaded))
+			{
+				return Data.Values;
+			}
+			return null;
 		}
 
 		/// <summary>
@@ -70,33 +73,39 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 		/// <summary>
 		/// Retrieves value from dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Throws exception when key not found.
 		/// </summary>
-		public TValue GetByKey(TKey key)
+		public TValue GetByKey(TKey key, bool throwIfNotLoaded = false)
 		{
 			Contract.Requires<ArgumentNullException>(key is not null);
-			ThrowIfNotLoaded();
-			return this.Data[key];
+
+			if (VerifyIsLoaded(throwIfNotLoaded))
+			{
+				return this.Data[key];
+			}
+			return default;
 		}
 
 		/// <summary>
 		/// Retrieves value from dictionary (includes data load if needed). Returns <c>default</c> when not found.
 		/// </summary>
-		public async Task<TValue> TryGetByKeyAsync(TKey key, TValue defaultValue = default)
+		public async Task<TValue> GetByKeyOrDefaultAsync(TKey key, TValue defaultValue = default)
 		{
 			await EnsureDataAsync();
-			return TryGetByKey(key, defaultValue);
+			return GetByKeyOrDefault(key, defaultValue);
 		}
 
 		/// <summary>
 		/// Retrieves value from dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
 		/// </summary>
-		public TValue TryGetByKey(TKey key, TValue defaultValue = default)
+		public TValue GetByKeyOrDefault(TKey key, TValue defaultValue = default, bool throwIfNotLoaded = false)
 		{
 			Contract.Requires<ArgumentNullException>(key is not null);
-			ThrowIfNotLoaded();
 
-			if (this.Data.TryGetValue(key, out var value))
+			if (VerifyIsLoaded(throwIfNotLoaded))
 			{
-				return value;
+				if (this.Data.TryGetValue(key, out var value))
+				{
+					return value;
+				}
 			}
 			return defaultValue;
 		}
@@ -138,9 +147,17 @@ namespace Havit.Blazor.Components.Web.Services.DataStores
 		}
 		private readonly SemaphoreSlim loadLock = new SemaphoreSlim(1, 1);
 
-		private void ThrowIfNotLoaded()
+		private bool VerifyIsLoaded(bool throwIfNotLoaded)
 		{
-			Contract.Requires<InvalidOperationException>(Data is not null, $"Data not loaded. You have to call {nameof(EnsureDataAsync)} first.");
+			if (Data is not null)
+			{
+				return true;
+			}
+			if (throwIfNotLoaded)
+			{
+				throw new InvalidOperationException($"Data not loaded. You have to call {nameof(EnsureDataAsync)} first.");
+			}
+			return false;
 		}
 	}
 }

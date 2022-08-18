@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -17,6 +18,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server
 			services.AddHxServices();
 			services.AddHxMessenger();
 			services.AddHxMessageBoxHost();
+
+			services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
+			services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

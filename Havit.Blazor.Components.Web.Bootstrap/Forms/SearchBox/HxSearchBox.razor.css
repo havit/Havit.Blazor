@@ -1,14 +1,10 @@
 ﻿::deep .dropdown,
-::deep .dropdown-toggle,
+::deep div[data-bs-toggle="dropdown"],
 ::deep .dropdown-menu {
-    width: 100%;
+	width: 100%; /* override for current .btn-group, see issue #117 */
 }
 
-::deep .dropdown-toggle::after {
-    content: none !important;
-}
-
-::deep .input-icon {
+::deep .hx-search-box-input-icon {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -17,11 +13,14 @@
     z-index: 1;
 }
 
-::deep .input-icon-start {
-    font-size: 13px;
-    left: 9px;
+::deep .hx-search-box-input-icon-end {
+    right: .75rem;
 }
 
-::deep .input-icon-end {
-    right: .75rem;
+.dropdown-item:not(:active) ::deep .hx-search-box-item-title {
+    color: var(--hx-search-box-item-title-color);
+}
+
+.dropdown-item:not(:active) ::deep .hx-search-box-item-subtitle {
+    color: var(--hx-search-box-item-subtitle-color);
 }

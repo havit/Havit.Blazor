@@ -1,11 +1,12 @@
 ﻿using Havit.Diagnostics.Contracts;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public partial class HxInputDateRangeInternal : IAsyncDisposable, IInputWithSize
+	public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsyncDisposable, IInputWithSize
 	{
 		[Parameter] public string FromInputId { get; set; }
 
@@ -87,7 +88,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxInputDateRange) + ".js");
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDateRange));
 
 			bool fromValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(fromFieldIdentifier).Any();
 			bool toValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(toFieldIdentifier).Any();
@@ -107,7 +108,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			return CalendarDateCustomizationProviderEffective?.Invoke(request with { Target = CalendarDateCustomizationTarget.InputDateRangeTo }) ?? null;
 		}
 
-		protected async Task HandleFromChangedAsync(ChangeEventArgs changeEventArgs)
+		protected void HandleFromChanged(ChangeEventArgs changeEventArgs)
 		{
 			bool parsingFailed;
 
@@ -118,7 +119,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				parsingFailed = false;
 				CurrentValue = Value with { StartDate = fromDate?.DateTime };
 				EditContext.NotifyFieldChanged(fromFieldIdentifier);
-				await CloseDropDownAsync(fromInputElement);
 			}
 			else
 			{
@@ -134,7 +134,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 		}
 
-		protected async Task HandleToChangedAsync(ChangeEventArgs changeEventArgs)
+		protected void HandleToChanged(ChangeEventArgs changeEventArgs)
 		{
 			bool parsingFailed;
 			validationMessageStore.Clear(toFieldIdentifier);
@@ -144,7 +144,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				parsingFailed = false;
 				CurrentValue = Value with { EndDate = toDate?.DateTime };
 				EditContext.NotifyFieldChanged(toFieldIdentifier);
-				await CloseDropDownAsync(toInputElement);
 			}
 			else
 			{
@@ -252,7 +251,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// <inheritdoc />
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}
@@ -263,8 +262,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			if (jsModule != null)
 			{
+#if NET6_0_OR_GREATER
+				try
+				{
+					await CloseDropDownAsync(fromInputElement);
+					await CloseDropDownAsync(toInputElement);
+				}
+				catch (JSDisconnectedException)
+				{
+					// NOOP
+				}
+#else
 				await CloseDropDownAsync(fromInputElement);
 				await CloseDropDownAsync(toInputElement);
+#endif
 
 				await jsModule.DisposeAsync();
 			}

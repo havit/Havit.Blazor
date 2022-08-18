@@ -1,24 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+	  <TargetFrameworks>net6.0;net5.0</TargetFrameworks>
   </PropertyGroup>
 
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.1.0</PackageVersion>
+		<!-- GrpcPackagesVersion - variable from Directory.Build.props -->
+		<PackageVersion>$(GrpcPackagesVersion)</PackageVersion>
 		<Description>HAVIT Blazor stack - gRPC Support - client-side</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Grpc.Net.Client" Version="2.43.0" />
-		<PackageReference Include="Grpc.Net.Client.Web" Version="2.43.0" />
-		<PackageReference Include="Havit.Core" Version="2.0.25" />
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.14" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
-		<PackageReference Include="protobuf-net" Version="3.0.101" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.47.0" />
+		<PackageReference Include="Grpc.Net.Client.Web" Version="2.47.0" />
+		<PackageReference Include="Havit.Core" Version="2.0.26" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.17" Condition="'$(TargetFramework)' == 'net5.0'" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.6" Condition="'$(TargetFramework)' == 'net6.0'" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
+		<PackageReference Include="protobuf-net" Version="3.1.17" />
 		<PackageReference Include="protobuf-net.Grpc.ClientFactory" Version="1.0.152" />
 	</ItemGroup>
 	<ItemGroup>

@@ -5,8 +5,8 @@
                     Items="@fileSystem"
                     CssClass="border rounded p-2"
                     ItemTitleSelector="@(p => p.Name)"
-                    ItemChildrenSelector="@(p => p.Subdirectories)"
-                    ItemIconSelector="@(p => p.Icon)" />
+                    ItemIconSelector="@(p => p.Icon)"
+                    ItemChildrenSelector="@(p => p.Subdirectories)" />
     </div>
     <div class="col-lg-4">
         @if (selectedDirectory == null)

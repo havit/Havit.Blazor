@@ -1,7 +1,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Component to display hierarchy data structure.
+	/// Component to display hierarchy data structure.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTreeView">https://havit.blazor.eu/components/HxTreeView</see>
 	/// </summary>
 	/// <typeparam name="TItem">Type of tree data item.</typeparam>
 	public partial class HxTreeView<TItem> : ComponentBase
@@ -9,6 +10,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Collection of hierarchy data to display.
 		/// </summary>
+#if NET6_0_OR_GREATER
+		[EditorRequired]
+#endif
 		[Parameter] public IEnumerable<TItem> Items { get; set; }
 
 		/// <summary>
@@ -34,6 +38,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Selector to display icon from data item.
 		/// </summary>
 		[Parameter] public Func<TItem, IconBase> ItemIconSelector { get; set; }
+
+		/// <summary>
+		/// Selector for initial expansion state for data item.<br/>
+		/// Default state is <c>false</c> (collapsed).
+		/// </summary>
+		[Parameter] public Func<TItem, bool> ItemInitialExpandedSelector { get; set; }
 
 		/// <summary>
 		/// Item CSS class (same for all items).

@@ -1,7 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 @typeparam TFilterModel
 
-<div class="hx-list-layout">
+<div class="@CssClassHelper.Combine("hx-list-layout", CssClassEffective)">
 	<HxCard Settings="this.CardSettingsEffective">
 		<BodyTemplate>
 			<div class="hx-list-layout-header hstack gap-2">

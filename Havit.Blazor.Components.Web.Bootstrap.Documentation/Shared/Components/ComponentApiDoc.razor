@@ -1,40 +1,41 @@
-﻿<h1 id="@RemoveSpecialCharacters(Type.Name)">@RemoveSpecialCharacters(Type.Name)</h1>
-@if (!String.IsNullOrWhiteSpace(classMember?.Comments?.Summary))
+﻿@using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services
+<h1 id="@ApiRenderer.RemoveSpecialCharacters(Type.Name)">@ApiRenderer.RemoveSpecialCharacters(Type.Name)</h1>
+@if (!String.IsNullOrWhiteSpace(model.Class?.Comments?.Summary))
 {
-	<p class="lead">@((MarkupString)classMember.Comments.Summary)</p>
+	<p class="lead">@((MarkupString)model.Class.Comments.Summary)</p>
 }
 
 @ChildContent
 @MainContent
 
-@if (parameters is not null || properties is not null || events is not null || staticMethods is not null || staticProperties is not null || CssVariables is not null)
+@if (model.HasValues || CssVariables is not null)
 {
 	<h2>API</h2>
 }
 
-@if (Delegate)
+@if (model.IsDelegate)
 {
-	<h6><code>@((MarkupString)delegateSignature)</code></h6>
+	<h6><code>@((MarkupString)model.DelegateSignature)</code></h6>
 }
 
-@if (isEnum)
+@if (model.IsEnum)
 {
 	<h3>Enum Values</h3>
 	<div class="table-responsive">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>Index</th>
+					<th>Name</th>
 					<th>Value</th>
 					<th>Description</th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var enumMember in enumMembers)
+				@foreach (var enumMember in model.EnumMembers)
 				{
 					<tr>
-						<td>@enumMember.Index</td>
 						<td>@enumMember.Name</td>
+						<td>@enumMember.Value</td>
 						<td class="summary">@((MarkupString)enumMember.Summary)</td>
 					</tr>
 				}
@@ -43,7 +44,7 @@
 	</div>
 }
 
-@if (parameters.Count > 0)
+@if (model.Parameters.Any())
 {
 	<h3>Parameters</h3>
 
@@ -57,26 +58,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var property in parameters.OrderBy(p => p.PropertyInfo.Name))
+				@foreach (var property in model.Parameters.OrderByDescending(p => p.EditorRequired).ThenBy(p => p.PropertyInfo.Name))
 				{
 					<tr>
 						<td>
-							@if (property.EditorRequired)
+							@if (property.IsStatic)
 							{
-								<HxBadge Color="ThemeColor.Warning" CssClass="me-2">
-									@("REQUIRED")
-								</HxBadge>
-							}
-							@if (IsPropertyStatic(property))
-							{
-								<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">
-									@("static")
-								</HxBadge>
+								<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">static</HxBadge>
 							}
 
 							<strong>@property.PropertyInfo.Name</strong>
+							@if (property.EditorRequired)
+							{
+								<sup><HxBadge Color="ThemeColor.Warning" CssClass="ms-2">REQUIRED</HxBadge></sup>
+							}
 						</td>
-						<td><code>@((MarkupString)@FormatType(property.PropertyInfo.PropertyType))</code></td>
+						<td><code>@((MarkupString)ApiRenderer.FormatType(property.PropertyInfo.PropertyType))</code></td>
 						<td class="summary">@((MarkupString)property.Comments.Summary)</td>
 					</tr>
 				}
@@ -85,7 +82,7 @@
 	</div>
 }
 
-@if (properties.Count > 0)
+@if (model.Properties.Any())
 {
 	<h3>Other properties</h3>
 	<div class="table-responsive">
@@ -98,11 +95,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var property in properties.OrderBy(p => p.PropertyInfo.Name))
+				@foreach (var property in model.Properties.OrderBy(p => p.PropertyInfo.Name))
 				{
 					<tr>
 						<td><strong>@property.PropertyInfo.Name</strong></td>
-						<td><code>@((MarkupString)@FormatType(property.PropertyInfo.PropertyType))</code></td>
+						<td><code>@((MarkupString)ApiRenderer.FormatType(property.PropertyInfo.PropertyType))</code></td>
 						<td class="summary">@((MarkupString)property.Comments.Summary)</td>
 					</tr>
 				}
@@ -111,7 +108,7 @@
 	</div>
 }
 
-@if (events.Count > 0)
+@if (model.Events.Any())
 {
 	<h3>Event callbacks</h3>
 
@@ -125,11 +122,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var currentEvent in events.OrderBy(e => e.PropertyInfo.Name))
+				@foreach (var currentEvent in model.Events.OrderBy(e => e.PropertyInfo.Name))
 				{
 					<tr>
 						<td><strong>@currentEvent.PropertyInfo.Name</strong> </td>
-						<td><code>@((MarkupString)@FormatType(currentEvent.PropertyInfo.PropertyType))</code></td>
+						<td><code>@((MarkupString)ApiRenderer.FormatType(currentEvent.PropertyInfo.PropertyType))</code></td>
 						<td class="summary">@((MarkupString)currentEvent.Comments.Summary)</td>
 					</tr>
 				}
@@ -138,7 +135,7 @@
 	</div>
 }
 
-@if (methods.Count > 0)
+@if (!model.IsEnum && model.Methods.Any())
 {
 	<h3>Methods</h3>
 	<div class="table-responsive">
@@ -151,11 +148,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var method in methods.OrderBy(m => m.MethodInfo.Name))
+				@foreach (var method in model.Methods.OrderBy(m => m.MethodInfo.Name))
 				{
 					<tr>
 						<td><strong>@method.MethodInfo.Name</strong>@((MarkupString)@method.GetParameters())</td>
-						<td><code>@((MarkupString)@FormatMethod(method.MethodInfo.ReturnType))</code></td>
+						<td><code>@((MarkupString)ApiRenderer.FormatMethodReturnType(method.MethodInfo.ReturnType, model))</code></td>
 						<td class="summary">@((MarkupString)method.Comments.Summary)</td>
 					</tr>
 				}
@@ -164,7 +161,7 @@
 	</div>
 }
 
-@if (staticProperties.Count > 0)
+@if (model.StaticProperties.Any())
 {
 	<h3>Static properties</h3>
 
@@ -178,11 +175,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var property in staticProperties.OrderBy(p => p.PropertyInfo.Name))
+				@foreach (var property in model.StaticProperties.OrderBy(p => p.PropertyInfo.Name))
 				{
 					<tr>
 						<td><strong>@property.PropertyInfo.Name</strong></td>
-						<td><code>@((MarkupString)@FormatType(property.PropertyInfo.PropertyType))</code></td>
+						<td><code>@((MarkupString)ApiRenderer.FormatType(property.PropertyInfo.PropertyType))</code></td>
 						<td class="summary">@((MarkupString)property.Comments.Summary)</td>
 					</tr>
 				}
@@ -191,7 +188,7 @@
 	</div>
 }
 
-@if (staticMethods.Count > 0)
+@if (!model.IsEnum && model.StaticMethods.Any())
 {
 	<h3>Static Methods</h3>
 
@@ -205,11 +202,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var method in staticMethods.OrderBy(m => m.MethodInfo.Name))
+				@foreach (var method in model.StaticMethods.OrderBy(m => m.MethodInfo.Name))
 				{
 					<tr>
 						<td><strong>@method.MethodInfo.Name</strong> @((MarkupString)@method.GetParameters())</td>
-						<td><code>@((MarkupString)@FormatType(method.MethodInfo.ReturnType))</code></td>
+						<td><code>@((MarkupString)ApiRenderer.FormatType(method.MethodInfo.ReturnType))</code></td>
 						<td class="summary">@((MarkupString)method.Comments.Summary)</td>
 					</tr>
 				}

@@ -7,7 +7,8 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Date picker. Form input component for entering a date.
+	/// Date picker. Form input component for entering a date.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputDate">https://havit.blazor.eu/components/HxInputDate</see>
 	/// </summary>
 	/// <remarks>
 	/// Defaults located in separate non-generic type <see cref="HxInputDate"/>.
@@ -98,13 +99,35 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
 		protected CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective => this.CalendarDateCustomizationProvider ?? this.GetSettings()?.CalendarDateCustomizationProvider ?? GetDefaults().CalendarDateCustomizationProvider;
 
-		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
-
 		/// <inheritdoc cref="Bootstrap.LabelType" />
 		[Parameter] public LabelType? LabelType { get; set; }
-
-
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputDateInternal */ : LabelValueRenderOrder.LabelValue;
+
+		/// <summary>
+		/// Custom CSS class to render with input-group span.
+		/// </summary>
+		[Parameter] public string InputGroupCssClass { get; set; }
+
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public string InputGroupStartText { get; set; }
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public string InputGroupEndText { get; set; }
+		/// <summary>
+		/// Input-group at the end of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
+
+		[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
+
 
 		public HxInputDate()
 		{
@@ -146,6 +169,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(211, nameof(HxInputDateInternal<TValue>.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProviderEffective);
 			builder.AddAttribute(212, nameof(HxInputDateInternal<TValue>.LabelTypeEffective), labelTypeEffective);
 			builder.AddAttribute(213, nameof(HxInputDateInternal<TValue>.FormValueComponent), this);
+
+			builder.AddAttribute(214, nameof(HxInputDateInternal<TValue>.InputGroupStartText), this.InputGroupStartText);
+			builder.AddAttribute(215, nameof(HxInputDateInternal<TValue>.InputGroupEndText), this.InputGroupEndText);
+			builder.AddAttribute(216, nameof(HxInputDateInternal<TValue>.InputGroupStartTemplate), this.InputGroupStartTemplate);
+			builder.AddAttribute(217, nameof(HxInputDateInternal<TValue>.InputGroupEndTemplate), this.InputGroupEndTemplate);
+			builder.AddAttribute(218, nameof(HxInputDateInternal<TValue>.InputGroupCssClass), this.InputGroupCssClass);
+
+			builder.AddMultipleAttributes(300, this.AdditionalAttributes);
 
 			builder.CloseComponent();
 		}

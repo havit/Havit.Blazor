@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web
 {
 	/// <summary>
-	/// Renders an element with the specified name, attributes and child-content.
+	/// Renders an element with the specified name, attributes and child-content.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDynamicElement">https://havit.blazor.eu/components/HxDynamicElement</see>
 	/// </summary>
 	public class HxDynamicElement : ComponentBase
 	{

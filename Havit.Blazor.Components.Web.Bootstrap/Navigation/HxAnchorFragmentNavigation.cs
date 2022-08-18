@@ -5,7 +5,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Temporarily (?) compensates Blazor deficiency in anchor-fragments (scrolling to <c>page#id</c> URLs). Supports navigation with <see cref="HxScrollspy"/> component.
-	/// <a href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</a>.
+	/// <see href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</see>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAnchorFragmentNavigation">https://havit.blazor.eu/components/HxAnchorFragmentNavigation</see>
 	/// </summary>
 	public class HxAnchorFragmentNavigation : ComponentBase, IAsyncDisposable
 	{
@@ -54,7 +55,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			if (!String.IsNullOrEmpty(anchor))
 			{
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxAnchorFragmentNavigation) + ".js");
+				jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxAnchorFragmentNavigation));
 				await jsModule.InvokeVoidAsync("scrollToAnchor", anchor);
 			}
 		}
@@ -79,7 +80,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}

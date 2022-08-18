@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
 	/// <summary>
-	/// Input with sizing support.
+	/// Input with label type.
 	/// </summary>
 	public interface IInputWithLabelType
 	{

@@ -5,7 +5,8 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// A full-text search component.
+/// A search input component witch automatic suggestions, initial dropdown template and free-text queries support.<br />
+/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSearchBox">https://havit.blazor.eu/components/HxSearchBox</see>
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 public partial class HxSearchBox<TItem> : IAsyncDisposable
@@ -178,12 +179,38 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// </summary>
 	[Parameter] public bool AllowTextQuery { get; set; } = true;
 
+	/// <summary>
+	/// Input-group at the beginning of the input.
+	/// </summary>
+	[Parameter] public string InputGroupStartText { get; set; }
+
+	/// <summary>
+	/// Input-group at the beginning of the input.
+	/// </summary>
+	[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+
+	/// <summary>
+	/// Input-group at the end of the input.<br/>
+	/// Hides the search icon when used!
+	/// </summary>
+	[Parameter] public string InputGroupEndText { get; set; }
+
+	/// <summary>
+	/// Input-group at the end of the input.<br/>
+	/// Hides the search icon when used!
+	/// </summary>
+	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
 	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
 	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
 	private List<TItem> searchResults = new();
 	private HxDropdownToggleElement dropdownToggle;
 	private bool dropdownMenuActive = false;
 	private bool initialized = false;
+	/// <summary>
+	/// Shows whether the <see cref="TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
+	/// </summary>
+	private bool textQueryHasBeenBelowMinimumLength = true;
 
 	private System.Timers.Timer timer;
 	private CancellationTokenSource cancellationTokenSource;
@@ -197,7 +224,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 	}
 
-	public async Task ClearInputAsync()
+	protected async Task ClearInputAsync()
 	{
 		if (TextQuery != string.Empty)
 		{
@@ -207,8 +234,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 	}
 
-	public async Task UpdateSuggestionsAsync()
+	protected async Task UpdateSuggestionsAsync()
 	{
+		await HideDropdownMenu();
+
 		if (string.IsNullOrEmpty(TextQuery) || TextQuery.Length < MinimumLengthEffective)
 		{
 			return;
@@ -247,6 +276,9 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		dataProviderInProgress = false;
 		searchResults = result?.Data.ToList();
 
+		textQueryHasBeenBelowMinimumLength = false;
+		await ShowDropdownMenu();
+
 		StateHasChanged();
 	}
 
@@ -254,9 +286,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	{
 		this.TextQuery = newTextQuery;
 
-		timer?.Stop(); // if waiting for an interval, stop it
-		cancellationTokenSource?.Cancel(); // if already loading data, cancel it
-		dataProviderInProgress = false; // data provider is no more in progress				 
+		CancelDataProviderAndDebounce();
 
 		// start new time interval
 		if (TextQuery.Length >= MinimumLengthEffective)
@@ -271,6 +301,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			}
 			timer.Interval = DelayEffective;
 			timer.Start();
+		}
+		else
+		{
+			textQueryHasBeenBelowMinimumLength = true;
 		}
 
 		if (ShouldDropdownMenuBeDisplayed())
@@ -294,15 +328,22 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	}
 	private void HandleInputBlur()
 	{
+		CancelDataProviderAndDebounce();
+	}
+
+	private void CancelDataProviderAndDebounce()
+	{
 		timer?.Stop(); // if waiting for an interval, stop it
 		cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
-		dataProviderInProgress = false; // data provider is no more in progress				 
+		dataProviderInProgress = false; // data provider is no longer in progress
 	}
 
 	protected async Task HandleTextQueryTriggered()
 	{
-		if (AllowTextQuery)
+		if (AllowTextQuery && (TextQuery.Length >= MinimumLengthEffective || TextQuery.Length == 0))
 		{
+			CancelDataProviderAndDebounce();
+
 			await HideDropdownMenu();
 			await InvokeOnTextQueryTriggeredAsync(this.TextQuery);
 		}
@@ -339,6 +380,11 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// <returns></returns>
 	protected bool ShouldDropdownMenuBeDisplayed()
 	{
+		if (textQueryHasBeenBelowMinimumLength && (TextQuery is not null && TextQuery.Length >= MinimumLengthEffective))
+		{
+			return false;
+		}
+
 		if (DefaultContentTemplate is null && (TextQuery is null || TextQuery.Length < MinimumLengthEffective))
 		{
 			return false;
@@ -349,7 +395,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	public async ValueTask DisposeAsync()
 	{
-		await DisposeAsyncCore().ConfigureAwait(false);
+		await DisposeAsyncCore();
 	}
 
 	protected virtual async ValueTask DisposeAsyncCore()

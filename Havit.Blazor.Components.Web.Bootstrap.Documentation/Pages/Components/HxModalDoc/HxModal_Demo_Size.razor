@@ -3,10 +3,10 @@
 <HxModal @ref="modal" Title="Regular modal" />
 <HxModal @ref="smModal" Size="ModalSize.Small" Title="Small modal" />
 
-<HxButton OnClick="() => xlModal.ShowAsync()" Color="ThemeColor.Primary">Extra large modal</HxButton>
-<HxButton OnClick="() => lgModal.ShowAsync()" Color="ThemeColor.Primary">Large modal</HxButton>
-<HxButton OnClick="() => modal.ShowAsync()" Color="ThemeColor.Primary">Regular modal</HxButton>
-<HxButton OnClick="() => smModal.ShowAsync()" Color="ThemeColor.Primary">Small modal</HxButton>
+<HxButton OnClick="() => xlModal.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Extra large modal</HxButton>
+<HxButton OnClick="() => lgModal.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Large modal</HxButton>
+<HxButton OnClick="() => modal.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Regular modal</HxButton>
+<HxButton OnClick="() => smModal.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Small modal</HxButton>
 
 @code
 {

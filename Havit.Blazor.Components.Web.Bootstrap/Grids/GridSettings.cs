@@ -35,7 +35,7 @@
 		public int? OverscanCount { get; set; }
 
 		/// <summary>
-		/// Page size for <see cref="GridContentNavigationMode.Pagination"/>.
+		/// Page size for <see cref="GridContentNavigationMode.Pagination"/>. Set <c>0</c> to disable paging.
 		/// </summary>
 		public int? PageSize { get; set; }
 
@@ -79,5 +79,20 @@
 		/// Custom CSS class to render with pager.
 		/// </summary>
 		public string PagerCssClass { get; set; }
+
+		/// <summary>
+		/// Allows the table to be scrolled horizontally with ease accross any breakpoint (adds the <c>table-responsive</c> class to the table).
+		/// </summary>
+		public bool? Responsive { get; set; }
+
+		/// <summary>
+		/// Enables hover state on table rows within a <c>&lt;tbody&gt;</c> (sets the <c>table-hover</c> class on the table).
+		/// </summary>
+		public bool? Hover { get; set; }
+
+		/// <summary>
+		/// Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> (alternating rows).
+		/// </summary>
+		public bool? Striped { get; set; }
 	}
 }

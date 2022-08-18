@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.1/components/accordion/">Bootstrap accordion</a> component.
+	/// <see href="https://getbootstrap.com/docs/5.1/components/accordion/">Bootstrap accordion</see> component.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAccordion">https://havit.blazor.eu/components/HxAccordion</see>
 	/// </summary>
 	public partial class HxAccordion
 	{
@@ -49,6 +50,7 @@
 			{
 				ExpandedItemId = newId;
 				await InvokeExpandedItemIdChangedAsync(newId);
+				StateHasChanged();
 			}
 		}
 	}

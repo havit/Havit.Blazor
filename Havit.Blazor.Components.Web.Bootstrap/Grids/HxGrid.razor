@@ -1,4 +1,5 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@using Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 
 <CascadingValue Value="@columnsListRegistration" Name="@ColumnsRegistrationCascadingValueName" IsFixed="true">
@@ -6,7 +7,7 @@
 	@if (MultiSelectionEnabled)
 	{
 		bool allDataItemsSelected = (paginationDataItemsToRender != null) && (SelectedDataItems != null) && (SelectedDataItems.Count > 0) && (paginationDataItemsToRender.Count == SelectedDataItems.Count);
-		<MultiSelectGridColumn TItem="TItem"
+		<HxMultiSelectGridColumnInternal TItem="TItem"
 							   AllDataItemsSelected="@allDataItemsSelected"
 							   SelectedDataItems="@SelectedDataItems"
 							   OnSelectDataItemClicked="HandleMultiSelectSelectDataItemClicked"
@@ -17,7 +18,7 @@
 	@Columns
 	@if (ContextMenu != null)
 	{
-		<ContextMenuGridColumn TItem="TItem" ContextMenu="ContextMenu" />
+		<HxContextMenuGridColumn TItem="TItem" ChildContent="ContextMenu" Order="Int32.MaxValue" />
 	}
 </CascadingValue>
 
@@ -57,8 +58,8 @@
 {
 	<HxProgressIndicator InProgress="@(InProgress ?? (dataProviderInProgress /* indicates data loading */ && !shouldRenderLoadingDataWithPlaceholders /* but not when placeholders are used - in such case we are indicating data loading using the placeholders */))">
 
-		<div class="@TableContainerCssClassEffective">
-			<table class="@CssClassHelper.Combine("hx-grid table", (((SelectionEnabled || MultiSelectionEnabled) && shouldRenderData) ? "table-hover" : null), TableCssClassEffective, (((SelectionEnabled || MultiSelectionEnabled) && (SelectedDataItem != null || SelectedDataItems!= null))? "table-item-selected" : null))">
+		<div class="@CssClassHelper.Combine(ResponsiveEffective ? "table-responsive" : null, TableContainerCssClassEffective)">
+			<table class="@GetTableElementCssClass(shouldRenderData)">
 				<thead>
 					<tr class="@HeaderRowCssClassEffective">
 						@{
@@ -71,27 +72,25 @@
 								var headerCellTemplate = column.GetHeaderCellTemplate(gridHeaderCellContext);
 								@if (columnSorting.Any())
 								{
-									<th @onclick="async () => await HandleSortingClick(columnSorting)" @onclick:stopPropagation role="button" class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isCurrentSorting ? "sorted" : "sortable")">
-										<UpdatedContentRenderer Component="column">
-											@headerCellTemplate.Template
-										</UpdatedContentRenderer>
-										@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
-									 || (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
-										{
-											<HxIcon Icon="@this.GetDefaults().SortDescendingIcon" />
-										}
-										else
-										{
-											<HxIcon Icon="@this.GetDefaults().SortAscendingIcon" />
-										}
+									<th @onclick="async () => await HandleSortingClick(columnSorting)" @onclick:stopPropagation role="button" class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable")">
+										<div class="hx-grid-header-cell-container">
+											<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
+											@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
+										|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
+											{
+												<HxIcon Icon="@this.GetDefaults().SortDescendingIcon" />
+											}
+											else
+											{
+												<HxIcon Icon="@this.GetDefaults().SortAscendingIcon" />
+											}
+										</div>
 									</th>
 								}
 								else
 								{
 									<th class="@headerCellTemplate.CssClass">
-										<UpdatedContentRenderer Component="column">
-											@headerCellTemplate.Template
-										</UpdatedContentRenderer>
+										@headerCellTemplate.Template
 									</th>
 								}
 							}
@@ -112,7 +111,7 @@
 								<tr>
 									@foreach (IHxGridColumn<TItem> column in columnsToRender)
 									{
-										CellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(placeholderContext);
+										GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(placeholderContext);
 										<td class="@placeholderCellTemplate.CssClass">
 											@placeholderCellTemplate.Template
 										</td>
@@ -144,17 +143,14 @@
 						<tr>
 							<td colspan="@columnsToRender.Count">
 
-								<div class="text-center text-secondary my-5">
-									<div class="fs-3"><HxIcon Icon="@BootstrapIcon.Inbox" /></div>
-									<div>@HxGridLocalizer["NoData"]</div>
-
-									@if (EmptyDataTemplate != null)
-									{
-										<div class="my-3">
-											@EmptyDataTemplate
-										</div>
-									}
-								</div>
+								@if (EmptyDataTemplate != null)
+								{
+                                    @EmptyDataTemplate
+                                }
+                                else
+                                {
+                                    <HxGridEmptyDataTemplateDefaultContent />
+                                }
 
 							</td>
 						</tr>
@@ -163,87 +159,83 @@
 					{
 
 						RenderFragment<TItem> rowTemplate = (TItem item) =>@<text>
-					@if (SelectionEnabled || MultiSelectionEnabled)
-					{
-						<tr role="button"
-							height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
-							class="@CssClassHelper.Combine(
-													ItemRowCssClassEffective,
-													ItemRowCssClassSelector?.Invoke(item),
-													((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null))"
-							@onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)"
-							@onclick:stopPropagation>
+					        @if (SelectionEnabled || MultiSelectionEnabled)
+					        {
+						        <tr role="button"
+							        height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
+							        class="@CssClassHelper.Combine(
+													        ItemRowCssClassEffective,
+													        ItemRowCssClassSelector?.Invoke(item),
+													        ((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null))"
+							        @onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)"
+							        @onclick:stopPropagation>
 
-							@foreach (IHxGridColumn<TItem> column in columnsToRender)
-							{
-								// same as below in the else section
-								CellTemplate cellTemplate = column.GetItemCellTemplate(item);
-								<td class="@cellTemplate.CssClass">
-									<UpdatedContentRenderer Component="column">
-										@cellTemplate.Template
-									</UpdatedContentRenderer>
-								</td>
-							}
-						</tr>
-					}
-					else
-					{
-						// !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
-						<tr height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
-							class="@CssClassHelper.Combine(ItemRowCssClassEffective, ItemRowCssClassSelector?.Invoke(item))"
-							@onclick:stopPropagation>
-							@foreach (IHxGridColumn<TItem> column in columnsToRender)
-							{
-								// same as above this else section
-								CellTemplate cellTemplate = column.GetItemCellTemplate(item);
-								<td class="@cellTemplate.CssClass">
-									<UpdatedContentRenderer Component="column">
-										@cellTemplate.Template
-									</UpdatedContentRenderer>
-								</td>
-							}
-						</tr>
-					}
+							        @foreach (IHxGridColumn<TItem> column in columnsToRender)
+							        {
+								        // same as below in the else section
+								        GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
+								        <td class="@cellTemplate.CssClass">
+									        @cellTemplate.Template
+								        </td>
+							        }
+						        </tr>
+					        }
+					        else
+					        {
+						        // !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
+						        <tr height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
+							        class="@CssClassHelper.Combine(ItemRowCssClassEffective, ItemRowCssClassSelector?.Invoke(item))"
+							        @onclick:stopPropagation>
+							        @foreach (IHxGridColumn<TItem> column in columnsToRender)
+							        {
+								        // same as above this else section
+								        GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
+								        <td class="@cellTemplate.CssClass">
+									        @cellTemplate.Template
+								        </td>
+							        }
+						        </tr>
+					        }
 						</text>;
 
-				@if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
-				{
-					<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective">
-						<ItemContent>
-							@rowTemplate(@context)
-						</ItemContent>
-						<Placeholder Context="placeholderContext">
-							<tr height="@rowHeight">
-								@foreach (IHxGridColumn<TItem> column in columnsToRender)
-								{
-									CellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
-									<td class="@placeholderCellTemplate.CssClass">
-										@placeholderCellTemplate.Template
-									</td>
-								}
-							</tr>
-						</Placeholder>
-					</Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
-				}
+				        @if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
+				        {
+					        <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective">
+						        <ItemContent>
+							        @rowTemplate(@context)
+						        </ItemContent>
+						        <Placeholder Context="placeholderContext">
+							        <tr height="@rowHeight">
+								        @foreach (IHxGridColumn<TItem> column in columnsToRender)
+								        {
+									        GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
+									        <td class="@placeholderCellTemplate.CssClass">
+										        @placeholderCellTemplate.Template
+									        </td>
+								        }
+							        </tr>
+						        </Placeholder>
+					        </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
+				        }
 
-				@if (ContentNavigationModeEffective == GridContentNavigationMode.Pagination)
-				{
-					foreach (TItem item in paginationDataItemsToRender)
-					{
-						@rowTemplate(item)
-					}
-				}
-			}
+				        @if (ContentNavigationModeEffective == GridContentNavigationMode.Pagination)
+				        {
+					        foreach (TItem item in paginationDataItemsToRender)
+					        {
+						        @rowTemplate(item)
+					        }
+				        }
+			        }
 				</tbody>
 				@{
 					GridFooterCellContext gridFooterCellContext = CreateGridFooterCellContext();
-					CellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate(gridFooterCellContext)).ToArray();
+					GridCellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate(gridFooterCellContext)).ToArray();
 					if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null) // there must be a tempate
 						&& shouldRenderFooter)
 					{
 						<tfoot>
 							<tr class="@FooterRowCssClassEffective">
-								@foreach (CellTemplate footerCellTemplate in footerTemplates)
+								@foreach (GridCellTemplate footerCellTemplate in footerTemplates)
 								{
 									<td class="@footerCellTemplate.CssClass">@footerCellTemplate.Template</td>
 								}

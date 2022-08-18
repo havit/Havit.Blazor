@@ -2,18 +2,17 @@
 
 <h1>HxSelect</h1>
 
-<HxSelect TItem="decimal" TValue="decimal?" Data="@data" @bind-Value="@selectedValue" NullText="-all-" ValueSelector="(v => v)" />
-<p>Selected Value: @selectedValue</p>
-
-<HxButton Text="Set null" OnClick="HandleClick" Color="@ThemeColor.Primary" />
+<HxSelect TItem="int" TValue="int?" Data="@data" @bind-Value="selectedNumber" NullDataText="Loading numbers..." NullText="-all-" ValueSelector="(v => v)" />
 
 @code
 {
-	List<decimal> data = new List<decimal> { 1, 2, 3, 0 };
-	decimal? selectedValue;
+	private List<int> data;
+	private int? selectedNumber;
 
-	private void HandleClick()
+	protected override async Task OnInitializedAsync()
 	{
-		selectedValue = null;
+		await base.OnInitializedAsync();
+		await Task.Delay(3000);
+		data = Enumerable.Range(0, 10).ToList();
 	}
 }

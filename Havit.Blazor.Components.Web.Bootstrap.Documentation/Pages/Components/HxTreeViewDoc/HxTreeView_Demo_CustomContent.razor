@@ -6,6 +6,7 @@
                     CssClass="border rounded p-2"
                     ItemCssClass="fst-italic"
                     ItemCssClassSelector="@(p => p.Name.Equals("Users") ? "text-primary" : String.Empty)"
+                    ItemInitialExpandedSelector="@(p => p.Name == "C:\\")"
                     ItemChildrenSelector="@(p => p.Subdirectories)"
                     ItemIconSelector="@(p => p.Icon)">
             <ItemTemplate>
@@ -16,7 +17,7 @@
                     {
                         <HxBadge CssClass="mx-2" TextColor="ThemeColor.Dark" Color="ThemeColor.Light">@context.Subdirectories?.Length</HxBadge>
                     }
-                    <div role="button" @onclick:stopPropagation class="btn-plus ms-auto"><HxIcon Icon="BootstrapIcon.Plus" /></div>
+                    <div role="button" @onclick:stopPropagation class="btn-plus ms-auto"><HxIcon Icon="BootstrapIcon.PlusLg" /></div>
             </ItemTemplate>
         </HxTreeView>
     </div>

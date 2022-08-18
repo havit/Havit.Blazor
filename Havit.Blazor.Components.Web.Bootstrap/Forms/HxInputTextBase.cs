@@ -28,6 +28,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </remarks>
 		protected override InputTextSettings GetSettings() => this.Settings;
 
+		/// <summary>
+		/// The maximum number of characters (UTF-16 code units) that the user can enter.<br />
+		/// If parameter value isn't specified, <see cref="System.ComponentModel.DataAnnotations.MaxLengthAttribute"/> of the <c>Value</c> is checked and used.<br />
+		/// If not specified either, the user can enter an unlimited number of characters.
+		/// </summary>
+		[Parameter] public int? MaxLength { get; set; }
 
 		/// <summary>
 		/// Hint to browsers as to the type of virtual keyboard configuration to use when editing.<br/>
@@ -62,10 +68,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.OpenElement(0, GetElementName());
 			BuildRenderInput_AddCommonAttributes(builder, GetTypeAttributeValue());
 
-			MaxLengthAttribute maxLengthAttribute = GetValueAttribute<MaxLengthAttribute>();
-			if ((maxLengthAttribute != null) && (maxLengthAttribute.Length > 0))
+			int? maxLengthEffective = this.MaxLength ?? GetValueAttribute<MaxLengthAttribute>()?.Length;
+			if (maxLengthEffective > 0) // [MaxLength] attribute has a default value of -1
 			{
-				builder.AddAttribute(1000, "maxlength", maxLengthAttribute.Length);
+				builder.AddAttribute(1000, "maxlength", maxLengthEffective);
 			}
 
 			builder.AddAttribute(1002, "value", FormatValueAsString(Value));

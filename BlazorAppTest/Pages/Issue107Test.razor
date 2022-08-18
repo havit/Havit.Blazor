@@ -1,0 +1,44 @@
+﻿@page "/Issue107Test"
+<h1>Issue 107</h1>
+
+<p>To reproduce the issue, all conditions must be met:</p>
+<ul>
+    <li>There must be EditForm, Model must have always new value.</li>
+    <li>There must be HxGrid with HxGridColumn.</li>
+    <li>There must be OnInitializedAsync which returns uncompleted Task.</li>
+    <li>.NET 5 as target framework (in .NET 6 the issue is not reproduced anymore).</li>
+</ul>
+<p>If any piece is missing, the issue is not reproduced.</p>
+<p>The issue reproduces during server prerendering only.</p>
+
+<EditForm Model="@(new object())">
+
+    <HxGrid TItem="int" DataProvider="GetData">
+        <Columns>
+            <HxGridColumn TItem="int" HeaderText="Number" ItemTextSelector="@(i => i.ToString())" />
+            <HxGridColumn TItem="int" HeaderText="Number" ItemTextSelector="@(i => i.ToString())" />
+            <HxGridColumn TItem="int" HeaderText="Number" ItemTextSelector="@(i => i.ToString())" />
+        </Columns>
+    </HxGrid>
+            
+</EditForm>
+   
+@code
+{
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await Task.Yield();
+    }
+
+    private Task<GridDataProviderResult<int>> GetData(GridDataProviderRequest<int> request)
+    {
+        return Task.FromResult(new GridDataProviderResult<int>
+        {
+            Data = Enumerable.Range(1, 10).ToList(),
+            TotalCount = 10
+        });
+    }
+
+}

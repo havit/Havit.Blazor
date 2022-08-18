@@ -5,7 +5,8 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Date range picker. Form input component for entering start date and end date.
+	/// Date range picker. Form input component for entering start date and end date.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputDateRange">https://havit.blazor.eu/components/HxInputDateRange</see>
 	/// </summary>
 	public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	{
@@ -150,6 +151,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(208, nameof(HxInputDateRangeInternal.MinDateEffective), MinDateEffective);
 			builder.AddAttribute(219, nameof(HxInputDateRangeInternal.MaxDateEffective), MaxDateEffective);
 			builder.AddAttribute(220, nameof(HxInputDateRangeInternal.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProviderEffective);
+
+			builder.AddMultipleAttributes(300, this.AdditionalAttributes);
 
 			builder.CloseComponent();
 		}

@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.Globalization;
+using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation
 {
@@ -17,6 +18,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation
 			builder.Services.AddHxServices();
 			builder.Services.AddHxMessenger();
 			builder.Services.AddHxMessageBoxHost();
+
+			builder.Services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
+			builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
 
 			await builder.Build().RunAsync();
 		}

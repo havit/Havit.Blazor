@@ -1,0 +1,12 @@
+﻿@page "/HxButton_Issue209_Test"
+@inject IHxMessageBoxService MessageBox
+
+<HxButton Tooltip="Tooltip" Text="Open" OnClick="HandleClick" Color="ThemeColor.Primary" />
+                                  
+
+@code {
+    private async Task HandleClick()
+    {
+        var x = await MessageBox.ShowAsync("Bah", "Dah");
+    }
+}

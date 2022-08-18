@@ -1,10 +1,10 @@
-using Havit.Diagnostics.Contracts;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <a href="https://getbootstrap.com/docs/5.0/components/offcanvas/">Bootstrap Offcanvas</a> component (aka Drawer).
+	/// <see href="https://getbootstrap.com/docs/5.0/components/offcanvas/">Bootstrap Offcanvas</see> component (aka Drawer).<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxOffcanvas">https://havit.blazor.eu/components/HxOffcanvas</see>
 	/// </summary>
 	public partial class HxOffcanvas : IAsyncDisposable
 	{
@@ -239,7 +239,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				shouldOpenOffcanvas = false;
 
 				// Running JS interop is postponed to OnAfterRenderAsync to ensure offcanvasElement is set.
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxOffcanvas) + ".js");
+				jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxOffcanvas));
 				if (disposed)
 				{
 					return;
@@ -252,7 +252,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}
@@ -263,10 +263,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (jsModule != null)
 			{
+				// We need to remove backdrop when leaving "page" when HxOffcanvas is shown (opened).
 				if (opened)
 				{
-					// We need to remove backdrop when leaving "page" when HxOffcanvas is shown (opened).
+#if NET6_0_OR_GREATER
+					try
+					{
+						await jsModule.InvokeVoidAsync("dispose", offcanvasElement);
+					}
+					catch (JSDisconnectedException)
+					{
+						// NOOP
+					}
+#else
 					await jsModule.InvokeVoidAsync("dispose", offcanvasElement);
+#endif
 				}
 
 				await jsModule.DisposeAsync();

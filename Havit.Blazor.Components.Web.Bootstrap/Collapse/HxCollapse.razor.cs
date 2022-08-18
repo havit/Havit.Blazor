@@ -3,7 +3,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.1/components/collapse/">Bootstrap 5 Collapse</see> component.
+	/// <see href="https://getbootstrap.com/docs/5.1/components/collapse/">Bootstrap 5 Collapse</see> component.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCollapse">https://havit.blazor.eu/components/HxCollapse</see>
 	/// </summary>
 	public partial class HxCollapse : IAsyncDisposable
 	{
@@ -31,6 +32,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public string CssClass { get; set; }
 
 		/// <summary>
+		/// Determines whether the collapse will be open or closed (expanded or collapsed) when first rendered.
+		/// </summary>
+		[Parameter] public bool InitiallyExpanded { get; set; }
+
+		/// <summary>
 		/// Content of the collapse.
 		/// </summary>
 		[Parameter] public RenderFragment ChildContent { get; set; }
@@ -53,6 +59,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected virtual Task InvokeOnHiddenAsync(string elementId) => OnHidden.InvokeAsync(elementId);
 
+		/// <summary>
+		/// Additional attributes to be splatted onto an underlying <c>div</c> element.
+		/// </summary>
+		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 		private ElementReference collapseHtmlElement;
@@ -60,6 +72,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private IJSObjectReference jsModule;
 		private string defaultId = "hx" + Guid.NewGuid().ToString("N");
 		private bool disposed;
+		private bool isShown;
+		private bool showInProgress;
+		private bool hideInProgress;
+		private bool initialized;
+
+		/// <summary>
+		/// Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefor we will remember the request for Show and initialize the collapse with toggle=true.
+		/// </summary>
+		private bool shouldToggle;
 
 		public HxCollapse()
 		{
@@ -77,6 +98,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
 		protected override async Task OnAfterRenderAsync(bool firstRender)
 		{
+
 			await base.OnAfterRenderAsync(firstRender);
 
 			if (firstRender)
@@ -86,7 +108,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					return;
 				}
-				await jsModule.InvokeVoidAsync("initialize", collapseHtmlElement, dotnetObjectReference);
+				await jsModule.InvokeVoidAsync("initialize", collapseHtmlElement, dotnetObjectReference, shouldToggle);
+				initialized = true;
+			}
+		}
+
+		protected override void OnInitialized()
+		{
+			if (InitiallyExpanded)
+			{
+				isShown = true;
 			}
 		}
 
@@ -95,8 +126,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public async Task ShowAsync()
 		{
-			await EnsureJsModuleAsync();
-			await jsModule.InvokeVoidAsync("show", collapseHtmlElement);
+			if (initialized)
+			{
+				await EnsureJsModuleAsync();
+				showInProgress = true;
+				await jsModule.InvokeVoidAsync("show", collapseHtmlElement);
+			}
+			else
+			{
+				shouldToggle = true;
+			}
 		}
 
 		/// <summary>
@@ -105,7 +144,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public async Task HideAsync()
 		{
 			await EnsureJsModuleAsync();
+			hideInProgress = true;
 			await jsModule.InvokeVoidAsync("hide", collapseHtmlElement);
+		}
+
+		/// <summary>
+		/// Receives notification from javascript when item is about to start showing.
+		/// </summary>
+		[JSInvokable("HxCollapse_HandleJsShow")]
+		public void HandleJsShow()
+		{
+			showInProgress = true;
 		}
 
 		/// <summary>
@@ -118,7 +167,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxCollapse_HandleJsShown")]
 		public async Task HandleJsShown()
 		{
+			isShown = true;
+			bool wasInProgress = showInProgress;
+			showInProgress = false;
 			await InvokeOnShownAsync(this.Id);
+
+			if (wasInProgress)
+			{
+				// ShouldRender() disables rendering when transitioning from hidden to shown.
+				// It therefore needs to be called explicitly after the event is handled.
+				StateHasChanged();
+			}
+		}
+
+		/// <summary>
+		/// Receives notification from javascript when item is about to hide.
+		/// </summary>
+		[JSInvokable("HxCollapse_HandleJsHide")]
+		public void HandleJsHide()
+		{
+			hideInProgress = true;
 		}
 
 		/// <summary>
@@ -127,12 +195,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[JSInvokable("HxCollapse_HandleJsHidden")]
 		public async Task HandleJsHidden()
 		{
+			isShown = false;
+			bool wasInProgress = hideInProgress;
+			hideInProgress = false;
 			await InvokeOnHiddenAsync(this.Id);
+
+			if (wasInProgress)
+			{
+				// ShouldRender() disables rendering when transitioning from shown to hidden.
+				// It therefore needs to be called explicitly after the event is handled.
+				StateHasChanged();
+			}
 		}
 
 		private async Task EnsureJsModuleAsync()
 		{
-			jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxCollapse) + ".js");
+			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxCollapse));
 		}
 
 		protected virtual string GetCssClass()
@@ -140,14 +218,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			return CssClassHelper.Combine(
 				"collapse",
 				this.CollapseDirection == CollapseDirection.Horizontal ? "collapse-horizontal" : null,
+				isShown ? "show" : null,
 				this.CssClass);
+		}
+
+		protected override bool ShouldRender()
+		{
+			if (showInProgress || hideInProgress)
+			{
+				// do not re-render if the transition (animation) is in progress
+				return false;
+			}
+			return base.ShouldRender();
 		}
 
 		/// <inheritdoc/>
 
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}
@@ -158,7 +247,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (jsModule != null)
 			{
+#if NET6_0_OR_GREATER
+				try
+				{
+					await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
+				}
+				catch (JSDisconnectedException)
+				{
+					// NOOP
+				}
+#else
 				await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
+#endif
 				await jsModule.DisposeAsync();
 			}
 

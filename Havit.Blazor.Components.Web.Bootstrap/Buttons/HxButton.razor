@@ -1,51 +1,55 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<HxTooltip Text="@Tooltip" Placement="@TooltipPlacement" CssClass="@this.TooltipCssClass" WrapperCssClass="@GetTooltipWrapperCssClass()">
-	<button @ref="buttonElementReference"
-			type="@GetButtonType()"
-			class="@GetButtonCssClass()"
-			@onclick="HandleClick"
-			@onclick:stopPropagation="this.OnClickStopPropagation"
+<HxTooltip @ref="tooltipComponent"
+           Text="@Tooltip"
+           Placement="@TooltipPlacement"
+           CssClass="@this.TooltipCssClass"
+           WrapperCssClass="@GetTooltipWrapperCssClass()">
+    <button @ref="buttonElementReference"
+            type="@GetButtonType()"
+            class="@GetButtonCssClass()"
+            @onclick="HandleClick"
+  			@onclick:stopPropagation="this.OnClickStopPropagation"
 			@onclick:preventDefault="this.OnClickPreventDefault"
 			disabled="@DisabledEffective"
-			form="@FormId"
-			@attributes="this.AdditionalAttributes">
+            form="@FormId"
+            @attributes="this.AdditionalAttributes">
 
-		@if ((IconPlacementEffective == ButtonIconPlacement.Start) && ((this.IconEffective is not null) || this.SpinnerEffective))
-		{
-			if (this.SpinnerEffective)
-			{
-				<HxSpinner Size="SpinnerSize.Small" />
-			}
-			else if (this.IconEffective is not null)
-			{
-				<HxIcon Icon="this.IconEffective" />
-			}
+        @if ((IconPlacementEffective == ButtonIconPlacement.Start) && ((this.IconEffective is not null) || this.SpinnerEffective))
+        {
+            if (this.SpinnerEffective)
+            {
+                <HxSpinner Size="SpinnerSize.Small" />
+            }
+            else if (this.IconEffective is not null)
+            {
+                <HxIcon Icon="this.IconEffective" />
+            }
 
-			@if (!String.IsNullOrEmpty(this.Text) || (ChildContent != null))
-			{
-				<text>&nbsp;</text>
-			}
-		}
+            @if (!String.IsNullOrEmpty(this.Text) || (ChildContent != null))
+            {
+                <span class="hx-button-icon-text-spacer"></span>
+            }
+        }
 
-		@this.Text
-		@ChildContent
+        @this.Text
+        @ChildContent
 
-		@if ((IconPlacementEffective == ButtonIconPlacement.End) && ((this.IconEffective is not null) || this.SpinnerEffective))
-		{
-			@if (!String.IsNullOrEmpty(this.Text) || (ChildContent != null))
-			{
-				<text>&nbsp;</text>
-			}
+        @if ((IconPlacementEffective == ButtonIconPlacement.End) && ((this.IconEffective is not null) || this.SpinnerEffective))
+        {
+            @if (!String.IsNullOrEmpty(this.Text) || (ChildContent != null))
+            {
+                <span class="hx-button-text-icon-spacer"></span>
+            }
 
-			if (this.SpinnerEffective)
-			{
-				<HxSpinner Size="SpinnerSize.Small" />
-			}
-			else if (this.IconEffective is not null)
-			{
-				<HxIcon Icon="this.IconEffective" />
-			}
-		}
-	</button>
+            if (this.SpinnerEffective)
+            {
+                <HxSpinner Size="SpinnerSize.Small" />
+            }
+            else if (this.IconEffective is not null)
+            {
+                <HxIcon Icon="this.IconEffective" />
+            }
+        }
+    </button>
 </HxTooltip>

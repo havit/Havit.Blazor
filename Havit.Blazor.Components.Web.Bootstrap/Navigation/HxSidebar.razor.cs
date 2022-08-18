@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Sidebar component - responsive navigation sidebar.
+	/// Sidebar component - responsive navigation sidebar.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSidebar">https://havit.blazor.eu/components/HxSidebar</see>
 	/// </summary>
 	public partial class HxSidebar : ComponentBase
 	{
@@ -16,19 +17,24 @@
 		[Parameter] public RenderFragment ItemsTemplate { get; set; }
 
 		/// <summary>
-		/// Icon for expanding the desktop version.
+		/// Icon for expanding the desktop version. Use <see cref="TogglerTemplate" /> for more specific customization.
 		/// </summary>
 		[Parameter] public IconBase ExpandIcon { get; set; } = BootstrapIcon.ChevronBarRight;
 
 		/// <summary>
-		/// Icon for collapsing the desktop version.
+		/// Icon for collapsing the desktop version. Use <see cref="TogglerTemplate" /> for more specific customization.
 		/// </summary>
 		[Parameter] public IconBase CollapseIcon { get; set; } = BootstrapIcon.ChevronBarLeft;
 
 		/// <summary>
 		/// Sidebar footer (e.g. logged user, language switch, ...).
 		/// </summary>
-		[Parameter] public RenderFragment FooterTemplate { get; set; }
+		[Parameter] public RenderFragment<SidebarFooterTemplateContext> FooterTemplate { get; set; }
+
+		/// <summary>
+		/// Vertical toggler (desktop version) to be rendered instead of the <see cref="ExpandIcon"/> and <see cref="CollapseIcon"/> icon.
+		/// </summary>
+		[Parameter] public RenderFragment<SidebarTogglerTemplateContext> TogglerTemplate { get; set; }
 
 		/// <summary>
 		/// Additional CSS class.
@@ -41,16 +47,59 @@
 		/// </summary>
 		[Parameter] public string Id { get; set; } = "hx-" + Guid.NewGuid().ToString("N");
 
-		protected internal bool Collapsed { get; set; } = false;
+		/// <summary>
+		/// Indicates whether the <see cref="HxSidebar"/> is collapsed, can be used to alter the state (expand or collapse the sidebar).
+		/// </summary>
+		[Parameter] public bool Collapsed { get; set; } = false;
+		/// <summary>
+		/// Fires when the sidebar is expanded or collapsed.
+		/// </summary>
+		[Parameter] public EventCallback<bool> CollapsedChanged { get; set; }
+		/// <summary>
+		/// Triggers the <see cref="CollapsedChanged"/> event. Allows interception of the event in derived components.
+		/// </summary>
+		protected virtual Task InvokeCollapsedChangedAsync(bool collapsed) => CollapsedChanged.InvokeAsync(collapsed);
+
+		/// <summary>
+		/// Whether multiple items can be in expanded state at once.
+		/// If set to <c>false</c>, upon item expansion, all other items are collapsed.
+		/// Default is <c>true</c>.
+		/// </summary>
+		[Parameter] public bool MultipleItemsExpansion { get; set; } = true;
+
+		/// <summary>
+		/// Breakpoint below which the sidebar switches to mobile version (exclusive).<br/>
+		/// Default is <see cref="SidebarResponsiveBreakpoint.Medium"/>.
+		/// </summary>
+		[Parameter] public SidebarResponsiveBreakpoint ResponsiveBreakpoint { get; set; } = SidebarResponsiveBreakpoint.Medium;
+
 		protected internal string NavContentElementId => Id + "-nav-content";
 
+		/// <summary>
+		/// Id of the immediate parent of the contained <see cref="HxSidebarItem"/> components.
+		/// </summary>
+		internal string navId = "hx" + Guid.NewGuid().ToString("N");
 
 		private string GetCollapsedCssClass() => Collapsed ? "collapsed" : null;
 
-
-		private void HandleCollapseToggleClick()
+		private async Task HandleCollapseToggleClick()
 		{
 			Collapsed = !Collapsed;
+			await InvokeCollapsedChangedAsync(Collapsed);
+		}
+
+		private string GetResponsiveCssClass(string cssClassPattern)
+		{
+			return this.ResponsiveBreakpoint switch
+			{
+				SidebarResponsiveBreakpoint.None => cssClassPattern.Replace("-??-", "-"), // !!! Simplified for the use case of this component.
+				SidebarResponsiveBreakpoint.Small => cssClassPattern.Replace("??", "sm"),
+				SidebarResponsiveBreakpoint.Medium => cssClassPattern.Replace("??", "md"),
+				SidebarResponsiveBreakpoint.Large => cssClassPattern.Replace("??", "lg"),
+				SidebarResponsiveBreakpoint.ExtraLarge => cssClassPattern.Replace("??", "xl"),
+				SidebarResponsiveBreakpoint.Xxl => cssClassPattern.Replace("??", "xxl"),
+				_ => throw new InvalidOperationException($"Unknown nameof(ResponsiveBreakpoint) value {this.ResponsiveBreakpoint}")
+			};
 		}
 	}
 }

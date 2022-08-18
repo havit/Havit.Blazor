@@ -1,9 +1,11 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Component to render modal dialog as a <a href="https://getbootstrap.com/docs/5.1/components/modal/">Bootstrap Modal</a>.
+	/// Component to render modal dialog as a <see href="https://getbootstrap.com/docs/5.1/components/modal/">Bootstrap Modal</see>.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxModal">https://havit.blazor.eu/components/HxModal</see>
 	/// </summary>
 	public partial class HxModal : IAsyncDisposable
 	{
@@ -244,7 +246,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				shouldOpenModal = false;
 
 				// Running JS interop is postponed to OnAfterAsync to ensure modalElement is set.
-				jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.Bootstrap/" + nameof(HxModal) + ".js");
+				jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxModal));
 				if (disposed)
 				{
 					return;
@@ -300,7 +302,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		public async ValueTask DisposeAsync()
 		{
-			await DisposeAsyncCore().ConfigureAwait(false);
+			await DisposeAsyncCore();
 
 			//Dispose(disposing: false);
 		}
@@ -311,10 +313,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (jsModule != null)
 			{
+				// We need to remove backdrop when leaving "page" when HxModal is shown (opened).
 				if (opened)
 				{
-					// We need to remove backdrop when leaving "page" when HxModal is shown (opened).
+#if NET6_0_OR_GREATER
+					try
+					{
+						await jsModule.InvokeVoidAsync("dispose", modalElement);
+					}
+					catch (JSDisconnectedException)
+					{
+						// NOOP
+					}
+#else
 					await jsModule.InvokeVoidAsync("dispose", modalElement);
+#endif
 				}
 
 				await jsModule.DisposeAsync();

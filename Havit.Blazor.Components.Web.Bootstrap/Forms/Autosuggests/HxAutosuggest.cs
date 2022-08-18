@@ -4,7 +4,8 @@ using Havit.Blazor.Components.Web.Bootstrap.Internal;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Component for single item selection with dynamic suggestions (based on typed characters).
+	/// Component for single item selection with dynamic suggestions (based on typed characters).<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAutosuggest">https://havit.blazor.eu/components/HxAutosuggest</see>
 	/// </summary>
 	/// <remarks>
 	/// Defaults located in separate non-generic type <see cref="HxAutosuggest"/>.
@@ -99,6 +100,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public LabelType? LabelType { get; set; }
 
 		/// <summary>
+		/// If true, the first suggestion is highlighted until another is chosen by the user.
+		/// </summary>
+		[Parameter] public bool? HighlightFirstSuggestion { get; set; }
+		protected bool HighlightFirstSuggestionEffective => this.HighlightFirstSuggestion ?? GetSettings()?.HighlightFirstSuggestion ?? GetDefaults()?.HighlightFirstSuggestion ?? throw new InvalidOperationException(nameof(HighlightFirstSuggestion) + " default for " + nameof(HxAutosuggest) + " has to be set.");
+
+		/// <summary>
 		/// Offset between the dropdown and the input.
 		/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
 		/// </summary>
@@ -110,6 +117,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }
 
 		protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxAutosuggestInternal */ : LabelValueRenderOrder.LabelValue;
+
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public string InputGroupStartText { get; set; }
+
+		/// <summary>
+		/// Input-group at the beginning of the input.
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
+
+		/// <summary>
+		/// Input-group at the end of the input.<br/>
+		/// Hides the search icon when used!
+		/// </summary>
+		[Parameter] public string InputGroupEndText { get; set; }
+
+		/// <summary>
+		/// Input-group at the end of the input.<br/>
+		/// Hides the search icon when used!
+		/// </summary>
+		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
 		private protected override string CoreInputCssClass => "form-control";
 		private protected override string CoreCssClass => "hx-autosuggest position-relative";
 
@@ -121,6 +151,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			LabelType labelTypeEffective = (this as IInputWithLabelType).LabelTypeEffective;
 
 			builder.OpenComponent<HxAutosuggestInternal<TItem, TValue>>(1);
+
 			builder.AddAttribute(1000, nameof(HxAutosuggestInternal<TItem, TValue>.Value), Value);
 			builder.AddAttribute(1001, nameof(HxAutosuggestInternal<TItem, TValue>.ValueChanged), EventCallback.Factory.Create<TValue>(this, HandleValueChanged));
 			builder.AddAttribute(1002, nameof(HxAutosuggestInternal<TItem, TValue>.DataProvider), DataProvider);
@@ -140,7 +171,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1016, nameof(HxAutosuggestInternal<TItem, TValue>.SearchIconEffective), SearchIconEffective);
 			builder.AddAttribute(1017, nameof(HxAutosuggestInternal<TItem, TValue>.ClearIconEffective), ClearIconEffective);
 			builder.AddAttribute(1018, nameof(HxAutosuggestInternal<TItem, TValue>.DropdownOffset), DropdownOffset);
-			builder.AddComponentReferenceCapture(1019, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
+			builder.AddAttribute(1021, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartText), this.InputGroupStartText);
+			builder.AddAttribute(1023, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartTemplate), this.InputGroupStartTemplate);
+			builder.AddAttribute(1024, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndText), this.InputGroupEndText);
+			builder.AddAttribute(1025, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndTemplate), this.InputGroupEndTemplate);
+			builder.AddAttribute(1026, nameof(HxAutosuggestInternal<TItem, TValue>.HighlightFirstSuggestionEffective), this.HighlightFirstSuggestionEffective);
+
+			builder.AddMultipleAttributes(2000, this.AdditionalAttributes);
+
+			builder.AddComponentReferenceCapture(3000, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
+
 			builder.CloseComponent();
 		}
 

@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Havit.Collections;
+using Havit.Diagnostics.Contracts;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -13,6 +14,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Indicates whether the column is visible (otherwise the column is hidden).
 		/// </summary>
 		[Parameter] public bool Visible { get; set; } = true;
+
+		/// <summary>
+		/// The order (display index) of the column.
+		/// Columns are displayed in the order of this property.
+		/// Columns with the same value are displayed in the order of appereance in the code (when the columns are not conditionaly displayed using @if).
+		/// </summary>
+		/// <exception cref="ArgumentException">Value is <c>Int32.MinValue</c> or <c>Int32.MaxValue</c>.</exception>
+		[Parameter]
+		public int Order
+		{
+			get => order;
+			set
+			{
+				// This is to ensure MultiSelectGridColumn is displayed always as the first column.
+				// MultiSelectGridColumn uses Int32.MinValue and we do not want to enable column to have same value.
+				Contract.Requires<ArgumentException>(value != Int32.MinValue);
+
+				order = value;
+			}
+		}
+		private int order = 0;
 
 		#region Header properties
 		/// <summary>
@@ -107,20 +129,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected override bool IsColumnVisible() => Visible;
 
 		/// <inheritdoc />
-		protected override int GetColumnOrder() => 0;
+		protected override int GetColumnOrder() => Order;
 
 		/// <inheritdoc />
-		protected override CellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => CellTemplate.Create(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate?.Invoke(context)), HeaderCssClass);
+		protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate?.Invoke(context)), HeaderCssClass);
 
 		/// <inheritdoc />
-		protected override CellTemplate GetItemCellTemplate(TItem item)
+		protected override GridCellTemplate GetItemCellTemplate(TItem item)
 		{
 			string cssClass = CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item));
-			return CellTemplate.Create(RenderFragmentBuilder.CreateFrom(ItemTextSelector?.Invoke(item), ItemTemplate?.Invoke(item)), cssClass);
+			return GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(ItemTextSelector?.Invoke(item), ItemTemplate?.Invoke(item)), cssClass);
 		}
 
 		/// <inheritdoc />
-		protected override CellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => CellTemplate.Create((PlaceholderTemplate != null) ? PlaceholderTemplate(context) : GetDefaultItemPlaceholder(context));
+		protected override GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => GridCellTemplate.Create((PlaceholderTemplate != null) ? PlaceholderTemplate(context) : GetDefaultItemPlaceholder(context));
 
 		private RenderFragment GetDefaultItemPlaceholder(GridPlaceholderCellContext context)
 		{
@@ -142,7 +164,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 
 		/// <inheritdoc />
-		protected override CellTemplate GetFooterCellTemplate(GridFooterCellContext context) => CellTemplate.Create(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate?.Invoke(context)), FooterCssClass);
+		protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context) => GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate?.Invoke(context)), FooterCssClass);
 
 		/// <inheritdoc />
 		protected override IEnumerable<SortingItem<TItem>> GetSorting()

@@ -4,7 +4,8 @@ using Havit.Diagnostics.Contracts;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Basic calendar building block. Used for <see cref="HxInputDate{TValue}"/> and <see cref="HxInputDateRange"/> implementation.
+	/// Basic calendar building block. Used for <see cref="HxInputDate{TValue}"/> and <see cref="HxInputDateRange"/> implementation.<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCalendar">https://havit.blazor.eu/components/HxCalendar</see>
 	/// </summary>
 	public partial class HxCalendar
 	{
@@ -50,7 +51,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 		/// </remarks>
 		protected virtual CalendarSettings GetSettings() => this.Settings;
-
 
 		/// <summary>
 		/// Date selected.
@@ -100,6 +100,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public CalendarDateCustomizationProviderDelegate DateCustomizationProvider { get; set; }
 		protected CalendarDateCustomizationProviderDelegate DateCustomizationProviderEffective => this.DateCustomizationProvider ?? this.GetSettings()?.DateCustomizationProvider ?? GetDefaults().DateCustomizationProvider;
 
+		/// <summary>
+		/// Indicates whether the keyboard navigation is enabled. When disabled, the calendar renders tabindex="-1" on interactive elements.
+		/// Default is <c>true</c> (tabindex attribute is not rendered).
+		/// </summary>
+		[Parameter] public bool KeyboardNavigation { get; set; } = true;
+
 		private CultureInfo Culture => CultureInfo.CurrentUICulture;
 		private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;
 		protected DateTime DisplayMonthFirstDay => new DateTime(DisplayMonth.Year, DisplayMonth.Month, 1);
@@ -122,22 +128,35 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		private RenderData renderData;
-		private Dictionary<DateTime, CalendarDateCustomizationResult> customizations;
+		private DateTime? lastKnownValue;
 
 		protected override async Task OnParametersSetAsync()
 		{
 			await base.OnParametersSetAsync();
 
+			bool lastKnownValueChanged = lastKnownValue != Value;
+			lastKnownValue = Value;
+
 			if (DisplayMonth == default)
 			{
 				await SetDisplayMonthAsync(Value ?? DateTime.Today);
 			}
-			else if ((Value != null) && ((DisplayMonth.Year != Value.Value.Year) || (DisplayMonth.Month != Value.Value.Month)))
+			else if ((Value != null) && lastKnownValueChanged && ((DisplayMonth.Year != Value.Value.Year) || (DisplayMonth.Month != Value.Value.Month)))
 			{
 				await SetDisplayMonthAsync(Value.Value);
 			}
 
 			UpdateRenderData();
+		}
+
+		/// <summary>
+		/// Refreshes the calendar.
+		/// Useful when the customization needs to be updated.
+		/// </summary>
+		public Task RefreshAsync()
+		{
+			StateHasChanged();
+			return Task.CompletedTask;
 		}
 
 		private void UpdateRenderData()
@@ -190,7 +209,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 						clickEnabled ? "active" : "disabled",
 						(currentDay == valueDay) ? "selected" : null,  // currently selected day has "selected" class
 						((currentDay.Month == DisplayMonth.Month) && (currentDay.Year == DisplayMonth.Year)) ? "in" : "out",
-						(currentDay == today) ? "today" : null,
+						(currentDay == today) ? "hx-calendar-today" : null,
 						((currentDay.DayOfWeek == DayOfWeek.Saturday) || (currentDay.DayOfWeek == DayOfWeek.Sunday)) ? "weekend" : null,
 						customization?.CssClass
 					);
@@ -219,20 +238,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				return null;
 			}
 
-			customizations ??= new Dictionary<DateTime, CalendarDateCustomizationResult>();
-
-			if (customizations.TryGetValue(day, out CalendarDateCustomizationResult result))
-			{
-				return result;
-			}
-
-			result = dateCustomizationProvider.Invoke(new CalendarDateCustomizationRequest
+			return dateCustomizationProvider.Invoke(new CalendarDateCustomizationRequest
 			{
 				Target = CalendarDateCustomizationTarget.Calendar,
 				Date = day
 			});
-			customizations.Add(day, result);
-			return result;
 		}
 
 		private async Task SetDisplayMonthAsync(DateTime newDisplayMonth)
@@ -277,6 +287,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			Contract.Requires<InvalidOperationException>(day.ClickEnabled, "The selected date is disabled."); // Just for case, the disabled date does not use event handler.
 
 			Value = day.Date;
+			lastKnownValue = day.Date;
 			await InvokeValueChangedAsync(day.Date);
 			UpdateRenderData();
 		}

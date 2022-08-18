@@ -5,9 +5,13 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Grid to display tabular data from data source. Includes support for client-side and server-side paging &amp; sorting (or virtualized scrolling as needed).
+	/// Grid to display tabular data from data source. Includes support for client-side and server-side paging &amp; sorting (or virtualized scrolling as needed).<br />
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxGrid">https://havit.blazor.eu/components/HxGrid</see>
 	/// </summary>
 	/// <typeparam name="TItem">Type of row data item.</typeparam>
+#if NET6_0_OR_GREATER
+	[CascadingTypeParameter(nameof(TItem))]
+#endif
 	public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	{
 		/// <summary>
@@ -28,11 +32,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </remarks>
 		protected virtual GridSettings GetSettings() => this.Settings;
 
-
 		/// <summary>
 		/// Data provider for items to render.<br />
 		/// The provider should always return instance of <see cref="GridDataProviderResult{TItem}"/>, <c>null</c> is not allowed.
 		/// </summary>
+#if NET6_0_OR_GREATER
+
+		[EditorRequired]
+#endif
 		[Parameter] public GridDataProviderDelegate<TItem> DataProvider { get; set; }
 
 		/// <summary>
@@ -54,10 +61,14 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Columns template.
 		/// </summary>
+#if NET6_0_OR_GREATER
+		[EditorRequired]
+#endif
 		[Parameter] public RenderFragment Columns { get; set; }
 
 		/// <summary>
-		/// Context menu template.
+		/// Context menu template (positioned as last column).<br/>
+		/// NOTE: This parameter will be most likely removed in vNext, use <see cref="HxContextMenuGridColumn{TItem}"/> in <see cref="Columns"/> instead.
 		/// </summary>
 		[Parameter] public RenderFragment<TItem> ContextMenu { get; set; }
 
@@ -111,7 +122,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? this.GetSettings()?.ContentNavigationMode ?? GetDefaults().ContentNavigationMode ?? throw new InvalidOperationException(nameof(ContentNavigationMode) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
-		/// Page size for <see cref="GridContentNavigationMode.Pagination"/>.
+		/// Page size for <see cref="GridContentNavigationMode.Pagination"/>. Set <c>0</c> to disable paging.
 		/// </summary>
 		[Parameter] public int? PageSize { get; set; }
 		protected int PageSizeEffective => this.PageSize ?? this.GetSettings()?.PageSize ?? GetDefaults().PageSize ?? throw new InvalidOperationException(nameof(PageSize) + " default for " + nameof(HxGrid) + " has to be set.");
@@ -212,12 +223,33 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected int OverscanCountEffective => this.OverscanCount ?? this.GetSettings()?.OverscanCount ?? GetDefaults().OverscanCount ?? throw new InvalidOperationException(nameof(OverscanCount) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
+		/// Allows the table to be scrolled horizontally with ease accross any breakpoint (adds the <c>table-responsive</c> class to the table).<br/>
+		/// Default is <c>false</c>.
+		/// </summary>
+		[Parameter] public bool? Responsive { get; set; }
+		protected bool ResponsiveEffective => this.Responsive ?? this.GetSettings()?.Responsive ?? GetDefaults().Responsive ?? throw new InvalidOperationException(nameof(Responsive) + " default for " + nameof(HxGrid) + " has to be set.");
+
+		/// <summary>
+		/// Enables hover state on table rows within a <c>&lt;tbody&gt;</c> (sets the <c>table-hover</c> class on the table).<br />
+		/// If not set (default) the table is hoverable when selection is enabled.
+		/// </summary>
+		[Parameter] public bool? Hover { get; set; }
+		protected bool? HoverEffective => this.Hover ?? this.GetSettings()?.Hover ?? GetDefaults().Hover;
+
+		/// <summary>
+		/// Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> (alternating rows).<br />
+		/// Default is <c>false</c>.
+		/// </summary>
+		[Parameter] public bool? Striped { get; set; }
+		protected bool StripedEffective => this.Striped ?? this.GetSettings()?.Striped ?? GetDefaults().Striped ?? throw new InvalidOperationException(nameof(Striped) + " default for " + nameof(HxGrid) + " has to be set.");
+
+		/// <summary>
 		/// Returns application-wide defaults for the component.
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
 		protected virtual GridSettings GetDefaults() => HxGrid.Defaults;
 
-		[Inject] private IStringLocalizer<HxGrid> HxGridLocalizer { get; set; } // private: non-generic HxGrid grid is internal, so the property cannot have wider accessor (protected)
+		[Inject] protected IStringLocalizer<HxGrid> HxGridLocalizer { get; set; }
 
 		private List<IHxGridColumn<TItem>> columnsList;
 		private CollectionRegistration<IHxGridColumn<TItem>> columnsListRegistration;
@@ -240,7 +272,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		public HxGrid()
 		{
 			columnsList = new List<IHxGridColumn<TItem>>();
-			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(columnsList, this.StateHasChanged, () => isDisposed);
+			columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(columnsList, async () => await InvokeAsync(this.StateHasChanged), () => isDisposed);
 		}
 
 		/// <inheritdoc />
@@ -280,7 +312,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (firstRender && (ContentNavigationModeEffective == GridContentNavigationMode.Pagination))
 			{
-				await RefreshPaginationDataCoreAsync(renderOnSuccess: true);
+				await RefreshPaginationDataCoreAsync();
 			}
 
 			// when rendering page with no data, navigate one page back
@@ -288,7 +320,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				paginationDecreasePageIndexAfterRender = false;
 				await SetCurrentPageIndexWithEventCallback(CurrentUserState.PageIndex - 1);
-				await RefreshPaginationDataCoreAsync(true);
+				await RefreshPaginationDataCoreAsync();
 			}
 
 			firstRenderCompleted = true;
@@ -296,11 +328,26 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		/// <summary>
 		/// Returns columns to render.
-		/// Main goal of the method is to add ContextMenuGridColumn to the user defined columns.
 		/// </summary>
 		protected List<IHxGridColumn<TItem>> GetColumnsToRender()
 		{
 			return columnsList.Where(column => column.IsVisible()).OrderBy(column => column.GetOrder()).ToList();
+		}
+
+		/// <summary>
+		/// Returns CSS class for the <c>&lt;table&gt;</c> element.
+		/// </summary>
+		/// <remarks>
+		/// Overriden in 176.BT2 project to allow setting background-color for grids with selected items.
+		/// </remarks>
+		/// <param name="rendersData">Indicates whether the grid renders data (<c>false</c> when the grid has no items to render or the data have not been loaded yet).</param>
+		protected virtual string GetTableElementCssClass(bool rendersData)
+		{
+			bool hoverable = rendersData && (this.HoverEffective ?? (this.SelectionEnabled || this.MultiSelectionEnabled));
+			return CssClassHelper.Combine("hx-grid table",
+				hoverable ? "table-hover" : null,
+				this.StripedEffective ? "table-striped" : null,
+				this.TableCssClassEffective);
 		}
 
 		/// <summary>
@@ -420,10 +467,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			switch (ContentNavigationModeEffective)
 			{
 				case GridContentNavigationMode.Pagination:
-					// We don't auto-render after this operation because in the typical use case, the
-					// host component calls this from one of its lifecycle methods, and will naturally
-					// re-render afterwards anyway. It's not desirable to re-render twice.
-					await RefreshPaginationDataCoreAsync(renderOnSuccess: false);
+					await RefreshPaginationDataCoreAsync();
 					break;
 
 				case GridContentNavigationMode.InfiniteScroll:
@@ -438,7 +482,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 		}
 
-		private async ValueTask RefreshPaginationDataCoreAsync(bool renderOnSuccess = false)
+		private async ValueTask RefreshPaginationDataCoreAsync()
 		{
 			Contract.Requires(ContentNavigationModeEffective == GridContentNavigationMode.Pagination);
 
@@ -507,10 +551,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
 				}
 
-				if (renderOnSuccess)
-				{
-					StateHasChanged();
-				}
+				// hide InProgress & show data
+				StateHasChanged();
 			}
 		}
 
@@ -528,6 +570,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (!request.CancellationToken.IsCancellationRequested)
 			{
+				// hide InProgress
 				StateHasChanged();
 			}
 
