@@ -43,7 +43,7 @@
 }
 
 .hx-input-date-has-calendar-icon .is-invalid {
-    background-position: right calc(0.375em + 2rem) center;
+	background-position: right calc(0.375em + 2rem) center;
 }
 
 .hx-input-date-has-calendar-icon .form-control {
@@ -63,15 +63,15 @@
 }
 
 .hx-input-date-has-calendar-icon.input-group-sm .form-control {
-    padding-right: 4rem;
+	padding-right: 4rem;
 }
 
 .input-group-sm > .hx-input-date-icon {
-    font-size: .75rem;
+	font-size: .75rem;
 }
 
 .hx-input-date-icon {
-    z-index: 10;
+	z-index: 10;
 }
 
 .hx-input-date.input-group input.form-control.hx-input-date-no-right-border {
@@ -79,7 +79,6 @@
 	border-bottom-right-radius: 0 !important;
 }
 
-::deep.form-floating label {
-    /* ::deep.form-floating - there MUST NOT be a space between ::deep and .form-floating */
-    z-index: 10;
+::deep .form-floating label {
+	z-index: 10;
 }

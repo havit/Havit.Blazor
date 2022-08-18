@@ -14,6 +14,8 @@
 
 		[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
 
+		[Parameter] public string Id { get; set; }
+
 		protected string GetCssClass() =>
 			CssClassHelper.Combine(
 				"dropdown-menu",

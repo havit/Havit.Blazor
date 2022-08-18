@@ -1831,6 +1831,11 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnHidden"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.ElementReference">
+            <summary>
+            Returns the element reference of rendered element.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
         </member>
