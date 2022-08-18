@@ -27,13 +27,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual InputsSettings GetDefaults() => HxInputBase.Defaults;
+		protected virtual IInputsSettings GetDefaults() => HxInputBase.Defaults;
 
 		/// <summary>
-		/// Spe
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputBase.Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		/// <remarks>
+		/// Using interface does not force the implementation of settings to use specific class as a base type.</remarks>
+		protected abstract IInputsSettings GetSettings();
+
+		/// <summary>
+		/// Specifies how the validation message should be displayed.
 		/// </summary>
 		[Parameter] public ValidationMessageDisplayMode? ValidationMessageDisplayMode { get; set; }
-		protected ValidationMessageDisplayMode ValidationMessageDisplayModeEffective => this.ValidationMessageDisplayMode ?? /*this.Settings?.ShowPredefinedDates ??*/ GetDefaults().ValidationMessageDisplayMode ?? throw new InvalidOperationException(nameof(ValidationMessageDisplayMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
+		protected ValidationMessageDisplayMode ValidationMessageDisplayModeEffective => this.ValidationMessageDisplayMode ?? this.GetSettings()?.ValidationMessageDisplayMode ?? GetDefaults().ValidationMessageDisplayMode ?? throw new InvalidOperationException(nameof(ValidationMessageDisplayMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
 
 		/// <inheritdoc cref="Web.FormState" />
 		[CascadingParameter] protected FormState FormState { get; set; }

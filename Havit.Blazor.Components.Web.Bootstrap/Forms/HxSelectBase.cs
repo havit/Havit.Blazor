@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected virtual SelectSettings GetDefaults() => HxSelect.Defaults;
+		protected override SelectSettings GetDefaults() => HxSelect.Defaults;
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="HxSelect.Defaults"/>, overriden by individual parameters).
@@ -26,9 +26,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Returns optional set of component settings.
 		/// </summary>
 		/// <remarks>
-		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 		/// </remarks>
-		protected virtual SelectSettings GetSettings() => this.Settings;
+		protected override SelectSettings GetSettings() => this.Settings;
 
 
 		/// <summary>

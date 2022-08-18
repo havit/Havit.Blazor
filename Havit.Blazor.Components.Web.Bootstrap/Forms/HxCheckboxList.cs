@@ -41,6 +41,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool Inline { get; set; }
 
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDate.Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public CheckboxListSettings Settings { get; set; }
+
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		protected override CheckboxListSettings GetSettings() => this.Settings;
+
 		private List<TItem> itemsToRender;
 
 		private void RefreshState()

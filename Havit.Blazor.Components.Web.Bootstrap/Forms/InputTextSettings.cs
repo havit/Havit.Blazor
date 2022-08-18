@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// <summary>
 	/// Settings for the <see cref="HxInputText"/> and derived components.
 	/// </summary>
-	public record InputTextSettings : IInputSettingsWithSize
+	public record InputTextSettings : InputsSettings, IInputSettingsWithSize
 	{
 		/// <summary>
 		/// Input size.

@@ -21,7 +21,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Returns application-wide defaults for the component.
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
-		protected virtual InputDateSettings GetDefaults() => HxInputDate.Defaults;
+		protected override InputDateSettings GetDefaults() => HxInputDate.Defaults;
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDate.Defaults"/>, overriden by individual parameters).
@@ -32,10 +32,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Returns optional set of component settings.
 		/// </summary>
 		/// <remarks>
-		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 		/// </remarks>
-		protected virtual InputDateSettings GetSettings() => this.Settings;
-
+		protected override InputDateSettings GetSettings() => this.Settings;
 
 		/// <summary>
 		/// When enabled (default is <c>true</c>), shows predefined days (from <see cref="PredefinedDates"/>, e.g. Today).

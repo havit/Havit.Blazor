@@ -42,6 +42,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms
 					// NOOP
 				}
 
+				protected override IInputsSettings GetSettings() => null;
+
 				protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out string result, [NotNullWhen(false)] out string validationErrorMessage)
 				{
 					result = value;
