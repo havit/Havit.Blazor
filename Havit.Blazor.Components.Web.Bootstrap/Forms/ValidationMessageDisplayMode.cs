@@ -6,17 +6,22 @@
 public enum ValidationMessageDisplayMode
 {
 	/// <summary>
-	/// Validation message is displayed in the regular way.
+	/// Validation messages are displayed in the regular way.
 	/// </summary>
 	Regular,
 
 	/// <summary>
-	/// Validation message is displayed as a tooltip.
+	/// Validation messagse are displayed as a tooltips.
 	/// </summary>
 	Tooltip,
 
 	/// <summary>
-	/// Validation message with space reservation.
+	/// Validation messages with a space reservation.
 	/// </summary>
-	KeepSpace
+	KeepSpace,
+
+	/// <summary>
+	/// Renders no validation message.
+	/// </summary>
+	None
 }

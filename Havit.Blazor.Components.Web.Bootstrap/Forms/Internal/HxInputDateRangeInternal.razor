@@ -41,10 +41,7 @@
 			</div>
 		}
 
-		@if (ShowValidationMessage)
-		{
-			<HxValidationMessage TValue="DateTimeRange" ForFieldNames="@validationFieldNames" />
-		}
+		<HxValidationMessage TValue="DateTimeRange" ForFieldNames="@validationFieldNames" DisplayMode="@ValidationMessageDisplayModeEffective" />
 
 		@if (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective != null) && PredefinedDateRangesEffective.Any())
 		{

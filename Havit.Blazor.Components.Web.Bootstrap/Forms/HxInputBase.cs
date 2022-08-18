@@ -40,7 +40,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Specifies how the validation message should be displayed.
 		/// </summary>
 		[Parameter] public ValidationMessageDisplayMode? ValidationMessageDisplayMode { get; set; }
-		protected ValidationMessageDisplayMode ValidationMessageDisplayModeEffective => this.ValidationMessageDisplayMode ?? this.GetSettings()?.ValidationMessageDisplayMode ?? GetDefaults().ValidationMessageDisplayMode ?? throw new InvalidOperationException(nameof(ValidationMessageDisplayMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
+		protected ValidationMessageDisplayMode ValidationMessageDisplayModeEffective => this.ValidationMessageDisplayMode ?? this.GetSettings()?.ValidationMessageDisplayMode ?? GetDefaults().ValidationMessageDisplayMode ?? HxInputBase.Defaults?.ValidationMessageDisplayMode ?? throw new InvalidOperationException(nameof(ValidationMessageDisplayMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
 
 		/// <inheritdoc cref="Web.FormState" />
 		[CascadingParameter] protected FormState FormState { get; set; }
@@ -82,11 +82,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Custom CSS class to render with the input element.
 		/// </summary>
 		[Parameter] public string InputCssClass { get; set; }
-
-		/// <summary>
-		/// When <c>false</c>, validation message is not rendered. Default is <c>true</c>.
-		/// </summary>
-		[Parameter] public bool ShowValidationMessage { get; set; } = true;
 
 		/// <summary>
 		/// When <c>true</c>, <see cref="HxChipGenerator"/> is used to generate chip item(s). Default is <c>true</c>.
@@ -306,11 +301,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Renders validation message (component <see cref="HxValidationMessage{TValue}" />) when not disabled (<seealso cref="ShowValidationMessage" />).
+		/// Renders validation message (component <see cref="HxValidationMessage{TValue}" />) when not disabled (<seealso cref="ValidationMessageDisplayModeEffective" />).
 		/// </summary>
 		protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
 		{
-			if (ShowValidationMessage)
+			if (this.ValidationMessageDisplayModeEffective != Bootstrap.ValidationMessageDisplayMode.None) // if: performance
 			{
 				//<div class="invalid-feedback">
 				//Please provide a valid city.

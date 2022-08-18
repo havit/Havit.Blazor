@@ -100,7 +100,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					// Impacts? Unknown. Maybe none.
 					builder.AddAttribute(6, nameof(HxInputCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
 
-					builder.AddAttribute(7, nameof(HxInputCheckbox.ShowValidationMessage), false);
+					builder.AddAttribute(7, nameof(HxInputCheckbox.ValidationMessageDisplayMode), Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.None);
 					builder.AddAttribute(8, nameof(HxInputCheckbox.Inline), this.Inline);
 
 					builder.CloseComponent();

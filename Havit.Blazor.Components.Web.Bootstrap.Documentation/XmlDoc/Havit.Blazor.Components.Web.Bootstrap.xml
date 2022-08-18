@@ -2915,11 +2915,6 @@
             Custom CSS class to render with the input element.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ShowValidationMessage">
-            <summary>
-            When <c>false</c>, validation message is not rendered. Default is <c>true</c>.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GenerateChip">
             <summary>
             When <c>true</c>, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxChipGenerator"/> is used to generate chip item(s). Default is <c>true</c>.
@@ -3027,7 +3022,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.BuildRenderValidationMessage(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
-            Renders validation message (component <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1" />) when not disabled (<seealso cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ShowValidationMessage" />).
+            Renders validation message (component <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1" />) when not disabled (<seealso cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ValidationMessageDisplayModeEffective" />).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.RenderChipGenerator(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -4523,17 +4518,22 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.Regular">
             <summary>
-            Validation message is displayed in the regular way.
+            Validation messages are displayed in the regular way.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.Tooltip">
             <summary>
-            Validation message is displayed as a tooltip.
+            Validation messagse are displayed as a tooltips.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.KeepSpace">
             <summary>
-            Validation message with space reservation.
+            Validation messages with a space reservation.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.None">
+            <summary>
+            Renders no validation message.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayModeExtensions">

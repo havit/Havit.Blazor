@@ -143,7 +143,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(202, nameof(HxInputDateRangeInternal.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(203, nameof(HxInputDateRangeInternal.FromParsingErrorMessageEffective), GetFromParsingErrorMessage());
 			builder.AddAttribute(204, nameof(HxInputDateRangeInternal.ToParsingErrorMessageEffective), GetToParsingErrorMessage());
-			builder.AddAttribute(205, nameof(HxInputDateRangeInternal.ShowValidationMessage), ShowValidationMessage);
+			builder.AddAttribute(205, nameof(HxInputDateRangeInternal.ValidationMessageDisplayModeEffective), ValidationMessageDisplayModeEffective);
 			builder.AddAttribute(206, nameof(HxInputDateRangeInternal.PredefinedDateRangesEffective), this.PredefinedDateRangesEffective);
 			builder.AddAttribute(206, nameof(HxInputDateRangeInternal.ShowPredefinedDateRangesEffective), this.ShowPredefinedDateRangesEffective);
 			builder.AddAttribute(207, nameof(HxInputDateRangeInternal.ShowCalendarButtonsEffective), ShowCalendarButtonsEffective);

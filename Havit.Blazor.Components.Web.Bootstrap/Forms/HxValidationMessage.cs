@@ -109,6 +109,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
+			if (DisplayMode == ValidationMessageDisplayMode.None)
+			{
+				return;
+			}
+
 			List<string> messages = fieldIdentifiers.SelectMany(fieldIdentifier => currentEditContext.GetValidationMessages(fieldIdentifier)).ToList();
 
 			if (messages.Any())
