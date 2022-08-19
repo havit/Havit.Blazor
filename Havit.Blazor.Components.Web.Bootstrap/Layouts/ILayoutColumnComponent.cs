@@ -1,4 +1,4 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Layouts
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Interface for column-sized components (e.g. <see cref="HxPlaceholder"/>).
