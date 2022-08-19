@@ -1,6 +1,4 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Layouts;
-
-namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.1/components/placeholders/">Bootstrap 5 placeholder</see> in form of a button.<br/>

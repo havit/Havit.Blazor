@@ -6000,48 +6000,48 @@
             Additional CSS classes for the wrapping <c>div</c>.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent">
             <summary>
             Interface for column-sized components (e.g. <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.Columns">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.Columns">
             <summary>
             Number of template columns to span. Responsive setting for all devices including the extra-small ones (XS) bellow "small" breakpoint (<c>576px</c>).<br />
             The value can be any integer number between <c>1</c> and <c>12</c> (<c>.col-1</c>), <c>auto</c> (<c>.col-auto</c>) or <c>true</c> (<c>.col</c>).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsSmallUp">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsSmallUp">
             <summary>
             Number of template columns to span for viewports above "small" breakpoint (<c>576px</c>).<br/>
             The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c> or <c>true</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsMediumUp">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsMediumUp">
             <summary>
             Number of template columns to span for viewports above "medium" breakpoint (<c>768px</c>).<br/>
             The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c> or <c>true</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsLargeUp">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsLargeUp">
             <summary>
             Number of template columns to span for viewports above "large" breakpoint (<c>992px</c>).<br/>
             The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c> or <c>true</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsExtraLargeUp">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsExtraLargeUp">
             <summary>
             Number of template columns to span for viewports above "large" breakpoint (<c>1200px</c>).<br/>
             The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c> or <c>true</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsXxlUp">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsXxlUp">
             <summary>
             Number of template columns to span for viewports above "XXL" breakpoint (<c>1400px</c>).<br/>
             The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c> or <c>true</c>.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Layouts.LayoutColumnComponentExtensions.GetColumnsCssClasses(Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.LayoutColumnComponentExtensions.GetColumnsCssClasses(Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent)">
             <summary>
             Returns CSS classes representing column layout of the component.
             </summary>
@@ -7694,22 +7694,22 @@
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Columns">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.Columns"/>
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.Columns"/>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.ColumnsSmallUp">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsSmallUp"/>
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsSmallUp"/>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.ColumnsMediumUp">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsMediumUp"/>
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsMediumUp"/>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.ColumnsLargeUp">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsLargeUp"/>
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsLargeUp"/>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.ColumnsExtraLargeUp">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsExtraLargeUp"/>
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsExtraLargeUp"/>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.ColumnsXxlUp">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsXxlUp"/>
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsXxlUp"/>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder.Size">
             <summary>
@@ -7744,22 +7744,22 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.Columns">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.Columns"/>
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.Columns"/>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.ColumnsSmallUp">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsSmallUp"/>
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsSmallUp"/>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.ColumnsMediumUp">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsMediumUp"/>
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsMediumUp"/>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.ColumnsLargeUp">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsLargeUp"/>
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsLargeUp"/>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.ColumnsExtraLargeUp">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsExtraLargeUp"/>
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsExtraLargeUp"/>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.ColumnsXxlUp">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.Layouts.ILayoutColumnComponent.ColumnsXxlUp"/>
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsXxlUp"/>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer">
             <summary>
