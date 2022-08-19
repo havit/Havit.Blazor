@@ -94,5 +94,10 @@
 		/// Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> (alternating rows).
 		/// </summary>
 		public bool? Striped { get; set; }
+
+		/// <summary>
+		/// Pager settings.
+		/// </summary>
+		public PagerSettings PagerSettings { get; set; }
 	}
 }

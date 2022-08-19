@@ -1,7 +1,8 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 @{
-	int pageFromInclusive = ((this.CurrentPageIndex / this.DisplayNumberCount) * this.DisplayNumberCount);
-	int pageToExclusive = Math.Min(TotalPages, pageFromInclusive + this.DisplayNumberCount);
+	int numericButtonsCountEffective = NumericButtonsCountEffective;
+	int pageFromInclusive = ((this.CurrentPageIndex / numericButtonsCountEffective) * numericButtonsCountEffective);
+	int pageToExclusive = Math.Min(TotalPages, pageFromInclusive + numericButtonsCountEffective);
 	bool showFirstLast = true; // always
 	bool showPreviousNext = true; // always
 
@@ -15,7 +16,7 @@
 	{
 		<li class="@previousPageItemDisabledCssClass">
 			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(0)" @onclick:stopPropagation>
-				<HxIcon Icon="@BootstrapIcon.ChevronDoubleLeft" />
+				<HxIcon Icon="@FirstPageIconEffective" />
 			</a>
 		</li>
 	}
@@ -24,7 +25,7 @@
 	{
 		<li class="@previousPageItemDisabledCssClass">
 			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(CurrentPageIndex - 1)" @onclick:stopPropagation>
-				<HxIcon Icon="@BootstrapIcon.ChevronLeft" />
+				<HxIcon Icon="@PreviousPageIconEffective" />
 			</a>
 		</li>
 	}
@@ -58,7 +59,7 @@
 	{
 		<li class="@nextPageItemDisabledCssClass">
 			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(CurrentPageIndex + 1)" @onclick:stopPropagation>
-				<HxIcon Icon="@BootstrapIcon.ChevronRight" />
+				<HxIcon Icon="@NextPageIconEffective" />
 			</a>
 		</li>
 	}
@@ -67,7 +68,7 @@
 	{
 		<li class="@nextPageItemDisabledCssClass">
 			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(TotalPages - 1)" @onclick:stopPropagation>
-				<HxIcon Icon="@BootstrapIcon.ChevronDoubleRight" />
+				<HxIcon Icon="@LastPageIconEffective" />
 			</a>
 		</li>
 	}
