@@ -199,14 +199,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			// start new time interval
 			if (userInput.Length >= MinimumLengthEffective)
 			{
-				if (timer == null)
+				if (DelayEffective == 0)
 				{
-					timer = new System.Timers.Timer();
-					timer.AutoReset = false; // just once
-					timer.Elapsed += HandleTimerElapsed;
+					await UpdateSuggestionsAsync();
 				}
-				timer.Interval = DelayEffective;
-				timer.Start();
+				else
+				{
+					if (timer == null)
+					{
+						timer = new System.Timers.Timer();
+						timer.AutoReset = false; // just once
+						timer.Elapsed += HandleTimerElapsed;
+					}
+					timer.Interval = DelayEffective;
+					timer.Start();
+				}
 			}
 			else
 			{

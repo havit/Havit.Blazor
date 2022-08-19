@@ -5,7 +5,7 @@
 
 
 
-<HxAutosuggest @ref="autosuggest1" Label="Full (with initial value)" TItem="CultureInfo" TValue="int" @bind-Value="@value1" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))">
+<HxAutosuggest @ref="autosuggest1" Label="Full (with initial value)" TItem="CultureInfo" TValue="int" @bind-Value="@value1" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))" Delay="0">
 	<ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
 </HxAutosuggest>
 <p>Value: @value1</p>
