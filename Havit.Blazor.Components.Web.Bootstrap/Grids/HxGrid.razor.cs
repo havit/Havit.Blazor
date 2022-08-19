@@ -135,6 +135,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected bool ShowFooterWhenEmptyDataEffective => this.ShowFooterWhenEmptyData ?? this.GetSettings()?.ShowFooterWhenEmptyData ?? GetDefaults().ShowFooterWhenEmptyData ?? throw new InvalidOperationException(nameof(ShowFooterWhenEmptyData) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
+		/// Pager settings.
+		/// </summary>
+		[Parameter] public PagerSettings PagerSettings { get; set; }
+		protected PagerSettings PagerSettingsEffective => this.PagerSettings ?? this.GetSettings()?.PagerSettings ?? GetDefaults().PagerSettings;
+
+		/// <summary>
 		/// Current grid state (page, sorting).
 		/// </summary>
 		[Parameter] public GridUserState<TItem> CurrentUserState { get; set; } = new GridUserState<TItem>();

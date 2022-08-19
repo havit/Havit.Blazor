@@ -5147,6 +5147,11 @@
             Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> (alternating rows).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PagerSettings">
+            <summary>
+            Pager settings.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState`1">
             <summary>
             User state of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/>.
@@ -5339,6 +5344,11 @@
             <summary>
             Indicates whether to render footer when data are empty.
             Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PagerSettings">
+            <summary>
+            Pager settings.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserState">
@@ -5713,6 +5723,30 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPager">https://havit.blazor.eu/components/HxPager</see>
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPager.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descandants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.Defaults"/>, overriden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPager.GetSettings">
+            <summary>
+            Returns optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxPager.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.Settings"/> in components descandants (by returning a derived settings class).
+            </remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.TotalPages">
             <summary>
             Total pages of data items.
@@ -5734,7 +5768,27 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.CurrentPageIndexChanged"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.DisplayNumberCount">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.FirstPageIcon">
+            <summary>
+            Icon for the "First page" button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.LastPageIcon">
+            <summary>
+            Icon for the "Last page" button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.PreviousPageIcon">
+            <summary>
+            Icon for the "Previous page" button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.NextPageIcon">
+            <summary>
+            Icon for the "Next page" button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.NumericButtonsCount">
             <summary>
             Count of numbers to display. Default value is 10.
             </summary>
@@ -5791,6 +5845,41 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetFooterCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext)">
             <summary>
             Returns footer cell template.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PagerSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.FirstPageIcon">
+            <summary>
+            Icon for the "First page" button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.LastPageIcon">
+            <summary>
+            Icon for the "Last page" button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.PreviousPageIcon">
+            <summary>
+            Icon for the "Previous page" button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.NextPageIcon">
+            <summary>
+            Icon for the "Next page" button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.NumericButtonsCount">
+            <summary>
+            Count of numbers to display.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.CssClass">
+            <summary>
+            Any additional CSS class to apply.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1">
