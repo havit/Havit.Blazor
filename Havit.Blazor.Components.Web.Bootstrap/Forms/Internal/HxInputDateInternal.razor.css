@@ -82,6 +82,11 @@
 	border-bottom-right-radius: 0 !important;
 }
 
+/* Remove caret. */
+::deep .dropdown-toggle::after {
+	display: none !important;
+}
+
 ::deep .form-floating label {
 	z-index: 10;
 }

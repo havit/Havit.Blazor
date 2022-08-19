@@ -11,6 +11,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public string InputCssClass { get; set; }
 
+		[Parameter] public string InvalidCssClass { get; set; }
+
 		[Parameter] public InputSize InputSizeEffective { get; set; }
 
 		[Parameter] public bool EnabledEffective { get; set; } = true;
@@ -45,9 +47,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private FieldIdentifier toFieldIdentifier;
 		private string[] validationFieldNames;
 
-		private ElementReference fromInputElement;
-		private ElementReference toInputElement;
-		private IJSObjectReference jsModule;
+		private HxDropdownToggleElement fromDropdownToggleElement;
+		private HxDropdownToggleElement toDropdownToggleElement;
 
 		protected override void OnParametersSet()
 		{
@@ -83,20 +84,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			return date.Value.ToShortDateString();
 		}
 
-		protected override async Task OnAfterRenderAsync(bool firstRender)
-		{
-			await base.OnAfterRenderAsync(firstRender);
-
-			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDateRange));
-
-			bool fromValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(fromFieldIdentifier).Any();
-			bool toValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(toFieldIdentifier).Any();
-
-			// TODO PERF Combine into single JS call?
-			await jsModule.InvokeVoidAsync(fromValid ? "setInputValid" : "setInputInvalid", fromInputElement);
-			await jsModule.InvokeVoidAsync(toValid ? "setInputValid" : "setInputInvalid", toInputElement);
-		}
-
 		private CalendarDateCustomizationResult GetCalendarDateCustomizationFrom(CalendarDateCustomizationRequest request)
 		{
 			return CalendarDateCustomizationProviderEffective?.Invoke(request with { Target = CalendarDateCustomizationTarget.InputDateRangeFrom }) ?? null;
@@ -118,7 +105,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				parsingFailed = false;
 				CurrentValue = Value with { StartDate = fromDate?.DateTime };
 				EditContext.NotifyFieldChanged(fromFieldIdentifier);
-				await CloseDropDownAsync(fromInputElement);
+				await CloseDropDownAsync(fromDropdownToggleElement);
 			}
 			else
 			{
@@ -144,7 +131,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				parsingFailed = false;
 				CurrentValue = Value with { EndDate = toDate?.DateTime };
 				EditContext.NotifyFieldChanged(toFieldIdentifier);
-				await CloseDropDownAsync(toInputElement);
+				await CloseDropDownAsync(toDropdownToggleElement);
 			}
 			else
 			{
@@ -160,23 +147,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 		}
 
-		protected async Task HandleFromFocusAsync()
-		{
-			await CloseDropDownAsync(toInputElement);
-		}
-
-		protected async Task HandleToFocusAsync()
-		{
-			await CloseDropDownAsync(fromInputElement);
-		}
-
 		private async Task HandleFromClearClickAsync()
 		{
 			CurrentValue = Value with { StartDate = null };
 			EditContext.NotifyFieldChanged(fromFieldIdentifier);
 			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
 
-			await CloseDropDownAsync(fromInputElement);
+			await CloseDropDownAsync(fromDropdownToggleElement);
 		}
 
 		private async Task HandleToClearClickAsync()
@@ -185,29 +162,29 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			EditContext.NotifyFieldChanged(toFieldIdentifier);
 			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
 
-			await CloseDropDownAsync(toInputElement);
+			await CloseDropDownAsync(toDropdownToggleElement);
 		}
 
 		private async Task HandleFromOKClickAsync()
 		{
-			await CloseDropDownAsync(fromInputElement);
+			await CloseDropDownAsync(fromDropdownToggleElement);
 		}
 
 		private async Task HandleToOKClickAsync()
 		{
-			await CloseDropDownAsync(toInputElement);
+			await CloseDropDownAsync(toDropdownToggleElement);
 		}
 
-		private async Task OpenDropDownAsync(ElementReference triggerElement)
+		private async Task OpenDropDownAsync(HxDropdownToggleElement triggerElement)
 		{
-			Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
-			await jsModule.InvokeVoidAsync("open", triggerElement);
+			Contract.Assert<ArgumentNullException>(triggerElement != null, nameof(triggerElement));
+			await triggerElement.ShowAsync();
 		}
 
-		private async Task CloseDropDownAsync(ElementReference triggerElement)
+		private async Task CloseDropDownAsync(HxDropdownToggleElement triggerElement)
 		{
-			Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
-			await jsModule.InvokeVoidAsync("destroy", triggerElement);
+			Contract.Assert<ArgumentNullException>(triggerElement != null, nameof(triggerElement));
+			await triggerElement.HideAsync();
 		}
 
 		private async Task HandleFromCalendarValueChangedAsync(DateTime? date)
@@ -216,8 +193,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			EditContext.NotifyFieldChanged(fromFieldIdentifier);
 			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
 
-			await CloseDropDownAsync(fromInputElement);
-			await OpenDropDownAsync(toInputElement);
+			await CloseDropDownAsync(fromDropdownToggleElement);
+			await OpenDropDownAsync(toDropdownToggleElement);
 		}
 
 		private async Task HandleToCalendarValueChanged(DateTime? date)
@@ -226,7 +203,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			EditContext.NotifyFieldChanged(toFieldIdentifier);
 			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
 
-			await CloseDropDownAsync(toInputElement);
+			await CloseDropDownAsync(toDropdownToggleElement);
 		}
 
 		protected void HandleDateRangeClick(DateTimeRange value)
@@ -261,15 +238,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			validationMessageStore?.Clear();
 
-			if (jsModule != null)
+#if NET6_0_OR_GREATER
+			try
 			{
-				await CloseDropDownAsync(fromInputElement);
-				await CloseDropDownAsync(toInputElement);
-
-				await jsModule.DisposeAsync();
+				await CloseDropDownAsync(fromDropdownToggleElement);
+				await CloseDropDownAsync(toDropdownToggleElement);
 			}
-
-			Dispose(false);
+			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+#else
+			await CloseDropDownAsync(fromDropdownToggleElement);
+			await CloseDropDownAsync(toDropdownToggleElement);
+#endif
 		}
 	}
 }

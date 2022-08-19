@@ -63,23 +63,24 @@
             }
         </HxDropdown>
 
-        <HxDropdown CssClass="@(((IInputWithSize)this).GetInputGroupSizeCssClass())">
+        <HxDropdownButtonGroup CssClass="@(((IInputWithSize)this).GetInputGroupSizeCssClass())" AutoClose="DropdownAutoClose.True">
             @if (RenderPredefinedDates)
             {
-                <button class="btn btn-light hx-input-date-predefined-dates-button" type="button" data-bs-toggle="dropdown" disabled="@(!EnabledEffective)" tabindex="-1">
+                <HxDropdownToggleButton CssClass="hx-input-date-predefined-dates-button" Color="ThemeColor.Light" Enabled="@EnabledEffective" tabindex="-1">
                     <HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
-                </button>
+                </HxDropdownToggleButton>
+
                 @if (EnabledEffective)
                 {
-                    <ul class="dropdown-menu dropdown-menu-end">
+                    <HxDropdownContent>
                         @foreach (var item in PredefinedDatesEffective)
                         {
                             <li><span class="dropdown-item" role="button" @onclick="() => HandleCustomDateClick(item.Date)" @onclick:stopPropagation>@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)</span></li>
                         }
-                    </ul>
+                    </HxDropdownContent>
                 }
             }
-        </HxDropdown>
+        </HxDropdownButtonGroup>
 
         @if (RenderIcon)
         {

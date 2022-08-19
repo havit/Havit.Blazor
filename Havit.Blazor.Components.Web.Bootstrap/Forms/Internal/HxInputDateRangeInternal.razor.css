@@ -21,8 +21,13 @@
     flex-wrap: nowrap;
 }
 
-.hx-input-date-range-dropdown {
-    padding: var(--hx-input-date-range-dropdown-padding);
+/* Remove caret. */
+::deep .dropdown-toggle::after {
+    display: none !important;
+}
+
+::deep .hx-input-date-range-dropdown-content {
+    padding: var(--hx-input-date-dropdown-padding);
 }
 
 .hx-input-date-range-calendar {
