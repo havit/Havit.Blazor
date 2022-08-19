@@ -45,9 +45,9 @@
     min-width: 0;
 }
 
-::deep .hx-dropdown-with-calendar:focus-within {
-    z-index: 4; /* Assures that the inputs' box shadows are always fully visible (rendered on top). */
-}
+    ::deep .hx-dropdown-with-calendar:focus-within {
+        z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be larger than 5 because otherwise the validation message is rendered on top. */
+    }
 
 ::deep .hx-border-radius-start-0 {
     border-bottom-left-radius: 0 !important;
