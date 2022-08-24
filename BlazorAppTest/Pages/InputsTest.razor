@@ -62,7 +62,13 @@
                     <HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
                 </HxAutosuggest>
 
-                <HxInputCheckbox Label="Checkbox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()" />
+                <HxInputCheckbox Label="InputCheckbox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()" />
+
+                <HxCheckbox Label="CheckBox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()">
+                    <TextTemplate>
+                        Some <i>text</i> content to render...
+                    </TextTemplate>
+                </HxCheckbox>
 
                 <HxInputSwitch Label="Switch" @bind-Value="@context.BoolSwitch" />
 

@@ -3073,6 +3073,31 @@
             Input size. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.InputSize.Regular"/>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox">
+            <summary>
+            Checkbox input.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckbox">https://havit.blazor.eu/components/HxCheckbox</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Text">
+            <summary>
+            Text to display next to the checkbox.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.TextTemplate">
+            <summary>
+            Content to display next to the checkbox.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreInputCssClass">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
+            <inheritdoc />
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2">
             <summary>
             Renders a multi-selection list of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox"/> controls.<br />
