@@ -566,6 +566,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				CancellationToken = request.CancellationToken
 			};
 
+			await Task.Yield(); // fixed issue 303 (https://github.com/havit/Havit.Blazor/issues/303)
 			GridDataProviderResult<TItem> gridDataProviderResponse = await InvokeDataProviderInternal(gridDataProviderRequest);
 
 			if (!request.CancellationToken.IsCancellationRequested)
