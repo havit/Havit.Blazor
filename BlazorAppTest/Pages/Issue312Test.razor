@@ -1,0 +1,27 @@
+﻿@page "/Issue312Test"
+@using System.Globalization;
+@using System.ComponentModel.DataAnnotations
+@using Havit
+
+<h1>Issue 312</h1>
+
+<h4>Inside the edit form</h4>
+<EditForm @bind-Model="@model">
+    <HxInputCheckbox Inline="true" Label="Value 1" @bind-Value="@model.Value1" />
+    <HxInputCheckbox Inline="true" Label="Value 2" @bind-Value="@model.Value2" />
+</EditForm>
+
+<h4>Without the edit form</h4>
+<HxInputCheckbox Inline="true" Label="Value 1" @bind-Value="@model.Value1" />
+<HxInputCheckbox Inline="true" Label="Value 2" @bind-Value="@model.Value2" />
+
+@code
+{
+    private FormModel model = new FormModel();
+
+    public class FormModel
+    {
+        public bool Value1 { get; set; }
+        public bool Value2 { get; set; }
+    }
+}
