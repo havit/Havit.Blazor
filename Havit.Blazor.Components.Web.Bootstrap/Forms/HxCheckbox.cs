@@ -1,55 +1,58 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
+﻿using System.Reflection.Emit;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
+	// TODO: Documentation
+
 	/// <summary>
 	/// Checkbox input.<br />
-	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputCheckbox">https://havit.blazor.eu/components/HxInputCheckbox</see>
+	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckbox">https://havit.blazor.eu/components/HxCheckbox</see>
 	/// </summary>
-	public class HxInputCheckbox : HxInputBase<bool>
+	public class HxCheckbox : HxInputBase<bool>
 	{
 		/// <summary>
-		/// Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.
+		/// Text to display next to the checkbox.
 		/// </summary>
-		[Parameter] public bool Inline { get; set; }
+		[Parameter] public string Text { get; set; }
 
-		[Inject] protected IStringLocalizer<HxCheckbox> Localizer { get; set; } // shares values with a newer HxCheckBox
+		/// <summary>
+		/// Content to display next to the checkbox.
+		/// </summary>
+		[Parameter] public RenderFragment TextTemplate { get; set; }
 
-		/// <inheritdoc cref="LabelValueRenderOrder" />
-		protected override LabelValueRenderOrder RenderOrder => LabelValueRenderOrder.ValueLabel;
 
-		/// <inheritdoc cref="HxInputBase{TValue}.CoreCssClass" />
-		private protected override string CoreCssClass
-		{
-			get
-			{
-				if (String.IsNullOrWhiteSpace(this.Label))
-				{
-					return "position-relative";
-				}
-				return CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null, "position-relative");
-			}
-		}
+		[Inject] protected IStringLocalizer<HxCheckbox> Localizer { get; set; }
 
 		/// <inheritdoc cref="HxInputBase{TValue}.CoreInputCssClass" />
 		private protected override string CoreInputCssClass => "form-check-input";
 
-		/// <inheritdoc cref="HxInputBase{TValue}.CoreLabelCssClass" />
-		private protected override string CoreLabelCssClass => "form-check-label";
-
 		/// <inheritdoc />
 		protected override void BuildRenderInput(RenderTreeBuilder builder)
 		{
+			builder.OpenElement(-2, "div");
+			builder.AddAttribute(-1, "class", "form-check");
+
 			builder.OpenElement(0, "input");
 			BuildRenderInput_AddCommonAttributes(builder, "checkbox");
-
 			builder.AddAttribute(1000, "checked", BindConverter.FormatValue(CurrentValue));
 			builder.AddAttribute(1001, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
 			builder.AddEventStopPropagationAttribute(1002, "onclick", true);
 			builder.AddElementReferenceCapture(1003, elementReferece => InputElement = elementReferece);
+			builder.CloseElement(); // input
 
-			builder.CloseElement();
+			builder.OpenElement(2000, "label");
+			builder.AddAttribute(2001, "class", "form-check-label");
+			builder.AddAttribute(2002, "for", InputId);
+			if (TextTemplate == null)
+			{
+				builder.AddContent(2003, Text);
+			}
+			builder.AddContent(2004, TextTemplate);
+			builder.CloseElement(); // label
+
+			builder.CloseElement(); // div
 		}
 
 		/// <inheritdoc />
