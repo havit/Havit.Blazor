@@ -151,11 +151,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await CloseDropDownAsync(dateInputElement);
 		}
 
-		private async Task HandleOKClickAsync()
-		{
-			await CloseDropDownAsync(dateInputElement);
-		}
-
 		private async Task CloseDropDownAsync(ElementReference triggerElement)
 		{
 			Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));

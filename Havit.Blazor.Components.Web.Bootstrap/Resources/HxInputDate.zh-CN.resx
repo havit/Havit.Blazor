@@ -120,9 +120,6 @@
   <data name="Clear" xml:space="preserve">
     <value>清除</value>
   </data>
-  <data name="OK" xml:space="preserve">
-    <value>确定</value>
-  </data>
   <data name="ParsingErrorMessage" xml:space="preserve">
     <value>请输入正确的日期格式.</value>
   </data>
