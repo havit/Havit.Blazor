@@ -5005,6 +5005,12 @@
             </summary>
             <param name="data">data to process (paging and sorting will be applied)</param>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderRequest`1.ApplySortingPagingTo(System.Linq.IQueryable{`0})">
+            <summary>
+            Applies sorting &amp; paging to the <seealso cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="dataProvider">Data provider to apply paging &amp; sorting.</param>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderResult`1">
             <summary>
             Data provider result for grid data.

@@ -14,9 +14,17 @@
         <SectionTitle Id="ApplyTo">Automatic sorting and paging</SectionTitle>
         <p>
             If you have your <code>IEnumerable</code> data-source ready (all items), you can use the <code>request.ApplyTo(data)</code>
-            extension method to apply sorting and paging automatically.
+            method to apply sorting and paging automatically.
         </p>
         <Demo Type="typeof(HxGrid_Demo_ApplyTo)" />
+
+        <p>
+            If you have <code>IQueryable</code> as a data-source provider, you can use the <code>request.ApplySortingPagingTo(dataProvider)</code>
+            method to apply sorting and paging on the data provider. Then you must query data on your own, because we do not have access to cancellable async methods
+            in the components (CountAsync, ToListAsync) and it is quite crutial to use cancellable methods, mainly for infinite scroll. 
+        </p>
+        <Demo Type="typeof(HxGrid_Demo_ApplySortingPaging)" />
+
 
         <DocAlert Type="DocAlertType.Warning">
             The <code>@nameof(HxGrid).@nameof(HxGrid<object>.DataProvider)</code> should always return an instance of <code>@nameof(GridDataProviderResult<object>)</code>, <code>null</code> is not allowed.

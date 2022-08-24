@@ -1,0 +1,39 @@
+﻿<HxGrid TItem="CultureInfo" Responsive="true" DataProvider="GetGridData" PageSize="10">
+	<Columns>
+		<HxGridColumn TItem="CultureInfo" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
+		<HxGridColumn TItem="CultureInfo" HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)"  />
+	</Columns>
+</HxGrid>
+
+@code {
+	private IQueryable<CultureInfo> localCultureInfosProvider = CultureInfo.GetCultures(CultureTypes.AllCultures).AsQueryable(); 
+	
+	private async Task<GridDataProviderResult<CultureInfo>> GetGridData(GridDataProviderRequest<CultureInfo> request)
+	{
+		int count = localCultureInfosProvider.Count();
+		// or much better if you have an async method:
+		// int count = await localCultureInfosProvider.CountAsync(request.CancellationToken);
+
+		if (count == 0)
+		{
+			// there is no need to query for the current page when there are no data
+			return new GridDataProviderResult<CultureInfo>
+			{
+				Data = null,
+				TotalCount = 0
+			};
+		}
+
+		IQueryable<CultureInfo> dataProvider = request.ApplySortingPagingTo(localCultureInfosProvider);
+		
+		return new GridDataProviderResult<CultureInfo>
+		{
+				Data = request.ApplySortingPagingTo(localCultureInfosProvider).ToList(),
+				// or much better if you have an async method:
+				// Data = await request.ApplySortingPagingTo(localCultureInfosProvider).ToListAsync(request.CancellationToken),
+				TotalCount = count
+		};
+	}
+}

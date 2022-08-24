@@ -84,5 +84,46 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				TotalCount = data.Count()
 			};
 		}
+
+		/// <summary>
+		/// Applies sorting &amp; paging to the <seealso cref="IQueryable{TItem}"/>.
+		/// </summary>
+		/// <param name="dataProvider">Data provider to apply paging &amp; sorting.</param>
+		public IQueryable<TItem> ApplySortingPagingTo(IQueryable<TItem> dataProvider)
+		{
+			CancellationToken.ThrowIfCancellationRequested();
+
+			#region Sorting
+			if ((Sorting != null) && Sorting.Any())
+			{
+				Contract.Assert(Sorting.All(item => item.SortKeySelector != null), "All sorting items must have set SortKeySelector property.");
+
+				IOrderedQueryable<TItem> orderedDataProvider = (Sorting[0].SortDirection == SortDirection.Ascending)
+					? dataProvider.OrderBy(Sorting[0].SortKeySelector)
+					: dataProvider.OrderByDescending(Sorting[0].SortKeySelector);
+
+				for (int i = 1; i < Sorting.Count; i++)
+				{
+					orderedDataProvider = (Sorting[i].SortDirection == SortDirection.Ascending)
+						? orderedDataProvider.ThenBy(Sorting[i].SortKeySelector)
+						: orderedDataProvider.ThenByDescending(Sorting[i].SortKeySelector);
+				}
+				dataProvider = orderedDataProvider;
+			}
+			#endregion
+
+			#region Paging / Infinite scroll
+			if (StartIndex > 0)
+			{
+				dataProvider = dataProvider.Skip(StartIndex);
+			}
+			if (Count > 0)
+			{
+				dataProvider = dataProvider.Take(Count.Value);
+			}
+			#endregion
+
+			return dataProvider;
+		}
 	}
 }
