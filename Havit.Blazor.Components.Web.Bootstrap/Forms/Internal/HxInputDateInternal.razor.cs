@@ -250,6 +250,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				try
 				{
 					await CloseDropDownAsync(dateInputElement);
+					await jsModule.DisposeAsync();
 				}
 				catch (JSDisconnectedException)
 				{
@@ -257,9 +258,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				}
 #else
 				await CloseDropDownAsync(dateInputElement);
-#endif
-
 				await jsModule.DisposeAsync();
+#endif
 			}
 
 			Dispose(false);
