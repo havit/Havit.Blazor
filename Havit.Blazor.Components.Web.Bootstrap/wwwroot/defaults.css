@@ -10,7 +10,7 @@
 	--hx-sidebar-collapsed-width: 						72px;
 	--hx-sidebar-width: 								250px;
 	--hx-sidebar-toggler-border: 						1px solid var(--bs-gray-200);
-	--hx-sidebar-toggler-background: 					white;
+	--hx-sidebar-toggler-background: 					var(--bs-primary);
 	--hx-sidebar-item-font-size: 						1rem;
 	--hx-sidebar-item-padding: 							.75rem;
 	--hx-sidebar-item-color: 							var(--bs-dark);
@@ -46,7 +46,7 @@
 	--hx-sidebar-footer-item-hover-background-opacity:	unset;
 	--hx-sidebar-footer-item-hover-color:				unset;
 	/* HxProgressOverlay */
-	--hx-progress-overlay-color: white;
+	--hx-progress-overlay-color: var(--bs-white);
 	--hx-progress-overlay-opacity: .65;
 	/* HxEditForm */
 	--hx-form-spacing: 1.25rem;
@@ -83,7 +83,7 @@
 	--hx-calendar-day-hover-background: 				var(--bs-gray-200);
 	--hx-calendar-day-hover-border: 					none;
 	--hx-calendar-day-selected-background:				var(--bs-primary);
-	--hx-calendar-day-selected-color: 					white;
+	--hx-calendar-day-selected-color: 					var(--bs-white);
 	--hx-calendar-day-selected-border: 					none;
 	--hx-calendar-day-out-color: 						var(--bs-gray-500);
 	--hx-calendar-day-in-color: 						unset;
@@ -132,7 +132,7 @@
 	--hx-tree-view-item-color:						var(--bs-dark);
 	--hx-tree-view-item-hover-color:				var(--bs-primary);
 	--hx-tree-view-item-selected-color:				var(--bs-primary);
-	--hx-tree-view-item-background:					white;
+	--hx-tree-view-item-background:					var(--bs-white);
 	--hx-tree-view-item-hover-background:			var(--bs-primary-rgb);
 	--hx-tree-view-item-hover-background-opacity:	.1;
 	--hx-tree-view-item-selected-background:		var(--bs-primary-rgb);
@@ -149,7 +149,7 @@
 	--hx-input-date-range-dropdown-padding:			1rem;
 	--hx-input-date-range-calendar-margin-bottom:	.5rem;
 	/* HxProgressIndicator */
-	--hx-progress-indicator-background:				white;
+	--hx-progress-indicator-background:				var(--bs-white);
 	--hx-progress-indicator-spinner-color:			var(--bs-primary);
 	/* HxToastContainer */
 	--hx-toast-container-margin:					.5rem;
