@@ -42,7 +42,7 @@
 			break;
 
 		case GridContentNavigationMode.InfiniteScroll:
-			shouldRenderData = (totalCount == null) || (totalCount > 0); // null: we need to render Virtualize even when we have no data yet - Virtalize ensures data load
+			shouldRenderData = true; // we cannot remove the Virtualize when there are no data, see #303 (https://github.com/havit/Havit.Blazor/issues/303)
 			break;
 
 		default: throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
