@@ -64,14 +64,15 @@
 					<tr class="@HeaderRowCssClassEffective">
 						@{
 							GridHeaderCellContext gridHeaderCellContext = CreateGridHeaderCellContext();
+							bool sortingEnabled = totalCount > 0;
 
-							@foreach (IHxGridColumn<TItem> column in columnsToRender)
+							foreach (IHxGridColumn<TItem> column in columnsToRender)
 							{
 								var columnSorting = column.GetSorting();
-								bool isCurrentSorting = CurrentUserState.Sorting?.StartsWith(columnSorting) ?? false;
 								var headerCellTemplate = column.GetHeaderCellTemplate(gridHeaderCellContext);
-								@if (columnSorting.Any())
+								@if (sortingEnabled && columnSorting.Any())
 								{
+									bool isCurrentSorting = CurrentUserState.Sorting?.StartsWith(columnSorting) ?? false;
 									<th @onclick="async () => await HandleSortingClick(columnSorting)" @onclick:stopPropagation role="button" class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable")">
 										<div class="hx-grid-header-cell-container">
 											<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
