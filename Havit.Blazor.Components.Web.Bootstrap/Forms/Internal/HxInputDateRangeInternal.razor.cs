@@ -267,6 +267,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				{
 					await CloseDropDownAsync(fromInputElement);
 					await CloseDropDownAsync(toInputElement);
+					await jsModule.DisposeAsync();
 				}
 				catch (JSDisconnectedException)
 				{
@@ -275,9 +276,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 #else
 				await CloseDropDownAsync(fromInputElement);
 				await CloseDropDownAsync(toInputElement);
+				await jsModule.DisposeAsync();
 #endif
 
-				await jsModule.DisposeAsync();
 			}
 
 			Dispose(false);
