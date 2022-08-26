@@ -5,9 +5,15 @@
 
 <h1>HxCheckbox</h1>
 
+<HxCheckbox Text="Value 1" @bind-Value="@model.Value1" Inline="true" />
+<HxCheckbox Text="Value 2" @bind-Value="@model.Value2" Inline="true" />
+
 <EditForm @bind-Model="@model">
     <DataAnnotationsValidator />
     <ValidationSummary />
+
+    <HxCheckbox Text="Value 1" @bind-Value="@model.Value1" Inline="true" />
+    <HxCheckbox Text="Value 2" @bind-Value="@model.Value2" Inline="true" />
 
     <HxCheckbox Label="CheckBox 1" Text="Value 1" @bind-Value="@model.Value1" />
     <HxCheckbox Label="CheckBox 2" Text="Value 2" @bind-Value="@model.Value2" />

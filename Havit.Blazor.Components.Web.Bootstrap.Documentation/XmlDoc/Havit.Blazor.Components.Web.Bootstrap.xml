@@ -3089,8 +3089,17 @@
             Content to display next to the checkbox.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Inline">
+            <summary>
+            Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.		
+            Works only when there is no label, no hint and no validation message.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreInputCssClass">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreCssClass">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreCssClass" />		
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
