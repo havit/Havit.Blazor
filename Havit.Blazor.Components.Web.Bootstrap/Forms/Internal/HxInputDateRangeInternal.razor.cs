@@ -1,4 +1,5 @@
 ﻿using Havit.Diagnostics.Contracts;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
@@ -94,7 +95,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			return CalendarDateCustomizationProviderEffective?.Invoke(request with { Target = CalendarDateCustomizationTarget.InputDateRangeTo }) ?? null;
 		}
 
-		protected async Task HandleFromChangedAsync(ChangeEventArgs changeEventArgs)
+		protected void HandleFromChanged(ChangeEventArgs changeEventArgs)
 		{
 			bool parsingFailed;
 
@@ -105,7 +106,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				parsingFailed = false;
 				CurrentValue = Value with { StartDate = fromDate?.DateTime };
 				EditContext.NotifyFieldChanged(fromFieldIdentifier);
-				await CloseDropDownAsync(fromDropdownToggleElement);
 			}
 			else
 			{
@@ -121,7 +121,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 		}
 
-		protected async Task HandleToChangedAsync(ChangeEventArgs changeEventArgs)
+		protected void HandleToChanged(ChangeEventArgs changeEventArgs)
 		{
 			bool parsingFailed;
 			validationMessageStore.Clear(toFieldIdentifier);
@@ -131,7 +131,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				parsingFailed = false;
 				CurrentValue = Value with { EndDate = toDate?.DateTime };
 				EditContext.NotifyFieldChanged(toFieldIdentifier);
-				await CloseDropDownAsync(toDropdownToggleElement);
 			}
 			else
 			{
@@ -238,20 +237,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			validationMessageStore?.Clear();
 
-#if NET6_0_OR_GREATER
-			try
-			{
-				await CloseDropDownAsync(fromDropdownToggleElement);
-				await CloseDropDownAsync(toDropdownToggleElement);
-			}
-			catch (JSDisconnectedException)
-			{
-				// NOOP
-			}
-#else
 			await CloseDropDownAsync(fromDropdownToggleElement);
 			await CloseDropDownAsync(toDropdownToggleElement);
-#endif
 		}
 	}
 }

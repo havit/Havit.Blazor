@@ -17,7 +17,10 @@
                         }
 
                         <span class="hx-sidebar-item-navlink-content-inner">
-                            @ContentTemplate
+                            @if (ContentTemplate is not null)
+                            {
+                                @ContentTemplate(new(){ ItemExpanded = null })
+                            }
                             @Text
                         </span>
                     </div>
@@ -27,47 +30,73 @@
         }
         else
         {
-            <HxDropdown Direction="DropdownDirection.End" CssClass="hx-sidebar-item">
-                <HxNavLink Href="@Href"
-                       CssClass="@CssClassHelper.Combine(this.CssClass)"
-                       Match="this.Match"
-                       Enabled="this.Enabled"
-                       role="button"
-                       data-bs-toggle="@(ParentSidebar.Collapsed ? "dropdown": "collapse")"
-                       data-bs-target="@(!ParentSidebar.Collapsed ? "#" + id : null)"
-                       aria-expanded="@(this.ShouldBeExpanded ? "true" : "false")">
-                    <div class="hx-sidebar-item-navlink-content">
-                        @if (Icon is not null)
+                RenderFragment itemNavLinkContent =
+                @<div class="hx-sidebar-item-navlink-content">
+                    @if (Icon is not null)
+                    {
+                        <HxIcon Icon="Icon" />
+                    }
+
+                    <span class="hx-sidebar-item-navlink-content-inner">
+                        @if (ContentTemplate is not null)
                         {
-                            <HxIcon Icon="Icon" />
+                            @ContentTemplate(new() { ItemExpanded = this.expanded })
                         }
+                        @Text
+                    </span>
 
-                        <span class="hx-sidebar-item-navlink-content-inner">
-                            @ContentTemplate
-                            @Text
-                        </span>
+                    <HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon" />
+                </div>;
 
-                        <HxIcon Icon="@BootstrapIcon.ChevronRight" CssClass="expand-icon" />
-                    </div>
+            @if (ParentSidebar.Collapsed)
+            {
+                <HxDropdown Direction="DropdownDirection.End" CssClass="hx-sidebar-item">
+                    <HxNavLink
+                           Href="@Href"
+                           CssClass="@CssClassHelper.Combine(this.CssClass)"
+                           Match="this.Match"
+                           Enabled="this.Enabled"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="@(this.expanded ? "true" : "false")">
+                        
+                           @itemNavLinkContent
 
-                </HxNavLink>
+                    </HxNavLink>
 
-                @if (ParentSidebar.Collapsed)
-                {
                     <HxDropdownMenu CssClass="hx-sidebar-subitems">
                         @ChildContent
                     </HxDropdownMenu>
-                }
 
-            </HxDropdown>
-
-            @if (!ParentSidebar.Collapsed)
+                </HxDropdown>
+            }
+            else
             {
-                <div class="@CssClassHelper.Combine("hx-sidebar-subitems collapse", this.ShouldBeExpanded ? "show" : null)" id="@id">
+                <HxNavLink
+                        Href="@Href"
+                        CssClass="@CssClassHelper.Combine(this.CssClass)"
+                        Match="this.Match"
+                        Enabled="this.Enabled"
+                        role="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="@("#" + id)"
+                        aria-expanded="@(this.expanded ? "true" : "false")">
+
+                        @itemNavLinkContent
+
+                </HxNavLink>
+
+                <HxCollapse
+                    Id="@id"
+                    Parent="@(ParentSidebar.MultipleItemsExpansion ? null : $"#{ParentSidebar.navId}")"
+                    @ref="collapseComponent"
+                    CssClass="hx-sidebar-subitems"
+                    OnShown="HandleCollapseShown"
+                    OnHidden="HandleCollapseHidden">
                     <nav class="nav hx-sidebar-collapsed-nav">
                         @ChildContent
                     </nav>
-                </div>
+                </HxCollapse>
             }
         }
     </div>

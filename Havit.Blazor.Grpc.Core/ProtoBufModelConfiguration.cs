@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using ProtoBuf.Meta;
 
 namespace Havit.Blazor.Grpc.Core
@@ -15,7 +16,7 @@ namespace Havit.Blazor.Grpc.Core
 
 			foreach (var type in types)
 			{
-				if (type.IsInterface || !type.IsPublic || type.IsGenericType)
+				if (type.IsInterface || (!type.IsPublic && !type.IsNestedPublic) || type.IsGenericType || type.IsAbstract)
 				{
 					continue;
 				}

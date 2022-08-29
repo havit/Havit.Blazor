@@ -14,5 +14,5 @@ public class SidebarTogglerTemplateContext
 	/// <summary>
 	/// Indicates whether a <see cref="HxSidebar"/> is collapsed or expanded.
 	/// </summary>
-	public bool Collapsed { get; set; }
+	public bool SidebarCollapsed { get; set; }
 }

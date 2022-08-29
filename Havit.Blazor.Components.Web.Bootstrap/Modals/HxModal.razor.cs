@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -312,10 +313,21 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (jsModule != null)
 			{
+				// We need to remove backdrop when leaving "page" when HxModal is shown (opened).
 				if (opened)
 				{
-					// We need to remove backdrop when leaving "page" when HxModal is shown (opened).
+#if NET6_0_OR_GREATER
+					try
+					{
+						await jsModule.InvokeVoidAsync("dispose", modalElement);
+					}
+					catch (JSDisconnectedException)
+					{
+						// NOOP
+					}
+#else
 					await jsModule.InvokeVoidAsync("dispose", modalElement);
+#endif
 				}
 
 				await jsModule.DisposeAsync();

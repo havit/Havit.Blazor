@@ -5,6 +5,8 @@
 	/* HxAutosuggest */
 	--hx-autosuggest-input-close-icon-opacity: .25;
 	--hx-autosuggest-item-highlighted-background-color: var(--bs-gray-200);
+	/* HxButton */
+	--hx-button-space-between-text-icon:				0.25rem;
 	/* HxSidebar */
 	--hx-sidebar-background-color: 						transparent;
 	--hx-sidebar-collapsed-width: 						72px;
@@ -64,7 +66,7 @@
 	--hx-context-menu-item-icon-margin-right:	0.5rem;
 	/* HxGrid */
 	--hx-grid-button-hover-background: 				var(--bs-gray-300);
-	--hx-grid-button-border-radius: 				.2rem;
+	--hx-grid-button-border-radius: 				.25rem;
 	--hx-grid-sorted-icon-color: 					var(--bs-primary);
 	/* HxPager */
 	--hx-pager-margin: 						1rem;
@@ -125,7 +127,7 @@
 	--hx-input-tags-add-button-text-margin:				0 0 0 .25rem;
 	--hx-input-tags-remove-button-margin:			0 0 0 .25rem;
 	/* TreeView */
-	--hx-tree-view-item-border-radius:				3px;
+	--hx-tree-view-item-border-radius:				.25rem;
 	--hx-tree-view-item-border-width:				0;
 	--hx-tree-view-item-border-style:				unset;
 	--hx-tree-view-item-border-color:				unset;

@@ -1,10 +1,13 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <a href="./">
-	@if(Logo != null) {
-		<div class="hx-sidebar-brand-logo">@Logo</div>
+	@if (LogoTemplate != null)
+	{
+		<div class="hx-sidebar-brand-logo">@LogoTemplate(new() { SidebarCollapsed = ParentSidebar.Collapsed })</div>
 	}
-	else {
+	else
+	{
 		<div class="hx-sidebar-brand-shortname">@BrandNameShort</div>
 	}
+
 	<span class="hx-sidebar-brand-name">@BrandName</span>
 </a>

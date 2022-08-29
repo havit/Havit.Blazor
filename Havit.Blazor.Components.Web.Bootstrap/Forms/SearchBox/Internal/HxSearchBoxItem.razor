@@ -1,20 +1,20 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<div class="hx-search-box-item">
+<span class="hx-search-box-item">
     @if (Icon is not null)
 	{
 		<HxIcon CssClass="hx-search-box-item-icon" Icon="Icon" />
 	}
 
-	<div class="overflow-hidden">
+	<span class="overflow-hidden">
 		@if (!string.IsNullOrEmpty(Subtitle))
 		{
-			<div class="hx-search-box-item-title text-truncate">@Title</div>
-			<div class="hx-search-box-item-subtitle text-truncate">@Subtitle</div>
+			<span class="hx-search-box-item-title text-truncate">@Title</span>
+			<span class="hx-search-box-item-subtitle text-truncate">@Subtitle</span>
 		}
 		else
 		{
-			<div class="hx-search-box-item-title text-truncate">@Title</div>
+			<span class="hx-search-box-item-title text-truncate">@Title</span>
 		}
-	</div>
-</div>
+	</span>
+</span>

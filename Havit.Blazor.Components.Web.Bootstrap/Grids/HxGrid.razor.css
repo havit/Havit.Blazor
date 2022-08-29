@@ -1,22 +1,32 @@
-th ::deep i {
-    margin-left: .25rem;
-}
-
-::deep .hx-grid-sorted i {
+.hx-grid-sorted ::deep i {
     color: var(--hx-grid-sorted-icon-color);
 }
 
-::deep .hx-grid-sortable {
+.hx-grid-sortable {
     color: currentColor;
-
 }
 
-::deep .hx-grid-sortable i {
+.hx-grid-sortable ::deep i {
     visibility: hidden;
 }
 
-::deep th:hover.hx-grid-sortable i {
+th:hover.hx-grid-sortable ::deep i {
 	visibility: visible;
+}
+
+th > .hx-grid-header-cell-container {
+    display: inline-flex;
+    gap: .5rem;
+}
+
+th.hx-grid-sortable.text-end i,
+th.hx-grid-sorted.text-end i {
+    order: 0;
+}
+
+th.hx-grid-sortable.text-end .hx-grid-header-cell-template,
+th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
+    order: 1;
 }
 
 ::deep .hx-grid-btn {

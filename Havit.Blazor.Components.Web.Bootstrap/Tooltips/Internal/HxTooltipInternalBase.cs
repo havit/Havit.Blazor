@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
@@ -251,10 +252,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			if (jsModule != null)
 			{
-				if (isInitialized
-					&& (!String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal)))
+				if (isInitialized && (!String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal)))
 				{
+#if NET6_0_OR_GREATER
+					try
+					{
+						await jsModule.InvokeVoidAsync("destroy", spanElement);
+					}
+					catch (JSDisconnectedException)
+					{
+						// NOOP
+					}
+#else
 					await jsModule.InvokeVoidAsync("destroy", spanElement);
+#endif
 				}
 				await jsModule.DisposeAsync();
 				jsModule = null;

@@ -238,18 +238,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			validationMessageStore?.Clear();
 
-#if NET6_0_OR_GREATER
-			try
-			{
-				await CloseDropDownAsync();
-			}
-			catch (JSDisconnectedException)
-			{
-				// NOOP
-			}
-#else
 			await CloseDropDownAsync();
-#endif
 
 			if (jsModule != null)
 			{

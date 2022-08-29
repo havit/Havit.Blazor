@@ -31,7 +31,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Count of numbers to display. Default value is 10.
 		/// </summary>
-		[Parameter] public int DisplayNumberCount { get; set; } = 10; // TODO RH: Rename NumberCount? or VisibleNumericButtonCount #57515 Doc - Titles?
+		[Parameter] public int DisplayNumberCount { get; set; } = 10; // TODO RH: Rename NumberCount? or NumericButtonsCount #57515 Doc - Titles?
 
 		/// <summary>
 		/// Any additional CSS class to apply.

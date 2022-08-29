@@ -73,16 +73,18 @@
 								@if (columnSorting.Any())
 								{
 									<th @onclick="async () => await HandleSortingClick(columnSorting)" @onclick:stopPropagation role="button" class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable")">
-										@headerCellTemplate.Template
-										@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
-									 || (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
-										{
-											<HxIcon Icon="@this.GetDefaults().SortDescendingIcon" />
-										}
-										else
-										{
-											<HxIcon Icon="@this.GetDefaults().SortAscendingIcon" />
-										}
+										<div class="hx-grid-header-cell-container">
+											<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
+											@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
+										|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
+											{
+												<HxIcon Icon="@this.GetDefaults().SortDescendingIcon" />
+											}
+											else
+											{
+												<HxIcon Icon="@this.GetDefaults().SortAscendingIcon" />
+											}
+										</div>
 									</th>
 								}
 								else
@@ -196,34 +198,34 @@
 					        }
 						</text>;
 
-				@if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
-				{
-					<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective">
-						<ItemContent>
-							@rowTemplate(@context)
-						</ItemContent>
-						<Placeholder Context="placeholderContext">
-							<tr height="@rowHeight">
-								@foreach (IHxGridColumn<TItem> column in columnsToRender)
-								{
-									GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
-									<td class="@placeholderCellTemplate.CssClass">
-										@placeholderCellTemplate.Template
-									</td>
-								}
-							</tr>
-						</Placeholder>
-					</Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
-				}
+				        @if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
+				        {
+					        <Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective">
+						        <ItemContent>
+							        @rowTemplate(@context)
+						        </ItemContent>
+						        <Placeholder Context="placeholderContext">
+							        <tr height="@rowHeight">
+								        @foreach (IHxGridColumn<TItem> column in columnsToRender)
+								        {
+									        GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
+									        <td class="@placeholderCellTemplate.CssClass">
+										        @placeholderCellTemplate.Template
+									        </td>
+								        }
+							        </tr>
+						        </Placeholder>
+					        </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
+				        }
 
-				@if (ContentNavigationModeEffective == GridContentNavigationMode.Pagination)
-				{
-					foreach (TItem item in paginationDataItemsToRender)
-					{
-						@rowTemplate(item)
-					}
-				}
-			}
+				        @if (ContentNavigationModeEffective == GridContentNavigationMode.Pagination)
+				        {
+					        foreach (TItem item in paginationDataItemsToRender)
+					        {
+						        @rowTemplate(item)
+					        }
+				        }
+			        }
 				</tbody>
 				@{
 					GridFooterCellContext gridFooterCellContext = CreateGridFooterCellContext();

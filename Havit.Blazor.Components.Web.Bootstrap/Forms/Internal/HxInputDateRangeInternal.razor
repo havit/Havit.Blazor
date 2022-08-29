@@ -18,7 +18,7 @@
                     "hx-border-radius-end-0")"
                value="@FormatDate(Value.StartDate)"
                placeholder="@StringLocalizerFactory.GetLocalizedValue("From", typeof(HxInputDateRange))"
-               @onchange="HandleFromChangedAsync"
+               @onchange="HandleFromChanged"
                disabled="@(!EnabledEffective)"
                @attributes="this.AdditionalAttributes" />
 
@@ -50,7 +50,7 @@
                     "hx-border-radius-start-0 hx-border-radius-end-0")"
                value="@FormatDate(Value.EndDate)"
                placeholder="@StringLocalizerFactory.GetLocalizedValue("To", typeof(HxInputDateRange))"
-               @onchange="HandleToChangedAsync"
+               @onchange="HandleToChanged"
                disabled="@(!EnabledEffective)"
                @attributes="this.AdditionalAttributes" />
 

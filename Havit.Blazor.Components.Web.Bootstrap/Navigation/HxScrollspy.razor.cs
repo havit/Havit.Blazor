@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -31,6 +32,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private IJSObjectReference jsModule;
 		private ElementReference scrollspyElement;
 		private bool initialized;
+		private bool disposed;
 
 		/// <inheritdoc />
 		protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -40,6 +42,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (firstRender && !initialized)
 			{
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("initialize", scrollspyElement, TargetId);
 				initialized = true;
 			}
@@ -54,6 +60,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			if (initialized)
 			{
 				await EnsureJsModuleAsync();
+				if (disposed)
+				{
+					return;
+				}
 				await jsModule.InvokeVoidAsync("refresh", scrollspyElement);
 			}
 			else
@@ -77,9 +87,22 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		protected virtual async ValueTask DisposeAsyncCore()
 		{
+			disposed = true;
+
 			if (jsModule != null)
 			{
+#if NET6_0_OR_GREATER
+				try
+				{
+					await jsModule.InvokeVoidAsync("dispose", scrollspyElement);
+				}
+				catch (JSDisconnectedException)
+				{
+					// NOOP
+				}
+#else
 				await jsModule.InvokeVoidAsync("dispose", scrollspyElement);
+#endif
 				await jsModule.DisposeAsync();
 			}
 		}
