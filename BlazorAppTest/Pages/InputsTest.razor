@@ -29,6 +29,7 @@
                         <HxIcon Icon="@BootstrapIcon.Wrench" />Text Only...
                     </ValueTemplate>
                 </HxFormValue>
+                <HxFormValue Label="Empty" Hint="This item cannot be edited." />                    
                 <HxInputText Label="Text (large)" InputSize="InputSize.Large" @bind-Value="@context.TextBasic" Hint="@context.TextBasic" />
 
                 <HxInputText Label="Text (oninput)" @bind-Value="@context.TextOnInput" BindEvent="BindEvent.OnInput" Placeholder="Model updates oninput.">

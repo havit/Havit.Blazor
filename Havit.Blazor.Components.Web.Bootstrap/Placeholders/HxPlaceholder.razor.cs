@@ -1,6 +1,4 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Layouts;
-
-namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.2/components/placeholders/">Bootstrap 5 Placeholder</see> component, aka Skeleton.<br/>

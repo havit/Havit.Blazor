@@ -567,6 +567,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			};
 
 			GridDataProviderResult<TItem> gridDataProviderResponse = await InvokeDataProviderInternal(gridDataProviderRequest);
+			await Task.Yield(); // fixed issue 303 (https://github.com/havit/Havit.Blazor/issues/303)
 
 			if (!request.CancellationToken.IsCancellationRequested)
 			{

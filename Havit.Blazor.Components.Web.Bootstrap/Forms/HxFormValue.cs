@@ -111,6 +111,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(1, "class", CssClassHelper.Combine("form-control", ((IInputWithSize)this).GetInputSizeCssClass(), ValueCssClass));
 			builder.AddContent(2, Value);
 			builder.AddContent(3, ValueTemplate);
+			if (String.IsNullOrWhiteSpace(Value) && (ValueTemplate == null))
+			{
+				// workaround for [HxFormValue] Shrunk when displaying null/empty value #208
+				builder.AddMarkupContent(4, "&nbsp;");
+			}
 			builder.CloseElement();
 		}
 	}

@@ -198,6 +198,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				try
 				{
 					await jsModule.InvokeVoidAsync("dispose", buttonElementReference);
+					await jsModule.DisposeAsync();
 				}
 				catch (JSDisconnectedException)
 				{
@@ -205,8 +206,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 #else
 				await jsModule.InvokeVoidAsync("dispose", buttonElementReference);
-#endif
 				await jsModule.DisposeAsync();
+#endif
 			}
 
 			dotnetObjectReference.Dispose();

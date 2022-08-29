@@ -239,6 +239,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			await CloseDropDownAsync(fromDropdownToggleElement);
 			await CloseDropDownAsync(toDropdownToggleElement);
+
+			Dispose(false);
 		}
 	}
 }

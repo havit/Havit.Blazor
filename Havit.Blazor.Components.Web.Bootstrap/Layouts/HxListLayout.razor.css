@@ -45,3 +45,7 @@
 .hx-list-layout-named-view ::deep .hx-icon {
     font-size: .75rem;
 }
+
+.hx-list-layout-header .card-title {
+    margin-bottom: 0;
+}
