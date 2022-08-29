@@ -45,7 +45,7 @@ input:focus {
 	opacity: 1;
 }
 
-.hx-input-tags-control-focused:not(.hx-input-tags-naked) {
+.hx-input-tags-control:focus-within:not(.hx-input-tags-naked) {
 	box-shadow: var(--hx-input-tags-control-focused-box-shadow);
 	border-color: var(--hx-input-tags-control-focused-border-color);
 	outline: 0;
