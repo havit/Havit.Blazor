@@ -1,0 +1,23 @@
+﻿@attribute [Route("/components/" + nameof(HxCheckbox))]
+@attribute [Route("/components/HxInputCheckbox")]
+
+<ComponentApiDoc Type="typeof(HxCheckbox)">
+
+    <DocAlert Type="DocAlertType.Info">
+        <code>HxCheckbox</code> replaces the former <code>HxInputCheckbox</code> component, which is now obsolete.
+        <ul class="mb-0">
+            <li><code>HxInputCheckbox.Label</code> is now <code>HxCheckbox.Text</code></li>
+            <li>new <code>Label</code> parameter coresponds to the optional <code>.form-label</code></li>
+        </ul>
+    </DocAlert>
+
+    <h3>Basic usage</h3>
+    <Demo Type="typeof(HxCheckbox_Demo)" Tabs="false" />
+
+    <SectionTitle Id="Inline" />
+    <p>Group checkboxes on the same horizontal row by adding <code>Inline="true"</code> to the checkboxes.</p>
+    <Demo Type="typeof(HxCheckbox_Demo_Inline)" />
+
+    <h3>Button groups</h3>
+    <p><code>HxCheckbox</code> can be used within <a href="/components/HxButtonGroup#CheckboxesAndRadios">HxButtonGroup</a>.</p>
+</ComponentApiDoc>
