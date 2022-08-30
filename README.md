@@ -23,17 +23,16 @@ If you enjoy using [HAVIT Blazor](https://havit.blazor.eu/), you can [become a s
 
 * [`HxAutosuggest`](https://havit.blazor.eu/components/HxAutosuggest) - Component for single item selection with dynamic suggestions.
 * [`HxCalendar`](https://havit.blazor.eu/components/HxCalendar) - Basic calendar building block.
-* [`HxInputCheckbox`](https://havit.blazor.eu/components/HxInputCheckbox) - Checkbox input.
 * [`HxInputDate`](https://havit.blazor.eu/components/HxInputDate) - Date picker. Form input component for entering a date.
 * [`HxInputDateRange`](https://havit.blazor.eu/components/HxInputDateRange) - Date range picker. Form input component for entering start date and end date.
 * [`HxInputFile[Core]`](https://havit.blazor.eu/components/HxInputFile[Core]) - Wraps HxInputFileCore as Bootstrap form control (incl. Label etc.).
 * [`HxInputFileDropZone`](https://havit.blazor.eu/components/HxInputFileDropZone) - Ready-made UX for drag&amp;drop file upload.
 * [`HxInputNumber`](https://havit.blazor.eu/components/HxInputNumber) - Numeric input.
 * [`HxInputPercent`](https://havit.blazor.eu/components/HxInputPercent) - Numeric input in percentages with value normalization (0% = 0, 100% = 1.0).
-* [`HxInputSwitch`](https://havit.blazor.eu/components/HxInputSwitch) - Switch input.
 * [`HxInputTags`](https://havit.blazor.eu/components/HxInputTags) - Input for entering tags.
 * [`HxInputText`](https://havit.blazor.eu/components/HxInputText) - Text input (also password, search, etc.)
 * [`HxInputTextArea`](https://havit.blazor.eu/components/HxInputTextArea) - [Textarea](https://getbootstrap.com/docs/5.0/forms/floating-labels/#textareas).
+* [`HxCheckbox`](https://havit.blazor.eu/components/HxCheckbox) - Checkbox input.
 * [`HxCheckboxList`](https://havit.blazor.eu/components/HxCheckboxList) - Multiple choice by checkboxes.
 * [`HxFormState`](https://havit.blazor.eu/components/HxFormState) - Propagates form states as a cascading parementer to child components.
 * [`HxFormValue`](https://havit.blazor.eu/components/HxFormValue) - Displays a read-only value in the form control visual.
@@ -41,6 +40,7 @@ If you enjoy using [HAVIT Blazor](https://havit.blazor.eu/), you can [become a s
 * [`HxSelect`](https://havit.blazor.eu/components/HxSelect) - Select - DropDownList - single-item picker.
 * [`HxMultiSelect`](https://havit.blazor.eu/components/HxMultiSelect) - Unlike a normal select, multiselect allows the user to select multiple options at once.
 * [`HxSearchBox`](https://havit.blazor.eu/components/HxSearchBox) - A search input component witch automatic suggestions, initial dropdown template and free-text queries support.
+* [`HxSwitch`](https://havit.blazor.eu/components/HxSwitch) - Switch input.
 * [`HxFilterForm`](https://havit.blazor.eu/components/HxFilterForm) - Edit form derived from HxModelEditForm with support for chip generators.
 * [`HxValidationMessage`](https://havit.blazor.eu/components/HxValidationMessage) - Displays a list of validation messages for a specified field.
 

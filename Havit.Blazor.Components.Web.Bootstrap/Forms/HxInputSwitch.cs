@@ -1,9 +1,10 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Switch input.<br/>
-	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputSwitch">https://havit.blazor.eu/components/HxInputSwitch</see>.
+	/// Switch input.
+	/// Obsolete, use <see cref="HxSwitch"/> instead.
 	/// </summary>
+	[Obsolete("Use HxSwitch instead. The former Label parameter is now Text.")]
 	public class HxInputSwitch : HxInputCheckbox
 	{
 		/// <inheritdoc cref="HxInputCheckbox.CoreCssClass" />

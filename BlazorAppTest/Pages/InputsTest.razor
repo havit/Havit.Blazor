@@ -9,7 +9,7 @@
     <div class="card-header">OnClick propagation test</div>
     <div class="card-body">
 
-        <HxInputSwitch Label="Enabled" @bind-Value="@enabled" />
+        <HxSwitch Text="Enabled" @bind-Value="@enabled" />
 
         <HxFormState Enabled="@enabled">
 
@@ -62,7 +62,7 @@
                     <HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
                 </HxAutosuggest>
 
-                <HxInputCheckbox Label="InputCheckbox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()" />
+                <HxCheckbox Text="InputCheckbox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()" />
 
                 <HxCheckbox Label="CheckBox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()">
                     <TextTemplate>
@@ -70,7 +70,7 @@
                     </TextTemplate>
                 </HxCheckbox>
 
-                <HxInputSwitch Label="Switch" @bind-Value="@context.BoolSwitch" />
+                <HxSwitch Text="Switch" @bind-Value="@context.BoolSwitch" />
 
                 <HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
             </HxFilterForm>

@@ -5,8 +5,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Checkbox input.<br />
-	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputCheckbox">https://havit.blazor.eu/components/HxInputCheckbox</see>
+	/// Obsolete, use <see cref="HxCheckbox"/> instead.
 	/// </summary>
+	[Obsolete("Use HxCheckbox instead. The former Label parameter is now Text.")]
 	public class HxInputCheckbox : HxInputBase<bool>
 	{
 		/// <summary>
