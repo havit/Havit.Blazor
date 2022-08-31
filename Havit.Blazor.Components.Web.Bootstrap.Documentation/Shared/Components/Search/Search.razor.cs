@@ -97,6 +97,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 			new("/components/HxProgressIndicator", "HxProgressIndicator", "loading spinner"),
 			new("/components/HxRadioButtonList", "HxRadioButtonList", "multiselect"),
 			new("/components/HxRedirectTo", "HxRedirectTo", "navigateto 302 301 moved navigationmanager"),
+			new("/components/HxInputRange", "HxInputRange", "slider"),
 			new("/components/HxRepeater", "HxRepeater", "multi clone foreach iterator iterate"),
 			new("/components/HxScrollspy", "HxScrollspy", "anchor navigation link"),
 			new("/components/HxSearchBox", "HxSearchBox", "autosuggest autocomplete searchbar omnibox input"),

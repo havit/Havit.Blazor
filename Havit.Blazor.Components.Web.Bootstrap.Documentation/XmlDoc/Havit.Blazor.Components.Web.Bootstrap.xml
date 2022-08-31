@@ -3939,6 +3939,58 @@
             <inheritdoc/>
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1">
+            <summary>
+            Allows the user to select a number in a specified range using a slider.
+            </summary>
+            <typeparam name="TValue">Supported values: <c>byte (Byte), sbyte (SByte), short (Int16), ushort(UInt16), int (Int32), uint(UInt32), long (Int64), ulong(UInt64), float (Single), double (Double) and decimal (Decimal)</c>.</typeparam>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.GetDefaults">
+            <summary>
+            Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange"/> defaults.
+            Enables to not share defaults in descandants with base classes.
+            Enables to have multiple descendants which differs in the default values.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.Defaults"/>, overriden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Settings"/> for components descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Step">
+            <summary>
+            By default, <code>HxInputRange</code> snaps to integer values. To change this, you can specify a step value.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Min">
+            <summary>
+            Minimum value.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Max">
+            <summary>
+            Maximum value.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.BindEvent">
+            <summary>
+            Instructs whether the <c>Value</c> is going to be updated <c>oninput</c> (immediately), or <c>onchange</c> (usually <c>onmouseup</c>).<br />
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.BindEvent.OnChange"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1"/>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputSwitch">
             <summary>
             Switch input.
@@ -4641,6 +4693,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputMode">
             <summary>
             Hint to browsers as to the type of virtual keyboard configuration to use when editing.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings.BindEvent">
+            <summary>
+            Instructs whether the <code>Value</code> is going to be updated instantly, or <code>onchange</code> (usually <code>onmouseup</code>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputSizeExtensions.AsFormControlCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
