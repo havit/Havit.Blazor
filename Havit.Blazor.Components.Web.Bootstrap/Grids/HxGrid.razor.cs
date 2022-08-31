@@ -203,12 +203,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected string FooterRowCssClassEffective => this.FooterRowCssClass ?? this.GetSettings()?.FooterRowCssClass ?? GetDefaults().FooterRowCssClass;
 
 		/// <summary>
-		/// Custom CSS class to add to the pager.
-		/// </summary>
-		[Parameter] public string PagerCssClass { get; set; }
-		protected string PagerCssClassEffective => this.PagerCssClass ?? this.GetSettings()?.PagerCssClass ?? GetDefaults().PagerCssClass;
-
-		/// <summary>
 		/// Number of rows with placeholders to render.
 		/// When value is zero, placeholders are not used.
 		/// When <see cref="LoadingDataTemplate" /> is set, placeholder are not used.
