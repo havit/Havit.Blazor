@@ -7103,11 +7103,6 @@
             Default is <c>true</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.KeepItemsExpanded">
-            <summary>
-            Keeps expanded items expanded between sidebar collapses (when the entire sidebar is collapsed and expanded again).
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.ResponsiveBreakpoint">
             <summary>
             Breakpoint below which the sidebar switches to mobile version (exclusive).<br/>

@@ -68,11 +68,6 @@
 		[Parameter] public bool MultipleItemsExpansion { get; set; } = true;
 
 		/// <summary>
-		/// Keeps expanded items expanded between sidebar collapses (when the entire sidebar is collapsed and expanded again).
-		/// </summary>
-		[Parameter] public bool KeepItemsExpanded { get; set; }
-
-		/// <summary>
 		/// Breakpoint below which the sidebar switches to mobile version (exclusive).<br/>
 		/// Default is <see cref="SidebarResponsiveBreakpoint.Medium"/>.
 		/// </summary>
