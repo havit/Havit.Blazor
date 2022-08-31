@@ -50,7 +50,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 #if NET6_0_OR_GREATER
 		[EditorRequired]
 #endif
-		[Parameter] public int TotalPages { get; set; }  // TODO RH: Divide to na TotalItems a PageSize?
+		[Parameter] public int TotalPages { get; set; }
 
 		/// <summary>
 		/// Current page index. Zero based.
@@ -59,7 +59,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 #if NET6_0_OR_GREATER
 		[EditorRequired]
 #endif
-		[Parameter] public int CurrentPageIndex { get; set; }  // TODO RH: ActivePageIndex?
+		[Parameter] public int CurrentPageIndex { get; set; }
 
 		/// <summary>
 		/// Event raised where page index is changed.

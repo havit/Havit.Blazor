@@ -5127,11 +5127,6 @@
             Custom CSS class to render with footer <c>tr</c> element.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PagerCssClass">
-            <summary>
-            Custom CSS class to render with pager.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.Responsive">
             <summary>
             Allows the table to be scrolled horizontally with ease accross any breakpoint (adds the <c>table-responsive</c> class to the table).
@@ -5406,11 +5401,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.FooterRowCssClass">
             <summary>
             Custom CSS class to render with footer <c>tr</c> element.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PagerCssClass">
-            <summary>
-            Custom CSS class to add to the pager.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PlaceholdersRowCount">
