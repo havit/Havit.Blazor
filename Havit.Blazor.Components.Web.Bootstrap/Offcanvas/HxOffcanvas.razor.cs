@@ -256,7 +256,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					return;
 				}
-				await jsModule.InvokeVoidAsync("show", offcanvasElement, dotnetObjectReference, GetBackdropSetupValue(BackdropEffective), CloseOnEscapeEffective, ScrollingEnabledEffective);
+				await jsModule.InvokeVoidAsync("show", offcanvasElement, dotnetObjectReference, CloseOnEscapeEffective, ScrollingEnabledEffective);
 			}
 		}
 
@@ -273,11 +273,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 			else if (backdrop == OffcanvasBackdrop.True)
 			{
-				return true;
+				return true.ToString();
 			}
 			else
 			{
-				return false;
+				return false.ToString();
 			}
 		}
 
