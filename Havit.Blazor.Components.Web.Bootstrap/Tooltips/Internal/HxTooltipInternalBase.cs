@@ -24,7 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public bool Html { get; set; }
 
 		/// <summary>
-		/// Enable or disable the sanitization. If activated HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.1/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
+		/// Enable or disable the sanitization. If activated HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.2/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
 		/// </summary>
 		[Parameter] public bool Sanitize { get; set; } = true;
 

@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdownButtonGroup"/> to open.
+	/// <see href="https://getbootstrap.com/docs/5.2/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdownButtonGroup"/> to open.
 	/// </summary>
 	public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownToggle
 	{

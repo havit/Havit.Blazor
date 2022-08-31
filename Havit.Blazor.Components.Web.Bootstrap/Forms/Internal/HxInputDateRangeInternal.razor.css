@@ -17,8 +17,17 @@
     background-clip: border-box;
 }
 
-.hx-input-date-range-dropdown {
-    padding: var(--hx-input-date-range-dropdown-padding);
+.hx-input-date-range {
+    flex-wrap: nowrap;
+}
+
+/* Remove caret. */
+::deep .dropdown-toggle::after {
+    display: none !important;
+}
+
+::deep .hx-input-date-range-dropdown-content {
+    padding: var(--hx-input-date-dropdown-padding);
 }
 
 .hx-input-date-range-calendar {
@@ -28,4 +37,24 @@
 .hx-input-date-range-buttons {
     display: flex;
     justify-content: space-between;
+}
+
+::deep .hx-dropdown-with-calendar {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+    ::deep .hx-dropdown-with-calendar:focus-within {
+        z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be larger than 5 because otherwise the validation message is rendered on top. */
+    }
+
+::deep .hx-border-radius-start-0 {
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+}
+
+::deep .hx-border-radius-end-0 {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }

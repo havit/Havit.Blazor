@@ -1,6 +1,6 @@
 /**
  * --------------------------------------------------------------------------
- * Bootstrap (v5.1.3): util/sanitizer.js
+ * Bootstrap (v5.2.0): util/sanitizer.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  * --------------------------------------------------------------------------
  */
@@ -21,14 +21,14 @@ const ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i
 /**
  * A pattern that recognizes a commonly useful subset of URLs that are safe.
  *
- * Shoutout to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
+ * Shout-out to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
  */
 const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i
 
 /**
  * A pattern that matches safe data URLs. Only matches image, video and audio types.
  *
- * Shoutout to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
+ * Shout-out to Angular https://github.com/angular/angular/blob/12.2.x/packages/core/src/sanitization/url_sanitizer.ts
  */
 const DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i
 
@@ -43,16 +43,9 @@ const allowedAttribute = (attribute, allowedAttributeList) => {
     return true
   }
 
-  const regExp = allowedAttributeList.filter(attributeRegex => attributeRegex instanceof RegExp)
-
   // Check if a regular expression validates the attribute.
-  for (let i = 0, len = regExp.length; i < len; i++) {
-    if (regExp[i].test(attributeName)) {
-      return true
-    }
-  }
-
-  return false
+  return allowedAttributeList.filter(attributeRegex => attributeRegex instanceof RegExp)
+    .some(regex => regex.test(attributeName))
 }
 
 export const DefaultAllowlist = {
@@ -89,21 +82,20 @@ export const DefaultAllowlist = {
   ul: []
 }
 
-export function sanitizeHtml(unsafeHtml, allowList, sanitizeFn) {
+export function sanitizeHtml(unsafeHtml, allowList, sanitizeFunction) {
   if (!unsafeHtml.length) {
     return unsafeHtml
   }
 
-  if (sanitizeFn && typeof sanitizeFn === 'function') {
-    return sanitizeFn(unsafeHtml)
+  if (sanitizeFunction && typeof sanitizeFunction === 'function') {
+    return sanitizeFunction(unsafeHtml)
   }
 
   const domParser = new window.DOMParser()
   const createdDocument = domParser.parseFromString(unsafeHtml, 'text/html')
   const elements = [].concat(...createdDocument.body.querySelectorAll('*'))
 
-  for (let i = 0, len = elements.length; i < len; i++) {
-    const element = elements[i]
+  for (const element of elements) {
     const elementName = element.nodeName.toLowerCase()
 
     if (!Object.keys(allowList).includes(elementName)) {
@@ -115,11 +107,11 @@ export function sanitizeHtml(unsafeHtml, allowList, sanitizeFn) {
     const attributeList = [].concat(...element.attributes)
     const allowedAttributes = [].concat(allowList['*'] || [], allowList[elementName] || [])
 
-    attributeList.forEach(attribute => {
+    for (const attribute of attributeList) {
       if (!allowedAttribute(attribute, allowedAttributes)) {
         element.removeAttribute(attribute.nodeName)
       }
-    })
+    }
   }
 
   return createdDocument.body.innerHTML

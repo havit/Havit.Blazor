@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdown"/> to open.
+	/// <see href="https://getbootstrap.com/docs/5.2/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdown"/> to open.
 	/// </summary>
 	public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncDisposable
 	{
@@ -63,6 +63,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[CascadingParameter] protected HxNav NavContainer { get; set; }
 
 		[Inject] protected IJSRuntime JSRuntime { get; set; }
+
+		/// <summary>
+		/// Returns the element reference of rendered element.
+		/// </summary>
+		internal ElementReference ElementReference => elementReference;
 
 		private ElementReference elementReference;
 		private DotNetObjectReference<HxDropdownToggleElement> dotnetObjectReference;

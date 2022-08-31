@@ -27,13 +27,21 @@ public class HxCheckbox : HxInputBase<bool>
 	/// </summary>
 	[Parameter] public bool Inline { get; set; }
 
+	/// <summary>
+	/// Put the checkbox on the opposite side - first text, then checkbox.
+	/// </summary>
+	[Parameter] public bool Reverse { get; set; }
+
 	[Inject] protected IStringLocalizer<HxCheckbox> Localizer { get; set; }
 
 	/// <inheritdoc cref="HxInputBase{TValue}.CoreInputCssClass" />
 	private protected override string CoreInputCssClass => "form-check-input";
 
-	/// <inheritdoc cref="HxInputBase{TValue}.CoreCssClass" />		
-	private protected override string CoreCssClass => Inline ? CssClassHelper.Combine(base.CoreCssClass, this.CoreFormElementCssClass, "form-check-inline") : base.CoreCssClass;
+	/// <inheritdoc cref="HxInputBase{TValue}.CoreCssClass" />
+	private protected override string CoreCssClass => CssClassHelper.Combine(
+		base.CoreCssClass,
+		Inline ? CssClassHelper.Combine(CoreFormElementCssClass, "form-check-inline") : null,
+		Reverse ? "form-check-reverse" : null);
 
 	/// <summary>
 	/// CSS class for <c>form-check</c> element (e.g. allows adding <c>form-switch</c> in derived <see cref="HxSwitch"/>).
