@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using Havit.Diagnostics.Contracts;
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -566,7 +564,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				CancellationToken = request.CancellationToken
 			};
 
-			GridDataProviderResult<TItem> gridDataProviderResponse = await InvokeDataProviderInternal(gridDataProviderRequest);			
+			GridDataProviderResult<TItem> gridDataProviderResponse = await InvokeDataProviderInternal(gridDataProviderRequest);
 
 			if (!request.CancellationToken.IsCancellationRequested)
 			{
