@@ -49,7 +49,7 @@ input:focus {
 	box-shadow: var(--hx-input-tags-control-focused-box-shadow);
 	border-color: var(--hx-input-tags-control-focused-border-color);
 	outline: 0;
-	z-index: 6; /* Assures that the box shadow of the input is rendered on top of the input group (if an input group is rendered). */
+	z-index: 6; /* Ensures that the box shadow of the input is rendered on top of the input group (if an input group is rendered). */
 }
 
 .hx-input-tags-control-disabled:not(.hx-input-tags-naked) {
