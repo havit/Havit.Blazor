@@ -266,7 +266,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		/// <param name="backdrop"></param>
 		/// <returns></returns>
-		private object GetBackdropSetupValue(OffcanvasBackdrop backdrop)
+		private string GetBackdropSetupValue(OffcanvasBackdrop backdrop)
 		{
 			if (backdrop == OffcanvasBackdrop.Static)
 			{

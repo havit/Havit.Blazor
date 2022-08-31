@@ -150,7 +150,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			EditContext.NotifyFieldChanged(fromFieldIdentifier);
 			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
 
-			await CloseDropDownAsync(fromDropdownToggleElement);
+			await CloseDropdownAsync(fromDropdownToggleElement);
 		}
 
 		private async Task HandleToClearClickAsync()
@@ -159,17 +159,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			EditContext.NotifyFieldChanged(toFieldIdentifier);
 			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
 
-			await CloseDropDownAsync(toDropdownToggleElement);
+			await CloseDropdownAsync(toDropdownToggleElement);
 		}
 
 		private async Task HandleFromOKClickAsync()
 		{
-			await CloseDropDownAsync(fromDropdownToggleElement);
+			await CloseDropdownAsync(fromDropdownToggleElement);
 		}
 
 		private async Task HandleToOKClickAsync()
 		{
-			await CloseDropDownAsync(toDropdownToggleElement);
+			await CloseDropdownAsync(toDropdownToggleElement);
 		}
 
 		private async Task OpenDropDownAsync(HxDropdownToggleElement triggerElement)
@@ -178,7 +178,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await triggerElement.ShowAsync();
 		}
 
-		private async Task CloseDropDownAsync(HxDropdownToggleElement triggerElement)
+		private async Task CloseDropdownAsync(HxDropdownToggleElement triggerElement)
 		{
 			Contract.Assert<ArgumentNullException>(triggerElement != null, nameof(triggerElement));
 			await triggerElement.HideAsync();
@@ -190,7 +190,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			EditContext.NotifyFieldChanged(fromFieldIdentifier);
 			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
 
-			await CloseDropDownAsync(fromDropdownToggleElement);
+			await CloseDropdownAsync(fromDropdownToggleElement);
 			await OpenDropDownAsync(toDropdownToggleElement);
 		}
 
@@ -200,7 +200,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			EditContext.NotifyFieldChanged(toFieldIdentifier);
 			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
 
-			await CloseDropDownAsync(toDropdownToggleElement);
+			await CloseDropdownAsync(toDropdownToggleElement);
 		}
 
 		protected void HandleDateRangeClick(DateTimeRange value)
@@ -235,8 +235,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			validationMessageStore?.Clear();
 
-			await CloseDropDownAsync(fromDropdownToggleElement);
-			await CloseDropDownAsync(toDropdownToggleElement);
+#if NET6_0_OR_GREATER
+			try
+			{
+				await CloseDropdownAsync(fromDropdownToggleElement);
+				await CloseDropdownAsync(toDropdownToggleElement);
+			}
+			catch (JSDisconnectedException)
+			{
+
+			}
+#else
+			await CloseDropdownAsync(fromDropdownToggleElement);
+			await CloseDropdownAsync(toDropdownToggleElement);
+#endif
 
 			Dispose(false);
 		}

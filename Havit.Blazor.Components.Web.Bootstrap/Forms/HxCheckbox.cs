@@ -37,11 +37,10 @@ public class HxCheckbox : HxInputBase<bool>
 	/// <inheritdoc cref="HxInputBase{TValue}.CoreInputCssClass" />
 	private protected override string CoreInputCssClass => "form-check-input";
 
-	/// <inheritdoc cref="HxInputBase{TValue}.CoreCssClass" />		
+	/// <inheritdoc cref="HxInputBase{TValue}.CoreCssClass" />
 	private protected override string CoreCssClass => CssClassHelper.Combine(
 		base.CoreCssClass,
-		CoreFormElementCssClass,
-		Inline ? "form-check-inline" : null,
+		Inline ? CssClassHelper.Combine(CoreFormElementCssClass, "form-check-inline") : null,
 		Reverse ? "form-check-reverse" : null);
 
 	/// <summary>

@@ -3110,7 +3110,7 @@
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreCssClass">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreCssClass" />		
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreCssClass" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreFormElementCssClass">
             <summary>
