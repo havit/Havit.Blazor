@@ -29,6 +29,7 @@ If you enjoy using [HAVIT Blazor](https://havit.blazor.eu/), you can [become a s
 * [`HxInputFileDropZone`](https://havit.blazor.eu/components/HxInputFileDropZone) - Ready-made UX for drag&amp;drop file upload.
 * [`HxInputNumber`](https://havit.blazor.eu/components/HxInputNumber) - Numeric input.
 * [`HxInputPercent`](https://havit.blazor.eu/components/HxInputPercent) - Numeric input in percentages with value normalization (0% = 0, 100% = 1.0).
+* [`HxInputRange`](https://havit.blazor.eu/components/HxInputRange) - Range input (slider).
 * [`HxInputTags`](https://havit.blazor.eu/components/HxInputTags) - Input for entering tags.
 * [`HxInputText`](https://havit.blazor.eu/components/HxInputText) - Text input (also password, search, etc.)
 * [`HxInputTextArea`](https://havit.blazor.eu/components/HxInputTextArea) - [Textarea](https://getbootstrap.com/docs/5.2/forms/floating-labels/#textareas).
