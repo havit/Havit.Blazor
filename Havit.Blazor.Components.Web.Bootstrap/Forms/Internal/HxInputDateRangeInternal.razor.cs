@@ -12,8 +12,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public string InputCssClass { get; set; }
 
-		[Parameter] public string InvalidCssClass { get; set; }
-
 		[Parameter] public InputSize InputSizeEffective { get; set; }
 
 		[Parameter] public bool EnabledEffective { get; set; } = true;

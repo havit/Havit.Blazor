@@ -141,7 +141,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			builder.AddAttribute(200, nameof(HxInputDateRangeInternal.FromInputId), InputId);
 			builder.AddAttribute(201, nameof(HxInputDateRangeInternal.InputCssClass), GetInputCssClassToRender());
-			builder.AddAttribute(202, nameof(HxInputDateRangeInternal.InvalidCssClass), InvalidCssClass);
 			builder.AddAttribute(203, nameof(HxInputDateRangeInternal.InputSizeEffective), this.InputSizeEffective);
 			builder.AddAttribute(204, nameof(HxInputDateRangeInternal.EnabledEffective), EnabledEffective);
 			builder.AddAttribute(205, nameof(HxInputDateRangeInternal.FromParsingErrorMessageEffective), GetFromParsingErrorMessage());
