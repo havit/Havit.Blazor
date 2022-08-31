@@ -19,7 +19,7 @@
 
 		private string GetPositionCss()
 		{
-			// https://getbootstrap.com/docs/5.0/utilities/position/#center-elements
+			// https://getbootstrap.com/docs/5.2/utilities/position/#center-elements
 			return this.Position switch
 			{
 				ToastContainerPosition.TopStart => "position-fixed top-0 start-0",

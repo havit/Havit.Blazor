@@ -11,8 +11,9 @@
 		LabelValue,
 
 		/// <summary>
-		/// Render value/input first, then label (ie. <see cref="HxInputCheckbox" />).
+		/// Render value/input first, then label (ie. former HxInputCheckbox).
 		/// </summary>
+		// TODO Remove when HxInputCheckbox removed?
 		ValueLabel,
 
 		/// <summary>

@@ -7,13 +7,13 @@
 
 <h4>Inside the edit form</h4>
 <EditForm @bind-Model="@model">
-    <HxInputCheckbox Inline="true" Label="Value 1" @bind-Value="@model.Value1" />
-    <HxInputCheckbox Inline="true" Label="Value 2" @bind-Value="@model.Value2" />
+    <HxCheckbox Inline="true" Text="Value 1" @bind-Value="@model.Value1" />
+    <HxCheckbox Inline="true" Text="Value 2" @bind-Value="@model.Value2" />
 </EditForm>
 
 <h4>Without the edit form</h4>
-<HxInputCheckbox Inline="true" Label="Value 1" @bind-Value="@model.Value1" />
-<HxInputCheckbox Inline="true" Label="Value 2" @bind-Value="@model.Value2" />
+<HxCheckbox Inline="true" Text="Value 1" @bind-Value="@model.Value1" />
+<HxCheckbox Inline="true" Text="Value 2" @bind-Value="@model.Value2" />
 
 @code
 {

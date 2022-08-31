@@ -1,5 +1,5 @@
 .hx-list-layout ::deep .card-body {
-    border-bottom: 1px solid var(--bs-gray-200);
+    border-bottom: 1px solid var(--bs-card-border-color);
 }
 
 .hx-list-layout-header ::deep button {
@@ -44,4 +44,8 @@
 
 .hx-list-layout-named-view ::deep .hx-icon {
     font-size: .75rem;
+}
+
+.hx-list-layout-header .card-title {
+    margin-bottom: 0;
 }

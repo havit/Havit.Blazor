@@ -5,8 +5,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Checkbox input.<br />
-	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputCheckbox">https://havit.blazor.eu/components/HxInputCheckbox</see>
+	/// Obsolete, use <see cref="HxCheckbox"/> instead.
 	/// </summary>
+	[Obsolete("Use HxCheckbox instead. The former Label parameter is now Text.")]
 	public class HxInputCheckbox : HxInputBase<bool>
 	{
 		/// <summary>
@@ -14,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool Inline { get; set; }
 
-		[Inject] protected IStringLocalizer<HxInputCheckbox> Localizer { get; set; }
+		[Inject] protected IStringLocalizer<HxCheckbox> Localizer { get; set; } // shares values with a newer HxCheckBox
 
 		/// <inheritdoc cref="LabelValueRenderOrder" />
 		protected override LabelValueRenderOrder RenderOrder => LabelValueRenderOrder.ValueLabel;

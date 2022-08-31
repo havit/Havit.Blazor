@@ -1,14 +1,17 @@
-.hx-input-date > button, .hx-input-date:not(.hx-input-date-predefined-dates) .form-control {
+.hx-input-date > .hx-input-date-predefined-dates-button,
+.hx-input-date-wrapper:not(.hx-input-date-predefined-dates) .form-control {
 	border-top-right-radius: .25rem !important;
 	border-bottom-right-radius: .25rem !important;
 }
 
-.input-group-sm > .hx-input-date > button, .hx-input-date:not(.hx-input-date-predefined-dates) .form-control {
+.input-group-sm .hx-input-date-predefined-dates-button,
+.hx-input-date-wrapper:not(.hx-input-date-predefined-dates) .form-control {
 	border-top-right-radius: .2rem !important;
 	border-bottom-right-radius: .2rem !important;
 }
 
-.input-group-lg > .hx-input-date > button, .hx-input-date:not(.hx-input-date-predefined-dates) .form-control {
+.input-group-lg .hx-input-date-predefined-dates-button,
+.hx-input-date-wrapper:not(.hx-input-date-predefined-dates) .form-control {
 	border-top-right-radius: .3rem !important;
 	border-bottom-right-radius: .3rem !important;
 }
@@ -25,15 +28,15 @@
 	cursor: pointer;
 }
 
-.hx-input-date-dropdown {
+::deep .hx-input-date .dropdown-menu {
 	padding: var(--hx-input-date-dropdown-padding);
 }
 
-.hx-input-date-calendar {
+::deep .hx-input-date-calendar {
 	margin-bottom: var(--hx-input-date-calendar-margin-bottom);
 }
 
-.hx-input-date-dropdown-buttons {
+::deep .hx-input-date-dropdown-buttons {
 	display: flex;
 	justify-content: space-between;
 }
@@ -43,7 +46,7 @@
 }
 
 .hx-input-date-has-calendar-icon .is-invalid {
-    background-position: right calc(0.375em + 2rem) center;
+	background-position: right calc(0.375em + 2rem) center;
 }
 
 .hx-input-date-has-calendar-icon .form-control {
@@ -63,23 +66,49 @@
 }
 
 .hx-input-date-has-calendar-icon.input-group-sm .form-control {
-    padding-right: 4rem;
+	padding-right: 4rem;
 }
 
 .input-group-sm > .hx-input-date-icon {
-    font-size: .75rem;
+	font-size: .75rem;
 }
 
 .hx-input-date-icon {
-    z-index: 10;
+	z-index: 10;
 }
 
-.hx-input-date.input-group input.form-control.hx-input-date-no-right-border {
+.hx-input-date-predefined-dates ::deep input.form-control {
 	border-top-right-radius: 0 !important;
 	border-bottom-right-radius: 0 !important;
 }
 
-::deep.form-floating label {
-    /* ::deep.form-floating - there MUST NOT be a space between ::deep and .form-floating */
-    z-index: 10;
+/* Remove caret. */
+::deep .dropdown-toggle::after {
+	display: none !important;
+}
+
+::deep .form-floating label {
+	z-index: 10;
+}
+
+.hx-input-date-wrapper {
+	width: 100%;
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+}
+
+::deep .hx-input-date {
+	flex-grow: 1;
+	flex-shrink: 1;
+	min-width: 0;
+}
+
+::deep .hx-input-date:focus-within {
+	z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be greater than 5 because otherwise the validation message is rendered on top. */
+}
+
+::deep .hx-input-date-predefined-dates-button {
+	border-bottom-left-radius: 0 !important;
+	border-top-left-radius: 0 !important;
 }

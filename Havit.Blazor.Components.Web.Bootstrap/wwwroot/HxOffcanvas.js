@@ -1,4 +1,4 @@
-﻿export function show(element, hxOffcanvasDotnetObjectReference, backdropEnabled, closeOnEscape, scrollingEnabled) {
+﻿export function show(element, hxOffcanvasDotnetObjectReference, closeOnEscape, scrollingEnabled) {
 	if (window.offcanvasElement) {
 		let previousOffcanvas = bootstrap.Offcanvas.getInstance(window.offcanvasElement);
 		if (previousOffcanvas) {
@@ -16,7 +16,6 @@
 	window.offcanvasElement = element;
 
 	let offcanvas = new bootstrap.Offcanvas(element, {
-		backdrop: backdropEnabled,
 		keyboard: closeOnEscape,
 		scroll: scrollingEnabled
 	});

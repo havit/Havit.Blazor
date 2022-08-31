@@ -76,11 +76,6 @@
 		public string FooterRowCssClass { get; set; }
 
 		/// <summary>
-		/// Custom CSS class to render with pager.
-		/// </summary>
-		public string PagerCssClass { get; set; }
-
-		/// <summary>
 		/// Allows the table to be scrolled horizontally with ease accross any breakpoint (adds the <c>table-responsive</c> class to the table).
 		/// </summary>
 		public bool? Responsive { get; set; }
@@ -94,5 +89,10 @@
 		/// Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> (alternating rows).
 		/// </summary>
 		public bool? Striped { get; set; }
+
+		/// <summary>
+		/// Pager settings.
+		/// </summary>
+		public PagerSettings PagerSettings { get; set; }
 	}
 }
