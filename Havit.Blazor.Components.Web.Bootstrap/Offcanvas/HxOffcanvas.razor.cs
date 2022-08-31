@@ -180,6 +180,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		private bool opened = false; // indicates whether the offcanvas is open
 		private bool shouldOpenOffcanvas = false; // indicates whether the offcanvas is going to be opened
+		private string offcanvasId = "hx" + Guid.NewGuid().ToString("N");
 		private DotNetObjectReference<HxOffcanvas> dotnetObjectReference;
 		private ElementReference offcanvasElement;
 		private IJSObjectReference jsModule;
