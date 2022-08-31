@@ -273,11 +273,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 			else if (backdrop == OffcanvasBackdrop.True)
 			{
-				return true.ToString();
+				return "true";
 			}
 			else
 			{
-				return false.ToString();
+				return "false";
 			}
 		}
 

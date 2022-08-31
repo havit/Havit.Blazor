@@ -7658,14 +7658,19 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.DisposeAsync">
             <inheritdoc />
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.False">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop">
             <summary>
-            No backdrop will be rendered. User can interact with other parts of the app while the offcanvas is open.
+            Options for controlling the behavior of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Backdrop"/>.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.True">
             <summary>
             A backdrop will be rendered. Offcanvas will be closed upon clicking on the backdrop.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.False">
+            <summary>
+            No backdrop will be rendered. User can interact with other parts of the app while the offcanvas is open.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.Static">
@@ -7690,9 +7695,14 @@
             Needed for HxFilterForm with HxChipList.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint">
+            <summary>
+            Content is displayed using the offcanvas when below this breakpoint, otherwise, contents are rendered in-place.
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.None">
             <summary>
-            Offcanvas disabled, always render contents inside the viewport.
+            Always render contents outside the viewport in an offcanvas.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.Small">

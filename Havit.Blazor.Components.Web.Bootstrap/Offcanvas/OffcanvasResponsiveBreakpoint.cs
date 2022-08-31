@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
+/// <summary>
+/// Content is displayed using the offcanvas when below this breakpoint, otherwise, contents are rendered in-place.
+/// </summary>
 public enum OffcanvasResponsiveBreakpoint
 {
 	/// <summary>
-	/// Offcanvas disabled, always render contents inside the viewport.
+	/// Always render contents outside the viewport in an offcanvas.
 	/// </summary>
 	None = 0,
 
