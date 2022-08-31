@@ -2829,7 +2829,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder.ValueLabel">
             <summary>
-            Render value/input first, then label (ie. <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox" />).
+            Render value/input first, then label (ie. former HxInputCheckbox).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder.ValueOnly">
@@ -3078,9 +3078,49 @@
             Input size. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.InputSize.Regular"/>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox">
+            <summary>
+            Checkbox input.<br />
+            (Replaces the former <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox"/> component which is now obsolete.)
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckbox">https://havit.blazor.eu/components/HxCheckbox</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Text">
+            <summary>
+            Text to display next to the checkbox.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.TextTemplate">
+            <summary>
+            Content to display next to the checkbox.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Inline">
+            <summary>
+            Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.		
+            Works only when there is no label, no hint and no validation message.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreInputCssClass">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreCssClass">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreCssClass" />		
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreFormElementCssClass">
+            <summary>
+            CSS class for <c>form-check</c> element (e.g. allows adding <c>form-switch</c> in derived <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/>).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
+            <inheritdoc />
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2">
             <summary>
-            Renders a multi-selection list of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox"/> controls.<br />
+            Renders a multi-selection list of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox"/> controls.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckboxList">https://havit.blazor.eu/components/HxCheckboxList</see>
             </summary>
         </member>
@@ -3124,32 +3164,32 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemCssClass">
             <summary>
-            Additional CSS class(es) for underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox" />.
+            Additional CSS class(es) for underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemCssClassSelector">
             <summary>
-            Additional CSS class(es) for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox" />.
+            Additional CSS class(es) for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemInputCssClass">
             <summary>
-            Additional CSS class(es) for the input element of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox" />.
+            Additional CSS class(es) for the input element of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemInputCssClassSelector">
             <summary>
-            Additional CSS class(es) for the input element of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox" />.
+            Additional CSS class(es) for the input element of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemTextCssClass">
             <summary>
-            Additional CSS class(es) for the text of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox" />.
+            Additional CSS class(es) for the text of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemTextCssClassSelector">
             <summary>
-            Additional CSS class(es) for the text of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox" />.
+            Additional CSS class(es) for the text of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.AutoSort">
@@ -3518,7 +3558,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox">
             <summary>
             Checkbox input.<br />
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputCheckbox">https://havit.blazor.eu/components/HxInputCheckbox</see>
+            Obsolete, use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.Inline">
@@ -3901,8 +3941,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputSwitch">
             <summary>
-            Switch input.<br/>
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputSwitch">https://havit.blazor.eu/components/HxInputSwitch</see>.
+            Switch input.
+            Obsolete, use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputSwitch.CoreCssClass">
@@ -3940,7 +3980,7 @@
             <summary>
             <see href="https://getbootstrap.com/docs/5.2/forms/floating-labels/#textareas" target="_blank">Textarea</see>.
             To set a custom height, do not use the rows attribute. Instead, set an explicit height (either inline or via custom CSS).<br />
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputTextArea">https://havit.blazor.eu/components/HxInputTextArea</see>.
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputTextArea">https://havit.blazor.eu/components/HxInputTextArea</see>
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextArea.GetElementName">
@@ -4402,6 +4442,16 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.TryParseValueFromString(System.String,`0@,System.String@)">
             <inheritdoc/>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch">
+            <summary>
+            Switch input.<br/>
+            (Replaces the former <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputSwitch"/> component which is now obsolete.)<br/>
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSwitch">https://havit.blazor.eu/components/HxSwitch</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.CoreFormElementCssClass">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreFormElementCssClass" />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1">
             <summary>

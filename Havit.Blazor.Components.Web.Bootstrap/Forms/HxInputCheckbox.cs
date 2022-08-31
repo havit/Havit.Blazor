@@ -5,8 +5,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
 	/// Checkbox input.<br />
-	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputCheckbox">https://havit.blazor.eu/components/HxInputCheckbox</see>
+	/// Obsolete, use <see cref="HxCheckbox"/> instead.
 	/// </summary>
+	[Obsolete("Use HxCheckbox instead. The former Label parameter is now Text.")]
 	public class HxInputCheckbox : HxInputBase<bool>
 	{
 		/// <summary>
@@ -14,12 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool Inline { get; set; }
 
-		/// <summary>
-		/// Put the checkbox on the opposite side - first text, then checkbox.
-		/// </summary>
-		[Parameter] public bool Reverse { get; set; }
-
-		[Inject] protected IStringLocalizer<HxInputCheckbox> Localizer { get; set; }
+		[Inject] protected IStringLocalizer<HxCheckbox> Localizer { get; set; } // shares values with a newer HxCheckBox
 
 		/// <inheritdoc cref="LabelValueRenderOrder" />
 		protected override LabelValueRenderOrder RenderOrder => LabelValueRenderOrder.ValueLabel;
@@ -33,11 +29,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					return "position-relative";
 				}
-				return CssClassHelper.Combine(
-					"form-check",
-					this.Inline ? "form-check-inline" : null,
-					"position-relative",
-					this.Reverse ? "form-check-reverse" : null);
+				return CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null, "position-relative");
 			}
 		}
 
