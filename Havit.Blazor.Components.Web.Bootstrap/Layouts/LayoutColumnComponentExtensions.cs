@@ -1,4 +1,4 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Layouts
+﻿namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	public static class LayoutColumnComponentExtensions
 	{

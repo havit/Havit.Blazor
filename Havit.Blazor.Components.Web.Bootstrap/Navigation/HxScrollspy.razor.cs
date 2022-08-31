@@ -4,7 +4,7 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</see> component.<br />
+	/// <see href="https://getbootstrap.com/docs/5.2/components/scrollspy/">Bootstrap Scrollspy</see> component.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxScrollspy">https://havit.blazor.eu/components/HxScrollspy</see>
 	/// </summary>
 	public partial class HxScrollspy : IAsyncDisposable
@@ -95,6 +95,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				try
 				{
 					await jsModule.InvokeVoidAsync("dispose", scrollspyElement);
+					await jsModule.DisposeAsync();
 				}
 				catch (JSDisconnectedException)
 				{
@@ -102,8 +103,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 #else
 				await jsModule.InvokeVoidAsync("dispose", scrollspyElement);
-#endif
 				await jsModule.DisposeAsync();
+#endif
 			}
 		}
 	}

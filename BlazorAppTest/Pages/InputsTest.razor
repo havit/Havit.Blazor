@@ -9,7 +9,7 @@
     <div class="card-header">OnClick propagation test</div>
     <div class="card-body">
 
-        <HxInputSwitch Label="Enabled" @bind-Value="@enabled" />
+        <HxSwitch Text="Enabled" @bind-Value="@enabled" />
         <HxSelect Label="Validation message display mode" @bind-Value="@validationMessageDisplayMode" Data="@validationMessageDisplayModes" Nullable="false" />
         
         <HxFormState Enabled="@enabled">
@@ -30,6 +30,7 @@
                         <HxIcon Icon="@BootstrapIcon.Wrench" />Text Only...
                     </ValueTemplate>
                 </HxFormValue>
+                <HxFormValue Label="Empty" Hint="This item cannot be edited." />                    
                 <HxInputText Label="Text (large)" InputSize="InputSize.Large" @bind-Value="@context.TextBasic" Hint="@context.TextBasic" ValidationMessageDisplayMode="@validationMessageDisplayMode" />
 
                 <HxInputText Label="Text (oninput)" @bind-Value="@context.TextOnInput" BindEvent="BindEvent.OnInput" Placeholder="Model updates oninput." ValidationMessageDisplayMode="@validationMessageDisplayMode">
@@ -62,9 +63,15 @@
                     <HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
                 </HxAutosuggest>
 
-                <HxInputCheckbox Label="Checkbox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()" ValidationMessageDisplayMode="@validationMessageDisplayMode" />
+                <HxCheckbox Text="InputCheckbox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()" ValidationMessageDisplayMode="@validationMessageDisplayMode" />
 
-                <HxInputSwitch Label="Switch" @bind-Value="@context.BoolSwitch" ValidationMessageDisplayMode="@validationMessageDisplayMode" />
+                <HxCheckbox Label="CheckBox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()" ValidationMessageDisplayMode="@validationMessageDisplayMode">
+                    <TextTemplate>
+                        Some <i>text</i> content to render...
+                    </TextTemplate>
+                </HxCheckbox>
+
+                <HxSwitch Text="Switch" @bind-Value="@context.BoolSwitch" ValidationMessageDisplayMode="@validationMessageDisplayMode" />
 
                 <HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
             </HxFilterForm>

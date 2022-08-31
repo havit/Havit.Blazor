@@ -18,7 +18,7 @@
 
 		HxButton.Defaults.Size = ButtonSize.Small;
 		
-		HxOffcanvas.Defaults.BackdropEnabled = false;
+		HxOffcanvas.Defaults.Backdrop = OffcanvasBackdrop.Static;
 		HxOffcanvas.Defaults.HeaderCssClass = "border-bottom";
 		HxOffcanvas.Defaults.FooterCssClass = "border-top";
 		

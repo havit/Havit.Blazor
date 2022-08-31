@@ -1,0 +1,46 @@
+﻿@page "/HxInputDate_Issue83_Test.razor"
+
+<h1>Issue 83</h1>
+
+<EditForm EditContext="@numberEditContext">
+    <HxInputNumber @bind-Value="@numberModel.Value" Label="Number" />
+    <HxButton Text="Submit" Enabled="@(!numberEditContext.GetValidationMessages().Any())" Color="ThemeColor.Primary" />
+</EditForm>
+
+<EditForm EditContext="@dateEditContext">
+    <HxInputDate @bind-Value="@dateModel.Value" Label="Date" />
+    <HxButton Text="Submit" Enabled="@(!dateEditContext.GetValidationMessages().Any())" Color="ThemeColor.Primary" />
+</EditForm>
+
+@code
+{
+    private EditContext numberEditContext;
+    private GenericModel<int> numberModel;
+
+    private EditContext dateEditContext;
+    private GenericModel<DateTime> dateModel;
+
+    private void HandleValidationStateChanged(object sender, ValidationStateChangedEventArgs args)
+    {
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        numberModel = new GenericModel<int>();
+        numberEditContext = new EditContext(numberModel);
+        numberEditContext.OnValidationStateChanged += HandleValidationStateChanged;
+
+        dateModel = new GenericModel<DateTime>();
+        dateEditContext = new EditContext(numberModel);
+        dateEditContext.OnValidationStateChanged += HandleValidationStateChanged;
+    }
+
+    private class GenericModel<T>
+    {
+        public T Value { get; set; }
+    }
+
+}

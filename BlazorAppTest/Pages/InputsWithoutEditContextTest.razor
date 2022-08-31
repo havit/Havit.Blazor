@@ -12,8 +12,8 @@
 <HxInputDate Label="Date" @bind-Value="@dateValue" ParsingErrorMessage="Enter correct Date." />
 <HxInputDateRange Label="DateRange" @bind-Value="@dateRangeValue" FromParsingErrorMessage="Enter correct date from." ToParsingErrorMessage="Enter correct date to." />
 
-<HxInputCheckbox Label="Checkbox" @bind-Value="@boolValue" />
-<HxInputCheckbox Label="Checkbox" CssClass="form-switch" @bind-Value="@boolValue" />
+<HxCheckbox Text="Checkbox" @bind-Value="@boolValue" />
+<HxCheckbox Text="Checkbox" CssClass="form-switch" @bind-Value="@boolValue" />
 
 <HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
 

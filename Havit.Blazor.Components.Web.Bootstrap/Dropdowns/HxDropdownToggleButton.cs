@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.1/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdownButtonGroup"/> to open.
+	/// <see href="https://getbootstrap.com/docs/5.2/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdownButtonGroup"/> to open.
 	/// </summary>
 	public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownToggle
 	{
@@ -80,7 +80,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if ((DropdownContainer is not null) && (DropdownContainer is not HxDropdownButtonGroup))
 			{
-				throw new InvalidOperationException("HxDropdownToggleButton is expected to used inside HxDropdownButtonGroup rather than generic HxDropdown (breaking-change in v2.6.0).");
+				throw new InvalidOperationException($"{nameof(HxDropdownToggleButton)} is expected to used inside {nameof(HxDropdownButtonGroup)} rather than generic {nameof(HxDropdown)} (breaking-change in v2.6.0).");
+			}
+
+			if (!String.IsNullOrEmpty(this.Tooltip))
+			{
+				throw new InvalidOperationException($"{nameof(HxDropdownToggleButton)} does not support {nameof(Tooltip)}.");
 			}
 
 			AdditionalAttributes ??= new Dictionary<string, object>();
@@ -198,6 +203,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				try
 				{
 					await jsModule.InvokeVoidAsync("dispose", buttonElementReference);
+					await jsModule.DisposeAsync();
 				}
 				catch (JSDisconnectedException)
 				{
@@ -205,8 +211,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				}
 #else
 				await jsModule.InvokeVoidAsync("dispose", buttonElementReference);
-#endif
 				await jsModule.DisposeAsync();
+#endif
 			}
 
 			dotnetObjectReference.Dispose();

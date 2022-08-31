@@ -45,10 +45,11 @@ input:focus {
 	opacity: 1;
 }
 
-.hx-input-tags-control-focused:not(.hx-input-tags-naked) {
+.hx-input-tags-control:focus-within:not(.hx-input-tags-naked) {
 	box-shadow: var(--hx-input-tags-control-focused-box-shadow);
 	border-color: var(--hx-input-tags-control-focused-border-color);
 	outline: 0;
+	z-index: 6; /* Ensures that the box shadow of the input is rendered on top of the input group (if an input group is rendered). */
 }
 
 .hx-input-tags-control-disabled:not(.hx-input-tags-naked) {

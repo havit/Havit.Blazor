@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using Havit.Diagnostics.Contracts;
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
@@ -135,6 +133,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected bool ShowFooterWhenEmptyDataEffective => this.ShowFooterWhenEmptyData ?? this.GetSettings()?.ShowFooterWhenEmptyData ?? GetDefaults().ShowFooterWhenEmptyData ?? throw new InvalidOperationException(nameof(ShowFooterWhenEmptyData) + " default for " + nameof(HxGrid) + " has to be set.");
 
 		/// <summary>
+		/// Pager settings.
+		/// </summary>
+		[Parameter] public PagerSettings PagerSettings { get; set; }
+		protected PagerSettings PagerSettingsEffective => this.PagerSettings ?? this.GetSettings()?.PagerSettings ?? GetDefaults().PagerSettings;
+
+		/// <summary>
 		/// Current grid state (page, sorting).
 		/// </summary>
 		[Parameter] public GridUserState<TItem> CurrentUserState { get; set; } = new GridUserState<TItem>();
@@ -195,12 +199,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public string FooterRowCssClass { get; set; }
 		protected string FooterRowCssClassEffective => this.FooterRowCssClass ?? this.GetSettings()?.FooterRowCssClass ?? GetDefaults().FooterRowCssClass;
-
-		/// <summary>
-		/// Custom CSS class to add to the pager.
-		/// </summary>
-		[Parameter] public string PagerCssClass { get; set; }
-		protected string PagerCssClassEffective => this.PagerCssClass ?? this.GetSettings()?.PagerCssClass ?? GetDefaults().PagerCssClass;
 
 		/// <summary>
 		/// Number of rows with placeholders to render.

@@ -8,7 +8,7 @@
 		Horizontal = 0,
 
 		/// <summary>
-		/// <see href="https://getbootstrap.com/docs/5.0/components/button-group/#vertical-variation">https://getbootstrap.com/docs/5.0/components/button-group/#vertical-variation</see>
+		/// <see href="https://getbootstrap.com/docs/5.2/components/button-group/#vertical-variation">https://getbootstrap.com/docs/5.2/components/button-group/#vertical-variation</see>
 		/// </summary>
 		Vertical = 1
 	}

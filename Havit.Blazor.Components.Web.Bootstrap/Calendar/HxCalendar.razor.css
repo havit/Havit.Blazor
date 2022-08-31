@@ -9,8 +9,13 @@
     align-items: center;
 }
 
-.hx-calendar-navigation-button {
+::deep .hx-calendar-navigation-button {
     color: var(--hx-calendar-navigation-button-text-color);
+    border: none;
+}
+
+::deep .hx-calendar-navigation-button:focus {
+    box-shadow: var(--hx-calendar-navigation-button-focus-box-shadow);
 }
 
 .hx-calendar-month-year-select {

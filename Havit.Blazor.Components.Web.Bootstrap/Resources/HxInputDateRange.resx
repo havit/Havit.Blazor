@@ -132,9 +132,6 @@
   <data name="LastYear" xml:space="preserve">
     <value>Last year</value>
   </data>
-  <data name="OK" xml:space="preserve">
-    <value>OK</value>
-  </data>
   <data name="ThisMonth" xml:space="preserve">
     <value>This month</value>
   </data>

@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap
 {
 	/// <summary>
-	/// Renders a multi-selection list of <see cref="HxInputCheckbox"/> controls.<br />
+	/// Renders a multi-selection list of <see cref="HxCheckbox"/> controls.<br />
 	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckboxList">https://havit.blazor.eu/components/HxCheckboxList</see>
 	/// </summary>
 	public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014
@@ -65,32 +65,32 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		[Parameter] public Func<TItem, IComparable> ItemSortKeySelector { get; set; }
 
 		/// <summary>
-		/// Additional CSS class(es) for underlying <see cref="HxInputCheckbox" />.
+		/// Additional CSS class(es) for underlying <see cref="HxCheckbox" />.
 		/// </summary>
 		[Parameter] public string ItemCssClass { get; set; }
 
 		/// <summary>
-		/// Additional CSS class(es) for the <see cref="HxInputCheckbox" />.
+		/// Additional CSS class(es) for the <see cref="HxCheckbox" />.
 		/// </summary>
 		[Parameter] public Func<TItem, string> ItemCssClassSelector { get; set; }
 
 		/// <summary>
-		/// Additional CSS class(es) for the input element of the <see cref="HxInputCheckbox" />.
+		/// Additional CSS class(es) for the input element of the <see cref="HxCheckbox" />.
 		/// </summary>
 		[Parameter] public string ItemInputCssClass { get; set; }
 
 		/// <summary>
-		/// Additional CSS class(es) for the input element of the <see cref="HxInputCheckbox" />.
+		/// Additional CSS class(es) for the input element of the <see cref="HxCheckbox" />.
 		/// </summary>
 		[Parameter] public Func<TItem, string> ItemInputCssClassSelector { get; set; }
 
 		/// <summary>
-		/// Additional CSS class(es) for the text of the <see cref="HxInputCheckbox" />.
+		/// Additional CSS class(es) for the text of the <see cref="HxCheckbox" />.
 		/// </summary>
 		[Parameter] public string ItemTextCssClass { get; set; }
 
 		/// <summary>
-		/// Additional CSS class(es) for the text of the <see cref="HxInputCheckbox" />.
+		/// Additional CSS class(es) for the text of the <see cref="HxCheckbox" />.
 		/// </summary>
 		[Parameter] public Func<TItem, string> ItemTextCssClassSelector { get; set; }
 
@@ -152,24 +152,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					TValue value = SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelector, item);
 
-					builder.OpenComponent(1, typeof(HxInputCheckbox));
+					builder.OpenComponent(1, typeof(HxCheckbox));
 
-					builder.AddAttribute(2, nameof(HxInputCheckbox.Label), SelectorHelpers.GetText(ItemTextSelector, item));
-					builder.AddAttribute(3, nameof(HxInputCheckbox.Value), Value?.Contains(value) ?? false);
-					builder.AddAttribute(4, nameof(HxInputCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
-					builder.AddAttribute(5, nameof(HxInputCheckbox.Enabled), EnabledEffective);
+					builder.AddAttribute(2, nameof(HxCheckbox.Text), SelectorHelpers.GetText(ItemTextSelector, item));
+					builder.AddAttribute(3, nameof(HxCheckbox.Value), Value?.Contains(value) ?? false);
+					builder.AddAttribute(4, nameof(HxCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
+					builder.AddAttribute(5, nameof(HxCheckbox.Enabled), EnabledEffective);
 
-					builder.AddAttribute(6, nameof(HxInputCheckbox.CssClass), CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item)));
-					builder.AddAttribute(7, nameof(HxInputCheckbox.InputCssClass), CssClassHelper.Combine(ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)));
-					builder.AddAttribute(8, nameof(HxInputCheckbox.LabelCssClass), CssClassHelper.Combine(ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
+					builder.AddAttribute(6, nameof(HxCheckbox.CssClass), CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item)));
+					builder.AddAttribute(7, nameof(HxCheckbox.InputCssClass), CssClassHelper.Combine(ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)));
+					builder.AddAttribute(8, nameof(HxCheckbox.LabelCssClass), CssClassHelper.Combine(ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
 
-					// We need ValueExpression. Ehm, HxInputCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
-					// We have nothing to give the HxInputCheckbox. So we make own class with property which we assign to the ValueExpression.
+					// We need ValueExpression. Ehm, HxCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
+					// We have nothing to give the HxCheckbox. So we make own class with property which we assign to the ValueExpression.
 					// Impacts? Unknown. Maybe none.
-					builder.AddAttribute(50, nameof(HxInputCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
+					builder.AddAttribute(50, nameof(HxCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
 
-					builder.AddAttribute(51, nameof(HxInputCheckbox.ValidationMessageDisplayMode), Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.None);
-					builder.AddAttribute(52, nameof(HxInputCheckbox.Inline), this.Inline);
+					builder.AddAttribute(51, nameof(HxCheckbox.ValidationMessageDisplayMode), Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.None);
+					builder.AddAttribute(52, nameof(HxCheckbox.Inline), this.Inline);
 
 					builder.AddMultipleAttributes(100, this.AdditionalAttributes);
 

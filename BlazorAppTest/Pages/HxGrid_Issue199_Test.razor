@@ -1,0 +1,51 @@
+﻿@page "/HxGrid_Issue199_Test"
+
+<h3>Issue 199</h3>
+
+<HxGrid TItem="IssueItem" DataProvider="GetData">
+    <Columns>
+        <HxGridColumn TItem="IssueItem" HeaderText="Number">
+            <ItemTemplate>
+                @context.Number
+            </ItemTemplate>
+        </HxGridColumn>
+        <HxGridColumn TItem="IssueItem" HeaderText="Text">
+            <ItemTemplate>
+                @context.Text
+            </ItemTemplate>
+        </HxGridColumn>
+    </Columns>
+</HxGrid>
+
+<HxButton Text="Modify data instances" Color="ThemeColor.Primary" OnClick="HandleModifyDataInstancesClick" />
+
+@code {
+    private List<IssueItem> demos = new List<IssueItem>
+    {
+        new IssueItem { Number = 1, Text = "One" },
+        new IssueItem { Number = 2, Text = "Two" },
+        new IssueItem { Number = 3, Text = "Three" },
+    };
+
+    private Task<GridDataProviderResult<IssueItem>> GetData(GridDataProviderRequest<IssueItem> request)
+    {
+        return Task.FromResult(request.ApplyTo(demos));
+    }
+
+    private void HandleModifyDataInstancesClick()
+    {
+        // I change the data and expect update in UI.
+        // The UI is changed with or without ContentUpdateRenderer usage in the HxGrid
+        foreach (IssueItem demoItem in demos)
+        {
+            demoItem.Number *= 10;
+            demoItem.Text += "!";
+        }
+    }
+
+    private class IssueItem
+    {
+        public int Number { get; set; }
+        public string Text { get; set; }
+    }
+}

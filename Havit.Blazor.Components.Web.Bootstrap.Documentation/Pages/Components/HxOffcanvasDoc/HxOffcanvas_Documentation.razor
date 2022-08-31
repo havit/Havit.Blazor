@@ -18,8 +18,16 @@
         <Demo Type="typeof(HxOffcanvas_Demo_Placement)" />
 
         <SectionTitle Id="Backdrop" />
-        <p>By default the backdrop is enabled, you can disable it with <code>BackdropEnabled="false"</code>.</p>
+        <p>By default the backdrop is enabled (<code>OffcanvasBackdrop.True</code>), you can disable it with <code>Backdrop="OffcanvasBackdrop.False"</code>.</p>
         <Demo Type="typeof(HxOffcanvas_Demo_Backdrop)" />
+
+        <SectionTitle Id="static-backdrop">Static backdrop</SectionTitle>
+        <p>When backdrop is set to <code>OffcanvasBackdrop.Static</code>, the offcanvas will not close when clicking outside of it.</p>
+        <Demo Type="typeof(HxOffcanvas_Demo_StaticBackdrop)" />
+
+        <SectionTitle Id="Responsive" />
+        <p>When a value is supplied to the <code>ResponsiveBreakpoint</code> parameter, then content is displayed using the offcanvas when below the selected breakpoint.</p>
+        <Demo Type="typeof(HxOffcanvas_Demo_Responsive)" />
 
         <SectionTitle Id="Size" />
         <p>Set the size of the <code>HxOffcanvas</code> with the <code>Size</code> parameter. The default value is <code>OffcanvasSize.Regular</code>.</p>

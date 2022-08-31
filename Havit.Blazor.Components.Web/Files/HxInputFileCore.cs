@@ -270,6 +270,7 @@ namespace Havit.Blazor.Components.Web
 				try
 				{
 					await jsModule.InvokeVoidAsync("dispose", Id);
+					await jsModule.DisposeAsync();
 				}
 				catch (JSDisconnectedException)
 				{
@@ -277,8 +278,8 @@ namespace Havit.Blazor.Components.Web
 				}
 #else
 				await jsModule.InvokeVoidAsync("dispose", Id);
-#endif
 				await jsModule.DisposeAsync();
+#endif
 			}
 
 			dotnetObjectReference.Dispose();

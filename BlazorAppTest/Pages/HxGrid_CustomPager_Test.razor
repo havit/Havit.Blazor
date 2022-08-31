@@ -1,0 +1,57 @@
+﻿@page "/HxGrid_CustomPager_Test"
+@using System.Globalization
+
+<h1>HxGrid with custom pager</h1>
+
+<HxGrid TItem="CultureInfo" DataProvider="@CultureInfosDataProvider" @bind-CurrentUserState="gridState" PageSize="@PageSize" PagerCssClass="d-none">
+    <Columns>
+       <HxGridColumn HeaderText="Culture" ItemTextSelector="ci => ci.EnglishName" SortKeySelector="ci => ci.EnglishName" />
+    </Columns>    
+</HxGrid>
+
+
+@if (canNavigateToPrevious || canNavigateToNext) // do not show pager when there is just one page
+{
+    <p>Displaying page @(pageIndex + 1) of @pagesCount.</p>
+    <HxButton Text="Previous" Color="ThemeColor.Secondary" Enabled="canNavigateToPrevious" OnClick="HandlePreviousClick" Icon="BootstrapIcon.ArrowLeftCircle" />
+    <HxButton Text="Next" Color="ThemeColor.Secondary" Enabled="canNavigateToNext" OnClick="HandleNextClick" Icon="BootstrapIcon.ArrowRightCircle" IconPlacement="ButtonIconPlacement.End" />
+}
+
+@code {
+    private const int PageSize = 10;
+    private const int ItemsToShow = 35; // modify this line to change the number of items in the grid
+
+    private GridUserState<CultureInfo> gridState = new GridUserState<CultureInfo>();
+
+    private bool canNavigateToPrevious;
+    private bool canNavigateToNext;
+    private bool showPager;
+    private int pageIndex;
+    private int pagesCount;
+
+    private async Task<GridDataProviderResult<CultureInfo>> CultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+    {
+        await Task.Delay(1000, request.CancellationToken); // simulate server call
+
+        var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName).Take(ItemsToShow).ToList();
+
+        pageIndex = request.StartIndex / request.Count.Value;
+        pagesCount = (cultures.Count + request.Count.Value - 1) / request.Count.Value;
+        canNavigateToPrevious = pageIndex > 0;               
+        canNavigateToNext = (pageIndex + 1) < pagesCount;
+        showPager = pagesCount > 0; 
+        StateHasChanged(); // to apply field values in the UI
+        
+        return request.ApplyTo(cultures);
+    }
+
+    private void HandlePreviousClick()
+    {        
+        gridState = gridState with { PageIndex = gridState.PageIndex - 1 };
+    }
+
+    private void HandleNextClick()
+    {
+        gridState = gridState with { PageIndex = gridState.PageIndex + 1 };
+    }
+}

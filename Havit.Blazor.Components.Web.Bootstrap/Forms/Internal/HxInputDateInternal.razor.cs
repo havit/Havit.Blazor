@@ -1,6 +1,4 @@
-﻿using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
+﻿using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
@@ -75,7 +73,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool previousParsingAttemptFailed;
 		private ValidationMessageStore validationMessageStore;
 
-		private ElementReference dateInputElement;
+		private HxDropdownToggleElement hxDropdownToggleElement;
 		private ElementReference iconWrapperElement;
 		private IJSObjectReference jsModule;
 
@@ -131,11 +129,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			await base.OnAfterRenderAsync(firstRender);
 
-			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDateRange));
-
 			if (RenderIcon)
 			{
-				await jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", dateInputElement, (this.CalendarIconEffective is not null) ? iconWrapperElement : null);
+				jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDate));
+				await jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", hxDropdownToggleElement.ElementReference, (this.CalendarIconEffective is not null) ? iconWrapperElement : null);
 			}
 		}
 
@@ -148,30 +145,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			CurrentValue = default;
 			ClearPreviousParsingMessage();
 
-			await CloseDropDownAsync(dateInputElement);
+			await CloseDropdownAsync();
 		}
 
-		private async Task HandleOKClickAsync()
+		private async Task CloseDropdownAsync()
 		{
-			await CloseDropDownAsync(dateInputElement);
-		}
-
-		private async Task CloseDropDownAsync(ElementReference triggerElement)
-		{
-			Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
-			await jsModule.InvokeVoidAsync("destroy", triggerElement);
-		}
-
-		private async Task ToggleDropDownAsync(ElementReference triggerElement)
-		{
-			Contract.Assert<InvalidOperationException>(jsModule != null, nameof(jsModule));
-			await jsModule.InvokeVoidAsync("toggle", triggerElement);
+			Contract.Requires<InvalidOperationException>(hxDropdownToggleElement != null);
+			await hxDropdownToggleElement.HideAsync();
 		}
 
 		private async Task HandleCalendarValueChangedAsync(DateTime? date)
 		{
 			CurrentValue = GetValueFromDateTimeOffset((date != null) ? new DateTimeOffset(date.Value) : null);
-			await CloseDropDownAsync(dateInputElement);
+			await CloseDropdownAsync();
 		}
 
 		protected void HandleCustomDateClick(DateTime value)
@@ -244,23 +230,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			validationMessageStore?.Clear();
 
-			if (jsModule != null)
-			{
 #if NET6_0_OR_GREATER
-				try
-				{
-					await CloseDropDownAsync(dateInputElement);
-				}
-				catch (JSDisconnectedException)
-				{
-					// NOOP
-				}
-#else
-				await CloseDropDownAsync(dateInputElement);
-#endif
+			try
+			{
+				await CloseDropdownAsync();
 
+				if (jsModule is not null)
+				{
+					await jsModule.DisposeAsync();
+				}
+			}
+			catch (JSDisconnectedException)
+			{
+
+			}
+#else
+			await CloseDropdownAsync();
+
+			if (jsModule is not null)
+			{
 				await jsModule.DisposeAsync();
 			}
+#endif
 
 			Dispose(false);
 		}

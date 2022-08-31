@@ -42,7 +42,7 @@
 			break;
 
 		case GridContentNavigationMode.InfiniteScroll:
-			shouldRenderData = (totalCount == null) || (totalCount > 0); // null: we need to render Virtualize even when we have no data yet - Virtalize ensures data load
+			shouldRenderData = true; // we cannot remove the Virtualize when there are no data, see #303 (https://github.com/havit/Havit.Blazor/issues/303)
 			break;
 
 		default: throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
@@ -59,19 +59,19 @@
 	<HxProgressIndicator InProgress="@(InProgress ?? (dataProviderInProgress /* indicates data loading */ && !shouldRenderLoadingDataWithPlaceholders /* but not when placeholders are used - in such case we are indicating data loading using the placeholders */))">
 
 		<div class="@CssClassHelper.Combine(ResponsiveEffective ? "table-responsive" : null, TableContainerCssClassEffective)">
-			<table class="@GetTableElementCssClass(shouldRenderData)">
+			<table class="@GetTableElementCssClass(totalCount > 0)">
 				<thead>
 					<tr class="@HeaderRowCssClassEffective">
 						@{
 							GridHeaderCellContext gridHeaderCellContext = CreateGridHeaderCellContext();
 
-							@foreach (IHxGridColumn<TItem> column in columnsToRender)
+							foreach (IHxGridColumn<TItem> column in columnsToRender)
 							{
 								var columnSorting = column.GetSorting();
-								bool isCurrentSorting = CurrentUserState.Sorting?.StartsWith(columnSorting) ?? false;
 								var headerCellTemplate = column.GetHeaderCellTemplate(gridHeaderCellContext);
-								@if (columnSorting.Any())
+								@if ((totalCount > 0) && columnSorting.Any())
 								{
+									bool isCurrentSorting = CurrentUserState.Sorting?.StartsWith(columnSorting) ?? false;
 									<th @onclick="async () => await HandleSortingClick(columnSorting)" @onclick:stopPropagation role="button" class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable")">
 										<div class="hx-grid-header-cell-container">
 											<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
@@ -254,7 +254,7 @@
 				<HxPager TotalPages="@totalPages"
 						 CurrentPageIndex="@CurrentUserState.PageIndex"
 						 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged"
-                         CssClass="@PagerCssClassEffective" />
+						 Settings="@PagerSettingsEffective" />
 			}
 		}
 

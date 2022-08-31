@@ -1,0 +1,21 @@
+﻿@attribute [Route("/components/" + nameof(HxInputRange<TValue>))]
+
+<ComponentApiDoc Type="typeof(HxInputRange<TValue>)">
+
+    <SectionTitle Title="Basic usage" />
+    <p>The <code>Min</code> and <code>Max</code> parameters are required.</p>
+    <Demo Type="typeof(HxInputRange_Demo)" Tabs="false" />
+
+    <SectionTitle Id="disabled" Title="Disabled" />
+    <p>Set the <code>Enabled</code> parameter to <code>false</code> in order to give the input a grayed out appearance and make it not interactable.</p>
+    <Demo Type="typeof(HxInputRange_Demo_Disabled)" />
+
+    <SectionTitle Id="steps" Title="Steps" />
+    <p>By default, <code>HxInputRange</code> "snaps" to integer values. To change this, you can supply a value to the <code>Step</code> parameter.</p>
+    <Demo Type="typeof(HxInputRange_Demo_Steps)" />
+
+    <SectionTitle Id="bind-event" Title="Bind event" />
+    <p>Decides whether the <code>Value</code> is going to be updated <code>onchange</code> or <code>oninput</code> (immediately). Default is <code>BindEvent.OnChange</code>.</p>
+    <Demo Type="typeof(HxInputRange_Demo_BindEvent)" />
+
+</ComponentApiDoc>
