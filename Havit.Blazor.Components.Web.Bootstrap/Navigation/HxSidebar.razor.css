@@ -40,6 +40,21 @@
 	padding: var(--hx-sidebar-footer-padding);
 }
 
+::deep .hx-sidebar-navbar-toggler {
+	font-size: 1.875rem;
+	padding: 0;
+	border: none !important;
+	width: 2rem !important;
+	height: 2rem !important;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+::deep .hx-sidebar-navbar-toggler:focus-within {
+	box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+}
+
 .hx-sidebar-toggler {
 	position: absolute;
 	top: 50%;
