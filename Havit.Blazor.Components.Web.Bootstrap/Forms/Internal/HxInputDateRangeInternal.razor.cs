@@ -162,16 +162,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await CloseDropdownAsync(toDropdownToggleElement);
 		}
 
-		private async Task HandleFromOKClickAsync()
-		{
-			await CloseDropdownAsync(fromDropdownToggleElement);
-		}
-
-		private async Task HandleToOKClickAsync()
-		{
-			await CloseDropdownAsync(toDropdownToggleElement);
-		}
-
 		private async Task OpenDropDownAsync(HxDropdownToggleElement triggerElement)
 		{
 			Contract.Assert<ArgumentNullException>(triggerElement != null, nameof(triggerElement));

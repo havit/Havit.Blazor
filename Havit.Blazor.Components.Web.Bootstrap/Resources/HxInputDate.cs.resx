@@ -120,9 +120,6 @@
   <data name="Clear" xml:space="preserve">
     <value>Vymazat</value>
   </data>
-  <data name="OK" xml:space="preserve">
-    <value>OK</value>
-  </data>
   <data name="ParsingErrorMessage" xml:space="preserve">
     <value>Zadejte datum.</value>
   </data>

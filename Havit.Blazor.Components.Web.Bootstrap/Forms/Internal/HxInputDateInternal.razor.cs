@@ -1,6 +1,4 @@
-﻿using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
+﻿using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
@@ -150,11 +148,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await CloseDropdownAsync();
 		}
 
-		private async Task HandleOKClickAsync()
-		{
-			await CloseDropdownAsync();
-		}
-
 		private async Task CloseDropdownAsync()
 		{
 			Contract.Requires<InvalidOperationException>(hxDropdownToggleElement != null);
@@ -253,7 +246,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 #else
 			await CloseDropdownAsync();
-			
+
 			if (jsModule is not null)
 			{
 				await jsModule.DisposeAsync();

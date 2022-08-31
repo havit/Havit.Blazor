@@ -132,9 +132,6 @@
   <data name="LastYear" xml:space="preserve">
     <value>上一年</value>
   </data>
-  <data name="OK" xml:space="preserve">
-    <value>确定</value>
-  </data>
   <data name="ThisMonth" xml:space="preserve">
     <value>当前月份</value>
   </data>
