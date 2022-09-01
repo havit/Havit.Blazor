@@ -10,8 +10,8 @@ public static class ValidationMessageModeExtensions
 		return mode switch
 		{
 			ValidationMessageMode.Regular => "invalid-feedback",
-			ValidationMessageMode.Tooltip => "invalid-tooltip",
-			ValidationMessageMode.Floating => "invalid-feedback feedback-floating",
+			ValidationMessageMode.Tooltip => "invalid-tooltip text-truncate",
+			ValidationMessageMode.Floating => "invalid-feedback feedback-floating text-truncate",
 			ValidationMessageMode.None => throw new InvalidOperationException($"Cannot use for {nameof(ValidationMessageMode.None)} value."),
 			_ => throw new InvalidOperationException($"Unknown {nameof(ValidationMessageMode)} value {mode}.")
 		};

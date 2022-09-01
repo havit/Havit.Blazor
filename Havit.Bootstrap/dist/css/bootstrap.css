@@ -5843,13 +5843,6 @@ textarea.form-control-lg {
     overflow-y: auto;
   }
 }
-.invalid-tooltip > span {
-  white-space: nowrap;
-  display: block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
 .tooltip {
   --bs-tooltip-zindex: 1080;
   --bs-tooltip-max-width: 200px;
