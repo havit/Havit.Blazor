@@ -2,3 +2,8 @@
   background-color:     var(--bs-gray-300);
   border-color:         var(--bs-gray-300);
 }
+
+.invalid-feedback.feedback-keepspace {
+  display: block;
+  height: 1.5em;
+}

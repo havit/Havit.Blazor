@@ -11,7 +11,7 @@ public static class ValidationMessageDisplayModeExtensions
 		{
 			ValidationMessageDisplayMode.Regular => "invalid-feedback",
 			ValidationMessageDisplayMode.Tooltip => "invalid-tooltip",
-			ValidationMessageDisplayMode.KeepSpace => "invalid-feedback-keepspace",
+			ValidationMessageDisplayMode.KeepSpace => "invalid-feedback feedback-keepspace text-truncate",
 			ValidationMessageDisplayMode.None => throw new InvalidOperationException($"Cannot use for {nameof(ValidationMessageDisplayMode.None)} value."),
 			_ => throw new InvalidOperationException($"Unknown {nameof(ValidationMessageDisplayMode)} value {mode}.")
 		};
