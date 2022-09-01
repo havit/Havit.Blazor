@@ -18,7 +18,7 @@
 }
 
 .hx-input-date-range {
-    flex-wrap: nowrap;
+    display: flex;
 }
 
 /* Remove caret. */

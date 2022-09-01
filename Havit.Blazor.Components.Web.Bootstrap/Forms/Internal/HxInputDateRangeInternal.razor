@@ -6,7 +6,7 @@
     bool fromValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(fromFieldIdentifier).Any();
     bool toValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(toFieldIdentifier).Any();
 
-    <div class="@CssClassHelper.Combine("hx-input-date-range input-group d-flex ", (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective?.Any() ?? false)) ? "hx-input-date-range-predefined-ranges" : null)">
+    <div class="@CssClassHelper.Combine("hx-input-date-range input-group", (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective?.Any() ?? false)) ? "hx-input-date-range-predefined-ranges" : null)">
         <HxDropdown CssClass="hx-dropdown-with-calendar" AutoClose="DropdownAutoClose.Outside">
             @*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
             <HxDropdownToggleElement @ref="fromDropdownToggleElement"
