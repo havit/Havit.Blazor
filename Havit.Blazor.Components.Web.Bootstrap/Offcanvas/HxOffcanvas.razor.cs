@@ -262,7 +262,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Formats a <see cref="OffcanvasBackdrop"/> for offcanvas initialization in JS (it expects a boolean or the string "static").
+		/// Formats a <see cref="OffcanvasBackdrop"/> for supplying the value via the <c>data-bs-backdrop</c> data attribute.
 		/// </summary>
 		/// <param name="backdrop"></param>
 		/// <returns></returns>
