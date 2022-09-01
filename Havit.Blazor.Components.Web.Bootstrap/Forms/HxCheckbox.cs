@@ -50,7 +50,7 @@ public class HxCheckbox : HxInputBase<bool>
 	/// <inheritdoc cref="HxInputBase{TValue}.CoreCssClass" />
 	private protected override string CoreCssClass => CssClassHelper.Combine(
 		base.CoreCssClass,
-		Inline ? CssClassHelper.Combine(CoreFormElementCssClass, "form-check-inline") : null,
+		!NeedsFormCheckInnerDiv ? CssClassHelper.Combine(this.CoreFormElementCssClass, Inline ? "form-check-inline" : null) : null,
 		Reverse ? "form-check-reverse" : null);
 
 	/// <summary>
@@ -58,17 +58,20 @@ public class HxCheckbox : HxInputBase<bool>
 	/// </summary>
 	private protected virtual string CoreFormElementCssClass => "form-check";
 
+	/// <summary>
+	/// For naked checkbox without Label/LabelTemplate, we add form-check, form-check-inline to the parent div (allows combining with CssClass etc.).
+	/// It is expected there is just the parent div, input and label for Text/TextTemplate.
+	/// No label for Label/LabelTemplate, no HintTemplate, no validation message is expected.
+	/// For checkbox with Label, there is a parent div followed by label for Label/LabelTemplate.
+	/// Siblings label, input, label does not work well and there is no where to add form-check.
+	/// There for we wrap the input and label to the additional div.
+	/// </summary>
+	private protected bool NeedsFormCheckInnerDiv => !String.IsNullOrWhiteSpace(this.Label) || (this.LabelTemplate is not null);
+
 	/// <inheritdoc />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
-		// for Inline checkbox, we add form-check, form-check-inline to the parent div (allows combining with CssClass etc.).
-		// It is expected there is just the parent div, input and label for Text/TextTemplate.
-		// No label for Label/LabelTemplate, no HintTemplate, no validation message is expected.
-
-		// For regular checkbox, there is a parent div followed by label for Label/LabelTemplate.
-		// Siblings label, input, label does not work well and there is no where to add form-check.
-		// There for we wrap the input and label to the additional div.
-		if (!Inline)
+		if (NeedsFormCheckInnerDiv)
 		{
 			builder.OpenElement(-2, "div");
 			builder.AddAttribute(-1, "class", this.CoreFormElementCssClass);
@@ -94,7 +97,7 @@ public class HxCheckbox : HxInputBase<bool>
 		builder.AddContent(2004, TextTemplate);
 		builder.CloseElement(); // label
 
-		if (!Inline)
+		if (NeedsFormCheckInnerDiv)
 		{
 			builder.CloseElement(); // div
 		}

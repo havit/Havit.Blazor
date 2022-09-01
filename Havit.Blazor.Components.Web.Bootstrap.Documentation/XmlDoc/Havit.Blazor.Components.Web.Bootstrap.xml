@@ -3137,6 +3137,16 @@
             CSS class for <c>form-check</c> element (e.g. allows adding <c>form-switch</c> in derived <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/>).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsFormCheckInnerDiv">
+            <summary>
+            For naked checkbox without Label/LabelTemplate, we add form-check, form-check-inline to the parent div (allows combining with CssClass etc.).
+            It is expected there is just the parent div, input and label for Text/TextTemplate.
+            No label for Label/LabelTemplate, no HintTemplate, no validation message is expected.
+            For checkbox with Label, there is a parent div followed by label for Label/LabelTemplate.
+            Siblings label, input, label does not work well and there is no where to add form-check.
+            There for we wrap the input and label to the additional div.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
