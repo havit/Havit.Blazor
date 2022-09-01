@@ -5,7 +5,8 @@
 
     @if (Mode != ValidationMessageMode.None)
     {
-        List<string> messages = fieldIdentifiers.SelectMany(fieldIdentifier => currentEditContext.GetValidationMessages(fieldIdentifier)).ToList();
+        List<string> messages = fieldIdentifiers.SelectMany(fieldIdentifier =>
+        currentEditContext.GetValidationMessages(fieldIdentifier)).ToList();
         bool isValid = !messages.Any();
 
         if (!isValid)
@@ -13,13 +14,9 @@
             <div class="@(HxInputBase<object>.InvalidCssClass)"></div>
 
             <div class="@Mode.AsCssClass()">
-                @{
-                    bool firstRendered = false;
-                    foreach (string message in messages)
-                    {
-                        <span class="@CssClassHelper.Combine(firstRendered ? "me-1" : String.Empty)">@message</span>
-                        firstRendered = true;
-                    }
+                @foreach (string message in messages)
+                {
+                    <span class="me-1">@message</span>
                 }
             </div>
         }
