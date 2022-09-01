@@ -21,6 +21,10 @@
     display: flex;
 }
 
+::deep .feedback-keepspace {
+    left: 0;
+}
+
 /* Remove caret. */
 ::deep .dropdown-toggle::after {
     display: none !important;
