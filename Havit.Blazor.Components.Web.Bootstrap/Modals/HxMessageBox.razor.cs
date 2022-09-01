@@ -27,6 +27,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					Color = ThemeColor.Secondary,
 				},
 				ModalSettings = new()
+				{
+					Backdrop = ModalBackdrop.Static
+				}
 			};
 		}
 
