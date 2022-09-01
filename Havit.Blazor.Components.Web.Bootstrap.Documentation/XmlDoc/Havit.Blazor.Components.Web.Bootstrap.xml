@@ -5180,7 +5180,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Regular">
             <summary>
-            Validation messages are displayed in the regular way.
+            Validation messages are displayed in the regular way (takes space, when displayed).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Tooltip">
@@ -5188,10 +5188,13 @@
             Validation messages are displayed as a tooltips.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.KeepSpace">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Floating">
             <summary>
-            Validation messages with a space reservation.
+            Validation messages, which do not take extra space when displayed.
             </summary>
+            <remarks>
+            We want to avoid changing position of the form submit button to prevent the "no onclick/onsubmit issue when button position changes".
+            </remarks>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.None">
             <summary>

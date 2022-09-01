@@ -21,7 +21,7 @@
     display: flex;
 }
 
-::deep .feedback-keepspace {
+::deep .feedback-floating {
     left: 0;
 }
 

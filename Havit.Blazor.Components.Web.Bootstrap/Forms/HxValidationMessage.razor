@@ -1,24 +1,14 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 @typeparam TValue
 
-<div>
+<div>@* CSS Isolation container *@
+
     @if (Mode != ValidationMessageMode.None)
     {
-
-        List<string> messages = fieldIdentifiers.SelectMany(fieldIdentifier =>
-        currentEditContext.GetValidationMessages(fieldIdentifier)).ToList();
+        List<string> messages = fieldIdentifiers.SelectMany(fieldIdentifier => currentEditContext.GetValidationMessages(fieldIdentifier)).ToList();
         bool isValid = !messages.Any();
 
-        if (isValid)
-        {
-            // when there is no validation message, render "nothing"
-            // practically, we need to render div for keepspace
-            if (false && Mode == ValidationMessageMode.KeepSpace)
-            {
-                <div class="@Mode.AsCssClass()"></div>
-            }
-        }
-        else
+        if (!isValid)
         {
             <div class="@(HxInputBase<object>.InvalidCssClass)"></div>
 
@@ -40,4 +30,5 @@
             </div>
         }
     }
+
 </div>
