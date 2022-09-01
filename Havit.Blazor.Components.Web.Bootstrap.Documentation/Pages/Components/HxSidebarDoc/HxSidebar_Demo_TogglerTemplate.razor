@@ -36,7 +36,7 @@
 		</div>
 	</TogglerTemplate>
 	<FooterTemplate>
-        <HxSidebarFooter Href="https://github.com/havit/Havit.Blazor" Icon="BootstrapIcon.Github" Text="Login"/>
+        <HxSidebarFooter Href="/login" Icon="BootstrapIcon.Person" Text="@(context.SidebarCollapsed ? null : "Login")"/>
     </FooterTemplate>
 </HxSidebar>
 
