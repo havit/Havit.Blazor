@@ -8,7 +8,7 @@
 		<ValidationSummary />
 
 		<HxInputDateRange Label="HxInputDateRange (default)" @bind-Value="@model.DateTimeRange" CalendarDateCustomizationProvider="GetCalendarDateCustomization" />
-		<HxInputDateRange Label="HxInputDateRange (no DateRanges, no validation)" @bind-Value="@model.DateTimeRange" ShowPredefinedDateRanges="false" ValidationMessageDisplayMode="ValidationMessageDisplayMode.None" />
+		<HxInputDateRange Label="HxInputDateRange (no DateRanges, no validation)" @bind-Value="@model.DateTimeRange" ShowPredefinedDateRanges="false" ValidationMessageMode="ValidationMessageMode.None" />
 		<HxInputDateRange Label="HxInputDateRange (custom DateRanges)" @bind-Value="@model.DateTimeRange" PredefinedDateRanges="@GetPredefinedDateRanges()" />
 		<HxInputDateRange Label="HxInputDateRange (disabled)" @bind-Value="@model.DateTimeRange" PredefinedDateRanges="@GetPredefinedDateRanges()" Enabled="false" />
 

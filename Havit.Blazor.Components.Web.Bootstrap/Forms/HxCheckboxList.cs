@@ -168,7 +168,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					// Impacts? Unknown. Maybe none.
 					builder.AddAttribute(50, nameof(HxCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
 
-					builder.AddAttribute(51, nameof(HxCheckbox.ValidationMessageDisplayMode), Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.None);
+					builder.AddAttribute(51, nameof(HxCheckbox.ValidationMessageMode), Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.None);
 					builder.AddAttribute(52, nameof(HxCheckbox.Inline), this.Inline);
 
 					builder.AddMultipleAttributes(100, this.AdditionalAttributes);

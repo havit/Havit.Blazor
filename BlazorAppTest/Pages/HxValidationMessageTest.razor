@@ -14,14 +14,14 @@
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 
-	<HxInputNumber Label="None" @bind-Value="@model.Value" ValidationMessageDisplayMode="ValidationMessageDisplayMode.None" />
-	<HxInputNumber Label="Regular" @bind-Value="@model.Value" ValidationMessageDisplayMode="ValidationMessageDisplayMode.Regular" />
-	<HxInputNumber Label="Tooltip" @bind-Value="@model.Value" ValidationMessageDisplayMode="ValidationMessageDisplayMode.Tooltip" />
-	<HxInputNumber Label="Keepspace" @bind-Value="@model.Value" ValidationMessageDisplayMode="ValidationMessageDisplayMode.KeepSpace" />
-	<HxInputNumber Label="None (floating labels)" @bind-Value="@model.Value" LabelType="LabelType.Floating" ValidationMessageDisplayMode="ValidationMessageDisplayMode.None" />
-	<HxInputNumber Label="Regular (floating labels)" @bind-Value="@model.Value" LabelType="LabelType.Floating" ValidationMessageDisplayMode="ValidationMessageDisplayMode.Regular" />
-	<HxInputNumber Label="Tooltip (floating labels)" @bind-Value="@model.Value" LabelType="LabelType.Floating" ValidationMessageDisplayMode="ValidationMessageDisplayMode.Tooltip" />
-	<HxInputNumber Label="Keepspace (floating labels)" @bind-Value="@model.Value" LabelType="LabelType.Floating" ValidationMessageDisplayMode="ValidationMessageDisplayMode.KeepSpace" />
+	<HxInputNumber Label="None" @bind-Value="@model.Value" ValidationMessageMode="ValidationMessageMode.None" />
+	<HxInputNumber Label="Regular" @bind-Value="@model.Value" ValidationMessageMode="ValidationMessageMode.Regular" />
+	<HxInputNumber Label="Tooltip" @bind-Value="@model.Value" ValidationMessageMode="ValidationMessageMode.Tooltip" />
+	<HxInputNumber Label="Keepspace" @bind-Value="@model.Value" ValidationMessageMode="ValidationMessageMode.KeepSpace" />
+	<HxInputNumber Label="None (floating labels)" @bind-Value="@model.Value" LabelType="LabelType.Floating" ValidationMessageMode="ValidationMessageMode.None" />
+	<HxInputNumber Label="Regular (floating labels)" @bind-Value="@model.Value" LabelType="LabelType.Floating" ValidationMessageMode="ValidationMessageMode.Regular" />
+	<HxInputNumber Label="Tooltip (floating labels)" @bind-Value="@model.Value" LabelType="LabelType.Floating" ValidationMessageMode="ValidationMessageMode.Tooltip" />
+	<HxInputNumber Label="Keepspace (floating labels)" @bind-Value="@model.Value" LabelType="LabelType.Floating" ValidationMessageMode="ValidationMessageMode.KeepSpace" />
 
 	<button type="submit">Submit</button>
 </EditForm>

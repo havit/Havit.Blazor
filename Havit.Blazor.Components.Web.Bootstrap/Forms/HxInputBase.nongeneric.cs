@@ -20,7 +20,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		{
 			Defaults = new InputsSettings()
 			{
-				ValidationMessageDisplayMode = ValidationMessageDisplayMode.Tooltip
+				ValidationMessageMode = ValidationMessageMode.Tooltip
 			};
 		}
 	}

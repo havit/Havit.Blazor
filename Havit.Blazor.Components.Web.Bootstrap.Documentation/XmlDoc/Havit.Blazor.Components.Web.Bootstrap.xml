@@ -3362,7 +3362,7 @@
             <remarks>
             Using interface does not force the implementation of settings to use specific class as a base type.</remarks>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ValidationMessageDisplayMode">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ValidationMessageMode">
             <summary>
             Specifies how the validation message should be displayed.
             </summary>
@@ -3512,7 +3512,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.BuildRenderValidationMessage(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
-            Renders validation message (component <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1" />) when not disabled (<seealso cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ValidationMessageDisplayModeEffective" />).
+            Renders validation message (component <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1" />) when not disabled (<seealso cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ValidationMessageModeEffective" />).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.RenderChipGenerator(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -4639,7 +4639,7 @@
             Settings for the components derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.IInputsSettings.ValidationMessageDisplayMode">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.IInputsSettings.ValidationMessageMode">
             <summary>
             Specifies how the validation message should be displayed.
             </summary>
@@ -4819,7 +4819,7 @@
             Settings for the components derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputsSettings.ValidationMessageDisplayMode">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputsSettings.ValidationMessageMode">
             <summary>
             Specifies how the validation message should be displayed.
             </summary>
@@ -5165,34 +5165,34 @@
             Input size.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode">
             <summary>
             Validation message display mode.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.Regular">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Regular">
             <summary>
             Validation messages are displayed in the regular way.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.Tooltip">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Tooltip">
             <summary>
             Validation messagse are displayed as a tooltips.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.KeepSpace">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.KeepSpace">
             <summary>
             Validation messages with a space reservation.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode.None">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.None">
             <summary>
             Renders no validation message.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayModeExtensions">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageModeExtensions">
             <summary>
-            Extension methods to <see cref="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageDisplayMode" />.
+            Extension methods to <see cref="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode" />.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate">

@@ -16,7 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public bool EnabledEffective { get; set; } = true;
 
-		[Parameter] public ValidationMessageDisplayMode ValidationMessageDisplayModeEffective { get; set; }
+		[Parameter] public ValidationMessageMode ValidationMessageModeEffective { get; set; }
 
 		[Parameter] public bool ShowPredefinedDateRangesEffective { get; set; }
 		[Parameter] public IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRangesEffective { get; set; }

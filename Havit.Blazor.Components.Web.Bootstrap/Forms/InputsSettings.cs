@@ -14,5 +14,5 @@ public record InputsSettings : IInputsSettings
 	/// <summary>
 	/// Specifies how the validation message should be displayed.
 	/// </summary>
-	public ValidationMessageDisplayMode? ValidationMessageDisplayMode { get; set; }
+	public ValidationMessageMode? ValidationMessageMode { get; set; }
 }

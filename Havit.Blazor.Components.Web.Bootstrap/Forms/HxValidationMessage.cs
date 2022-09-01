@@ -50,7 +50,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Specifies how the validation message should be displayed.
 		/// </summary>
-		[Parameter] public ValidationMessageDisplayMode DisplayMode { get; set; } = ValidationMessageDisplayMode.Regular;
+		[Parameter] public ValidationMessageMode DisplayMode { get; set; } = ValidationMessageMode.Regular;
 
 		/// <summary>
 		/// Constructs an instance of <see cref="HxValidationMessage{TValue}"/>.
@@ -110,7 +110,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <inheritdoc />
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
-			if (DisplayMode == ValidationMessageDisplayMode.None)
+			if (DisplayMode == ValidationMessageMode.None)
 			{
 				return;
 			}
@@ -122,7 +122,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			{
 				// when there is no validation message, render "nothing"
 				// practically, we need to render div for keepspace
-				if (DisplayMode == ValidationMessageDisplayMode.KeepSpace)
+				if (DisplayMode == ValidationMessageMode.KeepSpace)
 				{
 					builder.OpenElement(200, "div");
 					builder.AddAttribute(201, "class", DisplayMode.AsCssClass());

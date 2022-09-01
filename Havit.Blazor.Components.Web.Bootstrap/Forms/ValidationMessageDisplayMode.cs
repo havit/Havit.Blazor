@@ -3,7 +3,7 @@
 /// <summary>
 /// Validation message display mode.
 /// </summary>
-public enum ValidationMessageDisplayMode
+public enum ValidationMessageMode
 {
 	/// <summary>
 	/// Validation messages are displayed in the regular way.

@@ -39,8 +39,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// <summary>
 		/// Specifies how the validation message should be displayed.
 		/// </summary>
-		[Parameter] public ValidationMessageDisplayMode? ValidationMessageDisplayMode { get; set; }
-		protected ValidationMessageDisplayMode ValidationMessageDisplayModeEffective => this.ValidationMessageDisplayMode ?? this.GetSettings()?.ValidationMessageDisplayMode ?? GetDefaults().ValidationMessageDisplayMode ?? HxInputBase.Defaults?.ValidationMessageDisplayMode ?? throw new InvalidOperationException(nameof(ValidationMessageDisplayMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
+		[Parameter] public ValidationMessageMode? ValidationMessageMode { get; set; }
+		protected ValidationMessageMode ValidationMessageModeEffective => this.ValidationMessageMode ?? this.GetSettings()?.ValidationMessageMode ?? GetDefaults().ValidationMessageMode ?? HxInputBase.Defaults?.ValidationMessageMode ?? throw new InvalidOperationException(nameof(ValidationMessageMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
 
 		/// <inheritdoc cref="Web.FormState" />
 		[CascadingParameter] protected FormState FormState { get; set; }
@@ -302,11 +302,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Renders validation message (component <see cref="HxValidationMessage{TValue}" />) when not disabled (<seealso cref="ValidationMessageDisplayModeEffective" />).
+		/// Renders validation message (component <see cref="HxValidationMessage{TValue}" />) when not disabled (<seealso cref="ValidationMessageModeEffective" />).
 		/// </summary>
 		protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
 		{
-			if (this.ValidationMessageDisplayModeEffective != Bootstrap.ValidationMessageDisplayMode.None) // if: performance
+			if (this.ValidationMessageModeEffective != Bootstrap.ValidationMessageMode.None) // if: performance
 			{
 				//<div class="invalid-feedback">
 				//Please provide a valid city.
@@ -317,7 +317,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.EditContext), autoCreatedEditContext);
 				}
 				builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.For), ValueExpression);
-				builder.AddAttribute(4, nameof(HxValidationMessage<TValue>.DisplayMode), ValidationMessageDisplayModeEffective);
+				builder.AddAttribute(4, nameof(HxValidationMessage<TValue>.DisplayMode), ValidationMessageModeEffective);
 				builder.CloseComponent();
 			}
 		}
