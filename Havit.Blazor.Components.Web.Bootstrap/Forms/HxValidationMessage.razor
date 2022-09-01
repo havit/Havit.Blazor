@@ -14,10 +14,15 @@
             <div class="@(HxInputBase<object>.InvalidCssClass)"></div>
 
             <div class="@Mode.AsCssClass()">
-                @foreach (string message in messages)
-                {
-                    <span class="me-1">@message</span>
+                @{
+                    bool firstRendered = false;
+                    foreach (string message in messages)
+                    {
+                        <span class=@CssClassHelper.Combine(firstRendered ? "ms-1" : String.Empty)>@message</span>
+                        firstRendered = true;
+                    }
                 }
+
             </div>
         }
     }
