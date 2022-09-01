@@ -2863,8 +2863,8 @@ textarea.form-control-lg {
 .valid-feedback {
   display: none;
   width: 100%;
-  margin-top: 0.25rem;
-  font-size: 0.875em;
+  margin-top: 0.125rem;
+  font-size: 0.75rem;
   color: #1c9e0b;
 }
 
@@ -2956,8 +2956,8 @@ textarea.form-control-lg {
 .invalid-feedback {
   display: none;
   width: 100%;
-  margin-top: 0.25rem;
-  font-size: 0.875em;
+  margin-top: 0.125rem;
+  font-size: 0.75rem;
   color: #f93a25;
 }
 
