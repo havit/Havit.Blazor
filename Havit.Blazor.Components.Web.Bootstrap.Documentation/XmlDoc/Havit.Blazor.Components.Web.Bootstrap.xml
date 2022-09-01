@@ -3364,7 +3364,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ValidationMessageMode">
             <summary>
-            Specifies how the validation message should be displayed.
+            Specifies how the validation message should be displayed.<br/>
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Regular"/>, you can override application-wide default for all inputs in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase.Defaults"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FormState">
@@ -4615,7 +4616,7 @@
             Mutual exclusive with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.For"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldName"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.DisplayMode">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.Mode">
             <summary>
             Specifies how the validation message should be displayed.
             </summary>
@@ -5167,7 +5168,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode">
             <summary>
-            Validation message display mode.
+            Validation message display mode for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1"/>
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Regular">

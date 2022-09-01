@@ -37,7 +37,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected abstract IInputsSettings GetSettings();
 
 		/// <summary>
-		/// Specifies how the validation message should be displayed.
+		/// Specifies how the validation message should be displayed.<br/>
+		/// Default is <see cref="ValidationMessageMode.Regular"/>, you can override application-wide default for all inputs in <see cref="HxInputBase.Defaults"/>.
 		/// </summary>
 		[Parameter] public ValidationMessageMode? ValidationMessageMode { get; set; }
 		protected ValidationMessageMode ValidationMessageModeEffective => this.ValidationMessageMode ?? this.GetSettings()?.ValidationMessageMode ?? GetDefaults().ValidationMessageMode ?? HxInputBase.Defaults?.ValidationMessageMode ?? throw new InvalidOperationException(nameof(ValidationMessageMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
@@ -317,7 +318,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.EditContext), autoCreatedEditContext);
 				}
 				builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.For), ValueExpression);
-				builder.AddAttribute(4, nameof(HxValidationMessage<TValue>.DisplayMode), ValidationMessageModeEffective);
+				builder.AddAttribute(4, nameof(HxValidationMessage<TValue>.Mode), ValidationMessageModeEffective);
 				builder.CloseComponent();
 			}
 		}
