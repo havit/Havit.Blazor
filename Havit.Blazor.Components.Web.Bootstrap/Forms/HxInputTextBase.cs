@@ -8,13 +8,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	/// </summary>
 	public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 	{
-
 		/// <summary>
 		/// Return <see cref="HxInputText"/> defaults.
 		/// Enables to not share defaults in descandants with base classes.
 		/// Enables to have multiple descendants which differs in the default values.
 		/// </summary>
-		protected abstract InputTextSettings GetDefaults();
+		protected override abstract InputTextSettings GetDefaults();
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputText.Defaults"/>, overriden by individual parameters).
@@ -25,9 +24,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Returns optional set of component settings.
 		/// </summary>
 		/// <remarks>
-		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 		/// </remarks>
-		protected virtual InputTextSettings GetSettings() => this.Settings;
+		protected override InputTextSettings GetSettings() => this.Settings;
 
 		/// <summary>
 		/// The maximum number of characters (UTF-16 code units) that the user can enter.<br />

@@ -23,7 +23,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// Enables to not share defaults in descandants with base classes.
 	/// Enables to have multiple descendants which differs in the default values.
 	/// </summary>
-	protected virtual MultiSelectSettings GetDefaults() => HxMultiSelect.Defaults;
+	protected override MultiSelectSettings GetDefaults() => HxMultiSelect.Defaults;
 
 	/// <summary>
 	/// Set of settings to be applied to the component instance (overrides <see cref="HxMultiSelect.Defaults"/>, overriden by individual parameters).
@@ -34,9 +34,9 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual MultiSelectSettings GetSettings() => this.Settings;
+	protected override MultiSelectSettings GetSettings() => this.Settings;
 
 	/// <summary>
 	/// Size of the input.

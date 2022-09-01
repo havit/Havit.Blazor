@@ -35,7 +35,7 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 	/// Enables to not share defaults in descandants with base classes.
 	/// Enables to have multiple descendants which differs in the default values.
 	/// </summary>
-	protected virtual InputRangeSettings GetDefaults() => HxInputRange.Defaults;
+	protected override InputRangeSettings GetDefaults() => HxInputRange.Defaults;
 
 	/// <summary>
 	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputRange.Defaults"/>, overriden by individual parameters).
@@ -48,7 +48,7 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> for components descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual InputRangeSettings GetSettings() => this.Settings;
+	protected override InputRangeSettings GetSettings() => this.Settings;
 
 	/// <summary>
 	/// By default, <code>HxInputRange</code> snaps to integer values. To change this, you can specify a step value.

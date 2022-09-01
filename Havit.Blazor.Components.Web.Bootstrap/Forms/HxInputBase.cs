@@ -22,6 +22,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		public const string InvalidCssClass = "is-invalid";
 
+		/// <summary>
+		/// Return <see cref="HxInputBase{TValue}"/> defaults.
+		/// Enables to not share defaults in descandants with base classes.
+		/// Enables to have multiple descendants which differs in the default values.
+		/// </summary>
+		protected virtual IInputsSettings GetDefaults() => HxInputBase.Defaults;
+
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputBase.Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		/// <remarks>
+		/// Using interface does not force the implementation of settings to use specific class as a base type.</remarks>
+		protected abstract IInputsSettings GetSettings();
+
+		/// <summary>
+		/// Specifies how the validation message should be displayed.<br/>
+		/// Default is <see cref="ValidationMessageMode.Regular"/>, you can override application-wide default for all inputs in <see cref="HxInputBase.Defaults"/>.
+		/// </summary>
+		[Parameter] public ValidationMessageMode? ValidationMessageMode { get; set; }
+		protected ValidationMessageMode ValidationMessageModeEffective => this.ValidationMessageMode ?? this.GetSettings()?.ValidationMessageMode ?? GetDefaults().ValidationMessageMode ?? HxInputBase.Defaults?.ValidationMessageMode ?? throw new InvalidOperationException(nameof(ValidationMessageMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
+
 		/// <inheritdoc cref="Web.FormState" />
 		[CascadingParameter] protected FormState FormState { get; set; }
 		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
@@ -62,11 +83,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Custom CSS class to render with the input element.
 		/// </summary>
 		[Parameter] public string InputCssClass { get; set; }
-
-		/// <summary>
-		/// When <c>false</c>, validation message is not rendered. Default is <c>true</c>.
-		/// </summary>
-		[Parameter] public bool ShowValidationMessage { get; set; } = true;
 
 		/// <summary>
 		/// When <c>true</c>, <see cref="HxChipGenerator"/> is used to generate chip item(s). Default is <c>true</c>.
@@ -287,11 +303,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		}
 
 		/// <summary>
-		/// Renders validation message (component <see cref="HxValidationMessage{TValue}" />) when not disabled (<seealso cref="ShowValidationMessage" />).
+		/// Renders validation message (component <see cref="HxValidationMessage{TValue}" />) when not disabled (<seealso cref="ValidationMessageModeEffective" />).
 		/// </summary>
 		protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
 		{
-			if (ShowValidationMessage)
+			if (this.ValidationMessageModeEffective != Bootstrap.ValidationMessageMode.None) // if: performance
 			{
 				//<div class="invalid-feedback">
 				//Please provide a valid city.
@@ -302,6 +318,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 					builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.EditContext), autoCreatedEditContext);
 				}
 				builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.For), ValueExpression);
+				builder.AddAttribute(4, nameof(HxValidationMessage<TValue>.Mode), ValidationMessageModeEffective);
 				builder.CloseComponent();
 			}
 		}

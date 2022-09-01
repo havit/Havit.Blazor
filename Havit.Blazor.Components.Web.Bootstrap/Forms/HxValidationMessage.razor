@@ -1,0 +1,34 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@typeparam TValue
+
+<div>@* CSS Isolation container *@
+
+    @if (Mode != ValidationMessageMode.None)
+    {
+        List<string> messages = fieldIdentifiers.SelectMany(fieldIdentifier => currentEditContext.GetValidationMessages(fieldIdentifier)).ToList();
+        bool isValid = !messages.Any();
+
+        if (!isValid)
+        {
+            <div class="@(HxInputBase<object>.InvalidCssClass)"></div>
+
+            <div class="@Mode.AsCssClass()">
+                @{
+                    bool firstRendered = false;
+                    foreach (string message in messages)
+                    {
+                        if (firstRendered)
+                        {
+                            <text> </text>
+                        }
+
+                        <span>@message</span>
+
+                        firstRendered = true;
+                    }
+                }
+            </div>
+        }
+    }
+
+</div>

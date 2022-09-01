@@ -15,7 +15,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		[Parameter] public bool Inline { get; set; }
 
-		[Inject] protected IStringLocalizer<HxCheckbox> Localizer { get; set; } // shares values with a newer HxCheckBox
+		/// <summary>
+		/// Set of settings to be applied to the component instance.
+		/// </summary>
+		[Parameter] public InputCheckboxSettings Settings { get; set; }
+
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		protected override InputCheckboxSettings GetSettings() => this.Settings;
+
+		[Inject] protected IStringLocalizer<HxCheckbox> Localizer { get; set; }
 
 		/// <inheritdoc cref="LabelValueRenderOrder" />
 		protected override LabelValueRenderOrder RenderOrder => LabelValueRenderOrder.ValueLabel;

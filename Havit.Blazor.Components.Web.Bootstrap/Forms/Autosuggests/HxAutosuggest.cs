@@ -16,7 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Returns application-wide defaults for the component.
 		/// Enables overriding defaults in descandants (use separate set of defaults).
 		/// </summary>
-		protected virtual AutosuggestSettings GetDefaults() => HxAutosuggest.Defaults;
+		protected override AutosuggestSettings GetDefaults() => HxAutosuggest.Defaults;
 
 		/// <summary>
 		/// Set of settings to be applied to the component instance (overrides <see cref="HxAutosuggest.Defaults"/>, overriden by individual parameters).
@@ -27,9 +27,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Returns optional set of component settings.
 		/// </summary>
 		/// <remarks>
-		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 		/// </remarks>
-		protected virtual AutosuggestSettings GetSettings() => this.Settings;
+		protected override AutosuggestSettings GetSettings() => this.Settings;
 
 
 		/// <summary>

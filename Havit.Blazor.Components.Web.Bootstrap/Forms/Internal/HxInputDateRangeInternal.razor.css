@@ -18,7 +18,11 @@
 }
 
 .hx-input-date-range {
-    flex-wrap: nowrap;
+    display: flex;
+}
+
+::deep .feedback-floating {
+    left: 0;
 }
 
 /* Remove caret. */

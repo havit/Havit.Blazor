@@ -15,7 +15,6 @@
 			string cssClass = CssClassHelper.Combine(FormValueComponent.CoreCssClass, FormValueComponent.CssClass);
 
 			// Without any CssClass, Label, not Hint, we will render just the "Value"
-			// TODO ValidationMessage rendering is dependant on wrapping div with.position-relative!?
 			bool renderDiv = !String.IsNullOrEmpty(cssClass)
 				|| !String.IsNullOrEmpty(FormValueComponent.Label)
 				|| (FormValueComponent.LabelTemplate != null)
@@ -79,11 +78,11 @@
 			}
 
 			builder.OpenRegion(8);
-			BuildRenderValidationMessage(builder);
+			BuildRenderHint(builder);
 			builder.CloseRegion();
 
 			builder.OpenRegion(9);
-			BuildRenderHint(builder);
+			BuildRenderValidationMessage(builder);
 			builder.CloseRegion();
 
 			if (renderDiv)

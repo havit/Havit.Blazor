@@ -31,7 +31,7 @@
 		/// Returns optional set of component settings.
 		/// </summary>
 		/// <remarks>
-		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+		/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
 		/// </remarks>
 		protected virtual CardSettings GetSettings() => this.Settings;
 

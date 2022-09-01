@@ -54,6 +54,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// </summary>
 		protected bool AutoSortImpl { get; set; } = true;
 
+		/// <summary>
+		/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDate.Defaults"/>, overriden by individual parameters).
+		/// </summary>
+		[Parameter] public RadioButtonListSettings Settings { get; set; }
+
+		/// <summary>
+		/// Returns optional set of component settings.
+		/// </summary>
+		protected override RadioButtonListSettings GetSettings() => this.Settings;
+
 		/// <inheritdoc cref="HxInputBase{TValue}.EnabledEffective" />
 		protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
 
