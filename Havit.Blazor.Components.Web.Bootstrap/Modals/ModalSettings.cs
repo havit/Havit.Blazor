@@ -31,9 +31,11 @@
 		public ModalFullscreen? Fullscreen { get; set; }
 
 		/// <summary>
-		/// Indicates whether the modal uses a static backdrop.
+		/// Indicates whether to apply a backdrop on body while the modal is open.
+		/// If set to <see cref="ModalBackdrop.Static"/>, the modal cannot be closed by clicking on the backdrop.
+		/// Default value (from <see cref="HxModal.Defaults"/>) is <see cref="ModalBackdrop.True"/>.
 		/// </summary>
-		public bool? UseStaticBackdrop { get; set; }
+		public ModalBackdrop? Backdrop { get; set; }
 
 		/// <summary>
 		/// Allows scrolling the modal body.

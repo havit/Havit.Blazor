@@ -6615,6 +6615,11 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxModal">https://havit.blazor.eu/components/HxModal</see>
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxModal.StaticBackdropValue">
+            <summary>
+            A value that is passed to the <c>data-bs-backdrop</c> data attribute when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Backdrop"/> is set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.Static"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults">
             <summary>
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
@@ -6687,10 +6692,11 @@
             Default value is <c>true</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.UseStaticBackdrop">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Backdrop">
             <summary>
-            Indicates whether the modal uses a static backdrop.
-            Default value is <c>true</c>.
+            Indicates whether to apply a backdrop on body while the modal is open.
+            If set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.Static"/>, the modal cannot be closed by clicking on the backdrop.
+            Default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults"/>) is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.True"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Scrollable">
@@ -6775,6 +6781,13 @@
             Receives notification from JS for <c>shown.bs.modal</c> event.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.GetBackdropSetupValue(Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop)">
+            <summary>
+            Formats a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop"/> for supplying the value via the <c>data-bs-backdrop</c> data attribute.
+            </summary>
+            <param name="backdrop"></param>
+            <returns></returns>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox"/> and derived components.
@@ -6793,6 +6806,26 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.ModalSettings">
             <summary>
             Settings for underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> component.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop">
+            <summary>
+            Options for controlling the behavior of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Backdrop"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.True">
+            <summary>
+            A backdrop will be rendered. Modal will be closed upon clicking on the backdrop.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.False">
+            <summary>
+            No backdrop will be rendered.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.Static">
+            <summary>
+            A static backdrop will be rendered. Modal will not be closed upon clicking on the backdrop.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen">
@@ -6865,9 +6898,11 @@
             Fullscreen behavior of the modal.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.UseStaticBackdrop">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Backdrop">
             <summary>
-            Indicates whether the modal uses a static backdrop.
+            Indicates whether to apply a backdrop on body while the modal is open.
+            If set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.Static"/>, the modal cannot be closed by clicking on the backdrop.
+            Default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults"/>) is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.True"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Scrollable">
@@ -7791,7 +7826,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.GetBackdropSetupValue(Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop)">
             <summary>
-            Formats a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop"/> for offcanvas initialization in JS (it expects a boolean or the string "static").
+            Formats a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop"/> for supplying the value via the <c>data-bs-backdrop</c> data attribute.
             </summary>
             <param name="backdrop"></param>
             <returns></returns>

@@ -1,4 +1,4 @@
-﻿export function show(element, hxModalDotnetObjectReference, useStaticBackdrop, closeOnEscape) {
+﻿export function show(element, hxModalDotnetObjectReference, closeOnEscape) {
 	if (!element) {
 		return;
 	}
@@ -8,7 +8,6 @@
 	element.addEventListener('shown.bs.modal', handleModalShown);
 
 	var modal = new bootstrap.Modal(element, {
-		backdrop: useStaticBackdrop ? "static" : true,
 		keyboard: closeOnEscape
 	});
 	if (modal) {

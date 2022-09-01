@@ -10,6 +10,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 	public partial class HxModal : IAsyncDisposable
 	{
 		/// <summary>
+		/// A value that is passed to the <c>data-bs-backdrop</c> data attribute when <see cref="Backdrop"/> is set to <see cref="ModalBackdrop.Static"/>.
+		/// </summary>
+		private const string StaticBackdropValue = "static";
+
+		/// <summary>
 		/// Application-wide defaults for the <see cref="HxGrid{TItem}"/>.
 		/// </summary>
 		public static ModalSettings Defaults { get; }
@@ -22,7 +27,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				CloseOnEscape = true,
 				Size = ModalSize.Regular,
 				Fullscreen = ModalFullscreen.Disabled,
-				UseStaticBackdrop = true,
+				Backdrop = ModalBackdrop.True,
 				Scrollable = false,
 				Centered = false,
 			};
@@ -102,11 +107,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected bool CloseOnEscapeEffective => this.CloseOnEscape ?? this.GetSettings()?.CloseOnEscape ?? GetDefaults().CloseOnEscape ?? throw new InvalidOperationException(nameof(CloseOnEscape) + " default for " + nameof(HxModal) + " has to be set.");
 
 		/// <summary>
-		/// Indicates whether the modal uses a static backdrop.
-		/// Default value is <c>true</c>.
+		/// Indicates whether to apply a backdrop on body while the modal is open.
+		/// If set to <see cref="ModalBackdrop.Static"/>, the modal cannot be closed by clicking on the backdrop.
+		/// Default value (from <see cref="Defaults"/>) is <see cref="ModalBackdrop.True"/>.
 		/// </summary>
-		[Parameter] public bool? UseStaticBackdrop { get; set; }
-		protected bool UseStaticBackdropEffective => this.UseStaticBackdrop ?? this.GetSettings()?.UseStaticBackdrop ?? GetDefaults().UseStaticBackdrop ?? throw new InvalidOperationException(nameof(UseStaticBackdrop) + " default for " + nameof(HxModal) + " has to be set.");
+		[Parameter] public ModalBackdrop? Backdrop { get; set; }
+		protected ModalBackdrop BackdropEffective => this.Backdrop ?? this.GetSettings()?.Backdrop ?? GetDefaults().Backdrop ?? throw new InvalidOperationException(nameof(Backdrop) + " default for " + nameof(HxModal) + " has to be set.");
 
 		/// <summary>
 		/// Allows scrolling the modal body. Default is <c>false</c>.
@@ -251,8 +257,24 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				{
 					return;
 				}
-				await jsModule.InvokeVoidAsync("show", modalElement, dotnetObjectReference, this.UseStaticBackdropEffective, this.CloseOnEscapeEffective);
+				await jsModule.InvokeVoidAsync("show", modalElement, dotnetObjectReference, this.CloseOnEscapeEffective);
 			}
+		}
+
+		/// <summary>
+		/// Formats a <see cref="ModalBackdrop"/> for supplying the value via the <c>data-bs-backdrop</c> data attribute.
+		/// </summary>
+		/// <param name="backdrop"></param>
+		/// <returns></returns>
+		private string GetBackdropSetupValue(ModalBackdrop backdrop)
+		{
+			return backdrop switch
+			{
+				ModalBackdrop.Static => StaticBackdropValue,
+				ModalBackdrop.True => "true",
+				ModalBackdrop.False => "false",
+				_ => throw new InvalidOperationException($"Unknown {nameof(ModalBackdrop)} value {BackdropEffective}")
+			};
 		}
 
 		protected string GetDialogSizeCssClass()
