@@ -32,7 +32,11 @@
 
                     @if (TogglerTemplate is null)
                     {
-                        <div class="@CssClassHelper.Combine("hx-sidebar-toggler-icon-wrapper", GetResponsiveCssClass("d-??-flex"))">
+                        <div class="@CssClassHelper.Combine(
+                            "hx-sidebar-toggler-icon-wrapper",
+                            "d-none", // Hide the sidebar toggler in navbar mode (when below the responsive breakpoint).
+                            GetResponsiveCssClass("d-??-flex"))">
+
                             <HxIcon CssClass="hx-sidebar-toggler-icon" Icon="@(Collapsed ? ExpandIcon : CollapseIcon)" />
                         </div>
                     }
