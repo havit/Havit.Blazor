@@ -4629,9 +4629,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.OnParametersSet">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
-            <inheritdoc />
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.Dispose">
             <inheritdoc />
         </member>

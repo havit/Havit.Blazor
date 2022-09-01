@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Used by <see cref="HxInputBase{TValue}"/> and derived components.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxValidationMessage">https://havit.blazor.eu/components/HxValidationMessage</see>
 /// </summary>
-public class HxValidationMessage<TValue> : ComponentBase, IDisposable
+public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 {
 	private EditContext previousEditContext;
 	private Expression<Func<TValue>> previousFor;
@@ -104,64 +104,6 @@ public class HxValidationMessage<TValue> : ComponentBase, IDisposable
 			DetachValidationStateChangedListener();
 			currentEditContext.OnValidationStateChanged += validationStateChangedHandler;
 			previousEditContext = currentEditContext;
-		}
-	}
-
-	/// <inheritdoc />
-	protected override void BuildRenderTree(RenderTreeBuilder builder)
-	{
-		if (Mode == ValidationMessageMode.None)
-		{
-			return;
-		}
-
-		List<string> messages = fieldIdentifiers.SelectMany(fieldIdentifier => currentEditContext.GetValidationMessages(fieldIdentifier)).ToList();
-		bool isValid = !messages.Any();
-
-		if (isValid)
-		{
-			// when there is no validation message, render "nothing"
-			// practically, we need to render div for keepspace
-			if (Mode == ValidationMessageMode.KeepSpace)
-			{
-				builder.OpenElement(200, "div");
-				builder.AddAttribute(201, "class", Mode.AsCssClass());
-				builder.CloseElement();
-			}
-		}
-		else
-		{
-			// TODO JK: AFAIR &nbsp; replaced in master
-
-			/*
-				<div class="is-invalid">
-					<div class="invalid-feedback|invalid-tooltip|invalid-feedback-keepspace">
-						<span>Validation message 1</span>&nbsp;<span>Validation message 2</span>
-					</div>
-				</div>
-			*/
-			builder.OpenElement(100, "div");
-			builder.AddAttribute(101, "class", HxInputBase<object>.InvalidCssClass);
-			builder.CloseElement();
-
-			builder.OpenElement(200, "div");
-			builder.AddAttribute(201, "class", Mode.AsCssClass());
-
-			bool firstRendered = false;
-			foreach (string message in messages)
-			{
-				if (firstRendered)
-				{
-					builder.AddMarkupContent(202, " ");
-				}
-				builder.OpenElement(203, "span");
-				builder.AddContent(204, message);
-				builder.CloseElement();
-
-				firstRendered = true;
-			}
-
-			builder.CloseElement();
 		}
 	}
 
