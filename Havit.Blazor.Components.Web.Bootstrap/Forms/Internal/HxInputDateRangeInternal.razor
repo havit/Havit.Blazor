@@ -13,9 +13,9 @@
                                  ElementName="input"
                                  type="text"
                                  CssClass="@CssClassHelper.Combine(this.InputCssClass,
-                    ((IInputWithSize)this).GetInputSizeCssClass(),
-                    fromValid ? null : HxInputBase<object>.InvalidCssClass,
-                    "hx-border-radius-end-0")"
+                                                                    ((IInputWithSize)this).GetInputSizeCssClass(),
+                                                                    fromValid ? null : HxInputBase<object>.InvalidCssClass,
+                                                                    "hx-border-radius-end-0")"
                                  value="@FormatDate(Value.StartDate)"
                                  placeholder="@StringLocalizerFactory.GetLocalizedValue("From", typeof(HxInputDateRange))"
                                  @onchange="HandleFromChanged"
@@ -44,9 +44,9 @@
                                  ElementName="input"
                                  type="text"
                                  CssClass="@CssClassHelper.Combine(this.InputCssClass,
-                    ((IInputWithSize)this).GetInputSizeCssClass(),
-                    toValid ? null : HxInputBase<object>.InvalidCssClass,
-                    "hx-border-radius-start-0 hx-border-radius-end-0")"
+                                                                    ((IInputWithSize)this).GetInputSizeCssClass(),
+                                                                    toValid ? null : HxInputBase<object>.InvalidCssClass,
+                                                                    "hx-border-radius-start-0 hx-border-radius-end-0")"
                                  value="@FormatDate(Value.EndDate)"
                                  placeholder="@StringLocalizerFactory.GetLocalizedValue("To", typeof(HxInputDateRange))"
                                  @onchange="HandleToChanged"
@@ -68,7 +68,6 @@
                 </HxDropdownContent>
             }
 
-            <HxValidationMessage TValue="DateTimeRange" ForFieldNames="@validationFieldNames" DisplayMode="@ValidationMessageModeEffective" />
         </HxDropdown>
 
         @if (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective != null) && PredefinedDateRangesEffective.Any())
@@ -88,5 +87,7 @@
                 }
             </HxDropdownButtonGroup>
         }
+
+        <HxValidationMessage TValue="DateTimeRange" ForFieldNames="@validationFieldNames" Mode="@ValidationMessageModeEffective" />
     </div>
 }

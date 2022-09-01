@@ -1,0 +1,20 @@
+﻿<EditForm Model="@model">
+    <DataAnnotationsValidator />
+
+    <HxInputText @bind-Value="@model.Text" Label="ValidationMessageMode.Regular" ValidationMessageMode="ValidationMessageMode.Regular" Placeholder="Validation message shifts the remaining content." />
+    <HxInputText @bind-Value="@model.Text" Label="ValidationMessageMode.Tooltip" ValidationMessageMode="ValidationMessageMode.Tooltip" Placeholder="Validation message renders as tooltip." />
+    <HxInputText @bind-Value="@model.Text" Label="ValidationMessageMode.KeepSpace" ValidationMessageMode="ValidationMessageMode.KeepSpace" Placeholder="Validation message takes pre-reserved space." />
+    <HxInputText @bind-Value="@model.Text" Label="ValidationMessageMode.None" ValidationMessageMode="ValidationMessageMode.None" Placeholder="Validation message not displayed." />
+
+    <HxSubmit Color="ThemeColor.Primary" Text="Submit" />
+</EditForm>
+
+@code {
+    private DemoModel model = new();
+
+    protected class DemoModel
+    {
+        [Required(ErrorMessage = "A text has to be written.")]
+        public string Text { get; set; }
+    }
+}
