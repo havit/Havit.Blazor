@@ -6,87 +6,89 @@
     bool fromValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(fromFieldIdentifier).Any();
     bool toValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(toFieldIdentifier).Any();
 
-    <div class="@CssClassHelper.Combine("hx-input-date-range input-group", (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective?.Any() ?? false)) ? "hx-input-date-range-predefined-ranges" : null)">
-        <HxDropdown CssClass="hx-dropdown-with-calendar" AutoClose="DropdownAutoClose.Outside">
-            @*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-            <HxDropdownToggleElement @ref="fromDropdownToggleElement"
-                                 ElementName="input"
-                                 type="text"
-                                 CssClass="@CssClassHelper.Combine(this.InputCssClass,
-                                                                    ((IInputWithSize)this).GetInputSizeCssClass(),
-                                                                    fromValid ? null : HxInputBase<object>.InvalidCssClass,
-                                                                    "hx-border-radius-end-0")"
-                                 value="@FormatDate(Value.StartDate)"
-                                 placeholder="@StringLocalizerFactory.GetLocalizedValue("From", typeof(HxInputDateRange))"
-                                 @onchange="HandleFromChanged"
-                                 disabled="@(!EnabledEffective)"
-                                 @attributes="this.AdditionalAttributes" />
+    <div class="@CssClassHelper.Combine("hx-input-date-range", (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective?.Any() ?? false)) ? "hx-input-date-range-predefined-ranges" : null)">
+        <div class="input-group flex-nowrap">
+            <HxDropdown CssClass="hx-dropdown-with-calendar" AutoClose="DropdownAutoClose.Outside">
+                @*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
+                <HxDropdownToggleElement @ref="fromDropdownToggleElement"
+                                    ElementName="input"
+                                    type="text"
+                                    CssClass="@CssClassHelper.Combine(this.InputCssClass,
+                                                                        ((IInputWithSize)this).GetInputSizeCssClass(),
+                                                                        fromValid ? null : HxInputBase<object>.InvalidCssClass,
+                                                                        "hx-border-radius-end-0")"
+                                    value="@FormatDate(Value.StartDate)"
+                                    placeholder="@StringLocalizerFactory.GetLocalizedValue("From", typeof(HxInputDateRange))"
+                                    @onchange="HandleFromChanged"
+                                    disabled="@(!EnabledEffective)"
+                                    @attributes="this.AdditionalAttributes" />
 
-            @if (EnabledEffective)
-            {
-                <HxDropdownContent CssClass="hx-input-date-range-dropdown-content">
-                    <div class="hx-input-date-range-calendar">
-                        <HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" />
-                    </div>
-                    @if (ShowCalendarButtonsEffective)
-                    {
-                        <div class="hx-input-date-range-buttons">
-                            <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleFromClearClickAsync" />
-                        </div>
-                    }
-                </HxDropdownContent>
-            }
-        </HxDropdown>
-
-        <HxDropdown CssClass="hx-dropdown-with-calendar" AutoClose="DropdownAutoClose.Outside">
-            @*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-            <HxDropdownToggleElement @ref="toDropdownToggleElement"
-                                 ElementName="input"
-                                 type="text"
-                                 CssClass="@CssClassHelper.Combine(this.InputCssClass,
-                                                                    ((IInputWithSize)this).GetInputSizeCssClass(),
-                                                                    toValid ? null : HxInputBase<object>.InvalidCssClass,
-                                                                    "hx-border-radius-start-0 hx-border-radius-end-0")"
-                                 value="@FormatDate(Value.EndDate)"
-                                 placeholder="@StringLocalizerFactory.GetLocalizedValue("To", typeof(HxInputDateRange))"
-                                 @onchange="HandleToChanged"
-                                 disabled="@(!EnabledEffective)"
-                                 @attributes="this.AdditionalAttributes" />
-
-            @if (EnabledEffective)
-            {
-                <HxDropdownContent CssClass="hx-input-date-range-dropdown-content">
-                    <div class="hx-input-date-range-calendar">
-                        <HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" />
-                    </div>
-                    @if (ShowCalendarButtonsEffective)
-                    {
-                        <div class="hx-input-date-range-buttons">
-                            <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleToClearClickAsync" />
-                        </div>
-                    }
-                </HxDropdownContent>
-            }
-
-        </HxDropdown>
-
-        @if (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective != null) && PredefinedDateRangesEffective.Any())
-        {
-            <HxDropdownButtonGroup AutoClose="DropdownAutoClose.True">
-                <HxDropdownToggleButton Color="ThemeColor.Light" CssClass="hx-border-radius-start-0" Enabled="EnabledEffective">
-                    <HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
-                </HxDropdownToggleButton>
                 @if (EnabledEffective)
                 {
-                    <HxDropdownContent>
-                        @foreach (var item in PredefinedDateRangesEffective)
+                    <HxDropdownContent CssClass="hx-input-date-range-dropdown-content">
+                        <div class="hx-input-date-range-calendar">
+                            <HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" />
+                        </div>
+                        @if (ShowCalendarButtonsEffective)
                         {
-                            <li><span class="dropdown-item" role="button" @onclick="() => HandleDateRangeClick(item.DateRange)" @onclick:stopPropagation>@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)</span></li>
+                            <div class="hx-input-date-range-buttons">
+                                <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleFromClearClickAsync" />
+                            </div>
                         }
                     </HxDropdownContent>
                 }
-            </HxDropdownButtonGroup>
-        }
+            </HxDropdown>
+
+            <HxDropdown CssClass="hx-dropdown-with-calendar" AutoClose="DropdownAutoClose.Outside">
+                @*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
+                <HxDropdownToggleElement @ref="toDropdownToggleElement"
+                                    ElementName="input"
+                                    type="text"
+                                    CssClass="@CssClassHelper.Combine(this.InputCssClass,
+                                                                        ((IInputWithSize)this).GetInputSizeCssClass(),
+                                                                        toValid ? null : HxInputBase<object>.InvalidCssClass,
+                                                                        "hx-border-radius-start-0 hx-border-radius-end-0")"
+                                    value="@FormatDate(Value.EndDate)"
+                                    placeholder="@StringLocalizerFactory.GetLocalizedValue("To", typeof(HxInputDateRange))"
+                                    @onchange="HandleToChanged"
+                                    disabled="@(!EnabledEffective)"
+                                    @attributes="this.AdditionalAttributes" />
+
+                @if (EnabledEffective)
+                {
+                    <HxDropdownContent CssClass="hx-input-date-range-dropdown-content">
+                        <div class="hx-input-date-range-calendar">
+                            <HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" />
+                        </div>
+                        @if (ShowCalendarButtonsEffective)
+                        {
+                            <div class="hx-input-date-range-buttons">
+                                <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleToClearClickAsync" />
+                            </div>
+                        }
+                    </HxDropdownContent>
+                }
+
+            </HxDropdown>
+
+            @if (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective != null) && PredefinedDateRangesEffective.Any())
+            {
+                <HxDropdownButtonGroup AutoClose="DropdownAutoClose.True">
+                    <HxDropdownToggleButton Color="ThemeColor.Light" CssClass="hx-border-radius-start-0" Enabled="EnabledEffective">
+                        <HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
+                    </HxDropdownToggleButton>
+                    @if (EnabledEffective)
+                    {
+                        <HxDropdownContent>
+                            @foreach (var item in PredefinedDateRangesEffective)
+                            {
+                                <li><span class="dropdown-item" role="button" @onclick="() => HandleDateRangeClick(item.DateRange)" @onclick:stopPropagation>@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)</span></li>
+                            }
+                        </HxDropdownContent>
+                    }
+                </HxDropdownButtonGroup>
+            }
+        </div>
 
         <HxValidationMessage TValue="DateTimeRange" ForFieldNames="@validationFieldNames" Mode="@ValidationMessageModeEffective" />
     </div>
