@@ -4620,10 +4620,6 @@ textarea.form-control-lg {
   }
 }
 
-.card-body > .hx-progress-overlay {
-  min-height: 60px;
-}
-
 .card-header, .card-footer {
   border-color: rgba(0, 0, 0, 0.0375);
 }
