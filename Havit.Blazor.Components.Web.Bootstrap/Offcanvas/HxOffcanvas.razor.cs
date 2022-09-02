@@ -86,7 +86,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		protected OffcanvasResponsiveBreakpoint ResponsiveBreakpointEffective => this.ResponsiveBreakpoint ?? this.GetSettings()?.ResponsiveBreakpoint ?? GetDefaults().ResponsiveBreakpoint ?? throw new InvalidOperationException(nameof(ResponsiveBreakpoint) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 		/// <summary>
-		/// Determines whether the content is always rendered or only if the offcanvas is open. Default is <see cref="OffcanvasRenderMode.OpenOnly"/>.
+		/// Determines whether the content is always rendered or only if the offcanvas is open.<br />
+		/// Default is <see cref="OffcanvasRenderMode.OpenOnly"/>.<br />
+		/// Please note, this setting applies only when <see cref="OffcanvasResponsiveBreakpoint.None"/> is set. For all other values, the content is always rendered (to be available for the mobile version).
 		/// </summary>
 		[Parameter] public OffcanvasRenderMode RenderMode { get; set; } = OffcanvasRenderMode.OpenOnly;
 

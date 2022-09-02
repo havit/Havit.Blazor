@@ -6,8 +6,9 @@
 	public enum OffcanvasRenderMode
 	{
 		/// <summary>
-		/// Offcanvas content is rendered only when it is open.
-		/// Suitable for item-detail, item-edit, etc.
+		/// Offcanvas content is rendered only when it is open.<br />
+		/// Suitable for item-detail, item-edit, etc.<br />
+		/// This setting applies only when <see cref="OffcanvasResponsiveBreakpoint.None"/> is set. For all other values, the content is always rendered (to be available for the mobile version).
 		/// </summary>
 		OpenOnly = 0,
 
