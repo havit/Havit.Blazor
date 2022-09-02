@@ -30,6 +30,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
 
 		private readonly List<SearchItem> searchItems = new()
 		{
+			new("/magrating-to-v3", "Migrating to v3", "upgrade release notes update 5.2 5.1"),
+			
 			// Components and other pages
 
 			new("/components/Inputs", "Inputs", "form"),
