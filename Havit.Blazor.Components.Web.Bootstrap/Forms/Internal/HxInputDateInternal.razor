@@ -62,7 +62,7 @@
             }
         </HxDropdown>
 
-        <HxDropdownButtonGroup CssClass="@(((IInputWithSize)this).GetInputGroupSizeCssClass())" AutoClose="DropdownAutoClose.True">
+        <HxDropdownButtonGroup CssClass="@CssClassHelper.Combine(((IInputWithSize)this).GetInputGroupSizeCssClass(), "ms-0")" AutoClose="DropdownAutoClose.True">
             @if (RenderPredefinedDates)
             {
                 <HxDropdownToggleButton CssClass="hx-input-date-predefined-dates-button" Color="ThemeColor.Light" Enabled="@EnabledEffective" tabindex="-1">
