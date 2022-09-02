@@ -5,7 +5,7 @@
      tabindex="-1"
      id="@offcanvasId"
      data-bs-backdrop="@GetBackdropSetupValue(BackdropEffective)">
-    @if (opened || (this.RenderMode == OffcanvasRenderMode.Always) || ResponsiveBreakpoint != OffcanvasResponsiveBreakpoint.None)
+    @if (opened || (this.RenderMode == OffcanvasRenderMode.Always) || (this.ResponsiveBreakpointEffective != OffcanvasResponsiveBreakpoint.None))
     {
         <div class="@CssClassHelper.Combine("offcanvas-header", this.HeaderCssClassEffective)">
             @if (Title != null)
