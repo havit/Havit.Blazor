@@ -15,7 +15,7 @@
 
             <div class="position-relative">
                 <form @onsubmit="HandleTextQueryTriggered" @onfocusout="HandleInputBlur">
-                    <HxInputText Value="@TextQuery"
+@*                    <HxInputText Value="@TextQuery"
                                  ValueChanged="HandleTextQueryValueChanged"
                                  ValueExpression="() => this.TextQuery"
                                  InputMode="InputMode.Search"
@@ -29,7 +29,15 @@
                                  InputGroupStartText="@InputGroupStartText"
                                  InputGroupEndText="@InputGroupEndText"
                                  InputGroupStartTemplate="@InputGroupStartTemplate"
-                                 InputGroupEndTemplate="@InputGroupEndTemplate" />
+                                 InputGroupEndTemplate="@InputGroupEndTemplate" />*@
+                    <input
+                        value="@TextQuery"
+                        @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
+                        @onkeydown="UpdateFocusedItem"
+                        inputmode="search"
+                        enabled="@Enabled"
+                        placeholder="@Placeholder"
+                        class="@CssClassHelper.Combine("form-control", InputCssClassEffective)" />
 
                     @if (InputGroupEndText is null && InputGroupEndTemplate is null)
                     {
@@ -66,7 +74,12 @@
                     IconBase icon = ItemIconSelector?.Invoke(item) ?? null;
 
                     <li class="overflow-hidden">
-                        <button type="button" tabindex="0" class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="() => HandleItemSelected(item)">
+                        <button
+                            type="button"
+                            tabindex="0"
+                            class="@CssClassHelper.Combine("dropdown-item", HasItemFocus(item) ? "hx-dropdown-item-focused" : null, ItemCssClassEffective)"
+                            @onclick="() => HandleItemSelected(item)">
+                            
                             @if (ItemTemplate is null)
                             {
                                 <HxSearchBoxItem Title="@title" Subtitle="@subtitle" Icon="@icon" />
@@ -91,7 +104,12 @@
             @if (AllowTextQuery && (TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
             {
                 <li class="overflow-hidden">
-                    <button type="button" tabindex="0" class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="HandleTextQueryTriggered">
+                    <button
+                        type="button"
+                        tabindex="0"
+                        class="@CssClassHelper.Combine("dropdown-item", HasFreeTextItemFocus() ? "hx-dropdown-item-focused" : null, ItemCssClassEffective)"
+                        @onclick="HandleTextQueryTriggered">
+
                         @if (TextQueryItemTemplate is null)
                         {
                             <HxSearchBoxItem Title="@TextQuery" Icon="@SearchIconEffective" />

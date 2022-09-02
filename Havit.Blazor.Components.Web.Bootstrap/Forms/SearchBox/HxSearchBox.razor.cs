@@ -11,6 +11,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <typeparam name="TItem"></typeparam>
 public partial class HxSearchBox<TItem> : IAsyncDisposable
 {
+	protected const string ArrowUpKeyCode = "ArrowUp";
+	protected const string ArrowDownKeyCode = "ArrowDown";
+
+	protected const string EnterKeyCode = "Enter";
+	protected const string NumpadEnterKeyCode = "NumpadEnter";
+
 	/// <summary>
 	/// Returns application-wide defaults for the component.
 	/// Enables overriding defaults in descandants (use separate set of defaults).
@@ -204,6 +210,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
 	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
 	private List<TItem> searchResults = new();
+	private int focusedItemIndex = -1;
 	private HxDropdownToggleElement dropdownToggle;
 	private bool dropdownMenuActive = false;
 	private bool initialized = false;
@@ -274,12 +281,33 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 
 		dataProviderInProgress = false;
+
+		focusedItemIndex = default;
 		searchResults = result?.Data.ToList();
 
 		textQueryHasBeenBelowMinimumLength = false;
 		await ShowDropdownMenu();
 
 		StateHasChanged();
+	}
+
+	protected bool HasItemFocus(TItem item)
+	{
+		TItem focusedItem = GetItemByIndex(focusedItemIndex);
+
+		if ((focusedItem is not null) && (!focusedItem.Equals(default)))
+		{
+			return item.Equals(focusedItem);
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	protected bool HasFreeTextItemFocus()
+	{
+		return focusedItemIndex == GetFreeTextItemIndex();
 	}
 
 	protected async Task HandleTextQueryValueChanged(string newTextQuery)
@@ -316,6 +344,62 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			await HideDropdownMenu();
 		}
 		await InvokeTextQueryChangedAsync(newTextQuery);
+	}
+
+	private async Task UpdateFocusedItem(KeyboardEventArgs keyboardEventArgs)
+	{
+		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
+		TItem focusedItem = GetItemByIndex(focusedItemIndex);
+		if (keyboardEventArgs.Code == EnterKeyCode || keyboardEventArgs.Code == NumpadEnterKeyCode)
+		{
+			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
+			{
+				await HandleItemSelected(focusedItem);
+			}
+			else if (focusedItemIndex == GetFreeTextItemIndex())
+			{
+				await HandleTextQueryTriggered();
+			}
+		}
+
+		// Move focus up or down.
+		if (keyboardEventArgs.Code == ArrowUpKeyCode)
+		{
+			int previousItemIndex = focusedItemIndex - 1;
+			if (previousItemIndex >= -1) // If the index is -1, no item is focused.
+			{
+				focusedItemIndex = previousItemIndex;
+			}
+		}
+		else if (keyboardEventArgs.Code == ArrowDownKeyCode)
+		{
+			int nextItemIndex = focusedItemIndex + 1;
+			if (nextItemIndex < searchResults.Count)
+			{
+				focusedItemIndex = nextItemIndex;
+			}
+			else
+			{
+				focusedItemIndex = GetFreeTextItemIndex(); // Select the item that's used to confirm the freetext.
+			}
+		}
+	}
+
+	private TItem GetItemByIndex(int index)
+	{
+		if (index >= 0 && index < searchResults.Count)
+		{
+			return searchResults[index];
+		}
+		else
+		{
+			return default;
+		}
+	}
+
+	protected int GetFreeTextItemIndex()
+	{
+		return searchResults.Count;
 	}
 
 	private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)

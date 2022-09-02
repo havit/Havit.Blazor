@@ -28,11 +28,12 @@
     private string textQuery;
 
     List<SearchBoxItem> Data { get; set; } = new()
-        {
-            new() { Title = "Table", Subtitle = "50 000", Icon = BootstrapIcon.Table },
-            new() { Title = "Mouse", Subtitle = "400", Icon = BootstrapIcon.Mouse },
-            new() { Title = "Door", Subtitle = "1000", Icon = BootstrapIcon.DoorClosed }
-        };
+    {
+        new() { Title = "Table", Subtitle = "50 000", Icon = BootstrapIcon.Table },
+        new() { Title = "Mouse", Subtitle = "400", Icon = BootstrapIcon.Mouse },
+        new() { Title = "Door", Subtitle = "1000", Icon = BootstrapIcon.DoorClosed },
+        new() { Title = "Tasks", Subtitle = "720", Icon = BootstrapIcon.ListTask }
+    };
 
     private void OnItemSelected(SearchBoxItem item)
     {
@@ -49,9 +50,9 @@
         await Task.Delay(400); // imitate slower server API
 
         return new()
-            {
-                Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
-            };
+        {
+            Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+        };
     }
 
     class SearchBoxItem
