@@ -191,7 +191,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await CloseDropdownAsync(toDropdownToggleElement);
 		}
 
-		protected void HandleDateRangeClick(DateTimeRange value)
+		protected async Task HandleDateRangeClick(DateTimeRange value, HxDropdownToggleElement dropdownElement)
 		{
 			CurrentValue = value;
 			EditContext.NotifyFieldChanged(fromFieldIdentifier);
@@ -199,6 +199,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
 			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
+
+			await CloseDropdownAsync(dropdownElement);
 		}
 
 		private void ClearPreviousParsingMessage(ref bool previousParsingAttemptFailed, FieldIdentifier fieldIdentifier)

@@ -38,7 +38,7 @@
                             {
                                 @foreach (var item in PredefinedDateRangesEffective)
                                 {
-                                    <HxButton Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleDateRangeClick(item.DateRange)" />
+                                    <HxButton Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleDateRangeClick(item.DateRange, fromDropdownToggleElement)" />
                                 }
                             }
                         </div>
@@ -76,7 +76,7 @@
                             {
                                 @foreach (var item in PredefinedDateRangesEffective)
                                 {
-                                    <HxButton Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleDateRangeClick(item.DateRange)" />
+                                    <HxButton Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleDateRangeClick(item.DateRange, toDropdownToggleElement)" />
                                 }
                             }
                         </div>
