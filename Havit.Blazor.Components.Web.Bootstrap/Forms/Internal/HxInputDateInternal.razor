@@ -52,7 +52,7 @@
                         <HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" />
                     </div>
                     <div class="hx-input-date-dropdown-buttons">
-                        @if (ShowCalendarButtonsEffective)
+                        @if (ShowClearButtonEffective)
                         {
                             <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDate))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" tabindex="-1" />
                         }
@@ -74,5 +74,4 @@
             </div>
         }
     </div>
-
 }

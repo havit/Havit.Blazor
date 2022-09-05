@@ -23,7 +23,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public string ToParsingErrorMessageEffective { get; set; }
 
-		[Parameter] public bool ShowCalendarButtonsEffective { get; set; } = true;
+		[Parameter] public bool ShowClearButtonEffective { get; set; } = true;
 
 		[Parameter] public DateTime MinDateEffective { get; set; }
 
