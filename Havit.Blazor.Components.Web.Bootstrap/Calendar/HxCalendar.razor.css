@@ -83,6 +83,7 @@ td > div {
 .disabled {
     opacity: var(--hx-calendar-day-disabled-opacity);
     text-decoration: var(--hx-calendar-day-disabled-text-decoration);
+    cursor: not-allowed;
 }
 
 td[role="button"]:hover .selected.in, 
