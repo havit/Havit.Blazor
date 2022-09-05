@@ -14,7 +14,7 @@
 					     "hx-input-date",
 					     (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null,
 					     InputGroupCssClass)"
-                    AutoClose="DropdownAutoClose.Outside">
+                AutoClose="DropdownAutoClose.Outside">
 
             @if (InputGroupStartText is not null)
             {
@@ -23,16 +23,15 @@
 
             @InputGroupStartTemplate
 
-            <HxDropdownToggleElement
-                @ref="hxDropdownToggleElement"
-                ElementName="input"
-                CssClass="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())"
-                type="text"
-                id="@InputId"
-                value="@CurrentValueAsString" @onchange="HandleValueChanged"
-                placeholder="@Placeholder"
-                disabled="@(!EnabledEffective)"
-                @attributes="AdditionalAttributes" />
+            <HxDropdownToggleElement @ref="hxDropdownToggleElement"
+                                 ElementName="input"
+                                 CssClass="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())"
+                                 type="text"
+                                 id="@InputId"
+                                 value="@CurrentValueAsString" @onchange="HandleValueChanged"
+                                 placeholder="@Placeholder"
+                                 disabled="@(!EnabledEffective)"
+                                 @attributes="AdditionalAttributes" />
 
             @InputGroupEndTemplate
 
@@ -55,16 +54,13 @@
                     <div class="hx-input-date-dropdown-buttons">
                         @if (ShowCalendarButtonsEffective)
                         {
-                                <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDate))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" tabindex="-1" />
+                            <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDate))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" tabindex="-1" />
                         }
                         @if (RenderPredefinedDates)
                         {
-                            @if (EnabledEffective)
+                            foreach (var item in PredefinedDatesEffective)
                             {
-                                @foreach (var item in PredefinedDatesEffective)
-                                {
-                                    <HxButton Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleCustomDateClick(item.Date)" tabindex="-1" />
-                                }
+                                <HxButton Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleCustomDateClick(item.Date)" tabindex="-1" />
                             }
                         }
                     </div>
