@@ -201,6 +201,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+	/// <summary>
+	/// If true, the first suggestion is highlighted until another is chosen by the user.
+	/// </summary>
+	[Parameter] public bool? HighlightFirstSuggestion { get; set; }
+	protected bool HighlightFirstSuggestionEffective => this.HighlightFirstSuggestion ?? GetSettings()?.HighlightFirstSuggestion ?? GetDefaults()?.HighlightFirstSuggestion ?? throw new InvalidOperationException(nameof(HighlightFirstSuggestion) + " default for " + nameof(HxSearchBox) + " has to be set.");
+
 	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
 	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
 	private List<TItem> searchResults = new();
@@ -276,7 +282,15 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 		dataProviderInProgress = false;
 
-		focusedItemIndex = default; // KeyboardNavigation
+		// KeyboardNavigation
+		if (HighlightFirstSuggestionEffective)
+		{
+			focusedItemIndex = 0; // First item in the searchResults collection.
+		}
+		else
+		{
+			focusedItemIndex = InputKeyboardNavigationIndex;
+		}
 
 		searchResults = result?.Data.ToList();
 
@@ -329,18 +343,23 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private const string EnterKeyCode = "Enter";
 	private const string NumpadEnterKeyCode = "NumpadEnter";
 
+	/// <summary>
+	/// Input's index for the keyboard navigation. If this is the current index, then no item is selected.
+	/// </summary>
+	private const int InputKeyboardNavigationIndex = -1;
+
 	private bool HasItemFocus(TItem item)
 	{
-		TItem focusedItem = GetItemByIndex(focusedItemIndex);
+		if (focusedItemIndex > InputKeyboardNavigationIndex && focusedItemIndex < GetFreeTextItemIndex())
+		{
+			TItem focusedItem = GetItemByIndex(focusedItemIndex);
+			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
+			{
+				return item.Equals(focusedItem);
+			}
+		}
 
-		if ((focusedItem is not null) && (!focusedItem.Equals(default)))
-		{
-			return item.Equals(focusedItem);
-		}
-		else
-		{
-			return false;
-		}
+		return false;
 	}
 
 	private bool HasFreeTextItemFocus()
@@ -368,7 +387,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		if (keyboardEventArgs.Code == ArrowUpKeyCode)
 		{
 			int previousItemIndex = focusedItemIndex - 1;
-			if (previousItemIndex >= -1) // If the index is -1, no item is focused.
+			if (previousItemIndex >= InputKeyboardNavigationIndex) // If the index equals InputKeyboardNavigationIndex, no item is focused.
 			{
 				focusedItemIndex = previousItemIndex;
 			}
@@ -376,7 +395,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		else if (keyboardEventArgs.Code == ArrowDownKeyCode)
 		{
 			int nextItemIndex = focusedItemIndex + 1;
-			if (nextItemIndex < GetFreeTextItemIndex()) // If the index equals GetFreeTextItemIndex(), then the freetext item is selected.
+			if (nextItemIndex <= GetFreeTextItemIndex()) // If the index equals GetFreeTextItemIndex(), then the freetext item is selected.
 			{
 				focusedItemIndex = nextItemIndex;
 			}

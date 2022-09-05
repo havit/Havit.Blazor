@@ -5077,9 +5077,19 @@
             Hides the search icon when used!
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.HighlightFirstSuggestion">
+            <summary>
+            If true, the first suggestion is highlighted until another is chosen by the user.
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.textQueryHasBeenBelowMinimumLength">
             <summary>
             Shows whether the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputKeyboardNavigationIndex">
+            <summary>
+            Input's index for the keyboard navigation. If this is the current index, then no item is selected.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ShouldDropdownMenuBeDisplayed">
@@ -5161,6 +5171,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.InputCssClass">
             <summary>
             Additional CSS classes for the search box input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.HighlightFirstSuggestion">
+            <summary>
+            If true, the first suggestion is highlighted until another is chosen by the user.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">
