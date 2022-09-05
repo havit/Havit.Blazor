@@ -160,10 +160,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await CloseDropdownAsync();
 		}
 
-		protected void HandleCustomDateClick(DateTime value)
+		protected async Task HandleCustomDateClick(DateTime value)
 		{
 			CurrentValue = GetValueFromDateTimeOffset(new DateTimeOffset(DateTime.SpecifyKind(value, DateTimeKind.Unspecified), TimeSpan.Zero));
 			ClearPreviousParsingMessage();
+			await CloseDropdownAsync();
 		}
 
 		private void ClearPreviousParsingMessage()
