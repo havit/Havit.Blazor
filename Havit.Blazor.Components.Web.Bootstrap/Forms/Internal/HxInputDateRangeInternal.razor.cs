@@ -1,6 +1,4 @@
-﻿using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
+﻿using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
@@ -228,16 +226,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 #if NET6_0_OR_GREATER
 			try
 			{
-				await CloseDropdownAsync(fromDropdownToggleElement);
-				await CloseDropdownAsync(toDropdownToggleElement);
+				if (fromDropdownToggleElement is not null)
+				{
+					await CloseDropdownAsync(fromDropdownToggleElement);
+				}
+				if (toDropdownToggleElement is not null)
+				{
+					await CloseDropdownAsync(toDropdownToggleElement);
+				}
 			}
 			catch (JSDisconnectedException)
 			{
 
 			}
 #else
-			await CloseDropdownAsync(fromDropdownToggleElement);
-			await CloseDropdownAsync(toDropdownToggleElement);
+			if (fromDropdownToggleElement is not null)
+			{
+				await CloseDropdownAsync(fromDropdownToggleElement);
+			}
+			if (toDropdownToggleElement is not null)
+			{
+				await CloseDropdownAsync(toDropdownToggleElement);
+			}
 #endif
 
 			Dispose(false);

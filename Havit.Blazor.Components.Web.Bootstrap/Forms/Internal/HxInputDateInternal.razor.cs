@@ -233,7 +233,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 #if NET6_0_OR_GREATER
 			try
 			{
-				await CloseDropdownAsync();
+				if (hxDropdownToggleElement is not null)
+				{
+					await CloseDropdownAsync();
+				}
 
 				if (jsModule is not null)
 				{
@@ -245,7 +248,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			}
 #else
-			await CloseDropdownAsync();
+			if (hxDropdownToggleElement is not null)
+			{
+				await CloseDropdownAsync();
+			}
 
 			if (jsModule is not null)
 			{
