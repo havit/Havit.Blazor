@@ -210,7 +210,6 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
 	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
 	private List<TItem> searchResults = new();
-	private int focusedItemIndex = -1;
 	private HxDropdownToggleElement dropdownToggle;
 	private bool dropdownMenuActive = false;
 	private bool initialized = false;
@@ -337,6 +336,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	}
 
 	#region KeyboardNavigation
+	private int focusedItemIndex = -1;
+
 	private const string ArrowUpKeyCode = "ArrowUp";
 	private const string ArrowDownKeyCode = "ArrowDown";
 

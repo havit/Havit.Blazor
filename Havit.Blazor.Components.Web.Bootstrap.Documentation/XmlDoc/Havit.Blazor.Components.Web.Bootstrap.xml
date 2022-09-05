@@ -2533,15 +2533,9 @@
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.HandleInputEnterKeyDown">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.InputKeyboardNavigationIndex">
             <summary>
-            Select the first suggested item when an enter key is pressed.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems`1.HighlightFirstSuggestionEffective">
-            <summary>
-            Visually highlights the first suggestion.
+            Input's index for the keyboard navigation. If this is the current index, then no item is selected.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueComponentExtensions">
