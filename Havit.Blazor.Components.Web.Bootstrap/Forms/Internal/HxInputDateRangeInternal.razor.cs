@@ -1,6 +1,4 @@
-﻿using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
+﻿using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
@@ -25,7 +23,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		[Parameter] public string ToParsingErrorMessageEffective { get; set; }
 
-		[Parameter] public bool ShowCalendarButtonsEffective { get; set; } = true;
+		[Parameter] public bool ShowClearButtonEffective { get; set; } = true;
 
 		[Parameter] public DateTime MinDateEffective { get; set; }
 
@@ -193,7 +191,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			await CloseDropdownAsync(toDropdownToggleElement);
 		}
 
-		protected void HandleDateRangeClick(DateTimeRange value)
+		protected async Task HandleDateRangeClick(DateTimeRange value, HxDropdownToggleElement dropdownElement)
 		{
 			CurrentValue = value;
 			EditContext.NotifyFieldChanged(fromFieldIdentifier);
@@ -201,6 +199,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
 			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
+
+			await CloseDropdownAsync(dropdownElement);
 		}
 
 		private void ClearPreviousParsingMessage(ref bool previousParsingAttemptFailed, FieldIdentifier fieldIdentifier)
@@ -228,16 +228,28 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 #if NET6_0_OR_GREATER
 			try
 			{
-				await CloseDropdownAsync(fromDropdownToggleElement);
-				await CloseDropdownAsync(toDropdownToggleElement);
+				if (fromDropdownToggleElement is not null)
+				{
+					await CloseDropdownAsync(fromDropdownToggleElement);
+				}
+				if (toDropdownToggleElement is not null)
+				{
+					await CloseDropdownAsync(toDropdownToggleElement);
+				}
 			}
 			catch (JSDisconnectedException)
 			{
 
 			}
 #else
-			await CloseDropdownAsync(fromDropdownToggleElement);
-			await CloseDropdownAsync(toDropdownToggleElement);
+			if (fromDropdownToggleElement is not null)
+			{
+				await CloseDropdownAsync(fromDropdownToggleElement);
+			}
+			if (toDropdownToggleElement is not null)
+			{
+				await CloseDropdownAsync(toDropdownToggleElement);
+			}
 #endif
 
 			Dispose(false);

@@ -3721,6 +3721,12 @@
             Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.ShowClearButton">
+            <summary>
+            Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
+            Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.MinDate">
             <summary>
             First date selectable from the dropdown calendar.<br />
@@ -3845,8 +3851,14 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ShowCalendarButtons">
             <summary>
-            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendars should be visible.<br/>
-            Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
+            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
+            Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ShowClearButton">
+            <summary>
+            Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
+            Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.MinDate">
@@ -4703,7 +4715,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ShowCalendarButtons">
             <summary>
-            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendars should be visible.<br/>
+            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ShowClearButton">
+            <summary>
+            Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.MinDate">
@@ -4749,6 +4766,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.ShowCalendarButtons">
             <summary>
             Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.ShowClearButton">
+            <summary>
+            Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.MinDate">

@@ -150,7 +150,7 @@
 	--hx-input-date-calendar-margin-bottom:			0;
 	/* HxInputDateRange */
 	--hx-input-date-range-dropdown-padding:			1rem;
-	--hx-input-date-range-calendar-margin-bottom:	.5rem;
+	--hx-input-date-range-calendar-margin-bottom:	0;
 	/* HxProgressIndicator */
 	--hx-progress-indicator-background:				var(--bs-white);
 	--hx-progress-indicator-spinner-color:			var(--bs-primary);

@@ -205,9 +205,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				workingValue = workingValue.Replace(".", ",");
 			}
 
-			// omezení počtu desetinných míst
-			// pro komplikace s tím, že máme TValue a s ním se dost těžko pracuje se omezíme na řešení a úpravu vstupních dat před konverzí do cílového typu
-
+			// limitation of the number of decimal places
+			// for complications with the fact that we have TValue and it is quite difficult to work with, we will limit ourselves to solving and modifying the input data before converting it to the target type
 			if (Decimal.TryParse(value, IsTValueIntegerType ? NumberStyles.Integer : NumberStyles.Float, culture, out decimal parsedValue))
 			{
 				workingValue = Math.Round(parsedValue, DecimalsEffective, MidpointRounding.AwayFromZero).ToString(culture);
@@ -230,8 +229,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 			if (success)
 			{
-				// pokud došlo jen ke změně bez změny hodnoty (třeba z 5.50 na 5.5), chceme hodnotu převést na korektní formát (5.5 na 5.50).
-				// Nestačí však StateHasChange, viz komentář v BuildRenderInput.
+				// if there is only a change without changing the value (for example from 5.50 to 5.5), we want to convert the value to the correct format (5.5 to 5.50).
+				// StateHasChange is not enough, see the comment in BuildRenderInput.
 				if (FormatValueAsString(result) != value)
 				{
 					forceRenderValue = true;

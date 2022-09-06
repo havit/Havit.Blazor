@@ -75,8 +75,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
 		/// Default is <c>true</c> (configurable in <see cref="HxInputDate.Defaults"/>).
 		/// </summary>
-		[Parameter] public bool? ShowCalendarButtons { get; set; }
-		protected bool ShowCalendarButtonsEffective => this.ShowCalendarButtons ?? this.GetSettings()?.ShowCalendarButtons ?? this.GetDefaults().ShowCalendarButtons ?? throw new InvalidOperationException(nameof(ShowCalendarButtons) + " default for " + nameof(HxInputDate) + " has to be set.");
+		[Obsolete("ShowCalendarButtons is obsolete, use ShowClearButton instead.")]
+		[Parameter]
+		public bool? ShowCalendarButtons
+		{
+			get => ShowClearButton;
+			set => ShowClearButton = value;
+		}
+
+		/// <summary>
+		/// Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
+		/// Default is <c>true</c> (configurable in <see cref="HxInputDate.Defaults"/>).
+		/// </summary>
+		[Parameter] public bool? ShowClearButton { get; set; }
+		protected bool ShowClearButtonEffective => this.ShowClearButton ?? this.GetSettings()?.ShowClearButton ?? this.GetDefaults().ShowClearButton ?? throw new InvalidOperationException(nameof(ShowClearButton) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 		/// <summary>
 		/// First date selectable from the dropdown calendar.<br />
@@ -163,7 +175,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			builder.AddAttribute(206, nameof(HxInputDateInternal<TValue>.CalendarIconEffective), this.CalendarIconEffective);
 			builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.PredefinedDatesEffective), this.PredefinedDatesEffective);
 			builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.ShowPredefinedDatesEffective), this.ShowPredefinedDatesEffective);
-			builder.AddAttribute(208, nameof(HxInputDateInternal<TValue>.ShowCalendarButtonsEffective), ShowCalendarButtonsEffective);
+			builder.AddAttribute(208, nameof(HxInputDateInternal<TValue>.ShowClearButtonEffective), ShowClearButtonEffective);
 			builder.AddAttribute(209, nameof(HxInputDateInternal<TValue>.MinDateEffective), MinDateEffective);
 			builder.AddAttribute(210, nameof(HxInputDateInternal<TValue>.MaxDateEffective), MaxDateEffective);
 			builder.AddAttribute(211, nameof(HxInputDateInternal<TValue>.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProviderEffective);
