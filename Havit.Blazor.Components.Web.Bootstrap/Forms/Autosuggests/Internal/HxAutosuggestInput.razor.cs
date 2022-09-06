@@ -40,11 +40,6 @@
 			await OnInputInput.InvokeAsync((string)changeEventArgs.Value);
 		}
 
-		private async Task HandleKeyDown(KeyboardEventArgs keyboardEventArgs)
-		{
-			await OnKeyDown.InvokeAsync(keyboardEventArgs);
-		}
-
 		public async ValueTask FocusAsync()
 		{
 			await InputElement.FocusAsync();

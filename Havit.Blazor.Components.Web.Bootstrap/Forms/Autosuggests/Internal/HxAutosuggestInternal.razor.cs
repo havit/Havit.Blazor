@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using Havit.Diagnostics.Contracts;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
@@ -350,7 +348,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			return default;
 		}
 
-		private async Task UpdateFocusedItem(KeyboardEventArgs keyboardEventArgs)
+		private async Task HandleInputKeyDown(KeyboardEventArgs keyboardEventArgs)
 		{
 			// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 			TItem focusedItem = GetItemByIndex(focusedItemIndex);
