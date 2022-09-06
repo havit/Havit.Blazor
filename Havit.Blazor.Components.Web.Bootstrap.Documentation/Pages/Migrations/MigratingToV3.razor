@@ -43,7 +43,13 @@
 <p>If you were using <code>PagerCssClass</code> in v2, replace it with new <code>PagerSettings</code> parameter:</p>
 <CodeSnippet Language="razor" File="~\Pages\Migrations\MigratingToV3_HxGridPagerSettings.CodeSnippet.razor" />
 
-<h5>4. [OPTIONAL] Replace obsolete components with new ones</h5>
+<h5>3.4 <code>HxAutosuggest</code> first item highlighting</h5>
+<p>
+    The <code>HighlightFirstSuggestion</code> parameter was removed. The component now highlights the first suggestion by default (cannot be disabled).
+    Remove the parameter from your code (incl. <code>HxAutosuggest.Settings</code> and <code>HxAutosuggest.Defaults</code>).
+</p>
+
+<h3>4. [OPTIONAL] Replace obsolete components with new ones</h3>
 <p>
     We replaced <code>HxInputCheckbox</code> with new <code>HxCheckbox</code> and <code>HxInputSwitch</code> with new <code>HxSwitch</code>.<br />
     The original <code>Label</code> parameter is now <code>Text</code> (the <code>Label</code> parameter of new components has a different purpose, see <a href="/components/HxCheckbox"><code>HxCheckbox</code> documentation</a>).

@@ -197,12 +197,6 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
-	/// <summary>
-	/// If true, the first suggestion is highlighted until another is chosen by the user.
-	/// </summary>
-	[Parameter] public bool? HighlightFirstSuggestion { get; set; }
-	protected bool HighlightFirstSuggestionEffective => this.HighlightFirstSuggestion ?? GetSettings()?.HighlightFirstSuggestion ?? GetDefaults()?.HighlightFirstSuggestion ?? throw new InvalidOperationException(nameof(HighlightFirstSuggestion) + " default for " + nameof(HxSearchBox) + " has to be set.");
-
 	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
 	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
 	private List<TItem> searchResults = new();
@@ -278,14 +272,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		dataProviderInProgress = false;
 
 		// KeyboardNavigation
-		if (HighlightFirstSuggestionEffective)
-		{
-			focusedItemIndex = 0; // First item in the searchResults collection.
-		}
-		else
-		{
-			focusedItemIndex = InputKeyboardNavigationIndex;
-		}
+		focusedItemIndex = 0; // First item in the searchResults collection.
 
 		searchResults = result?.Data.ToList();
 

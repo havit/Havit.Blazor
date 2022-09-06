@@ -19,7 +19,6 @@ public static class HxSearchBox
 			ClearIcon = BootstrapIcon.XLg,
 			MinimumLength = 2,
 			Delay = 300,
-			HighlightFirstSuggestion = true
 		};
 	}
 }

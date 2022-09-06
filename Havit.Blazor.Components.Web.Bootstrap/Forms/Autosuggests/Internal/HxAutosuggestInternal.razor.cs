@@ -97,11 +97,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
 		/// <summary>
-		/// If true, the first suggestion is highlighted until another is chosen by the user.
-		/// </summary>
-		[Parameter] public bool HighlightFirstSuggestionEffective { get; set; }
-
-		/// <summary>
 		/// Additional attributes to be splatted onto an underlying HTML element.
 		/// </summary>
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
@@ -297,14 +292,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			dataProviderInProgress = false;
 
 			// KeyboardNavigation
-			if (HighlightFirstSuggestionEffective)
-			{
-				focusedItemIndex = 0; // First item in the searchResults collection.
-			}
-			else
-			{
-				focusedItemIndex = InputKeyboardNavigationIndex;
-			}
+			focusedItemIndex = 0; // First item in the searchResults collection.
 
 			suggestions = result.Data?.ToList();
 
