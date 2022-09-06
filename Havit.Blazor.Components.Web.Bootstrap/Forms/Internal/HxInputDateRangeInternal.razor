@@ -8,7 +8,7 @@
 
     <div class="@CssClassHelper.Combine("hx-input-date-range", (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective?.Any() ?? false)) ? "hx-input-date-range-predefined-ranges" : null)">
         <div class="input-group flex-nowrap">
-            <HxDropdown CssClass="hx-dropdown-with-calendar" AutoClose="DropdownAutoClose.Outside">
+            <HxDropdown AutoClose="DropdownAutoClose.Outside">
                 @*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
                 <HxDropdownToggleElement @ref="fromDropdownToggleElement"
                                     ElementName="input"
@@ -46,7 +46,7 @@
                 }
             </HxDropdown>
 
-            <HxDropdown CssClass="hx-dropdown-with-calendar" AutoClose="DropdownAutoClose.Outside">
+            <HxDropdown AutoClose="DropdownAutoClose.Outside">
                 @*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
                 <HxDropdownToggleElement @ref="toDropdownToggleElement"
                                     ElementName="input"
