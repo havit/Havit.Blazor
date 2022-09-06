@@ -14,7 +14,7 @@
 					     "hx-input-date",
 					     (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null,
 					     InputGroupCssClass)"
-                    AutoClose="DropdownAutoClose.Outside">
+                AutoClose="DropdownAutoClose.Outside">
 
             @if (InputGroupStartText is not null)
             {
@@ -23,16 +23,15 @@
 
             @InputGroupStartTemplate
 
-            <HxDropdownToggleElement
-                @ref="hxDropdownToggleElement"
-                ElementName="input"
-                CssClass="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())"
-                type="text"
-                id="@InputId"
-                value="@CurrentValueAsString" @onchange="HandleValueChanged"
-                placeholder="@Placeholder"
-                disabled="@(!EnabledEffective)"
-                @attributes="AdditionalAttributes" />
+            <HxDropdownToggleElement @ref="hxDropdownToggleElement"
+                                 ElementName="input"
+                                 CssClass="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())"
+                                 type="text"
+                                 id="@InputId"
+                                 value="@CurrentValueAsString" @onchange="HandleValueChanged"
+                                 placeholder="@Placeholder"
+                                 disabled="@(!EnabledEffective)"
+                                 @attributes="AdditionalAttributes" />
 
             @InputGroupEndTemplate
 
@@ -48,39 +47,26 @@
 
             @if (EnabledEffective)
             {
-                <HxDropdownContent CssClass="hx-input-date-dropdown">
+                <HxDropdownContent CssClass="hx-input-date-dropdown-menu">
                     <div class="hx-input-date-calendar">
                         <HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" />
                     </div>
-                    @if (ShowCalendarButtonsEffective)
-                    {
-                        <div class="hx-input-date-dropdown-buttons">
+                    <div class="hx-input-date-dropdown-buttons">
+                        @if (ShowClearButtonEffective)
+                        {
                             <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDate))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" tabindex="-1" />
-                        </div>
-                    }
+                        }
+                        @if (RenderPredefinedDates)
+                        {
+                            foreach (var item in PredefinedDatesEffective)
+                            {
+                                <HxButton Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleCustomDateClick(item.Date)" tabindex="-1" />
+                            }
+                        }
+                    </div>
                 </HxDropdownContent>
             }
         </HxDropdown>
-
-        <HxDropdownButtonGroup CssClass="@CssClassHelper.Combine(((IInputWithSize)this).GetInputGroupSizeCssClass(), "ms-0")" AutoClose="DropdownAutoClose.True">
-            @if (RenderPredefinedDates)
-            {
-                <HxDropdownToggleButton CssClass="hx-input-date-predefined-dates-button" Color="ThemeColor.Light" Enabled="@EnabledEffective" tabindex="-1">
-                    <HxIcon Icon="@BootstrapIcon.ThreeDotsVertical" />
-                </HxDropdownToggleButton>
-
-                @if (EnabledEffective)
-                {
-                    <HxDropdownContent>
-                        @foreach (var item in PredefinedDatesEffective)
-                        {
-                            <li><span class="dropdown-item" role="button" @onclick="() => HandleCustomDateClick(item.Date)" @onclick:stopPropagation>@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)</span></li>
-                        }
-                    </HxDropdownContent>
-                }
-            }
-        </HxDropdownButtonGroup>
-
         @if (RenderIcon)
         {
             <div @ref="iconWrapperElement" class="hx-input-date-icon">
@@ -88,5 +74,4 @@
             </div>
         }
     </div>
-
 }
