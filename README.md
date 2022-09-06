@@ -17,6 +17,8 @@ If you enjoy using [HAVIT Blazor](https://havit.blazor.eu/), you can [become a s
 
 # See [&gt;&gt;Interactive Documentation & Demos&lt;&lt;](https://havit.blazor.eu)
 
+## 🔥[Migration to v3.x](https://havit.blazor.eu/migrating-to-v3)🔥
+
 # Components
 
 ## Forms
