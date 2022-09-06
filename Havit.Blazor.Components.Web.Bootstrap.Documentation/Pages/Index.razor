@@ -37,7 +37,7 @@
 
 <h3>2. Add CSS &amp; JavaScript references</h3>
 <h4>CSS</h4>
-<p>Add the following to your HTML head section, it's either <code>index.html</code> or <code>_Host.cshtml</code> depending on whether you're running WebAssembly or Server:</p>
+<p>Add the following to your HTML head section, it's either <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code> depending on whether you're running WebAssembly or Server:</p>
 <CodeSnippet File="~\Pages\GettingStarted_CSS.CodeSnippet.html" />
 
 <p>If you want to use our custom Bootstrap theme (used in this documentation and demos), replace the first <code>link</code> with:</p>
@@ -45,11 +45,11 @@
 <p>You can reference your own or any other Bootstrap build/theme in a same way.</p>
 
 <DocAlert Type="DocAlertType.Warning">
-	If you're using a standard Blazor template make sure to remove unnecessary code from <code>site.css</code> and remove the <code>bootstrap.min.css</code> completely from either <code>index.html</code> or <code>_Host.cshtml</code>.
+    If you're using a standard Blazor template make sure to remove unnecessary code from <code>site.css</code> and remove the <code>bootstrap.min.css</code> completely from either <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code>.
 </DocAlert>
 
 <h4>Bootstrap JavaScript Bundle with Popper</h4>
-<p>At the end of HTML <code>&lt;body&gt;</code> section of either <code>index.html</code> or <code>_Host.cshtml</code> add this:</p>
+<p>At the end of HTML <code>&lt;body&gt;</code> section of either <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code> add this:</p>
 <CodeSnippet File="~\Pages\GettingStarted_JavaScript.CodeSnippet.html" />
 
 <h3>3. Import namespaces</h3>
