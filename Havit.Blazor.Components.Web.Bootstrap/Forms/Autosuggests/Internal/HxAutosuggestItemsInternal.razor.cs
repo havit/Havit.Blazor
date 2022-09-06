@@ -1,6 +1,6 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public partial class HxAutosuggestItems<TItem>
+	public partial class HxAutosuggestItemsInternal<TItem>
 	{
 		[Parameter] public List<TItem> Items { get; set; }
 

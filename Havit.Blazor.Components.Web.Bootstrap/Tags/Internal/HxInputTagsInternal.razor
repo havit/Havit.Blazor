@@ -50,15 +50,15 @@
     }
 
     <div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
-        <HxInputTagsAutosuggestInput @ref="autosuggestInput"
+        <HxInputTagsAutosuggestInputInternal @ref="autosuggestInput"
                                         InputId="@InputId"
                                         EnabledEffective="@EnabledEffective"
                                         Value="@userInput"
-                                        OnInputInput="HandleInputInput"
-                                        OnInputFocus="HandleInputFocus"
-                                        OnInputBlur="HandleInputBlur"
-                                        OnInputMouseDown="HandleInputMouseDown"
-                                        OnInputKeyDown="HandleInputKeyDown"
+                                        OnInput="HandleInputInput"
+                                        OnFocus="HandleInputFocus"
+                                        OnBlur="HandleInputBlur"
+                                        OnMouseDown="HandleInputMouseDown"
+                                        OnKeyDown="HandleInputKeyDown"
                                         Placeholder="@(ValueEffective.Any() ? null : Placeholder)"
                                         CssClass="border-0 flex-grow-1"
                                         Offset="@InputOffset"
@@ -67,11 +67,11 @@
         {
             <HxSpinner Type="SpinnerType.Border" Size="SpinnerSize.Small" />
         }
-        <HxAutosuggestItems TItem="string" Items="@suggestions" OnItemClick="HandleItemClick">
+        <HxAutosuggestItemsInternal TItem="string" Items="@suggestions" OnItemClick="HandleItemClick">
             <ItemTemplate>
                 @context
             </ItemTemplate>
-        </HxAutosuggestItems>
+        </HxAutosuggestItemsInternal>
     </div>
 
 </div>

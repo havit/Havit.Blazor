@@ -10,10 +10,10 @@
        data-bs-offset="@($"{Offset.X},{Offset.Y}")"
        value="@Value"
        @oninput="HandleInput"
-       @onfocus="OnInputFocus"
-       @onblur="OnInputBlur"
-       @onmousedown="OnInputMouseDown"
-       @onkeydown="OnInputKeyDown"
+       @onfocus="OnFocus"
+       @onblur="OnBlur"
+       @onmousedown="OnMouseDown"
+       @onkeydown="OnKeyDown"
        @onclick:stopPropagation
        placeholder="@Placeholder"
        @attributes="this.AdditionalAttributes" />

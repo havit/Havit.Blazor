@@ -3,81 +3,80 @@
 @typeparam TValue
 
 <div id="@dropdownId" class="@CssClassHelper.Combine("hx-autosuggest dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null, HasInputGroupsEffective ? "input-group" : null, InputGroupCssClass)">
-	@if (InputGroupStartText is not null)
-	{
-		<span class="input-group-text">@InputGroupStartText</span>
-	}
-    
-	@InputGroupStartTemplate
-	
-	<HxAutosuggestInput @ref="autosuggestInput"
-						InputId="@InputId"
-						EnabledEffective="@EnabledEffective"
-						Value="@userInput"
-						OnInputInput="HandleInputInput"
-						OnInputFocus="HandleInputFocus"
-						OnInputBlur="HandleInputBlur"
-						OnKeyDown="HandleInputKeyDown"
-						Placeholder="@Placeholder"
-						CssClass="@((!HasAnyInputGroupEnd ? "rounded-end " : null) + InputCssClass)"
-						DropdownOffset="@DropdownOffset"
-                        AdditionalAttributes="this.AdditionalAttributes" />
+    @if (InputGroupStartText is not null)
+    {
+        <span class="input-group-text">@InputGroupStartText</span>
+    }
 
-	@InputGroupEndTemplate
+    @InputGroupStartTemplate
 
-	@if (InputGroupEndText is not null)
-	{
-		<span class="input-group-text rounded-end">@InputGroupEndText</span>
-	}
+    <HxAutosuggestInputInternal @ref="autosuggestInput"
+                                InputId="@InputId"
+                                EnabledEffective="@EnabledEffective"
+                                Value="@userInput"
+                                OnInput="HandleInputInput"
+                                OnFocus="HandleInputFocus"
+                                OnBlur="HandleInputBlur"
+                                OnKeyDown="HandleInputKeyDown"
+                                Placeholder="@Placeholder"
+                                CssClass="@((!HasAnyInputGroupEnd ? "rounded-end " : null) + InputCssClass)"
+                                DropdownOffset="@DropdownOffset"
+                                AdditionalAttributes="this.AdditionalAttributes" />
 
-	@if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
-	{
-		<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
-	}
-	@if (EnabledEffective)
-	{
-		<div class="@CssClassHelper.Combine("hx-autosuggest-input-icon", HasAnyInputGroupEnd ? "d-none" : null)">
-			@if (dataProviderInProgress)
-			{
-				<div>
-					<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-				</div>
-			}
-			else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
-			{
-				if (this.ClearIconEffective is not null)
-				{
-					<div role="button" @onclick="HandleCrossClick" @onclick:stopPropagation>
-						<HxIcon Icon="ClearIconEffective" />
-					</div>
-				}
-			}
-			else if (this.SearchIconEffective is not null)
-			{
-				<HxIcon Icon="@SearchIconEffective" />
-			}
-		</div>
-		<HxAutosuggestItems
-			CssClass="w-100"
-			TItem="TItem"
-			Items="@suggestions"
-			OnItemClick="HandleItemSelected"
-			FocusedItem="GetFocusedItem()">
+    @InputGroupEndTemplate
 
-			<ItemTemplate>
-				@if (ItemTemplate != null)
-				{
-					<text>@ItemTemplate(context)</text>
-				}
-				else
-				{
-					<text>@TextSelectorEffective(context)</text>
-				}
-			</ItemTemplate>
-			<EmptyTemplate>
-				@EmptyTemplate
-			</EmptyTemplate>
+    @if (InputGroupEndText is not null)
+    {
+        <span class="input-group-text rounded-end">@InputGroupEndText</span>
+    }
 
-		</HxAutosuggestItems>
-	}
+    @if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
+    {
+        <HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
+    }
+    @if (EnabledEffective)
+    {
+        <div class="@CssClassHelper.Combine("hx-autosuggest-input-icon", HasAnyInputGroupEnd ? "d-none" : null)">
+            @if (dataProviderInProgress)
+            {
+                <div>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+            }
+            else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
+            {
+                if (this.ClearIconEffective is not null)
+                {
+                    <div role="button" @onclick="HandleCrossClick" @onclick:stopPropagation>
+                        <HxIcon Icon="ClearIconEffective" />
+                    </div>
+                }
+            }
+            else if (this.SearchIconEffective is not null)
+            {
+                <HxIcon Icon="@SearchIconEffective" />
+            }
+        </div>
+        <HxAutosuggestItemsInternal CssClass="w-100"
+                                TItem="TItem"
+                                Items="@suggestions"
+                                OnItemClick="HandleItemSelected"
+                                FocusedItem="GetFocusedItem()">
+
+            <ItemTemplate>
+                @if (ItemTemplate != null)
+                {
+                    <text>@ItemTemplate(context)</text>
+                }
+                else
+                {
+                    <text>@TextSelectorEffective(context)</text>
+                }
+            </ItemTemplate>
+            <EmptyTemplate>
+                @EmptyTemplate
+            </EmptyTemplate>
+
+        </HxAutosuggestItemsInternal>
+    }
 </div>

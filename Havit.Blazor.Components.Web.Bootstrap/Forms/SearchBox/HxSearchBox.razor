@@ -82,7 +82,7 @@
                             
                             @if (ItemTemplate is null)
                             {
-                                <HxSearchBoxItem Title="@title" Subtitle="@subtitle" Icon="@icon" />
+                                <HxSearchBoxItemInternal Title="@title" Subtitle="@subtitle" Icon="@icon" />
                             }
                             else
                             {
@@ -112,7 +112,7 @@
 
                         @if (TextQueryItemTemplate is null)
                         {
-                            <HxSearchBoxItem Title="@TextQuery" Icon="@SearchIconEffective" />
+                            <HxSearchBoxItemInternal Title="@TextQuery" Icon="@SearchIconEffective" />
                         }
                         else
                         {

@@ -123,7 +123,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool currentlyFocused;
 		private bool disposed;
 		private IJSObjectReference jsModule;
-		private HxAutosuggestInput autosuggestInput;
+		private HxAutosuggestInputInternal autosuggestInput;
 		private TValue lastKnownValue;
 		private bool dataProviderInProgress;
 		private DotNetObjectReference<HxAutosuggestInternal<TItem, TValue>> dotnetObjectReference;

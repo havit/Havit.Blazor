@@ -2439,13 +2439,13 @@
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/> and derived components.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput.DropdownOffset">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInputInternal.DropdownOffset">
             <summary>
             Offset between the dropdown and the input.
             <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput.AdditionalAttributes">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInputInternal.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
@@ -2852,7 +2852,7 @@
             Raised when the item is clicked.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsAutosuggestInput.Offset">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsAutosuggestInputInternal.Offset">
             <summary>
             Offset between dropdown input and dropdown menu
             </summary>

@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
@@ -132,7 +131,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool mouseDownFocus;
 		private bool disposed;
 		private IJSObjectReference jsModule;
-		private HxInputTagsAutosuggestInput autosuggestInput;
+		private HxInputTagsAutosuggestInputInternal autosuggestInput;
 		private bool dataProviderInProgress;
 		private DotNetObjectReference<HxInputTagsInternal> dotnetObjectReference;
 
