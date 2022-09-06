@@ -2,9 +2,9 @@
 
 <ComponentApiDoc Type="typeof(HxSearchBox<TItem>)">
     <MainContent>
-        <DocAlert Type="DocAlertType.Danger">
-            Due to breaking change in Bootstrap 5.2 the keyboard navigation does not work in <code>HxAutosuggest</code> and <code>HxSearchBox</code> (the <code>Up</code> and <code>Down</code> keys).
-            We are trying to fix this with Bootstrap team and will try to come up with a temporary solution on our side until the final solution will be available.<br />
+        <DocAlert Type="DocAlertType.Warning">
+            Due to breaking change in Bootstrap 5.2, the keyboard navigation stopped working for dropdowns triggered from <code>input</code> (the <code>Up</code> and <code>Down</code> keys).
+            As an experimental feature we added our own keyboard navigation routines to the affected components. This might be subject to future change.
             You can check the progress here: <a href="https://github.com/havit/Havit.Blazor/issues/348">https://github.com/havit/Havit.Blazor/issues/348</a>.
         </DocAlert>
 

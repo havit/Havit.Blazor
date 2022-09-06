@@ -33,7 +33,7 @@
                     <input
                         value="@TextQuery"
                         @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
-                        @onkeydown="UpdateFocusedItem"
+                        @onkeydown="HandleInputKeyDown"
                         inputmode="search"
                         enabled="@Enabled"
                         placeholder="@Placeholder"

@@ -1,8 +1,4 @@
-﻿using System.Threading;
-using Havit.Blazor.Components.Web.Bootstrap.Internal;
-using Microsoft.JSInterop;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// A search input component witch automatic suggestions, initial dropdown template and free-text queries support.<br />
@@ -368,7 +364,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		return focusedItemIndex == GetFreeTextItemIndex();
 	}
 
-	private async Task UpdateFocusedItem(KeyboardEventArgs keyboardEventArgs)
+	private async Task HandleInputKeyDown(KeyboardEventArgs keyboardEventArgs)
 	{
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 		TItem focusedItem = GetItemByIndex(focusedItemIndex);

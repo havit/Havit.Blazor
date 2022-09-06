@@ -2,7 +2,13 @@
 
 <ComponentApiDoc Type="typeof(HxInputTags)">
 	<MainContent>
-		<SectionTitle Id="BasicUsage" />
+        <DocAlert Type="DocAlertType.Warning">
+            Due to breaking change in Bootstrap 5.2, the keyboard navigation stopped working for dropdowns triggered from <code>input</code> (the <code>Up</code> and <code>Down</code> keys).
+            As an experimental feature we added our own keyboard navigation routines to the affected components. This might be subject to future change.
+            You can check the progress here: <a href="https://github.com/havit/Havit.Blazor/issues/348">https://github.com/havit/Havit.Blazor/issues/348</a>.
+        </DocAlert>
+        
+        <SectionTitle Id="BasicUsage" />
 		<Demo Type="typeof(HxInputTags_Demo_Basic)" />
 
 		<SectionTitle Id="StaticSuggestions" />
