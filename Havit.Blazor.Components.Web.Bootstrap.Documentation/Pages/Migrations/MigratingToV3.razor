@@ -1,7 +1,7 @@
 ﻿@page "/migrating-to-v3"
 
 <h1>Migrating to v3</h1>
-Migration your projects to version 3 is pretty easy.
+<p class="lead">Migration your projects to version 3 is pretty easy.</p>
 
 <h3>1. Update references to our NuGet package</h3>
 <p>Update the <a href="https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/">Havit.Blazor.Components.Web.Bootstrap</a> package through NuGet Package Manager or with following command:</p>
@@ -25,7 +25,7 @@ Migration your projects to version 3 is pretty easy.
 <h5>3.1 <code>HxOffcanvas</code> backdrop</h5>
 <p>Replace the original <code>boolean HxOffcanvas.BackdropEnabled</code> parameter with new enum-based <code>OffcanvasBackdrop HxOffcanvas.Backdrop</code>:</p>
 <CodeSnippet Language="razor" File="~\Pages\Migrations\MigratingToV3_HxOffcanvasBackdrop.CodeSnippet.razor" />
-Same applies for <code>OffcanvasSettings</code> used for <code>HxOffcanvas.Defaults.</code>
+<p>Same applies for <code>OffcanvasSettings</code> used for <code>HxOffcanvas.Defaults.</code></p>
 
 <h5>3.2 <code>HxModal</code> backdrop</h5>
 <p>Replace the original <code>boolean HxModal.UseStaticBackdrop</code> parameter with new enum-based <code>ModalBackdrop HxModal.Backdrop</code>:</p>
@@ -35,9 +35,9 @@ Same applies for <code>OffcanvasSettings</code> used for <code>HxOffcanvas.Defau
 <DocAlert Type="DocAlertType.Warning">
     In v2, the default for <code>HxModal</code> backdrop was <code>static</code>.<br />
     For v3, we decided to stick with Bootstrap's backdrop default of <code>true</code> for generic <code>HxModal</code> component (includes <code>HxDialogBase</code>) and the <code>static</code> is used only as default for <code>HxMessageBox</code>.<br />
-    If you want to keep the original backdrop bahavior from v2, add following line to your <code>Program.cs</code>:
-    <CodeSnippet Language="csharp">HxModal.Defaults.Backdrop = ModalBackdrop.Static;</CodeSnippet>
 </DocAlert>
+<p>If you want to keep the original backdrop bahavior from v2, add following line to your <code>Program.cs</code>:</p>
+<CodeSnippet Language="csharp">HxModal.Defaults.Backdrop = ModalBackdrop.Static;</CodeSnippet>
 
 <h5>3.3 <code>HxGrid</code> pager</h5>
 <p>If you were using <code>PagerCssClass</code> in v2, replace it with new <code>PagerSettings</code> parameter:</p>
