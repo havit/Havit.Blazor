@@ -186,7 +186,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 				await RemoveTagWithEventCallbackAsync(ValueEffective.Last());
 			}
 
-			await AdjustFocusedItemIndexByKeyPressed(args);
+			await UpdateFocusedItemAsync(args);
 		}
 
 		private async Task HandleInputInput(string newUserInput)
@@ -371,7 +371,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		/// </summary>
 		private const int InputKeyboardNavigationIndex = -1;
 
-		private async Task AdjustFocusedItemIndexByKeyPressed(KeyboardEventArgs keyboardEventArgs)
+		private async Task UpdateFocusedItemAsync(KeyboardEventArgs keyboardEventArgs)
 		{
 			// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 			string focusedItem = GetItemByIndex(focusedItemIndex);
