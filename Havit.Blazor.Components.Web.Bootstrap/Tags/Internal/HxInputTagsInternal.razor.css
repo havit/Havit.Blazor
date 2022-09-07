@@ -59,3 +59,7 @@ input:focus {
 .hx-tag-add-button-text {
 	margin: var(--hx-input-tags-add-button-text-margin);
 }
+
+::deep .hx-input-tags-dropdown-item-focused {
+	background-color: var(--hx-input-tags-dropdown-item-highlighted-background-color);
+}

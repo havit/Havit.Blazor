@@ -11,7 +11,8 @@
 		[Parameter] public RenderFragment EmptyTemplate { get; set; }
 		[Parameter] public string CssClass { get; set; }
 
-		[Parameter] public TItem FocusedItem { get; set; }
+		[Parameter] public int FocusedItemIndex { get; set; }
+		[Parameter] public string FocusedItemCssClass { get; set; }
 
 		private async Task HandleItemClick(TItem value)
 		{

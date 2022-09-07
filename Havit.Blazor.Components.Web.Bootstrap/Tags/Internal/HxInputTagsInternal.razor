@@ -68,10 +68,17 @@
         {
             <HxSpinner Type="SpinnerType.Border" Size="SpinnerSize.Small" />
         }
-        <HxAutosuggestItemsInternal TItem="string" Items="@suggestions" OnItemClick="HandleItemClick">
+        <HxAutosuggestItemsInternal
+            TItem="string"
+            Items="@suggestions"
+            OnItemClick="HandleItemSelected"
+            FocusedItemCssClass="hx-input-tags-dropdown-item-focused"
+            FocusedItemIndex="@focusedItemIndex">
+
             <ItemTemplate>
                 @context
             </ItemTemplate>
+
         </HxAutosuggestItemsInternal>
     </div>
 

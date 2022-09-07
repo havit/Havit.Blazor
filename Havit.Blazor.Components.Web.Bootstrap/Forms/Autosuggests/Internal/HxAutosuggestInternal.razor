@@ -61,7 +61,8 @@
                                 TItem="TItem"
                                 Items="@suggestions"
                                 OnItemClick="HandleItemSelected"
-                                FocusedItem="GetFocusedItem()">
+                                FocusedItemIndex="focusedItemIndex"
+                                FocusedItemCssClass="hx-autosuggest-item-focused">
 
             <ItemTemplate>
                 @if (ItemTemplate != null)

@@ -118,15 +118,16 @@
 	--hx-multi-select-background-color: 			var(--bs-white);
 	--hx-multi-select-dropdown-menu-height:			300px;
 	/* TagInput */
-	--hx-input-tags-tag-margin: 					0 .25rem 0 0;
-	--hx-input-tags-input-width: 					3em;
-	--hx-input-tags-input-placeholder-color: 		var(--bs-gray-600);
-	--hx-input-tags-naked-font-size-lg: 			1.25em;
-	--hx-input-tags-naked-font-size-sm: 			.875em;
-	--hx-input-tags-control-focused-box-shadow: 	0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
-	--hx-input-tags-control-focused-border-color: 	rgba(var(--bs-primary-rgb), .3);
-	--hx-input-tags-add-button-text-margin:				0 0 0 .25rem;
-	--hx-input-tags-remove-button-margin:			0 0 0 .25rem;
+	--hx-input-tags-tag-margin: 								0 .25rem 0 0;
+	--hx-input-tags-input-width: 								3em;
+	--hx-input-tags-input-placeholder-color: 					var(--bs-gray-600);
+	--hx-input-tags-naked-font-size-lg: 						1.25em;
+	--hx-input-tags-naked-font-size-sm: 						.875em;
+	--hx-input-tags-control-focused-box-shadow: 				0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+	--hx-input-tags-control-focused-border-color: 				rgba(var(--bs-primary-rgb), .3);
+	--hx-input-tags-add-button-text-margin:							0 0 0 .25rem;
+	--hx-input-tags-remove-button-margin:						0 0 0 .25rem;
+	--hx-input-tags-dropdown-item-highlighted-background-color: var(--bs-gray-200);
 	/* TreeView */
 	--hx-tree-view-item-border-radius:				.25rem;
 	--hx-tree-view-item-border-width:				0;
@@ -157,12 +158,13 @@
 	/* HxToastContainer */
 	--hx-toast-container-margin:					.5rem;
 	/* HxSearchBox */
-	--hx-search-box-item-icon-margin: 				0 .5rem 0 0;
-	--hx-search-box-item-icon-font-size:			inherit;
-	--hx-search-box-item-title-font-size:			inherit;
-	--hx-search-box-item-title-color:				inherit;
-	--hx-search-box-item-subtitle-color:			var(--bs-secondary);
-	--hx-search-box-item-subtitle-font-size:		.75rem;
+	--hx-search-box-item-icon-margin: 					0 .5rem 0 0;
+	--hx-search-box-item-icon-font-size:				inherit;
+	--hx-search-box-item-title-font-size:				inherit;
+	--hx-search-box-item-title-color:					inherit;
+	--hx-search-box-item-subtitle-color:				var(--bs-secondary);
+	--hx-search-box-item-subtitle-font-size:			.75rem;
+	--hx-search-box-item-highlighted-background-color:	var(--bs-gray-200);
 }
 
 form {

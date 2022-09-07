@@ -16,6 +16,6 @@
     opacity: var(--hx-autosuggest-input-close-icon-opacity);
 }
 
-::deep .hx-dropdown-item-focused {
+::deep .hx-autosuggest-item-focused {
     background-color: var(--hx-autosuggest-item-highlighted-background-color);
 }

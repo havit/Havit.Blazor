@@ -67,8 +67,10 @@
         <HxDropdownMenu>
             @if ((searchResults.Count > 0) && (TextQuery.Length >= MinimumLengthEffective))
             {
-                @foreach (var item in searchResults)
+                @for (int i = 0; i < searchResults.Count; i++)
                 {
+                    var item = searchResults[i];
+
                     string title = ItemTitleSelector?.Invoke(item) ?? null;
                     string subtitle = ItemSubtitleSelector?.Invoke(item) ?? null;
                     IconBase icon = ItemIconSelector?.Invoke(item) ?? null;
@@ -77,7 +79,7 @@
                         <button
                             type="button"
                             tabindex="0"
-                            class="@CssClassHelper.Combine("dropdown-item", HasItemFocus(item) ? "hx-dropdown-item-focused" : null, ItemCssClassEffective)"
+                            class="@CssClassHelper.Combine("dropdown-item", focusedItemIndex == i ? "hx-dropdown-item-focused" : null, ItemCssClassEffective)"
                             @onclick="() => HandleItemSelected(item)">
                             
                             @if (ItemTemplate is null)

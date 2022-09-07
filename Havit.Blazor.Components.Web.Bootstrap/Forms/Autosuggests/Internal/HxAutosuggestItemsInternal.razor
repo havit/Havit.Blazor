@@ -4,14 +4,14 @@
 <div class="@CssClassHelper.Combine("dropdown-menu", CssClass)">
 	@if (Items != null && Items.Any())
 	{
-		foreach (TItem item in Items)
+		for (int i = 0; i < Items.Count; i++)
 		{
-			TItem currentItem = item;
+			TItem currentItem = Items[i];
 
 			<button
 				class="@CssClassHelper.Combine(
 					"dropdown-item text-truncate",
-					item.Equals(FocusedItem) ? "hx-dropdown-item-focused" : null)"
+					i == FocusedItemIndex ? FocusedItemCssClass : null)"
 				type="button"
 				@onclick="async () => await HandleItemClick(currentItem)"
 				@onclick:stopPropagation="true"

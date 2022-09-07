@@ -26,5 +26,5 @@
 }
 
 ::deep .hx-dropdown-item-focused {
-    background-color: var(--hx-autosuggest-item-highlighted-background-color);
+    background-color: var(--hx-search-box-item-highlighted-background-color);
 }
