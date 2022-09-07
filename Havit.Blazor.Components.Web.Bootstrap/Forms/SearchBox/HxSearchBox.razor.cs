@@ -177,7 +177,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	protected int DelayEffective => this.Delay ?? this.GetSettings()?.Delay ?? GetDefaults().Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxSearchBox) + " has to be set.");
 
 	/// <summary>
-	/// Indicates whether text-query mode is enabled (accepts free text in addition to suggested items).
+	/// Indicates whether text-query mode is enabled (accepts free text in addition to suggested items).<br/>
+	/// Default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool AllowTextQuery { get; set; } = true;
 

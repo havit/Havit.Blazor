@@ -1,18 +1,12 @@
 ﻿<HxSearchBox DataProvider="ProvideSearchResults"
+             TItem="SearchBoxItem"
              ItemTitleSelector="i => i.Title"
              ItemSubtitleSelector="i => i.Subtitle"
              ItemIconSelector="i => i.Icon"
-             TItem="SearchBoxItem"
              Placeholder="Search"
              OnItemSelected="OnItemSelected"
-             AllowTextQuery="true"
              @bind-TextQuery="textQuery"
-             OnTextQueryTriggered="OnTextQueryTriggered"
-             InputSize="InputSize.Large"
-             InputGroupStartText="Start">
-    <InputGroupEndTemplate>
-        <HxButton Color="ThemeColor.Primary">End</HxButton>
-    </InputGroupEndTemplate>
+             OnTextQueryTriggered="OnTextQueryTriggered">
     <DefaultContentTemplate>
         <div class="p-2 text-muted">Search for Mouse, Table or Door...</div>
     </DefaultContentTemplate>
@@ -37,7 +31,8 @@
         new() { Title = "Table", Subtitle = "50 000", Icon = BootstrapIcon.Table },
         new() { Title = "Mouse", Subtitle = "400", Icon = BootstrapIcon.Mouse },
         new() { Title = "Door", Subtitle = "1000", Icon = BootstrapIcon.DoorClosed },
-        new() { Title = "Tasks", Subtitle = "720", Icon = BootstrapIcon.ListTask }
+        new() { Title = "Big table", Subtitle = "9 000", Icon = BootstrapIcon.Table },
+        new() { Title = "Small table", Subtitle = "7 200", Icon = BootstrapIcon.Table }
     };
 
     private void OnItemSelected(SearchBoxItem item)
