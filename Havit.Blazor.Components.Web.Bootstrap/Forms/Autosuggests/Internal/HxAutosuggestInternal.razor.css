@@ -15,3 +15,7 @@
 .hx-autosuggest-input-icon div[role="button"]:not(:hover) ::deep .hx-icon {
     opacity: var(--hx-autosuggest-input-close-icon-opacity);
 }
+
+::deep .hx-autosuggest-item-focused {
+    background-color: var(--hx-autosuggest-item-highlighted-background-color);
+}

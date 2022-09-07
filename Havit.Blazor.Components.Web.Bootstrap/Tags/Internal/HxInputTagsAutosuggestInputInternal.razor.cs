@@ -1,20 +1,20 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
-	public partial class HxInputTagsAutosuggestInput
+	public partial class HxInputTagsAutosuggestInputInternal
 	{
 		[Parameter] public string Value { get; set; }
 
 		[Parameter] public string Placeholder { get; set; }
 
-		[Parameter] public EventCallback<string> OnInputInput { get; set; }
+		[Parameter] public EventCallback<string> OnInput { get; set; }
 
-		[Parameter] public EventCallback OnInputFocus { get; set; }
+		[Parameter] public EventCallback OnFocus { get; set; }
 
-		[Parameter] public EventCallback OnInputBlur { get; set; }
+		[Parameter] public EventCallback OnBlur { get; set; }
 
-		[Parameter] public EventCallback OnInputMouseDown { get; set; }
+		[Parameter] public EventCallback OnMouseDown { get; set; }
 
-		[Parameter] public EventCallback<KeyboardEventArgs> OnInputKeyDown { get; set; }
+		[Parameter] public EventCallback<KeyboardEventArgs> OnKeyDown { get; set; }
 
 		[Parameter] public string InputId { get; set; }
 
@@ -33,7 +33,7 @@
 
 		private async Task HandleInput(ChangeEventArgs changeEventArgs)
 		{
-			await OnInputInput.InvokeAsync((string)changeEventArgs.Value);
+			await OnInput.InvokeAsync((string)changeEventArgs.Value);
 		}
 
 		public async ValueTask FocusAsync()

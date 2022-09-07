@@ -24,3 +24,7 @@
 .dropdown-item:not(:active) ::deep .hx-search-box-item-subtitle {
     color: var(--hx-search-box-item-subtitle-color);
 }
+
+::deep .hx-dropdown-item-focused {
+    background-color: var(--hx-search-box-item-highlighted-background-color);
+}

@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
@@ -132,7 +131,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool mouseDownFocus;
 		private bool disposed;
 		private IJSObjectReference jsModule;
-		private HxInputTagsAutosuggestInput autosuggestInput;
+		private HxInputTagsAutosuggestInputInternal autosuggestInput;
 		private bool dataProviderInProgress;
 		private DotNetObjectReference<HxInputTagsInternal> dotnetObjectReference;
 
@@ -186,6 +185,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			{
 				await RemoveTagWithEventCallbackAsync(ValueEffective.Last());
 			}
+
+			await UpdateFocusedItemAsync(args);
 		}
 
 		private async Task HandleInputInput(string newUserInput)
@@ -338,6 +339,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 
 			dataProviderInProgress = false;
+
+			// KeyboardNavigation
+			focusedItemIndex = 0; // First item in the searchResults collection.
+
 			suggestions = result.Data.ToList();
 
 			if (suggestions?.Any() ?? false)
@@ -352,7 +357,66 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			StateHasChanged();
 		}
 
-		private async Task HandleItemClick(string tag)
+		#region KeyboardNavigation
+		private int focusedItemIndex = -1;
+
+		private const string ArrowUpKeyCode = "ArrowUp";
+		private const string ArrowDownKeyCode = "ArrowDown";
+
+		private const string EnterKeyCode = "Enter";
+		private const string NumpadEnterKeyCode = "NumpadEnter";
+
+		/// <summary>
+		/// Input's index for the keyboard navigation. If this is the current index, then no item is selected.
+		/// </summary>
+		private const int InputKeyboardNavigationIndex = -1;
+
+		private async Task UpdateFocusedItemAsync(KeyboardEventArgs keyboardEventArgs)
+		{
+			// Confirm selection on the focused item if an item is focused and the enter key is pressed.
+			string focusedItem = GetItemByIndex(focusedItemIndex);
+			if (keyboardEventArgs.Code == EnterKeyCode || keyboardEventArgs.Code == NumpadEnterKeyCode)
+			{
+				if ((focusedItem is not null) && (!focusedItem.Equals(default)))
+				{
+					await TryDestroyDropdownAsync();
+					await HandleItemSelected(focusedItem);
+				}
+			}
+
+			// Move focus up or down.
+			if (keyboardEventArgs.Code == ArrowUpKeyCode)
+			{
+				int previousItemIndex = focusedItemIndex - 1;
+				if (previousItemIndex >= InputKeyboardNavigationIndex) // If the index equals InputKeyboardNavigationIndex, no item is focused.
+				{
+					focusedItemIndex = previousItemIndex;
+				}
+			}
+			else if (keyboardEventArgs.Code == ArrowDownKeyCode)
+			{
+				int nextItemIndex = focusedItemIndex + 1;
+				if (nextItemIndex < suggestions.Count)
+				{
+					focusedItemIndex = nextItemIndex;
+				}
+			}
+		}
+
+		private string GetItemByIndex(int index)
+		{
+			if (index >= 0 && index < suggestions?.Count)
+			{
+				return suggestions[index];
+			}
+			else
+			{
+				return default;
+			}
+		}
+		#endregion KeyboardNavigation
+
+		private async Task HandleItemSelected(string tag)
 		{
 			// user clicked on an item in the "dropdown".
 			userInput = String.Empty;

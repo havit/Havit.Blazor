@@ -2,17 +2,15 @@
 
 <ComponentApiDoc Type="typeof(HxAutosuggest<TItem, TValue>)">
     <MainContent>
-        <DocAlert Type="DocAlertType.Danger">
-            Due to breaking change in Bootstrap 5.2 the keyboard navigation does not work in <code>HxAutosuggest</code> and <code>HxSearchBox</code> (the <code>Up</code> and <code>Down</code> keys).
-            We are trying to fix this with Bootstrap team and will try to come up with a temporary solution on our side until the final solution will be available.<br />
+        
+        <DocAlert Type="DocAlertType.Warning">
+            Due to breaking change in Bootstrap 5.2, the keyboard navigation stopped working for dropdowns triggered from <code>input</code> (the <code>Up</code> and <code>Down</code> keys).
+            As an experimental feature we added our own keyboard navigation routines to the affected components. This might be subject to future change.
             You can check the progress here: <a href="https://github.com/havit/Havit.Blazor/issues/348">https://github.com/havit/Havit.Blazor/issues/348</a>.
         </DocAlert>
 
-        <DocAlert Type="DocAlertType.Warning">
-            Although <code>HxAutosuggest</code> supports <a href="/components/Inputs#InputGroups">input groups</a>, ending input groups conflict with the search icon, therefore, when <code>InputGroupEndText</code> or <code>InputGroupEndTemplate</code> are set, the search icon is not displayed.
-        </DocAlert>
-
         <Demo Type="typeof(HxAutosuggest_Demo_Basic)" />
+
     </MainContent>
     <CssVariables>
         <ComponentApiDocCssVariable Name="--hx-autosuggest-input-close-icon-opacity" Default=".25">

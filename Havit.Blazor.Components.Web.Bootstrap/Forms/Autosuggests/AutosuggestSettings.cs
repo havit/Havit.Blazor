@@ -31,10 +31,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		/// Input size.
 		/// </summary>
 		public InputSize? InputSize { get; set; }
-
-		/// <summary>
-		/// If true, the first suggestion is highlighted until another is chosen by the user.
-		/// </summary>
-		public bool? HighlightFirstSuggestion { get; set; }
 	}
 }

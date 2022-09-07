@@ -2282,11 +2282,6 @@
             Input size.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.HighlightFirstSuggestion">
-            <summary>
-            If true, the first suggestion is highlighted until another is chosen by the user.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2">
             <summary>
             Component for single item selection with dynamic suggestions (based on typed characters).<br />
@@ -2376,11 +2371,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.HighlightFirstSuggestion">
-            <summary>
-            If true, the first suggestion is highlighted until another is chosen by the user.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.DropdownOffset">
             <summary>
             Offset between the dropdown and the input.
@@ -2439,13 +2429,13 @@
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/> and derived components.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput.DropdownOffset">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInputInternal.DropdownOffset">
             <summary>
             Offset between the dropdown and the input.
             <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInput.AdditionalAttributes">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInputInternal.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
@@ -2523,25 +2513,14 @@
             Input-group at the end of the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.HighlightFirstSuggestionEffective">
-            <summary>
-            If true, the first suggestion is highlighted until another is chosen by the user.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.HandleInputEnterKeyDown">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.InputKeyboardNavigationIndex">
             <summary>
-            Select the first suggested item when an enter key is pressed.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestItems`1.HighlightFirstSuggestionEffective">
-            <summary>
-            Visually highlights the first suggestion.
+            Input's index for the keyboard navigation. If this is the current index, then no item is selected.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueComponentExtensions">
@@ -2858,7 +2837,7 @@
             Raised when the item is clicked.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsAutosuggestInput.Offset">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsAutosuggestInputInternal.Offset">
             <summary>
             Offset between dropdown input and dropdown menu
             </summary>
@@ -2958,6 +2937,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying HTML input.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputKeyboardNavigationIndex">
+            <summary>
+            Input's index for the keyboard navigation. If this is the current index, then no item is selected.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase">
@@ -5031,6 +5015,11 @@
             Additional CSS classes for the search box input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputGroupCssClass">
+            <summary>
+            Custom CSS class to render with input-group span.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.SearchIcon">
             <summary>
             Icon of the input, when no text is written.
@@ -5074,7 +5063,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.AllowTextQuery">
             <summary>
-            Indicates whether text-query mode is enabled (accepts free text in addition to suggested items).
+            Indicates whether text-query mode is enabled (accepts free text in addition to suggested items).<br/>
+            Default is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputGroupStartText">
@@ -5102,6 +5092,11 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.textQueryHasBeenBelowMinimumLength">
             <summary>
             Shows whether the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputKeyboardNavigationIndex">
+            <summary>
+            Input's index for the keyboard navigation. If this is the current index, then no item is selected.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ShouldDropdownMenuBeDisplayed">
@@ -5183,6 +5178,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.InputCssClass">
             <summary>
             Additional CSS classes for the search box input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.InputGroupCssClass">
+            <summary>
+            Custom CSS class to render with input-group span.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">

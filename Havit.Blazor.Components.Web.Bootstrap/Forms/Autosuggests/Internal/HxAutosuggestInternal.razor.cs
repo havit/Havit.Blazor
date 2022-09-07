@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using Havit.Diagnostics.Contracts;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 {
@@ -99,11 +97,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
 		/// <summary>
-		/// If true, the first suggestion is highlighted until another is chosen by the user.
-		/// </summary>
-		[Parameter] public bool HighlightFirstSuggestionEffective { get; set; }
-
-		/// <summary>
 		/// Additional attributes to be splatted onto an underlying HTML element.
 		/// </summary>
 		[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
@@ -125,7 +118,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		private bool currentlyFocused;
 		private bool disposed;
 		private IJSObjectReference jsModule;
-		private HxAutosuggestInput autosuggestInput;
+		private HxAutosuggestInputInternal autosuggestInput;
 		private TValue lastKnownValue;
 		private bool dataProviderInProgress;
 		private DotNetObjectReference<HxAutosuggestInternal<TItem, TValue>> dotnetObjectReference;
@@ -223,19 +216,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 		}
 
-		/// <summary>
-		/// Select the first suggested item when an enter key is pressed.
-		/// </summary>
-		/// <returns></returns>
-		private async Task HandleInputEnterKeyDown()
-		{
-			if (HighlightFirstSuggestionEffective)
-			{
-				await DestroyDropdownAsync();
-				await HandleItemClick(suggestions.FirstOrDefault());
-			}
-		}
-
 		private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
 		{
 			// when a time interval reached, update suggestions
@@ -310,6 +290,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			}
 
 			dataProviderInProgress = false;
+
+			// KeyboardNavigation
+			focusedItemIndex = 0; // First item in the searchResults collection.
+
 			suggestions = result.Data?.ToList();
 
 			if ((suggestions?.Any() ?? false) || EmptyTemplate != null)
@@ -324,9 +308,82 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 			StateHasChanged();
 		}
 
-		private async Task HandleItemClick(TItem item)
+		#region KeyboardNavigation
+		private int focusedItemIndex = -1;
+
+		private const string ArrowUpKeyCode = "ArrowUp";
+		private const string ArrowDownKeyCode = "ArrowDown";
+
+		private const string EnterKeyCode = "Enter";
+		private const string NumpadEnterKeyCode = "NumpadEnter";
+
+		/// <summary>
+		/// Input's index for the keyboard navigation. If this is the current index, then no item is selected.
+		/// </summary>
+		private const int InputKeyboardNavigationIndex = -1;
+
+		private TItem GetFocusedItem()
 		{
-			// user clicked on an item in the "dropdown".
+			if (focusedItemIndex > InputKeyboardNavigationIndex)
+			{
+				TItem focusedItem = GetItemByIndex(focusedItemIndex);
+				if ((focusedItem is not null) && (!focusedItem.Equals(default)))
+				{
+					return focusedItem;
+				}
+			}
+
+			return default;
+		}
+
+		private async Task HandleInputKeyDown(KeyboardEventArgs keyboardEventArgs)
+		{
+			// Confirm selection on the focused item if an item is focused and the enter key is pressed.
+			TItem focusedItem = GetItemByIndex(focusedItemIndex);
+			if (keyboardEventArgs.Code == EnterKeyCode || keyboardEventArgs.Code == NumpadEnterKeyCode)
+			{
+				if ((focusedItem is not null) && (!focusedItem.Equals(default)))
+				{
+					await DestroyDropdownAsync();
+					await HandleItemSelected(focusedItem);
+				}
+			}
+
+			// Move focus up or down.
+			if (keyboardEventArgs.Code == ArrowUpKeyCode)
+			{
+				int previousItemIndex = focusedItemIndex - 1;
+				if (previousItemIndex >= InputKeyboardNavigationIndex) // If the index equals InputKeyboardNavigationIndex, no item is focused.
+				{
+					focusedItemIndex = previousItemIndex;
+				}
+			}
+			else if (keyboardEventArgs.Code == ArrowDownKeyCode)
+			{
+				int nextItemIndex = focusedItemIndex + 1;
+				if (nextItemIndex < suggestions.Count)
+				{
+					focusedItemIndex = nextItemIndex;
+				}
+			}
+		}
+
+		private TItem GetItemByIndex(int index)
+		{
+			if (index >= 0 && index < suggestions?.Count)
+			{
+				return suggestions[index];
+			}
+			else
+			{
+				return default;
+			}
+		}
+		#endregion KeyboardNavigation
+
+		private async Task HandleItemSelected(TItem item)
+		{
+			// user selected an item in the "dropdown".
 			await SetValueItemWithEventCallback(item);
 			userInput = TextSelectorEffective(item);
 			userInputModified = false;

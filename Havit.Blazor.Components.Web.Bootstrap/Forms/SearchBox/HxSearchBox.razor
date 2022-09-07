@@ -15,21 +15,39 @@
 
             <div class="position-relative">
                 <form @onsubmit="HandleTextQueryTriggered" @onfocusout="HandleInputBlur">
-                    <HxInputText Value="@TextQuery"
-                                 ValueChanged="HandleTextQueryValueChanged"
-                                 ValueExpression="() => this.TextQuery"
-                                 InputMode="InputMode.Search"
-                                 BindEvent="BindEvent.OnInput"
-                                 Enabled="Enabled"
-                                 Placeholder="@Placeholder"
-                                 Label="@Label"
-                                 LabelType="LabelType"
-                                 InputSize="this.InputSizeEffective"
-                                 CssClass="InputCssClass"
-                                 InputGroupStartText="@InputGroupStartText"
-                                 InputGroupEndText="@InputGroupEndText"
-                                 InputGroupStartTemplate="@InputGroupStartTemplate"
-                                 InputGroupEndTemplate="@InputGroupEndTemplate" />
+                    @if (!string.IsNullOrEmpty(Label))
+                    {
+                        <label class="form-label">@Label</label>
+                    }
+                    <span class="@CssClassHelper.Combine(
+                                    (HasInputGroupsEffective ? "input-group" : null),
+                                    (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null,
+                                    InputSizeEffective.AsInputGroupCssClass(),
+                                    InputGroupCssClass)">
+                    
+                        @if (InputGroupStartText is not null)
+                        {
+                            <span class="input-group-text">@InputGroupStartText</span>
+                        }
+
+                        @InputGroupStartTemplate
+
+                        <input
+                            value="@TextQuery"
+                            @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
+                            @onkeydown="HandleInputKeyDown"
+                            inputmode="search"
+                            enabled="@Enabled"
+                            placeholder="@Placeholder"
+                            class="@CssClassHelper.Combine("form-control", InputCssClassEffective)" />
+                            
+                        @InputGroupEndTemplate
+
+                        @if (InputGroupEndText is not null)
+                        {
+                            <span class="input-group-text">@InputGroupEndText</span>
+                        }
+                    </span>
 
                     @if (InputGroupEndText is null && InputGroupEndTemplate is null)
                     {
@@ -59,17 +77,24 @@
         <HxDropdownMenu>
             @if ((searchResults.Count > 0) && (TextQuery.Length >= MinimumLengthEffective))
             {
-                @foreach (var item in searchResults)
+                @for (int i = 0; i < searchResults.Count; i++)
                 {
+                    var item = searchResults[i];
+
                     string title = ItemTitleSelector?.Invoke(item) ?? null;
                     string subtitle = ItemSubtitleSelector?.Invoke(item) ?? null;
                     IconBase icon = ItemIconSelector?.Invoke(item) ?? null;
 
                     <li class="overflow-hidden">
-                        <button type="button" tabindex="0" class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="() => HandleItemSelected(item)">
+                        <button
+                            type="button"
+                            tabindex="0"
+                            class="@CssClassHelper.Combine("dropdown-item", focusedItemIndex == i ? "hx-dropdown-item-focused" : null, ItemCssClassEffective)"
+                            @onclick="() => HandleItemSelected(item)">
+                            
                             @if (ItemTemplate is null)
                             {
-                                <HxSearchBoxItem Title="@title" Subtitle="@subtitle" Icon="@icon" />
+                                <HxSearchBoxItemInternal Title="@title" Subtitle="@subtitle" Icon="@icon" />
                             }
                             else
                             {
@@ -91,10 +116,15 @@
             @if (AllowTextQuery && (TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
             {
                 <li class="overflow-hidden">
-                    <button type="button" tabindex="0" class="@CssClassHelper.Combine("dropdown-item", ItemCssClassEffective)" @onclick="HandleTextQueryTriggered">
+                    <button
+                        type="button"
+                        tabindex="0"
+                        class="@CssClassHelper.Combine("dropdown-item", HasFreeTextItemFocus() ? "hx-dropdown-item-focused" : null, ItemCssClassEffective)"
+                        @onclick="HandleTextQueryTriggered">
+
                         @if (TextQueryItemTemplate is null)
                         {
-                            <HxSearchBoxItem Title="@TextQuery" Icon="@SearchIconEffective" />
+                            <HxSearchBoxItemInternal Title="@TextQuery" Icon="@SearchIconEffective" />
                         }
                         else
                         {

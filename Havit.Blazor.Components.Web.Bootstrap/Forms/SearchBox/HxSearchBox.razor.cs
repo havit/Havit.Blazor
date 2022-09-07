@@ -1,8 +1,4 @@
-﻿using System.Threading;
-using Havit.Blazor.Components.Web.Bootstrap.Internal;
-using Microsoft.JSInterop;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// A search input component witch automatic suggestions, initial dropdown template and free-text queries support.<br />
@@ -129,6 +125,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	protected string InputCssClassEffective => this.ItemCssClass ?? this.GetSettings()?.InputCssClass ?? GetDefaults().InputCssClass;
 
 	/// <summary>
+	/// Custom CSS class to render with input-group span.
+	/// </summary>
+	[Parameter] public string InputGroupCssClass { get; set; }
+	protected string InputGroupCssClassEffective => this.InputGroupCssClass ?? this.GetSettings()?.InputGroupCssClass ?? GetDefaults().InputGroupCssClass;
+
+	/// <summary>
 	/// Icon of the input, when no text is written.
 	/// </summary>
 	[Parameter] public IconBase SearchIcon { get; set; }
@@ -175,7 +177,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	protected int DelayEffective => this.Delay ?? this.GetSettings()?.Delay ?? GetDefaults().Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxSearchBox) + " has to be set.");
 
 	/// <summary>
-	/// Indicates whether text-query mode is enabled (accepts free text in addition to suggested items).
+	/// Indicates whether text-query mode is enabled (accepts free text in addition to suggested items).<br/>
+	/// Default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool AllowTextQuery { get; set; } = true;
 
@@ -200,6 +203,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// Hides the search icon when used!
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
+	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
 	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
 	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
@@ -274,6 +279,17 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 
 		dataProviderInProgress = false;
+
+		// KeyboardNavigation
+		if (this.AllowTextQuery)
+		{
+			focusedItemIndex = InputKeyboardNavigationIndex; // Move focus to the input, so that freetext can be easily confirmed with Enter.
+		}
+		else
+		{
+			focusedItemIndex = 0; // Move focus to the first item.
+		}
+
 		searchResults = result?.Data.ToList();
 
 		textQueryHasBeenBelowMinimumLength = false;
@@ -317,6 +333,92 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 		await InvokeTextQueryChangedAsync(newTextQuery);
 	}
+
+	#region KeyboardNavigation
+	private int focusedItemIndex = -1;
+
+	private const string ArrowUpKeyCode = "ArrowUp";
+	private const string ArrowDownKeyCode = "ArrowDown";
+
+	private const string EnterKeyCode = "Enter";
+	private const string NumpadEnterKeyCode = "NumpadEnter";
+
+	/// <summary>
+	/// Input's index for the keyboard navigation. If this is the current index, then no item is selected.
+	/// </summary>
+	private const int InputKeyboardNavigationIndex = -1;
+
+	private bool HasItemFocus(TItem item)
+	{
+		if (focusedItemIndex > InputKeyboardNavigationIndex && focusedItemIndex < GetFreeTextItemIndex())
+		{
+			TItem focusedItem = GetItemByIndex(focusedItemIndex);
+			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
+			{
+				return item.Equals(focusedItem);
+			}
+		}
+
+		return false;
+	}
+
+	private bool HasFreeTextItemFocus()
+	{
+		return focusedItemIndex == GetFreeTextItemIndex();
+	}
+
+	private async Task HandleInputKeyDown(KeyboardEventArgs keyboardEventArgs)
+	{
+		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
+		TItem focusedItem = GetItemByIndex(focusedItemIndex);
+		if (keyboardEventArgs.Code == EnterKeyCode || keyboardEventArgs.Code == NumpadEnterKeyCode)
+		{
+			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
+			{
+				await HandleItemSelected(focusedItem);
+			}
+			else if (focusedItemIndex == GetFreeTextItemIndex())
+			{
+				await HandleTextQueryTriggered();
+			}
+		}
+
+		// Move focus up or down.
+		if (keyboardEventArgs.Code == ArrowUpKeyCode)
+		{
+			int previousItemIndex = focusedItemIndex - 1;
+			if (previousItemIndex >= InputKeyboardNavigationIndex) // If the index equals InputKeyboardNavigationIndex, no item is focused.
+			{
+				focusedItemIndex = previousItemIndex;
+			}
+		}
+		else if (keyboardEventArgs.Code == ArrowDownKeyCode)
+		{
+			int nextItemIndex = focusedItemIndex + 1;
+			if (nextItemIndex <= GetFreeTextItemIndex()) // If the index equals GetFreeTextItemIndex(), then the freetext item is selected.
+			{
+				focusedItemIndex = nextItemIndex;
+			}
+		}
+	}
+
+	private TItem GetItemByIndex(int index)
+	{
+		if (index >= 0 && index < searchResults.Count)
+		{
+			return searchResults[index];
+		}
+		else
+		{
+			return default;
+		}
+	}
+
+	private int GetFreeTextItemIndex()
+	{
+		return searchResults.Count;
+	}
+	#endregion KeyboardNavigation
 
 	private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
 	{

@@ -1,14 +1,16 @@
 ﻿@using System.Globalization
 
 <HxAutosuggest Label="CultureInfo"
-               Placeholder="Click here"
+               Placeholder="Start typing to see suggestions"
                TItem="CultureInfo"
                TValue="int?"
                @bind-Value="@autosuggestValue"
                DataProvider="ProvideSuggestions"
                ValueSelector="(CultureInfo c) => c.LCID"
                ItemFromValueResolver="ResolveAutosuggestItemFromValue">
-    <ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
+    <ItemTemplate Context="item">
+        @item.EnglishName <sup>@item.LCID</sup>
+</ItemTemplate>
     <EmptyTemplate>
         <span class="p-2">Couldn't find any matching locale</span>
     </EmptyTemplate>
@@ -18,28 +20,28 @@
 
 @code
 {
-	private int? autosuggestValue = 1033;
+    private int? autosuggestValue = 1033;
 
-	private async Task<AutosuggestDataProviderResult<CultureInfo>> ProvideSuggestions(AutosuggestDataProviderRequest request)
-	{
-		await Task.Delay(400); // backend API speed simulation
-		return new AutosuggestDataProviderResult<CultureInfo>
-		{
-			Data = CultureInfo.GetCultures(CultureTypes.AllCultures)
-								.Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid?view=net-5.0#System_Globalization_CultureInfo_LCID
-								.Where(c => c.EnglishName?.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase) ?? false)
-								.OrderBy(c => c.EnglishName)
-								.ToList()
-		};
-	}
+    private async Task<AutosuggestDataProviderResult<CultureInfo>> ProvideSuggestions(AutosuggestDataProviderRequest request)
+    {
+        await Task.Delay(400); // backend API speed simulation
+        return new AutosuggestDataProviderResult<CultureInfo>
+            {
+                Data = CultureInfo.GetCultures(CultureTypes.AllCultures)
+                            .Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid?view=net-5.0#System_Globalization_CultureInfo_LCID
+                            .Where(c => c.EnglishName?.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase) ?? false)
+                            .OrderBy(c => c.EnglishName)
+                            .ToList()
+            };
+    }
 
-	private async Task<CultureInfo> ResolveAutosuggestItemFromValue(int? value)
-	{
-		if (value is null)
-		{
-			return null;
-		}
-		await Task.Delay(400); // backend API speed simulation
-		return CultureInfo.GetCultureInfo(value.Value);
-	}
+    private async Task<CultureInfo> ResolveAutosuggestItemFromValue(int? value)
+    {
+        if (value is null)
+        {
+            return null;
+        }
+        await Task.Delay(400); // backend API speed simulation
+        return CultureInfo.GetCultureInfo(value.Value);
+    }
 }
