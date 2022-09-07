@@ -281,7 +281,14 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		dataProviderInProgress = false;
 
 		// KeyboardNavigation
-		focusedItemIndex = InputKeyboardNavigationIndex; // Move focus to the input, so that freetext can be easily confirmed with Enter.
+		if (this.AllowTextQuery)
+		{
+			focusedItemIndex = InputKeyboardNavigationIndex; // Move focus to the input, so that freetext can be easily confirmed with Enter.
+		}
+		else
+		{
+			focusedItemIndex = 0; // Move focus to the first item.
+		}
 
 		searchResults = result?.Data.ToList();
 

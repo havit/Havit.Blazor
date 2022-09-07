@@ -5063,7 +5063,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.AllowTextQuery">
             <summary>
-            Indicates whether text-query mode is enabled (accepts free text in addition to suggested items).
+            Indicates whether text-query mode is enabled (accepts free text in addition to suggested items).<br/>
+            Default is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputGroupStartText">
