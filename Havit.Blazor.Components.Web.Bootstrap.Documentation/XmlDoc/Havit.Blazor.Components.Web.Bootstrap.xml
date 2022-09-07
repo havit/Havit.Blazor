@@ -5015,6 +5015,11 @@
             Additional CSS classes for the search box input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputGroupCssClass">
+            <summary>
+            Custom CSS class to render with input-group span.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.SearchIcon">
             <summary>
             Icon of the input, when no text is written.
@@ -5172,6 +5177,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.InputCssClass">
             <summary>
             Additional CSS classes for the search box input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.InputGroupCssClass">
+            <summary>
+            Custom CSS class to render with input-group span.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">

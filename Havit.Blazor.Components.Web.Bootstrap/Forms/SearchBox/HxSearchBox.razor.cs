@@ -125,6 +125,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	protected string InputCssClassEffective => this.ItemCssClass ?? this.GetSettings()?.InputCssClass ?? GetDefaults().InputCssClass;
 
 	/// <summary>
+	/// Custom CSS class to render with input-group span.
+	/// </summary>
+	[Parameter] public string InputGroupCssClass { get; set; }
+	protected string InputGroupCssClassEffective => this.InputGroupCssClass ?? this.GetSettings()?.InputGroupCssClass ?? GetDefaults().InputGroupCssClass;
+
+	/// <summary>
 	/// Icon of the input, when no text is written.
 	/// </summary>
 	[Parameter] public IconBase SearchIcon { get; set; }
@@ -196,6 +202,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// Hides the search icon when used!
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
+	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
 	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
 	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");

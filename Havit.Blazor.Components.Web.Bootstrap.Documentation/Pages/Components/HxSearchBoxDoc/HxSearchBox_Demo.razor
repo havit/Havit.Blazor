@@ -7,7 +7,12 @@
              OnItemSelected="OnItemSelected"
              AllowTextQuery="true"
              @bind-TextQuery="textQuery"
-             OnTextQueryTriggered="OnTextQueryTriggered">
+             OnTextQueryTriggered="OnTextQueryTriggered"
+             InputSize="InputSize.Large"
+             InputGroupStartText="Start">
+    <InputGroupEndTemplate>
+        <HxButton Color="ThemeColor.Primary">End</HxButton>
+    </InputGroupEndTemplate>
     <DefaultContentTemplate>
         <div class="p-2 text-muted">Search for Mouse, Table or Door...</div>
     </DefaultContentTemplate>

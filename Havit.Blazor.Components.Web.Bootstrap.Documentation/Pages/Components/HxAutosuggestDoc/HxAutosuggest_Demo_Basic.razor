@@ -7,7 +7,9 @@
                @bind-Value="@autosuggestValue"
                DataProvider="ProvideSuggestions"
                ValueSelector="(CultureInfo c) => c.LCID"
-               ItemFromValueResolver="ResolveAutosuggestItemFromValue">
+               ItemFromValueResolver="ResolveAutosuggestItemFromValue"
+			   InputGroupStartText="Start"
+			   InputGroupEndText="End">
     <ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
     <EmptyTemplate>
         <span class="p-2">Couldn't find any matching locale</span>

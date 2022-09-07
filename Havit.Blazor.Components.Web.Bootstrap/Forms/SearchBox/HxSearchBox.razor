@@ -15,29 +15,39 @@
 
             <div class="position-relative">
                 <form @onsubmit="HandleTextQueryTriggered" @onfocusout="HandleInputBlur">
-@*                    <HxInputText Value="@TextQuery"
-                                 ValueChanged="HandleTextQueryValueChanged"
-                                 ValueExpression="() => this.TextQuery"
-                                 InputMode="InputMode.Search"
-                                 BindEvent="BindEvent.OnInput"
-                                 Enabled="Enabled"
-                                 Placeholder="@Placeholder"
-                                 Label="@Label"
-                                 LabelType="LabelType"
-                                 InputSize="this.InputSizeEffective"
-                                 CssClass="InputCssClass"
-                                 InputGroupStartText="@InputGroupStartText"
-                                 InputGroupEndText="@InputGroupEndText"
-                                 InputGroupStartTemplate="@InputGroupStartTemplate"
-                                 InputGroupEndTemplate="@InputGroupEndTemplate" />*@
-                    <input
-                        value="@TextQuery"
-                        @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
-                        @onkeydown="HandleInputKeyDown"
-                        inputmode="search"
-                        enabled="@Enabled"
-                        placeholder="@Placeholder"
-                        class="@CssClassHelper.Combine("form-control", InputCssClassEffective)" />
+                    @if (!string.IsNullOrEmpty(Label))
+                    {
+                        <label class="form-label">@Label</label>
+                    }
+                    <span class="@CssClassHelper.Combine(
+                                    (HasInputGroupsEffective ? "input-group" : null),
+                                    (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null,
+                                    InputSizeEffective.AsInputGroupCssClass(),
+                                    InputGroupCssClass)">
+                    
+                        @if (InputGroupStartText is not null)
+                        {
+                            <span class="input-group-text">@InputGroupStartText</span>
+                        }
+
+                        @InputGroupStartTemplate
+
+                        <input
+                            value="@TextQuery"
+                            @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
+                            @onkeydown="HandleInputKeyDown"
+                            inputmode="search"
+                            enabled="@Enabled"
+                            placeholder="@Placeholder"
+                            class="@CssClassHelper.Combine("form-control", InputCssClassEffective)" />
+                            
+                        @InputGroupEndTemplate
+
+                        @if (InputGroupEndText is not null)
+                        {
+                            <span class="input-group-text">@InputGroupEndText</span>
+                        }
+                    </span>
 
                     @if (InputGroupEndText is null && InputGroupEndTemplate is null)
                     {

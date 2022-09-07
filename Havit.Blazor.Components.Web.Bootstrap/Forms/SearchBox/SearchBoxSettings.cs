@@ -44,4 +44,9 @@ public class SearchBoxSettings
 	/// Additional CSS classes for the search box input.
 	/// </summary>
 	public string InputCssClass { get; set; }
+
+	/// <summary>
+	/// Custom CSS class to render with input-group span.
+	/// </summary>
+	public string InputGroupCssClass { get; set; }
 }
