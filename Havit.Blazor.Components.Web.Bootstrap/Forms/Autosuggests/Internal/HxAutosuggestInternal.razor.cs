@@ -296,7 +296,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 			suggestions = result.Data?.ToList();
 
-			if ((suggestions?.Any() ?? false) || EmptyTemplate != null)
+			if ((suggestions?.Any() ?? false) || (EmptyTemplate != null))
 			{
 				await OpenDropdownAsync();
 			}
@@ -340,7 +340,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 			TItem focusedItem = GetItemByIndex(focusedItemIndex);
-			if (keyboardEventArgs.Code == EnterKeyCode || keyboardEventArgs.Code == NumpadEnterKeyCode)
+			if ((keyboardEventArgs.Code == EnterKeyCode) || (keyboardEventArgs.Code == NumpadEnterKeyCode))
 			{
 				if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 				{
@@ -370,7 +370,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 		private TItem GetItemByIndex(int index)
 		{
-			if (index >= 0 && index < suggestions?.Count)
+			if ((index >= 0) && (index < suggestions?.Count))
 			{
 				return suggestions[index];
 			}

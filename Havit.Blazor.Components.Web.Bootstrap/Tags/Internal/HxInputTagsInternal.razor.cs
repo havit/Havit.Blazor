@@ -375,7 +375,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 		{
 			// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 			string focusedItem = GetItemByIndex(focusedItemIndex);
-			if (keyboardEventArgs.Code == EnterKeyCode || keyboardEventArgs.Code == NumpadEnterKeyCode)
+			if ((keyboardEventArgs.Code == EnterKeyCode) || (keyboardEventArgs.Code == NumpadEnterKeyCode))
 			{
 				if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 				{

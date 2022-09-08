@@ -243,7 +243,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	{
 		await HideDropdownMenu();
 
-		if (string.IsNullOrEmpty(TextQuery) || TextQuery.Length < MinimumLengthEffective)
+		if (string.IsNullOrEmpty(TextQuery) || (TextQuery.Length < MinimumLengthEffective))
 		{
 			return;
 		}
@@ -350,7 +350,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private bool HasItemFocus(TItem item)
 	{
-		if (focusedItemIndex > InputKeyboardNavigationIndex && focusedItemIndex < GetFreeTextItemIndex())
+		if ((focusedItemIndex > InputKeyboardNavigationIndex) && (focusedItemIndex < GetFreeTextItemIndex()))
 		{
 			TItem focusedItem = GetItemByIndex(focusedItemIndex);
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
@@ -371,7 +371,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	{
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 		TItem focusedItem = GetItemByIndex(focusedItemIndex);
-		if (keyboardEventArgs.Code == EnterKeyCode || keyboardEventArgs.Code == NumpadEnterKeyCode)
+		if ((keyboardEventArgs.Code == EnterKeyCode) || (keyboardEventArgs.Code == NumpadEnterKeyCode))
 		{
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
@@ -404,7 +404,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private TItem GetItemByIndex(int index)
 	{
-		if (index >= 0 && index < searchResults.Count)
+		if ((index >= 0) && (index < searchResults.Count))
 		{
 			return searchResults[index];
 		}
@@ -442,7 +442,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	protected async Task HandleTextQueryTriggered()
 	{
-		if (AllowTextQuery && (TextQuery.Length >= MinimumLengthEffective || TextQuery.Length == 0))
+		if (AllowTextQuery
+			&& ((TextQuery.Length >= MinimumLengthEffective) || (TextQuery.Length == 0)))
 		{
 			CancelDataProviderAndDebounce();
 
@@ -482,12 +483,14 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// <returns></returns>
 	protected bool ShouldDropdownMenuBeDisplayed()
 	{
-		if (textQueryHasBeenBelowMinimumLength && (TextQuery is not null && TextQuery.Length >= MinimumLengthEffective))
+		if (textQueryHasBeenBelowMinimumLength
+			&& ((TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective)))
 		{
 			return false;
 		}
 
-		if (DefaultContentTemplate is null && (TextQuery is null || TextQuery.Length < MinimumLengthEffective))
+		if ((DefaultContentTemplate is null)
+			&& ((TextQuery is null) || (TextQuery.Length < MinimumLengthEffective)))
 		{
 			return false;
 		}
