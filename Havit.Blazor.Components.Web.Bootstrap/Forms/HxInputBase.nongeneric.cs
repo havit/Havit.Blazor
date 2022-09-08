@@ -8,11 +8,11 @@ public sealed class HxInputBase
 	/// <summary>
 	/// Application-wide defaults for the <see cref="HxInputBase{TValue}"/> and derived components.
 	/// </summary>
-	public static InputsSettings Defaults { get; set; }
+	public static InputSettings Defaults { get; set; }
 
 	static HxInputBase()
 	{
-		Defaults = new InputsSettings()
+		Defaults = new InputSettings()
 		{
 			ValidationMessageMode = ValidationMessageMode.Floating
 		};

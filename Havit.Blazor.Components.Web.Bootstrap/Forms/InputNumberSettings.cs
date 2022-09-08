@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Settings for the <see cref="HxInputNumber{TValue}"/> and derived components.
 /// </summary>
-public record InputNumberSettings : InputsSettings, IInputSettingsWithSize
+public record InputNumberSettings : InputSettings, IInputSettingsWithSize
 {
 	/// <summary>
 	/// Input size.

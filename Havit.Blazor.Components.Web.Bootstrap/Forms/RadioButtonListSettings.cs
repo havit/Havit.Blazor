@@ -3,6 +3,6 @@
 /// <summary>
 /// Settings for <see cref="HxRadioButtonListBase{TValue, TItem}"/>.
 /// </summary>
-public record RadioButtonListSettings : InputsSettings
+public record RadioButtonListSettings : InputSettings
 {
 }

@@ -4638,16 +4638,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.Dispose">
             <inheritdoc />
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.IInputsSettings">
-            <summary>
-            Settings for the components derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.IInputsSettings.ValidationMessageMode">
-            <summary>
-            Specifies how the validation message should be displayed.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputCheckboxSettings">
             <summary>
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox"/>.
@@ -4813,6 +4803,16 @@
             Instructs whether the <code>Value</code> is going to be updated instantly, or <code>onchange</code> (usually <code>onmouseup</code>).
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputSettings">
+            <summary>
+            Settings for the components derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputSettings.ValidationMessageMode">
+            <summary>
+            Specifies how the validation message should be displayed.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputSizeExtensions.AsFormControlCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
             <summary>
             Returns CSS class to render input (form-control) with desired size.
@@ -4826,16 +4826,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputSizeExtensions.AsFormSelectCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
             <summary>
             Returns CSS class to render select (form-select) with desired size.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputsSettings">
-            <summary>
-            Settings for the components derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputsSettings.ValidationMessageMode">
-            <summary>
-            Specifies how the validation message should be displayed.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings">

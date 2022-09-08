@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Settings for the <see cref="HxInputTags"/> component.
 /// </summary>
-public record InputTagsSettings : InputsSettings, IInputSettingsWithSize
+public record InputTagsSettings : InputSettings, IInputSettingsWithSize
 {
 	/// <summary>
 	/// Minimal number of characters to start suggesting.

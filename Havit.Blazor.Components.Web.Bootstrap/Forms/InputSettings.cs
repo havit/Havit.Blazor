@@ -3,7 +3,7 @@
 /// <summary>
 /// Settings for the components derived from <see cref="HxInputBase"/>.
 /// </summary>
-public record InputsSettings : IInputsSettings
+public record InputSettings
 {
 	/// <summary>
 	/// Specifies how the validation message should be displayed.

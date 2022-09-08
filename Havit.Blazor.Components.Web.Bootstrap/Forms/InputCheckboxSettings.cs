@@ -3,6 +3,6 @@
 /// <summary>
 /// Settings for <see cref="HxInputCheckbox"/>.
 /// </summary>
-public record InputCheckboxSettings : InputsSettings
+public record InputCheckboxSettings : InputSettings
 {
 }

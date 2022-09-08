@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Settings for the <see cref="HxMultiSelect{TValue, TItem}"/> component.
 /// </summary>
-public record MultiSelectSettings : InputsSettings, IInputSettingsWithSize
+public record MultiSelectSettings : InputSettings, IInputSettingsWithSize
 {
 	/// <summary>
 	/// Input size.

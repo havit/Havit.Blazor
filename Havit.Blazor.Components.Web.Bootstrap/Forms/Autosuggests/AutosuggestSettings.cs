@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Settings for the <see cref="HxAutosuggest{TItem, TValue} "/> and derived components.
 /// </summary>
-public record AutosuggestSettings : InputsSettings, IInputSettingsWithSize
+public record AutosuggestSettings : InputSettings, IInputSettingsWithSize
 {
 	/// <summary>
 	/// Icon displayed in input when no item is selected.

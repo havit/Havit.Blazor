@@ -26,14 +26,14 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// Enables to not share defaults in descandants with base classes.
 	/// Enables to have multiple descendants which differs in the default values.
 	/// </summary>
-	protected virtual IInputsSettings GetDefaults() => HxInputBase.Defaults;
+	protected virtual InputSettings GetDefaults() => HxInputBase.Defaults;
 
 	/// <summary>
 	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputBase.Defaults"/>, overriden by individual parameters).
 	/// </summary>
 	/// <remarks>
 	/// Using interface does not force the implementation of settings to use specific class as a base type.</remarks>
-	protected abstract IInputsSettings GetSettings();
+	protected abstract InputSettings GetSettings();
 
 	/// <summary>
 	/// Specifies how the validation message should be displayed.<br/>

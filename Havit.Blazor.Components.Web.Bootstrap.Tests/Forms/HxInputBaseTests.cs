@@ -41,7 +41,7 @@ public class HxInputBaseTests
 				// NOOP
 			}
 
-			protected override IInputsSettings GetSettings() => null;
+			protected override InputSettings GetSettings() => null;
 
 			protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out string result, [NotNullWhen(false)] out string validationErrorMessage)
 			{
