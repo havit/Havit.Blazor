@@ -126,18 +126,6 @@
   <data name="FromParsingErrorMessage" xml:space="preserve">
     <value>Enter correct "from" date.</value>
   </data>
-  <data name="LastMonth" xml:space="preserve">
-    <value>Last month</value>
-  </data>
-  <data name="LastYear" xml:space="preserve">
-    <value>Last year</value>
-  </data>
-  <data name="ThisMonth" xml:space="preserve">
-    <value>This month</value>
-  </data>
-  <data name="ThisYear" xml:space="preserve">
-    <value>This year</value>
-  </data>
   <data name="To" xml:space="preserve">
     <value>To</value>
   </data>

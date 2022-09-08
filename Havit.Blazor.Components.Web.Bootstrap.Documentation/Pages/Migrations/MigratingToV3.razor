@@ -49,7 +49,14 @@
     Remove the parameter from your code (incl. <code>HxAutosuggest.Settings</code> and <code>HxAutosuggest.Defaults</code>).
 </p>
 
-<h3>4. [OPTIONAL] Replace obsolete components with new ones</h3>
+<h3>4. [OPTIONAL] Set default predefined date ranges for <code>HxInputDateRange</code></h3>
+<p>
+    In v3 we removed the default predefined date ranges in <code>HxInputDateRange.Defaults.PredfefinedDateRanges</code>.
+    If you want your application to use the original set of predefined ranges, add this code to your application setup:
+</p>
+<CodeSnippet File="~\Pages\Migrations\MigratingToV3_HxInputDateRange_DefaultPredefinedDateRanges.CodeSnippet.cs" />
+
+<h3>5. [OPTIONAL] Replace obsolete components with new ones</h3>
 <p>
     We replaced <code>HxInputCheckbox</code> with new <code>HxCheckbox</code> and <code>HxInputSwitch</code> with new <code>HxSwitch</code>.<br />
     The original <code>Label</code> parameter is now <code>Text</code> (the <code>Label</code> parameter of new components has a different purpose, see <a href="/components/HxCheckbox"><code>HxCheckbox</code> documentation</a>).

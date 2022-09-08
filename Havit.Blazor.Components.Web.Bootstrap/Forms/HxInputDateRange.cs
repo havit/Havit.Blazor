@@ -17,17 +17,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 
 		static HxInputDateRange()
 		{
-			DateTime today = DateTime.Today;
-
-			DateTime thisMonthStart = new DateTime(today.Year, today.Month, 1);
-			DateTime thisMonthEnd = new DateTime(today.Year, today.Month, DateTime.DaysInMonth(today.Year, today.Month));
-			DateTime lastMonthStart = thisMonthStart.AddMonths(-1);
-			DateTime lastMonthEnd = new DateTime(lastMonthStart.Year, lastMonthStart.Month, DateTime.DaysInMonth(lastMonthStart.Year, lastMonthStart.Month));
-			DateTime thisYearStart = new DateTime(today.Year, 1, 1);
-			DateTime thisYearEnd = new DateTime(today.Year, 12, 31);
-			DateTime lastYearStart = thisYearStart.AddYears(-1);
-			DateTime lastYearEnd = thisYearEnd.AddYears(-1);
-
 			Defaults = new InputDateRangeSettings()
 			{
 				InputSize = Bootstrap.InputSize.Regular,
@@ -35,13 +24,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				MaxDate = HxCalendar.DefaultMaxDate,
 				ShowClearButton = true,
 				ShowPredefinedDateRanges = true,
-				PredefinedDateRanges = new[]
-				{
-					new InputDateRangePredefinedRangesItem { Label = "ThisMonth", DateRange = new DateTimeRange(thisMonthStart, thisMonthEnd), ResourceType = typeof(HxInputDateRange) },
-					new InputDateRangePredefinedRangesItem { Label = "LastMonth", DateRange = new DateTimeRange(lastMonthStart, lastMonthEnd), ResourceType = typeof(HxInputDateRange) },
-					new InputDateRangePredefinedRangesItem { Label = "ThisYear", DateRange = new DateTimeRange(thisYearStart, thisYearEnd), ResourceType = typeof(HxInputDateRange) },
-					new InputDateRangePredefinedRangesItem { Label = "LastYear", DateRange = new DateTimeRange(lastYearStart, lastYearEnd), ResourceType = typeof(HxInputDateRange) },
-				}
+				PredefinedDateRanges = null
 			};
 		}
 

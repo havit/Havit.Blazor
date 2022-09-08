@@ -126,18 +126,6 @@
   <data name="FromParsingErrorMessage" xml:space="preserve">
     <value>请输入正确的起始日期.</value>
   </data>
-  <data name="LastMonth" xml:space="preserve">
-    <value>上个月</value>
-  </data>
-  <data name="LastYear" xml:space="preserve">
-    <value>上一年</value>
-  </data>
-  <data name="ThisMonth" xml:space="preserve">
-    <value>当前月份</value>
-  </data>
-  <data name="ThisYear" xml:space="preserve">
-    <value>当前年份</value>
-  </data>
   <data name="To" xml:space="preserve">
     <value>至</value>
   </data>
