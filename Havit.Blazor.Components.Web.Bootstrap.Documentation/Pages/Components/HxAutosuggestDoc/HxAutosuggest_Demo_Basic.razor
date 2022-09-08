@@ -31,6 +31,7 @@
                             .Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid?view=net-5.0#System_Globalization_CultureInfo_LCID
                             .Where(c => c.EnglishName?.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase) ?? false)
                             .OrderBy(c => c.EnglishName)
+                            .Take(10) // you should always limit the output to the number of items you want to be suggested
                             .ToList()
             };
     }
