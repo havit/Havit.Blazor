@@ -1,4 +1,5 @@
 using System.Globalization;
+using BlazorAppTest.Resources;
 using Havit.Blazor.Components.Web;
 using Havit.Blazor.GoogleTagManager;
 
