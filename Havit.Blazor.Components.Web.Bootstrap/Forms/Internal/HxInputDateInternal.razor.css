@@ -79,7 +79,3 @@
 	flex-shrink: 1;
 	min-width: 0;
 }
-
-::deep .hx-input-date:focus-within {
-	z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be greater than 5 because otherwise the validation message is rendered on top. */
-}
