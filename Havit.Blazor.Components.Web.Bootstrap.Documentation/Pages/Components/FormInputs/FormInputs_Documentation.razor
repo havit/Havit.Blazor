@@ -50,6 +50,15 @@
 	<li><code>HxSelectedBase</code>, <code>HxSelect</code></li>
 </ul>
 
+<SectionTitle Id="form-layout">Forms layout</SectionTitle>
+<p>
+    Our CSS defaults bring flex-column to <code>&lt;form&gt;</code> element (<code>EditForm</code> component),
+    every single direct child component of <code>&lt;form&gt;</code> is stacked in vertically.<br />
+    This setup implies, whenever you want to go for horizontal stacking, you have to wrap your items in some
+    element (usually <code>&gt;div&lt;</code>).
+</p>
+<Demo Type="@typeof(FormInputs_Demo_HorizontalStacking)" />
+
 <h2>API</h2>
 <SectionTitle Id="CommonComponentProperties" />
 <div class="table-responsive">

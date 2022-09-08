@@ -16,6 +16,12 @@
 
     <SectionTitle Id="Inline" />
     <p>Group checkboxes on the same horizontal row by adding <code>Inline="true"</code> to the checkboxes.</p>
+    <DocAlert Type="DocAlertType.Warning">
+        Our CSS defaults bring flex-column to <code>&lt;form&gt;</code> element (<code>EditForm</code> component),
+        every single direct child component of <code>&lt;form&gt;</code> is stacked in vertically.<br />
+        This setup implies, whenever you want to go for horizontal stacking, you have to wrap your items in some
+        element (usually <code>&gt;div&lt;</code>). This also applies to the inline checkboxes.
+    </DocAlert>
     <Demo Type="typeof(HxCheckbox_Demo_Inline)" />
 
     <SectionTitle Id="reverse">Reverse</SectionTitle>
