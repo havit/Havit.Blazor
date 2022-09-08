@@ -1,33 +1,32 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// Settings for <see cref="HxContextMenu"/>.
+/// </summary>
+public record ContextMenuSettings
 {
 	/// <summary>
-	/// Settings for <see cref="HxContextMenu"/>.
+	/// Additional CSS class(es) for the context menu.
 	/// </summary>
-	public record ContextMenuSettings
-	{
-		/// <summary>
-		/// Additional CSS class(es) for the context menu.
-		/// </summary>
-		public string CssClass { get; set; }
+	public string CssClass { get; set; }
 
-		/// <summary>
-		/// Additional CSS class(es) for the context menu dropdown (container).
-		/// </summary>
-		public string DropdownCssClass { get; set; }
+	/// <summary>
+	/// Additional CSS class(es) for the context menu dropdown (container).
+	/// </summary>
+	public string DropdownCssClass { get; set; }
 
-		/// <summary>
-		/// Additional CSS class(es) for the context menu dropdown menu.
-		/// </summary>
-		public string DropdownMenuCssClass { get; set; }
+	/// <summary>
+	/// Additional CSS class(es) for the context menu dropdown menu.
+	/// </summary>
+	public string DropdownMenuCssClass { get; set; }
 
-		/// <summary>
-		/// Icon carring the menu (use <see cref="BootstrapIcon" /> or any other <see cref="IconBase"/>).<br />
-		/// </summary>
-		public IconBase Icon { get; set; }
+	/// <summary>
+	/// Icon carring the menu (use <see cref="BootstrapIcon" /> or any other <see cref="IconBase"/>).<br />
+	/// </summary>
+	public IconBase Icon { get; set; }
 
-		/// <summary>
-		/// Additional CSS class(es) for the context menu icon.
-		/// </summary>
-		public string IconCssClass { get; set; }
-	}
+	/// <summary>
+	/// Additional CSS class(es) for the context menu icon.
+	/// </summary>
+	public string IconCssClass { get; set; }
 }

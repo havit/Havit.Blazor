@@ -1,10 +1,9 @@
-﻿namespace Havit.Blazor.Grpc.TestContracts
-{
-	[ApiContract]
-	public interface ITestFacade
-	{
-		Task<Dto<int>> GetIntFromIntAsync(Dto<int> input, CancellationToken cancellationToken = default);
+﻿namespace Havit.Blazor.Grpc.TestContracts;
 
-		Task<DtoWithNestedClass> GetDtoWithNestedClassPropertyFromDtoWithNestedClassPropertyAsync(DtoWithNestedClass input, CancellationToken cancellationToken = default);
-	}
+[ApiContract]
+public interface ITestFacade
+{
+	Task<Dto<int>> GetIntFromIntAsync(Dto<int> input, CancellationToken cancellationToken = default);
+
+	Task<DtoWithNestedClass> GetDtoWithNestedClassPropertyFromDtoWithNestedClassPropertyAsync(DtoWithNestedClass input, CancellationToken cancellationToken = default);
 }

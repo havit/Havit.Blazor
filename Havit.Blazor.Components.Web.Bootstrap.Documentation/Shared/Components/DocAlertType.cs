@@ -1,9 +1,8 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
+
+public enum DocAlertType
 {
-	public enum DocAlertType
-	{
-		Info,
-		Warning,
-		Danger
-	}
+	Info,
+	Warning,
+	Danger
 }

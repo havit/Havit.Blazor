@@ -1,21 +1,20 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// Non-generic API for <see cref="HxSelect{TValue, TItem}"/>.
+/// </summary>
+public class HxSelect
 {
 	/// <summary>
-	/// Non-generic API for <see cref="HxSelect{TValue, TItem}"/>.
+	/// Application-wide defaults for the <see cref="HxSelect{TValue, TItem}"/> (<see cref="HxSelectBase{TValue, TItem}"/> and derived components respectively).
 	/// </summary>
-	public class HxSelect
-	{
-		/// <summary>
-		/// Application-wide defaults for the <see cref="HxSelect{TValue, TItem}"/> (<see cref="HxSelectBase{TValue, TItem}"/> and derived components respectively).
-		/// </summary>
-		public static SelectSettings Defaults { get; set; }
+	public static SelectSettings Defaults { get; set; }
 
-		static HxSelect()
+	static HxSelect()
+	{
+		Defaults = new SelectSettings()
 		{
-			Defaults = new SelectSettings()
-			{
-				InputSize = InputSize.Regular,
-			};
-		}
+			InputSize = InputSize.Regular,
+		};
 	}
 }

@@ -9,27 +9,26 @@ using ProtoBuf.Grpc.Configuration;
 using ProtoBuf.Grpc.Server;
 using ProtoBuf.Meta;
 
-namespace Havit.Blazor.Grpc.Server
+namespace Havit.Blazor.Grpc.Server;
+
+public static class GrpcServerServiceCollectionExtensions
 {
-	public static class GrpcServerServiceCollectionExtensions
+	public static void AddGrpcServerInfrastructure(
+		this IServiceCollection services,
+		Assembly assemblyToScanForDataContracts,
+		Action<GrpcServiceOptions> configureOptions = null)
 	{
-		public static void AddGrpcServerInfrastructure(
-			this IServiceCollection services,
-			Assembly assemblyToScanForDataContracts,
-			Action<GrpcServiceOptions> configureOptions = null)
+		services.AddSingleton<GlobalizationLocalizationGrpcServerInterceptor>();
+		services.AddSingleton<ServerExceptionsGrpcServerInterceptor>();
+		services.AddSingleton(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Create().RegisterApplicationContracts(assemblyToScanForDataContracts)) }, binder: new ServiceBinderWithServiceResolutionFromServiceCollection(services)));
+
+		services.AddCodeFirstGrpc(options =>
 		{
-			services.AddSingleton<GlobalizationLocalizationGrpcServerInterceptor>();
-			services.AddSingleton<ServerExceptionsGrpcServerInterceptor>();
-			services.AddSingleton(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Create().RegisterApplicationContracts(assemblyToScanForDataContracts)) }, binder: new ServiceBinderWithServiceResolutionFromServiceCollection(services)));
+			options.Interceptors.Add<GlobalizationLocalizationGrpcServerInterceptor>();
+			options.Interceptors.Add<ServerExceptionsGrpcServerInterceptor>();
+			options.ResponseCompressionLevel = System.IO.Compression.CompressionLevel.Optimal;
 
-			services.AddCodeFirstGrpc(options =>
-			{
-				options.Interceptors.Add<GlobalizationLocalizationGrpcServerInterceptor>();
-				options.Interceptors.Add<ServerExceptionsGrpcServerInterceptor>();
-				options.ResponseCompressionLevel = System.IO.Compression.CompressionLevel.Optimal;
-
-				configureOptions?.Invoke(options);
-			});
-		}
+			configureOptions?.Invoke(options);
+		});
 	}
 }

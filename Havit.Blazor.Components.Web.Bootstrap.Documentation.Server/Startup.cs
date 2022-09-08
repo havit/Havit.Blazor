@@ -7,65 +7,64 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server
+namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server;
+
+public class Startup
 {
-	public class Startup
+	public void ConfigureServices(IServiceCollection services)
 	{
-		public void ConfigureServices(IServiceCollection services)
+		services.AddRazorPages();
+
+		services.AddHxServices();
+		services.AddHxMessenger();
+		services.AddHxMessageBoxHost();
+
+		services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
+		services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
+	}
+
+	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+	{
+		var cultureInfo = new CultureInfo("en-US");
+		CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+		CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
+		if (env.IsDevelopment())
 		{
-			services.AddRazorPages();
-
-			services.AddHxServices();
-			services.AddHxMessenger();
-			services.AddHxMessageBoxHost();
-
-			services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
-			services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
+			app.UseDeveloperExceptionPage();
+			app.UseWebAssemblyDebugging();
 		}
-
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		else
 		{
-			var cultureInfo = new CultureInfo("en-US");
-			CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-			CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+			app.UseExceptionHandler("/Error");
 
-			if (env.IsDevelopment())
+			// old domain redirect
+			app.Use(async (context, next) =>
 			{
-				app.UseDeveloperExceptionPage();
-				app.UseWebAssemblyDebugging();
-			}
-			else
-			{
-				app.UseExceptionHandler("/Error");
 
-				// old domain redirect
-				app.Use(async (context, next) =>
+				if (context.Request.Host.Host.Contains("havit.blazor.cz"))
 				{
+					var uriBuilder = new UriBuilder(UriHelper.GetDisplayUrl(context.Request));
+					uriBuilder.Host = "havit.blazor.eu";
+					context.Response.Redirect(uriBuilder.Uri.ToString(), permanent: true);
 
-					if (context.Request.Host.Host.Contains("havit.blazor.cz"))
-					{
-						var uriBuilder = new UriBuilder(UriHelper.GetDisplayUrl(context.Request));
-						uriBuilder.Host = "havit.blazor.eu";
-						context.Response.Redirect(uriBuilder.Uri.ToString(), permanent: true);
+					return;
+				}
 
-						return;
-					}
-
-					await next();
-				});
-			}
-
-			app.UseBlazorFrameworkFiles();
-			app.UseStaticFiles();
-
-			app.UseRouting();
-
-			app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapRazorPages();
-				endpoints.MapControllers();
-				endpoints.MapFallbackToPage("/_Host");
+				await next();
 			});
 		}
+
+		app.UseBlazorFrameworkFiles();
+		app.UseStaticFiles();
+
+		app.UseRouting();
+
+		app.UseEndpoints(endpoints =>
+		{
+			endpoints.MapRazorPages();
+			endpoints.MapControllers();
+			endpoints.MapFallbackToPage("/_Host");
+		});
 	}
 }

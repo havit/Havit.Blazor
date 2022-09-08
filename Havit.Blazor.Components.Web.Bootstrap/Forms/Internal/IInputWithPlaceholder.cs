@@ -1,13 +1,12 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
+
+/// <summary>
+/// Input with placeholder support.
+/// </summary>
+public interface IInputWithPlaceholder
 {
 	/// <summary>
-	/// Input with placeholder support.
+	/// Placeholder for the input.
 	/// </summary>
-	public interface IInputWithPlaceholder
-	{
-		/// <summary>
-		/// Placeholder for the input.
-		/// </summary>
-		string Placeholder { get; set; }
-	}
+	string Placeholder { get; set; }
 }

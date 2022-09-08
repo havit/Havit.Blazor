@@ -1,10 +1,9 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+public enum OffcanvasPlacement
 {
-	public enum OffcanvasPlacement
-	{
-		End = 0,
-		Start,
-		Top,
-		Bottom
-	}
+	End = 0,
+	Start,
+	Top,
+	Bottom
 }

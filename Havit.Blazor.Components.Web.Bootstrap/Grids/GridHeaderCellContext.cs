@@ -1,13 +1,12 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// Grid header cell context.
+/// </summary>
+public record GridHeaderCellContext
 {
 	/// <summary>
-	/// Grid header cell context.
+	/// Total count of items in the grid (includes all pages).
 	/// </summary>
-	public record GridHeaderCellContext
-	{
-		/// <summary>
-		/// Total count of items in the grid (includes all pages).
-		/// </summary>
-		public int? TotalCount { get; init; }
-	}
+	public int? TotalCount { get; init; }
 }

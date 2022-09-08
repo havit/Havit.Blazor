@@ -1,29 +1,28 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model;
+
+public class EnumModel : MemberModel
 {
-	public class EnumModel : MemberModel
+	public int Value { get; set; }
+	public string Name { get; set; }
+
+	public string Summary
 	{
-		public int Value { get; set; }
-		public string Name { get; set; }
-
-		public string Summary
+		get
 		{
-			get
-			{
-				return summary;
-			}
-			set
-			{
-				try
-				{
-					summary = TryFormatComment(value);
-				}
-				catch
-				{
-					summary = value;
-				}
-
-			}
+			return summary;
 		}
-		private string summary;
+		set
+		{
+			try
+			{
+				summary = TryFormatComment(value);
+			}
+			catch
+			{
+				summary = value;
+			}
+
+		}
 	}
+	private string summary;
 }

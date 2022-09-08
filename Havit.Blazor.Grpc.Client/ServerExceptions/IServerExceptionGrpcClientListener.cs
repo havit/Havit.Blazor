@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Grpc.Core;
 
-namespace Havit.Blazor.Grpc.Client.ServerExceptions
+namespace Havit.Blazor.Grpc.Client.ServerExceptions;
+
+public interface IServerExceptionGrpcClientListener
 {
-	public interface IServerExceptionGrpcClientListener
-	{
-		Task ProcessExceptionAsync(RpcException e);
-	}
+	Task ProcessExceptionAsync(RpcException e);
 }

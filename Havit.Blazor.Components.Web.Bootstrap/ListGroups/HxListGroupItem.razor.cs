@@ -1,66 +1,65 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// Item for <see cref="HxListGroup"/>.
+/// </summary>
+public partial class HxListGroupItem
 {
 	/// <summary>
-	/// Item for <see cref="HxListGroup"/>.
+	/// Content of the item.
 	/// </summary>
-	public partial class HxListGroupItem
+	[Parameter] public RenderFragment ChildContent { get; set; }
+
+	/// <summary>
+	/// Indicates the current active selection.
+	/// </summary>
+	[Parameter] public bool Active { get; set; }
+
+	/// <summary>
+	/// Make the item appear disabled by setting to <c>false</c>.
+	/// Default is <c>true</c>.
+	/// </summary>
+	[Parameter] public bool Enabled { get; set; } = true;
+
+	/// <summary>
+	/// Color.
+	/// </summary>
+	[Parameter] public ThemeColor? Color { get; set; }
+
+	/// <summary>
+	/// An event that is fired when the <c>HxListGroupItem</c> is clicked.
+	/// </summary>
+	[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+	/// <summary>
+	/// Triggers the <see cref="OnClick"/> event. Allows interception of the event in derived components.
+	/// </summary>
+	protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
+
+	/// <summary>
+	/// Additional CSS class.
+	/// </summary>
+	[Parameter] public string CssClass { get; set; }
+
+	[CascadingParameter] protected HxListGroup ListGroupContainer { get; set; }
+
+	private string GetClasses()
 	{
-		/// <summary>
-		/// Content of the item.
-		/// </summary>
-		[Parameter] public RenderFragment ChildContent { get; set; }
+		return CssClassHelper.Combine(
+			"list-group-item",
+			Active ? "active" : null,
+			Enabled ? null : "disabled",
+			OnClick.HasDelegate ? "list-group-item-action" : null,
+			GetColorCssClass(),
+			this.CssClass);
+	}
 
-		/// <summary>
-		/// Indicates the current active selection.
-		/// </summary>
-		[Parameter] public bool Active { get; set; }
-
-		/// <summary>
-		/// Make the item appear disabled by setting to <c>false</c>.
-		/// Default is <c>true</c>.
-		/// </summary>
-		[Parameter] public bool Enabled { get; set; } = true;
-
-		/// <summary>
-		/// Color.
-		/// </summary>
-		[Parameter] public ThemeColor? Color { get; set; }
-
-		/// <summary>
-		/// An event that is fired when the <c>HxListGroupItem</c> is clicked.
-		/// </summary>
-		[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
-		/// <summary>
-		/// Triggers the <see cref="OnClick"/> event. Allows interception of the event in derived components.
-		/// </summary>
-		protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
-
-		/// <summary>
-		/// Additional CSS class.
-		/// </summary>
-		[Parameter] public string CssClass { get; set; }
-
-		[CascadingParameter] protected HxListGroup ListGroupContainer { get; set; }
-
-		private string GetClasses()
+	private string GetColorCssClass()
+	{
+		return Color switch
 		{
-			return CssClassHelper.Combine(
-				"list-group-item",
-				Active ? "active" : null,
-				Enabled ? null : "disabled",
-				OnClick.HasDelegate ? "list-group-item-action" : null,
-				GetColorCssClass(),
-				this.CssClass);
-		}
-
-		private string GetColorCssClass()
-		{
-			return Color switch
-			{
-				null => null,
-				ThemeColor.None => null,
-				_ => "list-group-item-" + this.Color.Value.ToString("f").ToLower()
-			};
-		}
+			null => null,
+			ThemeColor.None => null,
+			_ => "list-group-item-" + this.Color.Value.ToString("f").ToLower()
+		};
 	}
 }

@@ -4,46 +4,45 @@ using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 using LoxSmoke.DocXml;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
+namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model;
+
+public class MethodModel : MemberModel
 {
-	public class MethodModel : MemberModel
+	public MethodInfo MethodInfo { get; set; }
+
+	public MethodComments Comments
 	{
-		public MethodInfo MethodInfo { get; set; }
-
-		public MethodComments Comments
+		set
 		{
-			set
-			{
-				MethodComments inputComments = value;
-				try { inputComments.Summary = TryFormatComment(inputComments.Summary); } catch { }
-				comments = inputComments;
-			}
-			get
-			{
-				return comments;
-			}
+			MethodComments inputComments = value;
+			try { inputComments.Summary = TryFormatComment(inputComments.Summary); } catch { }
+			comments = inputComments;
 		}
-		private MethodComments comments;
-
-		public string GetParameters()
+		get
 		{
-			StringBuilder concatenatedParameters = new StringBuilder();
-			var parameters = MethodInfo.GetParameters();
-
-			if (parameters is null || parameters.Length == 0)
-			{
-				return "()";
-			}
-
-			concatenatedParameters.Append("(");
-			foreach (var parameter in parameters)
-			{
-				concatenatedParameters.Append($"{ApiRenderer.FormatType(parameter.ParameterType)} {parameter.Name}, ");
-			}
-			concatenatedParameters.Remove(concatenatedParameters.Length - 2, 2);
-			concatenatedParameters.Append(")");
-
-			return concatenatedParameters.ToString();
+			return comments;
 		}
+	}
+	private MethodComments comments;
+
+	public string GetParameters()
+	{
+		StringBuilder concatenatedParameters = new StringBuilder();
+		var parameters = MethodInfo.GetParameters();
+
+		if (parameters is null || parameters.Length == 0)
+		{
+			return "()";
+		}
+
+		concatenatedParameters.Append("(");
+		foreach (var parameter in parameters)
+		{
+			concatenatedParameters.Append($"{ApiRenderer.FormatType(parameter.ParameterType)} {parameter.Name}, ");
+		}
+		concatenatedParameters.Remove(concatenatedParameters.Length - 2, 2);
+		concatenatedParameters.Append(")");
+
+		return concatenatedParameters.ToString();
 	}
 }

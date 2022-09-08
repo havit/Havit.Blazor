@@ -1,99 +1,98 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// Extension methods for <see cref="IHxMessengerService"/>.
+/// </summary>
+public static class HxMessengerServiceExtensions
 {
 	/// <summary>
-	/// Extension methods for <see cref="IHxMessengerService"/>.
+	/// Default values for extension methods.
 	/// </summary>
-	public static class HxMessengerServiceExtensions
+	public static MessengerServiceExtensionsSettings Defaults { get; } = new MessengerServiceExtensionsSettings();
+
+	/// <summary>
+	/// Adds and shows an informational message. Message is automatically hidden 5 seconds after showing up.
+	/// </summary>
+	public static void AddInformation(this IHxMessengerService messenger, string message)
 	{
-		/// <summary>
-		/// Default values for extension methods.
-		/// </summary>
-		public static MessengerServiceExtensionsSettings Defaults { get; } = new MessengerServiceExtensionsSettings();
+		AddInformation(messenger, title: null, message);
+	}
 
-		/// <summary>
-		/// Adds and shows an informational message. Message is automatically hidden 5 seconds after showing up.
-		/// </summary>
-		public static void AddInformation(this IHxMessengerService messenger, string message)
+	/// <summary>
+	/// Adds and shows an informational message. Message is automatically hidden 5 seconds after showing up.
+	/// </summary>
+	public static void AddInformation(this IHxMessengerService messenger, string title, string message)
+	{
+		Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
+
+		messenger.AddMessage(new BootstrapMessengerMessage()
 		{
-			AddInformation(messenger, title: null, message);
-		}
+			Color = Defaults.InformationColor,
+			AutohideDelay = Defaults.InformationAutohideDelay,
+			ContentTemplate = BuildContentTemplate(title, message)
+		});
+	}
 
-		/// <summary>
-		/// Adds and shows an informational message. Message is automatically hidden 5 seconds after showing up.
-		/// </summary>
-		public static void AddInformation(this IHxMessengerService messenger, string title, string message)
+	/// <summary>
+	/// Adds and shows a warning message.
+	/// </summary>
+	public static void AddWarning(this IHxMessengerService messenger, string message)
+	{
+		AddWarning(messenger, title: null, message);
+	}
+
+	/// <summary>
+	/// Adds and shows a warning message.
+	/// </summary>
+	public static void AddWarning(this IHxMessengerService messenger, string title, string message)
+	{
+		Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
+
+		messenger.AddMessage(new BootstrapMessengerMessage()
 		{
-			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
+			Color = Defaults.WarningColor,
+			AutohideDelay = Defaults.WarningAutohideDelay,
+			ContentTemplate = BuildContentTemplate(title, message)
+		});
 
-			messenger.AddMessage(new BootstrapMessengerMessage()
+	}
+
+	/// <summary>
+	/// Adds and shows an error message.
+	/// </summary>
+	public static void AddError(this IHxMessengerService messenger, string message)
+	{
+		AddError(messenger, title: null, message);
+	}
+
+	/// <summary>
+	/// Adds and shows an error message.
+	/// </summary>
+	public static void AddError(this IHxMessengerService messenger, string title, string message)
+	{
+		Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
+
+		messenger.AddMessage(new BootstrapMessengerMessage()
+		{
+			Color = Defaults.ErrorColor,
+			AutohideDelay = Defaults.ErrorAutohideDelay,
+			ContentTemplate = BuildContentTemplate(title, message)
+		});
+	}
+
+	private static RenderFragment BuildContentTemplate(string title, string text)
+	{
+		return (RenderTreeBuilder builder) =>
+		{
+			if (title != null)
 			{
-				Color = Defaults.InformationColor,
-				AutohideDelay = Defaults.InformationAutohideDelay,
-				ContentTemplate = BuildContentTemplate(title, message)
-			});
-		}
+				builder.OpenElement(1, "div");
+				builder.AddAttribute(2, "class", "fw-bold");
+				builder.AddContent(3, title);
+				builder.CloseElement();
+			}
 
-		/// <summary>
-		/// Adds and shows a warning message.
-		/// </summary>
-		public static void AddWarning(this IHxMessengerService messenger, string message)
-		{
-			AddWarning(messenger, title: null, message);
-		}
-
-		/// <summary>
-		/// Adds and shows a warning message.
-		/// </summary>
-		public static void AddWarning(this IHxMessengerService messenger, string title, string message)
-		{
-			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
-
-			messenger.AddMessage(new BootstrapMessengerMessage()
-			{
-				Color = Defaults.WarningColor,
-				AutohideDelay = Defaults.WarningAutohideDelay,
-				ContentTemplate = BuildContentTemplate(title, message)
-			});
-
-		}
-
-		/// <summary>
-		/// Adds and shows an error message.
-		/// </summary>
-		public static void AddError(this IHxMessengerService messenger, string message)
-		{
-			AddError(messenger, title: null, message);
-		}
-
-		/// <summary>
-		/// Adds and shows an error message.
-		/// </summary>
-		public static void AddError(this IHxMessengerService messenger, string title, string message)
-		{
-			Contract.Requires<ArgumentNullException>(messenger != null, nameof(messenger));
-
-			messenger.AddMessage(new BootstrapMessengerMessage()
-			{
-				Color = Defaults.ErrorColor,
-				AutohideDelay = Defaults.ErrorAutohideDelay,
-				ContentTemplate = BuildContentTemplate(title, message)
-			});
-		}
-
-		private static RenderFragment BuildContentTemplate(string title, string text)
-		{
-			return (RenderTreeBuilder builder) =>
-			{
-				if (title != null)
-				{
-					builder.OpenElement(1, "div");
-					builder.AddAttribute(2, "class", "fw-bold");
-					builder.AddContent(3, title);
-					builder.CloseElement();
-				}
-
-				builder.AddContent(10, text);
-			};
-		}
+			builder.AddContent(10, text);
+		};
 	}
 }

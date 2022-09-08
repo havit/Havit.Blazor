@@ -1,16 +1,15 @@
-﻿namespace Havit.Blazor.Components.Web.Infrastructure
+﻿namespace Havit.Blazor.Components.Web.Infrastructure;
+
+/// <summary>
+/// <see cref="ICascadeEnabledComponent"/> helper method.
+/// </summary>
+public static class CascadeEnabledComponent
 {
 	/// <summary>
-	/// <see cref="ICascadeEnabledComponent"/> helper method.
+	/// Effective value of Enabled. When Enabled is not set, receives value from FormState or defaults to true.
 	/// </summary>
-	public static class CascadeEnabledComponent
+	public static bool EnabledEffective(ICascadeEnabledComponent component)
 	{
-		/// <summary>
-		/// Effective value of Enabled. When Enabled is not set, receives value from FormState or defaults to true.
-		/// </summary>
-		public static bool EnabledEffective(ICascadeEnabledComponent component)
-		{
-			return component.Enabled ?? component.FormState?.Enabled ?? true;
-		}
+		return component.Enabled ?? component.FormState?.Enabled ?? true;
 	}
 }

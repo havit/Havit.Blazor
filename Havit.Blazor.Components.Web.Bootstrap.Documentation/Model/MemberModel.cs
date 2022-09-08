@@ -2,244 +2,243 @@
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model
+namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Model;
+
+public abstract class MemberModel
 {
-	public abstract class MemberModel
+	private Type enclosingType;
+
+	private bool generic;
+
+	protected string TryFormatComment(string comment, Type enclosingType = null)
 	{
-		private Type enclosingType;
+		this.enclosingType = enclosingType;
 
-		private bool generic;
-
-		protected string TryFormatComment(string comment, Type enclosingType = null)
+		try
 		{
-			this.enclosingType = enclosingType;
-
-			try
-			{
-				if (string.IsNullOrEmpty(comment))
-				{
-					return string.Empty;
-				}
-
-				// <c>
-				{
-					Regex regex = new("<c>");
-					comment = regex.Replace(comment, "<code>");
-					regex = new("</c>");
-					comment = regex.Replace(comment, "</code>");
-				}
-
-				// <see cref=""/> + other <see> variantions
-				{
-					Regex regex = new("<see");
-					comment = regex.Replace(comment, "<a");
-
-					regex = new("<a cref=");
-					comment = regex.Replace(comment, "<code><a cref=");
-
-					regex = new("</see>");
-					comment = regex.Replace(comment, "</a>");
-
-					regex = new("cref=\"([A-Za-z\\.:`\\d])+");
-					var matches = regex.Matches(comment);
-
-					foreach (var match in matches)
-					{
-						string link = match.ToString().Split('\"').LastOrDefault(); // get the part in the quotes (value of the cref attribute)
-						link = PrepareLinkForFullLinkGeneration(link);
-						string[] splitLink = link.Split('.');
-
-						regex = new("cref=\"([A-Za-z\\.:`\\d])+\" ?/>"); // find this part of the element (beggining already replaced): cref="P:System.Text.Regex.Property" />
-						comment = regex.Replace(comment, GenerateFullLink(splitLink, link), 1); // replace the above with a generated link to the documentation
-					}
-				}
-			}
-			catch
-			{
-				// NOOP
-			}
-
-			return comment;
-		}
-
-		private string PrepareLinkForFullLinkGeneration(string link)
-		{
-			generic = IsGeneric(link); // this information is used later to generate a Microsoft documentation link
-
-			Regex regex = new("`\\d");
-			return regex.Replace(link, "");
-		}
-
-		private string GenerateFullLink(string[] splitLink, string fullLink)
-		{
-			if (splitLink is null || splitLink.Length == 0)
+			if (string.IsNullOrEmpty(comment))
 			{
 				return string.Empty;
 			}
 
-			string supportClassesResultLink = HandleSupportClasses(splitLink, fullLink);
-			if (supportClassesResultLink is not null)
+			// <c>
 			{
-				return supportClassesResultLink;
+				Regex regex = new("<c>");
+				comment = regex.Replace(comment, "<code>");
+				regex = new("</c>");
+				comment = regex.Replace(comment, "</code>");
 			}
 
-			if (splitLink[0].Contains("Havit"))
+			// <see cref=""/> + other <see> variantions
 			{
-				return GenerateHavitDocumentationLink(splitLink);
-			}
+				Regex regex = new("<see");
+				comment = regex.Replace(comment, "<a");
 
-			if (splitLink[0].Contains("Microsoft") || splitLink[0].Contains("System"))
-			{
-				return GenerateMicrosoftDocumentationLink(splitLink);
-			}
+				regex = new("<a cref=");
+				comment = regex.Replace(comment, "<code><a cref=");
 
-			throw new NotSupportedException();
+				regex = new("</see>");
+				comment = regex.Replace(comment, "</a>");
+
+				regex = new("cref=\"([A-Za-z\\.:`\\d])+");
+				var matches = regex.Matches(comment);
+
+				foreach (var match in matches)
+				{
+					string link = match.ToString().Split('\"').LastOrDefault(); // get the part in the quotes (value of the cref attribute)
+					link = PrepareLinkForFullLinkGeneration(link);
+					string[] splitLink = link.Split('.');
+
+					regex = new("cref=\"([A-Za-z\\.:`\\d])+\" ?/>"); // find this part of the element (beggining already replaced): cref="P:System.Text.Regex.Property" />
+					comment = regex.Replace(comment, GenerateFullLink(splitLink, link), 1); // replace the above with a generated link to the documentation
+				}
+			}
+		}
+		catch
+		{
+			// NOOP
 		}
 
-		private string HandleSupportClasses(string[] splitLink, string fullLink)
+		return comment;
+	}
+
+	private string PrepareLinkForFullLinkGeneration(string link)
+	{
+		generic = IsGeneric(link); // this information is used later to generate a Microsoft documentation link
+
+		Regex regex = new("`\\d");
+		return regex.Replace(link, "");
+	}
+
+	private string GenerateFullLink(string[] splitLink, string fullLink)
+	{
+		if (splitLink is null || splitLink.Length == 0)
 		{
-			if (IsEnum(splitLink))
-			{
-				string internalTypeLink = ApiRenderer.GenerateLinkForInternalType(splitLink[^2], false, $"{splitLink[^2]}.{splitLink[^1]}");
-				if (internalTypeLink is not null)
-				{
-					return internalTypeLink;
-				}
-			}
-
-			if (splitLink[^1] == "Defaults")
-			{
-				string internalTypeLink = ApiRenderer.GenerateLinkForInternalType($"{splitLink[^2].Remove(0, 2)}{splitLink[^1]}", false, $"{splitLink[^2]}.{splitLink[^1]}"); // We have to generate a type name suitable for the support type page.
-				if (internalTypeLink is not null)
-				{
-					return internalTypeLink;
-				}
-			}
-
-			return null;
+			return string.Empty;
 		}
 
-		private string GenerateHavitDocumentationLink(string[] splitLink)
+		string supportClassesResultLink = HandleSupportClasses(splitLink, fullLink);
+		if (supportClassesResultLink is not null)
 		{
-			bool containsHx = splitLink.Any(t => t.Contains("hx", StringComparison.OrdinalIgnoreCase));
-			string seeName = "";
+			return supportClassesResultLink;
+		}
 
-			string fullLink = "";
+		if (splitLink[0].Contains("Havit"))
+		{
+			return GenerateHavitDocumentationLink(splitLink);
+		}
 
-			bool isType = IsType(splitLink);
-			bool isProperty = IsProperty(splitLink);
-			bool isComponent = true;
+		if (splitLink[0].Contains("Microsoft") || splitLink[0].Contains("System"))
+		{
+			return GenerateMicrosoftDocumentationLink(splitLink);
+		}
 
-			if (isType)
+		throw new NotSupportedException();
+	}
+
+	private string HandleSupportClasses(string[] splitLink, string fullLink)
+	{
+		if (IsEnum(splitLink))
+		{
+			string internalTypeLink = ApiRenderer.GenerateLinkForInternalType(splitLink[^2], false, $"{splitLink[^2]}.{splitLink[^1]}");
+			if (internalTypeLink is not null)
 			{
-				for (int i = splitLink.Length - 1; i >= 0; i--) // loop through the array from the back, prepend the current part, and stop once the component name is reached
-				{
-					fullLink = $"{splitLink[i]}";
-
-					if (splitLink[i].Contains("Hx"))
-					{
-						containsHx = true;
-						seeName = splitLink[i];
-						break;
-					}
-				}
-
-				isComponent = ApiTypeHelper.GetType(splitLink[^1])?.IsSubclassOf(typeof(ComponentBase)) ?? false;
+				return internalTypeLink;
 			}
-			else if (isProperty)
-			{
-				if (splitLink.Length >= 2)
-				{
-					fullLink = $"{splitLink[^2]}#{splitLink[^1]}";
-					if (enclosingType is not null && PrepareLinkForFullLinkGeneration(enclosingType.Name) == splitLink[^2])
-					{
-						seeName = $"{splitLink[^1]}";
-					}
-					else
-					{
-						seeName = $"{splitLink[^2]}.{splitLink[^1]}";
-					}
-				}
+		}
 
-				isComponent = ApiTypeHelper.GetType(splitLink[^2])?.IsSubclassOf(typeof(ComponentBase)) ?? false;
-			}
-			else
+		if (splitLink[^1] == "Defaults")
+		{
+			string internalTypeLink = ApiRenderer.GenerateLinkForInternalType($"{splitLink[^2].Remove(0, 2)}{splitLink[^1]}", false, $"{splitLink[^2]}.{splitLink[^1]}"); // We have to generate a type name suitable for the support type page.
+			if (internalTypeLink is not null)
 			{
-				if (splitLink.Length >= 2)
+				return internalTypeLink;
+			}
+		}
+
+		return null;
+	}
+
+	private string GenerateHavitDocumentationLink(string[] splitLink)
+	{
+		bool containsHx = splitLink.Any(t => t.Contains("hx", StringComparison.OrdinalIgnoreCase));
+		string seeName = "";
+
+		string fullLink = "";
+
+		bool isType = IsType(splitLink);
+		bool isProperty = IsProperty(splitLink);
+		bool isComponent = true;
+
+		if (isType)
+		{
+			for (int i = splitLink.Length - 1; i >= 0; i--) // loop through the array from the back, prepend the current part, and stop once the component name is reached
+			{
+				fullLink = $"{splitLink[i]}";
+
+				if (splitLink[i].Contains("Hx"))
 				{
-					fullLink = splitLink[^2];
+					containsHx = true;
+					seeName = splitLink[i];
+					break;
+				}
+			}
+
+			isComponent = ApiTypeHelper.GetType(splitLink[^1])?.IsSubclassOf(typeof(ComponentBase)) ?? false;
+		}
+		else if (isProperty)
+		{
+			if (splitLink.Length >= 2)
+			{
+				fullLink = $"{splitLink[^2]}#{splitLink[^1]}";
+				if (enclosingType is not null && PrepareLinkForFullLinkGeneration(enclosingType.Name) == splitLink[^2])
+				{
+					seeName = $"{splitLink[^1]}";
+				}
+				else
+				{
 					seeName = $"{splitLink[^2]}.{splitLink[^1]}";
 				}
 			}
 
-			// Default case: if "Hx" wasn't found anywhere, it couldn't be detected what part to use in the link, so the default part will be chosen
-			if ((fullLink.Length == 0) || ((containsHx == false) && isType))
+			isComponent = ApiTypeHelper.GetType(splitLink[^2])?.IsSubclassOf(typeof(ComponentBase)) ?? false;
+		}
+		else
+		{
+			if (splitLink.Length >= 2)
 			{
-				fullLink = splitLink[^1];
-				seeName = splitLink[^1];
+				fullLink = splitLink[^2];
+				seeName = $"{splitLink[^2]}.{splitLink[^1]}";
 			}
-
-			if ((enclosingType is null || enclosingType.FullName.Contains("Hx") || !isProperty) && isComponent)
-			{
-				fullLink = $"href=\"/components/{fullLink}";
-			}
-			else
-			{
-				fullLink = $"href=\"/types/{fullLink}";
-			}
-			fullLink += $"\">{seeName}</a></code>";
-			return fullLink;
 		}
 
-		private string GenerateMicrosoftDocumentationLink(string[] splitLink)
+		// Default case: if "Hx" wasn't found anywhere, it couldn't be detected what part to use in the link, so the default part will be chosen
+		if ((fullLink.Length == 0) || ((containsHx == false) && isType))
 		{
-			bool isType = IsType(splitLink);
-
-			string fullLink = "";
-			string seeName = splitLink[^1];
-			if (isType)
-			{
-				string link = ConcatenateStringArray(splitLink);
-				fullLink = link.Split(':')[^1];
-			}
-
-			string genericTypeLinkSuffix = generic ? "-1" : "";
-
-			fullLink = $"href=\"https://docs.microsoft.com/en-us/dotnet/api/{fullLink}{genericTypeLinkSuffix}";
-			fullLink += $"\">{seeName}</a></code>";
-			return fullLink;
+			fullLink = splitLink[^1];
+			seeName = splitLink[^1];
 		}
 
-		private bool IsProperty(string[] splitLink)
+		if ((enclosingType is null || enclosingType.FullName.Contains("Hx") || !isProperty) && isComponent)
 		{
-			return splitLink[0][0] == 'P';
+			fullLink = $"href=\"/components/{fullLink}";
 		}
-		private bool IsType(string[] splitLink)
+		else
 		{
-			return splitLink[0][0] == 'T';
+			fullLink = $"href=\"/types/{fullLink}";
 		}
-		private bool IsEnum(string[] splitLink)
+		fullLink += $"\">{seeName}</a></code>";
+		return fullLink;
+	}
+
+	private string GenerateMicrosoftDocumentationLink(string[] splitLink)
+	{
+		bool isType = IsType(splitLink);
+
+		string fullLink = "";
+		string seeName = splitLink[^1];
+		if (isType)
 		{
-			return splitLink[0][0] == 'F';
+			string link = ConcatenateStringArray(splitLink);
+			fullLink = link.Split(':')[^1];
 		}
 
-		private bool IsGeneric(string link)
+		string genericTypeLinkSuffix = generic ? "-1" : "";
+
+		fullLink = $"href=\"https://docs.microsoft.com/en-us/dotnet/api/{fullLink}{genericTypeLinkSuffix}";
+		fullLink += $"\">{seeName}</a></code>";
+		return fullLink;
+	}
+
+	private bool IsProperty(string[] splitLink)
+	{
+		return splitLink[0][0] == 'P';
+	}
+	private bool IsType(string[] splitLink)
+	{
+		return splitLink[0][0] == 'T';
+	}
+	private bool IsEnum(string[] splitLink)
+	{
+		return splitLink[0][0] == 'F';
+	}
+
+	private bool IsGeneric(string link)
+	{
+		return link.Contains('`');
+	}
+
+	private string ConcatenateStringArray(string[] stringArray)
+	{
+		StringBuilder sb = new StringBuilder();
+		foreach (var text in stringArray)
 		{
-			return link.Contains('`');
+			sb.Append(text);
+			sb.Append(".");
 		}
 
-		private string ConcatenateStringArray(string[] stringArray)
-		{
-			StringBuilder sb = new StringBuilder();
-			foreach (var text in stringArray)
-			{
-				sb.Append(text);
-				sb.Append(".");
-			}
+		sb.Remove(sb.Length - 1, 1);
 
-			sb.Remove(sb.Length - 1, 1);
-
-			return sb.ToString();
-		}
+		return sb.ToString();
 	}
 }

@@ -1,9 +1,8 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+public enum InputSize
 {
-	public enum InputSize
-	{
-		Regular = 0,
-		Small,
-		Large
-	}
+	Regular = 0,
+	Small,
+	Large
 }
