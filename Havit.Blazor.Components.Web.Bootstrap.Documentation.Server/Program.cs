@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server;
 
 public class Program

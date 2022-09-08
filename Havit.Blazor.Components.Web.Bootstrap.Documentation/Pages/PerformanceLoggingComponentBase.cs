@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-
-namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages;
 
 public class PerformanceLoggingComponentBase : ComponentBase
 {

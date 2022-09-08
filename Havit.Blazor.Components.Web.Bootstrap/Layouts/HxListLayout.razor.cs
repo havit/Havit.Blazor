@@ -1,5 +1,4 @@
-﻿using Havit.Diagnostics.Contracts;
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 

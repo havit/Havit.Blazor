@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using Grpc.AspNetCore.Server;
 using Havit.Blazor.Grpc.Core;
 using Havit.Blazor.Grpc.Server.GlobalizationLocalization;

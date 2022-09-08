@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Havit.Blazor.Grpc.Client.ServerExceptions;
+﻿namespace Havit.Blazor.Grpc.Client.ServerExceptions;
 
 public interface IOperationFailedExceptionGrpcClientListener
 {

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Reflection;
+﻿using System.Reflection;
 using Grpc.Net.Client.Web;
-using Grpc.Net.ClientFactory;
 using Havit.Blazor.Grpc.Client.Cancellation;
 using Havit.Blazor.Grpc.Client.HttpHeaders;
 using Havit.Blazor.Grpc.Client.ServerExceptions;

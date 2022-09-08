@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security;
+﻿using System.Security;
 using Grpc.Core;
 using Havit.AspNetCore.ExceptionMonitoring.Services;
 using Microsoft.Extensions.Logging;

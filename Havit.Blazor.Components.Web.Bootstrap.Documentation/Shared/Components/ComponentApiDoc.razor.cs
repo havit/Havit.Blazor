@@ -1,6 +1,5 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Documentation.Model;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
-using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 

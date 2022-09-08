@@ -1,6 +1,4 @@
-﻿using Havit.Diagnostics.Contracts;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Pager.<br />

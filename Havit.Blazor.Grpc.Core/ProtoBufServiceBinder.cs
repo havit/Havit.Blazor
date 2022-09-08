@@ -1,5 +1,4 @@
-﻿using System;
-using ProtoBuf.Grpc.Configuration;
+﻿using ProtoBuf.Grpc.Configuration;
 
 namespace Havit.Blazor.Grpc.Core;
 

@@ -1,8 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-
-namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 
 public class TypeLink : ComponentBase
 {

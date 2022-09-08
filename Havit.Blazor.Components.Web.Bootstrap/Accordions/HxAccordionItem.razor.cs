@@ -1,7 +1,4 @@
-﻿using Havit.Diagnostics.Contracts;
-using Microsoft.Extensions.Logging;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Single item for <see cref="HxAccordion"/>.

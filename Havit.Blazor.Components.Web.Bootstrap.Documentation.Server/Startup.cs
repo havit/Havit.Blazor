@@ -1,11 +1,6 @@
-using System;
 using System.Globalization;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server;
 

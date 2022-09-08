@@ -1,5 +1,4 @@
 ﻿using Havit.Blazor.Components.Web.Infrastructure;
-using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 

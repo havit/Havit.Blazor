@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Runtime.ExceptionServices;
-using System.Threading.Tasks;
+﻿using System.Runtime.ExceptionServices;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Microsoft.Extensions.Logging;

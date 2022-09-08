@@ -1,6 +1,4 @@
-﻿using Havit.Diagnostics.Contracts;
-
-namespace Havit.Blazor.Components.Web;
+﻿namespace Havit.Blazor.Components.Web;
 
 internal static class ModelCloner
 {

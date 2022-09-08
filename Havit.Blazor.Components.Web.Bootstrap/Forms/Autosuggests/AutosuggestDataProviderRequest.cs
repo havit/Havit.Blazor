@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Data provider request for autosuggest data.

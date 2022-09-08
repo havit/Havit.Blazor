@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Components;
-
-namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 
 /// <summary>
 /// An alert for the documentation with 3 available configurations. Wraps the <c>HxAlert</c> component.

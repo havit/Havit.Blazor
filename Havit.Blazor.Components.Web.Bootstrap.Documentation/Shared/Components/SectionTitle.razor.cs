@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Components;
+﻿using System.Text.RegularExpressions;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 

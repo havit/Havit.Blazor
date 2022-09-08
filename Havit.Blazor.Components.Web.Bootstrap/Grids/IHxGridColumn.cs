@@ -1,6 +1,4 @@
-﻿using Havit.Blazor.Components.Web.Infrastructure;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Grid column.

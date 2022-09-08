@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Displays the content of the component as "in progress".<br />

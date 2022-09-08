@@ -1,12 +1,6 @@
 using System.Globalization;
-using BlazorAppTest.Resources;
 using Havit.Blazor.Components.Web;
 using Havit.Blazor.GoogleTagManager;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace BlazorAppTest;
 

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Havit.Blazor.Components.Web.Bootstrap.Internal;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Localization;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 

@@ -1,5 +1,4 @@
-﻿using System;
-using Bunit;
+﻿using Bunit;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

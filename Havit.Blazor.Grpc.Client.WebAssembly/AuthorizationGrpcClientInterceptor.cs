@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Grpc.Core.Interceptors;
+﻿using Grpc.Core.Interceptors;
 using Grpc.Core;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 

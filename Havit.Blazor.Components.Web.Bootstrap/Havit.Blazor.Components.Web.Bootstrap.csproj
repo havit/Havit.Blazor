@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0;net5.0</TargetFrameworks>
-		<ImplicitUsings>true</ImplicitUsings>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<NoWarn>1591;1701;1702;SA1134</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>

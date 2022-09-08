@@ -1,7 +1,4 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Havit.Blazor.Components.Web;
-using Havit.Blazor.Components.Web.Bootstrap;
 
 var builder = WebApplication.CreateBuilder(args);
 

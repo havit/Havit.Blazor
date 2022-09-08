@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<!-- Projects which set IncludeBuildOutput=false are likely to hit NU5128 - https://github.com/NuGet/Home/issues/8583 -->
 		<NoWarn>$(NoWarn);NU5128</NoWarn>
 	</PropertyGroup>

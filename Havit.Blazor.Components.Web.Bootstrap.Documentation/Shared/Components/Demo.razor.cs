@@ -1,5 +1,4 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages;
-using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;

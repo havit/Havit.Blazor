@@ -1,9 +1,4 @@
-﻿using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
-
-namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 public partial class HxMultiSelectInternal<TValue, TItem>
 {

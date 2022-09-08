@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using Havit.Diagnostics.Contracts;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 

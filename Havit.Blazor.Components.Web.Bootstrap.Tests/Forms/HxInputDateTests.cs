@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Globalization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;

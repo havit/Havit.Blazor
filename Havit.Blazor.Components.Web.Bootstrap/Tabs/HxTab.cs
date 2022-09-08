@@ -1,5 +1,4 @@
 ﻿using Havit.Blazor.Components.Web.Infrastructure;
-using Havit.Diagnostics.Contracts;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 

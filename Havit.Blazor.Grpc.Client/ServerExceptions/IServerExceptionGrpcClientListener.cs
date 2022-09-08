@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Grpc.Core;
+﻿using Grpc.Core;
 
 namespace Havit.Blazor.Grpc.Client.ServerExceptions;
 

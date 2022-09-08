@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Brand for the <see cref="HxSidebar.HeaderTemplate"/>.

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using System.Net;
-using Havit.Diagnostics.Contracts;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 

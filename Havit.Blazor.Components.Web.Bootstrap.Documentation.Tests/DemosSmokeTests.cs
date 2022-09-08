@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Bunit;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 using Microsoft.AspNetCore.Components;

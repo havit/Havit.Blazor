@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Components;
-
-namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared;
 
 public partial class MainLayout
 {

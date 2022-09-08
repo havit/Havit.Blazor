@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using Havit.Diagnostics.Contracts;
-
-namespace Havit.Blazor.Components.Web.Services.DataStores;
+﻿namespace Havit.Blazor.Components.Web.Services.DataStores;
 
 /// <summary>
 /// Abstract base-class for implementation of your own dictionary-style static data store.

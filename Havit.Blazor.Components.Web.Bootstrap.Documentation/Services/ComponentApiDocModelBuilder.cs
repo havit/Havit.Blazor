@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Model;
 using LoxSmoke.DocXml;
-using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;

@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using Grpc.Core.Interceptors;
+﻿using Grpc.Core.Interceptors;
 
 namespace Havit.Blazor.Grpc.Client.HttpHeaders;
 

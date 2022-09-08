@@ -1,6 +1,4 @@
-﻿using Havit.Diagnostics.Contracts;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Collapse section for Bootstrap 5 <see href="https://getbootstrap.com/docs/5.2/components/navbar/">navbar</see> component.
