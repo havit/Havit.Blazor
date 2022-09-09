@@ -396,7 +396,7 @@ public partial class HxInputTagsInternal
 		else if (keyboardEventArgs.Code == ArrowDownKeyCode)
 		{
 			int nextItemIndex = focusedItemIndex + 1;
-			if (nextItemIndex < suggestions.Count)
+			if (nextItemIndex < suggestions?.Count)
 			{
 				focusedItemIndex = nextItemIndex;
 			}

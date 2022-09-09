@@ -361,7 +361,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		else if (keyboardEventArgs.Code == ArrowDownKeyCode)
 		{
 			int nextItemIndex = focusedItemIndex + 1;
-			if (nextItemIndex < suggestions.Count)
+			if (nextItemIndex < suggestions?.Count)
 			{
 				focusedItemIndex = nextItemIndex;
 			}
