@@ -34,7 +34,7 @@
     margin-left: auto;
 }
 
-.hx-input-date-has-calendar-icon .is-invalid {
+.hx-input-date-has-calendar-icon ::deep .is-invalid {
 	background-position: right calc(0.375em + 2rem) center;
 }
 
