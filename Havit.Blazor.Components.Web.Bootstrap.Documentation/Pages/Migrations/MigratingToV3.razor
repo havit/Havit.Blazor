@@ -49,17 +49,37 @@
     Remove the parameter from your code (incl. <code>HxAutosuggest.Settings</code> and <code>HxAutosuggest.Defaults</code>).
 </p>
 
-<h3>4. [OPTIONAL] Set default predefined date ranges for <code>HxInputDateRange</code></h3>
+<h5>3.5 Input components <code>ShowValidationMessage</code></h5>
+<p>
+    The <code>ShowValidationMessage</code> parameter was refactored.
+    If you were using it to disable the validation message, use <code>ValidationMessageMode="ValidationMessageMode.None"</code> instead.
+</p>
+
+<h3>4. Verify your CSS customizations</h3>
+<p>Check your CSS customizations and adjust according to the new Bootstrap 5.2 and Havit.Blazor setup. Focus on these areas where there were some changes which might affect your visual:</p>
+<ul>
+    <li>check the <a href="https://getbootstrap.com/docs/5.2/migration/#v520">Bootstrap 5.2 migration guide</a></li>
+    <li>double-check validation messages, where we changed the default setup (see the new <code>floating</code> styles)</li>
+    <li>check your sidebar</li>
+</ul>
+
+<h3>5. [OPTIONAL] Set default predefined date ranges for <code>HxInputDateRange</code></h3>
 <p>
     In v3 we removed the default predefined date ranges in <code>HxInputDateRange.Defaults.PredfefinedDateRanges</code>.
     If you want your application to use the original set of predefined ranges, add this code to your application setup:
 </p>
 <CodeSnippet File="~\Pages\Migrations\MigratingToV3_HxInputDateRange_DefaultPredefinedDateRanges.CodeSnippet.cs" />
 
-<h3>5. [OPTIONAL] Replace obsolete components with new ones</h3>
+<h3>6. [OPTIONAL] Replace obsolete components with new ones</h3>
 <p>
     We replaced <code>HxInputCheckbox</code> with new <code>HxCheckbox</code> and <code>HxInputSwitch</code> with new <code>HxSwitch</code>.<br />
     The original <code>Label</code> parameter is now <code>Text</code> (the <code>Label</code> parameter of new components has a different purpose, see <a href="/components/HxCheckbox"><code>HxCheckbox</code> documentation</a>).
 </p>
 <CodeSnippet Language="razor" File="~\Pages\Migrations\MigratingToV3_HxCheckbox_HxSwitch.CodeSnippet.razor" />
 <p>The old components are marked as <code>[Obsolete]</code>, which will cause compile-time warnings (or errors if escalation is configured).</p>
+
+<h3>7. Troubles?</h3>
+<p>
+    If you experience any troubles migrating your project to v3, feel free to use the  <a href="https://github.com/havit/Havit.Blazor/discussions">GitHub Discussions</a> to place your question.<br/>
+    If you find anything what seems to be a bug, file it to our <a href="https://github.com/havit/Havit.Blazor/issues">GitHub Issues</a>.
+</p>
