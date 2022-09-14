@@ -14,63 +14,63 @@
                                  id="@dropdownToggleElementId">
 
             <div class="position-relative">
-                <form @onsubmit="HandleTextQueryTriggered" @onfocusin="HandleInputFocus" @onfocusout="HandleInputBlur">
-                    @if (!string.IsNullOrEmpty(Label))
-                    {
-                        <label class="form-label">@Label</label>
-                    }
-                    <span class="@CssClassHelper.Combine(
-                                    (HasInputGroupsEffective ? "input-group" : null),
-                                    (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null,
-                                    InputSizeEffective.AsInputGroupCssClass(),
-                                    InputGroupCssClass)">
+                @if (!string.IsNullOrEmpty(Label))
+                {
+                    <label class="form-label">@Label</label>
+                }
+                <span class="@CssClassHelper.Combine(
+                                (HasInputGroupsEffective ? "input-group" : null),
+                                (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null,
+                                InputSizeEffective.AsInputGroupCssClass(),
+                                InputGroupCssClass)">
                     
-                        @if (InputGroupStartText is not null)
-                        {
-                            <span class="input-group-text">@InputGroupStartText</span>
-                        }
-
-                        @InputGroupStartTemplate
-
-                        <input
-                            value="@TextQuery"
-                            @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
-                            @onkeydown="HandleInputKeyDown"
-                            inputmode="search"
-                            enabled="@Enabled"
-                            placeholder="@Placeholder"
-                            class="@CssClassHelper.Combine("form-control", InputCssClassEffective)" />
-                            
-                        @InputGroupEndTemplate
-
-                        @if (InputGroupEndText is not null)
-                        {
-                            <span class="input-group-text">@InputGroupEndText</span>
-                        }
-                    </span>
-
-                    @if (InputGroupEndText is null && InputGroupEndTemplate is null)
+                    @if (InputGroupStartText is not null)
                     {
-                        if (dataProviderInProgress)
-                        {
-                            <div class="hx-search-box-input-icon hx-search-box-input-icon-end">
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            </div>
-                        }
-                        else if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null))
-                        {
-                            <div role="button" class="hx-search-box-input-icon hx-search-box-input-icon-end" @onclick="ClearInputAsync">
-                                <HxIcon Icon="ClearIconEffective" />
-                            </div>
-                        }
-                        else if (SearchIconEffective is not null)
-                        {
-                            <div class="hx-search-box-input-icon hx-search-box-input-icon-end">
-                                <HxIcon Icon="SearchIconEffective" />
-                            </div>
-                        }
+                        <span class="input-group-text">@InputGroupStartText</span>
                     }
-                </form>
+
+                    @InputGroupStartTemplate
+
+                    <input
+                        value="@TextQuery"
+                        @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
+                        @onkeydown="HandleInputKeyDown"
+                        @onfocus="HandleInputFocus"
+                        @onblur="HandleInputBlur"
+                        inputmode="search"
+                        enabled="@Enabled"
+                        placeholder="@Placeholder"
+                        class="@CssClassHelper.Combine("form-control", InputCssClassEffective)" />
+                            
+                    @InputGroupEndTemplate
+
+                    @if (InputGroupEndText is not null)
+                    {
+                        <span class="input-group-text">@InputGroupEndText</span>
+                    }
+                </span>
+
+                @if (InputGroupEndText is null && InputGroupEndTemplate is null)
+                {
+                    if (dataProviderInProgress)
+                    {
+                        <div class="hx-search-box-input-icon hx-search-box-input-icon-end">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        </div>
+                    }
+                    else if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null))
+                    {
+                        <div role="button" class="hx-search-box-input-icon hx-search-box-input-icon-end" @onclick="ClearInputAsync">
+                            <HxIcon Icon="ClearIconEffective" />
+                        </div>
+                    }
+                    else if (SearchIconEffective is not null)
+                    {
+                        <div class="hx-search-box-input-icon hx-search-box-input-icon-end">
+                            <HxIcon Icon="SearchIconEffective" />
+                        </div>
+                    }
+                }
             </div>
         </HxDropdownToggleElement>
 
