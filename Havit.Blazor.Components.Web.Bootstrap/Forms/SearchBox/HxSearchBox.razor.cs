@@ -377,7 +377,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			{
 				await HandleItemSelected(focusedItem);
 			}
-			else if (focusedItemIndex == GetFreeTextItemIndex())
+			else if (focusedItemIndex == InputKeyboardNavigationIndex || focusedItemIndex == GetFreeTextItemIndex()) // Confirm freetext (text query) if the input or the freetext item is focused and the enter key is pressed.
 			{
 				await HandleTextQueryTriggered();
 			}
@@ -429,12 +429,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		});
 	}
 
-	private void HandleInputFormFocusIn()
+	private void HandleInputFocus()
 	{
 		inputformHasFocus = true;
 	}
 
-	private void HandleInputFormFocusOut()
+	private void HandleInputBlur()
 	{
 		inputformHasFocus = false;
 
