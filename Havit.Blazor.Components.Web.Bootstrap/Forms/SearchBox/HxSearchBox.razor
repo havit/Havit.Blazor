@@ -10,11 +10,11 @@
                                  DropdownReference="@("#" + dropdownId)"
                                  DropdownOffset="@DropdownOffset"
                                  OnShown="OnDropdownMenuShown"
-                                 OnHidden="() => dropdownMenuActive = false"
+                                 OnHidden="OnDropdownMenuHidden"
                                  id="@dropdownToggleElementId">
 
             <div class="position-relative">
-                <form @onsubmit="HandleTextQueryTriggered" @onfocusout="HandleInputBlur">
+                <form @onsubmit="HandleTextQueryTriggered" @onfocusin="HandleInputFocus" @onfocusout="HandleInputBlur">
                     @if (!string.IsNullOrEmpty(Label))
                     {
                         <label class="form-label">@Label</label>

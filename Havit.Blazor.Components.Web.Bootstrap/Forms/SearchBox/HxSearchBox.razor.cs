@@ -221,6 +221,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private CancellationTokenSource cancellationTokenSource;
 	private bool dataProviderInProgress;
 
+	private bool inputHasFocus;
+
 	protected override void OnAfterRender(bool firstRender)
 	{
 		if (firstRender)
@@ -428,9 +430,28 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			await UpdateSuggestionsAsync();
 		});
 	}
+
+	private void HandleInputFocus()
+	{
+		inputHasFocus = true;
+	}
 	private void HandleInputBlur()
 	{
+		inputHasFocus = false;
+
+		if (!dropdownMenuActive)
+		{
+			ClearInputValueIfTextQueryDisabled();
+		}
 		CancelDataProviderAndDebounce();
+	}
+
+	private void ClearInputValueIfTextQueryDisabled()
+	{
+		if (!AllowTextQuery)
+		{
+			TextQuery = string.Empty;
+		}
 	}
 
 	private void CancelDataProviderAndDebounce()
@@ -465,6 +486,14 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		if (!ShouldDropdownMenuBeDisplayed())
 		{
 			await HideDropdownMenu();
+		}
+	}
+	protected void OnDropdownMenuHidden()
+	{
+		dropdownMenuActive = false;
+		if (!inputHasFocus)
+		{
+			ClearInputValueIfTextQueryDisabled();
 		}
 	}
 
