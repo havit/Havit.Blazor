@@ -2,7 +2,7 @@
 @using Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 
-<div id="@dropdownId" class="@CssClassEffective">
+<div id="@dropdownId" class="@CssClassHelper.Combine("hx-searchbox", CssClassEffective)">
     <HxDropdown AutoClose="DropdownAutoClose.Outside">
         <HxDropdownToggleElement @ref="dropdownToggle"
                                  ElementName="div"
