@@ -429,12 +429,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		});
 	}
 
-	private void HandleInputFormFocusIn()
+	private void HandleInputFocus()
 	{
 		inputformHasFocus = true;
 	}
 
-	private void HandleInputFormFocusOut()
+	private void HandleInputBlur()
 	{
 		inputformHasFocus = false;
 
