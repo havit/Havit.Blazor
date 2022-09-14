@@ -476,6 +476,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	{
 		await InvokeOnItemSelectedAsync(item);
 		await ClearInputAsync();
+		await HideDropdownMenu();
 	}
 
 	private async Task HandleDropdownMenuShown()
