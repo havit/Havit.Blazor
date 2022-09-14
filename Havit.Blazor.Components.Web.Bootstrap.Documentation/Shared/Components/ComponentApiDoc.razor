@@ -5,8 +5,28 @@
 	<p class="lead">@((MarkupString)model.Class.Comments.Summary)</p>
 }
 
-@ChildContent
-@MainContent
+@if (sectionTitles.Any())
+{
+	<h5>
+		On this page
+	</h5>
+	<ul>
+		@foreach (var sectionTitle in sectionTitles)
+		{
+			<li>
+				<a href="@sectionTitle.GetSectionUrl()">
+					@sectionTitle.TitleEffective
+					@sectionTitle.ChildContent
+				</a>
+			</li>
+		}
+	</ul>
+}
+
+<CascadingValue Value="this" IsFixed="true">
+	@ChildContent
+	@MainContent
+</CascadingValue>
 
 @if (model.HasValues || CssVariables is not null)
 {

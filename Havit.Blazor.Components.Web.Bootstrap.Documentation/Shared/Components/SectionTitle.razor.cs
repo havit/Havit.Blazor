@@ -18,7 +18,14 @@ public partial class SectionTitle
 
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
-	private string TitleEffective => Title ?? (ChildContent is null ? GetTitleFromHref() : string.Empty);
+	[CascadingParameter] public ComponentApiDoc ComponentApiDoc { get; set; }
+
+	public string TitleEffective => Title ?? (ChildContent is null ? GetTitleFromHref() : string.Empty);
+
+	protected override void OnParametersSet()
+	{
+		ComponentApiDoc.RegisterSectionTitle(this);
+	}
 
 	private string GetTitleFromHref()
 	{
@@ -40,7 +47,7 @@ public partial class SectionTitle
 		return result;
 	}
 
-	private string GetSectionUrl()
+	public string GetSectionUrl()
 	{
 		string uri = NavigationManager.Uri;
 		uri = uri.Split('?')[0];
