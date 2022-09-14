@@ -213,13 +213,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private bool dropdownMenuActive = false;
 	private bool initialized = false;
 	/// <summary>
-	/// Shows whether the <see cref="TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
+	/// Indicates whether the <see cref="TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
 	/// </summary>
 	private bool textQueryHasBeenBelowMinimumLength = true;
-
 	private System.Timers.Timer timer;
 	private CancellationTokenSource cancellationTokenSource;
 	private bool dataProviderInProgress;
+	private bool inputformHasFocus;
 
 	protected override void OnAfterRender(bool firstRender)
 	{
@@ -298,7 +298,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		StateHasChanged();
 	}
 
-	protected async Task HandleTextQueryValueChanged(string newTextQuery)
+	private async Task HandleTextQueryValueChanged(string newTextQuery)
 	{
 		this.TextQuery = newTextQuery;
 
@@ -428,9 +428,29 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			await UpdateSuggestionsAsync();
 		});
 	}
-	private void HandleInputBlur()
+
+	private void HandleInputFormFocusIn()
 	{
+		inputformHasFocus = true;
+	}
+
+	private void HandleInputFormFocusOut()
+	{
+		inputformHasFocus = false;
+
+		if (!dropdownMenuActive)
+		{
+			ClearInputValueIfTextQueryDisabled();
+		}
 		CancelDataProviderAndDebounce();
+	}
+
+	private void ClearInputValueIfTextQueryDisabled()
+	{
+		if (!AllowTextQuery)
+		{
+			TextQuery = string.Empty;
+		}
 	}
 
 	private void CancelDataProviderAndDebounce()
@@ -440,7 +460,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		dataProviderInProgress = false; // data provider is no longer in progress
 	}
 
-	protected async Task HandleTextQueryTriggered()
+	private async Task HandleTextQueryTriggered()
 	{
 		if (AllowTextQuery
 			&& ((TextQuery.Length >= MinimumLengthEffective) || (TextQuery.Length == 0)))
@@ -452,13 +472,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 	}
 
-	protected async Task HandleItemSelected(TItem item)
+	private async Task HandleItemSelected(TItem item)
 	{
 		await InvokeOnItemSelectedAsync(item);
 		await ClearInputAsync();
 	}
 
-	protected async Task OnDropdownMenuShown()
+	private async Task HandleDropdownMenuShown()
 	{
 		dropdownMenuActive = true;
 
@@ -468,11 +488,21 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 	}
 
-	protected async Task ShowDropdownMenu()
+	private void HandleDropdownMenuHidden()
+	{
+		dropdownMenuActive = false;
+		if (!inputformHasFocus)
+		{
+			ClearInputValueIfTextQueryDisabled();
+		}
+	}
+
+	private async Task ShowDropdownMenu()
 	{
 		await dropdownToggle.ShowAsync();
 	}
-	protected async Task HideDropdownMenu()
+
+	private async Task HideDropdownMenu()
 	{
 		await dropdownToggle.HideAsync();
 	}
@@ -481,7 +511,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// If the <see cref="DefaultContentTemplate"/> is empty, we don't want to display anything when nothing (or below the minimum amount of characters) is typed into the input.
 	/// </summary>
 	/// <returns></returns>
-	protected bool ShouldDropdownMenuBeDisplayed()
+	private bool ShouldDropdownMenuBeDisplayed()
 	{
 		if (textQueryHasBeenBelowMinimumLength
 			&& ((TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective)))

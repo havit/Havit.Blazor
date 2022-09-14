@@ -9,12 +9,12 @@
                                  CssClass="@(initialized || DefaultContentTemplate is not null ? null : "disabled")"
                                  DropdownReference="@("#" + dropdownId)"
                                  DropdownOffset="@DropdownOffset"
-                                 OnShown="OnDropdownMenuShown"
-                                 OnHidden="() => dropdownMenuActive = false"
+                                 OnShown="HandleDropdownMenuShown"
+                                 OnHidden="HandleDropdownMenuHidden"
                                  id="@dropdownToggleElementId">
 
             <div class="position-relative">
-                <form @onsubmit="HandleTextQueryTriggered" @onfocusout="HandleInputBlur">
+                <form @onsubmit="HandleTextQueryTriggered" @onfocusin="HandleInputFormFocusIn" @onfocusout="HandleInputFormFocusOut">
                     @if (!string.IsNullOrEmpty(Label))
                     {
                         <label class="form-label">@Label</label>
