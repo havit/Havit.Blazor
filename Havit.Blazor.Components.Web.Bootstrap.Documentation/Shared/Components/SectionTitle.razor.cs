@@ -4,6 +4,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 
 public partial class SectionTitle
 {
+	/// <summary>
+	/// Which heading tags are to be used for which levels.
+	/// </summary>
+	protected static readonly Dictionary<int, string> LevelHeadingTags = new()
+	{
+		{ 0, "h3" },
+		{ 1, "h4" },
+		{ 2, "h5" }
+	};
+
 	[Inject] public NavigationManager NavigationManager { get; set; }
 
 	/// <summary>
@@ -16,15 +26,21 @@ public partial class SectionTitle
 	/// </summary>
 	[Parameter] public string Title { get; set; }
 
+	/// <summary>
+	/// Determines the heading tag to be used. Level <c>0</c> should be used for sections and higher integers for subsections.
+	/// </summary>
+	[Parameter] public int Level { get; set; } = 0;
+
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	[CascadingParameter] public ComponentApiDoc ComponentApiDoc { get; set; }
 
 	public string TitleEffective => Title ?? (ChildContent is null ? GetTitleFromHref() : string.Empty);
+	protected string HeadingTagEffective => LevelHeadingTags.ContainsKey(Level) ? LevelHeadingTags[Level] : LevelHeadingTags.Values.LastOrDefault();
 
 	protected override void OnParametersSet()
 	{
-		ComponentApiDoc.RegisterSectionTitle(this);
+		ComponentApiDoc?.RegisterSectionTitle(this);
 	}
 
 	private string GetTitleFromHref()
@@ -51,6 +67,7 @@ public partial class SectionTitle
 	{
 		string uri = NavigationManager.Uri;
 		uri = uri.Split('?')[0];
+		uri = uri.Split('#')[0];
 
 		return $"{uri}#{Id}";
 	}

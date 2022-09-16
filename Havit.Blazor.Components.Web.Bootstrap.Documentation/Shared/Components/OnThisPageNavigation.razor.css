@@ -1,0 +1,8 @@
+﻿ul {
+    padding-left: 0;
+}
+
+ul,
+::deep ul {
+    list-style-type: none;
+}
