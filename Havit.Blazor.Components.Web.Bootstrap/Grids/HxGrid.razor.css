@@ -29,6 +29,10 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
     order: 1;
 }
 
+.hx-grid-header-cell-container ::deep .hx-icon {
+    align-self: center;
+}
+
 ::deep .hx-grid-btn {
     border-radius: var(--hx-grid-button-border-radius);
     padding: 0 .25rem;
