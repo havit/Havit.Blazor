@@ -387,7 +387,9 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		if (keyboardEventArgs.Code == ArrowUpKeyCode)
 		{
 			int previousItemIndex = focusedItemIndex - 1;
-			if (previousItemIndex >= InputKeyboardNavigationIndex) // If the index equals InputKeyboardNavigationIndex, no item is focused.
+			int minimumIndex = AllowTextQuery ? InputKeyboardNavigationIndex : 0;
+
+			if (previousItemIndex >= minimumIndex)
 			{
 				focusedItemIndex = previousItemIndex;
 			}

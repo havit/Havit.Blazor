@@ -317,23 +317,9 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	private const string EnterKeyCode = "Enter";
 	private const string NumpadEnterKeyCode = "NumpadEnter";
 
-	/// <summary>
-	/// Input's index for the keyboard navigation. If this is the current index, then no item is selected.
-	/// </summary>
-	private const int InputKeyboardNavigationIndex = -1;
-
 	private TItem GetFocusedItem()
 	{
-		if (focusedItemIndex > InputKeyboardNavigationIndex)
-		{
-			TItem focusedItem = GetItemByIndex(focusedItemIndex);
-			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
-			{
-				return focusedItem;
-			}
-		}
-
-		return default;
+		return GetItemByIndex(focusedItemIndex);
 	}
 
 	private async Task HandleInputKeyDown(KeyboardEventArgs keyboardEventArgs)
@@ -353,7 +339,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		if (keyboardEventArgs.Code == ArrowUpKeyCode)
 		{
 			int previousItemIndex = focusedItemIndex - 1;
-			if (previousItemIndex >= InputKeyboardNavigationIndex) // If the index equals InputKeyboardNavigationIndex, no item is focused.
+			if (previousItemIndex >= 0)
 			{
 				focusedItemIndex = previousItemIndex;
 			}
