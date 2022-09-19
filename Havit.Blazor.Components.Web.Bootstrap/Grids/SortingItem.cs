@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Item describes one sorting criteria.
 /// </summary>
-public sealed class SortingItem<TItem>
+public sealed record SortingItem<TItem>
 {
 	/// <summary>
 	/// Sorting as string value. Can be used to pass value between application layers (ie. WebAPI call parameter).

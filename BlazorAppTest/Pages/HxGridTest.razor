@@ -4,7 +4,7 @@
 <h1>HxGrid</h1>
 
 <h2>Client paging, auto sorting</h2>
-<HxGrid DataProvider="@ClientCultureInfosDataProvider" @bind-SelectedDataItem="@clientSideCurrentCultureInfo" PageSize="@PageSize" TableContainerCssClass="mt-5" HeaderRowCssClass="myheader" PagerSettings="pagerSettings">
+<HxGrid DataProvider="@ClientCultureInfosDataProvider" @bind-SelectedDataItem="@clientSideCurrentCultureInfo" PageSize="@PageSize" TableContainerCssClass="mt-5" HeaderRowCssClass="myheader" PagerSettings="pagerSettings" @bind-CurrentUserState="clientSideGridUserState" >
     <Columns>
         <HxGridColumn Order="3" TItem="CultureInfo" HeaderText="Link">
             <ItemTemplate>
@@ -34,6 +34,9 @@
         </HxContextMenu>
     </ContextMenu>
 </HxGrid>
+<HxButton Text="Sort by display name" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { SortKeySelector = clientSortByNameExpressionString, SortDirection = Havit.Collections.SortDirection.Ascending } } }" />
+<HxButton Text="Sort by display name descending" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { SortKeySelector = clientSortByNameExpressionString, SortDirection = Havit.Collections.SortDirection.Descending } } }" />
+
 <p>Current CultureInfo: @clientSideCurrentCultureInfo?.DisplayName</p>
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
 
@@ -61,8 +64,8 @@
     </EmptyDataTemplate>
 </HxGrid>
 
-@code {
-    private const int PageSize = 10;
+    @code {
+        private const int PageSize = 10;
 
     private HxGrid<CultureInfo>
     serverSideGrid;
@@ -72,9 +75,11 @@
 
     // LOCAL
     private CultureInfo clientSideCurrentCultureInfo = null;
+    private GridUserState clientSideGridUserState = new GridUserState { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { SortKeySelector = clientSortByNameExpressionString, SortDirection = Havit.Collections.SortDirection.Descending } } };
+    private const string clientSortByNameExpressionString = "item => item.Name"; // TODO JEN PRO ODLADENÍ
 
     // SERVER SIDE (simulation)
-    private GridUserState<CultureInfo> serverSideGridUserState = new GridUserState<CultureInfo>();
+    private GridUserState serverSideGridUserState = new GridUserState();
     private CultureInfo serverSideCurrentCultureInfo = null;
     private CultureInfo clickedItem = null;
 

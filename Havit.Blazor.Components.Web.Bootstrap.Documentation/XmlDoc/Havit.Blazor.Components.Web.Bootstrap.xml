@@ -5431,22 +5431,22 @@
             Pager settings.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState`1">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState">
             <summary>
             User state of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState`1.PageIndex">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.PageIndex">
             <summary>
             Current page index.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState`1.Sorting">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.Sorting">
             <summary>
             Current sorting.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserState`1.#ctor(System.Int32,System.Collections.Generic.IReadOnlyList{Havit.Blazor.Components.Web.Bootstrap.SortingItem{`0}})">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserState.#ctor(System.Int32,System.Collections.Generic.IReadOnlyList{Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem})">
             <summary>
             Constructor.
             </summary>
@@ -5455,10 +5455,42 @@
             Once upon a time this one was the only constructor.
             </remarks>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserState`1.#ctor">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserState.#ctor">
             <summary>
             Constructor.
             </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem">
+            <summary>
+            Sorting criteria for a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.SortString">
+            <summary>
+            Sorting as string value. Can be used to pass value between application layers (ie. WebAPI call parameter).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.SortKeySelector">
+            <summary>
+            Selector function of sorting key. To be used for automatic in-memory sorting.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.SortDirection">
+            <summary>
+            Sort direction of SortString/SortKeySelector.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.Create``1(System.String,System.Linq.Expressions.Expression{System.Func{``0,System.IComparable}},Havit.Collections.SortDirection)">
+            <summary>
+            Creates GridSortingStateItem for the specified parameters.
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.SortKeySelector"/> is converted from <c>Expression</c> to <c>string</c>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.CreateSortKeySelector``1(System.Linq.Expressions.Expression{System.Func{``0,System.IComparable}})">
+            <summary>
+            Converts sort key selector as an expression type to a serializable type (<c>string</c>).
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1">
             <summary>
@@ -5640,7 +5672,7 @@
             Event fires when grid state is changed.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InvokeCurrentUserStateChangedAsync(Havit.Blazor.Components.Web.Bootstrap.GridUserState{`0})">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InvokeCurrentUserStateChangedAsync(Havit.Blazor.Components.Web.Bootstrap.GridUserState)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserStateChanged"/> event. Allows interception of the event in derived components.
             </summary>

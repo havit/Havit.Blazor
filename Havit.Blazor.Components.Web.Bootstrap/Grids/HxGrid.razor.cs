@@ -141,16 +141,16 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// <summary>
 	/// Current grid state (page, sorting).
 	/// </summary>
-	[Parameter] public GridUserState<TItem> CurrentUserState { get; set; } = new GridUserState<TItem>();
+	[Parameter] public GridUserState CurrentUserState { get; set; } = new GridUserState();
 
 	/// <summary>
 	/// Event fires when grid state is changed.
 	/// </summary>
-	[Parameter] public EventCallback<GridUserState<TItem>> CurrentUserStateChanged { get; set; }
+	[Parameter] public EventCallback<GridUserState> CurrentUserStateChanged { get; set; }
 	/// <summary>
 	/// Triggers the <see cref="CurrentUserStateChanged"/> event. Allows interception of the event in derived components.
 	/// </summary>
-	protected virtual Task InvokeCurrentUserStateChangedAsync(GridUserState<TItem> newGridUserState) => CurrentUserStateChanged.InvokeAsync(newGridUserState);
+	protected virtual Task InvokeCurrentUserStateChangedAsync(GridUserState newGridUserState) => CurrentUserStateChanged.InvokeAsync(newGridUserState);
 
 	/// <summary>
 	/// Indicates when the grid should be displayed as "in progress".
@@ -256,8 +256,10 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private bool paginationDecreasePageIndexAfterRender = false;
 	private List<TItem> paginationDataItemsToRender;
 	private CancellationTokenSource paginationRefreshDataCancellationTokenSource;
-	private GridUserState<TItem> previousUserState;
+	private GridUserState previousUserState;
 	private bool firstRenderCompleted = false;
+	private List<SortingItem<TItem>> currentSorting = null;
+	private bool postponeCurrentSortingDeserialization = false;
 
 	private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> infiniteScrollVirtualizeComponent;
 
@@ -270,7 +272,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	public HxGrid()
 	{
 		columnsList = new List<IHxGridColumn<TItem>>();
-		columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(columnsList, async () => await InvokeAsync(this.StateHasChanged), () => isDisposed);
+		columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(columnsList, async () => await InvokeAsync(this.StateHasChanged), () => isDisposed, HandleColumnAdded);
 	}
 
 	/// <inheritdoc />
@@ -281,6 +283,11 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		Contract.Requires<InvalidOperationException>(DataProvider != null, $"Property {nameof(DataProvider)} on {GetType()} must have a value.");
 		Contract.Requires<InvalidOperationException>(CurrentUserState != null, $"Property {nameof(CurrentUserState)} on {GetType()} must have a value.");
 		Contract.Requires<InvalidOperationException>(!MultiSelectionEnabled || (ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll), $"Cannot use multi selection with infinite scroll on {GetType()}.");
+
+		if (previousUserState != CurrentUserState)
+		{
+			currentSorting = DeserializeCurrentUserStateSorting(CurrentUserState.Sorting);
+		}
 
 		if (firstRenderCompleted && (previousUserState != CurrentUserState)) /* after first render previousUserState cannot be null */
 		{
@@ -299,7 +306,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		await base.OnAfterRenderAsync(firstRender);
 
 		// when no sorting is set, use default
-		if (firstRender && (CurrentUserState.Sorting == null))
+		if (firstRender && (currentSorting == null))
 		{
 			SortingItem<TItem>[] defaultSorting = GetDefaultSorting();
 			if (defaultSorting != null)
@@ -362,7 +369,6 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 				.OrderBy(item => item.SortDefaultOrder.Value)
 				.ToArray();
 
-
 			return defaultSorting;
 		}
 
@@ -402,8 +408,10 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private async Task<bool> SetCurrentSortingWithEventCallback(IReadOnlyList<SortingItem<TItem>> newSorting)
 	{
-		CurrentUserState = CurrentUserState with { Sorting = newSorting };
+		postponeCurrentSortingDeserialization = false;
+		currentSorting = newSorting.ToList();
 		previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
+		CurrentUserState = CurrentUserState with { Sorting = SerializeToCurrentUserStateSorting(currentSorting) };
 		await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 		return true;
 	}
@@ -412,8 +420,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	{
 		if (CurrentUserState.PageIndex != newPageIndex)
 		{
-			CurrentUserState = CurrentUserState with { PageIndex = newPageIndex };
 			previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
+			CurrentUserState = CurrentUserState with { PageIndex = newPageIndex };
 			await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 			return true;
 		}
@@ -441,7 +449,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private async Task HandleSortingClick(IEnumerable<SortingItem<TItem>> sorting)
 	{
-		if (await SetCurrentSortingWithEventCallback(CurrentUserState.Sorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToList().AsReadOnly())) // when current sorting is null, use new sorting
+		if (await SetCurrentSortingWithEventCallback(currentSorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToList().AsReadOnly())) // when current sorting is null, use new sorting
 		{
 			await RefreshDataAsync();
 		}
@@ -452,6 +460,14 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		if (await SetCurrentPageIndexWithEventCallback(newPageIndex))
 		{
 			await RefreshDataAsync();
+		}
+	}
+
+	private void HandleColumnAdded(IHxGridColumn<TItem> column)
+	{
+		if (postponeCurrentSortingDeserialization)
+		{
+			currentSorting = DeserializeCurrentUserStateSorting(CurrentUserState.Sorting);
 		}
 	}
 
@@ -494,7 +510,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		{
 			StartIndex = (pageSizeEffective ?? 0) * CurrentUserState.PageIndex,
 			Count = pageSizeEffective,
-			Sorting = CurrentUserState.Sorting,
+			Sorting = currentSorting,
 			CancellationToken = cancellationToken
 		};
 
@@ -560,7 +576,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		{
 			StartIndex = request.StartIndex,
 			Count = request.Count,
-			Sorting = CurrentUserState.Sorting,
+			Sorting = currentSorting,
 			CancellationToken = request.CancellationToken
 		};
 
@@ -638,6 +654,49 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>());
 	}
 	#endregion
+
+	private List<GridUserStateSortingItem> SerializeToCurrentUserStateSorting(IEnumerable<SortingItem<TItem>> sorting)
+	{
+		return sorting?.Select(item => GridUserStateSortingItem.Create(item.SortString, item.SortKeySelector, item.SortDirection)).ToList();
+	}
+
+	private List<SortingItem<TItem>> DeserializeCurrentUserStateSorting(IEnumerable<GridUserStateSortingItem> gridSortingStateItems)
+	{
+		if ((gridSortingStateItems == null) || !gridSortingStateItems.Any())
+		{
+			return null;
+		}
+
+		// deserializing expression brings a security vulnerability
+		// to make it safe we allow only those expressions which are present on any of the columns
+
+		var sortings = columnsList.SelectMany(column => column.GetSorting()).ToList(); // we are not using GetColumnsToRender (sorting could be previous set by column currently not visible)
+		postponeCurrentSortingDeserialization = false;
+
+		var result = new List<SortingItem<TItem>>();
+		foreach (var gridSortingStateItem in gridSortingStateItems)
+		{
+			// try to find the sorting item with the same SortString and SortKeySelector (Expression)
+			var sortingItem = sortings.FirstOrDefault(item => (gridSortingStateItem.SortString == item.SortString)
+				&& (gridSortingStateItem.SortKeySelector == GridUserStateSortingItem.CreateSortKeySelector(item.SortKeySelector)));
+
+			if (sortingItem != null)
+			{
+				// when the SortingItem was found, return it with the corrent sort direction
+				result.Add((sortingItem.SortDirection == gridSortingStateItem.SortDirection)
+					? sortingItem
+					: sortingItem.WithToggledSortDirection());
+			}
+			else
+			{
+				// otherwise the column with the sorting is not yet register so postpone the "deserialization" to the later time (HandleColumnAdded).
+				postponeCurrentSortingDeserialization = true;
+				return null;
+			}
+		}
+
+		return result;
+	}
 
 	/// <inheritdoc />
 	public void Dispose()

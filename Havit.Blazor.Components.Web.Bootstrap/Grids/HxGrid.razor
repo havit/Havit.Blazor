@@ -71,7 +71,7 @@
 								var headerCellTemplate = column.GetHeaderCellTemplate(gridHeaderCellContext);
 								@if ((totalCount > 0) && columnSorting.Any())
 								{
-									bool isCurrentSorting = CurrentUserState.Sorting?.StartsWith(columnSorting) ?? false;
+									bool isCurrentSorting = currentSorting?.StartsWith(columnSorting) ?? false;
 									<th @onclick="async () => await HandleSortingClick(columnSorting)" @onclick:stopPropagation role="button" class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable")">
 										<div class="hx-grid-header-cell-container">
 											<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
