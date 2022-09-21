@@ -227,6 +227,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private bool inputformHasFocus;
 	private IJSObjectReference jsModule;
 	private DotNetObjectReference<HxSearchBox<TItem>> dotnetObjectReference;
+	private bool disposed = false;
 
 	public HxSearchBox()
 	{
@@ -240,7 +241,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			initialized = true;
 
 			await EnsureJsModule();
-			await jsModule.InvokeVoidAsync("preventDefaultOnKeyDownOnKeys", inputId, dotnetObjectReference, new string[] { ArrowUpKeyCode, ArrowDownKeyCode });
+			await jsModule.InvokeVoidAsync("initialize", inputId, dotnetObjectReference, new string[] { ArrowUpKeyCode, ArrowDownKeyCode });
 		}
 	}
 
@@ -563,6 +564,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
+		disposed = true;
+
 		timer?.Dispose();
 		timer = null;
 
@@ -570,5 +573,23 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		cancellationTokenSource = null;
 
 		await dropdownToggle.DisposeAsync();
+
+		if (jsModule != null)
+		{
+#if NET6_0_OR_GREATER
+			try
+			{
+				await jsModule.DisposeAsync();
+			}
+			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+#else
+			await jsModule.DisposeAsync();
+#endif
+		}
+
+		dotnetObjectReference?.Dispose();
 	}
 }

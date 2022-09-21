@@ -1,4 +1,4 @@
-﻿export function preventDefaultOnKeyDownOnKeys(inputId, hxSearchBoxDotnetObjectReference, keys) {
+﻿export function initialize(inputId, hxSearchBoxDotnetObjectReference, keys) {
     let inputElement = document.getElementById(inputId);
 
     inputElement.onkeydown = function (e) {

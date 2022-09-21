@@ -170,6 +170,11 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		}
 		userInputModified = false;
 		lastKnownValue = Value;
+
+		if (string.IsNullOrWhiteSpace(InputId))
+		{
+			InputId = "hx" + Guid.NewGuid().ToString("N");
+		}
 	}
 
 	public async ValueTask FocusAsync()
@@ -317,34 +322,38 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	private const string EnterKeyCode = "Enter";
 	private const string NumpadEnterKeyCode = "NumpadEnter";
 
-	private async Task HandleInputKeyDown(KeyboardEventArgs keyboardEventArgs)
+	[JSInvokable("HxAutosuggest_HandleInputKeyDown")]
+	public async Task HandleInputKeyDown(string keyCode)
 	{
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 		TItem focusedItem = GetItemByIndex(focusedItemIndex);
-		if ((keyboardEventArgs.Code == EnterKeyCode) || (keyboardEventArgs.Code == NumpadEnterKeyCode))
+		if ((keyCode == EnterKeyCode) || (keyCode == NumpadEnterKeyCode))
 		{
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
 				await DestroyDropdownAsync();
 				await HandleItemSelected(focusedItem);
+				StateHasChanged();
 			}
 		}
 
 		// Move focus up or down.
-		if (keyboardEventArgs.Code == ArrowUpKeyCode)
+		if (keyCode == ArrowUpKeyCode)
 		{
 			int previousItemIndex = focusedItemIndex - 1;
 			if (previousItemIndex >= 0)
 			{
 				focusedItemIndex = previousItemIndex;
+				StateHasChanged();
 			}
 		}
-		else if (keyboardEventArgs.Code == ArrowDownKeyCode)
+		else if (keyCode == ArrowDownKeyCode)
 		{
 			int nextItemIndex = focusedItemIndex + 1;
 			if (nextItemIndex < suggestions?.Count)
 			{
 				focusedItemIndex = nextItemIndex;
+				StateHasChanged();
 			}
 		}
 	}
@@ -381,6 +390,12 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		await base.OnAfterRenderAsync(firstRender);
+
+		if (firstRender)
+		{
+			await EnsureJsModuleAsync();
+			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, new string[] { ArrowDownKeyCode, ArrowUpKeyCode });
+		}
 
 		if (blurInProgress)
 		{
@@ -465,7 +480,18 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 		if (jsModule != null)
 		{
+#if NET6_0_OR_GREATER
+			try
+			{
+				await jsModule.DisposeAsync();
+			}
+			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+#else
 			await jsModule.DisposeAsync();
+#endif
 		}
 
 		dotnetObjectReference?.Dispose();
