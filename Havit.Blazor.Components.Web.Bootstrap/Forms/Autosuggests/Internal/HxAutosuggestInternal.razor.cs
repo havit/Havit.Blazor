@@ -317,11 +317,6 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	private const string EnterKeyCode = "Enter";
 	private const string NumpadEnterKeyCode = "NumpadEnter";
 
-	private TItem GetFocusedItem()
-	{
-		return GetItemByIndex(focusedItemIndex);
-	}
-
 	private async Task HandleInputKeyDown(KeyboardEventArgs keyboardEventArgs)
 	{
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
