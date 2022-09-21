@@ -16,6 +16,7 @@ public class Startup
 
 		services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
 		services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
+		services.AddSingleton<ISectionTitleHolder, SectionTitleHolder>();
 	}
 
 	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
+
+namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared;
 
 public partial class MainLayout
 {

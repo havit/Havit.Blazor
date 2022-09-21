@@ -1,10 +1,40 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
+using Microsoft.AspNetCore.Components.Routing;
+
+namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 
 public partial class OnThisPageNavigation
 {
-	[Parameter] public IEnumerable<SectionTitle> Sections { get; set; }
+	[Inject] public ISectionTitleHolder SectionTitleHolder { get; set; }
+	[Inject] public NavigationManager NavigationManager { get; set; }
 
-	protected RenderFragment GenerateSectionTree() => builder =>
+	[Parameter] public string CssClass { get; set; }
+
+	[Parameter] public RenderFragment ChildContent { get; set; }
+
+	private IEnumerable<SectionTitle> Sections { get; set; }
+
+	protected override void OnInitialized()
+	{
+		NavigationManager.LocationChanged += LoadSections;
+	}
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		if (firstRender)
+		{
+			Sections = SectionTitleHolder.RetrieveAll(NavigationManager.Uri);
+			StateHasChanged();
+		}
+	}
+
+	private void LoadSections(object sender, LocationChangedEventArgs eventArgs)
+	{
+		Sections = SectionTitleHolder.RetrieveAll(eventArgs.Location);
+		StateHasChanged();
+	}
+
+	private RenderFragment GenerateSectionTree() => builder =>
 	{
 		if (!Sections.Any())
 		{

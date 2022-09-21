@@ -5,12 +5,8 @@
 	<p class="lead">@((MarkupString)model.Class.Comments.Summary)</p>
 }
 
-<OnThisPageNavigation Sections="sectionTitles" />
-
-<CascadingValue Value="this" IsFixed="true">
-	@ChildContent
-	@MainContent
-</CascadingValue>
+@ChildContent
+@MainContent
 
 @if (model.HasValues || CssVariables is not null)
 {

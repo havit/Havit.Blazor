@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 
@@ -33,14 +34,14 @@ public partial class SectionTitle
 
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
-	[CascadingParameter] public ComponentApiDoc ComponentApiDoc { get; set; }
+	[Inject] public ISectionTitleHolder SectionTitleHolder { get; set; }
 
 	public string TitleEffective => Title ?? (ChildContent is null ? GetTitleFromHref() : string.Empty);
 	protected string HeadingTagEffective => LevelHeadingTags.ContainsKey(Level) ? LevelHeadingTags[Level] : LevelHeadingTags.Values.LastOrDefault();
 
 	protected override void OnParametersSet()
 	{
-		ComponentApiDoc?.RegisterSectionTitle(this);
+		SectionTitleHolder?.RegisterNew(this, NavigationManager.Uri);
 	}
 
 	private string GetTitleFromHref()

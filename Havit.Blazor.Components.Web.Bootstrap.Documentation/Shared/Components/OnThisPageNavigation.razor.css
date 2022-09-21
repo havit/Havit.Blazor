@@ -1,8 +1,23 @@
-﻿ul {
+﻿.on-this-page-navigation {
+    height: fit-content;
+}
+
+ul {
     padding-left: 0;
+    font-size: small;
 }
 
 ul,
 ::deep ul {
     list-style-type: none;
+}
+
+::deep a {
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+::deep a:hover {
+    text-decoration: underline;
 }

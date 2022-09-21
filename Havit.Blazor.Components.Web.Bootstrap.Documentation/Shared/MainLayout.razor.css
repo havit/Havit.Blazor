@@ -1,0 +1,6 @@
+﻿::deep .side-page-navigation {
+    width: inherit;
+    flex-grow: 1;
+    flex-shrink: 0.2;
+    flex-basis: 250px;
+}

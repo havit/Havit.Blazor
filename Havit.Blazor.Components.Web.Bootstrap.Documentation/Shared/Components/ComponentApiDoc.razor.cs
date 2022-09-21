@@ -18,18 +18,7 @@ public partial class ComponentApiDoc
 
 	[Inject] protected IComponentApiDocModelBuilder ComponentApiDocModelBuilder { get; set; }
 
-	private List<SectionTitle> sectionTitles = new();
-
 	private ComponentApiDocModel model;
-
-	public void RegisterSectionTitle(SectionTitle sectionTitle)
-	{
-		if (!sectionTitles.Contains(sectionTitle))
-		{
-			sectionTitles.Add(sectionTitle);
-			StateHasChanged();
-		}
-	}
 
 	protected override void OnParametersSet()
 	{

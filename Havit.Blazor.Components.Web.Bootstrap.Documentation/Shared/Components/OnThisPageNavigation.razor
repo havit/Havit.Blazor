@@ -1,9 +1,9 @@
-﻿<div>
-	@if (Sections.Any())
-	{
-		<h5>On this page</h5>
+﻿@if (Sections is not null && Sections.Count() > 0)
+{
+	<div class="@CssClassHelper.Combine("on-this-page-navigation", CssClass)">
+		@ChildContent
 		<ul>
 			@GenerateSectionTree()
 		</ul>
-	}
-</div>
+	</div>
+}
