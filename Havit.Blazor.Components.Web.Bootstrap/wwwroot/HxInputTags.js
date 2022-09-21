@@ -1,4 +1,18 @@
-﻿export function open(inputElement, hxAutosuggestDotnetObjectReference, delayShow) {
+﻿export function initialize(inputId, hxInputTagsDotnetObjectReference, keys) {
+	let inputElement = document.getElementById(inputId);
+
+	inputElement.onkeydown = function (e) {
+		let key = e.key;
+
+		hxInputTagsDotnetObjectReference.invokeMethodAsync("HxInputTagsInternal_HandleInputKeyDown", key);
+
+		if (keys.includes(key)) {
+			e.preventDefault();
+		}
+	}
+}
+
+export function open(inputElement, hxAutosuggestDotnetObjectReference, delayShow) {
 	if (!inputElement) {
 		return;
 	}

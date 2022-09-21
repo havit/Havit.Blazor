@@ -179,14 +179,15 @@ public partial class HxInputTagsInternal
 		await autosuggestInput.FocusAsync();
 	}
 
-	protected async Task HandleInputKeyDown(KeyboardEventArgs args)
+	[JSInvokable("HxInputTagsInternal_HandleInputKeyDown")]
+	public async Task HandleInputKeyDown(string keyCode)
 	{
-		if ((args.Code == "Backspace") && String.IsNullOrWhiteSpace(userInput) && ValueEffective.Any())
+		if ((keyCode == "Backspace") && String.IsNullOrWhiteSpace(userInput) && ValueEffective.Any())
 		{
 			await RemoveTagWithEventCallbackAsync(ValueEffective.Last());
 		}
 
-		await UpdateFocusedItemAsync(args);
+		await UpdateFocusedItemAsync(keyCode);
 	}
 
 	private async Task HandleInputInput(string newUserInput)
@@ -366,11 +367,11 @@ public partial class HxInputTagsInternal
 	private const string EnterKeyCode = "Enter";
 	private const string NumpadEnterKeyCode = "NumpadEnter";
 
-	private async Task UpdateFocusedItemAsync(KeyboardEventArgs keyboardEventArgs)
+	private async Task UpdateFocusedItemAsync(string keyCode)
 	{
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 		string focusedItem = GetItemByIndex(focusedItemIndex);
-		if ((keyboardEventArgs.Code == EnterKeyCode) || (keyboardEventArgs.Code == NumpadEnterKeyCode))
+		if ((keyCode == EnterKeyCode) || (keyCode == NumpadEnterKeyCode))
 		{
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
@@ -380,20 +381,22 @@ public partial class HxInputTagsInternal
 		}
 
 		// Move focus up or down.
-		if (keyboardEventArgs.Code == ArrowUpKeyCode)
+		if (keyCode == ArrowUpKeyCode)
 		{
 			int previousItemIndex = focusedItemIndex - 1;
 			if (previousItemIndex >= 0)
 			{
 				focusedItemIndex = previousItemIndex;
+				StateHasChanged();
 			}
 		}
-		else if (keyboardEventArgs.Code == ArrowDownKeyCode)
+		else if (keyCode == ArrowDownKeyCode)
 		{
 			int nextItemIndex = focusedItemIndex + 1;
 			if (nextItemIndex < suggestions?.Count)
 			{
 				focusedItemIndex = nextItemIndex;
+				StateHasChanged();
 			}
 		}
 	}
@@ -427,6 +430,12 @@ public partial class HxInputTagsInternal
 	{
 		await base.OnAfterRenderAsync(firstRender);
 
+		if (firstRender)
+		{
+			await EnsureJsModuleAsync();
+			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, new string[] { ArrowUpKeyCode, ArrowDownKeyCode });
+		}
+
 		if (blurInProgress)
 		{
 			blurInProgress = false;
@@ -436,6 +445,14 @@ public partial class HxInputTagsInternal
 				userInput = String.Empty;
 				StateHasChanged();
 			}
+		}
+	}
+
+	protected override void OnParametersSet()
+	{
+		if (string.IsNullOrWhiteSpace(InputId))
+		{
+			InputId = "hx" + Guid.NewGuid().ToString("N");
 		}
 	}
 
