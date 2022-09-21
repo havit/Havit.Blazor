@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿using Microsoft.JSInterop;
+
+namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// A search input component witch automatic suggestions, initial dropdown template and free-text queries support.<br />
@@ -204,10 +206,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
+
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
 	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
 	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
+	private string inputId = "hx" + Guid.NewGuid().ToString("N");
 	private List<TItem> searchResults = new();
 	private HxDropdownToggleElement dropdownToggle;
 	private bool dropdownMenuActive = false;
@@ -220,13 +225,28 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private CancellationTokenSource cancellationTokenSource;
 	private bool dataProviderInProgress;
 	private bool inputformHasFocus;
+	private IJSObjectReference jsModule;
+	private DotNetObjectReference<HxSearchBox<TItem>> dotnetObjectReference;
 
-	protected override void OnAfterRender(bool firstRender)
+	public HxSearchBox()
+	{
+		dotnetObjectReference = DotNetObjectReference.Create(this);
+	}
+
+	protected override async void OnAfterRender(bool firstRender)
 	{
 		if (firstRender)
 		{
 			initialized = true;
+
+			await EnsureJsModule();
+			await jsModule.InvokeVoidAsync("preventDefaultOnKeyDownOnKeys", inputId, dotnetObjectReference, new string[] { ArrowUpKeyCode, ArrowDownKeyCode });
 		}
+	}
+
+	protected async Task EnsureJsModule()
+	{
+		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxSearchBox));
 	}
 
 	protected async Task ClearInputAsync()
@@ -367,11 +387,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		return focusedItemIndex == GetFreeTextItemIndex();
 	}
 
-	private async Task HandleInputKeyDown(KeyboardEventArgs keyboardEventArgs)
+	[JSInvokable("HxSearchBox_HandleInputKeyDown")]
+	public async Task HandleInputKeyDown(string keyCode)
 	{
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 		TItem focusedItem = GetItemByIndex(focusedItemIndex);
-		if ((keyboardEventArgs.Code == EnterKeyCode) || (keyboardEventArgs.Code == NumpadEnterKeyCode))
+		if ((keyCode == EnterKeyCode) || (keyCode == NumpadEnterKeyCode))
 		{
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
@@ -384,7 +405,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 
 		// Move focus up or down.
-		if (keyboardEventArgs.Code == ArrowUpKeyCode)
+		if (keyCode == ArrowUpKeyCode)
 		{
 			int previousItemIndex = focusedItemIndex - 1;
 			int minimumIndex = AllowTextQuery ? InputKeyboardNavigationIndex : 0;
@@ -392,9 +413,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			if (previousItemIndex >= minimumIndex)
 			{
 				focusedItemIndex = previousItemIndex;
+				StateHasChanged();
 			}
 		}
-		else if (keyboardEventArgs.Code == ArrowDownKeyCode)
+		else if (keyCode == ArrowDownKeyCode)
 		{
 			int nextItemIndex = focusedItemIndex + 1;
 			int maximumIndex = AllowTextQuery ? GetFreeTextItemIndex() : (searchResults?.Count ?? 0) - 1;
@@ -402,6 +424,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			if (nextItemIndex <= maximumIndex)
 			{
 				focusedItemIndex = nextItemIndex;
+				StateHasChanged();
 			}
 		}
 	}

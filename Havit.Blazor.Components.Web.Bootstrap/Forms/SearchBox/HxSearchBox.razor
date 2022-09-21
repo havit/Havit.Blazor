@@ -32,9 +32,9 @@
                     @InputGroupStartTemplate
 
                     <input
+                        id="@inputId"
                         value="@TextQuery"
                         @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
-                        @onkeydown="HandleInputKeyDown"
                         @onfocus="HandleInputFocus"
                         @onblur="HandleInputBlur"
                         inputmode="search"
