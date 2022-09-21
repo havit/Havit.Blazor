@@ -387,7 +387,9 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		if (keyboardEventArgs.Code == ArrowUpKeyCode)
 		{
 			int previousItemIndex = focusedItemIndex - 1;
-			if (previousItemIndex >= InputKeyboardNavigationIndex) // If the index equals InputKeyboardNavigationIndex, no item is focused.
+			int minimumIndex = AllowTextQuery ? InputKeyboardNavigationIndex : 0;
+
+			if (previousItemIndex >= minimumIndex)
 			{
 				focusedItemIndex = previousItemIndex;
 			}
@@ -395,7 +397,9 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		else if (keyboardEventArgs.Code == ArrowDownKeyCode)
 		{
 			int nextItemIndex = focusedItemIndex + 1;
-			if (nextItemIndex <= GetFreeTextItemIndex()) // If the index equals GetFreeTextItemIndex(), then the freetext item is selected.
+			int maximumIndex = AllowTextQuery ? GetFreeTextItemIndex() : (searchResults?.Count ?? 0) - 1;
+
+			if (nextItemIndex <= maximumIndex)
 			{
 				focusedItemIndex = nextItemIndex;
 			}
