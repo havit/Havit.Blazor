@@ -112,10 +112,11 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 			string inputId = GroupName + "_" + index.ToString();
 
-			builder.OpenElement(100, "div");
+			builder.OpenElement(100, "label");
 
 			// TODO CoreCssClass
 			builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null));
+			builder.AddAttribute(102, "for", inputId);
 
 			builder.OpenElement(200, "input");
 			builder.AddAttribute(201, "class", "form-check-input");
