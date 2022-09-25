@@ -330,7 +330,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 				StateHasChanged();
 			}
 		}
-										
+
 		// Move focus up or down.
 		if (keyCode == KeyCodes.ArrowUp)
 		{
