@@ -179,17 +179,6 @@ public partial class HxInputTagsInternal
 		await autosuggestInput.FocusAsync();
 	}
 
-	[JSInvokable("HxInputTagsInternal_HandleInputKeyDown")]
-	public async Task HandleInputKeyDown(string keyCode)
-	{
-		if ((keyCode == "Backspace") && String.IsNullOrWhiteSpace(userInput) && ValueEffective.Any())
-		{
-			await RemoveTagWithEventCallbackAsync(ValueEffective.Last());
-		}
-
-		await UpdateFocusedItemAsync(keyCode);
-	}
-
 	private async Task HandleInputInput(string newUserInput)
 	{
 		// user changes an input
@@ -367,8 +356,14 @@ public partial class HxInputTagsInternal
 	private const string EnterKeyCode = "Enter";
 	private const string NumpadEnterKeyCode = "NumpadEnter";
 
-	private async Task UpdateFocusedItemAsync(string keyCode)
+	[JSInvokable("HxInputTagsInternal_HandleInputKeyDown")]
+	public async Task HandleInputKeyDown(string keyCode)
 	{
+		if ((keyCode == "Backspace") && String.IsNullOrWhiteSpace(userInput) && ValueEffective.Any())
+		{
+			await RemoveTagWithEventCallbackAsync(ValueEffective.Last());
+		}
+
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 		string focusedItem = GetItemByIndex(focusedItemIndex);
 		if ((keyCode == EnterKeyCode) || (keyCode == NumpadEnterKeyCode))
