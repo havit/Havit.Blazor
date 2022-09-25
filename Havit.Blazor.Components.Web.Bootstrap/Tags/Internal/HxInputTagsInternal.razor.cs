@@ -417,8 +417,6 @@ public partial class HxInputTagsInternal
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		await base.OnAfterRenderAsync(firstRender);
-
 		if (firstRender)
 		{
 			await EnsureJsModuleAsync();
