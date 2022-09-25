@@ -422,6 +422,10 @@ public partial class HxInputTagsInternal
 		if (firstRender)
 		{
 			await EnsureJsModuleAsync();
+			if (disposed)
+			{
+				return;
+			}
 			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, new string[] { KeyCodes.ArrowUp, KeyCodes.ArrowDown });
 		}
 

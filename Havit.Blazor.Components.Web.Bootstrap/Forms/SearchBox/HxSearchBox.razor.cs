@@ -241,11 +241,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		{
 			initialized = true;
 
-			if (!disposed)
+			await EnsureJsModule();
+			if (disposed)
 			{
-				await EnsureJsModule();
-				await jsModule.InvokeVoidAsync("initialize", inputId, dotnetObjectReference, new string[] { KeyCodes.ArrowUp, KeyCodes.ArrowDown });
+				return;
 			}
+			await jsModule.InvokeVoidAsync("initialize", inputId, dotnetObjectReference, new string[] { KeyCodes.ArrowUp, KeyCodes.ArrowDown });
 		}
 	}
 

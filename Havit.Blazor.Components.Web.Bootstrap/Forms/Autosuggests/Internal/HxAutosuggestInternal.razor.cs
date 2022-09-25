@@ -388,6 +388,10 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		if (firstRender)
 		{
 			await EnsureJsModuleAsync();
+			if (disposed)
+			{
+				return;
+			}
 			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, new string[] { KeyCodes.ArrowDown, KeyCodes.ArrowUp });
 		}
 
