@@ -235,7 +235,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
-	protected override async void OnAfterRender(bool firstRender)
+	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
