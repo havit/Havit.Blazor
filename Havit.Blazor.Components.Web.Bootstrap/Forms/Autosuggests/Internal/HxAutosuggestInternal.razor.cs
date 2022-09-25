@@ -316,18 +316,12 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	#region KeyboardNavigation
 	private int focusedItemIndex = -1;
 
-	private const string ArrowUpKeyCode = "ArrowUp";
-	private const string ArrowDownKeyCode = "ArrowDown";
-
-	private const string EnterKeyCode = "Enter";
-	private const string NumpadEnterKeyCode = "NumpadEnter";
-
 	[JSInvokable("HxAutosuggest_HandleInputKeyDown")]
 	public async Task HandleInputKeyDown(string keyCode)
 	{
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 		TItem focusedItem = GetItemByIndex(focusedItemIndex);
-		if ((keyCode == EnterKeyCode) || (keyCode == NumpadEnterKeyCode))
+		if ((keyCode == KeyCodes.Enter) || (keyCode == KeyCodes.NumpadEnter))
 		{
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
@@ -336,9 +330,9 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 				StateHasChanged();
 			}
 		}
-
+										
 		// Move focus up or down.
-		if (keyCode == ArrowUpKeyCode)
+		if (keyCode == KeyCodes.ArrowUp)
 		{
 			int previousItemIndex = focusedItemIndex - 1;
 			if (previousItemIndex >= 0)
@@ -347,7 +341,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 				StateHasChanged();
 			}
 		}
-		else if (keyCode == ArrowDownKeyCode)
+		else if (keyCode == KeyCodes.ArrowDown)
 		{
 			int nextItemIndex = focusedItemIndex + 1;
 			if (nextItemIndex < suggestions?.Count)
@@ -394,7 +388,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		if (firstRender)
 		{
 			await EnsureJsModuleAsync();
-			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, new string[] { ArrowDownKeyCode, ArrowUpKeyCode });
+			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, new string[] { KeyCodes.ArrowDown, KeyCodes.ArrowUp });
 		}
 
 		if (blurInProgress)

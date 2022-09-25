@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -243,7 +244,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			if (!disposed)
 			{
 				await EnsureJsModule();
-				await jsModule.InvokeVoidAsync("initialize", inputId, dotnetObjectReference, new string[] { ArrowUpKeyCode, ArrowDownKeyCode });
+				await jsModule.InvokeVoidAsync("initialize", inputId, dotnetObjectReference, new string[] { KeyCodes.ArrowUp, KeyCodes.ArrowDown });
 			}
 		}
 	}
@@ -361,12 +362,6 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	#region KeyboardNavigation
 	private int focusedItemIndex = -1;
 
-	private const string ArrowUpKeyCode = "ArrowUp";
-	private const string ArrowDownKeyCode = "ArrowDown";
-
-	private const string EnterKeyCode = "Enter";
-	private const string NumpadEnterKeyCode = "NumpadEnter";
-
 	/// <summary>
 	/// Input's index for the keyboard navigation. If this is the current index, then no item is selected.
 	/// </summary>
@@ -396,7 +391,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	{
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 		TItem focusedItem = GetItemByIndex(focusedItemIndex);
-		if ((keyCode == EnterKeyCode) || (keyCode == NumpadEnterKeyCode))
+		if ((keyCode == KeyCodes.Enter) || (keyCode == KeyCodes.NumpadEnter))
 		{
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
@@ -409,7 +404,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 
 		// Move focus up or down.
-		if (keyCode == ArrowUpKeyCode)
+		if (keyCode == KeyCodes.ArrowUp)
 		{
 			int previousItemIndex = focusedItemIndex - 1;
 			int minimumIndex = AllowTextQuery ? InputKeyboardNavigationIndex : 0;
@@ -420,7 +415,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 				StateHasChanged();
 			}
 		}
-		else if (keyCode == ArrowDownKeyCode)
+		else if (keyCode == KeyCodes.ArrowDown)
 		{
 			int nextItemIndex = focusedItemIndex + 1;
 			int maximumIndex = AllowTextQuery ? GetFreeTextItemIndex() : (searchResults?.Count ?? 0) - 1;
