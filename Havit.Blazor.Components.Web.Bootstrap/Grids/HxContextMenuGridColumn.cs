@@ -42,6 +42,12 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter] public RenderFragment<TItem> ChildContent { get; set; }
 
 	/// <inheritdoc />
+	protected override string GetColumnIdentifier() => nameof(HxContextMenuGridColumn<object>);
+
+	/// <inheritdoc />
+	protected override int GetColumnOrder() => order;
+
+	/// <inheritdoc />
 	protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => GridCellTemplate.Empty;
 
 	/// <inheritdoc />
@@ -58,11 +64,9 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 	protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context) => GridCellTemplate.Empty;
 
 	/// <inheritdoc />
-	protected override IEnumerable<SortingItem<TItem>> GetSorting()
-	{
-		return Enumerable.Empty<SortingItem<TItem>>();
-	}
+	protected override IEnumerable<SortingItem<TItem>> GetSorting() => Enumerable.Empty<SortingItem<TItem>>();
 
 	/// <inheritdoc />
-	protected override int GetColumnOrder() => order;
+	protected override int? GetDefaultSortingOrder() => null;
+
 }

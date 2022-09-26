@@ -2821,7 +2821,28 @@
             Searches for character codes surrounded with '{' and '}' and replaces them with corresponding symbol.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetColumnIdentifier">
+            <inheritdoc />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetColumnOrder">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetItemCellTemplate(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetItemPlaceholderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetFooterCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetSorting">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetDefaultSortingOrder">
             <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal">
@@ -5324,6 +5345,21 @@
             Total count of items in the grid (includes all pages).
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridInternalStateSortingItem`1">
+            <summary>
+            Grid internal state item to persists sorting.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridInternalStateSortingItem`1.Column">
+            <summary>
+            Sorting column
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridInternalStateSortingItem`1.ReverseDirection">
+            <summary>
+            Indicates whether the sorting should be performed in the reverse direction.	
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext">
             <summary>
             Placeholder cell context.
@@ -5465,32 +5501,15 @@
             Sorting criteria for a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.SortString">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.ColumnIdentifier">
             <summary>
-            Sorting as string value. Can be used to pass value between application layers (ie. WebAPI call parameter).
+            Column identifier.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.SortKeySelector">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.ReverseDirection">
             <summary>
-            Selector function of sorting key. To be used for automatic in-memory sorting.
+            Indicates whether the sorting should be performed in the reverse direction.	
             </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.SortDirection">
-            <summary>
-            Sort direction of SortString/SortKeySelector.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.Create``1(System.String,System.Linq.Expressions.Expression{System.Func{``0,System.IComparable}},Havit.Collections.SortDirection)">
-            <summary>
-            Creates GridSortingStateItem for the specified parameters.
-            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.SortKeySelector"/> is converted from <c>Expression</c> to <c>string</c>.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.CreateSortKeySelector``1(System.Linq.Expressions.Expression{System.Func{``0,System.IComparable}})">
-            <summary>
-            Converts sort key selector as an expression type to a serializable type (<c>string</c>).
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1">
             <summary>
@@ -5520,6 +5539,12 @@
             Context menu template.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetColumnIdentifier">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetColumnOrder">
+            <inheritdoc />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
             <inheritdoc />
         </member>
@@ -5535,7 +5560,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetSorting">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetColumnOrder">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetDefaultSortingOrder">
             <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1">
@@ -5831,6 +5856,11 @@
             </summary>
             <typeparam name="TItem">Grid row data type.</typeparam>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Id">
+            <summary>
+            Column unique identifier.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Visible">
             <summary>
             Indicates whether the column is visible (otherwise the column is hidden).
@@ -5925,6 +5955,9 @@
             Set <c>true</c> for the column which is to be used for default sorting.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetColumnIdentifier">
+            <inheritdoc />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.IsColumnVisible">
             <inheritdoc />
         </member>
@@ -5946,6 +5979,9 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetSorting">
             <inheritdoc />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetDefaultSortingOrder">
+            <inheritdoc />
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1">
             <summary>
             Grid column base class.
@@ -5957,6 +5993,9 @@
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.OnInitialized">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Havit#Blazor#Components#Web#Bootstrap#IHxGridColumn{TItem}#GetIdentifier">
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Havit#Blazor#Components#Web#Bootstrap#IHxGridColumn{TItem}#IsVisible">
@@ -5979,6 +6018,14 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Havit#Blazor#Components#Web#Bootstrap#IHxGridColumn{TItem}#GetSorting">
             <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Havit#Blazor#Components#Web#Bootstrap#IHxGridColumn{TItem}#GetDefaultSortingOrder">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetColumnIdentifier">
+            <summary>
+            Returns the unique column identifier.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.IsColumnVisible">
             <summary>
@@ -6019,6 +6066,18 @@
             <summary>
             Returns column sorting.
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetDefaultSortingOrder">
+            <summary>
+            Returns not-null value for default sort column.
+            For multiple sort items, set value in ascendant order.
+            </summary>
+            <remarks>
+            Current implementation of grid columns uses only null and zero values.
+            </remarks>
+            <example>
+            To set default sorting by LastName, then FirstName use value 1 for LastName and value 2 for FirstName).
+            </example>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.DisposeAsync">
             <inheritdoc />
@@ -6114,6 +6173,11 @@
             Grid column.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetIdentifier">
+            <summary>
+            Returns the unique column identifier.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.IsVisible">
             <summary>
             Indicates whether the column is visible (otherwise the column is hidden).
@@ -6129,6 +6193,11 @@
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetSorting">
+            <summary>
+            Sorting of the column.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetDefaultSortingOrder">
             <summary>
             Sorting of the column.
             </summary>
@@ -6208,19 +6277,7 @@
             Sort direction of SortString/SortKeySelector.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.SortDefaultOrder">
-            <summary>
-            Not-null for default sort item.
-            For multiple sort items, set value in ascendant order.
-            </summary>
-            <remarks>
-            Current implementation of grid columns uses only null and zero values.
-            </remarks>
-            <example>
-            To set default sorting by LastName, then FirstName use value 1 for LastName and value 2 for FirstName).
-            </example>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.#ctor(System.String,System.Linq.Expressions.Expression{System.Func{`0,System.IComparable}},Havit.Collections.SortDirection,System.Nullable{System.Int32})">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.#ctor(System.String,System.Linq.Expressions.Expression{System.Func{`0,System.IComparable}},Havit.Collections.SortDirection)">
             <summary>
             Constructor.
             </summary>

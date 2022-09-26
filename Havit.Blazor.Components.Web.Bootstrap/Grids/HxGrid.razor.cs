@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Havit.Collections;
+using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -258,7 +259,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private CancellationTokenSource paginationRefreshDataCancellationTokenSource;
 	private GridUserState previousUserState;
 	private bool firstRenderCompleted = false;
-	private List<SortingItem<TItem>> currentSorting = null;
+	private List<GridInternalStateSortingItem<TItem>> currentSorting = null;
 	private bool postponeCurrentSortingDeserialization = false;
 
 	private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> infiniteScrollVirtualizeComponent;
@@ -308,7 +309,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		// when no sorting is set, use default
 		if (firstRender && (currentSorting == null))
 		{
-			SortingItem<TItem>[] defaultSorting = GetDefaultSorting();
+			GridInternalStateSortingItem<TItem>[] defaultSorting = GetDefaultSorting();
 			if (defaultSorting != null)
 			{
 				await SetCurrentSortingWithEventCallback(defaultSorting);
@@ -358,18 +359,22 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// <summary>
 	/// Returns default sorting if set.
 	/// </summary>
-	private SortingItem<TItem>[] GetDefaultSorting()
+	private GridInternalStateSortingItem<TItem>[] GetDefaultSorting()
 	{
-		var columnsSortings = GetColumnsToRender().SelectMany(item => item.GetSorting()).ToArray();
+		var columnsSortings = GetColumnsToRender()
+			.Select(item => new { Column = item, DefaultSortingOrder = item.GetDefaultSortingOrder() })
+			.Where(item => item.DefaultSortingOrder != null)
+			.OrderBy(item => item.DefaultSortingOrder.Value)
+			.Select(item => item.Column)
+			.ToArray();
 
 		if (columnsSortings.Any())
 		{
-			var defaultSorting = columnsSortings
-				.Where(item => item.SortDefaultOrder != null)
-				.OrderBy(item => item.SortDefaultOrder.Value)
-				.ToArray();
-
-			return defaultSorting;
+			return columnsSortings.Select(item => new GridInternalStateSortingItem<TItem>
+			{
+				Column = item,
+				ReverseDirection = false
+			}).ToArray();
 		}
 
 		return null;
@@ -406,7 +411,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		await InvokeSelectedDataItemsChangedAsync(SelectedDataItems);
 	}
 
-	private async Task<bool> SetCurrentSortingWithEventCallback(IReadOnlyList<SortingItem<TItem>> newSorting)
+	private async Task<bool> SetCurrentSortingWithEventCallback(IReadOnlyList<GridInternalStateSortingItem<TItem>> newSorting)
 	{
 		postponeCurrentSortingDeserialization = false;
 		currentSorting = newSorting.ToList();
@@ -447,9 +452,52 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		}
 	}
 
-	private async Task HandleSortingClick(IEnumerable<SortingItem<TItem>> sorting)
+	// TODO Unit test
+	// TODO Simplify
+	private async Task HandleSortingClick(IHxGridColumn<TItem> newSortColumn)
 	{
-		if (await SetCurrentSortingWithEventCallback(currentSorting?.ApplySorting(sorting.ToArray()) ?? sorting.ToList().AsReadOnly())) // when current sorting is null, use new sorting
+		List<GridInternalStateSortingItem<TItem>> newSorting;
+
+		if ((currentSorting == null) || !currentSorting.Any())
+		{
+			// No current sorting? Create a new one with the newSortingColumn.
+			newSorting = new List<GridInternalStateSortingItem<TItem>>
+			{
+				new GridInternalStateSortingItem<TItem>
+				{
+					Column = newSortColumn,
+					ReverseDirection = false
+				}
+			};
+		}
+		else
+		{
+			if (currentSorting[0].Column == newSortColumn)
+			{
+				// Currently sorting by the newSortColumn?
+				// Toggle the sort direction.
+				newSorting = new List<GridInternalStateSortingItem<TItem>>(currentSorting);
+				newSorting[0] = new GridInternalStateSortingItem<TItem>
+				{
+					Column = newSortColumn,
+					ReverseDirection = !currentSorting[0].ReverseDirection
+				};
+			}
+			else
+			{
+				// There is a sorting with another "first" sort column?
+				// Create a new sorting with the column "in the front".
+				newSorting = new List<GridInternalStateSortingItem<TItem>>(currentSorting);
+				newSorting.RemoveAll(item => item.Column == newSortColumn);
+				newSorting.Insert(0, new GridInternalStateSortingItem<TItem>
+				{
+					Column = newSortColumn,
+					ReverseDirection = false
+				});
+			}
+		}
+
+		if (await SetCurrentSortingWithEventCallback(newSorting.ToArray())) // when current sorting is null, use new sorting
 		{
 			await RefreshDataAsync();
 		}
@@ -510,7 +558,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		{
 			StartIndex = (pageSizeEffective ?? 0) * CurrentUserState.PageIndex,
 			Count = pageSizeEffective,
-			Sorting = currentSorting,
+			Sorting = ToSortingItems(currentSorting),
 			CancellationToken = cancellationToken
 		};
 
@@ -576,7 +624,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		{
 			StartIndex = request.StartIndex,
 			Count = request.Count,
-			Sorting = currentSorting,
+			Sorting = ToSortingItems(currentSorting),
 			CancellationToken = request.CancellationToken
 		};
 
@@ -655,12 +703,16 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	}
 	#endregion
 
-	private List<GridUserStateSortingItem> SerializeToCurrentUserStateSorting(IEnumerable<SortingItem<TItem>> sorting)
+	private List<GridUserStateSortingItem> SerializeToCurrentUserStateSorting(IEnumerable<GridInternalStateSortingItem<TItem>> sorting)
 	{
-		return sorting?.Select(item => GridUserStateSortingItem.Create(item.SortString, item.SortKeySelector, item.SortDirection)).ToList();
+		return sorting?.Select(item => new GridUserStateSortingItem
+		{
+			ColumnIdentifier = item.Column.GetIdentifier(),
+			ReverseDirection = item.ReverseDirection
+		}).ToList();
 	}
 
-	private List<SortingItem<TItem>> DeserializeCurrentUserStateSorting(IEnumerable<GridUserStateSortingItem> gridSortingStateItems)
+	private List<GridInternalStateSortingItem<TItem>> DeserializeCurrentUserStateSorting(IEnumerable<GridUserStateSortingItem> gridSortingStateItems)
 	{
 		if ((gridSortingStateItems == null) || !gridSortingStateItems.Any())
 		{
@@ -670,31 +722,54 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		// deserializing expression brings a security vulnerability
 		// to make it safe we allow only those expressions which are present on any of the columns
 
-		var sortings = columnsList.SelectMany(column => column.GetSorting()).ToList(); // we are not using GetColumnsToRender (sorting could be previous set by column currently not visible)
 		postponeCurrentSortingDeserialization = false;
 
-		var result = new List<SortingItem<TItem>>();
+		var result = new List<GridInternalStateSortingItem<TItem>>();
 		foreach (var gridSortingStateItem in gridSortingStateItems)
 		{
-			// try to find the sorting item with the same SortString and SortKeySelector (Expression)
-			var sortingItem = sortings.FirstOrDefault(item => (gridSortingStateItem.SortString == item.SortString)
-				&& (gridSortingStateItem.SortKeySelector == GridUserStateSortingItem.CreateSortKeySelector(item.SortKeySelector)));
+			// try to find the column for the sorting state item
+			var sortingColumn = columnsList.FirstOrDefault(item => gridSortingStateItem.ColumnIdentifier == item.GetIdentifier());
 
-			if (sortingItem != null)
+			if (sortingColumn != null)
 			{
-				// when the SortingItem was found, return it with the corrent sort direction
-				result.Add((sortingItem.SortDirection == gridSortingStateItem.SortDirection)
-					? sortingItem
-					: sortingItem.WithToggledSortDirection());
+				result.Add(new GridInternalStateSortingItem<TItem>
+				{
+					Column = sortingColumn,
+					ReverseDirection = gridSortingStateItem.ReverseDirection
+				});
 			}
 			else
 			{
-				// otherwise the column with the sorting is not yet register so postpone the "deserialization" to the later time (HandleColumnAdded).
+				// otherwise if any of the the columns with the sorting is not yet register so postpone the "deserialization" to the later time (HandleColumnAdded).
 				postponeCurrentSortingDeserialization = true;
 				return null;
 			}
 		}
 
+		return result;
+	}
+
+	// TODO Unit test
+	// TODO Naming
+	private IReadOnlyList<SortingItem<TItem>> ToSortingItems(IEnumerable<GridInternalStateSortingItem<TItem>> sortingState)
+	{
+		IReadOnlyList<SortingItem<TItem>> result = new List<SortingItem<TItem>>();
+
+		if (sortingState != null)
+		{
+			foreach (var item in sortingState.Reverse())
+			{
+				var sorting = item.Column.GetSorting();
+				if (item.ReverseDirection)
+				{
+					result = result.ApplySorting(sorting.Select(item => item.WithToggledSortDirection()).ToArray());
+				}
+				else
+				{
+					result = result.ApplySorting(sorting);
+				}
+			}
+		}
 		return result;
 	}
 

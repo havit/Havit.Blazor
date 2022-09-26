@@ -10,8 +10,12 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 	[Parameter] public EventCallback<TItem> OnUnselectDataItemClicked { get; set; }
 
 	/// <inheritdoc />
+	protected override string GetColumnIdentifier() => "HxMultiSelectGridColumn";
+
+	/// <inheritdoc />
 	protected override int GetColumnOrder() => Int32.MinValue;
 
+	/// <inheritdoc />
 	protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context)
 	{
 		return new GridCellTemplate
@@ -32,6 +36,7 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 		};
 	}
 
+	/// <inheritdoc />
 	protected override GridCellTemplate GetItemCellTemplate(TItem item)
 	{
 		return new GridCellTemplate
@@ -53,20 +58,23 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 		};
 	}
 
+	/// <inheritdoc />
 	protected override GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context)
 	{
 		return GridCellTemplate.Empty;
 	}
 
+	/// <inheritdoc />
 	protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context)
 	{
 		return GridCellTemplate.Empty;
 	}
 
-	protected override IEnumerable<SortingItem<TItem>> GetSorting()
-	{
-		return Enumerable.Empty<SortingItem<TItem>>();
-	}
+	/// <inheritdoc />
+	protected override IEnumerable<SortingItem<TItem>> GetSorting() => Enumerable.Empty<SortingItem<TItem>>();
+
+	/// <inheritdoc />
+	protected override int? GetDefaultSortingOrder() => null;
 
 	private Func<ChangeEventArgs, Task> HandleSelectDataItemClick(TItem item, bool wasSelected)
 	{

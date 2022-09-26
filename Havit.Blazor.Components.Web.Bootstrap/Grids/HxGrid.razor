@@ -71,18 +71,20 @@
 								var headerCellTemplate = column.GetHeaderCellTemplate(gridHeaderCellContext);
 								@if ((totalCount > 0) && columnSorting.Any())
 								{
-									bool isCurrentSorting = currentSorting?.StartsWith(columnSorting) ?? false;
-									<th @onclick="async () => await HandleSortingClick(columnSorting)" @onclick:stopPropagation role="button" class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable")">
+									bool isCurrentSorting = currentSorting?.FirstOrDefault()?.Column == column;
+									bool displayAscendingIcon =
+										(!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Ascending)) // column is not the primary sort column and click will cause ascending sorting (icon hover efect)
+										|| (isCurrentSorting && (currentSorting[0].ReverseDirection ^ /* xor operator*/ (columnSorting[0].SortDirection == Collections.SortDirection.Ascending))); // OR column is the primary sort column and currenly ascending sort (status icon)
+									<th @onclick="async () => await HandleSortingClick(column)" @onclick:stopPropagation role="button" class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable")">
 										<div class="hx-grid-header-cell-container">
 											<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
-											@if ((!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Descending))
-										|| (isCurrentSorting && (CurrentUserState.Sorting[0].SortDirection == Collections.SortDirection.Descending)))
+											@if (displayAscendingIcon)
 											{
-												<HxIcon Icon="@this.GetDefaults().SortDescendingIcon" />
+												<HxIcon Icon="@this.GetDefaults().SortAscendingIcon" />
 											}
 											else
 											{
-												<HxIcon Icon="@this.GetDefaults().SortAscendingIcon" />
+												<HxIcon Icon="@this.GetDefaults().SortDescendingIcon" />
 											}
 										</div>
 									</th>

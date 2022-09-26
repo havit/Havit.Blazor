@@ -12,8 +12,8 @@
                 <HxButton Text="Go" Color="ThemeColor.Secondary" Outline="true" />
             </ItemTemplate>
         </HxGridColumn>
-        <HxGridColumn Order="2" TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
-        <HxGridColumn Order="1" TItem="CultureInfo" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
+        <HxGridColumn Id="Name" Order="2" TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+        <HxGridColumn Id="DisplayName" Order="1" TItem="CultureInfo" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
             <HeaderTemplate Context="context">
                 Display Name (total count: @context.TotalCount)
             </HeaderTemplate>
@@ -34,8 +34,12 @@
         </HxContextMenu>
     </ContextMenu>
 </HxGrid>
-<HxButton Text="Sort by display name" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { SortKeySelector = clientSortByNameExpressionString, SortDirection = Havit.Collections.SortDirection.Ascending } } }" />
-<HxButton Text="Sort by display name descending" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { SortKeySelector = clientSortByNameExpressionString, SortDirection = Havit.Collections.SortDirection.Descending } } }" />
+
+@{
+    string name = "Name"; 
+}
+<HxButton Text="Sort by name" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnIdentifier = name } } }" />
+<HxButton Text="Sort by name (reverse)" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnIdentifier = name, ReverseDirection = true } } }" />
 
 <p>Current CultureInfo: @clientSideCurrentCultureInfo?.DisplayName</p>
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
@@ -67,16 +71,14 @@
     @code {
         private const int PageSize = 10;
 
-    private HxGrid<CultureInfo>
-    serverSideGrid;
+    private HxGrid<CultureInfo> serverSideGrid;
 
     private bool multiSelectionEnabled = true;
     private int skip = 0;
 
     // LOCAL
     private CultureInfo clientSideCurrentCultureInfo = null;
-    private GridUserState clientSideGridUserState = new GridUserState { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { SortKeySelector = clientSortByNameExpressionString, SortDirection = Havit.Collections.SortDirection.Descending } } };
-    private const string clientSortByNameExpressionString = "item => item.Name"; // TODO JEN PRO ODLADENÍ
+    private GridUserState clientSideGridUserState = new GridUserState { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnIdentifier = "Name" } } };
 
     // SERVER SIDE (simulation)
     private GridUserState serverSideGridUserState = new GridUserState();

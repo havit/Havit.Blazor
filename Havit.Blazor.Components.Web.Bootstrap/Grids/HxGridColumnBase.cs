@@ -20,6 +20,9 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	}
 
 	/// <inheritdoc />
+	string IHxGridColumn<TItem>.GetIdentifier() => GetColumnIdentifier();
+
+	/// <inheritdoc />
 	bool IHxGridColumn<TItem>.IsVisible() => IsColumnVisible();
 
 	/// <inheritdoc />
@@ -39,6 +42,14 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 
 	/// <inheritdoc />
 	SortingItem<TItem>[] IHxGridColumn<TItem>.GetSorting() => this.GetSorting().ToArray();
+
+	/// <inheritdoc />
+	int? IHxGridColumn<TItem>.GetDefaultSortingOrder() => GetDefaultSortingOrder();
+
+	/// <summary>
+	/// Returns the unique column identifier.
+	/// </summary>
+	protected abstract string GetColumnIdentifier();
 
 	/// <summary>
 	/// Indicates whether the column is visible (otherwise the column is hidden).
@@ -79,6 +90,18 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	/// Returns column sorting.
 	/// </summary>
 	protected abstract IEnumerable<SortingItem<TItem>> GetSorting();
+
+	/// <summary>
+	/// Returns not-null value for default sort column.
+	/// For multiple sort items, set value in ascendant order.
+	/// </summary>
+	/// <remarks>
+	/// Current implementation of grid columns uses only null and zero values.
+	/// </remarks>
+	/// <example>
+	/// To set default sorting by LastName, then FirstName use value 1 for LastName and value 2 for FirstName).
+	/// </example>
+	protected abstract int? GetDefaultSortingOrder();
 
 	/// <inheritdoc />
 	public async ValueTask DisposeAsync()
