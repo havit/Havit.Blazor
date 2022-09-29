@@ -1,8 +1,8 @@
-﻿export function initialize(inputId, hxSearchBoxDotnetObjectReference, keys) {
+﻿export function initialize(inputId, hxSearchBoxDotnetObjectReference, keysToPreventDefault) {
     let inputElement = document.getElementById(inputId);
 
     inputElement.hxSearchBoxDotnetObjectReference = hxSearchBoxDotnetObjectReference;
-    inputElement.keys = keys;
+	inputElement.hxSearchBoxKeysToPreventDefault = keysToPreventDefault;
 
     inputElement.addEventListener('keydown', handleKeyDown);
 }
@@ -12,7 +12,7 @@ function handleKeyDown(event) {
 
     event.target.hxSearchBoxDotnetObjectReference.invokeMethodAsync("HxSearchBox_HandleInputKeyDown", key);
 
-    if (event.target.keys.includes(key)) {
+	if (event.target.hxSearchBoxKeysToPreventDefault.includes(key)) {
         event.preventDefault();
     }
 }
@@ -22,5 +22,5 @@ export function dispose(inputId) {
 
     inputElement.removeEventListener('keydown', handleKeyDown);
     inputElement.hxSearchBoxDotnetObjectReference = null;
-    inputElement.keys = null;
+	inputElement.hxSearchBoxKeysToPreventDefault = null;
 }

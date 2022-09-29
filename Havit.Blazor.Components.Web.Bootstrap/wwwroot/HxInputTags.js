@@ -1,8 +1,8 @@
-﻿export function initialize(inputId, hxInputTagsDotnetObjectReference, keys) {
+﻿export function initialize(inputId, hxInputTagsDotnetObjectReference, keysToPrevendDefault) {
 	let inputElement = document.getElementById(inputId);
 
 	inputElement.hxInputTagsDotnetObjectReference = hxInputTagsDotnetObjectReference;
-	inputElement.keys = keys;
+	inputElement.hxInputTagsKeysToPreventDefault = keysToPrevendDefault;
 
 	inputElement.addEventListener('keydown', handleKeyDown);
 }
@@ -12,7 +12,7 @@ function handleKeyDown(event) {
 
 	event.target.hxInputTagsDotnetObjectReference.invokeMethodAsync("HxInputTagsInternal_HandleInputKeyDown", key);
 
-	if (event.target.keys.includes(key)) {
+	if (event.target.hxInputTagsKeysToPreventDefault.includes(key)) {
 		event.preventDefault();
 	}
 }
@@ -76,5 +76,5 @@ export function dispose(inputId) {
 
 	inputElement.removeEventListener('keydown', handleKeyDown);
 	inputElement.hxInputTagsDotnetObjectReference = null;
-	inputElement.keys = null;
+	inputElement.hxInputTagsKeysToPreventDefault = null;
 }

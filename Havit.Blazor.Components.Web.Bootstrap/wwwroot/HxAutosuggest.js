@@ -1,8 +1,8 @@
-﻿export function initialize(inputId, hxAutosuggestDotnetObjectReference, keys) {
+﻿export function initialize(inputId, hxAutosuggestDotnetObjectReference, keysToPreventDefault) {
     let inputElement = document.getElementById(inputId);
 
     inputElement.hxAutosuggestDotnetObjectReference = hxAutosuggestDotnetObjectReference;
-    inputElement.keys = keys;
+	inputElement.hxAutosuggestKeysToPreventDefault = keysToPreventDefault;
 
     inputElement.addEventListener('keydown', handleKeyDown);
 }
@@ -12,7 +12,7 @@ function handleKeyDown(event) {
 
     event.target.hxAutosuggestDotnetObjectReference.invokeMethodAsync("HxAutosuggestInternal_HandleInputKeyDown", key);
 
-    if (event.target.keys.includes(key)) {
+	if (event.target.hxAutosuggestKeysToPreventDefault.includes(key)) {
         event.preventDefault();
     }
 }
@@ -68,5 +68,5 @@ export function dispose(inputId) {
 
     inputElement.removeEventListener('keydown', handleKeyDown);
     inputElement.hxAutosuggestDotnetObjectReference = null;
-    inputElement.keys = null;
+	inputElement.hxAutosuggestKeysToPreventDefault = null;
 }
