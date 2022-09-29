@@ -95,6 +95,11 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public string InputGroupEndText { get; set; }
 
 	/// <summary>
+	/// Text to display in the input instead of a list of selected values.
+	/// </summary>
+	[Parameter] public string Text { get; set; }
+
+	/// <summary>
 	/// Input-group at the end of the input.
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
@@ -164,7 +169,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.OpenComponent<HxMultiSelectInternal<TValue, TItem>>(100);
 		builder.AddAttribute(101, nameof(HxMultiSelectInternal<TValue, TItem>.InputId), InputId);
 		builder.AddAttribute(102, nameof(HxMultiSelectInternal<TValue, TItem>.InputCssClass), GetInputCssClassToRender());
-		builder.AddAttribute(103, nameof(HxMultiSelectInternal<TValue, TItem>.InputText), CurrentValueAsString);
+		builder.AddAttribute(103, nameof(HxMultiSelectInternal<TValue, TItem>.InputText), !string.IsNullOrEmpty(Text) ? Text : CurrentValueAsString);
 		builder.AddAttribute(104, nameof(HxMultiSelectInternal<TValue, TItem>.EnabledEffective), EnabledEffective);
 		builder.AddAttribute(105, nameof(HxMultiSelectInternal<TValue, TItem>.ItemsToRender), itemsToRender);
 		builder.AddAttribute(106, nameof(HxMultiSelectInternal<TValue, TItem>.TextSelector), TextSelector);
