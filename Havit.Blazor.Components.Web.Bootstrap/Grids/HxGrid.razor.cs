@@ -251,6 +251,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	[Inject] protected IStringLocalizer<HxGrid> HxGridLocalizer { get; set; }
 
 	private List<IHxGridColumn<TItem>> columnsList;
+	private HashSet<string> columnIds;
+
 	private CollectionRegistration<IHxGridColumn<TItem>> columnsListRegistration;
 	private bool isDisposed = false;
 
@@ -273,7 +275,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	public HxGrid()
 	{
 		columnsList = new List<IHxGridColumn<TItem>>();
-		columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(columnsList, async () => await InvokeAsync(this.StateHasChanged), () => isDisposed, HandleColumnAdded);
+		columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(columnsList, async () => await InvokeAsync(this.StateHasChanged), () => isDisposed, HandleColumnAdded, HandleColumnRemoved);
 	}
 
 	/// <inheritdoc />
@@ -472,9 +474,27 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private void HandleColumnAdded(IHxGridColumn<TItem> column)
 	{
+		string columnId = column.GetIdentifier();
+		if (!String.IsNullOrEmpty(columnId))
+		{
+			columnIds ??= new HashSet<string>();
+			if (!columnIds.Add(columnId))
+			{
+				throw new InvalidOperationException($"There is already registered another column with the '{columnId}' identifier.");
+			}
+		}
+
 		if (postponeCurrentSortingDeserialization)
 		{
 			currentSorting = DeserializeCurrentUserStateSorting(CurrentUserState.Sorting);
+		}
+	}
+
+	private void HandleColumnRemoved(IHxGridColumn<TItem> column)
+	{
+		if ((columnIds != null) && (!String.IsNullOrEmpty(column.GetIdentifier())))
+		{
+			columnIds.Remove(column.GetIdentifier());
 		}
 	}
 

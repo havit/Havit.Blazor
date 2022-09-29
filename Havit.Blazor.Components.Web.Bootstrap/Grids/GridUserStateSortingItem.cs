@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Sorting criteria for a <see cref="GridUserState"/>.
 /// </summary>
-public sealed class GridUserStateSortingItem
+public sealed record GridUserStateSortingItem
 {
 	/// <summary>
 	/// Column identifier.

@@ -12,7 +12,7 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	/// <summary>
 	/// Column unique identifier.
 	/// </summary>
-	[Parameter] public string Id { get; set; }
+	[Parameter] public string Id { get; set; } = Guid.NewGuid().ToString("N");
 
 	/// <summary>
 	/// Indicates whether the column is visible (otherwise the column is hidden).
@@ -130,15 +130,7 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	#endregion
 
 	/// <inheritdoc />
-	protected override string GetColumnIdentifier()
-	{
-		if (String.IsNullOrEmpty(Id))
-		{
-			Id = Guid.NewGuid().ToString();
-		}
-
-		return Id;
-	}
+	protected override string GetColumnIdentifier() => Id;
 
 	/// <inheritdoc />
 	protected override bool IsColumnVisible() => Visible;
