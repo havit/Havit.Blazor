@@ -179,16 +179,6 @@ public partial class HxInputTagsInternal
 		await autosuggestInput.FocusAsync();
 	}
 
-	protected async Task HandleInputKeyDown(KeyboardEventArgs args)
-	{
-		if ((args.Code == "Backspace") && String.IsNullOrWhiteSpace(userInput) && ValueEffective.Any())
-		{
-			await RemoveTagWithEventCallbackAsync(ValueEffective.Last());
-		}
-
-		await UpdateFocusedItemAsync(args);
-	}
-
 	private async Task HandleInputInput(string newUserInput)
 	{
 		// user changes an input
@@ -360,17 +350,17 @@ public partial class HxInputTagsInternal
 	#region KeyboardNavigation
 	private int focusedItemIndex = -1;
 
-	private const string ArrowUpKeyCode = "ArrowUp";
-	private const string ArrowDownKeyCode = "ArrowDown";
-
-	private const string EnterKeyCode = "Enter";
-	private const string NumpadEnterKeyCode = "NumpadEnter";
-
-	private async Task UpdateFocusedItemAsync(KeyboardEventArgs keyboardEventArgs)
+	[JSInvokable("HxInputTagsInternal_HandleInputKeyDown")]
+	public async Task HandleInputKeyDown(string keyCode)
 	{
+		if ((keyCode == KeyCodes.Backspace) && String.IsNullOrWhiteSpace(userInput) && ValueEffective.Any())
+		{
+			await RemoveTagWithEventCallbackAsync(ValueEffective.Last());
+		}
+
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 		string focusedItem = GetItemByIndex(focusedItemIndex);
-		if ((keyboardEventArgs.Code == EnterKeyCode) || (keyboardEventArgs.Code == NumpadEnterKeyCode))
+		if ((keyCode == KeyCodes.Enter) || (keyCode == KeyCodes.NumpadEnter))
 		{
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
@@ -380,20 +370,22 @@ public partial class HxInputTagsInternal
 		}
 
 		// Move focus up or down.
-		if (keyboardEventArgs.Code == ArrowUpKeyCode)
+		if (keyCode == KeyCodes.ArrowUp)
 		{
 			int previousItemIndex = focusedItemIndex - 1;
 			if (previousItemIndex >= 0)
 			{
 				focusedItemIndex = previousItemIndex;
+				StateHasChanged();
 			}
 		}
-		else if (keyboardEventArgs.Code == ArrowDownKeyCode)
+		else if (keyCode == KeyCodes.ArrowDown)
 		{
 			int nextItemIndex = focusedItemIndex + 1;
 			if (nextItemIndex < suggestions?.Count)
 			{
 				focusedItemIndex = nextItemIndex;
+				StateHasChanged();
 			}
 		}
 	}
@@ -425,7 +417,15 @@ public partial class HxInputTagsInternal
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		await base.OnAfterRenderAsync(firstRender);
+		if (firstRender)
+		{
+			await EnsureJsModuleAsync();
+			if (disposed)
+			{
+				return;
+			}
+			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, new string[] { KeyCodes.ArrowUp, KeyCodes.ArrowDown });
+		}
 
 		if (blurInProgress)
 		{
@@ -436,6 +436,14 @@ public partial class HxInputTagsInternal
 				userInput = String.Empty;
 				StateHasChanged();
 			}
+		}
+	}
+
+	protected override void OnParametersSet()
+	{
+		if (string.IsNullOrWhiteSpace(InputId))
+		{
+			InputId = "hx" + Guid.NewGuid().ToString("N");
 		}
 	}
 
@@ -529,7 +537,20 @@ public partial class HxInputTagsInternal
 
 		if (jsModule != null)
 		{
+#if NET6_0_OR_GREATER
+			try
+			{
+				await jsModule.InvokeVoidAsync("dispose", InputId);
+				await jsModule.DisposeAsync();
+			}
+			catch (JSDisconnectedException)
+			{
+
+			}
+#else
+			await jsModule.InvokeVoidAsync("dispose", InputId);
 			await jsModule.DisposeAsync();
+#endif
 		}
 
 		dotnetObjectReference.Dispose();
