@@ -571,13 +571,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		cancellationTokenSource?.Dispose();
 		cancellationTokenSource = null;
 
-		await dropdownToggle.DisposeAsync();
-
 		if (jsModule != null)
 		{
 #if NET6_0_OR_GREATER
 			try
 			{
+				await jsModule.InvokeVoidAsync("dispose", inputId);
+				await dropdownToggle.DisposeAsync();
 				await jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
@@ -585,6 +585,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 				// NOOP
 			}
 #else
+			await jsModule.InvokeVoidAsync("dispose", inputId);
+			await dropdownToggle.DisposeAsync();
 			await jsModule.DisposeAsync();
 #endif
 		}

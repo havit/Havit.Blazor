@@ -1,13 +1,26 @@
 ﻿export function initialize(inputId, hxSearchBoxDotnetObjectReference, keys) {
     let inputElement = document.getElementById(inputId);
 
-    inputElement.onkeydown = function (e) {
-        let key = e.key;
+    inputElement.hxSearchBoxDotnetObjectReference = hxSearchBoxDotnetObjectReference;
+    inputElement.keys = keys;
 
-        hxSearchBoxDotnetObjectReference.invokeMethodAsync("HxSearchBox_HandleInputKeyDown", key);
+    inputElement.addEventListener('keydown', handleKeyDown);
+}
 
-        if (keys.includes(key)) {
-            e.preventDefault();
-        }
+function handleKeyDown(event) {
+    let key = event.key;
+
+    event.target.hxSearchBoxDotnetObjectReference.invokeMethodAsync("HxSearchBox_HandleInputKeyDown", key);
+
+    if (event.target.keys.includes(key)) {
+        event.preventDefault();
     }
+}
+
+export function dispose(inputId) {
+    let inputElement = document.getElementById(inputId);
+
+    inputElement.removeEventListener('keydown', handleKeyDown);
+    inputElement.hxSearchBoxDotnetObjectReference = null;
+    inputElement.keys = null;
 }

@@ -316,7 +316,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	#region KeyboardNavigation
 	private int focusedItemIndex = -1;
 
-	[JSInvokable("HxAutosuggest_HandleInputKeyDown")]
+	[JSInvokable("HxAutosuggestInternal_HandleInputKeyDown")]
 	public async Task HandleInputKeyDown(string keyCode)
 	{
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
@@ -481,6 +481,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 #if NET6_0_OR_GREATER
 			try
 			{
+				await jsModule.InvokeVoidAsync("dispose", InputId);
 				await jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
@@ -488,6 +489,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 				// NOOP
 			}
 #else
+			await jsModule.InvokeVoidAsync("dispose", InputId);
 			await jsModule.DisposeAsync();
 #endif
 		}

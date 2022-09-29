@@ -537,7 +537,20 @@ public partial class HxInputTagsInternal
 
 		if (jsModule != null)
 		{
+#if NET6_0_OR_GREATER
+			try
+			{
+				await jsModule.InvokeVoidAsync("dispose", InputId);
+				await jsModule.DisposeAsync();
+			}
+			catch (JSDisconnectedException)
+			{
+
+			}
+#else
+			await jsModule.InvokeVoidAsync("dispose", InputId);
 			await jsModule.DisposeAsync();
+#endif
 		}
 
 		dotnetObjectReference.Dispose();
