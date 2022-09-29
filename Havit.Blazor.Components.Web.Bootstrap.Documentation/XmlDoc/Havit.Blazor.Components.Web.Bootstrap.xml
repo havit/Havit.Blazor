@@ -6300,28 +6300,6 @@
             Sorting extension methods.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItemExtensions.ApplySorting``1(System.Collections.Generic.IReadOnlyList{Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}},Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}[])">
-            <summary>
-            Applies itemsToMerge items to source items of sorting.
-            When source starts with itemsToMerge, sort direction toggles.
-            Otherwise itemsToMerges prepends source (and remove possible duplicities).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItemExtensions.StartsWith``1(System.Collections.Generic.IReadOnlyList{Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}},Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}[])">
-            <summary>
-            Returns <c>true</c> when source sortings starts with itemsToMerge.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItemExtensions.ToggleSortDirections``1(System.Collections.Generic.IEnumerable{Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}})">
-            <summary>
-            Returns source with toggles sort direction.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItemExtensions.Excluding``1(System.Collections.Generic.IEnumerable{Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}},Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}[])">
-            <summary>
-            Returns source without itemsToMerge.
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItemExtensions.ToGenericPropertyComparer``1(System.Collections.Generic.IEnumerable{Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}})">
             <summary>
             Creates GenericPropertyComparer for the sorting by <see cref="P:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.SortString"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.SortDirection"/> properties.

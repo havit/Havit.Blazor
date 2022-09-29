@@ -452,52 +452,11 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		}
 	}
 
-	// TODO Unit test
-	// TODO Simplify
 	private async Task HandleSortingClick(IHxGridColumn<TItem> newSortColumn)
 	{
-		List<GridInternalStateSortingItem<TItem>> newSorting;
+		GridInternalStateSortingItem<TItem>[] newSorting = GridInternalStateSortingItemHelper.ApplyColumnToSorting(currentSorting, newSortColumn);
 
-		if ((currentSorting == null) || !currentSorting.Any())
-		{
-			// No current sorting? Create a new one with the newSortingColumn.
-			newSorting = new List<GridInternalStateSortingItem<TItem>>
-			{
-				new GridInternalStateSortingItem<TItem>
-				{
-					Column = newSortColumn,
-					ReverseDirection = false
-				}
-			};
-		}
-		else
-		{
-			if (currentSorting[0].Column == newSortColumn)
-			{
-				// Currently sorting by the newSortColumn?
-				// Toggle the sort direction.
-				newSorting = new List<GridInternalStateSortingItem<TItem>>(currentSorting);
-				newSorting[0] = new GridInternalStateSortingItem<TItem>
-				{
-					Column = newSortColumn,
-					ReverseDirection = !currentSorting[0].ReverseDirection
-				};
-			}
-			else
-			{
-				// There is a sorting with another "first" sort column?
-				// Create a new sorting with the column "in the front".
-				newSorting = new List<GridInternalStateSortingItem<TItem>>(currentSorting);
-				newSorting.RemoveAll(item => item.Column == newSortColumn);
-				newSorting.Insert(0, new GridInternalStateSortingItem<TItem>
-				{
-					Column = newSortColumn,
-					ReverseDirection = false
-				});
-			}
-		}
-
-		if (await SetCurrentSortingWithEventCallback(newSorting.ToArray())) // when current sorting is null, use new sorting
+		if (await SetCurrentSortingWithEventCallback(newSorting))
 		{
 			await RefreshDataAsync();
 		}
@@ -558,7 +517,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		{
 			StartIndex = (pageSizeEffective ?? 0) * CurrentUserState.PageIndex,
 			Count = pageSizeEffective,
-			Sorting = ToSortingItems(currentSorting),
+			Sorting = GridInternalStateSortingItemHelper.ToSortingItems(currentSorting),
 			CancellationToken = cancellationToken
 		};
 
@@ -624,7 +583,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		{
 			StartIndex = request.StartIndex,
 			Count = request.Count,
-			Sorting = ToSortingItems(currentSorting),
+			Sorting = GridInternalStateSortingItemHelper.ToSortingItems(currentSorting),
 			CancellationToken = request.CancellationToken
 		};
 
@@ -749,30 +708,6 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		return result;
 	}
 
-	// TODO Unit test
-	// TODO Naming
-	private IReadOnlyList<SortingItem<TItem>> ToSortingItems(IEnumerable<GridInternalStateSortingItem<TItem>> sortingState)
-	{
-		IReadOnlyList<SortingItem<TItem>> result = new List<SortingItem<TItem>>();
-
-		if (sortingState != null)
-		{
-			foreach (var item in sortingState.Reverse())
-			{
-				var sorting = item.Column.GetSorting();
-				if (item.ReverseDirection)
-				{
-					result = result.ApplySorting(sorting.Select(item => item.WithToggledSortDirection()).ToArray());
-				}
-				else
-				{
-					result = result.ApplySorting(sorting);
-				}
-			}
-		}
-		return result;
-	}
-
 	/// <inheritdoc />
 	public void Dispose()
 	{
@@ -788,6 +723,22 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			paginationRefreshDataCancellationTokenSource = null;
 
 			isDisposed = true;
+		}
+	}
+
+	internal static SortDirection GetSortIconDisplayDirection(bool isCurrentSorting, List<GridInternalStateSortingItem<TItem>> currentSorting, SortingItem<TItem>[] columnSorting)
+	{
+		if (!isCurrentSorting)
+		{
+			// column is NOT the primary sort column and click will cause ascending sorting (icon hover efect)
+			return columnSorting[0].SortDirection;
+		}
+		else
+		{
+			// column is the primary sort column and the icon shows the current sorting direction (status icon)
+			return currentSorting[0].ReverseDirection
+				? columnSorting[0].SortDirection.Reverse()
+				: columnSorting[0].SortDirection;
 		}
 	}
 }

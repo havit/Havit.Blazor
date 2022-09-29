@@ -72,13 +72,11 @@
 								@if ((totalCount > 0) && columnSorting.Any())
 								{
 									bool isCurrentSorting = currentSorting?.FirstOrDefault()?.Column == column;
-									bool displayAscendingIcon =
-										(!isCurrentSorting && (columnSorting[0].SortDirection == Collections.SortDirection.Ascending)) // column is not the primary sort column and click will cause ascending sorting (icon hover efect)
-										|| (isCurrentSorting && (currentSorting[0].ReverseDirection ^ /* xor operator*/ (columnSorting[0].SortDirection == Collections.SortDirection.Ascending))); // OR column is the primary sort column and currenly ascending sort (status icon)
+									Havit.Collections.SortDirection sortIconDisplayDirection = GetSortIconDisplayDirection(isCurrentSorting, currentSorting, columnSorting);
 									<th @onclick="async () => await HandleSortingClick(column)" @onclick:stopPropagation role="button" class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable")">
 										<div class="hx-grid-header-cell-container">
 											<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
-											@if (displayAscendingIcon)
+											@if (sortIconDisplayDirection == Collections.SortDirection.Ascending)
 											{
 												<HxIcon Icon="@this.GetDefaults().SortAscendingIcon" />
 											}
