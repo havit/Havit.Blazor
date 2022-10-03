@@ -1,5 +1,8 @@
 ﻿export function initialize(inputId, hxSearchBoxDotnetObjectReference, keysToPreventDefault) {
-    let inputElement = document.getElementById(inputId);
+	let inputElement = document.getElementById(inputId);
+	if (!inputElement) {
+		return;
+	}
 
     inputElement.hxSearchBoxDotnetObjectReference = hxSearchBoxDotnetObjectReference;
 	inputElement.hxSearchBoxKeysToPreventDefault = keysToPreventDefault;

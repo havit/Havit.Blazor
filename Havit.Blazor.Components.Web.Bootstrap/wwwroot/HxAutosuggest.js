@@ -1,5 +1,8 @@
 ﻿export function initialize(inputId, hxAutosuggestDotnetObjectReference, keysToPreventDefault) {
-    let inputElement = document.getElementById(inputId);
+	let inputElement = document.getElementById(inputId);
+	if (!inputElement) {
+		return;
+	}
 
     inputElement.hxAutosuggestDotnetObjectReference = hxAutosuggestDotnetObjectReference;
 	inputElement.hxAutosuggestKeysToPreventDefault = keysToPreventDefault;

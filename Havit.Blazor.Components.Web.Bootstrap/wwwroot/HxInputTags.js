@@ -1,5 +1,8 @@
 ﻿export function initialize(inputId, hxInputTagsDotnetObjectReference, keysToPrevendDefault) {
 	let inputElement = document.getElementById(inputId);
+	if (!inputElement) {
+		return;
+	}
 
 	inputElement.hxInputTagsDotnetObjectReference = hxInputTagsDotnetObjectReference;
 	inputElement.hxInputTagsKeysToPreventDefault = keysToPrevendDefault;
