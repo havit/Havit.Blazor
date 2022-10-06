@@ -4,5 +4,5 @@
 }
 
 ::deep .hx-context-menu-item-icon {
-    margin-right: var(--hx-context-menu-item-icon-margin-right);
+    margin: var(--hx-context-menu-item-icon-margin);
 }
