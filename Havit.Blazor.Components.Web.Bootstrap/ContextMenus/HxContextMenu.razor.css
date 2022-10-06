@@ -1,6 +1,6 @@
 .hx-context-menu-btn {
     border-radius: var(--hx-context-menu-button-border-radius);
-    padding: 0 4px;
+    padding: var(--hx-context-menu-button-padding);
 }
 
 .hx-context-menu-btn:hover {

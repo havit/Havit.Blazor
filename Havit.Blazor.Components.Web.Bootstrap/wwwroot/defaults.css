@@ -62,6 +62,7 @@
     --hx-chiplist-gap: .25rem;
 	/* HxContextMenu */
 	--hx-context-menu-button-border-radius: 	.325rem;
+	--hx-context-menu-button-padding: 	0 .25rem;
 	--hx-context-menu-button-hover-background: 	var(--bs-gray-300);
 	--hx-context-menu-item-icon-margin-right:	0.5rem;
 	/* HxGrid */
