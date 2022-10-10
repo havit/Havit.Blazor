@@ -14,10 +14,10 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	[Parameter] public IEnumerable<TItem> Data { get; set; }
 
 	/// <summary>
-	/// TextSelector is obsolete, please use ItemTextSelector instead.
+	/// <see cref="TextSelector"/> is obsolete, please use <see cref="ItemTextSelector"/> instead.
 	/// </summary>
 	[Parameter]
-	[Obsolete("TextSelector is obsolete, please use ItemTextSelector instead.")]
+	[Obsolete($"{nameof(TextSelector)} is obsolete, use {nameof(ItemTextSelector)} instead.")]
 	public Func<TItem, string> TextSelector
 	{
 		get => ItemTextSelector;
@@ -26,15 +26,15 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 
 	/// <summary>
 	/// Selects text to display from item.
-	/// When not set, ToString() is used.
+	/// When not set, <c>ToString()</c> is used.
 	/// </summary>
 	[Parameter] public Func<TItem, string> ItemTextSelector { get; set; }
 
 	/// <summary>
-	/// ValueSelector is obsolete, please use ItemValueSelector instead.
+	/// <see cref="ValueSelector"/> is obsolete, please use <see cref="ItemValueSelector"/> instead.
 	/// </summary>
 	[Parameter]
-	[Obsolete("ValueSelector is obsolete, please use ItemValueSelector instead.")]
+	[Obsolete($"{nameof(ValueSelector)} is obsolete, use {nameof(ItemValueSelector)} instead.")]
 	public Func<TItem, TValue> ValueSelector
 	{
 		get => ItemValueSelector;
@@ -48,10 +48,10 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	[Parameter] public Func<TItem, TValue> ItemValueSelector { get; set; }
 
 	/// <summary>
-	/// SortKeySelector is obsolete, please use ItemSortKeySelector instead.
+	/// <see cref="SortKeySelector"/> is obsolete, please use <see cref="ItemSortKeySelector"/> instead.
 	/// </summary>
 	[Parameter]
-	[Obsolete("SortKeySelector is obsolete, please use ItemSortKeySelector instead.")]
+	[Obsolete($"{nameof(SortKeySelector)} is obsolete, use {nameof(ItemSortKeySelector)} instead.")]
 	public Func<TItem, IComparable> SortKeySelector
 	{
 		get => ItemSortKeySelector;

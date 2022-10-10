@@ -13,10 +13,21 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	/// Not required when TValueType is same as TItemTime.
 	/// </summary>
 	[Parameter]
+	public Func<TItem, TValue> ItemValueSelector
+	{
+		get => ItemValueSelectorImpl;
+		set => ItemValueSelectorImpl = value;
+	}
+
+	/// <summary>
+	/// <see cref="ValueSelector"/> is obsolete, please use <see cref="ItemValueSelector"/> instead.
+	/// </summary>
+	[Parameter]
+	[Obsolete($"{nameof(ValueSelector)} is obsolete, use {nameof(ItemValueSelector)} instead.")]
 	public Func<TItem, TValue> ValueSelector
 	{
-		get => ValueSelectorImpl;
-		set => ValueSelectorImpl = value;
+		get => ItemValueSelector;
+		set => ItemValueSelector = value;
 	}
 
 	/// <summary>
@@ -34,15 +45,26 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	/// When not set <c>ToString()</c> is used.
 	/// </summary>
 	[Parameter]
+	public Func<TItem, string> ItemTextSelector
+	{
+		get => ItemTextSelectorImpl;
+		set => ItemTextSelectorImpl = value;
+	}
+
+	/// <summary>
+	/// <see cref="TextSelector"/> is obsolete, please use <see cref="ItemTextSelector"/> instead.
+	/// </summary>
+	[Parameter]
+	[Obsolete($"{nameof(TextSelector)} is obsolete, use {nameof(ItemTextSelector)} instead.")]
 	public Func<TItem, string> TextSelector
 	{
-		get => TextSelectorImpl;
-		set => TextSelectorImpl = value;
+		get => ItemTextSelector;
+		set => ItemTextSelector = value;
 	}
 
 	/// <summary>
 	/// Gets html to display from item.
-	/// When not set <see cref="TextSelector"/> is used.
+	/// When not set <see cref="ItemTextSelector"/> is used.
 	/// </summary>
 	[Parameter]
 	public RenderFragment<TItem> ItemTemplate
@@ -56,10 +78,21 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
 	/// </summary>
 	[Parameter]
+	public Func<TItem, IComparable> ItemSortKeySelector
+	{
+		get => ItemSortKeySelectorImpl;
+		set => ItemSortKeySelectorImpl = value;
+	}
+
+	/// <summary>
+	/// <see cref="SortKeySelector"/> is obsolete, please use <see cref="ItemSortKeySelector"/> instead.
+	/// </summary>
+	[Parameter]
+	[Obsolete($"{nameof(SortKeySelector)} is obsolete, use {nameof(ItemSortKeySelector)} instead.")]
 	public Func<TItem, IComparable> SortKeySelector
 	{
-		get => SortKeySelectorImpl;
-		set => SortKeySelectorImpl = value;
+		get => ItemSortKeySelector;
+		set => ItemSortKeySelector = value;
 	}
 
 	/// <summary>

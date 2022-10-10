@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Base class for HxRadioList and custom-implemented pickers.
+/// Base class for <see cref="HxRadioButtonList{TValue, TItem}"/> and custom-implemented pickers.
 /// </summary>
 /// <typeparam name="TValue">Type of value.</typeparam>
 /// <typeparam name="TItem">Type of items.</typeparam>
@@ -16,10 +16,20 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 	/// <summary>
 	/// Selects value from item.
-	/// Not required when TValueType is same as TItemTime.
+	/// Not required when <c>TValueType</c> is same as <c>TItemTime</c>.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
-	protected Func<TItem, TValue> ValueSelectorImpl { get; set; }
+	protected Func<TItem, TValue> ItemValueSelectorImpl { get; set; }
+
+	/// <summary>
+	/// <see cref="ValueSelectorImpl"/> is obsolete, please use <see cref="ItemValueSelectorImpl"/> instead.
+	/// </summary>
+	[Obsolete($"{nameof(ValueSelectorImpl)} is obsolete, use {nameof(ItemValueSelectorImpl)} instead.")]
+	protected Func<TItem, TValue> ValueSelectorImpl
+	{
+		get => ItemValueSelectorImpl;
+		set => ItemValueSelectorImpl = value;
+	}
 
 	/// <summary>
 	/// Items to display. 
@@ -32,20 +42,40 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	/// When not set ToString() is used.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
-	protected Func<TItem, string> TextSelectorImpl { get; set; }
+	protected Func<TItem, string> ItemTextSelectorImpl { get; set; }
+
+	/// <summary>
+	/// <see cref="TextSelectorImpl"/> is obsolete, please use <see cref="ItemTextSelectorImpl"/> instead.
+	/// </summary>
+	[Obsolete($"{nameof(TextSelectorImpl)} is obsolete, use {nameof(ItemTextSelectorImpl)} instead.")]
+	protected Func<TItem, string> TextSelectorImpl
+	{
+		get => ItemTextSelectorImpl;
+		set => ItemTextSelectorImpl = value;
+	}
 
 	/// <summary>
 	/// Gets html to display from item.
-	/// When not set <see cref="TextSelectorImpl"/> is used.
+	/// When not set <see cref="ItemTextSelectorImpl"/> is used.
 	/// </summary>
 	protected RenderFragment<TItem> ItemTemplateImpl { get; set; }
 
 	/// <summary>
-	/// Selects value to sort items. Uses <see cref="TextSelectorImpl"/> property when not set.
+	/// Selects value to sort items. Uses <see cref="ItemTextSelectorImpl"/> property when not set.
 	/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
-	protected Func<TItem, IComparable> SortKeySelectorImpl { get; set; }
+	protected Func<TItem, IComparable> ItemSortKeySelectorImpl { get; set; }
+
+	/// <summary>
+	/// <see cref="SortKeySelectorImpl"/> is obsolete, please use <see cref="ItemSortKeySelectorImpl"/> instead.
+	/// </summary>
+	[Obsolete($"{nameof(SortKeySelectorImpl)} is obsolete, use {nameof(ItemSortKeySelectorImpl)} instead.")]
+	protected Func<TItem, IComparable> SortKeySelectorImpl
+	{
+		get => ItemSortKeySelectorImpl;
+		set => ItemSortKeySelectorImpl = value;
+	}
 
 	/// <summary>
 	/// When <c>true</c>, items are sorted before displaying in select.
