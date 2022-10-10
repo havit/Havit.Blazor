@@ -161,7 +161,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 
 				builder.AddAttribute(6, nameof(HxCheckbox.CssClass), CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item)));
 				builder.AddAttribute(7, nameof(HxCheckbox.InputCssClass), CssClassHelper.Combine(ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)));
-				builder.AddAttribute(8, nameof(HxCheckbox.LabelCssClass), CssClassHelper.Combine(ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
+				builder.AddAttribute(8, nameof(HxCheckbox.TextCssClass), CssClassHelper.Combine(ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
 
 				// We need ValueExpression. Ehm, HxCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 				// We have nothing to give the HxCheckbox. So we make own class with property which we assign to the ValueExpression.

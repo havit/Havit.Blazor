@@ -30,6 +30,11 @@ public class HxCheckbox : HxInputBase<bool>
 	[Parameter] public RenderFragment TextTemplate { get; set; }
 
 	/// <summary>
+	/// CSS class to apply to the text.
+	/// </summary>
+	[Parameter] public string TextCssClass { get; set; }
+
+	/// <summary>
 	/// Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.		
 	/// Works only when there is no label, no hint and no validation message.
 	/// </summary>
@@ -86,7 +91,7 @@ public class HxCheckbox : HxInputBase<bool>
 		builder.CloseElement(); // input
 
 		builder.OpenElement(2000, "label");
-		builder.AddAttribute(2001, "class", "form-check-label");
+		builder.AddAttribute(2001, "class", CssClassHelper.Combine("form-check-label", this.TextCssClass));
 		builder.AddAttribute(2002, "for", InputId);
 		if (TextTemplate == null)
 		{

@@ -3089,6 +3089,11 @@
             Content to display next to the checkbox.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.TextCssClass">
+            <summary>
+            CSS class to apply to the text.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Inline">
             <summary>
             Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.		
