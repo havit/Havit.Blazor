@@ -59,7 +59,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	}
 
 	/// <summary>
-	/// Selects value for items sorting. When not set, <see cref="TextSelector"/> property will be used.
+	/// Selects value for items sorting. When not set, <see cref="ItemTextSelector"/> property will be used.
 	/// If you need complex sorting, pre-sort data manually or create a custom comparable property.
 	/// </summary>
 	[Parameter] public Func<TItem, IComparable> ItemSortKeySelector { get; set; }

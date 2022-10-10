@@ -3172,7 +3172,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemSortKeySelector">
             <summary>
-            Selects value for items sorting. When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.TextSelector"/> property will be used.
+            Selects value for items sorting. When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemTextSelector"/> property will be used.
             If you need complex sorting, pre-sort data manually or create a custom comparable property.
             </summary>
         </member>
@@ -4339,13 +4339,43 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemSortKeySelector">
             <summary>
-            Selects value to sort items. Uses <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.TextSelector"/> property when not set.
+            Selects value to sort items. Uses <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextSelector"/> property when not set.
             When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.SortKeySelector">
             <summary>
             <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.SortKeySelector"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemSortKeySelector"/> instead.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemCssClass">
+            <summary>
+            Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemCssClassSelector">
+            <summary>
+            Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemInputCssClass">
+            <summary>
+            Additional CSS class(es) for the <c>input</c> element of underlying radio-buttons.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemInputCssClassSelector">
+            <summary>
+            Additional CSS class(es) for the <c>input</c> element of underlying radio-button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextCssClass">
+            <summary>
+            Additional CSS class(es) for the text of the underlying radio-buttons.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextCssClassSelector">
+            <summary>
+            Additional CSS class(es) for the text of the underlying radio-buttons.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.AutoSort">
@@ -4412,6 +4442,36 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.SortKeySelectorImpl">
             <summary>
             <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.SortKeySelectorImpl"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemSortKeySelectorImpl"/> instead.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemCssClassImpl">
+            <summary>
+            Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemCssClassSelectorImpl">
+            <summary>
+            Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemInputCssClassImpl">
+            <summary>
+            Additional CSS class(es) for the <c>input</c> element of underlying radio-buttons.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemInputCssClassSelectorImpl">
+            <summary>
+            Additional CSS class(es) for the <c>input</c> element of underlying radio-button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextCssClassImpl">
+            <summary>
+            Additional CSS class(es) for the text of the underlying radio-buttons.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextCssClassSelectorImpl">
+            <summary>
+            Additional CSS class(es) for the text of the underlying radio-buttons.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.AutoSortImpl">

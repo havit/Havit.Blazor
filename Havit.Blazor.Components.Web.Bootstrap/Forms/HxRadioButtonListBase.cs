@@ -78,6 +78,36 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	}
 
 	/// <summary>
+	/// Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+	/// </summary>
+	protected string ItemCssClassImpl { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+	/// </summary>
+	protected Func<TItem, string> ItemCssClassSelectorImpl { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for the <c>input</c> element of underlying radio-buttons.
+	/// </summary>
+	protected string ItemInputCssClassImpl { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for the <c>input</c> element of underlying radio-button.
+	/// </summary>
+	protected Func<TItem, string> ItemInputCssClassSelectorImpl { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for the text of the underlying radio-buttons.
+	/// </summary>
+	protected string ItemTextCssClassImpl { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for the text of the underlying radio-buttons.
+	/// </summary>
+	protected Func<TItem, string> ItemTextCssClassSelectorImpl { get; set; }
+
+	/// <summary>
 	/// When <c>true</c>, items are sorted before displaying in select.
 	/// Default value is <c>true</c>.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
@@ -137,7 +167,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			bool selected = (index == selectedItemIndex);
 			if (selected)
 			{
-				chipValue = SelectorHelpers.GetText(TextSelectorImpl, item);
+				chipValue = SelectorHelpers.GetText(ItemTextSelectorImpl, item);
 			}
 
 			string inputId = GroupName + "_" + index.ToString();
@@ -145,10 +175,10 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.OpenElement(100, "div");
 
 			// TODO CoreCssClass
-			builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null));
+			builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null, ItemCssClassImpl, ItemCssClassSelectorImpl?.Invoke(item)));
 
 			builder.OpenElement(200, "input");
-			builder.AddAttribute(201, "class", "form-check-input");
+			builder.AddAttribute(201, "class", CssClassHelper.Combine("form-check-input", ItemInputCssClassImpl, ItemInputCssClassSelectorImpl?.Invoke(item)));
 			builder.AddAttribute(202, "type", "radio");
 			builder.AddAttribute(203, "name", GroupName);
 			builder.AddAttribute(204, "id", inputId);
@@ -162,7 +192,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.CloseElement(); // input
 
 			builder.OpenElement(300, "label");
-			builder.AddAttribute(301, "class", "form-check-label");
+			builder.AddAttribute(301, "class", CssClassHelper.Combine("form-check-label", ItemTextCssClassImpl, ItemTextCssClassSelectorImpl?.Invoke(item)));
 			builder.AddAttribute(302, "for", inputId);
 			if (ItemTemplateImpl != null)
 			{
@@ -170,7 +200,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			}
 			else
 			{
-				builder.AddContent(304, SelectorHelpers.GetText(TextSelectorImpl, item));
+				builder.AddContent(304, SelectorHelpers.GetText(ItemTextSelectorImpl, item));
 			}
 			builder.CloseElement(); // label
 
@@ -180,7 +210,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 	private void HandleInputClick(int index)
 	{
-		CurrentValue = SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, itemsToRender[index]);
+		CurrentValue = SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelectorImpl, itemsToRender[index]);
 	}
 
 	private void RefreshState()
@@ -192,13 +222,13 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			// AutoSort
 			if (AutoSortImpl && (itemsToRender.Count > 1))
 			{
-				if (SortKeySelectorImpl != null)
+				if (ItemSortKeySelectorImpl != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.SortKeySelectorImpl).ToList();
+					itemsToRender = itemsToRender.OrderBy(this.ItemSortKeySelectorImpl).ToList();
 				}
-				else if (TextSelectorImpl != null)
+				else if (ItemTextSelectorImpl != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.TextSelectorImpl).ToList();
+					itemsToRender = itemsToRender.OrderBy(this.ItemTextSelectorImpl).ToList();
 				}
 				else
 				{
@@ -207,7 +237,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			}
 
 			// set next properties for rendering
-			selectedItemIndex = itemsToRender.FindIndex(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
+			selectedItemIndex = itemsToRender.FindIndex(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelectorImpl, item)));
 
 			if ((Value != null) && (selectedItemIndex == -1))
 			{

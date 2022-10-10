@@ -74,7 +74,7 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	}
 
 	/// <summary>
-	/// Selects value to sort items. Uses <see cref="TextSelector"/> property when not set.
+	/// Selects value to sort items. Uses <see cref="ItemTextSelector"/> property when not set.
 	/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
 	/// </summary>
 	[Parameter]
@@ -93,6 +93,66 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	{
 		get => ItemSortKeySelector;
 		set => ItemSortKeySelector = value;
+	}
+
+	/// <summary>
+	/// Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+	/// </summary>
+	[Parameter]
+	public string ItemCssClass
+	{
+		get => ItemCssClassImpl;
+		set => ItemCssClassImpl = value;
+	}
+
+	/// <summary>
+	/// Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+	/// </summary>
+	[Parameter]
+	public Func<TItem, string> ItemCssClassSelector
+	{
+		get => ItemCssClassSelectorImpl;
+		set => ItemCssClassSelectorImpl = value;
+	}
+
+	/// <summary>
+	/// Additional CSS class(es) for the <c>input</c> element of underlying radio-buttons.
+	/// </summary>
+	[Parameter]
+	public string ItemInputCssClass
+	{
+		get => ItemInputCssClassImpl;
+		set => ItemInputCssClassImpl = value;
+	}
+
+	/// <summary>
+	/// Additional CSS class(es) for the <c>input</c> element of underlying radio-button.
+	/// </summary>
+	[Parameter]
+	public Func<TItem, string> ItemInputCssClassSelector
+	{
+		get => ItemInputCssClassSelectorImpl;
+		set => ItemInputCssClassSelectorImpl = value;
+	}
+
+	/// <summary>
+	/// Additional CSS class(es) for the text of the underlying radio-buttons.
+	/// </summary>
+	[Parameter]
+	public string ItemTextCssClass
+	{
+		get => ItemTextCssClassImpl;
+		set => ItemTextCssClassImpl = value;
+	}
+
+	/// <summary>
+	/// Additional CSS class(es) for the text of the underlying radio-buttons.
+	/// </summary>
+	[Parameter]
+	public Func<TItem, string> ItemTextCssClassSelector
+	{
+		get => ItemTextCssClassSelectorImpl;
+		set => ItemTextCssClassSelectorImpl = value;
 	}
 
 	/// <summary>
