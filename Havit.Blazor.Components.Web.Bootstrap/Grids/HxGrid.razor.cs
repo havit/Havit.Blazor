@@ -627,7 +627,14 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		Contract.Requires(MultiSelectionEnabled, nameof(MultiSelectionEnabled));
 		Contract.Requires(ContentNavigationModeEffective == GridContentNavigationMode.Pagination, "ContentNavigationModeEffective == GridContentNavigationMode.Pagination");
 
-		await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>(paginationDataItemsToRender));
+		if (paginationDataItemsToRender is null)
+		{
+			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>());
+		}
+		else
+		{
+			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>(paginationDataItemsToRender));
+		}
 	}
 
 	private async Task HandleMultiSelectSelectNoneClicked()
