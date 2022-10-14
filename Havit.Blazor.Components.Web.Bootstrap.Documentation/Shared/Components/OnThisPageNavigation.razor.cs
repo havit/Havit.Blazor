@@ -49,13 +49,20 @@ public partial class OnThisPageNavigation
 			SectionTitle currentSection = Sections.ElementAt(i);
 
 			// Handle level adjustments - nested lists.
+			int levelDifference = Math.Abs(currentSection.Level - currentLevel);
 			if (currentSection.Level > currentLevel)
 			{
-				builder.OpenElement(sequence++, "ul");
+				for (int j = 0; j < levelDifference; j++)
+				{
+					builder.OpenElement(sequence++, "ul");
+				}
 			}
 			else if (currentSection.Level < currentLevel)
 			{
-				builder.CloseElement();
+				for (int j = 0; j < levelDifference; j++)
+				{
+					builder.CloseElement();
+				}
 			}
 			currentLevel = currentSection.Level;
 
