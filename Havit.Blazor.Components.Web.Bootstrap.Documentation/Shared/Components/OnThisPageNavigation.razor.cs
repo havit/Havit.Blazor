@@ -71,7 +71,7 @@ public partial class OnThisPageNavigation
 
 			builder.OpenElement(sequence++, "a");
 			builder.AddAttribute(sequence++, "href", currentSection.GetSectionUrl());
-			builder.AddAttribute(sequence++, "class", "text-secondary");
+			builder.AddAttribute(sequence++, "class", "text-secondary mb-1");
 			builder.AddContent(sequence++, currentSection.TitleEffective);
 			builder.AddContent(sequence++, currentSection.ChildContent);
 			builder.CloseElement();
