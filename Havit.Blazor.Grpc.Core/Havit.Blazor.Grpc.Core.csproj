@@ -16,8 +16,8 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Havit.Core" Version="2.0.26" />
-		<PackageReference Include="protobuf-net" Version="3.1.17" />
-		<PackageReference Include="protobuf-net.Grpc" Version="1.0.152" />
+		<PackageReference Include="protobuf-net" Version="3.1.22" />
+		<PackageReference Include="protobuf-net.Grpc" Version="1.0.177" />
 	</ItemGroup>
 
 </Project>
