@@ -20,7 +20,7 @@ public class Program
 
 		builder.Services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
 		builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
-		builder.Services.AddSingleton<ISectionTitleHolder, SectionTitleHolder>();
+		builder.Services.AddSingleton<ISectionDataHolder, SectionDataHolder>();
 
 		await builder.Build().RunAsync();
 	}

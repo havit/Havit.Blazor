@@ -2,11 +2,11 @@
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 
-public interface ISectionTitleHolder
+public interface ISectionDataHolder
 {
-	void RegisterNew(SectionTitle sectionTitle, string url);
+	void RegisterNew(ISectionData sectionTitle, string url);
 
-	ICollection<SectionTitle> RetrieveAll(string url);
+	ICollection<ISectionData> RetrieveAll(string url);
 
 	void Clear();
 }

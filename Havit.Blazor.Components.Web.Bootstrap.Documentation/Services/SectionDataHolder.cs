@@ -2,11 +2,11 @@
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 
-public class SectionTitleHolder : ISectionTitleHolder
+public class SectionDataHolder : ISectionDataHolder
 {
-	private Dictionary<string, List<SectionTitle>> sectionTitles = new();
+	private Dictionary<string, List<ISectionData>> sectionTitles = new();
 
-	public void RegisterNew(SectionTitle sectionTitle, string url)
+	public void RegisterNew(ISectionData sectionTitle, string url)
 	{
 		string page = GetPageFromUrl(url);
 		EnsureKey(page);
@@ -17,7 +17,7 @@ public class SectionTitleHolder : ISectionTitleHolder
 		}
 	}
 
-	public ICollection<SectionTitle> RetrieveAll(string url)
+	public ICollection<ISectionData> RetrieveAll(string url)
 	{
 		string page = GetPageFromUrl(url);
 		EnsureKey(page);
@@ -28,7 +28,7 @@ public class SectionTitleHolder : ISectionTitleHolder
 	{
 		if (!sectionTitles.ContainsKey(page))
 		{
-			sectionTitles.Add(page, new List<SectionTitle>());
+			sectionTitles.Add(page, new List<ISectionData>());
 		}
 	}
 

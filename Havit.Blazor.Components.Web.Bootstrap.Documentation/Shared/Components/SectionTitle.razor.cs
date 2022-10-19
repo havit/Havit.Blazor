@@ -3,7 +3,7 @@ using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 
-public partial class SectionTitle
+public partial class SectionTitle : ISectionData
 {
 	/// <summary>
 	/// Which heading tags are to be used for which levels.
@@ -12,7 +12,8 @@ public partial class SectionTitle
 	{
 		{ 0, "h3" },
 		{ 1, "h4" },
-		{ 2, "h5" }
+		{ 2, "h5" },
+		{ 3, "h6" }
 	};
 
 	[Inject] public NavigationManager NavigationManager { get; set; }
@@ -34,10 +35,15 @@ public partial class SectionTitle
 
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
-	[Inject] public ISectionTitleHolder SectionTitleHolder { get; set; }
+	/// <summary>
+	/// Tag for the section title.
+	/// </summary>
+	[Parameter] public string HeadingTag { get; set; }
+
+	[Inject] public ISectionDataHolder SectionTitleHolder { get; set; }
 
 	public string TitleEffective => Title ?? (ChildContent is null ? GetTitleFromHref() : string.Empty);
-	protected string HeadingTagEffective => LevelHeadingTags.ContainsKey(Level) ? LevelHeadingTags[Level] : LevelHeadingTags.Values.LastOrDefault();
+	protected string HeadingTagEffective => HeadingTag ?? (LevelHeadingTags.ContainsKey(Level) ? LevelHeadingTags[Level] : LevelHeadingTags.Values.LastOrDefault());
 
 	protected override void OnParametersSet()
 	{
@@ -64,12 +70,16 @@ public partial class SectionTitle
 		return result;
 	}
 
-	public string GetSectionUrl()
+	public string GetSectionUrl(string currentUrl)
 	{
-		string uri = NavigationManager.Uri;
-		uri = uri.Split('?')[0];
+		string uri = currentUrl.Split('?')[0];
 		uri = uri.Split('#')[0];
 
 		return $"{uri}#{Id}";
+	}
+
+	private string GetEffectiveSectionUrl()
+	{
+		return GetSectionUrl(NavigationManager.Uri);
 	}
 }

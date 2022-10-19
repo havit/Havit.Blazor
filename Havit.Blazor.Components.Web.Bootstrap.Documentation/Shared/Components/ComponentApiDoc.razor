@@ -10,19 +10,19 @@
 @ChildContent
 @MainContent
 
-@if (model.HasValues || CssVariables is not null)
+@if (hasApi)
 {
-	<h2>API</h2>
+	<SectionTitle HeadingTag="h2" Id="api">API</SectionTitle>
 }
 
-@if (model.IsDelegate)
+@if (isDelegate)
 {
-	<h6><code>@((MarkupString)model.DelegateSignature)</code></h6>
+	<SectionTitle HeadingTag="h6"><code>@((MarkupString)model.DelegateSignature)</code></SectionTitle>
 }
 
-@if (model.IsEnum)
+@if (isEnum)
 {
-	<h3>Enum Values</h3>
+	<SectionTitle HeadingTag="@ApiSectionHeadingTag" Level="1" Id="enum-values">Enum Values</SectionTitle>
 	<div class="table-responsive">
 		<table class="table table-bordered">
 			<thead>
@@ -46,9 +46,9 @@
 	</div>
 }
 
-@if (model.Parameters.Any())
+@if (hasParameters)
 {
-	<h3>Parameters</h3>
+	<SectionTitle HeadingTag="@ApiSectionHeadingTag" Level="1" Id="parameters">Parameters</SectionTitle>
 
 	<div class="table-responsive">
 		<table class="table table-bordered">
@@ -84,9 +84,9 @@
 	</div>
 }
 
-@if (model.Properties.Any())
+@if (hasProperties)
 {
-	<h3>Other properties</h3>
+	<SectionTitle HeadingTag="@ApiSectionHeadingTag" Level="1" Id="properties">Other properties</SectionTitle>
 	<div class="table-responsive">
 		<table class="table table-bordered">
 			<thead>
@@ -110,9 +110,9 @@
 	</div>
 }
 
-@if (model.Events.Any())
+@if (hasEvents)
 {
-	<h3>Event callbacks</h3>
+	<SectionTitle HeadingTag="@ApiSectionHeadingTag" Level="1" Id="events">Event callbacks</SectionTitle>
 
 	<div class="table-responsive">
 		<table class="table table-bordered">
@@ -137,9 +137,9 @@
 	</div>
 }
 
-@if (!model.IsEnum && model.Methods.Any())
+@if (hasMethods)
 {
-	<h3>Methods</h3>
+	<SectionTitle HeadingTag="@ApiSectionHeadingTag" Level="1" Id="methods">Methods</SectionTitle>
 	<div class="table-responsive">
 		<table class="table table-bordered">
 			<thead>
@@ -163,9 +163,9 @@
 	</div>
 }
 
-@if (model.StaticProperties.Any())
+@if (hasStaticProperties)
 {
-	<h3>Static properties</h3>
+	<SectionTitle HeadingTag="@ApiSectionHeadingTag" Level="1" Id="static-properties">Static properties</SectionTitle>
 
 	<div class="table-responsive">
 		<table class="table table-bordered">
@@ -190,9 +190,9 @@
 	</div>
 }
 
-@if (!model.IsEnum && model.StaticMethods.Any())
+@if (hasStaticMethods)
 {
-	<h3>Static Methods</h3>
+	<SectionTitle HeadingTag="@ApiSectionHeadingTag" Level="1" Id="static-methods">Static Methods</SectionTitle>
 
 	<div class="table-responsive">
 		<table class="table table-bordered">
@@ -217,9 +217,9 @@
 	</div>
 }
 
-@if (CssVariables is not null)
+@if (hasCssVariables)
 {
-	<h3>CSS Variables</h3>
+	<SectionTitle HeadingTag="@ApiSectionHeadingTag" Level="1" Id="css-variables">CSS Variables</SectionTitle>
 	<div class="table-responsive">
 		<table class="table table-bordered">
 			<thead>
