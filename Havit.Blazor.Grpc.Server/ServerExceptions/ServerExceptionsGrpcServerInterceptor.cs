@@ -38,6 +38,12 @@ public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptor
 			status = new Status(StatusCode.NotFound, exception.Message);
 			logger.LogInformation(exception, exception.Message);
 		}
+		else if ((exception is OperationCanceledException)
+			|| ((exception.GetType().Name == "SqlException") && exception.Message.Contains("Operation cancelled by user."))) // e.g. System.Data.SqlClient.SqlException
+		{
+			status = new Status(StatusCode.Cancelled, exception.Message);
+			logger.LogInformation(exception, exception.Message);
+		}
 		else
 		{
 			status = new Status(exception switch
@@ -46,7 +52,6 @@ public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptor
 				SecurityException => StatusCode.PermissionDenied,
 				ArgumentOutOfRangeException => StatusCode.OutOfRange,
 				ArgumentException or ArgumentNullException => StatusCode.InvalidArgument,
-				OperationCanceledException => StatusCode.Cancelled,
 				TimeoutException => StatusCode.DeadlineExceeded,
 				_ => StatusCode.Unknown,
 			}, exception.ToString());
