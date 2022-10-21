@@ -8635,7 +8635,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTab">
             <summary>
-            Single tab in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/>.
+            Single tab for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.TabsRegistration">
@@ -8672,6 +8672,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Content">
             <summary>
             Content of the tab.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Order">
+            <summary>
+            The order (display index) of the tab.<br />
+            Due to stable sorting used, the order in which the tabs are rendered is preserved when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Order"/> parameter is not set.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Visible">
