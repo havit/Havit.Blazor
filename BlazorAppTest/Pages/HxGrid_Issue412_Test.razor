@@ -1,0 +1,25 @@
+﻿@page "/HxGrid_Issue412_Test"
+@using System.Globalization
+@inject ILogger<HxGrid_Issue412_Test> logger
+
+<HxGrid Responsive="true" TItem="CultureInfo" DataProvider="ClientSideProcessingDataProvider" PageSize="10" @ref="grid">
+    <Columns>
+        <HxGridColumn TItem="CultureInfo" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
+        <HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
+    </Columns>
+</HxGrid>
+
+<HxInputNumber Label="Limit number of items" @bind-Value="maxItems" />
+<HxButton Text="Refresh" OnClick="async () => await grid.RefreshDataAsync()" />
+
+@code {
+    private HxGrid<CultureInfo> grid;
+    private int maxItems = 1000;
+    private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
+
+    private Task<GridDataProviderResult<CultureInfo>> ClientSideProcessingDataProvider(GridDataProviderRequest<CultureInfo> request)
+    {
+        logger.LogInformation(request.StartIndex.ToString());
+        return Task.FromResult(request.ApplyTo(localCultureInfos.Take(maxItems)));
+    }
+}

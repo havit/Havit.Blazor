@@ -317,8 +317,14 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		if (paginationDecreasePageIndexAfterRender)
 		{
 			paginationDecreasePageIndexAfterRender = false;
-			await SetCurrentPageIndexWithEventCallback(CurrentUserState.PageIndex - 1);
-			await RefreshPaginationDataCoreAsync();
+			int newPageIndex = ((totalCount == null) /* hopefully not even possible */ || (totalCount.Value == 0))
+				? 0
+				: (int)Math.Ceiling((decimal)totalCount.Value / PageSizeEffective) - 1;
+			if (newPageIndex != CurrentUserState.PageIndex)
+			{
+				await SetCurrentPageIndexWithEventCallback(newPageIndex);
+				await RefreshPaginationDataCoreAsync();
+			}
 		}
 
 		firstRenderCompleted = true;
