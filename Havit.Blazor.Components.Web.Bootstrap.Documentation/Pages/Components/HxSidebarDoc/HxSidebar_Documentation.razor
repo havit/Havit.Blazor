@@ -4,30 +4,30 @@
 
 <ComponentApiDoc Type="typeof(HxSidebar)">
 	<MainContent>
-		<DocHeading Id="Demo" />
+		<DocHeading Title="Basic usage" />
 		<Demo Type="typeof(HxSidebar_Demo)" />
 
-		<DocHeading Id="Logo" />
+        <DocHeading Title="Logo" />
 		<p>Use your own custom logo in the sidebar header by setting the <code>LogoTemplate</code> parameter (<code>RenderFragment</code>) on the <code>HxSidebarBrand</code> component.</p>
 		<Demo Type="typeof(HxSidebar_Demo_Logo)" />
 
-		<DocHeading Id="item-custom-content">Custom content for items</DocHeading>
+        <DocHeading Title="Custom content for items" />
 		<p>If you'd like to include more than just an icon and text in the <code>HxSidebarItem</code>, you can do so with the <code>ContentTemplate</code> parameter.</p>
 		<Demo Type="typeof(HxSidebar_Demo_ItemCustomContent)" />
 
-		<DocHeading Id="multiple-items-expansion">Multiple items expansion</DocHeading>
+        <DocHeading Title="Multiple items expansion" />
 		<p>If you set <code>MultipleItemsExpansion="false"</code>, upon item expansion, all other items are collapsed. If <code>true</code> (default), multiple items can be expanded at one time.</p>
 		<Demo Type="typeof(HxSidebar_Demo_MultipleItemsExpansion)" />
 
-		<DocHeading Id="expand-collapse">Expand & collapse programmatically</DocHeading>
+        <DocHeading Title="Expand & collapse from code" Id="expand-collapse" />
 		<p>Use bindable <code>Collapsed</code> parameter to set or track sidebar state.</p>
 		<Demo Type="typeof(HxSidebar_Demo_ProgramaticallyExpandCollapse)" />
 
-		<DocHeading Id="custom-toggler" Title="Custom toggler" />
+		<DocHeading Title="Custom toggler" />
 		<p>With <code>TogglerTemplate</code> you can set a custom toggler for the desktop version to be rendered instead of the default <a href="/HxSidebar#ExpandIcon">ExpandIcon</a> and <a href="/HxSidebar#CollapseIcon">CollapseIcon</a>. Render varying content based on the <a href="/types/SidebarTogglerTemplateContext">SidebarTogglerTemplateContext</a>.</p>
 		<Demo Type="typeof(HxSidebar_Demo_TogglerTemplate)" />
 
-		<DocHeading Id="ResponsiveLayout" Title="Responsive layout sample" />
+		<DocHeading Title="Responsive layout sample" />
 		<p>
 			To achieve responsiveness of the sidebar (such as this documentation site has) you need to adjust application layout.
 			The main layout might look like:
