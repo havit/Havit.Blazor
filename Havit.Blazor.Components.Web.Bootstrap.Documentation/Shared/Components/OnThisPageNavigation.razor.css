@@ -3,14 +3,22 @@
 }
 
 ul {
-    padding-left: 0;
-    font-size: small;
+	padding-left: 0;
+}
+
+ul ::deep ul {
+	padding-left: 1rem;
 }
 
 ul,
 ::deep ul {
-    list-style-type: none;
+	font-size: .875rem;
+	list-style-type: none;
 }
+
+	ul li, ::deep ul li {
+		margin-bottom: .25rem;
+	}
 
 ::deep a {
     text-decoration: none;

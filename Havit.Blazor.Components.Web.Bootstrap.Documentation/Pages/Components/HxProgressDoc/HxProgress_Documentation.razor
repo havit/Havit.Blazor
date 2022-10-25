@@ -2,37 +2,37 @@
 @attribute [Route("/components/" + nameof(HxProgressBar))]
 
 <ComponentApiDoc Type="typeof(HxProgress)">
-    <SectionTitle Id="Example" />
+    <DocHeading Id="Example" />
     <Demo Type="typeof(HxProgress_Demo)" Tabs="false" />
 
-    <SectionTitle Id="Labels" />
+    <DocHeading Id="Labels" />
     <Demo Type="typeof(HxProgress_Demo_Labels)" Tabs="false" />
 
-    <SectionTitle Id="Height" />
+    <DocHeading Id="Height" />
     <Demo Type="typeof(HxProgress_Demo_Height)" Tabs="false" />
 
-    <SectionTitle Id="Backgrounds" />
+    <DocHeading Id="Backgrounds" />
     <Demo Type="typeof(HxProgress_Demo_Backgrounds)" />
 
-    <SectionTitle Id="MultipleBars" />
+    <DocHeading Id="MultipleBars" />
     <Demo Type="typeof(HxProgress_Demo_MultipleBars)" Tabs="false" />
 
-    <SectionTitle Id="Striped" />
+    <DocHeading Id="Striped" />
     <Demo Type="typeof(HxProgress_Demo_Striped)" />
 
-    <SectionTitle Id="AnimatedStripes" />
+    <DocHeading Id="AnimatedStripes" />
     <p>When the parameter <code>HxProgressBar.Animated</code> is set to <code>true</code>, stripes are automatically switched on and animated.</p>
     <Demo Type="typeof(HxProgress_Demo_AnimatedStripes)" Tabs="false" />
 
-    <SectionTitle Id="SettingParameters" />
+    <DocHeading Id="SettingParameters" />
     <p>Some parameters can be set for all progress bars at once on the <code>HxProgress</code> component. Inherited values can be overriden on the child components.</p>
     <Demo Type="typeof(HxProgress_Demo_SettingParameters)" Tabs="false" />
 
-    <SectionTitle Id="Scale" />
+    <DocHeading Id="Scale" />
     <p>You can set a scale for the progress bar, for example from <code>-100</code> to <code>100</code> as shown below. Supplied values are going to be normalized according to the <code>MinValue</code> and <code>MaxValue</code> set. Default is <code>0</code> and <code>100</code>.</p>
     <Demo Type="typeof(HxProgress_Demo_Scales)" Tabs="false" />
 
-    <SectionTitle Id="Interactive" />
+    <DocHeading Id="Interactive" />
     <p>The progress value can be easily changed at runtime. When that occurs, the progress bar updates with an animation.</p>
     <Demo Type="typeof(HxProgress_Demo_Interactive)" />
 </ComponentApiDoc>

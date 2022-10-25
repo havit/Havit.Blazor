@@ -5,8 +5,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 
 public partial class ComponentApiDoc
 {
-	private const string ApiSectionHeadingTag = "h3";
-
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	[Parameter] public RenderFragment MainContent { get; set; }

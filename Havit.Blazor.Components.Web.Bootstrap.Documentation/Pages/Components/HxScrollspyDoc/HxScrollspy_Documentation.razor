@@ -20,13 +20,13 @@
 		For full-page scrollspy, the spying has to be attached directly to <code>&lt;body&gt;</code> (will be implemented later as needed?).
 	</div>
 
-	<SectionTitle Id="StaticContentHxNavNavigation">Static content with <code>HxNav</code> navigation</SectionTitle>
+	<DocHeading Id="StaticContentHxNavNavigation">Static content with <code>HxNav</code> navigation</DocHeading>
 	<Demo Type="typeof(HxScrollspy_Demo_HxNav)" />
 
-	<SectionTitle Id="StaticContentListGroupNavigation">Static content with list-group navigation</SectionTitle>
+	<DocHeading Id="StaticContentListGroupNavigation">Static content with list-group navigation</DocHeading>
 	<Demo Type="typeof(HxScrollspy_Demo_ListGroup)" />
 
-	<SectionTitle Id="DynamicContent">Dynamic content (async loaded data)</SectionTitle>
+	<DocHeading Id="DynamicContent">Dynamic content (async loaded data)</DocHeading>
 	<DocAlert Type="DocAlertType.Warning">
 		<p>
 			Bootstrap scrollspy calculates offsets of individual sections when activated (i.e. <code>OnAfterRenderAsync</code> within first render). If the content changes dynamicaly,
@@ -41,7 +41,7 @@
 	</DocAlert>
 	<Demo Type="typeof(HxScrollspy_Demo_DynamicContent)" />
 
-	<SectionTitle Id="CustomNavigationContent">Custom navigation content</SectionTitle>
+	<DocHeading Id="CustomNavigationContent">Custom navigation content</DocHeading>
 	<DocAlert>
 		When using <code>HxButton</code> inside <code>HxScrollspyNavLink</code>, be sure to set s <code>OnClickStopPropagation = "true"</code>.
 		If you won't, the application will navigate to <code>/#anchor</code> of the <code>HxScrollspyNavLink</code> after <code>OnClick</code> handler completes.

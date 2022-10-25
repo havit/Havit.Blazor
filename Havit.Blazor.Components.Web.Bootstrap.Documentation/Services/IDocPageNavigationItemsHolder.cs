@@ -2,11 +2,11 @@
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 
-public interface ISectionDataHolder
+public interface IDocPageNavigationItemsHolder
 {
-	void RegisterNew(ISectionData sectionTitle, string url);
+	void RegisterNew(IDocPageNavigationItem item, string url);
 
-	ICollection<ISectionData> RetrieveAll(string url);
+	ICollection<IDocPageNavigationItem> RetrieveAll(string url);
 
 	void Clear();
 }

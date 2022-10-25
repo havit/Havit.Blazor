@@ -2,13 +2,13 @@
 @attribute [Route("/components/" + nameof(HxTab))]
 
 <ComponentApiDoc Type="typeof(HxTabPanel)">
-	<SectionTitle Id="basic-usage">Basic usage</SectionTitle>
+	<DocHeading Id="basic-usage">Basic usage</DocHeading>
 	<Demo Type="typeof(HxTabPanel_Demo_BasicUsage)" Tabs="false" />
 
-	<SectionTitle Id="active-tab">Getting/setting active tab programatically</SectionTitle>
+	<DocHeading Id="active-tab">Getting/setting active tab programatically</DocHeading>
 	<Demo Type="typeof(HxTabPanel_Demo_ActiveTabId)" />
 
-	<SectionTitle Id="nav-variants">Nav variants</SectionTitle>
+	<DocHeading Id="nav-variants">Nav variants</DocHeading>
     <p>You can choose any variant of <code>nav</code> using the <code>@nameof(HxTabPanel.NavVariant)</code> parameter.</p>
 	<h4>Tabs</h4>
     <Demo Type="typeof(HxTabPanel_Demo_NavVariantTabs)" />
@@ -17,7 +17,7 @@
 	<h4>Standard</h4>
 	<Demo Type="typeof(HxTabPanel_Demo_NavVariantStandard)" />
 
-    <SectionTitle Id="card">Card with tabs</SectionTitle>
+    <DocHeading Id="card">Card with tabs</DocHeading>
     <p>When <code>RenderMode</code> is set to <code><a href="/types/TabPanelRenderMode#Card">TabPanelRenderMode.Card</a></code>, then the tab navigation is placed in the card header and tab contents go into the card body.</p>
     <Demo Type="typeof(HxTabPanel_Demo_CardMode)" />
 </ComponentApiDoc>
