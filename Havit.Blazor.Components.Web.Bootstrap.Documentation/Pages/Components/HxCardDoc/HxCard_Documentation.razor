@@ -6,46 +6,49 @@
 
 <ComponentApiDoc Type="typeof(HxCard)">
 
-	<SectionTitle Id="About" />
+	<DocHeading Title="About" />
 	<p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
 
-	<SectionTitle Id="Example" />
+	<DocHeading Title="Basic usage" />
 	<Demo Type="typeof(HxCard_Demo_Basic)" />
 
-	<SectionTitle Id="ContentTypes" />
+    <DocHeading Title="Content types" />
 	<p>Cards support a wide variety of content, including images, text, list groups, links, and more. Below are examples of what’s supported.</p>
-	<h4>Body</h4>
+    
+    <DocHeading Title="Body" Level="3" />
 	<Demo Type="typeof(HxCard_Demo_Body)" />
-	<h4>Titles, text and links</h4>
+
+    <DocHeading Title="Titles, text and links" Level="3" />
 	<Demo Type="typeof(HxCard_Demo_TitlesTextLinks)" />
-	<h4>Header and footer</h4>
+
+    <DocHeading Title="Header and footer" Level="3" />
 	<Demo Type="typeof(HxCard_Demo_Header)" />
 	<Demo Type="typeof(HxCard_Demo_HeaderFooter)" />
 
-	<SectionTitle Id="Navigation" />
+    <DocHeading Title="Navigation" />
 	<Demo Type="typeof(HxCard_Demo_NavigationTabs)" />
 	<Demo Type="typeof(HxCard_Demo_NavigationPills)" />
 
-    <SectionTitle Id="tab-panel">Navigation with HxTabPanel</SectionTitle>
+    <DocHeading Title="Navigation with HxTabPanel" Id="tab-panel" Level="3" />
     <p>With <code>&lt;HxTabPanel RenderMode="TabPanelRenderMode.Card"&gt;</code>, the tab navigation is placed in the card header and tab contents go into the card body.</p>
     <Demo Type="typeof(HxTabPanel_Demo_CardMode)" />
 
-	<SectionTitle Id="Images" />
+    <DocHeading Title="Images" />
 	<Demo Type="typeof(HxCard_Demo_ImageTop)" />
 	<Demo Type="typeof(HxCard_Demo_ImageBottom)" />
 
-	<h4 id="ImageOverlay" />
+    <DocHeading Title="Image overlays" Level="3" />
 	<Demo Type="typeof(HxCard_Demo_ImageOverlay)" />
 	<DocAlert>
 		Note that content should not be larger than the height of the image.
 		If content is larger than the image the content will be displayed outside the image.
 	</DocAlert>
 
-	<h4 id="ListGroups">List groups</h4>
+    <DocHeading Title="List groups" />
 	<p>Create lists of content in a card with a flush list group.</p>
 	<Demo Type="typeof(HxCard_Demo_ListGroup)" />
 
-	<SectionTitle Id="Variants" />
+    <DocHeading Title="Variants" />
 	<Demo Type="typeof(HxCard_Demo_Variants)" />
 
 </ComponentApiDoc>

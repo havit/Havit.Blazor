@@ -2,24 +2,24 @@
 
 <ComponentApiDoc Type="typeof(HxInputDate<TValue>)">
 	<MainContent>
-		<SectionTitle Id="BasicUsage" />
+		<DocHeading Title="Basic usage" />
 		<Demo Type="typeof(HxInputDate_Demo)" Tabs="false" />
 
-		<SectionTitle Id="CalendarIcon" />
+        <DocHeading Title="Calendar icon" />
 		<p>
             Optional icon can be added using <code>CalendarIcon</code> parameter.<br />
             You can set the icon for all instances of <code>HxInputDate</code> by setting <code>HxInputDate.Defaults.CalendarIcon</code> static property.
         </p>
 		<Demo Type="typeof(HxInputDate_Demo_CalendarIcon)" />
 
-		<SectionTitle Id="clear-button">Clear button in calendar</SectionTitle>
+        <DocHeading Title="Clear button in calendar" Id="clear-button" />
 		<p>The <i>Clear</i> button in dropdown calendar can be hidden by setting <code>ShowClearButton="false"</code>.</p>
 		<Demo Type="typeof(HxInputDate_Demo_ClearButton)" />
 
-		<SectionTitle Id="Sizes" />
+        <DocHeading Title="Sizes" />
 		<Demo Type="typeof(HxInputDate_Demo_InputSize)" />
 
-		<SectionTitle Id="CalendarCustomization">Dropdown calendar customization</SectionTitle>
+        <DocHeading Title="Dropdown calendar customization" Id="CalendarCustomization" />
 		<p>
 			You can change rendering of weekend days by defining your own CSS rule for <code>.weekend</code> class.
 			The disabled days get <code>.disabled</code> class.
@@ -28,11 +28,11 @@
 			Disabling dates with the techniques below won't prevent the user from entering disabled dates manualy. You still have to validate the value.
 		</DocAlert>
 
-		<h4 id="MinDateMaxDate">MinDate, MaxDate</h4>
+        <DocHeading Title="MinDate, MaxDate" Level="3" />
 		<p>You can limit the dropdown calendar values by setting <code>MinDate</code> and/or <code>MaxDate</code>.</p>
 		<Demo Type="typeof(HxInputDate_Demo_MinDateMaxDate)" />
 
-		<h4 id="DateCustomization">Calendar date customization</h4>
+        <DocHeading Title="Calendar date customization" Level="3" />
 		<p>
 			You can customize the dropdown calendar dates with <code>CalendarDateCustomizationProvider</code>. You can disable individual dates
 			(<code>Enabled="false"</code>) or set specific CSS class (<code>CssClass="...")</code>.

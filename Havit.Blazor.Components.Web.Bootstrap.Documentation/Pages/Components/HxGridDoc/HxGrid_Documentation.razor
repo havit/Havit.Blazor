@@ -4,14 +4,15 @@
 <ComponentApiDoc Type="typeof(HxGrid<TItem>)">
     <MainContent>
 
-        <h2>Data-binding</h2>
+        <DocHeading Title="Data binding" />
+        <h2></h2>
         <p>
             Implement the <code>@nameof(HxGrid<object>.DataProvider)</code> method which is provided with a "request"
             (requested sorting and paging) and returns a "result" (items to display and total count of items).
         </p>
         <Demo Type="typeof(HxGrid_Demo_DataProvider)" />
 
-        <SectionTitle Id="ApplyTo">Automatic sorting and paging</SectionTitle>
+        <DocHeading Title="Automatic sorting and paging" Id="ApplyTo" />
         <p>
             If you have your <code>IEnumerable</code> data-source ready (all items), you can use the <code>request.ApplyTo(data)</code>
             extension method to apply sorting and paging automatically.
@@ -23,7 +24,7 @@
             The method you provide is <code>async</code> and should <code>await</code> the data if needed (loading progress is indicated in meantime).
         </DocAlert>
 
-        <SectionTitle Id="RefreshData">Refreshing data</SectionTitle>
+        <DocHeading Title="Refreshing data" Id="RefreshData" />
         <p>
             Whenever you need to refresh data in the grid (e.g. when the filter to be applied changes),
             call the <code>gridComponent.RefreshDataAsync()</code> method to let the grid know
@@ -31,11 +32,11 @@
         </p>
         <Demo Type="typeof(HxGrid_Demo_RefreshData)" />
 
-        <SectionTitle Id="EmptyData" />
+        <DocHeading Title="Empty data" />
         <p>When the <code>DataProvider</code> returns no data, the <code>EmptyDataTemplate</code> is rendered (when not set, the <code>&lt;HxGridDefaultEmptyDataTemplateContent /&gt;</code> is used).</p>
         <Demo Type="typeof(HxGrid_EmptyDataDemo)" />
 
-        <SectionTitle Id="InfiniteScroll">Infinite scroll (Virtualized)</SectionTitle>
+        <DocHeading Title="Infinite scroll (Virtualized)" Id="InfiniteScroll" />
         <p>
             You can switch from paging to infinite-scoll by setting <code>ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"</code>.
             Use a Placeholder (<code>&lt;Placeholder&gt;...&lt;/Placeholder&gt;</code>) to display content until the item data is available.
@@ -45,12 +46,12 @@
         </DocAlert>
         <Demo Type="typeof(HxGrid_VirtualizedDemo)" />
 
-        <SectionTitle Id="ContextMenu" />
+        <DocHeading Title="Context menu" />
         <p>Use <code>HxContextMenuGridColumn</code> to add context-menu to the grid.</p>
         <DocAlert Type="DocAlertType.Warning">The <code>ContextMenu</code> parameter does the same (but renders always as last column) and will be most likely removed in vNext.</DocAlert>
         <Demo Type="typeof(HxGrid_Demo_ContextMenu)" />
 
-        <SectionTitle Id="Multiselect">Multiselect with checkboxes</SectionTitle>
+        <DocHeading Title="Multiselect with checkboxes" Id="multiselect" />
         <p>You can let the user select multiple rows with <code>@nameof(HxGrid<object>.MultiSelectionEnabled)="true"</code>, selected items are represented by <code>@nameof(HxGrid<object>.SelectedDataItems)</code> parameter (bindable).</p>
         <DocAlert>
             <code>@nameof(HxGrid<object>.SelectedDataItems)</code> contains only visible items. Items are removed from the selection if they are not rendered (e.g. after paging, sorting, ...).
@@ -58,15 +59,15 @@
         </DocAlert>
         <Demo Type="typeof(HxGrid_Demo_Multiselect)" />
 
-        <SectionTitle Id="inline-editing">Inline-editing</SectionTitle>
+        <DocHeading Title="Inline-editing" />
         <p>To achieve an inline-editing experience, you can use the <code>SelectedDataItem</code> and render editing UI for such items. Simply specify the content of the <code>ItemTemplate</code> in <code>HxGridColumn</code> and use the <code>SelectedDataItemChanged</code> event to save changes (or you can add a column with command buttons).</p>
         <Demo Type="typeof(HxGrid_Demo_InlineEditing)" />
 
-        <SectionTitle Id="hover">Hoverable rows</SectionTitle>
+        <DocHeading Title="Hoverable rows" Id="hover" />
         <p>You can set <code>@nameof(HxGrid<TItem>.Hover)</code> parameter to enable/disable hover state on rows. If not set, hover state is enabled if the grid has selection enabled.</p>
         <Demo Type="typeof(HxGrid_Demo_Hover)" />
 
-        <SectionTitle Id="striped">Striped rows</SectionTitle>
+        <DocHeading Title="Striped rows" Id="striped" />
         <p>You can set <code>@nameof(HxGrid<TItem>.Striped)</code> parameter to adds zebra-striping (alternating rows).</p>
         <Demo Type="typeof(HxGrid_Demo_Striped)" />
     </MainContent>

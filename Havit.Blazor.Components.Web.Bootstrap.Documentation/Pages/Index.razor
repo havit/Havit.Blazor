@@ -16,27 +16,28 @@
     <a href="https://www.peopleinneed.net/what-we-do/humanitarian-aid-and-development/ukraine"><img src="https://img.shields.io/badge/%23StandWithUkraine-Russian%20warship%2C%20go%20f%23ck%20yourself-blue?cacheSeconds=604800" alt="#StandWithUkraine: Russian warship, go f#ck yourself" /></a>
 </p>
 
-<h1>Getting started</h1>
+<DocHeading Title="Getting started" Level="1" />
 
-<h2>Prerequisites</h2>
+<DocHeading Title="Prerequisites" Level="2" />
 <p>Havit.Blazor components have the following requirements:</p>
 <ul>
 	<li>.NET 5.0 or newer (<code>net5.0</code> and <code>net6.0</code> multitargeting)</li>
 	<li>Blazor WebAssembly or Blazor Server hosting model (other options not tested yet)</li>
 </ul>
 
-<h2>Installation</h2>
+<DocHeading Title="Installation" Level="2" />
 
 <DocAlert Type="DocAlertType.Info">
 	Try our <a href="https://github.com/havit/NewProjectTemplate-Blazor">enterprise project template</a> which includes layered architecture, EF Core, gRPC code-first, ...
 </DocAlert>
 
-<h3>1. Install the package</h3>
+<DocHeading Title="1. NuGet package" Level="3" />
 <p>Find the <a href="https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/">Havit.Blazor.Components.Web.Bootstrap</a> package through NuGet Package Manager or install it with following command:</p>
 <CodeSnippet Language="none">dotnet add package Havit.Blazor.Components.Web.Bootstrap</CodeSnippet>
 
-<h3>2. Add CSS &amp; JavaScript references</h3>
-<h4>CSS</h4>
+<DocHeading Title="2. CSS &amp; JavaScript" Level="3" />
+<p>Add CSS &amp; JavaScript references.</p>
+<DocHeading Title="CSS" Level="4" />
 <p>Add the following to your HTML head section, it's either <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code> depending on whether you're running WebAssembly or Server:</p>
 <CodeSnippet File="~\Pages\GettingStarted_CSS.CodeSnippet.html" />
 
@@ -48,16 +49,15 @@
     If you're using a standard Blazor template make sure to remove unnecessary code from <code>site.css</code> and remove the <code>bootstrap.min.css</code> completely from either <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code>.
 </DocAlert>
 
-<h4>Bootstrap JavaScript Bundle with Popper</h4>
-<p>At the end of HTML <code>&lt;body&gt;</code> section of either <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code> add this:</p>
+<DocHeading Title="Bootstrap JavaScript" Id="javascript" Level="4" />
+<p>At the end of HTML <code>&lt;body&gt;</code> section of either <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code> add this (Bootstrap JavaScript Bundle with Popper):</p>
 <CodeSnippet File="~\Pages\GettingStarted_JavaScript.CodeSnippet.html" />
 
-<h3>3. Import namespaces</h3>
+<DocHeading Title="3. Import namespaces" Level="3" />
 <p>Add following to your <code>_Imports.razor</code> file:</p>
 <CodeSnippet File="~\Pages\GettingStarted_Namespaces.CodeSnippet.razor" />
 
-
-<h3>4. Register services</h3>
+<DocHeading Title="4. Register services" Level="3" />
 <p>For <strong>Blazor WebAssembly</strong> add the following to your <code>Program.Main</code>:</p>
 <CodeSnippet File="~\Pages\GettingStarted_RegisterServices.CodeSnippet.cs" />
 <p>
@@ -65,16 +65,15 @@
 	(You won't use the <code>builder</code> there, register the services to the <code>services</code> collection.)
 </p>
 
-
-<h3>[OPTIONAL] 5. Add support for specific components</h3>
-<p>Some of the components need a specific project setup to work. This usually includes adding registering a service and adding a host-component to <code>App.razor</code> or layout component.</p>
+<DocHeading Title="5. Specific components support" Level="3" />
+<p>[OPTIONAL] Some of the components need a specific project setup to work. This usually includes adding registering a service and adding a host-component to <code>App.razor</code> or layout component.</p>
 <p>For instructions see documentation of those components:</p>
 <ul>
 	<li><a href="/components/@nameof(HxMessenger)">@nameof(HxMessenger)</a> - displaying new toast-messages from your code easily</li>
 	<li><a href="/components/@nameof(HxMessageBoxHost)">@nameof(HxMessageBoxHost)</a> - opening message-boxes (and await results) from your code</li>
 </ul>
 
-<h2>Ready, set, go!</h2>
+<DocHeading Title="Ready, set, go!" Id="done" Level="2" />
 <p>Now you are ready to use all the components in your razor files. They come with <code>Hx</code> prefix. IntelliSense will be your friend...</p>
 <Demo Type="typeof(GettingStarted_Demo)" Tabs="false" />
 

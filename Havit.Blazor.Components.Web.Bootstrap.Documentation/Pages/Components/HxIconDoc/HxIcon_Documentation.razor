@@ -4,11 +4,11 @@
 
     <p>(Internally used by <a href="/components/@nameof(HxButton)">@nameof(HxButton)</a> and other components.)</p>
 
-    <SectionTitle Id="Icon" />
+    <DocHeading Title="Icon" />
     <p>Icon is a class derived from <code>@nameof(IconBase)</code> as we want to allow use of icons from different icon sets.</p>
     <p>Currently, the library brings just one implementation - <code>@nameof(BootstrapIcon)</code>.</p>
 
-    <SectionTitle Title="BootstrapIcon" />
+    <DocHeading Title="Bootstrap icon" />
     <p>
         For available icons see <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons <HxIcon Icon="BootstrapIcon.BoxArrowUpRight" /></a>
         or <a href="https://havit.blazor.eu/types/BootstrapIcon">BootstrapIcon</a> members.
@@ -18,10 +18,10 @@
         Under the hood, the component displays the icon using an <a href="https://icons.getbootstrap.com/#usage" target="_blank">icon font</a>.
     </DocAlert>
 
-    <SectionTitle Title="Basic Usage" Id="basic-usage" />
+    <DocHeading Title="Basic usage" />
     <Demo Type="typeof(HxIcon_Demo)" Tabs="false" />
 
-    <SectionTitle Title="Custom Icons" Id="custom-icons" />
+    <DocHeading Title="Custom icons" />
     <p><code>HxIcon</code> is a host component which accepts <code>Icon</code> parameter (type of <a href="/types/IconBase"><code>IconBase</code></a>) and passes the rendering to a specific icon-component retrieved from the settings.</p>
     <p>You can add your own icons by following these steps:</p>
     <ol>
