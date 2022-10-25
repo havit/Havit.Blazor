@@ -5,7 +5,7 @@
 	<p>Component is using <code>@nameof(IHxMessengerService)</code> injected service.</p>
 	<p>Informational messages are automatically hidden after 5 seconds, warning and error messages remain visible till manually closed.</p>
 
-	<DocHeading Id="BasicUsage" />
+	<DocHeading Title="Basic usage" />
 	<Demo Type="typeof(HxMessenger_Demo)" />
 
 	<p>You should place the <code>@nameof(HxMessenger)</code> component itself to the layout component (<code>MainLayout.razor</code>) to make it work!</p>
@@ -14,6 +14,6 @@
 	<p>Call <code>services.AddHxMessenger()</code> in <code>Startup.cs</code> to setup related services.</p>
 	<CodeSnippet File="~\Pages\Components\HxMessengerDoc\HxMessenger_RegisterService.CodeSnippet.cs" />
 
-	<DocHeading Id="ClearingMessages" />
+    <DocHeading Title="Clearing messages" />
 	<p>Use <code>messenger.Clear()</code> method (<code>IHxMessengerService</code>) if you want all messages to disappear immediately.</p>
 </ComponentApiDoc>

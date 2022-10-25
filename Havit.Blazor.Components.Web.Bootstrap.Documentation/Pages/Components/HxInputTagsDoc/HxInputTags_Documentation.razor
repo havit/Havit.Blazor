@@ -8,21 +8,21 @@
             You can check the progress here: <a href="https://github.com/havit/Havit.Blazor/issues/348">https://github.com/havit/Havit.Blazor/issues/348</a>.
         </DocAlert>
         
-        <DocHeading Id="BasicUsage" />
+        <DocHeading Title="Basic usage" />
 		<Demo Type="typeof(HxInputTags_Demo_Basic)" />
 
-		<DocHeading Id="StaticSuggestions" />
+        <DocHeading Title="Static suggestions" />
 		<p>
 			To offer fixed list of suggestions (simmilar to <code>HxSelect</code>), setup <code>DataProvider</code> to return those values (no matter the input)
 			and use <code>@nameof(HxInputTags.SuggestDelay)="0"</code> together with <code>@nameof(HxInputTags.SuggestMinimumLength)="0"</code>.
 		</p>
 		<Demo Type="typeof(HxInputTags_Demo_FixedSuggestions)" />
 
-		<DocHeading Id="NoSuggestions" />
+        <DocHeading Title="No suggestions" />
 		<p>If you don't want to use any suggestions and let the user add tags manualy, just leave the <code>DataProvider</code> unset (<code>null</code>).</p>
 		<Demo Type="typeof(HxInputTags_Demo_NoSuggestions)" />
 
-		<DocHeading Id="RestrictedTags" />
+        <DocHeading Title="Restricted tags" />
 		<p>If you want to restrict tags to suggested items only, set <code>@nameof(HxInputTags.AllowCustomTags)</code> to <code>false</code>.</p>
 		<DocAlert>
 			Current @nameof(HxInputTags) implementation for <code>AllowCustomTags="false""</code> allows adding tags only from suggestions (dropdown).
@@ -30,27 +30,27 @@
 		</DocAlert>
 		<Demo Type="typeof(HxInputTags_Demo_AllowCustomTags)" />
 
-		<DocHeading Id="Colors" />
+        <DocHeading Title="Colors" />
 		<p>Use <code>TagBackgroundColor</code> and <code>TagTextColor</code> via <code>TagBadgeSettings</code> to adjust colors.</p>
 		<Demo Type="typeof(HxInputTags_Demo_Colors)" />
 
-		<DocHeading Id="Naked" />
+        <DocHeading Title="Naked" />
 		<p>Consider enabling <code>@nameof(HxInputTags.ShowAddButton)</code> when using <code>@nameof(HxInputTags.Naked)</code>.</p>
 		<Demo Type="typeof(HxInputTags_Demo_Naked)" />
 
-		<h4 id="NakedSizes">Naked sizes</h4>
+        <DocHeading Title="Naked sizes" Level="3" />
 		<p>Use <code>InputSize</code> parameter.</p>
 		<Demo Type="typeof(HxInputTags_Demo_Naked_InputSize)" />
 
-		<DocHeading Id="AddButtonText">Add-button text</DocHeading>
+        <DocHeading Title="Add-button text" />
 		<p>You might want to set custom <code>@nameof(HxInputTags.AddButtonText)</code> especially for <code>@nameof(HxInputTags.Naked)</code> input.</p>
 		<Demo Type="typeof(HxInputTags_Demo_Naked_AddButtonText)" />
 
-		<DocHeading Id="Disabled">Disabled</DocHeading>
+        <DocHeading Title="Disabled" />
 		<p>You can disable the input by setting <code>Enabled="false"</code>.</p>
 		<Demo Type="typeof(HxInputTags_Demo_Disabled)" />
 
-        <DocHeading Id="InputGroups" />
+        <DocHeading Title="Input groups" />
         <p><code>HxInputTags</code> component supports input groups. Learn more about them <a href="https://havit.blazor.eu/components/Inputs#InputGroups">here</a>.</p>
         <Demo Type="typeof(HxInputTags_Demo_InputGroups)" />
         <p>Simple text can be used as an input group, or you can create a custom input group template.</p>
