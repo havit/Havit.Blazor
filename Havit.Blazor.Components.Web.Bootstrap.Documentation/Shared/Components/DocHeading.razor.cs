@@ -65,7 +65,7 @@ public partial class DocHeading : IDocPageNavigationItem
 		{
 			return null;
 		}
-		return Regex.Replace(Title.ToLower(), @"[^\w]+", "-").Trim('-');
+		return Regex.Replace(Title.ToLower(), @"[^A-Za-z]+", "-").Trim('-');
 	}
 
 	public string GetItemUrl(string currentUrl)
