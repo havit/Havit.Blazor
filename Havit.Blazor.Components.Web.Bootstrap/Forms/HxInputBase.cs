@@ -360,7 +360,9 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		{
 			builder.OpenElement(0, "span");
 			builder.AddAttribute(1, "class", "hx-chip-label");
-			builder.AddContent(2, Label);
+			builder.OpenRegion(2);
+			RenderChipLabel(builder);
+			builder.CloseRegion();
 			builder.AddContent(3, ": ");
 			builder.CloseElement();
 			builder.OpenRegion(4);
@@ -369,9 +371,14 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		}
 	}
 
+	protected virtual void RenderChipLabel(RenderTreeBuilder builder)
+	{
+		builder.AddContent(0, this.Label);
+	}
+
 	protected virtual void RenderChipValue(RenderTreeBuilder builder)
 	{
-		builder.AddContent(0, CurrentValueAsString);
+		builder.AddContent(0, this.CurrentValueAsString);
 	}
 
 	/// <summary>

@@ -112,6 +112,11 @@ public class HxCheckbox : HxInputBase<bool>
 		throw new NotSupportedException($"This component does not parse string inputs. Bind to the '{nameof(CurrentValue)}' property, not '{nameof(CurrentValueAsString)}'.");
 	}
 
+	protected override void RenderChipLabel(RenderTreeBuilder builder)
+	{
+		builder.AddContent(0, String.IsNullOrWhiteSpace(this.Label) ? this.Text : this.Label);
+	}
+
 	protected override void RenderChipValue(RenderTreeBuilder builder)
 	{
 		builder.AddContent(0, CurrentValue ? Localizer["ChipValueTrue"] : Localizer["ChipValueFalse"]);
