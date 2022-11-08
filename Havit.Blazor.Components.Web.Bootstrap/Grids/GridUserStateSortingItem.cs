@@ -11,7 +11,7 @@ public sealed record GridUserStateSortingItem
 	/// <summary>
 	/// Column identifier.
 	/// </summary>
-	public string ColumnIdentifier { get; init; }
+	public string ColumnId { get; init; }
 
 	/// <summary>
 	/// Indicates whether the sorting should be performed in the reverse direction.	

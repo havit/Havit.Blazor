@@ -474,7 +474,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private void HandleColumnAdded(IHxGridColumn<TItem> column)
 	{
-		string columnId = column.GetIdentifier();
+		string columnId = column.GetId();
 		if (!String.IsNullOrEmpty(columnId))
 		{
 			columnIds ??= new HashSet<string>();
@@ -492,9 +492,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private void HandleColumnRemoved(IHxGridColumn<TItem> column)
 	{
-		if ((columnIds != null) && (!String.IsNullOrEmpty(column.GetIdentifier())))
+		if ((columnIds != null) && (!String.IsNullOrEmpty(column.GetId())))
 		{
-			columnIds.Remove(column.GetIdentifier());
+			columnIds.Remove(column.GetId());
 		}
 	}
 
@@ -686,7 +686,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	{
 		return sorting?.Select(item => new GridUserStateSortingItem
 		{
-			ColumnIdentifier = item.Column.GetIdentifier(),
+			ColumnId = item.Column.GetId(),
 			ReverseDirection = item.ReverseDirection
 		}).ToList();
 	}
@@ -707,7 +707,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		foreach (var gridSortingStateItem in gridSortingStateItems)
 		{
 			// try to find the column for the sorting state item
-			var sortingColumn = columnsList.FirstOrDefault(item => gridSortingStateItem.ColumnIdentifier == item.GetIdentifier());
+			var sortingColumn = columnsList.FirstOrDefault(item => gridSortingStateItem.ColumnId == item.GetId());
 
 			if (sortingColumn != null)
 			{

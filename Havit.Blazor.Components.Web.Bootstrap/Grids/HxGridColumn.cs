@@ -130,7 +130,7 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	#endregion
 
 	/// <inheritdoc />
-	protected override string GetColumnIdentifier() => Id;
+	protected override string GetId() => Id;
 
 	/// <inheritdoc />
 	protected override bool IsColumnVisible() => Visible;

@@ -10,7 +10,7 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 	[Parameter] public EventCallback<TItem> OnUnselectDataItemClicked { get; set; }
 
 	/// <inheritdoc />
-	protected override string GetColumnIdentifier() => "HxMultiSelectGridColumn";
+	protected override string GetId() => nameof(HxMultiSelectGridColumnInternal<object>);
 
 	/// <inheritdoc />
 	protected override int GetColumnOrder() => Int32.MinValue;

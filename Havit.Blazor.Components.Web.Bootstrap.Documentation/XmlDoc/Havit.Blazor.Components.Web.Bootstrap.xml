@@ -2821,7 +2821,7 @@
             Searches for character codes surrounded with '{' and '}' and replaces them with corresponding symbol.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetColumnIdentifier">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetId">
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetColumnOrder">
@@ -5501,7 +5501,7 @@
             Sorting criteria for a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.ColumnIdentifier">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.ColumnId">
             <summary>
             Column identifier.
             </summary>
@@ -5539,7 +5539,7 @@
             Context menu template.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetColumnIdentifier">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetId">
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetColumnOrder">
@@ -5955,7 +5955,7 @@
             Set <c>true</c> for the column which is to be used for default sorting.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetColumnIdentifier">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetId">
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.IsColumnVisible">
@@ -5995,7 +5995,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.OnInitialized">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Havit#Blazor#Components#Web#Bootstrap#IHxGridColumn{TItem}#GetIdentifier">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Havit#Blazor#Components#Web#Bootstrap#IHxGridColumn{TItem}#GetId">
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Havit#Blazor#Components#Web#Bootstrap#IHxGridColumn{TItem}#IsVisible">
@@ -6022,7 +6022,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Havit#Blazor#Components#Web#Bootstrap#IHxGridColumn{TItem}#GetDefaultSortingOrder">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetColumnIdentifier">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetId">
             <summary>
             Returns the unique column identifier.
             </summary>
@@ -6173,7 +6173,7 @@
             Grid column.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetIdentifier">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetId">
             <summary>
             Returns the unique column identifier.
             </summary>

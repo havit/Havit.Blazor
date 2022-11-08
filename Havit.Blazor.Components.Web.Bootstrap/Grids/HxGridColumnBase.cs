@@ -20,7 +20,7 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	}
 
 	/// <inheritdoc />
-	string IHxGridColumn<TItem>.GetIdentifier() => GetColumnIdentifier();
+	string IHxGridColumn<TItem>.GetId() => GetId();
 
 	/// <inheritdoc />
 	bool IHxGridColumn<TItem>.IsVisible() => IsColumnVisible();
@@ -50,7 +50,7 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	/// <summary>
 	/// Returns the unique column identifier.
 	/// </summary>
-	protected abstract string GetColumnIdentifier();
+	protected abstract string GetId();
 
 	/// <summary>
 	/// Indicates whether the column is visible (otherwise the column is hidden).

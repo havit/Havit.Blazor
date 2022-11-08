@@ -38,8 +38,8 @@
 @{
     string name = "Name"; 
 }
-<HxButton Text="Sort by name" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnIdentifier = name } } }" />
-<HxButton Text="Sort by name (reverse)" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnIdentifier = name, ReverseDirection = true } } }" />
+<HxButton Text="Sort by name" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnId = name } } }" />
+<HxButton Text="Sort by name (reverse)" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnId = name, ReverseDirection = true } } }" />
 
 <p>Current CultureInfo: @clientSideCurrentCultureInfo?.DisplayName</p>
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
@@ -78,7 +78,7 @@
 
     // LOCAL
     private CultureInfo clientSideCurrentCultureInfo = null;
-    private GridUserState clientSideGridUserState = new GridUserState { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnIdentifier = "Name" } } };
+    private GridUserState clientSideGridUserState = new GridUserState { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnId = "Name" } } };
 
     // SERVER SIDE (simulation)
     private GridUserState serverSideGridUserState = new GridUserState();

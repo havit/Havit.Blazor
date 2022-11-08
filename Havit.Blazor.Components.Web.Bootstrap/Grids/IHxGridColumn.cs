@@ -8,7 +8,7 @@ public interface IHxGridColumn<TItem>
 	/// <summary>
 	/// Returns the unique column identifier.
 	/// </summary>
-	string GetIdentifier();
+	string GetId();
 
 	/// <summary>
 	/// Indicates whether the column is visible (otherwise the column is hidden).

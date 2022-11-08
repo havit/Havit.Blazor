@@ -42,7 +42,7 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter] public RenderFragment<TItem> ChildContent { get; set; }
 
 	/// <inheritdoc />
-	protected override string GetColumnIdentifier() => nameof(HxContextMenuGridColumn<object>);
+	protected override string GetId() => nameof(HxContextMenuGridColumn<object>);
 
 	/// <inheritdoc />
 	protected override int GetColumnOrder() => order;
