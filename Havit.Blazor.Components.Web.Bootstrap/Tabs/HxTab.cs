@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Single tab in <see cref="HxTabPanel"/>.
+/// Single tab for <see cref="HxTabPanel"/>.
 /// </summary>
 public class HxTab : ComponentBase, ICascadeEnabledComponent, IAsyncDisposable
 {
@@ -43,6 +43,12 @@ public class HxTab : ComponentBase, ICascadeEnabledComponent, IAsyncDisposable
 	/// Content of the tab.
 	/// </summary>
 	[Parameter] public RenderFragment Content { get; set; }
+
+	/// <summary>
+	/// The order (display index) of the tab.<br />
+	/// Due to stable sorting used, the order in which the tabs are rendered is preserved when the <see cref="Order"/> parameter is not set.
+	/// </summary>
+	[Parameter] public int Order { get; set; }
 
 	/// <summary>
 	/// <c>True</c> for visible tab. Set <c>false</c> when tab should not be visible.

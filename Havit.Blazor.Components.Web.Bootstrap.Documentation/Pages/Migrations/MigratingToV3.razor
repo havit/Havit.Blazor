@@ -3,31 +3,31 @@
 <h1>Migrating to v3</h1>
 <p class="lead">Migration your projects to version 3 is pretty easy.</p>
 
-<h3>1. Update references to our NuGet package</h3>
+<DocHeading Title="1.NuGet package" />
 <p>Update the <a href="https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/">Havit.Blazor.Components.Web.Bootstrap</a> package through NuGet Package Manager or with following command:</p>
 <CodeSnippet Language="none">dotnet add package Havit.Blazor.Components.Web.Bootstrap</CodeSnippet>
 
-<h3>2. Update Bootstrap CSS and JS references</h3>
-<h5>CSS</h5>
+<DocHeading Title="2. Bootstrap CSS and JS" />
+<DocHeading Title="CSS" Level="3" />
 <p>If you are using Bootstrap CSS from CDN, update the following line in your HTML head section, it's either <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code> depending on whether you're running WebAssembly or Server:</p>
 <CodeSnippet Language="razor">&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"&gt;</CodeSnippet>
 <p>
-    If you are referencing our Bootstrap CSS build <code>_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.css</code>, it is updated automatically. 
+    If you are referencing our Bootstrap CSS build <code>_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.css</code>, it is updated automatically.
     If you are referencing your custom Bootstrap build/theme, upgrade it to Boostrap 5.2.
 </p>
 
-<h5>Bootstrap JavaScript Bundle</h5>
+<DocHeading Title="Bootstrap JavaScript" Id="javascript" Level="3" />
 <p>At the end of HTML <code>&lt;body&gt;</code> section of either <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code> update this line referencing Bootstrap JavaScript Bundle (with Popper) from CDN:</p>
 <CodeSnippet File="~\Pages\GettingStarted_JavaScript.CodeSnippet.html" />
 
-<h3>3. Resolve breaking changes ⚠️</h3>
+<DocHeading Title="3. Breaking changes ⚠️" Id="breaking-changes" />
 
-<h5>3.1 <code>HxOffcanvas</code> backdrop</h5>
+<DocHeading Id="HxOffcanvas-backdrop" Level="3">3.1 <code>HxOffcanvas</code> backdrop</DocHeading>
 <p>Replace the original <code>boolean HxOffcanvas.BackdropEnabled</code> parameter with new enum-based <code>OffcanvasBackdrop HxOffcanvas.Backdrop</code>:</p>
 <CodeSnippet Language="razor" File="~\Pages\Migrations\MigratingToV3_HxOffcanvasBackdrop.CodeSnippet.razor" />
 <p>Same applies for <code>OffcanvasSettings</code> used for <code>HxOffcanvas.Defaults.</code></p>
 
-<h5>3.2 <code>HxModal</code> backdrop</h5>
+<DocHeading Id="HxModal-backdrop" Level="3">3.2 <code>HxModal</code> backdrop</DocHeading>
 <p>Replace the original <code>boolean HxModal.UseStaticBackdrop</code> parameter with new enum-based <code>ModalBackdrop HxModal.Backdrop</code>:</p>
 <CodeSnippet Language="razor" File="~\Pages\Migrations\MigratingToV3_HxModalBackdrop.CodeSnippet.razor" />
 <p>Same applies for <code>ModalSettings</code> used for <code>HxModal.Defaults</code> and <code>HxMessageBox.Defaults.ModalSettings</code>.</p>
@@ -39,23 +39,23 @@
 <p>If you want to keep the original backdrop bahavior from v2, add following line to your <code>Program.cs</code>:</p>
 <CodeSnippet Language="csharp">HxModal.Defaults.Backdrop = ModalBackdrop.Static;</CodeSnippet>
 
-<h5>3.3 <code>HxGrid</code> pager</h5>
+<DocHeading Id="HxGrid-pager" Level="3">3.3 <code>HxGrid</code> pager</DocHeading>
 <p>If you were using <code>PagerCssClass</code> in v2, replace it with new <code>PagerSettings</code> parameter:</p>
 <CodeSnippet Language="razor" File="~\Pages\Migrations\MigratingToV3_HxGridPagerSettings.CodeSnippet.razor" />
 
-<h5>3.4 <code>HxAutosuggest</code> first item highlighting</h5>
+<DocHeading Id="HxAutosuggest" Level="3">3.4 <code>HxAutosuggest</code></DocHeading>
 <p>
     The <code>HighlightFirstSuggestion</code> parameter was removed. The component now highlights the first suggestion by default (cannot be disabled).
     Remove the parameter from your code (incl. <code>HxAutosuggest.Settings</code> and <code>HxAutosuggest.Defaults</code>).
 </p>
 
-<h5>3.5 Input components <code>ShowValidationMessage</code></h5>
+<DocHeading Id="ShowValidationMessage" Level="3">3.5 <code>ShowValidationMessage</code></DocHeading>
 <p>
-    The <code>ShowValidationMessage</code> parameter was refactored.
+    The <code>ShowValidationMessage</code> on input components parameter was refactored.
     If you were using it to disable the validation message, use <code>ValidationMessageMode="ValidationMessageMode.None"</code> instead.
 </p>
 
-<h3>4. Verify your CSS customizations</h3>
+<DocHeading Title="4. Verify CSS customizations" />
 <p>Check your CSS customizations and adjust according to the new Bootstrap 5.2 and Havit.Blazor setup. Focus on these areas where there were some changes which might affect your visual:</p>
 <ul>
     <li>check the <a href="https://getbootstrap.com/docs/5.2/migration/#v520">Bootstrap 5.2 migration guide</a></li>
@@ -63,23 +63,23 @@
     <li>check your sidebar</li>
 </ul>
 
-<h3>5. [OPTIONAL] Set default predefined date ranges for <code>HxInputDateRange</code></h3>
+<DocHeading Id="HxInputDateRange">5. <code>HxInputDateRange</code> predefined ranges</DocHeading>
 <p>
-    In v3 we removed the default predefined date ranges in <code>HxInputDateRange.Defaults.PredfefinedDateRanges</code>.
+    [OPTIONAL] In v3 we removed the default predefined date ranges in <code>HxInputDateRange.Defaults.PredfefinedDateRanges</code>.
     If you want your application to use the original set of predefined ranges, add this code to your application setup:
 </p>
 <CodeSnippet File="~\Pages\Migrations\MigratingToV3_HxInputDateRange_DefaultPredefinedDateRanges.CodeSnippet.cs" />
 
-<h3>6. [OPTIONAL] Replace obsolete components with new ones</h3>
+<DocHeading Title="6. Obsolete components" />
 <p>
-    We replaced <code>HxInputCheckbox</code> with new <code>HxCheckbox</code> and <code>HxInputSwitch</code> with new <code>HxSwitch</code>.<br />
+    [OPTIONAL] We replaced <code>HxInputCheckbox</code> with new <code>HxCheckbox</code> and <code>HxInputSwitch</code> with new <code>HxSwitch</code>.<br />
     The original <code>Label</code> parameter is now <code>Text</code> (the <code>Label</code> parameter of new components has a different purpose, see <a href="/components/HxCheckbox"><code>HxCheckbox</code> documentation</a>).
 </p>
 <CodeSnippet Language="razor" File="~\Pages\Migrations\MigratingToV3_HxCheckbox_HxSwitch.CodeSnippet.razor" />
 <p>The old components are marked as <code>[Obsolete]</code>, which will cause compile-time warnings (or errors if escalation is configured).</p>
 
-<h3>7. Troubles?</h3>
+<DocHeading Title="7. Troubles?" />
 <p>
-    If you experience any troubles migrating your project to v3, feel free to use the  <a href="https://github.com/havit/Havit.Blazor/discussions">GitHub Discussions</a> to place your question.<br/>
+    If you experience any troubles migrating your project to v3, feel free to use the  <a href="https://github.com/havit/Havit.Blazor/discussions">GitHub Discussions</a> to place your question.<br />
     If you find anything what seems to be a bug, file it to our <a href="https://github.com/havit/Havit.Blazor/issues">GitHub Issues</a>.
 </p>

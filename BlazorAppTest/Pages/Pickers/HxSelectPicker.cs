@@ -18,7 +18,7 @@ public class HxSelectPicker : HxSelectBase<int?, CultureInfo>
 		await Task.Delay(1000);
 
 		this.DataImpl = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-							.Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid?view=net-5.0#System_Globalization_CultureInfo_LCID
+							.Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid#System_Globalization_CultureInfo_LCID
 							.OrderBy(c => c.EnglishName)
 							.Take(100)
 							.ToList();

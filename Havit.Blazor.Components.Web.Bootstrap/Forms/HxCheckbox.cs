@@ -30,6 +30,11 @@ public class HxCheckbox : HxInputBase<bool>
 	[Parameter] public RenderFragment TextTemplate { get; set; }
 
 	/// <summary>
+	/// CSS class to apply to the text.
+	/// </summary>
+	[Parameter] public string TextCssClass { get; set; }
+
+	/// <summary>
 	/// Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.		
 	/// Works only when there is no label, no hint and no validation message.
 	/// </summary>
@@ -86,7 +91,7 @@ public class HxCheckbox : HxInputBase<bool>
 		builder.CloseElement(); // input
 
 		builder.OpenElement(2000, "label");
-		builder.AddAttribute(2001, "class", "form-check-label");
+		builder.AddAttribute(2001, "class", CssClassHelper.Combine("form-check-label", this.TextCssClass));
 		builder.AddAttribute(2002, "for", InputId);
 		if (TextTemplate == null)
 		{
@@ -105,6 +110,11 @@ public class HxCheckbox : HxInputBase<bool>
 	protected override bool TryParseValueFromString(string value, out bool result, out string validationErrorMessage)
 	{
 		throw new NotSupportedException($"This component does not parse string inputs. Bind to the '{nameof(CurrentValue)}' property, not '{nameof(CurrentValueAsString)}'.");
+	}
+
+	protected override void RenderChipLabel(RenderTreeBuilder builder)
+	{
+		builder.AddContent(0, String.IsNullOrWhiteSpace(this.Label) ? this.Text : this.Label);
 	}
 
 	protected override void RenderChipValue(RenderTreeBuilder builder)

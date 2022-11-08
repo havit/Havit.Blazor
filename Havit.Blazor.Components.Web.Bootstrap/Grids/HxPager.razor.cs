@@ -45,19 +45,13 @@ public partial class HxPager : ComponentBase
 	/// <summary>
 	/// Total pages of data items.
 	/// </summary>
-#if NET6_0_OR_GREATER
-	[EditorRequired]
-#endif
-	[Parameter] public int TotalPages { get; set; }
+	[Parameter, EditorRequired] public int TotalPages { get; set; }
 
 	/// <summary>
 	/// Current page index. Zero based.
 	/// Displayed numbers start with 1 which is page index 0.
 	/// </summary>
-#if NET6_0_OR_GREATER
-	[EditorRequired]
-#endif
-	[Parameter] public int CurrentPageIndex { get; set; }
+	[Parameter, EditorRequired] public int CurrentPageIndex { get; set; }
 
 	/// <summary>
 	/// Event raised where page index is changed.

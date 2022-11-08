@@ -244,7 +244,6 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 	{
 		validationMessageStore?.Clear();
 
-#if NET6_0_OR_GREATER
 		try
 		{
 			if (fromDropdownToggleElement is not null)
@@ -258,18 +257,8 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		}
 		catch (JSDisconnectedException)
 		{
-
+			// NOOP
 		}
-#else
-		if (fromDropdownToggleElement is not null)
-		{
-			await CloseDropdownAsync(fromDropdownToggleElement);
-		}
-		if (toDropdownToggleElement is not null)
-		{
-			await CloseDropdownAsync(toDropdownToggleElement);
-		}
-#endif
 
 		Dispose(false);
 	}

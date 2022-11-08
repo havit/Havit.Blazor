@@ -10,7 +10,7 @@
                ItemFromValueResolver="ResolveAutosuggestItemFromValue">
     <ItemTemplate Context="item">
         @item.EnglishName <sup>@item.LCID</sup>
-</ItemTemplate>
+    </ItemTemplate>
     <EmptyTemplate>
         <span class="p-2">Couldn't find any matching locale</span>
     </EmptyTemplate>
@@ -25,10 +25,11 @@
     private async Task<AutosuggestDataProviderResult<CultureInfo>> ProvideSuggestions(AutosuggestDataProviderRequest request)
     {
         await Task.Delay(400); // backend API speed simulation
+
         return new AutosuggestDataProviderResult<CultureInfo>
             {
                 Data = CultureInfo.GetCultures(CultureTypes.AllCultures)
-                            .Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid?view=net-5.0#System_Globalization_CultureInfo_LCID
+                            .Where(c => c.LCID != 4096)
                             .Where(c => c.EnglishName?.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase) ?? false)
                             .OrderBy(c => c.EnglishName)
                             .Take(10) // you should always limit the output to the number of items you want to be suggested
@@ -42,7 +43,9 @@
         {
             return null;
         }
+
         await Task.Delay(400); // backend API speed simulation
+
         return CultureInfo.GetCultureInfo(value.Value);
     }
 }

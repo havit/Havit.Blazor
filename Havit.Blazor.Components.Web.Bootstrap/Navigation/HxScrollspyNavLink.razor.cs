@@ -8,10 +8,7 @@ public partial class HxScrollspyNavLink
 	/// <summary>
 	/// The navigation target in <c>#id</c> form.
 	/// </summary>
-#if NET6_0_OR_GREATER
-	[EditorRequired]
-#endif
-	[Parameter] public string Href { get; set; }
+	[Parameter, EditorRequired] public string Href { get; set; }
 
 	/// <summary>
 	/// Additional CSS class.

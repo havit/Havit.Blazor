@@ -70,7 +70,9 @@ public static class GrpcClientServiceCollectionExtensions
 		configureGrpClientAll?.Invoke(grpcClient);
 		configureGrpcClientWithAuthorization?.Invoke(grpcClient);
 
+#if NET6_0
 		// NET6 failing GC workaround https://github.com/dotnet/runtime/issues/62054
 		services.AddSingleton<Func<TService>>(sp => () => sp.GetRequiredService<TService>());
+#endif
 	}
 }

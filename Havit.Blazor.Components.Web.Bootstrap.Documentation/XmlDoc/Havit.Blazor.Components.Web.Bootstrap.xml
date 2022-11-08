@@ -1380,7 +1380,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu">
             <summary>
-            Ready-made context menu (based on <see href="https://getbootstrap.com/docs/5.2/components/dropdowns/">Bootstrap Dropdown</see>).<br />
+            Ready-made context menu (based on <see href="https://getbootstrap.com/docs/5.2/components/dropdowns/">Bootstrap Dropdown</see>) with built-in support for confirmation messages after clicking on the menu items.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxContextMenu">https://havit.blazor.eu/components/HxContextMenu</see>
             </summary>
         </member>
@@ -2518,11 +2518,6 @@
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.InputKeyboardNavigationIndex">
-            <summary>
-            Input's index for the keyboard navigation. If this is the current index, then no item is selected.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueComponentExtensions">
             <summary>
             Extension methods to <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" />.
@@ -2960,11 +2955,6 @@
             Additional attributes to be splatted onto an underlying HTML input.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputKeyboardNavigationIndex">
-            <summary>
-            Input's index for the keyboard navigation. If this is the current index, then no item is selected.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase">
             <summary>
             Common implementation for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPopover"/>.
@@ -3120,6 +3110,11 @@
             Content to display next to the checkbox.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.TextCssClass">
+            <summary>
+            CSS class to apply to the text.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Inline">
             <summary>
             Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.		
@@ -3171,18 +3166,18 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.TextSelector">
             <summary>
-            TextSelector is obsolete, please use ItemTextSelector instead.
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.TextSelector"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemTextSelector"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemTextSelector">
             <summary>
             Selects text to display from item.
-            When not set, ToString() is used.
+            When not set, <c>ToString()</c> is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ValueSelector">
             <summary>
-            ValueSelector is obsolete, please use ItemValueSelector instead.
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ValueSelector"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemValueSelector"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemValueSelector">
@@ -3193,12 +3188,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.SortKeySelector">
             <summary>
-            SortKeySelector is obsolete, please use ItemSortKeySelector instead.
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.SortKeySelector"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemSortKeySelector"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemSortKeySelector">
             <summary>
-            Selects value for items sorting. When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.TextSelector"/> property will be used.
+            Selects value for items sorting. When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemTextSelector"/> property will be used.
             If you need complex sorting, pre-sort data manually or create a custom comparable property.
             </summary>
         </member>
@@ -4324,16 +4319,21 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2">
             <summary>
-            Select. Consider creating custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2"/>.<br />
+            Data-based list of radio buttons. Consider creating custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2"/>.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxRadioButtonList">https://havit.blazor.eu/components/HxRadioButtonList</see>
             </summary>
             <typeparam name="TValue">Type of value.</typeparam>
             <typeparam name="TItem">Type of items.</typeparam>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ValueSelector">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemValueSelector">
             <summary>
             Selects value from item.
-            Not required when TValueType is same as TItemTime.
+            Not required when <c>TValue</c> is same as <c>TItem</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ValueSelector">
+            <summary>
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ValueSelector"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemValueSelector"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.Data">
@@ -4341,22 +4341,62 @@
             Items to display. 
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.TextSelector">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextSelector">
             <summary>
             Selects text to display from item. Also used for chip text.
             When not set <c>ToString()</c> is used.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.TextSelector">
+            <summary>
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.TextSelector"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextSelector"/> instead.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTemplate">
             <summary>
             Gets html to display from item.
-            When not set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.TextSelector"/> is used.
+            When not set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextSelector"/> is used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemSortKeySelector">
+            <summary>
+            Selects value to sort items. Uses <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextSelector"/> property when not set.
+            When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.SortKeySelector">
             <summary>
-            Selects value to sort items. Uses <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.TextSelector"/> property when not set.
-            When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.SortKeySelector"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemSortKeySelector"/> instead.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemCssClass">
+            <summary>
+            Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemCssClassSelector">
+            <summary>
+            Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemInputCssClass">
+            <summary>
+            Additional CSS class(es) for the <c>input</c> element of underlying radio-buttons.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemInputCssClassSelector">
+            <summary>
+            Additional CSS class(es) for the <c>input</c> element of underlying radio-button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextCssClass">
+            <summary>
+            Additional CSS class(es) for the text of the underlying radio-buttons.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextCssClassSelector">
+            <summary>
+            Additional CSS class(es) for the text of the underlying radio-buttons.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.AutoSort">
@@ -4367,7 +4407,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2">
             <summary>
-            Base class for HxRadioList and custom-implemented pickers.
+            Base class for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2"/> and custom-implemented pickers.
             </summary>
             <typeparam name="TValue">Type of value.</typeparam>
             <typeparam name="TItem">Type of items.</typeparam>
@@ -4377,11 +4417,16 @@
             Allows grouping radios on the same horizontal row by rendering them inline. Default is <c>false</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ValueSelectorImpl">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemValueSelectorImpl">
             <summary>
             Selects value from item.
-            Not required when TValueType is same as TItemTime.
+            Not required when <c>TValueType</c> is same as <c>TItemTime</c>.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ValueSelectorImpl">
+            <summary>
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ValueSelectorImpl"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemValueSelectorImpl"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.DataImpl">
@@ -4390,24 +4435,64 @@
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.TextSelectorImpl">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextSelectorImpl">
             <summary>
             Gets text to display from item. Used also for chip text.
             When not set ToString() is used.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.TextSelectorImpl">
+            <summary>
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.TextSelectorImpl"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextSelectorImpl"/> instead.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTemplateImpl">
             <summary>
             Gets html to display from item.
-            When not set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.TextSelectorImpl"/> is used.
+            When not set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextSelectorImpl"/> is used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemSortKeySelectorImpl">
+            <summary>
+            Selects value to sort items. Uses <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextSelectorImpl"/> property when not set.
+            When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
+            Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.SortKeySelectorImpl">
             <summary>
-            Selects value to sort items. Uses <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.TextSelectorImpl"/> property when not set.
-            When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
-            Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.SortKeySelectorImpl"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemSortKeySelectorImpl"/> instead.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemCssClassImpl">
+            <summary>
+            Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemCssClassSelectorImpl">
+            <summary>
+            Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemInputCssClassImpl">
+            <summary>
+            Additional CSS class(es) for the <c>input</c> element of underlying radio-buttons.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemInputCssClassSelectorImpl">
+            <summary>
+            Additional CSS class(es) for the <c>input</c> element of underlying radio-button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextCssClassImpl">
+            <summary>
+            Additional CSS class(es) for the text of the underlying radio-buttons.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextCssClassSelectorImpl">
+            <summary>
+            Additional CSS class(es) for the text of the underlying radio-buttons.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.AutoSortImpl">
@@ -8617,7 +8702,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTab">
             <summary>
-            Single tab in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/>.
+            Single tab for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.TabsRegistration">
@@ -8654,6 +8739,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Content">
             <summary>
             Content of the tab.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Order">
+            <summary>
+            The order (display index) of the tab.<br />
+            Due to stable sorting used, the order in which the tabs are rendered is preserved when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Order"/> parameter is not set.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Visible">

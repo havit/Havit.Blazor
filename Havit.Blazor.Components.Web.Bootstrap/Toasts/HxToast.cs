@@ -237,7 +237,6 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 
 		if (jsModule != null)
 		{
-#if NET6_0_OR_GREATER
 			try
 			{
 				await jsModule.InvokeVoidAsync("dispose", toastElement);
@@ -247,10 +246,6 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 			{
 				// NOOP
 			}
-#else
-			await jsModule.InvokeVoidAsync("dispose", toastElement);
-			await jsModule.DisposeAsync();
-#endif
 		}
 
 		dotnetObjectReference.Dispose();

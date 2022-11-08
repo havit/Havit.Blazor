@@ -1,0 +1,14 @@
+﻿<OnThisPageNavigation CssClass="d-none d-md-block d-lg-none my-4">
+	<h6 class="mt-3 pb-1 border-bottom">On this page</h6>
+</OnThisPageNavigation>
+
+<div class="my-4 d-md-none">
+	<HxCollapseToggleButton Text="On this page" Icon="BootstrapIcon.ChevronExpand" Outline="true" Color="ThemeColor.Primary" CollapseTarget="#on-this-page-navigation-collapse" />
+	<HxCollapse Id="on-this-page-navigation-collapse" CssClass="mt-2">
+		<HxCard>
+			<BodyTemplate>
+				<OnThisPageNavigation />
+			</BodyTemplate>
+		</HxCard>
+	</HxCollapse>
+</div>

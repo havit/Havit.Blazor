@@ -2,7 +2,7 @@
 @using Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 
-<div id="@dropdownId" class="@CssClassHelper.Combine("hx-searchbox", CssClassEffective)">
+<div id="@dropdownId" class="@CssClassHelper.Combine("hx-search-box", CssClassEffective)">
     <HxDropdown AutoClose="DropdownAutoClose.Outside">
         <HxDropdownToggleElement @ref="dropdownToggle"
                                  ElementName="div"
@@ -32,9 +32,9 @@
                     @InputGroupStartTemplate
 
                     <input
+                        id="@inputId"
                         value="@TextQuery"
                         @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
-                        @onkeydown="HandleInputKeyDown"
                         @onfocus="HandleInputFocus"
                         @onblur="HandleInputBlur"
                         inputmode="search"

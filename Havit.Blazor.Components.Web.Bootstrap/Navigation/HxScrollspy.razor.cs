@@ -11,10 +11,7 @@ public partial class HxScrollspy : IAsyncDisposable
 	/// <summary>
 	/// ID of the <see cref="HxNav"/> or list-group with scrollspy navigation.
 	/// </summary>
-#if NET6_0_OR_GREATER
-	[EditorRequired]
-#endif
-	[Parameter] public string TargetId { get; set; }
+	[Parameter, EditorRequired] public string TargetId { get; set; }
 
 	/// <summary>
 	/// Scrollspy additional CSS class. Added to main div (.hx-scrollspy).
@@ -90,7 +87,6 @@ public partial class HxScrollspy : IAsyncDisposable
 
 		if (jsModule != null)
 		{
-#if NET6_0_OR_GREATER
 			try
 			{
 				await jsModule.InvokeVoidAsync("dispose", scrollspyElement);
@@ -100,10 +96,6 @@ public partial class HxScrollspy : IAsyncDisposable
 			{
 				// NOOP
 			}
-#else
-			await jsModule.InvokeVoidAsync("dispose", scrollspyElement);
-			await jsModule.DisposeAsync();
-#endif
 		}
 	}
 }

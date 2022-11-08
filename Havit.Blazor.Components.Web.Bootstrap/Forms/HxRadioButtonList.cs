@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Select. Consider creating custom picker derived from <see cref="HxRadioButtonListBase{TValueType, TItem}"/>.<br />
+/// Data-based list of radio buttons. Consider creating custom picker derived from <see cref="HxRadioButtonListBase{TValueType, TItem}"/>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxRadioButtonList">https://havit.blazor.eu/components/HxRadioButtonList</see>
 /// </summary>
 /// <typeparam name="TValue">Type of value.</typeparam>
@@ -10,13 +10,24 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 {
 	/// <summary>
 	/// Selects value from item.
-	/// Not required when TValueType is same as TItemTime.
+	/// Not required when <c>TValue</c> is same as <c>TItem</c>.
 	/// </summary>
 	[Parameter]
+	public Func<TItem, TValue> ItemValueSelector
+	{
+		get => ItemValueSelectorImpl;
+		set => ItemValueSelectorImpl = value;
+	}
+
+	/// <summary>
+	/// <see cref="ValueSelector"/> is obsolete, please use <see cref="ItemValueSelector"/> instead.
+	/// </summary>
+	[Parameter]
+	[Obsolete($"{nameof(ValueSelector)} is obsolete, use {nameof(ItemValueSelector)} instead.")]
 	public Func<TItem, TValue> ValueSelector
 	{
-		get => ValueSelectorImpl;
-		set => ValueSelectorImpl = value;
+		get => ItemValueSelector;
+		set => ItemValueSelector = value;
 	}
 
 	/// <summary>
@@ -34,15 +45,26 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	/// When not set <c>ToString()</c> is used.
 	/// </summary>
 	[Parameter]
+	public Func<TItem, string> ItemTextSelector
+	{
+		get => ItemTextSelectorImpl;
+		set => ItemTextSelectorImpl = value;
+	}
+
+	/// <summary>
+	/// <see cref="TextSelector"/> is obsolete, please use <see cref="ItemTextSelector"/> instead.
+	/// </summary>
+	[Parameter]
+	[Obsolete($"{nameof(TextSelector)} is obsolete, use {nameof(ItemTextSelector)} instead.")]
 	public Func<TItem, string> TextSelector
 	{
-		get => TextSelectorImpl;
-		set => TextSelectorImpl = value;
+		get => ItemTextSelector;
+		set => ItemTextSelector = value;
 	}
 
 	/// <summary>
 	/// Gets html to display from item.
-	/// When not set <see cref="TextSelector"/> is used.
+	/// When not set <see cref="ItemTextSelector"/> is used.
 	/// </summary>
 	[Parameter]
 	public RenderFragment<TItem> ItemTemplate
@@ -52,14 +74,85 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	}
 
 	/// <summary>
-	/// Selects value to sort items. Uses <see cref="TextSelector"/> property when not set.
+	/// Selects value to sort items. Uses <see cref="ItemTextSelector"/> property when not set.
 	/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
 	/// </summary>
 	[Parameter]
+	public Func<TItem, IComparable> ItemSortKeySelector
+	{
+		get => ItemSortKeySelectorImpl;
+		set => ItemSortKeySelectorImpl = value;
+	}
+
+	/// <summary>
+	/// <see cref="SortKeySelector"/> is obsolete, please use <see cref="ItemSortKeySelector"/> instead.
+	/// </summary>
+	[Parameter]
+	[Obsolete($"{nameof(SortKeySelector)} is obsolete, use {nameof(ItemSortKeySelector)} instead.")]
 	public Func<TItem, IComparable> SortKeySelector
 	{
-		get => SortKeySelectorImpl;
-		set => SortKeySelectorImpl = value;
+		get => ItemSortKeySelector;
+		set => ItemSortKeySelector = value;
+	}
+
+	/// <summary>
+	/// Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+	/// </summary>
+	[Parameter]
+	public string ItemCssClass
+	{
+		get => ItemCssClassImpl;
+		set => ItemCssClassImpl = value;
+	}
+
+	/// <summary>
+	/// Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+	/// </summary>
+	[Parameter]
+	public Func<TItem, string> ItemCssClassSelector
+	{
+		get => ItemCssClassSelectorImpl;
+		set => ItemCssClassSelectorImpl = value;
+	}
+
+	/// <summary>
+	/// Additional CSS class(es) for the <c>input</c> element of underlying radio-buttons.
+	/// </summary>
+	[Parameter]
+	public string ItemInputCssClass
+	{
+		get => ItemInputCssClassImpl;
+		set => ItemInputCssClassImpl = value;
+	}
+
+	/// <summary>
+	/// Additional CSS class(es) for the <c>input</c> element of underlying radio-button.
+	/// </summary>
+	[Parameter]
+	public Func<TItem, string> ItemInputCssClassSelector
+	{
+		get => ItemInputCssClassSelectorImpl;
+		set => ItemInputCssClassSelectorImpl = value;
+	}
+
+	/// <summary>
+	/// Additional CSS class(es) for the text of the underlying radio-buttons.
+	/// </summary>
+	[Parameter]
+	public string ItemTextCssClass
+	{
+		get => ItemTextCssClassImpl;
+		set => ItemTextCssClassImpl = value;
+	}
+
+	/// <summary>
+	/// Additional CSS class(es) for the text of the underlying radio-buttons.
+	/// </summary>
+	[Parameter]
+	public Func<TItem, string> ItemTextCssClassSelector
+	{
+		get => ItemTextCssClassSelectorImpl;
+		set => ItemTextCssClassSelectorImpl = value;
 	}
 
 	/// <summary>

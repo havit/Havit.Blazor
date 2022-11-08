@@ -1,34 +1,39 @@
-﻿
-<EditForm Model="model">
-	<DataAnnotationsValidator />
+﻿<EditForm Model="model">
+    <DataAnnotationsValidator />
 
-	<HxRadioButtonList Label="Band member" TItem="Person" TValue="string" Data="@people" @bind-Value="@model.SelectedPersonInitials" TextSelector="@(p => p.Name)" ValueSelector="@(p => p.Initials)" />
-	<HxSubmit Text="Submit" Color="ThemeColor.Primary" />
+    <HxRadioButtonList Label="Band member"
+                       TItem="Person"
+                       TValue="string"
+                       Data="@people"
+                       @bind-Value="@model.SelectedPersonInitials"
+                       ItemTextSelector="@(p => p.Name)"
+                       ItemValueSelector="@(p => p.Initials)" />
+
+    <HxSubmit Text="Submit" Color="ThemeColor.Primary" />
 </EditForm>
 
 <p>Selected initials: @model.SelectedPersonInitials</p>
 
 @code {
-	private FormModel model = new FormModel();
+    private FormModel model = new FormModel();
 
-	private List<Person> people = new List<Person>
+    private List<Person> people = new List<Person>
 {
-		new Person { Name = "Starr Ringo", Initials = "RS" },
-		new Person { Name = "Lennon John", Initials = "JL" },
-		new Person { Name = "McCartney Paul", Initials = "PMC" },
-		new Person { Name = "Harrison George", Initials = "GH" }
-	};
+        new Person { Name = "Starr Ringo", Initials = "RS" },
+        new Person { Name = "Lennon John", Initials = "JL" },
+        new Person { Name = "McCartney Paul", Initials = "PMC" },
+        new Person { Name = "Harrison George", Initials = "GH" }
+    };
 
-	internal class FormModel
-	{
-		[Required(ErrorMessage = "Choose a band member.")]
-		public string SelectedPersonInitials { get; set; }
-	}
+    internal class FormModel
+    {
+        [Required(ErrorMessage = "Choose a band member.")]
+        public string SelectedPersonInitials { get; set; }
+    }
 
-	internal class Person
-	{
-		public string Name { get; set; }
-		public string Initials { get; set; }
-	}
-
+    internal class Person
+    {
+        public string Name { get; set; }
+        public string Initials { get; set; }
+    }
 }

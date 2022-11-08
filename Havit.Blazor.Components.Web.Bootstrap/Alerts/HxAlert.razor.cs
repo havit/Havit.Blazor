@@ -11,10 +11,7 @@ public partial class HxAlert
 	/// <summary>
 	/// Alert color (background). Required.
 	/// </summary>
-#if NET6_0_OR_GREATER
-	[EditorRequired]
-#endif
-	[Parameter] public ThemeColor Color { get; set; }
+	[Parameter, EditorRequired] public ThemeColor Color { get; set; }
 
 	/// <summary>
 	/// Shows the Close button and allows dissmissing of the alert.

@@ -208,7 +208,6 @@ public partial class HxCarousel : IAsyncDisposable
 
 		if (jsModule is not null)
 		{
-#if NET6_0_OR_GREATER
 			try
 			{
 				await jsModule.InvokeVoidAsync("dispose", elementReference);
@@ -218,10 +217,6 @@ public partial class HxCarousel : IAsyncDisposable
 			{
 				// NOOP
 			}
-#else
-			await jsModule.InvokeVoidAsync("dispose", elementReference);
-			await jsModule.DisposeAsync();
-#endif
 		}
 
 		dotnetObjectReference?.Dispose();

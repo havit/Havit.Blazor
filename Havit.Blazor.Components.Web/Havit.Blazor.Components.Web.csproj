@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net5.0</TargetFrameworks>
+		<TargetFrameworks>net6.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<NoWarn>1591;1701;1702;SA1134</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -25,9 +25,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Havit.Core" Version="2.0.26" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.6" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.17" Condition="'$(TargetFramework)' == 'net5.0'" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.6" Condition="'$(TargetFramework)' == 'net6.0'" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.11" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.11" Condition="'$(TargetFramework)' == 'net6.0'" />
 	</ItemGroup>
 	
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">

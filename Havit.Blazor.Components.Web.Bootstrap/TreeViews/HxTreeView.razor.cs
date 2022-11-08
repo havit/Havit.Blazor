@@ -10,10 +10,7 @@ public partial class HxTreeView<TItem> : ComponentBase
 	/// <summary>
 	/// Collection of hierarchy data to display.
 	/// </summary>
-#if NET6_0_OR_GREATER
-	[EditorRequired]
-#endif
-	[Parameter] public IEnumerable<TItem> Items { get; set; }
+	[Parameter, EditorRequired] public IEnumerable<TItem> Items { get; set; }
 
 	/// <summary>
 	/// Selected data item.

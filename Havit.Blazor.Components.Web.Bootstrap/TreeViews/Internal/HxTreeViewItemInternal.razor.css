@@ -52,7 +52,7 @@
 }
 
 .hx-tree-view-item-expander-container {
-	width: var(--hx-tree-view-expander-container-width);;
+	width: var(--hx-tree-view-expander-container-width);
 	display: flex;
 	justify-content: center;
 	align-items: center;

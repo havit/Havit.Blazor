@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Base class for HxRadioList and custom-implemented pickers.
+/// Base class for <see cref="HxRadioButtonList{TValue, TItem}"/> and custom-implemented pickers.
 /// </summary>
 /// <typeparam name="TValue">Type of value.</typeparam>
 /// <typeparam name="TItem">Type of items.</typeparam>
@@ -16,10 +16,20 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 	/// <summary>
 	/// Selects value from item.
-	/// Not required when TValueType is same as TItemTime.
+	/// Not required when <c>TValueType</c> is same as <c>TItemTime</c>.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
-	protected Func<TItem, TValue> ValueSelectorImpl { get; set; }
+	protected Func<TItem, TValue> ItemValueSelectorImpl { get; set; }
+
+	/// <summary>
+	/// <see cref="ValueSelectorImpl"/> is obsolete, please use <see cref="ItemValueSelectorImpl"/> instead.
+	/// </summary>
+	[Obsolete($"{nameof(ValueSelectorImpl)} is obsolete, use {nameof(ItemValueSelectorImpl)} instead.")]
+	protected Func<TItem, TValue> ValueSelectorImpl
+	{
+		get => ItemValueSelectorImpl;
+		set => ItemValueSelectorImpl = value;
+	}
 
 	/// <summary>
 	/// Items to display. 
@@ -32,20 +42,70 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	/// When not set ToString() is used.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
-	protected Func<TItem, string> TextSelectorImpl { get; set; }
+	protected Func<TItem, string> ItemTextSelectorImpl { get; set; }
+
+	/// <summary>
+	/// <see cref="TextSelectorImpl"/> is obsolete, please use <see cref="ItemTextSelectorImpl"/> instead.
+	/// </summary>
+	[Obsolete($"{nameof(TextSelectorImpl)} is obsolete, use {nameof(ItemTextSelectorImpl)} instead.")]
+	protected Func<TItem, string> TextSelectorImpl
+	{
+		get => ItemTextSelectorImpl;
+		set => ItemTextSelectorImpl = value;
+	}
 
 	/// <summary>
 	/// Gets html to display from item.
-	/// When not set <see cref="TextSelectorImpl"/> is used.
+	/// When not set <see cref="ItemTextSelectorImpl"/> is used.
 	/// </summary>
 	protected RenderFragment<TItem> ItemTemplateImpl { get; set; }
 
 	/// <summary>
-	/// Selects value to sort items. Uses <see cref="TextSelectorImpl"/> property when not set.
+	/// Selects value to sort items. Uses <see cref="ItemTextSelectorImpl"/> property when not set.
 	/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
-	protected Func<TItem, IComparable> SortKeySelectorImpl { get; set; }
+	protected Func<TItem, IComparable> ItemSortKeySelectorImpl { get; set; }
+
+	/// <summary>
+	/// <see cref="SortKeySelectorImpl"/> is obsolete, please use <see cref="ItemSortKeySelectorImpl"/> instead.
+	/// </summary>
+	[Obsolete($"{nameof(SortKeySelectorImpl)} is obsolete, use {nameof(ItemSortKeySelectorImpl)} instead.")]
+	protected Func<TItem, IComparable> SortKeySelectorImpl
+	{
+		get => ItemSortKeySelectorImpl;
+		set => ItemSortKeySelectorImpl = value;
+	}
+
+	/// <summary>
+	/// Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+	/// </summary>
+	protected string ItemCssClassImpl { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).
+	/// </summary>
+	protected Func<TItem, string> ItemCssClassSelectorImpl { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for the <c>input</c> element of underlying radio-buttons.
+	/// </summary>
+	protected string ItemInputCssClassImpl { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for the <c>input</c> element of underlying radio-button.
+	/// </summary>
+	protected Func<TItem, string> ItemInputCssClassSelectorImpl { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for the text of the underlying radio-buttons.
+	/// </summary>
+	protected string ItemTextCssClassImpl { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for the text of the underlying radio-buttons.
+	/// </summary>
+	protected Func<TItem, string> ItemTextCssClassSelectorImpl { get; set; }
 
 	/// <summary>
 	/// When <c>true</c>, items are sorted before displaying in select.
@@ -107,7 +167,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			bool selected = (index == selectedItemIndex);
 			if (selected)
 			{
-				chipValue = SelectorHelpers.GetText(TextSelectorImpl, item);
+				chipValue = SelectorHelpers.GetText(ItemTextSelectorImpl, item);
 			}
 
 			string inputId = GroupName + "_" + index.ToString();
@@ -115,10 +175,10 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.OpenElement(100, "div");
 
 			// TODO CoreCssClass
-			builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null));
+			builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null, ItemCssClassImpl, ItemCssClassSelectorImpl?.Invoke(item)));
 
 			builder.OpenElement(200, "input");
-			builder.AddAttribute(201, "class", "form-check-input");
+			builder.AddAttribute(201, "class", CssClassHelper.Combine("form-check-input", ItemInputCssClassImpl, ItemInputCssClassSelectorImpl?.Invoke(item)));
 			builder.AddAttribute(202, "type", "radio");
 			builder.AddAttribute(203, "name", GroupName);
 			builder.AddAttribute(204, "id", inputId);
@@ -132,7 +192,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.CloseElement(); // input
 
 			builder.OpenElement(300, "label");
-			builder.AddAttribute(301, "class", "form-check-label");
+			builder.AddAttribute(301, "class", CssClassHelper.Combine("form-check-label", ItemTextCssClassImpl, ItemTextCssClassSelectorImpl?.Invoke(item)));
 			builder.AddAttribute(302, "for", inputId);
 			if (ItemTemplateImpl != null)
 			{
@@ -140,7 +200,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			}
 			else
 			{
-				builder.AddContent(304, SelectorHelpers.GetText(TextSelectorImpl, item));
+				builder.AddContent(304, SelectorHelpers.GetText(ItemTextSelectorImpl, item));
 			}
 			builder.CloseElement(); // label
 
@@ -150,7 +210,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 	private void HandleInputClick(int index)
 	{
-		CurrentValue = SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, itemsToRender[index]);
+		CurrentValue = SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelectorImpl, itemsToRender[index]);
 	}
 
 	private void RefreshState()
@@ -162,13 +222,13 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			// AutoSort
 			if (AutoSortImpl && (itemsToRender.Count > 1))
 			{
-				if (SortKeySelectorImpl != null)
+				if (ItemSortKeySelectorImpl != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.SortKeySelectorImpl).ToList();
+					itemsToRender = itemsToRender.OrderBy(this.ItemSortKeySelectorImpl).ToList();
 				}
-				else if (TextSelectorImpl != null)
+				else if (ItemTextSelectorImpl != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.TextSelectorImpl).ToList();
+					itemsToRender = itemsToRender.OrderBy(this.ItemTextSelectorImpl).ToList();
 				}
 				else
 				{
@@ -177,7 +237,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			}
 
 			// set next properties for rendering
-			selectedItemIndex = itemsToRender.FindIndex(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
+			selectedItemIndex = itemsToRender.FindIndex(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelectorImpl, item)));
 
 			if ((Value != null) && (selectedItemIndex == -1))
 			{

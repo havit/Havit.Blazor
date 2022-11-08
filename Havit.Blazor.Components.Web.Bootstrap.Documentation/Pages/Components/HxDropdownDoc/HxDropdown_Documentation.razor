@@ -13,22 +13,22 @@
 
 <ComponentApiDoc Type="typeof(HxDropdown)">
 
-    <SectionTitle Id="basic-usage">Basic usage</SectionTitle>
+    <DocHeading Title="Basic usage" />
     <p>
         Use <code>HxDropdown</code> and <code>HxDropdownToggleElement</code> (with <code>ElementName="..."</code>) to create dropdown with custom toggler.
         (Usually you will add <code>role="button"</code> to apply pointer cursor type.)
     </p>
     <Demo Type="typeof(HxDropdown_Demo_Basic)" Tabs="false" />
 
-    <SectionTitle Id="directions">Directions</SectionTitle>
+    <DocHeading Title="Directions" />
     <Demo Type="typeof(HxDropdown_Demo_Directions)" />
 
-    <SectionTitle Id="header-disabled-active">Header, Disabled, Active</SectionTitle>
+    <DocHeading Title="Header, Disabled, Active" />
     <p>Set <code>CssClass="active"</code> to highlight the item. (In case of <code>NavLink</code> functionality needed, separate <code>HxDropdownMenuNavLinkItem</code> will be implemented.)</p>
     <p>Set <code>Enabled="false"</code> to disable the item. The <code>HxFormState.Enabled</code> inheritance is also supported.</p>
     <Demo Type="typeof(HxDropdown_Demo_HeaderDisabledActive)" />
 
-    <SectionTitle Id="MenuAlignment" />
+    <DocHeading Title="Menu alignment" />
     <p>By default, a dropdown menu is automatically positioned 100% from the top and along the left side of its parent. You can change this with the <code>HxDropdownMenu.Alignment</code> parameter. By default, no alignment classes are applied.</p>
     <DocAlert Type="DocAlertType.Warning">
         <p>When you supply the <code>HxDropdownMenu.Alignment</code> parameter, it is only applied when the dropdown menu wouldn't overflow (no part is covered), otherwise, the dropdown menu is positioned automatically by Popper.</p>
@@ -36,34 +36,34 @@
     </DocAlert>
     <Demo Type="typeof(HxDropdown_Demo_MenuAlignment)" />
 
-    <SectionTitle Id="custom-content">Custom content</SectionTitle>
+    <DocHeading Title="Custom content" />
     <p>Use <code>HxDropdownContent</code> instead of <code>HxDropdownMenu</code>.</p>
     <Demo Type="typeof(HxDropdown_Demo_CustomContent)" />
 
 
-    <SectionTitle Id="offset-reference">Dropdown offset and reference</SectionTitle>
+    <DocHeading Title="Dropdown offset and reference" Id="offset-reference" />
     <p>
         You can change the location of the dropdown by setting the <code>@nameof(HxDropdownToggleButton).@nameof(HxDropdownToggleButton.DropdownOffset)</code>
         and/or <code>@nameof(HxDropdownToggleButton).@nameof(HxDropdownToggleButton.DropdownReference)</code>.
     </p>
     <Demo Type="typeof(HxDropdown_Demo_DropdownOffsetAndReference)" />
 
-    <SectionTitle Id="custom-reference">Reference to custom HTML element</SectionTitle>
+    <DocHeading Title="Reference to custom HTML element" Id="custom-reference" />
     <p>
         If you want to position the dropdown relative to a specific element, use the <code>DropdownReference</code> parameter.<br/>
         Specific structure of <code>#id</code> gets recognized and handed over to the underlying Bootstraps dropdown.
     </p>
     <Demo Type="typeof(HxDropdown_Demo_DropdownReference)" />
 
-    <SectionTitle Id="autoclose-behavior">AutoClose behavior</SectionTitle>
+    <DocHeading Title="AutoClose behavior" />
     <p>By default, the dropdown menu is closed when clicking inside or outside the dropdown menu. You can use the <code>AutoClose</code> parameter to change this behavior of the dropdown.</p>
     <Demo Type="typeof(HxDropdown_Demo_AutoClose)" />
 
-    <SectionTitle Id="NavWithDropdown" />
+    <DocHeading Title="Nav with dropdown" />
     <p>You can use <code>HxDropdown</code> inside <code><a href="/components/@nameof(HxNav)">@nameof(HxNav)</a></code>.</p>
     <Demo Type="typeof(HxNav_Demo_Dropdowns)" />
 
-    <SectionTitle Id="dark">Dark dropdowns</SectionTitle>
+    <DocHeading Title="Dark dropdowns" />
     <p>Opt into darker dropdowns to match a dark navbar or custom style by adding <code>.dropdown-menu-dark</code> onto a <code>HxDropdownMenu</code> component.</p>
     <Demo Type="typeof(HxDropdown_Demo_Dark)" />
 </ComponentApiDoc>

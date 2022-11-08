@@ -5,9 +5,10 @@
 </CascadingValue>
 
 @{
+    var tabsListOrdered = tabsList.OrderBy(tab => tab.Order).ToList();
     RenderFragment tabsNavigation =
 		@<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), this.CssClass)" Variant="this.NavVariant">
-		    @foreach (HxTab tab in tabsList)
+        @foreach (HxTab tab in tabsListOrdered)
 		    {
 				@if (tab.Visible)
 				{
@@ -23,7 +24,7 @@
     
     RenderFragment tabsContent =
 		@<div class="tab-content">
-			@foreach (HxTab tab in tabsList)
+			@foreach (HxTab tab in tabsListOrdered)
 			{
 				@if (tab.Visible)
 				{

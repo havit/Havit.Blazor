@@ -38,8 +38,5 @@ public partial class HxRepeater<TItem> : ComponentBase
 	/// <summary>
 	/// Items to be rendered.
 	/// </summary>
-#if NET6_0_OR_GREATER
-	[EditorRequired]
-#endif
-	[Parameter] public IEnumerable<TItem> Data { get; set; }
+	[Parameter, EditorRequired] public IEnumerable<TItem> Data { get; set; }
 }

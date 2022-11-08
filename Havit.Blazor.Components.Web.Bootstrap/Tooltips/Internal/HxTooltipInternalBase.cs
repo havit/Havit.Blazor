@@ -95,7 +95,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 		if (shouldRenderSpan)
 		{
 			builder.OpenElement(1, "span");
-			builder.AddAttribute(2, "class", WrapperCssClass);
+			builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", WrapperCssClass));
 			builder.AddAttribute(3, "data-bs-container", "body");
 			builder.AddAttribute(4, "data-bs-trigger", GetTriggers());
 			builder.AddAttribute(5, "data-bs-placement", PlacementInternal.ToString().ToLower());
@@ -146,7 +146,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 		if (!disposed
 			&& ((lastTitle != TitleInternal) || (lastContent != ContentInternal)))
 		{
-			// carefully, lastText can be null but Text empty string
+			// carefully, lastText can be null but Text empty stringeee
 
 			bool shouldCreateOrUpdateTooltip = !String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal);
 
@@ -253,7 +253,6 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 		{
 			if (isInitialized && (!String.IsNullOrEmpty(TitleInternal) || !String.IsNullOrEmpty(ContentInternal)))
 			{
-#if NET6_0_OR_GREATER
 				try
 				{
 					await jsModule.InvokeVoidAsync("destroy", spanElement);
@@ -262,11 +261,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 				{
 					// NOOP
 				}
-#else
-				await jsModule.InvokeVoidAsync("destroy", spanElement);
-#endif
 			}
-#if NET6_0_OR_GREATER
 			try
 			{
 				await jsModule.DisposeAsync();
@@ -275,9 +270,6 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 			{
 				// NOOP
 			}
-#else
-			await jsModule.DisposeAsync();
-#endif
 			jsModule = null;
 			isInitialized = false;
 		}

@@ -14,8 +14,6 @@ public partial class HxInputTagsAutosuggestInputInternal
 
 	[Parameter] public EventCallback OnMouseDown { get; set; }
 
-	[Parameter] public EventCallback<KeyboardEventArgs> OnKeyDown { get; set; }
-
 	[Parameter] public string InputId { get; set; }
 
 	[Parameter] public string CssClass { get; set; }
