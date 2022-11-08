@@ -14,7 +14,7 @@
         
         <HxFormState Enabled="@enabled">
 
-            <HxFilterForm @ref="filterForm" @bind-Model="@model" OnChipsUpdated="HandleChipUpdated">
+            <HxFilterForm @ref="filterForm" TModel="FormModel" @bind-Model="@model" OnChipsUpdated="HandleChipUpdated">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
 
