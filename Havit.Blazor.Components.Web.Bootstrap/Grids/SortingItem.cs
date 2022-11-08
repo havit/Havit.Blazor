@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Item describes one sorting criteria.
 /// </summary>
-public sealed class SortingItem<TItem>
+public sealed record SortingItem<TItem>
 {
 	/// <summary>
 	/// Sorting as string value. Can be used to pass value between application layers (ie. WebAPI call parameter).
@@ -24,28 +24,15 @@ public sealed class SortingItem<TItem>
 	public SortDirection SortDirection { get; }
 
 	/// <summary>
-	/// Not-null for default sort item.
-	/// For multiple sort items, set value in ascendant order.
-	/// </summary>
-	/// <remarks>
-	/// Current implementation of grid columns uses only null and zero values.
-	/// </remarks>
-	/// <example>
-	/// To set default sorting by LastName, then FirstName use value 1 for LastName and value 2 for FirstName).
-	/// </example>
-	public int? SortDefaultOrder { get; }
-
-	/// <summary>
 	/// Constructor.
 	/// </summary>
-	public SortingItem(string sortString, Expression<Func<TItem, IComparable>> sortKeySelector, SortDirection sortDirection, int? sortDefaultOrder)
+	public SortingItem(string sortString, Expression<Func<TItem, IComparable>> sortKeySelector, SortDirection sortDirection)
 	{
 		Contract.Requires((sortString != null) || (sortKeySelector != null));
 
 		SortString = sortString;
 		SortKeySelector = sortKeySelector;
 		SortDirection = sortDirection;
-		SortDefaultOrder = sortDefaultOrder;
 	}
 
 	/// <summary>
@@ -64,7 +51,7 @@ public sealed class SortingItem<TItem>
 	/// </summary>
 	public SortingItem<TItem> WithToggledSortDirection()
 	{
-		return new SortingItem<TItem>(SortString, SortKeySelector, SortDirection.Reverse(), SortDefaultOrder);
+		return new SortingItem<TItem>(SortString, SortKeySelector, SortDirection.Reverse());
 	}
 
 	/// <inheritdoc />

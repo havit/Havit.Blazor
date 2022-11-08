@@ -10,6 +10,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 {
 	/// <summary>
+	/// Column unique identifier.
+	/// </summary>
+	[Parameter] public string Id { get; set; } = Guid.NewGuid().ToString("N");
+
+	/// <summary>
 	/// Indicates whether the column is visible (otherwise the column is hidden).
 	/// </summary>
 	[Parameter] public bool Visible { get; set; } = true;
@@ -125,6 +130,9 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	#endregion
 
 	/// <inheritdoc />
+	protected override string GetId() => Id;
+
+	/// <inheritdoc />
 	protected override bool IsColumnVisible() => Visible;
 
 	/// <inheritdoc />
@@ -161,7 +169,6 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	}
 	private readonly string[] placeholderColumns = new[] { "6", "9", "4", "10", "5", "2", "7" };
 
-
 	/// <inheritdoc />
 	protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context) => GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate?.Invoke(context)), FooterCssClass);
 
@@ -173,6 +180,9 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 			yield break;
 		}
 
-		yield return new SortingItem<TItem>(this.SortString, this.SortKeySelector, this.SortDirection, sortDefaultOrder: IsDefaultSortColumn ? 0 : (int?)null);
+		yield return new SortingItem<TItem>(this.SortString, this.SortKeySelector, this.SortDirection);
 	}
+
+	/// <inheritdoc />
+	protected override int? GetDefaultSortingOrder() => IsDefaultSortColumn ? 0 : null;
 }

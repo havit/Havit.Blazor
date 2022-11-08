@@ -4,7 +4,7 @@
 <h1>HxGrid</h1>
 
 <h2>Client paging, auto sorting</h2>
-<HxGrid DataProvider="@ClientCultureInfosDataProvider" @bind-SelectedDataItem="@clientSideCurrentCultureInfo" PageSize="@PageSize" TableContainerCssClass="mt-5" HeaderRowCssClass="myheader" PagerSettings="pagerSettings">
+<HxGrid DataProvider="@ClientCultureInfosDataProvider" @bind-SelectedDataItem="@clientSideCurrentCultureInfo" PageSize="@PageSize" TableContainerCssClass="mt-5" HeaderRowCssClass="myheader" PagerSettings="pagerSettings" @bind-CurrentUserState="clientSideGridUserState" >
     <Columns>
         <HxGridColumn Order="3" TItem="CultureInfo" HeaderText="Link">
             <ItemTemplate>
@@ -12,8 +12,8 @@
                 <HxButton Text="Go" Color="ThemeColor.Secondary" Outline="true" />
             </ItemTemplate>
         </HxGridColumn>
-        <HxGridColumn Order="2" TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
-        <HxGridColumn Order="1" TItem="CultureInfo" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
+        <HxGridColumn Id="Name" Order="2" TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+        <HxGridColumn Id="DisplayName" Order="1" TItem="CultureInfo" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
             <HeaderTemplate Context="context">
                 Display Name (total count: @context.TotalCount)
             </HeaderTemplate>
@@ -34,6 +34,13 @@
         </HxContextMenu>
     </ContextMenu>
 </HxGrid>
+
+@{
+    string name = "Name"; 
+}
+<HxButton Text="Sort by name" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnId = name } } }" />
+<HxButton Text="Sort by name (reverse)" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnId = name, ReverseDirection = true } } }" />
+
 <p>Current CultureInfo: @clientSideCurrentCultureInfo?.DisplayName</p>
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
 
@@ -61,20 +68,20 @@
     </EmptyDataTemplate>
 </HxGrid>
 
-@code {
-    private const int PageSize = 10;
+    @code {
+        private const int PageSize = 10;
 
-    private HxGrid<CultureInfo>
-    serverSideGrid;
+    private HxGrid<CultureInfo> serverSideGrid;
 
     private bool multiSelectionEnabled = true;
     private int skip = 0;
 
     // LOCAL
     private CultureInfo clientSideCurrentCultureInfo = null;
+    private GridUserState clientSideGridUserState = new GridUserState { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnId = "Name" } } };
 
     // SERVER SIDE (simulation)
-    private GridUserState<CultureInfo> serverSideGridUserState = new GridUserState<CultureInfo>();
+    private GridUserState serverSideGridUserState = new GridUserState();
     private CultureInfo serverSideCurrentCultureInfo = null;
     private CultureInfo clickedItem = null;
 
