@@ -9,7 +9,7 @@ public class FileUploadController : ControllerBase
 {
 	private const int BoundaryLengthLimit = 512 * 1024;
 
-	// https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-5.0#upload-large-files-with-streaming
+	// https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads#upload-large-files-with-streaming
 	// https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/
 	[HttpPost("/file-upload-streamed/")]
 	public async Task<IActionResult> UploadStreamedFile()

@@ -178,7 +178,7 @@ public partial class HxCalendar
 			renderData.DaysOfWeek.Add(dayNames[((int)firstDayOfWeek + i) % 7]);
 		}
 
-		renderData.Months = Culture.DateTimeFormat.MonthNames.Take(12) // returns 13 items, see https://docs.microsoft.com/en-us/dotnet/api/system.globalization.datetimeformatinfo.monthnames?view=net-5.0
+		renderData.Months = Culture.DateTimeFormat.MonthNames.Take(12) // returns 13 items, see https://docs.microsoft.com/en-us/dotnet/api/system.globalization.datetimeformatinfo.monthnames
 			.Select((name, index) => new MonthData
 			{
 				Index = index,

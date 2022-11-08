@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFrameworks>net6.0;net5.0</TargetFrameworks>
+	  <TargetFrameworks>net6.0</TargetFrameworks>
 	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -18,7 +18,6 @@
 		<PackageReference Include="Grpc.Net.Client" Version="2.49.0" />
 		<PackageReference Include="Grpc.Net.Client.Web" Version="2.49.0" />
 		<PackageReference Include="Havit.Core" Version="2.0.26" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.17" Condition="'$(TargetFramework)' == 'net5.0'" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.10" Condition="'$(TargetFramework)' == 'net6.0'" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.2" />
 		<PackageReference Include="protobuf-net" Version="3.1.22" />

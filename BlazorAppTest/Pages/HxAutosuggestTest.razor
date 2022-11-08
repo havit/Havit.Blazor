@@ -33,7 +33,7 @@
 		return new AutosuggestDataProviderResult<CultureInfo>
 		{
 			Data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-								.Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid?view=net-5.0#System_Globalization_CultureInfo_LCID
+								.Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid#System_Globalization_CultureInfo_LCID
 								.Where(c => c.EnglishName?.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase) ?? false)
 								.OrderBy(c => c.EnglishName)
 								.Take(10)
@@ -54,7 +54,7 @@
 			return new AutosuggestDataProviderResult<CultureInfo>()
 			{
 				Data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-								.Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid?view=net-5.0#System_Globalization_CultureInfo_LCID
+								.Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid#System_Globalization_CultureInfo_LCID
 								.Where(c => c.EnglishName?.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase) ?? false)
 								.OrderBy(c => c.EnglishName)
 								.Take(10)
