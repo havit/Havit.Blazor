@@ -70,6 +70,14 @@
         <DocHeading Title="Striped rows" Id="striped" />
         <p>You can set <code>@nameof(HxGrid<TItem>.Striped)</code> parameter to adds zebra-striping (alternating rows).</p>
         <Demo Type="typeof(HxGrid_Demo_Striped)" />
+
+        <SectionTitle Id="striped">Persisting the state</SectionTitle>
+        <p>You can load/save <code>@nameof(HxGrid<TItem>.CurrentUserState)</code> parameter to persist the grid state.</p>
+        <DocAlert Type="DocAlertType.Info">
+            To persist sorting, you must set the <code>@nameof(HxGridColumn<TItem>)&lt;TItem&gt;.@nameof(HxGridColumn<TItem>.Id)</code> properties.
+        </DocAlert>
+
+        <Demo Type="typeof(HxGrid_Demo_StatePersisting)" />
     </MainContent>
 
     <CssVariables>

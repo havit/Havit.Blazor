@@ -6,6 +6,11 @@
 public interface IHxGridColumn<TItem>
 {
 	/// <summary>
+	/// Returns the unique column identifier.
+	/// </summary>
+	string GetId();
+
+	/// <summary>
 	/// Indicates whether the column is visible (otherwise the column is hidden).
 	/// It is not suitable to conditionaly display the column using @if statement in the markup code.
 	/// </summary>
@@ -23,6 +28,11 @@ public interface IHxGridColumn<TItem>
 	/// Sorting of the column.
 	/// </summary>
 	SortingItem<TItem>[] GetSorting();
+
+	/// <summary>
+	/// Sorting of the column.
+	/// </summary>
+	int? GetDefaultSortingOrder();
 
 	/// <summary>
 	/// Returns header cell template.
