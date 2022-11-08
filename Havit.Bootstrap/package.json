@@ -1,7 +1,7 @@
 {
     "name": "havit-bootstrap",
     "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-    "version": "5.2.1",
+    "version": "5.2.2",
     "scripts": {
         "css": "npm-run-all css-compile css-prefix css-rtl css-minify",
         "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css scss/:dist/css/",
@@ -21,18 +21,18 @@
     "style": "dist/css/bootstrap.css",
     "sass": "scss/bootstrap.scss",
     "devDependencies": {
-      "autoprefixer": "^10.4.8",
+      "autoprefixer": "^10.4.12",
       "cross-env": "^7.0.3",
       "clean-css-cli": "^5.6.1",
       "find-unused-sass-variables": "^4.0.4",
-      "nodemon": "^2.0.19",
+      "nodemon": "^2.0.20",
       "npm-run-all": "^4.1.5",
-      "postcss": "^8.4.16",
+      "postcss": "^8.4.17",
       "postcss-cli": "^10.0.0",
       "rtlcss": "^4.0.0",
-      "sass": "^1.54.8",
-      "stylelint": "^14.11.0",
-      "stylelint-config-twbs-bootstrap": "^5.0.0",
+      "sass": "^1.55.0",
+      "stylelint": "^14.13.0",
+      "stylelint-config-twbs-bootstrap": "^6.0.0",
       "shx":"^0.3.4"
   },
     "files": [
