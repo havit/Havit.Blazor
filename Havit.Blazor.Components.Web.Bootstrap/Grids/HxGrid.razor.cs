@@ -7,9 +7,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxGrid">https://havit.blazor.eu/components/HxGrid</see>
 /// </summary>
 /// <typeparam name="TItem">Type of row data item.</typeparam>
-#if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TItem))]
-#endif
 public partial class HxGrid<TItem> : ComponentBase, IDisposable
 {
 	/// <summary>
@@ -34,11 +32,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Data provider for items to render.<br />
 	/// The provider should always return instance of <see cref="GridDataProviderResult{TItem}"/>, <c>null</c> is not allowed.
 	/// </summary>
-#if NET6_0_OR_GREATER
-
-	[EditorRequired]
-#endif
-	[Parameter] public GridDataProviderDelegate<TItem> DataProvider { get; set; }
+	[Parameter, EditorRequired] public GridDataProviderDelegate<TItem> DataProvider { get; set; }
 
 	/// <summary>
 	/// Indicates whether single data item selection is enabled. 
@@ -59,10 +53,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// <summary>
 	/// Columns template.
 	/// </summary>
-#if NET6_0_OR_GREATER
-	[EditorRequired]
-#endif
-	[Parameter] public RenderFragment Columns { get; set; }
+	[Parameter, EditorRequired] public RenderFragment Columns { get; set; }
 
 	/// <summary>
 	/// Context menu template (positioned as last column).<br/>

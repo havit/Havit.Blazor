@@ -264,7 +264,6 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 
 		if (jsModule != null)
 		{
-#if NET6_0_OR_GREATER
 			try
 			{
 				await jsModule.InvokeVoidAsync("dispose", Id);
@@ -274,10 +273,6 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 			{
 				// NOOP
 			}
-#else
-			await jsModule.InvokeVoidAsync("dispose", Id);
-			await jsModule.DisposeAsync();
-#endif
 		}
 
 		dotnetObjectReference.Dispose();

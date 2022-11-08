@@ -337,7 +337,6 @@ public partial class HxModal : IAsyncDisposable
 			// We need to remove backdrop when leaving "page" when HxModal is shown (opened).
 			if (opened)
 			{
-#if NET6_0_OR_GREATER
 				try
 				{
 					await jsModule.InvokeVoidAsync("dispose", modalElement);
@@ -346,12 +345,8 @@ public partial class HxModal : IAsyncDisposable
 				{
 					// NOOP
 				}
-#else
-				await jsModule.InvokeVoidAsync("dispose", modalElement);
-#endif
 			}
 
-#if NET6_0_OR_GREATER
 			try
 			{
 				await jsModule.DisposeAsync();
@@ -360,9 +355,6 @@ public partial class HxModal : IAsyncDisposable
 			{
 				// NOOP
 			}
-#else
-			await jsModule.DisposeAsync();
-#endif
 		}
 
 		dotnetObjectReference.Dispose();

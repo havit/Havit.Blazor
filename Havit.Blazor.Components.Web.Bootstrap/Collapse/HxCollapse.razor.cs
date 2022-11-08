@@ -247,7 +247,6 @@ public partial class HxCollapse : IAsyncDisposable
 
 		if (jsModule != null)
 		{
-#if NET6_0_OR_GREATER
 			try
 			{
 				await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
@@ -257,10 +256,6 @@ public partial class HxCollapse : IAsyncDisposable
 			{
 				// NOOP
 			}
-#else
-			await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
-			await jsModule.DisposeAsync();
-#endif
 		}
 
 		dotnetObjectReference?.Dispose();

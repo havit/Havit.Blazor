@@ -199,7 +199,6 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 
 		if (jsModule != null)
 		{
-#if NET6_0_OR_GREATER
 			try
 			{
 				await jsModule.InvokeVoidAsync("dispose", buttonElementReference);
@@ -209,10 +208,6 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 			{
 				// NOOP
 			}
-#else
-			await jsModule.InvokeVoidAsync("dispose", buttonElementReference);
-			await jsModule.DisposeAsync();
-#endif
 		}
 
 		dotnetObjectReference.Dispose();

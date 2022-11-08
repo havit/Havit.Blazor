@@ -302,7 +302,6 @@ public partial class HxOffcanvas : IAsyncDisposable
 			// We need to remove backdrop when leaving "page" when HxOffcanvas is shown (opened).
 			if (opened)
 			{
-#if NET6_0_OR_GREATER
 				try
 				{
 					await jsModule.InvokeVoidAsync("dispose", offcanvasElement);
@@ -311,12 +310,8 @@ public partial class HxOffcanvas : IAsyncDisposable
 				{
 					// NOOP
 				}
-#else
-				await jsModule.InvokeVoidAsync("dispose", offcanvasElement);
-#endif
 			}
 
-#if NET6_0_OR_GREATER
 			try
 			{
 				await jsModule.DisposeAsync();
@@ -325,9 +320,6 @@ public partial class HxOffcanvas : IAsyncDisposable
 			{
 				// NOOP
 			}
-#else
-			await jsModule.DisposeAsync();
-#endif
 		}
 
 		dotnetObjectReference.Dispose();

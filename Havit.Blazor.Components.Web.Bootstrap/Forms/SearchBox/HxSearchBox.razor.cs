@@ -573,7 +573,6 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 		if (jsModule != null)
 		{
-#if NET6_0_OR_GREATER
 			try
 			{
 				await jsModule.InvokeVoidAsync("dispose", inputId);
@@ -584,11 +583,6 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			{
 				// NOOP
 			}
-#else
-			await jsModule.InvokeVoidAsync("dispose", inputId);
-			await dropdownToggle.DisposeAsync();
-			await jsModule.DisposeAsync();
-#endif
 		}
 
 		dotnetObjectReference?.Dispose();

@@ -52,18 +52,12 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 	/// <summary>
 	/// Minimum value.
 	/// </summary>
-#if NET6_0_OR_GREATER
-	[EditorRequired]
-#endif
-	[Parameter] public TValue Min { get; set; }
+	[Parameter, EditorRequired] public TValue Min { get; set; }
 
 	/// <summary>
 	/// Maximum value.
 	/// </summary>
-#if NET6_0_OR_GREATER
-	[EditorRequired]
-#endif
-	[Parameter] public TValue Max { get; set; }
+	[Parameter, EditorRequired] public TValue Max { get; set; }
 
 	/// <summary>
 	/// Instructs whether the <c>Value</c> is going to be updated <c>oninput</c> (immediately), or <c>onchange</c> (usually <c>onmouseup</c>).<br />

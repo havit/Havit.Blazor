@@ -231,7 +231,6 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	{
 		validationMessageStore?.Clear();
 
-#if NET6_0_OR_GREATER
 		try
 		{
 			if (hxDropdownToggleElement is not null)
@@ -246,19 +245,8 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 		}
 		catch (JSDisconnectedException)
 		{
-
+			// NOOP
 		}
-#else
-		if (hxDropdownToggleElement is not null)
-		{
-			await CloseDropdownAsync();
-		}
-
-		if (jsModule is not null)
-		{
-			await jsModule.DisposeAsync();
-		}
-#endif
 
 		Dispose(false);
 	}
