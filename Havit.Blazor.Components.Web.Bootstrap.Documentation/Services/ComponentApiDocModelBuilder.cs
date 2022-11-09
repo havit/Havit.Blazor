@@ -29,7 +29,9 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		"Dispose",
 		"DisposeAsync",
 		"SetParametersAsync",
-		"ChildContent"
+		"ChildContent",
+		"op_Equality",
+		"op_Inequality"
 	};
 
 	private const BindingFlags CommonBindingFlags = BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
@@ -220,7 +222,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		}
 
 		string name = methodInfo.Name;
-		if (name.StartsWith("set") || name.StartsWith("get") || ignoredMethods.Contains(name))
+		if (name.StartsWith("set") || name.StartsWith("get") || name.Contains("Clone") || ignoredMethods.Contains(name))
 		{
 			return false;
 		}
