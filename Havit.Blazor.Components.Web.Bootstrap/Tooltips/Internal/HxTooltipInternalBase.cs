@@ -17,6 +17,20 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	protected TooltipTrigger TriggerInternal { get; set; }
 
 	/// <summary>
+	/// Returns optional set of component settings.
+	/// </summary>
+	/// <remarks>
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider Settings in components descandants (by returning a derived settings class).
+	/// </remarks>
+	protected abstract TooltipInternalSettings GetSettings();
+
+	/// <summary>
+	/// Returns application-wide defaults for the component.
+	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// </summary>
+	protected abstract TooltipInternalSettings GetDefaults();
+
+	/// <summary>
 	/// Allows you to insert HTML. If <c>false</c>, <c>innerText</c> property will be used to insert content into the DOM.
 	/// Use text if you're worried about XSS attacks.
 	/// </summary>
@@ -24,23 +38,34 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 
 	/// <summary>
 	/// Enable or disable the sanitization. If activated HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.2/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
+	/// Default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool Sanitize { get; set; } = true;
 
 	/// <summary>
 	/// Offset of the component relative to its target (ChildContent).
 	/// </summary>
-	[Parameter] public (int X, int Y) Offset { get; set; }
+	[Parameter] public (int X, int Y)? Offset { get; set; }
+	protected (int X, int Y)? OffsetEffective => this.Offset ?? this.GetSettings()?.Offset ?? GetDefaults().Offset;
+
+	/// <summary>
+	/// Apply a CSS fade transition to the tooltip (enable/disable).<br/>
+	/// Default is <c>true</c>.
+	/// </summary>
+	[Parameter] public bool? Animation { get; set; }
+	protected bool? AnimationEffective => this.Animation ?? this.GetSettings()?.Animation ?? GetDefaults().Animation;
 
 	/// <summary>
 	/// Custom CSS class to add.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
+	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
 	/// Custom CSS class to render with the <c>span</c> wrapper of the child-content.
 	/// </summary>
 	[Parameter] public string WrapperCssClass { get; set; }
+	protected string WrapperCssClassEffective => this.WrapperCssClass ?? this.GetSettings()?.WrapperCssClass ?? GetDefaults().WrapperCssClass;
 
 	/// <summary>
 	/// Child content to wrap.
@@ -95,27 +120,31 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 		if (shouldRenderSpan)
 		{
 			builder.OpenElement(1, "span");
-			builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", WrapperCssClass));
+			builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", this.WrapperCssClassEffective));
 			builder.AddAttribute(3, "data-bs-container", "body");
 			builder.AddAttribute(4, "data-bs-trigger", GetTriggers());
 			builder.AddAttribute(5, "data-bs-placement", PlacementInternal.ToString().ToLower());
-			builder.AddAttribute(6, "data-bs-custom-class", CssClass);
-			builder.AddAttribute(7, "title", TitleInternal);
+			builder.AddAttribute(6, "data-bs-custom-class", this.CssClassEffective);
+			if (this.AnimationEffective is not null)
+			{
+				builder.AddAttribute(7, "data-bs-animation", this.AnimationEffective.ToString().ToLower());
+			}
+			builder.AddAttribute(8, "title", TitleInternal);
 			if (!String.IsNullOrWhiteSpace(ContentInternal))
 			{
 				// used only by HxPopover
-				builder.AddAttribute(8, "data-bs-content", ContentInternal);
+				builder.AddAttribute(9, "data-bs-content", ContentInternal);
 			}
 			if (Html)
 			{
-				builder.AddAttribute(9, "data-bs-html", "true");
+				builder.AddAttribute(10, "data-bs-html", "true");
 			}
-			builder.AddAttribute(10, "data-bs-toggle", DataBsToggle);
-			if (Offset != (default, default))
+			builder.AddAttribute(11, "data-bs-toggle", DataBsToggle);
+			if (this.OffsetEffective is not null)
 			{
-				builder.AddAttribute(11, "data-bs-offset", $"{Offset.X},{Offset.Y}");
+				builder.AddAttribute(12, "data-bs-offset", $"{OffsetEffective.Value.X},{OffsetEffective.Value.Y}");
 			}
-			builder.AddElementReferenceCapture(11, element => spanElement = element);
+			builder.AddElementReferenceCapture(13, element => spanElement = element);
 		}
 
 		builder.AddContent(20, ChildContent);

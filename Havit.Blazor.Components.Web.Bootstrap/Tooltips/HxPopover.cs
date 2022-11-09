@@ -10,6 +10,38 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public class HxPopover : HxTooltipInternalBase
 {
 	/// <summary>
+	/// Application-wide defaults for the <see cref="HxPopover"/> and derived components.
+	/// </summary>
+	public static PopoverSettings Defaults { get; }
+
+	static HxPopover()
+	{
+		Defaults = new PopoverSettings()
+		{
+			Animation = true,
+		};
+	}
+
+	/// <summary>
+	/// Returns application-wide defaults for the component.
+	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// </summary>
+	protected override PopoverSettings GetDefaults() => Defaults;
+
+	/// <summary>
+	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+	/// </summary>
+	[Parameter] public PopoverSettings Settings { get; set; }
+
+	/// <summary>
+	/// Returns optional set of component settings.
+	/// </summary>
+	/// <remarks>
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// </remarks>
+	protected override PopoverSettings GetSettings() => this.Settings;
+
+	/// <summary>
 	/// Popover title.
 	/// </summary>
 	[Parameter]
