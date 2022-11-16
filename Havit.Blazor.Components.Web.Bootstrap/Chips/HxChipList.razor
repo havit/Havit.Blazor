@@ -4,7 +4,7 @@
     {
         foreach (Havit.Blazor.Components.Web.Bootstrap.ChipItem chipItem in Chips)
         {
-            <HxBadge Settings="this.ChipBadgeSettingsEffective">
+            <HxBadge @key="@chipItem" Settings="this.ChipBadgeSettingsEffective">
                 @chipItem.ChipTemplate
                 @if (chipItem.Removable)
                 {

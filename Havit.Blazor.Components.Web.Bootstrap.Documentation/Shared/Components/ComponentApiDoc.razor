@@ -38,7 +38,7 @@
             <tbody>
                 @foreach (var enumMember in model.EnumMembers)
                 {
-                    <tr>
+                    <tr @key="@enumMember">
                         <td>@enumMember.Name</td>
                         <td>@enumMember.Value</td>
                         <td class="summary">@((MarkupString)enumMember.Summary)</td>
@@ -65,7 +65,7 @@
             <tbody>
                 @foreach (var property in model.Parameters.OrderByDescending(p => p.EditorRequired).ThenBy(p => p.PropertyInfo.Name))
                 {
-                    <tr>
+                    <tr @key="@property">
                         <td>
                             @if (property.IsStatic)
                             {
@@ -102,7 +102,7 @@
             <tbody>
                 @foreach (var property in model.Properties.OrderBy(p => p.PropertyInfo.Name))
                 {
-                    <tr>
+                    <tr @key="@property">
                         <td><strong>@property.PropertyInfo.Name</strong></td>
                         <td><code>@((MarkupString)ApiRenderer.FormatType(property.PropertyInfo.PropertyType))</code></td>
                         <td class="summary">@((MarkupString)property.Comments.Summary)</td>
@@ -129,7 +129,7 @@
             <tbody>
                 @foreach (var currentEvent in model.Events.OrderBy(e => e.PropertyInfo.Name))
                 {
-                    <tr>
+                    <tr @key="@currentEvent">
                         <td><strong>@currentEvent.PropertyInfo.Name</strong> </td>
                         <td><code>@((MarkupString)ApiRenderer.FormatType(currentEvent.PropertyInfo.PropertyType))</code></td>
                         <td class="summary">@((MarkupString)currentEvent.Comments.Summary)</td>
@@ -155,7 +155,7 @@
             <tbody>
                 @foreach (var method in model.Methods.OrderBy(m => m.MethodInfo.Name))
                 {
-                    <tr>
+                    <tr @key="@method">
                         <td><strong>@method.MethodInfo.Name</strong>@((MarkupString)@method.GetParameters())</td>
                         <td><code>@((MarkupString)ApiRenderer.FormatMethodReturnType(method.MethodInfo.ReturnType, model))</code></td>
                         <td class="summary">@((MarkupString)method.Comments.Summary)</td>
@@ -182,7 +182,7 @@
             <tbody>
                 @foreach (var property in model.StaticProperties.OrderBy(p => p.PropertyInfo.Name))
                 {
-                    <tr>
+                    <tr @key="@property">
                         <td><strong>@property.PropertyInfo.Name</strong></td>
                         <td><code>@((MarkupString)ApiRenderer.FormatType(property.PropertyInfo.PropertyType))</code></td>
                         <td class="summary">@((MarkupString)property.Comments.Summary)</td>
@@ -209,7 +209,7 @@
             <tbody>
                 @foreach (var method in model.StaticMethods.OrderBy(m => m.MethodInfo.Name))
                 {
-                    <tr>
+                    <tr @key="@method">
                         <td><strong>@method.MethodInfo.Name</strong> @((MarkupString)@method.GetParameters())</td>
                         <td><code>@((MarkupString)ApiRenderer.FormatType(method.MethodInfo.ReturnType))</code></td>
                         <td class="summary">@((MarkupString)method.Comments.Summary)</td>

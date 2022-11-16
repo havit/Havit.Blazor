@@ -11,7 +11,7 @@
     Selected culture infos:
     @foreach (var cultureInfo in selectedCultureInfos)
     {
-        <span>&nbsp;@cultureInfo.Name</span>
+        <span @key="@cultureInfo">&nbsp;@cultureInfo.Name</span>
     }
 </p>
 

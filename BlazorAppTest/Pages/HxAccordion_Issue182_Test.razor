@@ -15,7 +15,7 @@
                     <Havit.Blazor.Components.Web.Bootstrap.HxListGroup>
                         @foreach (var player in team.Players)
                         {
-                            <div class="row">
+                            <div @key="player" class="row">
                                 <div class="col-sm">Name:   <p>@player.Name</p></div>
                                 <div class="col-sm">Age:    <p>@player.Age</p></div>
                                 <div class="col-sm">Jersey# <p>@player.Jersey</p></div>
