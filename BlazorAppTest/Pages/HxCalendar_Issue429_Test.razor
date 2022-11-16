@@ -1,0 +1,29 @@
+﻿@page "/HxCalendar_Issue429_Test"
+
+<h1>HxCalendar</h1>
+
+<HxCalendar @ref="calendar" MinDate="minDate" MaxDate="maxDate" />
+<p>Min date: @minDate</p>
+<p>Max date: @maxDate</p>
+
+
+<HxButton Text="1. Min date today" Color="ThemeColor.Secondary" OnClick="HandleMinDateClick" />
+<HxButton Text="2. Max date yesterday" Color="ThemeColor.Secondary" OnClick="HandleMaxDateClick" />
+
+@code {
+    private HxCalendar calendar;
+    DateTime? minDate = null;
+    DateTime? maxDate = null;
+
+    private void HandleMinDateClick()
+    {
+        minDate = DateTime.Today;
+        maxDate = null;
+    }
+
+    private void HandleMaxDateClick()
+    {
+        minDate = null;
+        maxDate = DateTime.Today.AddDays(-1);
+    }
+}
