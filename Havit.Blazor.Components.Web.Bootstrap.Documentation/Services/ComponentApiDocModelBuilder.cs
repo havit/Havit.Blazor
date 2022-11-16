@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Model;
 using LoxSmoke.DocXml;
 using Microsoft.JSInterop;
@@ -29,9 +30,13 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		"Dispose",
 		"DisposeAsync",
 		"SetParametersAsync",
-		"ChildContent",
-		"op_Equality",
-		"op_Inequality"
+		"ChildContent"
+	};
+
+	private static readonly List<Type> attributesForMethodFiltering = new()
+	{
+		typeof(JSInvokableAttribute),
+		typeof(CompilerGeneratedAttribute)
 	};
 
 	private const BindingFlags CommonBindingFlags = BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
@@ -216,13 +221,22 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 
 	private bool ShouldIncludeMethod(MethodInfo methodInfo)
 	{
-		if (methodInfo.GetCustomAttribute<JSInvokableAttribute>() is not null)
+		foreach (var attribute in attributesForMethodFiltering)
+		{
+			if (methodInfo.GetCustomAttribute(attribute) is not null)
+			{
+				return false;
+			}
+		}
+
+		// Check if the method is a property accessor, ...
+		if (methodInfo.IsSpecialName)
 		{
 			return false;
 		}
 
 		string name = methodInfo.Name;
-		if (name.StartsWith("set") || name.StartsWith("get") || name.Contains("Clone") || ignoredMethods.Contains(name))
+		if (ignoredMethods.Contains(name))
 		{
 			return false;
 		}
