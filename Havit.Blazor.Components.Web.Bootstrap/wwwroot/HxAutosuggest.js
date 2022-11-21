@@ -56,20 +56,21 @@ function handleDropdownHidden(event) {
     // But we need the item click event to fire first.
     // Therefore we delay jsinterop for a while.
     window.setTimeout(function (element) {
-        element.hxAutosuggestDotnetObjectReference.invokeMethodAsync('HxAutosuggestInternal_HandleDropdownHidden');
-        element.hxAutosuggestDotnetObjectReference = null;
+        element.hxAutosuggestDotnetObjectReference.invokeMethodAsync('HxAutosuggestInternal_HandleDropdownHidden');       
     }, 1, event.target);
 
-	var d = bootstrap.Dropdown.getInstance(event.inputElement);
+	var d = bootstrap.Dropdown.getInstance(event.target);
 	if (d) {
-		dropdown.dispose();
+		d.dispose();
 	}
 };
 
 export function dispose(inputId) {
-    let inputElement = document.getElementById(inputId);
+	let inputElement = document.getElementById(inputId);
 
-    inputElement.removeEventListener('keydown', handleKeyDown);
-    inputElement.hxAutosuggestDotnetObjectReference = null;
-	inputElement.hxAutosuggestKeysToPreventDefault = null;
+	if (inputElement) {
+		inputElement.removeEventListener('keydown', handleKeyDown);
+		inputElement.hxAutosuggestDotnetObjectReference = null;
+		inputElement.hxAutosuggestKeysToPreventDefault = null;
+	}
 }
