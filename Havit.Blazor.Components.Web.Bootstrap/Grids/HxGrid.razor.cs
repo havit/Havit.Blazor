@@ -250,10 +250,13 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private bool paginationDecreasePageIndexAfterRender = false;
 	private List<TItem> paginationDataItemsToRender;
 	private CancellationTokenSource paginationRefreshDataCancellationTokenSource;
-	private GridUserState previousUserState;
-	private bool firstRenderCompleted = false;
 	private List<GridInternalStateSortingItem<TItem>> currentSorting = null;
 	private bool postponeCurrentSortingDeserialization = false;
+
+	private bool firstRenderCompleted = false;
+	private GridUserState previousUserState;
+	private int previousPageSizeEffective;
+
 
 	private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> infiniteScrollVirtualizeComponent;
 
@@ -283,15 +286,31 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			currentSorting = DeserializeCurrentUserStateSorting(CurrentUserState.Sorting);
 		}
 
-		if (firstRenderCompleted && (previousUserState != CurrentUserState)) /* after first render previousUserState cannot be null */
+		if (firstRenderCompleted) /* after first render previousUserState cannot be null */
 		{
-			// await: This adds one more render before OnParameterSetAsync is finished.
-			// We consider it safe because we already have some data.
-			// But for a moment (before data is refreshed (= before OnParametersSetAsync is finished), the component is rendered with a new user state and with old data).
-			previousUserState = CurrentUserState;
-			await RefreshDataAsync();
+			bool shouldRefreshData = false;
+
+			if (previousUserState != CurrentUserState)
+			{
+				// await: This adds one more render before OnParameterSetAsync is finished.
+				// We consider it safe because we already have some data.
+				// But for a moment (before data is refreshed (= before OnParametersSetAsync is finished), the component is rendered with a new user state and with old data).
+				previousUserState = CurrentUserState;
+				shouldRefreshData = true;
+			}
+
+			if (previousPageSizeEffective != PageSizeEffective)
+			{
+				shouldRefreshData = true;
+			}
+
+			if (shouldRefreshData)
+			{
+				await RefreshDataAsync();
+			}
 		}
 		previousUserState = CurrentUserState;
+		previousPageSizeEffective = PageSizeEffective;
 	}
 
 	/// <inheritdoc />
