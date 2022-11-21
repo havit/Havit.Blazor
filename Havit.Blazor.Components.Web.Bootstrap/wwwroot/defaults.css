@@ -3,8 +3,9 @@
 	/* MAIN */
 	--main-bg: #f5f5f6;
 	/* HxAutosuggest */
-	--hx-autosuggest-input-close-icon-opacity: .25;
+	--hx-autosuggest-input-close-icon-opacity: 			.25;
 	--hx-autosuggest-item-highlighted-background-color: var(--bs-gray-200);
+	--hx-autosuggest-dropdown-menu-height:				300px;	
 	/* HxButton */
 	--hx-button-space-between-text-icon:				0.25rem;
 	/* HxSidebar */
@@ -168,6 +169,7 @@
 	--hx-search-box-item-subtitle-color:				var(--bs-secondary);
 	--hx-search-box-item-subtitle-font-size:			.75rem;
 	--hx-search-box-item-highlighted-background-color:	var(--bs-gray-200);
+	--hx-search-box-dropdown-menu-height:				300px;
 }
 
 form {

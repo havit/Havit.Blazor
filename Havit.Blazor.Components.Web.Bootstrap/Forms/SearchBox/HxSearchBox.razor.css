@@ -28,3 +28,8 @@
 ::deep .hx-dropdown-item-focused {
     background-color: var(--hx-search-box-item-highlighted-background-color);
 }
+
+::deep .dropdown-menu {
+    overflow: auto;
+    max-height: var(--hx-search-box-dropdown-menu-height);
+}
