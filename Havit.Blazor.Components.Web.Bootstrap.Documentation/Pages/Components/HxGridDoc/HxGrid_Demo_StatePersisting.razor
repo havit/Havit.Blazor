@@ -1,9 +1,9 @@
 ﻿<HxGrid TItem="CultureInfo" Responsive="true" DataProvider="GetGridData" @bind-CurrentUserState="GridUserState" PageSize="10">
 	<Columns>
-		<HxGridColumn TItem="CultureInfo" Id="Lcid" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
-		<HxGridColumn TItem="CultureInfo" Id="DisplayName" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
-		<HxGridColumn TItem="CultureInfo" Id="Name" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
-		<HxGridColumn TItem="CultureInfo" Id="EnglishName" HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)"  />
+		<HxGridColumn Id="Lcid" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
+		<HxGridColumn Id="DisplayName" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
+		<HxGridColumn Id="Name" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
+		<HxGridColumn Id="EnglishName" HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)"  />
 	</Columns>
 </HxGrid>
 
