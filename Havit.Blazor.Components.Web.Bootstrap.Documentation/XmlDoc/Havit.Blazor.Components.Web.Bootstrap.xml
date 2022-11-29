@@ -6436,6 +6436,24 @@
             Converts <see cref="T:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1"/> to <see cref="T:Havit.Collections.SortItem"/>.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSetup.RenderBootstrapJavaScriptReference">
+            <summary>
+            Renders <c>&lt;script&lt;</c> tag referencing corresponding Bootstrap JavaScript bundle with Popper.<br/>
+            To be used in <c>_Layout.cshtml</c> as <c>@Html.Raw(HxSetup.RenderBootstrapJavaScriptReference())</c>.
+            </summary>
+            <remarks>
+            We do not want to use TagHelper nor HTML Helper here as we do not want to introduce dependency on server-side ASP.NET Core (MVC/Razor) to our library (separate NuGet package would have to be created).
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSetup.RenderBootstrapCssReference(Havit.Blazor.Components.Web.Bootstrap.BootstrapFlavor)">
+            <summary>
+            Renders <c>&lt;link&lt;</c> tag referencing corresponding Bootstrap CSS.<br/>
+            To be used in <c>_Layout.cshtml</c> as <c>@Html.Raw(HxSetup.RenderBootstrapCssReference())</c>.
+            </summary>
+            <remarks>
+            We do not want to use TagHelper nor HTML Helper here as we do not want to introduce dependency on server-side ASP.NET Core (MVC/Razor) to our library (separate NuGet package would have to be created).
+            </remarks>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon">
             <summary>
             Bootstrap icon.
