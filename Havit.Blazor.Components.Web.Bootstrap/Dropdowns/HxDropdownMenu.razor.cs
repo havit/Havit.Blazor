@@ -14,12 +14,22 @@ public partial class HxDropdownMenu
 
 	[Parameter] public DropdownMenuAlignment? Alignment { get; set; }
 
+	protected virtual string ElementName => "ul";
+
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying <c>ul</c> element.
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
 	[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
+
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+
+		AdditionalAttributes ??= new();
+		AdditionalAttributes["class"] = GetCssClass();
+	}
 
 	protected string GetCssClass() =>
 		CssClassHelper.Combine(

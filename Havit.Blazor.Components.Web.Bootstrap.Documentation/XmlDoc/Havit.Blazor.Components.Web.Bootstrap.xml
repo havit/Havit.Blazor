@@ -1578,11 +1578,6 @@
             Custom dropdown content for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdown"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownContent.CssClass">
-            <summary>
-            Any additional CSS class to apply.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownDivider">
             <summary>
             Divider for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu"/>.
