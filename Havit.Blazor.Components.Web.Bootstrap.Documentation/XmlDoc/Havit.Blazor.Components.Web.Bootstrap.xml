@@ -7509,6 +7509,11 @@
             Additional CSS class.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbar.ContainerCssClass">
+            <summary>
+            Container CSS class.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbar.ChildContent">
             <summary>
             Content of the navbar.
