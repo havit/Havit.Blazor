@@ -1,0 +1,15 @@
+﻿@page "/HxTooltip_Issue439_Test"
+
+<h4>#439 [HxButton/HxTooltip] Tooltip stays on screen when its text is changed in async handler method of HxButton.OnClick</h4>
+
+<HxButton Text="Change tooltip" OnClick="HandleChangeTooltipButtonClick" Color="ThemeColor.Light" Tooltip="@tooltipText" Spinner="false" />
+
+@code {
+	private string tooltipText = "Fizz";
+
+	private async Task HandleChangeTooltipButtonClick()
+	{
+		await Task.Delay(2000);
+		tooltipText = (tooltipText == "Fizz" ? "Buzz" : "Fizz");
+	}
+}
