@@ -90,4 +90,13 @@ public class HxPopover : HxTooltipInternalBase
 		this.Placement = PopoverPlacement.Right;
 		this.Trigger = PopoverTrigger.Click;
 	}
+	protected override Dictionary<string, string> GetNewContentForUpdate()
+	{
+		return new()
+		{
+			{ ".popover-header", this.Title },
+			{ ".popover-body", this.Content }
+		};
+	}
+
 }

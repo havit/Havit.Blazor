@@ -81,4 +81,12 @@ public class HxTooltip : HxTooltipInternalBase
 		this.Placement = TooltipPlacement.Top;
 		this.Trigger = TooltipTrigger.Hover | TooltipTrigger.Focus;
 	}
+
+	protected override Dictionary<string, string> GetNewContentForUpdate()
+	{
+		return new()
+		{
+			{ ".tooltip-inner", this.Text }
+		};
+	}
 }
