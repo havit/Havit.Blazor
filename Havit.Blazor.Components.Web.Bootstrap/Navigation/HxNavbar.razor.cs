@@ -35,8 +35,9 @@ public partial class HxNavbar
 	/// Additional CSS class.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
+
 	/// <summary>
-	/// Container CSS class.
+	/// Container CSS class. Deafult is <c>container-fluid</c>.
 	/// </summary>
 	[Parameter] public string ContainerCssClass { get; set; } = "container-fluid";
 

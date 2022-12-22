@@ -7521,7 +7521,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbar.ContainerCssClass">
             <summary>
-            Container CSS class.
+            Container CSS class. Deafult is <c>container-fluid</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbar.ChildContent">
