@@ -13,6 +13,11 @@ public abstract record class TooltipInternalSettings
 	public string CssClass { get; set; }
 
 	/// <summary>
+	/// Appends the tooltip/popover to a specific element. Default is <c>body</c>.
+	/// </summary>
+	public string Container { get; set; }
+
+	/// <summary>
 	/// Custom CSS class to render with the <c>span</c> wrapper of the child-content.
 	/// </summary>
 	public string WrapperCssClass { get; set; }

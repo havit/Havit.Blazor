@@ -19,6 +19,7 @@ public class HxTooltip : HxTooltipInternalBase
 		Defaults = new TooltipSettings()
 		{
 			Animation = true,
+			Container = "body"
 		};
 	}
 

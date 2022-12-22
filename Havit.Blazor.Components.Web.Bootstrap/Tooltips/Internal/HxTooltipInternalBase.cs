@@ -37,6 +37,12 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	[Parameter] public bool Html { get; set; }
 
 	/// <summary>
+	/// Appends the tooltip/popover to a specific element. Default is <c>body</c>.
+	/// </summary>
+	[Parameter] public string Container { get; set; }
+	protected string ContainerEffective => this.Container ?? this.GetSettings()?.Container ?? GetDefaults().Container;
+
+	/// <summary>
 	/// Enable or disable the sanitization. If activated HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.2/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
 	/// Default is <c>true</c>.
 	/// </summary>
@@ -121,7 +127,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 		{
 			builder.OpenElement(1, "span");
 			builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", this.WrapperCssClassEffective));
-			builder.AddAttribute(3, "data-bs-container", "body");
+			builder.AddAttribute(3, "data-bs-container", this.ContainerEffective);
 			builder.AddAttribute(4, "data-bs-trigger", GetTriggers());
 			builder.AddAttribute(5, "data-bs-placement", PlacementInternal.ToString().ToLower());
 			builder.AddAttribute(6, "data-bs-custom-class", this.CssClassEffective);

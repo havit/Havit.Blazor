@@ -19,6 +19,7 @@ public class HxPopover : HxTooltipInternalBase
 		Defaults = new PopoverSettings()
 		{
 			Animation = true,
+			Container = "body"
 		};
 	}
 
