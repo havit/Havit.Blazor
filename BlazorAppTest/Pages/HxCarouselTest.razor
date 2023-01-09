@@ -1,15 +1,27 @@
 ﻿@page "/HxCarouselTest" 
 
-<HxCarousel @ref="carousel" Dark="true" OnSlide="IncrementSlideCount" Interval="1000">
+<HxCarousel @ref="carousel" Controls="true" OnSlide="IncrementSlideCount" Ride="CarouselRide.False">
     <HxCarouselItem Active="true">
-        <div class="d-flex justify-content-center">Carousel Item 0</div>
+		<svg class="d-block w-100" height="200" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+			<title>Placeholder</title>
+			<rect width="100%" height="100%" fill="#666" />
+			<text x="50%" y="50%" fill="#ddd" dominant-baseline="middle" text-anchor="middle" font-size="30px">Carousel Item 0</text>
+		</svg>
     </HxCarouselItem>
     <HxCarouselItem>
-        <div class="d-flex justify-content-center">Carousel Item 1</div>
-    </HxCarouselItem>
+		<svg class="d-block w-100" height="200" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+			<title>Placeholder</title>
+			<rect width="100%" height="100%" fill="#555" />
+			<text x="50%" y="50%" fill="#ddd" dominant-baseline="middle" text-anchor="middle" font-size="30px">Carousel Item 1</text>
+		</svg>
+	</HxCarouselItem>
     <HxCarouselItem>
-        <div class="d-flex justify-content-center">Carousel Item 2</div>
-    </HxCarouselItem>
+		<svg class="d-block w-100" height="200" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+			<title>Placeholder</title>
+			<rect width="100%" height="100%" fill="#444" />
+			<text x="50%" y="50%" fill="#ddd" dominant-baseline="middle" text-anchor="middle" font-size="30px">Carousel Item 2</text>
+		</svg>
+	</HxCarouselItem>
 </HxCarousel>
 
 <HxButton Color="ThemeColor.Success" OnClick="() => carousel.CycleAsync()" Text="Cycle" />

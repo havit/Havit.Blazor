@@ -942,6 +942,11 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.False">
             <summary>
+            Manual control of the carousel.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.True">
+            <summary>
             Autoplays the carousel after the user manually cycles the first item.
             </summary>
         </member>

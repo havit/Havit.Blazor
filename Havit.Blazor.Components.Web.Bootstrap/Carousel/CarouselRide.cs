@@ -11,7 +11,12 @@ public enum CarouselRide
 	Carousel = 0,
 
 	/// <summary>
+	/// Manual control of the carousel.
+	/// </summary>
+	False = 1,
+
+	/// <summary>
 	/// Autoplays the carousel after the user manually cycles the first item.
 	/// </summary>
-	False = 1
+	True = 2
 }

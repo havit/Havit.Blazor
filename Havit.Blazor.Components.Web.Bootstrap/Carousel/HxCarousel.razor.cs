@@ -106,13 +106,32 @@ public partial class HxCarousel : IAsyncDisposable
 
 		if (firstRender)
 		{
+			var options = new Dictionary<string, object>();
+			options["ride"] = this.Ride switch
+			{
+				CarouselRide.Carousel => "carousel",
+				CarouselRide.False => false,
+				CarouselRide.True => true,
+				_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselRide)}: {this.Ride}.")
+			};
+			options["pause"] = this.Pause switch
+			{
+				CarouselPause.Hover => "hover",
+				CarouselPause.False => false,
+				_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselPause)}: {this.Pause}.")
+			};
 			await EnsureJsModule();
 			if (disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference, Ride.ToString().ToLower(), Pause.ToString().ToLower());
+			await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference, options);
 		}
+	}
+
+	private object GetRideJavaScriptValue()
+	{
+		throw new NotImplementedException();
 	}
 
 	protected async Task EnsureJsModule()
