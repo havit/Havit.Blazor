@@ -6,13 +6,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.2" />
 	</ItemGroup>
 
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.0.6</PackageVersion>
+		<PackageVersion>1.0.7</PackageVersion>
 		<Description>HAVIT .NET Framework Extensions - Localization</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
