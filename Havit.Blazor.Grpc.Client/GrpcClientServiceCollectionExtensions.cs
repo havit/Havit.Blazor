@@ -64,8 +64,8 @@ public static class GrpcClientServiceCollectionExtensions
 			.ConfigurePrimaryHttpMessageHandler<GrpcWebHandler>()
 			.AddInterceptor<GlobalizationLocalizationGrpcClientInterceptor>()
 			.AddInterceptor<ClientUriGrpcClientInterceptor>()
-			.AddInterceptor<ServerExceptionsGrpcClientInterceptor>()
-			.AddInterceptor<CancellationWorkaroundGrpcClientInterceptor>();
+			.AddInterceptor<ServerExceptionsGrpcClientInterceptor>();
+		//.AddInterceptor<CancellationWorkaroundGrpcClientInterceptor>();
 
 		configureGrpClientAll?.Invoke(grpcClient);
 		configureGrpcClientWithAuthorization?.Invoke(grpcClient);
