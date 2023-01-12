@@ -1,0 +1,59 @@
+  @page "/HxMultiSelectIssue449Test"
+@using System.Globalization;
+@using Havit
+  
+  <div style="border:1px solid blue">
+     <HxGrid TItem="string" DataProvider="GetGridData" PageSize="10">
+         <Columns>
+             <HxGridColumn HeaderText="HxMultiSelect">
+                 <ItemTemplate>
+                     <HxMultiSelect TItem="Person"
+                                    TValue="string"
+                                    Data="@people"
+                                    @bind-Value="@selectedPersonsInitials"
+                                    TextSelector="@(p => p.Name)"
+                                    ValueSelector="@(p => p.Initials)" />
+ 
+                 </ItemTemplate>
+             </HxGridColumn>
+             <HxGridColumn HeaderText="HxSelect">
+                 <ItemTemplate>
+                     <HxSelect TItem="Person"
+                               TValue="string"
+                               Data="@people"
+                               @bind-Value="selectedInitials"
+                               TextSelector="@(p => p.Name)"
+                               ValueSelector="@(p => p.Initials)"
+                               Nullable="true" />
+                 </ItemTemplate>
+             </HxGridColumn>
+         </Columns>
+     </HxGrid>
+ </div>
+ @code {
+     private string selectedInitials;
+     private List<Person> people;
+     private List<string> selectedPersonsInitials { get; set; } = new();     
+     protected override async Task OnInitializedAsync()
+     {
+         await Task.Delay(1000); // simulates slow server API call
+ 
+         people = new List<Person>
+         {
+             new Person("Starr Ringo", "RS"),
+             new Person("Lennon John", "JL"),
+             new Person("McCartney Paul", "PMC"),
+             new Person("Harrison George", "GH")
+         };
+     }
+ 
+     private record Person(string Name, string Initials);     
+     private Task<GridDataProviderResult<string>> GetGridData(GridDataProviderRequest<string> request)
+     {     
+         return Task.FromResult(new GridDataProviderResult<string>
+             {
+                 Data = new[] { "JL" },
+                 TotalCount = 1
+             });
+     }
+ }
