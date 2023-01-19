@@ -3,7 +3,7 @@
 }
 
 .dropdown-menu {
-    width: 100%;
+    width: var(--hx-autosuggest-dropdown-menu-width);
     overflow: auto;
     max-height: var(--hx-autosuggest-dropdown-menu-height);
 }
