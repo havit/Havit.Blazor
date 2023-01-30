@@ -18,7 +18,7 @@
                     bool firstRendered = false;
                     foreach (string message in messages)
                     {
-                        <span @key="@message" class=@CssClassHelper.Combine(firstRendered ? "ms-1" : String.Empty)>@message</span>
+                        <span @key="@message" title="@message" class=@CssClassHelper.Combine(firstRendered ? "ms-1" : String.Empty) >@message</span>
                         firstRendered = true;
                     }
                 }
