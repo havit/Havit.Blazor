@@ -4352,7 +4352,7 @@ textarea.form-control-lg {
 }
 
 .card-header, .card-footer {
-  border-color: rgba(0, 0, 0, 0.0375);
+  --bs-card-border-color: rgba(var(--bs-black-rgb),.0375);
 }
 
 .accordion {
