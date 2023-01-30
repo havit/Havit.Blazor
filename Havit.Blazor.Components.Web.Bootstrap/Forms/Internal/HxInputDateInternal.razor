@@ -45,9 +45,9 @@
                 <HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
             }
 
-            @if (EnabledEffective)
-            {
-                <HxDropdownContent CssClass="hx-input-date-dropdown-menu">
+            <HxDropdownContent CssClass="hx-input-date-dropdown-menu">
+                @if (EnabledEffective)
+                {
                     <div class="hx-input-date-calendar">
                         <HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" />
                     </div>
@@ -64,8 +64,8 @@
                             }
                         }
                     </div>
-                </HxDropdownContent>
-            }
+                }
+            </HxDropdownContent>
         </HxDropdown>
         @if (RenderIcon)
         {

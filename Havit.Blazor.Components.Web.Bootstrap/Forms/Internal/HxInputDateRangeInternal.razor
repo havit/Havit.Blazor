@@ -23,16 +23,16 @@
                                     disabled="@(!EnabledEffective)"
                                     @attributes="this.AdditionalAttributes" />
 
-                @if (EnabledEffective)
-                {
-                    <HxDropdownContent CssClass="hx-input-date-range-dropdown-menu">
+                <HxDropdownContent CssClass="hx-input-date-range-dropdown-menu">
+                    @if (EnabledEffective)
+                    {
                         <div class="hx-input-date-range-calendar">
                             <HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" />
                         </div>
                         <div class="hx-input-date-range-buttons">
                             @if (ShowClearButtonEffective)
                             {
-                                    <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleFromClearClickAsync" />
+                                <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleFromClearClickAsync" />
                             }
                             @if (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective != null) && PredefinedDateRangesEffective.Any())
                             {
@@ -42,8 +42,8 @@
                                 }
                             }
                         </div>
-                    </HxDropdownContent>
-                }
+                    }
+                </HxDropdownContent>
             </HxDropdown>
 
             <HxDropdown AutoClose="DropdownAutoClose.Outside">
@@ -61,16 +61,16 @@
                                     disabled="@(!EnabledEffective)"
                                     @attributes="this.AdditionalAttributes" />
 
-                @if (EnabledEffective)
-                {
-                    <HxDropdownContent CssClass="hx-input-date-range-dropdown-menu">
+                <HxDropdownContent CssClass="hx-input-date-range-dropdown-menu">
+                    @if (EnabledEffective)
+                    {
                         <div class="hx-input-date-range-calendar">
                             <HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" />
                         </div>
                         <div class="hx-input-date-range-buttons">
                             @if (ShowClearButtonEffective)
                             {
-                                    <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleToClearClickAsync" />
+                                <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleToClearClickAsync" />
                             }
                             @if (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective != null) && PredefinedDateRangesEffective.Any())
                             {
@@ -80,8 +80,8 @@
                                 }
                             }
                         </div>
-                    </HxDropdownContent>
-                }
+                    }
+                </HxDropdownContent>
             </HxDropdown>
         </div>
 
