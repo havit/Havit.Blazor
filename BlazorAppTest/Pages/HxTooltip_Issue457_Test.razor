@@ -1,0 +1,10 @@
+﻿@page "/HxTooltip_Issue457_Test"
+
+@inject NavigationManager NavigationManager
+
+<HxButton Text="Navigate home"
+	Tooltip="Navigate"
+	Color="ThemeColor.Primary"
+	OnClick="@(() => NavigationManager.NavigateTo(""))" />
+
+@* https://github.com/havit/Havit.Blazor/issues/457 *@
