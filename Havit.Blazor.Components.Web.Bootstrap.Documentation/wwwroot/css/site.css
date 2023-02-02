@@ -28,7 +28,7 @@
 }
 
 :not(pre) > code[class*=language-], pre[class*=language-].gray-background {
-	background-color: var(--bs-gray-100);
+	background-color: var(--bs-tertiary-bg);
 }
 
 .doc-content > h1 {
