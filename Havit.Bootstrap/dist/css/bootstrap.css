@@ -1839,7 +1839,7 @@ progress {
 .table {
   --bs-table-color: var(--bs-body-color);
   --bs-table-bg: transparent;
-  --bs-table-border-color: #e9ecef;
+  --bs-table-border-color: var(--bs-border-color);
   --bs-table-accent-bg: transparent;
   --bs-table-striped-color: var(--bs-body-color);
   --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
@@ -1867,7 +1867,7 @@ progress {
 }
 
 .table-group-divider {
-  border-top: calc(var(--bs-border-width) * 2) solid #e9ecef;
+  border-top: calc(var(--bs-border-width) * 2) solid currentcolor;
 }
 
 .caption-top {
@@ -2104,7 +2104,7 @@ progress {
   color: var(--bs-body-color);
   background-color: var(--bs-form-control-bg);
   background-clip: padding-box;
-  border: var(--bs-border-width) solid #dee2e6;
+  border: var(--bs-border-width) solid var(--bs-border-color);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -2264,7 +2264,7 @@ textarea.form-control-lg {
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
-  border: var(--bs-border-width) solid #dee2e6;
+  border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: 0.375rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   -webkit-appearance: none;
@@ -2667,7 +2667,7 @@ textarea.form-control-lg {
   text-align: center;
   white-space: nowrap;
   background-color: var(--bs-tertiary-bg);
-  border: var(--bs-border-width) solid #dee2e6;
+  border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: 0.375rem;
 }
 

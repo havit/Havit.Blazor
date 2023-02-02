@@ -1,4 +1,3 @@
-
 $min-contrast-ratio:  3;
 $border-color:        $gray-200;
 $border-color-translucent:    rgba($black, .0875);
@@ -17,8 +16,6 @@ $table-active-bg-factor:        .05;
 $table-active-bg:               rgba($black, $table-active-bg-factor);
 $table-hover-bg-factor:         .025;
 $table-hover-bg:                rgba($black, $table-hover-bg-factor);
-$table-border-color:            $border-color;
-$table-group-separator-color:   $table-border-color;
 
 $form-label-margin-bottom:          .25rem;
 $form-label-font-size:              .875rem;
@@ -28,10 +25,6 @@ $form-feedback-tooltip-font-size:   .75rem;
 $form-feedback-margin-top:          .125rem;
 $form-feedback-font-size:           .75rem;
 
-$input-border-color:              $gray-300;
-$input-group-addon-border-color:  $input-border-color;
-$form-select-border-color:        $gray-300;
-
 $form-check-input-border:         1px solid $gray-300;
 
 $modal-backdrop-opacity:      .25;
@@ -39,7 +32,6 @@ $modal-backdrop-opacity:      .25;
 $offcanvas-horizontal-width:  500px;
 
 $dropdown-box-shadow:     $box-shadow-sm;
-$dropdown-divider-bg:     $dropdown-border-color;
 
 $accordion-border-color:    var(--#{$prefix}border-color-translucent);
 
