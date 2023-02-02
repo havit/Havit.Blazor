@@ -3,13 +3,11 @@ $min-contrast-ratio:  3;
 $border-color:        $gray-200;
 $border-color-translucent:    rgba($black, .0875);
 
-$badge-border-radius: $border-radius-sm;
-
 $box-shadow:                  0 .5rem 1rem rgba($black, .1);
 $box-shadow-sm:               0 .125rem .25rem rgba($black, .05);
 $box-shadow-lg:               0 1rem 3rem rgba($black, .15);
 
-$nav-tabs-border-color:               rgba($black, .075);
+$nav-tabs-border-color:               var(--#{$prefix}border-color-translucent);
 $nav-tabs-link-active-border-color:   $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-link-active-bg;
 
 $card-border-radius:          $border-radius-lg;
