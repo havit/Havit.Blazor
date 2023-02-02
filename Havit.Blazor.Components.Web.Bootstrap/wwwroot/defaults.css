@@ -67,10 +67,10 @@
 	--hx-context-menu-button-border: 			unset;
 	--hx-context-menu-button-border-radius: 	.325rem;
 	--hx-context-menu-button-padding: 			0 .25rem;
-	--hx-context-menu-button-hover-background: 	var(--bs-gray-300);
+	--hx-context-menu-button-hover-background: 	var(--bs-tertiary-bg);
 	--hx-context-menu-item-icon-margin:	0 .5rem 0 0;
 	/* HxGrid */
-	--hx-grid-button-hover-background: 				var(--bs-gray-300);
+	--hx-grid-button-hover-background: 				var(--bs-tertiary-bg);
 	--hx-grid-button-border-radius: 				.25rem;
 	--hx-grid-sorted-icon-color: 					var(--bs-primary);
 	/* HxPager */
@@ -92,7 +92,7 @@
 	--hx-calendar-day-selected-background:				var(--bs-primary);
 	--hx-calendar-day-selected-color: 					var(--bs-white);
 	--hx-calendar-day-selected-border: 					none;
-	--hx-calendar-day-out-color: 						var(--bs-gray-500);
+	--hx-calendar-day-out-color: 						var(--bs-secondary-bg);
 	--hx-calendar-day-in-color: 						unset;
 	--hx-calendar-day-disabled-opacity: 				.5;
 	--hx-calendar-day-disabled-text-decoration: 		line-through;
@@ -125,7 +125,7 @@
 	/* TagInput */
 	--hx-input-tags-tag-margin: 								0 .25rem 0 0;
 	--hx-input-tags-input-width: 								3em;
-	--hx-input-tags-input-placeholder-color: 					var(--bs-gray-600);
+	--hx-input-tags-input-placeholder-color: 					var(--bs-secondary-color);
 	--hx-input-tags-naked-font-size-lg: 						1.25em;
 	--hx-input-tags-naked-font-size-sm: 						.875em;
 	--hx-input-tags-control-focused-box-shadow: 				0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
@@ -141,7 +141,7 @@
 	--hx-tree-view-item-color:						var(--bs-dark);
 	--hx-tree-view-item-hover-color:				var(--bs-primary);
 	--hx-tree-view-item-selected-color:				var(--bs-primary);
-	--hx-tree-view-item-background:					var(--bs-white);
+	--hx-tree-view-item-background:					transparent;
 	--hx-tree-view-item-hover-background:			var(--bs-primary-rgb);
 	--hx-tree-view-item-hover-background-opacity:	.1;
 	--hx-tree-view-item-selected-background:		var(--bs-primary-rgb);
@@ -178,6 +178,8 @@
 	--hx-sidebar-item-color: 							var(--bs-light);
 	--hx-sidebar-toggler-color:							var(--bs-light);
 	--hx-sidebar-toggler-background: 					var(--bs-dark);
+
+	--hx-tree-view-item-color:							var(--bs-light);
 }
 
 form {

@@ -1,6 +1,7 @@
 
 $min-contrast-ratio:  3;
 $border-color:        $gray-200;
+$border-color-translucent:    rgba($black, .0875);
 
 $badge-border-radius: $border-radius-sm;
 
@@ -29,9 +30,6 @@ $form-feedback-tooltip-font-size:   .75rem;
 $form-feedback-margin-top:          .125rem;
 $form-feedback-font-size:           .75rem;
 
-$form-switch-color:                 $white;
-$form-switch-bg-image:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color}'/></svg>");
-
 $input-border-color:              $gray-300;
 $input-group-addon-border-color:  $input-border-color;
 $form-select-border-color:        $gray-300;
@@ -39,28 +37,24 @@ $form-select-border-color:        $gray-300;
 $form-check-input-border:         1px solid $gray-300;
 
 $modal-backdrop-opacity:      .25;
-$modal-header-border-color:   $border-color;
-$modal-content-border-color:  rgba($black, .05);
-$offcanvas-border-color:      $modal-content-border-color;
 
 $offcanvas-horizontal-width:  500px;
 
 $dropdown-box-shadow:     $box-shadow-sm;
-$dropdown-border-color:   rgba($black, .0875);
 $dropdown-divider-bg:     $dropdown-border-color;
 
-$accordion-border-color:    rgba($black, .0875);
+$accordion-border-color:    var(--#{$prefix}border-color-translucent);
 
 $popover-border-color:      rgba($black, .125);
 
-$toast-border-color:        rgba($black, .0875);
 $toast-padding-x:           1rem;
 $toast-padding-y:           .75rem;
 
 $badge-font-weight:           $font-weight-semibold;
 
-$list-group-border-color:     rgba($black, .0875);
+$list-group-border-color:     var(--#{$prefix}border-color-translucent);
 
 $hr-opacity: .125;
 
-$nav-tabs-link-hover-border-color:  transparent;
+// Should be fixed in Bootstrap
+$nav-tabs-link-active-border-color: var(--#{$prefix}border-color-translucent) var(--#{$prefix}border-color-translucent) $nav-tabs-link-active-bg;
