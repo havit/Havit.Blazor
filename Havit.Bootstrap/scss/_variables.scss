@@ -12,9 +12,7 @@ $nav-tabs-border-color:               rgba($black, .075);
 $nav-tabs-link-active-border-color:   $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-link-active-bg;
 
 $card-border-radius:          $border-radius-lg;
-$card-border-color:           rgba($black, .075);
 $card-inner-border-radius:    subtract($card-border-radius, $card-border-width);
-$card-cap-bg:                 rgba($black, .0375);
 
 $table-active-bg-factor:        .05;
 $table-active-bg:               rgba($black, $table-active-bg-factor);
