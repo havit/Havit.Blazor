@@ -71,7 +71,7 @@
 	align-items: center;
 	justify-content: center;
 	background-color: var(--hx-sidebar-toggler-background);
-	color: var(--bs-gray);
+	color: var(--hx-sidebar-toggler-color);
 	transition: all .25s ease-in-out;
 }
 
@@ -83,7 +83,7 @@
 	opacity: 1;
 }
 
-.navbar-toggler:hover {
+.hx-sidebar-navbar-toggler:hover {
 	color: var(--bs-primary);
 }
 

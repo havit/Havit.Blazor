@@ -12,8 +12,9 @@
 	--hx-sidebar-background-color: 						transparent;
 	--hx-sidebar-collapsed-width: 						72px;
 	--hx-sidebar-width: 								250px;
-	--hx-sidebar-toggler-border: 						1px solid var(--bs-gray-200);
+	--hx-sidebar-toggler-border: 						1px solid var(--bs-border-color);
 	--hx-sidebar-toggler-background: 					var(--bs-white);
+	--hx-sidebar-toggler-color:							var(--bs-dark);
 	--hx-sidebar-item-font-size: 						1rem;
 	--hx-sidebar-item-padding: 							.75rem;
 	--hx-sidebar-item-color: 							var(--bs-dark);
@@ -170,6 +171,13 @@
 	--hx-search-box-item-subtitle-font-size:			.75rem;
 	--hx-search-box-item-highlighted-background-color:	var(--bs-gray-200);
 	--hx-search-box-dropdown-menu-height:				300px;
+}
+
+[data-bs-theme=dark] {
+	--hx-sidebar-brand-name-color: 						var(--bs-light);
+	--hx-sidebar-item-color: 							var(--bs-light);
+	--hx-sidebar-toggler-color:							var(--bs-light);
+	--hx-sidebar-toggler-background: 					var(--bs-dark);
 }
 
 form {
