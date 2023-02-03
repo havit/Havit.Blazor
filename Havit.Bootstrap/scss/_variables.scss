@@ -25,24 +25,26 @@ $form-feedback-tooltip-font-size:   .75rem;
 $form-feedback-margin-top:          .125rem;
 $form-feedback-font-size:           .75rem;
 
-$form-check-input-border:         1px solid $gray-300;
+$form-check-input-border:           1px solid $gray-300;
 
-$modal-backdrop-opacity:      .25;
+$modal-backdrop-opacity:            .25;
 
-$offcanvas-horizontal-width:  500px;
+$offcanvas-horizontal-width:        500px;
 
-$dropdown-box-shadow:     $box-shadow-sm;
+$dropdown-box-shadow:               $box-shadow-sm;
 
-$accordion-border-color:    var(--#{$prefix}border-color-translucent);
+$pagination-disabled-bg:            transparent;
 
-$popover-border-color:      rgba($black, .125);
+$accordion-border-color:            var(--#{$prefix}border-color-translucent);
 
-$toast-padding-x:           1rem;
-$toast-padding-y:           .75rem;
+$popover-border-color:              rgba($black, .125);
 
-$badge-font-weight:           $font-weight-semibold;
+$toast-padding-x:                   1rem;
+$toast-padding-y:                   .75rem;
 
-$list-group-border-color:     var(--#{$prefix}border-color-translucent);
+$badge-font-weight:                 $font-weight-semibold;
+
+$list-group-border-color:           var(--#{$prefix}border-color-translucent);
 
 $hr-opacity: .125;
 

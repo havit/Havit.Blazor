@@ -4679,7 +4679,7 @@ textarea.form-control-lg {
   --bs-pagination-active-bg: #009de0;
   --bs-pagination-active-border-color: #009de0;
   --bs-pagination-disabled-color: var(--bs-secondary-color);
-  --bs-pagination-disabled-bg: var(--bs-secondary-bg);
+  --bs-pagination-disabled-bg: transparent;
   --bs-pagination-disabled-border-color: var(--bs-border-color);
   display: flex;
   padding-right: 0;
