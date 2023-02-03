@@ -52,7 +52,7 @@ input:focus {
 }
 
 .hx-input-tags-control-disabled:not(.hx-input-tags-naked) {
-	background-color: var(--bs-gray-200);
+	background-color: var(--bs-form-control-disabled-bg);
 }
 
 .hx-tag-add-button-text {

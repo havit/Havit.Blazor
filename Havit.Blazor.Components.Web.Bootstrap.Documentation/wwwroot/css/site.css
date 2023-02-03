@@ -24,6 +24,7 @@
 code[class*=language-], 
 pre[class*=language-] {
 	text-shadow: none;
+	color: var(--bs-tertiary-color);
 }
 
 
