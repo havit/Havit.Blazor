@@ -9,13 +9,15 @@
 // Configuration
 @import "../bootstrap/scss/functions";
 
-$light:   #dee2e6;
-$blue:    #009de0;
-$red:     #f93a25;
+$light:     #dee2e6;
+$blue:      #009de0;
+$yale-blue: #114788;
+$red:       #f93a25;
 $green:   #1c9e0b;
-$primary: $blue;
-$danger:  $red;
-$success: $green;
+$primary:   $blue;
+$danger:    $red;
+$success:   $green;
+$info:      $yale-blue;
 
 @import "../bootstrap/scss/variables";
 @import "../bootstrap/scss/variables-dark";
