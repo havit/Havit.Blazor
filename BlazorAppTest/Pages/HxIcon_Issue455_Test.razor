@@ -1,0 +1,16 @@
+﻿@page "/HxIcon_Issue455_Test"
+
+<h1>HxIcon_Issue455_Test</h1>
+
+<HxIcon Icon="icon" />
+
+<HxButton Text="Toggle icon" Color="ThemeColor.Primary" OnClick="ToggleIcon" />
+
+@code {
+	private IconBase icon = BootstrapIcon.YinYang;
+
+	private void ToggleIcon()
+	{
+		icon = (icon != BootstrapIcon.YinYang) ? BootstrapIcon.YinYang : BootstrapIcon.Fingerprint;
+	}
+}
