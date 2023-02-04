@@ -9,25 +9,25 @@ $box-shadow-lg:               0 1rem 3rem rgba($black, .15);
 $nav-tabs-border-color:               var(--#{$prefix}border-color-translucent);
 $nav-tabs-link-active-border-color:   $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-link-active-bg;
 
-$card-border-radius:          $border-radius-lg;
-$card-inner-border-radius:    subtract($card-border-radius, $card-border-width);
+$card-border-radius:                  $border-radius-lg;
+$card-inner-border-radius:            subtract($card-border-radius, $card-border-width);
 
-$table-active-bg-factor:        .05;
-$table-active-bg:               rgba($black, $table-active-bg-factor);
-$table-hover-bg-factor:         .025;
-$table-hover-bg:                rgba($black, $table-hover-bg-factor);
+$table-active-bg-factor:              .075;
+$table-active-bg:                     rgba($black, $table-active-bg-factor);
+$table-hover-bg-factor:               .05;
+$table-hover-bg:                      rgba($black, $table-hover-bg-factor);
 
-$form-label-margin-bottom:          .25rem;
-$form-label-font-size:              .875rem;
-$form-label-color:                  $gray-600;
-$form-label-font-weight:            500;
-$form-feedback-tooltip-font-size:   .75rem;
-$form-feedback-margin-top:          .125rem;
-$form-feedback-font-size:           .75rem;
+$form-label-margin-bottom:            .25rem;
+$form-label-font-size:                .875rem;
+$form-label-color:                    $gray-600;
+$form-label-font-weight:              500;
+$form-feedback-tooltip-font-size:     .75rem;
+$form-feedback-margin-top:            .125rem;
+$form-feedback-font-size:             .75rem;
 
-$modal-backdrop-opacity:            .25;
+$modal-backdrop-opacity:              .25;
 
-$offcanvas-horizontal-width:        500px;
+$offcanvas-horizontal-width:          500px;
 
 $dropdown-box-shadow:               $box-shadow-sm;
 
