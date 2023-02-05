@@ -92,7 +92,7 @@
 	--hx-calendar-day-selected-background:				var(--bs-primary);
 	--hx-calendar-day-selected-color: 					var(--bs-white);
 	--hx-calendar-day-selected-border: 					none;
-	--hx-calendar-day-out-color: 						var(--bs-secondary-bg);
+	--hx-calendar-day-out-color: 						var(--bs-tertiary-color);
 	--hx-calendar-day-in-color: 						unset;
 	--hx-calendar-day-disabled-opacity: 				.5;
 	--hx-calendar-day-disabled-text-decoration: 		line-through;

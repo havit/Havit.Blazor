@@ -27,6 +27,7 @@
                                  ElementName="input"
                                  CssClass="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())"
                                  type="text"
+                                 Caret="false"
                                  id="@InputId"
                                  value="@CurrentValueAsString" @onchange="HandleValueChanged"
                                  placeholder="@Placeholder"

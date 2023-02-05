@@ -16,7 +16,8 @@
                                     CssClass="@CssClassHelper.Combine(this.InputCssClass,
                                                                         ((IInputWithSize)this).GetInputSizeCssClass(),
                                                                         fromValid ? null : HxInputBase<object>.InvalidCssClass,
-                                                                        "hx-border-radius-end-0")"
+                                                                        "rounded-end-0")"
+                                    Caret="false"
                                     value="@FormatDate(Value.StartDate)"
                                     placeholder="@StringLocalizerFactory.GetLocalizedValue("From", typeof(HxInputDateRange))"
                                     @onchange="HandleFromChanged"
@@ -54,7 +55,7 @@
                                     CssClass="@CssClassHelper.Combine(this.InputCssClass,
                                                                         ((IInputWithSize)this).GetInputSizeCssClass(),
                                                                         toValid ? null : HxInputBase<object>.InvalidCssClass,
-                                                                        "hx-border-radius-start-0")"
+                                                                        "rounded-start-0")"
                                     value="@FormatDate(Value.EndDate)"
                                     placeholder="@StringLocalizerFactory.GetLocalizedValue("To", typeof(HxInputDateRange))"
                                     @onchange="HandleToChanged"
