@@ -26,6 +26,8 @@ $form-feedback-tooltip-font-size:     .75rem;
 $form-feedback-margin-top:            .125rem;
 $form-feedback-font-size:             .75rem;
 
+$popover-header-bg:                   rgba(var(--#{$prefix}body-color-rgb), .03);
+
 $modal-backdrop-opacity:              .25;
 
 $offcanvas-horizontal-width:          500px;
