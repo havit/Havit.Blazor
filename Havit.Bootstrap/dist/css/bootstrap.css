@@ -3641,7 +3641,8 @@ textarea.form-control-lg {
 
 .dropdown-menu {
   gap: 0.25rem;
-  padding: 0.25rem;
+  --bs-dropdown-padding-x: .25rem;
+  --bs-dropdown-padding-y: .25rem;
 }
 
 .dropdown-menu.show {
@@ -3649,11 +3650,11 @@ textarea.form-control-lg {
 }
 
 .dropdown-item {
-  border-radius: 0.25rem;
+  --bs-dropdown-item-border-radius: .25rem;
 }
 
 .btn-sm ~ .dropdown-menu, .btn-group-sm > .btn ~ .dropdown-menu {
-  font-size: 0.875rem;
+  --bs-dropdown-font-size: .875rem;
 }
 
 .btn-group,
@@ -5419,15 +5420,6 @@ textarea.form-control-lg {
 .toast-body {
   padding: var(--bs-toast-padding-x);
   word-wrap: break-word;
-}
-
-.toast {
-  backdrop-filter: saturate(1.2) blur(20px);
-  -webkit-backdrop-filter: saturate(1.2) blur(20px);
-}
-
-.toast-header .btn-close {
-  margin-right: unset;
 }
 
 .modal {
