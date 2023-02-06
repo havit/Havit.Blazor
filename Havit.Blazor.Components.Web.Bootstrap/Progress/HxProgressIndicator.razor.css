@@ -11,6 +11,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background: var(--hx-progress-indicator-background);
+    border: 1px solid var(--bs-border-color);
     border-radius: 50%;
     display: flex;
     justify-content: center;
