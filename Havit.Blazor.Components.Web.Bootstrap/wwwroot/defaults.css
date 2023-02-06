@@ -73,8 +73,6 @@
 	--hx-grid-button-hover-background: 				var(--bs-tertiary-bg);
 	--hx-grid-button-border-radius: 				.25rem;
 	--hx-grid-sorted-icon-color: 					var(--bs-primary);
-	/* HxPager */
-	--hx-pager-margin: 						1rem;
 	/* HxInputFileDropZone */
 	--hx-input-file-drop-zone-border-width: 				1px;
 	--hx-input-file-drop-zone-box-shadow: 					none;
