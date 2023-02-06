@@ -15,10 +15,6 @@
     width: min-content;
 }
 
-.hx-input-date-range-calendar {
-    margin-bottom: var(--hx-input-date-range-calendar-margin-bottom);
-}
-
 .hx-input-date-range-buttons {
     display: flex;
     flex-wrap: wrap;
