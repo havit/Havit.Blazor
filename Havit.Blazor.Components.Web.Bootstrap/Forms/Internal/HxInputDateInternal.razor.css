@@ -11,7 +11,8 @@
 }
 
 ::deep .hx-input-date-dropdown-menu {
-	padding: var(--hx-input-date-dropdown-padding);
+	--bs-dropdown-padding-x: 0.5rem;
+	--bs-dropdown-padding-y: 0.5rem;
 	width: min-content;
 }
 
