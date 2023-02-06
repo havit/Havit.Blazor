@@ -159,6 +159,8 @@
 	--hx-input-date-range-calendar-margin-bottom:	0;
 	/* HxProgressIndicator */
 	--hx-progress-indicator-background:				var(--bs-body-bg);
+	--hx-progress-indicator-box-shadow:				var(--bs-box-shadow);
+	--hx-progress-indicator-border-color:			var(--bs-border-color);
 	--hx-progress-indicator-spinner-color:			var(--bs-primary);
 	/* HxToastContainer */
 	--hx-toast-container-margin:					.5rem;
