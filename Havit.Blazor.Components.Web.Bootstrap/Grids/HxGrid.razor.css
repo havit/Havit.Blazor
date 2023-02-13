@@ -1,4 +1,4 @@
-.hx-grid-sorted ::deep i {
+.hx-grid-sorted ::deep .hx-grid-sort-icon {
     color: var(--hx-grid-sorted-icon-color);
 }
 
@@ -6,11 +6,11 @@
     color: currentColor;
 }
 
-.hx-grid-sortable ::deep i {
+.hx-grid-sortable ::deep .hx-grid-sort-icon {
     visibility: hidden;
 }
 
-th:hover.hx-grid-sortable ::deep i {
+th:hover.hx-grid-sortable ::deep .hx-grid-sort-icon {
 	visibility: visible;
 }
 
@@ -19,8 +19,8 @@ th > .hx-grid-header-cell-container {
     gap: .5rem;
 }
 
-th.hx-grid-sortable.text-end i,
-th.hx-grid-sorted.text-end i {
+th.hx-grid-sortable.text-end .hx-grid-sort-icon,
+th.hx-grid-sorted.text-end .hx-grid-sort-icon {
     order: 0;
 }
 
