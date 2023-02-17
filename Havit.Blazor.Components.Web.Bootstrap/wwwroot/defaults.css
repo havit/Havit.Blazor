@@ -8,6 +8,7 @@
 	--hx-autosuggest-dropdown-menu-height:				300px;	
 	/* HxButton */
 	--hx-button-space-between-text-icon:				0.25rem;
+	--hx-button-icon-color:								unset;
 	/* HxSidebar */
 	--hx-sidebar-background-color: 						transparent;
 	--hx-sidebar-collapsed-width: 						72px;
