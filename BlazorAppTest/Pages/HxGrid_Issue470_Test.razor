@@ -1,0 +1,27 @@
+﻿@page "/HxGrid_Issue470_Test"
+@using System.Globalization;
+
+<HxGrid @ref="grid" TItem="CultureInfo" Responsive="true" DataProvider="GetGridData" PageSize="10">
+	<Columns>
+		<HxGridColumn HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())">
+			<HeaderTemplate>
+				<HxInputText @bind-Value="lcidSearchString" @onfocusout="RefreshData" />
+			</HeaderTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)">
+			<HeaderTemplate>
+				<HxInputText @bind-Value="displayNameSearchString" @onfocusout="RefreshData" />
+			</HeaderTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="@(item => item.Name)">
+			<HeaderTemplate>
+				<HxInputText @bind-Value="nameSearchString" @onfocusout="RefreshData" />
+			</HeaderTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)">
+			<HeaderTemplate>
+				<HxInputText @bind-Value="englishNameSearchString" @onfocusout="RefreshData" />
+			</HeaderTemplate>
+		</HxGridColumn>
+	</Columns>
+</HxGrid>
