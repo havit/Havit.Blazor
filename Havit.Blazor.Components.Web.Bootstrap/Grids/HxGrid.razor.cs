@@ -234,12 +234,27 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected bool StripedEffective => this.Striped ?? this.GetSettings()?.Striped ?? GetDefaults().Striped ?? throw new InvalidOperationException(nameof(Striped) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
+	/// Icon to indicate ascending sort direction in column header.
+	/// </summary>
+	[Parameter] public IconBase SortAscendingIcon { get; set; }
+	protected IconBase SortAscendingIconEffective => this.SortAscendingIcon ?? this.GetSettings()?.SortAscendingIcon ?? GetDefaults().SortAscendingIcon;
+
+	/// <summary>
+	/// Icon to indicate descending sort direction in column header.
+	/// </summary>
+	[Parameter] public IconBase SortDescendingIcon { get; set; }
+	protected IconBase SortDescendingIconEffective => this.SortDescendingIcon ?? this.GetSettings()?.SortDescendingIcon ?? GetDefaults().SortDescendingIcon;
+
+
+	/// <summary>
 	/// Returns application-wide defaults for the component.
 	/// Enables overriding defaults in descandants (use separate set of defaults).
 	/// </summary>
 	protected virtual GridSettings GetDefaults() => HxGrid.Defaults;
 
+
 	[Inject] protected IStringLocalizer<HxGrid> HxGridLocalizer { get; set; }
+
 
 	private List<IHxGridColumn<TItem>> columnsList;
 	private HashSet<string> columnIds;

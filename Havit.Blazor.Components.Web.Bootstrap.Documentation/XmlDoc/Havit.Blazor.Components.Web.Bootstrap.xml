@@ -5520,12 +5520,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.SortAscendingIcon">
             <summary>
-            Icon to display ascending sort direction.
+            Icon to indicate ascending sort direction in column header.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.SortDescendingIcon">
             <summary>
-            Icon to display descending sort direction.
+            Icon to indicate descending sort direction in column header.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ItemRowHeight">
@@ -5914,6 +5914,16 @@
             <summary>
             Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> (alternating rows).<br />
             Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SortAscendingIcon">
+            <summary>
+            Icon to indicate ascending sort direction in column header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SortDescendingIcon">
+            <summary>
+            Icon to indicate descending sort direction in column header.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetDefaults">
