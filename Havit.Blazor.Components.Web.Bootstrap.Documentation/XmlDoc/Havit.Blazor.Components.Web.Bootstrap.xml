@@ -4261,9 +4261,14 @@
             Input-group at the end of the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.Text">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputText">
             <summary>
             Text to display in the input instead of a list of selected values.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputTextSelector">
+            <summary>
+            Selects the value to be displayed in the input instead of a list of selected values.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputGroupEndTemplate">

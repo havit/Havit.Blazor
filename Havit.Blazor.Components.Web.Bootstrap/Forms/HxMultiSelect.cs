@@ -97,12 +97,18 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// <summary>
 	/// Text to display in the input instead of a list of selected values.
 	/// </summary>
-	[Parameter] public string Text { get; set; }
+	[Parameter] public string InputText { get; set; }
+
+	/// <summary>
+	/// Selects the value to be displayed in the input instead of a list of selected values.
+	/// </summary>
+	[Parameter] public Func<IEnumerable<TItem>, string> InputTextSelector { get; set; }
 
 	/// <summary>
 	/// Input-group at the end of the input.
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
 
 	private List<TItem> itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
@@ -169,7 +175,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.OpenComponent<HxMultiSelectInternal<TValue, TItem>>(100);
 		builder.AddAttribute(101, nameof(HxMultiSelectInternal<TValue, TItem>.InputId), InputId);
 		builder.AddAttribute(102, nameof(HxMultiSelectInternal<TValue, TItem>.InputCssClass), GetInputCssClassToRender());
-		builder.AddAttribute(103, nameof(HxMultiSelectInternal<TValue, TItem>.InputText), !string.IsNullOrEmpty(Text) ? Text : CurrentValueAsString);
+		builder.AddAttribute(103, nameof(HxMultiSelectInternal<TValue, TItem>.InputText), GetInputText());
 		builder.AddAttribute(104, nameof(HxMultiSelectInternal<TValue, TItem>.EnabledEffective), EnabledEffective);
 		builder.AddAttribute(105, nameof(HxMultiSelectInternal<TValue, TItem>.ItemsToRender), itemsToRender);
 		builder.AddAttribute(106, nameof(HxMultiSelectInternal<TValue, TItem>.TextSelector), TextSelector);
@@ -187,6 +193,21 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddComponentReferenceCapture(300, r => hxMultiSelectInternalComponent = (HxMultiSelectInternal<TValue, TItem>)r);
 
 		builder.CloseComponent();
+	}
+
+	private string GetInputText()
+	{
+		if (!string.IsNullOrEmpty(InputText))
+		{
+			return InputText;
+		}
+		else if (InputTextSelector is null || Data is null || CurrentValue is null)
+		{
+			return CurrentValueAsString;
+		}
+
+		var currentItems = Data.Where(i => CurrentValue.Contains(SelectorHelpers.GetValue(ValueSelector, i)));
+		return SelectorHelpers.GetValue(InputTextSelector, currentItems);
 	}
 
 	/// <inheritdoc />
