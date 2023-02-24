@@ -66,7 +66,7 @@ public partial class Search
 		new("/components/HxGrid#ContextMenu", "HxGrid > Context menu", ""),
 		new("/components/HxGrid#Multiselect", "HxGrid > Multiselect with checkboxes", ""),
 		new("/components/HxGrid#inline-editing", "HxGrid > Inline-editing", ""),
-		new("/components/HxGrid#column-searching", "HxGrid > Individual column searching", ""),
+		new("/components/HxGrid#header-filtering", "HxGrid > Filtering from header", ""),
 		new("/components/HxIcon", "HxIcon", "bootstrap picture image font"),
 		new("/components/HxInputDate", "HxInputDate", "datepicker"),
 		new("/components/HxInputDateRange", "HxInputDateRange", "period datepicker"),
