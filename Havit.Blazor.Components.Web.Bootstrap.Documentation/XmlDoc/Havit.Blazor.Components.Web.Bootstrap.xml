@@ -249,6 +249,11 @@
             CSS class to be rendered with the button.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.IconCssClass">
+            <summary>
+            CSS class to be rendered with the button icon.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.Icon">
             <summary>
             Icon to be rendered with the button.
@@ -355,6 +360,11 @@
             <summary>
             Custom CSS class to render with the <c>&lt;button /&gt;</c>.<br />
             When using <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Tooltip"/> you might want to use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.TooltipWrapperCssClass"/> instead of <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CssClass" /> to get the desired result.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.IconCssClass">
+            <summary>
+            CSS class to be rendered with the button icon.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Enabled">
