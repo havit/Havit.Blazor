@@ -105,7 +105,6 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
-	protected bool HasAnyInputGroupEnd => !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupEndTemplate is not null);
 
 	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
 	private System.Timers.Timer timer;

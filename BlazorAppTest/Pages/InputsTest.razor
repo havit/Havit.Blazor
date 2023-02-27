@@ -6,190 +6,200 @@
 <h1>Inputs</h1>
 
 <div class="card" @onclick="HandleCardClick">
-    <div class="card-header">OnClick propagation test</div>
-    <div class="card-body">
+	<div class="card-header">OnClick propagation test</div>
+	<div class="card-body">
 
-        <HxSwitch Text="Enabled" @bind-Value="@enabled" />
-        <HxSelect Label="Validation message display mode" @bind-Value="@validationMessageMode" Data="@validationMessageModes" Nullable="false" />
-        
-        <HxFormState Enabled="@enabled">
+		<HxSwitch Text="Enabled" @bind-Value="@enabled" />
+		<HxSelect Label="Validation message display mode" @bind-Value="@validationMessageMode" Data="@validationMessageModes" Nullable="false" />
 
-            <HxFilterForm @ref="filterForm" TModel="FormModel" @bind-Model="@model" OnChipsUpdated="HandleChipUpdated">
-                <DataAnnotationsValidator />
-                <ValidationSummary />
+		<HxFormState Enabled="@enabled">
 
-                <HxFormValue Label="Text" Hint="This item cannot be edited.">
-                    <InputGroupEndTemplate>
-                        <HxDropdownToggleButton Text="Dropdown" Color="ThemeColor.Secondary" Outline="true" />
-                        <HxDropdownMenu>
-                            <HxDropdownItemNavLink Href="#">Item 1</HxDropdownItemNavLink>
-                            <HxDropdownItemNavLink Href="#">Item 2</HxDropdownItemNavLink>
-                        </HxDropdownMenu>
-                    </InputGroupEndTemplate>
-                    <ValueTemplate>
-                        <HxIcon Icon="@BootstrapIcon.Wrench" />Text Only...
-                    </ValueTemplate>
-                </HxFormValue>
-                <HxFormValue Label="Empty" Hint="This item cannot be edited." />                    
-                <HxInputText Label="Text (large)" InputSize="InputSize.Large" @bind-Value="@context.TextBasic" Hint="@context.TextBasic" ValidationMessageMode="@validationMessageMode" />
+			<HxFilterForm @ref="filterForm" TModel="FormModel" @bind-Model="@model" OnChipsUpdated="HandleChipUpdated">
+				<DataAnnotationsValidator />
+				<ValidationSummary />
 
-                <HxInputText Label="Text (oninput)" @bind-Value="@context.TextOnInput" BindEvent="BindEvent.OnInput" Placeholder="Model updates oninput." ValidationMessageMode="@validationMessageMode">
-                    <HintTemplate>
-                        Hint: @context.TextOnInput
-                    </HintTemplate>
-                </HxInputText>
+				<HxFormValue Label="Text" Hint="This item cannot be edited.">
+					<InputGroupEndTemplate>
+						<HxDropdownToggleButton Text="Dropdown" Color="ThemeColor.Secondary" Outline="true" />
+						<HxDropdownMenu>
+							<HxDropdownItemNavLink Href="#">Item 1</HxDropdownItemNavLink>
+							<HxDropdownItemNavLink Href="#">Item 2</HxDropdownItemNavLink>
+						</HxDropdownMenu>
+					</InputGroupEndTemplate>
+					<ValueTemplate>
+						<HxIcon Icon="@BootstrapIcon.Wrench" />Text Only...
+					</ValueTemplate>
+				</HxFormValue>
+				<HxFormValue Label="Empty" Hint="This item cannot be edited." />
+				<HxInputText Label="Text (large)" InputSize="InputSize.Large" @bind-Value="@context.TextBasic" Hint="@context.TextBasic" ValidationMessageMode="@validationMessageMode" />
 
-                <HxInputText Label="Text (always disabled)" Enabled="false" @bind-Value="@context.TextDisabled" ValidationMessageMode="@validationMessageMode" />
-                <HxInputText Label="Text (password)" Type="InputType.Password" @bind-Value="@context.TextPassword" ValidationMessageMode="@validationMessageMode" />
-                @*<HxInputText Label="Text (email)" Type="InputType.Email" @bind-Value="@context.TextEmail" />*@
+				<HxInputText Label="Text (oninput)" @bind-Value="@context.TextOnInput" BindEvent="BindEvent.OnInput" Placeholder="Model updates oninput." ValidationMessageMode="@validationMessageMode">
+					<HintTemplate>
+						Hint: @context.TextOnInput
+					</HintTemplate>
+				</HxInputText>
 
-                <HxInputTextArea Label="TextArea" @bind-Value="@context.TextLong" ValidationMessageMode="@validationMessageMode" />
+				<HxInputText Label="Text (always disabled)" Enabled="false" @bind-Value="@context.TextDisabled" ValidationMessageMode="@validationMessageMode" />
+				<HxInputText Label="Text (password)" Type="InputType.Password" @bind-Value="@context.TextPassword" ValidationMessageMode="@validationMessageMode" />
+				@*<HxInputText Label="Text (email)" Type="InputType.Email" @bind-Value="@context.TextEmail" />*@
 
-                <HxInputNumber Label="Integer" @bind-Value="@context.IntegerValue" InputGroupStartText="€" InputGroupEndText=".00" ParsingErrorMessage="Enter correct Integer." ValidationMessageMode="@validationMessageMode" />
-                <HxInputNumber Label="Integer (nullable)" @bind-Value="@context.NullableIntegerValue" ParsingErrorMessage="Enter correct Integer." ValidationMessageMode="@validationMessageMode" />
-                <HxInputNumber Label="Decimal" @bind-Value="@context.DecimalValue" ParsingErrorMessage="Enter correct Decimal." ValidationMessageMode="@validationMessageMode" />
-                <HxInputNumber Label="Decimal (nullable)" @bind-Value="@context.NullableDecimalValue" ParsingErrorMessage="Enter correct Decimal." ValidationMessageMode="@validationMessageMode" />
-                <HxInputDate Label="Date" @bind-Value="@context.DateValue" ParsingErrorMessage="Enter correct Date." ValidationMessageMode="@validationMessageMode" />
-                <HxInputDate Label="Date (nullable)" @bind-Value="@context.NullableDateValue" ParsingErrorMessage="Enter correct Date." ValidationMessageMode="@validationMessageMode" />
-                <HxInputDateRange Label="DateRange" @bind-Value="@context.DateRange" FromParsingErrorMessage="Enter correct From." ToParsingErrorMessage="Enter correct To." ValidationMessageMode="@validationMessageMode" />
+				<HxInputTextArea Label="TextArea" @bind-Value="@context.TextLong" ValidationMessageMode="@validationMessageMode" />
 
-                <HxSelect Label="Select (TValueType: string)" @bind-Value="@context.CultureInfoSelectName" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" ValidationMessageMode="@validationMessageMode" />
-                <HxSelect Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfoSelect" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" ValidationMessageMode="@validationMessageMode" />
-                <HxSelect Label="Select (Data == null, small)" TItem="CultureInfo" TValue="CultureInfo" @bind-Value="@context.CultureInfoSelect" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" ValidationMessageMode="@validationMessageMode" />
+				<HxInputNumber Label="Integer" @bind-Value="@context.IntegerValue" InputGroupStartText="€" InputGroupEndText=".00" ParsingErrorMessage="Enter correct Integer." ValidationMessageMode="@validationMessageMode" />
+				<HxInputNumber Label="Integer (nullable)" @bind-Value="@context.NullableIntegerValue" ParsingErrorMessage="Enter correct Integer." ValidationMessageMode="@validationMessageMode" />
+				<HxInputNumber Label="Decimal" @bind-Value="@context.DecimalValue" ParsingErrorMessage="Enter correct Decimal." ValidationMessageMode="@validationMessageMode" />
+				<HxInputNumber Label="Decimal (nullable)" @bind-Value="@context.NullableDecimalValue" ParsingErrorMessage="Enter correct Decimal." ValidationMessageMode="@validationMessageMode" />
+				<HxInputDate Label="Date" @bind-Value="@context.DateValue" ParsingErrorMessage="Enter correct Date." ValidationMessageMode="@validationMessageMode" />
+				<HxInputDate Label="Date (nullable)" @bind-Value="@context.NullableDateValue" ParsingErrorMessage="Enter correct Date." ValidationMessageMode="@validationMessageMode" />
+				<HxInputDateRange Label="DateRange" @bind-Value="@context.DateRange" FromParsingErrorMessage="Enter correct From." ToParsingErrorMessage="Enter correct To." ValidationMessageMode="@validationMessageMode" />
 
-                <HxMultiSelect Label="MultiSelect" @bind-Value="@context.CultureInfoMultiSelectNames" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" ValidationMessageMode="@validationMessageMode" />
-                
-                <HxAutosuggest Label="Autosuggest" @bind-Value="@context.CultureInfoAutosuggest" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider" ValidationMessageMode="@validationMessageMode">
-                    <HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
-                </HxAutosuggest>
+				<HxSelect Label="Select (TValueType: string)" @bind-Value="@context.CultureInfoSelectName" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" ValidationMessageMode="@validationMessageMode" />
+				<HxSelect Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfoSelect" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" ValidationMessageMode="@validationMessageMode" />
+				<HxSelect Label="Select (Data == null, small)" TItem="CultureInfo" TValue="CultureInfo" @bind-Value="@context.CultureInfoSelect" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" ValidationMessageMode="@validationMessageMode" />
 
-                <HxCheckbox Text="InputCheckbox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()" ValidationMessageMode="@validationMessageMode" />
+				<HxMultiSelect Label="MultiSelect" @bind-Value="@context.CultureInfoMultiSelectNames" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" ValidationMessageMode="@validationMessageMode" />
 
-                <HxCheckbox Label="CheckBox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()" ValidationMessageMode="@validationMessageMode">
-                    <TextTemplate>
-                        Some <i>text</i> content to render...
-                    </TextTemplate>
-                </HxCheckbox>
+				<HxAutosuggest Label="Autosuggest" @bind-Value="@context.CultureInfoAutosuggest" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider" ValidationMessageMode="@validationMessageMode">
+					<HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
+					<InputGroupStartTemplate>
+						<HxButton Color="ThemeColor.Secondary" Text="Start" />
+					</InputGroupStartTemplate>
+					<InputGroupEndTemplate>
+						<HxButton Color="ThemeColor.Secondary" Text="End" />
+					</InputGroupEndTemplate>
+					<ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
+					<EmptyTemplate>
+						<span class="p-2">Couldn't find any matching locale</span>
+					</EmptyTemplate>
+				</HxAutosuggest>
 
-                <HxSwitch Text="Switch" @bind-Value="@context.BoolSwitch" ValidationMessageMode="@validationMessageMode" />
+				<HxCheckbox Text="InputCheckbox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()" ValidationMessageMode="@validationMessageMode" />
 
-                <HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
-            </HxFilterForm>
-        </HxFormState>
-    </div>
-    <div class="card-footer">
-        <p>Last captured click: @lastCapturedClick</p>
-        <HxChipList Chips="@chips" OnChipRemoveClick="HandleChipRemoveClick" />
-    </div>
+				<HxCheckbox Label="CheckBox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()" ValidationMessageMode="@validationMessageMode">
+					<TextTemplate>
+						Some <i>text</i> content to render...
+					</TextTemplate>
+				</HxCheckbox>
+
+				<HxSwitch Text="Switch" @bind-Value="@context.BoolSwitch" ValidationMessageMode="@validationMessageMode" />
+
+				<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
+			</HxFilterForm>
+		</HxFormState>
+	</div>
+	<div class="card-footer">
+		<p>Last captured click: @lastCapturedClick</p>
+		<HxChipList Chips="@chips" OnChipRemoveClick="HandleChipRemoveClick" />
+	</div>
 </div>
 
 @code
 {
-    private bool enabled = true;
-    private ValidationMessageMode validationMessageMode = ValidationMessageMode.Tooltip;
+	private bool enabled = true;
+	private ValidationMessageMode validationMessageMode = ValidationMessageMode.Tooltip;
 
-    private FormModel model = new FormModel();
-    private HxFilterForm<FormModel> filterForm;
-    private ChipItem[] chips;
-    private DateTime? lastCapturedClick = null;
-    private List<ValidationMessageMode> validationMessageModes = Enum.GetValues<ValidationMessageMode>().ToList();
+	private FormModel model = new FormModel();
+	private HxFilterForm<FormModel> filterForm;
+	private ChipItem[] chips;
+	private DateTime? lastCapturedClick = null;
+	private List<ValidationMessageMode> validationMessageModes = Enum.GetValues<ValidationMessageMode>().ToList();
 
-    private List<CultureInfo> cultureInfos = new List<CultureInfo> { CultureInfo.GetCultureInfo("cs-CZ"), CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sk-SK"), CultureInfo.GetCultureInfo("es-ES") };
+	private List<CultureInfo> cultureInfos = new List<CultureInfo> { CultureInfo.GetCultureInfo("cs-CZ"), CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sk-SK"), CultureInfo.GetCultureInfo("es-ES") };
 
-    private Task HandleCardClick()
-    {
-        lastCapturedClick = DateTime.Now;
+	private Task HandleCardClick()
+	{
+		lastCapturedClick = DateTime.Now;
 
-        return Task.CompletedTask;
-    }
+		return Task.CompletedTask;
+	}
 
-    private Task<AutosuggestDataProviderResult<CultureInfo>> CulturesAutosuggestDataProvider(AutosuggestDataProviderRequest request)
-    {
-        return Task.FromResult(
-        new AutosuggestDataProviderResult<CultureInfo>
-            {
-                Data = cultureInfos.Where(item => item.DisplayName.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase)).ToList()
-            });
-    }
+	private Task<AutosuggestDataProviderResult<CultureInfo>> CulturesAutosuggestDataProvider(AutosuggestDataProviderRequest request)
+	{
+		return Task.FromResult(
+		new AutosuggestDataProviderResult<CultureInfo>
+			{
+				Data = cultureInfos.Where(item => item.DisplayName.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase)).ToList()
+			});
+	}
 
-    private void HandleChipUpdated(ChipItem[] chips)
-    {
-        this.chips = chips;
-    }
+	private void HandleChipUpdated(ChipItem[] chips)
+	{
+		this.chips = chips;
+	}
 
-    private async Task HandleChipRemoveClick(ChipItem chipItemToRemove)
-    {
-        await filterForm.RemoveChipAsync(chipItemToRemove);
-    }
+	private async Task HandleChipRemoveClick(ChipItem chipItemToRemove)
+	{
+		await filterForm.RemoveChipAsync(chipItemToRemove);
+	}
 
 
-    public class FormModel : ICloneable, IValidatableObject
-    {
-        [Required]
-        [MaxLength(50)]
-        public string TextBasic { get; set; } = "Basic value";
+	public class FormModel : ICloneable, IValidatableObject
+	{
+		[Required]
+		[MaxLength(50)]
+		public string TextBasic { get; set; } = "Basic value";
 
-        [Required]
-        [MaxLength(50)]
-        public string TextOnInput { get; set; }
+		[Required]
+		[MaxLength(50)]
+		public string TextOnInput { get; set; }
 
-        public string TextDisabled { get; set; }
+		public string TextDisabled { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string TextPassword { get; set; } = "Password";
+		[Required]
+		[MaxLength(50)]
+		public string TextPassword { get; set; } = "Password";
 
-        //[Required]
-        //[MaxLength(50)]
-        //public string TextEmail { get; set; }
+		//[Required]
+		//[MaxLength(50)]
+		//public string TextEmail { get; set; }
 
-        [Required]
-        public string TextLong { get; set; }
+		[Required]
+		public string TextLong { get; set; }
 
-        public int IntegerValue { get; set; }
+		public int IntegerValue { get; set; }
 
-        public int? NullableIntegerValue { get; set; }
+		public int? NullableIntegerValue { get; set; }
 
-        public decimal DecimalValue { get; set; }
+		public decimal DecimalValue { get; set; }
 
-        public decimal? NullableDecimalValue { get; set; }
+		public decimal? NullableDecimalValue { get; set; }
 
-        public DateTime DateValue { get; set; } = DateTime.Today;
+		public DateTime DateValue { get; set; } = DateTime.Today;
 
-        public DateTime? NullableDateValue { get; set; }
+		public DateTime? NullableDateValue { get; set; }
 
-        [Required]
-        public string CultureInfoSelectName { get; set; }
+		[Required]
+		public string CultureInfoSelectName { get; set; }
 
-        [Required]
-        public List<string> CultureInfoMultiSelectNames { get; set; }
+		[Required]
+		public List<string> CultureInfoMultiSelectNames { get; set; }
 
-        [Required]
-        public CultureInfo CultureInfoSelect { get; set; }
+		[Required]
+		public CultureInfo CultureInfoSelect { get; set; }
 
-        [Required]
-        public CultureInfo CultureInfoAutosuggest { get; set; }
+		[Required]
+		public CultureInfo CultureInfoAutosuggest { get; set; }
 
-        [Required,]
-        public bool BoolCheckbox { get; set; } = true;
+		[Required,]
+		public bool BoolCheckbox { get; set; } = true;
 
-        [Required]
-        public bool BoolSwitch { get; set; } = true;
+		[Required]
+		public bool BoolSwitch { get; set; } = true;
 
-        public DateTimeRange DateRange { get; set; }
+		public DateTimeRange DateRange { get; set; }
 
-        object ICloneable.Clone() => MemberwiseClone();
+		object ICloneable.Clone() => MemberwiseClone();
 
-        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
-        {
-            if (BoolSwitch)
-            {
-                yield return new ValidationResult("Switch has to be turned off", new string[] { nameof(BoolSwitch) });
-            }
-            if (BoolCheckbox)
-            {
-                yield return new ValidationResult("Checkbox has to be turned off", new string[] { nameof(BoolCheckbox) });
-            }
-        }
-    }
+		IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
+		{
+			if (BoolSwitch)
+			{
+				yield return new ValidationResult("Switch has to be turned off", new string[] { nameof(BoolSwitch) });
+			}
+			if (BoolCheckbox)
+			{
+				yield return new ValidationResult("Checkbox has to be turned off", new string[] { nameof(BoolCheckbox) });
+			}
+		}
+	}
 }

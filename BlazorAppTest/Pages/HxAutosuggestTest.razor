@@ -5,15 +5,21 @@
 
 
 
-<HxAutosuggest @ref="autosuggest1" Label="Full (with initial value)" TItem="CultureInfo" TValue="int" @bind-Value="@value1" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))" Delay="0">
+<HxAutosuggest @ref="autosuggest1" Label="Full (with initial value)" TItem="CultureInfo" InputGroupEndText="End" InputGroupStartText="Start" TValue="int" @bind-Value="@value1" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))" Delay="0">
 	<ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
 </HxAutosuggest>
 <p>Value: @value1</p>
 
-<HxAutosuggest Label="Select-only (no ItemFromValueResolver)" TItem="CultureInfo" TValue="int" @bind-Value="@value2" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" TextSelector="c => c.EnglishName" Placeholder="Type culture name..." />
+<HxAutosuggest Label="Select-only (no ItemFromValueResolver)" InputSize="InputSize.Large" TItem="CultureInfo" TValue="int" @bind-Value="@value2" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" TextSelector="c => c.EnglishName" Placeholder="Type culture name..." />
 <p>Value: @value2</p>
 
-<HxAutosuggest Label="With empty template and custom icons" Placeholder="Click here" TItem="CultureInfo" MinimumLength="0" ClearIcon="BootstrapIcon.XCircleFill" SearchIcon="BootstrapIcon.QuestionCircle" TValue="int" @bind-Value="@value3" DataProvider="ProvideTemplatedSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))">
+<HxAutosuggest Label="With empty template and custom icons" InputSize="InputSize.Small" Placeholder="Click here" TItem="CultureInfo" MinimumLength="0" ClearIcon="BootstrapIcon.XCircleFill" SearchIcon="BootstrapIcon.QuestionCircle" TValue="int" @bind-Value="@value3" DataProvider="ProvideTemplatedSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))">
+	<InputGroupStartTemplate>
+		<HxButton Color="ThemeColor.Light" Size="ButtonSize.Small" Text="Start" />
+	</InputGroupStartTemplate>
+		<InputGroupEndTemplate>
+		<HxButton Color="ThemeColor.Light" Size="ButtonSize.Small"  Text="End" />
+	</InputGroupEndTemplate>
 	<ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
 	<EmptyTemplate>
 		<span class="p-2">Couldn't find any matching locale</span>
