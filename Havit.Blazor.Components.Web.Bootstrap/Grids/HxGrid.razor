@@ -38,6 +38,7 @@
 	switch (ContentNavigationModeEffective)
 	{
 		case GridContentNavigationMode.Pagination:
+		case GridContentNavigationMode.LoadMore:
 			shouldRenderData = (totalCount > 0);
 			break;
 
@@ -78,11 +79,11 @@
 											<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
 											@if (sortIconDisplayDirection == Collections.SortDirection.Ascending)
 											{
-												<HxIcon Icon="@this.GetDefaults().SortAscendingIcon" />
+												<HxIcon CssClass="hx-grid-sort-icon" Icon="@this.SortAscendingIconEffective" />
 											}
 											else
 											{
-												<HxIcon Icon="@this.GetDefaults().SortDescendingIcon" />
+												<HxIcon CssClass="hx-grid-sort-icon" Icon="@this.SortDescendingIconEffective" />
 											}
 										</div>
 									</th>
@@ -218,7 +219,7 @@
 					        </Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
 				        }
 
-				        @if (ContentNavigationModeEffective == GridContentNavigationMode.Pagination)
+						@if ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore))
 				        {
 					        foreach (TItem item in paginationDataItemsToRender)
 					        {
@@ -246,15 +247,38 @@
 			</table>
 		</div>
 
-		@if ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) && (PageSizeEffective > 0) && (totalCount != null))
+		@if (((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore)) && (PageSizeEffective > 0) && (totalCount != null))
 		{
 			int totalPages = (totalCount.Value + PageSizeEffective - 1) / PageSizeEffective;
 			if (totalPages > 1)
 			{
 				<HxPager TotalPages="@totalPages"
-						 CurrentPageIndex="@CurrentUserState.PageIndex"
+						 CurrentPageIndex="@(CurrentUserState.PageIndex + CurrentUserState.LoadMorePagesCount)"
 						 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged"
 						 Settings="@PagerSettingsEffective" />
+			}
+		}
+
+		@if ((ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) && (PageSizeEffective > 0) && (totalCount != null))
+		{
+			int totalPages = (totalCount.Value + PageSizeEffective - 1) / PageSizeEffective;
+			if ((totalPages > 1) && ((CurrentUserState.PageIndex + CurrentUserState.LoadMorePagesCount) < (totalPages - 1)))				
+			{
+				<div>
+
+					@if (LoadMoreTemplate != null)
+					{
+						var loadMoreContext = LoadMoreContext.CreateFor(this);
+						<text>
+							@LoadMoreTemplate(loadMoreContext)
+						</text> 
+					}
+					else
+					{
+						string buttonText = HxGridLocalizer["LoadMoreData"];
+						<HxButton Text="@buttonText" Color="ThemeColor.Secondary" OnClick="HandleLoadMoreClick" />
+					}
+				</div>
 			}
 		}
 

@@ -13,10 +13,10 @@ public enum GridContentNavigationMode
 	/// <summary>
 	/// Use infinite scroll (virtualized).
 	/// </summary>
-	InfiniteScroll
+	InfiniteScroll = 1,
 
-	///// <summary>
-	///// Use "Load more"
-	///// </summary>
-	// LoadMore
+	/// <summary>
+	/// Use "Load more" button.
+	/// </summary>
+	LoadMore = 2
 }

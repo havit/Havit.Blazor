@@ -30,8 +30,8 @@ public partial class Search
 		// Components and other pages
 
 		new("/components/Inputs", "Inputs", "form"),
-		new("/components/Inputs#InputGroups", "Inputs > Input groups", ""),
-		new("/components/Inputs#FloatingLabels", "Inputs > Floating labels", ""),
+		new("/components/Inputs#input-groups", "Inputs > Input groups", ""),
+		new("/components/Inputs#floating-labels", "Inputs > Floating labels", ""),
 
 		new("/components/HxAccordion", "HxAccordion", "collapse"),
 		new("/components/HxAlert", "HxAlert", "message warning exclamation panel"),
@@ -39,7 +39,7 @@ public partial class Search
 		new("/components/HxAutosuggest", "HxAutosuggest", "autocomplete search typeahead select"),
 		new("/components/HxBadge", "HxBadge", "chip tag"),
 		new("/components/HxBreadcrumb", "HxBreadcrumb", "navigation link"),
-		new("/components/HxButton", "HxButton", "click submit input"),
+		new("/components/HxButton", "HxButton", "click submit input tooltip"),
 		new("/components/HxButtonGroup", "HxButtonGroup", "collection"),
 		new("/components/HxButtonToolbar", "HxButtonToolbar", ""),
 		new("/components/HxCalendar", "HxCalendar", "datepicker"),
@@ -63,8 +63,8 @@ public partial class Search
 		new("/components/HxGoogleTagManager", "HxGoogleTagManager", "gtm ga analytics"),
 		new("/components/HxGrid", "HxGrid", "data row column table datalist"),
 		new("/components/HxGrid#InfiniteScroll", "HxGrid > Infinite scroll (Virtualized)", ""),
-		new("/components/HxGrid#ContextMenu", "HxGrid > Context menu", ""),
-		new("/components/HxGrid#Multiselect", "HxGrid > Multiselect with checkboxes", ""),
+		new("/components/HxGrid#context-menu", "HxGrid > Context menu", ""),
+		new("/components/HxGrid#multiselect", "HxGrid > Multiselect with checkboxes", ""),
 		new("/components/HxGrid#inline-editing", "HxGrid > Inline-editing", ""),
 		new("/components/HxIcon", "HxIcon", "bootstrap picture image font"),
 		new("/components/HxInputDate", "HxInputDate", "datepicker"),

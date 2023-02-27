@@ -16,6 +16,7 @@ public partial class Sidebar
 			var result = await client.GetStreamAsync("https://bootswatch.com/api/5.json");
 			var themesHolder = await JsonSerializer.DeserializeAsync<ThemeHolder>(result, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 			themes = themesHolder.Themes;
+			themes.ForEach(t => t.Name += " (bootswatch.com)");
 		}
 		catch
 		{

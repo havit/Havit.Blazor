@@ -1,0 +1,55 @@
+﻿@page "/HxGrid_LoadMore_Test"
+@using System.Globalization
+@using Microsoft.Extensions.Logging
+
+<h1>HxGrid with load more</h1>
+<h2>No LoadMoreTemplate</h2>
+<HxGrid TItem="CultureInfo" DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.LoadMore" PageSize="10">
+	<Columns>
+		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+	</Columns>
+	<ContextMenu Context="item">
+		<HxContextMenu>
+			<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
+		</HxContextMenu>
+	</ContextMenu>
+</HxGrid>
+
+<h2>Custom LoadMoreTemplate</h2>
+<HxGrid TItem="CultureInfo" DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.LoadMore" PageSize="10">
+	<Columns>
+		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+	</Columns>
+	<ContextMenu Context="item">
+		<HxContextMenu>
+			<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
+		</HxContextMenu>
+	</ContextMenu>
+	<LoadMoreTemplate>
+		There are some visible items, huh?
+		Do you want to <span role="button" @onclick="async () => await context.LoadMoreAsync()">see more</span>?
+	</LoadMoreTemplate>
+</HxGrid>
+@code {
+	protected override Task OnInitializedAsync()
+	{
+		HxProgressIndicator.Defaults.Delay = 0; // TEST
+
+		return base.OnInitializedAsync();
+	}
+
+	private List<CultureInfo> GetCultureInfos()
+	{
+		return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).ToList();
+	}
+
+	private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+	{
+		await Task.Delay(500); // simulate server call
+
+		var cultures = GetCultureInfos();
+		return request.ApplyTo(cultures);
+	}
+}
