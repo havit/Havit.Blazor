@@ -61,6 +61,16 @@
                 
                 <HxAutosuggest Label="Autosuggest" @bind-Value="@context.CultureInfoAutosuggest" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider" ValidationMessageMode="@validationMessageMode">
                     <HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
+                    <InputGroupStartTemplate>
+                        <HxButton Color="ThemeColor.Secondary" Text="Start" />
+                    </InputGroupStartTemplate>
+                        <InputGroupEndTemplate>
+                        <HxButton Color="ThemeColor.Secondary" Text="End" />
+                    </InputGroupEndTemplate>
+                    <ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
+                    <EmptyTemplate>
+                        <span class="p-2">Couldn't find any matching locale</span>
+                    </EmptyTemplate>
                 </HxAutosuggest>
 
                 <HxCheckbox Text="InputCheckbox" @bind-Value="@context.BoolCheckbox" Hint="@context.BoolCheckbox.ToString()" ValidationMessageMode="@validationMessageMode" />
