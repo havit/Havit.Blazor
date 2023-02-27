@@ -35,7 +35,7 @@ public record GridSettings
 	public int? OverscanCount { get; set; }
 
 	/// <summary>
-	/// Page size for <see cref="GridContentNavigationMode.Pagination"/>. Set <c>0</c> to disable paging.
+	/// Page size for <see cref="GridContentNavigationMode.Pagination"/> and <see cref="GridContentNavigationMode.LoadMore"/>. Set <c>0</c> to disable paging.
 	/// </summary>
 	public int? PageSize { get; set; }
 
