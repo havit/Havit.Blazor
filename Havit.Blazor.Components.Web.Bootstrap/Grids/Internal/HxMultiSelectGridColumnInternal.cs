@@ -36,6 +36,8 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 		};
 	}
 
+	protected override GridCellTemplate GetFilterCellTemplate(GridFilterCellContext context) => GridCellTemplate.Empty;
+
 	/// <inheritdoc />
 	protected override GridCellTemplate GetItemCellTemplate(TItem item)
 	{
@@ -59,16 +61,10 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 	}
 
 	/// <inheritdoc />
-	protected override GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context)
-	{
-		return GridCellTemplate.Empty;
-	}
+	protected override GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => GridCellTemplate.Empty;
 
 	/// <inheritdoc />
-	protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context)
-	{
-		return GridCellTemplate.Empty;
-	}
+	protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context) => GridCellTemplate.Empty;
 
 	/// <inheritdoc />
 	protected override IEnumerable<SortingItem<TItem>> GetSorting() => Enumerable.Empty<SortingItem<TItem>>();

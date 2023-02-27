@@ -32,6 +32,9 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	GridCellTemplate IHxGridColumn<TItem>.GetHeaderCellTemplate(GridHeaderCellContext context) => this.GetHeaderCellTemplate(context);
 
 	/// <inheritdoc />
+	GridCellTemplate IHxGridColumn<TItem>.GetFilterCellTemplate(GridFilterCellContext context) => this.GetFilterCellTemplate(context);
+
+	/// <inheritdoc />
 	GridCellTemplate IHxGridColumn<TItem>.GetItemCellTemplate(TItem item) => this.GetItemCellTemplate(item);
 
 	/// <inheritdoc />
@@ -71,6 +74,11 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	/// Returns header cell template.
 	/// </summary>
 	protected abstract GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context);
+
+	/// <summary>
+	/// Returns filter cell template.
+	/// </summary>
+	protected abstract GridCellTemplate GetFilterCellTemplate(GridFilterCellContext context);
 
 	/// <summary>
 	/// Returns data cell template for the specific item.

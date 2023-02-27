@@ -169,6 +169,12 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected string HeaderRowCssClassEffective => this.HeaderRowCssClass ?? this.GetSettings()?.HeaderRowCssClass ?? GetDefaults().HeaderRowCssClass;
 
 	/// <summary>
+	/// Custom CSS class to render with filter <c>tr</c> element.
+	/// </summary>
+	[Parameter] public string FilterRowCssClass { get; set; }
+	protected string FilterRowCssClassEffective => this.FilterRowCssClass ?? this.GetSettings()?.FilterRowCssClass ?? GetDefaults().FilterRowCssClass;
+
+	/// <summary>
 	/// Custom CSS class to render with data <c>tr</c> element.
 	/// </summary>
 	[Parameter] public string ItemRowCssClass { get; set; }
@@ -419,6 +425,14 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected virtual GridHeaderCellContext CreateGridHeaderCellContext()
 	{
 		return new GridHeaderCellContext { TotalCount = totalCount };
+	}
+
+	/// <summary>
+	/// Returns grid header cell context.
+	/// </summary>
+	protected virtual GridFilterCellContext CreateGridFilterCellContext()
+	{
+		return new GridFilterCellContext { TotalCount = totalCount };
 	}
 
 	/// <summary>

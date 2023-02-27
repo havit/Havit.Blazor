@@ -51,6 +51,9 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 	protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => GridCellTemplate.Empty;
 
 	/// <inheritdoc />
+	protected override GridCellTemplate GetFilterCellTemplate(GridFilterCellContext context) => GridCellTemplate.Empty;
+
+	/// <inheritdoc />
 	protected override GridCellTemplate GetItemCellTemplate(TItem item)
 	{
 		string cssClass = CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item));

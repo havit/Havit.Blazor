@@ -40,6 +40,11 @@ public interface IHxGridColumn<TItem>
 	GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context);
 
 	/// <summary>
+	/// Returns filter cell template.
+	/// </summary>
+	GridCellTemplate GetFilterCellTemplate(GridFilterCellContext context);
+
+	/// <summary>
 	/// Returns data cell template for the specific item.
 	/// </summary>
 	GridCellTemplate GetItemCellTemplate(TItem item);

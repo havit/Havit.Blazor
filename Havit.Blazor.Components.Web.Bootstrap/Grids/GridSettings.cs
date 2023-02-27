@@ -66,6 +66,11 @@ public record GridSettings
 	public string HeaderRowCssClass { get; set; }
 
 	/// <summary>
+	/// Custom CSS class to render with filter <c>tr</c> element.
+	/// </summary>
+	public string FilterRowCssClass { get; set; }
+
+	/// <summary>
 	/// Custom CSS class to render with data <c>tr</c> element.
 	/// </summary>
 	public string ItemRowCssClass { get; set; }

@@ -96,6 +96,21 @@
 							}
 						}
 					</tr>
+
+					@if (!shouldRenderLoadingData)
+					{
+						GridFilterCellContext gridFilterCellContext = CreateGridFilterCellContext();
+						GridCellTemplate[] filterTemplates = columnsToRender.Select(column => column.GetFilterCellTemplate(gridFilterCellContext)).ToArray();
+						if (filterTemplates.Any(cellTemplate => cellTemplate.Template != null)) // there must be a tempate
+						{
+							<tr class="@FilterRowCssClassEffective">
+							@foreach (GridCellTemplate filterCellTemplate in filterTemplates)
+							{
+								<td class="@filterCellTemplate.CssClass">@filterCellTemplate.Template</td>
+							}
+							</tr>
+						}
+					}
 				</thead>
 				<tbody>
 					@if (shouldRenderLoadingData)
@@ -158,7 +173,8 @@
 					@if (shouldRenderData)
 					{
 
-						RenderFragment<TItem> rowTemplate = (TItem item) =>@<text>
+						RenderFragment<TItem> rowTemplate = (TItem item) =>
+	@<text>
 					        @if (SelectionEnabled || MultiSelectionEnabled)
 					        {
 						        <tr role="button"

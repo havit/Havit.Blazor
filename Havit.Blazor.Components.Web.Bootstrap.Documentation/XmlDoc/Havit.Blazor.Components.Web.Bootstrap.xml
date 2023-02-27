@@ -5461,6 +5461,16 @@
             The total item count in the source (for pagination and infinite scroll).
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridFilterCellContext">
+            <summary>
+            Grid filter cell context.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridFilterCellContext.TotalCount">
+            <summary>
+            Total count of items in the grid (includes all pages).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext">
             <summary>
             Grid footer cell context.
@@ -5573,6 +5583,11 @@
             Custom CSS class to render with header <c>tr</c> element.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.FilterRowCssClass">
+            <summary>
+            Custom CSS class to render with filter <c>tr</c> element.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ItemRowCssClass">
             <summary>
             Custom CSS class to render with data <c>tr</c> element.
@@ -5682,6 +5697,9 @@
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetFilterCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridFilterCellContext)">
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.GetItemCellTemplate(`0)">
@@ -5859,6 +5877,11 @@
             Custom CSS class to render with header <c>tr</c> element.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.FilterRowCssClass">
+            <summary>
+            Custom CSS class to render with filter <c>tr</c> element.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowCssClass">
             <summary>
             Custom CSS class to render with data <c>tr</c> element.
@@ -5967,6 +5990,11 @@
             Returns grid header cell context.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CreateGridFilterCellContext">
+            <summary>
+            Returns grid header cell context.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CreateGridFooterCellContext">
             <summary>
             Returns grid footer cell context.
@@ -6033,6 +6061,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.HeaderCssClass">
             <summary>
             Header cell css class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.FilterTemplate">
+            <summary>
+            Filter cell template.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.FilterCssClass">
+            <summary>
+            Filter cell css class.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.ItemTextSelector">
@@ -6113,6 +6151,9 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
             <inheritdoc />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetFilterCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridFilterCellContext)">
+            <inheritdoc />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetItemCellTemplate(`0)">
             <inheritdoc />
         </member>
@@ -6153,6 +6194,9 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Havit#Blazor#Components#Web#Bootstrap#IHxGridColumn{TItem}#GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
             <inheritdoc />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Havit#Blazor#Components#Web#Bootstrap#IHxGridColumn{TItem}#GetFilterCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridFilterCellContext)">
+            <inheritdoc />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Havit#Blazor#Components#Web#Bootstrap#IHxGridColumn{TItem}#GetItemCellTemplate(`0)">
             <inheritdoc />
         </member>
@@ -6191,6 +6235,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
             <summary>
             Returns header cell template.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetFilterCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridFilterCellContext)">
+            <summary>
+            Returns filter cell template.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetItemCellTemplate(`0)">
@@ -6351,6 +6400,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
             <summary>
             Returns header cell template.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetFilterCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridFilterCellContext)">
+            <summary>
+            Returns filter cell template.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetItemCellTemplate(`0)">

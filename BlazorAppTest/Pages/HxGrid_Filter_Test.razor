@@ -1,0 +1,53 @@
+﻿@page "/HxGrid_Filter_Test"
+@using System.Globalization
+@using Havit.Linq;
+
+<h1>HxGrid with filter</h1>
+
+<h2>Client paging, auto sorting</h2>
+<HxGrid TItem="CultureInfo" @ref="grid" DataProvider="@ServerCultureInfosDataProvider" PageSize="10">
+    <Columns>
+        <HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)">
+            <FilterTemplate>
+                <HxInputText @bind-Value="filterData.DisplayName" @bind-Value:after="async () => await grid.RefreshDataAsync()" />
+            </FilterTemplate>
+        </HxGridColumn>
+        <HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)">
+            <FilterTemplate>
+                <HxInputText @bind-Value="filterData.Name" @bind-Value:after="grid.RefreshDataAsync" />
+            </FilterTemplate>
+        </HxGridColumn>
+    </Columns>
+</HxGrid>
+
+@code {
+
+    private HxGrid<CultureInfo> grid;
+    private FilterData filterData = new FilterData();
+
+    private async Task<GridDataProviderResult<CultureInfo>> ServerCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+    {
+        await Task.Delay(500); // simulate server call
+
+        var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+            .WhereIf(!String.IsNullOrEmpty(filterData.DisplayName), c => c.DisplayName.StartsWith(filterData.DisplayName, StringComparison.CurrentCultureIgnoreCase))
+            .ToList();
+        
+         cultures.Sort(request.Sorting.ToGenericPropertyComparer());
+
+        return new GridDataProviderResult<CultureInfo>()
+        {
+            TotalCount = cultures.Count(),
+            Data = cultures
+                .Skip(request.StartIndex)
+                .Take(request.Count.Value)
+                .ToList()
+        };
+    }
+
+    private class FilterData
+    {
+        public string DisplayName { get; set; }
+        public string Name { get; set; }
+    }
+}

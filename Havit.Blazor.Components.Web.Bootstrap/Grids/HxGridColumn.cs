@@ -57,6 +57,18 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter] public string HeaderCssClass { get; set; }
 	#endregion
 
+	#region Filter properties
+	/// <summary>
+	/// Filter cell template.
+	/// </summary>
+	[Parameter] public RenderFragment<GridFilterCellContext> FilterTemplate { get; set; }
+
+	/// <summary>
+	/// Filter cell css class.
+	/// </summary>
+	[Parameter] public string FilterCssClass { get; set; }
+	#endregion
+
 	#region Item properties
 	/// <summary>
 	/// Returns text for the item.
@@ -140,6 +152,9 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate?.Invoke(context)), HeaderCssClass);
+
+	/// <inheritdoc />
+	protected override GridCellTemplate GetFilterCellTemplate(GridFilterCellContext context) => GridCellTemplate.Create(FilterTemplate?.Invoke(context), FilterCssClass);
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetItemCellTemplate(TItem item)
