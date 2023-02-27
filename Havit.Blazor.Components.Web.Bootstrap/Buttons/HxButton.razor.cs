@@ -95,6 +95,12 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	[Parameter] public string CssClass { get; set; }
 	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
+	/// <summary>
+	/// CSS class to be rendered with the button icon.
+	/// </summary>
+	[Parameter] public string IconCssClass { get; set; }
+	protected string IconCssClassEffective => this.IconCssClass ?? this.GetSettings()?.IconCssClass ?? GetDefaults().IconCssClass;
+
 	/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 	[Parameter] public bool? Enabled { get; set; }
 
