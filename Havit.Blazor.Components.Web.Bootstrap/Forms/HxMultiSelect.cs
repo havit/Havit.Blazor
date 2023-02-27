@@ -95,13 +95,14 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public string InputGroupEndText { get; set; }
 
 	/// <summary>
-	/// Text to display in the input instead of a list of selected values.
+	/// Text to display in the input (default is a list of selected values).
 	/// </summary>
 	[Parameter] public string InputText { get; set; }
 
 	/// <summary>
-	/// Selects the value to be displayed in the input instead of a list of selected values.
+	/// Function to build the text to be displayed in the input from selected items (default is a list of selected values).
 	/// </summary>
+	/// <remarks>Currently does not affect the chip being generated. Override <c>RenderChipValue()</c> method to influence the chip.</remarks>
 	[Parameter] public Func<IEnumerable<TItem>, string> InputTextSelector { get; set; }
 
 	/// <summary>
@@ -201,7 +202,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		{
 			return InputText;
 		}
-		else if (InputTextSelector is null || Data is null || CurrentValue is null)
+		else if ((InputTextSelector is null) || (Data is null) || (CurrentValue is null))
 		{
 			return CurrentValueAsString;
 		}

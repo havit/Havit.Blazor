@@ -4263,13 +4263,14 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputText">
             <summary>
-            Text to display in the input instead of a list of selected values.
+            Text to display in the input (default is a list of selected values).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputTextSelector">
             <summary>
-            Selects the value to be displayed in the input instead of a list of selected values.
+            Function to build the text to be displayed in the input from selected items (default is a list of selected values).
             </summary>
+            <remarks>Currently does not affect the chip being generated. Override <c>RenderChipValue()</c> method to influence the chip.</remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputGroupEndTemplate">
             <summary>
