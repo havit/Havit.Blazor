@@ -76,6 +76,10 @@
             To persist sorting, you must set the <code>@nameof(HxGridColumn<TItem>)&lt;TItem&gt;.@nameof(HxGridColumn<TItem>.Id)</code> properties.
         </DocAlert>
 
+        <DocHeading Title="Filtering from headers" Id="header-filtering" />
+        <p>Individual column filtering can be set up by adding your filtering UI to the columns' <code>HeaderTemplate</code>s and filtering the data in the <code>DataProvider</code> based on the values provided.</p>
+        <Demo Type="typeof(HxGrid_Demo_HeaderFiltering)" />
+
         <Demo Type="typeof(HxGrid_Demo_StatePersisting)" />
     </MainContent>
 

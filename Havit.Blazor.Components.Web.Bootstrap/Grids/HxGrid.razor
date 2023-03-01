@@ -76,7 +76,8 @@
 									Havit.Collections.SortDirection sortIconDisplayDirection = GetSortIconDisplayDirection(isCurrentSorting, currentSorting, columnSorting);
 									<th @onclick="async () => await HandleSortingClick(column)" @onclick:stopPropagation role="button" class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable")">
 										<div class="hx-grid-header-cell-container">
-											<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
+											@headerCellTemplate.Template
+
 											@if (sortIconDisplayDirection == Collections.SortDirection.Ascending)
 											{
 												<HxIcon CssClass="hx-grid-sort-icon" Icon="@this.SortAscendingIconEffective" />

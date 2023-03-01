@@ -1,0 +1,67 @@
+﻿@using System.Globalization;
+
+<div>
+	<HxGrid @ref="grid" TItem="CultureInfo" Responsive="true" DataProvider="GetGridData" PageSize="10">
+		<Columns>
+			<HxGridColumn HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)">
+				<HeaderTemplate>
+					<HxInputText
+						BindEvent="BindEvent.OnInput"
+						Placeholder="Type to search LCID"
+						@bind-Value="lcidSearchString"
+						@bind-Value:after="grid.RefreshDataAsync"
+						CssClass="w-100 order-1" />
+				</HeaderTemplate>
+			</HxGridColumn>
+			<HxGridColumn HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)">
+				<HeaderTemplate>
+					<HxInputText
+						BindEvent="BindEvent.OnInput"
+						Placeholder="Type to search DisplayName"
+						@bind-Value="displayNameSearchString"
+						@bind-Value:after="grid.RefreshDataAsync"
+						CssClass="w-100 order-1" />
+				</HeaderTemplate>
+			</HxGridColumn>
+			<HxGridColumn HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)">
+				<HeaderTemplate>
+					<HxInputText
+						BindEvent="BindEvent.OnInput"
+						Placeholder="Type to search Name"
+						@bind-Value="nameSearchString"
+						@bind-Value:after="grid.RefreshDataAsync"
+						CssClass="w-100 order-1" />
+				</HeaderTemplate>
+			</HxGridColumn>
+			<HxGridColumn HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)">
+				<HeaderTemplate>
+					<HxInputText
+						BindEvent="BindEvent.OnInput"
+						Placeholder="Type to search EnglishName"
+						@bind-Value="englishNameSearchString"
+						@bind-Value:after="grid.RefreshDataAsync"
+						CssClass="w-100 order-1" />
+				</HeaderTemplate>
+			</HxGridColumn>
+		</Columns>
+	</HxGrid>
+</div>
+
+@code {
+	private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
+	private string lcidSearchString = string.Empty, displayNameSearchString = string.Empty, nameSearchString = string.Empty, englishNameSearchString = string.Empty;
+
+	private HxGrid<CultureInfo> grid;
+
+	private Task<GridDataProviderResult<CultureInfo>> GetGridData(GridDataProviderRequest<CultureInfo> request)
+	{
+		// Remove items not containing the search strings. Where statements were separated to increase readability.
+		var filteredCultureInfos = localCultureInfos?
+			.Where(i => i.LCID.ToString().Contains(lcidSearchString))
+			.Where(i => i.DisplayName?.Contains(displayNameSearchString) ?? true)
+			.Where(i => i.Name?.Contains(nameSearchString) ?? true)
+			.Where(i => i.EnglishName?.Contains(englishNameSearchString) ?? true) ?? new List<CultureInfo>();
+
+		return Task.FromResult(request.ApplyTo(filteredCultureInfos));
+	}
+}
