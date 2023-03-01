@@ -70,6 +70,19 @@ public partial class HxContextMenu
 	protected string IconCssClassEffective => this.IconCssClass ?? this.GetSettings()?.IconCssClass ?? GetDefaults().IconCssClass;
 
 	/// <summary>
+	/// Alignment for shown menu. Similar to <see cref="HxDropdownMenu.Alignment" /> 
+	/// </summary>
+	[Parameter] public DropdownMenuAlignment? MenuAlignment { get; set; }
+	protected string DropDownAlignmentCssClass => MenuAlignment switch
+	{
+		DropdownMenuAlignment.Start => "dropdown-menu-start",
+		DropdownMenuAlignment.End => "dropdown-menu-end",
+		null => "dropdown-menu-end", // for default behaviour not to change
+
+		_ => throw new InvalidOperationException($"Unknown {nameof(DropdownMenuAlignment)} value {MenuAlignment}.")
+	};
+
+	/// <summary>
 	/// Items of the context menu. Use <see cref="HxContextMenuItem"/> components.
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
