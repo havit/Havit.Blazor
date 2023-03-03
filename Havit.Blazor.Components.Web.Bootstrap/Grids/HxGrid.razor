@@ -264,20 +264,18 @@
 			int totalPages = (totalCount.Value + PageSizeEffective - 1) / PageSizeEffective;
 			if ((totalPages > 1) && ((CurrentUserState.PageIndex + CurrentUserState.LoadMorePagesCount) < (totalPages - 1)))				
 			{
-				<div>
-					@if (LoadMoreTemplate != null)
-					{
-						var loadMoreContext = GridLoadMoreTemplateContext.CreateFor(this);
-						<text>
-							@LoadMoreTemplate(loadMoreContext)
-						</text> 
-					}
-					else
-					{
-						string buttonText = HxGridLocalizer["LoadMoreData"];
-						<HxButton Text="@buttonText" Color="ThemeColor.Secondary" OnClick="HandleLoadMoreClick" />
-					}
-				</div>
+				@if (LoadMoreTemplate != null)
+				{
+					var loadMoreContext = GridLoadMoreTemplateContext.CreateFor(this);
+					<text>
+						@LoadMoreTemplate(loadMoreContext)
+					</text> 
+				}
+				else
+				{
+					string buttonText = HxGridLocalizer["LoadMoreData"];
+					<HxButton Text="@buttonText" Color="ThemeColor.Secondary" OnClick="HandleLoadMoreClick" />
+				}
 			}
 		}
 
