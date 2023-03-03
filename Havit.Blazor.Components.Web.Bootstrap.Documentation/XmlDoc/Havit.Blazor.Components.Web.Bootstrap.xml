@@ -5655,6 +5655,11 @@
             Pager settings.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.LoadMoreButtonSettings">
+            <summary>
+            Settings for the "Load more" navigation button (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState">
             <summary>
             User state of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/>.
@@ -5884,6 +5889,17 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PagerSettings">
             <summary>
             Pager settings.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadMoreButtonText">
+            <summary>
+            Text of the "Load more" navigation button (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>).
+            (Default is taken from the localization resources.)
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadMoreButtonSettings">
+            <summary>
+            Settings for the "Load more" navigation button (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserState">

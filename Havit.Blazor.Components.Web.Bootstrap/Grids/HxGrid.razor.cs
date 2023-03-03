@@ -136,6 +136,18 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected PagerSettings PagerSettingsEffective => this.PagerSettings ?? this.GetSettings()?.PagerSettings ?? GetDefaults().PagerSettings;
 
 	/// <summary>
+	/// Text of the "Load more" navigation button (<see cref="GridContentNavigationMode.LoadMore"/>).
+	/// (Default is taken from the localization resources.)
+	/// </summary>
+	[Parameter] public string LoadMoreButtonText { get; set; }
+
+	/// <summary>
+	/// Settings for the "Load more" navigation button (<see cref="GridContentNavigationMode.LoadMore"/>).
+	/// </summary>
+	[Parameter] public ButtonSettings LoadMoreButtonSettings { get; set; }
+	protected ButtonSettings LoadMoreButtonSettingsEffective => this.LoadMoreButtonSettings ?? this.GetSettings()?.LoadMoreButtonSettings ?? GetDefaults().LoadMoreButtonSettings ?? throw new InvalidOperationException(nameof(LoadMoreButtonSettings) + " default for " + nameof(HxGrid) + " has to be set.");
+
+	/// <summary>
 	/// Current grid state (page, sorting).
 	/// </summary>
 	[Parameter] public GridUserState CurrentUserState { get; set; } = new GridUserState();

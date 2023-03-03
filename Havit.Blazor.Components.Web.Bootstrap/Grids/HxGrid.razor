@@ -273,8 +273,8 @@
 				}
 				else
 				{
-					string buttonText = HxGridLocalizer["LoadMoreData"];
-					<HxButton Text="@buttonText" Color="ThemeColor.Secondary" OnClick="HandleLoadMoreClick" />
+					string buttonText = this.LoadMoreButtonText ?? HxGridLocalizer["LoadMoreData"];
+					<HxButton Text="@buttonText" Settings="this.LoadMoreButtonSettingsEffective" OnClick="HandleLoadMoreClick" />
 				}
 			}
 		}

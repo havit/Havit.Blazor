@@ -94,4 +94,9 @@ public record GridSettings
 	/// Pager settings.
 	/// </summary>
 	public PagerSettings PagerSettings { get; set; }
+
+	/// <summary>
+	/// Settings for the "Load more" navigation button (<see cref="GridContentNavigationMode.LoadMore"/>).
+	/// </summary>
+	public ButtonSettings LoadMoreButtonSettings { get; set; }
 }
