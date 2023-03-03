@@ -79,13 +79,16 @@
 								@onclick:stopPropagation="isSortingActive">
 								<div class="hx-grid-header-cell-container">
 									<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
-									@if (isSortingActive && GetSortIconDisplayDirection(isCurrentSorting, currentSorting, columnSorting) == Collections.SortDirection.Ascending)
+									@if (isSortingActive)
 									{
-										<HxIcon CssClass="hx-grid-sort-icon" Icon="@this.GetDefaults().SortAscendingIcon" />
-									}
-									else
-									{
-										<HxIcon CssClass="hx-grid-sort-icon" Icon="@this.GetDefaults().SortDescendingIcon" />
+										if (GetSortIconDisplayDirection(isCurrentSorting, currentSorting, columnSorting) == Collections.SortDirection.Ascending)
+										{
+											<HxIcon CssClass="hx-grid-sort-icon" Icon="@this.GetDefaults().SortAscendingIcon" />
+										}
+										else
+										{
+											<HxIcon CssClass="hx-grid-sort-icon" Icon="@this.GetDefaults().SortDescendingIcon" />
+										}
 									}
 								</div>
 							</th>
