@@ -1,0 +1,43 @@
+﻿@using System.Globalization;
+
+<HxGrid @ref="grid" TItem="CultureInfo" Responsive="true" DataProvider="GetGridData" PageSize="10">
+	<Columns>
+		<HxGridColumn HeaderText="LCID" ItemTextSelector="item => item.LCID.ToString()">
+			<HeaderTemplate>
+				<HxInputText @bind-Value="lcidSearchString" BindEvent="BindEvent.OnInput" @bind-Value:after="grid.RefreshDataAsync" Placeholder="Type to search LCID" InputSize="InputSize.Small" />
+			</HeaderTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="DisplayName" ItemTextSelector="item => item.DisplayName">
+			<HeaderTemplate>
+				<HxInputText @bind-Value="displayNameSearchString" BindEvent="BindEvent.OnInput" @bind-Value:after="grid.RefreshDataAsync" Placeholder="Type to search DisplayName" InputSize="InputSize.Small" />
+			</HeaderTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="item => item.Name">
+			<HeaderTemplate>
+				<HxInputText @bind-Value="nameSearchString" BindEvent="BindEvent.OnInput" @bind-Value:after="grid.RefreshDataAsync" Placeholder="Type to search Name" InputSize="InputSize.Small" />
+			</HeaderTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="EnglishName" ItemTextSelector="item => item.EnglishName">
+			<HeaderTemplate>
+				<HxInputText @bind-Value="englishNameSearchString" BindEvent="BindEvent.OnInput" @bind-Value:after="grid.RefreshDataAsync" Placeholder="Type to search EnglishName" InputSize="InputSize.Small" />
+			</HeaderTemplate>
+		</HxGridColumn>
+	</Columns>
+</HxGrid>
+
+@code {
+	private HxGrid<CultureInfo> grid;
+	private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
+	private string lcidSearchString = string.Empty, displayNameSearchString = string.Empty, nameSearchString = string.Empty, englishNameSearchString = string.Empty;
+
+	private Task<GridDataProviderResult<CultureInfo>> GetGridData(GridDataProviderRequest<CultureInfo> request)
+	{
+		var filteredCultureInfos = localCultureInfos?
+			.Where(i => i.LCID.ToString().Contains(lcidSearchString))
+			.Where(i => i.DisplayName?.Contains(displayNameSearchString) ?? true)
+			.Where(i => i.Name?.Contains(nameSearchString) ?? true)
+			.Where(i => i.EnglishName?.Contains(englishNameSearchString) ?? true) ?? new List<CultureInfo>();
+
+		return Task.FromResult(request.ApplyTo(filteredCultureInfos));
+	}
+}
