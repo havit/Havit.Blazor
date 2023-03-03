@@ -35,19 +35,7 @@ public partial class HxDropdownMenu
 		CssClassHelper.Combine(
 			"dropdown-menu",
 			((DropdownContainer as IDropdownContainer)?.IsOpen ?? false) ? "show" : null,
-			GetAlignmentCssClass(),
+			this.Alignment?.GetCssClass(),
 			this.CssClass
 			);
-
-	protected string GetAlignmentCssClass()
-	{
-		return Alignment switch
-		{
-			DropdownMenuAlignment.Start => "dropdown-menu-start",
-			DropdownMenuAlignment.End => "dropdown-menu-end",
-			null => null, // Default (unset) case.
-
-			_ => throw new InvalidOperationException($"Unknown {nameof(DropdownMenuAlignment)} value {Alignment}.")
-		};
-	}
 }

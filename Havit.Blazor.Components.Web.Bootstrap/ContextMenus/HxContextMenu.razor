@@ -5,7 +5,7 @@
 		<span role="button" class="hx-context-menu-btn" id="@id" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @onclick:stopPropagation>
 			<HxIcon Icon="this.IconEffective" CssClass="@this.IconCssClassEffective" />
 		</span>
-		<ul class="@CssClassHelper.Combine("dropdown-menu dropdown-menu-end", this.DropdownMenuCssClassEffective)" aria-labelledby="@id">
+		<ul class="@CssClassHelper.Combine("dropdown-menu", this.DropdownMenuAlignmentEffective.GetCssClass(), this.DropdownMenuCssClassEffective)" aria-labelledby="@id">
 			@ChildContent
 		</ul>
 	</div>

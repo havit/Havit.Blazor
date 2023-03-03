@@ -21,6 +21,11 @@ public record ContextMenuSettings
 	public string DropdownMenuCssClass { get; set; }
 
 	/// <summary>
+	/// Alignment for the context menu dropdown menu.
+	/// </summary>
+	public DropdownMenuAlignment? DropdownMenuAlignment { get; set; }
+
+	/// <summary>
 	/// Icon carring the menu (use <see cref="BootstrapIcon" /> or any other <see cref="IconBase"/>).<br />
 	/// </summary>
 	public IconBase Icon { get; set; }

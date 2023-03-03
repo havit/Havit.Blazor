@@ -15,7 +15,8 @@ public partial class HxContextMenu
 	{
 		Defaults = new ContextMenuSettings()
 		{
-			Icon = BootstrapIcon.ThreeDotsVertical
+			Icon = BootstrapIcon.ThreeDotsVertical,
+			DropdownMenuAlignment = Bootstrap.DropdownMenuAlignment.End
 		};
 	}
 
@@ -68,6 +69,13 @@ public partial class HxContextMenu
 	/// </summary>
 	[Parameter] public string IconCssClass { get; set; }
 	protected string IconCssClassEffective => this.IconCssClass ?? this.GetSettings()?.IconCssClass ?? GetDefaults().IconCssClass;
+
+	/// <summary>
+	/// Alignment for the context menu dropdown menu.
+	/// Default is <see cref="DropdownMenuAlignment.End"/>.
+	/// </summary>
+	[Parameter] public DropdownMenuAlignment? DropdownMenuAlignment { get; set; }
+	protected DropdownMenuAlignment DropdownMenuAlignmentEffective => this.DropdownMenuAlignment ?? this.GetSettings()?.DropdownMenuAlignment ?? GetDefaults().DropdownMenuAlignment ?? throw new InvalidOperationException(nameof(DropdownMenuAlignment) + " default for " + nameof(HxContextMenu) + " has to be set.");
 
 	/// <summary>
 	/// Items of the context menu. Use <see cref="HxContextMenuItem"/> components.
