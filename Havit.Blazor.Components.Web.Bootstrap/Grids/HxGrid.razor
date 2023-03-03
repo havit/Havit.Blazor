@@ -265,10 +265,9 @@
 			if ((totalPages > 1) && ((CurrentUserState.PageIndex + CurrentUserState.LoadMorePagesCount) < (totalPages - 1)))				
 			{
 				<div>
-
 					@if (LoadMoreTemplate != null)
 					{
-						var loadMoreContext = LoadMoreContext.CreateFor(this);
+						var loadMoreContext = GridLoadMoreTemplateContext.CreateFor(this);
 						<text>
 							@LoadMoreTemplate(loadMoreContext)
 						</text> 

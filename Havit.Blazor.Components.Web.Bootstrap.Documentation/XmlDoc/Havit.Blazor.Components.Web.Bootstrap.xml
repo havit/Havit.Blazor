@@ -5522,6 +5522,21 @@
             Indicates whether the sorting should be performed in the reverse direction.	
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridLoadMoreTemplateContext">
+            <summary>
+            Context for "load more" template of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridLoadMoreTemplateContext.LoadMoreAsync">
+            <summary>
+            Instructs the grid to load next page.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridLoadMoreTemplateContext.#ctor(System.Func{System.Threading.Tasks.Task})">
+            <remark>
+            Not used HxGrid because we have HxGrid&lt;TItem&gt; which leads to GridLoadMoreTemplateContext&lt;TItem&gt;.
+            </remark>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext">
             <summary>
             Placeholder cell context.
@@ -6404,21 +6419,6 @@
             <summary>
             Returns footer cell template.
             </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.LoadMoreContext">
-            <summary>
-            Context for "load more" template.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.LoadMoreContext.LoadMoreAsync">
-            <summary>
-            Instructs to load next page.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.LoadMoreContext.#ctor(System.Func{System.Threading.Tasks.Task})">
-            <remark>
-            Not used HxGrid because we have HxGrid&lt;TItem&gt; which leads to LoadMoreContext&lt;TItem&gt;.
-            </remark>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PagerSettings">
             <summary>

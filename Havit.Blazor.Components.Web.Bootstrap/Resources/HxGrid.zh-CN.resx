@@ -120,6 +120,9 @@
   <data name="LoadingData" xml:space="preserve">
     <value>加载数据中...</value>
   </data>
+  <data name="LoadMoreData" xml:space="preserve">
+    <value>载入更多</value>
+  </data>
   <data name="NoData" xml:space="preserve">
     <value>无数据.</value>
   </data>

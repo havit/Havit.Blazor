@@ -121,7 +121,7 @@
     <value>Loading data...</value>
   </data>
   <data name="LoadMoreData" xml:space="preserve">
-    <value>Load more...</value>
+    <value>Load more</value>
   </data>
   <data name="NoData" xml:space="preserve">
     <value>No data.</value>

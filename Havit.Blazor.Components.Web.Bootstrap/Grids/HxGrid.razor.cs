@@ -76,7 +76,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// <summary>
 	/// Template to render "load more" button (or other UI element).
 	/// </summary>
-	[Parameter] public RenderFragment<LoadMoreContext> LoadMoreTemplate { get; set; }
+	[Parameter] public RenderFragment<GridLoadMoreTemplateContext> LoadMoreTemplate { get; set; }
 
 	/// <summary>
 	/// Selected data item.
