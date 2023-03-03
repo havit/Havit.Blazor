@@ -23,7 +23,7 @@
             }
             else if (this.IconEffective is not null)
             {
-                <HxIcon Icon="this.IconEffective" />
+                <HxIcon Icon="this.IconEffective" CssClass="@this.IconCssClassEffective" />
             }
 
             @if (!String.IsNullOrEmpty(this.Text) || (ChildContent != null))
@@ -48,7 +48,7 @@
             }
             else if (this.IconEffective is not null)
             {
-                <HxIcon Icon="this.IconEffective" />
+                <HxIcon Icon="this.IconEffective" CssClass="@this.IconCssClassEffective" />
             }
         }
     </button>

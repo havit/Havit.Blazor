@@ -11,12 +11,12 @@ public record GridSettings
 	public GridContentNavigationMode? ContentNavigationMode { get; set; }
 
 	/// <summary>
-	/// Icon to display ascending sort direction.
+	/// Icon to indicate ascending sort direction in column header.
 	/// </summary>
 	public IconBase SortAscendingIcon { get; set; }
 
 	/// <summary>
-	/// Icon to display descending sort direction.
+	/// Icon to indicate descending sort direction in column header.
 	/// </summary>
 	public IconBase SortDescendingIcon { get; set; }
 
@@ -35,7 +35,7 @@ public record GridSettings
 	public int? OverscanCount { get; set; }
 
 	/// <summary>
-	/// Page size for <see cref="GridContentNavigationMode.Pagination"/>. Set <c>0</c> to disable paging.
+	/// Page size for <see cref="GridContentNavigationMode.Pagination"/> and <see cref="GridContentNavigationMode.LoadMore"/>. Set <c>0</c> to disable paging.
 	/// </summary>
 	public int? PageSize { get; set; }
 

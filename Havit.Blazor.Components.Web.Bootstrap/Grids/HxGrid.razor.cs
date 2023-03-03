@@ -74,6 +74,11 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	[Parameter] public RenderFragment EmptyDataTemplate { get; set; }
 
 	/// <summary>
+	/// Template to render "load more" button (or other UI element).
+	/// </summary>
+	[Parameter] public RenderFragment<LoadMoreContext> LoadMoreTemplate { get; set; }
+
+	/// <summary>
 	/// Selected data item.
 	/// Intended for data binding.
 	/// </summary>		
@@ -112,7 +117,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? this.GetSettings()?.ContentNavigationMode ?? GetDefaults().ContentNavigationMode ?? throw new InvalidOperationException(nameof(ContentNavigationMode) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
-	/// Page size for <see cref="GridContentNavigationMode.Pagination"/>. Set <c>0</c> to disable paging.
+	/// Page size for <see cref="GridContentNavigationMode.Pagination"/> and <see cref="GridContentNavigationMode.LoadMore"/>. Set <c>0</c> to disable paging.
 	/// </summary>
 	[Parameter] public int? PageSize { get; set; }
 	protected int PageSizeEffective => this.PageSize ?? this.GetSettings()?.PageSize ?? GetDefaults().PageSize ?? throw new InvalidOperationException(nameof(PageSize) + " default for " + nameof(HxGrid) + " has to be set.");
@@ -234,12 +239,27 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected bool StripedEffective => this.Striped ?? this.GetSettings()?.Striped ?? GetDefaults().Striped ?? throw new InvalidOperationException(nameof(Striped) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
+	/// Icon to indicate ascending sort direction in column header.
+	/// </summary>
+	[Parameter] public IconBase SortAscendingIcon { get; set; }
+	protected IconBase SortAscendingIconEffective => this.SortAscendingIcon ?? this.GetSettings()?.SortAscendingIcon ?? GetDefaults().SortAscendingIcon;
+
+	/// <summary>
+	/// Icon to indicate descending sort direction in column header.
+	/// </summary>
+	[Parameter] public IconBase SortDescendingIcon { get; set; }
+	protected IconBase SortDescendingIconEffective => this.SortDescendingIcon ?? this.GetSettings()?.SortDescendingIcon ?? GetDefaults().SortDescendingIcon;
+
+
+	/// <summary>
 	/// Returns application-wide defaults for the component.
 	/// Enables overriding defaults in descandants (use separate set of defaults).
 	/// </summary>
 	protected virtual GridSettings GetDefaults() => HxGrid.Defaults;
 
+
 	[Inject] protected IStringLocalizer<HxGrid> HxGridLocalizer { get; set; }
+
 
 	private List<IHxGridColumn<TItem>> columnsList;
 	private HashSet<string> columnIds;
@@ -256,7 +276,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private bool firstRenderCompleted = false;
 	private GridUserState previousUserState;
 	private int previousPageSizeEffective;
-
+	private bool forceReloadLoadMorePages = false;
 
 	private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> infiniteScrollVirtualizeComponent;
 
@@ -328,9 +348,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			}
 		}
 
-		if (firstRender && (ContentNavigationModeEffective == GridContentNavigationMode.Pagination))
+		if (firstRender && ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore)))
 		{
-			await RefreshPaginationDataCoreAsync();
+			await RefreshPaginationOrLoadMoreDataCoreAsync();
 		}
 
 		// when rendering page with no data, navigate one page back
@@ -340,10 +360,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			int newPageIndex = ((totalCount == null) /* hopefully not even possible */ || (totalCount.Value == 0))
 				? 0
 				: (int)Math.Ceiling((decimal)totalCount.Value / PageSizeEffective) - 1;
-			if (newPageIndex != CurrentUserState.PageIndex)
+			if (await SetCurrentPageIndexWithEventCallback(newPageIndex))
 			{
-				await SetCurrentPageIndexWithEventCallback(newPageIndex);
-				await RefreshPaginationDataCoreAsync();
+				await RefreshPaginationOrLoadMoreDataCoreAsync();
 			}
 		}
 
@@ -435,20 +454,32 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		currentSorting = newSorting.ToList();
 		previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
 		CurrentUserState = CurrentUserState with { Sorting = SerializeToCurrentUserStateSorting(currentSorting) };
+		forceReloadLoadMorePages = CurrentUserState.LoadMorePagesCount > 0; // When additional pages are displayed we need to reload all additional pages
 		await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 		return true;
 	}
 
 	private async Task<bool> SetCurrentPageIndexWithEventCallback(int newPageIndex)
 	{
-		if (CurrentUserState.PageIndex != newPageIndex)
+		if ((CurrentUserState.PageIndex != newPageIndex) || (CurrentUserState.LoadMorePagesCount != 0))
 		{
 			previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
-			CurrentUserState = CurrentUserState with { PageIndex = newPageIndex };
+			CurrentUserState = CurrentUserState with
+			{
+				PageIndex = newPageIndex,
+				LoadMorePagesCount = 0 // When navigating by Pager in LoadMore mode, navigate directly to the page (do not load additional pages).
+			};
 			await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 			return true;
 		}
 		return false;
+	}
+
+	private async Task IncreaseCurrentLoadMorePagesCountWithEventCallback()
+	{
+		previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
+		CurrentUserState = CurrentUserState with { LoadMorePagesCount = CurrentUserState.LoadMorePagesCount + 1 };
+		await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 	}
 
 	private async Task HandleSelectOrMultiSelectDataItemClick(TItem clickedDataItem)
@@ -488,6 +519,11 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		}
 	}
 
+	private async Task HandleLoadMoreClick()
+	{
+		await LoadMoreAsync();
+	}
+
 	private void HandleColumnAdded(IHxGridColumn<TItem> column)
 	{
 		string columnId = column.GetId();
@@ -524,7 +560,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		switch (ContentNavigationModeEffective)
 		{
 			case GridContentNavigationMode.Pagination:
-				await RefreshPaginationDataCoreAsync();
+			case GridContentNavigationMode.LoadMore:
+				await RefreshPaginationOrLoadMoreDataCoreAsync();
 				break;
 
 			case GridContentNavigationMode.InfiniteScroll:
@@ -539,9 +576,17 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		}
 	}
 
-	private async ValueTask RefreshPaginationDataCoreAsync()
+	internal async Task LoadMoreAsync()
 	{
-		Contract.Requires(ContentNavigationModeEffective == GridContentNavigationMode.Pagination);
+		Contract.Requires<InvalidOperationException>(ContentNavigationMode == GridContentNavigationMode.LoadMore, $"{nameof(LoadMoreAsync)} method can be used only with {nameof(ContentNavigationMode)} {nameof(GridContentNavigationMode.LoadMore)}.");
+
+		await IncreaseCurrentLoadMorePagesCountWithEventCallback();
+		await RefreshDataAsync();
+	}
+
+	private async ValueTask RefreshPaginationOrLoadMoreDataCoreAsync()
+	{
+		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore));
 
 		paginationRefreshDataCancellationTokenSource?.Cancel();
 		paginationRefreshDataCancellationTokenSource?.Dispose();
@@ -549,12 +594,27 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		CancellationToken cancellationToken = paginationRefreshDataCancellationTokenSource.Token;
 
 		int? pageSizeEffective = PageSizeEffective;
-		GridDataProviderRequest<TItem> request = new GridDataProviderRequest<TItem>
+		GridDataProviderRequest<TItem> request = ContentNavigationModeEffective switch
 		{
-			StartIndex = (pageSizeEffective ?? 0) * CurrentUserState.PageIndex,
-			Count = pageSizeEffective,
-			Sorting = GridInternalStateSortingItemHelper.ToSortingItems(currentSorting),
-			CancellationToken = cancellationToken
+			GridContentNavigationMode.Pagination => new GridDataProviderRequest<TItem>
+			{
+				StartIndex = (pageSizeEffective ?? 0) * CurrentUserState.PageIndex,
+				Count = pageSizeEffective,
+				Sorting = GridInternalStateSortingItemHelper.ToSortingItems(currentSorting),
+				CancellationToken = cancellationToken
+			},
+			GridContentNavigationMode.LoadMore => new GridDataProviderRequest<TItem>
+			{
+				// when reloading additional pages let's reload data from PageIndex
+				// otherwise load the current page
+				StartIndex = (pageSizeEffective ?? 0) * (CurrentUserState.PageIndex + (forceReloadLoadMorePages ? 0 : CurrentUserState.LoadMorePagesCount)), // 
+				Count = forceReloadLoadMorePages
+					? pageSizeEffective * (CurrentUserState.LoadMorePagesCount + 1) // when reloading additional pages let's reload data including aditional pages
+					: pageSizeEffective, // otherwise load only one page
+				Sorting = GridInternalStateSortingItemHelper.ToSortingItems(currentSorting),
+				CancellationToken = cancellationToken
+			},
+			_ => throw new InvalidOperationException(ContentNavigationModeEffective.ToString())
 		};
 
 		GridDataProviderResult<TItem> result;
@@ -576,9 +636,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			{
 				int dataCount = result.Data.Count();
 
-				if (dataCount > pageSizeEffective.Value)
+				if (dataCount > request.Count)
 				{
-					throw new InvalidOperationException($"{nameof(DataProvider)} returned more data items then is the size od the page.");
+					throw new InvalidOperationException($"{nameof(DataProvider)} returned more data items then it was requested.");
 				}
 
 				if (result.TotalCount == null)
@@ -592,20 +652,49 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			}
 			#endregion
 
-			paginationDataItemsToRender = result.Data?.ToList();
-
-			if (!EqualityComparer<TItem>.Default.Equals(SelectedDataItem, default))
+			if (ContentNavigationModeEffective == GridContentNavigationMode.Pagination)
 			{
-				if ((paginationDataItemsToRender == null) || !paginationDataItemsToRender.Contains(SelectedDataItem))
+				paginationDataItemsToRender = result.Data?.ToList();
+
+				if (!EqualityComparer<TItem>.Default.Equals(SelectedDataItem, default))
 				{
-					await SetSelectedDataItemWithEventCallback(default);
+					if ((paginationDataItemsToRender == null) || !paginationDataItemsToRender.Contains(SelectedDataItem))
+					{
+						await SetSelectedDataItemWithEventCallback(default);
+					}
+				}
+
+				if (SelectedDataItems?.Count > 0)
+				{
+					HashSet<TItem> selectedDataItems = paginationDataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItem>();
+					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
 				}
 			}
-
-			if (SelectedDataItems?.Count > 0)
+			else if (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore)
 			{
-				HashSet<TItem> selectedDataItems = paginationDataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItem>();
-				await SetSelectedDataItemsWithEventCallback(selectedDataItems);
+				// a)
+				//	no data yet loaded
+				// OR
+				// b)
+				//	When navigating by Pager in LoadMore mode (LoadMorePagesCount == 0), navigate directly to the page (do not load additional pages).
+				//	Then we need to replace the current data by the loaded data.
+				// OR
+				// c)
+				//	When reloading aditional pages (sorting is changed)
+
+				if ((paginationDataItemsToRender == null) || (CurrentUserState.LoadMorePagesCount == 0) || forceReloadLoadMorePages)
+				{
+					paginationDataItemsToRender = result.Data?.ToList();
+				}
+				else
+				{
+					paginationDataItemsToRender.AddRange(result.Data?.ToList());
+				}
+				forceReloadLoadMorePages = false;
+			}
+			else
+			{
+				throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
 			}
 
 			// hide InProgress & show data
@@ -633,7 +722,6 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 		return new Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderResult<TItem>(gridDataProviderResponse.Data, gridDataProviderResponse.TotalCount ?? 0);
 	}
-
 
 	private async Task<GridDataProviderResult<TItem>> InvokeDataProviderInternal(GridDataProviderRequest<TItem> request)
 	{

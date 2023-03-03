@@ -5,7 +5,6 @@
     <MainContent>
 
         <DocHeading Title="Data binding" />
-        <h2></h2>
         <p>
             Implement the <code>@nameof(HxGrid<object>.DataProvider)</code> method which is provided with a "request"
             (requested sorting and paging) and returns a "result" (items to display and total count of items).
@@ -46,7 +45,7 @@
         </DocAlert>
         <Demo Type="typeof(HxGrid_VirtualizedDemo)" />
 
-        <DocHeading Title="Context menu" />
+        <DocHeading Title="Context menu" Id="context-menu" />
         <p>Use <code>HxContextMenuGridColumn</code> to add context-menu to the grid.</p>
         <DocAlert Type="DocAlertType.Warning">The <code>ContextMenu</code> parameter does the same (but renders always as last column) and will be most likely removed in vNext.</DocAlert>
         <Demo Type="typeof(HxGrid_Demo_ContextMenu)" />

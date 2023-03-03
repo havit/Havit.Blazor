@@ -16,6 +16,11 @@ public record ButtonSettings
 	public string CssClass { get; set; }
 
 	/// <summary>
+	/// CSS class to be rendered with the button icon.
+	/// </summary>
+	public string IconCssClass { get; set; }
+
+	/// <summary>
 	/// Icon to be rendered with the button.
 	/// </summary>
 	public IconBase Icon { get; set; }
