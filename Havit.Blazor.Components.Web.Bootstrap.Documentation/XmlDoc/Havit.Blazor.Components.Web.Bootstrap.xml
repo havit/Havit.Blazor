@@ -1383,6 +1383,11 @@
             Additional CSS class(es) for the context menu dropdown menu.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ContextMenuSettings.DropdownMenuAlignment">
+            <summary>
+            Alignment for the context menu dropdown menu.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ContextMenuSettings.Icon">
             <summary>
             Icon carring the menu (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon" /> or any other <see cref="T:Havit.Blazor.Components.Web.IconBase"/>).<br />
@@ -1447,6 +1452,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.IconCssClass">
             <summary>
             Additional CSS class(es) for the context menu icon.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.DropdownMenuAlignment">
+            <summary>
+            Alignment for the context menu dropdown menu.
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DropdownMenuAlignment.End"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.ChildContent">

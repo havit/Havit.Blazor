@@ -15,7 +15,8 @@ public partial class HxContextMenu
 	{
 		Defaults = new ContextMenuSettings()
 		{
-			Icon = BootstrapIcon.ThreeDotsVertical
+			Icon = BootstrapIcon.ThreeDotsVertical,
+			DropdownMenuAlignment = Bootstrap.DropdownMenuAlignment.End
 		};
 	}
 
@@ -70,17 +71,11 @@ public partial class HxContextMenu
 	protected string IconCssClassEffective => this.IconCssClass ?? this.GetSettings()?.IconCssClass ?? GetDefaults().IconCssClass;
 
 	/// <summary>
-	/// Alignment for shown menu. Similar to <see cref="HxDropdownMenu.Alignment" /> 
+	/// Alignment for the context menu dropdown menu.
+	/// Default is <see cref="DropdownMenuAlignment.End"/>.
 	/// </summary>
-	[Parameter] public DropdownMenuAlignment? MenuAlignment { get; set; }
-	protected string DropDownAlignmentCssClass => MenuAlignment switch
-	{
-		DropdownMenuAlignment.Start => "dropdown-menu-start",
-		DropdownMenuAlignment.End => "dropdown-menu-end",
-		null => "dropdown-menu-end", // for default behaviour not to change
-
-		_ => throw new InvalidOperationException($"Unknown {nameof(DropdownMenuAlignment)} value {MenuAlignment}.")
-	};
+	[Parameter] public DropdownMenuAlignment? DropdownMenuAlignment { get; set; }
+	protected DropdownMenuAlignment DropdownMenuAlignmentEffective => this.DropdownMenuAlignment ?? this.GetSettings()?.DropdownMenuAlignment ?? GetDefaults().DropdownMenuAlignment ?? throw new InvalidOperationException(nameof(DropdownMenuAlignment) + " default for " + nameof(HxContextMenu) + " has to be set.");
 
 	/// <summary>
 	/// Items of the context menu. Use <see cref="HxContextMenuItem"/> components.
