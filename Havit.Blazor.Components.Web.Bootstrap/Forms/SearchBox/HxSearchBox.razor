@@ -19,7 +19,7 @@
             }
             <div class="@CssClassHelper.Combine(
                             "position-relative",
-                            (HasInputGroupsEffective ? "input-group" : null),
+                            (HasInputGroups ? "input-group" : null),
                             (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null,
                             InputSizeEffective.AsInputGroupCssClass(),
                             InputGroupCssClass)">
@@ -42,10 +42,10 @@
                     placeholder="@Placeholder"
                     class="@CssClassHelper.Combine(
                        "form-control",
-                       (ShowSearchIconEffective && HasInputGroupsEffective ? "hx-search-box-input-with-search-icon" : null),
+                       (HasInputGroupEnd && HasInputGroups ? "hx-search-box-input-with-search-icon" : null),
                        InputCssClassEffective)" />
 
-                @if (ShowSearchIconEffective)
+                @if (!HasInputGroupEnd)
                 {
                     if (dataProviderInProgress)
                     {
