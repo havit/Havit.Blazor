@@ -25,6 +25,13 @@ public static class ProtoBufModelConfiguration
 			var fieldNumber = 1;
 			foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
 			{
+				// protobuf-net requires the property to have a setter (can be private)
+				// by adding this check we enable support for computed get-properties (not serialized)
+				if (property.GetSetMethod(nonPublic: true) is null)
+				{
+					continue;
+				}
+
 				modelType.AddField(fieldNumber, property.Name);
 				fieldNumber++;
 			}
