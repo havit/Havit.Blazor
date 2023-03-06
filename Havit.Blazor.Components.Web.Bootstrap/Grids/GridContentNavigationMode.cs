@@ -8,15 +8,23 @@ public enum GridContentNavigationMode
 	/// <summary>
 	/// Use pager.
 	/// </summary>
-	Pagination = 0,
-
-	/// <summary>
-	/// Use infinite scroll (virtualized).
-	/// </summary>
-	InfiniteScroll = 1,
+	Pagination = 1,
 
 	/// <summary>
 	/// Use "Load more" button.
 	/// </summary>
-	LoadMore = 2
+	LoadMore = 2,
+
+	/// <summary>
+	/// Use pager and "Load more" button.
+	/// </summary>
+	/// <remarks>
+	/// Value used as this is a flagged enum (but it is not).
+	/// </remarks>
+	PaginationAndLoadMore = 3,
+
+	/// <summary>
+	/// Use infinite scroll (virtualized).
+	/// </summary>
+	InfiniteScroll = 4,
 }

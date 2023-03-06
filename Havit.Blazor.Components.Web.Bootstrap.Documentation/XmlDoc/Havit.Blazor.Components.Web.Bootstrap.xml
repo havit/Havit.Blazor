@@ -5437,14 +5437,22 @@
             Use pager.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll">
-            <summary>
-            Use infinite scroll (virtualized).
-            </summary>
-        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore">
             <summary>
             Use "Load more" button.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore">
+            <summary>
+            Use pager and "Load more" button.
+            </summary>
+            <remarks>
+            Value used as this is a flagged enum (but it is not).
+            </remarks>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll">
+            <summary>
+            Use infinite scroll (virtualized).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderDelegate`1">
@@ -5556,7 +5564,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext.Index">
             <summary>
             Index of the row.		
-            It reflects current page index when <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination" /> or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore" /> mode is used
+            It reflects current page index when <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination" />, <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore" /> or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore" /> mode is used
             (ie. when the page size is 10, then on the third page indexes are 20-29).
             </summary>
         </member>
@@ -5596,7 +5604,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PageSize">
             <summary>
-            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>. Set <c>0</c> to disable paging.
+            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/>, <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore" />. Set <c>0</c> to disable paging.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PlaceholdersRowCount">
@@ -5657,7 +5665,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.LoadMoreButtonSettings">
             <summary>
-            Settings for the "Load more" navigation button (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>).
+            Settings for the "Load more" navigation button (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore"/>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState">
@@ -5668,12 +5676,15 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.PageIndex">
             <summary>
             Current page index for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/>.
-            Starting page index for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>.
+            Starting page index for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore"/>.
             </summary>
+            <remarks>
+            This number is not the current page index in pager when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.LoadMoreAdditionalItemsCount"/> is not zero.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.LoadMoreAdditionalItemsCount">
             <summary>
-            Count of additional items to load for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>.
+            Count of additional items to load for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.Sorting">
@@ -5877,7 +5888,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PageSize">
             <summary>
-            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>. Set <c>0</c> to disable paging.
+            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/>, <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore"/>. Set <c>0</c> to disable paging.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ShowFooterWhenEmptyData">

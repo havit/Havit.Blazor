@@ -117,7 +117,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? this.GetSettings()?.ContentNavigationMode ?? GetDefaults().ContentNavigationMode ?? throw new InvalidOperationException(nameof(ContentNavigationMode) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
-	/// Page size for <see cref="GridContentNavigationMode.Pagination"/> and <see cref="GridContentNavigationMode.LoadMore"/>. Set <c>0</c> to disable paging.
+	/// Page size for <see cref="GridContentNavigationMode.Pagination"/>, <see cref="GridContentNavigationMode.LoadMore"/> and <see cref="GridContentNavigationMode.PaginationAndLoadMore"/>. Set <c>0</c> to disable paging.
 	/// </summary>
 	[Parameter] public int? PageSize { get; set; }
 	protected int PageSizeEffective => this.PageSize ?? this.GetSettings()?.PageSize ?? GetDefaults().PageSize ?? throw new InvalidOperationException(nameof(PageSize) + " default for " + nameof(HxGrid) + " has to be set.");
@@ -359,7 +359,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			}
 		}
 
-		if (firstRender && ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore)))
+		if (firstRender && ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)))
 		{
 			await RefreshPaginationOrLoadMoreDataCoreAsync();
 		}
@@ -575,6 +575,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		{
 			case GridContentNavigationMode.Pagination:
 			case GridContentNavigationMode.LoadMore:
+			case GridContentNavigationMode.PaginationAndLoadMore:
 				shouldReloadAllPaginationOrLoadMoreData = true;
 				await RefreshPaginationOrLoadMoreDataCoreAsync();
 				break;
@@ -593,7 +594,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	internal async Task LoadMoreAsync()
 	{
-		Contract.Requires<InvalidOperationException>(ContentNavigationMode == GridContentNavigationMode.LoadMore, $"{nameof(LoadMoreAsync)} method can be used only with {nameof(ContentNavigationMode)} {nameof(GridContentNavigationMode.LoadMore)}.");
+		Contract.Requires<InvalidOperationException>((ContentNavigationMode == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore), $"{nameof(LoadMoreAsync)} method can be used only with {nameof(ContentNavigationMode)}.{nameof(GridContentNavigationMode.LoadMore)} or {nameof(ContentNavigationMode)}.{nameof(GridContentNavigationMode.PaginationAndLoadMore)}.");
 
 		await IncreaseCurrentLoadMoreAdditionalItemsCountWithEventCallback(PageSizeEffective);
 		await RefreshDataAsync();
@@ -601,7 +602,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private async ValueTask RefreshPaginationOrLoadMoreDataCoreAsync()
 	{
-		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore));
+		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
 		paginationRefreshDataCancellationTokenSource?.Cancel();
 		paginationRefreshDataCancellationTokenSource?.Dispose();
@@ -771,7 +772,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private async Task HandleMultiSelectUnselectDataItemClicked(TItem selectedDataItem)
 	{
 		Contract.Requires(MultiSelectionEnabled);
-		Contract.Requires(ContentNavigationModeEffective == GridContentNavigationMode.Pagination, "ContentNavigationModeEffective == GridContentNavigationMode.Pagination");
+		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
 		var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItem>();
 		if (selectedDataItems.Remove(selectedDataItem))
@@ -783,7 +784,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private async Task HandleMultiSelectSelectAllClicked()
 	{
 		Contract.Requires(MultiSelectionEnabled, nameof(MultiSelectionEnabled));
-		Contract.Requires(ContentNavigationModeEffective == GridContentNavigationMode.Pagination, "ContentNavigationModeEffective == GridContentNavigationMode.Pagination");
+		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
 		if (paginationDataItemsToRender is null)
 		{
@@ -798,7 +799,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private async Task HandleMultiSelectSelectNoneClicked()
 	{
 		Contract.Requires(MultiSelectionEnabled);
-		Contract.Requires(ContentNavigationModeEffective == GridContentNavigationMode.Pagination, "ContentNavigationModeEffective == GridContentNavigationMode.Pagination");
+		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
 		await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>());
 	}

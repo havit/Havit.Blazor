@@ -39,6 +39,7 @@
 	{
 		case GridContentNavigationMode.Pagination:
 		case GridContentNavigationMode.LoadMore:
+		case GridContentNavigationMode.PaginationAndLoadMore:
 			shouldRenderData = (totalCount > 0);
 			break;
 
@@ -219,7 +220,7 @@
 							</Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
 						}
 
-						@if ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore))
+						@if ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore))
 				        {
 					        foreach (TItem item in paginationDataItemsToRender)
 					        {
@@ -247,7 +248,7 @@
 			</table>
 		</div>
 
-		@if (((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore)) && (PageSizeEffective > 0) && (totalCount != null))
+		@if (((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)) && (PageSizeEffective > 0) && (totalCount != null))
 		{
 			int totalPages = (totalCount.Value + PageSizeEffective - 1) / PageSizeEffective;
 			if (totalPages > 1)
@@ -260,7 +261,7 @@
 			}
 		}
 
-		@if ((ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) && (PageSizeEffective > 0) && (totalCount != null))
+		@if (((ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)) && (PageSizeEffective > 0) && (totalCount != null))
 		{
 			if ((((CurrentUserState.PageIndex + 1) * PageSizeEffective) + CurrentUserState.LoadMoreAdditionalItemsCount) < totalCount.Value)
 			{

@@ -7,12 +7,15 @@ public record class GridUserState
 {
 	/// <summary>
 	/// Current page index for <see cref="GridContentNavigationMode.Pagination"/>.
-	/// Starting page index for <see cref="GridContentNavigationMode.LoadMore"/>.
+	/// Starting page index for <see cref="GridContentNavigationMode.LoadMore"/> and <see cref="GridContentNavigationMode.PaginationAndLoadMore"/>.
 	/// </summary>
+	/// <remarks>
+	/// This number is not the current page index in pager when <see cref="LoadMoreAdditionalItemsCount"/> is not zero.
+	/// </remarks>
 	public int PageIndex { get; init; }
 
 	/// <summary>
-	/// Count of additional items to load for <see cref="GridContentNavigationMode.LoadMore"/>.
+	/// Count of additional items to load for <see cref="GridContentNavigationMode.LoadMore"/> or <see cref="GridContentNavigationMode.PaginationAndLoadMore"/>.
 	/// </summary>
 	public int LoadMoreAdditionalItemsCount { get; init; }
 
