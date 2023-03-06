@@ -13,7 +13,7 @@
                                  OnHidden="HandleDropdownMenuHidden"
                                  id="@dropdownToggleElementId">
 
-            @if (!string.IsNullOrEmpty(Label))
+            @if (!string.IsNullOrEmpty(Label) && LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Regular)
             {
                 <label class="form-label">@Label</label>
             }
@@ -44,6 +44,11 @@
                        "form-control",
                        (HasInputGroupEnd && HasInputGroups ? "hx-search-box-input-with-search-icon" : null),
                        InputCssClassEffective)" />
+
+                @if (!string.IsNullOrEmpty(Label) && LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
+                {
+                    <label for="@inputId">@Label</label>
+                }
 
                 @if (!HasInputGroupEnd)
                 {

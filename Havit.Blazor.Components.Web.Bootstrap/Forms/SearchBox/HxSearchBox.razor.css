@@ -17,11 +17,6 @@
     right: .75rem;
 }
 
-::deep .hx-search-box-input-with-search-icon {
-    border-top-right-radius: 0.375rem !important;
-    border-bottom-right-radius: 0.375rem !important;
-}
-
 .dropdown-item:not(:active) ::deep .hx-search-box-item-title {
     color: var(--hx-search-box-item-title-color);
 }
