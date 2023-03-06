@@ -22,16 +22,6 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	protected Func<TItem, TValue> ItemValueSelectorImpl { get; set; }
 
 	/// <summary>
-	/// <see cref="ValueSelectorImpl"/> is obsolete, please use <see cref="ItemValueSelectorImpl"/> instead.
-	/// </summary>
-	[Obsolete($"{nameof(ValueSelectorImpl)} is obsolete, use {nameof(ItemValueSelectorImpl)} instead.")]
-	protected Func<TItem, TValue> ValueSelectorImpl
-	{
-		get => ItemValueSelectorImpl;
-		set => ItemValueSelectorImpl = value;
-	}
-
-	/// <summary>
 	/// Items to display. 
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
@@ -45,16 +35,6 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	protected Func<TItem, string> ItemTextSelectorImpl { get; set; }
 
 	/// <summary>
-	/// <see cref="TextSelectorImpl"/> is obsolete, please use <see cref="ItemTextSelectorImpl"/> instead.
-	/// </summary>
-	[Obsolete($"{nameof(TextSelectorImpl)} is obsolete, use {nameof(ItemTextSelectorImpl)} instead.")]
-	protected Func<TItem, string> TextSelectorImpl
-	{
-		get => ItemTextSelectorImpl;
-		set => ItemTextSelectorImpl = value;
-	}
-
-	/// <summary>
 	/// Gets html to display from item.
 	/// When not set <see cref="ItemTextSelectorImpl"/> is used.
 	/// </summary>
@@ -66,16 +46,6 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
 	protected Func<TItem, IComparable> ItemSortKeySelectorImpl { get; set; }
-
-	/// <summary>
-	/// <see cref="SortKeySelectorImpl"/> is obsolete, please use <see cref="ItemSortKeySelectorImpl"/> instead.
-	/// </summary>
-	[Obsolete($"{nameof(SortKeySelectorImpl)} is obsolete, use {nameof(ItemSortKeySelectorImpl)} instead.")]
-	protected Func<TItem, IComparable> SortKeySelectorImpl
-	{
-		get => ItemSortKeySelectorImpl;
-		set => ItemSortKeySelectorImpl = value;
-	}
 
 	/// <summary>
 	/// Additional CSS class(es) for underlying radio-buttons (wrapping <c>div</c> element).

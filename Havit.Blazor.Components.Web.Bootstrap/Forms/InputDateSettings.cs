@@ -18,16 +18,6 @@ public record InputDateSettings : InputSettings, IInputSettingsWithSize
 	public IconBase CalendarIcon { get; set; }
 
 	/// <summary>
-	/// Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
-	/// </summary>
-	[Obsolete("ShowCalendarButtons is obsolete, use ShowClearButton instead.")]
-	public bool? ShowCalendarButtons
-	{
-		get => ShowClearButton;
-		set => ShowClearButton = value;
-	}
-
-	/// <summary>
 	/// Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
 	/// </summary>
 	public bool? ShowClearButton { get; set; }

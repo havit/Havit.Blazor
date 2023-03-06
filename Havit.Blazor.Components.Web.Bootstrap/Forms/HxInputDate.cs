@@ -72,18 +72,6 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	protected IconBase CalendarIconEffective => this.CalendarIcon ?? this.GetSettings()?.CalendarIcon ?? this.GetDefaults().CalendarIcon;
 
 	/// <summary>
-	/// Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
-	/// Default is <c>true</c> (configurable in <see cref="HxInputDate.Defaults"/>).
-	/// </summary>
-	[Obsolete("ShowCalendarButtons is obsolete, use ShowClearButton instead.")]
-	[Parameter]
-	public bool? ShowCalendarButtons
-	{
-		get => ShowClearButton;
-		set => ShowClearButton = value;
-	}
-
-	/// <summary>
 	/// Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
 	/// Default is <c>true</c> (configurable in <see cref="HxInputDate.Defaults"/>).
 	/// </summary>

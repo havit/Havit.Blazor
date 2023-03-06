@@ -20,17 +20,6 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	}
 
 	/// <summary>
-	/// <see cref="ValueSelector"/> is obsolete, please use <see cref="ItemValueSelector"/> instead.
-	/// </summary>
-	[Parameter]
-	[Obsolete($"{nameof(ValueSelector)} is obsolete, use {nameof(ItemValueSelector)} instead.")]
-	public Func<TItem, TValue> ValueSelector
-	{
-		get => ItemValueSelector;
-		set => ItemValueSelector = value;
-	}
-
-	/// <summary>
 	/// Items to display. 
 	/// </summary>
 	[Parameter]
@@ -49,17 +38,6 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	{
 		get => ItemTextSelectorImpl;
 		set => ItemTextSelectorImpl = value;
-	}
-
-	/// <summary>
-	/// <see cref="TextSelector"/> is obsolete, please use <see cref="ItemTextSelector"/> instead.
-	/// </summary>
-	[Parameter]
-	[Obsolete($"{nameof(TextSelector)} is obsolete, use {nameof(ItemTextSelector)} instead.")]
-	public Func<TItem, string> TextSelector
-	{
-		get => ItemTextSelector;
-		set => ItemTextSelector = value;
 	}
 
 	/// <summary>
@@ -82,17 +60,6 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	{
 		get => ItemSortKeySelectorImpl;
 		set => ItemSortKeySelectorImpl = value;
-	}
-
-	/// <summary>
-	/// <see cref="SortKeySelector"/> is obsolete, please use <see cref="ItemSortKeySelector"/> instead.
-	/// </summary>
-	[Parameter]
-	[Obsolete($"{nameof(SortKeySelector)} is obsolete, use {nameof(ItemSortKeySelector)} instead.")]
-	public Func<TItem, IComparable> SortKeySelector
-	{
-		get => ItemSortKeySelector;
-		set => ItemSortKeySelector = value;
 	}
 
 	/// <summary>

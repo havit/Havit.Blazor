@@ -14,49 +14,16 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	[Parameter] public IEnumerable<TItem> Data { get; set; }
 
 	/// <summary>
-	/// <see cref="TextSelector"/> is obsolete, please use <see cref="ItemTextSelector"/> instead.
-	/// </summary>
-	[Parameter]
-	[Obsolete($"{nameof(TextSelector)} is obsolete, use {nameof(ItemTextSelector)} instead.")]
-	public Func<TItem, string> TextSelector
-	{
-		get => ItemTextSelector;
-		set => ItemTextSelector = value;
-	}
-
-	/// <summary>
 	/// Selects text to display from item.
 	/// When not set, <c>ToString()</c> is used.
 	/// </summary>
 	[Parameter] public Func<TItem, string> ItemTextSelector { get; set; }
 
 	/// <summary>
-	/// <see cref="ValueSelector"/> is obsolete, please use <see cref="ItemValueSelector"/> instead.
-	/// </summary>
-	[Parameter]
-	[Obsolete($"{nameof(ValueSelector)} is obsolete, use {nameof(ItemValueSelector)} instead.")]
-	public Func<TItem, TValue> ValueSelector
-	{
-		get => ItemValueSelector;
-		set => ItemValueSelector = value;
-	}
-
-	/// <summary>
 	/// Selects value from item.
 	/// Not required when TValue is same as TItem.
 	/// </summary>
 	[Parameter] public Func<TItem, TValue> ItemValueSelector { get; set; }
-
-	/// <summary>
-	/// <see cref="SortKeySelector"/> is obsolete, please use <see cref="ItemSortKeySelector"/> instead.
-	/// </summary>
-	[Parameter]
-	[Obsolete($"{nameof(SortKeySelector)} is obsolete, use {nameof(ItemSortKeySelector)} instead.")]
-	public Func<TItem, IComparable> SortKeySelector
-	{
-		get => ItemSortKeySelector;
-		set => ItemSortKeySelector = value;
-	}
 
 	/// <summary>
 	/// Selects value for items sorting. When not set, <see cref="ItemTextSelector"/> property will be used.

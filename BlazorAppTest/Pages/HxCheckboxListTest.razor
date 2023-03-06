@@ -6,7 +6,7 @@
 <HxSwitch Text="Enabled" @bind-Value="@enabled" />
 
 <EditForm Model="@model">
-	<HxCheckboxList TItem="CultureInfo" TValue="string" Label="Cultures" TextSelector="@(item => item.EnglishName)" ValueSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" Enabled="@enabled" />
+	<HxCheckboxList TItem="CultureInfo" TValue="string" Label="Cultures" ItemTextSelector="@(item => item.EnglishName)" ItemValueSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" Enabled="@enabled" />
 </EditForm>
 
 <p>Selected values: @String.Join(", ", model.CultureInfos ?? Enumerable.Empty<string>())</p>
