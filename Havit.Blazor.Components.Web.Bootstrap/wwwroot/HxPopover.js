@@ -23,6 +23,22 @@ export function hide(element) {
 	}
 }
 
+export function enable(element) {
+	var i = bootstrap.Popover.getInstance(element);
+	if (i) {
+		i.enable();
+		console.warn("enabled");
+	}
+}
+
+export function disable(element) {
+	var i = bootstrap.Popover.getInstance(element);
+	if (i) {
+		i.disable();
+		console.warn("disabled");
+	}
+}
+
 export function setContent(element, newContent) {
 	var i = bootstrap.Popover.getInstance(element);
 	if (i) {

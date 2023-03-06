@@ -3072,6 +3072,18 @@
             Hides the component.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.EnableAsync">
+            <summary>
+            Gives the component the ability to be shown.<br />
+            The component is enabled by default (i.e. this method is not necessary to be called if the component has not been disabled).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.DisableAsync">
+            <summary>
+            Removes the ability for the component to be shown.<br />
+            It will only be able to be shown if it is re-enabled.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.HandleJsShown">
             <summary>
             Receives notification from javascript when content is shown.

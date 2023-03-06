@@ -23,6 +23,20 @@ export function hide(element) {
 	}
 }
 
+export function enable(element) {
+	var i = bootstrap.Tooltip.getInstance(element);
+	if (i) {
+		i.enable();
+	}
+}
+
+export function disable(element) {
+	var i = bootstrap.Tooltip.getInstance(element);
+	if (i) {
+		i.disable();
+	}
+}
+
 export function setContent(element, newContent) {
 	var i = bootstrap.Tooltip.getInstance(element);
 	if (i) {
