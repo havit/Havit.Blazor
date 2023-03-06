@@ -118,7 +118,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// <summary>
 	/// CSS class to be rendered with the label.
 	/// </summary>
-	private protected virtual string CoreLabelCssClass => "form-label";
+	private protected virtual string CoreLabelCssClass => ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Regular)) ? "form-label" : null;
 
 	/// <summary>
 	/// CSS class to be rendered with the hint.
