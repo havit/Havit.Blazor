@@ -12,9 +12,9 @@ public record class GridUserState
 	public int PageIndex { get; init; }
 
 	/// <summary>
-	/// Count of additional pages for <see cref="GridContentNavigationMode.LoadMore"/>.
+	/// Count of additional items to load for <see cref="GridContentNavigationMode.LoadMore"/>.
 	/// </summary>
-	public int LoadMorePagesCount { get; init; }
+	public int LoadMoreAdditionalItemsCount { get; init; }
 
 	/// <summary>
 	/// Current sorting.
@@ -31,7 +31,7 @@ public record class GridUserState
 	public GridUserState(int pageIndex, IReadOnlyList<GridUserStateSortingItem> sorting)
 	{
 		PageIndex = pageIndex;
-		LoadMorePagesCount = 0;
+		LoadMoreAdditionalItemsCount = 0;
 		Sorting = sorting;
 	}
 

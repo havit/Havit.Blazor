@@ -5671,9 +5671,9 @@
             Starting page index for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.LoadMorePagesCount">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.LoadMoreAdditionalItemsCount">
             <summary>
-            Count of additional pages for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>.
+            Count of additional items to load for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.Sorting">

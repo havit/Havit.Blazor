@@ -252,8 +252,9 @@
 			int totalPages = (totalCount.Value + PageSizeEffective - 1) / PageSizeEffective;
 			if (totalPages > 1)
 			{
+				int currentPageIndex = CurrentUserState.PageIndex + ((CurrentUserState.LoadMoreAdditionalItemsCount + PageSizeEffective - 1) / PageSizeEffective);
 				<HxPager TotalPages="@totalPages"
-						 CurrentPageIndex="@(CurrentUserState.PageIndex + CurrentUserState.LoadMorePagesCount)"
+						 CurrentPageIndex="@currentPageIndex"
 						 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged"
 						 Settings="@PagerSettingsEffective" />
 			}
@@ -261,8 +262,7 @@
 
 		@if ((ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) && (PageSizeEffective > 0) && (totalCount != null))
 		{
-			int totalPages = (totalCount.Value + PageSizeEffective - 1) / PageSizeEffective;
-			if ((totalPages > 1) && ((CurrentUserState.PageIndex + CurrentUserState.LoadMorePagesCount) < (totalPages - 1)))				
+			if ((((CurrentUserState.PageIndex + 1) * PageSizeEffective) + CurrentUserState.LoadMoreAdditionalItemsCount) < totalCount.Value)
 			{
 				@if (LoadMoreTemplate != null)
 				{

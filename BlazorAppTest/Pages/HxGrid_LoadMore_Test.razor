@@ -4,7 +4,8 @@
 
 <h1>HxGrid with load more</h1>
 <h2>No LoadMoreTemplate</h2>
-<HxGrid TItem="CultureInfo" DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.LoadMore" PageSize="10" LoadMoreButtonText="Give me more!" LoadMoreButtonSettings="HxGrid.Defaults.LoadMoreButtonSettings with { Color = ThemeColor.Primary }">
+
+<HxGrid TItem="CultureInfo" @bind-CurrentUserState="customGridUserState" DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.LoadMore" PageSize="5" LoadMoreButtonText="Give me more!" LoadMoreButtonSettings="HxGrid.Defaults.LoadMoreButtonSettings with { Color = ThemeColor.Primary }">
 	<Columns>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
@@ -16,8 +17,11 @@
 	</ContextMenu>
 </HxGrid>
 
+<HxButton Text="Go to page 3 and add 2 additional items" OnClick="HandleCustomGridPositionClick" Color="ThemeColor.Secondary" />
+
 <h2>Custom LoadMoreTemplate</h2>
-<HxGrid TItem="CultureInfo" DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.LoadMore" PageSize="10">
+
+<HxGrid TItem="CultureInfo" DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.LoadMore" PageSize="5">
 	<Columns>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
@@ -29,10 +33,12 @@
 	</ContextMenu>
 	<LoadMoreTemplate>
 		There are some visible items, huh?
-		Do you want to <span role="button" @onclick="async () => await context.LoadMoreAsync()">see more</span>?
+		Do you want to <span role="button" style="color: red" @onclick="async () => await context.LoadMoreAsync()">see more</span>?
 	</LoadMoreTemplate>
 </HxGrid>
 @code {
+	private GridUserState customGridUserState = new GridUserState();
+
 	protected override Task OnInitializedAsync()
 	{
 		HxProgressIndicator.Defaults.Delay = 0; // TEST
@@ -51,5 +57,10 @@
 
 		var cultures = GetCultureInfos();
 		return request.ApplyTo(cultures);
+	}
+
+	private void HandleCustomGridPositionClick()
+	{
+		customGridUserState = customGridUserState with { PageIndex = 2 /* page 3 */ , LoadMoreAdditionalItemsCount = 2 };
 	}
 }
