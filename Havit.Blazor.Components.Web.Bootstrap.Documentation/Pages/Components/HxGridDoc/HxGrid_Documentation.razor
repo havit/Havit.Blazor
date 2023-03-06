@@ -5,7 +5,6 @@
     <MainContent>
 
         <DocHeading Title="Data binding" />
-        <h2></h2>
         <p>
             Implement the <code>@nameof(HxGrid<object>.DataProvider)</code> method which is provided with a "request"
             (requested sorting and paging) and returns a "result" (items to display and total count of items).
@@ -62,6 +61,10 @@
         <DocHeading Title="Inline-editing" />
         <p>To achieve an inline-editing experience, you can use the <code>SelectedDataItem</code> and render editing UI for such items. Simply specify the content of the <code>ItemTemplate</code> in <code>HxGridColumn</code> and use the <code>SelectedDataItemChanged</code> event to save changes (or you can add a column with command buttons).</p>
         <Demo Type="typeof(HxGrid_Demo_InlineEditing)" />
+
+        <DocHeading Title="Filtering from headers" Id="header-filtering" />
+		<p>Individual column filtering can be set up by adding your filtering UI to the columns' <code>HeaderTemplate</code>s and filtering the data in the <code>DataProvider</code> based on the values provided.</p>
+        <Demo Type="typeof(HxGrid_Demo_HeaderFiltering)" />
 
         <DocHeading Title="Hoverable rows" Id="hover" />
         <p>You can set <code>@nameof(HxGrid<TItem>.Hover)</code> parameter to enable/disable hover state on rows. If not set, hover state is enabled if the grid has selection enabled.</p>

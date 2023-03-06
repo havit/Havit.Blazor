@@ -1,0 +1,23 @@
+﻿<HxPopover @ref="popover1" Title="Popover title" Content="And here's some amazing content. It's very engaging. Right?">
+	<HxButton Color="ThemeColor.Primary">Click to toggle popover</HxButton>
+</HxPopover>
+<HxButton Text="Disable" OnClick="HandleDisableClick" Color="ThemeColor.Warning" Outline="@(!enabled)" Spinner="false" />
+<HxButton Text="Enable" OnClick="HandleEnableClick" Color="ThemeColor.Success" Outline="@enabled" Spinner="false" />
+
+@code
+{
+	private HxPopover popover1;
+	private bool enabled = true;
+
+	private async Task HandleEnableClick()
+	{
+		await popover1.EnableAsync();
+		enabled = true;
+	}
+
+	private async Task HandleDisableClick()
+	{
+		await popover1.DisableAsync();
+		enabled = false;
+	}
+}

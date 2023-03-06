@@ -27,7 +27,11 @@ public sealed class HxGrid
 			PlaceholdersRowCount = 5,
 			ShowFooterWhenEmptyData = false,
 			Responsive = false,
-			Striped = false
+			Striped = false,
+			LoadMoreButtonSettings = new ButtonSettings()
+			{
+				Color = ThemeColor.Secondary
+			}
 		};
 	}
 }

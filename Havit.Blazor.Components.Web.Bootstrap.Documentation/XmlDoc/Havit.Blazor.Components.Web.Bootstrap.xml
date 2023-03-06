@@ -249,6 +249,11 @@
             CSS class to be rendered with the button.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.IconCssClass">
+            <summary>
+            CSS class to be rendered with the button icon.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.Icon">
             <summary>
             Icon to be rendered with the button.
@@ -355,6 +360,11 @@
             <summary>
             Custom CSS class to render with the <c>&lt;button /&gt;</c>.<br />
             When using <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Tooltip"/> you might want to use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.TooltipWrapperCssClass"/> instead of <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CssClass" /> to get the desired result.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.IconCssClass">
+            <summary>
+            CSS class to be rendered with the button icon.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Enabled">
@@ -1373,6 +1383,11 @@
             Additional CSS class(es) for the context menu dropdown menu.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ContextMenuSettings.DropdownMenuAlignment">
+            <summary>
+            Alignment for the context menu dropdown menu.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ContextMenuSettings.Icon">
             <summary>
             Icon carring the menu (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon" /> or any other <see cref="T:Havit.Blazor.Components.Web.IconBase"/>).<br />
@@ -1437,6 +1452,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.IconCssClass">
             <summary>
             Additional CSS class(es) for the context menu icon.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.DropdownMenuAlignment">
+            <summary>
+            Alignment for the context menu dropdown menu.
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DropdownMenuAlignment.End"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.ChildContent">
@@ -3051,6 +3072,18 @@
             Hides the component.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.EnableAsync">
+            <summary>
+            Gives the component the ability to be shown.<br />
+            The component is enabled by default (i.e. this method is not necessary to be called if the component has not been disabled).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.DisableAsync">
+            <summary>
+            Removes the ability for the component to be shown.<br />
+            It will only be able to be shown if it is re-enabled.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.HandleJsShown">
             <summary>
             Receives notification from javascript when content is shown.
@@ -4338,6 +4371,17 @@
             Input-group at the end of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputText">
+            <summary>
+            Text to display in the input (default is a list of selected values).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputTextSelector">
+            <summary>
+            Function to build the text to be displayed in the input from selected items (default is a list of selected values).
+            </summary>
+            <remarks>Currently does not affect the chip being generated. Override <c>RenderChipValue()</c> method to influence the chip.</remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputGroupEndTemplate">
             <summary>
             Input-group at the end of the input.
@@ -5405,14 +5449,22 @@
             Use pager.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll">
-            <summary>
-            Use infinite scroll (virtualized).
-            </summary>
-        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore">
             <summary>
             Use "Load more" button.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore">
+            <summary>
+            Use pager and "Load more" button.
+            </summary>
+            <remarks>
+            Value used as this is a flagged enum (but it is not).
+            </remarks>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll">
+            <summary>
+            Use infinite scroll (virtualized).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderDelegate`1">
@@ -5501,6 +5553,21 @@
             Indicates whether the sorting should be performed in the reverse direction.	
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridLoadMoreTemplateContext">
+            <summary>
+            Context for "load more" template of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridLoadMoreTemplateContext.LoadMoreAsync">
+            <summary>
+            Instructs the grid to load next page.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridLoadMoreTemplateContext.#ctor(System.Func{System.Threading.Tasks.Task})">
+            <remark>
+            Not used HxGrid because we have HxGrid&lt;TItem&gt; which leads to GridLoadMoreTemplateContext&lt;TItem&gt;.
+            </remark>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext">
             <summary>
             Placeholder cell context.
@@ -5509,7 +5576,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext.Index">
             <summary>
             Index of the row.		
-            It reflects current page index when <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination" /> or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore" /> mode is used
+            It reflects current page index when <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination" />, <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore" /> or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore" /> mode is used
             (ie. when the page size is 10, then on the third page indexes are 20-29).
             </summary>
         </member>
@@ -5549,7 +5616,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PageSize">
             <summary>
-            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>. Set <c>0</c> to disable paging.
+            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/>, <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore" />. Set <c>0</c> to disable paging.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PlaceholdersRowCount">
@@ -5608,6 +5675,11 @@
             Pager settings.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.LoadMoreButtonSettings">
+            <summary>
+            Settings for the "Load more" navigation button (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore"/>).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState">
             <summary>
             User state of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/>.
@@ -5616,12 +5688,15 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.PageIndex">
             <summary>
             Current page index for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/>.
-            Starting page index for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>.
+            Starting page index for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore"/>.
             </summary>
+            <remarks>
+            This number is not the current page index in pager when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.LoadMoreAdditionalItemsCount"/> is not zero.
+            </remarks>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.LoadMorePagesCount">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.LoadMoreAdditionalItemsCount">
             <summary>
-            Count of additional pages for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>.
+            Count of additional items to load for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.Sorting">
@@ -5825,7 +5900,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PageSize">
             <summary>
-            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>. Set <c>0</c> to disable paging.
+            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/>, <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore"/>. Set <c>0</c> to disable paging.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ShowFooterWhenEmptyData">
@@ -5837,6 +5912,17 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PagerSettings">
             <summary>
             Pager settings.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadMoreButtonText">
+            <summary>
+            Text of the "Load more" navigation button (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>).
+            (Default is taken from the localization resources.)
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadMoreButtonSettings">
+            <summary>
+            Settings for the "Load more" navigation button (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserState">
@@ -6383,21 +6469,6 @@
             <summary>
             Returns footer cell template.
             </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.LoadMoreContext">
-            <summary>
-            Context for "load more" template.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.LoadMoreContext.LoadMoreAsync">
-            <summary>
-            Instructs to load next page.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.LoadMoreContext.#ctor(System.Func{System.Threading.Tasks.Task})">
-            <remark>
-            Not used HxGrid because we have HxGrid&lt;TItem&gt; which leads to LoadMoreContext&lt;TItem&gt;.
-            </remark>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PagerSettings">
             <summary>

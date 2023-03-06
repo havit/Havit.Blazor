@@ -7,14 +7,17 @@ public record class GridUserState
 {
 	/// <summary>
 	/// Current page index for <see cref="GridContentNavigationMode.Pagination"/>.
-	/// Starting page index for <see cref="GridContentNavigationMode.LoadMore"/>.
+	/// Starting page index for <see cref="GridContentNavigationMode.LoadMore"/> and <see cref="GridContentNavigationMode.PaginationAndLoadMore"/>.
 	/// </summary>
+	/// <remarks>
+	/// This number is not the current page index in pager when <see cref="LoadMoreAdditionalItemsCount"/> is not zero.
+	/// </remarks>
 	public int PageIndex { get; init; }
 
 	/// <summary>
-	/// Count of additional pages for <see cref="GridContentNavigationMode.LoadMore"/>.
+	/// Count of additional items to load for <see cref="GridContentNavigationMode.LoadMore"/> or <see cref="GridContentNavigationMode.PaginationAndLoadMore"/>.
 	/// </summary>
-	public int LoadMorePagesCount { get; init; }
+	public int LoadMoreAdditionalItemsCount { get; init; }
 
 	/// <summary>
 	/// Current sorting.
@@ -31,7 +34,7 @@ public record class GridUserState
 	public GridUserState(int pageIndex, IReadOnlyList<GridUserStateSortingItem> sorting)
 	{
 		PageIndex = pageIndex;
-		LoadMorePagesCount = 0;
+		LoadMoreAdditionalItemsCount = 0;
 		Sorting = sorting;
 	}
 

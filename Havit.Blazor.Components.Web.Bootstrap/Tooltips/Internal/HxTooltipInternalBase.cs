@@ -274,6 +274,36 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	}
 
 	/// <summary>
+	/// Gives the component the ability to be shown.<br />
+	/// The component is enabled by default (i.e. this method is not necessary to be called if the component has not been disabled).
+	/// </summary>
+	public async Task EnableAsync()
+	{
+		if (!isInitialized)
+		{
+			return;
+		}
+
+		await EnsureJsModuleAsync();
+		await jsModule.InvokeVoidAsync("enable", spanElement);
+	}
+
+	/// <summary>
+	/// Removes the ability for the component to be shown.<br />
+	/// It will only be able to be shown if it is re-enabled.
+	/// </summary>
+	public async Task DisableAsync()
+	{
+		if (!isInitialized)
+		{
+			return;
+		}
+
+		await EnsureJsModuleAsync();
+		await jsModule.InvokeVoidAsync("disable", spanElement);
+	}
+
+	/// <summary>
 	/// Receives notification from javascript when content is shown.
 	/// </summary>
 	/// <remarks>
