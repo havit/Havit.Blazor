@@ -5,7 +5,8 @@
 	/* HxAutosuggest */
 	--hx-autosuggest-input-close-icon-opacity: 			.25;
 	--hx-autosuggest-item-highlighted-background-color: var(--bs-gray-200);
-	--hx-autosuggest-dropdown-menu-height:				300px;	
+	--hx-autosuggest-dropdown-menu-height:				300px;
+	--hx-autosuggest-dropdown-menu-width:				100%;
 	/* HxButton */
 	--hx-button-icon-text-spacer-width:					0.25rem;
 	/* HxSidebar */
