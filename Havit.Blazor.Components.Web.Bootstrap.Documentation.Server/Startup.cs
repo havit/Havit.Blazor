@@ -1,4 +1,5 @@
 using System.Globalization;
+using Havit.Blazor.Components.Web.Bootstrap.Documentation.DemoData;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 using Microsoft.AspNetCore.Http.Extensions;
 
@@ -17,6 +18,8 @@ public class Startup
 		services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
 		services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
 		services.AddSingleton<IDocPageNavigationItemsHolder, DocPageNavigationItemsHolder>();
+
+		services.AddTransient<IDemoDataService, DemoDataService>();
 	}
 
 	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
