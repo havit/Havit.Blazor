@@ -6,7 +6,7 @@
     top: 50%;
     right: 0;
     transform: translateY(-50%);
-    z-index: 1010;
+    z-index: 5;
 }
 
 .input-group .hx-autosuggest-input-wrapper {
@@ -36,4 +36,8 @@
 
 ::deep .hx-autosuggest-item-focused {
     background-color: var(--hx-autosuggest-item-highlighted-background-color);
+}
+
+::deep .form-floating > label {
+    z-index: 20;
 }

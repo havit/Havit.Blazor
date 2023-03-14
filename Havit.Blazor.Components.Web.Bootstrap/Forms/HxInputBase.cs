@@ -108,7 +108,10 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// <summary>
 	/// CSS class to be rendered with the wrapping div.
 	/// </summary>
-	private protected virtual string CoreCssClass => CssClassHelper.Combine("hx-form-group position-relative", ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)) ? "form-floating" : null);
+	private protected virtual string CoreCssClass => CssClassHelper.Combine("hx-form-group position-relative",
+		((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
+		? "form-floating"
+		: null);
 
 	/// <summary>
 	/// CSS class to be rendered with the input element.
@@ -118,7 +121,10 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// <summary>
 	/// CSS class to be rendered with the label.
 	/// </summary>
-	private protected virtual string CoreLabelCssClass => "form-label";
+	private protected virtual string CoreLabelCssClass =>
+		((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Regular))
+		? "form-label"
+		: null;
 
 	/// <summary>
 	/// CSS class to be rendered with the hint.
@@ -140,7 +146,10 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// Elements rendering order. Overriden in the <see cref="HxInputCheckbox"/> component.
 	/// </summary>
 	// TODO Remove when HxInputCheckbox removed?
-	protected virtual LabelValueRenderOrder RenderOrder => ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)) ? LabelValueRenderOrder.ValueLabel : LabelValueRenderOrder.LabelValue;
+	protected virtual LabelValueRenderOrder RenderOrder =>
+		((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
+		? LabelValueRenderOrder.ValueLabel
+		: LabelValueRenderOrder.LabelValue;
 
 	/// <summary>
 	/// Gets or sets the current value of the input.
@@ -290,7 +299,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		builder.AddAttribute(3, "type", typeValue);
 		builder.AddAttribute(4, "class", GetInputCssClassToRender());
 		builder.AddAttribute(5, "disabled", !EnabledEffective);
-		if ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating))
+		if ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
 		{
 			builder.AddAttribute(6, "placeholder", "placeholder"); // there must be a nonempty value (which is not visible)
 		}

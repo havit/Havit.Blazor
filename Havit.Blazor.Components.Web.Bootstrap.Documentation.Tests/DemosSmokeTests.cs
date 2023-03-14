@@ -1,4 +1,5 @@
 using Bunit;
+using Havit.Blazor.Components.Web.Bootstrap.Documentation.DemoData;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -21,6 +22,8 @@ public class DemosSmokeTests
 		ctx.Services.AddHxServices();
 		ctx.Services.AddHxMessenger();
 		ctx.Services.AddHxMessageBoxHost();
+
+		ctx.Services.AddTransient<IDemoDataService, DemoDataService>();
 
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 		{

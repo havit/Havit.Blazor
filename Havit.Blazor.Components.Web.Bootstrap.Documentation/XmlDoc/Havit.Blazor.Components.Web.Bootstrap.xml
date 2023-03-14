@@ -15,9 +15,15 @@
             Additional CSS classes for the accordion container.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds">
+            <summary>
+            IDs of the expanded items (if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <code>true</code>, several items can be expanded).
+            Do not use constant value as it resets the accordion on every roundtrip. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemIds"/> to set the initial state.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId">
             <summary>
-            ID of the expanded item.
+            ID of the LAST expanded item (if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <code>true</code>, several items can be expanded).
             Do not use constant value as it reverts the accordion to that item on every roundtrip. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemId"/> to set the initial state.
             </summary>
         </member>
@@ -30,6 +36,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemId">
             <summary>
             ID of the item you want to expand at the very beginning (overwrites <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId"/> if set).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemIds">
+            <summary>
+            IDs of the item you want to expand at the very beginning (overwrites <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds"/> if set).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem">
@@ -3248,31 +3259,16 @@
             Items to display. 
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.TextSelector">
-            <summary>
-            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.TextSelector"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemTextSelector"/> instead.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemTextSelector">
             <summary>
             Selects text to display from item.
             When not set, <c>ToString()</c> is used.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ValueSelector">
-            <summary>
-            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ValueSelector"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemValueSelector"/> instead.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemValueSelector">
             <summary>
             Selects value from item.
             Not required when TValue is same as TItem.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.SortKeySelector">
-            <summary>
-            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.SortKeySelector"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemSortKeySelector"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemSortKeySelector">
@@ -3805,12 +3801,6 @@
             Optional icon to display within the input. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/> to set the icon for the whole project.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.ShowCalendarButtons">
-            <summary>
-            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
-            Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.ShowClearButton">
             <summary>
             Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
@@ -3937,12 +3927,6 @@
             <summary>
             Gets or sets the error message used when displaying an a &quot;to&quot; parsing error.
             Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by Label property, <c>{1}</c> name of bounded property.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ShowCalendarButtons">
-            <summary>
-            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
-            Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ShowClearButton">
@@ -4426,11 +4410,6 @@
             Not required when <c>TValue</c> is same as <c>TItem</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ValueSelector">
-            <summary>
-            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ValueSelector"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemValueSelector"/> instead.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.Data">
             <summary>
             Items to display. 
@@ -4440,11 +4419,6 @@
             <summary>
             Selects text to display from item. Also used for chip text.
             When not set <c>ToString()</c> is used.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.TextSelector">
-            <summary>
-            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.TextSelector"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextSelector"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTemplate">
@@ -4457,11 +4431,6 @@
             <summary>
             Selects value to sort items. Uses <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextSelector"/> property when not set.
             When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.SortKeySelector">
-            <summary>
-            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.SortKeySelector"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemSortKeySelector"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemCssClass">
@@ -4519,11 +4488,6 @@
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ValueSelectorImpl">
-            <summary>
-            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ValueSelectorImpl"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemValueSelectorImpl"/> instead.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.DataImpl">
             <summary>
             Items to display. 
@@ -4537,11 +4501,6 @@
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.TextSelectorImpl">
-            <summary>
-            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.TextSelectorImpl"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextSelectorImpl"/> instead.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTemplateImpl">
             <summary>
             Gets html to display from item.
@@ -4553,11 +4512,6 @@
             Selects value to sort items. Uses <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextSelectorImpl"/> property when not set.
             When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.SortKeySelectorImpl">
-            <summary>
-            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.SortKeySelectorImpl"/> is obsolete, please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemSortKeySelectorImpl"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemCssClassImpl">
@@ -4894,11 +4848,6 @@
             Input size.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ShowCalendarButtons">
-            <summary>
-            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ShowClearButton">
             <summary>
             Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
@@ -4942,11 +4891,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.CalendarIcon">
             <summary>
             Optional icon to display within the input.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.ShowCalendarButtons">
-            <summary>
-            Indicates whether the <i>Clear</i> and <i>OK</i> buttons in calendar should be visible.<br/>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.ShowClearButton">

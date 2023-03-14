@@ -265,18 +265,20 @@
 		{
 			if ((((CurrentUserState.PageIndex + 1) * PageSizeEffective) + CurrentUserState.LoadMoreAdditionalItemsCount) < totalCount.Value)
 			{
-				@if (LoadMoreTemplate != null)
-				{
-					var loadMoreContext = GridLoadMoreTemplateContext.CreateFor(this);
-					<text>
-						@LoadMoreTemplate(loadMoreContext)
-					</text> 
-				}
-				else
-				{
-					string buttonText = this.LoadMoreButtonText ?? HxGridLocalizer["LoadMoreData"];
-					<HxButton Text="@buttonText" Settings="this.LoadMoreButtonSettingsEffective" OnClick="HandleLoadMoreClick" />
-				}
+				<div class="hx-grid-load-more-container">
+					@if (LoadMoreTemplate != null)
+					{
+						var loadMoreContext = GridLoadMoreTemplateContext.CreateFor(this);
+						<text>
+							@LoadMoreTemplate(loadMoreContext)
+						</text> 
+					}
+					else
+					{
+						string buttonText = this.LoadMoreButtonText ?? HxGridLocalizer["LoadMoreData"];
+						<HxButton Text="@buttonText" Settings="this.LoadMoreButtonSettingsEffective" OnClick="HandleLoadMoreClick" />
+					}
+				</div>
 			}
 		}
 

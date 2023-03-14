@@ -139,10 +139,7 @@ public partial class HxAccordionItem : ComponentBase
 		lastKnownStateIsExpanded = true;
 		isInTransition = false;
 
-		if (!IsSetToBeExpanded())
-		{
-			await ParentAccordition.SetExpandedItemIdAsync(this.Id);
-		}
+		await ParentAccordition.SetItemExpandedAsync(this.Id);
 
 		await InvokeOnExpandedAsync(this.Id);
 	}
@@ -152,17 +149,10 @@ public partial class HxAccordionItem : ComponentBase
 		lastKnownStateIsExpanded = false;
 		isInTransition = false;
 
-		// hidden-event usually comes AFTER the shown-event of the other HxAccorditionItem
-		if (IsSetToBeExpanded())
-		{
-			// if there has been no other HxAccorditionItem set as expanded yet, clear the selection
-			await ParentAccordition.SetExpandedItemIdAsync(null);
-		}
+		await ParentAccordition.SetItemCollapsedAsync(this.Id);
+
 		await InvokeOnCollapsedAsync(this.Id);
 	}
 
-	private bool IsSetToBeExpanded()
-	{
-		return (this.Id == ParentAccordition.ExpandedItemId);
-	}
+	private bool IsSetToBeExpanded() => ParentAccordition.ExpandedItemIds.Contains(this.Id);
 }

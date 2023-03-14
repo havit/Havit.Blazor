@@ -1,6 +1,15 @@
 ﻿.hx-autosuggest-input {
     position: relative;
-    z-index: 1000;
+}
+
+/* Unfocused input z-index: 4 same as Bootstrap form-controls */
+.input-group .hx-autosuggest-input.is-invalid:not(:focus) {
+    z-index: 4;
+}
+
+/* Bring the "active" form control to the top of surrounding elements */
+.input-group .hx-autosuggest-input:focus {
+    z-index: 5;
 }
 
 .form-control.is-invalid {

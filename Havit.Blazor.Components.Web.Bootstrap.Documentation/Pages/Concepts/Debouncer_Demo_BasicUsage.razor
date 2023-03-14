@@ -1,0 +1,41 @@
+﻿@implements IDisposable
+
+<HxInputText Label="Debounced HxInputText" @bind-Value="query" @bind-Value:after="TriggerQuery" BindEvent="BindEvent.OnInput" />
+
+<HxFormValue Label="query" Value="@query" />
+<HxFormValue Label="queryDebouncedStarted" Value="@queryDebouncedStarted" />
+<HxFormValue Label="queryDebouncedCompleted" Value="@queryDebouncedCompleted" />
+
+@code {
+	private string query;
+	private string queryDebouncedStarted;
+	private string queryDebouncedCompleted;
+	private Debouncer queryDebouncer = new Debouncer();
+
+	private async Task TriggerQuery()
+	{
+		var actualQuery = query;
+
+		await queryDebouncer.DebounceAsync(async (cancellationToken) =>
+		{
+			await PerformSomeWork(query, cancellationToken); // simulate some work, might be cancelable or not
+		},
+		millisecondsDelay: 500);
+
+		// Do not put any code here as it gets executed for every query-change when the Debouncer finishes its work (cancelation or delayed execution).
+	}
+
+	public async Task PerformSomeWork(string actualQuery, CancellationToken cancellationToken)
+	{
+		queryDebouncedStarted = actualQuery;
+
+		await Task.Delay(500, cancellationToken); 
+
+		queryDebouncedCompleted = actualQuery;
+	}
+
+	public void Dispose()
+	{
+		queryDebouncer.Dispose();
+	}
+}
