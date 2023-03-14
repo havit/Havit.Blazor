@@ -43,7 +43,7 @@
 
 @if (hasChildren)
 {
-    <HxCollapse Id="@collapseId"
+	<HxCollapse Id="@collapseId"
             CollapseDirection="CollapseDirection.Vertical"
             InitiallyExpanded="IsExpanded ?? false"
             OnHidden="() => IsExpanded = false"
@@ -58,7 +58,8 @@
                             IconSelector="this.IconSelector"
                             CssClass="@this.CssClass"
                             CssClassSelector="this.CssClassSelector"
-                            ChildrenSelector="this.ChildrenSelector"
+							InitialExpandedSelector="this.InitialExpandedSelector"
+							ChildrenSelector="this.ChildrenSelector"
                             Level="@(this.Level + 1)"
                             ContentTemplate="this.ContentTemplate"
                             OnItemSelected="this.OnItemSelected" />
