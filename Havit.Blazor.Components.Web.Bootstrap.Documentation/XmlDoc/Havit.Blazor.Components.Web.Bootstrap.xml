@@ -15,9 +15,15 @@
             Additional CSS classes for the accordion container.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds">
+            <summary>
+            IDs of the expanded items (if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <code>true</code>, several items can be expanded).
+            Do not use constant value as it resets the accordion on every roundtrip. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemIds"/> to set the initial state.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId">
             <summary>
-            ID of the expanded item.
+            ID of the LAST expanded item (if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <code>true</code>, several items can be expanded).
             Do not use constant value as it reverts the accordion to that item on every roundtrip. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemId"/> to set the initial state.
             </summary>
         </member>
@@ -30,6 +36,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemId">
             <summary>
             ID of the item you want to expand at the very beginning (overwrites <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId"/> if set).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemIds">
+            <summary>
+            IDs of the item you want to expand at the very beginning (overwrites <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds"/> if set).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem">

@@ -12,7 +12,15 @@ public partial class HxAccordion
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// ID of the expanded item.
+	/// IDs of the expanded items (if <see cref="StayOpen"/> is <code>true</code>, several items can be expanded).
+	/// Do not use constant value as it resets the accordion on every roundtrip. Use <see cref="InitialExpandedItemIds"/> to set the initial state.
+	/// </summary>
+	[Parameter] public List<string> ExpandedItemIds { get; set; } = new List<string>();
+	[Parameter] public EventCallback<List<string>> ExpandedItemIdsChanged { get; set; }
+	protected virtual Task InvokeExpandedItemIdsChangedAsync(List<string> newExpandedItemIds) => ExpandedItemIdsChanged.InvokeAsync(newExpandedItemIds);
+
+	/// <summary>
+	/// ID of the LAST expanded item (if <see cref="StayOpen"/> is <code>true</code>, several items can be expanded).
 	/// Do not use constant value as it reverts the accordion to that item on every roundtrip. Use <see cref="InitialExpandedItemId"/> to set the initial state.
 	/// </summary>
 	[Parameter] public string ExpandedItemId { get; set; }
@@ -30,26 +38,59 @@ public partial class HxAccordion
 	/// </summary>
 	[Parameter] public string InitialExpandedItemId { get; set; }
 
+	/// <summary>
+	/// IDs of the item you want to expand at the very beginning (overwrites <see cref="ExpandedItemIds"/> if set).
+	/// </summary>
+	[Parameter] public List<string> InitialExpandedItemIds { get; set; } = new();
+
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	protected internal string Id { get; set; } = "hx" + Guid.NewGuid().ToString("N");
 
-	protected override async Task OnInitializedAsync()
+	protected override void OnInitialized()
 	{
-		await base.OnInitializedAsync();
-
-		if (!String.IsNullOrWhiteSpace(InitialExpandedItemId))
+		if (InitialExpandedItemIds.Count > 0)
 		{
-			await SetExpandedItemIdAsync(InitialExpandedItemId);
+			ExpandedItemIds.AddRange(InitialExpandedItemIds);
+		}
+		else if (!String.IsNullOrWhiteSpace(InitialExpandedItemId))
+		{
+			ExpandedItemIds.Add(InitialExpandedItemId);
 		}
 	}
 
-	internal async Task SetExpandedItemIdAsync(string newId)
+	protected override void OnParametersSet()
 	{
-		if (this.ExpandedItemId != newId)
+		// synchronization of ExpandedItemId with ExpandedItemIds
+		if (ExpandedItemId is null)
 		{
-			ExpandedItemId = newId;
-			await InvokeExpandedItemIdChangedAsync(newId);
+			ExpandedItemIds.Clear();
+		}
+		else if (!ExpandedItemIds.Contains(ExpandedItemId))
+		{
+			ExpandedItemIds.Clear();
+			ExpandedItemIds.Add(ExpandedItemId);
+		}
+	}
+
+	internal async Task SetItemExpandedAsync(string itemId)
+	{
+		if (!ExpandedItemIds.Contains(itemId))
+		{
+			ExpandedItemIds.Add(itemId);
+			ExpandedItemId = itemId;
+			await InvokeExpandedItemIdChangedAsync(itemId);
+			await InvokeExpandedItemIdsChangedAsync(ExpandedItemIds);
+			StateHasChanged();
+		}
+	}
+
+	internal async Task SetItemCollapsedAsync(string itemId)
+	{
+		if (ExpandedItemIds.Contains(itemId))
+		{
+			ExpandedItemIds.Remove(itemId);
+			await InvokeExpandedItemIdsChangedAsync(ExpandedItemIds);
 			StateHasChanged();
 		}
 	}
