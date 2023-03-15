@@ -610,7 +610,6 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		CancellationToken cancellationToken = paginationRefreshDataCancellationTokenSource.Token;
 
 		GridUserState currentUserState = CurrentUserState;
-		int pageSizeEffective = PageSizeEffective;
 
 		// note: PageSize can be null!
 		// loading scenarios:
@@ -621,7 +620,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		// 5) state reset (GridUserState changed) -> load page X + additional Y items
 		GridDataProviderRequest<TItem> request;
 		bool loadingAdditionalItemsOnly;
-		if (pageSizeEffective == 0)
+		if (PageSizeEffective == 0)
 		{
 			loadingAdditionalItemsOnly = false;
 			request = new GridDataProviderRequest<TItem>
@@ -643,7 +642,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 					: (currentUserState.PageIndex * PageSizeEffective), // loading whole page and additional items (no load more scenario or state reset)
 				Count = loadingAdditionalItemsOnly
 					? currentUserState.LoadMoreAdditionalItemsCount - previousLoadMoreAdditionalItemsCount // loading "a few" load more items
-					: PageSize + currentUserState.LoadMoreAdditionalItemsCount, // loading whole page and additional items (no load more scenario or state reset)
+					: PageSizeEffective + currentUserState.LoadMoreAdditionalItemsCount, // loading whole page and additional items (no load more scenario or state reset)
 				Sorting = GridInternalStateSortingItemHelper.ToSortingItems(currentSorting),
 				CancellationToken = cancellationToken
 			};
