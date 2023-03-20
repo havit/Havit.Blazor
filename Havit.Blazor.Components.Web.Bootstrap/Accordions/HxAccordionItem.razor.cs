@@ -61,7 +61,6 @@ public partial class HxAccordionItem : ComponentBase
 	private string idEffective;
 	private bool lastKnownStateIsExpanded;
 	private bool isInitialized;
-	private bool isInTransition;
 	private HxCollapse collapseComponent;
 
 	protected override async Task OnParametersSetAsync()
@@ -90,16 +89,13 @@ public partial class HxAccordionItem : ComponentBase
 
 		if (isInitialized)
 		{
-			if (!isInTransition)
+			if (!lastKnownStateIsExpanded && IsSetToBeExpanded())
 			{
-				if (!lastKnownStateIsExpanded && IsSetToBeExpanded())
-				{
-					await ExpandAsync();
-				}
-				else if (lastKnownStateIsExpanded && String.IsNullOrEmpty(ParentAccordition.ExpandedItemId))
-				{
-					await CollapseAsync();
-				}
+				await ExpandAsync();
+			}
+			else if (lastKnownStateIsExpanded && !IsSetToBeExpanded())
+			{
+				await CollapseAsync();
 			}
 		}
 		else
@@ -121,8 +117,8 @@ public partial class HxAccordionItem : ComponentBase
 	/// </summary>
 	public async Task ExpandAsync()
 	{
-		isInTransition = true;
 		await collapseComponent.ShowAsync();
+		lastKnownStateIsExpanded = true;
 	}
 
 	/// <summary>
@@ -130,14 +126,13 @@ public partial class HxAccordionItem : ComponentBase
 	/// </summary>
 	public async Task CollapseAsync()
 	{
-		isInTransition = true;
 		await collapseComponent.HideAsync();
+		lastKnownStateIsExpanded = false;
 	}
 
 	private async Task HandleCollapseShown()
 	{
 		lastKnownStateIsExpanded = true;
-		isInTransition = false;
 
 		await ParentAccordition.SetItemExpandedAsync(this.Id);
 
@@ -147,7 +142,6 @@ public partial class HxAccordionItem : ComponentBase
 	private async Task HandleCollapseHidden()
 	{
 		lastKnownStateIsExpanded = false;
-		isInTransition = false;
 
 		await ParentAccordition.SetItemCollapsedAsync(this.Id);
 

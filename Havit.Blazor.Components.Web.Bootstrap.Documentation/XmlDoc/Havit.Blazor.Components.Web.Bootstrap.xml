@@ -23,7 +23,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId">
             <summary>
-            ID of the LAST expanded item (if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <code>true</code>, several items can be expanded).
+            ID of the single expanded item (if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <code>true</code>, use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds" />, several items can be expanded).
             Do not use constant value as it reverts the accordion to that item on every roundtrip. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemId"/> to set the initial state.
             </summary>
         </member>
