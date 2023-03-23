@@ -637,7 +637,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			request = new GridDataProviderRequest<TItem>
 			{
 				StartIndex = loadingAdditionalItemsOnly
-					? (currentUserState.PageIndex * PageSizeEffective) + previousLoadMoreAdditionalItemsCount // loading "a few" load more items
+					? ((currentUserState.PageIndex + 1) * PageSizeEffective) + previousLoadMoreAdditionalItemsCount // loading "a few" load more items
 					: (currentUserState.PageIndex * PageSizeEffective), // loading whole page and additional items (no load more scenario or state reset)
 				Count = loadingAdditionalItemsOnly
 					? currentUserState.LoadMoreAdditionalItemsCount - previousLoadMoreAdditionalItemsCount // loading "a few" load more items
