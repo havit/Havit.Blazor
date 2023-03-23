@@ -360,7 +360,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 		if (firstRender && ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)))
 		{
-			await RefreshPaginationOrLoadMoreDataCoreAsync();
+			// except InfiniteScroll (Virtualize will initiate the load on its own), we want to load data on first render
+			await RefreshDataAsync();
 		}
 
 		// when rendering page with no data, navigate one page back
@@ -629,7 +630,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		}
 		else
 		{
-			loadingAdditionalItemsOnly = !forceReloadAllPaginationOrLoadMoreData && (currentUserState.LoadMoreAdditionalItemsCount > 0);
+			loadingAdditionalItemsOnly = !forceReloadAllPaginationOrLoadMoreData
+				&& (currentUserState.LoadMoreAdditionalItemsCount > 0)
+				&& (paginationDataItemsToRender?.Count > 0);
 
 			request = new GridDataProviderRequest<TItem>
 			{
