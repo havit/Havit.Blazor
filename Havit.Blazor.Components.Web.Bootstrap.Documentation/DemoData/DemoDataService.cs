@@ -2,11 +2,14 @@
 
 public class DemoDataService : IDemoDataService
 {
+	private readonly ILogger<DemoDataService> logger;
+
 	private List<EmployeeDto> employees { get; }
 
-	public DemoDataService()
+	public DemoDataService(ILogger<DemoDataService> logger)
 	{
-		// Generated with ChatGPT Plus ;-)
+		this.logger = logger;
+
 		employees = new()
 		{
 			new EmployeeDto()
@@ -472,17 +475,24 @@ public class DemoDataService : IDemoDataService
 	}
 	public IEnumerable<EmployeeDto> GetAllEmployees()
 	{
-		return employees;
+		logger.LogInformation("DemoDataService.GetAllEmployees() called.");
+		return employees.ToList();
 	}
 
-	public Task<IEnumerable<EmployeeDto>> GetEmployeesDataFragmentAsync(int startIndex, int? count, CancellationToken cancellationToken = default)
+	public async Task<IEnumerable<EmployeeDto>> GetEmployeesDataFragmentAsync(int startIndex, int? count, CancellationToken cancellationToken = default)
 	{
-		return Task.FromResult(employees.Skip(startIndex).Take(count ?? Int32.MaxValue));
+		logger.LogInformation($"DemoDataService.GetEmployeesDataFragmentAsync(startIndex: {startIndex}, count: {count}) called.");
+
+		await Task.Delay(80); // simulate server call
+		return employees.Skip(startIndex).Take(count ?? Int32.MaxValue).ToList();
 	}
 
-	public Task<int> GetEmployeesCountAsync(CancellationToken cancellationToken = default)
+	public async Task<int> GetEmployeesCountAsync(CancellationToken cancellationToken = default)
 	{
-		return Task.FromResult(employees.Count);
+		logger.LogInformation("DemoDataService.GetEmployeesCountAsync(..) called.");
+
+		await Task.Delay(80); // simulate server call
+		return employees.Count;
 	}
 
 }
