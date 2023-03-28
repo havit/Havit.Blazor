@@ -67,7 +67,7 @@ public partial class HxChipList
 
 	[Parameter] public EventCallback<ChipItem> OnResetClick { get; set; }
 
-	[Parameter] public bool ShowResetButton { get; set; }
+	[Parameter] public bool Reset { get; set; }
 
 	[Parameter] public string ResetButtonText { get; set; }
 
