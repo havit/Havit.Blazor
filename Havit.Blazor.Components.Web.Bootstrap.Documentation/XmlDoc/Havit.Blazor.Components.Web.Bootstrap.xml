@@ -3336,6 +3336,15 @@
             Throws NotSupportedException - giving focus to an input element is not supported on the HxCheckboxList.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.FormatValueAsString(System.Collections.Generic.List{`0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ShouldRenderChipGenerator">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.GetChipRemoveValue">
+            <inheritdoc />
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxFormValue">
             <summary>
             Displays a read-only value in the form control visual (as <c>.form-control</c>, with label, border, etc.).<br />

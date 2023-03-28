@@ -53,7 +53,7 @@
             Starts the debouncing.
             </summary>
             <param name="millisecondsDelay">debouncing delay</param>
-            <param name="actionAsync">work to be executed</param>
+            <param name="actionAsync">work to be executed (<see cref="T:System.Threading.CancellationToken"/> gets canceled if the method is called again)</param>
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Title">
             <summary>
