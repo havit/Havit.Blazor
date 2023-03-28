@@ -13,44 +13,44 @@
                                  OnHidden="HandleDropdownMenuHidden"
                                  id="@dropdownToggleElementId">
 
-            <div class="position-relative">
-                @if (!string.IsNullOrEmpty(Label))
-                {
-                    <label class="form-label">@Label</label>
-                }
-                <span class="@CssClassHelper.Combine(
-                                (HasInputGroupsEffective ? "input-group" : null),
-                                (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null,
-                                InputSizeEffective.AsInputGroupCssClass(),
-                                InputGroupCssClass)">
+            @if (!string.IsNullOrEmpty(Label) && LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Regular)
+            {
+                <label class="form-label">@Label</label>
+            }
+            <div class="@CssClassHelper.Combine(
+                            "position-relative",
+                            (HasInputGroups ? "input-group" : null),
+                            (LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null,
+                            InputSizeEffective.AsInputGroupCssClass(),
+                            InputGroupCssClass)">
                     
-                    @if (InputGroupStartText is not null)
-                    {
-                        <span class="input-group-text">@InputGroupStartText</span>
-                    }
+                @if (InputGroupStartText is not null)
+                {
+                    <span class="input-group-text">@InputGroupStartText</span>
+                }
 
-                    @InputGroupStartTemplate
+                @InputGroupStartTemplate
 
-                    <input
-                        id="@inputId"
-                        value="@TextQuery"
-                        @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
-                        @onfocus="HandleInputFocus"
-                        @onblur="HandleInputBlur"
-                        inputmode="search"
-                        enabled="@Enabled"
-                        placeholder="@Placeholder"
-                        class="@CssClassHelper.Combine("form-control", InputCssClassEffective)" />
-                            
-                    @InputGroupEndTemplate
+                <input
+                    id="@inputId"
+                    value="@TextQuery"
+                    @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
+                    @onfocus="HandleInputFocus"
+                    @onblur="HandleInputBlur"
+                    inputmode="search"
+                    enabled="@Enabled"
+                    placeholder="@Placeholder"
+                    class="@CssClassHelper.Combine(
+                       "form-control",
+                       (!HasInputGroupEnd && HasInputGroups ? "hx-search-box-input-with-search-icon" : null),
+                       InputCssClassEffective)" />
 
-                    @if (InputGroupEndText is not null)
-                    {
-                        <span class="input-group-text">@InputGroupEndText</span>
-                    }
-                </span>
+                @if (!string.IsNullOrEmpty(Label) && LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
+                {
+                    <label for="@inputId">@Label</label>
+                }
 
-                @if (InputGroupEndText is null && InputGroupEndTemplate is null)
+                @if (!HasInputGroupEnd)
                 {
                     if (dataProviderInProgress)
                     {
@@ -70,6 +70,13 @@
                             <HxIcon Icon="SearchIconEffective" />
                         </div>
                     }
+                }
+
+                @InputGroupEndTemplate
+
+                @if (InputGroupEndText is not null)
+                {
+                    <span class="input-group-text">@InputGroupEndText</span>
                 }
             </div>
         </HxDropdownToggleElement>
