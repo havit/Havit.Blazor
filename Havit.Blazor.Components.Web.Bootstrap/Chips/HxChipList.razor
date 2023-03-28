@@ -15,14 +15,14 @@
                 }
             </HxBadge>
         }
-    }
-    @if (Reset == true)
-    {
-        @ResetButtonTemplate
-        <span role="button" class="hx-chip-reset-btn"
-              @onclick="() => HandleResetClick()" @onclick:stopPropagation>
-            @ResetButtonText
-            <HxIcon Icon="BootstrapIcon.X" />
-        </span>
+        @if (Reset == true)
+        {
+            @ResetButtonTemplate
+            <span role="button" class="hx-chip-reset-btn"
+                @onclick="() => HandleResetClick()" @onclick:stopPropagation>
+                @ResetButtonText
+                <HxIcon Icon="BootstrapIcon.X" />
+            </span>
+        }
     }
 </div>
