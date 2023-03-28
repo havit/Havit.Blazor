@@ -9,11 +9,20 @@
                 @if (chipItem.Removable)
                 {
                     <span role="button" class="hx-chip-remove-btn"
-                        @onclick="() => HandleRemoveClick(chipItem)" @onclick:stopPropagation>
+                          @onclick="() => HandleRemoveClick(chipItem)" @onclick:stopPropagation>
                         <HxIcon Icon="BootstrapIcon.X" />
                     </span>
                 }
             </HxBadge>
         }
+    }
+    @if (ShowResetButton == true)
+    {
+        @ResetButtonTemplate
+        <span role="button" class="hx-chip-reset-btn"
+              @onclick="() => HandleResetClick()" @onclick:stopPropagation>
+            @ResetButtonText
+            <HxIcon Icon="BootstrapIcon.X" />
+        </span>
     }
 </div>

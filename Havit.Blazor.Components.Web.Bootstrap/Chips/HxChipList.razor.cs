@@ -64,6 +64,15 @@ public partial class HxChipList
 	/// Called when chip remove button is clicked.
 	/// </summary>
 	[Parameter] public EventCallback<ChipItem> OnChipRemoveClick { get; set; }
+
+	[Parameter] public EventCallback<ChipItem> OnResetClick { get; set; }
+
+	[Parameter] public bool ShowResetButton { get; set; }
+
+	[Parameter] public string ResetButtonText { get; set; }
+
+	[Parameter] public RenderFragment ResetButtonTemplate { get; set; }
+
 	/// <summary>
 	/// Triggers the <see cref="OnChipRemoveClick"/> event. Allows interception of the event in derived components.
 	/// </summary>
@@ -72,5 +81,15 @@ public partial class HxChipList
 	private async Task HandleRemoveClick(ChipItem chipItemToRemove)
 	{
 		await InvokeOnChipRemoveClickAsync(chipItemToRemove);
+	}
+
+	/// <summary>
+	/// Triggers the <see cref="OnResetClick"/> event. Allows interception of the event in derived components.
+	/// </summary>
+	protected virtual Task InvokeOnResetClickAsync() => OnResetClick.InvokeAsync();
+
+	private async Task HandleResetClick()
+	{
+		await InvokeOnResetClickAsync();
 	}
 }

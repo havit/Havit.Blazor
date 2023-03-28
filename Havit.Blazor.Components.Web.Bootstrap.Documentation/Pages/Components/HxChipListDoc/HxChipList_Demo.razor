@@ -1,16 +1,16 @@
-﻿<HxChipList Chips="@chips" />
+﻿<HxChipList ShowResetButton="true" ResetButtonText="Reset chips" Chips="@chips" />
 
 @code
 {
-	private ChipItem[] chips =
-	{
-		new() { ChipTemplate = GetRenderFragment("one"), Removable = true },
-		new() { ChipTemplate = GetRenderFragment("two") },
-		new() { ChipTemplate = GetRenderFragment("three") }
-	};
+    private ChipItem[] chips =
+    {
+        new() { ChipTemplate = GetRenderFragment("one"), Removable = true },
+        new() { ChipTemplate = GetRenderFragment("two"), Removable = true  },
+        new() { ChipTemplate = GetRenderFragment("three"), Removable = true  }
+    };
 
-	private static RenderFragment GetRenderFragment(string text) => builder =>
-	{
-		builder.AddContent(1, text);
-	};
+    private static RenderFragment GetRenderFragment(string text) => builder =>
+    {
+        builder.AddContent(1, text);
+    };
 }

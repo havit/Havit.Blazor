@@ -8,7 +8,7 @@
     align-items: center;
 }
 
-::deep .hx-chip-remove-btn {
+ .hx-chip-remove-btn {
     display: flex;
     align-items: center;
     margin: var(--hx-chiplist-chip-remove-btn-margin);
@@ -27,4 +27,11 @@
     font-weight: var(--hx-chiplist-chip-label-font-weight);
     margin-right: var(--hx-chiplist-chip-label-margin);
     opacity: var(--hx-chiplist-chip-label-opacity);
+}
+
+.hx-chip-reset-btn {
+    display: flex;
+    align-items: center;
+    font-size: .75rem;
+    color: var(--bs-secondary);
 }
