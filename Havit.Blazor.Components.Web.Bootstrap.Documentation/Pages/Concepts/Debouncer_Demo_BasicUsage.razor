@@ -1,37 +1,33 @@
 ﻿@implements IDisposable
+@inject IDemoDataService DemoDataService
 
-<HxInputText Label="Debounced HxInputText" @bind-Value="query" @bind-Value:after="TriggerQuery" BindEvent="BindEvent.OnInput" />
+<HxInputText Label="Debounced HxInputText"
+			 @bind-Value="query"
+			 @bind-Value:after="TriggerQuery"
+			 BindEvent="BindEvent.OnInput"
+			 Placeholder="Search for employees by name" />
 
-<HxFormValue Label="query" Value="@query" />
-<HxFormValue Label="queryDebouncedStarted" Value="@queryDebouncedStarted" />
-<HxFormValue Label="queryDebouncedCompleted" Value="@queryDebouncedCompleted" />
+<div class="mt-3">query: @query</div>
+<div>queryDebounced: @queryDebounced</div>
+<div>Employees found: @(String.Join(", ", employees.Select(e => e.Name)))</div>
 
 @code {
 	private string query;
-	private string queryDebouncedStarted;
-	private string queryDebouncedCompleted;
+	private string queryDebounced;
+	private List<EmployeeDto> employees = new();
 	private Debouncer queryDebouncer = new Debouncer();
 
 	private async Task TriggerQuery()
 	{
-		var actualQuery = query;
-
-		await queryDebouncer.DebounceAsync(async (cancellationToken) =>
+		await queryDebouncer.DebounceAsync(millisecondsDelay: 500, actionAsync: async (cancellationToken) =>
 		{
-			await PerformSomeWork(query, cancellationToken); // simulate some work, might be cancelable or not
-		},
-		millisecondsDelay: 500);
+			// perform debounced work here
+
+			queryDebounced = query; // just for demo purposes, to show the value
+			employees = await DemoDataService.FindEmployeesByName(query, cancellationToken);
+		});
 
 		// Do not put any code here as it gets executed for every query-change when the Debouncer finishes its work (cancelation or delayed execution).
-	}
-
-	public async Task PerformSomeWork(string actualQuery, CancellationToken cancellationToken)
-	{
-		queryDebouncedStarted = actualQuery;
-
-		await Task.Delay(500, cancellationToken); 
-
-		queryDebouncedCompleted = actualQuery;
 	}
 
 	public void Dispose()

@@ -112,6 +112,7 @@ public partial class Search
 
 		// Concepts
 		new("/concepts/defaults-and-settings", "Defaults & Settings", "configuration themes wide preset"),
+		new("/concepts/Debouncer", "Debouncer", "delay timer"),
 
 		// Supportive types
 

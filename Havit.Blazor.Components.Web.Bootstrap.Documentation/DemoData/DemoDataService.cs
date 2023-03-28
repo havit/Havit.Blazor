@@ -483,7 +483,7 @@ public class DemoDataService : IDemoDataService
 	{
 		logger.LogInformation($"DemoDataService.GetEmployeesDataFragmentAsync(startIndex: {startIndex}, count: {count}) called.");
 
-		await Task.Delay(80); // simulate server call
+		await Task.Delay(80, cancellationToken); // simulate server call
 		return employees.Skip(startIndex).Take(count ?? Int32.MaxValue).ToList();
 	}
 
@@ -491,8 +491,15 @@ public class DemoDataService : IDemoDataService
 	{
 		logger.LogInformation("DemoDataService.GetEmployeesCountAsync(..) called.");
 
-		await Task.Delay(80); // simulate server call
+		await Task.Delay(80, cancellationToken); // simulate server call
 		return employees.Count;
 	}
 
+	public async Task<List<EmployeeDto>> FindEmployeesByName(string query, CancellationToken cancellationToken = default)
+	{
+		logger.LogInformation($"DemoDataService.FindEmployeesByName(\"{query}\") called.");
+
+		await Task.Delay(180, cancellationToken); // simulate server call
+		return employees.Where(e => e.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).ToList();
+	}
 }
