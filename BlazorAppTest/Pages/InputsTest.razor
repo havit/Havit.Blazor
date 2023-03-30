@@ -81,6 +81,15 @@
 					</TextTemplate>
 				</HxCheckbox>
 
+				<HxCheckboxList TItem="CultureInfo"
+								TValue="string"
+								Label="HxCheckboxList"
+								ItemTextSelector="@(item => item.EnglishName)"
+								ItemValueSelector="@(item => item.EnglishName)"
+								Data="@cultureInfos"
+								@bind-Value="@model.CultureInfoMultiSelectNames" />
+
+
 				<HxSwitch Text="Switch" @bind-Value="@context.BoolSwitch" ValidationMessageMode="@validationMessageMode" />
 
 				<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>

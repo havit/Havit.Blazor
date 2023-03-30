@@ -20,10 +20,27 @@ public partial class HxAccordion
 	protected virtual Task InvokeExpandedItemIdsChangedAsync(List<string> newExpandedItemIds) => ExpandedItemIdsChanged.InvokeAsync(newExpandedItemIds);
 
 	/// <summary>
-	/// ID of the LAST expanded item (if <see cref="StayOpen"/> is <code>true</code>, several items can be expanded).
+	/// ID of the single expanded item (if <see cref="StayOpen"/> is <code>true</code>, use <see cref="ExpandedItemIds" />, several items can be expanded).
 	/// Do not use constant value as it reverts the accordion to that item on every roundtrip. Use <see cref="InitialExpandedItemId"/> to set the initial state.
 	/// </summary>
-	[Parameter] public string ExpandedItemId { get; set; }
+	[Parameter]
+	public string ExpandedItemId
+	{
+		get
+		{
+			// we do not want the component to fail, so we return first expanded item if there are more (StayOpen)
+			return ExpandedItemIds.FirstOrDefault();
+		}
+		set
+		{
+			// setting the value forces all the items to collapse except the one set
+			ExpandedItemIds.Clear();
+			if (value is not null)
+			{
+				ExpandedItemIds.Add(value);
+			}
+		}
+	}
 	[Parameter] public EventCallback<string> ExpandedItemIdChanged { get; set; }
 	protected virtual Task InvokeExpandedItemIdChangedAsync(string newExpandedItemId) => ExpandedItemIdChanged.InvokeAsync(newExpandedItemId);
 
@@ -49,27 +66,13 @@ public partial class HxAccordion
 
 	protected override void OnInitialized()
 	{
-		if (InitialExpandedItemIds.Count > 0)
+		if (StayOpen && InitialExpandedItemIds.Count > 0)
 		{
 			ExpandedItemIds.AddRange(InitialExpandedItemIds);
 		}
-		else if (!String.IsNullOrWhiteSpace(InitialExpandedItemId))
+		else if (!StayOpen && !String.IsNullOrWhiteSpace(InitialExpandedItemId))
 		{
-			ExpandedItemIds.Add(InitialExpandedItemId);
-		}
-	}
-
-	protected override void OnParametersSet()
-	{
-		// synchronization of ExpandedItemId with ExpandedItemIds
-		if (ExpandedItemId is null)
-		{
-			ExpandedItemIds.Clear();
-		}
-		else if (!ExpandedItemIds.Contains(ExpandedItemId))
-		{
-			ExpandedItemIds.Clear();
-			ExpandedItemIds.Add(ExpandedItemId);
+			ExpandedItemId = InitialExpandedItemId;
 		}
 	}
 
@@ -78,10 +81,11 @@ public partial class HxAccordion
 		if (!ExpandedItemIds.Contains(itemId))
 		{
 			ExpandedItemIds.Add(itemId);
-			ExpandedItemId = itemId;
-			await InvokeExpandedItemIdChangedAsync(itemId);
+			if (!StayOpen)
+			{
+				await InvokeExpandedItemIdChangedAsync(itemId);
+			}
 			await InvokeExpandedItemIdsChangedAsync(ExpandedItemIds);
-			StateHasChanged();
 		}
 	}
 
@@ -90,8 +94,11 @@ public partial class HxAccordion
 		if (ExpandedItemIds.Contains(itemId))
 		{
 			ExpandedItemIds.Remove(itemId);
+			if (!StayOpen)
+			{
+				await InvokeExpandedItemIdChangedAsync(null);
+			}
 			await InvokeExpandedItemIdsChangedAsync(ExpandedItemIds);
-			StateHasChanged();
 		}
 	}
 }

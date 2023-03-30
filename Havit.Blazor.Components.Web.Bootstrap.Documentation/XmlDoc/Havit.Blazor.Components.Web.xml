@@ -42,6 +42,19 @@
             For "btn btn-primary", <c>null</c>, "bt-lrg" returns "btn btn-primary bt-lrg".
             </example>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Debouncer">
+            <summary>
+            Debouncer helps you to debounce asynchronous actions.
+            You can use it in your callbacks to prevent multiple calls of the same action in a short period of time.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Debouncer.DebounceAsync(System.Int32,System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task})">
+            <summary>
+            Starts the debouncing.
+            </summary>
+            <param name="millisecondsDelay">debouncing delay</param>
+            <param name="actionAsync">work to be executed (<see cref="T:System.Threading.CancellationToken"/> gets canceled if the method is called again)</param>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Title">
             <summary>
             Title in the header.

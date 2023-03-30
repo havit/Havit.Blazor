@@ -137,6 +137,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 
 				builder.AddAttribute(51, nameof(HxCheckbox.ValidationMessageMode), Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.None);
 				builder.AddAttribute(52, nameof(HxCheckbox.Inline), this.Inline);
+				builder.AddAttribute(53, nameof(HxCheckbox.GenerateChip), false);
 
 				builder.AddMultipleAttributes(100, this.AdditionalAttributes);
 
@@ -179,4 +180,30 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 		throw new NotSupportedException($"{nameof(FocusAsync)} is not supported on {nameof(HxCheckboxList<TValue, TItem>)}.");
 	}
 
+	/// <inheritdoc />
+	protected override string FormatValueAsString(List<TValue> value)
+	{
+		// Used for CurrentValueAsString (which is used for the chip generator).
+		if ((!value?.Any() ?? true) || (Data == null))
+		{
+			// don't care about chip generator, it does not call this method for null/empty value
+			return String.Empty;
+		}
+
+		// Take itemsToRender because they are sorted.
+		List<TItem> selectedItems = itemsToRender.Where(item => value.Contains(SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelector, item))).ToList();
+		return String.Join(", ", selectedItems.Select(ItemTextSelector));
+	}
+
+	/// <inheritdoc />
+	protected override bool ShouldRenderChipGenerator()
+	{
+		return CurrentValue?.Any() ?? false;
+	}
+
+	/// <inheritdoc />
+	protected override List<TValue> GetChipRemoveValue()
+	{
+		return new List<TValue>();
+	}
 }
