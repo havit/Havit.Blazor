@@ -27,18 +27,18 @@
                     @if (EnabledEffective)
                     {
                         <div class="hx-input-date-range-calendar">
-                            <HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" />
+                            <HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" KeyboardNavigation="false" />
                         </div>
                         <div class="hx-input-date-range-buttons">
                             @if (ShowClearButtonEffective)
                             {
-                                <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleFromClearClickAsync" />
+                                <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleFromClearClickAsync" tabindex="-1" />
                             }
                             @if (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective != null) && PredefinedDateRangesEffective.Any())
                             {
                                 @foreach (var item in PredefinedDateRangesEffective)
                                 {
-                                    <HxButton @key="@item" Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleDateRangeClick(item.DateRange, fromDropdownToggleElement)" />
+                                    <HxButton @key="@item" Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleDateRangeClick(item.DateRange, fromDropdownToggleElement)" tabindex="-1" />
                                 }
                             }
                         </div>
@@ -65,18 +65,18 @@
                     @if (EnabledEffective)
                     {
                         <div class="hx-input-date-range-calendar">
-                            <HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" />
+                            <HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" KeyboardNavigation="false" />
                         </div>
                         <div class="hx-input-date-range-buttons">
                             @if (ShowClearButtonEffective)
                             {
-                                <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleToClearClickAsync" />
+                                <HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleToClearClickAsync" tabindex="-1" />
                             }
                             @if (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective != null) && PredefinedDateRangesEffective.Any())
                             {
                                 @foreach (var item in PredefinedDateRangesEffective)
                                 {
-                                    <HxButton @key="@item" Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleDateRangeClick(item.DateRange, toDropdownToggleElement)" />
+                                    <HxButton @key="@item" Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleDateRangeClick(item.DateRange, toDropdownToggleElement)" tabindex="-1" />
                                 }
                             }
                         </div>
