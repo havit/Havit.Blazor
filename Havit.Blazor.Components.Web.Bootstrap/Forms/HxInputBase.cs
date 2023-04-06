@@ -122,9 +122,9 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// CSS class to be rendered with the label.
 	/// </summary>
 	private protected virtual string CoreLabelCssClass =>
-		((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Regular))
-		? "form-label"
-		: null;
+		((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
+		? null
+		: "form-label";
 
 	/// <summary>
 	/// CSS class to be rendered with the hint.
