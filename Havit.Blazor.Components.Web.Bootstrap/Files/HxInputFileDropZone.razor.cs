@@ -132,14 +132,14 @@ public partial class HxInputFileDropZone
 	{
 		if (fileCount == 1)
 		{
-			return String.Format(Localizer["SingleFileSelected"], firstFileNames[0]);
+			return Localizer["SingleFileSelected", firstFileNames[0]];
 		}
 		else
 		{
-			var result = String.Format(Localizer["MultipleFilesSelected"], fileCount, String.Join(", ", firstFileNames));
+			string result = Localizer["MultipleFilesSelected", fileCount, String.Join(", ", firstFileNames)];
 			if (fileCount > firstFileNames.Count)
 			{
-				result = result + " " + String.Format(Localizer["MoreFiles"], fileCount - firstFileNames.Count);
+				result = result + " " + Localizer["MoreFiles", fileCount - firstFileNames.Count];
 			}
 			return result;
 		}
