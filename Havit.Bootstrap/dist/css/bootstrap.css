@@ -2283,6 +2283,10 @@ textarea.form-control-lg {
   opacity: 0.5;
 }
 
+.form-check-label {
+  color: #6c757d;
+}
+
 .form-switch {
   padding-left: 2.5em;
 }
