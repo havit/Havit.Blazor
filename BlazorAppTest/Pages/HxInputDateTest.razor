@@ -15,6 +15,7 @@
 	<HxInputDate Label="HxInputDate (custom PredefinedDates)" @bind-Value="@model.DateTime" PredefinedDates="@GetPredefinedDates()" />
 	<HxInputDate Label="HxInputDate (disabled)" @bind-Value="@model.DateTime" PredefinedDates="@GetPredefinedDates()" Enabled="false" />
 	<HxInputDate Label="HxInputDate (w/ CalendarIcon)" @bind-Value="@model.DateTime" CalendarIcon="BootstrapIcon.Calendar" />
+	<HxInputDate Label="HxInputDate (w/ CalendarIcon)" @bind-Value="@model.DateTime" CalendarIcon="BootstrapIcon.Calendar" Enabled="false" />
 	<HxInputDate Label="HxInputDate (w/ CalendarIcon, wo/ PredefinedDates)" @bind-Value="@model.DateTime" CalendarIcon="BootstrapIcon.Calendar" ShowPredefinedDates="false" />
 	<HxInputDate Label="HxInputDate (w/ MinDate, MaxDate)" @bind-Value="@model.DateTime" MinDate="new DateTime(1920, 3, 5)" MaxDate="new DateTime(1999, 6, 15)" ShowPredefinedDates="false" CalendarDateCustomizationProvider="GetCalendarDateCustomization" />
 

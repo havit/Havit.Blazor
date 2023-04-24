@@ -7,6 +7,9 @@
 	top: 50%;
 	right: 0;
 	transform: translateY(-50%);
+}
+
+.hx-input-date:has(input:not(:disabled)) + .hx-input-date-icon {
 	cursor: pointer;
 }
 
