@@ -68,10 +68,10 @@
 	--hx-context-menu-button-border: unset;
 	--hx-context-menu-button-border-radius: .325rem;
 	--hx-context-menu-button-padding: 0 .25rem;
-	--hx-context-menu-button-hover-background: var(--bs-tertiary-bg);
+	--hx-context-menu-button-hover-background: rgba(var(--bs-black-rgb), .1);
 	--hx-context-menu-item-icon-margin: 0 .5rem 0 0;
 	/* HxGrid */
-	--hx-grid-button-hover-background: var(--bs-tertiary-bg);
+	--hx-grid-button-hover-background: rgba(var(--bs-black-rgb), .1);
 	--hx-grid-button-border-radius: .25rem;
 	--hx-grid-sorted-icon-color: var(--bs-primary);
 	/* HxInputFileDropZone */
@@ -119,7 +119,7 @@
 	/* ListLayout */
 	--hx-list-layout-table-font-size: .875rem;
 	/* HxMultiSelect */
-	--hx-multi-select-background-color: var(--bs-form-control-bg);
+	--hx-multi-select-background-color: var(--bs-body-bg);
 	--hx-multi-select-dropdown-menu-height: 300px;
 	/* TagInput */
 	--hx-input-tags-tag-margin: 0 .25rem 0 0;

@@ -1,6 +1,6 @@
 ---
 layout: docs
-title: "Bootstrap & Parcel"
+title: Bootstrap and Parcel
 description: The official guide for how to include and bundle Bootstrap's CSS and JavaScript in your project using Parcel.
 group: getting-started
 toc: true
@@ -123,7 +123,7 @@ Importing Bootstrap into Parcel requires two imports, one into our `styles.scss`
 
    ```scss
    // Import all of Bootstrap's CSS
-   @import "~bootstrap/scss/bootstrap";
+   @import "bootstrap/scss/bootstrap";
    ```
 
    *You can also import our stylesheets individually if you want. [Read our Sass import docs]({{< docsref "/customize/sass#importing" >}}) for details.*
