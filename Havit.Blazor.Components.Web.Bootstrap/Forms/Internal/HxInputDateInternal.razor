@@ -50,7 +50,7 @@
                 @if (EnabledEffective)
                 {
                     <div class="hx-input-date-calendar">
-                        <HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" />
+                        <HxCalendar Value="@GetDateTimeFromValue(Value)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" KeyboardNavigation="false" />
                     </div>
                     <div class="hx-input-date-dropdown-buttons">
                         @if (ShowClearButtonEffective)
