@@ -61,6 +61,7 @@ public partial class HxNav
 			NavVariant.Standard => null,
 			NavVariant.Pills => "nav-pills",
 			NavVariant.Tabs => "nav-tabs",
+			NavVariant.Underlined => "nav-underlined",
 			_ => throw new InvalidOperationException($"Unknown {nameof(NavVariant)} value {this.Variant}.")
 		};
 	}

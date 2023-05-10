@@ -19,5 +19,10 @@ public enum NavVariant
 	/// <summary>
 	/// Pills <see href="https://getbootstrap.com/docs/5.2/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.2/components/navs-tabs/#pills</see>.
 	/// </summary>
-	Pills = 2
+	Pills = 2,
+
+	/// <summary>
+	/// Underlined <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#underline">https://getbootstrap.com/docs/5.3/components/navs-tabs/#underline</see>.
+	/// </summary>
+	Underlined = 3	
 }

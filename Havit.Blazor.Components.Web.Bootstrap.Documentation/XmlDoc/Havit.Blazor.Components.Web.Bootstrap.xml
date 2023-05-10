@@ -8035,6 +8035,11 @@
             Pills <see href="https://getbootstrap.com/docs/5.2/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.2/components/navs-tabs/#pills</see>.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Underlined">
+            <summary>
+            Underlined <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#underline">https://getbootstrap.com/docs/5.3/components/navs-tabs/#underline</see>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarBrandLogoTemplateContext">
             <summary>
             Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand.LogoTemplate" />.
