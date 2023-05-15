@@ -9,12 +9,12 @@
 	<Columns>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+		<HxContextMenuGridColumn Context="item">
+			<HxContextMenu>
+				<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
+			</HxContextMenu>
+		</HxContextMenuGridColumn>
 	</Columns>
-	<ContextMenu Context="item">
-		<HxContextMenu>
-			<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
-		</HxContextMenu>
-	</ContextMenu>
 </HxGrid>
 
 <HxButton Text="Go to page 3 and add 2 additional items" OnClick="HandleCustomGridPositionClick" Color="ThemeColor.Secondary" />
@@ -25,12 +25,13 @@
 	<Columns>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+		<HxContextMenuGridColumn Context="item">
+			<HxContextMenu>
+				<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
+			</HxContextMenu>
+		</HxContextMenuGridColumn>
 	</Columns>
-	<ContextMenu Context="item">
-		<HxContextMenu>
-			<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
-		</HxContextMenu>
-	</ContextMenu>
+	
 	<LoadMoreTemplate>
 		There are some visible items, huh?
 		Do you want to <span role="button" style="color: red" @onclick="async () => await context.LoadMoreAsync()">see more</span>?
