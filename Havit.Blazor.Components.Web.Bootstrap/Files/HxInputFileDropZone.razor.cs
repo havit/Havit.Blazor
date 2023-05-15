@@ -125,8 +125,6 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null) => hxInputFileCoreComponentReference?.UploadAsync(accessToken);
 
-	protected bool EnabledEffective => CascadeEnabledComponent.EnabledEffective(this);
-
 	protected Task HandleOnChange(InputFileChangeEventArgs args)
 	{
 		fileCount = args.FileCount;
@@ -152,4 +150,6 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 			return result;
 		}
 	}
+
+	protected bool EnabledEffective => CascadeEnabledComponent.EnabledEffective(this);
 }
