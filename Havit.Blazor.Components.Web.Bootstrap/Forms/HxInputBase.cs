@@ -368,7 +368,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		else
 		{
 			builder.OpenElement(0, "span");
-			builder.AddAttribute(1, "class", "hx-chip-label");
+			builder.AddAttribute(1, "class", "hx-chip-list-label");
 			builder.OpenRegion(2);
 			RenderChipLabel(builder);
 			builder.CloseRegion();
