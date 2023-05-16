@@ -82,6 +82,12 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	[Parameter] public bool Multiple { get; set; }
 
 	/// <summary>
+	/// Make the item appear disabled by setting to <c>false</c>.
+	/// Default is <c>true</c>.
+	/// </summary>
+	[Parameter] public bool Enabled { get; set; } = true;
+
+	/// <summary>
 	/// Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.
 	/// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">MDN Web Docs - HTML attribute: accept</see>.
 	/// </summary>
@@ -135,6 +141,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 
 		AdditionalAttributes["multiple"] = this.Multiple;
 		AdditionalAttributes["accept"] = this.Accept;
+		AdditionalAttributes["disabled"] = !this.Enabled;
 	}
 
 	/// <summary>

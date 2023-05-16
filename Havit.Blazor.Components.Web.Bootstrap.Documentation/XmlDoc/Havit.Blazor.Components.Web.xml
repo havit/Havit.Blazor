@@ -219,6 +219,12 @@
             Single <c>false</c> or multiple <c>true</c> files upload.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Enabled">
+            <summary>
+            Make the item appear disabled by setting to <c>false</c>.
+            Default is <c>true</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Accept">
             <summary>
             Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.
