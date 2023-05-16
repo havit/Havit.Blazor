@@ -1,7 +1,7 @@
 ﻿@using Microsoft.JSInterop;
 
-<HxDropdownButtonGroup>
-	<HxDropdownToggleButton Color="ThemeColor.Primary">Theme</HxDropdownToggleButton>
+<HxDropdownButtonGroup CssClass="align-self-center ms-auto">
+	<HxDropdownToggleButton Outline="true" Color="ThemeColor.Primary">Theme</HxDropdownToggleButton>
 	<HxDropdownMenu>
 		<HxDropdownItem OnClick="() => SetThemeAsync(BootstrapTheme.Dark)">Dark theme</HxDropdownItem>
 		<HxDropdownItem OnClick="() => SetThemeAsync(BootstrapTheme.Light)">Light theme</HxDropdownItem>
