@@ -1,20 +1,17 @@
 ﻿.hx-input-file-drop-zone {
-	border: var(--hx-input-file-drop-zone-border-width) dashed var(--hx-input-file-drop-zone-border-color);
-    border-radius: var(--hx-input-file-drop-zone-border-radius);
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-    background-color: var(--hx-input-file-drop-zone-background-color);
-	cursor: pointer;
 	margin: var(--hx-input-file-drop-zone-mgargin);
-	position: relative;
     padding: var(--hx-input-file-drop-zone-padding);
+	border: var(--hx-input-file-drop-zone-border-width) dashed var(--hx-input-file-drop-zone-border-color);
+    border-radius: var(--hx-input-file-drop-zone-border-radius);
+    background-color: var(--hx-input-file-drop-zone-background-color);
 }
 
 .hx-input-file-drop-zone.disabled {
-	cursor: not-allowed;
 	background-color: var(--hx-input-file-drop-zone-disabled-background-color);
-	color: var(--hx-input-file-drop-zone-disabled-color);
 }
 
 .hx-input-file-drop-zone:not(.disabled):hover, .hx-input-file-drop-zone:not(.disabled):focus {
@@ -28,9 +25,8 @@
 	width: 100%;
 	height: 100%;
 	opacity: 0;
-	cursor: pointer;
 }
 
-.hx-input-file-drop-zone.disabled ::deep input[type=file] {
-	cursor: not-allowed;
+.hx-input-file-drop-zone:not(.disabled) ::deep input[type=file] {
+	cursor: pointer;
 }
