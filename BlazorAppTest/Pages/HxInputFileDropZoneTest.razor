@@ -9,6 +9,15 @@
 <HxInputFileDropZone @ref="component" Multiple />
 <HxButton Text="Clear" OnClick="@(async () => await component.ResetAsync())" Color="ThemeColor.Secondary" />
 
+<h3>Enabled="false"</h3>
+<HxInputFileDropZone Enabled="false" />
+
+<h3>HxFormState</h3>
+<HxSwitch Text="Enabled" @bind-Value="@enabled" />
+<HxFormState Enabled="@enabled">
+	<HxInputFileDropZone />
+</HxFormState>
+
 <h3>Custom NoFilesTemplate</h3>
 <HxInputFileDropZone Multiple>
 	<NoFilesTemplate>
@@ -19,5 +28,6 @@
 
 @code
 {
+	private bool enabled = true;
 	private HxInputFileDropZone component;
 }

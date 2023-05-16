@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
+﻿using Havit.Blazor.Components.Web.Infrastructure;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
@@ -8,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// For custom drag&amp;drop UX, use <see cref="HxInputFileCore"/> and <see href="https://github.com/havit/Havit.Blazor/blob/728567c9c83a0b4ab7fe2e031bf1ff378f1b1ce7/Havit.Blazor.Components.Web.Bootstrap/Files/HxInputFileDropZone.razor.css#L20-L26">a little bit of HTML/CSS</see>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputFileDropZone">https://havit.blazor.eu/components/HxInputFileDropZone</see>
 /// </summary>
-public partial class HxInputFileDropZone
+public partial class HxInputFileDropZone : ICascadeEnabledComponent
 {
 	private const int FirstFileNamesMaxCount = 3; // Might be converted to parameter if needed.
 
@@ -86,7 +87,12 @@ public partial class HxInputFileDropZone
 	/// </summary>
 	[Parameter] public string InputCssClass { get; set; }
 
+	/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 	[Parameter] public bool? Enabled { get; set; }
+
+	/// <inheritdoc cref="Web.FormState" />
+	[CascadingParameter] protected FormState FormState { get; set; }
+	FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
 
 	[Inject] protected IStringLocalizer<HxInputFileDropZone> Localizer { get; set; }
 
@@ -132,16 +138,18 @@ public partial class HxInputFileDropZone
 	{
 		if (fileCount == 1)
 		{
-			return String.Format(Localizer["SingleFileSelected"], firstFileNames[0]);
+			return Localizer["SingleFileSelected", firstFileNames[0]];
 		}
 		else
 		{
-			var result = String.Format(Localizer["MultipleFilesSelected"], fileCount, String.Join(", ", firstFileNames));
+			string result = Localizer["MultipleFilesSelected", fileCount, String.Join(", ", firstFileNames)];
 			if (fileCount > firstFileNames.Count)
 			{
-				result = result + " " + String.Format(Localizer["MoreFiles"], fileCount - firstFileNames.Count);
+				result = result + " " + Localizer["MoreFiles", fileCount - firstFileNames.Count];
 			}
 			return result;
 		}
 	}
+
+	protected bool EnabledEffective => CascadeEnabledComponent.EnabledEffective(this);
 }
