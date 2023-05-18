@@ -14,23 +14,14 @@
 }
 
 ::deep .hx-input-date-dropdown-menu {
-	padding: var(--hx-input-date-dropdown-padding);
+	--bs-dropdown-padding-x: 0.5rem;
+	--bs-dropdown-padding-y: 0.5rem;
 	width: min-content;
-}
-
-::deep .hx-input-date-calendar {
-	margin-bottom: var(--hx-input-date-calendar-margin-bottom);
 }
 
 ::deep .hx-input-date-dropdown-buttons {
 	display: flex;
 	flex-wrap: wrap;
-}
-
-::deep .btn-sm {
-    --bs-btn-padding-y: 0.125rem;
-    --bs-btn-padding-x: 0.25rem;
-    --bs-btn-font-size: 0.875rem;
 }
 
 .hx-input-date-dropdown-buttons ::deep .hx-button:nth-child(2):last-child {
@@ -57,15 +48,7 @@
 	font-size: .75rem;
 }
 
-.hx-input-date-icon {
-	z-index: 10;
-}
-
-/* Remove caret. */
-::deep .dropdown-toggle::after {
-	display: none !important;
-}
-
+.hx-input-date-icon,
 ::deep .form-floating label {
 	z-index: 10;
 }

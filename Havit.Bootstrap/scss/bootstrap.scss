@@ -9,16 +9,16 @@
 // Configuration
 @import "../bootstrap/scss/functions";
 
-$light:   #dee2e6;
-$blue:    #009de0;
-$red:     #f93a25;
-$green:   #1c9e0b;
-$primary: $blue;
-$danger:  $red;
-$success: $green;
+$light:     #dee2e6;
+$blue:      #009de0;
+$yale-blue: #114788;
+$primary:     $blue;
+$info:        $yale-blue;
 
 @import "../bootstrap/scss/variables";
+@import "../bootstrap/scss/variables-dark";
 @import "variables";
+
 @import "../bootstrap/scss/maps";
 @import "../bootstrap/scss/mixins";
 @import "../bootstrap/scss/utilities";
@@ -31,7 +31,6 @@ $success: $green;
 @import "../bootstrap/scss/containers";
 @import "../bootstrap/scss/grid";
 @import "../bootstrap/scss/tables";
-@import "forms";
 @import "../bootstrap/scss/forms";
 @import "../bootstrap/scss/buttons";
 @import "../bootstrap/scss/transitions";
@@ -41,7 +40,6 @@ $success: $green;
 @import "../bootstrap/scss/nav";
 @import "../bootstrap/scss/navbar";
 @import "../bootstrap/scss/card";
-@import "card";
 @import "../bootstrap/scss/accordion";
 @import "../bootstrap/scss/breadcrumb";
 @import "../bootstrap/scss/pagination";
@@ -51,7 +49,6 @@ $success: $green;
 @import "../bootstrap/scss/list-group";
 @import "../bootstrap/scss/close";
 @import "../bootstrap/scss/toasts";
-@import "toasts";
 @import "../bootstrap/scss/modal";
 @import "../bootstrap/scss/tooltip";
 @import "../bootstrap/scss/popover";

@@ -11,11 +11,12 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background: var(--hx-progress-indicator-background);
+    border: 1px solid var(--hx-progress-indicator-border-color);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    box-shadow: var(--hx-progress-indicator-box-shadow);
 }
 
 .hx-progress-indicator-spinner {

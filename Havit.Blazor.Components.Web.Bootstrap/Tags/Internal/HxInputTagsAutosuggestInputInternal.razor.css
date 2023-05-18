@@ -4,6 +4,7 @@ input:focus {
 
 input {
     background-color: inherit;
+    color: var(--bs-body-color);
     width: 100%;
     padding: 0;
 }

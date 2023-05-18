@@ -182,12 +182,10 @@
         </HxSidebarItem>
     </ItemsTemplate>
     <FooterTemplate>
-
-        <HxSelect Label="Theme" TItem="Theme" CssClass="w-100" TValue="Theme" Data="themes" @bind-Value="selectedTheme" TextSelector="t => t.Name" Nullable="true" NullText="Havit.Blazor" />
-        <a href="https://github.com/havit/Havit.Blazor" class="text-decoration-none text-dark d-flex align-items-center ms-auto">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" style="width:1.25rem" class="m-3 mb-2 me-2 align-self-end"/>
+        <HxSelect Label="Theme" TItem="Theme" CssClass="w-100 me-2" TValue="Theme" Data="themes" @bind-Value="selectedTheme" TextSelector="t => t.Name" Nullable="true" NullText="Havit.Blazor" />
+        <a href="https://github.com/havit/Havit.Blazor" class="text-decoration-none text-secondary d-flex align-items-center ms-2">
+            <HxIcon Icon="BootstrapIcon.Github" CssClass="align-self-end mb-1 fs-5"/>
         </a>
-
     </FooterTemplate>
 </HxSidebar>
 

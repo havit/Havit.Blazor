@@ -2202,6 +2202,12 @@
             Custom CSS class to render with the input element.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.Enabled">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.FormState">
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.FormState" />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.GetFilesAsync">
             <summary>
             Gets list of files chosen.

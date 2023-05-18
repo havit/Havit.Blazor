@@ -1,0 +1,51 @@
+﻿@using Microsoft.JSInterop;
+
+<HxDropdownButtonGroup CssClass="align-self-center ms-auto">
+	<HxDropdownToggleButton Outline="true" Color="ThemeColor.Primary">Theme</HxDropdownToggleButton>
+	<HxDropdownMenu>
+		<HxDropdownItem OnClick="() => SetThemeAsync(BootstrapTheme.Dark)">Dark theme</HxDropdownItem>
+		<HxDropdownItem OnClick="() => SetThemeAsync(BootstrapTheme.Light)">Light theme</HxDropdownItem>
+		<HxDropdownItem OnClick="() => SetThemeAsync(BootstrapTheme.Auto)">Auto</HxDropdownItem>
+	</HxDropdownMenu>
+</HxDropdownButtonGroup>
+
+@code {
+	/*
+		* IMPORTANT !!!
+		* This component is for v4.0.0 testing and POC purposes only.
+		* Do not expect this to be part of the final v4.0.0 release.
+	*/
+	
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
+
+	private IJSObjectReference jsModule;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await base.OnAfterRenderAsync(firstRender);
+
+		if (firstRender)
+		{
+			jsModule = await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxThemeToggle));
+		}
+	}
+
+	private ValueTask SetThemeAsync(BootstrapTheme theme)
+	{
+		return jsModule.InvokeVoidAsync("setTheme", theme.Name);
+	}
+
+	private class BootstrapTheme
+	{
+		public string Name { get; }
+
+		private BootstrapTheme(string name)
+		{
+			Name = name;
+		}
+
+		public static BootstrapTheme Light => new BootstrapTheme(nameof(Light).ToLower());
+		public static BootstrapTheme Dark => new BootstrapTheme(nameof(Dark).ToLower());
+		public static BootstrapTheme Auto => new BootstrapTheme(nameof(Auto).ToLower());
+	}
+}
