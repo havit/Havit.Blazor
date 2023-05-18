@@ -22,7 +22,7 @@ public enum NavVariant
 	Pills = 2,
 
 	/// <summary>
-	/// Underlined <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#underline">https://getbootstrap.com/docs/5.3/components/navs-tabs/#underline</see>.
+	/// Underline <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#underline">https://getbootstrap.com/docs/5.3/components/navs-tabs/#underline</see>.
 	/// </summary>
-	Underlined = 3
+	Underline = 3
 }
