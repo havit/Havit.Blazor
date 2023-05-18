@@ -60,6 +60,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Context menu template (positioned as last column).<br/>
 	/// NOTE: This parameter will be most likely removed in vNext, use <see cref="HxContextMenuGridColumn{TItem}"/> in <see cref="Columns"/> instead.
 	/// </summary>
+	[Obsolete("ContextMenu parameter is obsolete and will be removed in v4, use HxContextMenuGridColumn in Columns instead.")]
 	[Parameter] public RenderFragment<TItem> ContextMenu { get; set; }
 
 	/// <summary>

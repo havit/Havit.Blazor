@@ -5,17 +5,16 @@
     <DataTemplate>
         <HxGrid @ref="gridComponent" ContentNavigationMode="GridContentNavigationMode.Pagination" Responsive="true" TItem="EditableCultureInfo" PageSize="10" DataProvider="LoadDataItems" SelectedDataItem="currentItem" SelectedDataItemChanged="HandleSelectedDataItemChanged">
             <Columns>
-                <HxGridColumn TItem="EditableCultureInfo" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
-		        <HxGridColumn TItem="EditableCultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
-		        <HxGridColumn TItem="EditableCultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
-		        <HxGridColumn TItem="EditableCultureInfo" HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)"  />
-	
+                <HxGridColumn HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
+		        <HxGridColumn HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
+		        <HxGridColumn HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
+		        <HxGridColumn HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)"  />
+				<HxContextMenuGridColumn Context="item">
+					<HxContextMenu>
+						<HxContextMenuItem Text="Delete" OnClick="async () => await DeleteItemClicked(item)" ConfirmationQuestion="@($"Are you sure you want to delete {item.Name}?")" />
+					</HxContextMenu>
+				</HxContextMenuGridColumn>
             </Columns>
-            <ContextMenu Context="item">
-                <HxContextMenu>
-                    <HxContextMenuItem Text="Delete" OnClick="async () => await DeleteItemClicked(item)" ConfirmationQuestion="@($"Are you sure you want to delete {item.Name}?")" />
-                </HxContextMenu>
-            </ContextMenu>
         </HxGrid>
     </DataTemplate>
     <DetailTemplate>
