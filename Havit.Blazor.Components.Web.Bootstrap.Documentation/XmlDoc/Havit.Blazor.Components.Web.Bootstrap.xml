@@ -5796,12 +5796,6 @@
             Columns template.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ContextMenu">
-            <summary>
-            Context menu template (positioned as last column).<br/>
-            NOTE: This parameter will be most likely removed in vNext, use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1"/> in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Columns"/> instead.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadingDataTemplate">
             <summary>
             Template to render when "first" data are loading.

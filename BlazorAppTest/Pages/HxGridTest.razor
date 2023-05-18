@@ -18,21 +18,21 @@
                 Display Name (total count: @context.TotalCount)
             </HeaderTemplate>
         </HxGridColumn>
-    </Columns>
-    <ContextMenu Context="item">
-        <HxContextMenu>
-            <HxContextMenuItem Text="Nastavit jako výchozí" OnClick="async () => await AlarmClicked(item)" />
-            <HxContextMenuItem ConfirmationQuestion="Jako fakt?" OnClick="async () => await AlarmClicked(item)">
-                <HxIcon Icon="BootstrapIcon.Alarm" /> Bacha na to!
-            </HxContextMenuItem>
-            <HxContextMenuItem Enabled="false" Text="Disabled" OnClick="async () => await AlarmClicked(item)" />
-            <HxContextMenuItem Enabled="false" ConfirmationQuestion="Jako fakt na disabled prvku?" OnClick="async () => await AlarmClicked(item)">
-                <HxIcon Icon="BootstrapIcon.Alarm" /> Disabled with icon
-            </HxContextMenuItem>
-            <HxContextMenuItem Enabled="@item.Name.StartsWith("a")" Text="Conditionaly Disabled" OnClick="async () => await AlarmClicked(item)" />
 
-        </HxContextMenu>
-    </ContextMenu>
+        <HxContextMenuGridColumn TItem="CultureInfo" Context="item">
+            <HxContextMenu>
+                <HxContextMenuItem Text="Nastavit jako výchozí" OnClick="async () => await AlarmClicked(item)" />
+                <HxContextMenuItem ConfirmationQuestion="Jako fakt?" OnClick="async () => await AlarmClicked(item)">
+                    <HxIcon Icon="BootstrapIcon.Alarm" /> Bacha na to!
+                </HxContextMenuItem>
+                <HxContextMenuItem Enabled="false" Text="Disabled" OnClick="async () => await AlarmClicked(item)" />
+                <HxContextMenuItem Enabled="false" ConfirmationQuestion="Jako fakt na disabled prvku?" OnClick="async () => await AlarmClicked(item)">
+                    <HxIcon Icon="BootstrapIcon.Alarm" /> Disabled with icon
+                </HxContextMenuItem>
+                <HxContextMenuItem Enabled="@item.Name.StartsWith("a")" Text="Conditionaly Disabled" OnClick="async () => await AlarmClicked(item)" />
+            </HxContextMenu>
+        </HxContextMenuGridColumn>
+    </Columns>
 </HxGrid>
 
 @{
