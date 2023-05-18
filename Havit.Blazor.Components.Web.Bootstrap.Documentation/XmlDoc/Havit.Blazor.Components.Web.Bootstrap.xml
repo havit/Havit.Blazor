@@ -8032,13 +8032,18 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs">
             <summary>
-            Tabs. <see href="https://getbootstrap.com/docs/5.2/components/navs-tabs/#tabs">https://getbootstrap.com/docs/5.2/components/navs-tabs/#tabs</see>
+            Tabs. <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#tabs">https://getbootstrap.com/docs/5.3/components/navs-tabs/#tabs</see>
             Remember to set <c>active</c> tab (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.CssClass"/>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Pills">
             <summary>
-            Pills <see href="https://getbootstrap.com/docs/5.2/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.2/components/navs-tabs/#pills</see>.
+            Pills <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.3/components/navs-tabs/#pills</see>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Underline">
+            <summary>
+            Underline <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#underline">https://getbootstrap.com/docs/5.3/components/navs-tabs/#underline</see>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarBrandLogoTemplateContext">
