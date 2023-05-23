@@ -315,12 +315,12 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxButton.GetDefaults">
             <summary>
             Returns application-wide defaults for the component.
-            Enables overriding defaults in descandants (use separate set of defaults).
+            Enables overriding defaults in descendants (use separate set of defaults).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Settings">
             <summary>
-            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Defaults"/>, overriden by individual parameters).
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Defaults"/>, overridden by individual parameters).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxButton.GetSettings">
@@ -328,7 +328,7 @@
             Returns optional set of component settings.
             </summary>
             <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxButton.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Settings"/> in components descandants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxButton.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Settings"/> in components descendants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Text">
@@ -445,12 +445,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnClickStopPropagation">
             <summary>
-            Stop onClick-event propagation. Deafult is <c>true</c>.
+            Stop onClick-event propagation. Default is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnClickPreventDefault">
             <summary>
-            Prevents the default action for the onclick event. Deafult is <c>false</c>.
+            Prevents the default action for the onclick event. Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Spinner">
