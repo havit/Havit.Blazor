@@ -30,12 +30,12 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected virtual ButtonSettings GetDefaults() => Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public ButtonSettings Settings { get; set; }
 
@@ -43,7 +43,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual ButtonSettings GetSettings() => this.Settings;
 
@@ -169,12 +169,12 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	protected virtual Task InvokeOnInvalidClickAsync(MouseEventArgs args) => OnInvalidClick.InvokeAsync(args);
 
 	/// <summary>
-	/// Stop onClick-event propagation. Deafult is <c>true</c>.
+	/// Stop onClick-event propagation. Default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool OnClickStopPropagation { get; set; } = true;
 
 	/// <summary>
-	/// Prevents the default action for the onclick event. Deafult is <c>false</c>.
+	/// Prevents the default action for the onclick event. Default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool OnClickPreventDefault { get; set; }
 
@@ -293,7 +293,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	private async Task HandleClickCore(MouseEventArgs mouseEventArgs)
 	{
 		// #209 [HxButton] Tooltip does not hide when the button opens HxModal
-		// We disable the button (SingleClickProtection) and disabled buttons do not raise any events (the tooltip won't receive mouseout and stays visible).
+		// We disable the button (SingleClickProtection) and disabled buttons do not raise any events (the tooltip won't receive <c>mouseout</c> and stays visible).
 		await tooltipComponent.HideAsync();
 
 		if (OnClick.HasDelegate)
