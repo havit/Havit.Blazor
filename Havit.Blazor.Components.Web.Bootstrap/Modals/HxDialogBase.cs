@@ -66,7 +66,7 @@ public abstract class HxDialogBase<TResult> : ComponentBase
 	{
 		if (setResultOnModalClosed)
 		{
-			// we excect this only when dialog closed out od HideAsync/HideAsCancelledAsync methods
+			// we expect this only when dialog closed out od HideAsync/HideAsCancelledAsync methods
 			// ie. escape key or close but in top-right corner
 			resultCompletion.SetResult(DialogResult<TResult>.CreateCancelled());
 		}

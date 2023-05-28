@@ -233,5 +233,4 @@ public partial class HxMessageBox : ComponentBase
 		public string Text { get; set; }
 		public bool? IsPrimary { get; set; }
 	}
-
 }

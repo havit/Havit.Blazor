@@ -11,7 +11,7 @@ public sealed class DialogResult<TValue>
 	public bool Successful { get; }
 
 	/// <summary>
-	/// The value of the sucessful result.
+	/// The value of the successful result.
 	/// </summary>
 	/// <exception cref="InvalidOperationException">When the dialog is not successful.</exception>
 	public TValue Value

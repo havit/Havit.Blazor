@@ -228,7 +228,7 @@ public partial class HxModal : IAsyncDisposable
 	{
 		opened = false;
 		await InvokeOnClosedAsync();
-		StateHasChanged(); // ensures rerender to remove dialog from HTML
+		StateHasChanged(); // ensures re-render to remove dialog from HTML
 	}
 
 	/// <summary>
