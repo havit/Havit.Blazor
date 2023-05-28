@@ -151,7 +151,7 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 	}
 
 	/// <summary>
-	/// Receives notification from javascript when dropdown is shown.
+	/// Receives notification from JavaScript when dropdown is shown.
 	/// </summary>
 	/// <remarks>
 	/// the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
@@ -167,7 +167,7 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 	}
 
 	/// <summary>
-	/// Receives notification from javascript when item is hidden.
+	/// Receives notification from JavaScript when item is hidden.
 	/// </summary>
 	[JSInvokable("HxDropdown_HandleJsHidden")]
 	public async Task HandleJsHidden()
