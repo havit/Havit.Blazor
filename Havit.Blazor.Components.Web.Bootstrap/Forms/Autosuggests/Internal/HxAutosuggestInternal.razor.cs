@@ -47,7 +47,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	[Parameter] public string Placeholder { get; set; }
 
 	/// <summary>
-	/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
+	/// Debounce delay in milliseconds. Default is <c>300 ms</c>.
 	/// </summary>
 	[Parameter] public int DelayEffective { get; set; } = 300;
 

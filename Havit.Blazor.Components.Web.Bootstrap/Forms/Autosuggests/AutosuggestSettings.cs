@@ -23,7 +23,7 @@ public record AutosuggestSettings : InputSettings, IInputSettingsWithSize
 	public int? MinimumLength { get; set; }
 
 	/// <summary>
-	/// Debounce delay in miliseconds.
+	/// Debounce delay in milliseconds.
 	/// </summary>
 	public int? Delay { get; set; }
 

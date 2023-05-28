@@ -169,13 +169,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	protected InputSize InputSizeEffective => this.InputSize ?? this.GetSettings()?.InputSize ?? this.GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSearchBox) + " has to be set.");
 
 	/// <summary>
-	/// Minimum lenght to call the data provider (display any results). Default is <c>2</c>.
+	/// Minimum length to call the data provider (display any results). Default is <c>2</c>.
 	/// </summary>
 	[Parameter] public int? MinimumLength { get; set; }
 	protected int MinimumLengthEffective => this.MinimumLength ?? this.GetSettings()?.MinimumLength ?? GetDefaults().MinimumLength ?? throw new InvalidOperationException(nameof(MinimumLength) + " default for " + nameof(HxSearchBox) + " has to be set.");
 
 	/// <summary>
-	/// Debounce delay in miliseconds. Default is <c>300</c> ms.
+	/// Debounce delay in milliseconds. Default is <c>300</c> ms.
 	/// </summary>
 	[Parameter] public int? Delay { get; set; }
 	protected int DelayEffective => this.Delay ?? this.GetSettings()?.Delay ?? GetDefaults().Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxSearchBox) + " has to be set.");
@@ -228,7 +228,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private System.Timers.Timer timer;
 	private CancellationTokenSource cancellationTokenSource;
 	private bool dataProviderInProgress;
-	private bool inputformHasFocus;
+	private bool inputFormHasFocus;
 	private IJSObjectReference jsModule;
 	private DotNetObjectReference<HxSearchBox<TItem>> dotnetObjectReference;
 	private bool disposed = false;
@@ -311,7 +311,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		// KeyboardNavigation
 		if (this.AllowTextQuery)
 		{
-			focusedItemIndex = InputKeyboardNavigationIndex; // Move focus to the input, so that freetext can be easily confirmed with Enter.
+			focusedItemIndex = InputKeyboardNavigationIndex; // Move focus to the input, so that free-text can be easily confirmed with Enter.
 		}
 		else
 		{
@@ -400,7 +400,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			{
 				await HandleItemSelected(focusedItem);
 			}
-			else if (focusedItemIndex == InputKeyboardNavigationIndex || focusedItemIndex == GetFreeTextItemIndex()) // Confirm freetext (text query) if the input or the freetext item is focused and the enter key is pressed.
+			else if (focusedItemIndex == InputKeyboardNavigationIndex || focusedItemIndex == GetFreeTextItemIndex()) // Confirm free-text (text query) if the input or the free-text item is focused and the enter key is pressed.
 			{
 				await HandleTextQueryTriggered();
 			}
@@ -460,12 +460,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private void HandleInputFocus()
 	{
-		inputformHasFocus = true;
+		inputFormHasFocus = true;
 	}
 
 	private void HandleInputBlur()
 	{
-		inputformHasFocus = false;
+		inputFormHasFocus = false;
 
 		if (!dropdownMenuActive)
 		{
@@ -521,7 +521,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private void HandleDropdownMenuHidden()
 	{
 		dropdownMenuActive = false;
-		if (!inputformHasFocus)
+		if (!inputFormHasFocus)
 		{
 			ClearInputValueIfTextQueryDisabled();
 		}

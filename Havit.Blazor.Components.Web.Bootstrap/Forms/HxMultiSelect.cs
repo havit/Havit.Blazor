@@ -215,7 +215,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	protected override string FormatValueAsString(List<TValue> value)
 	{
 		// Used for CurrentValueAsString (which is used for the input element and for the chip generator).
-		// Thats why we do not use NullDataText here.
+		// That's why we do not use NullDataText here.
 
 		if ((!value?.Any() ?? true) || (Data == null))
 		{

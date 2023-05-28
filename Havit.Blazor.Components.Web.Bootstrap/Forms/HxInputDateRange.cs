@@ -110,7 +110,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
-		RenderWithAutoCreatedEditContextAsCascandingValue(builder, 0, BuildRenderInputCore);
+		RenderWithAutoCreatedEditContextAsCascadingValue(builder, 0, BuildRenderInputCore);
 	}
 
 	protected virtual void BuildRenderInputCore(RenderTreeBuilder builder)

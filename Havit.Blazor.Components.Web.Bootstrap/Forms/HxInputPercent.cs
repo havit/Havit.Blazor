@@ -10,8 +10,8 @@ public class HxInputPercent<TValue> : HxInputNumber<TValue>
 
 	public HxInputPercent()
 	{
-		Type undelyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-		if (!supportedTypes.Contains(undelyingType))
+		Type underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+		if (!supportedTypes.Contains(underlyingType))
 		{
 			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
 		}

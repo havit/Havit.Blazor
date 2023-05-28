@@ -150,7 +150,7 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 		builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 		builder.SetUpdatesAttributeName("value");
 		builder.AddEventStopPropagationAttribute(1002, "onclick", true);
-		builder.AddElementReferenceCapture(1003, elementReferece => InputElement = elementReferece);
+		builder.AddElementReferenceCapture(1003, elementReference => InputElement = elementReference);
 
 		if (itemsToRender != null)
 		{

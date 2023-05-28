@@ -83,7 +83,7 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 		}
 
 		builder.AddEventStopPropagationAttribute(1005, "onclick", true);
-		builder.AddElementReferenceCapture(1006, elementReferece => InputElement = elementReferece);
+		builder.AddElementReferenceCapture(1006, elementReference => InputElement = elementReference);
 
 		builder.CloseElement();
 	}

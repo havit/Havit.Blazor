@@ -70,9 +70,9 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 
 	public HxInputRange()
 	{
-		Type undelyingType = typeof(TValue);
+		Type underlyingType = typeof(TValue);
 
-		if (!supportedTypes.Contains(undelyingType))
+		if (!supportedTypes.Contains(underlyingType))
 		{
 			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
 		}

@@ -131,8 +131,8 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 	public HxInputDate()
 	{
-		Type undelyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-		if (!supportedTypes.Contains(undelyingType))
+		Type underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+		if (!supportedTypes.Contains(underlyingType))
 		{
 			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
 		}
@@ -140,7 +140,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
-		RenderWithAutoCreatedEditContextAsCascandingValue(builder, 0, BuildRenderInputCore);
+		RenderWithAutoCreatedEditContextAsCascadingValue(builder, 0, BuildRenderInputCore);
 	}
 
 	protected virtual void BuildRenderInputCore(RenderTreeBuilder builder)
