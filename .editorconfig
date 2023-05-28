@@ -1,4 +1,7 @@
-﻿# C# files
+﻿spelling_languages = en-us
+spelling_exclusion_path = ./exclusion.dic
+
+# C# files
 [*.cs]
 
 ####################################
