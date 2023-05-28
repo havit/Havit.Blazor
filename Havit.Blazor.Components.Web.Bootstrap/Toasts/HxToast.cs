@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/toasts/">Bootstrap Toast</see> component. Not intented to be used in user code, use <see cref="HxMessenger"/>.
+/// <see href="https://getbootstrap.com/docs/5.2/components/toasts/">Bootstrap Toast</see> component. Not intended to be used in user code, use <see cref="HxMessenger"/>.
 /// After first render component never updates.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxToast">https://havit.blazor.eu/components/HxToast</see>
 /// </summary>
@@ -20,7 +20,7 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 	[Parameter] public ThemeColor? Color { get; set; }
 
 	/// <summary>
-	/// Delay in miliseconds to automatically hide toast.
+	/// Delay in milliseconds to automatically hide toast.
 	/// </summary>
 	[Parameter] public int? AutohideDelay { get; set; }
 
@@ -209,12 +209,12 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 
 	protected override bool ShouldRender()
 	{
-		// never update content to avoid collision with javascript
+		// never update content to avoid collision with JavaScript
 		return false;
 	}
 
 	/// <summary>
-	/// Receive notification from javascript when message is hidden.
+	/// Receive notification from JavaScript when message is hidden.
 	/// </summary>
 	[JSInvokable("HxToast_HandleToastHidden")]
 	public async Task HandleToastHidden()
