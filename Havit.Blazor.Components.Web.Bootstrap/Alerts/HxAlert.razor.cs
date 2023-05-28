@@ -14,7 +14,7 @@ public partial class HxAlert
 	[Parameter, EditorRequired] public ThemeColor Color { get; set; }
 
 	/// <summary>
-	/// Shows the Close button and allows dissmissing of the alert.
+	/// Shows the Close button and allows dismissing of the alert.
 	/// </summary>
 	[Parameter] public bool Dismissible { get; set; }
 
