@@ -70,7 +70,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	protected int SuggestMinimumLengthEffective => this.SuggestMinimumLength ?? this.GetSettings()?.SuggestMinimumLength ?? this.GetDefaults().SuggestMinimumLength ?? throw new InvalidOperationException(nameof(SuggestMinimumLength) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 	/// <summary>
-	/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
+	/// Debounce delay in milliseconds. Default is <c>300 ms</c>.
 	/// </summary>
 	[Parameter] public int? SuggestDelay { get; set; }
 	protected int SuggestDelayEffective => this.SuggestDelay ?? this.GetSettings()?.SuggestDelay ?? this.GetDefaults().SuggestDelay ?? throw new InvalidOperationException(nameof(SuggestDelay) + " default for " + nameof(HxInputTags) + " has to be set.");
@@ -126,7 +126,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
 
 
-	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
+	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* label rendered by HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
 	private protected override string CoreCssClass => "hx-input-tags position-relative";
 
 	/// <summary>

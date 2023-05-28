@@ -230,7 +230,7 @@ public partial class HxOffcanvas : IAsyncDisposable
 	{
 		opened = false;
 		await InvokeOnClosedAsync();
-		StateHasChanged(); // ensures rerender to remove the control from HTML
+		StateHasChanged(); // ensures re-render to remove the control from HTML
 	}
 
 	/// <summary>

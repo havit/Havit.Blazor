@@ -67,7 +67,7 @@ public class HxTab : ComponentBase, ICascadeEnabledComponent, IAsyncDisposable
 	[Parameter] public bool? Enabled { get; set; }
 
 	/// <summary>
-	/// Rised when the tab is activated.
+	/// Raised when the tab is activated.
 	/// </summary>
 	[Parameter] public EventCallback OnTabActivated { get; set; }
 	/// <summary>
@@ -76,7 +76,7 @@ public class HxTab : ComponentBase, ICascadeEnabledComponent, IAsyncDisposable
 	protected virtual Task InvokeOnTabActivatedAsync() => OnTabActivated.InvokeAsync();
 
 	/// <summary>
-	/// Rised when the tab is deactivated (another tab is activates or when <see cref="HxTabPanel"/> is disposed).
+	/// Raised when the tab is deactivated (another tab is activates or when <see cref="HxTabPanel"/> is disposed).
 	/// </summary>
 	[Parameter] public EventCallback OnTabDeactivated { get; set; }
 	/// <summary>

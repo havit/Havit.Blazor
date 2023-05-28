@@ -72,7 +72,7 @@ public partial class HxPlaceholder : ILayoutColumnComponent
 	protected ThemeColor ColorEffective => this.Color ?? this.GetSettings()?.Color ?? PlaceholderContainer?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxPlaceholder) + " has to be set.");
 
 	/// <summary>
-	/// Optional content of the placeholder (usualy not used).
+	/// Optional content of the placeholder (usually not used).
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 

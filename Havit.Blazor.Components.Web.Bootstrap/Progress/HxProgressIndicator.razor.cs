@@ -44,7 +44,7 @@ public partial class HxProgressIndicator : IDisposable
 	[Parameter] public bool InProgress { get; set; }
 
 	/// <summary>
-	/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
+	/// Debounce delay in milliseconds. Default is <c>300 ms</c>.
 	/// </summary>
 	[Parameter] public int? Delay { get; set; }
 	protected int DelayEffective => this.Delay ?? GetSettings()?.Delay ?? GetDefaults()?.Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxProgressIndicator) + " has to be set.");

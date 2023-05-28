@@ -13,7 +13,7 @@ public record InputTagsSettings : InputSettings, IInputSettingsWithSize
 	public int? SuggestMinimumLength { get; set; }
 
 	/// <summary>
-	/// Debounce delay in miliseconds.
+	/// Debounce delay in milliseconds.
 	/// </summary>
 	public int? SuggestDelay { get; set; }
 
