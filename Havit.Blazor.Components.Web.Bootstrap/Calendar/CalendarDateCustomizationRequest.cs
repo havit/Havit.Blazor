@@ -7,7 +7,7 @@ public record CalendarDateCustomizationRequest
 {
 	/// <summary>
 	/// Who is asking for a customization, where the customization will be applied.
-	/// Allows distinquishing From and To inputs in <see cref="HxInputDateRange"/>.
+	/// Allows distinguishing From and To inputs in <see cref="HxInputDateRange"/>.
 	/// </summary>
 	public CalendarDateCustomizationTarget Target { get; init; }
 

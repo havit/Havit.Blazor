@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Indicates date in which calendar is to be customized.
-/// Allows distinquishing From and To inputs in <see cref="HxInputDateRange"/>.
+/// Allows distinguishing From and To inputs in <see cref="HxInputDateRange"/>.
 /// </summary>
 public class CalendarDateCustomizationTarget
 {
