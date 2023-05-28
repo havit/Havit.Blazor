@@ -48,7 +48,7 @@ public partial class HxScrollspy : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// When using scrollspy in conjunction with adding or removing of elements from the DOM (e.g. asynchronnous data load), you’ll need to refresh the scrollspy explicitly.
+	/// When using scrollspy in conjunction with adding or removing of elements from the DOM (e.g. asynchronous data load), you’ll need to refresh the scrollspy explicitly.
 	/// </summary>
 	/// <returns></returns>
 	public async Task RefreshAsync()
