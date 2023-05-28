@@ -163,12 +163,12 @@
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.GetDefaults">
             <summary>
             Returns component defaults.
-            Enables overriding defaults in descandants (use separate set of defaults).
+            Enables overriding defaults in descendants (use separate set of defaults).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Settings">
             <summary>
-            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Defaults"/>, overriden by individual parameters).
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Defaults"/>, overridden by individual parameters).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.GetSettings">
@@ -176,7 +176,7 @@
             Returns optional set of component settings.
             </summary>
             <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.HxInputFileCore.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Settings"/> in components descandants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.HxInputFileCore.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Settings"/> in components descendants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.UploadUrl">

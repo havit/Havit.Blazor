@@ -23,13 +23,13 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 
 	/// <summary>
 	/// Return <see cref="HxInputBase{TValue}"/> defaults.
-	/// Enables to not share defaults in descandants with base classes.
+	/// Enables to not share defaults in descendants with base classes.
 	/// Enables to have multiple descendants which differs in the default values.
 	/// </summary>
 	protected virtual InputSettings GetDefaults() => HxInputBase.Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputBase.Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputBase.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	/// <remarks>
 	/// Using interface does not force the implementation of settings to use specific class as a base type.</remarks>
@@ -143,7 +143,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	protected ElementReference InputElement { get; set; }
 
 	/// <summary>
-	/// Elements rendering order. Overriden in the <see cref="HxInputCheckbox"/> component.
+	/// Elements rendering order. overridden in the <see cref="HxInputCheckbox"/> component.
 	/// </summary>
 	// TODO Remove when HxInputCheckbox removed?
 	protected virtual LabelValueRenderOrder RenderOrder =>

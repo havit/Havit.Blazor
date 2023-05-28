@@ -17,7 +17,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	public const string ColumnsRegistrationCascadingValueName = "ColumnsRegistration";
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxGrid.Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxGrid.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public GridSettings Settings { get; set; }
 
@@ -25,7 +25,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual GridSettings GetSettings() => this.Settings;
 
@@ -265,7 +265,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected virtual GridSettings GetDefaults() => HxGrid.Defaults;
 
@@ -393,7 +393,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Returns CSS class for the <c>&lt;table&gt;</c> element.
 	/// </summary>
 	/// <remarks>
-	/// Overriden in 176.BT2 project to allow setting background-color for grids with selected items.
+	/// overridden in 176.BT2 project to allow setting background-color for grids with selected items.
 	/// </remarks>
 	/// <param name="rendersData">Indicates whether the grid renders data (<c>false</c> when the grid has no items to render or the data have not been loaded yet).</param>
 	protected virtual string GetTableElementCssClass(bool rendersData)

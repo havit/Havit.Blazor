@@ -73,7 +73,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	[Parameter] public bool Inline { get; set; }
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDate.Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDate.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public CheckboxListSettings Settings { get; set; }
 
