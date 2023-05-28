@@ -304,7 +304,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Receives notification from javascript when content is shown.
+	/// Receives notification from JavaScript when content is shown.
 	/// </summary>
 	/// <remarks>
 	/// the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
@@ -316,7 +316,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Receives notification from javascript when content is hidden.
+	/// Receives notification from JavaScript when content is hidden.
 	/// </summary>
 	[JSInvokable("HxHandleJsHidden")]
 	public async Task HandleJsHidden()

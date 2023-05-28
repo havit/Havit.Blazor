@@ -9,5 +9,5 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public enum BootstrapFlavor
 {
 	HavitDefault = 0,
-	PlainBoostrap = 1
+	PlainBootstrap = 1
 }
