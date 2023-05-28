@@ -35,7 +35,7 @@ public partial class HxContextMenu
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual ContextMenuSettings GetSettings() => this.Settings;
 
@@ -58,7 +58,7 @@ public partial class HxContextMenu
 	protected string DropdownMenuCssClassEffective => this.DropdownMenuCssClass ?? this.GetSettings()?.DropdownMenuCssClass ?? GetDefaults().DropdownMenuCssClass;
 
 	/// <summary>
-	/// Icon carring the menu (use <see cref="BootstrapIcon" /> or any other <see cref="IconBase"/>).<br />
+	/// Icon carrying the menu (use <see cref="BootstrapIcon" /> or any other <see cref="IconBase"/>).<br />
 	/// Default is <see cref="BootstrapIcon.ThreeDotsVertical"/>.
 	/// </summary>
 	[Parameter] public IconBase Icon { get; set; }
