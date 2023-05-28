@@ -167,7 +167,7 @@ public partial class HxCarousel : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Slides to an element with the coresponding index.
+	/// Slides to an element with the corresponding index.
 	/// </summary>
 	public async Task SlideToAsync(int index)
 	{
