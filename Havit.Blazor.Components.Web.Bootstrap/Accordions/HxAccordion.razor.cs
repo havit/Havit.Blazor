@@ -46,7 +46,7 @@ public partial class HxAccordion
 
 	/// <summary>
 	/// Set to <c>true</c> to make accordion items stay open when another item is opened.
-	/// Default is <c>false</c>, openning another item collapses current item.
+	/// Default is <c>false</c>, opening another item collapses current item.
 	/// </summary>
 	[Parameter] public bool StayOpen { get; set; }
 
