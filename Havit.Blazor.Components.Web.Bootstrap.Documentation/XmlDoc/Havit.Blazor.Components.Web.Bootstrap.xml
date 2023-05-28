@@ -5616,7 +5616,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.Responsive">
             <summary>
-            Allows the table to be scrolled horizontally with ease accross any breakpoint (adds the <c>table-responsive</c> class to the table).
+            Allows the table to be scrolled horizontally with ease across any breakpoint (adds the <c>table-responsive</c> class to the table).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.Hover">
@@ -5701,7 +5701,7 @@
             <summary>
             The order (display index) of the column.
             Columns are displayed in the order of this property.
-            Columns with the same value are displayed in the order of appereance in the code (when the columns are not conditionaly displayed using @if).
+            Columns with the same value are displayed in the order of appearance in the code (when the columns are not conditionally displayed using @if).
             </summary>
             <exception cref="T:System.ArgumentException">Value is <c>Int32.MinValue</c> or <c>Int32.MaxValue</c>.</exception>
         </member>
@@ -5961,7 +5961,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Responsive">
             <summary>
-            Allows the table to be scrolled horizontally with ease accross any breakpoint (adds the <c>table-responsive</c> class to the table).<br/>
+            Allows the table to be scrolled horizontally with ease across any breakpoint (adds the <c>table-responsive</c> class to the table).<br/>
             Default is <c>false</c>.
             </summary>
         </member>
@@ -6077,7 +6077,7 @@
             <summary>
             The order (display index) of the column.
             Columns are displayed in the order of this property.
-            Columns with the same value are displayed in the order of appereance in the code (when the columns are not conditionaly displayed using @if).
+            Columns with the same value are displayed in the order of appearance in the code (when the columns are not conditionally displayed using @if).
             </summary>
             <exception cref="T:System.ArgumentException">Value is <c>Int32.MinValue</c> or <c>Int32.MaxValue</c>.</exception>
         </member>
@@ -6148,7 +6148,7 @@
             Returns column sorting expression for automatic grid sorting.
             To be used for &quot;strongly typed&quot; setting of sorting, required for client-side sorting.
             Must be <see cref="T:System.IComparable"/>.
-            Sorting of the column does not support multiple expressions. Create an artifcial property and implement <see cref="T:System.IComparable"/>.
+            Sorting of the column does not support multiple expressions. Create an artificial property and implement <see cref="T:System.IComparable"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.SortDirection">
@@ -6237,7 +6237,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.IsColumnVisible">
             <summary>
             Indicates whether the column is visible (otherwise the column is hidden).
-            It is not suitable to conditionaly display the column using @if statement in the markup code.
+            It is not suitable to conditionally display the column using @if statement in the markup code.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetColumnOrder">
@@ -6388,15 +6388,15 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.IsVisible">
             <summary>
             Indicates whether the column is visible (otherwise the column is hidden).
-            It is not suitable to conditionaly display the column using @if statement in the markup code.
+            It is not suitable to conditionally display the column using @if statement in the markup code.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetOrder">
             <summary>
             Get column order (for scenarios where column order can be modified).
             Default should be <c>0</c>.
-            When columns have same order they should render in the order of their registration (Which is usually the same as the column appereance in the source code.
-            But it differs when the column is displayed conditionaly using @if statement.).
+            When columns have same order they should render in the order of their registration (Which is usually the same as the column appearance in the source code.
+            But it differs when the column is displayed conditionally using @if statement.).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetSorting">

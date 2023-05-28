@@ -8,7 +8,7 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 	/// <summary>
 	/// The order (display index) of the column.
 	/// Columns are displayed in the order of this property.
-	/// Columns with the same value are displayed in the order of appereance in the code (when the columns are not conditionaly displayed using @if).
+	/// Columns with the same value are displayed in the order of appearance in the code (when the columns are not conditionally displayed using @if).
 	/// </summary>
 	/// <exception cref="ArgumentException">Value is <c>Int32.MinValue</c> or <c>Int32.MaxValue</c>.</exception>
 	[Parameter]
