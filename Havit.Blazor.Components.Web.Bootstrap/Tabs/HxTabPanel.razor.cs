@@ -86,7 +86,7 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	protected override async Task OnParametersSetAsync()
 	{
 		await base.OnParametersSetAsync();
-		await NotifyActivationAndDeativatationAsync();
+		await NotifyActivationAndDeactivationAsync();
 	}
 
 	internal async Task SetActiveTabIdAsync(string newId)
@@ -95,11 +95,11 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 		{
 			ActiveTabId = newId;
 			await InvokeActiveTabIdChangedAsync(newId);
-			await NotifyActivationAndDeativatationAsync();
+			await NotifyActivationAndDeactivationAsync();
 		}
 	}
 
-	private async Task NotifyActivationAndDeativatationAsync()
+	private async Task NotifyActivationAndDeactivationAsync()
 	{
 		HxTab activeTab = tabsList.FirstOrDefault(tab => IsActive(tab));
 		if (activeTab == previousActiveTab)

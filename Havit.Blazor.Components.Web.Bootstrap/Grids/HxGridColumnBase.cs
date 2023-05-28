@@ -54,7 +54,7 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 
 	/// <summary>
 	/// Indicates whether the column is visible (otherwise the column is hidden).
-	/// It is not suitable to conditionaly display the column using @if statement in the markup code.
+	/// It is not suitable to conditionally display the column using @if statement in the markup code.
 	/// </summary>
 	protected virtual bool IsColumnVisible() => true;
 

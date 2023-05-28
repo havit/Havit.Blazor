@@ -34,12 +34,12 @@ public partial class HxModal : IAsyncDisposable
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected virtual ModalSettings GetDefaults() => Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public ModalSettings Settings { get; set; }
 
@@ -47,7 +47,7 @@ public partial class HxModal : IAsyncDisposable
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual ModalSettings GetSettings() => this.Settings;
 
@@ -228,7 +228,7 @@ public partial class HxModal : IAsyncDisposable
 	{
 		opened = false;
 		await InvokeOnClosedAsync();
-		StateHasChanged(); // ensures rerender to remove dialog from HTML
+		StateHasChanged(); // ensures re-render to remove dialog from HTML
 	}
 
 	/// <summary>

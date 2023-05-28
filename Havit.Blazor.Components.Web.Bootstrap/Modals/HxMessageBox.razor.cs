@@ -35,7 +35,7 @@ public partial class HxMessageBox : ComponentBase
 
 	/// <summary>
 	/// Returns <see cref="HxMessageBox"/> defaults.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected virtual MessageBoxSettings GetDefaults() => Defaults;
 
@@ -233,5 +233,4 @@ public partial class HxMessageBox : ComponentBase
 		public string Text { get; set; }
 		public bool? IsPrimary { get; set; }
 	}
-
 }

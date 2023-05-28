@@ -192,7 +192,7 @@
 <HeadContent>
     @if (selectedTheme?.Name == "Bootstrap 5")
     {
-		@((MarkupString)HxSetup.RenderBootstrapCssReference(BootstrapFlavor.PlainBoostrap))
+		@((MarkupString)HxSetup.RenderBootstrapCssReference(BootstrapFlavor.PlainBootstrap))
     }
     else if (selectedTheme is not null) // null = HAVIT Bootstrap build (default)
     {

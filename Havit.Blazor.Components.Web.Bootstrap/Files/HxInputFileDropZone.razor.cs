@@ -115,7 +115,7 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	/// <remarks>
-	/// We do not want to make the Havit.Blazor library dependant on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
+	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
 	/// </remarks>
 	public Task StartUploadAsync(string accessToken = null) => hxInputFileCoreComponentReference?.StartUploadAsync(accessToken);
 

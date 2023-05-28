@@ -12,7 +12,7 @@
     </h2>
     <HxCollapse @ref="collapseComponent"
                 Id="@("collapse-" + idEffective)"
-                Parent="@(!ParentAccordition.StayOpen ? $"#{ParentAccordition.Id}" : null)"
+                Parent="@(!ParentAccordion.StayOpen ? $"#{ParentAccordion.Id}" : null)"
                 CssClass="@CssClassHelper.Combine("accordion-collapse", !isInitialized && IsSetToBeExpanded() ? "show" : null)"
                 OnShown="HandleCollapseShown"
                 OnHidden="HandleCollapseHidden"

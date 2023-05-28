@@ -34,12 +34,12 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected override InputTagsSettings GetDefaults() => Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public InputTagsSettings Settings { get; set; }
 
@@ -47,7 +47,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected override InputTagsSettings GetSettings() => this.Settings;
 
@@ -70,7 +70,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	protected int SuggestMinimumLengthEffective => this.SuggestMinimumLength ?? this.GetSettings()?.SuggestMinimumLength ?? this.GetDefaults().SuggestMinimumLength ?? throw new InvalidOperationException(nameof(SuggestMinimumLength) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 	/// <summary>
-	/// Debounce delay in miliseconds. Default is <c>300 ms</c>.
+	/// Debounce delay in milliseconds. Default is <c>300 ms</c>.
 	/// </summary>
 	[Parameter] public int? SuggestDelay { get; set; }
 	protected int SuggestDelayEffective => this.SuggestDelay ?? this.GetSettings()?.SuggestDelay ?? this.GetDefaults().SuggestDelay ?? throw new InvalidOperationException(nameof(SuggestDelay) + " default for " + nameof(HxInputTags) + " has to be set.");
@@ -126,7 +126,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
 
 
-	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
+	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* label rendered by HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
 	private protected override string CoreCssClass => "hx-input-tags position-relative";
 
 	/// <summary>

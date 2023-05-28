@@ -21,7 +21,7 @@ public partial class HxBreadcrumbItem
 	[Parameter] public bool Active { get; set; }
 
 	/// <summary>
-	/// Itme content.
+	/// Item content.
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 }

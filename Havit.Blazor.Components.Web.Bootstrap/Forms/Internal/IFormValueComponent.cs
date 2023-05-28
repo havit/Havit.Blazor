@@ -21,7 +21,7 @@ public interface IFormValueComponent
 	RenderFragment LabelTemplate => null;
 
 	/// <summary>
-	/// Element id to render as label for attibute.
+	/// Element id to render as label for attribute.
 	/// </summary>
 	string LabelFor => null;
 

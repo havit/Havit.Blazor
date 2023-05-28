@@ -30,12 +30,12 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected override InputDateRangeSettings GetDefaults() => Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public InputDateRangeSettings Settings { get; set; }
 
@@ -43,7 +43,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected override InputDateRangeSettings GetSettings() => this.Settings;
 
@@ -110,7 +110,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
-		RenderWithAutoCreatedEditContextAsCascandingValue(builder, 0, BuildRenderInputCore);
+		RenderWithAutoCreatedEditContextAsCascadingValue(builder, 0, BuildRenderInputCore);
 	}
 
 	protected virtual void BuildRenderInputCore(RenderTreeBuilder builder)

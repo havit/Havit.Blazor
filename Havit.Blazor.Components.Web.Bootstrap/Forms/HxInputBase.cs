@@ -23,13 +23,13 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 
 	/// <summary>
 	/// Return <see cref="HxInputBase{TValue}"/> defaults.
-	/// Enables to not share defaults in descandants with base classes.
+	/// Enables to not share defaults in descendants with base classes.
 	/// Enables to have multiple descendants which differs in the default values.
 	/// </summary>
 	protected virtual InputSettings GetDefaults() => HxInputBase.Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputBase.Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputBase.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	/// <remarks>
 	/// Using interface does not force the implementation of settings to use specific class as a base type.</remarks>
@@ -143,7 +143,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	protected ElementReference InputElement { get; set; }
 
 	/// <summary>
-	/// Elements rendering order. Overriden in the <see cref="HxInputCheckbox"/> component.
+	/// Elements rendering order. overridden in the <see cref="HxInputCheckbox"/> component.
 	/// </summary>
 	// TODO Remove when HxInputCheckbox removed?
 	protected virtual LabelValueRenderOrder RenderOrder =>
@@ -213,7 +213,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		}
 	}
 	/// <summary>
-	/// When there is no EditContext cascading parameter, lets create a new one and assing it to CascadedEditContext private property in a base InputBase class.
+	/// When there is no EditContext cascading parameter, lets create a new one and assign it to CascadedEditContext private property in a base InputBase class.
 	/// </summary>
 	/// <remarks>
 	/// Even there is a protected EditContext property we cannot assign a value. When doing so InvalidOperationException exception is thrown.
@@ -232,7 +232,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// <inheritdoc />
 	protected override sealed void BuildRenderTree(RenderTreeBuilder builder)
 	{
-		// in checkbox label is renderead after input but we need InputId.
+		// in checkbox label is rendered after input but we need InputId.
 		if (!String.IsNullOrEmpty(Label) || (LabelTemplate != null))
 		{
 			EnsureInputId();
@@ -258,10 +258,10 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	}
 
 	/// <summary>
-	/// When EditContext was automaticly created, this method renders CascandingValue component with this EditContext and the content of the renderFrament.
+	/// When EditContext was automatically created, this method renders CascadingValue component with this EditContext and the content of the renderFragment.
 	/// Otherwise only renderFragment is rendered.
 	/// </summary>
-	private protected void RenderWithAutoCreatedEditContextAsCascandingValue(RenderTreeBuilder builder, int sequence, RenderFragment renderFragment)
+	private protected void RenderWithAutoCreatedEditContextAsCascadingValue(RenderTreeBuilder builder, int sequence, RenderFragment renderFragment)
 	{
 		if (autoCreatedEditContext != null)
 		{

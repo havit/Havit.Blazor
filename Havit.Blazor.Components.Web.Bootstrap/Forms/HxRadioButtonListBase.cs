@@ -85,7 +85,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	protected bool AutoSortImpl { get; set; } = true;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDate.Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDate.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public RadioButtonListSettings Settings { get; set; }
 

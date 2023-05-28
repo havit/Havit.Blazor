@@ -114,7 +114,7 @@ internal class StringPatternizer
 			}
 			catch
 			{
-				return false;//pattern marker value was found in procesingString, but value has incorrect type format - means pattern doesn't match
+				return false; //pattern marker value was found in processing String, but value has incorrect type format - means pattern doesn't match
 			}
 		}
 
@@ -123,7 +123,7 @@ internal class StringPatternizer
 
 	private string TranslateToRegexPattern(string pattern)
 	{
-		var regexPattern = new StringBuilder(Regex.Escape(pattern));//Escape - treats any character as leteral(needed to avoid RegEx injections from original pattern)
+		var regexPattern = new StringBuilder(Regex.Escape(pattern)); //Escape - treats any character as literal (needed to avoid RegEx injections from original pattern)
 
 		foreach (var marker in Markers)
 		{
@@ -134,8 +134,8 @@ internal class StringPatternizer
 
 			var regexMarkerPattern = new StringBuilder();
 			regexMarkerPattern.Append("(?<");
-			regexMarkerPattern.Append(marker.Key);//specify group name
-			regexMarkerPattern.Append(">.+)");//'.+' - means one or unlimited number of any characters(except line terminators)
+			regexMarkerPattern.Append(marker.Key); //specify group name
+			regexMarkerPattern.Append(">.+)"); //'.+' - means one or unlimited number of any characters(except line terminators)
 			regexPattern = regexPattern.Replace(marker.Key.ToString(), regexMarkerPattern.ToString());
 		}
 
