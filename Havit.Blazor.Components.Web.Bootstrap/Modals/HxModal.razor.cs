@@ -44,7 +44,7 @@ public partial class HxModal : IAsyncDisposable
 	[Parameter] public ModalSettings Settings { get; set; }
 
 	/// <summary>
-	/// For modals that simply appear rather than fade in to view, setting false removes the .fade class from your modal markup.
+	/// For modals that simply appear rather than fade in to view, setting false removes the .fade class from your modal markup.  Default value is true.
 	/// </summary>
 	[Parameter] public bool Animate { get; set; } = true;
 
