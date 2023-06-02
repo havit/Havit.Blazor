@@ -30,14 +30,14 @@ function handleModalShown(event) {
 async function handleModalHide(event) {
     let modalInstance = bootstrap.Modal.getInstance(event.target);
 
-    if (modalInstance.dontPrevent)
+	if (modalInstance.hidePreventionDisabled)
         return;
 
     event.preventDefault();
 
     let cancel = await event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHide');
     if (!cancel) {
-        modalInstance.dontPrevent = true;
+		modalInstance.hidePreventionDisabled = true;
         modalInstance.hide();
     }
 };
