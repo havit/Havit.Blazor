@@ -479,6 +479,12 @@ public class DemoDataService : IDemoDataService
 		return employees.ToList();
 	}
 
+	public IQueryable<EmployeeDto> GetEmployeesAsQueryable()
+	{
+		logger.LogInformation("DemoDataService.GetEmployeesAsQueryable() called.");
+		return employees.AsQueryable();
+	}
+
 	public async Task<IEnumerable<EmployeeDto>> GetEmployeesDataFragmentAsync(int startIndex, int? count, CancellationToken cancellationToken = default)
 	{
 		logger.LogInformation($"DemoDataService.GetEmployeesDataFragmentAsync(startIndex: {startIndex}, count: {count}) called.");

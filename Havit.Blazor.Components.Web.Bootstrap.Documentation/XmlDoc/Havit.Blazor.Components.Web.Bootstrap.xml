@@ -5494,11 +5494,12 @@
             </summary>
             <param name="data">data to process (paging and sorting will be applied)</param>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderRequest`1.ApplySortingPagingTo(System.Linq.IQueryable{`0})">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderRequestExtensions.ApplyGridDataProviderRequest``1(System.Linq.IQueryable{``0},Havit.Blazor.Components.Web.Bootstrap.GridDataProviderRequest{``0})">
             <summary>
-            Applies sorting &amp; paging to the <seealso cref="T:System.Linq.IQueryable`1"/>.
+            Applies sorting &amp; paging from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/>.
             </summary>
-            <param name="dataProvider">Data provider to apply paging &amp; sorting.</param>
+            <param name="source">Data source to apply the request to.</param>
+            <param name="gridDataProviderRequest"><see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/> request</param>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderResult`1">
             <summary>

@@ -18,12 +18,13 @@
 		</p>
 		<Demo Type="typeof(HxGrid_Demo_ApplyTo)" />
 
-        <p>
-            If you have <code>IQueryable</code> as a data-source provider, you can use the <code>request.ApplySortingPagingTo(dataProvider)</code>
-            method to apply sorting and paging on the data provider. Then you must query data on your own, because we do not have access to cancellable async methods
+		<DocHeading Title="IQueryable usage" Id="Queryable" Level="3" />
+		<p>
+			If you have <code>IQueryable</code> as a data-source provider, you can use the <code>data.ApplyGridDataProviderRequest(request)</code>
+            method to apply sorting and paging to your data source. Then you must query data on your own, because we do not have access to cancellable async methods
             in the components (CountAsync, ToListAsync) and it is quite crutial to use cancellable methods, mainly for infinite scroll. 
         </p>
-        <Demo Type="typeof(HxGrid_Demo_ApplySortingPaging)" />
+        <Demo Type="typeof(HxGrid_Demo_Queryable)" />
 
 
         <DocAlert Type="DocAlertType.Warning">
