@@ -54,7 +54,7 @@ export function dispose(element) {
 
 	element.removeEventListener('hide.bs.modal', handleModalHide);
 	element.removeEventListener('hidden.bs.modal', handleModalHidden);
-	element.removeEventListener('shown.bs.modal', handleModalHidden);
+	element.removeEventListener('shown.bs.modal', handleModalShown);
 	element.hxModalDotnetObjectReference = null;
 
 	var modal = bootstrap.Modal.getInstance(element);
