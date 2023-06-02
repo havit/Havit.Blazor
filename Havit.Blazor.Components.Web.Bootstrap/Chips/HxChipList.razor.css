@@ -1,30 +1,39 @@
 .hx-chip-list {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--hx-chiplist-gap);
+    gap: var(--hx-chip-list-gap);
 }
 ::deep .badge {
     display: inline-flex;
     align-items: center;
 }
 
-::deep .hx-chip-remove-btn {
+ .hx-chip-list-remove-btn {
     display: flex;
     align-items: center;
-    margin: var(--hx-chiplist-chip-remove-btn-margin);
-    opacity: var(--hx-chiplist-chip-remove-btn-opacity);
+    margin: var(--hx-chip-list-chip-remove-btn-margin);
+    opacity: var(--hx-chip-list-chip-remove-btn-opacity);
 }
 
-::deep .hx-chip-remove-btn .hx-icon {
+::deep .hx-chip-list-remove-btn .hx-icon {
     display: flex;
 }
 
-::deep .hx-chip-remove-btn:hover {
+::deep .hx-chip-list-remove-btn:hover {
     opacity: 1;
 }
 
-::deep .hx-chip-label {
-    font-weight: var(--hx-chiplist-chip-label-font-weight);
-    margin-right: var(--hx-chiplist-chip-label-margin);
-    opacity: var(--hx-chiplist-chip-label-opacity);
+::deep .hx-chip-list-label {
+    font-weight: var(--hx-chip-list-chip-label-font-weight);
+    margin-right: var(--hx-chip-list-chip-label-margin);
+    opacity: var(--hx-chip-list-chip-label-opacity);
+}
+
+.hx-chip-list-reset-btn {
+    display: flex;
+    align-items: center;
+    font-size: .75em;
+    line-height: 1;
+    color: var(--bs-secondary);
+    padding: var(--hx-chip-list-chip-reset-btn-padding);
 }

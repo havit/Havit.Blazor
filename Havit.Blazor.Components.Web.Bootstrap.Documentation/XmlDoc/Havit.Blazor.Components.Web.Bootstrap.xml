@@ -1138,6 +1138,11 @@
             Additional CSS class.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ChipListSettings.ShowResetButton">
+            <summary>
+            Enables/disables the reset button.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxChipGenerator.OnInitialized">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized" />
         </member>
@@ -1199,6 +1204,33 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxChipList.InvokeOnChipRemoveClickAsync(Havit.Blazor.Components.Web.Bootstrap.ChipItem)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.OnChipRemoveClick"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.OnResetClick">
+            <summary>
+            Called when the reset button is clicked (when using the ready-made reset button, not the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.ResetButtonTemplate"/> where you are expected to wire the event on your own).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxChipList.InvokeOnResetClickAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.OnResetClick"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.ShowResetButton">
+            <summary>
+            Enables/disables the reset button.
+            Default is <c>false</c> (can be changed with <code>HxChipList.Defaults.ShowResetButton</code>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.ResetButtonText">
+            <summary>
+            Text of the reset button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.ResetButtonTemplate">
+            <summary>
+            Template for the reset button.
+            If used, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.ResetButtonText"/> is ignored and the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.OnResetClick"/> callback is not triggered (you are expected to wire the reset logic on you own).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.IHxChipGenerator">
@@ -7084,6 +7116,12 @@
             Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults"/>, overridden by individual parameters).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Animated">
+            <summary>
+            For modals that simply appear rather than fade in to view, setting <c>false</c> removes the <c>.fade</c> class from your modal markup.
+            Default value is <c>true</c>.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.GetSettings">
             <summary>
             Returns optional set of component settings.
@@ -7319,6 +7357,12 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> component
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Animated">
+            <summary>
+            For modals that simply appear rather than fade in to view, setting <c>false</c> removes the <c>.fade</c> class from your modal markup.
+            Default value is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.ShowCloseButton">

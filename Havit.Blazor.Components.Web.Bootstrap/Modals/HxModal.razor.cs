@@ -22,6 +22,7 @@ public partial class HxModal : IAsyncDisposable
 	{
 		Defaults = new ModalSettings()
 		{
+			Animated = true,
 			ShowCloseButton = true,
 			CloseOnEscape = true,
 			Size = ModalSize.Regular,
@@ -42,6 +43,13 @@ public partial class HxModal : IAsyncDisposable
 	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public ModalSettings Settings { get; set; }
+
+	/// <summary>
+	/// For modals that simply appear rather than fade in to view, setting <c>false</c> removes the <c>.fade</c> class from your modal markup.
+	/// Default value is <c>true</c>.
+	/// </summary>
+	[Parameter] public bool? Animated { get; set; }
+	protected bool AnimatedEffective => this.Animated ?? this.GetSettings()?.Animated ?? GetDefaults().Animated ?? throw new InvalidOperationException(nameof(Animated) + " default for " + nameof(HxModal) + " has to be set.");
 
 	/// <summary>
 	/// Returns optional set of component settings.

@@ -11,4 +11,9 @@ public class ChipListSettings
 	/// Additional CSS class.
 	/// </summary>
 	public string CssClass { get; set; }
+
+	/// <summary>
+	/// Enables/disables the reset button.
+	/// </summary>
+	public bool? ShowResetButton { get; set; }
 }
