@@ -26,10 +26,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="4.6.0">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
 		<ProjectReference Include="..\Havit.Extensions.Localization\Havit.Extensions.Localization.csproj" />
 	</ItemGroup>
 
