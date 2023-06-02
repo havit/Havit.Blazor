@@ -8,7 +8,7 @@
 				@foreach (var demo in GetDemos())
 				{
 					string url = "/" + demo;
-					<li class="nav-item"><a href="@url">@demo</a></li>
+					<li @key="@demo" class="nav-item"><a href="@url">@demo</a></li>
 				}
 			</ul>
 		</div>

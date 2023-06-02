@@ -1,0 +1,66 @@
+﻿@page "/HxGrid_LoadMore_Test"
+@using System.Globalization
+@using Microsoft.Extensions.Logging
+
+<h1>HxGrid with load more</h1>
+<h2>No LoadMoreTemplate</h2>
+
+<HxGrid TItem="CultureInfo" @bind-CurrentUserState="customGridUserState" DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.PaginationAndLoadMore" PageSize="5" LoadMoreButtonText="Give me more!" LoadMoreButtonSettings="HxGrid.Defaults.LoadMoreButtonSettings with { Color = ThemeColor.Primary }">
+	<Columns>
+		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+		<HxContextMenuGridColumn TItem="CultureInfo" Context="item">
+			<HxContextMenu>
+				<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
+			</HxContextMenu>
+		</HxContextMenuGridColumn>
+	</Columns>
+</HxGrid>
+
+<HxButton Text="Go to page 3 and add 2 additional items" OnClick="HandleCustomGridPositionClick" Color="ThemeColor.Secondary" />
+
+<h2>Custom LoadMoreTemplate</h2>
+
+<HxGrid TItem="CultureInfo" DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.LoadMore" PageSize="5">
+	<Columns>
+		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+		<HxContextMenuGridColumn TItem="CultureInfo" Context="item">
+			<HxContextMenu>
+				<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
+			</HxContextMenu>
+		</HxContextMenuGridColumn>
+	</Columns>
+	<LoadMoreTemplate>
+		There are some visible items, huh?
+		Do you want to <span role="button" style="color: red" @onclick="async () => await context.LoadMoreAsync()">see more</span>?
+	</LoadMoreTemplate>
+</HxGrid>
+@code {
+	private GridUserState customGridUserState = new GridUserState();
+
+	protected override Task OnInitializedAsync()
+	{
+		HxProgressIndicator.Defaults.Delay = 0; // TEST
+
+		return base.OnInitializedAsync();
+	}
+
+	private List<CultureInfo> GetCultureInfos()
+	{
+		return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).ToList();
+	}
+
+	private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+	{
+		await Task.Delay(500); // simulate server call
+
+		var cultures = GetCultureInfos();
+		return request.ApplyTo(cultures);
+	}
+
+	private void HandleCustomGridPositionClick()
+	{
+		customGridUserState = customGridUserState with { PageIndex = 2 /* page 3 */ , LoadMoreAdditionalItemsCount = 2 };
+	}
+}

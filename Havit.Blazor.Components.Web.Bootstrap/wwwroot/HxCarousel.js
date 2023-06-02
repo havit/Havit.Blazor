@@ -1,20 +1,12 @@
-﻿export function initialize(element, hxCarouselDotnetObjectReference, ride, pause) {
+﻿export function initialize(element, hxCarouselDotnetObjectReference, options) {
 	if (!element) {
 		return;
 	}
-	var carousel = new bootstrap.Carousel(element,
-		{
-			"ride": ride,
-			"pause": pause
-		});
+	var carousel = new bootstrap.Carousel(element, options);
 
 	element.hxCarouselDotnetObjectReference = hxCarouselDotnetObjectReference;
 	element.addEventListener('slide.bs.carousel', handleSlide);
 	element.addEventListener('slid.bs.carousel', handleSlid);
-
-	if (ride === "carousel") {
-		carousel.cycle();
-	}
 }
 export function slideTo(element, index) {
 	var c = bootstrap.Carousel.getInstance(element);

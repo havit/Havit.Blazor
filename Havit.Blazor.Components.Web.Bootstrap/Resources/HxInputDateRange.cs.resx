@@ -126,21 +126,6 @@
   <data name="FromParsingErrorMessage" xml:space="preserve">
     <value>Zadejte správně datum od.</value>
   </data>
-  <data name="LastMonth" xml:space="preserve">
-    <value>Minulý měsíc</value>
-  </data>
-  <data name="LastYear" xml:space="preserve">
-    <value>Minulý rok</value>
-  </data>
-  <data name="OK" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="ThisMonth" xml:space="preserve">
-    <value>Tento měsíc</value>
-  </data>
-  <data name="ThisYear" xml:space="preserve">
-    <value>Tento rok</value>
-  </data>
   <data name="To" xml:space="preserve">
     <value>Do</value>
   </data>

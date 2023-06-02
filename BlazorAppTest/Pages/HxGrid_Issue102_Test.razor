@@ -1,0 +1,54 @@
+﻿@page "/HxGrid_Issue102_Test"
+@implements IDisposable
+<h1>Issue 102</h1>
+
+<HxGrid @ref="gridComponent" TItem="int" DataProvider="GetData">
+    <Columns>
+        <HxGridColumn TItem="int" HeaderText="Number" ItemTextSelector="@(i => i.ToString())" />
+    </Columns>
+</HxGrid>
+
+@code
+{
+    private HxGrid<int> gridComponent;
+    private System.Timers.Timer timer;
+    private int counter = 0;
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        timer = new System.Timers.Timer(1000);
+        timer.Elapsed += HandleTimerElapsed;
+        timer.Start();
+    }
+
+    private /*async*/ void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
+    {
+        counter += 1;
+
+        if (counter >= 10)
+        {
+            timer.Stop();
+        }                                               
+
+        InvokeAsync(async () =>
+        {
+            await gridComponent.RefreshDataAsync();            
+        });
+        //InvokeAsync(StateHasChanged);
+    }
+
+    private Task<GridDataProviderResult<int>> GetData(GridDataProviderRequest<int> request)
+    {
+        return Task.FromResult(new GridDataProviderResult<int>
+        {
+            Data = Enumerable.Range(1, counter).ToList(),
+            TotalCount = counter
+        });
+    }
+
+    public void Dispose()
+    {
+        timer?.Dispose();
+    }
+}

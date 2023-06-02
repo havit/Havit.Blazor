@@ -2,11 +2,18 @@
 
 <ComponentApiDoc Type="typeof(HxSearchBox<TItem>)">
     <MainContent>
-        <SectionTitle>Basic usage</SectionTitle>
-        <Demo Type="typeof(HxSearchBox_Demo)" />
         <DocAlert Type="DocAlertType.Warning">
-            Although <code>HxSearchBox</code> supports <a href="/components/Inputs#InputGroups">input groups</a>, ending input groups conflict with the search icon, therefore, when <code>InputGroupEndText</code> or <code>InputGroupEndTemplate</code> are set, the search icon is not displayed.
+            Due to breaking change in Bootstrap 5.2, the keyboard navigation stopped working for dropdowns triggered from <code>input</code> (the <code>Up</code> and <code>Down</code> keys).
+            As an experimental feature we added our own keyboard navigation routines to the affected components. This might be subject to future change.
+            You can check the progress here: <a href="https://github.com/havit/Havit.Blazor/issues/348">https://github.com/havit/Havit.Blazor/issues/348</a>.
         </DocAlert>
+
+        <DocHeading Title="Basic usage" />
+        <Demo Type="typeof(HxSearchBox_Demo)" />
+
+        <DocHeading Title="Suggestions only" />
+        <p>You can disable free-text query by setting <code>AllowTextQuery="false"</code>. Only suggestions will be allowed.</p>
+        <Demo Type="typeof(HxSearchBox_Demo_DisableTextQuery)" />
     </MainContent>
     <CssVariables>
         <ComponentApiDocCssVariable Name="--hx-search-box-item-icon-margin" Default="0 .5rem 0 0">
@@ -26,6 +33,9 @@
         </ComponentApiDocCssVariable>
         <ComponentApiDocCssVariable Name="--hx-search-box-item-subtitle-color" Default="var(--bs-secondary)">
             Item subtitle color.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-search-box-dropdown-menu-height" Default="300px">
+            Maximum height of results dropdown menu.
         </ComponentApiDocCssVariable>
     </CssVariables>
 </ComponentApiDoc>

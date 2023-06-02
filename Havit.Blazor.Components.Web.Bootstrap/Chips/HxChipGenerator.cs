@@ -1,42 +1,41 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+public class HxChipGenerator : ComponentBase, IHxChipGenerator, IAsyncDisposable
 {
-	public class HxChipGenerator : ComponentBase, IHxChipGenerator, IAsyncDisposable
+	[CascadingParameter(Name = HxFilterForm<object>.ChipGeneratorRegistrationCascadingValueName)] public CollectionRegistration<IHxChipGenerator> ChipGeneratorsRegistration { get; set; }
+
+	[Parameter] public RenderFragment ChildContent { get; set; }
+
+	[Parameter] public Action<object> ChipRemoveAction { get; set; }
+
+	/// <inheritdoc cref="ComponentBase.OnInitialized" />
+	protected override void OnInitialized()
 	{
-		[CascadingParameter(Name = HxFilterForm<object>.ChipGeneratorRegistrationCascadingValueName)] public CollectionRegistration<IHxChipGenerator> ChipGeneratorsRegistration { get; set; }
+		base.OnInitialized();
+		ChipGeneratorsRegistration?.Register(this);
+	}
 
-		[Parameter] public RenderFragment ChildContent { get; set; }
-
-		[Parameter] public Action<object> ChipRemoveAction { get; set; }
-
-		/// <inheritdoc cref="ComponentBase.OnInitialized" />
-		protected override void OnInitialized()
+	IEnumerable<ChipItem> IHxChipGenerator.GetChips()
+	{
+		yield return new ChipItem
 		{
-			base.OnInitialized();
-			ChipGeneratorsRegistration?.Register(this);
-		}
+			ChipTemplate = ChildContent,
+			Removable = ChipRemoveAction != default,
+			RemoveAction = ChipRemoveAction
+		};
+	}
 
-		IEnumerable<ChipItem> IHxChipGenerator.GetChips()
-		{
-			yield return new ChipItem
-			{
-				ChipTemplate = ChildContent,
-				Removable = ChipRemoveAction != default,
-				RemoveAction = ChipRemoveAction
-			};
-		}
+	/// <inheritdoc />
+	public async ValueTask DisposeAsync()
+	{
+		await DisposeAsyncCore();
+	}
 
-		/// <inheritdoc />
-		public async ValueTask DisposeAsync()
+	protected virtual async Task DisposeAsyncCore()
+	{
+		if (this.ChipGeneratorsRegistration != null)
 		{
-			await DisposeAsyncCore();
-		}
-
-		protected virtual async Task DisposeAsyncCore()
-		{
-			if (this.ChipGeneratorsRegistration != null)
-			{
-				await ChipGeneratorsRegistration.UnregisterAsync(this);
-			}
+			await ChipGeneratorsRegistration.UnregisterAsync(this);
 		}
 	}
 }

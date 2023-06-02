@@ -2,11 +2,16 @@
 
 <ComponentApiDoc Type="typeof(HxAutosuggest<TItem, TValue>)">
     <MainContent>
-            <DocAlert Type="DocAlertType.Warning">
-                Although <code>HxAutosuggest</code> supports <a href="/components/Inputs#InputGroups">input groups</a>, ending input groups conflict with the search icon, therefore, when <code>InputGroupEndText</code> or <code>InputGroupEndTemplate</code> are set, the search icon is not displayed.
-            </DocAlert>
+        
+        <DocAlert Type="DocAlertType.Warning">
+            Due to breaking change in Bootstrap 5.2, the keyboard navigation stopped working for dropdowns triggered from <code>input</code> (the <code>Up</code> and <code>Down</code> keys).
+            As an experimental feature we added our own keyboard navigation routines to the affected components. This might be subject to future change.
+            You can check the progress here: <a href="https://github.com/havit/Havit.Blazor/issues/348">https://github.com/havit/Havit.Blazor/issues/348</a>.
+        </DocAlert>
 
-        <Demo Type="typeof(HxAutosuggest_Demo_Basic)" />
+        <DocHeading Title="Basic usage" />
+        <Demo Type="typeof(HxAutosuggest_Demo_Basic)" Tabs="false" />
+
     </MainContent>
     <CssVariables>
         <ComponentApiDocCssVariable Name="--hx-autosuggest-input-close-icon-opacity" Default=".25">
@@ -14,6 +19,12 @@
         </ComponentApiDocCssVariable>
         <ComponentApiDocCssVariable Name="--hx-autosuggest-item-highlighted-background-color" Default="var(--bs-gray-200)">
             When <code>HxAutosuggest.HighlightFirstSuggestion</code> is <code>true</code>, then the first item receives this background color.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-autosuggest-dropdown-menu-height" Default="300px">
+            Maximum height of results dropdown menu.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-autosuggest-dropdown-menu-width" Default="100%">
+            Width of results dropdown menu.
         </ComponentApiDocCssVariable>
     </CssVariables>
 </ComponentApiDoc>

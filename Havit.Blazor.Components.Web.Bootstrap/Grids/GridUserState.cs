@@ -1,39 +1,48 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// User state of the <see cref="HxGrid"/>.
+/// </summary>
+public record class GridUserState
 {
 	/// <summary>
-	/// User state of the <see cref="HxGrid"/>.
+	/// Current page index for <see cref="GridContentNavigationMode.Pagination"/>.
+	/// Starting page index for <see cref="GridContentNavigationMode.LoadMore"/> and <see cref="GridContentNavigationMode.PaginationAndLoadMore"/>.
 	/// </summary>
-	public record class GridUserState<TItem>
+	/// <remarks>
+	/// This number is not the current page index in pager when <see cref="LoadMoreAdditionalItemsCount"/> is not zero.
+	/// </remarks>
+	public int PageIndex { get; init; }
+
+	/// <summary>
+	/// Count of additional items to load for <see cref="GridContentNavigationMode.LoadMore"/> or <see cref="GridContentNavigationMode.PaginationAndLoadMore"/>.
+	/// </summary>
+	public int LoadMoreAdditionalItemsCount { get; init; }
+
+	/// <summary>
+	/// Current sorting.
+	/// </summary>
+	public IReadOnlyList<GridUserStateSortingItem> Sorting { get; init; }
+
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	/// <remarks>
+	/// For backward compatibility in custom projects.
+	/// Once upon a time this one was the only constructor.
+	/// </remarks>
+	public GridUserState(int pageIndex, IReadOnlyList<GridUserStateSortingItem> sorting)
 	{
-		/// <summary>
-		/// Current page index.
-		/// </summary>
-		public int PageIndex { get; init; }
+		PageIndex = pageIndex;
+		LoadMoreAdditionalItemsCount = 0;
+		Sorting = sorting;
+	}
 
-		/// <summary>
-		/// Current sorting.
-		/// </summary>
-		public IReadOnlyList<SortingItem<TItem>> Sorting { get; init; }
-
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		/// <remarks>
-		/// For backward compatibility in custom projects.
-		/// Once upon a time this one was the only constructor.
-		/// </remarks>
-		public GridUserState(int pageIndex, IReadOnlyList<SortingItem<TItem>> sorting)
-		{
-			PageIndex = pageIndex;
-			Sorting = sorting;
-		}
-
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		public GridUserState() : this(0, null)
-		{
-			// NOOP
-		}
+	/// <summary>
+	/// Constructor.
+	/// </summary>
+	public GridUserState() : this(0, null)
+	{
+		// NOOP
 	}
 }

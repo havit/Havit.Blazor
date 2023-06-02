@@ -1,5 +1,5 @@
 ﻿// has to be aligned with HxPopover.js!
-export function createOrUpdate(element, hxDotnetObjectReference, options) {
+export function initialize(element, hxDotnetObjectReference, options) {
 	if (!element) {
 		return;
 	}
@@ -23,6 +23,27 @@ export function hide(element) {
 	}
 }
 
+export function enable(element) {
+	var i = bootstrap.Tooltip.getInstance(element);
+	if (i) {
+		i.enable();
+	}
+}
+
+export function disable(element) {
+	var i = bootstrap.Tooltip.getInstance(element);
+	if (i) {
+		i.disable();
+	}
+}
+
+export function setContent(element, newContent) {
+	var i = bootstrap.Tooltip.getInstance(element);
+	if (i) {
+		i.setContent(newContent);
+	}
+}
+
 function handleShown(event) {
 	event.target.hxDotnetObjectReference.invokeMethodAsync('HxHandleJsShown');
 };
@@ -31,7 +52,7 @@ function handleHidden(event) {
 	event.target.hxDotnetObjectReference.invokeMethodAsync('HxHandleJsHidden');
 };
 
-export function destroy(element) {
+export function dispose(element) {
 	if (!element) {
 		return;
 	}

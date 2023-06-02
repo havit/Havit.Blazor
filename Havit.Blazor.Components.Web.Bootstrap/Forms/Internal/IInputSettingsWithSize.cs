@@ -1,10 +1,9 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
+
+public interface IInputSettingsWithSize
 {
-	public interface IInputSettingsWithSize
-	{
-		/// <summary>
-		/// Input size.
-		/// </summary>
-		InputSize? InputSize { get; }
-	}
+	/// <summary>
+	/// Input size.
+	/// </summary>
+	InputSize? InputSize { get; }
 }

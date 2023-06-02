@@ -3,7 +3,7 @@
 public enum SidebarResponsiveBreakpoint
 {
 	/// <summary>
-	/// Mobile mode disabled, allways render as sidebar.
+	/// Mobile mode disabled, always render as sidebar.
 	/// </summary>
 	None = 0,
 

@@ -8,8 +8,6 @@ public partial class AllTests
 {
 	private RenderFragment GetComponentTestLinks() => builder =>
 	{
-		int sequence = 1;
-
 		List<string?> routes = GetRoutesToRender(typeof(HxAlertTest).Assembly);
 
 		foreach (var route in routes)
@@ -19,10 +17,11 @@ public partial class AllTests
 				continue;
 			}
 
-			builder.OpenElement(sequence++, "p");
-			builder.OpenElement(sequence++, "a");
-			builder.AddAttribute(sequence++, "href", "/all-tests#" + route.Remove(0, 1));
-			builder.AddContent(sequence++, route);
+			builder.OpenElement(1, "p");
+			builder.SetKey(route);
+			builder.OpenElement(2, "a");
+			builder.AddAttribute(3, "href", "/all-tests#" + route.Remove(0, 1));
+			builder.AddContent(4, route);
 			builder.CloseElement();
 			builder.CloseElement();
 		}

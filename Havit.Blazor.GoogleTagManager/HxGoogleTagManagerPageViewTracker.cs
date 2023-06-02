@@ -1,53 +1,50 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
-namespace Havit.Blazor.GoogleTagManager
+namespace Havit.Blazor.GoogleTagManager;
+
+public class HxGoogleTagManagerPageViewTracker : ComponentBase, IDisposable
 {
-	public class HxGoogleTagManagerPageViewTracker : ComponentBase, IDisposable
+	[Inject] protected NavigationManager NavigationManager { get; set; }
+	[Inject] protected IHxGoogleTagManager HxGoogleTagManager { get; set; }
+
+	private LocationChangedEventArgs locationChangedEventArgsToReportOnAfterRenderAsync;
+
+	protected override void OnInitialized()
 	{
-		[Inject] protected NavigationManager NavigationManager { get; set; }
-		[Inject] protected IHxGoogleTagManager HxGoogleTagManager { get; set; }
+		base.OnInitialized();
 
-		private LocationChangedEventArgs locationChangedEventArgsToReportOnAfterRenderAsync;
+		NavigationManager.LocationChanged += OnLocationChanged;
+	}
 
-		protected override void OnInitialized()
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender || (locationChangedEventArgsToReportOnAfterRenderAsync is not null))
 		{
-			base.OnInitialized();
-
-			NavigationManager.LocationChanged += OnLocationChanged;
+			var argsToReport = locationChangedEventArgsToReportOnAfterRenderAsync;
+			locationChangedEventArgsToReportOnAfterRenderAsync = null;
+			await HxGoogleTagManager.PushPageViewAsync(argsToReport);
 		}
 
-		protected override async Task OnAfterRenderAsync(bool firstRender)
-		{
-			if (firstRender || (locationChangedEventArgsToReportOnAfterRenderAsync is not null))
-			{
-				var argsToReport = locationChangedEventArgsToReportOnAfterRenderAsync;
-				locationChangedEventArgsToReportOnAfterRenderAsync = null;
-				await HxGoogleTagManager.PushPageViewAsync(argsToReport);
-			}
+		await base.OnAfterRenderAsync(firstRender);
+	}
 
-			await base.OnAfterRenderAsync(firstRender);
-		}
+	private void OnLocationChanged(object sender, LocationChangedEventArgs args)
+	{
+		locationChangedEventArgsToReportOnAfterRenderAsync = args;
+		StateHasChanged();
+	}
 
-		private void OnLocationChanged(object sender, LocationChangedEventArgs args)
-		{
-			locationChangedEventArgsToReportOnAfterRenderAsync = args;
-			StateHasChanged();
-		}
+	public void Dispose()
+	{
+		Dispose(true);
+	}
 
-		public void Dispose()
+	protected virtual void Dispose(bool disposing)
+	{
+		if (disposing)
 		{
-			Dispose(true);
-		}
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				NavigationManager.LocationChanged -= OnLocationChanged;
-			}
+			NavigationManager.LocationChanged -= OnLocationChanged;
 		}
 	}
 }

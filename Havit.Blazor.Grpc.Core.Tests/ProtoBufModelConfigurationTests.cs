@@ -1,33 +1,32 @@
 ﻿using Havit.Blazor.Grpc.TestContracts;
 using ProtoBuf.Meta;
 
-namespace Havit.Blazor.Grpc.Core.Tests
+namespace Havit.Blazor.Grpc.Core.Tests;
+
+[TestClass]
+public class ProtoBufModelConfigurationTests
 {
-	[TestClass]
-	public class ProtoBufModelConfigurationTests
+	[TestMethod]
+	public void ProtoBufModelConfiguration_RuntimeTypeModel_CanSerializeGenericDtoWithAttributes()
 	{
-		[TestMethod]
-		public void ProtoBufModelConfiguration_RuntimeTypeModel_CanSerializeGenericDtoWithAttributes()
-		{
-			// act
-			var model = RuntimeTypeModel.Create();
+		// act
+		var model = RuntimeTypeModel.Create();
 
-			// assert
-			Assert.IsTrue(model.CanSerialize(typeof(Dto<int>)));
-		}
+		// assert
+		Assert.IsTrue(model.CanSerialize(typeof(Dto<int>)));
+	}
 
-		[TestMethod]
-		public void ProtoBufModelConfiguration_RegisterApplicationContracts_RegistersDtoWithNestedClassIncludingNestedClass()
-		{
-			// arrange
-			var model = RuntimeTypeModel.Create();
+	[TestMethod]
+	public void ProtoBufModelConfiguration_RegisterApplicationContracts_RegistersDtoWithNestedClassIncludingNestedClass()
+	{
+		// arrange
+		var model = RuntimeTypeModel.Create();
 
-			// act
-			model.RegisterApplicationContracts(typeof(Dto).Assembly);
+		// act
+		model.RegisterApplicationContracts(typeof(Dto).Assembly);
 
-			// assert
-			Assert.IsTrue(model.CanSerialize(typeof(DtoWithNestedClass)));
-			Assert.IsTrue(model.CanSerialize(typeof(DtoWithNestedClass.NestedClass)));
-		}
+		// assert
+		Assert.IsTrue(model.CanSerialize(typeof(DtoWithNestedClass)));
+		Assert.IsTrue(model.CanSerialize(typeof(DtoWithNestedClass.NestedClass)));
 	}
 }

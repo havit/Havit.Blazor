@@ -45,7 +45,7 @@ input:focus {
 	opacity: 1;
 }
 
-.hx-input-tags-control-focused:not(.hx-input-tags-naked) {
+.hx-input-tags-control:focus-within:not(.hx-input-tags-naked) {
 	box-shadow: var(--hx-input-tags-control-focused-box-shadow);
 	border-color: var(--hx-input-tags-control-focused-border-color);
 	outline: 0;
@@ -57,4 +57,8 @@ input:focus {
 
 .hx-tag-add-button-text {
 	margin: var(--hx-input-tags-add-button-text-margin);
+}
+
+::deep .hx-input-tags-dropdown-item-focused {
+	background-color: var(--hx-input-tags-dropdown-item-highlighted-background-color);
 }

@@ -17,7 +17,7 @@
     <FooterTemplate>
         @foreach (var button in GetButtonsToRender())
         {
-            <HxButton Text="@button.Text"
+            <HxButton @key="@button" Text="@button.Text"
                   OnClick="@(() => HandleButtonClick(button.Id))"
                   Settings="@((button.IsPrimary ?? false) ? this.PrimaryButtonSettingsEffective : this.SecondaryButtonSettingsEffective)" />
         }

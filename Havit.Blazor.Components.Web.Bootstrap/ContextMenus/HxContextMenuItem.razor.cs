@@ -3,97 +3,96 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web.Bootstrap;
+
+public partial class HxContextMenuItem : ComponentBase, ICascadeEnabledComponent
 {
-	public partial class HxContextMenuItem : ComponentBase, ICascadeEnabledComponent
+	/// <summary>
+	/// Item text.
+	/// </summary>
+	[Parameter] public string Text { get; set; }
+
+	/// <summary>
+	/// Custom item content to be rendered.
+	/// </summary>
+	[Parameter] public RenderFragment ChildContent { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for the menu item.
+	/// </summary>
+	[Parameter] public string CssClass { get; set; }
+
+	/// <summary>
+	/// Item icon (use <see cref="BootstrapIcon" />).
+	/// </summary>
+	[Parameter] public IconBase Icon { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for the context menu item icon.
+	/// </summary>
+	[Parameter] public string IconCssClass { get; set; }
+
+	/// <summary>
+	/// Displays <see cref="HxMessageBox" /> to get a confirmation.
+	/// </summary>
+	[Parameter] public string ConfirmationQuestion { get; set; }
+
+	/// <summary>
+	/// Item clicked event.
+	/// </summary>
+	[Parameter] public EventCallback OnClick { get; set; }
+	/// <summary>
+	/// Triggers the <see cref="OnClick"/> event. Allows interception of the event in derived components.
+	/// </summary>
+	protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
+
+	/// <summary>
+	/// Stop onClick-event propagation. Default is <c>true</c>.
+	/// </summary>
+	[Parameter] public bool OnClickStopPropagation { get; set; } = true;
+
+	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
+	[Inject] protected IServiceProvider ServiceProvider { get; set; } // optional IHxMessageBoxService, fallback to JS-confirm
+
+	protected IHxMessageBoxService MessageBox { get; set; }
+
+	/// <inheritdoc cref="Web.FormState" />
+	[CascadingParameter] protected FormState FormState { get; set; }
+	FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+
+	/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
+	[Parameter] public bool? Enabled { get; set; }
+
+	protected override void OnInitialized()
 	{
-		/// <summary>
-		/// Item text.
-		/// </summary>
-		[Parameter] public string Text { get; set; }
+		base.OnInitialized();
 
-		/// <summary>
-		/// Custom item content to be rendered.
-		/// </summary>
-		[Parameter] public RenderFragment ChildContent { get; set; }
+		MessageBox = ServiceProvider.GetService<IHxMessageBoxService>(); // conditional, does not have to be registered
+	}
 
-		/// <summary>
-		/// Additional CSS class(es) for the menu item.
-		/// </summary>
-		[Parameter] public string CssClass { get; set; }
-
-		/// <summary>
-		/// Item icon (use <see cref="BootstrapIcon" />).
-		/// </summary>
-		[Parameter] public IconBase Icon { get; set; }
-
-		/// <summary>
-		/// Additional CSS class(es) for the context menu item icon.
-		/// </summary>
-		[Parameter] public string IconCssClass { get; set; }
-
-		/// <summary>
-		/// Displays <see cref="HxMessageBox" /> to get a confirmation.
-		/// </summary>
-		[Parameter] public string ConfirmationQuestion { get; set; }
-
-		/// <summary>
-		/// Item clicked event.
-		/// </summary>
-		[Parameter] public EventCallback OnClick { get; set; }
-		/// <summary>
-		/// Triggers the <see cref="OnClick"/> event. Allows interception of the event in derived components.
-		/// </summary>
-		protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
-
-		/// <summary>
-		/// Stop onClick-event propagation. Deafult is <c>true</c>.
-		/// </summary>
-		[Parameter] public bool OnClickStopPropagation { get; set; } = true;
-
-		[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
-		[Inject] protected IJSRuntime JSRuntime { get; set; }
-		[Inject] protected IServiceProvider ServiceProvider { get; set; } // optional IHxMessageBoxService, fallback to JS-confirm
-
-		protected IHxMessageBoxService MessageBox { get; set; }
-
-		/// <inheritdoc cref="Web.FormState" />
-		[CascadingParameter] protected FormState FormState { get; set; }
-		FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
-
-		/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
-		[Parameter] public bool? Enabled { get; set; }
-
-		protected override void OnInitialized()
+	public async Task HandleClick(MouseEventArgs args)
+	{
+		if (!CascadeEnabledComponent.EnabledEffective(this))
 		{
-			base.OnInitialized();
-
-			MessageBox = ServiceProvider.GetService<IHxMessageBoxService>(); // conditional, does not have to be registered
+			return;
 		}
 
-		public async Task HandleClick(MouseEventArgs args)
+		if (!String.IsNullOrEmpty(this.ConfirmationQuestion))
 		{
-			if (!CascadeEnabledComponent.EnabledEffective(this))
+			if (MessageBox is not null)
 			{
-				return;
-			}
-
-			if (!String.IsNullOrEmpty(this.ConfirmationQuestion))
-			{
-				if (MessageBox is not null)
+				if (!await MessageBox.ConfirmAsync(this.ConfirmationQuestion))
 				{
-					if (!await MessageBox.ConfirmAsync(this.ConfirmationQuestion))
-					{
-						return; // No action
-					}
-				}
-				else if (!await JSRuntime.InvokeAsync<bool>("confirm", this.ConfirmationQuestion))
-				{
-					return; // No Action
+					return; // No action
 				}
 			}
-
-			await InvokeOnClickAsync(args);
+			else if (!await JSRuntime.InvokeAsync<bool>("confirm", this.ConfirmationQuestion))
+			{
+				return; // No Action
+			}
 		}
+
+		await InvokeOnClickAsync(args);
 	}
 }

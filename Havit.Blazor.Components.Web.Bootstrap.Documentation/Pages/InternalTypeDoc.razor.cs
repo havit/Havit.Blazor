@@ -1,23 +1,22 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages
+namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages;
+
+public partial class InternalTypeDoc
 {
-	public partial class InternalTypeDoc
+	[Parameter] public string TypeText { get; set; }
+
+	private Type type;
+
+	protected override void OnParametersSet()
 	{
-		[Parameter] public string TypeText { get; set; }
-
-		private Type type;
-
-		protected override void OnParametersSet()
+		try
 		{
-			try
-			{
-				type = ApiTypeHelper.GetType(TypeText);
-			}
-			catch
-			{
-				// NOOP
-			}
+			type = ApiTypeHelper.GetType(TypeText);
+		}
+		catch
+		{
+			// NOOP
 		}
 	}
 }

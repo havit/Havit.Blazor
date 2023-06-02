@@ -1,109 +1,100 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// <see href="https://getbootstrap.com/docs/5.2/components/scrollspy/">Bootstrap Scrollspy</see> component.<br />
+/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxScrollspy">https://havit.blazor.eu/components/HxScrollspy</see>
+/// </summary>
+public partial class HxScrollspy : IAsyncDisposable
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.0/components/scrollspy/">Bootstrap Scrollspy</see> component.<br />
-	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxScrollspy">https://havit.blazor.eu/components/HxScrollspy</see>
+	/// ID of the <see cref="HxNav"/> or list-group with scrollspy navigation.
 	/// </summary>
-	public partial class HxScrollspy : IAsyncDisposable
+	[Parameter, EditorRequired] public string TargetId { get; set; }
+
+	/// <summary>
+	/// Scrollspy additional CSS class. Added to main div (.hx-scrollspy).
+	/// </summary>
+	[Parameter] public string CssClass { get; set; }
+
+	/// <summary>
+	/// Content to be spied. Elements with IDs are required (corresponding IDs to be used in <see cref="HxNavLink.Href"/>).
+	/// </summary>
+	[Parameter] public RenderFragment ChildContent { get; set; }
+
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
+
+	private IJSObjectReference jsModule;
+	private ElementReference scrollspyElement;
+	private bool initialized;
+	private bool disposed;
+
+	/// <inheritdoc />
+	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		/// <summary>
-		/// ID of the <see cref="HxNav"/> or list-group with scrollspy navigation.
-		/// </summary>
-#if NET6_0_OR_GREATER
-		[EditorRequired]
-#endif
-		[Parameter] public string TargetId { get; set; }
+		await base.OnAfterRenderAsync(firstRender);
 
-		/// <summary>
-		/// Scrollspy additional CSS class. Added to main div (.hx-scrollspy).
-		/// </summary>
-		[Parameter] public string CssClass { get; set; }
-
-		/// <summary>
-		/// Content to be spied. Elements with IDs are required (corresponding IDs to be used in <see cref="HxNavLink.Href"/>).
-		/// </summary>
-		[Parameter] public RenderFragment ChildContent { get; set; }
-
-		[Inject] protected IJSRuntime JSRuntime { get; set; }
-
-		private IJSObjectReference jsModule;
-		private ElementReference scrollspyElement;
-		private bool initialized;
-		private bool disposed;
-
-		/// <inheritdoc />
-		protected override async Task OnAfterRenderAsync(bool firstRender)
+		if (firstRender && !initialized)
 		{
-			await base.OnAfterRenderAsync(firstRender);
-
-			if (firstRender && !initialized)
+			await EnsureJsModuleAsync();
+			if (disposed)
 			{
-				await EnsureJsModuleAsync();
-				if (disposed)
-				{
-					return;
-				}
-				await jsModule.InvokeVoidAsync("initialize", scrollspyElement, TargetId);
-				initialized = true;
+				return;
 			}
+			await jsModule.InvokeVoidAsync("initialize", scrollspyElement, TargetId);
+			initialized = true;
 		}
+	}
 
-		/// <summary>
-		/// When using scrollspy in conjunction with adding or removing of elements from the DOM (e.g. asynchronnous data load), you’ll need to refresh the scrollspy explicitly.
-		/// </summary>
-		/// <returns></returns>
-		public async Task RefreshAsync()
+	/// <summary>
+	/// When using scrollspy in conjunction with adding or removing of elements from the DOM (e.g. asynchronous data load), you’ll need to refresh the scrollspy explicitly.
+	/// </summary>
+	/// <returns></returns>
+	public async Task RefreshAsync()
+	{
+		if (initialized)
 		{
-			if (initialized)
+			await EnsureJsModuleAsync();
+			if (disposed)
 			{
-				await EnsureJsModuleAsync();
-				if (disposed)
-				{
-					return;
-				}
-				await jsModule.InvokeVoidAsync("refresh", scrollspyElement);
+				return;
 			}
-			else
+			await jsModule.InvokeVoidAsync("refresh", scrollspyElement);
+		}
+		else
+		{
+			// NOOP - will be initialized OnAfterRenderAsync (a therefor the refresh is not needed)
+		}
+	}
+
+	private async Task EnsureJsModuleAsync()
+	{
+		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollspy));
+	}
+
+
+	public async ValueTask DisposeAsync()
+	{
+		await DisposeAsyncCore();
+
+		//Dispose(disposing: false);
+	}
+
+	protected virtual async ValueTask DisposeAsyncCore()
+	{
+		disposed = true;
+
+		if (jsModule != null)
+		{
+			try
 			{
-				// NOOP - will be initialized OnAfterRenderAsync (a therefor the refresh is not needed)
-			}
-		}
-
-		private async Task EnsureJsModuleAsync()
-		{
-			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollspy));
-		}
-
-
-		public async ValueTask DisposeAsync()
-		{
-			await DisposeAsyncCore();
-
-			//Dispose(disposing: false);
-		}
-
-		protected virtual async ValueTask DisposeAsyncCore()
-		{
-			disposed = true;
-
-			if (jsModule != null)
-			{
-#if NET6_0_OR_GREATER
-				try
-				{
-					await jsModule.InvokeVoidAsync("dispose", scrollspyElement);
-				}
-				catch (JSDisconnectedException)
-				{
-					// NOOP
-				}
-#else
 				await jsModule.InvokeVoidAsync("dispose", scrollspyElement);
-#endif
 				await jsModule.DisposeAsync();
+			}
+			catch (JSDisconnectedException)
+			{
+				// NOOP
 			}
 		}
 	}

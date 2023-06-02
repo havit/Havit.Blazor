@@ -1,0 +1,66 @@
+﻿<HxGrid TItem="CultureInfo" Responsive="true" DataProvider="GetGridData" @bind-CurrentUserState="GridUserState" PageSize="10">
+	<Columns>
+		<HxGridColumn Id="Lcid" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
+		<HxGridColumn Id="DisplayName" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
+		<HxGridColumn Id="Name" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
+		<HxGridColumn Id="EnglishName" HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)"  />
+	</Columns>
+</HxGrid>
+
+<HxInputTextArea Label="Grid user state (editable)" @bind-Value="GridUserStateSerialized" />
+
+@if (!gridUserStateSerializedValid)
+{
+    <HxAlert Color="ThemeColor.Warning" CssClass="mt-2">The value you provided is not valid.</HxAlert>
+}
+
+@code {
+    private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
+
+    private Task<GridDataProviderResult<CultureInfo>> GetGridData(GridDataProviderRequest<CultureInfo> request)
+    {
+        return Task.FromResult(request.ApplyTo(localCultureInfos));
+    }
+
+    // We use properties in this demo to synchronize gridUserState and gridUserStateSerialized values by the properties setters.
+
+    private GridUserState GridUserState
+    {
+        get
+        {
+            return gridUserState;
+        }
+        set
+        {
+            gridUserState = value;
+            gridUserStateSerialized = JsonSerializer.Serialize(value); // serialize (save) the grid state
+            gridUserStateSerializedValid = true;
+        }
+    }
+    private GridUserState gridUserState = new GridUserState();
+
+    private string GridUserStateSerialized
+    {
+        get 
+        {
+            return gridUserStateSerialized;
+        }
+        set
+        {
+            try
+            {
+                gridUserState = JsonSerializer.Deserialize<GridUserState>(value); // deserialize (load) the grid state
+                gridUserStateSerialized = value;
+                gridUserStateSerializedValid = true;
+            }
+            catch (JsonException)
+            {
+                gridUserStateSerializedValid = false;
+            }
+
+		}
+	}
+    private string gridUserStateSerialized;
+    private bool gridUserStateSerializedValid = true;
+
+}

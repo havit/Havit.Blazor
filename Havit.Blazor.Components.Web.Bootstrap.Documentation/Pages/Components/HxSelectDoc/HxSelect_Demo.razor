@@ -1,34 +1,44 @@
 ﻿<EditForm Model="model">
-	<DataAnnotationsValidator />
+    <DataAnnotationsValidator />
 
-	<HxSelect Label="Band member" TItem="Person" TValue="string" Data="@people" @bind-Value="@model.SelectedPersonInitials" TextSelector="@(p => p.Name)" ValueSelector="@(p => p.Initials)" Nullable="true" NullText="-select name-" NullDataText="Loading band members..." />
-	<HxSubmit Text="Submit" Color="ThemeColor.Primary" />
+    <HxSelect TItem="Person"
+              TValue="string"
+              Label="Band member"
+              Data="@people"
+              @bind-Value="@model.SelectedPersonInitials"
+              TextSelector="@(p => p.Name)"
+              ValueSelector="@(p => p.Initials)"
+              Nullable="true"
+              NullText="-select name-"
+              NullDataText="Loading band members..." />
+
+    <HxSubmit Text="Submit" Color="ThemeColor.Primary" />
 </EditForm>
 
 <p>Selected initials: @model.SelectedPersonInitials</p>
 
 @code {
-	private FormModel model = new FormModel();
-	private List<Person> people;
+    private FormModel model = new FormModel();
+    private List<Person> people;
 
-	protected override async Task OnInitializedAsync()
-	{
-		await Task.Delay(3000);
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(3000);
 
-		people = new List<Person>
-		{
+        people = new List<Person>
+        {
             new Person("Starr Ringo", "RS"),
             new Person("Lennon John", "JL"),
             new Person("McCartney Paul", "PMC"),
             new Person("Harrison George", "GH")
-		};
-	}
+        };
+    }
 
-	internal class FormModel
-	{
-		[Required(ErrorMessage = "Choose a band member.")]
-		public string SelectedPersonInitials { get; set; }
-	}
+    internal class FormModel
+    {
+        [Required(ErrorMessage = "Choose a band member.")]
+        public string SelectedPersonInitials { get; set; }
+    }
 
     record Person(string Name, string Initials);
 }

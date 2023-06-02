@@ -1,10 +1,11 @@
 ﻿@attribute [Route("/components/" + nameof(HxInputNumber))]
 
 <ComponentApiDoc Type="typeof(HxInputNumber<TValue>)">
-    <h3>Basic usage</h3>
+
+    <DocHeading Title="Basic usage" />
     <Demo Type="typeof(HxInputNumber_Demo)" Tabs="false" />
 
-    <SectionTitle Id="input-modes">Input modes</SectionTitle>
+    <DocHeading Title="Input modes" />
     <p><code>InputMode</code> is a hint to browsers as to the type of virtual keyboard configuration to use when editing.</p>
     <p>
         If not set (neither with parameter, <code>Settings</code> nor <code>HxInputNumber.Defaults</code>),

@@ -1,16 +1,12 @@
-﻿<HxDropdownButtonGroup id="my-dropdown-menu">
-	<HxDropdownToggleButton Color="ThemeColor.Secondary"
-                            Tooltip="Tooltip breaks the basic structure"
-                            DropdownReference="#my-dropdown-menu">Dropdown button with tooltip</HxDropdownToggleButton>
-	<HxDropdownMenu>
-		<HxDropdownItemNavLink Href="/components/HxDropdown">Link with Href</HxDropdownItemNavLink>
-		<HxDropdownItem OnClick="HandleDropdownItemClick">Item with OnClick action</HxDropdownItem>
-		<HxDropdownDivider />
-		<HxDropdownItemText>Some text only</HxDropdownItemText>
-	</HxDropdownMenu>
+﻿<HxDropdownButtonGroup>
+    <HxDropdownToggleButton Color="ThemeColor.Secondary"
+                            DropdownReference="#my-reference">Dropdown button with tooltip</HxDropdownToggleButton>
+    <HxDropdownMenu>
+        <HxDropdownItemText>Text item 1</HxDropdownItemText>
+        <HxDropdownItemText>Text item 2</HxDropdownItemText>
+        <HxDropdownDivider />
+        <HxDropdownItemText>Text item 3</HxDropdownItemText>
+    </HxDropdownMenu>
 </HxDropdownButtonGroup>
-@message
-@code {
-	private string message;
-	private void HandleDropdownItemClick() => message = "Dropdown item clicked";
-}
+
+<div id="my-reference" class="bg-info d-inline-block px-3 py-1 ms-5">Reference element</div>

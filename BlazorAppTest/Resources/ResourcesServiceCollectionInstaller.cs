@@ -1,7 +1,6 @@
-﻿namespace BlazorAppTest.Resources
-{
-	public static partial class ResourcesServiceCollectionInstaller
-	{
+﻿namespace BlazorAppTest.Resources;
 
-	}
+public static partial class ResourcesServiceCollectionInstaller
+{
+
 }

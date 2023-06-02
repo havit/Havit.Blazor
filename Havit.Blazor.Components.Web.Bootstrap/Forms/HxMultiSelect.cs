@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Havit.Blazor.Components.Web.Bootstrap.Internal;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Localization;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -20,13 +12,13 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 {
 	/// <summary>
 	/// Return <see cref="HxMultiSelect{TValue, TItem}"/> defaults.
-	/// Enables to not share defaults in descandants with base classes.
+	/// Enables to not share defaults in descendants with base classes.
 	/// Enables to have multiple descendants which differs in the default values.
 	/// </summary>
-	protected virtual MultiSelectSettings GetDefaults() => HxMultiSelect.Defaults;
+	protected override MultiSelectSettings GetDefaults() => HxMultiSelect.Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxMultiSelect.Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxMultiSelect.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public MultiSelectSettings Settings { get; set; }
 
@@ -34,9 +26,9 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual MultiSelectSettings GetSettings() => this.Settings;
+	protected override MultiSelectSettings GetSettings() => this.Settings;
 
 	/// <summary>
 	/// Size of the input.
@@ -103,9 +95,21 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public string InputGroupEndText { get; set; }
 
 	/// <summary>
+	/// Text to display in the input (default is a list of selected values).
+	/// </summary>
+	[Parameter] public string InputText { get; set; }
+
+	/// <summary>
+	/// Function to build the text to be displayed in the input from selected items (default is a list of selected values).
+	/// </summary>
+	/// <remarks>Currently does not affect the chip being generated. Override <c>RenderChipValue()</c> method to influence the chip.</remarks>
+	[Parameter] public Func<IEnumerable<TItem>, string> InputTextSelector { get; set; }
+
+	/// <summary>
 	/// Input-group at the end of the input.
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
 
 	private List<TItem> itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
@@ -172,7 +176,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.OpenComponent<HxMultiSelectInternal<TValue, TItem>>(100);
 		builder.AddAttribute(101, nameof(HxMultiSelectInternal<TValue, TItem>.InputId), InputId);
 		builder.AddAttribute(102, nameof(HxMultiSelectInternal<TValue, TItem>.InputCssClass), GetInputCssClassToRender());
-		builder.AddAttribute(103, nameof(HxMultiSelectInternal<TValue, TItem>.InputText), CurrentValueAsString);
+		builder.AddAttribute(103, nameof(HxMultiSelectInternal<TValue, TItem>.InputText), GetInputText());
 		builder.AddAttribute(104, nameof(HxMultiSelectInternal<TValue, TItem>.EnabledEffective), EnabledEffective);
 		builder.AddAttribute(105, nameof(HxMultiSelectInternal<TValue, TItem>.ItemsToRender), itemsToRender);
 		builder.AddAttribute(106, nameof(HxMultiSelectInternal<TValue, TItem>.TextSelector), TextSelector);
@@ -192,11 +196,26 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.CloseComponent();
 	}
 
+	private string GetInputText()
+	{
+		if (!string.IsNullOrEmpty(InputText))
+		{
+			return InputText;
+		}
+		else if ((InputTextSelector is null) || (Data is null) || (CurrentValue is null))
+		{
+			return CurrentValueAsString;
+		}
+
+		var currentItems = Data.Where(i => CurrentValue.Contains(SelectorHelpers.GetValue(ValueSelector, i)));
+		return SelectorHelpers.GetValue(InputTextSelector, currentItems);
+	}
+
 	/// <inheritdoc />
 	protected override string FormatValueAsString(List<TValue> value)
 	{
 		// Used for CurrentValueAsString (which is used for the input element and for the chip generator).
-		// Thats why we do not use NullDataText here.
+		// That's why we do not use NullDataText here.
 
 		if ((!value?.Any() ?? true) || (Data == null))
 		{

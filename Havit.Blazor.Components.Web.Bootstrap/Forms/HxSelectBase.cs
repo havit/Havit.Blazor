@@ -1,267 +1,266 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// Base class for HxSelect and custom-implemented SELECT-pickers.
+/// </summary>
+/// <typeparam name="TValue">Type of value.</typeparam>
+/// <typeparam name="TItem">Type of items.</typeparam>
+public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithLabelType
 {
 	/// <summary>
-	/// Base class for HxSelect and custom-implemented SELECT-pickers.
+	/// Return <see cref="HxSelect{TValue, TItem}"/> defaults.
+	/// Enables to not share defaults in descendants with base classes.
+	/// Enables to have multiple descendants which differs in the default values.
 	/// </summary>
-	/// <typeparam name="TValue">Type of value.</typeparam>
-	/// <typeparam name="TItem">Type of items.</typeparam>
-	public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithLabelType
+	protected override SelectSettings GetDefaults() => HxSelect.Defaults;
+
+	/// <summary>
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxSelect.Defaults"/>, overridden by individual parameters).
+	/// </summary>
+	[Parameter] public SelectSettings Settings { get; set; }
+
+	[Parameter] public LabelType? LabelType { get; set; }
+
+	/// <summary>
+	/// Returns optional set of component settings.
+	/// </summary>
+	/// <remarks>
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// </remarks>
+	protected override SelectSettings GetSettings() => this.Settings;
+
+
+	/// <summary>
+	/// Size of the input.
+	/// </summary>
+	[Parameter] public InputSize? InputSize { get; set; }
+	protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSelect) + " has to be set.");
+	InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
+
+	/// <summary>
+	/// Indicates when <c>null</c> is a valid value.
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected bool? NullableImpl { get; set; }
+
+	/// <summary>
+	/// Indicates when <c>null</c> is a valid value.
+	/// Uses (in order) to get effective value: Nullable property, RequiresAttribute on bounded property (<c>false</c>) Nullable type on bounded property (<c>true</c>), class (<c>true</c>), default (<c>false</c>).
+	/// </summary>
+	protected bool NullableEffective
 	{
-		/// <summary>
-		/// Return <see cref="HxSelect{TValue, TItem}"/> defaults.
-		/// Enables to not share defaults in descandants with base classes.
-		/// Enables to have multiple descendants which differs in the default values.
-		/// </summary>
-		protected virtual SelectSettings GetDefaults() => HxSelect.Defaults;
-
-		/// <summary>
-		/// Set of settings to be applied to the component instance (overrides <see cref="HxSelect.Defaults"/>, overriden by individual parameters).
-		/// </summary>
-		[Parameter] public SelectSettings Settings { get; set; }
-
-		[Parameter] public LabelType? LabelType { get; set; }
-
-		/// <summary>
-		/// Returns optional set of component settings.
-		/// </summary>
-		/// <remarks>
-		/// Simmilar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
-		/// </remarks>
-		protected virtual SelectSettings GetSettings() => this.Settings;
-
-
-		/// <summary>
-		/// Size of the input.
-		/// </summary>
-		[Parameter] public InputSize? InputSize { get; set; }
-		protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSelect) + " has to be set.");
-		InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
-
-		/// <summary>
-		/// Indicates when <c>null</c> is a valid value.
-		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
-		/// </summary>
-		protected bool? NullableImpl { get; set; }
-
-		/// <summary>
-		/// Indicates when <c>null</c> is a valid value.
-		/// Uses (in order) to get effective value: Nullable property, RequiresAttribute on bounded property (<c>false</c>) Nullable type on bounded property (<c>true</c>), class (<c>true</c>), default (<c>false</c>).
-		/// </summary>
-		protected bool NullableEffective
+		get
 		{
-			get
+			if (NullableImpl != null)
 			{
-				if (NullableImpl != null)
-				{
-					return NullableImpl.Value;
-				}
+				return NullableImpl.Value;
+			}
 
-				if (GetValueAttribute<RequiredAttribute>() != null)
-				{
-					return false;
-				}
+			if (GetValueAttribute<RequiredAttribute>() != null)
+			{
+				return false;
+			}
 
-				if (System.Nullable.GetUnderlyingType(typeof(TValue)) != null)
-				{
-					return true;
-				}
-
-				if (typeof(TValue).IsClass)
-				{
-					return true;
-				}
-
+			if (System.Nullable.GetUnderlyingType(typeof(TValue)) != null)
+			{
 				return true;
 			}
-		}
 
-		/// <summary>
-		/// Text to display for <c>null</c> value.
-		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
-		/// </summary>
-		protected string NullTextImpl { get; set; }
-
-		/// <summary>
-		/// Text to display when <see cref="DataImpl"/> is <c>null</c>.
-		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
-		/// </summary>
-		protected string NullDataTextImpl { get; set; }
-
-		/// <summary>
-		/// Selects value from item.
-		/// Not required when TValue is same as TItem.
-		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
-		/// </summary>
-		protected Func<TItem, TValue> ValueSelectorImpl { get; set; }
-
-		/// <summary>
-		/// Items to display. 
-		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
-		/// </summary>
-		protected IEnumerable<TItem> DataImpl { get; set; }
-
-		/// <summary>
-		/// Selects text to display from item.
-		/// When not set ToString() is used.
-		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
-		/// </summary>
-		protected Func<TItem, string> TextSelectorImpl { get; set; }
-
-		/// <summary>
-		/// Selects value to sort items. Uses <see cref="TextSelectorImpl"/> property when not set.
-		/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
-		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
-		/// </summary>
-		protected Func<TItem, IComparable> SortKeySelectorImpl { get; set; }
-
-		/// <summary>
-		/// When <c>true</c>, items are sorted before displaying in select.
-		/// Default value is <c>true</c>.
-		/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
-		/// </summary>
-		protected bool AutoSortImpl { get; set; } = true;
-
-		/// <inheritdoc cref="HxInputBase{TValue}.EnabledEffective" />
-		protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
-
-		private protected override string CoreInputCssClass => "form-select";
-
-		private IEqualityComparer<TValue> comparer = EqualityComparer<TValue>.Default;
-		private List<TItem> itemsToRender;
-		private int selectedItemIndex;
-		private string chipValue;
-
-		/// <inheritdoc/>
-		protected override void BuildRenderInput(RenderTreeBuilder builder)
-		{
-			chipValue = null;
-
-			RefreshState();
-
-			bool enabledEffective = this.EnabledEffective;
-
-			builder.OpenElement(100, "select");
-			BuildRenderInput_AddCommonAttributes(builder, null);
-
-			builder.AddAttribute(1000, "value", selectedItemIndex);
-			builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-			builder.SetUpdatesAttributeName("value");
-			builder.AddEventStopPropagationAttribute(1002, "onclick", true);
-			builder.AddElementReferenceCapture(1003, elementReferece => InputElement = elementReferece);
-
-			if (itemsToRender != null)
+			if (typeof(TValue).IsClass)
 			{
-				if ((NullableEffective && enabledEffective) || (selectedItemIndex == -1))
-				{
-					builder.OpenElement(2000, "option");
-					builder.AddAttribute(2001, "value", -1);
-					builder.AddContent(2003, NullTextImpl);
-					builder.CloseElement();
-				}
+				return true;
+			}
 
-				for (int i = 0; i < itemsToRender.Count; i++)
+			return true;
+		}
+	}
+
+	/// <summary>
+	/// Text to display for <c>null</c> value.
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected string NullTextImpl { get; set; }
+
+	/// <summary>
+	/// Text to display when <see cref="DataImpl"/> is <c>null</c>.
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected string NullDataTextImpl { get; set; }
+
+	/// <summary>
+	/// Selects value from item.
+	/// Not required when TValue is same as TItem.
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected Func<TItem, TValue> ValueSelectorImpl { get; set; }
+
+	/// <summary>
+	/// Items to display. 
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected IEnumerable<TItem> DataImpl { get; set; }
+
+	/// <summary>
+	/// Selects text to display from item.
+	/// When not set ToString() is used.
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected Func<TItem, string> TextSelectorImpl { get; set; }
+
+	/// <summary>
+	/// Selects value to sort items. Uses <see cref="TextSelectorImpl"/> property when not set.
+	/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected Func<TItem, IComparable> SortKeySelectorImpl { get; set; }
+
+	/// <summary>
+	/// When <c>true</c>, items are sorted before displaying in select.
+	/// Default value is <c>true</c>.
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected bool AutoSortImpl { get; set; } = true;
+
+	/// <inheritdoc cref="HxInputBase{TValue}.EnabledEffective" />
+	protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
+
+	private protected override string CoreInputCssClass => "form-select";
+
+	private IEqualityComparer<TValue> comparer = EqualityComparer<TValue>.Default;
+	private List<TItem> itemsToRender;
+	private int selectedItemIndex;
+	private string chipValue;
+
+	/// <inheritdoc/>
+	protected override void BuildRenderInput(RenderTreeBuilder builder)
+	{
+		chipValue = null;
+
+		RefreshState();
+
+		bool enabledEffective = this.EnabledEffective;
+
+		builder.OpenElement(100, "select");
+		BuildRenderInput_AddCommonAttributes(builder, null);
+
+		builder.AddAttribute(1000, "value", selectedItemIndex);
+		builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+		builder.SetUpdatesAttributeName("value");
+		builder.AddEventStopPropagationAttribute(1002, "onclick", true);
+		builder.AddElementReferenceCapture(1003, elementReference => InputElement = elementReference);
+
+		if (itemsToRender != null)
+		{
+			if ((NullableEffective && enabledEffective) || (selectedItemIndex == -1))
+			{
+				builder.OpenElement(2000, "option");
+				builder.AddAttribute(2001, "value", -1);
+				builder.AddContent(2003, NullTextImpl);
+				builder.CloseElement();
+			}
+
+			for (int i = 0; i < itemsToRender.Count; i++)
+			{
+				var item = itemsToRender[i];
+				if (item != null)
 				{
-					var item = itemsToRender[i];
-					if (item != null)
+					bool selected = (i == selectedItemIndex);
+
+					if (enabledEffective || selected) /* when not enabled only selected item is rendered */
 					{
-						bool selected = (i == selectedItemIndex);
+						string text = SelectorHelpers.GetText(TextSelectorImpl, item);
 
-						if (enabledEffective || selected) /* when not enabled only selected item is rendered */
+						builder.OpenElement(3000, "option");
+						builder.SetKey(i.ToString());
+						builder.AddAttribute(3001, "value", i.ToString());
+						builder.AddContent(3003, text);
+						builder.CloseElement();
+
+						if (selected)
 						{
-							string text = SelectorHelpers.GetText(TextSelectorImpl, item);
-
-							builder.OpenElement(3000, "option");
-							builder.SetKey(i.ToString());
-							builder.AddAttribute(3001, "value", i.ToString());
-							builder.AddContent(3003, text);
-							builder.CloseElement();
-
-							if (selected)
-							{
-								chipValue = text;
-							}
+							chipValue = text;
 						}
 					}
 				}
 			}
-			else
-			{
-				if (!String.IsNullOrEmpty(NullDataTextImpl))
-				{
-					builder.OpenElement(4000, "option");
-					builder.AddAttribute(4001, "value", -1);
-					builder.AddContent(4002, NullDataTextImpl);
-					builder.CloseElement();
-				}
-			}
-			builder.CloseElement();
 		}
-
-		private void RefreshState()
+		else
 		{
-			if (DataImpl != null)
+			if (!String.IsNullOrEmpty(NullDataTextImpl))
 			{
-				itemsToRender = DataImpl.ToList();
-
-				// AutoSort
-				if (AutoSortImpl && (itemsToRender.Count > 1))
-				{
-					if (SortKeySelectorImpl != null)
-					{
-						itemsToRender = itemsToRender.OrderBy(this.SortKeySelectorImpl).ToList();
-					}
-					else if (TextSelectorImpl != null)
-					{
-						itemsToRender = itemsToRender.OrderBy(this.TextSelectorImpl).ToList();
-					}
-					else
-					{
-						itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
-					}
-				}
-
-				// set next properties for rendering
-				selectedItemIndex = itemsToRender.FindIndex(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
-
-				if ((Value != null) && (selectedItemIndex == -1))
-				{
-					throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
-				}
-			}
-			else
-			{
-				itemsToRender = null;
-				selectedItemIndex = -1;
+				builder.OpenElement(4000, "option");
+				builder.AddAttribute(4001, "value", -1);
+				builder.AddContent(4002, NullDataTextImpl);
+				builder.CloseElement();
 			}
 		}
-
-		/// <inheritdoc/>
-		protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
-		{
-			int index = int.Parse(value);
-			result = (index == -1)
-				? default(TValue)
-				: SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, itemsToRender[index]);
-
-			validationErrorMessage = null;
-			return true;
-		}
-
-		protected override void RenderChipValue(RenderTreeBuilder builder)
-		{
-			if ((chipValue is null) && (Value != null) && (DataImpl != null))
-			{
-				// fallback for initial rendering without chipValue
-				// does not help when DataImpl is not set yet (loaded asynchronously)
-				var item = DataImpl.FirstOrDefault(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
-				chipValue = SelectorHelpers.GetText(TextSelectorImpl, item);
-			}
-			builder.AddContent(0, chipValue);
-		}
-
-		string IInputWithSize.GetInputSizeCssClass() => this.InputSizeEffective.AsFormSelectCssClass();
+		builder.CloseElement();
 	}
+
+	private void RefreshState()
+	{
+		if (DataImpl != null)
+		{
+			itemsToRender = DataImpl.ToList();
+
+			// AutoSort
+			if (AutoSortImpl && (itemsToRender.Count > 1))
+			{
+				if (SortKeySelectorImpl != null)
+				{
+					itemsToRender = itemsToRender.OrderBy(this.SortKeySelectorImpl).ToList();
+				}
+				else if (TextSelectorImpl != null)
+				{
+					itemsToRender = itemsToRender.OrderBy(this.TextSelectorImpl).ToList();
+				}
+				else
+				{
+					itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
+				}
+			}
+
+			// set next properties for rendering
+			selectedItemIndex = itemsToRender.FindIndex(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
+
+			if ((Value != null) && (selectedItemIndex == -1))
+			{
+				throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
+			}
+		}
+		else
+		{
+			itemsToRender = null;
+			selectedItemIndex = -1;
+		}
+	}
+
+	/// <inheritdoc/>
+	protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
+	{
+		int index = int.Parse(value);
+		result = (index == -1)
+			? default(TValue)
+			: SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, itemsToRender[index]);
+
+		validationErrorMessage = null;
+		return true;
+	}
+
+	protected override void RenderChipValue(RenderTreeBuilder builder)
+	{
+		if ((chipValue is null) && (Value != null) && (DataImpl != null))
+		{
+			// fallback for initial rendering without chipValue
+			// does not help when DataImpl is not set yet (loaded asynchronously)
+			var item = DataImpl.FirstOrDefault(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
+			chipValue = SelectorHelpers.GetText(TextSelectorImpl, item);
+		}
+		builder.AddContent(0, chipValue);
+	}
+
+	string IInputWithSize.GetInputSizeCssClass() => this.InputSizeEffective.AsFormSelectCssClass();
 }

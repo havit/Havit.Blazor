@@ -1,9 +1,8 @@
-﻿namespace Havit.Blazor.Components.Web
-{
-	public interface IHxMessageBoxService
-	{
-		Task<MessageBoxButtons> ShowAsync(MessageBoxRequest request);
+﻿namespace Havit.Blazor.Components.Web;
 
-		Func<MessageBoxRequest, Task<MessageBoxButtons>> OnShowAsync { get; set; }
-	}
+public interface IHxMessageBoxService
+{
+	Task<MessageBoxButtons> ShowAsync(MessageBoxRequest request);
+
+	Func<MessageBoxRequest, Task<MessageBoxButtons>> OnShowAsync { get; set; }
 }

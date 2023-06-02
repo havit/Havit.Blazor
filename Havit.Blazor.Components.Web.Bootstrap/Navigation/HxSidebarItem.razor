@@ -91,6 +91,7 @@
                     Parent="@(ParentSidebar.MultipleItemsExpansion ? null : $"#{ParentSidebar.navId}")"
                     @ref="collapseComponent"
                     CssClass="hx-sidebar-subitems"
+                    InitiallyExpanded="expanded"
                     OnShown="HandleCollapseShown"
                     OnHidden="HandleCollapseHidden">
                     <nav class="nav hx-sidebar-collapsed-nav">

@@ -1,7 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
 <nav class="@GetCssClass()">
-	<div class="container-fluid">
+	<div class="@ContainerCssClass">
 		<CascadingValue Value="@this" IsFixed="true">
 			@ChildContent
 		</CascadingValue>

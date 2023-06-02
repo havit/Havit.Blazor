@@ -1,0 +1,42 @@
+﻿@page "/HxSelect_Issue456_Test"
+
+<h1>HxSelect_Issue456_Test</h1>
+<p>[HxSelect] Throws exception when Data not loaded</p>
+@* https://github.com/havit/Havit.Blazor/issues/456 *@
+
+<HxSelect TItem="int" TValue="int" Data="@data" @bind-Value="selectedNumber" NullDataText="Loading numbers..." NullText="-all-" ValueSelector="(v => v)" />
+
+@code
+{
+	private List<int> data;
+	private int selectedNumber = 0;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await Task.Delay(3000);
+		data = Enumerable.Range(0, 10).ToList();
+	}
+}
+
+@* FAILING VARIANT (as designed, invalid Value when Data loaded):
+	
+<HxSelect TItem="int" TValue="int" Data="@data" @bind-Value="selectedNumber" NullDataText="Loading numbers..." NullText="-all-" ValueSelector="(v => v)" />
+
+@code
+{
+	private List<int> data;
+	private int selectedNumber;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await Task.Delay(1000);
+		data = Enumerable.Range(1, 10).ToList();
+	}
+
+	protected override async Task OnParametersSetAsync()
+	{
+		await Task.Delay(3000);
+		selectedNumber = 3;
+	}
+}
+*@

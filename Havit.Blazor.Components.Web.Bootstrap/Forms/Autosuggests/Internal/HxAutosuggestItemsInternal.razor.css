@@ -1,0 +1,9 @@
+﻿::deep .hx-autosuggest-items-item-highlighted:not(:active):not(:focus) {
+    background-color: var(--hx-autosuggest-item-highlighted-background-color);
+}
+
+.dropdown-menu {
+    width: var(--hx-autosuggest-dropdown-menu-width);
+    overflow: auto;
+    max-height: var(--hx-autosuggest-dropdown-menu-height);
+}

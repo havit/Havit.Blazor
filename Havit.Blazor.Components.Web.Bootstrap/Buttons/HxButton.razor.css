@@ -1,7 +1,7 @@
 ﻿::deep .hx-button-icon-text-spacer {
-    margin-right: var(--hx-button-space-between-text-icon);
+	margin-right: var(--hx-button-icon-text-spacer-width);
 }
 
 ::deep .hx-button-text-icon-spacer {
-    margin-left: var(--hx-button-space-between-text-icon);
+	margin-left: var(--hx-button-icon-text-spacer-width);
 }

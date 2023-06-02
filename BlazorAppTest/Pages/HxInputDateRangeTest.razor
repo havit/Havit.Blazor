@@ -8,7 +8,7 @@
 		<ValidationSummary />
 
 		<HxInputDateRange Label="HxInputDateRange (default)" @bind-Value="@model.DateTimeRange" CalendarDateCustomizationProvider="GetCalendarDateCustomization" />
-		<HxInputDateRange Label="HxInputDateRange (no DateRanges, no validation)" @bind-Value="@model.DateTimeRange" ShowPredefinedDateRanges="false" ShowValidationMessage="false" />
+		<HxInputDateRange Label="HxInputDateRange (no DateRanges, no validation)" @bind-Value="@model.DateTimeRange" ShowPredefinedDateRanges="false" ValidationMessageMode="ValidationMessageMode.None" />
 		<HxInputDateRange Label="HxInputDateRange (custom DateRanges)" @bind-Value="@model.DateTimeRange" PredefinedDateRanges="@GetPredefinedDateRanges()" />
 		<HxInputDateRange Label="HxInputDateRange (disabled)" @bind-Value="@model.DateTimeRange" PredefinedDateRanges="@GetPredefinedDateRanges()" Enabled="false" />
 
@@ -60,6 +60,18 @@
 					if (DateTimeRange.StartDate.Value.Year != 2020)
 					{
 						yield return new ValidationResult("Start date has to be in 2020.", new string[] { nameof(DateTimeRange) });
+					}
+				}
+
+				if (DateTimeRange.EndDate == null)
+				{
+					yield return new ValidationResult("Enter end date.", new string[] { nameof(DateTimeRange) });
+				}
+				else
+				{
+					if (DateTimeRange.EndDate.Value.Year != 2021)
+					{
+						yield return new ValidationResult("End date has to be in 2021.", new string[] { nameof(DateTimeRange) });
 					}
 				}
 			}

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared;
 
@@ -22,6 +16,7 @@ public partial class Sidebar
 			var result = await client.GetStreamAsync("https://bootswatch.com/api/5.json");
 			var themesHolder = await JsonSerializer.DeserializeAsync<ThemeHolder>(result, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 			themes = themesHolder.Themes;
+			themes.ForEach(t => t.Name += " (bootswatch.com)");
 		}
 		catch
 		{

@@ -4,13 +4,13 @@
 	<MainContent>
 		<p>See <a href="/components/@nameof(HxInputFileCore)#SingleFileUpload">@nameof(HxInputFileCore)</a> for upload demos.</p>
 
-		<SectionTitle Id="Single" />
+		<DocHeading Title="Single" />
 		<Demo Type="typeof(HxInputFileDropZone_Demo_Single)" Tabs="false" />
 
-		<SectionTitle Id="Multiple" />
+        <DocHeading Title="Multiple" />
 		<Demo Type="typeof(HxInputFileDropZone_Demo_Multiple)" Tabs="false" />
 
-		<SectionTitle Id="CustomNoFilesTemplate">Custom NoFilesTemplate</SectionTitle>
+        <DocHeading Title="Custom NoFilesTemplate" Id="custom-NoFilesTemplate" />
 		<Demo Type="typeof(HxInputFileDropZone_Demo_NoFilesTemplate)" />
 	</MainContent>
     <CssVariables>
@@ -34,6 +34,12 @@
         </ComponentApiDocCssVariable>
         <ComponentApiDocCssVariable Name="--hx-input-file-drop-zone-hover-border-color" Default="var(--bs-primary)">
             Border color on hover.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-input-file-drop-zone-disabled-background-color" Default="var(--bs-gray-200)">
+            Background color when disabled.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-input-file-drop-zone-disabled-color" Default="var(--bs-gray-400)">
+            Color when disabled.
         </ComponentApiDocCssVariable>
         <ComponentApiDocCssVariable Name="--hx-input-file-drop-zone-border-radius" Default=".3rem">
             Border radius.

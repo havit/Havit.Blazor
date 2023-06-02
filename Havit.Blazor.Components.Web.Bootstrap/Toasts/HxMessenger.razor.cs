@@ -1,72 +1,71 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// <see cref="HxToastContainer"/> wrapper for displaying <see cref="HxToast"/> messages dispatched through <see cref="IHxMessengerService"/>.<br />
+/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMessenger">https://havit.blazor.eu/components/HxMessenger</see>
+/// </summary>
+public partial class HxMessenger : ComponentBase, IDisposable
 {
 	/// <summary>
-	/// <see cref="HxToastContainer"/> wrapper for displaying <see cref="HxToast"/> messages dispatched through <see cref="IHxMessengerService"/>.<br />
-	/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMessenger">https://havit.blazor.eu/components/HxMessenger</see>
+	/// Position of the messages. Default is <see cref="ToastContainerPosition.None"/>.
 	/// </summary>
-	public partial class HxMessenger : ComponentBase, IDisposable
+	[Parameter] public ToastContainerPosition Position { get; set; } = ToastContainerPosition.None;
+
+	/// <summary>
+	/// Additional CSS class.
+	/// </summary>
+	[Parameter] public string CssClass { get; set; }
+
+	[Inject] protected IHxMessengerService Messenger { get; set; }
+	[Inject] protected NavigationManager NavigationManager { get; set; }
+
+	private List<MessengerMessage> messages = new List<MessengerMessage>();
+
+	protected override void OnInitialized()
 	{
-		/// <summary>
-		/// Position of the messages. Default is <see cref="ToastContainerPosition.None"/>.
-		/// </summary>
-		[Parameter] public ToastContainerPosition Position { get; set; } = ToastContainerPosition.None;
+		Messenger.OnMessage += HandleMessage;
+		Messenger.OnClear += HandleClear;
+	}
 
-		/// <summary>
-		/// Additional CSS class.
-		/// </summary>
-		[Parameter] public string CssClass { get; set; }
-
-		[Inject] protected IHxMessengerService Messenger { get; set; }
-		[Inject] protected NavigationManager NavigationManager { get; set; }
-
-		private List<MessengerMessage> messages = new List<MessengerMessage>();
-
-		protected override void OnInitialized()
+	private void HandleMessage(MessengerMessage message)
+	{
+		InvokeAsync(() =>
 		{
-			Messenger.OnMessage += HandleMessage;
-			Messenger.OnClear += HandleClear;
-		}
+			messages.Add(message);
 
-		private void HandleMessage(MessengerMessage message)
+			StateHasChanged();
+		});
+	}
+
+	private void HandleClear()
+	{
+		InvokeAsync(() =>
 		{
-			InvokeAsync(() =>
-			{
-				messages.Add(message);
+			messages.Clear();
 
-				StateHasChanged();
-			});
-		}
+			StateHasChanged();
+		});
+	}
 
-		private void HandleClear()
+	/// <summary>
+	/// Receive notification from <see cref="HxToast"/> when message is hidden.
+	/// </summary>
+	private void HandleToastHidden(MessengerMessage message)
+	{
+		messages.Remove(message);
+	}
+
+	public void Dispose()
+	{
+		Dispose(true);
+	}
+
+	protected virtual void Dispose(bool disposing)
+	{
+		if (disposing)
 		{
-			InvokeAsync(() =>
-			{
-				messages.Clear();
-
-				StateHasChanged();
-			});
-		}
-
-		/// <summary>
-		/// Receive notification from <see cref="HxToast"/> when message is hidden.
-		/// </summary>
-		private void HandleToastHidden(MessengerMessage message)
-		{
-			messages.Remove(message);
-		}
-
-		public void Dispose()
-		{
-			Dispose(true);
-		}
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				Messenger.OnMessage -= HandleMessage;
-				Messenger.OnClear -= HandleClear;
-			}
+			Messenger.OnMessage -= HandleMessage;
+			Messenger.OnClear -= HandleClear;
 		}
 	}
 }

@@ -3,7 +3,7 @@
 
 <h1>HxInputTags</h1>
 
-<HxInputSwitch Label="Enabled" @bind-Value="@enabled" />
+<HxSwitch Text="Enabled" @bind-Value="@enabled" />
 
 <HxFormState Enabled="@enabled">
 	<EditForm Model="model">
@@ -19,7 +19,7 @@
 	</EditForm>
 </HxFormState>
 
-ddd: @tags
+Tags: @tags
 
 @code {
 	private bool enabled = true;
@@ -49,7 +49,7 @@ ddd: @tags
 
 	public void HandleValidClick()
 	{
-		tags = "bž" + String.Join(',', model.Tags);
+		tags = String.Join(',', model.Tags);
 		StateHasChanged();
 	}
 }

@@ -1,11 +1,13 @@
 ﻿@page "/components/Inputs"
 @page "/components/FormInputs"
 
-<h1>Form Inputs</h1>
+<DocHeading Title="Form Inputs" Level="1" />
 <p class="lead">
 	Bootstrap-based input controls with labels and validation messages.
-	See also <a href="https://getbootstrap.com/docs/5.1/forms/overview/">Bootstrap Forms</a>.
+	See also <a href="https://getbootstrap.com/docs/5.2/forms/overview/">Bootstrap Forms</a>.
 </p>
+
+<ResponsiveOnThisPageNavigation />
 
 <DocAlert Type="DocAlertType.Info">
 	Most of our input-components do not require <code>&lt;EditForm&gt;</code> and can be used as standalone inputs (if you don't need the validation).
@@ -16,24 +18,24 @@
 </DocAlert>
 
 
-<SectionTitle Id="BasicInputs" />
+<DocHeading Title="Basic inputs" />
 <Demo Type="@typeof(FormInputs_Demo)" />
 
-<SectionTitle Id="Sizing" />
+<DocHeading Title="Sizing" />
 <p>Input components allow you to set heights using <code>InputSize</code> parameter.</p>
-<Demo Type="@typeof(FormInputs_Demo_Sizing)" />          
+<Demo Type="@typeof(FormInputs_Demo_Sizing)" />
 
-<SectionTitle Id="InputGroups" />
+<DocHeading Title="Input groups" Id="input-groups" />
 <p>
 	<code>@nameof(HxInputBaseWithInputGroups<object>.InputGroupStartText), @nameof(HxInputBaseWithInputGroups<object>.InputGroupEndText), @nameof(HxInputBaseWithInputGroups<object>.InputGroupStartTemplate), @nameof(HxInputBaseWithInputGroups<object>.InputGroupEndTemplate)</code>
-	can be used for input groups before and after the input. See <a href="https://getbootstrap.com/docs/5.1/forms/input-group/">Input groups in Bootstrap documentation</a>.
+	can be used for input groups before and after the input. See <a href="https://getbootstrap.com/docs/5.2/forms/input-group/">Input groups in Bootstrap documentation</a>.
 </p>
 <Demo Type="@typeof(FormInputs_Demo_InputGroups)" />
 
-<SectionTitle Id="FloatingLabels" />
+<DocHeading Title="Floating labels" Id="floating-labels" />
 <p>
 	Create beautifully simple form labels that float over your input fields.
-	See <a href="https://getbootstrap.com/docs/5.1/forms/floating-labels/">Bootstrap 5 documentation on Floating labels</a>.<br />
+	See <a href="https://getbootstrap.com/docs/5.2/forms/floating-labels/">Bootstrap 5 documentation on Floating labels</a>.<br />
 	They are supported by <code>HxInputText</code>, <code>HxInputTextArea</code>, <code>HxInputNumber</code>, <code>HxInputDate</code>, <code>HxAutosuggest</code>, <code>HxSelect</code>, and <code>HxInputTags</code>.
 </p>
 <DocAlert Type="DocAlertType.Warning">
@@ -41,17 +43,26 @@
 </DocAlert>
 <Demo Type="@typeof(FormInputs_Demo_FloatingLabels)" />
 
-<SectionTitle Id="AdditionalAttributes">Splatting of additional attributes</SectionTitle>
+<DocHeading Title="Splatting of additional attributes" Id="additional-attributes" />
 <p>Inputs inheriting from <code>HxInputBase</code> support the splatting of additional attributes, specifically:</p>
 <ul>
-	<li><code>HxInputCheckBox</code>, <code>HxInputSwitch</code></li>
+	<li><code>HxCheckBox</code>, <code>HxSwitch</code></li>
 	<li><code>HxInputNumber</code>, <code>HxInputPercent</code></li>
 	<li><code>HxInputTextBase</code>, <code>HxInputText</code>, <code>HxInputTextArea</code></li>
 	<li><code>HxSelectedBase</code>, <code>HxSelect</code></li>
 </ul>
 
-<h2>API</h2>
-<SectionTitle Id="CommonComponentProperties" />
+<DocHeading Title="Forms layout" Id="form-layout" />
+<p>
+	Our CSS defaults bring flex-column to <code>&lt;form&gt;</code> element (<code>EditForm</code> component),
+	every single direct child component of <code>&lt;form&gt;</code> is stacked vertically.<br />
+	This setup implies, whenever you want to go for horizontal stacking, you have to wrap your items in some
+	element (usually <code>&lt;div&gt;</code>).
+</p>
+<Demo Type="@typeof(FormInputs_Demo_HorizontalStacking)" />
+
+<DocHeading Title="API" Level="2" />
+<DocHeading Title="Common component properties" Level="3" />
 <div class="table-responsive">
 	<table class="table table-bordered">
 		<thead>
@@ -78,8 +89,8 @@
 				<td>CSS class to be set to the input.</td>
 			</tr>
 			<tr>
-				<td><strong>@nameof(HxInputBase<object>.ShowValidationMessage)</strong></td>
-				<td>Can be used to suppress rendering of a validation message.</td>
+				<td><strong>@nameof(HxInputBase<object>.ValidationMessageMode)</strong></td>
+				<td>Adjusts how are validation messages rendered.</td>
 			</tr>
 			<tr>
 				<td><strong>@nameof(HxInputBase<object>.Enabled)</strong></td>

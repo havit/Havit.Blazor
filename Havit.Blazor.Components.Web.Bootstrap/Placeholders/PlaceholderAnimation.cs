@@ -1,23 +1,22 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// Animation of the placeholders (for <see cref="HxPlaceholderContainer.Animation"/>).
+/// </summary>
+public enum PlaceholderAnimation
 {
 	/// <summary>
-	/// Animation of the placeholders (for <see cref="HxPlaceholderContainer.Animation"/>).
+	/// No animation.
 	/// </summary>
-	public enum PlaceholderAnimation
-	{
-		/// <summary>
-		/// No animation.
-		/// </summary>
-		None = 0,
+	None = 0,
 
-		/// <summary>
-		/// Glow animation.
-		/// </summary>
-		Glow = 1,
+	/// <summary>
+	/// Glow animation.
+	/// </summary>
+	Glow = 1,
 
-		/// <summary>
-		/// Wave animation.
-		/// </summary>
-		Wave = 2
-	}
+	/// <summary>
+	/// Wave animation.
+	/// </summary>
+	Wave = 2
 }

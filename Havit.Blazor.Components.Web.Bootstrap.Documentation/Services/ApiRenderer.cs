@@ -1,10 +1,6 @@
-﻿using System.CodeDom;
-using System.CodeDom.Compiler;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Web;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Model;
-using Havit.Blazor.Components.Web.Bootstrap.Documentation.Pages;
-using Microsoft.CSharp;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 

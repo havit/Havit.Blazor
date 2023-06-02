@@ -1,9 +1,33 @@
-﻿<HxModal @ref="smModal" Fullscreen="ModalFullscreen.SmallDown" Title="Fullscreen bellow SM" />
-<HxModal @ref="mdModal" Fullscreen="ModalFullscreen.MediumDown" Title="Fullscreen bellow MD" />
-<HxModal @ref="lgModal" Fullscreen="ModalFullscreen.LargeDown" Title="Fullscreen bellow LG" />
-<HxModal @ref="xlModal" Fullscreen="ModalFullscreen.ExtraLargeDown"  Title="Fullscreen bellow XL" />
-<HxModal @ref="xxlModal" Fullscreen="ModalFullscreen.XxlDown" Title="Fullscreen bellow XXL" />
-<HxModal @ref="xl2Modal" Fullscreen="ModalFullscreen.ExtraLargeDown" Size="ModalSize.Large" Title="Fullscreen bellow XL (otherwise L)" />
+﻿<HxModal @ref="smModal" Fullscreen="ModalFullscreen.SmallDown" Title="Fullscreen bellow SM">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxModal>
+<HxModal @ref="mdModal" Fullscreen="ModalFullscreen.MediumDown" Title="Fullscreen bellow MD">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxModal>
+<HxModal @ref="lgModal" Fullscreen="ModalFullscreen.LargeDown" Title="Fullscreen bellow LG">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxModal>
+<HxModal @ref="xlModal" Fullscreen="ModalFullscreen.ExtraLargeDown"  Title="Fullscreen bellow XL">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxModal>
+<HxModal @ref="xxlModal" Fullscreen="ModalFullscreen.XxlDown" Title="Fullscreen bellow XXL">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxModal>
+<HxModal @ref="xl2Modal" Fullscreen="ModalFullscreen.ExtraLargeDown" Size="ModalSize.Large" Title="Fullscreen bellow XL (otherwise L)">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxModal>
 
 <HxButton OnClick="() => smModal.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Fullscreen bellow SM</HxButton>
 <HxButton OnClick="() => mdModal.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Fullscreen bellow MD</HxButton>

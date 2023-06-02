@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Company>HAVIT, s.r.o.</Company>
-		<Copyright>Copyright HAVIT, s.r.o., 2022</Copyright>
+		<Copyright>Copyright HAVIT, s.r.o.</Copyright>
 		<VersionPrefix>2.0.0</VersionPrefix>
 		<AssemblyVersion>2.0.0.0</AssemblyVersion>
 		<Product>HAVIT Blazor Library</Product>
@@ -11,8 +11,8 @@
 		<LangVersion>latest</LangVersion>
 		
 		<!-- aligned NuGet PackageVersion for package-bundles -->
-		<ComponentsPackagesVersion>2.8.1</ComponentsPackagesVersion>
-		<GrpcPackagesVersion>1.1.3</GrpcPackagesVersion>
+		<ComponentsPackagesVersion>3.2.15</ComponentsPackagesVersion>
+		<GrpcPackagesVersion>1.3.3</GrpcPackagesVersion>
 	</PropertyGroup>
 
 	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" Condition="Exists($([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../')))"/>

@@ -1,26 +1,24 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// Non-generic API for <see cref="HxAutosuggest{TItem, TValue}" />.
+/// </summary>
+public class HxAutosuggest
 {
 	/// <summary>
-	/// Non-generic API for <see cref="HxAutosuggest{TItem, TValue}" />.
+	/// Application-wide defaults for the <see cref="HxAutosuggest{TItem, TValue}"/> and derived components.
 	/// </summary>
-	public class HxAutosuggest
-	{
-		/// <summary>
-		/// Application-wide defaults for the <see cref="HxAutosuggest{TItem, TValue}"/> and derived components.
-		/// </summary>
-		public static AutosuggestSettings Defaults { get; set; }
+	public static AutosuggestSettings Defaults { get; set; }
 
-		static HxAutosuggest()
+	static HxAutosuggest()
+	{
+		Defaults = new AutosuggestSettings()
 		{
-			Defaults = new AutosuggestSettings()
-			{
-				InputSize = Bootstrap.InputSize.Regular,
-				SearchIcon = BootstrapIcon.Search,
-				ClearIcon = BootstrapIcon.XLg,
-				MinimumLength = 2,
-				Delay = 300,
-				HighlightFirstSuggestion = true
-			};
-		}
+			InputSize = Bootstrap.InputSize.Regular,
+			SearchIcon = BootstrapIcon.Search,
+			ClearIcon = BootstrapIcon.XLg,
+			MinimumLength = 2,
+			Delay = 300,
+		};
 	}
 }

@@ -19,14 +19,14 @@
 				<select class="form-select form-select-sm" aria-label="Month" tabindex="@tabindexValue" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
 					@foreach (var month in renderData.Months)
 					{
-						<option value="@month.Index" disabled="@(!month.Enabled)">@month.Name</option>
+						<option @key="@month.Index" value="@month.Index" disabled="@(!month.Enabled)">@month.Name</option>
 					}
 				</select>
 				<select class="form-select form-select-sm" aria-label="Year" tabindex="@tabindexValue" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
 					@foreach (int year in renderData.Years)
 					{
 						/* not "N" - we do not want thousands separator */
-						<option value="@year">@year.ToString()</option>
+						<option @key="@year" value="@year">@year.ToString()</option>
 					}
 				</select>
 			</div>
@@ -43,24 +43,24 @@
 			<tr class="hx-calendar-day-names">
 				@foreach (string dayOfWeek in renderData.DaysOfWeek)
 				{
-					<td>@dayOfWeek</td>
+                    <td @key="@dayOfWeek">@dayOfWeek</td>
 				}
 			</tr>
 			@foreach (WeekData week in renderData.Weeks)
 			{
-				<tr class="hx-calendar-week">
+				<tr @key="@week" class="hx-calendar-week">
 					@foreach (DayData day in week.Days)
 					{
 
 						@if (day.ClickEnabled)
 						{
-							<td role="button" @onclick="async () => await HandleDayClickAsync(day)" @onclick:stopPropagation>
+                            <td @key="@day.DayInMonth" role="button" @onclick="async () => await HandleDayClickAsync(day)" @onclick:stopPropagation>
 								<div class="@day.CssClass">@day.DayInMonth</div>
 							</td>
 						}
 						else
 						{
-							<td>
+                            <td @key="@day.DayInMonth">
 								<div class="@day.CssClass">@day.DayInMonth</div>
 							</td>
 						}

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap <see href="https://getbootstrap.com/docs/5.1/components/close-button/">close-button</see> component.<br />
+/// Bootstrap <see href="https://getbootstrap.com/docs/5.2/components/close-button/">close-button</see> component.<br />
 /// A simple close button for dismissing content like modals and alerts.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCloseButton">https://havit.blazor.eu/components/HxCloseButton</see>
 /// </summary>
@@ -29,16 +23,13 @@ public class HxCloseButton : HxButton
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected new virtual CloseButtonSettings GetDefaults() => Defaults;
 
 	public HxCloseButton()
 	{
-		if (AdditionalAttributes is null)
-		{
-			AdditionalAttributes = new();
-		}
+		AdditionalAttributes ??= new();
 		AdditionalAttributes.Add("aria-label", "Close"); // Adding the aria-label for accessibility.
 	}
 

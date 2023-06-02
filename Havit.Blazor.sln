@@ -21,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 		CONTRIBUTING.md = CONTRIBUTING.md
 		Directory.Build.props = Directory.Build.props
+		exclusion.dic = exclusion.dic
 		LICENSE = LICENSE
 		logo.png = logo.png
 		NuGet.targets = NuGet.targets
@@ -59,7 +60,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.TestContr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRTLAppTest", "BlazorRTLAppTest\BlazorRTLAppTest.csproj", "{6AC55FDD-7BE4-46FF-9F40-E3ECD04DDE93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.Grpc.Core.Tests", "Havit.Blazor.Grpc.Core.Tests\Havit.Blazor.Grpc.Core.Tests.csproj", "{E64B4752-B697-4B5A-91F0-8A8581B1ABE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.Core.Tests", "Havit.Blazor.Grpc.Core.Tests\Havit.Blazor.Grpc.Core.Tests.csproj", "{E64B4752-B697-4B5A-91F0-8A8581B1ABE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

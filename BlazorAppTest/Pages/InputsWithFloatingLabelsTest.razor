@@ -10,7 +10,7 @@
 	<div class="card-header">OnClick propagation test</div>
 	<div class="card-body">
 
-		<HxFilterForm @ref="filterForm" @bind-Model="@model" OnChipsUpdated="HandleChipUpdated">
+        <HxFilterForm @ref="filterForm" TModel="FormModel" @bind-Model="@model" OnChipsUpdated="HandleChipUpdated">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
 

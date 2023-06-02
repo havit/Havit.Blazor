@@ -1,8 +1,0 @@
-﻿a {
-    text-decoration: none;
-    visibility: hidden;
-}
-
-h3:hover a {
-    visibility: visible;
-}

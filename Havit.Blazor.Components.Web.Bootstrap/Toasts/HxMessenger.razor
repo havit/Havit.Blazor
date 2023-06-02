@@ -6,15 +6,15 @@
         {
             // @key is used to pair messages to HxToasts when some message disappers.
             <HxToast @key="@message.Key"
-                        Color="@((message as BootstrapMessengerMessage)?.Color)"
-                    CssClass="@message.CssClass"
-                    HeaderIcon="@message.Icon"
-                    HeaderText="@message.Title"
-                    HeaderTemplate="@message.HeaderTemplate"
-                    ContentText="@message.Text"
-                    ContentTemplate="@message.ContentTemplate"
-                    AutohideDelay="@message.AutohideDelay"
-                    OnToastHidden="() => HandleToastHidden(message)" />
+                 Color="@((message as BootstrapMessengerMessage)?.Color)"
+                 CssClass="@message.CssClass"
+                 HeaderIcon="@message.Icon"
+                 HeaderText="@message.Title"
+                 HeaderTemplate="@message.HeaderTemplate"
+                 ContentText="@message.Text"
+                 ContentTemplate="@message.ContentTemplate"
+                 AutohideDelay="@message.AutohideDelay"
+                 OnToastHidden="() => HandleToastHidden(message)" />
         }
     </HxToastContainer>
 </div>

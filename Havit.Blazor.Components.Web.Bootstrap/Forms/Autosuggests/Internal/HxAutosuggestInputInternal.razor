@@ -1,0 +1,21 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+
+<input @ref="InputElement"
+       id="@InputId"
+       type="text"
+       class="@CssClass hx-autosuggest-input"
+       disabled="@(!EnabledEffective)"
+       autocomplete="false"
+       data-bs-reference="parent"
+       data-bs-offset="@($"{DropdownOffset.Skidding},{DropdownOffset.Distance}")"
+       value="@Value"
+       @oninput="HandleInput"
+       @onfocus="OnFocus"
+       @onblur="OnBlur"
+       @onmousedown="OnMouseDown"
+       @onclick:stopPropagation
+       placeholder="@Placeholder"
+       onfocusin="this.select()"
+       @attributes="this.AdditionalAttributes" />
+
+@*onfocusin: cannot use onfocus twice (@onfocus and onfocus) *@

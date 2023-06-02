@@ -1,8 +1,11 @@
 @namespace Havit.Blazor.Components.Web.Bootstrap
+
 <div @ref="offcanvasElement"
-     class="@CssClassHelper.Combine("offcanvas", GetPlacementCssClass(), GetSizeCssClass(), opened ? "show" : null, this.CssClassEffective)"
-     tabindex="-1">
-    @if (opened || (this.RenderMode == OffcanvasRenderMode.Always))
+     class="@CssClassHelper.Combine(GetOffcanvasResponsiveCssClass(), GetPlacementCssClass(), GetSizeCssClass(), opened ? "show" : null, this.CssClassEffective)"
+     tabindex="-1"
+     id="@offcanvasId"
+     data-bs-backdrop="@GetBackdropSetupValue(BackdropEffective)">
+    @if (opened || (this.RenderMode == OffcanvasRenderMode.Always) || (this.ResponsiveBreakpointEffective != OffcanvasResponsiveBreakpoint.None))
     {
         <div class="@CssClassHelper.Combine("offcanvas-header", this.HeaderCssClassEffective)">
             @if (Title != null)
@@ -15,11 +18,12 @@
             {
                 if (CloseButtonIconEffective is null)
                 {
-                    <button type="button" class="btn-close hx-offcanvas-close-button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    @* When a responsive breakpoint was set, the close button would stop working, that's why we set the data-bs-target even though the close button is within the offcanvas. *@
+                    <button type="button" class="btn-close hx-offcanvas-close-button" data-bs-target="@($"#{offcanvasId}")" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 }
                 else
                 {
-                    <div role="button" data-bs-dismiss="offcanvas" aria-label="Close"><HxIcon Icon="CloseButtonIconEffective" /></div>
+                    <div role="button" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="@($"#{offcanvasId}")"><HxIcon Icon="CloseButtonIconEffective" /></div>
                 }
             }
         </div>

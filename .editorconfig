@@ -1,4 +1,15 @@
-﻿# C# files
+﻿# ALL FILES
+[*]
+
+end_of_line = CRLF
+indent_style = tab
+indent_size = 4
+trim_trailing_whitespace = true
+spelling_languages = en-us
+spelling_exclusion_path = ./exclusion.dic
+
+
+# C# files
 [*.cs]
 
 ####################################

@@ -1,0 +1,38 @@
+﻿@page "/HxInputDate_Issue458_Test"
+@using Havit;
+
+<h1>HxInputDate</h1>
+
+<HxButton Color="ThemeColor.Primary" OnClick="HandleEditClicked">Edit</HxButton>
+
+<EditForm EditContext="editContext">
+	<HxFormState Enabled="canEdit">
+		<HxInputDate CssClass="col-3" Label="Date" @bind-Value="model.BirthDate" />
+		<HxInputDateRange CssClass="col-3" Label="DateRange" @bind-Value="model.DateRange" />
+	</HxFormState>
+</EditForm>
+
+@code {
+
+	private Person model;
+	private EditContext editContext;
+	private bool canEdit = true;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await base.OnInitializedAsync();
+		model = new Person();
+		editContext = new EditContext(model);
+	}
+
+	private void HandleEditClicked()
+	{
+		canEdit = !canEdit;
+	}
+
+	public class Person
+	{
+		public DateTime BirthDate { get; set; }
+		public DateTimeRange DateRange { get; set; }
+	}
+}

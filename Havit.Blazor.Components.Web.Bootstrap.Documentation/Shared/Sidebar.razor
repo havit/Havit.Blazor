@@ -10,23 +10,25 @@
         <Search />
 
         <HxSidebarItem Text="Getting started" Href="/" Match="NavLinkMatch.All" Icon="BootstrapIcon.House" />
+        <HxSidebarItem Text="Migration to v3 🔥" Href="/migrating-to-v3" Match="NavLinkMatch.All" Icon="BootstrapIcon.ArrowUpCircle" />
 
         <HxSidebarItem Text="Forms" Icon="BootstrapIcon.InputCursorText">
             <HxSidebarItem Href="/components/Inputs" Text="Inputs" />
             <HxSidebarItem Href="@($"/components/{nameof(HxAutosuggest)}")" Text="@nameof(HxAutosuggest)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCalendar)}")" Text="@nameof(HxCalendar)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxInputCheckbox)}")" Text="@(nameof(HxInputCheckbox))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputDate)}")" Text="@(nameof(HxInputDate))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputDateRange)}")" Text="@(nameof(HxInputDateRange))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputFile)}")" Text="@(nameof(HxInputFile) + "[Core]")" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputFileDropZone)}")" Text="@(nameof(HxInputFileDropZone))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputNumber)}")" Text="@(nameof(HxInputNumber))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputPercent<object>)}")" Text="@(nameof(HxInputPercent<object>))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxInputSwitch)}")" Text="@(nameof(HxInputSwitch))" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxInputRange)}")" Text="@(nameof(HxInputRange))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputTags)}")" Text="@(nameof(HxInputTags))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputText)}")" Text="@(nameof(HxInputText))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputTextArea)}")" Text="@(nameof(HxInputTextArea))" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxCheckbox)}")" Text="@(nameof(HxCheckbox))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCheckboxList<object, object>)}")" Text="@(nameof(HxCheckboxList<object, object>))" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxSwitch)}")" Text="@(nameof(HxSwitch))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxFormState)}")" Text="@nameof(HxFormState)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxFormValue)}")" Text="@(nameof(HxFormValue))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxRadioButtonList<object, object>)}")" Text="@nameof(HxRadioButtonList<object, object>)" />
@@ -40,7 +42,7 @@
         <HxSidebarItem Text="Buttons & Indicators" Icon="BootstrapIcon.PlayBtn">
             <HxSidebarItem Href="@($"/components/{nameof(HxButton)}")" Text="@(nameof(HxButton) + " & " + nameof(HxSubmit))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxButtonGroup)}")" Text="@nameof(HxButtonGroup)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxButtonToolbar)}")" Text="@nameof(HxButtonToolbar)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxButtonToolbar)}#{nameof(HxButtonToolbar)}")" Text="@nameof(HxButtonToolbar)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCloseButton)}")" Text="@nameof(HxCloseButton)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxSubmit)}#{nameof(HxSubmit)}")" Text="@nameof(HxSubmit)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxDropdownButtonGroup)}")" Text="@nameof(HxDropdownButtonGroup)" />
@@ -104,6 +106,7 @@
 
         <HxSidebarItem Text="Concepts" Icon="BootstrapIcon.Lightbulb">
             <HxSidebarItem Href="/concepts/defaults-and-settings" Text="Defaults & Settings" />
+            <HxSidebarItem Href="/concepts/Debouncer" Text="Debouncer" />
         </HxSidebarItem>
 
         <HxSidebarItem Text="All Components" Icon="BootstrapIcon.SortAlphaDown" ExpandOnMatch="false">
@@ -115,10 +118,11 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxBreadcrumb)}")" Text="@nameof(HxBreadcrumb)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxButton)}")" Text="@nameof(HxButton)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxButtonGroup)}")" Text="@nameof(HxButtonGroup)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxButtonToolbar)}")" Text="@nameof(HxButtonToolbar)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxButtonToolbar)}#{nameof(HxButtonToolbar)}")" Text="@nameof(HxButtonToolbar)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCalendar)}")" Text="@nameof(HxCalendar)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCard)}")" Text="@nameof(HxCard)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCarousel)}")" Text="@nameof(HxCarousel)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxCheckbox)}")" Text="@(nameof(HxCheckbox))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCheckboxList<object, object>)}")" Text="@(nameof(HxCheckboxList<object, object>))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxChipList)}")" Text="@(nameof(HxChipList))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCloseButton)}")" Text="@nameof(HxCloseButton)" />
@@ -128,23 +132,22 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxDropdown)}")" Text="@nameof(HxDropdown)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxDropdownButtonGroup)}")" Text="@nameof(HxDropdownButtonGroup)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxDynamicElement)}")" Text="@nameof(HxDynamicElement)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxFilterForm<object>)}")" Text="@(nameof(HxFilterForm<object>))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxFormState)}")" Text="@nameof(HxFormState)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxFormValue)}")" Text="@(nameof(HxFormValue))" />
             <HxSidebarItem Href="@($"/components/{nameof(Havit.Blazor.GoogleTagManager.HxGoogleTagManager)}")" Text="@nameof(Havit.Blazor.GoogleTagManager.HxGoogleTagManager)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxGrid<object>)}")" Text="@nameof(HxGrid<object>)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxIcon)}")" Text="@nameof(HxIcon)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxInputCheckbox)}")" Text="@(nameof(HxInputCheckbox))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputDate)}")" Text="@nameof(HxInputDate)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputDateRange)}")" Text="@nameof(HxInputDateRange)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputFile)}")" Text="@(nameof(HxInputFile) + "[Core]")" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputFileDropZone)}")" Text="@(nameof(HxInputFileDropZone))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputNumber)}")" Text="@(nameof(HxInputNumber))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputPercent<object>)}")" Text="@(nameof(HxInputPercent<object>))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxInputSwitch)}")" Text="@(nameof(HxInputSwitch))" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxInputRange)}")" Text="@(nameof(HxInputRange))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputTags)}")" Text="@(nameof(HxInputTags))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputText)}")" Text="@(nameof(HxInputText))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputTextArea)}")" Text="@(nameof(HxInputTextArea))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxFilterForm<object>)}")" Text="@(nameof(HxFilterForm<object>))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxFormValue)}")" Text="@(nameof(HxFormValue))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxListGroup)}")" Text="@(nameof(HxListGroup))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxListLayout)}")" Text="@(nameof(HxListLayout))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxMessageBox)}")" Text="@nameof(HxMessageBox)" />
@@ -164,12 +167,13 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxRadioButtonList<object, object>)}")" Text="@nameof(HxRadioButtonList<object, object>)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxRedirectTo)}")" Text="@nameof(HxRedirectTo)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxRepeater<object>)}")" Text="@nameof(HxRepeater<object>)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxScrollspy)}")" Text="@nameof(HxScrollspy)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxSearchBox<object>)}")" Text="@nameof(HxSearchBox<object>)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxSelect)}")" Text="@nameof(HxSelect)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxSidebar)}")" Text="@nameof(HxSidebar)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxSpinner)}")" Text="@nameof(HxSpinner)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxScrollspy)}")" Text="@nameof(HxScrollspy)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxSubmit)}#{nameof(HxSubmit)}")" Text="@nameof(HxSubmit)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxSwitch)}")" Text="@(nameof(HxSwitch))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxTabPanel)}")" Text="@nameof(HxTabPanel)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxToast)}")" Text="@nameof(HxToast)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxTooltip)}")" Text="@nameof(HxTooltip)" />
@@ -190,9 +194,9 @@
 <HeadContent>
     @if (selectedTheme?.Name == "Bootstrap 5")
     {
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+		@((MarkupString)HxSetup.RenderBootstrapCssReference(BootstrapFlavor.PlainBootstrap))
     }
-    else if (selectedTheme is not null)
+    else if (selectedTheme is not null) // null = HAVIT Bootstrap build (default)
     {
         <link href="@selectedTheme.CssCdn" rel="stylesheet" />
     }

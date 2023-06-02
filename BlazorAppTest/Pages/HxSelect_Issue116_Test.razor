@@ -1,0 +1,10 @@
+﻿@page "/HxSelect_Issue116_Test"
+
+<h1>Issue 116</h1>
+
+<HxSelect Data="@data" @bind-Value="value" />
+
+ @code {
+    private List<int> data = new List<int> { 1, 2, 3, 4 };
+    private int value = 0;
+ }

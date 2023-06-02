@@ -1,18 +1,17 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// Event to use for data-binding.
+/// </summary>
+public enum BindEvent
 {
 	/// <summary>
-	/// Event to use for data-binding.
+	/// "oninput" event is used to retrieved value from the input element.
 	/// </summary>
-	public enum BindEvent
-	{
-		/// <summary>
-		/// "oninput" event is used to retrieved value from the input element.
-		/// </summary>
-		OnInput,
+	OnInput,
 
-		/// <summary>
-		/// "onchange" event is used to retrieved value from the input element.
-		/// </summary>
-		OnChange
-	}
+	/// <summary>
+	/// "onchange" event is used to retrieved value from the input element.
+	/// </summary>
+	OnChange
 }

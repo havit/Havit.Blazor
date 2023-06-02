@@ -21,7 +21,7 @@ public class SearchBoxSettings
 	public int? MinimumLength { get; set; }
 
 	/// <summary>
-	/// Debounce delay in miliseconds.
+	/// Debounce delay in milliseconds.
 	/// </summary>
 	public int? Delay { get; set; }
 
@@ -44,4 +44,9 @@ public class SearchBoxSettings
 	/// Additional CSS classes for the search box input.
 	/// </summary>
 	public string InputCssClass { get; set; }
+
+	/// <summary>
+	/// Custom CSS class to render with input-group span.
+	/// </summary>
+	public string InputGroupCssClass { get; set; }
 }

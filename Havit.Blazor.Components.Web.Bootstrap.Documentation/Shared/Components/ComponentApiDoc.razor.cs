@@ -1,6 +1,5 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Documentation.Model;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
-using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components;
 
@@ -20,6 +19,17 @@ public partial class ComponentApiDoc
 	[Inject] protected IComponentApiDocModelBuilder ComponentApiDocModelBuilder { get; set; }
 
 	private ComponentApiDocModel model;
+
+	private bool hasApi => model.HasValues || CssVariables is not null;
+	private bool isDelegate => model.IsDelegate;
+	private bool isEnum => model.IsEnum;
+	private bool hasParameters => model.Parameters.Any();
+	private bool hasProperties => model.Properties.Any();
+	private bool hasEvents => model.Events.Any();
+	private bool hasMethods => !model.IsEnum && model.Methods.Any();
+	private bool hasStaticProperties => model.StaticProperties.Any();
+	private bool hasStaticMethods => !model.IsEnum && model.StaticMethods.Any();
+	private bool hasCssVariables => CssVariables is not null;
 
 	protected override void OnParametersSet()
 	{

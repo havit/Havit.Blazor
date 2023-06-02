@@ -1,33 +1,14 @@
-﻿<EditForm Model="@model" OnValidSubmit="() => SetValidationStatus(true)" OnInvalidSubmit="() => SetValidationStatus(false)">
+﻿<EditForm Model="@model">
 	<DataAnnotationsValidator />
 
-	<div>@validationMessage</div>
-
-	@* Parent element serves as reference for .is-invalid-tooltip *@
-	<div class="position-relative">
-		<HxValidationMessage For="() => model.Text" />
-	</div>
-
-	<div class="pt-4"></div>	<hr />
-	<HxInputText @bind-Value="@model.Text" Placeholder="Text" ShowValidationMessage="false" />
+	<HxInputText @bind-Value="@model.Text" Placeholder="Text" ValidationMessageMode="ValidationMessageMode.None" />
 	<HxSubmit Color="ThemeColor.Primary" Text="Submit" />
 
+    <HxValidationMessage For="() => model.Text" />
 </EditForm>
 
 @code {
 	private DemoModel model = new();
-	private string validationMessage = string.Empty;
-
-	private void SetValidationStatus(bool validationStatus)
-	{
-		if (validationStatus)
-		{
-			validationMessage = "Validation passed!";
-			return;
-		}
-
-		validationMessage = string.Empty;
-	}
 
 	protected class DemoModel
 	{

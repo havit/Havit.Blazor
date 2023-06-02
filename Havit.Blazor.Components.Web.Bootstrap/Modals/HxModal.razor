@@ -2,7 +2,11 @@
 
 @if (opened)
 {
-	<div @ref="modalElement" class="@CssClassHelper.Combine("hx-modal modal fade", this.CssClassEffective)" tabindex="-1">
+	<div @ref="modalElement"
+		 class="@CssClassHelper.Combine("hx-modal modal", this.AnimatedEffective ? "fade" : null, this.CssClassEffective)"
+		 tabindex="-1"
+		 data-bs-backdrop="@GetBackdropSetupValue(BackdropEffective)">
+
 		<div class="@CssClassHelper.Combine("modal-dialog", GetDialogSizeCssClass(), GetDialogFullscreenCssClass(), GetDialogScrollableCssClass(), GetDialogCenteredCssClass(), this.DialogCssClassEffective)">
 			<div class="@CssClassHelper.Combine("modal-content", this.ContentCssClassEffective)">
 				@if (!String.IsNullOrEmpty(Title) || (HeaderTemplate != null) || ShowCloseButtonEffective)

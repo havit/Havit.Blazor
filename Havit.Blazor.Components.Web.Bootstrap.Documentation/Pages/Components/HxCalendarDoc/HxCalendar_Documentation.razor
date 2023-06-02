@@ -2,10 +2,10 @@
 
 <ComponentApiDoc Type="typeof(HxCalendar)">
     <MainContent>
-        <SectionTitle Id="BasicUsage" />
-        <Demo Type="typeof(HxCalendar_Demo)" />
+        <DocHeading Title="Basic usage" />
+        <Demo Type="typeof(HxCalendar_Demo)" Tabs="false" />
 
-        <h2 id="DatesCustomization">Dates customization</h2>
+        <DocHeading Title="Dates customization" />
         <p>
             You can change rendering of weekend days by defining your own CSS rule for <code>.weekend</code> class.
             The disabled days get <code>.disabled</code> class.
@@ -15,7 +15,7 @@
             <code>CssClass</code> and <code>Enabled</code> values for every single date rendered.
         </p>
 
-        <SectionTitle Id="HxInputDateHxInputDateRange">HxInputDate, HxInputDateRange</SectionTitle>
+        <DocHeading Id="HxInputDate-HxInputDateRange" Title="HxInputDate, HxInputDateRange" />
         <p>
             <code>HxCalendar</code> is used in implementation of <a href="/components/HxInputDate"><code>HxInputDate</code></a>
             and <a href="/components/HxInputDateRange"><code>HxInputDateRange</code></a> components. See their documentation for more info.
@@ -34,7 +34,7 @@
         <ComponentApiDocCssVariable Name="--hx-calendar-day-selected-background" Default="var(--bs-primary)">
             Background of the selected day.
         </ComponentApiDocCssVariable>
-        <ComponentApiDocCssVariable Name="--hx-calendar-day-selected-color" Default="white">
+        <ComponentApiDocCssVariable Name="--hx-calendar-day-selected-color" Default="var(--bs-white)">
             Color of the selected day.
         </ComponentApiDocCssVariable>
         <ComponentApiDocCssVariable Name="--hx-calendar-day-selected-border" Default="none">
@@ -57,6 +57,9 @@
         </ComponentApiDocCssVariable>
         <ComponentApiDocCssVariable Name="--hx-calendar-day-names-font-weight" Default="700">
             Font weight of the day names.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-calendar-navigation-button-focus-box-shadow" Default="0 0 0 0.25rem rgb(0 157 224 / 25%)">
+            Navigation button box shadow when focused.
         </ComponentApiDocCssVariable>
         <ComponentApiDocCssVariable Name="--hx-calendar-navigation-button-hover-background" Default="var(--bs-gray-200)">
             Navigation button background on hover.

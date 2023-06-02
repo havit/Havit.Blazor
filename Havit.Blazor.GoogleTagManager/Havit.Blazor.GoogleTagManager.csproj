@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net5.0</TargetFrameworks>
+		<TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<NoWarn>1591;1701;1702;SA1134</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
@@ -13,7 +14,7 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.0.7</PackageVersion>
+		<PackageVersion>1.1.1</PackageVersion>
 		<Description>HAVIT Blazor Library - Google Tag Manager support (incl. optional automatic page-views tracking)</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
@@ -21,7 +22,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Havit.Core" Version="2.0.26" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.17" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.3" Condition="'$(TargetFramework)' == 'net7.0'" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.14" Condition="'$(TargetFramework)' == 'net6.0'" />
 	</ItemGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">

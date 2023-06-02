@@ -1,23 +1,23 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
+
+/// <summary>
+/// Render order.
+/// </summary>
+public enum LabelValueRenderOrder
 {
 	/// <summary>
-	/// Render order.
+	/// Render label first, then value/input (majority of components).
 	/// </summary>
-	public enum LabelValueRenderOrder
-	{
-		/// <summary>
-		/// Render label first, then value/input (majority of components).
-		/// </summary>
-		LabelValue,
+	LabelValue,
 
-		/// <summary>
-		/// Render value/input first, then label (ie. <see cref="HxInputCheckbox" />).
-		/// </summary>
-		ValueLabel,
+	/// <summary>
+	/// Render value/input first, then label (ie. former HxInputCheckbox).
+	/// </summary>
+	// TODO Remove when HxInputCheckbox removed?
+	ValueLabel,
 
-		/// <summary>
-		/// Render value/input only. Label is not rendered (ie. <see cref="HxAutosuggest{TItem, TValue}" /> with floating label which renders label internally).
-		/// </summary>
-		ValueOnly
-	}
+	/// <summary>
+	/// Render value/input only. Label is not rendered (ie. <see cref="HxAutosuggest{TItem, TValue}" /> with floating label which renders label internally).
+	/// </summary>
+	ValueOnly
 }

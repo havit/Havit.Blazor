@@ -1,10 +1,32 @@
-﻿export function open(inputElement, hxAutosuggestDotnetObjectReference) {
+﻿export function initialize(inputId, hxAutosuggestDotnetObjectReference, keysToPreventDefault) {
+	let inputElement = document.getElementById(inputId);
+	if (!inputElement) {
+		return;
+	}
+
+    inputElement.hxAutosuggestDotnetObjectReference = hxAutosuggestDotnetObjectReference;
+	inputElement.hxAutosuggestKeysToPreventDefault = keysToPreventDefault;
+
+    inputElement.addEventListener('keydown', handleKeyDown);
+}
+
+function handleKeyDown(event) {
+    let key = event.key;
+
+    event.target.hxAutosuggestDotnetObjectReference.invokeMethodAsync("HxAutosuggestInternal_HandleInputKeyDown", key);
+
+	if (event.target.hxAutosuggestKeysToPreventDefault.includes(key)) {
+        event.preventDefault();
+    }
+}
+
+export function open(inputElement, hxAutosuggestDotnetObjectReference) {
 	if (!inputElement) {
 		return;
 	}
     inputElement.setAttribute("data-bs-toggle", "dropdown");
     inputElement.hxAutosuggestDotnetObjectReference = hxAutosuggestDotnetObjectReference;
-    inputElement.addEventListener('hidden.bs.dropdown', handleDropdownHidden)
+    inputElement.addEventListener('hidden.bs.dropdown', handleDropdownHidden);
 
 	var d = new bootstrap.Dropdown(inputElement);
 	if (d) {
@@ -34,12 +56,21 @@ function handleDropdownHidden(event) {
     // But we need the item click event to fire first.
     // Therefore we delay jsinterop for a while.
     window.setTimeout(function (element) {
-        element.hxAutosuggestDotnetObjectReference.invokeMethodAsync('HxAutosuggestInternal_HandleDropdownHidden');
-        element.hxAutosuggestDotnetObjectReference = null;
+        element.hxAutosuggestDotnetObjectReference.invokeMethodAsync('HxAutosuggestInternal_HandleDropdownHidden');       
     }, 1, event.target);
 
-	var d = bootstrap.Dropdown.getInstance(event.inputElement);
+	var d = bootstrap.Dropdown.getInstance(event.target);
 	if (d) {
-		dropdown.dispose();
+		d.dispose();
 	}
 };
+
+export function dispose(inputId) {
+	let inputElement = document.getElementById(inputId);
+
+	if (inputElement) {
+		inputElement.removeEventListener('keydown', handleKeyDown);
+		inputElement.hxAutosuggestDotnetObjectReference = null;
+		inputElement.hxAutosuggestKeysToPreventDefault = null;
+	}
+}

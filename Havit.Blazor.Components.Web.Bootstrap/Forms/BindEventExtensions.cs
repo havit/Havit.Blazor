@@ -1,16 +1,15 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// <seealso cref="BindEvent" /> extensions.
+/// </summary>
+public static class BindEventExtensions
 {
 	/// <summary>
-	/// <seealso cref="BindEvent" /> extensions.
+	/// Gets the name of event as string.
 	/// </summary>
-	public static class BindEventExtensions
+	public static string ToEventName(this BindEvent value)
 	{
-		/// <summary>
-		/// Gets the name of event as string.
-		/// </summary>
-		public static string ToEventName(this BindEvent value)
-		{
-			return value.ToString().ToLower();
-		}
+		return value.ToString().ToLower();
 	}
 }

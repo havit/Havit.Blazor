@@ -120,6 +120,9 @@
   <data name="LoadingData" xml:space="preserve">
     <value>Načítám data...</value>
   </data>
+  <data name="LoadMoreData" xml:space="preserve">
+    <value>Načíst další</value>
+  </data>
   <data name="NoData" xml:space="preserve">
     <value>Žádná data.</value>
   </data>

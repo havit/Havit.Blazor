@@ -5,7 +5,7 @@
         DataProvider="ClientSideProcessingDataProvider"
         PageSize="10">
     <Columns>
-        <HxGridColumn TItem="EditableCultureInfo" HeaderText="LCID" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true">
+        <HxGridColumn HeaderText="LCID" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true">
             <ItemTemplate Context="item">
                 @if (selectedDataItem == item)
                 {
@@ -17,7 +17,7 @@
                 }
             </ItemTemplate>
         </HxGridColumn>
-        <HxGridColumn TItem="EditableCultureInfo" HeaderText="DisplayName" SortKeySelector="@(item => item.DisplayName)">
+        <HxGridColumn HeaderText="DisplayName" SortKeySelector="@(item => item.DisplayName)">
             <ItemTemplate Context="item">
                 @if (selectedDataItem == item)
                 {
@@ -29,7 +29,7 @@
                 }
             </ItemTemplate>
         </HxGridColumn>
-        <HxGridColumn TItem="EditableCultureInfo" HeaderText="Name" SortKeySelector="@(item => item.Name)">
+        <HxGridColumn HeaderText="Name" SortKeySelector="@(item => item.Name)">
             <ItemTemplate Context="item">
                 @if (selectedDataItem == item)
                 {
@@ -41,7 +41,7 @@
                 }
             </ItemTemplate>
         </HxGridColumn>
-        <HxGridColumn TItem="EditableCultureInfo" HeaderText="EnglishName" SortKeySelector="@(item => item.EnglishName)">
+        <HxGridColumn HeaderText="EnglishName" SortKeySelector="@(item => item.EnglishName)">
             <ItemTemplate Context="item">
                 @if (selectedDataItem == item)
                 {

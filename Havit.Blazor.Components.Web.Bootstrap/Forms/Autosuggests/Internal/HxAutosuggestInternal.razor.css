@@ -6,6 +6,24 @@
     top: 50%;
     right: 0;
     transform: translateY(-50%);
+    z-index: 5;
+}
+
+.input-group .hx-autosuggest-input-wrapper {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+}
+
+.input-group .hx-autosuggest-input-wrapper:not(:first-child) ::deep .hx-autosuggest-input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group .hx-autosuggest-input-wrapper:not(:last-child) ::deep .hx-autosuggest-input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .form-control-sm ~ .hx-autosuggest-input-icon {
@@ -14,4 +32,12 @@
 
 .hx-autosuggest-input-icon div[role="button"]:not(:hover) ::deep .hx-icon {
     opacity: var(--hx-autosuggest-input-close-icon-opacity);
+}
+
+::deep .hx-autosuggest-item-focused {
+    background-color: var(--hx-autosuggest-item-highlighted-background-color);
+}
+
+::deep .form-floating > label {
+    z-index: 20;
 }

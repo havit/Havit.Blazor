@@ -1,0 +1,13 @@
+input:focus {
+    outline: none;
+}
+
+input {
+    background-color: inherit;
+    width: 100%;
+    padding: 0;
+}
+
+::placeholder {
+    color: var(--hx-input-tags-input-placeholder-color);
+}

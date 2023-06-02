@@ -1,23 +1,30 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// Strategy how data are displayed in the grid (and loaded to the grid).
+/// </summary>
+public enum GridContentNavigationMode
 {
 	/// <summary>
-	/// Strategy how data are displayed in the grid (and loaded to the grid).
+	/// Use pager.
 	/// </summary>
-	public enum GridContentNavigationMode
-	{
-		/// <summary>
-		/// Use pager.
-		/// </summary>
-		Pagination = 0,
+	Pagination = 1,
 
-		/// <summary>
-		/// Use infinite scroll (virtualized).
-		/// </summary>
-		InfiniteScroll
+	/// <summary>
+	/// Use "Load more" button.
+	/// </summary>
+	LoadMore = 2,
 
-		///// <summary>
-		///// Use "Load more"
-		///// </summary>
-		// LoadMore
-	}
+	/// <summary>
+	/// Use pager and "Load more" button.
+	/// </summary>
+	/// <remarks>
+	/// Value used as this is a flagged enum (but it is not).
+	/// </remarks>
+	PaginationAndLoadMore = 3,
+
+	/// <summary>
+	/// Use infinite scroll (virtualized).
+	/// </summary>
+	InfiniteScroll = 4,
 }

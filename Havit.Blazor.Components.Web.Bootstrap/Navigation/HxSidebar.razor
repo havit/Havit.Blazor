@@ -9,16 +9,14 @@
                 <CascadingValue Value="@this">
                     @HeaderTemplate
                 </CascadingValue>
-                <button
-                    class="@CssClassHelper.Combine("navbar-toggler navbar-light ms-auto", GetResponsiveCssClass("d-??-none"))"
-                    type="button"
+                <HxButton
+                    CssClass="@CssClassHelper.Combine("hx-sidebar-navbar-toggler ms-auto", GetResponsiveCssClass("d-??-none"))"
                     data-bs-toggle="collapse"
-                    data-bs-target="#@NavContentElementId"
+                    data-bs-target="@($"#{NavContentElementId}")"
                     aria-controls="@NavContentElementId"
                     aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                    aria-label="Toggle navigation"
+                    Icon="BootstrapIcon.List" />
             </div>
         }
 
@@ -34,7 +32,11 @@
 
                     @if (TogglerTemplate is null)
                     {
-                        <div class="@CssClassHelper.Combine("hx-sidebar-toggler-icon-wrapper", GetResponsiveCssClass("d-??-flex"))">
+                        <div class="@CssClassHelper.Combine(
+                            "hx-sidebar-toggler-icon-wrapper",
+                            "d-none", // Hide the sidebar toggler in navbar mode (when below the responsive breakpoint).
+                            GetResponsiveCssClass("d-??-flex"))">
+
                             <HxIcon CssClass="hx-sidebar-toggler-icon" Icon="@(Collapsed ? ExpandIcon : CollapseIcon)" />
                         </div>
                     }

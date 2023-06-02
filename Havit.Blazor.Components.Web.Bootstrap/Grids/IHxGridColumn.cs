@@ -1,49 +1,56 @@
-﻿using Havit.Blazor.Components.Web.Infrastructure;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
-namespace Havit.Blazor.Components.Web.Bootstrap
+/// <summary>
+/// Grid column.
+/// </summary>
+public interface IHxGridColumn<TItem>
 {
 	/// <summary>
-	/// Grid column.
+	/// Returns the unique column identifier.
 	/// </summary>
-	public interface IHxGridColumn<TItem>
-	{
-		/// <summary>
-		/// Indicates whether the column is visible (otherwise the column is hidden).
-		/// It is not suitable to conditionaly display the column using @if statement in the markup code.
-		/// </summary>
-		bool IsVisible();
+	string GetId();
 
-		/// <summary>
-		/// Get column order (for scenarios where column order can be modified).
-		/// Default should be <c>0</c>.
-		/// When columns have same order they should render in the order of their registration (Which is usually the same as the column appereance in the source code.
-		/// But it differs when the column is displayed conditionaly using @if statement.).
-		/// </summary>
-		int GetOrder();
+	/// <summary>
+	/// Indicates whether the column is visible (otherwise the column is hidden).
+	/// It is not suitable to conditionally display the column using @if statement in the markup code.
+	/// </summary>
+	bool IsVisible();
 
-		/// <summary>
-		/// Sorting of the column.
-		/// </summary>
-		SortingItem<TItem>[] GetSorting();
+	/// <summary>
+	/// Get column order (for scenarios where column order can be modified).
+	/// Default should be <c>0</c>.
+	/// When columns have same order they should render in the order of their registration (Which is usually the same as the column appearance in the source code.
+	/// But it differs when the column is displayed conditionally using @if statement.).
+	/// </summary>
+	int GetOrder();
 
-		/// <summary>
-		/// Returns header cell template.
-		/// </summary>
-		GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context);
+	/// <summary>
+	/// Sorting of the column.
+	/// </summary>
+	SortingItem<TItem>[] GetSorting();
 
-		/// <summary>
-		/// Returns data cell template for the specific item.
-		/// </summary>
-		GridCellTemplate GetItemCellTemplate(TItem item);
+	/// <summary>
+	/// Sorting of the column.
+	/// </summary>
+	int? GetDefaultSortingOrder();
 
-		/// <summary>
-		/// Returns placeholder cell template.
-		/// </summary>
-		GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context);
+	/// <summary>
+	/// Returns header cell template.
+	/// </summary>
+	GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context);
 
-		/// <summary>
-		/// Returns footer cell template.
-		/// </summary>
-		GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context);
-	}
+	/// <summary>
+	/// Returns data cell template for the specific item.
+	/// </summary>
+	GridCellTemplate GetItemCellTemplate(TItem item);
+
+	/// <summary>
+	/// Returns placeholder cell template.
+	/// </summary>
+	GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context);
+
+	/// <summary>
+	/// Returns footer cell template.
+	/// </summary>
+	GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context);
 }

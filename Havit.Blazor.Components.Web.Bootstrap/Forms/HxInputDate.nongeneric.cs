@@ -1,27 +1,26 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// Non-generic API for <see cref="HxInputDate{TValue}"/>.
+/// Marker for resources for <see cref="HxInputDate{TValue}"/>.
+/// </summary>
+public class HxInputDate
 {
 	/// <summary>
-	/// Non-generic API for <see cref="HxInputDate{TValue}"/>.
-	/// Marker for resources for <see cref="HxInputDate{TValue}"/>.
+	/// Application-wide defaults for the <see cref="HxInputDate{TValue}"/>.
 	/// </summary>
-	public class HxInputDate
-	{
-		/// <summary>
-		/// Application-wide defaults for the <see cref="HxInputDate{TValue}"/>.
-		/// </summary>
-		public static InputDateSettings Defaults { get; set; }
+	public static InputDateSettings Defaults { get; set; }
 
-		static HxInputDate()
+	static HxInputDate()
+	{
+		Defaults = new InputDateSettings()
 		{
-			Defaults = new InputDateSettings()
-			{
-				InputSize = InputSize.Regular,
-				MinDate = HxCalendar.DefaultMinDate,
-				MaxDate = HxCalendar.DefaultMaxDate,
-				ShowCalendarButtons = true,
-				ShowPredefinedDates = true,
-				PredefinedDates = new List<InputDatePredefinedDatesItem>() { new InputDatePredefinedDatesItem() { Label = "Today", ResourceType = typeof(HxInputDate), Date = DateTime.Today } }
-			};
-		}
+			InputSize = InputSize.Regular,
+			MinDate = HxCalendar.DefaultMinDate,
+			MaxDate = HxCalendar.DefaultMaxDate,
+			ShowClearButton = true,
+			ShowPredefinedDates = true,
+			PredefinedDates = new List<InputDatePredefinedDatesItem>() { new InputDatePredefinedDatesItem() { Label = "Today", ResourceType = typeof(HxInputDate), Date = DateTime.Today } }
+		};
 	}
 }

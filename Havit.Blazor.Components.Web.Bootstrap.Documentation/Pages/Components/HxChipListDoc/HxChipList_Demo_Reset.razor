@@ -1,0 +1,27 @@
+﻿<HxChipList Chips="@chips" ShowResetButton="true" ResetButtonText="Reset" OnResetClick="HandleReset" />
+
+@code
+{
+	private ChipItem[] chips =
+	{
+		new() { ChipTemplate = GetChipRenderFragment("State", "Active") },
+		new() { ChipTemplate = GetChipRenderFragment("Name", "Peter"), Removable = true },
+		new() { ChipTemplate = GetChipRenderFragment("Company", "HAVIT"), Removable = true },
+	};
+
+	private void HandleReset()
+	{
+		// use your own logic to reset the chips
+		chips = Array.Empty<ChipItem>();
+	}
+
+	private static RenderFragment GetChipRenderFragment(string label, string value) => builder =>
+	{
+		builder.OpenElement(0, "span");
+		builder.AddAttribute(1, "class", "hx-chip-list-label");
+		builder.AddContent(2, label);
+		builder.AddContent(3, ": ");
+		builder.CloseElement();
+		builder.AddContent(4, value);
+	};
+}
