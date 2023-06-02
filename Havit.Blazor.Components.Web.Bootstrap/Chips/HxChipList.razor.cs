@@ -16,6 +16,7 @@ public partial class HxChipList
 	{
 		Defaults = new ChipListSettings()
 		{
+			ShowResetButton = false,
 			ChipBadgeSettings = new BadgeSettings()
 			{
 				Color = ThemeColor.Secondary,
@@ -65,31 +66,36 @@ public partial class HxChipList
 	/// </summary>
 	[Parameter] public EventCallback<ChipItem> OnChipRemoveClick { get; set; }
 
-	[Parameter] public EventCallback<ChipItem> OnResetClick { get; set; }
-
-	[Parameter] public bool Reset { get; set; }
-
-	[Parameter] public string ResetButtonText { get; set; }
-
-	[Parameter] public RenderFragment ResetButtonTemplate { get; set; }
-
 	/// <summary>
 	/// Triggers the <see cref="OnChipRemoveClick"/> event. Allows interception of the event in derived components.
 	/// </summary>
 	protected virtual Task InvokeOnChipRemoveClickAsync(ChipItem chipRemoved) => OnChipRemoveClick.InvokeAsync(chipRemoved);
 
-	private async Task HandleRemoveClick(ChipItem chipItemToRemove)
-	{
-		await InvokeOnChipRemoveClickAsync(chipItemToRemove);
-	}
+	/// <summary>
+	/// Called when the reset button is clicked (when using the ready-made reset button, not the <see cref="ResetButtonTemplate"/> where you are expected to wire the event on your own).
+	/// </summary>
+	[Parameter] public EventCallback<ChipItem> OnResetClick { get; set; }
 
 	/// <summary>
 	/// Triggers the <see cref="OnResetClick"/> event. Allows interception of the event in derived components.
 	/// </summary>
 	protected virtual Task InvokeOnResetClickAsync() => OnResetClick.InvokeAsync();
 
-	private async Task HandleResetClick()
-	{
-		await InvokeOnResetClickAsync();
-	}
+	/// <summary>
+	/// Enables/disables the reset button.
+	/// Default is <c>false</c> (can be changed with <code>HxChipList.Defaults.ShowResetButton</code>.
+	/// </summary>
+	[Parameter] public bool? ShowResetButton { get; set; }
+	protected bool ShowResetButtonEffective => this.ShowResetButton ?? this.GetSettings()?.ShowResetButton ?? GetDefaults().ShowResetButton ?? throw new InvalidOperationException(nameof(ShowResetButton) + " default for " + nameof(HxChipList) + " has to be set.");
+
+	/// <summary>
+	/// Text of the reset button.
+	/// </summary>
+	[Parameter] public string ResetButtonText { get; set; }
+
+	/// <summary>
+	/// Template for the reset button.
+	/// If used, the <see cref="ResetButtonText"/> is ignored and the <see cref="OnResetClick"/> callback is not triggered (you are expected to wire the reset logic on you own).
+	/// </summary>
+	[Parameter] public RenderFragment ResetButtonTemplate { get; set; }
 }

@@ -1,7 +1,7 @@
 .hx-chip-list {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--hx-chiplist-gap);
+    gap: var(--hx-chip-list-gap);
 }
 ::deep .badge {
     display: inline-flex;
@@ -11,8 +11,8 @@
  .hx-chip-list-remove-btn {
     display: flex;
     align-items: center;
-    margin: var(--hx-chiplist-chip-remove-btn-margin);
-    opacity: var(--hx-chiplist-chip-remove-btn-opacity);
+    margin: var(--hx-chip-list-chip-remove-btn-margin);
+    opacity: var(--hx-chip-list-chip-remove-btn-opacity);
 }
 
 ::deep .hx-chip-list-remove-btn .hx-icon {
@@ -24,9 +24,9 @@
 }
 
 ::deep .hx-chip-list-label {
-    font-weight: var(--hx-chiplist-chip-label-font-weight);
-    margin-right: var(--hx-chiplist-chip-label-margin);
-    opacity: var(--hx-chiplist-chip-label-opacity);
+    font-weight: var(--hx-chip-list-chip-label-font-weight);
+    margin-right: var(--hx-chip-list-chip-label-margin);
+    opacity: var(--hx-chip-list-chip-label-opacity);
 }
 
 .hx-chip-list-reset-btn {
@@ -35,5 +35,5 @@
     font-size: .75em;
     line-height: 1;
     color: var(--bs-secondary);
-    padding: var(--hx-chiplist-chip-reset-btn-padding);
+    padding: var(--hx-chip-list-chip-reset-btn-padding);
 }
