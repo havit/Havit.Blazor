@@ -24,7 +24,9 @@ public class BootstrapIconsGenerator : ISourceGenerator
 			string jsonFilename = Path.Combine(Path.GetDirectoryName(syntaxTree.FilePath), "bootstrap-icons.json");
 			//JsonElement jsonRoot = JsonSerializer.Deserialize<JsonElement>(File.ReadAll(jsonFilename));
 
+#pragma warning disable RS1035 // Do not use APIs banned for analyzers (File)
 			string[] lines = File.ReadAllLines(jsonFilename);
+#pragma warning restore RS1035 // Do not use APIs banned for analyzers
 
 			StringBuilder sb = new StringBuilder();
 			sb.AppendLine("namespace Havit.Blazor.Components.Web.Bootstrap");
