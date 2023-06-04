@@ -7610,10 +7610,10 @@
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbar.ColorScheme">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbar.Theme">
             <summary>
-            Color scheme.<br/>
-            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavbarColorScheme.Light"/>.
+            Bootstrap theme (color mode) applied to the navbar.
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.BootstrapTheme.Light"/> (none).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbar.Expand">
@@ -8000,12 +8000,6 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode.Card">
             <summary>
             Renders the navigation to a card's header <a href="https://getbootstrap.com/docs/5.2/components/card/#navigation">https://getbootstrap.com/docs/5.2/components/card/#navigation</a>
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavbarColorScheme">
-            <summary>
-            Color scheme for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar"/>.<br/>
-            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavbarColorScheme.Light"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavbarExpand">
@@ -9246,6 +9240,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.TagBadgeSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapTheme">
+            <summary>
+            Bootstrap theme - color mode (light/dark).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">

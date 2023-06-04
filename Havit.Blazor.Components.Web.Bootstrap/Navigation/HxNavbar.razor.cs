@@ -14,10 +14,10 @@ public partial class HxNavbar
 	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Light;
 
 	/// <summary>
-	/// Color scheme.<br/>
-	/// Default is <see cref="NavbarColorScheme.Light"/>.
+	/// Bootstrap theme (color mode) applied to the navbar.
+	/// Default is <see cref="BootstrapTheme.Light"/> (none).
 	/// </summary>
-	[Parameter] public NavbarColorScheme ColorScheme { get; set; } = NavbarColorScheme.Light;
+	[Parameter] public BootstrapTheme Theme { get; set; } = BootstrapTheme.Light;
 
 	/// <summary>
 	/// Responsive expand setting (breakpoint) for <see cref="HxNavbar"/>.<br/>
@@ -66,23 +66,11 @@ public partial class HxNavbar
 		};
 	}
 
-	protected virtual string GetColorSchemeCssClass()
-	{
-		return this.ColorScheme switch
-		{
-			NavbarColorScheme.Light => "navbar-light",
-			NavbarColorScheme.Dark => "navbar-dark",
-			NavbarColorScheme.None => null,
-			_ => throw new InvalidOperationException($"Unknow {nameof(NavbarColorScheme)} value {this.ColorScheme}.")
-		};
-	}
-
 	protected virtual string GetCssClass()
 	{
 		return CssClassHelper.Combine(
 			"navbar",
 			GetExpandCssClass(),
-			GetColorSchemeCssClass(),
 			this.Color.ToBackgroundColorCss(),
 			this.CssClass);
 	}
