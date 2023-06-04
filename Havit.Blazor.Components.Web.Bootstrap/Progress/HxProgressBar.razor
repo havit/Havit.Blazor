@@ -1,3 +1,3 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<div class="@CssClassHelper.Combine("progress-bar", GetStripedCssClass(), ThemeColorExtensions.ToBackgroundColorCss(Color ?? ThemeColor.None), CssClass)" role="progressbar" style="width: @(GetNormalizedValue().ToString() + "%");" aria-valuenow="@Value" aria-valuemin="@MinValueEffective" aria-valuemax="@MaxValueEffective">@Label @ChildContent</div>
+<div class="@CssClassHelper.Combine("progress-bar", GetStripedCssClass(), ThemeColorExtensions.ToBackgroundColorCss(Color ?? ThemeColor.None), CssClass)" role="progressbar" style="width: @($"{GetNormalizedValue()}%;")" aria-valuenow="@Value" aria-valuemin="@MinValueEffective" aria-valuemax="@MaxValueEffective">@Label @ChildContent</div>
