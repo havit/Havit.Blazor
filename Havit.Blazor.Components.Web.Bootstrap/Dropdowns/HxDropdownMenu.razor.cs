@@ -3,7 +3,7 @@
 /// <summary>
 /// Bootstrap Dropdown menu which opens when triggered.
 /// </summary>
-public partial class HxDropdownMenu
+public partial class HxDropdownMenu : ComponentBase
 {
 	/// <summary>
 	/// Any additional CSS class to apply.

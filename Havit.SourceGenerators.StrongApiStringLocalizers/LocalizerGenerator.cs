@@ -43,6 +43,7 @@ public class LocalizerGenerator : ISourceGenerator
 			registrationsBuilder.Namespace = namespaceBase;
 
 			var rootDir = Path.GetDirectoryName(syntaxTree.FilePath);
+#pragma warning disable RS1035 // Do not use APIs banned for analyzers (Directory)
 			foreach (var resx in Directory.EnumerateFiles(rootDir, "*.resx", SearchOption.AllDirectories))
 			{
 				var localizerBuilder = new LocalizerBuilder();
@@ -70,6 +71,7 @@ public class LocalizerGenerator : ISourceGenerator
 
 				registrationsBuilder.Localizers.Add(localizerBuilder);
 			}
+#pragma warning restore RS1035 // Do not use APIs banned for analyzers
 
 			context.AddSource($"{nameof(LocalizerGenerator)}.{registrationsBuilder.Namespace}.{registrationsBuilder.MethodName}.generated.cs", SourceText.From(registrationsBuilder.BuildSource(), Encoding.UTF8));
 		}
