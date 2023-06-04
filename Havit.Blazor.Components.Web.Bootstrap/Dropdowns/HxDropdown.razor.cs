@@ -5,7 +5,7 @@
 /// For buttons with dropdowns use more specific <see cref="HxDropdownButtonGroup"/>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDropdown">https://havit.blazor.eu/components/HxDropdown</see>
 /// </summary>
-public partial class HxDropdown : IDropdownContainer
+public partial class HxDropdown : ComponentBase, IDropdownContainer
 {
 	/// <summary>
 	/// Direction in which the dropdown is opened.
