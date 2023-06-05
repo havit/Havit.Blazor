@@ -11,7 +11,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components.
 /// The server-prerendering value is passed to WASM client by PersistentComponentState.
 /// The client-side component uses JS to switch the color mode and save the new value to the cookie.
 /// </remarks>
-public partial class DocColorModeSwitcher
+public partial class DocColorModeSwitcher : IDisposable
 {
 	[Inject] protected IDocColorModeResolver DocColorModeResolver { get; set; }
 	[Inject] protected PersistentComponentState PersistentComponentState { get; set; }
@@ -79,5 +79,10 @@ public partial class DocColorModeSwitcher
 			ColorMode.Light => "Light color mode (theme). Click to switch to Auto.",
 			_ => "Click to switch color mode (theme) to Auto." // fallback
 		};
+	}
+
+	void IDisposable.Dispose()
+	{
+		persistingSubscription.Dispose();
 	}
 }
