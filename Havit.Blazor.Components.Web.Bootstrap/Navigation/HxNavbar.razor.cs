@@ -15,9 +15,9 @@ public partial class HxNavbar
 
 	/// <summary>
 	/// Bootstrap theme (color mode) applied to the navbar.
-	/// Default is <see cref="BootstrapTheme.Light"/> (none).
+	/// Default is <see cref="ColorMode.Auto"/> (none).
 	/// </summary>
-	[Parameter] public BootstrapTheme Theme { get; set; } = BootstrapTheme.Light;
+	[Parameter] public ColorMode ColorMode { get; set; }
 
 	/// <summary>
 	/// Responsive expand setting (breakpoint) for <see cref="HxNavbar"/>.<br/>

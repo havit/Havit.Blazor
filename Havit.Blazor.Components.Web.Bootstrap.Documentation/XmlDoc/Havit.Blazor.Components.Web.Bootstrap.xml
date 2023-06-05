@@ -1406,6 +1406,11 @@
             Interface to help keep the collapse-toggle implementations aligned.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ColorMode">
+            <summary>
+            Bootstrap theme - color mode (auto/light/dark).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ContextMenuSettings">
             <summary>
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu"/>.
@@ -7565,10 +7570,10 @@
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbar.Theme">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbar.ColorMode">
             <summary>
             Bootstrap theme (color mode) applied to the navbar.
-            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.BootstrapTheme.Light"/> (none).
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ColorMode.Auto"/> (none).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbar.Expand">
@@ -9195,11 +9200,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.TagBadgeSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapTheme">
-            <summary>
-            Bootstrap theme - color mode (light/dark).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">
