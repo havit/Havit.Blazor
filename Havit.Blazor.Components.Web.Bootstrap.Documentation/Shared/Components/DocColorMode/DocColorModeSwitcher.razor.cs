@@ -10,6 +10,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components.
 /// The cookie is used for server prerendering (see DocColorModeServerResolver).
 /// The server-prerendering value is passed to WASM client by PersistentComponentState.
 /// The client-side component uses JS to switch the color mode and save the new value to the cookie.
+/// The auto mode is resolved by color-mode-auto.js startup script (see _Layout.cshtml).
 /// </remarks>
 public partial class DocColorModeSwitcher : IDisposable
 {
