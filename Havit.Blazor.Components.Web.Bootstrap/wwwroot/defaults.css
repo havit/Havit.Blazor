@@ -2,13 +2,13 @@
 :root {
 	/* HxAutosuggest */
 	--hx-autosuggest-input-close-icon-opacity: 						.25;
-	--hx-autosuggest-item-highlighted-background-color: 			var(--bs-tertiary-bg);
+	--hx-autosuggest-item-highlighted-background-color: 			var(--bs-dropdown-link-active-bg)
 	--hx-autosuggest-dropdown-menu-height: 							300px;
 	--hx-autosuggest-dropdown-menu-width: 							100%;
-	
+
 	/* HxButton */
 	--hx-button-icon-text-spacer-width: 							0.25rem;
-	
+
 	/* HxSidebar */
 	--hx-sidebar-background-color: 									transparent;
 	--hx-sidebar-collapsed-width: 									72px;
@@ -50,14 +50,14 @@
 	--hx-sidebar-footer-item-hover-background-color: 				unset;
 	--hx-sidebar-footer-item-hover-background-opacity: 				unset;
 	--hx-sidebar-footer-item-hover-color: 							unset;
-	
+
 	/* HxProgressOverlay */
 	--hx-progress-overlay-color: 									var(--bs-white);
 	--hx-progress-overlay-opacity: 									.65;
-	
+
 	/* HxEditForm */
 	--hx-form-spacing: 1.25rem;
-	
+
 	/* HxChipList */
 	--hx-chip-list-chip-margin:							0.75rem 0.25rem .375rem 0;
 	--hx-chip-list-chip-remove-btn-margin: 				0 0 0 .25rem;
@@ -74,12 +74,12 @@
 	--hx-context-menu-button-padding: 								0 .25rem;
 	--hx-context-menu-button-hover-background: 						rgba(var(--bs-black-rgb), .1);
 	--hx-context-menu-item-icon-margin: 							0 .5rem 0 0;
-	
+
 	/* HxGrid */
 	--hx-grid-button-hover-background: 								rgba(var(--bs-black-rgb), .1);
 	--hx-grid-button-border-radius: 								var(--bs-border-radius);
 	--hx-grid-sorted-icon-color: 									var(--bs-primary);
-	
+
 	/* HxInputFileDropZone */
 	--hx-input-file-drop-zone-border-width: 						1px;
 	--hx-input-file-drop-zone-box-shadow: 							none;
@@ -93,7 +93,7 @@
 	--hx-input-file-drop-zone-border-radius: 						var(--bs-border-radius-lg);
 	--hx-input-file-drop-zone-margin: 								0;
 	--hx-input-file-drop-zone-padding: 								3rem;
-	
+
 	/* HxCalendar */
 	--hx-calendar-day-hover-background: 							var(--bs-tertiary-bg);
 	--hx-calendar-day-hover-border: 								none;
@@ -119,21 +119,21 @@
 	--hx-calendar-day-height: 										2.25rem;
 	--hx-calendar-day-spacing: 										.125rem;
 	--hx-calendar-font-size: 										.875rem;
-	
+
 	/* Offcanvas */
 	--hx-offcanvas-close-icon-font-size: 							2rem;
 	--hx-offcanvas-footer-padding-y: 								1rem;
 	--hx-offcanvas-footer-padding-x: 								1rem;
 	--hx-offcanvas-horizontal-width-sm: 							400px;
 	--hx-offcanvas-horizontal-width-lg: 							600px;
-	
+
 	/* ListLayout */
 	--hx-list-layout-table-font-size: 								.875rem;
-	
+
 	/* HxMultiSelect */
 	--hx-multi-select-background-color: 							var(--bs-body-bg);
 	--hx-multi-select-dropdown-menu-height: 						300px;
-	
+
 	/* TagInput */
 	--hx-input-tags-tag-margin: 									0 .25rem 0 0;
 	--hx-input-tags-input-width: 									3em;
@@ -145,7 +145,7 @@
 	--hx-input-tags-add-button-text-margin: 						0 0 0 .25rem;
 	--hx-input-tags-remove-button-margin: 							0 0 0 .25rem;
 	--hx-input-tags-dropdown-item-highlighted-background-color: 	var(--bs-tertiary-bg);
-	
+
 	/* TreeView */
 	--hx-tree-view-item-border-radius: 								var(--bs-border-radius-sm);
 	--hx-tree-view-item-border-width: 								0;
@@ -164,16 +164,16 @@
 	--hx-tree-view-item-padding: 									.25rem .5rem;
 	--hx-tree-view-item-margin: 									0 0 .125rem 0;
 	--hx-tree-view-expander-container-width: 						1rem;
-	
+
 	/* HxProgressIndicator */
 	--hx-progress-indicator-background: 							var(--bs-body-bg);
 	--hx-progress-indicator-box-shadow: 							var(--bs-box-shadow);
 	--hx-progress-indicator-border-color: 							var(--bs-border-color);
 	--hx-progress-indicator-spinner-color: 							var(--bs-primary);
-	
+
 	/* HxToastContainer */
 	--hx-toast-container-margin: 									.5rem;
-	
+
 	/* HxSearchBox */
 	--hx-search-box-item-icon-margin: 								0 .5rem 0 0;
 	--hx-search-box-item-icon-font-size: 							inherit;
