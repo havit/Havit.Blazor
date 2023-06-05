@@ -4,11 +4,8 @@
 
 <HxListLayout Title="Title" TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged">
 	<NamedViewsTemplate>
-		<HxNamedViewList TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged" NamedViews="namedViews" OnNamedViewSelected="NamedViewSelected" /> @* TODO *@
+		<HxNamedViewList TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged" NamedViews="namedViews" OnNamedViewSelected="NamedViewSelected" />
 	</NamedViewsTemplate>
-	<SearchTemplate>
-		<input type="text" name="TODO" id="TODO" placeholder="TODO: Search" class="form-control">
-	</SearchTemplate>
     <FilterTemplate Context="filterContext">
         <HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumItemId" />
         <HxInputText Label="Name containing" @bind-Value="filterContext.NameContains" />

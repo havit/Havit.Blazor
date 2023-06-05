@@ -145,7 +145,6 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// <summary>
 	/// Elements rendering order.
 	/// </summary>
-	// TODO Remove when HxInputCheckbox removed?
 	protected virtual LabelValueRenderOrder RenderOrder =>
 		((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
 		? LabelValueRenderOrder.ValueLabel

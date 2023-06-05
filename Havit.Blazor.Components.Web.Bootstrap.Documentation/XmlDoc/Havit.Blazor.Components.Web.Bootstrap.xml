@@ -2874,6 +2874,7 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder.ValueLabel">
             <summary>
             Render value/input first, then label (ie. former HxInputCheckbox).
+            Obsolete, should not be needed any more.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder.ValueOnly">
