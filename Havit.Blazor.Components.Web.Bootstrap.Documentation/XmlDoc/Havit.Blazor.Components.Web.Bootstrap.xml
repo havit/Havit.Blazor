@@ -3219,7 +3219,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox">
             <summary>
             Checkbox input.<br />
-            (Replaces the former <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox"/> component which is now obsolete.)
+            (Replaces the former <c>HxInputCheckbox</c> component which was dropped in v 4.0.0.)
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckbox">https://havit.blazor.eu/components/HxCheckbox</see>
             </summary>
         </member>
@@ -3598,7 +3598,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.RenderOrder">
             <summary>
-            Elements rendering order. overridden in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox"/> component.
+            Elements rendering order.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CurrentValue">
@@ -3751,45 +3751,6 @@
             <summary>
             Input-group at the end of the input.
             </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox">
-            <summary>
-            Checkbox input.<br />
-            Obsolete, use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox"/> instead.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.Inline">
-            <summary>
-            Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.Settings">
-            <summary>
-            Set of settings to be applied to the component instance.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.GetSettings">
-            <summary>
-            Returns optional set of component settings.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.RenderOrder">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder" />
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.CoreCssClass">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreCssClass" />
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.CoreInputCssClass">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass" />
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.CoreLabelCssClass">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreLabelCssClass" />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
-            <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1">
             <summary>
@@ -4192,15 +4153,6 @@
             <summary>
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1"/>.
             </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputSwitch">
-            <summary>
-            Switch input.
-            Obsolete, use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/> instead.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputSwitch.CoreCssClass">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox.CoreCssClass" />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputText">
             <summary>
@@ -4781,7 +4733,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch">
             <summary>
             Switch input.<br/>
-            (Replaces the former <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputSwitch"/> component which is now obsolete.)<br/>
+            (Replaces the former <c>HxInputSwitch</c> component which was dropped in v4.0.0.)<br/>
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSwitch">https://havit.blazor.eu/components/HxSwitch</see>
             </summary>
         </member>
@@ -4839,11 +4791,6 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.Dispose">
             <inheritdoc />
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputCheckboxSettings">
-            <summary>
-            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputCheckbox"/>.
-            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem">
             <summary>

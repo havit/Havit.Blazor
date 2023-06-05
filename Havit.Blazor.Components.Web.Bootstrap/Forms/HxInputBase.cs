@@ -143,7 +143,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	protected ElementReference InputElement { get; set; }
 
 	/// <summary>
-	/// Elements rendering order. overridden in the <see cref="HxInputCheckbox"/> component.
+	/// Elements rendering order.
 	/// </summary>
 	// TODO Remove when HxInputCheckbox removed?
 	protected virtual LabelValueRenderOrder RenderOrder =>
