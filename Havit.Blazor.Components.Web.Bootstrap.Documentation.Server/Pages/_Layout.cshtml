@@ -3,15 +3,19 @@
 @using System.Reflection;
 @using System.Web;
 @using Havit.Blazor.Components.Web.Bootstrap.Documentation
+@using Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components.DocColorMode;
 @using Microsoft.AspNetCore.Components.Web
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IDocColorModeResolver DocColorModeResolver
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="@DocColorModeResolver.GetColorMode().ToString("g").ToLowerInvariant()">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<base href="~/" />
+
+	<script src="/js/color-mode-auto.js" asp-append-version="true"></script>
 
 	@Html.Raw(HxSetup.RenderBootstrapCssReference())
 	<link href="_content/Havit.Blazor.Components.Web.Bootstrap/defaults.css" rel="stylesheet" asp-append-version="true" />
@@ -58,5 +62,6 @@
 			applicationCulture: 'en-US'
 		});
 	</script>
+	<persist-component-state />
 </body>
 </html>

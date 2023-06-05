@@ -1,13 +1,13 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/dropdowns/">Bootstrap 5 Dropdown</see> component for dropdown-buttons.<br />
+/// <see href="https://getbootstrap.com/docs/5.3/components/dropdowns/">Bootstrap 5 Dropdown</see> component for dropdown-buttons.<br />
 /// For generic dropdowns use <see cref="HxDropdown"/>.
 /// </summary>
 public class HxDropdownButtonGroup : HxDropdown
 {
 	/// <summary>
-	/// Set <c>true</c> to create a <a href="https://getbootstrap.com/docs/5.2/components/dropdowns/#split-button">split dropdown</a>
+	/// Set <c>true</c> to create a <a href="https://getbootstrap.com/docs/5.3/components/dropdowns/#split-button">split dropdown</a>
 	/// (using a <c>btn-group</c>).
 	/// </summary>
 	[Parameter] public bool Split { get; set; }

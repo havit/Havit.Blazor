@@ -1,7 +1,43 @@
 {
     "name": "havit-bootstrap",
     "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-    "version": "5.2.3",
+    "version": "5.3.0",
+    "config": {
+      "version_short": "5.3"
+    },
+    "keywords": [
+      "css",
+      "sass",
+      "mobile-first",
+      "responsive",
+      "front-end",
+      "framework",
+      "web"
+    ],
+    "homepage": "https://getbootstrap.com/",
+    "author": "The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)",
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/twbs/bootstrap.git"
+    },
+    "bugs": {
+      "url": "https://github.com/twbs/bootstrap/issues"
+    },
+    "funding": [
+      {
+        "type": "github",
+        "url": "https://github.com/sponsors/twbs"
+      },
+      {
+        "type": "opencollective",
+        "url": "https://opencollective.com/bootstrap"
+      }
+    ],
+    "main": "dist/js/bootstrap.js",
+    "module": "dist/js/bootstrap.esm.js",
+    "sass": "scss/bootstrap.scss",
+    "style": "dist/css/bootstrap.css",
     "scripts": {
         "css": "npm-run-all css-compile css-prefix css-rtl css-minify",
         "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css scss/:dist/css/",
@@ -18,21 +54,20 @@
         "watch-css-dist": "nodemon --watch dist/css/ --ext css --ignore \"dist/css/*.rtl.*\" --exec \"npm run css-rtl\"",
         "publish-to-blazor": "shx cp -r dist/css/* ../Havit.Blazor.Components.Web.Bootstrap/wwwroot"
     },
-    "style": "dist/css/bootstrap.css",
-    "sass": "scss/bootstrap.scss",
     "devDependencies": {
-      "autoprefixer": "^10.4.12",
+      "autoprefixer": "^10.4.14",
+      "bootstrap": "5.3.0",
       "cross-env": "^7.0.3",
-      "clean-css-cli": "^5.6.1",
-      "find-unused-sass-variables": "^4.0.4",
-      "nodemon": "^2.0.20",
+      "clean-css-cli": "^5.6.2",
+      "find-unused-sass-variables": "^4.0.6",
+      "nodemon": "^2.0.22",
       "npm-run-all": "^4.1.5",
-      "postcss": "^8.4.17",
-      "postcss-cli": "^10.0.0",
-      "rtlcss": "^4.0.0",
-      "sass": "^1.55.0",
-      "stylelint": "^14.13.0",
-      "stylelint-config-twbs-bootstrap": "^6.0.0",
+      "postcss": "^8.4.21",
+      "postcss-cli": "^10.1.0",
+      "rtlcss": "^4.1.0",
+      "sass": "^1.62.1",
+      "stylelint": "^15.6.2",
+      "stylelint-config-twbs-bootstrap": "^10.0.0",
       "shx":"^0.3.4"
   },
     "files": [

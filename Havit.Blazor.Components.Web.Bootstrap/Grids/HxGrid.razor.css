@@ -55,3 +55,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 tr:hover ::deep .hx-context-menu {
     opacity: 1;
 }
+
+::deep .hx-context-menu-grid-column {
+    padding: .325rem .5rem; 
+}

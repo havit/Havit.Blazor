@@ -1,4 +1,9 @@
 ﻿<HxInputText Label="Input groups (text)" @bind-Value="@value" InputGroupStartText="€" InputGroupEndText=".00" />
+<HxInputText Label="Input groups (icon)" @bind-Value="@value">
+	<InputGroupStartTemplate>
+		<HxIcon CssClass="input-group-text" Icon="BootstrapIcon.CurrencyEuro" />
+	</InputGroupStartTemplate>
+</HxInputText>
 
 <HxInputText Label="Input groups (template with button/dropdown)" @bind-Value="@value">
 	<InputGroupStartTemplate>

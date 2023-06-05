@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Button (<c>&lt;button type="button"&gt;</c>). See also <see href="https://getbootstrap.com/docs/5.2/components/buttons/">Bootstrap Buttons</see>.<br />
+/// Button (<c>&lt;button type="button"&gt;</c>). See also <see href="https://getbootstrap.com/docs/5.3/components/buttons/">Bootstrap Buttons</see>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButton">https://havit.blazor.eu/components/HxButton</see>
 /// </summary>
 public partial class HxButton : ComponentBase, ICascadeEnabledComponent
@@ -83,7 +83,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	protected ButtonSize SizeEffective => this.Size ?? this.GetSettings()?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxButton) + " has to be set.");
 
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.2/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
+	/// <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
 	/// </summary>
 	[Parameter] public bool? Outline { get; set; }
 	protected bool OutlineEffective => this.Outline ?? this.GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxButton) + " has to be set.");
@@ -293,7 +293,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	private async Task HandleClickCore(MouseEventArgs mouseEventArgs)
 	{
 		// #209 [HxButton] Tooltip does not hide when the button opens HxModal
-		// We disable the button (SingleClickProtection) and disabled buttons do not raise any events (the tooltip won't receive mouseout and stays visible).
+		// We disable the button (SingleClickProtection) and disabled buttons do not raise any events (the tooltip won't receive <c>mouseout</c> and stays visible).
 		await tooltipComponent.HideAsync();
 
 		if (OnClick.HasDelegate)

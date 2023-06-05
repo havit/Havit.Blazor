@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Routing;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/list-group/#links-and-buttons">Bootstrap 5 List group link item</see> component.
+/// <see href="https://getbootstrap.com/docs/5.3/components/list-group/#links-and-buttons">Bootstrap 5 List group link item</see> component.
 /// </summary>
 public partial class HxListGroupItemNavLink : ICascadeEnabledComponent
 {

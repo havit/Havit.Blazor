@@ -1,7 +1,9 @@
 using System.Globalization;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.DemoData;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
+using Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components.DocColorMode;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.Server;
 
@@ -10,6 +12,7 @@ public class Startup
 	public void ConfigureServices(IServiceCollection services)
 	{
 		services.AddRazorPages();
+		services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 		services.AddHxServices();
 		services.AddHxMessenger();
@@ -18,6 +21,7 @@ public class Startup
 		services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
 		services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
 		services.AddSingleton<IDocPageNavigationItemsHolder, DocPageNavigationItemsHolder>();
+		services.AddTransient<IDocColorModeResolver, DocColorModeServerResolver>();
 
 		services.AddTransient<IDemoDataService, DemoDataService>();
 	}

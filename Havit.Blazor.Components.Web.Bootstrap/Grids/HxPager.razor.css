@@ -1,7 +1,0 @@
-.hx-pager {
-    margin: var(--hx-pager-margin);
-}
-
-.page-item.disabled {
-    cursor: default;
-}

@@ -12,8 +12,8 @@ public enum LabelValueRenderOrder
 
 	/// <summary>
 	/// Render value/input first, then label (ie. former HxInputCheckbox).
+	/// Obsolete, should not be needed any more.
 	/// </summary>
-	// TODO Remove when HxInputCheckbox removed?
 	ValueLabel,
 
 	/// <summary>

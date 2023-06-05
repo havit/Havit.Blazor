@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Extends <see cref="InputBase{TValue}"/> class.
 /// 
 /// Adds support for rendering bootstrap based input with validator.
-/// See also <see href="https://getbootstrap.com/docs/5.2/forms/overview/">https://getbootstrap.com/docs/5.2/forms/overview/</see>.
+/// See also <see href="https://getbootstrap.com/docs/5.3/forms/overview/">https://getbootstrap.com/docs/5.3/forms/overview/</see>.
 /// </summary>
 public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledComponent, IFormValueComponent
 {
@@ -143,9 +143,8 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	protected ElementReference InputElement { get; set; }
 
 	/// <summary>
-	/// Elements rendering order. overridden in the <see cref="HxInputCheckbox"/> component.
+	/// Elements rendering order.
 	/// </summary>
-	// TODO Remove when HxInputCheckbox removed?
 	protected virtual LabelValueRenderOrder RenderOrder =>
 		((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
 		? LabelValueRenderOrder.ValueLabel

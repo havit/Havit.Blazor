@@ -54,7 +54,7 @@ public partial class HxProgressIndicator : IDisposable
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
-	protected EventCallback<bool> ProgressIndicatorVisibleChanged { get; set; }  // TODO Needed?
+	protected EventCallback<bool> ProgressIndicatorVisibleChanged { get; set; }
 
 	private bool progressIndicatorVisible;
 	private System.Timers.Timer timer;

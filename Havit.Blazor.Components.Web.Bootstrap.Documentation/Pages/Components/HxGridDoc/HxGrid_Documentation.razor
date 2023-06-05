@@ -73,7 +73,6 @@
 
 		<DocHeading Title="Context menu" Id="context-menu" />
 		<p>Use <code>HxContextMenuGridColumn</code> to add context-menu to the grid.</p>
-		<DocAlert Type="DocAlertType.Warning">The <code>ContextMenu</code> parameter does the same (but renders always as last column) and will be most likely removed in vNext.</DocAlert>
 		<Demo Type="typeof(HxGrid_Demo_ContextMenu)" />
 
 		<DocHeading Title="Multiselect with checkboxes" Id="multiselect" />
@@ -109,17 +108,17 @@
 		<Demo Type="typeof(HxGrid_Demo_StatePersisting)" />
 	</MainContent>
 
-	<CssVariables>
-		<ComponentApiDocCssVariable Name="--hx-grid-button-hover-background" Default="var(--bs-gray-300)">
-			Grid button background color on hover.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-grid-button-border-radius" Default=".25rem">
-			Grid button border radius.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-grid-sorted-icon-color" Default="var(--bs-primary)">
-			Color of the sorted icon.
-		</ComponentApiDocCssVariable>
-	</CssVariables>
+    <CssVariables>
+        <ComponentApiDocCssVariable Name="--hx-grid-button-hover-background" Default="rgba(var(--bs-black-rgb), .1)">
+            Grid button background color on hover.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-grid-button-border-radius" Default=".25rem">
+            Grid button border radius.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-grid-sorted-icon-color" Default="var(--bs-primary)">
+            Color of the sorted icon.
+        </ComponentApiDocCssVariable>
+    </CssVariables>
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxGridColumn<TItem>)" />

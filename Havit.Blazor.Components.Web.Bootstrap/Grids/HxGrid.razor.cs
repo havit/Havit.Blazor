@@ -57,13 +57,6 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	[Parameter, EditorRequired] public RenderFragment Columns { get; set; }
 
 	/// <summary>
-	/// Context menu template (positioned as last column).<br/>
-	/// NOTE: This parameter will be most likely removed in vNext, use <see cref="HxContextMenuGridColumn{TItem}"/> in <see cref="Columns"/> instead.
-	/// </summary>
-	[Obsolete("ContextMenu parameter is obsolete and will be removed in v4, use HxContextMenuGridColumn in Columns instead.")]
-	[Parameter] public RenderFragment<TItem> ContextMenu { get; set; }
-
-	/// <summary>
 	/// Template to render when "first" data are loading.
 	/// This template is not used when loading data for sorting or paging operations.
 	/// </summary>

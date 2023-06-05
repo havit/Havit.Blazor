@@ -30,7 +30,7 @@ public static class ApiRenderer
 	{
 		string typeName = type.ToString();  // e.g. "System.Collections.Generic.List`1[System.String]"
 
-		typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces (TODO also removes parents of nested types)
+		typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces
 
 		// simplify known types
 		foreach (var typeSimplification in typeSimplifications)

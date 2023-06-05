@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.Globalization;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.Services;
 using Havit.Blazor.Components.Web.Bootstrap.Documentation.DemoData;
+using Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components.DocColorMode;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Documentation;
 
@@ -22,6 +23,7 @@ public class Program
 		builder.Services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
 		builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
 		builder.Services.AddSingleton<IDocPageNavigationItemsHolder, DocPageNavigationItemsHolder>();
+		builder.Services.AddSingleton<IDocColorModeResolver, DocColorModeClientResolver>();
 
 		builder.Services.AddTransient<IDemoDataService, DemoDataService>();
 

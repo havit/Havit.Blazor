@@ -53,7 +53,7 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 	/// <inheritdoc />
 	protected override GridCellTemplate GetItemCellTemplate(TItem item)
 	{
-		string cssClass = CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item));
+		string cssClass = CssClassHelper.Combine("hx-context-menu-grid-column", ItemCssClass, ItemCssClassSelector?.Invoke(item));
 		return GridCellTemplate.Create(ChildContent(item), cssClass);
 	}
 

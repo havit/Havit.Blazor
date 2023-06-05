@@ -79,7 +79,7 @@ public partial class OnThisPageNavigation : IDisposable
 			builder.OpenElement(sequence++, "li");
 
 			builder.OpenElement(sequence++, "a");
-			builder.AddAttribute(sequence++, "href", item.GetItemUrl(NavigationManager.Uri)); // TODO direct usahe of HxAnchorFragmentNavigation.ScrollToAnchorAsync() ?
+			builder.AddAttribute(sequence++, "href", item.GetItemUrl(NavigationManager.Uri)); // TODO direct usage of HxAnchorFragmentNavigation.ScrollToAnchorAsync() ?
 			builder.AddAttribute(sequence++, "class", "text-secondary mb-1 text-truncate");
 			builder.AddContent(sequence++, item.Title);
 			builder.AddContent(sequence++, item.ChildContent);

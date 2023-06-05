@@ -8,7 +8,7 @@ public enum NavOrientation
 	Horizontal = 0,
 
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.2/components/navs-tabs/#vertical">https://getbootstrap.com/docs/5.2/components/navs-tabs/#vertical</see>.
+	/// <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#vertical">https://getbootstrap.com/docs/5.3/components/navs-tabs/#vertical</see>.
 	/// </summary>
 	Vertical = 1
 }

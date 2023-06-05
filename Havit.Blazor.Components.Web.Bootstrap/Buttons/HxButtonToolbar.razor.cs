@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap <see href="https://getbootstrap.com/docs/5.2/components/button-group/#button-toolbar">Button toolbar</see> component.<br />
+/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/button-group/#button-toolbar">Button toolbar</see> component.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButtonToolbar">https://havit.blazor.eu/components/HxButtonToolbar</see>
 /// </summary>
 public partial class HxButtonToolbar
