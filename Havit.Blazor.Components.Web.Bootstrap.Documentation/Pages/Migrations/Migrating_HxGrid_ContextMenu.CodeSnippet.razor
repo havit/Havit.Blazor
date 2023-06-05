@@ -1,0 +1,24 @@
+﻿@* Original *@
+<HxGrid ...>
+	<Columns>
+		...
+	</Columns>
+	<ContextMenu>
+		<HxContextMenuItem ... />
+		<HxContextMenuItem ... />
+	</ContextMenu>
+</HxGrid>
+
+@* New structure *@
+<HxGrid ...>
+	<Columns>
+		...
+		<HxContextMenuGridColumn>
+			<HxContextMenu>
+				<HxContextMenuItem ... />
+				<HxContextMenuItem ... />
+			</HxContextMenu>
+		</HxContextMenuGridColumn>
+		...
+	</Columns>
+</HxGrid>

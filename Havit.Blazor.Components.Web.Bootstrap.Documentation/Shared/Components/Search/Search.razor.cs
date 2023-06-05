@@ -113,6 +113,7 @@ public partial class Search
 		// Concepts
 		new("/concepts/defaults-and-settings", "Defaults & Settings", "configuration themes wide preset"),
 		new("/concepts/Debouncer", "Debouncer", "delay timer"),
+		new("/concepts/dark-color-mode-theme", "Dark color mode", "dark color theme"),
 
 		// Supportive types
 
