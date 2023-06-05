@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Auto-close behavior of the <see cref="HxDropdown"/> (<see cref="HxDropdownToggleButton"/> respectively).
-/// <see href="https://getbootstrap.com/docs/5.2/components/dropdowns/#auto-close-behavior"/>.
+/// <see href="https://getbootstrap.com/docs/5.3/components/dropdowns/#auto-close-behavior"/>.
 /// </summary>
 public enum DropdownAutoClose
 {

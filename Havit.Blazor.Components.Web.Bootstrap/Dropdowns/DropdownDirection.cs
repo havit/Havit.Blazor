@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Direction for <see cref="HxDropdown"/>.
-/// <see href="https://getbootstrap.com/docs/5.2/components/dropdowns/#directions">https://getbootstrap.com/docs/5.2/components/dropdowns/#directions</see>.
+/// <see href="https://getbootstrap.com/docs/5.3/components/dropdowns/#directions">https://getbootstrap.com/docs/5.3/components/dropdowns/#directions</see>.
 /// </summary>
 public enum DropdownDirection
 {

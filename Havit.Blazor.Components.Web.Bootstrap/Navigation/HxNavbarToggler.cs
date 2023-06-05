@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap 5 <see href="https://getbootstrap.com/docs/5.2/components/navbar/#toggler">navbar-toggler</see> component.
+/// Bootstrap 5 <see href="https://getbootstrap.com/docs/5.3/components/navbar/#toggler">navbar-toggler</see> component.
 /// Derived from <see cref="HxCollapseToggleButton"/>.
 /// </summary>
 public class HxNavbarToggler : HxCollapseToggleButton

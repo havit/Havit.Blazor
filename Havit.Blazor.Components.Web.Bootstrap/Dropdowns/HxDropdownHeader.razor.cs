@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/dropdowns/#headers">Dropdown menu header</see> for <see cref="HxDropdownMenu"/>.
+/// <see href="https://getbootstrap.com/docs/5.3/components/dropdowns/#headers">Dropdown menu header</see> for <see cref="HxDropdownMenu"/>.
 /// </summary>
 public partial class HxDropdownHeader
 {
