@@ -21,6 +21,7 @@ $table-hover-bg:                      rgba($black, $table-hover-bg-factor);
 $form-label-margin-bottom:            .25rem;
 $form-label-font-size:                .875rem;
 $form-label-color:                    $gray-600;
+$form-check-label-color:              $form-label-color;
 $form-label-font-weight:              500;
 $form-feedback-tooltip-font-size:     .75rem;
 $form-feedback-margin-top:            .125rem;
@@ -46,6 +47,3 @@ $badge-font-weight:                 $font-weight-semibold;
 $list-group-border-color:           var(--#{$prefix}border-color-translucent);
 
 $hr-opacity: .125;
-
-// Should be fixed in Bootstrap
-$nav-tabs-link-active-border-color: var(--#{$prefix}border-color-translucent) var(--#{$prefix}border-color-translucent) $nav-tabs-link-active-bg;
