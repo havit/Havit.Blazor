@@ -12,9 +12,9 @@
 <DocHeading Title="CSS" Level="3" />
 <p>If you are using Bootstrap CSS from CDN, update the following line in your HTML head section, it's either <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code> depending on whether you're running WebAssembly or Server:</p>
 <CodeSnippet Language="razor">
-@@HxSetup.RenderBootstrapJavaScriptReference()
+@@HxSetup.RenderBootstrapCssReference(BootstrapFlavor.PlainBootstrap)
 or
-@HxSetup.RenderBootstrapJavaScriptReference()
+@HxSetup.RenderBootstrapCssReference(BootstrapFlavor.PlainBootstrap)
 </CodeSnippet>
 <p>
     If you are referencing our Bootstrap CSS build <code>_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.css</code>, it is updated automatically.
