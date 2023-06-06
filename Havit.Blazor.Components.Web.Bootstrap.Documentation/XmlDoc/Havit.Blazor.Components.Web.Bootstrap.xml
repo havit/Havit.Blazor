@@ -7567,7 +7567,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbar.Color">
             <summary>
             Color (background).
-            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>.
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbar.ColorMode">

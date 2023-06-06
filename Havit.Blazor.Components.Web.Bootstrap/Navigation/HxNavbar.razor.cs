@@ -9,9 +9,9 @@ public partial class HxNavbar
 {
 	/// <summary>
 	/// Color (background).
-	/// Default is <see cref="ThemeColor.Light"/>.
+	/// Default is <see cref="ThemeColor.None"/>.
 	/// </summary>
-	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Light;
+	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.None;
 
 	/// <summary>
 	/// Bootstrap theme (color mode) applied to the navbar.
