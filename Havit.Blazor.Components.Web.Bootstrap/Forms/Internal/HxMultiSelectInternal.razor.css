@@ -24,3 +24,7 @@ button.dropdown-item,
 .hx-multi-select-input:hover {
     cursor: default;
 }
+
+.form-check-label {
+	color: inherit;
+}
