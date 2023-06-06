@@ -2,7 +2,7 @@
 :root {
 	/* HxAutosuggest */
 	--hx-autosuggest-input-close-icon-opacity: 						.25;
-	--hx-autosuggest-item-highlighted-background-color: 			var(--bs-dropdown-link-active-bg)
+	--hx-autosuggest-item-highlighted-background-color: 			var(--bs-tertiary-bg);
 	--hx-autosuggest-dropdown-menu-height: 							300px;
 	--hx-autosuggest-dropdown-menu-width: 							100%;
 
