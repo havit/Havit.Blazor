@@ -1,6 +1,6 @@
 ﻿@inject IDemoDataService DemoDataService
 
-<HxGrid ContentNavigationMode="GridContentNavigationMode.LoadMore" PageSize="5" TItem="EmployeeDto" DataProvider="GetGridData">
+<HxGrid ContentNavigationMode="GridContentNavigationMode.LoadMore" PageSize="5" Responsive="true" TItem="EmployeeDto" DataProvider="GetGridData">
 	<Columns>
 		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
 		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
