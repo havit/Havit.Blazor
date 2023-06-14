@@ -279,7 +279,7 @@ public partial class HxModal : IAsyncDisposable
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("show", modalElement, dotnetObjectReference, this.CloseOnEscapeEffective);
+			await jsModule.InvokeVoidAsync("show", modalElement, dotnetObjectReference, this.CloseOnEscapeEffective, OnHiding.HasDelegate);
 		}
 	}
 

@@ -1,10 +1,11 @@
-﻿export function show(element, hxModalDotnetObjectReference, closeOnEscape) {
+﻿export function show(element, hxModalDotnetObjectReference, closeOnEscape, subscribeToHideEvent) {
 	if (!element) {
 		return;
 	}
 
 	element.hxModalDotnetObjectReference = hxModalDotnetObjectReference;
-	element.addEventListener('hide.bs.modal', handleModalHide);
+	if (subscribeToHideEvent)
+		element.addEventListener('hide.bs.modal', handleModalHide);
 	element.addEventListener('hidden.bs.modal', handleModalHidden);
 	element.addEventListener('shown.bs.modal', handleModalShown);
 
