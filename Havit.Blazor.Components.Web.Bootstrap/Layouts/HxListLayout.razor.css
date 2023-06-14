@@ -1,4 +1,4 @@
-.hx-list-layout ::deep .hx-grid {
+	 ::deep .hx-grid {
     border-top: 1px solid var(--bs-table-border-color);
 }
 
@@ -17,8 +17,10 @@
     align-items: center;
 }
 
-::deep .hx-grid tr:last-child td {
-    border-bottom-width: 0;
+::deep .hx-grid {
+    --hx-context-menu-button-border-radius: .25rem;
+    margin-bottom: 0;
+    font-size: var(--hx-list-layout-table-font-size);
 }
 
 ::deep .hx-grid td:first-child,
@@ -31,10 +33,20 @@
     padding-right: 1rem;
 }
 
-::deep .hx-grid {
-    --hx-context-menu-button-border-radius: .25rem;
-    margin-bottom: 0;
-    font-size: var(--hx-list-layout-table-font-size);
+.hx-list-layout:not(:has(.hx-pager)) ::deep .hx-grid tr:last-child td:first-child {
+	border-bottom-left-radius: var(--bs-border-radius-lg);
+}
+
+.hx-list-layout:not(:has(.hx-pager)) ::deep .hx-grid tr:last-child td:last-child {
+	border-bottom-right-radius: var(--bs-border-radius-lg);
+}
+
+.hx-list-layout:not(:has(.hx-pager)) ::deep .hx-grid tr:last-child td {
+    border-bottom-width: 0;
+}
+
+::deep .hx-pager {
+	margin: 1rem;
 }
 
 .hx-list-layout-named-view .card-title {
