@@ -126,7 +126,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// Additional CSS classes for the search box input.
 	/// </summary>
 	[Parameter] public string InputCssClass { get; set; }
-	protected string InputCssClassEffective => this.ItemCssClass ?? this.GetSettings()?.InputCssClass ?? GetDefaults().InputCssClass;
+	protected string InputCssClassEffective => this.InputCssClass ?? this.GetSettings()?.InputCssClass ?? GetDefaults().InputCssClass;
 
 	/// <summary>
 	/// Custom CSS class to render with input-group span.
