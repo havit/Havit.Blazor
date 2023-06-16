@@ -51,6 +51,11 @@ public partial class HxContextMenuItem : ComponentBase, ICascadeEnabledComponent
 	/// </summary>
 	[Parameter] public bool OnClickStopPropagation { get; set; } = true;
 
+	/// <summary>
+	/// Navigation target.
+	/// </summary>
+	[Parameter] public string Href { get; set; }
+
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 	[Inject] protected IServiceProvider ServiceProvider { get; set; } // optional IHxMessageBoxService, fallback to JS-confirm

@@ -6,7 +6,7 @@
 }
 
 <li class="@CssClassHelper.Combine("hx-context-menu-item", this.CssClass)">
-	<a class="@CssClassHelper.Combine("dropdown-item", enabledEffective ? "" : "disabled")" role="@(enabledEffective ? "button" : "")" @onclick="HandleClick" @onclick:stopPropagation="@OnClickStopPropagation">
+	<a class="@CssClassHelper.Combine("dropdown-item", enabledEffective ? "" : "disabled")" role="@(enabledEffective ? "button" : "")" href="@Href" @onclick="HandleClick" @onclick:stopPropagation="@OnClickStopPropagation">
 		@if (this.Icon is not null)
 		{
 			<HxIcon Icon="this.Icon" CssClass="@CssClassHelper.Combine("hx-context-menu-item-icon", this.IconCssClass)" />
