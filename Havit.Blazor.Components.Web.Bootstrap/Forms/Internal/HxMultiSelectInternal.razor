@@ -6,7 +6,7 @@
     bool enabled = EnabledEffective && (ItemsToRender != null);
 }
 
-<div class="hx-checkbox-dropdownlist dropdown" role="listbox">
+<div class="hx-multi-select dropdown" role="listbox">
     <div class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputGroupCssClass)" data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
         @if (InputGroupStartText is not null)
         {

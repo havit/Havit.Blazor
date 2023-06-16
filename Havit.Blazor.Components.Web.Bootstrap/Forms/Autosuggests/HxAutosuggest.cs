@@ -14,12 +14,12 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 {
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected override AutosuggestSettings GetDefaults() => HxAutosuggest.Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxAutosuggest.Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxAutosuggest.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public AutosuggestSettings Settings { get; set; }
 
@@ -27,7 +27,7 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected override AutosuggestSettings GetSettings() => this.Settings;
 
@@ -79,7 +79,7 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	protected int MinimumLengthEffective => this.MinimumLength ?? this.GetSettings()?.MinimumLength ?? GetDefaults().MinimumLength ?? throw new InvalidOperationException(nameof(MinimumLength) + " default for " + nameof(HxAutosuggest) + " has to be set.");
 
 	/// <summary>
-	/// Debounce delay in miliseconds.
+	/// Debounce delay in milliseconds.
 	/// </summary>
 	[Parameter] public int? Delay { get; set; }
 	protected int DelayEffective => this.Delay ?? this.GetSettings()?.Delay ?? GetDefaults().Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxAutosuggest) + " has to be set.");
@@ -110,7 +110,7 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	/// </summary>
 	[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }
 
-	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxAutosuggestInternal */ : LabelValueRenderOrder.LabelValue;
+	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* Label rendered by HxAutosuggestInternal */ : LabelValueRenderOrder.LabelValue;
 
 	/// <summary>
 	/// Input-group at the beginning of the input.

@@ -9,14 +9,14 @@
         <HxGridColumn TItem="CultureInfo" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
         <HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" />
         <HxGridColumn TItem="CultureInfo" HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)" />
+        <HxContextMenuGridColumn Context="item">
+            <HxContextMenu>
+                <h1>@item.DisplayName</h1>
+                <HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" OnClick="() => DeleteItem(item)" />
+                <HxContextMenuItem Text="Clone" Icon="BootstrapIcon.Plus" OnClick="() => CloneItem(item)" />
+            </HxContextMenu>
+        </HxContextMenuGridColumn>
     </Columns>
-    <ContextMenu Context="item">
-        <HxContextMenu>
-            <h1>@item.DisplayName</h1>
-            <HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" OnClick="() => DeleteItem(item)" />
-            <HxContextMenuItem Text="Clone" Icon="BootstrapIcon.Plus" OnClick="() => CloneItem(item)" />
-        </HxContextMenu>
-    </ContextMenu>
 </HxGrid>
 
 @code {

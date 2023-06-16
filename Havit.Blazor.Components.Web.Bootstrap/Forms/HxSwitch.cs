@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Switch input.<br/>
-/// (Replaces the former <see cref="HxInputSwitch"/> component which is now obsolete.)<br/>
+/// (Replaces the former <c>HxInputSwitch</c> component which was dropped in v4.0.0.)<br/>
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSwitch">https://havit.blazor.eu/components/HxSwitch</see>
 /// </summary>
 public class HxSwitch : HxCheckbox

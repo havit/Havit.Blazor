@@ -12,12 +12,13 @@
 			</PlaceholderTemplate>
 		</HxGridColumn>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+
+		<HxContextMenuGridColumn Context="item">
+			<HxContextMenu>
+				<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
+			</HxContextMenu>
+		</HxContextMenuGridColumn>
 	</Columns>
-	<ContextMenu Context="item">
-		<HxContextMenu>
-			<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
-		</HxContextMenu>
-	</ContextMenu>
 </HxGrid>
 
 @code {

@@ -303,7 +303,7 @@ public partial class HxInputTagsInternal
 		cancellationTokenSource = new CancellationTokenSource();
 		CancellationToken cancellationToken = cancellationTokenSource.Token;
 
-		// TODO Do we want spinnner? Configurable?
+		// TODO Do we want spinner? Configurable?
 		//dataProviderInProgress = true;
 		//StateHasChanged();
 

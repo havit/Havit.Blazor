@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/navbar/">Bootstrap 5 Navbar</see> component - responsive navigation header.<br/>
+/// <see href="https://getbootstrap.com/docs/5.3/components/navbar/">Bootstrap 5 Navbar</see> component - responsive navigation header.<br/>
 /// With support for branding, navigation, and more, including support for the collapse plugin.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNavbar">https://havit.blazor.eu/components/HxNavbar</see>
 /// </summary>
@@ -9,15 +9,15 @@ public partial class HxNavbar
 {
 	/// <summary>
 	/// Color (background).
-	/// Default is <see cref="ThemeColor.Light"/>.
+	/// Default is <see cref="ThemeColor.None"/>.
 	/// </summary>
-	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.Light;
+	[Parameter] public ThemeColor Color { get; set; } = ThemeColor.None;
 
 	/// <summary>
-	/// Color scheme.<br/>
-	/// Default is <see cref="NavbarColorScheme.Light"/>.
+	/// Bootstrap theme (color mode) applied to the navbar.
+	/// Default is <see cref="ColorMode.Auto"/> (none).
 	/// </summary>
-	[Parameter] public NavbarColorScheme ColorScheme { get; set; } = NavbarColorScheme.Light;
+	[Parameter] public ColorMode ColorMode { get; set; }
 
 	/// <summary>
 	/// Responsive expand setting (breakpoint) for <see cref="HxNavbar"/>.<br/>
@@ -37,7 +37,7 @@ public partial class HxNavbar
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// Container CSS class. Deafult is <c>container-fluid</c>.
+	/// Container CSS class. Default is <c>container-fluid</c>.
 	/// </summary>
 	[Parameter] public string ContainerCssClass { get; set; } = "container-fluid";
 
@@ -66,23 +66,11 @@ public partial class HxNavbar
 		};
 	}
 
-	protected virtual string GetColorSchemeCssClass()
-	{
-		return this.ColorScheme switch
-		{
-			NavbarColorScheme.Light => "navbar-light",
-			NavbarColorScheme.Dark => "navbar-dark",
-			NavbarColorScheme.None => null,
-			_ => throw new InvalidOperationException($"Unknow {nameof(NavbarColorScheme)} value {this.ColorScheme}.")
-		};
-	}
-
 	protected virtual string GetCssClass()
 	{
 		return CssClassHelper.Combine(
 			"navbar",
 			GetExpandCssClass(),
-			GetColorSchemeCssClass(),
 			this.Color.ToBackgroundColorCss(),
 			this.CssClass);
 	}

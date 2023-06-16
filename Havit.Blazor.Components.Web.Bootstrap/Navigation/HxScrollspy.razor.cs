@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/scrollspy/">Bootstrap Scrollspy</see> component.<br />
+/// <see href="https://getbootstrap.com/docs/5.3/components/scrollspy/">Bootstrap Scrollspy</see> component.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxScrollspy">https://havit.blazor.eu/components/HxScrollspy</see>
 /// </summary>
 public partial class HxScrollspy : IAsyncDisposable
@@ -48,7 +48,7 @@ public partial class HxScrollspy : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// When using scrollspy in conjunction with adding or removing of elements from the DOM (e.g. asynchronnous data load), you’ll need to refresh the scrollspy explicitly.
+	/// When using scrollspy in conjunction with adding or removing of elements from the DOM (e.g. asynchronous data load), you’ll need to refresh the scrollspy explicitly.
 	/// </summary>
 	/// <returns></returns>
 	public async Task RefreshAsync()

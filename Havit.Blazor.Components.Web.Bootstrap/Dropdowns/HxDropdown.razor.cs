@@ -1,11 +1,11 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/dropdowns/">Bootstrap 5 Dropdown</see> generic component.<br />
+/// <see href="https://getbootstrap.com/docs/5.3/components/dropdowns/">Bootstrap 5 Dropdown</see> generic component.<br />
 /// For buttons with dropdowns use more specific <see cref="HxDropdownButtonGroup"/>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDropdown">https://havit.blazor.eu/components/HxDropdown</see>
 /// </summary>
-public partial class HxDropdown : IDropdownContainer
+public partial class HxDropdown : ComponentBase, IDropdownContainer
 {
 	/// <summary>
 	/// Direction in which the dropdown is opened.
@@ -15,7 +15,7 @@ public partial class HxDropdown : IDropdownContainer
 	/// <summary>
 	/// By default, the dropdown menu is closed when clicking inside or outside the dropdown menu (<see cref="DropdownAutoClose.True"/>).
 	/// You can use the AutoClose parameter to change this behavior of the dropdown.
-	/// <see href="https://getbootstrap.com/docs/5.2/components/dropdowns/#auto-close-behavior">https://getbootstrap.com/docs/5.2/components/dropdowns/#auto-close-behavior</see>.
+	/// <see href="https://getbootstrap.com/docs/5.3/components/dropdowns/#auto-close-behavior">https://getbootstrap.com/docs/5.3/components/dropdowns/#auto-close-behavior</see>.
 	/// </summary>
 	[Parameter] public DropdownAutoClose AutoClose { get; set; } = DropdownAutoClose.True;
 

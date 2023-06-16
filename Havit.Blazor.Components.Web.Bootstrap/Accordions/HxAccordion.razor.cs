@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/accordion/">Bootstrap accordion</see> component.<br />
+/// <see href="https://getbootstrap.com/docs/5.3/components/accordion/">Bootstrap accordion</see> component.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAccordion">https://havit.blazor.eu/components/HxAccordion</see>
 /// </summary>
 public partial class HxAccordion
@@ -46,7 +46,7 @@ public partial class HxAccordion
 
 	/// <summary>
 	/// Set to <c>true</c> to make accordion items stay open when another item is opened.
-	/// Default is <c>false</c>, openning another item collapses current item.
+	/// Default is <c>false</c>, opening another item collapses current item.
 	/// </summary>
 	[Parameter] public bool StayOpen { get; set; }
 

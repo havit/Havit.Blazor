@@ -6,6 +6,12 @@
 public record ModalSettings
 {
 	/// <summary>
+	/// For modals that simply appear rather than fade in to view, setting <c>false</c> removes the <c>.fade</c> class from your modal markup.
+	/// Default value is <c>true</c>.
+	/// </summary>
+	public bool? Animated { get; set; }
+
+	/// <summary>
 	/// Indicates whether the modal shows close button in header.
 	/// </summary>
 	public bool? ShowCloseButton { get; set; }

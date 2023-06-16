@@ -47,7 +47,7 @@ public partial class HxContextMenuItem : ComponentBase, ICascadeEnabledComponent
 	protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
 
 	/// <summary>
-	/// Stop onClick-event propagation. Deafult is <c>true</c>.
+	/// Stop onClick-event propagation. Default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool OnClickStopPropagation { get; set; } = true;
 

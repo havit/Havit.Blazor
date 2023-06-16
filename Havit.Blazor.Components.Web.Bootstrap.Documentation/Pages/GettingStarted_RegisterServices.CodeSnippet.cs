@@ -1,5 +1,5 @@
-﻿using Havit.Blazor.Components.Web            // <------ ADD THIS LINE
-using Havit.Blazor.Components.Web.Bootstrap  // <------ ADD THIS LINE
+﻿using Havit.Blazor.Components.Web;            // <------ ADD THIS LINE
+using Havit.Blazor.Components.Web.Bootstrap;  // <------ ADD THIS LINE
 
 public static async Task Main(string[] args)
 {

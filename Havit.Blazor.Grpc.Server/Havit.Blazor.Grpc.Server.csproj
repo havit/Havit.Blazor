@@ -16,10 +16,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.51.0" />
-		<PackageReference Include="Havit.AspNetCore" Version="2.0.9" />
+		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.53.0" />
+		<PackageReference Include="Havit.AspNetCore" Version="2.0.10" />
 		<PackageReference Include="Havit.Core" Version="2.0.26" />
-		<PackageReference Include="protobuf-net" Version="3.2.12" />
+		<PackageReference Include="protobuf-net" Version="3.2.26" />
 		<PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.1.1" />
 		<!-- Workaround for vulnerability in System.Text.Encodings.Web 4.5.0 -->
 		<PackageReference Include="System.Text.Encodings.Web" Version="7.0.0" />

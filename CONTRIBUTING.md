@@ -27,4 +27,4 @@ protected virtual ComponentNameSettings GetDefaults() => Defaults;
 ```
 * Use *CSS variables* whenever possible. Prefer existing variables over creating new ones (use derived values if possible).
 * Provide `/// <summary>` comments (extracted to API documentation).
-* Create simple demos presenting individual features. [Bootstrap docs](https://getbootstrap.com/docs/5.2/getting-started/introduction/) might be inspiration for you.
+* Create simple demos presenting individual features. [Bootstrap docs](https://getbootstrap.com/docs/5.3/getting-started/introduction/) might be inspiration for you.

@@ -11,7 +11,7 @@ public record MessengerServiceExtensionsSettings
 	public ThemeColor InformationColor { get; set; } = ThemeColor.Primary;
 
 	/// <summary>
-	/// Default autohide delay for information (in miliseconds). Default is <c>5000</c> ms.
+	/// Default autohide delay for information (in milliseconds). Default is <c>5000</c> ms.
 	/// </summary>
 	public int? InformationAutohideDelay { get; set; } = 5000;
 
@@ -21,7 +21,7 @@ public record MessengerServiceExtensionsSettings
 	public ThemeColor WarningColor { get; set; } = ThemeColor.Warning;
 
 	/// <summary>
-	/// Default autohide delay for warnings (in miliseconds). Default is <c>null</c> (do not autohide).
+	/// Default autohide delay for warnings (in milliseconds). Default is <c>null</c> (do not autohide).
 	/// </summary>
 	public int? WarningAutohideDelay { get; set; } = null;
 
@@ -31,7 +31,7 @@ public record MessengerServiceExtensionsSettings
 	public ThemeColor ErrorColor { get; set; } = ThemeColor.Danger;
 
 	/// <summary>
-	/// Default autohide delay for errors (in miliseconds). Default is <c>null</c> (do not autohide).
+	/// Default autohide delay for errors (in milliseconds). Default is <c>null</c> (do not autohide).
 	/// </summary>
 	public int? ErrorAutohideDelay { get; set; } = null;
 }

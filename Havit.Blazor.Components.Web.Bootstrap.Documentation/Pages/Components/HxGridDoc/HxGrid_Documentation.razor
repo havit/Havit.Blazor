@@ -18,10 +18,19 @@
 		</p>
 		<Demo Type="typeof(HxGrid_Demo_ApplyTo)" />
 
-		<DocAlert Type="DocAlertType.Warning">
-			The <code>@nameof(HxGrid).@nameof(HxGrid<object>.DataProvider)</code> should always return an instance of <code>@nameof(GridDataProviderResult<object>)</code>, <code>null</code> is not allowed.
-			The method you provide is <code>async</code> and should <code>await</code> the data if needed (loading progress is indicated in meantime).
-		</DocAlert>
+		<DocHeading Title="IQueryable usage" Id="Queryable" Level="3" />
+		<p>
+			If you have <code>IQueryable</code> as a data-source provider, you can use the <code>data.ApplyGridDataProviderRequest(request)</code>
+            method to apply sorting and paging to your data source. Then you must query data on your own, because we do not have access to cancellable async methods
+            in the components (CountAsync, ToListAsync) and it is quite crutial to use cancellable methods, mainly for infinite scroll. 
+        </p>
+        <Demo Type="typeof(HxGrid_Demo_Queryable)" />
+
+
+        <DocAlert Type="DocAlertType.Warning">
+            The <code>@nameof(HxGrid).@nameof(HxGrid<object>.DataProvider)</code> should always return an instance of <code>@nameof(GridDataProviderResult<object>)</code>, <code>null</code> is not allowed.
+            The method you provide is <code>async</code> and should <code>await</code> the data if needed (loading progress is indicated in meantime).
+        </DocAlert>
 
 		<DocHeading Title="Refreshing data" Id="RefreshData" />
 		<p>
@@ -64,7 +73,6 @@
 
 		<DocHeading Title="Context menu" Id="context-menu" />
 		<p>Use <code>HxContextMenuGridColumn</code> to add context-menu to the grid.</p>
-		<DocAlert Type="DocAlertType.Warning">The <code>ContextMenu</code> parameter does the same (but renders always as last column) and will be most likely removed in vNext.</DocAlert>
 		<Demo Type="typeof(HxGrid_Demo_ContextMenu)" />
 
 		<DocHeading Title="Multiselect with checkboxes" Id="multiselect" />
@@ -100,17 +108,17 @@
 		<Demo Type="typeof(HxGrid_Demo_StatePersisting)" />
 	</MainContent>
 
-	<CssVariables>
-		<ComponentApiDocCssVariable Name="--hx-grid-button-hover-background" Default="var(--bs-gray-300)">
-			Grid button background color on hover.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-grid-button-border-radius" Default=".25rem">
-			Grid button border radius.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-grid-sorted-icon-color" Default="var(--bs-primary)">
-			Color of the sorted icon.
-		</ComponentApiDocCssVariable>
-	</CssVariables>
+    <CssVariables>
+        <ComponentApiDocCssVariable Name="--hx-grid-button-hover-background" Default="rgba(var(--bs-black-rgb), .1)">
+            Grid button background color on hover.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-grid-button-border-radius" Default=".25rem">
+            Grid button border radius.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-grid-sorted-icon-color" Default="var(--bs-primary)">
+            Color of the sorted icon.
+        </ComponentApiDocCssVariable>
+    </CssVariables>
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxGridColumn<TItem>)" />

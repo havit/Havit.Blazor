@@ -4,11 +4,8 @@
 
 <HxListLayout Title="Title" TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged">
 	<NamedViewsTemplate>
-		<HxNamedViewList TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged" NamedViews="namedViews" OnNamedViewSelected="NamedViewSelected" /> @* TODO *@
+		<HxNamedViewList TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged" NamedViews="namedViews" OnNamedViewSelected="NamedViewSelected" />
 	</NamedViewsTemplate>
-	<SearchTemplate>
-		<input type="text" name="TODO" id="TODO" placeholder="TODO: Search" class="form-control">
-	</SearchTemplate>
     <FilterTemplate Context="filterContext">
         <HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumItemId" />
         <HxInputText Label="Name containing" @bind-Value="filterContext.NameContains" />
@@ -27,12 +24,12 @@
                 <HxGridColumn TItem="DataItemDto" HeaderText="Email" ItemTextSelector="@(item => item.Email)" SortString="@nameof(DataItemDto.Email)" />
                 <HxGridColumn TItem="DataItemDto" HeaderText="Phone number" ItemTextSelector="@(item => item.PhoneNumber)" SortString="@nameof(DataItemDto.PhoneNumber)" />
                 <HxGridColumn TItem="DataItemDto" HeaderText="Age" ItemTextSelector="@(item => item.Age.ToString())" SortString="@nameof(DataItemDto.Age)" />
-            </Columns>
-			<ContextMenu Context="item">
-				<HxContextMenu>
-					<HxContextMenuItem Text="Delete" OnClick="async () => await DeleteItemClicked(item)" ConfirmationQuestion="@($"Do you realy want to delete {item.Name}?")" />
-				</HxContextMenu>
-			</ContextMenu>
+				<HxContextMenuGridColumn Context="item">
+					<HxContextMenu>
+						<HxContextMenuItem Text="Delete" OnClick="async () => await DeleteItemClicked(item)" ConfirmationQuestion="@($"Do you realy want to delete {item.Name}?")" />
+					</HxContextMenu>
+				</HxContextMenuGridColumn>
+            </Columns>			
 		</HxGrid>
 	</DataTemplate>
 	<DetailTemplate>

@@ -5,12 +5,13 @@
                 <img src="/logo.png" width="35" height="35" />
             </LogoTemplate>
         </HxSidebarBrand>
+		<Havit.Blazor.Components.Web.Bootstrap.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
     </HeaderTemplate>
     <ItemsTemplate>
         <Search />
 
         <HxSidebarItem Text="Getting started" Href="/" Match="NavLinkMatch.All" Icon="BootstrapIcon.House" />
-        <HxSidebarItem Text="Migration to v3 🔥" Href="/migrating-to-v3" Match="NavLinkMatch.All" Icon="BootstrapIcon.ArrowUpCircle" />
+        <HxSidebarItem Text="Migration to v4 🔥" Href="/migrating" Match="NavLinkMatch.All" Icon="BootstrapIcon.ArrowUpCircle" />
 
         <HxSidebarItem Text="Forms" Icon="BootstrapIcon.InputCursorText">
             <HxSidebarItem Href="/components/Inputs" Text="Inputs" />
@@ -107,6 +108,7 @@
         <HxSidebarItem Text="Concepts" Icon="BootstrapIcon.Lightbulb">
             <HxSidebarItem Href="/concepts/defaults-and-settings" Text="Defaults & Settings" />
             <HxSidebarItem Href="/concepts/Debouncer" Text="Debouncer" />
+            <HxSidebarItem Href="/concepts/dark-color-mode-theme" Text="Dark color mode" />
         </HxSidebarItem>
 
         <HxSidebarItem Text="All Components" Icon="BootstrapIcon.SortAlphaDown" ExpandOnMatch="false">
@@ -182,19 +184,17 @@
         </HxSidebarItem>
     </ItemsTemplate>
     <FooterTemplate>
-
-        <HxSelect Label="Theme" TItem="Theme" CssClass="w-100" TValue="Theme" Data="themes" @bind-Value="selectedTheme" TextSelector="t => t.Name" Nullable="true" NullText="Havit.Blazor" />
-        <a href="https://github.com/havit/Havit.Blazor" class="text-decoration-none text-dark d-flex align-items-center ms-auto">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub" style="width:1.25rem" class="m-3 mb-2 me-2 align-self-end"/>
+        <HxSelect Label="Theme" TItem="Theme" CssClass="w-100 me-2" TValue="Theme" Data="themes" @bind-Value="selectedTheme" TextSelector="t => t.Name" Nullable="true" NullText="Havit.Blazor" />
+        <a href="https://github.com/havit/Havit.Blazor" class="text-decoration-none text-secondary d-flex align-items-center ms-2">
+            <HxIcon Icon="BootstrapIcon.Github" CssClass="align-self-end mb-1 fs-5"/>
         </a>
-
     </FooterTemplate>
 </HxSidebar>
 
 <HeadContent>
     @if (selectedTheme?.Name == "Bootstrap 5")
     {
-		@((MarkupString)HxSetup.RenderBootstrapCssReference(BootstrapFlavor.PlainBoostrap))
+		@((MarkupString)HxSetup.RenderBootstrapCssReference(BootstrapFlavor.PlainBootstrap))
     }
     else if (selectedTheme is not null) // null = HAVIT Bootstrap build (default)
     {

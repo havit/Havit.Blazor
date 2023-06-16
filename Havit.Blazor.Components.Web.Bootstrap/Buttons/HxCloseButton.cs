@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap <see href="https://getbootstrap.com/docs/5.2/components/close-button/">close-button</see> component.<br />
+/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/close-button/">close-button</see> component.<br />
 /// A simple close button for dismissing content like modals and alerts.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCloseButton">https://havit.blazor.eu/components/HxCloseButton</see>
 /// </summary>
@@ -23,7 +23,7 @@ public class HxCloseButton : HxButton
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected new virtual CloseButtonSettings GetDefaults() => Defaults;
 

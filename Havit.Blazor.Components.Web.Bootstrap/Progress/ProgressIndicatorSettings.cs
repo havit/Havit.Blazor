@@ -6,7 +6,7 @@
 public record ProgressIndicatorSettings
 {
 	/// <summary>
-	/// Debounce delay in miliseconds.
+	/// Debounce delay in milliseconds.
 	/// </summary>
 	public int? Delay { get; set; }
 }

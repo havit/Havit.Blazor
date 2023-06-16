@@ -11,12 +11,13 @@
 			<Columns>
 				<HxGridColumn TItem="DataItemDto" HeaderText="Id" ItemTextSelector="@(item => item.ItemId.ToString())" SortString="@nameof(DataItemDto.ItemId)" IsDefaultSortColumn="true" />
 				<HxGridColumn TItem="DataItemDto" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(DataItemDto.Name)" />
+				<HxContextMenuGridColumn Context="item">
+					<HxContextMenu>
+						<HxContextMenuItem Text="Smazat" OnClick="async () => await HandleDeleteItemClicked(item)" ConfirmationQuestion="@($"Do you realy want to delete {item.Name}?")" />
+					</HxContextMenu>
+				</HxContextMenuGridColumn>
 			</Columns>
-			<ContextMenu Context="item">
-				<HxContextMenu>
-					<HxContextMenuItem Text="Smazat" OnClick="async () => await HandleDeleteItemClicked(item)" ConfirmationQuestion="@($"Do you realy want to delete {item.Name}?")" />
-				</HxContextMenu>
-			</ContextMenu>
+
 		</HxGrid>
 	</DataTemplate>
 	<DetailTemplate>

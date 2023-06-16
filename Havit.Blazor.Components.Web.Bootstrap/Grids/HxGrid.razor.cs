@@ -17,7 +17,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	public const string ColumnsRegistrationCascadingValueName = "ColumnsRegistration";
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxGrid.Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxGrid.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public GridSettings Settings { get; set; }
 
@@ -25,7 +25,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual GridSettings GetSettings() => this.Settings;
 
@@ -55,12 +55,6 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Columns template.
 	/// </summary>
 	[Parameter, EditorRequired] public RenderFragment Columns { get; set; }
-
-	/// <summary>
-	/// Context menu template (positioned as last column).<br/>
-	/// NOTE: This parameter will be most likely removed in vNext, use <see cref="HxContextMenuGridColumn{TItem}"/> in <see cref="Columns"/> instead.
-	/// </summary>
-	[Parameter] public RenderFragment<TItem> ContextMenu { get; set; }
 
 	/// <summary>
 	/// Template to render when "first" data are loading.
@@ -230,7 +224,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected int OverscanCountEffective => this.OverscanCount ?? this.GetSettings()?.OverscanCount ?? GetDefaults().OverscanCount ?? throw new InvalidOperationException(nameof(OverscanCount) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
-	/// Allows the table to be scrolled horizontally with ease accross any breakpoint (adds the <c>table-responsive</c> class to the table).<br/>
+	/// Allows the table to be scrolled horizontally with ease across any breakpoint (adds the <c>table-responsive</c> class to the table).<br/>
 	/// Default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool? Responsive { get; set; }
@@ -264,7 +258,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected virtual GridSettings GetDefaults() => HxGrid.Defaults;
 
@@ -392,7 +386,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Returns CSS class for the <c>&lt;table&gt;</c> element.
 	/// </summary>
 	/// <remarks>
-	/// Overriden in 176.BT2 project to allow setting background-color for grids with selected items.
+	/// overridden in 176.BT2 project to allow setting background-color for grids with selected items.
 	/// </remarks>
 	/// <param name="rendersData">Indicates whether the grid renders data (<c>false</c> when the grid has no items to render or the data have not been loaded yet).</param>
 	protected virtual string GetTableElementCssClass(bool rendersData)
@@ -734,7 +728,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private async Task<GridDataProviderResult<TItem>> InvokeDataProviderInternal(GridDataProviderRequest<TItem> request)
 	{
-		// Multithreading: we can safelly set dataProviderInProgress, always dataProvider is going to retrieve data we are it is in in a progress.
+		// Multithreading: we can safely set dataProviderInProgress, always dataProvider is going to retrieve data we are it is in in a progress.
 		if (!dataProviderInProgress)
 		{
 			dataProviderInProgress = true;
@@ -747,7 +741,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		// do not use result from cancelled request (for the case a developer does not use the cancellation token)
 		if (!request.CancellationToken.IsCancellationRequested)
 		{
-			dataProviderInProgress = false; // Multithreading: we can safelly clean dataProviderInProgress only wnen received data from non-cancelled task
+			dataProviderInProgress = false; // Multithreading: we can safely clean dataProviderInProgress only when received data from non-cancelled task
 			totalCount = result.TotalCount ?? result.Data?.Count() ?? 0;
 		}
 
@@ -870,7 +864,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	{
 		if (!isCurrentSorting)
 		{
-			// column is NOT the primary sort column and click will cause ascending sorting (icon hover efect)
+			// column is NOT the primary sort column and click will cause ascending sorting (icon hover effect)
 			return columnSorting[0].SortDirection;
 		}
 		else

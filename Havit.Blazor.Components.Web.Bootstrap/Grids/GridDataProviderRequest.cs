@@ -46,7 +46,9 @@ public class GridDataProviderRequest<TItem>
 
 		IEnumerable<TItem> resultData = data;
 
-		#region Sorting
+		// PERF NOTE: We do not use .ApplyGridDataProviderRequest() here, because we want to apply Compile() here?
+
+		// Sorting
 		if ((Sorting != null) && Sorting.Any())
 		{
 			Contract.Assert(Sorting.All(item => item.SortKeySelector != null), "All sorting items must have set SortKeySelector property.");
@@ -63,9 +65,8 @@ public class GridDataProviderRequest<TItem>
 			}
 			resultData = orderedData;
 		}
-		#endregion
 
-		#region Paging / Infinite scroll
+		// Paging / Infinite scroll
 		if (StartIndex > 0)
 		{
 			resultData = resultData.Skip(StartIndex);
@@ -74,7 +75,6 @@ public class GridDataProviderRequest<TItem>
 		{
 			resultData = resultData.Take(Count.Value);
 		}
-		#endregion
 
 		return new GridDataProviderResult<TItem>
 		{

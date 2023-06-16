@@ -7,8 +7,8 @@ public enum AnchorFragmentNavigationAutomationMode
 {
 	/// <summary>
 	/// Scrolls to anchor on <c>firstRender</c> and whenever location changes (<see cref="NavigationManager.LocationChanged"/>).
-	/// With <see cref="HxScrollspy"/> this mode is suitable only for static pages (where the size/offset of individual sections remains the same from the very beggining).
-	/// Use <see cref="SamePage"/> or <see cref="Manual"/> for when the page contents load asynchronnously and the layout changes.
+	/// With <see cref="HxScrollspy"/> this mode is suitable only for static pages (where the size/offset of individual sections remains the same from the very beginning).
+	/// Use <see cref="SamePage"/> or <see cref="Manual"/> for when the page contents load asynchronously and the layout changes.
 	/// </summary>
 	Full = 0,
 

@@ -26,7 +26,7 @@ public record ContextMenuSettings
 	public DropdownMenuAlignment? DropdownMenuAlignment { get; set; }
 
 	/// <summary>
-	/// Icon carring the menu (use <see cref="BootstrapIcon" /> or any other <see cref="IconBase"/>).<br />
+	/// Icon carrying the menu (use <see cref="BootstrapIcon" /> or any other <see cref="IconBase"/>).<br />
 	/// </summary>
 	public IconBase Icon { get; set; }
 

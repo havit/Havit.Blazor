@@ -20,13 +20,13 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider Settings in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider Settings in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected abstract TooltipInternalSettings GetSettings();
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected abstract TooltipInternalSettings GetDefaults();
 
@@ -43,7 +43,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	protected string ContainerEffective => this.Container ?? this.GetSettings()?.Container ?? GetDefaults().Container;
 
 	/// <summary>
-	/// Enable or disable the sanitization. If activated HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.2/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
+	/// Enable or disable the sanitization. If activated HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.3/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
 	/// Default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool Sanitize { get; set; } = true;
@@ -304,7 +304,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Receives notification from javascript when content is shown.
+	/// Receives notification from JavaScript when content is shown.
 	/// </summary>
 	/// <remarks>
 	/// the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
@@ -316,7 +316,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Receives notification from javascript when content is hidden.
+	/// Receives notification from JavaScript when content is hidden.
 	/// </summary>
 	[JSInvokable("HxHandleJsHidden")]
 	public async Task HandleJsHidden()

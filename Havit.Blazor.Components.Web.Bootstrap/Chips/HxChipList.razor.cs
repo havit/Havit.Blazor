@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Presents a list of chips as badges.<br/>
-/// Usualy being used to present filter-criteria gathered by <see cref="HxFilterForm{TModel}"/>.<br />
+/// Usually being used to present filter-criteria gathered by <see cref="HxFilterForm{TModel}"/>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxChipList">https://havit.blazor.eu/components/HxChipList</see>
 /// </summary>
 public partial class HxChipList
@@ -16,6 +16,7 @@ public partial class HxChipList
 	{
 		Defaults = new ChipListSettings()
 		{
+			ShowResetButton = false,
 			ChipBadgeSettings = new BadgeSettings()
 			{
 				Color = ThemeColor.Secondary,
@@ -25,12 +26,12 @@ public partial class HxChipList
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected virtual ChipListSettings GetDefaults() => Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public ChipListSettings Settings { get; set; }
 
@@ -38,7 +39,7 @@ public partial class HxChipList
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual ChipListSettings GetSettings() => this.Settings;
 
@@ -64,13 +65,37 @@ public partial class HxChipList
 	/// Called when chip remove button is clicked.
 	/// </summary>
 	[Parameter] public EventCallback<ChipItem> OnChipRemoveClick { get; set; }
+
 	/// <summary>
 	/// Triggers the <see cref="OnChipRemoveClick"/> event. Allows interception of the event in derived components.
 	/// </summary>
 	protected virtual Task InvokeOnChipRemoveClickAsync(ChipItem chipRemoved) => OnChipRemoveClick.InvokeAsync(chipRemoved);
 
-	private async Task HandleRemoveClick(ChipItem chipItemToRemove)
-	{
-		await InvokeOnChipRemoveClickAsync(chipItemToRemove);
-	}
+	/// <summary>
+	/// Called when the reset button is clicked (when using the ready-made reset button, not the <see cref="ResetButtonTemplate"/> where you are expected to wire the event on your own).
+	/// </summary>
+	[Parameter] public EventCallback<ChipItem> OnResetClick { get; set; }
+
+	/// <summary>
+	/// Triggers the <see cref="OnResetClick"/> event. Allows interception of the event in derived components.
+	/// </summary>
+	protected virtual Task InvokeOnResetClickAsync() => OnResetClick.InvokeAsync();
+
+	/// <summary>
+	/// Enables/disables the reset button.
+	/// Default is <c>false</c> (can be changed with <code>HxChipList.Defaults.ShowResetButton</code>.
+	/// </summary>
+	[Parameter] public bool? ShowResetButton { get; set; }
+	protected bool ShowResetButtonEffective => this.ShowResetButton ?? this.GetSettings()?.ShowResetButton ?? GetDefaults().ShowResetButton ?? throw new InvalidOperationException(nameof(ShowResetButton) + " default for " + nameof(HxChipList) + " has to be set.");
+
+	/// <summary>
+	/// Text of the reset button.
+	/// </summary>
+	[Parameter] public string ResetButtonText { get; set; }
+
+	/// <summary>
+	/// Template for the reset button.
+	/// If used, the <see cref="ResetButtonText"/> is ignored and the <see cref="OnResetClick"/> callback is not triggered (you are expected to wire the reset logic on you own).
+	/// </summary>
+	[Parameter] public RenderFragment ResetButtonTemplate { get; set; }
 }

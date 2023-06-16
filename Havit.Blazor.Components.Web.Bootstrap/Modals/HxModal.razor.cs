@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Component to render modal dialog as a <see href="https://getbootstrap.com/docs/5.2/components/modal/">Bootstrap Modal</see>.<br />
+/// Component to render modal dialog as a <see href="https://getbootstrap.com/docs/5.3/components/modal/">Bootstrap Modal</see>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxModal">https://havit.blazor.eu/components/HxModal</see>
 /// </summary>
 public partial class HxModal : IAsyncDisposable
@@ -22,6 +22,7 @@ public partial class HxModal : IAsyncDisposable
 	{
 		Defaults = new ModalSettings()
 		{
+			Animated = true,
 			ShowCloseButton = true,
 			CloseOnEscape = true,
 			Size = ModalSize.Regular,
@@ -34,20 +35,27 @@ public partial class HxModal : IAsyncDisposable
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected virtual ModalSettings GetDefaults() => Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public ModalSettings Settings { get; set; }
+
+	/// <summary>
+	/// For modals that simply appear rather than fade in to view, setting <c>false</c> removes the <c>.fade</c> class from your modal markup.
+	/// Default value is <c>true</c>.
+	/// </summary>
+	[Parameter] public bool? Animated { get; set; }
+	protected bool AnimatedEffective => this.Animated ?? this.GetSettings()?.Animated ?? GetDefaults().Animated ?? throw new InvalidOperationException(nameof(Animated) + " default for " + nameof(HxModal) + " has to be set.");
 
 	/// <summary>
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual ModalSettings GetSettings() => this.Settings;
 
@@ -228,7 +236,7 @@ public partial class HxModal : IAsyncDisposable
 	{
 		opened = false;
 		await InvokeOnClosedAsync();
-		StateHasChanged(); // ensures rerender to remove dialog from HTML
+		StateHasChanged(); // ensures re-render to remove dialog from HTML
 	}
 
 	/// <summary>

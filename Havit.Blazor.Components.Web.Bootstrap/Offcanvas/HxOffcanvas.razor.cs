@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/offcanvas/">Bootstrap Offcanvas</see> component (aka Drawer).<br />
+/// <see href="https://getbootstrap.com/docs/5.3/components/offcanvas/">Bootstrap Offcanvas</see> component (aka Drawer).<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxOffcanvas">https://havit.blazor.eu/components/HxOffcanvas</see>
 /// </summary>
 public partial class HxOffcanvas : IAsyncDisposable
@@ -34,12 +34,12 @@ public partial class HxOffcanvas : IAsyncDisposable
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected virtual OffcanvasSettings GetDefaults() => Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public OffcanvasSettings Settings { get; set; }
 
@@ -47,7 +47,7 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual OffcanvasSettings GetSettings() => this.Settings;
 
@@ -230,7 +230,7 @@ public partial class HxOffcanvas : IAsyncDisposable
 	{
 		opened = false;
 		await InvokeOnClosedAsync();
-		StateHasChanged(); // ensures rerender to remove the control from HTML
+		StateHasChanged(); // ensures re-render to remove the control from HTML
 	}
 
 	/// <summary>

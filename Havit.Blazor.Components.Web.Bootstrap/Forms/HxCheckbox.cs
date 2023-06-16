@@ -4,7 +4,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Checkbox input.<br />
-/// (Replaces the former <see cref="HxInputCheckbox"/> component which is now obsolete.)
+/// (Replaces the former <c>HxInputCheckbox</c> component which was dropped in v 4.0.0.)
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckbox">https://havit.blazor.eu/components/HxCheckbox</see>
 /// </summary>
 public class HxCheckbox : HxInputBase<bool>
@@ -87,7 +87,7 @@ public class HxCheckbox : HxInputBase<bool>
 		builder.AddAttribute(1000, "checked", BindConverter.FormatValue(CurrentValue));
 		builder.AddAttribute(1001, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
 		builder.AddEventStopPropagationAttribute(1002, "onclick", true);
-		builder.AddElementReferenceCapture(1003, elementReferece => InputElement = elementReferece);
+		builder.AddElementReferenceCapture(1003, elementReference => InputElement = elementReference);
 		builder.CloseElement(); // input
 
 		builder.OpenElement(2000, "label");

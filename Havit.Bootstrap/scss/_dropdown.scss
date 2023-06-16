@@ -1,6 +1,7 @@
 .dropdown-menu {
   gap: .25rem;
-  padding: .25rem;
+  --bs-dropdown-padding-x: .25rem;
+  --bs-dropdown-padding-y: .25rem;
 }
 
 .dropdown-menu.show {
@@ -8,9 +9,9 @@
 }
 
 .dropdown-item {
-  border-radius: .25rem;
+  --bs-dropdown-item-border-radius: .25rem;
 }
 
 .btn-sm ~ .dropdown-menu {
-  font-size: .875rem;
+  --bs-dropdown-font-size: .875rem;
 }

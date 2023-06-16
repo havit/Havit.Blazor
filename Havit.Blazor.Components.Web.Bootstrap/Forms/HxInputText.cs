@@ -21,7 +21,7 @@ public class HxInputText : HxInputTextBase
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected override InputTextSettings GetDefaults() => Defaults;
 

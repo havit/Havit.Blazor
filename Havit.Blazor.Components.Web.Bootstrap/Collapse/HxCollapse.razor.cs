@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/collapse/">Bootstrap 5 Collapse</see> component.<br />
+/// <see href="https://getbootstrap.com/docs/5.3/components/collapse/">Bootstrap 5 Collapse</see> component.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCollapse">https://havit.blazor.eu/components/HxCollapse</see>
 /// </summary>
 public partial class HxCollapse : IAsyncDisposable
@@ -149,7 +149,7 @@ public partial class HxCollapse : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Receives notification from javascript when item is about to start showing.
+	/// Receives notification from JavaScript when item is about to start showing.
 	/// </summary>
 	[JSInvokable("HxCollapse_HandleJsShow")]
 	public void HandleJsShow()
@@ -158,11 +158,11 @@ public partial class HxCollapse : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Receives notification from javascript when item is shown.
+	/// Receives notification from JavaScript when item is shown.
 	/// </summary>
 	/// <remarks>
 	/// the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
-	/// this covers both user-interaction (DOM state) and Blazor-interaction (HxAccordition.ExpandedItemId change)
+	/// this covers both user-interaction (DOM state) and Blazor-interaction (HxAccordion.ExpandedItemId change)
 	/// </remarks>
 	[JSInvokable("HxCollapse_HandleJsShown")]
 	public async Task HandleJsShown()
@@ -181,7 +181,7 @@ public partial class HxCollapse : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Receives notification from javascript when item is about to hide.
+	/// Receives notification from JavaScript when item is about to hide.
 	/// </summary>
 	[JSInvokable("HxCollapse_HandleJsHide")]
 	public void HandleJsHide()
@@ -190,7 +190,7 @@ public partial class HxCollapse : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Receives notification from javascript when item is hidden.
+	/// Receives notification from JavaScript when item is hidden.
 	/// </summary>
 	[JSInvokable("HxCollapse_HandleJsHidden")]
 	public async Task HandleJsHidden()

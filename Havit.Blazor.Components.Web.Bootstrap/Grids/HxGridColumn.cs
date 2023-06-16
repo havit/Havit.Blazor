@@ -22,7 +22,7 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	/// <summary>
 	/// The order (display index) of the column.
 	/// Columns are displayed in the order of this property.
-	/// Columns with the same value are displayed in the order of appereance in the code (when the columns are not conditionaly displayed using @if).
+	/// Columns with the same value are displayed in the order of appearance in the code (when the columns are not conditionally displayed using @if).
 	/// </summary>
 	/// <exception cref="ArgumentException">Value is <c>Int32.MinValue</c> or <c>Int32.MaxValue</c>.</exception>
 	[Parameter]
@@ -113,7 +113,7 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	/// Returns column sorting expression for automatic grid sorting.
 	/// To be used for &quot;strongly typed&quot; setting of sorting, required for client-side sorting.
 	/// Must be <see cref="IComparable"/>.
-	/// Sorting of the column does not support multiple expressions. Create an artifcial property and implement <see cref="IComparable"/>.
+	/// Sorting of the column does not support multiple expressions. Create an artificial property and implement <see cref="IComparable"/>.
 	/// </summary>
 	[Parameter] public Expression<Func<TItem, IComparable>> SortKeySelector { get; set; }
 

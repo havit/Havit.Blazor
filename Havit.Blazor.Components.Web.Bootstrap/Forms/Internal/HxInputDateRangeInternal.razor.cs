@@ -72,7 +72,7 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	private string FormatDate(DateTime? date)
 	{
-		// nenabízíme hodnotu 1.1.0001, atp.
+		// no 1.1.0001 etc.
 		if (date == null || (date.Value == default))
 		{
 			return null;

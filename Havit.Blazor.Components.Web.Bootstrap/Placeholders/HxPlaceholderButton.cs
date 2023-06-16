@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/placeholders/">Bootstrap 5 placeholder</see> in form of a button.<br/>
+/// <see href="https://getbootstrap.com/docs/5.3/components/placeholders/">Bootstrap 5 placeholder</see> in form of a button.<br/>
 /// Derives from <see cref="HxButton"/> (adds <c>placeholder</c> class and changes <c>Enabled</c> default to <c>false</c>).<br/>
 /// Set the size of the button by using the <see cref="Columns"/> parameter.
 /// </summary>

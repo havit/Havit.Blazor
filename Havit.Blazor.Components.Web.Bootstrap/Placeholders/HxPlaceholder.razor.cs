@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/placeholders/">Bootstrap 5 Placeholder</see> component, aka Skeleton.<br/>
+/// <see href="https://getbootstrap.com/docs/5.3/components/placeholders/">Bootstrap 5 Placeholder</see> component, aka Skeleton.<br/>
 /// Use loading placeholders for your components or pages to indicate something may still be loading.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPlaceholder">https://havit.blazor.eu/components/HxPlaceholder</see>
 /// </summary>
@@ -23,12 +23,12 @@ public partial class HxPlaceholder : ILayoutColumnComponent
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected virtual PlaceholderSettings GetDefaults() => Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public PlaceholderSettings Settings { get; set; }
 
@@ -36,7 +36,7 @@ public partial class HxPlaceholder : ILayoutColumnComponent
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual PlaceholderSettings GetSettings() => this.Settings;
 
@@ -72,7 +72,7 @@ public partial class HxPlaceholder : ILayoutColumnComponent
 	protected ThemeColor ColorEffective => this.Color ?? this.GetSettings()?.Color ?? PlaceholderContainer?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxPlaceholder) + " has to be set.");
 
 	/// <summary>
-	/// Optional content of the placeholder (usualy not used).
+	/// Optional content of the placeholder (usually not used).
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 

@@ -1,69 +1,49 @@
-
+// We use contrast ratio 3 so the HAVIT blue has white text;
 $min-contrast-ratio:  3;
+
 $border-color:        $gray-200;
+$border-color-translucent:    rgba($black, .0875);
 
-$badge-border-radius: $border-radius-sm;
+$box-shadow:                  0 .5rem 1rem rgba(var(--#{$prefix}body-color-rgb), .1);
+$box-shadow-sm:               0 .125rem .25rem rgba(var(--#{$prefix}body-color-rgb), .05);
+$box-shadow-lg:               0 1rem 3rem rgba(var(--#{$prefix}body-color-rgb), .15);
 
-$box-shadow:                  0 .5rem 1rem rgba($black, .1);
-$box-shadow-sm:               0 .125rem .25rem rgba($black, .05);
-$box-shadow-lg:               0 1rem 3rem rgba($black, .15);
+$nav-tabs-border-color:               var(--#{$prefix}border-color-translucent);
 
-$nav-tabs-border-color:               rgba($black, .075);
-$nav-tabs-link-active-border-color:   $nav-tabs-border-color $nav-tabs-border-color $nav-tabs-link-active-bg;
+$card-border-radius:                  var(--#{$prefix}border-radius-lg);
+$card-inner-border-radius:            subtract($card-border-radius, $card-border-width);
 
-$card-border-radius:          $border-radius-lg;
-$card-border-color:           rgba($black, .075);
-$card-inner-border-radius:    subtract($card-border-radius, $card-border-width);
-$card-cap-bg:                 rgba($black, .0375);
+$table-active-bg-factor:              .075;
+$table-active-bg:                     rgba($black, $table-active-bg-factor);
+$table-hover-bg-factor:               .05;
+$table-hover-bg:                      rgba($black, $table-hover-bg-factor);
 
-$table-active-bg-factor:        .05;
-$table-active-bg:               rgba($black, $table-active-bg-factor);
-$table-hover-bg-factor:         .025;
-$table-hover-bg:                rgba($black, $table-hover-bg-factor);
-$table-border-color:            $border-color;
-$table-group-separator-color:   $table-border-color;
+$form-label-margin-bottom:            .25rem;
+$form-label-font-size:                .875rem;
+$form-label-color:                    $gray-600;
+$form-check-label-color:              $form-label-color;
+$form-label-font-weight:              500;
+$form-feedback-tooltip-font-size:     .75rem;
+$form-feedback-margin-top:            .125rem;
+$form-feedback-font-size:             .75rem;
 
-$form-label-margin-bottom:          .25rem;
-$form-label-font-size:              .875rem;
-$form-label-color:                  $gray-600;
-$form-check-label-color:            $gray-600;
-$form-label-font-weight:            500;
-$form-feedback-tooltip-font-size:   .75rem;
-$form-feedback-margin-top:          .125rem;
-$form-feedback-font-size:           .75rem;
+$popover-header-bg:                   rgba(var(--#{$prefix}body-color-rgb), .03);
 
-$form-switch-color:                 $white;
-$form-switch-bg-image:  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color}'/></svg>");
+$modal-backdrop-opacity:              .25;
 
-$input-border-color:              $gray-300;
-$input-group-addon-border-color:  $input-border-color;
-$form-select-border-color:        $gray-300;
+$offcanvas-horizontal-width:          500px;
 
-$form-check-input-border:         1px solid $gray-300;
+$dropdown-box-shadow:               $box-shadow-sm;
 
-$modal-backdrop-opacity:      .25;
-$modal-header-border-color:   $border-color;
-$modal-content-border-color:  rgba($black, .05);
-$offcanvas-border-color:      $modal-content-border-color;
+$pagination-disabled-bg:            transparent;
 
-$offcanvas-horizontal-width:  500px;
+$accordion-border-color:            var(--#{$prefix}border-color-translucent);
 
-$dropdown-box-shadow:     $box-shadow-sm;
-$dropdown-border-color:   rgba($black, .0875);
-$dropdown-divider-bg:     $dropdown-border-color;
+$toast-padding-x:                   1rem;
+$toast-padding-y:                   .75rem;
 
-$accordion-border-color:    rgba($black, .0875);
+$badge-font-weight:                 $font-weight-semibold;
 
-$popover-border-color:      rgba($black, .125);
-
-$toast-border-color:        rgba($black, .0875);
-$toast-padding-x:           1rem;
-$toast-padding-y:           .75rem;
-
-$badge-font-weight:           $font-weight-semibold;
-
-$list-group-border-color:     rgba($black, .0875);
+$list-group-border-color:           var(--#{$prefix}border-color-translucent);
 
 $hr-opacity: .125;
-
-$nav-tabs-link-hover-border-color:  transparent;

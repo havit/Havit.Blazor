@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdown"/> to open.
+/// <see href="https://getbootstrap.com/docs/5.3/components/dropdowns/">Bootstrap Dropdown</see> toggle button which triggers the <see cref="HxDropdown"/> to open.
 /// </summary>
 public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncDisposable
 {
@@ -114,7 +114,7 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	protected virtual string GetCssClass()
 	{
 		/*
-		 * Despite the name the .dropdown-toggle is the class which does nothing else than the caret (arrow ::after and no-wrap to prevent caret wraping).
+		 * Despite the name the .dropdown-toggle is the class which does nothing else than the caret (arrow ::after and no-wrap to prevent caret wrapping).
 		 * If it later turns out to be used for other reasons we will need to add the .dropdown-toggle-no-caret class to prevent the caret from being displayed.
 		 */
 		return CssClassHelper.Combine(
@@ -159,7 +159,7 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	}
 
 	/// <summary>
-	/// Receives notification from javascript when dropdown is shown.
+	/// Receives notification from JavaScript when dropdown is shown.
 	/// </summary>
 	/// <remarks>
 	/// the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
@@ -172,7 +172,7 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	}
 
 	/// <summary>
-	/// Receives notification from javascript when item is hidden.
+	/// Receives notification from JavaScript when item is hidden.
 	/// </summary>
 	[JSInvokable("HxDropdown_HandleJsHidden")]
 	public async Task HandleJsHidden()

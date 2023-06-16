@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.2/components/navs-tabs/">Bootstrap Nav</see> component.<br />
+/// <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/">Bootstrap Nav</see> component.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNav">https://havit.blazor.eu/components/HxNav</see>
 /// </summary>
 public partial class HxNav
@@ -61,6 +61,7 @@ public partial class HxNav
 			NavVariant.Standard => null,
 			NavVariant.Pills => "nav-pills",
 			NavVariant.Tabs => "nav-tabs",
+			NavVariant.Underline => "nav-underline",
 			_ => throw new InvalidOperationException($"Unknown {nameof(NavVariant)} value {this.Variant}.")
 		};
 	}

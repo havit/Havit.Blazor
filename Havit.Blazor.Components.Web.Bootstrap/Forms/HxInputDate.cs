@@ -20,12 +20,12 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected override InputDateSettings GetDefaults() => HxInputDate.Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDate.Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDate.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public InputDateSettings Settings { get; set; }
 
@@ -33,7 +33,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected override InputDateSettings GetSettings() => this.Settings;
 
@@ -101,7 +101,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
-	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* renderování labelu zajistí HxInputDateInternal */ : LabelValueRenderOrder.LabelValue;
+	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* label rendered by HxInputDateInternal */ : LabelValueRenderOrder.LabelValue;
 
 	/// <summary>
 	/// Custom CSS class to render with input-group span.
@@ -131,8 +131,8 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 	public HxInputDate()
 	{
-		Type undelyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-		if (!supportedTypes.Contains(undelyingType))
+		Type underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+		if (!supportedTypes.Contains(underlyingType))
 		{
 			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
 		}
@@ -140,7 +140,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
-		RenderWithAutoCreatedEditContextAsCascandingValue(builder, 0, BuildRenderInputCore);
+		RenderWithAutoCreatedEditContextAsCascadingValue(builder, 0, BuildRenderInputCore);
 	}
 
 	protected virtual void BuildRenderInputCore(RenderTreeBuilder builder)

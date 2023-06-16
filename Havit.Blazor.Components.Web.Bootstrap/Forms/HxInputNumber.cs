@@ -32,12 +32,12 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descandants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
 	protected override InputNumberSettings GetDefaults() => HxInputNumber.Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputNumber.Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputNumber.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public InputNumberSettings Settings { get; set; }
 
@@ -45,7 +45,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	/// Returns optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descandants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
 	protected override InputNumberSettings GetSettings() => this.Settings;
 
@@ -122,15 +122,15 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	{
 		get
 		{
-			Type undelyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-			return (undelyingType == typeof(byte))
-				|| (undelyingType == typeof(sbyte))
-				|| (undelyingType == typeof(short))
-				|| (undelyingType == typeof(ushort))
-				|| (undelyingType == typeof(int))
-				|| (undelyingType == typeof(uint))
-				|| (undelyingType == typeof(long))
-				|| (undelyingType == typeof(ulong));
+			Type underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+			return (underlyingType == typeof(byte))
+				|| (underlyingType == typeof(sbyte))
+				|| (underlyingType == typeof(short))
+				|| (underlyingType == typeof(ushort))
+				|| (underlyingType == typeof(int))
+				|| (underlyingType == typeof(uint))
+				|| (underlyingType == typeof(long))
+				|| (underlyingType == typeof(ulong));
 		}
 	}
 
@@ -139,8 +139,8 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	/// </summary>
 	public HxInputNumber()
 	{
-		Type undelyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-		if (!supportedTypes.Contains(undelyingType))
+		Type underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+		if (!supportedTypes.Contains(underlyingType))
 		{
 			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
 		}
@@ -170,11 +170,11 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 
 		// The counting sequence values violate all general recommendations.
-		// We want the value of the HxInputNumber to be updated (rerendered) when the user input changes, even if FormatValueAsString(Value) hasn't changed.
+		// We want the value of the HxInputNumber to be updated (re-rendered) when the user input changes, even if FormatValueAsString(Value) hasn't changed.
 		// The reason for this is that if a value such as "1.00" is displayed and a user modifies it to "1.0", FormatValueAsString(Value) isn't going to change,
-		// the attribute is not rerendered, so the user input stays at "1.0".
+		// the attribute is not re-rendered, so the user input stays at "1.0".
 		// To solve this issue, we will use the sequence values 1005, 1006, 1007, ... That way, we force Blazor to update the value anyway (because of the sequence change).
-		// However, we adjust the sequence only if we want to enforce the rerendering. Otherwise, the component would update all the time.
+		// However, we adjust the sequence only if we want to enforce the re-rendering. Otherwise, the component would update all the time.
 		// (Originally, we wanted to use the sequences 1000 and 1001, which we would toggle.
 		// However, this doesn't work - Blazor probably realizes that it should add the value (sequence 1000) and then remove the value (sequence 1001), resulting in a missing value of the input.)
 		checked
@@ -186,7 +186,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 			}
 			builder.AddAttribute(1006 + valueSequenceOffset, "value", FormatValueAsString(Value));
 		}
-		builder.AddElementReferenceCapture(Int32.MaxValue, elementReferece => InputElement = elementReferece);
+		builder.AddElementReferenceCapture(Int32.MaxValue, elementReference => InputElement = elementReference);
 
 		builder.CloseElement();
 	}

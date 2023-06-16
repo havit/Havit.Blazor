@@ -26,13 +26,13 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 
 	/// <summary>
 	/// Returns <see cref="HxInputRange"/> defaults.
-	/// Enables to not share defaults in descandants with base classes.
+	/// Enables to not share defaults in descendants with base classes.
 	/// Enables to have multiple descendants which differs in the default values.
 	/// </summary>
 	protected override InputRangeSettings GetDefaults() => HxInputRange.Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputRange.Defaults"/>, overriden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputRange.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public InputRangeSettings Settings { get; set; }
 
@@ -70,9 +70,9 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 
 	public HxInputRange()
 	{
-		Type undelyingType = typeof(TValue);
+		Type underlyingType = typeof(TValue);
 
-		if (!supportedTypes.Contains(undelyingType))
+		if (!supportedTypes.Contains(underlyingType))
 		{
 			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
 		}

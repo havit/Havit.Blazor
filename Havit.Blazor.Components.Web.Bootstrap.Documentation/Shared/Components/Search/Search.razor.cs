@@ -113,6 +113,7 @@ public partial class Search
 		// Concepts
 		new("/concepts/defaults-and-settings", "Defaults & Settings", "configuration themes wide preset"),
 		new("/concepts/Debouncer", "Debouncer", "delay timer"),
+		new("/concepts/dark-color-mode-theme", "Dark color mode", "dark color theme"),
 
 		// Supportive types
 
@@ -156,6 +157,7 @@ public partial class Search
 		// Enums
 
 		new("/types/BadgeType", "BadgeType", "enum shape", EnumsLevel),
+		new("/types/BootstrapTheme", "BootstrapTheme", "enum", EnumsLevel),
 		new("/types/ButtonGroupOrientation", "ButtonGroupOrientation", "enum", EnumsLevel),
 		new("/types/ButtonGroupSize", "ButtonGroupSize", "enum", EnumsLevel),
 		new("/types/ButtonIconPlacement", "ButtonIconPlacement", "enum", EnumsLevel),
@@ -176,7 +178,6 @@ public partial class Search
 		new("/types/ModalFullscreen", "ModalFullscreen", "enum behavior", EnumsLevel),
 		new("/types/ModalSize", "ModalSize", "enum", EnumsLevel),
 		new("/types/AnchorFragmentNavigationAutomationMode", "AnchorFragmentNavigationAutomationMode", "enum", EnumsLevel),
-		new("/types/NavbarColorScheme", "NavbarColorScheme", "enum", EnumsLevel),
 		new("/types/NavbarExpand", "NavbarExpand", "enum responsive expand breakpoint", EnumsLevel),
 		new("/types/NavOrientation", "NavOrientation", "enum", EnumsLevel),
 		new("/types/NavVariant", "NavVariant", "enum", EnumsLevel),
