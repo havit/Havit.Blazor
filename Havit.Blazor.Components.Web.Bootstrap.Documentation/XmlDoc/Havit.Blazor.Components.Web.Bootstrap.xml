@@ -7186,6 +7186,18 @@
             Additional footer CSS class (<c>div.modal-footer</c>).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnHiding">
+            <summary>
+            This event is fired immediately when the hide instance method has been called.<br/>
+            This can be caused by <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HideAsync"/>, close-button, <kbd>Esc</kbd> key or other interaction.
+            Hiding can be cancelled by setting <see cref="P:Havit.Blazor.Components.Web.Bootstrap.ModalHidingEventArgs.Cancel"/> = <c>true</c>
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.InvokeOnHidingAsync(Havit.Blazor.Components.Web.Bootstrap.ModalHidingEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnHiding"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnClosed">
             <summary>
             This event is fired when the modal has finished being hidden from the user (will wait for CSS transitions to complete).<br/>
@@ -7215,6 +7227,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HideAsync">
             <summary>
             Closes the modal.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HandleModalHide">
+            <summary>
+            Receives notification from JS for <c>hide.bs.modal</c> event.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HandleModalHidden">
@@ -7312,6 +7329,11 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.XxlDown">
             <summary>
             Fullscreen for viewports bellow "XXL" breakpoint (<c>1400px</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalHidingEventArgs.Cancel">
+            <summary>
+            Set <c>true</c> to cancel modal hiding.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalSettings">
