@@ -175,6 +175,10 @@ public partial class HxModal : IAsyncDisposable
 	/// This can be caused by <see cref="HideAsync"/>, close-button, <kbd>Esc</kbd> key or other interaction.
 	/// Hiding can be cancelled by setting <see cref="ModalHidingEventArgs.Cancel"/> = <c>true</c>
 	/// </summary>
+	/// <remarks>
+	/// There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override as we want to avoid confusion.
+	/// The <code>hide.bs.modal</code> event is subscribed only when <see cref="OnHiding"/> callback is set.
+	/// </remarks>
 	[Parameter] public EventCallback<ModalHidingEventArgs> OnHiding { get; set; }
 
 	/// <summary>
