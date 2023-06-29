@@ -1558,6 +1558,11 @@
             Stop onClick-event propagation. Default is <c>true</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Href">
+            <summary>
+            Navigation target.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.FormState">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.FormState" />
         </member>
@@ -7192,11 +7197,10 @@
             This can be caused by <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HideAsync"/>, close-button, <kbd>Esc</kbd> key or other interaction.
             Hiding can be cancelled by setting <see cref="P:Havit.Blazor.Components.Web.Bootstrap.ModalHidingEventArgs.Cancel"/> = <c>true</c>
             </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.InvokeOnHidingAsync(Havit.Blazor.Components.Web.Bootstrap.ModalHidingEventArgs)">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnHiding"/> event. Allows interception of the event in derived components.
-            </summary>
+            <remarks>
+            There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override as we want to avoid confusion.
+            The <code>hide.bs.modal</code> event is subscribed only when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnHiding"/> callback is set.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnClosed">
             <summary>
