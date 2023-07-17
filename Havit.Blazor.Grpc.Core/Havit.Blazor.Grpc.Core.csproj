@@ -15,7 +15,7 @@
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Havit.Core" Version="2.0.26" />
+		<PackageReference Include="Havit.Core" Version="2.0.27" />
 		<PackageReference Include="protobuf-net" Version="3.2.26" />
 		<PackageReference Include="protobuf-net.Grpc" Version="1.1.1" />
 	</ItemGroup>
