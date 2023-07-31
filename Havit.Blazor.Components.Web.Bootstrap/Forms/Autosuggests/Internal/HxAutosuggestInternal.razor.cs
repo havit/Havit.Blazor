@@ -191,7 +191,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 		timer?.Stop(); // if waiting for an interval, stop it
 		cancellationTokenSource?.Cancel(); // if already loading data, cancel it
-		dataProviderInProgress = false; // data provider is no more in progress				 
+		dataProviderInProgress = false; // data provider is no more in progress
 
 		// start new time interval
 		if (userInput.Length >= MinimumLengthEffective)
@@ -258,7 +258,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		blurInProgress = true;
 		timer?.Stop(); // if waiting for an interval, stop it
 		cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
-		dataProviderInProgress = false; // data provider is no more in progress				 
+		dataProviderInProgress = false; // data provider is no more in progress
 	}
 
 	private async Task UpdateSuggestionsAsync()
@@ -338,6 +338,8 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			{
 				focusedItemIndex = previousItemIndex;
 				StateHasChanged();
+
+				await jsModule.InvokeVoidAsync("scrollToSelectedItem", InputId);
 			}
 		}
 		else if (keyCode == KeyCodes.ArrowDown)
@@ -347,6 +349,8 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			{
 				focusedItemIndex = nextItemIndex;
 				StateHasChanged();
+
+				await jsModule.InvokeVoidAsync("scrollToSelectedItem", InputId);
 			}
 		}
 	}

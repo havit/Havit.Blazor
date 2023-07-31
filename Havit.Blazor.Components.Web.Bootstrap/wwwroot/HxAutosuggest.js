@@ -20,6 +20,30 @@ function handleKeyDown(event) {
     }
 }
 
+export function scrollToSelectedItem(inputId) {
+	const inputElement = document.getElementById(inputId);
+	if (!inputElement) {
+		return;
+	}
+
+	const wrapperElements = document.getElementsByClassName("hx-autosuggest");
+	if (!wrapperElements) {
+		return;
+	}
+
+	const currentWrapper = Array.from(wrapperElements).find(node => node.contains(inputElement));
+	if (!currentWrapper) {
+		return;
+	}
+
+	const selectedItem = currentWrapper.getElementsByClassName("hx-autosuggest-item-focused");
+	if (!selectedItem) {
+		return;
+	}
+
+	selectedItem[0].scrollIntoView({ block: "nearest", inline: "nearest" });
+}
+
 export function open(inputElement, hxAutosuggestDotnetObjectReference) {
 	if (!inputElement) {
 		return;
@@ -56,7 +80,7 @@ function handleDropdownHidden(event) {
     // But we need the item click event to fire first.
     // Therefore we delay jsinterop for a while.
     window.setTimeout(function (element) {
-        element.hxAutosuggestDotnetObjectReference.invokeMethodAsync('HxAutosuggestInternal_HandleDropdownHidden');       
+        element.hxAutosuggestDotnetObjectReference.invokeMethodAsync('HxAutosuggestInternal_HandleDropdownHidden');
     }, 1, event.target);
 
 	var d = bootstrap.Dropdown.getInstance(event.target);
