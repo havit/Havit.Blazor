@@ -1,51 +1,39 @@
-﻿@using System.Globalization
+﻿@inject IDemoDataService DemoDataService
 
-<HxAutosuggest Label="CultureInfo"
-               Placeholder="Start typing to see suggestions"
-               TItem="CultureInfo"
-               TValue="int?"
-               @bind-Value="@autosuggestValue"
-               DataProvider="ProvideSuggestions"
-               ValueSelector="(CultureInfo c) => c.LCID"
-               ItemFromValueResolver="ResolveAutosuggestItemFromValue">
-    <ItemTemplate Context="item">
-        @item.EnglishName <sup>@item.LCID</sup>
-    </ItemTemplate>
-    <EmptyTemplate>
-        <span class="p-2">Couldn't find any matching locale</span>
-    </EmptyTemplate>
+<HxAutosuggest Label="Employee"
+			   Placeholder="Start typing to see suggestions"
+			   TItem="EmployeeDto"
+			   TValue="int?"
+			   @bind-Value="@selectedEmployeeId"
+			   DataProvider="ProvideSuggestions"
+			   ValueSelector="employee => employee.Id"
+			   TextSelector="employee => employee.Name"
+			   ItemFromValueResolver="ResolveAutosuggestItemFromValue">
+	<EmptyTemplate>
+		<span class="p-2">Couldn't find any matching employee</span>
+	</EmptyTemplate>
 </HxAutosuggest>
 
-<p class="mt-3">Current value: @autosuggestValue</p>
+<p class="mt-3">Selected employee ID: @selectedEmployeeId</p>
 
 @code
 {
-    private int? autosuggestValue = 1033;
+	private int? selectedEmployeeId = 1;
 
-    private async Task<AutosuggestDataProviderResult<CultureInfo>> ProvideSuggestions(AutosuggestDataProviderRequest request)
-    {
-        await Task.Delay(400); // backend API speed simulation
+	private async Task<AutosuggestDataProviderResult<EmployeeDto>> ProvideSuggestions(AutosuggestDataProviderRequest request)
+	{
+		var matchingEmployees = await DemoDataService.FindEmployeesByNameAsync(request.UserInput, limitCount: 10, request.CancellationToken);
 
-        return new AutosuggestDataProviderResult<CultureInfo>
-            {
-                Data = CultureInfo.GetCultures(CultureTypes.AllCultures)
-                            .Where(c => c.LCID != 4096)
-                            .Where(c => c.EnglishName?.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase) ?? false)
-                            .OrderBy(c => c.EnglishName)
-                            .Take(10) // you should always limit the output to the number of items you want to be suggested
-                            .ToList()
-            };
-    }
+		return new AutosuggestDataProviderResult<EmployeeDto> { Data = matchingEmployees };
+	}
 
-    private async Task<CultureInfo> ResolveAutosuggestItemFromValue(int? value)
-    {
-        if (value is null)
-        {
-            return null;
-        }
+	private async Task<EmployeeDto> ResolveAutosuggestItemFromValue(int? value)
+	{
+		if (value is null)
+		{
+			return null;
+		}
 
-        await Task.Delay(400); // backend API speed simulation
-
-        return CultureInfo.GetCultureInfo(value.Value);
-    }
+		return await DemoDataService.GetEmployeeByIdAsync(value.Value);
+	}
 }

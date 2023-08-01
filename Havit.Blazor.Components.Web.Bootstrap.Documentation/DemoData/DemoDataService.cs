@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.DemoData;
+﻿using System.Threading;
+
+namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.DemoData;
 
 public class DemoDataService : IDemoDataService
 {
@@ -315,8 +317,8 @@ public class DemoDataService : IDemoDataService
 			new EmployeeDto()
 			{
 				Id = 31,
-				Name = "John Smith",
-				Email = "john.smith@company.demo",
+				Name = "Jane Smith",
+				Email = "jane.smith@company.demo",
 				Phone = "+420 123 456 789",
 				Salary = 20000M,
 				Position = "Software Engineer",
@@ -552,11 +554,25 @@ public class DemoDataService : IDemoDataService
 		return employees.Count;
 	}
 
-	public async Task<List<EmployeeDto>> FindEmployeesByName(string query, CancellationToken cancellationToken = default)
+	public async Task<List<EmployeeDto>> FindEmployeesByNameAsync(string query, int? limitCount = null, CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation($"DemoDataService.FindEmployeesByName(\"{query}\") called.");
+		logger.LogInformation($"DemoDataService.FindEmployeesByName(\"{query}\", {limitCount}) called.");
 
 		await Task.Delay(180, cancellationToken); // simulate server call
-		return employees.Where(e => e.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+		return employees
+			.Where(e => e.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
+			.OrderBy(e => e.Name)
+			.Take(limitCount ?? Int32.MaxValue)
+			.ToList();
+	}
+
+	public async Task<EmployeeDto> GetEmployeeByIdAsync(int employeeId, CancellationToken cancellationToken = default)
+	{
+		logger.LogInformation($"DemoDataService.GetEmployeeById(\"{employeeId}\") called.");
+
+		await Task.Delay(80, cancellationToken); // simulate server call
+
+		return employees.FirstOrDefault(e => e.Id == employeeId);
 	}
 }
