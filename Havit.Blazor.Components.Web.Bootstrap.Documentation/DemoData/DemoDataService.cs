@@ -556,7 +556,7 @@ public class DemoDataService : IDemoDataService
 
 	public async Task<List<EmployeeDto>> FindEmployeesByNameAsync(string query, int? limitCount = null, CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation($"DemoDataService.FindEmployeesByName(\"{query}\", {limitCount}) called.");
+		logger.LogInformation($"DemoDataService.FindEmployeesByNameAsync(\"{query}\", {limitCount}) called.");
 
 		await Task.Delay(180, cancellationToken); // simulate server call
 
@@ -569,10 +569,19 @@ public class DemoDataService : IDemoDataService
 
 	public async Task<EmployeeDto> GetEmployeeByIdAsync(int employeeId, CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation($"DemoDataService.GetEmployeeById(\"{employeeId}\") called.");
+		logger.LogInformation($"DemoDataService.GetEmployeeByIdAsync(\"{employeeId}\") called.");
 
 		await Task.Delay(80, cancellationToken); // simulate server call
 
 		return employees.FirstOrDefault(e => e.Id == employeeId);
+	}
+
+	public async Task<List<EmployeeDto>> GetPreferredEmployeesAsync(int count, CancellationToken cancellationToken = default)
+	{
+		logger.LogInformation($"DemoDataService.GetPreferredEmployeesAsync({count}) called.");
+
+		await Task.Delay(150, cancellationToken); // simulate server call
+
+		return employees.OrderByDescending(e => e.Id).Take(count).ToList();
 	}
 }

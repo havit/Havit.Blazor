@@ -9,4 +9,5 @@ public interface IDemoDataService
 	Task<int> GetEmployeesCountAsync(CancellationToken cancellationToken = default);
 	Task<List<EmployeeDto>> FindEmployeesByNameAsync(string query, int? limitCount = null, CancellationToken cancellationToken = default);
 	Task<EmployeeDto> GetEmployeeByIdAsync(int employeeId, CancellationToken cancellationToken = default);
+	Task<List<EmployeeDto>> GetPreferredEmployeesAsync(int count, CancellationToken cancellationToken = default);
 }
