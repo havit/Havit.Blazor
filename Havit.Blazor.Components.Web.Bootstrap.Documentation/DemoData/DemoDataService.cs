@@ -580,7 +580,7 @@ public class DemoDataService : IDemoDataService
 	{
 		logger.LogInformation($"DemoDataService.GetPreferredEmployeesAsync({count}) called.");
 
-		await Task.Delay(150, cancellationToken); // simulate server call
+		await Task.Delay(180, cancellationToken); // simulate server call
 
 		return employees.OrderByDescending(e => e.Id).Take(count).ToList();
 	}
