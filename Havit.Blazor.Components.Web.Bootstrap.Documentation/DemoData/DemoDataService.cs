@@ -523,6 +523,16 @@ public class DemoDataService : IDemoDataService
 				Salary = 19000M,
 				Position = "Sales Representative",
 				Location = "Brno"
+			},
+			new EmployeeDto()
+			{
+				Id = 52,
+				Name = "Dominik Johnson",
+				Email = "dominik.johnson@company.demo",
+				Phone = "+420 222 555 999",
+				Salary = 45000M,
+				Position = "CEO",
+				Location = "Prague"
 			}
 		};
 	}
@@ -580,7 +590,7 @@ public class DemoDataService : IDemoDataService
 	{
 		logger.LogInformation($"DemoDataService.GetPreferredEmployeesAsync({count}) called.");
 
-		await Task.Delay(180, cancellationToken); // simulate server call
+		await Task.Delay(80, cancellationToken); // simulate server call
 
 		return employees.OrderByDescending(e => e.Id).Take(count).ToList();
 	}

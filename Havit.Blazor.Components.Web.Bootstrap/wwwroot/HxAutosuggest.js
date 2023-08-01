@@ -6,6 +6,7 @@
 
 	inputElement.hxAutosuggestDotnetObjectReference = hxAutosuggestDotnetObjectReference;
 	inputElement.hxAutosuggestKeysToPreventDefault = keysToPreventDefault;
+	inputElement.clickIsComing = false;
 
 	inputElement.addEventListener('keydown', handleKeyDown);
 
