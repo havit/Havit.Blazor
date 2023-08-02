@@ -198,6 +198,19 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	[Parameter] public Func<TItem, string> ItemRowCssClassSelector { get; set; }
 
 	/// <summary>
+	/// Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
+	/// unique identifier, such as a primary key value, for each data item.
+	///
+	/// This allows the grid to preserve the association between row elements and data items based on their
+	/// unique identifiers, even when the TGridItem instances are replaced by new copies (for
+	/// example, after a new query against the underlying data store).
+	///
+	/// If not set, the @key will be the TItem instance itself.
+	/// </summary>
+	/// <remarks>Inspired by QuickGrid</remarks>
+	[Parameter] public Func<TItem, object> ItemKeySelector { get; set; } = x => x;
+
+	/// <summary>
 	/// Custom CSS class to render with footer <c>tr</c> element.
 	/// </summary>
 	[Parameter] public string FooterRowCssClass { get; set; }

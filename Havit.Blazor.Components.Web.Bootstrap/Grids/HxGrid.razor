@@ -72,7 +72,7 @@
 							var headerCellTemplate = column.GetHeaderCellTemplate(gridHeaderCellContext);
 							bool isSortingActive = (totalCount > 0) && columnSorting.Any();
 
-							<th role="@(isSortingActive ? "button" : null)"
+							<th @key="@column" role="@(isSortingActive ? "button" : null)"
 								class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isSortingActive ? (isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable") : null)"
 								@onclick="@(isSortingActive ? async () => await HandleSortingClick(column) : null)"
 								@onclick:stopPropagation="isSortingActive">
@@ -109,7 +109,7 @@
 									@foreach (IHxGridColumn<TItem> column in columnsToRender)
 									{
 										GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(placeholderContext);
-										<td class="@placeholderCellTemplate.CssClass">
+										<td @key="@column" class="@placeholderCellTemplate.CssClass">
 											@placeholderCellTemplate.Template
 										</td>
 									}
@@ -159,7 +159,8 @@
 						@<text>
 							@if (SelectionEnabled || MultiSelectionEnabled)
 							{
-								<tr role="button"
+								<tr @key="@(ItemKeySelector(item))"
+									role="button"
 									height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
 									class="@CssClassHelper.Combine(
 															ItemRowCssClassEffective,
@@ -172,7 +173,7 @@
 									{
 										// same as below in the else section
 										GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
-										<td class="@cellTemplate.CssClass">
+										<td @key="@column" class="@cellTemplate.CssClass">
 											@cellTemplate.Template
 										</td>
 									}
@@ -181,7 +182,8 @@
 							else
 							{
 								// !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
-								<tr height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
+							<tr @key="@(ItemKeySelector(item))"
+									height="@((this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
 									class="@CssClassHelper.Combine(ItemRowCssClassEffective, ItemRowCssClassSelector?.Invoke(item))"
 									@onclick:stopPropagation>
 			
@@ -189,7 +191,7 @@
 									{
 										// same as above this else section
 										GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
-										<td class="@cellTemplate.CssClass">
+										<td @key="@column" class="@cellTemplate.CssClass">
 											@cellTemplate.Template
 										</td>
 									}
@@ -208,7 +210,7 @@
 										@foreach (IHxGridColumn<TItem> column in columnsToRender)
 										{
 											GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
-											<td class="@placeholderCellTemplate.CssClass">
+											<td @key="@column" class="@placeholderCellTemplate.CssClass">
 												@placeholderCellTemplate.Template
 											</td>
 										}
@@ -236,7 +238,7 @@
 							<tr class="@FooterRowCssClassEffective">
 								@foreach (GridCellTemplate footerCellTemplate in footerTemplates)
 								{
-									<td class="@footerCellTemplate.CssClass">@footerCellTemplate.Template</td>
+									<td @key="@footerCellTemplate" class="@footerCellTemplate.CssClass">@footerCellTemplate.Template</td>
 								}
 							</tr>
 						</tfoot>
