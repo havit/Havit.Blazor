@@ -12,6 +12,17 @@
         <DocHeading Title="Basic usage" />
         <Demo Type="typeof(HxAutosuggest_Demo_Basic)" Tabs="false" />
 
+		<DocHeading Title="Initial suggestions" />
+		<p>
+			You can provide initial suggestions to the user by setting the <code>MinimumLength="0"</code>. This is useful when you want to display some suggestions to the user before he starts typing.
+		</p>
+		<Demo Type="typeof(HxAutosuggest_Demo_InitialSuggestions)" />
+		<DocAlert Type="DocAlertType.Warning">
+			Consider caching the initial suggestions to avoid unnecessary roundtrips for repetetive <code>DataProvider</code> calls.<br />
+			You might want to tweak the <code>Delay</code> parameter to disable/minimize the delay before the initial suggestions are displayed.<br />
+			In such case, consider using additional <a href="/concepts/Debouncer">Debouncer</a> for regular suggestions to avoid unnecessary roundtrips on every keystroke.
+		</DocAlert>
+
     </MainContent>
     <CssVariables>
         <ComponentApiDocCssVariable Name="--hx-autosuggest-input-close-icon-opacity" Default=".25">

@@ -7,5 +7,7 @@ public interface IDemoDataService
 
 	Task<IEnumerable<EmployeeDto>> GetEmployeesDataFragmentAsync(int startIndex, int? count, CancellationToken cancellationToken = default);
 	Task<int> GetEmployeesCountAsync(CancellationToken cancellationToken = default);
-	Task<List<EmployeeDto>> FindEmployeesByName(string query, CancellationToken cancellationToken = default);
+	Task<List<EmployeeDto>> FindEmployeesByNameAsync(string query, int? limitCount = null, CancellationToken cancellationToken = default);
+	Task<EmployeeDto> GetEmployeeByIdAsync(int employeeId, CancellationToken cancellationToken = default);
+	Task<List<EmployeeDto>> GetPreferredEmployeesAsync(int count, CancellationToken cancellationToken = default);
 }

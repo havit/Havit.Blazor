@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.DemoData;
+﻿using System.Threading;
+
+namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.DemoData;
 
 public class DemoDataService : IDemoDataService
 {
@@ -14,6 +16,7 @@ public class DemoDataService : IDemoDataService
 		{
 			new EmployeeDto()
 			{
+				Id = 1,
 				Name = "John Smith",
 				Email = "john.smith@company.demo",
 				Phone = "+420 123 456 789",
@@ -23,6 +26,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 2,
 				Name = "Mary Johnson",
 				Email = "mary.johnson@company.demo",
 				Phone = "+420 234 567 890",
@@ -32,6 +36,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 3,
 				Name = "David Lee",
 				Email = "david.lee@company.demo",
 				Phone = "+420 345 678 901",
@@ -41,6 +46,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 4,
 				Name = "Jasmine Kim",
 				Email = "jasmine.kim@company.demo",
 				Phone = "+420 456 789 012",
@@ -50,6 +56,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 5,
 				Name = "Alexandra Brown",
 				Email = "alexandra.brown@company.demo",
 				Phone = "+420 567 890 123",
@@ -59,6 +66,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 6,
 				Name = "Robert Garcia",
 				Email = "robert.garcia@company.demo",
 				Phone = "+420 789 012 345",
@@ -68,6 +76,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 7,
 				Name = "Olivia Smith",
 				Email = "olivia.smith@company.demo",
 				Phone = "+420 890 123 456",
@@ -77,6 +86,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 8,
 				Name = "Mason Johnson",
 				Email = "mason.johnson@company.demo",
 				Phone = "+420 012 345 678",
@@ -86,6 +96,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 9,
 				Name = "Ava Lee",
 				Email = "ava.lee@company.demo",
 				Phone = "+420 123 456 789",
@@ -95,6 +106,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 10,
 				Name = "Jacob Kim",
 				Email = "jacob.kim@company.demo",
 				Phone = "+420 234 567 890",
@@ -104,6 +116,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 11,
 				Name = "Samuel Adams",
 				Email = "samuel.adams@company.demo",
 				Phone = "+420 789 012 345",
@@ -113,6 +126,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 12,
 				Name = "Emily Park",
 				Email = "emily.park@company.demo",
 				Phone = "+420 890 123 456",
@@ -122,6 +136,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 13,
 				Name = "Nathan Williams",
 				Email = "nathan.williams@company.demo",
 				Phone = "+420 012 345 678",
@@ -131,6 +146,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 14,
 				Name = "Abby Kim",
 				Email = "abby.kim@company.demo",
 				Phone = "+420 123 456 789",
@@ -140,6 +156,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 15,
 				Name = "Daniel Choi",
 				Email = "daniel.choi@company.demo",
 				Phone = "+420 234 567 890",
@@ -149,6 +166,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 16,
 				Name = "Hannah Garcia",
 				Email = "hannah.garcia@company.demo",
 				Phone = "+420 123 456 789",
@@ -158,6 +176,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 17,
 				Name = "William Chen",
 				Email = "william.chen@company.demo",
 				Phone = "+420 234 567 890",
@@ -167,6 +186,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 18,
 				Name = "Ethan Davis",
 				Email = "ethan.davis@company.demo",
 				Phone = "+420 345 678 901",
@@ -176,6 +196,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 19,
 				Name = "Isabella Kim",
 				Email = "isabella.kim@company.demo",
 				Phone = "+420 456 789 012",
@@ -185,6 +206,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 20,
 				Name = "Jackson Brown",
 				Email = "jackson.brown@company.demo",
 				Phone = "+420 567 890 123",
@@ -194,6 +216,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 21,
 				Name = "Ella Davis",
 				Email = "ella.davis@company.demo",
 				Phone = "+420 123 456 789",
@@ -203,6 +226,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 22,
 				Name = "Ryan Nguyen",
 				Email = "ryan.nguyen@company.demo",
 				Phone = "+420 234 567 890",
@@ -212,6 +236,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 23,
 				Name = "Sophie Hernandez",
 				Email = "sophie.hernandez@company.demo",
 				Phone = "+420 345 678 901",
@@ -221,6 +246,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 24,
 				Name = "Alexander Kim",
 				Email = "alexander.kim@company.demo",
 				Phone = "+420 456 789 012",
@@ -230,6 +256,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 25,
 				Name = "Benjamin Brown",
 				Email = "benjamin.brown@company.demo",
 				Phone = "+420 567 890 123",
@@ -239,6 +266,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 26,
 				Name = "Robert Jackson",
 				Email = "robert.jackson@company.demo",
 				Phone = "+420 678 901 234",
@@ -248,6 +276,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 27,
 				Name = "Elizabeth Martinez",
 				Email = "elizabeth.martinez@company.demo",
 				Phone = "+420 789 012 345",
@@ -257,6 +286,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 28,
 				Name = "William Davis",
 				Email = "william.davis@company.demo",
 				Phone = "+420 890 123 456",
@@ -266,6 +296,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 29,
 				Name = "Sophia Lee",
 				Email = "sophia.lee@company.demo",
 				Phone = "+420 901 234 567",
@@ -275,6 +306,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 30,
 				Name = "Gabriel Garcia",
 				Email = "gabriel.garcia@company.demo",
 				Phone = "+420 012 345 678",
@@ -284,8 +316,9 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
-				Name = "John Smith",
-				Email = "john.smith@company.demo",
+				Id = 31,
+				Name = "Jane Smith",
+				Email = "jane.smith@company.demo",
 				Phone = "+420 123 456 789",
 				Salary = 20000M,
 				Position = "Software Engineer",
@@ -293,6 +326,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 32,
 				Name = "Jane Doe",
 				Email = "jane.doe@company.demo",
 				Phone = "+420 987 654 321",
@@ -302,6 +336,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 33,
 				Name = "Bob Johnson",
 				Email = "bob.johnson@company.demo",
 				Phone = "+420 555 555 555",
@@ -311,6 +346,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 34,
 				Name = "Sarah Lee",
 				Email = "sarah.lee@company.demo",
 				Phone = "+420 111 222 333",
@@ -320,6 +356,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 35,
 				Name = "David Kim",
 				Email = "david.kim@company.demo",
 				Phone = "+420 999 888 777",
@@ -329,6 +366,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 36,
 				Name = "Eva Novak",
 				Email = "eva.novak@company.demo",
 				Phone = "+420 777 777 777",
@@ -338,6 +376,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 37,
 				Name = "Adam Smith",
 				Email = "adam.smith@company.demo",
 				Phone = "+420 333 333 333",
@@ -347,6 +386,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 38,
 				Name = "Linda Lee",
 				Email = "linda.lee@company.demo",
 				Phone = "+420 222 222 222",
@@ -356,6 +396,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 39,
 				Name = "Peter Brown",
 				Email = "peter.brown@company.demo",
 				Phone = "+420 111 111 111",
@@ -365,6 +406,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 40,
 				Name = "Nina Black",
 				Email = "nina.black@company.demo",
 				Phone = "+420 999 999 999",
@@ -374,6 +416,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 41,
 				Name = "Mark Davis",
 				Email = "mark.davis@company.demo",
 				Phone = "+420 888 888 888",
@@ -383,6 +426,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 42,
 				Name = "Jack Green",
 				Email = "jack.green@company.demo",
 				Phone = "+420 666 666 666",
@@ -392,6 +436,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 43,
 				Name = "Emily Jones",
 				Email = "emily.jones@company.demo",
 				Phone = "+420 555 444 333",
@@ -401,6 +446,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 44,
 				Name = "Chris Wilson",
 				Email = "chris.wilson@company.demo",
 				Phone = "+420 777 888 999",
@@ -410,6 +456,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 45,
 				Name = "Olivia Taylor",
 				Email = "olivia.taylor@company.demo",
 				Phone = "+420 111 222 333",
@@ -419,6 +466,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 46,
 				Name = "Harry Brown",
 				Email = "harry.brown@company.demo",
 				Phone = "+420 444 555 666",
@@ -428,6 +476,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 47,
 				Name = "Sophia Wilson",
 				Email = "sophia.wilson@company.demo",
 				Phone = "+420 333 444 555",
@@ -437,6 +486,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 48,
 				Name = "Lucas Miller",
 				Email = "lucas.miller@company.demo",
 				Phone = "+420 777 666 555",
@@ -446,6 +496,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 49,
 				Name = "Mia Davis",
 				Email = "mia.davis@company.demo",
 				Phone = "+420 888 777 666",
@@ -455,6 +506,7 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 50,
 				Name = "Alexander Wilson",
 				Email = "alexander.wilson@company.demo",
 				Phone = "+420 222 333 444",
@@ -464,12 +516,23 @@ public class DemoDataService : IDemoDataService
 			},
 			new EmployeeDto()
 			{
+				Id = 51,
 				Name = "Charlotte Harris",
 				Email = "charlotte.harris@company.demo",
 				Phone = "+420 111 555 999",
 				Salary = 19000M,
 				Position = "Sales Representative",
 				Location = "Brno"
+			},
+			new EmployeeDto()
+			{
+				Id = 52,
+				Name = "Dominik Johnson",
+				Email = "dominik.johnson@company.demo",
+				Phone = "+420 222 555 999",
+				Salary = 45000M,
+				Position = "CEO",
+				Location = "Prague"
 			}
 		};
 	}
@@ -501,11 +564,34 @@ public class DemoDataService : IDemoDataService
 		return employees.Count;
 	}
 
-	public async Task<List<EmployeeDto>> FindEmployeesByName(string query, CancellationToken cancellationToken = default)
+	public async Task<List<EmployeeDto>> FindEmployeesByNameAsync(string query, int? limitCount = null, CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation($"DemoDataService.FindEmployeesByName(\"{query}\") called.");
+		logger.LogInformation($"DemoDataService.FindEmployeesByNameAsync(\"{query}\", {limitCount}) called.");
 
 		await Task.Delay(180, cancellationToken); // simulate server call
-		return employees.Where(e => e.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+		return employees
+			.Where(e => e.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
+			.OrderBy(e => e.Name)
+			.Take(limitCount ?? Int32.MaxValue)
+			.ToList();
+	}
+
+	public async Task<EmployeeDto> GetEmployeeByIdAsync(int employeeId, CancellationToken cancellationToken = default)
+	{
+		logger.LogInformation($"DemoDataService.GetEmployeeByIdAsync(\"{employeeId}\") called.");
+
+		await Task.Delay(80, cancellationToken); // simulate server call
+
+		return employees.FirstOrDefault(e => e.Id == employeeId);
+	}
+
+	public async Task<List<EmployeeDto>> GetPreferredEmployeesAsync(int count, CancellationToken cancellationToken = default)
+	{
+		logger.LogInformation($"DemoDataService.GetPreferredEmployeesAsync({count}) called.");
+
+		await Task.Delay(80, cancellationToken); // simulate server call
+
+		return employees.OrderByDescending(e => e.Id).Take(count).ToList();
 	}
 }

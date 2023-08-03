@@ -1,11 +1,12 @@
 ﻿@inject IDemoDataService DemoDataService
 
 <HxAutosuggest Label="Employee"
-			   Placeholder="Start typing to search by name"
+			   Placeholder="Click here to see initial suggestions, start typing to search by name"
 			   TItem="EmployeeDto"
 			   TValue="int?"
 			   @bind-Value="@selectedEmployeeId"
 			   DataProvider="ProvideSuggestions"
+			   MinimumLength="0"
 			   ValueSelector="employee => employee.Id"
 			   TextSelector="employee => employee.Name"
 			   ItemFromValueResolver="ResolveAutosuggestItemFromValue">
@@ -18,13 +19,18 @@
 
 @code
 {
-	private int? selectedEmployeeId = 1;
+	private int? selectedEmployeeId;
 
 	private async Task<AutosuggestDataProviderResult<EmployeeDto>> ProvideSuggestions(AutosuggestDataProviderRequest request)
 	{
-		var matchingEmployees = await DemoDataService.FindEmployeesByNameAsync(request.UserInput, limitCount: 10, request.CancellationToken);
+		if (request.UserInput?.Length > 0)
+		{
+			var matchingEmployees = await DemoDataService.FindEmployeesByNameAsync(request.UserInput, limitCount: 10, request.CancellationToken);
+			return new AutosuggestDataProviderResult<EmployeeDto> { Data = matchingEmployees };
+		}
 
-		return new AutosuggestDataProviderResult<EmployeeDto> { Data = matchingEmployees };
+		var initialSuggestions = await DemoDataService.GetPreferredEmployeesAsync(count: 10, request.CancellationToken);
+		return new AutosuggestDataProviderResult<EmployeeDto>() { Data = initialSuggestions };
 	}
 
 	private async Task<EmployeeDto> ResolveAutosuggestItemFromValue(int? value)

@@ -2,6 +2,7 @@
 
 public class EmployeeDto
 {
+	public int Id { get; internal set; }
 	public string Name { get; internal set; }
 	public string Email { get; internal set; }
 	public string Phone { get; internal set; }
