@@ -24,23 +24,13 @@ function handleKeyDown(event) {
 	}
 }
 
-export function scrollToSelectedItem(inputId) {
-	const inputElement = document.getElementById(inputId);
-	if (!inputElement) {
+export function scrollToSelectedItem(dropdownId) {
+	const dropdownElement = document.getElementById(dropdownId);
+	if (!dropdownElement) {
 		return;
 	}
 
-	const wrapperElements = document.getElementsByClassName("hx-autosuggest");
-	if (!wrapperElements) {
-		return;
-	}
-
-	const currentWrapper = Array.from(wrapperElements).find(node => node.contains(inputElement));
-	if (!currentWrapper) {
-		return;
-	}
-
-	const selectedItem = currentWrapper.getElementsByClassName("hx-autosuggest-item-focused");
+	const selectedItem = dropdownElement.getElementsByClassName("hx-autosuggest-item-focused");
 	if (!selectedItem) {
 		return;
 	}

@@ -339,7 +339,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 				focusedItemIndex = previousItemIndex;
 				StateHasChanged();
 
-				await jsModule.InvokeVoidAsync("scrollToSelectedItem", InputId);
+				await jsModule.InvokeVoidAsync("scrollToSelectedItem", dropdownId);
 			}
 		}
 		else if (keyCode == KeyCodes.ArrowDown)
@@ -350,7 +350,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 				focusedItemIndex = nextItemIndex;
 				StateHasChanged();
 
-				await jsModule.InvokeVoidAsync("scrollToSelectedItem", InputId);
+				await jsModule.InvokeVoidAsync("scrollToSelectedItem", dropdownId);
 			}
 		}
 	}
