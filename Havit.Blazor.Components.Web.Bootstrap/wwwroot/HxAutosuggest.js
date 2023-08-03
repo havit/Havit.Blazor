@@ -24,6 +24,20 @@ function handleKeyDown(event) {
 	}
 }
 
+export function scrollToSelectedItem(dropdownId) {
+	const dropdownElement = document.getElementById(dropdownId);
+	if (!dropdownElement) {
+		return;
+	}
+
+	const selectedItem = dropdownElement.getElementsByClassName("hx-autosuggest-item-focused");
+	if (!selectedItem) {
+		return;
+	}
+
+	selectedItem[0].scrollIntoView({ block: "nearest", inline: "nearest" });
+}
+
 export function open(inputElement, hxAutosuggestDotnetObjectReference) {
 	if (!inputElement) {
 		return;
