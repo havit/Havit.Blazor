@@ -159,10 +159,10 @@
 	--hx-tree-view-item-hover-background-opacity: 					.1;
 	--hx-tree-view-item-selected-background: 						var(--bs-primary-rgb);
 	--hx-tree-view-item-spacer-width: 								1rem;
-	--hx-tree-view-item-icon-margin: 								0 .25rem 0 0;
 	--hx-tree-view-item-font-size: 									.75rem;
 	--hx-tree-view-item-padding: 									.25rem .5rem;
 	--hx-tree-view-item-margin: 									0 0 .125rem 0;
+	--hx-tree-view-item-gap:										.25rem;
 	--hx-tree-view-expander-container-width: 						1rem;
 
 	/* HxProgressIndicator */

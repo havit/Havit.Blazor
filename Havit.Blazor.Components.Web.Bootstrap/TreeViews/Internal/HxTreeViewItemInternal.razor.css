@@ -2,13 +2,13 @@
 	display: flex;
 	cursor: pointer;
 	align-items: center;
+	gap: var(--hx-tree-view-item-gap);
 	padding: var(--hx-tree-view-item-padding);
 	margin: var(--hx-tree-view-item-margin);
 	font-size: var(--hx-tree-view-item-font-size);
 	border-radius: var(--hx-tree-view-item-border-radius);
 	background-color: var(--hx-tree-view-item-background);
 	color: var(--hx-tree-view-item-color);
-	transition: all 0.15s ease-in-out;
 	border-width: var(--hx-tree-view-item-border-width);
 	border-color: var(--hx-tree-view-item-border-color);
 	border-style: var(--hx-tree-view-item-border-style);
@@ -37,13 +37,12 @@
 	flex: 1;
 }
 
-.hx-tree-view-item-icon, .hx-tree-view-item-expander {
+.hx-tree-view-item-icon {
 	color: var(--hx-tree-view-item-hover-color);
-	margin: var(--hx-tree-view-item-icon-margin);
 }
 
 .hx-tree-view-item-expander {
-	transition: all 0.15s ease-in-out;
+	transition: transform 0.15s ease-in-out;
 	transform: rotate(0deg);
 }
 
@@ -51,7 +50,7 @@
 	transform: rotate(90deg);
 }
 
-.hx-tree-view-item-expander-container {
+::deep .hx-tree-view-item-expander-container {
 	width: var(--hx-tree-view-expander-container-width);
 	display: flex;
 	justify-content: center;
