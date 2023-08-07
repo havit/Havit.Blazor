@@ -72,11 +72,11 @@
 	--hx-context-menu-button-border: 								unset;
 	--hx-context-menu-button-border-radius: 						var(--bs-border-radius);
 	--hx-context-menu-button-padding: 								0 .25rem;
-	--hx-context-menu-button-hover-background: 						rgba(var(--bs-black-rgb), .1);
+	--hx-context-menu-button-hover-background: 						var(--bs-secondary-bg);
 	--hx-context-menu-item-icon-margin: 							0 .5rem 0 0;
 
 	/* HxGrid */
-	--hx-grid-button-hover-background: 								rgba(var(--bs-black-rgb), .1);
+	--hx-grid-button-hover-background: 								var(--bs-secondary-bg);
 	--hx-grid-button-border-radius: 								var(--bs-border-radius);
 	--hx-grid-sorted-icon-color: 									var(--bs-primary);
 

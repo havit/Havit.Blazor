@@ -2,9 +2,9 @@
 @* PERF!!! Heavily used in data-lists/grids/etc. => do not over-use subcomponents unless absolutely necessary => don't use HxDropdown components here *@
 <div class="@CssClassHelper.Combine("hx-context-menu", this.CssClassEffective)">
 	<div class="@CssClassHelper.Combine("dropdown", this.DropdownCssClassEffective)">
-		<span role="button" class="hx-context-menu-btn" id="@id" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @onclick:stopPropagation>
+		<div role="button" class="hx-context-menu-btn" id="@id" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @onclick:stopPropagation>
 			<HxIcon Icon="this.IconEffective" CssClass="@this.IconCssClassEffective" />
-		</span>
+		</div>
 		<ul class="@CssClassHelper.Combine("dropdown-menu", this.DropdownMenuAlignmentEffective.GetCssClass(), this.DropdownMenuCssClassEffective)" aria-labelledby="@id">
 			@ChildContent
 		</ul>
