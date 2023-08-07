@@ -70,7 +70,7 @@
 	/* HxContextMenu */
 	--hx-context-menu-button-color: 								unset;
 	--hx-context-menu-button-border: 								unset;
-	--hx-context-menu-button-border-radius: 						var(--bs-border-radius);
+	--hx-context-menu-button-border-radius: 						var(--bs-border-radius-sm);
 	--hx-context-menu-button-padding: 								0 .25rem;
 	--hx-context-menu-button-hover-background: 						var(--bs-secondary-bg);
 	--hx-context-menu-item-icon-margin: 							0 .5rem 0 0;
