@@ -343,7 +343,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 			if (shouldRefreshData)
 			{
-				await RefreshDataAsync();
+				await RefreshDataCoreAsync();
 			}
 		}
 		previousUserState = CurrentUserState;
@@ -368,7 +368,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		if (firstRender && ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)))
 		{
 			// except InfiniteScroll (Virtualize will initiate the load on its own), we want to load data on first render
-			await RefreshDataAsync();
+			await RefreshDataCoreAsync();
 		}
 
 		// when rendering page with no data, navigate one page back
@@ -380,7 +380,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 				: (int)Math.Ceiling((decimal)totalCount.Value / PageSizeEffective) - 1;
 			if (await SetCurrentPageIndexWithEventCallback(newPageIndex))
 			{
-				await RefreshDataAsync();
+				await RefreshDataCoreAsync();
 			}
 		}
 
@@ -526,7 +526,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 		if (await SetCurrentSortingWithEventCallback(newSorting))
 		{
-			await RefreshDataAsync();
+			await RefreshDataCoreAsync();
 		}
 	}
 
@@ -534,7 +534,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	{
 		if (await SetCurrentPageIndexWithEventCallback(newPageIndex))
 		{
-			await RefreshDataAsync();
+			await RefreshDataCoreAsync();
 		}
 	}
 
@@ -575,6 +575,22 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// </summary>
 	/// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
 	public async Task RefreshDataAsync()
+	{
+		if (firstRenderCompleted)
+		{
+			await RefreshDataCoreAsync();
+		}
+		else
+		{
+			// first render is not completed yet, default sorting not resolved yet, will load data in OnAfterRenderAsync
+		}
+	}
+
+	/// <summary>
+	/// Instructs the component to load data from its <see cref="DataProvider"/>.
+	/// Used in internal methods to implement the data-loading flow.
+	/// </summary>
+	protected async Task RefreshDataCoreAsync()
 	{
 		switch (ContentNavigationModeEffective)
 		{
