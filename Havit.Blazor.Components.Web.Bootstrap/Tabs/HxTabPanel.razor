@@ -37,13 +37,13 @@
     </div>;
 }
 
-@if (RenderMode == TabPanelRenderMode.Standard)
+@if (Variant == TabPanelVariant.Standard)
 {
     @tabsNavigation
     @tabsContent
 }
 
-@if (RenderMode == TabPanelRenderMode.Card)
+@if (Variant == TabPanelVariant.Card)
 {
     <HxCard Settings="CardSettings">
         <HeaderTemplate>

@@ -8000,16 +8000,6 @@
             Sub-items (not intended to be used for any other purpose).
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode">
-            <summary>
-            Render variations for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/>.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode.Card">
-            <summary>
-            Renders the navigation to a card's header <a href="https://getbootstrap.com/docs/5.3/components/card/#navigation">https://getbootstrap.com/docs/5.3/components/card/#navigation</a>
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavbarExpand">
             <summary>
             Responsive expand setting (breakpoint) for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar"/>.
@@ -8996,15 +8986,15 @@
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.RenderMode">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.Variant">
             <summary>
-            Whether to wrap the tab panel in a card with the tab navigation in the header.
+            Set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Card"/> if you want to wrap the tab panel in a card with the tab navigation in the header.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.CardSettings">
             <summary>
             Card settings for the wrapping card.
-            Applies only if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.RenderMode"/> is set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode.Card"/>.
+            Applies only if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.Variant"/> is set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Card"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ActiveTabId">
@@ -9047,6 +9037,16 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.DisposeAsync">
             <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant">
+            <summary>
+            Render variations for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Card">
+            <summary>
+            Renders the navigation to a card's header <a href="https://getbootstrap.com/docs/5.3/components/card/#navigation">https://getbootstrap.com/docs/5.3/components/card/#navigation</a>
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags">
             <summary>
