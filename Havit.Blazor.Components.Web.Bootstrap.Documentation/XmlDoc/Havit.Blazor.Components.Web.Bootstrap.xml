@@ -8991,6 +8991,12 @@
             Set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Card"/> if you want to wrap the tab panel in a card with the tab navigation in the header.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.RenderMode">
+            <summary>
+            Determines whether the content all tabs is always rendered or only if the tab is active.<br />
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode.AllTabs"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.CardSettings">
             <summary>
             Card settings for the wrapping card.
@@ -9037,6 +9043,21 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.DisposeAsync">
             <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode">
+            <summary>
+            <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/> render mode.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode.AllTabs">
+            <summary>
+            Content of all tabs is always rendered (and visibility set with CSS).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode.ActiveTabOnly">
+            <summary>
+            Tab content is rendered only when it is active.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant">
             <summary>

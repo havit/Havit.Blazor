@@ -26,6 +26,12 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	[Parameter] public TabPanelVariant Variant { get; set; } = TabPanelVariant.Standard;
 
 	/// <summary>
+	/// Determines whether the content all tabs is always rendered or only if the tab is active.<br />
+	/// Default is <see cref="TabPanelRenderMode.AllTabs"/>.
+	/// </summary>
+	[Parameter] public TabPanelRenderMode RenderMode { get; set; } = TabPanelRenderMode.AllTabs;
+
+	/// <summary>
 	/// Card settings for the wrapping card.
 	/// Applies only if <see cref="Variant"/> is set to <see cref="TabPanelVariant.Card"/>.
 	/// </summary>

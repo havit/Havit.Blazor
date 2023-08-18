@@ -1,0 +1,21 @@
+﻿@if (isLoading)
+{
+	<p class="py-2">Loading @Title...</p>
+}
+else
+{
+	<p class="py-2">Loaded @Title.</p>
+}
+
+@code {
+	[Parameter] public string Title { get; set; }
+
+	private bool isLoading = true;
+
+	protected override async Task OnParametersSetAsync()
+	{
+		isLoading = true;
+		await Task.Delay(3000);
+		isLoading = false;
+	}
+}
