@@ -262,7 +262,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		{
 			TextQuery = string.Empty;
 			await HandleTextQueryValueChanged(string.Empty);
-			await HandleTextQueryTriggered();
+			// should not invoke OnTextQueryTriggered as the intention (of the user) was not to search for empty string
 		}
 	}
 
