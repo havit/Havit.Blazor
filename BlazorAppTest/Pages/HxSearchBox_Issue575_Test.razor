@@ -5,6 +5,7 @@
 			 Label="Search"
 			 ItemTitleSelector="(i) => i.Title"
 			 @bind-TextQuery="textQuery"
+			 ItemSelectionBehavior="SearchBoxItemSelectionBehavior.SelectAndReplaceTextQueryWithItemTitle"
 			 OnItemSelected="HandleItemSelected"
 			 OnTextQueryTriggered="HandleTextQueryTriggered">
 	<DefaultContentTemplate>
@@ -23,7 +24,6 @@
 	private void HandleItemSelected(SearchBoxItem item)
 	{
 		selectedItemTitle = item.Title;
-		textQuery = string.Empty;
 	}
 	private void HandleTextQueryTriggered(string text)
 	{

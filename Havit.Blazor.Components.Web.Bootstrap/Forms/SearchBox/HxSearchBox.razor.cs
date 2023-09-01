@@ -70,6 +70,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	protected virtual Task InvokeOnItemSelectedAsync(TItem selectedItem) => OnItemSelected.InvokeAsync(selectedItem);
 
 	/// <summary>
+	/// Behavior when the item is selected.
+	/// </summary>
+	[Parameter] public SearchBoxItemSelectionBehavior? ItemSelectionBehavior { get; set; }
+	protected SearchBoxItemSelectionBehavior ItemSelectionBehaviorEffective => this.ItemSelectionBehavior ?? this.GetSettings()?.ItemSelectionBehavior ?? GetDefaults().ItemSelectionBehavior ?? throw new InvalidOperationException(nameof(ItemSelectionBehavior) + " default for " + nameof(HxSearchBox) + " has to be set.");
+
+	/// <summary>
 	/// Placeholder text for the search input.
 	/// </summary>
 	[Parameter] public string Placeholder { get; set; }
@@ -502,7 +508,18 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private async Task HandleItemSelected(TItem item)
 	{
-		this.TextQuery = ItemTitleSelector?.Invoke(item) ?? null;
+		switch (this.ItemSelectionBehaviorEffective)
+		{
+			case SearchBoxItemSelectionBehavior.SelectAndClearTextQuery:
+				this.TextQuery = String.Empty;
+				break;
+			case SearchBoxItemSelectionBehavior.SelectAndReplaceTextQueryWithItemTitle:
+				this.TextQuery = ItemTitleSelector?.Invoke(item) ?? null;
+				break;
+			default:
+				throw new InvalidOperationException($"Invalid {nameof(SearchBoxItemSelectionBehavior)} value: {this.ItemSelectionBehaviorEffective}");
+		}
+
 		await HideDropdownMenu();
 		await InvokeTextQueryChangedAsync(this.TextQuery);
 		await InvokeOnItemSelectedAsync(item);

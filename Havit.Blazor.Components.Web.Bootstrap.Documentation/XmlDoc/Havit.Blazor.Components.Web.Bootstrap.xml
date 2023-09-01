@@ -5103,6 +5103,11 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnItemSelected"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemSelectionBehavior">
+            <summary>
+            Behavior when the item is selected.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Placeholder">
             <summary>
             Placeholder text for the search input.
@@ -5278,6 +5283,11 @@
             Items provided by the request.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchBoxItemSelectionBehavior">
+            <summary>
+            Values for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemSelectionBehavior"/>."/>
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1"/> and derived components.
@@ -5326,6 +5336,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.InputGroupCssClass">
             <summary>
             Custom CSS class to render with input-group span.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.ItemSelectionBehavior">
+            <summary>
+            Behavior when the item is selected.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">

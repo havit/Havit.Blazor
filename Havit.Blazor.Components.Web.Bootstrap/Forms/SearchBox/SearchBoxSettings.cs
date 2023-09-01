@@ -49,4 +49,10 @@ public class SearchBoxSettings
 	/// Custom CSS class to render with input-group span.
 	/// </summary>
 	public string InputGroupCssClass { get; set; }
+
+	/// <summary>
+	/// Behavior when the item is selected.
+	/// </summary>
+	public SearchBoxItemSelectionBehavior? ItemSelectionBehavior { get; set; }
+
 }
