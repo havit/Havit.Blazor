@@ -71,8 +71,8 @@
     {
         SearchBoxDataProviderResult<SearchBoxItem> result = new()
         {
-            Data = Data.Where(i => i.Title.Contains(request.UserInput)).ToArray()
-        };
+				Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase)).ToArray()
+			};
 
         return Task.FromResult(result);
     }

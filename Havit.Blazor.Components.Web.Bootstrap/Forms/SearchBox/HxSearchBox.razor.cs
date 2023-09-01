@@ -1,5 +1,4 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
-using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
@@ -503,9 +502,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private async Task HandleItemSelected(TItem item)
 	{
-		await InvokeOnItemSelectedAsync(item);
-		await ClearInputAsync();
+		this.TextQuery = ItemTitleSelector?.Invoke(item) ?? null;
 		await HideDropdownMenu();
+		await InvokeTextQueryChangedAsync(this.TextQuery);
+		await InvokeOnItemSelectedAsync(item);
 	}
 
 	private async Task HandleDropdownMenuShown()
@@ -544,7 +544,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private bool ShouldDropdownMenuBeDisplayed()
 	{
 		if (textQueryHasBeenBelowMinimumLength
-			&& ((TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective)))
+			&& (TextQuery is not null)
+			&& (TextQuery.Length >= MinimumLengthEffective))
 		{
 			return false;
 		}
