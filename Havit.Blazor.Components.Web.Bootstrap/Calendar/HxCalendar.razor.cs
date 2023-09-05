@@ -100,6 +100,12 @@ public partial class HxCalendar
 	protected CalendarDateCustomizationProviderDelegate DateCustomizationProviderEffective => this.DateCustomizationProvider ?? this.GetSettings()?.DateCustomizationProvider ?? GetDefaults().DateCustomizationProvider;
 
 	/// <summary>
+	/// Allows customization of Today for when the client timezone doesn't match the servers timezone.
+	/// </summary>
+	[Parameter] public DateTime? Today { get; set; }
+	protected DateTime TodayEffective => this.Today ?? this.GetSettings()?.Today ?? DateTime.Today;
+
+	/// <summary>
 	/// Indicates whether the keyboard navigation is enabled. When disabled, the calendar renders tabindex="-1" on interactive elements.
 	/// Default is <c>true</c> (tabindex attribute is not rendered).
 	/// </summary>
@@ -136,9 +142,10 @@ public partial class HxCalendar
 		bool lastKnownValueChanged = lastKnownValue != Value;
 		lastKnownValue = Value;
 
-		if (DisplayMonth == default)
+		// Trigger display month change if not yet set or no value selected
+		if (DisplayMonth == default || (Value == null))
 		{
-			await SetDisplayMonthAsync(Value ?? DateTime.Today);
+			await SetDisplayMonthAsync(Value ?? TodayEffective);
 		}
 		else if ((Value != null) && lastKnownValueChanged && ((DisplayMonth.Year != Value.Value.Year) || (DisplayMonth.Month != Value.Value.Month)))
 		{
@@ -191,7 +198,7 @@ public partial class HxCalendar
 
 		DateTime currentDay = FirstDayToDisplay;
 		DateTime valueDay = Value?.Date ?? default;
-		DateTime today = DateTime.Today;
+		DateTime today = TodayEffective;
 
 		for (var week = 0; week < 6; week++)
 		{

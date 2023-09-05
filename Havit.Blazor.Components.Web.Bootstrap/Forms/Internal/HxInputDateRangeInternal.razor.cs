@@ -29,6 +29,8 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	[Parameter] public DateTime MaxDateEffective { get; set; }
 
+	[Parameter] public DateTime TodayEffective { get; set; }
+
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective { get; set; }
 
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }

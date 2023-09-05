@@ -637,6 +637,11 @@
             Maximal value to choose from calendar.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings.Today">
+            <summary>
+            Allows customization of Today for when the client timezone doesn't match the servers timezone.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings.DateCustomizationProvider">
             <summary>
             Allows customization of the dates in dropdown calendars.
@@ -727,6 +732,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.DateCustomizationProvider">
             <summary>
             Allows customization of the dates in calendar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.Today">
+            <summary>
+            Allows customization of Today for when the client timezone doesn't match the servers timezone.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.KeyboardNavigation">
@@ -3841,6 +3851,11 @@
             Default is <c>31.12.2099</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.Today">
+            <summary>
+            Allows customization of Today for when the client timezone doesn't match the servers timezone.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.CalendarDateCustomizationProvider">
             <summary>
             Allows customization of the dates in dropdown calendar.<br />
@@ -3967,6 +3982,11 @@
             <summary>
             Last date selectable from the dropdown calendar.<br />
             Default is <c>31.12.2099</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Today">
+            <summary>
+            Allows customization of Today for when the client timezone doesn't match the servers timezone.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.CalendarDateCustomizationProvider">
@@ -4871,6 +4891,11 @@
             Last date selectable from the dropdown calendar.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.Today">
+            <summary>
+            Allows customization of Today for when the client timezone doesn't match the servers timezone.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.CalendarDateCustomizationProvider">
             <summary>
             Allows customization of the dates in dropdown calendars.
@@ -4914,6 +4939,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.MaxDate">
             <summary>
             Last date selectable from the dropdown calendar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.Today">
+            <summary>
+            Allows customization of Today for when the client timezone doesn't match the servers timezone.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.CalendarDateCustomizationProvider">

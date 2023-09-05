@@ -29,6 +29,8 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	[Parameter] public DateTime MaxDateEffective { get; set; }
 
+	[Parameter] public DateTime TodayEffective { get; set; }
+
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective { get; set; }
 
 	[Parameter] public LabelType LabelTypeEffective { get; set; }

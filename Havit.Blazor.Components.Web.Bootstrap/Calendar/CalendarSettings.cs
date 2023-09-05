@@ -16,6 +16,11 @@ public record CalendarSettings
 	public DateTime? MaxDate { get; set; }
 
 	/// <summary>
+	/// Allows customization of Today for when the client timezone doesn't match the servers timezone.
+	/// </summary>
+	public DateTime? Today { get; set; }
+
+	/// <summary>
 	/// Allows customization of the dates in dropdown calendars.
 	/// </summary>
 	public CalendarDateCustomizationProviderDelegate DateCustomizationProvider { get; set; }

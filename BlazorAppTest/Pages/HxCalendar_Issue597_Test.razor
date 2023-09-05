@@ -1,0 +1,48 @@
+﻿@page "/HxCalendar_Issue597_Test"
+
+<h1>HxCalendar</h1>
+
+<HxCalendar @ref="calendar" @bind-Value="inputDate" Today="today" />
+<p>Today: @today</p>
+<p>Input: @inputDate</p>
+
+<HxInputDate @bind-Value="inputDate" Today="today" />
+<p>Input: @inputDate</p>
+
+<HxInputDateRange @bind-Value="inputDateRange" Today="today" />
+<p>Range: @inputDateRange</p>
+
+<HxButton Text="Reset" Color="ThemeColor.Secondary" OnClick="HandleTodayResetClick" />
+<HxButton Text="1. Set today to tomorrow" Color="ThemeColor.Secondary" OnClick="HandleTodayTomorrowClick" />
+<HxButton Text="2. Set today to yesterday" Color="ThemeColor.Secondary" OnClick="HandleTodayYesterdayClick" />
+<HxButton Text="3. Set today to last month" Color="ThemeColor.Secondary" OnClick="HandleTodayLastMonthClick" />
+
+@code {
+    private HxCalendar calendar;
+    DateTime? today = null;
+    DateTime? inputDate = null;
+    Havit.DateTimeRange inputDateRange = new Havit.DateTimeRange(DateTime.Today, DateTime.Today);
+
+    private void HandleTodayResetClick()
+    {
+        today = null;
+        inputDate = null;
+    }
+
+    private void HandleTodayTomorrowClick()
+    {
+        today = DateTime.Today + TimeSpan.FromDays(1);
+    }
+
+    private void HandleTodayYesterdayClick()
+    {
+        today = DateTime.Today + TimeSpan.FromDays(-1);
+    }
+
+    private void HandleTodayLastMonthClick()
+    {
+        // Need the additional -8 to trigger to show previous month
+        today = DateTime.Today + TimeSpan.FromDays(-DateTime.Today.Day-8);
+    }
+
+}

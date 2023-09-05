@@ -100,6 +100,12 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	protected DateTime MaxDateEffective => this.MaxDate ?? this.GetSettings()?.MaxDate ?? this.GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxInputDateRange) + " has to be set.");
 
 	/// <summary>
+	/// Allows customization of Today for when the client timezone doesn't match the servers timezone.
+	/// </summary>
+	[Parameter] public DateTime? Today { get; set; }
+	protected DateTime TodayEffective => this.Today ?? this.GetSettings()?.Today ?? DateTime.Today;
+
+	/// <summary>
 	/// Allows customization of the dates in dropdown calendars.<br />
 	/// Default customization is configurable with <see cref="HxInputDateRange.Defaults"/>.
 	/// </summary>
@@ -133,6 +139,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 		builder.AddAttribute(210, nameof(HxInputDateRangeInternal.ShowClearButtonEffective), ShowClearButtonEffective);
 		builder.AddAttribute(211, nameof(HxInputDateRangeInternal.MinDateEffective), MinDateEffective);
 		builder.AddAttribute(212, nameof(HxInputDateRangeInternal.MaxDateEffective), MaxDateEffective);
+		builder.AddAttribute(212, nameof(HxInputDateRangeInternal.TodayEffective), TodayEffective);
 		builder.AddAttribute(220, nameof(HxInputDateRangeInternal.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProviderEffective);
 
 		builder.AddMultipleAttributes(300, this.AdditionalAttributes);
