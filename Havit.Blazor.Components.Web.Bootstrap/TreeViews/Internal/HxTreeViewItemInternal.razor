@@ -43,26 +43,28 @@
 
 @if (hasChildren)
 {
-	<HxCollapse Id="@collapseId"
-            CollapseDirection="CollapseDirection.Vertical"
-            InitiallyExpanded="IsExpanded ?? false"
-            OnHidden="() => IsExpanded = false"
-            OnShown="() => IsExpanded = true">
+    <HxCollapse Id="@collapseId"
+                CollapseDirection="CollapseDirection.Vertical"
+                InitiallyExpanded="IsExpanded ?? false"
+                OnHidden="HandleOnHiddenAsync"
+                OnShown="HandleOnShownAsync">
 
         @foreach (var item in children)
         {
             <HxTreeViewItemInternal @key="item"
-                            TItem="TItem"
-                            Item="item"
-                            TitleSelector="this.TitleSelector"
-                            IconSelector="this.IconSelector"
-                            CssClass="@this.CssClass"
-                            CssClassSelector="this.CssClassSelector"
-							InitialExpandedSelector="this.InitialExpandedSelector"
-							ChildrenSelector="this.ChildrenSelector"
-                            Level="@(this.Level + 1)"
-                            ContentTemplate="this.ContentTemplate"
-                            OnItemSelected="this.OnItemSelected" />
+                                    TItem="TItem"
+                                    Item="item"
+                                    TitleSelector="this.TitleSelector"
+                                    IconSelector="this.IconSelector"
+                                    CssClass="@this.CssClass"
+                                    CssClassSelector="this.CssClassSelector"
+                                    InitialExpandedSelector="this.InitialExpandedSelector"
+                                    ChildrenSelector="this.ChildrenSelector"
+                                    Level="@(this.Level + 1)"
+                                    ContentTemplate="this.ContentTemplate"
+                                    OnItemSelected="this.OnItemSelected"
+                                    OnItemExpanded="OnItemExpanded"
+                                    OnItemCollapsed="OnItemCollapsed" />
         }
 
     </HxCollapse>
