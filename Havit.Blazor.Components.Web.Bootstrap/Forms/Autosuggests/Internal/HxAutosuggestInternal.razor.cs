@@ -236,7 +236,6 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			return;
 		}
 
-		// when an input gets focus, close a dropdown
 		currentlyFocused = true;
 		if (string.IsNullOrEmpty(userInput) && MinimumLengthEffective <= 0)
 		{

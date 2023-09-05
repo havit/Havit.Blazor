@@ -48,7 +48,7 @@ export function open(inputElement, hxAutosuggestDotnetObjectReference) {
 
 	var d = new bootstrap.Dropdown(inputElement);
 	if (d && (inputElement.clickIsComing === false)) {
-		// clickIsComing logic fixes #575 - Initial suggestions disappear when the DataProvider response is quick
+		// clickIsComing logic fixes #572 - Initial suggestions disappear when the DataProvider response is quick
 		// If click is coming, we do not want to show the dropdown as it will be toggled by the later click event (if we open it here, onfocus, click will hide it)
 		d.show();
 	}
