@@ -9643,6 +9643,16 @@
             Event fires when selected data item changes.
             </summary>		
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.OnItemExpanded">
+            <summary>
+            Event fires when expanding an item.
+            </summary>		
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.OnItemCollapsed">
+            <summary>
+            Event fires when collapsing an item.
+            </summary>		
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.InvokeSelectedDataItemChangedAsync(`0)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.SelectedItemChanged"/> event. Allows interception of the event in derived components.
