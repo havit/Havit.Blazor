@@ -10,8 +10,8 @@
                     ItemInitialExpandedSelector="@(p => p.Name == "C:\\")"
                     ItemChildrenSelector="@(p => p.Subdirectories)"
                     ItemIconSelector="@(p => p.Icon)"
-                    ItemCollapsed="OnHidden"
-                    ItemExpanded="OnShown">
+                    OnItemCollapsed="OnHidden"
+                    OnItemExpanded="OnShown">
             <ItemTemplate>
                     <div class="text-truncate">            
                         @context.Name

@@ -37,13 +37,13 @@ public partial class HxTreeViewItemInternal<TItem> : ComponentBase
 		await this.OnItemSelected.InvokeAsync(this.Item);
 	}
 
-	private async Task HandleOnHiddenAsync()
+	private async Task HandleCollapseHiddenAsync()
 	{
 		IsExpanded = false;
 		await OnItemCollapsed.InvokeAsync(this.Item);
 	}
 
-	private async Task HandleOnShownAsync()
+	private async Task HandleCollapseShownAsync()
 	{
 		IsExpanded = true;
 		await OnItemExpanded.InvokeAsync(this.Item);

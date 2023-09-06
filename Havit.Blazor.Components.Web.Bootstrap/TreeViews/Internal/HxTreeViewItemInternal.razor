@@ -46,8 +46,8 @@
     <HxCollapse Id="@collapseId"
                 CollapseDirection="CollapseDirection.Vertical"
                 InitiallyExpanded="IsExpanded ?? false"
-                OnHidden="HandleOnHiddenAsync"
-                OnShown="HandleOnShownAsync">
+                OnHidden="HandleCollapseHiddenAsync"
+                OnShown="HandleCollapseShownAsync">
 
         @foreach (var item in children)
         {

@@ -9643,12 +9643,12 @@
             Event fires when selected data item changes.
             </summary>		
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.ItemExpanded">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.OnItemExpanded">
             <summary>
             Event fires when expanding an item.
             </summary>		
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.ItemCollapsed">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.OnItemCollapsed">
             <summary>
             Event fires when collapsing an item.
             </summary>		

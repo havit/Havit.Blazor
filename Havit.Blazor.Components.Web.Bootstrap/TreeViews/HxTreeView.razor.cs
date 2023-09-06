@@ -24,12 +24,12 @@ public partial class HxTreeView<TItem> : ComponentBase
 	/// <summary>
 	/// Event fires when expanding an item.
 	/// </summary>		
-	[Parameter] public EventCallback<TItem> ItemExpanded { get; set; }
+	[Parameter] public EventCallback<TItem> OnItemExpanded { get; set; }
 
 	/// <summary>
 	/// Event fires when collapsing an item.
 	/// </summary>		
-	[Parameter] public EventCallback<TItem> ItemCollapsed { get; set; }
+	[Parameter] public EventCallback<TItem> OnItemCollapsed { get; set; }
 
 	/// <summary>
 	/// Triggers the <see cref="SelectedItemChanged"/> event. Allows interception of the event in derived components.
