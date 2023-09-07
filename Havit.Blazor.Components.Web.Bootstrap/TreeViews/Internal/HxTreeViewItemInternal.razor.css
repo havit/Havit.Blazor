@@ -41,16 +41,16 @@
 	color: var(--hx-tree-view-item-hover-color);
 }
 
-.hx-tree-view-item-expander {
+::deep .hx-tree-view-item-expander {
 	transition: transform 0.15s ease-in-out;
 	transform: rotate(0deg);
 }
 
-.hx-tree-view-item-expander-container:not(.collapsed) .hx-tree-view-item-expander {
+.hx-tree-view-item-expander-container:not(.collapsed) ::deep .hx-tree-view-item-expander {
 	transform: rotate(90deg);
 }
 
-::deep .hx-tree-view-item-expander-container {
+.hx-tree-view-item-expander-container {
 	width: var(--hx-tree-view-expander-container-width);
 	display: flex;
 	justify-content: center;
