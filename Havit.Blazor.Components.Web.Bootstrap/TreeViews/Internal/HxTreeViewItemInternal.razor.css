@@ -42,12 +42,17 @@
 }
 
 ::deep .hx-tree-view-item-expander {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
 	transition: transform 0.15s ease-in-out;
 	transform: rotate(0deg);
-}
 
-.hx-tree-view-item-expander-container:not(.collapsed) ::deep .hx-tree-view-item-expander {
-	transform: rotate(90deg);
+	&.collapsed {
+		transform: rotate(-90deg);
+	}
 }
 
 .hx-tree-view-item-expander-container {
