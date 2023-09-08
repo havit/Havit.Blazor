@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -105,6 +106,22 @@ public partial class HxCalendar
 	/// </summary>
 	[Parameter] public bool KeyboardNavigation { get; set; } = true;
 
+	// Set during SetParameterSetAsync to make it optional
+	protected TimeProvider? TimeProviderFromServices { get; set; }
+	[CascadingParameter] protected TimeProvider? TimeProviderFromCascade { get; set; } = null;
+	/// <summary>
+	/// TimeProvider is resolved in the following order:
+	/// 1. TimeProvider from this parameter
+	/// 2. TimeProvider from a CascadingValue
+	/// 3. TimeProvider from DependencyInjection
+	/// 4. Default TimeProvider.System
+	/// </summary>
+	[Parameter] public TimeProvider? TimeProvider { get; set; } = null;
+
+	protected TimeProvider TimeProviderEffective => TimeProvider ?? TimeProviderFromCascade ?? TimeProviderFromServices ?? TimeProvider.System;
+
+	[Inject] protected IServiceProvider ServiceProvider { get; set; }
+
 	private CultureInfo Culture => CultureInfo.CurrentUICulture;
 	private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;
 	protected DateTime DisplayMonthFirstDay => new DateTime(DisplayMonth.Year, DisplayMonth.Month, 1);
@@ -129,6 +146,13 @@ public partial class HxCalendar
 	private RenderData renderData;
 	private DateTime? lastKnownValue;
 
+	public override Task SetParametersAsync(ParameterView parameters)
+	{
+		TimeProviderFromServices = ServiceProvider.GetService<TimeProvider>();
+		return base.SetParametersAsync(parameters);
+
+	}
+
 	protected override async Task OnParametersSetAsync()
 	{
 		await base.OnParametersSetAsync();
@@ -138,7 +162,7 @@ public partial class HxCalendar
 
 		if (DisplayMonth == default)
 		{
-			await SetDisplayMonthAsync(Value ?? DateTime.Today);
+			await SetDisplayMonthAsync(Value ?? TimeProviderEffective.GetLocalNow().Date);
 		}
 		else if ((Value != null) && lastKnownValueChanged && ((DisplayMonth.Year != Value.Value.Year) || (DisplayMonth.Month != Value.Value.Month)))
 		{
@@ -191,7 +215,7 @@ public partial class HxCalendar
 
 		DateTime currentDay = FirstDayToDisplay;
 		DateTime valueDay = Value?.Date ?? default;
-		DateTime today = DateTime.Today;
+		DateTime today = TimeProviderEffective.GetLocalNow().Date;
 
 		for (var week = 0; week < 6; week++)
 		{

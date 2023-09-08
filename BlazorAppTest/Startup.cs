@@ -1,5 +1,6 @@
 using System.Globalization;
 using BlazorAppTest.Resources;
+using BlazorAppTest.Pages.HxCalendarComponents;
 using Havit.Blazor.Components.Web;
 using Havit.Blazor.GoogleTagManager;
 
@@ -26,6 +27,8 @@ public class Startup
 		services.AddRazorPages();
 		services.AddServerSideBlazor();
 
+		services.AddScoped<TimeProvider, ZonedTimeProvider>();
+		services.AddHxServices();
 		services.AddHxMessenger();
 		services.AddHxMessageBoxHost();
 		services.AddHxGoogleTagManager(options =>

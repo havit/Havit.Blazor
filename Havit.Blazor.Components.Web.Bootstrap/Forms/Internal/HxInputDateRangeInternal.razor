@@ -28,7 +28,7 @@
                     @if (EnabledEffective)
                     {
                         <div class="hx-input-date-range-calendar">
-                            <HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" KeyboardNavigation="false" />
+                            <HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" KeyboardNavigation="false" TimeProvider="TimeProvider" />
                         </div>
                         <div class="hx-input-date-range-buttons">
                             @if (ShowClearButtonEffective)
@@ -66,7 +66,7 @@
                     @if (EnabledEffective)
                     {
                         <div class="hx-input-date-range-calendar">
-                            <HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" KeyboardNavigation="false" />
+                            <HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" KeyboardNavigation="false" TimeProvider="TimeProvider" />
                         </div>
                         <div class="hx-input-date-range-buttons">
                             @if (ShowClearButtonEffective)

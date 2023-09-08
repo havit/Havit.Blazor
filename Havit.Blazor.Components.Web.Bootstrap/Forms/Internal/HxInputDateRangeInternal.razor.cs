@@ -31,6 +31,8 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective { get; set; }
 
+	[Parameter] public TimeProvider? TimeProvider { get; set; } = null;
+
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }

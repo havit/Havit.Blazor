@@ -735,6 +735,15 @@
             Default is <c>true</c> (tabindex attribute is not rendered).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.TimeProvider">
+            <summary>
+            TimeProvider is resolved in the following order:
+            1. TimeProvider from this parameter
+            2. TimeProvider from a CascadingValue
+            3. TimeProvider from DependencyInjection
+            4. Default TimeProvider.System
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.RefreshAsync">
             <summary>
             Refreshes the calendar.
@@ -2695,6 +2704,15 @@
             Input-group at the end of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.TimeProvider">
+            <summary>
+            TimeProvider is resolved in the following order:
+            1. TimeProvider from this parameter
+            2. TimeProvider from a CascadingValue
+            3. TimeProvider from DependencyInjection
+            4. Default TimeProvider.System
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.DisposeAsync">
             <inheritdoc />
         </member>
@@ -3875,6 +3893,15 @@
             Input-group at the end of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.TimeProvider">
+            <summary>
+            TimeProvider is resolved in the following order:
+            1. TimeProvider from this parameter
+            2. TimeProvider from a CascadingValue
+            3. TimeProvider from DependencyInjection
+            4. Default TimeProvider.System
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.FormatValueAsString(`0)">
             <inheritdocs />
         </member>
@@ -3973,6 +4000,15 @@
             <summary>
             Allows customization of the dates in dropdown calendars.<br />
             Default customization is configurable with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.TimeProvider">
+            <summary>
+            TimeProvider is resolved in the following order:
+            1. TimeProvider from this parameter
+            2. TimeProvider from a CascadingValue
+            3. TimeProvider from DependencyInjection
+            4. Default TimeProvider.System
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FormatValueAsString(Havit.DateTimeRange)">

@@ -56,6 +56,14 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
 	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
+	/// <summary>
+	/// TimeProvider is resolved in the following order:
+	/// 1. TimeProvider from this parameter
+	/// 2. TimeProvider from a CascadingValue
+	/// 3. TimeProvider from DependencyInjection
+	/// 4. Default TimeProvider.System
+	/// </summary>
+	[Parameter] public TimeProvider? TimeProvider { get; set; } = null;
 
 
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }

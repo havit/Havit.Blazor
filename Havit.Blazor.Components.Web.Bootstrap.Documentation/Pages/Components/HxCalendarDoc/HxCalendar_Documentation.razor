@@ -20,6 +20,26 @@
             <code>HxCalendar</code> is used in implementation of <a href="/components/HxInputDate"><code>HxInputDate</code></a>
             and <a href="/components/HxInputDateRange"><code>HxInputDateRange</code></a> components. See their documentation for more info.
         </p>
+
+        <DocHeading Title="TimeZones" />
+        <p>
+            You can change the timezone used by the calendar by providing a custom <a href="https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-4/#introducing-time-abstraction"><code>TimeZoneProvider</code></a>.
+            TimeProvider is resolved in the following order:
+            <ol>
+                <li>TimeProvider parameter on <code>HxCalendar</code>, <a href="/components/HxInputDate"><code>HxInputDate</code></a> and <a href="/components/HxInputDateRange"><code>HxInputDateRange</code></a>.</li>
+                <li>By using a <code>CascadingValue</code>.</li>
+                <li>Adding a <code>TimeProvider</code> service via dependency injection.</li>
+                <li>The default <code>TimeProvider.System</code> time provider.</li>
+            </ol>
+        </p>
+        <p>
+            One use for this is for server rendered blazor components where the server local timezone is different to the client timezone.
+            See the following smaple:
+        </p>
+        <CodeSnippet File="~\Pages\Components\HxCalendarDoc\HxCalendar_ZonedTimeProvider.CodeSnippet.cs" />
+        <p>Then add the following to your <code>Program.cs</code>.  Please expand to provide appropriate error handling, caching, etc. depending on your needs.</p>
+        <CodeSnippet File="~\Pages\Components\HxCalendarDoc\HxCalendar_RegisterServices.CodeSnippet.cs" />
+
     </MainContent>
     <CssVariables>
         <ComponentApiDocCssVariable Name="--hx-calendar-day-hover-background" Default="var(--bs-tertiary-bg)">
