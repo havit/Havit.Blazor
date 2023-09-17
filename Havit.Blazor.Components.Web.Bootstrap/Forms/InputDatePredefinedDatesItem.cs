@@ -18,5 +18,11 @@ public class InputDatePredefinedDatesItem
 	/// <summary>
 	/// Date.
 	/// </summary>
-	public DateTime Date { get; set; }
+	public DateTime? Date { get; set; }
+
+	/// <summary>
+	/// Used to supply the date at runtime especially to use
+	/// a TimeProvider
+	/// </summary>
+	public Func<TimeProvider, DateTime> DateSelector { get; set; }
 }

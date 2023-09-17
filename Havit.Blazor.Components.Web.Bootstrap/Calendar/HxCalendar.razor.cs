@@ -29,7 +29,7 @@ public partial class HxCalendar
 		Defaults = new CalendarSettings()
 		{
 			MinDate = DefaultMinDate,
-			MaxDate = DefaultMaxDate
+			MaxDate = DefaultMaxDate,
 		};
 	}
 
@@ -107,20 +107,17 @@ public partial class HxCalendar
 	[Parameter] public bool KeyboardNavigation { get; set; } = true;
 
 	// Set during SetParameterSetAsync to make it optional
-	protected TimeProvider? TimeProviderFromServices { get; set; }
-	[CascadingParameter] protected TimeProvider? TimeProviderFromCascade { get; set; } = null;
+	[Inject] public TimeProvider TimeProviderFromServices { get; set; }
 	/// <summary>
 	/// TimeProvider is resolved in the following order:
 	/// 1. TimeProvider from this parameter
-	/// 2. TimeProvider from a CascadingValue
-	/// 3. TimeProvider from DependencyInjection
-	/// 4. Default TimeProvider.System
+	/// 2. GetSettings TimeProvider
+	/// 3. DefaultSettings TimeProvider
+	/// 4. TimeProvider from DependencyInjection
 	/// </summary>
 	[Parameter] public TimeProvider? TimeProvider { get; set; } = null;
 
-	protected TimeProvider TimeProviderEffective => TimeProvider ?? TimeProviderFromCascade ?? TimeProviderFromServices ?? TimeProvider.System;
-
-	[Inject] protected IServiceProvider ServiceProvider { get; set; }
+	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings().TimeProvider ?? GetDefaults().TimeProvider ?? TimeProviderFromServices;
 
 	private CultureInfo Culture => CultureInfo.CurrentUICulture;
 	private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;
@@ -145,13 +142,6 @@ public partial class HxCalendar
 
 	private RenderData renderData;
 	private DateTime? lastKnownValue;
-
-	public override Task SetParametersAsync(ParameterView parameters)
-	{
-		TimeProviderFromServices = ServiceProvider.GetService<TimeProvider>();
-		return base.SetParametersAsync(parameters);
-
-	}
 
 	protected override async Task OnParametersSetAsync()
 	{
