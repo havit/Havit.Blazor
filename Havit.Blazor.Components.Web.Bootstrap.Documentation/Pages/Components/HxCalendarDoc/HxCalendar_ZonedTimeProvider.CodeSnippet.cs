@@ -11,6 +11,5 @@ public class ZonedTimeProvider
 			_zoneInfo = zoneInfo ?? TimeZoneInfo.Local;
 		}
 		public override TimeZoneInfo LocalTimeZone { get => _zoneInfo; }
-		public static TimeProvider FromLocalTimeZone(TimeZoneInfo zoneInfo) => new ZonedTimeProvider(zoneInfo);
 	}
 }

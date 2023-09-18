@@ -1,0 +1,24 @@
+﻿<!-- Parameter -->
+<HxCalendar TimeProvider="usersTimeProvider" />
+
+<!-- Settings -->
+<HxCalendar Settings="UsersCalendarSettings" />
+
+<!-- Defaults -->
+<HxCalendar />
+@code {
+
+	static TimeProvider usersTimeProvider = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("UTC-11"));
+
+	// OR
+
+	public static CalendarSettings UsersCalendarSettings => new()
+		{
+			TimeProvider = usersTimeProvider,
+		};
+
+	// OR
+
+	HxCalendar.Defaults.TimeProvider = usersTimeProvider
+
+}

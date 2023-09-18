@@ -109,11 +109,11 @@ public partial class HxCalendar
 	// Set during SetParameterSetAsync to make it optional
 	[Inject] public TimeProvider TimeProviderFromServices { get; set; }
 	/// <summary>
-	/// TimeProvider is resolved in the following order:
-	/// 1. TimeProvider from this parameter
-	/// 2. GetSettings TimeProvider
-	/// 3. DefaultSettings TimeProvider
-	/// 4. TimeProvider from DependencyInjection
+	/// TimeProvider is resolved in the following order:<br />
+	///		1. TimeProvider from this parameter <br />
+	///		2. Settings TimeProvider (configurable from <see cref="HxCalendar.Settings"/>)<br />
+	///		3. Defaults TimeProvider (configurable from <see cref="HxCalendar.Defaults"/>)<br />
+	///		4. TimeProvider from DependencyInjection<br />
 	/// </summary>
 	[Parameter] public TimeProvider? TimeProvider { get; set; } = null;
 

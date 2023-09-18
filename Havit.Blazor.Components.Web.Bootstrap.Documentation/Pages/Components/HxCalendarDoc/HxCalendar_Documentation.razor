@@ -27,18 +27,19 @@
             TimeProvider is resolved in the following order:
             <ol>
                 <li>TimeProvider parameter on <code>HxCalendar</code>, <a href="/components/HxInputDate"><code>HxInputDate</code></a> and <a href="/components/HxInputDateRange"><code>HxInputDateRange</code></a>.</li>
-                <li>By using a <code>CascadingValue</code>.</li>
+                <li>Settings <see cref="HxCalendar.Defaults" /></li>
+                <li>Defaults <see cref="HxCalendar.Defaults" /></li>
                 <li>Adding a <code>TimeProvider</code> service via dependency injection.</li>
                 <li>The default <code>TimeProvider.System</code> time provider.</li>
             </ol>
         </p>
         <p>
             One use for this is for server rendered blazor components where the server local timezone is different to the client timezone.
-            See the following smaple:
+            See the following sample:
         </p>
         <CodeSnippet File="~\Pages\Components\HxCalendarDoc\HxCalendar_ZonedTimeProvider.CodeSnippet.cs" />
         <p>Then add the following to your <code>Program.cs</code>.  Please expand to provide appropriate error handling, caching, etc. depending on your needs.</p>
-        <CodeSnippet File="~\Pages\Components\HxCalendarDoc\HxCalendar_RegisterServices.CodeSnippet.cs" />
+        <CodeSnippet File="~\Pages\Components\HxCalendarDoc\HxCalendar_TimeProvider.CodeSnippet.razor" />
 
     </MainContent>
     <CssVariables>
