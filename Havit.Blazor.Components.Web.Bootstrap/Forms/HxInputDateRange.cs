@@ -105,7 +105,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	/// </summary>
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
 	protected CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective => this.CalendarDateCustomizationProvider ?? this.GetSettings()?.CalendarDateCustomizationProvider ?? GetDefaults().CalendarDateCustomizationProvider;
-	protected TimeProvider TimeProviderEffective => GetSettings().TimeProvider ?? GetDefaults().TimeProvider;
+	protected TimeProvider TimeProviderEffective => GetSettings()?.TimeProvider ?? GetDefaults().TimeProvider;
 
 	[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 

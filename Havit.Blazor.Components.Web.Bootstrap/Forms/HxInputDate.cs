@@ -127,7 +127,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 	[Inject] public TimeProvider TimeProviderFromServices { get; set; }
 
-	protected TimeProvider TimeProviderEffective => GetSettings().TimeProvider ?? GetDefaults().TimeProvider ?? TimeProviderFromServices;
+	protected TimeProvider TimeProviderEffective => GetSettings()?.TimeProvider ?? GetDefaults().TimeProvider ?? TimeProviderFromServices;
 
 	[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 

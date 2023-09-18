@@ -642,6 +642,11 @@
             Allows customization of the dates in dropdown calendars.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings.TimeProvider">
+            <summary>
+            TimeProvider to customise the today date
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar">
             <summary>
             Basic calendar building block. Used for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> implementation.<br />
@@ -739,9 +744,9 @@
             <summary>
             TimeProvider is resolved in the following order:
             1. TimeProvider from this parameter
-            2. TimeProvider from a CascadingValue
-            3. TimeProvider from DependencyInjection
-            4. Default TimeProvider.System
+            2. GetSettings TimeProvider
+            3. DefaultSettings TimeProvider
+            4. TimeProvider from DependencyInjection
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.RefreshAsync">
@@ -2704,15 +2709,6 @@
             Input-group at the end of the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.TimeProvider">
-            <summary>
-            TimeProvider is resolved in the following order:
-            1. TimeProvider from this parameter
-            2. TimeProvider from a CascadingValue
-            3. TimeProvider from DependencyInjection
-            4. Default TimeProvider.System
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateInternal`1.DisposeAsync">
             <inheritdoc />
         </member>
@@ -3893,15 +3889,6 @@
             Input-group at the end of the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.TimeProvider">
-            <summary>
-            TimeProvider is resolved in the following order:
-            1. TimeProvider from this parameter
-            2. TimeProvider from a CascadingValue
-            3. TimeProvider from DependencyInjection
-            4. Default TimeProvider.System
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.FormatValueAsString(`0)">
             <inheritdocs />
         </member>
@@ -4000,15 +3987,6 @@
             <summary>
             Allows customization of the dates in dropdown calendars.<br />
             Default customization is configurable with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.TimeProvider">
-            <summary>
-            TimeProvider is resolved in the following order:
-            1. TimeProvider from this parameter
-            2. TimeProvider from a CascadingValue
-            3. TimeProvider from DependencyInjection
-            4. Default TimeProvider.System
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FormatValueAsString(Havit.DateTimeRange)">
@@ -4862,6 +4840,12 @@
             Date.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.DateSelector">
+            <summary>
+            Used to supply the date at runtime especially to use
+            a TimeProvider
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangePredefinedRangesItem">
             <summary>
             Item for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.PredefinedDateRanges" />.
@@ -4922,6 +4906,11 @@
             Predefined date ranges to be displayed.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.TimeProvider">
+            <summary>
+            TimeProvider used to get DateTime.Today
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings">
             <summary>
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/>.
@@ -4965,6 +4954,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.PredefinedDates">
             <summary>
             Predefined dates to be displayed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.TimeProvider">
+            <summary>
+            TimeProvider to use, note: override the 'Today' in PredefinedDates
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings">

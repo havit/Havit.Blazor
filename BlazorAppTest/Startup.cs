@@ -27,7 +27,6 @@ public class Startup
 		services.AddRazorPages();
 		services.AddServerSideBlazor();
 
-		services.AddScoped<TimeProvider, ZonedTimeProvider>();
 		services.AddHxServices();
 		services.AddHxMessenger();
 		services.AddHxMessageBoxHost();

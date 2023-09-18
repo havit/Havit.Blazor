@@ -1,44 +1,44 @@
 ﻿@page "/HxCalendar_Issue597_Test"
 @using BlazorAppTest.Pages.HxCalendarComponents;
-@implements IDisposable
-@inject NavigationManager NavigationManager
-@inject IServiceProvider ServiceProvider
+@inject TimeProvider SystemTimeProvider
 <h1>HxCalendar</h1>
 <fieldset class="m-2 p-2">
-    <label>From DI/TimeProvider.System: @(diOrSystemTimeProvider.LocalTimeZone.Id)</label>
-    <p>
-        <a href="/HxCalendar_Issue597_Test?tz=UTC-11">American Samoa</a> |
-        <a href="/HxCalendar_Issue597_Test?tz=Samoa Standard Time">Samoa</a> |
-        <a href="/HxCalendar_Issue597_Test">System</a>
-    </p>
+    <label>From DI: @(SystemTimeProvider.LocalTimeZone.Id)</label>
     <div>
-        <HxCalendar @key="diOrSystemTimeProvider.LocalTimeZone.Id" />
+        <HxCalendar />
     </div>
 </fieldset>
 
-<CascadingValue Value="cascadingTimeProvider" IsFixed="true">
-    <fieldset class="m-2 p-2">
-        <label>From CascadingValue: @(cascadingTimeProvider.LocalTimeZone.Id)</label>
-        <div><HxCalendar /></div>
-    </fieldset>
-</CascadingValue>
+<fieldset class="m-2 p-2">
+    <label>From Settings: @(AppCalendarSettings.AmericanSamoa.TimeProvider.LocalTimeZone.Id)</label>
+    <div><HxCalendar Settings="AppCalendarSettings.AmericanSamoa" /></div>
+</fieldset>
 
 <fieldset class="m-2 p-2">
-    <label>From Parameter: @(parameterTimeProvider.LocalTimeZone.Id)</label>
-    <div><HxCalendar TimeProvider="parameterTimeProvider" /></div>
+    <label>From Settings: @(AppCalendarSettings.Samoa.TimeProvider.LocalTimeZone.Id)</label>
+    <div><HxCalendar Settings="AppCalendarSettings.Samoa" /></div>
+</fieldset>
+
+<fieldset class="m-2 p-2">
+    <label>From Settings: @(AppCalendarSettings.timeProviderUtc.LocalTimeZone.Id)</label>
+    <div><HxCalendar TimeProvider="AppCalendarSettings.timeProviderUtc" /></div>
 </fieldset>
 
 @code {
-    TimeProvider cascadingTimeProvider = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("UTC-11"));
-    TimeProvider parameterTimeProvider = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("Samoa Standard Time"));
-    TimeProvider diOrSystemTimeProvider;
 
-    public override Task SetParametersAsync(ParameterView parameters)
+    public class AppCalendarSettings
     {
-        diOrSystemTimeProvider = ServiceProvider.GetService<TimeProvider>() ?? TimeProvider.System;
-
-        NavigationManager.LocationChanged += HandleNavigation;
-        return base.SetParametersAsync(parameters);
+        public static TimeProvider timeProviderUtc = new ZonedTimeProvider(TimeZoneInfo.Utc);
+        public static TimeProvider timeProviderUtc11 = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("UTC-11"));
+        public static TimeProvider timeProviderUtc13 = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("Samoa Standard Time"));
+        public static CalendarSettings AmericanSamoa => new()
+            {
+                TimeProvider = timeProviderUtc11,
+            };
+        public static CalendarSettings Samoa => new()
+            {
+                TimeProvider = timeProviderUtc13,
+            };
     }
 
     protected override void OnInitialized()
@@ -46,13 +46,4 @@
         base.OnInitialized();
     }
 
-    protected void HandleNavigation(object sender, LocationChangedEventArgs ev)
-    {
-        StateHasChanged();
-    }
-
-    public void Dispose()
-    {
-        NavigationManager.LocationChanged -= HandleNavigation;
-    }
 }

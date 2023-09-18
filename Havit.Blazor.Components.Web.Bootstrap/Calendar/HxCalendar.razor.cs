@@ -117,7 +117,7 @@ public partial class HxCalendar
 	/// </summary>
 	[Parameter] public TimeProvider? TimeProvider { get; set; } = null;
 
-	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings().TimeProvider ?? GetDefaults().TimeProvider ?? TimeProviderFromServices;
+	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings()?.TimeProvider ?? GetDefaults()?.TimeProvider ?? TimeProviderFromServices;
 
 	private CultureInfo Culture => CultureInfo.CurrentUICulture;
 	private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;
