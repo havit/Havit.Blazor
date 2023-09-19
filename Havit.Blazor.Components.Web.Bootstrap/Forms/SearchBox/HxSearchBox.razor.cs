@@ -234,6 +234,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private CancellationTokenSource cancellationTokenSource;
 	private bool dataProviderInProgress;
 	private bool inputFormHasFocus;
+	private bool scrolltoFocusedItem;
 	private IJSObjectReference jsModule;
 	private DotNetObjectReference<HxSearchBox<TItem>> dotnetObjectReference;
 	private bool disposed = false;
@@ -254,6 +255,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 				return;
 			}
 			await jsModule.InvokeVoidAsync("initialize", inputId, dotnetObjectReference, new string[] { KeyCodes.ArrowUp, KeyCodes.ArrowDown });
+		}
+
+		if (scrolltoFocusedItem)
+		{
+			scrolltoFocusedItem = false;
+			await jsModule.InvokeVoidAsync("scrollToFocusedItem");
 		}
 	}
 
@@ -420,6 +427,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			if (previousItemIndex >= minimumIndex)
 			{
 				focusedItemIndex = previousItemIndex;
+				scrolltoFocusedItem = true;
 				StateHasChanged();
 			}
 		}
@@ -431,6 +439,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			if (nextItemIndex <= maximumIndex)
 			{
 				focusedItemIndex = nextItemIndex;
+				scrolltoFocusedItem = true;
 				StateHasChanged();
 			}
 		}
