@@ -125,9 +125,18 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
-	[Inject] public TimeProvider TimeProviderFromServices { get; set; }
+	[Inject] protected TimeProvider TimeProviderFromServices { get; set; }
 
-	protected TimeProvider TimeProviderEffective => GetSettings()?.TimeProvider ?? GetDefaults().TimeProvider ?? TimeProviderFromServices;
+	/// <summary>
+	/// TimeProvider is resolved in the following order:<br />
+	///		1. TimeProvider from this parameter <br />
+	///		2. Settings TimeProvider (configurable from <see cref="HxInputDate.Settings"/>)<br />
+	///		3. Defaults TimeProvider (configurable from <see cref="HxInputDate.Defaults"/>)<br />
+	///		4. TimeProvider from DependencyInjection<br />
+	/// </summary>
+	[Parameter] public TimeProvider? TimeProvider { get; set; } = null;
+
+	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings()?.TimeProvider ?? GetDefaults().TimeProvider ?? TimeProviderFromServices;
 
 	[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 

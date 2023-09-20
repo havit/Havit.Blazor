@@ -1,3 +1,0 @@
-﻿<ItemGroup>
-	<PackageReference Include="Microsoft.Bcl.TimeProvider" Version="x.x.x" />
-</ItemGroup>

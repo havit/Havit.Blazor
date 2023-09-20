@@ -20,30 +20,25 @@
 </fieldset>
 
 <fieldset class="m-2 p-2">
-    <label>From Settings: @(AppCalendarSettings.timeProviderUtc.LocalTimeZone.Id)</label>
-    <div><HxCalendar TimeProvider="AppCalendarSettings.timeProviderUtc" /></div>
+    <label>From Settings: @(timeProviderUtc.LocalTimeZone.Id)</label>
+    <div><HxCalendar TimeProvider="timeProviderUtc" /></div>
 </fieldset>
 
 @code {
+    private static TimeProvider timeProviderUtc = new ZonedTimeProvider(TimeZoneInfo.Utc);
 
-    public class AppCalendarSettings
+    private class AppCalendarSettings
     {
-        public static TimeProvider timeProviderUtc = new ZonedTimeProvider(TimeZoneInfo.Utc);
-        public static TimeProvider timeProviderUtc11 = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("UTC-11"));
-        public static TimeProvider timeProviderUtc13 = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("Samoa Standard Time"));
+        private static TimeProvider timeProviderUtc11 = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("UTC-11"));
+        private static TimeProvider timeProviderUtc13 = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("Samoa Standard Time"));
         public static CalendarSettings AmericanSamoa => new()
-            {
-                TimeProvider = timeProviderUtc11,
-            };
+        {
+            TimeProvider = timeProviderUtc11,
+        };
         public static CalendarSettings Samoa => new()
-            {
-                TimeProvider = timeProviderUtc13,
-            };
+        {
+            TimeProvider = timeProviderUtc13,
+        };
     }
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-    }
-
+    
 }

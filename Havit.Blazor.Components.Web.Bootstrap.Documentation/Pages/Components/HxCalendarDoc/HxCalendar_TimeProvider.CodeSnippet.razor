@@ -1,24 +1,25 @@
 ﻿<!-- Parameter -->
 <HxCalendar TimeProvider="usersTimeProvider" />
 
-<!-- Settings -->
+<!-- Using supplied Settings -->
 <HxCalendar Settings="UsersCalendarSettings" />
 
-<!-- Defaults -->
+<!-- Using configured Defaults -->
 <HxCalendar />
 @code {
 
-	static TimeProvider usersTimeProvider = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("UTC-11"));
+	TimeProvider usersTimeProvider = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("UTC-11"));
 
 	// OR
 
 	public static CalendarSettings UsersCalendarSettings => new()
-		{
-			TimeProvider = usersTimeProvider,
-		};
+	{
+		TimeProvider = usersTimeProvider,
+	};
 
 	// OR
 
-	HxCalendar.Defaults.TimeProvider = usersTimeProvider
+    // Program.cs or somewhere where you maintain the defaults
+    HxCalendar.Defaults.TimeProvider = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("E. Australia Standard Time"));
 
 }

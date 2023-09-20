@@ -107,7 +107,8 @@ public partial class HxCalendar
 	[Parameter] public bool KeyboardNavigation { get; set; } = true;
 
 	// Set during SetParameterSetAsync to make it optional
-	[Inject] public TimeProvider TimeProviderFromServices { get; set; }
+	[Inject] protected TimeProvider TimeProviderFromServices { get; set; }
+
 	/// <summary>
 	/// TimeProvider is resolved in the following order:<br />
 	///		1. TimeProvider from this parameter <br />

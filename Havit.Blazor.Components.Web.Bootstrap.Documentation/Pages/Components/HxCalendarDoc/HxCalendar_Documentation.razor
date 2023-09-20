@@ -21,25 +21,27 @@
             and <a href="/components/HxInputDateRange"><code>HxInputDateRange</code></a> components. See their documentation for more info.
         </p>
 
-        <DocHeading Title="TimeZones" />
+        <DocHeading Title="Time zones" />
         <p>
-            You can change the timezone used by the calendar by providing a custom <a href="https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-4/#introducing-time-abstraction"><code>TimeProvider</code></a>.
+            You can change the time zone used by the calendar by providing a custom <a href="https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-4/#introducing-time-abstraction"><code>TimeProvider</code></a>.
             TimeProvider is resolved in the following order:
             <ol>
-                <li>TimeProvider parameter on <code>HxCalendar</code>, <a href="/components/HxInputDate"><code>HxInputDate</code></a> and <a href="/components/HxInputDateRange"><code>HxInputDateRange</code></a>.</li>
-                <li>Settings <see cref="HxCalendar.Defaults" /></li>
-                <li>Defaults <see cref="HxCalendar.Defaults" /></li>
+                <li><code>TimeProvider</code> parameter on <code>HxCalendar</code>, <a href="/components/HxInputDate"><code>HxInputDate</code></a> and <a href="/components/HxInputDateRange"><code>HxInputDateRange</code></a>.</li>
+                <li><code>Settings</code> <a href="/components/HxCalendar#HxCalendar-parameters">HxCalendar.Settings</a></li>
+                <li><code>Defaults</code> <a href="/components/HxCalendar#HxCalendar-static-properties">HxCalendar.Defaults</a></li>
                 <li>Adding a <code>TimeProvider</code> service via dependency injection.</li>
                 <li>The default <code>TimeProvider.System</code> time provider.</li>
             </ol>
         </p>
         <p>
-            One use for this is for server rendered blazor components where the server local timezone is different to the client timezone.
+            One use for this is for server rendered blazor components where the server local time zone is different to the client time zone.
             See the following sample:
         </p>
         <CodeSnippet File="~\Pages\Components\HxCalendarDoc\HxCalendar_ZonedTimeProvider.CodeSnippet.cs" />
-        <p>Then add the following to your <code>Program.cs</code>.  Please expand to provide appropriate error handling, caching, etc. depending on your needs.</p>
+        <p>Use the <code>ZonedTimeProvider</code>.  Ensure that <a href="/components/HxCalendar#HxCalendar-static-properties"><code>Defaults</code></a> are configured in <code>Program.cs</code> or where you maintain your other defaults.
+            Please expand to provide appropriate error handling, caching, etc. depending on your needs.</p>
         <CodeSnippet File="~\Pages\Components\HxCalendarDoc\HxCalendar_TimeProvider.CodeSnippet.razor" />
+        
 
     </MainContent>
     <CssVariables>

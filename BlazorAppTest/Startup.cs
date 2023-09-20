@@ -1,6 +1,5 @@
 using System.Globalization;
 using BlazorAppTest.Resources;
-using BlazorAppTest.Pages.HxCalendarComponents;
 using Havit.Blazor.Components.Web;
 using Havit.Blazor.GoogleTagManager;
 

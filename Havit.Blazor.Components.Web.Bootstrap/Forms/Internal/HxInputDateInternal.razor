@@ -61,7 +61,7 @@
                         {
                             foreach (var item in PredefinedDatesEffective)
                             {
-                                <HxButton @key="@item" Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleCustomDateClick(item.Date ?? item.DateSelector(TimeProviderEffective))" tabindex="-1" />
+                                <HxButton @key="@item" Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleCustomDateClick(item.GetDateEffective(TimeProviderEffective))" tabindex="-1" />
                             }
                         }
                     </div>
