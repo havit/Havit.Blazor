@@ -4,6 +4,8 @@ public partial class HxTreeViewItemInternal<TItem> : ComponentBase
 {
 	[Parameter] public TItem Item { get; set; }
 	[Parameter] public EventCallback<TItem> OnItemSelected { get; set; }
+	[Parameter] public EventCallback<TItem> OnItemExpanded { get; set; }
+	[Parameter] public EventCallback<TItem> OnItemCollapsed { get; set; }
 
 	[Parameter] public bool? IsExpanded { get; set; }
 
@@ -33,5 +35,17 @@ public partial class HxTreeViewItemInternal<TItem> : ComponentBase
 	private async Task HandleItemClicked()
 	{
 		await this.OnItemSelected.InvokeAsync(this.Item);
+	}
+
+	private async Task HandleCollapseHiddenAsync()
+	{
+		IsExpanded = false;
+		await OnItemCollapsed.InvokeAsync(this.Item);
+	}
+
+	private async Task HandleCollapseShownAsync()
+	{
+		IsExpanded = true;
+		await OnItemExpanded.InvokeAsync(this.Item);
 	}
 }

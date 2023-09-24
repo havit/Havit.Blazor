@@ -1,0 +1,109 @@
+﻿@page "/HxTreeViewTest"
+<div class="row">
+	<div class="col-lg-4" style="height: 400px">
+		<HxTreeView TItem="Directory"
+		@bind-SelectedItem="selectedDirectory"
+					Items="@fileSystem"
+					CssClass="border rounded p-2"
+					ItemCssClass="fst-italic"
+					ItemCssClassSelector="@(p => p.Name.Equals("Users") ? "text-primary" : String.Empty)"
+					ItemInitialExpandedSelector="@(p => p.Name == "C:\\")"
+					ItemChildrenSelector="@(p => p.Subdirectories)"
+					ItemIconSelector="@(p => p.Icon)"
+					OnItemCollapsed="OnHidden"
+					OnItemExpanded="OnShown">
+			<ItemTemplate>
+				<div class="text-truncate">
+					@context.Name
+				</div>
+				@if (context.Subdirectories?.Any() ?? false)
+				{
+					<HxBadge CssClass="mx-2" TextColor="ThemeColor.Dark" Color="ThemeColor.Light">@context.Subdirectories?.Length</HxBadge>
+				}
+				<div role="button" @onclick:stopPropagation class="btn-plus ms-auto"><HxIcon Icon="BootstrapIcon.PlusLg" /></div>
+			</ItemTemplate>
+		</HxTreeView>
+	</div>
+	<div class="col-lg-4">
+		@if (selectedDirectory == null)
+		{
+			<p>No directory selected.</p>
+		}
+		else
+		{
+			<p>Directory <b>@selectedDirectory.Name</b> selected.</p>
+		}
+	</div>
+</div>
+
+@code {
+	private Directory selectedDirectory;
+	private Directory[] fileSystem;
+
+	private void OnHidden(Directory dir)
+	{
+
+	}
+	private void OnShown(Directory dir)
+	{
+
+	}
+
+	protected override void OnInitialized()
+	{
+		fileSystem = new[]
+		{
+			new Directory("C:\\", BootstrapIcon.Folder)
+			{
+				Subdirectories = new[]
+				{
+					new Directory("Program Files", BootstrapIcon.Gem, "System folder for installed applications.")
+					{
+						Subdirectories = new[] { new Directory("Visual Studio 2022"), new Directory("Rider 2021.3"), new Directory("VS Code"), new Directory("Borland Pascal") }
+					},
+					new Directory("Users", BootstrapIcon.Person, "Custom folder for user's home folders.")
+					{
+						Subdirectories = new[] { new Directory("Adam"), new Directory("Bill"), new Directory("Jane"), new Directory("Simon") }
+					},
+					new Directory("Data", BootstrapIcon.Person, "Folder for application data.")
+					{
+						Subdirectories = new[] { new Directory("Open Office"), new Directory("Git"), new Directory("Autocad") }
+					},
+				}
+			},
+			new Directory("D:\\", BootstrapIcon.Folder)
+			{
+				Subdirectories = new[]
+				{
+					new Directory("Games", BootstrapIcon.Play, "Games installed to your computer.")
+					{
+						Subdirectories = new[] { new Directory("Cyberpunk 2077"), new Directory("The Witcher 3"), new Directory("Tetris"), new Directory("Little Big Adventure 2: Twinsen's Odyssey") }
+					},
+					new Directory("Empty sub wo/ icon"),
+					new Directory("Empty sub with icon", BootstrapIcon.FileMusic),
+				}
+			},
+			new Directory("Empty no icon"),
+			new Directory("Empty with icon", BootstrapIcon.FileMusic),
+		};
+	}
+
+	public class Directory
+	{
+		public Directory(string name, IconBase icon = null, string hint = null)
+		{
+			Name = name;
+			Icon = icon;
+			Hint = hint;
+		}
+
+		public string Name { get; }
+
+		public IconBase Icon { get; set; }
+
+		public string Hint { get; set; }
+
+		public Directory[] Subdirectories { get; set; }
+	}
+
+}

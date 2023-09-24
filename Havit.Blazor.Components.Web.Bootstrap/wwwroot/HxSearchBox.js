@@ -20,6 +20,13 @@ function handleKeyDown(event) {
     }
 }
 
+export function scrollToFocusedItem() {
+	const focusedElements = document.getElementsByClassName("hx-dropdown-item-focused");
+	if (focusedElements && focusedElements[0]) {
+		focusedElements[0].scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'start' });
+	}
+}
+
 export function dispose(inputId) {
     let inputElement = document.getElementById(inputId);
 
