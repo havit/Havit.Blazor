@@ -15,11 +15,11 @@
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Grpc.Net.Client" Version="2.56.0" />
-		<PackageReference Include="Grpc.Net.Client.Web" Version="2.56.0" />
-		<PackageReference Include="Havit.Core" Version="2.0.27" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.10" Condition="'$(TargetFramework)' == 'net7.0'" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.21" Condition="'$(TargetFramework)' == 'net6.0'" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.57.0" />
+		<PackageReference Include="Grpc.Net.Client.Web" Version="2.57.0" />
+		<PackageReference Include="Havit.Core" Version="2.0.28" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.11" Condition="'$(TargetFramework)' == 'net7.0'" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.22" Condition="'$(TargetFramework)' == 'net6.0'" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
 		<PackageReference Include="protobuf-net" Version="3.2.26" />
 		<PackageReference Include="protobuf-net.Grpc.ClientFactory" Version="1.1.1" />
