@@ -45,5 +45,5 @@ public record InputDateRangeSettings : InputSettings, IInputSettingsWithSize
 	/// <summary>
 	/// TimeProvider used to get DateTime.Today
 	/// </summary>
-	public TimeProvider? TimeProvider { get; set; }
+	public TimeProvider TimeProvider { get; set; }
 }

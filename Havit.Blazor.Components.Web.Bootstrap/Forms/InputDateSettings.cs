@@ -50,5 +50,5 @@ public record InputDateSettings : InputSettings, IInputSettingsWithSize
 	/// <summary>
 	/// TimeProvider to use, note: override the 'Today' in PredefinedDates
 	/// </summary>
-	public TimeProvider? TimeProvider { get; set; }
+	public TimeProvider TimeProvider { get; set; }
 }

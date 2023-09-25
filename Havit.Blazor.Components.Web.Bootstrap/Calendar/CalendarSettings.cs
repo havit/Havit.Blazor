@@ -21,8 +21,8 @@ public record CalendarSettings
 	public CalendarDateCustomizationProviderDelegate DateCustomizationProvider { get; set; }
 
 	/// <summary>
-	/// TimeProvider to customise the today date
+	/// TimeProvider to customize the today date
 	/// </summary>
-	public TimeProvider? TimeProvider { get; set; }
+	public TimeProvider TimeProvider { get; set; }
 
 }

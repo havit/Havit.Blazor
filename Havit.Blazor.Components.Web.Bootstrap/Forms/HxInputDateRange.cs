@@ -115,7 +115,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	///		3. Defaults TimeProvider (configurable from <see cref="HxInputDateRange.Defaults"/>)<br />
 	///		4. TimeProvider from DependencyInjection<br />
 	/// </summary>
-	[Parameter] public TimeProvider? TimeProvider { get; set; } = null;
+	[Parameter] public TimeProvider TimeProvider { get; set; } = null;
 	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings()?.TimeProvider ?? GetDefaults().TimeProvider ?? TimeProviderFromServices;
 
 	[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }

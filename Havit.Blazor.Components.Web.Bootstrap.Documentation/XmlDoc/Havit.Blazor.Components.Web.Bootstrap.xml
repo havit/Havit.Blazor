@@ -644,7 +644,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings.TimeProvider">
             <summary>
-            TimeProvider to customise the today date
+            TimeProvider to customize the today date
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar">
@@ -3893,7 +3893,7 @@
             <summary>
             TimeProvider is resolved in the following order:<br />
             	1. TimeProvider from this parameter <br />
-            	2. Settings TimeProvider (configurable from <see cref="!:HxInputDate.Settings"/>)<br />
+            	2. Settings TimeProvider (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.Settings"/>)<br />
             	3. Defaults TimeProvider (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>)<br />
             	4. TimeProvider from DependencyInjection<br />
             </summary>

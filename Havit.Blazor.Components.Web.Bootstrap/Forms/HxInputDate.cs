@@ -130,12 +130,11 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	/// <summary>
 	/// TimeProvider is resolved in the following order:<br />
 	///		1. TimeProvider from this parameter <br />
-	///		2. Settings TimeProvider (configurable from <see cref="HxInputDate.Settings"/>)<br />
+	///		2. Settings TimeProvider (configurable from <see cref="HxInputDate{TValue}.Settings"/>)<br />
 	///		3. Defaults TimeProvider (configurable from <see cref="HxInputDate.Defaults"/>)<br />
 	///		4. TimeProvider from DependencyInjection<br />
 	/// </summary>
-	[Parameter] public TimeProvider? TimeProvider { get; set; } = null;
-
+	[Parameter] public TimeProvider TimeProvider { get; set; } = null;
 	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings()?.TimeProvider ?? GetDefaults().TimeProvider ?? TimeProviderFromServices;
 
 	[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
