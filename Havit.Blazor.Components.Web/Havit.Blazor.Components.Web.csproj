@@ -28,6 +28,7 @@
 		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.11" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.11" Condition="'$(TargetFramework)' == 'net7.0'" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.22" Condition="'$(TargetFramework)' == 'net6.0'" />
+		<PackageReference Include="Microsoft.Bcl.TimeProvider" Version="8.0.0-rc.1.23419.4" />
 	</ItemGroup>
 	
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">

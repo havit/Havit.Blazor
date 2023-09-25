@@ -57,6 +57,8 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
+	[Parameter] public TimeProvider TimeProviderEffective { get; set; }
+
 
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 

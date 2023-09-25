@@ -642,6 +642,11 @@
             Allows customization of the dates in dropdown calendars.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CalendarSettings.TimeProvider">
+            <summary>
+            TimeProvider to customise the today date
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar">
             <summary>
             Basic calendar building block. Used for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> implementation.<br />
@@ -733,6 +738,15 @@
             <summary>
             Indicates whether the keyboard navigation is enabled. When disabled, the calendar renders tabindex="-1" on interactive elements.
             Default is <c>true</c> (tabindex attribute is not rendered).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.TimeProvider">
+            <summary>
+            TimeProvider is resolved in the following order:<br />
+            	1. TimeProvider from this parameter <br />
+            	2. Settings TimeProvider (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.Settings"/>)<br />
+            	3. Defaults TimeProvider (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.Defaults"/>)<br />
+            	4. TimeProvider from DependencyInjection<br />
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.RefreshAsync">
@@ -3875,6 +3889,15 @@
             Input-group at the end of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.TimeProvider">
+            <summary>
+            TimeProvider is resolved in the following order:<br />
+            	1. TimeProvider from this parameter <br />
+            	2. Settings TimeProvider (configurable from <see cref="!:HxInputDate.Settings"/>)<br />
+            	3. Defaults TimeProvider (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>)<br />
+            	4. TimeProvider from DependencyInjection<br />
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.FormatValueAsString(`0)">
             <inheritdocs />
         </member>
@@ -3973,6 +3996,15 @@
             <summary>
             Allows customization of the dates in dropdown calendars.<br />
             Default customization is configurable with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.TimeProvider">
+            <summary>
+            TimeProvider is resolved in the following order:<br />
+            	1. TimeProvider from this parameter <br />
+            	2. Settings TimeProvider (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Settings"/>)<br />
+            	3. Defaults TimeProvider (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>)<br />
+            	4. TimeProvider from DependencyInjection<br />
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FormatValueAsString(Havit.DateTimeRange)">
@@ -4823,8 +4855,22 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.Date">
             <summary>
-            Date.
+            Date. Overrides any <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.DateSelector"/>
             </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.DateSelector">
+            <summary>
+            Used to supply the date at runtime especially to use
+            a TimeProvider.  Not used if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.Date"/> is set.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.GetDateEffective(System.TimeProvider)">
+            <summary>
+            Defaults to returning the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.Date"/> otherwise calls <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.DateSelector"/>.<br/>
+            Used to resolve the date at runtime, particularly when a TimeProvider is needed.
+            </summary>
+            <param name="timeProvider"><see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.TimeProvider"/></param>
+            <returns></returns>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangePredefinedRangesItem">
             <summary>
@@ -4886,6 +4932,11 @@
             Predefined date ranges to be displayed.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.TimeProvider">
+            <summary>
+            TimeProvider used to get DateTime.Today
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings">
             <summary>
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/>.
@@ -4929,6 +4980,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.PredefinedDates">
             <summary>
             Predefined dates to be displayed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.TimeProvider">
+            <summary>
+            TimeProvider to use, note: override the 'Today' in PredefinedDates
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings">

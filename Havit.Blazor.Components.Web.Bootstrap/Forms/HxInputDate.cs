@@ -125,6 +125,18 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+	[Inject] protected TimeProvider TimeProviderFromServices { get; set; }
+
+	/// <summary>
+	/// TimeProvider is resolved in the following order:<br />
+	///		1. TimeProvider from this parameter <br />
+	///		2. Settings TimeProvider (configurable from <see cref="HxInputDate.Settings"/>)<br />
+	///		3. Defaults TimeProvider (configurable from <see cref="HxInputDate.Defaults"/>)<br />
+	///		4. TimeProvider from DependencyInjection<br />
+	/// </summary>
+	[Parameter] public TimeProvider? TimeProvider { get; set; } = null;
+
+	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings()?.TimeProvider ?? GetDefaults().TimeProvider ?? TimeProviderFromServices;
 
 	[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
@@ -169,6 +181,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 		builder.AddAttribute(211, nameof(HxInputDateInternal<TValue>.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProviderEffective);
 		builder.AddAttribute(212, nameof(HxInputDateInternal<TValue>.LabelTypeEffective), labelTypeEffective);
 		builder.AddAttribute(213, nameof(HxInputDateInternal<TValue>.FormValueComponent), this);
+		builder.AddAttribute(214, nameof(HxInputDateInternal<TValue>.TimeProviderEffective), TimeProviderEffective);
 
 		builder.AddAttribute(214, nameof(HxInputDateInternal<TValue>.InputGroupStartText), this.InputGroupStartText);
 		builder.AddAttribute(215, nameof(HxInputDateInternal<TValue>.InputGroupEndText), this.InputGroupEndText);

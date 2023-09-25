@@ -24,7 +24,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 			MaxDate = HxCalendar.DefaultMaxDate,
 			ShowClearButton = true,
 			ShowPredefinedDateRanges = true,
-			PredefinedDateRanges = null
+			PredefinedDateRanges = null,
 		};
 	}
 
@@ -106,6 +106,18 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
 	protected CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective => this.CalendarDateCustomizationProvider ?? this.GetSettings()?.CalendarDateCustomizationProvider ?? GetDefaults().CalendarDateCustomizationProvider;
 
+	[Inject] protected TimeProvider TimeProviderFromServices { get; set; }
+
+	/// <summary>
+	/// TimeProvider is resolved in the following order:<br />
+	///		1. TimeProvider from this parameter <br />
+	///		2. Settings TimeProvider (configurable from <see cref="HxInputDateRange.Settings"/>)<br />
+	///		3. Defaults TimeProvider (configurable from <see cref="HxInputDateRange.Defaults"/>)<br />
+	///		4. TimeProvider from DependencyInjection<br />
+	/// </summary>
+	[Parameter] public TimeProvider? TimeProvider { get; set; } = null;
+	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings()?.TimeProvider ?? GetDefaults().TimeProvider ?? TimeProviderFromServices;
+
 	[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -134,6 +146,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 		builder.AddAttribute(211, nameof(HxInputDateRangeInternal.MinDateEffective), MinDateEffective);
 		builder.AddAttribute(212, nameof(HxInputDateRangeInternal.MaxDateEffective), MaxDateEffective);
 		builder.AddAttribute(220, nameof(HxInputDateRangeInternal.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProviderEffective);
+		builder.AddAttribute(221, nameof(HxInputDateRangeInternal.TimeProviderEffective), TimeProviderEffective);
 
 		builder.AddMultipleAttributes(300, this.AdditionalAttributes);
 
