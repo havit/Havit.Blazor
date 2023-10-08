@@ -6,24 +6,23 @@
     bool enabled = EnabledEffective && (ItemsToRender != null);
 }
 
-<div class="hx-multi-select dropdown" role="listbox">
-    <div class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputGroupCssClass)" data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
+<div @ref="elementReference" class="hx-multi-select dropdown" role="listbox">
+    <div class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputGroupCssClass)" aria-expanded="@IsShown" data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
         @if (InputGroupStartText is not null)
         {
             <span class="input-group-text">@InputGroupStartText</span>
         }
     
         @InputGroupStartTemplate
-        
-        <input
-            @ref="inputElement"
-            type="text"
-            id="@InputId"
-            class="@InputCssClass"
-            value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
-            disabled="@(!enabled)"
-            readonly="true"
-            @attributes="this.AdditionalAttributes" />
+
+        <input type="text"
+               id="@InputId"
+               class="@InputCssClass"
+               value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
+               @oninput="HandleInputChanged"
+               disabled="@(!enabled)"
+               readonly="@(!EnableFiltering)"
+               @attributes="this.AdditionalAttributes" />
 
         @InputGroupEndTemplate
 
@@ -36,14 +35,15 @@
     <ul class="dropdown-menu"> @* Must be always rendered otherwise does not work after disable->enabled scenario *@
         @if (enabled)
         {
-            for (int i = 0; i < ItemsToRender.Count; i++)
+            var filteredItems = EnableFiltering ? ItemsToRender.Where(x => FilterSelector(x, InputText)).ToList() : ItemsToRender;
+            for (var i = 0; i < filteredItems.Count; i++)
             {
                 string checkboxElementId = InputId + "_" + i.ToString();
 
-                var item = ItemsToRender[i];
+                var item = filteredItems[i];
                 TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
 
-                bool itemSelected = Value?.Contains(value) ?? false;
+                bool itemSelected = SelectedValues?.Contains(value) ?? false;
 
                 <li>
                     <button type="button" class="dropdown-item" role="option" @onclick="async () => await HandleItemSelectionChangedAsync(!itemSelected, item)">

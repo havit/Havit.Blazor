@@ -110,6 +110,11 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+	[Parameter] public bool EnableFiltering { get; set; }
+
+	[Parameter] public Func<TItem, string, bool> FilterSelector { get; set; } = (_, _) => true;
+
+	private bool IsShown { get; set; }
 
 	private List<TItem> itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
@@ -152,6 +157,16 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		CurrentValue = newValue; // setter includes ValueChanged + NotifyFieldChanged
 	}
 
+	private void HandleOnHiddenChanged()
+	{
+		IsShown = false;
+	}
+
+	private void HandleOnShownChanged()
+	{
+		IsShown = true;
+	}
+
 	protected override bool TryParseValueFromString(string value, out List<TValue> result, out string validationErrorMessage)
 	{
 		throw new NotSupportedException();
@@ -181,13 +196,17 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(105, nameof(HxMultiSelectInternal<TValue, TItem>.ItemsToRender), itemsToRender);
 		builder.AddAttribute(106, nameof(HxMultiSelectInternal<TValue, TItem>.TextSelector), TextSelector);
 		builder.AddAttribute(107, nameof(HxMultiSelectInternal<TValue, TItem>.ValueSelector), ValueSelector);
-		builder.AddAttribute(108, nameof(HxMultiSelectInternal<TValue, TItem>.Value), Value);
+		builder.AddAttribute(108, nameof(HxMultiSelectInternal<TValue, TItem>.SelectedValues), Value);
 		builder.AddAttribute(109, nameof(HxMultiSelectInternal<TValue, TItem>.NullDataText), NullDataText);
 		builder.AddAttribute(110, nameof(HxMultiSelectInternal<TValue, TItem>.ItemSelectionChanged), EventCallback.Factory.Create<HxMultiSelectInternal<TValue, TItem>.SelectionChangedArgs>(this, args => HandleItemSelectionChanged(args.Checked, args.Item)));
 		builder.AddAttribute(111, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupStartText), InputGroupStartText);
 		builder.AddAttribute(112, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupStartTemplate), InputGroupStartTemplate);
 		builder.AddAttribute(113, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndText), InputGroupEndText);
 		builder.AddAttribute(114, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndTemplate), InputGroupEndTemplate);
+		builder.AddAttribute(115, nameof(HxMultiSelectInternal<TValue, TItem>.EnableFiltering), EnableFiltering);
+		builder.AddAttribute(116, nameof(HxMultiSelectInternal<TValue, TItem>.FilterSelector), FilterSelector);
+		builder.AddAttribute(117, nameof(HxMultiSelectInternal<TValue, TItem>.OnHidden), EventCallback.Factory.Create<string>(this, HandleOnHiddenChanged));
+		builder.AddAttribute(118, nameof(HxMultiSelectInternal<TValue, TItem>.OnShown), EventCallback.Factory.Create<string>(this, HandleOnShownChanged));
 
 		builder.AddMultipleAttributes(200, this.AdditionalAttributes);
 
@@ -202,7 +221,14 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		{
 			return InputText;
 		}
-		else if ((InputTextSelector is null) || (Data is null) || (CurrentValue is null))
+
+		// If filtering is enabled and the dropdown is visible then we want to display the user-entered filter text instead of the selected values summary
+		if (EnableFiltering && IsShown)
+		{
+			return InputText;
+		}
+
+		if ((InputTextSelector is null) || (Data is null) || (CurrentValue is null))
 		{
 			return CurrentValueAsString;
 		}
