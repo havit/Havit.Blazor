@@ -231,14 +231,14 @@
 				@{
 					GridFooterCellContext gridFooterCellContext = CreateGridFooterCellContext();
 					GridCellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate(gridFooterCellContext)).ToArray();
-					if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null) // there must be a tempate
+					if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null) // there must be a template
 						&& shouldRenderFooter)
 					{
 						<tfoot>
 							<tr class="@FooterRowCssClassEffective">
-								@foreach (GridCellTemplate footerCellTemplate in footerTemplates)
-								{
-									<td @key="@footerCellTemplate" class="@footerCellTemplate.CssClass">@footerCellTemplate.Template</td>
+								@for (int i = 0; i < footerTemplates.Length; i++) // do not use foreach, we need to use i as a key as footerTemplates can contain duplicates
+								{									
+									<td @key="@i" class="@footerTemplates[i].CssClass">@footerTemplates[i].Template</td>
 								}
 							</tr>
 						</tfoot>
