@@ -234,9 +234,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private CancellationTokenSource cancellationTokenSource;
 	private bool dataProviderInProgress;
 	private bool inputFormHasFocus;
-	private bool scrolltoFocusedItem;
+	private bool scrollToFocusedItem;
 	private IJSObjectReference jsModule;
 	private DotNetObjectReference<HxSearchBox<TItem>> dotnetObjectReference;
+	private bool clickIsComing;
 	private bool disposed = false;
 	public HxSearchBox()
 	{
@@ -257,9 +258,9 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			await jsModule.InvokeVoidAsync("initialize", inputId, dotnetObjectReference, new string[] { KeyCodes.ArrowUp, KeyCodes.ArrowDown });
 		}
 
-		if (scrolltoFocusedItem)
+		if (scrollToFocusedItem)
 		{
-			scrolltoFocusedItem = false;
+			scrollToFocusedItem = false;
 			await jsModule.InvokeVoidAsync("scrollToFocusedItem");
 		}
 	}
@@ -281,9 +282,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	protected async Task UpdateSuggestionsAsync()
 	{
-		await HideDropdownMenu();
-
-		if (string.IsNullOrEmpty(TextQuery) || (TextQuery.Length < MinimumLengthEffective))
+		if ((TextQuery?.Length ?? 0) < MinimumLengthEffective)
 		{
 			return;
 		}
@@ -345,7 +344,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		CancelDataProviderAndDebounce();
 
 		// start new time interval
-		if (TextQuery.Length >= MinimumLengthEffective)
+		if ((TextQuery?.Length ?? 0) >= MinimumLengthEffective)
 		{
 			if (timer == null)
 			{
@@ -427,7 +426,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			if (previousItemIndex >= minimumIndex)
 			{
 				focusedItemIndex = previousItemIndex;
-				scrolltoFocusedItem = true;
+				scrollToFocusedItem = true;
 				StateHasChanged();
 			}
 		}
@@ -439,10 +438,22 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			if (nextItemIndex <= maximumIndex)
 			{
 				focusedItemIndex = nextItemIndex;
-				scrolltoFocusedItem = true;
+				scrollToFocusedItem = true;
 				StateHasChanged();
 			}
 		}
+	}
+
+	[JSInvokable("HxSearchBox_HandleInputMouseDown")]
+	public void HandleInputMouseDown()
+	{
+		clickIsComing = true;
+	}
+
+	[JSInvokable("HxSearchBox_HandleInputMouseUp")]
+	public void HandleInputMouseUp()
+	{
+		clickIsComing = false;
 	}
 
 	private TItem GetItemByIndex(int index)
@@ -472,9 +483,22 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		});
 	}
 
-	private void HandleInputFocus()
+	private async Task HandleInputFocus()
 	{
 		inputFormHasFocus = true;
+
+		// first focus when MinimumLength is 0 and we need to load initial suggestions
+		if (((TextQuery?.Length ?? 0) == 0) && (MinimumLengthEffective == 0) && !searchResults.Any())
+		{
+			await UpdateSuggestionsAsync();
+		}
+
+		if (!clickIsComing)
+		{
+			// clickIsComing logic fixes #572 - Initial suggestions disappear when the DataProvider response is quick
+			// If click is coming, we do not want to show the dropdown as it will be toggled by the later click event (if we open it here, onfocus, click will hide it)
+			await ShowDropdownMenu();
+		}
 	}
 
 	private void HandleInputBlur()
@@ -506,7 +530,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private async Task HandleTextQueryTriggered()
 	{
 		if (AllowTextQuery
-			&& ((TextQuery.Length >= MinimumLengthEffective) || (TextQuery.Length == 0)))
+			&& (((TextQuery?.Length ?? 0) >= MinimumLengthEffective) || ((TextQuery?.Length ?? 0) == 0)))
 		{
 			CancelDataProviderAndDebounce();
 
@@ -570,8 +594,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private bool ShouldDropdownMenuBeDisplayed()
 	{
 		if (textQueryHasBeenBelowMinimumLength
-			&& (TextQuery is not null)
-			&& (TextQuery.Length >= MinimumLengthEffective))
+			&& ((TextQuery?.Length ?? 0) >= MinimumLengthEffective))
 		{
 			return false;
 		}

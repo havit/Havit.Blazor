@@ -49,6 +49,9 @@
 	  <Content Update="Pages\Components\HxAutosuggestDoc\HxAutosuggest_Demo_InitialSuggestions.razor">
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	  </Content>
+	  <Content Update="Pages\Components\HxSearchBoxDoc\HxSearchBox_Demo_InitialSuggestions.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
 	</ItemGroup>
 
 	<Target Name="EmbedDemos" BeforeTargets="PrepareForBuild">

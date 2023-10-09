@@ -7,6 +7,7 @@
 			 ItemSubtitleSelector="i => i.Position"
 			 ItemIconSelector="i => GetIcon(i)"
 			 Placeholder="Search"
+			 MinimumLength="0"
 			 AllowTextQuery="false"
 			 OnItemSelected="OnItemSelected">
 	<DefaultContentTemplate>
@@ -26,9 +27,14 @@
 
 	private async Task<SearchBoxDataProviderResult<EmployeeDto>> ProvideSearchResults(SearchBoxDataProviderRequest request)
 	{
-		var employeesFound = await DemoDataService.FindEmployeesByNameAsync(request.UserInput, limitCount: 10, request.CancellationToken);
+		if (request.UserInput?.Length > 0)
+		{
+			var matchingEmployees = await DemoDataService.FindEmployeesByNameAsync(request.UserInput, limitCount: 10, request.CancellationToken);
+			return new SearchBoxDataProviderResult<EmployeeDto> { Data = matchingEmployees };
+		}
 
-		return new SearchBoxDataProviderResult<EmployeeDto>() { Data = employeesFound };
+		var initialSuggestions = await DemoDataService.GetPreferredEmployeesAsync(count: 10, request.CancellationToken);
+		return new SearchBoxDataProviderResult<EmployeeDto>() { Data = initialSuggestions };
 	}
 
 	private void OnItemSelected(EmployeeDto item)
