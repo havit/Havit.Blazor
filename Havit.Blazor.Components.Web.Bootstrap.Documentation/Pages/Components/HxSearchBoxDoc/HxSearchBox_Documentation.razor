@@ -29,7 +29,11 @@
 			You might want to tweak the <code>Delay</code> parameter to disable/minimize the delay before the initial suggestions are displayed.<br />
 			In such case, consider using additional <a href="/concepts/Debouncer">Debouncer</a> for regular suggestions to avoid unnecessary roundtrips on every keystroke.
 		</DocAlert>
-    </MainContent>
+
+		<DocHeading Title="Text query without suggestions" />
+		<p>You may want to include a straightforward search box to initiate text-based searches. No suggestions, just visual cues to assist the user.</p>
+		<Demo Type="typeof(HxSearchBox_Demo_TextQueryOnly)" />
+	</MainContent>
     <CssVariables>
         <ComponentApiDocCssVariable Name="--hx-search-box-item-icon-margin" Default="0 .5rem 0 0">
             Item icon margin.

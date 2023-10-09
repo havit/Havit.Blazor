@@ -329,7 +329,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			focusedItemIndex = 0; // Move focus to the first item.
 		}
 
-		searchResults = result?.Data.ToList();
+		searchResults = result?.Data?.ToList() ?? new();
 
 		textQueryHasBeenBelowMinimumLength = false;
 		await ShowDropdownMenu();
@@ -346,16 +346,23 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		// start new time interval
 		if ((TextQuery?.Length ?? 0) >= MinimumLengthEffective)
 		{
-			if (timer == null)
+			if (DelayEffective > 0)
 			{
-				timer = new System.Timers.Timer
+				if (timer == null)
 				{
-					AutoReset = false // just once
-				};
-				timer.Elapsed += HandleTimerElapsed;
+					timer = new System.Timers.Timer
+					{
+						AutoReset = false // just once
+					};
+					timer.Elapsed += HandleTimerElapsed;
+				}
+				timer.Interval = DelayEffective;
+				timer.Start();
 			}
-			timer.Interval = DelayEffective;
-			timer.Start();
+			else
+			{
+				await UpdateSuggestionsAsync();
+			}
 		}
 		else
 		{
