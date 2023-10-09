@@ -67,14 +67,14 @@
 			new Invoice(20, "Client #20", 200.00m)
 		}.AsEnumerable();
 
-	[Inject] private IHxMessageBoxService? MessageBox { get; set; }
+	[Inject] private IHxMessageBoxService MessageBox { get; set; }
 
 	public Task<GridDataProviderResult<Invoice>> OnLoadItems(GridDataProviderRequest<Invoice> request)
 	{
 		return Task.FromResult(request.ApplyTo(_invoices));
 	}
 
-	public async Task OnInvoiceSelected(Invoice? selectedInvoice)
+	public async Task OnInvoiceSelected(Invoice selectedInvoice)
 	{
 		if (selectedInvoice == null || MessageBox == null)
 			return;
@@ -110,5 +110,4 @@
 
 		public decimal Total { get; private set; }
 	}
-
 }
