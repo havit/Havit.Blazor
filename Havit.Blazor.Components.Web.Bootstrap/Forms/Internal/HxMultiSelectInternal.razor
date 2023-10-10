@@ -35,6 +35,16 @@
     <ul class="dropdown-menu"> @* Must be always rendered otherwise does not work after disable->enabled scenario *@
         @if (enabled)
         {
+            <input id="@($"{InputId}_filter")"
+                   type="text"
+                   class="@CssClassHelper.Combine("form-control")"
+                   autocomplete="false"
+                   data-bs-reference="parent"
+                   value=""
+                   @oninput="HandleInputChanged"
+                   @onclick:stopPropagation
+                   onfocusin="this.select()" />
+
             var filteredItems = EnableFiltering ? ItemsToRender.Where(x => FilterSelector(x, InputText)).ToList() : ItemsToRender;
             for (var i = 0; i < filteredItems.Count; i++)
             {
