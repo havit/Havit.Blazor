@@ -55,7 +55,9 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public bool EnableFiltering { get; set; }
 
-	[Parameter] public Func<TItem, string, bool> FilterSelector { get; set; } = (_, _) => true;
+	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; } = (_, _) => true;
+
+	[Parameter] public bool ClearFilterOnHide { get; set; }
 
 	[Parameter]	public EventCallback<string> OnShown { get; set; }
 
@@ -85,11 +87,13 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	/// </summary>
 	protected virtual Task InvokeOnShownAsync(string elementId) => OnShown.InvokeAsync(elementId);
 
+	private IJSObjectReference jsModule;
 	private readonly DotNetObjectReference<HxMultiSelectInternal<TValue, TItem>> dotnetObjectReference;
 	private ElementReference elementReference;
+	private ElementReference filterInputReference;
 	private bool isShown;
+	private string filterText = string.Empty;
 	private bool disposed;
-	private IJSObjectReference jsModule;
 
 	private async Task HandleItemSelectionChangedAsync(bool newChecked, TItem item)
 	{
@@ -103,7 +107,17 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	private void HandleInputChanged(ChangeEventArgs e)
 	{
-		InputText = e.Value?.ToString() ?? string.Empty;
+		filterText = e.Value?.ToString() ?? string.Empty;
+	}
+
+	private List<TItem> GetFilteredItems()
+	{
+		if (!EnableFiltering || string.IsNullOrEmpty(filterText))
+		{
+			return ItemsToRender;
+		}
+
+		return ItemsToRender.Where(x => FilterPredicate(x, filterText)).ToList();
 	}
 
 	public async ValueTask FocusAsync()
@@ -122,7 +136,12 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	public Task HandleJsHidden()
 	{
 		isShown = false;
-		InputText = string.Empty;
+
+		if (ClearFilterOnHide)
+		{
+			filterText = string.Empty;
+		}
+
 		return InvokeOnHiddenAsync(this.InputId);
 	}
 
@@ -130,6 +149,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	public async Task HandleJsShown()
 	{
 		isShown = true;
+		await filterInputReference.FocusAsync();
 		await InvokeOnShownAsync(this.InputId);
 	}
 
@@ -159,6 +179,24 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	public async ValueTask DisposeAsync()
 	{
 		await DisposeAsyncCore();
+	}
+
+	/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+
+		await base.OnAfterRenderAsync(firstRender);
+
+		if (firstRender)
+		{
+			await EnsureJsModuleAsync();
+			if (disposed)
+			{
+				return;
+			}
+
+			await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference, false);
+		}
 	}
 
 	protected virtual async ValueTask DisposeAsyncCore()

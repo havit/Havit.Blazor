@@ -112,7 +112,9 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 
 	[Parameter] public bool EnableFiltering { get; set; }
 
-	[Parameter] public Func<TItem, string, bool> FilterSelector { get; set; } = (_, _) => true;
+	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; } = (_, _) => true;
+
+	[Parameter] public bool ClearFilterOnHide { get; set; }
 
 	private bool IsShown { get; set; }
 
@@ -204,9 +206,10 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(113, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndText), InputGroupEndText);
 		builder.AddAttribute(114, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndTemplate), InputGroupEndTemplate);
 		builder.AddAttribute(115, nameof(HxMultiSelectInternal<TValue, TItem>.EnableFiltering), EnableFiltering);
-		builder.AddAttribute(116, nameof(HxMultiSelectInternal<TValue, TItem>.FilterSelector), FilterSelector);
+		builder.AddAttribute(116, nameof(HxMultiSelectInternal<TValue, TItem>.FilterPredicate), FilterPredicate);
 		builder.AddAttribute(117, nameof(HxMultiSelectInternal<TValue, TItem>.OnHidden), EventCallback.Factory.Create<string>(this, HandleOnHiddenChanged));
 		builder.AddAttribute(118, nameof(HxMultiSelectInternal<TValue, TItem>.OnShown), EventCallback.Factory.Create<string>(this, HandleOnShownChanged));
+		builder.AddAttribute(119, nameof(HxMultiSelectInternal<TValue, TItem>.ClearFilterOnHide), ClearFilterOnHide);
 
 		builder.AddMultipleAttributes(200, this.AdditionalAttributes);
 
@@ -218,12 +221,6 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	private string GetInputText()
 	{
 		if (!string.IsNullOrEmpty(InputText))
-		{
-			return InputText;
-		}
-
-		// If filtering is enabled and the dropdown is visible then we want to display the user-entered filter text instead of the selected values summary
-		if (EnableFiltering && IsShown)
 		{
 			return InputText;
 		}

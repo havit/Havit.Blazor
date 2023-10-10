@@ -2756,6 +2756,9 @@
             Expands the item.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent">
             <summary>
             Represents properties (and methods) of a component rendering a form value (ie. form inputs).
