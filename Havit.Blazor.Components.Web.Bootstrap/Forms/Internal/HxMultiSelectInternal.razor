@@ -7,7 +7,7 @@
 }
 
 <div @ref="elementReference" class="hx-multi-select dropdown" role="listbox">
-    <div class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputGroupCssClass)" aria-expanded="@IsShown" data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
+    <div class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputGroupCssClass)" aria-expanded="@isShown" data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
         @if (InputGroupStartText is not null)
         {
             <span class="input-group-text">@InputGroupStartText</span>
@@ -19,9 +19,8 @@
                id="@InputId"
                class="@InputCssClass"
                value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
-               @oninput="HandleInputChanged"
                disabled="@(!enabled)"
-               readonly="@(!EnableFiltering)"
+               readonly="true"
                @attributes="this.AdditionalAttributes" />
 
         @InputGroupEndTemplate
