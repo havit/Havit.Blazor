@@ -81,7 +81,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public EventCallback<bool> SelectAllChanged { get; set; }
 
-	[Parameter] public string SelectAllText { get; set; } = "-- select all --";
+	[Parameter] public string SelectAllText { get; set; }
 
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML element.
