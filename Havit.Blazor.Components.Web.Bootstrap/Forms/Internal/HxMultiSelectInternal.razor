@@ -32,22 +32,23 @@
     </div>
 
     <ul class="dropdown-menu"> @* Must be always rendered otherwise does not work after disable->enabled scenario *@
-        @if (enabled && AllowFiltering)
-        {
-            <input @ref="filterInputReference"
-                   id="@($"{InputId}_filter")"
-                   type="text"
-                   class="@CssClassHelper.Combine("form-control")"
-                   autocomplete="false"
-                   data-bs-reference="parent"
-                   value="@filterText"
-                   @oninput="HandleInputChanged"
-                   @onclick:stopPropagation
-                   onfocusin="this.select()" />
-        }
+        
 
         @if (enabled)
         {
+            if (AllowFiltering)
+            {
+                <input @ref="filterInputReference"
+                       id="@($"{InputId}_filter")"
+                       type="text"
+                       class="@CssClassHelper.Combine("form-control")"
+                       autocomplete="false"
+                       value="@filterText"
+                       @oninput="HandleInputChanged"
+                       @onclick:stopPropagation
+                       onfocusin="this.select()" />
+            }
+
             var filteredItems = GetFilteredItems();
             for (var i = 0; i < filteredItems.Count; i++)
             {
