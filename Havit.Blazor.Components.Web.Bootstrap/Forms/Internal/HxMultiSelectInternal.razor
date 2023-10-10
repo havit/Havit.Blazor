@@ -32,8 +32,6 @@
     </div>
 
     <ul class="dropdown-menu"> @* Must be always rendered otherwise does not work after disable->enabled scenario *@
-        
-
         @if (enabled)
         {
             if (AllowFiltering)
@@ -44,36 +42,52 @@
                        class="@CssClassHelper.Combine("form-control")"
                        autocomplete="false"
                        value="@filterText"
-                       @oninput="HandleInputChanged"
+                       @oninput="HandleInputChangedAsync"
                        @onclick:stopPropagation
                        onfocusin="this.select()" />
             }
 
             var filteredItems = GetFilteredItems();
-            for (var i = 0; i < filteredItems.Count; i++)
-            {
-                string checkboxElementId = InputId + "_" + i.ToString();
-
-                var item = filteredItems[i];
-                TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
-
-                bool itemSelected = SelectedValues?.Contains(value) ?? false;
-
-                <li>
-                    <button type="button" class="dropdown-item" role="option" @onclick="async () => await HandleItemSelectionChangedAsync(!itemSelected, item)">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="@checkboxElementId" checked="@itemSelected" tabindex="-1" />
-                            <label class="form-check-label" for="@checkboxElementId" @onclick:preventDefault >
-                                @SelectorHelpers.GetText(TextSelector, item)
-                            </label>
-                        </div>
-                    </button>
-                </li>
-            }
-
             if (filteredItems.Count <= 0)
             {
                 @EmptyTemplate
+            }
+            else
+            {
+                if (AllowSelectAll)
+                {
+                    <li>
+                        <button type="button" class="dropdown-item" role="option" @onclick="HandleSelectAllClickedAsync">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="@($"{InputId}_selectall")" checked="@selectAll" tabindex="-1" />
+                                <label class="form-check-label" for="@($"{InputId}_selectall")" @onclick:preventDefault>
+                                    @SelectAllText
+                                </label>
+                            </div>
+                        </button>
+                    </li>
+                }
+
+                for (var i = 0; i < filteredItems.Count; i++)
+                {
+                    string checkboxElementId = InputId + "_" + i.ToString();
+
+                    var item = filteredItems[i];
+                    TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
+
+                    bool itemSelected = DoSelectedValuesContainValue(value);
+
+                    <li>
+                        <button type="button" class="dropdown-item" role="option" @onclick="async () => await HandleItemSelectionChangedAsync(!itemSelected, item)">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="@checkboxElementId" checked="@itemSelected" tabindex="-1" />
+                                <label class="form-check-label" for="@checkboxElementId" @onclick:preventDefault>
+                                    @SelectorHelpers.GetText(TextSelector, item)
+                                </label>
+                            </div>
+                        </button>
+                    </li>
+                }
             }
         }
     </ul>

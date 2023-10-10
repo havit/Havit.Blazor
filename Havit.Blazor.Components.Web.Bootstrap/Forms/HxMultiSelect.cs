@@ -134,6 +134,12 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// </summary>
 	[Parameter] public RenderFragment EmptyTemplate { get; set; }
 
+	[Parameter] public bool AllowSelectAll { get; set; }
+
+	[Parameter] public EventCallback<bool> SelectAllChanged { get; set; }
+
+	[Parameter] public string SelectAllText { get; set; }
+
 	private List<TItem> itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
 
@@ -217,6 +223,9 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(118, nameof(HxMultiSelectInternal<TValue, TItem>.OnShown), OnShown);
 		builder.AddAttribute(119, nameof(HxMultiSelectInternal<TValue, TItem>.ClearFilterOnHide), ClearFilterOnHide);
 		builder.AddAttribute(120, nameof(HxMultiSelectInternal<TValue, TItem>.EmptyTemplate), EmptyTemplate);
+		builder.AddAttribute(121, nameof(HxMultiSelectInternal<TValue, TItem>.AllowSelectAll), AllowSelectAll);
+		builder.AddAttribute(122, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllChanged), SelectAllChanged);
+		builder.AddAttribute(123, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllText), SelectAllText);
 
 		builder.AddMultipleAttributes(200, this.AdditionalAttributes);
 

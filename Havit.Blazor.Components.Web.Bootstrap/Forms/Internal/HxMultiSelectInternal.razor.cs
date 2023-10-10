@@ -77,6 +77,12 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	/// </summary>
 	[Parameter] public RenderFragment EmptyTemplate { get; set; }
 
+	[Parameter] public bool AllowSelectAll { get; set; }
+
+	[Parameter] public EventCallback<bool> SelectAllChanged { get; set; }
+
+	[Parameter] public string SelectAllText { get; set; } = "-- select all --";
+
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML element.
 	/// </summary>
@@ -131,18 +137,69 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxMultiSelect));
 	}
 
-	private async Task HandleItemSelectionChangedAsync(bool newChecked, TItem item)
+	private async Task HandleItemSelectionChangedAsync(bool newChecked, TItem item, bool triggerSelectAllEvent = true)
 	{
 		await ItemSelectionChanged.InvokeAsync(new SelectionChangedArgs
 		{
 			Checked = newChecked,
 			Item = item
 		});
+
+		if (triggerSelectAllEvent)
+		{
+			await ChangeSelectAllAsync(false);
+		}
 	}
 
-	private void HandleInputChanged(ChangeEventArgs e)
+	private bool selectAll;
+
+	private async Task HandleSelectAllClickedAsync()
+	{
+		var filteredItems = GetFilteredItems();
+
+		// If all items are already selected then they should be deselected, otherwise only records that aren't selected should be
+		if (selectAll)
+		{
+			foreach (var item in filteredItems)
+			{
+				// We don't want to trigger select all triggers each time, an item is selected, just once at the end
+				await HandleItemSelectionChangedAsync(false, item, false);
+			}
+		}
+		else
+		{
+			foreach (var item in filteredItems)
+			{
+				var value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
+				var itemSelected = DoSelectedValuesContainValue(value);
+
+				// If the item is already selected we don't need to reselect it
+				if (!itemSelected)
+				{
+					// We don't want to trigger select all triggers each time, an item is selected, just once at the end
+					await HandleItemSelectionChangedAsync(!itemSelected, item, false);
+				}
+			}
+		}
+
+		await ChangeSelectAllAsync(!selectAll);
+	}
+
+	private bool DoSelectedValuesContainValue(TValue value)
+	{
+		return SelectedValues?.Contains(value) ?? false;
+	}
+
+	private Task ChangeSelectAllAsync(bool selectAll)
+	{
+		this.selectAll = selectAll;
+		return SelectAllChanged.InvokeAsync(selectAll);
+	}
+
+	private Task HandleInputChangedAsync(ChangeEventArgs e)
 	{
 		filterText = e.Value?.ToString() ?? string.Empty;
+		return ChangeSelectAllAsync(false);
 	}
 
 	private List<TItem> GetFilteredItems()

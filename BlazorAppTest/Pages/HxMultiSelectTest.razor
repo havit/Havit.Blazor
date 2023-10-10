@@ -3,8 +3,6 @@
 
 <h1>HxMultiSelect</h1>
 
-<p>Selected values: @String.Join(", ", model.CultureInfos ?? Enumerable.Empty<string>())</p>
-
 <HxSwitch Text="Enabled" @bind-Value="@enabled" />
 
 <EditForm Model="@model">
@@ -25,12 +23,16 @@
                    @bind-Value="@model.CultureInfos"
                    NullDataText="Loading languages..."
                    AllowFiltering="true"
+                   AllowSelectAll="true"
+                   SelectAllText="Select all cultures"
                    Enabled="@enabled">
         <EmptyTemplate>
             <span class="p-2">Couldn't find any matching cultures</span>
         </EmptyTemplate>
     </HxMultiSelect>
 </EditForm>
+
+<p>Selected values: @String.Join(", ", model.CultureInfos ?? Enumerable.Empty<string>())</p>
 
 @code
 {
