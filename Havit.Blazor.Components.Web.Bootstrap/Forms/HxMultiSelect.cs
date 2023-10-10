@@ -115,7 +115,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// </summary>
 	[Parameter] public bool EnableFiltering { get; set; }
 
-	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; } = (_, _) => true;
+	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; }
 
 	[Parameter] public bool ClearFilterOnHide { get; set; }
 

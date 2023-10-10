@@ -25,7 +25,6 @@
                    @bind-Value="@model.CultureInfos"
                    NullDataText="Loading languages..."
                    EnableFiltering="true"
-                   FilterPredicate="((item, filterText) => FilterSelector(item, filterText))"
                    Enabled="@enabled">
     </HxMultiSelect>
 </EditForm>
@@ -53,10 +52,5 @@
     private class Model
     {
         public List<string> CultureInfos { get; set; }
-    }
-
-    private bool FilterSelector(CultureInfo item, string filter)
-    {
-        return string.IsNullOrWhiteSpace(filter) || item.EnglishName.Contains(filter, StringComparison.OrdinalIgnoreCase);
     }
 }

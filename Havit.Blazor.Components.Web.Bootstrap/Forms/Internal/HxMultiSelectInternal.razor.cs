@@ -58,7 +58,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	/// </summary>
 	[Parameter] public bool EnableFiltering { get; set; }
 
-	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; } = (_, _) => true;
+	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; }
 
 	[Parameter] public bool ClearFilterOnHide { get; set; }
 
@@ -112,7 +112,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-
 		await base.OnAfterRenderAsync(firstRender);
 
 		if (firstRender)
@@ -154,7 +153,13 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 			return ItemsToRender;
 		}
 
-		return ItemsToRender.Where(x => FilterPredicate(x, filterText)).ToList();
+		var filterPredicate = FilterPredicate ?? DefaultFilterPredicate;
+		return ItemsToRender.Where(x => filterPredicate(x, filterText)).ToList();
+
+		bool DefaultFilterPredicate(TItem item, string filter)
+		{
+			return string.IsNullOrWhiteSpace(filter) || TextSelector(item).Contains(filter, StringComparison.OrdinalIgnoreCase);
+		}
 	}
 
 	public async ValueTask FocusAsync()
