@@ -110,13 +110,29 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+	/// <summary>
+	/// Enables filtering capabilities.
+	/// </summary>
 	[Parameter] public bool EnableFiltering { get; set; }
 
 	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; } = (_, _) => true;
 
 	[Parameter] public bool ClearFilterOnHide { get; set; }
 
-	private bool IsShown { get; set; }
+	/// <summary>
+	/// This event is fired when a dropdown element has been made visible to the user.
+	/// </summary>
+	[Parameter] public EventCallback<string> OnShown { get; set; }
+
+	/// <summary>
+	/// This event is fired when a dropdown element has been hidden from the user.
+	/// </summary>
+	[Parameter] public EventCallback<string> OnHidden { get; set; }
+
+	/// <summary>
+	/// Template that defines what should be rendered in case of empty items.
+	/// </summary>
+	[Parameter] public RenderFragment EmptyTemplate { get; set; }
 
 	private List<TItem> itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
@@ -159,16 +175,6 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		CurrentValue = newValue; // setter includes ValueChanged + NotifyFieldChanged
 	}
 
-	private void HandleOnHiddenChanged()
-	{
-		IsShown = false;
-	}
-
-	private void HandleOnShownChanged()
-	{
-		IsShown = true;
-	}
-
 	protected override bool TryParseValueFromString(string value, out List<TValue> result, out string validationErrorMessage)
 	{
 		throw new NotSupportedException();
@@ -207,9 +213,10 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(114, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndTemplate), InputGroupEndTemplate);
 		builder.AddAttribute(115, nameof(HxMultiSelectInternal<TValue, TItem>.EnableFiltering), EnableFiltering);
 		builder.AddAttribute(116, nameof(HxMultiSelectInternal<TValue, TItem>.FilterPredicate), FilterPredicate);
-		builder.AddAttribute(117, nameof(HxMultiSelectInternal<TValue, TItem>.OnHidden), EventCallback.Factory.Create<string>(this, HandleOnHiddenChanged));
-		builder.AddAttribute(118, nameof(HxMultiSelectInternal<TValue, TItem>.OnShown), EventCallback.Factory.Create<string>(this, HandleOnShownChanged));
+		builder.AddAttribute(117, nameof(HxMultiSelectInternal<TValue, TItem>.OnHidden), OnHidden);
+		builder.AddAttribute(118, nameof(HxMultiSelectInternal<TValue, TItem>.OnShown), OnShown);
 		builder.AddAttribute(119, nameof(HxMultiSelectInternal<TValue, TItem>.ClearFilterOnHide), ClearFilterOnHide);
+		builder.AddAttribute(120, nameof(HxMultiSelectInternal<TValue, TItem>.EmptyTemplate), EmptyTemplate);
 
 		builder.AddMultipleAttributes(200, this.AdditionalAttributes);
 

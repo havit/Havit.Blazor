@@ -2726,6 +2726,26 @@
             Input-group at the end of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.EnableFiltering">
+            <summary>
+            Enables filtering capabilities.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.OnShown">
+            <summary>
+            This event is fired when a dropdown element has been made visible to the user.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.OnHidden">
+            <summary>
+            This event is fired when a dropdown element has been hidden from the user.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.EmptyTemplate">
+            <summary>
+            Template that defines what should be rendered in case of empty items.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying HTML element.
@@ -2741,6 +2761,9 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.OnShown"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.HandleJsHidden">
             <summary>
             Receives notification from JavaScript when item is hidden.
@@ -2755,9 +2778,6 @@
             <summary>
             Expands the item.
             </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.OnAfterRenderAsync(System.Boolean)">
-            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent">
             <summary>
@@ -4410,6 +4430,26 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputGroupEndTemplate">
             <summary>
             Input-group at the end of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.EnableFiltering">
+            <summary>
+            Enables filtering capabilities.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.OnShown">
+            <summary>
+            This event is fired when a dropdown element has been made visible to the user.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.OnHidden">
+            <summary>
+            This event is fired when a dropdown element has been hidden from the user.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.EmptyTemplate">
+            <summary>
+            Template that defines what should be rendered in case of empty items.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FocusAsync">

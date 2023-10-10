@@ -53,15 +53,29 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+	/// <summary>
+	/// Enables filtering capabilities.
+	/// </summary>
 	[Parameter] public bool EnableFiltering { get; set; }
 
 	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; } = (_, _) => true;
 
 	[Parameter] public bool ClearFilterOnHide { get; set; }
 
-	[Parameter]	public EventCallback<string> OnShown { get; set; }
+	/// <summary>
+	/// This event is fired when a dropdown element has been made visible to the user.
+	/// </summary>
+	[Parameter] public EventCallback<string> OnShown { get; set; }
 
+	/// <summary>
+	/// This event is fired when a dropdown element has been hidden from the user.
+	/// </summary>
 	[Parameter] public EventCallback<string> OnHidden { get; set; }
+
+	/// <summary>
+	/// Template that defines what should be rendered in case of empty items.
+	/// </summary>
+	[Parameter] public RenderFragment EmptyTemplate { get; set; }
 
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML element.
@@ -69,11 +83,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
 	[Inject] private IJSRuntime JSRuntime { get; set; } = default!;
-
-	public HxMultiSelectInternal()
-	{
-		dotnetObjectReference = DotNetObjectReference.Create(this);
-	}
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
@@ -94,6 +103,34 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	private bool isShown;
 	private string filterText = string.Empty;
 	private bool disposed;
+
+	public HxMultiSelectInternal()
+	{
+		dotnetObjectReference = DotNetObjectReference.Create(this);
+	}
+
+	/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+
+		await base.OnAfterRenderAsync(firstRender);
+
+		if (firstRender)
+		{
+			await EnsureJsModuleAsync();
+			if (disposed)
+			{
+				return;
+			}
+
+			await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference, false);
+		}
+	}
+
+	private async Task EnsureJsModuleAsync()
+	{
+		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxMultiSelect));
+	}
 
 	private async Task HandleItemSelectionChangedAsync(bool newChecked, TItem item)
 	{
@@ -171,32 +208,9 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		await jsModule.InvokeVoidAsync("show", elementReference);
 	}
 
-	private async Task EnsureJsModuleAsync()
-	{
-		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxMultiSelect));
-	}
-
 	public async ValueTask DisposeAsync()
 	{
 		await DisposeAsyncCore();
-	}
-
-	/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-
-		await base.OnAfterRenderAsync(firstRender);
-
-		if (firstRender)
-		{
-			await EnsureJsModuleAsync();
-			if (disposed)
-			{
-				return;
-			}
-
-			await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference, false);
-		}
 	}
 
 	protected virtual async ValueTask DisposeAsyncCore()

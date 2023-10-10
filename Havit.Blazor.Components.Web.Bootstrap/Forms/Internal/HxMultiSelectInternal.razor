@@ -69,6 +69,11 @@
                     </button>
                 </li>
             }
+
+            if (filteredItems.Count <= 0)
+            {
+                @EmptyTemplate
+            }
         }
     </ul>
 </div>
