@@ -56,7 +56,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	/// <summary>
 	/// Enables filtering capabilities.
 	/// </summary>
-	[Parameter] public bool EnableFiltering { get; set; }
+	[Parameter] public bool AllowFiltering { get; set; }
 
 	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; }
 
@@ -140,7 +140,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		});
 	}
 
-
 	private void HandleInputChanged(ChangeEventArgs e)
 	{
 		filterText = e.Value?.ToString() ?? string.Empty;
@@ -148,7 +147,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	private List<TItem> GetFilteredItems()
 	{
-		if (!EnableFiltering || string.IsNullOrEmpty(filterText))
+		if (!AllowFiltering || string.IsNullOrEmpty(filterText))
 		{
 			return ItemsToRender;
 		}

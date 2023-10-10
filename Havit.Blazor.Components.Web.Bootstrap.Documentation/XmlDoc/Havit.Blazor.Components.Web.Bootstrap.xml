@@ -2726,7 +2726,7 @@
             Input-group at the end of the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.EnableFiltering">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.AllowFiltering">
             <summary>
             Enables filtering capabilities.
             </summary>
@@ -4432,7 +4432,7 @@
             Input-group at the end of the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.EnableFiltering">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.AllowFiltering">
             <summary>
             Enables filtering capabilities.
             </summary>

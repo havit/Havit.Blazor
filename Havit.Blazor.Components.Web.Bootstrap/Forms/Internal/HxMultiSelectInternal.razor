@@ -32,7 +32,7 @@
     </div>
 
     <ul class="dropdown-menu"> @* Must be always rendered otherwise does not work after disable->enabled scenario *@
-        @if (enabled && EnableFiltering)
+        @if (enabled && AllowFiltering)
         {
             <input @ref="filterInputReference"
                    id="@($"{InputId}_filter")"

@@ -113,7 +113,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// <summary>
 	/// Enables filtering capabilities.
 	/// </summary>
-	[Parameter] public bool EnableFiltering { get; set; }
+	[Parameter] public bool AllowFiltering { get; set; }
 
 	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; }
 
@@ -211,7 +211,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(112, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupStartTemplate), InputGroupStartTemplate);
 		builder.AddAttribute(113, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndText), InputGroupEndText);
 		builder.AddAttribute(114, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndTemplate), InputGroupEndTemplate);
-		builder.AddAttribute(115, nameof(HxMultiSelectInternal<TValue, TItem>.EnableFiltering), EnableFiltering);
+		builder.AddAttribute(115, nameof(HxMultiSelectInternal<TValue, TItem>.AllowFiltering), AllowFiltering);
 		builder.AddAttribute(116, nameof(HxMultiSelectInternal<TValue, TItem>.FilterPredicate), FilterPredicate);
 		builder.AddAttribute(117, nameof(HxMultiSelectInternal<TValue, TItem>.OnHidden), OnHidden);
 		builder.AddAttribute(118, nameof(HxMultiSelectInternal<TValue, TItem>.OnShown), OnShown);
