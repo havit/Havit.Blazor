@@ -157,7 +157,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 		bool DefaultFilterPredicate(TItem item, string filter)
 		{
-			return string.IsNullOrWhiteSpace(filter) || TextSelector(item).Contains(filter, StringComparison.OrdinalIgnoreCase);
+			return string.IsNullOrEmpty(filter) || TextSelector(item).Contains(filter, StringComparison.OrdinalIgnoreCase);
 		}
 	}
 
