@@ -183,7 +183,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 		var message = !String.IsNullOrEmpty(FromParsingErrorMessage)
 			? FromParsingErrorMessage
 			: StringLocalizer["FromParsingErrorMessage"];
-		return String.Format(message, Label, FieldIdentifier.FieldName);
+		return String.Format(message, DisplayName ?? Label ?? FieldIdentifier.FieldName);
 	}
 
 	/// <summary>
@@ -194,6 +194,6 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 		var message = !String.IsNullOrEmpty(ToParsingErrorMessage)
 			? ToParsingErrorMessage
 			: StringLocalizer["ToParsingErrorMessage"];
-		return String.Format(message, Label, FieldIdentifier.FieldName);
+		return String.Format(message, DisplayName ?? Label ?? FieldIdentifier.FieldName);
 	}
 }

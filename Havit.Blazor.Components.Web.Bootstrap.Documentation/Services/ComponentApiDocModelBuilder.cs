@@ -17,7 +17,8 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		["ChildContent"] = "Content of the component.",
 		["Enabled"] = "When <code>null</code> (default), the Enabled value is received from cascading <code>FormState</code>.\n"
 			+ "When value is <code>false</code>, input is rendered as disabled.\n"
-			+ "To set multiple controls as disabled use <code>HxFormState</code>."
+			+ "To set multiple controls as disabled use <code>HxFormState</code>.",
+		["DisplayName"] = "Gets or sets the display name for this field.<br/>This value is used when generating error messages when the input value fails to parse correctly."
 	};
 
 	private static readonly List<string> ignoredMethods = new()

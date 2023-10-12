@@ -121,7 +121,7 @@
     <value>Vymazat</value>
   </data>
   <data name="ParsingErrorMessage" xml:space="preserve">
-    <value>Zadejte datum.</value>
+    <value>{0} musí být datum.</value>
   </data>
   <data name="Today" xml:space="preserve">
     <value>Dnes</value>

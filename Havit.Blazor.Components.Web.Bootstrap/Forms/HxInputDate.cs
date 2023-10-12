@@ -203,7 +203,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 		var message = !String.IsNullOrEmpty(ParsingErrorMessage)
 			? ParsingErrorMessage
 			: StringLocalizer["ParsingErrorMessage"];
-		return String.Format(message, Label, FieldIdentifier.FieldName);
+		return String.Format(message, DisplayName ?? Label ?? FieldIdentifier.FieldName);
 	}
 
 	internal static string FormatValue(TValue value)
