@@ -31,6 +31,9 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective { get; set; }
 
+	[Parameter] public DateTime FromCalendarDisplayMonth { get; set; }
+	[Parameter] public DateTime ToCalendarDisplayMonth { get; set; }
+
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
@@ -46,6 +49,27 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	private HxDropdownToggleElement fromDropdownToggleElement;
 	private HxDropdownToggleElement toDropdownToggleElement;
+
+	private DateTime toCalendarDisplayMonthEffective
+	{
+		get
+		{
+			if (CurrentValue.StartDate != null && CurrentValue.StartDate != default)
+			{
+				if (ToCalendarDisplayMonth != default && ToCalendarDisplayMonth > CurrentValue.StartDate)
+				{
+					return ToCalendarDisplayMonth;
+				}
+				return CurrentValue.StartDate.Value;
+			}
+			if (ToCalendarDisplayMonth != default)
+			{
+				return ToCalendarDisplayMonth;
+			}
+			return FromCalendarDisplayMonth;
+		}
+	}
+
 
 	protected override void OnParametersSet()
 	{

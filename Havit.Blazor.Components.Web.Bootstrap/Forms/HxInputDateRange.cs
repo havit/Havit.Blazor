@@ -106,6 +106,15 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
 	protected CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective => this.CalendarDateCustomizationProvider ?? this.GetSettings()?.CalendarDateCustomizationProvider ?? GetDefaults().CalendarDateCustomizationProvider;
 
+	/// <summary>
+	/// Month to display the from calendar, when no start date selected.
+	/// </summary>
+	[Parameter] public DateTime FromCalendarDisplayMonth { get; set; }
+	/// <summary>
+	/// Month to display the to calendar, when no end date or start date selected, will default to <see cref="HxInputDateRange.FromCalendarDisplayMonth"/>.
+	/// </summary>
+	[Parameter] public DateTime ToCalendarDisplayMonth { get; set; }
+
 	[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -133,6 +142,8 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 		builder.AddAttribute(210, nameof(HxInputDateRangeInternal.ShowClearButtonEffective), ShowClearButtonEffective);
 		builder.AddAttribute(211, nameof(HxInputDateRangeInternal.MinDateEffective), MinDateEffective);
 		builder.AddAttribute(212, nameof(HxInputDateRangeInternal.MaxDateEffective), MaxDateEffective);
+		builder.AddAttribute(213, nameof(HxInputDateRangeInternal.FromCalendarDisplayMonth), this.FromCalendarDisplayMonth);
+		builder.AddAttribute(214, nameof(HxInputDateRangeInternal.ToCalendarDisplayMonth), this.ToCalendarDisplayMonth);
 		builder.AddAttribute(220, nameof(HxInputDateRangeInternal.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProviderEffective);
 
 		builder.AddMultipleAttributes(300, this.AdditionalAttributes);

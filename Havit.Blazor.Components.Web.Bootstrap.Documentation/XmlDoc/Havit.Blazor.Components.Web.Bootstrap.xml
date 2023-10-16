@@ -3875,6 +3875,11 @@
             Input-group at the end of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.CalendarDisplayMonth">
+            <summary>
+            Month to display.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.FormatValueAsString(`0)">
             <inheritdocs />
         </member>
@@ -3973,6 +3978,16 @@
             <summary>
             Allows customization of the dates in dropdown calendars.<br />
             Default customization is configurable with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromCalendarDisplayMonth">
+            <summary>
+            Month to display the from calendar, when no start date selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ToCalendarDisplayMonth">
+            <summary>
+            Month to display the to calendar, when no end date or start date selected, will default to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromCalendarDisplayMonth"/>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FormatValueAsString(Havit.DateTimeRange)">

@@ -57,6 +57,7 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
+	[Parameter] public DateTime CalendarDisplayMonth { get; set; }
 
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
