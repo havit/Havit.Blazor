@@ -116,8 +116,14 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public bool? AllowFiltering { get; set; }
 	protected bool AllowFilteringEffective => this.AllowFiltering ?? this.GetSettings()?.AllowFiltering ?? GetDefaults().AllowFiltering;
 
+	/// <summary>
+	/// Predicate to custom how the filtering is applied to the items list.
+	/// </summary>
 	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; }
 
+	/// <summary>
+	/// When enabled the filter will be cleared when the dropdown is closed.
+	/// </summary>
 	[Parameter] public bool? ClearFilterOnHide { get; set; }
 	protected bool ClearFilterOnHideEffective => this.ClearFilterOnHide ?? this.GetSettings()?.ClearFilterOnHide ?? GetDefaults().ClearFilterOnHide;
 
@@ -126,13 +132,22 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// </summary>
 	[Parameter] public RenderFragment FilterEmptyResultTemplate { get; set; }
 
+	/// <summary>
+	/// Text to display when the filtered results list is empty and when not using <see cref="FilterEmptyResultTemplate"/>.
+	/// </summary>
 	[Parameter] public string FilterEmptyResultText { get; set; }
 
+	/// <summary>
+	/// Enables select all capabilities.
+	/// </summary>
 	[Parameter] public bool? AllowSelectAll { get; set; }
 	protected bool AllowSelectAllEffective => this.AllowSelectAll ?? this.GetSettings()?.AllowSelectAll ?? GetDefaults().AllowSelectAll;
 
 	[Parameter] public EventCallback<bool> SelectAllChanged { get; set; }
 
+	/// <summary>
+	/// Text to display for the select all dropdown option.
+	/// </summary>
 	[Parameter] public string SelectAllText { get; set; }
 
 	private List<TItem> itemsToRender;

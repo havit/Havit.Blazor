@@ -25,63 +25,30 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public EventCallback<SelectionChangedArgs> ItemSelectionChanged { get; set; }
 
-	/// <summary>
-	/// Custom CSS class to render with input-group span.
-	/// </summary>
 	[Parameter] public string InputGroupCssClass { get; set; }
 
-	/// <summary>
-	/// Input-group at the beginning of the input.
-	/// </summary>
 	[Parameter] public string InputGroupStartText { get; set; }
 
-	/// <summary>
-	/// Input-group at the beginning of the input.
-	/// </summary>
 	[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
 
-	/// <summary>
-	/// Input-group at the end of the input.
-	/// </summary>
 	[Parameter] public string InputGroupEndText { get; set; }
 
-	/// <summary>
-	/// Input-group at the end of the input.
-	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
-	/// <summary>
-	/// Enables filtering capabilities.
-	/// </summary>
 	[Parameter] public bool AllowFiltering { get; set; }
 
 	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; }
 
-	/// <summary>
-	/// When enabled the filter will be cleared when the dropdown is closed.
-	/// </summary>
 	[Parameter] public bool ClearFilterOnHide { get; set; }
 
-	/// <summary>
-	/// This event is fired when a dropdown element has been made visible to the user.
-	/// </summary>
 	[Parameter] public EventCallback<string> OnShown { get; set; }
 
-	/// <summary>
-	/// This event is fired when a dropdown element has been hidden from the user.
-	/// </summary>
 	[Parameter] public EventCallback<string> OnHidden { get; set; }
 
-	/// <summary>
-	/// Template that defines what should be rendered in case of empty items.
-	/// </summary>
 	[Parameter] public RenderFragment FilterEmptyResultTemplate { get; set; }
 
 	[Parameter] public string FilterEmptyResultText { get; set; }
 
-	/// <summary>
-	/// Enables select all capabilities.
-	/// </summary>
 	[Parameter] public bool AllowSelectAll { get; set; }
 
 	[Parameter] public EventCallback<bool> SelectAllChanged { get; set; }
