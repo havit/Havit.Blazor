@@ -7,9 +7,7 @@
 	element.addEventListener('shown.bs.dropdown', handleDropdownShown);
 	element.addEventListener('hidden.bs.dropdown', handleDropdownHidden);
 
-	var d = new bootstrap.Dropdown(element, {
-		toggle: shouldToggle,
-	});
+	var d = new bootstrap.Dropdown(element);
 }
 
 export function show(element) {

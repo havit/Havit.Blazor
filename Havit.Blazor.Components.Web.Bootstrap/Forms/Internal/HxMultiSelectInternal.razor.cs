@@ -14,15 +14,11 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public List<TItem> ItemsToRender { get; set; }
 
-	[Parameter] public List<int> SelectedIndexes { get; set; }
-
 	[Parameter] public List<TValue> SelectedValues { get; set; }
 
 	[Parameter] public Func<TItem, string> TextSelector { get; set; }
 
 	[Parameter] public Func<TItem, TValue> ValueSelector { get; set; }
-
-	[Parameter] public List<TValue> Value { get; set; }
 
 	[Parameter] public string NullDataText { get; set; }
 
@@ -88,7 +84,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
-	[Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+	[Inject] private IJSRuntime JSRuntime { get; set; }
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
@@ -108,6 +104,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	private ElementReference filterInputReference;
 	private bool isShown;
 	private string filterText = string.Empty;
+	private bool selectAll;
 	private bool disposed;
 
 	public HxMultiSelectInternal()
@@ -118,8 +115,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		await base.OnAfterRenderAsync(firstRender);
-
 		if (firstRender)
 		{
 			await EnsureJsModuleAsync();
@@ -150,8 +145,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 			await ChangeSelectAllAsync(false);
 		}
 	}
-
-	private bool selectAll;
 
 	private async Task HandleSelectAllClickedAsync()
 	{
@@ -249,24 +242,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		isShown = true;
 		await filterInputReference.FocusAsync();
 		await InvokeOnShownAsync(this.InputId);
-	}
-
-	/// <summary>
-	/// Collapses the item.
-	/// </summary>
-	public async Task HideAsync()
-	{
-		await EnsureJsModuleAsync();
-		await jsModule.InvokeVoidAsync("hide", elementReference);
-	}
-
-	/// <summary>
-	/// Expands the item.
-	/// </summary>
-	public async Task ShowAsync()
-	{
-		await EnsureJsModuleAsync();
-		await jsModule.InvokeVoidAsync("show", elementReference);
 	}
 
 	public async ValueTask DisposeAsync()
