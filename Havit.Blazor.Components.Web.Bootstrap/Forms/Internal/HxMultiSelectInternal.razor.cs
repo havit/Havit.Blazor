@@ -72,7 +72,9 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	/// <summary>
 	/// Template that defines what should be rendered in case of empty items.
 	/// </summary>
-	[Parameter] public RenderFragment EmptyTemplate { get; set; }
+	[Parameter] public RenderFragment FilterEmptyResultTemplate { get; set; }
+
+	[Parameter] public string FilterEmptyResultText { get; set; }
 
 	[Parameter] public bool AllowSelectAll { get; set; }
 
@@ -87,7 +89,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Inject] private IJSRuntime JSRuntime { get; set; }
 
-	[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
+	[Inject] private IStringLocalizer<HxMultiSelect> StringLocalizer { get; set; }
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
@@ -222,6 +224,16 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		}
 
 		return StringLocalizer["SelectAllDefaultText"];
+	}
+
+	private string GetFilterEmptyResultText()
+	{
+		if (FilterEmptyResultText is not null)
+		{
+			return FilterEmptyResultText;
+		}
+
+		return StringLocalizer["FilterEmptyResultDefaultText"];
 	}
 
 	public async ValueTask FocusAsync()

@@ -50,7 +50,14 @@
             var filteredItems = GetFilteredItems();
             if (filteredItems.Count <= 0)
             {
-                @EmptyTemplate
+                if (FilterEmptyResultTemplate is not null)
+                {
+                    @FilterEmptyResultTemplate
+                }
+                else
+                {
+                    <span class="p-2">@GetFilterEmptyResultText()</span>
+                }
             }
             else
             {

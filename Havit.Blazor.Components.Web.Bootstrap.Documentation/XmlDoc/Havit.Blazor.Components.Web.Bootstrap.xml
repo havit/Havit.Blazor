@@ -2741,7 +2741,7 @@
             This event is fired when a dropdown element has been hidden from the user.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.EmptyTemplate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.FilterEmptyResultTemplate">
             <summary>
             Template that defines what should be rendered in case of empty items.
             </summary>
@@ -4437,7 +4437,7 @@
             This event is fired when a dropdown element has been hidden from the user.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.EmptyTemplate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FilterEmptyResultTemplate">
             <summary>
             Template that defines what should be rendered in case of empty items.
             </summary>
