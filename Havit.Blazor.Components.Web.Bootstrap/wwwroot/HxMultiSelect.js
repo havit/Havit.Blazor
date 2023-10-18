@@ -1,4 +1,4 @@
-﻿export function initialize(element, hxMultiSelectDotnetObjectReference, shouldToggle) {
+﻿export function initialize(element, hxMultiSelectDotnetObjectReference) {
 	if (!element) {
 		return;
 	}

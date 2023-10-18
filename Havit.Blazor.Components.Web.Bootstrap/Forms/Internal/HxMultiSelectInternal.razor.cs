@@ -126,7 +126,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 				return;
 			}
 
-			await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference, false);
+			await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference);
 		}
 	}
 
