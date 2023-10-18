@@ -189,7 +189,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		return SelectAllChanged.InvokeAsync(selectAll);
 	}
 
-	private Task HandleInputChangedAsync(ChangeEventArgs e)
+	private Task HandleFilterInputChangedAsync(ChangeEventArgs e)
 	{
 		filterText = e.Value?.ToString() ?? string.Empty;
 		return ChangeSelectAllAsync(false);
