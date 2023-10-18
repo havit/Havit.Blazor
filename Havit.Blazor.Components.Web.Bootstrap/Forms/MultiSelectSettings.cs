@@ -21,4 +21,9 @@ public record MultiSelectSettings : InputSettings, IInputSettingsWithSize
 	/// Enables select all capabilities.
 	/// </summary>
 	public bool AllowSelectAll { get; set; }
+
+	/// <summary>
+	/// When enabled the filter will be cleared when the dropdown is closed.
+	/// </summary>
+	public bool ClearFilterOnHide { get; set; }
 }

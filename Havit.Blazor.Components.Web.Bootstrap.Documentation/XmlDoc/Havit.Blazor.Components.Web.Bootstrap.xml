@@ -2731,6 +2731,11 @@
             Enables filtering capabilities.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.ClearFilterOnHide">
+            <summary>
+            When enabled the filter will be cleared when the dropdown is closed.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.OnShown">
             <summary>
             This event is fired when a dropdown element has been made visible to the user.
@@ -5072,6 +5077,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.AllowSelectAll">
             <summary>
             Enables select all capabilities.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.ClearFilterOnHide">
+            <summary>
+            When enabled the filter will be cleared when the dropdown is closed.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings">

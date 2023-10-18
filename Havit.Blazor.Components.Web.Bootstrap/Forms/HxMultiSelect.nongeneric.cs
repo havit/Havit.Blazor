@@ -16,7 +16,8 @@ public class HxMultiSelect
 		{
 			InputSize = InputSize.Regular,
 			AllowFiltering = false,
-			AllowSelectAll = false
+			AllowSelectAll = false,
+			ClearFilterOnHide = true
 		};
 	}
 }

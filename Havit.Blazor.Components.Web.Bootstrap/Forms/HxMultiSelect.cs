@@ -118,7 +118,8 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 
 	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; }
 
-	[Parameter] public bool ClearFilterOnHide { get; set; }
+	[Parameter] public bool? ClearFilterOnHide { get; set; }
+	protected bool ClearFilterOnHideEffective => this.ClearFilterOnHide ?? this.GetSettings()?.ClearFilterOnHide ?? GetDefaults().ClearFilterOnHide;
 
 	/// <summary>
 	/// Template that defines what should be rendered in case of empty items.
@@ -213,7 +214,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(114, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndTemplate), InputGroupEndTemplate);
 		builder.AddAttribute(115, nameof(HxMultiSelectInternal<TValue, TItem>.AllowFiltering), AllowFilteringEffective);
 		builder.AddAttribute(116, nameof(HxMultiSelectInternal<TValue, TItem>.FilterPredicate), FilterPredicate);
-		builder.AddAttribute(117, nameof(HxMultiSelectInternal<TValue, TItem>.ClearFilterOnHide), ClearFilterOnHide);
+		builder.AddAttribute(117, nameof(HxMultiSelectInternal<TValue, TItem>.ClearFilterOnHide), ClearFilterOnHideEffective);
 		builder.AddAttribute(118, nameof(HxMultiSelectInternal<TValue, TItem>.FilterEmptyResultTemplate), FilterEmptyResultTemplate);
 		builder.AddAttribute(119, nameof(HxMultiSelectInternal<TValue, TItem>.FilterEmptyResultText), FilterEmptyResultText);
 		builder.AddAttribute(120, nameof(HxMultiSelectInternal<TValue, TItem>.AllowSelectAll), AllowSelectAllEffective);

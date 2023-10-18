@@ -57,6 +57,9 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; }
 
+	/// <summary>
+	/// When enabled the filter will be cleared when the dropdown is closed.
+	/// </summary>
 	[Parameter] public bool ClearFilterOnHide { get; set; }
 
 	/// <summary>
@@ -246,9 +249,10 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	{
 		isShown = false;
 
-		if (ClearFilterOnHide)
+		if (ClearFilterOnHide && filterText != string.Empty)
 		{
 			filterText = string.Empty;
+			StateHasChanged();
 		}
 
 		return Task.CompletedTask;
