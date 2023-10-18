@@ -12,10 +12,24 @@
 
     <HxMultiSelect TItem="CultureInfo" TValue="string" Label="Cultures" EmptyText="-- choose here --" TextSelector="@(item => item.EnglishName)" ValueSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" NullDataText="Loading languages..." Enabled="@enabled" InputSize="InputSize.Large" />
 
-    <!-- Multi-select with filtering -->
+    <!-- Multi-select with default filtering and select all -->
     <HxMultiSelect TItem="CultureInfo"
                    TValue="string"
-                   Label="Cultures with filtering enabled"
+                   Label="Cultures with default filtering and select all enabled"
+                   EmptyText="-- choose here --"
+                   TextSelector="@(item => item.EnglishName)"
+                   ValueSelector="@(item => item.EnglishName)"
+                   Data="@data"
+                   @bind-Value="@model.CultureInfos"
+                   NullDataText="Loading languages..."
+                   AllowFiltering="true"
+                   AllowSelectAll="true"
+                   Enabled="@enabled" />
+
+    <!-- Multi-select with custom filtering and select all -->
+    <HxMultiSelect TItem="CultureInfo"
+                   TValue="string"
+                   Label="Cultures with custom filtering and select all enabled"
                    EmptyText="-- choose here --"
                    TextSelector="@(item => item.EnglishName)"
                    ValueSelector="@(item => item.EnglishName)"

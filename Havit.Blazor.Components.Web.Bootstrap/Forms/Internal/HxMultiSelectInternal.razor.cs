@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
@@ -85,6 +86,8 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
 	[Inject] private IJSRuntime JSRuntime { get; set; }
+
+	[Inject] private IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
@@ -209,6 +212,16 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		{
 			return string.IsNullOrEmpty(filter) || TextSelector(item).Contains(filter, StringComparison.OrdinalIgnoreCase);
 		}
+	}
+
+	private string GetSelectAllText()
+	{
+		if (SelectAllText is not null)
+		{
+			return SelectAllText;
+		}
+
+		return StringLocalizerFactory.GetLocalizedValue("-- select all --", typeof(HxMultiSelect));
 	}
 
 	public async ValueTask FocusAsync()
