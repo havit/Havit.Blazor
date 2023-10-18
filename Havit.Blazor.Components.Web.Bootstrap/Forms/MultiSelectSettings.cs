@@ -11,4 +11,14 @@ public record MultiSelectSettings : InputSettings, IInputSettingsWithSize
 	/// Input size.
 	/// </summary>
 	public InputSize? InputSize { get; set; }
+
+	/// <summary>
+	/// Enables filtering capabilities.
+	/// </summary>
+	public bool AllowFiltering { get; set; }
+
+	/// <summary>
+	/// Enables select all capabilities.
+	/// </summary>
+	public bool AllowSelectAll { get; set; }
 }

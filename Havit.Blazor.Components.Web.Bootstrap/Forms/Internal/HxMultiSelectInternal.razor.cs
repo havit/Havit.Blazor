@@ -76,6 +76,9 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public string FilterEmptyResultText { get; set; }
 
+	/// <summary>
+	/// Enables select all capabilities.
+	/// </summary>
 	[Parameter] public bool AllowSelectAll { get; set; }
 
 	[Parameter] public EventCallback<bool> SelectAllChanged { get; set; }

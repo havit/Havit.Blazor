@@ -113,7 +113,8 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// <summary>
 	/// Enables filtering capabilities.
 	/// </summary>
-	[Parameter] public bool AllowFiltering { get; set; }
+	[Parameter] public bool? AllowFiltering { get; set; }
+	protected bool AllowFilteringEffective => this.AllowFiltering ?? this.GetSettings()?.AllowFiltering ?? GetDefaults().AllowFiltering;
 
 	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; }
 
@@ -136,7 +137,8 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 
 	[Parameter] public string FilterEmptyResultText { get; set; }
 
-	[Parameter] public bool AllowSelectAll { get; set; }
+	[Parameter] public bool? AllowSelectAll { get; set; }
+	protected bool AllowSelectAllEffective => this.AllowSelectAll ?? this.GetSettings()?.AllowSelectAll ?? GetDefaults().AllowSelectAll;
 
 	[Parameter] public EventCallback<bool> SelectAllChanged { get; set; }
 
@@ -219,14 +221,14 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(112, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupStartTemplate), InputGroupStartTemplate);
 		builder.AddAttribute(113, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndText), InputGroupEndText);
 		builder.AddAttribute(114, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndTemplate), InputGroupEndTemplate);
-		builder.AddAttribute(115, nameof(HxMultiSelectInternal<TValue, TItem>.AllowFiltering), AllowFiltering);
+		builder.AddAttribute(115, nameof(HxMultiSelectInternal<TValue, TItem>.AllowFiltering), AllowFilteringEffective);
 		builder.AddAttribute(116, nameof(HxMultiSelectInternal<TValue, TItem>.FilterPredicate), FilterPredicate);
 		builder.AddAttribute(117, nameof(HxMultiSelectInternal<TValue, TItem>.OnHidden), OnHidden);
 		builder.AddAttribute(118, nameof(HxMultiSelectInternal<TValue, TItem>.OnShown), OnShown);
 		builder.AddAttribute(119, nameof(HxMultiSelectInternal<TValue, TItem>.ClearFilterOnHide), ClearFilterOnHide);
 		builder.AddAttribute(120, nameof(HxMultiSelectInternal<TValue, TItem>.FilterEmptyResultTemplate), FilterEmptyResultTemplate);
 		builder.AddAttribute(121, nameof(HxMultiSelectInternal<TValue, TItem>.FilterEmptyResultText), FilterEmptyResultText);
-		builder.AddAttribute(122, nameof(HxMultiSelectInternal<TValue, TItem>.AllowSelectAll), AllowSelectAll);
+		builder.AddAttribute(122, nameof(HxMultiSelectInternal<TValue, TItem>.AllowSelectAll), AllowSelectAllEffective);
 		builder.AddAttribute(123, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllChanged), SelectAllChanged);
 		builder.AddAttribute(124, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllText), SelectAllText);
 
