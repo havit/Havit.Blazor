@@ -87,7 +87,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Inject] private IJSRuntime JSRuntime { get; set; }
 
-	[Inject] private IStringLocalizerFactory StringLocalizerFactory { get; set; }
+	[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
@@ -221,7 +221,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 			return SelectAllText;
 		}
 
-		return StringLocalizerFactory.GetLocalizedValue("-- select all --", typeof(HxMultiSelect));
+		return StringLocalizer["SelectAllDefaultText"];
 	}
 
 	public async ValueTask FocusAsync()
