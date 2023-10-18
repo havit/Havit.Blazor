@@ -121,16 +121,6 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public bool ClearFilterOnHide { get; set; }
 
 	/// <summary>
-	/// This event is fired when a dropdown element has been made visible to the user.
-	/// </summary>
-	[Parameter] public EventCallback<string> OnShown { get; set; }
-
-	/// <summary>
-	/// This event is fired when a dropdown element has been hidden from the user.
-	/// </summary>
-	[Parameter] public EventCallback<string> OnHidden { get; set; }
-
-	/// <summary>
 	/// Template that defines what should be rendered in case of empty items.
 	/// </summary>
 	[Parameter] public RenderFragment FilterEmptyResultTemplate { get; set; }
@@ -223,14 +213,12 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(114, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndTemplate), InputGroupEndTemplate);
 		builder.AddAttribute(115, nameof(HxMultiSelectInternal<TValue, TItem>.AllowFiltering), AllowFilteringEffective);
 		builder.AddAttribute(116, nameof(HxMultiSelectInternal<TValue, TItem>.FilterPredicate), FilterPredicate);
-		builder.AddAttribute(117, nameof(HxMultiSelectInternal<TValue, TItem>.OnHidden), OnHidden);
-		builder.AddAttribute(118, nameof(HxMultiSelectInternal<TValue, TItem>.OnShown), OnShown);
-		builder.AddAttribute(119, nameof(HxMultiSelectInternal<TValue, TItem>.ClearFilterOnHide), ClearFilterOnHide);
-		builder.AddAttribute(120, nameof(HxMultiSelectInternal<TValue, TItem>.FilterEmptyResultTemplate), FilterEmptyResultTemplate);
-		builder.AddAttribute(121, nameof(HxMultiSelectInternal<TValue, TItem>.FilterEmptyResultText), FilterEmptyResultText);
-		builder.AddAttribute(122, nameof(HxMultiSelectInternal<TValue, TItem>.AllowSelectAll), AllowSelectAllEffective);
-		builder.AddAttribute(123, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllChanged), SelectAllChanged);
-		builder.AddAttribute(124, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllText), SelectAllText);
+		builder.AddAttribute(117, nameof(HxMultiSelectInternal<TValue, TItem>.ClearFilterOnHide), ClearFilterOnHide);
+		builder.AddAttribute(118, nameof(HxMultiSelectInternal<TValue, TItem>.FilterEmptyResultTemplate), FilterEmptyResultTemplate);
+		builder.AddAttribute(119, nameof(HxMultiSelectInternal<TValue, TItem>.FilterEmptyResultText), FilterEmptyResultText);
+		builder.AddAttribute(120, nameof(HxMultiSelectInternal<TValue, TItem>.AllowSelectAll), AllowSelectAllEffective);
+		builder.AddAttribute(121, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllChanged), SelectAllChanged);
+		builder.AddAttribute(122, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllText), SelectAllText);
 
 		builder.AddMultipleAttributes(200, this.AdditionalAttributes);
 

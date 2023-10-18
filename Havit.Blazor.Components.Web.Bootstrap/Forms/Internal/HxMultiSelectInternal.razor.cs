@@ -96,16 +96,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
-	/// <summary>
-	/// Triggers the <see cref="OnHidden"/> event. Allows interception of the event in derived components.
-	/// </summary>
-	protected virtual Task InvokeOnHiddenAsync(string elementId) => OnHidden.InvokeAsync(elementId);
-
-	/// <summary>
-	/// Triggers the <see cref="OnShown"/> event. Allows interception of the event in derived components.
-	/// </summary>
-	protected virtual Task InvokeOnShownAsync(string elementId) => OnShown.InvokeAsync(elementId);
-
 	private IJSObjectReference jsModule;
 	private readonly DotNetObjectReference<HxMultiSelectInternal<TValue, TItem>> dotnetObjectReference;
 	private ElementReference elementReference;
@@ -261,7 +251,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 			filterText = string.Empty;
 		}
 
-		return InvokeOnHiddenAsync(this.InputId);
+		return Task.CompletedTask;
 	}
 
 	[JSInvokable("HxMultiSelect_HandleJsShown")]
@@ -269,7 +259,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	{
 		isShown = true;
 		await filterInputReference.FocusAsync();
-		await InvokeOnShownAsync(this.InputId);
 	}
 
 	public async ValueTask DisposeAsync()
