@@ -35,9 +35,9 @@
 
     private bool IsRecordIncluded(Person person, string filter)
     {
-        return string.IsNullOrWhiteSpace(filter) ||
-            person.Name.Contains(filter, StringComparison.OrdinalIgnoreCase) ||
-            person.Initials.Contains(filter, StringComparison.OrdinalIgnoreCase);
+        return string.IsNullOrWhiteSpace(filter)
+			|| person.Name.Contains(filter, StringComparison.OrdinalIgnoreCase)
+			|| person.Initials.Contains(filter, StringComparison.OrdinalIgnoreCase);
     }
 
     private record Person(string Name, string Initials);

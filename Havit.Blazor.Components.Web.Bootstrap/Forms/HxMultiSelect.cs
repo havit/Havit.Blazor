@@ -117,7 +117,8 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	protected bool AllowFilteringEffective => this.AllowFiltering ?? this.GetSettings()?.AllowFiltering ?? GetDefaults().AllowFiltering;
 
 	/// <summary>
-	/// Predicate to custom how the filtering is applied to the items list.
+	/// Defines a custom filtering predicate to apply to the list of items.
+	/// If not specified, the default behavior filters items based on whether the item text (obtained via TextSelector) contains the filter query string.
 	/// </summary>
 	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; }
 
