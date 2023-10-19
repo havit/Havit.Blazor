@@ -51,8 +51,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public bool AllowSelectAll { get; set; }
 
-	[Parameter] public EventCallback<bool> SelectAllChanged { get; set; }
-
 	[Parameter] public string SelectAllText { get; set; }
 
 	/// <summary>
@@ -110,7 +108,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 		if (triggerSelectAllEvent)
 		{
-			await ChangeSelectAllAsync(false);
+			selectAll = false;
 		}
 	}
 
@@ -143,7 +141,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 			}
 		}
 
-		await ChangeSelectAllAsync(!selectAll);
+		selectAll = !selectAll;
 	}
 
 	private bool DoSelectedValuesContainValue(TValue value)
@@ -151,16 +149,10 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		return SelectedValues?.Contains(value) ?? false;
 	}
 
-	private Task ChangeSelectAllAsync(bool selectAll)
-	{
-		this.selectAll = selectAll;
-		return SelectAllChanged.InvokeAsync(selectAll);
-	}
-
-	private Task HandleFilterInputChangedAsync(ChangeEventArgs e)
+	private void HandleFilterInputChanged(ChangeEventArgs e)
 	{
 		filterText = e.Value?.ToString() ?? string.Empty;
-		return ChangeSelectAllAsync(false);
+		selectAll = false;
 	}
 
 	private List<TItem> GetFilteredItems()

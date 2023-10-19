@@ -2701,61 +2701,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputDateRangeInternal.DisposeAsync">
             <inheritdoc />
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.InputGroupCssClass">
-            <summary>
-            Custom CSS class to render with input-group span.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.InputGroupStartText">
-            <summary>
-            Input-group at the beginning of the input.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.InputGroupStartTemplate">
-            <summary>
-            Input-group at the beginning of the input.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.InputGroupEndText">
-            <summary>
-            Input-group at the end of the input.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.InputGroupEndTemplate">
-            <summary>
-            Input-group at the end of the input.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.AllowFiltering">
-            <summary>
-            Enables filtering capabilities.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.ClearFilterOnHide">
-            <summary>
-            When enabled the filter will be cleared when the dropdown is closed.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.OnShown">
-            <summary>
-            This event is fired when a dropdown element has been made visible to the user.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.OnHidden">
-            <summary>
-            This event is fired when a dropdown element has been hidden from the user.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.FilterEmptyResultTemplate">
-            <summary>
-            Template that defines what should be rendered in case of empty items.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.AllowSelectAll">
-            <summary>
-            Enables select all capabilities.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying HTML element.
@@ -4427,9 +4372,34 @@
             Enables filtering capabilities.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FilterPredicate">
+            <summary>
+            Predicate to custom how the filtering is applied to the items list.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.ClearFilterOnHide">
+            <summary>
+            When enabled the filter will be cleared when the dropdown is closed.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FilterEmptyResultTemplate">
             <summary>
             Template that defines what should be rendered in case of empty items.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FilterEmptyResultText">
+            <summary>
+            Text to display when the filtered results list is empty and when not using <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FilterEmptyResultTemplate"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.AllowSelectAll">
+            <summary>
+            Enables select all capabilities.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.SelectAllText">
+            <summary>
+            Text to display for the select all dropdown option.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FocusAsync">

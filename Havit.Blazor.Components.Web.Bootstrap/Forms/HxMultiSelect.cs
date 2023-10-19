@@ -143,8 +143,6 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public bool? AllowSelectAll { get; set; }
 	protected bool AllowSelectAllEffective => this.AllowSelectAll ?? this.GetSettings()?.AllowSelectAll ?? GetDefaults().AllowSelectAll;
 
-	[Parameter] public EventCallback<bool> SelectAllChanged { get; set; }
-
 	/// <summary>
 	/// Text to display for the select all dropdown option.
 	/// </summary>
@@ -233,8 +231,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(118, nameof(HxMultiSelectInternal<TValue, TItem>.FilterEmptyResultTemplate), FilterEmptyResultTemplate);
 		builder.AddAttribute(119, nameof(HxMultiSelectInternal<TValue, TItem>.FilterEmptyResultText), FilterEmptyResultText);
 		builder.AddAttribute(120, nameof(HxMultiSelectInternal<TValue, TItem>.AllowSelectAll), AllowSelectAllEffective);
-		builder.AddAttribute(121, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllChanged), SelectAllChanged);
-		builder.AddAttribute(122, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllText), SelectAllText);
+		builder.AddAttribute(121, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllText), SelectAllText);
 
 		builder.AddMultipleAttributes(200, this.AdditionalAttributes);
 
