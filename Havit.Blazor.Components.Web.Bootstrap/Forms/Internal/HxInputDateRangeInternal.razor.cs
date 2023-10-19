@@ -33,8 +33,6 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
-	[Inject] protected IJSRuntime JSRuntime { get; set; }
-
 	private DateTimeRange previousValue;
 	private bool fromPreviousParsingAttemptFailed;
 	private bool toPreviousParsingAttemptFailed;
@@ -46,6 +44,8 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	private HxDropdownToggleElement fromDropdownToggleElement;
 	private HxDropdownToggleElement toDropdownToggleElement;
+
+	private bool firstRenderCompleted;
 
 	protected override void OnParametersSet()
 	{
@@ -63,6 +63,11 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
 			previousValue = Value;
 		}
+	}
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		firstRenderCompleted = true;
 	}
 
 	protected override bool TryParseValueFromString(string value, out DateTimeRange result, out string validationErrorMessage)
@@ -244,20 +249,23 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 	{
 		validationMessageStore?.Clear();
 
-		try
+		if (firstRenderCompleted)
 		{
-			if (fromDropdownToggleElement is not null)
+			try
 			{
-				await CloseDropdownAsync(fromDropdownToggleElement);
+				if (fromDropdownToggleElement is not null)
+				{
+					await CloseDropdownAsync(fromDropdownToggleElement);
+				}
+				if (toDropdownToggleElement is not null)
+				{
+					await CloseDropdownAsync(toDropdownToggleElement);
+				}
 			}
-			if (toDropdownToggleElement is not null)
+			catch (JSDisconnectedException)
 			{
-				await CloseDropdownAsync(toDropdownToggleElement);
+				// NOOP
 			}
-		}
-		catch (JSDisconnectedException)
-		{
-			// NOOP
 		}
 
 		Dispose(false);
