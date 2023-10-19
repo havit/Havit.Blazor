@@ -53,6 +53,10 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public string SelectAllText { get; set; }
 
+	[Parameter] public IconBase FilterSearchIcon { get; set; }
+
+	[Parameter] public IconBase FilterClearIcon { get; set; }
+
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML element.
 	/// </summary>
@@ -142,6 +146,11 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		}
 
 		selectAll = !selectAll;
+	}
+
+	private void HandleCrossClick()
+	{
+		filterText = string.Empty;
 	}
 
 	private bool DoSelectedValuesContainValue(TValue value)

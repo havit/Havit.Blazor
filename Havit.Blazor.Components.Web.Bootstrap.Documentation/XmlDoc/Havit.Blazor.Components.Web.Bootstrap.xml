@@ -4374,7 +4374,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FilterPredicate">
             <summary>
-            Predicate to custom how the filtering is applied to the items list.
+            Defines a custom filtering predicate to apply to the list of items.
+            If not specified, the default behavior filters items based on whether the item text (obtained via TextSelector) contains the filter query string.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.ClearFilterOnHide">
@@ -4400,6 +4401,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.SelectAllText">
             <summary>
             Text to display for the select all dropdown option.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FilterSearchIcon">
+            <summary>
+            Icon displayed in filter input for searching the filter.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FilterClearIcon">
+            <summary>
+            Icon displayed in filter input for clearing the filter.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FocusAsync">
@@ -5052,6 +5063,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.ClearFilterOnHide">
             <summary>
             When enabled the filter will be cleared when the dropdown is closed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.FilterSearchIcon">
+            <summary>
+            Icon displayed in filter input for searching the filter.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.FilterClearIcon">
+            <summary>
+            Icon displayed in filter input for clearing the filter.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings">

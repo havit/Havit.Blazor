@@ -149,6 +149,18 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// </summary>
 	[Parameter] public string SelectAllText { get; set; }
 
+	/// <summary>
+	/// Icon displayed in filter input for searching the filter.
+	/// </summary>
+	[Parameter] public IconBase FilterSearchIcon { get; set; }
+	protected IconBase FilterSearchIconEffective => this.FilterSearchIcon ?? this.GetSettings()?.FilterSearchIcon ?? GetDefaults().FilterSearchIcon;
+
+	/// <summary>
+	/// Icon displayed in filter input for clearing the filter.
+	/// </summary>
+	[Parameter] public IconBase FilterClearIcon { get; set; }
+	protected IconBase FilterClearIconEffective => this.FilterClearIcon ?? this.GetSettings()?.FilterClearIcon ?? GetDefaults().FilterClearIcon;
+
 	private List<TItem> itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
 
@@ -233,6 +245,8 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(119, nameof(HxMultiSelectInternal<TValue, TItem>.FilterEmptyResultText), FilterEmptyResultText);
 		builder.AddAttribute(120, nameof(HxMultiSelectInternal<TValue, TItem>.AllowSelectAll), AllowSelectAllEffective);
 		builder.AddAttribute(121, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllText), SelectAllText);
+		builder.AddAttribute(122, nameof(HxMultiSelectInternal<TValue, TItem>.FilterSearchIcon), FilterSearchIconEffective);
+		builder.AddAttribute(123, nameof(HxMultiSelectInternal<TValue, TItem>.FilterClearIcon), FilterClearIconEffective);
 
 		builder.AddMultipleAttributes(200, this.AdditionalAttributes);
 
