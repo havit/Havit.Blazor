@@ -250,6 +250,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(121, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllText), SelectAllText);
 		builder.AddAttribute(122, nameof(HxMultiSelectInternal<TValue, TItem>.FilterSearchIcon), FilterSearchIconEffective);
 		builder.AddAttribute(123, nameof(HxMultiSelectInternal<TValue, TItem>.FilterClearIcon), FilterClearIconEffective);
+		builder.AddAttribute(124, nameof(HxMultiSelectInternal<TValue, TItem>.InputSizeEffective), ((IInputWithSize)this).InputSizeEffective);
 
 		builder.AddMultipleAttributes(200, this.AdditionalAttributes);
 

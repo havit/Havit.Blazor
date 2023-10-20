@@ -41,7 +41,7 @@
                         <input @ref="filterInputReference"
                                 id="@($"{InputId}_filter")"
                                 type="text"
-                                class="form-control"
+                                class="@CssClassHelper.Combine("form-control", InputSizeEffective.AsFormControlCssClass())"
                                 autocomplete="false"
                                 value="@filterText"
                                 @oninput="HandleFilterInputChanged"

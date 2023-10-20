@@ -9,6 +9,8 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public string InputCssClass { get; set; }
 
+	[Parameter] public InputSize InputSizeEffective { get; set; }
+
 	[Parameter] public string InputText { get; set; }
 
 	[Parameter] public bool EnabledEffective { get; set; }
