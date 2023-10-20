@@ -3,30 +3,30 @@
 
 <h1>HxInputDate Display Month</h1>
 
-<HxInputDate Label="No DisplayMonth" @bind-Value="Value1"/>
-<HxInputDate Label="Next Month Value" @bind-Value="NextMonth" />
-<HxInputDate Label="Next Month Display Month" @bind-Value="Value2" CalendarDisplayMonth="@NextMonth" />
+<HxInputDate Label="No DisplayMonth" @bind-Value="value1"/>
+<HxInputDate Label="Next Month Value" @bind-Value="nextMonth" />
+<HxInputDate Label="Next Month Display Month" @bind-Value="value2" CalendarDisplayMonth="@nextMonth" />
 <HxInputDateRange Label="DateRange No DisplayMonth" @bind-Value="Holidays" />
-<HxInputDateRange Label="DateRange From DisplayMonth" @bind-Value="Unset" FromCalendarDisplayMonth="@NextMonthNextYear" />
-<HxInputDateRange Label="DateRange To DisplayMonth" @bind-Value="Unset" ToCalendarDisplayMonth="@NextMonthNextYear" />
-<HxInputDateRange Label="DateRange Both DisplayMonth" @bind-Value="Unset" FromCalendarDisplayMonth="@NextMonth" ToCalendarDisplayMonth="@NextMonthNextYear"/>
+<HxInputDateRange Label="DateRange From DisplayMonth" @bind-Value="Unset" FromCalendarDisplayMonth="@nextMonthNextYear" />
+<HxInputDateRange Label="DateRange To DisplayMonth" @bind-Value="Unset" ToCalendarDisplayMonth="@nextMonthNextYear" />
+<HxInputDateRange Label="DateRange Both DisplayMonth" @bind-Value="Unset" FromCalendarDisplayMonth="@nextMonth" ToCalendarDisplayMonth="@nextMonthNextYear"/>
 
 @code {
-    private DateTime NextMonth;
-    private DateTime NextMonthNextYear;
-    private DateTime Value1;
-    private DateTime Value2;
+    private DateTime nextMonth;
+    private DateTime nextMonthNextYear;
+    private DateTime value1;
+    private DateTime value2;
 
     private DateTimeRange Holidays;
     private DateTimeRange Unset;
 
     protected override async Task OnInitializedAsync()
     {
-        NextMonth = DateTime.Now.AddDays(1-DateTime.Now.Day).AddMonths(1);
-        NextMonthNextYear = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(1).AddYears(1);
+        nextMonth = DateTime.Now.AddDays(1-DateTime.Now.Day).AddMonths(1);
+        nextMonthNextYear = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(1).AddYears(1);
         Holidays = new DateTimeRange
         {
-            StartDate = NextMonth,
+            StartDate = nextMonth,
         };
         await base.OnInitializedAsync();
 	}

@@ -50,7 +50,7 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 	private HxDropdownToggleElement fromDropdownToggleElement;
 	private HxDropdownToggleElement toDropdownToggleElement;
 
-	private DateTime toCalendarDisplayMonthEffective
+	private DateTime GetToCalendarDisplayMonthEffective
 	{
 		get
 		{
