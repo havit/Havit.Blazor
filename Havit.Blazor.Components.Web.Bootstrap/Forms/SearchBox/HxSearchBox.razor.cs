@@ -500,12 +500,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			await UpdateSuggestionsAsync();
 		}
 
-		if (!clickIsComing)
-		{
-			// clickIsComing logic fixes #572 - Initial suggestions disappear when the DataProvider response is quick
-			// If click is coming, we do not want to show the dropdown as it will be toggled by the later click event (if we open it here, onfocus, click will hide it)
-			await ShowDropdownMenu();
-		}
+		await ShowDropdownMenu();
 	}
 
 	private void HandleInputBlur()
@@ -586,7 +581,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private async Task ShowDropdownMenu()
 	{
-		await dropdownToggle.ShowAsync();
+		if (!clickIsComing)
+		{
+			// clickIsComing logic fixes #572 - Initial suggestions disappear when the DataProvider response is quick
+			// If click is coming, we do not want to show the dropdown as it will be toggled by the later click event (if we open it here, onfocus, click will hide it)
+			await dropdownToggle.ShowAsync();
+		}
 	}
 
 	private async Task HideDropdownMenu()

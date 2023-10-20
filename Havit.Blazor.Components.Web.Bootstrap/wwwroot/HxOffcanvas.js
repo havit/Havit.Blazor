@@ -25,6 +25,7 @@
 }
 
 export function hide(element) {
+	element.hxOffcanvasHiding = true;
 	let o = bootstrap.Offcanvas.getInstance(element);
 	if (o) {
 		o.hide();
@@ -36,12 +37,26 @@ function handleOffcanvasShown(event) {
 }
 
 function handleOffcanvasHidden(event) {
+	event.target.hxOffcanvasHiding = false;
+
+	if (event.target.hxOffcanvasDisposing) {
+		// fix for #110 where the dispose() gets called while the offcanvas is still in hiding-transition
+		dispose(event.target);
+		return;
+	}
+
 	event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasHidden');
-	dispose(event.target);
 }
 
 export function dispose(element) {
 	if (!element) {
+		return;
+	}
+
+	element.hxOffcanvasDisposing = true;
+
+	if (element.hxOffcanvasHiding) {
+		// fix for #110 where the dispose() gets called while the offcanvas is still in hiding-transition
 		return;
 	}
 

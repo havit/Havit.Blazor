@@ -124,12 +124,12 @@
     <value>From</value>
   </data>
   <data name="FromParsingErrorMessage" xml:space="preserve">
-    <value>Enter correct "from" date.</value>
+    <value>{0} must be a date ("from").</value>
   </data>
   <data name="To" xml:space="preserve">
     <value>To</value>
   </data>
   <data name="ToParsingErrorMessage" xml:space="preserve">
-    <value>Enter correct "to" date.</value>
+    <value>{0} must be a date ("to").</value>
   </data>
 </root>

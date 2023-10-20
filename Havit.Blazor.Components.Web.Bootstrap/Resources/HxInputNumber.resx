@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ParsingErrorMessage" xml:space="preserve">
-    <value>Enter decimal number.</value>
+    <value>{0} must be a decimal number.</value>
   </data>
   <data name="ParsingErrorMessage_Integer" xml:space="preserve">
-    <value>Enter whole number.</value>
+    <value>{0} must be a whole number.</value>
   </data>
 </root>

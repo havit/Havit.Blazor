@@ -11,6 +11,7 @@
 	<HxInputDate Label="HxInputDate (default, DateTime?)" @bind-Value="@model.NullableDateTime" Placeholder="Datum narození" />
 	<HxInputDate Label="HxInputDate (default, DateTimeOffset)" @bind-Value="@model.DateTimeOffset" />
 	<HxInputDate Label="HxInputDate (default, DateTimeOffset?)" @bind-Value="@model.NullableDateTimeOffset" />
+	<HxInputDate Label="HxInputDate (DisplayName)" @bind-Value="@model.DateTime" />
 	<HxInputDate Label="HxInputDate (wo/ PredefinedDates, wo/ validation)" @bind-Value="@model.DateTime" ShowPredefinedDates="false" ValidationMessageMode="ValidationMessageMode.None" />
 	<HxInputDate Label="HxInputDate (custom PredefinedDates)" @bind-Value="@model.DateTime" PredefinedDates="@GetPredefinedDates()" />
 	<HxInputDate Label="HxInputDate (disabled)" @bind-Value="@model.DateTime" PredefinedDates="@GetPredefinedDates()" Enabled="false" />
