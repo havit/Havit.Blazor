@@ -3,7 +3,7 @@
 
 <HxNavLinkInternal href="@Href"
 				   Match="@(this.Match ?? NavLinkMatch.All)"
-				   OnClick="InvokeOnClickAsync"
+				   OnClick="(OnClick.HasDelegate ? InvokeOnClickAsync : null)"
 				   class="@GetCssClasses()"
 				   ActiveClass="@(((this.Match is null) || (this.Href is null)) ? String.Empty : "active")"
 				   role="@(this.OnClick.HasDelegate ? "button" : null)"

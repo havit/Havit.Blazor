@@ -107,8 +107,8 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	private ElementReference spanElement;
 	private string lastTitle;
 	private string lastContent;
-	private bool shouldRenderSpan;
 	private bool isInitialized;
+	private bool showAfterRender;
 	private bool disposed;
 
 	protected HxTooltipInternalBase()
@@ -118,12 +118,12 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 
 	protected bool ShouldRenderSpan()
 	{
-		// Once the span is rendered it does not disappear to enable spanElement to be used at OnAfterRender to safely remove a tooltip/popover.
+		// Once the span is rendered (= initialized) it does not disappear to enable spanElement to be used at OnAfterRender to safely remove a tooltip/popover.
 		// It is not a common situation to remove a tooltip/popover.
-		shouldRenderSpan |= !String.IsNullOrEmpty(TitleInternal)
-							|| !String.IsNullOrWhiteSpace(this.WrapperCssClass)
-							|| !String.IsNullOrWhiteSpace(this.ContentInternal);
-		return shouldRenderSpan;
+		return isInitialized
+				|| !String.IsNullOrEmpty(TitleInternal)
+				|| !String.IsNullOrWhiteSpace(this.WrapperCssClass)
+				|| !String.IsNullOrWhiteSpace(this.ContentInternal);
 	}
 
 	protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -205,31 +205,22 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 			}
 			else if ((lastTitle != TitleInternal) || (lastContent != ContentInternal))
 			{
-				if (String.IsNullOrWhiteSpace(TitleInternal) && String.IsNullOrWhiteSpace(ContentInternal))
-				{
-					// no content, remove the tooltip/popover
-					lastTitle = TitleInternal;
-					lastContent = ContentInternal;
-					isInitialized = false;
+				// changed content, update the tooltip/popover
+				lastTitle = TitleInternal;
+				lastContent = ContentInternal;
 
-					if (disposed)
-					{
-						return;
-					}
-					await jsModule.InvokeVoidAsync("dispose", spanElement);
-				}
-				else
+				if (disposed)
 				{
-					// changed content, update the tooltip/popover
-					lastTitle = TitleInternal;
-					lastContent = ContentInternal;
-
-					if (disposed)
-					{
-						return;
-					}
-					await jsModule.InvokeVoidAsync("setContent", spanElement, GetNewContentForUpdate());
+					return;
 				}
+				await jsModule.InvokeVoidAsync("setContent", spanElement, GetNewContentForUpdate());
+			}
+
+			if (showAfterRender)
+			{
+				showAfterRender = false;
+				await EnsureJsModuleAsync();
+				await jsModule.InvokeVoidAsync("show", spanElement);
 			}
 		}
 	}
@@ -248,15 +239,11 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	/// <summary>
 	/// Shows the component.
 	/// </summary>
-	public async Task ShowAsync()
+	public Task ShowAsync()
 	{
-		if (!isInitialized)
-		{
-			return;
-		}
+		showAfterRender = true; // #581 Tooltip not shown when Manual + initialized with empty text + ShowAsync()
 
-		await EnsureJsModuleAsync();
-		await jsModule.InvokeVoidAsync("show", spanElement);
+		return Task.CompletedTask;
 	}
 
 	/// <summary>

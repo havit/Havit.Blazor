@@ -14,11 +14,12 @@ public static class HxSearchBox
 	{
 		Defaults = new SearchBoxSettings()
 		{
-			InputSize = Bootstrap.InputSize.Regular,
+			InputSize = InputSize.Regular,
 			SearchIcon = BootstrapIcon.Search,
 			ClearIcon = BootstrapIcon.XLg,
 			MinimumLength = 2,
 			Delay = 300,
+			ItemSelectionBehavior = SearchBoxItemSelectionBehavior.SelectAndClearTextQuery,
 		};
 	}
 }

@@ -1,0 +1,27 @@
+﻿@page "/HxTooltip_Issue563_Test"
+
+<h4>Tooltip manual with text change on show</h4>
+
+<HxButton Text="Set text and show tooltip" OnClick="ShowManualTooltipAsync" Color="ThemeColor.Primary" />
+<HxButton Text="Unset text and hide tooltip" OnClick="HideManualTooltipAsync" Color="ThemeColor.Danger" />
+
+<HxTooltip @ref="manualTooltip" Trigger="TooltipTrigger.Manual" Text="@manualTooltipText">
+	<p>Content with manual tooltip</p>
+</HxTooltip>
+
+@code {
+	private HxTooltip manualTooltip;
+	private string manualTooltipText; // = "text";
+
+	private Task ShowManualTooltipAsync()
+	{
+		manualTooltipText = "Manual tooltip text shown.";
+		return manualTooltip.ShowAsync();
+	}
+
+	private Task HideManualTooltipAsync()
+	{
+		manualTooltipText = null;
+		return manualTooltip.HideAsync();
+	}
+}

@@ -1,0 +1,45 @@
+﻿@inject IDemoDataService DemoDataService
+
+<HxAutosuggest Label="Employee"
+			   Placeholder="Click here to see initial suggestions, start typing to search by name"
+			   TItem="EmployeeDto"
+			   TValue="int?"
+			   @bind-Value="@selectedEmployeeId"
+			   DataProvider="ProvideSuggestions"
+			   MinimumLength="0"
+			   ValueSelector="employee => employee.Id"
+			   TextSelector="employee => employee.Name"
+			   ItemFromValueResolver="ResolveAutosuggestItemFromValue">
+	<EmptyTemplate>
+		<span class="p-2">Couldn't find any matching employee</span>
+	</EmptyTemplate>
+</HxAutosuggest>
+
+<p class="mt-3">Selected employee ID: @selectedEmployeeId</p>
+
+@code
+{
+	private int? selectedEmployeeId;
+
+	private async Task<AutosuggestDataProviderResult<EmployeeDto>> ProvideSuggestions(AutosuggestDataProviderRequest request)
+	{
+		if (request.UserInput?.Length > 0)
+		{
+			var matchingEmployees = await DemoDataService.FindEmployeesByNameAsync(request.UserInput, limitCount: 10, request.CancellationToken);
+			return new AutosuggestDataProviderResult<EmployeeDto> { Data = matchingEmployees };
+		}
+
+		var initialSuggestions = await DemoDataService.GetPreferredEmployeesAsync(count: 10, request.CancellationToken);
+		return new AutosuggestDataProviderResult<EmployeeDto>() { Data = initialSuggestions };
+	}
+
+	private async Task<EmployeeDto> ResolveAutosuggestItemFromValue(int? value)
+	{
+		if (value is null)
+		{
+			return null;
+		}
+
+		return await DemoDataService.GetEmployeeByIdAsync(value.Value);
+	}
+}

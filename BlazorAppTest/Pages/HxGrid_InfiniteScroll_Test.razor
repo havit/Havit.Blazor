@@ -4,7 +4,7 @@
 
 <h1>HxGrid with infinite scroll</h1>
 
-<HxGrid TItem="CultureInfo" DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll" TableContainerCssClass="mt-5" ItemRowHeight="50" HeaderRowCssClass="myheader">
+<HxGrid TItem="CultureInfo" PlaceholdersRowCount="100" DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll" TableContainerCssClass="mt-5" ItemRowHeight="50" HeaderRowCssClass="myheader">
 	<Columns>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
 			<PlaceholderTemplate>

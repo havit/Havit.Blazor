@@ -2,10 +2,6 @@
     display: flex;
 }
 
-.form-control {
-    background-clip: border-box;
-}
-
 ::deep .feedback-floating {
     left: 0;
 }
@@ -26,9 +22,11 @@
 }
 
 ::deep .dropdown {
-    flex: 1 1 auto;
+    flex: 1 0 50%;
 }
 
-::deep .dropdown:focus-within {
+::deep .dropdown:focus-within,
+::deep .dropdown:has(.is-invalid),
+::deep .dropdown:has(.is-valid) {
     z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be larger than 5 because otherwise the validation message is rendered on top. */
 }

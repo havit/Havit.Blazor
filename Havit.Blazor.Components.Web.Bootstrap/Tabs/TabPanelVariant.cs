@@ -3,7 +3,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Render variations for <see cref="HxTabPanel"/>.
 /// </summary>
-public enum TabPanelRenderMode
+public enum TabPanelVariant
 {
 	Standard = 0,
 

@@ -2,10 +2,6 @@
     color: var(--hx-grid-sorted-icon-color);
 }
 
-.hx-grid-sortable {
-    color: currentColor;
-}
-
 .hx-grid-sortable ::deep .hx-grid-sort-icon {
     visibility: hidden;
 }
@@ -41,21 +37,13 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 }
 
 ::deep .hx-grid-btn:hover {
-    background: var(--hx-grid-button-hover-background); 
+    background: var(--hx-grid-button-hover-background);
 }
 
-::deep .hx-grid-btn:active { 
+::deep .hx-grid-btn:active {
     color: currentColor;
 }
 
-::deep .hx-context-menu {
-    opacity: 0;
-}
-
-tr:hover ::deep .hx-context-menu {
-    opacity: 1;
-}
-
 ::deep .hx-context-menu-grid-column {
-    padding: .325rem .5rem; 
+	vertical-align: middle;
 }

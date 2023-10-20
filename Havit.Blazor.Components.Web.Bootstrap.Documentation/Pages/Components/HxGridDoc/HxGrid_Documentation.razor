@@ -22,7 +22,7 @@
 		<p>
 			If you have <code>IQueryable</code> as a data-source provider, you can use the <code>data.ApplyGridDataProviderRequest(request)</code>
             method to apply sorting and paging to your data source. Then you must query data on your own, because we do not have access to cancellable async methods
-            in the components (CountAsync, ToListAsync) and it is quite crutial to use cancellable methods, mainly for infinite scroll. 
+            in the components (CountAsync, ToListAsync) and it is quite crutial to use cancellable methods, mainly for infinite scroll.
         </p>
         <Demo Type="typeof(HxGrid_Demo_Queryable)" />
 
@@ -109,7 +109,7 @@
 	</MainContent>
 
     <CssVariables>
-        <ComponentApiDocCssVariable Name="--hx-grid-button-hover-background" Default="rgba(var(--bs-black-rgb), .1)">
+        <ComponentApiDocCssVariable Name="--hx-grid-button-hover-background" Default="var(--bs-secondary-bg)">
             Grid button background color on hover.
         </ComponentApiDocCssVariable>
         <ComponentApiDocCssVariable Name="--hx-grid-button-border-radius" Default=".25rem">

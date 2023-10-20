@@ -1,56 +1,60 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
 <CascadingValue Value="@tabsListRegistration" Name="@TabsRegistrationCascadingValueName" IsFixed="true">
-    @ChildContent
+	@ChildContent
 </CascadingValue>
 
 @{
-    var tabsListOrdered = tabsList.OrderBy(tab => tab.Order).ToList();
-    RenderFragment tabsNavigation =
-    @<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), this.CssClass)" Variant="this.NavVariant">
-        @foreach (HxTab tab in tabsListOrdered)
-                {
-        @if (tab.Visible)
-        {
-            <HxNavLink @key="@tab.Id"
-                   OnClick="async () => await HandleTabClick(tab)"
-                   CssClass="@CssClassHelper.Combine((IsActive(tab) ? "active" : null), tab.TitleCssClass)"
-                   Enabled="CascadeEnabledComponent.EnabledEffective(tab)">
-                @tab.Title
-                @tab.TitleTemplate
-            </HxNavLink>
-        }
-                }
-    </HxNav>;
+	var tabsListOrdered = tabsList.OrderBy(tab => tab.Order).ToList();
+	RenderFragment tabsNavigation =
+	@<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), this.CssClass)" Variant="this.NavVariant">
+		@foreach (HxTab tab in tabsListOrdered)
+					{
+		@if (tab.Visible)
+		{
+			<HxNavLink @key="@tab.Id"
+					   OnClick="async () => await HandleTabClick(tab)"
+					   CssClass="@CssClassHelper.Combine((IsActive(tab) ? "active" : null), tab.TitleCssClass)"
+					   Enabled="CascadeEnabledComponent.EnabledEffective(tab)">
+				@tab.Title
+				@tab.TitleTemplate
+			</HxNavLink>
+		}
+					}
+	</HxNav>;
 
-    RenderFragment tabsContent =
-    @<div class="tab-content">
-        @foreach (HxTab tab in tabsListOrdered)
-                {
-        @if (tab.Visible)
-        {
-            <div @key="@tab.Id" class="@CssClassHelper.Combine("tab-pane", (IsActive(tab) ? "active" : String.Empty), tab.ContentCssClass)">
-                @tab.Content
-            </div>
-        }
-                }
-    </div>;
+	RenderFragment tabsContent =
+	@<div class="tab-content">
+		@foreach (HxTab tab in tabsListOrdered)
+				{
+		@if (tab.Visible)
+		{
+			if ((this.RenderMode == TabPanelRenderMode.AllTabs)
+			|| ((this.RenderMode == TabPanelRenderMode.ActiveTabOnly) && IsActive(tab)))
+			{
+				<div @key="@tab.Id" class="@CssClassHelper.Combine("tab-pane", (IsActive(tab) ? "active" : String.Empty), tab.ContentCssClass)">
+					@tab.Content
+				</div>
+			}
+		}
+				}
+	</div>;
 }
 
-@if (RenderMode == TabPanelRenderMode.Standard)
+@if (Variant == TabPanelVariant.Standard)
 {
-    @tabsNavigation
-    @tabsContent
+	@tabsNavigation
+	@tabsContent
 }
 
-@if (RenderMode == TabPanelRenderMode.Card)
+@if (Variant == TabPanelVariant.Card)
 {
-    <HxCard Settings="CardSettings">
-        <HeaderTemplate>
-            @tabsNavigation
-        </HeaderTemplate>
-        <BodyTemplate>
-            @tabsContent
-        </BodyTemplate>
-    </HxCard>
+	<HxCard Settings="CardSettings">
+		<HeaderTemplate>
+			@tabsNavigation
+		</HeaderTemplate>
+		<BodyTemplate>
+			@tabsContent
+		</BodyTemplate>
+	</HxCard>
 }

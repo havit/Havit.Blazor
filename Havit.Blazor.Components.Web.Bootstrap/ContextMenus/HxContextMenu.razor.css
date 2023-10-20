@@ -13,6 +13,10 @@
     display: inline-block;
 }
 
-.hx-context-menu .dropdown {
-    display: flex;
+tr .hx-context-menu {
+    opacity: 0;
+}
+
+tr:hover .hx-context-menu {
+    opacity: 1;
 }

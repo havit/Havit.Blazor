@@ -14,11 +14,11 @@
 	--hx-sidebar-collapsed-width: 									72px;
 	--hx-sidebar-width: 											250px;
 	--hx-sidebar-toggler-border: 									1px solid var(--bs-border-color);
-	--hx-sidebar-toggler-background: 								var(--bs-white);
-	--hx-sidebar-toggler-color: 									var(--bs-dark);
+	--hx-sidebar-toggler-background: 								var(--bs-body-bg);
+	--hx-sidebar-toggler-color: 									var(--bs-body-color);
 	--hx-sidebar-item-font-size: 									1rem;
 	--hx-sidebar-item-padding: 										.75rem;
-	--hx-sidebar-item-color: 										var(--bs-dark);
+	--hx-sidebar-item-color: 										var(--bs-body-color);
 	--hx-sidebar-item-hover-color: 									var(--bs-primary);
 	--hx-sidebar-item-hover-background-color: 						var(--bs-primary-rgb);
 	--hx-sidebar-item-hover-background-opacity: 					.05;
@@ -39,7 +39,7 @@
 	--hx-sidebar-brand-shortname-border-radius: 					.625rem;
 	--hx-sidebar-brand-shortname-color: 							var(--bs-white);
 	--hx-sidebar-brand-shortname-font-weight: 						600;
-	--hx-sidebar-brand-name-color: 									var(--bs-dark);
+	--hx-sidebar-brand-name-color: 									var(--bs-body-color);
 	--hx-sidebar-brand-name-font-weight: 							600;
 	--hx-sidebar-footer-padding: 									1rem;
 	--hx-sidebar-footer-item-padding: 								.75rem;
@@ -70,13 +70,13 @@
 	/* HxContextMenu */
 	--hx-context-menu-button-color: 								unset;
 	--hx-context-menu-button-border: 								unset;
-	--hx-context-menu-button-border-radius: 						var(--bs-border-radius);
+	--hx-context-menu-button-border-radius: 						var(--bs-border-radius-sm);
 	--hx-context-menu-button-padding: 								0 .25rem;
-	--hx-context-menu-button-hover-background: 						rgba(var(--bs-black-rgb), .1);
+	--hx-context-menu-button-hover-background: 						var(--bs-secondary-bg);
 	--hx-context-menu-item-icon-margin: 							0 .5rem 0 0;
 
 	/* HxGrid */
-	--hx-grid-button-hover-background: 								rgba(var(--bs-black-rgb), .1);
+	--hx-grid-button-hover-background: 								var(--bs-secondary-bg);
 	--hx-grid-button-border-radius: 								var(--bs-border-radius);
 	--hx-grid-sorted-icon-color: 									var(--bs-primary);
 
@@ -151,7 +151,7 @@
 	--hx-tree-view-item-border-width: 								0;
 	--hx-tree-view-item-border-style: 								unset;
 	--hx-tree-view-item-border-color: 								unset;
-	--hx-tree-view-item-color: 										var(--bs-dark);
+	--hx-tree-view-item-color: 										var(--bs-bg-color);
 	--hx-tree-view-item-hover-color: 								var(--bs-primary);
 	--hx-tree-view-item-selected-color: 							var(--bs-primary);
 	--hx-tree-view-item-background: 								transparent;
@@ -159,10 +159,10 @@
 	--hx-tree-view-item-hover-background-opacity: 					.1;
 	--hx-tree-view-item-selected-background: 						var(--bs-primary-rgb);
 	--hx-tree-view-item-spacer-width: 								1rem;
-	--hx-tree-view-item-icon-margin: 								0 .25rem 0 0;
 	--hx-tree-view-item-font-size: 									.75rem;
 	--hx-tree-view-item-padding: 									.25rem .5rem;
 	--hx-tree-view-item-margin: 									0 0 .125rem 0;
+	--hx-tree-view-item-gap:										.25rem;
 	--hx-tree-view-expander-container-width: 						1rem;
 
 	/* HxProgressIndicator */
@@ -185,19 +185,10 @@
 	--hx-search-box-dropdown-menu-height: 							300px;
 }
 
-[data-bs-theme=dark] {
-	--hx-sidebar-brand-name-color: 									var(--bs-light);
-	--hx-sidebar-item-color: 										var(--bs-light);
-	--hx-sidebar-toggler-color:										var(--bs-light);
-	--hx-sidebar-toggler-background: 								var(--bs-dark);
-
-	--hx-tree-view-item-color:										var(--bs-light);
-}
-
 form {
-	display:	 flex;
-	flex-direction: column;
-	gap: var(--hx-form-spacing);
+	display:				flex;
+	flex-direction: 		column;
+	gap: 					var(--hx-form-spacing);
 }
 
 form > .hx-button {

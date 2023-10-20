@@ -15,16 +15,14 @@
     {
         <div class="hx-tree-view-item-spacer"></div>
     }
-    @if (hasChildren)
-    {
-        <div @onclick:stopPropagation="true">
-            <HxCollapseToggleElement ElementName="div" CollapseTarget="@($"#{collapseId}")" CssClass="hx-tree-view-item-expander-container">
-                <div class="hx-tree-view-item-expander">
-                    <HxIcon Icon="@BootstrapIcon.ChevronRight" />
-                </div>
-            </HxCollapseToggleElement>
-        </div>
-    }
+	<div class="hx-tree-view-item-expander-container">
+		@if (hasChildren)
+		{
+			<HxCollapseToggleElement ElementName="div" @onclick:stopPropagation CollapseTarget="@($"#{collapseId}")" CssClass="hx-tree-view-item-expander">
+				<HxIcon Icon="@BootstrapIcon.ChevronDown" />
+			</HxCollapseToggleElement>
+		}
+	</div>
     @if (icon != null)
     {
         <div class="hx-tree-view-item-icon">
@@ -43,26 +41,28 @@
 
 @if (hasChildren)
 {
-	<HxCollapse Id="@collapseId"
-            CollapseDirection="CollapseDirection.Vertical"
-            InitiallyExpanded="IsExpanded ?? false"
-            OnHidden="() => IsExpanded = false"
-            OnShown="() => IsExpanded = true">
+    <HxCollapse Id="@collapseId"
+                CollapseDirection="CollapseDirection.Vertical"
+                InitiallyExpanded="IsExpanded ?? false"
+                OnHidden="HandleCollapseHiddenAsync"
+                OnShown="HandleCollapseShownAsync">
 
         @foreach (var item in children)
         {
             <HxTreeViewItemInternal @key="item"
-                            TItem="TItem"
-                            Item="item"
-                            TitleSelector="this.TitleSelector"
-                            IconSelector="this.IconSelector"
-                            CssClass="@this.CssClass"
-                            CssClassSelector="this.CssClassSelector"
-							InitialExpandedSelector="this.InitialExpandedSelector"
-							ChildrenSelector="this.ChildrenSelector"
-                            Level="@(this.Level + 1)"
-                            ContentTemplate="this.ContentTemplate"
-                            OnItemSelected="this.OnItemSelected" />
+                                    TItem="TItem"
+                                    Item="item"
+                                    TitleSelector="this.TitleSelector"
+                                    IconSelector="this.IconSelector"
+                                    CssClass="@this.CssClass"
+                                    CssClassSelector="this.CssClassSelector"
+                                    InitialExpandedSelector="this.InitialExpandedSelector"
+                                    ChildrenSelector="this.ChildrenSelector"
+                                    Level="@(this.Level + 1)"
+                                    ContentTemplate="this.ContentTemplate"
+                                    OnItemSelected="this.OnItemSelected"
+                                    OnItemExpanded="OnItemExpanded"
+                                    OnItemCollapsed="OnItemCollapsed" />
         }
 
     </HxCollapse>

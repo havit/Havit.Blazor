@@ -1,0 +1,70 @@
+﻿@page "/HxSearchBox_Issue575_Test"
+
+<HxSearchBox TItem="SearchBoxItem"
+			 DataProvider="ProvideSearchResults"
+			 Label="Search"
+			 ItemTitleSelector="(i) => i.Title"
+			 @bind-TextQuery="textQuery"
+			 ItemSelectionBehavior="SearchBoxItemSelectionBehavior.SelectAndReplaceTextQueryWithItemTitle"
+			 OnItemSelected="HandleItemSelected"
+			 OnTextQueryTriggered="HandleTextQueryTriggered">
+	<DefaultContentTemplate>
+		<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+	</DefaultContentTemplate>
+</HxSearchBox>
+
+<p>selectedItemTitle: @selectedItemTitle</p>
+<p>textQueryTriggered: @textQueryTriggered</p>
+<p>textQuery: @textQuery</p>
+
+@code {
+	private string selectedItemTitle = string.Empty;
+	private string textQueryTriggered = string.Empty;
+	private string textQuery = string.Empty;
+	private void HandleItemSelected(SearchBoxItem item)
+	{
+		selectedItemTitle = item.Title;
+	}
+	private void HandleTextQueryTriggered(string text)
+	{
+		textQueryTriggered = text;
+	}
+	List<SearchBoxItem> Data { get; set; } = new()
+	{
+		new()
+		{
+			Title = "Table",
+			Subtitle = "$5000",
+			Icon = BootstrapIcon.Table
+		},
+		new()
+		{
+			Title = "Mouse",
+			Subtitle = "$40",
+			Icon = BootstrapIcon.Mouse
+		},
+		new()
+		{
+			Title = "Door",
+			Subtitle = "$100",
+			Icon = BootstrapIcon.DoorClosed
+		}
+	};
+
+	Task<SearchBoxDataProviderResult<SearchBoxItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+	{
+		SearchBoxDataProviderResult<SearchBoxItem> result = new()
+			{
+				Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase)).ToArray()
+			};
+
+		return Task.FromResult(result);
+	}
+
+	record SearchBoxItem
+	{
+		public string Title { get; set; }
+		public string Subtitle { get; set; }
+		public BootstrapIcon Icon { get; set; }
+	}
+}

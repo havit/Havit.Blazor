@@ -1,4 +1,5 @@
-Autoplay
+autoplay
+autoplays
 Blazor
 gRPC
 hoverable
@@ -11,3 +12,5 @@ patternizer
 scrollspy
 tabindex
 textarea
+Havit
+Debouncer

@@ -2,15 +2,29 @@
 
 <ComponentApiDoc Type="typeof(HxAutosuggest<TItem, TValue>)">
     <MainContent>
-
-        <DocAlert Type="DocAlertType.Warning">
-            Due to breaking change in Bootstrap 5.2, the keyboard navigation stopped working for dropdowns triggered from <code>input</code> (the <code>Up</code> and <code>Down</code> keys).
-            As an experimental feature we added our own keyboard navigation routines to the affected components. This might be subject to future change.
-            You can check the progress here: <a href="https://github.com/havit/Havit.Blazor/issues/348">https://github.com/havit/Havit.Blazor/issues/348</a>.
-        </DocAlert>
+		<p>
+			<code>HxAutosuggest</code> component is similar to <a href="/components/HxSearchBox">HxSearchBox</a> component, but it is designed to be used in forms.<br />
+			<ul>
+				<li><code>HxAutosuggest</code> supports validation,</li>
+				<li><code>HxAutosuggest</code> supports <code>Value</code>-binding to model,</li>
+				<li><code>HxAutosuggest</code> supports <code>HxFormState</code>,</li>
+				<li><code>HxAutosuggest</code> does not support free-text query.</li>
+			</ul>
+		</p>
 
         <DocHeading Title="Basic usage" />
         <Demo Type="typeof(HxAutosuggest_Demo_Basic)" Tabs="false" />
+
+		<DocHeading Title="Initial suggestions" />
+		<p>
+			You can provide initial suggestions to the user by setting the <code>MinimumLength="0"</code>. This is useful when you want to display some suggestions to the user before he starts typing.
+		</p>
+		<Demo Type="typeof(HxAutosuggest_Demo_InitialSuggestions)" />
+		<DocAlert Type="DocAlertType.Warning">
+			Consider caching the initial suggestions to avoid unnecessary roundtrips for repetitive <code>DataProvider</code> calls.<br />
+			You might want to tweak the <code>Delay</code> parameter to disable/minimize the delay before the initial suggestions are displayed.<br />
+			In such case, consider using additional <a href="/concepts/Debouncer">Debouncer</a> for regular suggestions to avoid unnecessary roundtrips on every keystroke.
+		</DocAlert>
 
     </MainContent>
     <CssVariables>

@@ -2,7 +2,7 @@
 @typeparam TItem
 @typeparam TValue
 
-<div id="@dropdownId" class="@CssClassHelper.Combine("hx-autosuggest dropdown", HasInputGroupsEffective ? "input-group" : null, InputGroupCssClass)">
+<div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", HasInputGroupsEffective ? "input-group" : null, InputGroupCssClass)">
     @if (InputGroupStartText is not null)
     {
         <span class="input-group-text">@InputGroupStartText</span>
@@ -41,13 +41,13 @@
                     if (this.ClearIconEffective is not null)
                     {
                         <div role="button" @onclick="HandleCrossClick" @onclick:stopPropagation>
-                            <HxIcon Icon="ClearIconEffective" />
+                            <HxIcon CssClass="hx-autosuggest-input-icon-clear" Icon="ClearIconEffective" />
                         </div>
                     }
                 }
                 else if (this.SearchIconEffective is not null)
                 {
-                    <HxIcon Icon="@SearchIconEffective" />
+                    <HxIcon CssClass="hx-autosuggest-input-icon-search" Icon="@SearchIconEffective" />
                 }
             </div>
             <HxAutosuggestItemsInternal

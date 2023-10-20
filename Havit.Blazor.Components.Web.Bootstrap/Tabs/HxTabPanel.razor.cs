@@ -21,13 +21,19 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	[Parameter] public NavVariant NavVariant { get; set; } = NavVariant.Tabs;
 
 	/// <summary>
-	/// Whether to wrap the tab panel in a card with the tab navigation in the header.
+	/// Set to <see cref="TabPanelVariant.Card"/> if you want to wrap the tab panel in a card with the tab navigation in the header.
 	/// </summary>
-	[Parameter] public TabPanelRenderMode RenderMode { get; set; } = TabPanelRenderMode.Standard;
+	[Parameter] public TabPanelVariant Variant { get; set; } = TabPanelVariant.Standard;
+
+	/// <summary>
+	/// Determines whether the content all tabs is always rendered or only if the tab is active.<br />
+	/// Default is <see cref="TabPanelRenderMode.AllTabs"/>.
+	/// </summary>
+	[Parameter] public TabPanelRenderMode RenderMode { get; set; } = TabPanelRenderMode.AllTabs;
 
 	/// <summary>
 	/// Card settings for the wrapping card.
-	/// Applies only if <see cref="RenderMode"/> is set to <see cref="TabPanelRenderMode.Card"/>.
+	/// Applies only if <see cref="Variant"/> is set to <see cref="TabPanelVariant.Card"/>.
 	/// </summary>
 	[Parameter] public CardSettings CardSettings { get; set; }
 
@@ -154,7 +160,7 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 
 	protected string GetNavCssClassInCardMode()
 	{
-		if (RenderMode != TabPanelRenderMode.Card)
+		if (Variant != TabPanelVariant.Card)
 		{
 			return null;
 		}

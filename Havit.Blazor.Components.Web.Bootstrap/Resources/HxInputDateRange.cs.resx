@@ -124,12 +124,12 @@
     <value>Od</value>
   </data>
   <data name="FromParsingErrorMessage" xml:space="preserve">
-    <value>Zadejte správně datum od.</value>
+    <value>{0} musí být datum ("od").</value>
   </data>
   <data name="To" xml:space="preserve">
     <value>Do</value>
   </data>
   <data name="ToParsingErrorMessage" xml:space="preserve">
-    <value>Zadejte správně datum do.</value>
+    <value>{0} musí být datum ("do").</value>
   </data>
 </root>

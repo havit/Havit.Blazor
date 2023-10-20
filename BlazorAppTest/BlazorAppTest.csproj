@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
 	  <TargetFramework>net7.0</TargetFramework>
@@ -20,5 +20,11 @@
     <ProjectReference Include="..\Havit.Extensions.Localization\Havit.Extensions.Localization.csproj" />
     <ProjectReference Include="..\Havit.SourceGenerators.StrongApiStringLocalizers\Havit.SourceGenerators.StrongApiStringLocalizers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\Havit.Blazor.Components.Web.Bootstrap.Documentation\DemoData\**\*.*">
+			<Link>DemoData\%(RecursiveDir)%(FileName)%(Extension)</Link>
+		</Compile>
+	</ItemGroup>
 
 </Project>

@@ -92,12 +92,12 @@ public partial class HxSidebarItem : IAsyncDisposable
 		isMatch = ShouldMatch(NavigationManager.Uri);
 	}
 
-	protected bool ShouldBeExpanded => ExpandOnMatch && this.childItems.Any(i => i.isMatch && i.ExpandOnMatch);
+	protected bool ShouldBeExpanded => ExpandOnMatch && !ParentSidebar.Collapsed && this.childItems.Any(i => i.isMatch && i.ExpandOnMatch);
 	protected bool HasExpandableContent => (this.ChildContent is not null);
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (firstRender && ShouldBeExpanded)
+		if (firstRender && ShouldBeExpanded && (collapseComponent is not null))
 		{
 			await collapseComponent.ShowAsync();
 		}

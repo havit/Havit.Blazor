@@ -171,6 +171,17 @@ public partial class HxModal : IAsyncDisposable
 	protected string FooterCssClassEffective => this.FooterCssClass ?? this.GetSettings()?.FooterCssClass ?? GetDefaults().FooterCssClass;
 
 	/// <summary>
+	/// This event is fired immediately when the hide instance method has been called.<br/>
+	/// This can be caused by <see cref="HideAsync"/>, close-button, <kbd>Esc</kbd> key or other interaction.
+	/// Hiding can be cancelled by setting <see cref="ModalHidingEventArgs.Cancel"/> = <c>true</c>
+	/// </summary>
+	/// <remarks>
+	/// There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override as we want to avoid confusion.
+	/// The <code>hide.bs.modal</code> event is subscribed only when <see cref="OnHiding"/> callback is set.
+	/// </remarks>
+	[Parameter] public EventCallback<ModalHidingEventArgs> OnHiding { get; set; }
+
+	/// <summary>
 	/// This event is fired when the modal has finished being hidden from the user (will wait for CSS transitions to complete).<br/>
 	/// This can be caused by <see cref="HideAsync"/>, close-button, <kbd>Esc</kbd> key or other interaction.
 	/// </summary>
@@ -229,6 +240,17 @@ public partial class HxModal : IAsyncDisposable
 	}
 
 	/// <summary>
+	/// Receives notification from JS for <c>hide.bs.modal</c> event.
+	/// </summary>
+	[JSInvokable("HxModal_HandleModalHide")]
+	public async Task<bool> HandleModalHide()
+	{
+		var eventArgs = new ModalHidingEventArgs();
+		await OnHiding.InvokeAsync(eventArgs);
+		return eventArgs.Cancel;
+	}
+
+	/// <summary>
 	/// Receives notification from JS for <c>hidden.bs.modal</c> event.
 	/// </summary>
 	[JSInvokable("HxModal_HandleModalHidden")]
@@ -264,7 +286,7 @@ public partial class HxModal : IAsyncDisposable
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("show", modalElement, dotnetObjectReference, this.CloseOnEscapeEffective);
+			await jsModule.InvokeVoidAsync("show", modalElement, dotnetObjectReference, this.CloseOnEscapeEffective, OnHiding.HasDelegate);
 		}
 	}
 

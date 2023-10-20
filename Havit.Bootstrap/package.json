@@ -1,7 +1,7 @@
 {
     "name": "havit-bootstrap",
     "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-    "version": "5.3.0",
+    "version": "5.3.2",
     "config": {
       "version_short": "5.3"
     },
@@ -41,9 +41,10 @@
     "scripts": {
         "css": "npm-run-all css-compile css-prefix css-rtl css-minify",
         "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css scss/:dist/css/",
-        "css-rtl": "cross-env NODE_ENV=RTL postcss --config build/postcss.config.js --dir \"dist/css\" --ext \".rtl.css\" \"dist/css/*.css\" \"!dist/css/*.min.css\" \"!dist/css/*.rtl.css\"",
+        "css-rtl": "cross-env NODE_ENV=RTL postcss --config build/postcss.config.mjs --dir \"dist/css\" --ext \".rtl.css\" \"dist/css/*.css\" \"!dist/css/*.min.css\" \"!dist/css/*.rtl.css\"",
         "css-lint": "npm-run-all --aggregate-output --continue-on-error --parallel css-lint-*",
-        "css-lint-stylelint": "stylelint \"**/*.{css,scss}\" --cache --cache-location .cache/.stylelintcache --rd",
+        "css-lint-stylelint": "stylelint \"**/*.{css,scss}\" --cache --cache-location .cache/.stylelintcache",
+        "css-lint-vars": "fusv scss/ site/assets/scss/",
         "css-minify": "npm-run-all --aggregate-output --parallel css-minify-*",
         "css-minify-main": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output dist/css/ --batch --batch-suffix \".min\" \"dist/css/*.css\" \"!dist/css/*.min.css\" \"!dist/css/*rtl*.css\"",
         "css-minify-rtl": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output dist/css/ --batch --batch-suffix \".min\" \"dist/css/*rtl.css\" \"!dist/css/*.min.css\"",
@@ -55,19 +56,19 @@
         "publish-to-blazor": "shx cp -r dist/css/* ../Havit.Blazor.Components.Web.Bootstrap/wwwroot"
     },
     "devDependencies": {
-      "autoprefixer": "^10.4.14",
-      "bootstrap": "5.3.0",
+      "autoprefixer": "^10.4.15",
+      "bootstrap": "5.3.2",
       "cross-env": "^7.0.3",
       "clean-css-cli": "^5.6.2",
-      "find-unused-sass-variables": "^4.0.6",
-      "nodemon": "^2.0.22",
-      "npm-run-all": "^4.1.5",
-      "postcss": "^8.4.21",
+      "find-unused-sass-variables": "^5.0.0",
+      "nodemon": "^3.0.1",
+      "npm-run-all2": "^6.0.6",
+      "postcss": "^8.4.29",
       "postcss-cli": "^10.1.0",
       "rtlcss": "^4.1.0",
       "sass": "^1.62.1",
-      "stylelint": "^15.6.2",
-      "stylelint-config-twbs-bootstrap": "^10.0.0",
+      "stylelint": "^15.10.3",
+      "stylelint-config-twbs-bootstrap": "^11.0.1",
       "shx":"^0.3.4"
   },
     "files": [

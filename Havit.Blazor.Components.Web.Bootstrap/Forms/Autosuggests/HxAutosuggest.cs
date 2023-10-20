@@ -106,8 +106,11 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	protected virtual (int Skidding, int Distance) DropdownOffset { get; set; } = (0, 4);
 
 	/// <summary>
-	/// Returns corresponding item for (select) Value.
+	/// Returns corresponding item for (selected) Value.
 	/// </summary>
+	/// <remarks>
+	/// We do not have full list of possible items to be able to select one by value.
+	/// </remarks>
 	[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }
 
 	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* Label rendered by HxAutosuggestInternal */ : LabelValueRenderOrder.LabelValue;

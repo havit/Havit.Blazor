@@ -1558,6 +1558,11 @@
             Stop onClick-event propagation. Default is <c>true</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Href">
+            <summary>
+            Navigation target.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.FormState">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.FormState" />
         </member>
@@ -2454,8 +2459,11 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ItemFromValueResolver">
             <summary>
-            Returns corresponding item for (select) Value.
+            Returns corresponding item for (selected) Value.
             </summary>
+            <remarks>
+            We do not have full list of possible items to be able to select one by value.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupStartText">
             <summary>
@@ -5095,6 +5103,11 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnItemSelected"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemSelectionBehavior">
+            <summary>
+            Behavior when the item is selected.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Placeholder">
             <summary>
             Placeholder text for the search input.
@@ -5270,6 +5283,11 @@
             Items provided by the request.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchBoxItemSelectionBehavior">
+            <summary>
+            Values for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemSelectionBehavior"/>."/>
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1"/> and derived components.
@@ -5318,6 +5336,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.InputGroupCssClass">
             <summary>
             Custom CSS class to render with input-group span.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.ItemSelectionBehavior">
+            <summary>
+            Behavior when the item is selected.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">
@@ -5922,6 +5945,19 @@
             Returns custom CSS class to render with data <c>tr</c> element.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemKeySelector">
+             <summary>
+             Optionally defines a value for @key on each rendered row. Typically this should be used to specify a
+             unique identifier, such as a primary key value, for each data item.
+            
+             This allows the grid to preserve the association between row elements and data items based on their
+             unique identifiers, even when the TGridItem instances are replaced by new copies (for
+             example, after a new query against the underlying data store).
+            
+             If not set, the @key will be the TItem instance itself.
+             </summary>
+             <remarks>Inspired by QuickGrid</remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.FooterRowCssClass">
             <summary>
             Custom CSS class to render with footer <c>tr</c> element.
@@ -6025,6 +6061,12 @@
             This is useful if external data may have changed.
             </summary>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataCoreAsync">
+            <summary>
+            Instructs the component to load data from its <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/>.
+            Used in internal methods to implement the data-loading flow.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Dispose">
             <inheritdoc />
@@ -7186,6 +7228,17 @@
             Additional footer CSS class (<c>div.modal-footer</c>).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnHiding">
+            <summary>
+            This event is fired immediately when the hide instance method has been called.<br/>
+            This can be caused by <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HideAsync"/>, close-button, <kbd>Esc</kbd> key or other interaction.
+            Hiding can be cancelled by setting <see cref="P:Havit.Blazor.Components.Web.Bootstrap.ModalHidingEventArgs.Cancel"/> = <c>true</c>
+            </summary>
+            <remarks>
+            There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override as we want to avoid confusion.
+            The <code>hide.bs.modal</code> event is subscribed only when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnHiding"/> callback is set.
+            </remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnClosed">
             <summary>
             This event is fired when the modal has finished being hidden from the user (will wait for CSS transitions to complete).<br/>
@@ -7215,6 +7268,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HideAsync">
             <summary>
             Closes the modal.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HandleModalHide">
+            <summary>
+            Receives notification from JS for <c>hide.bs.modal</c> event.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HandleModalHidden">
@@ -7312,6 +7370,11 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.XxlDown">
             <summary>
             Fullscreen for viewports bellow "XXL" breakpoint (<c>1400px</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalHidingEventArgs.Cancel">
+            <summary>
+            Set <c>true</c> to cancel modal hiding.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalSettings">
@@ -7950,16 +8013,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.ChildContent">
             <summary>
             Sub-items (not intended to be used for any other purpose).
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode">
-            <summary>
-            Render variations for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/>.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode.Card">
-            <summary>
-            Renders the navigation to a card's header <a href="https://getbootstrap.com/docs/5.3/components/card/#navigation">https://getbootstrap.com/docs/5.3/components/card/#navigation</a>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavbarExpand">
@@ -8948,15 +9001,21 @@
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.Variant">
+            <summary>
+            Set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Card"/> if you want to wrap the tab panel in a card with the tab navigation in the header.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.RenderMode">
             <summary>
-            Whether to wrap the tab panel in a card with the tab navigation in the header.
+            Determines whether the content all tabs is always rendered or only if the tab is active.<br />
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode.AllTabs"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.CardSettings">
             <summary>
             Card settings for the wrapping card.
-            Applies only if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.RenderMode"/> is set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode.Card"/>.
+            Applies only if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.Variant"/> is set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Card"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ActiveTabId">
@@ -8999,6 +9058,31 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.DisposeAsync">
             <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode">
+            <summary>
+            <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/> render mode.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode.AllTabs">
+            <summary>
+            Content of all tabs is always rendered (and visibility set with CSS).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode.ActiveTabOnly">
+            <summary>
+            Tab content is rendered only when it is active.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant">
+            <summary>
+            Render variations for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Card">
+            <summary>
+            Renders the navigation to a card's header <a href="https://getbootstrap.com/docs/5.3/components/card/#navigation">https://getbootstrap.com/docs/5.3/components/card/#navigation</a>
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags">
             <summary>
@@ -9557,6 +9641,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.SelectedItemChanged">
             <summary>
             Event fires when selected data item changes.
+            </summary>		
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.OnItemExpanded">
+            <summary>
+            Event fires when expanding an item.
+            </summary>		
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.OnItemCollapsed">
+            <summary>
+            Event fires when collapsing an item.
             </summary>		
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.InvokeSelectedDataItemChangedAsync(`0)">
