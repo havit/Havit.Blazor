@@ -102,22 +102,28 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxMultiSelect));
 	}
 
-	private async Task HandleItemSelectionChangedAsync(bool newChecked, TItem item, bool triggerSelectAllEvent = true)
+	private async Task HandleItemSelectionChangedAsync(bool newChecked, TItem item)
 	{
-		await ItemSelectionChanged.InvokeAsync(new SelectionChangedArgs
-		{
-			Checked = newChecked,
-			Item = item
-		});
+		var args = new SelectionChangedArgs();
 
-		if (triggerSelectAllEvent)
+		if (newChecked)
 		{
-			selectAll = false;
+			args.ItemsSelected.Add(item);
 		}
+		else
+		{
+			args.ItemsDeselected.Add(item);
+		}
+
+		// When a single item is clicked we always want to uncheck select all
+		selectAll = false;
+
+		await ItemSelectionChanged.InvokeAsync(args);
 	}
 
 	private async Task HandleSelectAllClickedAsync()
 	{
+		var args = new SelectionChangedArgs();
 		var filteredItems = GetFilteredItems();
 
 		// If all items are already selected then they should be deselected, otherwise only records that aren't selected should be
@@ -125,9 +131,9 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		{
 			foreach (var item in filteredItems)
 			{
-				// We don't want to trigger select all triggers each time, an item is selected, just once at the end
-				await HandleItemSelectionChangedAsync(false, item, false);
+				args.ItemsDeselected.Add(item);
 			}
+
 		}
 		else
 		{
@@ -139,13 +145,14 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 				// If the item is already selected we don't need to reselect it
 				if (!itemSelected)
 				{
-					// We don't want to trigger select all triggers each time, an item is selected, just once at the end
-					await HandleItemSelectionChangedAsync(!itemSelected, item, false);
+					args.ItemsSelected.Add(item);
 				}
 			}
 		}
 
 		selectAll = !selectAll;
+
+		await ItemSelectionChanged.InvokeAsync(args);
 	}
 
 	private void HandleCrossClick()
@@ -260,9 +267,9 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 
 
-	public class SelectionChangedArgs
+	public sealed class SelectionChangedArgs
 	{
-		public bool Checked { get; set; }
-		public TItem Item { get; set; }
+		public List<TItem> ItemsDeselected { get; set; } = new();
+		public List<TItem> ItemsSelected { get; set; } = new();
 	}
 }
