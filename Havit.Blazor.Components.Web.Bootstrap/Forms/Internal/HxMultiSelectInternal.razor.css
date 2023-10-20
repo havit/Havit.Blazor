@@ -45,6 +45,7 @@ button.dropdown-item,
 	flex: 1 1 auto;
 	width: 100%;
 	min-width: 0;
+	padding: 0.25em;
 }
 
 .form-control-sm ~ .hx-multi-select-filter-input-icon {
