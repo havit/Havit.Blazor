@@ -36,30 +36,32 @@
         {
             if (AllowFiltering)
             {
-                <div class="hx-multi-select-filter-input-wrapper">
-                    <input @ref="filterInputReference"
-                            id="@($"{InputId}_filter")"
-                            type="text"
-                            class="form-control"
-                            autocomplete="false"
-                            value="@filterText"
-                            @oninput="HandleFilterInputChanged"
-                            @onclick:stopPropagation
-                            onfocusin="this.select()" />
+                <li>
+                    <div class="hx-multi-select-filter-input-wrapper">
+                        <input @ref="filterInputReference"
+                                id="@($"{InputId}_filter")"
+                                type="text"
+                                class="form-control"
+                                autocomplete="false"
+                                value="@filterText"
+                                @oninput="HandleFilterInputChanged"
+                                @onclick:stopPropagation
+                                onfocusin="this.select()" />
 
-                    <div class="hx-multi-select-filter-input-icon">
-                        @if (string.IsNullOrEmpty(filterText))
-                        {
-                            <HxIcon CssClass="hx-multi-select-filter-input-icon-search" Icon="@FilterSearchIcon" />
-                        }
-                        else
-                        {
-                            <div role="button" @onclick="HandleCrossClick" @onclick:stopPropagation>
-                                <HxIcon CssClass="hx-multi-select-filter-input-icon-clear" Icon="@FilterClearIcon" />
-                            </div>
-                        }
+                        <div class="hx-multi-select-filter-input-icon">
+                            @if (string.IsNullOrEmpty(filterText))
+                            {
+                                <HxIcon CssClass="hx-multi-select-filter-input-icon-search" Icon="@FilterSearchIcon" />
+                            }
+                            else
+                            {
+                                <div role="button" @onclick="HandleCrossClick" @onclick:stopPropagation>
+                                    <HxIcon CssClass="hx-multi-select-filter-input-icon-clear" Icon="@FilterClearIcon" />
+                                </div>
+                            }
+                        </div>
                     </div>
-                </div>
+                </li>
             }
 
             var filteredItems = GetFilteredItems();
