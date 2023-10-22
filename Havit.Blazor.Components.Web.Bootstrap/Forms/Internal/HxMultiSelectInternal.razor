@@ -55,7 +55,7 @@
                             }
                             else
                             {
-                                <div role="button" @onclick="HandleCrossClick" @onclick:stopPropagation>
+                                <div role="button" @onclick="HandleClearIconClick" @onclick:stopPropagation>
                                     <HxIcon CssClass="hx-multi-select-filter-input-icon-clear" Icon="@FilterClearIcon" />
                                 </div>
                             }
@@ -85,7 +85,7 @@
                     <li>
                         <button type="button" class="dropdown-item" role="option" @onclick="HandleSelectAllClickedAsync">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="@($"{InputId}_selectall")" checked="@selectAll" tabindex="-1" />
+                                <input class="form-check-input" type="checkbox" id="@($"{InputId}_selectall")" checked="@selectAllChecked" tabindex="-1" />
                                 <label class="form-check-label" for="@($"{InputId}_selectall")" @onclick:preventDefault>
                                     @(GetSelectAllText())
                                 </label>

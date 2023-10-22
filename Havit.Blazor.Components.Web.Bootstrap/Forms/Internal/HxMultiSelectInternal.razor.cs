@@ -25,7 +25,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public string NullDataText { get; set; }
 
-	[Parameter] public EventCallback<SelectionChangedArgs> ItemSelectionChanged { get; set; }
+	[Parameter] public EventCallback<SelectionChangedArgs> OnItemsSelectionChanged { get; set; }
 
 	[Parameter] public string InputGroupCssClass { get; set; }
 
@@ -76,7 +76,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	private ElementReference filterInputReference;
 	private bool isShown;
 	private string filterText = string.Empty;
-	private bool selectAll;
+	private bool selectAllChecked;
 	private bool disposed;
 
 	public HxMultiSelectInternal()
@@ -118,9 +118,9 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		}
 
 		// When a single item is clicked we always want to uncheck select all
-		selectAll = false;
+		selectAllChecked = false;
 
-		await ItemSelectionChanged.InvokeAsync(args);
+		await OnItemsSelectionChanged.InvokeAsync(args);
 	}
 
 	private async Task HandleSelectAllClickedAsync()
@@ -129,13 +129,12 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		var filteredItems = GetFilteredItems();
 
 		// If all items are already selected then they should be deselected, otherwise only records that aren't selected should be
-		if (selectAll)
+		if (selectAllChecked)
 		{
 			foreach (var item in filteredItems)
 			{
 				args.ItemsDeselected.Add(item);
 			}
-
 		}
 		else
 		{
@@ -152,12 +151,12 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 			}
 		}
 
-		selectAll = !selectAll;
+		selectAllChecked = !selectAllChecked;
 
-		await ItemSelectionChanged.InvokeAsync(args);
+		await OnItemsSelectionChanged.InvokeAsync(args);
 	}
 
-	private void HandleCrossClick()
+	private void HandleClearIconClick()
 	{
 		filterText = string.Empty;
 	}
@@ -170,7 +169,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	private void HandleFilterInputChanged(ChangeEventArgs e)
 	{
 		filterText = e.Value?.ToString() ?? string.Empty;
-		selectAll = false;
+		selectAllChecked = false;
 	}
 
 	private List<TItem> GetFilteredItems()
@@ -266,7 +265,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 		dotnetObjectReference?.Dispose();
 	}
-
 
 
 	public sealed class SelectionChangedArgs
