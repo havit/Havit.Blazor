@@ -1,14 +1,15 @@
 ﻿@inject IDemoDataService DemoDataService
 
 <HxMultiSelect Label="Employees"
-               TItem="EmployeeDto"
-               TValue="int"
-               Data="@employees"
+			   TItem="EmployeeDto"
+			   TValue="int"
+			   Data="@employees"
 			   @bind-Value="selectedEmployeeIds"
-               TextSelector="@(p => p.Name)"
-               ValueSelector="@(p => p.Id)"
-               NullDataText="Loading employees..."
-               EmptyText="-select values-" />
+			   TextSelector="@(p => p.Name)"
+			   ValueSelector="@(p => p.Id)"
+			   NullDataText="Loading employees..."
+			   AllowSelectAll="true"
+               SelectAllText="Select all"/>
 
 <p class="mt-3">Selected employees (IDs): @String.Join(", ", selectedEmployeeIds.Select(e => e.ToString()))</p>
 

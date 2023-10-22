@@ -8,7 +8,7 @@
 @code {
 	private Task<GridDataProviderResult<CultureInfo>> GetGridData(GridDataProviderRequest<CultureInfo> request)
 	{
-        // you usualy pass the data-request to your API/DataLayer and it returns just the few requested items (+ total count)
+        // you usually pass the data-request to your API/DataLayer and it returns just the few requested items (+ total count)
       
         var cultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
         cultureInfos.Sort(request.Sorting.ToGenericPropertyComparer()); // Just a demo. NEVER use in production code!

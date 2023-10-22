@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.DemoData;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Documentation.DemoData;
 
 public class DemoDataService : IDemoDataService
 {
@@ -539,6 +537,15 @@ public class DemoDataService : IDemoDataService
 	public IEnumerable<EmployeeDto> GetAllEmployees()
 	{
 		logger.LogInformation("DemoDataService.GetAllEmployees() called.");
+		return employees.ToList();
+	}
+
+	public async Task<IEnumerable<EmployeeDto>> GetAllEmployeesAsync(CancellationToken cancellationToken = default)
+	{
+		logger.LogInformation("DemoDataService.GetAllEmployeesAsync() called.");
+
+		await Task.Delay(150, cancellationToken); // simulate server call
+
 		return employees.ToList();
 	}
 

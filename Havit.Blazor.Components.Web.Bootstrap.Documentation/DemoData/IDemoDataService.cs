@@ -3,6 +3,7 @@
 public interface IDemoDataService
 {
 	IEnumerable<EmployeeDto> GetAllEmployees();
+	Task<IEnumerable<EmployeeDto>> GetAllEmployeesAsync(CancellationToken cancellationToken = default);
 	IQueryable<EmployeeDto> GetEmployeesAsQueryable();
 
 	Task<IEnumerable<EmployeeDto>> GetEmployeesDataFragmentAsync(int startIndex, int? count, CancellationToken cancellationToken = default);
