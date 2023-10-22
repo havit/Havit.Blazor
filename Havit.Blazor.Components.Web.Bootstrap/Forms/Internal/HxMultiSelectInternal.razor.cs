@@ -255,7 +255,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		{
 			try
 			{
-				await jsModule.InvokeVoidAsync("dispose", InputId);
+				await jsModule.InvokeVoidAsync("dispose", elementReference);
 				await jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
