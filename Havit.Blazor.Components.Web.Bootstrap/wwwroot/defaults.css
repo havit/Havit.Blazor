@@ -133,7 +133,6 @@
 	/* HxMultiSelect */
 	--hx-multi-select-background-color: 							var(--bs-body-bg);
 	--hx-multi-select-dropdown-menu-height: 						300px;
-	--hx-multi-select-dropdown-menu-width: 							100%;
 	--hx-multi-select-filter-input-icon-opacity: 					.25;
 
 	/* TagInput */
