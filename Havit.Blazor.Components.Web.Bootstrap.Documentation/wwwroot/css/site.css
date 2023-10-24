@@ -1,5 +1,7 @@
 :root {
-	--hx-sidebar-width: 320px;
+	--hx-sidebar-width: 					320px;
+	--hx-sidebar-brand-logo-width: 			40px;
+	--hx-sidebar-brand-logo-height: 		30px;
 }
 
 #blazor-error-ui {
