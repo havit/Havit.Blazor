@@ -42,11 +42,15 @@
 }
 
 ::deep a.nav-link:hover,
-::deep a.nav-link.active:hover,
-::deep a.nav-link.active,
 .navbar-desktop-toggler:hover {
 	background-color: rgba(var(--hx-sidebar-item-hover-background-color), var(--hx-sidebar-item-hover-background-opacity));
 	color: var(--hx-sidebar-item-hover-color);
+}
+
+::deep a.nav-link.active,
+::deep a.nav-link.active:hover {
+	background-color: rgba(var(--hx-sidebar-item-active-background-color), var(--hx-sidebar-item-active-background-opacity));
+	color: var(--hx-sidebar-item-active-color);
 }
 
 ::deep i {
@@ -55,9 +59,12 @@
 	transform-origin: .5em 50%;
 }
 
-::deep a.nav-link:hover i,
-::deep a.nav-link.active i {
+::deep a.nav-link:hover i {
 	color: var(--hx-sidebar-item-hover-icon-color);
+}
+
+::deep a.nav-link.active i {
+	color: var(--hx-sidebar-item-active-icon-color);
 }
 
 ::deep .bi-chevron-right {

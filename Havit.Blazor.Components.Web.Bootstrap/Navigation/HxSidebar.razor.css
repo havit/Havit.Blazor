@@ -19,7 +19,6 @@
 	}
 }
 
-
 .hx-sidebar.collapsed {
 	flex-basis: var(--hx-sidebar-collapsed-width);
 	min-width: auto;
@@ -49,6 +48,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-left: auto;
 }
 
 ::deep .hx-sidebar-navbar-toggler:focus-within {

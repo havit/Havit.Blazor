@@ -1,4 +1,12 @@
-﻿.hx-sidebar-brand-logo {
+﻿.hx-sidebar-brand {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	font-size: .875rem;
+	flex-grow: 1;
+}
+
+.hx-sidebar-brand-logo {
 	width: var(--hx-sidebar-brand-logo-width);
 	height: var(--hx-sidebar-brand-logo-height);
 }
@@ -13,13 +21,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}
-
-a {
-	display: inline-flex;
-	align-items: center;
-	text-decoration: none;
-	font-size: .875rem;
 }
 
 .hx-sidebar-brand-name {
