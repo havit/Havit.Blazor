@@ -607,7 +607,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 
 		if ((DefaultContentTemplate is null)
-			&& ((TextQuery is null) || (TextQuery.Length < MinimumLengthEffective)))
+			&& ((TextQuery?.Length ?? 0) < MinimumLengthEffective))
 		{
 			return false;
 		}

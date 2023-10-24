@@ -1,34 +1,31 @@
 ﻿@page "/HxSearchBox_Issue572_Test"
 
+<h1>HxSearchBox #572</h1>
+<p>
+	<a href="https://github.com/havit/Havit.Blazor/issues/572">#572 [HxAutosuggest] [HxSearchBox] Initial suggestions disappear when the DataProvider response is quick</a>
+</p>
+
+
 <HxSearchBox TItem="SearchBoxItem"
 			 DataProvider="ProvideSearchResults"
 			 MinimumLength="0"
 			 Label="Search"
 			 ItemTitleSelector="(i) => i.Title"
-@bind-TextQuery="textQuery"
+			 @bind-TextQuery="textQuery"
 			 ItemSelectionBehavior="SearchBoxItemSelectionBehavior.SelectAndReplaceTextQueryWithItemTitle"
 			 OnItemSelected="HandleItemSelected"
-			 OnTextQueryTriggered="HandleTextQueryTriggered">
-	<DefaultContentTemplate>
-		<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
-	</DefaultContentTemplate>
+			 AllowTextQuery="false">
 </HxSearchBox>
 
 <p>selectedItemTitle: @selectedItemTitle</p>
-<p>textQueryTriggered: @textQueryTriggered</p>
 <p>textQuery: @textQuery</p>
 
 @code {
 	private string selectedItemTitle = string.Empty;
-	private string textQueryTriggered = string.Empty;
 	private string textQuery = string.Empty;
 	private void HandleItemSelected(SearchBoxItem item)
 	{
 		selectedItemTitle = item.Title;
-	}
-	private void HandleTextQueryTriggered(string text)
-	{
-		textQueryTriggered = text;
 	}
 	List<SearchBoxItem> Data { get; set; } = new()
 	{
