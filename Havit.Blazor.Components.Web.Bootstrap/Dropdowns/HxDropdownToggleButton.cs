@@ -62,6 +62,7 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 	/// The parameter can be used to override the settings of the <see cref="DropdownContainer"/> component or to specify the auto-close behavior when the component is not used.
 	/// </summary>
 	[Parameter] public DropdownAutoClose? AutoClose { get; set; }
+	protected DropdownAutoClose AutoCloseEffective => AutoClose ?? DropdownContainer?.AutoClose ?? DropdownAutoClose.True;
 
 	[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
 	[CascadingParameter] protected HxNav NavContainer { get; set; }
@@ -99,13 +100,13 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 		AdditionalAttributes ??= new Dictionary<string, object>();
 		AdditionalAttributes["data-bs-toggle"] = "dropdown";
 		AdditionalAttributes["aria-expanded"] = "false";
-		AdditionalAttributes["data-bs-auto-close"] = (AutoClose ?? DropdownContainer?.AutoClose ?? DropdownAutoClose.True) switch
+		AdditionalAttributes["data-bs-auto-close"] = AutoCloseEffective switch
 		{
 			DropdownAutoClose.True => "true",
 			DropdownAutoClose.False => "false",
 			DropdownAutoClose.Inside => "inside",
 			DropdownAutoClose.Outside => "outside",
-			_ => throw new InvalidOperationException($"Unknown {nameof(DropdownAutoClose)} value {AutoClose ?? DropdownContainer.AutoClose}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(DropdownAutoClose)} value {AutoCloseEffective}.")
 		};
 
 		if (this.DropdownOffset is not null)

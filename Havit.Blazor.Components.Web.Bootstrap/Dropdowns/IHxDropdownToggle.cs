@@ -9,6 +9,8 @@ internal interface IHxDropdownToggle
 	string DropdownReference { get; set; }
 	EventCallback OnHidden { get; set; }
 	EventCallback OnShown { get; set; }
+	DropdownAutoClose? AutoClose { get; set; }
+
 
 	Task HandleJsHidden();
 	Task HandleJsShown();
