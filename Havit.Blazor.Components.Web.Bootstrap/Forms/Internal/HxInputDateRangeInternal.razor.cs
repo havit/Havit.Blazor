@@ -48,10 +48,16 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 	private HxDropdownToggleElement fromDropdownToggleElement;
 	private HxDropdownToggleElement toDropdownToggleElement;
 
+	private DateTime GetFromCalendarDisplayMonthEffective => CurrentValue.StartDate ?? FromCalendarDisplayMonth;
+
 	private DateTime GetToCalendarDisplayMonthEffective
 	{
 		get
 		{
+			if (CurrentValue.EndDate != null)
+			{
+				return CurrentValue.EndDate.Value;
+			}
 			if (CurrentValue.StartDate != null && CurrentValue.StartDate != default)
 			{
 				if (ToCalendarDisplayMonth != default && ToCalendarDisplayMonth > CurrentValue.StartDate)

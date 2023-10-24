@@ -69,6 +69,8 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	protected bool RenderPredefinedDates => ShowPredefinedDatesEffective && (this.PredefinedDatesEffective != null) && PredefinedDatesEffective.Any();
 	protected bool RenderIcon => CalendarIconEffective is not null && !HasInputGroupsEffective;
 
+	protected DateTime GetCalendarDisplayMonthEffective => GetDateTimeFromValue(CurrentValue) ?? CalendarDisplayMonth;
+
 	private TValue previousValue;
 
 	private bool previousParsingAttemptFailed;
