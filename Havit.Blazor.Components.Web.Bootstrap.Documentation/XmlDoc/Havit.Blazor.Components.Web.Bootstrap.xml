@@ -1847,6 +1847,14 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnHidden"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.AutoClose">
+            <summary>
+            By default, the dropdown menu is closed when clicking inside or outside the dropdown menu (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.DropdownAutoClose.True"/>).
+            You can use the AutoClose parameter to change this behavior of the dropdown.
+            <see href="https://getbootstrap.com/docs/5.3/components/dropdowns/#auto-close-behavior">https://getbootstrap.com/docs/5.3/components/dropdowns/#auto-close-behavior</see>.
+            The parameter can be used to override the settings of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.DropdownContainer"/> component or to specify the auto-close behavior when the component is not used.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
         </member>
@@ -1909,6 +1917,14 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.CssClass">
             <summary>
             Custom CSS class to render with the toggle element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.AutoClose">
+            <summary>
+            By default, the dropdown menu is closed when clicking inside or outside the dropdown menu (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.DropdownAutoClose.True"/>).
+            You can use the AutoClose parameter to change this behavior of the dropdown.
+            <see href="https://getbootstrap.com/docs/5.3/components/dropdowns/#auto-close-behavior">https://getbootstrap.com/docs/5.3/components/dropdowns/#auto-close-behavior</see>.
+            The parameter can be used to override the settings of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.DropdownContainer"/> component or to specify the auto-close behavior when the component is not used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnShown">
