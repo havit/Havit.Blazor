@@ -3876,7 +3876,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.CalendarDisplayMonth">
             <summary>
-            Month to display.
+            Default month to display in dropdown calendar when there is no Value.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.FormatValueAsString(`0)">

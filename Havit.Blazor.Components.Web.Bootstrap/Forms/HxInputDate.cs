@@ -126,12 +126,11 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
 	/// <summary>
-	/// Month to display.
+	/// Default month to display in dropdown calendar when there is no Value.
 	/// </summary>
 	[Parameter] public DateTime CalendarDisplayMonth { get; set; }
 
 	[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
-
 
 	public HxInputDate()
 	{
