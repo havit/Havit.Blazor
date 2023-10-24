@@ -22,8 +22,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Havit.Core" Version="2.0.28" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.11" Condition="'$(TargetFramework)' == 'net7.0'" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.22" Condition="'$(TargetFramework)' == 'net6.0'" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.13" Condition="'$(TargetFramework)' == 'net7.0'" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.24" Condition="'$(TargetFramework)' == 'net6.0'" />
 	</ItemGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
