@@ -57,7 +57,7 @@ public partial class DocColorModeSwitcher : IDisposable
 
 	private async Task EnsureJsModule()
 	{
-		jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "Shared/Components/DocColorMode/DocColorModeSwitcher.razor.js");
+		jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Shared/Components/DocColorMode/DocColorModeSwitcher.razor.js");
 	}
 
 	private IconBase GetIcon()
