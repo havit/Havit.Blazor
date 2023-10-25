@@ -18,7 +18,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Compile Include="..\Havit.Blazor.Components.Web.Bootstrap.Documentation\DemoData\**\*.*">
+		<Compile Include="..\Havit.Blazor.Documentation\DemoData\**\*.*">
 			<Link>DemoData\%(RecursiveDir)%(FileName)%(Extension)</Link>
 		</Compile>
 	</ItemGroup>

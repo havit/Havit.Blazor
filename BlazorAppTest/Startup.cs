@@ -1,7 +1,7 @@
 using System.Globalization;
 using BlazorAppTest.Resources;
 using Havit.Blazor.Components.Web;
-using Havit.Blazor.Components.Web.Bootstrap.Documentation.DemoData;
+using Havit.Blazor.Documentation.DemoData;
 using Havit.Blazor.GoogleTagManager;
 
 namespace BlazorAppTest;
