@@ -8,6 +8,7 @@ public abstract class MemberModel
 	private Type enclosingType;
 
 	private bool generic;
+	private string genericTypeSuffix;
 
 	protected string TryFormatComment(string comment, Type enclosingType = null)
 	{
@@ -66,6 +67,9 @@ public abstract class MemberModel
 		generic = IsGeneric(link); // this information is used later to generate a Microsoft documentation link
 
 		Regex regex = new("`\\d");
+		var match = regex.Match(link);
+		genericTypeSuffix = match.Value;
+
 		return regex.Replace(link, "");
 	}
 
@@ -143,7 +147,8 @@ public abstract class MemberModel
 				}
 			}
 
-			isComponent = ApiTypeHelper.GetType(splitLink[^1])?.IsSubclassOf(typeof(ComponentBase)) ?? false;
+			string className = GetFullGenericTypeName(splitLink[^1]);
+			isComponent = ApiTypeHelper.GetType(className)?.IsSubclassOf(typeof(ComponentBase)) ?? false;
 		}
 		else if (isProperty)
 		{
@@ -225,6 +230,17 @@ public abstract class MemberModel
 	private bool IsGeneric(string link)
 	{
 		return link.Contains('`');
+	}
+
+	/// <returns>The type name including the <c>`1</c> or <c>`2</c> suffix if the type is generic.</returns>
+	private string GetFullGenericTypeName(string typeName)
+	{
+		if (!generic)
+		{
+			return typeName;
+		}
+
+		return $"{typeName}{genericTypeSuffix}";
 	}
 
 	private string ConcatenateStringArray(string[] stringArray)
