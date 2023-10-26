@@ -5877,7 +5877,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectionEnabled">
             <summary>
-            Indicates whether single data item selection is enabled. 
+            Indicates whether single data item selection is enabled.
             Selection is performed by click on the item row.
             Can be combined with multiselection.
             Default is <c>true</c>.
@@ -5885,7 +5885,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.MultiSelectionEnabled">
             <summary>
-            Indicates whether multi data items selection is enabled. 
+            Indicates whether multi data items selection is enabled.
             Selection is performed by checkboxes in the first column.
             Can be combined with (single) selection.
             Default is <c>false</c>.
@@ -5916,13 +5916,13 @@
             <summary>
             Selected data item.
             Intended for data binding.
-            </summary>		
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemChanged">
             <summary>
             Event fires when selected data item changes.
             Intended for data binding.
-            </summary>		
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InvokeSelectedDataItemChangedAsync(`0)">
             <summary>
@@ -5933,13 +5933,13 @@
             <summary>
             Selected data items.
             Intended for data binding.
-            </summary>		
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemsChanged">
             <summary>
             Event fires when selected data items changes.
             Intended for data binding.
-            </summary>		
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InvokeSelectedDataItemsChangedAsync(System.Collections.Generic.HashSet{`0})">
             <summary>
