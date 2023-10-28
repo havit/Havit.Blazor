@@ -111,14 +111,31 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		if (newChecked)
 		{
 			args.ItemsSelected.Add(item);
+
+			// If checking this item means all filtered items are checked then check select all
+			var filteredItems = GetFilteredItems();
+			if (SelectedValues is null)
+			{
+				selectAllChecked = filteredItems.Count == 1;
+			}
+			else
+			{
+				var newSelectedValues = SelectedValues.Concat(new List<TValue> { SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item) });
+				selectAllChecked = filteredItems.All(item =>
+				{
+					var value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
+					return newSelectedValues.Contains(value);
+				});
+			}
 		}
 		else
 		{
 			args.ItemsDeselected.Add(item);
+
+			// When a single item is unchecked we always want to uncheck select all
+			selectAllChecked = false;
 		}
 
-		// When a single item is clicked we always want to uncheck select all
-		selectAllChecked = false;
 
 		await OnItemsSelectionChanged.InvokeAsync(args);
 	}
@@ -169,7 +186,28 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	private void HandleFilterInputChanged(ChangeEventArgs e)
 	{
 		filterText = e.Value?.ToString() ?? string.Empty;
-		selectAllChecked = false;
+
+		if (SelectedValues is not null)
+		{
+			// If every item in the filtered list is contained in the selected values then select all should be checked
+			var filteredItems = GetFilteredItems();
+			if (filteredItems.All(item =>
+			{
+				var value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
+				return DoSelectedValuesContainValue(value);
+			}))
+			{
+				selectAllChecked = true;
+			}
+			else if (selectAllChecked)
+			{
+				selectAllChecked = false;
+			}
+		}
+		else if (selectAllChecked)
+		{
+			selectAllChecked = false;
+		}
 	}
 
 	private List<TItem> GetFilteredItems()
@@ -196,6 +234,12 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		}
 
 		return StringLocalizer["SelectAllDefaultText"];
+	}
+
+	private bool ShouldCheckSelectAll()
+	{
+		var filteredItems = GetFilteredItems();
+		return filteredItems is null || (filteredItems.Count == 1 && SelectedValues is null) || (SelectedValues is not null && filteredItems.Count == SelectedValues.Count + 1);
 	}
 
 	private string GetFilterEmptyResultText()
