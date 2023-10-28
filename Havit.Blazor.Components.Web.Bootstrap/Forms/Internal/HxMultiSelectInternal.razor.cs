@@ -43,10 +43,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public bool ClearFilterOnHide { get; set; }
 
-	[Parameter] public EventCallback<string> OnShown { get; set; }
-
-	[Parameter] public EventCallback<string> OnHidden { get; set; }
-
 	[Parameter] public RenderFragment FilterEmptyResultTemplate { get; set; }
 
 	[Parameter] public string FilterEmptyResultText { get; set; }
