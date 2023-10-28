@@ -96,6 +96,13 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 			}
 
 			await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference);
+
+			// If all items are currently selected then check select all
+			if (ItemsToRender is not null && SelectedValues is not null && ItemsToRender.Count == SelectedValues.Count)
+			{
+				selectAllChecked = true;
+				StateHasChanged();
+			}
 		}
 	}
 
