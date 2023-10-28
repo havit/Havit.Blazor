@@ -245,12 +245,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		return StringLocalizer["SelectAllDefaultText"];
 	}
 
-	private bool ShouldCheckSelectAll()
-	{
-		var filteredItems = GetFilteredItems();
-		return filteredItems is null || (filteredItems.Count == 1 && SelectedValues is null) || (SelectedValues is not null && filteredItems.Count == SelectedValues.Count + 1);
-	}
-
 	private string GetFilterEmptyResultText()
 	{
 		if (FilterEmptyResultText is not null)
