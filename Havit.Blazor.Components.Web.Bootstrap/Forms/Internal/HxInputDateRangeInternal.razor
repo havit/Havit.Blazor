@@ -22,6 +22,7 @@
                                     placeholder="@StringLocalizerFactory.GetLocalizedValue("From", typeof(HxInputDateRange))"
                                     @onchange="HandleFromChanged"
                                     disabled="@(!EnabledEffective)"
+									onfocus="this.select();"
                                     @attributes="this.AdditionalAttributes" />
 
                 <HxDropdownContent CssClass="hx-input-date-range-dropdown-menu">
@@ -60,6 +61,7 @@
                                     placeholder="@StringLocalizerFactory.GetLocalizedValue("To", typeof(HxInputDateRange))"
                                     @onchange="HandleToChanged"
                                     disabled="@(!EnabledEffective)"
+									onfocus="this.select()"
                                     @attributes="this.AdditionalAttributes" />
 
                 <HxDropdownContent CssClass="hx-input-date-range-dropdown-menu">

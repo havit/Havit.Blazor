@@ -29,9 +29,11 @@
                                  type="text"
                                  Caret="false"
                                  id="@InputId"
-                                 value="@CurrentValueAsString" @onchange="HandleValueChanged"
+                                 value="@CurrentValueAsString"
+								 @onchange="HandleValueChanged"
                                  placeholder="@Placeholder"
                                  disabled="@(!EnabledEffective)"
+								 onfocus="this.select();"
                                  @attributes="AdditionalAttributes" />
 
             @InputGroupEndTemplate
