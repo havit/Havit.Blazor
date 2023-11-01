@@ -43,10 +43,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public bool ClearFilterOnHide { get; set; }
 
-	[Parameter] public EventCallback<string> OnShown { get; set; }
-
-	[Parameter] public EventCallback<string> OnHidden { get; set; }
-
 	[Parameter] public RenderFragment FilterEmptyResultTemplate { get; set; }
 
 	[Parameter] public string FilterEmptyResultText { get; set; }
@@ -78,10 +74,18 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	private string filterText = string.Empty;
 	private bool selectAllChecked;
 	private bool disposed;
+	private List<TValue> currentSelectedValues;
 
 	public HxMultiSelectInternal()
 	{
 		dotnetObjectReference = DotNetObjectReference.Create(this);
+	}
+
+	protected override void OnParametersSet()
+	{
+		currentSelectedValues = this.SelectedValues ?? new();
+
+		SynchronizeSelectAllCheckbox();
 	}
 
 	/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
@@ -111,14 +115,19 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		if (newChecked)
 		{
 			args.ItemsSelected.Add(item);
+
+			currentSelectedValues = new List<TValue>(currentSelectedValues);
+			currentSelectedValues.Add(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item));
 		}
 		else
 		{
 			args.ItemsDeselected.Add(item);
+
+			currentSelectedValues = new List<TValue>(currentSelectedValues);
+			currentSelectedValues.Remove(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item));
 		}
 
-		// When a single item is clicked we always want to uncheck select all
-		selectAllChecked = false;
+		SynchronizeSelectAllCheckbox();
 
 		await OnItemsSelectionChanged.InvokeAsync(args);
 	}
@@ -131,27 +140,32 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		// If all items are already selected then they should be deselected, otherwise only records that aren't selected should be
 		if (selectAllChecked)
 		{
+			selectAllChecked = false;
+
 			foreach (var item in filteredItems)
 			{
 				args.ItemsDeselected.Add(item);
 			}
+
+			currentSelectedValues = new List<TValue>();
 		}
 		else
 		{
+			selectAllChecked = true;
+
+			var newCurrentSelectedValues = new List<TValue>(currentSelectedValues);
 			foreach (var item in filteredItems)
 			{
-				var value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
-				var itemSelected = DoSelectedValuesContainValue(value);
-
 				// If the item is already selected we don't need to reselect it
-				if (!itemSelected)
+				if (!newCurrentSelectedValues.Contains(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item)))
 				{
 					args.ItemsSelected.Add(item);
+
+					newCurrentSelectedValues.Add(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item));
 				}
 			}
+			currentSelectedValues = newCurrentSelectedValues;
 		}
-
-		selectAllChecked = !selectAllChecked;
 
 		await OnItemsSelectionChanged.InvokeAsync(args);
 	}
@@ -159,17 +173,32 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	private void HandleClearIconClick()
 	{
 		filterText = string.Empty;
-	}
 
-	private bool DoSelectedValuesContainValue(TValue value)
-	{
-		return SelectedValues?.Contains(value) ?? false;
+		SynchronizeSelectAllCheckbox();
 	}
 
 	private void HandleFilterInputChanged(ChangeEventArgs e)
 	{
 		filterText = e.Value?.ToString() ?? string.Empty;
-		selectAllChecked = false;
+
+		SynchronizeSelectAllCheckbox();
+	}
+
+	private void SynchronizeSelectAllCheckbox()
+	{
+		if (AllowSelectAll)
+		{
+			if (currentSelectedValues.Any())
+			{
+				// If every item in the filtered list is contained in the selected values then select all should be checked
+				var filteredItems = GetFilteredItems();
+				selectAllChecked = filteredItems.All(item => currentSelectedValues.Contains(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item)));
+			}
+			else
+			{
+				selectAllChecked = false;
+			}
+		}
 	}
 
 	private List<TItem> GetFilteredItems()
@@ -190,22 +219,12 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	private string GetSelectAllText()
 	{
-		if (SelectAllText is not null)
-		{
-			return SelectAllText;
-		}
-
-		return StringLocalizer["SelectAllDefaultText"];
+		return SelectAllText ?? StringLocalizer["SelectAllDefaultText"];
 	}
 
 	private string GetFilterEmptyResultText()
 	{
-		if (FilterEmptyResultText is not null)
-		{
-			return FilterEmptyResultText;
-		}
-
-		return StringLocalizer["FilterEmptyResultDefaultText"];
+		return FilterEmptyResultText ?? StringLocalizer["FilterEmptyResultDefaultText"];
 	}
 
 	public async ValueTask FocusAsync()
