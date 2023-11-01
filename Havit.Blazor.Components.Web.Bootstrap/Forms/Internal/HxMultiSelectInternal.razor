@@ -101,7 +101,7 @@
                     var item = filteredItems[i];
                     TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
 
-                    bool itemSelected = DoSelectedValuesContainValue(value);
+                    bool itemSelected = currentSelectedValues.Contains(value);
 
                     <li>
                         <button type="button" class="dropdown-item" role="option" @onclick="async () => await HandleItemSelectionChangedAsync(!itemSelected, item)">
