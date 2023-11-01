@@ -169,7 +169,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		builder.AddAttribute(1003, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 
 		// normalize pasted value
-		builder.AddAttribute(1004, "onpaste", @"this.value = event.clipboardData.getData('text/plain').replace(/[^\d.,\-eE]/g, ''); return false;");
+		builder.AddAttribute(1004, "onpaste", @"this.value = event.clipboardData.getData('text/plain').replace(/[^\d.,\-eE]/g, ''); this.dispatchEvent(new Event('change')); return false;");
 
 		builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 
