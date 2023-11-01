@@ -276,7 +276,11 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		{
 			TextQuery = string.Empty;
 			await HandleTextQueryValueChanged(string.Empty);
-			// should not invoke OnTextQueryTriggered as the intention (of the user) was not to search for empty string
+
+			// #644 [HxSearchBox] Clear icon does not refresh data in typical usage scenarios (regression)
+			// Although we can discuss whether the intention of the user was to trigger the text query, we invoke the callback to signalize the user submitted a new text query state.
+			// Without this, the related UI won't be updated unless the TextQueryChanged callback is properly handled (which is not comfortable).
+			await HandleTextQueryTriggered();
 		}
 	}
 
