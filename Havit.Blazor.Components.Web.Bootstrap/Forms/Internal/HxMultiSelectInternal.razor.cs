@@ -80,7 +80,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
-	protected override void OnInitialized()
+	protected override void OnParametersSet()
 	{
 		// If all items are currently selected then check select all
 		if (ItemsToRender is not null && SelectedValues is not null && ItemsToRender.Count == SelectedValues.Count)
@@ -117,28 +117,34 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		{
 			args.ItemsSelected.Add(item);
 
-			// If checking this item means all filtered items are checked then check select all
-			var filteredItems = GetFilteredItems();
-			if (SelectedValues is null)
+			if (AllowSelectAll)
 			{
-				selectAllChecked = filteredItems.Count == 1;
-			}
-			else
-			{
-				var newSelectedValues = SelectedValues.Concat(new List<TValue> { SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item) });
-				selectAllChecked = filteredItems.All(item =>
+				// If checking this item means all filtered items are checked then check select all
+				var filteredItems = GetFilteredItems();
+				if (SelectedValues is null || !SelectedValues.Any())
 				{
-					var value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
-					return newSelectedValues.Contains(value);
-				});
+					selectAllChecked = filteredItems.Count == 1;
+				}
+				else
+				{
+					var newSelectedValues = SelectedValues.Concat(new List<TValue> { SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item) });
+					selectAllChecked = filteredItems.All(item =>
+					{
+						var value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
+						return newSelectedValues.Contains(value);
+					});
+				}
 			}
 		}
 		else
 		{
 			args.ItemsDeselected.Add(item);
 
-			// When a single item is unchecked we always want to uncheck select all
-			selectAllChecked = false;
+			if (AllowSelectAll)
+			{
+				// When a single item is unchecked we always want to uncheck select all
+				selectAllChecked = false;
+			}
 		}
 
 
@@ -192,7 +198,12 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	{
 		filterText = e.Value?.ToString() ?? string.Empty;
 
-		if (SelectedValues is not null)
+		if (!AllowSelectAll)
+		{
+			return;
+		}
+
+		if (SelectedValues is not null && SelectedValues.Any())
 		{
 			// If every item in the filtered list is contained in the selected values then select all should be checked
 			var filteredItems = GetFilteredItems();
