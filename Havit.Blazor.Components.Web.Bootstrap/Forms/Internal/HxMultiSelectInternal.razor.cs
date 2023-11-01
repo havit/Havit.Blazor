@@ -18,14 +18,13 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	[Parameter] public List<TItem> ItemsToRender { get; set; }
 
 	[Parameter] public List<TValue> SelectedValues { get; set; }
+	[Parameter] public EventCallback<List<TValue>> SelectedValuesChanged { get; set; }
 
 	[Parameter] public Func<TItem, string> TextSelector { get; set; }
 
 	[Parameter] public Func<TItem, TValue> ValueSelector { get; set; }
 
 	[Parameter] public string NullDataText { get; set; }
-
-	[Parameter] public EventCallback<SelectionChangedArgs> OnItemsSelectionChanged { get; set; }
 
 	[Parameter] public string InputGroupCssClass { get; set; }
 
@@ -110,64 +109,52 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	private async Task HandleItemSelectionChangedAsync(bool newChecked, TItem item)
 	{
-		var args = new SelectionChangedArgs();
-
 		if (newChecked)
 		{
-			args.ItemsSelected.Add(item);
-
 			currentSelectedValues = new List<TValue>(currentSelectedValues);
 			currentSelectedValues.Add(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item));
 		}
 		else
 		{
-			args.ItemsDeselected.Add(item);
-
 			currentSelectedValues = new List<TValue>(currentSelectedValues);
 			currentSelectedValues.Remove(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item));
 		}
 
 		SynchronizeSelectAllCheckbox();
 
-		await OnItemsSelectionChanged.InvokeAsync(args);
+		await SelectedValuesChanged.InvokeAsync(currentSelectedValues);
 	}
 
 	private async Task HandleSelectAllClickedAsync()
 	{
-		var args = new SelectionChangedArgs();
 		var filteredItems = GetFilteredItems();
 
-		// If all items are already selected then they should be deselected, otherwise only records that aren't selected should be
+		var newCurrentSelectedValues = new List<TValue>(currentSelectedValues);
 		if (selectAllChecked)
 		{
 			selectAllChecked = false;
 
 			foreach (var item in filteredItems)
 			{
-				args.ItemsDeselected.Add(item);
+				newCurrentSelectedValues.Remove(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item));
 			}
-
-			currentSelectedValues = new List<TValue>();
 		}
 		else
 		{
 			selectAllChecked = true;
 
-			var newCurrentSelectedValues = new List<TValue>(currentSelectedValues);
 			foreach (var item in filteredItems)
 			{
 				// If the item is already selected we don't need to reselect it
 				if (!newCurrentSelectedValues.Contains(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item)))
 				{
-					args.ItemsSelected.Add(item);
-
 					newCurrentSelectedValues.Add(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item));
 				}
 			}
-			currentSelectedValues = newCurrentSelectedValues;
 		}
+		currentSelectedValues = newCurrentSelectedValues;
 
-		await OnItemsSelectionChanged.InvokeAsync(args);
+		await SelectedValuesChanged.InvokeAsync(currentSelectedValues);
 	}
 
 	private void HandleClearIconClick()
@@ -244,9 +231,10 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	{
 		isShown = false;
 
-		if (ClearFilterOnHide && filterText != string.Empty)
+		if (ClearFilterOnHide && (filterText != string.Empty))
 		{
 			filterText = string.Empty;
+			SynchronizeSelectAllCheckbox();
 			StateHasChanged();
 		}
 
@@ -283,12 +271,5 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		}
 
 		dotnetObjectReference?.Dispose();
-	}
-
-
-	public sealed class SelectionChangedArgs
-	{
-		public List<TItem> ItemsDeselected { get; set; } = new();
-		public List<TItem> ItemsSelected { get; set; } = new();
 	}
 }

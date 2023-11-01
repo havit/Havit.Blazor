@@ -186,25 +186,6 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		}
 	}
 
-	private void HandleItemSelectionChanged(List<TItem> itemsSelected, List<TItem> itemsDeselected)
-	{
-		var newValue = Value == null ? new List<TValue>() : new List<TValue>(Value);
-
-		foreach (var item in itemsDeselected)
-		{
-			TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
-			newValue.Remove(value);
-		}
-
-		foreach (var item in itemsSelected)
-		{
-			TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
-			newValue.Add(value);
-		}
-
-		CurrentValue = newValue; // setter includes ValueChanged + NotifyFieldChanged
-	}
-
 	protected override bool TryParseValueFromString(string value, out List<TValue> result, out string validationErrorMessage)
 	{
 		throw new NotSupportedException();
@@ -235,8 +216,8 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(106, nameof(HxMultiSelectInternal<TValue, TItem>.TextSelector), TextSelector);
 		builder.AddAttribute(107, nameof(HxMultiSelectInternal<TValue, TItem>.ValueSelector), ValueSelector);
 		builder.AddAttribute(108, nameof(HxMultiSelectInternal<TValue, TItem>.SelectedValues), Value);
+		builder.AddAttribute(101, nameof(HxMultiSelectInternal<TValue, TItem>.SelectedValuesChanged), EventCallback.Factory.Create<List<TValue>>(this, value => CurrentValue = value));
 		builder.AddAttribute(109, nameof(HxMultiSelectInternal<TValue, TItem>.NullDataText), NullDataText);
-		builder.AddAttribute(110, nameof(HxMultiSelectInternal<TValue, TItem>.OnItemsSelectionChanged), EventCallback.Factory.Create<HxMultiSelectInternal<TValue, TItem>.SelectionChangedArgs>(this, args => HandleItemSelectionChanged(args.ItemsSelected, args.ItemsDeselected)));
 		builder.AddAttribute(111, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupStartText), InputGroupStartText);
 		builder.AddAttribute(112, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupStartTemplate), InputGroupStartTemplate);
 		builder.AddAttribute(113, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndText), InputGroupEndText);
