@@ -101,6 +101,11 @@ public abstract class MemberModel
 
 	private string HandleSupportClasses(string[] splitLink, string fullLink)
 	{
+		if (IsProperty(splitLink))
+		{
+			return null;
+		}
+
 		if (IsEnum(splitLink))
 		{
 			string internalTypeLink = ApiRenderer.GenerateLinkForInternalType(splitLink[^2], false, $"{splitLink[^2]}.{splitLink[^1]}");
@@ -165,7 +170,8 @@ public abstract class MemberModel
 				}
 			}
 
-			isComponent = ApiTypeHelper.GetType(splitLink[^2])?.IsSubclassOf(typeof(ComponentBase)) ?? false;
+			var type = enclosingType ?? ApiTypeHelper.GetType(splitLink[^2]);
+			isComponent = type?.IsSubclassOf(typeof(ComponentBase)) ?? false;
 		}
 		else
 		{
