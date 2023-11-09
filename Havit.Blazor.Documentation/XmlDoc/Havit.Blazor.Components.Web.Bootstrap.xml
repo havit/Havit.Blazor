@@ -1697,6 +1697,16 @@
             Additional CSS class for underlying <c>li</c> container (wrapping the main <c>span</c> inside).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.Icon">
+            <summary>
+            Item icon (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon" />).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.IconCssClass">
+            <summary>
+            Additional CSS class(es) for the context menu item icon.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.OnClick">
             <summary>
             Raised when the item is clicked.

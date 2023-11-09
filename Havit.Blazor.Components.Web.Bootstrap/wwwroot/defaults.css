@@ -71,6 +71,7 @@
 	--hx-chip-list-chip-label-margin: 					.25rem;
 	--hx-chip-list-chip-label-opacity: 					.75;
     --hx-chip-list-gap:									.25rem;
+
 	/* HxContextMenu */
 	--hx-context-menu-button-color: 								unset;
 	--hx-context-menu-button-border: 								unset;
@@ -78,6 +79,9 @@
 	--hx-context-menu-button-padding: 								0 .25rem;
 	--hx-context-menu-button-hover-background: 						var(--bs-secondary-bg);
 	--hx-context-menu-item-icon-margin: 							0 .5rem 0 0;
+
+	/* HxDropdown */
+	--hx-dropdown-menu-item-icon: 									0 .5rem 0 0;
 
 	/* HxGrid */
 	--hx-grid-button-hover-background: 								var(--bs-secondary-bg);
