@@ -5,15 +5,15 @@
 /// </summary>
 /// <remarks>
 /// Uses in-memory Dictionary to store the data.
-/// Does not preload data, the data get loaded within first data-retriaval call.
-/// Does not implement any memory-release logic, the data get refreshed within data-retrivals where <see cref="ShouldRefresh"/> returns <c>true</c>.
+/// Does not preload data, the data get loaded within first data-retrieval call.
+/// Does not implement any memory-release logic, the data get refreshed within data-retrievals where <see cref="ShouldRefresh"/> returns <c>true</c>.
 /// </remarks>
 public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStaticDataStore<TKey, TValue>
 {
 	protected Dictionary<TKey, TValue> Data;
 
 	/// <summary>
-	/// Template method to implement the data retrival logic.
+	/// Template method to implement the data retrieval logic.
 	/// You should never call this method directly, use <see cref="EnsureDataAsync"/> to load data.
 	/// This method is sequential (does not allow parallel runs), just take care of the data retrieval.
 	/// Must return non-<c>null</c> value, use Enumerable.Empty if needed.
@@ -116,9 +116,9 @@ public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStati
 	}
 
 	/// <summary>
-	/// To be called before any data-retrival to load/refresh the data.<br/>
+	/// To be called before any data-retrieval to load/refresh the data.<br/>
 	/// Is automatically called before all asynchronous data-retrieval calls.
-	/// You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any sychronnous API.<br/>
+	/// You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any sychronous API.<br/>
 	/// Uses <see cref="ShouldRefresh"/> to check for refreshment request.
 	/// Uses lock to prevent multiple parallel loads.
 	/// </summary>
