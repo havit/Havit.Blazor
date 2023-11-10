@@ -33,7 +33,7 @@ public static class ApiTypeHelper
 		return typeof(Delegate).IsAssignableFrom(type);
 	}
 
-	public static Type GetType(string typeName)
+	public static Type GetType(string typeName, bool includeTypesContainingTypeName = false)
 	{
 		Type result;
 
@@ -70,6 +70,19 @@ public static class ApiTypeHelper
 			}
 		}
 		catch { }
+
+		if (includeTypesContainingTypeName)
+		{
+			try
+			{
+				result = typeof(HxButton).Assembly.GetTypes().FirstOrDefault((t) => t.FullName.Contains(typeName));
+				if (result is not null)
+				{
+					return result;
+				}
+			}
+			catch { }
+		}
 
 		return null;
 	}
