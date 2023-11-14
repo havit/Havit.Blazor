@@ -19,4 +19,10 @@ public record CalendarSettings
 	/// Allows customization of the dates in dropdown calendars.
 	/// </summary>
 	public CalendarDateCustomizationProviderDelegate DateCustomizationProvider { get; set; }
+
+	/// <summary>
+	/// TimeProvider to customize the today date
+	/// </summary>
+	public TimeProvider TimeProvider { get; set; }
+
 }
