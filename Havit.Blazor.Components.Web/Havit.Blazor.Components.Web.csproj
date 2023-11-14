@@ -25,10 +25,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="Havit.Core" Version="2.0.28" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.13" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0-rc.2.23480.2" Condition="'$(TargetFramework)' == 'net8.0'" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.13" Condition="'$(TargetFramework)' == 'net7.0'" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.24" Condition="'$(TargetFramework)' == 'net6.0'" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.14" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" Condition="'$(TargetFramework)' == 'net8.0'" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.14" Condition="'$(TargetFramework)' == 'net7.0'" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.25" Condition="'$(TargetFramework)' == 'net6.0'" />
 		<PackageReference Include="Microsoft.Bcl.TimeProvider" Version="8.0.0-rc.1.23419.4" />
 	</ItemGroup>
 	
