@@ -29,7 +29,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" Condition="'$(TargetFramework)' == 'net8.0'" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.14" Condition="'$(TargetFramework)' == 'net7.0'" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.25" Condition="'$(TargetFramework)' == 'net6.0'" />
-		<PackageReference Include="Microsoft.Bcl.TimeProvider" Version="8.0.0-rc.1.23419.4" />
+		<PackageReference Include="Microsoft.Bcl.TimeProvider" Version="8.0.0"  Condition="'$(TargetFramework)' != 'net8.0'" />
 	</ItemGroup>
 	
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
