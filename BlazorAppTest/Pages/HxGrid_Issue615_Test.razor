@@ -1,0 +1,113 @@
+﻿@page "/HxGrid_Issue615_Test"
+@using System.Globalization
+@using Havit.Collections;
+
+<h1>HxGrid</h1>
+
+
+<div class="container">
+	<h3>Invoices</h3>
+	<HxGrid ContentNavigationMode="GridContentNavigationMode.Pagination"
+			DataProvider="OnLoadItems"
+			Hover="true"
+			PageSize="10"
+			PlaceholdersRowCount="10"
+			Responsive="true"
+			SelectedDataItemChanged="OnInvoiceSelected"
+			SelectionEnabled="true"
+			Striped="true"
+			TItem="Invoice">
+		<Columns>
+			<HxGridColumn HeaderText="Number"
+						  IsDefaultSortColumn="true"
+						  ItemTextSelector="@(i => i.Number.ToString(CultureInfo.CurrentUICulture))"
+						  SortDirection="SortDirection.Ascending"
+						  SortKeySelector="@(i => i.Number)"
+						  TItem="Invoice" />
+			<HxGridColumn HeaderText="Client"
+						  IsDefaultSortColumn="false"
+						  ItemTextSelector="@(i => i.ClientName)"
+						  SortKeySelector="@(i => i.ClientName)"
+						  TItem="Invoice" />
+			<HxGridColumn FooterCssClass="text-end"
+						  FooterText="@(GetGrandTotal().ToString("C", CultureInfo.CurrentUICulture))"
+						  HeaderCssClass="text-end"
+						  HeaderText="Total"
+						  IsDefaultSortColumn="false"
+						  ItemCssClass="text-end"
+						  ItemTextSelector="@(i => i.Total.ToString("C", CultureInfo.CurrentUICulture))"
+						  SortKeySelector="@(i => i.Total)"
+						  TItem="Invoice" />
+		</Columns>
+	</HxGrid>
+</div>
+
+@code {
+	private readonly IEnumerable<Invoice> _invoices = new List<Invoice>()
+		{
+			new Invoice(1, "Client #1", 10.00m),
+			new Invoice(2, "Client #2", 20.00m),
+			new Invoice(3, "Client #3", 30.00m),
+			new Invoice(4, "Client #4", 40.00m),
+			new Invoice(5, "Client #5", 50.00m),
+			new Invoice(6, "Client #6", 60.00m),
+			new Invoice(7, "Client #7", 70.00m),
+			new Invoice(8, "Client #8", 80.00m),
+			new Invoice(9, "Client #9", 90.00m),
+			new Invoice(10, "Client #10", 100.00m),
+			new Invoice(11, "Client #11", 110.00m),
+			new Invoice(12, "Client #12", 120.00m),
+			new Invoice(13, "Client #13", 130.00m),
+			new Invoice(14, "Client #14", 140.00m),
+			new Invoice(15, "Client #15", 150.00m),
+			new Invoice(16, "Client #16", 160.00m),
+			new Invoice(17, "Client #17", 170.00m),
+			new Invoice(18, "Client #18", 180.00m),
+			new Invoice(19, "Client #19", 190.00m),
+			new Invoice(20, "Client #20", 200.00m)
+		}.AsEnumerable();
+
+	[Inject] private IHxMessageBoxService MessageBox { get; set; }
+
+	public Task<GridDataProviderResult<Invoice>> OnLoadItems(GridDataProviderRequest<Invoice> request)
+	{
+		return Task.FromResult(request.ApplyTo(_invoices));
+	}
+
+	public async Task OnInvoiceSelected(Invoice selectedInvoice)
+	{
+		if (selectedInvoice == null || MessageBox == null)
+			return;
+
+		await MessageBox.ShowAsync(
+			"Information",
+			$"Invoice #{selectedInvoice.Number} clicked!");
+	}
+
+	public decimal GetGrandTotal()
+	{
+		return _invoices.Sum(i => i.Total);
+	}
+
+	public class Invoice
+	{
+		public Invoice(
+			int number,
+			string clientName,
+			decimal total)
+		{
+			if (string.IsNullOrWhiteSpace(clientName))
+				throw new ArgumentNullException(nameof(clientName));
+
+			Number = number;
+			ClientName = clientName;
+			Total = total;
+		}
+
+		public int Number { get; private set; }
+
+		public string ClientName { get; private set; }
+
+		public decimal Total { get; private set; }
+	}
+}

@@ -1,0 +1,23 @@
+﻿@page "/HxInputDate_Issue631_Test"
+@using Havit;
+
+<h1>HxInputDate</h1>
+
+<HxCard>
+    <HeaderTemplate><HxIcon Icon="@BootstrapIcon.Calendar4Range" />&ensp;Date Range</HeaderTemplate>
+    <BodyTemplate>
+        <div class="row">
+            <div class="col-6">
+                <HxInputDate Label="Start" @bind-Value="@startDate" MaxDate="@DateTime.Today" />
+            </div>
+            <div class="col-6">
+                <HxInputDate Label="End" @bind-Value="@endDate" MaxDate="@DateTime.Today" />
+            </div>
+        </div>
+    </BodyTemplate>
+</HxCard>
+
+@code {
+    private DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+    private DateTime endDate = DateTime.Today;
+}

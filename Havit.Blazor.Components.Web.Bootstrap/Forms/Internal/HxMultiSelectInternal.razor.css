@@ -22,9 +22,36 @@ button.dropdown-item,
 }
 
 .hx-multi-select-input:hover {
-    cursor: default;
+	cursor: default;
 }
 
 .form-check-label {
 	color: inherit;
+}
+
+.hx-multi-select-filter-input-icon {
+	display: flex;
+	align-items: center;
+	margin-right: 1rem;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+	z-index: 5;
+}
+
+.hx-multi-select-filter-input-wrapper {
+	position: relative;
+	flex: 1 1 auto;
+	width: 100%;
+	min-width: 0;
+	padding: 0.25em;
+}
+
+.form-control-sm ~ .hx-multi-select-filter-input-icon {
+	font-size: .75rem;
+}
+
+.hx-multi-select-filter-input-icon div[role="button"]:not(:hover) ::deep .hx-icon {
+	opacity: var(--hx-multi-select-filter-input-icon-opacity);
 }

@@ -9,7 +9,7 @@
 
 	<ItemGroup>
 		<InternalsVisibleTo Include="Havit.Blazor.Components.Web.Bootstrap.Tests" />
-		<InternalsVisibleTo Include="Havit.Blazor.Components.Web.Bootstrap.Documentation" />
+		<InternalsVisibleTo Include="Havit.Blazor.Documentation" />
 	</ItemGroup>
 
 
@@ -37,7 +37,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.11" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.13" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -46,7 +46,7 @@
 	</ItemGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.Bootstrap.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Components.Web.Bootstrap.Documentation\xmldoc" />
+		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.Bootstrap.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />
 	</Target>
 
 </Project>

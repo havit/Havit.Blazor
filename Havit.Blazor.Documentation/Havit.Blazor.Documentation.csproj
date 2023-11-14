@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<NoWarn>1701;1702;SA1134</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="LoxSmoke.DocXml" Version="3.5.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.13" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.13" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.13" />
+		<PackageReference Include="System.Text.Json" Version="7.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap\Havit.Blazor.Components.Web.Bootstrap.csproj" />
+		<ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
+		<ProjectReference Include="..\Havit.Blazor.GoogleTagManager\Havit.Blazor.GoogleTagManager.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Watch Remove="xmldoc\Havit.Blazor.Components.Web.Bootstrap.xml" />
+		<Watch Remove="xmldoc\Havit.Blazor.Components.Web.xml" />
+		<Watch Remove="xmldoc\Havit.Blazor.GoogleTagManager.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="xmldoc\Havit.Blazor.Components.Web.Bootstrap.xml" />
+		<EmbeddedResource Include="xmldoc\Havit.Blazor.Components.Web.xml" />
+		<EmbeddedResource Include="xmldoc\Havit.Blazor.GoogleTagManager.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="**/*.CodeSnippet.*" />
+		<Content Remove="GenericTypePlaceholders\**" />
+		<Compile Remove="**/*.CodeSnippet.*" />
+		<Compile Remove="GenericTypePlaceholders\**" />
+		<EmbeddedResource Include="**/*.CodeSnippet.*" />
+		<EmbeddedResource Remove="GenericTypePlaceholders\**" />
+		<None Remove="GenericTypePlaceholders\**" />
+		<EmbeddedResource Update="**/*.CodeSnippet.*">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="Pages\Components\HxAutosuggestDoc\HxAutosuggest_Demo_InitialSuggestions.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Pages\Components\HxSearchBoxDoc\HxSearchBox_Demo_InitialSuggestions.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	</ItemGroup>
+
+	<Target Name="EmbedDemos" BeforeTargets="PrepareForBuild">
+		<!-- Let's embed demos sources to the assembly to be able to show sources at runtime. -->
+		<ItemGroup>
+			<EmbeddedResource Include="Pages/**/*Demo*.razor" />
+			<EmbeddedResource Include="Pages/Components/HxDialogBaseDoc/CustomDialog.razor" />
+		</ItemGroup>
+	</Target>
+
+	<PropertyGroup>
+		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+	</PropertyGroup>
+</Project>

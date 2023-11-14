@@ -167,6 +167,10 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 
 		builder.AddAttribute(1002, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
 		builder.AddAttribute(1003, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+
+		// normalize pasted value
+		builder.AddAttribute(1004, "onpaste", @"this.value = event.clipboardData.getData('text/plain').replace(/[^\d.,\-eE]/g, ''); this.dispatchEvent(new Event('change')); return false;");
+
 		builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 
 		// The counting sequence values violate all general recommendations.
@@ -324,6 +328,6 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 				message = StringLocalizer["ParsingErrorMessage"];
 			}
 		}
-		return String.Format(message, Label, FieldIdentifier.FieldName);
+		return String.Format(message, DisplayName ?? Label ?? FieldIdentifier.FieldName);
 	}
 }

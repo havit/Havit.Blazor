@@ -1,0 +1,49 @@
+﻿@inject IDemoDataService DemoDataService
+
+<HxSearchBox DataProvider="ProvideSearchResults"
+			 Label="Employee"
+			 TItem="EmployeeDto"
+			 ItemTitleSelector="i => i.Name"
+			 ItemSubtitleSelector="i => i.Position"
+			 ItemIconSelector="i => GetIcon(i)"
+			 Placeholder="Search"
+			 MinimumLength="0"
+			 AllowTextQuery="false"
+			 OnItemSelected="OnItemSelected">
+</HxSearchBox>
+
+<p class="mt-3">
+	Last selected item: @selectedItem?.Name<br />
+</p>
+
+@code {
+	private EmployeeDto selectedItem;
+
+	private async Task<SearchBoxDataProviderResult<EmployeeDto>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+	{
+		if (request.UserInput?.Length > 0)
+		{
+			var matchingEmployees = await DemoDataService.FindEmployeesByNameAsync(request.UserInput, limitCount: 10, request.CancellationToken);
+			return new SearchBoxDataProviderResult<EmployeeDto> { Data = matchingEmployees };
+		}
+
+		var initialSuggestions = await DemoDataService.GetPreferredEmployeesAsync(count: 10, request.CancellationToken);
+		return new SearchBoxDataProviderResult<EmployeeDto>() { Data = initialSuggestions };
+	}
+
+	private void OnItemSelected(EmployeeDto item)
+	{
+		selectedItem = item;
+	}
+
+	private IconBase GetIcon(EmployeeDto employee)
+	{
+		return employee.Position.ToLower() switch
+		{
+			string d when d.Contains("data") => BootstrapIcon.Database,
+			string s when s.Contains("sales") => BootstrapIcon.Cart,
+			string m when m.Contains("manager") => BootstrapIcon.PersonBadge,
+			_ => BootstrapIcon.Person
+		};
+	}
+}

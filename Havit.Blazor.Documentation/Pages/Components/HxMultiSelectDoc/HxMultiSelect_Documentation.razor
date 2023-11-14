@@ -1,0 +1,46 @@
+﻿@attribute [Route("/components/" + nameof(HxMultiSelect<object, object>))]
+
+<ComponentApiDoc Type="typeof(HxMultiSelect<TValue, TItem>)">
+	<MainContent>
+
+		<DocHeading Title="Basic usage" />
+		<Demo Type="typeof(HxMultiSelect_Demo_BasicUsage)" />
+
+		<DocHeading Title="Filtering" />
+		<p>
+			You can enable filtering by setting <code>AllowFiltering="true"</code>.<br />
+			You can use the <code>FilterEmptyResultTemplate</code> to customize the message displayed when no items are found.
+		</p>
+		<Demo Type="typeof(HxMultiSelect_Demo_Filtering)" />
+
+		<DocHeading Title="Custom filtering" Level="3" />
+		<p>
+			You can customize filtering by setting <code>FilterPredicate</code> to a delegate that returns <code>bool</code> and accepts two parameters: <code>TItem</code> and <code>string</code> (filter).<br />
+			You can use the <code>FilterEmptyResultTemplate</code> to customize the content displayed when no items are found.
+		</p>
+		<Demo Type="typeof(HxMultiSelect_Demo_CustomFiltering)" />
+
+		<DocHeading Title="Select all" />
+		<p>
+			You can enable the "-select all-" option by setting <code>AllowSelectAll="true"</code>.<br />
+			You can customize the text of the "-select all-" option by setting <code>SelectAllText</code>.
+		</p>
+		<Demo Type="typeof(HxMultiSelect_Demo_SelectAll)" />
+
+	</MainContent>
+	<CssVariables>
+
+		<ComponentApiDocCssVariable Name="--hx-multi-select-dropdown-menu-height" Default="300px">
+			Height of the dropdown menu.
+		</ComponentApiDocCssVariable>
+
+		<ComponentApiDocCssVariable Name="--hx-multi-select-background-color" Default="var(--bs-body-bg)">
+			Background color of the dropdown menu.
+		</ComponentApiDocCssVariable>
+
+		<ComponentApiDocCssVariable Name="--hx-multi-select-filter-input-icon-opacity" Default=".25">
+			Opacity of the filter input icon.
+		</ComponentApiDocCssVariable>
+
+	</CssVariables>
+</ComponentApiDoc>

@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAppTest", "BlazorAppTest\BlazorAppTest.csproj", "{0685E15F-4A00-4D81-A268-9915B8D048AF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap.Documentation", "Havit.Blazor.Components.Web.Bootstrap.Documentation\Havit.Blazor.Components.Web.Bootstrap.Documentation.csproj", "{399A6F03-FA62-45F2-ACBC-F1B09D954807}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Documentation", "Havit.Blazor.Documentation\Havit.Blazor.Documentation.csproj", "{399A6F03-FA62-45F2-ACBC-F1B09D954807}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap.Documentation.Server", "Havit.Blazor.Components.Web.Bootstrap.Documentation.Server\Havit.Blazor.Components.Web.Bootstrap.Documentation.Server.csproj", "{C4CC1C76-BCC9-403A-917D-144868F1215E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Documentation.Server", "Havit.Blazor.Documentation.Server\Havit.Blazor.Documentation.Server.csproj", "{C4CC1C76-BCC9-403A-917D-144868F1215E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D7B56FC7-6322-4B66-B34F-A972805BF740}"
 	ProjectSection(SolutionItems) = preProject
@@ -50,7 +50,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Localization", "Localizatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.GoogleTagManager", "Havit.Blazor.GoogleTagManager\Havit.Blazor.GoogleTagManager.csproj", "{D05D6A1D-9D0E-4B0B-8A13-7A9DE32D6A3F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap.Documentation.Tests", "Havit.Blazor.Components.Web.Bootstrap.Documentation.Tests\Havit.Blazor.Components.Web.Bootstrap.Documentation.Tests.csproj", "{53DE26D4-4393-4BAC-B6BF-8BD02EF02EB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Documentation.Tests", "Havit.Blazor.Documentation.Tests\Havit.Blazor.Documentation.Tests.csproj", "{53DE26D4-4393-4BAC-B6BF-8BD02EF02EB0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators", "Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators\Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators.csproj", "{94525A2B-194C-4F6A-A50C-1CF798216797}"
 EndProject

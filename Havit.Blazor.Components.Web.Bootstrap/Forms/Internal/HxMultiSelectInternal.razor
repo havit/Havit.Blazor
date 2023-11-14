@@ -6,24 +6,22 @@
     bool enabled = EnabledEffective && (ItemsToRender != null);
 }
 
-<div class="hx-multi-select dropdown" role="listbox">
-    <div class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputGroupCssClass)" data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
+<div @ref="elementReference" class="hx-multi-select dropdown" role="listbox">
+    <div class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputGroupCssClass)" aria-expanded="@isShown" data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
         @if (InputGroupStartText is not null)
         {
             <span class="input-group-text">@InputGroupStartText</span>
         }
     
         @InputGroupStartTemplate
-        
-        <input
-            @ref="inputElement"
-            type="text"
-            id="@InputId"
-            class="@InputCssClass"
-            value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
-            disabled="@(!enabled)"
-            readonly="true"
-            @attributes="this.AdditionalAttributes" />
+
+        <input type="text"
+               id="@InputId"
+               class="@InputCssClass"
+               value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
+               disabled="@(!enabled)"
+               readonly="true"
+               @attributes="this.AdditionalAttributes" />
 
         @InputGroupEndTemplate
 
@@ -36,25 +34,86 @@
     <ul class="dropdown-menu"> @* Must be always rendered otherwise does not work after disable->enabled scenario *@
         @if (enabled)
         {
-            for (int i = 0; i < ItemsToRender.Count; i++)
+            if (AllowFiltering)
             {
-                string checkboxElementId = InputId + "_" + i.ToString();
-
-                var item = ItemsToRender[i];
-                TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
-
-                bool itemSelected = Value?.Contains(value) ?? false;
-
                 <li>
-                    <button type="button" class="dropdown-item" role="option" @onclick="async () => await HandleItemSelectionChangedAsync(!itemSelected, item)">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="@checkboxElementId" checked="@itemSelected" tabindex="-1" />
-                            <label class="form-check-label" for="@checkboxElementId" @onclick:preventDefault >
-                                @SelectorHelpers.GetText(TextSelector, item)
-                            </label>
+                    <div class="hx-multi-select-filter-input-wrapper">
+                        <input @ref="filterInputReference"
+                                id="@($"{InputId}_filter")"
+                                type="text"
+                                class="@CssClassHelper.Combine("form-control", InputSizeEffective.AsFormControlCssClass())"
+                                autocomplete="false"
+                                value="@filterText"
+                                @oninput="HandleFilterInputChanged"
+                                @onclick:stopPropagation
+                                onfocusin="this.select()" />
+
+                        <div class="hx-multi-select-filter-input-icon">
+                            @if (string.IsNullOrEmpty(filterText))
+                            {
+                                <HxIcon CssClass="hx-multi-select-filter-input-icon-search" Icon="@FilterSearchIcon" />
+                            }
+                            else
+                            {
+                                <div role="button" @onclick="HandleClearIconClick" @onclick:stopPropagation>
+                                    <HxIcon CssClass="hx-multi-select-filter-input-icon-clear" Icon="@FilterClearIcon" />
+                                </div>
+                            }
                         </div>
-                    </button>
+                    </div>
                 </li>
+            }
+
+            var filteredItems = GetFilteredItems();
+            if (filteredItems.Count <= 0)
+            {
+                <li>
+                    @if (FilterEmptyResultTemplate is not null)
+                    {
+                        @FilterEmptyResultTemplate
+                    }
+                    else
+                    {
+                        <span class="p-2">@GetFilterEmptyResultText()</span>
+                    }
+                </li>
+            }
+            else
+            {
+                if (AllowSelectAll)
+                {
+                    <li>
+                        <button type="button" class="dropdown-item" role="option" @onclick="HandleSelectAllClickedAsync">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="@($"{InputId}_selectall")" checked="@selectAllChecked" tabindex="-1" />
+                                <label class="form-check-label" for="@($"{InputId}_selectall")" @onclick:preventDefault>
+                                    @(GetSelectAllText())
+                                </label>
+                            </div>
+                        </button>
+                    </li>
+                }
+
+                for (var i = 0; i < filteredItems.Count; i++)
+                {
+                    string checkboxElementId = InputId + "_" + i.ToString();
+
+                    var item = filteredItems[i];
+                    TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
+
+                    bool itemSelected = currentSelectedValues.Contains(value);
+
+                    <li>
+                        <button type="button" class="dropdown-item" role="option" @onclick="async () => await HandleItemSelectionChangedAsync(!itemSelected, item)">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="@checkboxElementId" checked="@itemSelected" tabindex="-1" />
+                                <label class="form-check-label" for="@checkboxElementId" @onclick:preventDefault>
+                                    @SelectorHelpers.GetText(TextSelector, item)
+                                </label>
+                            </div>
+                        </button>
+                    </li>
+                }
             }
         }
     </ul>

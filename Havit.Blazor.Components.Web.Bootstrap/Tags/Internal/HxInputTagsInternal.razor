@@ -33,15 +33,16 @@
             </HxBadge>
         }
 
-        @if (ShowAddButtonEffective && EnabledEffective && !currentlyFocused && !isDropdownOpened)
+        @if (ShowAddButtonEffective && !currentlyFocused && !isDropdownOpened)
         {
             var showAddButtonText = !this.ValueEffective.Any() && !String.IsNullOrEmpty(AddButtonText);
 
             <HxBadge Settings="this.TagBadgeSettingsEffective"
-                 CssClass="@CssClassHelper.Combine("hx-tag hx-tag-add-button", this.TagBadgeSettingsEffective.CssClass)"
-                 role="button"
+                 CssClass="@CssClassHelper.Combine("hx-tag hx-tag-add-button", this.TagBadgeSettingsEffective.CssClass, EnabledEffective ? null : "hx-tag-add-button-disabled")"
+                 role="@(EnabledEffective ? "button" : "none")"
+				 aria-disabled="@(EnabledEffective ? "false" : "true")"
                  tabindex="0">
-                <span class="hx-tag-add-button-icon" role="button">
+                <span class="hx-tag-add-button-icon">
                     @* We don't need to catch onClick here as it gets propagated to parent div*@
                     <HxIcon Icon="BootstrapIcon.PlusLg" />
                 </span>

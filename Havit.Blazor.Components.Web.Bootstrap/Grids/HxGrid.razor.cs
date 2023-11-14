@@ -36,7 +36,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	[Parameter, EditorRequired] public GridDataProviderDelegate<TItem> DataProvider { get; set; }
 
 	/// <summary>
-	/// Indicates whether single data item selection is enabled. 
+	/// Indicates whether single data item selection is enabled.
 	/// Selection is performed by click on the item row.
 	/// Can be combined with multiselection.
 	/// Default is <c>true</c>.
@@ -44,7 +44,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	[Parameter] public bool SelectionEnabled { get; set; } = true;
 
 	/// <summary>
-	/// Indicates whether multi data items selection is enabled. 
+	/// Indicates whether multi data items selection is enabled.
 	/// Selection is performed by checkboxes in the first column.
 	/// Can be combined with (single) selection.
 	/// Default is <c>false</c>.
@@ -75,13 +75,13 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// <summary>
 	/// Selected data item.
 	/// Intended for data binding.
-	/// </summary>		
+	/// </summary>
 	[Parameter] public TItem SelectedDataItem { get; set; }
 
 	/// <summary>
 	/// Event fires when selected data item changes.
 	/// Intended for data binding.
-	/// </summary>		
+	/// </summary>
 	[Parameter] public EventCallback<TItem> SelectedDataItemChanged { get; set; }
 	/// <summary>
 	/// Triggers the <see cref="SelectedDataItemChanged"/> event. Allows interception of the event in derived components.
@@ -91,13 +91,13 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// <summary>
 	/// Selected data items.
 	/// Intended for data binding.
-	/// </summary>		
+	/// </summary>
 	[Parameter] public HashSet<TItem> SelectedDataItems { get; set; }
 
 	/// <summary>
 	/// Event fires when selected data items changes.
 	/// Intended for data binding.
-	/// </summary>		
+	/// </summary>
 	[Parameter] public EventCallback<HashSet<TItem>> SelectedDataItemsChanged { get; set; }
 	/// <summary>
 	/// Triggers the <see cref="SelectedDataItemsChanged"/> event. Allows interception of the event in derived components.
@@ -408,7 +408,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		return CssClassHelper.Combine("hx-grid table",
 			hoverable ? "table-hover" : null,
 			this.StripedEffective ? "table-striped" : null,
-			this.TableCssClassEffective);
+			this.TableCssClassEffective,
+			this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll ? "text-nowrap" : null);
 	}
 
 	/// <summary>

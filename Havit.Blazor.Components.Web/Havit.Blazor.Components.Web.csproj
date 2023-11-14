@@ -25,14 +25,14 @@
 
 	<ItemGroup>
 		<PackageReference Include="Havit.Core" Version="2.0.28" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.11" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.11" Condition="'$(TargetFramework)' == 'net7.0'" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.22" Condition="'$(TargetFramework)' == 'net6.0'" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.13" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.13" Condition="'$(TargetFramework)' == 'net7.0'" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.24" Condition="'$(TargetFramework)' == 'net6.0'" />
 		<PackageReference Include="Microsoft.Bcl.TimeProvider" Version="8.0.0-rc.1.23419.4" />
 	</ItemGroup>
 	
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Components.Web.Bootstrap.Documentation\xmldoc" />
+		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />
 	</Target>
 
 </Project>

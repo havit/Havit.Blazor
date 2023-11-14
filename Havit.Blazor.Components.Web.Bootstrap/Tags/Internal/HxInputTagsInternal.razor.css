@@ -62,3 +62,8 @@ input:focus {
 ::deep .hx-input-tags-dropdown-item-focused {
 	background-color: var(--hx-input-tags-dropdown-item-highlighted-background-color);
 }
+
+::deep .hx-tag-add-button-disabled {
+	opacity: var(--hx-input-tags-add-button-disabled-opacity);
+	cursor: default;
+}

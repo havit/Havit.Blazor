@@ -5,12 +5,12 @@
 
         @if (HeaderTemplate is not null)
         {
-            <div class="hx-sidebar-header d-flex align-items-center">
+            <div class="hx-sidebar-header d-flex gap-2 align-items-center">
                 <CascadingValue Value="@this">
                     @HeaderTemplate
                 </CascadingValue>
                 <HxButton
-                    CssClass="@CssClassHelper.Combine("hx-sidebar-navbar-toggler ms-auto", GetResponsiveCssClass("d-??-none"))"
+                    CssClass="@CssClassHelper.Combine("hx-sidebar-navbar-toggler", GetResponsiveCssClass("d-??-none"))"
                     data-bs-toggle="collapse"
                     data-bs-target="@($"#{NavContentElementId}")"
                     aria-controls="@NavContentElementId"

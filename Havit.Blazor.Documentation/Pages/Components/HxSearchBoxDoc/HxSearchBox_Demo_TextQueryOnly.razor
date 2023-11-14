@@ -1,0 +1,37 @@
+﻿@inject IDemoDataService DemoDataService
+
+<HxSearchBox DataProvider="ProvideSearchResults"
+			 Label="Company"
+			 TItem="object"
+			 Placeholder="Search for company details"
+			 MinimumLength="1"
+			 Delay="0"
+			 OnTextQueryTriggered="OnTextQueryTriggered">
+	<DefaultContentTemplate>
+		<div class="p-2 text-muted">Type company registration number and hit Enter...</div>
+	</DefaultContentTemplate>
+	<NotFoundTemplate>
+		<div class="small py-2 px-3 text-muted"><HxIcon CssClass="me-2" Icon="BootstrapIcon.Lightbulb" />Hit Enter or click the search icon to initiate search in public register...</div>
+	</NotFoundTemplate>
+</HxSearchBox>
+
+<p class="mt-3">
+	Last triggered text-query: @triggeredTextQuery<br />
+</p>
+
+@code {
+	private string triggeredTextQuery;
+
+	private Task<SearchBoxDataProviderResult<object>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+	{
+		// dummy data provider, no results
+		return Task.FromResult(new SearchBoxDataProviderResult<object>());
+	}
+
+	private Task OnTextQueryTriggered(string text)
+	{
+		// TODO put your code for loading company from public register here
+		triggeredTextQuery = text;
+		return Task.CompletedTask;
+	}
+}

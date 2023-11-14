@@ -1,0 +1,63 @@
+﻿@attribute [Route("/components/" + nameof(HxSearchBox<TItem>))]
+
+<ComponentApiDoc Type="typeof(HxSearchBox<TItem>)">
+    <MainContent>
+		 <p>
+			<code>HxSearchBox</code> component is similar to <a href="/components/HxAutosuggest">HxAutosuggest</a> component, but it is designed to be used for searching.<br/>
+			<ul>
+				<li><code>HxSearchBox</code> allows you to customize item rendering,</li>
+				<li><code>HxSearchBox</code> supports free-text query,</li>
+				<li><code>HxSearchBox</code> does not support <code>Value</code>-binding to model,</li>
+				<li><code>HxSearchBox</code> does not support validation.</li>
+			</ul>
+		 </p>
+
+        <DocHeading Title="Basic usage" />
+        <Demo Type="typeof(HxSearchBox_Demo)" />
+
+        <DocHeading Title="Suggestions only" />
+        <p>You can disable free-text query by setting <code>AllowTextQuery="false"</code>. Only suggestions will be allowed.</p>
+        <Demo Type="typeof(HxSearchBox_Demo_DisableTextQuery)" />
+
+		<DocHeading Title="Initial suggestions" />
+		<p>
+			You can provide initial suggestions to the user by setting the <code>MinimumLength="0"</code>. This is useful when you want to display some suggestions to the user before he starts typing.
+		</p>
+		<Demo Type="typeof(HxSearchBox_Demo_InitialSuggestions)" />
+		<DocAlert Type="DocAlertType.Warning">
+			Consider caching the initial suggestions to avoid unnecessary roundtrips for repetitive <code>DataProvider</code> calls.<br />
+			You might want to tweak the <code>Delay</code> parameter to disable/minimize the delay before the initial suggestions are displayed.<br />
+			In such case, consider using additional <a href="/concepts/Debouncer">Debouncer</a> for regular suggestions to avoid unnecessary roundtrips on every keystroke.
+		</DocAlert>
+
+		<DocHeading Title="Text query without suggestions" />
+		<p>You may want to include a straightforward search box to initiate text-based searches. No suggestions, just visual cues to assist the user.</p>
+		<Demo Type="typeof(HxSearchBox_Demo_TextQueryOnly)" />
+	</MainContent>
+    <CssVariables>
+        <ComponentApiDocCssVariable Name="--hx-search-box-item-icon-margin" Default="0 .5rem 0 0">
+            Item icon margin.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-search-box-item-icon-font-size" Default="inherit">
+            Item icon font-size.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-search-box-item-title-font-size" Default="inherit">
+            Item title font-size.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-search-box-item-title-color" Default="inherit">
+            Item title color.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-search-box-item-subtitle-font-size" Default=".75rem">
+            Item subtitle font-size.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-search-box-item-subtitle-color" Default="var(--bs-secondary)">
+            Item subtitle color.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-search-box-dropdown-menu-height" Default="300px">
+            Maximum height of results dropdown menu.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-search-box-item-highlighted-background-color" Default="var(--bs-tertiary-bg)">
+            Background color of an item when highlighted.
+        </ComponentApiDocCssVariable>
+    </CssVariables>
+</ComponentApiDoc>

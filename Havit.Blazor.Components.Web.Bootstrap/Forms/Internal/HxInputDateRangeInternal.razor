@@ -22,13 +22,14 @@
                                     placeholder="@StringLocalizerFactory.GetLocalizedValue("From", typeof(HxInputDateRange))"
                                     @onchange="HandleFromChanged"
                                     disabled="@(!EnabledEffective)"
+									onfocus="this.select();"
                                     @attributes="this.AdditionalAttributes" />
 
                 <HxDropdownContent CssClass="hx-input-date-range-dropdown-menu">
                     @if (EnabledEffective)
                     {
                         <div class="hx-input-date-range-calendar">
-                            <HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" KeyboardNavigation="false" TimeProvider="TimeProviderEffective" />
+                            <HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" KeyboardNavigation="false" DisplayMonth="@GetFromCalendarDisplayMonthEffective" TimeProvider="TimeProviderEffective"/>
                         </div>
                         <div class="hx-input-date-range-buttons">
                             @if (ShowClearButtonEffective)
@@ -60,13 +61,14 @@
                                     placeholder="@StringLocalizerFactory.GetLocalizedValue("To", typeof(HxInputDateRange))"
                                     @onchange="HandleToChanged"
                                     disabled="@(!EnabledEffective)"
+									onfocus="this.select()"
                                     @attributes="this.AdditionalAttributes" />
 
                 <HxDropdownContent CssClass="hx-input-date-range-dropdown-menu">
                     @if (EnabledEffective)
                     {
                         <div class="hx-input-date-range-calendar">
-                            <HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" KeyboardNavigation="false" TimeProvider="TimeProviderEffective" />
+                            <HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" KeyboardNavigation="false" DisplayMonth="@GetToCalendarDisplayMonthEffective"  TimeProvider="TimeProviderEffective"/>
                         </div>
                         <div class="hx-input-date-range-buttons">
                             @if (ShowClearButtonEffective)

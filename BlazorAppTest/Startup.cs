@@ -1,6 +1,7 @@
 using System.Globalization;
 using BlazorAppTest.Resources;
 using Havit.Blazor.Components.Web;
+using Havit.Blazor.Documentation.DemoData;
 using Havit.Blazor.GoogleTagManager;
 
 namespace BlazorAppTest;
@@ -33,6 +34,8 @@ public class Startup
 		{
 			options.GtmId = "GTM-W2CT4P6"; // Havit.Blazor.GoogleTagManager DEV test
 		});
+
+		services.AddTransient<IDemoDataService, DemoDataService>();
 
 		// TESTs for Defaults
 		//HxAutosuggest.Defaults.InputSize = InputSize.Large;

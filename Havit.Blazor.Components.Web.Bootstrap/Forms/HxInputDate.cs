@@ -137,9 +137,12 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	[Parameter] public TimeProvider TimeProvider { get; set; } = null;
 	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings()?.TimeProvider ?? GetDefaults().TimeProvider ?? TimeProviderFromServices;
 
+	/// <summary>
+	/// Default month to display in dropdown calendar when there is no Value.
+	/// </summary>
+	[Parameter] public DateTime CalendarDisplayMonth { get; set; }
+
 	[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
-
-
 	public HxInputDate()
 	{
 		Type underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
@@ -187,6 +190,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 		builder.AddAttribute(216, nameof(HxInputDateInternal<TValue>.InputGroupStartTemplate), this.InputGroupStartTemplate);
 		builder.AddAttribute(217, nameof(HxInputDateInternal<TValue>.InputGroupEndTemplate), this.InputGroupEndTemplate);
 		builder.AddAttribute(218, nameof(HxInputDateInternal<TValue>.InputGroupCssClass), this.InputGroupCssClass);
+		builder.AddAttribute(219, nameof(HxInputDateInternal<TValue>.CalendarDisplayMonth), this.CalendarDisplayMonth);
 
 		builder.AddMultipleAttributes(300, this.AdditionalAttributes);
 
@@ -215,7 +219,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 		var message = !String.IsNullOrEmpty(ParsingErrorMessage)
 			? ParsingErrorMessage
 			: StringLocalizer["ParsingErrorMessage"];
-		return String.Format(message, Label, FieldIdentifier.FieldName);
+		return String.Format(message, DisplayName ?? Label ?? FieldIdentifier.FieldName);
 	}
 
 	internal static string FormatValue(TValue value)

@@ -82,7 +82,7 @@
         </HxDropdownToggleElement>
 
         <HxDropdownMenu>
-            @if ((searchResults.Count > 0) && (TextQuery.Length >= MinimumLengthEffective))
+            @if ((searchResults.Count > 0) && ((TextQuery?.Length ?? 0) >= MinimumLengthEffective))
             {
                 @for (int i = 0; i < searchResults.Count; i++)
                 {
@@ -111,7 +111,7 @@
                     </li>
                 }
             }
-            else if ((TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
+            else if ((TextQuery is not null) && ((TextQuery?.Length ?? 0) >= MinimumLengthEffective))
             {
                 @NotFoundTemplate
             }

@@ -1,0 +1,35 @@
+﻿@page "/HxInputDate_Issue621_Test"
+@using Havit;
+
+<h1>HxInputDate Display Month</h1>
+
+<HxInputDate Label="No DisplayMonth" @bind-Value="value1"/>
+<HxInputDate Label="Next Month Value" @bind-Value="nextMonth" />
+<HxInputDate Label="Next Month Display Month" @bind-Value="value2" CalendarDisplayMonth="@nextMonth" />
+<HxInputDateRange Label="DateRange No DisplayMonth" @bind-Value="holidays" />
+<HxInputDateRange Label="DateRange From DisplayMonth" @bind-Value="unset1" FromCalendarDisplayMonth="@nextMonthNextYear" />
+<HxInputDateRange Label="DateRange To DisplayMonth" @bind-Value="unset2" ToCalendarDisplayMonth="@nextMonthNextYear" />
+<HxInputDateRange Label="DateRange Both DisplayMonth" @bind-Value="unset3" FromCalendarDisplayMonth="@nextMonth" ToCalendarDisplayMonth="@nextMonthNextYear"/>
+
+@code {
+    private DateTime nextMonth;
+    private DateTime nextMonthNextYear;
+    private DateTime value1;
+    private DateTime value2;
+
+    private DateTimeRange holidays;
+    private DateTimeRange unset1;
+    private DateTimeRange unset2;
+    private DateTimeRange unset3;
+
+    protected override async Task OnInitializedAsync()
+    {
+        nextMonth = DateTime.Now.AddDays(1-DateTime.Now.Day).AddMonths(1);
+        nextMonthNextYear = DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(1).AddYears(1);
+        holidays = new DateTimeRange
+        {
+            StartDate = nextMonth,
+        };
+        await base.OnInitializedAsync();
+	}
+}

@@ -352,6 +352,11 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// </remarks>
 	protected virtual bool ShouldRenderChipGenerator()
 	{
+		if (CurrentValue is string currentValueString)
+		{
+			// fixes #659 [HxInputText] Generates chip for String.Empty value
+			return !String.IsNullOrEmpty(currentValueString);
+		}
 		return !EqualityComparer<TValue>.Default.Equals(CurrentValue, default(TValue));
 	}
 

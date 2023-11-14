@@ -55,6 +55,15 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 	/// </summary>
 	protected virtual Task InvokeOnHiddenAsync() => OnHidden.InvokeAsync();
 
+	/// <summary>
+	/// By default, the dropdown menu is closed when clicking inside or outside the dropdown menu (<see cref="DropdownAutoClose.True"/>).
+	/// You can use the AutoClose parameter to change this behavior of the dropdown.
+	/// <see href="https://getbootstrap.com/docs/5.3/components/dropdowns/#auto-close-behavior">https://getbootstrap.com/docs/5.3/components/dropdowns/#auto-close-behavior</see>.
+	/// The parameter can be used to override the settings of the <see cref="DropdownContainer"/> component or to specify the auto-close behavior when the component is not used.
+	/// </summary>
+	[Parameter] public DropdownAutoClose? AutoClose { get; set; }
+	protected DropdownAutoClose AutoCloseEffective => AutoClose ?? DropdownContainer?.AutoClose ?? DropdownAutoClose.True;
+
 	[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
 	[CascadingParameter] protected HxNav NavContainer { get; set; }
 
@@ -91,13 +100,13 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 		AdditionalAttributes ??= new Dictionary<string, object>();
 		AdditionalAttributes["data-bs-toggle"] = "dropdown";
 		AdditionalAttributes["aria-expanded"] = "false";
-		AdditionalAttributes["data-bs-auto-close"] = (DropdownContainer?.AutoClose ?? DropdownAutoClose.True) switch
+		AdditionalAttributes["data-bs-auto-close"] = AutoCloseEffective switch
 		{
 			DropdownAutoClose.True => "true",
 			DropdownAutoClose.False => "false",
 			DropdownAutoClose.Inside => "inside",
 			DropdownAutoClose.Outside => "outside",
-			_ => throw new InvalidOperationException($"Unknown {nameof(DropdownAutoClose)} value {DropdownContainer.AutoClose}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(DropdownAutoClose)} value {AutoCloseEffective}.")
 		};
 
 		if (this.DropdownOffset is not null)

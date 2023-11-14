@@ -13,6 +13,7 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	[Parameter] public bool EnabledEffective { get; set; } = true;
 
 	[Parameter] public bool ShowPredefinedDatesEffective { get; set; }
+
 	[Parameter] public IEnumerable<InputDatePredefinedDatesItem> PredefinedDatesEffective { get; set; }
 
 	[Parameter] public string ParsingErrorMessageEffective { get; set; }
@@ -59,9 +60,9 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	[Parameter] public TimeProvider TimeProviderEffective { get; set; }
 
+	[Parameter] public DateTime CalendarDisplayMonth { get; set; }
 
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
-
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
@@ -69,6 +70,8 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	protected bool RenderPredefinedDates => ShowPredefinedDatesEffective && (this.PredefinedDatesEffective != null) && PredefinedDatesEffective.Any();
 	protected bool RenderIcon => CalendarIconEffective is not null && !HasInputGroupsEffective;
+
+	protected DateTime GetCalendarDisplayMonthEffective => GetDateTimeFromValue(CurrentValue) ?? CalendarDisplayMonth;
 
 	private TValue previousValue;
 
@@ -78,6 +81,7 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	private HxDropdownToggleElement hxDropdownToggleElement;
 	private ElementReference iconWrapperElement;
 	private IJSObjectReference jsModule;
+	private bool firstRenderCompleted;
 
 	protected override void OnParametersSet()
 	{
@@ -129,6 +133,8 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
+		firstRenderCompleted = true;
+
 		await base.OnAfterRenderAsync(firstRender);
 
 		if (RenderIcon)
@@ -235,14 +241,17 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 		try
 		{
-			if (hxDropdownToggleElement is not null)
+			if (firstRenderCompleted)
 			{
-				await CloseDropdownAsync();
-			}
+				if (hxDropdownToggleElement is not null)
+				{
+					await CloseDropdownAsync();
+				}
 
-			if (jsModule is not null)
-			{
-				await jsModule.DisposeAsync();
+				if (jsModule is not null)
+				{
+					await jsModule.DisposeAsync();
+				}
 			}
 		}
 		catch (JSDisconnectedException)
