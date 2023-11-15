@@ -8,6 +8,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <see href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</see>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAnchorFragmentNavigation">https://havit.blazor.eu/components/HxAnchorFragmentNavigation</see>
 /// </summary>
+
+#if NET8_0_OR_GREATER
+[Obsolete("HxAnchorFragmentNavigation is no longer needed. ASP.NET Core Blazor 8 resolves the issue with anchor fragments.")]
+#endif
 public class HxAnchorFragmentNavigation : ComponentBase, IAsyncDisposable
 {
 	/// <summary>
