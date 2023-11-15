@@ -165,7 +165,8 @@ public abstract class MemberModel
 				}
 			}
 
-			isComponent = ApiTypeHelper.GetType(splitLink[^2])?.IsSubclassOf(typeof(ComponentBase)) ?? false;
+			string className = GetFullGenericTypeName(splitLink[^2]);
+			isComponent = ApiTypeHelper.GetType(className)?.IsSubclassOf(typeof(ComponentBase)) ?? false;
 		}
 		else
 		{
