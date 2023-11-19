@@ -27,19 +27,22 @@
                         @ItemsTemplate
                     </CascadingValue>
                 </HxNav>
-                <div class="hx-sidebar-toggler" role="button" @onclick="HandleCollapseToggleClick"
+                <div class="@CssClassHelper.Combine(
+                            "hx-sidebar-toggler",
+							Collapsed ? "collapsed" : null,
+                            "d-none", // Hide the sidebar toggler in navbar mode (when below the responsive breakpoint).
+                            GetResponsiveCssClass("d-??-block"))" role="button" @onclick="HandleCollapseToggleClick"
                      @onclick:stopPropagation="true">
 
-                    @if (TogglerTemplate is null)
-                    {
-                        <div class="@CssClassHelper.Combine(
-                            "hx-sidebar-toggler-icon-wrapper",
-                            "d-none", // Hide the sidebar toggler in navbar mode (when below the responsive breakpoint).
-                            GetResponsiveCssClass("d-??-flex"))">
-
-                            <HxIcon CssClass="hx-sidebar-toggler-icon" Icon="@(Collapsed ? ExpandIcon : CollapseIcon)" />
-                        </div>
-                    }
+					@if (TogglerTemplate is null)
+					{
+							<HxTooltip Placement="TooltipPlacement.Right" Text="@(Collapsed ? "Expand" : "Collapse")">
+								<div class="hx-sidebar-toggler-inner">
+									<div class="hx-sidebar-toggler-arrow"></div>
+									<div class="hx-sidebar-toggler-arrow"></div>
+								</div>
+							</HxTooltip>
+					}
                     else
                     {
                         @TogglerTemplate(new() { SidebarCollapsed = this.Collapsed })
