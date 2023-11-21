@@ -23,7 +23,7 @@
 }
 
 ::deep .hx-search-box-input-with-clear-icon {
-	padding-right: 2rem;
+	padding-right: 2.375rem;
 }
 
 .dropdown-item:not(:active) ::deep .hx-search-box-item-title {
