@@ -32,54 +32,62 @@
 </DocAlert>
 
 <DocHeading Title="1. NuGet package" Level="3" />
-<p>Find the <a href="https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/">Havit.Blazor.Components.Web.Bootstrap</a> package through NuGet Package Manager or install it with following command:</p>
+<p>To incorporate the <a href="https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/">Havit.Blazor.Components.Web.Bootstrap</a> package into your project, you can use the NuGet Package Manager or execute the following command:</p>
 <CodeSnippet Language="none">dotnet add package Havit.Blazor.Components.Web.Bootstrap</CodeSnippet>
+<p>This package should be added to the project where the components will be utilized, typically in the user interface layer. For instance, in Visual Studio Blazor templates, this would be <code>YourApp.Client</code>.</p>
 
-<DocHeading Title="2. CSS &amp; JavaScript" Level="3" />
-<p>Add CSS &amp; JavaScript references.</p>
+<DocHeading Title="2. CSS &amp; JavaScript references" Level="3" />
+<p>To ensure proper styling and functionality, add references to CSS and JavaScript in your project.</p>
 <DocHeading Title="CSS" Level="4" />
-<p>Add the following to your HTML <code>&lt;head&gt;</code> section, it's either <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code> depending on whether you're running WebAssembly or Server:</p>
+<p>Insert the following line into the <code>&lt;head&gt;</code> section of your HTML file. The specific file to modify depends on your project's configuration. This could be <code>App.razor</code>, <code>index.html</code>, or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code>:</p>
 <CodeSnippet File="~\Pages\GettingStarted_CSS.CodeSnippet.html" />
 
-<p>If you want to use our custom Bootstrap theme (used in this documentation and demos), replace the first <code>link</code> with:</p>
+<p>[ALTERNATIVE] If you prefer to utilize our custom Bootstrap theme, which is used in this documentation and our demos, substitute the first <code>link</code> with the following:</p>
 <CodeSnippet File="~\Pages\GettingStarted_CustomCSS.CodeSnippet.html" />
-<p>You can reference your own or any other Bootstrap build/theme in a same way.</p>
+<p>Similarly, you can reference your custom Bootstrap build or any other Bootstrap theme in the same manner.</p>
 
 <DocAlert Type="DocAlertType.Warning">
-	If you're using a standard Blazor template make sure to remove unnecessary code from <code>site.css</code> and remove the <code>bootstrap.min.css</code> completely from either <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code>.
+	If you're utilizing a standard Blazor template, it's important to clean up your CSS files. Specifically, you should remove any unnecessary code from <code>site.css</code> and completely delete the <code>bootstrap.min.css</code> reference from either <code>App.razor</code>, <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code>.
 </DocAlert>
 
 <DocHeading Title="Bootstrap JavaScript" Id="javascript" Level="4" />
-<p>At the end of HTML <code>&lt;body&gt;</code> section of either <code>index.html</code> add this (Bootstrap JavaScript Bundle with Popper):</p>
-<CodeSnippet Language="razor">&lt;!-- JavaScript Bundle with Popper --&gt;&#10;@HxSetup.RenderBootstrapJavaScriptReference()</CodeSnippet>
-<p>It you are hosting you Blazor app in ASP.NET Core server-generated HTML file (e.g. <code>_Host.cshtml</code>/<code>_Layout.cshtml</code>), you can use our helper-method to emit the <code>&lt;script /&gt;</code> tag and automate versioning:</p>
+<p>In the same HTML file, add the following line at the end of the <code>&lt;body&gt;</code> section. This includes the Bootstrap JavaScript Bundle with Popper:</p>
+<CodeSnippet Language="razor">
+	@HxSetup.RenderBootstrapJavaScriptReference()
+</CodeSnippet>
+
+<p>[ALTERNATIVE] If your Blazor app is hosted using an ASP.NET Core Razor Page (for example, using <code>_Host.cshtml</code>/<code>_Layout.cshtml</code>), take advantage of our helper method. This method automatically emits the <code>&lt;script /&gt;</code> tag and handles versioning for you:</p>
 <CodeSnippet Language="razor">&lt;!-- JavaScript Bundle with Popper --&gt;&#10;@@Html.Raw(HxSetup.RenderBootstrapJavaScriptReference())</CodeSnippet>
 
 <DocHeading Title="3. Import namespaces" Level="3" />
-<p>Add following to your <code>_Imports.razor</code> file:</p>
+<p>Add following code to your <code>_Imports.razor</code> file:</p>
 <CodeSnippet File="~\Pages\GettingStarted_Namespaces.CodeSnippet.razor" />
 
 <DocHeading Title="4. Register services" Level="3" />
-<p>For <strong>Blazor WebAssembly</strong> add the following to your <code>Program.Main</code>:</p>
-<CodeSnippet File="~\Pages\GettingStarted_RegisterServices.CodeSnippet.cs" />
+<p>Add the following line of code to your services registration, typically found in the <code>Program.cs</code> file of your Blazor client project:</p>
+<CodeSnippet Language="csharp">builder.Services.AddHxServices();</CodeSnippet>
 <p>
-	For <strong>Blazor Server</strong> (or WASM with server pre-rendering) add those registrations to your <code>Startup.cs</code> file, <code>ConfigureServices()</code> method.
-	(You won't use the <code>builder</code> there, register the services to the <code>services</code> collection.)
+	For projects that originated from earlier Blazor templates, these service registrations may be found in the <code>Startup.cs</code> file,
+	specifically within the <code>ConfigureServices()</code> method. Note that in this case, you will not use the <code>builder</code>;
+	instead, register the services directly to the <code>services</code> collection.
 </p>
 
 <DocHeading Title="5. Specific components support" Level="3" />
-<p>[OPTIONAL] Some of the components need a specific project setup to work. This usually includes registering a service and adding a host-component to <code>App.razor</code> or layout component.</p>
-<p>For instructions see documentation of those components:</p>
+<p>
+	[OPTIONAL] Some components require a specific project setup to function correctly.
+	This typically involves registering a service and adding a host component to <code>App.razor</code> or a <code>MainLayout.razor</code> component.
+</p>
+<p>For detailed instructions, please refer to the documentation of the respective components:</p>
 <ul>
-	<li><a href="/components/@nameof(HxMessenger)">@nameof(HxMessenger)</a> - displaying new toast-messages from your code easily</li>
-	<li><a href="/components/@nameof(HxMessageBoxHost)">@nameof(HxMessageBoxHost)</a> - opening message-boxes (and await results) from your code</li>
+	<li><a href="/components/@nameof(HxMessenger)">@nameof(HxMessenger)</a> - Facilitates the display of new toast messages from your code with ease.</li>
+	<li><a href="/components/@nameof(HxMessageBoxHost)">@nameof(HxMessageBoxHost)</a> - Enables opening message boxes (and awaiting results) directly from your code.</li>
 </ul>
 
 <DocHeading Title="Ready, set, go!" Id="done" Level="2" />
-<p>Now you are ready to use all the components in your razor files. They come with <code>Hx</code> prefix. IntelliSense will be your friend...</p>
+<p>You are now all set to utilize the full range of components in your Razor files. These components are prefixed with <code>Hx</code>. Rely on IntelliSense to guide you through their usage.</p>
 <Demo Type="typeof(GettingStarted_Demo)" Tabs="false" />
 
 <DocAlert Type="DocAlertType.Info">
-	This whole documentation is built using the Havit.Blazor library and is running as Blazor WebAssembly ASP.NET Core Hosted project with server-prerendering.
-	See <a href="https://github.com/havit/Havit.Blazor/tree/master/Havit.Blazor.Documentation">documentation source code on GitHub</a>.
+	This entire documentation is created using the Havit.Blazor library and operates as a Blazor WebAssembly ASP.NET Core Hosted project
+	with server-side prerendering. You can view <a href="https://github.com/havit/Havit.Blazor/tree/master/Havit.Blazor.Documentation">the source code of this documentation on GitHub</a>.
 </DocAlert>
