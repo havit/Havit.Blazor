@@ -295,16 +295,22 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	{
 		builder.AddMultipleAttributes(1, AdditionalAttributes);
 		builder.AddAttribute(2, "id", InputId);
-		builder.AddAttribute(3, "type", typeValue);
-		builder.AddAttribute(4, "class", GetInputCssClassToRender());
-		builder.AddAttribute(5, "disabled", !EnabledEffective);
+#if NET8_0_OR_GREATER
+		if (!String.IsNullOrEmpty(this.NameAttributeValue))
+		{
+			builder.AddAttribute(3, "name", NameAttributeValue);
+		}
+#endif
+		builder.AddAttribute(4, "type", typeValue);
+		builder.AddAttribute(5, "class", GetInputCssClassToRender());
+		builder.AddAttribute(6, "disabled", !EnabledEffective);
 		if ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
 		{
-			builder.AddAttribute(6, "placeholder", "placeholder"); // there must be a nonempty value (which is not visible)
+			builder.AddAttribute(7, "placeholder", "placeholder"); // there must be a nonempty value (which is not visible)
 		}
 		else if (this is IInputWithPlaceholder inputWithPlaceholder)
 		{
-			builder.AddAttribute(7, "placeholder", inputWithPlaceholder.Placeholder);
+			builder.AddAttribute(8, "placeholder", inputWithPlaceholder.Placeholder);
 		}
 
 	}

@@ -2,6 +2,7 @@
 
 <input @ref="InputElement"
        id="@InputId"
+	   name="@(String.IsNullOrEmpty(NameAttributeValue) ? null : NameAttributeValue)"
        type="text"
        class="@CssClass hx-autosuggest-input"
        disabled="@(!EnabledEffective)"

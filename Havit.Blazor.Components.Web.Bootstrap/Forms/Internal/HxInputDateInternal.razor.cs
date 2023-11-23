@@ -185,6 +185,15 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 		}
 	}
 
+	private string GetNameAttributeValue()
+	{
+#if NET8_0_OR_GREATER
+		return String.IsNullOrEmpty(NameAttributeValue) ? null : NameAttributeValue;
+#else
+		return null;
+#endif
+	}
+
 	internal static TValue GetValueFromDateTimeOffset(DateTimeOffset? value)
 	{
 		if (value == null)

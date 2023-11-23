@@ -96,6 +96,8 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+	[Parameter] public string NameAttributeValue { get; set; }
+
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML element.
 	/// </summary>
