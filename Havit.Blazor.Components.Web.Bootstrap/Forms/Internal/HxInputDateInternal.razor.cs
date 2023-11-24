@@ -73,9 +73,8 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	protected DateTime GetCalendarDisplayMonthEffective => GetDateTimeFromValue(CurrentValue) ?? CalendarDisplayMonth;
 
-	private TValue previousValue;
-
 #if !NET8_0_OR_GREATER
+	private TValue previousValue;
 	private bool previousParsingAttemptFailed;
 	private ValidationMessageStore validationMessageStore;
 #endif
