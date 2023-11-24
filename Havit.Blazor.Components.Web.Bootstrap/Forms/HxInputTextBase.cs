@@ -76,8 +76,8 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 
 		builder.AddAttribute(1002, "value", FormatValueAsString(Value));
 		builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-
 #if NET8_0_OR_GREATER
+		builder.SetUpdatesAttributeName("value");
 		if (!String.IsNullOrEmpty(this.NameAttributeValue))
 		{
 			builder.AddAttribute(1004, "name", NameAttributeValue);

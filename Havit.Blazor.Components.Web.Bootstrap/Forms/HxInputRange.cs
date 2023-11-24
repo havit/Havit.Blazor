@@ -87,7 +87,9 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 
 		builder.AddAttribute(4, "value", BindConverter.FormatValue(Value));
 		builder.AddAttribute(5, BindEventEffective.ToEventName(), EventCallback.Factory.CreateBinder(this, async value => await HandleValueChanged(value), Value));
-
+#if NET8_0_OR_GREATER
+		builder.SetUpdatesAttributeName("value");
+#endif
 		builder.AddAttribute(10, "min", Min);
 		builder.AddAttribute(11, "max", Max);
 
