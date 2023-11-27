@@ -310,6 +310,10 @@ public partial class HxOffcanvas : IAsyncDisposable
 				{
 					// NOOP
 				}
+				catch (TaskCanceledException)
+				{
+					// NOOP
+				}
 			}
 
 			try
@@ -317,6 +321,10 @@ public partial class HxOffcanvas : IAsyncDisposable
 				await jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+			catch (TaskCanceledException)
 			{
 				// NOOP
 			}

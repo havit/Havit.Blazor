@@ -268,6 +268,10 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 			{
 				// NOOP
 			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 
 		dotnetObjectReference?.Dispose();

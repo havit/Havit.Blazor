@@ -297,6 +297,10 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 			{
 				// NOOP
 			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 
 		Dispose(false);

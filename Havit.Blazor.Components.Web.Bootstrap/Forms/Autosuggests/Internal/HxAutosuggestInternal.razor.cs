@@ -491,6 +491,10 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			{
 				// NOOP
 			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 
 		dotnetObjectReference?.Dispose();

@@ -266,7 +266,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	{
 		disposed = true;
 
-		// Microsoft violates the pattern - there is no protected virtual voud Dispose(bool) method and the IDisposable implementation is explicit.
+		// Microsoft violates the pattern - there is no protected virtual void Dispose(bool) method and the IDisposable implementation is explicit.
 		((IDisposable)this).Dispose();
 
 		if (jsModule != null)
@@ -277,6 +277,10 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 				await jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+			catch (TaskCanceledException)
 			{
 				// NOOP
 			}

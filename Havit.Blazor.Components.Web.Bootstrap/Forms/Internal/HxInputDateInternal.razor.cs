@@ -267,6 +267,10 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 		{
 			// NOOP
 		}
+		catch (TaskCanceledException)
+		{
+			// NOOP
+		}
 
 		Dispose(false);
 	}

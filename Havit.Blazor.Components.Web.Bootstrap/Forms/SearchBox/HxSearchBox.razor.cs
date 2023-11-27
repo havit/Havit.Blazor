@@ -646,6 +646,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			{
 				// NOOP
 			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 
 		dotnetObjectReference?.Dispose();
