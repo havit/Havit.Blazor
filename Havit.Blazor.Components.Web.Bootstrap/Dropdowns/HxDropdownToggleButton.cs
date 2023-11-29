@@ -217,6 +217,10 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 			{
 				// NOOP
 			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 
 		dotnetObjectReference.Dispose();

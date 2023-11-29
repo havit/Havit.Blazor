@@ -27,7 +27,7 @@ public partial class HxAlert
 	{
 		base.OnParametersSet();
 
-		Contract.Requires<InvalidOperationException>(Color != ThemeColor.None, $"Parameter {nameof(Color)} of {nameof(HxBadge)} is required.");
+		Contract.Requires<InvalidOperationException>(Color != ThemeColor.None, $"Parameter {nameof(Color)} of {nameof(HxAlert)} is required.");
 	}
 
 	public string GetColorCss()

@@ -85,8 +85,14 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxNavLink)}#{nameof(HxNavLink)}")" Text="@nameof(HxNavLink)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxScrollspy)}")" Text="@nameof(HxScrollspy)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxBreadcrumb)}")" Text="@nameof(HxBreadcrumb)" />
+			@{
+#pragma warning disable 0618 // Obsolete
+			}
             <HxSidebarItem Href="@($"/components/{nameof(HxAnchorFragmentNavigation)}")" Text="@nameof(HxAnchorFragmentNavigation)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxContextMenu)}")" Text="@(nameof(HxContextMenu))" />
+			@{
+#pragma warning restore 0618
+			}
+			<HxSidebarItem Href="@($"/components/{nameof(HxContextMenu)}")" Text="@(nameof(HxContextMenu))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxDropdown)}")" Text="@nameof(HxDropdown)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxTabPanel)}")" Text="@nameof(HxTabPanel)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxRedirectTo)}")" Text="@nameof(HxRedirectTo)" />
@@ -113,7 +119,13 @@
         </HxSidebarItem>
 
         <HxSidebarItem Text="All Components" Icon="BootstrapIcon.SortAlphaDown" ExpandOnMatch="false">
+			@{
+#pragma warning disable 0618  // Obsolete
+			}
             <HxSidebarItem Href="@($"/components/{nameof(HxAnchorFragmentNavigation)}")" Text="@nameof(HxAnchorFragmentNavigation)" />
+			@{
+#pragma warning restore 0618
+			}
             <HxSidebarItem Href="@($"/components/{nameof(HxAccordion)}")" Text="@nameof(HxAccordion)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxAlert)}")" Text="@nameof(HxAlert)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxAutosuggest)}")" Text="@nameof(HxAutosuggest)" />

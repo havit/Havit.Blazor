@@ -1,6 +1,18 @@
 ﻿@page "/HxSearchBoxTest"
 
-<HxSearchBox DataProvider="ProvideSearchResults" Label="Search" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem" >
+<HxSearchBox DataProvider="ProvideSearchResults" Label="Search needle in a haystack" InputSize="InputSize.Small" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
+    <DefaultContentTemplate>
+        <div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+    </DefaultContentTemplate>
+</HxSearchBox>
+
+<HxSearchBox DataProvider="ProvideSearchResults" Label="Search regular stuff" InputSize="InputSize.Regular" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
+    <DefaultContentTemplate>
+        <div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+    </DefaultContentTemplate>
+</HxSearchBox>
+
+<HxSearchBox DataProvider="ProvideSearchResults" Label="Search huge things" InputSize="InputSize.Large" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
     <DefaultContentTemplate>
         <div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
     </DefaultContentTemplate>

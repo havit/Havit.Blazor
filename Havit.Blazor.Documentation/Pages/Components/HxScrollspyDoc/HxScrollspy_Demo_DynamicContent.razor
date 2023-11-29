@@ -60,11 +60,8 @@
 	</HxScrollspy>
 </div>
 
-<HxAnchorFragmentNavigation @ref="anchorFragmentNavigationComponent" Automation="AnchorFragmentNavigationAutomationMode.SamePage" />  @* Usually placed in @page *@
-
 @code {
 	private HxScrollspy scrollspyComponent;
-	private HxAnchorFragmentNavigation anchorFragmentNavigationComponent;
 
 	private bool loaded;
 	private bool shouldRefreshScrollspy;
@@ -81,7 +78,6 @@
 		{
 			shouldRefreshScrollspy = false;
 			await scrollspyComponent.RefreshAsync();
-			await anchorFragmentNavigationComponent.ScrollToCurrentUriFragmentAsync();
 		}
 	}
 }

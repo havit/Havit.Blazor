@@ -117,7 +117,7 @@ public abstract class MemberModel
 
 		if (splitLink[^1] == "Defaults")
 		{
-			string internalTypeLink = ApiRenderer.GenerateLinkForInternalType($"{splitLink[^2].Remove(0, 2)}{splitLink[^1]}", false, $"{splitLink[^2]}.{splitLink[^1]}"); // We have to generate a type name suitable for the support type page.
+			string internalTypeLink = ApiRenderer.GenerateLinkForInternalType($"{splitLink[^2].Remove(0, 2)}Settings", false, $"{splitLink[^2]}.{splitLink[^1]}"); // We have to generate a type name suitable for the support type page.
 			if (internalTypeLink is not null)
 			{
 				return internalTypeLink;
@@ -170,7 +170,8 @@ public abstract class MemberModel
 				}
 			}
 
-			var type = enclosingType ?? ApiTypeHelper.GetType(splitLink[^2]);
+			string className = GetFullGenericTypeName(splitLink[^2]);
+			var type = enclosingType ?? ApiTypeHelper.GetType(className);
 			isComponent = type?.IsSubclassOf(typeof(ComponentBase)) ?? false;
 		}
 		else

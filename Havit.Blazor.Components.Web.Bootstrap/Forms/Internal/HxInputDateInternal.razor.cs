@@ -58,6 +58,8 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
+	[Parameter] public TimeProvider TimeProviderEffective { get; set; }
+
 	[Parameter] public DateTime CalendarDisplayMonth { get; set; }
 
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
@@ -183,6 +185,15 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 		}
 	}
 
+	private string GetNameAttributeValue()
+	{
+#if NET8_0_OR_GREATER
+		return String.IsNullOrEmpty(NameAttributeValue) ? null : NameAttributeValue;
+#else
+		return null;
+#endif
+	}
+
 	internal static TValue GetValueFromDateTimeOffset(DateTimeOffset? value)
 	{
 		if (value == null)
@@ -253,6 +264,10 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 			}
 		}
 		catch (JSDisconnectedException)
+		{
+			// NOOP
+		}
+		catch (TaskCanceledException)
 		{
 			// NOOP
 		}

@@ -96,6 +96,10 @@ public partial class HxScrollspy : IAsyncDisposable
 			{
 				// NOOP
 			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 	}
 }

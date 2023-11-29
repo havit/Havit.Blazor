@@ -27,6 +27,7 @@ public class Startup
 		services.AddRazorPages();
 		services.AddServerSideBlazor();
 
+		services.AddHxServices();
 		services.AddHxMessenger();
 		services.AddHxMessageBoxHost();
 		services.AddHxGoogleTagManager(options =>

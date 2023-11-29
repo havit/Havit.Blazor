@@ -172,6 +172,9 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 		builder.AddAttribute(1023, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartTemplate), this.InputGroupStartTemplate);
 		builder.AddAttribute(1024, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndText), this.InputGroupEndText);
 		builder.AddAttribute(1025, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndTemplate), this.InputGroupEndTemplate);
+#if NET8_0_OR_GREATER
+		builder.AddAttribute(1026, nameof(HxAutosuggestInternal<TItem, TValue>.NameAttributeValue), NameAttributeValue);
+#endif
 
 		builder.AddMultipleAttributes(2000, this.AdditionalAttributes);
 

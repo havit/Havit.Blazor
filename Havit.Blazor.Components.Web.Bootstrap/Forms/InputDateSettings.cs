@@ -46,4 +46,9 @@ public record InputDateSettings : InputSettings, IInputSettingsWithSize
 	/// Predefined dates to be displayed.
 	/// </summary>
 	public IEnumerable<InputDatePredefinedDatesItem> PredefinedDates { get; set; }
+
+	/// <summary>
+	/// TimeProvider to use, note: override the 'Today' in PredefinedDates
+	/// </summary>
+	public TimeProvider TimeProvider { get; set; }
 }

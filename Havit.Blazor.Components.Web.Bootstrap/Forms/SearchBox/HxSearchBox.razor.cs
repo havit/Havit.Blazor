@@ -218,6 +218,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	protected bool HasInputGroups => HasInputGroupStart || HasInputGroupEnd;
 	private bool HasInputGroupStart => !String.IsNullOrWhiteSpace(InputGroupStartText) || (InputGroupStartTemplate is not null);
 	private bool HasInputGroupEnd => !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupEndTemplate is not null);
+	private bool HasClearButton => !HasInputGroupEnd
+							&& !dataProviderInProgress
+							&& !string.IsNullOrEmpty(TextQuery)
+							&& (ClearIconEffective is not null);
 
 	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
 	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
@@ -239,6 +243,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private DotNetObjectReference<HxSearchBox<TItem>> dotnetObjectReference;
 	private bool clickIsComing;
 	private bool disposed = false;
+
 	public HxSearchBox()
 	{
 		dotnetObjectReference = DotNetObjectReference.Create(this);
@@ -643,6 +648,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 				await jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+			catch (TaskCanceledException)
 			{
 				// NOOP
 			}

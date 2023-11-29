@@ -254,6 +254,10 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 			{
 				// NOOP
 			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 
 		dotnetObjectReference.Dispose();

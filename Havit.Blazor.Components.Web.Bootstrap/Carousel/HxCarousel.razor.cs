@@ -236,6 +236,10 @@ public partial class HxCarousel : IAsyncDisposable
 			{
 				// NOOP
 			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 
 		dotnetObjectReference?.Dispose();

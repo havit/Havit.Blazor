@@ -1,0 +1,44 @@
+﻿@page "/HxCalendar_Issue597_Test"
+@using BlazorAppTest.Pages.HxCalendarComponents;
+@inject TimeProvider SystemTimeProvider
+<h1>HxCalendar</h1>
+<fieldset class="m-2 p-2">
+    <label>From DI: @(SystemTimeProvider.LocalTimeZone.Id)</label>
+    <div>
+        <HxCalendar />
+    </div>
+</fieldset>
+
+<fieldset class="m-2 p-2">
+    <label>From Settings: @(AppCalendarSettings.AmericanSamoa.TimeProvider.LocalTimeZone.Id)</label>
+    <div><HxCalendar Settings="AppCalendarSettings.AmericanSamoa" /></div>
+</fieldset>
+
+<fieldset class="m-2 p-2">
+    <label>From Settings: @(AppCalendarSettings.Samoa.TimeProvider.LocalTimeZone.Id)</label>
+    <div><HxCalendar Settings="AppCalendarSettings.Samoa" /></div>
+</fieldset>
+
+<fieldset class="m-2 p-2">
+    <label>From Settings: @(timeProviderUtc.LocalTimeZone.Id)</label>
+    <div><HxCalendar TimeProvider="timeProviderUtc" /></div>
+</fieldset>
+
+@code {
+    private static TimeProvider timeProviderUtc = new ZonedTimeProvider(TimeZoneInfo.Utc);
+
+    private class AppCalendarSettings
+    {
+        private static TimeProvider timeProviderUtc11 = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("UTC-11"));
+        private static TimeProvider timeProviderUtc13 = new ZonedTimeProvider(TimeZoneInfo.FindSystemTimeZoneById("Samoa Standard Time"));
+        public static CalendarSettings AmericanSamoa => new()
+        {
+            TimeProvider = timeProviderUtc11,
+        };
+        public static CalendarSettings Samoa => new()
+        {
+            TimeProvider = timeProviderUtc13,
+        };
+    }
+    
+}
