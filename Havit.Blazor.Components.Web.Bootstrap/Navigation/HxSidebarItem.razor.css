@@ -48,7 +48,8 @@
 }
 
 ::deep a.nav-link.active,
-::deep a.nav-link.active:hover {
+::deep a.nav-link.active:hover,
+.highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
 	background-color: rgba(var(--hx-sidebar-item-active-background-color), var(--hx-sidebar-item-active-background-opacity));
 	color: var(--hx-sidebar-item-active-color);
 }
