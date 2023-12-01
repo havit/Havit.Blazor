@@ -57,6 +57,11 @@ public partial class HxSidebarItem : IAsyncDisposable
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
+	/// <summary>
+	/// Text content of tooltip displayed while hovering item of collapsed Sidebar.
+	/// </summary>
+	[Parameter] public string TooltipText { get; set; }
+
 	[CascadingParameter] protected HxSidebar ParentSidebar { get; set; }
 	[CascadingParameter] protected HxSidebarItem ParentSidebarItem { get; set; }
 	[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }

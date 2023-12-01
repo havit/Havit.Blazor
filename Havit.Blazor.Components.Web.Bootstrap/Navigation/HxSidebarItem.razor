@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <CascadingValue Value="this" IsFixed="true">
-    <div>
+    <div data-bs-toggle="@((!this.expanded && ParentSidebar.Collapsed) ? "tooltip" : null)" data-bs-title="@TooltipText" data-bs-placement="right">
         @if (!HasExpandableContent)
         {
             <HxNavLink Href="@Href"
@@ -59,7 +59,7 @@
                            role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="@(this.expanded ? "true" : "false")">
-                        
+
                            @itemNavLinkContent
 
                     </HxNavLink>
