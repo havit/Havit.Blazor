@@ -1,32 +1,34 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <CascadingValue Value="this" IsFixed="true">
-    <div data-bs-toggle="@((!this.expanded && ParentSidebar.Collapsed) ? "tooltip" : null)" data-bs-title="@TooltipText" data-bs-placement="right">
+    <div>
         @if (!HasExpandableContent)
         {
-            <HxNavLink Href="@Href"
-                   CssClass="@CssClassHelper.Combine(this.DropdownContainer is not null ? "dropdown-item" : null, this.CssClass, "position-relative")"
-                   Match="this.Match"
-                   Enabled="this.Enabled">
+			<HxTooltip WrapperCssClass="d-block" Placement="TooltipPlacement.Right" Text="@TooltipText">
+				<HxNavLink Href="@Href"
+					CssClass="@CssClassHelper.Combine(this.CssClass, "position-relative")"
+					Match="this.Match"
+					Enabled="this.Enabled">
 
-                @* To hide the nav-content in mobile view *@
-                <div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="stretched-link">
-                    <div class="hx-sidebar-item-navlink-content">
-                        @if (Icon is not null)
-                        {
-                            <HxIcon Icon="Icon" />
-                        }
+					@* To hide the nav-content in mobile view *@
+					<div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="stretched-link">
+						<div class="hx-sidebar-item-navlink-content">
+							@if (Icon is not null)
+							{
+								<HxIcon Icon="Icon" />
+							}
 
-                        <span class="hx-sidebar-item-navlink-content-inner">
-                            @if (ContentTemplate is not null)
-                            {
-                                @ContentTemplate(new(){ ItemExpanded = null })
-                            }
-                            @Text
-                        </span>
-                    </div>
+							<span class="hx-sidebar-item-navlink-content-inner">
+								@if (ContentTemplate is not null)
+								{
+									@ContentTemplate(new(){ ItemExpanded = null })
+								}
+								@Text
+							</span>
+						</div>
 
-                </div>
-            </HxNavLink>
+					</div>
+				</HxNavLink>
+			</HxTooltip>
         }
         else
         {
@@ -50,25 +52,18 @@
 
             @if (ParentSidebar.Collapsed)
             {
-                <HxDropdown Direction="DropdownDirection.End" CssClass="hx-sidebar-item">
-                    <HxNavLink
-                           Href="@Href"
-                           CssClass="@CssClassHelper.Combine(this.CssClass)"
-                           Match="this.Match"
-                           Enabled="this.Enabled"
-                           role="button"
-                           data-bs-toggle="dropdown"
-                           aria-expanded="@(this.expanded ? "true" : "false")">
+					<HxNavLink
+							Href="@Href"
+							CssClass="@CssClassHelper.Combine(this.CssClass, "position-relative")"
+							Match="this.Match"
+							Enabled="this.Enabled">
 
-                           @itemNavLinkContent
+							@itemNavLinkContent
 
-                    </HxNavLink>
-
-                    <HxDropdownMenu CssClass="hx-sidebar-subitems">
-                        @ChildContent
-                    </HxDropdownMenu>
-
-                </HxDropdown>
+							<nav class="nav nav-collapsed flex-column">
+								@ChildContent
+							</nav>
+					</HxNavLink>
             }
             else
             {
@@ -94,7 +89,7 @@
                     InitiallyExpanded="expanded"
                     OnShown="HandleCollapseShown"
                     OnHidden="HandleCollapseHidden">
-                    <nav class="nav hx-sidebar-collapsed-nav">
+                    <nav class="nav flex-column">
                         @ChildContent
                     </nav>
                 </HxCollapse>
