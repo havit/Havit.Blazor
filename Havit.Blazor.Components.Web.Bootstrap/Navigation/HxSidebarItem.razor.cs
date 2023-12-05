@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -67,8 +68,12 @@ public partial class HxSidebarItem : IAsyncDisposable
 	[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
 
 	[Inject] protected NavigationManager NavigationManager { get; set; }
+	[Inject] protected IJSRuntime JsRuntime { get; set; }
 
-	private string id = "hx" + Guid.NewGuid().ToString("N");
+	private IJSObjectReference jsModule;
+
+	private string id;
+	private string navId;
 
 	protected List<HxSidebarItem> childItems;
 	internal CollectionRegistration<HxSidebarItem> ChildItemsRegistration { get; }
@@ -77,11 +82,15 @@ public partial class HxSidebarItem : IAsyncDisposable
 	protected bool disposed;
 	protected bool isMatch;
 	protected bool expanded;
+	protected bool popperInitialized;
 
 	public HxSidebarItem()
 	{
 		childItems = new();
 		ChildItemsRegistration = new(childItems, async () => await InvokeAsync(this.StateHasChanged), () => disposed);
+
+		id = "hx" + Guid.NewGuid().ToString("N");
+		navId = id + "nav";
 	}
 
 	protected override void OnInitialized()
@@ -99,13 +108,35 @@ public partial class HxSidebarItem : IAsyncDisposable
 
 	protected bool ShouldBeExpanded => ExpandOnMatch && !ParentSidebar.Collapsed && this.childItems.Any(i => i.isMatch && i.ExpandOnMatch);
 	protected bool HasExpandableContent => (this.ChildContent is not null);
+	protected bool ShouldInitializePopper => HasExpandableContent && ParentSidebar.Collapsed;
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
+		if (firstRender)
+		{
+			await EnsureJsModule();
+		}
+
 		if (firstRender && ShouldBeExpanded && (collapseComponent is not null))
 		{
 			await collapseComponent.ShowAsync();
 		}
+
+		if (ShouldInitializePopper && !popperInitialized)
+		{
+			popperInitialized = true;
+			await jsModule.InvokeVoidAsync("initializePopper", navId, id);
+		}
+		else if (!ShouldInitializePopper && popperInitialized)
+		{
+			popperInitialized = false;
+			await jsModule.InvokeVoidAsync("destroyPopper", navId, id);
+		}
+	}
+
+	protected async Task EnsureJsModule()
+	{
+		jsModule ??= await JsRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxSidebarItem));
 	}
 
 	private void HandleCollapseShown()
@@ -132,6 +163,12 @@ public partial class HxSidebarItem : IAsyncDisposable
 		if (ParentSidebarItem is not null)
 		{
 			await ParentSidebarItem.ChildItemsRegistration.UnregisterAsync(this);
+		}
+
+		if (popperInitialized)
+		{
+			popperInitialized = false;
+			await jsModule.InvokeVoidAsync("destroyPopper", navId, id);
 		}
 	}
 

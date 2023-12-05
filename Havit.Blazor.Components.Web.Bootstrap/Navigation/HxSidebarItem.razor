@@ -32,7 +32,7 @@
         }
         else
         {
-                RenderFragment itemNavLinkContent =
+	        RenderFragment itemNavLinkContent =
                 @<div class="hx-sidebar-item-navlink-content">
                     @if (Icon is not null)
                     {
@@ -52,18 +52,19 @@
 
             @if (ParentSidebar.Collapsed)
             {
-					<HxNavLink
-							Href="@Href"
-							CssClass="@CssClassHelper.Combine(this.CssClass, "position-relative")"
-							Match="this.Match"
-							Enabled="this.Enabled">
+	            <HxNavLink
+		                 id="@navId"
+		                 Href="@Href"
+		                 CssClass="@CssClassHelper.Combine(this.CssClass, "position-relative")"
+		                 Match="this.Match"
+		                 Enabled="this.Enabled">
 
-							@itemNavLinkContent
+		            @itemNavLinkContent
 
-							<nav class="nav nav-collapsed flex-column">
-								@ChildContent
-							</nav>
-					</HxNavLink>
+		            <nav id="@id" class="nav nav-collapsed flex-column overflow-auto">
+			            @ChildContent
+		            </nav>
+	            </HxNavLink>
             }
             else
             {

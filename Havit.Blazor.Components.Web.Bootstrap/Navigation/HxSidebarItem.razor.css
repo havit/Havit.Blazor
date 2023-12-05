@@ -70,6 +70,7 @@
 
 .nav-collapsed {
 	position: absolute;
+	max-height: 100vh;
 	display: none;
 	left: 100%;
 	top: 0;
@@ -78,11 +79,10 @@
 	border-radius: var(--bs-border-radius);
 	background-color: var(--bs-body-bg);
 	color: var(--body-color);
-	/* transform: translateY(-50%); */
 }
 
-::deep .nav-link:hover .nav-collapsed,
-::deep .nav-link:hover .nav-collapsed .hx-sidebar-item-navlink-content-inner {
+::deep .nav-collapsed[popper-show],
+::deep .nav-collapsed[popper-show] .hx-sidebar-item-navlink-content-inner {
 	display: block;
 }
 
