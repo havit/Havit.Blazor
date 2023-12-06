@@ -112,11 +112,6 @@ public partial class HxSidebarItem : IAsyncDisposable
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (firstRender)
-		{
-			await EnsureJsModule();
-		}
-
 		if (firstRender && ShouldBeExpanded && (collapseComponent is not null))
 		{
 			await collapseComponent.ShowAsync();
@@ -125,11 +120,15 @@ public partial class HxSidebarItem : IAsyncDisposable
 		if (ShouldInitializePopper && !popperInitialized)
 		{
 			popperInitialized = true;
+
+			await EnsureJsModule();
 			await jsModule.InvokeVoidAsync("initializePopper", navId, id);
 		}
 		else if (!ShouldInitializePopper && popperInitialized)
 		{
 			popperInitialized = false;
+
+			await EnsureJsModule();
 			await jsModule.InvokeVoidAsync("destroyPopper", navId, id);
 		}
 	}
