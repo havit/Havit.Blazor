@@ -86,6 +86,9 @@ public class HxCheckbox : HxInputBase<bool>
 		BuildRenderInput_AddCommonAttributes(builder, "checkbox");
 		builder.AddAttribute(1000, "checked", BindConverter.FormatValue(CurrentValue));
 		builder.AddAttribute(1001, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
+#if NET8_0_OR_GREATER
+		builder.SetUpdatesAttributeName("checked");
+#endif
 		builder.AddEventStopPropagationAttribute(1002, "onclick", true);
 		builder.AddElementReferenceCapture(1003, elementReference => InputElement = elementReference);
 		builder.CloseElement(); // input

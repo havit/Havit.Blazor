@@ -167,7 +167,9 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 
 		builder.AddAttribute(1002, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
 		builder.AddAttribute(1003, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-
+#if NET8_0_OR_GREATER
+		builder.SetUpdatesAttributeName("value");
+#endif
 		// normalize pasted value
 		builder.AddAttribute(1004, "onpaste", @"this.value = event.clipboardData.getData('text/plain').replace(/[^\d.,\-eE]/g, ''); this.dispatchEvent(new Event('change')); return false;");
 
