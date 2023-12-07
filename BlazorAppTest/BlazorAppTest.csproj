@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-	  <TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
+	  <!-- For local use only. Build fails with Error NETSDK1129: The 'Publish' target is not supported without specifying a target framework. -->
+	  <!--<TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>-->
+	  <TargetFramework>net8.0</TargetFramework>
 	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
