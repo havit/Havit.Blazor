@@ -25,6 +25,9 @@
 }
 
 export function hide(element) {
+	if (!element) {
+		return;
+	}
 	element.hxOffcanvasHiding = true;
 	let o = bootstrap.Offcanvas.getInstance(element);
 	if (o) {
@@ -33,6 +36,7 @@ export function hide(element) {
 }
 
 function handleOffcanvasShown(event) {
+
 	event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasShown');
 }
 

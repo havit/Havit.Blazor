@@ -2,6 +2,6 @@
 	--bs-btn-hover-bg: var(--bs-secondary-bg);
 	--bs-btn-active-bg: var(--bs-secondary-bg);
 	--bs-btn-active-border-color: transparent;
-	--bs-btn-padding-x: .5rem;
-	--bs-btn-padding-y: 0.25rem;
+	--bs-btn-padding-x: 11px;
+	--bs-btn-padding-y: 7px;
 }

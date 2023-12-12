@@ -41,4 +41,9 @@ public record InputDateRangeSettings : InputSettings, IInputSettingsWithSize
 	/// Predefined date ranges to be displayed.
 	/// </summary>
 	public IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRanges { get; set; }
+
+	/// <summary>
+	/// TimeProvider used to get DateTime.Today
+	/// </summary>
+	public TimeProvider TimeProvider { get; set; }
 }

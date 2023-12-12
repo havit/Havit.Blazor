@@ -256,6 +256,10 @@ public partial class HxCollapse : IAsyncDisposable
 			{
 				// NOOP
 			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 
 		dotnetObjectReference?.Dispose();

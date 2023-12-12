@@ -76,14 +76,20 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 
 		builder.AddAttribute(1002, "value", FormatValueAsString(Value));
 		builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+#if NET8_0_OR_GREATER
+		builder.SetUpdatesAttributeName("value");
+		if (!String.IsNullOrEmpty(this.NameAttributeValue))
+		{
+			builder.AddAttribute(1004, "name", NameAttributeValue);
+		}
+#endif
 
 		if (this.InputModeEffective is not null)
 		{
-			builder.AddAttribute(1004, "inputmode", this.InputModeEffective.Value.ToString("f").ToLower());
+			builder.AddAttribute(1005, "inputmode", this.InputModeEffective.Value.ToString("f").ToLower());
 		}
-
-		builder.AddEventStopPropagationAttribute(1005, "onclick", true);
-		builder.AddElementReferenceCapture(1006, elementReference => InputElement = elementReference);
+		builder.AddEventStopPropagationAttribute(1006, "onclick", true);
+		builder.AddElementReferenceCapture(1007, elementReference => InputElement = elementReference);
 
 		builder.CloseElement();
 	}

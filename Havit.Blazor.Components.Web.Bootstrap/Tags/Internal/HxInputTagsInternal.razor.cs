@@ -546,6 +546,10 @@ public partial class HxInputTagsInternal
 			{
 				// NOOP
 			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 
 		dotnetObjectReference.Dispose();

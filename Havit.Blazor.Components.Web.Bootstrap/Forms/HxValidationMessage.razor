@@ -18,7 +18,8 @@
                     bool firstRendered = false;
                     foreach (string message in messages)
                     {
-                        <span @key="@message" title="@message" class=@CssClassHelper.Combine(firstRendered ? "ms-1" : String.Empty) >@message</span>
+						/* Do not use the @key here, as it appears that when the FluentValidationValidator is used, it sometimes results in duplicate messages. */
+                        <span title="@message" class=@CssClassHelper.Combine(firstRendered ? "ms-1" : String.Empty) >@message</span>
                         firstRendered = true;
                     }
                 }

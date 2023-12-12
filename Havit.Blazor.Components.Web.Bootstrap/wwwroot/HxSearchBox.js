@@ -4,23 +4,23 @@
 		return;
 	}
 
-    inputElement.hxSearchBoxDotnetObjectReference = hxSearchBoxDotnetObjectReference;
+	inputElement.hxSearchBoxDotnetObjectReference = hxSearchBoxDotnetObjectReference;
 	inputElement.hxSearchBoxKeysToPreventDefault = keysToPreventDefault;
 
-    inputElement.addEventListener('keydown', handleKeyDown);
+	inputElement.addEventListener('keydown', handleKeyDown);
 
 	inputElement.addEventListener('mousedown', handleMouseDown);
 	inputElement.addEventListener('mouseup', handleMouseUp);
 }
 
 function handleKeyDown(event) {
-    let key = event.key;
+	let key = event.key;
 
-    event.target.hxSearchBoxDotnetObjectReference.invokeMethodAsync("HxSearchBox_HandleInputKeyDown", key);
+	event.target.hxSearchBoxDotnetObjectReference.invokeMethodAsync("HxSearchBox_HandleInputKeyDown", key);
 
 	if (event.target.hxSearchBoxKeysToPreventDefault.includes(key)) {
-        event.preventDefault();
-    }
+		event.preventDefault();
+	}
 }
 
 function handleMouseDown(event) {
@@ -32,7 +32,6 @@ function handleMouseUp(event) {
 	event.target.clickIsComing = false;
 }
 
-
 export function scrollToFocusedItem() {
 	const focusedElements = document.getElementsByClassName("hx-dropdown-item-focused");
 	if (focusedElements && focusedElements[0]) {
@@ -41,11 +40,14 @@ export function scrollToFocusedItem() {
 }
 
 export function dispose(inputId) {
-    let inputElement = document.getElementById(inputId);
+	let inputElement = document.getElementById(inputId);
+	if (!inputElement) {
+		return;
+	}
 
-    inputElement.removeEventListener('keydown', handleKeyDown);
+	inputElement.removeEventListener('keydown', handleKeyDown);
 	inputElement.removeEventListener('mousedown', handleMouseDown);
 	inputElement.removeEventListener('mouseup', handleMouseUp);
-    inputElement.hxSearchBoxDotnetObjectReference = null;
+	inputElement.hxSearchBoxDotnetObjectReference = null;
 	inputElement.hxSearchBoxKeysToPreventDefault = null;
 }

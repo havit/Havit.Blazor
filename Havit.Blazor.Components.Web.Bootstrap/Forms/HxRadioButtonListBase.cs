@@ -157,6 +157,9 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.AddAttribute(207, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
 			int j = index;
 			builder.AddAttribute(208, "onclick", EventCallback.Factory.Create(this, () => HandleInputClick(j)));
+#if NET8_0_OR_GREATER
+			builder.SetUpdatesAttributeName("checked");
+#endif
 			builder.AddEventStopPropagationAttribute(209, "onclick", true);
 			builder.AddMultipleAttributes(250, this.AdditionalAttributes);
 			builder.CloseElement(); // input

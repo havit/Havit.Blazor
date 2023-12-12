@@ -219,6 +219,10 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 			{
 				// NOOP
 			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 
 		dotnetObjectReference.Dispose();

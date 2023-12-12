@@ -24,11 +24,11 @@
 	--hx-sidebar-item-margin: 										0 0 .25rem 0;
 	--hx-sidebar-item-hover-color: 									var(--bs-primary);
 	--hx-sidebar-item-hover-background-color: 						var(--bs-primary-rgb);
-	--hx-sidebar-item-hover-background-opacity: 					.05;
+	--hx-sidebar-item-hover-background-opacity: 					.1;
 	--hx-sidebar-item-hover-icon-color: 							var(--bs-primary);
 	--hx-sidebar-item-active-color: 								var(--bs-primary);
 	--hx-sidebar-item-active-background-color: 						var(--bs-primary-rgb);
-	--hx-sidebar-item-active-background-opacity: 					.05;
+	--hx-sidebar-item-active-background-opacity: 					.1;
 	--hx-sidebar-item-active-icon-color: 							var(--bs-primary);
 	--hx-sidebar-subitem-font-size: 								.875rem;
 	--hx-sidebar-subitem-padding: 									.5rem;
@@ -92,7 +92,7 @@
 	--hx-input-file-drop-zone-disabled-color: 						var(--bs-secondary-color);
 	--hx-input-file-drop-zone-disabled-background-color: 			var(--bs-secondary-bg);
 	--hx-input-file-drop-zone-background-color: 					transparent;
-	--hx-input-file-drop-zone-hover-background-color: 				rgba(var(--bs-primary-rgb), .05);
+	--hx-input-file-drop-zone-hover-background-color: 				rgba(var(--bs-primary-rgb), .1);
 	--hx-input-file-drop-zone-hover-border-color: 					var(--bs-primary);
 	--hx-input-file-drop-zone-border-radius: 						var(--bs-border-radius-lg);
 	--hx-input-file-drop-zone-margin: 								0;
@@ -115,7 +115,7 @@
 	--hx-calendar-navigation-button-text-color: 					var(--bs-tertiary-color);
 	--hx-calendar-day-today-border: 								none;
 	--hx-calendar-day-today-background: 							var(--bs-primary-rgb);
-	--hx-calendar-day-today-background-opacity: 					.05;
+	--hx-calendar-day-today-background-opacity: 					.1;
 	--hx-calendar-day-today-color: 									var(--bs-primary);
 	--hx-calendar-day-border-radius: 								var(--bs-border-radius-sm);
 	--hx-calendar-day-padding: 										.375rem .5rem;
@@ -148,6 +148,7 @@
 	--hx-input-tags-control-focused-box-shadow: 					0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
 	--hx-input-tags-control-focused-border-color: 					rgba(var(--bs-primary-rgb), .3);
 	--hx-input-tags-add-button-text-margin: 						0 0 0 .25rem;
+	--hx-input-tags-add-button-disabled-opacity: 					.65;
 	--hx-input-tags-remove-button-margin: 							0 0 0 .25rem;
 	--hx-input-tags-dropdown-item-highlighted-background-color: 	var(--bs-tertiary-bg);
 

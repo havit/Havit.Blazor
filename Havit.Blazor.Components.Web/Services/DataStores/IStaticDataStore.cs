@@ -4,9 +4,9 @@ public interface IStaticDataStore<TValue>
 {
 
 	/// <summary>
-	/// To be called before any data-retrival to load/refresh the data.<br/>
+	/// To be called before any data-retrieval to load/refresh the data.<br/>
 	/// Is automatically called before all asynchronous data-retrieval calls.
-	/// You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any sychronnous API.<br/>
+	/// You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any sychronous API.<br/>
 	/// </summary>
 	Task EnsureDataAsync();
 

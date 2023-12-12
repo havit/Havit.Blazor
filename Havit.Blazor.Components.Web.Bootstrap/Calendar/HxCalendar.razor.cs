@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -28,7 +29,7 @@ public partial class HxCalendar
 		Defaults = new CalendarSettings()
 		{
 			MinDate = DefaultMinDate,
-			MaxDate = DefaultMaxDate
+			MaxDate = DefaultMaxDate,
 		};
 	}
 
@@ -105,6 +106,20 @@ public partial class HxCalendar
 	/// </summary>
 	[Parameter] public bool KeyboardNavigation { get; set; } = true;
 
+	// Set during SetParameterSetAsync to make it optional
+	[Inject] protected TimeProvider TimeProviderFromServices { get; set; }
+
+	/// <summary>
+	/// TimeProvider is resolved in the following order:<br />
+	///		1. TimeProvider from this parameter <br />
+	///		2. Settings TimeProvider (configurable from <see cref="HxCalendar.Settings"/>)<br />
+	///		3. Defaults TimeProvider (configurable from <see cref="HxCalendar.Defaults"/>)<br />
+	///		4. TimeProvider from DependencyInjection<br />
+	/// </summary>
+	[Parameter] public TimeProvider TimeProvider { get; set; } = null;
+
+	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings()?.TimeProvider ?? GetDefaults()?.TimeProvider ?? TimeProviderFromServices;
+
 	private CultureInfo Culture => CultureInfo.CurrentUICulture;
 	private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;
 	protected DateTime DisplayMonthFirstDay => new DateTime(DisplayMonth.Year, DisplayMonth.Month, 1);
@@ -138,7 +153,7 @@ public partial class HxCalendar
 
 		if (DisplayMonth == default)
 		{
-			await SetDisplayMonthAsync(Value ?? DateTime.Today);
+			await SetDisplayMonthAsync(Value ?? TimeProviderEffective.GetLocalNow().Date);
 		}
 		else if ((Value != null) && lastKnownValueChanged && ((DisplayMonth.Year != Value.Value.Year) || (DisplayMonth.Month != Value.Value.Month)))
 		{
@@ -191,7 +206,7 @@ public partial class HxCalendar
 
 		DateTime currentDay = FirstDayToDisplay;
 		DateTime valueDay = Value?.Date ?? default;
-		DateTime today = DateTime.Today;
+		DateTime today = TimeProviderEffective.GetLocalNow().Date;
 
 		for (var week = 0; week < 6; week++)
 		{

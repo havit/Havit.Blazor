@@ -13,6 +13,7 @@
     <div class="@CssClassHelper.Combine("hx-autosuggest-input-wrapper", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
         <HxAutosuggestInputInternal @ref="autosuggestInput"
                             InputId="@InputId"
+							NameAttributeValue="@NameAttributeValue"
                             EnabledEffective="@EnabledEffective"
                             Value="@userInput"
                             OnInput="HandleInputInput"

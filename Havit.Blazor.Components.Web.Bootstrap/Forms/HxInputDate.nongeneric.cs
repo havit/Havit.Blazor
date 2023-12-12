@@ -20,7 +20,7 @@ public class HxInputDate
 			MaxDate = HxCalendar.DefaultMaxDate,
 			ShowClearButton = true,
 			ShowPredefinedDates = true,
-			PredefinedDates = new List<InputDatePredefinedDatesItem>() { new InputDatePredefinedDatesItem() { Label = "Today", ResourceType = typeof(HxInputDate), Date = DateTime.Today } }
+			PredefinedDates = new List<InputDatePredefinedDatesItem>() { new InputDatePredefinedDatesItem() { Label = "Today", ResourceType = typeof(HxInputDate), DateSelector = (timeProvider) => timeProvider.GetLocalNow().LocalDateTime.Date } },
 		};
 	}
 }

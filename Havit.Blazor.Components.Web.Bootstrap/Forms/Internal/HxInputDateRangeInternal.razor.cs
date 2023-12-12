@@ -34,6 +34,8 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 	[Parameter] public DateTime FromCalendarDisplayMonth { get; set; }
 	[Parameter] public DateTime ToCalendarDisplayMonth { get; set; }
 
+	[Parameter] public TimeProvider TimeProviderEffective { get; set; }
+
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
 	private DateTimeRange previousValue;
@@ -292,6 +294,10 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 				}
 			}
 			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+			catch (TaskCanceledException)
 			{
 				// NOOP
 			}
