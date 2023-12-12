@@ -3,7 +3,7 @@
     <div>
         @if (!HasExpandableContent)
         {
-			<HxTooltip WrapperCssClass="d-block" Placement="TooltipPlacement.Right" Text="@(ParentSidebar.Collapsed ? TooltipText : null)">
+			<HxTooltip WrapperCssClass="d-block" Placement="TooltipPlacement.Right" Text="@TooltipText">
 				<HxNavLink Href="@Href"
 					CssClass="@CssClassHelper.Combine(this.CssClass, "position-relative")"
 					Match="this.Match"
