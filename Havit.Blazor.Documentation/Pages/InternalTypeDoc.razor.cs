@@ -12,7 +12,7 @@ public partial class InternalTypeDoc
 	{
 		try
 		{
-			type = ApiTypeHelper.GetType(TypeText);
+			type = ApiTypeHelper.GetType(TypeText, true);
 		}
 		catch
 		{
