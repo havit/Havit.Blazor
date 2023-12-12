@@ -28,8 +28,11 @@ public static class ApiRenderer
 
 	public static string FormatType(Type type, bool asLink = true)
 	{
-		string typeName = type.ToString();  // e.g. "System.Collections.Generic.List`1[System.String]"
+		return FormatType(type.ToString(), asLink); // e.g. "System.Collections.Generic.List`1[System.String]"
+	}
 
+	public static string FormatType(string typeName, bool asLink = true)
+	{
 		typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces
 
 		// simplify known types
@@ -159,14 +162,13 @@ public static class ApiRenderer
 			typeNameForOwnDocumentation = Regex.Replace(typeNameForOwnDocumentation, "<[a-zA-Z]+>", capture => $"{capture.Value[1..^1]}");
 		}
 
-		if (!checkForInternal)
+		if (!checkForInternal || ApiTypeHelper.IsLibraryType(typeNameForOwnDocumentation))
 		{
 			return GenerateLinkTagForInternalType(typeName, typeNameForOwnDocumentation, linkText, generic);
 		}
-
-		if (ApiTypeHelper.IsLibraryType(typeNameForOwnDocumentation))
+		else if (ApiTypeHelper.GetType(typeName, true) is not null)
 		{
-			return GenerateLinkTagForInternalType(typeName, typeNameForOwnDocumentation, linkText, generic);
+			return GenerateLinkTagForInternalType(typeName, typeName, linkText, false);
 		}
 
 		return null;

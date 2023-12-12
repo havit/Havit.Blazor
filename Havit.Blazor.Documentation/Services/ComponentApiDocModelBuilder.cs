@@ -102,7 +102,23 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		Contract.Requires<InvalidOperationException>(model.IsDelegate);
 
 		MethodInfo invokeMethodInfo = model.Type.GetMethod("Invoke");
-		model.DelegateSignature = $"{ApiRenderer.FormatType(invokeMethodInfo.ReturnType, asLink: false)} {ApiRenderer.FormatType(model.Type, asLink: false)}(";
+		string returnType = string.Empty;
+
+		var genericTypeArgument = invokeMethodInfo.ReturnType.GetGenericArguments().FirstOrDefault();
+
+		if (genericTypeArgument is not null)
+		{
+			string genericTypeArgumentName = genericTypeArgument.ToString();
+			Console.WriteLine("genericTypeArgument.ToString(): " + genericTypeArgumentName);
+
+			returnType = $"Task&lt;{ApiRenderer.FormatType(genericTypeArgumentName, true)}&gt; ";
+		}
+		else
+		{
+			returnType = ApiRenderer.FormatType(invokeMethodInfo.ReturnType, true);
+		}
+
+		model.DelegateSignature = $"{returnType} {ApiRenderer.FormatType(model.Type, false)} (";
 		foreach (ParameterInfo param in invokeMethodInfo.GetParameters())
 		{
 			model.DelegateSignature += $"{ApiRenderer.FormatType(param.ParameterType)} {param.Name}";
