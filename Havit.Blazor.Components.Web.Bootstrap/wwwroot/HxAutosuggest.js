@@ -12,6 +12,7 @@
 
 	inputElement.addEventListener('mousedown', handleMouseDown);
 	inputElement.addEventListener('mouseup', handleMouseUp);
+	inputElement.addEventListener('mouseleave', handleMouseLeave);
 }
 
 function handleKeyDown(event) {
@@ -72,6 +73,12 @@ function handleMouseDown(event) {
 	event.target.clickIsComing = true;
 }
 function handleMouseUp(event) {
+	event.target.clickIsComing = false;
+}
+
+function handleMouseLeave(event) {
+	// fixes #702 where the dropdown is not shown after selecting input content with mouse
+	// (the input does not receive mouseup when the mouse is released outside of the input)
 	event.target.clickIsComing = false;
 }
 
