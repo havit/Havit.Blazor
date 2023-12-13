@@ -472,6 +472,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		clickIsComing = false;
 	}
 
+	[JSInvokable("HxSearchBox_HandleInputMouseLeave")]
+	public void HandleInputMouseLeave()
+	{
+		clickIsComing = false;
+	}
+
 	private TItem GetItemByIndex(int index)
 	{
 		if ((index >= 0) && (index < searchResults.Count))

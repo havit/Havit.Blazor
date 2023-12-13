@@ -106,6 +106,7 @@ export function dispose(inputId) {
 		inputElement.removeEventListener('keydown', handleKeyDown);
 		inputElement.removeEventListener('mouseup', handleMouseUp);
 		inputElement.removeEventListener('mousedown', handleMouseDown);
+		inputElement.removeEventListener('mouseleave', handleMouseLeave);
 		inputElement.hxAutosuggestDotnetObjectReference = null;
 		inputElement.hxAutosuggestKeysToPreventDefault = null;
 	}
