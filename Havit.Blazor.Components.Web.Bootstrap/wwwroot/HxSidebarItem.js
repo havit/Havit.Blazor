@@ -1,8 +1,6 @@
 ﻿var dropdowns = new Map();
 
 export function initializePopper(navId, dropdownId) {
-	console.log('initialize popper: ' + dropdownId);
-
 	const nav = document.querySelector(`#${navId}`);
 	const dropdown = document.querySelector(`#${dropdownId}`);
 

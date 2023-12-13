@@ -3,32 +3,66 @@
     <div>
         @if (!HasExpandableContent)
         {
-			<HxTooltip WrapperCssClass="d-block" Placement="TooltipPlacement.Right" Text="@TooltipText">
-				<HxNavLink Href="@Href"
-					CssClass="@CssClassHelper.Combine(this.CssClass, "position-relative")"
-					Match="this.Match"
-					Enabled="this.Enabled">
+	        @if (ParentSidebar.Collapsed)
+	        {
+		        <HxTooltip WrapperCssClass="d-block"
+		                   Placement="TooltipPlacement.Right"
+		                   Trigger="TooltipTrigger.Hover"
+		                   Text="@TooltipText">
 
-					@* To hide the nav-content in mobile view *@
-					<div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="stretched-link">
-						<div class="hx-sidebar-item-navlink-content">
-							@if (Icon is not null)
-							{
-								<HxIcon Icon="Icon" />
-							}
+			        <HxNavLink Href="@Href"
+			                   CssClass="@CssClassHelper.Combine(this.CssClass, "position-relative")"
+			                   Match="this.Match"
+			                   Enabled="this.Enabled">
 
-							<span class="hx-sidebar-item-navlink-content-inner">
-								@if (ContentTemplate is not null)
-								{
-									@ContentTemplate(new(){ ItemExpanded = null })
-								}
-								@Text
-							</span>
-						</div>
+				        @* To hide the nav-content in mobile view *@
+				        <div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="stretched-link">
+					        <div class="hx-sidebar-item-navlink-content">
+						        @if (Icon is not null)
+						        {
+							        <HxIcon Icon="Icon"/>
+						        }
 
-					</div>
-				</HxNavLink>
-			</HxTooltip>
+						        <span class="hx-sidebar-item-navlink-content-inner">
+							        @if (ContentTemplate is not null)
+							        {
+								        @ContentTemplate(new() { ItemExpanded = null })
+							        }
+							        @Text
+						        </span>
+					        </div>
+
+				        </div>
+			        </HxNavLink>
+		        </HxTooltip>
+	        }
+	        else
+	        {
+		        <HxNavLink Href="@Href"
+		                   CssClass="@CssClassHelper.Combine(this.CssClass, "position-relative")"
+		                   Match="this.Match"
+		                   Enabled="this.Enabled">
+
+			        @* To hide the nav-content in mobile view *@
+			        <div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="stretched-link">
+				        <div class="hx-sidebar-item-navlink-content">
+					        @if (Icon is not null)
+					        {
+						        <HxIcon Icon="Icon" />
+					        }
+
+					        <span class="hx-sidebar-item-navlink-content-inner">
+						        @if (ContentTemplate is not null)
+						        {
+							        @ContentTemplate(new(){ ItemExpanded = null })
+						        }
+						        @Text
+					        </span>
+				        </div>
+
+			        </div>
+		        </HxNavLink>
+	        }
         }
         else
         {
