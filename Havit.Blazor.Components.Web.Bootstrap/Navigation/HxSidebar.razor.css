@@ -71,8 +71,7 @@
 	width: .25rem;
 	height: .75rem;
 	border-radius: .25rem;
-	/* border: var(--hx-sidebar-toggler-border); */
-	background-color: var(--bs-secondary-bg);
+	background-color: var(--bs-gray-500);
 	transition: all .25s ease-in-out;
 	transform: translateY(.15rem) rotate(0deg) translateZ(0px);
 }
