@@ -8117,6 +8117,11 @@
             Item icon (optional).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.TooltipText">
+            <summary>
+            Text content of tooltip displayed while hovering item of collapsed Sidebar.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.Href">
             <summary>
             Item navigation target.

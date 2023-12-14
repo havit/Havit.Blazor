@@ -19,6 +19,11 @@ public partial class HxSidebarItem : IAsyncDisposable
 	[Parameter] public IconBase Icon { get; set; }
 
 	/// <summary>
+	/// Text content of tooltip displayed while hovering item of collapsed Sidebar.
+	/// </summary>
+	[Parameter] public string TooltipText { get; set; }
+
+	/// <summary>
 	/// Item navigation target.
 	/// </summary>
 	[Parameter] public string Href { get; set; }
