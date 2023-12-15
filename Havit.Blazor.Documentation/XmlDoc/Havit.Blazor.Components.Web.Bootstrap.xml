@@ -8135,6 +8135,12 @@
             NOTE: The expansion is only applied on initial load, the sidebar does not track the URL changes (this may change in the future).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.HighlightOnActiveChild">
+            <summary>
+            Set to <c>false</c> if you don't want to highlight the item if one of the children items is active (URL matches).<br/>
+            Default is <c>true</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.Enabled">
             <summary>
             Allows you to disable the item with <c>false</c>.
