@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿using Microsoft.Extensions.Localization;
+
+namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Sidebar component - responsive navigation sidebar.<br />
@@ -62,6 +64,8 @@ public partial class HxSidebar : ComponentBase
 	/// Default is <see cref="SidebarResponsiveBreakpoint.Medium"/>.
 	/// </summary>
 	[Parameter] public SidebarResponsiveBreakpoint ResponsiveBreakpoint { get; set; } = SidebarResponsiveBreakpoint.Medium;
+
+	[Inject] protected IStringLocalizer<HxSpinner> Localizer { get; set; }
 
 	protected internal string NavContentElementId => Id + "-nav-content";
 
