@@ -7978,12 +7978,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.ExpandIcon">
             <summary>
-            Icon for expanding the desktop version. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate" /> for more specific customization.
+            <c>ExpandIcon</c> is obsolete and will be removed in future release. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate"/> if you want to render an icon.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CollapseIcon">
             <summary>
-            Icon for collapsing the desktop version. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate" /> for more specific customization.
+            <c>CollapseIcon</c> is obsolete and will be removed in future release. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate"/> if you want to render an icon.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.FooterTemplate">
@@ -7993,7 +7993,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate">
             <summary>
-            Vertical toggler (desktop version) to be rendered instead of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.ExpandIcon"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CollapseIcon"/> icon.
+            Vertical toggler (desktop version) to be rendered instead of the default bar/arrow.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CssClass">
