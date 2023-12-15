@@ -8137,7 +8137,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.HighlightOnActiveChild">
             <summary>
-            Set to <c>false</c> if you don't want to highlight the item if one of the children URL matches.<br/>
+            Set to <c>false</c> if you don't want to highlight the item if one of the children items is active (URL matches).<br/>
             Default is <c>true</c>.
             </summary>
         </member>

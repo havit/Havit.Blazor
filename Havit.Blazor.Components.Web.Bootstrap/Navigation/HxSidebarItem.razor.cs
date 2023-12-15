@@ -37,10 +37,10 @@ public partial class HxSidebarItem : IAsyncDisposable
 	[Parameter] public bool ExpandOnMatch { get; set; } = true;
 
 	/// <summary>
-	/// Set to <c>false</c> if you don't want to highlight the item if one of the children URL matches.<br/>
-	/// Default is <c>false</c>.
+	/// Set to <c>false</c> if you don't want to highlight the item if one of the children items is active (URL matches).<br/>
+	/// Default is <c>true</c>.
 	/// </summary>
-	[Parameter] public bool HighlightOnActiveChild { get; set; } = false;
+	[Parameter] public bool HighlightOnActiveChild { get; set; } = true;
 
 	/// <summary>
 	/// Allows you to disable the item with <c>false</c>.
