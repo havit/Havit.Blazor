@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <CascadingValue Value="this" IsFixed="true">
-    <div class="@CssClassHelper.Combine(HighlightOnActiveChild ? "hx-sidebar-item-highlight-on-active-child" : null)">
+	<div class="@CssClassHelper.Combine(HighlightOnActiveChild ? "hx-sidebar-item-highlight-on-active-child" : null)">
 		@if (!HasExpandableContent)
 		{
 			<HxTooltip @key="@(this.GetHashCode() + ParentSidebar.Collapsed.ToString())"
@@ -59,11 +59,10 @@
 			{
 				<HxDropdown Direction="DropdownDirection.End" CssClass="hx-sidebar-item">
 					<HxNavLink Href="@Href"
-							   CssClass="@CssClassHelper.Combine(this.CssClass)"
+							   CssClass="this.CssClass"
 							   Match="this.Match"
 							   Enabled="this.Enabled"
 							   role="button"
-							   data-bs-toggle="dropdown"
 							   data-bs-offset="0,0"
 							   onmouseenter="bootstrap.Dropdown.getOrCreateInstance(event.target).show()"
 							   onmouseleave="bootstrap.Dropdown.getInstance(event.target)?.hide()"
