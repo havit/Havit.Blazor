@@ -24,7 +24,10 @@
 		<Demo Type="typeof(HxSidebar_Demo_ProgramaticallyExpandCollapse)" />
 
 		<DocHeading Title="Custom toggler" />
-		<p>With <code>TogglerTemplate</code> you can set a custom toggler for the desktop version to be rendered instead of the default <a href="/HxSidebar#ExpandIcon">ExpandIcon</a> and <a href="/HxSidebar#CollapseIcon">CollapseIcon</a>. Render varying content based on the <a href="/types/SidebarTogglerTemplateContext">SidebarTogglerTemplateContext</a>.</p>
+		<p>
+			With <code>TogglerTemplate</code> you can set a custom toggler for the desktop version to be rendered instead of the default visual.
+			Render varying content based on the <a href="/types/SidebarTogglerTemplateContext">SidebarTogglerTemplateContext</a>.
+		</p>
 		<Demo Type="typeof(HxSidebar_Demo_TogglerTemplate)" />
 
 		<DocHeading Title="Responsive layout sample" />
@@ -49,14 +52,8 @@
 		<ComponentApiDocCssVariable Name="--hx-sidebar-width" Default="250px">
 			Width of the sidebar.
 		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-toggler-border" Default="1px solid var(--bs-border-color)">
-			Toggler border.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-toggler-background" Default="var(--bs-body-bg)">
-			Toggler background.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-toggler-color" Default="var(--bs-body-color)">
-			Toggler color.
+		<ComponentApiDocCssVariable Name="--hx-sidebar-toggler-background" Default="var(--bs-gray-500)">
+			Toggler bar/arrow background.
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-item-font-size" Default="1rem">
 			Font size of the items.
@@ -93,6 +90,24 @@
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-item-active-background-opacity" Default=".1">
 			Background opacity of the active item.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-item-active-background-color" Default="var(--bs-primary-rgb)">
+			Background color of the active item.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-item-active-font-weight" Default="unset">
+			Font weight of the active item.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-parent-item-active-color" Default="unset">
+			Color of the parent of active item.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-parent-item-active-background-color" Default="unset">
+			Background color of the parent of active item.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-parent-item-active-background-opacity" Default="0">
+			Background opacity of the parent of active item.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-parent-item-active-font-weight" Default="600">
+			Font weight of the parent of active item.
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-item-margin" Default="0 0 .25rem 0">
 			Margin of the items.

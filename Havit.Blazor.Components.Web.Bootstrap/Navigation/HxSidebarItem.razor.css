@@ -51,6 +51,13 @@
 ::deep a.nav-link.active:hover {
 	background-color: rgba(var(--hx-sidebar-item-active-background-color), var(--hx-sidebar-item-active-background-opacity));
 	color: var(--hx-sidebar-item-active-color);
+	font-weight: var(--hx-sidebar-item-active-font-weight);
+}
+
+.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
+	background-color: rgba(var(--hx-sidebar-parent-item-active-background-color), var(--hx-sidebar-parent-item-active-background-opacity));
+	color: var(--hx-sidebar-parent-item-active-color);
+	font-weight: var(--hx-sidebar-parent-item-active-font-weight);
 }
 
 ::deep i {

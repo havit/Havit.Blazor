@@ -72,7 +72,8 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxDropdown)}")" Text="@nameof(HxDropdown)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxIcon)}")" Text="@nameof(HxIcon)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxPlaceholder)}")" Text="@nameof(HxPlaceholder)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxTooltip)}")" Text="@nameof(HxTooltip)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxTooltip)}")" Text="@nameof(HxTooltip)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxPopover)}")" Text="@nameof(HxPopover)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxTabPanel)}")" Text="@nameof(HxTabPanel)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxListGroup)}")" Text="@(nameof(HxListGroup))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxListLayout)}")" Text="@(nameof(HxListLayout))" />
@@ -92,9 +93,6 @@
 			@{
 #pragma warning restore 0618
 			}
-			<HxSidebarItem Href="@($"/components/{nameof(HxContextMenu)}")" Text="@(nameof(HxContextMenu))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxDropdown)}")" Text="@nameof(HxDropdown)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxTabPanel)}")" Text="@nameof(HxTabPanel)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxRedirectTo)}")" Text="@nameof(HxRedirectTo)" />
         </HxSidebarItem>
 
@@ -118,7 +116,7 @@
             <HxSidebarItem Href="/concepts/dark-color-mode-theme" Text="Dark color mode" />
         </HxSidebarItem>
 
-        <HxSidebarItem Text="All Components" Icon="BootstrapIcon.SortAlphaDown" ExpandOnMatch="false">
+        <HxSidebarItem Text="All Components" Icon="BootstrapIcon.SortAlphaDown" ExpandOnMatch="false" HighlightOnActiveChild="false">
 			@{
 #pragma warning disable 0618  // Obsolete
 			}

@@ -13,9 +13,7 @@
 	--hx-sidebar-background-color: 									transparent;
 	--hx-sidebar-collapsed-width: 									72px;
 	--hx-sidebar-width: 											250px;
-	--hx-sidebar-toggler-border: 									1px solid var(--bs-border-color);
-	--hx-sidebar-toggler-background: 								var(--bs-body-bg);
-	--hx-sidebar-toggler-color: 									var(--bs-body-color);
+	--hx-sidebar-toggler-background: 								var(--bs-gray-500);
 	--hx-sidebar-item-font-size: 									1rem;
 	--hx-sidebar-item-padding: 										.75rem;
 	--hx-sidebar-item-color: 										var(--bs-body-color);
@@ -30,6 +28,11 @@
 	--hx-sidebar-item-active-background-color: 						var(--bs-primary-rgb);
 	--hx-sidebar-item-active-background-opacity: 					.1;
 	--hx-sidebar-item-active-icon-color: 							var(--bs-primary);
+	--hx-sidebar-item-active-font-weight: 							unset;
+	--hx-sidebar-parent-item-active-color:							unset;
+	--hx-sidebar-parent-item-active-background-opacity:				0;
+	--hx-sidebar-parent-item-active-background-color:				unset;
+	--hx-sidebar-parent-item-active-font-weight: 					600;
 	--hx-sidebar-subitem-font-size: 								.875rem;
 	--hx-sidebar-subitem-padding: 									.5rem;
 	--hx-sidebar-subitem-margin: 									0 0 .25rem 2rem;
