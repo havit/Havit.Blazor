@@ -13,9 +13,7 @@
 	--hx-sidebar-background-color: 									transparent;
 	--hx-sidebar-collapsed-width: 									72px;
 	--hx-sidebar-width: 											250px;
-	--hx-sidebar-toggler-border: 									1px solid var(--bs-border-color);
-	--hx-sidebar-toggler-background: 								var(--bs-body-bg);
-	--hx-sidebar-toggler-color: 									var(--bs-body-color);
+	--hx-sidebar-toggler-background: 								var(--bs-gray-500);
 	--hx-sidebar-item-font-size: 									1rem;
 	--hx-sidebar-item-padding: 										.75rem;
 	--hx-sidebar-item-color: 										var(--bs-body-color);
