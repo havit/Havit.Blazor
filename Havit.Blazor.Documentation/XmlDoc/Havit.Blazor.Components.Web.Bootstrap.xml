@@ -7976,6 +7976,16 @@
             Sidebar items. Use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.ExpandIcon">
+            <summary>
+            <c>ExpandIcon</c> is obsolete and will be removed in future release. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate"/> if you want to render an icon.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CollapseIcon">
+            <summary>
+            <c>CollapseIcon</c> is obsolete and will be removed in future release. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate"/> if you want to render an icon.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.FooterTemplate">
             <summary>
             Sidebar footer (e.g. logged user, language switch, ...).
@@ -7983,7 +7993,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate">
             <summary>
-            Vertical toggler (desktop version) to be rendered instead of the <see cref="!:ExpandIcon"/> and <see cref="!:CollapseIcon"/> icon.
+            Vertical toggler (desktop version) to be rendered instead of the default bar/arrow.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CssClass">

@@ -19,6 +19,18 @@ public partial class HxSidebar : ComponentBase
 	[Parameter] public RenderFragment ItemsTemplate { get; set; }
 
 	/// <summary>
+	/// <c>ExpandIcon</c> is obsolete and will be removed in future release. Use <see cref="TogglerTemplate"/> if you want to render an icon.
+	/// </summary>
+	[Obsolete("ExpandIcon is obsolete and will be removed in future release. Use TogglerTemplate if you want to render an icon.")]
+	[Parameter] public IconBase ExpandIcon { get; set; }
+
+	/// <summary>
+	/// <c>CollapseIcon</c> is obsolete and will be removed in future release. Use <see cref="TogglerTemplate"/> if you want to render an icon.
+	/// </summary>
+	[Obsolete("CollapseIcon is obsolete and will be removed in future release. Use TogglerTemplate if you want to render an icon.")]
+	[Parameter] public IconBase CollapseIcon { get; set; }
+
+	/// <summary>
 	/// Sidebar footer (e.g. logged user, language switch, ...).
 	/// </summary>
 	[Parameter] public RenderFragment<SidebarFooterTemplateContext> FooterTemplate { get; set; }
