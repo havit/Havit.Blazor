@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <CascadingValue Value="this" IsFixed="true">
-    <div class="@CssClassHelper.Combine(HighlightOnActiveChild ? "highlight-on-active-child" : null)">
+    <div class="@CssClassHelper.Combine(HighlightOnActiveChild ? "hx-sidebar-item-highlight-on-active-child" : null)">
         @if (!HasExpandableContent)
         {
             <HxNavLink Href="@Href"
