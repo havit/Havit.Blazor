@@ -1,0 +1,64 @@
+﻿@page "/HxAccordion_Issue685_Test"
+<h3>HxAccordion_Issue685_test</h3>
+
+<HxAccordion @bind-ExpandedItemId="@expandedItemId" CssClass="mb-3">
+	<HxAccordionItem Id="1">
+
+		<HeaderTemplate>
+			Accordion Item 1 (Id="1") with LazyLoaded content
+		</HeaderTemplate>
+
+		<BodyTemplate>
+			<HxAutosuggest TItem="EmployeeDto"
+			               TValue="int?"
+			               Label="Employee"
+			               Placeholder="Start typing to search by name"
+			               @bind-Value="@selectedEmployeeId"
+			               DataProvider="ProvideSuggestions"
+			               ValueSelector="employee => employee.Id"
+			               TextSelector="employee => employee.Name"
+			               ItemFromValueResolver="ResolveAutosuggestItemFromValue">
+
+				<EmptyTemplate>
+					<span class="p-2">Couldn't find any matching employee</span>
+				</EmptyTemplate>
+
+			</HxAutosuggest>
+		</BodyTemplate>
+
+	</HxAccordionItem>
+</HxAccordion>
+
+@code
+{
+	private string expandedItemId = "1"; // you can se the initial value here, if binding to ExpandedItemId
+
+	private int? selectedEmployeeId = 1;
+
+	private Task<AutosuggestDataProviderResult<EmployeeDto>> ProvideSuggestions(AutosuggestDataProviderRequest request)
+	{
+		var matchingEmployees = new List<EmployeeDto>()
+		{
+			new EmployeeDto { Id = 1 , Name = "Jim" },
+			new EmployeeDto { Id = 2, Name = "Bob" }
+		};
+
+		return Task.FromResult(new AutosuggestDataProviderResult<EmployeeDto> { Data = matchingEmployees });
+	}
+
+	private Task<EmployeeDto> ResolveAutosuggestItemFromValue(int? value)
+	{
+		if (value is null)
+		{
+			return null;
+		}
+
+		return Task.FromResult(new EmployeeDto());
+	}
+
+	public class EmployeeDto
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+	}
+}
