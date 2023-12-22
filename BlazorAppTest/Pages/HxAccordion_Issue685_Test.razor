@@ -1,11 +1,11 @@
-﻿@page "/HxAccordion_Issue685_test"
+﻿@page "/HxAccordion_Issue685_Test"
 <h3>HxAccordion_Issue685_test</h3>
 
 <HxAccordion @bind-ExpandedItemId="@expandedItemId" CssClass="mb-3">
 	<HxAccordionItem Id="1">
 
 		<HeaderTemplate>
-			Accordition Item 1 (Id="1") with LazyLoaded content
+			Accordion Item 1 (Id="1") with LazyLoaded content
 		</HeaderTemplate>
 
 		<BodyTemplate>
@@ -35,7 +35,7 @@
 
 	private int? selectedEmployeeId = 1;
 
-	private async Task<AutosuggestDataProviderResult<EmployeeDto>> ProvideSuggestions(AutosuggestDataProviderRequest request)
+	private Task<AutosuggestDataProviderResult<EmployeeDto>> ProvideSuggestions(AutosuggestDataProviderRequest request)
 	{
 		var matchingEmployees = new List<EmployeeDto>()
 		{
@@ -43,17 +43,17 @@
 			new EmployeeDto { Id = 2, Name = "Bob" }
 		};
 
-		return new AutosuggestDataProviderResult<EmployeeDto> { Data = matchingEmployees };
+		return Task.FromResult(new AutosuggestDataProviderResult<EmployeeDto> { Data = matchingEmployees });
 	}
 
-	private async Task<EmployeeDto> ResolveAutosuggestItemFromValue(int? value)
+	private Task<EmployeeDto> ResolveAutosuggestItemFromValue(int? value)
 	{
 		if (value is null)
 		{
 			return null;
 		}
 
-		return new EmployeeDto();
+		return Task.FromResult(new EmployeeDto());
 	}
 
 	public class EmployeeDto
