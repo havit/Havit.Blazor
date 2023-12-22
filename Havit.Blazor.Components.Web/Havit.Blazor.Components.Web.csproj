@@ -31,6 +31,10 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.25" Condition="'$(TargetFramework)' == 'net6.0'" />
 		<PackageReference Include="Microsoft.Bcl.TimeProvider" Version="8.0.0" Condition="'$(TargetFramework)' != 'net8.0'" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	</ItemGroup>
 	
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
 		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />

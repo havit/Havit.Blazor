@@ -27,6 +27,10 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.25" Condition="'$(TargetFramework)' == 'net6.0'" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	</ItemGroup>
+
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
 		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.GoogleTagManager.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />
 	</Target>

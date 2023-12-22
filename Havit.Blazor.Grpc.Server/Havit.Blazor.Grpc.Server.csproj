@@ -19,7 +19,7 @@
 		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.59.0" />
 		<PackageReference Include="Havit.AspNetCore" Version="2.0.12" />
 		<PackageReference Include="Havit.Core" Version="2.0.28" />
-		<PackageReference Include="protobuf-net" Version="3.2.26" />
+		<PackageReference Include="protobuf-net" Version="3.2.30" />
 		<PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.1.1" />
 		<!-- Workaround for vulnerability in System.Text.Encodings.Web 4.5.0 -->
 		<PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
@@ -27,6 +27,10 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Havit.Blazor.Grpc.Core\Havit.Blazor.Grpc.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
 	</ItemGroup>
 
 </Project>
