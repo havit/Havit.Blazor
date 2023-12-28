@@ -174,9 +174,14 @@ public partial class HxInputTagsInternal
 		await ValueChanged.InvokeAsync(Value);
 	}
 
-	public async ValueTask FocusAsync()
+	public async Task FocusAsync()
 	{
-		await inputComponent.FocusAsync();
+		if (disposed)
+		{
+			return;
+		}
+		await EnsureJsModuleAsync();
+		await jsModule.InvokeVoidAsync("tryFocus", inputComponent.InputElement);
 	}
 
 	private async Task HandleInputInput(string newUserInput)

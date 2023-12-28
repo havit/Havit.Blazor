@@ -14,7 +14,7 @@
 									GetNakedCssClasses(),
                                     this.EnabledEffective ? null : "hx-input-tags-control-disabled",
 									this.CssClass)"
-         @onclick="async () => await inputComponent.FocusAsync()"
+         @onclick="FocusAsync"
          @onclick:stopPropagation>
 
         @foreach (string tag in ValueEffective)

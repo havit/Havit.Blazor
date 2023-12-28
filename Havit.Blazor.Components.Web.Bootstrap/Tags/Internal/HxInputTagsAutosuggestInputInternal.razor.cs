@@ -33,9 +33,4 @@ public partial class HxInputTagsAutosuggestInputInternal
 	{
 		await OnInput.InvokeAsync((string)changeEventArgs.Value);
 	}
-
-	public async ValueTask FocusAsync()
-	{
-		await InputElement.FocusAsync();
-	}
 }

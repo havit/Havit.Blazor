@@ -45,6 +45,15 @@ export function open(inputElement, hxInputTagsDotnetObjectReference, delayShow) 
 	}
 }
 
+export function tryFocus(inputElement) {
+	if (!inputElement) {
+		return false;
+	}
+
+	inputElement.focus({ preventScroll: true });
+	return true;
+}
+
 export function destroy(inputElement) {
 	if (!inputElement) {
 		return;
