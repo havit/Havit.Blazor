@@ -14,7 +14,7 @@
 									GetNakedCssClasses(),
                                     this.EnabledEffective ? null : "hx-input-tags-control-disabled",
 									this.CssClass)"
-         @onclick="async () => await autosuggestInput.FocusAsync()"
+         @onclick="async () => await inputComponent.FocusAsync()"
          @onclick:stopPropagation>
 
         @foreach (string tag in ValueEffective)
@@ -54,7 +54,7 @@
         }
 
         <div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
-            <HxInputTagsAutosuggestInputInternal @ref="autosuggestInput"
+            <HxInputTagsAutosuggestInputInternal @ref="inputComponent"
                                                  InputId="@InputId"
                                                  EnabledEffective="@EnabledEffective"
                                                  Value="@userInput"

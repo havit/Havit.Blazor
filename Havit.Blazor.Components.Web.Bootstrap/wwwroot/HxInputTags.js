@@ -73,7 +73,6 @@ function handleDropdownHidden(event) {
 	// Therefore we delay jsinterop for a while.
 	window.setTimeout(function (element) {
 		element.hxInputTagsDotnetObjectReference.invokeMethodAsync('HxInputTagsInternal_HandleDropdownHidden');
-		element.hxInputTagsDotnetObjectReference = null;
 	}, 1, event.target);
 }
 

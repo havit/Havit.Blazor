@@ -131,7 +131,7 @@ public partial class HxInputTagsInternal
 	private bool mouseDownFocus;
 	private bool disposed;
 	private IJSObjectReference jsModule;
-	private HxInputTagsAutosuggestInputInternal autosuggestInput;
+	private HxInputTagsAutosuggestInputInternal inputComponent;
 	private bool dataProviderInProgress;
 	private DotNetObjectReference<HxInputTagsInternal> dotnetObjectReference;
 
@@ -176,7 +176,7 @@ public partial class HxInputTagsInternal
 
 	public async ValueTask FocusAsync()
 	{
-		await autosuggestInput.FocusAsync();
+		await inputComponent.FocusAsync();
 	}
 
 	private async Task HandleInputInput(string newUserInput)
@@ -456,7 +456,7 @@ public partial class HxInputTagsInternal
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("open", autosuggestInput.InputElement, dotnetObjectReference, bypassShow);
+			await jsModule.InvokeVoidAsync("open", inputComponent.InputElement, dotnetObjectReference, bypassShow);
 			isDropdownOpened = true;
 		}
 	}
@@ -467,7 +467,7 @@ public partial class HxInputTagsInternal
 		{
 			await EnsureJsModuleAsync();
 
-			await jsModule.InvokeVoidAsync("destroy", autosuggestInput.InputElement);
+			await jsModule.InvokeVoidAsync("destroy", inputComponent.InputElement);
 			isDropdownOpened = false;
 		}
 	}
