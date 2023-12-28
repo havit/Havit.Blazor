@@ -65,7 +65,10 @@ export function destroy(inputElement) {
 	var d = bootstrap.Dropdown.getInstance(inputElement);
 	if (d) {
 		d.hide();
-		d.dispose();
+
+		inputElement.addEventListener('hidden.bs.dropdown', event => {
+			dropdown.dispose()
+		})
 	}
 }
 
