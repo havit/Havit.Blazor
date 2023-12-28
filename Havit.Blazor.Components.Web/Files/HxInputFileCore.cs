@@ -149,7 +149,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	/// <remarks>
-	/// We do not want to make the Havit.Blazor library dependant on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
+	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
 	/// </remarks>
 	public async Task StartUploadAsync(string accessToken = null)
 	{
@@ -202,7 +202,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Receive upload progress notification from underlying javascript.
+	/// Receive upload progress notification from underlying JavaScript.
 	/// </summary>
 	[JSInvokable("HxInputFileCore_HandleUploadProgress")]
 	public async Task HandleUploadProgress(int fileIndex, string fileName, long loaded, long total)
@@ -218,7 +218,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Receive upload finished notification from underlying javascript.
+	/// Receive upload finished notification from underlying JavaScript.
 	/// </summary>
 	[JSInvokable("HxInputFileCore_HandleFileUploaded")]
 	public async Task HandleFileUploaded(int fileIndex, string fileName, long fileSize, string fileType, long fileLastModified, int responseStatus, string responseText)
