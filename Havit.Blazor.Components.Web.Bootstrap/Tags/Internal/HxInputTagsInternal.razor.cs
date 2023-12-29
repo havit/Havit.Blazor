@@ -131,7 +131,7 @@ public partial class HxInputTagsInternal
 	private bool mouseDownFocus;
 	private bool disposed;
 	private IJSObjectReference jsModule;
-	private HxInputTagsAutosuggestInputInternal inputComponent;
+	private HxInputTagsInputInternal inputComponent;
 	private bool dataProviderInProgress;
 	private DotNetObjectReference<HxInputTagsInternal> dotnetObjectReference;
 

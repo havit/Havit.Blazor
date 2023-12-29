@@ -1,6 +1,6 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
-public partial class HxInputTagsAutosuggestInputInternal
+public partial class HxInputTagsInputInternal
 {
 	[Parameter] public string Value { get; set; }
 
