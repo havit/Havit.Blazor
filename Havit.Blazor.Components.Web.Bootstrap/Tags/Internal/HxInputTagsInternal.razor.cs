@@ -247,7 +247,7 @@ public partial class HxInputTagsInternal
 
 		if (SuggestMinimumLengthEffective == 0)
 		{
-			await UpdateSuggestionsAsync(bypassShow: mouseDownFocus);
+			await UpdateSuggestionsAsync(delayDropdownShow: mouseDownFocus);
 		}
 		mouseDownFocus = false;
 	}
@@ -300,7 +300,7 @@ public partial class HxInputTagsInternal
 		}
 	}
 
-	private async Task UpdateSuggestionsAsync(bool bypassShow = false)
+	private async Task UpdateSuggestionsAsync(bool delayDropdownShow = false)
 	{
 		// Cancelation is performed in HandleInputInput method
 		cancellationTokenSource?.Dispose();
@@ -342,7 +342,7 @@ public partial class HxInputTagsInternal
 
 		if (suggestions?.Any() ?? false)
 		{
-			await OpenDropdownAsync(bypassShow);
+			await OpenDropdownAsync(delayDropdownShow);
 		}
 		else
 		{
@@ -410,6 +410,8 @@ public partial class HxInputTagsInternal
 
 	private async Task HandleItemSelected(string tag)
 	{
+		isDropdownOpened = false; // dropdown is closed because the user selected an item
+
 		// user clicked on an item in the "dropdown".
 		userInput = String.Empty;
 		await AddTagWithEventCallbackAsync(tag);
@@ -452,7 +454,7 @@ public partial class HxInputTagsInternal
 		}
 	}
 
-	private async Task OpenDropdownAsync(bool bypassShow = false)
+	private async Task OpenDropdownAsync(bool delayShow = false)
 	{
 		if (!isDropdownOpened)
 		{
@@ -461,7 +463,7 @@ public partial class HxInputTagsInternal
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("open", inputComponent.InputElement, dotnetObjectReference, bypassShow);
+			await jsModule.InvokeVoidAsync("open", inputComponent.InputElement, dotnetObjectReference, delayShow);
 			isDropdownOpened = true;
 		}
 	}
@@ -470,13 +472,17 @@ public partial class HxInputTagsInternal
 	{
 		if (isDropdownOpened)
 		{
-			await EnsureJsModuleAsync();
-
-			await jsModule.InvokeVoidAsync("destroy", inputComponent.InputElement);
-
-			isDropdownOpened = false;
-			StateHasChanged();
+			await DestroyDropdownAsync();
 		}
+	}
+
+	private async Task DestroyDropdownAsync()
+	{
+		await EnsureJsModuleAsync();
+		await jsModule.InvokeVoidAsync("destroy", inputComponent.InputElement);
+
+		isDropdownOpened = false;
+		StateHasChanged();
 	}
 
 	private async Task EnsureJsModuleAsync()
@@ -487,13 +493,17 @@ public partial class HxInputTagsInternal
 	[JSInvokable("HxInputTagsInternal_HandleDropdownHidden")]
 	public async Task HandleDropdownHidden()
 	{
+		isDropdownOpened = false;
 		if (!currentlyFocused)
 		{
 			await TryProcessCustomTagsAsync();
 			userInput = String.Empty;
 			StateHasChanged();
 		}
-		await TryDestroyDropdownAsync();
+		if (SuggestMinimumLengthEffective > 0)
+		{
+			await DestroyDropdownAsync();
+		}
 	}
 
 	protected async Task HandleRemoveClickAsync(string tag)
