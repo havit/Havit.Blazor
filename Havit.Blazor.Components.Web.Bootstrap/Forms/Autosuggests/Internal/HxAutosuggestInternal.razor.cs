@@ -231,6 +231,14 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		});
 	}
 
+	private async Task HandleInputClick()
+	{
+		if (currentlyFocused && (MinimumLengthEffective == 0) && !isDropdownOpened)
+		{
+			await UpdateSuggestionsAsync();
+		}
+	}
+
 	private async Task HandleInputFocus()
 	{
 		if (!EnabledEffective)

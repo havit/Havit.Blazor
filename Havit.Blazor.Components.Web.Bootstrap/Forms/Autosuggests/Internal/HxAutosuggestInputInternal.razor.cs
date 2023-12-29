@@ -14,6 +14,8 @@ public partial class HxAutosuggestInputInternal
 
 	[Parameter] public EventCallback OnMouseDown { get; set; }
 
+	[Parameter] public EventCallback OnClick { get; set; }
+
 	[Parameter] public string InputId { get; set; }
 
 	[Parameter] public string CssClass { get; set; }

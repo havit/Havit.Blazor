@@ -237,12 +237,22 @@ public partial class HxInputTagsInternal
 
 	private void HandleInputMouseDown()
 	{
-		mouseDownFocus = true;
+		if (!currentlyFocused)
+		{
+			mouseDownFocus = true;
+		}
+	}
+
+	private async Task HandleInputClick()
+	{
+		if (currentlyFocused && (SuggestMinimumLengthEffective == 0) && !isDropdownOpened)
+		{
+			await UpdateSuggestionsAsync();
+		}
 	}
 
 	private async Task HandleInputFocus()
 	{
-		// when an input gets focus, close a dropdown
 		currentlyFocused = true;
 
 		if (SuggestMinimumLengthEffective == 0)
