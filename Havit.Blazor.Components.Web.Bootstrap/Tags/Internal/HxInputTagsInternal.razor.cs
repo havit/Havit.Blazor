@@ -473,7 +473,9 @@ public partial class HxInputTagsInternal
 			await EnsureJsModuleAsync();
 
 			await jsModule.InvokeVoidAsync("destroy", inputComponent.InputElement);
+
 			isDropdownOpened = false;
+			StateHasChanged();
 		}
 	}
 

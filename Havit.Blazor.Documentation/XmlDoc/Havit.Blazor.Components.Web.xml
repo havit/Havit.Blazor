@@ -259,7 +259,7 @@
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
             <remarks>
-            We do not want to make the Havit.Blazor library dependant on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
+            We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
             </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.UploadAsync(System.String)">
@@ -280,12 +280,12 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.HandleUploadProgress(System.Int32,System.String,System.Int64,System.Int64)">
             <summary>
-            Receive upload progress notification from underlying javascript.
+            Receive upload progress notification from underlying JavaScript.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.HandleFileUploaded(System.Int32,System.String,System.Int64,System.String,System.Int64,System.Int32,System.String)">
             <summary>
-            Receive upload finished notification from underlying javascript.
+            Receive upload finished notification from underlying JavaScript.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.HandleUploadCompleted(System.Int32,System.Int64)">
