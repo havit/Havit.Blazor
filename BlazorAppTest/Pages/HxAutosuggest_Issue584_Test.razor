@@ -17,6 +17,7 @@
 			<span class="p-2">Couldn't find any matching employee</span>
 		</EmptyTemplate>
 	</HxAutosuggest>
+	<HxInputTags Label="Tags" @bind-Value="exampleModel.Tags" DataProvider="GetNewItemSuggestions" />
 	<p class="mt-3">submitExecuted = @submitExecuted</p>
 </EditForm>
 
@@ -27,6 +28,15 @@
 	{
 		submitExecuted = true;
 	}
+
+	private Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
+	{
+		return Task.FromResult(new InputTagsDataProviderResult()
+			{
+				Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString())
+			});
+	}
+
 
 	private async Task<AutosuggestDataProviderResult<EmployeeDto>> ProvideSuggestions(AutosuggestDataProviderRequest request)
 	{
@@ -42,5 +52,9 @@
 		}
 		return await DemoDataService.GetEmployeeByIdAsync(value.Value);
 	}
-	private record ExampleModel { public int? SelectedEmployeeId { get; set; } };
+	private record ExampleModel
+	{
+		public int? SelectedEmployeeId { get; set; }
+		public List<string> Tags { get; set; } = new List<string>() { "Blazor", "C#", "ASP.NET" };
+	};
 }

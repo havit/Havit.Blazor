@@ -404,7 +404,9 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, new string[] { KeyCodes.ArrowDown, KeyCodes.ArrowUp });
+
+			string[] keysToPreventDefault = [KeyCodes.ArrowDown, KeyCodes.ArrowUp, KeyCodes.Enter, KeyCodes.NumpadEnter];
+			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, keysToPreventDefault);
 		}
 
 		if (blurInProgress)
