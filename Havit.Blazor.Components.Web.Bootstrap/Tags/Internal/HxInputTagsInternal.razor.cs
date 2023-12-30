@@ -126,7 +126,6 @@ public partial class HxInputTagsInternal
 	private CancellationTokenSource cancellationTokenSource;
 	private List<string> suggestions;
 	private bool isDropdownOpened = false;
-	private bool blurInProgress;
 	private bool currentlyFocused;
 	private bool mouseDownFocus;
 	private bool disposed;
@@ -149,18 +148,14 @@ public partial class HxInputTagsInternal
 
 		if (Value == null)
 		{
-			Value = new List<string> { tag };
+			Value = [tag];
 		}
 		else
 		{
-			Value = new List<string>(Value); // do not change the instance, create a copy!
-			Value.Add(tag);
+			// do not change the instance, create a new one
+			Value = [.. Value, tag];
 		}
 		await ValueChanged.InvokeAsync(Value);
-
-		// helps handling of the TAB-key, the cursor "stays in" (returns to) the input after adding new tag
-		// side-effect (not sure if wanted), the cursor returns to the input even if you click somewhere with the mouse
-		await FocusAsync();
 	}
 
 	private async Task RemoveTagWithEventCallbackAsync(string tag)
@@ -262,17 +257,18 @@ public partial class HxInputTagsInternal
 		mouseDownFocus = false;
 	}
 
-	// Due to HTML update and Bootstrap Dropdown collision we are not allowed to re-render HTML in InputBlur!
-	private Task HandleInputBlur()
+	[JSInvokable("HxInputTagsInternal_HandleInputBlur")]
+	public async Task HandleInputBlur(bool isWithinDropdown)
 	{
 		currentlyFocused = false;
-		// when user clicks back button in browser this method can be called after it is disposed!
-		blurInProgress = true;
 		timer?.Stop(); // if waiting for an interval, stop it
 		cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
-		dataProviderInProgress = false; // data provider is no more in progress				 
+		dataProviderInProgress = false; // data provider is no longer in progress				 
 
-		return Task.CompletedTask;
+		if (!isWithinDropdown)
+		{
+			await TryProcessCustomTagsAsync();
+		}
 	}
 
 	private async Task TryProcessCustomTagsAsync(bool keepLastTagForSuggestion = false)
@@ -442,17 +438,6 @@ public partial class HxInputTagsInternal
 				return;
 			}
 			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, new string[] { KeyCodes.ArrowUp, KeyCodes.ArrowDown });
-		}
-
-		if (blurInProgress)
-		{
-			blurInProgress = false;
-			if (!isDropdownOpened)
-			{
-				await TryProcessCustomTagsAsync();
-				userInput = String.Empty;
-				StateHasChanged();
-			}
 		}
 	}
 

@@ -10,8 +10,6 @@ public partial class HxInputTagsInputInternal
 
 	[Parameter] public EventCallback OnFocus { get; set; }
 
-	[Parameter] public EventCallback OnBlur { get; set; }
-
 	[Parameter] public EventCallback OnMouseDown { get; set; }
 
 	[Parameter] public EventCallback OnClick { get; set; }

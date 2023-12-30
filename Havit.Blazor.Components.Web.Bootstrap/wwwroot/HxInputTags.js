@@ -8,6 +8,7 @@
 	inputElement.hxInputTagsKeysToPreventDefault = keysToPrevendDefault;
 
 	inputElement.addEventListener('keydown', handleKeyDown);
+	inputElement.addEventListener('blur', handleInputBlur);
 }
 
 function handleKeyDown(event) {
@@ -18,6 +19,20 @@ function handleKeyDown(event) {
 	if (event.target.hxInputTagsKeysToPreventDefault.includes(key)) {
 		event.preventDefault();
 	}
+}
+
+function handleInputBlur(event) {
+	// We need the blur event to confirm custom tag creation.
+	// When the dropdown is open, the blur event is fired before the click event on the dropdown item.
+	// We need to recognize, whether the blur event is fired because of the dropdown item click or because of the user clicked somewhere else.
+	// We will use relatedTarget property of the event to recognize the click on the dropdown item.
+	// If relatedTarget is within the dropdown, we will ignore the blur event.
+	var isWithinDropdown = false;
+	if (event.relatedTarget) {
+		isWithinDropdown = event.target.parentElement.contains(event.relatedTarget);
+	}
+
+	event.target.hxInputTagsDotnetObjectReference.invokeMethodAsync("HxInputTagsInternal_HandleInputBlur", isWithinDropdown);
 }
 
 export function open(inputElement, hxInputTagsDotnetObjectReference, delayShow) {
@@ -89,6 +104,7 @@ export function dispose(inputId) {
 	let inputElement = document.getElementById(inputId);
 
 	inputElement.removeEventListener('keydown', handleKeyDown);
+	inputElement.removeEventListener('blur', handleInputBlur);
 	inputElement.hxInputTagsDotnetObjectReference = null;
 	inputElement.hxInputTagsKeysToPreventDefault = null;
 }
