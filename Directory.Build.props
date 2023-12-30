@@ -11,7 +11,7 @@
 		<LangVersion>latest</LangVersion>
 		
 		<!-- aligned NuGet PackageVersion for package-bundles -->
-		<ComponentsPackagesVersion>4.4.1</ComponentsPackagesVersion>
+		<ComponentsPackagesVersion>4.4.2-pre1</ComponentsPackagesVersion>
 		<GrpcPackagesVersion>1.5.0</GrpcPackagesVersion>
 	</PropertyGroup>
 
