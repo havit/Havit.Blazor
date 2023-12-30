@@ -184,9 +184,7 @@ public partial class HxInputTagsInternal
 		// user changes an input
 		userInput = newUserInput ?? String.Empty;
 
-		timer?.Stop(); // if waiting for an interval, stop it
-		cancellationTokenSource?.Cancel(); // if already loading data, cancel it
-		dataProviderInProgress = false; // data provider is no more in progress				 
+		CancelDelayedSuggestionsUpdate();
 
 		// tag delimiters
 		await TryProcessCustomTagsAsync(keepLastTagForSuggestion: true);
@@ -219,6 +217,13 @@ public partial class HxInputTagsInternal
 				await TryDestroyDropdownAsync();
 			}
 		}
+	}
+
+	private void CancelDelayedSuggestionsUpdate()
+	{
+		timer?.Stop(); // if waiting for an interval, stop it
+		cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
+		dataProviderInProgress = false; // data provider is no longer in progress				 
 	}
 
 	private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -261,9 +266,8 @@ public partial class HxInputTagsInternal
 	public async Task HandleInputBlur(bool isWithinDropdown)
 	{
 		currentlyFocused = false;
-		timer?.Stop(); // if waiting for an interval, stop it
-		cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
-		dataProviderInProgress = false; // data provider is no longer in progress				 
+
+		CancelDelayedSuggestionsUpdate();
 
 		if (!isWithinDropdown)
 		{
@@ -273,37 +277,40 @@ public partial class HxInputTagsInternal
 
 	private async Task TryProcessCustomTagsAsync(bool keepLastTagForSuggestion = false)
 	{
-		if (!AllowCustomTags)
+		if (AllowCustomTags)
 		{
-			return;
-		}
-
-		// tags before last delimiter
-		char[] delimitersArray = DelimitersEffective.ToArray();
-		var delimiterIndex = userInput.IndexOfAny(delimitersArray);
-		while (delimiterIndex >= 0)
-		{
-			var tag = userInput.Substring(0, delimiterIndex).Trim(delimitersArray);
-			userInput = userInput.Substring(delimiterIndex).TrimStart(delimitersArray);
-
-			if (!String.IsNullOrWhiteSpace(tag))
+			// tags before last delimiter
+			char[] delimitersArray = DelimitersEffective.ToArray();
+			var delimiterIndex = userInput.IndexOfAny(delimitersArray);
+			while (delimiterIndex >= 0)
 			{
-				await AddTagWithEventCallbackAsync(tag);
-			}
+				var tag = userInput.Substring(0, delimiterIndex).Trim(delimitersArray);
+				userInput = userInput.Substring(delimiterIndex).TrimStart(delimitersArray);
 
-			delimiterIndex = userInput.IndexOfAny(delimitersArray);
+				if (!String.IsNullOrWhiteSpace(tag))
+				{
+					await AddTagWithEventCallbackAsync(tag);
+				}
+
+				delimiterIndex = userInput.IndexOfAny(delimitersArray);
+			}
 		}
 
 		// last tag
 		if (!keepLastTagForSuggestion)
 		{
-			var newTag = userInput?.Trim(delimitersArray);
-			if (!String.IsNullOrWhiteSpace(newTag))
+			if (AllowCustomTags)
 			{
-				await AddTagWithEventCallbackAsync(newTag);
+				var newTag = userInput?.Trim(DelimitersEffective.ToArray());
+				if (!String.IsNullOrWhiteSpace(newTag))
+				{
+					await AddTagWithEventCallbackAsync(newTag);
+				}
 			}
 			userInput = String.Empty;
 		}
+
+		StateHasChanged();
 	}
 
 	private async Task UpdateSuggestionsAsync(bool delayDropdownShow = false)
@@ -342,7 +349,7 @@ public partial class HxInputTagsInternal
 		dataProviderInProgress = false;
 
 		// KeyboardNavigation
-		focusedItemIndex = 0; // First item in the searchResults collection.
+		focusedItemIndex = -1; // No item is focused after the suggestions are updated.
 
 		suggestions = result.Data.ToList();
 
@@ -370,13 +377,20 @@ public partial class HxInputTagsInternal
 		}
 
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
+		// Otherwise, if the user presses enter, try to process the custom tag(s).
 		string focusedItem = GetItemByIndex(focusedItemIndex);
 		if ((keyCode == KeyCodes.Enter) || (keyCode == KeyCodes.NumpadEnter))
 		{
+			CancelDelayedSuggestionsUpdate();
+			await TryDestroyDropdownAsync();
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
-				await TryDestroyDropdownAsync();
 				await HandleItemSelected(focusedItem);
+			}
+			else
+			{
+				await TryProcessCustomTagsAsync();
+				StateHasChanged();
 			}
 		}
 
@@ -403,7 +417,7 @@ public partial class HxInputTagsInternal
 
 	private string GetItemByIndex(int index)
 	{
-		if (index >= 0 && index < suggestions?.Count)
+		if ((index >= 0) && (index < suggestions?.Count))
 		{
 			return suggestions[index];
 		}
