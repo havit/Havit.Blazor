@@ -18,7 +18,14 @@ public class HxInputNumberTests
 	[DataRow("cs-CZ", "15 81,549", 1581.55, "1581,55")]
 	[DataRow("cs-CZ", "1.234", 1.23, "1,23")] // Replace . with , (if possible)
 	[DataRow("en-US", "1.237", 1.24, "1.24")] // rounding
+#if NET8_0_OR_GREATER
 	[DataRow("en-US", "abc", null, "abc")] // invalid input
+#else
+	// Blazor bug - missing SetUpdatesAttributeName
+	// https://github.com/havit/Havit.Blazor/issues/468
+	// https://github.com/dotnet/aspnetcore/pull/46434
+	[DataRow("en-US", "abc", null, null)] // invalid input
+#endif
 	[DataRow("en-US", "", null, null)] // empty input
 	public void HxInputNumber_NullableDecimal_ValueConversions(string culture, string input, double? expectedValue, string expectedInputText)
 	{
