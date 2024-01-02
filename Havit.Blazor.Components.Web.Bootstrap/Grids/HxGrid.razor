@@ -144,7 +144,7 @@
 
 						@if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
 						{
-							<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective">
+							<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective" SpacerElement="tr">
 								<ItemContent>
 									@rowTemplate(@context)
 								</ItemContent>
