@@ -6,6 +6,10 @@
     visibility: hidden;
 }
 
+::deep .hx-grid-infinite-scroll {
+	white-space: nowrap;
+}
+
 th:hover.hx-grid-sortable ::deep .hx-grid-sort-icon {
 	visibility: visible;
 }

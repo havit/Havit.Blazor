@@ -409,7 +409,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			hoverable ? "table-hover" : null,
 			this.StripedEffective ? "table-striped" : null,
 			this.TableCssClassEffective,
-			this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll ? "text-nowrap" : null);
+			this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll ? "hx-grid-infinite-scroll" : null);
 	}
 
 	/// <summary>
