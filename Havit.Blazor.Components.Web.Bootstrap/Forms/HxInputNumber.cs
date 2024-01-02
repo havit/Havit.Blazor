@@ -210,6 +210,8 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		CultureInfo culture = CultureInfo.CurrentCulture;
 
 		string workingValue = value;
+		bool success = true;
+		result = default;
 
 		// replace . with ,
 		if ((culture.NumberFormat.NumberDecimalSeparator == ",") // when decimal separator is ,
@@ -220,24 +222,31 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 
 		// limitation of the number of decimal places
 		// for complications with the fact that we have TValue and it is quite difficult to work with, we will limit ourselves to solving and modifying the input data before converting it to the target type
-		if (Decimal.TryParse(value, IsTValueIntegerType ? NumberStyles.Integer : NumberStyles.Float, culture, out decimal parsedValue))
+		if (Decimal.TryParse(workingValue, IsTValueIntegerType ? NumberStyles.Integer : NumberStyles.Number, culture, out decimal parsedValue))
 		{
 			workingValue = Math.Round(parsedValue, DecimalsEffective, MidpointRounding.AwayFromZero).ToString(culture);
 		}
-
-		// conversion to the target type
-		// BindConverter has a first-class citizen support for a lot of types (byte, short, int, long) but not for sbyte, ushort, uint, ulong.
-		// These second-citizen types fallback to TypeConverter (TypeDescriptor.GetConverter(...))).
-		// This converter throws ArgumentException when the value cannot be converted to the target type despite the method is "Try...".
-		bool success;
-		try
+		else
 		{
-			success = BindConverter.TryConvertTo<TValue>(workingValue, culture, out result);
-		}
-		catch (ArgumentException)
-		{
-			result = default;
 			success = false;
+			result = default;
+		}
+
+		if (success)
+		{
+			// conversion to the target type
+			// BindConverter has a first-class citizen support for a lot of types (byte, short, int, long) but not for sbyte, ushort, uint, ulong.
+			// These second-citizen types fallback to TypeConverter (TypeDescriptor.GetConverter(...))).
+			// This converter throws ArgumentException when the value cannot be converted to the target type despite the method is "Try...".
+			try
+			{
+				success = BindConverter.TryConvertTo<TValue>(workingValue, culture, out result);
+			}
+			catch (ArgumentException)
+			{
+				result = default;
+				success = false;
+			}
 		}
 
 		if (success)
