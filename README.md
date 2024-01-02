@@ -1,11 +1,13 @@
 ﻿
 # HAVIT Blazor - Bootstrap 5 component bundle
 
-[![Nuget](https://img.shields.io/nuget/v/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
-[![Nuget](https://img.shields.io/nuget/dt/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
+[![GitHub Repo](https://img.shields.io/static/v1?style=flat&logo=github&label=GitHub&message=repo&cacheSeconds=604800)](https://github.com/havit/Havit.Blazor/)
+[![NuGet Version](https://img.shields.io/nuget/v/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
+[![Release Notes](https://img.shields.io/badge/GitHub-Relese%20Notes-yellow?logo=github&cacheSeconds=604800)](https://github.com/havit/Havit.Blazor/releases)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
+[![GitHub License](https://img.shields.io/github/license/havit/Havit.Blazor)](https://github.com/havit/Havit.Blazor/blob/master/LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/havit/Havit.Blazor)](https://github.com/havit/Havit.Blazor/)  
 [![Build Status](https://dev.azure.com/havit/DEV/_apis/build/status/002.HFW-HavitBlazor?branchName=master)](https://dev.azure.com/havit/DEV/_build/latest?definitionId=318&branchName=master)
-[![GitHub](https://img.shields.io/github/license/havit/Havit.Blazor)](https://github.com/havit/Havit.Blazor/blob/master/LICENSE)
-[![GitHub](https://img.shields.io/github/stars/havit/Havit.Blazor)](https://github.com/havit/Havit.Blazor/)  
 [![#StandWithUkraine](https://img.shields.io/badge/%23StandWithUkraine-Russian%20warship%2C%20go%20f%23ck%20yourself-blue)](https://www.peopleinneed.net/what-we-do/humanitarian-aid-and-development/ukraine)
 
 * Free Bootstrap 5.3 components for ASP.NET Blazor
