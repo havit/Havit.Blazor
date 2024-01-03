@@ -35,7 +35,7 @@ public class HxCheckbox : HxInputBase<bool>
 	[Parameter] public string TextCssClass { get; set; }
 
 	/// <summary>
-	/// Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.		
+	/// Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.
 	/// Works only when there is no label, no hint and no validation message.
 	/// </summary>
 	[Parameter] public bool Inline { get; set; }
@@ -53,7 +53,7 @@ public class HxCheckbox : HxInputBase<bool>
 	/// <inheritdoc cref="HxInputBase{TValue}.CoreCssClass" />
 	private protected override string CoreCssClass => CssClassHelper.Combine(
 		base.CoreCssClass,
-		!NeedsFormCheckInnerDiv ? CssClassHelper.Combine(this.CoreFormElementCssClass, Inline ? "form-check-inline" : null) : null,
+		NeedsFormCheckOuter ? CssClassHelper.Combine(this.CoreFormElementCssClass, Inline ? "form-check-inline" : null) : null,
 		Reverse ? "form-check-reverse" : null);
 
 	/// <summary>
@@ -70,6 +70,12 @@ public class HxCheckbox : HxInputBase<bool>
 	/// There for we wrap the input and label to the additional div.
 	/// </summary>
 	private protected bool NeedsFormCheckInnerDiv => !String.IsNullOrWhiteSpace(this.Label) || (this.LabelTemplate is not null);
+
+	/// <summary>
+	/// For checkbox without any Label/LabelTemplate and without Text/TextTemplate we do not add form-check to the parent div.
+	/// </summary>
+	private protected bool NeedsFormCheckOuter => !NeedsFormCheckInnerDiv
+												  && (!string.IsNullOrWhiteSpace(this.Text) || (this.TextTemplate is not null));
 
 	/// <inheritdoc />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)

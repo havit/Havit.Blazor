@@ -3277,7 +3277,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Inline">
             <summary>
-            Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.		
+            Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.
             Works only when there is no label, no hint and no validation message.
             </summary>
         </member>
