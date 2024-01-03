@@ -61,6 +61,10 @@ public static class GrpcClientServiceCollectionExtensions
 				options.Address = new Uri(backendUrl);
 			})
 			.ConfigurePrimaryHttpMessageHandler<GrpcWebHandler>()
+			.ConfigureChannel(options =>
+			{
+				options.ThrowOperationCanceledOnCancellation = true;
+			})
 			.AddInterceptor<GlobalizationLocalizationGrpcClientInterceptor>()
 			.AddInterceptor<ClientUriGrpcClientInterceptor>()
 			.AddInterceptor<ServerExceptionsGrpcClientInterceptor>();
