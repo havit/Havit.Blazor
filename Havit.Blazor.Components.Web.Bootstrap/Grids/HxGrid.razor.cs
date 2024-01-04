@@ -231,7 +231,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// before and after the visible region. This help to reduce the frequency of rendering
 	/// during scrolling. However, higher values mean that more elements will be present
 	/// in the page.<br/>
-	/// Default is <c>50</c>.
+	/// Default is <c>3</c>.
 	/// </summary>
 	[Parameter] public int? OverscanCount { get; set; }
 	protected int OverscanCountEffective => this.OverscanCount ?? this.GetSettings()?.OverscanCount ?? GetDefaults().OverscanCount ?? throw new InvalidOperationException(nameof(OverscanCount) + " default for " + nameof(HxGrid) + " has to be set.");
