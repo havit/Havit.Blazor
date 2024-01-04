@@ -14,25 +14,25 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	[Parameter] public IEnumerable<TItem> Data { get; set; }
 
 	/// <summary>
-	/// Selects text to display from item.
+	/// Selects the text to display from the item.
 	/// When not set, <c>ToString()</c> is used.
 	/// </summary>
 	[Parameter] public Func<TItem, string> ItemTextSelector { get; set; }
 
 	/// <summary>
-	/// Selects value from item.
-	/// Not required when TValue is same as TItem.
+	/// Selects the value from the item.
+	/// Not required when TValue is the same as TItem.
 	/// </summary>
 	[Parameter] public Func<TItem, TValue> ItemValueSelector { get; set; }
 
 	/// <summary>
-	/// Selects value for items sorting. When not set, <see cref="ItemTextSelector"/> property will be used.
-	/// If you need complex sorting, pre-sort data manually or create a custom comparable property.
+	/// Selects the value for item sorting. When not set, the <see cref="ItemTextSelector"/> property will be used.
+	/// If you need complex sorting, pre-sort the data manually or create a custom comparable property.
 	/// </summary>
 	[Parameter] public Func<TItem, IComparable> ItemSortKeySelector { get; set; }
 
 	/// <summary>
-	/// Additional CSS class(es) for underlying <see cref="HxCheckbox" />.
+	/// Additional CSS class(es) for the underlying <see cref="HxCheckbox" />.
 	/// </summary>
 	[Parameter] public string ItemCssClass { get; set; }
 
@@ -62,13 +62,13 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	[Parameter] public Func<TItem, string> ItemTextCssClassSelector { get; set; }
 
 	/// <summary>
-	/// When <c>true</c>, items are sorted before displaying in select.
-	/// Default value is <c>true</c>.
+	/// When <c>true</c>, items are sorted before displaying in the select.
+	/// The default value is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool AutoSort { get; set; } = true;
 
 	/// <summary>
-	/// Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.
+	/// Allows grouping checkboxes on the same horizontal row by rendering them inline. The default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool Inline { get; set; }
 
@@ -78,7 +78,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	[Parameter] public CheckboxListSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	protected override CheckboxListSettings GetSettings() => this.Settings;
 
@@ -102,7 +102,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 			else
 			{
 				itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
-			}
+}
 		}
 	}
 

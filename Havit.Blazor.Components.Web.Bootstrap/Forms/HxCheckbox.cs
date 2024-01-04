@@ -15,7 +15,7 @@ public class HxCheckbox : HxInputBase<bool>
 	[Parameter] public CheckboxSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	protected override CheckboxSettings GetSettings() => this.Settings;
 
@@ -35,8 +35,8 @@ public class HxCheckbox : HxInputBase<bool>
 	[Parameter] public string TextCssClass { get; set; }
 
 	/// <summary>
-	/// Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.		
-	/// Works only when there is no label, no hint and no validation message.
+	/// Allows grouping checkboxes on the same horizontal row by rendering them inline. The default value is <c>false</c>.		
+	/// This only works when there is no label, no hint, and no validation message.
 	/// </summary>
 	[Parameter] public bool Inline { get; set; }
 
@@ -57,17 +57,17 @@ public class HxCheckbox : HxInputBase<bool>
 		Reverse ? "form-check-reverse" : null);
 
 	/// <summary>
-	/// CSS class for <c>form-check</c> element (e.g. allows adding <c>form-switch</c> in derived <see cref="HxSwitch"/>).
+	/// CSS class for the <c>form-check</c> element (e.g., allows adding <c>form-switch</c> in derived <see cref="HxSwitch"/>).
 	/// </summary>
 	private protected virtual string CoreFormElementCssClass => "form-check";
 
 	/// <summary>
-	/// For naked checkbox without Label/LabelTemplate, we add form-check, form-check-inline to the parent div (allows combining with CssClass etc.).
-	/// It is expected there is just the parent div, input and label for Text/TextTemplate.
+	/// For a naked checkbox without Label/LabelTemplate, we add form-check, form-check-inline to the parent div (allows combining with CssClass etc.).
+	/// It is expected that there is just the parent div, input, and label for Text/TextTemplate.
 	/// No label for Label/LabelTemplate, no HintTemplate, no validation message is expected.
-	/// For checkbox with Label, there is a parent div followed by label for Label/LabelTemplate.
-	/// Siblings label, input, label does not work well and there is no where to add form-check.
-	/// There for we wrap the input and label to the additional div.
+	/// For a checkbox with Label, there is a parent div followed by a label for Label/LabelTemplate.
+	/// Siblings label, input, label do not work well and there is nowhere to add form-check.
+	/// Therefore, we wrap the input and label in the additional div.
 	/// </summary>
 	private protected bool NeedsFormCheckInnerDiv => !String.IsNullOrWhiteSpace(this.Label) || (this.LabelTemplate is not null);
 

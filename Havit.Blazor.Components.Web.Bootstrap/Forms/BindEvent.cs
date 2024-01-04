@@ -6,12 +6,12 @@
 public enum BindEvent
 {
 	/// <summary>
-	/// "oninput" event is used to retrieved value from the input element.
+	/// "oninput" event is used to retrieve value from the input element.
 	/// </summary>
 	OnInput,
 
 	/// <summary>
-	/// "onchange" event is used to retrieved value from the input element.
+	/// "onchange" event is used to retrieve value from the input element.
 	/// </summary>
 	OnChange
 }

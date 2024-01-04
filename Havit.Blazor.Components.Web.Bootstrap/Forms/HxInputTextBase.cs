@@ -10,8 +10,8 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 {
 	/// <summary>
 	/// Return <see cref="HxInputText"/> defaults.
-	/// Enables to not share defaults in descendants with base classes.
-	/// Enables to have multiple descendants which differs in the default values.
+	/// Enables not sharing defaults in descendants with base classes.
+	/// Enables having multiple descendants that differ in the default values.
 	/// </summary>
 	protected override abstract InputTextSettings GetDefaults();
 
@@ -21,29 +21,29 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 	[Parameter] public InputTextSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected override InputTextSettings GetSettings() => this.Settings;
 
 	/// <summary>
 	/// The maximum number of characters (UTF-16 code units) that the user can enter.<br />
-	/// If parameter value isn't specified, <see cref="System.ComponentModel.DataAnnotations.MaxLengthAttribute"/> of the <c>Value</c> is checked and used.<br />
+	/// If the parameter value isn't specified, the <see cref="System.ComponentModel.DataAnnotations.MaxLengthAttribute"/> of the <c>Value</c> is checked and used.<br />
 	/// If not specified either, the user can enter an unlimited number of characters.
 	/// </summary>
 	[Parameter] public int? MaxLength { get; set; }
 
 	/// <summary>
 	/// Hint to browsers as to the type of virtual keyboard configuration to use when editing.<br/>
-	/// Default is <c>null</c> (not set).
+	/// The default is <c>null</c> (not set).
 	/// </summary>
 	[Parameter] public InputMode? InputMode { get; set; }
 	protected InputMode? InputModeEffective => this.InputMode ?? this.GetSettings()?.InputMode ?? this.GetDefaults()?.InputMode;
 
 	/// <summary>
-	/// Gets or sets the behavior when the model is updated from then input.
+	/// Gets or sets the behavior when the model is updated from the input.
 	/// </summary>
 	[Parameter] public BindEvent BindEvent { get; set; } = BindEvent.OnChange;
 
@@ -95,12 +95,12 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 	}
 
 	/// <summary>
-	/// Returns element name to render.
+	/// Returns the element name to render.
 	/// </summary>
 	private protected abstract string GetElementName();
 
 	/// <summary>
-	/// Returns type attribute value.
+	/// Returns the type attribute value.
 	/// </summary>
 	private protected abstract string GetTypeAttributeValue();
 

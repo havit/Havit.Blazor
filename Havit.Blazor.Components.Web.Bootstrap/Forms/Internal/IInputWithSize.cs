@@ -7,11 +7,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 public interface IInputWithSize
 {
 	/// <summary>
-	/// Input size.
+	/// The size of the input.
 	/// </summary>
 	InputSize InputSizeEffective { get; }
 
+	/// <summary>
+	/// Gets the CSS class for the input size.
+	/// </summary>
 	string GetInputSizeCssClass() => this.InputSizeEffective.AsFormControlCssClass();
 
+	/// <summary>
+	/// Gets the CSS class for the input group size.
+	/// </summary>
 	string GetInputGroupSizeCssClass() => this.InputSizeEffective.AsInputGroupCssClass();
 }

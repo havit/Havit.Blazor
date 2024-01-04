@@ -1,27 +1,27 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 /// <summary>
-/// Represents properties (and methods) of a component rendering a form value (ie. form inputs).
+/// Represents properties (and methods) of a component that renders a form value (i.e., form inputs).
 /// </summary>
 public interface IFormValueComponent
 {
 	/// <summary>
-	/// Custom CSS class to render with wrapping div.
+	/// Custom CSS class to render with the wrapping div.
 	/// </summary>
 	string CssClass => null;
 
 	/// <summary>
-	/// Label to render before input (or after input for Checkbox).		
+	/// Label to render before the input (or after the input for Checkbox).
 	/// </summary>
 	string Label => null;
 
 	/// <summary>
-	/// Label to render before input (or after input for Checkbox).
+	/// Label to render before the input (or after the input for Checkbox).
 	/// </summary>
 	RenderFragment LabelTemplate => null;
 
 	/// <summary>
-	/// Element id to render as label for attribute.
+	/// Element id to render as the label for attribute.
 	/// </summary>
 	string LabelFor => null;
 
@@ -31,23 +31,23 @@ public interface IFormValueComponent
 	string LabelCssClass => null;
 
 	/// <summary>
-	/// Renders content of the component (value, input).
+	/// Renders the content of the component (value, input).
 	/// </summary>
 	/// <param name="builder"></param>
 	void RenderValue(RenderTreeBuilder builder); // no default implementation!
 
 	/// <summary>
-	/// Renders validation message.
+	/// Renders the validation message.
 	/// </summary>
 	void RenderValidationMessage(RenderTreeBuilder builder) { /* NOOP (default implementation) */ }
 
 	/// <summary>
-	/// Hint to render after input as form-text.
+	/// Hint to render after the input as form-text.
 	/// </summary>
 	string Hint => null;
 
 	/// <summary>
-	/// Hint to render after input as form-text.
+	/// Hint to render after the input as form-text.
 	/// </summary>
 	RenderFragment HintTemplate => null;
 

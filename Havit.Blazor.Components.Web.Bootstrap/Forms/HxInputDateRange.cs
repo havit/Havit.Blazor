@@ -5,13 +5,13 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Date range picker. Form input component for entering start date and end date.<br />
+/// Date range picker. Form input component for entering a start date and an end date.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputDateRange">https://havit.blazor.eu/components/HxInputDateRange</see>
 /// </summary>
 public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 {
 	/// <summary>
-	/// Application-wide defaults for the <see cref="HxInputDateRange"/>.
+	/// Application-wide defaults for the <see cref="HxInputDateRange"/> component.
 	/// </summary>
 	public static InputDateRangeSettings Defaults { get; set; }
 
@@ -29,8 +29,8 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	}
 
 	/// <summary>
-	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Returns the application-wide defaults for the component.
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected override InputDateRangeSettings GetDefaults() => Defaults;
 
@@ -40,10 +40,10 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	[Parameter] public InputDateRangeSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected override InputDateRangeSettings GetSettings() => this.Settings;
 
@@ -67,51 +67,51 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
 
 	/// <summary>
-	/// Gets or sets the error message used when displaying an a &quot;from&quot; parsing error.
-	/// Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by Label property, <c>{1}</c> name of bounded property.
+	/// Gets or sets the error message used when displaying a &quot;from&quot; parsing error.
+	/// Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by the Label property, <c>{1}</c> is replaced by the name of the bounded property.
 	/// </summary>
 	[Parameter] public string FromParsingErrorMessage { get; set; }
 
 	/// <summary>
-	/// Gets or sets the error message used when displaying an a &quot;to&quot; parsing error.
-	/// Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by Label property, <c>{1}</c> name of bounded property.
+	/// Gets or sets the error message used when displaying a &quot;to&quot; parsing error.
+	/// Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by the Label property, <c>{1}</c> is replaced by the name of the bounded property.
 	/// </summary>
 	[Parameter] public string ToParsingErrorMessage { get; set; }
 
 	/// <summary>
-	/// Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
-	/// Default is <c>true</c> (configurable in <see cref="HxInputDate.Defaults"/>).
+	/// Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
+	/// The default is <c>true</c> (configurable in <see cref="HxInputDate.Defaults"/>).
 	/// </summary>
 	[Parameter] public bool? ShowClearButton { get; set; }
 	protected bool ShowClearButtonEffective => this.ShowClearButton ?? this.GetSettings()?.ShowClearButton ?? this.GetDefaults().ShowClearButton ?? throw new InvalidOperationException(nameof(ShowClearButton) + " default for " + nameof(HxInputDateRange) + " has to be set.");
 
 	/// <summary>
-	/// First date selectable from the dropdown calendar.<br />
-	/// Default is <c>1.1.1900</c> (configurable from <see cref="HxInputDateRange.Defaults"/>).
+	/// The first date selectable from the dropdown calendar.<br />
+	/// The default is <c>1.1.1900</c> (configurable from <see cref="HxInputDateRange.Defaults"/>).
 	/// </summary>
 	[Parameter] public DateTime? MinDate { get; set; }
 	protected DateTime MinDateEffective => this.MinDate ?? this.GetSettings()?.MinDate ?? GetDefaults().MinDate ?? throw new InvalidOperationException(nameof(MinDate) + " default for " + nameof(HxInputDateRange) + " has to be set.");
 
 	/// <summary>
-	/// Last date selectable from the dropdown calendar.<br />
-	/// Default is <c>31.12.2099</c> (configurable from <see cref="HxInputDateRange.Defaults"/>).
+	/// The last date selectable from the dropdown calendar.<br />
+	/// The default is <c>31.12.2099</c> (configurable from <see cref="HxInputDateRange.Defaults"/>).
 	/// </summary>
 	[Parameter] public DateTime? MaxDate { get; set; }
 	protected DateTime MaxDateEffective => this.MaxDate ?? this.GetSettings()?.MaxDate ?? this.GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxInputDateRange) + " has to be set.");
 
 	/// <summary>
-	/// Allows customization of the dates in dropdown calendars.<br />
-	/// Default customization is configurable with <see cref="HxInputDateRange.Defaults"/>.
+	/// Allows customization of the dates in the dropdown calendars.<br />
+	/// The default customization is configurable with <see cref="HxInputDateRange.Defaults"/>.
 	/// </summary>
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
 	protected CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective => this.CalendarDateCustomizationProvider ?? this.GetSettings()?.CalendarDateCustomizationProvider ?? GetDefaults().CalendarDateCustomizationProvider;
 
 	/// <summary>
-	/// Month to display the from calendar, when no start date selected.
+	/// The month to display in the from calendar when no start date is selected.
 	/// </summary>
 	[Parameter] public DateTime FromCalendarDisplayMonth { get; set; }
 	/// <summary>
-	/// Month to display the to calendar, when no end date or start date selected, will default to <see cref="HxInputDateRange.FromCalendarDisplayMonth"/>.
+	/// The month to display in the to calendar when no end date or start date is selected. It will default to <see cref="HxInputDateRange.FromCalendarDisplayMonth"/>.
 	/// </summary>
 	[Parameter] public DateTime ToCalendarDisplayMonth { get; set; }
 

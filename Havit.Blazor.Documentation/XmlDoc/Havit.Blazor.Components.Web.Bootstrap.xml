@@ -2386,7 +2386,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderRequest.CancellationToken">
             <summary>
-            The <see cref="T:System.Threading.CancellationToken"/> used to relay cancellation of the request.
+            The <see cref="T:System.Threading.CancellationToken"/> used to indicate cancellation of the request.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderResult`1">
@@ -2396,7 +2396,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderResult`1.Data">
             <summary>
-            The provided items by the request.
+            The items provided by the request.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings">
@@ -2406,27 +2406,27 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.SearchIcon">
             <summary>
-            Icon displayed in input when no item is selected.
+            Icon displayed in the input when no item is selected.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.ClearIcon">
             <summary>
-            Icon displayed in input on selection clear button when item is selected.
+            Icon displayed in the input on the selection clear button when an item is selected.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.MinimumLength">
             <summary>
-            Minimal number of characters to start suggesting.
+            The minimum number of characters to start suggesting.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.Delay">
             <summary>
-            Debounce delay in milliseconds.
+            The debounce delay in milliseconds.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.InputSize">
             <summary>
-            Input size.
+            The input size.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2">
@@ -2435,13 +2435,13 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAutosuggest">https://havit.blazor.eu/components/HxAutosuggest</see>
             </summary>
             <remarks>
-            Defaults located in separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest"/>.
+            Defaults are located in a separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest"/>.
             </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetDefaults">
             <summary>
             Returns application-wide defaults for the component.
-            Enables overriding defaults in descendants (use separate set of defaults).
+            Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Settings">
@@ -2451,32 +2451,32 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Returns an optional set of component settings.
             </summary>
             <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Settings"/> in components descendants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Settings"/> in component descendants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.DataProvider">
             <summary>
-            Method (delegate) which provides data of the suggestions.
+            Method (delegate) that provides data for the suggestions.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ValueSelector">
             <summary>
-            Selects value from item.
-            Not required when <c>TValue</c> is same as  <c>TItem</c>.
+            Selects a value from an item.
+            Not required when <c>TValue</c> is the same as <c>TItem</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.TextSelector">
             <summary>
-            Selects text to display from item.
-            When not set <c>ToString()</c> is used.
+            Selects the text to display from an item.
+            When not set, <c>ToString()</c> is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ItemTemplate">
             <summary>
-            Template to display item.
+            Template to display an item.
             When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.TextSelector"/> is used.
             </summary>
         </member>
@@ -2487,32 +2487,32 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.SearchIcon">
             <summary>
-            Icon displayed in input when no item is selected.
+            Icon displayed in the input when no item is selected.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ClearIcon">
             <summary>
-            Icon displayed in input on selection clear button when item is selected.
+            Icon displayed in the input on the selection clear button when an item is selected.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.MinimumLength">
             <summary>
-            Minimal number of characters to start suggesting.
+            The minimal number of characters to start suggesting.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Delay">
             <summary>
-            Debounce delay in milliseconds.
+            The debounce delay in milliseconds.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Placeholder">
             <summary>
-            Short hint displayed in the input field before the user enters a value.
+            A short hint displayed in the input field before the user enters a value.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputSize">
             <summary>
-            Size of the input.
+            The size of the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.LabelType">
@@ -2520,37 +2520,37 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.DropdownOffset">
             <summary>
-            Offset between the dropdown and the input.
+            The offset between the dropdown and the input.
             <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ItemFromValueResolver">
             <summary>
-            Returns corresponding item for (selected) Value.
+            Returns the corresponding item for the (selected) value.
             </summary>
             <remarks>
-            We do not have full list of possible items to be able to select one by value.
+            We do not have a full list of possible items to be able to select one by value.
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupStartText">
             <summary>
-            Input-group at the beginning of the input.
+            The input-group at the beginning of the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupStartTemplate">
             <summary>
-            Input-group at the beginning of the input.
+            The input-group at the beginning of the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupEndText">
             <summary>
-            Input-group at the end of the input.<br/>
+            The input-group at the end of the input.<br/>
             Hides the search icon when used!
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupEndTemplate">
             <summary>
-            Input-group at the end of the input.<br/>
+            The input-group at the end of the input.<br/>
             Hides the search icon when used!
             </summary>
         </member>
@@ -2670,7 +2670,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueComponentExtensions">
             <summary>
-            Extension methods to <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" />.
+            Extension methods for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" />.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueComponentExtensions.ShouldRenderInputGroups(Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent)">
@@ -2681,7 +2681,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueRenderer">
             <summary>
             Renders <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" />.
-            The purpose of this class is to allow to use custom renderer.
+            The purpose of this class is to allow the use of a custom renderer.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueRenderer.Current">
@@ -2696,7 +2696,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.FormValueComponent">
             <summary>
-            Values for component renderer.
+            Values for the component renderer.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -2704,27 +2704,27 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderLabel(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
-            Renders label when properties set.
+            Renders the label when properties are set.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderInputGroups(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,Microsoft.AspNetCore.Components.RenderFragment)">
             <summary>
-            Renders input groups (with content).
+            Renders the input groups (with content).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderValue(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
-            Renders value/input.
+            Renders the value/input.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderHint(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
-            Renders hint when property HintTemplate set.
+            Renders the hint when the HintTemplate property is set.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderValidationMessage(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
-            Renders validation message.
+            Renders the validation message.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueRenderer">
@@ -2783,27 +2783,27 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent">
             <summary>
-            Represents properties (and methods) of a component rendering a form value (ie. form inputs).
+            Represents properties (and methods) of a component that renders a form value (i.e., form inputs).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.CssClass">
             <summary>
-            Custom CSS class to render with wrapping div.
+            Custom CSS class to render with the wrapping div.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.Label">
             <summary>
-            Label to render before input (or after input for Checkbox).		
+            Label to render before the input (or after the input for Checkbox).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.LabelTemplate">
             <summary>
-            Label to render before input (or after input for Checkbox).
+            Label to render before the input (or after the input for Checkbox).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.LabelFor">
             <summary>
-            Element id to render as label for attribute.
+            Element id to render as the label for attribute.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.LabelCssClass">
@@ -2813,23 +2813,23 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.RenderValue(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
-            Renders content of the component (value, input).
+            Renders the content of the component (value, input).
             </summary>
             <param name="builder"></param>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.RenderValidationMessage(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
-            Renders validation message.
+            Renders the validation message.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.Hint">
             <summary>
-            Hint to render after input as form-text.
+            Hint to render after the input as form-text.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.HintTemplate">
             <summary>
-            Hint to render after input as form-text.
+            Hint to render after the input as form-text.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.CoreCssClass">
@@ -2859,13 +2859,13 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupCssClass">
             <summary>
-            Custom CSS class to render with input-group span.
+            Custom CSS class to be rendered with the input-group span.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartText">
             <summary>
             Input-group-text at the beginning of the input.
-            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartTemplate"/> this property is rendered as <c>.input-group-text</c>.
+            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartTemplate"/>, this property is rendered as <c>.input-group-text</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupStartTemplate">
@@ -2876,7 +2876,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndText">
             <summary>
             Input-group-text at the end of the input.
-            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate"/> this property is rendered as <c>.input-group-text</c>.
+            In comparison to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate"/>, this property is rendered as <c>.input-group-text</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups.InputGroupEndTemplate">
@@ -2886,22 +2886,22 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputSettingsWithSize.InputSize">
             <summary>
-            Input size.
+            The size of the input.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithLabelType">
             <summary>
-            Input with label type.
+            Represents an input with a label type.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithLabelType.LabelType">
             <summary>
-            Label type.
+            Gets or sets the label type.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithLabelType.LabelTypeEffective">
             <summary>
-            Effective label type.
+            Gets the effective label type.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithPlaceholder">
@@ -2921,33 +2921,38 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.InputSizeEffective">
             <summary>
-            Input size.
+            The size of the input.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.GetInputSizeCssClass">
+            <summary>
+            Gets the CSS class for the input size.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.GetInputGroupSizeCssClass">
+            <summary>
+            Gets the CSS class for the input group size.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder">
             <summary>
-            Render order.
+            Specifies the render order of label and value/input.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder.LabelValue">
             <summary>
-            Render label first, then value/input (majority of components).
+            Renders the label first, followed by the value/input (used by the majority of components).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder.ValueLabel">
             <summary>
-            Render value/input first, then label (ie. former HxInputCheckbox).
-            Obsolete, should not be needed any more.
+            Renders the value/input first, followed by the label (used by the former HxInputCheckbox).
+            Obsolete, should not be needed anymore.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder.ValueOnly">
             <summary>
-            Render value/input only. Label is not rendered (ie. <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2" /> with floating label which renders label internally).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.StringPatternizer.TranslateInlineCharCodes(System.String)">
-            <summary>
-            Searches for character codes surrounded with '{' and '}' and replaces them with corresponding symbol.
+            Renders only the value/input. The label is not rendered (used by HxAutosuggest{TItem, TValue} with floating label which renders the label internally).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetId">
@@ -3242,12 +3247,12 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.BindEvent.OnInput">
             <summary>
-            "oninput" event is used to retrieved value from the input element.
+            "oninput" event is used to retrieve value from the input element.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.BindEvent.OnChange">
             <summary>
-            "onchange" event is used to retrieved value from the input element.
+            "onchange" event is used to retrieve value from the input element.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.BindEventExtensions">
@@ -3257,7 +3262,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.BindEventExtensions.ToEventName(Havit.Blazor.Components.Web.Bootstrap.BindEvent)">
             <summary>
-            Gets the name of event as string.
+            Gets the name of the event as a string.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings">
@@ -3277,7 +3282,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.FormValueSettings.InputSize">
             <summary>
-            Input size. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.InputSize.Regular"/>.
+            Input size. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.InputSize.Regular"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox">
@@ -3294,7 +3299,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Returns an optional set of component settings.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Text">
@@ -3314,8 +3319,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Inline">
             <summary>
-            Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.		
-            Works only when there is no label, no hint and no validation message.
+            Allows grouping checkboxes on the same horizontal row by rendering them inline. The default value is <c>false</c>.		
+            This only works when there is no label, no hint, and no validation message.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Reverse">
@@ -3331,17 +3336,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreFormElementCssClass">
             <summary>
-            CSS class for <c>form-check</c> element (e.g. allows adding <c>form-switch</c> in derived <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/>).
+            CSS class for the <c>form-check</c> element (e.g., allows adding <c>form-switch</c> in derived <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsFormCheckInnerDiv">
             <summary>
-            For naked checkbox without Label/LabelTemplate, we add form-check, form-check-inline to the parent div (allows combining with CssClass etc.).
-            It is expected there is just the parent div, input and label for Text/TextTemplate.
+            For a naked checkbox without Label/LabelTemplate, we add form-check, form-check-inline to the parent div (allows combining with CssClass etc.).
+            It is expected that there is just the parent div, input, and label for Text/TextTemplate.
             No label for Label/LabelTemplate, no HintTemplate, no validation message is expected.
-            For checkbox with Label, there is a parent div followed by label for Label/LabelTemplate.
-            Siblings label, input, label does not work well and there is no where to add form-check.
-            There for we wrap the input and label to the additional div.
+            For a checkbox with Label, there is a parent div followed by a label for Label/LabelTemplate.
+            Siblings label, input, label do not work well and there is nowhere to add form-check.
+            Therefore, we wrap the input and label in the additional div.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -3363,25 +3368,25 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemTextSelector">
             <summary>
-            Selects text to display from item.
+            Selects the text to display from the item.
             When not set, <c>ToString()</c> is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemValueSelector">
             <summary>
-            Selects value from item.
-            Not required when TValue is same as TItem.
+            Selects the value from the item.
+            Not required when TValue is the same as TItem.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemSortKeySelector">
             <summary>
-            Selects value for items sorting. When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemTextSelector"/> property will be used.
-            If you need complex sorting, pre-sort data manually or create a custom comparable property.
+            Selects the value for item sorting. When not set, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemTextSelector"/> property will be used.
+            If you need complex sorting, pre-sort the data manually or create a custom comparable property.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemCssClass">
             <summary>
-            Additional CSS class(es) for underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox" />.
+            Additional CSS class(es) for the underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemCssClassSelector">
@@ -3411,13 +3416,13 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.AutoSort">
             <summary>
-            When <c>true</c>, items are sorted before displaying in select.
-            Default value is <c>true</c>.
+            When <c>true</c>, items are sorted before displaying in the select.
+            The default value is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Inline">
             <summary>
-            Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.
+            Allows grouping checkboxes on the same horizontal row by rendering them inline. The default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Settings">
@@ -3427,7 +3432,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Returns an optional set of component settings.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -3461,7 +3466,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.GetDefaults">
             <summary>
             Returns application-wide defaults for the component.
-            Enables overriding defaults in descendants (use separate set of defaults).
+            Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.Settings">
@@ -3471,10 +3476,10 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Returns an optional set of component settings.
             </summary>
             <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.Settings"/> in components descendants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.Settings"/> in component descendants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.CssClass">
@@ -3502,7 +3507,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.ValueTemplate">
             <summary>
-            Template to render value.
+            Template to render the value.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxFormValue.ValueCssClass">
@@ -3536,11 +3541,11 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1">
             <summary>
             A base class for form input components. This base class automatically integrates
-            with an Microsoft.AspNetCore.Components.Forms.EditContext, which must be supplied
+            with a Microsoft.AspNetCore.Components.Forms.EditContext, which must be supplied
             as a cascading parameter.
-            Extends <see cref="T:Microsoft.AspNetCore.Components.Forms.InputBase`1"/> class.
+            Extends the <see cref="T:Microsoft.AspNetCore.Components.Forms.InputBase`1"/> class.
             
-            Adds support for rendering bootstrap based input with validator.
+            Adds support for rendering bootstrap-based input with a validator.
             See also <see href="https://getbootstrap.com/docs/5.3/forms/overview/">https://getbootstrap.com/docs/5.3/forms/overview/</see>.
             </summary>
         </member>
@@ -3551,22 +3556,22 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GetDefaults">
             <summary>
-            Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1"/> defaults.
-            Enables to not share defaults in descendants with base classes.
-            Enables to have multiple descendants which differs in the default values.
+            Returns the defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1"/>.
+            Enables not sharing defaults in descendants with base classes.
+            Enables having multiple descendants that differ in the default values.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GetSettings">
             <summary>
-            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase.Defaults"/>, overridden by individual parameters).
+            Gets the set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase.Defaults"/>, overridden by individual parameters).
             </summary>
             <remarks>
-            Using interface does not force the implementation of settings to use specific class as a base type.</remarks>
+            Using an interface does not force the implementation of settings to use a specific class as a base type.</remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ValidationMessageMode">
             <summary>
             Specifies how the validation message should be displayed.<br/>
-            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Regular"/>, you can override application-wide default for all inputs in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase.Defaults"/>.
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Regular"/>, you can override the application-wide default for all inputs in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase.Defaults"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FormState">
@@ -3574,89 +3579,89 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.Label">
             <summary>
-            Label text.
+            The label text.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.LabelTemplate">
             <summary>
-            Label content.
+            The label content.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.Hint">
             <summary>
-            Hint to render after input as form-text.
+            The hint to render after the input as form-text.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.HintTemplate">
             <summary>
-            Hint to render after input as form-text.
+            The hint to render after the input as form-text.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CssClass">
             <summary>
-            Custom CSS class to render with wrapping div.
+            The custom CSS class to render with the wrapping div.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.LabelCssClass">
             <summary>
-            Custom CSS class to render with the label.
+            The custom CSS class to render with the label.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.InputCssClass">
             <summary>
-            Custom CSS class to render with the input element.
+            The custom CSS class to render with the input element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GenerateChip">
             <summary>
-            When <c>true</c>, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxChipGenerator"/> is used to generate chip item(s). Default is <c>true</c>.
+            When <c>true</c>, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxChipGenerator"/> is used to generate chip item(s). The default is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ChipTemplate">
             <summary>
-            Chip template.
+            The chip template.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.Enabled">
             <summary>
-            When <c>null</c> (default), the <c>Enabled</c> value is received from cascading <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FormState" />.
-            When value is <c>false</c>, input is rendered as disabled.
-            To set multiple controls as disabled use <seealso cref="T:Havit.Blazor.Components.Web.HxFormState" />.
+            When <c>null</c> (default), the <c>Enabled</c> value is received from the cascading <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FormState" />.
+            When the value is <c>false</c>, the input is rendered as disabled.
+            To set multiple controls as disabled, use <seealso cref="T:Havit.Blazor.Components.Web.HxFormState" />.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.EnabledEffective">
             <summary>
-            Returns effective value for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.Enabled"/> property.
+            Gets the effective value for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.Enabled"/> property.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreCssClass">
             <summary>
-            CSS class to be rendered with the wrapping div.
+            The CSS class to be rendered with the wrapping div.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass">
             <summary>
-            CSS class to be rendered with the input element.
+            The CSS class to be rendered with the input element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreLabelCssClass">
             <summary>
-            CSS class to be rendered with the label.
+            The CSS class to be rendered with the label.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreHintCssClass">
             <summary>
-            CSS class to be rendered with the hint.
+            The CSS class to be rendered with the hint.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.InputId">
             <summary>
-            ID if the input element. Autogenerated when used with label.
+            The ID of the input element. Autogenerated when used with a label.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.InputElement">
             <summary>
-            Input ElementReference.
+            The input ElementReference.
             Can be <c>null</c>. 
             </summary>
         </member>
@@ -3687,10 +3692,10 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.EnsureCascadingEditContext">
             <summary>
-            When there is no EditContext cascading parameter, lets create a new one and assign it to CascadedEditContext private property in a base InputBase class.
+            When there is no EditContext cascading parameter, let's create a new one and assign it to the CascadedEditContext private property in the base InputBase class.
             </summary>
             <remarks>
-            Even there is a protected EditContext property we cannot assign a value. When doing so InvalidOperationException exception is thrown.
+            Even though there is a protected EditContext property, we cannot assign a value. When doing so, an InvalidOperationException exception is thrown.
             </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -3698,48 +3703,48 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.RenderWithAutoCreatedEditContextAsCascadingValue(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,System.Int32,Microsoft.AspNetCore.Components.RenderFragment)">
             <summary>
-            When EditContext was automatically created, this method renders CascadingValue component with this EditContext and the content of the renderFragment.
-            Otherwise only renderFragment is rendered.
+            When the EditContext was automatically created, this method renders the CascadingValue component with this EditContext and the content of the renderFragment.
+            Otherwise, only the renderFragment is rendered.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
-            Renders input.
+            Renders the input.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.BuildRenderInput_AddCommonAttributes(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,System.String)">
             <summary>
-            Add common attributes to the input.
+            Adds common attributes to the input.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.BuildRenderValidationMessage(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
-            Renders validation message (component <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1" />) when not disabled (<seealso cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ValidationMessageModeEffective" />).
+            Renders the validation message (component <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1" />) when not disabled (<seealso cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ValidationMessageModeEffective" />).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.RenderChipGenerator(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
-            Renders chip generator.
+            Renders the chip generator.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ShouldRenderChipGenerator">
             <summary>
-            Returns true when chip should be rendered.
-            Supposed to make decision based on CurrentValue.
+            Returns true when the chip should be rendered.
+            Supposed to make a decision based on CurrentValue.
             </summary>
             <remarks>
             This method is called only when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GenerateChip" /> is <c>true</c>.
-            The implementation of the method is not supposed to use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GenerateChip" /> property itself.
+            The implementation of the method is not supposed to use the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GenerateChip" /> property itself.
             </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.RenderChipTemplate(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
-            Returns chip template.
+            Returns the chip template.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GetChipRemoveAction">
             <summary>
-            Returns action to remove chip from model.
+            Returns the action to remove the chip from the model.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GetChipRemoveValue">
@@ -3790,30 +3795,30 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1">
             <summary>
             A base class for form input components. This base class automatically integrates
-            with an Microsoft.AspNetCore.Components.Forms.EditContext, which must be supplied
+            with a Microsoft.AspNetCore.Components.Forms.EditContext, which must be supplied
             as a cascading parameter.
-            Extends <seealso cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1" /> class.
+            Extends the <seealso cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1" /> class.
             Adds support for input groups, <see href="https://getbootstrap.com/docs/5.3/forms/input-group/">https://getbootstrap.com/docs/5.3/forms/input-group/</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1.InputGroupStartText">
             <summary>
-            Input-group at the beginning of the input.
+            Input group at the beginning of the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1.InputGroupStartTemplate">
             <summary>
-            Input-group at the beginning of the input.
+            Input group at the beginning of the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1.InputGroupEndText">
             <summary>
-            Input-group at the end of the input.
+            Input group at the end of the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1.InputGroupEndTemplate">
             <summary>
-            Input-group at the end of the input.
+            Input group at the end of the input.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1">
@@ -3822,13 +3827,13 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputDate">https://havit.blazor.eu/components/HxInputDate</see>
             </summary>
             <remarks>
-            Defaults located in separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate"/>.
+            Defaults are located in a separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate"/>.
             </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetDefaults">
             <summary>
             Returns application-wide defaults for the component.
-            Enables overriding defaults in descendants (use separate set of defaults).
+            Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.Settings">
@@ -3838,10 +3843,10 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Returns an optional set of component settings.
             </summary>
             <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.Settings"/> in components descendants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.Settings"/> in component descendants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.ShowPredefinedDates">
@@ -3875,26 +3880,26 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.ShowClearButton">
             <summary>
-            Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
-            Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
+            Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
+            The default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.MinDate">
             <summary>
-            First date selectable from the dropdown calendar.<br />
-            Default is <c>1.1.1900</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
+            The first date selectable from the dropdown calendar.<br />
+            The default is <c>1.1.1900</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.MaxDate">
             <summary>
-            Last date selectable from the dropdown calendar.<br />
-            Default is <c>31.12.2099</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
+            The last date selectable from the dropdown calendar.<br />
+            The default is <c>31.12.2099</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.CalendarDateCustomizationProvider">
             <summary>
-            Allows customization of the dates in dropdown calendar.<br />
-            Default customization is configurable with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>.
+            Allows customization of the dates in the dropdown calendar.<br />
+            The default customization is configurable with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.LabelType">
@@ -3902,27 +3907,27 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputGroupCssClass">
             <summary>
-            Custom CSS class to render with input-group span.
+            Custom CSS class to render with the input-group span.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputGroupStartText">
             <summary>
-            Input-group at the beginning of the input.
+            The input-group at the beginning of the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputGroupStartTemplate">
             <summary>
-            Input-group at the beginning of the input.
+            The input-group at the beginning of the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputGroupEndText">
             <summary>
-            Input-group at the end of the input.
+            The input-group at the end of the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputGroupEndTemplate">
             <summary>
-            Input-group at the end of the input.
+            The input-group at the end of the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.TimeProvider">
@@ -3960,19 +3965,19 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange">
             <summary>
-            Date range picker. Form input component for entering start date and end date.<br />
+            Date range picker. Form input component for entering a start date and an end date.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputDateRange">https://havit.blazor.eu/components/HxInputDateRange</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults">
             <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/>.
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> component.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetDefaults">
             <summary>
-            Returns application-wide defaults for the component.
-            Enables overriding defaults in descendants (use separate set of defaults).
+            Returns the application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Settings">
@@ -3982,10 +3987,10 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Returns an optional set of component settings.
             </summary>
             <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Settings"/> in components descendants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Settings"/> in component descendants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ShowPredefinedDateRanges">
@@ -4005,48 +4010,48 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromParsingErrorMessage">
             <summary>
-            Gets or sets the error message used when displaying an a &quot;from&quot; parsing error.
-            Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by Label property, <c>{1}</c> name of bounded property.
+            Gets or sets the error message used when displaying a &quot;from&quot; parsing error.
+            Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by the Label property, <c>{1}</c> is replaced by the name of the bounded property.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ToParsingErrorMessage">
             <summary>
-            Gets or sets the error message used when displaying an a &quot;to&quot; parsing error.
-            Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by Label property, <c>{1}</c> name of bounded property.
+            Gets or sets the error message used when displaying a &quot;to&quot; parsing error.
+            Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by the Label property, <c>{1}</c> is replaced by the name of the bounded property.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ShowClearButton">
             <summary>
-            Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
-            Default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
+            Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
+            The default is <c>true</c> (configurable in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.MinDate">
             <summary>
-            First date selectable from the dropdown calendar.<br />
-            Default is <c>1.1.1900</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
+            The first date selectable from the dropdown calendar.<br />
+            The default is <c>1.1.1900</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.MaxDate">
             <summary>
-            Last date selectable from the dropdown calendar.<br />
-            Default is <c>31.12.2099</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
+            The last date selectable from the dropdown calendar.<br />
+            The default is <c>31.12.2099</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.CalendarDateCustomizationProvider">
             <summary>
-            Allows customization of the dates in dropdown calendars.<br />
-            Default customization is configurable with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>.
+            Allows customization of the dates in the dropdown calendars.<br />
+            The default customization is configurable with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromCalendarDisplayMonth">
             <summary>
-            Month to display the from calendar, when no start date selected.
+            The month to display in the from calendar when no start date is selected.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ToCalendarDisplayMonth">
             <summary>
-            Month to display the to calendar, when no end date or start date selected, will default to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromCalendarDisplayMonth"/>.
+            The month to display in the to calendar when no end date or start date is selected. It will default to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromCalendarDisplayMonth"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.TimeProvider">
@@ -4169,7 +4174,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.GetParsingErrorMessage">
             <summary>
-            Returns message for parsing error.
+            Returns the message for a parsing error.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber">
@@ -4191,7 +4196,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent`1.FormatValueAsString(`0)">
             <summary>
-            Converts value into percentages and formats it as a string.
+            Converts the value into percentages and formats it as a string.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputPercent`1.TryParseValueFromString(System.String,`0@,System.String@)">
@@ -4208,8 +4213,8 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.GetDefaults">
             <summary>
             Returns <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange"/> defaults.
-            Enables to not share defaults in descendants with base classes.
-            Enables to have multiple descendants which differs in the default values.
+            Enables not sharing defaults in descendants with base classes.
+            Enables having multiple descendants which differ in the default values.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Settings">
@@ -4222,7 +4227,7 @@
             Returns an optional set of component settings.
             </summary>
             <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Settings"/> for components descendants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Settings"/> for component descendants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Step">
@@ -4253,7 +4258,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputText">
             <summary>
-            Text input (also password, search, etc.)
+            Text input (including password, search, etc.)
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputText.Defaults">
@@ -4265,7 +4270,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputText.GetDefaults">
             <summary>
             Returns application-wide defaults for the component.
-            Enables overriding defaults in descendants (use separate set of defaults).
+            Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputText.Type">
@@ -4300,8 +4305,8 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.GetDefaults">
             <summary>
             Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputText"/> defaults.
-            Enables to not share defaults in descendants with base classes.
-            Enables to have multiple descendants which differs in the default values.
+            Enables not sharing defaults in descendants with base classes.
+            Enables having multiple descendants that differ in the default values.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.Settings">
@@ -4311,28 +4316,28 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Returns an optional set of component settings.
             </summary>
             <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.Settings"/> in components descendants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.Settings"/> in component descendants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.MaxLength">
             <summary>
             The maximum number of characters (UTF-16 code units) that the user can enter.<br />
-            If parameter value isn't specified, <see cref="T:System.ComponentModel.DataAnnotations.MaxLengthAttribute"/> of the <c>Value</c> is checked and used.<br />
+            If the parameter value isn't specified, the <see cref="T:System.ComponentModel.DataAnnotations.MaxLengthAttribute"/> of the <c>Value</c> is checked and used.<br />
             If not specified either, the user can enter an unlimited number of characters.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.InputMode">
             <summary>
             Hint to browsers as to the type of virtual keyboard configuration to use when editing.<br/>
-            Default is <c>null</c> (not set).
+            The default is <c>null</c> (not set).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.BindEvent">
             <summary>
-            Gets or sets the behavior when the model is updated from then input.
+            Gets or sets the behavior when the model is updated from the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.Placeholder">
@@ -4353,12 +4358,12 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.GetElementName">
             <summary>
-            Returns element name to render.
+            Returns the element name to render.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.GetTypeAttributeValue">
             <summary>
-            Returns type attribute value.
+            Returns the type attribute value.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.TryParseValueFromString(System.String,System.String@,System.String@)">
@@ -4375,8 +4380,8 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.GetDefaults">
             <summary>
             Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2"/> defaults.
-            Enables to not share defaults in descendants with base classes.
-            Enables to have multiple descendants which differs in the default values.
+            Enables not sharing defaults in descendants with base classes.
+            Enables having multiple descendants that differ in the default values.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.Settings">
@@ -4386,10 +4391,10 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Returns an optional set of component settings.
             </summary>
             <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.Settings"/> in components descendants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.Settings"/> in component descendants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.InputSize">
@@ -4404,19 +4409,19 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.TextSelector">
             <summary>
-            Selects text to display from item.<br/>
+            Selects text to display from an item.<br/>
             When not set, <c>ToString()</c> is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.ValueSelector">
             <summary>
-            Selects value from item.<br/>
-            Not required when <c>TValue</c> is same as <c>TItem</c>.
+            Selects value from an item.<br/>
+            Not required when <c>TValue</c> is the same as <c>TItem</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.SortKeySelector">
             <summary>
-            Selects value for items sorting. When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.TextSelector"/> property will be used.<br/>
+            Selects value for item sorting. When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.TextSelector"/> property will be used.<br/>
             If you need complex sorting, pre-sort data manually or create a custom comparable property.
             </summary>
         </member>
@@ -5216,7 +5221,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1">
             <summary>
-            A search input component witch automatic suggestions, initial dropdown template and free-text queries support.<br />
+            A search input component with automatic suggestions, initial dropdown template, and support for free-text queries.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSearchBox">https://havit.blazor.eu/components/HxSearchBox</see>
             </summary>
             <typeparam name="TItem"></typeparam>
@@ -5224,7 +5229,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.GetDefaults">
             <summary>
             Returns application-wide defaults for the component.
-            Enables overriding defaults in descendants (use separate set of defaults).
+            Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Settings">
@@ -5234,20 +5239,20 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Returns an optional set of component settings.
             </summary>
             <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Settings"/> in components descendants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Settings"/> in component descendants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.DataProvider">
             <summary>
-            Method (delegate) which provides data of the suggestions.
+            Method (delegate) that provides data for the suggestions.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Enabled">
             <summary>
-            Allows you to disable the input. Default is <c>true</c>.
+            Allows you to disable the input. The default is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.TextQuery">
@@ -5262,7 +5267,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnTextQueryTriggered">
             <summary>
-            Raised, when the enter key is pressed or when the text-query item is selected in the dropdown menu.
+            Raised when the enter key is pressed or when the text-query item is selected in the dropdown menu.
             (Does not trigger when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.AllowTextQuery"/> is <c>false</c>.)
             </summary>
         </member>
@@ -5273,7 +5278,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnItemSelected">
             <summary>
-            Occurs, when any of suggested items (other than plain text-query) is selected.
+            Occurs when any of the suggested items (other than plain text-query) is selected.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InvokeOnItemSelectedAsync(`0)">
@@ -5293,17 +5298,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemTitleSelector">
             <summary>
-            Selector to display item title from data item.
+            Selector to display the item title from the data item.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemSubtitleSelector">
             <summary>
-            Selector to display item subtitle from data item.
+            Selector to display the item subtitle from the data item.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemIconSelector">
             <summary>
-            Selector to display icon from data item.
+            Selector to display the icon from the data item.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemTemplate">
@@ -5328,7 +5333,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.CssClass">
             <summary>
-            Additional css classes for the dropdown.
+            Additional CSS classes for the dropdown.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemCssClass">
@@ -5343,17 +5348,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputGroupCssClass">
             <summary>
-            Custom CSS class to render with input-group span.
+            Custom CSS class to render with the input-group span.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.SearchIcon">
             <summary>
-            Icon of the input, when no text is written.
+            Icon of the input when no text is written.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ClearIcon">
             <summary>
-            Icon of the input, when text is written allowing the user to clear the text.
+            Icon of the input, displayed when text is entered, allowing the user to clear the text.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.DropdownOffset">
@@ -5448,7 +5453,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxDataProviderRequest.CancellationToken">
             <summary>
-            The <see cref="T:System.Threading.CancellationToken"/> used to relay cancellation of the request.
+            The <see cref="T:System.Threading.CancellationToken"/> used to indicate cancellation of the request.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchBoxDataProviderResult`1">
@@ -5463,7 +5468,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchBoxItemSelectionBehavior">
             <summary>
-            Values for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemSelectionBehavior"/>."/>
+            Values for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ItemSelectionBehavior"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings">
@@ -5473,27 +5478,27 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.SearchIcon">
             <summary>
-            Icon displayed in input when no item is selected.
+            Icon displayed in the input when no item is selected.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.ClearIcon">
             <summary>
-            Icon displayed in input on selection clear button when item is selected.
+            Icon displayed in the input on the selection clear button when an item is selected.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.MinimumLength">
             <summary>
-            Minimal number of characters to start suggesting.
+            The minimum number of characters to start suggesting.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.Delay">
             <summary>
-            Debounce delay in milliseconds.
+            The debounce delay in milliseconds.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.InputSize">
             <summary>
-            Input size.
+            The input size.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.CssClass">
@@ -5513,12 +5518,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.InputGroupCssClass">
             <summary>
-            Custom CSS class to render with input-group span.
+            Custom CSS class to render with the input-group span.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.ItemSelectionBehavior">
             <summary>
-            Behavior when the item is selected.
+            The behavior when the item is selected.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">

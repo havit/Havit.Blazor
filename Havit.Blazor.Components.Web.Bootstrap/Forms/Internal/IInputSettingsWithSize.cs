@@ -3,7 +3,7 @@
 public interface IInputSettingsWithSize
 {
 	/// <summary>
-	/// Input size.
+	/// The size of the input.
 	/// </summary>
 	InputSize? InputSize { get; }
 }

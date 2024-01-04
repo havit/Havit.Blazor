@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Renders <see cref="IFormValueComponent" />.
-/// The purpose of this class is to allow to use custom renderer.
+/// The purpose of this class is to allow the use of a custom renderer.
 /// </summary>
 public abstract class FormValueRenderer
 {
