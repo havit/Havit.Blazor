@@ -102,7 +102,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 			else
 			{
 				itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
-}
+			}
 		}
 	}
 
