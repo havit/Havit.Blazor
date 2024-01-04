@@ -78,7 +78,7 @@ public partial class HxAccordionItem : ComponentBase
 		// If this turns out to be a problem, we can also consider extracting the whole HxAccordionItem to HxAccordionItemInternal and set the @key for it.
 		if ((currentId is not null) && (this.Id != currentId))
 		{
-			throw new InvalidOperationException("HxAccordionItem.Id cannot be changed. Use @key with same value as Id to help Blazor mapping the right components.");
+			throw new InvalidOperationException("HxAccordionItem.Id cannot be changed. Use @key with the same value as Id to help Blazor map the right components.");
 		}
 		else
 		{

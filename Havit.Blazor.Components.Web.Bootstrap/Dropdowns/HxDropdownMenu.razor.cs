@@ -17,7 +17,7 @@ public partial class HxDropdownMenu : ComponentBase
 	protected virtual string ElementName => "ul";
 
 	/// <summary>
-	/// Additional attributes to be splatted onto an underlying <c>ul</c> element.
+	/// Additional attributes to be applied to an underlying <c>ul</c> element.
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 

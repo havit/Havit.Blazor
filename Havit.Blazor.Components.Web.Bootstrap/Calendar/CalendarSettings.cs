@@ -6,22 +6,22 @@
 public record CalendarSettings
 {
 	/// <summary>
-	/// Minimal value to choose from calendar.
+	/// Minimum value to choose from the calendar.
 	/// </summary>
 	public DateTime? MinDate { get; set; }
 
 	/// <summary>
-	/// Maximal value to choose from calendar.
+	/// Maximum value to choose from the calendar.
 	/// </summary>
 	public DateTime? MaxDate { get; set; }
 
 	/// <summary>
-	/// Allows customization of the dates in dropdown calendars.
+	/// Allows customization of the dates in the dropdown calendars.
 	/// </summary>
 	public CalendarDateCustomizationProviderDelegate DateCustomizationProvider { get; set; }
 
 	/// <summary>
-	/// TimeProvider to customize the today date
+	/// TimeProvider to customize the today's date.
 	/// </summary>
 	public TimeProvider TimeProvider { get; set; }
 

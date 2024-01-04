@@ -30,7 +30,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual ButtonSettings GetDefaults() => Defaults;
 
@@ -40,10 +40,10 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	[Parameter] public ButtonSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual ButtonSettings GetSettings() => this.Settings;
 
@@ -64,20 +64,20 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	protected IconBase IconEffective => this.Icon ?? this.GetSettings()?.Icon ?? GetDefaults().Icon;
 
 	/// <summary>
-	/// Position of the icon within the button. Default is <see cref="ButtonIconPlacement.Start" /> (configurable through <see cref="HxButton.Defaults"/>).
+	/// Position of the icon within the button. The default is <see cref="ButtonIconPlacement.Start" /> (configurable through <see cref="HxButton.Defaults"/>).
 	/// </summary>
 	[Parameter] public ButtonIconPlacement? IconPlacement { get; set; }
 	protected ButtonIconPlacement IconPlacementEffective => this.IconPlacement ?? this.GetSettings()?.IconPlacement ?? GetDefaults()?.IconPlacement ?? throw new InvalidOperationException(nameof(IconPlacement) + " default for " + nameof(HxButton) + " has to be set.");
 
 	/// <summary>
 	/// Bootstrap button style - theme color.<br />
-	/// Default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
+	/// The default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
 	protected ThemeColor ColorEffective => this.Color ?? this.GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxButton) + " has to be set.");
 
 	/// <summary>
-	/// Button size. Default is <see cref="ButtonSize.Regular"/>.
+	/// Button size. The default is <see cref="ButtonSize.Regular"/>.
 	/// </summary>
 	[Parameter] public ButtonSize? Size { get; set; }
 	protected ButtonSize SizeEffective => this.Size ?? this.GetSettings()?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxButton) + " has to be set.");
@@ -121,7 +121,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 
 	/// <summary>
 	/// Tooltip text.<br/>
-	/// If set, a <c>span</c> wrapper will be rendered around the <c>&lt;button /&gt;</c>. For most scenarios you will then use <see cref="TooltipWrapperCssClass"/> instead of <see cref="CssClass"/>.
+	/// If set, a <c>span</c> wrapper will be rendered around the <c>&lt;button /&gt;</c>. For most scenarios, you will then use <see cref="TooltipWrapperCssClass"/> instead of <see cref="CssClass"/>.
 	/// </summary>
 	[Parameter] public string Tooltip { get; set; }
 
@@ -137,7 +137,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 
 	/// <summary>
 	/// Custom CSS class to render with the tooltip <c>span</c> wrapper of the <c>&lt;button /&gt;</c>.<br />
-	/// If set, the <c>span</c> wrapper will be rendered no matter the <see cref="Tooltip"/> text is set or not.
+	/// If set, the <c>span</c> wrapper will be rendered no matter whether the <see cref="Tooltip"/> text is set or not.
 	/// </summary>
 	[Parameter] public string TooltipWrapperCssClass { get; set; }
 
@@ -169,7 +169,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	protected virtual Task InvokeOnInvalidClickAsync(MouseEventArgs args) => OnInvalidClick.InvokeAsync(args);
 
 	/// <summary>
-	/// Stop onClick-event propagation. Default is <c>true</c>.
+	/// Stops onClick-event propagation. Default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool OnClickStopPropagation { get; set; } = true;
 
@@ -179,14 +179,14 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	[Parameter] public bool OnClickPreventDefault { get; set; }
 
 	/// <summary>
-	/// Set state of the embedded <see cref="HxSpinner"/>.
+	/// Sets the state of the embedded <see cref="HxSpinner"/>.
 	/// Leave <c>null</c> if you want automated spinner when any of the <see cref="HxButton.OnClick"/> handlers is running.
 	/// You can set an explicit <c>false</c> constant to disable (override) the spinner automation.
 	/// </summary>
 	[Parameter] public bool? Spinner { get; set; }
 
 	/// <summary>
-	/// Set <c>false</c> if you want to allow multiple <see cref="OnClick"/> handlers in parallel. Default is <c>true</c>.
+	/// Sets <c>false</c> if you want to allow multiple <see cref="OnClick"/> handlers in parallel. Default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool SingleClickProtection { get; set; } = true;
 
@@ -209,8 +209,8 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	private HxTooltip tooltipComponent;
 
 	/// <summary>
-	/// Gets basic CSS class(es) which get rendered to every single button. <br/>
-	/// Default implementation is <c>"hx-button btn"</c>.
+	/// Gets the basic CSS class(es) which get rendered to every single button. <br/>
+	/// The default implementation is <c>"hx-button btn"</c>.
 	/// </summary>
 	protected virtual string CoreCssClass => "hx-button btn";
 

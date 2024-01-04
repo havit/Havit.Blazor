@@ -48,7 +48,7 @@ public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable
 
 		// Generated chips are connected to ModelInEdit.
 		// When the model is changed, the chips are updated.
-		// As a solution we create a new ModelInEdit so the one used for chips in not changed anymore so the chips do not update the content.
+		// As a solution, we create a new ModelInEdit so that the one used for chips is not changed anymore, and the chips do not update the content.
 		ModelInEdit = CloneModel(ModelInEdit);
 		StateHasChanged(); // also called from OnAfterRender
 
@@ -68,7 +68,7 @@ public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable
 	}
 
 	/// <summary>
-	/// Tries to remove chip.
+	/// Tries to remove a chip.
 	/// Execution is postponed to OnAfterRender, so this method cannot have a return value.
 	/// </summary>
 	public Task RemoveChipAsync(ChipItem chipToRemove)
@@ -79,11 +79,11 @@ public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable
 		ModelInEdit = newModelInEdit; // place the model to the edit
 
 		// propagate the model in edit to the Model and notify model changed
-		// if used with await the chip is removed from UI much later
+		// if used with await, the chip is removed from UI much later
 		_ = InvokeAsync(UpdateModelWithoutChipUpdateAsync);
 
 		notifyChipsUpdatedAfterRender = true; // notify the chips update after the model is "rendered"
-		StateHasChanged(); // added as fix for #59236 HxListLayout/HxFilterForm - loses all chips, when one of chips gets removed
+		StateHasChanged(); // added as a fix for #59236 HxListLayout/HxFilterForm - loses all chips when one of the chips gets removed
 
 		return Task.CompletedTask;
 	}

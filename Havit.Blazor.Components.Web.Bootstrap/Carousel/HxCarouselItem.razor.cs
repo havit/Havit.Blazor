@@ -9,12 +9,12 @@ public partial class HxCarouselItem : IAsyncDisposable
 	[Parameter] public bool Active { get; set; }
 
 	/// <summary>
-	/// Time before automatically cycling to the next item.
+	/// Time interval before automatically cycling to the next item.
 	/// </summary>
 	[Parameter] public int? Interval { get; set; }
 
 	/// <summary>
-	/// Cascading parameter to register the tab.
+	/// Cascading parameter used to register the tab.
 	/// </summary>
 	[CascadingParameter(Name = HxCarousel.ItemsRegistrationCascadingValueName)]
 	protected CollectionRegistration<HxCarouselItem> ItemsRegistration { get; set; }
@@ -23,7 +23,7 @@ public partial class HxCarouselItem : IAsyncDisposable
 	{
 		base.OnInitialized();
 
-		Contract.Requires<InvalidOperationException>(ItemsRegistration != null, $"{nameof(HxCarouselItem)} has to be inside {nameof(HxCarousel)}.");
+		Contract.Requires<InvalidOperationException>(ItemsRegistration != null, $"{nameof(HxCarouselItem)} must be inside {nameof(HxCarousel)}.");
 		ItemsRegistration.Register(this);
 	}
 
