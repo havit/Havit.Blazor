@@ -12,17 +12,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public partial class HxGrid<TItem> : ComponentBase, IDisposable
 {
 	/// <summary>
-	/// ColumnsRegistration cascading value name.
+	/// Represents a constant name for ColumnsRegistration cascading value.
 	/// </summary>
 	public const string ColumnsRegistrationCascadingValueName = "ColumnsRegistration";
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxGrid.Defaults"/>, overridden by individual parameters).
+	/// Specifies the grid settings. Overrides default settings in <see cref="HxGrid.Defaults"/> and can be further overridden by individual parameters.
 	/// </summary>
 	[Parameter] public GridSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Provides the current settings of the grid. Override in derived classes to return a specific settings type or additional configurations.
 	/// </summary>
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
@@ -30,95 +30,90 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected virtual GridSettings GetSettings() => this.Settings;
 
 	/// <summary>
-	/// Data provider for items to render.<br />
-	/// The provider should always return instance of <see cref="GridDataProviderResult{TItem}"/>, <c>null</c> is not allowed.
+	/// Data provider delegate for the grid. The data provider is responsible for fetching items to be rendered in the grid.
+	/// It must always return an instance of <see cref="GridDataProviderResult{TItem}"/> and cannot return null.
 	/// </summary>
+	/// <remarks>
+	/// The delegate is invoked to fetch data based on the current grid state, including pagination and sorting parameters.
+	/// </remarks>
 	[Parameter, EditorRequired] public GridDataProviderDelegate<TItem> DataProvider { get; set; }
 
 	/// <summary>
-	/// Indicates whether single data item selection is enabled.
-	/// Selection is performed by click on the item row.
-	/// Can be combined with multiselection.
-	/// Default is <c>true</c>.
+	/// Enables or disables single item selection by row click. Can be used alongside multi-selection.
+	/// Defaults to <c>true</c>.
 	/// </summary>
 	[Parameter] public bool SelectionEnabled { get; set; } = true;
 
 	/// <summary>
-	/// Indicates whether multi data items selection is enabled.
-	/// Selection is performed by checkboxes in the first column.
-	/// Can be combined with (single) selection.
-	/// Default is <c>false</c>.
+	/// Enables or disables multi-item selection using checkboxes in the first column.
+	/// Can be used with single selection.
+	/// Defaults to <c>false</c>.
 	/// </summary>
 	[Parameter] public bool MultiSelectionEnabled { get; set; } = false;
 
 	/// <summary>
-	/// Columns template.
+	/// Grid columns.
 	/// </summary>
 	[Parameter, EditorRequired] public RenderFragment Columns { get; set; }
 
 	/// <summary>
-	/// Template to render when "first" data are loading.
+	/// Defines a template for the initial data loading phase.
 	/// This template is not used when loading data for sorting or paging operations.
 	/// </summary>
 	[Parameter] public RenderFragment LoadingDataTemplate { get; set; }
 
 	/// <summary>
-	/// Template to render when there is empty Data (but not <c>null</c>).
+	/// Template for rendering when the data source is empty but not null.
 	/// </summary>
 	[Parameter] public RenderFragment EmptyDataTemplate { get; set; }
 
 	/// <summary>
-	/// Template to render "load more" button (or other UI element).
+	/// Template for the "load more" button (or other UI element).
 	/// </summary>
 	[Parameter] public RenderFragment<GridLoadMoreTemplateContext> LoadMoreTemplate { get; set; }
 
 	/// <summary>
-	/// Selected data item.
-	/// Intended for data binding.
+	/// Represents the currently selected data item in the grid for data binding and state synchronization. Changes trigger <see cref="SelectedDataItemChanged"/>.
 	/// </summary>
 	[Parameter] public TItem SelectedDataItem { get; set; }
 
 	/// <summary>
-	/// Event fires when selected data item changes.
-	/// Intended for data binding.
+	/// Event that fires when the <see cref="SelectedDataItem"/> property changes. This event is intended for data binding and state synchronization.
 	/// </summary>
 	[Parameter] public EventCallback<TItem> SelectedDataItemChanged { get; set; }
 	/// <summary>
-	/// Triggers the <see cref="SelectedDataItemChanged"/> event. Allows interception of the event in derived components.
+	/// Triggers the <see cref="SelectedDataItemChanged"/> event asynchronously. This method can be overridden in derived components to intercept the event and provide custom logic before or after the event is triggered.
 	/// </summary>
 	protected virtual Task InvokeSelectedDataItemChangedAsync(TItem selectedDataItem) => SelectedDataItemChanged.InvokeAsync(selectedDataItem);
 
 	/// <summary>
-	/// Selected data items.
-	/// Intended for data binding.
+	/// Represents the collection of currently selected data items in the grid, primarily for data binding and state management in multi-selection scenarios.
 	/// </summary>
 	[Parameter] public HashSet<TItem> SelectedDataItems { get; set; }
 
 	/// <summary>
-	/// Event fires when selected data items changes.
-	/// Intended for data binding.
+	/// Event that fires when the collection of selected data items changes. This is particularly relevant in multi-selection scenarios. It is intended for data binding and state synchronization.
 	/// </summary>
 	[Parameter] public EventCallback<HashSet<TItem>> SelectedDataItemsChanged { get; set; }
 	/// <summary>
-	/// Triggers the <see cref="SelectedDataItemsChanged"/> event. Allows interception of the event in derived components.
+	/// Triggers the <see cref="SelectedDataItemsChanged"/> event. This method can be overridden in derived components to implement custom logic before or after the event is triggered.
 	/// </summary>
 	protected virtual Task InvokeSelectedDataItemsChangedAsync(HashSet<TItem> selectedDataItems) => SelectedDataItemsChanged.InvokeAsync(selectedDataItems);
 
 	/// <summary>
-	/// Strategy how data are displayed in the grid (and loaded to the grid).
+	/// The strategy for how data items are displayed and loaded into the grid. Supported modes include pagination, load more, and infinite scroll.
 	/// </summary>
 	[Parameter] public GridContentNavigationMode? ContentNavigationMode { get; set; }
 	protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? this.GetSettings()?.ContentNavigationMode ?? GetDefaults().ContentNavigationMode ?? throw new InvalidOperationException(nameof(ContentNavigationMode) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
-	/// Page size for <see cref="GridContentNavigationMode.Pagination"/>, <see cref="GridContentNavigationMode.LoadMore"/> and <see cref="GridContentNavigationMode.PaginationAndLoadMore"/>. Set <c>0</c> to disable paging.
+	/// The number of items to display per page. Applicable for grid modes such as pagination and load more. Set to 0 to disable paging.
 	/// </summary>
 	[Parameter] public int? PageSize { get; set; }
 	protected int PageSizeEffective => this.PageSize ?? this.GetSettings()?.PageSize ?? GetDefaults().PageSize ?? throw new InvalidOperationException(nameof(PageSize) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
-	/// Indicates whether to render footer when data are empty.
-	/// Default is <c>false</c>.
+	/// Determines whether the grid footer is rendered when the grid's data source is empty. The default value is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool? ShowFooterWhenEmptyData { get; set; }
 	protected bool ShowFooterWhenEmptyDataEffective => this.ShowFooterWhenEmptyData ?? this.GetSettings()?.ShowFooterWhenEmptyData ?? GetDefaults().ShowFooterWhenEmptyData ?? throw new InvalidOperationException(nameof(ShowFooterWhenEmptyData) + " default for " + nameof(HxGrid) + " has to be set.");
@@ -130,70 +125,70 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected PagerSettings PagerSettingsEffective => this.PagerSettings ?? this.GetSettings()?.PagerSettings ?? GetDefaults().PagerSettings;
 
 	/// <summary>
-	/// Text of the "Load more" navigation button (<see cref="GridContentNavigationMode.LoadMore"/>).
-	/// (Default is taken from the localization resources.)
+	/// The text for the "Load more" button, used in the <see cref="GridContentNavigationMode.LoadMore"/> navigation mode. The default text is obtained from localization resources.
 	/// </summary>
 	[Parameter] public string LoadMoreButtonText { get; set; }
 
 	/// <summary>
-	/// Settings for the "Load more" navigation button (<see cref="GridContentNavigationMode.LoadMore"/>).
+	/// Configuration for the "Load more" button, including appearance and behavior settings. Relevant in grid modes that use a "Load more" button for data navigation.
 	/// </summary>
 	[Parameter] public ButtonSettings LoadMoreButtonSettings { get; set; }
 	protected ButtonSettings LoadMoreButtonSettingsEffective => this.LoadMoreButtonSettings ?? this.GetSettings()?.LoadMoreButtonSettings ?? GetDefaults().LoadMoreButtonSettings ?? throw new InvalidOperationException(nameof(LoadMoreButtonSettings) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
-	/// Current grid state (page, sorting).
+	/// Gets or sets the current state of the grid, including pagination and sorting information. This state can be used to restore the grid to a specific configuration or to synchronize it with external state management systems.
 	/// </summary>
 	[Parameter] public GridUserState CurrentUserState { get; set; } = new GridUserState();
 
 	/// <summary>
-	/// Event fires when grid state is changed.
+	/// Event that fires when the <see cref="CurrentUserState"/> property changes. This event can be used to react to changes in the grid's state, such as sorting or pagination adjustments.
 	/// </summary>
 	[Parameter] public EventCallback<GridUserState> CurrentUserStateChanged { get; set; }
 	/// <summary>
-	/// Triggers the <see cref="CurrentUserStateChanged"/> event. Allows interception of the event in derived components.
+	/// Triggers the <see cref="CurrentUserStateChanged"/> event. This method can be overridden in derived components to add custom logic before or after the state change event is triggered.
 	/// </summary>
 	protected virtual Task InvokeCurrentUserStateChangedAsync(GridUserState newGridUserState) => CurrentUserStateChanged.InvokeAsync(newGridUserState);
 
 	/// <summary>
-	/// Indicates when the grid should be displayed as "in progress".
-	/// When not set (<c>null</c>), grid progress is automatically tracked when retrieving data by data provider.
+	/// Gets or sets a value indicating whether the grid is currently processing data, such as loading or refreshing items.
+	/// When set to <c>null</c>, the progress state is automatically managed based on the data provider's activity.
 	/// </summary>
 	[Parameter] public bool? InProgress { get; set; }
 
 	/// <summary>
-	/// Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c> (<see cref="HxPager"/> is not wrapped in this <c>div</c> element).
+	/// Custom CSS class for the <c>div</c> element that wraps the main <c>table</c> element. Excludes the <see cref="HxPager"/> which is not wrapped in this <c>div</c> element.
 	/// </summary>
 	[Parameter] public string TableContainerCssClass { get; set; }
 	protected string TableContainerCssClassEffective => this.TableContainerCssClass ?? this.GetSettings()?.TableContainerCssClass ?? GetDefaults().TableContainerCssClass;
 
 	/// <summary>
-	/// Custom CSS class to render with main <c>table</c> element.
+	/// Custom CSS class for the main <c>table</c> element of the grid. This class allows for styling and customization of the grid's appearance.
 	/// </summary>
 	[Parameter] public string TableCssClass { get; set; }
 	protected string TableCssClassEffective => this.TableCssClass ?? this.GetSettings()?.TableCssClass ?? GetDefaults().TableCssClass;
 
 	/// <summary>
-	/// Custom CSS class to render with header <c>tr</c> element.
+	/// Custom CSS class for the header <c>tr</c> element in the grid. Enables specific styling for the header row separate from the rest of the grid.
 	/// </summary>
 	[Parameter] public string HeaderRowCssClass { get; set; }
 	protected string HeaderRowCssClassEffective => this.HeaderRowCssClass ?? this.GetSettings()?.HeaderRowCssClass ?? GetDefaults().HeaderRowCssClass;
 
 	/// <summary>
-	/// Custom CSS class to render with data <c>tr</c> element.
+	/// Custom CSS class for the data <c>tr</c> elements in the grid. This class is applied to each row of data, providing a way to customize the styling of data rows.
 	/// </summary>
 	[Parameter] public string ItemRowCssClass { get; set; }
 	protected string ItemRowCssClassEffective => this.ItemRowCssClass ?? this.GetSettings()?.ItemRowCssClass ?? GetDefaults().ItemRowCssClass;
 
 	/// <summary>
-	/// Height of the item row used for infinite scroll calculations.
-	/// Default value is <c>41px</c> (row-height of regular table-row within Bootstrap 5 default theme).
+	/// Height of each item row, used primarily in calculations for infinite scrolling.
+	/// The default value (41px) corresponds to the typical row height in the Bootstrap 5 default theme.
 	/// </summary>
 	[Parameter] public float? ItemRowHeight { get; set; }
 	protected float ItemRowHeightEffective => this.ItemRowHeight ?? this.GetSettings()?.ItemRowHeight ?? GetDefaults().ItemRowHeight ?? throw new InvalidOperationException(nameof(ItemRowHeight) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
-	/// Returns custom CSS class to render with data <c>tr</c> element.
+	/// Function that defines a custom CSS class for each data <c>tr</c> element based on the item it represents.
+	/// This allows for conditional styling of rows based on their data.
 	/// </summary>
 	[Parameter] public Func<TItem, string> ItemRowCssClassSelector { get; set; }
 
@@ -211,67 +206,64 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	[Parameter] public Func<TItem, object> ItemKeySelector { get; set; } = x => x;
 
 	/// <summary>
-	/// Custom CSS class to render with footer <c>tr</c> element.
+	/// A custom CSS class for the footer <c>tr</c> element in the grid. This allows styling of the grid footer independently of other grid elements.
 	/// </summary>
 	[Parameter] public string FooterRowCssClass { get; set; }
 	protected string FooterRowCssClassEffective => this.FooterRowCssClass ?? this.GetSettings()?.FooterRowCssClass ?? GetDefaults().FooterRowCssClass;
 
 	/// <summary>
-	/// Number of rows with placeholders to render.
-	/// When value is zero, placeholders are not used.
-	/// When <see cref="LoadingDataTemplate" /> is set, placeholder are not used.
-	/// Default is <c>5</c>.
+	/// The number of placeholder rows to be rendered in the grid. Placeholders are used when loading data or when <see cref="LoadingDataTemplate" />
+	/// is not set. Set to 0 to disable placeholders. Default value is 5.
 	/// </summary>
 	[Parameter] public int? PlaceholdersRowCount { get; set; }
 	protected int PlaceholdersRowCountEffective => this.PlaceholdersRowCount ?? this.GetSettings()?.PlaceholdersRowCount ?? GetDefaults().PlaceholdersRowCount ?? throw new InvalidOperationException(nameof(PlaceholdersRowCount) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
-	/// Infinite scroll:
-	/// Gets or sets a value that determines how many additional items will be rendered
-	/// before and after the visible region. This help to reduce the frequency of rendering
-	/// during scrolling. However, higher values mean that more elements will be present
-	/// in the page.<br/>
-	/// Default is <c>3</c>.
+	/// Defines the number of additional items to be rendered before and after the visible region in an infinite scrolling scenario.
+	/// This helps to reduce the frequency of rendering during scrolling, though higher values increase the number of elements present in the page.
+	/// Default is 3.
 	/// </summary>
 	[Parameter] public int? OverscanCount { get; set; }
 	protected int OverscanCountEffective => this.OverscanCount ?? this.GetSettings()?.OverscanCount ?? GetDefaults().OverscanCount ?? throw new InvalidOperationException(nameof(OverscanCount) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
-	/// Allows the table to be scrolled horizontally with ease across any breakpoint (adds the <c>table-responsive</c> class to the table).<br/>
-	/// Default is <c>false</c>.
+	/// Determines if the grid should be scrollable horizontally across different breakpoints.
+	/// When set to true, the <c>table-responsive</c> class is added to the table.
+	/// Default is false.
 	/// </summary>
 	[Parameter] public bool? Responsive { get; set; }
 	protected bool ResponsiveEffective => this.Responsive ?? this.GetSettings()?.Responsive ?? GetDefaults().Responsive ?? throw new InvalidOperationException(nameof(Responsive) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
-	/// Enables hover state on table rows within a <c>&lt;tbody&gt;</c> (sets the <c>table-hover</c> class on the table).<br />
-	/// If not set (default) the table is hoverable when selection is enabled.
+	/// Enables or disables the hover state on table rows within a <c>&lt;tbody&gt;</c>.
+	/// When not set, the table is hoverable by default if selection is enabled. This property customizes the hover behavior of the grid rows.
 	/// </summary>
 	[Parameter] public bool? Hover { get; set; }
 	protected bool? HoverEffective => this.Hover ?? this.GetSettings()?.Hover ?? GetDefaults().Hover;
 
 	/// <summary>
-	/// Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> (alternating rows).<br />
-	/// Default is <c>false</c>.
+	/// Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> for better readability.
+	/// Rows will have alternating background colors.
+	/// Default is false.
 	/// </summary>
 	[Parameter] public bool? Striped { get; set; }
 	protected bool StripedEffective => this.Striped ?? this.GetSettings()?.Striped ?? GetDefaults().Striped ?? throw new InvalidOperationException(nameof(Striped) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
-	/// Icon to indicate ascending sort direction in column header.
+	/// Icon to indicate the ascending sort direction in the column header. This icon is displayed when a column is sorted in ascending order.
 	/// </summary>
 	[Parameter] public IconBase SortAscendingIcon { get; set; }
 	protected IconBase SortAscendingIconEffective => this.SortAscendingIcon ?? this.GetSettings()?.SortAscendingIcon ?? GetDefaults().SortAscendingIcon;
 
 	/// <summary>
-	/// Icon to indicate descending sort direction in column header.
+	/// Icon to indicate the descending sort direction in the column header. This icon is shown when a column is sorted in descending order.
 	/// </summary>
 	[Parameter] public IconBase SortDescendingIcon { get; set; }
 	protected IconBase SortDescendingIconEffective => this.SortDescendingIcon ?? this.GetSettings()?.SortDescendingIcon ?? GetDefaults().SortDescendingIcon;
 
 	/// <summary>
-	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Retrieves the default settings for the grid. This method can be overridden in derived classes
+	/// to provide different default settings or to use a derived settings class.
 	/// </summary>
 	protected virtual GridSettings GetDefaults() => HxGrid.Defaults;
 
@@ -571,8 +563,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	}
 
 	/// <summary>
-	/// Instructs the component to re-request data from its <see cref="DataProvider"/>.
-	/// This is useful if external data may have changed.
+	/// Requests a data refresh from the <see cref="DataProvider"/>.
+	/// Useful for updating the grid when external data may have changed.
 	/// </summary>
 	/// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
 	public async Task RefreshDataAsync()

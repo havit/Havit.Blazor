@@ -18,37 +18,37 @@ public record InputDateSettings : InputSettings, IInputSettingsWithSize
 	public IconBase CalendarIcon { get; set; }
 
 	/// <summary>
-	/// Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
+	/// Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
 	/// </summary>
 	public bool? ShowClearButton { get; set; }
 
 	/// <summary>
-	/// First date selectable from the dropdown calendar.
+	/// The first date selectable from the dropdown calendar.
 	/// </summary>
 	public DateTime? MinDate { get; set; }
 
 	/// <summary>
-	/// Last date selectable from the dropdown calendar.
+	/// The last date selectable from the dropdown calendar.
 	/// </summary>
 	public DateTime? MaxDate { get; set; }
 
 	/// <summary>
-	/// Allows customization of the dates in dropdown calendars.
+	/// Allows customization of the dates in the dropdown calendars.
 	/// </summary>
 	public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
 
 	/// <summary>
-	/// When enabled, shows predefined days (from <see cref="HxInputDate{TValue}.PredefinedDates"/>, e.g. Today).
+	/// When enabled, shows predefined days (from <see cref="HxInputDate{TValue}.PredefinedDates"/>, e.g., Today).
 	/// </summary>
 	public bool? ShowPredefinedDates { get; set; }
 
 	/// <summary>
-	/// Predefined dates to be displayed.
+	/// The predefined dates to be displayed.
 	/// </summary>
 	public IEnumerable<InputDatePredefinedDatesItem> PredefinedDates { get; set; }
 
 	/// <summary>
-	/// TimeProvider to use, note: override the 'Today' in PredefinedDates
+	/// The TimeProvider to use, note: overrides the 'Today' in PredefinedDates.
 	/// </summary>
 	public TimeProvider TimeProvider { get; set; }
 }

@@ -31,8 +31,8 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 		get => order;
 		set
 		{
-			// This is to ensure MultiSelectGridColumn is displayed always as the first column.
-			// MultiSelectGridColumn uses Int32.MinValue and we do not want to enable column to have same value.
+			// This is to ensure MultiSelectGridColumn is always displayed as the first column.
+			// MultiSelectGridColumn uses Int32.MinValue and we do not want to enable column to have the same value.
 			Contract.Requires<ArgumentException>(value != Int32.MinValue);
 
 			order = value;
@@ -52,7 +52,7 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter] public RenderFragment<GridHeaderCellContext> HeaderTemplate { get; set; }
 
 	/// <summary>
-	/// Header cell css class.
+	/// Header cell CSS class.
 	/// </summary>
 	[Parameter] public string HeaderCssClass { get; set; }
 	#endregion
@@ -69,12 +69,12 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
 
 	/// <summary>
-	/// Returns item css class (not dependent on data).
+	/// Returns item CSS class (not dependent on data).
 	/// </summary>
 	[Parameter] public string ItemCssClass { get; set; }
 
 	/// <summary>
-	/// Returns item css class for the specific date item.
+	/// Returns item CSS class for the specific date item.
 	/// </summary>
 	[Parameter] public Func<TItem, string> ItemCssClassSelector { get; set; }
 	#endregion
@@ -96,34 +96,34 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter] public RenderFragment<GridFooterCellContext> FooterTemplate { get; set; }
 
 	/// <summary>
-	/// Footer cell css class.
+	/// Footer cell CSS class.
 	/// </summary>
 	[Parameter] public string FooterCssClass { get; set; }
 	#endregion
 
 	#region Sorting properties
 	/// <summary>
-	/// Returns column sorting as string.
-	/// Use to set sorting as a string, ie. to get value to pass to backend.
+	/// Returns column sorting as a string.
+	/// Used to set sorting as a string, i.e., to get value to pass to the backend.
 	/// Ignored for client-side sorting.
 	/// </summary>
 	[Parameter] public string SortString { get; set; }
 
 	/// <summary>
 	/// Returns column sorting expression for automatic grid sorting.
-	/// To be used for &quot;strongly typed&quot; setting of sorting, required for client-side sorting.
+	/// To be used for "strongly typed" setting of sorting, required for client-side sorting.
 	/// Must be <see cref="IComparable"/>.
 	/// Sorting of the column does not support multiple expressions. Create an artificial property and implement <see cref="IComparable"/>.
 	/// </summary>
 	[Parameter] public Expression<Func<TItem, IComparable>> SortKeySelector { get; set; }
 
 	/// <summary>
-	/// Initial sorting direction. Default is <see cref="SortDirection.Ascending" />.
+	/// Initial sorting direction. Default is <see cref="SortDirection.Ascending"/>.
 	/// </summary>
 	[Parameter] public SortDirection SortDirection { get; set; } = SortDirection.Ascending;
 
 	/// <summary>
-	/// Indicates the sorting on the column is default (primary) on the grid.
+	/// Indicates that the sorting on the column is default (primary) on the grid.
 	/// Set <c>true</c> for the column which is to be used for default sorting.
 	/// </summary>
 	[Parameter] public bool IsDefaultSortColumn { get; set; } = false;

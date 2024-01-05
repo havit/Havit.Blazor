@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Data-based list of radio buttons. Consider creating custom picker derived from <see cref="HxRadioButtonListBase{TValueType, TItem}"/>.<br />
+/// Data-based list of radio buttons. Consider creating a custom picker derived from <see cref="HxRadioButtonListBase{TValueType, TItem}"/>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxRadioButtonList">https://havit.blazor.eu/components/HxRadioButtonList</see>
 /// </summary>
 /// <typeparam name="TValue">Type of value.</typeparam>
@@ -9,8 +9,8 @@
 public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TItem>
 {
 	/// <summary>
-	/// Selects value from item.
-	/// Not required when <c>TValue</c> is same as <c>TItem</c>.
+	/// Selects the value from the item.
+	/// Not required when <c>TValue</c> is the same as <c>TItem</c>.
 	/// </summary>
 	[Parameter]
 	public Func<TItem, TValue> ItemValueSelector
@@ -30,8 +30,8 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	}
 
 	/// <summary>
-	/// Selects text to display from item. Also used for chip text.
-	/// When not set <c>ToString()</c> is used.
+	/// Selects the text to display from the item. Also used for chip text.
+	/// When not set, <c>ToString()</c> is used.
 	/// </summary>
 	[Parameter]
 	public Func<TItem, string> ItemTextSelector
@@ -41,8 +41,8 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	}
 
 	/// <summary>
-	/// Gets html to display from item.
-	/// When not set <see cref="ItemTextSelector"/> is used.
+	/// Gets the HTML to display from the item.
+	/// When not set, <see cref="ItemTextSelector"/> is used.
 	/// </summary>
 	[Parameter]
 	public RenderFragment<TItem> ItemTemplate
@@ -52,8 +52,8 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	}
 
 	/// <summary>
-	/// Selects value to sort items. Uses <see cref="ItemTextSelector"/> property when not set.
-	/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
+	/// Selects the value to sort items. Uses the <see cref="ItemTextSelector"/> property when not set.
+	/// When complex sorting is required, sort the data manually and don't let this component sort them. Alternatively, create a custom comparable property.
 	/// </summary>
 	[Parameter]
 	public Func<TItem, IComparable> ItemSortKeySelector
@@ -123,8 +123,8 @@ public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TI
 	}
 
 	/// <summary>
-	/// When <c>true</c>, items are sorted before displaying in select.
-	/// Default value is <c>true</c>.
+	/// When <c>true</c>, items are sorted before displaying in the select.
+	/// The default value is <c>true</c>.
 	/// </summary>
 	[Parameter]
 	public bool AutoSort

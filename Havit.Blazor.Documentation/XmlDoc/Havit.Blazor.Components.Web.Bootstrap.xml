@@ -4545,7 +4545,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2">
             <summary>
-            Data-based list of radio buttons. Consider creating custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2"/>.<br />
+            Data-based list of radio buttons. Consider creating a custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2"/>.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxRadioButtonList">https://havit.blazor.eu/components/HxRadioButtonList</see>
             </summary>
             <typeparam name="TValue">Type of value.</typeparam>
@@ -4553,8 +4553,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemValueSelector">
             <summary>
-            Selects value from item.
-            Not required when <c>TValue</c> is same as <c>TItem</c>.
+            Selects the value from the item.
+            Not required when <c>TValue</c> is the same as <c>TItem</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.Data">
@@ -4564,20 +4564,20 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextSelector">
             <summary>
-            Selects text to display from item. Also used for chip text.
-            When not set <c>ToString()</c> is used.
+            Selects the text to display from the item. Also used for chip text.
+            When not set, <c>ToString()</c> is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTemplate">
             <summary>
-            Gets html to display from item.
-            When not set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextSelector"/> is used.
+            Gets the HTML to display from the item.
+            When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextSelector"/> is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemSortKeySelector">
             <summary>
-            Selects value to sort items. Uses <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextSelector"/> property when not set.
-            When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
+            Selects the value to sort items. Uses the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemTextSelector"/> property when not set.
+            When complex sorting is required, sort the data manually and don't let this component sort them. Alternatively, create a custom comparable property.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemCssClass">
@@ -4612,8 +4612,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.AutoSort">
             <summary>
-            When <c>true</c>, items are sorted before displaying in select.
-            Default value is <c>true</c>.
+            When <c>true</c>, items are sorted before displaying in the select.
+            The default value is <c>true</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2">
@@ -4630,8 +4630,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemValueSelectorImpl">
             <summary>
-            Selects value from item.
-            Not required when <c>TValueType</c> is same as <c>TItemTime</c>.
+            Selects a value from an item.
+            Not required when <c>TValueType</c> is the same as <c>TItemTime</c>.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
@@ -4643,21 +4643,21 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextSelectorImpl">
             <summary>
-            Gets text to display from item. Used also for chip text.
-            When not set ToString() is used.
+            Gets the text to display from an item. Used also for chip text.
+            When not set, ToString() is used.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTemplateImpl">
             <summary>
-            Gets html to display from item.
-            When not set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextSelectorImpl"/> is used.
+            Gets the HTML to display from an item.
+            When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextSelectorImpl"/> is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemSortKeySelectorImpl">
             <summary>
-            Selects value to sort items. Uses <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextSelectorImpl"/> property when not set.
-            When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
+            Selects a value to sort items. Uses the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemTextSelectorImpl"/> property when not set.
+            When complex sorting is required, sort the data manually and don't let this component sort them. Alternatively, create a custom comparable property.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
@@ -4693,8 +4693,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.AutoSortImpl">
             <summary>
-            When <c>true</c>, items are sorted before displaying in select.
-            Default value is <c>true</c>.
+            When <c>true</c>, items are sorted before displaying in the select.
+            The default value is <c>true</c>.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
@@ -4705,7 +4705,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Returns an optional set of component settings.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.EnabledEffective">
@@ -4719,11 +4719,11 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2">
             <summary>
-            Select - DropDownList - single-item picker. Consider creating custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2"/>.<br />
+            Select - DropDownList - single-item picker. Consider creating a custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2"/>.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSelect">https://havit.blazor.eu/components/HxSelect</see>
             </summary>
-            <typeparam name="TValue">Type of value.</typeparam>
-            <typeparam name="TItem">Type of items.</typeparam>
+            <typeparam name="TValue">The type of value.</typeparam>
+            <typeparam name="TItem">The type of items.</typeparam>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.Nullable">
             <summary>
@@ -4732,41 +4732,41 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.NullText">
             <summary>
-            Text to display for <c>null</c> value.
+            The text to display for the <c>null</c> value.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.NullDataText">
             <summary>
-            Text to display when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.Data"/> is <c>null</c>.
+            The text to display when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.Data"/> is <c>null</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.ValueSelector">
             <summary>
-            Selects value from item.
-            Not required when <c>TValueType</c> is same as <c>TItemTime</c>.
+            Selects the value from the item.
+            Not required when <c>TValueType</c> is the same as <c>TItemTime</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.Data">
             <summary>
-            Items to display. 
+            The items to display. 
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.TextSelector">
             <summary>
-            Selects text to display from item.
-            When not set <c>ToString()</c> is used.
+            Selects the text to display from the item.
+            When not set, <c>ToString()</c> is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.SortKeySelector">
             <summary>
-            Selects value to sort items. Uses <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.TextSelector"/> property when not set.
-            When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
+            Selects the value to sort items. Uses the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.TextSelector"/> property when not set.
+            When complex sorting is required, sort the data manually and don't let this component sort them. Alternatively, create a custom comparable property.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.AutoSort">
             <summary>
-            When <c>true</c>, items are sorted before displaying in select.
-            Default value is <c>true</c>.
+            When <c>true</c>, the items are sorted before displaying in the select.
+            The default value is <c>true</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect">
@@ -4776,7 +4776,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect.Defaults">
             <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/> (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2"/> and derived components respectively).
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/> (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2"/> and derived components, respectively).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2">
@@ -4789,8 +4789,8 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.GetDefaults">
             <summary>
             Return <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/> defaults.
-            Enables to not share defaults in descendants with base classes.
-            Enables to have multiple descendants which differs in the default values.
+            Enables not sharing defaults in descendants with base classes.
+            Enables having multiple descendants that differ in the default values.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.Settings">
@@ -4800,10 +4800,10 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Returns an optional set of component settings.
             </summary>
             <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.Settings"/> in components descendants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.Settings"/> in component descendants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.InputSize">
@@ -4820,7 +4820,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.NullableEffective">
             <summary>
             Indicates when <c>null</c> is a valid value.
-            Uses (in order) to get effective value: Nullable property, RequiresAttribute on bounded property (<c>false</c>) Nullable type on bounded property (<c>true</c>), class (<c>true</c>), default (<c>false</c>).
+            Uses (in order) to get the effective value: Nullable property, RequiresAttribute on bounded property (<c>false</c>) Nullable type on bounded property (<c>true</c>), class (<c>true</c>), default (<c>false</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.NullTextImpl">
@@ -4838,7 +4838,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.ValueSelectorImpl">
             <summary>
             Selects value from item.
-            Not required when TValue is same as TItem.
+            Not required when TValue is the same as TItem.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
@@ -4957,18 +4957,18 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.Date">
             <summary>
-            Date. Overrides any <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.DateSelector"/>
+            Date. Overrides any <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.DateSelector"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.DateSelector">
             <summary>
-            Used to supply the date at runtime especially to use
-            a TimeProvider.  Not used if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.Date"/> is set.
+            Used to supply the date at runtime, especially to use
+            a TimeProvider. Not used if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.Date"/> is set.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.GetDateEffective(System.TimeProvider)">
             <summary>
-            Defaults to returning the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.Date"/> otherwise calls <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.DateSelector"/>.<br/>
+            Defaults to returning the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.Date"/>; otherwise, calls <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem.DateSelector"/>.<br/>
             Used to resolve the date at runtime, particularly when a TimeProvider is needed.
             </summary>
             <param name="timeProvider"><see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.TimeProvider"/></param>
@@ -5006,37 +5006,37 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ShowClearButton">
             <summary>
-            Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
+            Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.MinDate">
             <summary>
-            First date selectable from the dropdown calendar.
+            The first date selectable from the dropdown calendar.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.MaxDate">
             <summary>
-            Last date selectable from the dropdown calendar.
+            The last date selectable from the dropdown calendar.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.CalendarDateCustomizationProvider">
             <summary>
-            Allows customization of the dates in dropdown calendars.
+            Allows customization of the dates in the dropdown calendars.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ShowPredefinedDateRanges">
             <summary>
-            When enabled, shows predefined day ranges (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.PredefinedDateRanges"/>, e.g. Today).
+            When enabled, shows predefined day ranges (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.PredefinedDateRanges"/>, e.g., Today).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.PredefinedDateRanges">
             <summary>
-            Predefined date ranges to be displayed.
+            The predefined date ranges to be displayed.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.TimeProvider">
             <summary>
-            TimeProvider used to get DateTime.Today
+            The TimeProvider used to get DateTime.Today.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings">
@@ -5056,37 +5056,37 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.ShowClearButton">
             <summary>
-            Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
+            Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.MinDate">
             <summary>
-            First date selectable from the dropdown calendar.
+            The first date selectable from the dropdown calendar.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.MaxDate">
             <summary>
-            Last date selectable from the dropdown calendar.
+            The last date selectable from the dropdown calendar.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.CalendarDateCustomizationProvider">
             <summary>
-            Allows customization of the dates in dropdown calendars.
+            Allows customization of the dates in the dropdown calendars.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.ShowPredefinedDates">
             <summary>
-            When enabled, shows predefined days (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.PredefinedDates"/>, e.g. Today).
+            When enabled, shows predefined days (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.PredefinedDates"/>, e.g., Today).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.PredefinedDates">
             <summary>
-            Predefined dates to be displayed.
+            The predefined dates to be displayed.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.TimeProvider">
             <summary>
-            TimeProvider to use, note: override the 'Today' in PredefinedDates
+            The TimeProvider to use, note: overrides the 'Today' in PredefinedDates.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings">
@@ -5101,7 +5101,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputMode">
             <summary>
-            Hint to browsers as to the type of virtual keyboard configuration to use when editing.
+            Hint to browsers regarding the type of virtual keyboard configuration to use when editing.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings">
@@ -5111,7 +5111,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings.BindEvent">
             <summary>
-            Instructs whether the <code>Value</code> is going to be updated instantly, or <code>onchange</code> (usually <code>onmouseup</code>).
+            Determines whether the <code>Value</code> is going to be updated instantly or <code>onchange</code> (usually <code>onmouseup</code>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputSettings">
@@ -5124,19 +5124,39 @@
             Specifies how the validation message should be displayed.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputSize">
+            <summary>
+            Represents the size of an input element.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.InputSize.Regular">
+            <summary>
+            Regular size.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.InputSize.Small">
+            <summary>
+            Small size.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.InputSize.Large">
+            <summary>
+            Large size.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputSizeExtensions.AsFormControlCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
             <summary>
-            Returns CSS class to render input (form-control) with desired size.
+            Returns CSS class to render input (form-control) with the desired size.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputSizeExtensions.AsInputGroupCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
             <summary>
-            Returns CSS class to render input-group with desired size.
+            Returns CSS class to render input-group with the desired size.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputSizeExtensions.AsFormSelectCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
             <summary>
-            Returns CSS class to render select (form-select) with desired size.
+            Returns CSS class to render select (form-select) with the desired size.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings">
@@ -5146,12 +5166,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.InputSize">
             <summary>
-            Input size.
+            Size of the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.InputMode">
             <summary>
-            Hint to browsers as to the type of virtual keyboard configuration to use when editing.
+            Hint to browsers regarding the type of virtual keyboard configuration to use when editing.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.LabelType">
@@ -5191,17 +5211,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.ClearFilterOnHide">
             <summary>
-            When enabled the filter will be cleared when the dropdown is closed.
+            When enabled, the filter will be cleared when the dropdown is closed.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.FilterSearchIcon">
             <summary>
-            Icon displayed in filter input for searching the filter.
+            Icon displayed in the filter input for searching the filter.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.FilterClearIcon">
             <summary>
-            Icon displayed in filter input for clearing the filter.
+            Icon displayed in the filter input for clearing the filter.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings">
@@ -5533,7 +5553,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.InputSize">
             <summary>
-            Input size.
+            The size of the input.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode">
@@ -5543,20 +5563,20 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Regular">
             <summary>
-            Validation messages are displayed in the regular way (takes space, when displayed).
+            Validation messages are displayed in the regular way (occupy space when displayed).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Tooltip">
             <summary>
-            Validation messages are displayed as a tooltips.
+            Validation messages are displayed as tooltips.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Floating">
             <summary>
-            Validation messages, which do not take extra space when displayed.
+            Validation messages that do not occupy extra space when displayed.
             </summary>
             <remarks>
-            We want to avoid changing position of the form submit button to prevent the "no onclick/onsubmit issue when button position changes".
+            We want to avoid changing the position of the form submit button to prevent the "no onclick/onsubmit issue when button position changes".
             </remarks>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.None">
@@ -5566,37 +5586,37 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageModeExtensions">
             <summary>
-            Extension methods to <see cref="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode" />.
+            Extension methods for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode" />.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate">
             <summary>
-            Cell template.
+            Represents a cell template.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate.Template">
             <summary>
-            Template to render cell.
+            Gets or sets the template used to render the cell.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate.CssClass">
             <summary>
-            Css class of the cell.
+            Gets or sets the CSS class of the cell.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate.Create(Microsoft.AspNetCore.Components.RenderFragment,System.String)">
             <summary>
-            Constructor.
+            Creates a new instance of the GridCellTemplate class.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode">
             <summary>
-            Strategy how data are displayed in the grid (and loaded to the grid).
+            Strategy for displaying and loading data in the grid.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination">
             <summary>
-            Use pager.
+            Use pagination.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore">
@@ -5606,10 +5626,10 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore">
             <summary>
-            Use pager and "Load more" button.
+            Use pagination and "Load more" button.
             </summary>
             <remarks>
-            Value used as this is a flagged enum (but it is not).
+            This value is used as a flagged enum (but it is not).
             </remarks>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll">
@@ -5629,12 +5649,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderRequest`1.StartIndex">
             <summary>
-            The number of records to skip. In paging mode it equals to the the page size * page index requested.
+            The number of records to skip. In paging mode, it equals the page size multiplied by the requested page index.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderRequest`1.Count">
             <summary>
-            The number od records to return. In paging mode it equals to the size of the page.				
+            The number of records to return. In paging mode, it equals the size of the page.				
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderRequest`1.Sorting">
@@ -5649,30 +5669,38 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderRequest`1.ApplyTo(System.Collections.Generic.IEnumerable{`0})">
             <summary>
-            Process data on client side (process sorting &amp; paging) and returns result for the grid.
+            Processes data on the client side (sorting &amp; paging) and returns the result for the grid.
             </summary>
-            <param name="data">data to process (paging and sorting will be applied)</param>
+            <param name="data">The data to process (paging and sorting will be applied).</param>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderRequestExtensions.ApplyGridDataProviderRequest``1(System.Linq.IQueryable{``0},Havit.Blazor.Components.Web.Bootstrap.GridDataProviderRequest{``0})">
             <summary>
             Applies sorting &amp; paging from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/>.
             </summary>
             <param name="source">Data source to apply the request to.</param>
-            <param name="gridDataProviderRequest"><see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/> request</param>
+            <param name="gridDataProviderRequest"><see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/> request.</param>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderResult`1">
             <summary>
-            Data provider result for grid data.
+            Represents the result returned by a data provider for a grid component.
+            This class encapsulates both the collection of items to be displayed in the grid
+            and the total item count which is useful for implementing features like pagination
+            and infinite scrolling.
             </summary>
+            <typeparam name="TItem">The type of the items in the grid.</typeparam>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderResult`1.Data">
             <summary>
-            The provided items by the request.
+            The collection of <typeparamref name="TItem"/> items to be displayed in the grid.
+            These items are the subset of data returned by the data provider based on the current
+            grid state like page number, page size, and any applied filters.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderResult`1.TotalCount">
             <summary>
-            The total item count in the source (for pagination and infinite scroll).
+            The total count of items in the data source. This count is used by the grid
+            to calculate the total number of pages and manage the pagination or infinite scrolling.
+            It represents the total number of items before any paging is applied.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext">
@@ -5682,7 +5710,9 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext.TotalCount">
             <summary>
-            Total count of items in the grid (includes all pages).
+            The total count of items in the data source. This count is used by the grid
+            to calculate the total number of pages and manage the pagination or infinite scrolling.
+            It represents the total number of items before any paging is applied.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext">
@@ -5692,37 +5722,39 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext.TotalCount">
             <summary>
-            Total count of items in the grid (includes all pages).
+            The total count of items in the data source. This count is used by the grid
+            to calculate the total number of pages and manage the pagination or infinite scrolling.
+            It represents the total number of items before any paging is applied.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridInternalStateSortingItem`1">
             <summary>
-            Grid internal state item to persists sorting.
+            Grid internal state item to persist sorting.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridInternalStateSortingItem`1.Column">
             <summary>
-            Sorting column
+            Sorting column.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridInternalStateSortingItem`1.ReverseDirection">
             <summary>
-            Indicates whether the sorting should be performed in the reverse direction.	
+            Indicates whether the sorting should be performed in the reverse direction.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridLoadMoreTemplateContext">
             <summary>
-            Context for "load more" template of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
+            Context for the "load more" template of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridLoadMoreTemplateContext.LoadMoreAsync">
             <summary>
-            Instructs the grid to load next page.
+            Instructs the grid to load the next page.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridLoadMoreTemplateContext.#ctor(System.Func{System.Threading.Tasks.Task})">
             <remark>
-            Not used HxGrid because we have HxGrid&lt;TItem&gt; which leads to GridLoadMoreTemplateContext&lt;TItem&gt;.
+            We do not use HxGrid because we have HxGrid&lt;TItem&gt;, which leads to GridLoadMoreTemplateContext&lt;TItem&gt;.
             </remark>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext">
@@ -5733,8 +5765,8 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext.Index">
             <summary>
             Index of the row.		
-            It reflects current page index when <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination" />, <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore" /> or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore" /> mode is used
-            (ie. when the page size is 10, then on the third page indexes are 20-29).
+            It reflects the current page index when <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination" />, <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore" />, or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore" /> mode is used.
+            (i.e., when the page size is 10, then on the third page, indexes are 20-29).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridSettings">
@@ -5744,7 +5776,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ContentNavigationMode">
             <summary>
-            Strategy how data are displayed in the grid (and loaded to the grid).
+            Strategy for displaying and loading data in the grid.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.SortAscendingIcon">
@@ -5766,9 +5798,9 @@
             <summary>
             Infinite scroll (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/>):
             Gets or sets a value that determines how many additional items will be rendered
-            before and after the visible region. This help to reduce the frequency of rendering
+            before and after the visible region. This helps to reduce the frequency of rendering
             during scrolling. However, higher values mean that more elements will be present
-            in the page.
+            on the page.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PageSize">
@@ -5783,33 +5815,33 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ShowFooterWhenEmptyData">
             <summary>
-            Indicates whether to render footer when data are empty.
+            Indicates whether to render the footer when data is empty.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.TableContainerCssClass">
             <summary>
-            Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c>
+            Custom CSS class to render with the <c>div</c> element wrapping the main <c>table</c>
             (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <c>div</c> element).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.TableCssClass">
             <summary>
-            Custom CSS class to render with main <c>table</c> element.
+            Custom CSS class to render with the main <c>table</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.HeaderRowCssClass">
             <summary>
-            Custom CSS class to render with header <c>tr</c> element.
+            Custom CSS class to render with the header <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ItemRowCssClass">
             <summary>
-            Custom CSS class to render with data <c>tr</c> element.
+            Custom CSS class to render with the data <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.FooterRowCssClass">
             <summary>
-            Custom CSS class to render with footer <c>tr</c> element.
+            Custom CSS class to render with the footer <c>tr</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.Responsive">
@@ -5819,7 +5851,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.Hover">
             <summary>
-            Enables hover state on table rows within a <c>&lt;tbody&gt;</c> (sets the <c>table-hover</c> class on the table).
+            Enables the hover state on table rows within a <c>&lt;tbody&gt;</c> (sets the <c>table-hover</c> class on the table).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.Striped">
@@ -5848,7 +5880,7 @@
             Starting page index for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore"/>.
             </summary>
             <remarks>
-            This number is not the current page index in pager when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.LoadMoreAdditionalItemsCount"/> is not zero.
+            This number is not the current page index in the pager when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.LoadMoreAdditionalItemsCount"/> is not zero.
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.LoadMoreAdditionalItemsCount">
@@ -5867,7 +5899,7 @@
             </summary>
             <remarks>
             For backward compatibility in custom projects.
-            Once upon a time this one was the only constructor.
+            Once upon a time, this was the only constructor.
             </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserState.#ctor">
@@ -5887,7 +5919,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem.ReverseDirection">
             <summary>
-            Indicates whether the sorting should be performed in the reverse direction.	
+            Indicates whether the sorting should be performed in reverse direction.	
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1">
@@ -5905,12 +5937,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.ItemCssClass">
             <summary>
-            Returns item css class (not dependent on data).
+            Returns the item CSS class (not dependent on data).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.ItemCssClassSelector">
             <summary>
-            Returns item css class for the specific date item.
+            Returns the item CSS class for the specific data item.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1.ChildContent">
@@ -5951,17 +5983,17 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ColumnsRegistrationCascadingValueName">
             <summary>
-            ColumnsRegistration cascading value name.
+            Represents a constant name for ColumnsRegistration cascading value.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Settings">
             <summary>
-            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid.Defaults"/>, overridden by individual parameters).
+            Specifies the grid settings. Overrides default settings in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid.Defaults"/> and can be further overridden by individual parameters.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Provides the current settings of the grid. Override in derived classes to return a specific settings type or additional configurations.
             </summary>
             <remarks>
             Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Settings"/> in components descendants (by returning a derived settings class).
@@ -5969,95 +6001,90 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider">
             <summary>
-            Data provider for items to render.<br />
-            The provider should always return instance of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderResult`1"/>, <c>null</c> is not allowed.
+            Data provider delegate for the grid. The data provider is responsible for fetching items to be rendered in the grid.
+            It must always return an instance of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.GridDataProviderResult`1"/> and cannot return null.
             </summary>
+            <remarks>
+            The delegate is invoked to fetch data based on the current grid state, including pagination and sorting parameters.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectionEnabled">
             <summary>
-            Indicates whether single data item selection is enabled.
-            Selection is performed by click on the item row.
-            Can be combined with multiselection.
-            Default is <c>true</c>.
+            Enables or disables single item selection by row click. Can be used alongside multi-selection.
+            Defaults to <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.MultiSelectionEnabled">
             <summary>
-            Indicates whether multi data items selection is enabled.
-            Selection is performed by checkboxes in the first column.
-            Can be combined with (single) selection.
-            Default is <c>false</c>.
+            Enables or disables multi-item selection using checkboxes in the first column.
+            Can be used with single selection.
+            Defaults to <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Columns">
             <summary>
-            Columns template.
+            Grid columns.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadingDataTemplate">
             <summary>
-            Template to render when "first" data are loading.
+            Defines a template for the initial data loading phase.
             This template is not used when loading data for sorting or paging operations.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.EmptyDataTemplate">
             <summary>
-            Template to render when there is empty Data (but not <c>null</c>).
+            Template for rendering when the data source is empty but not null.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadMoreTemplate">
             <summary>
-            Template to render "load more" button (or other UI element).
+            Template for the "load more" button (or other UI element).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItem">
             <summary>
-            Selected data item.
-            Intended for data binding.
+            Represents the currently selected data item in the grid for data binding and state synchronization. Changes trigger <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemChanged"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemChanged">
             <summary>
-            Event fires when selected data item changes.
-            Intended for data binding.
+            Event that fires when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItem"/> property changes. This event is intended for data binding and state synchronization.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InvokeSelectedDataItemChangedAsync(`0)">
             <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemChanged"/> event. Allows interception of the event in derived components.
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemChanged"/> event asynchronously. This method can be overridden in derived components to intercept the event and provide custom logic before or after the event is triggered.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItems">
             <summary>
-            Selected data items.
-            Intended for data binding.
+            Represents the collection of currently selected data items in the grid, primarily for data binding and state management in multi-selection scenarios.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemsChanged">
             <summary>
-            Event fires when selected data items changes.
-            Intended for data binding.
+            Event that fires when the collection of selected data items changes. This is particularly relevant in multi-selection scenarios. It is intended for data binding and state synchronization.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InvokeSelectedDataItemsChangedAsync(System.Collections.Generic.HashSet{`0})">
             <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemsChanged"/> event. Allows interception of the event in derived components.
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemsChanged"/> event. This method can be overridden in derived components to implement custom logic before or after the event is triggered.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ContentNavigationMode">
             <summary>
-            Strategy how data are displayed in the grid (and loaded to the grid).
+            The strategy for how data items are displayed and loaded into the grid. Supported modes include pagination, load more, and infinite scroll.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PageSize">
             <summary>
-            Page size for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination"/>, <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore"/>. Set <c>0</c> to disable paging.
+            The number of items to display per page. Applicable for grid modes such as pagination and load more. Set to 0 to disable paging.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ShowFooterWhenEmptyData">
             <summary>
-            Indicates whether to render footer when data are empty.
-            Default is <c>false</c>.
+            Determines whether the grid footer is rendered when the grid's data source is empty. The default value is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PagerSettings">
@@ -6067,65 +6094,65 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadMoreButtonText">
             <summary>
-            Text of the "Load more" navigation button (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>).
-            (Default is taken from the localization resources.)
+            The text for the "Load more" button, used in the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> navigation mode. The default text is obtained from localization resources.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadMoreButtonSettings">
             <summary>
-            Settings for the "Load more" navigation button (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/>).
+            Configuration for the "Load more" button, including appearance and behavior settings. Relevant in grid modes that use a "Load more" button for data navigation.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserState">
             <summary>
-            Current grid state (page, sorting).
+            Gets or sets the current state of the grid, including pagination and sorting information. This state can be used to restore the grid to a specific configuration or to synchronize it with external state management systems.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserStateChanged">
             <summary>
-            Event fires when grid state is changed.
+            Event that fires when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserState"/> property changes. This event can be used to react to changes in the grid's state, such as sorting or pagination adjustments.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InvokeCurrentUserStateChangedAsync(Havit.Blazor.Components.Web.Bootstrap.GridUserState)">
             <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserStateChanged"/> event. Allows interception of the event in derived components.
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserStateChanged"/> event. This method can be overridden in derived components to add custom logic before or after the state change event is triggered.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InProgress">
             <summary>
-            Indicates when the grid should be displayed as "in progress".
-            When not set (<c>null</c>), grid progress is automatically tracked when retrieving data by data provider.
+            Gets or sets a value indicating whether the grid is currently processing data, such as loading or refreshing items.
+            When set to <c>null</c>, the progress state is automatically managed based on the data provider's activity.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.TableContainerCssClass">
             <summary>
-            Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c> (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> is not wrapped in this <c>div</c> element).
+            Custom CSS class for the <c>div</c> element that wraps the main <c>table</c> element. Excludes the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/> which is not wrapped in this <c>div</c> element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.TableCssClass">
             <summary>
-            Custom CSS class to render with main <c>table</c> element.
+            Custom CSS class for the main <c>table</c> element of the grid. This class allows for styling and customization of the grid's appearance.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.HeaderRowCssClass">
             <summary>
-            Custom CSS class to render with header <c>tr</c> element.
+            Custom CSS class for the header <c>tr</c> element in the grid. Enables specific styling for the header row separate from the rest of the grid.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowCssClass">
             <summary>
-            Custom CSS class to render with data <c>tr</c> element.
+            Custom CSS class for the data <c>tr</c> elements in the grid. This class is applied to each row of data, providing a way to customize the styling of data rows.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowHeight">
             <summary>
-            Height of the item row used for infinite scroll calculations.
-            Default value is <c>41px</c> (row-height of regular table-row within Bootstrap 5 default theme).
+            Height of each item row, used primarily in calculations for infinite scrolling.
+            The default value (41px) corresponds to the typical row height in the Bootstrap 5 default theme.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowCssClassSelector">
             <summary>
-            Returns custom CSS class to render with data <c>tr</c> element.
+            Function that defines a custom CSS class for each data <c>tr</c> element based on the item it represents.
+            This allows for conditional styling of rows based on their data.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemKeySelector">
@@ -6143,59 +6170,56 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.FooterRowCssClass">
             <summary>
-            Custom CSS class to render with footer <c>tr</c> element.
+            A custom CSS class for the footer <c>tr</c> element in the grid. This allows styling of the grid footer independently of other grid elements.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PlaceholdersRowCount">
             <summary>
-            Number of rows with placeholders to render.
-            When value is zero, placeholders are not used.
-            When <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadingDataTemplate" /> is set, placeholder are not used.
-            Default is <c>5</c>.
+            The number of placeholder rows to be rendered in the grid. Placeholders are used when loading data or when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadingDataTemplate" />
+            is not set. Set to 0 to disable placeholders. Default value is 5.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.OverscanCount">
             <summary>
-            Infinite scroll:
-            Gets or sets a value that determines how many additional items will be rendered
-            before and after the visible region. This help to reduce the frequency of rendering
-            during scrolling. However, higher values mean that more elements will be present
-            in the page.<br/>
-            Default is <c>3</c>.
+            Defines the number of additional items to be rendered before and after the visible region in an infinite scrolling scenario.
+            This helps to reduce the frequency of rendering during scrolling, though higher values increase the number of elements present in the page.
+            Default is 3.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Responsive">
             <summary>
-            Allows the table to be scrolled horizontally with ease across any breakpoint (adds the <c>table-responsive</c> class to the table).<br/>
-            Default is <c>false</c>.
+            Determines if the grid should be scrollable horizontally across different breakpoints.
+            When set to true, the <c>table-responsive</c> class is added to the table.
+            Default is false.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Hover">
             <summary>
-            Enables hover state on table rows within a <c>&lt;tbody&gt;</c> (sets the <c>table-hover</c> class on the table).<br />
-            If not set (default) the table is hoverable when selection is enabled.
+            Enables or disables the hover state on table rows within a <c>&lt;tbody&gt;</c>.
+            When not set, the table is hoverable by default if selection is enabled. This property customizes the hover behavior of the grid rows.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Striped">
             <summary>
-            Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> (alternating rows).<br />
-            Default is <c>false</c>.
+            Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> for better readability.
+            Rows will have alternating background colors.
+            Default is false.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SortAscendingIcon">
             <summary>
-            Icon to indicate ascending sort direction in column header.
+            Icon to indicate the ascending sort direction in the column header. This icon is displayed when a column is sorted in ascending order.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SortDescendingIcon">
             <summary>
-            Icon to indicate descending sort direction in column header.
+            Icon to indicate the descending sort direction in the column header. This icon is shown when a column is sorted in descending order.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetDefaults">
             <summary>
-            Returns application-wide defaults for the component.
-            Enables overriding defaults in descendants (use separate set of defaults).
+            Retrieves the default settings for the grid. This method can be overridden in derived classes
+            to provide different default settings or to use a derived settings class.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.#ctor">
@@ -6240,8 +6264,8 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync">
             <summary>
-            Instructs the component to re-request data from its <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/>.
-            This is useful if external data may have changed.
+            Requests a data refresh from the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/>.
+            Useful for updating the grid when external data may have changed.
             </summary>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
@@ -6304,7 +6328,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.HeaderCssClass">
             <summary>
-            Header cell css class.
+            Header cell CSS class.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.ItemTextSelector">
@@ -6319,12 +6343,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.ItemCssClass">
             <summary>
-            Returns item css class (not dependent on data).
+            Returns item CSS class (not dependent on data).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.ItemCssClassSelector">
             <summary>
-            Returns item css class for the specific date item.
+            Returns item CSS class for the specific date item.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.PlaceholderTemplate">
@@ -6344,32 +6368,32 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.FooterCssClass">
             <summary>
-            Footer cell css class.
+            Footer cell CSS class.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.SortString">
             <summary>
-            Returns column sorting as string.
-            Use to set sorting as a string, ie. to get value to pass to backend.
+            Returns column sorting as a string.
+            Used to set sorting as a string, i.e., to get value to pass to the backend.
             Ignored for client-side sorting.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.SortKeySelector">
             <summary>
             Returns column sorting expression for automatic grid sorting.
-            To be used for &quot;strongly typed&quot; setting of sorting, required for client-side sorting.
+            To be used for "strongly typed" setting of sorting, required for client-side sorting.
             Must be <see cref="T:System.IComparable"/>.
             Sorting of the column does not support multiple expressions. Create an artificial property and implement <see cref="T:System.IComparable"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.SortDirection">
             <summary>
-            Initial sorting direction. Default is <see cref="F:Havit.Collections.SortDirection.Ascending" />.
+            Initial sorting direction. Default is <see cref="F:Havit.Collections.SortDirection.Ascending"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.IsDefaultSortColumn">
             <summary>
-            Indicates the sorting on the column is default (primary) on the grid.
+            Indicates that the sorting on the column is default (primary) on the grid.
             Set <c>true</c> for the column which is to be used for default sorting.
             </summary>
         </member>
@@ -6407,7 +6431,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.ColumnsRegistration">
             <summary>
-            Cascading parameter to register column to the grid.
+            Cascading parameter to register the column to the grid.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.OnInitialized">
@@ -6447,8 +6471,8 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.IsColumnVisible">
             <summary>
-            Indicates whether the column is visible (otherwise the column is hidden).
-            It is not suitable to conditionally display the column using @if statement in the markup code.
+            Indicates whether the column is visible (otherwise, the column is hidden).
+            It is not suitable to conditionally display the column using an @if statement in the markup code.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetColumnOrder">
@@ -6456,45 +6480,45 @@
             Returns the column order.
             </summary>
             <remarks>
-            Currently it ensures the correct order of MultiSelectGridColumn when enabled dynamically.		
-            In future we can implement better in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1"/> to enable dynamic column order.
+            Currently, it ensures the correct order of the MultiSelectGridColumn when enabled dynamically.
+            In the future, we can implement it better in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1"/> to enable dynamic column order.
             </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
             <summary>
-            Returns header cell template.
+            Returns the header cell template.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetItemCellTemplate(`0)">
             <summary>
-            Returns data cell template for the specific item.
+            Returns the data cell template for the specific item.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetItemPlaceholderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext)">
             <summary>
-            Returns placeholder cell template.
+            Returns the placeholder cell template.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetFooterCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext)">
             <summary>
-            Returns footer cell template.
+            Returns the footer cell template.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetSorting">
             <summary>
-            Returns column sorting.
+            Returns the column sorting.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetDefaultSortingOrder">
             <summary>
-            Returns not-null value for default sort column.
-            For multiple sort items, set value in ascendant order.
+            Returns a non-null value for the default sort column.
+            For multiple sort items, set the value in ascending order.
             </summary>
             <remarks>
-            Current implementation of grid columns uses only null and zero values.
+            The current implementation of grid columns uses only null and zero values.
             </remarks>
             <example>
-            To set default sorting by LastName, then FirstName use value 1 for LastName and value 2 for FirstName).
+            To set default sorting by LastName, then FirstName, use value 1 for LastName and value 2 for FirstName).
             </example>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.DisposeAsync">
@@ -6514,7 +6538,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPager.GetDefaults">
             <summary>
             Returns application-wide defaults for the component.
-            Enables overriding defaults in descendants (use separate set of defaults).
+            Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.Settings">
@@ -6524,26 +6548,26 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPager.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Returns an optional set of component settings.
             </summary>
             <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxPager.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.Settings"/> in components descendants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxPager.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.Settings"/> in component descendants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.TotalPages">
             <summary>
-            Total pages of data items.
+            Total number of pages of data items.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.CurrentPageIndex">
             <summary>
-            Current page index. Zero based.
-            Displayed numbers start with 1 which is page index 0.
+            Current page index. Zero-based.
+            Displayed numbers start with 1, which is page index 0.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.CurrentPageIndexChanged">
             <summary>
-            Event raised where page index is changed.
+            Event raised when the page index is changed.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPager.InvokeCurrentPageIndexChangedAsync(System.Int32)">
@@ -6573,7 +6597,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.NumericButtonsCount">
             <summary>
-            Count of numbers to display. Default value is 10.
+            Count of numbers to display. The default value is 10.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.CssClass">
@@ -6583,7 +6607,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPager.SetCurrentPageIndexTo(System.Int32)">
             <summary>
-            Changes current page index and fires event.
+            Changes the current page index and fires the event.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1">
@@ -6598,46 +6622,45 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.IsVisible">
             <summary>
-            Indicates whether the column is visible (otherwise the column is hidden).
-            It is not suitable to conditionally display the column using @if statement in the markup code.
+            Indicates whether the column is visible (otherwise, the column is hidden).
+            It is not suitable to conditionally display the column using an @if statement in the markup code.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetOrder">
             <summary>
-            Get column order (for scenarios where column order can be modified).
-            Default should be <c>0</c>.
-            When columns have same order they should render in the order of their registration (Which is usually the same as the column appearance in the source code.
-            But it differs when the column is displayed conditionally using @if statement.).
+            Gets the column order (for scenarios where the column order can be modified).
+            The default value should be <c>0</c>.
+            When columns have the same order, they should render in the order of their registration (which is usually the same as the column appearance in the source code, but it differs when the column is displayed conditionally using an @if statement).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetSorting">
             <summary>
-            Sorting of the column.
+            Gets the sorting of the column.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetDefaultSortingOrder">
             <summary>
-            Sorting of the column.
+            Gets the default sorting order of the column.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
             <summary>
-            Returns header cell template.
+            Returns the header cell template.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetItemCellTemplate(`0)">
             <summary>
-            Returns data cell template for the specific item.
+            Returns the data cell template for the specific item.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetItemPlaceholderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext)">
             <summary>
-            Returns placeholder cell template.
+            Returns the placeholder cell template.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetFooterCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext)">
             <summary>
-            Returns footer cell template.
+            Returns the footer cell template.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PagerSettings">
@@ -6667,7 +6690,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.NumericButtonsCount">
             <summary>
-            Count of numbers to display.
+            Number of buttons with numbers to display.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.CssClass">
@@ -6677,37 +6700,37 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1">
             <summary>
-            Item describes one sorting criteria.
+            Represents one sorting criteria.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.SortString">
             <summary>
-            Sorting as string value. Can be used to pass value between application layers (ie. WebAPI call parameter).
+            Gets or sets the sorting value as a string. Can be used to pass value between application layers (e.g., WebAPI call parameter).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.SortKeySelector">
             <summary>
-            Selector function of sorting key. To be used for automatic in-memory sorting.
+            Gets or sets the selector function for the sorting key. Used for automatic in-memory sorting.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.SortDirection">
             <summary>
-            Sort direction of SortString/SortKeySelector.
+            Gets or sets the sort direction of SortString/SortKeySelector.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.#ctor(System.String,System.Linq.Expressions.Expression{System.Func{`0,System.IComparable}},Havit.Collections.SortDirection)">
             <summary>
-            Constructor.
+            Initializes a new instance of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1"/> class.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.EqualsIgnoringSortDirection``1(Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0})">
             <summary>
-            Returns true when this and sorting item describes the same sorting (direction is ignored).
+            Returns true when this and the sorting item describe the same sorting (direction is ignored).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.WithToggledSortDirection">
             <summary>
-            Returns the SortItem describing the same sorting with toggled direction.
+            Returns the SortingItem describing the same sorting with toggled direction.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.ToString">
@@ -6720,12 +6743,12 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItemExtensions.ToGenericPropertyComparer``1(System.Collections.Generic.IEnumerable{Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}})">
             <summary>
-            Creates GenericPropertyComparer for the sorting by <see cref="P:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.SortString"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.SortDirection"/> properties.
+            Creates a GenericPropertyComparer for sorting by the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.SortString"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1.SortDirection"/> properties.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItemExtensions.ToSortItems``1(System.Collections.Generic.IEnumerable{Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}})">
             <summary>
-            Converts <see cref="T:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1"/> to <see cref="T:Havit.Collections.SortItem"/>.
+            Converts a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1"/> to a <see cref="T:Havit.Collections.SortItem"/>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSetup.RenderBootstrapJavaScriptReference">

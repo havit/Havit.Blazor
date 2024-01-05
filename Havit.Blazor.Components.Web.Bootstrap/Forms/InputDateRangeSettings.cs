@@ -13,37 +13,37 @@ public record InputDateRangeSettings : InputSettings, IInputSettingsWithSize
 	public InputSize? InputSize { get; set; }
 
 	/// <summary>
-	/// Indicates whether the <i>Clear</i> button in dropdown calendar should be visible.<br/>
+	/// Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
 	/// </summary>
 	public bool? ShowClearButton { get; set; }
 
 	/// <summary>
-	/// First date selectable from the dropdown calendar.
+	/// The first date selectable from the dropdown calendar.
 	/// </summary>
 	public DateTime? MinDate { get; set; }
 
 	/// <summary>
-	/// Last date selectable from the dropdown calendar.
+	/// The last date selectable from the dropdown calendar.
 	/// </summary>
 	public DateTime? MaxDate { get; set; }
 
 	/// <summary>
-	/// Allows customization of the dates in dropdown calendars.
+	/// Allows customization of the dates in the dropdown calendars.
 	/// </summary>
 	public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
 
 	/// <summary>
-	/// When enabled, shows predefined day ranges (from <see cref="HxInputDateRange.PredefinedDateRanges"/>, e.g. Today).
+	/// When enabled, shows predefined day ranges (from <see cref="HxInputDateRange.PredefinedDateRanges"/>, e.g., Today).
 	/// </summary>
 	public bool? ShowPredefinedDateRanges { get; set; }
 
 	/// <summary>
-	/// Predefined date ranges to be displayed.
+	/// The predefined date ranges to be displayed.
 	/// </summary>
 	public IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRanges { get; set; }
 
 	/// <summary>
-	/// TimeProvider used to get DateTime.Today
+	/// The TimeProvider used to get DateTime.Today.
 	/// </summary>
 	public TimeProvider TimeProvider { get; set; }
 }
