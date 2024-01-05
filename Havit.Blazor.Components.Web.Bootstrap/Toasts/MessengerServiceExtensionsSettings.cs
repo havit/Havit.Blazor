@@ -6,7 +6,7 @@
 public record MessengerServiceExtensionsSettings
 {
 	/// <summary>
-	/// Color-scheme of informational messages.
+	/// Color scheme of informational messages.
 	/// </summary>
 	public ThemeColor InformationColor { get; set; } = ThemeColor.Primary;
 
@@ -16,7 +16,7 @@ public record MessengerServiceExtensionsSettings
 	public int? InformationAutohideDelay { get; set; } = 5000;
 
 	/// <summary>
-	/// Color-scheme of informational messages.
+	/// Color scheme of warning messages.
 	/// </summary>
 	public ThemeColor WarningColor { get; set; } = ThemeColor.Warning;
 
@@ -26,7 +26,7 @@ public record MessengerServiceExtensionsSettings
 	public int? WarningAutohideDelay { get; set; } = null;
 
 	/// <summary>
-	/// Color-scheme of informational messages.
+	/// Color scheme of error messages.
 	/// </summary>
 	public ThemeColor ErrorColor { get; set; } = ThemeColor.Danger;
 

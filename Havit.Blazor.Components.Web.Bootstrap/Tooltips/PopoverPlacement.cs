@@ -11,7 +11,7 @@ public enum PopoverPlacement
 	Right = TooltipPlacement.Right,
 
 	/// <summary>
-	/// When is specified, it will dynamically reorient the popover.
+	/// When specified, it will dynamically reorient the popover.
 	/// </summary>
 	Auto = TooltipPlacement.Auto
 }

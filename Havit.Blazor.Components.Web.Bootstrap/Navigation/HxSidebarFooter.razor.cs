@@ -24,13 +24,13 @@ public partial class HxSidebarFooter
 
 	/// <summary>
 	/// URL matching behavior for the underlying <see cref="NavLink"/>.
-	/// Default is <see cref="NavLinkMatch.Prefix"/>.
+	/// The default value is <see cref="NavLinkMatch.Prefix"/>.
 	/// </summary>
 	[Parameter] public NavLinkMatch? Match { get; set; } = NavLinkMatch.Prefix;
 
 	/// <summary>
 	/// Allows you to disable the item with <c>false</c>.
-	/// Default is <c>true</c>.
+	/// The default value is <c>true</c>.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 

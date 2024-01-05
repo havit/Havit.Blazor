@@ -16,7 +16,7 @@ public partial class HxProgressBar
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// Current value (proportion of the progress bar that is taken up).
+	/// Current value (proportion of the progress bar that is filled).
 	/// </summary>
 	[Parameter] public float Value { get; set; }
 
@@ -80,7 +80,7 @@ public partial class HxProgressBar
 			return (int)Value;
 		}
 
-		float normalized = (float)((100f / (MaxValueEffective - MinValueEffective) * (Value - MaxValueEffective)) + 100f);
+		float normalized = (float)((100f / (MaxValueEffective - MinValueEffective) * (Value - MinValueEffective)) + 100f);
 		return (int)normalized;
 	}
 }

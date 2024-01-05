@@ -6,22 +6,22 @@
 public partial class HxSidebarBrand
 {
 	/// <summary>
-	/// Brand long name.
+	/// The long name of the brand.
 	/// </summary>
 	[Parameter] public string BrandName { get; set; }
 
 	/// <summary>
-	/// Brand logo.
+	/// The logo of the brand.
 	/// </summary>
 	[Parameter] public RenderFragment<SidebarBrandLogoTemplateContext> LogoTemplate { get; set; }
 
 	/// <summary>
-	/// Brand short name.
+	/// The short name of the brand.
 	/// </summary>
 	[Parameter] public string BrandNameShort { get; set; }
 
 	/// <summary>
-	/// <see cref="HxSidebar"/> containing the <see cref="HxSidebarBrand"/>.
+	/// The <see cref="HxSidebar"/> containing the <see cref="HxSidebarBrand"/>.
 	/// </summary>
 	[CascadingParameter] protected HxSidebar ParentSidebar { get; set; }
 

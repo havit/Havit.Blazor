@@ -6,17 +6,17 @@
 public record MessageBoxSettings
 {
 	/// <summary>
-	/// Settings for the dialog primary button.
+	/// Settings for the primary dialog button.
 	/// </summary>
 	public ButtonSettings PrimaryButtonSettings { get; set; }
 
 	/// <summary>
-	/// Settings for dialog secondary button(s).
+	/// Settings for the secondary dialog button(s).
 	/// </summary>
 	public ButtonSettings SecondaryButtonSettings { get; set; }
 
 	/// <summary>
-	/// Settings for underlying <see cref="HxModal"/> component.
+	/// Settings for the underlying <see cref="HxModal"/> component.
 	/// </summary>
 	public ModalSettings ModalSettings { get; set; }
 }

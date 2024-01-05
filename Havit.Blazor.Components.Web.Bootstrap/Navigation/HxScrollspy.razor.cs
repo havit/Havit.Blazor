@@ -14,12 +14,12 @@ public partial class HxScrollspy : IAsyncDisposable
 	[Parameter, EditorRequired] public string TargetId { get; set; }
 
 	/// <summary>
-	/// Scrollspy additional CSS class. Added to main div (.hx-scrollspy).
+	/// Scrollspy additional CSS class. Added to the main div (.hx-scrollspy).
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// Content to be spied. Elements with IDs are required (corresponding IDs to be used in <see cref="HxNavLink.Href"/>).
+	/// Content to be spied on. Elements with IDs are required (corresponding IDs to be used in <see cref="HxNavLink.Href"/>).
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
@@ -48,7 +48,7 @@ public partial class HxScrollspy : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// When using scrollspy in conjunction with adding or removing of elements from the DOM (e.g. asynchronous data load), you’ll need to refresh the scrollspy explicitly.
+	/// When using scrollspy in conjunction with adding or removing elements from the DOM (e.g. asynchronous data load), you’ll need to refresh the scrollspy explicitly.
 	/// </summary>
 	/// <returns></returns>
 	public async Task RefreshAsync()
@@ -64,7 +64,7 @@ public partial class HxScrollspy : IAsyncDisposable
 		}
 		else
 		{
-			// NOOP - will be initialized OnAfterRenderAsync (a therefor the refresh is not needed)
+			// NOOP - will be initialized OnAfterRenderAsync (and therefore the refresh is not needed)
 		}
 	}
 

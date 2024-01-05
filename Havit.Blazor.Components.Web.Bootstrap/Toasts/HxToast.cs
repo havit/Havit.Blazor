@@ -4,28 +4,23 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// <see href="https://getbootstrap.com/docs/5.3/components/toasts/">Bootstrap Toast</see> component. Not intended to be used in user code, use <see cref="HxMessenger"/>.
-/// After first render component never updates.<br />
+/// After the first render, the component never updates.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxToast">https://havit.blazor.eu/components/HxToast</see>
 /// </summary>
 public partial class HxToast : ComponentBase, IAsyncDisposable
 {
 	/// <summary>
-	/// JS Runtime.
-	/// </summary>
-	[Inject] protected IJSRuntime JSRuntime { get; set; }
-
-	/// <summary>
-	/// Color-scheme.
+	/// Color scheme.
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
 
 	/// <summary>
-	/// Delay in milliseconds to automatically hide toast.
+	/// Delay in milliseconds to automatically hide the toast.
 	/// </summary>
 	[Parameter] public int? AutohideDelay { get; set; }
 
 	/// <summary>
-	/// Css class to render with toast.
+	/// CSS class to render with the toast.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 
@@ -55,18 +50,20 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 	[Parameter] public RenderFragment ContentTemplate { get; set; }
 
 	/// <summary>
-	/// Indicates whether to show close button.
+	/// Indicates whether to show the close button.
 	/// </summary>
 	[Parameter] public bool ShowCloseButton { get; set; } = true;
 
 	/// <summary>
-	/// Fires when toast is hidden (button or autohide).
+	/// Fires when the toast is hidden (button or autohide).
 	/// </summary>
 	[Parameter] public EventCallback OnToastHidden { get; set; }
 	/// <summary>
 	/// Triggers the <see cref="OnToastHidden"/> event. Allows interception of the event in derived components.
 	/// </summary>
 	protected virtual Task InvokeOnToastHiddenAsync() => OnToastHidden.InvokeAsync();
+
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	private ElementReference toastElement;
 	private DotNetObjectReference<HxToast> dotnetObjectReference;

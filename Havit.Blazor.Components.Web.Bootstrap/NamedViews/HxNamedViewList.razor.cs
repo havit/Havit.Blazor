@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// List of named-views for <see cref="HxListLayout{TFilterModel}" />.<br />
+/// List of named views for <see cref="HxListLayout{TFilterModel}" />.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNamedViewList">https://havit.blazor.eu/components/HxNamedViewList</see>
 /// </summary>
 
@@ -28,7 +28,7 @@ public partial class HxNamedViewList<TFilterModel>
 		TFilterModel newFilter = namedView.Filter();
 		if (newFilter != null)
 		{
-			FilterModel = newFilter; // BEWARE, filter has to be cloned
+			FilterModel = newFilter; // BEWARE, the filter has to be cloned
 			await InvokeFilterModelChangedAsync(newFilter);
 		}
 

@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Component to display message-boxes.<br/>
+/// Component for displaying message boxes.<br/>
 /// Usually used via <see cref="HxMessageBoxService"/> and <see cref="HxMessageBoxHost"/>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMessageBox">https://havit.blazor.eu/components/HxMessageBox</see>
 /// </summary>
@@ -34,8 +34,8 @@ public partial class HxMessageBox : ComponentBase
 	}
 
 	/// <summary>
-	/// Returns <see cref="HxMessageBox"/> defaults.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Returns the defaults for <see cref="HxMessageBox"/>.
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual MessageBoxSettings GetDefaults() => Defaults;
 
@@ -66,12 +66,12 @@ public partial class HxMessageBox : ComponentBase
 
 	/// <summary>
 	/// Indicates whether to show the close button.
-	/// Default is taken from the underlying <see cref="HxModal"/> (<c>true</c>).
+	/// The default is taken from the underlying <see cref="HxModal"/> (<c>true</c>).
 	/// </summary>
 	[Parameter] public bool? ShowCloseButton { get; set; }
 
 	/// <summary>
-	/// Buttons to show. Default is <see cref="MessageBoxButtons.Ok"/>.
+	/// Buttons to show. The default is <see cref="MessageBoxButtons.Ok"/>.
 	/// </summary>
 	[Parameter] public MessageBoxButtons Buttons { get; set; } = MessageBoxButtons.Ok;
 
@@ -98,7 +98,7 @@ public partial class HxMessageBox : ComponentBase
 	protected ButtonSettings SecondaryButtonSettingsEffective => this.SecondaryButtonSettings ?? GetDefaults().SecondaryButtonSettings ?? throw new InvalidOperationException(nameof(SecondaryButtonSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
 
 	/// <summary>
-	/// Settings for underlying <see cref="HxModal"/> component.
+	/// Settings for the underlying <see cref="HxModal"/> component.
 	/// </summary>
 	[Parameter] public ModalSettings ModalSettings { get; set; }
 	protected ModalSettings ModalSettingsEffective => this.ModalSettings ?? GetDefaults().ModalSettings ?? throw new InvalidOperationException(nameof(ModalSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");

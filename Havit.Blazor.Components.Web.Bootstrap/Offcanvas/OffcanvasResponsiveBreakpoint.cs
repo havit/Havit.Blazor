@@ -26,12 +26,12 @@ public enum OffcanvasResponsiveBreakpoint
 	Large = 4,
 
 	/// <summary>
-	/// Render contents outside the viewport in an offcanvas when bellow "extra-large" breakpoint (<c>1200px</c>, exclusive).
+	/// Render contents outside the viewport in an offcanvas when below the "extra-large" breakpoint (<c>1200px</c>, exclusive).
 	/// </summary>
 	ExtraLarge = 5,
 
 	/// <summary>
-	/// Render contents outside the viewport in an offcanvas when bellow "XXL" breakpoint (<c>1400px</c>, exclusive).
+	/// Render contents outside the viewport in an offcanvas when below the "XXL" breakpoint (<c>1400px</c>, exclusive).
 	/// </summary>
 	Xxl = 6,
 }

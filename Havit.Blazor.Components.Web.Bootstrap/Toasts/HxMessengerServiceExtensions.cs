@@ -11,7 +11,7 @@ public static class HxMessengerServiceExtensions
 	public static MessengerServiceExtensionsSettings Defaults { get; } = new MessengerServiceExtensionsSettings();
 
 	/// <summary>
-	/// Adds and shows an informational message. Message is automatically hidden 5 seconds after showing up.
+	/// Adds and shows an informational message. The message is automatically hidden 5 seconds after showing up.
 	/// </summary>
 	public static void AddInformation(this IHxMessengerService messenger, string message)
 	{
@@ -19,7 +19,7 @@ public static class HxMessengerServiceExtensions
 	}
 
 	/// <summary>
-	/// Adds and shows an informational message. Message is automatically hidden 5 seconds after showing up.
+	/// Adds and shows an informational message. The message is automatically hidden 5 seconds after showing up.
 	/// </summary>
 	public static void AddInformation(this IHxMessengerService messenger, string title, string message)
 	{

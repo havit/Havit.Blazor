@@ -12,7 +12,7 @@ public class HxNavbarToggler : HxCollapseToggleButton
 	{
 		await base.SetParametersAsync(parameters);
 
-		Contract.Requires<InvalidOperationException>(NavbarContainer is not null, $"{nameof(HxNavbarToggler)} requires parent {nameof(HxNavbar)}.");
+		Contract.Requires<InvalidOperationException>(NavbarContainer is not null, $"{nameof(HxNavbarToggler)} requires the parent {nameof(HxNavbar)}.");
 
 		CollapseTarget = parameters.GetValueOrDefault(nameof(CollapseTarget), "#" + NavbarContainer.GetDefaultCollapseId());
 		Color = parameters.GetValueOrDefault(nameof(Color), ThemeColor.None);

@@ -1,5 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
+/// <summary>
+/// Settings for the <see cref="HxChipList"/> component.
+/// </summary>
 public class ChipListSettings
 {
 	/// <summary>
@@ -13,7 +16,7 @@ public class ChipListSettings
 	public string CssClass { get; set; }
 
 	/// <summary>
-	/// Enables/disables the reset button.
+	/// Enables or disables the reset button.
 	/// </summary>
 	public bool? ShowResetButton { get; set; }
 }

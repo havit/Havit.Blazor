@@ -11,13 +11,13 @@ public partial class HxListGroupItem
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	/// <summary>
-	/// Indicates the current active selection.
+	/// Indicates the currently active selection.
 	/// </summary>
 	[Parameter] public bool Active { get; set; }
 
 	/// <summary>
-	/// Make the item appear disabled by setting to <c>false</c>.
-	/// Default is <c>true</c>.
+	/// Make the item appear disabled by setting it to <c>false</c>.
+	/// The default value is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool Enabled { get; set; } = true;
 

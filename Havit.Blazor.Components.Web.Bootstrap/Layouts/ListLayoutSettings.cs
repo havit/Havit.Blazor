@@ -16,12 +16,12 @@ public record ListLayoutSettings
 	public CardSettings CardSettings { get; set; }
 
 	/// <summary>
-	/// Settings for the <see cref="HxButton"/> opening filtering offcanvas.
+	/// Settings for the <see cref="HxButton"/> that opens the filtering offcanvas.
 	/// </summary>
 	public ButtonSettings FilterOpenButtonSettings { get; set; }
 
 	/// <summary>
-	/// Settings for the <see cref="HxButton"/> submitting the filter.
+	/// Settings for the <see cref="HxButton"/> that submits the filter.
 	/// </summary>
 	public ButtonSettings FilterSubmitButtonSettings { get; set; }
 

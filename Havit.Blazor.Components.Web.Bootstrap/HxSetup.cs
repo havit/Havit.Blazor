@@ -8,11 +8,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public static class HxSetup
 {
 	/// <summary>
-	/// Renders <c>&lt;script&lt;</c> tag referencing corresponding Bootstrap JavaScript bundle with Popper.<br/>
+	/// Renders <c>&lt;script&lt;</c> tag referencing the corresponding Bootstrap JavaScript bundle with Popper.<br/>
 	/// To be used in <c>_Layout.cshtml</c> as <c>@Html.Raw(HxSetup.RenderBootstrapJavaScriptReference())</c>.
 	/// </summary>
 	/// <remarks>
-	/// We do not want to use TagHelper nor HTML Helper here as we do not want to introduce dependency on server-side ASP.NET Core (MVC/Razor) to our library (separate NuGet package would have to be created).
+	/// We do not want to use TagHelper or HTML Helper here as we do not want to introduce a dependency on server-side ASP.NET Core (MVC/Razor) to our library (a separate NuGet package would have to be created).
 	/// </remarks>
 	public static string RenderBootstrapJavaScriptReference()
 	{
@@ -20,11 +20,11 @@ public static class HxSetup
 	}
 
 	/// <summary>
-	/// Renders <c>&lt;link&lt;</c> tag referencing corresponding Bootstrap CSS.<br/>
+	/// Renders <c>&lt;link&lt;</c> tag referencing the corresponding Bootstrap CSS.<br/>
 	/// To be used in <c>_Layout.cshtml</c> as <c>@Html.Raw(HxSetup.RenderBootstrapCssReference())</c>.
 	/// </summary>
 	/// <remarks>
-	/// We do not want to use TagHelper nor HTML Helper here as we do not want to introduce dependency on server-side ASP.NET Core (MVC/Razor) to our library (separate NuGet package would have to be created).
+	/// We do not want to use TagHelper or HTML Helper here as we do not want to introduce a dependency on server-side ASP.NET Core (MVC/Razor) to our library (a separate NuGet package would have to be created).
 	/// </remarks>
 	public static string RenderBootstrapCssReference(BootstrapFlavor bootstrapFlavor = BootstrapFlavor.HavitDefault)
 	{

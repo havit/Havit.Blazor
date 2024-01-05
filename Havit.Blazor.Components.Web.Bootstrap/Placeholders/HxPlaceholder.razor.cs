@@ -1,8 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/placeholders/">Bootstrap 5 Placeholder</see> component, aka Skeleton.<br/>
-/// Use loading placeholders for your components or pages to indicate something may still be loading.<br />
+/// <see href="https://getbootstrap.com/docs/5.3/components/placeholders/">Bootstrap 5 Placeholder</see> component, also known as Skeleton.<br/>
+/// Use loading placeholders for your components or pages to indicate that something may still be loading.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPlaceholder">https://havit.blazor.eu/components/HxPlaceholder</see>
 /// </summary>
 public partial class HxPlaceholder : ILayoutColumnComponent
@@ -23,7 +23,7 @@ public partial class HxPlaceholder : ILayoutColumnComponent
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual PlaceholderSettings GetDefaults() => Defaults;
 
@@ -33,10 +33,10 @@ public partial class HxPlaceholder : ILayoutColumnComponent
 	[Parameter] public PlaceholderSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual PlaceholderSettings GetSettings() => this.Settings;
 

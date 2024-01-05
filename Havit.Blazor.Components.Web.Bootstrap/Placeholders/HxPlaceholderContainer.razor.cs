@@ -21,7 +21,7 @@ public partial class HxPlaceholderContainer
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual PlaceholderContainerSettings GetDefaults() => Defaults;
 
@@ -31,16 +31,16 @@ public partial class HxPlaceholderContainer
 	[Parameter] public PlaceholderContainerSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual PlaceholderContainerSettings GetSettings() => this.Settings;
 
 
 	/// <summary>
-	/// Animation of the placeholders in container.
+	/// Animation of the placeholders in the container.
 	/// </summary>
 	[Parameter] public PlaceholderAnimation? Animation { get; set; }
 	protected PlaceholderAnimation AnimationEffective => this.Animation ?? this.GetSettings()?.Animation ?? GetDefaults().Animation ?? throw new InvalidOperationException(nameof(Animation) + " default for " + nameof(HxPlaceholderContainer) + " has to be set.");

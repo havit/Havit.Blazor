@@ -19,15 +19,15 @@ public partial class HxSidebar : ComponentBase
 	[Parameter] public RenderFragment ItemsTemplate { get; set; }
 
 	/// <summary>
-	/// <c>ExpandIcon</c> is obsolete and will be removed in future release. Use <see cref="TogglerTemplate"/> if you want to render an icon.
+	/// <c>ExpandIcon</c> is obsolete and will be removed in a future release. Use <see cref="TogglerTemplate"/> if you want to render an icon.
 	/// </summary>
-	[Obsolete("ExpandIcon is obsolete and will be removed in future release. Use TogglerTemplate if you want to render an icon.")]
+	[Obsolete("ExpandIcon is obsolete and will be removed in a future release. Use TogglerTemplate if you want to render an icon.")]
 	[Parameter] public IconBase ExpandIcon { get; set; }
 
 	/// <summary>
-	/// <c>CollapseIcon</c> is obsolete and will be removed in future release. Use <see cref="TogglerTemplate"/> if you want to render an icon.
+	/// <c>CollapseIcon</c> is obsolete and will be removed in a future release. Use <see cref="TogglerTemplate"/> if you want to render an icon.
 	/// </summary>
-	[Obsolete("CollapseIcon is obsolete and will be removed in future release. Use TogglerTemplate if you want to render an icon.")]
+	[Obsolete("CollapseIcon is obsolete and will be removed in a future release. Use TogglerTemplate if you want to render an icon.")]
 	[Parameter] public IconBase CollapseIcon { get; set; }
 
 	/// <summary>
@@ -65,15 +65,15 @@ public partial class HxSidebar : ComponentBase
 	protected virtual Task InvokeCollapsedChangedAsync(bool collapsed) => CollapsedChanged.InvokeAsync(collapsed);
 
 	/// <summary>
-	/// Whether multiple items can be in expanded state at once.
+	/// Whether multiple items can be in the expanded state at once.
 	/// If set to <c>false</c>, upon item expansion, all other items are collapsed.
-	/// Default is <c>true</c>.
+	/// The default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool MultipleItemsExpansion { get; set; } = true;
 
 	/// <summary>
-	/// Breakpoint below which the sidebar switches to mobile version (exclusive).<br/>
-	/// Default is <see cref="SidebarResponsiveBreakpoint.Medium"/>.
+	/// The breakpoint below which the sidebar switches to the mobile version (exclusive).<br/>
+	/// The default is <see cref="SidebarResponsiveBreakpoint.Medium"/>.
 	/// </summary>
 	[Parameter] public SidebarResponsiveBreakpoint ResponsiveBreakpoint { get; set; } = SidebarResponsiveBreakpoint.Medium;
 
@@ -82,7 +82,7 @@ public partial class HxSidebar : ComponentBase
 	protected internal string NavContentElementId => Id + "-nav-content";
 
 	/// <summary>
-	/// Id of the immediate parent of the contained <see cref="HxSidebarItem"/> components.
+	/// The ID of the immediate parent of the contained <see cref="HxSidebarItem"/> components.
 	/// </summary>
 	internal string navId = "hx" + Guid.NewGuid().ToString("N");
 

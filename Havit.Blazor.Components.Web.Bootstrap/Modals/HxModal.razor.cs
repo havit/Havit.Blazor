@@ -3,18 +3,19 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Component to render modal dialog as a <see href="https://getbootstrap.com/docs/5.3/components/modal/">Bootstrap Modal</see>.<br />
-/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxModal">https://havit.blazor.eu/components/HxModal</see>
+/// Component for rendering a modal dialog as a Bootstrap Modal.
+/// Visit <see href="https://getbootstrap.com/docs/5.3/components/modal/">Bootstrap Modal</see> for more information.
+/// Full documentation and demos available at <see href="https://havit.blazor.eu/components/HxModal">https://havit.blazor.eu/components/HxModal</see>
 /// </summary>
 public partial class HxModal : IAsyncDisposable
 {
 	/// <summary>
-	/// A value that is passed to the <c>data-bs-backdrop</c> data attribute when <see cref="Backdrop"/> is set to <see cref="ModalBackdrop.Static"/>.
+	/// Specifies a value for the <c>data-bs-backdrop</c> attribute when <see cref="Backdrop"/> is set to <see cref="ModalBackdrop.Static"/>.
 	/// </summary>
 	private const string StaticBackdropValue = "static";
 
 	/// <summary>
-	/// Application-wide defaults for the <see cref="HxGrid{TItem}"/>.
+	/// Application-wide default settings for the <see cref="HxModal"/>.
 	/// </summary>
 	public static ModalSettings Defaults { get; }
 
@@ -34,18 +35,18 @@ public partial class HxModal : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Provides application-wide default settings for the component.
+	/// Allows descendants to override these defaults with a separate set of values.
 	/// </summary>
 	protected virtual ModalSettings GetDefaults() => Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
+	/// A set of settings applied to this component instance. Overrides <see cref="Defaults"/> and is itself overridden by individual parameters.
 	/// </summary>
 	[Parameter] public ModalSettings Settings { get; set; }
 
 	/// <summary>
-	/// For modals that simply appear rather than fade in to view, setting <c>false</c> removes the <c>.fade</c> class from your modal markup.
+	/// Determines whether modals appear without fading in. Setting to <c>false</c> removes the <c>.fade</c> class from the modal markup.
 	/// Default value is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool? Animated { get; set; }
@@ -171,34 +172,34 @@ public partial class HxModal : IAsyncDisposable
 	protected string FooterCssClassEffective => this.FooterCssClass ?? this.GetSettings()?.FooterCssClass ?? GetDefaults().FooterCssClass;
 
 	/// <summary>
-	/// This event is fired immediately when the hide instance method has been called.<br/>
-	/// This can be caused by <see cref="HideAsync"/>, close-button, <kbd>Esc</kbd> key or other interaction.
-	/// Hiding can be cancelled by setting <see cref="ModalHidingEventArgs.Cancel"/> = <c>true</c>
+	/// Fired immediately when the 'hide' instance method is called.
+	/// This can be triggered by <see cref="HideAsync"/>, the close button, the <kbd>Esc</kbd> key, or other interactions.
+	/// To cancel hiding, set <see cref="ModalHidingEventArgs.Cancel"/> to <c>true</c>.
 	/// </summary>
 	/// <remarks>
-	/// There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override as we want to avoid confusion.
-	/// The <code>hide.bs.modal</code> event is subscribed only when <see cref="OnHiding"/> callback is set.
+	/// There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override to avoid confusion.
+	/// The <code>hide.bs.modal</code> event is only subscribed to when the <see cref="OnHiding"/> callback is set.
 	/// </remarks>
 	[Parameter] public EventCallback<ModalHidingEventArgs> OnHiding { get; set; }
 
 	/// <summary>
-	/// This event is fired when the modal has finished being hidden from the user (will wait for CSS transitions to complete).<br/>
-	/// This can be caused by <see cref="HideAsync"/>, close-button, <kbd>Esc</kbd> key or other interaction.
+	/// Fired when the modal has finished hiding from the user, after CSS transitions complete.
+	/// Triggered by <see cref="HideAsync"/>, the close button, the <kbd>Esc</kbd> key, or other interactions.
 	/// </summary>
 	[Parameter] public EventCallback OnClosed { get; set; }
 
 	/// <summary>
-	/// Triggers the <see cref="OnClosed"/> event. Allows interception of the event in derived components.
+	/// Triggers the <see cref="OnClosed"/> event. Enables derived components to intercept the event.
 	/// </summary>
 	protected virtual Task InvokeOnClosedAsync() => OnClosed.InvokeAsync();
 
 	/// <summary>
-	/// This event is fired when an modal element has been made visible to the user (will wait for CSS transitions to complete).
+	/// Fired when a modal element becomes visible to the user, after CSS transitions complete.
 	/// </summary>
 	[Parameter] public EventCallback OnShown { get; set; }
 
 	/// <summary>
-	/// Triggers the <see cref="OnShown"/> event. Allows interception of the event in derived components.
+	/// Triggers the <see cref="OnShown"/> event. Enables derived components to intercept the event.
 	/// </summary>
 	protected virtual Task InvokeOnShownAsync() => OnShown.InvokeAsync();
 
@@ -291,10 +292,8 @@ public partial class HxModal : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Formats a <see cref="ModalBackdrop"/> for supplying the value via the <c>data-bs-backdrop</c> data attribute.
+	/// Formats a <see cref="ModalBackdrop"/> value for use in the <c>data-bs-backdrop</c> attribute.
 	/// </summary>
-	/// <param name="backdrop"></param>
-	/// <returns></returns>
 	private string GetBackdropSetupValue(ModalBackdrop backdrop)
 	{
 		return backdrop switch

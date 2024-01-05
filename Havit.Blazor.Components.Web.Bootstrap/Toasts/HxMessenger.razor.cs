@@ -7,7 +7,7 @@
 public partial class HxMessenger : ComponentBase, IDisposable
 {
 	/// <summary>
-	/// Position of the messages. Default is <see cref="ToastContainerPosition.None"/>.
+	/// Position of the messages. The default value is <see cref="ToastContainerPosition.None"/>.
 	/// </summary>
 	[Parameter] public ToastContainerPosition Position { get; set; } = ToastContainerPosition.None;
 
@@ -48,7 +48,7 @@ public partial class HxMessenger : ComponentBase, IDisposable
 	}
 
 	/// <summary>
-	/// Receive notification from <see cref="HxToast"/> when message is hidden.
+	/// Receive notification from <see cref="HxToast"/> when the message is hidden.
 	/// </summary>
 	private void HandleToastHidden(MessengerMessage message)
 	{
