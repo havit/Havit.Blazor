@@ -1,5 +1,14 @@
-	 ::deep .hx-grid {
-    border-top: 1px solid var(--bs-table-border-color);
+::deep .hx-grid-container {
+    border-top: 1px solid var(--bs-border-color);
+}
+
+::deep .hx-grid:has(.sticky-top) {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+.hx-list-layout:has(.hx-grid-infinite-scroll) ::deep .card {
+	overflow: hidden;
 }
 
 .hx-list-layout-header ::deep button {
