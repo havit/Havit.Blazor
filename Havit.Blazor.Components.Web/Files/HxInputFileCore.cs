@@ -215,7 +215,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 			UploadSize = total
 		};
 		await InvokeOnProgressAsync(uploadProgress);
-}
+	}
 
 	/// <summary>
 	/// Receive upload finished notification from underlying JavaScript.
