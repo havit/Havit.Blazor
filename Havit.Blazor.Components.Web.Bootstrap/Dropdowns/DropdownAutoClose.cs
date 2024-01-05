@@ -12,7 +12,7 @@ public enum DropdownAutoClose
 	True = 0,
 
 	/// <summary>
-	/// The dropdown will be closed by clicking the toggle button. (Also will not be closed by pressing esc key).
+	/// The dropdown will be closed by clicking the toggle button. (It will also not be closed by pressing the esc key).
 	/// </summary>
 	False = 1,
 

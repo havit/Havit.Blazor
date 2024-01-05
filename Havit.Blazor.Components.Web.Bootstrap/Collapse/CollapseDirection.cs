@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Direction of the animation for <see cref="HxCollapse"/>.
-/// Default is <see cref="Vertical"/>.
+/// The default direction is <see cref="Vertical"/>.
 /// </summary>
 public enum CollapseDirection
 {

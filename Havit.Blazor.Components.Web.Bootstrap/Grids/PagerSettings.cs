@@ -26,7 +26,7 @@ public record PagerSettings
 	public IconBase NextPageIcon { get; set; }
 
 	/// <summary>
-	/// Count of numbers to display.
+	/// Number of buttons with numbers to display.
 	/// </summary>
 	public int? NumericButtonsCount { get; set; }
 

@@ -4,7 +4,7 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// A search input component witch automatic suggestions, initial dropdown template and free-text queries support.<br />
+/// A search input component with automatic suggestions, initial dropdown template, and support for free-text queries.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSearchBox">https://havit.blazor.eu/components/HxSearchBox</see>
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
@@ -12,7 +12,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 {
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual SearchBoxSettings GetDefaults() => HxSearchBox.Defaults;
 
@@ -22,20 +22,20 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	[Parameter] public SearchBoxSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual SearchBoxSettings GetSettings() => this.Settings;
 
 	/// <summary>
-	/// Method (delegate) which provides data of the suggestions.
+	/// Method (delegate) that provides data for the suggestions.
 	/// </summary>
 	[Parameter] public SearchBoxDataProviderDelegate<TItem> DataProvider { get; set; }
 
 	/// <summary>
-	/// Allows you to disable the input. Default is <c>true</c>.
+	/// Allows you to disable the input. The default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool Enabled { get; set; } = true;
 
@@ -51,7 +51,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	protected virtual Task InvokeTextQueryChangedAsync(string newTextQueryValue) => TextQueryChanged.InvokeAsync(newTextQueryValue);
 
 	/// <summary>
-	/// Raised, when the enter key is pressed or when the text-query item is selected in the dropdown menu.
+	/// Raised when the enter key is pressed or when the text-query item is selected in the dropdown menu.
 	/// (Does not trigger when <see cref="AllowTextQuery"/> is <c>false</c>.)
 	/// </summary>
 	[Parameter] public EventCallback<string> OnTextQueryTriggered { get; set; }
@@ -61,7 +61,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	protected virtual Task InvokeOnTextQueryTriggeredAsync(string textQuery) => OnTextQueryTriggered.InvokeAsync(textQuery);
 
 	/// <summary>
-	/// Occurs, when any of suggested items (other than plain text-query) is selected.
+	/// Occurs when any of the suggested items (other than plain text-query) is selected.
 	/// </summary>
 	[Parameter] public EventCallback<TItem> OnItemSelected { get; set; }
 	/// <summary>
@@ -81,17 +81,17 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	[Parameter] public string Placeholder { get; set; }
 
 	/// <summary>
-	/// Selector to display item title from data item.
+	/// Selector to display the item title from the data item.
 	/// </summary>
 	[Parameter] public Func<TItem, string> ItemTitleSelector { get; set; }
 
 	/// <summary>
-	/// Selector to display item subtitle from data item.
+	/// Selector to display the item subtitle from the data item.
 	/// </summary>
 	[Parameter] public Func<TItem, string> ItemSubtitleSelector { get; set; }
 
 	/// <summary>
-	/// Selector to display icon from data item.
+	/// Selector to display the icon from the data item.
 	/// </summary>
 	[Parameter] public Func<TItem, IconBase> ItemIconSelector { get; set; }
 
@@ -116,7 +116,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	[Parameter] public RenderFragment DefaultContentTemplate { get; set; }
 
 	/// <summary>
-	/// Additional css classes for the dropdown.
+	/// Additional CSS classes for the dropdown.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
@@ -134,19 +134,19 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	protected string InputCssClassEffective => this.InputCssClass ?? this.GetSettings()?.InputCssClass ?? GetDefaults().InputCssClass;
 
 	/// <summary>
-	/// Custom CSS class to render with input-group span.
+	/// Custom CSS class to render with the input-group span.
 	/// </summary>
 	[Parameter] public string InputGroupCssClass { get; set; }
 	protected string InputGroupCssClassEffective => this.InputGroupCssClass ?? this.GetSettings()?.InputGroupCssClass ?? GetDefaults().InputGroupCssClass;
 
 	/// <summary>
-	/// Icon of the input, when no text is written.
+	/// Icon of the input when no text is written.
 	/// </summary>
 	[Parameter] public IconBase SearchIcon { get; set; }
 	protected IconBase SearchIconEffective => this.SearchIcon ?? this.GetSettings()?.SearchIcon ?? GetDefaults().SearchIcon;
 
 	/// <summary>
-	/// Icon of the input, when text is written allowing the user to clear the text.
+	/// Icon of the input, displayed when text is entered, allowing the user to clear the text.
 	/// </summary>
 	[Parameter] public IconBase ClearIcon { get; set; }
 	protected IconBase ClearIconEffective => this.ClearIcon ?? this.GetSettings()?.ClearIcon ?? GetDefaults().ClearIcon;

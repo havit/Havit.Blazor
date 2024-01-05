@@ -32,7 +32,7 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 	/// <summary>
 	/// Reference element of the dropdown menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
 	/// an HTMLElement reference (e.g. <c>#id</c>) or an object providing <c>getBoundingClientRect</c>.
-	/// For more information refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
+	/// For more information, refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
 	/// and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
 	/// </summary>
 	[Parameter] public string DropdownReference { get; set; }

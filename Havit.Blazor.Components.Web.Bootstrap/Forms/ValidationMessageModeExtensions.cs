@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Extension methods to <see cref="ValidationMessageMode" />.
+/// Extension methods for <see cref="ValidationMessageMode" />.
 /// </summary>
 public static class ValidationMessageModeExtensions
 {
@@ -12,8 +12,8 @@ public static class ValidationMessageModeExtensions
 			ValidationMessageMode.Regular => "invalid-feedback",
 			ValidationMessageMode.Tooltip => "invalid-tooltip text-truncate",
 			ValidationMessageMode.Floating => "invalid-feedback feedback-floating text-truncate",
-			ValidationMessageMode.None => throw new InvalidOperationException($"Cannot use for {nameof(ValidationMessageMode.None)} value."),
-			_ => throw new InvalidOperationException($"Unknown {nameof(ValidationMessageMode)} value {mode}.")
+			ValidationMessageMode.None => throw new InvalidOperationException($"{nameof(ValidationMessageMode.None)} cannot be used."),
+			_ => throw new InvalidOperationException($"Unknown value {nameof(ValidationMessageMode)}: {mode}.")
 		};
 	}
 }

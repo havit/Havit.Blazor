@@ -16,7 +16,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.59.0" />
+		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.60.0" />
 		<PackageReference Include="Havit.AspNetCore" Version="2.0.12" />
 		<PackageReference Include="Havit.Core" Version="2.0.29" />
 		<PackageReference Include="protobuf-net" Version="3.2.30" />

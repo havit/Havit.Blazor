@@ -12,8 +12,8 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 {
 	/// <summary>
 	/// Return <see cref="HxMultiSelect{TValue, TItem}"/> defaults.
-	/// Enables to not share defaults in descendants with base classes.
-	/// Enables to have multiple descendants which differs in the default values.
+	/// Enables not sharing defaults in descendants with base classes.
+	/// Enables having multiple descendants that differ in the default values.
 	/// </summary>
 	protected override MultiSelectSettings GetDefaults() => HxMultiSelect.Defaults;
 
@@ -23,10 +23,10 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public MultiSelectSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected override MultiSelectSettings GetSettings() => this.Settings;
 
@@ -46,19 +46,19 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public IEnumerable<TItem> Data { get; set; }
 
 	/// <summary>
-	/// Selects text to display from item.<br/>
+	/// Selects text to display from an item.<br/>
 	/// When not set, <c>ToString()</c> is used.
 	/// </summary>
 	[Parameter] public Func<TItem, string> TextSelector { get; set; }
 
 	/// <summary>
-	/// Selects value from item.<br/>
-	/// Not required when <c>TValue</c> is same as <c>TItem</c>.
+	/// Selects value from an item.<br/>
+	/// Not required when <c>TValue</c> is the same as <c>TItem</c>.
 	/// </summary>
 	[Parameter] public Func<TItem, TValue> ValueSelector { get; set; }
 
 	/// <summary>
-	/// Selects value for items sorting. When not set, <see cref="TextSelector"/> property will be used.<br/>
+	/// Selects value for item sorting. When not set, <see cref="TextSelector"/> property will be used.<br/>
 	/// If you need complex sorting, pre-sort data manually or create a custom comparable property.
 	/// </summary>
 	[Parameter] public Func<TItem, IComparable> SortKeySelector { get; set; }
@@ -259,16 +259,16 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// <inheritdoc />
 	protected override string FormatValueAsString(List<TValue> value)
 	{
-		// Used for CurrentValueAsString (which is used for the input element and for the chip generator).
-		// That's why we do not use NullDataText here.
+		// This method is used for setting CurrentValueAsString, which in turn is used for both the input element and the chip generator.
+		// NullDataText is not utilized here, as this method handles null or empty values differently.
 
 		if ((!value?.Any() ?? true) || (Data == null))
 		{
-			// don't care about chip generator, it does not call this method for null/empty value
+			// The chip generator does not invoke this method for null or empty values, so handling here is solely for the input element.
 			return EmptyText;
 		}
 
-		// Take itemsToRender because they are sorted.
+		// The itemsToRender are chosen for processing because they are pre-sorted.
 		List<TItem> selectedItems = itemsToRender.Where(item => value.Contains(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item))).ToList();
 		return String.Join(", ", selectedItems.Select(TextSelector));
 	}

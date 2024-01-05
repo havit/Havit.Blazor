@@ -11,14 +11,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// </summary>
 public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 {
-	private EditContext previousEditContext;
-	private Expression<Func<TValue>> previousFor;
-	private string previousForFieldName;
-	private string[] previousForFieldNames;
-	private readonly EventHandler<ValidationStateChangedEventArgs> validationStateChangedHandler;
-	private FieldIdentifier[] fieldIdentifiers;
-	private EditContext currentEditContext;
-
 	/// <summary>
 	/// Cascading EditContext.
 	/// </summary>
@@ -51,6 +43,14 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 	/// Specifies how the validation message should be displayed.
 	/// </summary>
 	[Parameter] public ValidationMessageMode Mode { get; set; } = ValidationMessageMode.Regular;
+
+	private EditContext previousEditContext;
+	private Expression<Func<TValue>> previousFor;
+	private string previousForFieldName;
+	private string[] previousForFieldNames;
+	private readonly EventHandler<ValidationStateChangedEventArgs> validationStateChangedHandler;
+	private FieldIdentifier[] fieldIdentifiers;
+	private EditContext currentEditContext;
 
 	/// <summary>
 	/// Constructs an instance of <see cref="HxValidationMessage{TValue}"/>.

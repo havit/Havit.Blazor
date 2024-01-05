@@ -16,18 +16,18 @@ public class InputDatePredefinedDatesItem
 	public Type ResourceType { get; set; }
 
 	/// <summary>
-	/// Date. Overrides any <see cref="DateSelector"/>
+	/// Date. Overrides any <see cref="DateSelector"/>.
 	/// </summary>
 	public DateTime? Date { get; set; }
 
 	/// <summary>
-	/// Used to supply the date at runtime especially to use
-	/// a TimeProvider.  Not used if <see cref="Date"/> is set.
+	/// Used to supply the date at runtime, especially to use
+	/// a TimeProvider. Not used if <see cref="Date"/> is set.
 	/// </summary>
 	public Func<TimeProvider, DateTime> DateSelector { get; set; }
 
 	/// <summary>
-	/// Defaults to returning the <see cref="Date"/> otherwise calls <see cref="DateSelector"/>.<br/>
+	/// Defaults to returning the <see cref="Date"/>; otherwise, calls <see cref="DateSelector"/>.<br/>
 	/// Used to resolve the date at runtime, particularly when a TimeProvider is needed.
 	/// </summary>
 	/// <param name="timeProvider"><see cref="HxCalendar.TimeProvider"/></param>

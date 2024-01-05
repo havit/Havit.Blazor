@@ -49,6 +49,15 @@
 	margin: 1rem;
 }
 
+.hx-list-layout-dropdown-menu-link {
+	padding: .375rem .625rem;
+	border-radius: var(--bs-border-radius);
+}
+
+.hx-list-layout-dropdown-menu-link:hover {
+	background-color: var(--bs-light);
+}
+
 .hx-list-layout-named-view .card-title {
     display: flex;
     align-items: center;

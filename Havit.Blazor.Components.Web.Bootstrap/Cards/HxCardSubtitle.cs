@@ -11,7 +11,7 @@ public class HxCardSubtitle : ComponentBase
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	/// <summary>
-	/// Underlying HTML element for card-subtitle. Default is <c>h6</c>.
+	/// Underlying HTML element for the card-subtitle. The default is <c>h6</c>.
 	/// </summary>
 	[Parameter] public string HtmlElement { get; set; } = "h6";
 

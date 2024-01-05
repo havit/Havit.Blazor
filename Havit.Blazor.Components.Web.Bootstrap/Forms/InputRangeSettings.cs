@@ -6,7 +6,7 @@
 public record InputRangeSettings : InputSettings
 {
 	/// <summary>
-	/// Instructs whether the <code>Value</code> is going to be updated instantly, or <code>onchange</code> (usually <code>onmouseup</code>).
+	/// Determines whether the <code>Value</code> is going to be updated instantly or <code>onchange</code> (usually <code>onmouseup</code>).
 	/// </summary>
 	public BindEvent? BindEvent { get; set; }
 }

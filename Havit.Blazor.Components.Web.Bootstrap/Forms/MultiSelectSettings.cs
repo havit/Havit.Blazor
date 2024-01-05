@@ -23,17 +23,17 @@ public record MultiSelectSettings : InputSettings, IInputSettingsWithSize
 	public bool AllowSelectAll { get; set; }
 
 	/// <summary>
-	/// When enabled the filter will be cleared when the dropdown is closed.
+	/// When enabled, the filter will be cleared when the dropdown is closed.
 	/// </summary>
 	public bool ClearFilterOnHide { get; set; }
 
 	/// <summary>
-	/// Icon displayed in filter input for searching the filter.
+	/// Icon displayed in the filter input for searching the filter.
 	/// </summary>
 	public IconBase FilterSearchIcon { get; set; } = BootstrapIcon.Search;
 
 	/// <summary>
-	/// Icon displayed in filter input for clearing the filter.
+	/// Icon displayed in the filter input for clearing the filter.
 	/// </summary>
 	public IconBase FilterClearIcon { get; set; } = BootstrapIcon.XLg;
 }

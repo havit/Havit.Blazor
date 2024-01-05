@@ -10,7 +10,7 @@ public record class GridUserState
 	/// Starting page index for <see cref="GridContentNavigationMode.LoadMore"/> and <see cref="GridContentNavigationMode.PaginationAndLoadMore"/>.
 	/// </summary>
 	/// <remarks>
-	/// This number is not the current page index in pager when <see cref="LoadMoreAdditionalItemsCount"/> is not zero.
+	/// This number is not the current page index in the pager when <see cref="LoadMoreAdditionalItemsCount"/> is not zero.
 	/// </remarks>
 	public int PageIndex { get; init; }
 
@@ -29,7 +29,7 @@ public record class GridUserState
 	/// </summary>
 	/// <remarks>
 	/// For backward compatibility in custom projects.
-	/// Once upon a time this one was the only constructor.
+	/// Once upon a time, this was the only constructor.
 	/// </remarks>
 	public GridUserState(int pageIndex, IReadOnlyList<GridUserStateSortingItem> sorting)
 	{

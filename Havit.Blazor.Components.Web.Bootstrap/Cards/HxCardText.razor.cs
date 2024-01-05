@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/card/#titles-text-and-links">card-title</see> component.
+/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/card/#titles-text-and-links">card-text</see> component.
 /// </summary>
 public partial class HxCardText
 {

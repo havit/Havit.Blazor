@@ -182,14 +182,12 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 
 		builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 
-		// The counting sequence values violate all general recommendations.
-		// We want the value of the HxInputNumber to be updated (re-rendered) when the user input changes, even if FormatValueAsString(Value) hasn't changed.
-		// The reason for this is that if a value such as "1.00" is displayed and a user modifies it to "1.0", FormatValueAsString(Value) isn't going to change,
-		// the attribute is not re-rendered, so the user input stays at "1.0".
-		// To solve this issue, we will use the sequence values 1005, 1006, 1007, ... That way, we force Blazor to update the value anyway (because of the sequence change).
-		// However, we adjust the sequence only if we want to enforce the re-rendering. Otherwise, the component would update all the time.
-		// (Originally, we wanted to use the sequences 1000 and 1001, which we would toggle.
-		// However, this doesn't work - Blazor probably realizes that it should add the value (sequence 1000) and then remove the value (sequence 1001), resulting in a missing value of the input.)
+		// The counting of sequence values violates all general recommendations.
+		// We want the value of HxInputNumber to be updated (re-rendered) when the user input changes, even if FormatValueAsString(Value) hasn't changed.
+		// For instance, if a value like "1.00" is displayed and a user modifies it to "1.0", FormatValueAsString(Value) won't change,
+		// and the attribute won't be re-rendered, so the user input stays at "1.0".
+		// To address this issue, we use sequence values starting from 1006. This forces Blazor to update the value anyway (due to the sequence change).
+		// However, we adjust the sequence only if we want to enforce the re-rendering. Otherwise, the component would update continuously.
 		checked
 		{
 			if (forceRenderValue)
@@ -251,8 +249,8 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 
 		if (success)
 		{
-			// if there is only a change without changing the value (for example from 5.50 to 5.5), we want to convert the value to the correct format (5.5 to 5.50).
-			// StateHasChange is not enough, see the comment in BuildRenderInput.
+			// if there is only a change in format without changing the numeric value (for example, from 5.50 to 5.5), we want to convert the value back to the correct format (5.5 to 5.50).
+			// StateHasChanged is not enough, see the comment in BuildRenderInput.
 			if (FormatValueAsString(result) != value)
 			{
 				forceRenderValue = true;
@@ -330,7 +328,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	}
 
 	/// <summary>
-	/// Returns message for parsing error.
+	/// Returns the message for a parsing error.
 	/// </summary>
 	protected virtual string GetParsingErrorMessage()
 	{

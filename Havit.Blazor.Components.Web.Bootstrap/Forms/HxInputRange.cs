@@ -26,8 +26,8 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 
 	/// <summary>
 	/// Returns <see cref="HxInputRange"/> defaults.
-	/// Enables to not share defaults in descendants with base classes.
-	/// Enables to have multiple descendants which differs in the default values.
+	/// Enables not sharing defaults in descendants with base classes.
+	/// Enables having multiple descendants which differ in the default values.
 	/// </summary>
 	protected override InputRangeSettings GetDefaults() => HxInputRange.Defaults;
 
@@ -40,7 +40,7 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> for components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> for component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected override InputRangeSettings GetSettings() => this.Settings;
 

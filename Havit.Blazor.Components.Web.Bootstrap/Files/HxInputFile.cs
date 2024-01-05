@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Wraps <see cref="HxInputFileCore"/> as Bootstrap form control (incl. <c>Label</c> etc.)<br />
+/// Wraps <see cref="HxInputFileCore"/> as a Bootstrap form control (including <c>Label</c> etc.)<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputFile">https://havit.blazor.eu/components/HxInputFile</see>
 /// </summary>
 public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFormValueComponent, IInputWithSize
@@ -25,7 +25,7 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual InputFileSettings GetDefaults() => Defaults;
 
@@ -35,10 +35,10 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	[Parameter] public InputFileSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual InputFileSettings GetSettings() => this.Settings;
 
@@ -90,7 +90,7 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	[Parameter] public bool Multiple { get; set; }
 
 	/// <summary>
-	/// Maximum number of concurrent uploads. Default is <c>6</c> (from <see cref="HxInputFileCore"/>).
+	/// Maximum number of concurrent uploads. The default is <c>6</c> (from <see cref="HxInputFileCore"/>).
 	/// </summary>
 	[Parameter] public int? MaxParallelUploads { get; set; }
 
@@ -101,9 +101,9 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	[Parameter] public string Accept { get; set; }
 
 	/// <summary>
-	/// The maximum files size in bytes.
+	/// The maximum file size in bytes.
 	/// When exceeded, the <see cref="OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="FileUploadedEventArgs.ResponseStatus"/>.
-	/// Default is <c>null</c> (unlimited).
+	/// The default is <c>null</c> (unlimited).
 	/// </summary>
 	[Parameter] public long? MaxFileSize { get; set; }
 
@@ -129,7 +129,7 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	[Parameter] public RenderFragment HintTemplate { get; set; }
 
 	/// <summary>
-	/// Custom CSS class to render with wrapping div.
+	/// Custom CSS class to render with the wrapping div.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 

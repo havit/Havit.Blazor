@@ -15,8 +15,8 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	[Parameter] public bool Inline { get; set; }
 
 	/// <summary>
-	/// Selects value from item.
-	/// Not required when <c>TValueType</c> is same as <c>TItemTime</c>.
+	/// Selects a value from an item.
+	/// Not required when <c>TValueType</c> is the same as <c>TItemTime</c>.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
 	protected Func<TItem, TValue> ItemValueSelectorImpl { get; set; }
@@ -28,21 +28,21 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	protected IEnumerable<TItem> DataImpl { get; set; }
 
 	/// <summary>
-	/// Gets text to display from item. Used also for chip text.
-	/// When not set ToString() is used.
+	/// Gets the text to display from an item. Used also for chip text.
+	/// When not set, ToString() is used.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
 	protected Func<TItem, string> ItemTextSelectorImpl { get; set; }
 
 	/// <summary>
-	/// Gets html to display from item.
-	/// When not set <see cref="ItemTextSelectorImpl"/> is used.
+	/// Gets the HTML to display from an item.
+	/// When not set, <see cref="ItemTextSelectorImpl"/> is used.
 	/// </summary>
 	protected RenderFragment<TItem> ItemTemplateImpl { get; set; }
 
 	/// <summary>
-	/// Selects value to sort items. Uses <see cref="ItemTextSelectorImpl"/> property when not set.
-	/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
+	/// Selects a value to sort items. Uses the <see cref="ItemTextSelectorImpl"/> property when not set.
+	/// When complex sorting is required, sort the data manually and don't let this component sort them. Alternatively, create a custom comparable property.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
 	protected Func<TItem, IComparable> ItemSortKeySelectorImpl { get; set; }
@@ -78,8 +78,8 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	protected Func<TItem, string> ItemTextCssClassSelectorImpl { get; set; }
 
 	/// <summary>
-	/// When <c>true</c>, items are sorted before displaying in select.
-	/// Default value is <c>true</c>.
+	/// When <c>true</c>, items are sorted before displaying in the select.
+	/// The default value is <c>true</c>.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
 	protected bool AutoSortImpl { get; set; } = true;
@@ -90,7 +90,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	[Parameter] public RadioButtonListSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	protected override RadioButtonListSettings GetSettings() => this.Settings;
 

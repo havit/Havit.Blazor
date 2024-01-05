@@ -6,7 +6,7 @@
 public class AutosuggestDataProviderResult<TItem>
 {
 	/// <summary>
-	/// The provided items by the request.
+	/// The items provided by the request.
 	/// </summary>
 	public IEnumerable<TItem> Data { get; set; }
 }

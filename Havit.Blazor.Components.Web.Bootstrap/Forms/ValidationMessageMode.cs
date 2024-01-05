@@ -6,20 +6,20 @@
 public enum ValidationMessageMode
 {
 	/// <summary>
-	/// Validation messages are displayed in the regular way (takes space, when displayed).
+	/// Validation messages are displayed in the regular way (occupy space when displayed).
 	/// </summary>
 	Regular = 0,
 
 	/// <summary>
-	/// Validation messages are displayed as a tooltips.
+	/// Validation messages are displayed as tooltips.
 	/// </summary>
 	Tooltip = 1,
 
 	/// <summary>
-	/// Validation messages, which do not take extra space when displayed.
+	/// Validation messages that do not occupy extra space when displayed.
 	/// </summary>
 	/// <remarks>
-	/// We want to avoid changing position of the form submit button to prevent the "no onclick/onsubmit issue when button position changes".
+	/// We want to avoid changing the position of the form submit button to prevent the "no onclick/onsubmit issue when button position changes".
 	/// </remarks>
 	Floating = 2,
 

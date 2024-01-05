@@ -8,12 +8,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public class GridDataProviderRequest<TItem>
 {
 	/// <summary>
-	/// The number of records to skip. In paging mode it equals to the the page size * page index requested.
+	/// The number of records to skip. In paging mode, it equals the page size multiplied by the requested page index.
 	/// </summary>
 	public int StartIndex { get; init; }
 
 	/// <summary>
-	/// The number od records to return. In paging mode it equals to the size of the page.				
+	/// The number of records to return. In paging mode, it equals the size of the page.				
 	/// </summary>
 	public int? Count { get; init; }
 
@@ -28,9 +28,9 @@ public class GridDataProviderRequest<TItem>
 	public CancellationToken CancellationToken { get; init; }
 
 	/// <summary>
-	/// Process data on client side (process sorting &amp; paging) and returns result for the grid.
+	/// Processes data on the client side (sorting &amp; paging) and returns the result for the grid.
 	/// </summary>
-	/// <param name="data">data to process (paging and sorting will be applied)</param>
+	/// <param name="data">The data to process (paging and sorting will be applied).</param>
 	public GridDataProviderResult<TItem> ApplyTo(IEnumerable<TItem> data)
 	{
 		CancellationToken.ThrowIfCancellationRequested();
@@ -46,12 +46,12 @@ public class GridDataProviderRequest<TItem>
 
 		IEnumerable<TItem> resultData = data;
 
-		// PERF NOTE: We do not use .ApplyGridDataProviderRequest() here, because we want to apply Compile() here?
+		// PERF NOTE: We do not use .ApplyGridDataProviderRequest() here because we want to apply Compile() here?
 
 		// Sorting
 		if ((Sorting != null) && Sorting.Any())
 		{
-			Contract.Assert(Sorting.All(item => item.SortKeySelector != null), "All sorting items must have set SortKeySelector property.");
+			Contract.Assert(Sorting.All(item => item.SortKeySelector != null), "All sorting items must have the SortKeySelector property set.");
 
 			IOrderedEnumerable<TItem> orderedData = (Sorting[0].SortDirection == SortDirection.Ascending)
 				? resultData.OrderBy(Sorting[0].SortKeySelector.Compile())

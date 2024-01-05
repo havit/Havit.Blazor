@@ -11,7 +11,7 @@ public class HxCardTitle : ComponentBase
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	/// <summary>
-	/// Underlying HTML element for card-title. Default is <c>h5</c>.
+	/// Underlying HTML element for the card-title. The default is <c>h5</c>.
 	/// </summary>
 	[Parameter] public string HtmlElement { get; set; } = "h5";
 
@@ -21,7 +21,7 @@ public class HxCardTitle : ComponentBase
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// Additional attributes to be splatted onto an underlying HTML element.
+	/// Additional attributes to be applied to the underlying HTML element.
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 

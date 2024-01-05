@@ -2,6 +2,9 @@
 
 public static class DropdownMenuAlignmentExtensions
 {
+	/// <summary>
+	/// Gets the CSS class for the specified <see cref="DropdownMenuAlignment"/>.
+	/// </summary>
 	public static string GetCssClass(this DropdownMenuAlignment dropdownMenuAlignment)
 	{
 		return dropdownMenuAlignment switch
