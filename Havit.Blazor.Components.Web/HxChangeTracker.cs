@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web;
 
 /// <summary>
 /// Subscribes to INotifyPropertyChanged changes and triggers re-rendering of ChildContent.
-/// To be used when you want limit a scope of re-rendering and to prevent re-rendering of a wider component.
+/// To be used when you want to limit the scope of re-rendering and prevent re-rendering of a wider component.
 /// </summary>
 public class HxChangeTracker : ComponentBase, IDisposable
 {

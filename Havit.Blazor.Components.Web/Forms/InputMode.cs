@@ -34,7 +34,7 @@ public enum InputMode
 
 	/// <summary>
 	/// A virtual keyboard optimized for search input. For instance, the return/submit key may be labeled
-	/// “Search”, along with possible other optimizations. Inputs that require a search query should typically
+	/// "Search", along with possible other optimizations. Inputs that require a search query should typically
 	/// use <c>InputType.Search</c> instead.
 	/// </summary>
 	Search,

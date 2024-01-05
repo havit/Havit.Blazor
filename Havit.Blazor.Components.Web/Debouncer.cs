@@ -12,8 +12,8 @@ public class Debouncer : IDisposable
 	/// <summary>
 	/// Starts the debouncing.
 	/// </summary>
-	/// <param name="millisecondsDelay">debouncing delay</param>
-	/// <param name="actionAsync">work to be executed (<see cref="CancellationToken"/> gets canceled if the method is called again)</param>
+	/// <param name="millisecondsDelay">The delay in milliseconds for debouncing.</param>
+	/// <param name="actionAsync">The asynchronous action to be executed. The <see cref="CancellationToken"/> gets canceled if the method is called again.</param>
 	public async Task DebounceAsync(int millisecondsDelay, Func<CancellationToken, Task> actionAsync)
 	{
 		try

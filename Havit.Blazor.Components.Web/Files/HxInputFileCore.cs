@@ -26,7 +26,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 
 	/// <summary>
 	/// Returns component defaults.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual InputFileCoreSettings GetDefaults() => Defaults;
 
@@ -36,10 +36,10 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	[Parameter] public InputFileCoreSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual InputFileCoreSettings GetSettings() => this.Settings;
 
@@ -83,7 +83,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 
 	/// <summary>
 	/// Make the item appear disabled by setting to <c>false</c>.
-	/// Default is <c>true</c>.
+	/// The default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool Enabled { get; set; } = true;
 
@@ -94,28 +94,28 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	[Parameter] public string Accept { get; set; }
 
 	/// <summary>
-	/// The maximum files size in bytes.
+	/// The maximum file size in bytes.
 	/// When exceeded, the <see cref="OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="FileUploadedEventArgs.ResponseStatus"/>.
-	/// Default is <c>long.MaxValue</c> (unlimited).
+	/// The default is <c>long.MaxValue</c> (unlimited).
 	/// </summary>
 	[Parameter] public long? MaxFileSize { get; set; }
 	protected long MaxFileSizeEffective => this.MaxFileSize ?? this.GetSettings()?.MaxFileSize ?? GetDefaults().MaxFileSize ?? throw new InvalidOperationException(nameof(MaxFileSize) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 	/// <summary>
-	/// Maximum number of concurrent uploads. Default is <c>6</c>.
+	/// The maximum number of concurrent uploads. The default is <c>6</c>.
 	/// </summary>
 	[Parameter] public int? MaxParallelUploads { get; set; }
 	protected int MaxParallelUploadsEffective => this.MaxParallelUploads ?? this.GetSettings()?.MaxParallelUploads ?? this.GetDefaults().MaxParallelUploads ?? throw new InvalidOperationException(nameof(MaxParallelUploads) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 	/// <summary>
-	/// Input element id.
+	/// The input element id.
 	/// </summary>
 	[Parameter] public string Id { get; set; } = "hx" + Guid.NewGuid().ToString("N");
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	/// <summary>
-	/// Last known count of associated files.
+	/// The last known count of associated files.
 	/// </summary>
 	public int FileCount { get; private set; }
 
@@ -215,7 +215,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 			UploadSize = total
 		};
 		await InvokeOnProgressAsync(uploadProgress);
-	}
+}
 
 	/// <summary>
 	/// Receive upload finished notification from underlying JavaScript.

@@ -23,7 +23,7 @@ public struct MessageBoxRequest
 	public RenderFragment BodyTemplate { get; set; }
 
 	/// <summary>
-	/// Indicates whether to show close button.
+	/// Indicates whether to show the close button.
 	/// </summary>
 	public bool? ShowCloseButton { get; set; }
 
@@ -38,7 +38,7 @@ public struct MessageBoxRequest
 	public MessageBoxButtons? PrimaryButton { get; set; }
 
 	/// <summary>
-	/// Text for <see cref="MessageBoxButtons.Custom"/>.
+	/// Text for the <see cref="MessageBoxButtons.Custom"/> button.
 	/// </summary>
 	public string CustomButtonText { get; set; }
 

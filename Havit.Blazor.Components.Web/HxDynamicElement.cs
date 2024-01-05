@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web;
 
 /// <summary>
-/// Renders an element with the specified name, attributes and child-content.<br />
+/// Renders an element with the specified name, attributes, and child content.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDynamicElement">https://havit.blazor.eu/components/HxDynamicElement</see>
 /// </summary>
 public class HxDynamicElement : ComponentBase
@@ -21,12 +21,12 @@ public class HxDynamicElement : ComponentBase
 	protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
 
 	/// <summary>
-	/// Stop onClick-event propagation. Deafult is <c>false</c>.
+	/// Stops onClick event propagation. Default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool OnClickStopPropagation { get; set; }
 
 	/// <summary>
-	/// Prevents the default action for the onclick event. Deafult is <c>false</c>.
+	/// Prevents the default action for the onclick event. Default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool OnClickPreventDefault { get; set; }
 
@@ -36,7 +36,7 @@ public class HxDynamicElement : ComponentBase
 	[Parameter] public ElementReference ElementRef { get; set; }
 
 	/// <summary>
-	/// Action (synchronnous, not an EventCallback) called when the element's reference got captured.
+	/// Action (synchronous, not an EventCallback) called when the element's reference is captured.
 	/// </summary>
 	[Parameter] public Action<ElementReference> ElementRefChanged { get; set; }
 

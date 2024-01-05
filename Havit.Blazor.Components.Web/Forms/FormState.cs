@@ -6,7 +6,7 @@
 public class FormState
 {
 	/// <summary>
-	/// Indicates enabled/disabled section.
+	/// Indicates whether the section is enabled or disabled.
 	/// </summary>
 	public bool? Enabled { get; init; }
 }

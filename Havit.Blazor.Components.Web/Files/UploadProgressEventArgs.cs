@@ -6,7 +6,7 @@
 public class UploadProgressEventArgs
 {
 	/// <summary>
-	/// Index of the file uploaded.
+	/// Index of the uploaded file.
 	/// </summary>
 	public int FileIndex { get; internal set; }
 
@@ -16,12 +16,12 @@ public class UploadProgressEventArgs
 	public string OriginalFileName { get; set; }
 
 	/// <summary>
-	/// Bytes uploaded.
+	/// Number of bytes uploaded.
 	/// </summary>
 	public long UploadedBytes { get; set; }
 
 	/// <summary>
-	/// Upload request size (slightly bigger than the file itself)
+	/// Upload request size (slightly larger than the file itself).
 	/// </summary>
 	public long UploadSize { get; set; }
 }

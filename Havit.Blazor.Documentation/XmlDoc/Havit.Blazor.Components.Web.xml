@@ -6,7 +6,7 @@
     <members>
         <member name="T:Havit.Blazor.Components.Web.CollectionRegistration`1">
             <summary>
-            Allows child components to register to an owner component via this class shared as cascading value &amp; parameter.
+            Allows child components to register with an owner component via this class shared as a cascading value &amp; parameter.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.CollectionRegistration`1.#ctor(System.Collections.Generic.ICollection{`0},System.Func{System.Threading.Tasks.Task},System.Func{System.Boolean},System.Action{`0},System.Action{`0})">
@@ -14,19 +14,19 @@
             Constructor.
             </summary>
             <param name="collection">Collection to add/remove components.</param>
-            <param name="stateHasChangedAction">Action to call StateHasChanged method. Due to server prerendering issue in .NET 5, the StateHasChanged must be called inside InvokeAsync, so the action is awaitable.</param>
+            <param name="stateHasChangedAction">Action to call the StateHasChanged method. Due to a server prerendering issue in .NET 5, the StateHasChanged must be called inside InvokeAsync, so the action is awaitable.</param>
             <param name="isOwnerDisposedFunc">Function to return if the holding component is disposed.</param>
             <param name="itemAddedCallback">Callback to call when the component is added to the collection.</param>
-            <param name="itemRemovedCallback">Callback to call when the component is removed from thecollection.</param>
+            <param name="itemRemovedCallback">Callback to call when the component is removed from the collection.</param>
         </member>
         <member name="M:Havit.Blazor.Components.Web.CollectionRegistration`1.Register(`0)">
             <summary>
-            Registers to the collection and call state has changed.
+            Registers with the collection and calls the state has changed.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.CollectionRegistration`1.UnregisterAsync(`0)">
             <summary>
-            Unregisters from the collection and call state has changed (when owner is not disposed).
+            Unregisters from the collection and calls the state has changed (when the owner is not disposed).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.CssClassHelper">
@@ -52,8 +52,8 @@
             <summary>
             Starts the debouncing.
             </summary>
-            <param name="millisecondsDelay">debouncing delay</param>
-            <param name="actionAsync">work to be executed (<see cref="T:System.Threading.CancellationToken"/> gets canceled if the method is called again)</param>
+            <param name="millisecondsDelay">The delay in milliseconds for debouncing.</param>
+            <param name="actionAsync">The asynchronous action to be executed. The <see cref="T:System.Threading.CancellationToken"/> gets canceled if the method is called again.</param>
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Title">
             <summary>
@@ -77,7 +77,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.ShowCloseButton">
             <summary>
-            Indicates whether to show close button.
+            Indicates whether to show the close button.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Buttons">
@@ -92,7 +92,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.CustomButtonText">
             <summary>
-            Text for <see cref="F:Havit.Blazor.Components.Web.MessageBoxButtons.Custom"/>.
+            Text for the <see cref="F:Havit.Blazor.Components.Web.MessageBoxButtons.Custom"/> button.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.AdditionalAttributes">
@@ -117,7 +117,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.FileIndex">
             <summary>
-            Index of the file uploaded.
+            Index of the uploaded file.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.OriginalFileName">
@@ -127,12 +127,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ContentType">
             <summary>
-            File MIME type provided by the browser.
+            MIME type of the file provided by the browser.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.Size">
             <summary>
-            File provided by the browser.
+            Size of the file provided by the browser.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseText">
@@ -147,7 +147,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.LastModified">
             <summary>
-            File last modification provided by the browser.
+            Last modification date of the file provided by the browser.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.HxInputFileCore">
@@ -163,7 +163,7 @@
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.GetDefaults">
             <summary>
             Returns component defaults.
-            Enables overriding defaults in descendants (use separate set of defaults).
+            Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Settings">
@@ -173,10 +173,10 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.GetSettings">
             <summary>
-            Returns optional set of component settings.
+            Returns an optional set of component settings.
             </summary>
             <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.HxInputFileCore.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Settings"/> in components descendants (by returning a derived settings class).
+            Similar to <see cref="M:Havit.Blazor.Components.Web.HxInputFileCore.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Settings"/> in component descendants (by returning a derived settings class).
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.UploadUrl">
@@ -222,7 +222,7 @@
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Enabled">
             <summary>
             Make the item appear disabled by setting to <c>false</c>.
-            Default is <c>true</c>.
+            The default is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Accept">
@@ -233,24 +233,24 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.MaxFileSize">
             <summary>
-            The maximum files size in bytes.
+            The maximum file size in bytes.
             When exceeded, the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.
-            Default is <c>long.MaxValue</c> (unlimited).
+            The default is <c>long.MaxValue</c> (unlimited).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.MaxParallelUploads">
             <summary>
-            Maximum number of concurrent uploads. Default is <c>6</c>.
+            The maximum number of concurrent uploads. The default is <c>6</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.Id">
             <summary>
-            Input element id.
+            The input element id.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.FileCount">
             <summary>
-            Last known count of associated files.
+            The last known count of associated files.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.StartUploadAsync(System.String)">
@@ -300,7 +300,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.InputFileCoreSettings.MaxFileSize">
             <summary>
-            The maximum files size in bytes.
+            The maximum file size in bytes.
             When exceeded, the <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.
             </summary>
         </member>
@@ -316,7 +316,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.UploadCompletedEventArgs.FileCount">
             <summary>
-            Total count of files uploaded.
+            Total number of files uploaded.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.UploadCompletedEventArgs.TotalSize">
@@ -326,7 +326,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.UploadCompletedEventArgs.FilesUploaded">
             <summary>
-            Files uploaded (event arguments of individual OnFileUploded events).
+            Files uploaded (event arguments of individual OnFileUploaded events).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.UploadProgressEventArgs">
@@ -336,7 +336,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.UploadProgressEventArgs.FileIndex">
             <summary>
-            Index of the file uploaded.
+            Index of the uploaded file.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.UploadProgressEventArgs.OriginalFileName">
@@ -346,12 +346,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.UploadProgressEventArgs.UploadedBytes">
             <summary>
-            Bytes uploaded.
+            Number of bytes uploaded.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.UploadProgressEventArgs.UploadSize">
             <summary>
-            Upload request size (slightly bigger than the file itself)
+            Upload request size (slightly larger than the file itself).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.FormState">
@@ -361,12 +361,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.FormState.Enabled">
             <summary>
-            Indicates enabled/disabled section.
+            Indicates whether the section is enabled or disabled.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.HxFormState">
             <summary>
-            Propagates form states as a cascading parementer to child components.<br />
+            Propagates form states as a cascading parameter to child components.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxFormState">https://havit.blazor.eu/components/HxFormState</see>
             </summary>
         </member>
@@ -377,12 +377,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxFormState.Enabled">
             <summary>
-            Indicated enabled/disabled section. Value to propagate.
+            Indicates enabled/disabled section. Value to propagate.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxFormState.Visible">
             <summary>
-            When <c>false</c>, nothing is rendered (no children). Value is not propagated, there is no where to propagate.
+            When <c>false</c>, nothing is rendered (no children). Value is not propagated, there is nowhere to propagate.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxFormState.ChildContent">
@@ -397,7 +397,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.HxModelEditForm`1">
             <summary>
-            Edit form wrapper which provides strong type model and model instance update when valid form is submitted.
+            Edit form wrapper which provides a strongly typed model and updates the model instance when a valid form is submitted.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxModelEditForm`1.Id">
@@ -412,7 +412,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxModelEditForm`1.ModelChanged">
             <summary>
-            Model event callback. Invoked when valid form is updated.
+            Model event callback. Invoked when a valid form is updated.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxModelEditForm`1.InvokeModelChangedAsync(`0)">
@@ -427,17 +427,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxModelEditForm`1.ModelInEdit">
             <summary>
-            Model in edit (clone of Model).
+            Model being edited (a clone of the Model).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxModelEditForm`1.OnModelSet">
             <summary>
-            Fired when a new model is set from outside (databind, etc).
+            Fired when a new model is set from outside (data bind, etc.).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxModelEditForm`1.UpdateModelAsync">
             <summary>
-            Updates Model by current ModelInEdit.
+            Updates the Model with the current ModelInEdit.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxModelEditForm`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -478,7 +478,7 @@
         <member name="F:Havit.Blazor.Components.Web.InputMode.Search">
             <summary>
             A virtual keyboard optimized for search input. For instance, the return/submit key may be labeled
-            “Search”, along with possible other optimizations. Inputs that require a search query should typically
+            "Search", along with possible other optimizations. Inputs that require a search query should typically
             use <c>InputType.Search</c> instead.
             </summary>
         </member>
@@ -500,8 +500,8 @@
             Enum for <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types">HTML input types</see>.
             </summary>
             <remarks>
-            As the enum is currently used only for <c>HxInputText</c> component, only relevant types are included.
-            As all the values will by needed, they can be added any later (add restrictions/validation to <c>HxInputText</c> then).
+            As the enum is currently used only for the <c>HxInputText</c> component, only relevant types are included.
+            As all the values will be needed, they can be added later (add restrictions/validation to <c>HxInputText</c> then).
             </remarks>
         </member>
         <member name="F:Havit.Blazor.Components.Web.InputType.Text">
@@ -511,37 +511,37 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.InputType.Email">
             <summary>
-            A field for editing an email address. Looks like a <see cref="F:Havit.Blazor.Components.Web.InputType.Text"/> input, but has validation parameters
-            and relevant keyboard in supporting browsers and devices with dynamic keyboards.
+            A field for editing an email address. It looks like a <see cref="F:Havit.Blazor.Components.Web.InputType.Text"/> input, but has validation parameters
+            and a relevant keyboard in supporting browsers and devices with dynamic keyboards.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.InputType.Password">
             <summary>
-            A single-line text field whose value is obscured. Will alert user if site is not secure.
+            A single-line text field whose value is obscured. It will alert the user if the site is not secure.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.InputType.Search">
             <summary>
             A single-line text field for entering search strings. Line-breaks are automatically removed from the input value.
-            May include a delete icon in supporting browsers that can be used to clear the field. Displays a search icon instead
-            of enter key on some devices with dynamic keypads.
+            It may include a delete icon in supporting browsers that can be used to clear the field. It displays a search icon instead
+            of the enter key on some devices with dynamic keypads.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.InputType.Tel">
             <summary>
-            	A control for entering a telephone number. Displays a telephone keypad in some devices with dynamic keypads.
+            A control for entering a telephone number. It displays a telephone keypad on some devices with dynamic keypads.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.InputType.Url">
             <summary>
-            A field for entering a URL. Looks like a <see cref="F:Havit.Blazor.Components.Web.InputType.Text"/> input, but has validation parameters and relevant
+            A field for entering a URL. It looks like a <see cref="F:Havit.Blazor.Components.Web.InputType.Text"/> input, but has validation parameters and a relevant
             keyboard in supporting browsers and devices with dynamic keyboards.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.ModelCloner.Clone``1(``0)">
             <summary>
-            Returns model clone.
-            Uses strageties (in order):
+            Returns a model clone.
+            Uses strategies (in order):
             * <see cref="T:System.ICloneable" />
             * C# Records
             * Object.MemberwiseClone
@@ -550,7 +550,7 @@
         <member name="T:Havit.Blazor.Components.Web.HxChangeTracker">
             <summary>
             Subscribes to INotifyPropertyChanged changes and triggers re-rendering of ChildContent.
-            To be used when you want limit a scope of re-rendering and to prevent re-rendering of a wider component.
+            To be used when you want to limit the scope of re-rendering and prevent re-rendering of a wider component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxChangeTracker.ChildContent">
@@ -565,7 +565,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.HxDynamicElement">
             <summary>
-            Renders an element with the specified name, attributes and child-content.<br />
+            Renders an element with the specified name, attributes, and child content.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDynamicElement">https://havit.blazor.eu/components/HxDynamicElement</see>
             </summary>
         </member>
@@ -586,12 +586,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClickStopPropagation">
             <summary>
-            Stop onClick-event propagation. Deafult is <c>false</c>.
+            Stops onClick event propagation. Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClickPreventDefault">
             <summary>
-            Prevents the default action for the onclick event. Deafult is <c>false</c>.
+            Prevents the default action for the onclick event. Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.ElementRef">
@@ -601,13 +601,13 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.ElementRefChanged">
             <summary>
-            Action (synchronnous, not an EventCallback) called when the element's reference got captured.
+            Action (synchronous, not an EventCallback) called when the element's reference is captured.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.HxRedirectTo">
             <summary>
             Rendering a <c>HxRedirectTo</c> will navigate to a new location.<br/>
-            Can be used in <c>AuthorizeRouteView</c>, <c>Router</c> and such components to process redirection to login page, error page or such.<br />
+            Can be used in <c>AuthorizeRouteView</c>, <c>Router</c> and similar components to redirect to a login page, error page, or similar.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxRedirectTo">https://havit.blazor.eu/components/HxRedirectTo</see>
             </summary>
         </member>
@@ -619,7 +619,7 @@
         <member name="P:Havit.Blazor.Components.Web.HxRedirectTo.ForceLoad">
             <summary>
             If <c>true</c>, bypasses client-side routing and forces the browser to load the new
-            page from the server, whether or not the URI would normally be handled by the
+            page from the server, regardless of whether the URI would normally be handled by the
             client-side router.<br/>
             Default is <c>false</c>.
             </summary>
@@ -627,59 +627,59 @@
         <member name="T:Havit.Blazor.Components.Web.HxRepeater`1">
             <summary>
             A data-bound list component that allows custom layout by repeating a specified template for each item displayed in the list.
-            Analogous to ASP.NET WebForms Repeater control.<br />
+            Analogous to the ASP.NET WebForms Repeater control.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxRepeater">https://havit.blazor.eu/components/HxRepeater</see>
             </summary>
-            <typeparam name="TItem">item type</typeparam>
+            <typeparam name="TItem">The type of the item</typeparam>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxRepeater`1.HeaderTemplate">
             <summary>
-            Template that defines how the header section of the Repeater component is displayed.
+            The template that defines how the header section of the Repeater component is displayed.
             Renders only if there are any items to display.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxRepeater`1.ItemTemplate">
             <summary>
-            Template that defines how items in the Repeater component are displayed.
+            The template that defines how items in the Repeater component are displayed.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxRepeater`1.FooterTemplate">
             <summary>
-            Template that defines how the footer section of the Repeater component is displayed.
+            The template that defines how the footer section of the Repeater component is displayed.
             Renders only if there are any items to display.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxRepeater`1.NullTemplate">
             <summary>
-            Template that defines what should be rendered in case of Items <c>null</c>.
+            The template that defines what should be rendered in case of Items being null.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxRepeater`1.EmptyTemplate">
             <summary>
-            Template that defines what should be rendered in case of empty Items.
+            The template that defines what should be rendered in case of empty Items.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxRepeater`1.Data">
             <summary>
-            Items to be rendered.
+            The items to be rendered.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.HxIcon">
             <summary>
             Displays an icon.
-            Currently supports <see href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</see> through <c>BootstrapIcon</c> class.<br />
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxIcon">https://havit.blazor.eu/components/HxIcon</see>
-            You can add your own icon-set easily.
+            Currently supports <see href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</see> through the <c>BootstrapIcon</c> class.<br />
+            Full documentation and demos can be found at <see href="https://havit.blazor.eu/components/HxIcon">https://havit.blazor.eu/components/HxIcon</see>.
+            You can easily add your own icon set.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxIcon.Icon">
             <summary>
-            Icon to display.
+            The icon to display.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxIcon.CssClass">
             <summary>
-            CSS Class to combine with basic icon CSS class.
+            The CSS class to combine with the basic icon CSS class.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxIcon.AdditionalAttributes">
@@ -697,7 +697,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.IconBase.RendererComponentType">
             <summary>
-            Renderer of the icon. Must have a Icon property which receives the instance of the icon (IconBase descendant instance).
+            Renderer of the icon. Must have an Icon property which receives the instance of the icon (IconBase descendant instance).
             See BootstrapIcon and <see cref="T:Havit.Blazor.Components.Web.HxIcon"/> implementations for more details.
             </summary>
         </member>
@@ -708,7 +708,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Infrastructure.CascadeEnabledComponent.EnabledEffective(Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent)">
             <summary>
-            Effective value of Enabled. When Enabled is not set, receives value from FormState or defaults to true.
+            Effective value of Enabled. When Enabled is not set, it receives the value from FormState or defaults to true.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent">
@@ -723,14 +723,14 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled">
             <summary>
-            When <c>null</c> (default), the Enabled value is received from cascading <see cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.FormState" />.
-            When value is <c>false</c>, input is rendered as disabled.
-            To set multiple controls as disabled use <seealso cref="T:Havit.Blazor.Components.Web.HxFormState" />.
+            When <c>null</c> (default), the Enabled value is received from the cascading <see cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.FormState" />.
+            When the value is <c>false</c>, the input is rendered as disabled.
+            To set multiple controls as disabled, use <seealso cref="T:Havit.Blazor.Components.Web.HxFormState" />.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.HxMessengerService">
             <summary>
-            Propagating access to HxMessenger as <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService" />.
+            Propagates access to HxMessenger as <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService" />.
             </summary>
         </member>
         <member name="E:Havit.Blazor.Components.Web.HxMessengerService.OnMessage">
@@ -747,22 +747,22 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.IHxMessengerService">
             <summary>
-            Provides methods for adding and showing message. Additional extension methods available in concrete implementation.
+            Provides methods for adding and showing messages. Additional extension methods are available in the concrete implementation.
             </summary>
         </member>
         <member name="E:Havit.Blazor.Components.Web.IHxMessengerService.OnMessage">
             <summary>
-            Subscription seam for HxMessenger component to be able to receive the messages.
+            Subscription seam for the HxMessenger component to be able to receive messages.
             </summary>
         </member>
         <member name="E:Havit.Blazor.Components.Web.IHxMessengerService.OnClear">
             <summary>
-            Subscription seam for HxMessenger component to be able to receive Clear() command.
+            Subscription seam for the HxMessenger component to be able to receive the Clear() command.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.IHxMessengerService.AddMessage(Havit.Blazor.Components.Web.MessengerMessage)">
             <summary>
-            Adds and shows message.
+            Adds and shows a message.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.IHxMessengerService.Clear">
@@ -777,7 +777,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessengerMessage.Key">
             <summary>
-            Key. Used for component paring during rendering (@key).
+            Key. Used for component pairing during rendering (@key).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessengerMessage.Icon">
@@ -792,7 +792,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessengerMessage.AutohideDelay">
             <summary>
-            Delay in milliseconds to autohide message.
+            Delay in milliseconds to auto-hide message.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessengerMessage.Title">
@@ -802,7 +802,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessengerMessage.HeaderTemplate">
             <summary>
-            Custom message header
+            Custom message header.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.MessengerMessage.Text">
@@ -832,13 +832,13 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.RenderFragmentBuilder.Empty">
             <summary>
-            Returns RenderFragment to render "nothing". Implementation returns <c>null</c>.
+            Returns a RenderFragment to render "nothing". The implementation returns <c>null</c>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.RenderFragmentBuilder.CreateFrom(System.String,Microsoft.AspNetCore.Components.RenderFragment)">
             <summary>
-            Returns RenderFragment which renders content and template (it is expected at least one of argument is null).		
-            If both are <c>null</c>, returns <see cref="M:Havit.Blazor.Components.Web.RenderFragmentBuilder.Empty"/>.
+            Returns a RenderFragment that renders content and a template (it is expected that at least one of the arguments is null).		
+            If both are <c>null</c>, it returns <see cref="M:Havit.Blazor.Components.Web.RenderFragmentBuilder.Empty"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.SelectorHelpers">
@@ -848,16 +848,16 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.SelectorHelpers.GetText``1(System.Func{``0,System.String},``0)">
             <summary>
-            Returns text from item by textSelector.
-            When textSelector is <c>null</c>, returns item.ToString().
-            Never returns <c>null</c>, <c>null</c> values are converted to empty string.
+            Returns text from an item based on the textSelector.
+            When the textSelector is <c>null</c>, it returns item.ToString().
+            It never returns <c>null</c>. Instead, <c>null</c> values are converted to an empty string.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.SelectorHelpers.GetValue``2(System.Func{``0,``1},``0)">
             <summary>
-            When item is <c>null</c>, returns <c>default(TValue)</c>.
-            Otherwise returns value from item by valueSelector.
-            When valueSelector is <c>null</c> and <c>TValue</c> is same as <c>TItem</c>, returns item.
+            When the item is <c>null</c>, it returns <c>default(TValue)</c>.
+            Otherwise, it returns the value from the item based on the valueSelector.
+            When the valueSelector is <c>null</c> and <c>TValue</c> is the same as <c>TItem</c>, it returns the item.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.ServiceCollectionExtensions.AddHxServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
@@ -870,17 +870,17 @@
             Abstract base-class for implementation of your own dictionary-style static data store.
             </summary>
             <remarks>
-            Uses in-memory Dictionary to store the data.
-            Does not preload data, the data get loaded within first data-retrieval call.
-            Does not implement any memory-release logic, the data get refreshed within data-retrievals where <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.ShouldRefresh"/> returns <c>true</c>.
+            Uses an in-memory Dictionary to store the data.
+            Does not preload data; the data is loaded within the first data-retrieval call.
+            Does not implement any memory-release logic; the data is refreshed within data-retrievals where <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.ShouldRefresh"/> returns <c>true</c>.
             </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.LoadDataAsync">
             <summary>
             Template method to implement the data retrieval logic.
-            You should never call this method directly, use <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.EnsureDataAsync"/> to load data.
-            This method is sequential (does not allow parallel runs), just take care of the data retrieval.
-            Must return non-<c>null</c> value, use Enumerable.Empty if needed.
+            You should never call this method directly; use <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.EnsureDataAsync"/> to load data.
+            This method is sequential (does not allow parallel runs); just take care of the data retrieval.
+            Must return a non-<c>null</c> value; use Enumerable.Empty if needed.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.KeySelector">
@@ -912,22 +912,22 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.GetByKeyAsync(`0)">
             <summary>
-            Retrieves value from dictionary (includes data load if needed). Throws exception when key not found.
+            Retrieves a value from the dictionary (includes data load if needed). Throws an exception when the key is not found.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.GetByKey(`0,System.Boolean)">
             <summary>
-            Retrieves value from dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Throws exception when key not found.
+            Retrieves a value from the dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Throws an exception when the key is not found.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.GetByKeyOrDefaultAsync(`0,`1)">
             <summary>
-            Retrieves value from dictionary (includes data load if needed). Returns <c>default</c> when not found.
+            Retrieves a value from the dictionary (includes data load if needed). Returns <c>default</c> when not found.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.GetByKeyOrDefault(`0,`1,System.Boolean)">
             <summary>
-            Retrieves value from dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
+            Retrieves a value from the dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.Clear">
@@ -939,20 +939,20 @@
             <summary>
             To be called before any data-retrieval to load/refresh the data.<br/>
             Is automatically called before all asynchronous data-retrieval calls.
-            You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any sychronous API.<br/>
+            You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any synchronous API.<br/>
             Uses <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.ShouldRefresh"/> to check for refreshment request.
-            Uses lock to prevent multiple parallel loads.
+            Uses a lock to prevent multiple parallel loads.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2">
             <summary>
-            Base-interface for Blazor dictionary-based static-data stores.
+            Base interface for Blazor dictionary-based static data stores.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.EnsureDataAsync">
             <summary>
-            To be called before any data-retrieval to load/refresh the data.<br/>
-            Is automatically called before all asynchronous data-retrieval calls.
+            To be called before any data retrieval to load/refresh the data.<br/>
+            Is automatically called before all asynchronous data retrieval calls.
             You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any synchronous API.<br/>
             </summary>
         </member>
@@ -973,12 +973,12 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetByKeyAsync(`0)">
             <summary>
-            Retrieves value from dictionary (includes data load if needed). Throws exception when key not found.
+            Retrieves value from dictionary (includes data load if needed). Throws an exception when the key is not found.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetByKey(`0,System.Boolean)">
             <summary>
-            Retrieves value from dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Throws exception when key not found.
+            Retrieves value from dictionary (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.EnsureDataAsync"/> to be called first). Throws an exception when the key is not found.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetByKeyOrDefaultAsync(`0,`1)">
@@ -993,14 +993,14 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.Clear">
             <summary>
-            Throws away all the data.
+            Discards all the data.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.EnsureDataAsync">
             <summary>
             To be called before any data-retrieval to load/refresh the data.<br/>
             Is automatically called before all asynchronous data-retrieval calls.
-            You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any sychronous API.<br/>
+            You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any synchronous API.<br/>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.IsLoaded">
@@ -1010,17 +1010,17 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.Clear">
             <summary>
-            Throws away all the data.
+            Discards all the data.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.GetValue(System.Boolean)">
             <summary>
-            Returns value from the store (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.EnsureDataAsync"/> to be called first).
+            Retrieves a value from the store (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.EnsureDataAsync"/> to be called first).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.GetValueAsync">
             <summary>
-            Returns value from the store (includes data load if needed).
+            Retrieves a value from the store (includes data load if needed).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1">
@@ -1028,9 +1028,9 @@
             Abstract base-class for implementation of your own single-value static data store.
             </summary>
             <remarks>
-            Uses in-memory static field to store the data.
-            Does not preload data, the data get loaded within first data-retrieval call.
-            Does not implement any memory-release logic, the data get refreshed within data-retrievals where <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.ShouldRefresh"/> returns <c>true</c>.
+            Uses an in-memory static field to store the data.
+            Does not preload data, the data is loaded within the first data-retrieval call.
+            Does not implement any memory-release logic, the data is refreshed within data-retrievals where <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.ShouldRefresh"/> returns <c>true</c>.
             </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.LoadDataAsync">
@@ -1038,7 +1038,7 @@
             Template method to implement the data retrieval logic.
             You should never call this method directly, use <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.EnsureDataAsync"/> to load data.
             This method is sequential (does not allow parallel runs), just take care of the data retrieval.
-            Must return non-<c>default</c> value.
+            Must return a non-<c>default</c> value.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.IsLoaded">
@@ -1055,12 +1055,12 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.GetValueAsync">
             <summary>
-            Returns value from the store (includes data load if needed).
+            Returns the value from the store (includes data load if needed).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.GetValue(System.Boolean)">
             <summary>
-            Returns value from the store (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.EnsureDataAsync"/> to be called first).
+            Returns the value from the store (requires <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.EnsureDataAsync"/> to be called first).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.Clear">
@@ -1074,7 +1074,7 @@
             Is automatically called before all asynchronous data-retrieval calls.
             You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any synchronous API.<br/>
             Uses <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.ShouldRefresh"/> to check for refreshment request.
-            Uses lock to prevent multiple parallel loads.
+            Uses a lock to prevent multiple parallel loads.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.StringLocalizerFactoryExtensions">
@@ -1084,8 +1084,8 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.StringLocalizerFactoryExtensions.GetLocalizedValue(Microsoft.Extensions.Localization.IStringLocalizerFactory,System.String,System.Type)">
             <summary>
-            Returns localized value when resourceType is not <c>null</c> (value used as resource name).
-            Otherwise returns the value (without attempt to get localized value).
+            Returns the localized value when resourceType is not <c>null</c> (value used as the resource name).
+            Otherwise, returns the value (without attempting to get the localized value).
             </summary>
         </member>
     </members>
