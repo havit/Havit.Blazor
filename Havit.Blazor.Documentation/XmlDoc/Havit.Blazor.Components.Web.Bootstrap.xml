@@ -3349,6 +3349,11 @@
             Therefore, we wrap the input and label in the additional div.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsFormCheckOuter">
+            <summary>
+            For checkbox without any Label/LabelTemplate and without Text/TextTemplate we do not add form-check to the parent div.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
