@@ -57,7 +57,7 @@
 {
 	<HxProgressIndicator InProgress="@(InProgress ?? (dataProviderInProgress /* indicates data loading */ && !shouldRenderLoadingDataWithPlaceholders /* but not when placeholders are used - in such case we are indicating data loading using the placeholders */))">
 
-		<div class="@CssClassHelper.Combine(ResponsiveEffective ? "table-responsive" : null, TableContainerCssClassEffective)">
+		<div class="@CssClassHelper.Combine("hx-grid-container",ResponsiveEffective ? "table-responsive" : null, TableContainerCssClassEffective)">
 			<table class="@GetTableElementCssClass(totalCount > 0)">
 				<thead>
 					<tr class="@HeaderRowCssClassEffective">
