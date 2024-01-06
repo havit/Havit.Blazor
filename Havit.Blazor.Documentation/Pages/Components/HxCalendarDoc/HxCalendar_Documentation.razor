@@ -7,12 +7,12 @@
 
         <DocHeading Title="Dates customization" />
         <p>
-            You can change rendering of weekend days by defining your own CSS rule for <code>.weekend</code> class.
-            The disabled days get <code>.disabled</code> class.
+			You can customize the rendering of weekend days by defining your own CSS rule for the <code>.weekend</code> class.
+			Disabled days are assigned the <code>.disabled</code> class.
         </p>
         <p>
-            For more detailed customization use the <code>DateCustomizationProvider</code> parameter which allows you setting
-            <code>CssClass</code> and <code>Enabled</code> values for every single date rendered.
+			For more detailed customization, use the <code>DateCustomizationProvider</code> parameter,
+			which allows you to set <code>CssClass</code> and <code>Enabled</code> values for each date rendered.
         </p>
 
         <DocHeading Id="HxInputDate-HxInputDateRange" Title="HxInputDate, HxInputDateRange" />
@@ -34,12 +34,16 @@
             </ol>
         </p>
         <p>
-            One use for this is for server rendered blazor components where the server local time zone is different to the client time zone.
+			One application of this is for server-rendered Blazor components where the server's local time zone differs from the client's time zone.
             See the following sample:
         </p>
         <CodeSnippet File="~\Pages\Components\HxCalendarDoc\HxCalendar_ZonedTimeProvider.CodeSnippet.cs" />
-        <p>Use the <code>ZonedTimeProvider</code>.  Ensure that <a href="/components/HxCalendar#HxCalendar-static-properties"><code>Defaults</code></a> are configured in <code>Program.cs</code> or where you maintain your other defaults.
-            Please expand to provide appropriate error handling, caching, etc. depending on your needs.</p>
+        <p>
+			Use the <code>ZonedTimeProvider</code>.
+			Ensure that <a href="/components/HxCalendar#HxCalendar-static-properties"><code>Defaults</code></a> are configured in <code>Program.cs</code>
+			or where you maintain your other defaults.
+			Please expand this to include appropriate error handling, caching, etc., as per your requirements.
+		</p>
         <CodeSnippet File="~\Pages\Components\HxCalendarDoc\HxCalendar_TimeProvider.CodeSnippet.razor" />
 
 

@@ -12,9 +12,9 @@
         the <code>InputMode.Numeric</code> will be used for inputs with <code>Decimals</code> equal to <code>0</code>.
     </p>
     <DocAlert Type="DocAlertType.Info">
-        Note: We are not defaulting to <code>InputMode.Decimal</code> for inputs with <code>Decimals</code> greater that <code>0</code>
-        as the users with keyboard locale not matching the application locale won't be able to enter decimal point
-        (is <kbd>,</kbd> in some locales and <kbd>.</kbd> in others). Feel free to set the <code>InputMode</code> on your own as needed.
+        Note: We do not default to <code>InputMode.Decimal</code> for inputs with <code>Decimals</code> greater than <code>0</code>
+        because users with keyboard locale not matching the application locale won't be able to enter a decimal point
+        (which is <kbd>,</kbd> in some locales and <kbd>.</kbd> in others). Feel free to set the <code>InputMode</code> on your own as needed.
     </DocAlert>
     <Demo Type="typeof(HxInputNumber_Demo_InputMode)" />
 

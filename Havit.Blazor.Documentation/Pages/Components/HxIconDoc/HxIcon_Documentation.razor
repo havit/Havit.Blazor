@@ -5,12 +5,12 @@
     <p>(Internally used by <a href="/components/@nameof(HxButton)">@nameof(HxButton)</a> and other components.)</p>
 
     <DocHeading Title="Icon" />
-    <p>Icon is a class derived from <code>@nameof(IconBase)</code> as we want to allow use of icons from different icon sets.</p>
+    <p>Icon is a class derived from <code>@nameof(IconBase)</code> as we want to allow the use of icons from different icon sets.</p>
     <p>Currently, the library brings just one implementation - <code>@nameof(BootstrapIcon)</code>.</p>
 
     <DocHeading Title="Bootstrap icon" />
     <p>
-        For available icons see <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons <HxIcon Icon="BootstrapIcon.BoxArrowUpRight" /></a>
+        For available icons, see <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons <HxIcon Icon="BootstrapIcon.BoxArrowUpRight" /></a>
         or <a href="https://havit.blazor.eu/types/BootstrapIcon">BootstrapIcon</a> members.
     </p>
 
@@ -22,20 +22,20 @@
     <Demo Type="typeof(HxIcon_Demo)" Tabs="false" />
 
     <DocHeading Title="Custom icons" />
-    <p><code>HxIcon</code> is a host component which accepts <code>Icon</code> parameter (type of <a href="/types/IconBase"><code>IconBase</code></a>) and passes the rendering to a specific icon-component retrieved from the settings.</p>
+    <p><code>HxIcon</code> is a host component that accepts the <code>Icon</code> parameter (type of <a href="/types/IconBase"><code>IconBase</code></a>) and passes the rendering to a specific icon-component retrieved from the settings.</p>
     <p>You can add your own icons by following these steps:</p>
     <ol>
         <li>
-            <p>Create a new class derived from <code>IconBase</code> which represents settings for your new type of icon</p>
+            <p>Create a new class derived from <code>IconBase</code> that represents settings for your new type of icon</p>
             <CodeSnippet File="~\Pages\Components\HxIconDoc\MyCustomIcon.CodeSnippet.cs" />
             <ul>
-                <li><code>RenderComponentType</code> property returns the rendering component for your icon (see bellow),</li>
-                <li>add any properties which you need to parametrize your render-component to render the specific icon from the set (<code>IconCharacter</code> in our sample),</li>
+                <li><code>RenderComponentType</code> property returns the rendering component for your icon (see below),</li>
+                <li>add any properties that you need to parametrize your render-component to render the specific icon from the set (<code>IconCharacter</code> in our sample),</li>
                 <li>add static properties returning instances with the settings of each icon.</li>
             </ul>
         </li>
         <li>
-            <p>Create a new component which renders your icon</p>
+            <p>Create a new component that renders your icon</p>
             <CodeSnippet File="~\Pages\Components\HxIconDoc\MyCustomIconRenderer.CodeSnippet.razor" />
             <p>It can be more or less any component that receives the following parameters from <code>HxIcon</code>:</p>
             <ul>
@@ -45,7 +45,7 @@
             </ul>
         </li>
         <li>
-            <p>You can use your new icons with <code>HxIcon</code> now (and everywhere else where the <code>Icon</code> parameter(s) can be set):</p>
+            <p>You can now use your new icons with <code>HxIcon</code> (and everywhere else where the <code>Icon</code> parameter(s) can be set):</p>
             <Demo Type="typeof(HxIcon_Demo_CustomIcons)" Tabs="false" />
         </li>
     </ol>
