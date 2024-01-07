@@ -1,10 +1,17 @@
-﻿<HxListLayout Title="Culture infos" TFilterModel="FilterModelDto">
+﻿<HxListLayout Title="Title" @bind-FilterModel="filterModel" @bind-FilterModel:after="RefreshDataAsync">
+	<NamedViewsTemplate>
+		<HxNamedViewList TFilterModel="FilterModelDto"
+						 @bind-FilterModel="filterModel"
+						 @bind-FilterModel:after="RefreshDataAsync"
+						 NamedViews="namedViews"
+						 OnNamedViewSelected="NamedViewSelected" />
+	</NamedViewsTemplate>
 	<SearchTemplate>
-		<HxInputText Placeholder="Search"
-					 Type="InputType.Search"
-					 @bind-Value="searchText"
-					 @bind-Value:after="HandleSearchTextChanged" />
+
 	</SearchTemplate>
+	<FilterTemplate Context="filterContext">
+		<HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumLCID" />
+	</FilterTemplate>
 	<CommandsTemplate>
 		<HxButton Text="New item" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="NewItemClicked" />
 	</CommandsTemplate>
@@ -37,9 +44,16 @@
 @code {
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 
-	private string searchText = String.Empty;
 	private EditableCultureInfo currentItem;
+	private FilterModelDto filterModel = new FilterModelDto();
 	private HxGrid<EditableCultureInfo> gridComponent;
+
+	private readonly IEnumerable<NamedView<FilterModelDto>> namedViews = new List<NamedView<FilterModelDto>>()
+		{
+			new NamedView<FilterModelDto>("Minimum = 1", () => new FilterModelDto { MinimumLCID = 1 } ),
+			new NamedView<FilterModelDto>("Minimum = 50", () => new FilterModelDto { MinimumLCID = 50 }),
+			new NamedView<FilterModelDto>("Minimum = 100", () => new FilterModelDto { MinimumLCID = 100 })
+		};
 
 	private List<EditableCultureInfo> localEditableCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).Select(c => new EditableCultureInfo()
 		{
@@ -51,13 +65,19 @@
 
 	private Task<GridDataProviderResult<EditableCultureInfo>> LoadDataItems(GridDataProviderRequest<EditableCultureInfo> request)
 	{
-		IEnumerable<EditableCultureInfo> result = localEditableCultureInfos.Where(c => c.DisplayName.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList();
+		IEnumerable<EditableCultureInfo> result = localEditableCultureInfos.Where(i => i.LCID >= filterModel.MinimumLCID).ToList();
 
 		return Task.FromResult(request.ApplyTo(result));
 	}
 
-	private async Task HandleSearchTextChanged()
+	private async Task RefreshDataAsync()
 	{
+		await gridComponent.RefreshDataAsync();
+	}
+
+	protected async Task NamedViewSelected(NamedView<FilterModelDto> namedView)
+	{
+		filterModel = namedView.Filter();
 		await gridComponent.RefreshDataAsync();
 	}
 
@@ -80,7 +100,10 @@
 		return Task.CompletedTask;
 	}
 
-	public record FilterModelDto { }
+	public record FilterModelDto
+	{
+		public int MinimumLCID { get; set; }
+	}
 
 	private record EditableCultureInfo
 	{
@@ -90,4 +113,3 @@
 		public string EnglishName { get; set; }
 	}
 }
-

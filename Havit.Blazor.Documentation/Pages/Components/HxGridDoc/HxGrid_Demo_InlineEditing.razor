@@ -1,6 +1,5 @@
-﻿<HxGrid SelectedDataItem="selectedDataItem"
-        SelectedDataItemChanged="HandleSelectedDataItemChanged"
-        TItem="EditableCultureInfo"
+﻿<HxGrid @bind-SelectedDataItem="selectedDataItem"
+        @bind-SelectedDataItem:after="HandleSelectedDataItemChanged"
         Responsive="true"
         DataProvider="ClientSideProcessingDataProvider"
         PageSize="10">
@@ -71,7 +70,7 @@
         return Task.FromResult(request.ApplyTo(localEditableCultureInfos));
     }
 
-    private async Task HandleSelectedDataItemChanged(EditableCultureInfo newSelectedDataItem)
+    private async Task HandleSelectedDataItemChanged()
     {
         if (selectedDataItem != null)
         {
@@ -79,8 +78,6 @@
             await Task.Delay(200); // simulates API call (saving changes itself)
             Console.WriteLine("Saving... " + selectedDataItem);
         }
-
-        selectedDataItem = newSelectedDataItem;
     }
 
     private record EditableCultureInfo

@@ -6,7 +6,13 @@
         <HxButton Text="New item" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="NewItemClicked" />
     </CommandsTemplate>
     <DataTemplate>
-        <HxGrid @ref="gridComponent" Responsive="true" ContentNavigationMode="GridContentNavigationMode.Pagination" TItem="EditableCultureInfo" PageSize="10" DataProvider="LoadDataItems" SelectedDataItem="currentItem" SelectedDataItemChanged="HandleSelectedDataItemChanged">
+        <HxGrid @ref="gridComponent"
+			Responsive="true"
+			ContentNavigationMode="GridContentNavigationMode.Pagination"
+			PageSize="10"
+			DataProvider="LoadDataItems"
+			@bind-SelectedDataItem="currentItem"
+			@bind-SelectedDataItem:after="HandleSelectedDataItemChanged">
             <Columns>
                 <HxGridColumn HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
 		        <HxGridColumn HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
@@ -52,9 +58,8 @@
         await gridComponent.RefreshDataAsync();
     }
 
-    private Task HandleSelectedDataItemChanged(EditableCultureInfo selection)
+    private Task HandleSelectedDataItemChanged()
     {
-        currentItem = selection;
         // await dataItemEditComponent.ShowAsync();
         return Task.CompletedTask;
     }
