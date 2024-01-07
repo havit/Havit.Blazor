@@ -18,6 +18,19 @@
     <DocHeading Title="Sizes" />
     <Demo Type="typeof(HxInputDate_Demo_InputSize)" />
 
+	<DocHeading Title="Internalization" />
+	<p>
+		<code>HxInputDate</code> fully respects <code>CultureInfo.CurrentCulture</code> and <code>CultureInfo.CurrentUiCulture</code>.
+		Based on their settings, it formats the date and displays month names, among other things.
+	</p>
+	<p>
+		For example, if your application is running in a <code>cs-CZ</code> culture, the date will be formatted as <code>dd.MM.yyyy</code> and the month names will be in Czech.
+	</p>
+	<div><img src="images/HxInputDate_Demo_Czech.png" width="400" /></div>
+	<p class="mt-2">
+		See <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/globalization-localization">Globalization and localization in official ASP.NET Core Blazor documentation</a> for more details on how to set culture in you application.
+	</p>
+
     <DocHeading Title="Dropdown calendar customization" Id="CalendarCustomization" />
     <p>
         You can change the rendering of weekend days by defining your own CSS rule for the <code>.weekend</code> class.
