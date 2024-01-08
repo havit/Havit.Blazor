@@ -68,6 +68,19 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	/// </summary>
 	protected virtual Task InvokeOnHiddenAsync() => OnHidden.InvokeAsync();
 
+	/// <summary>
+	/// Value for cases when the dropdown is used as an <code>input</code> element.
+	/// </summary>
+	[Parameter] public string Value { get; set; }
+	/// <summary>
+	/// Raised when the value changes (binds to <code>onchange</code> input event).
+	/// </summary>
+	[Parameter] public EventCallback<string> ValueChanged { get; set; }
+	/// <summary>
+	/// Triggers the <see cref="ValueChanged"/> event. Allows interception of the event in derived components.
+	/// </summary>
+	protected virtual Task InvokeValueChangedAsync(string newValue) => ValueChanged.InvokeAsync(newValue);
+
 	[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
 	[CascadingParameter] protected HxNav NavContainer { get; set; }
 
@@ -113,9 +126,18 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 		builder.AddAttribute(5, "data-bs-reference", DropdownToggleExtensions.GetDropdownDataBsReference(this));
 		builder.AddAttribute(6, "class", GetCssClass());
 
+		if (String.Equals(ElementName, "input", StringComparison.OrdinalIgnoreCase))
+		{
+			builder.AddAttribute(10, "value", Value);
+			builder.AddAttribute(11, "onchange", EventCallback.Factory.CreateBinder<string>(this, async (string value) => await InvokeValueChangedAsync(value), Value));
+#if NET8_0_OR_GREATER
+			builder.SetUpdatesAttributeName("value");
+#endif
+		}
+
 		builder.AddMultipleAttributes(99, AdditionalAttributes);
-		builder.AddElementReferenceCapture(4, capturedRef => elementReference = capturedRef);
-		builder.AddContent(5, ChildContent);
+		builder.AddElementReferenceCapture(104, capturedRef => elementReference = capturedRef);
+		builder.AddContent(105, ChildContent);
 
 		builder.CloseElement();
 	}

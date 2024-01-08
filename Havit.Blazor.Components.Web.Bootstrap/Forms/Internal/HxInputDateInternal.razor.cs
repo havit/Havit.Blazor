@@ -102,17 +102,17 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	protected override string FormatValueAsString(TValue value) => HxInputDate<TValue>.FormatValue(value);
 
-	private void HandleValueChanged(ChangeEventArgs changeEventArgs)
+	private void HandleValueChanged(string newInputValue)
 	{
 #if NET8_0_OR_GREATER
-		CurrentValueAsString = changeEventArgs.Value.ToString();
+		CurrentValueAsString = newInputValue;
 #else
 		// HandleValueChanged is used instead of TryParseValueFromString
 		// When TryParseValueFromString is used (pre net8), invalid input is replaced by previous value.		
 		bool parsingFailed;
 		validationMessageStore.Clear(FieldIdentifier);
 
-		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString((string)changeEventArgs.Value, null, out var date))
+		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(newInputValue, null, out var date))
 		{
 			parsingFailed = false;
 			CurrentValue = GetValueFromDateTimeOffset(date);

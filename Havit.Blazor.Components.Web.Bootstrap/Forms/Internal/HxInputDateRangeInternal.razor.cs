@@ -40,7 +40,9 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	private DateTimeRange previousValue;
 	private bool fromPreviousParsingAttemptFailed;
+	private string incomingFromValueBeforeParsing;
 	private bool toPreviousParsingAttemptFailed;
+	private string incomingToValueBeforeParsing;
 	private ValidationMessageStore validationMessageStore;
 
 	private FieldIdentifier fromFieldIdentifier;
@@ -127,13 +129,14 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		return CalendarDateCustomizationProviderEffective?.Invoke(request with { Target = CalendarDateCustomizationTarget.InputDateRangeTo }) ?? null;
 	}
 
-	protected void HandleFromChanged(ChangeEventArgs changeEventArgs)
+	protected void HandleFromChanged(string newInputValue)
 	{
+		incomingFromValueBeforeParsing = newInputValue;
 		bool parsingFailed;
 
 		validationMessageStore.Clear(fromFieldIdentifier);
 
-		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString((string)changeEventArgs.Value, null, out var fromDate))
+		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(newInputValue, null, out var fromDate))
 		{
 			DateTimeRange newValue = Value with { StartDate = fromDate?.DateTime };
 
@@ -156,12 +159,13 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		}
 	}
 
-	protected void HandleToChanged(ChangeEventArgs changeEventArgs)
+	protected void HandleToChanged(string newInputValue)
 	{
+		incomingToValueBeforeParsing = newInputValue;
 		bool parsingFailed;
 		validationMessageStore.Clear(toFieldIdentifier);
 
-		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString((string)changeEventArgs.Value, null, out var toDate))
+		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(newInputValue, null, out var toDate))
 		{
 			DateTimeRange newValue = Value with { EndDate = toDate?.DateTime };
 
