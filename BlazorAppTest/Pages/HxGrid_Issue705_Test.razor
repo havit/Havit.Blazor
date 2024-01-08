@@ -31,8 +31,6 @@
 @code {
 	[Parameter] public bool ShowAllColumns { get; set; }
 
-	private HxGrid<RowEntry> grid1;
-
 	public record RowEntry(string FirstColumn, string SecondColumn, string ThirdColumn);
 
 	private Task<GridDataProviderResult<RowEntry>> GetGridData(GridDataProviderRequest<RowEntry> request)
