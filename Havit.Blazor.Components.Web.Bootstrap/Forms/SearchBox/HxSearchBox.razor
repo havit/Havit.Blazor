@@ -36,7 +36,7 @@
 				   @onblur="HandleInputBlur"
 				   inputmode="search"
 				   enabled="@Enabled"
-				   placeholder="@Placeholder"
+				   placeholder="@(LabelType == LabelType.Floating ? "placeholder" : Placeholder)"
 				   class="@CssClassHelper.Combine(
 								"form-control",
 								(!HasInputGroupEnd && HasInputGroups ? "hx-search-box-input-with-search-icon" : null),

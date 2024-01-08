@@ -5470,6 +5470,9 @@
             Indicates whether the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnParametersSet">
+            <inheritdoc />
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputKeyboardNavigationIndex">
             <summary>
             Input's index for the keyboard navigation. If this is the current index, then no item is selected.

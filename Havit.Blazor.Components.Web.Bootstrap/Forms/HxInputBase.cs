@@ -211,6 +211,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 			throw new InvalidOperationException($"Cannot use {nameof(IInputWithPlaceholder.Placeholder)} with floating labels.");
 		}
 	}
+
 	/// <summary>
 	/// When there is no EditContext cascading parameter, let's create a new one and assign it to the CascadedEditContext private property in the base InputBase class.
 	/// </summary>

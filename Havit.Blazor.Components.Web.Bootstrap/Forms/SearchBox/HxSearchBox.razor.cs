@@ -249,6 +249,15 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
+	/// <inheritdoc />
+	protected override void OnParametersSet()
+	{
+		if ((LabelType == LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
+		{
+			throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
+		}
+	}
+
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
