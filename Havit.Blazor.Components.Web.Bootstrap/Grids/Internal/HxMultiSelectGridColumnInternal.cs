@@ -34,6 +34,11 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 #endif
 				builder.AddEventStopPropagationAttribute(105, "onclick", true);
 
+				if ((context.TotalCount is null) || (context.TotalCount == 0))
+				{
+					builder.AddAttribute(102, "disabled");
+				}
+
 				builder.CloseElement(); // input
 			}
 		};

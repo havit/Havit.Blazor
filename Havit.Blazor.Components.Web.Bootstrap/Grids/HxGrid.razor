@@ -72,10 +72,11 @@
 							var headerCellTemplate = column.GetHeaderCellTemplate(gridHeaderCellContext);
 							bool isSortingActive = (totalCount > 0) && columnSorting.Any();
 
-							<th @key="@column" role="@(isSortingActive ? "button" : null)"
+							<th @key="@column"
+								role="@(isSortingActive ? "button" : null)"
 								class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isSortingActive ? (isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable") : null)"
-							@onclick="@(isSortingActive ? async () => await HandleSortingClick(column) : null)"
-							@onclick:stopPropagation="isSortingActive">
+								@onclick="@(isSortingActive ? async () => await HandleSortingClick(column) : null)"
+								@onclick:stopPropagation="isSortingActive">
 								<div class="hx-grid-header-cell-container">
 									<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
 									@if (isSortingActive)
