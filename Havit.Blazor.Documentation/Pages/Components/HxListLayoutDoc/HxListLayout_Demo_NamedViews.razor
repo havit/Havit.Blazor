@@ -74,6 +74,7 @@
 
     private async Task RefreshDataAsync()
     {
+        selectedNamedView = namedViews.Where(n => n.Filter.Invoke().MinimumLCID == filterModel.MinimumLCID).FirstOrDefault();
         await gridComponent.RefreshDataAsync();
     }
 
