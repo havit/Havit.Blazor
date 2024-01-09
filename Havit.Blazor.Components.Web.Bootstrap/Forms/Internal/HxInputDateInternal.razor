@@ -70,12 +70,12 @@
 					</div>
 				}
 			</HxDropdownContent>
+			@if (RenderIcon)
+			{
+				<div @ref="iconWrapperElement" class="hx-input-date-icon">
+					<HxIcon Icon="CalendarIconEffective" />
+				</div>
+			}
 		</HxDropdown>
-		@if (RenderIcon)
-		{
-			<div @ref="iconWrapperElement" class="hx-input-date-icon">
-				<HxIcon Icon="CalendarIconEffective" />
-			</div>
-		}
 	</div>
 }

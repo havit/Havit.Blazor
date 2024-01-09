@@ -48,11 +48,6 @@
 	font-size: .75rem;
 }
 
-.hx-input-date-icon,
-::deep .form-floating label {
-	z-index: 10;
-}
-
 .hx-input-date-wrapper {
 	width: 100%;
 	display: flex;
@@ -64,4 +59,8 @@
 	flex-grow: 1;
 	flex-shrink: 1;
 	min-width: 0;
+}
+
+::deep .dropdown:focus-within {
+    z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be larger than 5 because otherwise the validation message is rendered on top. */
 }
