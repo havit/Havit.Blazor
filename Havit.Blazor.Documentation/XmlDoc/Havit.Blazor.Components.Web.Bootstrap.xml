@@ -7722,7 +7722,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1">
             <summary>
             List of named views for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1" />.<br />
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNamedViewList">https://havit.blazor.eu/components/HxNamedViewList</see>
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListLayout#named-views">https://havit.blazor.eu/components/HxListLayout#named-views</see>
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.InvokeFilterModelChangedAsync(`0)">

@@ -70,6 +70,7 @@
     private async Task HandleFilterModelChanged(FilterModelDto newFilterModel)
     {
         filterModel = newFilterModel;
+        this.selectedNamedView = namedViews.Where(n => n.Filter.Invoke().MinimumLCID == newFilterModel.MinimumLCID).FirstOrDefault();
         await gridComponent.RefreshDataAsync();
     }
 
