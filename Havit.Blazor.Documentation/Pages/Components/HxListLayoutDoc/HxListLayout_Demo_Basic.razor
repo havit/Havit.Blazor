@@ -33,7 +33,6 @@
 
     private EditableCultureInfo currentItem;
     private HxGrid<EditableCultureInfo> gridComponent;
-    private NamedView<FilterModelDto> selectedNamedView;
 
     private List<EditableCultureInfo> localEditableCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).Select(c => new EditableCultureInfo()
         {
@@ -48,20 +47,6 @@
         IEnumerable<EditableCultureInfo> result = localEditableCultureInfos.ToList();
 
         return Task.FromResult(request.ApplyTo(result));
-    }
-
-    private async Task HandleFilterModelChanged(FilterModelDto newFilterModel)
-    {
-        filterModel = newFilterModel;
-        this.selectedNamedView = namedViews.Where(n => n.Filter.Invoke().MinimumLCID == newFilterModel.MinimumLCID).FirstOrDefault();
-        await gridComponent.RefreshDataAsync();
-    }
-
-    protected async Task NamedViewSelected(NamedView<FilterModelDto> namedView)
-    {
-        filterModel = namedView.Filter();
-        this.selectedNamedView = namedView;
-        await gridComponent.RefreshDataAsync();
     }
 
     private async Task DeleteItemClicked(EditableCultureInfo editableCultureInfo)
