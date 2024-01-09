@@ -8,6 +8,7 @@
 public partial class HxNamedViewList<TFilterModel>
 {
 	[Parameter] public IEnumerable<NamedView<TFilterModel>> NamedViews { get; set; }
+	[Parameter] public NamedView<TFilterModel> SelectedNamedView { get; set; }
 
 	[Parameter] public TFilterModel FilterModel { get; set; }
 

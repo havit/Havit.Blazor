@@ -3,10 +3,16 @@
 
 @if ((NamedViews != null) && NamedViews.Any())
 {
-	<div class="hx-named-view dropdown-menu" aria-labelledby="dropdownMenuLink">
-		@foreach (Havit.Blazor.Components.Web.Bootstrap.NamedView<TFilterModel> namedView in NamedViews)
-		{
-			<a @key="@namedView" class="dropdown-item" role="button" @onclick="async () => await HandleNamedViewClick(namedView)" @onclick:stopPropagation>@namedView.Name</a>
-		}
-	</div>
+    <div class="hx-named-view dropdown-menu" aria-labelledby="dropdownMenuLink">
+        @foreach (Havit.Blazor.Components.Web.Bootstrap.NamedView<TFilterModel> namedView in NamedViews)
+        {
+            <a @key="@namedView"
+               class="@CssClassHelper.Combine("dropdown-item", (SelectedNamedView is not null && SelectedNamedView == namedView) ? "active" : string.Empty)"
+               role="button"
+               @onclick="async () => await HandleNamedViewClick(namedView)"
+               @onclick:stopPropagation>
+               @namedView.Name
+            </a>
+        }
+    </div>
 }
