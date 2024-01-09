@@ -21,7 +21,7 @@ public class HxCollapseToggleElement : ComponentBase, IHxCollapseToggle
 
 	/// <summary>
 	/// Target selector of the toggle.
-	/// Use <c>#id</c> to reference single <see cref="HxCollapse"/> or <c>.class</c> for multiple <see cref="HxCollapse"/>s.
+	/// Use <c>#id</c> to reference a single <see cref="HxCollapse"/> or <c>.class</c> for multiple <see cref="HxCollapse"/>s.
 	/// </summary>
 	[Parameter] public string CollapseTarget { get; set; }
 

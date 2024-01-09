@@ -1,0 +1,58 @@
+﻿@attribute [Route("/components/" + nameof(HxInputDate))]
+
+<ComponentApiDoc Type="typeof(HxInputDate<TValue>)">
+    <DocHeading Title="Basic usage" />
+    <Demo Type="typeof(HxInputDate_Demo)" Tabs="false" />
+
+    <DocHeading Title="Calendar icon" />
+    <p>
+        An optional icon can be added using the <code>CalendarIcon</code> parameter.<br />
+        You can set the icon for all instances of <code>HxInputDate</code> by setting the <code>HxInputDate.Defaults.CalendarIcon</code> static property.
+    </p>
+    <Demo Type="typeof(HxInputDate_Demo_CalendarIcon)" />
+
+    <DocHeading Title="Clear button in calendar" Id="clear-button" />
+    <p>The <i>Clear</i> button in the dropdown calendar can be hidden by setting <code>ShowClearButton="false"</code>.</p>
+    <Demo Type="typeof(HxInputDate_Demo_ClearButton)" />
+
+    <DocHeading Title="Sizes" />
+    <Demo Type="typeof(HxInputDate_Demo_InputSize)" />
+
+	<DocHeading Title="Internalization" />
+	<p>
+		<code>HxInputDate</code> fully respects <code>CultureInfo.CurrentCulture</code> and <code>CultureInfo.CurrentUiCulture</code>.
+		Based on their settings, it formats the date and displays month names, among other things.
+	</p>
+	<p>
+		For example, if your application is running in a <code>cs-CZ</code> culture, the date will be formatted as <code>dd.MM.yyyy</code> and the month names will be in Czech.
+	</p>
+	<div><img src="images/HxInputDate_Demo_Czech.png" width="400" /></div>
+	<p class="mt-2">
+		See <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/globalization-localization">Globalization and localization in official ASP.NET Core Blazor documentation</a> for more details on how to set culture in you application.
+	</p>
+
+    <DocHeading Title="Dropdown calendar customization" Id="CalendarCustomization" />
+    <p>
+        You can change the rendering of weekend days by defining your own CSS rule for the <code>.weekend</code> class.
+        The disabled days get the <code>.disabled</code> class.
+    </p>
+    <DocAlert Type="DocAlertType.Warning">
+        Disabling dates with the techniques below won't prevent the user from entering disabled dates manually. You still have to validate the value.
+    </DocAlert>
+
+    <DocHeading Title="MinDate, MaxDate" Level="3" />
+    <p>You can limit the dropdown calendar values by setting <code>MinDate</code> and/or <code>MaxDate</code>.</p>
+    <Demo Type="typeof(HxInputDate_Demo_MinDateMaxDate)" />
+
+    <DocHeading Title="Calendar date customization" Level="3" />
+    <p>
+        You can customize the dropdown calendar dates with the <code>CalendarDateCustomizationProvider</code>. You can disable individual dates
+        (<code>Enabled="false"</code>) or set a specific CSS class (<code>CssClass="...")</code>.
+    </p>
+    <Demo Type="typeof(HxInputDate_Demo_CalendarDateCustomization)" />
+
+    <DocHeading Title="Calendar time zone" Level="3" />
+    <p>
+        You can customize the dropdown calendar time zone by supplying a custom <code>TimeProvider</code>. See <a href="/components/HxCalendar#time-zones">HxCalendar time zones</a> for more details.
+    </p>
+</ComponentApiDoc>

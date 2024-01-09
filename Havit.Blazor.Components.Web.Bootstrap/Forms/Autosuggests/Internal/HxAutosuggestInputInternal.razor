@@ -2,6 +2,7 @@
 
 <input @ref="InputElement"
        id="@InputId"
+	   name="@(String.IsNullOrEmpty(NameAttributeValue) ? null : NameAttributeValue)"
        type="text"
        class="@CssClass hx-autosuggest-input"
        disabled="@(!EnabledEffective)"
@@ -13,6 +14,7 @@
        @onfocus="OnFocus"
        @onblur="OnBlur"
        @onmousedown="OnMouseDown"
+	   @onclick="OnClick"
        @onclick:stopPropagation
        placeholder="@Placeholder"
        onfocusin="this.select()"

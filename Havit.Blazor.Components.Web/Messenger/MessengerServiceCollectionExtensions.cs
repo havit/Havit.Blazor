@@ -15,7 +15,7 @@ public static class MessengerServiceCollectionExtensions
 	{
 		if (RuntimeInformation.IsOSPlatform(OSPlatform.Create("BROWSER")))
 		{
-			// allows gRPC Interceptors and HttpMessageHandlers to pass error-messages to the HxMessenger without having to struggle with different DI Scope
+			// Allows gRPC Interceptors and HttpMessageHandlers to pass error messages to the HxMessenger without having to struggle with different DI Scope
 			return services.AddSingleton<IHxMessengerService, HxMessengerService>();
 		}
 		else

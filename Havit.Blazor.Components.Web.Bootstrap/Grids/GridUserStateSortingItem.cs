@@ -14,7 +14,7 @@ public sealed record GridUserStateSortingItem
 	public string ColumnId { get; init; }
 
 	/// <summary>
-	/// Indicates whether the sorting should be performed in the reverse direction.	
+	/// Indicates whether the sorting should be performed in reverse direction.	
 	/// </summary>
 	public bool ReverseDirection { get; init; }
 }

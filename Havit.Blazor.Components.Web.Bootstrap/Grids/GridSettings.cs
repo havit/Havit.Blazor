@@ -6,7 +6,7 @@
 public record GridSettings
 {
 	/// <summary>
-	/// Strategy how data are displayed in the grid (and loaded to the grid).
+	/// Strategy for displaying and loading data in the grid.
 	/// </summary>
 	public GridContentNavigationMode? ContentNavigationMode { get; set; }
 
@@ -28,9 +28,9 @@ public record GridSettings
 	/// <summary>
 	/// Infinite scroll (<see cref="GridContentNavigationMode.InfiniteScroll"/>):
 	/// Gets or sets a value that determines how many additional items will be rendered
-	/// before and after the visible region. This help to reduce the frequency of rendering
+	/// before and after the visible region. This helps to reduce the frequency of rendering
 	/// during scrolling. However, higher values mean that more elements will be present
-	/// in the page.
+	/// on the page.
 	/// </summary>
 	public int? OverscanCount { get; set; }
 
@@ -45,33 +45,33 @@ public record GridSettings
 	public int? PlaceholdersRowCount { get; set; }
 
 	/// <summary>
-	/// Indicates whether to render footer when data are empty.
+	/// Indicates whether to render the footer when data is empty.
 	/// </summary>
 	public bool? ShowFooterWhenEmptyData { get; set; }
 
 	/// <summary>
-	/// Custom CSS class to render with <c>div</c> element wrapping the main <c>table</c>
+	/// Custom CSS class to render with the <c>div</c> element wrapping the main <c>table</c>
 	/// (<see cref="HxPager"/> is not wrapped in this <c>div</c> element).
 	/// </summary>
 	public string TableContainerCssClass { get; set; }
 
 	/// <summary>
-	/// Custom CSS class to render with main <c>table</c> element.
+	/// Custom CSS class to render with the main <c>table</c> element.
 	/// </summary>
 	public string TableCssClass { get; set; }
 
 	/// <summary>
-	/// Custom CSS class to render with header <c>tr</c> element.
+	/// Custom CSS class to render with the header <c>tr</c> element.
 	/// </summary>
 	public string HeaderRowCssClass { get; set; }
 
 	/// <summary>
-	/// Custom CSS class to render with data <c>tr</c> element.
+	/// Custom CSS class to render with the data <c>tr</c> element.
 	/// </summary>
 	public string ItemRowCssClass { get; set; }
 
 	/// <summary>
-	/// Custom CSS class to render with footer <c>tr</c> element.
+	/// Custom CSS class to render with the footer <c>tr</c> element.
 	/// </summary>
 	public string FooterRowCssClass { get; set; }
 
@@ -81,7 +81,7 @@ public record GridSettings
 	public bool? Responsive { get; set; }
 
 	/// <summary>
-	/// Enables hover state on table rows within a <c>&lt;tbody&gt;</c> (sets the <c>table-hover</c> class on the table).
+	/// Enables the hover state on table rows within a <c>&lt;tbody&gt;</c> (sets the <c>table-hover</c> class on the table).
 	/// </summary>
 	public bool? Hover { get; set; }
 

@@ -11,8 +11,8 @@
 		<LangVersion>latest</LangVersion>
 		
 		<!-- aligned NuGet PackageVersion for package-bundles -->
-		<ComponentsPackagesVersion>4.1.2-pre2</ComponentsPackagesVersion>
-		<GrpcPackagesVersion>1.4.3</GrpcPackagesVersion>
+		<ComponentsPackagesVersion>4.4.2-pre2</ComponentsPackagesVersion>
+		<GrpcPackagesVersion>1.5.1</GrpcPackagesVersion>
 	</PropertyGroup>
 
 	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" Condition="Exists($([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../')))"/>

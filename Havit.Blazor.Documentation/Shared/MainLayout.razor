@@ -1,0 +1,18 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>@title</PageTitle>
+
+<HxMessenger Position="ToastContainerPosition.MiddleCenter" />
+<HxMessageBoxHost />
+
+<div class="container-floating d-md-flex min-vh-100">
+	<Sidebar />
+
+	<div class="doc-content main p-4 flex-grow-1 overflow-hidden">
+		@Body
+	</div>
+
+	<OnThisPageNavigation CssClass="side-page-navigation sticky-top mt-4 d-none d-lg-block">
+		<h6 class="mt-3 pb-1 border-bottom">On this page</h6>
+	</OnThisPageNavigation>
+</div>

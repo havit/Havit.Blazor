@@ -167,16 +167,27 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 
 		builder.AddAttribute(1002, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
 		builder.AddAttribute(1003, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+#if NET8_0_OR_GREATER
+		builder.SetUpdatesAttributeName("value");
+#endif
+
+		// Normalization of pasted value (applied only if the pasted value differs from the normalized value)
+		// - If we cancel the original paste event, Blazor does not recognize the change, so we fire change event manually.
+		// - This is kind of hack and causes the input to behave slightly differently when normalizing the value (the value is accepted immediately, not after the user leaves the input)
+		// - If this turns out to be a problem, we will have to implement the normalization in the Blazor-handled @onpaste event
+		builder.AddAttribute(1004, "onpaste", @"var clipboardValue = event.clipboardData.getData('text/plain'); var normalizedValue = clipboardValue.replace(/[^\d.,\-eE]/g, ''); if (+clipboardValue != +normalizedValue) { this.value = normalizedValue; this.dispatchEvent(new Event('change')); return false; }");
+#if NET8_0_OR_GREATER
+		builder.SetUpdatesAttributeName("value");
+#endif
+
 		builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 
-		// The counting sequence values violate all general recommendations.
-		// We want the value of the HxInputNumber to be updated (re-rendered) when the user input changes, even if FormatValueAsString(Value) hasn't changed.
-		// The reason for this is that if a value such as "1.00" is displayed and a user modifies it to "1.0", FormatValueAsString(Value) isn't going to change,
-		// the attribute is not re-rendered, so the user input stays at "1.0".
-		// To solve this issue, we will use the sequence values 1005, 1006, 1007, ... That way, we force Blazor to update the value anyway (because of the sequence change).
-		// However, we adjust the sequence only if we want to enforce the re-rendering. Otherwise, the component would update all the time.
-		// (Originally, we wanted to use the sequences 1000 and 1001, which we would toggle.
-		// However, this doesn't work - Blazor probably realizes that it should add the value (sequence 1000) and then remove the value (sequence 1001), resulting in a missing value of the input.)
+		// The counting of sequence values violates all general recommendations.
+		// We want the value of HxInputNumber to be updated (re-rendered) when the user input changes, even if FormatValueAsString(Value) hasn't changed.
+		// For instance, if a value like "1.00" is displayed and a user modifies it to "1.0", FormatValueAsString(Value) won't change,
+		// and the attribute won't be re-rendered, so the user input stays at "1.0".
+		// To address this issue, we use sequence values starting from 1006. This forces Blazor to update the value anyway (due to the sequence change).
+		// However, we adjust the sequence only if we want to enforce the re-rendering. Otherwise, the component would update continuously.
 		checked
 		{
 			if (forceRenderValue)
@@ -184,7 +195,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 				valueSequenceOffset++;
 				forceRenderValue = false;
 			}
-			builder.AddAttribute(1006 + valueSequenceOffset, "value", FormatValueAsString(Value));
+			builder.AddAttribute(1006 + valueSequenceOffset, "value", CurrentValueAsString);
 		}
 		builder.AddElementReferenceCapture(Int32.MaxValue, elementReference => InputElement = elementReference);
 
@@ -197,6 +208,8 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		CultureInfo culture = CultureInfo.CurrentCulture;
 
 		string workingValue = value;
+		bool success = true;
+		result = default;
 
 		// replace . with ,
 		if ((culture.NumberFormat.NumberDecimalSeparator == ",") // when decimal separator is ,
@@ -207,30 +220,37 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 
 		// limitation of the number of decimal places
 		// for complications with the fact that we have TValue and it is quite difficult to work with, we will limit ourselves to solving and modifying the input data before converting it to the target type
-		if (Decimal.TryParse(value, IsTValueIntegerType ? NumberStyles.Integer : NumberStyles.Float, culture, out decimal parsedValue))
+		if (Decimal.TryParse(workingValue, IsTValueIntegerType ? NumberStyles.Integer : NumberStyles.Number, culture, out decimal parsedValue))
 		{
 			workingValue = Math.Round(parsedValue, DecimalsEffective, MidpointRounding.AwayFromZero).ToString(culture);
 		}
-
-		// conversion to the target type
-		// BindConverter has a first-class citizen support for a lot of types (byte, short, int, long) but not for sbyte, ushort, uint, ulong.
-		// These second-citizen types fallback to TypeConverter (TypeDescriptor.GetConverter(...))).
-		// This converter throws ArgumentException when the value cannot be converted to the target type despite the method is "Try...".
-		bool success;
-		try
+		else
 		{
-			success = BindConverter.TryConvertTo<TValue>(workingValue, culture, out result);
-		}
-		catch (ArgumentException)
-		{
-			result = default;
 			success = false;
+			result = default;
 		}
 
 		if (success)
 		{
-			// if there is only a change without changing the value (for example from 5.50 to 5.5), we want to convert the value to the correct format (5.5 to 5.50).
-			// StateHasChange is not enough, see the comment in BuildRenderInput.
+			// conversion to the target type
+			// BindConverter has a first-class citizen support for a lot of types (byte, short, int, long) but not for sbyte, ushort, uint, ulong.
+			// These second-citizen types fallback to TypeConverter (TypeDescriptor.GetConverter(...))).
+			// This converter throws ArgumentException when the value cannot be converted to the target type despite the method is "Try...".
+			try
+			{
+				success = BindConverter.TryConvertTo<TValue>(workingValue, culture, out result);
+			}
+			catch (ArgumentException)
+			{
+				result = default;
+				success = false;
+			}
+		}
+
+		if (success)
+		{
+			// if there is only a change in format without changing the numeric value (for example, from 5.50 to 5.5), we want to convert the value back to the correct format (5.5 to 5.50).
+			// StateHasChanged is not enough, see the comment in BuildRenderInput.
 			if (FormatValueAsString(result) != value)
 			{
 				forceRenderValue = true;
@@ -308,7 +328,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	}
 
 	/// <summary>
-	/// Returns message for parsing error.
+	/// Returns the message for a parsing error.
 	/// </summary>
 	protected virtual string GetParsingErrorMessage()
 	{
@@ -324,6 +344,6 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 				message = StringLocalizer["ParsingErrorMessage"];
 			}
 		}
-		return String.Format(message, Label, FieldIdentifier.FieldName);
+		return String.Format(message, DisplayName ?? Label ?? FieldIdentifier.FieldName);
 	}
 }

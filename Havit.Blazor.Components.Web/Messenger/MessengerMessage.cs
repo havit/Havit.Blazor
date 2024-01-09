@@ -6,7 +6,7 @@
 public class MessengerMessage
 {
 	/// <summary>
-	/// Key. Used for component paring during rendering (@key).
+	/// Key. Used for component pairing during rendering (@key).
 	/// </summary>
 	public string Key { get; } = Guid.NewGuid().ToString("N");
 
@@ -21,7 +21,7 @@ public class MessengerMessage
 	public string CssClass { get; set; }
 
 	/// <summary>
-	/// Delay in milliseconds to autohide message.
+	/// Delay in milliseconds to auto-hide message.
 	/// </summary>
 	public int? AutohideDelay { get; set; }
 
@@ -31,7 +31,7 @@ public class MessengerMessage
 	public string Title { get; set; }
 
 	/// <summary>
-	/// Custom message header
+	/// Custom message header.
 	/// </summary>
 	public RenderFragment HeaderTemplate { get; set; }
 

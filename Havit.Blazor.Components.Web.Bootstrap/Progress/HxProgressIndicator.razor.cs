@@ -21,7 +21,7 @@ public partial class HxProgressIndicator : IDisposable
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual ProgressIndicatorSettings GetDefaults() => Defaults;
 
@@ -31,10 +31,10 @@ public partial class HxProgressIndicator : IDisposable
 	[Parameter] public ProgressIndicatorSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual ProgressIndicatorSettings GetSettings() => this.Settings;
 
@@ -44,7 +44,7 @@ public partial class HxProgressIndicator : IDisposable
 	[Parameter] public bool InProgress { get; set; }
 
 	/// <summary>
-	/// Debounce delay in milliseconds. Default is <c>300 ms</c>.
+	/// Debounce delay in milliseconds. The default is <c>300 ms</c>.
 	/// </summary>
 	[Parameter] public int? Delay { get; set; }
 	protected int DelayEffective => this.Delay ?? GetSettings()?.Delay ?? GetDefaults()?.Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxProgressIndicator) + " has to be set.");
@@ -66,7 +66,7 @@ public partial class HxProgressIndicator : IDisposable
 
 		if (shouldBeProgressIndicatorVisible && !progressIndicatorVisible)
 		{
-			// start showing progress indicator (when not already started)
+			// start showing the progress indicator (when not already started)
 			if (DelayEffective == 0)
 			{
 				await StartInProgressAsync();
@@ -81,7 +81,7 @@ public partial class HxProgressIndicator : IDisposable
 			timer?.Stop();
 			if (progressIndicatorVisible)
 			{
-				// hide progress indicator if visible					
+				// hide the progress indicator if visible					
 				progressIndicatorVisible = false;
 				await ProgressIndicatorVisibleChanged.InvokeAsync(progressIndicatorVisible);
 			}
@@ -105,8 +105,8 @@ public partial class HxProgressIndicator : IDisposable
 				_ = InvokeAsync(async () =>
 				{
 					// condition InProgress:
-					// Critical for times around TimerDelay - timer can rise elapsed and InvokeAsync "plan" the action to run.
-					// But before it is run, OnParametersSetAsync can be called and switch of the progress bar.
+					// Critical for times around TimerDelay - the timer can rise elapsed and InvokeAsync "plan" the action to run.
+					// But before it is run, OnParametersSetAsync can be called and switch off the progress bar.
 					if (InProgress)
 					{
 						await StartInProgressAsync();

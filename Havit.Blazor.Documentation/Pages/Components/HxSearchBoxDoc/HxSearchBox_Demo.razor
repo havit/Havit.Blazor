@@ -1,0 +1,56 @@
+﻿@inject IDemoDataService DemoDataService
+
+<HxSearchBox DataProvider="ProvideSearchResults"
+			 Label="Employee"
+			 TItem="EmployeeDto"
+			 ItemTitleSelector="i => i.Name"
+			 ItemSubtitleSelector="i => i.Position"
+			 ItemIconSelector="i => GetIcon(i)"
+			 Placeholder="Search"
+			 OnItemSelected="OnItemSelected"
+			 OnTextQueryTriggered="OnTextQueryTriggered">
+	<DefaultContentTemplate>
+		<div class="p-2 text-muted">Search for employees by name...</div>
+	</DefaultContentTemplate>
+	<NotFoundTemplate>
+		<div class="small py-2 px-3 text-muted"><HxIcon CssClass="me-2" Icon="BootstrapIcon.EmojiFrown" />Sorry, I did not find that...</div>
+	</NotFoundTemplate>
+</HxSearchBox>
+
+<p class="mt-3">
+	Last selected item: @selectedItem?.Name<br />
+	Last triggered text-query: @triggeredTextQuery<br />
+</p>
+
+@code {
+	private EmployeeDto selectedItem;
+	private string triggeredTextQuery;
+
+	private async Task<SearchBoxDataProviderResult<EmployeeDto>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+	{
+		var employeesFound = await DemoDataService.FindEmployeesByNameAsync(request.UserInput, limitCount: 10, request.CancellationToken);
+
+		return new SearchBoxDataProviderResult<EmployeeDto>() { Data = employeesFound };
+	}
+
+	private void OnItemSelected(EmployeeDto item)
+	{
+		selectedItem = item;
+	}
+
+	private void OnTextQueryTriggered(string text)
+	{
+		triggeredTextQuery = text;
+	}
+
+	private IconBase GetIcon(EmployeeDto employee)
+	{
+		return employee.Position.ToLower() switch
+		{
+			string d when d.Contains("data") => BootstrapIcon.Database,
+			string s when s.Contains("sales") => BootstrapIcon.Cart,
+			string m when m.Contains("manager") => BootstrapIcon.PersonBadge,
+			_ => BootstrapIcon.Person
+		};
+	}
+}

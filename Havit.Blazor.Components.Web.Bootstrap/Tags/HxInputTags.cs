@@ -59,58 +59,51 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	[Parameter] public bool AllowCustomTags { get; set; } = true;
 
 	/// <summary>
-	/// Set to method providing data for tags' suggestions.
+	/// Set to a method providing data for tag suggestions.
 	/// </summary>
 	[Parameter] public InputTagsDataProviderDelegate DataProvider { get; set; }
 
 	/// <summary>
-	/// Minimal number of characters to start suggesting. Default is <c>2</c>.
+	/// The minimum number of characters to start suggesting. The default is <c>2</c>.
 	/// </summary>
 	[Parameter] public int? SuggestMinimumLength { get; set; }
 	protected int SuggestMinimumLengthEffective => this.SuggestMinimumLength ?? this.GetSettings()?.SuggestMinimumLength ?? this.GetDefaults().SuggestMinimumLength ?? throw new InvalidOperationException(nameof(SuggestMinimumLength) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 	/// <summary>
-	/// Debounce delay in milliseconds. Default is <c>300 ms</c>.
+	/// The debounce delay in milliseconds. The default is <c>300 ms</c>.
 	/// </summary>
 	[Parameter] public int? SuggestDelay { get; set; }
 	protected int SuggestDelayEffective => this.SuggestDelay ?? this.GetSettings()?.SuggestDelay ?? this.GetDefaults().SuggestDelay ?? throw new InvalidOperationException(nameof(SuggestDelay) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 	/// <summary>
-	/// Characters, when typed, divide the current input into separate tags.
-	/// Default is comma, semicolon and space.
+	/// Characters that divide the current input into separate tags when typed. The default is comma, semicolon, and space.
 	/// </summary>
 	[Parameter] public List<char> Delimiters { get; set; }
 	protected List<char> DelimitersEffective => this.Delimiters ?? this.GetSettings()?.Delimiters ?? this.GetDefaults().Delimiters ?? throw new InvalidOperationException(nameof(Delimiters) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 	/// <summary>
-	/// Indicates whether the add-icon (+) should be displayed.
-	/// Default is <c>false</c>.
+	/// Indicates whether the add icon (+) should be displayed. The default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool? ShowAddButton { get; set; }
 	protected bool ShowAddButtonEffective => this.ShowAddButton ?? this.GetSettings()?.ShowAddButton ?? this.GetDefaults().ShowAddButton ?? throw new InvalidOperationException(nameof(ShowAddButton) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 	/// <summary>
-	/// Optional text for the add-button.
-	/// Displayed only when there are no tags (the <c>Value</c> is empty).
-	/// Default is <c>null</c> (none).
+	/// The optional text for the add button. Displayed only when there are no tags (the <c>Value</c> is empty). The default is <c>null</c> (none).
 	/// </summary>
 	[Parameter] public string AddButtonText { get; set; }
 
 	/// <summary>
-	/// Indicates whether a "naked" variant should be displayed (no border).
-	/// Default is <c>false</c>.
-	/// Consider enabling <see cref="ShowAddButton"/> when using <c>Naked</c>.
+	/// Indicates whether a "naked" variant should be displayed (no border). The default is <c>false</c>. Consider enabling <see cref="ShowAddButton"/> when using <c>Naked</c>.
 	/// </summary>
 	[Parameter] public bool Naked { get; set; } = false;
 
 	/// <summary>
-	/// Short hint displayed in the input field before the user enters a value.
+	/// A short hint displayed in the input field before the user enters a value.
 	/// </summary>
 	[Parameter] public string Placeholder { get; set; }
 
 	/// <summary>
-	/// Settings for the <see cref="HxBadge"/> used to render tags.
-	/// Default is <c>Color="<see cref="ThemeColor.Light"/>"</c> and <c>TextColor="<see cref="ThemeColor.Dark"/>"</c>.
+	/// The settings for the <see cref="HxBadge"/> used to render tags. The default is <c>Color="<see cref="ThemeColor.Light"/>"</c> and <c>TextColor="<see cref="ThemeColor.Dark"/>"</c>.
 	/// </summary>
 	[Parameter] public BadgeSettings TagBadgeSettings { get; set; }
 	protected BadgeSettings TagBadgeSettingsEffective => this.TagBadgeSettings ?? this.GetSettings()?.TagBadgeSettings ?? this.GetDefaults().TagBadgeSettings ?? throw new InvalidOperationException(nameof(TagBadgeSettings) + " default for " + nameof(HxInputTags) + " has to be set.");
@@ -119,7 +112,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	[Parameter] public LabelType? LabelType { get; set; }
 
 	/// <summary>
-	/// Size of the input.
+	/// The size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
 	protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputTags) + " has to be set.");
@@ -130,27 +123,27 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	private protected override string CoreCssClass => "hx-input-tags position-relative";
 
 	/// <summary>
-	/// Custom CSS class to render with input-group span.
+	/// The custom CSS class to render with the input-group span.
 	/// </summary>
 	[Parameter] public string InputGroupCssClass { get; set; }
 
 	/// <summary>
-	/// Input-group at the beginning of the input.
+	/// The input-group at the beginning of the input.
 	/// </summary>
 	[Parameter] public string InputGroupStartText { get; set; }
 
 	/// <summary>
-	/// Input-group at the beginning of the input.
+	/// The input-group at the beginning of the input.
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
 
 	/// <summary>
-	/// Input-group at the end of the input.
+	/// The input-group at the end of the input.
 	/// </summary>
 	[Parameter] public string InputGroupEndText { get; set; }
 
 	/// <summary>
-	/// Input-group at the end of the input.
+	/// The input-group at the end of the input.
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 

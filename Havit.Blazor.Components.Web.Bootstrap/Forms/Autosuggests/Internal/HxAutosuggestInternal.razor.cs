@@ -96,6 +96,8 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+	[Parameter] public string NameAttributeValue { get; set; }
+
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML element.
 	/// </summary>
@@ -227,6 +229,14 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		{
 			await UpdateSuggestionsAsync();
 		});
+	}
+
+	private async Task HandleInputClick()
+	{
+		if (currentlyFocused && (MinimumLengthEffective == 0) && !isDropdownOpened)
+		{
+			await UpdateSuggestionsAsync();
+		}
 	}
 
 	private async Task HandleInputFocus()
@@ -394,7 +404,9 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, new string[] { KeyCodes.ArrowDown, KeyCodes.ArrowUp });
+
+			string[] keysToPreventDefault = [KeyCodes.ArrowDown, KeyCodes.ArrowUp, KeyCodes.Enter, KeyCodes.NumpadEnter];
+			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, keysToPreventDefault);
 		}
 
 		if (blurInProgress)
@@ -486,6 +498,10 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 				await jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+			catch (TaskCanceledException)
 			{
 				// NOOP
 			}

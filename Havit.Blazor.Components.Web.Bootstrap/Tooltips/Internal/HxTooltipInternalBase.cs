@@ -96,7 +96,6 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	/// </summary>
 	protected virtual Task InvokeOnHiddenAsync() => OnHidden.InvokeAsync();
 
-
 	[Inject] public IJSRuntime JSRuntime { get; set; }
 
 	protected abstract string JsModuleName { get; }
@@ -185,23 +184,23 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 
 		if (ShouldRenderSpan())
 		{
+			await EnsureJsModuleAsync();
+
 			if (!isInitialized)
 			{
-				isInitialized = true;
 				lastTitle = TitleInternal;
 				lastContent = ContentInternal;
-
-				await EnsureJsModuleAsync();
 
 				var options = new
 				{
 					Sanitize = this.Sanitize
 				};
-				if (disposed)
+				if (disposed || isInitialized)
 				{
 					return;
 				}
 				await jsModule.InvokeVoidAsync("initialize", spanElement, dotnetObjectReference, options);
+				isInitialized = true;
 			}
 			else if ((lastTitle != TitleInternal) || (lastContent != ContentInternal))
 			{
@@ -219,7 +218,6 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 			if (showAfterRender)
 			{
 				showAfterRender = false;
-				await EnsureJsModuleAsync();
 				await jsModule.InvokeVoidAsync("show", spanElement);
 			}
 		}
@@ -335,12 +333,20 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 				{
 					// NOOP
 				}
+				catch (TaskCanceledException)
+				{
+					// NOOP
+				}
 			}
 			try
 			{
 				await jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+			catch (TaskCanceledException)
 			{
 				// NOOP
 			}

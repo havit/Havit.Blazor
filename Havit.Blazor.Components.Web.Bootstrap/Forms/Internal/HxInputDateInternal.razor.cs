@@ -13,6 +13,7 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	[Parameter] public bool EnabledEffective { get; set; } = true;
 
 	[Parameter] public bool ShowPredefinedDatesEffective { get; set; }
+
 	[Parameter] public IEnumerable<InputDatePredefinedDatesItem> PredefinedDatesEffective { get; set; }
 
 	[Parameter] public string ParsingErrorMessageEffective { get; set; }
@@ -57,9 +58,11 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
+	[Parameter] public TimeProvider TimeProviderEffective { get; set; }
+
+	[Parameter] public DateTime CalendarDisplayMonth { get; set; }
 
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
-
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
@@ -68,15 +71,20 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	protected bool RenderPredefinedDates => ShowPredefinedDatesEffective && (this.PredefinedDatesEffective != null) && PredefinedDatesEffective.Any();
 	protected bool RenderIcon => CalendarIconEffective is not null && !HasInputGroupsEffective;
 
-	private TValue previousValue;
+	protected DateTime GetCalendarDisplayMonthEffective => GetDateTimeFromValue(CurrentValue) ?? CalendarDisplayMonth;
 
+#if !NET8_0_OR_GREATER
+	private TValue previousValue;
 	private bool previousParsingAttemptFailed;
 	private ValidationMessageStore validationMessageStore;
+#endif
 
 	private HxDropdownToggleElement hxDropdownToggleElement;
 	private ElementReference iconWrapperElement;
 	private IJSObjectReference jsModule;
+	private bool firstRenderCompleted;
 
+#if !NET8_0_OR_GREATER
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
@@ -90,17 +98,21 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 			previousValue = Value;
 		}
 	}
+#endif
 
 	protected override string FormatValueAsString(TValue value) => HxInputDate<TValue>.FormatValue(value);
 
-	private void HandleValueChanged(ChangeEventArgs changeEventArgs)
+	private void HandleValueChanged(string newInputValue)
 	{
+#if NET8_0_OR_GREATER
+		CurrentValueAsString = newInputValue;
+#else
 		// HandleValueChanged is used instead of TryParseValueFromString
-		// When TryParseValueFromString is used, invalid input is replaced by previous value.		
+		// When TryParseValueFromString is used (pre net8), invalid input is replaced by previous value.		
 		bool parsingFailed;
 		validationMessageStore.Clear(FieldIdentifier);
 
-		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString((string)changeEventArgs.Value, null, out var date))
+		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(newInputValue, null, out var date))
 		{
 			parsingFailed = false;
 			CurrentValue = GetValueFromDateTimeOffset(date);
@@ -117,16 +129,33 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 			EditContext.NotifyValidationStateChanged();
 			previousParsingAttemptFailed = parsingFailed;
 		}
-
+#endif
 	}
 
 	protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
 	{
+#if NET8_0_OR_GREATER
+		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(value, null, out var date))
+		{
+			result = GetValueFromDateTimeOffset(date);
+			validationErrorMessage = null;
+			return true;
+		}
+		else
+		{
+			result = default;
+			validationErrorMessage = ParsingErrorMessageEffective;
+			return false;
+		}
+#else
 		throw new NotSupportedException();
+#endif
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
+		firstRenderCompleted = true;
+
 		await base.OnAfterRenderAsync(firstRender);
 
 		if (RenderIcon)
@@ -140,11 +169,10 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	{
 		return CalendarDateCustomizationProviderEffective?.Invoke(request with { Target = CalendarDateCustomizationTarget.InputDate }) ?? null;
 	}
+
 	private async Task HandleClearClickAsync()
 	{
-		CurrentValue = default;
-		ClearPreviousParsingMessage();
-
+		SetCurrentDate(null);
 		await CloseDropdownAsync();
 	}
 
@@ -156,25 +184,51 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	private async Task HandleCalendarValueChangedAsync(DateTime? date)
 	{
-		CurrentValue = GetValueFromDateTimeOffset((date != null) ? new DateTimeOffset(date.Value) : null);
+		SetCurrentDate(date);
 		await CloseDropdownAsync();
 	}
 
 	protected async Task HandleCustomDateClick(DateTime value)
 	{
-		CurrentValue = GetValueFromDateTimeOffset(new DateTimeOffset(DateTime.SpecifyKind(value, DateTimeKind.Unspecified), TimeSpan.Zero));
-		ClearPreviousParsingMessage();
+		SetCurrentDate(value);
 		await CloseDropdownAsync();
 	}
 
+	protected void SetCurrentDate(DateTime? date)
+	{
+#if NET8_0_OR_GREATER
+		CurrentValueAsString = date?.ToShortDateString(); // we need to trigger the logic in CurrentValueAsString setter
+#else
+		if (date == null)
+		{
+			CurrentValue = default;
+		}
+		else
+		{
+			CurrentValue = GetValueFromDateTimeOffset(new DateTimeOffset(DateTime.SpecifyKind(date.Value, DateTimeKind.Unspecified), TimeSpan.Zero));
+		}
+		ClearPreviousParsingMessage();
+#endif
+	}
+
+#if !NET8_0_OR_GREATER
 	private void ClearPreviousParsingMessage()
 	{
 		if (previousParsingAttemptFailed)
 		{
 			previousParsingAttemptFailed = false;
-			validationMessageStore.Clear(FieldIdentifier);
 			EditContext.NotifyValidationStateChanged();
 		}
+	}
+#endif
+
+	private string GetNameAttributeValue()
+	{
+#if NET8_0_OR_GREATER
+		return String.IsNullOrEmpty(NameAttributeValue) ? null : NameAttributeValue;
+#else
+		return null;
+#endif
 	}
 
 	internal static TValue GetValueFromDateTimeOffset(DateTimeOffset? value)
@@ -229,21 +283,30 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
+#if !NET8_0_OR_GREATER
 		validationMessageStore?.Clear();
+#endif
 
 		try
 		{
-			if (hxDropdownToggleElement is not null)
+			if (firstRenderCompleted)
 			{
-				await CloseDropdownAsync();
-			}
+				if (hxDropdownToggleElement is not null)
+				{
+					await CloseDropdownAsync();
+				}
 
-			if (jsModule is not null)
-			{
-				await jsModule.DisposeAsync();
+				if (jsModule is not null)
+				{
+					await jsModule.DisposeAsync();
+				}
 			}
 		}
 		catch (JSDisconnectedException)
+		{
+			// NOOP
+		}
+		catch (TaskCanceledException)
 		{
 			// NOOP
 		}

@@ -31,12 +31,12 @@ public partial class HxCarousel : IAsyncDisposable
 	[Parameter] public bool Indicators { get; set; }
 
 	/// <summary>
-	/// Show controls, captions, etc. to dark colors.
+	/// Show controls, captions, etc. with dark colors.
 	/// </summary>
 	[Parameter] public bool Dark { get; set; }
 
 	/// <summary>
-	/// Animate slides with a fade transition instead of slide.
+	/// Animate slides with a fade transition instead of sliding.
 	/// </summary>
 	[Parameter] public bool Crossfade { get; set; }
 
@@ -233,6 +233,10 @@ public partial class HxCarousel : IAsyncDisposable
 				await jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+			catch (TaskCanceledException)
 			{
 				// NOOP
 			}

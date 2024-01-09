@@ -1,0 +1,9 @@
+﻿@page "/"
+@namespace Havit.Blazor.Documentation.Server.Pages
+@using Havit.Blazor.Documentation
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+<component type="typeof(App)" render-mode="WebAssemblyPrerendered" />

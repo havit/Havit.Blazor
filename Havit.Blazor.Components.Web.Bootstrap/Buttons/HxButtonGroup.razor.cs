@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/button-group/">Button group</see>s.<br />
+/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/button-group/">Button groups</see>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButtonGroup">https://havit.blazor.eu/components/HxButtonGroup</see>
 /// </summary>
 public partial class HxButtonGroup
@@ -9,12 +9,12 @@ public partial class HxButtonGroup
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	/// <summary>
-	/// Size. Default is <see cref="ButtonGroupSize.Regular"/>.
+	/// Size. The default value is <see cref="ButtonGroupSize.Regular"/>.
 	/// </summary>
 	[Parameter] public ButtonGroupSize Size { get; set; } = ButtonGroupSize.Regular;
 
 	/// <summary>
-	/// Orientation. Default is <see cref="ButtonGroupOrientation.Horizontal"/>.
+	/// Orientation. The default value is <see cref="ButtonGroupOrientation.Horizontal"/>.
 	/// </summary>
 	[Parameter] public ButtonGroupOrientation Orientation { get; set; } = ButtonGroupOrientation.Horizontal;
 

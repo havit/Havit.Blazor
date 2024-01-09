@@ -23,7 +23,7 @@ public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueCompone
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual FormValueSettings GetDefaults() => Defaults;
 
@@ -33,10 +33,10 @@ public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueCompone
 	[Parameter] public FormValueSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual FormValueSettings GetSettings() => this.Settings;
 
@@ -65,7 +65,7 @@ public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueCompone
 	[Parameter] public string Value { get; set; }
 
 	/// <summary>
-	/// Template to render value.
+	/// Template to render the value.
 	/// </summary>
 	[Parameter] public RenderFragment ValueTemplate { get; set; }
 

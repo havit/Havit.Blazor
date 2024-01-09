@@ -21,7 +21,7 @@ public partial class HxCollapse : IAsyncDisposable
 	[Parameter] public CollapseDirection CollapseDirection { get; set; }
 
 	/// <summary>
-	/// If parent is provided, then all collapsible elements under the specified parent will be closed when this collapsible item is shown.
+	/// If a parent is provided, then all collapsible elements under the specified parent will be closed when this collapsible item is shown.
 	/// (Similar to traditional accordion behavior.)
 	/// </summary>
 	[Parameter] public string Parent { get; set; }
@@ -42,7 +42,7 @@ public partial class HxCollapse : IAsyncDisposable
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	/// <summary>
-	/// This event is fired when a collapse element has been made visible to the user (will wait for CSS transitions to complete).
+	/// This event is fired when a collapse element has become visible to the user (will wait for CSS transitions to complete).
 	/// </summary>
 	[Parameter] public EventCallback<string> OnShown { get; set; }
 	/// <summary>
@@ -78,7 +78,7 @@ public partial class HxCollapse : IAsyncDisposable
 	private bool initialized;
 
 	/// <summary>
-	/// Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefor we will remember the request for Show and initialize the collapse with toggle=true.
+	/// Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefore, we will remember the request for Show and initialize the collapse with toggle=true.
 	/// </summary>
 	private bool shouldToggle;
 
@@ -91,7 +91,7 @@ public partial class HxCollapse : IAsyncDisposable
 	{
 		await base.SetParametersAsync(parameters);
 
-		// to be able to use another default value in ancestors (HxNavbarCollapse)
+		// To be able to use another default value in ancestors (HxNavbarCollapse)
 		this.Id = parameters.GetValueOrDefault(nameof(Id), defaultId);
 	}
 
@@ -253,6 +253,10 @@ public partial class HxCollapse : IAsyncDisposable
 				await jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+			catch (TaskCanceledException)
 			{
 				// NOOP
 			}

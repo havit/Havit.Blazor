@@ -3,8 +3,8 @@
 internal static class ModelCloner
 {
 	/// <summary>
-	/// Returns model clone.
-	/// Uses strageties (in order):
+	/// Returns a model clone.
+	/// Uses strategies (in order):
 	/// * <see cref="ICloneable" />
 	/// * C# Records
 	/// * Object.MemberwiseClone
@@ -31,7 +31,7 @@ internal static class ModelCloner
 		if (model is ICloneable)
 		{
 			object result = ((ICloneable)model).Clone();
-			Contract.Assert(result is TModel, $"{typeof(TModel)}.Clone() must return type of {typeof(TModel)}.");
+			Contract.Assert(result is TModel, $"{typeof(TModel)}.Clone() must return a type of {typeof(TModel)}.");
 			modelClone = (TModel)result;
 			return true;
 		}
@@ -55,7 +55,7 @@ internal static class ModelCloner
 
 	internal static TModel CloneMemberwiseClone<TModel>(TModel model)
 	{
-		// https://github.com/force-net/DeepCloner also uses a MemberwiceClone method for shallow cloning.
+		// https://github.com/force-net/DeepCloner also uses a MemberwiseClone method for shallow cloning.
 		System.Reflection.MethodInfo memberwiseClone = typeof(TModel).GetMethod("MemberwiseClone", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 		return (TModel)memberwiseClone.Invoke(model, null);
 	}

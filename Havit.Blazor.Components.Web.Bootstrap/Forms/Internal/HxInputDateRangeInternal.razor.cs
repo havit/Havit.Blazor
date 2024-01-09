@@ -31,13 +31,18 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective { get; set; }
 
-	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
+	[Parameter] public DateTime FromCalendarDisplayMonth { get; set; }
+	[Parameter] public DateTime ToCalendarDisplayMonth { get; set; }
 
-	[Inject] protected IJSRuntime JSRuntime { get; set; }
+	[Parameter] public TimeProvider TimeProviderEffective { get; set; }
+
+	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
 	private DateTimeRange previousValue;
 	private bool fromPreviousParsingAttemptFailed;
+	private string incomingFromValueBeforeParsing;
 	private bool toPreviousParsingAttemptFailed;
+	private string incomingToValueBeforeParsing;
 	private ValidationMessageStore validationMessageStore;
 
 	private FieldIdentifier fromFieldIdentifier;
@@ -46,6 +51,34 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	private HxDropdownToggleElement fromDropdownToggleElement;
 	private HxDropdownToggleElement toDropdownToggleElement;
+
+	private DateTime GetFromCalendarDisplayMonthEffective => CurrentValue.StartDate ?? FromCalendarDisplayMonth;
+
+	private DateTime GetToCalendarDisplayMonthEffective
+	{
+		get
+		{
+			if (CurrentValue.EndDate != null)
+			{
+				return CurrentValue.EndDate.Value;
+			}
+			if (CurrentValue.StartDate != null && CurrentValue.StartDate != default)
+			{
+				if (ToCalendarDisplayMonth != default && ToCalendarDisplayMonth > CurrentValue.StartDate)
+				{
+					return ToCalendarDisplayMonth;
+				}
+				return CurrentValue.StartDate.Value;
+			}
+			if (ToCalendarDisplayMonth != default)
+			{
+				return ToCalendarDisplayMonth;
+			}
+			return FromCalendarDisplayMonth;
+		}
+	}
+
+	private bool firstRenderCompleted;
 
 	protected override void OnParametersSet()
 	{
@@ -63,6 +96,11 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
 			previousValue = Value;
 		}
+	}
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		firstRenderCompleted = true;
 	}
 
 	protected override bool TryParseValueFromString(string value, out DateTimeRange result, out string validationErrorMessage)
@@ -91,13 +129,14 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		return CalendarDateCustomizationProviderEffective?.Invoke(request with { Target = CalendarDateCustomizationTarget.InputDateRangeTo }) ?? null;
 	}
 
-	protected void HandleFromChanged(ChangeEventArgs changeEventArgs)
+	protected void HandleFromChanged(string newInputValue)
 	{
+		incomingFromValueBeforeParsing = newInputValue;
 		bool parsingFailed;
 
 		validationMessageStore.Clear(fromFieldIdentifier);
 
-		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString((string)changeEventArgs.Value, null, out var fromDate))
+		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(newInputValue, null, out var fromDate))
 		{
 			DateTimeRange newValue = Value with { StartDate = fromDate?.DateTime };
 
@@ -120,12 +159,13 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		}
 	}
 
-	protected void HandleToChanged(ChangeEventArgs changeEventArgs)
+	protected void HandleToChanged(string newInputValue)
 	{
+		incomingToValueBeforeParsing = newInputValue;
 		bool parsingFailed;
 		validationMessageStore.Clear(toFieldIdentifier);
 
-		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString((string)changeEventArgs.Value, null, out var toDate))
+		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(newInputValue, null, out var toDate))
 		{
 			DateTimeRange newValue = Value with { EndDate = toDate?.DateTime };
 
@@ -244,20 +284,27 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 	{
 		validationMessageStore?.Clear();
 
-		try
+		if (firstRenderCompleted)
 		{
-			if (fromDropdownToggleElement is not null)
+			try
 			{
-				await CloseDropdownAsync(fromDropdownToggleElement);
+				if (fromDropdownToggleElement is not null)
+				{
+					await CloseDropdownAsync(fromDropdownToggleElement);
+				}
+				if (toDropdownToggleElement is not null)
+				{
+					await CloseDropdownAsync(toDropdownToggleElement);
+				}
 			}
-			if (toDropdownToggleElement is not null)
+			catch (JSDisconnectedException)
 			{
-				await CloseDropdownAsync(toDropdownToggleElement);
+				// NOOP
 			}
-		}
-		catch (JSDisconnectedException)
-		{
-			// NOOP
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 
 		Dispose(false);

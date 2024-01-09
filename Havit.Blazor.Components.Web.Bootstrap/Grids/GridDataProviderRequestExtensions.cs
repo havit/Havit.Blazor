@@ -8,7 +8,7 @@ public static class GridDataProviderRequestExtensions
 	/// Applies sorting &amp; paging from <see cref="HxGrid{TItem}.DataProvider"/>.
 	/// </summary>
 	/// <param name="source">Data source to apply the request to.</param>
-	/// <param name="gridDataProviderRequest"><see cref="HxGrid{TItem}.DataProvider"/> request</param>
+	/// <param name="gridDataProviderRequest"><see cref="HxGrid{TItem}.DataProvider"/> request.</param>
 	public static IQueryable<TItem> ApplyGridDataProviderRequest<TItem>(this IQueryable<TItem> source, GridDataProviderRequest<TItem> gridDataProviderRequest)
 	{
 		gridDataProviderRequest.CancellationToken.ThrowIfCancellationRequested();
@@ -16,7 +16,7 @@ public static class GridDataProviderRequestExtensions
 		// Sorting
 		if ((gridDataProviderRequest.Sorting != null) && gridDataProviderRequest.Sorting.Any())
 		{
-			Contract.Assert(gridDataProviderRequest.Sorting.All(item => item.SortKeySelector != null), $"All sorting items must have set {nameof(SortingItem<TItem>.SortKeySelector)} property.");
+			Contract.Assert(gridDataProviderRequest.Sorting.All(item => item.SortKeySelector != null), $"All sorting items must have the {nameof(SortingItem<TItem>.SortKeySelector)} property set.");
 
 			IOrderedQueryable<TItem> orderedDataProvider = (gridDataProviderRequest.Sorting[0].SortDirection == SortDirection.Ascending)
 				? source.OrderBy(gridDataProviderRequest.Sorting[0].SortKeySelector)

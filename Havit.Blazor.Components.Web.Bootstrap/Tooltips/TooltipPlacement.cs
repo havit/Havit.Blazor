@@ -11,7 +11,7 @@ public enum TooltipPlacement
 	Right = 3,
 
 	/// <summary>
-	/// When is specified, it will dynamically reorient the tooltip.
+	/// When specified, it will dynamically reorient the tooltip.
 	/// </summary>
 	Auto = 4
 }

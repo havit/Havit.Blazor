@@ -121,7 +121,7 @@
     <value>Clear</value>
   </data>
   <data name="ParsingErrorMessage" xml:space="preserve">
-    <value>Enter date.</value>
+    <value>{0} must be a date.</value>
   </data>
   <data name="Today" xml:space="preserve">
     <value>Today</value>

@@ -12,8 +12,8 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 {
 	/// <summary>
 	/// Return <see cref="HxSelect{TValue, TItem}"/> defaults.
-	/// Enables to not share defaults in descendants with base classes.
-	/// Enables to have multiple descendants which differs in the default values.
+	/// Enables not sharing defaults in descendants with base classes.
+	/// Enables having multiple descendants that differ in the default values.
 	/// </summary>
 	protected override SelectSettings GetDefaults() => HxSelect.Defaults;
 
@@ -25,10 +25,10 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	[Parameter] public LabelType? LabelType { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected override SelectSettings GetSettings() => this.Settings;
 
@@ -48,7 +48,7 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 
 	/// <summary>
 	/// Indicates when <c>null</c> is a valid value.
-	/// Uses (in order) to get effective value: Nullable property, RequiresAttribute on bounded property (<c>false</c>) Nullable type on bounded property (<c>true</c>), class (<c>true</c>), default (<c>false</c>).
+	/// Uses (in order) to get the effective value: Nullable property, RequiresAttribute on bounded property (<c>false</c>) Nullable type on bounded property (<c>true</c>), class (<c>true</c>), default (<c>false</c>).
 	/// </summary>
 	protected bool NullableEffective
 	{
@@ -92,7 +92,7 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 
 	/// <summary>
 	/// Selects value from item.
-	/// Not required when TValue is same as TItem.
+	/// Not required when TValue is the same as TItem.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
 	protected Func<TItem, TValue> ValueSelectorImpl { get; set; }

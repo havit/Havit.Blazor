@@ -6,8 +6,8 @@
 public class CloseButtonSettings
 {
 	/// <summary>
-	/// Toggles between the light and dark version of the button.
-	/// Default is <c>false</c>.
+	/// Toggles between the light and dark versions of the button.
+	/// The default value is <c>false</c>.
 	/// </summary>
 	public bool? White { get; set; }
 }

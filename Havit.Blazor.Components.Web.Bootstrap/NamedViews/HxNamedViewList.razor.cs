@@ -29,7 +29,7 @@ public partial class HxNamedViewList<TFilterModel>
 		TFilterModel newFilter = namedView.Filter();
 		if (newFilter != null)
 		{
-			FilterModel = newFilter; // BEWARE, filter has to be cloned
+			FilterModel = newFilter; // BEWARE, the filter has to be cloned
 			await InvokeFilterModelChangedAsync(newFilter);
 		}
 

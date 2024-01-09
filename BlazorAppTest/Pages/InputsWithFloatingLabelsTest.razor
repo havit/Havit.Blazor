@@ -10,7 +10,7 @@
 	<div class="card-header">OnClick propagation test</div>
 	<div class="card-body">
 
-        <HxFilterForm @ref="filterForm" TModel="FormModel" @bind-Model="@model" OnChipsUpdated="HandleChipUpdated">
+		<HxFilterForm @ref="filterForm" TModel="FormModel" @bind-Model="@model" OnChipsUpdated="HandleChipUpdated">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
 
@@ -30,41 +30,41 @@
 
 			<HxInputNumber LabelType="LabelType.Floating" Label="Integer" @bind-Value="@context.IntegerValue" ParsingErrorMessage="Enter correct Integer." />
 			<HxInputNumber LabelType="LabelType.Floating" Label="Integer (nullable)" @bind-Value="@context.NullableIntegerValue" ParsingErrorMessage="Enter correct Integer." />
-			
+
 			<HxInputNumber LabelType="LabelType.Floating" Label="Decimal" @bind-Value="@context.DecimalValue" ParsingErrorMessage="Enter correct Decimal." />
 			<HxInputNumber LabelType="LabelType.Floating" Label="Decimal (nullable)" @bind-Value="@context.NullableDecimalValue" ParsingErrorMessage="Enter correct Decimal." />
-            
+
 			<HxInputPercent LabelType="LabelType.Floating" Label="Percent" @bind-Value="@context.PercentValue" ParsingErrorMessage="Enter correct Percent." InputGroupEndText="" />
-			
+
 			<HxInputDate LabelType="LabelType.Floating" Label="Date" @bind-Value="@context.DateValue" ParsingErrorMessage="Enter correct Date." />
 			<HxInputDate LabelType="LabelType.Floating" Label="Date (nullable)" @bind-Value="@context.NullableDateValue" ParsingErrorMessage="Enter correct Date." InputGroupEndTemplate="null" />
 
-            <HxSearchBox LabelType="LabelType.Floating"
-			 DataProvider="ProvideSearchResults"
-             ItemTitleSelector="i => i.Title"
-             ItemSubtitleSelector="i => i.Subtitle"
-             ItemIconSelector="i => i.Icon"
-             TItem="SearchBoxItem"
-             Label="Search"
-             OnItemSelected="OnItemSelected"
-             AllowTextQuery="true"
-             @bind-TextQuery="textQuery"
-             OnTextQueryTriggered="OnTextQueryTriggered" />
+			<HxSearchBox LabelType="LabelType.Floating"
+						 DataProvider="ProvideSearchResults"
+						 ItemTitleSelector="i => i.Title"
+						 ItemSubtitleSelector="i => i.Subtitle"
+						 ItemIconSelector="i => i.Icon"
+						 TItem="SearchBoxItem"
+						 Label="Search"
+						 OnItemSelected="OnItemSelected"
+						 AllowTextQuery="true"
+						 @bind-TextQuery="textQuery"
+						 OnTextQueryTriggered="OnTextQueryTriggered" />
 
 			@*<HxInputDateRange LabelType="LabelType.Floating" Label="DateRange" @bind-Value="@context.DateRange" ParsingErrorMessage="Enter correct DateRange." />
 
-		<HxSelect LabelType="LabelType.Floating" Label="Select (TValueType: string)" @bind-Value="@context.CultureInfoSelectName" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
-		<HxSelect LabelType="LabelType.Floating" Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfoSelect" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
-		<HxSelect LabelType="LabelType.Floating" Label="Select (Data == null, small)" TItem="CultureInfo" TValue="CultureInfo" @bind-Value="@context.CultureInfoSelect" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" />*@
+			<HxSelect LabelType="LabelType.Floating" Label="Select (TValueType: string)" @bind-Value="@context.CultureInfoSelectName" ValueSelector="@(item => item.DisplayName)" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" />
+			<HxSelect LabelType="LabelType.Floating" Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfoSelect" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
+			<HxSelect LabelType="LabelType.Floating" Label="Select (Data == null, small)" TItem="CultureInfo" TValue="CultureInfo" @bind-Value="@context.CultureInfoSelect" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" />*@
 
 			<HxAutosuggest LabelType="LabelType.Floating" Label="Autosuggest (large)" @bind-Value="@context.CultureInfoAutosuggest" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider" InputSize="InputSize.Large">
 				<HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
 			</HxAutosuggest>
 
-            <HxInputTags Label="Tags (Bootstrap theme colors suggested)"
-             LabelType="LabelType.Floating"
-			 @bind-Value="values"
-			 DataProvider="GetNewItemSuggestions" />
+			<HxInputTags Label="Tags (Bootstrap theme colors suggested)"
+						 LabelType="LabelType.Floating"
+						 @bind-Value="values"
+						 DataProvider="GetNewItemSuggestions" />
 
 			<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
 		</HxFilterForm>
@@ -83,16 +83,16 @@
 	private ChipItem[] chips;
 	private DateTime? lastCapturedClick = null;
 	private List<CultureInfo> cultureInfos = new List<CultureInfo> { CultureInfo.GetCultureInfo("cs-CZ"), CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sk-SK"), CultureInfo.GetCultureInfo("es-ES") };
-    
-    private List<string> values = new List<string>() { "Blazor", "C#", "ASP.NET" };
+
+	private List<string> values = new List<string>() { "Blazor", "C#", "ASP.NET" };
 
 	private async Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
 	{
 		await Task.Delay(50); // simulate server API call
 		return new InputTagsDataProviderResult()
-		{
-			Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString()).Where(v => v.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
-		};
+			{
+				Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString()).Where(v => v.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+			};
 	}
 
 	private Task HandleCardClick()
@@ -106,9 +106,9 @@
 	{
 		return Task.FromResult(
 		new AutosuggestDataProviderResult<CultureInfo>
-		{
-			Data = cultureInfos.Where(item => item.DisplayName.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase)).ToList()
-		});
+			{
+				Data = cultureInfos.Where(item => item.DisplayName.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase)).ToList()
+			});
 	}
 
 	private void HandleChipUpdated(ChipItem[] chips)
@@ -121,43 +121,43 @@
 		await filterForm.RemoveChipAsync(chipItemToRemove);
 	}
 
-    private SearchBoxItem selectedItem;
-    private string triggeredTextQuery;
-    private string textQuery;
+	private SearchBoxItem selectedItem;
+	private string triggeredTextQuery;
+	private string textQuery;
 
-    List<SearchBoxItem> Data { get; set; } = new()
-        {
-            new() { Title = "Table", Subtitle = "50 000", Icon = BootstrapIcon.Table },
-            new() { Title = "Mouse", Subtitle = "400", Icon = BootstrapIcon.Mouse },
-            new() { Title = "Door", Subtitle = "1000", Icon = BootstrapIcon.DoorClosed }
-        };
+	List<SearchBoxItem> Data { get; set; } = new()
+		{
+			new() { Title = "Table", Subtitle = "50 000", Icon = BootstrapIcon.Table },
+			new() { Title = "Mouse", Subtitle = "400", Icon = BootstrapIcon.Mouse },
+			new() { Title = "Door", Subtitle = "1000", Icon = BootstrapIcon.DoorClosed }
+		};
 
-    private void OnItemSelected(SearchBoxItem item)
-    {
-        selectedItem = item;
-    }
+	private void OnItemSelected(SearchBoxItem item)
+	{
+		selectedItem = item;
+	}
 
-    private void OnTextQueryTriggered(string text)
-    {
-        triggeredTextQuery = text;
-    }
+	private void OnTextQueryTriggered(string text)
+	{
+		triggeredTextQuery = text;
+	}
 
-    private async Task<SearchBoxDataProviderResult<SearchBoxItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
-    {
-        await Task.Delay(400); // imitate slower server API
+	private async Task<SearchBoxDataProviderResult<SearchBoxItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+	{
+		await Task.Delay(400); // imitate slower server API
 
-        return new()
-            {
-                Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
-            };
-    }
+		return new()
+			{
+				Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+			};
+	}
 
-    class SearchBoxItem
-    {
-        public string Title { get; set; }
-        public string Subtitle { get; set; }
-        public BootstrapIcon Icon { get; set; }
-    }
+	class SearchBoxItem
+	{
+		public string Title { get; set; }
+		public string Subtitle { get; set; }
+		public BootstrapIcon Icon { get; set; }
+	}
 
 	public class FormModel : ICloneable
 	{
@@ -190,9 +190,9 @@
 
 		public decimal? NullableDecimalValue { get; set; }
 
-        public float PercentValue { get; set; }
-        
-        public string SearchBoxValue { get; set; }
+		public float PercentValue { get; set; }
+
+		public string SearchBoxValue { get; set; }
 
 		public DateTime DateValue { get; set; } = DateTime.Today;
 

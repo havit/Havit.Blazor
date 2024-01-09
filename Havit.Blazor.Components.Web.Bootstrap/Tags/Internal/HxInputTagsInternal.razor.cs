@@ -126,12 +126,11 @@ public partial class HxInputTagsInternal
 	private CancellationTokenSource cancellationTokenSource;
 	private List<string> suggestions;
 	private bool isDropdownOpened = false;
-	private bool blurInProgress;
 	private bool currentlyFocused;
 	private bool mouseDownFocus;
 	private bool disposed;
 	private IJSObjectReference jsModule;
-	private HxInputTagsAutosuggestInputInternal autosuggestInput;
+	private HxInputTagsInputInternal inputComponent;
 	private bool dataProviderInProgress;
 	private DotNetObjectReference<HxInputTagsInternal> dotnetObjectReference;
 
@@ -149,18 +148,14 @@ public partial class HxInputTagsInternal
 
 		if (Value == null)
 		{
-			Value = new List<string> { tag };
+			Value = [tag];
 		}
 		else
 		{
-			Value = new List<string>(Value); // do not change the instance, create a copy!
-			Value.Add(tag);
+			// do not change the instance, create a new one
+			Value = [.. Value, tag];
 		}
 		await ValueChanged.InvokeAsync(Value);
-
-		// helps handling of the TAB-key, the cursor "stays in" (returns to) the input after adding new tag
-		// side-effect (not sure if wanted), the cursor returns to the input even if you click somewhere with the mouse
-		await FocusAsync();
 	}
 
 	private async Task RemoveTagWithEventCallbackAsync(string tag)
@@ -174,9 +169,14 @@ public partial class HxInputTagsInternal
 		await ValueChanged.InvokeAsync(Value);
 	}
 
-	public async ValueTask FocusAsync()
+	public async Task FocusAsync()
 	{
-		await autosuggestInput.FocusAsync();
+		if (disposed)
+		{
+			return;
+		}
+		await EnsureJsModuleAsync();
+		await jsModule.InvokeVoidAsync("tryFocus", inputComponent.InputElement);
 	}
 
 	private async Task HandleInputInput(string newUserInput)
@@ -184,9 +184,7 @@ public partial class HxInputTagsInternal
 		// user changes an input
 		userInput = newUserInput ?? String.Empty;
 
-		timer?.Stop(); // if waiting for an interval, stop it
-		cancellationTokenSource?.Cancel(); // if already loading data, cancel it
-		dataProviderInProgress = false; // data provider is no more in progress				 
+		CancelDelayedSuggestionsUpdate();
 
 		// tag delimiters
 		await TryProcessCustomTagsAsync(keepLastTagForSuggestion: true);
@@ -221,6 +219,13 @@ public partial class HxInputTagsInternal
 		}
 	}
 
+	private void CancelDelayedSuggestionsUpdate()
+	{
+		timer?.Stop(); // if waiting for an interval, stop it
+		cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
+		dataProviderInProgress = false; // data provider is no longer in progress				 
+	}
+
 	private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
 	{
 		// when a time interval reached, update suggestions
@@ -232,70 +237,83 @@ public partial class HxInputTagsInternal
 
 	private void HandleInputMouseDown()
 	{
-		mouseDownFocus = true;
+		if (!currentlyFocused)
+		{
+			mouseDownFocus = true;
+		}
+	}
+
+	private async Task HandleInputClick()
+	{
+		if (currentlyFocused && (SuggestMinimumLengthEffective == 0) && !isDropdownOpened)
+		{
+			await UpdateSuggestionsAsync();
+		}
 	}
 
 	private async Task HandleInputFocus()
 	{
-		// when an input gets focus, close a dropdown
 		currentlyFocused = true;
 
 		if (SuggestMinimumLengthEffective == 0)
 		{
-			await UpdateSuggestionsAsync(bypassShow: mouseDownFocus);
+			await UpdateSuggestionsAsync(delayDropdownShow: mouseDownFocus);
 		}
 		mouseDownFocus = false;
 	}
 
-	// Due to HTML update and Bootstrap Dropdown collision we are not allowed to re-render HTML in InputBlur!
-	private Task HandleInputBlur()
+	[JSInvokable("HxInputTagsInternal_HandleInputBlur")]
+	public async Task HandleInputBlur(bool isWithinDropdown)
 	{
 		currentlyFocused = false;
-		// when user clicks back button in browser this method can be called after it is disposed!
-		blurInProgress = true;
-		timer?.Stop(); // if waiting for an interval, stop it
-		cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
-		dataProviderInProgress = false; // data provider is no more in progress				 
 
-		return Task.CompletedTask;
+		CancelDelayedSuggestionsUpdate();
+
+		if (!isWithinDropdown)
+		{
+			await TryProcessCustomTagsAsync();
+		}
 	}
 
 	private async Task TryProcessCustomTagsAsync(bool keepLastTagForSuggestion = false)
 	{
-		if (!AllowCustomTags)
+		if (AllowCustomTags)
 		{
-			return;
-		}
-
-		// tags before last delimiter
-		char[] delimitersArray = DelimitersEffective.ToArray();
-		var delimiterIndex = userInput.IndexOfAny(delimitersArray);
-		while (delimiterIndex >= 0)
-		{
-			var tag = userInput.Substring(0, delimiterIndex).Trim(delimitersArray);
-			userInput = userInput.Substring(delimiterIndex).TrimStart(delimitersArray);
-
-			if (!String.IsNullOrWhiteSpace(tag))
+			// tags before last delimiter
+			char[] delimitersArray = DelimitersEffective.ToArray();
+			var delimiterIndex = userInput.IndexOfAny(delimitersArray);
+			while (delimiterIndex >= 0)
 			{
-				await AddTagWithEventCallbackAsync(tag);
-			}
+				var tag = userInput.Substring(0, delimiterIndex).Trim(delimitersArray);
+				userInput = userInput.Substring(delimiterIndex).TrimStart(delimitersArray);
 
-			delimiterIndex = userInput.IndexOfAny(delimitersArray);
+				if (!String.IsNullOrWhiteSpace(tag))
+				{
+					await AddTagWithEventCallbackAsync(tag);
+				}
+
+				delimiterIndex = userInput.IndexOfAny(delimitersArray);
+			}
 		}
 
 		// last tag
 		if (!keepLastTagForSuggestion)
 		{
-			var newTag = userInput?.Trim(delimitersArray);
-			if (!String.IsNullOrWhiteSpace(newTag))
+			if (AllowCustomTags)
 			{
-				await AddTagWithEventCallbackAsync(newTag);
+				var newTag = userInput?.Trim(DelimitersEffective.ToArray());
+				if (!String.IsNullOrWhiteSpace(newTag))
+				{
+					await AddTagWithEventCallbackAsync(newTag);
+				}
 			}
 			userInput = String.Empty;
 		}
+
+		StateHasChanged();
 	}
 
-	private async Task UpdateSuggestionsAsync(bool bypassShow = false)
+	private async Task UpdateSuggestionsAsync(bool delayDropdownShow = false)
 	{
 		// Cancelation is performed in HandleInputInput method
 		cancellationTokenSource?.Dispose();
@@ -331,13 +349,13 @@ public partial class HxInputTagsInternal
 		dataProviderInProgress = false;
 
 		// KeyboardNavigation
-		focusedItemIndex = 0; // First item in the searchResults collection.
+		focusedItemIndex = -1; // No item is focused after the suggestions are updated.
 
 		suggestions = result.Data.ToList();
 
 		if (suggestions?.Any() ?? false)
 		{
-			await OpenDropdownAsync(bypassShow);
+			await OpenDropdownAsync(delayDropdownShow);
 		}
 		else
 		{
@@ -359,13 +377,20 @@ public partial class HxInputTagsInternal
 		}
 
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
+		// Otherwise, if the user presses enter, try to process the custom tag(s).
 		string focusedItem = GetItemByIndex(focusedItemIndex);
 		if ((keyCode == KeyCodes.Enter) || (keyCode == KeyCodes.NumpadEnter))
 		{
+			CancelDelayedSuggestionsUpdate();
+			await TryDestroyDropdownAsync();
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
-				await TryDestroyDropdownAsync();
 				await HandleItemSelected(focusedItem);
+			}
+			else
+			{
+				await TryProcessCustomTagsAsync();
+				StateHasChanged();
 			}
 		}
 
@@ -392,7 +417,7 @@ public partial class HxInputTagsInternal
 
 	private string GetItemByIndex(int index)
 	{
-		if (index >= 0 && index < suggestions?.Count)
+		if ((index >= 0) && (index < suggestions?.Count))
 		{
 			return suggestions[index];
 		}
@@ -405,6 +430,8 @@ public partial class HxInputTagsInternal
 
 	private async Task HandleItemSelected(string tag)
 	{
+		isDropdownOpened = false; // dropdown is closed because the user selected an item
+
 		// user clicked on an item in the "dropdown".
 		userInput = String.Empty;
 		await AddTagWithEventCallbackAsync(tag);
@@ -424,18 +451,8 @@ public partial class HxInputTagsInternal
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, new string[] { KeyCodes.ArrowUp, KeyCodes.ArrowDown });
-		}
-
-		if (blurInProgress)
-		{
-			blurInProgress = false;
-			if (!isDropdownOpened)
-			{
-				await TryProcessCustomTagsAsync();
-				userInput = String.Empty;
-				StateHasChanged();
-			}
+			string[] keysToPreventDefault = [KeyCodes.ArrowDown, KeyCodes.ArrowUp, KeyCodes.Enter, KeyCodes.NumpadEnter];
+			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, keysToPreventDefault);
 		}
 	}
 
@@ -447,7 +464,7 @@ public partial class HxInputTagsInternal
 		}
 	}
 
-	private async Task OpenDropdownAsync(bool bypassShow = false)
+	private async Task OpenDropdownAsync(bool delayShow = false)
 	{
 		if (!isDropdownOpened)
 		{
@@ -456,7 +473,7 @@ public partial class HxInputTagsInternal
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("open", autosuggestInput.InputElement, dotnetObjectReference, bypassShow);
+			await jsModule.InvokeVoidAsync("open", inputComponent.InputElement, dotnetObjectReference, delayShow);
 			isDropdownOpened = true;
 		}
 	}
@@ -465,11 +482,17 @@ public partial class HxInputTagsInternal
 	{
 		if (isDropdownOpened)
 		{
-			await EnsureJsModuleAsync();
-
-			await jsModule.InvokeVoidAsync("destroy", autosuggestInput.InputElement);
-			isDropdownOpened = false;
+			await DestroyDropdownAsync();
 		}
+	}
+
+	private async Task DestroyDropdownAsync()
+	{
+		await EnsureJsModuleAsync();
+		await jsModule.InvokeVoidAsync("destroy", inputComponent.InputElement);
+
+		isDropdownOpened = false;
+		StateHasChanged();
 	}
 
 	private async Task EnsureJsModuleAsync()
@@ -480,13 +503,17 @@ public partial class HxInputTagsInternal
 	[JSInvokable("HxInputTagsInternal_HandleDropdownHidden")]
 	public async Task HandleDropdownHidden()
 	{
+		isDropdownOpened = false;
 		if (!currentlyFocused)
 		{
 			await TryProcessCustomTagsAsync();
 			userInput = String.Empty;
 			StateHasChanged();
 		}
-		await TryDestroyDropdownAsync();
+		if (SuggestMinimumLengthEffective > 0)
+		{
+			await DestroyDropdownAsync();
+		}
 	}
 
 	protected async Task HandleRemoveClickAsync(string tag)
@@ -543,6 +570,10 @@ public partial class HxInputTagsInternal
 				await jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+			catch (TaskCanceledException)
 			{
 				// NOOP
 			}

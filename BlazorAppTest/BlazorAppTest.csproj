@@ -1,13 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-	  <TargetFramework>net7.0</TargetFramework>
+	  <!-- For local use only. Build fails with Error NETSDK1129: The 'Publish' target is not supported without specifying a target framework. -->
+	  <!--<TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>-->
+	  <TargetFramework>net8.0</TargetFramework>
 	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Include="Shared\ColorModeToggle.Razor.js" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Blazored.FluentValidation" Version="2.1.0" />
@@ -20,5 +18,11 @@
     <ProjectReference Include="..\Havit.Extensions.Localization\Havit.Extensions.Localization.csproj" />
     <ProjectReference Include="..\Havit.SourceGenerators.StrongApiStringLocalizers\Havit.SourceGenerators.StrongApiStringLocalizers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\Havit.Blazor.Documentation\DemoData\**\*.*">
+			<Link>DemoData\%(RecursiveDir)%(FileName)%(Extension)</Link>
+		</Compile>
+	</ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Used in a component which can generate chips.
+/// Used in a component that can generate chips.
 /// </summary>
 public interface IHxChipGenerator
 {

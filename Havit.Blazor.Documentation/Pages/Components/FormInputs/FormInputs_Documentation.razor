@@ -1,0 +1,102 @@
+﻿@page "/components/Inputs"
+@page "/components/FormInputs"
+
+<DocHeading Title="Form Inputs" Level="1" />
+<p class="lead">
+	Bootstrap-based input controls with labels and validation messages.
+	See also <a href="https://getbootstrap.com/docs/5.3/forms/overview/">Bootstrap Forms</a>.
+</p>
+
+<ResponsiveOnThisPageNavigation />
+
+<DocAlert Type="DocAlertType.Info">
+	Most of our input components can function without the <code>&lt;EditForm&gt;</code>, making them suitable for standalone use in scenarios where validation is not required.
+</DocAlert>
+
+<DocAlert Type="DocAlertType.Info">
+	All components stop the <code>onClick</code> event propagation.
+</DocAlert>
+
+
+<DocHeading Title="Basic inputs" />
+<Demo Type="@typeof(FormInputs_Demo)" />
+
+<DocHeading Title="Sizing" />
+<p>You can adjust the height of input components using the <code>InputSize</code> parameter.</p>
+<Demo Type="@typeof(FormInputs_Demo_Sizing)" />
+
+<DocHeading Title="Input groups" Id="input-groups" />
+<p>
+	<code>@nameof(HxInputBaseWithInputGroups<object>.InputGroupStartText), @nameof(HxInputBaseWithInputGroups<object>.InputGroupEndText), @nameof(HxInputBaseWithInputGroups<object>.InputGroupStartTemplate), @nameof(HxInputBaseWithInputGroups<object>.InputGroupEndTemplate)</code>
+	are utilized for adding input groups before and after the main input field.
+	See <a href="https://getbootstrap.com/docs/5.3/forms/input-group/">Input groups in the Bootstrap documentation</a>.
+</p>
+<Demo Type="@typeof(FormInputs_Demo_InputGroups)" />
+
+<DocHeading Title="Floating labels" Id="floating-labels" />
+<p>
+	Floating labels provide a sleek and simple design, floating elegantly over your input fields.
+	See <a href="https://getbootstrap.com/docs/5.3/forms/floating-labels/">Bootstrap 5 documentation on Floating labels</a>.<br />
+	They are supported by <code>HxInputText</code>, <code>HxInputTextArea</code>, <code>HxInputNumber</code>, <code>HxInputDate</code>, <code>HxAutosuggest</code>, <code>HxSelect</code>, and <code>HxInputTags</code>.
+</p>
+<DocAlert Type="DocAlertType.Warning">
+	Inputs with floating labels can't have the <code>Placeholder</code> parameter set.
+</DocAlert>
+<Demo Type="@typeof(FormInputs_Demo_FloatingLabels)" />
+
+<DocHeading Title="Splatting of additional attributes" Id="additional-attributes" />
+<p>Inputs derived from <code>HxInputBase</code> are capable of splatting additional attributes.</p>
+<ul>
+	<li><code>HxCheckBox</code>, <code>HxSwitch</code></li>
+	<li><code>HxInputNumber</code>, <code>HxInputPercent</code></li>
+	<li><code>HxInputTextBase</code>, <code>HxInputText</code>, <code>HxInputTextArea</code></li>
+	<li><code>HxSelectedBase</code>, <code>HxSelect</code></li>
+</ul>
+
+<DocHeading Title="Forms layout" Id="form-layout" />
+<p>
+	Our CSS defaults bring flex-column to the <code>&lt;form&gt;</code> element (<code>EditForm</code> component).
+	Every single direct child component of <code>&lt;form&gt;</code> is stacked vertically.<br />
+	This default layout means that for horizontal stacking, you'll need to enclose your items within an element,
+	typically a <code>&lt;div&gt;</code>.
+</p>
+<Demo Type="@typeof(FormInputs_Demo_HorizontalStacking)" />
+
+<DocHeading Title="API" Level="2" />
+<DocHeading Title="Common component properties" Level="3" />
+<div class="table-responsive">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<td>Name</td>
+				<td>Description</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><strong>@nameof(HxInputBase<object>.Value), @nameof(HxInputBase<object>.ValueChanged)</strong></td>
+				<td>Value of the input.</td>
+			</tr>
+			<tr>
+				<td><strong>@nameof(HxInputBase<object>.Label), @nameof(HxInputBase<object>.LabelTemplate)</strong></td>
+				<td>This specifies the label that appears adjacent to the input. It is rendered before the input field.</td>
+			</tr>
+			<tr>
+				<td><strong>@nameof(HxInputBase<object>.Hint), @nameof(HxInputBase<object>.HintTemplate)</strong></td>
+				<td>This defines a hint accompanying the input. It is displayed following the input and any validation message.</td>
+			</tr>
+			<tr>
+				<td><strong>@nameof(HxInputBase<object>.InputCssClass)</strong></td>
+				<td>CSS class to be set for the input.</td>
+			</tr>
+			<tr>
+				<td><strong>@nameof(HxInputBase<object>.ValidationMessageMode)</strong></td>
+				<td>Adjusts how validation messages are rendered.</td>
+			</tr>
+			<tr>
+				<td><strong>@nameof(HxInputBase<object>.Enabled)</strong></td>
+				<td><EnabledExplanation /></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

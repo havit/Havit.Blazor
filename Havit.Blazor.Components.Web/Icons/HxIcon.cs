@@ -2,19 +2,19 @@
 
 /// <summary>
 /// Displays an icon.
-/// Currently supports <see href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</see> through <c>BootstrapIcon</c> class.<br />
-/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxIcon">https://havit.blazor.eu/components/HxIcon</see>
-/// You can add your own icon-set easily.
+/// Currently supports <see href="https://icons.getbootstrap.com/" target="_blank">Bootstrap icons</see> through the <c>BootstrapIcon</c> class.<br />
+/// Full documentation and demos can be found at <see href="https://havit.blazor.eu/components/HxIcon">https://havit.blazor.eu/components/HxIcon</see>.
+/// You can easily add your own icon set.
 /// </summary>
 public class HxIcon : ComponentBase
 {
 	/// <summary>
-	/// Icon to display.
+	/// The icon to display.
 	/// </summary>
 	[Parameter] public IconBase Icon { get; set; }
 
 	/// <summary>
-	/// CSS Class to combine with basic icon CSS class.
+	/// The CSS class to combine with the basic icon CSS class.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+		<TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<NoWarn>1591;1701;1702;SA1134;BL0007</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -9,7 +9,7 @@
 
 	<ItemGroup>
 		<InternalsVisibleTo Include="Havit.Blazor.Components.Web.Bootstrap.Tests" />
-		<InternalsVisibleTo Include="Havit.Blazor.Components.Web.Bootstrap.Documentation" />
+		<InternalsVisibleTo Include="Havit.Blazor.Documentation" />
 	</ItemGroup>
 
 
@@ -37,7 +37,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -45,8 +45,13 @@
 		<ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+	</ItemGroup>
+
+
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.Bootstrap.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Components.Web.Bootstrap.Documentation\xmldoc" />
+		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.Bootstrap.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />
 	</Target>
 
 </Project>

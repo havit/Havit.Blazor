@@ -11,7 +11,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// </summary>
 public partial class HxInputFileDropZone : ICascadeEnabledComponent
 {
-	private const int FirstFileNamesMaxCount = 3; // Might be converted to parameter if needed.
+	private const int FirstFileNamesMaxCount = 3; // Might be converted to a parameter if needed.
 
 	/// <summary>
 	/// URL of the server endpoint receiving the files.
@@ -60,7 +60,7 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	[Parameter] public bool Multiple { get; set; }
 
 	/// <summary>
-	/// The maximum files size in bytes.
+	/// The maximum file size in bytes.
 	/// When exceeded, the <see cref="OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="FileUploadedEventArgs.ResponseStatus"/>.
 	/// Default is <c>null</c> (unlimited).
 	/// </summary>
@@ -78,7 +78,7 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	[Parameter] public RenderFragment NoFilesTemplate { get; set; }
 
 	/// <summary>
-	/// Custom CSS class to render with wrapping div.
+	/// Custom CSS class to render with the wrapping div.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 
@@ -101,12 +101,12 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	private protected HxInputFileCore hxInputFileCoreComponentReference;
 
 	/// <summary>
-	/// Gets list of files chosen.
+	/// Gets the list of chosen files.
 	/// </summary>
 	public Task<FileInfo[]> GetFilesAsync() => hxInputFileCoreComponentReference.GetFilesAsync();
 
 	/// <summary>
-	/// Clears associated input-file element and resets component to initial state.
+	/// Clears the associated input-file element and resets the component to its initial state.
 	/// </summary>
 	public Task ResetAsync() => hxInputFileCoreComponentReference.ResetAsync();
 
@@ -115,7 +115,7 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	/// <remarks>
-	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
+	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefore, the accessToken here...
 	/// </remarks>
 	public Task StartUploadAsync(string accessToken = null) => hxInputFileCoreComponentReference?.StartUploadAsync(accessToken);
 

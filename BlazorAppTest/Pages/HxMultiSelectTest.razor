@@ -1,38 +1,74 @@
 ﻿@page "/HxMultiSelectTest"
 @using System.Globalization
 
-<h1>HxCheckboxList</h1>
+<h1>HxMultiSelect</h1>
 
 <HxSwitch Text="Enabled" @bind-Value="@enabled" />
 
 <EditForm Model="@model">
 	<HxMultiSelect TItem="CultureInfo" TValue="string" Label="Cultures" EmptyText="-- choose here --" TextSelector="@(item => item.EnglishName)" ValueSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" NullDataText="Loading languages..." Enabled="@enabled" InputSize="InputSize.Small" />
+
 	<HxMultiSelect TItem="CultureInfo" TValue="string" Label="Cultures" EmptyText="-- choose here --" TextSelector="@(item => item.EnglishName)" ValueSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" NullDataText="Loading languages..." Enabled="@enabled" />
-	<HxMultiSelect TItem="CultureInfo" TValue="string" Label="Cultures" EmptyText="-- choose here --" TextSelector="@(item => item.EnglishName)" ValueSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" NullDataText="Loading languages..." Enabled="@enabled" InputSize="InputSize.Large" />
+
+    <HxMultiSelect TItem="CultureInfo" TValue="string" Label="Cultures" EmptyText="-- choose here --" TextSelector="@(item => item.EnglishName)" ValueSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" NullDataText="Loading languages..." Enabled="@enabled" InputSize="InputSize.Large" />
+
+    <!-- Multi-select with default filtering and select all -->
+    <HxMultiSelect TItem="CultureInfo"
+                   TValue="string"
+                   Label="Cultures with default filtering and select all enabled"
+                   EmptyText="-- choose here --"
+                   TextSelector="@(item => item.EnglishName)"
+                   ValueSelector="@(item => item.EnglishName)"
+                   Data="@data"
+                   @bind-Value="@model.CultureInfos"
+                   NullDataText="Loading languages..."
+                   AllowFiltering="true"
+                   AllowSelectAll="true"
+                   Enabled="@enabled" />
+
+    <!-- Multi-select with custom filtering and select all -->
+    <HxMultiSelect TItem="CultureInfo"
+                   TValue="string"
+                   Label="Cultures with custom filtering and select all enabled"
+                   EmptyText="-- choose here --"
+                   TextSelector="@(item => item.EnglishName)"
+                   ValueSelector="@(item => item.EnglishName)"
+                   Data="@data"
+                   @bind-Value="@model.CultureInfos"
+                   NullDataText="Loading languages..."
+                   AllowFiltering="true"
+                   AllowSelectAll="true"
+                   SelectAllText="Select all cultures"
+                   Enabled="@enabled"
+                   InputSize="InputSize.Small">
+        <FilterEmptyResultTemplate>
+            <span class="p-2">Couldn't find any matching cultures</span>
+        </FilterEmptyResultTemplate>
+    </HxMultiSelect>
 </EditForm>
 
 <p>Selected values: @String.Join(", ", model.CultureInfos ?? Enumerable.Empty<string>())</p>
 
 @code
 {
-	private bool enabled = true;
-	private Model model = new Model();
-	private List<CultureInfo> data;
+    private bool enabled = true;
+    private Model model = new Model();
+    private List<CultureInfo> data;
 
-	protected override async Task OnParametersSetAsync()
-	{
-		await base.OnParametersSetAsync();
-		await Task.Delay(3000);
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        await Task.Delay(3000);
 
-		data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-		.OrderBy(item => item.EnglishName)
-		.Take(100)
-		.OrderByDescending(i => i.ToString()) // sorting test
-		.ToList();
-	}
+        data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+            .OrderBy(item => item.EnglishName)
+            .Take(100)
+            .OrderByDescending(i => i.ToString()) // sorting test
+            .ToList();
+    }
 
-	private class Model
-	{
-		public List<string> CultureInfos { get; set; }
-	}
+    private class Model
+    {
+        public List<string> CultureInfos { get; set; }
+    }
 }

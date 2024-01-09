@@ -14,7 +14,7 @@ public partial class HxAlert
 	[Parameter, EditorRequired] public ThemeColor Color { get; set; }
 
 	/// <summary>
-	/// Shows the Close button and allows dismissing of the alert.
+	/// Shows the Close button and allows dismissing the alert.
 	/// </summary>
 	[Parameter] public bool Dismissible { get; set; }
 
@@ -27,7 +27,7 @@ public partial class HxAlert
 	{
 		base.OnParametersSet();
 
-		Contract.Requires<InvalidOperationException>(Color != ThemeColor.None, $"Parameter {nameof(Color)} of {nameof(HxBadge)} is required.");
+		Contract.Requires<InvalidOperationException>(Color != ThemeColor.None, $"Parameter {nameof(Color)} of {nameof(HxAlert)} is required.");
 	}
 
 	public string GetColorCss()

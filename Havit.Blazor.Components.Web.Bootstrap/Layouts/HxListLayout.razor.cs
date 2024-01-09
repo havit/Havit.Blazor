@@ -3,15 +3,15 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Data presentation component composed of <see cref="HxGrid"/> for data, <see cref="HxOffcanvas"/> for manual filtering and <see cref="HxNamedViewList{T}"/> for pre-defined filters.<br />
+/// Data presentation component composed of <see cref="HxGrid"/> for data, <see cref="HxOffcanvas"/> for manual filtering, and <see cref="HxNamedViewList{T}"/> for pre-defined filters.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListLayout">https://havit.blazor.eu/components/HxListLayout</see>
 /// </summary>
 /// <typeparam name="TFilterModel"></typeparam>
 public partial class HxListLayout<TFilterModel>
 {
 	/// <summary>
-	/// Returns <see cref="HxMessageBox"/> defaults.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Returns the <see cref="HxMessageBox"/> defaults.
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual ListLayoutSettings GetDefaults() => HxListLayout.Defaults;
 
@@ -21,10 +21,10 @@ public partial class HxListLayout<TFilterModel>
 	[Parameter] public ListLayoutSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual ListLayoutSettings GetSettings() => this.Settings;
 
@@ -58,7 +58,7 @@ public partial class HxListLayout<TFilterModel>
 	protected CardSettings CardSettingsEffective => this.CardSettings ?? GetSettings()?.CardSettings ?? GetDefaults().CardSettings ?? throw new InvalidOperationException(nameof(CardSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
 
 	/// <summary>
-	/// Settings for the <see cref="HxButton"/> opening filtering offcanvas.
+	/// Settings for the <see cref="HxButton"/> opening the filtering offcanvas.
 	/// </summary>
 	[Parameter] public ButtonSettings FilterOpenButtonSettings { get; set; }
 	protected ButtonSettings FilterOpenButtonSettingsEffective => this.FilterOpenButtonSettings ?? GetSettings()?.FilterOpenButtonSettings ?? GetDefaults().FilterOpenButtonSettings ?? throw new InvalidOperationException(nameof(FilterOpenButtonSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
@@ -92,7 +92,7 @@ public partial class HxListLayout<TFilterModel>
 	{
 		base.OnParametersSet();
 
-		Contract.Requires<InvalidOperationException>((FilterTemplate is null) || (FilterModel is not null), $"{nameof(HxListLayout)} requires {nameof(FilterModel)} to be set if {nameof(FilterTemplate)}  is used.");
+		Contract.Requires<InvalidOperationException>((FilterTemplate is null) || (FilterModel is not null), $"{nameof(HxListLayout)} requires {nameof(FilterModel)} to be set if {nameof(FilterTemplate)} is used.");
 	}
 
 	private void HandleChipUpdated(ChipItem[] chips)

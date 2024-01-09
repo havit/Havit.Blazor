@@ -8,13 +8,13 @@ public partial class HxNav
 {
 	/// <summary>
 	/// Orientation of the nav.
-	/// Default is <see cref="NavOrientation.Horizontal"/>.
+	/// The default value is <see cref="NavOrientation.Horizontal"/>.
 	/// </summary>
 	[Parameter] public NavOrientation Orientation { get; set; } = NavOrientation.Horizontal;
 
 	/// <summary>
 	/// The visual variant of the nav items.
-	/// Default is <see cref="NavVariant.Standard"/>.
+	/// The default value is <see cref="NavVariant.Standard"/>.
 	/// </summary>
 	[Parameter] public NavVariant Variant { get; set; } = NavVariant.Standard;
 

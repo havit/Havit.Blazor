@@ -1,22 +1,22 @@
 ﻿namespace Havit.Blazor.Components.Web;
 
 /// <summary>
-/// Provides methods for adding and showing message. Additional extension methods available in concrete implementation.
+/// Provides methods for adding and showing messages. Additional extension methods are available in the concrete implementation.
 /// </summary>
 public interface IHxMessengerService
 {
 	/// <summary>
-	/// Subscription seam for HxMessenger component to be able to receive the messages.
+	/// Subscription seam for the HxMessenger component to be able to receive messages.
 	/// </summary>
 	public event Action<MessengerMessage> OnMessage;
 
 	/// <summary>
-	/// Subscription seam for HxMessenger component to be able to receive Clear() command.
+	/// Subscription seam for the HxMessenger component to be able to receive the Clear() command.
 	/// </summary>
 	public event Action OnClear;
 
 	/// <summary>
-	/// Adds and shows message.
+	/// Adds and shows a message.
 	/// </summary>
 	public void AddMessage(MessengerMessage message);
 

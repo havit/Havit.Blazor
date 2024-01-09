@@ -39,17 +39,32 @@ async function handleModalHide(event) {
     let cancel = await event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHide');
     if (!cancel) {
 		modalInstance.hidePreventionDisabled = true;
-        modalInstance.hide();
+		modalInstance.hide();
+		event.target.hxModalHiding = true;
     }
 };
 
 function handleModalHidden(event) {
+	event.target.hxModalHiding = false;
+
 	event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHidden');
-	dispose(event.target);
+
+	if (event.target.hxModalDisposing) {
+		// fix for #110 where the dispose() gets called while the offcanvas is still in hiding-transition
+		dispose(event.target);
+		return;
+	}
 };
 
 export function dispose(element) {
 	if (!element) {
+		return;
+	}
+
+	element.hxModalDisposing = true;
+
+	if (element.hxModalHiding) {
+		// fix for #110 where the dispose() gets called while the offcanvas is still in hiding-transition
 		return;
 	}
 

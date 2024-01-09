@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web;
 
 /// <summary>
-/// Allows child components to register to an owner component via this class shared as cascading value &amp; parameter.
+/// Allows child components to register with an owner component via this class shared as a cascading value &amp; parameter.
 /// </summary>
 public class CollectionRegistration<TItem>
 {
@@ -15,10 +15,10 @@ public class CollectionRegistration<TItem>
 	/// Constructor.
 	/// </summary>
 	/// <param name="collection">Collection to add/remove components.</param>
-	/// <param name="stateHasChangedAction">Action to call StateHasChanged method. Due to server prerendering issue in .NET 5, the StateHasChanged must be called inside InvokeAsync, so the action is awaitable.</param>
+	/// <param name="stateHasChangedAction">Action to call the StateHasChanged method. Due to a server prerendering issue in .NET 5, the StateHasChanged must be called inside InvokeAsync, so the action is awaitable.</param>
 	/// <param name="isOwnerDisposedFunc">Function to return if the holding component is disposed.</param>
 	/// <param name="itemAddedCallback">Callback to call when the component is added to the collection.</param>
-	/// <param name="itemRemovedCallback">Callback to call when the component is removed from thecollection.</param>
+	/// <param name="itemRemovedCallback">Callback to call when the component is removed from the collection.</param>
 	public CollectionRegistration(ICollection<TItem> collection, Func<Task> stateHasChangedAction, Func<bool> isOwnerDisposedFunc, Action<TItem> itemAddedCallback = null, Action<TItem> itemRemovedCallback = null)
 	{
 		this.collection = collection;
@@ -29,7 +29,7 @@ public class CollectionRegistration<TItem>
 	}
 
 	/// <summary>
-	/// Registers to the collection and call state has changed.
+	/// Registers with the collection and calls the state has changed.
 	/// </summary>
 	public void Register(TItem item)
 	{
@@ -39,7 +39,7 @@ public class CollectionRegistration<TItem>
 	}
 
 	/// <summary>
-	/// Unregisters from the collection and call state has changed (when owner is not disposed).
+	/// Unregisters from the collection and calls the state has changed (when the owner is not disposed).
 	/// </summary>
 	public async Task UnregisterAsync(TItem item)
 	{

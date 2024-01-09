@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web;
 public class FileUploadedEventArgs
 {
 	/// <summary>
-	/// Index of the file uploaded.
+	/// Index of the uploaded file.
 	/// </summary>
 	public int FileIndex { get; internal set; }
 
@@ -18,12 +18,12 @@ public class FileUploadedEventArgs
 	public string OriginalFileName { get; set; }
 
 	/// <summary>
-	/// File MIME type provided by the browser.
+	/// MIME type of the file provided by the browser.
 	/// </summary>
 	public string ContentType { get; set; }
 
 	/// <summary>
-	/// File provided by the browser.
+	/// Size of the file provided by the browser.
 	/// </summary>
 	public long Size { get; set; }
 
@@ -38,7 +38,7 @@ public class FileUploadedEventArgs
 	public HttpStatusCode ResponseStatus { get; set; }
 
 	/// <summary>
-	/// File last modification provided by the browser.
+	/// Last modification date of the file provided by the browser.
 	/// </summary>
 	public DateTimeOffset LastModified { get; set; }
 }

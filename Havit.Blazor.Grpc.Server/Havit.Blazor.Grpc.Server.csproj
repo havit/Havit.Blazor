@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+	  <TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
 	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -16,17 +16,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.56.0" />
-		<PackageReference Include="Havit.AspNetCore" Version="2.0.10" />
-		<PackageReference Include="Havit.Core" Version="2.0.27" />
-		<PackageReference Include="protobuf-net" Version="3.2.26" />
+		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.60.0" />
+		<PackageReference Include="Havit.AspNetCore" Version="2.0.12" />
+		<PackageReference Include="Havit.Core" Version="2.0.29" />
+		<PackageReference Include="protobuf-net" Version="3.2.30" />
 		<PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.1.1" />
 		<!-- Workaround for vulnerability in System.Text.Encodings.Web 4.5.0 -->
-		<PackageReference Include="System.Text.Encodings.Web" Version="7.0.0" />
+		<PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Havit.Blazor.Grpc.Core\Havit.Blazor.Grpc.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
 	</ItemGroup>
 
 </Project>

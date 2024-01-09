@@ -26,7 +26,7 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	[Parameter] public TabPanelVariant Variant { get; set; } = TabPanelVariant.Standard;
 
 	/// <summary>
-	/// Determines whether the content all tabs is always rendered or only if the tab is active.<br />
+	/// Determines whether the content of all tabs is always rendered or only if the tab is active.<br />
 	/// Default is <see cref="TabPanelRenderMode.AllTabs"/>.
 	/// </summary>
 	[Parameter] public TabPanelRenderMode RenderMode { get; set; } = TabPanelRenderMode.AllTabs;
@@ -43,7 +43,7 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	[Parameter] public string ActiveTabId { get; set; }
 
 	/// <summary>
-	/// Raised when ID of the active tab changes.
+	/// Raised when the ID of the active tab changes.
 	/// </summary>
 	[Parameter] public EventCallback<string> ActiveTabIdChanged { get; set; }
 	/// <summary>
@@ -97,7 +97,7 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 
 	internal async Task SetActiveTabIdAsync(string newId)
 	{
-		if (this.ActiveTabId != newId)
+		if (ActiveTabId != newId)
 		{
 			ActiveTabId = newId;
 			await InvokeActiveTabIdChangedAsync(newId);
@@ -133,7 +133,7 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 
 		if (firstRender)
 		{
-			// when no tab is active after initial render, activate the first visible & enabled tab
+			// when no tab is active after the initial render, activate the first visible & enabled tab
 			if (!tabsList.Any(tab => IsActive(tab)) && (tabsList.Count > 0))
 			{
 				HxTab tabToActivate = tabsList.FirstOrDefault(tab => CascadeEnabledComponent.EnabledEffective(tab) && tab.Visible);
@@ -146,7 +146,7 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Handle click on tab title to activate tab.
+	/// Handle click on the tab title to activate the tab.
 	/// </summary>
 	protected async Task HandleTabClick(HxTab tab)
 	{

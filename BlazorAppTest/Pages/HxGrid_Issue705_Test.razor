@@ -1,0 +1,44 @@
+﻿@page "/HxGrid_Issue705_Test"
+
+<h3>HxGrid_Issue705_Test</h3>
+
+<HxSwitch @bind-Value="ShowAllColumns" Text="Show All Columns"></HxSwitch>
+
+<p>@ShowAllColumns</p>
+
+<HxGrid TItem="RowEntry" DataProvider="GetGridData">
+	<Columns>
+		<HxGridColumn HeaderText="FirstColumn" ItemTextSelector="entry => entry.FirstColumn" Visible="ShowAllColumns"></HxGridColumn>
+		<HxGridColumn HeaderText="SecondColumn" ItemTextSelector="entry => entry.SecondColumn"></HxGridColumn>
+		<HxGridColumn HeaderText="ThirdColumn" ItemTextSelector="entry => entry.ThirdColumn" Visible="ShowAllColumns"></HxGridColumn>
+	</Columns>
+</HxGrid>
+
+<HxGrid TItem="RowEntry" DataProvider="GetGridData">
+	<Columns>
+		@if (ShowAllColumns)
+		{
+			<HxGridColumn Order="1" HeaderText="FirstColumn" ItemTextSelector="entry => entry.FirstColumn"></HxGridColumn>
+		}
+		<HxGridColumn Order="2" HeaderText="SecondColumn" ItemTextSelector="entry => entry.SecondColumn"></HxGridColumn>
+		@if (ShowAllColumns)
+		{
+			<HxGridColumn Order="3" HeaderText="ThirdColumn" ItemTextSelector="entry => entry.ThirdColumn"></HxGridColumn>
+		}
+	</Columns>
+</HxGrid>
+
+@code {
+	[Parameter] public bool ShowAllColumns { get; set; }
+
+	public record RowEntry(string FirstColumn, string SecondColumn, string ThirdColumn);
+
+	private Task<GridDataProviderResult<RowEntry>> GetGridData(GridDataProviderRequest<RowEntry> request)
+	{
+		return Task.FromResult(request.ApplyTo(new[] {
+			new RowEntry("A1", "B1", "C1"),
+			new RowEntry("A2", "B2", "C2"),
+			new RowEntry("A3", "B3", "C3"),
+		}));
+	}
+}

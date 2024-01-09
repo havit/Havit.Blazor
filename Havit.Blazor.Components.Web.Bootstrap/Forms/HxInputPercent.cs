@@ -20,7 +20,7 @@ public class HxInputPercent<TValue> : HxInputNumber<TValue>
 	}
 
 	/// <summary>
-	/// Converts value into percentages and formats it as a string.
+	/// Converts the value into percentages and formats it as a string.
 	/// </summary>
 	protected override string FormatValueAsString(TValue value)
 	{

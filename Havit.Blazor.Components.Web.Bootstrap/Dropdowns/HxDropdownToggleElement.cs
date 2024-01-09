@@ -21,14 +21,14 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	/// <summary>
 	/// Reference element of the dropdown menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
 	/// an HTMLElement reference (e.g. <c>#id</c>) or an object providing <c>getBoundingClientRect</c>.
-	/// For more information refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
+	/// For more information, refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
 	/// and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
 	/// </summary>
 	[Parameter] public string DropdownReference { get; set; }
 
 	/// <summary>
 	/// Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
-	/// of the dropdown relative to its target.  Default is <c>(0, 2)</c>.
+	/// of the dropdown relative to its target. Default is <c>(0, 2)</c>.
 	/// </summary>
 	[Parameter] public (int Skidding, int Distance)? DropdownOffset { get; set; }
 
@@ -36,6 +36,15 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	/// Custom CSS class to render with the toggle element.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
+
+	/// <summary>
+	/// By default, the dropdown menu is closed when clicking inside or outside the dropdown menu (<see cref="DropdownAutoClose.True"/>).
+	/// You can use the AutoClose parameter to change this behavior of the dropdown.
+	/// <see href="https://getbootstrap.com/docs/5.3/components/dropdowns/#auto-close-behavior">https://getbootstrap.com/docs/5.3/components/dropdowns/#auto-close-behavior</see>.
+	/// The parameter can be used to override the settings of the <see cref="DropdownContainer"/> component or to specify the auto-close behavior when the component is not used.
+	/// </summary>
+	[Parameter] public DropdownAutoClose? AutoClose { get; set; }
+	protected DropdownAutoClose AutoCloseEffective => AutoClose ?? DropdownContainer?.AutoClose ?? DropdownAutoClose.True;
 
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
@@ -58,6 +67,19 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	/// Triggers the <see cref="OnHidden"/> event. Allows interception of the event in derived components.
 	/// </summary>
 	protected virtual Task InvokeOnHiddenAsync() => OnHidden.InvokeAsync();
+
+	/// <summary>
+	/// Value for cases when the dropdown is used as an <code>input</code> element.
+	/// </summary>
+	[Parameter] public string Value { get; set; }
+	/// <summary>
+	/// Raised when the value changes (binds to <code>onchange</code> input event).
+	/// </summary>
+	[Parameter] public EventCallback<string> ValueChanged { get; set; }
+	/// <summary>
+	/// Triggers the <see cref="ValueChanged"/> event. Allows interception of the event in derived components.
+	/// </summary>
+	protected virtual Task InvokeValueChangedAsync(string newValue) => ValueChanged.InvokeAsync(newValue);
 
 	[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
 	[CascadingParameter] protected HxNav NavContainer { get; set; }
@@ -86,13 +108,13 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 		builder.AddAttribute(1, "data-bs-toggle", "dropdown");
 		builder.AddAttribute(2, "aria-expanded", "false");
 
-		var dataBsAutoCloseAttributeValue = (DropdownContainer?.AutoClose ?? DropdownAutoClose.True) switch
+		var dataBsAutoCloseAttributeValue = AutoCloseEffective switch
 		{
 			DropdownAutoClose.True => "true",
 			DropdownAutoClose.False => "false",
 			DropdownAutoClose.Inside => "inside",
 			DropdownAutoClose.Outside => "outside",
-			_ => throw new InvalidOperationException($"Unknown {nameof(DropdownAutoClose)} value {DropdownContainer.AutoClose}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(DropdownAutoClose)} value {AutoCloseEffective}.")
 		};
 		builder.AddAttribute(3, "data-bs-auto-close", dataBsAutoCloseAttributeValue);
 
@@ -104,9 +126,18 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 		builder.AddAttribute(5, "data-bs-reference", DropdownToggleExtensions.GetDropdownDataBsReference(this));
 		builder.AddAttribute(6, "class", GetCssClass());
 
+		if (String.Equals(ElementName, "input", StringComparison.OrdinalIgnoreCase))
+		{
+			builder.AddAttribute(10, "value", Value);
+			builder.AddAttribute(11, "onchange", EventCallback.Factory.CreateBinder<string>(this, async (string value) => await InvokeValueChangedAsync(value), Value));
+#if NET8_0_OR_GREATER
+			builder.SetUpdatesAttributeName("value");
+#endif
+		}
+
 		builder.AddMultipleAttributes(99, AdditionalAttributes);
-		builder.AddElementReferenceCapture(4, capturedRef => elementReference = capturedRef);
-		builder.AddContent(5, ChildContent);
+		builder.AddElementReferenceCapture(104, capturedRef => elementReference = capturedRef);
+		builder.AddContent(105, ChildContent);
 
 		builder.CloseElement();
 	}
@@ -207,6 +238,10 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 				await jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+			catch (TaskCanceledException)
 			{
 				// NOOP
 			}

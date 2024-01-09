@@ -12,7 +12,7 @@ public enum NavVariant
 
 	/// <summary>
 	/// Tabs. <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#tabs">https://getbootstrap.com/docs/5.3/components/navs-tabs/#tabs</see>
-	/// Remember to set <c>active</c> tab (<see cref="HxNavLink.CssClass"/>).
+	/// Remember to set the <c>active</c> tab (<see cref="HxNavLink.CssClass"/>).
 	/// </summary>
 	Tabs = 1,
 

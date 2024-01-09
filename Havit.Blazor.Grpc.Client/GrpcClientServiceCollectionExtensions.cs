@@ -22,7 +22,6 @@ public static class GrpcClientServiceCollectionExtensions
 		services.AddTransient<ServerExceptionsGrpcClientInterceptor>();
 		services.AddSingleton<GlobalizationLocalizationGrpcClientInterceptor>();
 		services.AddSingleton<ClientUriGrpcClientInterceptor>();
-		services.AddTransient<CancellationWorkaroundGrpcClientInterceptor>();
 		services.AddTransient<GrpcWebHandler>(provider => new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
 		services.AddSingleton<ClientFactory>(ClientFactory.Create(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Create().RegisterApplicationContracts(assemblyToScanForDataContracts)) }, binder: new ProtoBufServiceBinder())));
 	}
@@ -62,10 +61,13 @@ public static class GrpcClientServiceCollectionExtensions
 				options.Address = new Uri(backendUrl);
 			})
 			.ConfigurePrimaryHttpMessageHandler<GrpcWebHandler>()
+			.ConfigureChannel(options =>
+			{
+				options.ThrowOperationCanceledOnCancellation = true;
+			})
 			.AddInterceptor<GlobalizationLocalizationGrpcClientInterceptor>()
 			.AddInterceptor<ClientUriGrpcClientInterceptor>()
-			.AddInterceptor<ServerExceptionsGrpcClientInterceptor>()
-			.AddInterceptor<CancellationWorkaroundGrpcClientInterceptor>();
+			.AddInterceptor<ServerExceptionsGrpcClientInterceptor>();
 
 		configureGrpClientAll?.Invoke(grpcClient);
 		configureGrpcClientWithAuthorization?.Invoke(grpcClient);

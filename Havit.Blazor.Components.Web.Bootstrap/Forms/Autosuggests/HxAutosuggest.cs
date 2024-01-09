@@ -8,13 +8,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAutosuggest">https://havit.blazor.eu/components/HxAutosuggest</see>
 /// </summary>
 /// <remarks>
-/// Defaults located in separate non-generic type <see cref="HxAutosuggest"/>.
+/// Defaults are located in a separate non-generic type <see cref="HxAutosuggest"/>.
 /// </remarks>
 public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 {
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected override AutosuggestSettings GetDefaults() => HxAutosuggest.Defaults;
 
@@ -24,33 +24,33 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	[Parameter] public AutosuggestSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected override AutosuggestSettings GetSettings() => this.Settings;
 
 
 	/// <summary>
-	/// Method (delegate) which provides data of the suggestions.
+	/// Method (delegate) that provides data for the suggestions.
 	/// </summary>
 	[Parameter] public AutosuggestDataProviderDelegate<TItem> DataProvider { get; set; }
 
 	/// <summary>
-	/// Selects value from item.
-	/// Not required when <c>TValue</c> is same as  <c>TItem</c>.
+	/// Selects a value from an item.
+	/// Not required when <c>TValue</c> is the same as <c>TItem</c>.
 	/// </summary>
 	[Parameter] public Func<TItem, TValue> ValueSelector { get; set; }
 
 	/// <summary>
-	/// Selects text to display from item.
-	/// When not set <c>ToString()</c> is used.
+	/// Selects the text to display from an item.
+	/// When not set, <c>ToString()</c> is used.
 	/// </summary>
 	[Parameter] public Func<TItem, string> TextSelector { get; set; }
 
 	/// <summary>
-	/// Template to display item.
+	/// Template to display an item.
 	/// When not set, <see cref="TextSelector"/> is used.
 	/// </summary>
 	[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
@@ -61,36 +61,36 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	[Parameter] public RenderFragment EmptyTemplate { get; set; }
 
 	/// <summary>
-	/// Icon displayed in input when no item is selected.
+	/// Icon displayed in the input when no item is selected.
 	/// </summary>
 	[Parameter] public IconBase SearchIcon { get; set; }
 	protected IconBase SearchIconEffective => this.SearchIcon ?? this.GetSettings()?.SearchIcon ?? GetDefaults().SearchIcon;
 
 	/// <summary>
-	/// Icon displayed in input on selection clear button when item is selected.
+	/// Icon displayed in the input on the selection clear button when an item is selected.
 	/// </summary>
 	[Parameter] public IconBase ClearIcon { get; set; }
 	protected IconBase ClearIconEffective => this.ClearIcon ?? this.GetSettings()?.ClearIcon ?? GetDefaults().ClearIcon;
 
 	/// <summary>
-	/// Minimal number of characters to start suggesting.
+	/// The minimal number of characters to start suggesting.
 	/// </summary>
 	[Parameter] public int? MinimumLength { get; set; }
 	protected int MinimumLengthEffective => this.MinimumLength ?? this.GetSettings()?.MinimumLength ?? GetDefaults().MinimumLength ?? throw new InvalidOperationException(nameof(MinimumLength) + " default for " + nameof(HxAutosuggest) + " has to be set.");
 
 	/// <summary>
-	/// Debounce delay in milliseconds.
+	/// The debounce delay in milliseconds.
 	/// </summary>
 	[Parameter] public int? Delay { get; set; }
 	protected int DelayEffective => this.Delay ?? this.GetSettings()?.Delay ?? GetDefaults().Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxAutosuggest) + " has to be set.");
 
 	/// <summary>
-	/// Short hint displayed in the input field before the user enters a value.
+	/// A short hint displayed in the input field before the user enters a value.
 	/// </summary>
 	[Parameter] public string Placeholder { get; set; }
 
 	/// <summary>
-	/// Size of the input.
+	/// The size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
 	protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxAutosuggest) + " has to be set.");
@@ -100,39 +100,39 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	[Parameter] public LabelType? LabelType { get; set; }
 
 	/// <summary>
-	/// Offset between the dropdown and the input.
+	/// The offset between the dropdown and the input.
 	/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
 	/// </summary>
 	protected virtual (int Skidding, int Distance) DropdownOffset { get; set; } = (0, 4);
 
 	/// <summary>
-	/// Returns corresponding item for (selected) Value.
+	/// Returns the corresponding item for the (selected) value.
 	/// </summary>
 	/// <remarks>
-	/// We do not have full list of possible items to be able to select one by value.
+	/// We do not have a full list of possible items to be able to select one by value.
 	/// </remarks>
 	[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }
 
 	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* Label rendered by HxAutosuggestInternal */ : LabelValueRenderOrder.LabelValue;
 
 	/// <summary>
-	/// Input-group at the beginning of the input.
+	/// The input-group at the beginning of the input.
 	/// </summary>
 	[Parameter] public string InputGroupStartText { get; set; }
 
 	/// <summary>
-	/// Input-group at the beginning of the input.
+	/// The input-group at the beginning of the input.
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupStartTemplate { get; set; }
 
 	/// <summary>
-	/// Input-group at the end of the input.<br/>
+	/// The input-group at the end of the input.<br/>
 	/// Hides the search icon when used!
 	/// </summary>
 	[Parameter] public string InputGroupEndText { get; set; }
 
 	/// <summary>
-	/// Input-group at the end of the input.<br/>
+	/// The input-group at the end of the input.<br/>
 	/// Hides the search icon when used!
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
@@ -172,6 +172,9 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 		builder.AddAttribute(1023, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartTemplate), this.InputGroupStartTemplate);
 		builder.AddAttribute(1024, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndText), this.InputGroupEndText);
 		builder.AddAttribute(1025, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndTemplate), this.InputGroupEndTemplate);
+#if NET8_0_OR_GREATER
+		builder.AddAttribute(1026, nameof(HxAutosuggestInternal<TItem, TValue>.NameAttributeValue), NameAttributeValue);
+#endif
 
 		builder.AddMultipleAttributes(2000, this.AdditionalAttributes);
 

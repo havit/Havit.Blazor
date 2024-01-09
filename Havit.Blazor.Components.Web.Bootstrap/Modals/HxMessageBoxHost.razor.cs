@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Displays message boxes initiated through <see cref="IHxMessageBoxService"/>.
-/// To be placed in root application component / main layout.
+/// To be placed in the root application component / main layout.
 /// </summary>
 public partial class HxMessageBoxHost : ComponentBase
 {

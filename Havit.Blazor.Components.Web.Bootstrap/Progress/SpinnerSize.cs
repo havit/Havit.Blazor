@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Size for <see cref="HxSpinner"/>.
+/// Represents the size for <see cref="HxSpinner"/>.
 /// </summary>
 public enum SpinnerSize
 {

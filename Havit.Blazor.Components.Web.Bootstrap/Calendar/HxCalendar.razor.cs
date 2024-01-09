@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -28,13 +29,13 @@ public partial class HxCalendar
 		Defaults = new CalendarSettings()
 		{
 			MinDate = DefaultMinDate,
-			MaxDate = DefaultMaxDate
+			MaxDate = DefaultMaxDate,
 		};
 	}
 
 	/// <summary>
-	/// Returns component defaults.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Returns the component defaults.
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual CalendarSettings GetDefaults() => Defaults;
 
@@ -44,10 +45,10 @@ public partial class HxCalendar
 	[Parameter] public CalendarSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual CalendarSettings GetSettings() => this.Settings;
 
@@ -57,7 +58,7 @@ public partial class HxCalendar
 	[Parameter] public DateTime? Value { get; set; }
 
 	/// <summary>
-	/// Raised when selected date changes.
+	/// Raised when the selected date changes.
 	/// </summary>
 	[Parameter] public EventCallback<DateTime?> ValueChanged { get; set; }
 	/// <summary>
@@ -71,7 +72,7 @@ public partial class HxCalendar
 	[Parameter] public DateTime DisplayMonth { get; set; }
 
 	/// <summary>
-	/// Raised when month selection changes.
+	/// Raised when the month selection changes.
 	/// </summary>
 	[Parameter] public EventCallback<DateTime> DisplayMonthChanged { get; set; }
 	/// <summary>
@@ -100,10 +101,24 @@ public partial class HxCalendar
 	protected CalendarDateCustomizationProviderDelegate DateCustomizationProviderEffective => this.DateCustomizationProvider ?? this.GetSettings()?.DateCustomizationProvider ?? GetDefaults().DateCustomizationProvider;
 
 	/// <summary>
-	/// Indicates whether the keyboard navigation is enabled. When disabled, the calendar renders tabindex="-1" on interactive elements.
+	/// Indicates whether the keyboard navigation is enabled. When disabled, the calendar renders <c>tabindex="-1"</c> on interactive elements.
 	/// Default is <c>true</c> (tabindex attribute is not rendered).
 	/// </summary>
 	[Parameter] public bool KeyboardNavigation { get; set; } = true;
+
+	// Set during SetParameterSetAsync to make it optional
+	[Inject] protected TimeProvider TimeProviderFromServices { get; set; }
+
+	/// <summary>
+	/// TimeProvider is resolved in the following order:<br />
+	///		1. TimeProvider from this parameter <br />
+	///		2. Settings TimeProvider (configurable from <see cref="HxCalendar.Settings"/>)<br />
+	///		3. Defaults TimeProvider (configurable from <see cref="HxCalendar.Defaults"/>)<br />
+	///		4. TimeProvider from DependencyInjection<br />
+	/// </summary>
+	[Parameter] public TimeProvider TimeProvider { get; set; } = null;
+
+	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings()?.TimeProvider ?? GetDefaults()?.TimeProvider ?? TimeProviderFromServices;
 
 	private CultureInfo Culture => CultureInfo.CurrentUICulture;
 	private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;
@@ -138,7 +153,7 @@ public partial class HxCalendar
 
 		if (DisplayMonth == default)
 		{
-			await SetDisplayMonthAsync(Value ?? DateTime.Today);
+			await SetDisplayMonthAsync(Value ?? TimeProviderEffective.GetLocalNow().Date);
 		}
 		else if ((Value != null) && lastKnownValueChanged && ((DisplayMonth.Year != Value.Value.Year) || (DisplayMonth.Month != Value.Value.Month)))
 		{
@@ -191,7 +206,7 @@ public partial class HxCalendar
 
 		DateTime currentDay = FirstDayToDisplay;
 		DateTime valueDay = Value?.Date ?? default;
-		DateTime today = DateTime.Today;
+		DateTime today = TimeProviderEffective.GetLocalNow().Date;
 
 		for (var week = 0; week < 6; week++)
 		{

@@ -11,12 +11,12 @@ public record BadgeSettings
 	public ThemeColor? Color { get; set; }
 
 	/// <summary>
-	/// Color of badge text. Use <see cref="Color"/> for the background color.
+	/// Color of the badge text. Use <see cref="Color"/> for the background color.
 	/// </summary>
 	public ThemeColor? TextColor { get; set; }
 
 	/// <summary>
-	/// Badge type - Regular or rounded-pills.
+	/// Badge type - Regular or rounded pills.
 	/// </summary>
 	public BadgeType? Type { get; set; }
 

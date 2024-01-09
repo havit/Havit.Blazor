@@ -25,7 +25,7 @@ public class HxPopover : HxTooltipInternalBase
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected override PopoverSettings GetDefaults() => Defaults;
 
@@ -35,10 +35,10 @@ public class HxPopover : HxTooltipInternalBase
 	[Parameter] public PopoverSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected override PopoverSettings GetSettings() => this.Settings;
 
@@ -63,7 +63,7 @@ public class HxPopover : HxTooltipInternalBase
 	}
 
 	/// <summary>
-	/// Popover placement. Default is <see cref="PopoverPlacement.Right"/>.
+	/// Popover placement. The default is <see cref="PopoverPlacement.Right"/>.
 	/// </summary>
 	[Parameter]
 	public PopoverPlacement Placement
@@ -73,7 +73,7 @@ public class HxPopover : HxTooltipInternalBase
 	}
 
 	/// <summary>
-	/// Popover trigger(s). Default is <see cref="PopoverTrigger.Click"/>.
+	/// Popover trigger(s). The default is <see cref="PopoverTrigger.Click"/>.
 	/// </summary>
 	[Parameter]
 	public PopoverTrigger Trigger

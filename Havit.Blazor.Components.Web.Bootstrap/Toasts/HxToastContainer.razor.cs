@@ -3,7 +3,7 @@
 public partial class HxToastContainer : ComponentBase
 {
 	/// <summary>
-	/// Positioning of the toasts on screen.
+	/// Positioning of the toasts on the screen.
 	/// </summary>
 	[Parameter] public ToastContainerPosition Position { get; set; }
 

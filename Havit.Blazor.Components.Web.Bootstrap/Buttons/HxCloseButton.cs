@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/close-button/">close-button</see> component.<br />
-/// A simple close button for dismissing content like modals and alerts.<br />
+/// A simple close button for dismissing content such as modals and alerts.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCloseButton">https://havit.blazor.eu/components/HxCloseButton</see>
 /// </summary>
 public class HxCloseButton : HxButton
@@ -14,7 +14,7 @@ public class HxCloseButton : HxButton
 
 	/// <summary>
 	/// Toggles between the light and dark version of the button.
-	/// Default is <c>false</c>.
+	/// The default value is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool? White { get; set; }
 	protected bool WhiteEffective => White ?? GetDefaults().White ?? throw new InvalidOperationException(nameof(White) + " default for " + nameof(HxCloseButton) + " has to be set.");
@@ -23,7 +23,7 @@ public class HxCloseButton : HxButton
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected new virtual CloseButtonSettings GetDefaults() => Defaults;
 

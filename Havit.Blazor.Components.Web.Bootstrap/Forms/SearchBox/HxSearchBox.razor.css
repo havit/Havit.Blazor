@@ -18,8 +18,12 @@
 }
 
 ::deep .hx-search-box-input-with-search-icon {
-    border-top-right-radius: 0.375rem !important;
-    border-bottom-right-radius: 0.375rem !important;
+	border-top-right-radius: 0.375rem !important;
+	border-bottom-right-radius: 0.375rem !important;
+}
+
+::deep .hx-search-box-input-with-clear-icon {
+	padding-right: 2.375rem;
 }
 
 .dropdown-item:not(:active) ::deep .hx-search-box-item-title {

@@ -1,0 +1,35 @@
+﻿@attribute [Route("/components/" + nameof(HxAccordion))]
+@attribute [Route("/components/" + nameof(HxAccordionItem))]
+
+<ComponentApiDoc Type="typeof(HxAccordion)">
+	<DocAlert Type="DocAlertType.Warning">
+		Avoid using a constant value for <code>@nameof(HxAccordion.ExpandedItemId)</code>,
+		as it resets the accordion to that specific item on each roundtrip.
+		Instead, utilize <code>@nameof(HxAccordion.InitialExpandedItemId)</code>
+		for setting the initial state.
+	</DocAlert>
+
+	<DocHeading Title="Basic usage" />
+	<Demo Type="typeof(HxAccordion_PlainDemo)" />
+
+	<DocHeading Title="Flush" />
+	<p>
+		Apply the <code>.accordion-flush</code> class to eliminate
+		the default <code>background-color</code>, certain borders, and rounded corners,
+		allowing accordions to extend edge-to-edge alongside their parent container.
+	</p>
+	<Demo Type="typeof(HxAccordion_Demo_Flush)" />
+
+	<DocHeading Title="Stay open" />
+	<p>
+		By default, only one accordion item can be expanded at a time.
+		To allow multiple items to be expanded at the same time,
+		set the <code>StayOpen</code> parameter to <code>true</code>.
+	</p>
+	<Demo Type="typeof(HxAccordion_Demo_StayOpen)" />
+
+	<DocHeading Title="Complex demo" />
+	<Demo Type="typeof(HxAccordion_ComplexDemo)" />
+</ComponentApiDoc>
+
+<ComponentApiDoc Type="typeof(HxAccordionItem)" />

@@ -12,8 +12,8 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 {
 	/// <summary>
 	/// Return <see cref="HxMultiSelect{TValue, TItem}"/> defaults.
-	/// Enables to not share defaults in descendants with base classes.
-	/// Enables to have multiple descendants which differs in the default values.
+	/// Enables not sharing defaults in descendants with base classes.
+	/// Enables having multiple descendants that differ in the default values.
 	/// </summary>
 	protected override MultiSelectSettings GetDefaults() => HxMultiSelect.Defaults;
 
@@ -23,10 +23,10 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public MultiSelectSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected override MultiSelectSettings GetSettings() => this.Settings;
 
@@ -46,19 +46,19 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public IEnumerable<TItem> Data { get; set; }
 
 	/// <summary>
-	/// Selects text to display from item.<br/>
+	/// Selects text to display from an item.<br/>
 	/// When not set, <c>ToString()</c> is used.
 	/// </summary>
 	[Parameter] public Func<TItem, string> TextSelector { get; set; }
 
 	/// <summary>
-	/// Selects value from item.<br/>
-	/// Not required when <c>TValue</c> is same as <c>TItem</c>.
+	/// Selects value from an item.<br/>
+	/// Not required when <c>TValue</c> is the same as <c>TItem</c>.
 	/// </summary>
 	[Parameter] public Func<TItem, TValue> ValueSelector { get; set; }
 
 	/// <summary>
-	/// Selects value for items sorting. When not set, <see cref="TextSelector"/> property will be used.<br/>
+	/// Selects value for item sorting. When not set, <see cref="TextSelector"/> property will be used.<br/>
 	/// If you need complex sorting, pre-sort data manually or create a custom comparable property.
 	/// </summary>
 	[Parameter] public Func<TItem, IComparable> SortKeySelector { get; set; }
@@ -110,6 +110,56 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+	/// <summary>
+	/// Enables filtering capabilities.
+	/// </summary>
+	[Parameter] public bool? AllowFiltering { get; set; }
+	protected bool AllowFilteringEffective => this.AllowFiltering ?? this.GetSettings()?.AllowFiltering ?? GetDefaults().AllowFiltering;
+
+	/// <summary>
+	/// Defines a custom filtering predicate to apply to the list of items.
+	/// If not specified, the default behavior filters items based on whether the item text (obtained via TextSelector) contains the filter query string.
+	/// </summary>
+	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; }
+
+	/// <summary>
+	/// When enabled the filter will be cleared when the dropdown is closed.
+	/// </summary>
+	[Parameter] public bool? ClearFilterOnHide { get; set; }
+	protected bool ClearFilterOnHideEffective => this.ClearFilterOnHide ?? this.GetSettings()?.ClearFilterOnHide ?? GetDefaults().ClearFilterOnHide;
+
+	/// <summary>
+	/// Template that defines what should be rendered in case of empty items.
+	/// </summary>
+	[Parameter] public RenderFragment FilterEmptyResultTemplate { get; set; }
+
+	/// <summary>
+	/// Text to display when the filtered results list is empty and when not using <see cref="FilterEmptyResultTemplate"/>.
+	/// </summary>
+	[Parameter] public string FilterEmptyResultText { get; set; }
+
+	/// <summary>
+	/// Enables select all capabilities.
+	/// </summary>
+	[Parameter] public bool? AllowSelectAll { get; set; }
+	protected bool AllowSelectAllEffective => this.AllowSelectAll ?? this.GetSettings()?.AllowSelectAll ?? GetDefaults().AllowSelectAll;
+
+	/// <summary>
+	/// Text to display for the select all dropdown option.
+	/// </summary>
+	[Parameter] public string SelectAllText { get; set; }
+
+	/// <summary>
+	/// Icon displayed in filter input for searching the filter.
+	/// </summary>
+	[Parameter] public IconBase FilterSearchIcon { get; set; }
+	protected IconBase FilterSearchIconEffective => this.FilterSearchIcon ?? this.GetSettings()?.FilterSearchIcon ?? GetDefaults().FilterSearchIcon;
+
+	/// <summary>
+	/// Icon displayed in filter input for clearing the filter.
+	/// </summary>
+	[Parameter] public IconBase FilterClearIcon { get; set; }
+	protected IconBase FilterClearIconEffective => this.FilterClearIcon ?? this.GetSettings()?.FilterClearIcon ?? GetDefaults().FilterClearIcon;
 
 	private List<TItem> itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
@@ -134,22 +184,6 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 				itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
 			}
 		}
-	}
-
-	private void HandleItemSelectionChanged(bool @checked, TItem item)
-	{
-		var newValue = Value == null ? new List<TValue>() : new List<TValue>(Value);
-		TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
-		if (@checked)
-		{
-			newValue.Add(value);
-		}
-		else
-		{
-			newValue.Remove(value);
-		}
-
-		CurrentValue = newValue; // setter includes ValueChanged + NotifyFieldChanged
 	}
 
 	protected override bool TryParseValueFromString(string value, out List<TValue> result, out string validationErrorMessage)
@@ -181,13 +215,23 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(105, nameof(HxMultiSelectInternal<TValue, TItem>.ItemsToRender), itemsToRender);
 		builder.AddAttribute(106, nameof(HxMultiSelectInternal<TValue, TItem>.TextSelector), TextSelector);
 		builder.AddAttribute(107, nameof(HxMultiSelectInternal<TValue, TItem>.ValueSelector), ValueSelector);
-		builder.AddAttribute(108, nameof(HxMultiSelectInternal<TValue, TItem>.Value), Value);
+		builder.AddAttribute(108, nameof(HxMultiSelectInternal<TValue, TItem>.SelectedValues), Value);
+		builder.AddAttribute(101, nameof(HxMultiSelectInternal<TValue, TItem>.SelectedValuesChanged), EventCallback.Factory.Create<List<TValue>>(this, value => CurrentValue = value));
 		builder.AddAttribute(109, nameof(HxMultiSelectInternal<TValue, TItem>.NullDataText), NullDataText);
-		builder.AddAttribute(110, nameof(HxMultiSelectInternal<TValue, TItem>.ItemSelectionChanged), EventCallback.Factory.Create<HxMultiSelectInternal<TValue, TItem>.SelectionChangedArgs>(this, args => HandleItemSelectionChanged(args.Checked, args.Item)));
 		builder.AddAttribute(111, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupStartText), InputGroupStartText);
 		builder.AddAttribute(112, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupStartTemplate), InputGroupStartTemplate);
 		builder.AddAttribute(113, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndText), InputGroupEndText);
 		builder.AddAttribute(114, nameof(HxMultiSelectInternal<TValue, TItem>.InputGroupEndTemplate), InputGroupEndTemplate);
+		builder.AddAttribute(115, nameof(HxMultiSelectInternal<TValue, TItem>.AllowFiltering), AllowFilteringEffective);
+		builder.AddAttribute(116, nameof(HxMultiSelectInternal<TValue, TItem>.FilterPredicate), FilterPredicate);
+		builder.AddAttribute(117, nameof(HxMultiSelectInternal<TValue, TItem>.ClearFilterOnHide), ClearFilterOnHideEffective);
+		builder.AddAttribute(118, nameof(HxMultiSelectInternal<TValue, TItem>.FilterEmptyResultTemplate), FilterEmptyResultTemplate);
+		builder.AddAttribute(119, nameof(HxMultiSelectInternal<TValue, TItem>.FilterEmptyResultText), FilterEmptyResultText);
+		builder.AddAttribute(120, nameof(HxMultiSelectInternal<TValue, TItem>.AllowSelectAll), AllowSelectAllEffective);
+		builder.AddAttribute(121, nameof(HxMultiSelectInternal<TValue, TItem>.SelectAllText), SelectAllText);
+		builder.AddAttribute(122, nameof(HxMultiSelectInternal<TValue, TItem>.FilterSearchIcon), FilterSearchIconEffective);
+		builder.AddAttribute(123, nameof(HxMultiSelectInternal<TValue, TItem>.FilterClearIcon), FilterClearIconEffective);
+		builder.AddAttribute(124, nameof(HxMultiSelectInternal<TValue, TItem>.InputSizeEffective), ((IInputWithSize)this).InputSizeEffective);
 
 		builder.AddMultipleAttributes(200, this.AdditionalAttributes);
 
@@ -202,7 +246,8 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		{
 			return InputText;
 		}
-		else if ((InputTextSelector is null) || (Data is null) || (CurrentValue is null))
+
+		if ((InputTextSelector is null) || (Data is null) || (CurrentValue is null))
 		{
 			return CurrentValueAsString;
 		}
@@ -214,16 +259,16 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// <inheritdoc />
 	protected override string FormatValueAsString(List<TValue> value)
 	{
-		// Used for CurrentValueAsString (which is used for the input element and for the chip generator).
-		// That's why we do not use NullDataText here.
+		// This method is used for setting CurrentValueAsString, which in turn is used for both the input element and the chip generator.
+		// NullDataText is not utilized here, as this method handles null or empty values differently.
 
 		if ((!value?.Any() ?? true) || (Data == null))
 		{
-			// don't care about chip generator, it does not call this method for null/empty value
+			// The chip generator does not invoke this method for null or empty values, so handling here is solely for the input element.
 			return EmptyText;
 		}
 
-		// Take itemsToRender because they are sorted.
+		// The itemsToRender are chosen for processing because they are pre-sorted.
 		List<TItem> selectedItems = itemsToRender.Where(item => value.Contains(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item))).ToList();
 		return String.Join(", ", selectedItems.Select(TextSelector));
 	}

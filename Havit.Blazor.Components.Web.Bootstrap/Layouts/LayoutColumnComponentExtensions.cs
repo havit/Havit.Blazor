@@ -3,7 +3,7 @@
 public static class LayoutColumnComponentExtensions
 {
 	/// <summary>
-	/// Returns CSS classes representing column layout of the component.
+	/// Returns CSS classes representing the column layout of the component.
 	/// </summary>
 	public static string GetColumnsCssClasses(this ILayoutColumnComponent columnComponent)
 	{

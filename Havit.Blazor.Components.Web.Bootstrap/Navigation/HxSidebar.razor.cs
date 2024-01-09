@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿using Microsoft.Extensions.Localization;
+
+namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Sidebar component - responsive navigation sidebar.<br />
@@ -17,14 +19,16 @@ public partial class HxSidebar : ComponentBase
 	[Parameter] public RenderFragment ItemsTemplate { get; set; }
 
 	/// <summary>
-	/// Icon for expanding the desktop version. Use <see cref="TogglerTemplate" /> for more specific customization.
+	/// <c>ExpandIcon</c> is obsolete and will be removed in a future release. Use <see cref="TogglerTemplate"/> if you want to render an icon.
 	/// </summary>
-	[Parameter] public IconBase ExpandIcon { get; set; } = BootstrapIcon.ChevronBarRight;
+	[Obsolete("ExpandIcon is obsolete and will be removed in a future release. Use TogglerTemplate if you want to render an icon.")]
+	[Parameter] public IconBase ExpandIcon { get; set; }
 
 	/// <summary>
-	/// Icon for collapsing the desktop version. Use <see cref="TogglerTemplate" /> for more specific customization.
+	/// <c>CollapseIcon</c> is obsolete and will be removed in a future release. Use <see cref="TogglerTemplate"/> if you want to render an icon.
 	/// </summary>
-	[Parameter] public IconBase CollapseIcon { get; set; } = BootstrapIcon.ChevronBarLeft;
+	[Obsolete("CollapseIcon is obsolete and will be removed in a future release. Use TogglerTemplate if you want to render an icon.")]
+	[Parameter] public IconBase CollapseIcon { get; set; }
 
 	/// <summary>
 	/// Sidebar footer (e.g. logged user, language switch, ...).
@@ -32,7 +36,7 @@ public partial class HxSidebar : ComponentBase
 	[Parameter] public RenderFragment<SidebarFooterTemplateContext> FooterTemplate { get; set; }
 
 	/// <summary>
-	/// Vertical toggler (desktop version) to be rendered instead of the <see cref="ExpandIcon"/> and <see cref="CollapseIcon"/> icon.
+	/// Vertical toggler (desktop version) to be rendered instead of the default bar/arrow.
 	/// </summary>
 	[Parameter] public RenderFragment<SidebarTogglerTemplateContext> TogglerTemplate { get; set; }
 
@@ -61,22 +65,24 @@ public partial class HxSidebar : ComponentBase
 	protected virtual Task InvokeCollapsedChangedAsync(bool collapsed) => CollapsedChanged.InvokeAsync(collapsed);
 
 	/// <summary>
-	/// Whether multiple items can be in expanded state at once.
+	/// Whether multiple items can be in the expanded state at once.
 	/// If set to <c>false</c>, upon item expansion, all other items are collapsed.
-	/// Default is <c>true</c>.
+	/// The default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool MultipleItemsExpansion { get; set; } = true;
 
 	/// <summary>
-	/// Breakpoint below which the sidebar switches to mobile version (exclusive).<br/>
-	/// Default is <see cref="SidebarResponsiveBreakpoint.Medium"/>.
+	/// The breakpoint below which the sidebar switches to the mobile version (exclusive).<br/>
+	/// The default is <see cref="SidebarResponsiveBreakpoint.Medium"/>.
 	/// </summary>
 	[Parameter] public SidebarResponsiveBreakpoint ResponsiveBreakpoint { get; set; } = SidebarResponsiveBreakpoint.Medium;
+
+	[Inject] protected IStringLocalizer<HxSpinner> Localizer { get; set; }
 
 	protected internal string NavContentElementId => Id + "-nav-content";
 
 	/// <summary>
-	/// Id of the immediate parent of the contained <see cref="HxSidebarItem"/> components.
+	/// The ID of the immediate parent of the contained <see cref="HxSidebarItem"/> components.
 	/// </summary>
 	internal string navId = "hx" + Guid.NewGuid().ToString("N");
 

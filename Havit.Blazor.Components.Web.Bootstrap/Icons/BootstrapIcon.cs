@@ -4,7 +4,7 @@
 /// Bootstrap icon.
 /// </summary>
 /// <remarks>
-/// To bootstrap icons update you need:
+/// To update bootstrap icons, perform the following steps:
 /// - Update wwwroot\fonts\bootstrap-icons.woff
 /// - Update wwwroot\fonts\bootstrap-icons.woff2
 /// - Update wwwroot\bootstrap-icons.css
@@ -22,7 +22,7 @@ public partial class BootstrapIcon : IconBase
 	public string Name { get; set; }
 
 	/// <summary>
-	/// Constructor. Private.
+	/// Private constructor.
 	/// </summary>
 	private BootstrapIcon(string name)
 	{
@@ -30,5 +30,5 @@ public partial class BootstrapIcon : IconBase
 	}
 
 	// Next members are generated using a source generator.
-	// Tho source for the generator is the bootstrap-icons.json file located next to this one.
+	// The source for the generator is the bootstrap-icons.json file located next to this one.
 }

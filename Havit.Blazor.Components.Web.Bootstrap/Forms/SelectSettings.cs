@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public record SelectSettings : InputSettings, IInputSettingsWithSize
 {
 	/// <summary>
-	/// Input size.
+	/// The size of the input.
 	/// </summary>
 	public InputSize? InputSize { get; set; }
 }

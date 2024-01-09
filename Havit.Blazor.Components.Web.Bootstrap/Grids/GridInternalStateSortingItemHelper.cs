@@ -8,15 +8,15 @@ internal static class GridInternalStateSortingItemHelper
 
 		if ((currentSorting == null) || !currentSorting.Any())
 		{
-			// No current sorting? Create a new one with the newSortingColumn.
+			// No current sorting? Create a new one with the newSortColumn.
 			newSorting = new List<GridInternalStateSortingItem<TItem>>
-			{
-				new GridInternalStateSortingItem<TItem>
-				{
-					Column = newSortColumn,
-					ReverseDirection = false
-				}
-			};
+											{
+												new GridInternalStateSortingItem<TItem>
+												{
+													Column = newSortColumn,
+													ReverseDirection = false
+												}
+											};
 		}
 		else
 		{
@@ -33,7 +33,7 @@ internal static class GridInternalStateSortingItemHelper
 			}
 			else
 			{
-				// If there is a sorting with another "first" sort column, remove the newSortingColumn from the following possition.
+				// If there is a sorting with another "first" sort column, remove the newSortColumn from the following position.
 				// Create a new sorting with the column "in the front".
 				newSorting = new List<GridInternalStateSortingItem<TItem>>(currentSorting);
 				newSorting.RemoveAll(item => item.Column == newSortColumn);
@@ -60,7 +60,7 @@ internal static class GridInternalStateSortingItemHelper
 
 				foreach (var sortingItem in sorting)
 				{
-					if (result.Any(item => item.EqualsIgnoringSortDirection(sortingItem))) // lead to N^2 (on a couple of items)
+					if (result.Any(item => item.EqualsIgnoringSortDirection(sortingItem))) // leads to N^2 (on a couple of items)
 					{
 						continue;
 					}

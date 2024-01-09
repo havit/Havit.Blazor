@@ -22,7 +22,7 @@ public partial class HxContextMenu
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual ContextMenuSettings GetDefaults() => Defaults;
 
@@ -32,10 +32,10 @@ public partial class HxContextMenu
 	[Parameter] public ContextMenuSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
 	protected virtual ContextMenuSettings GetSettings() => this.Settings;
 
@@ -59,7 +59,7 @@ public partial class HxContextMenu
 
 	/// <summary>
 	/// Icon carrying the menu (use <see cref="BootstrapIcon" /> or any other <see cref="IconBase"/>).<br />
-	/// Default is <see cref="BootstrapIcon.ThreeDotsVertical"/>.
+	/// The default is <see cref="BootstrapIcon.ThreeDotsVertical"/>.
 	/// </summary>
 	[Parameter] public IconBase Icon { get; set; }
 	protected IconBase IconEffective => this.Icon ?? this.GetSettings()?.Icon ?? GetDefaults().Icon ?? throw new InvalidOperationException(nameof(Icon) + " default for " + nameof(HxContextMenu) + " has to be set.");
@@ -72,7 +72,7 @@ public partial class HxContextMenu
 
 	/// <summary>
 	/// Alignment for the context menu dropdown menu.
-	/// Default is <see cref="DropdownMenuAlignment.End"/>.
+	/// The default is <see cref="DropdownMenuAlignment.End"/>.
 	/// </summary>
 	[Parameter] public DropdownMenuAlignment? DropdownMenuAlignment { get; set; }
 	protected DropdownMenuAlignment DropdownMenuAlignmentEffective => this.DropdownMenuAlignment ?? this.GetSettings()?.DropdownMenuAlignment ?? GetDefaults().DropdownMenuAlignment ?? throw new InvalidOperationException(nameof(DropdownMenuAlignment) + " default for " + nameof(HxContextMenu) + " has to be set.");
