@@ -2,7 +2,7 @@
 
 /// <summary>
 /// List of named-views for <see cref="HxListLayout{TFilterModel}" />.<br />
-/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNamedViewList">https://havit.blazor.eu/components/HxNamedViewList</see>
+/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListLayout#named-views">https://havit.blazor.eu/components/HxListLayout#named-views</see>
 /// </summary>
 
 public partial class HxNamedViewList<TFilterModel>
