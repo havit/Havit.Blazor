@@ -64,7 +64,7 @@
 }
 
 .hx-list-layout-dropdown-menu-link:hover {
-	background-color: var(--bs-tertiary-bg);
+	text-decoration: underline;
 }
 
 .hx-list-layout-named-view .card-title {
