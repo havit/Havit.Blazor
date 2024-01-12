@@ -1,9 +1,13 @@
-﻿<HxListLayout Title="Title" @bind-FilterModel="filterModel" @bind-FilterModel:after="RefreshDataAsync">
-	<NamedViewsTemplate>
-		<HxNamedViewList Items="namedViews" @bind-SelectedItem="selectedNamedView" @bind-SelectedItem:after="HandleSelectedNamedViewChanged" />
-	</NamedViewsTemplate>
+﻿@using Havit.Linq
+<HxListLayout Title="Title"
+			  @bind-FilterModel="filterModel"
+			  @bind-FilterModel:after="RefreshDataAsync"
+			  NamedViews="namedViews"
+			  @bind-SelectedNamedView="selectedNamedView"
+			  TitleFromNamedView="titleFromNamedView">
 	<FilterTemplate Context="filterContext">
 		<HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumLCID" />
+		<HxInputNumber Label="MaximumItemId" @bind-Value="filterContext.MaximumLCID" />
 	</FilterTemplate>
 	<CommandsTemplate>
 		<HxButton Text="New item" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="NewItemClicked" />
@@ -34,22 +38,20 @@
 	</DetailTemplate>
 </HxListLayout>
 
+<HxSwitch @bind-Value="titleFromNamedView" Text="TitleFromNamedView" />
+
 @code {
-    [Inject] protected NavigationManager NavigationManager { get; set; }
+	[Inject] protected NavigationManager NavigationManager { get; set; }
 
-    private EditableCultureInfo currentItem;
-    private FilterModelDto filterModel = new FilterModelDto();
-    private HxGrid<EditableCultureInfo> gridComponent;
-    private NamedView<FilterModelDto> selectedNamedView;
+	private EditableCultureInfo currentItem;
+	private FilterModelDto filterModel = new FilterModelDto();
+	private HxGrid<EditableCultureInfo> gridComponent;
+	private NamedView<FilterModelDto> selectedNamedView;
+	private bool titleFromNamedView = true;
 
-    private readonly IEnumerable<NamedView<FilterModelDto>> namedViews = new List<NamedView<FilterModelDto>>()
-		{
-			new NamedView<FilterModelDto>("Minimum = 1", () => new FilterModelDto { MinimumLCID = 1 } ),
-			new NamedView<FilterModelDto>("Minimum = 50", () => new FilterModelDto { MinimumLCID = 50 }),
-			new NamedView<FilterModelDto>("Minimum = 100", () => new FilterModelDto { MinimumLCID = 100 })
-		};
+	private IEnumerable<NamedView<FilterModelDto>> namedViews;
 
-    private List<EditableCultureInfo> localEditableCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).Select(c => new EditableCultureInfo()
+	private List<EditableCultureInfo> localEditableCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).Select(c => new EditableCultureInfo()
 		{
 			LCID = c.LCID,
 			DisplayName = c.DisplayName,
@@ -57,22 +59,32 @@
 			EnglishName = c.EnglishName
 		}).ToList();
 
-    private Task<GridDataProviderResult<EditableCultureInfo>> LoadDataItems(GridDataProviderRequest<EditableCultureInfo> request)
-    {
-        IEnumerable<EditableCultureInfo> result = localEditableCultureInfos.Where(i => i.LCID >= filterModel.MinimumLCID).ToList();
+	protected override void OnInitialized()
+	{
+		namedViews = new List<NamedView<FilterModelDto>>()
+		{
+			new NamedView<FilterModelDto>("Default view", () => new FilterModelDto()), // resets the filter
+			new NamedView<FilterModelDto>("Minimum = 1", () => filterModel with { MinimumLCID = 1 } ), // keep filter presets not affected by the view
+			new NamedView<FilterModelDto>("Minimum = 50", () => filterModel with { MinimumLCID = 50 }),
+			new NamedView<FilterModelDto>("Minimum = 100", () => filterModel with { MinimumLCID = 100 })
+		};
 
-        return Task.FromResult(request.ApplyTo(result));
-    }
+		selectedNamedView = namedViews.First(); // set first view selected on initial load
+	}
 
-    private async Task RefreshDataAsync()
-    {
-        await gridComponent.RefreshDataAsync();
-    }
+	private Task<GridDataProviderResult<EditableCultureInfo>> LoadDataItems(GridDataProviderRequest<EditableCultureInfo> request)
+	{
+		IEnumerable<EditableCultureInfo> result = localEditableCultureInfos
+			.WhereIf(filterModel.MinimumLCID.HasValue, i => i.LCID >= filterModel.MinimumLCID)
+			.WhereIf(filterModel.MaximumLCID.HasValue, i => i.LCID <= filterModel.MaximumLCID)
+			.ToList();
 
-	protected async Task HandleSelectedNamedViewChanged()
-    {
-        filterModel = selectedNamedView.Filter();
-        await gridComponent.RefreshDataAsync();
+		return Task.FromResult(request.ApplyTo(result));
+	}
+
+	private async Task RefreshDataAsync()
+	{
+		await gridComponent.RefreshDataAsync();
 	}
 
 	private async Task DeleteItemClicked(EditableCultureInfo editableCultureInfo)
@@ -96,7 +108,8 @@
 
 	public record FilterModelDto
 	{
-		public int MinimumLCID { get; set; }
+		public int? MinimumLCID { get; set; }
+		public int? MaximumLCID { get; set; }
 	}
 
 	private record EditableCultureInfo

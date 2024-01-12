@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Data presentation component composed of <see cref="HxGrid"/> for data, <see cref="HxOffcanvas"/> for manual filtering, and <see cref="HxNamedViewList{T}"/> for pre-defined filters.<br />
+/// Data presentation component composed of <see cref="HxGrid"/> for data, <see cref="HxOffcanvas"/> for manual filtering, and named-views for pre-defined filters.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListLayout">https://havit.blazor.eu/components/HxListLayout</see>
 /// </summary>
 /// <typeparam name="TFilterModel"></typeparam>
@@ -28,11 +28,49 @@ public partial class HxListLayout<TFilterModel>
 	/// </remarks>
 	protected virtual ListLayoutSettings GetSettings() => this.Settings;
 
+	/// <summary>
+	/// Title of the component.
+	/// If <see cref="TitleFromNamedView"/> is <c>true</c> and <see cref="SelectedNamedView"/> is not <c>null</c>, the component's title displays the name of the currently selected Named View.
+	/// </summary>
 	[Parameter] public string Title { get; set; }
 
+	/// <summary>
+	/// Title of the component (in form of RenderFragment).
+	/// If <see cref="TitleFromNamedView"/> is <c>true</c> and <see cref="SelectedNamedView"/> is not <c>null</c>, the component's title displays the name of the currently selected Named View.
+	/// </summary>
 	[Parameter] public RenderFragment TitleTemplate { get; set; }
 
-	[Parameter] public RenderFragment NamedViewsTemplate { get; set; }
+	/// <summary>
+	/// Represents the collection of Named Views available for selection. 
+	/// Each Named View defines a pre-set filter configuration that can be applied to the data.
+	/// </summary>
+	/// <remarks>
+	/// Named Views provide a convenient way for users to quickly apply commonly used filters to the data set.
+	/// Ensure that each Named View in the collection has a unique name which accurately describes its filter criteria.
+	/// </remarks>
+	[Parameter] public IEnumerable<NamedView<TFilterModel>> NamedViews { get; set; }
+
+	/// <summary>
+	/// Selected named view (highlighted in the list with <c>.active</c> CSS class).
+	/// </summary>
+	[Parameter] public NamedView<TFilterModel> SelectedNamedView { get; set; }
+	[Parameter] public EventCallback<NamedView<TFilterModel>> SelectedNamedViewChanged { get; set; }
+	/// <summary>
+	/// Triggers the <see cref="SelectedNamedViewChanged"/> event. Allows interception of the event in derived components.
+	/// </summary>
+	protected virtual Task InvokeSelectedNamedViewChangedAsync(NamedView<TFilterModel> itemSelected) => SelectedNamedViewChanged.InvokeAsync(itemSelected);
+
+	/// <summary>
+	/// Indicates whether the name of the selected Named View (<see cref="SelectedNamedView"/>) is automatically used as title.
+	/// If <c>true</c>, the component's title changes to match the name of the currently selected Named View.
+	/// Useful for dynamic title updates based on user selections from predefined views.
+	/// The default value is <c>true</c>.
+	/// </summary>
+	/// <remarks>
+	/// This update occurs upon the selection of a new Named View. It allows the Title to reflect the
+	/// current data filtering context provided by the Named Views, enhancing user understanding of the active filter.
+	/// </remarks>
+	[Parameter] public bool TitleFromNamedView { get; set; } = true;
 
 	[Parameter] public RenderFragment SearchTemplate { get; set; }
 
@@ -115,5 +153,18 @@ public partial class HxListLayout<TFilterModel>
 		FilterModel = newFilterModel;
 		await InvokeFilterModelChangedAsync(newFilterModel);
 		await filterOffcanvasComponent.HideAsync();
+	}
+
+	private async Task HandleNamedViewClickAsync(NamedView<TFilterModel> namedView)
+	{
+		SelectedNamedView = namedView;
+		await InvokeSelectedNamedViewChangedAsync(namedView);
+
+		TFilterModel newFilterModel = namedView.FilterModelFactory();
+		if (newFilterModel != null)
+		{
+			FilterModel = newFilterModel;
+			await InvokeFilterModelChangedAsync(newFilterModel);
+		}
 	}
 }

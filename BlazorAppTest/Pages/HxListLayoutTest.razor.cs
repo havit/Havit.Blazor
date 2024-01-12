@@ -9,7 +9,6 @@ public partial class HxListLayoutTest
 
 	private DataItemDto currentItem;
 	private FilterModelDto filterModel = new FilterModelDto();
-	private NamedView<FilterModelDto> selectedNamedView;
 	private HxGrid<DataItemDto> gridComponent;
 
 	private readonly IEnumerable<NamedView<FilterModelDto>> namedViews = new List<NamedView<FilterModelDto>>()
@@ -49,15 +48,8 @@ public partial class HxListLayoutTest
 		});
 	}
 
-	private async Task HandleFilterModelChanged(FilterModelDto newFilterModel)
+	private async Task RefreshDataAsync()
 	{
-		filterModel = newFilterModel;
-		await gridComponent.RefreshDataAsync();
-	}
-
-	protected async Task HandleSelectedNamedViewChanged()
-	{
-		filterModel = selectedNamedView.Filter();
 		await gridComponent.RefreshDataAsync();
 	}
 
