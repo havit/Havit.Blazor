@@ -1,6 +1,6 @@
 ﻿@inject IDemoDataService DemoDataService
 
-<HxGrid @ref="gridComponent" TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
+<HxGrid TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
 	<Columns>
 		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
 		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
@@ -10,24 +10,14 @@
 	</Columns>
 </HxGrid>
 
-<HxButton Text="Refresh data" OnClick="HandleButtonClick" Color="ThemeColor.Primary" />
-
 @code {
-	private HxGrid<EmployeeDto> gridComponent;
-
 	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
 	{
-		await Task.Delay(1000); // simulate 1s server delay in demo (do not put this in your code)
-
+		// you usually pass the data-request to your API/DataLayer
 		return new GridDataProviderResult<EmployeeDto>()
 			{
 				Data = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken),
 				TotalCount = await DemoDataService.GetEmployeesCountAsync(request.CancellationToken)
 			};
-	}
-
-	private async Task HandleButtonClick()
-	{
-		await gridComponent.RefreshDataAsync();
 	}
 }

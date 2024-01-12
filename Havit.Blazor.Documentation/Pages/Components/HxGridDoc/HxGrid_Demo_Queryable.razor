@@ -13,10 +13,9 @@
 @code {
 	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
 	{
-		await Task.Delay(100); // simulate server delay
+		var query = DemoDataService.GetEmployeesAsQueryable(); // this can be dbContext.Employees or whatever IQueryable<> you have
 
-		var query = DemoDataService.GetEmployeesAsQueryable();
-		// query = query.Where();
+		await Task.Delay(100); // simulate server delay in demo (do not put this in your code)
 
 		return new GridDataProviderResult<EmployeeDto>()
 		{
