@@ -7725,14 +7725,32 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListLayout#named-views">https://havit.blazor.eu/components/HxListLayout#named-views</see>
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.InvokeFilterModelChangedAsync(`0)">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.Items">
             <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.FilterModelChanged"/> event. Allows interception of the event in derived components.
+            The items to display.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.InvokeOnNamedViewSelectedAsync(Havit.Blazor.Components.Web.Bootstrap.NamedView{`0})">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.SelectedItem">
             <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.OnNamedViewSelected"/> event. Allows interception of the event in derived components.
+            Selected item (highlighted in the list with <c>.active</c> CSS class).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.InvokeSelectedItemChangedAsync(`0)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.SelectedItemChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.TextSelector">
+            <summary>
+            Selects the text to display from the item.
+            You must set either this parameter or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.ItemTemplate"/>.
+            There is a special case when <c>TItem</c> is <see cref="T:Havit.Blazor.Components.Web.Bootstrap.NamedView`1"/> - in that case, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.NamedView`1.Name"/> is used as the default text selector.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.ItemTemplate">
+            <summary>
+            The template that defines how items in the component are displayed (optional).
+            You must set either this parameter or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.TextSelector"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode">

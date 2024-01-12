@@ -1,15 +1,7 @@
 ﻿<HxListLayout Title="Title" @bind-FilterModel="filterModel" @bind-FilterModel:after="RefreshDataAsync">
 	<NamedViewsTemplate>
-		<HxNamedViewList TFilterModel="FilterModelDto"
-						 @bind-FilterModel="filterModel"
-						 @bind-FilterModel:after="RefreshDataAsync"
-						 NamedViews="namedViews"
-						 OnNamedViewSelected="NamedViewSelected"
-                         SelectedNamedView="selectedNamedView" />
+		<HxNamedViewList Items="namedViews" @bind-SelectedItem="selectedNamedView" @bind-SelectedItem:after="HandleSelectedNamedViewChanged" />
 	</NamedViewsTemplate>
-	<SearchTemplate>
-
-	</SearchTemplate>
 	<FilterTemplate Context="filterContext">
 		<HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumLCID" />
 	</FilterTemplate>
@@ -74,14 +66,12 @@
 
     private async Task RefreshDataAsync()
     {
-        selectedNamedView = namedViews.Where(n => n.Filter.Invoke().MinimumLCID == filterModel.MinimumLCID).FirstOrDefault();
         await gridComponent.RefreshDataAsync();
     }
 
-    protected async Task NamedViewSelected(NamedView<FilterModelDto> namedView)
+	protected async Task HandleSelectedNamedViewChanged()
     {
-        filterModel = namedView.Filter();
-        selectedNamedView = namedView;
+        filterModel = selectedNamedView.Filter();
         await gridComponent.RefreshDataAsync();
 	}
 

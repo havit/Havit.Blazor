@@ -4,35 +4,49 @@
 /// List of named-views for <see cref="HxListLayout{TFilterModel}" />.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListLayout#named-views">https://havit.blazor.eu/components/HxListLayout#named-views</see>
 /// </summary>
-
-public partial class HxNamedViewList<TFilterModel>
+public partial class HxNamedViewList<TItem>
 {
-	[Parameter] public IEnumerable<NamedView<TFilterModel>> NamedViews { get; set; }
-	[Parameter] public NamedView<TFilterModel> SelectedNamedView { get; set; }
-
-	[Parameter] public TFilterModel FilterModel { get; set; }
-
-	[Parameter] public EventCallback<TFilterModel> FilterModelChanged { get; set; }
 	/// <summary>
-	/// Triggers the <see cref="FilterModelChanged"/> event. Allows interception of the event in derived components.
+	/// The items to display.
 	/// </summary>
-	protected virtual Task InvokeFilterModelChangedAsync(TFilterModel newFilterModel) => FilterModelChanged.InvokeAsync(newFilterModel);
+	[Parameter, EditorRequired] public IEnumerable<TItem> Items { get; set; }
 
-	[Parameter] public EventCallback<NamedView<TFilterModel>> OnNamedViewSelected { get; set; }
 	/// <summary>
-	/// Triggers the <see cref="OnNamedViewSelected"/> event. Allows interception of the event in derived components.
+	/// Selected item (highlighted in the list with <c>.active</c> CSS class).
 	/// </summary>
-	protected virtual Task InvokeOnNamedViewSelectedAsync(NamedView<TFilterModel> namedViewSelected) => OnNamedViewSelected.InvokeAsync(namedViewSelected);
+	[Parameter] public TItem SelectedItem { get; set; }
+	[Parameter] public EventCallback<TItem> SelectedItemChanged { get; set; }
+	/// <summary>
+	/// Triggers the <see cref="SelectedItemChanged"/> event. Allows interception of the event in derived components.
+	/// </summary>
+	protected virtual Task InvokeSelectedItemChangedAsync(TItem itemSelected) => SelectedItemChanged.InvokeAsync(itemSelected);
 
-	protected async Task HandleNamedViewClick(NamedView<TFilterModel> namedView)
+	/// <summary>
+	/// Selects the text to display from the item.
+	/// You must set either this parameter or <see cref="ItemTemplate"/>.
+	/// There is a special case when <c>TItem</c> is <see cref="NamedView{TFilterModel}"/> - in that case, the <see cref="NamedView{TFilterModel}.Name"/> is used as the default text selector.
+	/// </summary>
+	[Parameter] public Func<TItem, string> TextSelector { get; set; }
+
+	/// <summary>
+	/// The template that defines how items in the component are displayed (optional).
+	/// You must set either this parameter or <see cref="TextSelector"/>.
+	/// </summary>
+	[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
+
+	protected override void OnParametersSet()
 	{
-		TFilterModel newFilter = namedView.Filter();
-		if (newFilter != null)
+		if ((TextSelector == null) && (ItemTemplate == null))
 		{
-			FilterModel = newFilter; // BEWARE, the filter has to be cloned
-			await InvokeFilterModelChangedAsync(newFilter);
+			// special case for NamedView<TFilterModel>
+			if (typeof(TItem).IsGenericType && (typeof(TItem).GetGenericTypeDefinition() == typeof(NamedView<>)))
+			{
+				TextSelector = item => (string)typeof(TItem).GetProperty(nameof(NamedView<object>.Name)).GetValue(item);
+			}
+			else
+			{
+				throw new InvalidOperationException($"Either {nameof(TextSelector)} or {nameof(ItemTemplate)} must be set.");
+			}
 		}
-
-		await InvokeOnNamedViewSelectedAsync(namedView);
 	}
 }

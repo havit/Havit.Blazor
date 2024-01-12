@@ -9,13 +9,14 @@ public partial class HxListLayoutTest
 
 	private DataItemDto currentItem;
 	private FilterModelDto filterModel = new FilterModelDto();
+	private NamedView<FilterModelDto> selectedNamedView;
 	private HxGrid<DataItemDto> gridComponent;
 
 	private readonly IEnumerable<NamedView<FilterModelDto>> namedViews = new List<NamedView<FilterModelDto>>()
 	{
-		new NamedView<FilterModelDto>("Minimum = 1", () => new FilterModelDto { MinimumItemId = 1 }),
-		new NamedView<FilterModelDto>("Minimum = 2", () => new FilterModelDto { MinimumItemId = 2 }),
-		new NamedView<FilterModelDto>("Minimum = 3", () => new FilterModelDto { MinimumItemId = 3 })
+		new NamedView<FilterModelDto>("Minimum ID = 1", () => new FilterModelDto { MinimumItemId = 1 }),
+		new NamedView<FilterModelDto>("Minimum ID = 2", () => new FilterModelDto { MinimumItemId = 2 }),
+		new NamedView<FilterModelDto>("Minimum ID = 3", () => new FilterModelDto { MinimumItemId = 3 })
 	};
 
 	private Task<GridDataProviderResult<DataItemDto>> LoadDataItems(GridDataProviderRequest<DataItemDto> request)
@@ -54,9 +55,9 @@ public partial class HxListLayoutTest
 		await gridComponent.RefreshDataAsync();
 	}
 
-	protected async Task NamedViewSelected(NamedView<FilterModelDto> namedView)
+	protected async Task HandleSelectedNamedViewChanged()
 	{
-		filterModel = namedView.Filter();
+		filterModel = selectedNamedView.Filter();
 		await gridComponent.RefreshDataAsync();
 	}
 
