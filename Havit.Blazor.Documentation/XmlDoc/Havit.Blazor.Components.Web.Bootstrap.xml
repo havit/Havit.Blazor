@@ -6864,7 +6864,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1">
             <summary>
-            Data presentation component composed of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/> for data, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> for manual filtering, and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1"/> for pre-defined filters.<br />
+            Data presentation component composed of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/> for data, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> for manual filtering, and named-views for pre-defined filters.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListLayout">https://havit.blazor.eu/components/HxListLayout</see>
             </summary>
             <typeparam name="TFilterModel"></typeparam>
@@ -6886,6 +6886,50 @@
             </summary>
             <remarks>
             Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.Title">
+            <summary>
+            Title of the component.
+            If <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.TitleFromNamedView"/> is <c>true</c> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.SelectedNamedView"/> is not <c>null</c>, the component's title displays the name of the currently selected Named View.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.TitleTemplate">
+            <summary>
+            Title of the component (in form of RenderFragment).
+            If <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.TitleFromNamedView"/> is <c>true</c> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.SelectedNamedView"/> is not <c>null</c>, the component's title displays the name of the currently selected Named View.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.NamedViews">
+            <summary>
+            Represents the collection of Named Views available for selection. 
+            Each Named View defines a pre-set filter configuration that can be applied to the data.
+            </summary>
+            <remarks>
+            Named Views provide a convenient way for users to quickly apply commonly used filters to the data set.
+            Ensure that each Named View in the collection has a unique name which accurately describes its filter criteria.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.SelectedNamedView">
+            <summary>
+            Selected named view (highlighted in the list with <c>.active</c> CSS class).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.InvokeSelectedNamedViewChangedAsync(Havit.Blazor.Components.Web.Bootstrap.NamedView{`0})">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.SelectedNamedViewChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.TitleFromNamedView">
+            <summary>
+            Indicates whether the name of the selected Named View (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.SelectedNamedView"/>) is automatically used as title.
+            If <c>true</c>, the component's title changes to match the name of the currently selected Named View.
+            Useful for dynamic title updates based on user selections from predefined views.
+            The default value is <c>true</c>.
+            </summary>
+            <remarks>
+            This update occurs upon the selection of a new Named View. It allows the Title to reflect the
+            current data filtering context provided by the Named Views, enhancing user understanding of the active filter.
             </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.InvokeFilterModelChangedAsync(`0)">
@@ -7719,21 +7763,27 @@
             Extra large. Modal max-width: 1140px.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.NamedView`1">
             <summary>
-            List of named views for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1" />.<br />
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNamedViewList">https://havit.blazor.eu/components/HxNamedViewList</see>
+            Represents a named view for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1" />.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.InvokeFilterModelChangedAsync(`0)">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.NamedView`1.Name">
             <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.FilterModelChanged"/> event. Allows interception of the event in derived components.
+            Name of the view. Used as a label in the list. Can be used as a title for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1" />.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.InvokeOnNamedViewSelectedAsync(Havit.Blazor.Components.Web.Bootstrap.NamedView{`0})">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.NamedView`1.FilterModelFactory">
             <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNamedViewList`1.OnNamedViewSelected"/> event. Allows interception of the event in derived components.
+            Creates new filter model for the view.
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.NamedView`1.#ctor(System.String,System.Func{`0})">
+            <summary>
+            Creates a new instance of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.NamedView`1" /> which uses a factory to build a filter model.
+            </summary>
+            <param name="name">Name of the view.</param>
+            <param name="filterModelFactory">Function which builds a new filter model to be applied when the view is selected.</param>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode">
             <summary>
