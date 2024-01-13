@@ -1,29 +1,35 @@
-﻿<HxGrid TItem="CultureInfo" Responsive="true" DataProvider="ClientSideProcessingDataProvider" PageSize="10" @ref="grid">
-    <Columns>
-        <HxGridColumn HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
-        <HxGridColumn HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
-        <HxGridColumn HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" />
-        <HxGridColumn HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)" />
-        <HxContextMenuGridColumn Context="item">
-            <HxContextMenu>
-                <HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" OnClick="() => DeleteItem(item)" />
-            </HxContextMenu>
-        </HxContextMenuGridColumn>
-    </Columns>
+﻿@inject IDemoDataService DemoDataService
+
+<HxGrid @ref="gridComponent" TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+		<HxContextMenuGridColumn Context="item">
+			<HxContextMenu>
+				<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" OnClick="async () => await HandleDeleteClick(item)" />
+			</HxContextMenu>
+		</HxContextMenuGridColumn>
+	</Columns>
 </HxGrid>
 
 @code {
-    private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
-    private HxGrid<CultureInfo> grid;
+	private HxGrid<EmployeeDto> gridComponent;
 
-    private Task<GridDataProviderResult<CultureInfo>> ClientSideProcessingDataProvider(GridDataProviderRequest<CultureInfo> request)
-    {
-        return Task.FromResult(request.ApplyTo(localCultureInfos));
-    }
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken),
+				TotalCount = await DemoDataService.GetEmployeesCountAsync(request.CancellationToken)
+			};
+	}
 
-    private async Task DeleteItem(CultureInfo item)
-    {
-        localCultureInfos.Remove(item);
-        await grid.RefreshDataAsync();
-    }
+	private async Task HandleDeleteClick(EmployeeDto employeeToDelete)
+	{
+		await DemoDataService.DeleteEmployeeAsync(employeeToDelete.Id);
+		await gridComponent.RefreshDataAsync();
+	}
 }

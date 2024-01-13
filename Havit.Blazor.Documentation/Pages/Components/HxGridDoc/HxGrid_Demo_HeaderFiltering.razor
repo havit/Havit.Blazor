@@ -1,43 +1,48 @@
-﻿@using System.Globalization;
+﻿@inject IDemoDataService DemoDataService
 
-<HxGrid @ref="grid" TItem="CultureInfo" Responsive="true" DataProvider="GetGridData" PageSize="10">
+<HxGrid @ref="grid" TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
 	<Columns>
-		<HxGridColumn HeaderText="LCID" ItemTextSelector="item => item.LCID.ToString()">
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name">
 			<HeaderTemplate>
-				<HxInputText @bind-Value="lcidSearchString" BindEvent="BindEvent.OnInput" @bind-Value:after="grid.RefreshDataAsync" Placeholder="Type to search LCID" InputSize="InputSize.Small" />
+				<HxInputText @bind-Value="filterModel.Name" BindEvent="BindEvent.OnInput" @bind-Value:after="grid.RefreshDataAsync" Placeholder="Type to search Name" InputSize="InputSize.Small" />
 			</HeaderTemplate>
 		</HxGridColumn>
-		<HxGridColumn HeaderText="DisplayName" ItemTextSelector="item => item.DisplayName">
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone">
 			<HeaderTemplate>
-				<HxInputText @bind-Value="displayNameSearchString" BindEvent="BindEvent.OnInput" @bind-Value:after="grid.RefreshDataAsync" Placeholder="Type to search DisplayName" InputSize="InputSize.Small" />
+				<HxInputText @bind-Value="filterModel.Phone" BindEvent="BindEvent.OnInput" @bind-Value:after="grid.RefreshDataAsync" Placeholder="Type to search Phone" InputSize="InputSize.Small" />
 			</HeaderTemplate>
 		</HxGridColumn>
-		<HxGridColumn HeaderText="Name" ItemTextSelector="item => item.Name">
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))">
 			<HeaderTemplate>
-				<HxInputText @bind-Value="nameSearchString" BindEvent="BindEvent.OnInput" @bind-Value:after="grid.RefreshDataAsync" Placeholder="Type to search Name" InputSize="InputSize.Small" />
+				<div class="d-flex gap-1">
+					<HxInputNumber @bind-Value="filterModel.SalaryMin" @bind-Value:after="grid.RefreshDataAsync" Placeholder="from" InputSize="InputSize.Small" />
+					<HxInputNumber @bind-Value="filterModel.SalaryMax" @bind-Value:after="grid.RefreshDataAsync" Placeholder="to" InputSize="InputSize.Small" />
+				</div>
 			</HeaderTemplate>
 		</HxGridColumn>
-		<HxGridColumn HeaderText="EnglishName" ItemTextSelector="item => item.EnglishName">
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position">
 			<HeaderTemplate>
-				<HxInputText @bind-Value="englishNameSearchString" BindEvent="BindEvent.OnInput" @bind-Value:after="grid.RefreshDataAsync" Placeholder="Type to search EnglishName" InputSize="InputSize.Small" />
+				<HxInputText @bind-Value="filterModel.Position" BindEvent="BindEvent.OnInput" @bind-Value:after="grid.RefreshDataAsync" Placeholder="Type to search Position" InputSize="InputSize.Small" />
+			</HeaderTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location">
+			<HeaderTemplate>
+				<HxInputText @bind-Value="filterModel.Location" BindEvent="BindEvent.OnInput" @bind-Value:after="grid.RefreshDataAsync" Placeholder="Type to search Location" InputSize="InputSize.Small" />
 			</HeaderTemplate>
 		</HxGridColumn>
 	</Columns>
 </HxGrid>
 
 @code {
-	private HxGrid<CultureInfo> grid;
-	private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
-	private string lcidSearchString = string.Empty, displayNameSearchString = string.Empty, nameSearchString = string.Empty, englishNameSearchString = string.Empty;
+	private HxGrid<EmployeeDto> grid;
+	private EmployeesFilterDto filterModel = new();
 
-	private Task<GridDataProviderResult<CultureInfo>> GetGridData(GridDataProviderRequest<CultureInfo> request)
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
 	{
-		var filteredCultureInfos = localCultureInfos?
-			.Where(i => i.LCID.ToString().Contains(lcidSearchString))
-			.Where(i => i.DisplayName?.Contains(displayNameSearchString) ?? true)
-			.Where(i => i.Name?.Contains(nameSearchString) ?? true)
-			.Where(i => i.EnglishName?.Contains(englishNameSearchString) ?? true) ?? new List<CultureInfo>();
-
-		return Task.FromResult(request.ApplyTo(filteredCultureInfos));
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = await DemoDataService.GetEmployeesDataFragmentAsync(filterModel, request.StartIndex, request.Count, request.CancellationToken),
+				TotalCount = await DemoDataService.GetEmployeesCountAsync(filterModel, request.CancellationToken)
+			};
 	}
 }

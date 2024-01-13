@@ -1,4 +1,7 @@
-﻿namespace Havit.Blazor.Documentation.DemoData;
+﻿using Havit.Diagnostics.Contracts;
+using Havit.Linq;
+
+namespace Havit.Blazor.Documentation.DemoData;
 
 public class DemoDataService : IDemoDataService
 {
@@ -563,12 +566,42 @@ public class DemoDataService : IDemoDataService
 		return employees.Skip(startIndex).Take(count ?? Int32.MaxValue).ToList();
 	}
 
+
+	public async Task<IEnumerable<EmployeeDto>> GetEmployeesDataFragmentAsync(EmployeesFilterDto filter, int startIndex, int? count, CancellationToken cancellationToken = default)
+	{
+		logger.LogInformation($"DemoDataService.GetEmployeesDataFragmentAsync(startIndex: {startIndex}, count: {count}) called.");
+
+		await Task.Delay(80, cancellationToken); // simulate server call
+
+		return GetFilteredEmployees(filter).Skip(startIndex).Take(count ?? Int32.MaxValue).ToList();
+	}
+
+	private IEnumerable<EmployeeDto> GetFilteredEmployees(EmployeesFilterDto filter)
+	{
+		return employees
+			.WhereIf(!String.IsNullOrWhiteSpace(filter.Name), e => e.Name.Contains(filter.Name, StringComparison.CurrentCultureIgnoreCase))
+			.WhereIf(!String.IsNullOrWhiteSpace(filter.Phone), e => e.Phone.Contains(filter.Phone, StringComparison.CurrentCultureIgnoreCase))
+			.WhereIf(filter.SalaryMin.HasValue, e => e.Salary >= filter.SalaryMin)
+			.WhereIf(filter.SalaryMax.HasValue, e => e.Salary <= filter.SalaryMax)
+			.WhereIf(!String.IsNullOrWhiteSpace(filter.Position), e => e.Position.Contains(filter.Position, StringComparison.CurrentCultureIgnoreCase))
+			.WhereIf(!String.IsNullOrWhiteSpace(filter.Location), e => e.Location.Contains(filter.Location, StringComparison.CurrentCultureIgnoreCase));
+	}
+
 	public async Task<int> GetEmployeesCountAsync(CancellationToken cancellationToken = default)
 	{
 		logger.LogInformation("DemoDataService.GetEmployeesCountAsync(..) called.");
 
 		await Task.Delay(80, cancellationToken); // simulate server call
 		return employees.Count;
+	}
+
+	public async Task<int> GetEmployeesCountAsync(EmployeesFilterDto filter, CancellationToken cancellationToken = default)
+	{
+		logger.LogInformation("DemoDataService.GetEmployeesCountAsync(..) called.");
+
+		await Task.Delay(80, cancellationToken); // simulate server call
+
+		return GetFilteredEmployees(filter).Count();
 	}
 
 	public async Task<List<EmployeeDto>> FindEmployeesByNameAsync(string query, int? limitCount = null, CancellationToken cancellationToken = default)
@@ -600,5 +633,32 @@ public class DemoDataService : IDemoDataService
 		await Task.Delay(80, cancellationToken); // simulate server call
 
 		return employees.OrderByDescending(e => e.Id).Take(count).ToList();
+	}
+
+	public async Task DeleteEmployeeAsync(int employeeId, CancellationToken cancellationToken = default)
+	{
+		logger.LogInformation($"DemoDataService.DeleteEmployeeAsync(\"{employeeId}\") called.");
+
+		await Task.Delay(80, cancellationToken); // simulate server call
+
+		employees.RemoveAll(e => e.Id == employeeId);
+	}
+
+	public async Task UpdateEmployeeAsync(EmployeeDto employee, CancellationToken cancellationToken = default)
+	{
+		logger.LogInformation($"DemoDataService.UpdateEmployee(\"{employee.Id}\") called.");
+
+		// simulate server call
+		await Task.Delay(120, cancellationToken);
+
+		var existingEmployee = employees.FirstOrDefault(e => e.Id == employee.Id);
+		Contract.Requires<InvalidOperationException>(existingEmployee != null, $"Employee with ID {employee.Id} not found.");
+
+		existingEmployee.Name = employee.Name;
+		existingEmployee.Email = employee.Email;
+		existingEmployee.Phone = employee.Phone;
+		existingEmployee.Salary = employee.Salary;
+		existingEmployee.Position = employee.Position;
+		existingEmployee.Location = employee.Location;
 	}
 }
