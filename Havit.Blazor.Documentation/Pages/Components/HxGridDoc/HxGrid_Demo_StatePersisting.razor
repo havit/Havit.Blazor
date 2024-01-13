@@ -20,7 +20,6 @@
 @code {
 	private GridUserState gridUserState = new();
 	private string serializedGridUserState; // replace this field with your own storage (e.g. local storage or database)
-	private bool serializedGridUserStateValid = true;
 
 	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
 	{
