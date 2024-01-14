@@ -1,34 +1,19 @@
-﻿<EditForm Model="model">
-    <HxRadioButtonList TItem="Person"
-                       TValue="string"
-                       Data="@people"
-                       @bind-Value="@model.SelectedPersonInitials"
-                       ItemTextSelector="@(p => p.Name)"
-                       ItemValueSelector="@(p => p.Initials)"
-                       Inline="true" />
-</EditForm>
+﻿@inject IDemoDataService DemoDataService
 
-<p>Selected initials: @model.SelectedPersonInitials</p>
+<HxRadioButtonList TItem="EmployeeDto"
+				   TValue="int?"
+				   Data="@data"
+				   @bind-Value="@selectedEmployeeId"
+				   ItemTextSelector="@(employee => employee.Name)"
+				   ItemValueSelector="@(employee => employee.Id)"
+				   Inline="true" />
 
 @code {
-    private FormModel model = new FormModel();
+	private IEnumerable<EmployeeDto> data;
+	private int? selectedEmployeeId;
 
-    private List<Person> people = new List<Person>
-    {
-        new Person { Name = "Starr Ringo", Initials = "RS" },
-        new Person { Name = "Lennon John", Initials = "JL" },
-        new Person { Name = "McCartney Paul", Initials = "PMC" },
-        new Person { Name = "Harrison George", Initials = "GH" }
-    };
-
-    public class FormModel
-    {
-        public string SelectedPersonInitials { get; set; }
-    }
-
-    public class Person
-    {
-        public string Name { get; set; }
-        public string Initials { get; set; }
-    }
+	protected override async Task OnInitializedAsync()
+	{
+		data = await DemoDataService.GetPreferredEmployeesAsync(count: 5);
+	}
 }
