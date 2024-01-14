@@ -3,10 +3,14 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Data presentation component composed of <see cref="HxGrid"/> for data, <see cref="HxOffcanvas"/> for manual filtering, and named-views for pre-defined filters.<br />
+/// Provides a unified layout for data presentation components and associated filtering controls.<br/>
+/// This component orchestrates the interaction between filter controls and the data presentation component.
+/// The data list is typically implemented using a <see cref="HxGrid{TItem}"/> component. Filters are displayed
+/// in a <see cref="HxOffcanvas"/> component, while filter values are shown as <see cref="HxChipList"/>.
+/// Additionally, it supports predefined named views for quick switching between different filter configurations
+/// and other features such as a title, search box, and commands.
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListLayout">https://havit.blazor.eu/components/HxListLayout</see>
 /// </summary>
-/// <typeparam name="TFilterModel"></typeparam>
 public partial class HxListLayout<TFilterModel>
 {
 	/// <summary>

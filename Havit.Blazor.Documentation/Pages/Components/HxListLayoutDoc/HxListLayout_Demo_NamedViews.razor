@@ -1,122 +1,61 @@
-﻿@using Havit.Linq
-<HxListLayout Title="Title"
+﻿@inject IDemoDataService DemoDataService
+
+<HxListLayout Title="Employees"
+			  TFilterModel="EmployeesFilterDto"
 			  @bind-FilterModel="filterModel"
-			  @bind-FilterModel:after="RefreshDataAsync"
+			  @bind-FilterModel:after="gridComponent.RefreshDataAsync"
 			  NamedViews="namedViews"
 			  @bind-SelectedNamedView="selectedNamedView"
 			  TitleFromNamedView="titleFromNamedView">
 	<FilterTemplate Context="filterContext">
-		<HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumLCID" />
-		<HxInputNumber Label="MaximumItemId" @bind-Value="filterContext.MaximumLCID" />
+		<HxInputText Label="Name" @bind-Value="filterContext.Name" />
+		<HxInputText Label="Phone" @bind-Value="filterContext.Phone" />
+		<HxInputNumber Label="Minimum salary" @bind-Value="filterContext.SalaryMin" Decimals="0" InputGroupStartText="$" />
+		<HxInputNumber Label="Maximum salary" @bind-Value="filterContext.SalaryMax" Decimals="0" InputGroupStartText="$" />
+		<HxInputText Label="Position" @bind-Value="filterContext.Position" />
+		<HxInputText Label="Location" @bind-Value="filterContext.Location" />
 	</FilterTemplate>
-	<CommandsTemplate>
-		<HxButton Text="New item" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="NewItemClicked" />
-	</CommandsTemplate>
 	<DataTemplate>
-		<HxGrid @ref="gridComponent"
-				ContentNavigationMode="GridContentNavigationMode.Pagination"
-				Responsive="true"
-				PageSize="10"
-				DataProvider="LoadDataItems"
-				@bind-SelectedDataItem="currentItem"
-				@bind-SelectedDataItem:after="HandleSelectedDataItemChanged">
+		<HxGrid @ref="gridComponent" TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
 			<Columns>
-				<HxGridColumn HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
-				<HxGridColumn HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
-				<HxGridColumn HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" />
-				<HxGridColumn HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)" />
-				<HxContextMenuGridColumn Context="item">
-					<HxContextMenu>
-						<HxContextMenuItem Text="Delete" OnClick="async () => await DeleteItemClicked(item)" ConfirmationQuestion="@($"Are you sure you want to delete {item.Name}?")" />
-					</HxContextMenu>
-				</HxContextMenuGridColumn>
+				<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+				<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+				<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+				<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+				<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
 			</Columns>
 		</HxGrid>
 	</DataTemplate>
-	<DetailTemplate>
-		Edit: @currentItem?.LCID
-	</DetailTemplate>
 </HxListLayout>
 
-<HxSwitch @bind-Value="titleFromNamedView" Text="TitleFromNamedView" />
+<HxSwitch @bind-Value="titleFromNamedView" Text="HxListLayout.TitleFromNamedView" />
 
 @code {
-	[Inject] protected NavigationManager NavigationManager { get; set; }
+	private EmployeesFilterDto filterModel = new();
+	private HxGrid<EmployeeDto> gridComponent;
 
-	private EditableCultureInfo currentItem;
-	private FilterModelDto filterModel = new FilterModelDto();
-	private HxGrid<EditableCultureInfo> gridComponent;
-	private NamedView<FilterModelDto> selectedNamedView;
+	private IEnumerable<NamedView<EmployeesFilterDto>> namedViews;
+	private NamedView<EmployeesFilterDto> selectedNamedView;
 	private bool titleFromNamedView = true;
-
-	private IEnumerable<NamedView<FilterModelDto>> namedViews;
-
-	private List<EditableCultureInfo> localEditableCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).Select(c => new EditableCultureInfo()
-		{
-			LCID = c.LCID,
-			DisplayName = c.DisplayName,
-			Name = c.Name,
-			EnglishName = c.EnglishName
-		}).ToList();
 
 	protected override void OnInitialized()
 	{
-		namedViews = new List<NamedView<FilterModelDto>>()
+		namedViews = new List<NamedView<EmployeesFilterDto>>()
 		{
-			new NamedView<FilterModelDto>("Default view", () => new FilterModelDto()), // resets the filter
-			new NamedView<FilterModelDto>("Minimum = 1", () => filterModel with { MinimumLCID = 1 } ), // keep filter presets not affected by the view
-			new NamedView<FilterModelDto>("Minimum = 50", () => filterModel with { MinimumLCID = 50 }),
-			new NamedView<FilterModelDto>("Minimum = 100", () => filterModel with { MinimumLCID = 100 })
+			new NamedView<EmployeesFilterDto>("All employees", () => new EmployeesFilterDto()), // resets the filter
+			new NamedView<EmployeesFilterDto>("Prague employees", () => filterModel with { Location = "Prague" } ), // keep filter presets not affected by the view
+			new NamedView<EmployeesFilterDto>("High salary employees", () => filterModel with { SalaryMin = 20000 }),
 		};
 
 		selectedNamedView = namedViews.First(); // set first view selected on initial load
 	}
 
-	private Task<GridDataProviderResult<EditableCultureInfo>> LoadDataItems(GridDataProviderRequest<EditableCultureInfo> request)
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
 	{
-		IEnumerable<EditableCultureInfo> result = localEditableCultureInfos
-			.WhereIf(filterModel.MinimumLCID.HasValue, i => i.LCID >= filterModel.MinimumLCID)
-			.WhereIf(filterModel.MaximumLCID.HasValue, i => i.LCID <= filterModel.MaximumLCID)
-			.ToList();
-
-		return Task.FromResult(request.ApplyTo(result));
-	}
-
-	private async Task RefreshDataAsync()
-	{
-		await gridComponent.RefreshDataAsync();
-	}
-
-	private async Task DeleteItemClicked(EditableCultureInfo editableCultureInfo)
-	{
-		localEditableCultureInfos.Remove(editableCultureInfo);
-		await gridComponent.RefreshDataAsync();
-	}
-
-	private Task HandleSelectedDataItemChanged()
-	{
-		// await dataItemEditComponent.ShowAsync();
-		return Task.CompletedTask;
-	}
-
-	private Task NewItemClicked()
-	{
-		currentItem = new();
-		// await dataItemEditComponent.ShowAsync();
-		return Task.CompletedTask;
-	}
-
-	public record FilterModelDto
-	{
-		public int? MinimumLCID { get; set; }
-		public int? MaximumLCID { get; set; }
-	}
-
-	private record EditableCultureInfo
-	{
-		public int LCID { get; set; }
-		public string DisplayName { get; set; }
-		public string Name { get; set; }
-		public string EnglishName { get; set; }
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = await DemoDataService.GetEmployeesDataFragmentAsync(filterModel, request.StartIndex, request.Count, request.CancellationToken),
+				TotalCount = await DemoDataService.GetEmployeesCountAsync(filterModel, request.CancellationToken)
+			};
 	}
 }

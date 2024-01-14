@@ -6864,10 +6864,14 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1">
             <summary>
-            Data presentation component composed of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/> for data, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> for manual filtering, and named-views for pre-defined filters.<br />
+            Provides a unified layout for data presentation components and associated filtering controls.<br/>
+            This component orchestrates the interaction between filter controls and the data presentation component.
+            The data list is typically implemented using a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/> component. Filters are displayed
+            in a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> component, while filter values are shown as <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxChipList"/>.
+            Additionally, it supports predefined named views for quick switching between different filter configurations
+            and other features such as a title, search box, and commands.
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListLayout">https://havit.blazor.eu/components/HxListLayout</see>
             </summary>
-            <typeparam name="TFilterModel"></typeparam>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.GetDefaults">
             <summary>

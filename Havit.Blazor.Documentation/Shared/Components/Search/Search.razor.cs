@@ -84,7 +84,6 @@ public partial class Search
 		new("/components/HxMessenger", "HxMessenger", "popup warning alert toaster"),
 		new("/components/HxModal", "HxModal", "popup fullscreen dialog messagebox"),
 		new("/components/HxMultiSelect", "HxMultiSelect", "dropdownlist picker checkbox multiple"),
-		new("/components/HxNamedViewList", "HxNamedViewList", "HxListLayout"),
 		new("/components/HxNav", "HxNav", "navigation"),
 		new("/components/HxNavLink#HxNavLink", "HxNavLink", "href redirect navigation"),
 		new("/components/HxNavbar", "HxNavbar", "navigation header"),

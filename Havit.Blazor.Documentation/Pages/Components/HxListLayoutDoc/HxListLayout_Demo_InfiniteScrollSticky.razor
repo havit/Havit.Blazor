@@ -1,13 +1,20 @@
-﻿@inject IDemoDataService DemoDataService
+@inject IDemoDataService DemoDataService
 
-<HxListLayout TFilterModel="HxListLayout.NoFilter">
-	<TitleTemplate>
-		Employees <HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark" CssClass="ms-1 fs-6">NEW</HxBadge>
-	</TitleTemplate>
+<style>
+	.scrollable-table-container {
+		height: 300px;
+		overflow: auto;
+	}
+</style>
+
+<HxListLayout Title="Employees" TFilterModel="HxListLayout.NoFilter">
 	<DataTemplate>
 		<HxGrid TItem="EmployeeDto"
 				DataProvider="GetGridData"
-				PageSize="5"
+				SelectionEnabled="false"
+				ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
+				TableContainerCssClass="scrollable-table-container"
+				HeaderRowCssClass="sticky-top"
 				Responsive="true">
 			<Columns>
 				<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
@@ -26,7 +33,7 @@
 		return new GridDataProviderResult<EmployeeDto>()
 			{
 				Data = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken),
-				TotalCount = await DemoDataService.GetEmployeesCountAsync()
+				TotalCount = await DemoDataService.GetEmployeesCountAsync(request.CancellationToken)
 			};
 	}
 }
