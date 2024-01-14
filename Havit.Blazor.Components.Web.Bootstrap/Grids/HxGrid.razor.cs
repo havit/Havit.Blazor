@@ -689,12 +689,12 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 				if ((request.Count != null) && (result.TotalCount == null))
 				{
-					throw new InvalidOperationException($"{nameof(DataProvider)} did not set ${nameof(GridDataProviderResult<TItem>.TotalCount)}.");
+					throw new InvalidOperationException($"{nameof(DataProvider)} did not set {nameof(GridDataProviderResult<TItem>.TotalCount)}.");
 				}
 
 				if (result.TotalCount != null && (dataCount > result.TotalCount.Value))
 				{
-					throw new InvalidOperationException($"{nameof(DataProvider)} set ${nameof(GridDataProviderResult<TItem>.TotalCount)} property byt the value is smaller than the number of data items.");
+					throw new InvalidOperationException($"Invalid {nameof(DataProvider)} response. {nameof(GridDataProviderResult<TItem>.TotalCount)} value smaller than the number of returned data items.");
 				}
 			}
 			#endregion
