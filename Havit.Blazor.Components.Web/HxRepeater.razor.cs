@@ -17,7 +17,7 @@ public partial class HxRepeater<TItem> : ComponentBase
 	/// <summary>
 	/// The template that defines how items in the Repeater component are displayed.
 	/// </summary>
-	[Parameter] public RenderFragment<TItem> ItemTemplate { get; set; }
+	[Parameter, EditorRequired] public RenderFragment<TItem> ItemTemplate { get; set; }
 
 	/// <summary>
 	/// The template that defines how the footer section of the Repeater component is displayed.
