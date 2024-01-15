@@ -21,8 +21,6 @@
 		<PackageReference Include="Havit.Core" Version="2.0.29" />
 		<PackageReference Include="protobuf-net" Version="3.2.30" />
 		<PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.1.1" />
-		<!-- Workaround for vulnerability in System.Text.Encodings.Web 4.5.0 -->
-		<PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
