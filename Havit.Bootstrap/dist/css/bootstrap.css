@@ -2078,12 +2078,12 @@ progress {
     -webkit-overflow-scrolling: touch;
   }
 }
-.table:has(.sticky-top) tr {
+.table:has(.sticky-top) tr.blurred {
   background-color: var(--bs-body-bg-rgb, 0.5);
   -webkit-backdrop-filter: saturate(120%) blur(50px);
   backdrop-filter: saturate(120%) blur(50px);
 }
-.table:has(.sticky-top) th {
+.table:has(.sticky-top) tr.blurred th {
   background-color: transparent;
 }
 
