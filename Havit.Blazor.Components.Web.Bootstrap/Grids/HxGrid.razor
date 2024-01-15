@@ -22,11 +22,11 @@
 @{
 	List<IHxGridColumn<TItem>> columnsToRender = GetColumnsToRender();
 
-	bool shouldRenderLoadingData = totalCount == null;
+	bool shouldRenderLoadingData = (totalCount == null);
 	bool shouldRenderLoadingDataWithLoadingTemplate = shouldRenderLoadingData && (LoadingDataTemplate != null);
-	bool shouldRenderLoadingDataWithPlaceholders = shouldRenderLoadingData && !shouldRenderLoadingDataWithLoadingTemplate && (PlaceholdersRowCountEffective > 0);
+	bool shouldRenderLoadingDataWithPlaceholders = shouldRenderLoadingData && (LoadingDataTemplate is null) && (PlaceholdersRowCountEffective > 0);
 
-	bool shouldRenderEmptyData = totalCount == 0;
+	bool shouldRenderEmptyData = (totalCount == 0);
 	bool shouldRenderData;
 	bool shouldRenderFooter = (totalCount > 0) || ((totalCount == 0) && this.ShowFooterWhenEmptyDataEffective);
 	var rowHeightValue = ItemRowHeightEffective;
@@ -55,7 +55,12 @@
 
 @if (columnsToRender.Any() && (shouldRenderLoadingData || shouldRenderEmptyData || shouldRenderData))
 {
-	<HxProgressIndicator InProgress="@(InProgress ?? (dataProviderInProgress /* indicates data loading */ && !shouldRenderLoadingDataWithPlaceholders /* but not when placeholders are used - in such case we are indicating data loading using the placeholders */))">
+	bool progressIndicatorInProgress =
+						(InProgress ?? dataProviderInProgress)
+						&& (ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll)
+						&& !shouldRenderLoadingDataWithPlaceholders;
+
+	<HxProgressIndicator InProgress="progressIndicatorInProgress">
 
 		<div class="@CssClassHelper.Combine("hx-grid-container",ResponsiveEffective ? "table-responsive" : null, TableContainerCssClassEffective)">
 			<table class="@GetTableElementCssClass(totalCount > 0)">
