@@ -155,19 +155,15 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	{
 		return (RenderTreeBuilder builder) =>
 		{
-			builder.OpenComponent<HxPlaceholderContainer>(100);
-			builder.AddAttribute(101, nameof(HxPlaceholderContainer.Animation), PlaceholderAnimation.Glow);
-			builder.AddAttribute(102, nameof(HxPlaceholderContainer.ChildContent), (RenderFragment)((RenderTreeBuilder builder2) =>
-			{
-				builder2.OpenComponent<HxPlaceholder>(200);
-				builder2.AddAttribute(201, nameof(HxPlaceholder.Columns), placeholderColumns[context.Index % placeholderColumns.Length]);
-				builder2.CloseComponent(); // HxPlaceholder
-			}));
-
-			builder.CloseComponent(); // HxPlaceholderContainer
+			builder.OpenElement(100, "div");
+			builder.AddAttribute(101, "class", "placeholder-glow");
+			builder.OpenElement(200, "div");
+			builder.AddAttribute(201, "class", "placeholder col-" + placeholderColumns[context.Index % placeholderColumns.Length]);
+			builder.CloseElement();
+			builder.CloseElement();
 		};
 	}
-	private readonly string[] placeholderColumns = new[] { "6", "9", "4", "10", "5", "2", "7" };
+	private readonly string[] placeholderColumns = ["6", "9", "4", "10", "5", "2", "7"];
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context) => GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate?.Invoke(context)), FooterCssClass);
