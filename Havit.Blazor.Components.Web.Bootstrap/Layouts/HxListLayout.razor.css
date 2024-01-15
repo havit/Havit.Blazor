@@ -7,18 +7,16 @@
 	border-spacing: 0;
 }
 
+.hx-list-layout:has(.sticky-top) .dropdown-menu {
+	z-index: 1030;
+}
+
 .hx-list-layout:has(.hx-grid-infinite-scroll) ::deep .card {
 	overflow: hidden;
 }
 
 .hx-list-layout-header ::deep button {
     white-space: nowrap;
-}
-
-.hx-list-layout-header-dropdown {
-    display: flex;
-    align-items: center;
-    margin-right: auto;
 }
 
 .hx-list-layout-dropdown-menu-link {
@@ -60,6 +58,10 @@
 
 .hx-list-layout-dropdown-menu-link:hover {
 	text-decoration: underline;
+}
+
+.hx-list-layout-named-view {
+	margin-right: auto;
 }
 
 .hx-list-layout-named-view .card-title {
