@@ -1,7 +1,7 @@
 .table:has(.sticky-top) {
   tr {
     background-color: var(--bs-body-bg-rgb, .5);
-    backdrop-filter: saturate(120%) blur(20px);
+    backdrop-filter: saturate(120%) blur(50px);
   }
   th {
     background-color: transparent;
