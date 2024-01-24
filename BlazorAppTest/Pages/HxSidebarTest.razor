@@ -1,37 +1,52 @@
 ﻿@page "/HxSidebarTest"
-<h1>HxSidebarTest</h1>
+@page "/HxSidebarTest/Test1"
+@page "/HxSidebarTest/Test2"
+@page "/HxSidebarTest/Test3"
+@page "/HxSidebarTest/Test4"
+@page "/HxSidebarTest/Test5"
+@page "/HxSidebarTest/Test6"
+@page "/HxSidebarTest/Test7"
+@page "/HxSidebarTest/Test8"
+@page "/HxSidebarTest/Test9"
+@page "/HxSidebarTest/Test10"
+@page "/HxSidebarTest/Test11"
+@page "/HxSidebarTest/Test12"
 
-<div class="border d-inline-block">
-	<HxSidebar>
-		<HeaderTemplate>
-			<HxSidebarBrand BrandName="Brand name" BrandNameShort="BN" />
-		</HeaderTemplate>
+<div> @* div for CSS isolation *@
+	<h1>HxSidebarTest</h1>
 
-		<ItemsTemplate>
-			<HxSidebarItem Text="Match Test 1" Icon="BootstrapIcon.Person" Href="/HxSidebarTest" Match="NavLinkMatch.Prefix">
-				<HxSidebarItem Text="Item 1" Href="/HxSidebarTest#x1" Match="NavLinkMatch.All" />
-				<HxSidebarItem Text="Another item" Href="TEST" />
-				<HxSidebarItem Text="Item 3" Href="TEST" />
-				<HxSidebarItem Text="Another item 4" Href="TEST" />
-			</HxSidebarItem>
-			<HxSidebarItem Text="Plain section" Icon="BootstrapIcon.Person">
-				<HxSidebarItem Text="Item 1" Href="/HxSidebarTest#x1" Match="NavLinkMatch.All" />
-				<HxSidebarItem Text="Another item" Href="TEST" />
-				<HxSidebarItem Text="Item 3" Href="TEST" />
-				<HxSidebarItem Text="Another item 4" Href="TEST" />
-			</HxSidebarItem>
-			<HxSidebarItem Text="Subitems with icons" Href="TEST" Icon="BootstrapIcon.Clock">
-				<HxSidebarItem Text="Item 1" Icon="BootstrapIcon.Person" Href="#" />
-				<HxSidebarItem Text="Another item" Icon="BootstrapIcon.Clock" Href="TEST" />
-				<HxSidebarItem Text="Item 3" Icon="BootstrapIcon.Wallet2"Href="TEST" />
-				<HxSidebarItem Text="Another item 4" Icon="BootstrapIcon.ClipboardData" Href="TEST" />
-			</HxSidebarItem>
-			<HxSidebarItem Text="First-level item 1" Href="TEST" Icon="BootstrapIcon.Wallet2" />
-			<HxSidebarItem Text="First-level item 2" Href="TEST" Icon="BootstrapIcon.ClipboardData" />
-		</ItemsTemplate>
+	<div class="border d-inline-block">
+		<HxSidebar>
+			<HeaderTemplate>
+				<HxSidebarBrand BrandName="Brand name" BrandNameShort="BN"/>
+			</HeaderTemplate>
 
-		<FooterTemplate>
-			<HxSidebarFooter Href="https://github.com/havit/Havit.Blazor" Icon="BootstrapIcon.Github" Text="GitHub repository" />
-		</FooterTemplate>
-	</HxSidebar>
+			<ItemsTemplate>
+				<HxSidebarItem Text="Match Test 1" Icon="BootstrapIcon.Person" Href="/HxSidebarTest" Match="NavLinkMatch.Prefix">
+					<HxSidebarItem Text="Item 1" Href="/HxSidebarTest#x1" Match="NavLinkMatch.All"/>
+					<HxSidebarItem Text="Another item" Href="/HxSidebarTest/Test1"/>
+					<HxSidebarItem Text="Item 3" Href="/HxSidebarTest/Test2"/>
+					<HxSidebarItem Text="Another item 4" Href="/HxSidebarTest/Test3"/>
+				</HxSidebarItem>
+				<HxSidebarItem Text="Plain section" Icon="BootstrapIcon.Person">
+					<HxSidebarItem Text="Item 1" Href="/HxSidebarTest#x1" Match="NavLinkMatch.All"/>
+					<HxSidebarItem Text="Another item" Href="/HxSidebarTest/Test4"/>
+					<HxSidebarItem Text="Item 3" Href="/HxSidebarTest/Test5"/>
+					<HxSidebarItem Text="Another item 4" Href="/HxSidebarTest/Test6"/>
+				</HxSidebarItem>
+				<HxSidebarItem Text="Subitems with icons" Href="/HxSidebarTest/Test7" Icon="BootstrapIcon.Clock" TooltipText="Subitems with icons">
+					<HxSidebarItem Text="Item 1" Icon="BootstrapIcon.Person" Href="#"/>
+					<HxSidebarItem Text="Another item" Icon="BootstrapIcon.Clock" Href="/HxSidebarTest/Test8"/>
+					<HxSidebarItem Text="Item 3" Icon="BootstrapIcon.Wallet2"Href="/HxSidebarTest/Test9"/>
+					<HxSidebarItem Text="Another item 4" Icon="BootstrapIcon.ClipboardData" Href="/HxSidebarTest/Test10"/>
+				</HxSidebarItem>
+				<HxSidebarItem Text="First-level item 1" Href="/HxSidebarTest/Test11" Icon="BootstrapIcon.Wallet2"/>
+				<HxSidebarItem Text="First-level item 2" Href="/HxSidebarTest/Test12" Icon="BootstrapIcon.ClipboardData"/>
+			</ItemsTemplate>
+
+			<FooterTemplate>
+				<HxSidebarFooter Href="https://github.com/havit/Havit.Blazor" Icon="BootstrapIcon.Github" Text="GitHub repository"/>
+			</FooterTemplate>
+		</HxSidebar>
+	</div>
 </div>
