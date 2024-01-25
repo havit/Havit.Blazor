@@ -3339,7 +3339,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Inline">
             <summary>
-            Allows grouping checkboxes on the same horizontal row by rendering them inline. The default value is <c>false</c>.		
+            Allows grouping checkboxes on the same horizontal row by rendering them inline. The default value is <c>false</c>.
             This only works when there is no label, no hint, and no validation message.
             </summary>
         </member>
@@ -3354,12 +3354,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreCssClass">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreCssClass" />
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreFormElementCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.AdditionalFormElementCssClass">
             <summary>
-            CSS class for the <c>form-check</c> element (e.g., allows adding <c>form-switch</c> in derived <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/>).
+            CSS class that allows adding <c>form-switch</c> in derived <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsFormCheckInnerDiv">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsInnerDiv">
             <summary>
             For a naked checkbox without Label/LabelTemplate, we add form-check, form-check-inline to the parent div (allows combining with CssClass etc.).
             It is expected that there is just the parent div, input, and label for Text/TextTemplate.
@@ -3367,6 +3367,11 @@
             For a checkbox with Label, there is a parent div followed by a label for Label/LabelTemplate.
             Siblings label, input, label do not work well and there is nowhere to add form-check.
             Therefore, we wrap the input and label in the additional div.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsFormCheck">
+            <summary>
+            For checkbox without any Text/TextTemplate we do not add form-check class.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsFormCheckOuter">
@@ -4910,8 +4915,8 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSwitch">https://havit.blazor.eu/components/HxSwitch</see>
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.CoreFormElementCssClass">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreFormElementCssClass" />
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.AdditionalFormElementCssClass">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.AdditionalFormElementCssClass" />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1">
             <summary>

@@ -7,6 +7,6 @@
 /// </summary>
 public class HxSwitch : HxCheckbox
 {
-	/// <inheritdoc cref="HxCheckbox.CoreFormElementCssClass" />
-	private protected override string CoreFormElementCssClass => "form-check form-switch";
+	/// <inheritdoc cref="HxCheckbox.AdditionalFormElementCssClass" />
+	private protected override string AdditionalFormElementCssClass => "form-switch";
 }
