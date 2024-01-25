@@ -35,7 +35,7 @@ public class HxCheckbox : HxInputBase<bool>
 	[Parameter] public string TextCssClass { get; set; }
 
 	/// <summary>
-	/// Allows grouping checkboxes on the same horizontal row by rendering them inline. The default value is <c>false</c>.		
+	/// Allows grouping checkboxes on the same horizontal row by rendering them inline. The default value is <c>false</c>.
 	/// This only works when there is no label, no hint, and no validation message.
 	/// </summary>
 	[Parameter] public bool Inline { get; set; }
@@ -53,13 +53,14 @@ public class HxCheckbox : HxInputBase<bool>
 	/// <inheritdoc cref="HxInputBase{TValue}.CoreCssClass" />
 	private protected override string CoreCssClass => CssClassHelper.Combine(
 		base.CoreCssClass,
-		NeedsFormCheckOuter ? CssClassHelper.Combine(this.CoreFormElementCssClass, Inline ? "form-check-inline" : null) : null,
+		NeedsInnerDiv ? null : AdditionalFormElementCssClass,
+		NeedsFormCheckOuter ? CssClassHelper.Combine("form-check", Inline ? "form-check-inline" : null) : null,
 		Reverse ? "form-check-reverse" : null);
 
 	/// <summary>
-	/// CSS class for the <c>form-check</c> element (e.g., allows adding <c>form-switch</c> in derived <see cref="HxSwitch"/>).
+	/// CSS class that allows adding <c>form-switch</c> in derived <see cref="HxSwitch"/>.
 	/// </summary>
-	private protected virtual string CoreFormElementCssClass => "form-check";
+	private protected virtual string AdditionalFormElementCssClass => null;
 
 	/// <summary>
 	/// For a naked checkbox without Label/LabelTemplate, we add form-check, form-check-inline to the parent div (allows combining with CssClass etc.).
@@ -69,21 +70,25 @@ public class HxCheckbox : HxInputBase<bool>
 	/// Siblings label, input, label do not work well and there is nowhere to add form-check.
 	/// Therefore, we wrap the input and label in the additional div.
 	/// </summary>
-	private protected bool NeedsFormCheckInnerDiv => !String.IsNullOrWhiteSpace(this.Label) || (this.LabelTemplate is not null);
+	private protected bool NeedsInnerDiv => !string.IsNullOrWhiteSpace(this.Label) || (this.LabelTemplate is not null);
+
+	/// <summary>
+	/// For checkbox without any Text/TextTemplate we do not add form-check class.
+	/// </summary>
+	private protected bool NeedsFormCheck => !string.IsNullOrWhiteSpace(this.Text) || (this.TextTemplate is not null);
 
 	/// <summary>
 	/// For checkbox without any Label/LabelTemplate and without Text/TextTemplate we do not add form-check to the parent div.
 	/// </summary>
-	private protected bool NeedsFormCheckOuter => !NeedsFormCheckInnerDiv
-												  && (!string.IsNullOrWhiteSpace(this.Text) || (this.TextTemplate is not null));
+	private protected bool NeedsFormCheckOuter => !NeedsInnerDiv && NeedsFormCheck;
 
 	/// <inheritdoc />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
-		if (NeedsFormCheckInnerDiv)
+		if (NeedsInnerDiv)
 		{
 			builder.OpenElement(-2, "div");
-			builder.AddAttribute(-1, "class", this.CoreFormElementCssClass);
+			builder.AddAttribute(-1, "class", CssClassHelper.Combine(NeedsFormCheck ? "form-check" : null, AdditionalFormElementCssClass));
 		}
 
 		EnsureInputId(); // must be called before the input is rendered
@@ -109,7 +114,7 @@ public class HxCheckbox : HxInputBase<bool>
 		builder.AddContent(2004, TextTemplate);
 		builder.CloseElement(); // label
 
-		if (NeedsFormCheckInnerDiv)
+		if (NeedsInnerDiv)
 		{
 			builder.CloseElement(); // div
 		}
