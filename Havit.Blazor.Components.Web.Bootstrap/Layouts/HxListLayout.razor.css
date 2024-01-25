@@ -7,8 +7,8 @@
 	border-spacing: 0;
 }
 
-.hx-list-layout:has(.sticky-top) .dropdown-menu {
-	z-index: 1030;
+.hx-list-layout:has(.sticky-top) ::deep .dropdown-menu {
+	--bs-dropdown-zindex: 1030;
 }
 
 .hx-list-layout:has(.hx-grid-infinite-scroll) ::deep .card {
