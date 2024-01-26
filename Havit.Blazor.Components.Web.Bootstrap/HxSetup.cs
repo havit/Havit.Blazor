@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
-namespace Havit.Blazor.Components.Web.Bootstrap;
 public static class HxSetup
 {
 	/// <summary>
-	/// Renders <c>&lt;script&lt;</c> tag referencing the corresponding Bootstrap JavaScript bundle with Popper.<br/>
+	/// Renders the <c>&lt;script&gt;</c> tag that references the corresponding Bootstrap JavaScript bundle with Popper.<br/>
 	/// To be used in <c>_Layout.cshtml</c> as <c>@Html.Raw(HxSetup.RenderBootstrapJavaScriptReference())</c>.
 	/// </summary>
 	/// <remarks>
@@ -20,7 +15,7 @@ public static class HxSetup
 	}
 
 	/// <summary>
-	/// Renders <c>&lt;link&lt;</c> tag referencing the corresponding Bootstrap CSS.<br/>
+	/// Renders the <c>&lt;link&gt;</c> tag that references the corresponding Bootstrap CSS.<br/>
 	/// To be used in <c>_Layout.cshtml</c> as <c>@Html.Raw(HxSetup.RenderBootstrapCssReference())</c>.
 	/// </summary>
 	/// <remarks>

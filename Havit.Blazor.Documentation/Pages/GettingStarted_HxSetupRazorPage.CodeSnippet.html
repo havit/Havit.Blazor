@@ -1,0 +1,20 @@
+﻿<head>
+	...
+
+	<!-- Bootstrap CSS (you can set the Bootstrap flavor with a parameter) -->
+	@((MarkupString)HxSetup.RenderBootstrapCssReference())
+
+	<!-- Default values for additional CSS Variables (+ import Bootstrap Icons) -->
+	<link href="_content/Havit.Blazor.Components.Web.Bootstrap/defaults.css" rel="stylesheet" />
+
+	<!-- Blazor CSS Isolation -->
+	<link href="Your.Blazor.Project.Assembly.Name.styles.css" rel="stylesheet" />
+
+	...
+</head>
+<body>
+	...
+
+	<!-- JavaScript Bundle with Popper -->
+	@((MarkupString)HxSetup.RenderBootstrapJavaScriptReference())
+</body>

@@ -6786,7 +6786,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSetup.RenderBootstrapJavaScriptReference">
             <summary>
-            Renders <c>&lt;script&lt;</c> tag referencing the corresponding Bootstrap JavaScript bundle with Popper.<br/>
+            Renders the <c>&lt;script&gt;</c> tag that references the corresponding Bootstrap JavaScript bundle with Popper.<br/>
             To be used in <c>_Layout.cshtml</c> as <c>@Html.Raw(HxSetup.RenderBootstrapJavaScriptReference())</c>.
             </summary>
             <remarks>
@@ -6795,7 +6795,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSetup.RenderBootstrapCssReference(Havit.Blazor.Components.Web.Bootstrap.BootstrapFlavor)">
             <summary>
-            Renders <c>&lt;link&lt;</c> tag referencing the corresponding Bootstrap CSS.<br/>
+            Renders the <c>&lt;link&gt;</c> tag that references the corresponding Bootstrap CSS.<br/>
             To be used in <c>_Layout.cshtml</c> as <c>@Html.Raw(HxSetup.RenderBootstrapCssReference())</c>.
             </summary>
             <remarks>

@@ -42,13 +42,14 @@
 <p>Insert the following line into the <code>&lt;head&gt;</code> section of your HTML file. The specific file to modify depends on your project's configuration. This could be <code>App.razor</code>, <code>index.html</code>, or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code>:</p>
 <CodeSnippet File="~\Pages\GettingStarted_CSS.CodeSnippet.html" />
 
-<p>[ALTERNATIVE] If you prefer to utilize our custom Bootstrap theme, which is used in this documentation and our demos, substitute the first <code>link</code> with the following:</p>
-<CodeSnippet File="~\Pages\GettingStarted_CustomCSS.CodeSnippet.html" />
-<p>Similarly, you can reference your custom Bootstrap build or any other Bootstrap theme in the same manner.</p>
-
 <DocAlert Type="DocAlertType.Warning">
 	If you're utilizing a standard Blazor template, it's important to clean up your CSS files. Specifically, you should remove any unnecessary code from <code>site.css</code> and completely delete the <code>bootstrap.min.css</code> reference from either <code>App.razor</code>, <code>index.html</code> or <code>_Host.cshtml</code>/<code>_Layout.cshtml</code>.
 </DocAlert>
+
+<DocHeading Title="Havit.Blazor Bootstrap theme" Level="5" />
+<p>If you prefer to utilize our custom Bootstrap theme, which is used in this documentation and our demos, substitute the <strong>first</strong> <code>link</code> with the following:</p>
+<CodeSnippet File="~\Pages\GettingStarted_CustomCSS.CodeSnippet.html" />
+<p>Similarly, you can reference your custom Bootstrap build or any other Bootstrap theme in the same manner.</p>
 
 <DocHeading Title="Bootstrap JavaScript" Id="javascript" Level="4" />
 <p>In the same HTML file, add the following line at the end of the <code>&lt;body&gt;</code> section. This includes the Bootstrap JavaScript Bundle with Popper:</p>
@@ -56,11 +57,15 @@
 	@HxSetup.RenderBootstrapJavaScriptReference()
 </CodeSnippet>
 
-<p>[ALTERNATIVE] If your Blazor app is hosted using an ASP.NET Core Razor Page, take advantage of our helper method. These methods automatically emits the <code>&lt;script /&gt;</code> tag and handles versioning for you.</p>
-<p>For .NET 7 and below, put the following into <code>_Host.cshtml</code> or <code>_Layout.cshtml</code>.</p>
-<CodeSnippet Language="razor">&lt;!-- JavaScript Bundle with Popper --&gt;&#10;@@Html.Raw(HxSetup.RenderBootstrapJavaScriptReference())</CodeSnippet>
-<p>For .NET 8 Blazor Web App, put the following in <code>App.razor</code>.</p>
-<CodeSnippet Language="razor">&lt;!-- JavaScript Bundle with Popper --&gt;&#10;@@((MarkupString)HxSetup.RenderBootstrapJavaScriptReference())</CodeSnippet>
+<DocHeading Title="Generated CSS/JS references" Level="4" />
+<p>
+	If your Blazor app is hosted using an ASP.NET Core, take advantage of our <a href="/types/HxSetup">HxSetup</a> helper methods instead. These methods automatically emit the <code>&lt;link /&gt;</code>
+	and <code>&lt;script /&gt;</code> tags and handle versioning for you.
+</p>
+<p>For Blazor Web App (.NET 8 and above), put the following in <code>App.razor</code>.</p>
+<CodeSnippet File="~\Pages\GettingStarted_HxSetupRazorPage.CodeSnippet.html" Language="razor" />
+<p>For Razor Page (.NET 7 and below), put the following into <code>_Host.cshtml</code> or <code>_Layout.cshtml</code>.</p>
+<CodeSnippet File="~\Pages\GettingStarted_HxSetupCshtmlPage.CodeSnippet.html" Language="razor" />
 
 <DocHeading Title="3. Import namespaces" Level="3" />
 <p>Add the following code to your <code>_Imports.razor</code> file:</p>
