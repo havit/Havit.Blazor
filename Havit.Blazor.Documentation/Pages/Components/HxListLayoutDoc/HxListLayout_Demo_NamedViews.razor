@@ -31,7 +31,7 @@
 <HxSwitch @bind-Value="titleFromNamedView" Text="HxListLayout.TitleFromNamedView" />
 
 @code {
-	private EmployeesFilterDto filterModel = new();
+	private EmployeesFilterDto filterModel;
 	private HxGrid<EmployeeDto> gridComponent;
 
 	private IEnumerable<NamedView<EmployeesFilterDto>> namedViews;
@@ -42,12 +42,14 @@
 	{
 		namedViews = new List<NamedView<EmployeesFilterDto>>()
 		{
-			new NamedView<EmployeesFilterDto>("All employees", () => new EmployeesFilterDto()), // resets the filter
+			new NamedView<EmployeesFilterDto>("All employees", () => new() { Name = "John" }), // resets the filter
 			new NamedView<EmployeesFilterDto>("Prague employees", () => filterModel with { Location = "Prague" } ), // keep filter presets not affected by the view
 			new NamedView<EmployeesFilterDto>("High salary employees", () => filterModel with { SalaryMin = 20000 }),
 		};
 
-		selectedNamedView = namedViews.First(); // set first view selected on initial load
+		// set first view selected on initial load
+		selectedNamedView = namedViews.First();
+		filterModel = selectedNamedView.CreateFilterModel();
 	}
 
 	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)

@@ -164,7 +164,7 @@ public partial class HxListLayout<TFilterModel>
 		SelectedNamedView = namedView;
 		await InvokeSelectedNamedViewChangedAsync(namedView);
 
-		TFilterModel newFilterModel = namedView.FilterModelFactory();
+		TFilterModel newFilterModel = namedView.CreateFilterModel();
 		if (newFilterModel != null)
 		{
 			FilterModel = newFilterModel;
