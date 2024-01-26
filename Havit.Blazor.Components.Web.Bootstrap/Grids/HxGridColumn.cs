@@ -158,7 +158,7 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 			builder.OpenElement(100, "div");
 			builder.AddAttribute(101, "class", "placeholder-glow");
 			builder.OpenElement(200, "div");
-			builder.AddAttribute(201, "class", "placeholder col-" + placeholderColumns[context.Index % placeholderColumns.Length]);
+			builder.AddAttribute(201, "class", CssClassHelper.Combine("placeholder", "col-" + placeholderColumns[context.Index % placeholderColumns.Length], ThemeColorExtensions.ToBackgroundColorCss(HxPlaceholder.Defaults.Color ?? ThemeColor.None)));
 			builder.CloseElement();
 			builder.CloseElement();
 		};

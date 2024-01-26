@@ -46,6 +46,7 @@ public class Startup
 		//HxInputDateRange.Defaults.InputSize = InputSize.Large;
 		//HxCalendar.Defaults.DateCustomizationProvider = request => new CalendarDateCustomizationResult { Enabled = request.Date < DateTime.Today };
 		//HxMessageBox.Defaults.ModalSettings.Centered = true;
+		HxPlaceholder.Defaults.Color = ThemeColor.Light;
 	}
 
 	// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
