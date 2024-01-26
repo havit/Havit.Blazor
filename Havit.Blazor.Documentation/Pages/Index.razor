@@ -56,8 +56,11 @@
 	@HxSetup.RenderBootstrapJavaScriptReference()
 </CodeSnippet>
 
-<p>[ALTERNATIVE] If your Blazor app is hosted using an ASP.NET Core Razor Page (for example, using <code>_Host.cshtml</code>/<code>_Layout.cshtml</code>), take advantage of our helper method. This method automatically emits the <code>&lt;script /&gt;</code> tag and handles versioning for you:</p>
+<p>[ALTERNATIVE] If your Blazor app is hosted using an ASP.NET Core Razor Page, take advantage of our helper method. These methods automatically emits the <code>&lt;script /&gt;</code> tag and handles versioning for you.</p>
+<p>For .NET 7 and below, put the following into <code>_Host.cshtml</code> or <code>_Layout.cshtml</code>.</p>
 <CodeSnippet Language="razor">&lt;!-- JavaScript Bundle with Popper --&gt;&#10;@@Html.Raw(HxSetup.RenderBootstrapJavaScriptReference())</CodeSnippet>
+<p>For .NET 8 Blazor Web App, put the following in <code>App.razor</code>.</p>
+<CodeSnippet Language="razor">&lt;!-- JavaScript Bundle with Popper --&gt;&#10;@@((MarkupString)HxSetup.RenderBootstrapJavaScriptReference())</CodeSnippet>
 
 <DocHeading Title="3. Import namespaces" Level="3" />
 <p>Add the following code to your <code>_Imports.razor</code> file:</p>
