@@ -73,7 +73,7 @@
 	color: var(--hx-sidebar-item-active-icon-color);
 }
 
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep .hx-sidebar-item-icon {
+.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep.hx-sidebar-item .hx-sidebar-item-icon {
 	color: var(--hx-sidebar-parent-item-active-icon-color);
 }
 
