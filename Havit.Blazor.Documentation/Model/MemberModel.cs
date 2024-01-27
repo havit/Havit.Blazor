@@ -5,14 +5,14 @@ namespace Havit.Blazor.Documentation.Model;
 
 public abstract class MemberModel
 {
-	private Type enclosingType;
+	private Type _enclosingType;
 
-	private bool generic;
-	private string genericTypeSuffix;
+	private bool _generic;
+	private string _genericTypeSuffix;
 
 	protected string TryFormatComment(string comment, Type enclosingType = null)
 	{
-		this.enclosingType = enclosingType;
+		_enclosingType = enclosingType;
 
 		try
 		{
@@ -64,11 +64,11 @@ public abstract class MemberModel
 
 	private string PrepareLinkForFullLinkGeneration(string link)
 	{
-		generic = IsGeneric(link); // this information is used later to generate a Microsoft documentation link
+		_generic = IsGeneric(link); // this information is used later to generate a Microsoft documentation link
 
 		Regex regex = new("`\\d");
 		var match = regex.Match(link);
-		genericTypeSuffix = match.Value;
+		_genericTypeSuffix = match.Value;
 
 		return regex.Replace(link, "");
 	}
@@ -160,7 +160,7 @@ public abstract class MemberModel
 			if (splitLink.Length >= 2)
 			{
 				fullLink = $"{splitLink[^2]}#{splitLink[^1]}";
-				if (enclosingType is not null && PrepareLinkForFullLinkGeneration(enclosingType.Name) == splitLink[^2])
+				if (_enclosingType is not null && PrepareLinkForFullLinkGeneration(_enclosingType.Name) == splitLink[^2])
 				{
 					seeName = $"{splitLink[^1]}";
 				}
@@ -171,7 +171,7 @@ public abstract class MemberModel
 			}
 
 			string className = GetFullGenericTypeName(splitLink[^2]);
-			var type = enclosingType ?? ApiTypeHelper.GetType(className);
+			var type = _enclosingType ?? ApiTypeHelper.GetType(className);
 			isComponent = type?.IsSubclassOf(typeof(ComponentBase)) ?? false;
 		}
 		else
@@ -190,7 +190,7 @@ public abstract class MemberModel
 			seeName = splitLink[^1];
 		}
 
-		if ((enclosingType is null || enclosingType.FullName.Contains("Hx") || !isProperty) && isComponent)
+		if ((_enclosingType is null || _enclosingType.FullName.Contains("Hx") || !isProperty) && isComponent)
 		{
 			fullLink = $"href=\"/components/{fullLink}";
 		}
@@ -215,7 +215,7 @@ public abstract class MemberModel
 			fullLink = link.Split(':')[^1];
 		}
 
-		string genericTypeLinkSuffix = generic ? "-1" : "";
+		string genericTypeLinkSuffix = _generic ? "-1" : "";
 
 		fullLink = $"href=\"https://docs.microsoft.com/en-us/dotnet/api/{fullLink}{genericTypeLinkSuffix}";
 		fullLink += $"\">{seeName}</a></code>";
@@ -243,12 +243,12 @@ public abstract class MemberModel
 	/// <returns>The type name including the <c>`1</c> or <c>`2</c> suffix if the type is generic.</returns>
 	private string GetFullGenericTypeName(string typeName)
 	{
-		if (!generic)
+		if (!_generic)
 		{
 			return typeName;
 		}
 
-		return $"{typeName}{genericTypeSuffix}";
+		return $"{typeName}{_genericTypeSuffix}";
 	}
 
 	private string ConcatenateStringArray(string[] stringArray)

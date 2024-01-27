@@ -35,7 +35,7 @@ public partial class HxDropdown : ComponentBase, IDropdownContainer
 
 	protected string GetDropdownDirectionCssClass()
 	{
-		return this.Direction switch
+		return Direction switch
 		{
 			DropdownDirection.Down => "dropdown",
 			DropdownDirection.Up => "dropup",

@@ -69,13 +69,13 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	private DotNetObjectReference<HxDropdownToggleButton> dotnetObjectReference;
-	private IJSObjectReference jsModule;
-	private bool disposed;
+	private DotNetObjectReference<HxDropdownToggleButton> _dotnetObjectReference;
+	private IJSObjectReference _jsModule;
+	private bool _disposed;
 
 	public HxDropdownToggleButton()
 	{
-		dotnetObjectReference = DotNetObjectReference.Create(this);
+		_dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
 	protected override void OnParametersSet()
@@ -92,7 +92,7 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 			throw new InvalidOperationException($"{nameof(HxDropdownToggleButton)} is expected to used inside {nameof(HxDropdownButtonGroup)} rather than generic {nameof(HxDropdown)} (breaking-change in v2.6.0).");
 		}
 
-		if (!String.IsNullOrEmpty(this.Tooltip))
+		if (!String.IsNullOrEmpty(Tooltip))
 		{
 			throw new InvalidOperationException($"{nameof(HxDropdownToggleButton)} does not support {nameof(Tooltip)}.");
 		}
@@ -109,7 +109,7 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 			_ => throw new InvalidOperationException($"Unknown {nameof(DropdownAutoClose)} value {AutoCloseEffective}.")
 		};
 
-		if (this.DropdownOffset is not null)
+		if (DropdownOffset is not null)
 		{
 			AdditionalAttributes["data-bs-offset"] = $"{DropdownOffset.Value.Skidding},{DropdownOffset.Value.Distance}";
 		}
@@ -133,11 +133,11 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 		if (firstRender)
 		{
 			await EnsureJsModuleAsync();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("create", buttonElementReference, dotnetObjectReference, DropdownToggleExtensions.GetDropdownJsOptionsReference(this));
+			await _jsModule.InvokeVoidAsync("create", buttonElementReference, _dotnetObjectReference, DropdownToggleExtensions.GetDropdownJsOptionsReference(this));
 		}
 	}
 
@@ -147,7 +147,7 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 	public async Task ShowAsync()
 	{
 		await EnsureJsModuleAsync();
-		await jsModule.InvokeVoidAsync("show", buttonElementReference);
+		await _jsModule.InvokeVoidAsync("show", buttonElementReference);
 	}
 
 	/// <summary>
@@ -156,7 +156,7 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 	public async Task HideAsync()
 	{
 		await EnsureJsModuleAsync();
-		await jsModule.InvokeVoidAsync("hide", buttonElementReference);
+		await _jsModule.InvokeVoidAsync("hide", buttonElementReference);
 	}
 
 	/// <summary>
@@ -190,7 +190,7 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 
 	private async Task EnsureJsModuleAsync()
 	{
-		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxDropdown));
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxDropdown));
 	}
 
 	/// <inheritdoc/>
@@ -204,14 +204,14 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
-		if (jsModule != null)
+		if (_jsModule != null)
 		{
 			try
 			{
-				await jsModule.InvokeVoidAsync("dispose", buttonElementReference);
-				await jsModule.DisposeAsync();
+				await _jsModule.InvokeVoidAsync("dispose", buttonElementReference);
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
 			{
@@ -223,6 +223,6 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 			}
 		}
 
-		dotnetObjectReference.Dispose();
+		_dotnetObjectReference.Dispose();
 	}
 }

@@ -27,10 +27,11 @@ dotnet_separate_import_directive_groups = false
 dotnet_sort_system_directives_first = true
 
 # Modifier preferences
-dotnet_style_readonly_field = true:silent
+dotnet_style_readonly_field = true:suggestion
 
 dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity
 
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
 
 ####################################
 # C# Coding Conventions            #
@@ -45,17 +46,18 @@ csharp_style_var_when_type_is_apparent = false:silent
 csharp_style_prefer_switch_expression = true:suggestion
 
 # Code-block preferences
-csharp_prefer_braces = true:suggestion
+csharp_prefer_braces = true:warning
 
 # 'using' directive preferences
-csharp_using_directive_placement = outside_namespace:Warning
+csharp_using_directive_placement = outside_namespace:warning
+csharp_style_namespace_declarations = file_scoped:suggestion
 
 ####################################
 # C# Formatting Rules              #
 ####################################
 
-## Indentation preferences ???
-#csharp_indent_block_contents = true
+## Indentation preferences
+csharp_indent_block_contents = true:warning
 #csharp_indent_braces = false
 #csharp_indent_case_contents_when_block = true
 #csharp_indent_labels = one_less_than_current
@@ -64,63 +66,145 @@ csharp_using_directive_placement = outside_namespace:Warning
 # Naming Conventions               #
 ####################################
 
-# Use camelCase for private fields
-dotnet_naming_style.pascal_case_style.capitalization = pascal_case
-dotnet_naming_style.camel_case_style.capitalization = camel_case
+# Naming rules
+## constant fields should be PascalCase
+dotnet_naming_rule.constant_fields_should_be_pascal_case.severity = warning
+dotnet_naming_rule.constant_fields_should_be_pascal_case.symbols  = constant_fields
+dotnet_naming_rule.constant_fields_should_be_pascal_case.style    = pascal_case
 
-dotnet_naming_symbols.private_fields.applicable_kinds = field
-dotnet_naming_symbols.private_fields.applicable_accessibilities = private
-dotnet_naming_rule.private_fields_should_be_camel_case_prefixed.symbols = private_fields
-dotnet_naming_rule.private_fields_should_be_camel_case_prefixed.style = camel_case_style
-dotnet_naming_rule.private_fields_should_be_camel_case_prefixed.severity = suggestion
+dotnet_naming_rule.interface_should_be_begins_with_i.severity = warning
+dotnet_naming_rule.interface_should_be_begins_with_i.symbols = interface
+dotnet_naming_rule.interface_should_be_begins_with_i.style = begins_with_i
 
-dotnet_naming_symbols.private_consts.applicable_kinds = field
-dotnet_naming_symbols.private_consts.applicable_accessibilities = private
-dotnet_naming_symbols.private_consts.required_modifiers = const
-dotnet_naming_rule.private_consts_should_be_pascal_case_prefixed.symbols = private_consts
-dotnet_naming_rule.private_consts_should_be_pascal_case_prefixed.style = pascal_case_style
-dotnet_naming_rule.private_consts_should_be_pascal_case_prefixed.severity = suggestion
+# Disabled for now, does not allow underscore in names (e.g. Product_Category)
+#dotnet_naming_rule.types_should_be_pascal_case.severity = warning
+#dotnet_naming_rule.types_should_be_pascal_case.symbols = types
+#dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case
+
+dotnet_naming_rule.property_should_be_pascal_case.severity = warning
+dotnet_naming_rule.property_should_be_pascal_case.symbols = property
+dotnet_naming_rule.property_should_be_pascal_case.style = pascal_case
+
+dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = warning
+dotnet_naming_rule.non_field_members_should_be_pascal_case.symbols = non_field_members
+dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
+
+dotnet_naming_rule.private_or_internal_field_should_be_s_camelcase.severity = warning
+dotnet_naming_rule.private_or_internal_field_should_be_s_camelcase.symbols = private_or_internal_static_field
+dotnet_naming_rule.private_or_internal_field_should_be_s_camelcase.style = s_camelcase
+
+dotnet_naming_rule.private_or_internal_field_should_be__camelcase.severity = warning
+dotnet_naming_rule.private_or_internal_field_should_be__camelcase.symbols = private_or_internal_field
+dotnet_naming_rule.private_or_internal_field_should_be__camelcase.style = _camelcase
+
+# Symbol specifications
+dotnet_naming_symbols.constant_fields.applicable_kinds   = field
+dotnet_naming_symbols.constant_fields.required_modifiers = const
+
+dotnet_naming_symbols.interface.applicable_kinds = interface
+dotnet_naming_symbols.interface.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.interface.required_modifiers = 
+
+dotnet_naming_symbols.property.applicable_kinds = property
+dotnet_naming_symbols.property.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.property.required_modifiers = 
+
+dotnet_naming_symbols.private_or_internal_static_field.applicable_kinds = field
+dotnet_naming_symbols.private_or_internal_static_field.applicable_accessibilities = internal, private, private_protected
+dotnet_naming_symbols.private_or_internal_static_field.required_modifiers = static
+
+dotnet_naming_symbols.private_or_internal_field.applicable_kinds = field
+dotnet_naming_symbols.private_or_internal_field.applicable_accessibilities = internal, private, private_protected
+dotnet_naming_symbols.private_or_internal_field.required_modifiers = 
+
+dotnet_naming_symbols.types.applicable_kinds = class, struct, interface, enum
+dotnet_naming_symbols.types.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.types.required_modifiers = 
+
+dotnet_naming_symbols.non_field_members.applicable_kinds = property, event, method
+dotnet_naming_symbols.non_field_members.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.non_field_members.required_modifiers = 
+
+# Naming styles
+dotnet_naming_style.pascal_case.required_prefix = 
+dotnet_naming_style.pascal_case.required_suffix = 
+dotnet_naming_style.pascal_case.word_separator = 
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+
+dotnet_naming_style.begins_with_i.required_prefix = I
+dotnet_naming_style.begins_with_i.required_suffix = 
+dotnet_naming_style.begins_with_i.word_separator = 
+dotnet_naming_style.begins_with_i.capitalization = pascal_case
+
+dotnet_naming_style._camelcase.required_prefix = _
+dotnet_naming_style._camelcase.required_suffix = 
+dotnet_naming_style._camelcase.word_separator = 
+dotnet_naming_style._camelcase.capitalization = camel_case
+
+dotnet_naming_style.s_camelcase.required_prefix = s_
+dotnet_naming_style.s_camelcase.required_suffix = 
+dotnet_naming_style.s_camelcase.word_separator = 
+dotnet_naming_style.s_camelcase.capitalization = camel_case
 
 ###############################
 #### IDE analyzers options ####
 ###############################
 
-dotnet_diagnostic.IDE0009.severity = Warning # Member access should be qualified
-dotnet_diagnostic.IDE0011.severity = Warning # Add braces
-dotnet_diagnostic.IDE0035.severity = Warning # Unreachable code detected
-dotnet_diagnostic.IDE0040.severity = Warning # Use accessibility modifiers
-dotnet_diagnostic.IDE0048.severity = Warning # Add parenthesis for clarity
-dotnet_diagnostic.IDE0055.severity = Warning # Fix formating
-dotnet_diagnostic.IDE0065.severity = Warning # Misplaced using directive
-dotnet_diagnostic.IDE1006.severity = Warning # Naming Styles
+dotnet_diagnostic.IDE0009.severity = warning # Member access should be qualified
+dotnet_diagnostic.IDE0011.severity = warning # Add braces
+dotnet_diagnostic.IDE0035.severity = warning # Unreachable code detected
+dotnet_diagnostic.IDE0037.severity = none    # Use inferred member name
+dotnet_diagnostic.IDE0040.severity = warning # Use accessibility modifiers
+dotnet_diagnostic.IDE0048.severity = warning # Add parenthesis for clarity
+dotnet_diagnostic.IDE0055.severity = warning # Fix formating
+dotnet_diagnostic.IDE0065.severity = warning # Misplaced using directive
+dotnet_diagnostic.IDE1006.severity = suggestion # Naming Styles
 
 
 #### FxCop analyzers options ####
-# Adopted from:
-# \\topol.havit.local\Library\VS2019\CodeAnalysis\HavitMain.ruleset
 
-dotnet_diagnostic.CA1010.severity=Warning
-dotnet_diagnostic.CA1012.severity=Warning
-dotnet_diagnostic.CA1013.severity=Warning
-dotnet_diagnostic.CA1016.severity=Warning
-dotnet_diagnostic.CA1041.severity=Warning
-dotnet_diagnostic.CA1044.severity=Warning
-dotnet_diagnostic.CA1047.severity=Warning
-dotnet_diagnostic.CA1048.severity=Warning
-dotnet_diagnostic.CA1049.severity=Warning
-dotnet_diagnostic.CA1050.severity=Warning
-dotnet_diagnostic.CA1064.severity=Warning
-dotnet_diagnostic.CA1065.severity=Warning
+dotnet_diagnostic.CA1010.severity=warning
+dotnet_diagnostic.CA1012.severity=warning
+dotnet_diagnostic.CA1013.severity=warning
+dotnet_diagnostic.CA1016.severity=warning
+dotnet_diagnostic.CA1041.severity=warning
+dotnet_diagnostic.CA1044.severity=warning
+dotnet_diagnostic.CA1047.severity=warning
+dotnet_diagnostic.CA1048.severity=warning
+dotnet_diagnostic.CA1049.severity=warning
+dotnet_diagnostic.CA1050.severity=warning
+dotnet_diagnostic.CA1064.severity=warning
+dotnet_diagnostic.CA1065.severity=warning
 
 # CA1303: Method '{1}' passes a literal string as parameter '{1}' of a call to '{2}'. Retrieve the following string(s) from a resource table instead: "{3}"
 #dotnet_diagnostic.CA1303.severity=silent
 
-dotnet_diagnostic.CA1500.severity=Warning
-dotnet_diagnostic.CA1504.severity=Warning
+dotnet_diagnostic.CA1500.severity=warning
+dotnet_diagnostic.CA1504.severity=warning
+
+# CA1707: Identifiers should not contain underscores
+dotnet_diagnostic.CA1707.severity=none
 
 # CA1822: Member '{0}' does not access instance data and can be marked as static
-dotnet_diagnostic.CA1822.severity=silent
-csharp_style_namespace_declarations=file_scoped:silent
+dotnet_diagnostic.CA1822.severity=none
+
+# CA2016: Forward the CancellationToken parameter to methods that take one
+dotnet_diagnostic.CA2016.severity = warning
+
+# RCS1036: Remove unnecessary blank line.
+dotnet_diagnostic.RCS1036.severity = none
+
+# RCS1032: Remove redundant parentheses.
+dotnet_diagnostic.RCS1032.severity = none
+
+# RCS1021: Convert lambda expression body to expression body.
+dotnet_diagnostic.RCS1021.severity = silent
+
+# IDE0090: Use 'new(...)'
+dotnet_diagnostic.IDE0090.severity = silent
+
+# IDE0063: Use simple 'using' statement
+dotnet_diagnostic.IDE0063.severity = silent
 
 [*/Migrations/*.cs]
 generated_code=true

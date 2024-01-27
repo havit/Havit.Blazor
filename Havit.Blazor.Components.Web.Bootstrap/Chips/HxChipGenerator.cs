@@ -33,7 +33,7 @@ public class HxChipGenerator : ComponentBase, IHxChipGenerator, IAsyncDisposable
 
 	protected virtual async Task DisposeAsyncCore()
 	{
-		if (this.ChipGeneratorsRegistration != null)
+		if (ChipGeneratorsRegistration != null)
 		{
 			await ChipGeneratorsRegistration.UnregisterAsync(this);
 		}

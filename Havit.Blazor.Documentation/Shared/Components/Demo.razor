@@ -17,15 +17,15 @@
 
     <div class="card-body p-0">
 
-        @if (showingDemo || !Tabs)
+        @if (_showingDemo || !Tabs)
         {
-            <div class="@CssClassHelper.Combine("p-3", this.DemoCardCssClass)">
-                <DynamicComponent Type="this.Type" />
+            <div class="@CssClassHelper.Combine("p-3", DemoCardCssClass)">
+                <DynamicComponent Type="Type" />
             </div>
         }
-        @if (!showingDemo || !Tabs)
+        @if (!_showingDemo || !Tabs)
         {
-            if (code is null)
+            if (_code is null)
             {
                 <HxPlaceholderContainer Animation="PlaceholderAnimation.Glow">
                     <HxPlaceholder Columns="8" />
@@ -35,7 +35,7 @@
             {
                 <pre class="@(!Tabs ? "bg-body-tertiary" : null)">
                     <code class="language-cshtml">
-                        @(code.Trim())
+                        @(_code.Trim())
                     </code>
                 </pre>
             }

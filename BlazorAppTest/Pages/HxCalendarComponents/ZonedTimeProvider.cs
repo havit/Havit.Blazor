@@ -2,12 +2,12 @@
 
 public class ZonedTimeProvider : TimeProvider
 {
-	private TimeZoneInfo zoneInfo;
+	private readonly TimeZoneInfo _zoneInfo;
 
 	public ZonedTimeProvider(TimeZoneInfo zoneInfo)
 	{
-		this.zoneInfo = zoneInfo;
+		_zoneInfo = zoneInfo;
 	}
 
-	public override TimeZoneInfo LocalTimeZone { get => zoneInfo; }
+	public override TimeZoneInfo LocalTimeZone { get => _zoneInfo; }
 }

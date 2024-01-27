@@ -40,7 +40,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	/// Appends the tooltip/popover to a specific element. Default is <c>body</c>.
 	/// </summary>
 	[Parameter] public string Container { get; set; }
-	protected string ContainerEffective => this.Container ?? this.GetSettings()?.Container ?? GetDefaults().Container;
+	protected string ContainerEffective => Container ?? GetSettings()?.Container ?? GetDefaults().Container;
 
 	/// <summary>
 	/// Enable or disable the sanitization. If activated HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.3/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
@@ -52,26 +52,26 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	/// Offset of the component relative to its target (ChildContent).
 	/// </summary>
 	[Parameter] public (int X, int Y)? Offset { get; set; }
-	protected (int X, int Y)? OffsetEffective => this.Offset ?? this.GetSettings()?.Offset ?? GetDefaults().Offset;
+	protected (int X, int Y)? OffsetEffective => Offset ?? GetSettings()?.Offset ?? GetDefaults().Offset;
 
 	/// <summary>
 	/// Apply a CSS fade transition to the tooltip (enable/disable).<br/>
 	/// Default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool? Animation { get; set; }
-	protected bool? AnimationEffective => this.Animation ?? this.GetSettings()?.Animation ?? GetDefaults().Animation;
+	protected bool? AnimationEffective => Animation ?? GetSettings()?.Animation ?? GetDefaults().Animation;
 
 	/// <summary>
 	/// Custom CSS class to add.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
-	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
+	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
 	/// Custom CSS class to render with the <c>span</c> wrapper of the child-content.
 	/// </summary>
 	[Parameter] public string WrapperCssClass { get; set; }
-	protected string WrapperCssClassEffective => this.WrapperCssClass ?? this.GetSettings()?.WrapperCssClass ?? GetDefaults().WrapperCssClass;
+	protected string WrapperCssClassEffective => WrapperCssClass ?? GetSettings()?.WrapperCssClass ?? GetDefaults().WrapperCssClass;
 
 	/// <summary>
 	/// Child content to wrap.
@@ -101,28 +101,28 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	protected abstract string JsModuleName { get; }
 	protected abstract string DataBsToggle { get; }
 
-	private DotNetObjectReference<HxTooltipInternalBase> dotnetObjectReference;
-	private IJSObjectReference jsModule;
-	private ElementReference spanElement;
-	private string lastTitle;
-	private string lastContent;
-	private bool isInitialized;
-	private bool showAfterRender;
-	private bool disposed;
+	private DotNetObjectReference<HxTooltipInternalBase> _dotnetObjectReference;
+	private IJSObjectReference _jsModule;
+	private ElementReference _spanElement;
+	private string _lastTitle;
+	private string _lastContent;
+	private bool _isInitialized;
+	private bool _showAfterRender;
+	private bool _disposed;
 
 	protected HxTooltipInternalBase()
 	{
-		dotnetObjectReference = DotNetObjectReference.Create(this);
+		_dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
 	protected bool ShouldRenderSpan()
 	{
 		// Once the span is rendered (= initialized) it does not disappear to enable spanElement to be used at OnAfterRender to safely remove a tooltip/popover.
 		// It is not a common situation to remove a tooltip/popover.
-		return isInitialized
+		return _isInitialized
 				|| !String.IsNullOrEmpty(TitleInternal)
-				|| !String.IsNullOrWhiteSpace(this.WrapperCssClass)
-				|| !String.IsNullOrWhiteSpace(this.ContentInternal);
+				|| !String.IsNullOrWhiteSpace(WrapperCssClass)
+				|| !String.IsNullOrWhiteSpace(ContentInternal);
 	}
 
 	protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -130,14 +130,14 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 		if (ShouldRenderSpan())
 		{
 			builder.OpenElement(1, "span");
-			builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", this.WrapperCssClassEffective));
-			builder.AddAttribute(3, "data-bs-container", this.ContainerEffective);
+			builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", WrapperCssClassEffective));
+			builder.AddAttribute(3, "data-bs-container", ContainerEffective);
 			builder.AddAttribute(4, "data-bs-trigger", GetTriggers());
 			builder.AddAttribute(5, "data-bs-placement", PlacementInternal.ToString().ToLower());
-			builder.AddAttribute(6, "data-bs-custom-class", this.CssClassEffective);
-			if (this.AnimationEffective is not null)
+			builder.AddAttribute(6, "data-bs-custom-class", CssClassEffective);
+			if (AnimationEffective is not null)
 			{
-				builder.AddAttribute(7, "data-bs-animation", this.AnimationEffective.ToString().ToLower());
+				builder.AddAttribute(7, "data-bs-animation", AnimationEffective.ToString().ToLower());
 			}
 			builder.AddAttribute(8, "data-bs-title", TitleInternal);
 			if (!String.IsNullOrWhiteSpace(ContentInternal))
@@ -150,11 +150,11 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 				builder.AddAttribute(10, "data-bs-html", "true");
 			}
 			builder.AddAttribute(11, "data-bs-toggle", DataBsToggle);
-			if (this.OffsetEffective is not null)
+			if (OffsetEffective is not null)
 			{
 				builder.AddAttribute(12, "data-bs-offset", $"{OffsetEffective.Value.X},{OffsetEffective.Value.Y}");
 			}
-			builder.AddElementReferenceCapture(13, element => spanElement = element);
+			builder.AddElementReferenceCapture(13, element => _spanElement = element);
 		}
 
 		builder.AddContent(20, ChildContent);
@@ -170,7 +170,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 		string result = null;
 		foreach (var flag in Enum.GetValues<TooltipTrigger>())
 		{
-			if (this.TriggerInternal.HasFlag(flag))
+			if (TriggerInternal.HasFlag(flag))
 			{
 				result = result + " " + flag.ToString().ToLower();
 			}
@@ -186,39 +186,39 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 		{
 			await EnsureJsModuleAsync();
 
-			if (!isInitialized)
+			if (!_isInitialized)
 			{
-				lastTitle = TitleInternal;
-				lastContent = ContentInternal;
+				_lastTitle = TitleInternal;
+				_lastContent = ContentInternal;
 
 				var options = new
 				{
-					Sanitize = this.Sanitize
+					Sanitize = Sanitize
 				};
-				if (disposed || isInitialized)
+				if (_disposed || _isInitialized)
 				{
 					return;
 				}
-				await jsModule.InvokeVoidAsync("initialize", spanElement, dotnetObjectReference, options);
-				isInitialized = true;
+				await _jsModule.InvokeVoidAsync("initialize", _spanElement, _dotnetObjectReference, options);
+				_isInitialized = true;
 			}
-			else if ((lastTitle != TitleInternal) || (lastContent != ContentInternal))
+			else if ((_lastTitle != TitleInternal) || (_lastContent != ContentInternal))
 			{
 				// changed content, update the tooltip/popover
-				lastTitle = TitleInternal;
-				lastContent = ContentInternal;
+				_lastTitle = TitleInternal;
+				_lastContent = ContentInternal;
 
-				if (disposed)
+				if (_disposed)
 				{
 					return;
 				}
-				await jsModule.InvokeVoidAsync("setContent", spanElement, GetNewContentForUpdate());
+				await _jsModule.InvokeVoidAsync("setContent", _spanElement, GetNewContentForUpdate());
 			}
 
-			if (showAfterRender)
+			if (_showAfterRender)
 			{
-				showAfterRender = false;
-				await jsModule.InvokeVoidAsync("show", spanElement);
+				_showAfterRender = false;
+				await _jsModule.InvokeVoidAsync("show", _spanElement);
 			}
 		}
 	}
@@ -227,11 +227,11 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 
 	private async Task EnsureJsModuleAsync()
 	{
-		if (disposed)
+		if (_disposed)
 		{
 			return;
 		}
-		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(JsModuleName);
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(JsModuleName);
 	}
 
 	/// <summary>
@@ -239,7 +239,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	/// </summary>
 	public Task ShowAsync()
 	{
-		showAfterRender = true; // #581 Tooltip not shown when Manual + initialized with empty text + ShowAsync()
+		_showAfterRender = true; // #581 Tooltip not shown when Manual + initialized with empty text + ShowAsync()
 
 		return Task.CompletedTask;
 	}
@@ -249,13 +249,13 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	/// </summary>
 	public async Task HideAsync()
 	{
-		if (!isInitialized)
+		if (!_isInitialized)
 		{
 			return;
 		}
 
 		await EnsureJsModuleAsync();
-		await jsModule.InvokeVoidAsync("hide", spanElement);
+		await _jsModule.InvokeVoidAsync("hide", _spanElement);
 	}
 
 	/// <summary>
@@ -264,13 +264,13 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	/// </summary>
 	public async Task EnableAsync()
 	{
-		if (!isInitialized)
+		if (!_isInitialized)
 		{
 			return;
 		}
 
 		await EnsureJsModuleAsync();
-		await jsModule.InvokeVoidAsync("enable", spanElement);
+		await _jsModule.InvokeVoidAsync("enable", _spanElement);
 	}
 
 	/// <summary>
@@ -279,13 +279,13 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	/// </summary>
 	public async Task DisableAsync()
 	{
-		if (!isInitialized)
+		if (!_isInitialized)
 		{
 			return;
 		}
 
 		await EnsureJsModuleAsync();
-		await jsModule.InvokeVoidAsync("disable", spanElement);
+		await _jsModule.InvokeVoidAsync("disable", _spanElement);
 	}
 
 	/// <summary>
@@ -319,15 +319,15 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
-		if (jsModule != null)
+		if (_jsModule != null)
 		{
-			if (isInitialized)
+			if (_isInitialized)
 			{
 				try
 				{
-					await jsModule.InvokeVoidAsync("dispose", spanElement);
+					await _jsModule.InvokeVoidAsync("dispose", _spanElement);
 				}
 				catch (JSDisconnectedException)
 				{
@@ -340,7 +340,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 			}
 			try
 			{
-				await jsModule.DisposeAsync();
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
 			{
@@ -350,10 +350,10 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 			{
 				// NOOP
 			}
-			jsModule = null;
-			isInitialized = false;
+			_jsModule = null;
+			_isInitialized = false;
 		}
 
-		dotnetObjectReference.Dispose();
+		_dotnetObjectReference.Dispose();
 	}
 }

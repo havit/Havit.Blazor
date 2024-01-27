@@ -6,13 +6,13 @@ public class ClassModel : MemberModel
 {
 	public TypeComments Comments
 	{
-		get => comments;
+		get => _comments;
 		set
 		{
 			TypeComments inputComments = value;
 			try { inputComments.Summary = TryFormatComment(inputComments.Summary); } catch { }
-			comments = inputComments;
+			_comments = inputComments;
 		}
 	}
-	private TypeComments comments;
+	private TypeComments _comments;
 }

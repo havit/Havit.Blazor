@@ -40,7 +40,7 @@ public class HxPopover : HxTooltipInternalBase
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override PopoverSettings GetSettings() => this.Settings;
+	protected override PopoverSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Popover title.
@@ -48,8 +48,8 @@ public class HxPopover : HxTooltipInternalBase
 	[Parameter]
 	public string Title
 	{
-		get => base.TitleInternal;
-		set => base.TitleInternal = value;
+		get => TitleInternal;
+		set => TitleInternal = value;
 	}
 
 	/// <summary>
@@ -58,8 +58,8 @@ public class HxPopover : HxTooltipInternalBase
 	[Parameter]
 	public string Content
 	{
-		get => base.ContentInternal;
-		set => base.ContentInternal = value;
+		get => ContentInternal;
+		set => ContentInternal = value;
 	}
 
 	/// <summary>
@@ -68,8 +68,8 @@ public class HxPopover : HxTooltipInternalBase
 	[Parameter]
 	public PopoverPlacement Placement
 	{
-		get => (PopoverPlacement)base.PlacementInternal;
-		set => base.PlacementInternal = (TooltipPlacement)value;
+		get => (PopoverPlacement)PlacementInternal;
+		set => PlacementInternal = (TooltipPlacement)value;
 	}
 
 	/// <summary>
@@ -78,8 +78,8 @@ public class HxPopover : HxTooltipInternalBase
 	[Parameter]
 	public PopoverTrigger Trigger
 	{
-		get => (PopoverTrigger)base.TriggerInternal;
-		set => base.TriggerInternal = (TooltipTrigger)value;
+		get => (PopoverTrigger)TriggerInternal;
+		set => TriggerInternal = (TooltipTrigger)value;
 	}
 
 	protected override string JsModuleName => nameof(HxPopover);
@@ -87,15 +87,15 @@ public class HxPopover : HxTooltipInternalBase
 
 	public HxPopover()
 	{
-		this.Placement = PopoverPlacement.Right;
-		this.Trigger = PopoverTrigger.Click;
+		Placement = PopoverPlacement.Right;
+		Trigger = PopoverTrigger.Click;
 	}
 	protected override Dictionary<string, string> GetNewContentForUpdate()
 	{
 		return new()
 		{
-			{ ".popover-header", this.Title },
-			{ ".popover-body", this.Content }
+			{ ".popover-header", Title },
+			{ ".popover-body", Content }
 		};
 	}
 

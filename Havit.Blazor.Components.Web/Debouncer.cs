@@ -6,8 +6,8 @@
 /// </summary>
 public class Debouncer : IDisposable
 {
-	private CancellationTokenSource debounceCancellationTokenSource = null;
-	private bool disposed;
+	private CancellationTokenSource _debounceCancellationTokenSource = null;
+	private bool _disposed;
 
 	/// <summary>
 	/// Starts the debouncing.
@@ -18,17 +18,17 @@ public class Debouncer : IDisposable
 	{
 		try
 		{
-			if (debounceCancellationTokenSource != null)
+			if (_debounceCancellationTokenSource != null)
 			{
-				debounceCancellationTokenSource?.Cancel();
-				debounceCancellationTokenSource?.Dispose();
+				_debounceCancellationTokenSource?.Cancel();
+				_debounceCancellationTokenSource?.Dispose();
 			}
 
-			debounceCancellationTokenSource = new CancellationTokenSource();
+			_debounceCancellationTokenSource = new CancellationTokenSource();
 
-			await Task.Delay(millisecondsDelay, debounceCancellationTokenSource.Token);
+			await Task.Delay(millisecondsDelay, _debounceCancellationTokenSource.Token);
 
-			await actionAsync(debounceCancellationTokenSource.Token);
+			await actionAsync(_debounceCancellationTokenSource.Token);
 		}
 		catch (TaskCanceledException)
 		{
@@ -38,18 +38,18 @@ public class Debouncer : IDisposable
 
 	protected virtual void Dispose(bool disposing)
 	{
-		if (!disposed)
+		if (!_disposed)
 		{
 			if (disposing)
 			{
-				if (debounceCancellationTokenSource != null)
+				if (_debounceCancellationTokenSource != null)
 				{
-					debounceCancellationTokenSource?.Cancel();
-					debounceCancellationTokenSource?.Dispose();
+					_debounceCancellationTokenSource?.Cancel();
+					_debounceCancellationTokenSource?.Dispose();
 				}
 			}
 
-			disposed = true;
+			_disposed = true;
 		}
 	}
 

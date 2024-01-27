@@ -3,7 +3,7 @@
 
 <h1>FilterContext</h1>
 
-<HxFilterForm @ref="filterForm" Model="@model" ModelChanged="HandleModelChanged" TModel="FormModel" OnChipsUpdated="HandleChipsUpdated">
+<HxFilterForm @ref="_filterForm" Model="@_model" ModelChanged="HandleModelChanged" TModel="FormModel" OnChipsUpdated="HandleChipsUpdated">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 
@@ -21,7 +21,7 @@
         TItem="ThemeColor"
         TValue="ThemeColor"
         @bind-Value="@context.Color"
-        Data="selectData" />
+        Data="_selectData" />
 
 	<HxSubmit Text="Apply" Color="ThemeColor.Primary" />
 
@@ -37,16 +37,16 @@
 
 <h3>Values in model</h3>
 <ul>
-	<li>Text1: @model.Text1</li>
-	<li>Text2: @model.Text2</li>
-	<li>Text3: @model.Number1</li>
+	<li>Text1: @_model.Text1</li>
+	<li>Text2: @_model.Text2</li>
+	<li>Text3: @_model.Number1</li>
 </ul>
 
 <h4>Chips</h4>
 
-<HxChipList Chips="@chips" OnChipRemoveClick="HandleChipRemoveClick" />
+<HxChipList Chips="@_chips" OnChipRemoveClick="HandleChipRemoveClick" />
 
-<HxGrid @ref="myGrid" TItem="string" DataProvider="@GridDataProvider">
+<HxGrid @ref="_myGrid" TItem="string" DataProvider="@GridDataProvider">
 	<Columns>
 		<HxGridColumn TItem="string" HeaderText="Value" ItemTextSelector="(item) => item" />
 	</Columns>

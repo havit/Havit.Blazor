@@ -1,14 +1,14 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 @using Havit.Blazor.Components.Web.Bootstrap.Internal
-<li class="@this.ContainerCssClass">
+<li class="@ContainerCssClass">
 	<HxNavLinkInternal href="@Href"
-					   Match="@(this.Match ?? NavLinkMatch.All)"
+					   Match="@(Match ?? NavLinkMatch.All)"
 					   OnClick="OnClick.HasDelegate ? InvokeOnClickAsync : null"
-					   class="@CssClassHelper.Combine("dropdown-item", CascadeEnabledComponent.EnabledEffective(this) ? null : "disabled", this.CssClass)"
-					   ActiveClass="@(((this.Match is null) || (this.Href is null)) ? String.Empty : "active")"
+					   class="@CssClassHelper.Combine("dropdown-item", CascadeEnabledComponent.EnabledEffective(this) ? null : "disabled", CssClass)"
+					   ActiveClass="@(((Match is null) || (Href is null)) ? String.Empty : "active")"
 					   tabindex="@(CascadeEnabledComponent.EnabledEffective(this) ? null : "-1")"
 					   aria-disabled="@(CascadeEnabledComponent.EnabledEffective(this) ? null : "true")"
-					   role="@(this.OnClick.HasDelegate ? "button" : null)"
+					   role="@(OnClick.HasDelegate ? "button" : null)"
 					   @attributes="this.AdditionalAttributes">
 		@Text
 		@ChildContent

@@ -1,13 +1,13 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<CascadingValue Value="@tabsListRegistration" Name="@TabsRegistrationCascadingValueName" IsFixed="true">
+<CascadingValue Value="@_tabsListRegistration" Name="@TabsRegistrationCascadingValueName" IsFixed="true">
 	@ChildContent
 </CascadingValue>
 
 @{
-	var tabsListOrdered = tabsList.OrderBy(tab => tab.Order).ToList();
+	var tabsListOrdered = _tabsList.OrderBy(tab => tab.Order).ToList();
 	RenderFragment tabsNavigation =
-	@<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), this.CssClass)" Variant="this.NavVariant">
+	@<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), CssClass)" Variant="NavVariant">
 		@foreach (HxTab tab in tabsListOrdered)
 					{
 		@if (tab.Visible)
@@ -29,8 +29,8 @@
 				{
 		@if (tab.Visible)
 		{
-			if ((this.RenderMode == TabPanelRenderMode.AllTabs)
-			|| ((this.RenderMode == TabPanelRenderMode.ActiveTabOnly) && IsActive(tab)))
+			if ((RenderMode == TabPanelRenderMode.AllTabs)
+			|| ((RenderMode == TabPanelRenderMode.ActiveTabOnly) && IsActive(tab)))
 			{
 				<div @key="@tab.Id" class="@CssClassHelper.Combine("tab-pane", (IsActive(tab) ? "active" : String.Empty), tab.ContentCssClass)">
 					@tab.Content

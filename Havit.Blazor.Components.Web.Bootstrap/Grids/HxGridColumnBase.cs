@@ -26,23 +26,23 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	bool IHxGridColumn<TItem>.IsVisible() => IsColumnVisible();
 
 	/// <inheritdoc />
-	int IHxGridColumn<TItem>.GetOrder() => this.GetColumnOrder();
+	int IHxGridColumn<TItem>.GetOrder() => GetColumnOrder();
 
 	/// <inheritdoc />
-	GridCellTemplate IHxGridColumn<TItem>.GetHeaderCellTemplate(GridHeaderCellContext context) => this.GetHeaderCellTemplate(context);
+	GridCellTemplate IHxGridColumn<TItem>.GetHeaderCellTemplate(GridHeaderCellContext context) => GetHeaderCellTemplate(context);
 
 	/// <inheritdoc />
-	GridCellTemplate IHxGridColumn<TItem>.GetItemCellTemplate(TItem item) => this.GetItemCellTemplate(item);
+	GridCellTemplate IHxGridColumn<TItem>.GetItemCellTemplate(TItem item) => GetItemCellTemplate(item);
 
 	/// <inheritdoc />
-	GridCellTemplate IHxGridColumn<TItem>.GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => this.GetItemPlaceholderCellTemplate(context);
+	GridCellTemplate IHxGridColumn<TItem>.GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => GetItemPlaceholderCellTemplate(context);
 
 	/// <inheritdoc />
-	GridCellTemplate IHxGridColumn<TItem>.GetFooterCellTemplate(GridFooterCellContext context) => this.GetFooterCellTemplate(context);
+	GridCellTemplate IHxGridColumn<TItem>.GetFooterCellTemplate(GridFooterCellContext context) => GetFooterCellTemplate(context);
 
 	/// <inheritdoc />
-	SortingItem<TItem>[] IHxGridColumn<TItem>.GetSorting() => sorting ??= this.GetSorting().ToArray();
-	private SortingItem<TItem>[] sorting;
+	SortingItem<TItem>[] IHxGridColumn<TItem>.GetSorting() => _sorting ??= GetSorting().ToArray();
+	private SortingItem<TItem>[] _sorting;
 
 	/// <inheritdoc />
 	int? IHxGridColumn<TItem>.GetDefaultSortingOrder() => GetDefaultSortingOrder();

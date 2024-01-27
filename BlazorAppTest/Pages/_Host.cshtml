@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- Bootstrap CSS -->
-	@Html.Raw(Havit.Blazor.Components.Web.Bootstrap.HxSetup.RenderBootstrapCssReference())
+	@Html.Raw(HxSetup.RenderBootstrapCssReference())
 	<link href="_content/Havit.Blazor.Components.Web.Bootstrap/defaults.css" rel="stylesheet" />
 	<link href="BlazorAppTest.styles.css" rel="stylesheet" /> @* CSS Isolation *@
 
@@ -36,6 +36,6 @@
 	</div>
 
 	<script src="_framework/blazor.server.js"></script>
-	@Html.Raw(Havit.Blazor.Components.Web.Bootstrap.HxSetup.RenderBootstrapJavaScriptReference())
+@Html.Raw(HxSetup.RenderBootstrapJavaScriptReference())
 </body>
 </html>

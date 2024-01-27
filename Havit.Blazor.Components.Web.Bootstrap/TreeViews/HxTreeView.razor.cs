@@ -79,7 +79,7 @@ public partial class HxTreeView<TItem> : ComponentBase
 
 	private async Task HandleItemSelected(TItem newSelectedItem)
 	{
-		this.SelectedItem = newSelectedItem;
-		await InvokeSelectedDataItemChangedAsync(this.SelectedItem);
+		SelectedItem = newSelectedItem;
+		await InvokeSelectedDataItemChangedAsync(SelectedItem);
 	}
 }

@@ -6,7 +6,7 @@ namespace Havit.Blazor.Documentation.Services;
 
 public static class ApiRenderer
 {
-	private static readonly (string type, string name)[] typeSimplifications =
+	private static readonly (string type, string name)[] s_typeSimplifications =
 	{
 		new() { type = "Int16",   name = "short"   },
 		new() { type = "UInt16",  name = "ushort"  },
@@ -36,7 +36,7 @@ public static class ApiRenderer
 		typeName = Regex.Replace(typeName, @"[a-zA-Z]*\.", ""); // Remove namespaces
 
 		// simplify known types
-		foreach (var typeSimplification in typeSimplifications)
+		foreach (var typeSimplification in s_typeSimplifications)
 		{
 			typeName = typeName.Replace(typeSimplification.type, typeSimplification.name);
 		}

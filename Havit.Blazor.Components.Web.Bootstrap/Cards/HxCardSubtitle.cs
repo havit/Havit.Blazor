@@ -29,7 +29,7 @@ public class HxCardSubtitle : ComponentBase
 	{
 		builder.OpenElement(1, HtmlElement);
 
-		builder.AddAttribute(2, "class", CssClassHelper.Combine("card-subtitle", this.CssClass));
+		builder.AddAttribute(2, "class", CssClassHelper.Combine("card-subtitle", CssClass));
 		builder.AddMultipleAttributes(3, AdditionalAttributes);
 		builder.AddContent(4, ChildContent);
 

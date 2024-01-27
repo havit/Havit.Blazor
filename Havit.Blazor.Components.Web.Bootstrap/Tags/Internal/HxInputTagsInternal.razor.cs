@@ -120,23 +120,23 @@ public partial class HxInputTagsInternal
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
-	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
-	private System.Timers.Timer timer;
-	private string userInput = String.Empty;
-	private CancellationTokenSource cancellationTokenSource;
-	private List<string> suggestions;
-	private bool isDropdownOpened = false;
-	private bool currentlyFocused;
-	private bool mouseDownFocus;
-	private bool disposed;
-	private IJSObjectReference jsModule;
-	private HxInputTagsInputInternal inputComponent;
-	private bool dataProviderInProgress;
-	private DotNetObjectReference<HxInputTagsInternal> dotnetObjectReference;
+	private string _dropdownId = "hx" + Guid.NewGuid().ToString("N");
+	private System.Timers.Timer _timer;
+	private string _userInput = String.Empty;
+	private CancellationTokenSource _cancellationTokenSource;
+	private List<string> _suggestions;
+	private bool _isDropdownOpened = false;
+	private bool _currentlyFocused;
+	private bool _mouseDownFocus;
+	private bool _disposed;
+	private IJSObjectReference _jsModule;
+	private HxInputTagsInputInternal _inputComponent;
+	private bool _dataProviderInProgress;
+	private DotNetObjectReference<HxInputTagsInternal> _dotnetObjectReference;
 
 	public HxInputTagsInternal()
 	{
-		dotnetObjectReference = DotNetObjectReference.Create(this);
+		_dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
 	private async Task AddTagWithEventCallbackAsync(string tag)
@@ -171,18 +171,18 @@ public partial class HxInputTagsInternal
 
 	public async Task FocusAsync()
 	{
-		if (disposed)
+		if (_disposed)
 		{
 			return;
 		}
 		await EnsureJsModuleAsync();
-		await jsModule.InvokeVoidAsync("tryFocus", inputComponent.InputElement);
+		await _jsModule.InvokeVoidAsync("tryFocus", _inputComponent.InputElement);
 	}
 
 	private async Task HandleInputInput(string newUserInput)
 	{
 		// user changes an input
-		userInput = newUserInput ?? String.Empty;
+		_userInput = newUserInput ?? String.Empty;
 
 		CancelDelayedSuggestionsUpdate();
 
@@ -191,7 +191,7 @@ public partial class HxInputTagsInternal
 
 		if (DataProvider is not null)
 		{
-			if (userInput.Length >= SuggestMinimumLengthEffective)
+			if (_userInput.Length >= SuggestMinimumLengthEffective)
 			{
 				if (SuggestDelayEffective == 0)
 				{
@@ -200,20 +200,20 @@ public partial class HxInputTagsInternal
 				else
 				{
 					// start new time interval
-					if (timer == null)
+					if (_timer == null)
 					{
-						timer = new System.Timers.Timer();
-						timer.AutoReset = false; // just once
-						timer.Elapsed += HandleTimerElapsed;
+						_timer = new System.Timers.Timer();
+						_timer.AutoReset = false; // just once
+						_timer.Elapsed += HandleTimerElapsed;
 					}
-					timer.Interval = SuggestDelayEffective;
-					timer.Start();
+					_timer.Interval = SuggestDelayEffective;
+					_timer.Start();
 				}
 			}
 			else
 			{
 				// or close a dropdown
-				suggestions = null;
+				_suggestions = null;
 				await TryDestroyDropdownAsync();
 			}
 		}
@@ -221,9 +221,9 @@ public partial class HxInputTagsInternal
 
 	private void CancelDelayedSuggestionsUpdate()
 	{
-		timer?.Stop(); // if waiting for an interval, stop it
-		cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
-		dataProviderInProgress = false; // data provider is no longer in progress				 
+		_timer?.Stop(); // if waiting for an interval, stop it
+		_cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
+		_dataProviderInProgress = false; // data provider is no longer in progress				 
 	}
 
 	private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -237,15 +237,15 @@ public partial class HxInputTagsInternal
 
 	private void HandleInputMouseDown()
 	{
-		if (!currentlyFocused)
+		if (!_currentlyFocused)
 		{
-			mouseDownFocus = true;
+			_mouseDownFocus = true;
 		}
 	}
 
 	private async Task HandleInputClick()
 	{
-		if (currentlyFocused && (SuggestMinimumLengthEffective == 0) && !isDropdownOpened)
+		if (_currentlyFocused && (SuggestMinimumLengthEffective == 0) && !_isDropdownOpened)
 		{
 			await UpdateSuggestionsAsync();
 		}
@@ -253,19 +253,19 @@ public partial class HxInputTagsInternal
 
 	private async Task HandleInputFocus()
 	{
-		currentlyFocused = true;
+		_currentlyFocused = true;
 
 		if (SuggestMinimumLengthEffective == 0)
 		{
-			await UpdateSuggestionsAsync(delayDropdownShow: mouseDownFocus);
+			await UpdateSuggestionsAsync(delayDropdownShow: _mouseDownFocus);
 		}
-		mouseDownFocus = false;
+		_mouseDownFocus = false;
 	}
 
 	[JSInvokable("HxInputTagsInternal_HandleInputBlur")]
 	public async Task HandleInputBlur(bool isWithinDropdown)
 	{
-		currentlyFocused = false;
+		_currentlyFocused = false;
 
 		CancelDelayedSuggestionsUpdate();
 
@@ -281,18 +281,18 @@ public partial class HxInputTagsInternal
 		{
 			// tags before last delimiter
 			char[] delimitersArray = DelimitersEffective.ToArray();
-			var delimiterIndex = userInput.IndexOfAny(delimitersArray);
+			var delimiterIndex = _userInput.IndexOfAny(delimitersArray);
 			while (delimiterIndex >= 0)
 			{
-				var tag = userInput.Substring(0, delimiterIndex).Trim(delimitersArray);
-				userInput = userInput.Substring(delimiterIndex).TrimStart(delimitersArray);
+				var tag = _userInput.Substring(0, delimiterIndex).Trim(delimitersArray);
+				_userInput = _userInput.Substring(delimiterIndex).TrimStart(delimitersArray);
 
 				if (!String.IsNullOrWhiteSpace(tag))
 				{
 					await AddTagWithEventCallbackAsync(tag);
 				}
 
-				delimiterIndex = userInput.IndexOfAny(delimitersArray);
+				delimiterIndex = _userInput.IndexOfAny(delimitersArray);
 			}
 		}
 
@@ -301,13 +301,13 @@ public partial class HxInputTagsInternal
 		{
 			if (AllowCustomTags)
 			{
-				var newTag = userInput?.Trim(DelimitersEffective.ToArray());
+				var newTag = _userInput?.Trim(DelimitersEffective.ToArray());
 				if (!String.IsNullOrWhiteSpace(newTag))
 				{
 					await AddTagWithEventCallbackAsync(newTag);
 				}
 			}
-			userInput = String.Empty;
+			_userInput = String.Empty;
 		}
 
 		StateHasChanged();
@@ -316,10 +316,10 @@ public partial class HxInputTagsInternal
 	private async Task UpdateSuggestionsAsync(bool delayDropdownShow = false)
 	{
 		// Cancelation is performed in HandleInputInput method
-		cancellationTokenSource?.Dispose();
+		_cancellationTokenSource?.Dispose();
 
-		cancellationTokenSource = new CancellationTokenSource();
-		CancellationToken cancellationToken = cancellationTokenSource.Token;
+		_cancellationTokenSource = new CancellationTokenSource();
+		CancellationToken cancellationToken = _cancellationTokenSource.Token;
 
 		// TODO Do we want spinner? Configurable?
 		//dataProviderInProgress = true;
@@ -327,7 +327,7 @@ public partial class HxInputTagsInternal
 
 		InputTagsDataProviderRequest request = new InputTagsDataProviderRequest
 		{
-			UserInput = userInput,
+			UserInput = _userInput,
 			CancellationToken = cancellationToken
 		};
 
@@ -346,14 +346,14 @@ public partial class HxInputTagsInternal
 			return;
 		}
 
-		dataProviderInProgress = false;
+		_dataProviderInProgress = false;
 
 		// KeyboardNavigation
-		focusedItemIndex = -1; // No item is focused after the suggestions are updated.
+		_focusedItemIndex = -1; // No item is focused after the suggestions are updated.
 
-		suggestions = result.Data.ToList();
+		_suggestions = result.Data.ToList();
 
-		if (suggestions?.Any() ?? false)
+		if (_suggestions?.Any() ?? false)
 		{
 			await OpenDropdownAsync(delayDropdownShow);
 		}
@@ -366,19 +366,19 @@ public partial class HxInputTagsInternal
 	}
 
 	#region KeyboardNavigation
-	private int focusedItemIndex = -1;
+	private int _focusedItemIndex = -1;
 
 	[JSInvokable("HxInputTagsInternal_HandleInputKeyDown")]
 	public async Task HandleInputKeyDown(string keyCode)
 	{
-		if ((keyCode == KeyCodes.Backspace) && String.IsNullOrWhiteSpace(userInput) && ValueEffective.Any())
+		if ((keyCode == KeyCodes.Backspace) && String.IsNullOrWhiteSpace(_userInput) && ValueEffective.Any())
 		{
 			await RemoveTagWithEventCallbackAsync(ValueEffective.Last());
 		}
 
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
 		// Otherwise, if the user presses enter, try to process the custom tag(s).
-		string focusedItem = GetItemByIndex(focusedItemIndex);
+		string focusedItem = GetItemByIndex(_focusedItemIndex);
 		if ((keyCode == KeyCodes.Enter) || (keyCode == KeyCodes.NumpadEnter))
 		{
 			CancelDelayedSuggestionsUpdate();
@@ -397,19 +397,19 @@ public partial class HxInputTagsInternal
 		// Move focus up or down.
 		if (keyCode == KeyCodes.ArrowUp)
 		{
-			int previousItemIndex = focusedItemIndex - 1;
+			int previousItemIndex = _focusedItemIndex - 1;
 			if (previousItemIndex >= 0)
 			{
-				focusedItemIndex = previousItemIndex;
+				_focusedItemIndex = previousItemIndex;
 				StateHasChanged();
 			}
 		}
 		else if (keyCode == KeyCodes.ArrowDown)
 		{
-			int nextItemIndex = focusedItemIndex + 1;
-			if (nextItemIndex < suggestions?.Count)
+			int nextItemIndex = _focusedItemIndex + 1;
+			if (nextItemIndex < _suggestions?.Count)
 			{
-				focusedItemIndex = nextItemIndex;
+				_focusedItemIndex = nextItemIndex;
 				StateHasChanged();
 			}
 		}
@@ -417,9 +417,9 @@ public partial class HxInputTagsInternal
 
 	private string GetItemByIndex(int index)
 	{
-		if ((index >= 0) && (index < suggestions?.Count))
+		if ((index >= 0) && (index < _suggestions?.Count))
 		{
-			return suggestions[index];
+			return _suggestions[index];
 		}
 		else
 		{
@@ -430,13 +430,13 @@ public partial class HxInputTagsInternal
 
 	private async Task HandleItemSelected(string tag)
 	{
-		isDropdownOpened = false; // dropdown is closed because the user selected an item
+		_isDropdownOpened = false; // dropdown is closed because the user selected an item
 
 		// user clicked on an item in the "dropdown".
-		userInput = String.Empty;
+		_userInput = String.Empty;
 		await AddTagWithEventCallbackAsync(tag);
 
-		if (!currentlyFocused)
+		if (!_currentlyFocused)
 		{
 			await FocusAsync();
 		}
@@ -447,12 +447,12 @@ public partial class HxInputTagsInternal
 		if (firstRender)
 		{
 			await EnsureJsModuleAsync();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
 			string[] keysToPreventDefault = [KeyCodes.ArrowDown, KeyCodes.ArrowUp, KeyCodes.Enter, KeyCodes.NumpadEnter];
-			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, keysToPreventDefault);
+			await _jsModule.InvokeVoidAsync("initialize", InputId, _dotnetObjectReference, keysToPreventDefault);
 		}
 	}
 
@@ -466,21 +466,21 @@ public partial class HxInputTagsInternal
 
 	private async Task OpenDropdownAsync(bool delayShow = false)
 	{
-		if (!isDropdownOpened)
+		if (!_isDropdownOpened)
 		{
 			await EnsureJsModuleAsync();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("open", inputComponent.InputElement, dotnetObjectReference, delayShow);
-			isDropdownOpened = true;
+			await _jsModule.InvokeVoidAsync("open", _inputComponent.InputElement, _dotnetObjectReference, delayShow);
+			_isDropdownOpened = true;
 		}
 	}
 
 	private async Task TryDestroyDropdownAsync()
 	{
-		if (isDropdownOpened)
+		if (_isDropdownOpened)
 		{
 			await DestroyDropdownAsync();
 		}
@@ -489,25 +489,25 @@ public partial class HxInputTagsInternal
 	private async Task DestroyDropdownAsync()
 	{
 		await EnsureJsModuleAsync();
-		await jsModule.InvokeVoidAsync("destroy", inputComponent.InputElement);
+		await _jsModule.InvokeVoidAsync("destroy", _inputComponent.InputElement);
 
-		isDropdownOpened = false;
+		_isDropdownOpened = false;
 		StateHasChanged();
 	}
 
 	private async Task EnsureJsModuleAsync()
 	{
-		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputTags));
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputTags));
 	}
 
 	[JSInvokable("HxInputTagsInternal_HandleDropdownHidden")]
 	public async Task HandleDropdownHidden()
 	{
-		isDropdownOpened = false;
-		if (!currentlyFocused)
+		_isDropdownOpened = false;
+		if (!_currentlyFocused)
 		{
 			await TryProcessCustomTagsAsync();
-			userInput = String.Empty;
+			_userInput = String.Empty;
 			StateHasChanged();
 		}
 		if (SuggestMinimumLengthEffective > 0)
@@ -527,7 +527,7 @@ public partial class HxInputTagsInternal
 		{
 			return null;
 		}
-		return CssClassHelper.Combine(this.CoreFormControlCssClass, this.InputSizeEffective.AsFormControlCssClass());
+		return CssClassHelper.Combine(CoreFormControlCssClass, InputSizeEffective.AsFormControlCssClass());
 	}
 
 	protected string GetNakedCssClasses()
@@ -536,12 +536,12 @@ public partial class HxInputTagsInternal
 		{
 			return null;
 		}
-		return CssClassHelper.Combine("hx-input-tags-naked", this.InputSizeEffective switch
+		return CssClassHelper.Combine("hx-input-tags-naked", InputSizeEffective switch
 		{
 			InputSize.Regular => null,
 			InputSize.Small => "hx-input-tags-naked-sm",
 			InputSize.Large => "hx-input-tags-naked-lg",
-			_ => throw new InvalidOperationException($"Unknown {nameof(InputSize)} value {this.InputSizeEffective}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(InputSize)} value {InputSizeEffective}.")
 		});
 	}
 
@@ -554,20 +554,20 @@ public partial class HxInputTagsInternal
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
-		timer?.Dispose();
-		timer = null;
+		_timer?.Dispose();
+		_timer = null;
 
-		cancellationTokenSource?.Dispose();
-		cancellationTokenSource = null;
+		_cancellationTokenSource?.Dispose();
+		_cancellationTokenSource = null;
 
-		if (jsModule != null)
+		if (_jsModule != null)
 		{
 			try
 			{
-				await jsModule.InvokeVoidAsync("dispose", InputId);
-				await jsModule.DisposeAsync();
+				await _jsModule.InvokeVoidAsync("dispose", InputId);
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
 			{
@@ -579,6 +579,6 @@ public partial class HxInputTagsInternal
 			}
 		}
 
-		dotnetObjectReference.Dispose();
+		_dotnetObjectReference.Dispose();
 	}
 }

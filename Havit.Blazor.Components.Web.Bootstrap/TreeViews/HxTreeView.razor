@@ -2,21 +2,21 @@
 @using Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 
-<div class="@CssClassHelper.Combine("hx-tree-view", this.CssClass)">
+<div class="@CssClassHelper.Combine("hx-tree-view", CssClass)">
 	<CascadingValue Value="this" IsFixed="true">
-		@foreach (var item in this.Items)
+		@foreach (var item in Items)
 		{
 			<HxTreeViewItemInternal @key="item"
 									TItem="TItem"
 									Item="item"
 									Level="0"
-									TitleSelector="this.ItemTitleSelector"
-									IconSelector="this.ItemIconSelector"
-									InitialExpandedSelector="this.ItemInitialExpandedSelector"
-									CssClass="@this.ItemCssClass"
-									CssClassSelector="this.ItemCssClassSelector"
-									ChildrenSelector="this.ItemChildrenSelector"
-									ContentTemplate="this.ItemTemplate"
+									TitleSelector="ItemTitleSelector"
+									IconSelector="ItemIconSelector"
+									InitialExpandedSelector="ItemInitialExpandedSelector"
+									CssClass="@ItemCssClass"
+									CssClassSelector="ItemCssClassSelector"
+									ChildrenSelector="ItemChildrenSelector"
+									ContentTemplate="ItemTemplate"
 									OnItemSelected="HandleItemSelected"
 									OnItemExpanded="OnItemExpanded"
 									OnItemCollapsed="OnItemCollapsed" />

@@ -29,7 +29,7 @@ public class HxCollapseToggleElement : ComponentBase, IHxCollapseToggle
 	{
 		builder.OpenElement(0, ElementName);
 
-		builder.AddAttribute(1, "class", this.CssClass);
+		builder.AddAttribute(1, "class", CssClass);
 		builder.AddAttribute(2, "data-bs-toggle", "collapse");
 		builder.AddAttribute(3, "aria-expanded", false);
 

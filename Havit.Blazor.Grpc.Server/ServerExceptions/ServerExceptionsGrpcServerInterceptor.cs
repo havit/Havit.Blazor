@@ -9,13 +9,13 @@ namespace Havit.Blazor.Grpc.Server.ServerExceptions;
 // DI SINGLETON !!
 public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptorBase
 {
-	private readonly ILogger<ServerExceptionsGrpcServerInterceptor> logger;
-	private readonly IExceptionMonitoringService exceptionMonitoringService;
+	private readonly ILogger<ServerExceptionsGrpcServerInterceptor> _logger;
+	private readonly IExceptionMonitoringService _exceptionMonitoringService;
 
 	public ServerExceptionsGrpcServerInterceptor(ILogger<ServerExceptionsGrpcServerInterceptor> logger, IExceptionMonitoringService exceptionMonitoringService)
 	{
-		this.logger = logger;
-		this.exceptionMonitoringService = exceptionMonitoringService;
+		_logger = logger;
+		_exceptionMonitoringService = exceptionMonitoringService;
 	}
 
 	protected override bool OnException(Exception exception, out Status status)
@@ -31,18 +31,18 @@ public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptor
 			// see ServerExceptionsGrpcClientInterceptor - gets propagated to HxMessenger + client-side OperationFailedException
 			status = new Status(StatusCode.FailedPrecondition, exception.Message);
 
-			logger.LogInformation(exception, exception.Message); // e.g. for ApplicationInsights (where Warning and higher levels get tracked by default)
+			_logger.LogInformation(exception, exception.Message); // e.g. for ApplicationInsights (where Warning and higher levels get tracked by default)
 		}
 		else if (exception.GetType().Name == "ObjectNotFoundException") // e.g. Havit.Data.Patterns.Exceptions.ObjectNotFoundException
 		{
 			status = new Status(StatusCode.NotFound, exception.Message);
-			logger.LogInformation(exception, exception.Message);
+			_logger.LogInformation(exception, exception.Message);
 		}
 		else if ((exception is OperationCanceledException)
 			|| ((exception.GetType().Name == "SqlException") && exception.Message.Contains("Operation cancelled by user."))) // e.g. System.Data.SqlClient.SqlException
 		{
 			status = new Status(StatusCode.Cancelled, exception.Message);
-			logger.LogInformation(exception, exception.Message);
+			_logger.LogInformation(exception, exception.Message);
 		}
 		else
 		{
@@ -56,8 +56,8 @@ public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptor
 				_ => StatusCode.Unknown,
 			}, exception.ToString());
 
-			logger.LogError(exception, exception.Message); // passes exception to ApplicationInsights tracking (by default, only Warning and higher levels get tracked)
-			exceptionMonitoringService.HandleException(exception); // passes exception to SmtpExceptionMonitoring (errors@havit.cz)
+			_logger.LogError(exception, exception.Message); // passes exception to ApplicationInsights tracking (by default, only Warning and higher levels get tracked)
+			_exceptionMonitoringService.HandleException(exception); // passes exception to SmtpExceptionMonitoring (errors@havit.cz)
 		}
 		return true;
 	}

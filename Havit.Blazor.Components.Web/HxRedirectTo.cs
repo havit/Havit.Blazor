@@ -24,6 +24,6 @@ public class HxRedirectTo : ComponentBase
 
 	protected override void OnInitialized()
 	{
-		NavigationManager.NavigateTo(this.Uri, this.ForceLoad);
+		NavigationManager.NavigateTo(Uri, ForceLoad);
 	}
 }

@@ -20,13 +20,13 @@ public class HxCollapseToggleButton : HxButton, IHxCollapseToggle
 		AdditionalAttributes["data-bs-toggle"] = "collapse";
 		AdditionalAttributes["aria-expanded"] = false;
 
-		if (!String.IsNullOrWhiteSpace(this.CollapseTarget))
+		if (!String.IsNullOrWhiteSpace(CollapseTarget))
 		{
-			AdditionalAttributes["data-bs-target"] = this.CollapseTarget;
+			AdditionalAttributes["data-bs-target"] = CollapseTarget;
 
-			if (this.CollapseTarget.StartsWith("#"))
+			if (CollapseTarget.StartsWith("#"))
 			{
-				AdditionalAttributes["aria-controls"] = this.CollapseTarget.Substring(1);
+				AdditionalAttributes["aria-controls"] = CollapseTarget.Substring(1);
 			}
 		}
 

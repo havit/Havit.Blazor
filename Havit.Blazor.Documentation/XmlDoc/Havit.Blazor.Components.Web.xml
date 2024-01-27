@@ -8,11 +8,22 @@
             <summary>
             Allows child components to register with an owner component via this class shared as a cascading value &amp; parameter.
             </summary>
+            <remarks>
+            Constructor.
+            </remarks>
+            <param name="collection">Collection to add/remove components.</param>
+            <param name="stateHasChangedAction">Action to call the StateHasChanged method. Due to a server prerendering issue in .NET 5, the StateHasChanged must be called inside InvokeAsync, so the action is awaitable.</param>
+            <param name="isOwnerDisposedFunc">Function to return if the holding component is disposed.</param>
+            <param name="itemAddedCallback">Callback to call when the component is added to the collection.</param>
+            <param name="itemRemovedCallback">Callback to call when the component is removed from the collection.</param>
         </member>
         <member name="M:Havit.Blazor.Components.Web.CollectionRegistration`1.#ctor(System.Collections.Generic.ICollection{`0},System.Func{System.Threading.Tasks.Task},System.Func{System.Boolean},System.Action{`0},System.Action{`0})">
             <summary>
-            Constructor.
+            Allows child components to register with an owner component via this class shared as a cascading value &amp; parameter.
             </summary>
+            <remarks>
+            Constructor.
+            </remarks>
             <param name="collection">Collection to add/remove components.</param>
             <param name="stateHasChangedAction">Action to call the StateHasChanged method. Due to a server prerendering issue in .NET 5, the StateHasChanged must be called inside InvokeAsync, so the action is awaitable.</param>
             <param name="isOwnerDisposedFunc">Function to return if the holding component is disposed.</param>

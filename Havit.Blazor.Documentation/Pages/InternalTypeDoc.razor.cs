@@ -6,13 +6,13 @@ public partial class InternalTypeDoc
 {
 	[Parameter] public string TypeText { get; set; }
 
-	private Type type;
+	private Type _type;
 
 	protected override void OnParametersSet()
 	{
 		try
 		{
-			type = ApiTypeHelper.GetType(TypeText, true);
+			_type = ApiTypeHelper.GetType(TypeText, true);
 		}
 		catch
 		{

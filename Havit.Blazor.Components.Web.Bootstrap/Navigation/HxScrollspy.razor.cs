@@ -25,25 +25,25 @@ public partial class HxScrollspy : IAsyncDisposable
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	private IJSObjectReference jsModule;
-	private ElementReference scrollspyElement;
-	private bool initialized;
-	private bool disposed;
+	private IJSObjectReference _jsModule;
+	private ElementReference _scrollspyElement;
+	private bool _initialized;
+	private bool _disposed;
 
 	/// <inheritdoc />
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		await base.OnAfterRenderAsync(firstRender);
 
-		if (firstRender && !initialized)
+		if (firstRender && !_initialized)
 		{
 			await EnsureJsModuleAsync();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("initialize", scrollspyElement, TargetId);
-			initialized = true;
+			await _jsModule.InvokeVoidAsync("initialize", _scrollspyElement, TargetId);
+			_initialized = true;
 		}
 	}
 
@@ -53,14 +53,14 @@ public partial class HxScrollspy : IAsyncDisposable
 	/// <returns></returns>
 	public async Task RefreshAsync()
 	{
-		if (initialized)
+		if (_initialized)
 		{
 			await EnsureJsModuleAsync();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("refresh", scrollspyElement);
+			await _jsModule.InvokeVoidAsync("refresh", _scrollspyElement);
 		}
 		else
 		{
@@ -70,7 +70,7 @@ public partial class HxScrollspy : IAsyncDisposable
 
 	private async Task EnsureJsModuleAsync()
 	{
-		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollspy));
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollspy));
 	}
 
 
@@ -83,14 +83,14 @@ public partial class HxScrollspy : IAsyncDisposable
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
-		if (jsModule != null)
+		if (_jsModule != null)
 		{
 			try
 			{
-				await jsModule.InvokeVoidAsync("dispose", scrollspyElement);
-				await jsModule.DisposeAsync();
+				await _jsModule.InvokeVoidAsync("dispose", _scrollspyElement);
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
 			{

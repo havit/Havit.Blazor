@@ -14,17 +14,17 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter]
 	public int Order
 	{
-		get => order;
+		get => _order;
 		set
 		{
 			// This is to ensure MultiSelectGridColumn is always displayed as the first column.
 			// MultiSelectGridColumn uses Int32.MinValue and we do not want to enable columns to have the same value.
 			Contract.Requires<ArgumentException>(value != Int32.MinValue);
 
-			order = value;
+			_order = value;
 		}
 	}
-	private int order = 0;
+	private int _order = 0;
 
 	/// <summary>
 	/// Returns the item CSS class (not dependent on data).
@@ -45,7 +45,7 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 	protected override string GetId() => nameof(HxContextMenuGridColumn<object>);
 
 	/// <inheritdoc />
-	protected override int GetColumnOrder() => order;
+	protected override int GetColumnOrder() => _order;
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => GridCellTemplate.Empty;

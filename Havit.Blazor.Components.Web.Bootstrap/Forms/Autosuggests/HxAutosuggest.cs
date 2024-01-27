@@ -29,7 +29,7 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override AutosuggestSettings GetSettings() => this.Settings;
+	protected override AutosuggestSettings GetSettings() => Settings;
 
 
 	/// <summary>
@@ -64,25 +64,25 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	/// Icon displayed in the input when no item is selected.
 	/// </summary>
 	[Parameter] public IconBase SearchIcon { get; set; }
-	protected IconBase SearchIconEffective => this.SearchIcon ?? this.GetSettings()?.SearchIcon ?? GetDefaults().SearchIcon;
+	protected IconBase SearchIconEffective => SearchIcon ?? GetSettings()?.SearchIcon ?? GetDefaults().SearchIcon;
 
 	/// <summary>
 	/// Icon displayed in the input on the selection clear button when an item is selected.
 	/// </summary>
 	[Parameter] public IconBase ClearIcon { get; set; }
-	protected IconBase ClearIconEffective => this.ClearIcon ?? this.GetSettings()?.ClearIcon ?? GetDefaults().ClearIcon;
+	protected IconBase ClearIconEffective => ClearIcon ?? GetSettings()?.ClearIcon ?? GetDefaults().ClearIcon;
 
 	/// <summary>
 	/// The minimal number of characters to start suggesting.
 	/// </summary>
 	[Parameter] public int? MinimumLength { get; set; }
-	protected int MinimumLengthEffective => this.MinimumLength ?? this.GetSettings()?.MinimumLength ?? GetDefaults().MinimumLength ?? throw new InvalidOperationException(nameof(MinimumLength) + " default for " + nameof(HxAutosuggest) + " has to be set.");
+	protected int MinimumLengthEffective => MinimumLength ?? GetSettings()?.MinimumLength ?? GetDefaults().MinimumLength ?? throw new InvalidOperationException(nameof(MinimumLength) + " default for " + nameof(HxAutosuggest) + " has to be set.");
 
 	/// <summary>
 	/// The debounce delay in milliseconds.
 	/// </summary>
 	[Parameter] public int? Delay { get; set; }
-	protected int DelayEffective => this.Delay ?? this.GetSettings()?.Delay ?? GetDefaults().Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxAutosuggest) + " has to be set.");
+	protected int DelayEffective => Delay ?? GetSettings()?.Delay ?? GetDefaults().Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxAutosuggest) + " has to be set.");
 
 	/// <summary>
 	/// A short hint displayed in the input field before the user enters a value.
@@ -93,8 +93,8 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	/// The size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxAutosuggest) + " has to be set.");
-	InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxAutosuggest) + " has to be set.");
+	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
@@ -140,7 +140,7 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	private protected override string CoreInputCssClass => "form-control";
 	private protected override string CoreCssClass => "hx-autosuggest position-relative";
 
-	private HxAutosuggestInternal<TItem, TValue> hxAutosuggestInternalComponent;
+	private HxAutosuggestInternal<TItem, TValue> _hxAutosuggestInternalComponent;
 
 	/// <inheritdoc cref="ComponentBase.BuildRenderTree(RenderTreeBuilder)" />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -168,17 +168,17 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 		builder.AddAttribute(1016, nameof(HxAutosuggestInternal<TItem, TValue>.SearchIconEffective), SearchIconEffective);
 		builder.AddAttribute(1017, nameof(HxAutosuggestInternal<TItem, TValue>.ClearIconEffective), ClearIconEffective);
 		builder.AddAttribute(1018, nameof(HxAutosuggestInternal<TItem, TValue>.DropdownOffset), DropdownOffset);
-		builder.AddAttribute(1021, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartText), this.InputGroupStartText);
-		builder.AddAttribute(1023, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartTemplate), this.InputGroupStartTemplate);
-		builder.AddAttribute(1024, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndText), this.InputGroupEndText);
-		builder.AddAttribute(1025, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndTemplate), this.InputGroupEndTemplate);
+		builder.AddAttribute(1021, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartText), InputGroupStartText);
+		builder.AddAttribute(1023, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartTemplate), InputGroupStartTemplate);
+		builder.AddAttribute(1024, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndText), InputGroupEndText);
+		builder.AddAttribute(1025, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndTemplate), InputGroupEndTemplate);
 #if NET8_0_OR_GREATER
 		builder.AddAttribute(1026, nameof(HxAutosuggestInternal<TItem, TValue>.NameAttributeValue), NameAttributeValue);
 #endif
 
-		builder.AddMultipleAttributes(2000, this.AdditionalAttributes);
+		builder.AddMultipleAttributes(2000, AdditionalAttributes);
 
-		builder.AddComponentReferenceCapture(3000, component => hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
+		builder.AddComponentReferenceCapture(3000, component => _hxAutosuggestInternalComponent = (HxAutosuggestInternal<TItem, TValue>)component);
 
 		builder.CloseComponent();
 	}
@@ -197,18 +197,18 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	/// <inheritdoc />
 	public override async ValueTask FocusAsync()
 	{
-		if (hxAutosuggestInternalComponent == null)
+		if (_hxAutosuggestInternalComponent == null)
 		{
-			throw new InvalidOperationException($"Cannot focus {this.GetType()}. The method must be called after first render.");
+			throw new InvalidOperationException($"Cannot focus {GetType()}. The method must be called after first render.");
 		}
 
-		await hxAutosuggestInternalComponent.FocusAsync();
+		await _hxAutosuggestInternalComponent.FocusAsync();
 	}
 
 	/// <inheritdoc />
 	protected override void RenderChipGenerator(RenderTreeBuilder builder)
 	{
-		if (!String.IsNullOrEmpty(hxAutosuggestInternalComponent?.ChipValue))
+		if (!String.IsNullOrEmpty(_hxAutosuggestInternalComponent?.ChipValue))
 		{
 			base.RenderChipGenerator(builder);
 		}
@@ -217,6 +217,6 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	/// <inheritdoc />
 	protected override void RenderChipValue(RenderTreeBuilder builder)
 	{
-		builder.AddContent(0, hxAutosuggestInternalComponent.ChipValue);
+		builder.AddContent(0, _hxAutosuggestInternalComponent.ChipValue);
 	}
 }

@@ -89,16 +89,16 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	/// <summary>
 	/// Returns the element reference of rendered element.
 	/// </summary>
-	internal ElementReference ElementReference => elementReference;
+	internal ElementReference ElementReference => _elementReference;
 
-	private ElementReference elementReference;
-	private DotNetObjectReference<HxDropdownToggleElement> dotnetObjectReference;
-	private IJSObjectReference jsModule;
-	private bool disposed;
+	private ElementReference _elementReference;
+	private DotNetObjectReference<HxDropdownToggleElement> _dotnetObjectReference;
+	private IJSObjectReference _jsModule;
+	private bool _disposed;
 
 	public HxDropdownToggleElement()
 	{
-		dotnetObjectReference = DotNetObjectReference.Create(this);
+		_dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
 	protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -118,7 +118,7 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 		};
 		builder.AddAttribute(3, "data-bs-auto-close", dataBsAutoCloseAttributeValue);
 
-		if (this.DropdownOffset is not null)
+		if (DropdownOffset is not null)
 		{
 			builder.AddAttribute(4, "data-bs-offset", $"{DropdownOffset.Value.Skidding},{DropdownOffset.Value.Distance}");
 		}
@@ -136,7 +136,7 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 		}
 
 		builder.AddMultipleAttributes(99, AdditionalAttributes);
-		builder.AddElementReferenceCapture(104, capturedRef => elementReference = capturedRef);
+		builder.AddElementReferenceCapture(104, capturedRef => _elementReference = capturedRef);
 		builder.AddContent(105, ChildContent);
 
 		builder.CloseElement();
@@ -149,8 +149,8 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 		 * If it later turns out to be used for other reasons we will need to add the .dropdown-toggle-no-caret class to prevent the caret from being displayed.
 		 */
 		return CssClassHelper.Combine(
-			this.CssClass,
-			(this.Caret ? "dropdown-toggle" : null),
+			CssClass,
+			(Caret ? "dropdown-toggle" : null),
 			((DropdownContainer as IDropdownContainer)?.IsOpen ?? false) ? "show" : null,
 			((DropdownContainer as HxDropdownButtonGroup)?.Split ?? false) ? "dropdown-toggle-split" : null,
 			(NavContainer is not null) ? "nav-link" : null);
@@ -163,11 +163,11 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 		if (firstRender)
 		{
 			await EnsureJsModuleAsync();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("create", elementReference, dotnetObjectReference, DropdownToggleExtensions.GetDropdownJsOptionsReference(this));
+			await _jsModule.InvokeVoidAsync("create", _elementReference, _dotnetObjectReference, DropdownToggleExtensions.GetDropdownJsOptionsReference(this));
 		}
 	}
 
@@ -177,7 +177,7 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	public async Task ShowAsync()
 	{
 		await EnsureJsModuleAsync();
-		await jsModule.InvokeVoidAsync("show", elementReference);
+		await _jsModule.InvokeVoidAsync("show", _elementReference);
 	}
 
 	/// <summary>
@@ -186,7 +186,7 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	public async Task HideAsync()
 	{
 		await EnsureJsModuleAsync();
-		await jsModule.InvokeVoidAsync("hide", elementReference);
+		await _jsModule.InvokeVoidAsync("hide", _elementReference);
 	}
 
 	/// <summary>
@@ -214,7 +214,7 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 
 	private async Task EnsureJsModuleAsync()
 	{
-		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxDropdown));
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxDropdown));
 	}
 
 	/// <inheritdoc/>
@@ -228,14 +228,14 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
-		if (jsModule != null)
+		if (_jsModule != null)
 		{
 			try
 			{
-				await jsModule.InvokeVoidAsync("dispose", elementReference);
-				await jsModule.DisposeAsync();
+				await _jsModule.InvokeVoidAsync("dispose", _elementReference);
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
 			{
@@ -247,6 +247,6 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 			}
 		}
 
-		dotnetObjectReference.Dispose();
+		_dotnetObjectReference.Dispose();
 	}
 }

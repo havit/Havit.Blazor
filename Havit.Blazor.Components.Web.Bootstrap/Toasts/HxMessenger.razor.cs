@@ -19,7 +19,7 @@ public partial class HxMessenger : ComponentBase, IDisposable
 	[Inject] protected IHxMessengerService Messenger { get; set; }
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 
-	private List<MessengerMessage> messages = new List<MessengerMessage>();
+	private List<MessengerMessage> _messages = new List<MessengerMessage>();
 
 	protected override void OnInitialized()
 	{
@@ -31,7 +31,7 @@ public partial class HxMessenger : ComponentBase, IDisposable
 	{
 		InvokeAsync(() =>
 		{
-			messages.Add(message);
+			_messages.Add(message);
 
 			StateHasChanged();
 		});
@@ -41,7 +41,7 @@ public partial class HxMessenger : ComponentBase, IDisposable
 	{
 		InvokeAsync(() =>
 		{
-			messages.Clear();
+			_messages.Clear();
 
 			StateHasChanged();
 		});
@@ -52,7 +52,7 @@ public partial class HxMessenger : ComponentBase, IDisposable
 	/// </summary>
 	private void HandleToastHidden(MessengerMessage message)
 	{
-		messages.Remove(message);
+		_messages.Remove(message);
 	}
 
 	public void Dispose()

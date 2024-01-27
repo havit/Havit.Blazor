@@ -1359,7 +1359,7 @@
             Additional attributes to be splatted onto an underlying <c>div</c> element.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.shouldToggle">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxCollapse._shouldToggle">
             <summary>
             Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefore, we will remember the request for Show and initialize the collapse with toggle=true.
             </summary>
@@ -5470,7 +5470,7 @@
             Hides the search icon when used!
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.textQueryHasBeenBelowMinimumLength">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1._textQueryHasBeenBelowMinimumLength">
             <summary>
             Indicates whether the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
             </summary>
@@ -8188,7 +8188,7 @@
             The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Medium"/>.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.navId">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSidebar._navId">
             <summary>
             The ID of the immediate parent of the contained <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/> components.
             </summary>

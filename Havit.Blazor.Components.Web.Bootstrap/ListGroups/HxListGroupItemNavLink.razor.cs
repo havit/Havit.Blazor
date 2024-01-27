@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public partial class HxListGroupItemNavLink : ICascadeEnabledComponent
 {
 	[CascadingParameter] protected FormState FormState { get; set; }
-	FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+	FormState ICascadeEnabledComponent.FormState { get => FormState; set => FormState = value; }
 
 	/// <summary>
 	/// Navigation target.
@@ -65,7 +65,7 @@ public partial class HxListGroupItemNavLink : ICascadeEnabledComponent
 		return CssClassHelper.Combine(
 			"list-group-item list-group-item-action",
 			CascadeEnabledComponent.EnabledEffective(this) ? null : "disabled",
-			this.Active ? "active" : null,
-			this.CssClass);
+			Active ? "active" : null,
+			CssClass);
 	}
 }

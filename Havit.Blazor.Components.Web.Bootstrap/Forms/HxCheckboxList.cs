@@ -80,28 +80,28 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	/// <summary>
 	/// Returns an optional set of component settings.
 	/// </summary>
-	protected override CheckboxListSettings GetSettings() => this.Settings;
+	protected override CheckboxListSettings GetSettings() => Settings;
 
-	private List<TItem> itemsToRender;
+	private List<TItem> _itemsToRender;
 
 	private void RefreshState()
 	{
-		itemsToRender = Data?.ToList() ?? new List<TItem>();
+		_itemsToRender = Data?.ToList() ?? new List<TItem>();
 
 		// AutoSort
-		if (AutoSort && (itemsToRender.Count > 1))
+		if (AutoSort && (_itemsToRender.Count > 1))
 		{
 			if (ItemSortKeySelector != null)
 			{
-				itemsToRender = itemsToRender.OrderBy(this.ItemSortKeySelector).ToList();
+				_itemsToRender = _itemsToRender.OrderBy(ItemSortKeySelector).ToList();
 			}
 			else if (ItemTextSelector != null)
 			{
-				itemsToRender = itemsToRender.OrderBy(this.ItemTextSelector).ToList();
+				_itemsToRender = _itemsToRender.OrderBy(ItemTextSelector).ToList();
 			}
 			else
 			{
-				itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
+				_itemsToRender = _itemsToRender.OrderBy(i => i.ToString()).ToList();
 			}
 		}
 	}
@@ -111,11 +111,11 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	{
 		RefreshState();
 
-		if (itemsToRender.Count > 0)
+		if (_itemsToRender.Count > 0)
 		{
 			UglyHack uglyHack = new UglyHack(); // see comment below
 
-			foreach (var item in itemsToRender)
+			foreach (var item in _itemsToRender)
 			{
 				TValue value = SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelector, item);
 
@@ -136,10 +136,10 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 				builder.AddAttribute(50, nameof(HxCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
 
 				builder.AddAttribute(51, nameof(HxCheckbox.ValidationMessageMode), Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.None);
-				builder.AddAttribute(52, nameof(HxCheckbox.Inline), this.Inline);
+				builder.AddAttribute(52, nameof(HxCheckbox.Inline), Inline);
 				builder.AddAttribute(53, nameof(HxCheckbox.GenerateChip), false);
 
-				builder.AddMultipleAttributes(100, this.AdditionalAttributes);
+				builder.AddMultipleAttributes(100, AdditionalAttributes);
 
 				builder.CloseComponent();
 			}
@@ -191,7 +191,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 		}
 
 		// Take itemsToRender because they are sorted.
-		List<TItem> selectedItems = itemsToRender.Where(item => value.Contains(SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelector, item))).ToList();
+		List<TItem> selectedItems = _itemsToRender.Where(item => value.Contains(SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelector, item))).ToList();
 		return String.Join(", ", selectedItems.Select(ItemTextSelector));
 	}
 

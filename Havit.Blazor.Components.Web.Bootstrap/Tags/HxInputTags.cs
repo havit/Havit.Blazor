@@ -49,7 +49,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override InputTagsSettings GetSettings() => this.Settings;
+	protected override InputTagsSettings GetSettings() => Settings;
 
 
 	/// <summary>
@@ -67,25 +67,25 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	/// The minimum number of characters to start suggesting. The default is <c>2</c>.
 	/// </summary>
 	[Parameter] public int? SuggestMinimumLength { get; set; }
-	protected int SuggestMinimumLengthEffective => this.SuggestMinimumLength ?? this.GetSettings()?.SuggestMinimumLength ?? this.GetDefaults().SuggestMinimumLength ?? throw new InvalidOperationException(nameof(SuggestMinimumLength) + " default for " + nameof(HxInputTags) + " has to be set.");
+	protected int SuggestMinimumLengthEffective => SuggestMinimumLength ?? GetSettings()?.SuggestMinimumLength ?? GetDefaults().SuggestMinimumLength ?? throw new InvalidOperationException(nameof(SuggestMinimumLength) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 	/// <summary>
 	/// The debounce delay in milliseconds. The default is <c>300 ms</c>.
 	/// </summary>
 	[Parameter] public int? SuggestDelay { get; set; }
-	protected int SuggestDelayEffective => this.SuggestDelay ?? this.GetSettings()?.SuggestDelay ?? this.GetDefaults().SuggestDelay ?? throw new InvalidOperationException(nameof(SuggestDelay) + " default for " + nameof(HxInputTags) + " has to be set.");
+	protected int SuggestDelayEffective => SuggestDelay ?? GetSettings()?.SuggestDelay ?? GetDefaults().SuggestDelay ?? throw new InvalidOperationException(nameof(SuggestDelay) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 	/// <summary>
 	/// Characters that divide the current input into separate tags when typed. The default is comma, semicolon, and space.
 	/// </summary>
 	[Parameter] public List<char> Delimiters { get; set; }
-	protected List<char> DelimitersEffective => this.Delimiters ?? this.GetSettings()?.Delimiters ?? this.GetDefaults().Delimiters ?? throw new InvalidOperationException(nameof(Delimiters) + " default for " + nameof(HxInputTags) + " has to be set.");
+	protected List<char> DelimitersEffective => Delimiters ?? GetSettings()?.Delimiters ?? GetDefaults().Delimiters ?? throw new InvalidOperationException(nameof(Delimiters) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 	/// <summary>
 	/// Indicates whether the add icon (+) should be displayed. The default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool? ShowAddButton { get; set; }
-	protected bool ShowAddButtonEffective => this.ShowAddButton ?? this.GetSettings()?.ShowAddButton ?? this.GetDefaults().ShowAddButton ?? throw new InvalidOperationException(nameof(ShowAddButton) + " default for " + nameof(HxInputTags) + " has to be set.");
+	protected bool ShowAddButtonEffective => ShowAddButton ?? GetSettings()?.ShowAddButton ?? GetDefaults().ShowAddButton ?? throw new InvalidOperationException(nameof(ShowAddButton) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 	/// <summary>
 	/// The optional text for the add button. Displayed only when there are no tags (the <c>Value</c> is empty). The default is <c>null</c> (none).
@@ -106,7 +106,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	/// The settings for the <see cref="HxBadge"/> used to render tags. The default is <c>Color="<see cref="ThemeColor.Light"/>"</c> and <c>TextColor="<see cref="ThemeColor.Dark"/>"</c>.
 	/// </summary>
 	[Parameter] public BadgeSettings TagBadgeSettings { get; set; }
-	protected BadgeSettings TagBadgeSettingsEffective => this.TagBadgeSettings ?? this.GetSettings()?.TagBadgeSettings ?? this.GetDefaults().TagBadgeSettings ?? throw new InvalidOperationException(nameof(TagBadgeSettings) + " default for " + nameof(HxInputTags) + " has to be set.");
+	protected BadgeSettings TagBadgeSettingsEffective => TagBadgeSettings ?? GetSettings()?.TagBadgeSettings ?? GetDefaults().TagBadgeSettings ?? throw new InvalidOperationException(nameof(TagBadgeSettings) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 	/// <inheritdoc cref="HxInputBase{TValue}" />
 	[Parameter] public LabelType? LabelType { get; set; }
@@ -115,8 +115,8 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	/// The size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputTags) + " has to be set.");
-	InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputTags) + " has to be set.");
+	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 
 	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* label rendered by HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
@@ -147,7 +147,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
-	private HxInputTagsInternal hxInputTagsInternalComponent;
+	private HxInputTagsInternal _hxInputTagsInternalComponent;
 
 	/// <inheritdoc />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -170,18 +170,18 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 		builder.AddAttribute(1015, nameof(HxInputTagsInternal.InputSizeEffective), ((IInputWithSize)this).InputSizeEffective);
 		builder.AddAttribute(1016, nameof(HxInputTagsInternal.ShowAddButtonEffective), ShowAddButtonEffective);
 		builder.AddAttribute(1017, nameof(HxInputTagsInternal.Naked), Naked);
-		builder.AddAttribute(1018, nameof(HxInputTagsInternal.CssClass), CssClassHelper.Combine(this.CssClass, IsValueInvalid() ? InvalidCssClass : null));
-		builder.AddAttribute(1019, nameof(HxInputTagsInternal.AddButtonText), this.AddButtonText);
-		builder.AddAttribute(1020, nameof(HxInputTagsInternal.TagBadgeSettingsEffective), this.TagBadgeSettingsEffective);
-		builder.AddAttribute(1021, nameof(HxInputTagsInternal.InputGroupStartText), this.InputGroupStartText);
-		builder.AddAttribute(1022, nameof(HxInputTagsInternal.InputGroupEndText), this.InputGroupEndText);
-		builder.AddAttribute(1023, nameof(HxInputTagsInternal.InputGroupStartTemplate), this.InputGroupStartTemplate);
-		builder.AddAttribute(1024, nameof(HxInputTagsInternal.InputGroupEndTemplate), this.InputGroupEndTemplate);
-		builder.AddAttribute(1025, nameof(HxInputTagsInternal.InputGroupCssClass), this.InputGroupCssClass);
+		builder.AddAttribute(1018, nameof(HxInputTagsInternal.CssClass), CssClassHelper.Combine(CssClass, IsValueInvalid() ? InvalidCssClass : null));
+		builder.AddAttribute(1019, nameof(HxInputTagsInternal.AddButtonText), AddButtonText);
+		builder.AddAttribute(1020, nameof(HxInputTagsInternal.TagBadgeSettingsEffective), TagBadgeSettingsEffective);
+		builder.AddAttribute(1021, nameof(HxInputTagsInternal.InputGroupStartText), InputGroupStartText);
+		builder.AddAttribute(1022, nameof(HxInputTagsInternal.InputGroupEndText), InputGroupEndText);
+		builder.AddAttribute(1023, nameof(HxInputTagsInternal.InputGroupStartTemplate), InputGroupStartTemplate);
+		builder.AddAttribute(1024, nameof(HxInputTagsInternal.InputGroupEndTemplate), InputGroupEndTemplate);
+		builder.AddAttribute(1025, nameof(HxInputTagsInternal.InputGroupCssClass), InputGroupCssClass);
 
-		builder.AddMultipleAttributes(1090, this.AdditionalAttributes);
+		builder.AddMultipleAttributes(1090, AdditionalAttributes);
 
-		builder.AddComponentReferenceCapture(1100, component => hxInputTagsInternalComponent = (HxInputTagsInternal)component);
+		builder.AddComponentReferenceCapture(1100, component => _hxInputTagsInternalComponent = (HxInputTagsInternal)component);
 		builder.CloseComponent();
 	}
 
@@ -199,12 +199,12 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	/// <inheritdoc />
 	public override async ValueTask FocusAsync()
 	{
-		if (hxInputTagsInternalComponent == null)
+		if (_hxInputTagsInternalComponent == null)
 		{
-			throw new InvalidOperationException($"Cannot focus {this.GetType()}. The method must be called after first render.");
+			throw new InvalidOperationException($"Cannot focus {GetType()}. The method must be called after first render.");
 		}
 
-		await hxInputTagsInternalComponent.FocusAsync();
+		await _hxInputTagsInternalComponent.FocusAsync();
 	}
 
 	/// <inheritdoc />

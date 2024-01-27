@@ -17,7 +17,7 @@ public class HxCheckbox : HxInputBase<bool>
 	/// <summary>
 	/// Returns an optional set of component settings.
 	/// </summary>
-	protected override CheckboxSettings GetSettings() => this.Settings;
+	protected override CheckboxSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Text to display next to the checkbox.
@@ -70,12 +70,12 @@ public class HxCheckbox : HxInputBase<bool>
 	/// Siblings label, input, label do not work well and there is nowhere to add form-check.
 	/// Therefore, we wrap the input and label in the additional div.
 	/// </summary>
-	private protected bool NeedsInnerDiv => !string.IsNullOrWhiteSpace(this.Label) || (this.LabelTemplate is not null);
+	private protected bool NeedsInnerDiv => !string.IsNullOrWhiteSpace(Label) || (LabelTemplate is not null);
 
 	/// <summary>
 	/// For checkbox without any Text/TextTemplate we do not add form-check class.
 	/// </summary>
-	private protected bool NeedsFormCheck => !string.IsNullOrWhiteSpace(this.Text) || (this.TextTemplate is not null);
+	private protected bool NeedsFormCheck => !string.IsNullOrWhiteSpace(Text) || (TextTemplate is not null);
 
 	/// <summary>
 	/// For checkbox without any Label/LabelTemplate and without Text/TextTemplate we do not add form-check to the parent div.
@@ -105,7 +105,7 @@ public class HxCheckbox : HxInputBase<bool>
 		builder.CloseElement(); // input
 
 		builder.OpenElement(2000, "label");
-		builder.AddAttribute(2001, "class", CssClassHelper.Combine("form-check-label", this.TextCssClass));
+		builder.AddAttribute(2001, "class", CssClassHelper.Combine("form-check-label", TextCssClass));
 		builder.AddAttribute(2002, "for", InputId);
 		if (TextTemplate == null)
 		{
@@ -128,7 +128,7 @@ public class HxCheckbox : HxInputBase<bool>
 
 	protected override void RenderChipLabel(RenderTreeBuilder builder)
 	{
-		builder.AddContent(0, String.IsNullOrWhiteSpace(this.Label) ? this.Text : this.Label);
+		builder.AddContent(0, String.IsNullOrWhiteSpace(Label) ? Text : Label);
 	}
 
 	protected override void RenderChipValue(RenderTreeBuilder builder)

@@ -76,7 +76,7 @@ public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStati
 
 		if (VerifyIsLoaded(throwIfNotLoaded))
 		{
-			return this.Data[key];
+			return Data[key];
 		}
 		return default;
 	}
@@ -99,7 +99,7 @@ public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStati
 
 		if (VerifyIsLoaded(throwIfNotLoaded))
 		{
-			if (this.Data.TryGetValue(key, out var value))
+			if (Data.TryGetValue(key, out var value))
 			{
 				return value;
 			}
@@ -112,7 +112,7 @@ public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStati
 	/// </summary>
 	public void Clear()
 	{
-		this.Data = null;
+		Data = null;
 	}
 
 	/// <summary>
@@ -126,23 +126,23 @@ public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStati
 	{
 		if ((Data is null) || ShouldRefresh())
 		{
-			await loadLock.WaitAsync(); // basic lock (Monitor) is thread-based and cannot be used for async code
+			await _loadLock.WaitAsync(); // basic lock (Monitor) is thread-based and cannot be used for async code
 			try
 			{
 				if ((Data is null) || ShouldRefresh()) // do not use the previous ShouldRefresh result; the data might have been refreshed in the meantime
 				{
 					var rawData = await LoadDataAsync();
 					Contract.Requires<InvalidOperationException>(rawData is not null, $"{nameof(LoadDataAsync)} is required to return a non-null value. Use Enumerable.Empty if needed.");
-					this.Data = rawData.ToDictionary(this.KeySelector);
+					Data = rawData.ToDictionary(KeySelector);
 				}
 			}
 			finally
 			{
-				loadLock.Release();
+				_loadLock.Release();
 			}
 		}
 	}
-	private readonly SemaphoreSlim loadLock = new SemaphoreSlim(1, 1);
+	private readonly SemaphoreSlim _loadLock = new SemaphoreSlim(1, 1);
 
 	private bool VerifyIsLoaded(bool throwIfNotLoaded)
 	{

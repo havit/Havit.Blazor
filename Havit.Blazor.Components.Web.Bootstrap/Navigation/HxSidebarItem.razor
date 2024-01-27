@@ -3,16 +3,16 @@
 	<div class="@CssClassHelper.Combine(HighlightOnActiveChild ? "hx-sidebar-item-highlight-on-active-child" : null)">
 		@if (!HasExpandableContent)
 		{
-			<HxTooltip @key="@(this.GetHashCode() + ParentSidebar.Collapsed.ToString())"
+			<HxTooltip @key="@(GetHashCode() + ParentSidebar.Collapsed.ToString())"
 					   WrapperCssClass="@(ParentSidebar.Collapsed ? "d-block" : null)"
 					   Placement="TooltipPlacement.Right"
 					   Trigger="TooltipTrigger.Hover"
 					   Text="@(ParentSidebar.Collapsed ? TooltipText : null)">
 
 				<HxNavLink Href="@Href"
-						   CssClass="@CssClassHelper.Combine(this.DropdownContainer is not null ? "dropdown-item" : null, this.CssClass, "position-relative")"
-						   Match="this.Match"
-						   Enabled="this.Enabled">
+						   CssClass="@CssClassHelper.Combine(DropdownContainer is not null ? "dropdown-item" : null, CssClass, "position-relative")"
+						   Match="Match"
+						   Enabled="Enabled">
 
 					@* To hide the nav-content in mobile view *@
 					<div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="stretched-link">
@@ -47,7 +47,7 @@
 			<span class="hx-sidebar-item-navlink-content-inner">
 				@if (ContentTemplate is not null)
 				{
-				@ContentTemplate(new() { ItemExpanded = this.expanded })
+					@ContentTemplate(new() { ItemExpanded = expanded })
 				}
 				@Text
 			</span>
@@ -60,13 +60,13 @@
 				<HxDropdown Direction="DropdownDirection.End" CssClass="hx-sidebar-item">
 					<HxNavLink Href="@Href"
 							   CssClass="this.CssClass"
-							   Match="this.Match"
-							   Enabled="this.Enabled"
+							   Match="Match"
+							   Enabled="Enabled"
 							   role="button"
 							   data-bs-offset="0,0"
 							   onmouseenter="bootstrap.Dropdown.getOrCreateInstance(event.target).show()"
 							   onmouseleave="bootstrap.Dropdown.getInstance(event.target)?.hide()"
-							   aria-expanded="@(this.expanded ? "true" : "false")">
+							   aria-expanded="@(expanded ? "true" : "false")">
 
 						@itemNavLinkContent
 
@@ -80,20 +80,20 @@
 			else
 			{
 				<HxNavLink Href="@Href"
-						   CssClass="@CssClassHelper.Combine(this.CssClass, "hx-sidebar-item")"
-						   Match="this.Match"
-						   Enabled="this.Enabled"
+						   CssClass="@CssClassHelper.Combine(CssClass, "hx-sidebar-item")"
+						   Match="Match"
+						   Enabled="Enabled"
 						   role="button"
 						   data-bs-toggle="collapse"
-						   data-bs-target="@("#" + id)"
-						   aria-expanded="@(this.expanded ? "true" : "false")">
+						   data-bs-target="@("#" + _id)"
+						   aria-expanded="@(expanded ? "true" : "false")">
 
 					@itemNavLinkContent
 
 				</HxNavLink>
 
-				<HxCollapse Id="@id"
-							Parent="@(ParentSidebar.MultipleItemsExpansion ? null : $"#{ParentSidebar.navId}")"
+				<HxCollapse Id="@_id"
+							Parent="@(ParentSidebar.MultipleItemsExpansion ? null : $"#{ParentSidebar._navId}")"
 							@ref="collapseComponent"
 							CssClass="hx-sidebar-subitems"
 							InitiallyExpanded="expanded"

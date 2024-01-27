@@ -37,50 +37,50 @@ public partial class HxContextMenu
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual ContextMenuSettings GetSettings() => this.Settings;
+	protected virtual ContextMenuSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Additional CSS class(es) for the context menu.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
-	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
+	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
 	/// Additional CSS class(es) for the context menu dropdown (container).
 	/// </summary>
 	[Parameter] public string DropdownCssClass { get; set; }
-	protected string DropdownCssClassEffective => this.DropdownCssClass ?? this.GetSettings()?.DropdownCssClass ?? GetDefaults().DropdownCssClass;
+	protected string DropdownCssClassEffective => DropdownCssClass ?? GetSettings()?.DropdownCssClass ?? GetDefaults().DropdownCssClass;
 
 	/// <summary>
 	/// Additional CSS class(es) for the context menu dropdown menu.
 	/// </summary>
 	[Parameter] public string DropdownMenuCssClass { get; set; }
-	protected string DropdownMenuCssClassEffective => this.DropdownMenuCssClass ?? this.GetSettings()?.DropdownMenuCssClass ?? GetDefaults().DropdownMenuCssClass;
+	protected string DropdownMenuCssClassEffective => DropdownMenuCssClass ?? GetSettings()?.DropdownMenuCssClass ?? GetDefaults().DropdownMenuCssClass;
 
 	/// <summary>
 	/// Icon carrying the menu (use <see cref="BootstrapIcon" /> or any other <see cref="IconBase"/>).<br />
 	/// The default is <see cref="BootstrapIcon.ThreeDotsVertical"/>.
 	/// </summary>
 	[Parameter] public IconBase Icon { get; set; }
-	protected IconBase IconEffective => this.Icon ?? this.GetSettings()?.Icon ?? GetDefaults().Icon ?? throw new InvalidOperationException(nameof(Icon) + " default for " + nameof(HxContextMenu) + " has to be set.");
+	protected IconBase IconEffective => Icon ?? GetSettings()?.Icon ?? GetDefaults().Icon ?? throw new InvalidOperationException(nameof(Icon) + " default for " + nameof(HxContextMenu) + " has to be set.");
 
 	/// <summary>
 	/// Additional CSS class(es) for the context menu icon.
 	/// </summary>
 	[Parameter] public string IconCssClass { get; set; }
-	protected string IconCssClassEffective => this.IconCssClass ?? this.GetSettings()?.IconCssClass ?? GetDefaults().IconCssClass;
+	protected string IconCssClassEffective => IconCssClass ?? GetSettings()?.IconCssClass ?? GetDefaults().IconCssClass;
 
 	/// <summary>
 	/// Alignment for the context menu dropdown menu.
 	/// The default is <see cref="DropdownMenuAlignment.End"/>.
 	/// </summary>
 	[Parameter] public DropdownMenuAlignment? DropdownMenuAlignment { get; set; }
-	protected DropdownMenuAlignment DropdownMenuAlignmentEffective => this.DropdownMenuAlignment ?? this.GetSettings()?.DropdownMenuAlignment ?? GetDefaults().DropdownMenuAlignment ?? throw new InvalidOperationException(nameof(DropdownMenuAlignment) + " default for " + nameof(HxContextMenu) + " has to be set.");
+	protected DropdownMenuAlignment DropdownMenuAlignmentEffective => DropdownMenuAlignment ?? GetSettings()?.DropdownMenuAlignment ?? GetDefaults().DropdownMenuAlignment ?? throw new InvalidOperationException(nameof(DropdownMenuAlignment) + " default for " + nameof(HxContextMenu) + " has to be set.");
 
 	/// <summary>
 	/// Items of the context menu. Use <see cref="HxContextMenuItem"/> components.
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
-	private string id = "hx" + Guid.NewGuid().ToString("N");
+	private string _id = "hx" + Guid.NewGuid().ToString("N");
 }

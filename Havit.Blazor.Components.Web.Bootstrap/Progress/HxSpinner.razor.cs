@@ -32,7 +32,7 @@ public partial class HxSpinner
 
 	protected string GetSpinnerTypeCssClass()
 	{
-		return this.Type switch
+		return Type switch
 		{
 			SpinnerType.Border => "spinner-border",
 			SpinnerType.Grow => "spinner-grow",
@@ -42,7 +42,7 @@ public partial class HxSpinner
 
 	protected string GetSpinnerSizeCssClass()
 	{
-		return this.Size switch
+		return Size switch
 		{
 			SpinnerSize.Regular => null,
 			SpinnerSize.Small => GetSpinnerTypeCssClass() + "-sm",

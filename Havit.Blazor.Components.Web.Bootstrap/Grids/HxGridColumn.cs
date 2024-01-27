@@ -28,17 +28,17 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter]
 	public int Order
 	{
-		get => order;
+		get => _order;
 		set
 		{
 			// This is to ensure MultiSelectGridColumn is always displayed as the first column.
 			// MultiSelectGridColumn uses Int32.MinValue and we do not want to enable column to have the same value.
 			Contract.Requires<ArgumentException>(value != Int32.MinValue);
 
-			order = value;
+			_order = value;
 		}
 	}
-	private int order = 0;
+	private int _order = 0;
 
 	#region Header properties
 	/// <summary>
@@ -158,12 +158,12 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 			builder.OpenElement(100, "div");
 			builder.AddAttribute(101, "class", "placeholder-glow");
 			builder.OpenElement(200, "div");
-			builder.AddAttribute(201, "class", CssClassHelper.Combine("placeholder", "col-" + placeholderColumns[context.Index % placeholderColumns.Length], ThemeColorExtensions.ToBackgroundColorCss(HxPlaceholder.Defaults.Color ?? ThemeColor.None)));
+			builder.AddAttribute(201, "class", CssClassHelper.Combine("placeholder", "col-" + _placeholderColumns[context.Index % _placeholderColumns.Length], ThemeColorExtensions.ToBackgroundColorCss(HxPlaceholder.Defaults.Color ?? ThemeColor.None)));
 			builder.CloseElement();
 			builder.CloseElement();
 		};
 	}
-	private readonly string[] placeholderColumns = ["6", "9", "4", "10", "5", "2", "7"];
+	private readonly string[] _placeholderColumns = ["6", "9", "4", "10", "5", "2", "7"];
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context) => GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(FooterText, FooterTemplate?.Invoke(context)), FooterCssClass);
@@ -176,7 +176,7 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 			yield break;
 		}
 
-		yield return new SortingItem<TItem>(this.SortString, this.SortKeySelector, this.SortDirection);
+		yield return new SortingItem<TItem>(SortString, SortKeySelector, SortDirection);
 	}
 
 	/// <inheritdoc />

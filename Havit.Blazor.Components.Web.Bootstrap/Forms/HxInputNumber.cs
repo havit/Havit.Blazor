@@ -15,7 +15,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 {
 	// DO NOT FORGET TO MAINTAIN DOCUMENTATION! (documentation comment of this class)
-	private static HashSet<Type> supportedTypes = new HashSet<Type>
+	private static HashSet<Type> s_supportedTypes = new HashSet<Type>
 	{
 		typeof(byte),
 		typeof(sbyte),
@@ -47,7 +47,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override InputNumberSettings GetSettings() => this.Settings;
+	protected override InputNumberSettings GetSettings() => Settings;
 
 
 	/// <summary>
@@ -68,7 +68,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	/// Feel free to set the InputMode on your own as needed.
 	/// </remarks>
 	[Parameter] public InputMode? InputMode { get; set; }
-	protected InputMode? InputModeEffective => this.InputMode ?? this.GetSettings()?.InputMode ?? this.GetDefaults()?.InputMode;
+	protected InputMode? InputModeEffective => InputMode ?? GetSettings()?.InputMode ?? GetDefaults()?.InputMode;
 
 	/// <summary>
 	/// Placeholder for the input.
@@ -79,8 +79,8 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputNumber) + " has to be set.");
-	InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputNumber) + " has to be set.");
+	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
@@ -95,7 +95,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	{
 		get
 		{
-			return decimals;
+			return _decimals;
 		}
 		set
 		{
@@ -103,10 +103,10 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 			{
 				throw new InvalidOperationException($"{nameof(Decimals)} can be set only on floating point types (not on integer types).");
 			}
-			decimals = value;
+			_decimals = value;
 		}
 	}
-	private int? decimals;
+	private int? _decimals;
 
 	/// <summary>
 	/// Gets effective value for Decimals (when not set gets 0 for integer types and 2 for floating point types.
@@ -140,14 +140,14 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	public HxInputNumber()
 	{
 		Type underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-		if (!supportedTypes.Contains(underlyingType))
+		if (!s_supportedTypes.Contains(underlyingType))
 		{
 			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
 		}
 	}
 
 	protected bool forceRenderValue = false;
-	private int valueSequenceOffset = 0;
+	private int _valueSequenceOffset = 0;
 
 	/// <inheritdoc />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -155,7 +155,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		builder.OpenElement(0, "input");
 		BuildRenderInput_AddCommonAttributes(builder, "text");
 
-		var inputMode = this.InputModeEffective;
+		var inputMode = InputModeEffective;
 		if ((inputMode is null) && (DecimalsEffective == 0))
 		{
 			inputMode = Web.InputMode.Numeric;
@@ -192,10 +192,10 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		{
 			if (forceRenderValue)
 			{
-				valueSequenceOffset++;
+				_valueSequenceOffset++;
 				forceRenderValue = false;
 			}
-			builder.AddAttribute(1006 + valueSequenceOffset, "value", CurrentValueAsString);
+			builder.AddAttribute(1006 + _valueSequenceOffset, "value", CurrentValueAsString);
 		}
 		builder.AddElementReferenceCapture(Int32.MaxValue, elementReference => InputElement = elementReference);
 
@@ -332,7 +332,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	/// </summary>
 	protected virtual string GetParsingErrorMessage()
 	{
-		var message = this.ParsingErrorMessage;
+		var message = ParsingErrorMessage;
 		if (ParsingErrorMessage is null)
 		{
 			if (IsTValueIntegerType)

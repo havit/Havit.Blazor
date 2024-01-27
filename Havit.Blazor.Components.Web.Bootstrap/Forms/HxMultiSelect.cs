@@ -28,15 +28,15 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override MultiSelectSettings GetSettings() => this.Settings;
+	protected override MultiSelectSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxMultiSelect) + " has to be set.");
-	InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
-	string IInputWithSize.GetInputSizeCssClass() => this.InputSizeEffective.AsFormSelectCssClass();
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxMultiSelect) + " has to be set.");
+	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
+	string IInputWithSize.GetInputSizeCssClass() => InputSizeEffective.AsFormSelectCssClass();
 
 	private protected override string CoreInputCssClass => "hx-multi-select-input form-select user-select-none";
 
@@ -114,7 +114,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// Enables filtering capabilities.
 	/// </summary>
 	[Parameter] public bool? AllowFiltering { get; set; }
-	protected bool AllowFilteringEffective => this.AllowFiltering ?? this.GetSettings()?.AllowFiltering ?? GetDefaults().AllowFiltering;
+	protected bool AllowFilteringEffective => AllowFiltering ?? GetSettings()?.AllowFiltering ?? GetDefaults().AllowFiltering;
 
 	/// <summary>
 	/// Defines a custom filtering predicate to apply to the list of items.
@@ -126,7 +126,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// When enabled the filter will be cleared when the dropdown is closed.
 	/// </summary>
 	[Parameter] public bool? ClearFilterOnHide { get; set; }
-	protected bool ClearFilterOnHideEffective => this.ClearFilterOnHide ?? this.GetSettings()?.ClearFilterOnHide ?? GetDefaults().ClearFilterOnHide;
+	protected bool ClearFilterOnHideEffective => ClearFilterOnHide ?? GetSettings()?.ClearFilterOnHide ?? GetDefaults().ClearFilterOnHide;
 
 	/// <summary>
 	/// Template that defines what should be rendered in case of empty items.
@@ -142,7 +142,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// Enables select all capabilities.
 	/// </summary>
 	[Parameter] public bool? AllowSelectAll { get; set; }
-	protected bool AllowSelectAllEffective => this.AllowSelectAll ?? this.GetSettings()?.AllowSelectAll ?? GetDefaults().AllowSelectAll;
+	protected bool AllowSelectAllEffective => AllowSelectAll ?? GetSettings()?.AllowSelectAll ?? GetDefaults().AllowSelectAll;
 
 	/// <summary>
 	/// Text to display for the select all dropdown option.
@@ -153,35 +153,35 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// Icon displayed in filter input for searching the filter.
 	/// </summary>
 	[Parameter] public IconBase FilterSearchIcon { get; set; }
-	protected IconBase FilterSearchIconEffective => this.FilterSearchIcon ?? this.GetSettings()?.FilterSearchIcon ?? GetDefaults().FilterSearchIcon;
+	protected IconBase FilterSearchIconEffective => FilterSearchIcon ?? GetSettings()?.FilterSearchIcon ?? GetDefaults().FilterSearchIcon;
 
 	/// <summary>
 	/// Icon displayed in filter input for clearing the filter.
 	/// </summary>
 	[Parameter] public IconBase FilterClearIcon { get; set; }
-	protected IconBase FilterClearIconEffective => this.FilterClearIcon ?? this.GetSettings()?.FilterClearIcon ?? GetDefaults().FilterClearIcon;
+	protected IconBase FilterClearIconEffective => FilterClearIcon ?? GetSettings()?.FilterClearIcon ?? GetDefaults().FilterClearIcon;
 
-	private List<TItem> itemsToRender;
-	private HxMultiSelectInternal<TValue, TItem> hxMultiSelectInternalComponent;
+	private List<TItem> _itemsToRender;
+	private HxMultiSelectInternal<TValue, TItem> _hxMultiSelectInternalComponent;
 
 	private void RefreshState()
 	{
-		itemsToRender = Data?.ToList();
+		_itemsToRender = Data?.ToList();
 
 		// AutoSort
-		if (AutoSort && (itemsToRender?.Count > 1))
+		if (AutoSort && (_itemsToRender?.Count > 1))
 		{
 			if (SortKeySelector != null)
 			{
-				itemsToRender = itemsToRender.OrderBy(this.SortKeySelector).ToList();
+				_itemsToRender = _itemsToRender.OrderBy(SortKeySelector).ToList();
 			}
 			else if (TextSelector != null)
 			{
-				itemsToRender = itemsToRender.OrderBy(this.TextSelector).ToList();
+				_itemsToRender = _itemsToRender.OrderBy(TextSelector).ToList();
 			}
 			else
 			{
-				itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
+				_itemsToRender = _itemsToRender.OrderBy(i => i.ToString()).ToList();
 			}
 		}
 	}
@@ -194,12 +194,12 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// <inheritdoc cref="HxInputBase{TValue}.FocusAsync"/>
 	public override async ValueTask FocusAsync()
 	{
-		if (hxMultiSelectInternalComponent == null)
+		if (_hxMultiSelectInternalComponent == null)
 		{
-			throw new InvalidOperationException($"Cannot focus {this.GetType()}. The method must be called after first render.");
+			throw new InvalidOperationException($"Cannot focus {GetType()}. The method must be called after first render.");
 		}
 
-		await hxMultiSelectInternalComponent.FocusAsync();
+		await _hxMultiSelectInternalComponent.FocusAsync();
 	}
 
 	/// <inheritdoc/>
@@ -212,7 +212,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(102, nameof(HxMultiSelectInternal<TValue, TItem>.InputCssClass), GetInputCssClassToRender());
 		builder.AddAttribute(103, nameof(HxMultiSelectInternal<TValue, TItem>.InputText), GetInputText());
 		builder.AddAttribute(104, nameof(HxMultiSelectInternal<TValue, TItem>.EnabledEffective), EnabledEffective);
-		builder.AddAttribute(105, nameof(HxMultiSelectInternal<TValue, TItem>.ItemsToRender), itemsToRender);
+		builder.AddAttribute(105, nameof(HxMultiSelectInternal<TValue, TItem>.ItemsToRender), _itemsToRender);
 		builder.AddAttribute(106, nameof(HxMultiSelectInternal<TValue, TItem>.TextSelector), TextSelector);
 		builder.AddAttribute(107, nameof(HxMultiSelectInternal<TValue, TItem>.ValueSelector), ValueSelector);
 		builder.AddAttribute(108, nameof(HxMultiSelectInternal<TValue, TItem>.SelectedValues), Value);
@@ -233,9 +233,9 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(123, nameof(HxMultiSelectInternal<TValue, TItem>.FilterClearIcon), FilterClearIconEffective);
 		builder.AddAttribute(124, nameof(HxMultiSelectInternal<TValue, TItem>.InputSizeEffective), ((IInputWithSize)this).InputSizeEffective);
 
-		builder.AddMultipleAttributes(200, this.AdditionalAttributes);
+		builder.AddMultipleAttributes(200, AdditionalAttributes);
 
-		builder.AddComponentReferenceCapture(300, r => hxMultiSelectInternalComponent = (HxMultiSelectInternal<TValue, TItem>)r);
+		builder.AddComponentReferenceCapture(300, r => _hxMultiSelectInternalComponent = (HxMultiSelectInternal<TValue, TItem>)r);
 
 		builder.CloseComponent();
 	}
@@ -269,7 +269,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		}
 
 		// The itemsToRender are chosen for processing because they are pre-sorted.
-		List<TItem> selectedItems = itemsToRender.Where(item => value.Contains(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item))).ToList();
+		List<TItem> selectedItems = _itemsToRender.Where(item => value.Contains(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item))).ToList();
 		return String.Join(", ", selectedItems.Select(TextSelector));
 	}
 

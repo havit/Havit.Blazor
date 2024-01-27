@@ -38,19 +38,19 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
-	private DateTimeRange previousValue;
-	private bool fromPreviousParsingAttemptFailed;
-	private string incomingFromValueBeforeParsing;
-	private bool toPreviousParsingAttemptFailed;
-	private string incomingToValueBeforeParsing;
-	private ValidationMessageStore validationMessageStore;
+	private DateTimeRange _previousValue;
+	private bool _fromPreviousParsingAttemptFailed;
+	private string _incomingFromValueBeforeParsing;
+	private bool _toPreviousParsingAttemptFailed;
+	private string _incomingToValueBeforeParsing;
+	private ValidationMessageStore _validationMessageStore;
 
-	private FieldIdentifier fromFieldIdentifier;
-	private FieldIdentifier toFieldIdentifier;
-	private string[] validationFieldNames;
+	private FieldIdentifier _fromFieldIdentifier;
+	private FieldIdentifier _toFieldIdentifier;
+	private string[] _validationFieldNames;
 
-	private HxDropdownToggleElement fromDropdownToggleElement;
-	private HxDropdownToggleElement toDropdownToggleElement;
+	private HxDropdownToggleElement _fromDropdownToggleElement;
+	private HxDropdownToggleElement _toDropdownToggleElement;
 
 	private DateTime GetFromCalendarDisplayMonthEffective => CurrentValue.StartDate ?? FromCalendarDisplayMonth;
 
@@ -78,29 +78,29 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		}
 	}
 
-	private bool firstRenderCompleted;
+	private bool _firstRenderCompleted;
 
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
-		validationMessageStore ??= new ValidationMessageStore(EditContext);
-		fromFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.StartDate));
-		toFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.EndDate));
-		validationFieldNames ??= new string[] { FieldIdentifier.FieldName, fromFieldIdentifier.FieldName, toFieldIdentifier.FieldName };
+		_validationMessageStore ??= new ValidationMessageStore(EditContext);
+		_fromFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.StartDate));
+		_toFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.EndDate));
+		_validationFieldNames ??= new string[] { FieldIdentifier.FieldName, _fromFieldIdentifier.FieldName, _toFieldIdentifier.FieldName };
 
 		// clear parsing error after new value is set
-		if (previousValue != Value)
+		if (_previousValue != Value)
 		{
-			ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
-			ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
-			previousValue = Value;
+			ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
+			ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
+			_previousValue = Value;
 		}
 	}
 
 	protected override void OnAfterRender(bool firstRender)
 	{
-		firstRenderCompleted = true;
+		_firstRenderCompleted = true;
 	}
 
 	protected override bool TryParseValueFromString(string value, out DateTimeRange result, out string validationErrorMessage)
@@ -131,60 +131,60 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	protected void HandleFromChanged(string newInputValue)
 	{
-		incomingFromValueBeforeParsing = newInputValue;
+		_incomingFromValueBeforeParsing = newInputValue;
 		bool parsingFailed;
 
-		validationMessageStore.Clear(fromFieldIdentifier);
+		_validationMessageStore.Clear(_fromFieldIdentifier);
 
 		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(newInputValue, null, out var fromDate))
 		{
 			DateTimeRange newValue = Value with { StartDate = fromDate?.DateTime };
 
 			parsingFailed = false;
-			previousValue = newValue;
+			_previousValue = newValue;
 			CurrentValue = newValue;
-			EditContext.NotifyFieldChanged(fromFieldIdentifier);
+			EditContext.NotifyFieldChanged(_fromFieldIdentifier);
 		}
 		else
 		{
 			parsingFailed = true;
-			validationMessageStore.Add(fromFieldIdentifier, FromParsingErrorMessageEffective);
+			_validationMessageStore.Add(_fromFieldIdentifier, FromParsingErrorMessageEffective);
 		}
 
 		// We can skip the validation notification if we were previously valid and still are
-		if (parsingFailed || fromPreviousParsingAttemptFailed)
+		if (parsingFailed || _fromPreviousParsingAttemptFailed)
 		{
 			EditContext.NotifyValidationStateChanged();
-			fromPreviousParsingAttemptFailed = parsingFailed;
+			_fromPreviousParsingAttemptFailed = parsingFailed;
 		}
 	}
 
 	protected void HandleToChanged(string newInputValue)
 	{
-		incomingToValueBeforeParsing = newInputValue;
+		_incomingToValueBeforeParsing = newInputValue;
 		bool parsingFailed;
-		validationMessageStore.Clear(toFieldIdentifier);
+		_validationMessageStore.Clear(_toFieldIdentifier);
 
 		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(newInputValue, null, out var toDate))
 		{
 			DateTimeRange newValue = Value with { EndDate = toDate?.DateTime };
 
 			parsingFailed = false;
-			previousValue = newValue;
+			_previousValue = newValue;
 			CurrentValue = newValue;
-			EditContext.NotifyFieldChanged(toFieldIdentifier);
+			EditContext.NotifyFieldChanged(_toFieldIdentifier);
 		}
 		else
 		{
 			parsingFailed = true;
-			validationMessageStore.Add(toFieldIdentifier, ToParsingErrorMessageEffective);
+			_validationMessageStore.Add(_toFieldIdentifier, ToParsingErrorMessageEffective);
 		}
 
 		// We can skip the validation notification if we were previously valid and still are
-		if (parsingFailed || toPreviousParsingAttemptFailed)
+		if (parsingFailed || _toPreviousParsingAttemptFailed)
 		{
 			EditContext.NotifyValidationStateChanged();
-			toPreviousParsingAttemptFailed = parsingFailed;
+			_toPreviousParsingAttemptFailed = parsingFailed;
 		}
 	}
 
@@ -192,24 +192,24 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 	{
 		DateTimeRange newValue = Value with { StartDate = null };
 
-		previousValue = newValue;
+		_previousValue = newValue;
 		CurrentValue = newValue;
-		EditContext.NotifyFieldChanged(fromFieldIdentifier);
-		ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
+		EditContext.NotifyFieldChanged(_fromFieldIdentifier);
+		ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
 
-		await CloseDropdownAsync(fromDropdownToggleElement);
+		await CloseDropdownAsync(_fromDropdownToggleElement);
 	}
 
 	private async Task HandleToClearClickAsync()
 	{
 		DateTimeRange newValue = Value with { EndDate = null };
 
-		previousValue = newValue;
+		_previousValue = newValue;
 		CurrentValue = newValue;
-		EditContext.NotifyFieldChanged(toFieldIdentifier);
-		ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
+		EditContext.NotifyFieldChanged(_toFieldIdentifier);
+		ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
 
-		await CloseDropdownAsync(toDropdownToggleElement);
+		await CloseDropdownAsync(_toDropdownToggleElement);
 	}
 
 	private async Task OpenDropDownAsync(HxDropdownToggleElement triggerElement)
@@ -228,36 +228,36 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 	{
 		DateTimeRange newValue = Value with { StartDate = date };
 
-		previousValue = newValue;
+		_previousValue = newValue;
 		CurrentValue = newValue;
-		EditContext.NotifyFieldChanged(fromFieldIdentifier);
-		ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
+		EditContext.NotifyFieldChanged(_fromFieldIdentifier);
+		ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
 
-		await CloseDropdownAsync(fromDropdownToggleElement);
-		await OpenDropDownAsync(toDropdownToggleElement);
+		await CloseDropdownAsync(_fromDropdownToggleElement);
+		await OpenDropDownAsync(_toDropdownToggleElement);
 	}
 
 	private async Task HandleToCalendarValueChanged(DateTime? date)
 	{
 		DateTimeRange newValue = Value with { EndDate = date };
 
-		previousValue = newValue;
+		_previousValue = newValue;
 		CurrentValue = newValue;
-		EditContext.NotifyFieldChanged(toFieldIdentifier);
-		ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
+		EditContext.NotifyFieldChanged(_toFieldIdentifier);
+		ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
 
-		await CloseDropdownAsync(toDropdownToggleElement);
+		await CloseDropdownAsync(_toDropdownToggleElement);
 	}
 
 	protected async Task HandleDateRangeClick(DateTimeRange value, HxDropdownToggleElement dropdownElement)
 	{
 		// previousValue does not need to be set
 		CurrentValue = value;
-		EditContext.NotifyFieldChanged(fromFieldIdentifier);
-		EditContext.NotifyFieldChanged(toFieldIdentifier);
+		EditContext.NotifyFieldChanged(_fromFieldIdentifier);
+		EditContext.NotifyFieldChanged(_toFieldIdentifier);
 
-		ClearPreviousParsingMessage(ref fromPreviousParsingAttemptFailed, fromFieldIdentifier);
-		ClearPreviousParsingMessage(ref toPreviousParsingAttemptFailed, toFieldIdentifier);
+		ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
+		ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
 
 		await CloseDropdownAsync(dropdownElement);
 	}
@@ -267,7 +267,7 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		if (previousParsingAttemptFailed)
 		{
 			previousParsingAttemptFailed = false;
-			validationMessageStore.Clear(fieldIdentifier);
+			_validationMessageStore.Clear(fieldIdentifier);
 			EditContext.NotifyValidationStateChanged();
 		}
 	}
@@ -282,19 +282,19 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		validationMessageStore?.Clear();
+		_validationMessageStore?.Clear();
 
-		if (firstRenderCompleted)
+		if (_firstRenderCompleted)
 		{
 			try
 			{
-				if (fromDropdownToggleElement is not null)
+				if (_fromDropdownToggleElement is not null)
 				{
-					await CloseDropdownAsync(fromDropdownToggleElement);
+					await CloseDropdownAsync(_fromDropdownToggleElement);
 				}
-				if (toDropdownToggleElement is not null)
+				if (_toDropdownToggleElement is not null)
 				{
-					await CloseDropdownAsync(toDropdownToggleElement);
+					await CloseDropdownAsync(_toDropdownToggleElement);
 				}
 			}
 			catch (JSDisconnectedException)

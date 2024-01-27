@@ -41,9 +41,9 @@ public sealed record SortingItem<TItem>
 	public bool EqualsIgnoringSortDirection<T>(SortingItem<T> sortingItem)
 	{
 		return (sortingItem != null)
-			&& String.Equals(this.SortString, sortingItem.SortString, StringComparison.OrdinalIgnoreCase)
-			&& (((this.SortKeySelector == null) && (sortingItem.SortKeySelector == null))
-				|| this.SortKeySelector.ToString().Equals(sortingItem.SortKeySelector.ToString()) /* good-enough for sorting */);
+			&& String.Equals(SortString, sortingItem.SortString, StringComparison.OrdinalIgnoreCase)
+			&& (((SortKeySelector == null) && (sortingItem.SortKeySelector == null))
+				|| SortKeySelector.ToString().Equals(sortingItem.SortKeySelector.ToString()) /* good-enough for sorting */);
 	}
 
 	/// <summary>

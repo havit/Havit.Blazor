@@ -68,34 +68,34 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 	protected bool HasEndInputGroupEffective => !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupEndTemplate is not null);
 
-	protected bool RenderPredefinedDates => ShowPredefinedDatesEffective && (this.PredefinedDatesEffective != null) && PredefinedDatesEffective.Any();
+	protected bool RenderPredefinedDates => ShowPredefinedDatesEffective && (PredefinedDatesEffective != null) && PredefinedDatesEffective.Any();
 	protected bool RenderIcon => CalendarIconEffective is not null && !HasInputGroupsEffective;
 
 	protected DateTime GetCalendarDisplayMonthEffective => GetDateTimeFromValue(CurrentValue) ?? CalendarDisplayMonth;
 
 #if !NET8_0_OR_GREATER
-	private TValue previousValue;
-	private bool previousParsingAttemptFailed;
-	private ValidationMessageStore validationMessageStore;
+	private TValue _previousValue;
+	private bool _previousParsingAttemptFailed;
+	private ValidationMessageStore _validationMessageStore;
 #endif
 
-	private HxDropdownToggleElement hxDropdownToggleElement;
-	private ElementReference iconWrapperElement;
-	private IJSObjectReference jsModule;
-	private bool firstRenderCompleted;
+	private HxDropdownToggleElement _hxDropdownToggleElement;
+	private ElementReference _iconWrapperElement;
+	private IJSObjectReference _jsModule;
+	private bool _firstRenderCompleted;
 
 #if !NET8_0_OR_GREATER
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
-		validationMessageStore ??= new ValidationMessageStore(EditContext);
+		_validationMessageStore ??= new ValidationMessageStore(EditContext);
 
 		// clear parsing error after new value is set
-		if (!EqualityComparer<TValue>.Default.Equals(previousValue, Value))
+		if (!EqualityComparer<TValue>.Default.Equals(_previousValue, Value))
 		{
 			ClearPreviousParsingMessage();
-			previousValue = Value;
+			_previousValue = Value;
 		}
 	}
 #endif
@@ -110,7 +110,7 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 		// HandleValueChanged is used instead of TryParseValueFromString
 		// When TryParseValueFromString is used (pre net8), invalid input is replaced by previous value.		
 		bool parsingFailed;
-		validationMessageStore.Clear(FieldIdentifier);
+		_validationMessageStore.Clear(FieldIdentifier);
 
 		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(newInputValue, null, out var date))
 		{
@@ -120,14 +120,14 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 		else
 		{
 			parsingFailed = true;
-			validationMessageStore.Add(FieldIdentifier, ParsingErrorMessageEffective);
+			_validationMessageStore.Add(FieldIdentifier, ParsingErrorMessageEffective);
 		}
 
 		// We can skip the validation notification if we were previously valid and still are
-		if (parsingFailed || previousParsingAttemptFailed)
+		if (parsingFailed || _previousParsingAttemptFailed)
 		{
 			EditContext.NotifyValidationStateChanged();
-			previousParsingAttemptFailed = parsingFailed;
+			_previousParsingAttemptFailed = parsingFailed;
 		}
 #endif
 	}
@@ -154,14 +154,14 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		firstRenderCompleted = true;
+		_firstRenderCompleted = true;
 
 		await base.OnAfterRenderAsync(firstRender);
 
 		if (RenderIcon)
 		{
-			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDate));
-			await jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", hxDropdownToggleElement.ElementReference, (this.CalendarIconEffective is not null) ? iconWrapperElement : null);
+			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDate));
+			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _hxDropdownToggleElement.ElementReference, (CalendarIconEffective is not null) ? _iconWrapperElement : null);
 		}
 	}
 
@@ -178,8 +178,8 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	private async Task CloseDropdownAsync()
 	{
-		Contract.Requires<InvalidOperationException>(hxDropdownToggleElement != null);
-		await hxDropdownToggleElement.HideAsync();
+		Contract.Requires<InvalidOperationException>(_hxDropdownToggleElement != null);
+		await _hxDropdownToggleElement.HideAsync();
 	}
 
 	private async Task HandleCalendarValueChangedAsync(DateTime? date)
@@ -214,9 +214,9 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 #if !NET8_0_OR_GREATER
 	private void ClearPreviousParsingMessage()
 	{
-		if (previousParsingAttemptFailed)
+		if (_previousParsingAttemptFailed)
 		{
-			previousParsingAttemptFailed = false;
+			_previousParsingAttemptFailed = false;
 			EditContext.NotifyValidationStateChanged();
 		}
 	}
@@ -284,21 +284,21 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
 #if !NET8_0_OR_GREATER
-		validationMessageStore?.Clear();
+		_validationMessageStore?.Clear();
 #endif
 
 		try
 		{
-			if (firstRenderCompleted)
+			if (_firstRenderCompleted)
 			{
-				if (hxDropdownToggleElement is not null)
+				if (_hxDropdownToggleElement is not null)
 				{
 					await CloseDropdownAsync();
 				}
 
-				if (jsModule is not null)
+				if (_jsModule is not null)
 				{
-					await jsModule.DisposeAsync();
+					await _jsModule.DisposeAsync();
 				}
 			}
 		}

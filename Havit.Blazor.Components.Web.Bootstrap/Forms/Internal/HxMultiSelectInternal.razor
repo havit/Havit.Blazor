@@ -6,8 +6,8 @@
     bool enabled = EnabledEffective && (ItemsToRender != null);
 }
 
-<div @ref="elementReference" class="hx-multi-select dropdown" role="listbox">
-    <div class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputGroupCssClass)" aria-expanded="@isShown" data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
+<div @ref="_elementReference" class="hx-multi-select dropdown" role="listbox">
+    <div class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputGroupCssClass)" aria-expanded="@_isShown" data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
         @if (InputGroupStartText is not null)
         {
             <span class="input-group-text">@InputGroupStartText</span>
@@ -38,18 +38,18 @@
             {
                 <li>
                     <div class="hx-multi-select-filter-input-wrapper">
-                        <input @ref="filterInputReference"
+                        <input @ref="_filterInputReference"
                                 id="@($"{InputId}_filter")"
                                 type="text"
                                 class="@CssClassHelper.Combine("form-control", InputSizeEffective.AsFormControlCssClass())"
                                 autocomplete="false"
-                                value="@filterText"
+                                value="@_filterText"
                                 @oninput="HandleFilterInputChanged"
                                 @onclick:stopPropagation
                                 onfocusin="this.select()" />
 
                         <div class="hx-multi-select-filter-input-icon">
-                            @if (string.IsNullOrEmpty(filterText))
+                            @if (string.IsNullOrEmpty(_filterText))
                             {
                                 <HxIcon CssClass="hx-multi-select-filter-input-icon-search" Icon="@FilterSearchIcon" />
                             }
@@ -85,7 +85,7 @@
                     <li>
                         <button type="button" class="dropdown-item" role="option" @onclick="HandleSelectAllClickedAsync">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="@($"{InputId}_selectall")" checked="@selectAllChecked" tabindex="-1" />
+                                <input class="form-check-input" type="checkbox" id="@($"{InputId}_selectall")" checked="@_selectAllChecked" tabindex="-1" />
                                 <label class="form-check-label" for="@($"{InputId}_selectall")" @onclick:preventDefault>
                                     @(GetSelectAllText())
                                 </label>
@@ -101,7 +101,7 @@
                     var item = filteredItems[i];
                     TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
 
-                    bool itemSelected = currentSelectedValues.Contains(value);
+                    bool itemSelected = _currentSelectedValues.Contains(value);
 
                     <li>
                         <button type="button" class="dropdown-item" role="option" @onclick="async () => await HandleItemSelectionChangedAsync(!itemSelected, item)">

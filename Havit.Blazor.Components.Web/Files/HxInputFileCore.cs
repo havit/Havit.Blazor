@@ -41,7 +41,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual InputFileCoreSettings GetSettings() => this.Settings;
+	protected virtual InputFileCoreSettings GetSettings() => Settings;
 
 
 	/// <summary>
@@ -99,13 +99,13 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// The default is <c>long.MaxValue</c> (unlimited).
 	/// </summary>
 	[Parameter] public long? MaxFileSize { get; set; }
-	protected long MaxFileSizeEffective => this.MaxFileSize ?? this.GetSettings()?.MaxFileSize ?? GetDefaults().MaxFileSize ?? throw new InvalidOperationException(nameof(MaxFileSize) + " default for " + nameof(HxInputFileCore) + " has to be set.");
+	protected long MaxFileSizeEffective => MaxFileSize ?? GetSettings()?.MaxFileSize ?? GetDefaults().MaxFileSize ?? throw new InvalidOperationException(nameof(MaxFileSize) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 	/// <summary>
 	/// The maximum number of concurrent uploads. The default is <c>6</c>.
 	/// </summary>
 	[Parameter] public int? MaxParallelUploads { get; set; }
-	protected int MaxParallelUploadsEffective => this.MaxParallelUploads ?? this.GetSettings()?.MaxParallelUploads ?? this.GetDefaults().MaxParallelUploads ?? throw new InvalidOperationException(nameof(MaxParallelUploads) + " default for " + nameof(HxInputFileCore) + " has to be set.");
+	protected int MaxParallelUploadsEffective => MaxParallelUploads ?? GetSettings()?.MaxParallelUploads ?? GetDefaults().MaxParallelUploads ?? throw new InvalidOperationException(nameof(MaxParallelUploads) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 	/// <summary>
 	/// The input element id.
@@ -119,16 +119,16 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// </summary>
 	public int FileCount { get; private set; }
 
-	private DotNetObjectReference<HxInputFileCore> dotnetObjectReference;
-	private IJSObjectReference jsModule;
-	private TaskCompletionSource<UploadCompletedEventArgs> uploadCompletedTaskCompletionSource;
-	private ConcurrentBag<FileUploadedEventArgs> filesUploaded;
-	private bool disposed;
+	private DotNetObjectReference<HxInputFileCore> _dotnetObjectReference;
+	private IJSObjectReference _jsModule;
+	private TaskCompletionSource<UploadCompletedEventArgs> _uploadCompletedTaskCompletionSource;
+	private ConcurrentBag<FileUploadedEventArgs> _filesUploaded;
+	private bool _disposed;
 
 
 	public HxInputFileCore()
 	{
-		dotnetObjectReference = DotNetObjectReference.Create(this);
+		_dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
 	protected override void OnParametersSet()
@@ -137,11 +137,11 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 
 		// Temporary hack as base implementation of InputFile does not expose ElementReference (vNext: https://github.com/dotnet/aspnetcore/blob/main/src/Components/Web/src/Forms/InputFile.cs)
 		AdditionalAttributes ??= new Dictionary<string, object>();
-		AdditionalAttributes["id"] = this.Id;
+		AdditionalAttributes["id"] = Id;
 
-		AdditionalAttributes["multiple"] = this.Multiple;
-		AdditionalAttributes["accept"] = this.Accept;
-		AdditionalAttributes["disabled"] = !this.Enabled;
+		AdditionalAttributes["multiple"] = Multiple;
+		AdditionalAttributes["accept"] = Accept;
+		AdditionalAttributes["disabled"] = !Enabled;
 	}
 
 	/// <summary>
@@ -156,13 +156,13 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 		Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(UploadUrl), nameof(UploadUrl) + " has to be set.");
 
 		await EnsureJsModuleAsync();
-		filesUploaded = new ConcurrentBag<FileUploadedEventArgs>();
+		_filesUploaded = new ConcurrentBag<FileUploadedEventArgs>();
 
-		if (disposed)
+		if (_disposed)
 		{
 			return;
 		}
-		await jsModule.InvokeVoidAsync("upload", Id, dotnetObjectReference, UploadUrl, accessToken, MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective, MaxParallelUploadsEffective);
+		await _jsModule.InvokeVoidAsync("upload", Id, _dotnetObjectReference, UploadUrl, accessToken, MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective, MaxParallelUploadsEffective);
 	}
 
 	/// <summary>
@@ -171,11 +171,11 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	public async Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null)
 	{
-		uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
+		_uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
 
 		await StartUploadAsync(accessToken);
 
-		return await uploadCompletedTaskCompletionSource.Task;
+		return await _uploadCompletedTaskCompletionSource.Task;
 	}
 
 	/// <summary>
@@ -184,12 +184,12 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	public async Task<FileInfo[]> GetFilesAsync()
 	{
 		await EnsureJsModuleAsync();
-		return await jsModule.InvokeAsync<FileInfo[]>("getFiles", Id);
+		return await _jsModule.InvokeAsync<FileInfo[]>("getFiles", Id);
 	}
 
 	private async Task EnsureJsModuleAsync()
 	{
-		jsModule ??= await JSRuntime.ImportHavitBlazorWebModuleAsync(nameof(HxInputFileCore));
+		_jsModule ??= await JSRuntime.ImportHavitBlazorWebModuleAsync(nameof(HxInputFileCore));
 	}
 
 	/// <summary>
@@ -198,7 +198,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	public async Task ResetAsync()
 	{
 		await EnsureJsModuleAsync();
-		await jsModule.InvokeVoidAsync("reset", Id);
+		await _jsModule.InvokeVoidAsync("reset", Id);
 	}
 
 	/// <summary>
@@ -233,7 +233,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 			ResponseStatus = (HttpStatusCode)responseStatus,
 			ResponseText = responseText,
 		};
-		filesUploaded?.Add(fileUploaded);
+		_filesUploaded?.Add(fileUploaded);
 		await InvokeOnFileUploadedAsync(fileUploaded);
 	}
 
@@ -245,12 +245,12 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	{
 		var uploadCompleted = new UploadCompletedEventArgs()
 		{
-			FilesUploaded = filesUploaded,
+			FilesUploaded = _filesUploaded,
 			FileCount = fileCount,
 			TotalSize = totalSize
 		};
-		filesUploaded = null;
-		uploadCompletedTaskCompletionSource?.TrySetResult(uploadCompleted);
+		_filesUploaded = null;
+		_uploadCompletedTaskCompletionSource?.TrySetResult(uploadCompleted);
 		await InvokeOnUploadCompletedAsync(uploadCompleted);
 	}
 
@@ -264,17 +264,17 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
 		// Microsoft violates the pattern - there is no protected virtual void Dispose(bool) method and the IDisposable implementation is explicit.
 		((IDisposable)this).Dispose();
 
-		if (jsModule != null)
+		if (_jsModule != null)
 		{
 			try
 			{
-				await jsModule.InvokeVoidAsync("dispose", Id);
-				await jsModule.DisposeAsync();
+				await _jsModule.InvokeVoidAsync("dispose", Id);
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
 			{
@@ -286,6 +286,6 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 			}
 		}
 
-		dotnetObjectReference.Dispose();
+		_dotnetObjectReference.Dispose();
 	}
 }

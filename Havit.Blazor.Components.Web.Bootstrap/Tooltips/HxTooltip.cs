@@ -40,7 +40,7 @@ public class HxTooltip : HxTooltipInternalBase
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override TooltipSettings GetSettings() => this.Settings;
+	protected override TooltipSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Tooltip text.
@@ -48,8 +48,8 @@ public class HxTooltip : HxTooltipInternalBase
 	[Parameter]
 	public string Text
 	{
-		get => base.TitleInternal;
-		set => base.TitleInternal = value;
+		get => TitleInternal;
+		set => TitleInternal = value;
 	}
 
 	/// <summary>
@@ -58,8 +58,8 @@ public class HxTooltip : HxTooltipInternalBase
 	[Parameter]
 	public TooltipPlacement Placement
 	{
-		get => base.PlacementInternal;
-		set => base.PlacementInternal = value;
+		get => PlacementInternal;
+		set => PlacementInternal = value;
 	}
 
 	/// <summary>
@@ -68,8 +68,8 @@ public class HxTooltip : HxTooltipInternalBase
 	[Parameter]
 	public TooltipTrigger Trigger
 	{
-		get => base.TriggerInternal;
-		set => base.TriggerInternal = value;
+		get => TriggerInternal;
+		set => TriggerInternal = value;
 	}
 
 
@@ -78,15 +78,15 @@ public class HxTooltip : HxTooltipInternalBase
 
 	public HxTooltip()
 	{
-		this.Placement = TooltipPlacement.Top;
-		this.Trigger = TooltipTrigger.Hover | TooltipTrigger.Focus;
+		Placement = TooltipPlacement.Top;
+		Trigger = TooltipTrigger.Hover | TooltipTrigger.Focus;
 	}
 
 	protected override Dictionary<string, string> GetNewContentForUpdate()
 	{
 		return new()
 		{
-			{ ".tooltip-inner", this.Text }
+			{ ".tooltip-inner", Text }
 		};
 	}
 }

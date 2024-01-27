@@ -35,7 +35,7 @@ public partial class HxDropdownMenu : ComponentBase
 		CssClassHelper.Combine(
 			"dropdown-menu",
 			((DropdownContainer as IDropdownContainer)?.IsOpen ?? false) ? "show" : null,
-			this.Alignment?.GetCssClass(),
-			this.CssClass
+			Alignment?.GetCssClass(),
+			CssClass
 			);
 }

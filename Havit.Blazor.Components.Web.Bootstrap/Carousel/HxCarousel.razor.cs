@@ -83,21 +83,21 @@ public partial class HxCarousel : IAsyncDisposable
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 
-	private IJSObjectReference jsModule;
-	private string id = "hx" + Guid.NewGuid().ToString("N");
-	private DotNetObjectReference<HxCarousel> dotnetObjectReference;
-	private ElementReference elementReference;
-	private List<HxCarouselItem> items;
-	private CollectionRegistration<HxCarouselItem> itemsRegistration;
-	private bool disposed = false;
+	private IJSObjectReference _jsModule;
+	private string _id = "hx" + Guid.NewGuid().ToString("N");
+	private DotNetObjectReference<HxCarousel> _dotnetObjectReference;
+	private ElementReference _elementReference;
+	private List<HxCarouselItem> _items;
+	private CollectionRegistration<HxCarouselItem> _itemsRegistration;
+	private bool _disposed = false;
 
 	public HxCarousel()
 	{
-		dotnetObjectReference = DotNetObjectReference.Create(this);
-		items = new List<HxCarouselItem>();
-		itemsRegistration = new CollectionRegistration<HxCarouselItem>(items,
-			async () => await InvokeAsync(this.StateHasChanged),
-			() => disposed);
+		_dotnetObjectReference = DotNetObjectReference.Create(this);
+		_items = new List<HxCarouselItem>();
+		_itemsRegistration = new CollectionRegistration<HxCarouselItem>(_items,
+			async () => await InvokeAsync(StateHasChanged),
+			() => _disposed);
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -107,25 +107,25 @@ public partial class HxCarousel : IAsyncDisposable
 		if (firstRender)
 		{
 			var options = new Dictionary<string, object>();
-			options["ride"] = this.Ride switch
+			options["ride"] = Ride switch
 			{
 				CarouselRide.Carousel => "carousel",
 				CarouselRide.False => false,
 				CarouselRide.True => true,
-				_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselRide)}: {this.Ride}.")
+				_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselRide)}: {Ride}.")
 			};
-			options["pause"] = this.Pause switch
+			options["pause"] = Pause switch
 			{
 				CarouselPause.Hover => "hover",
 				CarouselPause.False => false,
-				_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselPause)}: {this.Pause}.")
+				_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselPause)}: {Pause}.")
 			};
 			await EnsureJsModule();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference, options);
+			await _jsModule.InvokeVoidAsync("initialize", _elementReference, _dotnetObjectReference, options);
 		}
 	}
 
@@ -136,7 +136,7 @@ public partial class HxCarousel : IAsyncDisposable
 
 	protected async Task EnsureJsModule()
 	{
-		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxCarousel));
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxCarousel));
 	}
 
 
@@ -172,7 +172,7 @@ public partial class HxCarousel : IAsyncDisposable
 	public async Task SlideToAsync(int index)
 	{
 		await EnsureJsModule();
-		await jsModule.InvokeVoidAsync("slideTo", elementReference, index);
+		await _jsModule.InvokeVoidAsync("slideTo", _elementReference, index);
 	}
 
 	/// <summary>
@@ -181,7 +181,7 @@ public partial class HxCarousel : IAsyncDisposable
 	public async Task SlideToPreviousItemAsync()
 	{
 		await EnsureJsModule();
-		await jsModule.InvokeVoidAsync("previous", elementReference);
+		await _jsModule.InvokeVoidAsync("previous", _elementReference);
 	}
 
 	/// <summary>
@@ -190,7 +190,7 @@ public partial class HxCarousel : IAsyncDisposable
 	public async Task SlideToNextItemAsync()
 	{
 		await EnsureJsModule();
-		await jsModule.InvokeVoidAsync("next", elementReference);
+		await _jsModule.InvokeVoidAsync("next", _elementReference);
 	}
 
 	/// <summary>
@@ -199,7 +199,7 @@ public partial class HxCarousel : IAsyncDisposable
 	public async Task CycleAsync()
 	{
 		await EnsureJsModule();
-		await jsModule.InvokeVoidAsync("cycle", elementReference);
+		await _jsModule.InvokeVoidAsync("cycle", _elementReference);
 	}
 
 	/// <summary>
@@ -208,7 +208,7 @@ public partial class HxCarousel : IAsyncDisposable
 	public async Task PauseAsync()
 	{
 		await EnsureJsModule();
-		await jsModule.InvokeVoidAsync("pause", elementReference);
+		await _jsModule.InvokeVoidAsync("pause", _elementReference);
 	}
 
 	/// <summary>
@@ -223,14 +223,14 @@ public partial class HxCarousel : IAsyncDisposable
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
-		if (jsModule is not null)
+		if (_jsModule is not null)
 		{
 			try
 			{
-				await jsModule.InvokeVoidAsync("dispose", elementReference);
-				await jsModule.DisposeAsync();
+				await _jsModule.InvokeVoidAsync("dispose", _elementReference);
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
 			{
@@ -242,6 +242,6 @@ public partial class HxCarousel : IAsyncDisposable
 			}
 		}
 
-		dotnetObjectReference?.Dispose();
+		_dotnetObjectReference?.Dispose();
 	}
 }

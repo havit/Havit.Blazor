@@ -26,7 +26,7 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override InputTextSettings GetSettings() => this.Settings;
+	protected override InputTextSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// The maximum number of characters (UTF-16 code units) that the user can enter.<br />
@@ -40,7 +40,7 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 	/// The default is <c>null</c> (not set).
 	/// </summary>
 	[Parameter] public InputMode? InputMode { get; set; }
-	protected InputMode? InputModeEffective => this.InputMode ?? this.GetSettings()?.InputMode ?? this.GetDefaults()?.InputMode;
+	protected InputMode? InputModeEffective => InputMode ?? GetSettings()?.InputMode ?? GetDefaults()?.InputMode;
 
 	/// <summary>
 	/// Gets or sets the behavior when the model is updated from the input.
@@ -56,8 +56,8 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputNumber) + " has to be set.");
-	InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputNumber) + " has to be set.");
+	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
@@ -68,7 +68,7 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 		builder.OpenElement(0, GetElementName());
 		BuildRenderInput_AddCommonAttributes(builder, GetTypeAttributeValue());
 
-		int? maxLengthEffective = this.MaxLength ?? GetValueAttribute<MaxLengthAttribute>()?.Length;
+		int? maxLengthEffective = MaxLength ?? GetValueAttribute<MaxLengthAttribute>()?.Length;
 		if (maxLengthEffective > 0) // [MaxLength] attribute has a default value of -1
 		{
 			builder.AddAttribute(1000, "maxlength", maxLengthEffective);
@@ -78,15 +78,15 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 		builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 #if NET8_0_OR_GREATER
 		builder.SetUpdatesAttributeName("value");
-		if (!String.IsNullOrEmpty(this.NameAttributeValue))
+		if (!String.IsNullOrEmpty(NameAttributeValue))
 		{
 			builder.AddAttribute(1004, "name", NameAttributeValue);
 		}
 #endif
 
-		if (this.InputModeEffective is not null)
+		if (InputModeEffective is not null)
 		{
-			builder.AddAttribute(1005, "inputmode", this.InputModeEffective.Value.ToString("f").ToLower());
+			builder.AddAttribute(1005, "inputmode", InputModeEffective.Value.ToString("f").ToLower());
 		}
 		builder.AddEventStopPropagationAttribute(1006, "onclick", true);
 		builder.AddElementReferenceCapture(1007, elementReference => InputElement = elementReference);

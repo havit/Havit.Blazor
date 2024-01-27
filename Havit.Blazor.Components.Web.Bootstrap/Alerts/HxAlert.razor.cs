@@ -32,11 +32,11 @@ public partial class HxAlert
 
 	public string GetColorCss()
 	{
-		return this.Color switch
+		return Color switch
 		{
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as {nameof(HxAlert)} color."),
-			_ => "alert-" + this.Color.ToString("f").ToLower()
+			_ => "alert-" + Color.ToString("f").ToLower()
 		};
 	}
 

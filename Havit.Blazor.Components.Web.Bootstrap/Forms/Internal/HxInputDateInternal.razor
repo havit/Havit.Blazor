@@ -5,11 +5,11 @@
 @if (FieldIdentifier.Model != null)
 {
 	<div class="@CssClassHelper.Combine(
-                                    "hx-input-date-wrapper input-group",
-                                    ((IInputWithSize)this).GetInputGroupSizeCssClass(),
-                                    InputSizeEffective.AsInputGroupCssClass(),
-                                    (ShowPredefinedDatesEffective && (PredefinedDatesEffective?.Any() ?? false)) ? "hx-input-date-predefined-dates" : null,
-                                    (this.CalendarIconEffective is not null) ? "hx-input-date-has-calendar-icon" : null)">
+		            "hx-input-date-wrapper input-group",
+		            ((IInputWithSize)this).GetInputGroupSizeCssClass(),
+		            InputSizeEffective.AsInputGroupCssClass(),
+		            (ShowPredefinedDatesEffective && (PredefinedDatesEffective?.Any() ?? false)) ? "hx-input-date-predefined-dates" : null,
+		            (CalendarIconEffective is not null) ? "hx-input-date-has-calendar-icon" : null)">
 		<HxDropdown CssClass="@CssClassHelper.Combine(
 					     "hx-input-date",
 					     (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null,
@@ -23,7 +23,7 @@
 
 			@InputGroupStartTemplate
 
-			<HxDropdownToggleElement @ref="hxDropdownToggleElement"
+			<HxDropdownToggleElement @ref="_hxDropdownToggleElement"
 									 ElementName="input"
 									 CssClass="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())"
 									 type="text"
@@ -44,7 +44,7 @@
 				<span class="@CssClassHelper.Combine("input-group-text", RenderPredefinedDates ? null : " rounded-end")">@InputGroupEndText</span>
 			}
 
-			@if (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
+			@if (LabelTypeEffective == LabelType.Floating)
 			{
 				<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
 			}
@@ -72,7 +72,7 @@
 			</HxDropdownContent>
 			@if (RenderIcon)
 			{
-				<div @ref="iconWrapperElement" class="hx-input-date-icon">
+				<div @ref="_iconWrapperElement" class="hx-input-date-icon">
 					<HxIcon Icon="CalendarIconEffective" />
 				</div>
 			}

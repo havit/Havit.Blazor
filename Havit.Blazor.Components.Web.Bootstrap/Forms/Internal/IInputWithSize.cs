@@ -14,10 +14,10 @@ public interface IInputWithSize
 	/// <summary>
 	/// Gets the CSS class for the input size.
 	/// </summary>
-	string GetInputSizeCssClass() => this.InputSizeEffective.AsFormControlCssClass();
+	string GetInputSizeCssClass() => InputSizeEffective.AsFormControlCssClass();
 
 	/// <summary>
 	/// Gets the CSS class for the input group size.
 	/// </summary>
-	string GetInputGroupSizeCssClass() => this.InputSizeEffective.AsInputGroupCssClass();
+	string GetInputGroupSizeCssClass() => InputSizeEffective.AsInputGroupCssClass();
 }

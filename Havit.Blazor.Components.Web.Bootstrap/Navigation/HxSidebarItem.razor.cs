@@ -74,7 +74,7 @@ public partial class HxSidebarItem : IAsyncDisposable
 
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 
-	private string id = "hx" + Guid.NewGuid().ToString("N");
+	private string _id = "hx" + Guid.NewGuid().ToString("N");
 
 	protected List<HxSidebarItem> childItems;
 	internal CollectionRegistration<HxSidebarItem> ChildItemsRegistration { get; }
@@ -87,7 +87,7 @@ public partial class HxSidebarItem : IAsyncDisposable
 	public HxSidebarItem()
 	{
 		childItems = new();
-		ChildItemsRegistration = new(childItems, async () => await InvokeAsync(this.StateHasChanged), () => disposed);
+		ChildItemsRegistration = new(childItems, async () => await InvokeAsync(StateHasChanged), () => disposed);
 	}
 
 	protected override void OnInitialized()
@@ -103,8 +103,8 @@ public partial class HxSidebarItem : IAsyncDisposable
 		isMatch = ShouldMatch(NavigationManager.Uri);
 	}
 
-	protected bool ShouldBeExpanded => ExpandOnMatch && !ParentSidebar.Collapsed && this.childItems.Any(i => i.isMatch && i.ExpandOnMatch);
-	protected bool HasExpandableContent => (this.ChildContent is not null);
+	protected bool ShouldBeExpanded => ExpandOnMatch && !ParentSidebar.Collapsed && childItems.Any(i => i.isMatch && i.ExpandOnMatch);
+	protected bool HasExpandableContent => (ChildContent is not null);
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{

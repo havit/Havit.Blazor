@@ -1,7 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 @{
 	int numericButtonsCountEffective = NumericButtonsCountEffective;
-	int pageFromInclusive = ((this.CurrentPageIndex / numericButtonsCountEffective) * numericButtonsCountEffective);
+	int pageFromInclusive = ((CurrentPageIndex / numericButtonsCountEffective) * numericButtonsCountEffective);
 	int pageToExclusive = Math.Min(TotalPages, pageFromInclusive + numericButtonsCountEffective);
 	bool showFirstLast = true; // always
 	bool showPreviousNext = true; // always
@@ -10,7 +10,7 @@
 	string nextPageItemDisabledCssClass = CssClassHelper.Combine("page-item", (CurrentPageIndex == TotalPages - 1) ? "disabled" : null);
 }
 
-<ul class="@CssClassHelper.Combine("hx-pager pagination", this.CssClassEffective)">
+<ul class="@CssClassHelper.Combine("hx-pager pagination", CssClassEffective)">
 
 	@if (showFirstLast)
 	{
@@ -50,7 +50,7 @@
 		}
 	}
 
-	@if (pageToExclusive < (this.TotalPages - 1))
+	@if (pageToExclusive < (TotalPages - 1))
 	{
 		<li class="page-item d-none d-md-block"><a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(pageToExclusive)" @onclick:stopPropagation role="button">...</a></li>
 	}

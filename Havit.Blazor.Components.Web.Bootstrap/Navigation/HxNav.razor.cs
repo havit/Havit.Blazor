@@ -46,23 +46,23 @@ public partial class HxNav
 
 	protected virtual string GetOrientationCssClass()
 	{
-		return this.Orientation switch
+		return Orientation switch
 		{
 			NavOrientation.Horizontal => null,
 			NavOrientation.Vertical => "flex-column",
-			_ => throw new InvalidOperationException($"Unknown {nameof(NavOrientation)} value {this.Orientation}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(NavOrientation)} value {Orientation}.")
 		};
 	}
 
 	protected virtual string GetVariantCssClass()
 	{
-		return this.Variant switch
+		return Variant switch
 		{
 			NavVariant.Standard => null,
 			NavVariant.Pills => "nav-pills",
 			NavVariant.Tabs => "nav-tabs",
 			NavVariant.Underline => "nav-underline",
-			_ => throw new InvalidOperationException($"Unknown {nameof(NavVariant)} value {this.Variant}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(NavVariant)} value {Variant}.")
 		};
 	}
 }

@@ -8,7 +8,7 @@ public class HxGoogleTagManagerPageViewTracker : ComponentBase, IDisposable
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 	[Inject] protected IHxGoogleTagManager HxGoogleTagManager { get; set; }
 
-	private LocationChangedEventArgs locationChangedEventArgsToReportOnAfterRenderAsync;
+	private LocationChangedEventArgs _locationChangedEventArgsToReportOnAfterRenderAsync;
 
 	protected override void OnInitialized()
 	{
@@ -19,10 +19,10 @@ public class HxGoogleTagManagerPageViewTracker : ComponentBase, IDisposable
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (firstRender || (locationChangedEventArgsToReportOnAfterRenderAsync is not null))
+		if (firstRender || (_locationChangedEventArgsToReportOnAfterRenderAsync is not null))
 		{
-			var argsToReport = locationChangedEventArgsToReportOnAfterRenderAsync;
-			locationChangedEventArgsToReportOnAfterRenderAsync = null;
+			var argsToReport = _locationChangedEventArgsToReportOnAfterRenderAsync;
+			_locationChangedEventArgsToReportOnAfterRenderAsync = null;
 			await HxGoogleTagManager.PushPageViewAsync(argsToReport);
 		}
 
@@ -31,7 +31,7 @@ public class HxGoogleTagManagerPageViewTracker : ComponentBase, IDisposable
 
 	private void OnLocationChanged(object sender, LocationChangedEventArgs args)
 	{
-		locationChangedEventArgsToReportOnAfterRenderAsync = args;
+		_locationChangedEventArgsToReportOnAfterRenderAsync = args;
 		StateHasChanged();
 	}
 

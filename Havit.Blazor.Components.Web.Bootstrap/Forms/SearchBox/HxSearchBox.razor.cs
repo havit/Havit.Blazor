@@ -27,7 +27,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual SearchBoxSettings GetSettings() => this.Settings;
+	protected virtual SearchBoxSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Method (delegate) that provides data for the suggestions.
@@ -73,7 +73,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// Behavior when the item is selected.
 	/// </summary>
 	[Parameter] public SearchBoxItemSelectionBehavior? ItemSelectionBehavior { get; set; }
-	protected SearchBoxItemSelectionBehavior ItemSelectionBehaviorEffective => this.ItemSelectionBehavior ?? this.GetSettings()?.ItemSelectionBehavior ?? GetDefaults().ItemSelectionBehavior ?? throw new InvalidOperationException(nameof(ItemSelectionBehavior) + " default for " + nameof(HxSearchBox) + " has to be set.");
+	protected SearchBoxItemSelectionBehavior ItemSelectionBehaviorEffective => ItemSelectionBehavior ?? GetSettings()?.ItemSelectionBehavior ?? GetDefaults().ItemSelectionBehavior ?? throw new InvalidOperationException(nameof(ItemSelectionBehavior) + " default for " + nameof(HxSearchBox) + " has to be set.");
 
 	/// <summary>
 	/// Placeholder text for the search input.
@@ -119,37 +119,37 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// Additional CSS classes for the dropdown.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
-	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
+	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
 	/// Additional CSS classes for the items in the dropdown menu.
 	/// </summary>
 	[Parameter] public string ItemCssClass { get; set; }
-	protected string ItemCssClassEffective => this.ItemCssClass ?? this.GetSettings()?.ItemCssClass ?? GetDefaults().ItemCssClass;
+	protected string ItemCssClassEffective => ItemCssClass ?? GetSettings()?.ItemCssClass ?? GetDefaults().ItemCssClass;
 
 	/// <summary>
 	/// Additional CSS classes for the search box input.
 	/// </summary>
 	[Parameter] public string InputCssClass { get; set; }
-	protected string InputCssClassEffective => this.InputCssClass ?? this.GetSettings()?.InputCssClass ?? GetDefaults().InputCssClass;
+	protected string InputCssClassEffective => InputCssClass ?? GetSettings()?.InputCssClass ?? GetDefaults().InputCssClass;
 
 	/// <summary>
 	/// Custom CSS class to render with the input-group span.
 	/// </summary>
 	[Parameter] public string InputGroupCssClass { get; set; }
-	protected string InputGroupCssClassEffective => this.InputGroupCssClass ?? this.GetSettings()?.InputGroupCssClass ?? GetDefaults().InputGroupCssClass;
+	protected string InputGroupCssClassEffective => InputGroupCssClass ?? GetSettings()?.InputGroupCssClass ?? GetDefaults().InputGroupCssClass;
 
 	/// <summary>
 	/// Icon of the input when no text is written.
 	/// </summary>
 	[Parameter] public IconBase SearchIcon { get; set; }
-	protected IconBase SearchIconEffective => this.SearchIcon ?? this.GetSettings()?.SearchIcon ?? GetDefaults().SearchIcon;
+	protected IconBase SearchIconEffective => SearchIcon ?? GetSettings()?.SearchIcon ?? GetDefaults().SearchIcon;
 
 	/// <summary>
 	/// Icon of the input, displayed when text is entered, allowing the user to clear the text.
 	/// </summary>
 	[Parameter] public IconBase ClearIcon { get; set; }
-	protected IconBase ClearIconEffective => this.ClearIcon ?? this.GetSettings()?.ClearIcon ?? GetDefaults().ClearIcon;
+	protected IconBase ClearIconEffective => ClearIcon ?? GetSettings()?.ClearIcon ?? GetDefaults().ClearIcon;
 
 	/// <summary>
 	/// Offset between the dropdown and the input.
@@ -171,19 +171,19 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// Input size of the input field.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => this.InputSize ?? this.GetSettings()?.InputSize ?? this.GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSearchBox) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSearchBox) + " has to be set.");
 
 	/// <summary>
 	/// Minimum length to call the data provider (display any results). Default is <c>2</c>.
 	/// </summary>
 	[Parameter] public int? MinimumLength { get; set; }
-	protected int MinimumLengthEffective => this.MinimumLength ?? this.GetSettings()?.MinimumLength ?? GetDefaults().MinimumLength ?? throw new InvalidOperationException(nameof(MinimumLength) + " default for " + nameof(HxSearchBox) + " has to be set.");
+	protected int MinimumLengthEffective => MinimumLength ?? GetSettings()?.MinimumLength ?? GetDefaults().MinimumLength ?? throw new InvalidOperationException(nameof(MinimumLength) + " default for " + nameof(HxSearchBox) + " has to be set.");
 
 	/// <summary>
 	/// Debounce delay in milliseconds. Default is <c>300</c> ms.
 	/// </summary>
 	[Parameter] public int? Delay { get; set; }
-	protected int DelayEffective => this.Delay ?? this.GetSettings()?.Delay ?? GetDefaults().Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxSearchBox) + " has to be set.");
+	protected int DelayEffective => Delay ?? GetSettings()?.Delay ?? GetDefaults().Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxSearchBox) + " has to be set.");
 
 	/// <summary>
 	/// Indicates whether text-query mode is enabled (accepts free text in addition to suggested items).<br/>
@@ -219,34 +219,34 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private bool HasInputGroupStart => !String.IsNullOrWhiteSpace(InputGroupStartText) || (InputGroupStartTemplate is not null);
 	private bool HasInputGroupEnd => !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupEndTemplate is not null);
 	private bool HasClearButton => !HasInputGroupEnd
-							&& !dataProviderInProgress
+							&& !_dataProviderInProgress
 							&& !string.IsNullOrEmpty(TextQuery)
 							&& (ClearIconEffective is not null);
 
-	private string dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
-	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
-	private string inputId = "hx" + Guid.NewGuid().ToString("N");
-	private List<TItem> searchResults = new();
-	private HxDropdownToggleElement dropdownToggle;
-	private bool dropdownMenuActive = false;
-	private bool initialized = false;
+	private string _dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
+	private string _dropdownId = "hx" + Guid.NewGuid().ToString("N");
+	private string _inputId = "hx" + Guid.NewGuid().ToString("N");
+	private List<TItem> _searchResults = new();
+	private HxDropdownToggleElement _dropdownToggle;
+	private bool _dropdownMenuActive = false;
+	private bool _initialized = false;
 	/// <summary>
 	/// Indicates whether the <see cref="TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
 	/// </summary>
-	private bool textQueryHasBeenBelowMinimumLength = true;
-	private System.Timers.Timer timer;
-	private CancellationTokenSource cancellationTokenSource;
-	private bool dataProviderInProgress;
-	private bool inputFormHasFocus;
-	private bool scrollToFocusedItem;
-	private IJSObjectReference jsModule;
-	private DotNetObjectReference<HxSearchBox<TItem>> dotnetObjectReference;
-	private bool clickIsComing;
-	private bool disposed = false;
+	private bool _textQueryHasBeenBelowMinimumLength = true;
+	private System.Timers.Timer _timer;
+	private CancellationTokenSource _cancellationTokenSource;
+	private bool _dataProviderInProgress;
+	private bool _inputFormHasFocus;
+	private bool _scrollToFocusedItem;
+	private IJSObjectReference _jsModule;
+	private DotNetObjectReference<HxSearchBox<TItem>> _dotnetObjectReference;
+	private bool _clickIsComing;
+	private bool _disposed = false;
 
 	public HxSearchBox()
 	{
-		dotnetObjectReference = DotNetObjectReference.Create(this);
+		_dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
 	/// <inheritdoc />
@@ -262,26 +262,26 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	{
 		if (firstRender)
 		{
-			initialized = true;
+			_initialized = true;
 
 			await EnsureJsModule();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("initialize", inputId, dotnetObjectReference, new string[] { KeyCodes.ArrowUp, KeyCodes.ArrowDown });
+			await _jsModule.InvokeVoidAsync("initialize", _inputId, _dotnetObjectReference, new string[] { KeyCodes.ArrowUp, KeyCodes.ArrowDown });
 		}
 
-		if (scrollToFocusedItem)
+		if (_scrollToFocusedItem)
 		{
-			scrollToFocusedItem = false;
-			await jsModule.InvokeVoidAsync("scrollToFocusedItem");
+			_scrollToFocusedItem = false;
+			await _jsModule.InvokeVoidAsync("scrollToFocusedItem");
 		}
 	}
 
 	protected async Task EnsureJsModule()
 	{
-		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxSearchBox));
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxSearchBox));
 	}
 
 	protected async Task ClearInputAsync()
@@ -306,12 +306,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 
 		// Cancelation is performed in HandleTextQueryValueChanged method
-		cancellationTokenSource?.Dispose();
+		_cancellationTokenSource?.Dispose();
 
-		cancellationTokenSource = new CancellationTokenSource();
-		CancellationToken cancellationToken = cancellationTokenSource.Token;
+		_cancellationTokenSource = new CancellationTokenSource();
+		CancellationToken cancellationToken = _cancellationTokenSource.Token;
 
-		dataProviderInProgress = true;
+		_dataProviderInProgress = true;
 		StateHasChanged();
 
 		SearchBoxDataProviderRequest request = new()
@@ -335,21 +335,21 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			return;
 		}
 
-		dataProviderInProgress = false;
+		_dataProviderInProgress = false;
 
 		// KeyboardNavigation
-		if (this.AllowTextQuery)
+		if (AllowTextQuery)
 		{
-			focusedItemIndex = InputKeyboardNavigationIndex; // Move focus to the input, so that free-text can be easily confirmed with Enter.
+			_focusedItemIndex = InputKeyboardNavigationIndex; // Move focus to the input, so that free-text can be easily confirmed with Enter.
 		}
 		else
 		{
-			focusedItemIndex = 0; // Move focus to the first item.
+			_focusedItemIndex = 0; // Move focus to the first item.
 		}
 
-		searchResults = result?.Data?.ToList() ?? new();
+		_searchResults = result?.Data?.ToList() ?? new();
 
-		textQueryHasBeenBelowMinimumLength = false;
+		_textQueryHasBeenBelowMinimumLength = false;
 		await ShowDropdownMenu();
 
 		StateHasChanged();
@@ -357,7 +357,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private async Task HandleTextQueryValueChanged(string newTextQuery)
 	{
-		this.TextQuery = newTextQuery;
+		TextQuery = newTextQuery;
 
 		CancelDataProviderAndDebounce();
 
@@ -366,16 +366,16 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		{
 			if (DelayEffective > 0)
 			{
-				if (timer == null)
+				if (_timer == null)
 				{
-					timer = new System.Timers.Timer
+					_timer = new System.Timers.Timer
 					{
 						AutoReset = false // just once
 					};
-					timer.Elapsed += HandleTimerElapsed;
+					_timer.Elapsed += HandleTimerElapsed;
 				}
-				timer.Interval = DelayEffective;
-				timer.Start();
+				_timer.Interval = DelayEffective;
+				_timer.Start();
 			}
 			else
 			{
@@ -384,14 +384,14 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 		else
 		{
-			textQueryHasBeenBelowMinimumLength = true;
+			_textQueryHasBeenBelowMinimumLength = true;
 		}
 
 		if (ShouldDropdownMenuBeDisplayed())
 		{
 			await ShowDropdownMenu();
 		}
-		else if (dropdownMenuActive)
+		else if (_dropdownMenuActive)
 		{
 			await HideDropdownMenu();
 		}
@@ -399,7 +399,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	}
 
 	#region KeyboardNavigation
-	private int focusedItemIndex = -1;
+	private int _focusedItemIndex = -1;
 
 	/// <summary>
 	/// Input's index for the keyboard navigation. If this is the current index, then no item is selected.
@@ -408,9 +408,9 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private bool HasItemFocus(TItem item)
 	{
-		if ((focusedItemIndex > InputKeyboardNavigationIndex) && (focusedItemIndex < GetFreeTextItemIndex()))
+		if ((_focusedItemIndex > InputKeyboardNavigationIndex) && (_focusedItemIndex < GetFreeTextItemIndex()))
 		{
-			TItem focusedItem = GetItemByIndex(focusedItemIndex);
+			TItem focusedItem = GetItemByIndex(_focusedItemIndex);
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
 				return item.Equals(focusedItem);
@@ -422,21 +422,21 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private bool HasFreeTextItemFocus()
 	{
-		return focusedItemIndex == GetFreeTextItemIndex();
+		return _focusedItemIndex == GetFreeTextItemIndex();
 	}
 
 	[JSInvokable("HxSearchBox_HandleInputKeyDown")]
 	public async Task HandleInputKeyDown(string keyCode)
 	{
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
-		TItem focusedItem = GetItemByIndex(focusedItemIndex);
+		TItem focusedItem = GetItemByIndex(_focusedItemIndex);
 		if ((keyCode == KeyCodes.Enter) || (keyCode == KeyCodes.NumpadEnter))
 		{
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
 				await HandleItemSelected(focusedItem);
 			}
-			else if (focusedItemIndex == InputKeyboardNavigationIndex || focusedItemIndex == GetFreeTextItemIndex()) // Confirm free-text (text query) if the input or the free-text item is focused and the enter key is pressed.
+			else if (_focusedItemIndex == InputKeyboardNavigationIndex || _focusedItemIndex == GetFreeTextItemIndex()) // Confirm free-text (text query) if the input or the free-text item is focused and the enter key is pressed.
 			{
 				await HandleTextQueryTriggered();
 			}
@@ -445,25 +445,25 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		// Move focus up or down.
 		if (keyCode == KeyCodes.ArrowUp)
 		{
-			int previousItemIndex = focusedItemIndex - 1;
+			int previousItemIndex = _focusedItemIndex - 1;
 			int minimumIndex = AllowTextQuery ? InputKeyboardNavigationIndex : 0;
 
 			if (previousItemIndex >= minimumIndex)
 			{
-				focusedItemIndex = previousItemIndex;
-				scrollToFocusedItem = true;
+				_focusedItemIndex = previousItemIndex;
+				_scrollToFocusedItem = true;
 				StateHasChanged();
 			}
 		}
 		else if (keyCode == KeyCodes.ArrowDown)
 		{
-			int nextItemIndex = focusedItemIndex + 1;
-			int maximumIndex = AllowTextQuery ? GetFreeTextItemIndex() : (searchResults?.Count ?? 0) - 1;
+			int nextItemIndex = _focusedItemIndex + 1;
+			int maximumIndex = AllowTextQuery ? GetFreeTextItemIndex() : (_searchResults?.Count ?? 0) - 1;
 
 			if (nextItemIndex <= maximumIndex)
 			{
-				focusedItemIndex = nextItemIndex;
-				scrollToFocusedItem = true;
+				_focusedItemIndex = nextItemIndex;
+				_scrollToFocusedItem = true;
 				StateHasChanged();
 			}
 		}
@@ -472,26 +472,26 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	[JSInvokable("HxSearchBox_HandleInputMouseDown")]
 	public void HandleInputMouseDown()
 	{
-		clickIsComing = true;
+		_clickIsComing = true;
 	}
 
 	[JSInvokable("HxSearchBox_HandleInputMouseUp")]
 	public void HandleInputMouseUp()
 	{
-		clickIsComing = false;
+		_clickIsComing = false;
 	}
 
 	[JSInvokable("HxSearchBox_HandleInputMouseLeave")]
 	public void HandleInputMouseLeave()
 	{
-		clickIsComing = false;
+		_clickIsComing = false;
 	}
 
 	private TItem GetItemByIndex(int index)
 	{
-		if ((index >= 0) && (index < searchResults.Count))
+		if ((index >= 0) && (index < _searchResults.Count))
 		{
-			return searchResults[index];
+			return _searchResults[index];
 		}
 		else
 		{
@@ -501,7 +501,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private int GetFreeTextItemIndex()
 	{
-		return searchResults.Count;
+		return _searchResults.Count;
 	}
 	#endregion KeyboardNavigation
 
@@ -516,10 +516,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private async Task HandleInputFocus()
 	{
-		inputFormHasFocus = true;
+		_inputFormHasFocus = true;
 
 		// first focus when MinimumLength is 0 and we need to load initial suggestions
-		if (((TextQuery?.Length ?? 0) == 0) && (MinimumLengthEffective == 0) && !searchResults.Any())
+		if (((TextQuery?.Length ?? 0) == 0) && (MinimumLengthEffective == 0) && !_searchResults.Any())
 		{
 			await UpdateSuggestionsAsync();
 		}
@@ -529,9 +529,9 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private void HandleInputBlur()
 	{
-		inputFormHasFocus = false;
+		_inputFormHasFocus = false;
 
-		if (!dropdownMenuActive)
+		if (!_dropdownMenuActive)
 		{
 			ClearInputValueIfTextQueryDisabled();
 		}
@@ -548,9 +548,9 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private void CancelDataProviderAndDebounce()
 	{
-		timer?.Stop(); // if waiting for an interval, stop it
-		cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
-		dataProviderInProgress = false; // data provider is no longer in progress
+		_timer?.Stop(); // if waiting for an interval, stop it
+		_cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
+		_dataProviderInProgress = false; // data provider is no longer in progress
 	}
 
 	private async Task HandleTextQueryTriggered()
@@ -561,32 +561,32 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			CancelDataProviderAndDebounce();
 
 			await HideDropdownMenu();
-			await InvokeOnTextQueryTriggeredAsync(this.TextQuery);
+			await InvokeOnTextQueryTriggeredAsync(TextQuery);
 		}
 	}
 
 	private async Task HandleItemSelected(TItem item)
 	{
-		switch (this.ItemSelectionBehaviorEffective)
+		switch (ItemSelectionBehaviorEffective)
 		{
 			case SearchBoxItemSelectionBehavior.SelectAndClearTextQuery:
-				this.TextQuery = String.Empty;
+				TextQuery = String.Empty;
 				break;
 			case SearchBoxItemSelectionBehavior.SelectAndReplaceTextQueryWithItemTitle:
-				this.TextQuery = ItemTitleSelector?.Invoke(item) ?? null;
+				TextQuery = ItemTitleSelector?.Invoke(item) ?? null;
 				break;
 			default:
-				throw new InvalidOperationException($"Invalid {nameof(SearchBoxItemSelectionBehavior)} value: {this.ItemSelectionBehaviorEffective}");
+				throw new InvalidOperationException($"Invalid {nameof(SearchBoxItemSelectionBehavior)} value: {ItemSelectionBehaviorEffective}");
 		}
 
 		await HideDropdownMenu();
-		await InvokeTextQueryChangedAsync(this.TextQuery);
+		await InvokeTextQueryChangedAsync(TextQuery);
 		await InvokeOnItemSelectedAsync(item);
 	}
 
 	private async Task HandleDropdownMenuShown()
 	{
-		dropdownMenuActive = true;
+		_dropdownMenuActive = true;
 
 		if (!ShouldDropdownMenuBeDisplayed())
 		{
@@ -596,8 +596,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private void HandleDropdownMenuHidden()
 	{
-		dropdownMenuActive = false;
-		if (!inputFormHasFocus)
+		_dropdownMenuActive = false;
+		if (!_inputFormHasFocus)
 		{
 			ClearInputValueIfTextQueryDisabled();
 		}
@@ -605,17 +605,17 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	private async Task ShowDropdownMenu()
 	{
-		if (!clickIsComing)
+		if (!_clickIsComing)
 		{
 			// clickIsComing logic fixes #572 - Initial suggestions disappear when the DataProvider response is quick
 			// If click is coming, we do not want to show the dropdown as it will be toggled by the later click event (if we open it here, onfocus, click will hide it)
-			await dropdownToggle.ShowAsync();
+			await _dropdownToggle.ShowAsync();
 		}
 	}
 
 	private async Task HideDropdownMenu()
 	{
-		await dropdownToggle.HideAsync();
+		await _dropdownToggle.HideAsync();
 	}
 
 	/// <summary>
@@ -624,7 +624,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// <returns></returns>
 	private bool ShouldDropdownMenuBeDisplayed()
 	{
-		if (textQueryHasBeenBelowMinimumLength
+		if (_textQueryHasBeenBelowMinimumLength
 			&& ((TextQuery?.Length ?? 0) >= MinimumLengthEffective))
 		{
 			return false;
@@ -646,21 +646,21 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
-		timer?.Dispose();
-		timer = null;
+		_timer?.Dispose();
+		_timer = null;
 
-		cancellationTokenSource?.Dispose();
-		cancellationTokenSource = null;
+		_cancellationTokenSource?.Dispose();
+		_cancellationTokenSource = null;
 
-		if (jsModule != null)
+		if (_jsModule != null)
 		{
 			try
 			{
-				await jsModule.InvokeVoidAsync("dispose", inputId);
-				await dropdownToggle.DisposeAsync();
-				await jsModule.DisposeAsync();
+				await _jsModule.InvokeVoidAsync("dispose", _inputId);
+				await _dropdownToggle.DisposeAsync();
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
 			{
@@ -672,6 +672,6 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			}
 		}
 
-		dotnetObjectReference?.Dispose();
+		_dotnetObjectReference?.Dispose();
 	}
 }

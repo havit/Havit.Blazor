@@ -30,7 +30,7 @@ public partial class HxListLayout<TFilterModel>
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual ListLayoutSettings GetSettings() => this.Settings;
+	protected virtual ListLayoutSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Title of the component.
@@ -97,38 +97,38 @@ public partial class HxListLayout<TFilterModel>
 	/// Settings for the wrapping <see cref="HxCard"/>.
 	/// </summary>
 	[Parameter] public CardSettings CardSettings { get; set; }
-	protected CardSettings CardSettingsEffective => this.CardSettings ?? GetSettings()?.CardSettings ?? GetDefaults().CardSettings ?? throw new InvalidOperationException(nameof(CardSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
+	protected CardSettings CardSettingsEffective => CardSettings ?? GetSettings()?.CardSettings ?? GetDefaults().CardSettings ?? throw new InvalidOperationException(nameof(CardSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
 
 	/// <summary>
 	/// Settings for the <see cref="HxButton"/> opening the filtering offcanvas.
 	/// </summary>
 	[Parameter] public ButtonSettings FilterOpenButtonSettings { get; set; }
-	protected ButtonSettings FilterOpenButtonSettingsEffective => this.FilterOpenButtonSettings ?? GetSettings()?.FilterOpenButtonSettings ?? GetDefaults().FilterOpenButtonSettings ?? throw new InvalidOperationException(nameof(FilterOpenButtonSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
+	protected ButtonSettings FilterOpenButtonSettingsEffective => FilterOpenButtonSettings ?? GetSettings()?.FilterOpenButtonSettings ?? GetDefaults().FilterOpenButtonSettings ?? throw new InvalidOperationException(nameof(FilterOpenButtonSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
 
 	/// <summary>
 	/// Settings for the <see cref="HxButton"/> submitting the filter.
 	/// </summary>
 	[Parameter] public ButtonSettings FilterSubmitButtonSettings { get; set; }
-	protected ButtonSettings FilterSubmitButtonSettingsEffective => this.FilterSubmitButtonSettings ?? GetSettings()?.FilterSubmitButtonSettings ?? GetDefaults().FilterSubmitButtonSettings ?? throw new InvalidOperationException(nameof(FilterSubmitButtonSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
+	protected ButtonSettings FilterSubmitButtonSettingsEffective => FilterSubmitButtonSettings ?? GetSettings()?.FilterSubmitButtonSettings ?? GetDefaults().FilterSubmitButtonSettings ?? throw new InvalidOperationException(nameof(FilterSubmitButtonSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
 
 	/// <summary>
 	/// Settings for the <see cref="HxOffcanvas"/> with the filter.
 	/// </summary>
 	[Parameter] public OffcanvasSettings FilterOffcanvasSettings { get; set; }
-	protected OffcanvasSettings FilterOffcanvasSettingsEffective => this.FilterOffcanvasSettings ?? GetSettings()?.FilterOffcanvasSettings ?? GetDefaults().FilterOffcanvasSettings ?? throw new InvalidOperationException(nameof(FilterOffcanvasSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
+	protected OffcanvasSettings FilterOffcanvasSettingsEffective => FilterOffcanvasSettings ?? GetSettings()?.FilterOffcanvasSettings ?? GetDefaults().FilterOffcanvasSettings ?? throw new InvalidOperationException(nameof(FilterOffcanvasSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
 
 	/// <summary>
 	/// Additional CSS classes for the wrapping <c>div</c>.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
-	protected string CssClassEffective => CssClass ?? this.GetSettings()?.CssClass ?? this.GetDefaults().CssClass;
+	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	[Inject] protected IStringLocalizer<HxListLayout> Localizer { get; set; }
 
-	private ChipItem[] chips;
-	private string filterFormId = "hx" + Guid.NewGuid().ToString("N");
-	private HxFilterForm<TFilterModel> filterForm;
-	private HxOffcanvas filterOffcanvasComponent;
+	private ChipItem[] _chips;
+	private string _filterFormId = "hx" + Guid.NewGuid().ToString("N");
+	private HxFilterForm<TFilterModel> _filterForm;
+	private HxOffcanvas _filterOffcanvasComponent;
 
 	protected override void OnParametersSet()
 	{
@@ -139,24 +139,24 @@ public partial class HxListLayout<TFilterModel>
 
 	private void HandleChipUpdated(ChipItem[] chips)
 	{
-		this.chips = chips;
+		_chips = chips;
 	}
 
 	private async Task HandleChipRemoveClick(ChipItem chipItemToRemove)
 	{
-		await filterForm.RemoveChipAsync(chipItemToRemove);
+		await _filterForm.RemoveChipAsync(chipItemToRemove);
 	}
 
 	private async Task HandleFilterButtonClick()
 	{
-		await filterOffcanvasComponent.ShowAsync();
+		await _filterOffcanvasComponent.ShowAsync();
 	}
 
 	private async Task HandleFilterFormModelChanged(TFilterModel newFilterModel)
 	{
 		FilterModel = newFilterModel;
 		await InvokeFilterModelChangedAsync(newFilterModel);
-		await filterOffcanvasComponent.HideAsync();
+		await _filterOffcanvasComponent.HideAsync();
 	}
 
 	private async Task HandleNamedViewClickAsync(NamedView<TFilterModel> namedView)

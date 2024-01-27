@@ -5,15 +5,15 @@ namespace Havit.Blazor.Documentation.DemoData;
 
 public class DemoDataService : IDemoDataService
 {
-	private readonly ILogger<DemoDataService> logger;
+	private readonly ILogger<DemoDataService> _logger;
 
-	private List<EmployeeDto> employees { get; }
+	private readonly List<EmployeeDto> _employees;
 
 	public DemoDataService(ILogger<DemoDataService> logger)
 	{
-		this.logger = logger;
+		_logger = logger;
 
-		employees = new()
+		_employees = new()
 		{
 			new EmployeeDto()
 			{
@@ -539,37 +539,37 @@ public class DemoDataService : IDemoDataService
 	}
 	public IEnumerable<EmployeeDto> GetAllEmployees()
 	{
-		logger.LogInformation("DemoDataService.GetAllEmployees() called.");
-		return employees.ToList();
+		_logger.LogInformation("DemoDataService.GetAllEmployees() called.");
+		return _employees.ToList();
 	}
 
 	public async Task<IEnumerable<EmployeeDto>> GetAllEmployeesAsync(CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation("DemoDataService.GetAllEmployeesAsync() called.");
+		_logger.LogInformation("DemoDataService.GetAllEmployeesAsync() called.");
 
 		await Task.Delay(150, cancellationToken); // simulate server call
 
-		return employees.ToList();
+		return _employees.ToList();
 	}
 
 	public IQueryable<EmployeeDto> GetEmployeesAsQueryable()
 	{
-		logger.LogInformation("DemoDataService.GetEmployeesAsQueryable() called.");
-		return employees.AsQueryable();
+		_logger.LogInformation("DemoDataService.GetEmployeesAsQueryable() called.");
+		return _employees.AsQueryable();
 	}
 
 	public async Task<IEnumerable<EmployeeDto>> GetEmployeesDataFragmentAsync(int startIndex, int? count, CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation($"DemoDataService.GetEmployeesDataFragmentAsync(startIndex: {startIndex}, count: {count}) called.");
+		_logger.LogInformation($"DemoDataService.GetEmployeesDataFragmentAsync(startIndex: {startIndex}, count: {count}) called.");
 
 		await Task.Delay(80, cancellationToken); // simulate server call
-		return employees.Skip(startIndex).Take(count ?? Int32.MaxValue).ToList();
+		return _employees.Skip(startIndex).Take(count ?? Int32.MaxValue).ToList();
 	}
 
 
 	public async Task<IEnumerable<EmployeeDto>> GetEmployeesDataFragmentAsync(EmployeesFilterDto filter, int startIndex, int? count, CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation($"DemoDataService.GetEmployeesDataFragmentAsync(startIndex: {startIndex}, count: {count}) called.");
+		_logger.LogInformation($"DemoDataService.GetEmployeesDataFragmentAsync(startIndex: {startIndex}, count: {count}) called.");
 
 		await Task.Delay(80, cancellationToken); // simulate server call
 
@@ -578,7 +578,7 @@ public class DemoDataService : IDemoDataService
 
 	private IEnumerable<EmployeeDto> GetFilteredEmployees(EmployeesFilterDto filter)
 	{
-		return employees
+		return _employees
 			.WhereIf(!String.IsNullOrWhiteSpace(filter.Name), e => e.Name.Contains(filter.Name, StringComparison.CurrentCultureIgnoreCase))
 			.WhereIf(!String.IsNullOrWhiteSpace(filter.Phone), e => e.Phone.Contains(filter.Phone, StringComparison.CurrentCultureIgnoreCase))
 			.WhereIf(filter.SalaryMin.HasValue, e => e.Salary >= filter.SalaryMin)
@@ -589,15 +589,15 @@ public class DemoDataService : IDemoDataService
 
 	public async Task<int> GetEmployeesCountAsync(CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation("DemoDataService.GetEmployeesCountAsync(..) called.");
+		_logger.LogInformation("DemoDataService.GetEmployeesCountAsync(..) called.");
 
 		await Task.Delay(80, cancellationToken); // simulate server call
-		return employees.Count;
+		return _employees.Count;
 	}
 
 	public async Task<int> GetEmployeesCountAsync(EmployeesFilterDto filter, CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation("DemoDataService.GetEmployeesCountAsync(..) called.");
+		_logger.LogInformation("DemoDataService.GetEmployeesCountAsync(..) called.");
 
 		await Task.Delay(80, cancellationToken); // simulate server call
 
@@ -606,11 +606,11 @@ public class DemoDataService : IDemoDataService
 
 	public async Task<List<EmployeeDto>> FindEmployeesByNameAsync(string query, int? limitCount = null, CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation($"DemoDataService.FindEmployeesByNameAsync(\"{query}\", {limitCount}) called.");
+		_logger.LogInformation($"DemoDataService.FindEmployeesByNameAsync(\"{query}\", {limitCount}) called.");
 
 		await Task.Delay(180, cancellationToken); // simulate server call
 
-		return employees
+		return _employees
 			.Where(e => e.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
 			.OrderBy(e => e.Name)
 			.Take(limitCount ?? Int32.MaxValue)
@@ -619,39 +619,39 @@ public class DemoDataService : IDemoDataService
 
 	public async Task<EmployeeDto> GetEmployeeByIdAsync(int employeeId, CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation($"DemoDataService.GetEmployeeByIdAsync(\"{employeeId}\") called.");
+		_logger.LogInformation($"DemoDataService.GetEmployeeByIdAsync(\"{employeeId}\") called.");
 
 		await Task.Delay(80, cancellationToken); // simulate server call
 
-		return employees.FirstOrDefault(e => e.Id == employeeId);
+		return _employees.FirstOrDefault(e => e.Id == employeeId);
 	}
 
 	public async Task<List<EmployeeDto>> GetPreferredEmployeesAsync(int count, CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation($"DemoDataService.GetPreferredEmployeesAsync({count}) called.");
+		_logger.LogInformation($"DemoDataService.GetPreferredEmployeesAsync({count}) called.");
 
 		await Task.Delay(80, cancellationToken); // simulate server call
 
-		return employees.OrderByDescending(e => e.Id).Take(count).ToList();
+		return _employees.OrderByDescending(e => e.Id).Take(count).ToList();
 	}
 
 	public async Task DeleteEmployeeAsync(int employeeId, CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation($"DemoDataService.DeleteEmployeeAsync(\"{employeeId}\") called.");
+		_logger.LogInformation($"DemoDataService.DeleteEmployeeAsync(\"{employeeId}\") called.");
 
 		await Task.Delay(80, cancellationToken); // simulate server call
 
-		employees.RemoveAll(e => e.Id == employeeId);
+		_employees.RemoveAll(e => e.Id == employeeId);
 	}
 
 	public async Task UpdateEmployeeAsync(EmployeeDto employee, CancellationToken cancellationToken = default)
 	{
-		logger.LogInformation($"DemoDataService.UpdateEmployee(\"{employee.Id}\") called.");
+		_logger.LogInformation($"DemoDataService.UpdateEmployee(\"{employee.Id}\") called.");
 
 		// simulate server call
 		await Task.Delay(120, cancellationToken);
 
-		var existingEmployee = employees.FirstOrDefault(e => e.Id == employee.Id);
+		var existingEmployee = _employees.FirstOrDefault(e => e.Id == employee.Id);
 		Contract.Requires<InvalidOperationException>(existingEmployee != null, $"Employee with ID {employee.Id} not found.");
 
 		existingEmployee.Name = employee.Name;

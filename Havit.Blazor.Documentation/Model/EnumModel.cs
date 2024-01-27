@@ -9,20 +9,20 @@ public class EnumModel : MemberModel
 	{
 		get
 		{
-			return summary;
+			return _summary;
 		}
 		set
 		{
 			try
 			{
-				summary = TryFormatComment(value);
+				_summary = TryFormatComment(value);
 			}
 			catch
 			{
-				summary = value;
+				_summary = value;
 			}
 
 		}
 	}
-	private string summary;
+	private string _summary;
 }

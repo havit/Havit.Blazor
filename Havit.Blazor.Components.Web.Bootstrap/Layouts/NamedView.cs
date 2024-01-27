@@ -5,7 +5,7 @@
 /// </summary>
 public class NamedView<TFilterModel>
 {
-	private Func<TFilterModel> filterModelFactory;
+	private Func<TFilterModel> _filterModelFactory;
 
 	/// <summary>
 	/// Name of the view. Used as a label in the list. Can be used as a title for the <see cref="HxListLayout{TFilterModel}" />.
@@ -21,7 +21,7 @@ public class NamedView<TFilterModel>
 	public NamedView(string name, Func<TFilterModel> filterModelFactory)
 	{
 		Name = name;
-		this.filterModelFactory = filterModelFactory;
+		_filterModelFactory = filterModelFactory;
 	}
 
 	/// <summary>
@@ -30,6 +30,6 @@ public class NamedView<TFilterModel>
 	/// <returns>A new instance of the filter model.</returns>
 	public TFilterModel CreateFilterModel()
 	{
-		return filterModelFactory();
+		return _filterModelFactory();
 	}
 }

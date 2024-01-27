@@ -1,16 +1,16 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-<div class="@CssClassHelper.Combine("hx-input-file-drop-zone", EnabledEffective ? null : "disabled", this.CssClass)">
-	<HxInputFileCore @ref="hxInputFileCoreComponentReference"
-					 UploadUrl="@this.UploadUrl"
+<div class="@CssClassHelper.Combine("hx-input-file-drop-zone", EnabledEffective ? null : "disabled", CssClass)">
+	<HxInputFileCore @ref="_hxInputFileCoreComponentReference"
+					 UploadUrl="@UploadUrl"
 					 OnChange="HandleOnChange"
 					 OnProgress="InvokeOnProgressAsync"
 					 OnFileUploaded="InvokeOnFileUploadedAsync"
 					 OnUploadCompleted="InvokeOnUploadCompletedAsync"
-					 Multiple="this.Multiple"
+					 Multiple="Multiple"
 					 Enabled="EnabledEffective"
-					 MaxFileSize="this.MaxFileSize"
-					 Accept="@this.Accept"/>
-	@if (fileCount == 0)
+					 MaxFileSize="MaxFileSize"
+					 Accept="@Accept"/>
+	@if (_fileCount == 0)
 	{
 		<div class="hint text-center">
 			@if (NoFilesTemplate is not null)
@@ -19,7 +19,7 @@
 			}
 			else
 			{
-				<text>@Localizer[this.Multiple ? "NoFilesMultiple" : "NoFiles"]</text>
+				@Localizer[Multiple ? "NoFilesMultiple" : "NoFiles"]
 			}
 		</div>
 	}

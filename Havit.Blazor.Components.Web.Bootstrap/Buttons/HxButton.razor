@@ -1,54 +1,55 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<HxTooltip @ref="tooltipComponent"
+<HxTooltip @ref="_tooltipComponent"
            Text="@Tooltip"
            Placement="@TooltipPlacement"
-           CssClass="@this.TooltipCssClass"
+           CssClass="@TooltipCssClass"
            WrapperCssClass="@GetTooltipWrapperCssClass()">
     <button @ref="buttonElementReference"
             type="@GetButtonType()"
             class="@GetButtonCssClass()"
             @onclick="HandleClick"
-  			@onclick:stopPropagation="this.OnClickStopPropagation"
-			@onclick:preventDefault="this.OnClickPreventDefault"
+  			@onclick:stopPropagation="OnClickStopPropagation"
+			@onclick:preventDefault="OnClickPreventDefault"
 			disabled="@DisabledEffective"
             form="@FormId"
             @attributes="this.AdditionalAttributes">
 
-        @if ((IconPlacementEffective == ButtonIconPlacement.Start) && ((this.IconEffective is not null) || this.SpinnerEffective))
+        @if ((IconPlacementEffective == ButtonIconPlacement.Start) && ((IconEffective is not null) || SpinnerEffective))
         {
-            if (this.SpinnerEffective)
+            if (SpinnerEffective)
             {
                 <HxSpinner Size="SpinnerSize.Small" />
             }
-            else if (this.IconEffective is not null)
+            else if (IconEffective is not null)
             {
-                <HxIcon Icon="this.IconEffective" CssClass="@this.IconCssClassEffective" />
+                <HxIcon Icon="IconEffective" CssClass="@IconCssClassEffective" />
             }
 
-            @if (!String.IsNullOrEmpty(this.Text) || (ChildContent != null))
+            @if (!String.IsNullOrEmpty(Text) || (ChildContent != null))
             {
                 <span class="hx-button-icon-text-spacer"></span>
             }
         }
 
-        @this.Text
+
+        @Text
         @ChildContent
 
-        @if ((IconPlacementEffective == ButtonIconPlacement.End) && ((this.IconEffective is not null) || this.SpinnerEffective))
+        @if ((IconPlacementEffective == ButtonIconPlacement.End) && ((IconEffective is not null) || SpinnerEffective))
         {
-            @if (!String.IsNullOrEmpty(this.Text) || (ChildContent != null))
+            @if (!String.IsNullOrEmpty(Text) || (ChildContent != null))
             {
                 <span class="hx-button-text-icon-spacer"></span>
             }
 
-            if (this.SpinnerEffective)
+            if (SpinnerEffective)
             {
                 <HxSpinner Size="SpinnerSize.Small" />
             }
-            else if (this.IconEffective is not null)
+            else if (IconEffective is not null)
             {
-                <HxIcon Icon="this.IconEffective" CssClass="@this.IconCssClassEffective" />
+                <HxIcon Icon="IconEffective" CssClass="@IconCssClassEffective" />
             }
         }
     </button>

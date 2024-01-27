@@ -27,7 +27,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual GridSettings GetSettings() => this.Settings;
+	protected virtual GridSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Data provider delegate for the grid. The data provider is responsible for fetching items to be rendered in the grid.
@@ -104,25 +104,25 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// The strategy for how data items are displayed and loaded into the grid. Supported modes include pagination, load more, and infinite scroll.
 	/// </summary>
 	[Parameter] public GridContentNavigationMode? ContentNavigationMode { get; set; }
-	protected GridContentNavigationMode ContentNavigationModeEffective => this.ContentNavigationMode ?? this.GetSettings()?.ContentNavigationMode ?? GetDefaults().ContentNavigationMode ?? throw new InvalidOperationException(nameof(ContentNavigationMode) + " default for " + nameof(HxGrid) + " has to be set.");
+	protected GridContentNavigationMode ContentNavigationModeEffective => ContentNavigationMode ?? GetSettings()?.ContentNavigationMode ?? GetDefaults().ContentNavigationMode ?? throw new InvalidOperationException(nameof(ContentNavigationMode) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
 	/// The number of items to display per page. Applicable for grid modes such as pagination and load more. Set to 0 to disable paging.
 	/// </summary>
 	[Parameter] public int? PageSize { get; set; }
-	protected int PageSizeEffective => this.PageSize ?? this.GetSettings()?.PageSize ?? GetDefaults().PageSize ?? throw new InvalidOperationException(nameof(PageSize) + " default for " + nameof(HxGrid) + " has to be set.");
+	protected int PageSizeEffective => PageSize ?? GetSettings()?.PageSize ?? GetDefaults().PageSize ?? throw new InvalidOperationException(nameof(PageSize) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
 	/// Determines whether the grid footer is rendered when the grid's data source is empty. The default value is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool? ShowFooterWhenEmptyData { get; set; }
-	protected bool ShowFooterWhenEmptyDataEffective => this.ShowFooterWhenEmptyData ?? this.GetSettings()?.ShowFooterWhenEmptyData ?? GetDefaults().ShowFooterWhenEmptyData ?? throw new InvalidOperationException(nameof(ShowFooterWhenEmptyData) + " default for " + nameof(HxGrid) + " has to be set.");
+	protected bool ShowFooterWhenEmptyDataEffective => ShowFooterWhenEmptyData ?? GetSettings()?.ShowFooterWhenEmptyData ?? GetDefaults().ShowFooterWhenEmptyData ?? throw new InvalidOperationException(nameof(ShowFooterWhenEmptyData) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
 	/// Pager settings.
 	/// </summary>
 	[Parameter] public PagerSettings PagerSettings { get; set; }
-	protected PagerSettings PagerSettingsEffective => this.PagerSettings ?? this.GetSettings()?.PagerSettings ?? GetDefaults().PagerSettings;
+	protected PagerSettings PagerSettingsEffective => PagerSettings ?? GetSettings()?.PagerSettings ?? GetDefaults().PagerSettings;
 
 	/// <summary>
 	/// The text for the "Load more" button, used in the <see cref="GridContentNavigationMode.LoadMore"/> navigation mode. The default text is obtained from localization resources.
@@ -133,7 +133,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Configuration for the "Load more" button, including appearance and behavior settings. Relevant in grid modes that use a "Load more" button for data navigation.
 	/// </summary>
 	[Parameter] public ButtonSettings LoadMoreButtonSettings { get; set; }
-	protected ButtonSettings LoadMoreButtonSettingsEffective => this.LoadMoreButtonSettings ?? this.GetSettings()?.LoadMoreButtonSettings ?? GetDefaults().LoadMoreButtonSettings ?? throw new InvalidOperationException(nameof(LoadMoreButtonSettings) + " default for " + nameof(HxGrid) + " has to be set.");
+	protected ButtonSettings LoadMoreButtonSettingsEffective => LoadMoreButtonSettings ?? GetSettings()?.LoadMoreButtonSettings ?? GetDefaults().LoadMoreButtonSettings ?? throw new InvalidOperationException(nameof(LoadMoreButtonSettings) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
 	/// Gets or sets the current state of the grid, including pagination and sorting information. This state can be used to restore the grid to a specific configuration or to synchronize it with external state management systems.
@@ -159,32 +159,32 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Custom CSS class for the <c>div</c> element that wraps the main <c>table</c> element. Excludes the <see cref="HxPager"/> which is not wrapped in this <c>div</c> element.
 	/// </summary>
 	[Parameter] public string TableContainerCssClass { get; set; }
-	protected string TableContainerCssClassEffective => this.TableContainerCssClass ?? this.GetSettings()?.TableContainerCssClass ?? GetDefaults().TableContainerCssClass;
+	protected string TableContainerCssClassEffective => TableContainerCssClass ?? GetSettings()?.TableContainerCssClass ?? GetDefaults().TableContainerCssClass;
 
 	/// <summary>
 	/// Custom CSS class for the main <c>table</c> element of the grid. This class allows for styling and customization of the grid's appearance.
 	/// </summary>
 	[Parameter] public string TableCssClass { get; set; }
-	protected string TableCssClassEffective => this.TableCssClass ?? this.GetSettings()?.TableCssClass ?? GetDefaults().TableCssClass;
+	protected string TableCssClassEffective => TableCssClass ?? GetSettings()?.TableCssClass ?? GetDefaults().TableCssClass;
 
 	/// <summary>
 	/// Custom CSS class for the header <c>tr</c> element in the grid. Enables specific styling for the header row separate from the rest of the grid.
 	/// </summary>
 	[Parameter] public string HeaderRowCssClass { get; set; }
-	protected string HeaderRowCssClassEffective => this.HeaderRowCssClass ?? this.GetSettings()?.HeaderRowCssClass ?? GetDefaults().HeaderRowCssClass;
+	protected string HeaderRowCssClassEffective => HeaderRowCssClass ?? GetSettings()?.HeaderRowCssClass ?? GetDefaults().HeaderRowCssClass;
 
 	/// <summary>
 	/// Custom CSS class for the data <c>tr</c> elements in the grid. This class is applied to each row of data, providing a way to customize the styling of data rows.
 	/// </summary>
 	[Parameter] public string ItemRowCssClass { get; set; }
-	protected string ItemRowCssClassEffective => this.ItemRowCssClass ?? this.GetSettings()?.ItemRowCssClass ?? GetDefaults().ItemRowCssClass;
+	protected string ItemRowCssClassEffective => ItemRowCssClass ?? GetSettings()?.ItemRowCssClass ?? GetDefaults().ItemRowCssClass;
 
 	/// <summary>
 	/// Height of each item row, used primarily in calculations for infinite scrolling.
 	/// The default value (41px) corresponds to the typical row height in the Bootstrap 5 default theme.
 	/// </summary>
 	[Parameter] public float? ItemRowHeight { get; set; }
-	protected float ItemRowHeightEffective => this.ItemRowHeight ?? this.GetSettings()?.ItemRowHeight ?? GetDefaults().ItemRowHeight ?? throw new InvalidOperationException(nameof(ItemRowHeight) + " default for " + nameof(HxGrid) + " has to be set.");
+	protected float ItemRowHeightEffective => ItemRowHeight ?? GetSettings()?.ItemRowHeight ?? GetDefaults().ItemRowHeight ?? throw new InvalidOperationException(nameof(ItemRowHeight) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
 	/// Function that defines a custom CSS class for each data <c>tr</c> element based on the item it represents.
@@ -209,14 +209,14 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// A custom CSS class for the footer <c>tr</c> element in the grid. This allows styling of the grid footer independently of other grid elements.
 	/// </summary>
 	[Parameter] public string FooterRowCssClass { get; set; }
-	protected string FooterRowCssClassEffective => this.FooterRowCssClass ?? this.GetSettings()?.FooterRowCssClass ?? GetDefaults().FooterRowCssClass;
+	protected string FooterRowCssClassEffective => FooterRowCssClass ?? GetSettings()?.FooterRowCssClass ?? GetDefaults().FooterRowCssClass;
 
 	/// <summary>
 	/// The number of placeholder rows to be rendered in the grid. Placeholders are used when loading data or when <see cref="LoadingDataTemplate" />
 	/// is not set. Set to 0 to disable placeholders. Default value is 5.
 	/// </summary>
 	[Parameter] public int? PlaceholdersRowCount { get; set; }
-	protected int PlaceholdersRowCountEffective => this.PlaceholdersRowCount ?? this.GetSettings()?.PlaceholdersRowCount ?? GetDefaults().PlaceholdersRowCount ?? throw new InvalidOperationException(nameof(PlaceholdersRowCount) + " default for " + nameof(HxGrid) + " has to be set.");
+	protected int PlaceholdersRowCountEffective => PlaceholdersRowCount ?? GetSettings()?.PlaceholdersRowCount ?? GetDefaults().PlaceholdersRowCount ?? throw new InvalidOperationException(nameof(PlaceholdersRowCount) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
 	/// Defines the number of additional items to be rendered before and after the visible region in an infinite scrolling scenario.
@@ -224,7 +224,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Default is 3.
 	/// </summary>
 	[Parameter] public int? OverscanCount { get; set; }
-	protected int OverscanCountEffective => this.OverscanCount ?? this.GetSettings()?.OverscanCount ?? GetDefaults().OverscanCount ?? throw new InvalidOperationException(nameof(OverscanCount) + " default for " + nameof(HxGrid) + " has to be set.");
+	protected int OverscanCountEffective => OverscanCount ?? GetSettings()?.OverscanCount ?? GetDefaults().OverscanCount ?? throw new InvalidOperationException(nameof(OverscanCount) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
 	/// Determines if the grid should be scrollable horizontally across different breakpoints.
@@ -232,14 +232,14 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Default is false.
 	/// </summary>
 	[Parameter] public bool? Responsive { get; set; }
-	protected bool ResponsiveEffective => this.Responsive ?? this.GetSettings()?.Responsive ?? GetDefaults().Responsive ?? throw new InvalidOperationException(nameof(Responsive) + " default for " + nameof(HxGrid) + " has to be set.");
+	protected bool ResponsiveEffective => Responsive ?? GetSettings()?.Responsive ?? GetDefaults().Responsive ?? throw new InvalidOperationException(nameof(Responsive) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
 	/// Enables or disables the hover state on table rows within a <c>&lt;tbody&gt;</c>.
 	/// When not set, the table is hoverable by default if selection is enabled. This property customizes the hover behavior of the grid rows.
 	/// </summary>
 	[Parameter] public bool? Hover { get; set; }
-	protected bool? HoverEffective => this.Hover ?? this.GetSettings()?.Hover ?? GetDefaults().Hover;
+	protected bool? HoverEffective => Hover ?? GetSettings()?.Hover ?? GetDefaults().Hover;
 
 	/// <summary>
 	/// Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> for better readability.
@@ -247,19 +247,19 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Default is false.
 	/// </summary>
 	[Parameter] public bool? Striped { get; set; }
-	protected bool StripedEffective => this.Striped ?? this.GetSettings()?.Striped ?? GetDefaults().Striped ?? throw new InvalidOperationException(nameof(Striped) + " default for " + nameof(HxGrid) + " has to be set.");
+	protected bool StripedEffective => Striped ?? GetSettings()?.Striped ?? GetDefaults().Striped ?? throw new InvalidOperationException(nameof(Striped) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
 	/// Icon to indicate the ascending sort direction in the column header. This icon is displayed when a column is sorted in ascending order.
 	/// </summary>
 	[Parameter] public IconBase SortAscendingIcon { get; set; }
-	protected IconBase SortAscendingIconEffective => this.SortAscendingIcon ?? this.GetSettings()?.SortAscendingIcon ?? GetDefaults().SortAscendingIcon;
+	protected IconBase SortAscendingIconEffective => SortAscendingIcon ?? GetSettings()?.SortAscendingIcon ?? GetDefaults().SortAscendingIcon;
 
 	/// <summary>
 	/// Icon to indicate the descending sort direction in the column header. This icon is shown when a column is sorted in descending order.
 	/// </summary>
 	[Parameter] public IconBase SortDescendingIcon { get; set; }
-	protected IconBase SortDescendingIconEffective => this.SortDescendingIcon ?? this.GetSettings()?.SortDescendingIcon ?? GetDefaults().SortDescendingIcon;
+	protected IconBase SortDescendingIconEffective => SortDescendingIcon ?? GetSettings()?.SortDescendingIcon ?? GetDefaults().SortDescendingIcon;
 
 	/// <summary>
 	/// Retrieves the default settings for the grid. This method can be overridden in derived classes
@@ -269,35 +269,35 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	[Inject] protected IStringLocalizer<HxGrid> HxGridLocalizer { get; set; }
 
-	private List<IHxGridColumn<TItem>> columnsList;
-	private HashSet<string> columnIds;
+	private List<IHxGridColumn<TItem>> _columnsList;
+	private HashSet<string> _columnIds;
 
-	private CollectionRegistration<IHxGridColumn<TItem>> columnsListRegistration;
-	private bool isDisposed = false;
+	private CollectionRegistration<IHxGridColumn<TItem>> _columnsListRegistration;
+	private bool _isDisposed = false;
 
-	private bool paginationDecreasePageIndexAfterRender = false;
-	private List<TItem> paginationDataItemsToRender;
-	private CancellationTokenSource paginationRefreshDataCancellationTokenSource;
-	private List<GridInternalStateSortingItem<TItem>> currentSorting = null;
-	private bool postponeCurrentSortingDeserialization = false;
+	private bool _paginationDecreasePageIndexAfterRender = false;
+	private List<TItem> _paginationDataItemsToRender;
+	private CancellationTokenSource _paginationRefreshDataCancellationTokenSource;
+	private List<GridInternalStateSortingItem<TItem>> _currentSorting = null;
+	private bool _postponeCurrentSortingDeserialization = false;
 
-	private bool firstRenderCompleted = false;
-	private GridUserState previousUserState;
-	private int previousPageSizeEffective;
-	private int previousLoadMoreAdditionalItemsCount;
+	private bool _firstRenderCompleted = false;
+	private GridUserState _previousUserState;
+	private int _previousPageSizeEffective;
+	private int _previousLoadMoreAdditionalItemsCount;
 
-	private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> infiniteScrollVirtualizeComponent;
+	private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> _infiniteScrollVirtualizeComponent;
 
-	private int? totalCount;
-	private bool dataProviderInProgress;
+	private int? _totalCount;
+	private bool _dataProviderInProgress;
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public HxGrid()
 	{
-		columnsList = new List<IHxGridColumn<TItem>>();
-		columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(columnsList, async () => await InvokeAsync(this.StateHasChanged), () => isDisposed, HandleColumnAdded, HandleColumnRemoved);
+		_columnsList = new List<IHxGridColumn<TItem>>();
+		_columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(_columnsList, async () => await InvokeAsync(StateHasChanged), () => _isDisposed, HandleColumnAdded, HandleColumnRemoved);
 	}
 
 	/// <inheritdoc />
@@ -309,27 +309,27 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		Contract.Requires<InvalidOperationException>(CurrentUserState != null, $"Property {nameof(CurrentUserState)} on {GetType()} must have a value.");
 		Contract.Requires<InvalidOperationException>(!MultiSelectionEnabled || (ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll), $"Cannot use multi selection with infinite scroll on {GetType()}.");
 
-		if (previousUserState != CurrentUserState)
+		if (_previousUserState != CurrentUserState)
 		{
-			currentSorting = DeserializeCurrentUserStateSorting(CurrentUserState.Sorting);
+			_currentSorting = DeserializeCurrentUserStateSorting(CurrentUserState.Sorting);
 		}
 
-		if (firstRenderCompleted) /* after first render previousUserState cannot be null */
+		if (_firstRenderCompleted) /* after first render previousUserState cannot be null */
 		{
 			bool shouldRefreshData = false;
 
-			if (previousUserState != CurrentUserState)
+			if (_previousUserState != CurrentUserState)
 			{
 				// await: This adds one more render before OnParameterSetAsync is finished.
 				// We consider it safe because we already have some data.
 				// But for a moment (before data is refreshed (= before OnParametersSetAsync is finished), the component is rendered with a new user state and with old data).
-				previousUserState = CurrentUserState;
+				_previousUserState = CurrentUserState;
 				shouldRefreshData = true;
 			}
 
-			if (previousPageSizeEffective != PageSizeEffective)
+			if (_previousPageSizeEffective != PageSizeEffective)
 			{
-				previousPageSizeEffective = PageSizeEffective;
+				_previousPageSizeEffective = PageSizeEffective;
 				shouldRefreshData = true;
 			}
 
@@ -338,8 +338,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 				await RefreshDataCoreAsync();
 			}
 		}
-		previousUserState = CurrentUserState;
-		previousPageSizeEffective = PageSizeEffective;
+		_previousUserState = CurrentUserState;
+		_previousPageSizeEffective = PageSizeEffective;
 	}
 
 	/// <inheritdoc />
@@ -348,7 +348,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		await base.OnAfterRenderAsync(firstRender);
 
 		// when no sorting is set, use default
-		if (firstRender && (currentSorting == null))
+		if (firstRender && (_currentSorting == null))
 		{
 			GridInternalStateSortingItem<TItem>[] defaultSorting = GetDefaultSorting();
 			if (defaultSorting != null)
@@ -364,19 +364,19 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		}
 
 		// when rendering page with no data, navigate one page back
-		if (paginationDecreasePageIndexAfterRender)
+		if (_paginationDecreasePageIndexAfterRender)
 		{
-			paginationDecreasePageIndexAfterRender = false;
-			int newPageIndex = ((totalCount == null) /* hopefully not even possible */ || (totalCount.Value == 0))
+			_paginationDecreasePageIndexAfterRender = false;
+			int newPageIndex = ((_totalCount == null) /* hopefully not even possible */ || (_totalCount.Value == 0))
 				? 0
-				: (int)Math.Ceiling((decimal)totalCount.Value / PageSizeEffective) - 1;
+				: (int)Math.Ceiling((decimal)_totalCount.Value / PageSizeEffective) - 1;
 			if (await SetCurrentPageIndexWithEventCallback(newPageIndex))
 			{
 				await RefreshDataCoreAsync();
 			}
 		}
 
-		firstRenderCompleted = true;
+		_firstRenderCompleted = true;
 	}
 
 	/// <summary>
@@ -384,7 +384,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// </summary>
 	protected List<IHxGridColumn<TItem>> GetColumnsToRender()
 	{
-		return columnsList.Where(column => column.IsVisible()).OrderBy(column => column.GetOrder()).ToList();
+		return _columnsList.Where(column => column.IsVisible()).OrderBy(column => column.GetOrder()).ToList();
 	}
 
 	/// <summary>
@@ -396,12 +396,12 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// <param name="rendersData">Indicates whether the grid renders data (<c>false</c> when the grid has no items to render or the data have not been loaded yet).</param>
 	protected virtual string GetTableElementCssClass(bool rendersData)
 	{
-		bool hoverable = rendersData && (this.HoverEffective ?? (this.SelectionEnabled || this.MultiSelectionEnabled));
+		bool hoverable = rendersData && (HoverEffective ?? (SelectionEnabled || MultiSelectionEnabled));
 		return CssClassHelper.Combine("hx-grid table",
 			hoverable ? "table-hover" : null,
-			this.StripedEffective ? "table-striped" : null,
-			this.TableCssClassEffective,
-			this.ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll ? "hx-grid-infinite-scroll" : null);
+			StripedEffective ? "table-striped" : null,
+			TableCssClassEffective,
+			ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll ? "hx-grid-infinite-scroll" : null);
 	}
 
 	/// <summary>
@@ -433,7 +433,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// </summary>
 	protected virtual GridHeaderCellContext CreateGridHeaderCellContext()
 	{
-		return new GridHeaderCellContext { TotalCount = totalCount };
+		return new GridHeaderCellContext { TotalCount = _totalCount };
 	}
 
 	/// <summary>
@@ -441,7 +441,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// </summary>
 	protected virtual GridFooterCellContext CreateGridFooterCellContext()
 	{
-		return new GridFooterCellContext { TotalCount = totalCount };
+		return new GridFooterCellContext { TotalCount = _totalCount };
 	}
 
 	private async Task SetSelectedDataItemWithEventCallback(TItem newSelectedDataItem)
@@ -461,10 +461,10 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private async Task<bool> SetCurrentSortingWithEventCallback(IReadOnlyList<GridInternalStateSortingItem<TItem>> newSorting)
 	{
-		postponeCurrentSortingDeserialization = false;
-		currentSorting = newSorting.ToList();
-		CurrentUserState = CurrentUserState with { Sorting = SerializeToCurrentUserStateSorting(currentSorting) };
-		previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
+		_postponeCurrentSortingDeserialization = false;
+		_currentSorting = newSorting.ToList();
+		CurrentUserState = CurrentUserState with { Sorting = SerializeToCurrentUserStateSorting(_currentSorting) };
+		_previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
 		await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 		return true;
 	}
@@ -478,7 +478,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 				PageIndex = newPageIndex,
 				LoadMoreAdditionalItemsCount = 0 // When navigating by Pager in LoadMore mode, navigate directly to the page (do not load additional items).
 			};
-			previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
+			_previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
 			await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 			return true;
 		}
@@ -490,7 +490,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		Contract.Requires(additionalItemsCount > 0);
 
 		CurrentUserState = CurrentUserState with { LoadMoreAdditionalItemsCount = CurrentUserState.LoadMoreAdditionalItemsCount + additionalItemsCount };
-		previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
+		_previousUserState = CurrentUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
 		await InvokeCurrentUserStateChangedAsync(CurrentUserState);
 	}
 
@@ -515,7 +515,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private async Task HandleSortingClick(IHxGridColumn<TItem> newSortColumn)
 	{
-		GridInternalStateSortingItem<TItem>[] newSorting = GridInternalStateSortingItemHelper.ApplyColumnToSorting(currentSorting, newSortColumn);
+		GridInternalStateSortingItem<TItem>[] newSorting = GridInternalStateSortingItemHelper.ApplyColumnToSorting(_currentSorting, newSortColumn);
 
 		if (await SetCurrentSortingWithEventCallback(newSorting))
 		{
@@ -541,24 +541,24 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		string columnId = column.GetId();
 		if (!String.IsNullOrEmpty(columnId))
 		{
-			columnIds ??= new HashSet<string>();
-			if (!columnIds.Add(columnId))
+			_columnIds ??= new HashSet<string>();
+			if (!_columnIds.Add(columnId))
 			{
 				throw new InvalidOperationException($"There is already registered another column with the '{columnId}' identifier.");
 			}
 		}
 
-		if (postponeCurrentSortingDeserialization)
+		if (_postponeCurrentSortingDeserialization)
 		{
-			currentSorting = DeserializeCurrentUserStateSorting(CurrentUserState.Sorting);
+			_currentSorting = DeserializeCurrentUserStateSorting(CurrentUserState.Sorting);
 		}
 	}
 
 	private void HandleColumnRemoved(IHxGridColumn<TItem> column)
 	{
-		if ((columnIds != null) && (!String.IsNullOrEmpty(column.GetId())))
+		if ((_columnIds != null) && (!String.IsNullOrEmpty(column.GetId())))
 		{
-			columnIds.Remove(column.GetId());
+			_columnIds.Remove(column.GetId());
 		}
 	}
 
@@ -569,7 +569,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
 	public async Task RefreshDataAsync()
 	{
-		if (firstRenderCompleted)
+		if (_firstRenderCompleted)
 		{
 			await RefreshDataCoreAsync();
 		}
@@ -594,9 +594,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 				break;
 
 			case GridContentNavigationMode.InfiniteScroll:
-				if (infiniteScrollVirtualizeComponent != null)
+				if (_infiniteScrollVirtualizeComponent != null)
 				{
-					await infiniteScrollVirtualizeComponent.RefreshDataAsync();
+					await _infiniteScrollVirtualizeComponent.RefreshDataAsync();
 				}
 				// when infiniteScrollVirtualizeComponent, it will be rendered and data loaded so no action here is required
 				break;
@@ -617,10 +617,10 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	{
 		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
-		paginationRefreshDataCancellationTokenSource?.Cancel();
-		paginationRefreshDataCancellationTokenSource?.Dispose();
-		paginationRefreshDataCancellationTokenSource = new CancellationTokenSource();
-		CancellationToken cancellationToken = paginationRefreshDataCancellationTokenSource.Token;
+		_paginationRefreshDataCancellationTokenSource?.Cancel();
+		_paginationRefreshDataCancellationTokenSource?.Dispose();
+		_paginationRefreshDataCancellationTokenSource = new CancellationTokenSource();
+		CancellationToken cancellationToken = _paginationRefreshDataCancellationTokenSource.Token;
 
 		GridUserState currentUserState = CurrentUserState;
 
@@ -640,7 +640,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			{
 				StartIndex = 0,
 				Count = null,
-				Sorting = GridInternalStateSortingItemHelper.ToSortingItems(currentSorting),
+				Sorting = GridInternalStateSortingItemHelper.ToSortingItems(_currentSorting),
 				CancellationToken = cancellationToken
 			};
 		}
@@ -648,17 +648,17 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		{
 			loadingAdditionalItemsOnly = !forceReloadAllPaginationOrLoadMoreData
 				&& (currentUserState.LoadMoreAdditionalItemsCount > 0)
-				&& (paginationDataItemsToRender?.Count > 0);
+				&& (_paginationDataItemsToRender?.Count > 0);
 
 			request = new GridDataProviderRequest<TItem>
 			{
 				StartIndex = loadingAdditionalItemsOnly
-					? ((currentUserState.PageIndex + 1) * PageSizeEffective) + previousLoadMoreAdditionalItemsCount // loading "a few" load more items
+					? ((currentUserState.PageIndex + 1) * PageSizeEffective) + _previousLoadMoreAdditionalItemsCount // loading "a few" load more items
 					: (currentUserState.PageIndex * PageSizeEffective), // loading whole page and additional items (no load more scenario or state reset)
 				Count = loadingAdditionalItemsOnly
-					? currentUserState.LoadMoreAdditionalItemsCount - previousLoadMoreAdditionalItemsCount // loading "a few" load more items
+					? currentUserState.LoadMoreAdditionalItemsCount - _previousLoadMoreAdditionalItemsCount // loading "a few" load more items
 					: PageSizeEffective + currentUserState.LoadMoreAdditionalItemsCount, // loading whole page and additional items (no load more scenario or state reset)
-				Sorting = GridInternalStateSortingItemHelper.ToSortingItems(currentSorting),
+				Sorting = GridInternalStateSortingItemHelper.ToSortingItems(_currentSorting),
 				CancellationToken = cancellationToken
 			};
 		}
@@ -701,11 +701,11 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 			if (!loadingAdditionalItemsOnly)
 			{
-				paginationDataItemsToRender = result.Data?.ToList();
+				_paginationDataItemsToRender = result.Data?.ToList();
 
 				if (!EqualityComparer<TItem>.Default.Equals(SelectedDataItem, default))
 				{
-					if ((paginationDataItemsToRender == null) || !paginationDataItemsToRender.Contains(SelectedDataItem))
+					if ((_paginationDataItemsToRender == null) || !_paginationDataItemsToRender.Contains(SelectedDataItem))
 					{
 						await SetSelectedDataItemWithEventCallback(default);
 					}
@@ -713,15 +713,15 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 				if (SelectedDataItems?.Count > 0)
 				{
-					HashSet<TItem> selectedDataItems = paginationDataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItem>();
+					HashSet<TItem> selectedDataItems = _paginationDataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItem>();
 					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
 				}
 			}
 			else
 			{
-				paginationDataItemsToRender.AddRange(result.Data?.ToList());
+				_paginationDataItemsToRender.AddRange(result.Data?.ToList());
 			}
-			previousLoadMoreAdditionalItemsCount = currentUserState.LoadMoreAdditionalItemsCount;
+			_previousLoadMoreAdditionalItemsCount = currentUserState.LoadMoreAdditionalItemsCount;
 			// hide InProgress & show data
 			StateHasChanged();
 		}
@@ -733,7 +733,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		{
 			StartIndex = request.StartIndex,
 			Count = request.Count,
-			Sorting = GridInternalStateSortingItemHelper.ToSortingItems(currentSorting),
+			Sorting = GridInternalStateSortingItemHelper.ToSortingItems(_currentSorting),
 			CancellationToken = request.CancellationToken
 		};
 
@@ -751,9 +751,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private async Task<GridDataProviderResult<TItem>> InvokeDataProviderInternal(GridDataProviderRequest<TItem> request)
 	{
 		// Multithreading: we can safely set dataProviderInProgress, always dataProvider is going to retrieve data we are it is in in a progress.
-		if (!dataProviderInProgress)
+		if (!_dataProviderInProgress)
 		{
-			dataProviderInProgress = true;
+			_dataProviderInProgress = true;
 			StateHasChanged();
 		}
 
@@ -763,8 +763,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		// do not use result from cancelled request (for the case a developer does not use the cancellation token)
 		if (!request.CancellationToken.IsCancellationRequested)
 		{
-			dataProviderInProgress = false; // Multithreading: we can safely clean dataProviderInProgress only when received data from non-cancelled task
-			totalCount = result.TotalCount ?? result.Data?.Count() ?? 0;
+			_dataProviderInProgress = false; // Multithreading: we can safely clean dataProviderInProgress only when received data from non-cancelled task
+			_totalCount = result.TotalCount ?? result.Data?.Count() ?? 0;
 		}
 
 		return result;
@@ -799,13 +799,13 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		Contract.Requires(MultiSelectionEnabled, nameof(MultiSelectionEnabled));
 		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
-		if (paginationDataItemsToRender is null)
+		if (_paginationDataItemsToRender is null)
 		{
 			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>());
 		}
 		else
 		{
-			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>(paginationDataItemsToRender));
+			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>(_paginationDataItemsToRender));
 		}
 	}
 
@@ -837,13 +837,13 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		// deserializing expression brings a security vulnerability
 		// to make it safe we allow only those expressions which are present on any of the columns
 
-		postponeCurrentSortingDeserialization = false;
+		_postponeCurrentSortingDeserialization = false;
 
 		var result = new List<GridInternalStateSortingItem<TItem>>();
 		foreach (var gridSortingStateItem in gridSortingStateItems)
 		{
 			// try to find the column for the sorting state item
-			var sortingColumn = columnsList.FirstOrDefault(item => gridSortingStateItem.ColumnId == item.GetId());
+			var sortingColumn = _columnsList.FirstOrDefault(item => gridSortingStateItem.ColumnId == item.GetId());
 
 			if (sortingColumn != null)
 			{
@@ -856,7 +856,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			else
 			{
 				// otherwise if any of the the columns with the sorting is not yet register so postpone the "deserialization" to the later time (HandleColumnAdded).
-				postponeCurrentSortingDeserialization = true;
+				_postponeCurrentSortingDeserialization = true;
 				return null;
 			}
 		}
@@ -874,11 +874,11 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	{
 		if (disposing)
 		{
-			paginationRefreshDataCancellationTokenSource?.Cancel();
-			paginationRefreshDataCancellationTokenSource?.Dispose();
-			paginationRefreshDataCancellationTokenSource = null;
+			_paginationRefreshDataCancellationTokenSource?.Cancel();
+			_paginationRefreshDataCancellationTokenSource?.Dispose();
+			_paginationRefreshDataCancellationTokenSource = null;
 
-			isDisposed = true;
+			_isDisposed = true;
 		}
 	}
 

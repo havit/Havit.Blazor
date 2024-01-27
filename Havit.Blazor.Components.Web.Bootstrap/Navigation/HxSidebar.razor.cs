@@ -84,7 +84,7 @@ public partial class HxSidebar : ComponentBase
 	/// <summary>
 	/// The ID of the immediate parent of the contained <see cref="HxSidebarItem"/> components.
 	/// </summary>
-	internal string navId = "hx" + Guid.NewGuid().ToString("N");
+	internal string _navId = "hx" + Guid.NewGuid().ToString("N");
 
 	private string GetCollapsedCssClass() => Collapsed ? "collapsed" : null;
 
@@ -96,7 +96,7 @@ public partial class HxSidebar : ComponentBase
 
 	private string GetResponsiveCssClass(string cssClassPattern)
 	{
-		return this.ResponsiveBreakpoint switch
+		return ResponsiveBreakpoint switch
 		{
 			SidebarResponsiveBreakpoint.None => cssClassPattern.Replace("-??-", "-"), // !!! Simplified for the use case of this component.
 			SidebarResponsiveBreakpoint.Small => cssClassPattern.Replace("??", "sm"),
@@ -104,7 +104,7 @@ public partial class HxSidebar : ComponentBase
 			SidebarResponsiveBreakpoint.Large => cssClassPattern.Replace("??", "lg"),
 			SidebarResponsiveBreakpoint.ExtraLarge => cssClassPattern.Replace("??", "xl"),
 			SidebarResponsiveBreakpoint.Xxl => cssClassPattern.Replace("??", "xxl"),
-			_ => throw new InvalidOperationException($"Unknown nameof(ResponsiveBreakpoint) value {this.ResponsiveBreakpoint}")
+			_ => throw new InvalidOperationException($"Unknown nameof(ResponsiveBreakpoint) value {ResponsiveBreakpoint}")
 		};
 	}
 }

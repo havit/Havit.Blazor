@@ -29,7 +29,7 @@ public class HxPlaceholderButton : HxButton, ILayoutColumnComponent
 	{
 		await base.SetParametersAsync(parameters);
 
-		this.Enabled = parameters.GetValueOrDefault(nameof(Enabled), false);
+		Enabled = parameters.GetValueOrDefault(nameof(Enabled), false);
 	}
 
 	protected override string GetButtonCssClass()

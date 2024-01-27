@@ -14,7 +14,7 @@ public class HxAutosuggest
 	{
 		Defaults = new AutosuggestSettings()
 		{
-			InputSize = Bootstrap.InputSize.Regular,
+			InputSize = InputSize.Regular,
 			SearchIcon = BootstrapIcon.Search,
 			ClearIcon = BootstrapIcon.XLg,
 			MinimumLength = 2,

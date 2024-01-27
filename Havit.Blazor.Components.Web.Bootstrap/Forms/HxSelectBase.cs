@@ -30,15 +30,15 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override SelectSettings GetSettings() => this.Settings;
+	protected override SelectSettings GetSettings() => Settings;
 
 
 	/// <summary>
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSelect) + " has to be set.");
-	InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSelect) + " has to be set.");
+	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
 	/// Indicates when <c>null</c> is a valid value.
@@ -64,7 +64,7 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 				return false;
 			}
 
-			if (System.Nullable.GetUnderlyingType(typeof(TValue)) != null)
+			if (Nullable.GetUnderlyingType(typeof(TValue)) != null)
 			{
 				return true;
 			}
@@ -125,36 +125,36 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	protected bool AutoSortImpl { get; set; } = true;
 
 	/// <inheritdoc cref="HxInputBase{TValue}.EnabledEffective" />
-	protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
+	protected override bool EnabledEffective => base.EnabledEffective && (_itemsToRender != null);
 
 	private protected override string CoreInputCssClass => "form-select";
 
-	private IEqualityComparer<TValue> comparer = EqualityComparer<TValue>.Default;
-	private List<TItem> itemsToRender;
-	private int selectedItemIndex;
-	private string chipValue;
+	private IEqualityComparer<TValue> _comparer = EqualityComparer<TValue>.Default;
+	private List<TItem> _itemsToRender;
+	private int _selectedItemIndex;
+	private string _chipValue;
 
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
-		chipValue = null;
+		_chipValue = null;
 
 		RefreshState();
 
-		bool enabledEffective = this.EnabledEffective;
+		bool enabledEffective = EnabledEffective;
 
 		builder.OpenElement(100, "select");
 		BuildRenderInput_AddCommonAttributes(builder, null);
 
-		builder.AddAttribute(1000, "value", selectedItemIndex);
+		builder.AddAttribute(1000, "value", _selectedItemIndex);
 		builder.AddAttribute(1001, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 		builder.SetUpdatesAttributeName("value");
 		builder.AddEventStopPropagationAttribute(1002, "onclick", true);
 		builder.AddElementReferenceCapture(1003, elementReference => InputElement = elementReference);
 
-		if (itemsToRender != null)
+		if (_itemsToRender != null)
 		{
-			if ((NullableEffective && enabledEffective) || (selectedItemIndex == -1))
+			if ((NullableEffective && enabledEffective) || (_selectedItemIndex == -1))
 			{
 				builder.OpenElement(2000, "option");
 				builder.AddAttribute(2001, "value", -1);
@@ -162,12 +162,12 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 				builder.CloseElement();
 			}
 
-			for (int i = 0; i < itemsToRender.Count; i++)
+			for (int i = 0; i < _itemsToRender.Count; i++)
 			{
-				var item = itemsToRender[i];
+				var item = _itemsToRender[i];
 				if (item != null)
 				{
-					bool selected = (i == selectedItemIndex);
+					bool selected = (i == _selectedItemIndex);
 
 					if (enabledEffective || selected) /* when not enabled only selected item is rendered */
 					{
@@ -181,7 +181,7 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 
 						if (selected)
 						{
-							chipValue = text;
+							_chipValue = text;
 						}
 					}
 				}
@@ -204,37 +204,37 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	{
 		if (DataImpl != null)
 		{
-			itemsToRender = DataImpl.ToList();
+			_itemsToRender = DataImpl.ToList();
 
 			// AutoSort
-			if (AutoSortImpl && (itemsToRender.Count > 1))
+			if (AutoSortImpl && (_itemsToRender.Count > 1))
 			{
 				if (SortKeySelectorImpl != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.SortKeySelectorImpl).ToList();
+					_itemsToRender = _itemsToRender.OrderBy(SortKeySelectorImpl).ToList();
 				}
 				else if (TextSelectorImpl != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.TextSelectorImpl).ToList();
+					_itemsToRender = _itemsToRender.OrderBy(TextSelectorImpl).ToList();
 				}
 				else
 				{
-					itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
+					_itemsToRender = _itemsToRender.OrderBy(i => i.ToString()).ToList();
 				}
 			}
 
 			// set next properties for rendering
-			selectedItemIndex = itemsToRender.FindIndex(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
+			_selectedItemIndex = _itemsToRender.FindIndex(item => _comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
 
-			if ((Value != null) && (selectedItemIndex == -1))
+			if ((Value != null) && (_selectedItemIndex == -1))
 			{
 				throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
 			}
 		}
 		else
 		{
-			itemsToRender = null;
-			selectedItemIndex = -1;
+			_itemsToRender = null;
+			_selectedItemIndex = -1;
 		}
 	}
 
@@ -244,7 +244,7 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 		int index = int.Parse(value);
 		result = (index == -1)
 			? default(TValue)
-			: SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, itemsToRender[index]);
+			: SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, _itemsToRender[index]);
 
 		validationErrorMessage = null;
 		return true;
@@ -252,15 +252,15 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 
 	protected override void RenderChipValue(RenderTreeBuilder builder)
 	{
-		if ((chipValue is null) && (Value != null) && (DataImpl != null))
+		if ((_chipValue is null) && (Value != null) && (DataImpl != null))
 		{
 			// fallback for initial rendering without chipValue
 			// does not help when DataImpl is not set yet (loaded asynchronously)
-			var item = DataImpl.FirstOrDefault(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
-			chipValue = SelectorHelpers.GetText(TextSelectorImpl, item);
+			var item = DataImpl.FirstOrDefault(item => _comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ValueSelectorImpl, item)));
+			_chipValue = SelectorHelpers.GetText(TextSelectorImpl, item);
 		}
-		builder.AddContent(0, chipValue);
+		builder.AddContent(0, _chipValue);
 	}
 
-	string IInputWithSize.GetInputSizeCssClass() => this.InputSizeEffective.AsFormSelectCssClass();
+	string IInputWithSize.GetInputSizeCssClass() => InputSizeEffective.AsFormSelectCssClass();
 }

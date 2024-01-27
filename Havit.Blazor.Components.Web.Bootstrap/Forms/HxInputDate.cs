@@ -16,7 +16,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, IInputWithSize, IInputWithLabelType
 {
 	// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
-	private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(DateTime), typeof(DateTimeOffset) };
+	private static HashSet<Type> s_supportedTypes = new HashSet<Type> { typeof(DateTime), typeof(DateTimeOffset) };
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
@@ -35,19 +35,19 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override InputDateSettings GetSettings() => this.Settings;
+	protected override InputDateSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// When enabled (default is <c>true</c>), shows predefined days (from <see cref="PredefinedDates"/>, e.g. Today).
 	/// </summary>
 	[Parameter] public bool? ShowPredefinedDates { get; set; }
-	protected bool ShowPredefinedDatesEffective => this.ShowPredefinedDates ?? this.Settings?.ShowPredefinedDates ?? GetDefaults().ShowPredefinedDates ?? throw new InvalidOperationException(nameof(ShowPredefinedDates) + " default for " + nameof(HxInputDate) + " has to be set.");
+	protected bool ShowPredefinedDatesEffective => ShowPredefinedDates ?? Settings?.ShowPredefinedDates ?? GetDefaults().ShowPredefinedDates ?? throw new InvalidOperationException(nameof(ShowPredefinedDates) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 	/// <summary>
 	/// Predefined dates to be displayed.
 	/// </summary>
 	[Parameter] public IEnumerable<InputDatePredefinedDatesItem> PredefinedDates { get; set; }
-	private IEnumerable<InputDatePredefinedDatesItem> PredefinedDatesEffective => this.PredefinedDates ?? this.GetSettings()?.PredefinedDates ?? GetDefaults().PredefinedDates;
+	private IEnumerable<InputDatePredefinedDatesItem> PredefinedDatesEffective => PredefinedDates ?? GetSettings()?.PredefinedDates ?? GetDefaults().PredefinedDates;
 
 	/// <summary>
 	/// Gets or sets the error message used when displaying a parsing error.
@@ -62,42 +62,42 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => this.InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputDate) + " has to be set.");
-	InputSize IInputWithSize.InputSizeEffective => this.InputSizeEffective;
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputDate) + " has to be set.");
+	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
 	/// Optional icon to display within the input. Use <see cref="HxInputDate.Defaults"/> to set the icon for the whole project.
 	/// </summary>
 	[Parameter] public IconBase CalendarIcon { get; set; }
-	protected IconBase CalendarIconEffective => this.CalendarIcon ?? this.GetSettings()?.CalendarIcon ?? this.GetDefaults().CalendarIcon;
+	protected IconBase CalendarIconEffective => CalendarIcon ?? GetSettings()?.CalendarIcon ?? GetDefaults().CalendarIcon;
 
 	/// <summary>
 	/// Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
 	/// The default is <c>true</c> (configurable in <see cref="HxInputDate.Defaults"/>).
 	/// </summary>
 	[Parameter] public bool? ShowClearButton { get; set; }
-	protected bool ShowClearButtonEffective => this.ShowClearButton ?? this.GetSettings()?.ShowClearButton ?? this.GetDefaults().ShowClearButton ?? throw new InvalidOperationException(nameof(ShowClearButton) + " default for " + nameof(HxInputDate) + " has to be set.");
+	protected bool ShowClearButtonEffective => ShowClearButton ?? GetSettings()?.ShowClearButton ?? GetDefaults().ShowClearButton ?? throw new InvalidOperationException(nameof(ShowClearButton) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 	/// <summary>
 	/// The first date selectable from the dropdown calendar.<br />
 	/// The default is <c>1.1.1900</c> (configurable from <see cref="HxInputDate.Defaults"/>).
 	/// </summary>
 	[Parameter] public DateTime? MinDate { get; set; }
-	protected DateTime MinDateEffective => this.MinDate ?? this.GetSettings()?.MinDate ?? GetDefaults().MinDate ?? throw new InvalidOperationException(nameof(MinDate) + " default for " + nameof(HxInputDate) + " has to be set.");
+	protected DateTime MinDateEffective => MinDate ?? GetSettings()?.MinDate ?? GetDefaults().MinDate ?? throw new InvalidOperationException(nameof(MinDate) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 	/// <summary>
 	/// The last date selectable from the dropdown calendar.<br />
 	/// The default is <c>31.12.2099</c> (configurable from <see cref="HxInputDate.Defaults"/>).
 	/// </summary>
 	[Parameter] public DateTime? MaxDate { get; set; }
-	protected DateTime MaxDateEffective => this.MaxDate ?? this.GetSettings()?.MaxDate ?? this.GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxInputDate) + " has to be set.");
+	protected DateTime MaxDateEffective => MaxDate ?? GetSettings()?.MaxDate ?? GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 	/// <summary>
 	/// Allows customization of the dates in the dropdown calendar.<br />
 	/// The default customization is configurable with <see cref="HxInputDate.Defaults"/>.
 	/// </summary>
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
-	protected CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective => this.CalendarDateCustomizationProvider ?? this.GetSettings()?.CalendarDateCustomizationProvider ?? GetDefaults().CalendarDateCustomizationProvider;
+	protected CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective => CalendarDateCustomizationProvider ?? GetSettings()?.CalendarDateCustomizationProvider ?? GetDefaults().CalendarDateCustomizationProvider;
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
@@ -146,7 +146,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	public HxInputDate()
 	{
 		Type underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-		if (!supportedTypes.Contains(underlyingType))
+		if (!s_supportedTypes.Contains(underlyingType))
 		{
 			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
 		}
@@ -163,9 +163,9 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 		builder.OpenComponent(1, typeof(HxInputDateInternal<TValue>));
 
-		builder.AddAttribute(100, nameof(HxInputDateInternal<TValue>.Value), Value);
-		builder.AddAttribute(101, nameof(HxInputDateInternal<TValue>.ValueChanged), EventCallback.Factory.Create<TValue>(this, value => CurrentValue = value));
-		builder.AddAttribute(102, nameof(HxInputDateInternal<TValue>.ValueExpression), ValueExpression);
+		builder.AddAttribute(100, nameof(Value), Value);
+		builder.AddAttribute(101, nameof(ValueChanged), EventCallback.Factory.Create<TValue>(this, value => CurrentValue = value));
+		builder.AddAttribute(102, nameof(ValueExpression), ValueExpression);
 
 		builder.AddAttribute(200, nameof(HxInputDateInternal<TValue>.InputId), InputId);
 		builder.AddAttribute(201, nameof(HxInputDateInternal<TValue>.InputCssClass), GetInputCssClassToRender());
@@ -173,10 +173,10 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 		builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.ParsingErrorMessageEffective), GetParsingErrorMessage());
 		builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
 
-		builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.InputSizeEffective), this.InputSizeEffective);
-		builder.AddAttribute(206, nameof(HxInputDateInternal<TValue>.CalendarIconEffective), this.CalendarIconEffective);
-		builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.PredefinedDatesEffective), this.PredefinedDatesEffective);
-		builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.ShowPredefinedDatesEffective), this.ShowPredefinedDatesEffective);
+		builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.InputSizeEffective), InputSizeEffective);
+		builder.AddAttribute(206, nameof(HxInputDateInternal<TValue>.CalendarIconEffective), CalendarIconEffective);
+		builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.PredefinedDatesEffective), PredefinedDatesEffective);
+		builder.AddAttribute(207, nameof(HxInputDateInternal<TValue>.ShowPredefinedDatesEffective), ShowPredefinedDatesEffective);
 		builder.AddAttribute(208, nameof(HxInputDateInternal<TValue>.ShowClearButtonEffective), ShowClearButtonEffective);
 		builder.AddAttribute(209, nameof(HxInputDateInternal<TValue>.MinDateEffective), MinDateEffective);
 		builder.AddAttribute(210, nameof(HxInputDateInternal<TValue>.MaxDateEffective), MaxDateEffective);
@@ -185,14 +185,14 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 		builder.AddAttribute(213, nameof(HxInputDateInternal<TValue>.FormValueComponent), this);
 		builder.AddAttribute(214, nameof(HxInputDateInternal<TValue>.TimeProviderEffective), TimeProviderEffective);
 
-		builder.AddAttribute(214, nameof(HxInputDateInternal<TValue>.InputGroupStartText), this.InputGroupStartText);
-		builder.AddAttribute(215, nameof(HxInputDateInternal<TValue>.InputGroupEndText), this.InputGroupEndText);
-		builder.AddAttribute(216, nameof(HxInputDateInternal<TValue>.InputGroupStartTemplate), this.InputGroupStartTemplate);
-		builder.AddAttribute(217, nameof(HxInputDateInternal<TValue>.InputGroupEndTemplate), this.InputGroupEndTemplate);
-		builder.AddAttribute(218, nameof(HxInputDateInternal<TValue>.InputGroupCssClass), this.InputGroupCssClass);
-		builder.AddAttribute(219, nameof(HxInputDateInternal<TValue>.CalendarDisplayMonth), this.CalendarDisplayMonth);
+		builder.AddAttribute(214, nameof(HxInputDateInternal<TValue>.InputGroupStartText), InputGroupStartText);
+		builder.AddAttribute(215, nameof(HxInputDateInternal<TValue>.InputGroupEndText), InputGroupEndText);
+		builder.AddAttribute(216, nameof(HxInputDateInternal<TValue>.InputGroupStartTemplate), InputGroupStartTemplate);
+		builder.AddAttribute(217, nameof(HxInputDateInternal<TValue>.InputGroupEndTemplate), InputGroupEndTemplate);
+		builder.AddAttribute(218, nameof(HxInputDateInternal<TValue>.InputGroupCssClass), InputGroupCssClass);
+		builder.AddAttribute(219, nameof(HxInputDateInternal<TValue>.CalendarDisplayMonth), CalendarDisplayMonth);
 
-		builder.AddMultipleAttributes(300, this.AdditionalAttributes);
+		builder.AddMultipleAttributes(300, AdditionalAttributes);
 
 		builder.CloseComponent();
 	}

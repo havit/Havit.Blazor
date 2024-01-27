@@ -33,7 +33,7 @@ public partial class HxCard
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual CardSettings GetSettings() => this.Settings;
+	protected virtual CardSettings GetSettings() => Settings;
 
 
 	/// <summary>
@@ -85,25 +85,25 @@ public partial class HxCard
 	/// Additional CSS classes for the card container.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
-	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
+	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
 	/// Additional CSS class for the header.
 	/// </summary>
 	[Parameter] public string HeaderCssClass { get; set; }
-	protected string HeaderCssClassEffective => this.HeaderCssClass ?? this.GetSettings()?.HeaderCssClass ?? GetDefaults().HeaderCssClass;
+	protected string HeaderCssClassEffective => HeaderCssClass ?? GetSettings()?.HeaderCssClass ?? GetDefaults().HeaderCssClass;
 
 	/// <summary>
 	/// Additional CSS class for the body.
 	/// </summary>
 	[Parameter] public string BodyCssClass { get; set; }
-	protected string BodyCssClassEffective => this.BodyCssClass ?? this.GetSettings()?.BodyCssClass ?? GetDefaults().BodyCssClass;
+	protected string BodyCssClassEffective => BodyCssClass ?? GetSettings()?.BodyCssClass ?? GetDefaults().BodyCssClass;
 
 	/// <summary>
 	/// Additional CSS class for the footer.
 	/// </summary>
 	[Parameter] public string FooterCssClass { get; set; }
-	protected string FooterCssClassEffective => this.FooterCssClass ?? this.GetSettings()?.FooterCssClass ?? GetDefaults().FooterCssClass;
+	protected string FooterCssClassEffective => FooterCssClass ?? GetSettings()?.FooterCssClass ?? GetDefaults().FooterCssClass;
 
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML element.

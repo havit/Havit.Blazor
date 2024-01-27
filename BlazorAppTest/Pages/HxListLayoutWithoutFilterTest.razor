@@ -7,7 +7,7 @@
 		<HxButton Text="New invoice" Color="ThemeColor.Secondary" CssClass="ms-1" OnClick="@HandleNewItemClicked" />
 	</CommandsTemplate>
 	<DataTemplate>
-		<HxGrid @ref="gridComponent" TItem="DataItemDto" PageSize="20" DataProvider="LoadDataItems">
+		<HxGrid @ref="_gridComponent" TItem="DataItemDto" PageSize="20" DataProvider="LoadDataItems">
 			<Columns>
 				<HxGridColumn TItem="DataItemDto" HeaderText="Id" ItemTextSelector="@(item => item.ItemId.ToString())" SortString="@nameof(DataItemDto.ItemId)" IsDefaultSortColumn="true" />
 				<HxGridColumn TItem="DataItemDto" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(DataItemDto.Name)" />
@@ -21,6 +21,6 @@
 		</HxGrid>
 	</DataTemplate>
 	<DetailTemplate>
-		Edit: @currentItem?.ItemId
+		Edit: @_currentItem?.ItemId
 	</DetailTemplate>
 </HxListLayout>

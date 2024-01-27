@@ -7,11 +7,11 @@ public partial class HxListLayoutTest
 {
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 
-	private DataItemDto currentItem;
-	private FilterModelDto filterModel = new FilterModelDto();
-	private HxGrid<DataItemDto> gridComponent;
+	private DataItemDto _currentItem;
+	private FilterModelDto _filterModel = new FilterModelDto();
+	private HxGrid<DataItemDto> _gridComponent;
 
-	private readonly IEnumerable<NamedView<FilterModelDto>> namedViews = new List<NamedView<FilterModelDto>>()
+	private readonly IEnumerable<NamedView<FilterModelDto>> _namedViews = new List<NamedView<FilterModelDto>>()
 	{
 		new NamedView<FilterModelDto>("Minimum ID = 1", () => new FilterModelDto { MinimumItemId = 1 }),
 		new NamedView<FilterModelDto>("Minimum ID = 2", () => new FilterModelDto { MinimumItemId = 2 }),
@@ -30,15 +30,15 @@ public partial class HxListLayoutTest
 			new DataItemDto() { ItemId = 6, Name = "Juan I. Nichols", Email="JuanINichols@rhyta.com", PhoneNumber="727-562-0918", Age=60}
 		};
 
-		IEnumerable<DataItemDto> result = data.Where(i => i.ItemId >= filterModel.MinimumItemId).ToList();
-		if (filterModel.NameContains is not null)
+		IEnumerable<DataItemDto> result = data.Where(i => i.ItemId >= _filterModel.MinimumItemId).ToList();
+		if (_filterModel.NameContains is not null)
 		{
-			result = result.Where(i => i.Name.Contains(filterModel.NameContains));
+			result = result.Where(i => i.Name.Contains(_filterModel.NameContains));
 		}
-		result = result.Where(i => i.Age >= filterModel.MinimumAge);
-		if (filterModel.MaximumAge > filterModel.MinimumAge)
+		result = result.Where(i => i.Age >= _filterModel.MinimumAge);
+		if (_filterModel.MaximumAge > _filterModel.MinimumAge)
 		{
-			result = result.Where(i => i.Age <= filterModel.MaximumAge);
+			result = result.Where(i => i.Age <= _filterModel.MaximumAge);
 		}
 
 		return Task.FromResult(new GridDataProviderResult<DataItemDto>()
@@ -50,12 +50,12 @@ public partial class HxListLayoutTest
 
 	private async Task RefreshDataAsync()
 	{
-		await gridComponent.RefreshDataAsync();
+		await _gridComponent.RefreshDataAsync();
 	}
 
 	protected async Task SearchRequested()
 	{
-		await gridComponent.RefreshDataAsync();
+		await _gridComponent.RefreshDataAsync();
 	}
 
 	private Task DeleteItemClicked(DataItemDto dataItemDto)
@@ -66,14 +66,14 @@ public partial class HxListLayoutTest
 
 	private Task HandleSelectedDataItemChanged(DataItemDto selection)
 	{
-		currentItem = selection;
+		_currentItem = selection;
 		// await dataItemEditComponent.ShowAsync();
 		return Task.CompletedTask;
 	}
 
 	private Task NewItemClicked()
 	{
-		currentItem = new DataItemDto();
+		_currentItem = new DataItemDto();
 		// await dataItemEditComponent.ShowAsync();
 		return Task.CompletedTask;
 	}

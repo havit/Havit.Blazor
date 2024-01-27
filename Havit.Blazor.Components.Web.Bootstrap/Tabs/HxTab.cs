@@ -57,7 +57,7 @@ public class HxTab : ComponentBase, ICascadeEnabledComponent, IAsyncDisposable
 
 	/// <inheritdoc cref="Web.FormState" />
 	[CascadingParameter] protected FormState FormState { get; set; }
-	FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+	FormState ICascadeEnabledComponent.FormState { get => FormState; set => FormState = value; }
 
 	/// <summary>
 	/// When <c>null</c> (default), the Enabled value is received from cascading <see cref="FormState" />.

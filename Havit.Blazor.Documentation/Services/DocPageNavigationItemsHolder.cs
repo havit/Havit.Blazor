@@ -4,16 +4,16 @@ namespace Havit.Blazor.Documentation.Services;
 
 public class DocPageNavigationItemsHolder : IDocPageNavigationItemsHolder
 {
-	private Dictionary<string, List<IDocPageNavigationItem>> items = new();
+	private Dictionary<string, List<IDocPageNavigationItem>> _items = new();
 
 	public void RegisterNew(IDocPageNavigationItem item, string url)
 	{
 		string page = GetPageFromUrl(url);
 		EnsureKey(page);
 
-		if (!items[page].Any(st => st.Id == item.Id))
+		if (!_items[page].Any(st => st.Id == item.Id))
 		{
-			items[page].Add(item);
+			_items[page].Add(item);
 		}
 	}
 
@@ -21,14 +21,14 @@ public class DocPageNavigationItemsHolder : IDocPageNavigationItemsHolder
 	{
 		string page = GetPageFromUrl(url);
 		EnsureKey(page);
-		return items[page];
+		return _items[page];
 	}
 
 	private void EnsureKey(string page)
 	{
-		if (!items.ContainsKey(page))
+		if (!_items.ContainsKey(page))
 		{
-			items.Add(page, new List<IDocPageNavigationItem>());
+			_items.Add(page, new List<IDocPageNavigationItem>());
 		}
 	}
 
@@ -39,6 +39,6 @@ public class DocPageNavigationItemsHolder : IDocPageNavigationItemsHolder
 
 	public void Clear()
 	{
-		items.Clear();
+		_items.Clear();
 	}
 }

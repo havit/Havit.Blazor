@@ -1,21 +1,21 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<div id="@id"
-     @ref="elementReference"
-     class="@CssClassHelper.Combine("carousel", "slide", Dark ? "carousel-dark" : null, Crossfade ? "carousel-fade" : null, this.CssClass)"
+<div id="@_id"
+     @ref="_elementReference"
+     class="@CssClassHelper.Combine("carousel", "slide", Dark ? "carousel-dark" : null, Crossfade ? "carousel-fade" : null, CssClass)"
      data-bs-interval="@(Interval is null ? "false" : Interval)"
      data-bs-touch="@(TouchSwiping ? "true" : "false")">
 
-    @if (Indicators && (items is not null))
+    @if (Indicators && (_items is not null))
     {
         <div class="carousel-indicators">
-            @for (int i = 0; i < items.Count; i++)
+            @for (int i = 0; i < _items.Count; i++)
             {
                 <button type="button"
-                data-bs-target="#@id"
+                data-bs-target="#@_id"
                 data-bs-slide-to="@i"
-                class="@(items[i].Active ? "active" : null)"
-                aria-current="@(items[i].Active ? "true" : null)"
+                class="@(_items[i].Active ? "active" : null)"
+                aria-current="@(_items[i].Active ? "true" : null)"
                 aria-label="Slide @i"
                 @key="i"></button>
             }
@@ -23,18 +23,18 @@
     }
 
     <div class="carousel-inner">
-        <CascadingValue Value="@itemsRegistration" Name="@ItemsRegistrationCascadingValueName" IsFixed="true">
+        <CascadingValue Value="@_itemsRegistration" Name="@ItemsRegistrationCascadingValueName" IsFixed="true">
             @ChildContent
         </CascadingValue>
     </div>
 
     @if (Controls)
     {
-        <button id="@(id + "prev")" class="carousel-control-prev" type="button" data-bs-target="#@id" data-bs-slide="prev">
+        <button id="@(_id + "prev")" class="carousel-control-prev" type="button" data-bs-target="#@_id" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button id="@(id + "next")" class="carousel-control-next" type="button" data-bs-target="#@id" data-bs-slide="next">
+        <button id="@(_id + "next")" class="carousel-control-next" type="button" data-bs-target="#@_id" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>

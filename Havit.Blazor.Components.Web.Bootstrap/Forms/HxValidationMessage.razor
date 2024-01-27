@@ -5,8 +5,8 @@
 
     @if (Mode != ValidationMessageMode.None)
     {
-        List<string> messages = fieldIdentifiers.SelectMany(fieldIdentifier =>
-        currentEditContext.GetValidationMessages(fieldIdentifier)).ToList();
+        List<string> messages = _fieldIdentifiers.SelectMany(fieldIdentifier =>
+        _currentEditContext.GetValidationMessages(fieldIdentifier)).ToList();
         bool isValid = !messages.Any();
 
         if (!isValid)

@@ -16,14 +16,14 @@ public partial class Search
 		}
 	}
 
-	private string userInput;
+	private string _userInput;
 
 	private const int DefaultsLevel = 2;
 	private const int EnumsLevel = 2;
 	private const int EventArgsLevel = 2;
 	private const int DelegatesLevel = 2;
 
-	private readonly List<SearchItem> searchItems = new()
+	private readonly List<SearchItem> _searchItems = new()
 	{
 		new("/migrating-to-v3", "Migrating to v3", "upgrade release notes update 5.2 5.1"),
 
@@ -223,23 +223,23 @@ public partial class Search
 
 	};
 
-	private HxAutosuggest<SearchItem, SearchItem> autosuggest;
+	private HxAutosuggest<SearchItem, SearchItem> _autosuggest;
 
-	private bool wasFocused = false;
+	private bool _wasFocused = false;
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (firstRender && !wasFocused)
+		if (firstRender && !_wasFocused)
 		{
-			wasFocused = true;
+			_wasFocused = true;
 			await Task.Delay(1);
-			await autosuggest.FocusAsync();
+			await _autosuggest.FocusAsync();
 		}
 	}
 
 	private Task<AutosuggestDataProviderResult<SearchItem>> ProvideSuggestions(AutosuggestDataProviderRequest request)
 	{
-		this.userInput = request.UserInput.Trim();
+		_userInput = request.UserInput.Trim();
 
 		return Task.FromResult(new AutosuggestDataProviderResult<SearchItem>
 		{
@@ -249,10 +249,10 @@ public partial class Search
 
 	private IEnumerable<SearchItem> GetSearchItems()
 	{
-		return searchItems
-				.Where(si => si.GetRelevance(userInput) > 0)
+		return _searchItems
+				.Where(si => si.GetRelevance(_userInput) > 0)
 				.OrderBy(si => si.Level)
-					.ThenByDescending(si => si.GetRelevance(userInput))
+					.ThenByDescending(si => si.GetRelevance(_userInput))
 					.ThenBy(si => si.Title)
 				.Take(5);
 	}

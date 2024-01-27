@@ -40,11 +40,11 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// The default is <see cref="ValidationMessageMode.Regular"/>, you can override the application-wide default for all inputs in <see cref="HxInputBase.Defaults"/>.
 	/// </summary>
 	[Parameter] public ValidationMessageMode? ValidationMessageMode { get; set; }
-	protected ValidationMessageMode ValidationMessageModeEffective => this.ValidationMessageMode ?? this.GetSettings()?.ValidationMessageMode ?? GetDefaults().ValidationMessageMode ?? HxInputBase.Defaults?.ValidationMessageMode ?? throw new InvalidOperationException(nameof(ValidationMessageMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
+	protected ValidationMessageMode ValidationMessageModeEffective => ValidationMessageMode ?? GetSettings()?.ValidationMessageMode ?? GetDefaults().ValidationMessageMode ?? HxInputBase.Defaults?.ValidationMessageMode ?? throw new InvalidOperationException(nameof(ValidationMessageMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
 
 	/// <inheritdoc cref="Web.FormState" />
 	[CascadingParameter] protected FormState FormState { get; set; }
-	FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+	FormState ICascadeEnabledComponent.FormState { get => FormState; set => FormState = value; }
 
 	#region IFormValueComponent public properties
 	/// <summary>
@@ -183,13 +183,13 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		}
 	}
 
-	string IFormValueComponent.LabelFor => this.InputId;
-	string IFormValueComponent.CoreCssClass => this.CoreCssClass;
-	string IFormValueComponent.CoreLabelCssClass => this.CoreLabelCssClass;
-	string IFormValueComponent.CoreHintCssClass => this.CoreHintCssClass;
-	LabelValueRenderOrder IFormValueComponent.RenderOrder => this.RenderOrder;
+	string IFormValueComponent.LabelFor => InputId;
+	string IFormValueComponent.CoreCssClass => CoreCssClass;
+	string IFormValueComponent.CoreLabelCssClass => CoreLabelCssClass;
+	string IFormValueComponent.CoreHintCssClass => CoreHintCssClass;
+	LabelValueRenderOrder IFormValueComponent.RenderOrder => RenderOrder;
 
-	private EditContext autoCreatedEditContext;
+	private EditContext _autoCreatedEditContext;
 
 	public override Task SetParametersAsync(ParameterView parameters)
 	{
@@ -205,7 +205,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 
 		if ((this is IInputWithLabelType inputWithLabelType)
 			&& (this is IInputWithPlaceholder inputWithPlaceholder)
-			&& (inputWithLabelType.LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
+			&& (inputWithLabelType.LabelType == LabelType.Floating)
 			&& !String.IsNullOrEmpty(inputWithPlaceholder.Placeholder))
 		{
 			throw new InvalidOperationException($"Cannot use {nameof(IInputWithPlaceholder.Placeholder)} with floating labels.");
@@ -224,8 +224,8 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 
 		if (cascadedEditContextProperty.GetValue(this) == null)
 		{
-			autoCreatedEditContext ??= new EditContext(new object());
-			cascadedEditContextProperty.SetValue(this, autoCreatedEditContext);
+			_autoCreatedEditContext ??= new EditContext(new object());
+			cascadedEditContextProperty.SetValue(this, _autoCreatedEditContext);
 		}
 	}
 
@@ -242,7 +242,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		base.BuildRenderTree(builder);
 		builder.CloseRegion();
 
-		HxFormValueRenderer.Current.Render(1, builder, this);
+		FormValueRenderer.Current.Render(1, builder, this);
 
 		if (GenerateChip && ShouldRenderChipGenerator())
 		{
@@ -263,12 +263,12 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// </summary>
 	private protected void RenderWithAutoCreatedEditContextAsCascadingValue(RenderTreeBuilder builder, int sequence, RenderFragment renderFragment)
 	{
-		if (autoCreatedEditContext != null)
+		if (_autoCreatedEditContext != null)
 		{
 			builder.OpenRegion(sequence);
 			builder.OpenComponent<CascadingValue<EditContext>>(1);
 			builder.AddAttribute(2, nameof(CascadingValue<EditContext>.IsFixed), true);
-			builder.AddAttribute(3, nameof(CascadingValue<EditContext>.Value), autoCreatedEditContext);
+			builder.AddAttribute(3, nameof(CascadingValue<EditContext>.Value), _autoCreatedEditContext);
 			builder.AddAttribute(4, nameof(CascadingValue<EditContext>.ChildContent), (object)renderFragment);
 			builder.CloseComponent();
 			builder.CloseRegion();
@@ -297,7 +297,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		builder.AddMultipleAttributes(1, AdditionalAttributes);
 		builder.AddAttribute(2, "id", InputId);
 #if NET8_0_OR_GREATER
-		if (!String.IsNullOrEmpty(this.NameAttributeValue))
+		if (!String.IsNullOrEmpty(NameAttributeValue))
 		{
 			builder.AddAttribute(3, "name", NameAttributeValue);
 		}
@@ -321,15 +321,15 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// </summary>
 	protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
 	{
-		if (this.ValidationMessageModeEffective != Bootstrap.ValidationMessageMode.None) // if: performance
+		if (ValidationMessageModeEffective != Bootstrap.ValidationMessageMode.None) // if: performance
 		{
 			//<div class="invalid-feedback">
 			//Please provide a valid city.
 			//</div>
 			builder.OpenComponent<HxValidationMessage<TValue>>(1);
-			if (autoCreatedEditContext != null)
+			if (_autoCreatedEditContext != null)
 			{
-				builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.EditContext), autoCreatedEditContext);
+				builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.EditContext), _autoCreatedEditContext);
 			}
 			builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.For), ValueExpression);
 			builder.AddAttribute(4, nameof(HxValidationMessage<TValue>.Mode), ValidationMessageModeEffective);
@@ -393,12 +393,12 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 
 	protected virtual void RenderChipLabel(RenderTreeBuilder builder)
 	{
-		builder.AddContent(0, this.Label);
+		builder.AddContent(0, Label);
 	}
 
 	protected virtual void RenderChipValue(RenderTreeBuilder builder)
 	{
-		builder.AddContent(0, this.CurrentValueAsString);
+		builder.AddContent(0, CurrentValueAsString);
 	}
 
 	/// <summary>
@@ -406,7 +406,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// </summary>
 	protected virtual Action<object> GetChipRemoveAction()
 	{
-		string fieldName = this.FieldIdentifier.FieldName; // carefully! don't use "this" in lambda below to allow it for GC
+		string fieldName = FieldIdentifier.FieldName; // carefully! don't use "this" in lambda below to allow it for GC
 		TValue value = GetChipRemoveValue(); // carefully! don't use the method call in lambda below to allow "this" for GC
 		Action<object> removeAction = (model) =>
 		{
@@ -433,7 +433,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	{
 		if (EqualityComparer<ElementReference>.Default.Equals(InputElement, default))
 		{
-			throw new InvalidOperationException($"Cannot focus {this.GetType()}. The method must be called after first render.");
+			throw new InvalidOperationException($"Cannot focus {GetType()}. The method must be called after first render.");
 		}
 		await InputElement.FocusAsync();
 	}

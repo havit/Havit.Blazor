@@ -41,7 +41,7 @@ public partial class HxChipList
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual ChipListSettings GetSettings() => this.Settings;
+	protected virtual ChipListSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Chips to be presented.
@@ -53,13 +53,13 @@ public partial class HxChipList
 	/// The default brings <c>Color="<see cref="ThemeColor.Secondary" />".</c>
 	/// </summary>
 	[Parameter] public BadgeSettings ChipBadgeSettings { get; set; }
-	protected BadgeSettings ChipBadgeSettingsEffective => this.ChipBadgeSettings ?? this.GetSettings()?.ChipBadgeSettings ?? this.GetDefaults().ChipBadgeSettings ?? throw new InvalidOperationException(nameof(ChipBadgeSettings) + " default for " + nameof(HxChipList) + " has to be set.");
+	protected BadgeSettings ChipBadgeSettingsEffective => ChipBadgeSettings ?? GetSettings()?.ChipBadgeSettings ?? GetDefaults().ChipBadgeSettings ?? throw new InvalidOperationException(nameof(ChipBadgeSettings) + " default for " + nameof(HxChipList) + " has to be set.");
 
 	/// <summary>
 	/// Additional CSS class.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
-	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
+	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
 	/// Called when the chip remove button is clicked.
@@ -86,7 +86,7 @@ public partial class HxChipList
 	/// The default is <c>false</c> (can be changed with <code>HxChipList.Defaults.ShowResetButton</code>).
 	/// </summary>
 	[Parameter] public bool? ShowResetButton { get; set; }
-	protected bool ShowResetButtonEffective => this.ShowResetButton ?? this.GetSettings()?.ShowResetButton ?? GetDefaults().ShowResetButton ?? throw new InvalidOperationException(nameof(ShowResetButton) + " default for " + nameof(HxChipList) + " has to be set.");
+	protected bool ShowResetButtonEffective => ShowResetButton ?? GetSettings()?.ShowResetButton ?? GetDefaults().ShowResetButton ?? throw new InvalidOperationException(nameof(ShowResetButton) + " default for " + nameof(HxChipList) + " has to be set.");
 
 	/// <summary>
 	/// Text of the reset button.

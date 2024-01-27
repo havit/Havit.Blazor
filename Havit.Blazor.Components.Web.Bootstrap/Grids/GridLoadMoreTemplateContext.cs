@@ -5,14 +5,14 @@
 /// </summary>
 public sealed class GridLoadMoreTemplateContext
 {
-	private readonly Func<Task> loadMoreAsyncFunc;
+	private readonly Func<Task> _loadMoreAsyncFunc;
 
 	/// <summary>
 	/// Instructs the grid to load the next page.
 	/// </summary>
 	public async Task LoadMoreAsync()
 	{
-		await loadMoreAsyncFunc.Invoke();
+		await _loadMoreAsyncFunc.Invoke();
 	}
 
 	/// <remark>
@@ -20,7 +20,7 @@ public sealed class GridLoadMoreTemplateContext
 	/// </remark>
 	private GridLoadMoreTemplateContext(Func<Task> loadMoreAsyncFunc)
 	{
-		this.loadMoreAsyncFunc = loadMoreAsyncFunc;
+		_loadMoreAsyncFunc = loadMoreAsyncFunc;
 	}
 
 	internal static GridLoadMoreTemplateContext CreateFor<TItem>(HxGrid<TItem> hxGrid)

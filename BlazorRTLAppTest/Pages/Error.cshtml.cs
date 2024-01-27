@@ -12,11 +12,11 @@ public class ErrorModel : PageModel
 
 	public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
-	private readonly ILogger<ErrorModel> logger;
+	private readonly ILogger<ErrorModel> _logger;
 
 	public ErrorModel(ILogger<ErrorModel> logger)
 	{
-		this.logger = logger;
+		_logger = logger;
 	}
 
 	public void OnGet()

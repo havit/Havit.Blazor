@@ -64,7 +64,7 @@ public partial class HxContextMenuItem : ComponentBase, ICascadeEnabledComponent
 
 	/// <inheritdoc cref="Web.FormState" />
 	[CascadingParameter] protected FormState FormState { get; set; }
-	FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+	FormState ICascadeEnabledComponent.FormState { get => FormState; set => FormState = value; }
 
 	/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 	[Parameter] public bool? Enabled { get; set; }
@@ -83,16 +83,16 @@ public partial class HxContextMenuItem : ComponentBase, ICascadeEnabledComponent
 			return;
 		}
 
-		if (!String.IsNullOrEmpty(this.ConfirmationQuestion))
+		if (!String.IsNullOrEmpty(ConfirmationQuestion))
 		{
 			if (MessageBox is not null)
 			{
-				if (!await MessageBox.ConfirmAsync(this.ConfirmationQuestion))
+				if (!await MessageBox.ConfirmAsync(ConfirmationQuestion))
 				{
 					return; // No action
 				}
 			}
-			else if (!await JSRuntime.InvokeAsync<bool>("confirm", this.ConfirmationQuestion))
+			else if (!await JSRuntime.InvokeAsync<bool>("confirm", ConfirmationQuestion))
 			{
 				return; // No Action
 			}

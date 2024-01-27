@@ -19,18 +19,18 @@ public sealed class DialogResult<TValue>
 		get
 		{
 			Contract.Assert<InvalidOperationException>(Successful, $"{nameof(Value)} property can only be read when {nameof(Successful)} is True.");
-			return value;
+			return _value;
 		}
 	}
-	private TValue value;
+	private TValue _value;
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	private DialogResult(bool successful, TValue value = default)
 	{
-		this.Successful = successful;
-		this.value = value;
+		Successful = successful;
+		_value = value;
 	}
 
 	/// <summary>

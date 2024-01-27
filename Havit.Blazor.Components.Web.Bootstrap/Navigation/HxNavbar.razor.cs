@@ -53,7 +53,7 @@ public partial class HxNavbar
 
 	protected virtual string GetExpandCssClass()
 	{
-		return this.Expand switch
+		return Expand switch
 		{
 			NavbarExpand.Always => "navbar-expand",
 			NavbarExpand.SmallUp => "navbar-expand-sm",
@@ -62,7 +62,7 @@ public partial class HxNavbar
 			NavbarExpand.ExtraLargeUp => "navbar-expand-xl",
 			NavbarExpand.XxlUp => "navbar-expand-xxl",
 			NavbarExpand.Never => null,
-			_ => throw new InvalidOperationException($"Unknown {nameof(NavbarExpand)} value {this.Expand}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(NavbarExpand)} value {Expand}.")
 		};
 	}
 
@@ -71,7 +71,7 @@ public partial class HxNavbar
 		return CssClassHelper.Combine(
 			"navbar",
 			GetExpandCssClass(),
-			this.Color.ToBackgroundColorCss(),
-			this.CssClass);
+			Color.ToBackgroundColorCss(),
+			CssClass);
 	}
 }

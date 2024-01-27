@@ -107,7 +107,7 @@
 
         <HxSidebarItem Text="Special" Icon="BootstrapIcon.Stars">
             <HxSidebarItem Href="@($"/components/{nameof(HxDynamicElement)}")" Text="@nameof(HxDynamicElement)" />
-            <HxSidebarItem Href="@($"/components/{nameof(Havit.Blazor.GoogleTagManager.HxGoogleTagManager)}")" Text="@nameof(Havit.Blazor.GoogleTagManager.HxGoogleTagManager)" />
+            <HxSidebarItem Href="@($"/components/{nameof(GoogleTagManager.HxGoogleTagManager)}")" Text="@nameof(GoogleTagManager.HxGoogleTagManager)" />
         </HxSidebarItem>
 
         <HxSidebarItem Text="Concepts" Icon="BootstrapIcon.Lightbulb">
@@ -148,7 +148,7 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxFilterForm<object>)}")" Text="@(nameof(HxFilterForm<object>))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxFormState)}")" Text="@nameof(HxFormState)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxFormValue)}")" Text="@(nameof(HxFormValue))" />
-            <HxSidebarItem Href="@($"/components/{nameof(Havit.Blazor.GoogleTagManager.HxGoogleTagManager)}")" Text="@nameof(Havit.Blazor.GoogleTagManager.HxGoogleTagManager)" />
+            <HxSidebarItem Href="@($"/components/{nameof(GoogleTagManager.HxGoogleTagManager)}")" Text="@nameof(GoogleTagManager.HxGoogleTagManager)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxGrid<object>)}")" Text="@nameof(HxGrid<object>)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxIcon)}")" Text="@nameof(HxIcon)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputDate)}")" Text="@nameof(HxInputDate)" />
@@ -194,17 +194,17 @@
         </HxSidebarItem>
     </ItemsTemplate>
     <FooterTemplate>
-        <HxSelect Label="Theme" TItem="Theme" CssClass="w-100 me-2" TValue="Theme" Data="themes" @bind-Value="selectedTheme" TextSelector="t => t.Name" Nullable="true" NullText="Havit.Blazor" />
+        <HxSelect Label="Theme" TItem="Theme" CssClass="w-100 me-2" TValue="Theme" Data="_themes" @bind-Value="_selectedTheme" TextSelector="t => t.Name" Nullable="true" NullText="Havit.Blazor" />
     </FooterTemplate>
 </HxSidebar>
 
 <HeadContent>
-    @if (selectedTheme?.Name == "Bootstrap 5")
+    @if (_selectedTheme?.Name == "Bootstrap 5")
     {
 		@((MarkupString)HxSetup.RenderBootstrapCssReference(BootstrapFlavor.PlainBootstrap))
     }
-    else if (selectedTheme is not null) // null = HAVIT Bootstrap build (default)
+    else if (_selectedTheme is not null) // null = HAVIT Bootstrap build (default)
     {
-        <link href="@selectedTheme.CssCdn" rel="stylesheet" />
+        <link href="@_selectedTheme.CssCdn" rel="stylesheet" />
     }
 </HeadContent>

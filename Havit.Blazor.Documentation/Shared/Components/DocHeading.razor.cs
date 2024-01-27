@@ -47,14 +47,14 @@ public partial class DocHeading : IDocPageNavigationItem
 	[Inject] public IDocPageNavigationItemsHolder DocPageNavigationItemsHolder { get; set; }
 
 	protected string IdEffective => Id ?? GetIdFromTitle();
-	string IDocPageNavigationItem.Id => this.IdEffective;
+	string IDocPageNavigationItem.Id => IdEffective;
 
 	protected string HeadingTagEffective => HeadingTag ?? (LevelHeadingTags.ContainsKey(Level) ? LevelHeadingTags[Level] : LevelHeadingTags.Values.LastOrDefault());
 
 	protected override void OnParametersSet()
 	{
-		this.AdditionalAttributes ??= new Dictionary<string, object>();
-		this.AdditionalAttributes["id"] = IdEffective;
+		AdditionalAttributes ??= new Dictionary<string, object>();
+		AdditionalAttributes["id"] = IdEffective;
 
 		DocPageNavigationItemsHolder?.RegisterNew(this, NavigationManager.Uri);
 	}

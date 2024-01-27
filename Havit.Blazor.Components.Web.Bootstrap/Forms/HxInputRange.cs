@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public class HxInputRange<TValue> : HxInputBase<TValue>
 {
 	// DO NOT FORGET TO MAINTAIN DOCUMENTATION! (documentation comment of this class)
-	private static HashSet<Type> supportedTypes = new HashSet<Type>
+	private static HashSet<Type> s_supportedTypes = new HashSet<Type>
 	{
 		typeof(byte),
 		typeof(sbyte),
@@ -42,7 +42,7 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> for component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override InputRangeSettings GetSettings() => this.Settings;
+	protected override InputRangeSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// By default, <code>HxInputRange</code> snaps to integer values. To change this, you can specify a step value.
@@ -72,7 +72,7 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 	{
 		Type underlyingType = typeof(TValue);
 
-		if (!supportedTypes.Contains(underlyingType))
+		if (!s_supportedTypes.Contains(underlyingType))
 		{
 			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
 		}

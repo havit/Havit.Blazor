@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-<CascadingValue Value="@this" IsFixed="true">
-	<div class="@CssClassHelper.Combine(GetCoreCssClass(), GetDropdownDirectionCssClass(), this.CssClass)" @attributes="@AdditionalAttributes">
+<CascadingValue Value="@(this)" IsFixed="true">
+	<div class="@CssClassHelper.Combine(GetCoreCssClass(), GetDropdownDirectionCssClass(), CssClass)" @attributes="@AdditionalAttributes">
 		@ChildContent
 	</div>
 </CascadingValue>

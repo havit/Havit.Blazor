@@ -41,15 +41,15 @@ public partial class HxListGroup
 	{
 		return CssClassHelper.Combine(
 			"list-group",
-			this.Flush ? "list-group-flush" : null,
-			this.Numbered ? "list-group-numbered" : null,
+			Flush ? "list-group-flush" : null,
+			Numbered ? "list-group-numbered" : null,
 			GetHorizontalCssClass(),
-			this.CssClass);
+			CssClass);
 	}
 
 	protected virtual string GetHorizontalCssClass()
 	{
-		return this.Horizontal switch
+		return Horizontal switch
 		{
 			ListGroupHorizontal.Never => null,
 			ListGroupHorizontal.Always => "list-group-horizontal",
@@ -58,7 +58,7 @@ public partial class HxListGroup
 			ListGroupHorizontal.LargeUp => "list-group-horizontal-lg",
 			ListGroupHorizontal.ExtraLargeUp => "list-group-horizontal-xl",
 			ListGroupHorizontal.XxlUp => "list-group-horizontal-xxl",
-			_ => throw new InvalidOperationException($"Unknown {nameof(ListGroupHorizontal)} value {this.Horizontal}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(ListGroupHorizontal)} value {Horizontal}.")
 		};
 	}
 }

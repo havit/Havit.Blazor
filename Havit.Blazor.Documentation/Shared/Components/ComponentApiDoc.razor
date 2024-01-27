@@ -3,9 +3,9 @@
     var plainTypeName = ApiRenderer.RemoveSpecialCharacters(Type.Name);
 }
 <DocHeading Title="@plainTypeName" Id="@plainTypeName" Level="1" />
-@if (!String.IsNullOrWhiteSpace(model.Class?.Comments?.Summary))
+@if (!String.IsNullOrWhiteSpace(_model.Class?.Comments?.Summary))
 {
-    <p class="lead">@((MarkupString)model.Class.Comments.Summary)</p>
+    <p class="lead">@((MarkupString)_model.Class.Comments.Summary)</p>
 }
 
 <ResponsiveOnThisPageNavigation />
@@ -13,17 +13,17 @@
 @ChildContent
 @MainContent
 
-@if (hasApi)
+@if (HasApi)
 {
     <DocHeading Title="API" Level="2" Id="@(plainTypeName + "-api")" />
 }
 
-@if (isDelegate)
+@if (IsDelegate)
 {
-    <h6><code>@((MarkupString)model.DelegateSignature)</code></h6>
+    <h6><code>@((MarkupString)_model.DelegateSignature)</code></h6>
 }
 
-@if (isEnum)
+@if (IsEnum)
 {
     <DocHeading Title="Enum values" Level="3" Id="@(plainTypeName + "-enum-values")" />
     <div class="table-responsive">
@@ -36,7 +36,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var enumMember in model.EnumMembers)
+                @foreach (var enumMember in _model.EnumMembers)
                 {
                     <tr @key="@enumMember">
                         <td>@enumMember.Name</td>
@@ -49,7 +49,7 @@
     </div>
 }
 
-@if (hasParameters)
+@if (HasParameters)
 {
     <DocHeading Title="Parameters" Level="3" Id="@(plainTypeName + "-parameters")" />
 
@@ -63,7 +63,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var property in model.Parameters.OrderByDescending(p => p.EditorRequired).ThenBy(p => p.PropertyInfo.Name))
+                @foreach (var property in _model.Parameters.OrderByDescending(p => p.EditorRequired).ThenBy(p => p.PropertyInfo.Name))
                 {
                     <tr @key="@property">
                         <td>
@@ -87,7 +87,7 @@
     </div>
 }
 
-@if (hasProperties)
+@if (HasProperties)
 {
     <DocHeading Title="Other properties" Level="3" Id="@(plainTypeName + "-properties")"/>
     <div class="table-responsive">
@@ -100,7 +100,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var property in model.Properties.OrderBy(p => p.PropertyInfo.Name))
+                @foreach (var property in _model.Properties.OrderBy(p => p.PropertyInfo.Name))
                 {
                     <tr @key="@property">
                         <td><strong>@property.PropertyInfo.Name</strong></td>
@@ -113,7 +113,7 @@
     </div>
 }
 
-@if (hasEvents)
+@if (HasEvents)
 {
     <DocHeading Title="Event callbacks" Level="3" Id="@(plainTypeName + "-events")" />
 
@@ -127,7 +127,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var currentEvent in model.Events.OrderBy(e => e.PropertyInfo.Name))
+                @foreach (var currentEvent in _model.Events.OrderBy(e => e.PropertyInfo.Name))
                 {
                     <tr @key="@currentEvent">
                         <td><strong>@currentEvent.PropertyInfo.Name</strong> </td>
@@ -140,7 +140,7 @@
     </div>
 }
 
-@if (hasMethods)
+@if (HasMethods)
 {
     <DocHeading Title="Methods" Level="3" Id="@(plainTypeName + "-methods")" />
     <div class="table-responsive">
@@ -153,11 +153,11 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var method in model.Methods.OrderBy(m => m.MethodInfo.Name))
+                @foreach (var method in _model.Methods.OrderBy(m => m.MethodInfo.Name))
                 {
                     <tr @key="@method">
                         <td><strong>@method.MethodInfo.Name</strong>@((MarkupString)@method.GetParameters())</td>
-                        <td><code>@((MarkupString)ApiRenderer.FormatMethodReturnType(method.MethodInfo.ReturnType, model))</code></td>
+                        <td><code>@((MarkupString)ApiRenderer.FormatMethodReturnType(method.MethodInfo.ReturnType, _model))</code></td>
                         <td class="summary">@((MarkupString)method.Comments.Summary)</td>
                     </tr>
                 }
@@ -166,7 +166,7 @@
     </div>
 }
 
-@if (hasStaticProperties)
+@if (HasStaticProperties)
 {
     <DocHeading Title="Static properties" Level="3" Id="@(plainTypeName + "-static-properties")" />
 
@@ -180,7 +180,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var property in model.StaticProperties.OrderBy(p => p.PropertyInfo.Name))
+                @foreach (var property in _model.StaticProperties.OrderBy(p => p.PropertyInfo.Name))
                 {
                     <tr @key="@property">
                         <td><strong>@property.PropertyInfo.Name</strong></td>
@@ -193,7 +193,7 @@
     </div>
 }
 
-@if (hasStaticMethods)
+@if (HasStaticMethods)
 {
     <DocHeading Title="Static methods" Level="3" Id="@(plainTypeName + "-static-methods")" />
 
@@ -207,7 +207,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var method in model.StaticMethods.OrderBy(m => m.MethodInfo.Name))
+                @foreach (var method in _model.StaticMethods.OrderBy(m => m.MethodInfo.Name))
                 {
                     <tr @key="@method">
                         <td><strong>@method.MethodInfo.Name</strong> @((MarkupString)@method.GetParameters())</td>
@@ -220,7 +220,7 @@
     </div>
 }
 
-@if (hasCssVariables)
+@if (HasCssVariables)
 {
     <DocHeading Title="CSS variables" Level="3" Id="@(plainTypeName + "-css-variables")" />
     <div class="table-responsive">

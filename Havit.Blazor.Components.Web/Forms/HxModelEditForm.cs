@@ -36,16 +36,16 @@ public class HxModelEditForm<TModel> : ComponentBase
 	/// </summary>
 	protected TModel ModelInEdit { get; set; }
 
-	private TModel previousModel;
+	private TModel _previousModel;
 
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
-		if (!EqualityComparer<TModel>.Default.Equals(previousModel, Model))
+		if (!EqualityComparer<TModel>.Default.Equals(_previousModel, Model))
 		{
 			OnModelSet();
-			previousModel = Model;
+			_previousModel = Model;
 		}
 	}
 
@@ -64,7 +64,7 @@ public class HxModelEditForm<TModel> : ComponentBase
 	public virtual async Task UpdateModelAsync()
 	{
 		Model = ModelInEdit;
-		previousModel = Model; // To suppress cloning the Model in OnParametersSet, this must be done before ModelChanged is invoked!
+		_previousModel = Model; // To suppress cloning the Model in OnParametersSet, this must be done before ModelChanged is invoked!
 		await InvokeModelChangedAsync(Model);
 
 		ModelInEdit = CloneModel(ModelInEdit);

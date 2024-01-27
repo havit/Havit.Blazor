@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public partial class HxDropdownItemNavLink : ICascadeEnabledComponent
 {
 	[CascadingParameter] protected FormState FormState { get; set; }
-	FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+	FormState ICascadeEnabledComponent.FormState { get => FormState; set => FormState = value; }
 
 	/// <summary>
 	/// Navigation target.

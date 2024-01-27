@@ -13,8 +13,8 @@ public partial class Demo : PerformanceLoggingComponentBase
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	private bool showingDemo = true;
-	private string code;
+	private bool _showingDemo = true;
+	private string _code;
 
 	protected override async Task OnParametersSetAsync()
 	{
@@ -26,7 +26,7 @@ public partial class Demo : PerformanceLoggingComponentBase
 
 	private async Task LoadCodeAsync()
 	{
-		if (code is null)
+		if (_code is null)
 		{
 			var resourceName = Type.FullName + ".razor";
 
@@ -34,7 +34,7 @@ public partial class Demo : PerformanceLoggingComponentBase
 			{
 				using (StreamReader reader = new StreamReader(stream))
 				{
-					code = await reader.ReadToEndAsync();
+					_code = await reader.ReadToEndAsync();
 				}
 			}
 		}
@@ -47,13 +47,13 @@ public partial class Demo : PerformanceLoggingComponentBase
 
 	private Task HandleDemoTabActivated()
 	{
-		showingDemo = true;
+		_showingDemo = true;
 		return Task.CompletedTask;
 	}
 
 	private async Task HandleCodeTabActivated()
 	{
-		showingDemo = false;
+		_showingDemo = false;
 		await LoadCodeAsync();
 	}
 }

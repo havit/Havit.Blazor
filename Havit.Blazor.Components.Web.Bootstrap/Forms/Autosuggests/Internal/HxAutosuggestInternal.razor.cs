@@ -108,27 +108,27 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
-	private string dropdownId = "hx" + Guid.NewGuid().ToString("N");
-	private System.Timers.Timer timer;
-	private string userInput = String.Empty;
-	private CancellationTokenSource cancellationTokenSource;
-	private List<TItem> suggestions;
-	private bool userInputModified;
-	private bool isDropdownOpened = false;
-	private bool blurInProgress;
-	private bool currentlyFocused;
-	private bool disposed;
-	private IJSObjectReference jsModule;
-	private HxAutosuggestInputInternal autosuggestInput;
-	private TValue lastKnownValue;
-	private bool dataProviderInProgress;
-	private DotNetObjectReference<HxAutosuggestInternal<TItem, TValue>> dotnetObjectReference;
+	private string _dropdownId = "hx" + Guid.NewGuid().ToString("N");
+	private System.Timers.Timer _timer;
+	private string _userInput = String.Empty;
+	private CancellationTokenSource _cancellationTokenSource;
+	private List<TItem> _suggestions;
+	private bool _userInputModified;
+	private bool _isDropdownOpened = false;
+	private bool _blurInProgress;
+	private bool _currentlyFocused;
+	private bool _disposed;
+	private IJSObjectReference _jsModule;
+	private HxAutosuggestInputInternal _autosuggestInput;
+	private TValue _lastKnownValue;
+	private bool _dataProviderInProgress;
+	private DotNetObjectReference<HxAutosuggestInternal<TItem, TValue>> _dotnetObjectReference;
 
-	internal string ChipValue => userInput;
+	internal string ChipValue => _userInput;
 
 	public HxAutosuggestInternal()
 	{
-		dotnetObjectReference = DotNetObjectReference.Create(this);
+		_dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
 	private async Task SetValueItemWithEventCallback(TItem selectedItem)
@@ -138,7 +138,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		if (!EqualityComparer<TValue>.Default.Equals(Value, value))
 		{
 			Value = value;
-			lastKnownValue = Value;
+			_lastKnownValue = Value;
 			await ValueChanged.InvokeAsync(Value);
 		}
 	}
@@ -152,25 +152,25 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		if (!EqualityComparer<TValue>.Default.Equals(Value, default))
 		{
 			// we do not want to re-resolve the Text (userInput) if the Value did not change
-			if (!EqualityComparer<TValue>.Default.Equals(Value, lastKnownValue))
+			if (!EqualityComparer<TValue>.Default.Equals(Value, _lastKnownValue))
 			{
 				if ((ItemFromValueResolver == null) && (typeof(TValue) == typeof(TItem)))
 				{
-					userInput = TextSelectorEffective((TItem)(object)Value);
+					_userInput = TextSelectorEffective((TItem)(object)Value);
 				}
 				else
 				{
 					Contract.Requires<InvalidOperationException>(ItemFromValueResolver is not null, $"{GetType()} requires a {nameof(ItemFromValueResolver)} parameter.");
-					userInput = TextSelectorEffective(await ItemFromValueResolver(Value));
+					_userInput = TextSelectorEffective(await ItemFromValueResolver(Value));
 				}
 			}
 		}
 		else
 		{
-			userInput = TextSelectorEffective(default);
+			_userInput = TextSelectorEffective(default);
 		}
-		userInputModified = false;
-		lastKnownValue = Value;
+		_userInputModified = false;
+		_lastKnownValue = Value;
 
 		if (string.IsNullOrWhiteSpace(InputId))
 		{
@@ -180,7 +180,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 	public async ValueTask FocusAsync()
 	{
-		await autosuggestInput.FocusAsync();
+		await _autosuggestInput.FocusAsync();
 	}
 
 	private async Task HandleInputInput(string newUserInput)
@@ -188,15 +188,15 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		Contract.Requires<InvalidOperationException>(EnabledEffective, $"The {GetType().Name} component is in a disabled state.");
 
 		// user changes an input
-		userInput = newUserInput;
-		userInputModified = true;
+		_userInput = newUserInput;
+		_userInputModified = true;
 
-		timer?.Stop(); // if waiting for an interval, stop it
-		cancellationTokenSource?.Cancel(); // if already loading data, cancel it
-		dataProviderInProgress = false; // data provider is no more in progress
+		_timer?.Stop(); // if waiting for an interval, stop it
+		_cancellationTokenSource?.Cancel(); // if already loading data, cancel it
+		_dataProviderInProgress = false; // data provider is no more in progress
 
 		// start new time interval
-		if (userInput.Length >= MinimumLengthEffective)
+		if (_userInput.Length >= MinimumLengthEffective)
 		{
 			if (DelayEffective == 0)
 			{
@@ -204,20 +204,20 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			}
 			else
 			{
-				if (timer == null)
+				if (_timer == null)
 				{
-					timer = new System.Timers.Timer();
-					timer.AutoReset = false; // just once
-					timer.Elapsed += HandleTimerElapsed;
+					_timer = new System.Timers.Timer();
+					_timer.AutoReset = false; // just once
+					_timer.Elapsed += HandleTimerElapsed;
 				}
-				timer.Interval = DelayEffective;
-				timer.Start();
+				_timer.Interval = DelayEffective;
+				_timer.Start();
 			}
 		}
 		else
 		{
 			// or close a dropdown
-			suggestions = null;
+			_suggestions = null;
 			await DestroyDropdownAsync();
 		}
 	}
@@ -233,7 +233,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 	private async Task HandleInputClick()
 	{
-		if (currentlyFocused && (MinimumLengthEffective == 0) && !isDropdownOpened)
+		if (_currentlyFocused && (MinimumLengthEffective == 0) && !_isDropdownOpened)
 		{
 			await UpdateSuggestionsAsync();
 		}
@@ -246,8 +246,8 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			return;
 		}
 
-		currentlyFocused = true;
-		if (string.IsNullOrEmpty(userInput) && MinimumLengthEffective <= 0)
+		_currentlyFocused = true;
+		if (string.IsNullOrEmpty(_userInput) && MinimumLengthEffective <= 0)
 		{
 			await UpdateSuggestionsAsync();
 			return;
@@ -262,28 +262,28 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			return;
 		}
 
-		currentlyFocused = false;
+		_currentlyFocused = false;
 		// when user clicks back button in browser this method can be called after it is disposed!
-		blurInProgress = true;
-		timer?.Stop(); // if waiting for an interval, stop it
-		cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
-		dataProviderInProgress = false; // data provider is no more in progress
+		_blurInProgress = true;
+		_timer?.Stop(); // if waiting for an interval, stop it
+		_cancellationTokenSource?.Cancel(); // if waiting for an interval, stop it
+		_dataProviderInProgress = false; // data provider is no more in progress
 	}
 
 	private async Task UpdateSuggestionsAsync()
 	{
 		// Cancelation is performed in HandleInputInput method
-		cancellationTokenSource?.Dispose();
+		_cancellationTokenSource?.Dispose();
 
-		cancellationTokenSource = new CancellationTokenSource();
-		CancellationToken cancellationToken = cancellationTokenSource.Token;
+		_cancellationTokenSource = new CancellationTokenSource();
+		CancellationToken cancellationToken = _cancellationTokenSource.Token;
 
-		dataProviderInProgress = true;
+		_dataProviderInProgress = true;
 		StateHasChanged();
 
 		AutosuggestDataProviderRequest request = new AutosuggestDataProviderRequest
 		{
-			UserInput = userInput,
+			UserInput = _userInput,
 			CancellationToken = cancellationToken
 		};
 
@@ -302,14 +302,14 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			return;
 		}
 
-		dataProviderInProgress = false;
+		_dataProviderInProgress = false;
 
 		// KeyboardNavigation
-		focusedItemIndex = 0; // First item in the searchResults collection.
+		_focusedItemIndex = 0; // First item in the searchResults collection.
 
-		suggestions = result.Data?.ToList();
+		_suggestions = result.Data?.ToList();
 
-		if ((suggestions?.Any() ?? false) || (EmptyTemplate != null))
+		if ((_suggestions?.Any() ?? false) || (EmptyTemplate != null))
 		{
 			await OpenDropdownAsync();
 		}
@@ -322,13 +322,13 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	}
 
 	#region KeyboardNavigation
-	private int focusedItemIndex = -1;
+	private int _focusedItemIndex = -1;
 
 	[JSInvokable("HxAutosuggestInternal_HandleInputKeyDown")]
 	public async Task HandleInputKeyDown(string keyCode)
 	{
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
-		TItem focusedItem = GetItemByIndex(focusedItemIndex);
+		TItem focusedItem = GetItemByIndex(_focusedItemIndex);
 		if ((keyCode == KeyCodes.Enter) || (keyCode == KeyCodes.NumpadEnter))
 		{
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
@@ -342,33 +342,33 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		// Move focus up or down.
 		if (keyCode == KeyCodes.ArrowUp)
 		{
-			int previousItemIndex = focusedItemIndex - 1;
+			int previousItemIndex = _focusedItemIndex - 1;
 			if (previousItemIndex >= 0)
 			{
-				focusedItemIndex = previousItemIndex;
+				_focusedItemIndex = previousItemIndex;
 				StateHasChanged();
 
-				await jsModule.InvokeVoidAsync("scrollToSelectedItem", dropdownId);
+				await _jsModule.InvokeVoidAsync("scrollToSelectedItem", _dropdownId);
 			}
 		}
 		else if (keyCode == KeyCodes.ArrowDown)
 		{
-			int nextItemIndex = focusedItemIndex + 1;
-			if (nextItemIndex < suggestions?.Count)
+			int nextItemIndex = _focusedItemIndex + 1;
+			if (nextItemIndex < _suggestions?.Count)
 			{
-				focusedItemIndex = nextItemIndex;
+				_focusedItemIndex = nextItemIndex;
 				StateHasChanged();
 
-				await jsModule.InvokeVoidAsync("scrollToSelectedItem", dropdownId);
+				await _jsModule.InvokeVoidAsync("scrollToSelectedItem", _dropdownId);
 			}
 		}
 	}
 
 	private TItem GetItemByIndex(int index)
 	{
-		if ((index >= 0) && (index < suggestions?.Count))
+		if ((index >= 0) && (index < _suggestions?.Count))
 		{
-			return suggestions[index];
+			return _suggestions[index];
 		}
 		else
 		{
@@ -381,16 +381,16 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	{
 		// user selected an item in the "dropdown".
 		await SetValueItemWithEventCallback(item);
-		userInput = TextSelectorEffective(item);
-		userInputModified = false;
+		_userInput = TextSelectorEffective(item);
+		_userInputModified = false;
 	}
 
 	private async Task HandleCrossClick()
 	{
 		// user clicked on a cross button (x)
 		await SetValueItemWithEventCallback(default);
-		userInput = TextSelectorEffective(default);
-		userInputModified = false;
+		_userInput = TextSelectorEffective(default);
+		_userInputModified = false;
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -400,23 +400,23 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		if (firstRender)
 		{
 			await EnsureJsModuleAsync();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
 
 			string[] keysToPreventDefault = [KeyCodes.ArrowDown, KeyCodes.ArrowUp, KeyCodes.Enter, KeyCodes.NumpadEnter];
-			await jsModule.InvokeVoidAsync("initialize", InputId, dotnetObjectReference, keysToPreventDefault);
+			await _jsModule.InvokeVoidAsync("initialize", InputId, _dotnetObjectReference, keysToPreventDefault);
 		}
 
-		if (blurInProgress)
+		if (_blurInProgress)
 		{
-			blurInProgress = false;
-			if (userInputModified && !isDropdownOpened)
+			_blurInProgress = false;
+			if (_userInputModified && !_isDropdownOpened)
 			{
 				await SetValueItemWithEventCallback(default);
-				userInput = TextSelectorEffective(default);
-				userInputModified = false;
+				_userInput = TextSelectorEffective(default);
+				_userInputModified = false;
 				StateHasChanged();
 			}
 		}
@@ -424,41 +424,41 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	#region OpenDropdownAsync, DestroyDropdownAsync, EnsureJsModuleAsync
 	private async Task OpenDropdownAsync()
 	{
-		if (!isDropdownOpened)
+		if (!_isDropdownOpened)
 		{
 			await EnsureJsModuleAsync();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("open", autosuggestInput.InputElement, dotnetObjectReference);
-			isDropdownOpened = true;
+			await _jsModule.InvokeVoidAsync("open", _autosuggestInput.InputElement, _dotnetObjectReference);
+			_isDropdownOpened = true;
 		}
 	}
 
 	private async Task DestroyDropdownAsync()
 	{
-		if (isDropdownOpened)
+		if (_isDropdownOpened)
 		{
 			await EnsureJsModuleAsync();
-			await jsModule.InvokeVoidAsync("destroy", autosuggestInput.InputElement);
-			isDropdownOpened = false;
+			await _jsModule.InvokeVoidAsync("destroy", _autosuggestInput.InputElement);
+			_isDropdownOpened = false;
 		}
 	}
 
 	private async Task EnsureJsModuleAsync()
 	{
-		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxAutosuggest));
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxAutosuggest));
 	}
 
 	[JSInvokable("HxAutosuggestInternal_HandleDropdownHidden")]
 	public async Task HandleDropdownHidden()
 	{
-		if (userInputModified && !currentlyFocused)
+		if (_userInputModified && !_currentlyFocused)
 		{
 			await SetValueItemWithEventCallback(default);
-			userInput = TextSelectorEffective(default);
-			userInputModified = false;
+			_userInput = TextSelectorEffective(default);
+			_userInputModified = false;
 			StateHasChanged();
 		}
 		await DestroyDropdownAsync();
@@ -482,20 +482,20 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
-		timer?.Dispose();
-		timer = null;
+		_timer?.Dispose();
+		_timer = null;
 
-		cancellationTokenSource?.Dispose();
-		cancellationTokenSource = null;
+		_cancellationTokenSource?.Dispose();
+		_cancellationTokenSource = null;
 
-		if (jsModule != null)
+		if (_jsModule != null)
 		{
 			try
 			{
-				await jsModule.InvokeVoidAsync("dispose", InputId);
-				await jsModule.DisposeAsync();
+				await _jsModule.InvokeVoidAsync("dispose", InputId);
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
 			{
@@ -507,6 +507,6 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			}
 		}
 
-		dotnetObjectReference?.Dispose();
+		_dotnetObjectReference?.Dispose();
 	}
 }

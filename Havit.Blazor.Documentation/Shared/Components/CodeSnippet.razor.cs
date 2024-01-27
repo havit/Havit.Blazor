@@ -10,7 +10,7 @@ public partial class CodeSnippet : ComponentBase
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	private string code;
+	private string _code;
 
 	protected override async Task OnParametersSetAsync()
 	{
@@ -22,7 +22,7 @@ public partial class CodeSnippet : ComponentBase
 			{
 				using (StreamReader reader = new StreamReader(stream))
 				{
-					code = await reader.ReadToEndAsync();
+					_code = await reader.ReadToEndAsync();
 				}
 			}
 		}

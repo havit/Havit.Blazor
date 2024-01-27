@@ -18,21 +18,21 @@ public partial class ComponentApiDoc
 
 	[Inject] protected IComponentApiDocModelBuilder ComponentApiDocModelBuilder { get; set; }
 
-	private ComponentApiDocModel model;
+	private ComponentApiDocModel _model;
 
-	private bool hasApi => model.HasValues || CssVariables is not null;
-	private bool isDelegate => model.IsDelegate;
-	private bool isEnum => model.IsEnum;
-	private bool hasParameters => model.Parameters.Any();
-	private bool hasProperties => model.Properties.Any();
-	private bool hasEvents => model.Events.Any();
-	private bool hasMethods => !model.IsEnum && model.Methods.Any();
-	private bool hasStaticProperties => model.StaticProperties.Any();
-	private bool hasStaticMethods => !model.IsEnum && model.StaticMethods.Any();
-	private bool hasCssVariables => CssVariables is not null;
+	private bool HasApi => _model.HasValues || CssVariables is not null;
+	private bool IsDelegate => _model.IsDelegate;
+	private bool IsEnum => _model.IsEnum;
+	private bool HasParameters => _model.Parameters.Any();
+	private bool HasProperties => _model.Properties.Any();
+	private bool HasEvents => _model.Events.Any();
+	private bool HasMethods => !_model.IsEnum && _model.Methods.Any();
+	private bool HasStaticProperties => _model.StaticProperties.Any();
+	private bool HasStaticMethods => !_model.IsEnum && _model.StaticMethods.Any();
+	private bool HasCssVariables => CssVariables is not null;
 
 	protected override void OnParametersSet()
 	{
-		model = ComponentApiDocModelBuilder.BuildModel(this.Type);
+		_model = ComponentApiDocModelBuilder.BuildModel(Type);
 	}
 }

@@ -2,11 +2,11 @@
 @using Havit.Blazor.Components.Web.Bootstrap.Internal
 
 <HxNavLinkInternal href="@Href"
-				   Match="@(this.Match ?? NavLinkMatch.All)"
+				   Match="@(Match ?? NavLinkMatch.All)"
 				   OnClick="(OnClick.HasDelegate ? InvokeOnClickAsync : null)"
 				   class="@GetCssClasses()"
-				   ActiveClass="@(((this.Match is null) || (this.Href is null)) ? String.Empty : "active")"
-				   role="@(this.OnClick.HasDelegate ? "button" : null)"
+				   ActiveClass="@(((Match is null) || (Href is null)) ? String.Empty : "active")"
+				   role="@(OnClick.HasDelegate ? "button" : null)"
 				   @attributes="this.AdditionalAttributes">
 	@Text
 	@ChildContent

@@ -2,7 +2,7 @@
 
 public static class ApiTypeHelper
 {
-	private static readonly Dictionary<string, Type> delegateTypes = new()
+	private static readonly Dictionary<string, Type> s_delegateTypes = new()
 	{
 		["AutosuggestDataProviderDelegate"] = typeof(AutosuggestDataProviderDelegate<>),
 		["GridDataProviderDelegate"] = typeof(GridDataProviderDelegate<>),
@@ -45,7 +45,7 @@ public static class ApiTypeHelper
 		}
 
 		// Handling delegate types, all other types are found by the Type.GetType() method.
-		delegateTypes.TryGetValue(typeName, out result);
+		s_delegateTypes.TryGetValue(typeName, out result);
 		if (result is not null)
 		{
 			return result;

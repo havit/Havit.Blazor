@@ -29,7 +29,7 @@ public class HxCardTitle : ComponentBase
 	{
 		builder.OpenElement(1, HtmlElement);
 
-		builder.AddAttribute(2, "class", CssClassHelper.Combine("card-title", this.CssClass));
+		builder.AddAttribute(2, "class", CssClassHelper.Combine("card-title", CssClass));
 		builder.AddMultipleAttributes(3, AdditionalAttributes);
 		builder.AddContent(4, ChildContent);
 

@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public partial class HxDropdownItem : ICascadeEnabledComponent
 {
 	[CascadingParameter] protected FormState FormState { get; set; }
-	FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+	FormState ICascadeEnabledComponent.FormState { get => FormState; set => FormState = value; }
 
 	/// <summary>
 	/// Additional CSS class for the underlying <c>li&gt;span</c> element.

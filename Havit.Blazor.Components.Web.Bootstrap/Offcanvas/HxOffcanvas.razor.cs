@@ -49,7 +49,7 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual OffcanvasSettings GetSettings() => this.Settings;
+	protected virtual OffcanvasSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Text for the title in the header.
@@ -77,13 +77,13 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// Placement of the offcanvas. The default is <see cref="OffcanvasPlacement.End"/> (right).
 	/// </summary>
 	[Parameter] public OffcanvasPlacement? Placement { get; set; }
-	protected OffcanvasPlacement PlacementEffective => this.Placement ?? this.GetSettings()?.Placement ?? GetDefaults().Placement ?? throw new InvalidOperationException(nameof(Placement) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+	protected OffcanvasPlacement PlacementEffective => Placement ?? GetSettings()?.Placement ?? GetDefaults().Placement ?? throw new InvalidOperationException(nameof(Placement) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 	/// <summary>
 	/// Breakpoint below which the contents are rendered outside the viewport in an offcanvas (above this breakpoint, the offcanvas body is rendered inside the viewport).
 	/// </summary>
 	[Parameter] public OffcanvasResponsiveBreakpoint? ResponsiveBreakpoint { get; set; }
-	protected OffcanvasResponsiveBreakpoint ResponsiveBreakpointEffective => this.ResponsiveBreakpoint ?? this.GetSettings()?.ResponsiveBreakpoint ?? GetDefaults().ResponsiveBreakpoint ?? throw new InvalidOperationException(nameof(ResponsiveBreakpoint) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+	protected OffcanvasResponsiveBreakpoint ResponsiveBreakpointEffective => ResponsiveBreakpoint ?? GetSettings()?.ResponsiveBreakpoint ?? GetDefaults().ResponsiveBreakpoint ?? throw new InvalidOperationException(nameof(ResponsiveBreakpoint) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 	/// <summary>
 	/// Determines whether the content is always rendered or only if the offcanvas is open.<br />
@@ -96,7 +96,7 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// Size of the offcanvas. The default is <see cref="OffcanvasSize.Regular"/>.
 	/// </summary>
 	[Parameter] public OffcanvasSize? Size { get; set; }
-	protected OffcanvasSize SizeEffective => this.Size ?? this.GetSettings()?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+	protected OffcanvasSize SizeEffective => Size ?? GetSettings()?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 	/// <summary>
 	/// Indicates whether the modal shows a close button in the header.
@@ -104,21 +104,21 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// Use <see cref="CloseButtonIcon"/> to change the shape of the button.
 	/// </summary>
 	[Parameter] public bool? ShowCloseButton { get; set; }
-	protected bool ShowCloseButtonEffective => this.ShowCloseButton ?? this.GetSettings()?.ShowCloseButton ?? GetDefaults().ShowCloseButton ?? throw new InvalidOperationException(nameof(ShowCloseButton) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+	protected bool ShowCloseButtonEffective => ShowCloseButton ?? GetSettings()?.ShowCloseButton ?? GetDefaults().ShowCloseButton ?? throw new InvalidOperationException(nameof(ShowCloseButton) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 	/// <summary>
 	/// Indicates whether the offcanvas closes when the escape key is pressed.
 	/// The default value is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool? CloseOnEscape { get; set; }
-	protected bool CloseOnEscapeEffective => this.CloseOnEscape ?? this.GetSettings()?.CloseOnEscape ?? GetDefaults().CloseOnEscape ?? throw new InvalidOperationException(nameof(CloseOnEscape) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+	protected bool CloseOnEscapeEffective => CloseOnEscape ?? GetSettings()?.CloseOnEscape ?? GetDefaults().CloseOnEscape ?? throw new InvalidOperationException(nameof(CloseOnEscape) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 	/// <summary>
 	/// The close icon to be used in the header.
 	/// If set to <c>null</c>, the Bootstrap default close button will be used.
 	/// </summary>
 	[Parameter] public IconBase CloseButtonIcon { get; set; }
-	protected IconBase CloseButtonIconEffective => this.CloseButtonIcon ?? this.GetSettings()?.CloseButtonIcon ?? GetDefaults().CloseButtonIcon;
+	protected IconBase CloseButtonIconEffective => CloseButtonIcon ?? GetSettings()?.CloseButtonIcon ?? GetDefaults().CloseButtonIcon;
 
 	/// <summary>
 	/// Indicates whether to apply a backdrop on the body while the offcanvas is open.
@@ -126,38 +126,38 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// The default value (from <see cref="Defaults"/>) is <see cref="OffcanvasBackdrop.True"/>.
 	/// </summary>
 	[Parameter] public OffcanvasBackdrop? Backdrop { get; set; }
-	protected OffcanvasBackdrop BackdropEffective => this.Backdrop ?? this.GetSettings()?.Backdrop ?? GetDefaults().Backdrop ?? throw new InvalidOperationException(nameof(Backdrop) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+	protected OffcanvasBackdrop BackdropEffective => Backdrop ?? GetSettings()?.Backdrop ?? GetDefaults().Backdrop ?? throw new InvalidOperationException(nameof(Backdrop) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 	/// <summary>
 	/// Indicates whether body (page) scrolling is allowed while the offcanvas is open.
 	/// The default value (from <see cref="Defaults"/>) is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool? ScrollingEnabled { get; set; }
-	protected bool ScrollingEnabledEffective => this.ScrollingEnabled ?? this.GetSettings()?.ScrollingEnabled ?? GetDefaults().ScrollingEnabled ?? throw new InvalidOperationException(nameof(ScrollingEnabled) + " default for " + nameof(HxOffcanvas) + " has to be set.");
+	protected bool ScrollingEnabledEffective => ScrollingEnabled ?? GetSettings()?.ScrollingEnabled ?? GetDefaults().ScrollingEnabled ?? throw new InvalidOperationException(nameof(ScrollingEnabled) + " default for " + nameof(HxOffcanvas) + " has to be set.");
 
 	/// <summary>
 	/// Offcanvas additional CSS class. Added to root <c>div</c> (<c>.offcanvas</c>).
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
-	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
+	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
 	/// Additional header CSS class.
 	/// </summary>
 	[Parameter] public string HeaderCssClass { get; set; }
-	protected string HeaderCssClassEffective => this.HeaderCssClass ?? this.GetSettings()?.HeaderCssClass ?? GetDefaults().HeaderCssClass;
+	protected string HeaderCssClassEffective => HeaderCssClass ?? GetSettings()?.HeaderCssClass ?? GetDefaults().HeaderCssClass;
 
 	/// <summary>
 	/// Additional body CSS class.
 	/// </summary>
 	[Parameter] public string BodyCssClass { get; set; }
-	protected string BodyCssClassEffective => this.BodyCssClass ?? this.GetSettings()?.BodyCssClass ?? GetDefaults().BodyCssClass;
+	protected string BodyCssClassEffective => BodyCssClass ?? GetSettings()?.BodyCssClass ?? GetDefaults().BodyCssClass;
 
 	/// <summary>
 	/// Additional footer CSS class.
 	/// </summary>
 	[Parameter] public string FooterCssClass { get; set; }
-	protected string FooterCssClassEffective => this.FooterCssClass ?? this.GetSettings()?.FooterCssClass ?? GetDefaults().FooterCssClass;
+	protected string FooterCssClassEffective => FooterCssClass ?? GetSettings()?.FooterCssClass ?? GetDefaults().FooterCssClass;
 
 	/// <summary>
 	/// This event is fired when an offcanvas element has been hidden from the user (will wait for CSS transitions to complete).
@@ -180,20 +180,20 @@ public partial class HxOffcanvas : IAsyncDisposable
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	private bool opened = false; // indicates whether the offcanvas is open
-	private bool shouldOpenOffcanvas = false; // indicates whether the offcanvas is going to be opened
-	private string offcanvasId = "hx" + Guid.NewGuid().ToString("N");
-	private DotNetObjectReference<HxOffcanvas> dotnetObjectReference;
-	private ElementReference offcanvasElement;
-	private IJSObjectReference jsModule;
-	private bool disposed;
+	private bool _opened = false; // indicates whether the offcanvas is open
+	private bool _shouldOpenOffcanvas = false; // indicates whether the offcanvas is going to be opened
+	private string _offcanvasId = "hx" + Guid.NewGuid().ToString("N");
+	private DotNetObjectReference<HxOffcanvas> _dotnetObjectReference;
+	private ElementReference _offcanvasElement;
+	private IJSObjectReference _jsModule;
+	private bool _disposed;
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	public HxOffcanvas()
 	{
-		dotnetObjectReference = DotNetObjectReference.Create(this);
+		_dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
 	/// <summary>
@@ -201,11 +201,11 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// </summary>
 	public Task ShowAsync()
 	{
-		if (!opened)
+		if (!_opened)
 		{
-			shouldOpenOffcanvas = true; // mark offcanvas to be shown in OnAfterRender			
+			_shouldOpenOffcanvas = true; // mark offcanvas to be shown in OnAfterRender			
 		}
-		opened = true; // mark offcanvas as opened
+		_opened = true; // mark offcanvas as opened
 
 		StateHasChanged(); // ensures rendering offcanvas HTML
 
@@ -217,18 +217,18 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// </summary>
 	public async Task HideAsync()
 	{
-		if (!opened)
+		if (!_opened)
 		{
 			// this might be a minor PERF benefit, if it turns out to be causing troubles, we can remove this or make it configurable through optional method parameter
 			return;
 		}
-		await jsModule.InvokeVoidAsync("hide", offcanvasElement);
+		await _jsModule.InvokeVoidAsync("hide", _offcanvasElement);
 	}
 
 	[JSInvokable("HxOffcanvas_HandleOffcanvasHidden")]
 	public async Task HandleOffcanvasHidden()
 	{
-		opened = false;
+		_opened = false;
 		await InvokeOnClosedAsync();
 		StateHasChanged(); // ensures re-render to remove the control from HTML
 	}
@@ -247,19 +247,19 @@ public partial class HxOffcanvas : IAsyncDisposable
 	{
 		await base.OnAfterRenderAsync(firstRender);
 
-		if (shouldOpenOffcanvas)
+		if (_shouldOpenOffcanvas)
 		{
 			// do not run show in every render
 			// the line must be prior to JSRuntime (because BuildRenderTree/OnAfterRender[Async] is called twice; in the bad order of lines the JSRuntime would be also called twice).
-			shouldOpenOffcanvas = false;
+			_shouldOpenOffcanvas = false;
 
 			// Running JS interop is postponed to OnAfterRenderAsync to ensure offcanvasElement is set.
-			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxOffcanvas));
-			if (disposed)
+			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxOffcanvas));
+			if (_disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("show", offcanvasElement, dotnetObjectReference, CloseOnEscapeEffective, ScrollingEnabledEffective);
+			await _jsModule.InvokeVoidAsync("show", _offcanvasElement, _dotnetObjectReference, CloseOnEscapeEffective, ScrollingEnabledEffective);
 		}
 	}
 
@@ -295,16 +295,16 @@ public partial class HxOffcanvas : IAsyncDisposable
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
-		if (jsModule != null)
+		if (_jsModule != null)
 		{
 			// We need to remove backdrop when leaving "page" when HxOffcanvas is shown (opened).
-			if (opened)
+			if (_opened)
 			{
 				try
 				{
-					await jsModule.InvokeVoidAsync("dispose", offcanvasElement);
+					await _jsModule.InvokeVoidAsync("dispose", _offcanvasElement);
 				}
 				catch (JSDisconnectedException)
 				{
@@ -318,7 +318,7 @@ public partial class HxOffcanvas : IAsyncDisposable
 
 			try
 			{
-				await jsModule.DisposeAsync();
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
 			{
@@ -330,12 +330,12 @@ public partial class HxOffcanvas : IAsyncDisposable
 			}
 		}
 
-		dotnetObjectReference.Dispose();
+		_dotnetObjectReference.Dispose();
 	}
 
 	private string GetOffcanvasResponsiveCssClass()
 	{
-		return this.ResponsiveBreakpointEffective switch
+		return ResponsiveBreakpointEffective switch
 		{
 			OffcanvasResponsiveBreakpoint.None => "offcanvas",
 			OffcanvasResponsiveBreakpoint.Small => "offcanvas-sm",
@@ -343,30 +343,30 @@ public partial class HxOffcanvas : IAsyncDisposable
 			OffcanvasResponsiveBreakpoint.Large => "offcanvas-lg",
 			OffcanvasResponsiveBreakpoint.ExtraLarge => "offcanvas-xl",
 			OffcanvasResponsiveBreakpoint.Xxl => "offcanvas-xxl",
-			_ => throw new InvalidOperationException($"Unknown {nameof(HxOffcanvas)}.{nameof(ResponsiveBreakpoint)} value {this.ResponsiveBreakpointEffective:g}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(HxOffcanvas)}.{nameof(ResponsiveBreakpoint)} value {ResponsiveBreakpointEffective:g}.")
 		};
 	}
 
 	private string GetPlacementCssClass()
 	{
-		return this.PlacementEffective switch
+		return PlacementEffective switch
 		{
 			OffcanvasPlacement.Start => "offcanvas-start",
 			OffcanvasPlacement.End => "offcanvas-end",
 			OffcanvasPlacement.Bottom => "offcanvas-bottom",
 			OffcanvasPlacement.Top => "offcanvas-top",
-			_ => throw new InvalidOperationException($"Unknown {nameof(HxOffcanvas)}.{nameof(Placement)} value {this.PlacementEffective:g}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(HxOffcanvas)}.{nameof(Placement)} value {PlacementEffective:g}.")
 		};
 	}
 
 	private string GetSizeCssClass()
 	{
-		return this.SizeEffective switch
+		return SizeEffective switch
 		{
 			OffcanvasSize.Regular => null,
 			OffcanvasSize.Small => "hx-offcanvas-sm",
 			OffcanvasSize.Large => "hx-offcanvas-lg",
-			_ => throw new InvalidOperationException($"Unknown {nameof(HxOffcanvas)}.{nameof(Size)} value {this.SizeEffective:g}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(HxOffcanvas)}.{nameof(Size)} value {SizeEffective:g}.")
 		};
 	}
 }

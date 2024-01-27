@@ -65,14 +65,14 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	private ElementReference toastElement;
-	private DotNetObjectReference<HxToast> dotnetObjectReference;
-	private IJSObjectReference jsModule;
-	private bool disposed;
+	private ElementReference _toastElement;
+	private DotNetObjectReference<HxToast> _dotnetObjectReference;
+	private IJSObjectReference _jsModule;
+	private bool _disposed;
 
 	public HxToast()
 	{
-		dotnetObjectReference = DotNetObjectReference.Create(this);
+		_dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
 	/// <inheritdoc />
@@ -99,7 +99,7 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 		{
 			builder.AddAttribute(111, "data-bs-autohide", "false");
 		}
-		builder.AddElementReferenceCapture(120, referenceCapture => toastElement = referenceCapture);
+		builder.AddElementReferenceCapture(120, referenceCapture => _toastElement = referenceCapture);
 
 		if (renderHeader)
 		{
@@ -181,7 +181,7 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 
 	private bool HasContrastColor()
 	{
-		return this.Color switch
+		return Color switch
 		{
 			null => false,
 			ThemeColor.Primary => true,
@@ -192,7 +192,7 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 			ThemeColor.Info => false,
 			ThemeColor.Light => false,
 			ThemeColor.Dark => true,
-			_ => throw new InvalidOperationException($"Unknown {nameof(Color)}: {this.Color}")
+			_ => throw new InvalidOperationException($"Unknown {nameof(Color)}: {Color}")
 		};
 	}
 
@@ -203,12 +203,12 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 
 		if (firstRender)
 		{
-			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxToast));
-			if (disposed)
+			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxToast));
+			if (_disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("show", toastElement, dotnetObjectReference);
+			await _jsModule.InvokeVoidAsync("show", _toastElement, _dotnetObjectReference);
 		}
 	}
 
@@ -238,14 +238,14 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
-		if (jsModule != null)
+		if (_jsModule != null)
 		{
 			try
 			{
-				await jsModule.InvokeVoidAsync("dispose", toastElement);
-				await jsModule.DisposeAsync();
+				await _jsModule.InvokeVoidAsync("dispose", _toastElement);
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
 			{
@@ -257,6 +257,6 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 			}
 		}
 
-		dotnetObjectReference.Dispose();
+		_dotnetObjectReference.Dispose();
 	}
 }

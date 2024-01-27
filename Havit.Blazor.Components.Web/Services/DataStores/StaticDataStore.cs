@@ -59,8 +59,8 @@ public abstract class StaticDataStore<TValue> : IStaticDataStore<TValue>
 	/// </summary>
 	public void Clear()
 	{
-		this.HasData = false;
-		this.Data = default;
+		HasData = false;
+		Data = default;
 	}
 
 	/// <summary>
@@ -74,22 +74,22 @@ public abstract class StaticDataStore<TValue> : IStaticDataStore<TValue>
 	{
 		if (!HasData || ShouldRefresh())
 		{
-			await loadLock.WaitAsync(); // basic lock (Monitor) is thread-based and cannot be used for async code
+			await _loadLock.WaitAsync(); // basic lock (Monitor) is thread-based and cannot be used for async code
 			try
 			{
 				if (!HasData || ShouldRefresh()) // do not use the previous ShouldRefresh result, the data might have been refreshed in the meantime
 				{
-					this.Data = await LoadDataAsync();
-					this.HasData = true;
+					Data = await LoadDataAsync();
+					HasData = true;
 				}
 			}
 			finally
 			{
-				loadLock.Release();
+				_loadLock.Release();
 			}
 		}
 	}
-	private readonly SemaphoreSlim loadLock = new SemaphoreSlim(1, 1);
+	private readonly SemaphoreSlim _loadLock = new SemaphoreSlim(1, 1);
 
 	private bool VerifyIsLoaded(bool throwIfNotLoaded)
 	{

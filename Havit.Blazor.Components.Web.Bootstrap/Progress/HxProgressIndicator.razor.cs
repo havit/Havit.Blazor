@@ -36,7 +36,7 @@ public partial class HxProgressIndicator : IDisposable
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual ProgressIndicatorSettings GetSettings() => this.Settings;
+	protected virtual ProgressIndicatorSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Indicates whether the content should be displayed as "in progress".
@@ -47,7 +47,7 @@ public partial class HxProgressIndicator : IDisposable
 	/// Debounce delay in milliseconds. The default is <c>300 ms</c>.
 	/// </summary>
 	[Parameter] public int? Delay { get; set; }
-	protected int DelayEffective => this.Delay ?? GetSettings()?.Delay ?? GetDefaults()?.Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxProgressIndicator) + " has to be set.");
+	protected int DelayEffective => Delay ?? GetSettings()?.Delay ?? GetDefaults()?.Delay ?? throw new InvalidOperationException(nameof(Delay) + " default for " + nameof(HxProgressIndicator) + " has to be set.");
 
 	/// <summary>
 	/// Wrapped content.
@@ -56,15 +56,15 @@ public partial class HxProgressIndicator : IDisposable
 
 	protected EventCallback<bool> ProgressIndicatorVisibleChanged { get; set; }
 
-	private bool progressIndicatorVisible;
-	private System.Timers.Timer timer;
+	private bool _progressIndicatorVisible;
+	private System.Timers.Timer _timer;
 
 	protected override async Task OnParametersSetAsync()
 	{
 		await base.OnParametersSetAsync();
 		bool shouldBeProgressIndicatorVisible = InProgress;
 
-		if (shouldBeProgressIndicatorVisible && !progressIndicatorVisible)
+		if (shouldBeProgressIndicatorVisible && !_progressIndicatorVisible)
 		{
 			// start showing the progress indicator (when not already started)
 			if (DelayEffective == 0)
@@ -78,29 +78,29 @@ public partial class HxProgressIndicator : IDisposable
 		}
 		else if (!shouldBeProgressIndicatorVisible)
 		{
-			timer?.Stop();
-			if (progressIndicatorVisible)
+			_timer?.Stop();
+			if (_progressIndicatorVisible)
 			{
 				// hide the progress indicator if visible					
-				progressIndicatorVisible = false;
-				await ProgressIndicatorVisibleChanged.InvokeAsync(progressIndicatorVisible);
+				_progressIndicatorVisible = false;
+				await ProgressIndicatorVisibleChanged.InvokeAsync(_progressIndicatorVisible);
 			}
 		}
 	}
 
 	private async Task StartInProgressAsync()
 	{
-		progressIndicatorVisible = true;
-		await ProgressIndicatorVisibleChanged.InvokeAsync(progressIndicatorVisible);
+		_progressIndicatorVisible = true;
+		await ProgressIndicatorVisibleChanged.InvokeAsync(_progressIndicatorVisible);
 	}
 
 	private void StartInProgressWithDelay()
 	{
-		if (timer == null)
+		if (_timer == null)
 		{
-			timer = new System.Timers.Timer();
-			timer.AutoReset = false; // run once
-			timer.Elapsed += (_, _) =>
+			_timer = new System.Timers.Timer();
+			_timer.AutoReset = false; // run once
+			_timer.Elapsed += (_, _) =>
 			{
 				_ = InvokeAsync(async () =>
 				{
@@ -115,8 +115,8 @@ public partial class HxProgressIndicator : IDisposable
 				});
 			};
 		}
-		timer.Interval = DelayEffective;
-		timer.Start(); // does nothing when already started (that's what we need here)
+		_timer.Interval = DelayEffective;
+		_timer.Start(); // does nothing when already started (that's what we need here)
 	}
 
 	public void Dispose()
@@ -128,7 +128,7 @@ public partial class HxProgressIndicator : IDisposable
 	{
 		if (disposing)
 		{
-			timer?.Dispose();
+			_timer?.Dispose();
 		}
 	}
 }

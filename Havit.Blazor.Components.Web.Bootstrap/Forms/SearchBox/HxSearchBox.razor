@@ -3,24 +3,24 @@
 @typeparam TItem
 
 <div class="@CssClassHelper.Combine("hx-search-box", CssClassEffective)">
-	@if (!string.IsNullOrEmpty(Label) && LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Regular)
+	@if (!string.IsNullOrEmpty(Label) && LabelType == LabelType.Regular)
 	{
 		<label class="form-label">@Label</label>
 	}
 	<HxDropdown AutoClose="DropdownAutoClose.Outside">
-		<HxDropdownToggleElement @ref="dropdownToggle"
+		<HxDropdownToggleElement @ref="_dropdownToggle"
 								 ElementName="div"
 								 CssClass="@CssClassHelper.Combine(
 												"position-relative",
 												(HasInputGroups ? "input-group" : null),
-												(LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null,
+												(LabelType == LabelType.Floating) ? "form-floating" : null,
 												InputSizeEffective.AsInputGroupCssClass(),
-												(initialized || DefaultContentTemplate is not null ? null : "disabled"),
+												(_initialized || DefaultContentTemplate is not null ? null : "disabled"),
 												InputGroupCssClass)"
 								 DropdownOffset="@DropdownOffset"
 								 OnShown="HandleDropdownMenuShown"
 								 OnHidden="HandleDropdownMenuHidden"
-								 id="@dropdownToggleElementId">
+								 id="@_dropdownToggleElementId">
 
 			@if (InputGroupStartText is not null)
 			{
@@ -29,7 +29,7 @@
 
 			@InputGroupStartTemplate
 
-			<input id="@inputId"
+			<input id="@_inputId"
 				   value="@TextQuery"
 				   @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
 				   @onfocus="HandleInputFocus"
@@ -43,14 +43,14 @@
 								(HasClearButton ? "hx-search-box-input-with-clear-icon" : null),
 								InputCssClassEffective)" />
 
-			@if (!string.IsNullOrEmpty(Label) && LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
+			@if (!string.IsNullOrEmpty(Label) && LabelType == LabelType.Floating)
 			{
-				<label for="@inputId">@Label</label>
+				<label for="@_inputId">@Label</label>
 			}
 
 			@if (!HasInputGroupEnd)
 			{
-				if (dataProviderInProgress)
+				if (_dataProviderInProgress)
 				{
 					<div class="hx-search-box-input-icon hx-search-box-input-icon-end">
 						<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -79,11 +79,11 @@
 		</HxDropdownToggleElement>
 
 		<HxDropdownMenu>
-			@if ((searchResults.Count > 0) && ((TextQuery?.Length ?? 0) >= MinimumLengthEffective))
+			@if ((_searchResults.Count > 0) && ((TextQuery?.Length ?? 0) >= MinimumLengthEffective))
 			{
-				@for (int i = 0; i < searchResults.Count; i++)
+				@for (int i = 0; i < _searchResults.Count; i++)
 				{
-					var item = searchResults[i];
+					var item = _searchResults[i];
 
 					string title = ItemTitleSelector?.Invoke(item) ?? null;
 					string subtitle = ItemSubtitleSelector?.Invoke(item) ?? null;
@@ -92,7 +92,7 @@
 					<li class="overflow-hidden">
 						<button type="button"
 								tabindex="-1"
-								class="@CssClassHelper.Combine("dropdown-item", focusedItemIndex == i ? "hx-dropdown-item-focused" : null, ItemCssClassEffective)"
+								class="@CssClassHelper.Combine("dropdown-item", _focusedItemIndex == i ? "hx-dropdown-item-focused" : null, ItemCssClassEffective)"
 								@onclick="() => HandleItemSelected(item)">
 
 							@if (ItemTemplate is null)
