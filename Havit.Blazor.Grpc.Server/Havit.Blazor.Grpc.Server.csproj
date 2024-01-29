@@ -27,8 +27,4 @@
 	  <ProjectReference Include="..\Havit.Blazor.Grpc.Core\Havit.Blazor.Grpc.Core.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
-	</ItemGroup>
-
 </Project>

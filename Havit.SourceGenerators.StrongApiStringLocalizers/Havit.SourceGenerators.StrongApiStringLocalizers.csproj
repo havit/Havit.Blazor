@@ -29,10 +29,6 @@
 		<ProjectReference Include="..\Havit.Extensions.Localization\Havit.Extensions.Localization.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <PackageReference Update="Microsoft.SourceLink.GitHub" Version="8.0.0" />
-	</ItemGroup>
-
 	<Target Name="AddAnalyzerToNugetPackage" AfterTargets="Build" BeforeTargets="GenerateNuspec">
 		<ItemGroup>
 			<!-- Package the generator in the analyzer directory of the nuget package -->
