@@ -3,10 +3,13 @@
 	<ItemGroup>
 		<!-- <PackageVersion> elements here -->
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<!-- https://github.com/microsoft/MSBuildSdks/tree/main/src/CopyOnWrite -->
-		<GlobalPackageReference Include="Microsoft.Build.CopyOnWrite" Version="1.0.0" />
+		<GlobalPackageReference Include="Microsoft.Build.CopyOnWrite" Version="1.0.302">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</GlobalPackageReference>
 	</ItemGroup>
-	
+
 </Project>
