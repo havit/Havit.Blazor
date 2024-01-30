@@ -8,13 +8,13 @@
 	</BodyTemplate>
 </HxOffcanvas>
 
-<HxButton OnClick="HandleOpen" Text="Open" Color="ThemeColor.Primary" />
+<HxButton OnClick="HandleShow" Text="Show" Color="ThemeColor.Primary" />
 
 @code
 {
 	private HxOffcanvas offcanvasComponent;
 
-	private async Task HandleOpen()
+	private async Task HandleShow()
 	{
 		await offcanvasComponent.ShowAsync();
 	}

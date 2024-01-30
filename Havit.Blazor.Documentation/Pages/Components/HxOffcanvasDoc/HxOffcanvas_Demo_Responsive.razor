@@ -1,4 +1,4 @@
-﻿<HxButton OnClick="HandleOpen" Text="Open" Color="ThemeColor.Primary" CssClass="d-lg-none" />
+﻿<HxButton OnClick="HandleShow" Text="Show" Color="ThemeColor.Primary" CssClass="d-lg-none" />
 
 <HxOffcanvas @ref="offcanvasComponent" Title="Title" ResponsiveBreakpoint="OffcanvasResponsiveBreakpoint.Large">
     <BodyTemplate>
@@ -14,7 +14,7 @@
 {
     private HxOffcanvas offcanvasComponent;
 
-    private async Task HandleOpen()
+    private async Task HandleShow()
     {
         await offcanvasComponent.ShowAsync();
     }
