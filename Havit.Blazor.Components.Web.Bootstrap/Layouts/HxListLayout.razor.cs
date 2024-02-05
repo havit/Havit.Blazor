@@ -154,9 +154,11 @@ public partial class HxListLayout<TFilterModel>
 
 	private async Task HandleFilterFormModelChanged(TFilterModel newFilterModel)
 	{
+		// We want the offcanvas to close before the filter model is updated (= before the data start reloading).
+		await _filterOffcanvasComponent.HideAsync();
+
 		FilterModel = newFilterModel;
 		await InvokeFilterModelChangedAsync(newFilterModel);
-		await _filterOffcanvasComponent.HideAsync();
 	}
 
 	private async Task HandleNamedViewClickAsync(NamedView<TFilterModel> namedView)
