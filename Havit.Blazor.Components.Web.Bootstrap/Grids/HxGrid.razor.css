@@ -16,7 +16,7 @@ th:hover.hx-grid-sortable ::deep .hx-grid-sort-icon {
 
 th > .hx-grid-header-cell-container {
     display: inline-flex;
-    gap: .5rem;
+    gap: .25rem;
 }
 
 th.hx-grid-sortable.text-end .hx-grid-sort-icon,
