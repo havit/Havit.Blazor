@@ -23,7 +23,7 @@
 		<PackageProjectUrl>https://havit.blazor.eu</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>https://github.com/havit/Havit.Blazor/releases</PackageReleaseNotes>
-		<PackageTags>blazor bootstrap components webassembly wasm bootstrap5</PackageTags>
+		<PackageTags>blazor bootstrap components webassembly wasm bootstrap5 BlazorBootstrap BootstrapBlazor</PackageTags>
 	</PropertyGroup>
 	
 	<ItemGroup>
