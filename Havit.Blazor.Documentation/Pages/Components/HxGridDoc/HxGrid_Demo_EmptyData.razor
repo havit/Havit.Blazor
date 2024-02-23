@@ -1,6 +1,4 @@
-﻿@inject IDemoDataService DemoDataService
-
-<HxGrid TItem="EmployeeDto" DataProvider="GetGridData" Responsive="true">
+﻿<HxGrid TItem="EmployeeDto" DataProvider="GetGridData" Responsive="true" PageSize="5">
 	<Columns>
 		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
 		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
@@ -17,7 +15,7 @@
 
 		return new GridDataProviderResult<EmployeeDto>
 			{
-				Data = null,
+				Data = [],
 				TotalCount = 0
 			};
 	}
