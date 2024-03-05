@@ -59,8 +59,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.Client.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.TestContracts", "Havit.Blazor.Grpc.TestContracts\Havit.Blazor.Grpc.TestContracts.csproj", "{4A06D529-DD8A-44A0-B07B-90AE89E8B210}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRTLAppTest", "BlazorRTLAppTest\BlazorRTLAppTest.csproj", "{6AC55FDD-7BE4-46FF-9F40-E3ECD04DDE93}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.Core.Tests", "Havit.Blazor.Grpc.Core.Tests\Havit.Blazor.Grpc.Core.Tests.csproj", "{E64B4752-B697-4B5A-91F0-8A8581B1ABE5}"
 EndProject
 Global
