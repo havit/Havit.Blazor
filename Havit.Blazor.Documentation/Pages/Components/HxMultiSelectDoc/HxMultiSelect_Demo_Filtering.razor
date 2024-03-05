@@ -4,12 +4,13 @@
                TItem="EmployeeDto"
                TValue="int"
                Data="@employees"
-			   @bind-Value="selectedEmployeeIds"
+               @bind-Value="selectedEmployeeIds"
                TextSelector="@(p => p.Name)"
                ValueSelector="@(p => p.Id)"
                NullDataText="Loading employees..."
                AllowFiltering="true"
-			   FilterEmptyResultText="No employees found"/>
+			         FilterEmptyResultText="No employees found"
+               EmptyText="-select employees-"/>
 
 <p class="mt-3">Selected employees (IDs): @String.Join(", ", selectedEmployeeIds.Select(e => e.ToString()))</p>
 
