@@ -591,7 +591,16 @@ public class DemoDataService : IDemoDataService
 	{
 		_logger.LogInformation("DemoDataService.GetEmployeesCountAsync(..) called.");
 
-		await Task.Delay(80, cancellationToken); // simulate server call
+		try
+		{
+			await Task.Delay(80, cancellationToken); // simulate server call
+		}
+		catch (TaskCanceledException)
+		{
+			_logger.LogInformation("DemoDataService.GetEmployeesCountAsync(..) canceled.");
+			throw;
+		}
+
 		return _employees.Count;
 	}
 
@@ -599,7 +608,15 @@ public class DemoDataService : IDemoDataService
 	{
 		_logger.LogInformation("DemoDataService.GetEmployeesCountAsync(..) called.");
 
-		await Task.Delay(80, cancellationToken); // simulate server call
+		try
+		{
+			await Task.Delay(80, cancellationToken); // simulate server call
+		}
+		catch (TaskCanceledException)
+		{
+			_logger.LogInformation("DemoDataService.GetEmployeesCountAsync(..) canceled.");
+			throw;
+		}
 
 		return GetFilteredEmployees(filter).Count();
 	}
@@ -608,7 +625,15 @@ public class DemoDataService : IDemoDataService
 	{
 		_logger.LogInformation($"DemoDataService.FindEmployeesByNameAsync(\"{query}\", {limitCount}) called.");
 
-		await Task.Delay(180, cancellationToken); // simulate server call
+		try
+		{
+			await Task.Delay(180, cancellationToken); // simulate server call
+		}
+		catch (TaskCanceledException)
+		{
+			_logger.LogInformation($"DemoDataService.FindEmployeesByNameAsync(\"{query}\") canceled.");
+			throw;
+		}
 
 		return _employees
 			.Where(e => e.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
