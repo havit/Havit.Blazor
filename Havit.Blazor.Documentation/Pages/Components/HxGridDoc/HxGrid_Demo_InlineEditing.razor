@@ -2,8 +2,8 @@
 
 <HxGrid TItem="EmployeeDto"
 		DataProvider="GetGridData"
-		@bind-SelectedDataItem="selectedDataItem"
-		@bind-SelectedDataItem:after="HandleSelectedDataItemChanged"
+		SelectedDataItem="selectedDataItem"
+		SelectedDataItemChanged="HandleSelectedDataItemChanged"
 		PageSize="5"
 		Responsive="true">
 	<Columns>
@@ -82,11 +82,14 @@
 			};
 	}
 
-	private async Task HandleSelectedDataItemChanged()
+	private async Task HandleSelectedDataItemChanged(EmployeeDto newSelectedDataItem)
 	{
 		if (selectedDataItem != null)
 		{
+			// save the changes to original selectedDataItem first
 			await DemoDataService.UpdateEmployeeAsync(selectedDataItem);
 		}
+		// update selectedDataItem to new selection
+		selectedDataItem = newSelectedDataItem;
 	}
 }
