@@ -80,6 +80,16 @@ public partial class HxBadge
 		Contract.Requires<InvalidOperationException>(Color != ThemeColor.None, $"Parameter {nameof(Color)} of {nameof(HxBadge)} is required.");
 	}
 
+	private string GetBackgroundColorCss()
+	{
+		// if TextColor is not set, we use the combined -text-bg-{color} class (Bootstrap 5.3.3)
+		if (TextColorEffective == ThemeColor.None)
+		{
+			return ColorEffective.ToTextBackgroundColorCss();
+		}
+		return ColorEffective.ToBackgroundColorCss();
+	}
+
 	protected string GetTypeCss()
 	{
 		return TypeEffective switch
