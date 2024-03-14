@@ -91,5 +91,84 @@
             The default implementation is <c>"hx-button btn"</c>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea">
+            <summary>
+            Smart TextArea is an AI upgrade to the traditional textarea. It provides suggested autocompletions
+            to whole sentences based on its configuration and what the user is currently typing.<br />
+            <code>HxSmartTextArea</code> derives from <see href="https://github.com/dotnet-smartcomponents/smartcomponents/blob/main/docs/smart-textarea.md">SmartTextArea</see>,
+            a component created by the Microsoft Blazor team. It extends the original component with Hx-like Bootstrap styling.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/> and derived components.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputText">https://havit.blazor.eu/components/HxInputText</see>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputText.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.UserRole">
+            <summary>
+            Describes who is typing and for what reason, optionally giving other contextual information.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.UserPhrases">
+            <summary>
+            Helps the language model reply using your preferred tone/voice, common phrases,
+            and give any information you wish about policies, URLs, or anything else that may
+            be relevant to incorporate into the suggested completions.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.MaxLength">
+            <summary>
+            The maximum number of characters (UTF-16 code units) that the user can enter.<br />
+            If the parameter value isn't specified, the <see cref="T:System.ComponentModel.DataAnnotations.MaxLengthAttribute"/> of the <c>Value</c> is checked and used.<br />
+            If not specified either, the user can enter an unlimited number of characters.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.InputMode">
+            <summary>
+            Hint to browsers as to the type of virtual keyboard configuration to use when editing.<br/>
+            The default is <c>null</c> (not set).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.BindEvent">
+            <summary>
+            Gets or sets the behavior when the model is updated from the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.Placeholder">
+            <summary>
+            Placeholder for the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.InputSize">
+            <summary>
+            Size of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.LabelType">
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.FormatValueAsString(System.String)">
+            <inheritdocs />
+        </member>
     </members>
 </doc>

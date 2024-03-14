@@ -261,7 +261,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// When the EditContext was automatically created, this method renders the CascadingValue component with this EditContext and the content of the renderFragment.
 	/// Otherwise, only the renderFragment is rendered.
 	/// </summary>
-	private protected void RenderWithAutoCreatedEditContextAsCascadingValue(RenderTreeBuilder builder, int sequence, RenderFragment renderFragment)
+	protected void RenderWithAutoCreatedEditContextAsCascadingValue(RenderTreeBuilder builder, int sequence, RenderFragment renderFragment)
 	{
 		if (_autoCreatedEditContext != null)
 		{

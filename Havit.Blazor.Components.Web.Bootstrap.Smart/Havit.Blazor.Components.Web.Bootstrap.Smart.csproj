@@ -19,7 +19,7 @@
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
 		<!-- ComponentsPackagesVersion - variable from Directory.Build.props -->
-		<PackageVersion>$(ComponentsPackagesVersion)-preview01</PackageVersion>
+		<PackageVersion>$(ComponentsPackagesVersion)-preview02</PackageVersion>
 		<Description>HAVIT Blazor Library - Free Bootstrap 5 components for ASP.NET Blazor - Smart (AI) components</Description>
 		<!--<PackageLicenseExpression>MIT</PackageLicenseExpression>-->
 		<PackageProjectUrl>https://havit.blazor.eu</PackageProjectUrl>
