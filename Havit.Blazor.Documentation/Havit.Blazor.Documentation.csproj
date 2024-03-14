@@ -15,21 +15,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap.Smart\Havit.Blazor.Components.Web.Bootstrap.Smart.csproj" />
 		<ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap\Havit.Blazor.Components.Web.Bootstrap.csproj" />
 		<ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
 		<ProjectReference Include="..\Havit.Blazor.GoogleTagManager\Havit.Blazor.GoogleTagManager.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Watch Remove="xmldoc\Havit.Blazor.Components.Web.Bootstrap.xml" />
-		<Watch Remove="xmldoc\Havit.Blazor.Components.Web.xml" />
-		<Watch Remove="xmldoc\Havit.Blazor.GoogleTagManager.xml" />
+		<Watch Remove="xmldoc\*.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="xmldoc\Havit.Blazor.Components.Web.Bootstrap.xml" />
-		<EmbeddedResource Include="xmldoc\Havit.Blazor.Components.Web.xml" />
-		<EmbeddedResource Include="xmldoc\Havit.Blazor.GoogleTagManager.xml" />
+		<EmbeddedResource Include="xmldoc\*.xml" />
 	</ItemGroup>
 
 	<ItemGroup>

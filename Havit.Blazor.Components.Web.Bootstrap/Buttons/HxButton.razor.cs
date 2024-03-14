@@ -214,56 +214,13 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// </summary>
 	protected virtual string CoreCssClass => "hx-button btn";
 
-
 	protected virtual string GetButtonCssClass()
 	{
-		return CssClassHelper.Combine(CoreCssClass, GetColorCssClass(), GetSizeCssClass(), CssClassEffective);
-	}
-
-	protected string GetColorCssClass()
-	{
-		if (OutlineEffective)
-		{
-			return ColorEffective switch
-			{
-				ThemeColor.Primary => "btn-outline-primary",
-				ThemeColor.Secondary => "btn-outline-secondary",
-				ThemeColor.Success => "btn-outline-success",
-				ThemeColor.Danger => "btn-outline-danger",
-				ThemeColor.Warning => "btn-outline-warning",
-				ThemeColor.Info => "btn-outline-info",
-				ThemeColor.Light => "btn-outline-light",
-				ThemeColor.Dark => "btn-outline-dark",
-				ThemeColor.Link => "btn-link",
-				ThemeColor.None => null,
-				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {ColorEffective:g}.")
-			};
-		}
-		return ColorEffective switch
-		{
-			ThemeColor.Primary => "btn-primary",
-			ThemeColor.Secondary => "btn-secondary",
-			ThemeColor.Success => "btn-success",
-			ThemeColor.Danger => "btn-danger",
-			ThemeColor.Warning => "btn-warning",
-			ThemeColor.Info => "btn-info",
-			ThemeColor.Light => "btn-light",
-			ThemeColor.Dark => "btn-dark",
-			ThemeColor.Link => "btn-link",
-			ThemeColor.None => null,
-			_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {ColorEffective:g}.")
-		};
-	}
-
-	protected string GetSizeCssClass()
-	{
-		return SizeEffective switch
-		{
-			ButtonSize.Regular => null,
-			ButtonSize.Small => "btn-sm",
-			ButtonSize.Large => "btn-lg",
-			_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} {nameof(Size)}: {SizeEffective}.")
-		};
+		return CssClassHelper.Combine(
+			CoreCssClass,
+			ColorEffective.ToButtonColorCss(OutlineEffective),
+			SizeEffective.ToButtonSizeCssClass(),
+			CssClassEffective);
 	}
 
 	protected string GetTooltipWrapperCssClass()

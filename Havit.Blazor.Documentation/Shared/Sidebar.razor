@@ -12,7 +12,7 @@
         <Search />
 
 		<HxSidebarItem Text="Getting started" Href="/" Match="NavLinkMatch.All" Icon="BootstrapIcon.House" TooltipText="Getting started" />
-		<HxSidebarItem Text="Migration to v4 🔥" Href="/migrating" Match="NavLinkMatch.All" Icon="BootstrapIcon.ArrowUpCircle" TooltipText="Migration to v4 🔥" />
+		<HxSidebarItem Text="Migration to v4" Href="/migrating" Match="NavLinkMatch.All" Icon="BootstrapIcon.ArrowUpCircle" TooltipText="Migration to v4 🔥" />
 
         <HxSidebarItem Text="Forms" Icon="BootstrapIcon.InputCursorText">
             <HxSidebarItem Href="/components/Inputs" Text="Inputs" />
@@ -104,6 +104,10 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxMessenger)}")" Text="@nameof(HxMessenger)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxToast)}")" Text="@nameof(HxToast)" />
         </HxSidebarItem>
+
+		<HxSidebarItem Text="Smart (AI) 🔥" Icon="BootstrapIcon.Mortarboard">
+			<HxSidebarItem Href="@($"/components/{nameof(HxSmartPasteButton)}")" Text="@nameof(HxSmartPasteButton)" />
+		</HxSidebarItem>
 
         <HxSidebarItem Text="Special" Icon="BootstrapIcon.Stars">
             <HxSidebarItem Href="@($"/components/{nameof(HxDynamicElement)}")" Text="@nameof(HxDynamicElement)" />

@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Havit.Blazor.Components.Web.Bootstrap.Smart</name>
+    </assembly>
+    <members>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton">
+            <summary>
+            Smart Paste is an intelligent AI-powered app feature that fills out forms automatically using data
+            from the user's clipboard. You can use this with any existing form in your web app.<br />
+            <code>HxSmartPasteButton</code> derives from <see href="https://github.com/dotnet-smartcomponents/smartcomponents/blob/main/docs/smart-paste.md">SmartPasteButton</see>
+            and adds support for Hx-like Bootstrap styling.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton"/>.
+            Please note, the defaults are not shared with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Text">
+            <summary>
+            Text of the button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Icon">
+            <summary>
+            Icon to render into the button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.IconPlacement">
+            <summary>
+            Position of the icon within the button. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonIconPlacement.Start" /> (configurable through <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Defaults"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Color">
+            <summary>
+            Bootstrap button style - theme color.<br />
+            The default is taken from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Defaults"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> if not customized).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Size">
+            <summary>
+            Button size. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonSize.Regular"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Outline">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.CssClass">
+            <summary>
+            Custom CSS class to render with the <c>&lt;button /&gt;</c>.<br />
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.IconCssClass">
+            <summary>
+            CSS class to be rendered with the button icon.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Spinner">
+            <summary>
+            Enables or disables the spinner. <br/>
+            Leave <c>null</c> if you want automated spinner.
+            You can set an explicit <c>false</c> constant to disable (override) the spinner automation.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.CoreCssClass">
+            <summary>
+            Gets the basic CSS class(es) which get rendered to every single button. <br/>
+            The default implementation is <c>"hx-button btn"</c>.
+            </summary>
+        </member>
+    </members>
+</doc>

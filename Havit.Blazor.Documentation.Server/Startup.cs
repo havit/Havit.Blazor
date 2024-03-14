@@ -4,6 +4,7 @@ using Havit.Blazor.Documentation.Services;
 using Havit.Blazor.Documentation.Shared.Components.DocColorMode;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using SmartComponents.Inference.OpenAI;
 
 namespace Havit.Blazor.Documentation.Server;
 
@@ -17,6 +18,11 @@ public class Startup
 		services.AddHxServices();
 		services.AddHxMessenger();
 		services.AddHxMessageBoxHost();
+
+		services.AddSmartComponents()
+			.WithInferenceBackend<OpenAIInferenceBackend>();
+		// https://github.com/dotnet-smartcomponents/smartcomponents/issues/9
+		services.Remove(services.Single(s => s.ImplementationType?.Name == "SmartComponentsScriptTagHelperComponent"));
 
 		services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
 		services.AddSingleton<IDocXmlProvider, DocXmlProvider>();

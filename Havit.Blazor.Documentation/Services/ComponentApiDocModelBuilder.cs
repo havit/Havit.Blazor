@@ -83,6 +83,10 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		{
 			return _docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.GoogleTagManager.xml");
 		}
+		else if (typeNamespace.Contains("Smart"))
+		{
+			return _docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.Smart.xml");
+		}
 		else if (typeNamespace.Contains("Bootstrap"))
 		{
 			return _docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.xml");
