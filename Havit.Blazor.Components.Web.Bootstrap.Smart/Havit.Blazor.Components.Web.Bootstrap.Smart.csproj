@@ -31,7 +31,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.3" />
-		<PackageReference Include="SmartComponents.AspNetCore.Components" Version="0.1.0-preview10140" />
+		<PackageReference Include="SmartComponents.AspNetCore.Components" Version="0.1.0-preview10141" />
 	</ItemGroup>
 
 	<ItemGroup>

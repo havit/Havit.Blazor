@@ -21,8 +21,6 @@ public class Startup
 
 		services.AddSmartComponents()
 			.WithInferenceBackend<OpenAIInferenceBackend>();
-		// https://github.com/dotnet-smartcomponents/smartcomponents/issues/9
-		services.Remove(services.Single(s => s.ImplementationType?.Name == "SmartComponentsScriptTagHelperComponent"));
 
 		services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
 		services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
