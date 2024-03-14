@@ -1,5 +1,4 @@
-﻿using Havit.Blazor.Components.Web.Infrastructure;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using SmartComponents;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Smart;
@@ -7,8 +6,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Smart;
 /// <summary>
 /// Smart Paste is an intelligent AI-powered app feature that fills out forms automatically using data
 /// from the user's clipboard. You can use this with any existing form in your web app.<br />
-/// <code>HxSmartPasteButton</code> derives from <see href="https://github.com/dotnet-smartcomponents/smartcomponents/blob/main/docs/smart-paste.md">SmartPasteButton</see>
-/// and adds support for Hx-like Bootstrap styling.
+/// <code>HxSmartPasteButton</code> derives from <see href="https://github.com/dotnet-smartcomponents/smartcomponents/blob/main/docs/smart-paste.md">SmartPasteButton</see>,
+/// a component created by the Microsoft Blazor team. It extends the original component with Hx-like Bootstrap styling.
 /// </summary>
 public class HxSmartPasteButton : SmartPasteButton
 {
@@ -148,8 +147,6 @@ public class HxSmartPasteButton : SmartPasteButton
 					break;
 				default:
 					throw new InvalidOperationException($"Parameter {parameter.Name} not supported.");
-
-
 			}
 		}
 
@@ -173,7 +170,7 @@ public class HxSmartPasteButton : SmartPasteButton
 		newAdditionalAttributes["class"] = GetButtonCssClass();
 		AdditionalAttributes = newAdditionalAttributes;
 
-		base.ChildContent = BuildChildContent(childContentParameter); // TODO
+		base.ChildContent = BuildChildContent(childContentParameter);
 
 		return base.SetParametersAsync(ParameterView.Empty);
 	}
@@ -200,8 +197,6 @@ public class HxSmartPasteButton : SmartPasteButton
 
 
 			if (!String.IsNullOrEmpty(Text) || (ChildContent != null))
-
-
 			{
 				builder.OpenElement(10, "span");
 				//builder.AddAttribute(11, "class", "hx-button-icon-text-spacer");
@@ -217,6 +212,33 @@ public class HxSmartPasteButton : SmartPasteButton
 		else if (childContent != null)
 		{
 			builder.AddContent(21, childContent);
+		}
+
+		if ((IconPlacementEffective == ButtonIconPlacement.End)
+			&& ((IconEffective is not null) || (Spinner ?? true)))
+		{
+			if (!String.IsNullOrEmpty(Text) || (ChildContent != null))
+			{
+				builder.OpenElement(110, "span");
+				//builder.AddAttribute(111, "class", "hx-button-icon-text-spacer");
+				builder.AddMarkupContent(111, "&nbsp;"); // TODO spacer
+				builder.CloseElement();
+			}
+
+			if (IconEffective is not null)
+			{
+				builder.OpenComponent(100, typeof(HxIcon));
+				builder.AddAttribute(101, nameof(HxIcon.Icon), IconEffective);
+				builder.AddAttribute(102, nameof(HxIcon.CssClass), CssClassHelper.Combine(IconCssClassEffective, "smart-paste-icon-normal"));
+				builder.CloseComponent();
+			}
+
+			builder.OpenElement(103, "span");
+			builder.AddAttribute(104, "class", "smart-paste-icon-running");
+			builder.OpenComponent(105, typeof(HxSpinner));
+			builder.AddAttribute(106, nameof(HxSpinner.Size), SpinnerSize.Small);
+			builder.CloseComponent();
+			builder.CloseElement();
 		}
 	};
 

@@ -8,8 +8,8 @@
             <summary>
             Smart Paste is an intelligent AI-powered app feature that fills out forms automatically using data
             from the user's clipboard. You can use this with any existing form in your web app.<br />
-            <code>HxSmartPasteButton</code> derives from <see href="https://github.com/dotnet-smartcomponents/smartcomponents/blob/main/docs/smart-paste.md">SmartPasteButton</see>
-            and adds support for Hx-like Bootstrap styling.
+            <code>HxSmartPasteButton</code> derives from <see href="https://github.com/dotnet-smartcomponents/smartcomponents/blob/main/docs/smart-paste.md">SmartPasteButton</see>,
+            a component created by the Microsoft Blazor team. It extends the original component with Hx-like Bootstrap styling.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Defaults">
