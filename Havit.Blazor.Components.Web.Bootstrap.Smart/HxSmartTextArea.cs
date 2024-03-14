@@ -1,8 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using SmartComponents;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Smart;
 
@@ -10,7 +8,8 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Smart;
 /// Smart TextArea is an AI upgrade to the traditional textarea. It provides suggested autocompletions
 /// to whole sentences based on its configuration and what the user is currently typing.<br />
 /// <code>HxSmartTextArea</code> derives from <see href="https://github.com/dotnet-smartcomponents/smartcomponents/blob/main/docs/smart-textarea.md">SmartTextArea</see>,
-/// a component created by the Microsoft Blazor team. It extends the original component with Hx-like Bootstrap styling.
+/// a component created by the Microsoft Blazor team.
+/// It extends the original component with Bootstrap styling and Hx-component features.
 /// </summary>
 public class HxSmartTextArea : HxInputBase<string>, IInputWithPlaceholder, IInputWithSize, IInputWithLabelType
 {
@@ -76,10 +75,7 @@ public class HxSmartTextArea : HxInputBase<string>, IInputWithPlaceholder, IInpu
 	[Parameter] public InputMode? InputMode { get; set; }
 	protected InputMode? InputModeEffective => InputMode ?? GetSettings()?.InputMode ?? GetDefaults()?.InputMode;
 
-	/// <summary>
-	/// Gets or sets the behavior when the model is updated from the input.
-	/// </summary>
-	[Parameter] public BindEvent BindEvent { get; set; } = BindEvent.OnChange;
+	// BindEvent not supported by SmartTextArea
 
 	/// <summary>
 	/// Placeholder for the input.
@@ -116,7 +112,7 @@ public class HxSmartTextArea : HxInputBase<string>, IInputWithPlaceholder, IInpu
 
 		builder.AddAttribute(200, "id", InputId);
 		builder.AddAttribute(201, "class", GetInputCssClassToRender());
-		builder.AddAttribute(202, "enabled", EnabledEffective);
+		builder.AddAttribute(202, "disabled", EnabledEffective ? (bool?)null : true);
 		builder.AddAttribute(204, "placeholder", (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
 
 		builder.AddMultipleAttributes(300, AdditionalAttributes);
@@ -135,5 +131,4 @@ public class HxSmartTextArea : HxInputBase<string>, IInputWithPlaceholder, IInpu
 		//return true;
 		throw new NotSupportedException();
 	}
-
 }

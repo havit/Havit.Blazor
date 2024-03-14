@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
-using SmartComponents;
-
-namespace Havit.Blazor.Components.Web.Bootstrap.Smart;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Smart;
 
 /// <summary>
 /// Smart Paste is an intelligent AI-powered app feature that fills out forms automatically using data
 /// from the user's clipboard. You can use this with any existing form in your web app.<br />
 /// <code>HxSmartPasteButton</code> derives from <see href="https://github.com/dotnet-smartcomponents/smartcomponents/blob/main/docs/smart-paste.md">SmartPasteButton</see>,
-/// a component created by the Microsoft Blazor team. It extends the original component with Hx-like Bootstrap styling.
+/// a component created by the Microsoft Blazor team.
+/// It extends the original component with Bootstrap styling and Hx-component features.
 /// </summary>
 public class HxSmartPasteButton : SmartPasteButton
 {

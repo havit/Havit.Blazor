@@ -149,11 +149,6 @@
             The default is <c>null</c> (not set).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.BindEvent">
-            <summary>
-            Gets or sets the behavior when the model is updated from the input.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.Placeholder">
             <summary>
             Placeholder for the input.
