@@ -100,6 +100,8 @@ public partial class Search
 		new("/components/HxSearchBox", "HxSearchBox", "autosuggest autocomplete searchbar omnibox input"),
 		new("/components/HxSelect", "HxSelect", "dropdownlist picker"),
 		new("/components/HxSidebar", "HxSidebar", "navigation collapse layout responsive"),
+		new("/components/HxSmartPasteButton", "HxSmartPasteButton", "clipboard ai gpt artificial intelligence copy"),
+		new("/components/HxSmartTextArea", "HxSmartTextArea", "autocompletions suggest intellisense typeahead ai gpt artificial intelligence"),
 		new("/components/HxSpinner", "HxSpinner", "loading progress placeholder skeleton"),
 		new("/components/HxSubmit#HxSubmit", "HxSubmit", "send form button"),
 		new("/components/HxSwitch", "HxSwitch", "hxinputswitch hxradiobutton checkbox"),
