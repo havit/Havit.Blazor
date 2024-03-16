@@ -59,7 +59,15 @@ public class HxSmartTextArea : HxInputBase<string>, IInputWithPlaceholder, IInpu
 	/// </summary>
 	[Parameter] public string[] UserPhrases { get; set; }
 
-	// TODO doc
+	/// <summary>
+	/// An arbitrary string you can use to communicate any state or context information
+	/// you want into the inference backend (it arrives as
+	/// a property on the <c>SmartTextAreaConfig</c>.
+	/// </summary>
+	/// <remarks>
+	///	This parameter will most likely be renamed or removed in the future.
+	///	https://github.com/dotnet-smartcomponents/smartcomponents/issues/10
+	/// </remarks>
 	[Parameter] public string Parameters { get; set; }
 
 	/// <summary>
