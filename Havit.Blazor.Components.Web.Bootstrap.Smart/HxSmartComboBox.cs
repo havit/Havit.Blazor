@@ -5,13 +5,17 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace Havit.Blazor.Components.Web.Bootstrap.Smart;
 
 /// <summary>
-/// Smart TextArea is an AI upgrade to the traditional textarea. It provides suggested autocompletions
-/// to whole sentences based on its configuration and what the user is currently typing.<br />
-/// <code>HxSmartTextArea</code> derives from <see href="https://github.com/dotnet-smartcomponents/smartcomponents/blob/main/docs/smart-textarea.md">SmartTextArea</see>,
+/// Smart ComboBox is an AI upgrade to the traditional combo box.<br />
+/// Traditional combo boxes suggest values only based on exact substring matches.
+/// Smart ComboBox upgrades this by suggesting semantic matches
+/// (i.e., options with the most closely related meanings).
+/// This is much more helpful for users who don't know/remember
+/// the exact predefined string they are looking for.<br />
+/// <code>HxSmartComboBox</code> derives from <see href="https://github.com/dotnet-smartcomponents/smartcomponents/blob/main/docs/smart-combobox.md">SmartComboBox</see>,
 /// a component created by the Microsoft Blazor team.
 /// It extends the original component with Bootstrap styling and Hx-component features.
 /// </summary>
-public class HxSmartTextArea : HxInputBase<string>, IInputWithPlaceholder, IInputWithSize, IInputWithLabelType
+public class HxSmartComboBox : HxInputBaseWithInputGroups<string>, IInputWithPlaceholder, IInputWithSize, IInputWithLabelType
 {
 	/// <summary>
 	/// Application-wide defaults for the <see cref="HxInputFile"/> and derived components.<br />
@@ -19,7 +23,7 @@ public class HxSmartTextArea : HxInputBase<string>, IInputWithPlaceholder, IInpu
 	/// </summary>
 	public static InputTextSettings Defaults { get; set; }
 
-	static HxSmartTextArea()
+	static HxSmartComboBox()
 	{
 		Defaults = new InputTextSettings()
 		{
@@ -47,19 +51,19 @@ public class HxSmartTextArea : HxInputBase<string>, IInputWithPlaceholder, IInpu
 	protected override InputTextSettings GetSettings() => Settings;
 
 	/// <summary>
-	/// Describes who is typing and for what reason, optionally giving other contextual information.
+	/// API endpoint that Smart ComboBox will call to get suggestions.
 	/// </summary>
-	[Parameter, EditorRequired] public string UserRole { get; set; }
+	[Parameter, EditorRequired] public string Url { get; set; }
 
 	/// <summary>
-	/// Helps the language model reply using your preferred tone/voice, common phrases,
-	/// and give any information you wish about policies, URLs, or anything else that may
-	/// be relevant to incorporate into the suggested completions.
+	/// Maximum number of suggestions offered. Default is <code>10</code>.
 	/// </summary>
-	[Parameter] public string[] UserPhrases { get; set; }
+	[Parameter] public int MaxSuggestions { get; set; } = 10;
 
-	// TODO doc
-	[Parameter] public string Parameters { get; set; }
+	/// <summary>
+	/// Minimal similarity coefficient for an item to be offered. Default is <code>0.5</code>.
+	/// </summary>
+	[Parameter] public float SimilarityThreshold { get; set; } = 0.5f;
 
 	/// <summary>
 	/// The maximum number of characters (UTF-16 code units) that the user can enter.<br />
@@ -74,8 +78,6 @@ public class HxSmartTextArea : HxInputBase<string>, IInputWithPlaceholder, IInpu
 	/// </summary>
 	[Parameter] public InputMode? InputMode { get; set; }
 	protected InputMode? InputModeEffective => InputMode ?? GetSettings()?.InputMode ?? GetDefaults()?.InputMode;
-
-	// BindEvent not supported by SmartTextArea
 
 	/// <summary>
 	/// Placeholder for the input.
@@ -101,14 +103,14 @@ public class HxSmartTextArea : HxInputBase<string>, IInputWithPlaceholder, IInpu
 	{
 		LabelType labelTypeEffective = (this as IInputWithLabelType).LabelTypeEffective;
 
-		builder.OpenComponent<SmartTextArea>(1);
+		builder.OpenComponent<SmartComboBox>(1);
 
 		builder.AddAttribute(100, nameof(Value), Value);
 		builder.AddAttribute(101, nameof(ValueChanged), EventCallback.Factory.Create<string>(this, value => CurrentValue = value));
 		builder.AddAttribute(102, nameof(ValueExpression), ValueExpression);
-		builder.AddAttribute(103, nameof(UserRole), UserRole);
-		builder.AddAttribute(104, nameof(UserPhrases), UserPhrases);
-		builder.AddAttribute(105, nameof(Parameters), Parameters);
+		builder.AddAttribute(103, nameof(Url), Url);
+		builder.AddAttribute(104, nameof(MaxSuggestions), MaxSuggestions);
+		builder.AddAttribute(105, nameof(SimilarityThreshold), SimilarityThreshold);
 
 		builder.AddAttribute(200, "id", InputId);
 		builder.AddAttribute(201, "class", GetInputCssClassToRender());

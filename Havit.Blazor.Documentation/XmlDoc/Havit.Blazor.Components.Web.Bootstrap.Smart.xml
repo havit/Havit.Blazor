@@ -4,12 +4,92 @@
         <name>Havit.Blazor.Components.Web.Bootstrap.Smart</name>
     </assembly>
     <members>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox">
+            <summary>
+            Smart ComboBox is an AI upgrade to the traditional combo box.<br />
+            Traditional combo boxes suggest values only based on exact substring matches.
+            Smart ComboBox upgrades this by suggesting semantic matches
+            (i.e., options with the most closely related meanings).
+            This is much more helpful for users who don't know/remember
+            the exact predefined string they are looking for.<br />
+            <code>HxSmartComboBox</code> derives from <see href="https://github.com/dotnet-smartcomponents/smartcomponents/blob/main/docs/smart-combobox.md">SmartComboBox</see>,
+            a component created by the Microsoft Blazor team.
+            It extends the original component with Bootstrap styling and Hx-component features.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/> and derived components.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputText">https://havit.blazor.eu/components/HxInputText</see>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputText.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.Url">
+            <summary>
+            API endpoint that Smart ComboBox will call to get suggestions.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.MaxSuggestions">
+            <summary>
+            Maximum number of suggestions offered. Default is <code>10</code>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.SimilarityThreshold">
+            <summary>
+            Minimal similarity coefficient for an item to be offered. Default is <code>0.5</code>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.MaxLength">
+            <summary>
+            The maximum number of characters (UTF-16 code units) that the user can enter.<br />
+            If the parameter value isn't specified, the <see cref="T:System.ComponentModel.DataAnnotations.MaxLengthAttribute"/> of the <c>Value</c> is checked and used.<br />
+            If not specified either, the user can enter an unlimited number of characters.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.InputMode">
+            <summary>
+            Hint to browsers as to the type of virtual keyboard configuration to use when editing.<br/>
+            The default is <c>null</c> (not set).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.Placeholder">
+            <summary>
+            Placeholder for the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.InputSize">
+            <summary>
+            Size of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartComboBox.LabelType">
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton">
             <summary>
             Smart Paste is an intelligent AI-powered app feature that fills out forms automatically using data
             from the user's clipboard. You can use this with any existing form in your web app.<br />
             <code>HxSmartPasteButton</code> derives from <see href="https://github.com/dotnet-smartcomponents/smartcomponents/blob/main/docs/smart-paste.md">SmartPasteButton</see>,
-            a component created by the Microsoft Blazor team. It extends the original component with Hx-like Bootstrap styling.
+            a component created by the Microsoft Blazor team.
+            It extends the original component with Bootstrap styling and Hx-component features.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Defaults">
@@ -96,7 +176,8 @@
             Smart TextArea is an AI upgrade to the traditional textarea. It provides suggested autocompletions
             to whole sentences based on its configuration and what the user is currently typing.<br />
             <code>HxSmartTextArea</code> derives from <see href="https://github.com/dotnet-smartcomponents/smartcomponents/blob/main/docs/smart-textarea.md">SmartTextArea</see>,
-            a component created by the Microsoft Blazor team. It extends the original component with Hx-like Bootstrap styling.
+            a component created by the Microsoft Blazor team.
+            It extends the original component with Bootstrap styling and Hx-component features.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.Defaults">
@@ -161,9 +242,6 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartTextArea.FormatValueAsString(System.String)">
-            <inheritdocs />
         </member>
     </members>
 </doc>
