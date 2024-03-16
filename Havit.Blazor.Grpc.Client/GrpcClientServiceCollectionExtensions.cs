@@ -21,7 +21,7 @@ public static class GrpcClientServiceCollectionExtensions
 	{
 		services.AddTransient<ServerExceptionsGrpcClientInterceptor>();
 		services.AddSingleton<GlobalizationLocalizationGrpcClientInterceptor>();
-		services.AddSingleton<ClientUriGrpcClientInterceptor>();
+		services.AddScoped<ClientUriGrpcClientInterceptor>();
 		services.AddTransient<GrpcWebHandler>(provider => new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
 		services.AddSingleton<ClientFactory>(ClientFactory.Create(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Create().RegisterApplicationContracts(assemblyToScanForDataContracts)) }, binder: new ProtoBufServiceBinder())));
 	}
