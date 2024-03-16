@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -114,7 +115,12 @@ public class HxSmartTextArea : HxInputBase<string>, IInputWithPlaceholder, IInpu
 		builder.AddAttribute(201, "class", GetInputCssClassToRender());
 		builder.AddAttribute(202, "disabled", EnabledEffective ? (bool?)null : true);
 		builder.AddAttribute(204, "placeholder", (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
-		builder.AddAttribute(205, "maxlength", MaxLength);
+
+		int? maxLengthEffective = MaxLength ?? GetValueAttribute<MaxLengthAttribute>()?.Length;
+		if (maxLengthEffective > 0) // [MaxLength] attribute has a default value of -1
+		{
+			builder.AddAttribute(300, "maxlength", maxLengthEffective);
+		}
 
 		builder.AddMultipleAttributes(300, AdditionalAttributes);
 
