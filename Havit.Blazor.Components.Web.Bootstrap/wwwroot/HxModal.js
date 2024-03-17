@@ -18,7 +18,11 @@
 }
 
 export function hide(element) {
-	var modal = bootstrap.Modal.getInstance(element);
+	if (!element) {
+		return;
+	}
+	element.hxModalHiding = true;
+	let modal = bootstrap.Modal.getInstance(element);
 	if (modal) {
 		modal.hide();
 	}
@@ -47,13 +51,13 @@ async function handleModalHide(event) {
 function handleModalHidden(event) {
 	event.target.hxModalHiding = false;
 
-	event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHidden');
-
 	if (event.target.hxModalDisposing) {
 		// fix for #110 where the dispose() gets called while the offcanvas is still in hiding-transition
 		dispose(event.target);
 		return;
 	}
+
+	event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHidden');
 };
 
 export function dispose(element) {

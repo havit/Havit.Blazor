@@ -36,7 +36,6 @@ export function hide(element) {
 }
 
 function handleOffcanvasShown(event) {
-
 	event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasShown');
 }
 
