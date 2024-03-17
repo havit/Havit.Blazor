@@ -4,10 +4,10 @@ namespace Havit.Blazor.Grpc.Client.Circuits.Infrastructure;
 
 public class ServicesAccessorCircuitHandler(
 	IServiceProvider services,
-	CircuitServicesAccessor servicesAccessor) : CircuitHandler
+	ICircuitServicesAccessor servicesAccessor) : CircuitHandler
 {
 	private readonly IServiceProvider _services = services;
-	private readonly CircuitServicesAccessor _circuitServicesAccessor = servicesAccessor;
+	private readonly ICircuitServicesAccessor _circuitServicesAccessor = servicesAccessor;
 
 	public override Func<CircuitInboundActivityContext, Task> CreateInboundActivityHandler(
 		Func<CircuitInboundActivityContext, Task> next)
