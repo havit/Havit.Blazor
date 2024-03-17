@@ -1,12 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.InteropServices;
 using Grpc.Net.Client.Web;
 using Grpc.Net.ClientFactory;
 using Havit.Blazor.Grpc.Client.HttpHeaders;
+using Havit.Blazor.Grpc.Client.Infrastructure;
 using Havit.Blazor.Grpc.Client.ServerExceptions;
 using Havit.Blazor.Grpc.Core;
 using Havit.ComponentModel;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using ProtoBuf.Grpc.ClientFactory;
 using ProtoBuf.Grpc.Configuration;
 using ProtoBuf.Meta;
@@ -32,6 +35,8 @@ public static class GrpcClientServiceCollectionExtensions
 		services.AddScoped<ClientUriGrpcClientInterceptor>();
 		services.AddTransient<GrpcWebHandler>(provider => new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
 		services.AddSingleton<ClientFactory>(ClientFactory.Create(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Create().RegisterApplicationContracts(assemblyToScanForDataContracts)) }, binder: new ProtoBufServiceBinder())));
+
+		services.TryAddScoped<INavigationManagerAccessor, DirectNavigationManagerAccessor>();
 	}
 
 	/// <summary>

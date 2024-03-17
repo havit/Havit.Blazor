@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Havit.Blazor.Grpc.Client.Circuits": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:53111;http://localhost:53112"
+    }
+  }
+}

@@ -1,4 +1,5 @@
 ﻿using Grpc.Core.Interceptors;
+using Havit.Blazor.Grpc.Client.Infrastructure;
 using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Grpc.Client.HttpHeaders;
@@ -8,14 +9,14 @@ namespace Havit.Blazor.Grpc.Client.HttpHeaders;
 /// </summary>
 public class ClientUriGrpcClientInterceptor : CallerMetadataGrpcClientInterceptorBase
 {
-	private readonly NavigationManager _navigationManager;
+	private readonly INavigationManagerAccessor _navigationManagerAccessor;
 
-	public ClientUriGrpcClientInterceptor(NavigationManager navigationManager)
+	public ClientUriGrpcClientInterceptor(INavigationManagerAccessor navigationManagerAccessor)
 	{
-		_navigationManager = navigationManager;
+		_navigationManagerAccessor = navigationManagerAccessor;
 	}
 	protected override void AddCallerMetadata<TRequest, TResponse>(ref ClientInterceptorContext<TRequest, TResponse> context)
 	{
-		context.Options.Headers.Add("hx-client-uri", _navigationManager.Uri);
+		context.Options.Headers.Add("hx-client-uri", _navigationManagerAccessor.NavigationManager.Uri);
 	}
 }
