@@ -114,7 +114,7 @@ public class HxSmartComboBox : HxInputBaseWithInputGroups<string>, IInputWithPla
 		builder.AddAttribute(105, nameof(SimilarityThreshold), SimilarityThreshold);
 
 		builder.AddAttribute(200, "id", InputId);
-		builder.AddAttribute(201, "class", GetInputCssClassToRender());
+		builder.AddAttribute(201, "class", CssClassHelper.Combine("smartcombobox", GetInputCssClassToRender()));
 		builder.AddAttribute(202, "disabled", EnabledEffective ? (bool?)null : true);
 		builder.AddAttribute(204, "placeholder", (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
 
