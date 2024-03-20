@@ -29,6 +29,13 @@
 
 			@InputGroupStartTemplate
 
+			@if (SearchIconEffective is not null && SearchIconPlacement == SearchIconPlacement.Start)
+			{
+				<div class="hx-search-box-input-icon hx-search-box-input-icon-start">
+					<HxIcon Icon="SearchIconEffective" />
+				</div>
+			}
+
 			<input id="@_inputId"
 				   value="@TextQuery"
 				   @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
@@ -40,7 +47,6 @@
 				   class="@CssClassHelper.Combine(
 								"form-control",
 								(!HasInputGroupEnd && HasInputGroups ? "hx-search-box-input-with-search-icon" : null),
-								(HasClearButton ? "hx-search-box-input-with-clear-icon" : null),
 								InputCssClassEffective)" />
 
 			@if (!string.IsNullOrEmpty(Label) && LabelType == LabelType.Floating)
@@ -62,7 +68,7 @@
 						<HxIcon Icon="ClearIconEffective" />
 					</div>
 				}
-				else if (SearchIconEffective is not null)
+				else if (SearchIconEffective is not null && SearchIconPlacement == SearchIconPlacement.End)
 				{
 					<div class="hx-search-box-input-icon hx-search-box-input-icon-end">
 						<HxIcon Icon="SearchIconEffective" />

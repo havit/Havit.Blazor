@@ -17,13 +17,21 @@
     right: .75rem;
 }
 
+::deep .hx-search-box-input-icon-start {
+    left: .75rem;
+}
+
 ::deep .hx-search-box-input-with-search-icon {
 	border-top-right-radius: 0.375rem !important;
 	border-bottom-right-radius: 0.375rem !important;
 }
 
-::deep .hx-search-box-input-with-clear-icon {
+.form-control {
 	padding-right: 2.375rem;
+}
+
+.hx-search-box:has(.hx-search-box-input-icon-start) .form-control {
+    padding-left: 2.375rem;
 }
 
 .dropdown-item:not(:active) ::deep .hx-search-box-item-title {

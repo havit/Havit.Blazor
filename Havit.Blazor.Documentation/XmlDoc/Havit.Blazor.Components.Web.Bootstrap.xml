@@ -5470,6 +5470,12 @@
             Hides the search icon when used!
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.SearchIconPlacement">
+            <summary>
+            Placement of the search icon.<br/>
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.SearchIconPlacement.End"/>.
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1._textQueryHasBeenBelowMinimumLength">
             <summary>
             Indicates whether the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
@@ -5577,6 +5583,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.ItemSelectionBehavior">
             <summary>
             The behavior when the item is selected.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SearchIconPlacement">
+            <summary>
+            Specifies the position of the search icon within the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">

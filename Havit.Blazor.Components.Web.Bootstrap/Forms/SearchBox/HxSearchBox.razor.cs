@@ -212,6 +212,11 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// Hides the search icon when used!
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+	/// <summary>
+	/// Placement of the search icon.<br/>
+	/// Default is <see cref="SearchIconPlacement.End"/>.
+	/// </summary>
+	[Parameter] public SearchIconPlacement SearchIconPlacement { get; set; } = SearchIconPlacement.End;
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
