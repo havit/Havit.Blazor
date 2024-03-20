@@ -67,9 +67,10 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 	protected bool HasEndInputGroupEffective => !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupEndTemplate is not null);
+	protected bool HasStartInputGroupEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || (InputGroupStartTemplate is not null);
 
 	protected bool RenderPredefinedDates => ShowPredefinedDatesEffective && (PredefinedDatesEffective != null) && PredefinedDatesEffective.Any();
-	protected bool RenderIcon => CalendarIconEffective is not null && !HasInputGroupsEffective;
+	protected bool HasCalendarIcon => CalendarIconEffective is not null;
 
 	protected DateTime GetCalendarDisplayMonthEffective => GetDateTimeFromValue(CurrentValue) ?? CalendarDisplayMonth;
 
@@ -158,7 +159,7 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 		await base.OnAfterRenderAsync(firstRender);
 
-		if (RenderIcon)
+		if (HasCalendarIcon)
 		{
 			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDate));
 			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _hxDropdownToggleElement.ElementReference, (CalendarIconEffective is not null) ? _iconWrapperElement : null);
