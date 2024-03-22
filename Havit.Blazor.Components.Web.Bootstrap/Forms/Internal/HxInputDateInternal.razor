@@ -39,7 +39,6 @@
 									 onfocus="this.select();"
 									 @attributes="AdditionalAttributes" />
 
-
 			@if (LabelTypeEffective == LabelType.Floating)
 			{
 				<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
@@ -77,7 +76,7 @@
 
 		@if (InputGroupEndText is not null)
 		{
-			<span class="@CssClassHelper.Combine("input-group-text", RenderPredefinedDates ? null : " rounded-end")">@InputGroupEndText</span>
+			<span class="input-group-text">@InputGroupEndText</span>
 		}
 	</div>
 }
