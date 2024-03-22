@@ -5,23 +5,25 @@
 @if (FieldIdentifier.Model != null)
 {
 	<div class="@CssClassHelper.Combine(
-		            "hx-input-date-wrapper input-group",
+		            "hx-input-date-wrapper",
 		            ((IInputWithSize)this).GetInputGroupSizeCssClass(),
 		            InputSizeEffective.AsInputGroupCssClass(),
-		            (ShowPredefinedDatesEffective && (PredefinedDatesEffective?.Any() ?? false)) ? "hx-input-date-predefined-dates" : null,
+					HasInputGroupsEffective ? "input-group" : null,
+					HasEndInputGroupEffective ? "input-group-end" : null,
+					HasStartInputGroupEffective ? "input-group-start" : null,
 		            (CalendarIconEffective is not null) ? "hx-input-date-has-calendar-icon" : null)">
+		@if (InputGroupStartText is not null)
+		{
+			<span class="input-group-text">@InputGroupStartText</span>
+		}
+
+		@InputGroupStartTemplate
 		<HxDropdown CssClass="@CssClassHelper.Combine(
 					     "hx-input-date",
 					     (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null,
 					     InputGroupCssClass)"
 					AutoClose="DropdownAutoClose.Outside">
 
-			@if (InputGroupStartText is not null)
-			{
-				<span class="input-group-text">@InputGroupStartText</span>
-			}
-
-			@InputGroupStartTemplate
 
 			<HxDropdownToggleElement @ref="_hxDropdownToggleElement"
 									 ElementName="input"
@@ -37,12 +39,6 @@
 									 onfocus="this.select();"
 									 @attributes="AdditionalAttributes" />
 
-			@InputGroupEndTemplate
-
-			@if (InputGroupEndText is not null)
-			{
-				<span class="@CssClassHelper.Combine("input-group-text", RenderPredefinedDates ? null : " rounded-end")">@InputGroupEndText</span>
-			}
 
 			@if (LabelTypeEffective == LabelType.Floating)
 			{
@@ -70,12 +66,18 @@
 					</div>
 				}
 			</HxDropdownContent>
-			@if (RenderIcon)
+			@if (HasCalendarIcon)
 			{
 				<div @ref="_iconWrapperElement" class="hx-input-date-icon">
 					<HxIcon Icon="CalendarIconEffective" />
 				</div>
 			}
 		</HxDropdown>
+		@InputGroupEndTemplate
+
+		@if (InputGroupEndText is not null)
+		{
+			<span class="@CssClassHelper.Combine("input-group-text", RenderPredefinedDates ? null : " rounded-end")">@InputGroupEndText</span>
+		}
 	</div>
 }
