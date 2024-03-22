@@ -8,6 +8,7 @@
 		            "hx-input-date-wrapper",
 		            ((IInputWithSize)this).GetInputGroupSizeCssClass(),
 		            InputSizeEffective.AsInputGroupCssClass(),
+					InputGroupCssClass,
 					HasInputGroups ? "input-group" : null,
 					HasInputGroupEnd ? "input-group-end" : null,
 					HasInputGroupStart ? "input-group-start" : null,
@@ -20,8 +21,7 @@
 		@InputGroupStartTemplate
 		<HxDropdown CssClass="@CssClassHelper.Combine(
 					     "hx-input-date",
-					     (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null,
-					     InputGroupCssClass)"
+					     (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)"
 					AutoClose="DropdownAutoClose.Outside">
 
 
