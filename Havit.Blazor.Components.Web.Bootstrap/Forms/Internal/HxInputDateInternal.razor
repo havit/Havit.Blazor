@@ -8,9 +8,9 @@
 		            "hx-input-date-wrapper",
 		            ((IInputWithSize)this).GetInputGroupSizeCssClass(),
 		            InputSizeEffective.AsInputGroupCssClass(),
-					HasInputGroupsEffective ? "input-group" : null,
-					HasEndInputGroupEffective ? "input-group-end" : null,
-					HasStartInputGroupEffective ? "input-group-start" : null,
+					HasInputGroups ? "input-group" : null,
+					HasInputGroupEnd ? "input-group-end" : null,
+					HasInputGroupStart ? "input-group-start" : null,
 		            (CalendarIconEffective is not null) ? "hx-input-date-has-calendar-icon" : null)">
 		@if (InputGroupStartText is not null)
 		{

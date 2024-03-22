@@ -29,6 +29,8 @@
 		<HxButton Text="Button" Color="ThemeColor.Secondary" Outline="true" />
 	</InputGroupEndTemplate>
 	</HxInputDate>
+	<HxInputDate Label="HxInputDate (InputGroups, w/ CalendarIcon)" CalendarIcon="BootstrapIcon.Calendar" @bind-Value="@model.DateTime" InputGroupEndText="InputGroupEndText" />
+	<HxInputDate Label="HxInputDate (InputGroups, w/ CalendarIcon)" CalendarIcon="BootstrapIcon.Calendar" @bind-Value="@model.DateTime" InputGroupStartText="InputGroupStartText" />
 	<HxInputDate Label="HxInputDate (wo/ PredefinedDates, wo/ validation)" @bind-Value="@model.DateTime" ShowPredefinedDates="false" ValidationMessageMode="ValidationMessageMode.None" />
 	<HxInputDate Label="HxInputDate (custom PredefinedDates)" @bind-Value="@model.DateTime" PredefinedDates="@GetPredefinedDates()" />
 	<HxInputDate Label="HxInputDate (disabled)" @bind-Value="@model.DateTime" PredefinedDates="@GetPredefinedDates()" Enabled="false" />
