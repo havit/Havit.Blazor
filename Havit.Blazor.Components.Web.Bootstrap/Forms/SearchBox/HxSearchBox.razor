@@ -31,7 +31,7 @@
 									id="@_dropdownToggleElementId">
 
 
-				@if (SearchIconEffective is not null && SearchIconPlacement == SearchIconPlacement.Start)
+				@if ((SearchIconEffective is not null) && (SearchIconPlacementEffective == SearchBoxSearchIconPlacement.Start))
 				{
 					<div class="hx-search-box-input-icon hx-search-box-input-icon-start">
 						<HxIcon Icon="SearchIconEffective" />
@@ -51,7 +51,7 @@
 									(!HasInputGroupEnd && HasInputGroups ? "hx-search-box-input-with-search-icon" : null),
 									InputCssClassEffective)" />
 
-				@if (!string.IsNullOrEmpty(Label) && LabelType == LabelType.Floating)
+				@if (!string.IsNullOrEmpty(Label) && (LabelType == LabelType.Floating))
 				{
 					<label for="@_inputId">@Label</label>
 				}
@@ -68,7 +68,7 @@
 						<HxIcon Icon="ClearIconEffective" />
 					</div>
 				}
-				else if (SearchIconEffective is not null && SearchIconPlacement == SearchIconPlacement.End)
+				else if ((SearchIconEffective is not null) && (SearchIconPlacementEffective == SearchBoxSearchIconPlacement.End))
 				{
 					<div class="hx-search-box-input-icon hx-search-box-input-icon-end">
 						<HxIcon Icon="SearchIconEffective" />

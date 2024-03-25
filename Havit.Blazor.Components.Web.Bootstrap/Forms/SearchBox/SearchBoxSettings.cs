@@ -11,6 +11,11 @@ public class SearchBoxSettings
 	public IconBase SearchIcon { get; set; }
 
 	/// <summary>
+	/// Placement of the search icon.<br/>
+	/// </summary>
+	public SearchBoxSearchIconPlacement? SearchIconPlacement { get; set; }
+
+	/// <summary>
 	/// Icon displayed in the input on the selection clear button when an item is selected.
 	/// </summary>
 	public IconBase ClearIcon { get; set; }
