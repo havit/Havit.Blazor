@@ -7,50 +7,56 @@
 	{
 		<label class="form-label">@Label</label>
 	}
-	<HxDropdown AutoClose="DropdownAutoClose.Outside">
-		<HxDropdownToggleElement @ref="_dropdownToggle"
-								 ElementName="div"
-								 CssClass="@CssClassHelper.Combine(
-												"position-relative",
-												(HasInputGroups ? "input-group" : null),
-												(LabelType == LabelType.Floating) ? "form-floating" : null,
-												InputSizeEffective.AsInputGroupCssClass(),
-												(_initialized || DefaultContentTemplate is not null ? null : "disabled"),
-												InputGroupCssClass)"
-								 DropdownOffset="@DropdownOffset"
-								 OnShown="HandleDropdownMenuShown"
-								 OnHidden="HandleDropdownMenuHidden"
-								 id="@_dropdownToggleElementId">
 
-			@if (InputGroupStartText is not null)
-			{
-				<span class="input-group-text">@InputGroupStartText</span>
-			}
+	<div class="@CssClassHelper.Combine(HasInputGroups ? "input-group" : null, 					
+										HasInputGroupEnd ? "input-group-end" : null,
+ 										HasInputGroupStart ? "input-group-start" : null)">
+		@if (InputGroupStartText is not null)
+		{
+			<span class="input-group-text">@InputGroupStartText</span>
+		}
 
-			@InputGroupStartTemplate
+		@InputGroupStartTemplate
+		<HxDropdown AutoClose="DropdownAutoClose.Outside">
+			<HxDropdownToggleElement @ref="_dropdownToggle"
+									ElementName="div"
+									CssClass="@CssClassHelper.Combine(
+													"position-relative",
+													(LabelType == LabelType.Floating) ? "form-floating" : null,
+													InputSizeEffective.AsInputGroupCssClass(),
+													(_initialized || DefaultContentTemplate is not null ? null : "disabled"))"
+									DropdownOffset="@DropdownOffset"
+									OnShown="HandleDropdownMenuShown"
+									OnHidden="HandleDropdownMenuHidden"
+									id="@_dropdownToggleElementId">
 
-			<input id="@_inputId"
-				   value="@TextQuery"
-				   @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
-				   @onfocus="HandleInputFocus"
-				   @onblur="HandleInputBlur"
-				   inputmode="search"
-				   enabled="@Enabled"
-				   placeholder="@(LabelType == LabelType.Floating ? "placeholder" : Placeholder)"
-				   class="@CssClassHelper.Combine(
-								"form-control",
-								(!HasInputGroupEnd && HasInputGroups ? "hx-search-box-input-with-search-icon" : null),
-								(HasClearButton ? "hx-search-box-input-with-clear-icon" : null),
-								InputCssClassEffective)" />
 
-			@if (!string.IsNullOrEmpty(Label) && LabelType == LabelType.Floating)
-			{
-				<label for="@_inputId">@Label</label>
-			}
+				@if ((SearchIconEffective is not null) && (SearchIconPlacementEffective == SearchBoxSearchIconPlacement.Start))
+				{
+					<div class="hx-search-box-input-icon hx-search-box-input-icon-start">
+						<HxIcon Icon="SearchIconEffective" />
+					</div>
+				}
 
-			@if (!HasInputGroupEnd)
-			{
-				if (_dataProviderInProgress)
+				<input id="@_inputId"
+					value="@TextQuery"
+					@oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
+					@onfocus="HandleInputFocus"
+					@onblur="HandleInputBlur"
+					inputmode="search"
+					enabled="@Enabled"
+					placeholder="@(LabelType == LabelType.Floating ? "placeholder" : Placeholder)"
+					class="@CssClassHelper.Combine(
+									"form-control",
+									(!HasInputGroupEnd && HasInputGroups ? "hx-search-box-input-with-search-icon" : null),
+									InputCssClassEffective)" />
+
+				@if (!string.IsNullOrEmpty(Label) && (LabelType == LabelType.Floating))
+				{
+					<label for="@_inputId">@Label</label>
+				}
+
+				@if (_dataProviderInProgress)
 				{
 					<div class="hx-search-box-input-icon hx-search-box-input-icon-end">
 						<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -62,79 +68,79 @@
 						<HxIcon Icon="ClearIconEffective" />
 					</div>
 				}
-				else if (SearchIconEffective is not null)
+				else if ((SearchIconEffective is not null) && (SearchIconPlacementEffective == SearchBoxSearchIconPlacement.End))
 				{
 					<div class="hx-search-box-input-icon hx-search-box-input-icon-end">
 						<HxIcon Icon="SearchIconEffective" />
 					</div>
 				}
-			}
+			</HxDropdownToggleElement>
 
-			@InputGroupEndTemplate
-
-			@if (InputGroupEndText is not null)
-			{
-				<span class="input-group-text">@InputGroupEndText</span>
-			}
-		</HxDropdownToggleElement>
-
-		<HxDropdownMenu>
-			@if ((_searchResults.Count > 0) && ((TextQuery?.Length ?? 0) >= MinimumLengthEffective))
-			{
-				@for (int i = 0; i < _searchResults.Count; i++)
+			<HxDropdownMenu>
+				@if ((_searchResults.Count > 0) && ((TextQuery?.Length ?? 0) >= MinimumLengthEffective))
 				{
-					var item = _searchResults[i];
+					@for (int i = 0; i < _searchResults.Count; i++)
+					{
+						var item = _searchResults[i];
 
-					string title = ItemTitleSelector?.Invoke(item) ?? null;
-					string subtitle = ItemSubtitleSelector?.Invoke(item) ?? null;
-					IconBase icon = ItemIconSelector?.Invoke(item) ?? null;
+						string title = ItemTitleSelector?.Invoke(item) ?? null;
+						string subtitle = ItemSubtitleSelector?.Invoke(item) ?? null;
+						IconBase icon = ItemIconSelector?.Invoke(item) ?? null;
 
+						<li class="overflow-hidden">
+							<button type="button"
+									tabindex="-1"
+									class="@CssClassHelper.Combine("dropdown-item", _focusedItemIndex == i ? "hx-dropdown-item-focused" : null, ItemCssClassEffective)"
+									@onclick="() => HandleItemSelected(item)">
+
+								@if (ItemTemplate is null)
+								{
+									<HxSearchBoxItemInternal Title="@title" Subtitle="@subtitle" Icon="@icon" />
+								}
+								else
+								{
+									@ItemTemplate(item)
+								}
+							</button>
+						</li>
+					}
+				}
+				else if ((TextQuery is not null) && ((TextQuery?.Length ?? 0) >= MinimumLengthEffective))
+				{
+					@NotFoundTemplate
+				}
+				else
+				{
+					@DefaultContentTemplate
+				}
+
+				@if (AllowTextQuery && (TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
+				{
 					<li class="overflow-hidden">
 						<button type="button"
 								tabindex="-1"
-								class="@CssClassHelper.Combine("dropdown-item", _focusedItemIndex == i ? "hx-dropdown-item-focused" : null, ItemCssClassEffective)"
-								@onclick="() => HandleItemSelected(item)">
+								class="@CssClassHelper.Combine("dropdown-item", HasFreeTextItemFocus() ? "hx-dropdown-item-focused" : null, ItemCssClassEffective)"
+								@onclick="HandleTextQueryTriggered">
 
-							@if (ItemTemplate is null)
+							@if (TextQueryItemTemplate is null)
 							{
-								<HxSearchBoxItemInternal Title="@title" Subtitle="@subtitle" Icon="@icon" />
+								<HxSearchBoxItemInternal Title="@TextQuery" Icon="@SearchIconEffective" />
 							}
 							else
 							{
-								@ItemTemplate(item)
+								@TextQueryItemTemplate(TextQuery)
 							}
 						</button>
 					</li>
 				}
-			}
-			else if ((TextQuery is not null) && ((TextQuery?.Length ?? 0) >= MinimumLengthEffective))
-			{
-				@NotFoundTemplate
-			}
-			else
-			{
-				@DefaultContentTemplate
-			}
+			</HxDropdownMenu>
+		</HxDropdown>
 
-			@if (AllowTextQuery && (TextQuery is not null) && (TextQuery.Length >= MinimumLengthEffective))
-			{
-				<li class="overflow-hidden">
-					<button type="button"
-							tabindex="-1"
-							class="@CssClassHelper.Combine("dropdown-item", HasFreeTextItemFocus() ? "hx-dropdown-item-focused" : null, ItemCssClassEffective)"
-							@onclick="HandleTextQueryTriggered">
+		@InputGroupEndTemplate
 
-						@if (TextQueryItemTemplate is null)
-						{
-							<HxSearchBoxItemInternal Title="@TextQuery" Icon="@SearchIconEffective" />
-						}
-						else
-						{
-							@TextQueryItemTemplate(TextQuery)
-						}
-					</button>
-				</li>
-			}
-		</HxDropdownMenu>
-	</HxDropdown>
+		@if (InputGroupEndText is not null)
+		{
+			<span class="input-group-text">@InputGroupEndText</span>
+		}
+	</div>
 </div>

@@ -146,6 +146,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	protected IconBase SearchIconEffective => SearchIcon ?? GetSettings()?.SearchIcon ?? GetDefaults().SearchIcon;
 
 	/// <summary>
+	/// Placement of the search icon.<br/>
+	/// Default is <see cref="SearchBoxSearchIconPlacement.End"/>.
+	/// </summary>
+	[Parameter] public SearchBoxSearchIconPlacement? SearchIconPlacement { get; set; }
+	protected SearchBoxSearchIconPlacement SearchIconPlacementEffective => SearchIconPlacement ?? GetSettings()?.SearchIconPlacement ?? GetDefaults().SearchIconPlacement ?? throw new InvalidOperationException(nameof(SearchIconPlacement) + " default for " + nameof(HxSearchBox) + " has to be set.");
+
+	/// <summary>
 	/// Icon of the input, displayed when text is entered, allowing the user to clear the text.
 	/// </summary>
 	[Parameter] public IconBase ClearIcon { get; set; }

@@ -1,7 +1,9 @@
-﻿::deep .dropdown,
-::deep div[data-bs-toggle="dropdown"],
+﻿::deep .dropdown {
+    flex-grow: 1;
+}
+
 ::deep .dropdown-menu {
-	width: 100%; /* override for current .btn-group, see issue #117 */
+    width: 100%; /* override for current .btn-group, see issue #117 */
 }
 
 ::deep .hx-search-box-input-icon {
@@ -10,20 +12,23 @@
     transform: translateY(-50%);
     display: flex;
     align-items: center;
-    z-index: 10;
+    z-index: 5;
 }
 
 ::deep .hx-search-box-input-icon-end {
     right: .75rem;
 }
 
-::deep .hx-search-box-input-with-search-icon {
-	border-top-right-radius: 0.375rem !important;
-	border-bottom-right-radius: 0.375rem !important;
+::deep .hx-search-box-input-icon-start {
+    left: .75rem;
 }
 
-::deep .hx-search-box-input-with-clear-icon {
+.form-control {
 	padding-right: 2.375rem;
+}
+
+.hx-search-box:has(.hx-search-box-input-icon-start) .form-control {
+    padding-left: 2.375rem;
 }
 
 .dropdown-item:not(:active) ::deep .hx-search-box-item-title {
@@ -41,4 +46,18 @@
 ::deep .dropdown-menu {
     overflow: auto;
     max-height: var(--hx-search-box-dropdown-menu-height);
+}
+
+.input-group-start ::deep .form-control {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group-end ::deep .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+::deep .dropdown:focus-within {
+    z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be larger than 5 because otherwise the validation message is rendered on top. */
 }
