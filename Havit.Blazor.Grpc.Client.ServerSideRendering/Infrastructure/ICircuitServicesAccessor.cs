@@ -1,5 +1,4 @@
-﻿
-namespace Havit.Blazor.Grpc.Client.Circuits.Infrastructure;
+﻿namespace Havit.Blazor.Grpc.Client.ServerSideRendering.Infrastructure;
 
 public interface ICircuitServicesAccessor
 {

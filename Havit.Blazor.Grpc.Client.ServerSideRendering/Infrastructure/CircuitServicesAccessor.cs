@@ -1,4 +1,4 @@
-﻿namespace Havit.Blazor.Grpc.Client.Circuits.Infrastructure;
+﻿namespace Havit.Blazor.Grpc.Client.ServerSideRendering.Infrastructure;
 
 /// <summary>
 /// https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/dependency-injection?view=aspnetcore-8.0#access-server-side-blazor-services-from-a-different-di-scope

@@ -63,7 +63,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.Core.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap.Smart", "Havit.Blazor.Components.Web.Bootstrap.Smart\Havit.Blazor.Components.Web.Bootstrap.Smart.csproj", "{DC8FA7BF-2687-43BE-A310-CA9D89652AE6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.Client.Circuits", "Havit.Blazor.Grpc.Client.Circuits\Havit.Blazor.Grpc.Client.Circuits.csproj", "{F6A546C8-60C3-47AC-A58B-66E3513DCC7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.Client.ServerSideRendering", "Havit.Blazor.Grpc.Client.ServerSideRendering\Havit.Blazor.Grpc.Client.ServerSideRendering.csproj", "{F6A546C8-60C3-47AC-A58B-66E3513DCC7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

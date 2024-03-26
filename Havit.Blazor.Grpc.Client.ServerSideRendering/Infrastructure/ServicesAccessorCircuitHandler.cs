@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Server.Circuits;
 
-namespace Havit.Blazor.Grpc.Client.Circuits.Infrastructure;
+namespace Havit.Blazor.Grpc.Client.ServerSideRendering.Infrastructure;
 
 public class ServicesAccessorCircuitHandler(
 	IServiceProvider services,
