@@ -12,7 +12,7 @@ public static class GrpcClientSsrServicesServiceCollectionExtensions
 	{
 		services.AddScoped<ICircuitServicesAccessor, CircuitServicesAccessor>();
 		services.AddScoped<CircuitHandler, ServicesAccessorCircuitHandler>();
-		services.AddScoped<INavigationManagerAccessor, ServerSideRenderingNavigationManagerAccessor>();
+		services.AddScoped<IGrpcClientClientUriResolver, ServerSideRenderingGrpcClientClientUriResolver>();
 
 		return services;
 	}

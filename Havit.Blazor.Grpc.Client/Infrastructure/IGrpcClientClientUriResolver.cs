@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Grpc.Client.Infrastructure;
-public interface INavigationManagerAccessor
+
+public interface IGrpcClientClientUriResolver
 {
-	NavigationManager NavigationManager { get; }
+	string GetCurrentClientUri();
 }
