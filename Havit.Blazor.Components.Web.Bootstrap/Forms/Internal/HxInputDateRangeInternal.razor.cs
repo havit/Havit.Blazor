@@ -36,6 +36,8 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	[Parameter] public TimeProvider TimeProviderEffective { get; set; }
 
+	[Parameter] public IconBase CalendarIconEffective { get; set; }
+
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
 	private DateTimeRange _previousValue;
@@ -48,6 +50,8 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 	private FieldIdentifier _fromFieldIdentifier;
 	private FieldIdentifier _toFieldIdentifier;
 	private string[] _validationFieldNames;
+	private ElementReference _fromIconWrapperElement;
+	private ElementReference _toIconWrapperElement;
 
 	private HxDropdownToggleElement _fromDropdownToggleElement;
 	private HxDropdownToggleElement _toDropdownToggleElement;

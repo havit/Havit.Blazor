@@ -6,7 +6,7 @@
 	bool fromValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(_fromFieldIdentifier).Any();
 	bool toValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(_toFieldIdentifier).Any();
 
-	<div class="@CssClassHelper.Combine("hx-input-date-range", (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective?.Any() ?? false)) ? "hx-input-date-range-predefined-ranges" : null)">
+	<div class="@CssClassHelper.Combine("hx-input-date-range", (CalendarIconEffective is not null) ? "hx-input-date-has-calendar-icon" : null)">
 		<div class="input-group flex-nowrap">
 			<HxDropdown AutoClose="DropdownAutoClose.Outside">
 				@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
@@ -46,6 +46,12 @@
 						</div>
 					}
 				</HxDropdownContent>
+				@if (CalendarIconEffective is not null)
+				{
+					<div @ref="_fromIconWrapperElement" class="hx-input-date-icon">
+						<HxIcon Icon="CalendarIconEffective" />
+					</div>
+				}
 			</HxDropdown>
 
 			<HxDropdown AutoClose="DropdownAutoClose.Outside">
@@ -85,6 +91,12 @@
 						</div>
 					}
 				</HxDropdownContent>
+				@if (CalendarIconEffective is not null)
+				{
+					<div @ref="_toIconWrapperElement" class="hx-input-date-icon">
+						<HxIcon Icon="CalendarIconEffective" />
+					</div>
+				}
 			</HxDropdown>
 		</div>
 

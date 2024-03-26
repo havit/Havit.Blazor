@@ -5034,6 +5034,11 @@
             Input size.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.CalendarIcon">
+            <summary>
+            Optional icon to display within the input.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ShowClearButton">
             <summary>
             Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>

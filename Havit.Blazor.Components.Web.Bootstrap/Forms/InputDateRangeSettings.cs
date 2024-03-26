@@ -13,6 +13,11 @@ public record InputDateRangeSettings : InputSettings, IInputSettingsWithSize
 	public InputSize? InputSize { get; set; }
 
 	/// <summary>
+	/// Optional icon to display within the input.
+	/// </summary>
+	public IconBase CalendarIcon { get; set; }
+
+	/// <summary>
 	/// Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
 	/// </summary>
 	public bool? ShowClearButton { get; set; }
