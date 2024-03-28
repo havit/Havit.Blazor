@@ -36,7 +36,11 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	[Parameter] public TimeProvider TimeProviderEffective { get; set; }
 
+	[Parameter] public IconBase CalendarIconEffective { get; set; }
+
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
+
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	private DateTimeRange _previousValue;
 	private bool _fromPreviousParsingAttemptFailed;
@@ -48,11 +52,15 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 	private FieldIdentifier _fromFieldIdentifier;
 	private FieldIdentifier _toFieldIdentifier;
 	private string[] _validationFieldNames;
+	private ElementReference _fromIconWrapperElement;
+	private ElementReference _toIconWrapperElement;
 
 	private HxDropdownToggleElement _fromDropdownToggleElement;
 	private HxDropdownToggleElement _toDropdownToggleElement;
 
 	private DateTime GetFromCalendarDisplayMonthEffective => CurrentValue.StartDate ?? FromCalendarDisplayMonth;
+
+	private IJSObjectReference _jsModule;
 
 	private DateTime GetToCalendarDisplayMonthEffective
 	{
@@ -98,9 +106,18 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		}
 	}
 
-	protected override void OnAfterRender(bool firstRender)
+	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		_firstRenderCompleted = true;
+
+		await base.OnAfterRenderAsync(firstRender);
+
+		if (firstRender && (CalendarIconEffective is not null))
+		{
+			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDateRange));
+			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _fromDropdownToggleElement.ElementReference, (CalendarIconEffective is not null) ? _fromIconWrapperElement : null);
+			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _toDropdownToggleElement.ElementReference, (CalendarIconEffective is not null) ? _toIconWrapperElement : null);
+		}
 	}
 
 	protected override bool TryParseValueFromString(string value, out DateTimeRange result, out string validationErrorMessage)
