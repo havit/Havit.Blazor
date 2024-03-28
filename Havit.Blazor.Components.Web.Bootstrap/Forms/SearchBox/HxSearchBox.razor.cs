@@ -1,4 +1,5 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
+﻿using System.Diagnostics.CodeAnalysis;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
@@ -512,6 +513,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	}
 	#endregion KeyboardNavigation
 
+	[SuppressMessage("Usage", "VSTHRD100:Avoid async void methods", Justification = "Required by Timer")]
 	private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
 	{
 		// when a time interval reached, update suggestions

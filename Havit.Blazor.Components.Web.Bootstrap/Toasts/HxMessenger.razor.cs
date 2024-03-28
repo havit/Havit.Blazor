@@ -29,7 +29,7 @@ public partial class HxMessenger : ComponentBase, IDisposable
 
 	private void HandleMessage(MessengerMessage message)
 	{
-		InvokeAsync(() =>
+		_ = InvokeAsync(() =>
 		{
 			_messages.Add(message);
 
@@ -39,7 +39,7 @@ public partial class HxMessenger : ComponentBase, IDisposable
 
 	private void HandleClear()
 	{
-		InvokeAsync(() =>
+		_ = InvokeAsync(() =>
 		{
 			_messages.Clear();
 

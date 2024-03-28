@@ -5,10 +5,13 @@
 	  <!--<TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>-->
 	  <TargetFramework>net8.0</TargetFramework>
 	  <ImplicitUsings>enable</ImplicitUsings>
+	  <!--  VSTHRD003: Avoid awaiting or returning a Task representing work that was not started within your context as that can lead to deadlocks. -->
+	  <!--  VSTHRD200: Allow HandleXyClick methods (without Async) -> Suppress 'Use "Async" suffix in names of methods that return an awaitable type' -->
+	  <NoWarn>$(NoWarn);1701;1702;SA1134;VSTHRD003;VSTHRD200</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazored.FluentValidation" Version="2.1.0" />
+    <PackageReference Include="Blazored.FluentValidation" />
   </ItemGroup>
 
   <ItemGroup>

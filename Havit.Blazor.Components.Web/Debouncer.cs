@@ -20,7 +20,10 @@ public class Debouncer : IDisposable
 		{
 			if (_debounceCancellationTokenSource != null)
 			{
+#pragma warning disable VSTHRD103 // Call async methods when in an async method
+				// TODO Consider CancelAsync() for net8+
 				_debounceCancellationTokenSource?.Cancel();
+#pragma warning restore VSTHRD103 // Call async methods when in an async method
 				_debounceCancellationTokenSource?.Dispose();
 			}
 

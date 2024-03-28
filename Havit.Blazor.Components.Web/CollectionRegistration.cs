@@ -31,7 +31,10 @@ public class CollectionRegistration<TItem>(
 	{
 		_collection.Add(item);
 		_itemAddedCallback?.Invoke(item);
+#pragma warning disable VSTHRD110 // Observe result of async calls
+		// TODO: Consider redesign
 		_stateHasChangedAction?.Invoke();
+#pragma warning restore VSTHRD110 // Observe result of async calls
 	}
 
 	/// <summary>

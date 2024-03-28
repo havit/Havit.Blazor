@@ -85,6 +85,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
 
+#pragma warning disable BL0007 // Component parameter 'Havit.Blazor.Components.Web.Bootstrap.HxInputNumber<TValue>.Decimals' should be auto property
 	/// <summary>
 	/// Gets or sets the number of decimal digits.
 	/// Can be used only for floating point types, for integer types throws exception (for values other than 0).
@@ -99,6 +100,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		}
 		set
 		{
+			// TODO Move validation to OnParametersSet
 			if ((value != 0) && IsTValueIntegerType)
 			{
 				throw new InvalidOperationException($"{nameof(Decimals)} can be set only on floating point types (not on integer types).");
@@ -107,6 +109,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		}
 	}
 	private int? _decimals;
+#pragma warning restore BL0007 // Component parameter 'Havit.Blazor.Components.Web.Bootstrap.HxInputNumber<TValue>.Decimals' should be auto property
 
 	/// <summary>
 	/// Gets effective value for Decimals (when not set gets 0 for integer types and 2 for floating point types.

@@ -6,10 +6,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.3" />
-		<PackageReference Include="SmartComponents.AspNetCore" Version="0.1.0-preview10141" />
-		<PackageReference Include="SmartComponents.Inference.OpenAI" Version="0.1.0-preview10141" />
-		<PackageReference Include="SmartComponents.LocalEmbeddings" Version="0.1.0-preview10141" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
+		<PackageReference Include="SmartComponents.AspNetCore" />
+		<PackageReference Include="SmartComponents.Inference.OpenAI" />
+		<PackageReference Include="SmartComponents.LocalEmbeddings" />
 	</ItemGroup>
 
 	<ItemGroup>

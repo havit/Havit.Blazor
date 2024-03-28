@@ -14,7 +14,7 @@ public class FileUploadControllerDemo : ControllerBase
 	// https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/
 	[HttpPost("/file-upload-streamed/")]
 	[DisableFormValueModelBinding]
-	public async Task<IActionResult> UploadStreamedFile(CancellationToken cancellationToken)
+	public async Task<IActionResult> UploadStreamedFileAsync(CancellationToken cancellationToken)
 	{
 		if (!IsMultipartContentType(Request.ContentType))
 		{

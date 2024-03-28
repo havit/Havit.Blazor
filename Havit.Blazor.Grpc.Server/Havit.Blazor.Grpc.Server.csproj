@@ -16,11 +16,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Grpc.AspNetCore.Web" Version="2.61.0" />
-		<PackageReference Include="Havit.AspNetCore" Version="2.0.12" />
-		<PackageReference Include="Havit.Core" Version="2.0.29" />
-		<PackageReference Include="protobuf-net" Version="3.2.30" />
-		<PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.1.1" />
+		<PackageReference Include="Grpc.AspNetCore.Web" />
+		<PackageReference Include="Havit.AspNetCore" />
+		<PackageReference Include="Havit.Core" />
+		<PackageReference Include="protobuf-net" />
+		<PackageReference Include="protobuf-net.Grpc.AspNetCore" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -19,6 +19,7 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	/// </summary>
 	[Parameter] public bool Visible { get; set; } = true;
 
+#pragma warning disable BL0007 // Component parameter 'Havit.Blazor.Components.Web.Bootstrap.HxGridColumn<TItem>.Order' should be auto property
 	/// <summary>
 	/// The order (display index) of the column.
 	/// Columns are displayed in the order of this property.
@@ -31,6 +32,7 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 		get => _order;
 		set
 		{
+			// TODO Move validation to OnParametersSet
 			// This is to ensure MultiSelectGridColumn is always displayed as the first column.
 			// MultiSelectGridColumn uses Int32.MinValue and we do not want to enable column to have the same value.
 			Contract.Requires<ArgumentException>(value != Int32.MinValue);
@@ -39,6 +41,7 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 		}
 	}
 	private int _order = 0;
+#pragma warning restore BL0007 // Component parameter 'Havit.Blazor.Components.Web.Bootstrap.HxGridColumn<TItem>.Order' should be auto property
 
 	#region Header properties
 	/// <summary>

@@ -36,7 +36,9 @@ public class ServerExceptionsGrpcClientInterceptor : Interceptor
 	{
 		try
 		{
+#pragma warning disable VSTHRD003 // Avoid awaiting foreign Tasks
 			return await responseTask;
+#pragma warning restore VSTHRD003 // Avoid awaiting foreign Tasks
 		}
 		catch (RpcException e) when (e.Status.StatusCode == StatusCode.FailedPrecondition)
 		{

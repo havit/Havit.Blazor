@@ -5,6 +5,7 @@
 /// </summary>
 public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 {
+#pragma warning disable BL0007 // Component parameter 'Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn<TItem>.Order' should be auto property
 	/// <summary>
 	/// The order (display index) of the column.
 	/// Columns are displayed in the order of this property.
@@ -17,6 +18,7 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 		get => _order;
 		set
 		{
+			// TODO Move validation to OnParametersSet
 			// This is to ensure MultiSelectGridColumn is always displayed as the first column.
 			// MultiSelectGridColumn uses Int32.MinValue and we do not want to enable columns to have the same value.
 			Contract.Requires<ArgumentException>(value != Int32.MinValue);
@@ -25,6 +27,7 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 		}
 	}
 	private int _order = 0;
+#pragma warning restore BL0007 // Component parameter 'Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn<TItem>.Order' should be auto property
 
 	/// <summary>
 	/// Returns the item CSS class (not dependent on data).

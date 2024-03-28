@@ -66,7 +66,7 @@ public class HxAnchorFragmentNavigation : ComponentBase, IAsyncDisposable
 			|| ((Automation == AnchorFragmentNavigationAutomationMode.SamePage)
 						&& (NavigationManager.ToAbsoluteUri(_lastKnownLocation).PathAndQuery == NavigationManager.ToAbsoluteUri(args.Location).PathAndQuery)))
 		{
-			InvokeAsync(() =>
+			_ = InvokeAsync(() =>
 			{
 				_registerForScrollToCurrentUriFragmentAsyncOnAfterRender = true;
 				StateHasChanged();

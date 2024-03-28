@@ -617,7 +617,10 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	{
 		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
+#pragma warning disable VSTHRD103 // Call async methods when in an async method
+		// TODO Consider CancelAsync method for net8.0+
 		_paginationRefreshDataCancellationTokenSource?.Cancel();
+#pragma warning restore VSTHRD103 // Call async methods when in an async method
 		_paginationRefreshDataCancellationTokenSource?.Dispose();
 		_paginationRefreshDataCancellationTokenSource = new CancellationTokenSource();
 		CancellationToken cancellationToken = _paginationRefreshDataCancellationTokenSource.Token;

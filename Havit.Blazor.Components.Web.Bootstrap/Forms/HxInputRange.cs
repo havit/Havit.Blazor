@@ -86,7 +86,10 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 		builder.AddAttribute(3, "type", "range");
 
 		builder.AddAttribute(4, "value", BindConverter.FormatValue(Value));
+#pragma warning disable VSTHRD101 // Avoid unsupported async delegates
+		// TODO VSTHRD101 via RuntimeHelpers.CreateInferredBindSetter?
 		builder.AddAttribute(5, BindEventEffective.ToEventName(), EventCallback.Factory.CreateBinder(this, async value => await HandleValueChanged(value), Value));
+#pragma warning restore VSTHRD101 // Avoid unsupported async delegates
 #if NET8_0_OR_GREATER
 		builder.SetUpdatesAttributeName("value");
 #endif

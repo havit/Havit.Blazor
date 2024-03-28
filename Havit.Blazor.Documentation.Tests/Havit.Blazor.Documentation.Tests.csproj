@@ -9,8 +9,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="bunit.web" Version="1.27.17" />
-		<PackageReference Include="MSTest" Version="3.2.2" />
+		<PackageReference Include="bunit.web" />
+		<PackageReference Include="MSTest" />
 	</ItemGroup>
 
 	<ItemGroup>

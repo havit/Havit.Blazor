@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
@@ -192,7 +193,10 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		_userInputModified = true;
 
 		_timer?.Stop(); // if waiting for an interval, stop it
+#pragma warning disable VSTHRD103 // Call async methods when in an async method
+		// TODO Consider CancelAsync() for net8+
 		_cancellationTokenSource?.Cancel(); // if already loading data, cancel it
+#pragma warning restore VSTHRD103 // Call async methods when in an async method
 		_dataProviderInProgress = false; // data provider is no more in progress
 
 		// start new time interval
@@ -222,6 +226,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		}
 	}
 
+	[SuppressMessage("Usage", "VSTHRD100:Avoid async void methods", Justification = "Required for Timer")]
 	private async void HandleTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
 	{
 		// when a time interval reached, update suggestions
