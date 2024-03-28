@@ -159,7 +159,8 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 		await base.OnAfterRenderAsync(firstRender);
 
-		if (HasCalendarIcon)
+		Console.WriteLine("OnAfterRenderAsync");
+		if (firstRender && HasCalendarIcon)
 		{
 			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDate));
 			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _hxDropdownToggleElement.ElementReference, (CalendarIconEffective is not null) ? _iconWrapperElement : null);
