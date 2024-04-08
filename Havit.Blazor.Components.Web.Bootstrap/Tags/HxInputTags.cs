@@ -221,4 +221,10 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	{
 		builder.AddContent(0, String.Join(", ", Value));
 	}
+
+	/// <inheritdoc />
+	protected override List<string> GetChipRemoveValue()
+	{
+		return new List<string>();
+	}
 }

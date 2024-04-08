@@ -9590,6 +9590,9 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.RenderChipValue(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.GetChipRemoveValue">
+            <inheritdoc />
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTagsDataProviderDelegate">
             <summary>
             Data provider (delegate) for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags" />.
