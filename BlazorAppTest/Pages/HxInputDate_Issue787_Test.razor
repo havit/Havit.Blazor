@@ -1,0 +1,37 @@
+﻿@page "/HxInputDate_Issue787_Test"
+@using Havit;
+
+<h1>HxInputDate[Range]</h1>
+
+<EditForm EditContext="editContext">
+	<HxInputDate CssClass="col-3" Label="Date" @bind-Value="model.BirthDate" />
+	<HxInputDateRange CssClass="col-3" Label="DateRange" @bind-Value="model.DateRange" />
+</EditForm>
+
+<p>OnFieldChanged counter: @counter</p>
+
+@code {
+
+    int counter;
+    private Person model;
+    private EditContext editContext;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        model = new Person();
+        editContext = new EditContext(model);
+        editContext.OnFieldChanged += HandleFieldChanged;
+    }
+
+    private void HandleFieldChanged(object sender, EventArgs eventArgs)
+    {
+        counter += 1;
+    }
+
+	public class Person
+	{
+		public DateTime BirthDate { get; set; }
+		public DateTimeRange DateRange { get; set; }
+	}
+}
