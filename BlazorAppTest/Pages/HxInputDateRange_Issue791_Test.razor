@@ -1,0 +1,19 @@
+﻿@page "/HxInputDateRange_Issue791_Test"
+@using Havit
+
+<h3>HxInputDateRange_Issue791_Test</h3>
+
+<HxInputDateRange Label="HxInputDateRange" @bind-Value="_value" @ref="_component" />
+
+@code {
+	private DateTimeRange _value;
+	private HxInputDateRange _component;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await _component.FocusAsync();
+		}
+	}
+}

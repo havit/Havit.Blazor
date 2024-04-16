@@ -120,6 +120,11 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		}
 	}
 
+	public async ValueTask FocusAsync()
+	{
+		await _fromDropdownToggleElement.ElementReference.FocusAsync();
+	}
+
 	protected override bool TryParseValueFromString(string value, out DateTimeRange result, out string validationErrorMessage)
 	{
 		throw new NotSupportedException();

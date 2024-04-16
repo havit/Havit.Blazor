@@ -143,6 +143,11 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	[Parameter] public DateTime CalendarDisplayMonth { get; set; }
 
 	[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
+
+
+	private HxInputDateInternal<TValue> _hxInputDateInternalComponent;
+
+
 	public HxInputDate()
 	{
 		Type underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
@@ -193,8 +198,19 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 		builder.AddAttribute(219, nameof(HxInputDateInternal<TValue>.CalendarDisplayMonth), CalendarDisplayMonth);
 
 		builder.AddMultipleAttributes(300, AdditionalAttributes);
+		builder.AddComponentReferenceCapture(301, (__value) => _hxInputDateInternalComponent = (HxInputDateInternal<TValue>)__value);
 
 		builder.CloseComponent();
+	}
+
+	public override ValueTask FocusAsync()
+	{
+		if (_hxInputDateInternalComponent is null)
+		{
+			throw new InvalidOperationException($"Unable to focus {nameof(HxInputDate)}, component reference not available (You are most likely calling the method too early, first render has to complete first.)");
+		}
+
+		return _hxInputDateInternalComponent.FocusAsync();
 	}
 
 	// For generating chips

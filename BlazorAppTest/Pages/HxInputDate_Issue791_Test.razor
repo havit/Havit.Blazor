@@ -1,0 +1,18 @@
+﻿@page "/HxInputDate_Issue791_Test"
+
+<h3>HxInputDate_Issue791_Test</h3>
+
+<HxInputDate Label="HxInputDate" @bind-Value="_value" @ref="_component" />
+
+@code {
+	private DateTime _value;
+	private HxInputDate<DateTime> _component;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await _component.FocusAsync();
+		}
+	}
+}

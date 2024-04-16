@@ -132,6 +132,9 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 
 	[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
+
+	private HxInputDateRangeInternal _hxInputDateRangeInternalComponent;
+
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
 		RenderWithAutoCreatedEditContextAsCascadingValue(builder, 0, BuildRenderInputCore);
@@ -164,8 +167,19 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 		builder.AddAttribute(221, nameof(HxInputDateRangeInternal.TimeProviderEffective), TimeProviderEffective);
 
 		builder.AddMultipleAttributes(300, AdditionalAttributes);
+		builder.AddComponentReferenceCapture(400, (__value) => _hxInputDateRangeInternalComponent = (HxInputDateRangeInternal)__value);
 
 		builder.CloseComponent();
+	}
+
+	public override ValueTask FocusAsync()
+	{
+		if (_hxInputDateRangeInternalComponent is null)
+		{
+			throw new InvalidOperationException($"Unable to focus {nameof(HxInputDateRange)}, component reference not available (You are most likely calling the method too early, first render has to complete first.)");
+		}
+
+		return _hxInputDateRangeInternalComponent.FocusAsync();
 	}
 
 	protected override void BuildRenderValidationMessage(RenderTreeBuilder builder)
