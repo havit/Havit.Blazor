@@ -264,6 +264,7 @@ public partial class HxOffcanvas : IAsyncDisposable
 	[JSInvokable("HxOffcanvas_HandleOffcanvasShown")]
 	public async Task HandleOffcanvasShown()
 	{
+		_opened = true;
 		await InvokeOnShownAsync();
 	}
 
@@ -312,25 +313,9 @@ public partial class HxOffcanvas : IAsyncDisposable
 
 		if (_jsModule != null)
 		{
-			// We need to remove backdrop when leaving "page" when HxOffcanvas is shown (opened).
-			if (_opened)
-			{
-				try
-				{
-					await _jsModule.InvokeVoidAsync("dispose", _offcanvasElement);
-				}
-				catch (JSDisconnectedException)
-				{
-					// NOOP
-				}
-				catch (TaskCanceledException)
-				{
-					// NOOP
-				}
-			}
-
 			try
 			{
+				await _jsModule.InvokeVoidAsync("dispose", _offcanvasElement, _opened);
 				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)

@@ -42,16 +42,20 @@ function handleOffcanvasShown(event) {
 function handleOffcanvasHidden(event) {
 	event.target.hxOffcanvasHiding = false;
 
+	if (event.target === window.offcanvasElement) {
+		window.offcanvasElement = null;
+	}
+
 	if (event.target.hxOffcanvasDisposing) {
 		// fix for #110 where the dispose() gets called while the offcanvas is still in hiding-transition
-		dispose(event.target);
+		dispose(event.target, false);
 		return;
 	}
 
 	event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasHidden');
 }
 
-export function dispose(element) {
+export function dispose(element, opened) {
 	if (!element) {
 		return;
 	}
@@ -60,6 +64,16 @@ export function dispose(element) {
 
 	if (element.hxOffcanvasHiding) {
 		// fix for #110 where the dispose() gets called while the offcanvas is still in hiding-transition
+		return;
+	}
+
+	if (opened) {
+		// #110 Scrolling not working when offcanvas is removed (even if disposed is called)
+		// Compensates https://github.com/twbs/bootstrap/issues/36397,
+		// where the o.dispose() does not reset the ScrollBarHelper() and the scrolling remains deactivated.
+		// The dispose() is re-called from hidden.bs.offcanvas event handler.
+		// Remove when the issue is fixed.
+		hide(element);
 		return;
 	}
 
