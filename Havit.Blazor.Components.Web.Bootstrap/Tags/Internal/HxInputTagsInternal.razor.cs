@@ -166,7 +166,7 @@ public partial class HxInputTagsInternal
 			return;
 		}
 
-		Value = Value.Except(new string[] { tag }).ToList();
+		Value = Value.Except([tag]).ToList();
 		await ValueChanged.InvokeAsync(Value);
 	}
 

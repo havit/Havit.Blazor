@@ -234,6 +234,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	private string _dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
 	private string _dropdownId = "hx" + Guid.NewGuid().ToString("N");
 	private string _inputId = "hx" + Guid.NewGuid().ToString("N");
+	private ElementReference _inputElementReference;
 	private List<TItem> _searchResults = new();
 	private HxDropdownToggleElement _dropdownToggle;
 	private bool _dropdownMenuActive = false;
@@ -285,6 +286,18 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 			_scrollToFocusedItem = false;
 			await _jsModule.InvokeVoidAsync("scrollToFocusedItem");
 		}
+	}
+
+	/// <summary>
+	/// Gives focus to the input element.
+	/// </summary>
+	public async Task FocusAsync()
+	{
+		if (EqualityComparer<ElementReference>.Default.Equals(_inputElementReference, default))
+		{
+			throw new InvalidOperationException($"Unable to focus {nameof(HxSearchBox)}. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
+		}
+		await _inputElementReference.FocusAsync();
 	}
 
 	protected async Task EnsureJsModule()

@@ -433,7 +433,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	{
 		if (EqualityComparer<ElementReference>.Default.Equals(InputElement, default))
 		{
-			throw new InvalidOperationException($"Unable to focus {GetType().Name}, {nameof(InputElement)} reference not available (You are most likely calling the method too early, first render has to complete first.)");
+			throw new InvalidOperationException($"Unable to focus {GetType().Name}, {nameof(InputElement)} reference not available.  You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 		await InputElement.FocusAsync();
 	}

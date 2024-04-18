@@ -1,0 +1,73 @@
+﻿@page "/HxSearchBox_Issue791_Test"
+
+<HxSearchBox @ref="_component"
+			 DataProvider="ProvideSearchResults"
+			 Label="Search"
+			 ItemTitleSelector="(i) => i.Title"
+			 ItemSubtitleSelector="(i) => i.Subtitle"
+			 ItemIconSelector="(i) => i.Icon"
+			 TItem="SearchBoxItem">
+	<DefaultContentTemplate>
+		<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+	</DefaultContentTemplate>
+</HxSearchBox>
+
+@code {
+	private HxSearchBox<SearchBoxItem> _component;
+
+	List<SearchBoxItem> Data { get; set; } = new()
+	{
+		new() { Title = "Table", Subtitle = "$5000", Icon = BootstrapIcon.Table },
+		new() { Title = "Mouse", Subtitle = "$40", Icon = BootstrapIcon.Mouse },
+		new() { Title = "Door", Subtitle = "$100", Icon = BootstrapIcon.DoorClosed },
+		new() { Title = "Table", Subtitle = "$5000", Icon = BootstrapIcon.Table },
+		new() { Title = "Mouse", Subtitle = "$40", Icon = BootstrapIcon.Mouse },
+		new() { Title = "Door", Subtitle = "$100", Icon = BootstrapIcon.DoorClosed },
+		new() { Title = "Table", Subtitle = "$5000", Icon = BootstrapIcon.Table },
+		new() { Title = "Mouse", Subtitle = "$40", Icon = BootstrapIcon.Mouse },
+		new() { Title = "Door", Subtitle = "$100", Icon = BootstrapIcon.DoorClosed },
+		new() { Title = "Table", Subtitle = "$5000", Icon = BootstrapIcon.Table },
+		new() { Title = "Mouse", Subtitle = "$40", Icon = BootstrapIcon.Mouse },
+		new() { Title = "Door", Subtitle = "$100", Icon = BootstrapIcon.DoorClosed },
+		new() { Title = "Table", Subtitle = "$5000", Icon = BootstrapIcon.Table },
+		new() { Title = "Mouse", Subtitle = "$40", Icon = BootstrapIcon.Mouse },
+		new() { Title = "Door", Subtitle = "$100", Icon = BootstrapIcon.DoorClosed },
+		new() { Title = "Table", Subtitle = "$5000", Icon = BootstrapIcon.Table },
+		new() { Title = "Mouse", Subtitle = "$40", Icon = BootstrapIcon.Mouse },
+		new() { Title = "Door", Subtitle = "$100", Icon = BootstrapIcon.DoorClosed },
+		new() { Title = "Table", Subtitle = "$5000", Icon = BootstrapIcon.Table },
+		new() { Title = "Mouse", Subtitle = "$40", Icon = BootstrapIcon.Mouse },
+		new() { Title = "Door", Subtitle = "$100", Icon = BootstrapIcon.DoorClosed },
+		new() { Title = "Table", Subtitle = "$5000", Icon = BootstrapIcon.Table },
+		new() { Title = "Mouse", Subtitle = "$40", Icon = BootstrapIcon.Mouse },
+		new() { Title = "Door", Subtitle = "$100", Icon = BootstrapIcon.DoorClosed },
+		new() { Title = "Table", Subtitle = "$5000", Icon = BootstrapIcon.Table },
+		new() { Title = "Mouse", Subtitle = "$40", Icon = BootstrapIcon.Mouse },
+		new() { Title = "Door", Subtitle = "$100", Icon = BootstrapIcon.DoorClosed },
+		new() { Title = "Table", Subtitle = "$5000", Icon = BootstrapIcon.Table },
+		new() { Title = "Mouse", Subtitle = "$40", Icon = BootstrapIcon.Mouse },
+		new() { Title = "Door", Subtitle = "$100", Icon = BootstrapIcon.DoorClosed }
+	};
+
+	Task<SearchBoxDataProviderResult<SearchBoxItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+	{
+		SearchBoxDataProviderResult<SearchBoxItem> result = new()
+			{
+				Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase)).ToArray()
+			};
+
+		return Task.FromResult(result);
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await _component.FocusAsync();
+	}
+
+	class SearchBoxItem
+	{
+		public string Title { get; set; }
+		public string Subtitle { get; set; }
+		public BootstrapIcon Icon { get; set; }
+	}
+}

@@ -5489,6 +5489,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnParametersSet">
             <inheritdoc />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.FocusAsync">
+            <summary>
+            Gives focus to the input element.
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputKeyboardNavigationIndex">
             <summary>
             Input's index for the keyboard navigation. If this is the current index, then no item is selected.

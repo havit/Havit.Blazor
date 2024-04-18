@@ -8,7 +8,7 @@
 		<label class="form-label">@Label</label>
 	}
 
-	<div class="@CssClassHelper.Combine(HasInputGroups ? "input-group" : null, 					
+	<div class="@CssClassHelper.Combine(HasInputGroups ? "input-group" : null,
 										HasInputGroupEnd ? "input-group-end" : null,
  										HasInputGroupStart ? "input-group-start" : null)">
 		@if (InputGroupStartText is not null)
@@ -19,16 +19,16 @@
 		@InputGroupStartTemplate
 		<HxDropdown AutoClose="DropdownAutoClose.Outside">
 			<HxDropdownToggleElement @ref="_dropdownToggle"
-									ElementName="div"
-									CssClass="@CssClassHelper.Combine(
+									 ElementName="div"
+									 CssClass="@CssClassHelper.Combine(
 													"position-relative",
 													(LabelType == LabelType.Floating) ? "form-floating" : null,
 													InputSizeEffective.AsInputGroupCssClass(),
 													(_initialized || DefaultContentTemplate is not null ? null : "disabled"))"
-									DropdownOffset="@DropdownOffset"
-									OnShown="HandleDropdownMenuShown"
-									OnHidden="HandleDropdownMenuHidden"
-									id="@_dropdownToggleElementId">
+									 DropdownOffset="@DropdownOffset"
+									 OnShown="HandleDropdownMenuShown"
+									 OnHidden="HandleDropdownMenuHidden"
+									 id="@_dropdownToggleElementId">
 
 
 				@if ((SearchIconEffective is not null) && (SearchIconPlacementEffective == SearchBoxSearchIconPlacement.Start))
@@ -38,15 +38,16 @@
 					</div>
 				}
 
-				<input id="@_inputId"
-					value="@TextQuery"
-					@oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
-					@onfocus="HandleInputFocus"
-					@onblur="HandleInputBlur"
-					inputmode="search"
-					enabled="@Enabled"
-					placeholder="@(LabelType == LabelType.Floating ? "placeholder" : Placeholder)"
-					class="@CssClassHelper.Combine(
+				<input @ref="_inputElementReference"
+					   id="@_inputId"
+					   value="@TextQuery"
+					   @oninput="(eventArgs) => HandleTextQueryValueChanged(eventArgs.Value.ToString())"
+					   @onfocus="HandleInputFocus"
+					   @onblur="HandleInputBlur"
+					   inputmode="search"
+					   enabled="@Enabled"
+					   placeholder="@(LabelType == LabelType.Floating ? "placeholder" : Placeholder)"
+					   class="@CssClassHelper.Combine(
 									"form-control",
 									(!HasInputGroupEnd && HasInputGroups ? "hx-search-box-input-with-search-icon" : null),
 									InputCssClassEffective)" />

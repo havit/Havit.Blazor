@@ -69,6 +69,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	private IJSObjectReference _jsModule;
 	private readonly DotNetObjectReference<HxMultiSelectInternal<TValue, TItem>> _dotnetObjectReference;
+	private ElementReference _inputElementReference;
 	private ElementReference _elementReference;
 	private ElementReference _filterInputReference;
 	private bool _isShown;
@@ -218,11 +219,11 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	public async ValueTask FocusAsync()
 	{
-		if (EqualityComparer<ElementReference>.Default.Equals(_elementReference, default))
+		if (EqualityComparer<ElementReference>.Default.Equals(_inputElementReference, default))
 		{
 			throw new InvalidOperationException($"Cannot focus {GetType()}. The method must be called after first render.");
 		}
-		await _elementReference.FocusAsync();
+		await _inputElementReference.FocusAsync();
 	}
 
 	/// <summary>

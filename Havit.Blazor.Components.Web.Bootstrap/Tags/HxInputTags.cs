@@ -201,9 +201,8 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	{
 		if (_hxInputTagsInternalComponent == null)
 		{
-			throw new InvalidOperationException($"Cannot focus {GetType()}. The method must be called after first render.");
+			throw new InvalidOperationException($"Unable to focus {nameof(HxInputTags)}. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
-
 		await _hxInputTagsInternalComponent.FocusAsync();
 	}
 

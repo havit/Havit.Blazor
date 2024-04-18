@@ -176,7 +176,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	{
 		if (_hxInputDateRangeInternalComponent is null)
 		{
-			throw new InvalidOperationException($"Unable to focus {nameof(HxInputDateRange)}, component reference not available (You are most likely calling the method too early, first render has to complete first.)");
+			throw new InvalidOperationException($"Unable to focus {nameof(HxInputDateRange)}. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 
 		return _hxInputDateRangeInternalComponent.FocusAsync();
