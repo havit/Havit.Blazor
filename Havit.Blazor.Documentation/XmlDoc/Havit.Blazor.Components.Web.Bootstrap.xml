@@ -5816,6 +5816,72 @@
             We do not use HxGrid because we have HxGrid&lt;TItem&gt;, which leads to GridLoadMoreTemplateContext&lt;TItem&gt;.
             </remark>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext">
+            <summary>
+            Pager.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/GridPaginationTemplateContext">https://havit.blazor.eu/components/GridPaginationTemplateContext</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.TotalItems">
+            <summary>
+            Total number of data items.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.TotalPages">
+            <summary>
+            Total number of pages of data items.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.CurrentPageIndex">
+            <summary>
+            Current page index.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.ItemsPerPage">
+            <summary>
+            Items per page.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.FirstItemIndex">
+            <summary>
+            Index of first item (relative to total items).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.LastItemIndex">
+            <summary>
+            Index of last item (relative to total items).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.ChangeCurrentPageIndexAsync(System.Int32)">
+            <summary>
+            Method called to change the current page index.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.ChangeCurrentPageSizeAsync(System.Int32)">
+            <summary>
+            Method called to change the current page size.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.CurrentPageIndexChanged">
+            <summary>
+            Event raised when the page index is changed.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.InvokeCurrentPageIndexChangedAsync(System.Int32)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.CurrentPageIndexChanged"/> event. Allows interception of the event.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.CurrentPageSizeChanged">
+            <summary>
+            Event raised when the page size is changed.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.InvokeCurrentPageSizeChangedAsync(System.Int32)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.CurrentPageSizeChanged"/> event. Allows interception of the event.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext">
             <summary>
             Placeholder cell context.
@@ -6672,27 +6738,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPager.SetCurrentPageIndexTo(System.Int32)">
             <summary>
             Changes the current page index and fires the event.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPaginationContext">
-            <summary>
-            Pager.<br />
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPaginationContext">https://havit.blazor.eu/components/HxPaginationContext</see>
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPaginationContext.TotalPages">
-            <summary>
-            Total number of pages of data items.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPaginationContext.CurrentPageIndex">
-            <summary>
-            Current page index.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPaginationContext.ItemsPerPage">
-            <summary>
-            Items per page.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1">

@@ -1,0 +1,40 @@
+﻿@inject IDemoDataService DemoDataService
+
+<HxGrid @ref="@_grid" TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" SortKeySelector=" employee => employee.Name" IsDefaultSortColumn="true" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" SortKeySelector=" employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" SortKeySelector="employee => employee.Salary" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" SortKeySelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" SortKeySelector="employee => employee.Location" />
+	</Columns>
+    <PaginationTemplate>
+        @{
+            int pageSizeEffective = 5;
+            int totalPages = (_grid.TotalCount.Value + pageSizeEffective - 1) / pageSizeEffective;
+        }
+		@if (totalPages > 1)
+		{
+            int currentPageIndex = _grid.CurrentUserState.PageIndex + ((_grid.CurrentUserState.LoadMoreAdditionalItemsCount + pageSizeEffective - 1) / pageSizeEffective);
+            <HxPager TotalPages="@totalPages"
+                CurrentPageIndex="@currentPageIndex"
+                CurrentPageIndexChanged="@_grid.PagerCurrentPageIndexChanged"
+                Settings="@_grid.PagerSettings" />
+            <span>Displaying items @context.FirstItemIndex to @context.LastItemIndex of @context.TotalItems</span>
+        }
+    </PaginationTemplate>
+</HxGrid>
+
+@code {
+    private HxGrid<EmployeeDto> _grid;
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		// you usually pass the data-request to your API/DataLayer
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken),
+				TotalCount = await DemoDataService.GetEmployeesCountAsync(request.CancellationToken)
+			};
+	}
+}

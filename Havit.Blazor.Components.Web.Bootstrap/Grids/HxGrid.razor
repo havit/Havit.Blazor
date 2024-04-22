@@ -261,7 +261,9 @@
 				int currentPageIndex = CurrentUserState.PageIndex + ((CurrentUserState.LoadMoreAdditionalItemsCount + PageSizeEffective - 1) / PageSizeEffective);
 				if (PaginationTemplate != null)
                 {
-                    @PaginationTemplate(new HxPaginationContext(currentPageIndex, totalPages, PageSizeEffective))
+                    int firstItemIndex = currentPageIndex * PageSizeEffective + 1;
+                    int lastItemIndex = currentPageIndex * PageSizeEffective + PageSizeEffective;
+                    @PaginationTemplate(new GridPaginationTemplateContext(_totalCount.Value, currentPageIndex, totalPages, PageSizeEffective, firstItemIndex, lastItemIndex))
                 }
                 else
                 {

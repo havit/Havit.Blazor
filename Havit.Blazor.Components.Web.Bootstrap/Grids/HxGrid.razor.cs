@@ -70,7 +70,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// <summary>
 	/// Template for rendering custom pagination.
 	/// </summary>
-	[Parameter] public RenderFragment<HxPaginationContext> PaginationTemplate { get; set; }
+	[Parameter] public RenderFragment<GridPaginationTemplateContext> PaginationTemplate { get; set; }
 
 	/// <summary>
 	/// Template for the "load more" button (or other UI element).
@@ -295,6 +295,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private int? _totalCount;
 	private bool _dataProviderInProgress;
+
+	public int? TotalCount => _totalCount;
 
 	/// <summary>
 	/// Constructor.
@@ -527,6 +529,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			await RefreshDataCoreAsync();
 		}
 	}
+
+	public Task PagerCurrentPageIndexChanged(int newPageIndex) => HandlePagerCurrentPageIndexChanged(newPageIndex);
 
 	private async Task HandlePagerCurrentPageIndexChanged(int newPageIndex)
 	{
