@@ -6096,6 +6096,11 @@
             Template for rendering when the data source is empty but not null.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PaginationTemplate">
+            <summary>
+            Template for rendering custom pagination.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadMoreTemplate">
             <summary>
             Template for the "load more" button (or other UI element).
@@ -6667,6 +6672,27 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPager.SetCurrentPageIndexTo(System.Int32)">
             <summary>
             Changes the current page index and fires the event.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPaginationContext">
+            <summary>
+            Pager.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPaginationContext">https://havit.blazor.eu/components/HxPaginationContext</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPaginationContext.TotalPages">
+            <summary>
+            Total number of pages of data items.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPaginationContext.CurrentPageIndex">
+            <summary>
+            Current page index.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPaginationContext.ItemsPerPage">
+            <summary>
+            Items per page.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1">

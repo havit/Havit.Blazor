@@ -259,11 +259,18 @@
 			if (totalPages > 1)
 			{
 				int currentPageIndex = CurrentUserState.PageIndex + ((CurrentUserState.LoadMoreAdditionalItemsCount + PageSizeEffective - 1) / PageSizeEffective);
-				<HxPager TotalPages="@totalPages"
-						 CurrentPageIndex="@currentPageIndex"
-						 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged"
-						 Settings="@PagerSettingsEffective" />
-			}
+				if (PaginationTemplate != null)
+                {
+                    @PaginationTemplate(new HxPaginationContext(currentPageIndex, totalPages, PageSizeEffective))
+                }
+                else
+                {
+                    <HxPager TotalPages="@totalPages"
+                             CurrentPageIndex="@currentPageIndex"
+                             CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged"
+                             Settings="@PagerSettingsEffective" />
+                }
+            }
 		}
 
 		@if (((ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)) && (PageSizeEffective > 0) && (_totalCount != null))

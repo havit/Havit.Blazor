@@ -68,6 +68,11 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	[Parameter] public RenderFragment EmptyDataTemplate { get; set; }
 
 	/// <summary>
+	/// Template for rendering custom pagination.
+	/// </summary>
+	[Parameter] public RenderFragment<HxPaginationContext> PaginationTemplate { get; set; }
+
+	/// <summary>
 	/// Template for the "load more" button (or other UI element).
 	/// </summary>
 	[Parameter] public RenderFragment<GridLoadMoreTemplateContext> LoadMoreTemplate { get; set; }
