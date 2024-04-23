@@ -256,23 +256,25 @@
 		@if (((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)) && (PageSizeEffective > 0) && (_totalCount != null))
 		{
 			int totalPages = (_totalCount.Value + PageSizeEffective - 1) / PageSizeEffective;
-			if (totalPages > 1)
+			int currentPageIndex = CurrentUserState.PageIndex + ((CurrentUserState.LoadMoreAdditionalItemsCount + PageSizeEffective - 1) / PageSizeEffective);
+			if (PaginationTemplate != null)
 			{
-				int currentPageIndex = CurrentUserState.PageIndex + ((CurrentUserState.LoadMoreAdditionalItemsCount + PageSizeEffective - 1) / PageSizeEffective);
-				if (PaginationTemplate != null)
-                {
-                    int firstItemIndex = currentPageIndex * PageSizeEffective + 1;
-                    int lastItemIndex = currentPageIndex * PageSizeEffective + PageSizeEffective;
-                    @PaginationTemplate(new GridPaginationTemplateContext(_totalCount.Value, currentPageIndex, totalPages, PageSizeEffective, firstItemIndex, lastItemIndex))
-                }
-                else
-                {
-                    <HxPager TotalPages="@totalPages"
-                             CurrentPageIndex="@currentPageIndex"
-                             CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged"
-                             Settings="@PagerSettingsEffective" />
-                }
-            }
+				var paginationContext = new GridPaginationTemplateContext(HandlePagerCurrentPageIndexChanged)
+						{
+							CurrentUserState = CurrentUserState with { },
+							PageSize = PageSizeEffective,
+							TotalCount = _totalCount.Value,
+							PagerSettings = PagerSettingsEffective,
+						};
+				@PaginationTemplate(paginationContext)
+			}
+			else if (totalPages > 1) // if there is only one page, we do not need to render the pager (default behavior, the PaginationTemplate can override this behavior)
+			{
+				<HxPager TotalPages="@totalPages"
+						 CurrentPageIndex="@currentPageIndex"
+						 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged"
+						 Settings="@PagerSettingsEffective" />
+			}
 		}
 
 		@if (((ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)) && (PageSizeEffective > 0) && (_totalCount != null))

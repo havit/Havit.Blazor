@@ -1,78 +1,39 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Pager.<br />
-/// Full documentation and demos: <see href="https://havit.blazor.eu/components/GridPaginationTemplateContext">https://havit.blazor.eu/components/GridPaginationTemplateContext</see>
+/// Context for the <see cref="HxGrid{TItem}.PaginationTemplate" /> of the <see cref="HxGrid{TItem}"/>.
 /// </summary>
-public class GridPaginationTemplateContext
+public sealed record GridPaginationTemplateContext
 {
-	public GridPaginationTemplateContext(int totalItems, int totalPages, int currentPageIndex, int itemsPerPage, int firstItemIndex, int lastItemIndex)
+	private readonly Func<int, Task> _changeCurrentPageIndexAsyncFunc;
+
+	internal GridPaginationTemplateContext(Func<int, Task> changeCurrentPageIndexAsyncFunc)
 	{
-		TotalItems = totalItems;
-		TotalPages = totalPages;
-		CurrentPageIndex = currentPageIndex;
-		ItemsPerPage = itemsPerPage;
-		FirstItemIndex = firstItemIndex;
-		LastItemIndex = lastItemIndex;
+		_changeCurrentPageIndexAsyncFunc = changeCurrentPageIndexAsyncFunc;
 	}
 
 	/// <summary>
-	/// Total number of data items.
+	/// Current grid user state (contains <see cref="GridUserState.PageIndex"/>).
 	/// </summary>
-	public int TotalItems { get; set; }
-
-	/// <summary>
-	/// Total number of pages of data items.
-	/// </summary>
-	public int TotalPages { get; set; }
-
-	/// <summary>
-	/// Current page index.
-	/// </summary>
-	public int CurrentPageIndex { get; set; }
+	public GridUserState CurrentUserState { get; init; }
 
 	/// <summary>
 	/// Items per page.
 	/// </summary>
-	public int ItemsPerPage { get; set; }
+	public int PageSize { get; init; }
 
 	/// <summary>
-	/// Index of first item (relative to total items).
+	/// Total number of data items.
 	/// </summary>
-	public int FirstItemIndex { get; set; }
+	public int TotalCount { get; init; }
 
 	/// <summary>
-	/// Index of last item (relative to total items).
+	/// Settings for the pager (derived from <c>HxGrid.PagerSettings</c> .. <c>HxGrid.Settings.PagerSettings</c> .. <c>HxGrid.Defaults.PagerSettings</c> cascade).
 	/// </summary>
-	public int LastItemIndex { get; set; }
+	public PagerSettings PagerSettings { get; init; }
 
 	/// <summary>
-	/// Method called to change the current page index.
+	/// Instructs the grid to change the current page index.
 	/// </summary>
-	public virtual Task ChangeCurrentPageIndexAsync(int pageIndex) => Task.CompletedTask;
-
-	/// <summary>
-	/// Method called to change the current page size.
-	/// </summary>
-	public virtual Task ChangeCurrentPageSizeAsync(int pageSize) => Task.CompletedTask;
-
-	/// <summary>
-	/// Event raised when the page index is changed.
-	/// </summary>
-	public EventCallback<int> CurrentPageIndexChanged { get; set; }
-
-	/// <summary>
-	/// Triggers the <see cref="CurrentPageIndexChanged"/> event. Allows interception of the event.
-	/// </summary>
-	protected virtual Task InvokeCurrentPageIndexChangedAsync(int newPageIndex) => CurrentPageIndexChanged.InvokeAsync(newPageIndex);
-
-	/// <summary>
-	/// Event raised when the page size is changed.
-	/// </summary>
-	public EventCallback<int> CurrentPageSizeChanged { get; set; }
-
-	/// <summary>
-	/// Triggers the <see cref="CurrentPageSizeChanged"/> event. Allows interception of the event.
-	/// </summary>
-	protected virtual Task InvokeCurrentPageSizeChangedAsync(int newPageSize) => CurrentPageSizeChanged.InvokeAsync(newPageSize);
+	public Task ChangeCurrentPageIndexAsync(int pageIndex) => _changeCurrentPageIndexAsyncFunc.Invoke(pageIndex);
 }
