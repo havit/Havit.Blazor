@@ -3,7 +3,7 @@
 /// <summary>
 /// Context for the "load more" template of the <see cref="HxGrid{TItem}"/>.
 /// </summary>
-public sealed class GridLoadMoreTemplateContext
+public sealed record GridLoadMoreTemplateContext
 {
 	private readonly Func<Task> _loadMoreAsyncFunc;
 

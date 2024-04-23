@@ -296,8 +296,6 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private int? _totalCount;
 	private bool _dataProviderInProgress;
 
-	public int? TotalCount => _totalCount;
-
 	/// <summary>
 	/// Constructor.
 	/// </summary>
