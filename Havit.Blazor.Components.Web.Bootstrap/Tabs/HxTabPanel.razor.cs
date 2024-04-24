@@ -52,7 +52,8 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	protected virtual Task InvokeActiveTabIdChangedAsync(string newActiveTabId) => ActiveTabIdChanged.InvokeAsync(newActiveTabId);
 
 	/// <summary>
-	/// ID of the tab which should be active at the very beginning.
+	/// ID of the tab which should be active at the very beginning.<br />
+	/// We are considering deprecating this parameter. Please use <see cref="ActiveTabId"/> instead (<c>@bind-ActiveTabId</c>).
 	/// </summary>
 	[Parameter] public string InitialActiveTabId { get; set; }
 
@@ -81,8 +82,6 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 
 	protected override async Task OnInitializedAsync()
 	{
-		await base.OnInitializedAsync();
-
 		if (!String.IsNullOrWhiteSpace(InitialActiveTabId))
 		{
 			await SetActiveTabIdAsync(InitialActiveTabId);
@@ -91,7 +90,6 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 
 	protected override async Task OnParametersSetAsync()
 	{
-		await base.OnParametersSetAsync();
 		await NotifyActivationAndDeactivationAsync();
 	}
 
@@ -134,12 +132,13 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 		if (firstRender)
 		{
 			// when no tab is active after the initial render, activate the first visible & enabled tab
-			if (!_tabsList.Any(tab => IsActive(tab)) && (_tabsList.Count > 0))
+			if (String.IsNullOrWhiteSpace(ActiveTabId))
 			{
-				HxTab tabToActivate = _tabsList.FirstOrDefault(tab => CascadeEnabledComponent.EnabledEffective(tab) && tab.Visible);
+				var tabToActivate = GetDefaultActiveTab();
 				if (tabToActivate != null)
 				{
 					await SetActiveTabIdAsync(tabToActivate.Id);
+					StateHasChanged();
 				}
 			}
 		}
@@ -155,7 +154,19 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 
 	private bool IsActive(HxTab tab)
 	{
+		if (String.IsNullOrWhiteSpace(ActiveTabId))
+		{
+			// no active tab set, activate the first visible & enabled tab
+			return tab.Id == GetDefaultActiveTab()?.Id;
+		}
 		return ActiveTabId == tab.Id;
+	}
+
+	private HxTab GetDefaultActiveTab()
+	{
+		return _tabsList
+					.OrderBy(tab => tab.Order)
+					.FirstOrDefault(t => t.Visible && (((ICascadeEnabledComponent)t).Enabled ?? true));
 	}
 
 	protected string GetNavCssClassInCardMode()

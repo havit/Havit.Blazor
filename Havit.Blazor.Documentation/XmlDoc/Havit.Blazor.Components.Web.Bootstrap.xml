@@ -9458,6 +9458,9 @@
             <summary>
             ID of the tab which should be active at the very beginning.
             </summary>
+            <remarks>
+            Obsolete? Use @bind-<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ActiveTabId"/> instead.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ChildContent">
             <summary>
