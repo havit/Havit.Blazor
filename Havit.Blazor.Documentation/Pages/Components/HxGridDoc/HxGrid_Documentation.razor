@@ -93,6 +93,12 @@
 			It's also possible to combine the <i>Load More</i> button with pagination by opting for <code>GridContentNavigationMode.PaginationAndLoadMore</code>.
 		</p>
 
+		<DocHeading Title="Custom paging" Level="3" />
+		<p>
+			<code>HxGrid</code> uses the <code>HxPager</code> to display pagination, unless a value for the <code>PaginationTemplate</code> parameter is provided.
+			Context information is provided via <a href="@($"/types/{nameof(GridPaginationTemplateContext)}")"><code>GridPaginationTemplateContext</code></a> to your pager.
+		</p>
+		<Demo Type="typeof(HxGrid_Demo_CustomPagination)" />
 
 		<DocHeading Title="Context menu" Id="context-menu" />
 		<p>

@@ -5821,6 +5821,36 @@
             We do not use HxGrid because we have HxGrid&lt;TItem&gt;, which leads to GridLoadMoreTemplateContext&lt;TItem&gt;.
             </remark>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext">
+            <summary>
+            Context for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PaginationTemplate" /> of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.CurrentUserState">
+            <summary>
+            Current grid user state (contains <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.PageIndex"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.PageSize">
+            <summary>
+            Items per page.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.TotalCount">
+            <summary>
+            Total number of data items.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.PagerSettings">
+            <summary>
+            Settings for the pager (derived from <c>HxGrid.PagerSettings</c> .. <c>HxGrid.Settings.PagerSettings</c> .. <c>HxGrid.Defaults.PagerSettings</c> cascade).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridPaginationTemplateContext.ChangeCurrentPageIndexAsync(System.Int32)">
+            <summary>
+            Instructs the grid to change the current page index.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridPlaceholderCellContext">
             <summary>
             Placeholder cell context.
@@ -6099,6 +6129,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.EmptyDataTemplate">
             <summary>
             Template for rendering when the data source is empty but not null.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PaginationTemplate">
+            <summary>
+            Template for rendering custom pagination.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.LoadMoreTemplate">
