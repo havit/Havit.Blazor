@@ -106,6 +106,11 @@ public partial class HxCard
 	protected string FooterCssClassEffective => FooterCssClass ?? GetSettings()?.FooterCssClass ?? GetDefaults().FooterCssClass;
 
 	/// <summary>
+	/// Additional CSS class for the image.
+	/// </summary>
+	[Parameter] public string ImageCssClass { get; set; }
+
+	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML element.
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }

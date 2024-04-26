@@ -10,7 +10,7 @@
     {
         <img src="@ImageSrc"
              alt="@ImageAlt"
-             class="@(ImagePlacement == CardImagePlacement.Top ? "card-img-top" : "card-img")"
+             class="@CssClassHelper.Combine(ImageCssClass, ImagePlacement == CardImagePlacement.Top ? "card-img-top" : "card-img")"
              width="@ImageWidth"
              height="@ImageHeight" />
     }

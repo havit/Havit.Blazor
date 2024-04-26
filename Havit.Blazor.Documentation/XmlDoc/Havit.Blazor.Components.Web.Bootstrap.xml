@@ -887,6 +887,11 @@
             Additional CSS class for the footer.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.ImageCssClass">
+            <summary>
+            Additional CSS class for the image.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying HTML element.
@@ -9456,11 +9461,9 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.InitialActiveTabId">
             <summary>
-            ID of the tab which should be active at the very beginning.
+            ID of the tab which should be active at the very beginning.<br />
+            We are considering deprecating this parameter. Please use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ActiveTabId"/> instead (<c>@bind-ActiveTabId</c>).
             </summary>
-            <remarks>
-            Obsolete? Use @bind-<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ActiveTabId"/> instead.
-            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ChildContent">
             <summary>
