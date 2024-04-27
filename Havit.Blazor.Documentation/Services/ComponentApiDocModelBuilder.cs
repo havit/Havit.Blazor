@@ -149,7 +149,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 			try
 			{
 				var enumValueComment = enumComments.ValueComments
-					.Where(o => o.Value == i)
+					.Where(o => o.Name == enumMember.Name)
 					.FirstOrDefault(c => !string.IsNullOrEmpty(c.Summary));
 
 				if (enumValueComment is not null)
