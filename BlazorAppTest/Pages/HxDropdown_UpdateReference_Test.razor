@@ -1,0 +1,38 @@
+﻿@page "/HxDropdown_UpdateReference_Test"
+
+<h1>HxDropdown</h1>
+
+<HxDropdown>
+	<HxDropdownToggleElement @ref="dropdownToggleComponent" DropdownReference="@_dropdownReference" />
+	<HxDropdownContent CssClass="@(IsBold ? "bg-light" : null)">
+		<div class="row m-3" style="min-width: 100px;">
+			<div class="col">
+				<div>
+					<HxCheckbox @bind-Value="IsBold" Text="Toggle button text bold" />
+				</div>
+			</div>
+		</div>
+	</HxDropdownContent>
+</HxDropdown>
+
+<HxButton id="button1" OnClick="HandleShow1">Show 1</HxButton>
+<HxButton id="button2" OnClick="HandleShow2">Show 2</HxButton>
+
+
+@code {
+	private HxDropdownToggleElement dropdownToggleComponent;
+	private bool IsBold { get; set; } = false;
+	private string _dropdownReference = "#button1";
+
+	private async Task HandleShow1()
+	{
+		_dropdownReference = "#button1";
+		await dropdownToggleComponent.ShowAsync();
+	}
+
+	private async Task HandleShow2()
+	{
+		_dropdownReference = "#button2";
+		await dropdownToggleComponent.ShowAsync();
+	}
+}

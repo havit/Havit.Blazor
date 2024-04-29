@@ -17,6 +17,27 @@
 	}
 }
 
+export function update(element, newReference) {
+	if (!element) {
+		return;
+	}
+
+	var d = bootstrap.Dropdown.getInstance(element);
+	if (d) {
+		d.dispose();
+	}
+
+	if (newReference) {
+		var referenceOption = document.querySelector(newReference);
+		var d = new bootstrap.Dropdown(element, {
+			reference: referenceOption
+		});
+	}
+	else {
+		var d = new bootstrap.Dropdown(element);
+	}
+}
+
 export function show(element) {
 	var d = bootstrap.Dropdown.getInstance(element);
 	if (d) {

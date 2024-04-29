@@ -28,10 +28,4 @@
 		</Compile>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Content Update="Pages\HxMultiSelect_Issue791_Test.razor">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	  </Content>
-	</ItemGroup>
-
 </Project>

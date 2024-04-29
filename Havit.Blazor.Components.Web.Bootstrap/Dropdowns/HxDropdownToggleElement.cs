@@ -94,6 +94,8 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	private ElementReference _elementReference;
 	private DotNetObjectReference<HxDropdownToggleElement> _dotnetObjectReference;
 	private IJSObjectReference _jsModule;
+	private string _currentDropdownJsOptionsReference;
+	private Queue<Func<Task>> _onAfterRenderTasksQueue = new();
 	private bool _disposed;
 
 	public HxDropdownToggleElement()
@@ -162,7 +164,8 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		await base.OnAfterRenderAsync(firstRender);
+		var dropdownJsOptionsReference = DropdownToggleExtensions.GetDropdownJsOptionsReference(this);
+
 		if (firstRender)
 		{
 			await EnsureJsModuleAsync();
@@ -170,26 +173,58 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 			{
 				return;
 			}
-			await _jsModule.InvokeVoidAsync("create", _elementReference, _dotnetObjectReference, DropdownToggleExtensions.GetDropdownJsOptionsReference(this));
+			_currentDropdownJsOptionsReference = dropdownJsOptionsReference;
+			await _jsModule.InvokeVoidAsync("create", _elementReference, _dotnetObjectReference, _currentDropdownJsOptionsReference);
+		}
+		else
+		{
+			if (dropdownJsOptionsReference != _currentDropdownJsOptionsReference)
+			{
+				_currentDropdownJsOptionsReference = dropdownJsOptionsReference;
+				if (_jsModule is not null)
+				{
+					await _jsModule.InvokeVoidAsync("update", _elementReference, dropdownJsOptionsReference);
+				}
+			}
+		}
+
+		// for show/hide/... the dropdown has to be created/updated first 
+		while (_onAfterRenderTasksQueue.TryDequeue(out var task))
+		{
+			await task();
 		}
 	}
 
 	/// <summary>
 	/// Shows the dropdown.
 	/// </summary>
-	public async Task ShowAsync()
+	public Task ShowAsync()
 	{
-		await EnsureJsModuleAsync();
-		await _jsModule.InvokeVoidAsync("show", _elementReference);
+		_onAfterRenderTasksQueue.Enqueue(async () =>
+		{
+			await EnsureJsModuleAsync();
+			await _jsModule.InvokeVoidAsync("show", _elementReference);
+		});
+
+		StateHasChanged(); // ensure re-rendering
+
+		return Task.CompletedTask;
 	}
 
 	/// <summary>
 	/// Hides the dropdown.
 	/// </summary>
-	public async Task HideAsync()
+	public Task HideAsync()
 	{
-		await EnsureJsModuleAsync();
-		await _jsModule.InvokeVoidAsync("hide", _elementReference);
+		_onAfterRenderTasksQueue.Enqueue(async () =>
+		{
+			await EnsureJsModuleAsync();
+			await _jsModule.InvokeVoidAsync("hide", _elementReference);
+		});
+
+		StateHasChanged(); // ensure re-rendering
+
+		return Task.CompletedTask;
 	}
 
 	/// <summary>
