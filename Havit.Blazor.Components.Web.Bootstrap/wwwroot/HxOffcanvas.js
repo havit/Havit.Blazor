@@ -1,8 +1,12 @@
-﻿export function show(element, hxOffcanvasDotnetObjectReference, closeOnEscape, scrollingEnabled) {
+﻿export function show(element, hxOffcanvasDotnetObjectReference, closeOnEscape, scrollingEnabled, subscribeToHideEvent) {
 	if (window.offcanvasElement) {
 		let previousOffcanvas = bootstrap.Offcanvas.getInstance(window.offcanvasElement);
 		if (previousOffcanvas) {
-			previousOffcanvas.hide();
+            // Although opening a new offcanvas should close the previous one,
+			// we do not set previousOffcanvas.hidePreventionDisabled = true and force the hide() here (when handling the OnHiding event)
+			// We want the developer to handle such specific scenarios on their own.
+			// This might be subject to change in the future.
+            previousOffcanvas.hide();
 		}
 	}
 
@@ -11,6 +15,9 @@
 	}
 
 	element.hxOffcanvasDotnetObjectReference = hxOffcanvasDotnetObjectReference;
+	if (subscribeToHideEvent) {
+		element.addEventListener('hide.bs.offcanvas', handleOffcanvasHide);
+	}
 	element.addEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
 	element.addEventListener('shown.bs.offcanvas', handleOffcanvasShown);
 	window.offcanvasElement = element;
@@ -38,6 +45,24 @@ export function hide(element) {
 function handleOffcanvasShown(event) {
 	event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasShown');
 }
+
+async function handleOffcanvasHide(event) {
+	let o = bootstrap.Offcanvas.getInstance(event.target);
+
+	if (o.hidePreventionDisabled || event.target.hxOffcanvasDisposing) {
+		o.hidePreventionDisabled = false;
+		return;
+	}
+
+	event.preventDefault();
+
+	let cancel = await event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasHide');
+	if (!cancel) {
+		o.hidePreventionDisabled = true;
+		event.target.hxOffcanvasHiding = true;
+		o.hide();
+	}
+};
 
 function handleOffcanvasHidden(event) {
 	event.target.hxOffcanvasHiding = false;

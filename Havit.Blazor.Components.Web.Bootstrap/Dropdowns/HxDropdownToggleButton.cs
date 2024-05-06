@@ -48,6 +48,16 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 	protected virtual Task InvokeOnShownAsync() => OnShown.InvokeAsync();
 
 	/// <summary>
+	/// Fired immediately when the 'hide' instance method is called.
+	/// To cancel hiding, set <see cref="DropdownHidingEventArgs.Cancel"/> to <c>true</c>.
+	/// </summary>
+	/// <remarks>
+	/// There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override to avoid confusion.
+	/// The <code>hide.bs.dropdown</code> event is only subscribed to when the <see cref="OnHiding"/> callback is set.
+	/// </remarks>
+	[Parameter] public EventCallback<DropdownHidingEventArgs> OnHiding { get; set; }
+
+	/// <summary>
 	/// Fired when the dropdown has finished being hidden from the user and CSS transitions have completed.
 	/// </summary>
 	[Parameter] public EventCallback OnHidden { get; set; }
@@ -144,7 +154,7 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 				return;
 			}
 			_currentDropdownJsOptionsReference = dropdownJsOptionsReference;
-			await _jsModule.InvokeVoidAsync("create", buttonElementReference, _dotnetObjectReference, _currentDropdownJsOptionsReference);
+			await _jsModule.InvokeVoidAsync("create", buttonElementReference, _dotnetObjectReference, _currentDropdownJsOptionsReference, OnHiding.HasDelegate);
 		}
 		else
 		{
@@ -211,6 +221,17 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 			container.IsOpen = true;
 		}
 		await InvokeOnShownAsync();
+	}
+
+	/// <summary>
+	/// Receives notification from JS for <c>hide.bs.dropdown</c> event.
+	/// </summary>
+	[JSInvokable("HxDropdown_HandleJsHide")]
+	public async Task<bool> HandleJsHide()
+	{
+		var eventArgs = new DropdownHidingEventArgs();
+		await OnHiding.InvokeAsync(eventArgs);
+		return eventArgs.Cancel;
 	}
 
 	/// <summary>

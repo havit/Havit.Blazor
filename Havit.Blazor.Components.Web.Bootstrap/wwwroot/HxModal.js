@@ -4,8 +4,9 @@
 	}
 
 	element.hxModalDotnetObjectReference = hxModalDotnetObjectReference;
-	if (subscribeToHideEvent)
+	if (subscribeToHideEvent) {
 		element.addEventListener('hide.bs.modal', handleModalHide);
+	}
 	element.addEventListener('hidden.bs.modal', handleModalHidden);
 	element.addEventListener('shown.bs.modal', handleModalShown);
 
@@ -35,16 +36,18 @@ function handleModalShown(event) {
 async function handleModalHide(event) {
     let modalInstance = bootstrap.Modal.getInstance(event.target);
 
-	if (modalInstance.hidePreventionDisabled)
-        return;
+	if (modalInstance.hidePreventionDisabled || event.target.hxModalDisposing) {
+		modalInstance.hidePreventionDisabled = false;
+		return;
+	}
 
     event.preventDefault();
 
     let cancel = await event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHide');
     if (!cancel) {
 		modalInstance.hidePreventionDisabled = true;
-		modalInstance.hide();
 		event.target.hxModalHiding = true;
+		modalInstance.hide();
     }
 };
 

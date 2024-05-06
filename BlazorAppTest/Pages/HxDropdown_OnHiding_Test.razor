@@ -1,0 +1,31 @@
+﻿@page "/HxDropdown_OnHiding_Test"
+
+<h1>HxDropdown - OnHiding test</h1>
+
+<HxDropdown AutoClose="DropdownAutoClose.Outside">
+	<HxDropdownToggleElement OnHiding="HandleDropdownHiding">
+		HxDropdownToggleElement
+	</HxDropdownToggleElement>
+	<HxDropdownContent>
+		<HxCheckbox @bind-Value="_allowHiding" Text="Allow hiding" />
+	</HxDropdownContent>
+</HxDropdown>
+
+<HxDropdownButtonGroup AutoClose="DropdownAutoClose.Outside">
+	<HxDropdownToggleButton OnHiding="HandleDropdownHiding" Color="ThemeColor.Primary" Text="HxDropdownToggleButton" />
+	<HxDropdownContent>
+		<HxCheckbox @bind-Value="_allowHiding" Text="Allow hiding" />
+	</HxDropdownContent>
+</HxDropdownButtonGroup>
+
+@code {
+	private bool _allowHiding = false;
+
+	private void HandleDropdownHiding(DropdownHidingEventArgs args)
+	{
+		if (!_allowHiding)
+		{
+			args.Cancel = true;
+		}
+	}
+}

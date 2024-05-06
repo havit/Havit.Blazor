@@ -177,6 +177,18 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// </summary>
 	protected virtual Task InvokeOnShownAsync() => OnShown.InvokeAsync();
 
+	/// <summary>
+	/// Fired immediately when the 'hide' instance method is called.
+	/// To cancel hiding, set <see cref="OffcanvasHidingEventArgs.Cancel"/> to <c>true</c>.
+	/// </summary>
+	/// <remarks>
+	/// 1) This event should probably be named <c>OnClosing</c> to be consistent with other members, but "hide" is the Bootstrap event name and we should stick to it.
+	/// We should consider renaming the other members in the future.
+	/// 2) There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override to avoid confusion.
+	/// The <code>hide.bs.offcanvas</code> event is only subscribed to when the <see cref="OnHiding"/> callback is set.
+	/// </remarks>
+	[Parameter] public EventCallback<OffcanvasHidingEventArgs> OnHiding { get; set; }
+
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -213,7 +225,7 @@ public partial class HxOffcanvas : IAsyncDisposable
 				{
 					return;
 				}
-				await _jsModule.InvokeVoidAsync("show", _offcanvasElement, _dotnetObjectReference, CloseOnEscapeEffective, ScrollingEnabledEffective);
+				await _jsModule.InvokeVoidAsync("show", _offcanvasElement, _dotnetObjectReference, CloseOnEscapeEffective, ScrollingEnabledEffective, OnHiding.HasDelegate);
 			});
 		}
 		_opened = true; // mark offcanvas as opened
@@ -248,6 +260,17 @@ public partial class HxOffcanvas : IAsyncDisposable
 		StateHasChanged(); // enforce rendering
 
 		return Task.CompletedTask;
+	}
+
+	/// <summary>
+	/// Receives notification from JS for <c>hide.bs.offcanvas</c> event.
+	/// </summary>
+	[JSInvokable("HxOffcanvas_HandleOffcanvasHide")]
+	public async Task<bool> HandleOffcanvasHide()
+	{
+		var eventArgs = new OffcanvasHidingEventArgs();
+		await OnHiding.InvokeAsync(eventArgs);
+		return eventArgs.Cancel;
 	}
 
 	[JSInvokable("HxOffcanvas_HandleOffcanvasHidden")]

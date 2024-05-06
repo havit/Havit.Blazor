@@ -1657,6 +1657,11 @@
             Right (in LTR).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DropdownHidingEventArgs.Cancel">
+            <summary>
+            Set <c>true</c> to prevent dropdown hiding.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DropdownMenuAlignment">
             <summary>
             Represents the alignment of a dropdown menu.
@@ -1903,6 +1908,16 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnShown"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnHiding">
+            <summary>
+            Fired immediately when the 'hide' instance method is called.
+            To cancel hiding, set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.DropdownHidingEventArgs.Cancel"/> to <c>true</c>.
+            </summary>
+            <remarks>
+            There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override to avoid confusion.
+            The <code>hide.bs.dropdown</code> event is only subscribed to when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnHiding"/> callback is set.
+            </remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnHidden">
             <summary>
             Fired when the dropdown has finished being hidden from the user and CSS transitions have completed.
@@ -1941,6 +1956,11 @@
             <remarks>
             the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
             </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.HandleJsHide">
+            <summary>
+            Receives notification from JS for <c>hide.bs.dropdown</c> event.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.HandleJsHidden">
             <summary>
@@ -2003,6 +2023,16 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnShown"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnHiding">
+            <summary>
+            Fired immediately when the 'hide' instance method is called.
+            To cancel hiding, set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.DropdownHidingEventArgs.Cancel"/> to <c>true</c>.
+            </summary>
+            <remarks>
+            There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override to avoid confusion.
+            The <code>hide.bs.dropdown</code> event is only subscribed to when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnHiding"/> callback is set.
+            </remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnHidden">
             <summary>
             Fired when the dropdown has finished being hidden from the user and CSS transitions have completed.
@@ -2053,6 +2083,11 @@
             <remarks>
             the shown-event gets raised as the "show" CSS class is added to the HTML element and the transition is completed
             </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.HandleJsHide">
+            <summary>
+            Receives notification from JS for <c>hide.bs.dropdown</c> event.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.HandleJsHidden">
             <summary>
@@ -8688,6 +8723,18 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnShown"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnHiding">
+            <summary>
+            Fired immediately when the 'hide' instance method is called.
+            To cancel hiding, set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasHidingEventArgs.Cancel"/> to <c>true</c>.
+            </summary>
+            <remarks>
+            1) This event should probably be named <c>OnClosing</c> to be consistent with other members, but "hide" is the Bootstrap event name and we should stick to it.
+            We should consider renaming the other members in the future.
+            2) There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override to avoid confusion.
+            The <code>hide.bs.offcanvas</code> event is only subscribed to when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnHiding"/> callback is set.
+            </remarks>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.#ctor">
             <summary>
             Constructor.
@@ -8701,6 +8748,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HideAsync">
             <summary>
             Hides the offcanvas (if opened).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HandleOffcanvasHide">
+            <summary>
+            Receives notification from JS for <c>hide.bs.offcanvas</c> event.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HandleOffcanvasShown">
@@ -8739,6 +8791,11 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.Static">
             <summary>
             A static backdrop will be rendered. The offcanvas will not be closed upon clicking on the backdrop.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasHidingEventArgs.Cancel">
+            <summary>
+            Set <c>true</c> to prevent offcanvas hiding.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasPlacement">
