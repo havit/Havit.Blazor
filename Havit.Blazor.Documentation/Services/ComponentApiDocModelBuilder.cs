@@ -267,6 +267,14 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 
 	private bool IsEventCallback(PropertyModel property)
 	{
-		return property.PropertyInfo.PropertyType == typeof(EventCallback<>) || property.PropertyInfo.PropertyType == typeof(EventCallback);
+		// If the EventCallback is used to bind a parameter, then it should be placed in the Parameters section.
+		if (property.PropertyInfo.Name.EndsWith("Changed"))
+		{
+			return false;
+		}
+
+		return
+			(property.PropertyInfo.PropertyType.IsGenericType && (property.PropertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(EventCallback<>)))
+			|| property.PropertyInfo.PropertyType == typeof(EventCallback);
 	}
 }
