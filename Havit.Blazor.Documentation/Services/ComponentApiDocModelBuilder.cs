@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using Havit.Blazor.Documentation.Model;
 using LoxSmoke.DocXml;
 using Microsoft.JSInterop;
@@ -265,16 +266,20 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		return true;
 	}
 
+	// ...
+
 	private bool IsEventCallback(PropertyModel property)
 	{
-		// If the EventCallback is used to bind a parameter, then it should be placed in the Parameters section.
-		if (property.PropertyInfo.Name.EndsWith("Changed"))
+		string propertyName = property.PropertyInfo.Name;
+
+		// SomethingChanged should be treated as regular property
+		// OnSomethingChanged should be treated as event-callback
+		if (propertyName.EndsWith("Changed") && !Regex.IsMatch(propertyName, @"^On[A-Z]"))
 		{
 			return false;
 		}
 
-		return
-			(property.PropertyInfo.PropertyType.IsGenericType && (property.PropertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(EventCallback<>)))
+		return (property.PropertyInfo.PropertyType.IsGenericType && (property.PropertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(EventCallback<>)))
 			|| property.PropertyInfo.PropertyType == typeof(EventCallback);
 	}
 }
