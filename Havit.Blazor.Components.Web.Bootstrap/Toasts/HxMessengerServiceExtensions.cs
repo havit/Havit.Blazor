@@ -30,6 +30,7 @@ public static class HxMessengerServiceExtensions
 		messenger.AddMessage(new BootstrapMessengerMessage()
 		{
 			Color = Defaults.InformationColor,
+			CssClass = Defaults.InformationCssClass,
 			AutohideDelay = Defaults.InformationAutohideDelay,
 			ContentTemplate = BuildContentTemplate(title, message)
 		});
@@ -53,6 +54,7 @@ public static class HxMessengerServiceExtensions
 		messenger.AddMessage(new BootstrapMessengerMessage()
 		{
 			Color = Defaults.WarningColor,
+			CssClass = Defaults.WarningCssClass,
 			AutohideDelay = Defaults.WarningAutohideDelay,
 			ContentTemplate = BuildContentTemplate(title, message)
 		});
@@ -77,6 +79,7 @@ public static class HxMessengerServiceExtensions
 		messenger.AddMessage(new BootstrapMessengerMessage()
 		{
 			Color = Defaults.ErrorColor,
+			CssClass = Defaults.ErrorCssClass,
 			AutohideDelay = Defaults.ErrorAutohideDelay,
 			ContentTemplate = BuildContentTemplate(title, message)
 		});
