@@ -1,5 +1,5 @@
 ﻿export function show(element, hxModalDotnetObjectReference, closeOnEscape, subscribeToHideEvent) {
-	if (!element) {
+	if (!element || bootstrap.Modal.getInstance(element)) {
 		return;
 	}
 
