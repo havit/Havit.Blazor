@@ -9944,6 +9944,11 @@
             Color scheme of informational messages.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.InformationCssClass">
+            <summary>
+            CssClass of informational messages.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.InformationAutohideDelay">
             <summary>
             Default autohide delay for information (in milliseconds). Default is <c>5000</c> ms.
@@ -9954,6 +9959,11 @@
             Color scheme of warning messages.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.WarningCssClass">
+            <summary>
+            CssClass of warning messages.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.WarningAutohideDelay">
             <summary>
             Default autohide delay for warnings (in milliseconds). Default is <c>null</c> (do not autohide).
@@ -9962,6 +9972,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.ErrorColor">
             <summary>
             Color scheme of error messages.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.ErrorCssClass">
+            <summary>
+            CssClass of error messages.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessengerServiceExtensionsSettings.ErrorAutohideDelay">

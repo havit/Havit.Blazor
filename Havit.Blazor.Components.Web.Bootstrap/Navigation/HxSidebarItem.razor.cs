@@ -124,6 +124,16 @@ public partial class HxSidebarItem : IAsyncDisposable
 		expanded = false;
 	}
 
+	// Bootstrap Collapse (data-bs-toggle="collapse") prevents default action (navigation) on click
+	// This is a workaround to handle navigation manually
+	private void HandleExpandableItemClick()
+	{
+		if (!String.IsNullOrWhiteSpace(Href))
+		{
+			NavigationManager.NavigateTo(Href);
+		}
+	}
+
 	public async ValueTask DisposeAsync()
 	{
 		await DisposeAsyncCore();
