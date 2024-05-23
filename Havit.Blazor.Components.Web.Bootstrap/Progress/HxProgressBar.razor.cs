@@ -80,7 +80,7 @@ public partial class HxProgressBar
 			return (int)Value;
 		}
 
-		float normalized = (float)((100f / (MaxValueEffective - MinValueEffective) * (Value - MinValueEffective)) + 100f);
+		float normalized = (float)((100f / (MaxValueEffective - MinValueEffective) * (Value - MaxValueEffective)) + 100f);
 		return (int)normalized;
 	}
 }
