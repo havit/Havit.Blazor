@@ -126,11 +126,13 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 			if (ShowCloseButton)
 			{
 				builder.OpenRegion(209);
+				builder.OpenElement(210, "div");
 				if (HasContrastColor())
 				{
-					builder.AddAttribute(210, "data-bs-theme", "dark");
+					builder.AddAttribute(211, "data-bs-theme", "dark");
 				}
 				BuildRenderTree_CloseButton(builder, "ms-auto");
+				builder.CloseElement();
 				builder.CloseRegion();
 			}
 			builder.CloseElement(); // toast-header				
