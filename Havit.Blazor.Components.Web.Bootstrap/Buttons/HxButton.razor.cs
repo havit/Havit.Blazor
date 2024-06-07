@@ -251,7 +251,9 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	{
 		// #209 [HxButton] Tooltip does not hide when the button opens HxModal
 		// We disable the button (SingleClickProtection) and disabled buttons do not raise any events (the tooltip won't receive <c>mouseout</c> and stays visible).
-		await _tooltipComponent.HideAsync();
+		// UPDATE 06/2024: As of now, only Firefox does not hide the tooltip when the button is disabled.
+		// Removing the HideAsync workaround as it causes #817 [HxButton] Tooltip behavior on mobile devices
+		// await _tooltipComponent.HideAsync();
 
 		if (OnClick.HasDelegate)
 		{
