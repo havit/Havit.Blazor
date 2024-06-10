@@ -739,6 +739,21 @@
             To set multiple controls as disabled, use <seealso cref="T:Havit.Blazor.Components.Web.HxFormState" />.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Internal.HxDeferInternal">
+            <summary>
+            For internal use only. Do not use.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Internal.HxDeferInternal.ChildContent">
+            <summary>
+            For internal use only. Do not use.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Internal.HxDeferInternal.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <summary>
+            For internal use only. Do not use.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.HxMessengerService">
             <summary>
             Propagates access to HxMessenger as <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService" />.

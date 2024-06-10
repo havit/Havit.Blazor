@@ -1,4 +1,5 @@
 ﻿using Havit.Blazor.Components.Web.Infrastructure;
+using Havit.Collections;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -68,16 +69,19 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	[Parameter] public string CssClass { get; set; }
 
 	private HxTab _previousActiveTab;
-	private List<HxTab> _tabsList;
-	private CollectionRegistration<HxTab> _tabsListRegistration;
+	private List<HxTab> _tabsList = new();
+	private List<HxTab> _tabsListOrdered; // cached
+	private bool _collectingTabs;
 	private bool _isDisposed = false;
+
+	// Caches of method->delegate conversions
+	private readonly RenderFragment _renderTabsNavigation;
+	private readonly RenderFragment _renderTabsContent;
 
 	public HxTabPanel()
 	{
-		_tabsList = new List<HxTab>();
-		_tabsListRegistration = new CollectionRegistration<HxTab>(_tabsList,
-			async () => await InvokeAsync(StateHasChanged),
-			() => _isDisposed);
+		_renderTabsContent = RenderTabsContent;
+		_renderTabsNavigation = RenderTabsNavigation;
 	}
 
 	protected override async Task OnInitializedAsync()
@@ -122,6 +126,28 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 		}
 
 		_previousActiveTab = activeTab;
+	}
+
+	// Invoked by descendant tabs at a special time during rendering
+	internal void AddTab(HxTab tab)
+	{
+		if (_collectingTabs)
+		{
+			_tabsList.Add(tab);
+		}
+	}
+
+	private void StartCollectingTabs()
+	{
+		_tabsList.Clear();
+		_collectingTabs = true;
+	}
+
+	private void FinishCollectingTabs()
+	{
+		_collectingTabs = false;
+		_tabsListOrdered = _tabsList.OrderBy(tab => tab.Order).ToList();
+		Console.WriteLine("Tabs collected: " + _tabsListOrdered.Count);
 	}
 
 	/// <inheritdoc />
