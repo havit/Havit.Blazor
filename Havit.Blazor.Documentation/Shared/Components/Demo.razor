@@ -2,45 +2,56 @@
 @inherits PerformanceLoggingComponentBase
 
 <!--googleoff: index-->
-
-<div class="card card-demo my-3">
-
-    @if (Tabs)
-    {
-        <div class="card-header">
-            <HxTabPanel CssClass="card-header-tabs">
-                <HxTab Id="demo" Title="Demo" OnTabActivated="HandleDemoTabActivated" />
-                <HxTab Id="source" Title="Source" OnTabActivated="HandleCodeTabActivated" />
-            </HxTabPanel>
-        </div>
-    }
-
-    <div class="card-body p-0">
-
-        @if (_showingDemo || !Tabs)
-        {
-            <div class="@CssClassHelper.Combine("p-3", DemoCardCssClass)">
-                <DynamicComponent Type="Type" />
-            </div>
-        }
-        @if (!_showingDemo || !Tabs)
-        {
-            if (_code is null)
-            {
-                <HxPlaceholderContainer Animation="PlaceholderAnimation.Glow">
-                    <HxPlaceholder Columns="8" />
-                </HxPlaceholderContainer>
-            }
-            else
-            {
-                <pre class="@(!Tabs ? "bg-body-tertiary" : null)">
-                    <code class="language-cshtml">
-                        @(_code.Trim())
-                    </code>
-                </pre>
-            }
-        }
-    </div>
-</div>
+@if (Tabs)
+{
+	<HxTabPanel Variant="TabPanelVariant.Card" CardSettings="_cardSettings">
+		<HxTab Id="demo" Title="Demo">
+			<Content>
+				@_renderDemo
+			</Content>
+		</HxTab>
+		<HxTab Id="source" Title="Source" OnTabActivated="LoadCodeAsync">
+			<Content>
+				@_renderCode
+			</Content>
+		</HxTab>
+	</HxTabPanel>
+}
+else
+{
+	<HxCard Settings="_cardSettings">
+		<BodyTemplate>
+			@_renderDemo
+			@_renderCode
+		</BodyTemplate>
+	</HxCard>
+}
 
 <!--googleon: index-->
+
+@code {
+	private void RenderDemo(RenderTreeBuilder __builder)
+	{
+		<div class="@CssClassHelper.Combine("p-3", DemoCardCssClass)">
+			<DynamicComponent Type="Type" />
+		</div>
+	}
+
+	private void RenderCode(RenderTreeBuilder __builder)
+	{
+		if (_code is null)
+		{
+			<HxPlaceholderContainer Animation="PlaceholderAnimation.Glow">
+				<HxPlaceholder Columns="8" />
+			</HxPlaceholderContainer>
+		}
+		else
+		{
+			<pre class="@(!Tabs ? "bg-body-tertiary" : null)">
+				<code class="language-cshtml">
+					@(_code.Trim())
+				</code>
+			</pre>
+		}
+	}
+}
