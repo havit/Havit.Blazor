@@ -147,7 +147,6 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	{
 		_collectingTabs = false;
 		_tabsListOrdered = _tabsList.OrderBy(tab => tab.Order).ToList();
-		Console.WriteLine("Tabs collected: " + _tabsListOrdered.Count);
 	}
 
 	/// <inheritdoc />
