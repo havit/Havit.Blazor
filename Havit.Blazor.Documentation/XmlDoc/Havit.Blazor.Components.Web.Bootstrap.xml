@@ -9383,11 +9383,6 @@
             Single tab for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.TabsRegistration">
-            <summary>
-            Cascading parameter to register the tab.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Id">
             <summary>
             ID of the tab (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.ActiveTabId"/>).
@@ -9418,6 +9413,10 @@
             <summary>
             Content of the tab.
             </summary>
+            <remarks>
+            Required RenderFragment parameter forces the component to rerender every time the TabPanel is rerendered.
+            This is necessary to ensure that the tab gets registered in the TabPanel.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.Order">
             <summary>
@@ -9460,11 +9459,10 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnTabDeactivated"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnInitialized">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.DisposeAsync">
-            <inheritdoc />
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.ParentTabPanel">
+            <summary>
+            Cascading parameter to register the tab in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/>.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel">
             <summary>
