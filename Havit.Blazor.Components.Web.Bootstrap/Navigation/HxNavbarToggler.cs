@@ -10,13 +10,15 @@ public class HxNavbarToggler : HxCollapseToggleButton
 
 	public override async Task SetParametersAsync(ParameterView parameters)
 	{
-		await base.SetParametersAsync(parameters);
+		parameters.SetParameterProperties(this);
 
 		Contract.Requires<InvalidOperationException>(NavbarContainer is not null, $"{nameof(HxNavbarToggler)} requires the parent {nameof(HxNavbar)}.");
 
 		CollapseTarget = parameters.GetValueOrDefault(nameof(CollapseTarget), "#" + NavbarContainer.GetDefaultCollapseId());
 		Color = parameters.GetValueOrDefault(nameof(Color), ThemeColor.None);
 		ChildContent = parameters.GetValueOrDefault<RenderFragment>(nameof(ChildContent), GetDefaultChildContent);
+
+		await base.SetParametersAsync(ParameterView.Empty);
 	}
 
 	protected override string CoreCssClass => CssClassHelper.Combine(base.CoreCssClass, "navbar-toggler");

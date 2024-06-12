@@ -8,13 +8,15 @@ public class HxNavbarCollapse : HxCollapse
 {
 	[CascadingParameter] protected HxNavbar NavbarContainer { get; set; }
 
-	public override async Task SetParametersAsync(ParameterView parameters)
+	public override Task SetParametersAsync(ParameterView parameters)
 	{
-		await base.SetParametersAsync(parameters);
+		parameters.SetParameterProperties(this);
 
 		Contract.Requires<InvalidOperationException>(NavbarContainer is not null, $"{nameof(HxNavbarToggler)} requires parent {nameof(HxNavbar)}.");
 
 		Id = parameters.GetValueOrDefault(nameof(Id), NavbarContainer.GetDefaultCollapseId());
+
+		return base.SetParametersAsync(ParameterView.Empty);
 	}
 
 	protected override string GetCssClass()

@@ -25,11 +25,13 @@ public class HxPlaceholderButton : HxButton, ILayoutColumnComponent
 	/// <inheritdoc cref="ILayoutColumnComponent.ColumnsXxlUp"/>
 	[Parameter] public string ColumnsXxlUp { get; set; }
 
-	public override async Task SetParametersAsync(ParameterView parameters)
+	public override Task SetParametersAsync(ParameterView parameters)
 	{
-		await base.SetParametersAsync(parameters);
+		parameters.SetParameterProperties(this);
 
 		Enabled = parameters.GetValueOrDefault(nameof(Enabled), false);
+
+		return base.SetParametersAsync(ParameterView.Empty);
 	}
 
 	protected override string GetButtonCssClass()
