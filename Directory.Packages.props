@@ -12,10 +12,8 @@
     <PackageVersion Include="Havit.AspNetCore" Version="2.0.12" />
     <PackageVersion Include="LoxSmoke.DocXml" Version="3.6.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="8.0.4" Condition="'$(TargetFramework)' == 'net8.0'" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="7.0.18" Condition="'$(TargetFramework)' == 'net7.0'" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="6.0.29" Condition="'$(TargetFramework)' == 'net6.0'" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.4" Condition="'$(TargetFramework)' == 'net8.0'" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.18" Condition="'$(TargetFramework)' == 'net7.0'" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.0.29" Condition="'$(TargetFramework)' == 'net6.0'" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.4" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.4" />

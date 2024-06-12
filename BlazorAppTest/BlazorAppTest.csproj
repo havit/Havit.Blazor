@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 	  <!-- For local use only. Build fails with Error NETSDK1129: The 'Publish' target is not supported without specifying a target framework. -->
-	  <!--<TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>-->
+	  <!--<TargetFrameworks>net8.0;net6.0</TargetFrameworks>-->
 	  <TargetFramework>net8.0</TargetFramework>
 	  <ImplicitUsings>enable</ImplicitUsings>
 	  <!--  VSTHRD003: Avoid awaiting or returning a Task representing work that was not started within your context as that can lead to deadlocks. -->
