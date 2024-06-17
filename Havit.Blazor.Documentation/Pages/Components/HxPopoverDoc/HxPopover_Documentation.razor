@@ -24,6 +24,9 @@
 
     <DocHeading Title="Dismiss on next click" />
 	<p>Use the <code>Trigger="PopoverTrigger.Focus"</code> to dismiss popovers on the user’s next click of a different element than the toggle element.</p>
+	<DocAlert Type="DocAlertType.Warning">
+		Dismissing on next click requires specific HTML for proper cross-browser and cross-platform behavior. You can only use <code>a</code> elements, not <code>button</code>, and you must include a tabindex.
+	</DocAlert>
 	<Demo Type="typeof(HxPopover_Demo_Dismissible)" />
 
     <DocHeading Title="Programmability" />
