@@ -33,6 +33,10 @@
     font-size: .75rem;
 }
 
-.hx-autosuggest-input-icon div[role="button"]:not(:hover) ::deep .hx-icon {
-    opacity: var(--hx-autosuggest-input-close-icon-opacity);
+::deep .hx-autosuggest-input-icon-clear {
+    color: var(--hx-autosuggest-input-clear-icon-color);
+}
+
+::deep .hx-autosuggest-input-icon-search {
+    color: var(--hx-autosuggest-input-search-icon-color);
 }

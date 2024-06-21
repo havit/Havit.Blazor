@@ -66,13 +66,13 @@
 				else if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null))
 				{
 					<div role="button" class="hx-search-box-input-icon hx-search-box-input-icon-end" @onclick="ClearInputAsync">
-						<HxIcon Icon="ClearIconEffective" />
+						<HxIcon CssClass="hx-search-box-input-icon-clear" Icon="ClearIconEffective" />
 					</div>
 				}
 				else if ((SearchIconEffective is not null) && (SearchIconPlacementEffective == SearchBoxSearchIconPlacement.End))
 				{
 					<div class="hx-search-box-input-icon hx-search-box-input-icon-end">
-						<HxIcon Icon="SearchIconEffective" />
+						<HxIcon CssClass="hx-search-box-input-icon-search" Icon="SearchIconEffective" />
 					</div>
 				}
 			</HxDropdownToggleElement>

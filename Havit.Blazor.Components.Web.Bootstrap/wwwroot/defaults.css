@@ -5,6 +5,8 @@
 	--hx-autosuggest-item-highlighted-background-color: 			var(--bs-tertiary-bg);
 	--hx-autosuggest-dropdown-menu-height: 							300px;
 	--hx-autosuggest-dropdown-menu-width: 							100%;
+	--hx-autosuggest-input-search-icon-color:						unset;
+	--hx-autosuggest-input-clear-icon-color:						unset;
 
 	/* HxButton */
 	--hx-button-icon-text-spacer-width: 							0.25rem;
@@ -194,6 +196,8 @@
 	--hx-search-box-item-subtitle-font-size: 						.75rem;
 	--hx-search-box-item-highlighted-background-color: 				var(--bs-tertiary-bg);
 	--hx-search-box-dropdown-menu-height: 							300px;
+	--hx-search-box-input-search-icon-color:						unset;
+	--hx-search-box-input-clear-icon-color:							unset;
 }
 
 form {
