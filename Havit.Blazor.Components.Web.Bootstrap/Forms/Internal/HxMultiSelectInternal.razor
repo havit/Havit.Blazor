@@ -17,17 +17,18 @@
 
 	@InputGroupStartTemplate
 	<div @ref="_elementReference" class="dropdown" role="listbox">
-		<div aria-expanded="@_isShown" data-bs-toggle="@(enabled ? "dropdown" : null)" data-bs-auto-close="outside">
 
-			<input @ref="_inputElementReference"
-				   type="text"
-				   id="@InputId"
-				   class="@InputCssClass"
-				   value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
-				   disabled="@(!enabled)"
-				   readonly="true"
-				   @attributes="this.AdditionalAttributes" />
-		</div>
+		<input @ref="_inputElementReference"
+				type="text"
+				id="@InputId"
+				class="@InputCssClass"
+				value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
+				disabled="@(!enabled)"
+				readonly="true"
+				aria-expanded="@_isShown"
+				data-bs-toggle="@(enabled ? "dropdown" : null)" 
+				data-bs-auto-close="outside"
+				@attributes="this.AdditionalAttributes" />
 
 		@* Must be always rendered otherwise does not work after disable->enabled scenario *@
 		<ul class="dropdown-menu">
