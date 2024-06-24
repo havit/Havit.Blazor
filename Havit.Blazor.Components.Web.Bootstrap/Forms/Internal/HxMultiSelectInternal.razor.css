@@ -3,7 +3,7 @@
 }
 
 .dropdown-menu {
-    width: 100%;
+    min-width: var(--hx-multi-select-dropdown-menu-width);
     overflow: auto;
     max-height: var(--hx-multi-select-dropdown-menu-height);
 }

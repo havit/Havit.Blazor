@@ -1,5 +1,5 @@
 ﻿.dropdown-menu {
-    width: var(--hx-autosuggest-dropdown-menu-width);
+    min-width: var(--hx-autosuggest-dropdown-menu-width);
     overflow: auto;
     max-height: var(--hx-autosuggest-dropdown-menu-height);
 }

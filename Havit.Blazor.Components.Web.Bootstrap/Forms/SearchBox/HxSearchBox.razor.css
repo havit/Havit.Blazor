@@ -3,7 +3,7 @@
 }
 
 ::deep .dropdown-menu {
-    width: 100%; /* override for current .btn-group, see issue #117 */
+    min-width: var(--hx-search-box-dropdown-menu-width); /* override for current .btn-group, see issue #117 */
 }
 
 ::deep .hx-search-box-input-icon {

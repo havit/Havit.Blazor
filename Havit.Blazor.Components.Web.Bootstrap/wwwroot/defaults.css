@@ -145,6 +145,7 @@
 	--hx-multi-select-background-color: 							var(--bs-body-bg);
 	--hx-multi-select-dropdown-menu-height: 						300px;
 	--hx-multi-select-filter-input-icon-opacity: 					.25;
+	--hx-multi-select-dropdown-menu-width: 							100%;
 
 	/* TagInput */
 	--hx-input-tags-tag-margin: 									0 .25rem 0 0;
@@ -196,6 +197,7 @@
 	--hx-search-box-item-subtitle-font-size: 						.75rem;
 	--hx-search-box-item-highlighted-background-color: 				var(--bs-tertiary-bg);
 	--hx-search-box-dropdown-menu-height: 							300px;
+	--hx-search-box-dropdown-menu-width: 							100%;
 	--hx-search-box-input-search-icon-color:						unset;
 	--hx-search-box-input-clear-icon-color:							unset;
 }
