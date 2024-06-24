@@ -295,6 +295,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private int? _totalCount;
 	private bool _dataProviderInProgress;
+	private bool _virtualizeDataProviderInProgressFromExplicitRefreshRequest;
 
 	/// <summary>
 	/// Constructor.
@@ -603,9 +604,19 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			case GridContentNavigationMode.InfiniteScroll:
 				if (_infiniteScrollVirtualizeComponent != null)
 				{
+					// Display the InProgress indicator when refreshing data from the RefreshDataAsync method.
+					// Do not display the InProgress indicator when loading data due to scrolling (Virtualize displays placeholder items).
+					_virtualizeDataProviderInProgressFromExplicitRefreshRequest = true;
+
 					await _infiniteScrollVirtualizeComponent.RefreshDataAsync();
+
+					// We are aware of the race condition that may occur when _virtualizeDataProviderInProgressFromExplicitRefreshRequest
+					// is set to false while another refresh is requested in the meantime.
+					// We believe that this race condition is rare and not worth implementing a more robust solution for.
+					// The only consequence is a visual issue where the progress indicator may not be displayed when it should be.
+					// This can be improved with a counter any later, when it turns out to be a problem.
+					_virtualizeDataProviderInProgressFromExplicitRefreshRequest = false;
 				}
-				// when infiniteScrollVirtualizeComponent, it will be rendered and data loaded so no action here is required
 				break;
 
 			default: throw new InvalidOperationException(ContentNavigationModeEffective.ToString());

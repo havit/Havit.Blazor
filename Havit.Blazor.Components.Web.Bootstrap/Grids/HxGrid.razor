@@ -58,7 +58,7 @@
 {
 	bool progressIndicatorInProgress =
 						(InProgress ?? _dataProviderInProgress)
-						&& (ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll)
+						&& ((ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll) || _virtualizeDataProviderInProgressFromExplicitRefreshRequest)
 						&& !shouldRenderLoadingDataWithPlaceholders;
 
 	<HxProgressIndicator InProgress="progressIndicatorInProgress" CssClass="@CssClassHelper.Combine("hx-grid-container", ResponsiveEffective ? "table-responsive" : null, TableContainerCssClassEffective)">
