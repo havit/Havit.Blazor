@@ -54,6 +54,11 @@ public partial class HxProgressIndicator : IDisposable
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
+	/// <summary>
+	/// Additional CSS class to be applied.
+	/// </summary>
+	[Parameter] public string CssClass { get; set; }
+
 	protected EventCallback<bool> ProgressIndicatorVisibleChanged { get; set; }
 
 	private bool _progressIndicatorVisible;

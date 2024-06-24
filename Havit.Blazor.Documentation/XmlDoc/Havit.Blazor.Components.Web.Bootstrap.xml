@@ -9322,6 +9322,11 @@
             Wrapped content.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator.CssClass">
+            <summary>
+            Additional CSS class to be applied.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSpinner">
             <summary>
             Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/spinners/">Spinner</see> (usually indicates an operation in progress).<br />
