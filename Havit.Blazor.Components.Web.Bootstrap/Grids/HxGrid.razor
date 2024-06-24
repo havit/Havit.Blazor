@@ -63,7 +63,7 @@
 
 	<HxProgressIndicator InProgress="progressIndicatorInProgress" CssClass="@CssClassHelper.Combine("hx-grid-container", ResponsiveEffective ? "table-responsive" : null, TableContainerCssClassEffective)">
 
-		<table class="@GetTableElementCssClass(_totalCount > 0)">
+		<table class="@GetTableElementCssClass(_totalCount > 0)">@* This is now the CSS isolation component-root element !!! *@
 			<thead>
 				<tr class="@HeaderRowCssClassEffective">
 					@{
