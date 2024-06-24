@@ -6,7 +6,7 @@
     <members>
         <member name="M:Havit.Blazor.GoogleTagManager.GoogleTagManagerServiceCollectionExtensions.AddHxGoogleTagManager(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Havit.Blazor.GoogleTagManager.HxGoogleTagManagerOptions})">
             <summary>
-            Adds Google Tag Mananger (GTM) support. Use <see cref="T:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager"/> to push data to <c>dataLayer</c> and/or <see cref="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker"/> to track page-views.
+            Adds Google Tag Manager (GTM) support. Use <see cref="T:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager"/> to push data to <c>dataLayer</c> and/or <see cref="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker"/> to track page-views.
             </summary>
             <param name="services"></param>
             <param name="configureOptions"></param>

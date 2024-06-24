@@ -1,7 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-<div class="@CssClassHelper.Combine("alert", GetColorCss(), this.Dismissible ? "alert-dismissible fade show" : null, this.CssClass)" role="alert">
+<div class="@CssClassHelper.Combine("alert", GetColorCss(), Dismissible ? "alert-dismissible fade show" : null, CssClass)" role="alert" @attributes="@AdditionalAttributes">
 	@ChildContent
-	@if (this.Dismissible)
+	@if (Dismissible)
 	{
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	}

@@ -9,19 +9,19 @@ public partial class MainLayout
 
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 
-	private string title;
+	private string _title;
 
 	protected override void OnParametersSet()
 	{
-		var path = new Uri(this.NavigationManager.Uri).AbsolutePath.TrimEnd('/');
+		var path = new Uri(NavigationManager.Uri).AbsolutePath.TrimEnd('/');
 
 		var lastSegmentStart = path.LastIndexOf("/");
 		if (lastSegmentStart > 0)
 		{
-			title = path.Substring(lastSegmentStart + 1) + TitleSeparator + TitleBase;
+			_title = path.Substring(lastSegmentStart + 1) + TitleSeparator + TitleBase;
 			return;
 		}
 
-		title = "HAVIT Blazor | Free Bootstrap 5 components for Blazor";
+		_title = "HAVIT Blazor | Free Bootstrap 5 components for Blazor";
 	}
 }

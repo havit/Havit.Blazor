@@ -11,12 +11,12 @@ public enum PlaceholderAnimation
 	None = 0,
 
 	/// <summary>
-	/// Glow animation.
+	/// Animation with a glowing effect.
 	/// </summary>
 	Glow = 1,
 
 	/// <summary>
-	/// Wave animation.
+	/// Animation with a waving effect.
 	/// </summary>
 	Wave = 2
 }

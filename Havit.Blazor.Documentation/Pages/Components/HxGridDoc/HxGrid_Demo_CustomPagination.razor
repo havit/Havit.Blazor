@@ -1,0 +1,47 @@
+﻿@inject IDemoDataService DemoDataService
+
+<HxGrid TItem="EmployeeDto" DataProvider="GetGridData" PageSize="_pageSize" Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" SortKeySelector=" employee => employee.Name" IsDefaultSortColumn="true" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" SortKeySelector=" employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" SortKeySelector="employee => employee.Salary" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" SortKeySelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" SortKeySelector="employee => employee.Location" />
+	</Columns>
+	<PaginationTemplate Context="pagination">
+		@{
+			int totalPages = (pagination.TotalCount + pagination.PageSize - 1) / pagination.PageSize;
+			int firstItemPosition = pagination.CurrentUserState.PageIndex * pagination.PageSize + 1;
+			int lastItemPosition = Math.Min(firstItemPosition + pagination.PageSize - 1, pagination.TotalCount);
+		}
+		<div class="row">
+			<div class="col d-flex gap-2 align-items-center">
+				Rows per page: <HxSelect @bind-Value="@_pageSize" Data="_pageSizes" Nullable="false" AutoSort="false" InputSize="InputSize.Small" />
+			</div>
+			<div class="col d-flex justify-content-center align-items-center">
+				Showing @firstItemPosition to @lastItemPosition of @pagination.TotalCount entries
+			</div>
+			<div class="col d-flex align-items-center justify-content-end">
+				<HxButton Icon="BootstrapIcon.ChevronBarLeft" Enabled="pagination.CurrentUserState.PageIndex > 0" OnClick="() => pagination.ChangeCurrentPageIndexAsync(0)" Color="ThemeColor.Link" />
+				<HxButton Icon="BootstrapIcon.ChevronLeft" Enabled="pagination.CurrentUserState.PageIndex > 0" OnClick="() => pagination.ChangeCurrentPageIndexAsync(pagination.CurrentUserState.PageIndex - 1)" Color="ThemeColor.Link" />
+				<HxButton Icon="BootstrapIcon.ChevronRight" Enabled="pagination.CurrentUserState.PageIndex + 1 < totalPages" OnClick="() => pagination.ChangeCurrentPageIndexAsync(pagination.CurrentUserState.PageIndex + 1)" Color="ThemeColor.Link" />
+				<HxButton Icon="BootstrapIcon.ChevronBarRight" Enabled="pagination.CurrentUserState.PageIndex + 1 < totalPages" OnClick="() => pagination.ChangeCurrentPageIndexAsync(totalPages - 1)" Color="ThemeColor.Link" />
+			</div>
+		</div>
+	</PaginationTemplate>
+</HxGrid>
+
+@code {
+	private int _pageSize = 5;
+	private readonly List<int> _pageSizes = [5, 10, 20];
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		// you usually pass the data-request to your API/DataLayer
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken),
+				TotalCount = await DemoDataService.GetEmployeesCountAsync(request.CancellationToken)
+			};
+	}
+}

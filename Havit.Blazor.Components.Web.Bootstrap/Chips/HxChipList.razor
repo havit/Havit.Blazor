@@ -1,10 +1,10 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-<div class="@CssClassHelper.Combine("hx-chip-list", this.CssClassEffective)">
+<div class="@CssClassHelper.Combine("hx-chip-list", CssClassEffective)">
 	@if (Chips != null)
 	{
-		foreach (Havit.Blazor.Components.Web.Bootstrap.ChipItem chipItem in Chips)
+		foreach (ChipItem chipItem in Chips)
 		{
-			<HxBadge @key="@chipItem" Settings="this.ChipBadgeSettingsEffective">
+			<HxBadge @key="@chipItem" Settings="ChipBadgeSettingsEffective">
 				@chipItem.ChipTemplate
 				@if (chipItem.Removable)
 				{
@@ -14,7 +14,7 @@
 				}
 			</HxBadge>
 		}
-		@if (Chips.Any() && this.ShowResetButtonEffective)
+		@if (Chips.Any() && ShowResetButtonEffective)
 		{
 			@if (ResetButtonTemplate is not null)
 			{

@@ -11,7 +11,7 @@ public static class HxInputRange
 	{
 		Defaults = new InputRangeSettings()
 		{
-			BindEvent = Bootstrap.BindEvent.OnChange
+			BindEvent = BindEvent.OnChange
 		};
 	}
 }

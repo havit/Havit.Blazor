@@ -2,94 +2,94 @@
 
 <span class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputSizeEffective.AsInputGroupCssClass(), InputGroupCssClass)">
 
-    @if (InputGroupStartText is not null)
-    {
-        <span class="input-group-text">@InputGroupStartText</span>
-    }
+	@if (InputGroupStartText is not null)
+	{
+		<span class="input-group-text">@InputGroupStartText</span>
+	}
 
-    @InputGroupStartTemplate
+	@InputGroupStartTemplate
 
-    <div class="@CssClassHelper.Combine("hx-input-tags-control",
-									GetFormControlCssClasses(),
-									GetNakedCssClasses(),
-                                    this.EnabledEffective ? null : "hx-input-tags-control-disabled",
-									this.CssClass)"
-         @onclick="async () => await autosuggestInput.FocusAsync()"
-         @onclick:stopPropagation>
+	<div class="@CssClassHelper.Combine("hx-input-tags-control",
+		            GetFormControlCssClasses(),
+		            GetNakedCssClasses(),
+		            EnabledEffective ? null : "hx-input-tags-control-disabled",
+		            CssClass)"
+		 @onclick="FocusAsync"
+	@onclick:stopPropagation>
 
-        @foreach (string tag in ValueEffective)
-        {
-            <HxBadge @key="@tag"
-                 Settings="this.TagBadgeSettingsEffective"
-                 CssClass="@CssClassHelper.Combine("hx-tag", this.TagBadgeSettingsEffective.CssClass)">
-                @* Looks weird but should work :-D *@
-                @tag
-                @if (this.EnabledEffective)
-                {
-                    <span class="hx-tag-remove-button" @onclick="async () => await HandleRemoveClickAsync(tag)" @onclick:stopPropagation role="button" tabindex="0">
-                        <HxIcon Icon="BootstrapIcon.X" />
-                    </span>
-                }
-            </HxBadge>
-        }
+		@foreach (string tag in ValueEffective)
+		{
+			<HxBadge @key="@tag"
+					 Settings="TagBadgeSettingsEffective"
+					 CssClass="@CssClassHelper.Combine("hx-tag", TagBadgeSettingsEffective.CssClass)">
+				@* Looks weird but should work :-D *@
+				@tag
+				@if (EnabledEffective)
+				{
+					<span class="hx-tag-remove-button" @onclick="async () => await HandleRemoveClickAsync(tag)" @onclick:stopPropagation role="button" tabindex="0">
+						<HxIcon Icon="BootstrapIcon.X" />
+					</span>
+				}
+			</HxBadge>
+		}
 
-        @if (ShowAddButtonEffective && !currentlyFocused && !isDropdownOpened)
-        {
-            var showAddButtonText = !this.ValueEffective.Any() && !String.IsNullOrEmpty(AddButtonText);
+		@if (ShowAddButtonEffective && !_currentlyFocused && !_isDropdownOpened)
+		{
+			var showAddButtonText = !ValueEffective.Any() && !String.IsNullOrEmpty(AddButtonText);
 
-            <HxBadge Settings="this.TagBadgeSettingsEffective"
-                 CssClass="@CssClassHelper.Combine("hx-tag hx-tag-add-button", this.TagBadgeSettingsEffective.CssClass, EnabledEffective ? null : "hx-tag-add-button-disabled")"
-                 role="@(EnabledEffective ? "button" : "none")"
-				 aria-disabled="@(EnabledEffective ? "false" : "true")"
-                 tabindex="0">
-                <span class="hx-tag-add-button-icon">
-                    @* We don't need to catch onClick here as it gets propagated to parent div*@
-                    <HxIcon Icon="BootstrapIcon.PlusLg" />
-                </span>
-                @if (showAddButtonText)
-                {
-                    <span class="hx-tag-add-button-text">@AddButtonText</span>
-                }
-            </HxBadge>
-        }
+			<HxBadge Settings="TagBadgeSettingsEffective"
+					 CssClass="@CssClassHelper.Combine("hx-tag hx-tag-add-button", TagBadgeSettingsEffective.CssClass, EnabledEffective ? null : "hx-tag-add-button-disabled")"
+					 role="@(EnabledEffective ? "button" : "none")"
+					 aria-disabled="@(EnabledEffective ? "false" : "true")"
+					 tabindex="0">
+				<span class="hx-tag-add-button-icon">
+					@* We don't need to catch onClick here as it gets propagated to parent div*@
+					<HxIcon Icon="BootstrapIcon.PlusLg" />
+				</span>
+				@if (showAddButtonText)
+				{
+					<span class="hx-tag-add-button-text">@AddButtonText</span>
+				}
+			</HxBadge>
+		}
 
-        <div id="@dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "form-floating" : null)">
-            <HxInputTagsAutosuggestInputInternal @ref="autosuggestInput"
-                                                 InputId="@InputId"
-                                                 EnabledEffective="@EnabledEffective"
-                                                 Value="@userInput"
-                                                 OnInput="HandleInputInput"
-                                                 OnFocus="HandleInputFocus"
-                                                 OnBlur="HandleInputBlur"
-                                                 OnMouseDown="HandleInputMouseDown"
-                                                 Placeholder="@(ValueEffective.Any() ? null : Placeholder)"
-                                                 CssClass="border-0 flex-grow-1"
-                                                 Offset="@InputOffset"
-                                                 AdditionalAttributes="@this.AdditionalAttributes" />
-            @if (dataProviderInProgress)
-            {
-                <HxSpinner Type="SpinnerType.Border" Size="SpinnerSize.Small" />
-            }
-            <HxAutosuggestItemsInternal TItem="string"
-                                        Items="@suggestions"
-                                        OnItemClick="HandleItemSelected"
-                                        FocusedItemCssClass="hx-input-tags-dropdown-item-focused"
-                                        FocusedItemIndex="@focusedItemIndex">
+		<div id="@_dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)">
+			<HxInputTagsInputInternal @ref="_inputComponent"
+									  InputId="@InputId"
+									  EnabledEffective="@EnabledEffective"
+									  Value="@_userInput"
+									  OnInput="HandleInputInput"
+									  OnFocus="HandleInputFocus"
+									  OnMouseDown="HandleInputMouseDown"
+									  OnClick="HandleInputClick"
+									  Placeholder="@(ValueEffective.Any() ? null : Placeholder)"
+									  CssClass="border-0 flex-grow-1"
+									  Offset="@InputOffset"
+									  AdditionalAttributes="@AdditionalAttributes" />
+			@if (_dataProviderInProgress)
+			{
+				<HxSpinner Type="SpinnerType.Border" Size="SpinnerSize.Small" />
+			}
+			<HxAutosuggestItemsInternal TItem="string"
+										Items="@_suggestions"
+										OnItemClick="HandleItemSelected"
+										FocusedItemCssClass="hx-input-tags-dropdown-item-focused"
+										FocusedItemIndex="@_focusedItemIndex">
 
-                <ItemTemplate>
-                    @context
-                </ItemTemplate>
+				<ItemTemplate>
+					@context
+				</ItemTemplate>
 
-            </HxAutosuggestItemsInternal>
-        </div>
+			</HxAutosuggestItemsInternal>
+		</div>
 
-    </div>
+	</div>
 
-    @InputGroupEndTemplate
+	@InputGroupEndTemplate
 
-    @if (InputGroupEndText is not null)
-    {
-        <span class="input-group-text">@InputGroupEndText</span>
-    }
+	@if (InputGroupEndText is not null)
+	{
+		<span class="input-group-text">@InputGroupEndText</span>
+	}
 
 </span>

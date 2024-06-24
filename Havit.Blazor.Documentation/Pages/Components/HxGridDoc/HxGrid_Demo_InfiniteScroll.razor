@@ -1,0 +1,44 @@
+﻿@inject IDemoDataService DemoDataService
+
+<style>
+	.virtualized-table-container {
+		height: 400px;
+		overflow: auto;
+	}
+</style>
+
+<HxGrid TItem="EmployeeDto"
+		DataProvider="GetGridData"
+		TableContainerCssClass="virtualized-table-container"
+		ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
+		ItemRowHeight="41"
+		PageSize="5"
+		Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+	</Columns>
+</HxGrid>
+
+<p class="mt-3">@debugOutput</p>
+
+@code {
+	string debugOutput;
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		debugOutput = $"Requesting data: StartIndex={request.StartIndex}, Count={request.Count}";
+		StateHasChanged();
+
+		await Task.Delay(500);  // simulate server delay in demo (do not put this in your code)
+
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken),
+				TotalCount = await DemoDataService.GetEmployeesCountAsync(request.CancellationToken)
+			};
+	}
+}

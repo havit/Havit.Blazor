@@ -6,67 +6,67 @@
 public record OffcanvasSettings
 {
 	/// <summary>
-	/// Close icon to be used in header.
-	/// If set to <c>null</c>, Bootstrap default close-button will be used.
+	/// Close icon to be used in the header.
+	/// If set to <c>null</c>, the Bootstrap default close button will be used.
 	/// </summary>
 	public IconBase CloseButtonIcon { get; set; }
 
 	/// <summary>
-	/// Indicates whether the modal shows close button in header.
-	/// Use <see cref="CloseButtonIcon"/> to change shape of the button.
+	/// Indicates whether the modal shows a close button in the header.
+	/// Use the <see cref="CloseButtonIcon"/> property to change the shape of the button.
 	/// </summary>
 	public bool? ShowCloseButton { get; set; }
 
 	/// <summary>
-	/// Indicates whether to apply a backdrop on body while offcanvas is open.
+	/// Indicates whether to apply a backdrop on the body while the offcanvas is open.
 	/// </summary>
 	public OffcanvasBackdrop? Backdrop { get; set; }
 
 	/// <summary>
-	/// Breakpoint below which the contents are rendered outside the viewport in an offcanvas (above this breakpoint, the offcanvas body is rendered inside the viewport).
+	/// The breakpoint below which the contents are rendered outside the viewport in an offcanvas (above this breakpoint, the offcanvas body is rendered inside the viewport).
 	/// </summary>
 	public OffcanvasResponsiveBreakpoint? ResponsiveBreakpoint { get; set; }
 
 	/// <summary>
-	/// Placement of the offcanvas.
+	/// The placement of the offcanvas.
 	/// </summary>
 	public OffcanvasPlacement? Placement { get; set; }
 
 	/// <summary>
-	/// Size of the offcanvas.<br/>
+	/// The size of the offcanvas.
 	/// </summary>
 	/// <remarks>
-	/// Consider customization of the offcanvas CSS variables instead of changing the Size application-wide.
+	/// Consider customizing the offcanvas CSS variables instead of changing the size application-wide.
 	/// </remarks>
 	public OffcanvasSize? Size { get; set; }
 
 	/// <summary>
-	/// Indicates whether the offcanvas closes when escape key is pressed.
+	/// Indicates whether the offcanvas closes when the escape key is pressed.
 	/// </summary>
 	public bool? CloseOnEscape { get; set; }
 
 	/// <summary>
-	/// Indicates whether body (page) scrolling is allowed while offcanvas is open.
+	/// Indicates whether body (page) scrolling is allowed while the offcanvas is open.
 	/// </summary>
 	public bool? ScrollingEnabled { get; set; }
 
 	/// <summary>
-	/// Offcanvas additional CSS class. Added to root div (<c>.offcanvas</c>).
+	/// Additional CSS class for the offcanvas. Added to the root div (<c>.offcanvas</c>).
 	/// </summary>
 	public string CssClass { get; set; }
 
 	/// <summary>
-	/// Additional header CSS class.
+	/// Additional CSS class for the header.
 	/// </summary>
 	public string HeaderCssClass { get; set; }
 
 	/// <summary>
-	/// Additional body CSS class.
+	/// Additional CSS class for the body.
 	/// </summary>
 	public string BodyCssClass { get; set; }
 
 	/// <summary>
-	/// Additional footer CSS class.
+	/// Additional CSS class for the footer.
 	/// </summary>
 	public string FooterCssClass { get; set; }
 }

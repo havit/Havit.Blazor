@@ -1,0 +1,3 @@
+﻿::deep .hx-sidebar {
+	--hx-sidebar-parent-item-active-icon-color: var(--bs-success);
+}

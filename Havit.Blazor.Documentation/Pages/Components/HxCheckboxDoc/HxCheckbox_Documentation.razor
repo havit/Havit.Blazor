@@ -7,7 +7,7 @@
         <code>HxCheckbox</code> replaces the former <code>HxInputCheckbox</code> component, which was dropped in v4.0.0.
         <ul class="mb-0">
             <li><code>HxInputCheckbox.Label</code> is now <code>HxCheckbox.Text</code></li>
-            <li>new <code>Label</code> parameter coresponds to the optional <code>.form-label</code></li>
+            <li>The new <code>Label</code> parameter corresponds to the optional <code>.form-label</code></li>
         </ul>
     </DocAlert>
 
@@ -17,9 +17,9 @@
     <DocHeading Title="Inline" />
     <p>Group checkboxes on the same horizontal row by adding <code>Inline="true"</code> to the checkboxes.</p>
     <DocAlert Type="DocAlertType.Warning">
-        Our CSS defaults bring flex-column to <code>&lt;form&gt;</code> element (<code>EditForm</code> component),
+        Our CSS defaults bring flex-column to the <code>&lt;form&gt;</code> element (<code>EditForm</code> component),
         every single direct child component of <code>&lt;form&gt;</code> is stacked vertically.<br />
-        This setup implies, whenever you want to go for horizontal stacking, you have to wrap your items in some
+        This setup implies that whenever you want to go for horizontal stacking, you have to wrap your items in some
         element (usually <code>&lt;div&gt;</code>). This also applies to the inline checkboxes.
     </DocAlert>
     <Demo Type="typeof(HxCheckbox_Demo_Inline)" />

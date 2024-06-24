@@ -1,4 +1,5 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
+﻿#pragma warning disable BL0007 // Component parameter 'Havit.Blazor.Components.Web.Bootstrap.HxPopover.Trigger' should be auto property
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -25,7 +26,7 @@ public class HxPopover : HxTooltipInternalBase
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected override PopoverSettings GetDefaults() => Defaults;
 
@@ -35,12 +36,12 @@ public class HxPopover : HxTooltipInternalBase
 	[Parameter] public PopoverSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override PopoverSettings GetSettings() => this.Settings;
+	protected override PopoverSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Popover title.
@@ -48,8 +49,8 @@ public class HxPopover : HxTooltipInternalBase
 	[Parameter]
 	public string Title
 	{
-		get => base.TitleInternal;
-		set => base.TitleInternal = value;
+		get => TitleInternal;
+		set => TitleInternal = value;
 	}
 
 	/// <summary>
@@ -58,28 +59,28 @@ public class HxPopover : HxTooltipInternalBase
 	[Parameter]
 	public string Content
 	{
-		get => base.ContentInternal;
-		set => base.ContentInternal = value;
+		get => ContentInternal;
+		set => ContentInternal = value;
 	}
 
 	/// <summary>
-	/// Popover placement. Default is <see cref="PopoverPlacement.Right"/>.
+	/// Popover placement. The default is <see cref="PopoverPlacement.Right"/>.
 	/// </summary>
 	[Parameter]
 	public PopoverPlacement Placement
 	{
-		get => (PopoverPlacement)base.PlacementInternal;
-		set => base.PlacementInternal = (TooltipPlacement)value;
+		get => (PopoverPlacement)PlacementInternal;
+		set => PlacementInternal = (TooltipPlacement)value;
 	}
 
 	/// <summary>
-	/// Popover trigger(s). Default is <see cref="PopoverTrigger.Click"/>.
+	/// Popover trigger(s). The default is <see cref="PopoverTrigger.Click"/>.
 	/// </summary>
 	[Parameter]
 	public PopoverTrigger Trigger
 	{
-		get => (PopoverTrigger)base.TriggerInternal;
-		set => base.TriggerInternal = (TooltipTrigger)value;
+		get => (PopoverTrigger)TriggerInternal;
+		set => TriggerInternal = (TooltipTrigger)value;
 	}
 
 	protected override string JsModuleName => nameof(HxPopover);
@@ -87,15 +88,15 @@ public class HxPopover : HxTooltipInternalBase
 
 	public HxPopover()
 	{
-		this.Placement = PopoverPlacement.Right;
-		this.Trigger = PopoverTrigger.Click;
+		Placement = PopoverPlacement.Right;
+		Trigger = PopoverTrigger.Click;
 	}
 	protected override Dictionary<string, string> GetNewContentForUpdate()
 	{
 		return new()
 		{
-			{ ".popover-header", this.Title },
-			{ ".popover-body", this.Content }
+			{ ".popover-header", Title },
+			{ ".popover-body", Content }
 		};
 	}
 

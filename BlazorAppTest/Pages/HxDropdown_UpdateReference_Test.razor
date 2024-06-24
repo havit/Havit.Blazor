@@ -1,0 +1,69 @@
+﻿@page "/HxDropdown_UpdateReference_Test"
+
+<h1>HxDropdown</h1>
+
+<HxDropdown>
+	<HxDropdownToggleElement @ref="dropdownToggleElementComponent" DropdownReference="@_dropdownReference" />
+	<HxDropdownContent CssClass="@(IsBold ? "bg-light" : null)">
+		<div class="row m-3" style="min-width: 100px;">
+			<div class="col">
+				<div>
+					<HxCheckbox @bind-Value="IsBold" Text="Toggle button text bold" />
+				</div>
+			</div>
+		</div>
+	</HxDropdownContent>
+</HxDropdown>
+
+<HxButton id="button1" OnClick="HandleShowElement1">Show 1</HxButton>
+<HxButton id="button2" OnClick="HandleShowElement2">Show 2</HxButton>
+
+<br />
+
+<HxDropdownButtonGroup>
+	<HxDropdownToggleButton @ref="dropdownToggleButtonComponent" Text="HxDropdownToggleButton" Color="ThemeColor.Primary" DropdownReference="@_dropdownReference" />
+	<HxDropdownContent CssClass="@(IsBold ? "bg-light" : null)">
+		<div class="row m-3" style="min-width: 100px;">
+			<div class="col">
+				<div>
+					<HxCheckbox @bind-Value="IsBold" Text="Toggle button text bold" />
+				</div>
+			</div>
+		</div>
+	</HxDropdownContent>
+</HxDropdownButtonGroup>
+
+<HxButton id="button3" OnClick="HandleShowButton3">Show 3</HxButton>
+<HxButton id="button4" OnClick="HandleShowButton4">Show 4</HxButton>
+
+
+@code {
+	private HxDropdownToggleElement dropdownToggleElementComponent;
+	private HxDropdownToggleButton dropdownToggleButtonComponent;
+	private bool IsBold { get; set; } = false;
+	private string _dropdownReference = "#button1";
+
+	private async Task HandleShowElement1()
+	{
+		_dropdownReference = "#button1";
+		await dropdownToggleElementComponent.ShowAsync();
+	}
+
+	private async Task HandleShowElement2()
+	{
+		_dropdownReference = "#button2";
+		await dropdownToggleElementComponent.ShowAsync();
+	}
+
+	private async Task HandleShowButton3()
+	{
+		_dropdownReference = "#button3";
+		await dropdownToggleButtonComponent.ShowAsync();
+	}
+
+	private async Task HandleShowButton4()
+	{
+		_dropdownReference = "#button4";
+		await dropdownToggleButtonComponent.ShowAsync();
+	}
+}

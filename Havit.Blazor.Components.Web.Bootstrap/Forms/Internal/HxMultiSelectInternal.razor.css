@@ -1,4 +1,8 @@
-﻿.dropdown-menu {
+﻿.dropdown {
+	flex-grow: 1;
+}
+
+.dropdown-menu {
     width: 100%;
     overflow: auto;
     max-height: var(--hx-multi-select-dropdown-menu-height);
@@ -54,4 +58,14 @@ button.dropdown-item,
 
 .hx-multi-select-filter-input-icon div[role="button"]:not(:hover) ::deep .hx-icon {
 	opacity: var(--hx-multi-select-filter-input-icon-opacity);
+}
+
+.input-group-start ::deep .form-select {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.input-group-end ::deep .form-select {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
 }

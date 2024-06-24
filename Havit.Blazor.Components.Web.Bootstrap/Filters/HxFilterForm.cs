@@ -14,21 +14,21 @@ public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable
 	/// </summary>
 	protected virtual Task InvokeOnChipsUpdatedAsync(ChipItem[] newChips) => OnChipsUpdated.InvokeAsync(newChips);
 
-	private List<IHxChipGenerator> chipGenerators;
-	private CollectionRegistration<IHxChipGenerator> chipGeneratorsRegistration;
-	private bool isDisposed = false;
-	private bool notifyChipsUpdatedAfterRender;
+	private List<IHxChipGenerator> _chipGenerators;
+	private CollectionRegistration<IHxChipGenerator> _chipGeneratorsRegistration;
+	private bool _isDisposed = false;
+	private bool _notifyChipsUpdatedAfterRender;
 
 	public HxFilterForm()
 	{
-		chipGenerators = new List<IHxChipGenerator>();
-		chipGeneratorsRegistration = new CollectionRegistration<IHxChipGenerator>(chipGenerators, null, () => isDisposed);
+		_chipGenerators = new List<IHxChipGenerator>();
+		_chipGeneratorsRegistration = new CollectionRegistration<IHxChipGenerator>(_chipGenerators, null, () => _isDisposed);
 	}
 
 	protected override void OnModelSet()
 	{
 		base.OnModelSet();
-		notifyChipsUpdatedAfterRender = true;
+		_notifyChipsUpdatedAfterRender = true;
 	}
 
 	public override async Task UpdateModelAsync()
@@ -48,7 +48,7 @@ public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable
 
 		// Generated chips are connected to ModelInEdit.
 		// When the model is changed, the chips are updated.
-		// As a solution we create a new ModelInEdit so the one used for chips in not changed anymore so the chips do not update the content.
+		// As a solution, we create a new ModelInEdit so that the one used for chips is not changed anymore, and the chips do not update the content.
 		ModelInEdit = CloneModel(ModelInEdit);
 		StateHasChanged(); // also called from OnAfterRender
 
@@ -59,7 +59,7 @@ public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable
 	{
 		List<ChipItem> result = new List<ChipItem>();
 
-		foreach (IHxChipGenerator chipGenerator in chipGenerators.ToArray())
+		foreach (IHxChipGenerator chipGenerator in _chipGenerators.ToArray())
 		{
 			result.AddRange(chipGenerator.GetChips());
 		}
@@ -68,7 +68,7 @@ public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable
 	}
 
 	/// <summary>
-	/// Tries to remove chip.
+	/// Tries to remove a chip.
 	/// Execution is postponed to OnAfterRender, so this method cannot have a return value.
 	/// </summary>
 	public Task RemoveChipAsync(ChipItem chipToRemove)
@@ -79,11 +79,11 @@ public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable
 		ModelInEdit = newModelInEdit; // place the model to the edit
 
 		// propagate the model in edit to the Model and notify model changed
-		// if used with await the chip is removed from UI much later
+		// if used with await, the chip is removed from UI much later
 		_ = InvokeAsync(UpdateModelWithoutChipUpdateAsync);
 
-		notifyChipsUpdatedAfterRender = true; // notify the chips update after the model is "rendered"
-		StateHasChanged(); // added as fix for #59236 HxListLayout/HxFilterForm - loses all chips, when one of chips gets removed
+		_notifyChipsUpdatedAfterRender = true; // notify the chips update after the model is "rendered"
+		StateHasChanged(); // added as a fix for #59236 HxListLayout/HxFilterForm - loses all chips when one of the chips gets removed
 
 		return Task.CompletedTask;
 	}
@@ -92,9 +92,9 @@ public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable
 	{
 		await base.OnAfterRenderAsync(firstRender);
 
-		if (notifyChipsUpdatedAfterRender)
+		if (_notifyChipsUpdatedAfterRender)
 		{
-			notifyChipsUpdatedAfterRender = false;
+			_notifyChipsUpdatedAfterRender = false;
 			await NotifyChipsUpdatedAsync();
 		}
 	}
@@ -103,7 +103,7 @@ public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable
 	{
 		builder.OpenComponent<CascadingValue<CollectionRegistration<IHxChipGenerator>>>(0);
 		builder.AddAttribute(1, nameof(CascadingValue<CollectionRegistration<IHxChipGenerator>>.Name), ChipGeneratorRegistrationCascadingValueName);
-		builder.AddAttribute(2, nameof(CascadingValue<CollectionRegistration<IHxChipGenerator>>.Value), chipGeneratorsRegistration);
+		builder.AddAttribute(2, nameof(CascadingValue<CollectionRegistration<IHxChipGenerator>>.Value), _chipGeneratorsRegistration);
 		builder.AddAttribute(3, nameof(CascadingValue<CollectionRegistration<IHxChipGenerator>>.IsFixed), true);
 		builder.AddAttribute(4, nameof(CascadingValue<CollectionRegistration<IHxChipGenerator>>.ChildContent), (RenderFragment)base.BuildRenderTree);
 		builder.CloseComponent();
@@ -116,6 +116,6 @@ public class HxFilterForm<TModel> : HxModelEditForm<TModel>, IDisposable
 
 	protected virtual void Dispose(bool disposing)
 	{
-		isDisposed = true;
+		_isDisposed = true;
 	}
 }

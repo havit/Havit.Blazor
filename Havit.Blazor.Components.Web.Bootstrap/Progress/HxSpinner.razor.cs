@@ -3,18 +3,18 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/spinners/">Spinner</see> (usually indicates operation in progress).<br />
+/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/spinners/">Spinner</see> (usually indicates an operation in progress).<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSpinner">https://havit.blazor.eu/components/HxSpinner</see>
 /// </summary>
 public partial class HxSpinner
 {
 	/// <summary>
-	/// Spinner type. Spinner type - Border (default) or Grow.
+	/// Spinner type. The spinner type can be Border (default) or Grow.
 	/// </summary>
 	[Parameter] public SpinnerType Type { get; set; } = SpinnerType.Border;
 
 	/// <summary>
-	/// Spinner size. You can also use custom <see cref="CssClass"/> to change the dimensions as needed.
+	/// Spinner size. You can also use a custom <see cref="CssClass"/> to change the dimensions as needed.
 	/// </summary>
 	[Parameter] public SpinnerSize Size { get; set; } = SpinnerSize.Regular;
 
@@ -32,7 +32,7 @@ public partial class HxSpinner
 
 	protected string GetSpinnerTypeCssClass()
 	{
-		return this.Type switch
+		return Type switch
 		{
 			SpinnerType.Border => "spinner-border",
 			SpinnerType.Grow => "spinner-grow",
@@ -42,7 +42,7 @@ public partial class HxSpinner
 
 	protected string GetSpinnerSizeCssClass()
 	{
-		return this.Size switch
+		return Size switch
 		{
 			SpinnerSize.Regular => null,
 			SpinnerSize.Small => GetSpinnerTypeCssClass() + "-sm",

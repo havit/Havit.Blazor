@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Havit.Blazor.Documentation.Server.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Net.Http.Headers;
@@ -12,7 +13,8 @@ public class FileUploadControllerDemo : ControllerBase
 	// https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads#upload-large-files-with-streaming
 	// https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/
 	[HttpPost("/file-upload-streamed/")]
-	public async Task<IActionResult> UploadStreamedFile()
+	[DisableFormValueModelBinding]
+	public async Task<IActionResult> UploadStreamedFileAsync(CancellationToken cancellationToken)
 	{
 		if (!IsMultipartContentType(Request.ContentType))
 		{
@@ -22,7 +24,7 @@ public class FileUploadControllerDemo : ControllerBase
 
 		var boundary = GetBoundary(MediaTypeHeaderValue.Parse(Request.ContentType), lengthLimit: BoundaryLengthLimit);
 		var reader = new MultipartReader(boundary, HttpContext.Request.Body);
-		var section = await reader.ReadNextSectionAsync();
+		var section = await reader.ReadNextSectionAsync(cancellationToken);
 
 		while (section != null)
 		{
@@ -37,16 +39,16 @@ public class FileUploadControllerDemo : ControllerBase
 				var trustedFileNameForFileStorage = Path.GetRandomFileName();
 				// using (var targetStream = System.IO.File.Create(Path.Combine(Path.GetTempPath(), trustedFileNameForFileStorage)))
 				// {
-				// 	await section.Body.CopyToAsync(targetStream);
+				// 	await section.Body.CopyToAsync(targetStream, cancellationToken);
 				// }
 
-				await section.Body.CopyToAsync(Stream.Null);
+				await section.Body.CopyToAsync(Stream.Null, cancellationToken);
 
 				return Ok(trustedFileNameForFileStorage);
 			}
 
 			// Drain any remaining section body that hasn't been consumed and read the headers for the next section.
-			section = await reader.ReadNextSectionAsync();
+			section = await reader.ReadNextSectionAsync(cancellationToken);
 		}
 
 		return BadRequest();

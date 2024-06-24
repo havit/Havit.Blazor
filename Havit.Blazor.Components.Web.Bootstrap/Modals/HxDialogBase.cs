@@ -11,33 +11,33 @@ public abstract class HxDialogBase<TResult> : ComponentBase
 #pragma warning restore SA1307 // Accessible fields must begin with upper-case letter
 
 	/// <summary>
-	/// Returns the <see cref="HxModal"/> component which this component control. Override when you do not want to use modal field set using @ref.
+	/// Returns the <see cref="HxModal"/> component that this component controls. Override this method when you do not want to use the modal field set using @ref.
 	/// </summary>
 	protected virtual HxModal Modal => modal;
 
-	private TaskCompletionSource<DialogResult<TResult>> resultCompletion;
-	private bool setResultOnModalClosed;
-	private bool firstRendered = false;
+	private TaskCompletionSource<DialogResult<TResult>> _resultCompletion;
+	private bool _setResultOnModalClosed;
+	private bool _firstRendered = false;
 
 	/// <summary>
 	/// Shows the modal and waits until it is hidden.
 	/// </summary>
 	public async Task<DialogResult<TResult>> ShowAsync()
 	{
-		Contract.Assert<InvalidOperationException>(firstRendered, "Cannot show dialog before it is rendered."); // otherwise we do not have Modal/modal value from @ref.
-		resultCompletion = new TaskCompletionSource<DialogResult<TResult>>();
-		setResultOnModalClosed = true;
+		Contract.Assert<InvalidOperationException>(_firstRendered, "Cannot show the dialog before it is rendered."); // otherwise, we do not have the Modal/modal value from @ref.
+		_resultCompletion = new TaskCompletionSource<DialogResult<TResult>>();
+		_setResultOnModalClosed = true;
 #pragma warning disable BL0005 // Component parameter should not be set outside of its component.
 		Modal.OnClosed = EventCallback.Factory.Create(this, HandleModalClosed);
 #pragma warning restore BL0005 // Component parameter should not be set outside of its component.
 
 		await Modal.ShowAsync();
-		var result = await this.resultCompletion.Task;
+		var result = await _resultCompletion.Task;
 
 #pragma warning disable BL0005 // Component parameter should not be set outside of its component.
 		Modal.OnClosed = EventCallback.Empty;
 #pragma warning restore BL0005 // Component parameter should not be set outside of its component.
-		this.resultCompletion = null; // do not hold task with a value
+		_resultCompletion = null; // do not hold the task with a value
 
 		return result;
 	}
@@ -47,9 +47,9 @@ public abstract class HxDialogBase<TResult> : ComponentBase
 	/// </summary>
 	protected internal async Task HideAsync(TResult value)
 	{
-		setResultOnModalClosed = false; // do not fire event in HandleModalClosed
+		_setResultOnModalClosed = false; // do not fire the event in HandleModalClosed
 		await Modal.HideAsync();
-		resultCompletion.SetResult(DialogResult<TResult>.CreateSuccessful(value)); // finish ShowAsync with a value
+		_resultCompletion.SetResult(DialogResult<TResult>.CreateSuccessful(value)); // finish ShowAsync with a value
 	}
 
 	/// <summary>
@@ -57,25 +57,25 @@ public abstract class HxDialogBase<TResult> : ComponentBase
 	/// </summary>
 	protected internal async Task HideAsCancelledAsync()
 	{
-		setResultOnModalClosed = false; // do not fire event in HandleModalClosed
+		_setResultOnModalClosed = false; // do not fire the event in HandleModalClosed
 		await Modal.HideAsync();
-		resultCompletion.SetResult(DialogResult<TResult>.CreateCancelled()); // finish ShowAsync with no value
+		_resultCompletion.SetResult(DialogResult<TResult>.CreateCancelled()); // finish ShowAsync with no value
 	}
 
 	private void HandleModalClosed()
 	{
-		if (setResultOnModalClosed)
+		if (_setResultOnModalClosed)
 		{
-			// we expect this only when dialog closed out od HideAsync/HideAsCancelledAsync methods
-			// ie. escape key or close but in top-right corner
-			resultCompletion.SetResult(DialogResult<TResult>.CreateCancelled());
+			// we expect this only when the dialog is closed out of the HideAsync/HideAsCancelledAsync methods
+			// i.e. escape key or close button in the top-right corner
+			_resultCompletion.SetResult(DialogResult<TResult>.CreateCancelled());
 		}
 	}
 
 	protected override void OnAfterRender(bool firstRender)
 	{
 		base.OnAfterRender(firstRender);
-		Contract.Assert<InvalidOperationException>(Modal != null, $"Dialog must contain {nameof(HxModal)} component with @ref=\"{nameof(modal)}\".");
-		firstRendered = true;
+		Contract.Assert<InvalidOperationException>(Modal != null, $"The dialog must contain the {nameof(HxModal)} component with @ref=\"{nameof(modal)}\".");
+		_firstRendered = true;
 	}
 }

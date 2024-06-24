@@ -2,23 +2,23 @@
 @typeparam TItem
 
 @{
-    IconBase icon = this.IconSelector?.Invoke(this.Item) ?? null;
-    string title = this.TitleSelector?.Invoke(this.Item) ?? null;
-    string cssClassFromSelector = this.CssClassSelector?.Invoke(this.Item) ?? null;
-    IEnumerable<TItem> children = this.ChildrenSelector(this.Item);
+    IconBase icon = IconSelector?.Invoke(Item) ?? null;
+    string title = TitleSelector?.Invoke(Item) ?? null;
+    string cssClassFromSelector = CssClassSelector?.Invoke(Item) ?? null;
+    IEnumerable<TItem> children = ChildrenSelector(Item);
     bool hasChildren = children?.Any() ?? false;
-    bool isSelected = this.Item.Equals(this.TreeViewContainer.SelectedItem);
+    bool isSelected = Item.Equals(TreeViewContainer.SelectedItem);
 }
 
-<div class="@CssClassHelper.Combine("hx-tree-view-item", isSelected ? "selected" : "", this.CssClass, cssClassFromSelector)" @onclick="@HandleItemClicked" @onclick:stopPropagation="true">
-    @for (int i = 0; i < this.Level; i++)
+<div class="@CssClassHelper.Combine("hx-tree-view-item", isSelected ? "selected" : "", CssClass, cssClassFromSelector)" @onclick="@HandleItemClicked" @onclick:stopPropagation="true">
+    @for (int i = 0; i < Level; i++)
     {
         <div class="hx-tree-view-item-spacer"></div>
     }
 	<div class="hx-tree-view-item-expander-container">
 		@if (hasChildren)
 		{
-			<HxCollapseToggleElement ElementName="div" @onclick:stopPropagation CollapseTarget="@($"#{collapseId}")" CssClass="hx-tree-view-item-expander">
+			<HxCollapseToggleElement ElementName="div" @onclick:stopPropagation CollapseTarget="@($"#{_collapseId}")" CssClass="hx-tree-view-item-expander">
 				<HxIcon Icon="@BootstrapIcon.ChevronDown" />
 			</HxCollapseToggleElement>
 		}
@@ -35,13 +35,13 @@
     }
     @if (ContentTemplate is not null)
     {
-        @ContentTemplate(this.Item)
+	    @ContentTemplate(Item)
     }
 </div>
 
 @if (hasChildren)
 {
-    <HxCollapse Id="@collapseId"
+    <HxCollapse Id="@_collapseId"
                 CollapseDirection="CollapseDirection.Vertical"
                 InitiallyExpanded="IsExpanded ?? false"
                 OnHidden="HandleCollapseHiddenAsync"
@@ -54,11 +54,11 @@
                                     Item="item"
                                     TitleSelector="this.TitleSelector"
                                     IconSelector="this.IconSelector"
-                                    CssClass="@this.CssClass"
+                                    CssClass="@CssClass"
                                     CssClassSelector="this.CssClassSelector"
                                     InitialExpandedSelector="this.InitialExpandedSelector"
                                     ChildrenSelector="this.ChildrenSelector"
-                                    Level="@(this.Level + 1)"
+                                    Level="@(Level + 1)"
                                     ContentTemplate="this.ContentTemplate"
                                     OnItemSelected="this.OnItemSelected"
                                     OnItemExpanded="OnItemExpanded"

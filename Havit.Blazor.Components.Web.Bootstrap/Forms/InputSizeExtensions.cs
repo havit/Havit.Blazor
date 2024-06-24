@@ -3,7 +3,7 @@
 public static class InputSizeExtensions
 {
 	/// <summary>
-	/// Returns CSS class to render input (form-control) with desired size.
+	/// Returns CSS class to render input (form-control) with the desired size.
 	/// </summary>
 	public static string AsFormControlCssClass(this InputSize inputSize)
 	{
@@ -17,7 +17,7 @@ public static class InputSizeExtensions
 	}
 
 	/// <summary>
-	/// Returns CSS class to render input-group with desired size.
+	/// Returns CSS class to render input-group with the desired size.
 	/// </summary>
 	public static string AsInputGroupCssClass(this InputSize inputSize)
 	{
@@ -31,7 +31,7 @@ public static class InputSizeExtensions
 	}
 
 	/// <summary>
-	/// Returns CSS class to render select (form-select) with desired size.
+	/// Returns CSS class to render select (form-select) with the desired size.
 	/// </summary>
 	public static string AsFormSelectCssClass(this InputSize inputSize)
 	{

@@ -5,6 +5,7 @@
 /// </summary>
 public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 {
+#pragma warning disable BL0007 // Component parameter 'Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn<TItem>.Order' should be auto property
 	/// <summary>
 	/// The order (display index) of the column.
 	/// Columns are displayed in the order of this property.
@@ -14,25 +15,27 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter]
 	public int Order
 	{
-		get => order;
+		get => _order;
 		set
 		{
-			// This is to ensure MultiSelectGridColumn is displayed always as the first column.
-			// MultiSelectGridColumn uses Int32.MinValue and we do not want to enable column to have same value.
+			// TODO Move validation to OnParametersSet
+			// This is to ensure MultiSelectGridColumn is always displayed as the first column.
+			// MultiSelectGridColumn uses Int32.MinValue and we do not want to enable columns to have the same value.
 			Contract.Requires<ArgumentException>(value != Int32.MinValue);
 
-			order = value;
+			_order = value;
 		}
 	}
-	private int order = 0;
+	private int _order = 0;
+#pragma warning restore BL0007 // Component parameter 'Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn<TItem>.Order' should be auto property
 
 	/// <summary>
-	/// Returns item css class (not dependent on data).
+	/// Returns the item CSS class (not dependent on data).
 	/// </summary>
 	[Parameter] public string ItemCssClass { get; set; }
 
 	/// <summary>
-	/// Returns item css class for the specific date item.
+	/// Returns the item CSS class for the specific data item.
 	/// </summary>
 	[Parameter] public Func<TItem, string> ItemCssClassSelector { get; set; }
 
@@ -45,7 +48,7 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 	protected override string GetId() => nameof(HxContextMenuGridColumn<object>);
 
 	/// <inheritdoc />
-	protected override int GetColumnOrder() => order;
+	protected override int GetColumnOrder() => _order;
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => GridCellTemplate.Empty;

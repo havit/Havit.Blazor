@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BlazorAppTest.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Net.Http.Headers;
 using System.Net;
@@ -12,7 +13,8 @@ public class FileUploadController : ControllerBase
 	// https://docs.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads#upload-large-files-with-streaming
 	// https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/
 	[HttpPost("/file-upload-streamed/")]
-	public async Task<IActionResult> UploadStreamedFile()
+	[DisableFormValueModelBinding]
+	public async Task<IActionResult> UploadStreamedFile(CancellationToken cancellationToken)
 	{
 		if (!IsMultipartContentType(Request.ContentType))
 		{
@@ -22,7 +24,7 @@ public class FileUploadController : ControllerBase
 
 		var boundary = GetBoundary(MediaTypeHeaderValue.Parse(Request.ContentType), lengthLimit: BoundaryLengthLimit);
 		var reader = new MultipartReader(boundary, HttpContext.Request.Body);
-		var section = await reader.ReadNextSectionAsync();
+		var section = await reader.ReadNextSectionAsync(cancellationToken);
 
 		while (section != null)
 		{
@@ -33,16 +35,17 @@ public class FileUploadController : ControllerBase
 				// Don't trust the file name sent by the client. To display the file name, HTML-encode the value.
 				var trustedFileNameForDisplay = WebUtility.HtmlEncode(contentDisposition.FileName.Value);
 				var trustedFileNameForFileStorage = Path.GetRandomFileName();
-				using (var targetStream = System.IO.File.Create(Path.Combine(Path.GetTempPath(), trustedFileNameForDisplay /* trustedFileNameForFileStorage */)))  // TOTO JE JENOM TESTOVÁTKO, NIKDY SOUBORY POD PŮVODNÍM NÁZVEM
+				// THIS IS JUST FOR TESTING, NEVER SAVE FILES UNDER THE ORIGINAL NAME
+				using (var targetStream = System.IO.File.Create(Path.Combine(Path.GetTempPath(), trustedFileNameForDisplay /* trustedFileNameForFileStorage */)))
 				{
-					await section.Body.CopyToAsync(targetStream);
+					await section.Body.CopyToAsync(targetStream, cancellationToken);
 				}
 
 				return Ok(trustedFileNameForFileStorage);
 			}
 
 			// Drain any remaining section body that hasn't been consumed and read the headers for the next section.
-			section = await reader.ReadNextSectionAsync();
+			section = await reader.ReadNextSectionAsync(cancellationToken);
 		}
 
 		return BadRequest();

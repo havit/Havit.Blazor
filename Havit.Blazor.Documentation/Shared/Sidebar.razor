@@ -11,8 +11,8 @@
     <ItemsTemplate>
         <Search />
 
-        <HxSidebarItem Text="Getting started" Href="/" Match="NavLinkMatch.All" Icon="BootstrapIcon.House" />
-        <HxSidebarItem Text="Migration to v4 🔥" Href="/migrating" Match="NavLinkMatch.All" Icon="BootstrapIcon.ArrowUpCircle" />
+		<HxSidebarItem Text="Getting started" Href="/" Match="NavLinkMatch.All" Icon="BootstrapIcon.House" TooltipText="Getting started" />
+		<HxSidebarItem Text="Migration to v4" Href="/migrating" Match="NavLinkMatch.All" Icon="BootstrapIcon.ArrowUpCircle" TooltipText="Migration to v4 🔥" />
 
         <HxSidebarItem Text="Forms" Icon="BootstrapIcon.InputCursorText">
             <HxSidebarItem Href="/components/Inputs" Text="Inputs" />
@@ -72,7 +72,8 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxDropdown)}")" Text="@nameof(HxDropdown)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxIcon)}")" Text="@nameof(HxIcon)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxPlaceholder)}")" Text="@nameof(HxPlaceholder)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxTooltip)}")" Text="@nameof(HxTooltip)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxTooltip)}")" Text="@nameof(HxTooltip)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxPopover)}")" Text="@nameof(HxPopover)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxTabPanel)}")" Text="@nameof(HxTabPanel)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxListGroup)}")" Text="@(nameof(HxListGroup))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxListLayout)}")" Text="@(nameof(HxListLayout))" />
@@ -85,10 +86,13 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxNavLink)}#{nameof(HxNavLink)}")" Text="@nameof(HxNavLink)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxScrollspy)}")" Text="@nameof(HxScrollspy)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxBreadcrumb)}")" Text="@nameof(HxBreadcrumb)" />
+			@{
+#pragma warning disable 0618 // Obsolete
+			}
             <HxSidebarItem Href="@($"/components/{nameof(HxAnchorFragmentNavigation)}")" Text="@nameof(HxAnchorFragmentNavigation)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxContextMenu)}")" Text="@(nameof(HxContextMenu))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxDropdown)}")" Text="@nameof(HxDropdown)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxTabPanel)}")" Text="@nameof(HxTabPanel)" />
+			@{
+#pragma warning restore 0618
+			}
             <HxSidebarItem Href="@($"/components/{nameof(HxRedirectTo)}")" Text="@nameof(HxRedirectTo)" />
         </HxSidebarItem>
 
@@ -101,9 +105,15 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxToast)}")" Text="@nameof(HxToast)" />
         </HxSidebarItem>
 
-        <HxSidebarItem Text="Special" Icon="BootstrapIcon.Stars">
+		<HxSidebarItem Text="Smart (AI) 🔥" Icon="BootstrapIcon.Stars">
+			<HxSidebarItem Href="@($"/components/{nameof(HxSmartPasteButton)}")" Text="@nameof(HxSmartPasteButton)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxSmartTextArea)}")" Text="@nameof(HxSmartTextArea)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxSmartComboBox)}")" Text="@nameof(HxSmartComboBox)" />
+		</HxSidebarItem>
+
+        <HxSidebarItem Text="Special" Icon="BootstrapIcon.BagHeart">
             <HxSidebarItem Href="@($"/components/{nameof(HxDynamicElement)}")" Text="@nameof(HxDynamicElement)" />
-            <HxSidebarItem Href="@($"/components/{nameof(Havit.Blazor.GoogleTagManager.HxGoogleTagManager)}")" Text="@nameof(Havit.Blazor.GoogleTagManager.HxGoogleTagManager)" />
+            <HxSidebarItem Href="@($"/components/{nameof(GoogleTagManager.HxGoogleTagManager)}")" Text="@nameof(GoogleTagManager.HxGoogleTagManager)" />
         </HxSidebarItem>
 
         <HxSidebarItem Text="Concepts" Icon="BootstrapIcon.Lightbulb">
@@ -112,8 +122,14 @@
             <HxSidebarItem Href="/concepts/dark-color-mode-theme" Text="Dark color mode" />
         </HxSidebarItem>
 
-        <HxSidebarItem Text="All Components" Icon="BootstrapIcon.SortAlphaDown" ExpandOnMatch="false">
+        <HxSidebarItem Text="All Components" Icon="BootstrapIcon.SortAlphaDown" ExpandOnMatch="false" HighlightOnActiveChild="false">
+			@{
+#pragma warning disable 0618  // Obsolete
+			}
             <HxSidebarItem Href="@($"/components/{nameof(HxAnchorFragmentNavigation)}")" Text="@nameof(HxAnchorFragmentNavigation)" />
+			@{
+#pragma warning restore 0618
+			}
             <HxSidebarItem Href="@($"/components/{nameof(HxAccordion)}")" Text="@nameof(HxAccordion)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxAlert)}")" Text="@nameof(HxAlert)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxAutosuggest)}")" Text="@nameof(HxAutosuggest)" />
@@ -138,7 +154,7 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxFilterForm<object>)}")" Text="@(nameof(HxFilterForm<object>))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxFormState)}")" Text="@nameof(HxFormState)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxFormValue)}")" Text="@(nameof(HxFormValue))" />
-            <HxSidebarItem Href="@($"/components/{nameof(Havit.Blazor.GoogleTagManager.HxGoogleTagManager)}")" Text="@nameof(Havit.Blazor.GoogleTagManager.HxGoogleTagManager)" />
+            <HxSidebarItem Href="@($"/components/{nameof(GoogleTagManager.HxGoogleTagManager)}")" Text="@nameof(GoogleTagManager.HxGoogleTagManager)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxGrid<object>)}")" Text="@nameof(HxGrid<object>)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxIcon)}")" Text="@nameof(HxIcon)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputDate)}")" Text="@nameof(HxInputDate)" />
@@ -160,7 +176,6 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxNav)}")" Text="@nameof(HxNav)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxNavbar)}")" Text="@nameof(HxNavbar)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxNavLink)}#{nameof(HxNavLink)}")" Text="@nameof(HxNavLink)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxNamedViewList<object>)}")" Text="@(nameof(HxNamedViewList<object>))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxOffcanvas)}")" Text="@nameof(HxOffcanvas)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxPager)}")" Text="@(nameof(HxPager))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxPlaceholder)}")" Text="@nameof(HxPlaceholder)" />
@@ -185,17 +200,17 @@
         </HxSidebarItem>
     </ItemsTemplate>
     <FooterTemplate>
-        <HxSelect Label="Theme" TItem="Theme" CssClass="w-100 me-2" TValue="Theme" Data="themes" @bind-Value="selectedTheme" TextSelector="t => t.Name" Nullable="true" NullText="Havit.Blazor" />
+        <HxSelect Label="Theme" TItem="Theme" CssClass="w-100 me-2" TValue="Theme" Data="_themes" @bind-Value="_selectedTheme" TextSelector="t => t.Name" Nullable="true" NullText="Havit.Blazor" />
     </FooterTemplate>
 </HxSidebar>
 
 <HeadContent>
-    @if (selectedTheme?.Name == "Bootstrap 5")
+    @if (_selectedTheme?.Name == "Bootstrap 5")
     {
 		@((MarkupString)HxSetup.RenderBootstrapCssReference(BootstrapFlavor.PlainBootstrap))
     }
-    else if (selectedTheme is not null) // null = HAVIT Bootstrap build (default)
+    else if (_selectedTheme is not null) // null = HAVIT Bootstrap build (default)
     {
-        <link href="@selectedTheme.CssCdn" rel="stylesheet" />
+        <link href="@_selectedTheme.CssCdn" rel="stylesheet" />
     }
 </HeadContent>

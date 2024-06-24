@@ -1,6 +1,7 @@
 ﻿using Grpc.Core.Interceptors;
 using Grpc.Core;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Havit.Blazor.Grpc.Client.WebAssembly;
 
@@ -19,11 +20,14 @@ public class AuthorizationGrpcClientInterceptor : Interceptor
 		return new AsyncUnaryCall<TResponse>(HandleAsyncUnaryResponse(call.ResponseAsync), call.ResponseHeadersAsync, call.GetStatus, call.GetTrailers, call.Dispose);
 	}
 
+	[SuppressMessage("Style", "VSTHRD200:Use \"Async\" suffix for async methods", Justification = "Async by nature")]
 	private async Task<TResponse> HandleAsyncUnaryResponse<TResponse>(Task<TResponse> inputResponse)
 	{
 		try
 		{
+#pragma warning disable VSTHRD003 // Avoid awaiting foreign Tasks
 			return await inputResponse;
+#pragma warning restore VSTHRD003 // Avoid awaiting foreign Tasks
 		}
 		catch (RpcException e) when (e.Status.DebugException is AccessTokenNotAvailableException innerException)
 		{

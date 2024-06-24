@@ -32,7 +32,7 @@
 	private IEnumerable<string> GetDemos()
 	{
 		// local debug-only implementation
-		var files = System.IO.Directory.GetFiles(System.IO.Path.Combine(System.Environment.CurrentDirectory, "Pages"), "*Test*razor");
-		return files.Select(item => System.IO.Path.GetFileNameWithoutExtension(item)).OrderBy(item => item).ToList();
+		var files = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "Pages"), "*Test*razor");
+		return files.Select(item => Path.GetFileNameWithoutExtension(item)).OrderBy(item => item).ToList();
 	}
 }

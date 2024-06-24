@@ -2,15 +2,15 @@
 
 /// <summary>
 /// Displays message boxes initiated through <see cref="IHxMessageBoxService"/>.
-/// To be placed in root application component / main layout.
+/// To be placed in the root application component / main layout.
 /// </summary>
 public partial class HxMessageBoxHost : ComponentBase
 {
 	[Inject] protected IHxMessageBoxService MessageBoxService { get; set; }
 
-	private HxMessageBox messageBox;
-	private MessageBoxRequest request;
-	private TaskCompletionSource<MessageBoxButtons> resultCompletion;
+	private HxMessageBox _messageBox;
+	private MessageBoxRequest _request;
+	private TaskCompletionSource<MessageBoxButtons> _resultCompletion;
 
 	protected override void OnInitialized()
 	{
@@ -21,18 +21,18 @@ public partial class HxMessageBoxHost : ComponentBase
 
 	private async Task<MessageBoxButtons> HandleShowRequest(MessageBoxRequest request)
 	{
-		this.request = request;
-		this.resultCompletion = new TaskCompletionSource<MessageBoxButtons>();
+		_request = request;
+		_resultCompletion = new TaskCompletionSource<MessageBoxButtons>();
 
 		StateHasChanged();
 
-		await messageBox.ShowAsync();
+		await _messageBox.ShowAsync();
 
-		return await this.resultCompletion.Task;
+		return await _resultCompletion.Task;
 	}
 
 	private void HandleClosed(MessageBoxButtons button)
 	{
-		_ = resultCompletion.TrySetResult(button);
+		_ = _resultCompletion.TrySetResult(button);
 	}
 }

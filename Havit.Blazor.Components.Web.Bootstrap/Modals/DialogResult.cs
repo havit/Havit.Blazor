@@ -6,40 +6,40 @@
 public sealed class DialogResult<TValue>
 {
 	/// <summary>
-	/// <c>True</c> when the dialog has successful result, <c>false</c> then it was cancelled.
+	/// <c>True</c> when the dialog has a successful result, <c>false</c> when it was cancelled.
 	/// </summary>
 	public bool Successful { get; }
 
 	/// <summary>
 	/// The value of the successful result.
 	/// </summary>
-	/// <exception cref="InvalidOperationException">When the dialog is not successful.</exception>
+	/// <exception cref="InvalidOperationException">Thrown when the dialog is not successful.</exception>
 	public TValue Value
 	{
 		get
 		{
-			Contract.Assert<InvalidOperationException>(Successful, $"{nameof(Value)} property can be read only when {nameof(Successful)} is True.");
-			return value;
+			Contract.Assert<InvalidOperationException>(Successful, $"{nameof(Value)} property can only be read when {nameof(Successful)} is True.");
+			return _value;
 		}
 	}
-	private TValue value;
+	private TValue _value;
 
 	/// <summary>
 	/// Constructor.
 	/// </summary>
 	private DialogResult(bool successful, TValue value = default)
 	{
-		this.Successful = successful;
-		this.value = value;
+		Successful = successful;
+		_value = value;
 	}
 
 	/// <summary>
-	/// Returns new instance for cancelled dialog.
+	/// Returns a new instance for a cancelled dialog.
 	/// </summary>
 	internal static DialogResult<TValue> CreateCancelled() => new DialogResult<TValue>(false);
 
 	/// <summary>
-	/// Returns new instance for successful dialog.
+	/// Returns a new instance for a successful dialog.
 	/// </summary>
 	internal static DialogResult<TValue> CreateSuccessful(TValue value) => new DialogResult<TValue>(true, value);
 }

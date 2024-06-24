@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 /// <summary>
-/// Extension methods to <see cref="IFormValueComponent" />.
+/// Extension methods for <see cref="IFormValueComponent" />.
 /// </summary>
 public static class FormValueComponentExtensions
 {

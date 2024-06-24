@@ -16,14 +16,14 @@ public partial class Search
 		}
 	}
 
-	private string userInput;
+	private string _userInput;
 
 	private const int DefaultsLevel = 2;
 	private const int EnumsLevel = 2;
 	private const int EventArgsLevel = 2;
 	private const int DelegatesLevel = 2;
 
-	private readonly List<SearchItem> searchItems = new()
+	private readonly List<SearchItem> _searchItems = new()
 	{
 		new("/migrating-to-v3", "Migrating to v3", "upgrade release notes update 5.2 5.1"),
 
@@ -36,7 +36,7 @@ public partial class Search
 		new("/components/HxAccordion", "HxAccordion", "collapse"),
 		new("/components/HxAlert", "HxAlert", "message warning exclamation panel"),
 		new("/components/HxAnchorFragmentNavigation", "HxAnchorFragmentNavigation", "id scroll"),
-		new("/components/HxAutosuggest", "HxAutosuggest", "autocomplete search typeahead select"),
+		new("/components/HxAutosuggest", "HxAutosuggest", "autocomplete search typeahead select combobox"),
 		new("/components/HxBadge", "HxBadge", "chip tag"),
 		new("/components/HxBreadcrumb", "HxBreadcrumb", "navigation link"),
 		new("/components/HxButton", "HxButton", "click submit input tooltip"),
@@ -84,7 +84,6 @@ public partial class Search
 		new("/components/HxMessenger", "HxMessenger", "popup warning alert toaster"),
 		new("/components/HxModal", "HxModal", "popup fullscreen dialog messagebox"),
 		new("/components/HxMultiSelect", "HxMultiSelect", "dropdownlist picker checkbox multiple"),
-		new("/components/HxNamedViewList", "HxNamedViewList", "HxListLayout"),
 		new("/components/HxNav", "HxNav", "navigation"),
 		new("/components/HxNavLink#HxNavLink", "HxNavLink", "href redirect navigation"),
 		new("/components/HxNavbar", "HxNavbar", "navigation header"),
@@ -101,6 +100,9 @@ public partial class Search
 		new("/components/HxSearchBox", "HxSearchBox", "autosuggest autocomplete searchbar omnibox input"),
 		new("/components/HxSelect", "HxSelect", "dropdownlist picker"),
 		new("/components/HxSidebar", "HxSidebar", "navigation collapse layout responsive"),
+		new("/components/HxSmartPasteButton", "HxSmartPasteButton", "clipboard ai gpt artificial intelligence copy"),
+		new("/components/HxSmartTextArea", "HxSmartTextArea", "autocompletions suggest intellisense typeahead ai gpt artificial intelligence"),
+		new("/components/HxSmartComboBox", "HxSmartComboBox", "autocomplete search typeahead select suggest ai artificial intelligence autosuggest"),
 		new("/components/HxSpinner", "HxSpinner", "loading progress placeholder skeleton"),
 		new("/components/HxSubmit#HxSubmit", "HxSubmit", "send form button"),
 		new("/components/HxSwitch", "HxSwitch", "hxinputswitch hxradiobutton checkbox"),
@@ -224,23 +226,23 @@ public partial class Search
 
 	};
 
-	private HxAutosuggest<SearchItem, SearchItem> autosuggest;
+	private HxAutosuggest<SearchItem, SearchItem> _autosuggest;
 
-	private bool wasFocused = false;
+	private bool _wasFocused = false;
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (firstRender && !wasFocused)
+		if (firstRender && !_wasFocused)
 		{
-			wasFocused = true;
+			_wasFocused = true;
 			await Task.Delay(1);
-			await autosuggest.FocusAsync();
+			await _autosuggest.FocusAsync();
 		}
 	}
 
 	private Task<AutosuggestDataProviderResult<SearchItem>> ProvideSuggestions(AutosuggestDataProviderRequest request)
 	{
-		this.userInput = request.UserInput.Trim();
+		_userInput = request.UserInput.Trim();
 
 		return Task.FromResult(new AutosuggestDataProviderResult<SearchItem>
 		{
@@ -250,10 +252,10 @@ public partial class Search
 
 	private IEnumerable<SearchItem> GetSearchItems()
 	{
-		return searchItems
-				.Where(si => si.GetRelevance(userInput) > 0)
+		return _searchItems
+				.Where(si => si.GetRelevance(_userInput) > 0)
 				.OrderBy(si => si.Level)
-					.ThenByDescending(si => si.GetRelevance(userInput))
+					.ThenByDescending(si => si.GetRelevance(_userInput))
 					.ThenBy(si => si.Title)
 				.Take(5);
 	}

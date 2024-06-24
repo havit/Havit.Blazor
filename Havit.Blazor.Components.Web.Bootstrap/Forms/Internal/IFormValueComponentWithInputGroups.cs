@@ -6,13 +6,13 @@
 public interface IFormValueComponentWithInputGroups : IFormValueComponent
 {
 	/// <summary>
-	/// Custom CSS class to render with input-group span.
+	/// Custom CSS class to be rendered with the input-group span.
 	/// </summary>
 	string InputGroupCssClass => null;
 
 	/// <summary>
 	/// Input-group-text at the beginning of the input.
-	/// In comparison to <see cref="InputGroupStartTemplate"/> this property is rendered as <c>.input-group-text</c>.
+	/// In comparison to <see cref="InputGroupStartTemplate"/>, this property is rendered as <c>.input-group-text</c>.
 	/// </summary>
 	string InputGroupStartText => null;
 
@@ -23,7 +23,7 @@ public interface IFormValueComponentWithInputGroups : IFormValueComponent
 
 	/// <summary>
 	/// Input-group-text at the end of the input.
-	/// In comparison to <see cref="InputGroupEndTemplate"/> this property is rendered as <c>.input-group-text</c>.
+	/// In comparison to <see cref="InputGroupEndTemplate"/>, this property is rendered as <c>.input-group-text</c>.
 	/// </summary>
 	string InputGroupEndText => null;
 

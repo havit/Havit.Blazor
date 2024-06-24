@@ -8,32 +8,44 @@
     <DocHeading Title="Basic usage" />
     <Demo Type="typeof(HxInputDateRange_Demo)" Tabs="false" />
 
+    <DocHeading Title="Calendar icon" />
+    <p>
+        An optional icon can be added using the <code>CalendarIcon</code> parameter.<br />
+        You can set the icon for all instances of <code>HxInputDateRange</code> by setting the <code>HxInputDateRange.Defaults.CalendarIcon</code> static property.
+    </p>
+    <Demo Type="typeof(HxInputDateRange_Demo_CalendarIcon)" />
+
     <DocHeading Title="Hide Clear button in calendars" Id="clear-button" />
     <p>The <i>Clear</i> button in dropdown calendars can be hidden by setting <code>ShowClearButton="false"</code>.</p>
     <Demo Type="typeof(HxInputDateRange_Demo_ClearButton)" />
 
     <DocHeading Title="Predefined date ranges" />
-    <p>You can add predefined date ranges with <code>PredefinedDateRanges</code> parameter.</p>
+    <p>You can add predefined date ranges with the <code>PredefinedDateRanges</code> parameter.</p>
     <Demo Type="typeof(HxInputDateRange_Demo_CustomRanges)" />
-    <p>If you set <code>HxInputDateRange.Defaults.PredefinedDateRanges</code> default ranges for the whole application, you can hide them on individual instances with <code>ShowPredefinedDateRanges="false"</code>.</p>
+    <p>If you set <code>HxInputDateRange.Defaults.PredefinedDateRanges</code> as default ranges for the whole application, you can hide them on individual instances with <code>ShowPredefinedDateRanges="false"</code>.</p>
 
     <DocHeading Title="Dropdown calendars customization" />
     <p>
-        You can change rendering of weekend days by defining your own CSS rule for <code>.weekend</code> class.
-        The disabled days get <code>.disabled</code> class.
+        You can change the rendering of weekend days by defining your own CSS rule for the <code>.weekend</code> class.
+        The disabled days get the <code>.disabled</code> class.
     </p>
     <DocAlert Type="DocAlertType.Warning">
-        Disabling dates with the techniques below won't prevent the user from entering disabled dates manualy. You still have to validate the value.
+        Disabling dates with the techniques below won't prevent the user from entering disabled dates manually. You still have to validate the value.
     </DocAlert>
 
     <DocHeading Title="MinDate, MaxDate" Level="3" />
-    <p>You can limit the dropdown calendars (both <i>From</i> and <i>To</i> together) enabled dates by setting <code>MinDate</code> and/or <code>MaxDate</code>.</p>
+    <p>You can limit the enabled dates of the dropdown calendars (both <i>From</i> and <i>To</i> together) by setting <code>MinDate</code> and/or <code>MaxDate</code>.</p>
     <Demo Type="typeof(HxInputDateRange_Demo_MinDateMaxDate)" />
 
     <DocHeading Title="Calendar date customization" Level="3" />
     <p>
-        You can customize the dropdown calendars' dates with <code>CalendarDateCustomizationProvider</code>. You can disable individual dates
-        (<code>Enabled="false"</code>) or set specific CSS class (<code>CssClass="...")</code>.
+        You can customize the dates of the dropdown calendars with the <code>CalendarDateCustomizationProvider</code>. You can disable individual dates
+        (<code>Enabled="false"</code>) or set a specific CSS class (<code>CssClass="...")</code>.
     </p>
     <Demo Type="typeof(HxInputDateRange_Demo_CalendarDateCustomization)" />
+
+    <DocHeading Title="Calendar time zone" Level="3" />
+    <p>
+        You can customize the time zone of the dropdown calendar by supplying a custom <code>TimeProvider</code>.  See <a href="/components/HxCalendar#time-zones">HxCalendar time zones</a> for more details.
+    </p>
 </ComponentApiDoc>

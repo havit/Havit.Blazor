@@ -1,20 +1,9 @@
 ﻿<HxButton Text="Show information" OnClick="HandleAddInformationButtonClick" Color="ThemeColor.Primary" />
-<HxButton Text="Show warning" OnClick="HandleAddWarningButtonClick" Color="ThemeColor.Primary" />
-<HxButton Text="Show error" OnClick="HandleAddErrorButtonClick" Color="ThemeColor.Primary" />
+<HxButton Text="Show warning" OnClick="HandleAddWarningButtonClick" Color="ThemeColor.Warning" />
+<HxButton Text="Show error" OnClick="HandleAddErrorButtonClick" Color="ThemeColor.Danger" />
 
 @code {
 	[Inject] protected IHxMessengerService Messenger { get; set; }
-
-	protected override void OnAfterRender(bool firstRender)
-	{
-		base.OnAfterRender(firstRender);
-
-		if (firstRender)
-		{
-			Messenger.AddInformation($"Welcome to the {nameof(HxMessenger)} documentation!");
-			Messenger.AddWarning("Setup", "services.AddHxMessenger(); in Startup.cs!\n<HxMessenger /> in MainLayout.razor");
-		}
-	}
 
 	private void HandleAddInformationButtonClick()
 	{

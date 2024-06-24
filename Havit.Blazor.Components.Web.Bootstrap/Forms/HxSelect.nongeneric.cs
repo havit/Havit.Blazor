@@ -6,7 +6,7 @@
 public class HxSelect
 {
 	/// <summary>
-	/// Application-wide defaults for the <see cref="HxSelect{TValue, TItem}"/> (<see cref="HxSelectBase{TValue, TItem}"/> and derived components respectively).
+	/// Application-wide defaults for the <see cref="HxSelect{TValue, TItem}"/> (<see cref="HxSelectBase{TValue, TItem}"/> and derived components, respectively).
 	/// </summary>
 	public static SelectSettings Defaults { get; set; }
 

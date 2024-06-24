@@ -1,6 +1,6 @@
 ﻿@page "/HxMessengerTest"
 
-@* <HxMessenger /> iteself is in MainLayout.razor *@
+@* <HxMessenger /> itself is in MainLayout.razor *@
 
 <h1>HxMessenger</h1>
 
@@ -26,7 +26,7 @@
 
 	private void HandleAddInformationButtonClick()
 	{
-		Messenger.AddInformation("Information", "Information button clicked.");
+		Messenger.AddInformation("Information\nmultiline", "Information button clicked.\n<b>1</b>\n2");
 	}
 
 	private void HandleAddWarningButtonClick()

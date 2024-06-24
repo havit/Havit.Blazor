@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public static class SortingItemExtensions
 {
 	/// <summary>
-	/// Creates GenericPropertyComparer for the sorting by <see cref="SortingItem{TItem}.SortString"/> and <see cref="SortingItem{TItem}.SortDirection"/> properties.
+	/// Creates a GenericPropertyComparer for sorting by the <see cref="SortingItem{TItem}.SortString"/> and <see cref="SortingItem{TItem}.SortDirection"/> properties.
 	/// </summary>
 	public static GenericPropertyComparer<TItem> ToGenericPropertyComparer<TItem>(this IEnumerable<SortingItem<TItem>> source)
 	{
@@ -18,7 +18,7 @@ public static class SortingItemExtensions
 	}
 
 	/// <summary>
-	/// Converts <see cref="SortingItem{TItem}"/> to <see cref="SortItem"/>.
+	/// Converts a <see cref="SortingItem{TItem}"/> to a <see cref="SortItem"/>.
 	/// </summary>
 	private static SortItem[] ToSortItems<TItem>(this IEnumerable<SortingItem<TItem>> source)
 	{
@@ -26,7 +26,7 @@ public static class SortingItemExtensions
 
 		if (source.Any(item => item.SortKeySelector != null))
 		{
-			throw new InvalidOperationException($"Cannot convert sorting item while it contains a {nameof(SortingItem<TItem>.SortKeySelector)}.");
+			throw new InvalidOperationException($"Cannot convert the sorting item while it contains a {nameof(SortingItem<TItem>.SortKeySelector)}.");
 		}
 
 		return source.Select(item => new SortItem(item.SortString, item.SortDirection)).ToArray();

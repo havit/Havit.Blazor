@@ -14,14 +14,14 @@ public class PropertyModel : MemberModel
 		{
 			CommonComments inputComments = value;
 			try { inputComments.Summary = TryFormatComment(inputComments.Summary, PropertyInfo.DeclaringType); } catch { }
-			comments = inputComments;
+			_comments = inputComments;
 		}
 		get
 		{
-			return comments;
+			return _comments;
 		}
 	}
-	private CommonComments comments;
+	private CommonComments _comments;
 
-	public bool IsStatic => this.PropertyInfo.GetAccessors(false).Any(o => o.IsStatic);
+	public bool IsStatic => PropertyInfo.GetAccessors(false).Any(o => o.IsStatic);
 }

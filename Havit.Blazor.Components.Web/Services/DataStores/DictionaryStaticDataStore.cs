@@ -4,19 +4,19 @@
 /// Abstract base-class for implementation of your own dictionary-style static data store.
 /// </summary>
 /// <remarks>
-/// Uses in-memory Dictionary to store the data.
-/// Does not preload data, the data get loaded within first data-retriaval call.
-/// Does not implement any memory-release logic, the data get refreshed within data-retrivals where <see cref="ShouldRefresh"/> returns <c>true</c>.
+/// Uses an in-memory Dictionary to store the data.
+/// Does not preload data; the data is loaded within the first data-retrieval call.
+/// Does not implement any memory-release logic; the data is refreshed within data-retrievals where <see cref="ShouldRefresh"/> returns <c>true</c>.
 /// </remarks>
 public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStaticDataStore<TKey, TValue>
 {
 	protected Dictionary<TKey, TValue> Data;
 
 	/// <summary>
-	/// Template method to implement the data retrival logic.
-	/// You should never call this method directly, use <see cref="EnsureDataAsync"/> to load data.
-	/// This method is sequential (does not allow parallel runs), just take care of the data retrieval.
-	/// Must return non-<c>null</c> value, use Enumerable.Empty if needed.
+	/// Template method to implement the data retrieval logic.
+	/// You should never call this method directly; use <see cref="EnsureDataAsync"/> to load data.
+	/// This method is sequential (does not allow parallel runs); just take care of the data retrieval.
+	/// Must return a non-<c>null</c> value; use Enumerable.Empty if needed.
 	/// </summary>
 	protected internal abstract Task<IEnumerable<TValue>> LoadDataAsync();
 
@@ -59,7 +59,7 @@ public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStati
 	}
 
 	/// <summary>
-	/// Retrieves value from dictionary (includes data load if needed). Throws exception when key not found.
+	/// Retrieves a value from the dictionary (includes data load if needed). Throws an exception when the key is not found.
 	/// </summary>
 	public async Task<TValue> GetByKeyAsync(TKey key)
 	{
@@ -68,7 +68,7 @@ public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStati
 	}
 
 	/// <summary>
-	/// Retrieves value from dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Throws exception when key not found.
+	/// Retrieves a value from the dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Throws an exception when the key is not found.
 	/// </summary>
 	public TValue GetByKey(TKey key, bool throwIfNotLoaded = false)
 	{
@@ -76,13 +76,13 @@ public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStati
 
 		if (VerifyIsLoaded(throwIfNotLoaded))
 		{
-			return this.Data[key];
+			return Data[key];
 		}
 		return default;
 	}
 
 	/// <summary>
-	/// Retrieves value from dictionary (includes data load if needed). Returns <c>default</c> when not found.
+	/// Retrieves a value from the dictionary (includes data load if needed). Returns <c>default</c> when not found.
 	/// </summary>
 	public async Task<TValue> GetByKeyOrDefaultAsync(TKey key, TValue defaultValue = default)
 	{
@@ -91,7 +91,7 @@ public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStati
 	}
 
 	/// <summary>
-	/// Retrieves value from dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
+	/// Retrieves a value from the dictionary (requires <see cref="EnsureDataAsync"/> to be called first). Returns <c>defaultValue</c> when not found.
 	/// </summary>
 	public TValue GetByKeyOrDefault(TKey key, TValue defaultValue = default, bool throwIfNotLoaded = false)
 	{
@@ -99,7 +99,7 @@ public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStati
 
 		if (VerifyIsLoaded(throwIfNotLoaded))
 		{
-			if (this.Data.TryGetValue(key, out var value))
+			if (Data.TryGetValue(key, out var value))
 			{
 				return value;
 			}
@@ -112,37 +112,37 @@ public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStati
 	/// </summary>
 	public void Clear()
 	{
-		this.Data = null;
+		Data = null;
 	}
 
 	/// <summary>
-	/// To be called before any data-retrival to load/refresh the data.<br/>
+	/// To be called before any data-retrieval to load/refresh the data.<br/>
 	/// Is automatically called before all asynchronous data-retrieval calls.
-	/// You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any sychronnous API.<br/>
+	/// You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any synchronous API.<br/>
 	/// Uses <see cref="ShouldRefresh"/> to check for refreshment request.
-	/// Uses lock to prevent multiple parallel loads.
+	/// Uses a lock to prevent multiple parallel loads.
 	/// </summary>
 	public async Task EnsureDataAsync()
 	{
 		if ((Data is null) || ShouldRefresh())
 		{
-			await loadLock.WaitAsync(); // basic lock (Monitor) is thread-based and cannot be used for async code
+			await _loadLock.WaitAsync(); // basic lock (Monitor) is thread-based and cannot be used for async code
 			try
 			{
-				if ((Data is null) || ShouldRefresh()) // do not use previous ShouldRefresh result, the data might got refreshed in meantime
+				if ((Data is null) || ShouldRefresh()) // do not use the previous ShouldRefresh result; the data might have been refreshed in the meantime
 				{
 					var rawData = await LoadDataAsync();
-					Contract.Requires<InvalidOperationException>(rawData is not null, $"{nameof(LoadDataAsync)} is required to return non-null value. Use Enumerable.Empty if needed.");
-					this.Data = rawData.ToDictionary(this.KeySelector);
+					Contract.Requires<InvalidOperationException>(rawData is not null, $"{nameof(LoadDataAsync)} is required to return a non-null value. Use Enumerable.Empty if needed.");
+					Data = rawData.ToDictionary(KeySelector);
 				}
 			}
 			finally
 			{
-				loadLock.Release();
+				_loadLock.Release();
 			}
 		}
 	}
-	private readonly SemaphoreSlim loadLock = new SemaphoreSlim(1, 1);
+	private readonly SemaphoreSlim _loadLock = new SemaphoreSlim(1, 1);
 
 	private bool VerifyIsLoaded(bool throwIfNotLoaded)
 	{

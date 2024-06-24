@@ -22,9 +22,9 @@ public class HxNavLinkInternal : NavLink
 		builder.AddMultipleAttributes(1, AdditionalAttributes);
 		builder.AddAttribute(2, "class", CssClass);
 
-		if (this.OnClick.HasDelegate)
+		if (OnClick.HasDelegate)
 		{
-			builder.AddAttribute(3, "onclick", this.OnClick);
+			builder.AddAttribute(3, "onclick", OnClick);
 			builder.AddEventPreventDefaultAttribute(4, "onclick", true);
 			builder.AddEventStopPropagationAttribute(5, "onclick", true);
 		}

@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web;
 
 /// <summary>
-/// Edit form wrapper which provides strong type model and model instance update when valid form is submitted.
+/// Edit form wrapper which provides a strongly typed model and updates the model instance when a valid form is submitted.
 /// </summary>
 public class HxModelEditForm<TModel> : ComponentBase
 {
@@ -18,7 +18,7 @@ public class HxModelEditForm<TModel> : ComponentBase
 	[Parameter] public TModel Model { get; set; }
 
 	/// <summary>
-	/// Model event callback. Invoked when valid form is updated.
+	/// Model event callback. Invoked when a valid form is updated.
 	/// </summary>
 	[Parameter] public EventCallback<TModel> ModelChanged { get; set; }
 	/// <summary>
@@ -32,43 +32,43 @@ public class HxModelEditForm<TModel> : ComponentBase
 	[Parameter] public RenderFragment<TModel> ChildContent { get; set; }
 
 	/// <summary>
-	/// Model in edit (clone of Model).
+	/// Model being edited (a clone of the Model).
 	/// </summary>
 	protected TModel ModelInEdit { get; set; }
 
-	private TModel previousModel;
+	private TModel _previousModel;
 
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
-		if (!EqualityComparer<TModel>.Default.Equals(previousModel, Model))
+		if (!EqualityComparer<TModel>.Default.Equals(_previousModel, Model))
 		{
 			OnModelSet();
-			previousModel = Model;
+			_previousModel = Model;
 		}
 	}
 
 	/// <summary>
-	/// Fired when a new model is set from outside (databind, etc).
+	/// Fired when a new model is set from outside (data bind, etc.).
 	/// </summary>
 	protected virtual void OnModelSet()
 	{
-		// we are going to let user edit a clone of the model
+		// We are going to let the user edit a clone of the model.
 		ModelInEdit = CloneModel(Model);
 	}
 
 	/// <summary>
-	/// Updates Model by current ModelInEdit.
+	/// Updates the Model with the current ModelInEdit.
 	/// </summary>
 	public virtual async Task UpdateModelAsync()
 	{
 		Model = ModelInEdit;
-		previousModel = Model; // to suppress cloning Model in OnParametersSet, must be before ModelChanged is invoked!
+		_previousModel = Model; // To suppress cloning the Model in OnParametersSet, this must be done before ModelChanged is invoked!
 		await InvokeModelChangedAsync(Model);
 
 		ModelInEdit = CloneModel(ModelInEdit);
-		StateHasChanged(); // we are changing the state - ModelInEdit.
+		StateHasChanged(); // We are changing the state - ModelInEdit.
 	}
 
 	/// <inheritdoc cref="ComponentBase.BuildRenderTree(RenderTreeBuilder)" />

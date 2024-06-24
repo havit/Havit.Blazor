@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web;
 
 /// <summary>
-/// Propagating access to HxMessenger as <see cref="IHxMessengerService" />.
+/// Propagates access to HxMessenger as <see cref="IHxMessengerService" />.
 /// </summary>
 internal class HxMessengerService : IHxMessengerService
 {

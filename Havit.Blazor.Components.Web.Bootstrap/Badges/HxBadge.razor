@@ -1,2 +1,2 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-<span class="@CssClassHelper.Combine("badge", ColorEffective.ToBackgroundColorCss(), GetTypeCss(), TextColorEffective.ToTextColorCss(), this.CssClassEffective)" @attributes="AdditionalAttributes">@ChildContent</span>
+<span class="@CssClassHelper.Combine("badge", GetBackgroundColorCss(), GetTypeCss(), TextColorEffective.ToTextColorCss(), CssClassEffective)" @attributes="AdditionalAttributes">@ChildContent</span>

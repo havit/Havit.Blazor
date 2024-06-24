@@ -1,8 +1,8 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
 <div class="hx-messenger">
-    <HxToastContainer Position="this.Position" CssClass="@this.CssClass">
-        @foreach (MessengerMessage message in messages)
+    <HxToastContainer Position="Position" CssClass="@CssClass">
+        @foreach (MessengerMessage message in _messages)
         {
             // @key is used to pair messages to HxToasts when some message disappers.
             <HxToast @key="@message.Key"

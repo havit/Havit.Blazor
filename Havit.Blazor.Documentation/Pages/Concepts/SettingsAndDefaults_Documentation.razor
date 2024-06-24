@@ -1,7 +1,7 @@
 ﻿@page "/concepts/defaults-and-settings"
 
 <h1>Defaults and Settings</h1>
-<DocAlert Type="DocAlertType.Info">Although most components support the presented functionalities, some components were constructed without settings or defaults because it wouldn't add sufficient value.</DocAlert>
+<DocAlert Type="DocAlertType.Info">Although most components support the presented functionalities, some components were constructed without settings or defaults because they wouldn't add sufficient value.</DocAlert>
 
 <DocHeading Title="Defaults" />
 <p>You can set application-wide defaults for individual components by modifying the static <code>Defaults</code> property located on most components (generic components have their non-generic class for that).</p>
@@ -12,18 +12,18 @@ HxButton.Defaults.Icon = BootstrapIcon.Fullscreen;
 
 
 <DocHeading Title="Where to set" Id="where-to-set-defaults" Level="3" />
-<p><code>Defaults</code> can be set anywhere from the application, however, as it is a shared setting, you usually set them when the application starts (<code>Program.cs</code> or <code>Startup.cs</code>).</p>
+<p><code>Defaults</code> can be set anywhere in the application; however, as it is a shared setting, you usually set them when the application starts (<code>Program.cs</code> or <code>Startup.cs</code>).</p>
 <CodeSnippet Language="cs"  File="~\Pages\Concepts\SettingsAndDefaults_Program.CodeSnippet.cs" />
 
 <DocHeading Title="Settings" />
-<p>Beside <code>Defaults</code> you can set <code>Settings</code> parameter on every single component instance (the data structure behind <code>Deafults</code> and <code>Settings</code> is the same). <code>Settings</code> let you bundle several configurations together and reuse them for several component instances.</p>
+<p>Besides <code>Defaults</code>, you can set the <code>Settings</code> parameter on every single component instance (the data structure behind <code>Defaults</code> and <code>Settings</code> is the same). <code>Settings</code> let you bundle several configurations together and reuse them for several component instances.</p>
 
 <Demo Type="typeof(SettingsAndDefaults_Demo_Settings)" Tabs="false" />
 
-<p>Setting application-wide collection of settings used for varying buttons serving different purposes.</p>
+<p>Setting an application-wide collection of settings used for varying buttons serving different purposes.</p>
 <CodeSnippet Language="cs" File="~\Pages\Concepts\AppButtonSettings.CodeSnippet.cs" />
 
 
 <DocHeading Id="precedence" Title="Precedence" />
-<p>When the component decides what parameter value to stick to, it follows this flow: <strong>parameter > Settings > Defaults</strong>, which means that if the parameter property is not set (<code>null</code>), then the value is taken from the Settings, if it is also not set (<code>null</code>), then the value is taken from the application-wide Defaults.</p>
+<p>When the component decides what parameter value to stick to, it follows this flow: <strong>parameter > Settings > Defaults</strong>. This means that if the parameter property is not set (<code>null</code>), then the value is taken from the Settings. If it is also not set (<code>null</code>), then the value is taken from the application-wide Defaults.</p>
 <Demo Type="typeof(SettingsAndDefaults_Demo_Overriding)" Tabs="false" />

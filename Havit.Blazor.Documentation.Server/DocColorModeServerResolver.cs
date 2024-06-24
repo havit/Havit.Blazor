@@ -4,16 +4,16 @@ namespace Havit.Blazor.Documentation.Server;
 
 public class DocColorModeServerResolver : IDocColorModeResolver
 {
-	private readonly IHttpContextAccessor httpContextAccessor;
+	private readonly IHttpContextAccessor _httpContextAccessor;
 
 	public DocColorModeServerResolver(IHttpContextAccessor httpContextAccessor)
 	{
-		this.httpContextAccessor = httpContextAccessor;
+		_httpContextAccessor = httpContextAccessor;
 	}
 
 	public ColorMode GetColorMode()
 	{
-		var cookie = httpContextAccessor.HttpContext?.Request?.Cookies["ColorMode"];
+		var cookie = _httpContextAccessor.HttpContext?.Request?.Cookies["ColorMode"];
 		if (cookie == null)
 		{
 			return ColorMode.Auto;

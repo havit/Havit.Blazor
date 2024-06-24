@@ -18,32 +18,32 @@ public partial class DocColorModeSwitcher : IDisposable
 	[Inject] protected PersistentComponentState PersistentComponentState { get; set; }
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	private PersistingComponentStateSubscription persistingSubscription;
-	private IJSObjectReference jsModule;
-	private ColorMode mode = ColorMode.Auto;
+	private PersistingComponentStateSubscription _persistingSubscription;
+	private IJSObjectReference _jsModule;
+	private ColorMode _mode = ColorMode.Auto;
 
 	protected override void OnInitialized()
 	{
-		persistingSubscription = PersistentComponentState.RegisterOnPersisting(PersistMode);
+		_persistingSubscription = PersistentComponentState.RegisterOnPersisting(PersistMode);
 
 		if (PersistentComponentState.TryTakeFromJson<ColorMode>("ColorMode", out var restored))
 		{
-			mode = restored;
+			_mode = restored;
 		}
 		else
 		{
-			mode = DocColorModeResolver.GetColorMode();
+			_mode = DocColorModeResolver.GetColorMode();
 		}
 	}
 	private Task PersistMode()
 	{
-		PersistentComponentState.PersistAsJson("ColorMode", mode);
+		PersistentComponentState.PersistAsJson("ColorMode", _mode);
 		return Task.CompletedTask;
 	}
 
 	private async Task HandleClick()
 	{
-		mode = mode switch
+		_mode = _mode switch
 		{
 			ColorMode.Auto => ColorMode.Dark,
 			ColorMode.Dark => ColorMode.Light,
@@ -52,28 +52,28 @@ public partial class DocColorModeSwitcher : IDisposable
 		};
 
 		await EnsureJsModule();
-		await jsModule.InvokeVoidAsync("setColorMode", mode.ToString("g").ToLowerInvariant());
+		await _jsModule.InvokeVoidAsync("setColorMode", _mode.ToString("g").ToLowerInvariant());
 	}
 
 	private async Task EnsureJsModule()
 	{
-		jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Shared/Components/DocColorMode/DocColorModeSwitcher.razor.js");
+		_jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Shared/Components/DocColorMode/DocColorModeSwitcher.razor.js");
 	}
 
 	private IconBase GetIcon()
 	{
-		return mode switch
+		return _mode switch
 		{
 			ColorMode.Auto => BootstrapIcon.CircleHalf,
 			ColorMode.Light => BootstrapIcon.Sun,
 			ColorMode.Dark => BootstrapIcon.Moon,
-			_ => throw new InvalidOperationException($"Unknown color mode '{mode}'.")
+			_ => throw new InvalidOperationException($"Unknown color mode '{_mode}'.")
 		};
 	}
 
 	private string GetTooltip()
 	{
-		return mode switch
+		return _mode switch
 		{
 			ColorMode.Auto => "Auto color mode (theme). Click to switch to Dark.",
 			ColorMode.Dark => "Dark color mode (theme). Click to switch to Light.",
@@ -84,6 +84,6 @@ public partial class DocColorModeSwitcher : IDisposable
 
 	void IDisposable.Dispose()
 	{
-		persistingSubscription.Dispose();
+		_persistingSubscription.Dispose();
 	}
 }

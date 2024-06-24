@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -28,13 +29,13 @@ public partial class HxCalendar
 		Defaults = new CalendarSettings()
 		{
 			MinDate = DefaultMinDate,
-			MaxDate = DefaultMaxDate
+			MaxDate = DefaultMaxDate,
 		};
 	}
 
 	/// <summary>
-	/// Returns component defaults.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Returns the component defaults.
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual CalendarSettings GetDefaults() => Defaults;
 
@@ -44,12 +45,12 @@ public partial class HxCalendar
 	[Parameter] public CalendarSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual CalendarSettings GetSettings() => this.Settings;
+	protected virtual CalendarSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Date selected.
@@ -57,7 +58,7 @@ public partial class HxCalendar
 	[Parameter] public DateTime? Value { get; set; }
 
 	/// <summary>
-	/// Raised when selected date changes.
+	/// Raised when the selected date changes.
 	/// </summary>
 	[Parameter] public EventCallback<DateTime?> ValueChanged { get; set; }
 	/// <summary>
@@ -71,7 +72,7 @@ public partial class HxCalendar
 	[Parameter] public DateTime DisplayMonth { get; set; }
 
 	/// <summary>
-	/// Raised when month selection changes.
+	/// Raised when the month selection changes.
 	/// </summary>
 	[Parameter] public EventCallback<DateTime> DisplayMonthChanged { get; set; }
 	/// <summary>
@@ -84,26 +85,40 @@ public partial class HxCalendar
 	/// Default is <c>1.1.1900</c> (configurable from <see cref="HxCalendar.Defaults"/>).
 	/// </summary>
 	[Parameter] public DateTime? MinDate { get; set; }
-	protected DateTime MinDateEffective => this.MinDate ?? this.GetSettings()?.MinDate ?? GetDefaults().MinDate ?? throw new InvalidOperationException(nameof(MinDate) + " default for " + nameof(HxCalendar) + " has to be set.");
+	protected DateTime MinDateEffective => MinDate ?? GetSettings()?.MinDate ?? GetDefaults().MinDate ?? throw new InvalidOperationException(nameof(MinDate) + " default for " + nameof(HxCalendar) + " has to be set.");
 
 	/// <summary>
 	/// Last date selectable from the calendar.<br />
 	/// Default is <c>31.12.2099</c> (configurable from <see cref="HxCalendar.Defaults"/>).
 	/// </summary>
 	[Parameter] public DateTime? MaxDate { get; set; }
-	protected DateTime MaxDateEffective => this.MaxDate ?? this.GetSettings()?.MaxDate ?? this.GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxCalendar) + " has to be set.");
+	protected DateTime MaxDateEffective => MaxDate ?? GetSettings()?.MaxDate ?? GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxCalendar) + " has to be set.");
 
 	/// <summary>
 	/// Allows customization of the dates in calendar.
 	/// </summary>
 	[Parameter] public CalendarDateCustomizationProviderDelegate DateCustomizationProvider { get; set; }
-	protected CalendarDateCustomizationProviderDelegate DateCustomizationProviderEffective => this.DateCustomizationProvider ?? this.GetSettings()?.DateCustomizationProvider ?? GetDefaults().DateCustomizationProvider;
+	protected CalendarDateCustomizationProviderDelegate DateCustomizationProviderEffective => DateCustomizationProvider ?? GetSettings()?.DateCustomizationProvider ?? GetDefaults().DateCustomizationProvider;
 
 	/// <summary>
-	/// Indicates whether the keyboard navigation is enabled. When disabled, the calendar renders tabindex="-1" on interactive elements.
+	/// Indicates whether the keyboard navigation is enabled. When disabled, the calendar renders <c>tabindex="-1"</c> on interactive elements.
 	/// Default is <c>true</c> (tabindex attribute is not rendered).
 	/// </summary>
 	[Parameter] public bool KeyboardNavigation { get; set; } = true;
+
+	// Set during SetParameterSetAsync to make it optional
+	[Inject] protected TimeProvider TimeProviderFromServices { get; set; }
+
+	/// <summary>
+	/// TimeProvider is resolved in the following order:<br />
+	///		1. TimeProvider from this parameter <br />
+	///		2. Settings TimeProvider (configurable from <see cref="HxCalendar.Settings"/>)<br />
+	///		3. Defaults TimeProvider (configurable from <see cref="HxCalendar.Defaults"/>)<br />
+	///		4. TimeProvider from DependencyInjection<br />
+	/// </summary>
+	[Parameter] public TimeProvider TimeProvider { get; set; } = null;
+
+	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings()?.TimeProvider ?? GetDefaults()?.TimeProvider ?? TimeProviderFromServices;
 
 	private CultureInfo Culture => CultureInfo.CurrentUICulture;
 	private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;
@@ -126,19 +141,19 @@ public partial class HxCalendar
 		}
 	}
 
-	private RenderData renderData;
-	private DateTime? lastKnownValue;
+	private RenderData _renderData;
+	private DateTime? _lastKnownValue;
 
 	protected override async Task OnParametersSetAsync()
 	{
 		await base.OnParametersSetAsync();
 
-		bool lastKnownValueChanged = lastKnownValue != Value;
-		lastKnownValue = Value;
+		bool lastKnownValueChanged = _lastKnownValue != Value;
+		_lastKnownValue = Value;
 
 		if (DisplayMonth == default)
 		{
-			await SetDisplayMonthAsync(Value ?? DateTime.Today);
+			await SetDisplayMonthAsync(Value ?? TimeProviderEffective.GetLocalNow().Date);
 		}
 		else if ((Value != null) && lastKnownValueChanged && ((DisplayMonth.Year != Value.Value.Year) || (DisplayMonth.Month != Value.Value.Month)))
 		{
@@ -160,25 +175,25 @@ public partial class HxCalendar
 
 	private void UpdateRenderData()
 	{
-		renderData = new RenderData();
-		renderData.DaysOfWeek = new List<string>(7);
+		_renderData = new RenderData();
+		_renderData.DaysOfWeek = new List<string>(7);
 
 		string[] dayNames = Culture.DateTimeFormat.AbbreviatedDayNames;
-		DayOfWeek firstDayOfWeek = this.FirstDayOfWeek;
+		DayOfWeek firstDayOfWeek = FirstDayOfWeek;
 
 		DateTime minDateEffective = MinDateEffective;
 		DateTime maxDateEffective = MaxDateEffective;
 		int minYear = minDateEffective.Year;
 		int maxYear = maxDateEffective.Year;
 
-		renderData.Years = Enumerable.Range(minYear, maxYear - minYear + 1).Reverse().ToList();
+		_renderData.Years = Enumerable.Range(minYear, maxYear - minYear + 1).Reverse().ToList();
 
 		for (int i = 0; i < 7; i++)
 		{
-			renderData.DaysOfWeek.Add(dayNames[((int)firstDayOfWeek + i) % 7]);
+			_renderData.DaysOfWeek.Add(dayNames[((int)firstDayOfWeek + i) % 7]);
 		}
 
-		renderData.Months = Culture.DateTimeFormat.MonthNames.Take(12) // returns 13 items, see https://docs.microsoft.com/en-us/dotnet/api/system.globalization.datetimeformatinfo.monthnames
+		_renderData.Months = Culture.DateTimeFormat.MonthNames.Take(12) // returns 13 items, see https://docs.microsoft.com/en-us/dotnet/api/system.globalization.datetimeformatinfo.monthnames
 			.Select((name, index) => new MonthData
 			{
 				Index = index,
@@ -187,11 +202,11 @@ public partial class HxCalendar
 			})
 			.ToList();
 
-		renderData.Weeks = new List<WeekData>(6);
+		_renderData.Weeks = new List<WeekData>(6);
 
 		DateTime currentDay = FirstDayToDisplay;
 		DateTime valueDay = Value?.Date ?? default;
-		DateTime today = DateTime.Today;
+		DateTime today = TimeProviderEffective.GetLocalNow().Date;
 
 		for (var week = 0; week < 6; week++)
 		{
@@ -223,11 +238,11 @@ public partial class HxCalendar
 				weekData.Days.Add(dayData);
 				currentDay = currentDay.AddDays(1);
 			}
-			renderData.Weeks.Add(weekData);
+			_renderData.Weeks.Add(weekData);
 		}
 
-		renderData.PreviousMonthEnabled = minDateEffective < DisplayMonth; // DisplayMonth is always the first fay of month
-		renderData.NextMonthEnabled = maxDateEffective > new DateTime(DisplayMonth.Year, DisplayMonth.Month, DateTime.DaysInMonth(DisplayMonth.Year, DisplayMonth.Month));
+		_renderData.PreviousMonthEnabled = minDateEffective < DisplayMonth; // DisplayMonth is always the first fay of month
+		_renderData.NextMonthEnabled = maxDateEffective > new DateTime(DisplayMonth.Year, DisplayMonth.Month, DateTime.DaysInMonth(DisplayMonth.Year, DisplayMonth.Month));
 	}
 
 	private CalendarDateCustomizationResult GetDateCustomization(CalendarDateCustomizationProviderDelegate dateCustomizationProvider, DateTime day)
@@ -286,7 +301,7 @@ public partial class HxCalendar
 		Contract.Requires<InvalidOperationException>(day.ClickEnabled, "The selected date is disabled."); // Just for case, the disabled date does not use event handler.
 
 		Value = day.Date;
-		lastKnownValue = day.Date;
+		_lastKnownValue = day.Date;
 		await InvokeValueChangedAsync(day.Date);
 		UpdateRenderData();
 	}

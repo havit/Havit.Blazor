@@ -14,6 +14,8 @@ public partial class HxAutosuggestInputInternal
 
 	[Parameter] public EventCallback OnMouseDown { get; set; }
 
+	[Parameter] public EventCallback OnClick { get; set; }
+
 	[Parameter] public string InputId { get; set; }
 
 	[Parameter] public string CssClass { get; set; }
@@ -25,6 +27,8 @@ public partial class HxAutosuggestInputInternal
 	/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
 	/// </summary>
 	[Parameter] public (int Skidding, int Distance) DropdownOffset { get; set; }
+
+	[Parameter] public string NameAttributeValue { get; set; }
 
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML element.

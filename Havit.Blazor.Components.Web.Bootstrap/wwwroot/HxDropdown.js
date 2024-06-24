@@ -1,13 +1,37 @@
-﻿export function create(element, hxDropdownDotnetObjectReference, reference) {
+﻿export function create(element, hxDropdownDotnetObjectReference, reference, subscribeToHideEvent) {
 	if (!element) {
 		return;
 	}
 	element.hxDropdownDotnetObjectReference = hxDropdownDotnetObjectReference;
+	if (subscribeToHideEvent) {
+		element.addEventListener('hide.bs.dropdown', handleDropdownHide);
+	}
 	element.addEventListener('shown.bs.dropdown', handleDropdownShown);
 	element.addEventListener('hidden.bs.dropdown', handleDropdownHidden);
 
 	if (reference) {
 		var referenceOption = document.querySelector(reference);
+		var d = new bootstrap.Dropdown(element, {
+			reference: referenceOption
+		});
+	}
+	else {
+		var d = new bootstrap.Dropdown(element);
+	}
+}
+
+export function update(element, newReference) {
+	if (!element) {
+		return;
+	}
+
+	var d = bootstrap.Dropdown.getInstance(element);
+	if (d) {
+		d.dispose();
+	}
+
+	if (newReference) {
+		var referenceOption = document.querySelector(newReference);
 		var d = new bootstrap.Dropdown(element, {
 			reference: referenceOption
 		});
@@ -33,6 +57,23 @@ export function hide(element) {
 
 function handleDropdownShown(event) {
 	event.target.hxDropdownDotnetObjectReference.invokeMethodAsync('HxDropdown_HandleJsShown');
+};
+
+async function handleDropdownHide(event) {
+	let d = bootstrap.Dropdown.getInstance(event.target);
+
+	if (d.hidePreventionDisabled) {
+		d.hidePreventionDisabled = false;
+		return;
+	}
+
+	event.preventDefault();
+
+	let cancel = await event.target.hxDropdownDotnetObjectReference.invokeMethodAsync('HxDropdown_HandleJsHide');
+	if (!cancel) {
+		d.hidePreventionDisabled = true;
+		d.hide();
+	}
 };
 
 function handleDropdownHidden(event) {

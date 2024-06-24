@@ -1,0 +1,46 @@
+﻿@page "/HxCheckbox_Issue742_Test"
+
+<h1>Issue 742</h1>
+
+<h2>HxSwitch</h2>
+
+<HxSwitch @bind-Value="valueBool" />
+
+<HxSwitch @bind-Value="valueBool" Text="Switch without label" />
+
+<HxSwitch Label="Switch with label" @bind-Value="valueBool" />
+
+<HxSwitch Label="Switch with label" Text="And text" @bind-Value="valueBool" />
+
+<HxInputText Label="Input groups (template with switch)" @bind-Value="@value">
+	<InputGroupStartTemplate>
+		<div class="input-group-text">
+			<HxSwitch @bind-Value="@valueBool" CssClass="mt-0" />
+		</div>
+	</InputGroupStartTemplate>
+</HxInputText>
+
+<h2>HxCheckbox</h2>
+
+<HxCheckbox @bind-Value="valueBool" />
+
+<HxCheckbox @bind-Value="valueBool" Text="Checkbox without label" />
+
+<HxCheckbox Label="Checkbox with label" @bind-Value="valueBool" />
+
+<HxCheckbox Label="Checkbox with label" Text="And text" @bind-Value="valueBool" />
+
+
+<HxInputText Label="Input groups (template with checkbox)" @bind-Value="@value">
+	<InputGroupStartTemplate>
+		<div class="input-group-text">
+			<HxCheckbox @bind-Value="@valueBool" CssClass="mt-0" />
+		</div>
+	</InputGroupStartTemplate>
+</HxInputText>
+
+@code
+{
+	private string value;
+	private bool valueBool;
+}

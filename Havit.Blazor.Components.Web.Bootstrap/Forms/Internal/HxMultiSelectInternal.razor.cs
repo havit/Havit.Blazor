@@ -63,26 +63,29 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Inject] private IStringLocalizer<HxMultiSelect> StringLocalizer { get; set; }
 
-	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
+	protected bool HasInputGroups => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
+	protected bool HasInputGroupEnd => !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupEndTemplate is not null);
+	protected bool HasInputGroupStart => !String.IsNullOrWhiteSpace(InputGroupStartText) || (InputGroupStartTemplate is not null);
 
-	private IJSObjectReference jsModule;
-	private readonly DotNetObjectReference<HxMultiSelectInternal<TValue, TItem>> dotnetObjectReference;
-	private ElementReference elementReference;
-	private ElementReference filterInputReference;
-	private bool isShown;
-	private string filterText = string.Empty;
-	private bool selectAllChecked;
-	private bool disposed;
-	private List<TValue> currentSelectedValues;
+	private IJSObjectReference _jsModule;
+	private readonly DotNetObjectReference<HxMultiSelectInternal<TValue, TItem>> _dotnetObjectReference;
+	private ElementReference _inputElementReference;
+	private ElementReference _elementReference;
+	private ElementReference _filterInputReference;
+	private bool _isShown;
+	private string _filterText = string.Empty;
+	private bool _selectAllChecked;
+	private bool _disposed;
+	private List<TValue> _currentSelectedValues;
 
 	public HxMultiSelectInternal()
 	{
-		dotnetObjectReference = DotNetObjectReference.Create(this);
+		_dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
 	protected override void OnParametersSet()
 	{
-		currentSelectedValues = this.SelectedValues ?? new();
+		_currentSelectedValues = SelectedValues ?? new();
 
 		SynchronizeSelectAllCheckbox();
 	}
@@ -93,46 +96,46 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		if (firstRender)
 		{
 			await EnsureJsModuleAsync();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
 
-			await jsModule.InvokeVoidAsync("initialize", elementReference, dotnetObjectReference);
+			await _jsModule.InvokeVoidAsync("initialize", _elementReference, _dotnetObjectReference);
 		}
 	}
 
 	private async Task EnsureJsModuleAsync()
 	{
-		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxMultiSelect));
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxMultiSelect));
 	}
 
 	private async Task HandleItemSelectionChangedAsync(bool newChecked, TItem item)
 	{
 		if (newChecked)
 		{
-			currentSelectedValues = new List<TValue>(currentSelectedValues);
-			currentSelectedValues.Add(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item));
+			_currentSelectedValues = new List<TValue>(_currentSelectedValues);
+			_currentSelectedValues.Add(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item));
 		}
 		else
 		{
-			currentSelectedValues = new List<TValue>(currentSelectedValues);
-			currentSelectedValues.Remove(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item));
+			_currentSelectedValues = new List<TValue>(_currentSelectedValues);
+			_currentSelectedValues.Remove(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item));
 		}
 
 		SynchronizeSelectAllCheckbox();
 
-		await SelectedValuesChanged.InvokeAsync(currentSelectedValues);
+		await SelectedValuesChanged.InvokeAsync(_currentSelectedValues);
 	}
 
 	private async Task HandleSelectAllClickedAsync()
 	{
 		var filteredItems = GetFilteredItems();
 
-		var newCurrentSelectedValues = new List<TValue>(currentSelectedValues);
-		if (selectAllChecked)
+		var newCurrentSelectedValues = new List<TValue>(_currentSelectedValues);
+		if (_selectAllChecked)
 		{
-			selectAllChecked = false;
+			_selectAllChecked = false;
 
 			foreach (var item in filteredItems)
 			{
@@ -141,7 +144,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		}
 		else
 		{
-			selectAllChecked = true;
+			_selectAllChecked = true;
 
 			foreach (var item in filteredItems)
 			{
@@ -152,21 +155,21 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 				}
 			}
 		}
-		currentSelectedValues = newCurrentSelectedValues;
+		_currentSelectedValues = newCurrentSelectedValues;
 
-		await SelectedValuesChanged.InvokeAsync(currentSelectedValues);
+		await SelectedValuesChanged.InvokeAsync(_currentSelectedValues);
 	}
 
 	private void HandleClearIconClick()
 	{
-		filterText = string.Empty;
+		_filterText = string.Empty;
 
 		SynchronizeSelectAllCheckbox();
 	}
 
 	private void HandleFilterInputChanged(ChangeEventArgs e)
 	{
-		filterText = e.Value?.ToString() ?? string.Empty;
+		_filterText = e.Value?.ToString() ?? string.Empty;
 
 		SynchronizeSelectAllCheckbox();
 	}
@@ -175,28 +178,28 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	{
 		if (AllowSelectAll)
 		{
-			if (currentSelectedValues.Any())
+			if (_currentSelectedValues.Any())
 			{
 				// If every item in the filtered list is contained in the selected values then select all should be checked
 				var filteredItems = GetFilteredItems();
-				selectAllChecked = filteredItems.All(item => currentSelectedValues.Contains(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item)));
+				_selectAllChecked = filteredItems.All(item => _currentSelectedValues.Contains(SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item)));
 			}
 			else
 			{
-				selectAllChecked = false;
+				_selectAllChecked = false;
 			}
 		}
 	}
 
 	private List<TItem> GetFilteredItems()
 	{
-		if (!AllowFiltering || string.IsNullOrEmpty(filterText))
+		if (!AllowFiltering || string.IsNullOrEmpty(_filterText))
 		{
 			return ItemsToRender;
 		}
 
 		var filterPredicate = FilterPredicate ?? DefaultFilterPredicate;
-		return ItemsToRender.Where(x => filterPredicate(x, filterText)).ToList();
+		return ItemsToRender.Where(x => filterPredicate(x, _filterText)).ToList();
 
 		bool DefaultFilterPredicate(TItem item, string filter)
 		{
@@ -216,11 +219,11 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	public async ValueTask FocusAsync()
 	{
-		if (EqualityComparer<ElementReference>.Default.Equals(elementReference, default))
+		if (EqualityComparer<ElementReference>.Default.Equals(_inputElementReference, default))
 		{
-			throw new InvalidOperationException($"Cannot focus {this.GetType()}. The method must be called after first render.");
+			throw new InvalidOperationException($"Cannot focus {GetType()}. The method must be called after first render.");
 		}
-		await elementReference.FocusAsync();
+		await _inputElementReference.FocusAsync();
 	}
 
 	/// <summary>
@@ -229,11 +232,11 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	[JSInvokable("HxMultiSelect_HandleJsHidden")]
 	public Task HandleJsHidden()
 	{
-		isShown = false;
+		_isShown = false;
 
-		if (ClearFilterOnHide && (filterText != string.Empty))
+		if (ClearFilterOnHide && (_filterText != string.Empty))
 		{
-			filterText = string.Empty;
+			_filterText = string.Empty;
 			SynchronizeSelectAllCheckbox();
 			StateHasChanged();
 		}
@@ -244,8 +247,8 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	[JSInvokable("HxMultiSelect_HandleJsShown")]
 	public async Task HandleJsShown()
 	{
-		isShown = true;
-		await filterInputReference.FocusAsync();
+		_isShown = true;
+		await _filterInputReference.FocusAsync();
 	}
 
 	public async ValueTask DisposeAsync()
@@ -255,21 +258,25 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
-		if (jsModule != null)
+		if (_jsModule != null)
 		{
 			try
 			{
-				await jsModule.InvokeVoidAsync("dispose", elementReference);
-				await jsModule.DisposeAsync();
+				await _jsModule.InvokeVoidAsync("dispose", _elementReference);
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
 			{
 				// NOOP
 			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 
-		dotnetObjectReference?.Dispose();
+		_dotnetObjectReference?.Dispose();
 	}
 }

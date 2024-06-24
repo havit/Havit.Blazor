@@ -1,28 +1,20 @@
-﻿@using System.Globalization
+﻿@inject IDemoDataService DemoDataService
 
-<EditForm Model="@model">
-    <HxCheckboxList TItem="CultureInfo"
-                    TValue="string"
-                    ItemTextSelector="@(item => item.EnglishName)"
-                    ItemValueSelector="@(item => item.EnglishName)"
-                    Data="@data"
-                    @bind-Value="@model.CultureInfos"
-                    Inline="true" />
-</EditForm>
-
-<p>Selected values: @String.Join(", ", model.CultureInfos ?? Enumerable.Empty<string>())</p>
+<HxCheckboxList TItem="EmployeeDto"
+				TValue="int"
+				Data="@data"
+				ItemTextSelector="@(employee => employee.Name)"
+				ItemValueSelector="@(employee => employee.Id)"
+				@bind-Value="selectedEmployeeIds"
+				Inline="true" />
 
 @code
 {
-    private Model model = new Model();
-    private List<CultureInfo> data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-        .OrderBy(item => item.EnglishName)
-        .Take(10)
-        .OrderByDescending(i => i.ToString()) // sorting test
-        .ToList();
+	private IEnumerable<EmployeeDto> data;
+	private List<int> selectedEmployeeIds { get; set; } = new();
 
-    private class Model
-    {
-        public List<string> CultureInfos { get; set; }
-    }
+	protected override async Task OnParametersSetAsync()
+	{
+		data = await DemoDataService.GetPreferredEmployeesAsync(count: 5);
+	}
 }

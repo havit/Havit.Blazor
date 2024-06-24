@@ -1,8 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/placeholders/">Bootstrap 5 placeholder</see> in form of a button.<br/>
-/// Derives from <see cref="HxButton"/> (adds <c>placeholder</c> class and changes <c>Enabled</c> default to <c>false</c>).<br/>
+/// <see href="https://getbootstrap.com/docs/5.3/components/placeholders/">Bootstrap 5 placeholder</see> in the form of a button.<br/>
+/// Derives from <see cref="HxButton"/> (adds the <c>placeholder</c> class and changes the default value of <c>Enabled</c> to <c>false</c>).<br/>
 /// Set the size of the button by using the <see cref="Columns"/> parameter.
 /// </summary>
 public class HxPlaceholderButton : HxButton, ILayoutColumnComponent
@@ -25,11 +25,13 @@ public class HxPlaceholderButton : HxButton, ILayoutColumnComponent
 	/// <inheritdoc cref="ILayoutColumnComponent.ColumnsXxlUp"/>
 	[Parameter] public string ColumnsXxlUp { get; set; }
 
-	public override async Task SetParametersAsync(ParameterView parameters)
+	public override Task SetParametersAsync(ParameterView parameters)
 	{
-		await base.SetParametersAsync(parameters);
+		parameters.SetParameterProperties(this);
 
-		this.Enabled = parameters.GetValueOrDefault(nameof(Enabled), false);
+		Enabled = parameters.GetValueOrDefault(nameof(Enabled), false);
+
+		return base.SetParametersAsync(ParameterView.Empty);
 	}
 
 	protected override string GetButtonCssClass()

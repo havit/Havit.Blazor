@@ -11,6 +11,7 @@ namespace Havit.Blazor.Grpc.Client.Cancellation;
 /// * when RpcException.Status.DebugException is OperationCanceledException (CancellationToken is None)
 /// * RpcException.Status.DebugException is HttpRequestException (the HttpMessageHandler.Send[Async]() gets another CancellationToken)
 /// </remarks>
+[Obsolete("CancellationWorkaroundGrpcClientInterceptor is obsolete. Issue fixed in grpc-dotnet, see https://github.com/grpc/grpc-dotnet/issues/2014.")]
 public class CancellationWorkaroundGrpcClientInterceptor : Interceptor
 {
 	public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(
@@ -28,7 +29,9 @@ public class CancellationWorkaroundGrpcClientInterceptor : Interceptor
 	{
 		try
 		{
+#pragma warning disable VSTHRD003 // Avoid awaiting foreign Tasks
 			return await responseTask;
+#pragma warning restore VSTHRD003 // Avoid awaiting foreign Tasks
 		}
 		catch
 		{

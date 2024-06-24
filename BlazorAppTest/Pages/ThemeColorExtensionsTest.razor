@@ -1,0 +1,68 @@
+@page "/ThemeColorExtensionsTest"
+
+<p class="@ThemeColor.Primary.ToTextColorCss(false)">@ThemeColor.Primary.ToTextColorCss(false)</p>
+<p class="@ThemeColor.Primary.ToTextColorCss(true)">@ThemeColor.Primary.ToTextColorCss(true)</p>
+<p class="@ThemeColor.Secondary.ToTextColorCss(false)">@ThemeColor.Secondary.ToTextColorCss(false)</p>
+<p class="@ThemeColor.Secondary.ToTextColorCss(true)">@ThemeColor.Secondary.ToTextColorCss(true)</p>
+<p class="@ThemeColor.Success.ToTextColorCss(false)">@ThemeColor.Success.ToTextColorCss(false)</p>
+<p class="@ThemeColor.Success.ToTextColorCss(true)">@ThemeColor.Success.ToTextColorCss(true)</p>
+<p class="@ThemeColor.Danger.ToTextColorCss(false)">@ThemeColor.Danger.ToTextColorCss(false)</p>
+<p class="@ThemeColor.Danger.ToTextColorCss(true)">@ThemeColor.Danger.ToTextColorCss(true)</p>
+<p class="@ThemeColor.Warning.ToTextColorCss(false)">@ThemeColor.Warning.ToTextColorCss(false)</p>
+<p class="@ThemeColor.Warning.ToTextColorCss(true)">@ThemeColor.Warning.ToTextColorCss(true)</p>
+<p class="@ThemeColor.Info.ToTextColorCss(false)">@ThemeColor.Info.ToTextColorCss(false)</p>
+<p class="@ThemeColor.Info.ToTextColorCss(true)">@ThemeColor.Info.ToTextColorCss(true)</p>
+<p class="@ThemeColor.Dark.ToTextColorCss(false)">@ThemeColor.Dark.ToTextColorCss(false)</p>
+<p class="@ThemeColor.Dark.ToTextColorCss(true)">@ThemeColor.Dark.ToTextColorCss(true)</p>
+<p class="@ThemeColor.Light.ToTextColorCss(false)">@ThemeColor.Light.ToTextColorCss(false)</p>
+<p class="@ThemeColor.Light.ToTextColorCss(true)">@ThemeColor.Light.ToTextColorCss(true)</p>
+
+<div class="backgrounds d-flex flex-column gap-2 my-3">
+	<div class="@ThemeColor.Primary.ToBackgroundColorCss(false)"></div>
+	<div class="@ThemeColor.Primary.ToBackgroundColorCss(true)"></div>
+	<div class="@ThemeColor.Secondary.ToBackgroundColorCss(false)"></div>
+	<div class="@ThemeColor.Secondary.ToBackgroundColorCss(true)"></div>
+	<div class="@ThemeColor.Success.ToBackgroundColorCss(false)"></div>
+	<div class="@ThemeColor.Success.ToBackgroundColorCss(true)"></div>
+	<div class="@ThemeColor.Danger.ToBackgroundColorCss(false)"></div>
+	<div class="@ThemeColor.Danger.ToBackgroundColorCss(true)"></div>
+	<div class="@ThemeColor.Warning.ToBackgroundColorCss(false)"></div>
+	<div class="@ThemeColor.Warning.ToBackgroundColorCss(true)"></div>
+	<div class="@ThemeColor.Info.ToBackgroundColorCss(false)"></div>
+	<div class="@ThemeColor.Info.ToBackgroundColorCss(true)"></div>
+	<div class="@ThemeColor.Light.ToBackgroundColorCss(false)"></div>
+	<div class="@ThemeColor.Light.ToBackgroundColorCss(true)"></div>
+	<div class="@ThemeColor.Dark.ToBackgroundColorCss(false)"></div>
+	<div class="@ThemeColor.Dark.ToBackgroundColorCss(true)"></div>
+</div>
+
+<div class="borders d-flex flex-column gap-2">
+	<div class="@ThemeColor.Primary.ToBorderColorCss(false)"></div>
+	<div class="@ThemeColor.Primary.ToBorderColorCss(true)"></div>
+	<div class="@ThemeColor.Secondary.ToBorderColorCss(false)"></div>
+	<div class="@ThemeColor.Secondary.ToBorderColorCss(true)"></div>
+	<div class="@ThemeColor.Success.ToBorderColorCss(false)"></div>
+	<div class="@ThemeColor.Success.ToBorderColorCss(true)"></div>
+	<div class="@ThemeColor.Danger.ToBorderColorCss(false)"></div>
+	<div class="@ThemeColor.Danger.ToBorderColorCss(true)"></div>
+	<div class="@ThemeColor.Warning.ToBorderColorCss(false)"></div>
+	<div class="@ThemeColor.Warning.ToBorderColorCss(true)"></div>
+	<div class="@ThemeColor.Info.ToBorderColorCss(false)"></div>
+	<div class="@ThemeColor.Info.ToBorderColorCss(true)"></div>
+	<div class="@ThemeColor.Light.ToBorderColorCss(false)"></div>
+	<div class="@ThemeColor.Light.ToBorderColorCss(true)"></div>
+	<div class="@ThemeColor.Dark.ToBorderColorCss(false)"></div>
+	<div class="@ThemeColor.Dark.ToBorderColorCss(true)"></div>
+</div>
+
+<style>
+	.backgrounds div,
+	.borders div {
+		width: 100px;
+		height: 30px;
+	}
+
+	.borders div {
+		border: 1px solid black;
+	}
+</style>

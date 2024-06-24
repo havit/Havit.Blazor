@@ -1,27 +1,23 @@
-﻿<HxSelect Label="Band member"
-          TItem="Person"
-          TValue="string"
-          InputGroupStartText="Select name"
-          Data="people"
-          @bind-Value="value"
-          Nullable="false"
-          TextSelector="@(p => p.Name)"
-          ValueSelector="@(p => p.Initials)" />
+﻿@inject IDemoDataService DemoDataService
+
+<HxSelect TItem="EmployeeDto"
+		  TValue="int?"
+		  Label="Best employee"
+		  Data="data"
+		  @bind-Value="employeeId"
+		  TextSelector="@(employee => employee.Name)"
+		  ValueSelector="@(employee => employee.Id)"
+		  Nullable="true"
+		  NullText="-select employee-"
+		  NullDataText="Loading employees..."
+		  InputGroupStartText="Employees"/>
 
 @code {
-    private string value = "RS";
-    private List<Person> people;
+	private IEnumerable<EmployeeDto> data;
+	private int? employeeId;
 
-    protected override void OnInitialized()
-    {
-        people = new List<Person>
-        {
-            new Person("Starr Ringo", "RS"),
-            new Person("Lennon John", "JL"),
-            new Person("McCartney Paul", "PMC"),
-            new Person("Harrison George", "GH")
-        };
-    }
-
-    record Person(string Name, string Initials);
+	protected override async Task OnInitializedAsync()
+	{
+		data = await DemoDataService.GetAllEmployeesAsync();
+	}
 }

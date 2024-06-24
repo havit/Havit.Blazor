@@ -1,15 +1,22 @@
-	 ::deep .hx-grid {
-    border-top: 1px solid var(--bs-table-border-color);
+::deep .hx-grid-container {
+    border-top: 1px solid var(--bs-border-color);
+}
+
+::deep .hx-grid:has(.sticky-top) {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+.hx-list-layout:has(.sticky-top) ::deep .dropdown-menu {
+	--bs-dropdown-zindex: 1030;
+}
+
+.hx-list-layout:has(.hx-grid-infinite-scroll) ::deep .card {
+	overflow: hidden;
 }
 
 .hx-list-layout-header ::deep button {
     white-space: nowrap;
-}
-
-.hx-list-layout-header-dropdown {
-    display: flex;
-    align-items: center;
-    margin-right: auto;
 }
 
 .hx-list-layout-dropdown-menu-link {
@@ -47,6 +54,14 @@
 
 ::deep .hx-pager {
 	margin: 1rem;
+}
+
+.hx-list-layout-dropdown-menu-link:hover {
+	text-decoration: underline;
+}
+
+.hx-list-layout-named-view {
+	margin-right: auto;
 }
 
 .hx-list-layout-named-view .card-title {

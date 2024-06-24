@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Rendering a <c>HxRedirectTo</c> will navigate to a new location.<br/>
-/// Can be used in <c>AuthorizeRouteView</c>, <c>Router</c> and such components to process redirection to login page, error page or such.<br />
+/// Can be used in <c>AuthorizeRouteView</c>, <c>Router</c> and similar components to redirect to a login page, error page, or similar.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxRedirectTo">https://havit.blazor.eu/components/HxRedirectTo</see>
 /// </summary>
 public class HxRedirectTo : ComponentBase
@@ -14,7 +14,7 @@ public class HxRedirectTo : ComponentBase
 
 	/// <summary>
 	/// If <c>true</c>, bypasses client-side routing and forces the browser to load the new
-	/// page from the server, whether or not the URI would normally be handled by the
+	/// page from the server, regardless of whether the URI would normally be handled by the
 	/// client-side router.<br/>
 	/// Default is <c>false</c>.
 	/// </summary>
@@ -24,6 +24,6 @@ public class HxRedirectTo : ComponentBase
 
 	protected override void OnInitialized()
 	{
-		NavigationManager.NavigateTo(this.Uri, this.ForceLoad);
+		NavigationManager.NavigateTo(Uri, ForceLoad);
 	}
 }

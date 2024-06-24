@@ -14,63 +14,63 @@ public partial class HxScrollspy : IAsyncDisposable
 	[Parameter, EditorRequired] public string TargetId { get; set; }
 
 	/// <summary>
-	/// Scrollspy additional CSS class. Added to main div (.hx-scrollspy).
+	/// Scrollspy additional CSS class. Added to the main div (.hx-scrollspy).
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// Content to be spied. Elements with IDs are required (corresponding IDs to be used in <see cref="HxNavLink.Href"/>).
+	/// Content to be spied on. Elements with IDs are required (corresponding IDs to be used in <see cref="HxNavLink.Href"/>).
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	private IJSObjectReference jsModule;
-	private ElementReference scrollspyElement;
-	private bool initialized;
-	private bool disposed;
+	private IJSObjectReference _jsModule;
+	private ElementReference _scrollspyElement;
+	private bool _initialized;
+	private bool _disposed;
 
 	/// <inheritdoc />
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		await base.OnAfterRenderAsync(firstRender);
 
-		if (firstRender && !initialized)
+		if (firstRender && !_initialized)
 		{
 			await EnsureJsModuleAsync();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("initialize", scrollspyElement, TargetId);
-			initialized = true;
+			await _jsModule.InvokeVoidAsync("initialize", _scrollspyElement, TargetId);
+			_initialized = true;
 		}
 	}
 
 	/// <summary>
-	/// When using scrollspy in conjunction with adding or removing of elements from the DOM (e.g. asynchronous data load), you’ll need to refresh the scrollspy explicitly.
+	/// When using scrollspy in conjunction with adding or removing elements from the DOM (e.g. asynchronous data load), you’ll need to refresh the scrollspy explicitly.
 	/// </summary>
 	/// <returns></returns>
 	public async Task RefreshAsync()
 	{
-		if (initialized)
+		if (_initialized)
 		{
 			await EnsureJsModuleAsync();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("refresh", scrollspyElement);
+			await _jsModule.InvokeVoidAsync("refresh", _scrollspyElement);
 		}
 		else
 		{
-			// NOOP - will be initialized OnAfterRenderAsync (a therefor the refresh is not needed)
+			// NOOP - will be initialized OnAfterRenderAsync (and therefore the refresh is not needed)
 		}
 	}
 
 	private async Task EnsureJsModuleAsync()
 	{
-		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollspy));
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollspy));
 	}
 
 
@@ -83,16 +83,20 @@ public partial class HxScrollspy : IAsyncDisposable
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
-		if (jsModule != null)
+		if (_jsModule != null)
 		{
 			try
 			{
-				await jsModule.InvokeVoidAsync("dispose", scrollspyElement);
-				await jsModule.DisposeAsync();
+				await _jsModule.InvokeVoidAsync("dispose", _scrollspyElement);
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+			catch (TaskCanceledException)
 			{
 				// NOOP
 			}

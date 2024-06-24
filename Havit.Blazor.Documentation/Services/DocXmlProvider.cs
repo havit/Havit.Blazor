@@ -5,17 +5,17 @@ using LoxSmoke.DocXml;
 namespace Havit.Blazor.Documentation.Services;
 public class DocXmlProvider : IDocXmlProvider
 {
-	private readonly Dictionary<string, DocXmlReader> docXmlReaders = new();
+	private readonly Dictionary<string, DocXmlReader> _docXmlReaders = new();
 
 	public DocXmlReader GetDocXmlReaderFor(string docXmlResourceName)
 	{
-		if (docXmlReaders.TryGetValue(docXmlResourceName, out var result))
+		if (_docXmlReaders.TryGetValue(docXmlResourceName, out var result))
 		{
 			return result;
 		}
 
 		var result2 = LoadDocXmlReader(docXmlResourceName);
-		docXmlReaders.Add(docXmlResourceName, result2);
+		_docXmlReaders.Add(docXmlResourceName, result2);
 
 		return result2;
 	}

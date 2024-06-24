@@ -7,11 +7,11 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// A base class for form input components. This base class automatically integrates
-/// with an Microsoft.AspNetCore.Components.Forms.EditContext, which must be supplied
+/// with a Microsoft.AspNetCore.Components.Forms.EditContext, which must be supplied
 /// as a cascading parameter.
-/// Extends <see cref="InputBase{TValue}"/> class.
+/// Extends the <see cref="InputBase{TValue}"/> class.
 /// 
-/// Adds support for rendering bootstrap based input with validator.
+/// Adds support for rendering bootstrap-based input with a validator.
 /// See also <see href="https://getbootstrap.com/docs/5.3/forms/overview/">https://getbootstrap.com/docs/5.3/forms/overview/</see>.
 /// </summary>
 public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledComponent, IFormValueComponent
@@ -22,91 +22,91 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	public const string InvalidCssClass = "is-invalid";
 
 	/// <summary>
-	/// Return <see cref="HxInputBase{TValue}"/> defaults.
-	/// Enables to not share defaults in descendants with base classes.
-	/// Enables to have multiple descendants which differs in the default values.
+	/// Returns the defaults for <see cref="HxInputBase{TValue}"/>.
+	/// Enables not sharing defaults in descendants with base classes.
+	/// Enables having multiple descendants that differ in the default values.
 	/// </summary>
 	protected virtual InputSettings GetDefaults() => HxInputBase.Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputBase.Defaults"/>, overridden by individual parameters).
+	/// Gets the set of settings to be applied to the component instance (overrides <see cref="HxInputBase.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	/// <remarks>
-	/// Using interface does not force the implementation of settings to use specific class as a base type.</remarks>
+	/// Using an interface does not force the implementation of settings to use a specific class as a base type.</remarks>
 	protected abstract InputSettings GetSettings();
 
 	/// <summary>
 	/// Specifies how the validation message should be displayed.<br/>
-	/// Default is <see cref="ValidationMessageMode.Regular"/>, you can override application-wide default for all inputs in <see cref="HxInputBase.Defaults"/>.
+	/// The default is <see cref="ValidationMessageMode.Regular"/>, you can override the application-wide default for all inputs in <see cref="HxInputBase.Defaults"/>.
 	/// </summary>
 	[Parameter] public ValidationMessageMode? ValidationMessageMode { get; set; }
-	protected ValidationMessageMode ValidationMessageModeEffective => this.ValidationMessageMode ?? this.GetSettings()?.ValidationMessageMode ?? GetDefaults().ValidationMessageMode ?? HxInputBase.Defaults?.ValidationMessageMode ?? throw new InvalidOperationException(nameof(ValidationMessageMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
+	protected ValidationMessageMode ValidationMessageModeEffective => ValidationMessageMode ?? GetSettings()?.ValidationMessageMode ?? GetDefaults().ValidationMessageMode ?? HxInputBase.Defaults?.ValidationMessageMode ?? throw new InvalidOperationException(nameof(ValidationMessageMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
 
 	/// <inheritdoc cref="Web.FormState" />
 	[CascadingParameter] protected FormState FormState { get; set; }
-	FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+	FormState ICascadeEnabledComponent.FormState { get => FormState; set => FormState = value; }
 
 	#region IFormValueComponent public properties
 	/// <summary>
-	/// Label text.
+	/// The label text.
 	/// </summary>
 	[Parameter] public string Label { get; set; }
 
 	/// <summary>
-	/// Label content.
+	/// The label content.
 	/// </summary>
 	[Parameter] public RenderFragment LabelTemplate { get; set; }
 
 	/// <summary>
-	/// Hint to render after input as form-text.
+	/// The hint to render after the input as form-text.
 	/// </summary>
 	[Parameter] public string Hint { get; set; }
 
 	/// <summary>
-	/// Hint to render after input as form-text.
+	/// The hint to render after the input as form-text.
 	/// </summary>
 	[Parameter] public RenderFragment HintTemplate { get; set; }
 
 	/// <summary>
-	/// Custom CSS class to render with wrapping div.
+	/// The custom CSS class to render with the wrapping div.
 	/// </summary>
 	[Parameter] public new string CssClass { get; set; }
 
 	/// <summary>
-	/// Custom CSS class to render with the label.
+	/// The custom CSS class to render with the label.
 	/// </summary>
 	[Parameter] public string LabelCssClass { get; set; }
 	#endregion
 
 	/// <summary>
-	/// Custom CSS class to render with the input element.
+	/// The custom CSS class to render with the input element.
 	/// </summary>
 	[Parameter] public string InputCssClass { get; set; }
 
 	/// <summary>
-	/// When <c>true</c>, <see cref="HxChipGenerator"/> is used to generate chip item(s). Default is <c>true</c>.
+	/// When <c>true</c>, <see cref="HxChipGenerator"/> is used to generate chip item(s). The default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool GenerateChip { get; set; } = true;
 
 	/// <summary>
-	/// Chip template.
+	/// The chip template.
 	/// </summary>
 	[Parameter] public RenderFragment ChipTemplate { get; set; }
 
 	/// <summary>
-	/// When <c>null</c> (default), the <c>Enabled</c> value is received from cascading <see cref="FormState" />.
-	/// When value is <c>false</c>, input is rendered as disabled.
-	/// To set multiple controls as disabled use <seealso cref="HxFormState" />.
+	/// When <c>null</c> (default), the <c>Enabled</c> value is received from the cascading <see cref="FormState" />.
+	/// When the value is <c>false</c>, the input is rendered as disabled.
+	/// To set multiple controls as disabled, use <seealso cref="HxFormState" />.
 	/// </summary>
 	[Parameter] public bool? Enabled { get; set; }
 
 	/// <summary>
-	/// Returns effective value for <see cref="Enabled"/> property.
+	/// Gets the effective value for the <see cref="Enabled"/> property.
 	/// </summary>
 	protected virtual bool EnabledEffective => CascadeEnabledComponent.EnabledEffective(this);
 
 	/// <summary>
-	/// CSS class to be rendered with the wrapping div.
+	/// The CSS class to be rendered with the wrapping div.
 	/// </summary>
 	private protected virtual string CoreCssClass => CssClassHelper.Combine("hx-form-group position-relative",
 		((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
@@ -114,12 +114,12 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		: null);
 
 	/// <summary>
-	/// CSS class to be rendered with the input element.
+	/// The CSS class to be rendered with the input element.
 	/// </summary>
 	private protected virtual string CoreInputCssClass => "form-control";
 
 	/// <summary>
-	/// CSS class to be rendered with the label.
+	/// The CSS class to be rendered with the label.
 	/// </summary>
 	private protected virtual string CoreLabelCssClass =>
 		((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
@@ -127,17 +127,17 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		: "form-label";
 
 	/// <summary>
-	/// CSS class to be rendered with the hint.
+	/// The CSS class to be rendered with the hint.
 	/// </summary>
 	private protected virtual string CoreHintCssClass => "form-text";
 
 	/// <summary>
-	/// ID if the input element. Autogenerated when used with label.
+	/// The ID of the input element. Autogenerated when used with a label.
 	/// </summary>
 	protected string InputId { get; private set; }
 
 	/// <summary>
-	/// Input ElementReference.
+	/// The input ElementReference.
 	/// Can be <c>null</c>. 
 	/// </summary>
 	protected ElementReference InputElement { get; set; }
@@ -183,13 +183,13 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		}
 	}
 
-	string IFormValueComponent.LabelFor => this.InputId;
-	string IFormValueComponent.CoreCssClass => this.CoreCssClass;
-	string IFormValueComponent.CoreLabelCssClass => this.CoreLabelCssClass;
-	string IFormValueComponent.CoreHintCssClass => this.CoreHintCssClass;
-	LabelValueRenderOrder IFormValueComponent.RenderOrder => this.RenderOrder;
+	string IFormValueComponent.LabelFor => InputId;
+	string IFormValueComponent.CoreCssClass => CoreCssClass;
+	string IFormValueComponent.CoreLabelCssClass => CoreLabelCssClass;
+	string IFormValueComponent.CoreHintCssClass => CoreHintCssClass;
+	LabelValueRenderOrder IFormValueComponent.RenderOrder => RenderOrder;
 
-	private EditContext autoCreatedEditContext;
+	private EditContext _autoCreatedEditContext;
 
 	public override Task SetParametersAsync(ParameterView parameters)
 	{
@@ -205,17 +205,18 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 
 		if ((this is IInputWithLabelType inputWithLabelType)
 			&& (this is IInputWithPlaceholder inputWithPlaceholder)
-			&& (inputWithLabelType.LabelType == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating)
+			&& (inputWithLabelType.LabelType == LabelType.Floating)
 			&& !String.IsNullOrEmpty(inputWithPlaceholder.Placeholder))
 		{
 			throw new InvalidOperationException($"Cannot use {nameof(IInputWithPlaceholder.Placeholder)} with floating labels.");
 		}
 	}
+
 	/// <summary>
-	/// When there is no EditContext cascading parameter, lets create a new one and assign it to CascadedEditContext private property in a base InputBase class.
+	/// When there is no EditContext cascading parameter, let's create a new one and assign it to the CascadedEditContext private property in the base InputBase class.
 	/// </summary>
 	/// <remarks>
-	/// Even there is a protected EditContext property we cannot assign a value. When doing so InvalidOperationException exception is thrown.
+	/// Even though there is a protected EditContext property, we cannot assign a value. When doing so, an InvalidOperationException exception is thrown.
 	/// </remarks>
 	private void EnsureCascadingEditContext()
 	{
@@ -223,8 +224,8 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 
 		if (cascadedEditContextProperty.GetValue(this) == null)
 		{
-			autoCreatedEditContext ??= new EditContext(new object());
-			cascadedEditContextProperty.SetValue(this, autoCreatedEditContext);
+			_autoCreatedEditContext ??= new EditContext(new object());
+			cascadedEditContextProperty.SetValue(this, _autoCreatedEditContext);
 		}
 	}
 
@@ -241,7 +242,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		base.BuildRenderTree(builder);
 		builder.CloseRegion();
 
-		HxFormValueRenderer.Current.Render(1, builder, this);
+		FormValueRenderer.Current.Render(1, builder, this);
 
 		if (GenerateChip && ShouldRenderChipGenerator())
 		{
@@ -257,17 +258,17 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	}
 
 	/// <summary>
-	/// When EditContext was automatically created, this method renders CascadingValue component with this EditContext and the content of the renderFragment.
-	/// Otherwise only renderFragment is rendered.
+	/// When the EditContext was automatically created, this method renders the CascadingValue component with this EditContext and the content of the renderFragment.
+	/// Otherwise, only the renderFragment is rendered.
 	/// </summary>
-	private protected void RenderWithAutoCreatedEditContextAsCascadingValue(RenderTreeBuilder builder, int sequence, RenderFragment renderFragment)
+	protected void RenderWithAutoCreatedEditContextAsCascadingValue(RenderTreeBuilder builder, int sequence, RenderFragment renderFragment)
 	{
-		if (autoCreatedEditContext != null)
+		if (_autoCreatedEditContext != null)
 		{
 			builder.OpenRegion(sequence);
 			builder.OpenComponent<CascadingValue<EditContext>>(1);
 			builder.AddAttribute(2, nameof(CascadingValue<EditContext>.IsFixed), true);
-			builder.AddAttribute(3, nameof(CascadingValue<EditContext>.Value), autoCreatedEditContext);
+			builder.AddAttribute(3, nameof(CascadingValue<EditContext>.Value), _autoCreatedEditContext);
 			builder.AddAttribute(4, nameof(CascadingValue<EditContext>.ChildContent), (object)renderFragment);
 			builder.CloseComponent();
 			builder.CloseRegion();
@@ -284,45 +285,51 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	}
 
 	/// <summary>
-	/// Renders input.
+	/// Renders the input.
 	/// </summary>
 	protected abstract void BuildRenderInput(RenderTreeBuilder builder);
 
 	/// <summary>
-	/// Add common attributes to the input.
+	/// Adds common attributes to the input.
 	/// </summary>
 	private protected virtual void BuildRenderInput_AddCommonAttributes(RenderTreeBuilder builder, string typeValue)
 	{
 		builder.AddMultipleAttributes(1, AdditionalAttributes);
 		builder.AddAttribute(2, "id", InputId);
-		builder.AddAttribute(3, "type", typeValue);
-		builder.AddAttribute(4, "class", GetInputCssClassToRender());
-		builder.AddAttribute(5, "disabled", !EnabledEffective);
+#if NET8_0_OR_GREATER
+		if (!String.IsNullOrEmpty(NameAttributeValue))
+		{
+			builder.AddAttribute(3, "name", NameAttributeValue);
+		}
+#endif
+		builder.AddAttribute(4, "type", typeValue);
+		builder.AddAttribute(5, "class", GetInputCssClassToRender());
+		builder.AddAttribute(6, "disabled", !EnabledEffective);
 		if ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
 		{
-			builder.AddAttribute(6, "placeholder", "placeholder"); // there must be a nonempty value (which is not visible)
+			builder.AddAttribute(7, "placeholder", "placeholder"); // there must be a nonempty value (which is not visible)
 		}
 		else if (this is IInputWithPlaceholder inputWithPlaceholder)
 		{
-			builder.AddAttribute(7, "placeholder", inputWithPlaceholder.Placeholder);
+			builder.AddAttribute(8, "placeholder", inputWithPlaceholder.Placeholder);
 		}
 
 	}
 
 	/// <summary>
-	/// Renders validation message (component <see cref="HxValidationMessage{TValue}" />) when not disabled (<seealso cref="ValidationMessageModeEffective" />).
+	/// Renders the validation message (component <see cref="HxValidationMessage{TValue}" />) when not disabled (<seealso cref="ValidationMessageModeEffective" />).
 	/// </summary>
 	protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
 	{
-		if (this.ValidationMessageModeEffective != Bootstrap.ValidationMessageMode.None) // if: performance
+		if (ValidationMessageModeEffective != Bootstrap.ValidationMessageMode.None) // if: performance
 		{
 			//<div class="invalid-feedback">
 			//Please provide a valid city.
 			//</div>
 			builder.OpenComponent<HxValidationMessage<TValue>>(1);
-			if (autoCreatedEditContext != null)
+			if (_autoCreatedEditContext != null)
 			{
-				builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.EditContext), autoCreatedEditContext);
+				builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.EditContext), _autoCreatedEditContext);
 			}
 			builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.For), ValueExpression);
 			builder.AddAttribute(4, nameof(HxValidationMessage<TValue>.Mode), ValidationMessageModeEffective);
@@ -331,7 +338,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	}
 
 	/// <summary>
-	/// Renders chip generator.
+	/// Renders the chip generator.
 	/// </summary>
 	protected virtual void RenderChipGenerator(RenderTreeBuilder builder)
 	{
@@ -343,20 +350,25 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	}
 
 	/// <summary>
-	/// Returns true when chip should be rendered.
-	/// Supposed to make decision based on CurrentValue.
+	/// Returns true when the chip should be rendered.
+	/// Supposed to make a decision based on CurrentValue.
 	/// </summary>
 	/// <remarks>
 	/// This method is called only when <see cref="GenerateChip" /> is <c>true</c>.
-	/// The implementation of the method is not supposed to use <see cref="GenerateChip" /> property itself.
+	/// The implementation of the method is not supposed to use the <see cref="GenerateChip" /> property itself.
 	/// </remarks>
 	protected virtual bool ShouldRenderChipGenerator()
 	{
+		if (CurrentValue is string currentValueString)
+		{
+			// fixes #659 [HxInputText] Generates chip for String.Empty value
+			return !String.IsNullOrEmpty(currentValueString);
+		}
 		return !EqualityComparer<TValue>.Default.Equals(CurrentValue, default(TValue));
 	}
 
 	/// <summary>
-	/// Returns chip template.
+	/// Returns the chip template.
 	/// </summary>
 	protected void RenderChipTemplate(RenderTreeBuilder builder)
 	{
@@ -381,20 +393,20 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 
 	protected virtual void RenderChipLabel(RenderTreeBuilder builder)
 	{
-		builder.AddContent(0, this.Label);
+		builder.AddContent(0, Label);
 	}
 
 	protected virtual void RenderChipValue(RenderTreeBuilder builder)
 	{
-		builder.AddContent(0, this.CurrentValueAsString);
+		builder.AddContent(0, CurrentValueAsString);
 	}
 
 	/// <summary>
-	/// Returns action to remove chip from model.
+	/// Returns the action to remove the chip from the model.
 	/// </summary>
 	protected virtual Action<object> GetChipRemoveAction()
 	{
-		string fieldName = this.FieldIdentifier.FieldName; // carefully! don't use "this" in lambda below to allow it for GC
+		string fieldName = FieldIdentifier.FieldName; // carefully! don't use "this" in lambda below to allow it for GC
 		TValue value = GetChipRemoveValue(); // carefully! don't use the method call in lambda below to allow "this" for GC
 		Action<object> removeAction = (model) =>
 		{
@@ -421,7 +433,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	{
 		if (EqualityComparer<ElementReference>.Default.Equals(InputElement, default))
 		{
-			throw new InvalidOperationException($"Cannot focus {this.GetType()}. The method must be called after first render.");
+			throw new InvalidOperationException($"Unable to focus {GetType().Name}, {nameof(InputElement)} reference not available.  You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 		await InputElement.FocusAsync();
 	}

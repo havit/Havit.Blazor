@@ -7,8 +7,8 @@ public partial class HxListLayoutWithoutFilterTest
 {
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 
-	private DataItemDto currentItem;
-	private HxGrid<DataItemDto> gridComponent;
+	private DataItemDto _currentItem;
+	private HxGrid<DataItemDto> _gridComponent;
 
 	private Task<GridDataProviderResult<DataItemDto>> LoadDataItems(GridDataProviderRequest<DataItemDto> request)
 	{
@@ -28,7 +28,7 @@ public partial class HxListLayoutWithoutFilterTest
 
 	private Task HandleSelectedDataItemChanged(DataItemDto selection)
 	{
-		currentItem = selection;
+		_currentItem = selection;
 		// await dataItemEditComponent.ShowAsync();
 		return Task.CompletedTask;
 	}
@@ -41,7 +41,7 @@ public partial class HxListLayoutWithoutFilterTest
 
 	private Task HandleNewItemClicked()
 	{
-		currentItem = new DataItemDto();
+		_currentItem = new DataItemDto();
 		// await dataItemEditComponent.ShowAsync();
 		return Task.CompletedTask;
 	}

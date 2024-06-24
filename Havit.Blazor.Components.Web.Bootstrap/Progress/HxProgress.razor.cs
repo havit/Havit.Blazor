@@ -18,27 +18,27 @@ public partial class HxProgress
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// Height of all inner progress bars. Default is <c>15px</c>.
+	/// Height of all inner progress bars. The default value is <c>15px</c>.
 	/// </summary>
 	[Parameter] public int Height { get; set; } = 15;
 
 	/// <summary>
-	/// Lowest possible value. Default is <c>0</c>.
+	/// Lowest possible value. The default value is <c>0</c>.
 	/// </summary>
 	[Parameter] public float MinValue { get; set; } = 0;
 
 	/// <summary>
-	/// Highest possible value. Default is <c>100</c>.
+	/// Highest possible value. The default value is <c>100</c>.
 	/// </summary>
 	[Parameter] public float MaxValue { get; set; } = 100;
 
 	/// <summary>
-	/// If <c>true</c>, applies a stripe via CSS gradient over the progress bar's background color.
+	/// If <c>true</c>, applies a stripe via CSS gradient over the background color of the progress bar.
 	/// </summary>
 	[Parameter] public bool Striped { get; set; }
 
 	/// <summary>
-	/// If <c>true</c>, stripes are animated right to left via CSS3 animations, stripes are automatically switched on.
+	/// If <c>true</c>, the stripes are animated right to left using CSS3 animations. The stripes are automatically switched on.
 	/// </summary>
 	[Parameter] public bool Animated { get; set; }
 }

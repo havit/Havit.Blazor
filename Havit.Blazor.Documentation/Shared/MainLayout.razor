@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<PageTitle>@title</PageTitle>
+<PageTitle>@_title</PageTitle>
 
 <HxMessenger Position="ToastContainerPosition.MiddleCenter" />
 <HxMessageBoxHost />
@@ -17,4 +17,5 @@
 	</OnThisPageNavigation>
 </div>
 
-<HxAnchorFragmentNavigation />
+@* Workaround for https://github.com/dotnet/aspnetcore/issues/54533 *@
+<AntiforgeryToken />

@@ -30,7 +30,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual ButtonSettings GetDefaults() => Defaults;
 
@@ -40,12 +40,12 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	[Parameter] public ButtonSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual ButtonSettings GetSettings() => this.Settings;
+	protected virtual ButtonSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Text of the button.
@@ -61,51 +61,51 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// Icon to render into the button.
 	/// </summary>
 	[Parameter] public IconBase Icon { get; set; }
-	protected IconBase IconEffective => this.Icon ?? this.GetSettings()?.Icon ?? GetDefaults().Icon;
+	protected IconBase IconEffective => Icon ?? GetSettings()?.Icon ?? GetDefaults().Icon;
 
 	/// <summary>
-	/// Position of the icon within the button. Default is <see cref="ButtonIconPlacement.Start" /> (configurable through <see cref="HxButton.Defaults"/>).
+	/// Position of the icon within the button. The default is <see cref="ButtonIconPlacement.Start" /> (configurable through <see cref="HxButton.Defaults"/>).
 	/// </summary>
 	[Parameter] public ButtonIconPlacement? IconPlacement { get; set; }
-	protected ButtonIconPlacement IconPlacementEffective => this.IconPlacement ?? this.GetSettings()?.IconPlacement ?? GetDefaults()?.IconPlacement ?? throw new InvalidOperationException(nameof(IconPlacement) + " default for " + nameof(HxButton) + " has to be set.");
+	protected ButtonIconPlacement IconPlacementEffective => IconPlacement ?? GetSettings()?.IconPlacement ?? GetDefaults()?.IconPlacement ?? throw new InvalidOperationException(nameof(IconPlacement) + " default for " + nameof(HxButton) + " has to be set.");
 
 	/// <summary>
 	/// Bootstrap button style - theme color.<br />
-	/// Default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
+	/// The default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
-	protected ThemeColor ColorEffective => this.Color ?? this.GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxButton) + " has to be set.");
+	protected ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxButton) + " has to be set.");
 
 	/// <summary>
-	/// Button size. Default is <see cref="ButtonSize.Regular"/>.
+	/// Button size. The default is <see cref="ButtonSize.Regular"/>.
 	/// </summary>
 	[Parameter] public ButtonSize? Size { get; set; }
-	protected ButtonSize SizeEffective => this.Size ?? this.GetSettings()?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxButton) + " has to be set.");
+	protected ButtonSize SizeEffective => Size ?? GetSettings()?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxButton) + " has to be set.");
 
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
 	/// </summary>
 	[Parameter] public bool? Outline { get; set; }
-	protected bool OutlineEffective => this.Outline ?? this.GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxButton) + " has to be set.");
+	protected bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxButton) + " has to be set.");
 
 	/// <summary>
 	/// Custom CSS class to render with the <c>&lt;button /&gt;</c>.<br />
 	/// When using <see cref="Tooltip"/> you might want to use <see cref="TooltipWrapperCssClass"/> instead of <see cref="CssClass" /> to get the desired result.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
-	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
+	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
 	/// CSS class to be rendered with the button icon.
 	/// </summary>
 	[Parameter] public string IconCssClass { get; set; }
-	protected string IconCssClassEffective => this.IconCssClass ?? this.GetSettings()?.IconCssClass ?? GetDefaults().IconCssClass;
+	protected string IconCssClassEffective => IconCssClass ?? GetSettings()?.IconCssClass ?? GetDefaults().IconCssClass;
 
 	/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 	[Parameter] public bool? Enabled { get; set; }
 
 	[CascadingParameter] protected FormState FormState { get; set; }
-	FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+	FormState ICascadeEnabledComponent.FormState { get => FormState; set => FormState = value; }
 
 	/// <summary>
 	/// Associated <see cref="EditContext"/>.
@@ -121,7 +121,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 
 	/// <summary>
 	/// Tooltip text.<br/>
-	/// If set, a <c>span</c> wrapper will be rendered around the <c>&lt;button /&gt;</c>. For most scenarios you will then use <see cref="TooltipWrapperCssClass"/> instead of <see cref="CssClass"/>.
+	/// If set, a <c>span</c> wrapper will be rendered around the <c>&lt;button /&gt;</c>. For most scenarios, you will then use <see cref="TooltipWrapperCssClass"/> instead of <see cref="CssClass"/>.
 	/// </summary>
 	[Parameter] public string Tooltip { get; set; }
 
@@ -137,7 +137,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 
 	/// <summary>
 	/// Custom CSS class to render with the tooltip <c>span</c> wrapper of the <c>&lt;button /&gt;</c>.<br />
-	/// If set, the <c>span</c> wrapper will be rendered no matter the <see cref="Tooltip"/> text is set or not.
+	/// If set, the <c>span</c> wrapper will be rendered no matter whether the <see cref="Tooltip"/> text is set or not.
 	/// </summary>
 	[Parameter] public string TooltipWrapperCssClass { get; set; }
 
@@ -169,7 +169,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	protected virtual Task InvokeOnInvalidClickAsync(MouseEventArgs args) => OnInvalidClick.InvokeAsync(args);
 
 	/// <summary>
-	/// Stop onClick-event propagation. Default is <c>true</c>.
+	/// Stops onClick-event propagation. Default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool OnClickStopPropagation { get; set; } = true;
 
@@ -179,14 +179,14 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	[Parameter] public bool OnClickPreventDefault { get; set; }
 
 	/// <summary>
-	/// Set state of the embedded <see cref="HxSpinner"/>.
+	/// Sets the state of the embedded <see cref="HxSpinner"/>.
 	/// Leave <c>null</c> if you want automated spinner when any of the <see cref="HxButton.OnClick"/> handlers is running.
 	/// You can set an explicit <c>false</c> constant to disable (override) the spinner automation.
 	/// </summary>
 	[Parameter] public bool? Spinner { get; set; }
 
 	/// <summary>
-	/// Set <c>false</c> if you want to allow multiple <see cref="OnClick"/> handlers in parallel. Default is <c>true</c>.
+	/// Sets <c>false</c> if you want to allow multiple <see cref="OnClick"/> handlers in parallel. Default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool SingleClickProtection { get; set; } = true;
 
@@ -200,78 +200,35 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// </summary>
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
-	protected bool SpinnerEffective => this.Spinner ?? clickInProgress;
+	protected bool SpinnerEffective => Spinner ?? clickInProgress;
 	protected bool DisabledEffective => !CascadeEnabledComponent.EnabledEffective(this)
 		|| (SingleClickProtection && clickInProgress && (OnClick.HasDelegate || OnValidClick.HasDelegate || OnInvalidClick.HasDelegate));
 
 	protected bool clickInProgress;
 	protected ElementReference buttonElementReference;
-	private HxTooltip tooltipComponent;
+	private HxTooltip _tooltipComponent;
 
 	/// <summary>
-	/// Gets basic CSS class(es) which get rendered to every single button. <br/>
-	/// Default implementation is <c>"hx-button btn"</c>.
+	/// Gets the basic CSS class(es) which get rendered to every single button. <br/>
+	/// The default implementation is <c>"hx-button btn"</c>.
 	/// </summary>
 	protected virtual string CoreCssClass => "hx-button btn";
 
-
 	protected virtual string GetButtonCssClass()
 	{
-		return CssClassHelper.Combine(CoreCssClass, GetColorCssClass(), GetSizeCssClass(), this.CssClassEffective);
-	}
-
-	protected string GetColorCssClass()
-	{
-		if (this.OutlineEffective)
-		{
-			return this.ColorEffective switch
-			{
-				ThemeColor.Primary => "btn-outline-primary",
-				ThemeColor.Secondary => "btn-outline-secondary",
-				ThemeColor.Success => "btn-outline-success",
-				ThemeColor.Danger => "btn-outline-danger",
-				ThemeColor.Warning => "btn-outline-warning",
-				ThemeColor.Info => "btn-outline-info",
-				ThemeColor.Light => "btn-outline-light",
-				ThemeColor.Dark => "btn-outline-dark",
-				ThemeColor.Link => "btn-link",
-				ThemeColor.None => null,
-				_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {this.ColorEffective:g}.")
-			};
-		}
-		return this.ColorEffective switch
-		{
-			ThemeColor.Primary => "btn-primary",
-			ThemeColor.Secondary => "btn-secondary",
-			ThemeColor.Success => "btn-success",
-			ThemeColor.Danger => "btn-danger",
-			ThemeColor.Warning => "btn-warning",
-			ThemeColor.Info => "btn-info",
-			ThemeColor.Light => "btn-light",
-			ThemeColor.Dark => "btn-dark",
-			ThemeColor.Link => "btn-link",
-			ThemeColor.None => null,
-			_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} color {this.ColorEffective:g}.")
-		};
-	}
-
-	protected string GetSizeCssClass()
-	{
-		return this.SizeEffective switch
-		{
-			ButtonSize.Regular => null,
-			ButtonSize.Small => "btn-sm",
-			ButtonSize.Large => "btn-lg",
-			_ => throw new InvalidOperationException($"Unknown {nameof(HxButton)} {nameof(Size)}: {this.SizeEffective}.")
-		};
+		return CssClassHelper.Combine(
+			CoreCssClass,
+			ColorEffective.ToButtonColorCss(OutlineEffective),
+			SizeEffective.ToButtonSizeCssClass(),
+			CssClassEffective);
 	}
 
 	protected string GetTooltipWrapperCssClass()
 	{
-		bool tooltipWillRenderSpan = !String.IsNullOrEmpty(Tooltip) || !String.IsNullOrWhiteSpace(this.TooltipWrapperCssClass);
+		bool tooltipWillRenderSpan = !String.IsNullOrEmpty(Tooltip) || !String.IsNullOrWhiteSpace(TooltipWrapperCssClass);
 		if (tooltipWillRenderSpan)
 		{
-			return CssClassHelper.Combine("d-inline-block", this.TooltipWrapperCssClass);
+			return CssClassHelper.Combine("d-inline-block", TooltipWrapperCssClass);
 		}
 		return null;
 	}
@@ -294,7 +251,9 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	{
 		// #209 [HxButton] Tooltip does not hide when the button opens HxModal
 		// We disable the button (SingleClickProtection) and disabled buttons do not raise any events (the tooltip won't receive <c>mouseout</c> and stays visible).
-		await tooltipComponent.HideAsync();
+		// UPDATE 06/2024: As of now, only Firefox does not hide the tooltip when the button is disabled.
+		// Removing the HideAsync workaround as it causes #817 [HxButton] Tooltip behavior on mobile devices
+		// await _tooltipComponent.HideAsync();
 
 		if (OnClick.HasDelegate)
 		{

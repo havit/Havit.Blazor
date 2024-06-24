@@ -7,11 +7,11 @@ namespace Havit.Blazor.Grpc.Server;
 // SRC: https://github.com/protobuf-net/protobuf-net.Grpc/blob/main/examples/pb-net-grpc/Server_CS/ServiceBinderWithServiceResolutionFromServiceCollection.cs
 public class ServiceBinderWithServiceResolutionFromServiceCollection : ProtoBufServiceBinder
 {
-	private readonly IServiceCollection services;
+	private readonly IServiceCollection _services;
 
 	public ServiceBinderWithServiceResolutionFromServiceCollection(IServiceCollection services)
 	{
-		this.services = services;
+		_services = services;
 	}
 
 	public override IList<object> GetMetadata(MethodInfo method, Type contractType, Type serviceType)
@@ -19,7 +19,7 @@ public class ServiceBinderWithServiceResolutionFromServiceCollection : ProtoBufS
 		var resolvedServiceType = serviceType;
 		if (serviceType.IsInterface)
 		{
-			resolvedServiceType = services.SingleOrDefault(x => x.ServiceType == serviceType)?.ImplementationType ?? serviceType;
+			resolvedServiceType = _services.SingleOrDefault(x => x.ServiceType == serviceType)?.ImplementationType ?? serviceType;
 		}
 
 		return base.GetMetadata(method, contractType, resolvedServiceType);

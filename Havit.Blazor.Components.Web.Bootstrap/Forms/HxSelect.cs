@@ -1,11 +1,11 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Select - DropDownList - single-item picker. Consider creating custom picker derived from <see cref="HxSelectBase{TValueType, TItem}"/>.<br />
+/// Select - DropDownList - single-item picker. Consider creating a custom picker derived from <see cref="HxSelectBase{TValueType, TItem}"/>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSelect">https://havit.blazor.eu/components/HxSelect</see>
 /// </summary>
-/// <typeparam name="TValue">Type of value.</typeparam>
-/// <typeparam name="TItem">Type of items.</typeparam>
+/// <typeparam name="TValue">The type of value.</typeparam>
+/// <typeparam name="TItem">The type of items.</typeparam>
 public class HxSelect<TValue, TItem> : HxSelectBase<TValue, TItem>
 {
 	/// <summary>
@@ -19,7 +19,7 @@ public class HxSelect<TValue, TItem> : HxSelectBase<TValue, TItem>
 	}
 
 	/// <summary>
-	/// Text to display for <c>null</c> value.
+	/// The text to display for the <c>null</c> value.
 	/// </summary>
 	[Parameter]
 	public string NullText
@@ -29,7 +29,7 @@ public class HxSelect<TValue, TItem> : HxSelectBase<TValue, TItem>
 	}
 
 	/// <summary>
-	/// Text to display when <see cref="Data"/> is <c>null</c>.
+	/// The text to display when <see cref="Data"/> is <c>null</c>.
 	/// </summary>
 	[Parameter]
 	public string NullDataText
@@ -39,8 +39,8 @@ public class HxSelect<TValue, TItem> : HxSelectBase<TValue, TItem>
 	}
 
 	/// <summary>
-	/// Selects value from item.
-	/// Not required when <c>TValueType</c> is same as <c>TItemTime</c>.
+	/// Selects the value from the item.
+	/// Not required when <c>TValueType</c> is the same as <c>TItemTime</c>.
 	/// </summary>
 	[Parameter]
 	public Func<TItem, TValue> ValueSelector
@@ -50,7 +50,7 @@ public class HxSelect<TValue, TItem> : HxSelectBase<TValue, TItem>
 	}
 
 	/// <summary>
-	/// Items to display. 
+	/// The items to display. 
 	/// </summary>
 	[Parameter]
 	public IEnumerable<TItem> Data
@@ -60,8 +60,8 @@ public class HxSelect<TValue, TItem> : HxSelectBase<TValue, TItem>
 	}
 
 	/// <summary>
-	/// Selects text to display from item.
-	/// When not set <c>ToString()</c> is used.
+	/// Selects the text to display from the item.
+	/// When not set, <c>ToString()</c> is used.
 	/// </summary>
 	[Parameter]
 	public Func<TItem, string> TextSelector
@@ -71,8 +71,8 @@ public class HxSelect<TValue, TItem> : HxSelectBase<TValue, TItem>
 	}
 
 	/// <summary>
-	/// Selects value to sort items. Uses <see cref="TextSelector"/> property when not set.
-	/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
+	/// Selects the value to sort items. Uses the <see cref="TextSelector"/> property when not set.
+	/// When complex sorting is required, sort the data manually and don't let this component sort them. Alternatively, create a custom comparable property.
 	/// </summary>
 	[Parameter]
 	public Func<TItem, IComparable> SortKeySelector
@@ -82,8 +82,8 @@ public class HxSelect<TValue, TItem> : HxSelectBase<TValue, TItem>
 	}
 
 	/// <summary>
-	/// When <c>true</c>, items are sorted before displaying in select.
-	/// Default value is <c>true</c>.
+	/// When <c>true</c>, the items are sorted before displaying in the select.
+	/// The default value is <c>true</c>.
 	/// </summary>
 	[Parameter]
 	public bool AutoSort

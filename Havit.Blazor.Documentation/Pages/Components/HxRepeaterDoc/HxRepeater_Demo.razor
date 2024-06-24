@@ -1,14 +1,14 @@
-﻿@using System.Globalization
+﻿@inject IDemoDataService DemoDataService
 
 <HxRepeater Data="data">
 	<HeaderTemplate>
-		<h1>Header</h1>
+		<h6 class="mb-3">Employees</h6>
 	</HeaderTemplate>
 	<ItemTemplate Context="item">
-		<p>@item.DisplayName</p>
+		<p>@item.Name</p>
 	</ItemTemplate>
 	<FooterTemplate>
-		<h2>Footer</h2>
+		<p>@data?.Count() records</p>
 	</FooterTemplate>
 	<NullTemplate>
 		Loading...
@@ -17,15 +17,10 @@
 
 @code
 {
-	private List<CultureInfo> data;
+	private IEnumerable<EmployeeDto> data;
 
-	protected override async Task OnInitializedAsync()
+	protected override async Task OnParametersSetAsync()
 	{
-        await Task.Delay(1000); // imitate data load latency
-        
-		data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-			.OrderBy(item => item.EnglishName)
-			.Take(10)
-			.ToList();
+		data = await DemoDataService.GetPreferredEmployeesAsync(count: 5);
 	}
 }

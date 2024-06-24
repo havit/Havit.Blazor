@@ -5,29 +5,29 @@ namespace BlazorAppTest.Pages;
 
 public partial class HxFilterFormTest
 {
-	protected FormModel model = new FormModel { Text1 = "initial value" };
-	private HxGrid<string> myGrid;
+	private FormModel _model = new FormModel { Text1 = "initial value" };
+	private HxGrid<string> _myGrid;
 
-	private HxFilterForm<FormModel> filterForm;
-	private ChipItem[] chips;
-	private ThemeColor[] selectData;
+	private HxFilterForm<FormModel> _filterForm;
+	private ChipItem[] _chips;
+	private ThemeColor[] _selectData;
 
 	protected override async Task OnInitializedAsync()
 	{
 		await Task.Delay(100);
-		selectData = Enum.GetValues<ThemeColor>();
+		_selectData = Enum.GetValues<ThemeColor>();
 	}
 
 	private void HandleChipsUpdated(ChipItem[] chips)
 	{
 		Console.WriteLine("HandleChipsUpdated");
-		this.chips = chips;
+		_chips = chips;
 	}
 
 	private async Task HandleChipRemoveClick(ChipItem chipToRemove)
 	{
 		Console.WriteLine("HandleChipRemoveClick");
-		await filterForm.RemoveChipAsync(chipToRemove);
+		await _filterForm.RemoveChipAsync(chipToRemove);
 	}
 
 	#region Nested class FormModel
@@ -51,9 +51,9 @@ public partial class HxFilterFormTest
 
 	private async Task HandleModelChanged(FormModel newModel)
 	{
-		model = newModel;
+		_model = newModel;
 		//StateHasChanged();
-		await myGrid.RefreshDataAsync();
+		await _myGrid.RefreshDataAsync();
 	}
 
 	private async Task<GridDataProviderResult<string>> GridDataProvider(GridDataProviderRequest<string> request)
@@ -61,9 +61,9 @@ public partial class HxFilterFormTest
 		await Task.Delay(3000); // simulate server call
 
 		var stringValues = new List<string>();
-		stringValues.Add(model.Text1);
-		stringValues.Add(model.Text2);
-		stringValues.Add(model.Number1.ToString());
+		stringValues.Add(_model.Text1);
+		stringValues.Add(_model.Text2);
+		stringValues.Add(_model.Number1.ToString());
 		return request.ApplyTo(stringValues);
 	}
 

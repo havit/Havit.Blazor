@@ -8,13 +8,13 @@ public partial class HxNav
 {
 	/// <summary>
 	/// Orientation of the nav.
-	/// Default is <see cref="NavOrientation.Horizontal"/>.
+	/// The default value is <see cref="NavOrientation.Horizontal"/>.
 	/// </summary>
 	[Parameter] public NavOrientation Orientation { get; set; } = NavOrientation.Horizontal;
 
 	/// <summary>
 	/// The visual variant of the nav items.
-	/// Default is <see cref="NavVariant.Standard"/>.
+	/// The default value is <see cref="NavVariant.Standard"/>.
 	/// </summary>
 	[Parameter] public NavVariant Variant { get; set; } = NavVariant.Standard;
 
@@ -46,23 +46,23 @@ public partial class HxNav
 
 	protected virtual string GetOrientationCssClass()
 	{
-		return this.Orientation switch
+		return Orientation switch
 		{
 			NavOrientation.Horizontal => null,
 			NavOrientation.Vertical => "flex-column",
-			_ => throw new InvalidOperationException($"Unknown {nameof(NavOrientation)} value {this.Orientation}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(NavOrientation)} value {Orientation}.")
 		};
 	}
 
 	protected virtual string GetVariantCssClass()
 	{
-		return this.Variant switch
+		return Variant switch
 		{
 			NavVariant.Standard => null,
 			NavVariant.Pills => "nav-pills",
 			NavVariant.Tabs => "nav-tabs",
 			NavVariant.Underline => "nav-underline",
-			_ => throw new InvalidOperationException($"Unknown {nameof(NavVariant)} value {this.Variant}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(NavVariant)} value {Variant}.")
 		};
 	}
 }

@@ -35,7 +35,7 @@ public partial class HxScrollspyNavLink
 
 	protected override void OnParametersSet()
 	{
-		Contract.Requires<InvalidOperationException>((Href is not null) && (Href.StartsWith("#")), $"{nameof(HxScrollspyNavLink)}.{nameof(HxScrollspyNavLink.Href)} has to start with #. Use only for local elements.");
+		Contract.Requires<InvalidOperationException>((Href is not null) && (Href.StartsWith("#")), $"{nameof(HxScrollspyNavLink)}.{nameof(Href)} has to start with #. Use only for local elements.");
 	}
 
 	private async Task HandleClick(MouseEventArgs args)

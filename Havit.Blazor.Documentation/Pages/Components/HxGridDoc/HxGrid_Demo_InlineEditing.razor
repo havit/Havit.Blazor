@@ -1,93 +1,95 @@
-﻿<HxGrid SelectedDataItem="selectedDataItem"
-        SelectedDataItemChanged="HandleSelectedDataItemChanged"
-        TItem="EditableCultureInfo"
-        Responsive="true"
-        DataProvider="ClientSideProcessingDataProvider"
-        PageSize="10">
-    <Columns>
-        <HxGridColumn HeaderText="LCID" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true">
-            <ItemTemplate Context="item">
-                @if (selectedDataItem == item)
-                {
-                    <HxInputNumber @bind-Value="item.LCID" />
-                }
-                else
-                {
-                    <div>@item.LCID</div>
-                }
-            </ItemTemplate>
-        </HxGridColumn>
-        <HxGridColumn HeaderText="DisplayName" SortKeySelector="@(item => item.DisplayName)">
-            <ItemTemplate Context="item">
-                @if (selectedDataItem == item)
-                {
-                    <HxInputText @bind-Value="item.DisplayName" />
-                }
-                else
-                {
-                    <div>@item.DisplayName</div>
-                }
-            </ItemTemplate>
-        </HxGridColumn>
-        <HxGridColumn HeaderText="Name" SortKeySelector="@(item => item.Name)">
-            <ItemTemplate Context="item">
-                @if (selectedDataItem == item)
-                {
-                    <HxInputText @bind-Value="item.Name" />
-                }
-                else
-                {
-                    <div>@item.Name</div>
-                }
-            </ItemTemplate>
-        </HxGridColumn>
-        <HxGridColumn HeaderText="EnglishName" SortKeySelector="@(item => item.EnglishName)">
-            <ItemTemplate Context="item">
-                @if (selectedDataItem == item)
-                {
-                    <HxInputText @bind-Value="item.EnglishName" />
-                }
-                else
-                {
-                    <div>@item.EnglishName</div>
-                }
-            </ItemTemplate>
-        </HxGridColumn>
-    </Columns>
+﻿@inject IDemoDataService DemoDataService
+
+<HxGrid TItem="EmployeeDto"
+		DataProvider="GetGridData"
+		SelectedDataItem="selectedDataItem"
+		SelectedDataItemChanged="HandleSelectedDataItemChanged"
+		PageSize="5"
+		Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name">
+			<ItemTemplate Context="employee">
+				@if (selectedDataItem == employee)
+				{
+					<HxInputText @bind-Value="employee.Name" />
+				}
+				else
+				{
+					<div>@employee.Name</div>
+				}
+			</ItemTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Phone">
+			<ItemTemplate Context="employee">
+				@if (selectedDataItem == employee)
+				{
+					<HxInputText @bind-Value="employee.Phone" />
+				}
+				else
+				{
+					<div>@employee.Phone</div>
+				}
+			</ItemTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Salary">
+			<ItemTemplate Context="employee">
+				@if (selectedDataItem == employee)
+				{
+					<HxInputNumber @bind-Value="employee.Salary" Decimals="0" InputGroupStartText="$" />
+				}
+				else
+				{
+					<div>@employee.Salary.ToString("c0")</div>
+				}
+			</ItemTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Position">
+			<ItemTemplate Context="employee">
+				@if (selectedDataItem == employee)
+				{
+					<HxInputText @bind-Value="employee.Position" />
+				}
+				else
+				{
+					<div>@employee.Position</div>
+				}
+			</ItemTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Location">
+			<ItemTemplate Context="employee">
+				@if (selectedDataItem == employee)
+				{
+					<HxInputText @bind-Value="employee.Location" />
+				}
+				else
+				{
+					<div>@employee.Location</div>
+				}
+			</ItemTemplate>
+		</HxGridColumn>
+	</Columns>
 </HxGrid>
 
 @code {
-    private EditableCultureInfo selectedDataItem;
-    private List<EditableCultureInfo> localEditableCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).Select(c => new EditableCultureInfo()
-        {
-            LCID = c.LCID,
-            DisplayName = c.DisplayName,
-            Name = c.Name,
-            EnglishName = c.EnglishName
-        }).ToList();
+	private EmployeeDto selectedDataItem;
 
-    private Task<GridDataProviderResult<EditableCultureInfo>> ClientSideProcessingDataProvider(GridDataProviderRequest<EditableCultureInfo> request)
-    {
-        return Task.FromResult(request.ApplyTo(localEditableCultureInfos));
-    }
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken),
+				TotalCount = await DemoDataService.GetEmployeesCountAsync(request.CancellationToken)
+			};
+	}
 
-    private async Task HandleSelectedDataItemChanged(EditableCultureInfo newSelectedDataItem)
-    {
-        if (selectedDataItem != null)
-        {
-            // TODO: add your logic to save item changes here, the item which was selected (edited) is in selectedDataItem
-            await Task.Delay(200); // simulates API call (saving changes itself)
-            Console.WriteLine("Saving... " + selectedDataItem);
-        }
-
-        selectedDataItem = newSelectedDataItem;
-    }
-
-    private record EditableCultureInfo
-    {
-        public int LCID { get; set; }
-        public string DisplayName { get; set; }
-        public string Name { get; set; }
-        public string EnglishName { get; set; }
-    }
+	private async Task HandleSelectedDataItemChanged(EmployeeDto newSelectedDataItem)
+	{
+		if (selectedDataItem != null)
+		{
+			// save the changes to original selectedDataItem first
+			await DemoDataService.UpdateEmployeeAsync(selectedDataItem);
+		}
+		// update selectedDataItem to new selection
+		selectedDataItem = newSelectedDataItem;
+	}
 }

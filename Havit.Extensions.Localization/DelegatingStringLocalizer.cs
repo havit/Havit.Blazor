@@ -12,7 +12,7 @@ public abstract class DelegatingStringLocalizer<T> : IStringLocalizer<T>
 
 	protected DelegatingStringLocalizer(IStringLocalizer<T> innerLocalizer)
 	{
-		this.InnerLocalizer = innerLocalizer;
+		InnerLocalizer = innerLocalizer;
 	}
 
 	/// <inheritdoc/>

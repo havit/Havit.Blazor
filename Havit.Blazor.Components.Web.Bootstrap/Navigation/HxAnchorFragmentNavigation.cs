@@ -4,30 +4,30 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Temporarily (?) compensates Blazor deficiency in anchor-fragments (scrolling to <c>page#id</c> URLs). Supports navigation with <see cref="HxScrollspy"/> component.
+/// Temporarily (?) compensates for a Blazor deficiency in anchor fragments (scrolling to <c>page#id</c> URLs). Supports navigation with the <see cref="HxScrollspy"/> component.
 /// <see href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</see>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAnchorFragmentNavigation">https://havit.blazor.eu/components/HxAnchorFragmentNavigation</see>
 /// </summary>
 public class HxAnchorFragmentNavigation : ComponentBase, IAsyncDisposable
 {
 	/// <summary>
-	/// Level of automation.
-	/// Default is <see cref="AnchorFragmentNavigationAutomationMode.Full"/>.
+	/// The level of automation.
+	/// The default is <see cref="AnchorFragmentNavigationAutomationMode.Full"/>.
 	/// </summary>
 	[Parameter] public AnchorFragmentNavigationAutomationMode Automation { get; set; } = AnchorFragmentNavigationAutomationMode.Full;
 
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	private IJSObjectReference jsModule;
-	private string lastKnownLocation;
-	private bool registerForScrollToCurrentUriFragmentAsyncOnAfterRender;
+	private IJSObjectReference _jsModule;
+	private string _lastKnownLocation;
+	private bool _registerForScrollToCurrentUriFragmentAsyncOnAfterRender;
 
 	protected override void OnInitialized()
 	{
 		base.OnInitialized();
 
-		lastKnownLocation = NavigationManager.Uri;
+		_lastKnownLocation = NavigationManager.Uri;
 		NavigationManager.LocationChanged += OnLocationChanged;
 	}
 
@@ -42,9 +42,9 @@ public class HxAnchorFragmentNavigation : ComponentBase, IAsyncDisposable
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if ((firstRender && (Automation == AnchorFragmentNavigationAutomationMode.Full))
-			|| registerForScrollToCurrentUriFragmentAsyncOnAfterRender)
+			|| _registerForScrollToCurrentUriFragmentAsyncOnAfterRender)
 		{
-			registerForScrollToCurrentUriFragmentAsyncOnAfterRender = false;
+			_registerForScrollToCurrentUriFragmentAsyncOnAfterRender = false;
 			await ScrollToCurrentUriFragmentAsync();
 		}
 
@@ -55,26 +55,24 @@ public class HxAnchorFragmentNavigation : ComponentBase, IAsyncDisposable
 	{
 		if (!String.IsNullOrEmpty(anchor))
 		{
-			jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxAnchorFragmentNavigation));
-			await jsModule.InvokeVoidAsync("scrollToAnchor", anchor);
+			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxAnchorFragmentNavigation));
+			await _jsModule.InvokeVoidAsync("scrollToAnchor", anchor);
 		}
 	}
 
 	private void OnLocationChanged(object sender, LocationChangedEventArgs args)
 	{
-		if ((this.Automation == AnchorFragmentNavigationAutomationMode.Full)
-			|| ((this.Automation == AnchorFragmentNavigationAutomationMode.SamePage)
-						&& (NavigationManager.ToAbsoluteUri(lastKnownLocation).PathAndQuery == NavigationManager.ToAbsoluteUri(args.Location).PathAndQuery)))
+		if ((Automation == AnchorFragmentNavigationAutomationMode.Full)
+			|| ((Automation == AnchorFragmentNavigationAutomationMode.SamePage)
+						&& (NavigationManager.ToAbsoluteUri(_lastKnownLocation).PathAndQuery == NavigationManager.ToAbsoluteUri(args.Location).PathAndQuery)))
 		{
-			InvokeAsync(() =>
+			_ = InvokeAsync(() =>
 			{
-				//await Task.Delay(1);
-				//await ScrollToCurrentUriFragmentAsync();
-				registerForScrollToCurrentUriFragmentAsyncOnAfterRender = true;
+				_registerForScrollToCurrentUriFragmentAsyncOnAfterRender = true;
 				StateHasChanged();
 			});
 		}
-		lastKnownLocation = args.Location;
+		_lastKnownLocation = args.Location;
 	}
 
 
@@ -89,9 +87,9 @@ public class HxAnchorFragmentNavigation : ComponentBase, IAsyncDisposable
 	{
 		NavigationManager.LocationChanged -= OnLocationChanged;
 
-		if (jsModule is not null)
+		if (_jsModule is not null)
 		{
-			await jsModule.DisposeAsync();
+			await _jsModule.DisposeAsync();
 		}
 	}
 }

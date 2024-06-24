@@ -6,12 +6,12 @@
 public record PlaceholderContainerSettings
 {
 	/// <summary>
-	/// Animation of the placeholders in container.
+	/// Animation of the placeholders in the container.
 	/// </summary>
 	public PlaceholderAnimation? Animation { get; set; }
 
 	/// <summary>
-	/// Additional CSS class for <see cref="HxPlaceholderContainer"/>.
+	/// Additional CSS class for the <see cref="HxPlaceholderContainer"/>.
 	/// </summary>
 	public string CssClass { get; set; }
 }

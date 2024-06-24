@@ -1,93 +1,70 @@
-﻿<HxListLayout Title="Culture infos" TFilterModel="FilterModelDto">
-    <SearchTemplate>
-        <HxInputText Placeholder="Search" Type="InputType.Search" @bind-Value="SearchText" />
-    </SearchTemplate>
-    <CommandsTemplate>
-        <HxButton Text="New item" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="NewItemClicked" />
-    </CommandsTemplate>
-    <DataTemplate>
-        <HxGrid @ref="gridComponent" ContentNavigationMode="GridContentNavigationMode.Pagination"  Responsive="true" TItem="EditableCultureInfo" PageSize="10" DataProvider="LoadDataItems" SelectedDataItem="currentItem" SelectedDataItemChanged="HandleSelectedDataItemChanged">
-            <Columns>
-                <HxGridColumn HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
-		        <HxGridColumn HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
-		        <HxGridColumn HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
-		        <HxGridColumn HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)"  />
-				<HxContextMenuGridColumn Context="item">
-					<HxContextMenu>
-						<HxContextMenuItem Text="Delete" OnClick="async () => await DeleteItemClicked(item)" ConfirmationQuestion="@($"Are you sure you want to delete {item.Name}?")" />
-					</HxContextMenu>
-				</HxContextMenuGridColumn>
-            </Columns>
-        </HxGrid>
-    </DataTemplate>
-    <DetailTemplate>
-        Edit: @currentItem?.LCID
-    </DetailTemplate>
+﻿@inject IDemoDataService DemoDataService
+
+<HxListLayout Title="Employees" TFilterModel="EmployeesFilterDto" @bind-FilterModel="filterModel" @bind-FilterModel:after="gridComponent.RefreshDataAsync">
+	<SearchTemplate>
+		<HxInputText Placeholder="Search by name"
+					 Type="InputType.Search"
+					 @bind-Value="filterModel.Name"
+					 @bind-Value:after="gridComponent.RefreshDataAsync" />
+	</SearchTemplate>
+	<CommandsTemplate>
+		<HxButton Text="Create employee" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="HandleNewItemClicked" />
+	</CommandsTemplate>
+	<FilterTemplate Context="filterContext">
+		<HxInputText Label="Phone" @bind-Value="filterContext.Phone" />
+		<HxInputNumber Label="Minimum salary" @bind-Value="filterContext.SalaryMin" Decimals="0" InputGroupStartText="$" />
+		<HxInputNumber Label="Maximum salary" @bind-Value="filterContext.SalaryMax" Decimals="0" InputGroupStartText="$" />
+		<HxInputText Label="Position" @bind-Value="filterContext.Position" />
+		<HxInputText Label="Location" @bind-Value="filterContext.Location" />
+	</FilterTemplate>
+	<DataTemplate>
+		<HxGrid @ref="gridComponent"
+				TItem="EmployeeDto"
+				DataProvider="GetGridData"
+				@bind-SelectedDataItem="currentEmployee"
+				@bind-SelectedDataItem:after="HandleSelectedDataItemChanged"
+				PageSize="5"
+				Responsive="true">
+			<Columns>
+				<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+				<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+				<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+				<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+				<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+			</Columns>
+		</HxGrid>
+	</DataTemplate>
+	<DetailTemplate>
+		dataItemEditComponent: {currentEmployee.Id: @currentEmployee?.Id}
+	</DetailTemplate>
 </HxListLayout>
 
 @code {
-    [Inject] protected NavigationManager NavigationManager { get; set; }
+	private EmployeeDto currentEmployee;
+	private EmployeesFilterDto filterModel = new() { SalaryMax = 20000 };
+	private HxGrid<EmployeeDto> gridComponent;
 
-    private EditableCultureInfo currentItem;
-    private HxGrid<EditableCultureInfo> gridComponent;
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = await DemoDataService.GetEmployeesDataFragmentAsync(filterModel, request.StartIndex, request.Count, request.CancellationToken),
+				TotalCount = await DemoDataService.GetEmployeesCountAsync(filterModel, request.CancellationToken)
+			};
+	}
 
-    private string SearchText
-    {
-        get
-        {
-            return searchText;
-        }
-        set
-        {
-            searchText = value;
-            gridComponent.RefreshDataAsync();
-        }
-    }
-    private string searchText = string.Empty;
+	private Task HandleSelectedDataItemChanged()
+	{
+		// open or navigate to employee detail here (currentEmployee is set)
+		// await dataItemEditComponent.ShowAsync();
+		return Task.CompletedTask;
+	}
 
-    private List<EditableCultureInfo> localEditableCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).Select(c => new EditableCultureInfo()
-        {
-            LCID = c.LCID,
-            DisplayName = c.DisplayName,
-            Name = c.Name,
-            EnglishName = c.EnglishName
-        }).ToList();
-
-    private Task<GridDataProviderResult<EditableCultureInfo>> LoadDataItems(GridDataProviderRequest<EditableCultureInfo> request)
-    {
-        IEnumerable<EditableCultureInfo> result = localEditableCultureInfos.Where(c => c.DisplayName.Contains(SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
-
-        return Task.FromResult(request.ApplyTo(result));
-    }
-
-    private async Task DeleteItemClicked(EditableCultureInfo editableCultureInfo)
-    {
-        localEditableCultureInfos.Remove(editableCultureInfo);
-        await gridComponent.RefreshDataAsync();
-    }
-
-    private Task HandleSelectedDataItemChanged(EditableCultureInfo selection)
-    {
-        currentItem = selection;
-        // await dataItemEditComponent.ShowAsync();
-        return Task.CompletedTask;
-    }
-
-    private Task NewItemClicked()
-    {
-        currentItem = new();
-        // await dataItemEditComponent.ShowAsync();
-        return Task.CompletedTask;
-    }
-
-    public record FilterModelDto { }
-
-    private record EditableCultureInfo
-    {
-        public int LCID { get; set; }
-        public string DisplayName { get; set; }
-        public string Name { get; set; }
-        public string EnglishName { get; set; }
-    }
+	private Task HandleNewItemClicked()
+	{
+		currentEmployee = new();
+		// open or navigate to employee detail here
+		// await dataItemEditComponent.ShowAsync();
+		return Task.CompletedTask;
+	}
 }
-

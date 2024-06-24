@@ -7,44 +7,44 @@ public record ModalSettings
 {
 	/// <summary>
 	/// For modals that simply appear rather than fade in to view, setting <c>false</c> removes the <c>.fade</c> class from your modal markup.
-	/// Default value is <c>true</c>.
+	/// The default value is <c>true</c>.
 	/// </summary>
 	public bool? Animated { get; set; }
 
 	/// <summary>
-	/// Indicates whether the modal shows close button in header.
+	/// Indicates whether the modal shows a close button in the header.
 	/// </summary>
 	public bool? ShowCloseButton { get; set; }
 
 	/// <summary>
-	/// Close icon to be used in header.
+	/// The close icon to be used in the header.
 	/// </summary>
 	public IconBase CloseButtonIcon { get; set; }
 
 	/// <summary>
-	/// Indicates whether the modal closes when escape key is pressed.
+	/// Indicates whether the modal closes when the escape key is pressed.
 	/// </summary>
 	public bool? CloseOnEscape { get; set; }
 
 	/// <summary>
-	/// Size of the modal.
+	/// The size of the modal.
 	/// </summary>
 	public ModalSize? Size { get; set; }
 
 	/// <summary>
-	/// Fullscreen behavior of the modal.
+	/// The fullscreen behavior of the modal.
 	/// </summary>
 	public ModalFullscreen? Fullscreen { get; set; }
 
 	/// <summary>
-	/// Indicates whether to apply a backdrop on body while the modal is open.
+	/// Indicates whether to apply a backdrop to the body while the modal is open.
 	/// If set to <see cref="ModalBackdrop.Static"/>, the modal cannot be closed by clicking on the backdrop.
-	/// Default value (from <see cref="HxModal.Defaults"/>) is <see cref="ModalBackdrop.True"/>.
+	/// The default value (from <see cref="HxModal.Defaults"/>) is <see cref="ModalBackdrop.True"/>.
 	/// </summary>
 	public ModalBackdrop? Backdrop { get; set; }
 
 	/// <summary>
-	/// Allows scrolling the modal body.
+	/// Allows scrolling of the modal body.
 	/// </summary>
 	public bool? Scrollable { get; set; }
 

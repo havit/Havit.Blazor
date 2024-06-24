@@ -1,44 +1,24 @@
-﻿<EditForm Model="model">
-    <DataAnnotationsValidator />
+﻿@inject IDemoDataService DemoDataService
 
-    <HxSelect TItem="Person"
-              TValue="string"
-              Label="Band member"
-              Data="@people"
-              @bind-Value="@model.SelectedPersonInitials"
-              TextSelector="@(p => p.Name)"
-              ValueSelector="@(p => p.Initials)"
-              Nullable="true"
-              NullText="-select name-"
-              NullDataText="Loading band members..." />
+<HxSelect TItem="EmployeeDto"
+		  TValue="int?"
+		  Label="Employee"
+		  Data="data"
+		  @bind-Value="employeeId"
+		  TextSelector="@(employee => employee.Name)"
+		  ValueSelector="@(employee => employee.Id)"
+		  Nullable="true"
+		  NullText="-select employee-"
+		  NullDataText="Loading employees..." />
 
-    <HxSubmit Text="Submit" Color="ThemeColor.Primary" />
-</EditForm>
-
-<p>Selected initials: @model.SelectedPersonInitials</p>
+<p class="mt-2">Selected employee ID: @employeeId</p>
 
 @code {
-    private FormModel model = new FormModel();
-    private List<Person> people;
+	private IEnumerable<EmployeeDto> data;
+	private int? employeeId;
 
-    protected override async Task OnInitializedAsync()
-    {
-        await Task.Delay(3000);
-
-        people = new List<Person>
-        {
-            new Person("Starr Ringo", "RS"),
-            new Person("Lennon John", "JL"),
-            new Person("McCartney Paul", "PMC"),
-            new Person("Harrison George", "GH")
-        };
-    }
-
-    internal class FormModel
-    {
-        [Required(ErrorMessage = "Choose a band member.")]
-        public string SelectedPersonInitials { get; set; }
-    }
-
-    record Person(string Name, string Initials);
+	protected override async Task OnInitializedAsync()
+	{
+		data = await DemoDataService.GetAllEmployeesAsync();
+	}
 }

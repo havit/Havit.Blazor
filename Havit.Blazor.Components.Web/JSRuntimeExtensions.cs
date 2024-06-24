@@ -17,12 +17,12 @@ public static class JSRuntimeExtensions
 
 	internal static ValueTask<IJSObjectReference> ImportHavitBlazorWebModuleAsync(this IJSRuntime jsRuntime, string moduleNameWithoutExtension)
 	{
-		versionIdentifierHavitBlazorWeb ??= GetAssemblyVersionIdentifierForUri(typeof(HxDynamicElement).Assembly);
+		s_versionIdentifierHavitBlazorWeb ??= GetAssemblyVersionIdentifierForUri(typeof(HxDynamicElement).Assembly);
 
-		var path = "./_content/Havit.Blazor.Components.Web/" + moduleNameWithoutExtension + ".js?v=" + versionIdentifierHavitBlazorWeb;
+		var path = "./_content/Havit.Blazor.Components.Web/" + moduleNameWithoutExtension + ".js?v=" + s_versionIdentifierHavitBlazorWeb;
 		return jsRuntime.InvokeAsync<IJSObjectReference>("import", path);
 	}
-	private static string versionIdentifierHavitBlazorWeb;
+	private static string s_versionIdentifierHavitBlazorWeb;
 
 	internal static string GetAssemblyVersionIdentifierForUri(Assembly assembly)
 	{

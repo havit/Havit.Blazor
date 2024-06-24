@@ -1,7 +1,7 @@
 {
     "name": "havit-bootstrap",
     "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-    "version": "5.3.2",
+    "version": "5.3.3",
     "config": {
       "version_short": "5.3"
     },
@@ -49,26 +49,26 @@
         "css-minify-main": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output dist/css/ --batch --batch-suffix \".min\" \"dist/css/*.css\" \"!dist/css/*.min.css\" \"!dist/css/*rtl*.css\"",
         "css-minify-rtl": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output dist/css/ --batch --batch-suffix \".min\" \"dist/css/*rtl.css\" \"!dist/css/*.min.css\"",
         "css-prefix": "npm-run-all --aggregate-output --parallel css-prefix-*",
-        "css-prefix-main": "postcss --config build/postcss.config.js --replace \"dist/css/*.css\" \"!dist/css/*.rtl*.css\" \"!dist/css/*.min.css\"",
+        "css-prefix-main": "postcss --config build/postcss.config.mjs --replace \"dist/css/*.css\" \"!dist/css/*.rtl*.css\" \"!dist/css/*.min.css\"",         
         "watch": "npm-run-all --parallel watch-*",
         "watch-css-main": "nodemon --watch scss/ --ext scss --exec \"npm-run-all css-lint css-compile css-prefix\"",
         "watch-css-dist": "nodemon --watch dist/css/ --ext css --ignore \"dist/css/*.rtl.*\" --exec \"npm run css-rtl\"",
         "publish-to-blazor": "shx cp -r dist/css/* ../Havit.Blazor.Components.Web.Bootstrap/wwwroot"
     },
     "devDependencies": {
-      "autoprefixer": "^10.4.15",
-      "bootstrap": "5.3.2",
+      "autoprefixer": "^10.4.17",
+      "bootstrap": "5.3.3",
       "cross-env": "^7.0.3",
-      "clean-css-cli": "^5.6.2",
+      "clean-css-cli": "^5.6.3",
       "find-unused-sass-variables": "^5.0.0",
-      "nodemon": "^3.0.1",
-      "npm-run-all2": "^6.0.6",
-      "postcss": "^8.4.29",
-      "postcss-cli": "^10.1.0",
-      "rtlcss": "^4.1.0",
-      "sass": "^1.62.1",
-      "stylelint": "^15.10.3",
-      "stylelint-config-twbs-bootstrap": "^11.0.1",
+      "nodemon": "^3.0.3",
+      "npm-run-all2": "^6.1.2",
+      "postcss": "^8.4.35",
+      "postcss-cli": "^11.0.0",
+      "rtlcss": "^4.1.1",
+      "sass": "^1.71.0",
+      "stylelint": "^16.2.1",
+      "stylelint-config-twbs-bootstrap": "^14.0.0",
       "shx":"^0.3.4"
   },
     "files": [

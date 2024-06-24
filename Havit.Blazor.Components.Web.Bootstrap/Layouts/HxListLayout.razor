@@ -2,45 +2,58 @@
 @typeparam TFilterModel
 
 <div class="@CssClassHelper.Combine("hx-list-layout", CssClassEffective)">
-	<HxCard Settings="this.CardSettingsEffective">
+	<HxCard Settings="CardSettingsEffective">
 		<BodyTemplate>
 			<div class="hx-list-layout-header hstack gap-2">
-					@if (NamedViewsTemplate != null)
-					{
-						<div class="hx-list-layout-header-dropdown">
-							<div class="hx-list-layout-named-view dropdown">
-								<span role="button" id="dropdownMenuLink" class="hx-list-layout-dropdown-menu-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<h5 class="card-title">
-										@if (TitleTemplate != null)
-										{
-											@TitleTemplate
-										}
-										else if (!String.IsNullOrEmpty(Title))
-										{
-											@Title
-										}
-										<HxIcon CssClass="ms-1" Icon="@BootstrapIcon.ChevronDown" />
-									</h5>
-								</span>
-								@NamedViewsTemplate
-							</div>
-						</div>	
-					}
-					else if (TitleTemplate != null)
-					{
-						<h5 class="card-title me-auto">@TitleTemplate</h5>
-					}
-					else if (!String.IsNullOrEmpty(Title))
-					{
-						<h5 class="card-title me-auto">@Title</h5>
-					}
+				@if ((NamedViews != null) && NamedViews.Any())
+				{
+					<div class="hx-list-layout-named-view dropdown">
+						<span role="button" id="dropdownMenuLink" class="hx-list-layout-dropdown-menu-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<h5 class="card-title">
+								@if (TitleFromNamedView && (SelectedNamedView is not null))
+								{
+									@SelectedNamedView.Name
+								}
+								else if (TitleTemplate != null)
+								{
+									@TitleTemplate
+								}
+								else if (!String.IsNullOrEmpty(Title))
+								{
+									@Title
+								}
+								<HxIcon CssClass="ms-1" Icon="@BootstrapIcon.ChevronDown" />
+							</h5>
+						</span>
+						<div class="hx-named-view dropdown-menu" aria-labelledby="dropdownMenuLink">
+							@foreach (var namedView in NamedViews)
+							{
+								<a @key="@namedView"
+									class="@CssClassHelper.Combine("dropdown-item", namedView.Equals(SelectedNamedView) ? "active" : null)"
+									role="button"
+									@onclick="async () => await HandleNamedViewClickAsync(namedView)"
+									@onclick:stopPropagation="true">
+									@namedView.Name
+								</a>
+							}
+						</div>
+					</div>
+				}
+				else if (TitleTemplate != null)
+				{
+					<h5 class="card-title me-auto">@TitleTemplate</h5>
+				}
+				else if (!String.IsNullOrEmpty(Title))
+				{
+					<h5 class="card-title me-auto">@Title</h5>
+				}
 				@if (SearchTemplate != null)
 				{
 					@SearchTemplate
 				}
 				@if (FilterTemplate != null)
 				{
-					<HxButton Settings="this.FilterOpenButtonSettingsEffective" OnClick="HandleFilterButtonClick" />
+					<HxButton Settings="FilterOpenButtonSettingsEffective" OnClick="HandleFilterButtonClick" />
 				}
 				@if (CommandsTemplate != null)
 				{
@@ -49,24 +62,24 @@
 			</div>
 			@if (FilterModel != null)
 			{
-				<HxChipList Chips="chips" OnChipRemoveClick="HandleChipRemoveClick" />
+				<HxChipList Chips="_chips" OnChipRemoveClick="HandleChipRemoveClick" />
 			}
 			@if (FilterTemplate != null)
 			{
-				<HxOffcanvas @ref="filterOffcanvasComponent" RenderMode="OffcanvasRenderMode.Always" Title="@Localizer["FilterHeaderTitle"]" Settings="this.FilterOffcanvasSettingsEffective">
+				<HxOffcanvas @ref="_filterOffcanvasComponent" RenderMode="OffcanvasRenderMode.Always" Title="@Localizer["FilterHeaderTitle"]" Settings="FilterOffcanvasSettingsEffective">
 					<BodyTemplate>
-						<HxFilterForm @ref="filterForm"
-								Id="@filterFormId"
-								TModel="TFilterModel"
-								Model="FilterModel"
-								ModelChanged="HandleFilterFormModelChanged"
-								Context="filterContext"
-								OnChipsUpdated="HandleChipUpdated">
+						<HxFilterForm @ref="_filterForm"
+									  Id="@_filterFormId"
+									  TModel="TFilterModel"
+									  Model="FilterModel"
+									  ModelChanged="HandleFilterFormModelChanged"
+									  Context="filterContext"
+									  OnChipsUpdated="HandleChipUpdated">
 							@FilterTemplate(filterContext)
 						</HxFilterForm>
 					</BodyTemplate>
 					<FooterTemplate>
-						<HxSubmit Settings="this.FilterSubmitButtonSettingsEffective" FormId="@filterFormId" Text="@Localizer["FilterApplyButtonText"]" />
+						<HxSubmit Settings="FilterSubmitButtonSettingsEffective" FormId="@_filterFormId" Text="@Localizer["FilterApplyButtonText"]" />
 					</FooterTemplate>
 				</HxOffcanvas>
 			}

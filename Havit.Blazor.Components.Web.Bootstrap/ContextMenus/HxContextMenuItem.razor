@@ -5,13 +5,14 @@
 	bool enabledEffective = CascadeEnabledComponent.EnabledEffective(this);
 }
 
-<li class="@CssClassHelper.Combine("hx-context-menu-item", this.CssClass)">
+<li class="@CssClassHelper.Combine("hx-context-menu-item", CssClass)">
 	<a class="@CssClassHelper.Combine("dropdown-item", enabledEffective ? "" : "disabled")" role="@(enabledEffective ? "button" : "")" href="@Href" @onclick="HandleClick" @onclick:stopPropagation="@OnClickStopPropagation">
-		@if (this.Icon is not null)
+		@if (Icon is not null)
 		{
-			<HxIcon Icon="this.Icon" CssClass="@CssClassHelper.Combine("hx-context-menu-item-icon", this.IconCssClass)" />
+			<HxIcon Icon="Icon" CssClass="@CssClassHelper.Combine("hx-context-menu-item-icon", IconCssClass)" />
 		}
-		@this.Text
+
+		@Text
 		@ChildContent
 	</a>
 </li>

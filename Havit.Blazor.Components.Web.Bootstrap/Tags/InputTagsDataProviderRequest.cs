@@ -11,7 +11,7 @@ public class InputTagsDataProviderRequest
 	public string UserInput { get; init; }
 
 	/// <summary>
-	/// The <see cref="System.Threading.CancellationToken"/> used to relay cancellation of the request.
+	/// The <see cref="System.Threading.CancellationToken"/> used to indicate cancellation of the request.
 	/// </summary>
 	public CancellationToken CancellationToken { get; init; }
 }

@@ -3,7 +3,7 @@
 public partial class HxToastContainer : ComponentBase
 {
 	/// <summary>
-	/// Positioning of the toasts on screen.
+	/// Positioning of the toasts on the screen.
 	/// </summary>
 	[Parameter] public ToastContainerPosition Position { get; set; }
 
@@ -20,7 +20,7 @@ public partial class HxToastContainer : ComponentBase
 	private string GetPositionCss()
 	{
 		// https://getbootstrap.com/docs/5.3/utilities/position/#center-elements
-		return this.Position switch
+		return Position switch
 		{
 			ToastContainerPosition.TopStart => "position-fixed top-0 start-0",
 			ToastContainerPosition.TopCenter => "position-fixed start-50 translate-middle-x",

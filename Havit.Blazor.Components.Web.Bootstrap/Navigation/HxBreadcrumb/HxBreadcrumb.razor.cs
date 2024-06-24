@@ -2,7 +2,7 @@
 
 /// <summary>
 /// <see href="https://getbootstrap.com/docs/5.3/components/breadcrumb/">Bootstrap 5 Breadcrumb</see> component.<br />
-/// Indicates the current page’s location within a navigational hierarchy.<br />
+/// Indicates the current page's location within a navigational hierarchy.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxBreadcrumb">https://havit.blazor.eu/components/HxBreadcrumb</see>
 /// </summary>
 public partial class HxBreadcrumb
@@ -20,7 +20,7 @@ public partial class HxBreadcrumb
 	[Parameter] public string Divider { get; set; } = "/";
 
 	/// <summary>
-	/// Indicates whether the Divider is an image or a text.
+	/// Indicates whether the divider is an image or text.
 	/// </summary>
 	private bool IsDividerImage()
 	{

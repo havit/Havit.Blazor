@@ -1,8 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap theme colors <see href="https://getbootstrap.com/docs/5.3/customize/color/#theme-colors">https://getbootstrap.com/docs/5.3/customize/color/#theme-colors</see>
-/// (+ Link from predefined button styles <see href="https://getbootstrap.com/docs/5.3/components/buttons/">https://getbootstrap.com/docs/5.3/components/buttons/</see>)
+/// Bootstrap theme colors. For more information, see <see href="https://getbootstrap.com/docs/5.3/customize/color/#theme-colors">https://getbootstrap.com/docs/5.3/customize/color/#theme-colors</see>.
+/// Also, refer to the predefined button styles at <see href="https://getbootstrap.com/docs/5.3/components/buttons/">https://getbootstrap.com/docs/5.3/components/buttons/</see>.
 /// </summary>
 public enum ThemeColor
 {
@@ -16,7 +16,7 @@ public enum ThemeColor
 	Light,
 	Dark,
 	/// <summary>
-	/// To be used for buttons only.
+	/// This color is intended to be used for buttons only.
 	/// </summary>
 	Link
 }

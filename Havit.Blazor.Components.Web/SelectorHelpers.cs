@@ -6,9 +6,9 @@
 public static class SelectorHelpers
 {
 	/// <summary>
-	/// Returns text from item by textSelector.
-	/// When textSelector is <c>null</c>, returns item.ToString().
-	/// Never returns <c>null</c>, <c>null</c> values are converted to empty string.
+	/// Returns text from an item based on the textSelector.
+	/// When the textSelector is <c>null</c>, it returns item.ToString().
+	/// It never returns <c>null</c>. Instead, <c>null</c> values are converted to an empty string.
 	/// </summary>
 	public static string GetText<TItem>(Func<TItem, string> textSelector, TItem item)
 	{
@@ -18,9 +18,9 @@ public static class SelectorHelpers
 	}
 
 	/// <summary>
-	/// When item is <c>null</c>, returns <c>default(TValue)</c>.
-	/// Otherwise returns value from item by valueSelector.
-	/// When valueSelector is <c>null</c> and <c>TValue</c> is same as <c>TItem</c>, returns item.
+	/// When the item is <c>null</c>, it returns <c>default(TValue)</c>.
+	/// Otherwise, it returns the value from the item based on the valueSelector.
+	/// When the valueSelector is <c>null</c> and <c>TValue</c> is the same as <c>TItem</c>, it returns the item.
 	/// </summary>
 	public static TValue GetValue<TItem, TValue>(Func<TItem, TValue> valueSelector, TItem item)
 	{

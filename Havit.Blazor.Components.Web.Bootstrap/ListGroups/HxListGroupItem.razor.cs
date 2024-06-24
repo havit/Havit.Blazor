@@ -11,13 +11,13 @@ public partial class HxListGroupItem
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	/// <summary>
-	/// Indicates the current active selection.
+	/// Indicates the currently active selection.
 	/// </summary>
 	[Parameter] public bool Active { get; set; }
 
 	/// <summary>
-	/// Make the item appear disabled by setting to <c>false</c>.
-	/// Default is <c>true</c>.
+	/// Make the item appear disabled by setting it to <c>false</c>.
+	/// The default value is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool Enabled { get; set; } = true;
 
@@ -50,7 +50,7 @@ public partial class HxListGroupItem
 			Enabled ? null : "disabled",
 			OnClick.HasDelegate ? "list-group-item-action" : null,
 			GetColorCssClass(),
-			this.CssClass);
+			CssClass);
 	}
 
 	private string GetColorCssClass()
@@ -59,7 +59,7 @@ public partial class HxListGroupItem
 		{
 			null => null,
 			ThemeColor.None => null,
-			_ => "list-group-item-" + this.Color.Value.ToString("f").ToLower()
+			_ => "list-group-item-" + Color.Value.ToString("f").ToLower()
 		};
 	}
 }

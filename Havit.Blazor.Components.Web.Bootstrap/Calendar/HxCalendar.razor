@@ -5,25 +5,25 @@
 }
 
 <div class="hx-calendar">
-	@if (renderData != null)
+	@if (_renderData != null)
 	{
 		<div class="hx-calendar-navigation mb-3">
 			<HxButton Icon="BootstrapIcon.ChevronLeft"
 					  CssClass="hx-calendar-navigation-button"
 					  Size="ButtonSize.Small"
-					  Enabled="@renderData.PreviousMonthEnabled"
+					  Enabled="@_renderData.PreviousMonthEnabled"
 					  OnClickStopPropagation="true"					  
 					  OnClick="HandlePreviousMonthClickAsync"
 					  tabindex="@tabindexValue" />
 			<div class="hx-calendar-month-year-select">
 				<select class="form-select form-select-sm" aria-label="Month" tabindex="@tabindexValue" value="@(DisplayMonth.Month - 1)" @onchange="HandleMonthChangeAsync" @onclick:stopPropagation>
-					@foreach (var month in renderData.Months)
+					@foreach (var month in _renderData.Months)
 					{
 						<option @key="@month.Index" value="@month.Index" disabled="@(!month.Enabled)">@month.Name</option>
 					}
 				</select>
 				<select class="form-select form-select-sm" aria-label="Year" tabindex="@tabindexValue" value="@DisplayMonth.Year" @onchange="HandleYearChangeAsync" @onclick:stopPropagation>
-					@foreach (int year in renderData.Years)
+					@foreach (int year in _renderData.Years)
 					{
 						/* not "N" - we do not want thousands separator */
 						<option @key="@year" value="@year">@year.ToString()</option>
@@ -33,7 +33,7 @@
 			<HxButton Icon="BootstrapIcon.ChevronRight"
 					  CssClass="hx-calendar-navigation-button"
 					  Size="ButtonSize.Small"
-					  Enabled="@renderData.NextMonthEnabled"
+					  Enabled="@_renderData.NextMonthEnabled"
 					  OnClickStopPropagation="true"
 					  OnClick="HandleNextMonthClickAsync"
 					  tabindex="@tabindexValue" />
@@ -41,12 +41,12 @@
 
 		<table>
 			<tr class="hx-calendar-day-names">
-				@foreach (string dayOfWeek in renderData.DaysOfWeek)
+				@foreach (string dayOfWeek in _renderData.DaysOfWeek)
 				{
                     <td @key="@dayOfWeek">@dayOfWeek</td>
 				}
 			</tr>
-			@foreach (WeekData week in renderData.Weeks)
+			@foreach (WeekData week in _renderData.Weeks)
 			{
 				<tr @key="@week" class="hx-calendar-week">
 					@foreach (DayData day in week.Days)

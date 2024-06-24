@@ -13,27 +13,28 @@ public partial class HxAccordion
 
 	/// <summary>
 	/// IDs of the expanded items (if <see cref="StayOpen"/> is <code>true</code>, several items can be expanded).
-	/// Do not use constant value as it resets the accordion on every roundtrip. Use <see cref="InitialExpandedItemIds"/> to set the initial state.
+	/// Do not use a constant value as it resets the accordion on every roundtrip. Use <see cref="InitialExpandedItemIds"/> to set the initial state.
 	/// </summary>
 	[Parameter] public List<string> ExpandedItemIds { get; set; } = new List<string>();
 	[Parameter] public EventCallback<List<string>> ExpandedItemIdsChanged { get; set; }
 	protected virtual Task InvokeExpandedItemIdsChangedAsync(List<string> newExpandedItemIds) => ExpandedItemIdsChanged.InvokeAsync(newExpandedItemIds);
 
+#pragma warning disable BL0007 // Component parameter 'Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId' should be auto property
 	/// <summary>
 	/// ID of the single expanded item (if <see cref="StayOpen"/> is <code>true</code>, use <see cref="ExpandedItemIds" />, several items can be expanded).
-	/// Do not use constant value as it reverts the accordion to that item on every roundtrip. Use <see cref="InitialExpandedItemId"/> to set the initial state.
+	/// Do not use a constant value as it reverts the accordion to that item on every roundtrip. Use <see cref="InitialExpandedItemId"/> to set the initial state.
 	/// </summary>
 	[Parameter]
 	public string ExpandedItemId
 	{
 		get
 		{
-			// we do not want the component to fail, so we return first expanded item if there are more (StayOpen)
+			// We do not want the component to fail, so we return the first expanded item if there are more (StayOpen).
 			return ExpandedItemIds.FirstOrDefault();
 		}
 		set
 		{
-			// setting the value forces all the items to collapse except the one set
+			// Setting the value forces all the items to collapse except the one set.
 			ExpandedItemIds.Clear();
 			if (value is not null)
 			{
@@ -41,12 +42,13 @@ public partial class HxAccordion
 			}
 		}
 	}
+#pragma warning restore BL0007 // Component parameter 'Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId' should be auto property
 	[Parameter] public EventCallback<string> ExpandedItemIdChanged { get; set; }
 	protected virtual Task InvokeExpandedItemIdChangedAsync(string newExpandedItemId) => ExpandedItemIdChanged.InvokeAsync(newExpandedItemId);
 
 	/// <summary>
 	/// Set to <c>true</c> to make accordion items stay open when another item is opened.
-	/// Default is <c>false</c>, opening another item collapses current item.
+	/// The default is <c>false</c>, opening another item collapses the current item.
 	/// </summary>
 	[Parameter] public bool StayOpen { get; set; }
 
@@ -56,7 +58,7 @@ public partial class HxAccordion
 	[Parameter] public string InitialExpandedItemId { get; set; }
 
 	/// <summary>
-	/// IDs of the item you want to expand at the very beginning (overwrites <see cref="ExpandedItemIds"/> if set).
+	/// IDs of the items you want to expand at the very beginning (overwrites <see cref="ExpandedItemIds"/> if set).
 	/// </summary>
 	[Parameter] public List<string> InitialExpandedItemIds { get; set; } = new();
 

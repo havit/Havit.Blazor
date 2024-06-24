@@ -1,9 +1,16 @@
-﻿@attribute [Route("/components/" + nameof(HxAnchorFragmentNavigation))]
-
+﻿@attribute [Route("/components/HxAnchorFragmentNavigation")]
+@{
+#pragma warning disable 0618 // HxAnchorFragmentNavigation
+}
 <ComponentApiDoc Type="typeof(HxAnchorFragmentNavigation)">
 
 	<DocAlert Type="DocAlertType.Warning">
-		As Blazor uses the <code>&lt;base&gt;</code> element, all the links have to include full page path!
+		Starting with <code>net8.0</code>, this component is usually no longer needed as Blazor supports anchor-fragment navigation natively.
+		There are still some use-cases where this component can be useful, e.g. when you need to navigate to a fragment which renders after the page is loaded.
+	</DocAlert>
+
+	<DocAlert Type="DocAlertType.Info">
+		As Blazor uses the <code>&lt;base&gt;</code> element, all the links must include the full page path!
 	</DocAlert>
 
 	<DocHeading Title="Basic usage" />

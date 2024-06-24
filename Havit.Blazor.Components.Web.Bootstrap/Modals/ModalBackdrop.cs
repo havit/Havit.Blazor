@@ -6,7 +6,7 @@
 public enum ModalBackdrop
 {
 	/// <summary>
-	/// A backdrop will be rendered. Modal will be closed upon clicking on the backdrop.
+	/// A backdrop will be rendered. The modal will be closed upon clicking on the backdrop.
 	/// </summary>
 	True = 0,
 
@@ -16,7 +16,7 @@ public enum ModalBackdrop
 	False = 1,
 
 	/// <summary>
-	/// A static backdrop will be rendered. Modal will not be closed upon clicking on the backdrop.
+	/// A static backdrop will be rendered. The modal will not be closed upon clicking on the backdrop.
 	/// </summary>
 	Static = 2
 }

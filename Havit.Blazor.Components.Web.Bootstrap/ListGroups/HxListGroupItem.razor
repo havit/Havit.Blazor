@@ -3,8 +3,8 @@
 <div class="@GetClasses()"
 	 aria-current="@Active"
 	 aria-disabled="@(!Enabled)"
-	 role="@(this.OnClick.HasDelegate ? "button" : null)"
+	 role="@(OnClick.HasDelegate ? "button" : null)"
 	 @onclick="InvokeOnClickAsync"
-	 @onclick:stopPropagation="this.OnClick.HasDelegate">
+	 @onclick:stopPropagation="OnClick.HasDelegate">
 	@ChildContent
 </div>

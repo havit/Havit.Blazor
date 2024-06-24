@@ -8,16 +8,16 @@
     </BodyTemplate>
 </HxOffcanvas>
 
-<HxButton OnClick="() => HandleOffcanvasOpen(OffcanvasSize.Large)" Text="Large offcanvas" Color="ThemeColor.Primary" />
-<HxButton OnClick="() => HandleOffcanvasOpen(OffcanvasSize.Regular)" Text="Regular offcanvas" Color="ThemeColor.Primary" />
-<HxButton OnClick="() => HandleOffcanvasOpen(OffcanvasSize.Small)" Text="Small offcanvas" Color="ThemeColor.Primary" />
+<HxButton OnClick="() => HandleOffcanvasShow(OffcanvasSize.Large)" Text="Large offcanvas" Color="ThemeColor.Primary" />
+<HxButton OnClick="() => HandleOffcanvasShow(OffcanvasSize.Regular)" Text="Regular offcanvas" Color="ThemeColor.Primary" />
+<HxButton OnClick="() => HandleOffcanvasShow(OffcanvasSize.Small)" Text="Small offcanvas" Color="ThemeColor.Primary" />
 
 @code
 {
     private HxOffcanvas offcanvasComponent;
     private OffcanvasSize offcanvasSize;
 
-    private async Task HandleOffcanvasOpen(OffcanvasSize size)
+    private async Task HandleOffcanvasShow(OffcanvasSize size)
     {
         offcanvasSize = size;
         await offcanvasComponent.ShowAsync();

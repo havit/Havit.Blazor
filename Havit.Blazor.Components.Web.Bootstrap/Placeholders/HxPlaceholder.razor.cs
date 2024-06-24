@@ -1,8 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/placeholders/">Bootstrap 5 Placeholder</see> component, aka Skeleton.<br/>
-/// Use loading placeholders for your components or pages to indicate something may still be loading.<br />
+/// <see href="https://getbootstrap.com/docs/5.3/components/placeholders/">Bootstrap 5 Placeholder</see> component, also known as Skeleton.<br/>
+/// Use loading placeholders for your components or pages to indicate that something may still be loading.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPlaceholder">https://havit.blazor.eu/components/HxPlaceholder</see>
 /// </summary>
 public partial class HxPlaceholder : ILayoutColumnComponent
@@ -23,7 +23,7 @@ public partial class HxPlaceholder : ILayoutColumnComponent
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual PlaceholderSettings GetDefaults() => Defaults;
 
@@ -33,12 +33,12 @@ public partial class HxPlaceholder : ILayoutColumnComponent
 	[Parameter] public PlaceholderSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual PlaceholderSettings GetSettings() => this.Settings;
+	protected virtual PlaceholderSettings GetSettings() => Settings;
 
 
 	/// <inheritdoc cref="ILayoutColumnComponent.Columns"/>
@@ -63,13 +63,13 @@ public partial class HxPlaceholder : ILayoutColumnComponent
 	/// Size of the placeholder.
 	/// </summary>
 	[Parameter] public PlaceholderSize? Size { get; set; }
-	protected PlaceholderSize SizeEffective => this.Size ?? this.GetSettings()?.Size ?? PlaceholderContainer?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxPlaceholder) + " has to be set.");
+	protected PlaceholderSize SizeEffective => Size ?? GetSettings()?.Size ?? PlaceholderContainer?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxPlaceholder) + " has to be set.");
 
 	/// <summary>
 	/// Color of the placeholder.
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
-	protected ThemeColor ColorEffective => this.Color ?? this.GetSettings()?.Color ?? PlaceholderContainer?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxPlaceholder) + " has to be set.");
+	protected ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? PlaceholderContainer?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxPlaceholder) + " has to be set.");
 
 	/// <summary>
 	/// Optional content of the placeholder (usually not used).
@@ -80,7 +80,7 @@ public partial class HxPlaceholder : ILayoutColumnComponent
 	/// Additional CSS class.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
-	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
+	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML element.
@@ -96,18 +96,18 @@ public partial class HxPlaceholder : ILayoutColumnComponent
 			this.GetColumnsCssClasses(),
 			ThemeColorExtensions.ToBackgroundColorCss(ColorEffective),
 			GetSizeCssClass(),
-			this.CssClassEffective);
+			CssClassEffective);
 	}
 
 	private string GetSizeCssClass()
 	{
-		return this.SizeEffective switch
+		return SizeEffective switch
 		{
 			PlaceholderSize.Regular => null,
 			PlaceholderSize.Small => "placeholder-sm",
 			PlaceholderSize.ExtraSmall => "placeholder-xs",
 			PlaceholderSize.Large => "placeholder-lg",
-			_ => throw new InvalidOperationException($"Unknown {nameof(HxPlaceholder)}.{nameof(Size)} value {this.SizeEffective:g}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(HxPlaceholder)}.{nameof(Size)} value {SizeEffective:g}.")
 		};
 	}
 }

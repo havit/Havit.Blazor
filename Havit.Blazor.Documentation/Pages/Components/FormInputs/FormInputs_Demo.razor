@@ -1,7 +1,7 @@
 ﻿<EditForm Model="@model" OnValidSubmit="@(() => model.Text = "Validation passed... :-)")">
 	<DataAnnotationsValidator />
 
-	<HxInputText Label="HxInputText" @bind-Value="@model.Text" Placeholder="Enter text here." Hint="Hint: Enter text, value is shared with all text inputs." />
+	<HxInputText Label="HxInputText" @bind-Value="@model.Text" Placeholder="Enter text here." Hint="Hint: Enter text, the value is shared with all text inputs." />
 
 	<HxInputTextArea Label="HxInputTextArea" @bind-Value="@model.Text" />
 

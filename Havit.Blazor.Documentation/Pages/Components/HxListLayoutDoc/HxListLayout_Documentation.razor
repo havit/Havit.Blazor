@@ -1,24 +1,50 @@
 ﻿@attribute [Route("/components/" + nameof(HxListLayout))]
 
 <ComponentApiDoc Type="typeof(HxListLayout<TModel>)">
-    <MainContent>
-        <DocHeading Title="Basic usage" />
-        <Demo Type="typeof(HxListLayout_Demo_Title)" />
+	<MainContent>
 
-        <DocHeading Title="Title template" />
-        <Demo Type="typeof(HxListLayout_Demo_TitleTemplate)" />
+		<DocHeading Title="Basic usage" />
+		<Demo Type="typeof(HxListLayout_Demo_Basic)" />
+		<DocDemoDataServiceNote />
 
-        <DocHeading Title="Search" />
-        <Demo Type="typeof(HxListLayout_Demo_SearchTemplate)" />
+		<DocHeading Title="Infinite scroll with sticky header" Id="sticky-header" />
+		<p>
+			Enable <strong>continuous scrolling</strong> in <code>HxGrid</code> by setting <code>ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"</code>.
+			This feature leverages the capabilities, requirements, and limitations of Blazor's
+			<a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/virtualization">Virtualize</a> component.
+			For optimal virtualization, specify <code>ItemRowHeight</code>; the default is 41 pixels, aligning with Bootstrap's standard table row height.
+			Additionally, defining the container element's height is essential for virtualization functionality.
+		</p>
+		<p>
+			To implement a <strong>sticky header</strong>, use <code>HeaderRowCssClass="sticky-top"</code>.
+			This feature integrates smoothly with <code>HxListLayout</code>, thanks to pre-included CSS adjustments.
+		</p>
+		<Demo Type="typeof(HxListLayout_Demo_InfiniteScrollSticky)" />
 
-        <DocHeading Title="Named views" />
-        <Demo Type="typeof(HxListLayout_Demo)" />
+		<DocHeading Title="Title template" />
+		<p>
+			You can customize the title using the <code>TitleTemplate</code> parameter.
+		</p>
+		<Demo Type="typeof(HxListLayout_Demo_TitleTemplate)" />
 
-    </MainContent>
-    <CssVariables>
-        <ComponentApiDocCssVariable Name="--hx-list-layout-table-font-size" Default=".875rem">
-            Table font size.
-        </ComponentApiDocCssVariable>
-    </CssVariables>
+		<DocHeading Title="Search" />
+		<p>
+			You can add a search input to the toolbar using the <code>SearchTemplate</code> parameter.<br/>
+			Consider using <code>BindEvent.OnInput</code> and the <a href="concepts/Debouncer">Debouncer</a> to avoid unnecessary requests to the server.
+		</p>
+		<Demo Type="typeof(HxListLayout_Demo_SearchTemplate)" />
+
+		<DocHeading Title="Named views" />
+		<p>
+			Predefined named views allow quick switching between different filter configurations.
+		</p>
+		<Demo Type="typeof(HxListLayout_Demo_NamedViews)" />
+
+	</MainContent>
+	<CssVariables>
+		<ComponentApiDocCssVariable Name="--hx-list-layout-table-font-size" Default=".875rem">
+			Table font size.
+		</ComponentApiDocCssVariable>
+	</CssVariables>
 
 </ComponentApiDoc>

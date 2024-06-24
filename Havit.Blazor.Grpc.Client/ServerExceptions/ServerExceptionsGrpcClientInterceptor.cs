@@ -7,9 +7,9 @@ namespace Havit.Blazor.Grpc.Client.ServerExceptions;
 
 public class ServerExceptionsGrpcClientInterceptor : Interceptor
 {
-	private readonly IEnumerable<IOperationFailedExceptionGrpcClientListener> operationFailedExceptionListeners;
-	private readonly IEnumerable<IServerExceptionGrpcClientListener> serverExceptionGrpcClientListeners;
-	private readonly ILogger<ServerExceptionsGrpcClientInterceptor> logger;
+	private readonly IEnumerable<IOperationFailedExceptionGrpcClientListener> _operationFailedExceptionListeners;
+	private readonly IEnumerable<IServerExceptionGrpcClientListener> _serverExceptionGrpcClientListeners;
+	private readonly ILogger<ServerExceptionsGrpcClientInterceptor> _logger;
 
 	// do not inject scoped services here, the scope is not available
 	public ServerExceptionsGrpcClientInterceptor(
@@ -17,9 +17,9 @@ public class ServerExceptionsGrpcClientInterceptor : Interceptor
 		IEnumerable<IServerExceptionGrpcClientListener> serverExceptionGrpcClientListeners,
 		ILogger<ServerExceptionsGrpcClientInterceptor> logger)
 	{
-		this.operationFailedExceptionListeners = operationFailedExceptionListeners;
-		this.serverExceptionGrpcClientListeners = serverExceptionGrpcClientListeners;
-		this.logger = logger;
+		_operationFailedExceptionListeners = operationFailedExceptionListeners;
+		_serverExceptionGrpcClientListeners = serverExceptionGrpcClientListeners;
+		_logger = logger;
 	}
 
 	public override AsyncUnaryCall<TResponse> AsyncUnaryCall<TRequest, TResponse>(
@@ -36,15 +36,17 @@ public class ServerExceptionsGrpcClientInterceptor : Interceptor
 	{
 		try
 		{
+#pragma warning disable VSTHRD003 // Avoid awaiting foreign Tasks
 			return await responseTask;
+#pragma warning restore VSTHRD003 // Avoid awaiting foreign Tasks
 		}
 		catch (RpcException e) when (e.Status.StatusCode == StatusCode.FailedPrecondition)
 		{
 			string errorMessage = e.Status.Detail;
 
-			logger.LogWarning($"{nameof(OperationFailedException)}: {errorMessage}");
+			_logger.LogWarning($"{nameof(OperationFailedException)}: {errorMessage}");
 
-			foreach (var listener in operationFailedExceptionListeners)
+			foreach (var listener in _operationFailedExceptionListeners)
 			{
 				await listener.ProcessAsync(errorMessage);
 			}
@@ -53,7 +55,7 @@ public class ServerExceptionsGrpcClientInterceptor : Interceptor
 		}
 		catch (RpcException e)
 		{
-			foreach (var listener in serverExceptionGrpcClientListeners)
+			foreach (var listener in _serverExceptionGrpcClientListeners)
 			{
 				await listener.ProcessExceptionAsync(e);
 

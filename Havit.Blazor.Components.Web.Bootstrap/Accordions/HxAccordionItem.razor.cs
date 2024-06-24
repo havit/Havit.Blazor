@@ -57,11 +57,11 @@ public partial class HxAccordionItem : ComponentBase
 	/// </summary>
 	[Parameter] public string BodyCssClass { get; set; }
 
-	private string currentId;
-	private string idEffective;
-	private bool lastKnownStateIsExpanded;
-	private bool isInitialized;
-	private HxCollapse collapseComponent;
+	private string _currentId;
+	private string _idEffective;
+	private bool _lastKnownStateIsExpanded;
+	private bool _isInitialized;
+	private HxCollapse _collapseComponent;
 
 	protected override async Task OnParametersSetAsync()
 	{
@@ -76,31 +76,31 @@ public partial class HxAccordionItem : ComponentBase
 		// is considered being another item, we decided to force the user to set the @key for such dynamic items
 		// (and force Blazor to create new components for such scenarios).
 		// If this turns out to be a problem, we can also consider extracting the whole HxAccordionItem to HxAccordionItemInternal and set the @key for it.
-		if ((currentId is not null) && (this.Id != currentId))
+		if ((_currentId is not null) && (Id != _currentId))
 		{
-			throw new InvalidOperationException("HxAccordionItem.Id cannot be changed. Use @key with same value as Id to help Blazor mapping the right components.");
+			throw new InvalidOperationException("HxAccordionItem.Id cannot be changed. Use @key with the same value as Id to help Blazor map the right components.");
 		}
 		else
 		{
-			currentId = this.Id;
+			_currentId = Id;
 		}
 
-		idEffective = ParentAccordion.Id + "-" + this.Id;
+		_idEffective = ParentAccordion.Id + "-" + Id;
 
-		if (isInitialized)
+		if (_isInitialized)
 		{
-			if (!lastKnownStateIsExpanded && IsSetToBeExpanded())
+			if (!_lastKnownStateIsExpanded && IsSetToBeExpanded())
 			{
 				await ExpandAsync();
 			}
-			else if (lastKnownStateIsExpanded && !IsSetToBeExpanded())
+			else if (_lastKnownStateIsExpanded && !IsSetToBeExpanded())
 			{
 				await CollapseAsync();
 			}
 		}
 		else
 		{
-			lastKnownStateIsExpanded = IsSetToBeExpanded();
+			_lastKnownStateIsExpanded = IsSetToBeExpanded();
 		}
 	}
 
@@ -109,7 +109,7 @@ public partial class HxAccordionItem : ComponentBase
 	{
 		await base.OnAfterRenderAsync(firstRender);
 
-		isInitialized = true;
+		_isInitialized = true;
 	}
 
 	/// <summary>
@@ -117,8 +117,8 @@ public partial class HxAccordionItem : ComponentBase
 	/// </summary>
 	public async Task ExpandAsync()
 	{
-		await collapseComponent.ShowAsync();
-		lastKnownStateIsExpanded = true;
+		await _collapseComponent.ShowAsync();
+		_lastKnownStateIsExpanded = true;
 	}
 
 	/// <summary>
@@ -126,27 +126,27 @@ public partial class HxAccordionItem : ComponentBase
 	/// </summary>
 	public async Task CollapseAsync()
 	{
-		await collapseComponent.HideAsync();
-		lastKnownStateIsExpanded = false;
+		await _collapseComponent.HideAsync();
+		_lastKnownStateIsExpanded = false;
 	}
 
 	private async Task HandleCollapseShown()
 	{
-		lastKnownStateIsExpanded = true;
+		_lastKnownStateIsExpanded = true;
 
-		await ParentAccordion.SetItemExpandedAsync(this.Id);
+		await ParentAccordion.SetItemExpandedAsync(Id);
 
-		await InvokeOnExpandedAsync(this.Id);
+		await InvokeOnExpandedAsync(Id);
 	}
 
 	private async Task HandleCollapseHidden()
 	{
-		lastKnownStateIsExpanded = false;
+		_lastKnownStateIsExpanded = false;
 
-		await ParentAccordion.SetItemCollapsedAsync(this.Id);
+		await ParentAccordion.SetItemCollapsedAsync(Id);
 
-		await InvokeOnCollapsedAsync(this.Id);
+		await InvokeOnCollapsedAsync(Id);
 	}
 
-	private bool IsSetToBeExpanded() => ParentAccordion.ExpandedItemIds.Contains(this.Id);
+	private bool IsSetToBeExpanded() => ParentAccordion.ExpandedItemIds.Contains(Id);
 }

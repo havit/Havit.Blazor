@@ -1,0 +1,28 @@
+﻿@attribute [Route("/components/" + nameof(HxSmartPasteButton))]
+
+<ComponentApiDoc Type="typeof(HxSmartPasteButton)">
+	<DocAlert Type="DocAlertType.Danger">
+		<p><strong>EXPERIMENTAL, UNDER DEVELOPMENT</strong></p>
+		Smart components are available as separate NuGet package: <code>Havit.Blazor.Components.Web.Bootstrap.Smart</code>.
+	</DocAlert>
+
+	<DocHeading Title="Basic usage" />
+	<Demo Type="typeof(HxSmartPasteButton_Demo_Basic)" Tabs="false" />
+
+	<DocHeading Title="Sample content" Level="4" />
+	<div class="container-fluid">
+		<div class="row gap-3">
+			<HxAlert Color="ThemeColor.Light" CssClass="col-xl">Verónica Ortíz</HxAlert>
+			<HxAlert Color="ThemeColor.Light" CssClass="col-xl">From: Elio E Marchello<br />Position: Software Architect</HxAlert>
+		</div>
+		<div class="row gap-3">
+			<HxAlert Color="ThemeColor.Light" CssClass="col-xl">Polish inventor Jan Szczepanik patented a color television system in 1897</HxAlert>
+			<HxAlert Color="ThemeColor.Light" CssClass="col-xl">6 Maple Street</HxAlert>
+		</div>
+	</div>
+
+	<DocAlert Type="DocAlertType.Warning">
+		For instructions on how to setup SmartComponents, see the <a href="https://github.com/dotnet-smartcomponents/smartcomponents/">SmartComponents documentation</a>.<br />
+		You will need an OpenAI API key or Azure OpenAI deployment to run the components.
+	</DocAlert>
+</ComponentApiDoc>

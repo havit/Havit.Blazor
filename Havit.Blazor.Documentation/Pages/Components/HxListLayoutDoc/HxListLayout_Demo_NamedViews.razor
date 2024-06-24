@@ -1,0 +1,63 @@
+﻿@inject IDemoDataService DemoDataService
+
+<HxListLayout Title="Employees"
+			  TFilterModel="EmployeesFilterDto"
+			  @bind-FilterModel="filterModel"
+			  @bind-FilterModel:after="gridComponent.RefreshDataAsync"
+			  NamedViews="namedViews"
+			  @bind-SelectedNamedView="selectedNamedView"
+			  TitleFromNamedView="titleFromNamedView">
+	<FilterTemplate Context="filterContext">
+		<HxInputText Label="Name" @bind-Value="filterContext.Name" />
+		<HxInputText Label="Phone" @bind-Value="filterContext.Phone" />
+		<HxInputNumber Label="Minimum salary" @bind-Value="filterContext.SalaryMin" Decimals="0" InputGroupStartText="$" />
+		<HxInputNumber Label="Maximum salary" @bind-Value="filterContext.SalaryMax" Decimals="0" InputGroupStartText="$" />
+		<HxInputText Label="Position" @bind-Value="filterContext.Position" />
+		<HxInputText Label="Location" @bind-Value="filterContext.Location" />
+	</FilterTemplate>
+	<DataTemplate>
+		<HxGrid @ref="gridComponent" TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
+			<Columns>
+				<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+				<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+				<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+				<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+				<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+			</Columns>
+		</HxGrid>
+	</DataTemplate>
+</HxListLayout>
+
+<HxSwitch @bind-Value="titleFromNamedView" Text="HxListLayout.TitleFromNamedView" />
+
+@code {
+	private EmployeesFilterDto filterModel;
+	private HxGrid<EmployeeDto> gridComponent;
+
+	private IEnumerable<NamedView<EmployeesFilterDto>> namedViews;
+	private NamedView<EmployeesFilterDto> selectedNamedView;
+	private bool titleFromNamedView = true;
+
+	protected override void OnInitialized()
+	{
+		namedViews = new List<NamedView<EmployeesFilterDto>>()
+		{
+			new NamedView<EmployeesFilterDto>("All employees", () => new() { Name = "John" }), // resets the filter
+			new NamedView<EmployeesFilterDto>("Prague employees", () => filterModel with { Location = "Prague" } ), // keep filter presets not affected by the view
+			new NamedView<EmployeesFilterDto>("High salary employees", () => filterModel with { SalaryMin = 20000 }),
+		};
+
+		// set first view selected on initial load
+		selectedNamedView = namedViews.First();
+		filterModel = selectedNamedView.CreateFilterModel();
+	}
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = await DemoDataService.GetEmployeesDataFragmentAsync(filterModel, request.StartIndex, request.Count, request.CancellationToken),
+				TotalCount = await DemoDataService.GetEmployeesCountAsync(filterModel, request.CancellationToken)
+			};
+	}
+}

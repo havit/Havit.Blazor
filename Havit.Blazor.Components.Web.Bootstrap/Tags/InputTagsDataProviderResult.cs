@@ -6,7 +6,7 @@
 public class InputTagsDataProviderResult
 {
 	/// <summary>
-	/// The provided items by the request.
+	/// The items provided by the request.
 	/// </summary>
 	public IEnumerable<string> Data { get; set; }
 }

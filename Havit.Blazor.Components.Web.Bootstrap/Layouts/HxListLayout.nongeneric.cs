@@ -29,7 +29,7 @@ public class HxListLayout
 	}
 
 	/// <summary>
-	/// Can be used for TFilterModelType to express there is no filter in the <see cref="HxListLayout"/> component.
+	/// Can be used for TFilterModelType to indicate that there is no filter in the <see cref="HxListLayout"/> component.
 	/// </summary>
 	public sealed class NoFilter { }
 }

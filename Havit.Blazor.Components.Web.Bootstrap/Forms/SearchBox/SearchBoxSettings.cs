@@ -1,32 +1,37 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Settings for the <see cref="HxSearchBox{TItem} "/> and derived components.
+/// Settings for the <see cref="HxSearchBox{TItem}"/> and derived components.
 /// </summary>
 public class SearchBoxSettings
 {
 	/// <summary>
-	/// Icon displayed in input when no item is selected.
+	/// Icon displayed in the input when no item is selected.
 	/// </summary>
 	public IconBase SearchIcon { get; set; }
 
 	/// <summary>
-	/// Icon displayed in input on selection clear button when item is selected.
+	/// Placement of the search icon.<br/>
+	/// </summary>
+	public SearchBoxSearchIconPlacement? SearchIconPlacement { get; set; }
+
+	/// <summary>
+	/// Icon displayed in the input on the selection clear button when an item is selected.
 	/// </summary>
 	public IconBase ClearIcon { get; set; }
 
 	/// <summary>
-	/// Minimal number of characters to start suggesting.
+	/// The minimum number of characters to start suggesting.
 	/// </summary>
 	public int? MinimumLength { get; set; }
 
 	/// <summary>
-	/// Debounce delay in milliseconds.
+	/// The debounce delay in milliseconds.
 	/// </summary>
 	public int? Delay { get; set; }
 
 	/// <summary>
-	/// Input size.
+	/// The input size.
 	/// </summary>
 	public InputSize? InputSize { get; set; }
 
@@ -46,13 +51,12 @@ public class SearchBoxSettings
 	public string InputCssClass { get; set; }
 
 	/// <summary>
-	/// Custom CSS class to render with input-group span.
+	/// Custom CSS class to render with the input-group span.
 	/// </summary>
 	public string InputGroupCssClass { get; set; }
 
 	/// <summary>
-	/// Behavior when the item is selected.
+	/// The behavior when the item is selected.
 	/// </summary>
 	public SearchBoxItemSelectionBehavior? ItemSelectionBehavior { get; set; }
-
 }

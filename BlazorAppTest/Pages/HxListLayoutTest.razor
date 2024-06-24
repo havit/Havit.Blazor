@@ -2,37 +2,37 @@
 
 <h1>HxListLayout</h1>
 
-<HxListLayout Title="Title" TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged">
-	<NamedViewsTemplate>
-		<HxNamedViewList TFilterModel="FilterModelDto" FilterModel="filterModel" FilterModelChanged="HandleFilterModelChanged" NamedViews="namedViews" OnNamedViewSelected="NamedViewSelected" />
-	</NamedViewsTemplate>
-    <FilterTemplate Context="filterContext">
-        <HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumItemId" />
-        <HxInputText Label="Name containing" @bind-Value="filterContext.NameContains" />
-        <HxInputNumber Label="Minimum Age" @bind-Value="filterContext.MinimumAge" />
-        <HxInputNumber Label="Maximum Age" @bind-Value="filterContext.MaximumAge" />
-    <HxInputTags Label="Tags (ThemeColor)" @bind-Value="filterContext.Tags" DataProvider="GetTagsSuggestions"/>
-    </FilterTemplate>
+<HxListLayout Title="Employees"
+			  @bind-FilterModel="_filterModel"
+			  @bind-FilterModel:after="RefreshDataAsync"
+			  NamedViews="_namedViews">
+	<FilterTemplate Context="filterContext">
+		<HxInputNumber Label="MinimumItemId" @bind-Value="filterContext.MinimumItemId" />
+		<HxInputText Label="Name containing" @bind-Value="filterContext.NameContains" />
+		<HxInputNumber Label="Minimum Age" @bind-Value="filterContext.MinimumAge" />
+		<HxInputNumber Label="Maximum Age" @bind-Value="filterContext.MaximumAge" />
+		<HxInputTags Label="Tags (ThemeColor)" @bind-Value="filterContext.Tags" DataProvider="GetTagsSuggestions" />
+	</FilterTemplate>
 	<CommandsTemplate>
 		<HxButton Text="Add" Icon="BootstrapIcon.Plus" Color="ThemeColor.Secondary" OnClick="NewItemClicked" />
 	</CommandsTemplate>
 	<DataTemplate>
-		<HxGrid @ref="gridComponent" TItem="DataItemDto" PageSize="20" DataProvider="LoadDataItems" SelectedDataItem="currentItem" SelectedDataItemChanged="HandleSelectedDataItemChanged">
-            <Columns>
-                <HxGridColumn TItem="DataItemDto" HeaderText="Id" ItemTextSelector="@(item => item.ItemId.ToString())" SortString="@nameof(DataItemDto.ItemId)" IsDefaultSortColumn="true" />
-                <HxGridColumn TItem="DataItemDto" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(DataItemDto.Name)" />
-                <HxGridColumn TItem="DataItemDto" HeaderText="Email" ItemTextSelector="@(item => item.Email)" SortString="@nameof(DataItemDto.Email)" />
-                <HxGridColumn TItem="DataItemDto" HeaderText="Phone number" ItemTextSelector="@(item => item.PhoneNumber)" SortString="@nameof(DataItemDto.PhoneNumber)" />
-                <HxGridColumn TItem="DataItemDto" HeaderText="Age" ItemTextSelector="@(item => item.Age.ToString())" SortString="@nameof(DataItemDto.Age)" />
+		<HxGrid @ref="_gridComponent" TItem="DataItemDto" PageSize="20" DataProvider="LoadDataItems" SelectedDataItem="_currentItem" SelectedDataItemChanged="HandleSelectedDataItemChanged">
+			<Columns>
+				<HxGridColumn TItem="DataItemDto" HeaderText="Id" ItemTextSelector="@(item => item.ItemId.ToString())" SortString="@nameof(DataItemDto.ItemId)" IsDefaultSortColumn="true" />
+				<HxGridColumn TItem="DataItemDto" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(DataItemDto.Name)" />
+				<HxGridColumn TItem="DataItemDto" HeaderText="Email" ItemTextSelector="@(item => item.Email)" SortString="@nameof(DataItemDto.Email)" />
+				<HxGridColumn TItem="DataItemDto" HeaderText="Phone number" ItemTextSelector="@(item => item.PhoneNumber)" SortString="@nameof(DataItemDto.PhoneNumber)" />
+				<HxGridColumn TItem="DataItemDto" HeaderText="Age" ItemTextSelector="@(item => item.Age.ToString())" SortString="@nameof(DataItemDto.Age)" />
 				<HxContextMenuGridColumn Context="item">
 					<HxContextMenu>
-						<HxContextMenuItem Text="Delete" OnClick="async () => await DeleteItemClicked(item)" ConfirmationQuestion="@($"Do you realy want to delete {item.Name}?")" />
+						<HxContextMenuItem Text="Delete" OnClick="async () => await DeleteItemClicked(item)" ConfirmationQuestion="@($"Do you really want to delete {item.Name}?")" />
 					</HxContextMenu>
 				</HxContextMenuGridColumn>
-            </Columns>			
+			</Columns>
 		</HxGrid>
 	</DataTemplate>
 	<DetailTemplate>
-		Edit: @currentItem?.ItemId
+		Edit: @_currentItem?.ItemId
 	</DetailTemplate>
 </HxListLayout>

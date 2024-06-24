@@ -1,0 +1,10 @@
+﻿<EditForm Model="employee">
+	<HxInputText Label="Name" @bind-Value="employee.Name" />
+	<HxInputText Label="Position" @bind-Value="employee.Position" />
+
+	<HxSmartPasteButton Text="Smart paste" Color="ThemeColor.Secondary" Icon="BootstrapIcon.ClipboardPlus" />
+</EditForm>
+
+@code {
+	private EmployeeDto employee = new EmployeeDto();
+}

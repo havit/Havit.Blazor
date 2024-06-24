@@ -1,0 +1,38 @@
+﻿@page "/HxGrid_InfiniteScrollLarge_Test"
+@using System.Globalization
+
+<h1>HxGrid Infinite scroll</h1>
+
+<HxGrid TItem="CultureInfo"
+		DataProvider="@ClientCultureInfosDataProvider"
+		ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
+		ItemRowHeight="41">
+	<Columns>
+		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true" />
+		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" />
+
+		<HxContextMenuGridColumn Context="item">
+			<HxContextMenu>
+				<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
+			</HxContextMenu>
+		</HxContextMenuGridColumn>
+	</Columns>
+</HxGrid>
+
+
+@code {
+	private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+	{
+		Console.WriteLine($"Requesting culture infos[{request.StartIndex}, {request.Count}].");
+		await Task.Delay(100); // simulate server call
+
+		var cultures = Enumerable.Range(1, 100)
+			.SelectMany(i =>
+				CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */))
+			.ToList();
+
+		Console.WriteLine($"Culture infos loaded (cancelled: {request.CancellationToken.IsCancellationRequested}).");
+
+		return request.ApplyTo(cultures);
+	}
+}

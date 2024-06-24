@@ -1,0 +1,22 @@
+﻿<HxGrid TItem="EmployeeDto" DataProvider="GetGridData" Responsive="true" PageSize="5">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+	</Columns>
+</HxGrid>
+
+@code {
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		await Task.Delay(3000);  // simulate server delay in demo (do not put this in your code)
+
+		return new GridDataProviderResult<EmployeeDto>
+			{
+				Data = [],
+				TotalCount = 0
+			};
+	}
+}

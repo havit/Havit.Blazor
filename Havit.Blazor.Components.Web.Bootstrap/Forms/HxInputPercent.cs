@@ -6,12 +6,12 @@
 /// </summary>
 public class HxInputPercent<TValue> : HxInputNumber<TValue>
 {
-	private static HashSet<Type> supportedTypes = new HashSet<Type> { typeof(float), typeof(double), typeof(decimal) };
+	private static HashSet<Type> s_supportedTypes = new HashSet<Type> { typeof(float), typeof(double), typeof(decimal) };
 
 	public HxInputPercent()
 	{
 		Type underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-		if (!supportedTypes.Contains(underlyingType))
+		if (!s_supportedTypes.Contains(underlyingType))
 		{
 			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
 		}
@@ -20,7 +20,7 @@ public class HxInputPercent<TValue> : HxInputNumber<TValue>
 	}
 
 	/// <summary>
-	/// Converts value into percentages and formats it as a string.
+	/// Converts the value into percentages and formats it as a string.
 	/// </summary>
 	protected override string FormatValueAsString(TValue value)
 	{

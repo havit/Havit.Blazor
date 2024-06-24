@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public partial class HxDropdownItemNavLink : ICascadeEnabledComponent
 {
 	[CascadingParameter] protected FormState FormState { get; set; }
-	FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+	FormState ICascadeEnabledComponent.FormState { get => FormState; set => FormState = value; }
 
 	/// <summary>
 	/// Navigation target.
@@ -23,7 +23,7 @@ public partial class HxDropdownItemNavLink : ICascadeEnabledComponent
 
 	/// <summary>
 	/// URL matching behavior for the underlying <see cref="NavLink"/>.
-	/// Default is <see cref="NavLinkMatch.Prefix"/>.
+	/// The default is <see cref="NavLinkMatch.Prefix"/>.
 	/// You can set the value to <c>null</c> to disable the matching.
 	/// </summary>
 	[Parameter] public NavLinkMatch? Match { get; set; } = NavLinkMatch.Prefix;
@@ -43,7 +43,7 @@ public partial class HxDropdownItemNavLink : ICascadeEnabledComponent
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// Additional CSS class for underlying <c>li</c> container (wrapping the main <c>a</c> inside).
+	/// Additional CSS class for the underlying <c>li</c> container (wrapping the main <c>a</c> inside).
 	/// </summary>
 	[Parameter] public string ContainerCssClass { get; set; }
 

@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public record InputTagsSettings : InputSettings, IInputSettingsWithSize
 {
 	/// <summary>
-	/// Minimal number of characters to start suggesting.
+	/// Minimum number of characters to start suggesting.
 	/// </summary>
 	public int? SuggestMinimumLength { get; set; }
 
@@ -23,7 +23,7 @@ public record InputTagsSettings : InputSettings, IInputSettingsWithSize
 	public InputSize? InputSize { get; set; }
 
 	/// <summary>
-	/// Characters, when typed, divide the current input into separate tags.
+	/// Characters that, when typed, divide the current input into separate tags.
 	/// </summary>
 	public List<char> Delimiters { get; set; }
 

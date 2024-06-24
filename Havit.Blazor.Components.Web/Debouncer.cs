@@ -6,29 +6,32 @@
 /// </summary>
 public class Debouncer : IDisposable
 {
-	private CancellationTokenSource debounceCancellationTokenSource = null;
-	private bool disposed;
+	private CancellationTokenSource _debounceCancellationTokenSource = null;
+	private bool _disposed;
 
 	/// <summary>
 	/// Starts the debouncing.
 	/// </summary>
-	/// <param name="millisecondsDelay">debouncing delay</param>
-	/// <param name="actionAsync">work to be executed (<see cref="CancellationToken"/> gets canceled if the method is called again)</param>
+	/// <param name="millisecondsDelay">The delay in milliseconds for debouncing.</param>
+	/// <param name="actionAsync">The asynchronous action to be executed. The <see cref="CancellationToken"/> gets canceled if the method is called again.</param>
 	public async Task DebounceAsync(int millisecondsDelay, Func<CancellationToken, Task> actionAsync)
 	{
 		try
 		{
-			if (debounceCancellationTokenSource != null)
+			if (_debounceCancellationTokenSource != null)
 			{
-				debounceCancellationTokenSource?.Cancel();
-				debounceCancellationTokenSource?.Dispose();
+#pragma warning disable VSTHRD103 // Call async methods when in an async method
+				// TODO Consider CancelAsync() for net8+
+				_debounceCancellationTokenSource?.Cancel();
+#pragma warning restore VSTHRD103 // Call async methods when in an async method
+				_debounceCancellationTokenSource?.Dispose();
 			}
 
-			debounceCancellationTokenSource = new CancellationTokenSource();
+			_debounceCancellationTokenSource = new CancellationTokenSource();
 
-			await Task.Delay(millisecondsDelay, debounceCancellationTokenSource.Token);
+			await Task.Delay(millisecondsDelay, _debounceCancellationTokenSource.Token);
 
-			await actionAsync(debounceCancellationTokenSource.Token);
+			await actionAsync(_debounceCancellationTokenSource.Token);
 		}
 		catch (TaskCanceledException)
 		{
@@ -38,18 +41,18 @@ public class Debouncer : IDisposable
 
 	protected virtual void Dispose(bool disposing)
 	{
-		if (!disposed)
+		if (!_disposed)
 		{
 			if (disposing)
 			{
-				if (debounceCancellationTokenSource != null)
+				if (_debounceCancellationTokenSource != null)
 				{
-					debounceCancellationTokenSource?.Cancel();
-					debounceCancellationTokenSource?.Dispose();
+					_debounceCancellationTokenSource?.Cancel();
+					_debounceCancellationTokenSource?.Dispose();
 				}
 			}
 
-			disposed = true;
+			_disposed = true;
 		}
 	}
 

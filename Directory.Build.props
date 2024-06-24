@@ -8,11 +8,12 @@
 		<Product>HAVIT Blazor Library</Product>
 		<AssemblyTitle>HAVIT Blazor Library</AssemblyTitle>
 		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
 		
 		<!-- aligned NuGet PackageVersion for package-bundles -->
-		<ComponentsPackagesVersion>4.2.6</ComponentsPackagesVersion>
-		<GrpcPackagesVersion>1.4.4</GrpcPackagesVersion>
+		<ComponentsPackagesVersion>4.6.9</ComponentsPackagesVersion>
+		<GrpcPackagesVersion>1.5.5</GrpcPackagesVersion>
 	</PropertyGroup>
 
 	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" Condition="Exists($([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../')))"/>

@@ -12,6 +12,7 @@
 
 	inputElement.addEventListener('mousedown', handleMouseDown);
 	inputElement.addEventListener('mouseup', handleMouseUp);
+	inputElement.addEventListener('mouseleave', handleMouseLeave);
 }
 
 function handleKeyDown(event) {
@@ -64,7 +65,10 @@ export function destroy(inputElement) {
 	var d = bootstrap.Dropdown.getInstance(inputElement);
 	if (d) {
 		d.hide();
-		d.dispose();
+
+		inputElement.addEventListener('hidden.bs.dropdown', event => {
+			dropdown.dispose()
+		})
 	}
 }
 
@@ -72,6 +76,12 @@ function handleMouseDown(event) {
 	event.target.clickIsComing = true;
 }
 function handleMouseUp(event) {
+	event.target.clickIsComing = false;
+}
+
+function handleMouseLeave(event) {
+	// fixes #702 where the dropdown is not shown after selecting input content with mouse
+	// (the input does not receive mouseup when the mouse is released outside of the input)
 	event.target.clickIsComing = false;
 }
 
@@ -99,6 +109,7 @@ export function dispose(inputId) {
 		inputElement.removeEventListener('keydown', handleKeyDown);
 		inputElement.removeEventListener('mouseup', handleMouseUp);
 		inputElement.removeEventListener('mousedown', handleMouseDown);
+		inputElement.removeEventListener('mouseleave', handleMouseLeave);
 		inputElement.hxAutosuggestDotnetObjectReference = null;
 		inputElement.hxAutosuggestKeysToPreventDefault = null;
 	}

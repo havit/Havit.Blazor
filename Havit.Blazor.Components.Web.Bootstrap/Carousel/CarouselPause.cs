@@ -6,12 +6,12 @@
 public enum CarouselPause
 {
 	/// <summary>
-	/// Carousel will stop sliding on hover.
+	/// The carousel will stop sliding on hover.
 	/// </summary>
 	Hover = 0,
 
 	/// <summary>
-	/// Carousel won't stop sliding on hover.
+	/// The carousel won't stop sliding on hover.
 	/// </summary>
 	False = 1
 }

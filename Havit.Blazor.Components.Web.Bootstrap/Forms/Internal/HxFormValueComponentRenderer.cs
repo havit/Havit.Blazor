@@ -3,7 +3,7 @@
 public class HxFormValueComponentRenderer : ComponentBase
 {
 	/// <summary>
-	/// Values for component renderer.
+	/// Values for the component renderer.
 	/// </summary>
 	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
@@ -14,7 +14,7 @@ public class HxFormValueComponentRenderer : ComponentBase
 
 		string cssClass = CssClassHelper.Combine(FormValueComponent.CoreCssClass, FormValueComponent.CssClass);
 
-		// Without any CssClass, Label, not Hint, we will render just the "Value"
+		// Without any CssClass, Label, or Hint, we will render just the "Value"
 		bool renderDiv = !String.IsNullOrEmpty(cssClass)
 			|| !String.IsNullOrEmpty(FormValueComponent.Label)
 			|| (FormValueComponent.LabelTemplate != null)
@@ -92,7 +92,7 @@ public class HxFormValueComponentRenderer : ComponentBase
 	}
 
 	/// <summary>
-	/// Renders label when properties set.
+	/// Renders the label when properties are set.
 	/// </summary>
 	protected virtual void BuildRenderLabel(RenderTreeBuilder builder)
 	{
@@ -103,7 +103,7 @@ public class HxFormValueComponentRenderer : ComponentBase
 	}
 
 	/// <summary>
-	/// Renders input groups (with content).
+	/// Renders the input groups (with content).
 	/// </summary>
 	protected virtual void BuildRenderInputGroups(RenderTreeBuilder builder, RenderFragment content)
 	{
@@ -158,7 +158,7 @@ public class HxFormValueComponentRenderer : ComponentBase
 	}
 
 	/// <summary>
-	/// Renders value/input.
+	/// Renders the value/input.
 	/// </summary>
 	protected virtual void BuildRenderValue(RenderTreeBuilder builder)
 	{
@@ -166,7 +166,7 @@ public class HxFormValueComponentRenderer : ComponentBase
 	}
 
 	/// <summary>
-	/// Renders hint when property HintTemplate set.
+	/// Renders the hint when the HintTemplate property is set.
 	/// </summary>
 	protected virtual void BuildRenderHint(RenderTreeBuilder builder)
 	{
@@ -181,7 +181,7 @@ public class HxFormValueComponentRenderer : ComponentBase
 	}
 
 	/// <summary>
-	/// Renders validation message.
+	/// Renders the validation message.
 	/// </summary>
 	protected virtual void BuildRenderValidationMessage(RenderTreeBuilder builder)
 	{

@@ -9,7 +9,7 @@
 	transform: translateY(-50%);
 }
 
-.hx-input-date:has(input:not(:disabled)) + .hx-input-date-icon {
+::deep .hx-input-date:has(input:not(:disabled)) .hx-input-date-icon {
 	cursor: pointer;
 }
 
@@ -19,7 +19,7 @@
 	width: min-content;
 }
 
-::deep .hx-input-date-dropdown-buttons {
+.hx-input-date-dropdown-buttons {
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -32,25 +32,20 @@
 	background-position: right calc(0.375em + 2rem) center;
 }
 
-.hx-input-date-has-calendar-icon .form-control {
+.hx-input-date-has-calendar-icon ::deep .form-control {
 	padding-right: 4.25rem;
 }
 
-.hx-input-date-has-calendar-icon.input-group-lg .form-control {
+.hx-input-date-has-calendar-icon.input-group-lg ::deep .form-control {
 	padding-right: 4.75rem;
 }
 
-.hx-input-date-has-calendar-icon.input-group-sm .form-control {
+.hx-input-date-has-calendar-icon.input-group-sm ::deep .form-control {
 	padding-right: 4rem;
 }
 
 .input-group-sm > .hx-input-date-icon {
 	font-size: .75rem;
-}
-
-.hx-input-date-icon,
-::deep .form-floating label {
-	z-index: 10;
 }
 
 .hx-input-date-wrapper {
@@ -64,4 +59,22 @@
 	flex-grow: 1;
 	flex-shrink: 1;
 	min-width: 0;
+}
+
+::deep .dropdown:focus-within {
+    z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be larger than 5 because otherwise the validation message is rendered on top. */
+}
+
+.input-group-start ::deep .form-control {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.input-group-end ::deep .form-control {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+/* Invalid left/right input borders need to be over the input group borders in invalid state. */
+.input-group ::deep .hx-input-date:has(.is-invalid):not(:focus-within) {
+	z-index: 3;
 }

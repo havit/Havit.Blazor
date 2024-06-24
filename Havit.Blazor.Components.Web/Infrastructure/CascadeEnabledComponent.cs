@@ -6,7 +6,7 @@
 public static class CascadeEnabledComponent
 {
 	/// <summary>
-	/// Effective value of Enabled. When Enabled is not set, receives value from FormState or defaults to true.
+	/// Effective value of Enabled. When Enabled is not set, it receives the value from FormState or defaults to true.
 	/// </summary>
 	public static bool EnabledEffective(ICascadeEnabledComponent component)
 	{

@@ -6,7 +6,7 @@
 public enum TabPanelRenderMode
 {
 	/// <summary>
-	/// Content of all tabs is always rendered (and visibility set with CSS).
+	/// Content of all tabs is always rendered (and visibility is set with CSS).
 	/// </summary>
 	AllTabs = 0,
 

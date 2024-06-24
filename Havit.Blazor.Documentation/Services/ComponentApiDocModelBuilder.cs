@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using Havit.Blazor.Documentation.Model;
 using LoxSmoke.DocXml;
 using Microsoft.JSInterop;
@@ -8,7 +9,7 @@ namespace Havit.Blazor.Documentation.Services;
 
 public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 {
-	private static readonly Dictionary<string, string> inputBaseSummaries = new()
+	private static readonly Dictionary<string, string> s_inputBaseSummaries = new()
 	{
 		["AdditionalAttributes"] = "A collection of additional attributes that will be applied to the created element.",
 		["Value"] = "Value of the input. This should be used with two-way binding.",
@@ -21,7 +22,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		["DisplayName"] = "Gets or sets the display name for this field.<br/>This value is used when generating error messages when the input value fails to parse correctly."
 	};
 
-	private static readonly List<string> ignoredMethods = new()
+	private static readonly List<string> s_ignoredMethods = new()
 	{
 		"ToString",
 		"GetType",
@@ -34,7 +35,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		"ChildContent"
 	};
 
-	private static readonly List<Type> attributesForMethodFiltering = new()
+	private static readonly List<Type> s_attributesForMethodFiltering = new()
 	{
 		typeof(JSInvokableAttribute),
 		typeof(CompilerGeneratedAttribute)
@@ -42,11 +43,11 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 
 	private const BindingFlags CommonBindingFlags = BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
 
-	private readonly IDocXmlProvider docXmlProvider;
+	private readonly IDocXmlProvider _docXmlProvider;
 
 	public ComponentApiDocModelBuilder(IDocXmlProvider docXmlProvider)
 	{
-		this.docXmlProvider = docXmlProvider;
+		_docXmlProvider = docXmlProvider;
 	}
 
 	public ComponentApiDocModel BuildModel(Type type)
@@ -77,23 +78,27 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 	{
 		if (string.IsNullOrEmpty(typeNamespace))
 		{
-			return docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.xml");
+			return _docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.xml");
 		}
 		else if (typeNamespace.Contains("Havit.Blazor.GoogleTagManager"))
 		{
-			return docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.GoogleTagManager.xml");
+			return _docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.GoogleTagManager.xml");
+		}
+		else if (typeNamespace.Contains("Smart"))
+		{
+			return _docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.Smart.xml");
 		}
 		else if (typeNamespace.Contains("Bootstrap"))
 		{
-			return docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.xml");
+			return _docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.xml");
 		}
 		else if (typeNamespace == "Havit.Blazor.Components.Web")
 		{
-			return docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.xml");
+			return _docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.xml");
 		}
 		else
 		{
-			return docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.xml");
+			return _docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.xml");
 		}
 	}
 
@@ -102,7 +107,23 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		Contract.Requires<InvalidOperationException>(model.IsDelegate);
 
 		MethodInfo invokeMethodInfo = model.Type.GetMethod("Invoke");
-		model.DelegateSignature = $"{ApiRenderer.FormatType(invokeMethodInfo.ReturnType, asLink: false)} {ApiRenderer.FormatType(model.Type, asLink: false)}(";
+		string returnType = string.Empty;
+
+		var genericTypeArgument = invokeMethodInfo.ReturnType.GetGenericArguments().FirstOrDefault();
+
+		if (genericTypeArgument is not null)
+		{
+			string genericTypeArgumentName = genericTypeArgument.ToString();
+			Console.WriteLine("genericTypeArgument.ToString(): " + genericTypeArgumentName);
+
+			returnType = $"Task&lt;{ApiRenderer.FormatType(genericTypeArgumentName, true)}&gt; ";
+		}
+		else
+		{
+			returnType = ApiRenderer.FormatType(invokeMethodInfo.ReturnType, true);
+		}
+
+		model.DelegateSignature = $"{returnType} {ApiRenderer.FormatType(model.Type, false)} (";
 		foreach (ParameterInfo param in invokeMethodInfo.GetParameters())
 		{
 			model.DelegateSignature += $"{ApiRenderer.FormatType(param.ParameterType)} {param.Name}";
@@ -129,7 +150,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 			try
 			{
 				var enumValueComment = enumComments.ValueComments
-					.Where(o => o.Value == i)
+					.Where(o => o.Name == enumMember.Name)
 					.FirstOrDefault(c => !string.IsNullOrEmpty(c.Summary));
 
 				if (enumValueComment is not null)
@@ -172,7 +193,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 
 			if (string.IsNullOrWhiteSpace(newProperty.Comments.Summary))
 			{
-				if (inputBaseSummaries.TryGetValue(newProperty.PropertyInfo.Name, out string summary))
+				if (s_inputBaseSummaries.TryGetValue(newProperty.PropertyInfo.Name, out string summary))
 				{
 					newProperty.Comments.Summary = summary;
 				}
@@ -222,7 +243,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 
 	private bool ShouldIncludeMethod(MethodInfo methodInfo)
 	{
-		foreach (var attribute in attributesForMethodFiltering)
+		foreach (var attribute in s_attributesForMethodFiltering)
 		{
 			if (methodInfo.GetCustomAttribute(attribute) is not null)
 			{
@@ -237,7 +258,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		}
 
 		string name = methodInfo.Name;
-		if (ignoredMethods.Contains(name))
+		if (s_ignoredMethods.Contains(name))
 		{
 			return false;
 		}
@@ -245,8 +266,20 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		return true;
 	}
 
+	// ...
+
 	private bool IsEventCallback(PropertyModel property)
 	{
-		return property.PropertyInfo.PropertyType == typeof(EventCallback<>) || property.PropertyInfo.PropertyType == typeof(EventCallback);
+		string propertyName = property.PropertyInfo.Name;
+
+		// SomethingChanged should be treated as regular property
+		// OnSomethingChanged should be treated as event-callback
+		if (propertyName.EndsWith("Changed") && !Regex.IsMatch(propertyName, @"^On[A-Z]"))
+		{
+			return false;
+		}
+
+		return (property.PropertyInfo.PropertyType.IsGenericType && (property.PropertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(EventCallback<>)))
+			|| property.PropertyInfo.PropertyType == typeof(EventCallback);
 	}
 }

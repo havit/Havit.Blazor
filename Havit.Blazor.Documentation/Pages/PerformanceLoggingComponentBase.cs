@@ -4,13 +4,13 @@ public class PerformanceLoggingComponentBase : ComponentBase
 {
 	[Inject] protected ILogger<PerformanceLoggingComponentBase> Logger { get; set; }
 
-	private TimeSpan? timeStart;
-	private TimeSpan? timeLast;
+	private TimeSpan? _timeStart;
+	private TimeSpan? _timeLast;
 
 	public PerformanceLoggingComponentBase()
 	{
-		timeStart = DateTime.Now.TimeOfDay;
-		timeLast = timeStart;
+		_timeStart = DateTime.Now.TimeOfDay;
+		_timeLast = _timeStart;
 	}
 
 	protected override void OnParametersSet()
@@ -28,16 +28,16 @@ public class PerformanceLoggingComponentBase : ComponentBase
 		base.OnAfterRender(firstRender);
 
 		LogTimeElapsed("OnAfterRender");
-		timeStart = null;
-		timeLast = null;
+		_timeStart = null;
+		_timeLast = null;
 	}
 
 	protected void LogTimeElapsed(string message)
 	{
 		TimeSpan now = DateTime.Now.TimeOfDay;
-		timeStart ??= now;
-		timeLast ??= now;
-		Logger.LogDebug($"{this.GetType().Name}({this.GetHashCode()})_{message}: {(now - timeStart.Value).TotalMilliseconds} ms (+ {(now - timeLast.Value).TotalMilliseconds} ms)");
-		timeLast = now;
+		_timeStart ??= now;
+		_timeLast ??= now;
+		Logger.LogDebug($"{GetType().Name}({GetHashCode()})_{message}: {(now - _timeStart.Value).TotalMilliseconds} ms (+ {(now - _timeLast.Value).TotalMilliseconds} ms)");
+		_timeLast = now;
 	}
 }

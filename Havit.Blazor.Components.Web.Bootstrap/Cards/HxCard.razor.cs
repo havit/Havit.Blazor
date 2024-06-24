@@ -18,7 +18,7 @@ public partial class HxCard
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual CardSettings GetDefaults() => Defaults;
 
@@ -28,82 +28,87 @@ public partial class HxCard
 	[Parameter] public CardSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual CardSettings GetSettings() => this.Settings;
+	protected virtual CardSettings GetSettings() => Settings;
 
 
 	/// <summary>
-	/// Image to be placed in the card. For image position see <see cref="ImagePlacement"/>.
+	/// Image to be placed in the card. For the image position, see <see cref="ImagePlacement"/>.
 	/// </summary>
 	[Parameter] public string ImageSrc { get; set; }
 
 	/// <summary>
-	/// Placement of the image. Default is <see cref="CardImagePlacement.Top"/>.
+	/// Placement of the image. The default is <see cref="CardImagePlacement.Top"/>.
 	/// </summary>
 	[Parameter] public CardImagePlacement ImagePlacement { get; set; }
 
 	/// <summary>
-	/// Image <c>alt</c> attribute value.
+	/// The value of the image's <c>alt</c> attribute.
 	/// </summary>
 	[Parameter] public string ImageAlt { get; set; }
 
 	/// <summary>
-	/// Image <c>width</c> attribute value.
+	/// The value of the image's <c>width</c> attribute.
 	/// </summary>
 	[Parameter] public int? ImageWidth { get; set; }
 
 	/// <summary>
-	/// Image <c>height</c> attribute value.
+	/// The value of the image's <c>height</c> attribute.
 	/// </summary>
 	[Parameter] public int? ImageHeight { get; set; }
 
 	/// <summary>
-	/// Header content.
+	/// The header content.
 	/// </summary>
 	[Parameter] public RenderFragment HeaderTemplate { get; set; }
 
 	/// <summary>
-	/// Body content.
+	/// The body content.
 	/// </summary>
 	[Parameter] public RenderFragment BodyTemplate { get; set; }
 
 	/// <summary>
-	/// Footer content.
+	/// The footer content.
 	/// </summary>
 	[Parameter] public RenderFragment FooterTemplate { get; set; }
 
 	/// <summary>
-	/// Generic card content (outside <c>.card-body</c>).
+	/// The generic card content (outside <c>.card-body</c>).
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	/// <summary>
-	/// Additional CSS classes for the card-container.
+	/// Additional CSS classes for the card container.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
-	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
+	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
 	/// Additional CSS class for the header.
 	/// </summary>
 	[Parameter] public string HeaderCssClass { get; set; }
-	protected string HeaderCssClassEffective => this.HeaderCssClass ?? this.GetSettings()?.HeaderCssClass ?? GetDefaults().HeaderCssClass;
+	protected string HeaderCssClassEffective => HeaderCssClass ?? GetSettings()?.HeaderCssClass ?? GetDefaults().HeaderCssClass;
 
 	/// <summary>
 	/// Additional CSS class for the body.
 	/// </summary>
 	[Parameter] public string BodyCssClass { get; set; }
-	protected string BodyCssClassEffective => this.BodyCssClass ?? this.GetSettings()?.BodyCssClass ?? GetDefaults().BodyCssClass;
+	protected string BodyCssClassEffective => BodyCssClass ?? GetSettings()?.BodyCssClass ?? GetDefaults().BodyCssClass;
 
 	/// <summary>
 	/// Additional CSS class for the footer.
 	/// </summary>
 	[Parameter] public string FooterCssClass { get; set; }
-	protected string FooterCssClassEffective => this.FooterCssClass ?? this.GetSettings()?.FooterCssClass ?? GetDefaults().FooterCssClass;
+	protected string FooterCssClassEffective => FooterCssClass ?? GetSettings()?.FooterCssClass ?? GetDefaults().FooterCssClass;
+
+	/// <summary>
+	/// Additional CSS class for the image.
+	/// </summary>
+	[Parameter] public string ImageCssClass { get; set; }
 
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML element.

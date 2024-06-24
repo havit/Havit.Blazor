@@ -14,14 +14,14 @@ public class MethodModel : MemberModel
 		{
 			MethodComments inputComments = value;
 			try { inputComments.Summary = TryFormatComment(inputComments.Summary); } catch { }
-			comments = inputComments;
+			_comments = inputComments;
 		}
 		get
 		{
-			return comments;
+			return _comments;
 		}
 	}
-	private MethodComments comments;
+	private MethodComments _comments;
 
 	public string GetParameters()
 	{

@@ -14,25 +14,25 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	[Parameter] public IEnumerable<TItem> Data { get; set; }
 
 	/// <summary>
-	/// Selects text to display from item.
+	/// Selects the text to display from the item.
 	/// When not set, <c>ToString()</c> is used.
 	/// </summary>
 	[Parameter] public Func<TItem, string> ItemTextSelector { get; set; }
 
 	/// <summary>
-	/// Selects value from item.
-	/// Not required when TValue is same as TItem.
+	/// Selects the value from the item.
+	/// Not required when TValue is the same as TItem.
 	/// </summary>
 	[Parameter] public Func<TItem, TValue> ItemValueSelector { get; set; }
 
 	/// <summary>
-	/// Selects value for items sorting. When not set, <see cref="ItemTextSelector"/> property will be used.
-	/// If you need complex sorting, pre-sort data manually or create a custom comparable property.
+	/// Selects the value for item sorting. When not set, the <see cref="ItemTextSelector"/> property will be used.
+	/// If you need complex sorting, pre-sort the data manually or create a custom comparable property.
 	/// </summary>
 	[Parameter] public Func<TItem, IComparable> ItemSortKeySelector { get; set; }
 
 	/// <summary>
-	/// Additional CSS class(es) for underlying <see cref="HxCheckbox" />.
+	/// Additional CSS class(es) for the underlying <see cref="HxCheckbox" />.
 	/// </summary>
 	[Parameter] public string ItemCssClass { get; set; }
 
@@ -62,13 +62,13 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	[Parameter] public Func<TItem, string> ItemTextCssClassSelector { get; set; }
 
 	/// <summary>
-	/// When <c>true</c>, items are sorted before displaying in select.
-	/// Default value is <c>true</c>.
+	/// When <c>true</c>, items are sorted before displaying in the select.
+	/// The default value is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool AutoSort { get; set; } = true;
 
 	/// <summary>
-	/// Allows grouping checkboxes on the same horizontal row by rendering them inline. Default is <c>false</c>.
+	/// Allows grouping checkboxes on the same horizontal row by rendering them inline. The default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool Inline { get; set; }
 
@@ -78,30 +78,30 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	[Parameter] public CheckboxListSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
-	protected override CheckboxListSettings GetSettings() => this.Settings;
+	protected override CheckboxListSettings GetSettings() => Settings;
 
-	private List<TItem> itemsToRender;
+	private List<TItem> _itemsToRender;
 
 	private void RefreshState()
 	{
-		itemsToRender = Data?.ToList() ?? new List<TItem>();
+		_itemsToRender = Data?.ToList() ?? new List<TItem>();
 
 		// AutoSort
-		if (AutoSort && (itemsToRender.Count > 1))
+		if (AutoSort && (_itemsToRender.Count > 1))
 		{
 			if (ItemSortKeySelector != null)
 			{
-				itemsToRender = itemsToRender.OrderBy(this.ItemSortKeySelector).ToList();
+				_itemsToRender = _itemsToRender.OrderBy(ItemSortKeySelector).ToList();
 			}
 			else if (ItemTextSelector != null)
 			{
-				itemsToRender = itemsToRender.OrderBy(this.ItemTextSelector).ToList();
+				_itemsToRender = _itemsToRender.OrderBy(ItemTextSelector).ToList();
 			}
 			else
 			{
-				itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
+				_itemsToRender = _itemsToRender.OrderBy(i => i.ToString()).ToList();
 			}
 		}
 	}
@@ -111,11 +111,11 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	{
 		RefreshState();
 
-		if (itemsToRender.Count > 0)
+		if (_itemsToRender.Count > 0)
 		{
 			UglyHack uglyHack = new UglyHack(); // see comment below
 
-			foreach (var item in itemsToRender)
+			foreach (var item in _itemsToRender)
 			{
 				TValue value = SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelector, item);
 
@@ -136,10 +136,10 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 				builder.AddAttribute(50, nameof(HxCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
 
 				builder.AddAttribute(51, nameof(HxCheckbox.ValidationMessageMode), Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.None);
-				builder.AddAttribute(52, nameof(HxCheckbox.Inline), this.Inline);
+				builder.AddAttribute(52, nameof(HxCheckbox.Inline), Inline);
 				builder.AddAttribute(53, nameof(HxCheckbox.GenerateChip), false);
 
-				builder.AddMultipleAttributes(100, this.AdditionalAttributes);
+				builder.AddMultipleAttributes(100, AdditionalAttributes);
 
 				builder.CloseComponent();
 			}
@@ -191,7 +191,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 		}
 
 		// Take itemsToRender because they are sorted.
-		List<TItem> selectedItems = itemsToRender.Where(item => value.Contains(SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelector, item))).ToList();
+		List<TItem> selectedItems = _itemsToRender.Where(item => value.Contains(SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelector, item))).ToList();
 		return String.Join(", ", selectedItems.Select(ItemTextSelector));
 	}
 

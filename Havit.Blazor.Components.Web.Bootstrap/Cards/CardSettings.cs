@@ -6,7 +6,7 @@
 public record CardSettings
 {
 	/// <summary>
-	/// Additional CSS classes for the card-container.
+	/// Additional CSS classes for the card container.
 	/// </summary>
 	public string CssClass { get; set; }
 

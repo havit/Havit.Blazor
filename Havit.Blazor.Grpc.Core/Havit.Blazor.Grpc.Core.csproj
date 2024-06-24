@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+	  <TargetFrameworks>net8.0;net6.0</TargetFrameworks>
 	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -15,9 +15,9 @@
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Havit.Core" Version="2.0.28" />
-		<PackageReference Include="protobuf-net" Version="3.2.26" />
-		<PackageReference Include="protobuf-net.Grpc" Version="1.1.1" />
+		<PackageReference Include="Havit.Core" />
+		<PackageReference Include="protobuf-net" />
+		<PackageReference Include="protobuf-net.Grpc" />
 	</ItemGroup>
 
 </Project>

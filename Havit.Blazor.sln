@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -21,9 +20,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 		CONTRIBUTING.md = CONTRIBUTING.md
 		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 		exclusion.dic = exclusion.dic
 		LICENSE = LICENSE
 		logo.png = logo.png
+		nuget.config = nuget.config
 		NuGet.targets = NuGet.targets
 		README.md = README.md
 	EndProjectSection
@@ -58,9 +59,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.Client.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.TestContracts", "Havit.Blazor.Grpc.TestContracts\Havit.Blazor.Grpc.TestContracts.csproj", "{4A06D529-DD8A-44A0-B07B-90AE89E8B210}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRTLAppTest", "BlazorRTLAppTest\BlazorRTLAppTest.csproj", "{6AC55FDD-7BE4-46FF-9F40-E3ECD04DDE93}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.Core.Tests", "Havit.Blazor.Grpc.Core.Tests\Havit.Blazor.Grpc.Core.Tests.csproj", "{E64B4752-B697-4B5A-91F0-8A8581B1ABE5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap.Smart", "Havit.Blazor.Components.Web.Bootstrap.Smart\Havit.Blazor.Components.Web.Bootstrap.Smart.csproj", "{DC8FA7BF-2687-43BE-A310-CA9D89652AE6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.Client.ServerSideRendering", "Havit.Blazor.Grpc.Client.ServerSideRendering\Havit.Blazor.Grpc.Client.ServerSideRendering.csproj", "{F6A546C8-60C3-47AC-A58B-66E3513DCC7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -140,14 +143,18 @@ Global
 		{4A06D529-DD8A-44A0-B07B-90AE89E8B210}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A06D529-DD8A-44A0-B07B-90AE89E8B210}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A06D529-DD8A-44A0-B07B-90AE89E8B210}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6AC55FDD-7BE4-46FF-9F40-E3ECD04DDE93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6AC55FDD-7BE4-46FF-9F40-E3ECD04DDE93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6AC55FDD-7BE4-46FF-9F40-E3ECD04DDE93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6AC55FDD-7BE4-46FF-9F40-E3ECD04DDE93}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E64B4752-B697-4B5A-91F0-8A8581B1ABE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E64B4752-B697-4B5A-91F0-8A8581B1ABE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E64B4752-B697-4B5A-91F0-8A8581B1ABE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E64B4752-B697-4B5A-91F0-8A8581B1ABE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC8FA7BF-2687-43BE-A310-CA9D89652AE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC8FA7BF-2687-43BE-A310-CA9D89652AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC8FA7BF-2687-43BE-A310-CA9D89652AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC8FA7BF-2687-43BE-A310-CA9D89652AE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6A546C8-60C3-47AC-A58B-66E3513DCC7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6A546C8-60C3-47AC-A58B-66E3513DCC7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6A546C8-60C3-47AC-A58B-66E3513DCC7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6A546C8-60C3-47AC-A58B-66E3513DCC7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -162,8 +169,10 @@ Global
 		{29F792EC-4240-46B2-98CF-00631F9B15FE} = {79C29E4F-EF98-4F43-9782-B0D58A533C4D}
 		{4A06D529-DD8A-44A0-B07B-90AE89E8B210} = {79C29E4F-EF98-4F43-9782-B0D58A533C4D}
 		{E64B4752-B697-4B5A-91F0-8A8581B1ABE5} = {79C29E4F-EF98-4F43-9782-B0D58A533C4D}
+		{F6A546C8-60C3-47AC-A58B-66E3513DCC7A} = {79C29E4F-EF98-4F43-9782-B0D58A533C4D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA2F0FE2-9DA0-4C29-8772-0802E2E67119}
 	EndGlobalSection
 EndGlobal
+bal

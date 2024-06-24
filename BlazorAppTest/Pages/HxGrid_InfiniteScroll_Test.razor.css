@@ -1,0 +1,14 @@
+::deep .table-container {
+	height: 30vh;
+}
+
+::deep .table-fixed {
+	table-layout: fixed;
+}
+
+::deep .table-pivot > table > :not(caption) > * > *:first-child {
+	position: sticky;
+	left: 0;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}

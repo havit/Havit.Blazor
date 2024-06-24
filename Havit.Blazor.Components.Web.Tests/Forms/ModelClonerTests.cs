@@ -38,6 +38,37 @@ public class ModelClonerTests
 	}
 
 	[TestMethod]
+	public void ModelCloner_TryCloneRecordWithList_WithItem()
+	{
+		// Arrange
+		var model = new ModelRecordWithList();
+		model.Tags.Add("tag1");
+
+		// Act
+		var modelClone = ModelCloner.Clone(model);
+
+		// Assert
+		Assert.AreNotSame(model, modelClone);
+		Assert.AreEqual(model, modelClone);
+		Assert.IsTrue(modelClone.Tags.SequenceEqual(model.Tags));
+	}
+
+	[TestMethod]
+	public void ModelCloner_Clone_RecordWithList_Empty()
+	{
+		// Arrange
+		var model = new ModelRecordWithList();
+
+		// Act
+		var modelClone = ModelCloner.Clone(model);
+
+		// Assert
+		Assert.AreNotSame(model, modelClone);
+		Assert.AreEqual(model, modelClone);
+		Assert.IsTrue(modelClone.Tags.SequenceEqual(model.Tags));
+	}
+
+	[TestMethod]
 	public void ModelCloner_CloneMemberwiseClone()
 	{
 		// Arrange
@@ -60,4 +91,28 @@ public class ModelClonerTests
 	{
 		public string Name { get; set; }
 	}
+
+	public record ModelRecordWithList
+	{
+		public List<string> Tags { get; set; } = new();
+
+		// due to Tags property, we need to override Equals
+		public virtual bool Equals(ModelRecordWithList other)
+		{
+			return (other is not null)
+				&& Tags.SequenceEqual(other.Tags);
+		}
+
+		// due to Equals method, we need to override GetHashCode
+		public override int GetHashCode()
+		{
+			var hashCode = new HashCode();
+			foreach (var tag in Tags)
+			{
+				hashCode.Add(tag);
+			}
+			return hashCode.ToHashCode();
+		}
+	}
+
 }

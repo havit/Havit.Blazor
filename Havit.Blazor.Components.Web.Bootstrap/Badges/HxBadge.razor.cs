@@ -24,7 +24,7 @@ public partial class HxBadge
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use separate set of defaults).
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
 	protected virtual BadgeSettings GetDefaults() => Defaults;
 
@@ -34,12 +34,12 @@ public partial class HxBadge
 	[Parameter] public BadgeSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
 	/// <remarks>
-	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected virtual BadgeSettings GetSettings() => this.Settings;
+	protected virtual BadgeSettings GetSettings() => Settings;
 
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
@@ -47,26 +47,26 @@ public partial class HxBadge
 	/// Badge color (background).
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
-	protected ThemeColor ColorEffective => this.Color ?? this.GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " for " + nameof(HxBadge) + " has to be set.");
+	protected ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " for " + nameof(HxBadge) + " has to be set.");
 
 	/// <summary>
 	/// Color of badge text. Use <see cref="Color"/> for the background color.
-	/// Default is <see cref="ThemeColor.None"/> (color automatically selected to work with chosen background color).
+	/// The default is <see cref="ThemeColor.None"/> (color automatically selected to work with the chosen background color).
 	/// </summary>
 	[Parameter] public ThemeColor? TextColor { get; set; }
-	protected ThemeColor TextColorEffective => this.TextColor ?? this.GetSettings()?.TextColor ?? GetDefaults().TextColor ?? throw new InvalidOperationException(nameof(TextColor) + " default for " + nameof(HxBadge) + " has to be set.");
+	protected ThemeColor TextColorEffective => TextColor ?? GetSettings()?.TextColor ?? GetDefaults().TextColor ?? throw new InvalidOperationException(nameof(TextColor) + " default for " + nameof(HxBadge) + " has to be set.");
 
 	/// <summary>
-	/// Badge type - Regular or rounded-pills. Default is <see cref="BadgeType.Regular"/>.
+	/// Badge type - Regular or rounded-pills. The default is <see cref="BadgeType.Regular"/>.
 	/// </summary>
 	[Parameter] public BadgeType? Type { get; set; }
-	protected BadgeType TypeEffective => this.Type ?? this.GetSettings()?.Type ?? GetDefaults().Type ?? throw new InvalidOperationException(nameof(Type) + " default for " + nameof(HxBadge) + " has to be set.");
+	protected BadgeType TypeEffective => Type ?? GetSettings()?.Type ?? GetDefaults().Type ?? throw new InvalidOperationException(nameof(Type) + " default for " + nameof(HxBadge) + " has to be set.");
 
 	/// <summary>
 	/// Any additional CSS class to apply.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
-	protected string CssClassEffective => this.CssClass ?? this.GetSettings()?.CssClass ?? GetDefaults().CssClass;
+	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML element.
@@ -78,6 +78,16 @@ public partial class HxBadge
 		base.OnParametersSet();
 
 		Contract.Requires<InvalidOperationException>(Color != ThemeColor.None, $"Parameter {nameof(Color)} of {nameof(HxBadge)} is required.");
+	}
+
+	private string GetBackgroundColorCss()
+	{
+		// if TextColor is not set, we use the combined -text-bg-{color} class (Bootstrap 5.3.3)
+		if (TextColorEffective == ThemeColor.None)
+		{
+			return ColorEffective.ToTextBackgroundColorCss();
+		}
+		return ColorEffective.ToBackgroundColorCss();
 	}
 
 	protected string GetTypeCss()

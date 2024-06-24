@@ -1,24 +1,24 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Cell template.
+/// Represents a cell template.
 /// </summary>
 public class GridCellTemplate
 {
 	public static GridCellTemplate Empty = new GridCellTemplate();
 
 	/// <summary>
-	/// Template to render cell.
+	/// Gets or sets the template used to render the cell.
 	/// </summary>
 	public RenderFragment Template { get; init; }
 
 	/// <summary>
-	/// Css class of the cell.
+	/// Gets or sets the CSS class of the cell.
 	/// </summary>
 	public string CssClass { get; init; }
 
 	/// <summary>
-	/// Constructor.
+	/// Creates a new instance of the GridCellTemplate class.
 	/// </summary>
 	public static GridCellTemplate Create(RenderFragment template, string cssClass = null)
 	{

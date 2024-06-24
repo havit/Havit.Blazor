@@ -6,7 +6,7 @@
 public static class BindEventExtensions
 {
 	/// <summary>
-	/// Gets the name of event as string.
+	/// Gets the name of the event as a string.
 	/// </summary>
 	public static string ToEventName(this BindEvent value)
 	{

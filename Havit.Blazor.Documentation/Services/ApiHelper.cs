@@ -2,7 +2,7 @@
 
 public static class ApiTypeHelper
 {
-	private static readonly Dictionary<string, Type> delegateTypes = new()
+	private static readonly Dictionary<string, Type> s_delegateTypes = new()
 	{
 		["AutosuggestDataProviderDelegate"] = typeof(AutosuggestDataProviderDelegate<>),
 		["GridDataProviderDelegate"] = typeof(GridDataProviderDelegate<>),
@@ -33,7 +33,7 @@ public static class ApiTypeHelper
 		return typeof(Delegate).IsAssignableFrom(type);
 	}
 
-	public static Type GetType(string typeName)
+	public static Type GetType(string typeName, bool includeTypesContainingTypeName = false)
 	{
 		Type result;
 
@@ -45,7 +45,7 @@ public static class ApiTypeHelper
 		}
 
 		// Handling delegate types, all other types are found by the Type.GetType() method.
-		delegateTypes.TryGetValue(typeName, out result);
+		s_delegateTypes.TryGetValue(typeName, out result);
 		if (result is not null)
 		{
 			return result;
@@ -71,15 +71,18 @@ public static class ApiTypeHelper
 		}
 		catch { }
 
-		try
+		if (includeTypesContainingTypeName)
 		{
-			result = typeof(HxButton).Assembly.GetTypes().FirstOrDefault((t) => t.FullName.Contains(typeName));
-			if (result is not null)
+			try
 			{
-				return result;
+				result = typeof(HxButton).Assembly.GetTypes().FirstOrDefault((t) => t.FullName.Contains(typeName));
+				if (result is not null)
+				{
+					return result;
+				}
 			}
+			catch { }
 		}
-		catch { }
 
 		return null;
 	}

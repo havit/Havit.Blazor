@@ -1,0 +1,35 @@
+﻿@page "/HxContextMenu_Issue789_Test"
+
+<h3>HxContextMenu_Issue789_Test</h3>
+
+<HxAccordion StayOpen="true">
+    @foreach (var word in words)
+    {
+        <HxAccordionItem>
+            <HeaderTemplate>
+                <HxContextMenu>
+                    <HxContextMenuItem Icon="BootstrapIcon.Trash" Text="Remove this word" OnClick="@(() => RemoveWordFromList(word))" OnClickStopPropagation="true" />
+                </HxContextMenu>
+                @word.Name
+            </HeaderTemplate>
+            <BodyTemplate>
+                <HxInputText Label="Word" @bind-Value="@word.Name" />
+            </BodyTemplate>
+        </HxAccordionItem>
+    }
+</HxAccordion>
+
+@code
+{
+	public class WordDto
+	{
+		public string Name { get; set; } = string.Empty;
+	}
+
+	private List<WordDto> words = new() { new WordDto { Name = "test" } };
+
+	private void RemoveWordFromList(WordDto word)
+	{
+		words.Remove(word);
+	}
+}

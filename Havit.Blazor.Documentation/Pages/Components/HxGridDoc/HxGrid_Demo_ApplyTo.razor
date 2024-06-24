@@ -1,17 +1,25 @@
-﻿<HxGrid TItem="CultureInfo" Responsive="true" DataProvider="GetGridData" PageSize="10">
+﻿@inject IDemoDataService DemoDataService
+
+<HxGrid TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
 	<Columns>
-		<HxGridColumn HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
-		<HxGridColumn HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
-		<HxGridColumn HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
-		<HxGridColumn HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)"  />
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" SortKeySelector=" employee => employee.Name" IsDefaultSortColumn="true" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" SortKeySelector=" employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" SortKeySelector="employee => employee.Salary" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" SortKeySelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" SortKeySelector="employee => employee.Location" />
 	</Columns>
 </HxGrid>
 
 @code {
-	private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
+	private IEnumerable<EmployeeDto> employees;
 
-	private Task<GridDataProviderResult<CultureInfo>> GetGridData(GridDataProviderRequest<CultureInfo> request)
+	protected override void OnInitialized()
 	{
-		return Task.FromResult(request.ApplyTo(localCultureInfos));
+		employees = DemoDataService.GetAllEmployees();
+	}
+
+	private Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		return Task.FromResult(request.ApplyTo(employees));
 	}
 }

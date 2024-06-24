@@ -1,0 +1,24 @@
+.smartcombobox-suggestions {
+    background-color: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    gap: .25rem;
+    padding: .25rem;
+    border-radius: var(--bs-border-radius);
+}
+
+.smartcombobox:focus + .smartcombobox-suggestions {
+    display: grid;
+}
+
+.smartcombobox-suggestion {
+    border-radius: var(--bs-border-radius);
+
+    &:hover {
+        background-color: var(--bs-tertiary-bg);
+    }
+
+    &.selected {
+        background-color: var(--bs-primary);
+        color: var(--bs-white);
+    }
+}

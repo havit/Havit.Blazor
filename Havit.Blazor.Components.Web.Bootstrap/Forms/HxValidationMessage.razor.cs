@@ -11,14 +11,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// </summary>
 public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 {
-	private EditContext previousEditContext;
-	private Expression<Func<TValue>> previousFor;
-	private string previousForFieldName;
-	private string[] previousForFieldNames;
-	private readonly EventHandler<ValidationStateChangedEventArgs> validationStateChangedHandler;
-	private FieldIdentifier[] fieldIdentifiers;
-	private EditContext currentEditContext;
-
 	/// <summary>
 	/// Cascading EditContext.
 	/// </summary>
@@ -52,12 +44,20 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 	/// </summary>
 	[Parameter] public ValidationMessageMode Mode { get; set; } = ValidationMessageMode.Regular;
 
+	private EditContext _previousEditContext;
+	private Expression<Func<TValue>> _previousFor;
+	private string _previousForFieldName;
+	private string[] _previousForFieldNames;
+	private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
+	private FieldIdentifier[] _fieldIdentifiers;
+	private EditContext _currentEditContext;
+
 	/// <summary>
 	/// Constructs an instance of <see cref="HxValidationMessage{TValue}"/>.
 	/// </summary>
 	public HxValidationMessage()
 	{
-		validationStateChangedHandler = (sender, eventArgs) => StateHasChanged();
+		_validationStateChangedHandler = (sender, eventArgs) => StateHasChanged();
 	}
 
 	/// <inheritdoc />
@@ -65,8 +65,8 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 	{
 		base.OnParametersSet();
 
-		currentEditContext = CascadingEditContext ?? EditContext;
-		if (currentEditContext == null)
+		_currentEditContext = CascadingEditContext ?? EditContext;
+		if (_currentEditContext == null)
 		{
 			throw new InvalidOperationException($"{GetType()} requires a cascading parameter of type {nameof(Microsoft.AspNetCore.Components.Forms.EditContext)} or {nameof(EditContext)} property set. Use {GetType()} inside an {nameof(EditForm)}.");
 		}
@@ -81,29 +81,29 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 			throw new InvalidOperationException($"{GetType()} requires a value for the {nameof(For)} or {nameof(ForFieldName)} parameter, but not both parameters.");
 		}
 
-		if ((For != null) && (For != previousFor))
+		if ((For != null) && (For != _previousFor))
 		{
-			fieldIdentifiers = new[] { FieldIdentifier.Create(For) };
-			previousFor = For;
+			_fieldIdentifiers = new[] { FieldIdentifier.Create(For) };
+			_previousFor = For;
 		}
 
-		if (!String.IsNullOrEmpty(ForFieldName) && (ForFieldName != previousForFieldName))
+		if (!String.IsNullOrEmpty(ForFieldName) && (ForFieldName != _previousForFieldName))
 		{
-			fieldIdentifiers = new[] { new FieldIdentifier(currentEditContext.Model, ForFieldName) };
-			previousForFieldName = ForFieldName;
+			_fieldIdentifiers = new[] { new FieldIdentifier(_currentEditContext.Model, ForFieldName) };
+			_previousForFieldName = ForFieldName;
 		}
 
-		if ((ForFieldNames != null) && (ForFieldNames != previousForFieldNames))
+		if ((ForFieldNames != null) && (ForFieldNames != _previousForFieldNames))
 		{
-			fieldIdentifiers = ForFieldNames.Select(forFieldName => new FieldIdentifier(currentEditContext.Model, forFieldName)).ToArray();
-			previousForFieldNames = ForFieldNames;
+			_fieldIdentifiers = ForFieldNames.Select(forFieldName => new FieldIdentifier(_currentEditContext.Model, forFieldName)).ToArray();
+			_previousForFieldNames = ForFieldNames;
 		}
 
-		if (currentEditContext != previousEditContext)
+		if (_currentEditContext != _previousEditContext)
 		{
 			DetachValidationStateChangedListener();
-			currentEditContext.OnValidationStateChanged += validationStateChangedHandler;
-			previousEditContext = currentEditContext;
+			_currentEditContext.OnValidationStateChanged += _validationStateChangedHandler;
+			_previousEditContext = _currentEditContext;
 		}
 	}
 
@@ -123,9 +123,9 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 
 	private void DetachValidationStateChangedListener()
 	{
-		if (previousEditContext != null)
+		if (_previousEditContext != null)
 		{
-			previousEditContext.OnValidationStateChanged -= validationStateChangedHandler;
+			_previousEditContext.OnValidationStateChanged -= _validationStateChangedHandler;
 		}
 	}
 }

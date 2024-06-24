@@ -6,17 +6,17 @@
 public enum OffcanvasBackdrop
 {
 	/// <summary>
-	/// A backdrop will be rendered. Offcanvas will be closed upon clicking on the backdrop.
+	/// A backdrop will be rendered. The offcanvas will be closed upon clicking on the backdrop.
 	/// </summary>
 	True = 0,
 
 	/// <summary>
-	/// No backdrop will be rendered. User can interact with other parts of the app while the offcanvas is open.
+	/// No backdrop will be rendered. Users can interact with other parts of the app while the offcanvas is open.
 	/// </summary>
 	False = 1,
 
 	/// <summary>
-	/// A static backdrop will be rendered. Offcanvas will not be closed upon clicking on the backdrop.
+	/// A static backdrop will be rendered. The offcanvas will not be closed upon clicking on the backdrop.
 	/// </summary>
 	Static = 2
 }

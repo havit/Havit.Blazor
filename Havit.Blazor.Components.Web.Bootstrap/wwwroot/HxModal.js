@@ -1,11 +1,12 @@
 ﻿export function show(element, hxModalDotnetObjectReference, closeOnEscape, subscribeToHideEvent) {
-	if (!element) {
+	if (!element || bootstrap.Modal.getInstance(element)) {
 		return;
 	}
 
 	element.hxModalDotnetObjectReference = hxModalDotnetObjectReference;
-	if (subscribeToHideEvent)
+	if (subscribeToHideEvent) {
 		element.addEventListener('hide.bs.modal', handleModalHide);
+	}
 	element.addEventListener('hidden.bs.modal', handleModalHidden);
 	element.addEventListener('shown.bs.modal', handleModalShown);
 
@@ -18,7 +19,11 @@
 }
 
 export function hide(element) {
-	var modal = bootstrap.Modal.getInstance(element);
+	if (!element) {
+		return;
+	}
+	element.hxModalHiding = true;
+	let modal = bootstrap.Modal.getInstance(element);
 	if (modal) {
 		modal.hide();
 	}
@@ -31,29 +36,31 @@ function handleModalShown(event) {
 async function handleModalHide(event) {
     let modalInstance = bootstrap.Modal.getInstance(event.target);
 
-	if (modalInstance.hidePreventionDisabled)
-        return;
+	if (modalInstance.hidePreventionDisabled || event.target.hxModalDisposing) {
+		modalInstance.hidePreventionDisabled = false;
+		return;
+	}
 
     event.preventDefault();
 
     let cancel = await event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHide');
     if (!cancel) {
 		modalInstance.hidePreventionDisabled = true;
-		modalInstance.hide();
 		event.target.hxModalHiding = true;
+		modalInstance.hide();
     }
 };
 
 function handleModalHidden(event) {
 	event.target.hxModalHiding = false;
 
-	event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHidden');
-
 	if (event.target.hxModalDisposing) {
 		// fix for #110 where the dispose() gets called while the offcanvas is still in hiding-transition
 		dispose(event.target);
 		return;
 	}
+
+	event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHidden');
 };
 
 export function dispose(element) {

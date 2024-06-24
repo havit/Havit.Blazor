@@ -1,17 +1,17 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 /// <summary>
-/// Input with label type.
+/// Represents an input with a label type.
 /// </summary>
 public interface IInputWithLabelType
 {
 	/// <summary>
-	/// Label type.
+	/// Gets or sets the label type.
 	/// </summary>
 	LabelType? LabelType { get; }
 
 	/// <summary>
-	/// Effective label type.
+	/// Gets the effective label type.
 	/// </summary>
-	LabelType LabelTypeEffective => this.LabelType ?? Bootstrap.LabelType.Regular;
+	LabelType LabelTypeEffective => LabelType ?? Bootstrap.LabelType.Regular;
 }

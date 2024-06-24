@@ -1,0 +1,9 @@
+.table:has(.sticky-top) {
+  tr.blurred {
+    background-color: var(--bs-body-bg-rgb, .5);
+    backdrop-filter: saturate(120%) blur(50px);
+      th {
+        background-color: transparent;
+      }
+  }
+}

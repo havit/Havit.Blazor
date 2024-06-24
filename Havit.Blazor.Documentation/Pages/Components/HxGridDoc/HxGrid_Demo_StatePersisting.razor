@@ -1,66 +1,49 @@
-﻿<HxGrid TItem="CultureInfo" Responsive="true" DataProvider="GetGridData" @bind-CurrentUserState="GridUserState" PageSize="10">
+﻿@inject IDemoDataService DemoDataService
+
+<HxGrid TItem="EmployeeDto"
+		DataProvider="GetGridData"
+		@bind-CurrentUserState="gridUserState"
+		@bind-CurrentUserState:after="StoreGridUserState"
+		PageSize="5"
+		Responsive="true">
 	<Columns>
-		<HxGridColumn Id="Lcid" HeaderText="LCID" ItemTextSelector="@(item => item.LCID.ToString())" SortKeySelector="@(item => item.LCID)" IsDefaultSortColumn="true" />
-		<HxGridColumn Id="DisplayName" HeaderText="DisplayName" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" />
-		<HxGridColumn Id="Name" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)"  />
-		<HxGridColumn Id="EnglishName" HeaderText="EnglishName" ItemTextSelector="@(item => item.EnglishName)" SortKeySelector="@(item => item.EnglishName)"  />
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
 	</Columns>
 </HxGrid>
 
-<HxInputTextArea Label="Grid user state (editable)" @bind-Value="GridUserStateSerialized" />
-
-@if (!gridUserStateSerializedValid)
-{
-    <HxAlert Color="ThemeColor.Warning" CssClass="mt-2">The value you provided is not valid.</HxAlert>
-}
+<HxInputTextArea Label="Grid user state JSON serialization (editable)" @bind-Value="serializedGridUserState" @bind-Value:after="LoadSerializedUserState" />
 
 @code {
-    private List<CultureInfo> localCultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
+	private GridUserState gridUserState = new();
+	private string serializedGridUserState; // replace this field with your own storage (e.g. local storage or database)
 
-    private Task<GridDataProviderResult<CultureInfo>> GetGridData(GridDataProviderRequest<CultureInfo> request)
-    {
-        return Task.FromResult(request.ApplyTo(localCultureInfos));
-    }
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken),
+				TotalCount = await DemoDataService.GetEmployeesCountAsync(request.CancellationToken)
+			};
+	}
 
-    // We use properties in this demo to synchronize gridUserState and gridUserStateSerialized values by the properties setters.
+	private void StoreGridUserState()
+	{
+		serializedGridUserState = JsonSerializer.Serialize(gridUserState);
+	}
 
-    private GridUserState GridUserState
-    {
-        get
-        {
-            return gridUserState;
-        }
-        set
-        {
-            gridUserState = value;
-            gridUserStateSerialized = JsonSerializer.Serialize(value); // serialize (save) the grid state
-            gridUserStateSerializedValid = true;
-        }
-    }
-    private GridUserState gridUserState = new GridUserState();
-
-    private string GridUserStateSerialized
-    {
-        get 
-        {
-            return gridUserStateSerialized;
-        }
-        set
-        {
-            try
-            {
-                gridUserState = JsonSerializer.Deserialize<GridUserState>(value); // deserialize (load) the grid state
-                gridUserStateSerialized = value;
-                gridUserStateSerializedValid = true;
-            }
-            catch (JsonException)
-            {
-                gridUserStateSerializedValid = false;
-            }
-
+	private void LoadSerializedUserState()
+	{
+		try
+		{
+			gridUserState = JsonSerializer.Deserialize<GridUserState>(serializedGridUserState);
+		}
+		catch (JsonException)
+		{
+			// invalid state serialization
 		}
 	}
-    private string gridUserStateSerialized;
-    private bool gridUserStateSerializedValid = true;
-
 }

@@ -16,7 +16,7 @@ public class Dto<TValue>
 
 	public Dto(TValue value)
 	{
-		this.Value = value;
+		Value = value;
 	}
 }
 

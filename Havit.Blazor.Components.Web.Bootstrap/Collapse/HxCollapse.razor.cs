@@ -21,7 +21,7 @@ public partial class HxCollapse : IAsyncDisposable
 	[Parameter] public CollapseDirection CollapseDirection { get; set; }
 
 	/// <summary>
-	/// If parent is provided, then all collapsible elements under the specified parent will be closed when this collapsible item is shown.
+	/// If a parent is provided, then all collapsible elements under the specified parent will be closed when this collapsible item is shown.
 	/// (Similar to traditional accordion behavior.)
 	/// </summary>
 	[Parameter] public string Parent { get; set; }
@@ -42,7 +42,7 @@ public partial class HxCollapse : IAsyncDisposable
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	/// <summary>
-	/// This event is fired when a collapse element has been made visible to the user (will wait for CSS transitions to complete).
+	/// This event is fired when a collapse element has become visible to the user (will wait for CSS transitions to complete).
 	/// </summary>
 	[Parameter] public EventCallback<string> OnShown { get; set; }
 	/// <summary>
@@ -67,32 +67,34 @@ public partial class HxCollapse : IAsyncDisposable
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	private ElementReference collapseHtmlElement;
-	private DotNetObjectReference<HxCollapse> dotnetObjectReference;
-	private IJSObjectReference jsModule;
-	private string defaultId = "hx" + Guid.NewGuid().ToString("N");
-	private bool disposed;
-	private bool isShown;
-	private bool showInProgress;
-	private bool hideInProgress;
-	private bool initialized;
+	private ElementReference _collapseHtmlElement;
+	private DotNetObjectReference<HxCollapse> _dotnetObjectReference;
+	private IJSObjectReference _jsModule;
+	private string _defaultId = "hx" + Guid.NewGuid().ToString("N");
+	private bool _disposed;
+	private bool _isShown;
+	private bool _showInProgress;
+	private bool _hideInProgress;
+	private bool _initialized;
 
 	/// <summary>
-	/// Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefor we will remember the request for Show and initialize the collapse with toggle=true.
+	/// Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefore, we will remember the request for Show and initialize the collapse with toggle=true.
 	/// </summary>
-	private bool shouldToggle;
+	private bool _shouldToggle;
 
 	public HxCollapse()
 	{
-		dotnetObjectReference = DotNetObjectReference.Create(this);
+		_dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
-	public override async Task SetParametersAsync(ParameterView parameters)
+	public override Task SetParametersAsync(ParameterView parameters)
 	{
-		await base.SetParametersAsync(parameters);
+		parameters.SetParameterProperties(this);
 
-		// to be able to use another default value in ancestors (HxNavbarCollapse)
-		this.Id = parameters.GetValueOrDefault(nameof(Id), defaultId);
+		// To be able to use another default value in ancestors (HxNavbarCollapse)
+		Id = parameters.GetValueOrDefault(nameof(Id), Id ?? _defaultId);
+
+		return base.SetParametersAsync(ParameterView.Empty);
 	}
 
 	/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
@@ -104,12 +106,12 @@ public partial class HxCollapse : IAsyncDisposable
 		if (firstRender)
 		{
 			await EnsureJsModuleAsync();
-			if (disposed)
+			if (_disposed)
 			{
 				return;
 			}
-			await jsModule.InvokeVoidAsync("initialize", collapseHtmlElement, dotnetObjectReference, shouldToggle);
-			initialized = true;
+			await _jsModule.InvokeVoidAsync("initialize", _collapseHtmlElement, _dotnetObjectReference, _shouldToggle);
+			_initialized = true;
 		}
 	}
 
@@ -117,7 +119,7 @@ public partial class HxCollapse : IAsyncDisposable
 	{
 		if (InitiallyExpanded)
 		{
-			isShown = true;
+			_isShown = true;
 		}
 	}
 
@@ -126,15 +128,15 @@ public partial class HxCollapse : IAsyncDisposable
 	/// </summary>
 	public async Task ShowAsync()
 	{
-		if (initialized)
+		if (_initialized)
 		{
 			await EnsureJsModuleAsync();
-			showInProgress = true;
-			await jsModule.InvokeVoidAsync("show", collapseHtmlElement);
+			_showInProgress = true;
+			await _jsModule.InvokeVoidAsync("show", _collapseHtmlElement);
 		}
 		else
 		{
-			shouldToggle = true;
+			_shouldToggle = true;
 		}
 	}
 
@@ -144,8 +146,8 @@ public partial class HxCollapse : IAsyncDisposable
 	public async Task HideAsync()
 	{
 		await EnsureJsModuleAsync();
-		hideInProgress = true;
-		await jsModule.InvokeVoidAsync("hide", collapseHtmlElement);
+		_hideInProgress = true;
+		await _jsModule.InvokeVoidAsync("hide", _collapseHtmlElement);
 	}
 
 	/// <summary>
@@ -154,7 +156,7 @@ public partial class HxCollapse : IAsyncDisposable
 	[JSInvokable("HxCollapse_HandleJsShow")]
 	public void HandleJsShow()
 	{
-		showInProgress = true;
+		_showInProgress = true;
 	}
 
 	/// <summary>
@@ -167,10 +169,10 @@ public partial class HxCollapse : IAsyncDisposable
 	[JSInvokable("HxCollapse_HandleJsShown")]
 	public async Task HandleJsShown()
 	{
-		isShown = true;
-		bool wasInProgress = showInProgress;
-		showInProgress = false;
-		await InvokeOnShownAsync(this.Id);
+		_isShown = true;
+		bool wasInProgress = _showInProgress;
+		_showInProgress = false;
+		await InvokeOnShownAsync(Id);
 
 		if (wasInProgress)
 		{
@@ -186,7 +188,7 @@ public partial class HxCollapse : IAsyncDisposable
 	[JSInvokable("HxCollapse_HandleJsHide")]
 	public void HandleJsHide()
 	{
-		hideInProgress = true;
+		_hideInProgress = true;
 	}
 
 	/// <summary>
@@ -195,10 +197,10 @@ public partial class HxCollapse : IAsyncDisposable
 	[JSInvokable("HxCollapse_HandleJsHidden")]
 	public async Task HandleJsHidden()
 	{
-		isShown = false;
-		bool wasInProgress = hideInProgress;
-		hideInProgress = false;
-		await InvokeOnHiddenAsync(this.Id);
+		_isShown = false;
+		bool wasInProgress = _hideInProgress;
+		_hideInProgress = false;
+		await InvokeOnHiddenAsync(Id);
 
 		if (wasInProgress)
 		{
@@ -210,21 +212,21 @@ public partial class HxCollapse : IAsyncDisposable
 
 	private async Task EnsureJsModuleAsync()
 	{
-		jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxCollapse));
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxCollapse));
 	}
 
 	protected virtual string GetCssClass()
 	{
 		return CssClassHelper.Combine(
 			"collapse",
-			this.CollapseDirection == CollapseDirection.Horizontal ? "collapse-horizontal" : null,
-			isShown ? "show" : null,
-			this.CssClass);
+			CollapseDirection == CollapseDirection.Horizontal ? "collapse-horizontal" : null,
+			_isShown ? "show" : null,
+			CssClass);
 	}
 
 	protected override bool ShouldRender()
 	{
-		if (showInProgress || hideInProgress)
+		if (_showInProgress || _hideInProgress)
 		{
 			// do not re-render if the transition (animation) is in progress
 			return false;
@@ -243,21 +245,25 @@ public partial class HxCollapse : IAsyncDisposable
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		disposed = true;
+		_disposed = true;
 
-		if (jsModule != null)
+		if (_jsModule != null)
 		{
 			try
 			{
-				await jsModule.InvokeVoidAsync("dispose", collapseHtmlElement);
-				await jsModule.DisposeAsync();
+				await _jsModule.InvokeVoidAsync("dispose", _collapseHtmlElement);
+				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
 			{
 				// NOOP
 			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
 		}
 
-		dotnetObjectReference?.Dispose();
+		_dotnetObjectReference?.Dispose();
 	}
 }

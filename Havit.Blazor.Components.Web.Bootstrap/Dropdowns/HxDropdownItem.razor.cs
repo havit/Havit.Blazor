@@ -8,15 +8,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public partial class HxDropdownItem : ICascadeEnabledComponent
 {
 	[CascadingParameter] protected FormState FormState { get; set; }
-	FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+	FormState ICascadeEnabledComponent.FormState { get => FormState; set => FormState = value; }
 
 	/// <summary>
-	/// Additional CSS class for underlying <c>li&gt;span</c> element.
+	/// Additional CSS class for the underlying <c>li&gt;span</c> element.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// Additional CSS class for underlying <c>li</c> container (wrapping the main <c>span</c> inside).
+	/// Additional CSS class for the underlying <c>li</c> container (wrapping the main <c>span</c> inside).
 	/// </summary>
 	[Parameter] public string ContainerCssClass { get; set; }
 
@@ -45,7 +45,7 @@ public partial class HxDropdownItem : ICascadeEnabledComponent
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	/// <summary>
-	/// Additional attributes to be splatted onto an underlying <c>li&gt;span</c> element.
+	/// Additional attributes to be splatted onto the underlying <c>li&gt;span</c> element.
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 }

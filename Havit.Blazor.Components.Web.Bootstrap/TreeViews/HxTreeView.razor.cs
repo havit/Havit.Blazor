@@ -1,14 +1,14 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Component to display hierarchy data structure.<br />
+/// Component to display a hierarchy data structure.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTreeView">https://havit.blazor.eu/components/HxTreeView</see>
 /// </summary>
 /// <typeparam name="TItem">Type of tree data item.</typeparam>
 public partial class HxTreeView<TItem> : ComponentBase
 {
 	/// <summary>
-	/// Collection of hierarchy data to display.
+	/// Collection of hierarchical data to display.
 	/// </summary>
 	[Parameter, EditorRequired] public IEnumerable<TItem> Items { get; set; }
 
@@ -18,16 +18,16 @@ public partial class HxTreeView<TItem> : ComponentBase
 	[Parameter] public TItem SelectedItem { get; set; }
 
 	/// <summary>
-	/// Event fires when selected data item changes.
+	/// Event fired when the selected data item changes.
 	/// </summary>		
 	[Parameter] public EventCallback<TItem> SelectedItemChanged { get; set; }
 	/// <summary>
-	/// Event fires when expanding an item.
+	/// Event fired when an item is expanded.
 	/// </summary>		
 	[Parameter] public EventCallback<TItem> OnItemExpanded { get; set; }
 
 	/// <summary>
-	/// Event fires when collapsing an item.
+	/// Event fired when an item is collapsed.
 	/// </summary>		
 	[Parameter] public EventCallback<TItem> OnItemCollapsed { get; set; }
 
@@ -37,18 +37,18 @@ public partial class HxTreeView<TItem> : ComponentBase
 	protected virtual Task InvokeSelectedDataItemChangedAsync(TItem selectedDataItem) => SelectedItemChanged.InvokeAsync(selectedDataItem);
 
 	/// <summary>
-	/// Selector to display item title from data item.
+	/// Selector to display the item title from the data item.
 	/// </summary>
 	[Parameter] public Func<TItem, string> ItemTitleSelector { get; set; }
 
 	/// <summary>
-	/// Selector to display icon from data item.
+	/// Selector to display the icon from the data item.
 	/// </summary>
 	[Parameter] public Func<TItem, IconBase> ItemIconSelector { get; set; }
 
 	/// <summary>
-	/// Selector for initial expansion state for data item.<br/>
-	/// Default state is <c>false</c> (collapsed).
+	/// Selector for the initial expansion state of the data item.<br/>
+	/// The default state is <c>false</c> (collapsed).
 	/// </summary>
 	[Parameter] public Func<TItem, bool> ItemInitialExpandedSelector { get; set; }
 
@@ -58,12 +58,12 @@ public partial class HxTreeView<TItem> : ComponentBase
 	[Parameter] public string ItemCssClass { get; set; }
 
 	/// <summary>
-	/// Selector for item CSS class.
+	/// Selector for the item CSS class.
 	/// </summary>
 	[Parameter] public Func<TItem, string> ItemCssClassSelector { get; set; }
 
 	/// <summary>
-	/// Selector to display children collection for current data item. Children collection should have same type as current item.
+	/// Selector to display the children collection for the current data item. The children collection should have the same type as the current item.
 	/// </summary>
 	[Parameter] public Func<TItem, IEnumerable<TItem>> ItemChildrenSelector { get; set; }
 
@@ -79,7 +79,7 @@ public partial class HxTreeView<TItem> : ComponentBase
 
 	private async Task HandleItemSelected(TItem newSelectedItem)
 	{
-		this.SelectedItem = newSelectedItem;
-		await InvokeSelectedDataItemChangedAsync(this.SelectedItem);
+		SelectedItem = newSelectedItem;
+		await InvokeSelectedDataItemChangedAsync(SelectedItem);
 	}
 }

@@ -15,8 +15,8 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	[Parameter] public bool Inline { get; set; }
 
 	/// <summary>
-	/// Selects value from item.
-	/// Not required when <c>TValueType</c> is same as <c>TItemTime</c>.
+	/// Selects a value from an item.
+	/// Not required when <c>TValueType</c> is the same as <c>TItemTime</c>.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
 	protected Func<TItem, TValue> ItemValueSelectorImpl { get; set; }
@@ -28,21 +28,21 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	protected IEnumerable<TItem> DataImpl { get; set; }
 
 	/// <summary>
-	/// Gets text to display from item. Used also for chip text.
-	/// When not set ToString() is used.
+	/// Gets the text to display from an item. Used also for chip text.
+	/// When not set, ToString() is used.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
 	protected Func<TItem, string> ItemTextSelectorImpl { get; set; }
 
 	/// <summary>
-	/// Gets html to display from item.
-	/// When not set <see cref="ItemTextSelectorImpl"/> is used.
+	/// Gets the HTML to display from an item.
+	/// When not set, <see cref="ItemTextSelectorImpl"/> is used.
 	/// </summary>
 	protected RenderFragment<TItem> ItemTemplateImpl { get; set; }
 
 	/// <summary>
-	/// Selects value to sort items. Uses <see cref="ItemTextSelectorImpl"/> property when not set.
-	/// When complex sorting required, sort data manually and don't let sort them by this component. Alternatively create a custom comparable property.
+	/// Selects a value to sort items. Uses the <see cref="ItemTextSelectorImpl"/> property when not set.
+	/// When complex sorting is required, sort the data manually and don't let this component sort them. Alternatively, create a custom comparable property.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
 	protected Func<TItem, IComparable> ItemSortKeySelectorImpl { get; set; }
@@ -78,8 +78,8 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	protected Func<TItem, string> ItemTextCssClassSelectorImpl { get; set; }
 
 	/// <summary>
-	/// When <c>true</c>, items are sorted before displaying in select.
-	/// Default value is <c>true</c>.
+	/// When <c>true</c>, items are sorted before displaying in the select.
+	/// The default value is <c>true</c>.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
 	/// </summary>
 	protected bool AutoSortImpl { get; set; } = true;
@@ -90,19 +90,19 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	[Parameter] public RadioButtonListSettings Settings { get; set; }
 
 	/// <summary>
-	/// Returns optional set of component settings.
+	/// Returns an optional set of component settings.
 	/// </summary>
-	protected override RadioButtonListSettings GetSettings() => this.Settings;
+	protected override RadioButtonListSettings GetSettings() => Settings;
 
 	/// <inheritdoc cref="HxInputBase{TValue}.EnabledEffective" />
-	protected override bool EnabledEffective => base.EnabledEffective && (itemsToRender != null);
+	protected override bool EnabledEffective => base.EnabledEffective && (_itemsToRender != null);
 
 	private protected override string CoreInputCssClass => throw new NotSupportedException();
 
-	private IEqualityComparer<TValue> comparer = EqualityComparer<TValue>.Default;
-	private List<TItem> itemsToRender;
-	private int selectedItemIndex;
-	private string chipValue;
+	private IEqualityComparer<TValue> _comparer = EqualityComparer<TValue>.Default;
+	private List<TItem> _itemsToRender;
+	private int _selectedItemIndex;
+	private string _chipValue;
 
 	protected string GroupName { get; private set; }
 
@@ -114,13 +114,13 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
-		chipValue = null;
+		_chipValue = null;
 
 		RefreshState();
 
-		if (itemsToRender != null)
+		if (_itemsToRender != null)
 		{
-			for (int i = 0; i < itemsToRender.Count; i++)
+			for (int i = 0; i < _itemsToRender.Count; i++)
 			{
 				builder.OpenRegion(0);
 				BuildRenderInput_RenderRadioItem(builder, i);
@@ -131,13 +131,13 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 	protected void BuildRenderInput_RenderRadioItem(RenderTreeBuilder builder, int index)
 	{
-		var item = itemsToRender[index];
+		var item = _itemsToRender[index];
 		if (item != null)
 		{
-			bool selected = (index == selectedItemIndex);
+			bool selected = (index == _selectedItemIndex);
 			if (selected)
 			{
-				chipValue = SelectorHelpers.GetText(ItemTextSelectorImpl, item);
+				_chipValue = SelectorHelpers.GetText(ItemTextSelectorImpl, item);
 			}
 
 			string inputId = GroupName + "_" + index.ToString();
@@ -145,7 +145,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.OpenElement(100, "div");
 
 			// TODO CoreCssClass
-			builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", this.Inline ? "form-check-inline" : null, ItemCssClassImpl, ItemCssClassSelectorImpl?.Invoke(item)));
+			builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", Inline ? "form-check-inline" : null, ItemCssClassImpl, ItemCssClassSelectorImpl?.Invoke(item)));
 
 			builder.OpenElement(200, "input");
 			builder.AddAttribute(201, "class", CssClassHelper.Combine("form-check-input", ItemInputCssClassImpl, ItemInputCssClassSelectorImpl?.Invoke(item)));
@@ -157,8 +157,11 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.AddAttribute(207, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
 			int j = index;
 			builder.AddAttribute(208, "onclick", EventCallback.Factory.Create(this, () => HandleInputClick(j)));
+#if NET8_0_OR_GREATER
+			builder.SetUpdatesAttributeName("checked");
+#endif
 			builder.AddEventStopPropagationAttribute(209, "onclick", true);
-			builder.AddMultipleAttributes(250, this.AdditionalAttributes);
+			builder.AddMultipleAttributes(250, AdditionalAttributes);
 			builder.CloseElement(); // input
 
 			builder.OpenElement(300, "label");
@@ -180,44 +183,44 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 	private void HandleInputClick(int index)
 	{
-		CurrentValue = SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelectorImpl, itemsToRender[index]);
+		CurrentValue = SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelectorImpl, _itemsToRender[index]);
 	}
 
 	private void RefreshState()
 	{
 		if (DataImpl != null)
 		{
-			itemsToRender = DataImpl.ToList();
+			_itemsToRender = DataImpl.ToList();
 
 			// AutoSort
-			if (AutoSortImpl && (itemsToRender.Count > 1))
+			if (AutoSortImpl && (_itemsToRender.Count > 1))
 			{
 				if (ItemSortKeySelectorImpl != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.ItemSortKeySelectorImpl).ToList();
+					_itemsToRender = _itemsToRender.OrderBy(ItemSortKeySelectorImpl).ToList();
 				}
 				else if (ItemTextSelectorImpl != null)
 				{
-					itemsToRender = itemsToRender.OrderBy(this.ItemTextSelectorImpl).ToList();
+					_itemsToRender = _itemsToRender.OrderBy(ItemTextSelectorImpl).ToList();
 				}
 				else
 				{
-					itemsToRender = itemsToRender.OrderBy(i => i.ToString()).ToList();
+					_itemsToRender = _itemsToRender.OrderBy(i => i.ToString()).ToList();
 				}
 			}
 
 			// set next properties for rendering
-			selectedItemIndex = itemsToRender.FindIndex(item => comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelectorImpl, item)));
+			_selectedItemIndex = _itemsToRender.FindIndex(item => _comparer.Equals(Value, SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelectorImpl, item)));
 
-			if ((Value != null) && (selectedItemIndex == -1))
+			if ((Value != null) && (_selectedItemIndex == -1))
 			{
 				throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
 			}
 		}
 		else
 		{
-			itemsToRender = null;
-			selectedItemIndex = -1;
+			_itemsToRender = null;
+			_selectedItemIndex = -1;
 		}
 	}
 
@@ -229,7 +232,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 	protected override void RenderChipGenerator(RenderTreeBuilder builder)
 	{
-		if (!String.IsNullOrEmpty(chipValue))
+		if (!String.IsNullOrEmpty(_chipValue))
 		{
 			base.RenderChipGenerator(builder);
 		}
@@ -237,7 +240,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 	protected override void RenderChipValue(RenderTreeBuilder builder)
 	{
-		builder.AddContent(0, chipValue);
+		builder.AddContent(0, _chipValue);
 	}
 
 }

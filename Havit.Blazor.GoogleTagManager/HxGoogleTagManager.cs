@@ -12,56 +12,56 @@ namespace Havit.Blazor.GoogleTagManager;
 /// <inheritdoc/>
 public class HxGoogleTagManager : IHxGoogleTagManager, IAsyncDisposable
 {
-	private readonly HxGoogleTagManagerOptions gtmOptions;
-	private readonly NavigationManager navigationManager;
-	private readonly IJSRuntime jsRuntime;
+	private readonly HxGoogleTagManagerOptions _gtmOptions;
+	private readonly NavigationManager _navigationManager;
+	private readonly IJSRuntime _jsRuntime;
 
-	private bool isInitialized;
-	private IJSObjectReference jsModule;
+	private bool _isInitialized;
+	private IJSObjectReference _jsModule;
 
 	public HxGoogleTagManager(
 		IOptions<HxGoogleTagManagerOptions> gtmOptions,
 		NavigationManager navigationManager,
 		IJSRuntime jsRuntime)
 	{
-		this.gtmOptions = gtmOptions.Value;
-		this.navigationManager = navigationManager;
-		this.jsRuntime = jsRuntime;
+		_gtmOptions = gtmOptions.Value;
+		_navigationManager = navigationManager;
+		_jsRuntime = jsRuntime;
 	}
 
 	/// <inheritdoc/>
 	public async Task InitializeAsync()
 	{
-		if (isInitialized)
+		if (_isInitialized)
 		{
 			return;
 		}
 
-		jsModule ??= await jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.GoogleTagManager/" + nameof(HxGoogleTagManager) + ".js");
+		_jsModule ??= await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.GoogleTagManager/" + nameof(HxGoogleTagManager) + ".js");
 
-		await jsModule.InvokeVoidAsync("initialize", gtmOptions.GtmId);
+		await _jsModule.InvokeVoidAsync("initialize", _gtmOptions.GtmId);
 
-		isInitialized = true;
+		_isInitialized = true;
 	}
 
 	/// <inheritdoc/>
 	public async Task PushAsync(object data)
 	{
 		await InitializeAsync();
-		await jsModule.InvokeVoidAsync("push", data);
+		await _jsModule.InvokeVoidAsync("push", data);
 	}
 
 	/// <inheritdoc/>
 	public async Task PushEventAsync(string eventName, object eventData = null)
 	{
 		await InitializeAsync();
-		await jsModule.InvokeVoidAsync("pushEvent", eventName, eventData);
+		await _jsModule.InvokeVoidAsync("pushEvent", eventName, eventData);
 	}
 
 	/// <inheritdoc/>
 	public async Task PushPageViewAsync(object additionalData = null)
 	{
-		await PushPageViewCoreAsync(navigationManager.Uri, additionalData);
+		await PushPageViewCoreAsync(_navigationManager.Uri, additionalData);
 	}
 
 	/// <inheritdoc/>
@@ -81,7 +81,7 @@ public class HxGoogleTagManager : IHxGoogleTagManager, IAsyncDisposable
 	private async Task PushPageViewCoreAsync(string url, object additionalData = null)
 	{
 		await InitializeAsync();
-		await jsModule.InvokeVoidAsync("pushPageViewEvent", gtmOptions.PageViewEventName, gtmOptions.PageViewUrlVariableName, url, additionalData);
+		await _jsModule.InvokeVoidAsync("pushPageViewEvent", _gtmOptions.PageViewEventName, _gtmOptions.PageViewUrlVariableName, url, additionalData);
 	}
 
 	public async ValueTask DisposeAsync()
@@ -93,9 +93,9 @@ public class HxGoogleTagManager : IHxGoogleTagManager, IAsyncDisposable
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-		if (jsModule is not null)
+		if (_jsModule is not null)
 		{
-			await jsModule.DisposeAsync();
+			await _jsModule.DisposeAsync();
 		}
 	}
 }

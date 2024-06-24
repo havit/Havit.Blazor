@@ -2,13 +2,13 @@
 @using Havit.Blazor.Components.Web.Bootstrap.Internal
 
 <HxNavLinkInternal href="@Href"
-				   Match="@(this.Match ?? NavLinkMatch.All)"
-				   OnClick="@(this.OnClick.HasDelegate ? this.InvokeOnClickAsync : null)"
-				   class="@CssClassHelper.Combine("nav-link", CascadeEnabledComponent.EnabledEffective(this) ? null : "disabled", this.CssClass)"
-				   ActiveClass="@(((this.Match is null) || (this.Href is null)) ? String.Empty : "active")"
+				   Match="@(Match ?? NavLinkMatch.All)"
+				   OnClick="@(OnClick.HasDelegate ? InvokeOnClickAsync : null)"
+				   class="@CssClassHelper.Combine("nav-link", CascadeEnabledComponent.EnabledEffective(this) ? null : "disabled", CssClass)"
+				   ActiveClass="@(((Match is null) || (Href is null)) ? String.Empty : "active")"
 				   tabindex="@(CascadeEnabledComponent.EnabledEffective(this) ? null : "-1")"
 				   aria-disabled="@(CascadeEnabledComponent.EnabledEffective(this) ? null : "true")"
-				   role="@(this.OnClick.HasDelegate ? "button" : null)"
+				   role="@(OnClick.HasDelegate ? "button" : null)"
 				   @attributes="this.AdditionalAttributes">
 	@Text
 	@ChildContent

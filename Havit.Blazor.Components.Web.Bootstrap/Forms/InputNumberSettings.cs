@@ -13,7 +13,7 @@ public record InputNumberSettings : InputSettings, IInputSettingsWithSize
 	public InputSize? InputSize { get; set; }
 
 	/// <summary>
-	/// Hint to browsers as to the type of virtual keyboard configuration to use when editing.
+	/// Hint to browsers regarding the type of virtual keyboard configuration to use when editing.
 	/// </summary>
 	public InputMode? InputMode { get; set; }
 }

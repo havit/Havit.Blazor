@@ -7,12 +7,12 @@
 public partial class HxButtonToolbar
 {
 	/// <summary>
-	/// Toolbar's content
+	/// The content of the toolbar.
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	/// <summary>
-	/// An explicit label should be set, as most assistive technologies will otherwise not announce them, despite the presence of the correct role attribute. 
+	/// An explicit label should be set, as most assistive technologies will not announce them otherwise, despite the presence of the correct role attribute. 
 	/// </summary>
 	[Parameter] public string AriaLabel { get; set; }
 

@@ -11,7 +11,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// </summary>
 public partial class HxInputFileDropZone : ICascadeEnabledComponent
 {
-	private const int FirstFileNamesMaxCount = 3; // Might be converted to parameter if needed.
+	private const int FirstFileNamesMaxCount = 3; // Might be converted to a parameter if needed.
 
 	/// <summary>
 	/// URL of the server endpoint receiving the files.
@@ -60,7 +60,7 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	[Parameter] public bool Multiple { get; set; }
 
 	/// <summary>
-	/// The maximum files size in bytes.
+	/// The maximum file size in bytes.
 	/// When exceeded, the <see cref="OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="FileUploadedEventArgs.ResponseStatus"/>.
 	/// Default is <c>null</c> (unlimited).
 	/// </summary>
@@ -78,7 +78,7 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	[Parameter] public RenderFragment NoFilesTemplate { get; set; }
 
 	/// <summary>
-	/// Custom CSS class to render with wrapping div.
+	/// Custom CSS class to render with the wrapping div.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 
@@ -92,43 +92,43 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 
 	/// <inheritdoc cref="Web.FormState" />
 	[CascadingParameter] protected FormState FormState { get; set; }
-	FormState ICascadeEnabledComponent.FormState { get => this.FormState; set => this.FormState = value; }
+	FormState ICascadeEnabledComponent.FormState { get => FormState; set => FormState = value; }
 
 	[Inject] protected IStringLocalizer<HxInputFileDropZone> Localizer { get; set; }
 
-	private int fileCount = 0;
-	private List<string> firstFileNames = new List<string>();
-	private protected HxInputFileCore hxInputFileCoreComponentReference;
+	private int _fileCount = 0;
+	private List<string> _firstFileNames = new List<string>();
+	private protected HxInputFileCore _hxInputFileCoreComponentReference;
 
 	/// <summary>
-	/// Gets list of files chosen.
+	/// Gets the list of chosen files.
 	/// </summary>
-	public Task<FileInfo[]> GetFilesAsync() => hxInputFileCoreComponentReference.GetFilesAsync();
+	public Task<FileInfo[]> GetFilesAsync() => _hxInputFileCoreComponentReference.GetFilesAsync();
 
 	/// <summary>
-	/// Clears associated input-file element and resets component to initial state.
+	/// Clears the associated input-file element and resets the component to its initial state.
 	/// </summary>
-	public Task ResetAsync() => hxInputFileCoreComponentReference.ResetAsync();
+	public Task ResetAsync() => _hxInputFileCoreComponentReference.ResetAsync();
 
 	/// <summary>
 	/// Starts the upload.
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	/// <remarks>
-	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
+	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefore, the accessToken here...
 	/// </remarks>
-	public Task StartUploadAsync(string accessToken = null) => hxInputFileCoreComponentReference?.StartUploadAsync(accessToken);
+	public Task StartUploadAsync(string accessToken = null) => _hxInputFileCoreComponentReference?.StartUploadAsync(accessToken);
 
 	/// <summary>
 	/// Uploads the file(s).
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-	public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null) => hxInputFileCoreComponentReference?.UploadAsync(accessToken);
+	public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null) => _hxInputFileCoreComponentReference?.UploadAsync(accessToken);
 
 	protected Task HandleOnChange(InputFileChangeEventArgs args)
 	{
-		fileCount = args.FileCount;
-		firstFileNames = args.GetMultipleFiles(int.MaxValue).Take(FirstFileNamesMaxCount).Select(f => f.Name).ToList();
+		_fileCount = args.FileCount;
+		_firstFileNames = args.GetMultipleFiles(int.MaxValue).Take(FirstFileNamesMaxCount).Select(f => f.Name).ToList();
 		StateHasChanged();
 
 		return InvokeOnChangeAsync(args);
@@ -136,16 +136,16 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 
 	protected string GetFilesPickedText()
 	{
-		if (fileCount == 1)
+		if (_fileCount == 1)
 		{
-			return Localizer["SingleFileSelected", firstFileNames[0]];
+			return Localizer["SingleFileSelected", _firstFileNames[0]];
 		}
 		else
 		{
-			string result = Localizer["MultipleFilesSelected", fileCount, String.Join(", ", firstFileNames)];
-			if (fileCount > firstFileNames.Count)
+			string result = Localizer["MultipleFilesSelected", _fileCount, String.Join(", ", _firstFileNames)];
+			if (_fileCount > _firstFileNames.Count)
 			{
-				result = result + " " + Localizer["MoreFiles", fileCount - firstFileNames.Count];
+				result = result + " " + Localizer["MoreFiles", _fileCount - _firstFileNames.Count];
 			}
 			return result;
 		}
