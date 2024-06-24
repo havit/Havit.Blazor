@@ -44,7 +44,8 @@
 			shouldRenderData = true; // we cannot remove the Virtualize when there are no data, see #303 (https://github.com/havit/Havit.Blazor/issues/303)
 			break;
 
-		default: throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
+		default:
+			throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
 	}
 
 	if ((_paginationDataItemsToRender?.Count == 0) && (CurrentUserState.PageIndex > 0))
@@ -60,243 +61,242 @@
 						&& (ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll)
 						&& !shouldRenderLoadingDataWithPlaceholders;
 
-	<HxProgressIndicator InProgress="progressIndicatorInProgress">
+	<HxProgressIndicator InProgress="progressIndicatorInProgress" CssClass="@CssClassHelper.Combine("hx-grid-container", ResponsiveEffective ? "table-responsive" : null, TableContainerCssClassEffective)">
 
-		<div class="@CssClassHelper.Combine("hx-grid-container",ResponsiveEffective ? "table-responsive" : null, TableContainerCssClassEffective)">
-			<table class="@GetTableElementCssClass(_totalCount > 0)">
-				<thead>
-					<tr class="@HeaderRowCssClassEffective">
-						@{
-							GridHeaderCellContext gridHeaderCellContext = CreateGridHeaderCellContext();
-						}
-
-						@foreach (IHxGridColumn<TItem> column in columnsToRender)
-						{
-							var columnSorting = column.GetSorting();
-							bool isCurrentSorting = _currentSorting?.FirstOrDefault()?.Column == column;
-							var headerCellTemplate = column.GetHeaderCellTemplate(gridHeaderCellContext);
-							bool isSortingActive = (_totalCount > 0) && columnSorting.Any();
-
-							<th @key="@column"
-								role="@(isSortingActive ? "button" : null)"
-								class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isSortingActive ? (isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable") : null)"
-								@onclick="@(isSortingActive ? async () => await HandleSortingClick(column) : null)"
-								@onclick:stopPropagation="isSortingActive">
-								<div class="hx-grid-header-cell-container">
-									<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
-									@if (isSortingActive)
-									{
-										if (GetSortIconDisplayDirection(isCurrentSorting, _currentSorting, columnSorting) == Collections.SortDirection.Ascending)
-										{
-											<HxIcon CssClass="hx-grid-sort-icon" Icon="@SortAscendingIconEffective" />
-										}
-										else
-										{
-											<HxIcon CssClass="hx-grid-sort-icon" Icon="@SortDescendingIconEffective" />
-										}
-									}
-								</div>
-							</th>
-						}
-					</tr>
-				</thead>
-				<tbody>
-					@if (shouldRenderData)
-					{
-
-						RenderFragment<TItem> rowTemplate = (TItem item) =>
-						@<text>
-							@if (SelectionEnabled || MultiSelectionEnabled)
-							{
-							<tr @key="@(ItemKeySelector(item))"
-								role="button"
-								height="@((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
-								class="@CssClassHelper.Combine(
-															ItemRowCssClassEffective,
-															ItemRowCssClassSelector?.Invoke(item),
-															((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null))"
-								@onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)"
-								@onclick:stopPropagation>
-
-									@foreach (IHxGridColumn<TItem> column in columnsToRender)
-									{
-										// same as below in the else section
-										GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
-									<td @key="@column" class="@cellTemplate.CssClass">
-											@cellTemplate.Template
-									</td>
-									}
-							</tr>
-							}
-							else
-							{
-								// !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
-							<tr @key="@(ItemKeySelector(item))"
-								height="@((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
-								class="@CssClassHelper.Combine(ItemRowCssClassEffective, ItemRowCssClassSelector?.Invoke(item))"
-								@onclick:stopPropagation>
-
-									@foreach (IHxGridColumn<TItem> column in columnsToRender)
-									{
-										// same as above this else section
-										GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
-									<td @key="@column" class="@cellTemplate.CssClass">
-											@cellTemplate.Template
-									</td>
-									}
-							</tr>
-							}
-						</text>;
-
-						@if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
-						{
-							<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="_infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective" SpacerElement="tr">
-								<ItemContent>
-									@rowTemplate(@context)
-								</ItemContent>
-								<Placeholder Context="placeholderContext">
-									<tr height="@rowHeight">
-										@foreach (IHxGridColumn<TItem> column in columnsToRender)
-										{
-											GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
-											<td @key="@column" class="@placeholderCellTemplate.CssClass">
-												@placeholderCellTemplate.Template
-											</td>
-										}
-									</tr>
-								</Placeholder>
-							</Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
-						}
-
-						@if ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore))
-						{
-							foreach (TItem item in _paginationDataItemsToRender)
-							{
-								@rowTemplate(item)
-							}
-						}
+		<table class="@GetTableElementCssClass(_totalCount > 0)">
+			<thead>
+				<tr class="@HeaderRowCssClassEffective">
+					@{
+						GridHeaderCellContext gridHeaderCellContext = CreateGridHeaderCellContext();
 					}
-					@if (shouldRenderLoadingData)
-					{
-						@if (shouldRenderLoadingDataWithPlaceholders)
-						{
-							int rowsToRender = PlaceholdersRowCountEffective;
-							int pageOffset = CurrentUserState.PageIndex * PageSizeEffective;
 
-							for (int i = 0; i < rowsToRender; i++)
-							{
-								GridPlaceholderCellContext placeholderContext = new GridPlaceholderCellContext { Index = pageOffset + i };
-								<tr>
+					@foreach (IHxGridColumn<TItem> column in columnsToRender)
+					{
+						var columnSorting = column.GetSorting();
+						bool isCurrentSorting = _currentSorting?.FirstOrDefault()?.Column == column;
+						var headerCellTemplate = column.GetHeaderCellTemplate(gridHeaderCellContext);
+						bool isSortingActive = (_totalCount > 0) && columnSorting.Any();
+
+						<th @key="@column"
+							role="@(isSortingActive ? "button" : null)"
+							class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isSortingActive ? (isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable") : null)"
+							@onclick="@(isSortingActive ? async () => await HandleSortingClick(column) : null)"
+							@onclick:stopPropagation="isSortingActive">
+							<div class="hx-grid-header-cell-container">
+								<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
+								@if (isSortingActive)
+								{
+									if (GetSortIconDisplayDirection(isCurrentSorting, _currentSorting, columnSorting) == Collections.SortDirection.Ascending)
+									{
+										<HxIcon CssClass="hx-grid-sort-icon" Icon="@SortAscendingIconEffective" />
+									}
+									else
+									{
+										<HxIcon CssClass="hx-grid-sort-icon" Icon="@SortDescendingIconEffective" />
+									}
+								}
+							</div>
+						</th>
+					}
+				</tr>
+			</thead>
+			<tbody>
+				@if (shouldRenderData)
+				{
+
+					RenderFragment<TItem> rowTemplate = (TItem item) =>
+					@<text>
+						@if (SelectionEnabled || MultiSelectionEnabled)
+						{
+						<tr @key="@(ItemKeySelector(item))"
+							role="button"
+							height="@((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
+							class="@CssClassHelper.Combine(
+														ItemRowCssClassEffective,
+														ItemRowCssClassSelector?.Invoke(item),
+														((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null))"
+							@onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)"
+							@onclick:stopPropagation>
+
+								@foreach (IHxGridColumn<TItem> column in columnsToRender)
+								{
+									// same as below in the else section
+									GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
+								<td @key="@column" class="@cellTemplate.CssClass">
+										@cellTemplate.Template
+								</td>
+								}
+						</tr>
+						}
+						else
+						{
+							// !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
+						<tr @key="@(ItemKeySelector(item))"
+							height="@((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
+							class="@CssClassHelper.Combine(ItemRowCssClassEffective, ItemRowCssClassSelector?.Invoke(item))"
+							@onclick:stopPropagation>
+
+								@foreach (IHxGridColumn<TItem> column in columnsToRender)
+								{
+									// same as above this else section
+									GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
+								<td @key="@column" class="@cellTemplate.CssClass">
+										@cellTemplate.Template
+								</td>
+								}
+						</tr>
+						}
+					</text>;
+
+					@if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
+					{
+						<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="_infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective" SpacerElement="tr">
+							<ItemContent>
+								@rowTemplate(@context)
+							</ItemContent>
+							<Placeholder Context="placeholderContext">
+								<tr height="@rowHeight">
 									@foreach (IHxGridColumn<TItem> column in columnsToRender)
 									{
-										GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(placeholderContext);
+										GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
 										<td @key="@column" class="@placeholderCellTemplate.CssClass">
 											@placeholderCellTemplate.Template
 										</td>
 									}
 								</tr>
-							}
-						}
-						else
+							</Placeholder>
+						</Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
+					}
+
+					@if ((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore))
+					{
+						foreach (TItem item in _paginationDataItemsToRender)
 						{
-							<tr>
-								<td colspan="@columnsToRender.Count">
-									@if (shouldRenderLoadingDataWithLoadingTemplate)
-									{
-										@LoadingDataTemplate
-									}
-									else
-									{
-										<div class="text-center text-secondary my-5">
-											<div class="fs-3"><HxIcon Icon="@BootstrapIcon.InboxFill" /></div>
-											<div>@HxGridLocalizer["LoadingData"]</div>
-										</div>
-									}
-								</td>
-							</tr>
+							@rowTemplate(item)
 						}
-					}
-					@if (shouldRenderEmptyData)
-					{
-						<tr class="hx-grid-empty-data-row">
-							<td colspan="@columnsToRender.Count">
-
-								@if (EmptyDataTemplate != null)
-								{
-									@EmptyDataTemplate
-								}
-								else
-								{
-									<HxGridEmptyDataTemplateDefaultContent />
-								}
-
-							</td>
-						</tr>
-					}
-				</tbody>
-				@{
-					GridFooterCellContext gridFooterCellContext = CreateGridFooterCellContext();
-					GridCellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate(gridFooterCellContext)).ToArray();
-					if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null) // there must be a template
-					&& shouldRenderFooter)
-					{
-						<tfoot>
-							<tr class="@FooterRowCssClassEffective">
-								@for (int i = 0; i < footerTemplates.Length; i++) // do not use foreach, we need to use i as a key as footerTemplates can contain duplicates
-								{
-									<td @key="@i" class="@footerTemplates[i].CssClass">@footerTemplates[i].Template</td>
-								}
-							</tr>
-						</tfoot>
 					}
 				}
-			</table>
-		</div>
-
-		@if (((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)) && (PageSizeEffective > 0) && (_totalCount != null))
-		{
-			int totalPages = (_totalCount.Value + PageSizeEffective - 1) / PageSizeEffective;
-			int currentPageIndex = CurrentUserState.PageIndex + ((CurrentUserState.LoadMoreAdditionalItemsCount + PageSizeEffective - 1) / PageSizeEffective);
-			if (PaginationTemplate != null)
-			{
-				var paginationContext = new GridPaginationTemplateContext(HandlePagerCurrentPageIndexChanged)
-						{
-							CurrentUserState = CurrentUserState with { },
-							PageSize = PageSizeEffective,
-							TotalCount = _totalCount.Value,
-							PagerSettings = PagerSettingsEffective,
-						};
-				@PaginationTemplate(paginationContext)
-			}
-			else if (totalPages > 1) // if there is only one page, we do not need to render the pager (default behavior, the PaginationTemplate can override this behavior)
-			{
-				<HxPager TotalPages="@totalPages"
-						 CurrentPageIndex="@currentPageIndex"
-						 CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged"
-						 Settings="@PagerSettingsEffective" />
-			}
-		}
-
-		@if (((ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)) && (PageSizeEffective > 0) && (_totalCount != null))
-		{
-			if ((((CurrentUserState.PageIndex + 1) * PageSizeEffective) + CurrentUserState.LoadMoreAdditionalItemsCount) < _totalCount.Value)
-			{
-				<div class="hx-grid-load-more-container">
-					@if (LoadMoreTemplate != null)
+				@if (shouldRenderLoadingData)
+				{
+					@if (shouldRenderLoadingDataWithPlaceholders)
 					{
-						var loadMoreContext = GridLoadMoreTemplateContext.CreateFor(this);
-						<text>
-							@LoadMoreTemplate(loadMoreContext)
-						</text>
+						int rowsToRender = PlaceholdersRowCountEffective;
+						int pageOffset = CurrentUserState.PageIndex * PageSizeEffective;
+
+						for (int i = 0; i < rowsToRender; i++)
+						{
+							GridPlaceholderCellContext placeholderContext = new GridPlaceholderCellContext { Index = pageOffset + i };
+							<tr>
+								@foreach (IHxGridColumn<TItem> column in columnsToRender)
+								{
+									GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(placeholderContext);
+									<td @key="@column" class="@placeholderCellTemplate.CssClass">
+										@placeholderCellTemplate.Template
+									</td>
+								}
+							</tr>
+						}
 					}
 					else
 					{
-						string buttonText = LoadMoreButtonText ?? HxGridLocalizer["LoadMoreData"];
-						<HxButton Text="@buttonText" Settings="LoadMoreButtonSettingsEffective" OnClick="HandleLoadMoreClick" />
+						<tr>
+							<td colspan="@columnsToRender.Count">
+								@if (shouldRenderLoadingDataWithLoadingTemplate)
+								{
+									@LoadingDataTemplate
+								}
+								else
+								{
+									<div class="text-center text-secondary my-5">
+										<div class="fs-3"><HxIcon Icon="@BootstrapIcon.InboxFill" /></div>
+										<div>@HxGridLocalizer["LoadingData"]</div>
+									</div>
+								}
+							</td>
+						</tr>
 					}
-				</div>
+				}
+				@if (shouldRenderEmptyData)
+				{
+					<tr class="hx-grid-empty-data-row">
+						<td colspan="@columnsToRender.Count">
+
+							@if (EmptyDataTemplate != null)
+							{
+								@EmptyDataTemplate
+							}
+							else
+							{
+								<HxGridEmptyDataTemplateDefaultContent />
+							}
+
+						</td>
+					</tr>
+				}
+			</tbody>
+			@{
+				GridFooterCellContext gridFooterCellContext = CreateGridFooterCellContext();
+				GridCellTemplate[] footerTemplates = columnsToRender.Select(column => column.GetFooterCellTemplate(gridFooterCellContext)).ToArray();
+				if (footerTemplates.Any(cellTemplate => cellTemplate.Template != null) // there must be a template
+				&& shouldRenderFooter)
+				{
+					<tfoot>
+						<tr class="@FooterRowCssClassEffective">
+							@for (int i = 0; i < footerTemplates.Length; i++) // do not use foreach, we need to use i as a key as footerTemplates can contain duplicates
+							{
+								<td @key="@i" class="@footerTemplates[i].CssClass">@footerTemplates[i].Template</td>
+							}
+						</tr>
+					</tfoot>
+				}
 			}
-		}
+		</table>
 
 	</HxProgressIndicator>
+
+
+	@if (((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)) && (PageSizeEffective > 0) && (_totalCount != null))
+	{
+		int totalPages = (_totalCount.Value + PageSizeEffective - 1) / PageSizeEffective;
+		int currentPageIndex = CurrentUserState.PageIndex + ((CurrentUserState.LoadMoreAdditionalItemsCount + PageSizeEffective - 1) / PageSizeEffective);
+		if (PaginationTemplate != null)
+		{
+			var paginationContext = new GridPaginationTemplateContext(HandlePagerCurrentPageIndexChanged)
+					{
+						CurrentUserState = CurrentUserState with { },
+						PageSize = PageSizeEffective,
+						TotalCount = _totalCount.Value,
+						PagerSettings = PagerSettingsEffective,
+					};
+			@PaginationTemplate(paginationContext)
+		}
+		else if (totalPages > 1) // if there is only one page, we do not need to render the pager (default behavior, the PaginationTemplate can override this behavior)
+		{
+			<HxPager TotalPages="@totalPages"
+						CurrentPageIndex="@currentPageIndex"
+						CurrentPageIndexChanged="@HandlePagerCurrentPageIndexChanged"
+						Settings="@PagerSettingsEffective" />
+		}
+	}
+
+	@if (((ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)) && (PageSizeEffective > 0) && (_totalCount != null))
+	{
+		if ((((CurrentUserState.PageIndex + 1) * PageSizeEffective) + CurrentUserState.LoadMoreAdditionalItemsCount) < _totalCount.Value)
+		{
+			<div class="hx-grid-load-more-container">
+				@if (LoadMoreTemplate != null)
+				{
+					var loadMoreContext = GridLoadMoreTemplateContext.CreateFor(this);
+					<text>
+						@LoadMoreTemplate(loadMoreContext)
+					</text>
+				}
+				else
+				{
+					string buttonText = LoadMoreButtonText ?? HxGridLocalizer["LoadMoreData"];
+					<HxButton Text="@buttonText" Settings="LoadMoreButtonSettingsEffective" OnClick="HandleLoadMoreClick" />
+				}
+			</div>
+		}
+	}
 }
