@@ -3,11 +3,24 @@
 
 <ComponentApiDoc Type="typeof(HxInputFile)">
 
-    <DocHeading Title="Limit file size and/or accepted types" Id="limit-file-size-and-types" />
-	<Demo Type="typeof(HxInputFile_Demo_Limits)" Tabs="false" />
+	<DocAlert Type="DocAlertType.Info">
+		<p>
+			See <a href="https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads">File Uploads topics in ASP.NET Core documentation</a>
+			for information on how to set up a server-side endpoint (controller action) to accept uploaded files.
+		</p>
+		<p>
+			We recommend using the <a href="https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0#upload-large-files-with-streaming">streaming approach</a>,
+			which is also demonstrated in our demos.
+			You can refer to the <a href="https://github.com/havit/Havit.Blazor/blob/master/Havit.Blazor.Documentation.Server/Controllers/FileUploadControllerDemo.cs">FileUploadControllerDemo.cs</a>
+			file for a sample controller action.
+		</p>
+	</DocAlert>
 
-    <DocHeading Title="Simple single file upload" Id="single-file-upload" />
+	<DocHeading Title="Simple single file upload" Id="single-file-upload" />
 	<Demo Type="typeof(HxInputFile_SimpleDemo)" />
+
+	<DocHeading Title="Limit file size and/or accepted types" Id="limit-file-size-and-types" />
+	<Demo Type="typeof(HxInputFile_Demo_Limits)" Tabs="false" />
 
 	<DocHeading Title="Complex demo" />
 	<Demo Type="typeof(HxInputFile_ComplexDemo)" />
