@@ -1,4 +1,4 @@
 ﻿
-::deep .hx-dropdown-menu-item-icon {
-	margin: var(--hx-dropdown-menu-item-icon);
+::deep .hx-dropdown-menu-item-icon-margin {
+	margin: var(--hx-dropdown-menu-item-icon-margin);
 }

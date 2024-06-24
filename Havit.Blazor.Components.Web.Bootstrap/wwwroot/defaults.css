@@ -87,7 +87,7 @@
 	--hx-context-menu-item-icon-margin: 							0 .5rem 0 0;
 
 	/* HxDropdown */
-	--hx-dropdown-menu-item-icon: 									0 .5rem 0 0;
+	--hx-dropdown-menu-item-icon-margin: 							0 .5rem 0 0;
 
 	/* HxGrid */
 	--hx-grid-button-hover-background: 								var(--bs-secondary-bg);
