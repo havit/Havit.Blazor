@@ -61,6 +61,11 @@ public record GridSettings
 	public string TableCssClass { get; set; }
 
 	/// <summary>
+	/// Custom CSS class for the <c>thead</c> element of the grid.
+	/// </summary>
+	public string TableHeaderCssClass { get; set; }
+
+	/// <summary>
 	/// Custom CSS class to render with the header <c>tr</c> element.
 	/// </summary>
 	public string HeaderRowCssClass { get; set; }

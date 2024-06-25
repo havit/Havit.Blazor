@@ -6,7 +6,7 @@
     visibility: hidden;
 }
 
-.hx-grid-infinite-scroll {
+::deep .hx-grid-infinite-scroll {
 	white-space: nowrap;
 }
 

@@ -61,10 +61,13 @@
 						&& ((ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll) || _virtualizeDataProviderInProgressFromExplicitRefreshRequest)
 						&& !shouldRenderLoadingDataWithPlaceholders;
 
-	<HxProgressIndicator InProgress="progressIndicatorInProgress" CssClass="@CssClassHelper.Combine("hx-grid-container", ResponsiveEffective ? "table-responsive" : null, TableContainerCssClassEffective)">
+	<div class="@CssClassHelper.Combine("hx-grid-container",
+										ResponsiveEffective ? "table-responsive" : null,
+										progressIndicatorInProgress ? "hx-grid-progress-indicator" : null,
+										TableContainerCssClassEffective)">
 
-		<table class="@GetTableElementCssClass(_totalCount > 0)">@* This is now the CSS isolation component-root element !!! *@
-			<thead>
+		<table class="@GetTableElementCssClass(_totalCount > 0)">
+			<thead class="sticky-top">
 				<tr class="@HeaderRowCssClassEffective">
 					@{
 						GridHeaderCellContext gridHeaderCellContext = CreateGridHeaderCellContext();
@@ -252,7 +255,7 @@
 			}
 		</table>
 
-	</HxProgressIndicator>
+	</div>@* hx-grid-container *@
 
 
 	@if (((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)) && (PageSizeEffective > 0) && (_totalCount != null))

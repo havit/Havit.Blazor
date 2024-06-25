@@ -59,7 +59,7 @@
 
 	<HxGrid TItem="CultureInfo" Responsive="true" PlaceholdersRowCount="100"
 		DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
-		TableContainerCssClass="table-container table-sticky overflow-auto" ItemRowHeight="50" HeaderRowCssClass="sticky-top">
+		TableContainerCssClass="table-container table-sticky overflow-auto" ItemRowHeight="50" TableHeaderCssClass="sticky-top">
 		<Columns>
 			<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
 				<PlaceholderTemplate>

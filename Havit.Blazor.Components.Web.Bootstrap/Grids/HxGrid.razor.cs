@@ -173,6 +173,12 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected string TableCssClassEffective => TableCssClass ?? GetSettings()?.TableCssClass ?? GetDefaults().TableCssClass;
 
 	/// <summary>
+	/// Custom CSS class for the <c>thead</c> element of the grid. This class allows for styling and customization of the grid's appearance.
+	/// </summary>
+	[Parameter] public string TableHeaderCssClass { get; set; }
+	protected string TableHeaderCssClassEffective => TableHeaderCssClass ?? GetSettings()?.TableHeaderCssClass ?? GetDefaults().TableHeaderCssClass;
+
+	/// <summary>
 	/// Custom CSS class for the header <c>tr</c> element in the grid. Enables specific styling for the header row separate from the rest of the grid.
 	/// </summary>
 	[Parameter] public string HeaderRowCssClass { get; set; }

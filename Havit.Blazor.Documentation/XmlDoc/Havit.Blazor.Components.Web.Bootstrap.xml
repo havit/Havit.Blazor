@@ -5963,6 +5963,11 @@
             Custom CSS class to render with the main <c>table</c> element.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.TableHeaderCssClass">
+            <summary>
+            Custom CSS class for the <c>thead</c> element of the grid.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.HeaderRowCssClass">
             <summary>
             Custom CSS class to render with the header <c>tr</c> element.
@@ -6270,6 +6275,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.TableCssClass">
             <summary>
             Custom CSS class for the main <c>table</c> element of the grid. This class allows for styling and customization of the grid's appearance.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.TableHeaderCssClass">
+            <summary>
+            Custom CSS class for the <c>thead</c> element of the grid. This class allows for styling and customization of the grid's appearance.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.HeaderRowCssClass">
