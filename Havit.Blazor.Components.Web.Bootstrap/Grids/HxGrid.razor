@@ -57,7 +57,7 @@
 @if (columnsToRender.Any() && (shouldRenderLoadingData || shouldRenderEmptyData || shouldRenderData))
 {
 	bool progressIndicatorInProgress =
-						(InProgress ?? _dataProviderInProgress)
+						(InProgress ?? _dataProviderInProgressAfterDelay)
 						&& ((ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll) || _virtualizeDataProviderInProgressFromExplicitRefreshRequest)
 						&& !shouldRenderLoadingDataWithPlaceholders;
 

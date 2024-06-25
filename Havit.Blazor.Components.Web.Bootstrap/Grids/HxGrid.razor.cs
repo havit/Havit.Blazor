@@ -155,6 +155,12 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected virtual Task InvokeCurrentUserStateChangedAsync(GridUserState newGridUserState) => CurrentUserStateChanged.InvokeAsync(newGridUserState);
 
 	/// <summary>
+	/// Delay in milliseconds before the progress indicator is displayed. The default value is <c>300 ms</c>.
+	/// </summary>
+	[Parameter] public int? ProgressIndicatorDelay { get; set; }
+	protected int ProgressIndicatorDelayEffective => ProgressIndicatorDelay ?? GetSettings()?.ProgressIndicatorDelay ?? GetDefaults().ProgressIndicatorDelay ?? throw new InvalidOperationException(nameof(ProgressIndicatorDelay) + " default for " + nameof(HxGrid) + " has to be set.");
+
+	/// <summary>
 	/// Gets or sets a value indicating whether the grid is currently processing data, such as loading or refreshing items.
 	/// When set to <c>null</c>, the progress state is automatically managed based on the data provider's activity.
 	/// </summary>
@@ -301,6 +307,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private int? _totalCount;
 	private bool _dataProviderInProgress;
+	private System.Timers.Timer _dataProviderInProgressDelayTimer;
+	private bool _dataProviderInProgressAfterDelay;
 	private bool _virtualizeDataProviderInProgressFromExplicitRefreshRequest;
 
 	/// <summary>
@@ -777,12 +785,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private async Task<GridDataProviderResult<TItem>> InvokeDataProviderInternal(GridDataProviderRequest<TItem> request)
 	{
-		// Multithreading: we can safely set dataProviderInProgress, always dataProvider is going to retrieve data we are it is in in a progress.
-		if (!_dataProviderInProgress)
-		{
-			_dataProviderInProgress = true;
-			StateHasChanged();
-		}
+		StartDataProviderInProgress();
 
 		GridDataProviderResult<TItem> result = await DataProvider.Invoke(request);
 		Contract.Requires<ArgumentException>(result != null, "The " + nameof(DataProvider) + " should never return null. Instance of " + nameof(GridDataProviderResult<TItem>) + " has to be returned.");
@@ -790,11 +793,51 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		// do not use result from cancelled request (for the case a developer does not use the cancellation token)
 		if (!request.CancellationToken.IsCancellationRequested)
 		{
-			_dataProviderInProgress = false; // Multithreading: we can safely clean dataProviderInProgress only when received data from non-cancelled task
+			StopDataProviderInProgress();
 			_totalCount = result.TotalCount ?? result.Data?.Count() ?? 0;
 		}
 
 		return result;
+	}
+
+	private void StartDataProviderInProgress()
+	{
+		if (!_dataProviderInProgress)
+		{
+			_dataProviderInProgress = true;
+			if (ProgressIndicatorDelayEffective == 0)
+			{
+				_dataProviderInProgressAfterDelay = true;
+				StateHasChanged();
+			}
+			else
+			{
+				_dataProviderInProgressDelayTimer = new System.Timers.Timer(ProgressIndicatorDelayEffective);
+				_dataProviderInProgressDelayTimer.AutoReset = false; // run once
+#pragma warning disable VSTHRD101 // Avoid unsupported async delegates
+				_dataProviderInProgressDelayTimer.Elapsed += async (sender, e) => await HandleTimerElapsedAsync();
+#pragma warning restore VSTHRD101 // Avoid unsupported async delegates
+				_dataProviderInProgressDelayTimer.Start();
+			}
+
+			async Task HandleTimerElapsedAsync()
+			{
+				if (_dataProviderInProgress)
+				{
+					_dataProviderInProgressAfterDelay = true;
+					await InvokeAsync(StateHasChanged);
+				}
+				_dataProviderInProgressDelayTimer.Dispose();
+				_dataProviderInProgressDelayTimer = null;
+			}
+		}
+	}
+
+	private void StopDataProviderInProgress()
+	{
+		_dataProviderInProgress = false; // Multithreading: we can safely clean dataProviderInProgress only when received data from non-cancelled task
+		_dataProviderInProgressAfterDelay = false;
+		// no need to call StateHasChanged, this method is called from InvokeDataProviderInternal where the rendering is expected to happen
 	}
 
 	#region MultiSelect events
@@ -904,6 +947,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			_paginationRefreshDataCancellationTokenSource?.Cancel();
 			_paginationRefreshDataCancellationTokenSource?.Dispose();
 			_paginationRefreshDataCancellationTokenSource = null;
+
+			_dataProviderInProgressDelayTimer?.Dispose();
+			_dataProviderInProgressDelayTimer = null;
 
 			_isDisposed = true;
 		}

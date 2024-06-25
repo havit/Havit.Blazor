@@ -5952,6 +5952,11 @@
             Indicates whether to render the footer when data is empty.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ProgressIndicatorDelay">
+            <summary>
+            Delay in milliseconds before the progress indicator is displayed.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.TableContainerCssClass">
             <summary>
             Custom CSS class to render with the <c>div</c> element wrapping the main <c>table</c>
@@ -6259,6 +6264,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InvokeCurrentUserStateChangedAsync(Havit.Blazor.Components.Web.Bootstrap.GridUserState)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserStateChanged"/> event. This method can be overridden in derived components to add custom logic before or after the state change event is triggered.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ProgressIndicatorDelay">
+            <summary>
+            Delay in milliseconds before the progress indicator is displayed. The default value is <c>300 ms</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InProgress">
