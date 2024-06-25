@@ -52,11 +52,11 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 	vertical-align: middle;
 }
 
-thead {
+.hx-grid-progress-indicator thead {
 	position: relative;
 }
 
-thead:before {
+.hx-grid-progress-indicator thead:before {
     content: "";
     position: absolute;
 	display: block;
