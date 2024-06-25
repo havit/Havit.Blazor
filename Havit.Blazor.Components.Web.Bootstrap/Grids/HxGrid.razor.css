@@ -51,3 +51,32 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 ::deep .hx-context-menu-grid-column {
 	vertical-align: middle;
 }
+
+thead {
+	position: relative;
+}
+
+thead:before {
+    content: "";
+    position: absolute;
+	display: block;
+    bottom: -1px;
+    height: 1px;
+    background: var(--bs-primary);
+    animation: 1.5s ease-in-out 0s 1 slideRight;
+    animation-iteration-count: infinite;
+}
+
+@keyframes slideRight {
+	0% {
+		right: 100%;
+		width: 0;
+	}
+	50% {
+		width: 20%;
+	}
+	100% {
+		right: 0;
+		width: 0;
+	}
+}
