@@ -52,7 +52,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 	vertical-align: middle;
 }
 
-.hx-grid-progress-indicator thead {
+.hx-grid-progress-indicator thead:not(.sticky-top) {
 	position: relative;
 }
 
