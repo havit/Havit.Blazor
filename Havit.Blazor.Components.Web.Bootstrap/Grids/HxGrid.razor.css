@@ -6,7 +6,7 @@
     visibility: hidden;
 }
 
-.hx-grid-infinite-scroll {
+::deep .hx-grid-infinite-scroll {
 	white-space: nowrap;
 }
 
@@ -50,4 +50,37 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 
 ::deep .hx-context-menu-grid-column {
 	vertical-align: middle;
+}
+
+.hx-grid-progress-indicator thead:not(.sticky-top) {
+	position: relative;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.hx-grid-progress-indicator thead:before {
+    content: "";
+    position: absolute;
+    z-index: 1000;
+	display: block;
+    bottom: -1px;
+    height: 1px;
+    background-color: var(--hx-grid-progress-indicator-color);
+    animation: 1.5s ease-in-out 0s 1 slideRight;
+    animation-iteration-count: infinite;
+}
+
+@keyframes slideRight {
+	0% {
+		right: 100%;
+		width: 0;
+	}
+	50% {
+		width: 20%;
+	}
+	100% {
+		right: 0;
+		width: 0;
+	}
 }

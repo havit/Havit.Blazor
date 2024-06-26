@@ -90,6 +90,7 @@
 	--hx-grid-button-hover-background: 								var(--bs-secondary-bg);
 	--hx-grid-button-border-radius: 								var(--bs-border-radius);
 	--hx-grid-sorted-icon-color: 									var(--bs-primary);
+	--hx-grid-progress-indicator-color:								var(--bs-primary);
 
 	/* HxInputFileDropZone */
 	--hx-input-file-drop-zone-border-width: 						1px;

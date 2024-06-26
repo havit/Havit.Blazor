@@ -50,6 +50,11 @@ public record GridSettings
 	public bool? ShowFooterWhenEmptyData { get; set; }
 
 	/// <summary>
+	/// Delay in milliseconds before the progress indicator is displayed.
+	/// </summary>
+	public int? ProgressIndicatorDelay { get; set; }
+
+	/// <summary>
 	/// Custom CSS class to render with the <c>div</c> element wrapping the main <c>table</c>
 	/// (<see cref="HxPager"/> is not wrapped in this <c>div</c> element).
 	/// </summary>
@@ -59,6 +64,11 @@ public record GridSettings
 	/// Custom CSS class to render with the main <c>table</c> element.
 	/// </summary>
 	public string TableCssClass { get; set; }
+
+	/// <summary>
+	/// Custom CSS class for the <c>thead</c> element of the grid.
+	/// </summary>
+	public string TableHeaderCssClass { get; set; }
 
 	/// <summary>
 	/// Custom CSS class to render with the header <c>tr</c> element.
