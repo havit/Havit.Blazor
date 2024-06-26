@@ -92,13 +92,6 @@
 			LastPageIcon = BootstrapIcon.ArrowRightSquareFill
 		};
 
-	protected override Task OnInitializedAsync()
-	{
-		HxProgressIndicator.Defaults.Delay = 0; // TEST
-
-		return base.OnInitializedAsync();
-	}
-
 	private List<CultureInfo> GetCultureInfos()
 	{
 		return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).Skip(skip).ToList();
