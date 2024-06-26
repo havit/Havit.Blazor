@@ -54,6 +54,9 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 
 .hx-grid-progress-indicator thead:not(.sticky-top) {
 	position: relative;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .hx-grid-progress-indicator thead:before {
@@ -63,7 +66,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 	display: block;
     bottom: -1px;
     height: 1px;
-    background: var(--hx-grid-progress-indicator-color);
+    background-color: var(--hx-grid-progress-indicator-color);
     animation: 1.5s ease-in-out 0s 1 slideRight;
     animation-iteration-count: infinite;
 }
