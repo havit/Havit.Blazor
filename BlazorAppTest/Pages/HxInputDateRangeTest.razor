@@ -7,17 +7,20 @@
 		<DataAnnotationsValidator />
 		<ValidationSummary />
 
-		<HxInputDateRange Label="HxInputDateRange (default)" CalendarIcon="BootstrapIcon.Calendar" @bind-Value="@model.DateTimeRange" CalendarDateCustomizationProvider="GetCalendarDateCustomization" />
+		<HxInputDateRange @ref="inputDateRangeComponent" Label=" HxInputDateRange (default)" CalendarIcon="BootstrapIcon.Calendar" @bind-Value="@model.DateTimeRange" CalendarDateCustomizationProvider="GetCalendarDateCustomization" />
 		<HxInputDateRange Label="HxInputDateRange (no DateRanges, no validation)" @bind-Value="@model.DateTimeRange" ShowPredefinedDateRanges="false" ValidationMessageMode="ValidationMessageMode.None" />
 		<HxInputDateRange Label="HxInputDateRange (custom DateRanges)" @bind-Value="@model.DateTimeRange" PredefinedDateRanges="@GetPredefinedDateRanges()" />
 		<HxInputDateRange Label="HxInputDateRange (disabled)" @bind-Value="@model.DateTimeRange" PredefinedDateRanges="@GetPredefinedDateRanges()" Enabled="false" />
 
 		<button type="submit">Submit</button>
 	</EditForm>
+
+	<HxButton Text="Focus" Color="ThemeColor.Secondary" OnClick="async () => await inputDateRangeComponent.FocusAsync()" />
 </div>
 
 	@code {
 		private FormModel model = new FormModel();
+		private HxInputDateRange inputDateRangeComponent;
 
 		private IEnumerable<InputDateRangePredefinedRangesItem> GetPredefinedDateRanges()
 		{

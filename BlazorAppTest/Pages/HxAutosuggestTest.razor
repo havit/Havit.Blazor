@@ -10,7 +10,7 @@
 </HxAutosuggest>
 <p>Value: @value1</p>
 
-<HxAutosuggest @ref="autosuggest1" Label="Floating label" TItem="CultureInfo" LabelType="LabelType.Floating" InputGroupEndText="End" InputGroupStartText="Start" TValue="int" @bind-Value="@value1" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))" Delay="0">
+<HxAutosuggest Label="Floating label" TItem="CultureInfo" LabelType="LabelType.Floating" InputGroupEndText="End" InputGroupStartText="Start" TValue="int" @bind-Value="@value1" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))" Delay="0">
 	<ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
 </HxAutosuggest>
 <p>Value: @value1</p>
@@ -31,6 +31,8 @@
 	</EmptyTemplate>
 </HxAutosuggest>
 <p>Value: @value3</p>
+
+<HxButton Text="Focus" Color="ThemeColor.Secondary" OnClick="async () => await autosuggest1.FocusAsync()" />
 @code
 {
 	private int value1 = 1029; // default value to display
@@ -73,15 +75,4 @@
 			};
 		}
 	}
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		await base.OnAfterRenderAsync(firstRender);
-
-		if (firstRender)
-		{
-			await autosuggest1.FocusAsync();
-		}
-	}
-
 }

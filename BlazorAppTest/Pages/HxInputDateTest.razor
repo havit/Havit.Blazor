@@ -5,7 +5,7 @@
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 
-	<HxInputDate Label="HxInputDate (default, DateTime), Floating Label" @bind-Value="@model.DateTime" LabelType="LabelType.Floating"/>
+	<HxInputDate @ref="inputDateComponent" Label="HxInputDate (default, DateTime), Floating Label" @bind-Value="@model.DateTime" LabelType="LabelType.Floating" />
 	<HxInputDate InputSize="InputSize.Small" Label="HxInputDate (default, DateTime) InputSize: Small" @bind-Value="@model.DateTime" />
 	<HxInputDate InputSize="InputSize.Large" Label="HxInputDate (default, DateTime) InputSize: Large" @bind-Value="@model.DateTime" />
 	<HxInputDate Label="HxInputDate (default, DateTime?)" @bind-Value="@model.NullableDateTime" Placeholder="Datum narození" />
@@ -42,7 +42,10 @@
 	<button type="submit">Submit</button>
 </EditForm>
 
+<HxButton Text="Focus" Color="ThemeColor.Secondary" OnClick="async () => await inputDateComponent.FocusAsync()" />
+
 @code {
+	private HxInputDate<DateTime> inputDateComponent;
 	private FormModel model = new FormModel();
 
 	private IEnumerable<InputDatePredefinedDatesItem> GetPredefinedDates()

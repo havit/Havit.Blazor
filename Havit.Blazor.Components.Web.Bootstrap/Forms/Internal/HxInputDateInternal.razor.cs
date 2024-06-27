@@ -169,6 +169,7 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	public async ValueTask FocusAsync()
 	{
 		await _hxDropdownToggleElement.ElementReference.FocusAsync();
+		await _hxDropdownToggleElement.ShowAsync();
 	}
 
 	private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request)

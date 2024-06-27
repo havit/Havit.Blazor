@@ -224,6 +224,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 			throw new InvalidOperationException($"Cannot focus {GetType()}. The method must be called after first render.");
 		}
 		await _inputElementReference.FocusAsync();
+		_isShown = true;
 	}
 
 	/// <summary>

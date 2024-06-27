@@ -1,128 +1,132 @@
 ﻿@page "/HxSearchBoxTest"
 
 <div class="d-flex flex-column gap-3">
-    <HxSearchBox DataProvider="ProvideSearchResults" Label="Search needle in a haystack" InputSize="InputSize.Small" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
-        <DefaultContentTemplate>
-            <div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
-        </DefaultContentTemplate>
-    </HxSearchBox>
+	<HxSearchBox @ref="searchBoxComponent" DataProvider="ProvideSearchResults" Label="Search needle in a haystack" InputSize="InputSize.Small" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
+		<DefaultContentTemplate>
+			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+		</DefaultContentTemplate>
+	</HxSearchBox>
 
-    <HxSearchBox DataProvider="ProvideSearchResults" Label="Search regular stuff" InputSize="InputSize.Regular" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
-        <DefaultContentTemplate>
-            <div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
-        </DefaultContentTemplate>
-    </HxSearchBox>
+	<HxSearchBox DataProvider="ProvideSearchResults" Label="Search regular stuff" InputSize="InputSize.Regular" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
+		<DefaultContentTemplate>
+			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+		</DefaultContentTemplate>
+	</HxSearchBox>
 
-    <HxSearchBox DataProvider="ProvideSearchResults" Label="Search huge things" InputSize="InputSize.Large" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
-        <DefaultContentTemplate>
-            <div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
-        </DefaultContentTemplate>
-    </HxSearchBox>
+	<HxSearchBox DataProvider="ProvideSearchResults" Label="Search huge things" InputSize="InputSize.Large" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
+		<DefaultContentTemplate>
+			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+		</DefaultContentTemplate>
+	</HxSearchBox>
 
-    <HxSearchBox DataProvider="ProvideSearchResults" Label="Floating Label" LabelType="LabelType.Floating" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem" >
-        <DefaultContentTemplate>
-            <div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
-        </DefaultContentTemplate>
-        <NotFoundTemplate>
+	<HxSearchBox DataProvider="ProvideSearchResults" Label="Floating Label" LabelType="LabelType.Floating" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
+		<DefaultContentTemplate>
+			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+		</DefaultContentTemplate>
+		<NotFoundTemplate>
 
-        </NotFoundTemplate>
-    </HxSearchBox>
+		</NotFoundTemplate>
+	</HxSearchBox>
 
-    <HxSearchBox DataProvider="ProvideSearchResults" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem" InputGroupEndText="Test End" InputGroupStartText="Test Start" >
-        <DefaultContentTemplate>
-            <div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
-        </DefaultContentTemplate>
-    </HxSearchBox>
+	<HxSearchBox DataProvider="ProvideSearchResults" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem" InputGroupEndText="Test End" InputGroupStartText="Test Start">
+		<DefaultContentTemplate>
+			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+		</DefaultContentTemplate>
+	</HxSearchBox>
 
-    <HxSearchBox DataProvider="ProvideSearchResults" SearchIconPlacement="SearchBoxSearchIconPlacement.Start" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem" >
-        <InputGroupStartTemplate>
-            <HxButton Color="ThemeColor.Light" Text="Start" />
-        </InputGroupStartTemplate>
-        <InputGroupEndTemplate>
-            <HxButton Color="ThemeColor.Light" Text="End" />
-        </InputGroupEndTemplate>
-        <DefaultContentTemplate>
-            <div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
-        </DefaultContentTemplate>
-        <NotFoundTemplate>
-            <div class="p-4 text-muted">
-                Not found.
-            </div>
-        </NotFoundTemplate>
-    </HxSearchBox>
+	<HxSearchBox DataProvider="ProvideSearchResults" SearchIconPlacement="SearchBoxSearchIconPlacement.Start" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
+		<InputGroupStartTemplate>
+			<HxButton Color="ThemeColor.Light" Text="Start" />
+		</InputGroupStartTemplate>
+		<InputGroupEndTemplate>
+			<HxButton Color="ThemeColor.Light" Text="End" />
+		</InputGroupEndTemplate>
+		<DefaultContentTemplate>
+			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+		</DefaultContentTemplate>
+		<NotFoundTemplate>
+			<div class="p-4 text-muted">
+				Not found.
+			</div>
+		</NotFoundTemplate>
+	</HxSearchBox>
 
-    <HxSearchBox DataProvider="ProvideSearchResults" SearchIconPlacement="SearchBoxSearchIconPlacement.Start" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem" >
-        <InputGroupEndTemplate>
-            <HxButton Color="ThemeColor.Light" Text="End" />
-        </InputGroupEndTemplate>
-        <DefaultContentTemplate>
-            <div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
-        </DefaultContentTemplate>
-        <NotFoundTemplate>
-            <div class="p-4 text-muted">
-                Not found.
-            </div>
-        </NotFoundTemplate>
-    </HxSearchBox>
+	<HxSearchBox DataProvider="ProvideSearchResults" SearchIconPlacement="SearchBoxSearchIconPlacement.Start" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
+		<InputGroupEndTemplate>
+			<HxButton Color="ThemeColor.Light" Text="End" />
+		</InputGroupEndTemplate>
+		<DefaultContentTemplate>
+			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+		</DefaultContentTemplate>
+		<NotFoundTemplate>
+			<div class="p-4 text-muted">
+				Not found.
+			</div>
+		</NotFoundTemplate>
+	</HxSearchBox>
 
-    <HxSearchBox DataProvider="ProvideSearchResults" SearchIconPlacement="SearchBoxSearchIconPlacement.Start" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem" >
-        <InputGroupStartTemplate>
-            <HxButton Color="ThemeColor.Light" Text="Start" />
-        </InputGroupStartTemplate>
-        <DefaultContentTemplate>
-            <div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
-        </DefaultContentTemplate>
-        <NotFoundTemplate>
-            <div class="p-4 text-muted">
-                Not found.
-            </div>
-        </NotFoundTemplate>
-    </HxSearchBox>
+	<HxSearchBox DataProvider="ProvideSearchResults" SearchIconPlacement="SearchBoxSearchIconPlacement.Start" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
+		<InputGroupStartTemplate>
+			<HxButton Color="ThemeColor.Light" Text="Start" />
+		</InputGroupStartTemplate>
+		<DefaultContentTemplate>
+			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+		</DefaultContentTemplate>
+		<NotFoundTemplate>
+			<div class="p-4 text-muted">
+				Not found.
+			</div>
+		</NotFoundTemplate>
+	</HxSearchBox>
 
-    <HxSearchBox DataProvider="ProvideSearchResults" Label="Search" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem" InputGroupEndText="Test End" InputGroupStartText="Test Start" >
-        <DefaultContentTemplate>
-            <div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
-        </DefaultContentTemplate>
-    </HxSearchBox>
+	<HxSearchBox DataProvider="ProvideSearchResults" Label="Search" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem" InputGroupEndText="Test End" InputGroupStartText="Test Start">
+		<DefaultContentTemplate>
+			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+		</DefaultContentTemplate>
+	</HxSearchBox>
+
 </div>
 
-@code {
-    List<SearchBoxItem> Data { get; set; } = new()
-    {
-        new()
-        {
-            Title = "Table",
-            Subtitle = "$5000",
-            Icon = BootstrapIcon.Table
-        },
-        new()
-        {
-            Title = "Mouse",
-            Subtitle = "$40",
-            Icon = BootstrapIcon.Mouse
-        },
-        new()
-        {
-            Title = "Door",
-            Subtitle = "$100",
-            Icon = BootstrapIcon.DoorClosed
-        }
-    };
+<HxButton Text="Focus" Color="ThemeColor.Secondary" OnClick="async () => await searchBoxComponent.FocusAsync()" />
 
-    Task<SearchBoxDataProviderResult<SearchBoxItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
-    {
-        SearchBoxDataProviderResult<SearchBoxItem> result = new()
-        {
+@code {
+	private HxSearchBox<SearchBoxItem> searchBoxComponent;
+	List<SearchBoxItem> Data { get; set; } = new()
+	{
+		new()
+		{
+			Title = "Table",
+			Subtitle = "$5000",
+			Icon = BootstrapIcon.Table
+		},
+		new()
+		{
+			Title = "Mouse",
+			Subtitle = "$40",
+			Icon = BootstrapIcon.Mouse
+		},
+		new()
+		{
+			Title = "Door",
+			Subtitle = "$100",
+			Icon = BootstrapIcon.DoorClosed
+		}
+	};
+
+	Task<SearchBoxDataProviderResult<SearchBoxItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+	{
+		SearchBoxDataProviderResult<SearchBoxItem> result = new()
+			{
 				Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase)).ToArray()
 			};
 
-        return Task.FromResult(result);
-    }
+		return Task.FromResult(result);
+	}
 
-    class SearchBoxItem
-    {
-        public string Title { get; set; }
-        public string Subtitle { get; set; }
-        public BootstrapIcon Icon { get; set; }
-    }
+	class SearchBoxItem
+	{
+		public string Title { get; set; }
+		public string Subtitle { get; set; }
+		public BootstrapIcon Icon { get; set; }
+	}
 }
