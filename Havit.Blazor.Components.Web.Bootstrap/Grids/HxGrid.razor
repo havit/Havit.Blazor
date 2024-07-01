@@ -105,6 +105,24 @@
 				</tr>
 			</thead>
 			<tbody>
+                @{
+                    RenderFragment<int> placeholderRowTemplate = (int rowIndex) =>
+                    @<tr @key="@rowIndex"
+                                height="@((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
+                                class="@ItemRowCssClassEffective"
+                            @onclick:stopPropagation>
+
+                            @foreach (IHxGridColumn<TItem> column in columnsToRender)
+                            {
+                                // same as above this else section
+                                GridCellTemplate cellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = rowIndex });
+                                <td @key="@column" class="@cellTemplate.CssClass">
+                                    @cellTemplate.Template
+                                </td>
+                            }
+                    </tr>;
+                }
+
 				@if (shouldRenderData)
 				{
 
@@ -152,22 +170,6 @@
 						}
 					</text>;
 
-                    RenderFragment<PlaceholderContext> placeholderRowTemplate = (PlaceholderContext context) =>
-                        @<tr @key="@context.Index"
-                                    height="@((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
-                                    class="@ItemRowCssClassEffective"
-                                @onclick:stopPropagation>
-
-                                    @foreach (IHxGridColumn<TItem> column in columnsToRender)
-                                    {
-                                        // same as above this else section
-                                        GridCellTemplate cellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = context.Index });
-                                        <td @key="@column" class="@cellTemplate.CssClass">
-                                            @cellTemplate.Template
-                                        </td>
-                                    }
-                                </tr>;
-
 					@if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
 					{
 						<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="_infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective" SpacerElement="tr">
@@ -175,7 +177,7 @@
 								@rowTemplate(context)
 							</ItemContent>
 							<Placeholder Context="placeholderContext">
-                                @placeholderRowTemplate(placeholderContext)
+                                @placeholderRowTemplate(placeholderContext.Index)
 							</Placeholder>
 						</Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
 					}
@@ -198,7 +200,7 @@
 						for (int i = 0; i < rowsToRender; i++)
 						{
 							GridPlaceholderCellContext placeholderContext = new GridPlaceholderCellContext { Index = pageOffset + i };
-							@placeholderRowTemplate(placeholderContext)
+							@placeholderRowTemplate(placeholderContext.Index)
 						}
 					}
 					else
