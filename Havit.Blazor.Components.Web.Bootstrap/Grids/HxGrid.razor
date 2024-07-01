@@ -1,5 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 @using Havit.Blazor.Components.Web.Bootstrap.Internal
+@using Microsoft.AspNetCore.Components.Web.Virtualization;
 @typeparam TItem
 
 <CascadingValue Value="@_columnsListRegistration" Name="@ColumnsRegistrationCascadingValueName" IsFixed="true">
@@ -151,22 +152,30 @@
 						}
 					</text>;
 
+                    RenderFragment<PlaceholderContext> placeholderRowTemplate = (PlaceholderContext context) =>
+                        @<tr @key="@context.Index"
+                                    height="@((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
+                                    class="@ItemRowCssClassEffective"
+                                @onclick:stopPropagation>
+
+                                    @foreach (IHxGridColumn<TItem> column in columnsToRender)
+                                    {
+                                        // same as above this else section
+                                        GridCellTemplate cellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = context.Index });
+                                        <td @key="@column" class="@cellTemplate.CssClass">
+                                            @cellTemplate.Template
+                                        </td>
+                                    }
+                                </tr>;
+
 					@if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
 					{
 						<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="_infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective" SpacerElement="tr">
 							<ItemContent>
-								@rowTemplate(@context)
+								@rowTemplate(context)
 							</ItemContent>
 							<Placeholder Context="placeholderContext">
-								<tr height="@rowHeight">
-									@foreach (IHxGridColumn<TItem> column in columnsToRender)
-									{
-										GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
-										<td @key="@column" class="@placeholderCellTemplate.CssClass">
-											@placeholderCellTemplate.Template
-										</td>
-									}
-								</tr>
+                                @placeholderRowTemplate(placeholderContext)
 							</Placeholder>
 						</Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
 					}
@@ -189,15 +198,7 @@
 						for (int i = 0; i < rowsToRender; i++)
 						{
 							GridPlaceholderCellContext placeholderContext = new GridPlaceholderCellContext { Index = pageOffset + i };
-							<tr>
-								@foreach (IHxGridColumn<TItem> column in columnsToRender)
-								{
-									GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(placeholderContext);
-									<td @key="@column" class="@placeholderCellTemplate.CssClass">
-										@placeholderCellTemplate.Template
-									</td>
-								}
-							</tr>
+							@placeholderRowTemplate(placeholderContext)
 						}
 					}
 					else
