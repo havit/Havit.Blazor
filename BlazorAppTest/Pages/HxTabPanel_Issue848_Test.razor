@@ -1,0 +1,29 @@
+﻿@page "/HxTabPanel_Issue848_Test"
+
+<HxTabPanel @bind-ActiveTabId="activeTabId">
+	<AuthorizeView>
+		<NotAuthorized>
+			<HxTab Id="1" Title="First">
+				<Content>This one is not visible but should.</Content>
+			</HxTab>
+		</NotAuthorized>
+	</AuthorizeView>
+
+	<HxTab Id="2">
+		<TitleTemplate>@secondTabTitle</TitleTemplate>
+		<Content>
+			<AuthorizeView>
+				<NotAuthorized>
+					This one is visible correctly.
+				</NotAuthorized>
+			</AuthorizeView>
+		</Content>
+	</HxTab>
+</HxTabPanel>
+
+<p>activeTabId: @activeTabId</p>
+
+@code {
+	private string activeTabId;
+	private string secondTabTitle = "Second";
+}
