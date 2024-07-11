@@ -16,4 +16,10 @@ public record InputTextSettings : InputSettings, IInputSettingsWithSize
 	/// Hint to browsers regarding the type of virtual keyboard configuration to use when editing.
 	/// </summary>
 	public InputMode? InputMode { get; set; }
+
+	/// <summary>
+	/// When the input field receives focus, all the text within is automatically selected
+	/// </summary>
+	public bool? SelectOnFocus { get; set; }
+
 }
