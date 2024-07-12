@@ -56,14 +56,14 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputNumber) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + GetType().Name + " has to be set.");
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
-	/// When the input field receives focus, all the text within is automatically selected
+	/// Determines whether all the text within the input field is automatically selected when it receives focus.
 	/// </summary>
 	[Parameter] public bool? SelectOnFocus { get; set; }
-	protected bool SelectOnFocusEffective => SelectOnFocus ?? GetSettings()?.SelectOnFocus ?? GetDefaults()?.SelectOnFocus ?? false;
+	protected bool SelectOnFocusEffective => SelectOnFocus ?? GetSettings()?.SelectOnFocus ?? GetDefaults()?.SelectOnFocus ?? throw new InvalidOperationException(nameof(SelectOnFocus) + " default for " + GetType().Name + " has to be set.");
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
@@ -82,7 +82,7 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 
 		if (SelectOnFocusEffective)
 		{
-			builder.AddAttribute(1001, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
+			builder.AddAttribute(1001, "onfocus", "this.select();");
 		}
 		builder.AddAttribute(1002, "value", CurrentValueAsString);
 		builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));

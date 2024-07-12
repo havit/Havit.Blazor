@@ -83,11 +83,10 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
-	/// When the input field receives focus, all the text within is automatically selected
+	/// Determines whether all the content within the input field is automatically selected when it receives focus.
 	/// </summary>
 	[Parameter] public bool? SelectOnFocus { get; set; }
-	protected bool SelectOnFocusEffective => SelectOnFocus ?? GetSettings()?.SelectOnFocus ?? GetDefaults()?.SelectOnFocus ?? true; 
-
+	protected bool SelectOnFocusEffective => SelectOnFocus ?? GetSettings()?.SelectOnFocus ?? GetDefaults()?.SelectOnFocus ?? throw new InvalidOperationException(nameof(SelectOnFocus) + " default for " + nameof(HxInputNumber) + " has to be set.");
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
@@ -177,7 +176,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 
 		if (SelectOnFocusEffective)
 		{
-			builder.AddAttribute(1002, "onfocus", "this.select();"); // source: https://stackoverflow.com/questions/4067469/selecting-all-text-in-html-text-input-when-clicked
+			builder.AddAttribute(1002, "onfocus", "this.select();");
 		}
 		builder.AddAttribute(1003, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 #if NET8_0_OR_GREATER

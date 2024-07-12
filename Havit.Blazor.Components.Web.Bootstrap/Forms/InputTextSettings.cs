@@ -18,8 +18,7 @@ public record InputTextSettings : InputSettings, IInputSettingsWithSize
 	public InputMode? InputMode { get; set; }
 
 	/// <summary>
-	/// When the input field receives focus, all the text within is automatically selected
+	/// Determines whether all the text within the input field is automatically selected when it receives focus.
 	/// </summary>
 	public bool? SelectOnFocus { get; set; }
-
 }
