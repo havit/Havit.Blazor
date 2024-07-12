@@ -152,7 +152,15 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	}
 
 	/// <inheritdoc />
-	protected override GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => GridCellTemplate.Create((PlaceholderTemplate != null) ? PlaceholderTemplate(context) : GetDefaultItemPlaceholder(context));
+	protected override GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context)
+	{
+		var templateRenderFragment = (PlaceholderTemplate != null) ? PlaceholderTemplate(context) : GetDefaultItemPlaceholder(context);
+
+		// Known-issue: We do not use ItemCssClassSelector for the placeholder, because we do not have the item.
+		// We could pass null to the selector, but it could break current user code (not expecting null).
+		// We can later change this behavior if needed.
+		return GridCellTemplate.Create(templateRenderFragment, ItemCssClass);
+	}
 
 	private RenderFragment GetDefaultItemPlaceholder(GridPlaceholderCellContext context)
 	{
