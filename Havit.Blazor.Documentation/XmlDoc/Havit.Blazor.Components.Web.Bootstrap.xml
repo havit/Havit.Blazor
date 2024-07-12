@@ -4209,6 +4209,11 @@
             Size of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.SelectOnFocus">
+            <summary>
+            Determines whether all the content within the input field is automatically selected when it receives focus.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
         </member>
@@ -4423,6 +4428,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.InputSize">
             <summary>
             Size of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.SelectOnFocus">
+            <summary>
+            Determines whether all the text within the input field is automatically selected when it receives focus.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.LabelType">
@@ -5176,12 +5186,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputSize">
             <summary>
-            Input size.
+            The size of the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputMode">
             <summary>
-            Hint to browsers regarding the type of virtual keyboard configuration to use when editing.
+            A hint to browsers regarding the type of virtual keyboard configuration to use when editing.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.SelectOnFocus">
+            <summary>
+            Determines whether all the content within the input field is automatically selected when it receives focus.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings">
@@ -5252,6 +5267,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.InputMode">
             <summary>
             Hint to browsers regarding the type of virtual keyboard configuration to use when editing.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.SelectOnFocus">
+            <summary>
+            Determines whether all the text within the input field is automatically selected when it receives focus.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.LabelType">
