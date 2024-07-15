@@ -10,8 +10,8 @@
 }
 
 ::deep .hx-calendar-navigation-button {
-    --bs-btn-padding-y: 0.25rem;
-    --bs-btn-padding-x: 0.5rem;
+    --bs-btn-padding-y: .25rem;
+    --bs-btn-padding-x: .5rem;
     --bs-btn-font-size: 1rem;
     color: var(--hx-calendar-navigation-button-text-color);
     border: none;
@@ -27,17 +27,23 @@
 
 .form-select {
     margin: 0 .125rem;
-    padding: 0.25rem 1.75rem 0.25rem 0.5rem;
+    padding: .25rem 1.75rem .25rem .5rem;
     background-size: 9px 9px;
     cursor: pointer;
 }
 
-.form-select:not(:hover) {
+.form-select {
     background-image: none;
-    background-color: transparent;
+    background-color: var(--bs-body-bg);
+    border-color: var(--bs-body-bg);
     width: fit-content;
-    border-color: transparent;
     transition: all 0.15s ease-in-out;
+}
+
+.form-select:hover {
+    background-image: var(--bs-form-select-bg-img);
+    background-color: var(--hx-calendar-month-year-select-hover-background);
+    border-color: var(--bs-border-color);
 }
 
 ::deep .btn:hover {
