@@ -827,8 +827,11 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 					_dataProviderInProgressAfterDelay = true;
 					await InvokeAsync(StateHasChanged);
 				}
-				_dataProviderInProgressDelayTimer.Dispose();
-				_dataProviderInProgressDelayTimer = null;
+				if (_dataProviderInProgressDelayTimer != null)
+				{
+					_dataProviderInProgressDelayTimer.Dispose();
+					_dataProviderInProgressDelayTimer = null;
+				}
 			}
 		}
 	}
