@@ -34,7 +34,6 @@
 
 .form-select {
     background-image: none;
-    background-color: var(--bs-body-bg);
     border-color: var(--bs-body-bg);
     width: fit-content;
     transition: all 0.15s ease-in-out;
@@ -42,7 +41,6 @@
 
 .form-select:hover {
     background-image: var(--bs-form-select-bg-img);
-    background-color: var(--hx-calendar-month-year-select-hover-background);
     border-color: var(--bs-border-color);
 }
 
