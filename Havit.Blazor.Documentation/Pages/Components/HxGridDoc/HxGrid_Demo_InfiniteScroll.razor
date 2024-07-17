@@ -13,6 +13,8 @@
 		TableContainerCssClass="virtualized-table-container"
 		ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
 		ItemRowHeight="41"
+		TableHeaderCssClass="sticky-top"
+		PlaceholdersRowCount="9"
 		PageSize="5"
 		Responsive="true">
 	<Columns>
@@ -37,7 +39,7 @@
 		_debugOutput = $"Requesting data: StartIndex={request.StartIndex}, Count={request.Count}";
 		StateHasChanged();
 
-		await Task.Delay(500);  // simulate server delay in demo (do not put this in your code)
+		await Task.Delay(1600);  // simulate server delay in demo (do not put this in your code)
 
 		return new GridDataProviderResult<EmployeeDto>()
 			{
