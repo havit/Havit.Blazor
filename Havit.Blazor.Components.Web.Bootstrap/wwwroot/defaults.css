@@ -9,7 +9,7 @@
 	--hx-autosuggest-input-clear-icon-color:						unset;
 
 	/* HxButton */
-	--hx-button-icon-text-spacer-width: 							0.25rem;
+	--hx-button-gap: 							.25rem;
 
 	/* HxSidebar */
 	--hx-sidebar-background-color: 									transparent;
