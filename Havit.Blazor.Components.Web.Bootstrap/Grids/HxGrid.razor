@@ -1,5 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 @using Havit.Blazor.Components.Web.Bootstrap.Internal
+@using Microsoft.AspNetCore.Components.Web.Virtualization;
 @typeparam TItem
 
 <CascadingValue Value="@_columnsListRegistration" Name="@ColumnsRegistrationCascadingValueName" IsFixed="true">
@@ -57,14 +58,17 @@
 @if (columnsToRender.Any() && (shouldRenderLoadingData || shouldRenderEmptyData || shouldRenderData))
 {
 	bool progressIndicatorInProgress =
-						(InProgress ?? _dataProviderInProgress)
-						&& (ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll)
+						(InProgress ?? _dataProviderInProgressAfterDelay)
+						&& ((ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll) || _virtualizeDataProviderInProgressFromExplicitRefreshRequest)
 						&& !shouldRenderLoadingDataWithPlaceholders;
 
-	<HxProgressIndicator InProgress="progressIndicatorInProgress" CssClass="@CssClassHelper.Combine("hx-grid-container", ResponsiveEffective ? "table-responsive" : null, TableContainerCssClassEffective)">
+	<div class="@CssClassHelper.Combine("hx-grid-container",
+										ResponsiveEffective ? "table-responsive" : null,
+										progressIndicatorInProgress ? "hx-grid-progress-indicator" : null,
+										TableContainerCssClassEffective)">
 
-		<table class="@GetTableElementCssClass(_totalCount > 0)">@* This is now the CSS isolation component-root element !!! *@
-			<thead>
+		<table class="@GetTableElementCssClass(_totalCount > 0)">
+			<thead class="@TableHeaderCssClassEffective">
 				<tr class="@HeaderRowCssClassEffective">
 					@{
 						GridHeaderCellContext gridHeaderCellContext = CreateGridHeaderCellContext();
@@ -101,6 +105,24 @@
 				</tr>
 			</thead>
 			<tbody>
+				@{
+					RenderFragment<GridPlaceholderCellContext> placeholderRowTemplate = (GridPlaceholderCellContext placeholderCellContext) =>
+					@<tr @key="@placeholderCellContext.Index"
+						height="@((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
+						class="@ItemRowCssClassEffective"
+						@onclick:stopPropagation>
+
+						@foreach (IHxGridColumn<TItem> column in columnsToRender)
+						{
+							// same as above this else section
+							GridCellTemplate cellTemplate = column.GetItemPlaceholderCellTemplate(placeholderCellContext);
+							<td @key="@column" class="@cellTemplate.CssClass">
+								@cellTemplate.Template
+							</td>
+						}
+					</tr>;
+				}
+
 				@if (shouldRenderData)
 				{
 
@@ -152,18 +174,10 @@
 					{
 						<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="_infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective" SpacerElement="tr">
 							<ItemContent>
-								@rowTemplate(@context)
+								@rowTemplate(context)
 							</ItemContent>
 							<Placeholder Context="placeholderContext">
-								<tr height="@rowHeight">
-									@foreach (IHxGridColumn<TItem> column in columnsToRender)
-									{
-										GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(new GridPlaceholderCellContext { Index = placeholderContext.Index });
-										<td @key="@column" class="@placeholderCellTemplate.CssClass">
-											@placeholderCellTemplate.Template
-										</td>
-									}
-								</tr>
+								@placeholderRowTemplate(new GridPlaceholderCellContext() { Index = placeholderContext.Index })
 							</Placeholder>
 						</Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize>
 					}
@@ -186,15 +200,7 @@
 						for (int i = 0; i < rowsToRender; i++)
 						{
 							GridPlaceholderCellContext placeholderContext = new GridPlaceholderCellContext { Index = pageOffset + i };
-							<tr>
-								@foreach (IHxGridColumn<TItem> column in columnsToRender)
-								{
-									GridCellTemplate placeholderCellTemplate = column.GetItemPlaceholderCellTemplate(placeholderContext);
-									<td @key="@column" class="@placeholderCellTemplate.CssClass">
-										@placeholderCellTemplate.Template
-									</td>
-								}
-							</tr>
+							@placeholderRowTemplate(placeholderContext)
 						}
 					}
 					else
@@ -252,7 +258,7 @@
 			}
 		</table>
 
-	</HxProgressIndicator>
+	</div>@* hx-grid-container *@
 
 
 	@if (((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)) && (PageSizeEffective > 0) && (_totalCount != null))

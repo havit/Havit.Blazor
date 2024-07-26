@@ -31,7 +31,7 @@
 				@attributes="this.AdditionalAttributes" />
 
 		@* Must be always rendered otherwise does not work after disable->enabled scenario *@
-		<ul class="dropdown-menu">
+		<ul class="@CssClassHelper.Combine("dropdown-menu", _isShown ? "show" : null)">
 			@if (enabled)
 			{
 				if (AllowFiltering)

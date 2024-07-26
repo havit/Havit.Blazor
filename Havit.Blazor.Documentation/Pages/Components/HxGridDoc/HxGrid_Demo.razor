@@ -4,7 +4,7 @@
 	<Columns>
 		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
 		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
-		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" ItemCssClass="text-end" HeaderCssClass="text-end" />
 		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
 		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
 	</Columns>

@@ -4219,6 +4219,11 @@
             Size of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.SelectOnFocus">
+            <summary>
+            Determines whether all the content within the input field is automatically selected when it receives focus.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
         </member>
@@ -4433,6 +4438,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.InputSize">
             <summary>
             Size of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.SelectOnFocus">
+            <summary>
+            Determines whether all the text within the input field is automatically selected when it receives focus.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.LabelType">
@@ -5186,12 +5196,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputSize">
             <summary>
-            Input size.
+            The size of the input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputMode">
             <summary>
-            Hint to browsers regarding the type of virtual keyboard configuration to use when editing.
+            A hint to browsers regarding the type of virtual keyboard configuration to use when editing.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.SelectOnFocus">
+            <summary>
+            Determines whether all the content within the input field is automatically selected when it receives focus.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings">
@@ -5262,6 +5277,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.InputMode">
             <summary>
             Hint to browsers regarding the type of virtual keyboard configuration to use when editing.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.SelectOnFocus">
+            <summary>
+            Determines whether all the text within the input field is automatically selected when it receives focus.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.LabelType">
@@ -5962,6 +5982,11 @@
             Indicates whether to render the footer when data is empty.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ProgressIndicatorDelay">
+            <summary>
+            Delay in milliseconds before the progress indicator is displayed.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.TableContainerCssClass">
             <summary>
             Custom CSS class to render with the <c>div</c> element wrapping the main <c>table</c>
@@ -5971,6 +5996,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.TableCssClass">
             <summary>
             Custom CSS class to render with the main <c>table</c> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.TableHeaderCssClass">
+            <summary>
+            Custom CSS class for the <c>thead</c> element of the grid.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.HeaderRowCssClass">
@@ -6266,6 +6296,11 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserStateChanged"/> event. This method can be overridden in derived components to add custom logic before or after the state change event is triggered.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ProgressIndicatorDelay">
+            <summary>
+            Delay in milliseconds before the progress indicator is displayed. The default value is <c>300 ms</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.InProgress">
             <summary>
             Gets or sets a value indicating whether the grid is currently processing data, such as loading or refreshing items.
@@ -6280,6 +6315,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.TableCssClass">
             <summary>
             Custom CSS class for the main <c>table</c> element of the grid. This class allows for styling and customization of the grid's appearance.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.TableHeaderCssClass">
+            <summary>
+            Custom CSS class for the <c>thead</c> element of the grid. This class allows for styling and customization of the grid's appearance.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.HeaderRowCssClass">

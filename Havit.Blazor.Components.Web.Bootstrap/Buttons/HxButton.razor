@@ -25,11 +25,6 @@
             {
                 <HxIcon Icon="IconEffective" CssClass="@IconCssClassEffective" />
             }
-
-            @if (!String.IsNullOrEmpty(Text) || (ChildContent != null))
-            {
-                <span class="hx-button-icon-text-spacer"></span>
-            }
         }
 
 
@@ -38,11 +33,6 @@
 
         @if ((IconPlacementEffective == ButtonIconPlacement.End) && ((IconEffective is not null) || SpinnerEffective))
         {
-            @if (!String.IsNullOrEmpty(Text) || (ChildContent != null))
-            {
-                <span class="hx-button-text-icon-spacer"></span>
-            }
-
             if (SpinnerEffective)
             {
                 <HxSpinner Size="SpinnerSize.Small" />

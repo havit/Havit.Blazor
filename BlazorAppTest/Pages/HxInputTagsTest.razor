@@ -9,7 +9,7 @@
 	<EditForm Model="model">
 		<Blazored.FluentValidation.FluentValidationValidator />
 		<ValidationSummary />
-		<HxInputTags Label="Tags" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
+		<HxInputTags @ref="inputTagsComponent" Label="Tags" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
 		<HxInputTags Label="Tags (shared Value, Large)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Large" />
 		<HxInputTags Label="Tags (shared Value, Small)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Small" />
 		<HxInputTags ShowAddButton="true" AddButtonText="Add tag" Naked Label="Tags Naked" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
@@ -19,12 +19,16 @@
 	</EditForm>
 </HxFormState>
 
-Tags: @tags
+
+<p>Tags: @tags</p>
+
+<HxButton Text="Focus" Color="ThemeColor.Secondary" OnClick="async () => await inputTagsComponent.FocusAsync()" />
 
 @code {
 	private bool enabled = true;
 	private MyModel model = new MyModel();
-	string tags;
+	private string tags;
+	private HxInputTags inputTagsComponent;
 
 	private Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
 	{

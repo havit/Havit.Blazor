@@ -47,3 +47,22 @@ $badge-font-weight:                 $font-weight-semibold;
 $list-group-border-color:           var(--#{$prefix}border-color-translucent);
 
 $hr-opacity: .125;
+
+// scss-docs-start grid-breakpoints
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+  xxxl: 1600px
+);
+// scss-docs-end grid-breakpoints
+
+$component-active-color:            rgba($primary, 1);  
+$component-active-bg:               rgba($primary, .1);  
+$nav-pills-link-active-color:       $component-active-color;
+$nav-pills-link-active-bg:          $component-active-bg;
+$dropdown-link-active-color:        $component-active-color;
+$dropdown-link-active-bg:           $component-active-bg;

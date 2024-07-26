@@ -8,12 +8,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public record InputNumberSettings : InputSettings, IInputSettingsWithSize
 {
 	/// <summary>
-	/// Input size.
+	/// The size of the input.
 	/// </summary>
 	public InputSize? InputSize { get; set; }
 
 	/// <summary>
-	/// Hint to browsers regarding the type of virtual keyboard configuration to use when editing.
+	/// A hint to browsers regarding the type of virtual keyboard configuration to use when editing.
 	/// </summary>
 	public InputMode? InputMode { get; set; }
+
+	/// <summary>
+	/// Determines whether all the content within the input field is automatically selected when it receives focus.
+	/// </summary>
+	public bool? SelectOnFocus { get; set; }
 }

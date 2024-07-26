@@ -6,6 +6,12 @@
 	table-layout: fixed;
 }
 
+::deep .table-pivot table {
+	/* Fixes subpixel rendering for pivot column header (missing border at certain scales) */
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
 ::deep .table-pivot > table > :not(caption) > * > *:first-child {
 	position: sticky;
 	left: 0;
