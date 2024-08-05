@@ -114,14 +114,16 @@ public partial class HxSidebarItem : IAsyncDisposable
 		}
 	}
 
-	private void HandleCollapseShown()
+	protected virtual Task HandleCollapseShown()
 	{
 		expanded = true;
+		return Task.CompletedTask;
 	}
 
-	private void HandleCollapseHidden()
+	protected virtual Task HandleCollapseHidden()
 	{
 		expanded = false;
+		return Task.CompletedTask;
 	}
 
 	// Bootstrap Collapse (data-bs-toggle="collapse") prevents default action (navigation) on click
