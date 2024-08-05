@@ -85,7 +85,7 @@
 						   Enabled="Enabled"
 						   OnClick="HandleExpandableItemClick"
 						   role="button"
-						   data-bs-toggle="collapse"
+						   data-bs-toggle="@(expanded && !String.IsNullOrEmpty(Href) ? null : "collapse")"
 						   data-bs-target="@("#" + _id)"
 						   aria-expanded="@(expanded ? "true" : "false")">
 

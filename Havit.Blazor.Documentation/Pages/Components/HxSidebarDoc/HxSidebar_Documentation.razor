@@ -1,4 +1,5 @@
 ﻿@attribute [Route("/components/" + nameof(HxSidebar))]
+@attribute [Route("/components/" + nameof(HxSidebar) + "/{*RouteCatchAll}")]
 @attribute [Route("/components/" + nameof(HxSidebarItem))]
 @attribute [Route("/components/" + nameof(HxSidebarBrand))]
 
@@ -193,3 +194,7 @@
 
 <ComponentApiDoc Type="typeof(HxSidebarItem)" />
 <ComponentApiDoc Type="typeof(HxSidebarBrand)" />
+
+@code {
+	[Parameter] public string RouteCatchAll { get; set; } // for the demos
+}
