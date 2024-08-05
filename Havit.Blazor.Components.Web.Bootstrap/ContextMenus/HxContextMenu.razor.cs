@@ -82,5 +82,8 @@ public partial class HxContextMenu
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
+	[Parameter(CaptureUnmatchedValues = true)]
+	public IDictionary<string, object> AdditionalAttributes { get; set; }
+
 	private string _id = "hx" + Guid.NewGuid().ToString("N");
 }
