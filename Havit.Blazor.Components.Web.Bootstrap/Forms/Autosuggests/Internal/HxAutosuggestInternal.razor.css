@@ -1,11 +1,17 @@
-.hx-autosuggest-input-icon {
-    display: flex;
-    align-items: center;
-    margin-right: 1rem;
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
+.hx-autosuggest-input-wrapper {
+	--input-icon-button-width: 2.375rem
+}
+.hx-autosuggest-input-icon,
+::deep .hx-autosuggest-input-icon {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 5;
+	width: var(--input-icon-button-width);
 }
 
 .hx-autosuggest-input-wrapper:focus-within {
@@ -27,6 +33,11 @@
 .input-group .hx-autosuggest-input-wrapper:not(:last-child) ::deep .hx-autosuggest-input {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+}
+
+
+::deep .form-control {
+	padding-right: var(--input-icon-button-width);
 }
 
 .form-control-sm ~ .hx-autosuggest-input-icon {
