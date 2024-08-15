@@ -60,7 +60,7 @@
 				@if (_dataProviderInProgress)
 				{
 					<div class="hx-search-box-input-icon hx-search-box-input-icon-end">
-						<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <HxSpinner Size="SpinnerSize.Small" Type="SpinnerType.Border" />
 					</div>
 				}
 				else if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null))
