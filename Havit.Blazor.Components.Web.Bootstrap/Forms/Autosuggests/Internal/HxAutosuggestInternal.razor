@@ -31,27 +31,29 @@
         }
         @if (EnabledEffective)
         {
-            <div class="hx-autosuggest-input-icon">
-                @if (_dataProviderInProgress)
+
+            @if (_dataProviderInProgress)
+            {
+                <div class="hx-autosuggest-input-icon">
+                    <HxSpinner Size="SpinnerSize.Small" Type="SpinnerType.Border" />
+                </div>
+            }
+            else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
+            {
+                if (ClearIconEffective is not null)
                 {
-                    <div>
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <div role="button" class="hx-autosuggest-input-icon" @onclick="ClearInputAsync" @onclick:stopPropagation>
+                        <HxIcon CssClass="hx-autosuggest-input-icon-clear" Icon="ClearIconEffective" />
                     </div>
                 }
-                else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
-                {
-                    if (ClearIconEffective is not null)
-                    {
-                        <div role="button" @onclick="HandleCrossClick" @onclick:stopPropagation>
-                            <HxIcon CssClass="hx-autosuggest-input-icon-clear" Icon="ClearIconEffective" />
-                        </div>
-                    }
-                }
-                else if (SearchIconEffective is not null)
-                {
+            }
+            else if (SearchIconEffective is not null)
+            {
+                <div class="hx-autosuggest-input-icon">
                     <HxIcon CssClass="hx-autosuggest-input-icon-search" Icon="@SearchIconEffective" />
-                }
-            </div>
+                </div>
+            }
+
             <HxAutosuggestItemsInternal
                                     TItem="TItem"
                                     Items="@_suggestions"

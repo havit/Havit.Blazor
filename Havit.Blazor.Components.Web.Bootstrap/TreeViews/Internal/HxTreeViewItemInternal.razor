@@ -19,7 +19,7 @@
 		@if (hasChildren)
 		{
 			<HxCollapseToggleElement ElementName="div" @onclick:stopPropagation CollapseTarget="@($"#{_collapseId}")" CssClass="hx-tree-view-item-expander">
-				<HxIcon Icon="@BootstrapIcon.ChevronDown" />
+				<HxIcon Icon="@BootstrapIcon.ChevronDown" CssClass="d-block" />
 			</HxCollapseToggleElement>
 		}
 	</div>

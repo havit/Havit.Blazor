@@ -1,4 +1,8 @@
-﻿::deep .dropdown {
+﻿.hx-search-box {
+	--input-icon-button-width: 2.375rem;
+}
+
+::deep .dropdown {
     flex-grow: 1;
 }
 
@@ -7,28 +11,30 @@
 }
 
 ::deep .hx-search-box-input-icon {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    z-index: 5;
+	position: absolute;
+	top: 0;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 5;
+	width: var(--input-icon-button-width);
 }
 
 ::deep .hx-search-box-input-icon-end {
-    right: .75rem;
+    right: 0;
 }
 
 ::deep .hx-search-box-input-icon-start {
-    left: .75rem;
+    left: 0;
 }
 
 .form-control {
-	padding-right: 2.375rem;
+	padding-right: var(--input-icon-button-width);
 }
 
 .hx-search-box:has(.hx-search-box-input-icon-start) .form-control {
-    padding-left: 2.375rem;
+	padding-left: var(--input-icon-button-width);
 }
 
 .dropdown-item:not(:active) ::deep .hx-search-box-item-title {

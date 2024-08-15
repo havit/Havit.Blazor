@@ -390,7 +390,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		_userInputModified = false;
 	}
 
-	private async Task HandleCrossClick()
+	private async Task ClearInputAsync()
 	{
 		// user clicked on a cross button (x)
 		await SetValueItemWithEventCallback(default);
