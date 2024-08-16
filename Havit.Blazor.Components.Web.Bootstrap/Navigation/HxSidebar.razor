@@ -21,7 +21,7 @@
 
 		<div class="@CssClassHelper.Combine("hx-sidebar-collapse collapse", GetResponsiveCssClass("d-??-flex"), (!Collapsed) ? "overflow-auto": null)" id="@NavContentElementId">
 			<div class="hx-sidebar-body mb-auto w-100">
-				<HxNav Id="@_navId" Orientation="NavOrientation.Vertical" CssClass="ps-0">
+				<HxNav Id="@_navId" Orientation="NavOrientation.Vertical">
 					<CascadingValue Value="@(this)" IsFixed="true">
 						@ItemsTemplate
 					</CascadingValue>
