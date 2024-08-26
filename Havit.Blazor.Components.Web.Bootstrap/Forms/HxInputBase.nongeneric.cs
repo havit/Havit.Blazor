@@ -14,7 +14,8 @@ public sealed class HxInputBase
 	{
 		Defaults = new InputSettings()
 		{
-			ValidationMessageMode = ValidationMessageMode.Floating
+			ValidationMessageMode = ValidationMessageMode.Floating,
+			LabelType = LabelType.Regular
 		};
 	}
 }

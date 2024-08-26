@@ -13,5 +13,5 @@ public interface IInputWithLabelType
 	/// <summary>
 	/// Gets the effective label type.
 	/// </summary>
-	LabelType LabelTypeEffective => LabelType ?? Bootstrap.LabelType.Regular;
+	LabelType LabelTypeEffective => LabelType ?? HxInputBase.Defaults.LabelType ?? Bootstrap.LabelType.Regular;
 }
