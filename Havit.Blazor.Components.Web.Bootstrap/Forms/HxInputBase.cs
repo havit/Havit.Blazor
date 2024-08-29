@@ -469,7 +469,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	protected TAttribute GetValueAttribute<TAttribute>()
 		where TAttribute : Attribute
 	{
-		return FieldIdentifier.Model.GetType().GetMember(FieldIdentifier.FieldName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Single().GetCustomAttribute<TAttribute>();
+		return FieldIdentifier.Model.GetType().GetMember(FieldIdentifier.FieldName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).FirstOrDefault()?.GetCustomAttribute<TAttribute>();
 	}
 
 	/// <summary>
