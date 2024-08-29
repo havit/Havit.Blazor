@@ -154,7 +154,7 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 				return;
 			}
 			_currentDropdownJsOptionsReference = dropdownJsOptionsReference;
-			await _jsModule.InvokeVoidAsync("create", buttonElementReference, _dotnetObjectReference, _currentDropdownJsOptionsReference, OnHiding.HasDelegate);
+			await _jsModule.InvokeVoidAsync("create", buttonElementReference, _dotnetObjectReference, GetDropdownJsOptions(_currentDropdownJsOptionsReference), OnHiding.HasDelegate);
 		}
 		else
 		{
@@ -163,7 +163,7 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 				_currentDropdownJsOptionsReference = dropdownJsOptionsReference;
 				if (_jsModule is not null)
 				{
-					await _jsModule.InvokeVoidAsync("update", buttonElementReference, dropdownJsOptionsReference);
+					await _jsModule.InvokeVoidAsync("update", buttonElementReference, GetDropdownJsOptions(dropdownJsOptionsReference));
 				}
 			}
 		}
@@ -173,6 +173,18 @@ public class HxDropdownToggleButton : HxButton, IAsyncDisposable, IHxDropdownTog
 		{
 			await task();
 		}
+	}
+
+	/// <summary>
+	/// Override this method to provide additional options for the dropdown (allows specific customizations such as dropdown with backdrop).
+	/// </summary>
+	/// <param name="referenceOption"><c>reference</c> option to be used</param>
+	protected virtual object GetDropdownJsOptions(string referenceOption)
+	{
+		return new
+		{
+			Reference = referenceOption
+		};
 	}
 
 	/// <summary>

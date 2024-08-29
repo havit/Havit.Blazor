@@ -1939,6 +1939,12 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.GetDropdownJsOptions(System.String)">
+            <summary>
+            Override this method to provide additional options for the dropdown (allows specific customizations such as dropdown with backdrop).
+            </summary>
+            <param name="referenceOption"><c>reference</c> option to be used</param>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.ShowAsync">
             <summary>
             Shows the dropdown.
@@ -2065,6 +2071,12 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.GetDropdownJsOptions(System.String)">
+            <summary>
+            Override this method to provide additional options for the dropdown (allows specific customizations such as dropdown with backdrop).
+            </summary>
+            <param name="referenceOption"><c>reference</c> option to be used</param>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.ShowAsync">
             <summary>
