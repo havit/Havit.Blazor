@@ -47,6 +47,16 @@ public partial class HxDropdownItemNavLink : ICascadeEnabledComponent
 	/// </summary>
 	[Parameter] public string ContainerCssClass { get; set; }
 
+	/// <summary>
+	/// Item icon (use <see cref="BootstrapIcon" />).
+	/// </summary>
+	[Parameter] public IconBase Icon { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for the context menu item icon.
+	/// </summary>
+	[Parameter] public string IconCssClass { get; set; }
+
 	/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 	[Parameter] public bool? Enabled { get; set; }
 
