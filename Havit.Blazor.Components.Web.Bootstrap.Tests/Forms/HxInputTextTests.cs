@@ -12,7 +12,7 @@ public class HxInputTextTests
 {
 #if NET8_0_OR_GREATER
 	[TestMethod]
-	public void HxInputBase_BindingToArrayOfString_Issue874()
+	public void HxInputText_BindingToArrayOfString_Issue874()
 	{
 		// Arrange
 		var ctx = new Bunit.TestContext();
@@ -35,7 +35,7 @@ public class HxInputTextTests
 	}
 
 	[TestMethod]
-	public void HxInputBase_BindingToListOfString_Issue874()
+	public void HxInputText_BindingToListOfString_Issue874()
 	{
 		// Arrange
 		var ctx = new Bunit.TestContext();
@@ -60,7 +60,7 @@ public class HxInputTextTests
 
 
 	[TestMethod]
-	public void HxInputBase_BindingToArrayOfModel_Issue874()
+	public void HxInputText_BindingToArrayOfModel_Issue874()
 	{
 		// Arrange
 		var ctx = new Bunit.TestContext();
@@ -83,7 +83,7 @@ public class HxInputTextTests
 	}
 
 	[TestMethod]
-	public void HxInputBase_BindingToListOfModel_Issue874()
+	public void HxInputText_BindingToListOfModel_Issue874()
 	{
 		// Arrange
 		var ctx = new Bunit.TestContext();
