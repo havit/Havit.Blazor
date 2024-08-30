@@ -2147,16 +2147,6 @@
             Interface to help keep the dropdown-toggle implementations aligned.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxDropdownIcon.Icon">
-            <summary>
-            Item icon (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon" />).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxDropdownIcon.IconCssClass">
-            <summary>
-            Additional CSS class(es) for the context menu item icon.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInputInternal.DropdownOffset">
             <summary>
             Offset between the dropdown and the input.
