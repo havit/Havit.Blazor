@@ -8,14 +8,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
 [TestClass]
-public class HxInputTextTests
+public class HxInputTextTests : BunitTestBase
 {
 #if NET8_0_OR_GREATER
 	[TestMethod]
 	public void HxInputText_BindingToArrayOfString_Issue874()
 	{
 		// Arrange
-		var ctx = new Bunit.TestContext();
 		string[] values = ["test"];
 
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
@@ -28,7 +27,7 @@ public class HxInputTextTests
 		};
 
 		// Act
-		var cut = ctx.Render(componentRenderer);
+		var cut = Render(componentRenderer);
 
 		// Assert			
 		Assert.IsFalse(cut.Markup.Contains("maxlength"));
@@ -38,7 +37,6 @@ public class HxInputTextTests
 	public void HxInputText_BindingToListOfString_Issue874()
 	{
 		// Arrange
-		var ctx = new Bunit.TestContext();
 		List<string> values = ["test"];
 
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
@@ -51,7 +49,7 @@ public class HxInputTextTests
 		};
 
 		// Act
-		var cut = ctx.Render(componentRenderer);
+		var cut = Render(componentRenderer);
 
 		// Assert			
 		Assert.IsFalse(cut.Markup.Contains("maxlength"));
@@ -63,7 +61,6 @@ public class HxInputTextTests
 	public void HxInputText_BindingToArrayOfModel_Issue874()
 	{
 		// Arrange
-		var ctx = new Bunit.TestContext();
 		FormData[] values = [new FormData()];
 
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
@@ -76,7 +73,7 @@ public class HxInputTextTests
 		};
 
 		// Act
-		var cut = ctx.Render(componentRenderer);
+		var cut = Render(componentRenderer);
 
 		// Assert			
 		Assert.IsTrue(cut.Markup.Contains("maxlength=\"100\""));
@@ -86,7 +83,6 @@ public class HxInputTextTests
 	public void HxInputText_BindingToListOfModel_Issue874()
 	{
 		// Arrange
-		var ctx = new Bunit.TestContext();
 		FormData[] values = [new FormData()];
 
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
@@ -99,7 +95,7 @@ public class HxInputTextTests
 		};
 
 		// Act
-		var cut = ctx.Render(componentRenderer);
+		var cut = Render(componentRenderer);
 
 		// Assert			
 		Assert.IsTrue(cut.Markup.Contains("maxlength=\"100\""));

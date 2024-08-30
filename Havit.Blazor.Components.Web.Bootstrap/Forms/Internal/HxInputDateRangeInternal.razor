@@ -35,13 +35,24 @@
 						<div class="hx-input-date-range-buttons">
 							@if (ShowClearButtonEffective)
 							{
-								<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleFromClearClickAsync" tabindex="-1" />
+								<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))"
+										  Color="ThemeColor.Link"
+										  Size="ButtonSize.Small"
+										  OnClick="HandleFromClearClickAsync"
+										  tabindex="-1"
+										  Enabled="this.EnabledEffective" />
 							}
 							@if (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective != null) && PredefinedDateRangesEffective.Any())
 							{
 								@foreach (var item in PredefinedDateRangesEffective)
 								{
-									<HxButton @key="@item" Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleDateRangeClick(item.DateRange, _fromDropdownToggleElement)" tabindex="-1" />
+									<HxButton @key="@item"
+											  Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)"
+											  Color="ThemeColor.Link"
+											  Size="ButtonSize.Small"
+											  OnClick="() => HandleDateRangeClick(item.DateRange, _fromDropdownToggleElement)"
+											  tabindex="-1"
+											  Enabled="this.EnabledEffective" />
 								}
 							}
 						</div>
@@ -81,13 +92,24 @@
 						<div class="hx-input-date-range-buttons">
 							@if (ShowClearButtonEffective)
 							{
-								<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleToClearClickAsync" tabindex="-1" />
+								<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDateRange))"
+										  Color="ThemeColor.Link"
+										  Size="ButtonSize.Small"
+										  OnClick="HandleToClearClickAsync"
+										  tabindex="-1"
+										  Enabled="this.EnabledEffective" />
 							}
 							@if (ShowPredefinedDateRangesEffective && (PredefinedDateRangesEffective != null) && PredefinedDateRangesEffective.Any())
 							{
 								@foreach (var item in PredefinedDateRangesEffective)
 								{
-									<HxButton @key="@item" Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="() => HandleDateRangeClick(item.DateRange, _toDropdownToggleElement)" tabindex="-1" />
+									<HxButton @key="@item"
+											  Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)"
+											  Color="ThemeColor.Link"
+											  Size="ButtonSize.Small"
+											  OnClick="() => HandleDateRangeClick(item.DateRange, _toDropdownToggleElement)"
+											  tabindex="-1"
+											  Enabled="this.EnabledEffective" />
 								}
 							}
 						</div>
