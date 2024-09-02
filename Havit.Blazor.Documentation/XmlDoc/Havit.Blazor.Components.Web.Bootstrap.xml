@@ -5598,6 +5598,15 @@
             Hides the search icon when used!
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnHiding">
+            <summary>
+            Fired immediately when the 'hide' method of the dropdown is called.
+            To prevent hiding, set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.DropdownHidingEventArgs.Cancel"/> to <c>true</c>.
+            </summary>
+            <remarks>
+            Exposed to allow derived custom components to cancel hiding the dropdown, for example, when the dropdown contains draggable content and the mouseup event is fired outside the dropdown.
+            </remarks>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1._textQueryHasBeenBelowMinimumLength">
             <summary>
             Indicates whether the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
