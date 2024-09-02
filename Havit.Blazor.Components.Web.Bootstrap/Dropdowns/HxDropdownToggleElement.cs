@@ -209,11 +209,11 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	/// Override this method to provide additional options for the dropdown (allows specific customizations such as dropdown with backdrop).
 	/// </summary>
 	/// <param name="referenceOption"><c>reference</c> option to be used</param>
-	protected virtual object GetDropdownJsOptions(string referenceOption)
+	protected virtual Dictionary<string, object> GetDropdownJsOptions(string referenceOption)
 	{
-		return new
+		return new()
 		{
-			Reference = referenceOption
+			["reference"] = referenceOption
 		};
 	}
 
