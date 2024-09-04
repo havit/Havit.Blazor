@@ -108,10 +108,22 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// <summary>
 	/// The CSS class to be rendered with the wrapping div.
 	/// </summary>
-	private protected virtual string CoreCssClass => CssClassHelper.Combine("hx-form-group position-relative",
-		((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
-		? "form-floating"
-		: null);
+	private protected virtual string CoreCssClass
+	{
+		get
+		{
+			var cssClass = "";
+			if ((this is IInputWithToggleButton tbutton) && (tbutton.InputAsToggleEffective == InputAsToggle.Toggle))
+			{
+				cssClass = CssClassHelper.Combine(cssClass, "btn-group");
+			}
+			if ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
+			{
+				cssClass = CssClassHelper.Combine(cssClass, "form-floating");
+			}
+			return CssClassHelper.Combine("hx-form-group position-relative", cssClass);
+		}
+	}
 
 	/// <summary>
 	/// The CSS class to be rendered with the input element.

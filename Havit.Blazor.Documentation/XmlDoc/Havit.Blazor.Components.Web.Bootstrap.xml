@@ -2999,6 +2999,21 @@
             Gets the CSS class for the input group size.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithToggleButton">
+            <summary>
+            Represents an input with a toggle button option
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithToggleButton.InputAsToggle">
+            <summary>
+            Gets or sets the input as toggle or regular.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithToggleButton.InputAsToggleEffective">
+            <summary>
+            Gets the effective input type.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder">
             <summary>
             Specifies the render order of label and value/input.
@@ -3367,6 +3382,11 @@
             Returns an optional set of component settings.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.InputAsToggle">
+            <summary>
+            Input as toggle or regular.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Text">
             <summary>
             Text to display next to the checkbox.
@@ -3445,6 +3465,11 @@
             <summary>
             Selects the text to display from the item.
             When not set, <c>ToString()</c> is used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.InputAsToggle">
+            <summary>
+            Input as toggle or regular.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemValueSelector">
@@ -4711,6 +4736,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.Inline">
             <summary>
             Allows grouping radios on the same horizontal row by rendering them inline. Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.InputAsToggle">
+            <summary>
+            Input as toggle or regular.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemValueSelectorImpl">
@@ -6997,6 +7027,21 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxBootstrapIcon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputAsToggle">
+            <summary>
+            Input display type.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.InputAsToggle.Regular">
+            <summary>
+            Regular
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.InputAsToggle.Toggle">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.3/forms/checks-radios/#toggle-buttons">Toggle buttons</see>.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout">
             <summary>
