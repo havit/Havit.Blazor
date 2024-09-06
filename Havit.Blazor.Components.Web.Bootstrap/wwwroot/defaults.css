@@ -152,7 +152,7 @@
 	--hx-multi-select-dropdown-menu-width: 							100%;
 
 	/* TagInput */
-	--hx-input-tags-tag-margin: 									0 .25rem 0 0;
+	--hx-input-tags-tag-margin: 									.25rem .25rem .25rem 0;
 	--hx-input-tags-input-width: 									3em;
 	--hx-input-tags-input-placeholder-color: 						var(--bs-secondary-color);
 	--hx-input-tags-naked-font-size-lg: 							1.25em;
