@@ -17,7 +17,7 @@ input:focus {
 }
 
 ::deep .hx-tag {
-	margin: var(--hx-input-tags-tag-margin);
+	margin: var(--hx-input-tags-tag-gap);
 	display: flex;
 	align-items: center;
 }
