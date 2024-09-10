@@ -29,6 +29,25 @@ public partial class HxSidebarItem : IAsyncDisposable
 	[Parameter] public string Href { get; set; }
 
 	/// <summary>
+	/// Raised after the item is clicked.
+	/// </summary>
+	[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+	/// <summary>
+	/// Triggers the <see cref="OnClick"/> event. Allows interception of the event in derived components.
+	/// </summary>
+	protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
+
+	/// <summary>
+	/// Stops onClick-event propagation. Default is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool OnClickStopPropagation { get; set; }
+
+	/// <summary>
+	/// Prevents the default action for the onclick event. Default is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool OnClickPreventDefault { get; set; }
+
+	/// <summary>
 	/// URL matching behavior for the underlying <see cref="NavLink"/>.
 	/// Default is <see cref="NavLinkMatch.Prefix"/>.
 	/// </summary>
@@ -128,9 +147,10 @@ public partial class HxSidebarItem : IAsyncDisposable
 
 	// Bootstrap Collapse (data-bs-toggle="collapse") prevents default action (navigation) on click
 	// This is a workaround to handle navigation manually
-	private void HandleExpandableItemClick()
+	private async Task HandleExpandableItemClick(MouseEventArgs args)
 	{
-		if (!String.IsNullOrWhiteSpace(Href))
+		await OnClick.InvokeAsync(args);
+		if (!String.IsNullOrWhiteSpace(Href) && !OnClickPreventDefault)
 		{
 			NavigationManager.NavigateTo(Href);
 		}

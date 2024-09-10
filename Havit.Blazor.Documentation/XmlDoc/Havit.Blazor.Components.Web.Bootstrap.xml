@@ -2561,15 +2561,25 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal">
             <summary>
-            <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> variation which adds <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> and related stuff.
+            Variation of <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> that adds <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> and related functionality.
             </summary>
             <remarks>
-            <see href="https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682">https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682</see>.
+            See <see href="https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682">https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682</see> for more information.
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick">
             <summary>
             Raised when the item is clicked.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClickStopPropagation">
+            <summary>
+            Stops event propagation when the item is clicked. Default is <c>null</c>, which means <c>true</c> when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> is set.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClickPreventDefault">
+            <summary>
+            Prevents the default action for the onclick event. Default is <c>null</c>, which means <c>true</c> when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> is set.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInputInternal.Offset">
@@ -8242,6 +8252,16 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.OnClick"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.OnClickStopPropagation">
+            <summary>
+            Stops event propagation when the item is clicked. Default is <c>null</c>, which means <c>true</c> when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.OnClick"/> is set.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.OnClickPreventDefault">
+            <summary>
+            Prevents the default action for the onclick event. Default is <c>null</c>, which means <c>true</c> when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.OnClick"/> is set.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.CssClass">
             <summary>
             Additional CSS class.
@@ -8485,6 +8505,26 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.Href">
             <summary>
             Item navigation target.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.OnClick">
+            <summary>
+            Raised after the item is clicked.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.InvokeOnClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.OnClick"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.OnClickStopPropagation">
+            <summary>
+            Stops onClick-event propagation. Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.OnClickPreventDefault">
+            <summary>
+            Prevents the default action for the onclick event. Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.Match">
