@@ -591,9 +591,19 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
 	public async Task RefreshDataAsync()
 	{
+		await RefreshDataAsync(false);
+	}
+
+	/// <summary>
+	/// Requests a data refresh from the <see cref="DataProvider"/>.
+	/// Useful for updating the grid when external data may have changed.
+	/// </summary>
+	/// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+	public async Task RefreshDataAsync(bool returnToFirstPage)
+	{
 		if (_firstRenderCompleted)
 		{
-			await RefreshDataCoreAsync();
+			await RefreshDataCoreAsync(returnToFirstPage);
 		}
 		else
 		{
@@ -605,14 +615,14 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Instructs the component to load data from its <see cref="DataProvider"/>.
 	/// Used in internal methods to implement the data-loading flow.
 	/// </summary>
-	protected async Task RefreshDataCoreAsync()
+	protected async Task RefreshDataCoreAsync(bool returnToFirstPage = false)
 	{
 		switch (ContentNavigationModeEffective)
 		{
 			case GridContentNavigationMode.Pagination:
 			case GridContentNavigationMode.LoadMore:
 			case GridContentNavigationMode.PaginationAndLoadMore:
-				await RefreshPaginationOrLoadMoreDataCoreAsync(forceReloadAllPaginationOrLoadMoreData: true);
+				await RefreshPaginationOrLoadMoreDataCoreAsync(forceReloadAllPaginationOrLoadMoreData: true, returnToFirstPage: returnToFirstPage);
 				break;
 
 			case GridContentNavigationMode.InfiniteScroll:
@@ -645,7 +655,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		await RefreshPaginationOrLoadMoreDataCoreAsync();
 	}
 
-	private async ValueTask RefreshPaginationOrLoadMoreDataCoreAsync(bool forceReloadAllPaginationOrLoadMoreData = false)
+	private async ValueTask RefreshPaginationOrLoadMoreDataCoreAsync(bool returnToFirstPage = false, bool forceReloadAllPaginationOrLoadMoreData = false)
 	{
 		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
@@ -685,11 +695,21 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 				&& (currentUserState.LoadMoreAdditionalItemsCount > 0)
 				&& (_paginationDataItemsToRender?.Count > 0);
 
+			int startIndex = 0;
+			if (returnToFirstPage)
+			{
+				await SetCurrentPageIndexWithEventCallback(0);
+			}
+			else
+			{
+				startIndex = loadingAdditionalItemsOnly
+					? ((currentUserState.PageIndex + 1) * PageSizeEffective) + _previousLoadMoreAdditionalItemsCount // loading "a few" load more items
+					: (currentUserState.PageIndex * PageSizeEffective); // loading whole page and additional items (no load more scenario or state reset)
+			}
+
 			request = new GridDataProviderRequest<TItem>
 			{
-				StartIndex = loadingAdditionalItemsOnly
-					? ((currentUserState.PageIndex + 1) * PageSizeEffective) + _previousLoadMoreAdditionalItemsCount // loading "a few" load more items
-					: (currentUserState.PageIndex * PageSizeEffective), // loading whole page and additional items (no load more scenario or state reset)
+				StartIndex = startIndex,
 				Count = loadingAdditionalItemsOnly
 					? currentUserState.LoadMoreAdditionalItemsCount - _previousLoadMoreAdditionalItemsCount // loading "a few" load more items
 					: PageSizeEffective + currentUserState.LoadMoreAdditionalItemsCount, // loading whole page and additional items (no load more scenario or state reset)

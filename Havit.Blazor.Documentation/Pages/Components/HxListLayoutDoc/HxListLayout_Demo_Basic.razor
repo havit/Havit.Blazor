@@ -1,6 +1,6 @@
 ﻿@inject IDemoDataService DemoDataService
 
-<HxListLayout Title="Employees" TFilterModel="EmployeesFilterDto" @bind-FilterModel="filterModel" @bind-FilterModel:after="gridComponent.RefreshDataAsync">
+<HxListLayout Title="Employees" TFilterModel="EmployeesFilterDto" @bind-FilterModel="filterModel" @bind-FilterModel:after="async () => await gridComponent.RefreshDataAsync(returnToFirstPage: true)">
 	<CommandsTemplate>
 		<HxButton Text="Create employee" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="HandleNewItemClicked" />
 	</CommandsTemplate>
@@ -56,7 +56,7 @@
 	private async Task HandleDeleteClick(EmployeeDto employee)
 	{
 		await DemoDataService.DeleteEmployeeAsync(employee.Id);
-		await gridComponent.RefreshDataAsync();
+		await gridComponent.RefreshDataAsync(true);
 	}
 
 	private Task HandleSelectedDataItemChanged()
