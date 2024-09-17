@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
 [TestClass]
-public class HxInputNumberTests
+public class HxInputNumberTests : BunitTestBase
 {
 	[DataTestMethod]
 	[DataRow("en-US", "123", 123.0, "123.00")]
@@ -33,15 +33,8 @@ public class HxInputNumberTests
 		CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(culture);
 		CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(culture);
 
-		var ctx = new Bunit.TestContext();
-		ctx.JSInterop.Mode = JSRuntimeMode.Loose;
-		ctx.Services.AddLogging();
-		ctx.Services.AddHxServices();
-		ctx.Services.AddHxMessenger();
-		ctx.Services.AddHxMessageBoxHost();
-
 		decimal? currentValue = null;
-		var cut = ctx.RenderComponent<HxInputNumber<decimal?>>(parameters =>
+		var cut = RenderComponent<HxInputNumber<decimal?>>(parameters =>
 			parameters.Bind(p =>
 				p.Value,
 				currentValue,

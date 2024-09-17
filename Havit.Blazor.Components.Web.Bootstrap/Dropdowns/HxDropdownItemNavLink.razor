@@ -10,6 +10,7 @@
 					   aria-disabled="@(CascadeEnabledComponent.EnabledEffective(this) ? null : "true")"
 					   role="@(OnClick.HasDelegate ? "button" : null)"
 					   @attributes="this.AdditionalAttributes">
+        <HxDropdownIconInternal Icon="@Icon" CssClass="@IconCssClass" />
 		@Text
 		@ChildContent
 	</HxNavLinkInternal>

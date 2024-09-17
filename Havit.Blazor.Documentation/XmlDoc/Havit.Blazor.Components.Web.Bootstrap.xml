@@ -1753,6 +1753,16 @@
             Any additional CSS class to apply.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownHeader.Icon">
+            <summary>
+            Item icon (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon" />).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownHeader.IconCssClass">
+            <summary>
+            Additional CSS class(es) for the context menu item icon.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem">
             <summary>
             Generic item for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu"/>.
@@ -1766,6 +1776,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.ContainerCssClass">
             <summary>
             Additional CSS class for the underlying <c>li</c> container (wrapping the main <c>span</c> inside).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.Icon">
+            <summary>
+            Item icon (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon" />).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.IconCssClass">
+            <summary>
+            Additional CSS class(es) for the context menu item icon.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItem.OnClick">
@@ -1828,6 +1848,16 @@
             Additional CSS class for the underlying <c>li</c> container (wrapping the main <c>a</c> inside).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemNavLink.Icon">
+            <summary>
+            Item icon (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon" />).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemNavLink.IconCssClass">
+            <summary>
+            Additional CSS class(es) for the context menu item icon.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemNavLink.Enabled">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>
@@ -1854,6 +1884,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemText.ContainerCssClass">
             <summary>
             Additional CSS class for the underlying <c>li</c> container (wrapping the main <c>span</c> inside).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemText.Icon">
+            <summary>
+            Item icon (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon" />).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDropdownItemText.IconCssClass">
+            <summary>
+            Additional CSS class(es) for the context menu item icon.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDropdownMenu">
@@ -1938,6 +1978,12 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.GetDropdownJsOptions(System.String)">
+            <summary>
+            Override this method to provide additional options for the dropdown (allows specific customizations such as dropdown with backdrop).
+            </summary>
+            <param name="referenceOption"><c>reference</c> option to be used</param>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleButton.ShowAsync">
             <summary>
@@ -2066,6 +2112,12 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.GetDropdownJsOptions(System.String)">
+            <summary>
+            Override this method to provide additional options for the dropdown (allows specific customizations such as dropdown with backdrop).
+            </summary>
+            <param name="referenceOption"><c>reference</c> option to be used</param>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDropdownToggleElement.ShowAsync">
             <summary>
             Shows the dropdown.
@@ -2105,543 +2157,6 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.IHxDropdownToggle">
             <summary>
             Interface to help keep the dropdown-toggle implementations aligned.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
-            <summary>
-            Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as a Bootstrap form control (including <c>Label</c> etc.)<br />
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputFile">https://havit.blazor.eu/components/HxInputFile</see>
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Defaults">
-            <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/> and derived components.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.GetDefaults">
-            <summary>
-            Returns application-wide defaults for the component.
-            Enables overriding defaults in descendants (use a separate set of defaults).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Settings">
-            <summary>
-            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Defaults"/>, overridden by individual parameters).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.GetSettings">
-            <summary>
-            Returns an optional set of component settings.
-            </summary>
-            <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Settings"/> in component descendants (by returning a derived settings class).
-            </remarks>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.UploadUrl">
-            <summary>
-            URL of the server endpoint receiving the files.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnChange">
-            <summary>
-            Gets or sets the event callback that will be invoked when the collection of selected files changes.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InvokeOnChangeAsync(Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs)">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnChange"/> event. Allows interception of the event in derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnProgress">
-            <summary>
-            Raised during running file upload (the frequency depends on browser implementation).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InvokeOnProgressAsync(Havit.Blazor.Components.Web.UploadProgressEventArgs)">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnProgress"/> event. Allows interception of the event in derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnFileUploaded">
-            <summary>
-            Raised after a file is uploaded (for every single file separately).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InvokeOnFileUploadedAsync(Havit.Blazor.Components.Web.FileUploadedEventArgs)">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnFileUploaded"/> event. Allows interception of the event in derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnUploadCompleted">
-            <summary>
-            Raised when all files are uploaded (after all <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnFileUploaded"/> events).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InvokeOnUploadCompletedAsync(Havit.Blazor.Components.Web.UploadCompletedEventArgs)">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnUploadCompleted"/> event. Allows interception of the event in derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Multiple">
-            <summary>
-            Single <c>false</c> or multiple <c>true</c> files upload.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.MaxParallelUploads">
-            <summary>
-            Maximum number of concurrent uploads. The default is <c>6</c> (from <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Accept">
-            <summary>
-            Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.
-            <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">MDN Web Docs - HTML attribute: accept</see>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.MaxFileSize">
-            <summary>
-            The maximum file size in bytes.
-            When exceeded, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.
-            The default is <c>null</c> (unlimited).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Label">
-            <summary>
-            Label to render before input (or after input for Checkbox).		
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.LabelTemplate">
-            <summary>
-            Label to render before input (or after input for Checkbox).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Hint">
-            <summary>
-            Hint to render after input as form-text.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.HintTemplate">
-            <summary>
-            Hint to render after input as form-text.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.CssClass">
-            <summary>
-            Custom CSS class to render with the wrapping div.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.LabelCssClass">
-            <summary>
-            Custom CSS class to render with the label.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InputSize">
-            <summary>
-            Size of the input.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InputCssClass">
-            <summary>
-            Custom CSS class to render with the input element.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Enabled">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.FormState">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.FormState" />
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.FileCount">
-            <summary>
-            Last known count of associated files.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InputId">
-            <summary>
-            ID if the input element. Autogenerated when used with label.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.CoreInputCssClass">
-            <summary>
-            CSS class to be rendered with the input element.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.GetFilesAsync">
-            <summary>
-            Gets list of files chosen.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.ResetAsync">
-            <summary>
-            Clears associated input-file element and resets component to initial state.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.StartUploadAsync(System.String)">
-            <summary>
-            Starts the upload.
-            </summary>
-            <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-            <remarks>
-            We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
-            </remarks>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.UploadAsync(System.String)">
-            <summary>
-            Uploads the file(s).
-            </summary>
-            <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone">
-            <summary>
-            Ready-made UX for drag&amp;drop file upload.
-            For custom drag&amp;drop UX, use <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> and <see href="https://github.com/havit/Havit.Blazor/blob/728567c9c83a0b4ab7fe2e031bf1ff378f1b1ce7/Havit.Blazor.Components.Web.Bootstrap/Files/HxInputFileDropZone.razor.css#L20-L26">a little bit of HTML/CSS</see>.<br />
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputFileDropZone">https://havit.blazor.eu/components/HxInputFileDropZone</see>
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadUrl">
-            <summary>
-            URL of the server endpoint receiving the files.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnChange">
-            <summary>
-            Gets or sets the event callback that will be invoked when the collection of selected files changes.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InvokeOnChangeAsync(Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs)">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnChange"/> event. Allows interception of the event in derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnProgress">
-            <summary>
-            Raised during running file upload (the frequency depends on browser implementation).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InvokeOnProgressAsync(Havit.Blazor.Components.Web.UploadProgressEventArgs)">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnProgress"/> event. Allows interception of the event in derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnFileUploaded">
-            <summary>
-            Raised after a file is uploaded (for every single file separately).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InvokeOnFileUploadedAsync(Havit.Blazor.Components.Web.FileUploadedEventArgs)">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnFileUploaded"/> event. Allows interception of the event in derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnUploadCompleted">
-            <summary>
-            Raised when all files are uploaded (after all <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnFileUploaded"/> events).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InvokeOnUploadCompletedAsync(Havit.Blazor.Components.Web.UploadCompletedEventArgs)">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnUploadCompleted"/> event. Allows interception of the event in derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.Multiple">
-            <summary>
-            Single <c>false</c> or multiple <c>true</c> files upload.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.MaxFileSize">
-            <summary>
-            The maximum file size in bytes.
-            When exceeded, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.
-            Default is <c>null</c> (unlimited).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.Accept">
-            <summary>
-            Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.
-            <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">MDN Web Docs - HTML attribute: accept</see>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.NoFilesTemplate">
-            <summary>
-            Content to render when no files are picked. Default content is displayed when not set.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.CssClass">
-            <summary>
-            Custom CSS class to render with the wrapping div.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InputCssClass">
-            <summary>
-            Custom CSS class to render with the input element.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.Enabled">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.FormState">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.FormState" />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.GetFilesAsync">
-            <summary>
-            Gets the list of chosen files.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.ResetAsync">
-            <summary>
-            Clears the associated input-file element and resets the component to its initial state.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.StartUploadAsync(System.String)">
-            <summary>
-            Starts the upload.
-            </summary>
-            <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-            <remarks>
-            We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefore, the accessToken here...
-            </remarks>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadAsync(System.String)">
-            <summary>
-            Uploads the file(s).
-            </summary>
-            <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputFileSettings">
-            <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/> component.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputFileSettings.InputSize">
-            <summary>
-            The size of the input.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1">
-            <summary>
-            Edit form derived from HxModelEditForm with support for chip generators.<br />
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxFilterForm">https://havit.blazor.eu/components/HxFilterForm</see>
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1.InvokeOnChipsUpdatedAsync(Havit.Blazor.Components.Web.Bootstrap.ChipItem[])">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1.OnChipsUpdated"/> event. Allows interception of the event in derived components.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1.RemoveChipAsync(Havit.Blazor.Components.Web.Bootstrap.ChipItem)">
-            <summary>
-            Tries to remove a chip.
-            Execution is postponed to OnAfterRender, so this method cannot have a return value.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderDelegate`1">
-            <summary>
-            Data provider (delegate).
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderRequest">
-            <summary>
-            Data provider request for autosuggest data.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderRequest.UserInput">
-            <summary>
-            Autosuggest current user input.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderRequest.CancellationToken">
-            <summary>
-            The <see cref="T:System.Threading.CancellationToken"/> used to indicate cancellation of the request.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderResult`1">
-            <summary>
-            Data provider result for autosuggest data.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderResult`1.Data">
-            <summary>
-            The items provided by the request.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings">
-            <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/> and derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.SearchIcon">
-            <summary>
-            Icon displayed in the input when no item is selected.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.ClearIcon">
-            <summary>
-            Icon displayed in the input on the selection clear button when an item is selected.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.MinimumLength">
-            <summary>
-            The minimum number of characters to start suggesting.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.Delay">
-            <summary>
-            The debounce delay in milliseconds.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.InputSize">
-            <summary>
-            The input size.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2">
-            <summary>
-            Component for single item selection with dynamic suggestions (based on typed characters).<br />
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAutosuggest">https://havit.blazor.eu/components/HxAutosuggest</see>
-            </summary>
-            <remarks>
-            Defaults are located in a separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest"/>.
-            </remarks>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetDefaults">
-            <summary>
-            Returns application-wide defaults for the component.
-            Enables overriding defaults in descendants (use a separate set of defaults).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Settings">
-            <summary>
-            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest.Defaults"/>, overridden by individual parameters).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetSettings">
-            <summary>
-            Returns an optional set of component settings.
-            </summary>
-            <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Settings"/> in component descendants (by returning a derived settings class).
-            </remarks>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.DataProvider">
-            <summary>
-            Method (delegate) that provides data for the suggestions.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ValueSelector">
-            <summary>
-            Selects a value from an item.
-            Not required when <c>TValue</c> is the same as <c>TItem</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.TextSelector">
-            <summary>
-            Selects the text to display from an item.
-            When not set, <c>ToString()</c> is used.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ItemTemplate">
-            <summary>
-            Template to display an item.
-            When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.TextSelector"/> is used.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.EmptyTemplate">
-            <summary>
-            Template to display when items are empty.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.SearchIcon">
-            <summary>
-            Icon displayed in the input when no item is selected.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ClearIcon">
-            <summary>
-            Icon displayed in the input on the selection clear button when an item is selected.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.MinimumLength">
-            <summary>
-            The minimal number of characters to start suggesting.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Delay">
-            <summary>
-            The debounce delay in milliseconds.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Placeholder">
-            <summary>
-            A short hint displayed in the input field before the user enters a value.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputSize">
-            <summary>
-            The size of the input.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.LabelType">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.DropdownOffset">
-            <summary>
-            The offset between the dropdown and the input.
-            <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ItemFromValueResolver">
-            <summary>
-            Returns the corresponding item for the (selected) value.
-            </summary>
-            <remarks>
-            We do not have a full list of possible items to be able to select one by value.
-            </remarks>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupStartText">
-            <summary>
-            The input-group at the beginning of the input.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupStartTemplate">
-            <summary>
-            The input-group at the beginning of the input.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupEndText">
-            <summary>
-            The input-group at the end of the input.<br/>
-            Hides the search icon when used!
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupEndTemplate">
-            <summary>
-            The input-group at the end of the input.<br/>
-            Hides the search icon when used!
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
-            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.TryParseValueFromString(System.String,`1@,System.String@)">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.FocusAsync">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.RenderChipGenerator(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.RenderChipValue(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest">
-            <summary>
-            Non-generic API for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2" />.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest.Defaults">
-            <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/> and derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInputInternal.DropdownOffset">
@@ -2999,21 +2514,6 @@
             Gets the CSS class for the input group size.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithToggleButton">
-            <summary>
-            Represents an input with a toggle button option
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithToggleButton.InputAsToggle">
-            <summary>
-            Gets or sets the input as toggle or regular.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithToggleButton.InputAsToggleEffective">
-            <summary>
-            Gets the effective input type.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.LabelValueRenderOrder">
             <summary>
             Specifies the render order of label and value/input.
@@ -3061,15 +2561,25 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal">
             <summary>
-            <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> variation which adds <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> and related stuff.
+            Variation of <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> that adds <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> and related functionality.
             </summary>
             <remarks>
-            <see href="https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682">https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682</see>.
+            See <see href="https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682">https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682</see> for more information.
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick">
             <summary>
             Raised when the item is clicked.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClickStopPropagation">
+            <summary>
+            Stops event propagation when the item is clicked. Default is <c>null</c>, which means <c>true</c> when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> is set.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClickPreventDefault">
+            <summary>
+            Prevents the default action for the onclick event. Default is <c>null</c>, which means <c>true</c> when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> is set.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInputInternal.Offset">
@@ -3318,6 +2828,558 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.Offset">
             <summary>
             Offset of the component relative to its target (ChildContent).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
+            <summary>
+            Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as a Bootstrap form control (including <c>Label</c> etc.)<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputFile">https://havit.blazor.eu/components/HxInputFile</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.UploadUrl">
+            <summary>
+            URL of the server endpoint receiving the files.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnChange">
+            <summary>
+            Gets or sets the event callback that will be invoked when the collection of selected files changes.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InvokeOnChangeAsync(Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnChange"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnProgress">
+            <summary>
+            Raised during running file upload (the frequency depends on browser implementation).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InvokeOnProgressAsync(Havit.Blazor.Components.Web.UploadProgressEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnProgress"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnFileUploaded">
+            <summary>
+            Raised after a file is uploaded (for every single file separately).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InvokeOnFileUploadedAsync(Havit.Blazor.Components.Web.FileUploadedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnFileUploaded"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnUploadCompleted">
+            <summary>
+            Raised when all files are uploaded (after all <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnFileUploaded"/> events).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InvokeOnUploadCompletedAsync(Havit.Blazor.Components.Web.UploadCompletedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnUploadCompleted"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Multiple">
+            <summary>
+            Single <c>false</c> or multiple <c>true</c> files upload.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.MaxParallelUploads">
+            <summary>
+            Maximum number of concurrent uploads. The default is <c>6</c> (from <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Accept">
+            <summary>
+            Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.
+            <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">MDN Web Docs - HTML attribute: accept</see>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.MaxFileSize">
+            <summary>
+            The maximum file size in bytes.
+            When exceeded, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.
+            The default is <c>null</c> (unlimited).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Label">
+            <summary>
+            Label to render before input (or after input for Checkbox).		
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.LabelTemplate">
+            <summary>
+            Label to render before input (or after input for Checkbox).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Hint">
+            <summary>
+            Hint to render after input as form-text.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.HintTemplate">
+            <summary>
+            Hint to render after input as form-text.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.CssClass">
+            <summary>
+            Custom CSS class to render with the wrapping div.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.LabelCssClass">
+            <summary>
+            Custom CSS class to render with the label.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InputSize">
+            <summary>
+            Size of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InputCssClass">
+            <summary>
+            Custom CSS class to render with the input element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Enabled">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.FormState">
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.FormState" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.FileCount">
+            <summary>
+            Last known count of associated files.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.InputId">
+            <summary>
+            ID if the input element. Autogenerated when used with label.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.CoreInputCssClass">
+            <summary>
+            CSS class to be rendered with the input element.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.GetFilesAsync">
+            <summary>
+            Gets list of files chosen.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.ResetAsync">
+            <summary>
+            Clears associated input-file element and resets component to initial state.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.StartUploadAsync(System.String)">
+            <summary>
+            Starts the upload.
+            </summary>
+            <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+            <remarks>
+            We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.UploadAsync(System.String)">
+            <summary>
+            Uploads the file(s).
+            </summary>
+            <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone">
+            <summary>
+            Ready-made UX for drag&amp;drop file upload.
+            For custom drag&amp;drop UX, use <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> and <see href="https://github.com/havit/Havit.Blazor/blob/728567c9c83a0b4ab7fe2e031bf1ff378f1b1ce7/Havit.Blazor.Components.Web.Bootstrap/Files/HxInputFileDropZone.razor.css#L20-L26">a little bit of HTML/CSS</see>.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputFileDropZone">https://havit.blazor.eu/components/HxInputFileDropZone</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadUrl">
+            <summary>
+            URL of the server endpoint receiving the files.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnChange">
+            <summary>
+            Gets or sets the event callback that will be invoked when the collection of selected files changes.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InvokeOnChangeAsync(Microsoft.AspNetCore.Components.Forms.InputFileChangeEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnChange"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnProgress">
+            <summary>
+            Raised during running file upload (the frequency depends on browser implementation).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InvokeOnProgressAsync(Havit.Blazor.Components.Web.UploadProgressEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnProgress"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnFileUploaded">
+            <summary>
+            Raised after a file is uploaded (for every single file separately).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InvokeOnFileUploadedAsync(Havit.Blazor.Components.Web.FileUploadedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnFileUploaded"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnUploadCompleted">
+            <summary>
+            Raised when all files are uploaded (after all <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnFileUploaded"/> events).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InvokeOnUploadCompletedAsync(Havit.Blazor.Components.Web.UploadCompletedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnUploadCompleted"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.Multiple">
+            <summary>
+            Single <c>false</c> or multiple <c>true</c> files upload.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.MaxFileSize">
+            <summary>
+            The maximum file size in bytes.
+            When exceeded, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnFileUploaded"/> returns <c>413-RequestEntityTooLarge</c> as <see cref="P:Havit.Blazor.Components.Web.FileUploadedEventArgs.ResponseStatus"/>.
+            Default is <c>null</c> (unlimited).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithToggleButton">
+            <summary>
+            Represents an input with a toggle button option
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithToggleButton.InputAsToggle">
+            <summary>
+            Gets or sets the input as toggle or regular.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithToggleButton.InputAsToggleEffective">
+            <summary>
+            Gets the effective input type.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.Accept">
+            <summary>
+            Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.
+            <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept">MDN Web Docs - HTML attribute: accept</see>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.NoFilesTemplate">
+            <summary>
+            Content to render when no files are picked. Default content is displayed when not set.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.CssClass">
+            <summary>
+            Custom CSS class to render with the wrapping div.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.InputCssClass">
+            <summary>
+            Custom CSS class to render with the input element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.Enabled">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.FormState">
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.FormState" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.GetFilesAsync">
+            <summary>
+            Gets the list of chosen files.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.ResetAsync">
+            <summary>
+            Clears the associated input-file element and resets the component to its initial state.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.StartUploadAsync(System.String)">
+            <summary>
+            Starts the upload.
+            </summary>
+            <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+            <remarks>
+            We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefore, the accessToken here...
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadAsync(System.String)">
+            <summary>
+            Uploads the file(s).
+            </summary>
+            <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputFileSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputFileSettings.InputSize">
+            <summary>
+            The size of the input.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1">
+            <summary>
+            Edit form derived from HxModelEditForm with support for chip generators.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxFilterForm">https://havit.blazor.eu/components/HxFilterForm</see>
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1.InvokeOnChipsUpdatedAsync(Havit.Blazor.Components.Web.Bootstrap.ChipItem[])">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1.OnChipsUpdated"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1.RemoveChipAsync(Havit.Blazor.Components.Web.Bootstrap.ChipItem)">
+            <summary>
+            Tries to remove a chip.
+            Execution is postponed to OnAfterRender, so this method cannot have a return value.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderDelegate`1">
+            <summary>
+            Data provider (delegate).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderRequest">
+            <summary>
+            Data provider request for autosuggest data.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderRequest.UserInput">
+            <summary>
+            Autosuggest current user input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderRequest.CancellationToken">
+            <summary>
+            The <see cref="T:System.Threading.CancellationToken"/> used to indicate cancellation of the request.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderResult`1">
+            <summary>
+            Data provider result for autosuggest data.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestDataProviderResult`1.Data">
+            <summary>
+            The items provided by the request.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.SearchIcon">
+            <summary>
+            Icon displayed in the input when no item is selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.ClearIcon">
+            <summary>
+            Icon displayed in the input on the selection clear button when an item is selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.MinimumLength">
+            <summary>
+            The minimum number of characters to start suggesting.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.Delay">
+            <summary>
+            The debounce delay in milliseconds.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.InputSize">
+            <summary>
+            The input size.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2">
+            <summary>
+            Component for single item selection with dynamic suggestions (based on typed characters).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAutosuggest">https://havit.blazor.eu/components/HxAutosuggest</see>
+            </summary>
+            <remarks>
+            Defaults are located in a separate non-generic type <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest"/>.
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.DataProvider">
+            <summary>
+            Method (delegate) that provides data for the suggestions.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ValueSelector">
+            <summary>
+            Selects a value from an item.
+            Not required when <c>TValue</c> is the same as <c>TItem</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.TextSelector">
+            <summary>
+            Selects the text to display from an item.
+            When not set, <c>ToString()</c> is used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ItemTemplate">
+            <summary>
+            Template to display an item.
+            When not set, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.TextSelector"/> is used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.EmptyTemplate">
+            <summary>
+            Template to display when items are empty.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.SearchIcon">
+            <summary>
+            Icon displayed in the input when no item is selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ClearIcon">
+            <summary>
+            Icon displayed in the input on the selection clear button when an item is selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.MinimumLength">
+            <summary>
+            The minimal number of characters to start suggesting.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Delay">
+            <summary>
+            The debounce delay in milliseconds.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Placeholder">
+            <summary>
+            A short hint displayed in the input field before the user enters a value.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputSize">
+            <summary>
+            The size of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.LabelType">
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.DropdownOffset">
+            <summary>
+            The offset between the dropdown and the input.
+            <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ItemFromValueResolver">
+            <summary>
+            Returns the corresponding item for the (selected) value.
+            </summary>
+            <remarks>
+            We do not have a full list of possible items to be able to select one by value.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupStartText">
+            <summary>
+            The input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupStartTemplate">
+            <summary>
+            The input-group at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupEndText">
+            <summary>
+            The input-group at the end of the input.<br/>
+            Hides the search icon when used!
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputGroupEndTemplate">
+            <summary>
+            The input-group at the end of the input.<br/>
+            Hides the search icon when used!
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.TryParseValueFromString(System.String,`1@,System.String@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.FocusAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.RenderChipGenerator(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.RenderChipValue(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest">
+            <summary>
+            Non-generic API for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2" />.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2"/> and derived components.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.BindEvent">
@@ -5575,6 +5637,15 @@
             Input-group at the end of the input.<br/>
             Hides the search icon when used!
             </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.OnHiding">
+            <summary>
+            Fired immediately when the 'hide' method of the dropdown is called.
+            To prevent hiding, set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.DropdownHidingEventArgs.Cancel"/> to <c>true</c>.
+            </summary>
+            <remarks>
+            Exposed to allow derived custom components to cancel hiding the dropdown, for example, when the dropdown contains draggable content and the mouseup event is fired outside the dropdown.
+            </remarks>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1._textQueryHasBeenBelowMinimumLength">
             <summary>
@@ -8226,6 +8297,16 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.OnClick"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.OnClickStopPropagation">
+            <summary>
+            Stops event propagation when the item is clicked. Default is <c>null</c>, which means <c>true</c> when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.OnClick"/> is set.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.OnClickPreventDefault">
+            <summary>
+            Prevents the default action for the onclick event. Default is <c>null</c>, which means <c>true</c> when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.OnClick"/> is set.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.CssClass">
             <summary>
             Additional CSS class.
@@ -8469,6 +8550,26 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.Href">
             <summary>
             Item navigation target.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.OnClick">
+            <summary>
+            Raised after the item is clicked.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.InvokeOnClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.OnClick"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.OnClickStopPropagation">
+            <summary>
+            Stops onClick-event propagation. Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.OnClickPreventDefault">
+            <summary>
+            Prevents the default action for the onclick event. Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.Match">

@@ -4,6 +4,8 @@
 <HxNavLinkInternal href="@Href"
 				   Match="@(Match ?? NavLinkMatch.All)"
 				   OnClick="@(OnClick.HasDelegate ? InvokeOnClickAsync : null)"
+				   OnClickStopPropagation="OnClickStopPropagation"
+				   OnClickPreventDefault="OnClickPreventDefault"
 				   class="@CssClassHelper.Combine("nav-link", CascadeEnabledComponent.EnabledEffective(this) ? null : "disabled", CssClass)"
 				   ActiveClass="@(((Match is null) || (Href is null)) ? String.Empty : "active")"
 				   tabindex="@(CascadeEnabledComponent.EnabledEffective(this) ? null : "-1")"

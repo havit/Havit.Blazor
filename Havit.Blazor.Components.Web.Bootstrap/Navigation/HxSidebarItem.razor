@@ -10,8 +10,11 @@
 					   Text="@(ParentSidebar.Collapsed ? TooltipText : null)">
 
 				<HxNavLink Href="@Href"
-						   CssClass="@CssClassHelper.Combine(DropdownContainer is not null ? "dropdown-item" : null, CssClass, "position-relative")"
 						   Match="Match"
+						   OnClick="@(OnClick.HasDelegate ? InvokeOnClickAsync : null)"
+						   OnClickStopPropagation="OnClickStopPropagation"
+						   OnClickPreventDefault="OnClickPreventDefault"
+						   CssClass="@CssClassHelper.Combine(DropdownContainer is not null ? "dropdown-item" : null, CssClass, "position-relative")"
 						   Enabled="Enabled">
 
 					@* To hide the nav-content in mobile view *@
@@ -59,8 +62,11 @@
 			{
 				<HxDropdown Direction="DropdownDirection.End" CssClass="hx-sidebar-item">
 					<HxNavLink Href="@Href"
-							   CssClass="this.CssClass"
 							   Match="Match"
+							   OnClick="@(OnClick.HasDelegate ? InvokeOnClickAsync : null)"
+							   OnClickStopPropagation="OnClickStopPropagation"
+							   OnClickPreventDefault="OnClickPreventDefault"
+							   CssClass="this.CssClass"
 							   Enabled="Enabled"
 							   role="button"
 							   data-bs-offset="0,0"
@@ -84,6 +90,8 @@
 						   Match="Match"
 						   Enabled="Enabled"
 						   OnClick="HandleExpandableItemClick"
+						   OnClickStopPropagation="OnClickStopPropagation"
+						   OnClickPreventDefault="OnClickPreventDefault"
 						   role="button"
 						   data-bs-toggle="@(expanded && !String.IsNullOrEmpty(Href) ? null : "collapse")"
 						   data-bs-target="@("#" + _id)"

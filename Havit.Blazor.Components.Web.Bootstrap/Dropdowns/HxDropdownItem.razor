@@ -1,10 +1,12 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@using Havit.Blazor.Components.Web.Bootstrap.Internal
 <li class="@ContainerCssClass">
     <span class="@CssClassHelper.Combine("dropdown-item", CascadeEnabledComponent.EnabledEffective(this) ? null : "disabled", CssClass)"
           @onclick="InvokeOnClickAsync"
           @onclick:stopPropagation="true"
           role="button"
           @attributes="AdditionalAttributes">
+        <HxDropdownIconInternal Icon="@Icon" CssClass="@IconCssClass" />
         @ChildContent
     </span>
 </li>

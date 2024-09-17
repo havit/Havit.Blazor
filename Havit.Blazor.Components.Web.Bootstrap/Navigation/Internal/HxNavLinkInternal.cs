@@ -3,10 +3,10 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 /// <summary>
-/// <see cref="NavLink"/> variation which adds <see cref="OnClick"/> and related stuff.
+/// Variation of <see cref="NavLink"/> that adds <see cref="OnClick"/> and related functionality.
 /// </summary>
 /// <remarks>
-/// <see href="https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682">https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682</see>.
+/// See <see href="https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682">https://github.com/dotnet/aspnetcore/issues/18460#issuecomment-577175682</see> for more information.
 /// </remarks>
 public class HxNavLinkInternal : NavLink
 {
@@ -14,6 +14,16 @@ public class HxNavLinkInternal : NavLink
 	/// Raised when the item is clicked.
 	/// </summary>
 	[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+	/// <summary>
+	/// Stops event propagation when the item is clicked. Default is <c>null</c>, which means <c>true</c> when <see cref="OnClick"/> is set.
+	/// </summary>
+	[Parameter] public bool? OnClickStopPropagation { get; set; }
+
+	/// <summary>
+	/// Prevents the default action for the onclick event. Default is <c>null</c>, which means <c>true</c> when <see cref="OnClick"/> is set.
+	/// </summary>
+	[Parameter] public bool? OnClickPreventDefault { get; set; }
 
 	protected override void BuildRenderTree(RenderTreeBuilder builder)
 	{
@@ -25,8 +35,8 @@ public class HxNavLinkInternal : NavLink
 		if (OnClick.HasDelegate)
 		{
 			builder.AddAttribute(3, "onclick", OnClick);
-			builder.AddEventPreventDefaultAttribute(4, "onclick", true);
-			builder.AddEventStopPropagationAttribute(5, "onclick", true);
+			builder.AddEventPreventDefaultAttribute(4, "onclick", this.OnClickPreventDefault ?? true);
+			builder.AddEventStopPropagationAttribute(5, "onclick", this.OnClickStopPropagation ?? true);
 		}
 
 		builder.AddContent(6, ChildContent);

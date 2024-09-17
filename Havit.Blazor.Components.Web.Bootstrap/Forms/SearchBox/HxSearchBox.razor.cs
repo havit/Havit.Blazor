@@ -221,6 +221,15 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+	/// <summary>
+	/// Fired immediately when the 'hide' method of the dropdown is called.
+	/// To prevent hiding, set <see cref="DropdownHidingEventArgs.Cancel"/> to <c>true</c>.
+	/// </summary>
+	/// <remarks>
+	/// Exposed to allow derived custom components to cancel hiding the dropdown, for example, when the dropdown contains draggable content and the mouseup event is fired outside the dropdown.
+	/// </remarks>
+	[Parameter] public EventCallback<DropdownHidingEventArgs> OnHiding { get; set; }
+
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	protected bool HasInputGroups => HasInputGroupStart || HasInputGroupEnd;
