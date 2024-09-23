@@ -1,0 +1,11 @@
+# Automatically added reviewers to a pull request
+
+
+# Default reviewer when later rule is not matched
+* hakenr
+
+# Custom Bootstrap build
+/Havit.Bootstrap/	crdo
+
+# CSS files
+*.css		crdo
