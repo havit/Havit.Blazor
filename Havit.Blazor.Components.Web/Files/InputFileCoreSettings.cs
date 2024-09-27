@@ -15,4 +15,9 @@ public record InputFileCoreSettings
 	/// Maximum number of concurrent uploads.
 	/// </summary>
 	public int? MaxParallelUploads { get; set; }
+
+	/// <summary>
+	/// HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+	/// </summary>
+	public string UploadHttpMethod { get; set; } = "POST";
 }

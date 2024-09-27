@@ -49,6 +49,11 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	[Parameter] public string UploadUrl { get; set; }
 
 	/// <summary>
+	/// HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+	/// </summary>
+	[Parameter] public string UploadHttpMethod { get; set; } = "POST";
+
+	/// <summary>
 	/// Gets or sets the event callback that will be invoked when the collection of selected files changes.
 	/// </summary>
 	[Parameter] public EventCallback<InputFileChangeEventArgs> OnChange { get; set; }
@@ -219,6 +224,7 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 		builder.OpenComponent<HxInputFileCore>(1);
 		builder.AddAttribute(1001, nameof(HxInputFileCore.Id), InputId);
 		builder.AddAttribute(1002, nameof(HxInputFileCore.UploadUrl), UploadUrl);
+		builder.AddAttribute(1002, nameof(HxInputFileCore.UploadHttpMethod), UploadHttpMethod);
 		builder.AddAttribute(1003, nameof(HxInputFileCore.Multiple), Multiple);
 		builder.AddAttribute(1004, nameof(HxInputFileCore.OnChange), EventCallback.Factory.Create<InputFileChangeEventArgs>(this, InvokeOnChangeAsync));
 		builder.AddAttribute(1005, nameof(HxInputFileCore.OnProgress), EventCallback.Factory.Create<UploadProgressEventArgs>(this, InvokeOnProgressAsync));

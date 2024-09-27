@@ -2865,6 +2865,11 @@
             URL of the server endpoint receiving the files.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.UploadHttpMethod">
+            <summary>
+            HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnChange">
             <summary>
             Gets or sets the event callback that will be invoked when the collection of selected files changes.
@@ -3024,6 +3029,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadUrl">
             <summary>
             URL of the server endpoint receiving the files.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadHttpMethod">
+            <summary>
+            HTTP Method (verb) used for file upload. The default is <c>POST</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnChange">
