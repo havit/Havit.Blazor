@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using System.Reflection;
+﻿using System.Reflection;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Havit.Blazor.Components.Web.Infrastructure;
 using Microsoft.AspNetCore.Components.Forms;
@@ -42,24 +41,6 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// </summary>
 	[Parameter] public ValidationMessageMode? ValidationMessageMode { get; set; }
 	protected ValidationMessageMode ValidationMessageModeEffective => ValidationMessageMode ?? GetSettings()?.ValidationMessageMode ?? GetDefaults().ValidationMessageMode ?? HxInputBase.Defaults?.ValidationMessageMode ?? throw new InvalidOperationException(nameof(ValidationMessageMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");
-	/// <summary>
-	/// Specifies a custom field for which validation messages should be displayed.
-	/// Mutual exclusive with <see cref="For"/> and <see cref="ForFieldName"/>.
-	/// This overrides the field specified in <see cref="ValueExpression"/> for validation messages.
-	/// </summary>
-	[Parameter] public string ValidationForFieldName { get; set; }
-
-	/// <summary>
-	/// Specifies the field for which validation messages should be displayed.
-	/// Mutual exclusive with <see cref="For"/> and <see cref="ForFieldName"/>.
-	/// This overrides the field specified in <see cref="ValueExpression"/> for validation messages.
-	/// </summary>
-	[Parameter] public Expression<Func<TValue>> ValidationFor { get; set; }
-	/// <summary>
-	/// Specifies a custom EditorContext for validation messages on this component.
-	/// This overrides the cascading <see cref="EditContext"/>.
-	/// </summary>
-	[Parameter] public EditContext? ValidationEditContext { get; set; }
 
 	/// <inheritdoc cref="Web.FormState" />
 	[CascadingParameter] protected FormState FormState { get; set; }
@@ -229,11 +210,6 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		{
 			throw new InvalidOperationException($"Cannot use {nameof(IInputWithPlaceholder.Placeholder)} with floating labels.");
 		}
-
-		if (!string.IsNullOrEmpty(ValidationForFieldName) && ValidationFor != null)
-		{
-			throw new InvalidOperationException($"Cannot use {nameof(ValidationForFieldName)} and {nameof(ValidationFor)} at the same time.");
-		}
 	}
 
 	/// <summary>
@@ -351,27 +327,11 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 			//Please provide a valid city.
 			//</div>
 			builder.OpenComponent<HxValidationMessage<TValue>>(1);
-			if (ValidationEditContext != null)
-			{
-				builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.EditContext), ValidationEditContext);
-			}
-			else if (_autoCreatedEditContext != null)
+			if (_autoCreatedEditContext != null)
 			{
 				builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.EditContext), _autoCreatedEditContext);
 			}
-
-			if (ValidationFor != null)
-			{
-				builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.For), ValidationFor);
-			}
-			if (!string.IsNullOrEmpty(ValidationForFieldName))
-			{
-				builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.ForFieldName), ValidationForFieldName);
-			}
-			else
-			{
-				builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.For), ValueExpression);
-			}
+			builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.For), ValueExpression);
 			builder.AddAttribute(4, nameof(HxValidationMessage<TValue>.Mode), ValidationMessageModeEffective);
 			builder.CloseComponent();
 		}
@@ -509,7 +469,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	protected TAttribute GetValueAttribute<TAttribute>()
 		where TAttribute : Attribute
 	{
-		return FieldIdentifier.Model.GetType().GetMember(FieldIdentifier.FieldName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Single().GetCustomAttribute<TAttribute>();
+		return FieldIdentifier.Model.GetType().GetMember(FieldIdentifier.FieldName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).FirstOrDefault()?.GetCustomAttribute<TAttribute>();
 	}
 
 	/// <summary>
