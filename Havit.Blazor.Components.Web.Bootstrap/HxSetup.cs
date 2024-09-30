@@ -3,6 +3,11 @@
 public static class HxSetup
 {
 	/// <summary>
+	/// Global settings for the Havit Blazor Components library.
+	/// </summary>
+	public static GlobalSettings Defaults { get; } = new GlobalSettings();
+
+	/// <summary>
 	/// Renders the <c>&lt;script&gt;</c> tag that references the corresponding Bootstrap JavaScript bundle with Popper.<br/>
 	/// To be used in <c>_Layout.cshtml</c> as <c>@Html.Raw(HxSetup.RenderBootstrapJavaScriptReference())</c>.
 	/// </summary>

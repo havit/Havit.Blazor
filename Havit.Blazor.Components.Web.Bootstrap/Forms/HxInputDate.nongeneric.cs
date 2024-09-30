@@ -15,7 +15,6 @@ public class HxInputDate
 	{
 		Defaults = new InputDateSettings()
 		{
-			InputSize = InputSize.Regular,
 			MinDate = HxCalendar.DefaultMinDate,
 			MaxDate = HxCalendar.DefaultMaxDate,
 			ShowClearButton = true,

@@ -15,7 +15,6 @@ public class HxInputText : HxInputTextBase
 	{
 		Defaults = new InputTextSettings()
 		{
-			InputSize = Bootstrap.InputSize.Regular,
 			SelectOnFocus = false
 		};
 	}

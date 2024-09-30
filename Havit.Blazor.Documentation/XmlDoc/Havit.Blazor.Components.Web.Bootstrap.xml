@@ -2464,19 +2464,9 @@
             Input-group at the end of the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputSettingsWithSize.InputSize">
-            <summary>
-            The size of the input.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithLabelType">
             <summary>
             Represents an input with a label type.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithLabelType.LabelType">
-            <summary>
-            Gets or sets the label type.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithLabelType.LabelTypeEffective">
@@ -2501,7 +2491,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.InputSizeEffective">
             <summary>
-            The size of the input.
+            The effective size of the input after all the defaults and cascading settings are applied.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.GetInputSizeCssClass">
@@ -3225,6 +3215,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.InputSize">
             <summary>
             The input size.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.LabelType">
+            <summary>
+            The label type.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2">
@@ -4955,6 +4950,9 @@
             Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect.Defaults"/>, overridden by individual parameters).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.LabelType">
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.GetSettings">
             <summary>
             Returns an optional set of component settings.
@@ -5211,6 +5209,11 @@
             Input size.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.LabelType">
+            <summary>
+            The label type.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.CalendarIcon">
             <summary>
             Optional icon to display within the input.
@@ -5259,6 +5262,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputSize">
             <summary>
             The size of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.LabelType">
+            <summary>
+            The label type.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputMode">
@@ -5334,6 +5342,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.InputSize">
             <summary>
             Size of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.LabelType">
+            <summary>
+            The label type.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.InputMode">
@@ -5571,9 +5584,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.LabelType">
-            <summary>
-            Label type of the input field.
-            </summary>
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputSize">
             <summary>
@@ -5726,6 +5737,11 @@
             The input size.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.LabelType">
+            <summary>
+            The label type.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.CssClass">
             <summary>
             Additional CSS classes for the wrapping <c>div</c>.
@@ -5761,6 +5777,11 @@
             The size of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.LabelType">
+            <summary>
+            The label type.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode">
             <summary>
             Validation message display mode for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1"/>
@@ -5792,6 +5813,21 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageModeExtensions">
             <summary>
             Extension methods for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode" />.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GlobalSettings">
+            <summary>
+            Settings you can set globally for all components. Exposed as <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSetup.Defaults"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GlobalSettings.LabelType">
+            <summary>
+            Specifies how the input labels should be displayed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GlobalSettings.InputSize">
+            <summary>
+            Input size.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate">
@@ -7009,6 +7045,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItemExtensions.ToSortItems``1(System.Collections.Generic.IEnumerable{Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}})">
             <summary>
             Converts a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1"/> to a <see cref="T:Havit.Collections.SortItem"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSetup.Defaults">
+            <summary>
+            Global settings for the Havit Blazor Components library.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSetup.RenderBootstrapJavaScriptReference">
@@ -9805,7 +9846,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.LabelType">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1" />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputSize">
             <summary>
@@ -9903,6 +9944,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.InputSize">
             <summary>
             Input size.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.LabelType">
+            <summary>
+            The label type.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.Delimiters">

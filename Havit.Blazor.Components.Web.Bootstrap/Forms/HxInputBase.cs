@@ -205,7 +205,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 
 		if ((this is IInputWithLabelType inputWithLabelType)
 			&& (this is IInputWithPlaceholder inputWithPlaceholder)
-			&& (inputWithLabelType.LabelType == LabelType.Floating)
+			&& (inputWithLabelType.LabelTypeEffective == LabelType.Floating)
 			&& !String.IsNullOrEmpty(inputWithPlaceholder.Placeholder))
 		{
 			throw new InvalidOperationException($"Cannot use {nameof(IInputWithPlaceholder.Placeholder)} with floating labels.");

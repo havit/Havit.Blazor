@@ -22,10 +22,7 @@ public class HxSmartTextArea : HxInputBase<string>, IInputWithPlaceholder, IInpu
 
 	static HxSmartTextArea()
 	{
-		Defaults = new InputTextSettings()
-		{
-			InputSize = Bootstrap.InputSize.Regular,
-		};
+		Defaults = new InputTextSettings();
 	}
 
 	/// <summary>
@@ -95,11 +92,12 @@ public class HxSmartTextArea : HxInputBase<string>, IInputWithPlaceholder, IInpu
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputNumber) + " has to be set.");
-	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize; InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
+	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
+	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
 
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
