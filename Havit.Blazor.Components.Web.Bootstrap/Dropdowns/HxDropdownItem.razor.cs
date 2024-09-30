@@ -21,6 +21,16 @@ public partial class HxDropdownItem : ICascadeEnabledComponent
 	[Parameter] public string ContainerCssClass { get; set; }
 
 	/// <summary>
+	/// Item icon (use <see cref="BootstrapIcon" />).
+	/// </summary>
+	[Parameter] public IconBase Icon { get; set; }
+
+	/// <summary>
+	/// Additional CSS class(es) for the context menu item icon.
+	/// </summary>
+	[Parameter] public string IconCssClass { get; set; }
+
+	/// <summary>
 	/// Raised when the item is clicked.
 	/// </summary>
 	[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }

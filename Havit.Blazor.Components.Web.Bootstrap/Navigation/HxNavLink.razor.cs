@@ -39,6 +39,16 @@ public partial class HxNavLink : ICascadeEnabledComponent
 	protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
 
 	/// <summary>
+	/// Stops event propagation when the item is clicked. Default is <c>null</c>, which means <c>true</c> when <see cref="OnClick"/> is set.
+	/// </summary>
+	[Parameter] public bool? OnClickStopPropagation { get; set; }
+
+	/// <summary>
+	/// Prevents the default action for the onclick event. Default is <c>null</c>, which means <c>true</c> when <see cref="OnClick"/> is set.
+	/// </summary>
+	[Parameter] public bool? OnClickPreventDefault { get; set; }
+
+	/// <summary>
 	/// Additional CSS class.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }

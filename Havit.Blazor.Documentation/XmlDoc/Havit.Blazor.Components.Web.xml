@@ -195,6 +195,11 @@
             URL of the server endpoint receiving the files.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.UploadHttpMethod">
+            <summary>
+            HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.OnProgress">
             <summary>
             Raised during running file upload (the frequency depends on browser implementation).
@@ -318,6 +323,11 @@
         <member name="P:Havit.Blazor.Components.Web.InputFileCoreSettings.MaxParallelUploads">
             <summary>
             Maximum number of concurrent uploads.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.InputFileCoreSettings.UploadHttpMethod">
+            <summary>
+            HTTP Method (verb) used for file upload. The default is <c>POST</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.UploadCompletedEventArgs">

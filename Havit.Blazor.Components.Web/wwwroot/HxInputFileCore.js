@@ -1,4 +1,4 @@
-﻿export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads) {
+﻿export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads, uploadHttpMethod) {
 	var inputElement = document.getElementById(inputElementId);
 	var dotnetReference = hxInputFileDotnetObjectReference;
 	var files = inputElement.files;
@@ -54,7 +54,7 @@
 		var request = new XMLHttpRequest();
 		inputElement.requests.push(request);
 
-		request.open('POST', uploadEndpointUrl, true);
+		request.open(uploadHttpMethod, uploadEndpointUrl, true);
 
 		if (accessToken) {
 			request.setRequestHeader('Authorization', 'Bearer ' + accessToken);

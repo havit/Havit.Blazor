@@ -19,6 +19,11 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	[Parameter] public string UploadUrl { get; set; }
 
 	/// <summary>
+	/// HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+	/// </summary>
+	[Parameter] public string UploadHttpMethod { get; set; } = "POST";
+
+	/// <summary>
 	/// Gets or sets the event callback that will be invoked when the collection of selected files changes.
 	/// </summary>
 	[Parameter] public EventCallback<InputFileChangeEventArgs> OnChange { get; set; }

@@ -12,6 +12,7 @@ $nav-tabs-border-color:               var(--#{$prefix}border-color-translucent);
 
 $card-border-radius:                  var(--#{$prefix}border-radius-lg);
 $card-inner-border-radius:            subtract($card-border-radius, $card-border-width);
+$card-cap-bg:                         rgba(var(--#{$prefix}body-color-rgb), .02);
 
 $table-active-bg-factor:              .075;
 $table-active-bg:                     rgba($black, $table-active-bg-factor);

@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
+# 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web", "Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj", "{DF1C423F-ACA1-446E-A9F1-099DFDF70D44}"
@@ -64,6 +64,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap.Smart", "Havit.Blazor.Components.Web.Bootstrap.Smart\Havit.Blazor.Components.Web.Bootstrap.Smart.csproj", "{DC8FA7BF-2687-43BE-A310-CA9D89652AE6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Grpc.Client.ServerSideRendering", "Havit.Blazor.Grpc.Client.ServerSideRendering\Havit.Blazor.Grpc.Client.ServerSideRendering.csproj", "{F6A546C8-60C3-47AC-A58B-66E3513DCC7A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{45BC138B-4F00-43DD-BF5D-D2FC36972857}"
+	ProjectSection(SolutionItems) = preProject
+		.github\CODEOWNERS = .github\CODEOWNERS
+		.github\FUNDING.yml = .github\FUNDING.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -170,9 +176,9 @@ Global
 		{4A06D529-DD8A-44A0-B07B-90AE89E8B210} = {79C29E4F-EF98-4F43-9782-B0D58A533C4D}
 		{E64B4752-B697-4B5A-91F0-8A8581B1ABE5} = {79C29E4F-EF98-4F43-9782-B0D58A533C4D}
 		{F6A546C8-60C3-47AC-A58B-66E3513DCC7A} = {79C29E4F-EF98-4F43-9782-B0D58A533C4D}
+		{45BC138B-4F00-43DD-BF5D-D2FC36972857} = {D7B56FC7-6322-4B66-B34F-A972805BF740}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA2F0FE2-9DA0-4C29-8772-0802E2E67119}
 	EndGlobalSection
 EndGlobal
-bal

@@ -4624,7 +4624,7 @@ textarea.form-control-lg {
   --bs-card-inner-border-radius: calc(var(--bs-border-radius-lg) - (var(--bs-border-width)));
   --bs-card-cap-padding-y: 0.5rem;
   --bs-card-cap-padding-x: 1rem;
-  --bs-card-cap-bg: rgba(var(--bs-body-color-rgb), 0.03);
+  --bs-card-cap-bg: rgba(var(--bs-body-color-rgb), 0.02);
   --bs-card-cap-color: ;
   --bs-card-height: ;
   --bs-card-color: ;
