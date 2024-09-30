@@ -56,7 +56,7 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + GetType().Name + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
@@ -67,6 +67,8 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
+	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
+	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
 
 	/// <inheritdoc />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)

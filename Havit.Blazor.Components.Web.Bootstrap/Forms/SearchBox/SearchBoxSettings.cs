@@ -36,6 +36,11 @@ public class SearchBoxSettings
 	public InputSize? InputSize { get; set; }
 
 	/// <summary>
+	/// The label type.
+	/// </summary>
+	public LabelType? LabelType { get; set; }
+
+	/// <summary>
 	/// Additional CSS classes for the wrapping <c>div</c>.
 	/// </summary>
 	public string CssClass { get; set; }

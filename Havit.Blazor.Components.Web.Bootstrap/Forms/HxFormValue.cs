@@ -15,10 +15,7 @@ public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueCompone
 
 	static HxFormValue()
 	{
-		Defaults = new FormValueSettings()
-		{
-			InputSize = Bootstrap.InputSize.Regular,
-		};
+		Defaults = new FormValueSettings();
 	}
 
 	/// <summary>
@@ -90,7 +87,7 @@ public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueCompone
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxFormValue) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 

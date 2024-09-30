@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Settings for the <see cref="HxInputTags"/> component.
 /// </summary>
-public record InputTagsSettings : InputSettings, IInputSettingsWithSize
+public record InputTagsSettings : InputSettings
 {
 	/// <summary>
 	/// Minimum number of characters to start suggesting.
@@ -21,6 +21,11 @@ public record InputTagsSettings : InputSettings, IInputSettingsWithSize
 	/// Input size.
 	/// </summary>
 	public InputSize? InputSize { get; set; }
+
+	/// <summary>
+	/// The label type.
+	/// </summary>
+	public LabelType? LabelType { get; set; }
 
 	/// <summary>
 	/// Characters that, when typed, divide the current input into separate tags.

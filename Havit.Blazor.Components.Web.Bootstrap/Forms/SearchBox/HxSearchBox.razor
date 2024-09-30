@@ -1,9 +1,9 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-@using Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
+@using Havit.Blazor.Components.Web.Bootstrap.Internal
 
 <div class="@CssClassHelper.Combine("hx-search-box", CssClassEffective)">
-	@if (!string.IsNullOrEmpty(Label) && LabelType == LabelType.Regular)
+	@if (!string.IsNullOrEmpty(Label) && (LabelTypeEffective == Bootstrap.LabelType.Regular))
 	{
 		<label class="form-label">@Label</label>
 	}
@@ -22,7 +22,7 @@
 									 ElementName="div"
 									 CssClass="@CssClassHelper.Combine(
 													"position-relative",
-													(LabelType == LabelType.Floating) ? "form-floating" : null,
+													(LabelTypeEffective == Bootstrap.LabelType.Floating) ? "form-floating" : null,
 													InputSizeEffective.AsInputGroupCssClass(),
 													(_initialized || DefaultContentTemplate is not null ? null : "disabled"))"
 									 DropdownOffset="@DropdownOffset"
@@ -46,13 +46,14 @@
 					   @onblur="HandleInputBlur"
 					   inputmode="search"
 					   enabled="@Enabled"
-					   placeholder="@(LabelType == LabelType.Floating ? "placeholder" : Placeholder)"
+					   placeholder="@(LabelTypeEffective == Bootstrap.LabelType.Floating ? "placeholder" : Placeholder)"
 					   class="@CssClassHelper.Combine(
 									"form-control",
+									((IInputWithSize)this).GetInputSizeCssClass(),
 									(!HasInputGroupEnd && HasInputGroups ? "hx-search-box-input-with-search-icon" : null),
 									InputCssClassEffective)" />
 
-				@if (!string.IsNullOrEmpty(Label) && (LabelType == LabelType.Floating))
+				@if (!string.IsNullOrEmpty(Label) && (LabelTypeEffective == Bootstrap.LabelType.Floating))
 				{
 					<label for="@_inputId">@Label</label>
 				}

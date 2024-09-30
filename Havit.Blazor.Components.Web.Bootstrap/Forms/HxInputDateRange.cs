@@ -19,7 +19,6 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	{
 		Defaults = new InputDateRangeSettings()
 		{
-			InputSize = Bootstrap.InputSize.Regular,
 			MinDate = HxCalendar.DefaultMinDate,
 			MaxDate = HxCalendar.DefaultMaxDate,
 			ShowClearButton = true,
@@ -63,7 +62,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputDateRange) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>

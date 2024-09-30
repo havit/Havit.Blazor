@@ -1,11 +1,9 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Settings for the <see cref="HxAutosuggest{TItem, TValue} "/> and derived components.
 /// </summary>
-public record AutosuggestSettings : InputSettings, IInputSettingsWithSize
+public record AutosuggestSettings : InputSettings
 {
 	/// <summary>
 	/// Icon displayed in the input when no item is selected.
@@ -31,4 +29,9 @@ public record AutosuggestSettings : InputSettings, IInputSettingsWithSize
 	/// The input size.
 	/// </summary>
 	public InputSize? InputSize { get; set; }
+
+	/// <summary>
+	/// The label type.
+	/// </summary>
+	public LabelType? LabelType { get; set; }
 }

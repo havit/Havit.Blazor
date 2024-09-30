@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSearchBox">https://havit.blazor.eu/components/HxSearchBox</see>
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public partial class HxSearchBox<TItem> : IAsyncDisposable
+public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInputWithLabelType
 {
 	/// <summary>
 	/// Returns application-wide defaults for the component.
@@ -170,16 +170,17 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// </summary>
 	[Parameter] public string Label { get; set; }
 
-	/// <summary>
-	/// Label type of the input field.
-	/// </summary>
-	[Parameter] public LabelType LabelType { get; set; }
+	/// <inheritdoc cref="Bootstrap.LabelType" />
+	[Parameter] public LabelType? LabelType { get; set; }
+	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
+	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
 
 	/// <summary>
 	/// Input size of the input field.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSearchBox) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
+	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
 	/// Minimum length to call the data provider (display any results). Default is <c>2</c>.
@@ -261,7 +262,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
-		if ((LabelType == LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
+		if ((LabelTypeEffective == Bootstrap.LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
 		{
 			throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
 		}

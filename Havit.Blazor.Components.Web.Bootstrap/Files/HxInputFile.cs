@@ -17,10 +17,7 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 
 	static HxInputFile()
 	{
-		Defaults = new InputFileSettings()
-		{
-			InputSize = Bootstrap.InputSize.Regular,
-		};
+		Defaults = new InputFileSettings();
 	}
 
 	/// <summary>
@@ -143,7 +140,7 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputFile) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>

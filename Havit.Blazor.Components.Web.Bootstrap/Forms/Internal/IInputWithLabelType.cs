@@ -5,13 +5,12 @@
 /// </summary>
 public interface IInputWithLabelType
 {
-	/// <summary>
-	/// Gets or sets the label type.
-	/// </summary>
-	LabelType? LabelType { get; }
+	// We do not want to force the LabelType property here as only LabelTypeEffective is needed
+	// to provide necessary information for the rendering.
+	// The Internal implementation components do not have the LabelType, they use just LabelTypeEffective.
 
 	/// <summary>
 	/// Gets the effective label type.
 	/// </summary>
-	LabelType LabelTypeEffective => LabelType ?? HxInputBase.Defaults.LabelType ?? Bootstrap.LabelType.Regular;
+	LabelType LabelTypeEffective { get; }
 }

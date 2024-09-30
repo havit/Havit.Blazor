@@ -34,7 +34,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxMultiSelect) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 	string IInputWithSize.GetInputSizeCssClass() => InputSizeEffective.AsFormSelectCssClass();
 

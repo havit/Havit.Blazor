@@ -79,7 +79,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputNumber) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
@@ -90,6 +90,8 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
+	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
+	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
 
 #pragma warning disable BL0007 // Component parameter 'Havit.Blazor.Components.Web.Bootstrap.HxInputNumber<TValue>.Decimals' should be auto property
 	/// <summary>

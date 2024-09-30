@@ -19,7 +19,6 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	{
 		Defaults = new InputTagsSettings()
 		{
-			InputSize = Bootstrap.InputSize.Regular,
 			SuggestMinimumLength = 2,
 			SuggestDelay = 300,
 			Delimiters = new() { ',', ';', ' ' },
@@ -108,15 +107,16 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	[Parameter] public BadgeSettings TagBadgeSettings { get; set; }
 	protected BadgeSettings TagBadgeSettingsEffective => TagBadgeSettings ?? GetSettings()?.TagBadgeSettings ?? GetDefaults().TagBadgeSettings ?? throw new InvalidOperationException(nameof(TagBadgeSettings) + " default for " + nameof(HxInputTags) + " has to be set.");
 
-	/// <inheritdoc cref="HxInputBase{TValue}" />
+	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
+	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
+	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
 
 	/// <summary>
 	/// The size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputTags) + " has to be set.");
-	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize; InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 
 	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* label rendered by HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;

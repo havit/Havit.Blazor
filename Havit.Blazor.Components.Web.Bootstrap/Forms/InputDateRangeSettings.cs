@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Settings for <see cref="HxInputDateRange"/>.
 /// </summary>
-public record InputDateRangeSettings : InputSettings, IInputSettingsWithSize
+public record InputDateRangeSettings : InputSettings
 {
 	/// <summary>
 	/// Input size.

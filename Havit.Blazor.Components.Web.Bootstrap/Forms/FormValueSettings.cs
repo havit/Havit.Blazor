@@ -1,11 +1,9 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Settings for the <see cref="HxFormValue"/> and derived components.
 /// </summary>
-public record FormValueSettings : IInputSettingsWithSize
+public record FormValueSettings
 {
 	/// <summary>
 	/// Input size. The default is <see cref="InputSize.Regular"/>.

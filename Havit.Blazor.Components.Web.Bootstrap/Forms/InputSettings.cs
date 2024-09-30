@@ -9,8 +9,4 @@ public record InputSettings
 	/// Specifies how the validation message should be displayed.
 	/// </summary>
 	public ValidationMessageMode? ValidationMessageMode { get; set; }
-	/// <summary>
-	/// Specifies how the label should be displayed.
-	/// </summary>
-	public LabelType? LabelType { get; set; }
 }

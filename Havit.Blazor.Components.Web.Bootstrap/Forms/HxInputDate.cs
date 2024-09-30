@@ -62,7 +62,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputDate) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
@@ -101,6 +101,9 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
+	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
+	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
+
 	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* label rendered by HxInputDateInternal */ : LabelValueRenderOrder.LabelValue;
 
 	/// <summary>
