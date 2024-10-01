@@ -381,7 +381,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 		_searchResults = result?.Data?.ToList() ?? new();
 
 		_textQueryHasBeenBelowMinimumLength = false;
-		await ShowDropdownMenu();
+		await ShowDropdownAsync();
 
 		StateHasChanged();
 	}
@@ -420,11 +420,11 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 
 		if (ShouldDropdownMenuBeDisplayed())
 		{
-			await ShowDropdownMenu();
+			await ShowDropdownAsync();
 		}
 		else if (_dropdownMenuActive)
 		{
-			await HideDropdownMenu();
+			await HideDropdownAsync();
 		}
 		await InvokeTextQueryChangedAsync(newTextQuery);
 	}
@@ -556,7 +556,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 			await UpdateSuggestionsAsync();
 		}
 
-		await ShowDropdownMenu();
+		await ShowDropdownAsync();
 	}
 
 	private void HandleInputBlur()
@@ -592,7 +592,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 		{
 			CancelDataProviderAndDebounce();
 
-			await HideDropdownMenu();
+			await HideDropdownAsync();
 			await InvokeOnTextQueryTriggeredAsync(TextQuery);
 		}
 	}
@@ -611,7 +611,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 				throw new InvalidOperationException($"Invalid {nameof(SearchBoxItemSelectionBehavior)} value: {ItemSelectionBehaviorEffective}");
 		}
 
-		await HideDropdownMenu();
+		await HideDropdownAsync();
 		await InvokeTextQueryChangedAsync(TextQuery);
 		await InvokeOnItemSelectedAsync(item);
 	}
@@ -622,7 +622,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 
 		if (!ShouldDropdownMenuBeDisplayed())
 		{
-			await HideDropdownMenu();
+			await HideDropdownAsync();
 		}
 	}
 
@@ -635,7 +635,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 		}
 	}
 
-	private async Task ShowDropdownMenu()
+	private async Task ShowDropdownAsync()
 	{
 		if (!_clickIsComing)
 		{
@@ -645,7 +645,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 		}
 	}
 
-	private async Task HideDropdownMenu()
+	/// <summary>
+	/// Hides the dropdown menu.
+	/// </summary>
+	/// <remarks>
+	/// Allows custom actions from <see cref="DefaultContentTemplate" /> or <see cref="NotFoundTemplate" /> to hide the dropdown menu.
+	/// </remarks>
+	public async Task HideDropdownAsync()
 	{
 		await _dropdownToggle.HideAsync();
 	}

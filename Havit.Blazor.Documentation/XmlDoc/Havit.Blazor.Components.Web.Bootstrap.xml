@@ -5656,6 +5656,14 @@
             Input's index for the keyboard navigation. If this is the current index, then no item is selected.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.HideDropdownAsync">
+            <summary>
+            Hides the dropdown menu.
+            </summary>
+            <remarks>
+            Allows custom actions from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.DefaultContentTemplate" /> or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.NotFoundTemplate" /> to hide the dropdown menu.
+            </remarks>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ShouldDropdownMenuBeDisplayed">
             <summary>
             If the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.DefaultContentTemplate"/> is empty, we don't want to display anything when nothing (or below the minimum amount of characters) is typed into the input.
