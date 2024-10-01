@@ -1559,6 +1559,11 @@
             Items of the context menu. Use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem"/> components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.PopperStrategy">
+            <summary>
+            Popper positioning strategy. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PopperStrategy.Absolute"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Text">
             <summary>
             Item text.
@@ -1614,6 +1619,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Enabled">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopperStrategy">
+            <summary>
+            Popper positioning strategy.
+            <a href="https://popper.js.org/docs/v2/constructors/#strategy">Related Popper.js documentation</a>.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DropdownAutoClose">
             <summary>

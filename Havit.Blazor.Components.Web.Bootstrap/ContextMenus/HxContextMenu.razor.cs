@@ -82,8 +82,22 @@ public partial class HxContextMenu
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
-	[Parameter(CaptureUnmatchedValues = true)]
-	public IDictionary<string, object> AdditionalAttributes { get; set; }
+	/// <summary>
+	/// Popper positioning strategy. Default is <see cref="PopperStrategy.Absolute"/>.
+	/// </summary>
+	[Parameter] public PopperStrategy PopperStrategy { get; set; } = PopperStrategy.Absolute;
+
 
 	private string _id = "hx" + Guid.NewGuid().ToString("N");
+
+	private string GetPopperConfig()
+	{
+		if (PopperStrategy == PopperStrategy.Absolute)
+		{
+			return null; // data-bs-popper-config is not needed for the default strategy
+		}
+		return $$"""
+			{"strategy": "{{PopperStrategy.ToString().ToLowerInvariant()}}"}
+			""";
+	}
 }
