@@ -550,8 +550,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	{
 		_inputFormHasFocus = true;
 
-		// first focus when MinimumLength is 0 and we need to load initial suggestions
-		if (((TextQuery?.Length ?? 0) == 0) && (MinimumLengthEffective == 0) && !_searchResults.Any())
+		// When MinimumLength is 0, we need to load/update initial suggestions
+		if (((TextQuery?.Length ?? 0) == 0) && (MinimumLengthEffective == 0))
 		{
 			await UpdateSuggestionsAsync();
 		}
