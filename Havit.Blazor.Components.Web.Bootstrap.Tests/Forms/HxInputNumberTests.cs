@@ -1,7 +1,10 @@
 ﻿using System.Globalization;
 using Bunit;
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq.Expressions;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
@@ -47,4 +50,36 @@ public class HxInputNumberTests : BunitTestBase
 		Assert.AreEqual((decimal?)expectedValue, cut.Instance.Value);
 		Assert.AreEqual(expectedInputText, cut.Find("input").GetAttribute("value"));
 	}
+
+	[TestMethod]
+	public void HxInputNumber_NonNullable_EmptyInputShouldRaiseParsingError_Issue892()
+	{
+		// https://github.com/havit/Havit.Blazor/issues/892 (related for comparison)
+
+		// Arrange
+		var myValue = 15;
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputNumber<int>>(0);
+			builder.AddAttribute(1, "Value", myValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<int>(this, (value) => { myValue = value; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<int>>)(() => myValue));
+			builder.AddAttribute(4, "ParsingErrorMessage", "TestParsingErrorMessage");
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+		cut.Find("input").Change("");
+
+		// Assert
+		Assert.AreEqual(15, myValue, "Model value should remain unchanged.");
+#if NET8_0_OR_GREATER
+		Assert.AreEqual("", cut.Find("input").GetAttribute("value"), "Input value should be empty.");
+#endif
+		Assert.IsNotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"));
+		Assert.AreEqual("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent, "ParsingValidationError should be displayed.");
+	}
+
 }

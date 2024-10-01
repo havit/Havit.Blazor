@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Forms.Internal;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
@@ -159,9 +160,9 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 		_validationMessageStore.Clear(_fromFieldIdentifier);
 
-		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(newInputValue, null, out var fromDate))
+		if (DateHelper.TryParseDateFromString<DateTime?>(newInputValue, TimeProviderEffective, out var fromDate))
 		{
-			DateTimeRange newValue = Value with { StartDate = fromDate?.DateTime };
+			DateTimeRange newValue = Value with { StartDate = fromDate };
 
 			parsingFailed = false;
 			_previousValue = newValue;
@@ -188,9 +189,9 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		bool parsingFailed;
 		_validationMessageStore.Clear(_toFieldIdentifier);
 
-		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(newInputValue, null, out var toDate))
+		if (DateHelper.TryParseDateFromString<DateTime?>(newInputValue, TimeProviderEffective, out var toDate))
 		{
-			DateTimeRange newValue = Value with { EndDate = toDate?.DateTime };
+			DateTimeRange newValue = Value with { EndDate = toDate };
 
 			parsingFailed = false;
 			_previousValue = newValue;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Forms.Internal;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
@@ -72,7 +73,7 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	protected bool RenderPredefinedDates => ShowPredefinedDatesEffective && (PredefinedDatesEffective != null) && PredefinedDatesEffective.Any();
 	protected bool HasCalendarIcon => CalendarIconEffective is not null;
 
-	protected DateTime GetCalendarDisplayMonthEffective => GetDateTimeFromValue(CurrentValue) ?? CalendarDisplayMonth;
+	protected DateTime GetCalendarDisplayMonthEffective => DateHelper.GetDateTimeFromValue(CurrentValue) ?? CalendarDisplayMonth;
 
 #if !NET8_0_OR_GREATER
 	private TValue _previousValue;
@@ -113,10 +114,10 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 		bool parsingFailed;
 		_validationMessageStore.Clear(FieldIdentifier);
 
-		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(newInputValue, null, out var date))
+		if (DateHelper.TryParseDateFromString<TValue>(newInputValue, TimeProviderEffective, out var date))
 		{
 			parsingFailed = false;
-			CurrentValue = GetValueFromDateTimeOffset(date);
+			CurrentValue = date;
 		}
 		else
 		{
@@ -136,9 +137,9 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
 	{
 #if NET8_0_OR_GREATER
-		if (HxInputDate<DateTime>.TryParseDateTimeOffsetFromString(value, null, out var date))
+		if (DateHelper.TryParseDateFromString<TValue>(value, TimeProviderEffective, out var date))
 		{
-			result = GetValueFromDateTimeOffset(date);
+			result = date;
 			validationErrorMessage = null;
 			return true;
 		}
@@ -212,7 +213,7 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 		}
 		else
 		{
-			CurrentValue = GetValueFromDateTimeOffset(new DateTimeOffset(DateTime.SpecifyKind(date.Value, DateTimeKind.Unspecified), TimeSpan.Zero));
+			CurrentValue = DateHelper.GetValueFromDateTimeOffset<TValue>(new DateTimeOffset(DateTime.SpecifyKind(date.Value, DateTimeKind.Unspecified), TimeSpan.Zero));
 		}
 		ClearPreviousParsingMessage();
 #endif
@@ -238,49 +239,7 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 #endif
 	}
 
-	internal static TValue GetValueFromDateTimeOffset(DateTimeOffset? value)
-	{
-		if (value == null)
-		{
-			return default;
-		}
-
-		var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-
-		if (targetType == typeof(DateTime))
-		{
-			return (TValue)(object)value.Value.DateTime;
-		}
-		else if (targetType == typeof(DateTimeOffset))
-		{
-			return (TValue)(object)value.Value;
-		}
-		else
-		{
-			throw new InvalidOperationException("Unsupported type.");
-		}
-	}
-
-	internal static DateTime? GetDateTimeFromValue(TValue value)
-	{
-		if (EqualityComparer<TValue>.Default.Equals(value, default))
-		{
-			return null;
-		}
-
-		switch (value)
-		{
-			case DateTime dateTimeValue:
-				return dateTimeValue;
-			case DateTimeOffset dateTimeOffsetValue:
-				return dateTimeOffsetValue.DateTime;
-			default:
-				throw new InvalidOperationException("Unsupported type.");
-		}
-	}
-
 	/// <inheritdoc />
-
 	public async ValueTask DisposeAsync()
 	{
 		await DisposeAsyncCore();

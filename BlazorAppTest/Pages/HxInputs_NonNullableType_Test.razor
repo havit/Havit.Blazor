@@ -1,0 +1,45 @@
+﻿@page "/HxInputs_NonNullableType_Test"
+
+<h3>HxInputs_NonNullableType_Test</h3>
+
+<h4>InputNumber</h4>
+<EditForm Model="_model">
+	<InputNumber @bind-Value="_model.Int" />
+	<ValidationSummary />
+
+	<HxSubmit Text="Submit" OnValidClick="HandleValidClick" />
+</EditForm>
+
+<h4>HxInputNumber</h4>
+<EditForm Model="_model">
+	<HxInputNumber @bind-Value="_model.Int" />
+	<ValidationSummary />
+
+	<HxSubmit Text="Submit" OnValidClick="HandleValidClick" />
+</EditForm>
+
+<h4>HxInputDate</h4>
+<EditForm Model="_model">
+	<HxInputDate @bind-Value="_model.DateTime" />
+	<ValidationSummary />
+
+	<HxSubmit Text="Submit" OnValidClick="HandleValidClick" />
+</EditForm>
+
+<h4>Model</h4>
+@_model.Int, @_model.DateTime
+
+@code {
+	private FormModel _model = new FormModel();
+
+	private void HandleValidClick()
+	{
+		Console.WriteLine("Valid click");
+	}
+
+	public class FormModel
+	{
+		public int Int { get; set; } = 15;
+		public DateTime DateTime { get; set; } = DateTime.Today;
+	}
+}
