@@ -1,5 +1,5 @@
 ﻿
-# HAVIT Blazor - Bootstrap 5 component bundle
+# HAVIT Blazor Bootstrap - Free component bundle
 
 [![GitHub Repo](https://img.shields.io/static/v1?style=flat&logo=github&label=GitHub&message=repo&cacheSeconds=604800)](https://github.com/havit/Havit.Blazor/)
 [![NuGet Version](https://img.shields.io/nuget/v/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
