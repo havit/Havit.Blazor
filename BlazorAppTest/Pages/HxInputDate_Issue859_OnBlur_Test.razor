@@ -1,0 +1,16 @@
+﻿@page "/hxinputdate_issue859_onblur_test"
+
+<h3>HxInputDate_Issue859_OnBlur_Test</h3>
+
+<HxInputDate Label="Date" @bind-Value="@_value" @onblur="Test" />
+<HxFormValue Label="Value" Value="@_value.ToShortDateString()" />
+
+@code {
+	public DateTime _value { get; set; }
+
+	private Task Test()
+	{
+		Console.WriteLine("Test");
+		return Task.CompletedTask;
+	}
+}

@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -210,7 +209,8 @@ public partial class HxCalendar
 
 		for (var week = 0; week < 6; week++)
 		{
-			WeekData weekData = new WeekData();
+			var weekData = new WeekData();
+			weekData.Key = week;
 			weekData.Days = new List<DayData>(7);
 
 			for (int day = 0; day < 7; day++)
@@ -318,6 +318,7 @@ public partial class HxCalendar
 
 	private class WeekData
 	{
+		public int Key { get; set; }
 		public List<DayData> Days { get; set; }
 	}
 

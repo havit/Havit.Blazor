@@ -48,7 +48,7 @@
 			</tr>
 			@foreach (WeekData week in _renderData.Weeks)
 			{
-				<tr @key="@week" class="hx-calendar-week">
+				<tr @key="@week.Key" class="hx-calendar-week">
 					@foreach (DayData day in week.Days)
 					{
 
