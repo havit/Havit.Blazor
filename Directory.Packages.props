@@ -19,6 +19,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.8" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.8" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
     <PackageVersion Include="Microsoft.Extensions.Localization" Version="8.0.8" />
     <PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.8" />
     <PackageVersion Include="Microsoft.Bcl.TimeProvider" Version="8.0.1" Condition="'$(TargetFramework)' != 'net8.0'" />
