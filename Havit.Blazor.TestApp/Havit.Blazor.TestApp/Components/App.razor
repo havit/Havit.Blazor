@@ -1,18 +1,29 @@
-﻿<!DOCTYPE html>
+﻿@using Havit.Blazor.Components.Web.Bootstrap
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
-    <link rel="stylesheet" href="app.css" />
+
+	<!-- Bootstrap CSS (you can set the Bootstrap flavor with a parameter) -->
+	@((MarkupString)HxSetup.RenderBootstrapCssReference())
+
+	<!-- Default values for additional CSS Variables (+ import Bootstrap Icons) -->
+	<link href="_content/Havit.Blazor.Components.Web.Bootstrap/defaults.css" rel="stylesheet" />
+
+	<link rel="stylesheet" href="app.css" />
     <link rel="stylesheet" href="Havit.Blazor.TestApp.styles.css" />
     <HeadOutlet />
 </head>
 
 <body>
     <Routes />
-    <script src="_framework/blazor.web.js"></script>
+	<script src="_framework/blazor.web.js"></script>
+
+	<!-- JavaScript Bundle with Popper -->
+	@((MarkupString)HxSetup.RenderBootstrapJavaScriptReference())
 </body>
 
 </html>

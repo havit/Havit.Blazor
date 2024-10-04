@@ -2,15 +2,28 @@
 @attribute [Route("/components/" + nameof(HxToastContainer))]
 
 <ComponentApiDoc Type="typeof(HxToast)">
-    <MainContent>
-        <DocHeading Title="Basic usage" />
-        <p>See <a href="/components/@nameof(HxMessenger)">@nameof(HxMessenger) documentation</a>.</p>
-    </MainContent>
-    <CssVariables>
-        <ComponentApiDocCssVariable Name="--hx-toast-container-margin" Default="0.5rem">
-            Margin of the container.
-        </ComponentApiDocCssVariable>
-    </CssVariables>
+	<MainContent>
+		<DocHeading Title="Basic usage" />
+		<p>
+			<code>HxToast</code> is usually not used directly, but as a part of <code>HxMessenger</code> component.
+			See <a href="/components/@nameof(HxMessenger)">@nameof(HxMessenger) documentation</a>.
+		</p>
+
+		<DocHeading Title="Direct toast rendering" />
+		<p>
+			You can use <code>HxToast</code> directly to show a toast. Usually you will use it in combination with <code>HxToastContainer</code>.
+		</p>
+		<Demo Type="typeof(HxToast_Demo)" />
+
+		<DocAlert Type="DocAlertType.Info">
+			<p><code>HxToast</code> supports static server rendering.</p>
+		</DocAlert>
+	</MainContent>
+	<CssVariables>
+		<ComponentApiDocCssVariable Name="--hx-toast-container-margin" Default="0.5rem">
+			Margin of the container.
+		</ComponentApiDocCssVariable>
+	</CssVariables>
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxToastContainer)" />

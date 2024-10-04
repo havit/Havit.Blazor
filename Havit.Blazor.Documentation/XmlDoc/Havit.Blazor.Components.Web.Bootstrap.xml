@@ -477,11 +477,6 @@
             Additional attributes to be splatted onto an underlying <c>&lt;button&gt;</c> element.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.StringLocalizerFactory">
-            <summary>
-            Localization service.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CoreCssClass">
             <summary>
             Gets the basic CSS class(es) which get rendered to every single button. <br/>

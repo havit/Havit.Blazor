@@ -1,4 +1,5 @@
 using Havit.Blazor.TestApp.Components;
+using Havit.Blazor.TestApp.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
 	.AddInteractiveServerComponents()
 	.AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddClientServices();
 
 var app = builder.Build();
 

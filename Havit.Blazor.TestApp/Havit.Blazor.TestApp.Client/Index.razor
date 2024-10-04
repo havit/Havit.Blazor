@@ -1,0 +1,10 @@
+﻿@page "/"
+
+<h3>Havit.Blazor.Tests</h3>
+
+<ul class="nav flex-column">
+	@foreach (var testPage in GetTestPages().OrderBy(p => p))
+	{
+		<li @key="@testPage" class="nav-item"><a href="@testPage">@testPage</a></li>
+	}
+</ul>
