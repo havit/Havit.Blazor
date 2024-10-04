@@ -195,11 +195,6 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
-	/// <summary>
-	/// Localization service.
-	/// </summary>
-	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
-
 	protected bool SpinnerEffective => Spinner ?? clickInProgress;
 	protected bool DisabledEffective => !CascadeEnabledComponent.EnabledEffective(this)
 		|| (SingleClickProtection && clickInProgress && (OnClick.HasDelegate || OnValidClick.HasDelegate || OnInvalidClick.HasDelegate));
