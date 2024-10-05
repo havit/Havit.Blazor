@@ -4681,6 +4681,9 @@
             Icon displayed in filter input for clearing the filter.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.LabelType">
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FocusAsync">
             <inheritdoc cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FocusAsync"/>
         </member>
@@ -5393,6 +5396,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.InputSize">
             <summary>
             Input size.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.LabelType">
+            <summary>
+            The label type.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.AllowFiltering">
