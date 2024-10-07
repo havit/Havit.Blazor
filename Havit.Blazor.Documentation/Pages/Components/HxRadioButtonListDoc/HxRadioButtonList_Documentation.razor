@@ -1,4 +1,4 @@
-﻿@attribute [Route("/components/" + nameof(HxRadioButtonList<TValue, TItem>))]
+@attribute [Route("/components/" + nameof(HxRadioButtonList<TValue, TItem>))]
 @attribute [Route("/components/" + nameof(HxRadioButtonListBase<TValue, TItem>))]
 
 <ComponentApiDoc Type="typeof(HxRadioButtonList<TValue, TItem>)">
@@ -11,4 +11,7 @@
     <p>Group radios on the same horizontal row by adding <code>Inline="true"</code>.</p>
     <Demo Type="typeof(HxRadioButtonList_Demo_Inline)" />
 
+    <DocHeading Title="Toggle buttons view" />
+    <p>Change the look of radios by adding <code>InputAsToggle="InputAsToggle.Toggle"</code></p>
+    <Demo Type="typeof(HxRadioButtonList_Demo_Toggle)" Tabs="false" />
 </ComponentApiDoc>
