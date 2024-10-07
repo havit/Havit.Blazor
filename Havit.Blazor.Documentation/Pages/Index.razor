@@ -71,12 +71,19 @@
 <p>Add the following code to your <code>_Imports.razor</code> file:</p>
 <CodeSnippet File="~\Pages\GettingStarted_Namespaces.CodeSnippet.razor" />
 
-<DocHeading Title="4. Register services" Level="3" />
-<p>Add the following line of code to your services registration, typically found in the <code>Program.cs</code> file of your Blazor client project:</p>
+<DocHeading Title="4. Register Services" Level="3" />
+<p>
+	Add the following line of code to your service registrations:
+</p>
 <CodeSnippet Language="csharp">builder.Services.AddHxServices();</CodeSnippet>
 <p>
-	For projects that originated from earlier Blazor templates, these service registrations may be found in the <code>Startup.cs</code> file,
-	specifically within the <code>ConfigureServices()</code> method. Note that in this case, you will not use the <code>builder</code>;
+	These services need to be registered in all projects running the components, typically in the <code>Program.cs</code>
+	file of your Blazor client project and also in the <code>Program.cs</code> file of your server project
+	if you're using server rendering (`InteractiveServer`, `InteractiveAuto`, static server rendering, or pre-rendering).
+</p>
+<p>
+	For projects created from earlier Blazor templates, these service registrations may be found in the <code>Startup.cs</code> file,
+	within the <code>ConfigureServices()</code> method. In this case, you won’t use the <code>builder</code>;
 	instead, register the services directly to the <code>services</code> collection.
 </p>
 
