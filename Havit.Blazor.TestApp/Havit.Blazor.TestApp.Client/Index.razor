@@ -5,6 +5,7 @@
 <ul class="nav flex-column">
 	@foreach (var testPage in GetTestPages().OrderBy(p => p))
 	{
-		<li @key="@testPage" class="nav-item"><a href="@testPage">@testPage</a></li>
+		<li @key="@testPage" class="nav-item"><a href="@testPage" data-enhance-nav="@(testPage.Contains("NoEnhanceNav") ? "false" : null)">@testPage</a></li>
 	}
+
 </ul>
