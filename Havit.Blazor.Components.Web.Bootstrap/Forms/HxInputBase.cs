@@ -145,10 +145,27 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// <summary>
 	/// Elements rendering order.
 	/// </summary>
-	protected virtual LabelValueRenderOrder RenderOrder =>
-		((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
-		? LabelValueRenderOrder.ValueLabel
-		: LabelValueRenderOrder.LabelValue;
+	protected virtual LabelValueRenderOrder RenderOrder
+	{
+		get
+		{
+			if ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
+			{
+				if (this.GetType().IsGenericType && this.GetType().GetGenericTypeDefinition() == typeof(HxMultiSelect<,>))
+				{
+					return LabelValueRenderOrder.ValueOnly;
+				}
+				else
+				{
+					return LabelValueRenderOrder.ValueLabel;
+				}
+			}
+			else
+			{
+				return LabelValueRenderOrder.LabelValue;
+			}
+		}
+	}
 
 	/// <summary>
 	/// Gets or sets the current value of the input.

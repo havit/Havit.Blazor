@@ -5,8 +5,7 @@
 @{
 	bool enabled = EnabledEffective && (ItemsToRender != null);
 }
-<div class="@CssClassHelper.Combine("hx-multi-select",
-                                    HasInputGroups ? "input-group" : null,
+<div class="@CssClassHelper.Combine(HasInputGroups ? "input-group" : null,
                                     HasInputGroupEnd ? "input-group-end" : null,
 					                HasInputGroupStart ? "input-group-start" : null,
                                     InputGroupCssClass)">
@@ -16,7 +15,7 @@
 	}
 
 	@InputGroupStartTemplate
-	<div @ref="_elementReference" class="dropdown" role="listbox">
+    <div @ref="_elementReference" class="hx-multi-select dropdown @(LabelTypeEffective == LabelType.Floating ? "form-floating": "")" role="listbox">
 
 		<input @ref="_inputElementReference"
 				type="text"
@@ -30,6 +29,11 @@
 				data-bs-auto-close="outside"
 				@attributes="this.AdditionalAttributes" />
 
+        @if (LabelTypeEffective == LabelType.Floating)
+        {
+            <label for="@InputId">@LabelText</label>
+        }
+       
 		@* Must be always rendered otherwise does not work after disable->enabled scenario *@
 		<ul class="@CssClassHelper.Combine("dropdown-menu", _isShown ? "show" : null)">
 			@if (enabled)
