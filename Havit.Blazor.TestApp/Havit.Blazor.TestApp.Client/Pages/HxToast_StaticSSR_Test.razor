@@ -5,3 +5,31 @@
 <HxToastContainer Position="ToastContainerPosition.MiddleCenter">
 	<HxToast HeaderText="HeaderText" ContentText="ContentText" AutohideDelay="2000" />
 </HxToastContainer>
+
+<EditForm Model="@FormModel" OnSubmit="@HandleSubmit" FormName="main" Enhance>
+	@if (_submitted && !FormModel.IsValid)
+	{
+		<HxToast @key="@Guid.NewGuid()" Color="ThemeColor.Danger" HeaderText="Validation failed" ContentText="Please fix the validation errors." />
+	}
+
+	<HxInputText @bind-Value="@FormModel.Text" />
+	<HxSubmit Text="Submit" Color="ThemeColor.Primary" />
+</EditForm>
+
+@code {
+	[SupplyParameterFromForm] public Model FormModel { get; set; } = new Model();
+
+	private void HandleSubmit()
+	{
+		_submitted = true;
+	}
+
+	private bool _submitted;
+
+	public class Model
+	{
+		public string Text { get; set; }
+
+		public bool IsValid => !String.IsNullOrWhiteSpace(Text);
+	}
+}
