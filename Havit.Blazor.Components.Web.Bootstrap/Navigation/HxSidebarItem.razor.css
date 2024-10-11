@@ -19,6 +19,10 @@
 	gap: .75rem;
 }
 
+::deep .hx-sidebar-subitems {
+	--bs-dropdown-border-radius: calc(var(--hx-sidebar-item-border-radius) + var(--bs-dropdown-padding-x));
+}
+
 ::deep .hx-sidebar-subitems.collapse .nav-link,
 ::deep .hx-sidebar-subitems.collapsing .nav-link {
 	margin: var(--hx-sidebar-subitem-margin);

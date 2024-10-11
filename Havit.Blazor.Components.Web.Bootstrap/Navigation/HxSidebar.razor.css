@@ -32,6 +32,10 @@
 	padding: var(--hx-sidebar-body-padding);
 }
 
+.hx-sidebar-body .nav {
+	gap: var(--hx-sidebar-body-nav-gap);
+}
+
 .hx-sidebar-footer {
 	display: flex;
 	width: 100%;

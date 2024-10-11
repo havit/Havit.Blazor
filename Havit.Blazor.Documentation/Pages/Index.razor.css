@@ -1,0 +1,49 @@
+h1 {
+	font-size: 3rem;
+	background: linear-gradient(to right,var(--bs-primary) 0%,var(--bs-teal) 100%);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	margin-top: 10vh;
+	display: inline-block;
+}
+
+@media screen and (min-width: 1200px) {
+	h1 {
+		font-size: 4rem;
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	h1 {
+		font-size: 6rem;
+	}
+}
+
+.btn-release {
+	--bs-btn-border-color: var(--bs-teal);
+	--bs-btn-border-radius: var(--bs-border-radius-pill);
+	--bs-btn-hover-border-color: var(--bs-teal);
+	--bs-btn-bg: var(--bs-teal);
+	--bs-btn-color: var(--bs-body-bg);
+	--bs-btn-hover-color: var(--bs-body-bg);
+	--bs-btn-hover-bg: var(--bs-teal);
+	display: inline-flex;
+	gap: .25rem;
+}
+
+.btn-docs {
+	--bs-btn-border-color: var(--bs-gray-400);
+	--bs-btn-border-radius: var(--bs-border-radius-pill);
+	--bs-btn-hover-border-color: var(--bs-gray-500);
+	--bs-btn-color: var(--bs-body-color);
+	--bs-btn-hover-color: var(--bs-body-bg);
+	--bs-btn-hover-bg: var(--bs-gray-500);
+	display: inline-flex;
+	gap: .25rem;
+}
+
+.btn-docs,
+.btn-release {
+	min-width: 200px;
+}
