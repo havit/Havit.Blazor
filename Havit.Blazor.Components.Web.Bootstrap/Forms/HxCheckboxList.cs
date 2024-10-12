@@ -112,6 +112,13 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>>, IInputWi
 		}
 	}
 
+	/// <summary>
+	/// Bootstrap button style - theme color.<br />
+	/// The default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
+	/// </summary>
+	[Parameter] public ThemeColor? Color { get; set; }
+	protected ThemeColor ColorEffective => Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxCheckboxList<TValue, TItem>) + " has to be set.");
+
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
@@ -134,9 +141,9 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>>, IInputWi
 				builder.AddAttribute(4, nameof(HxCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
 				builder.AddAttribute(5, nameof(HxCheckbox.Enabled), EnabledEffective);
 
-				builder.AddAttribute(6, nameof(HxCheckbox.CssClass), CssClassHelper.Combine(ItemCssClass, inputAsToggleEffective == Bootstrap.InputAsToggle.Toggle ? "btn-check" : null, ItemCssClassSelector?.Invoke(item)));
-				builder.AddAttribute(7, nameof(HxCheckbox.InputCssClass), CssClassHelper.Combine(ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)));
-				builder.AddAttribute(8, nameof(HxCheckbox.TextCssClass), CssClassHelper.Combine(inputAsToggleEffective == Bootstrap.InputAsToggle.Toggle ? "btn" : ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
+				builder.AddAttribute(6, nameof(HxCheckbox.CssClass), CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item)));
+				builder.AddAttribute(7, nameof(HxCheckbox.InputCssClass), CssClassHelper.Combine(inputAsToggleEffective == Bootstrap.InputAsToggle.Toggle ? "btn-check" : null, ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)));
+				builder.AddAttribute(8, nameof(HxCheckbox.TextCssClass), CssClassHelper.Combine(inputAsToggleEffective == Bootstrap.InputAsToggle.Toggle ? $"btn {ColorEffective.ToButtonColorCss(true)}" : null, ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
 
 				// We need ValueExpression. Ehm, HxCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 				// We have nothing to give the HxCheckbox. So we make own class with property which we assign to the ValueExpression.

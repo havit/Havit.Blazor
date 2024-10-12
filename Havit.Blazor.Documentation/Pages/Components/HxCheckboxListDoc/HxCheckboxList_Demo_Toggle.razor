@@ -5,6 +5,7 @@
                 InputAsToggle="InputAsToggle.Toggle"
 				Label="Employees"
 				Data="@data"
+                Color="ThemeColor.Primary"
 				ItemTextSelector="@(employee => employee.Name)"
 				ItemValueSelector="@(employee => employee.Id)"
 				@bind-Value="selectedEmployeeIds" />
