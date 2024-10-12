@@ -117,7 +117,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>>, IInputWi
 	/// The default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
-	protected ThemeColor ColorEffective => Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxCheckboxList<TValue, TItem>) + " has to be set.");
+	protected ThemeColor ColorEffective => Color ?? ThemeColor.None;
 
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
