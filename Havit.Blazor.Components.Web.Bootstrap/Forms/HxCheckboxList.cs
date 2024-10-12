@@ -134,8 +134,8 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>>, IInputWi
 				builder.AddAttribute(4, nameof(HxCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
 				builder.AddAttribute(5, nameof(HxCheckbox.Enabled), EnabledEffective);
 
-				builder.AddAttribute(6, nameof(HxCheckbox.CssClass), CssClassHelper.Combine(ItemCssClass, inputAsToggleEffective == Bootstrap.InputAsToggle.Toggle ? "btn-group" : null, ItemCssClassSelector?.Invoke(item)));
-				builder.AddAttribute(7, nameof(HxCheckbox.InputCssClass), CssClassHelper.Combine(ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)));
+				builder.AddAttribute(6, nameof(HxCheckbox.CssClass), CssClassHelper.Combine(ItemCssClass, inputAsToggleEffective == Bootstrap.InputAsToggle.Toggle ? "btn-check" : null, ItemCssClassSelector?.Invoke(item)));
+				builder.AddAttribute(7, nameof(HxCheckbox.InputCssClass), CssClassHelper.Combine(inputAsToggleEffective == Bootstrap.InputAsToggle.Toggle ? "btn" : ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)));
 				builder.AddAttribute(8, nameof(HxCheckbox.TextCssClass), CssClassHelper.Combine(ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
 
 				// We need ValueExpression. Ehm, HxCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
