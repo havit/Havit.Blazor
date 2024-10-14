@@ -4272,6 +4272,12 @@
             Feel free to set the InputMode on your own as needed.
             </remarks>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.Type">
+            <summary>
+            Allows switching between textual and numeric input types.
+            Only <see cref="F:Havit.Blazor.Components.Web.InputType.Text"/> (default) and <see cref="F:Havit.Blazor.Components.Web.InputType.Number"/> are supported.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.Placeholder">
             <summary>
             Placeholder for the input.
@@ -5278,6 +5284,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputMode">
             <summary>
             A hint to browsers regarding the type of virtual keyboard configuration to use when editing.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.Type">
+            <summary>
+            Allows switching between textual and numeric input types.
+            Only <see cref="F:Havit.Blazor.Components.Web.InputType.Text"/> (default) and <see cref="F:Havit.Blazor.Components.Web.InputType.Number"/> are supported.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.SelectOnFocus">

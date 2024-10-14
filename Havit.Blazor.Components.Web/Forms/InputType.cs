@@ -4,13 +4,12 @@
 /// Enum for <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types">HTML input types</see>.
 /// </summary>
 /// <remarks>
-/// As the enum is currently used only for the <c>HxInputText</c> component, only relevant types are included.
-/// As all the values will be needed, they can be added later (add restrictions/validation to <c>HxInputText</c> then).
+/// As the enum is currently used only for <c>HxInputText</c> and <c>HxInputNumber</c> components, only relevant types are included.
 /// </remarks>
 public enum InputType
 {
 	/// <summary>
-	/// The default value. A single-line text field. Line-breaks are automatically removed from the input value.
+	/// A single-line text field. Line-breaks are automatically removed from the input value.
 	/// </summary>
 	Text = 0,
 
@@ -43,4 +42,9 @@ public enum InputType
 	/// keyboard in supporting browsers and devices with dynamic keyboards.
 	/// </summary>
 	Url,
+
+	/// <summary>
+	/// A control for entering a number. Displays a numeric keypad in some devices with dynamic keypads.
+	/// </summary>
+	Number,
 }

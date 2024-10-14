@@ -18,6 +18,28 @@
     </DocAlert>
     <Demo Type="typeof(HxInputNumber_Demo_InputMode)" />
 
+	<DocHeading Title="Input types" />
+	<p>
+		<code>Type</code> parameter allows you to change the <code>&lt;input type="..."&gt;</code> of the underlying HTML element.
+	</p>
+	<Demo Type="typeof(HxInputNumber_Demo_InputType)" />
+	<p>
+		<code>InputType.Text</code> is the default value and is used when <code>Type</code> is not set.
+		<ul>
+			<li>Respects your application culture (<code>CultureInfo.CurrentCulture</code>)</li>
+			<li>Does not prevent non-numeric input (unless combined with additional JavaScript)</li>
+			<li>Allows for enhanced UX tricks (eg., automatic replacement of comma/decimal separators)</li>
+		</ul>
+	</p>
+	<p>
+		<code>InputType.Number</code> is a browser-provided input type that restricts input to numeric values.
+		<ul>
+			<li><strong>Does not respect your application culture, uses user's browser locale.</strong></li>
+			<li>Prevents non-numeric input.</li>
+			<li>Uses only browser-provided UX.</li>
+		</ul>
+	</p>
+
 	<DocHeading Id="SelectOnFocus" Title="Select on focus" />
 	<p>The <code>SelectOnFocus</code> parameter allows you to determine whether all the content within the input field is automatically selected when it receives focus.</p>
 	<Demo Type="typeof(HxInputNumber_Demo_SelectOnFocus)" />
