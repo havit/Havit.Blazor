@@ -5,7 +5,7 @@
 			"gtm.start": new Date().getTime(),
 			event: "gtm.js",
 		});
-		var f = d.getElementsByTagName("head")[0],
+		const f = d.getElementsByTagName("head")[0],
 			j = d.createElement(s),
 			dl = l !== "dataLayer" ? "&l=" + l : "";
 		j.async = true;

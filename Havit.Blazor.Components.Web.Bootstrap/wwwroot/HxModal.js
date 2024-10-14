@@ -10,7 +10,7 @@
 	element.addEventListener('hidden.bs.modal', handleModalHidden);
 	element.addEventListener('shown.bs.modal', handleModalShown);
 
-	var modal = new bootstrap.Modal(element, {
+	const modal = new bootstrap.Modal(element, {
 		keyboard: closeOnEscape
 	});
 	if (modal) {
@@ -23,7 +23,7 @@ export function hide(element) {
 		return;
 	}
 	element.hxModalHiding = true;
-	let modal = bootstrap.Modal.getInstance(element);
+	const modal = bootstrap.Modal.getInstance(element);
 	if (modal) {
 		modal.hide();
 	}
@@ -34,7 +34,7 @@ function handleModalShown(event) {
 };
 
 async function handleModalHide(event) {
-    let modalInstance = bootstrap.Modal.getInstance(event.target);
+	const modalInstance = bootstrap.Modal.getInstance(event.target);
 
 	if (modalInstance.hidePreventionDisabled || event.target.hxModalDisposing) {
 		modalInstance.hidePreventionDisabled = false;
@@ -43,7 +43,7 @@ async function handleModalHide(event) {
 
     event.preventDefault();
 
-    let cancel = await event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHide');
+	const cancel = await event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHide');
     if (!cancel) {
 		modalInstance.hidePreventionDisabled = true;
 		event.target.hxModalHiding = true;
@@ -80,7 +80,7 @@ export function dispose(element) {
 	element.removeEventListener('shown.bs.modal', handleModalShown);
 	element.hxModalDotnetObjectReference = null;
 
-	var modal = bootstrap.Modal.getInstance(element);
+	const modal = bootstrap.Modal.getInstance(element);
 	if (modal) {
 		modal.dispose();
 	}

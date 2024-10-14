@@ -1,7 +1,7 @@
 ﻿export function scrollToAnchor(anchor) {
-	var selector = anchor || document.location.hash;
+	const selector = anchor || document.location.hash;
 	if (selector && (selector.length > 1)) {
-		var element = null;
+		let element = null;
 		try {
 			element = document.querySelector(selector);
 		}

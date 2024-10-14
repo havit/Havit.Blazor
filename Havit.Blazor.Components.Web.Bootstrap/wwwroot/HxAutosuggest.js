@@ -1,5 +1,5 @@
 ﻿export function initialize(inputId, hxAutosuggestDotnetObjectReference, keysToPreventDefault) {
-	let inputElement = document.getElementById(inputId);
+	const inputElement = document.getElementById(inputId);
 	if (!inputElement) {
 		return;
 	}
@@ -16,7 +16,7 @@
 }
 
 function handleKeyDown(event) {
-	let key = event.key;
+	const key = event.key;
 
 	event.target.hxAutosuggestDotnetObjectReference.invokeMethodAsync("HxAutosuggestInternal_HandleInputKeyDown", key);
 
@@ -47,7 +47,7 @@ export function open(inputElement, hxAutosuggestDotnetObjectReference) {
 	inputElement.hxAutosuggestDotnetObjectReference = hxAutosuggestDotnetObjectReference;
 	inputElement.addEventListener('hidden.bs.dropdown', handleDropdownHidden);
 
-	var d = new bootstrap.Dropdown(inputElement);
+	const d = new bootstrap.Dropdown(inputElement);
 	if (d && (inputElement.clickIsComing === false)) {
 		// clickIsComing logic fixes #572 - Initial suggestions disappear when the DataProvider response is quick
 		// If click is coming, we do not want to show the dropdown as it will be toggled by the later click event (if we open it here, onfocus, click will hide it)
@@ -62,7 +62,7 @@ export function destroy(inputElement) {
 
 	inputElement.removeAttribute("data-bs-toggle", "dropdown");
 
-	var d = bootstrap.Dropdown.getInstance(inputElement);
+	const d = bootstrap.Dropdown.getInstance(inputElement);
 	if (d) {
 		d.hide();
 
@@ -96,14 +96,14 @@ function handleDropdownHidden(event) {
 		element.hxAutosuggestDotnetObjectReference.invokeMethodAsync('HxAutosuggestInternal_HandleDropdownHidden');
 	}, 1, event.target);
 
-	var d = bootstrap.Dropdown.getInstance(event.target);
+	const d = bootstrap.Dropdown.getInstance(event.target);
 	if (d) {
 		d.dispose();
 	}
 };
 
 export function dispose(inputId) {
-	let inputElement = document.getElementById(inputId);
+	const inputElement = document.getElementById(inputId);
 
 	if (inputElement) {
 		inputElement.removeEventListener('keydown', handleKeyDown);

@@ -1,5 +1,5 @@
 ﻿export function initialize(inputId, hxInputTagsDotnetObjectReference, keysToPrevendDefault) {
-	let inputElement = document.getElementById(inputId);
+	const inputElement = document.getElementById(inputId);
 	if (!inputElement) {
 		return;
 	}
@@ -12,7 +12,7 @@
 }
 
 function handleKeyDown(event) {
-	let key = event.key;
+	const key = event.key;
 
 	event.target.hxInputTagsDotnetObjectReference.invokeMethodAsync("HxInputTagsInternal_HandleInputKeyDown", key);
 
@@ -27,7 +27,7 @@ function handleInputBlur(event) {
 	// We need to recognize, whether the blur event is fired because of the dropdown item click or because of the user clicked somewhere else.
 	// We will use relatedTarget property of the event to recognize the click on the dropdown item.
 	// If relatedTarget is within the dropdown, we will ignore the blur event.
-	var isWithinDropdown = false;
+	let isWithinDropdown = false;
 	if (event.relatedTarget) {
 		isWithinDropdown = event.target.parentElement.contains(event.relatedTarget);
 	}
@@ -44,7 +44,7 @@ export function open(inputElement, hxInputTagsDotnetObjectReference, delayShow) 
 	inputElement.hxInputTagsDotnetObjectReference = hxInputTagsDotnetObjectReference;
 	inputElement.addEventListener('hidden.bs.dropdown', handleDropdownHidden)
 
-	var dd = new bootstrap.Dropdown(inputElement);
+	const dd = new bootstrap.Dropdown(inputElement);
 	if (!dd) {
 		return;
 	}
@@ -76,7 +76,7 @@ export function destroy(inputElement) {
 
 	inputElement.removeAttribute("data-bs-toggle", "dropdown");
 
-	var dropdown = bootstrap.Dropdown.getInstance(inputElement);
+	const dropdown = bootstrap.Dropdown.getInstance(inputElement);
 	if (dropdown) {
 		dropdown.hide();
 
@@ -101,7 +101,7 @@ function handleDropdownHidden(event) {
 }
 
 export function dispose(inputId) {
-	let inputElement = document.getElementById(inputId);
+	const inputElement = document.getElementById(inputId);
 
 	inputElement.removeEventListener('keydown', handleKeyDown);
 	inputElement.removeEventListener('blur', handleInputBlur);

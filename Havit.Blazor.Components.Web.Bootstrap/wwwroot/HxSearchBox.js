@@ -1,5 +1,5 @@
 ﻿export function initialize(inputId, hxSearchBoxDotnetObjectReference, keysToPreventDefault) {
-	let inputElement = document.getElementById(inputId);
+	const inputElement = document.getElementById(inputId);
 	if (!inputElement) {
 		return;
 	}
@@ -15,7 +15,7 @@
 }
 
 function handleKeyDown(event) {
-	let key = event.key;
+	const key = event.key;
 
 	event.target.hxSearchBoxDotnetObjectReference.invokeMethodAsync("HxSearchBox_HandleInputKeyDown", key);
 
@@ -48,7 +48,7 @@ export function scrollToFocusedItem() {
 }
 
 export function dispose(inputId) {
-	let inputElement = document.getElementById(inputId);
+	const inputElement = document.getElementById(inputId);
 	if (!inputElement) {
 		return;
 	}

@@ -10,35 +10,35 @@ export function initialize(element, hxDotnetObjectReference, options) {
 }
 
 export function show(element) {
-	var i = bootstrap.Tooltip.getInstance(element);
+	const i = bootstrap.Tooltip.getInstance(element);
 	if (i) {
 		i.show();
 	}
 }
 
 export function hide(element) {
-	var i = bootstrap.Tooltip.getInstance(element);
+	const i = bootstrap.Tooltip.getInstance(element);
 	if (i) {
 		i.hide();
 	}
 }
 
 export function enable(element) {
-	var i = bootstrap.Tooltip.getInstance(element);
+	const i = bootstrap.Tooltip.getInstance(element);
 	if (i) {
 		i.enable();
 	}
 }
 
 export function disable(element) {
-	var i = bootstrap.Tooltip.getInstance(element);
+	const i = bootstrap.Tooltip.getInstance(element);
 	if (i) {
 		i.disable();
 	}
 }
 
 export function setContent(element, newContent) {
-	var i = bootstrap.Tooltip.getInstance(element);
+	const i = bootstrap.Tooltip.getInstance(element);
 	if (i) {
 		i.setContent(newContent);
 	}
@@ -59,7 +59,7 @@ export function dispose(element) {
 	element.removeEventListener('shown.bs.tooltip', handleShown);
 	element.removeEventListener('hidden.bs.tooltip', handleHidden);
 	element.hxDotnetObjectReference = null;
-	var tooltip = bootstrap.Tooltip.getInstance(element);
+	const tooltip = bootstrap.Tooltip.getInstance(element);
 	if (tooltip) {
 		tooltip.dispose();
 	}

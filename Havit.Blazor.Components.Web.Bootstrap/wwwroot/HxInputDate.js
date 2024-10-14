@@ -12,7 +12,7 @@
 }
 
 function handleIconClick(event) {
-	var triggerElement = event.currentTarget.triggerElement;
+	const triggerElement = event.currentTarget.triggerElement;
 	triggerElement.click();
 	event.stopPropagation();
 }
