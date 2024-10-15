@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
+using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -7,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// (Replaces the former <c>HxInputCheckbox</c> component which was dropped in v 4.0.0.)
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckbox">https://havit.blazor.eu/components/HxCheckbox</see>
 /// </summary>
-public class HxCheckbox : HxInputBase<bool>
+public class HxCheckbox : HxInputBase<bool>, IInputWithToggleButton
 {
 	/// <summary>
 	/// Set of settings to be applied to the component instance.
@@ -18,6 +19,11 @@ public class HxCheckbox : HxInputBase<bool>
 	/// Returns an optional set of component settings.
 	/// </summary>
 	protected override CheckboxSettings GetSettings() => Settings;
+
+	/// <summary>
+	/// Input as toggle or regular.
+	/// </summary>
+	[Parameter] public InputAsToggle? InputAsToggle { get; set; }
 
 	/// <summary>
 	/// Text to display next to the checkbox.
