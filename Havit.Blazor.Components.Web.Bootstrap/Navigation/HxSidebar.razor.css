@@ -32,7 +32,7 @@
 	padding: var(--hx-sidebar-body-padding);
 }
 
-.hx-sidebar-body .nav {
+.hx-sidebar-body ::deep .nav {
 	gap: var(--hx-sidebar-body-nav-gap);
 }
 
