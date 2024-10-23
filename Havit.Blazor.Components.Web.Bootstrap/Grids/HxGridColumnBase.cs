@@ -41,8 +41,7 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	GridCellTemplate IHxGridColumn<TItem>.GetFooterCellTemplate(GridFooterCellContext context) => GetFooterCellTemplate(context);
 
 	/// <inheritdoc />
-	SortingItem<TItem>[] IHxGridColumn<TItem>.GetSorting() => _sorting ??= GetSorting().ToArray();
-	private SortingItem<TItem>[] _sorting;
+	SortingItem<TItem>[] IHxGridColumn<TItem>.GetSorting() => GetSorting().ToArray();
 
 	/// <inheritdoc />
 	int? IHxGridColumn<TItem>.GetDefaultSortingOrder() => GetDefaultSortingOrder();
