@@ -71,11 +71,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{45BC
 		.github\FUNDING.yml = .github\FUNDING.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.Components.Web.Bootstrap.EntifyFrameworkCore.Tests", "Havit.Blazor.Components.Web.Bootstrap.EntifyFrameworkCore.Tests\Havit.Blazor.Components.Web.Bootstrap.EntifyFrameworkCore.Tests.csproj", "{AD166DF7-CAFA-4471-B6F2-CA188BC96E5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap.EntifyFrameworkCore.Tests", "Havit.Blazor.Components.Web.Bootstrap.EntifyFrameworkCore.Tests\Havit.Blazor.Components.Web.Bootstrap.EntifyFrameworkCore.Tests.csproj", "{AD166DF7-CAFA-4471-B6F2-CA188BC96E5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.TestApp", "Havit.Blazor.TestApp\Havit.Blazor.TestApp\Havit.Blazor.TestApp.csproj", "{9EF7E599-FF7D-4574-BF95-F439365F2B69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.TestApp", "Havit.Blazor.TestApp\Havit.Blazor.TestApp\Havit.Blazor.TestApp.csproj", "{9EF7E599-FF7D-4574-BF95-F439365F2B69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.TestApp.Client", "Havit.Blazor.TestApp\Havit.Blazor.TestApp.Client\Havit.Blazor.TestApp.Client.csproj", "{38D87399-13C1-4C86-9343-712EAE6095F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.TestApp.Client", "Havit.Blazor.TestApp\Havit.Blazor.TestApp.Client\Havit.Blazor.TestApp.Client.csproj", "{38D87399-13C1-4C86-9343-712EAE6095F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
