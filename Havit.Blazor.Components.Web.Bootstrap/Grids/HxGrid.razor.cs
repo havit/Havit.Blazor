@@ -197,8 +197,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected string ItemRowCssClassEffective => ItemRowCssClass ?? GetSettings()?.ItemRowCssClass ?? GetDefaults().ItemRowCssClass;
 
 	/// <summary>
-	/// Height of each item row, used primarily in calculations for infinite scrolling.
+	/// Height of each item row, used in calculations for infinite scrolling (<see cref="GridContentNavigationMode.InfiniteScroll"/>).
 	/// The default value (41px) corresponds to the typical row height in the Bootstrap 5 default theme.
+	/// The row height is not applied for other navigation modes, use CSS for that.
 	/// </summary>
 	[Parameter] public float? ItemRowHeight { get; set; }
 	protected float ItemRowHeightEffective => ItemRowHeight ?? GetSettings()?.ItemRowHeight ?? GetDefaults().ItemRowHeight ?? throw new InvalidOperationException(nameof(ItemRowHeight) + " default for " + nameof(HxGrid) + " has to be set.");

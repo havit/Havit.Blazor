@@ -21,7 +21,8 @@ public record GridSettings
 	public IconBase SortDescendingIcon { get; set; }
 
 	/// <summary>
-	/// Height of the item row used for infinite scroll calculations (<see cref="GridContentNavigationMode.InfiniteScroll"/>).
+	/// Height of the item row (in pixels) used for infinite scroll calculations (<see cref="GridContentNavigationMode.InfiniteScroll"/>).
+	/// The row height is not applied for other navigation modes, use CSS for that.
 	/// </summary>
 	public float? ItemRowHeight { get; set; }
 

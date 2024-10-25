@@ -6088,7 +6088,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ItemRowHeight">
             <summary>
-            Height of the item row used for infinite scroll calculations (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/>).
+            Height of the item row (in pixels) used for infinite scroll calculations (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/>).
+            The row height is not applied for other navigation modes, use CSS for that.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.OverscanCount">
@@ -6467,8 +6468,9 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowHeight">
             <summary>
-            Height of each item row, used primarily in calculations for infinite scrolling.
+            Height of each item row, used in calculations for infinite scrolling (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/>).
             The default value (41px) corresponds to the typical row height in the Bootstrap 5 default theme.
+            The row height is not applied for other navigation modes, use CSS for that.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowCssClassSelector">
