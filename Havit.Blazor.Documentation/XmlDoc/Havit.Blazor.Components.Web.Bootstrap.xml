@@ -4156,6 +4156,18 @@
             Size of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromPlaceholder">
+            <summary>
+            Placeholder for the start-date input.
+            If not set, localized default is used ("From" + localizations).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ToPlaceholder">
+            <summary>
+            Placeholder for the end-date input.
+            If not set, localized default is used ("End" + localizations).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromParsingErrorMessage">
             <summary>
             Gets or sets the error message used when displaying a &quot;from&quot; parsing error.
@@ -5169,6 +5181,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.InputSize">
             <summary>
             Input size.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.FromPlaceholder">
+            <summary>
+            Placeholder for the start-date input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ToPlaceholder">
+            <summary>
+            Placeholder for the end-date input.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.CalendarIcon">
