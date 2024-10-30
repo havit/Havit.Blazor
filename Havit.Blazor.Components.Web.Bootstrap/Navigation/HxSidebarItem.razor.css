@@ -35,10 +35,10 @@
 	display: inline-flex;
 }
 
-::deep .hx-sidebar-item-navlink-content-inner {
+.hx-sidebar-item-navlink-content-inner {
 	display: flex;
 	align-items: center;
-	margin-right: auto;
+	flex-grow: 1;
 }
 
 ::deep .hx-sidebar-collapsed-nav {

@@ -12,7 +12,13 @@
         <Search />
 
 		<HxSidebarItem Text="Getting started" Href="/" Match="NavLinkMatch.All" Icon="BootstrapIcon.House" TooltipText="Getting started" />
-		<HxSidebarItem Text="Migration to v4" Href="/migrating" Match="NavLinkMatch.All" Icon="BootstrapIcon.ArrowUpCircle" TooltipText="Migration to v4 🔥" />
+		<HxSidebarItem Text="Migration to v4" Href="/migration" Match="NavLinkMatch.All" Icon="BootstrapIcon.ArrowUpCircle" TooltipText="Migration to v4 🔥" />
+		<HxSidebarItem Href="/get-premium" Match="NavLinkMatch.All" CssClass="w-100" Icon="BootstrapIcon.Boxes" TooltipText="Blocks" >
+            <ContentTemplate>
+                    <div class="flex-grow-1">Blocks</div>
+                    <HxBadge CssClass="ms-auto fw-normal rounded-pill" style="background-image: linear-gradient(to right, transparent, rgba(17, 71, 136))" Color="ThemeColor.Primary">Premium</HxBadge>
+            </ContentTemplate>
+        </HxSidebarItem>
 
         <HxSidebarItem Text="Forms" Icon="BootstrapIcon.InputCursorText">
             <HxSidebarItem Href="/components/Inputs" Text="Inputs" />
