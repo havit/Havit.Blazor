@@ -1,0 +1,121 @@
+@page "/get-premium"
+@layout EmptyLayout
+
+<div class="container-fluid">
+    <div style="height: 400px;" class="hero d-flex flex-column align-items-center justify-content-center">
+        <h5 class="fw-bold d-flex align-items-center gap-2">
+            <div class="bg-white bg-opacity-75 rounded-1 p-1 logo d-flex align-items-center"><img src="/logo.png" height="20" alt="HAVIT"></div>
+            HAVIT Blazor
+        </h5>
+        <h1 class="fw-bold text-center display-3">Upgrade to Premium</h1>
+        <div style="max-width: 800px;" class="lead text-center">Enjoy acces to curated collection of prebuilt UI blocks complete with Razor and CSS source code, premium support and enteprise project source-code for your inspiration. </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="mb-5">
+        <div class="row g-4">
+            <div class="col-12 col-lg-4" data-bs-theme="dark">
+                <HxCard CssClass="h-100 rounded-4" BodyCssClass="p-4 d-flex flex-column">
+                    <BodyTemplate>
+                        <h5 class="fw-bold text-white">Free forever</h5>
+                        <p class="fw-medium text-white">Free</p>
+                        <div class="d-flex flex-column gap-2 opacity-75 mb-5 mt-2 small">
+                            <PlanItem Text="Basic component library" />
+                            <PlanItem Text="Documentation" />
+                            <PlanItem Text="Comunity support" />
+                            <PlanItem Text="Monthly releases" />
+                            <PlanItem Text="For commercial use" />
+                        </div>
+                        <HxButton CssClass="w-100 rounded-pill mt-auto" Color="ThemeColor.Light">
+                            Get free content
+                        </HxButton>
+                    </BodyTemplate>
+                </HxCard>
+            </div>
+            <div class="col-12 col-lg-4">
+                <HxCard CssClass="h-100 rounded-4 bg-body-secondary border-0" BodyCssClass="p-4 d-flex flex-column">
+                    <BodyTemplate>
+                        <h5 class="fw-bold">Premium for teams and individuals</h5>
+                        <p class="fw-medium">€20 per user/month</p>
+                        <div class="d-flex flex-column gap-2 opacity-75 mb-5 mt-2 small">
+                            <strong>Everything from Free, plus</strong>
+                            <PlanItem Text="Building blocks" />
+                            <PlanItem Text="Code samples" />
+                            <PlanItem Text="Priority support" />
+                            <PlanItem Text="Access to enteprise project source-code" />
+                        </div>
+                        <HxButton CssClass="w-100 rounded-pill mt-auto" Color="ThemeColor.Dark">
+                            Get Premium
+                        </HxButton>
+                    </BodyTemplate>
+                </HxCard>
+            </div>
+            <div class="col-12 col-lg-4">
+                <HxCard CssClass="h-100 rounded-4" BodyCssClass="p-4 d-flex flex-column">
+                    <BodyTemplate>
+                        <h5 class="fw-bold">Individual</h5>
+                        <p class="fw-medium">Contact sales</p>
+                        <div class="d-flex flex-column gap-2 opacity-75 mb-5 mt-2 small">
+                            <strong>Everything from Premium, plus</strong>
+                            <PlanItem Text="Weekly team consulations" />
+                            <PlanItem Text="Component requests" />
+                            <PlanItem Text="Enterprise support" />
+                            <PlanItem Text="Custom themes implementaiton" />
+                        </div>
+                        <HxButton CssClass="w-100 rounded-pill mt-auto" Color="ThemeColor.Dark">
+                            Contact sales
+                        </HxButton>
+                    </BodyTemplate>
+                </HxCard>
+            </div>
+        </div>
+    </div>
+    <div class="footer text-center my-5 py-5">The Premium subscription is billed monthly via <a href="https://github.com/sponsors" target="_blank" rel="noopener noreferrer">GitHub sponsorship</a> and can be cancelled anytime.</div>
+    <div class="row mt-5 g-5">
+        <div class="col-lg-4 d-flex">
+            <h2 class="mx-auto fw-bold display-6">Frequently<br> asked<br> questions.</h2>
+        </div>
+        <div class="col-lg-8">
+            <HxAccordion>
+                <HxAccordionItem>
+                    <HeaderTemplate>Can I use Free plan for commercial development?</HeaderTemplate>
+                    <BodyTemplate>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+                        Suspendisse eu ipsum orci. Donec sit amet fringilla ante, at facilisis metus. Fusce leo elit, cursus sed rutrum vel, elementum eu justo.
+                    </BodyTemplate>
+                </HxAccordionItem>
+                <HxAccordionItem>
+                    <HeaderTemplate>Does Premium plan have NuGet package?</HeaderTemplate>
+                    <BodyTemplate>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+                        Suspendisse eu ipsum orci. Donec sit amet fringilla ante, at facilisis metus. Fusce leo elit, cursus sed rutrum vel, elementum eu justo.
+                    </BodyTemplate>
+                </HxAccordionItem>
+                <HxAccordionItem>
+                    <HeaderTemplate>What SLA guarantees does Premium have?</HeaderTemplate>
+                    <BodyTemplate>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+                        Suspendisse eu ipsum orci. Donec sit amet fringilla ante, at facilisis metus. Fusce leo elit, cursus sed rutrum vel, elementum eu justo.
+                    </BodyTemplate>
+                </HxAccordionItem>
+            </HxAccordion>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    private HxModal myModal;
+
+    private async Task HandleShowClick()
+    {
+        await myModal.ShowAsync();
+    }
+
+    private async Task HandleHideClick()
+    {
+        await myModal.HideAsync();
+    }
+
+}
