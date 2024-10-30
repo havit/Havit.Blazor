@@ -16,6 +16,12 @@ public partial class ComponentApiDoc
 	/// </summary>
 	[Parameter] public Type Type { get; set; }
 
+	/// <summary>
+	/// This is used to determine, whether the <c>rel="canonical"</c> link element should be rendered.
+	/// Set to true, if the documentation page contains more than one component and this component is representative of the page.
+	/// </summary>
+	[Parameter] public bool MainComponent { get; set; } = false;
+
 	[Inject] protected IComponentApiDocModelBuilder ComponentApiDocModelBuilder { get; set; }
 
 	private ComponentApiDocModel _model;

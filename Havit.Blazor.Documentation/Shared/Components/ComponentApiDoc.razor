@@ -2,6 +2,14 @@
 @{
     var plainTypeName = ApiRenderer.RemoveSpecialCharacters(Type.Name);
 }
+
+@if (MainComponent)
+{
+    <HeadContent>
+        <link rel="canonical" href="@("https://havit.blazor.eu/components/" + plainTypeName)" />
+    </HeadContent>
+}
+
 <DocHeading Title="@plainTypeName" Id="@plainTypeName" Level="1" />
 @if (!String.IsNullOrWhiteSpace(_model.Class?.Comments?.Summary))
 {
