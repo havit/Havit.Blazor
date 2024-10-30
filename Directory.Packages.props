@@ -4,12 +4,12 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
-    <PackageVersion Include="bunit.web" Version="1.32.7" />
+    <PackageVersion Include="bunit.web" Version="1.33.3" />
     <PackageVersion Include="Grpc.AspNetCore.Web" Version="2.66.0" />
     <PackageVersion Include="Grpc.Net.Client" Version="2.66.0" />
     <PackageVersion Include="Grpc.Net.Client.Web" Version="2.66.0" />
     <PackageVersion Include="Havit.Core" Version="2.0.30" />
-    <PackageVersion Include="Havit.AspNetCore" Version="2.0.21" />
+    <PackageVersion Include="Havit.AspNetCore" Version="2.0.22" />
     <PackageVersion Include="LoxSmoke.DocXml" Version="3.7.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="8.0.10" Condition="'$(TargetFramework)' == 'net8.0'" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="6.0.35" Condition="'$(TargetFramework)' == 'net6.0'" />
@@ -25,10 +25,10 @@
     <PackageVersion Include="Microsoft.Bcl.TimeProvider" Version="8.0.1" Condition="'$(TargetFramework)' != 'net8.0'" />
     <PackageVersion Include="Moq" Version="4.20.72" />
     <PackageVersion Include="MSTest" Version="3.6.1" />
-    <PackageVersion Include="protobuf-net" Version="3.2.30" />
-    <PackageVersion Include="protobuf-net.Grpc" Version="1.1.1" />
-    <PackageVersion Include="protobuf-net.Grpc.AspNetCore" Version="1.1.1" />
-    <PackageVersion Include="protobuf-net.Grpc.ClientFactory" Version="1.1.1" />
+    <PackageVersion Include="protobuf-net" Version="3.2.45" />
+    <PackageVersion Include="protobuf-net.Grpc" Version="1.2.2" />
+    <PackageVersion Include="protobuf-net.Grpc.AspNetCore" Version="1.2.2" />
+    <PackageVersion Include="protobuf-net.Grpc.ClientFactory" Version="1.2.2" />
     <PackageVersion Include="SmartComponents.AspNetCore" Version="0.1.0-preview10148" />
     <PackageVersion Include="SmartComponents.AspNetCore.Components" Version="0.1.0-preview10148" />
     <PackageVersion Include="SmartComponents.Inference.OpenAI" Version="0.1.0-preview10148" />
@@ -37,7 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- https://github.com/microsoft/MSBuildSdks/tree/main/src/CopyOnWrite -->
-    <GlobalPackageReference Include="Microsoft.Build.CopyOnWrite" Version="1.0.322">
+    <GlobalPackageReference Include="Microsoft.Build.CopyOnWrite" Version="1.0.332">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </GlobalPackageReference>
