@@ -10,7 +10,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 [TestClass]
 public class HxInputTextTests : BunitTestBase
 {
-#if NET8_0_OR_GREATER
 	[TestMethod]
 	public void HxInputText_BindingToArrayOfString_Issue874()
 	{
@@ -54,8 +53,6 @@ public class HxInputTextTests : BunitTestBase
 		// Assert			
 		Assert.IsFalse(cut.Markup.Contains("maxlength"));
 	}
-#endif
-
 
 	[TestMethod]
 	public void HxInputText_BindingToArrayOfModel_Issue874()

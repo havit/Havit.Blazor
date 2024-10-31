@@ -198,18 +198,14 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 			builder.AddAttribute(1002, "onfocus", "this.select();");
 		}
 		builder.AddAttribute(1003, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-#if NET8_0_OR_GREATER
 		builder.SetUpdatesAttributeName("value");
-#endif
 
 		// Normalization of pasted value (applied only if the pasted value differs from the normalized value)
 		// - If we cancel the original paste event, Blazor does not recognize the change, so we fire change event manually.
 		// - This is kind of hack and causes the input to behave slightly differently when normalizing the value (the value is accepted immediately, not after the user leaves the input)
 		// - If this turns out to be a problem, we will have to implement the normalization in the Blazor-handled @onpaste event
 		builder.AddAttribute(1004, "onpaste", @"var clipboardValue = event.clipboardData.getData('text/plain'); var normalizedValue = clipboardValue.replace(/[^\d.,\-eE]/g, ''); if (+clipboardValue != +normalizedValue) { this.value = normalizedValue; this.dispatchEvent(new Event('change')); return false; }");
-#if NET8_0_OR_GREATER
 		builder.SetUpdatesAttributeName("value");
-#endif
 
 		builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 

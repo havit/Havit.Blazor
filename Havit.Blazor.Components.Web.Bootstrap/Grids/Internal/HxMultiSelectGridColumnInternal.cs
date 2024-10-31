@@ -29,9 +29,7 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 
 				builder.AddAttribute(103, "checked", AllDataItemsSelected);
 				builder.AddAttribute(104, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
-#if NET8_0_OR_GREATER
 				builder.SetUpdatesAttributeName("checked");
-#endif
 				builder.AddEventStopPropagationAttribute(105, "onclick", true);
 
 				if ((context.TotalCount is null) || (context.TotalCount == 0))
@@ -59,9 +57,7 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 				bool selected = SelectedDataItems?.Contains(item) ?? false;
 				builder.AddAttribute(103, "checked", selected);
 				builder.AddAttribute(104, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectDataItemClick(item, selected)));
-#if NET8_0_OR_GREATER
 				builder.SetUpdatesAttributeName("checked");
-#endif
 				builder.AddEventStopPropagationAttribute(105, "onclick", true);
 
 				builder.CloseElement(); // input

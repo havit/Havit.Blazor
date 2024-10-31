@@ -75,68 +75,20 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	protected DateTime GetCalendarDisplayMonthEffective => DateHelper.GetDateTimeFromValue(CurrentValue) ?? CalendarDisplayMonth;
 
-#if !NET8_0_OR_GREATER
-	private TValue _previousValue;
-	private bool _previousParsingAttemptFailed;
-	private ValidationMessageStore _validationMessageStore;
-#endif
-
 	private HxDropdownToggleElement _hxDropdownToggleElement;
 	private ElementReference _iconWrapperElement;
 	private IJSObjectReference _jsModule;
 	private bool _firstRenderCompleted;
 
-#if !NET8_0_OR_GREATER
-	protected override void OnParametersSet()
-	{
-		base.OnParametersSet();
-
-		_validationMessageStore ??= new ValidationMessageStore(EditContext);
-
-		// clear parsing error after new value is set
-		if (!EqualityComparer<TValue>.Default.Equals(_previousValue, Value))
-		{
-			ClearPreviousParsingMessage();
-			_previousValue = Value;
-		}
-	}
-#endif
-
 	protected override string FormatValueAsString(TValue value) => HxInputDate<TValue>.FormatValue(value);
 
 	private void HandleValueChanged(string newInputValue)
 	{
-#if NET8_0_OR_GREATER
 		CurrentValueAsString = newInputValue;
-#else
-		// HandleValueChanged is used instead of TryParseValueFromString
-		// When TryParseValueFromString is used (pre net8), invalid input is replaced by previous value.		
-		bool parsingFailed;
-		_validationMessageStore.Clear(FieldIdentifier);
-
-		if (DateHelper.TryParseDateFromString<TValue>(newInputValue, TimeProviderEffective, out var date))
-		{
-			parsingFailed = false;
-			CurrentValue = date;
-		}
-		else
-		{
-			parsingFailed = true;
-			_validationMessageStore.Add(FieldIdentifier, ParsingErrorMessageEffective);
-		}
-
-		// We can skip the validation notification if we were previously valid and still are
-		if (parsingFailed || _previousParsingAttemptFailed)
-		{
-			EditContext.NotifyValidationStateChanged();
-			_previousParsingAttemptFailed = parsingFailed;
-		}
-#endif
 	}
 
 	protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
 	{
-#if NET8_0_OR_GREATER
 		if (DateHelper.TryParseDateFromString<TValue>(value, TimeProviderEffective, out var date))
 		{
 			result = date;
@@ -149,9 +101,6 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 			validationErrorMessage = ParsingErrorMessageEffective;
 			return false;
 		}
-#else
-		throw new NotSupportedException();
-#endif
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -204,39 +153,12 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	protected void SetCurrentDate(DateTime? date)
 	{
-#if NET8_0_OR_GREATER
 		CurrentValueAsString = date?.ToShortDateString(); // we need to trigger the logic in CurrentValueAsString setter
-#else
-		if (date == null)
-		{
-			CurrentValue = default;
-		}
-		else
-		{
-			CurrentValue = DateHelper.GetValueFromDateTimeOffset<TValue>(new DateTimeOffset(DateTime.SpecifyKind(date.Value, DateTimeKind.Unspecified), TimeSpan.Zero));
-		}
-		ClearPreviousParsingMessage();
-#endif
 	}
-
-#if !NET8_0_OR_GREATER
-	private void ClearPreviousParsingMessage()
-	{
-		if (_previousParsingAttemptFailed)
-		{
-			_previousParsingAttemptFailed = false;
-			EditContext.NotifyValidationStateChanged();
-		}
-	}
-#endif
 
 	private string GetNameAttributeValue()
 	{
-#if NET8_0_OR_GREATER
 		return String.IsNullOrEmpty(NameAttributeValue) ? null : NameAttributeValue;
-#else
-		return null;
-#endif
 	}
 
 	/// <inheritdoc />
@@ -249,10 +171,6 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
-#if !NET8_0_OR_GREATER
-		_validationMessageStore?.Clear();
-#endif
-
 		try
 		{
 			if (_firstRenderCompleted)
