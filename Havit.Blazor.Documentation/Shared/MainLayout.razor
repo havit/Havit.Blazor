@@ -5,10 +5,11 @@
 <HxMessenger Position="ToastContainerPosition.MiddleCenter" />
 <HxMessageBoxHost />
 
-<div class="container-floating d-md-flex min-vh-100">
+<Navbar CssClass="d-none d-lg-block" />
+<div class="container-fluid d-md-flex min-vh-100">
 	<Sidebar />
 
-	<div class="doc-content main p-4 flex-grow-1 overflow-hidden">
+	<div style="min-width: 0;" class="doc-content main p-4 pt-0 flex-grow-1">
 		@Body
 	</div>
 
