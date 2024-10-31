@@ -6,7 +6,7 @@
 @if (_mainComponent.GetValueOrDefault())
 {
     <HeadContent>
-        <link rel="canonical" href="@("https://havit.blazor.eu/components/" + plainTypeName)" />
+        <PageCanonicalUrl RelativeUrl="@GetRelativeCanonicalUrl(plainTypeName)" />
     </HeadContent>
 }
 

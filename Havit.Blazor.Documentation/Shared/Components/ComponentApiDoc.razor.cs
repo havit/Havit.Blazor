@@ -21,6 +21,7 @@ public partial class ComponentApiDoc
 	private bool? _mainComponent;
 
 	[Inject] protected IComponentApiDocModelBuilder ComponentApiDocModelBuilder { get; set; }
+	[Inject] protected NavigationManager NavigationManager { get; set; }
 
 	private bool HasApi => _model.HasValues || CssVariables is not null;
 	private bool IsDelegate => _model.IsDelegate;
@@ -43,5 +44,11 @@ public partial class ComponentApiDoc
 		}
 
 		_model = ComponentApiDocModelBuilder.BuildModel(Type);
+	}
+
+	private string GetRelativeCanonicalUrl(string plainTypeName)
+	{
+		bool isComponent = NavigationManager.ToBaseRelativePath(NavigationManager.Uri).Contains("components");
+		return $"{(isComponent ? "components" : "types")}/{plainTypeName}";
 	}
 }
