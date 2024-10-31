@@ -42,6 +42,8 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</GlobalPackageReference>
+		<!-- TEMP for net9 ADOS BUILD -->
+		<GlobalPackageReference Include="Microsoft.Net.Sdk.Compilers.Toolset" Version="9.0.100-rc.2.24474.11" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(ProjectName.EndsWith(`Tests`))' == 'False'">
 		<GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.11.20">
