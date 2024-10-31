@@ -15,6 +15,7 @@
 	--hx-sidebar-background-color: 									transparent;
 	--hx-sidebar-collapsed-width: 									72px;
 	--hx-sidebar-width: 											250px;
+	--hx-sidebar-max-height: 										100vh;
 	--hx-sidebar-toggler-background: 								var(--bs-gray-500);
 	--hx-sidebar-item-font-size: 									1rem;
 	--hx-sidebar-item-padding: 										.75rem;

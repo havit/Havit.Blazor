@@ -1,7 +1,10 @@
 :root {
 	--hx-sidebar-width: 					320px;
+	--hx-sidebar-max-height: 				calc(100vh - 56px);
 	--hx-sidebar-brand-logo-width: 			40px;
 	--hx-sidebar-brand-logo-height: 		30px;
+	--hx-sidebar-header-padding: 			.5rem;
+	--hx-sidebar-body-padding: 				0 1rem 0 .25rem;
 }
 
 #blazor-error-ui {
@@ -70,6 +73,10 @@ pre[class*="language-"] {
 
 .sidebar .hx-sidebar-header {
 	flex-wrap: wrap;
+}
+
+.sidebar {
+	top: 56px;
 }
 
 .collapsed.sidebar .sidebar-search,

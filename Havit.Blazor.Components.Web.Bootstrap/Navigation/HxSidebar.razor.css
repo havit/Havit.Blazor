@@ -13,9 +13,8 @@
 }
 
 @media (min-width: 768px) {
-	.hx-sidebar,
-	.hx-sidebar .nav-menu {
-		max-height: 100vh;
+	.hx-sidebar {
+		max-height: var(--hx-sidebar-max-height);;
 	}
 }
 
