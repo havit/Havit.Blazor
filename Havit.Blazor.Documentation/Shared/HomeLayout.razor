@@ -1,5 +1,38 @@
 @inherits LayoutComponentBase
 
 <div class="container-floating">
+    <div class="container">		
+        <HxNavbar>
+			<HxNavbarBrand>
+				<img src="./logo.png" height="32" alt="HAVIT Blazor">
+				<span class="fw-bold">HAVIT Blazor</span>
+			</HxNavbarBrand>
+			<HxNavbarToggler />
+			<HxNavbarCollapse>
+				<HxNav CssClass="mian-nav mx-auto row-gap-2 column-gap-3 mt-3 mt-lg-0">
+					<HxNavLink Href="/" CssClass="link-body-emphasis" Match="NavLinkMatch.All">
+						Introduction
+					</HxNavLink>
+					<HxNavLink Href="/getting-started" CssClass="link-body-emphasis" Match="NavLinkMatch.All">
+						Getting started
+					</HxNavLink>
+					<HxNavLink Href="https://blocks.havit.blazor.eu" CssClass="link-body-emphasis" Match="NavLinkMatch.All">
+						Blocks
+					</HxNavLink>
+					<HxNavLink Href="/showcase" CssClass="link-body-emphasis" Match="NavLinkMatch.All">
+						Showcase
+					</HxNavLink>
+					<HxNavLink Href="/premium" CssClass="link-body-emphasis" Match="NavLinkMatch.All">
+						Premium
+					</HxNavLink>
+				</HxNav>
+				<div class="d-flex gap-3 align-items-center">
+					<a href="https://github.com/havit/Havit.Blazor" class="text-body" target="_blank">
+						<HxIcon Icon="BootstrapIcon.Github" />
+					</a>
+					<Havit.Blazor.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
+				</div>
+			</HxNavbarCollapse>
+		</HxNavbar></div>
     @Body
 </div>

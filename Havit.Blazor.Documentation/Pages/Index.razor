@@ -1,49 +1,26 @@
 ﻿@page "/"
 @layout HomeLayout
 
-<div class="container">
-	<HxNav CssClass="my-3 d-flex" Variant="NavVariant.Pills">
-		<div class="brand d-flex align-items-center gap-2 fw-semibold fs-5 ps-3">
-			<img src="./logo.png" height="35" alt="HAVIT Blazor">
-			HAVIT Blazor
-		</div>
-		<div class="mx-auto d-flex gap-2">
-			<HxNavLink Href="/intro" Match="NavLinkMatch.All">
-				Introduction
-			</HxNavLink>
-			<HxNavLink Href="/getting-started" Match="NavLinkMatch.All">
-				Getting started
-			</HxNavLink>
-			<HxNavLink Href="/components" Match="NavLinkMatch.All">
-				Components
-			</HxNavLink>
-			<HxNavLink Href="/changelog" Match="NavLinkMatch.All">
-				Showcase
-			</HxNavLink>
-		</div>
-		<div class="ms-auto d-flex align-items-center gap-2">
-			<a href="https://github.com/havit/Havit.Blazor" class="text-body" target="_blank">
-				<HxIcon Icon="BootstrapIcon.Github" />
-			</a>
-			<Havit.Blazor.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
-		</div>
-	</HxNav>
-	<div class="text-center px-3">
-		<h1 class="fw-bold lh-1">HAVIT Blazor</h1>
-		<p class="lead">Free open-source ASP.NET Blazor components based on Bootstrap 5.</p>
-		<div class="d-flex flex-column flex-lg-row gap-3 my-5 justify-content-center">
-			<a href="https://github.com/havit/Havit.Blazor/releases"
-				class="btn btn-release d-inline-flex justify-content-center gap-2">
-				Release v5.0 is out
-				<HxIcon Icon="BootstrapIcon.LightningChargeFill" />
-			</a>
-			<a href="/intro" class="btn btn-docs d-inline-flex justify-content-center gap-2">
-				Documentation
-				<HxIcon Icon="BootstrapIcon.MortarboardFill" />
-			</a>
+<div class="hero py-3">
+	<div class="container">
+		<div class="text-center py-5 my-5">
+			<h1 class="fw-bold display-3">HAVIT Blazor</h1>
+			<p class="lead">Free open-source ASP.NET Blazor components based on Bootstrap 5.</p>
+			<div class="d-flex flex-column flex-lg-row gap-3 my-5 justify-content-center align-items-center">
+				<a href="https://github.com/havit/Havit.Blazor/releases"
+					class="btn btn-dark rounded-pill d-inline-flex justify-content-center gap-2">
+					Release v4.7 is out
+					<HxIcon Icon="BootstrapIcon.LightningChargeFill" />
+				</a>
+				<a href="/intro" class="btn btn-outline-light rounded-pill d-inline-flex justify-content-center gap-2">
+					Documentation
+					<HxIcon Icon="BootstrapIcon.MortarboardFill" />
+				</a>
+			</div>
 		</div>
 	</div>
-
+</div>
+<div class="container">
 	<div class="row mb-4 px-3">
 		<div class="col-12 col-lg-6 col-xxl-4 mb-4">
 			<HeroCard Title="Blazor WASM, Server or Hybrid" Description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae illum
@@ -71,9 +48,9 @@
 						obcaecati libero quidem quibusdam excepturi et!" Icon="BootstrapIcon.Gear" Color="ThemeColor.Info" />
 		</div>
 		<div class="col-12 col-lg-6 col-xxl-4 mb-4">
-			<HeroCard Title="JavaScript free coding" Description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae illum
+			<HeroCard Title="Premium plan" Description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae illum
 						minus quo atque, assumenda sunt eius officiis explicabo cum porro hic? Perferendis unde soluta
-						obcaecati libero quidem quibusdam excepturi et!" Icon="BootstrapIcon.EmojiHeartEyes" Color="ThemeColor.Dark" />
+						obcaecati libero quidem quibusdam excepturi et!" Icon="BootstrapIcon.Stars" Color="ThemeColor.Dark" />
 		</div>
 	</div>
 </div>
