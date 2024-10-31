@@ -1,8 +1,7 @@
 @inherits LayoutComponentBase
 
 <div class="container-floating">
-    <div class="container">		
-        <HxNavbar>
+        <HxNavbar CssClass="sticky-top bg-body" ContainerCssClass="container">
 			<HxNavbarBrand>
 				<img src="./logo.png" height="32" alt="HAVIT Blazor">
 				<span class="fw-bold">HAVIT Blazor</span>
@@ -33,6 +32,6 @@
 					<Havit.Blazor.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
 				</div>
 			</HxNavbarCollapse>
-		</HxNavbar></div>
+		</HxNavbar>
     @Body
 </div>
