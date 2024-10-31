@@ -2,7 +2,7 @@
 
 namespace Havit.Blazor.Documentation.Pages.Premium;
 
-public partial class GatewayToPremium
+public partial class GatewayToPremium : IAsyncDisposable
 {
 	[SupplyParameterFromQuery] public string Url { get; set; }
 
@@ -10,14 +10,7 @@ public partial class GatewayToPremium
 	[Inject] private IJSRuntime JSRuntime { get; set; }
 
 	private IJSObjectReference _jsModule;
-
 	private bool _skipGatewayPage = false;
-	private string _gitHubFolderUrl = "https://github.com/havit/Havit.Blazor.Premium";
-
-	protected override void OnParametersSet()
-	{
-		_gitHubFolderUrl = Uri.UnescapeDataString(Url);
-	}
 
 	private void LearnMoreAboutPremium()
 	{
@@ -31,7 +24,7 @@ public partial class GatewayToPremium
 			await EnsureJsModuleAsync();
 			await _jsModule.InvokeVoidAsync("setSkipGatewayPage", true);
 		}
-		NavigationManager.NavigateTo(_gitHubFolderUrl);
+		NavigationManager.NavigateTo(Url);
 	}
 
 	private async Task EnsureJsModuleAsync()
@@ -41,10 +34,20 @@ public partial class GatewayToPremium
 
 	private MarkupString GenerateHeadContent()
 	{
-		return (MarkupString)$@"<script>
-					 if (document.cookie.split(';').some((item) => item.trim() === 'SkipGatewayPage=true')) {{
-					 	 window.location.href = '{_gitHubFolderUrl}'
-					 }}
-				  </script>";
+		return (MarkupString)$$"""
+			<script>
+				if (document.cookie.split(';').some((item) => item.trim() === 'SkipGatewayPage=true')) {
+					window.location.href = '{{Url}}'
+				}
+			</script>
+			""";
+	}
+
+	public async ValueTask DisposeAsync()
+	{
+		if (_jsModule != null)
+		{
+			await _jsModule.DisposeAsync();
+		}
 	}
 }
