@@ -2,7 +2,7 @@
 
 namespace Havit.Blazor.Documentation.Pages.Premium;
 
-public partial class GatewayToGitHub
+public partial class GatewayToPremium
 {
 	[SupplyParameterFromQuery] public string Url { get; set; }
 
@@ -24,7 +24,7 @@ public partial class GatewayToGitHub
 		NavigationManager.NavigateTo("/premium");
 	}
 
-	private async Task ContinueToGitHub()
+	private async Task ContinueToPremiumContent()
 	{
 		if (_skipGatewayPage)
 		{
@@ -36,7 +36,7 @@ public partial class GatewayToGitHub
 
 	private async Task EnsureJsModuleAsync()
 	{
-		_jsModule ??= await JSRuntime.ImportModuleAsync($"./Pages/Premium/{nameof(GatewayToGitHub)}.razor.js");
+		_jsModule ??= await JSRuntime.ImportModuleAsync($"./Pages/Premium/{nameof(GatewayToPremium)}.razor.js");
 	}
 
 	private MarkupString GenerateHeadContent()

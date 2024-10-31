@@ -4,19 +4,18 @@
     @GenerateHeadContent()
 </HeadContent>
 
-<h1>Access source code</h1>
+<h1>HAVIT Blazor Premium</h1>
 
 <p class="lead">Only for premium subscribers.</p>
 
 <div class="hstack align-items-start gap-3">
     <HxButton Text="How to get access?" Size="ButtonSize.Large" Color="ThemeColor.Primary" OnClick="LearnMoreAboutPremium" />
     <div>
-        <HxButton Text="Proceed to GitHub"
+        <HxButton Text="Continue"
                   Size="ButtonSize.Large"
                   Color="ThemeColor.Secondary"
-                  OnClick="ContinueToGitHub"
-                  Outline="true"
-                  Icon="BootstrapIcon.Github" />
+                  OnClick="ContinueToPremiumContent"
+                  Outline="true" />
         <HxCheckbox @bind-Value="_skipGatewayPage" Text="Skip this page next time" CssClass="mt-1" TextCssClass="small" />
     </div>
 </div>
