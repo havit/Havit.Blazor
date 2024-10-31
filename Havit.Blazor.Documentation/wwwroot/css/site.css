@@ -75,9 +75,12 @@ pre[class*="language-"] {
 	flex-wrap: wrap;
 }
 
-.sidebar {
-	top: 56px;
+@media screen and (min-width: 992px) {
+	.sidebar {
+		top: 56px;
+	}	
 }
+
 
 .collapsed.sidebar .sidebar-search,
 .collapsed.sidebar .hx-sidebar-footer .hx-form-group {
