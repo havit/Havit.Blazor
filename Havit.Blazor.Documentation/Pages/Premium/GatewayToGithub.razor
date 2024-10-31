@@ -1,0 +1,18 @@
+﻿@page "/premium/access-content"
+
+<h1>Access source code</h1>
+
+<p class="lead">Only for premium subscribers.</p>
+
+<div class="hstack align-items-start gap-3">
+    <HxButton Text="How to get access?" Size="ButtonSize.Large" Color="ThemeColor.Primary" OnClick="LearnMoreAboutPremium" />
+    <div>
+        <HxButton Text="Proceed to GitHub"
+                  Size="ButtonSize.Large"
+                  Color="ThemeColor.Secondary"
+                  OnClick="ContinueToGitHub"
+                  Outline="true"
+                  Icon="BootstrapIcon.Github" />
+        <HxCheckbox @bind-Value="_skipGatewayPage" Text="Skip this page next time" CssClass="mt-1" TextCssClass="small" />
+    </div>
+</div>
