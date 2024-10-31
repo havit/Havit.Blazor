@@ -1,4 +1,4 @@
-﻿using Havit.Blazor.Documentation.Shared.Components;
+﻿using Havit.Blazor.Documentation.Services;
 
 namespace Havit.Blazor.Documentation.Shared;
 
@@ -10,6 +10,13 @@ public partial class MainLayout
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 
 	private string _title;
+
+	private CanonicalLinkManager _canonicalLinkManager;
+
+	protected override void OnInitialized()
+	{
+		_canonicalLinkManager = new(NavigationManager);
+	}
 
 	protected override void OnParametersSet()
 	{

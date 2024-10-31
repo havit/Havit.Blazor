@@ -9,7 +9,9 @@
 	<Sidebar />
 
 	<div class="doc-content main p-4 flex-grow-1 overflow-hidden">
-		@Body
+        <CascadingValue Value="_canonicalLinkManager" IsFixed="true">
+		    @Body
+        </CascadingValue>
 	</div>
 
 	<OnThisPageNavigation CssClass="side-page-navigation sticky-top mt-4 d-none d-lg-block">

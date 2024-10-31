@@ -16,15 +16,11 @@ public partial class ComponentApiDoc
 	/// </summary>
 	[Parameter] public Type Type { get; set; }
 
-	/// <summary>
-	/// This is used to determine, whether the <c>rel="canonical"</c> link element should be rendered.
-	/// Set to true, if the documentation page contains more than one component and this component is representative of the page.
-	/// </summary>
-	[Parameter] public bool MainComponent { get; set; } = false;
+	[CascadingParameter] public CanonicalLinkManager CanonicalLinkManager { get; set; }
+
+	private bool? _mainComponent;
 
 	[Inject] protected IComponentApiDocModelBuilder ComponentApiDocModelBuilder { get; set; }
-
-	private ComponentApiDocModel _model;
 
 	private bool HasApi => _model.HasValues || CssVariables is not null;
 	private bool IsDelegate => _model.IsDelegate;
@@ -37,8 +33,15 @@ public partial class ComponentApiDoc
 	private bool HasStaticMethods => !_model.IsEnum && _model.StaticMethods.Any();
 	private bool HasCssVariables => CssVariables is not null;
 
+	private ComponentApiDocModel _model;
+
 	protected override void OnParametersSet()
 	{
+		if (CanonicalLinkManager is not null)
+		{
+			_mainComponent ??= CanonicalLinkManager.RegisterComponentApiDoc();
+		}
+
 		_model = ComponentApiDocModelBuilder.BuildModel(Type);
 	}
 }
