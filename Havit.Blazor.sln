@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 17
+# Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web", "Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj", "{DF1C423F-ACA1-446E-A9F1-099DFDF70D44}"

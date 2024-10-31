@@ -1,0 +1,24 @@
+﻿@page "/premium/access-content"
+
+<HeadContent>
+	@GenerateHeadContent()
+</HeadContent>
+
+<h1>HAVIT Blazor Premium</h1>
+
+<p class="lead">You are accessing content for Premium subscribers.</p>
+
+<div class="hstack align-items-start gap-3">
+	<div>
+		<HxButton Text="Continue"
+				  Size="ButtonSize.Large"
+				  Color="ThemeColor.Primary"
+				  OnClick="ContinueToPremiumContent" />
+		<HxCheckbox @bind-Value="_skipGatewayPage" Text="Skip this page next time" CssClass="mt-1" TextCssClass="small" />
+	</div>
+	<HxButton Text="How to get Premium"
+			  Size="ButtonSize.Large"
+			  Color="ThemeColor.Secondary"
+			  Outline="true"
+			  OnClick="LearnMoreAboutPremium" />
+</div>
