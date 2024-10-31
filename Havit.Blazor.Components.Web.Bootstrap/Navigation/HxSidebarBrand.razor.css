@@ -2,6 +2,7 @@
 	display: flex;
 	align-items: center;
 	text-decoration: none;
+	gap: var(--hx-sidebar-brand-gap);
 	font-size: .875rem;
 	flex-grow: 1;
 }

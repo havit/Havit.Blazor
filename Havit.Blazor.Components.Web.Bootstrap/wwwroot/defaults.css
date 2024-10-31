@@ -53,6 +53,7 @@
 	--hx-sidebar-brand-shortname-font-weight: 						600;
 	--hx-sidebar-brand-name-color: 									var(--bs-body-color);
 	--hx-sidebar-brand-name-font-weight: 							600;
+	--hx-sidebar-brand-gap: 										.25rem;
 	--hx-sidebar-footer-padding: 									1rem;
 	--hx-sidebar-footer-item-padding: 								.75rem;
 	--hx-sidebar-footer-item-margin: 								0;
