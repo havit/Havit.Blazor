@@ -1,0 +1,76 @@
+﻿@page "/premium/welcome"
+@layout HomeLayout
+
+<PageTitle>Welcome to Premium | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
+
+<div class="hero">
+	<div class="container-fluid">
+		<div style="height: 350px;" class="d-flex flex-column align-items-center justify-content-center">
+			<h1 class="fw-bold text-center display-3">Welcome to HAVIT Blazor Premium</h1>
+			<div style="max-width: 800px;" class="lead text-center">
+				We're excited to welcome you to the HAVIT Blazor Premium community! As a Premium subscriber,
+				you have exclusive access to additional resources and priority support,
+				designed to help you get the most out of the HAVIT Blazor library.
+			</div>
+		</div>
+
+		<div class="row justify-content-center">
+			<div class="col-lg-6">
+				<div class="card mb-4 border-0 shadow-sm rounded-4">
+					<div class="card-body p-4">
+						<h4 class="fw-semibold">Access to Premium repository</h4>
+						<p class="opacity-75 mt-2">
+							The <a href="@NavigationRoutes.Premium.GetGatewayPage("https://github.com/havit/Havit.Blazor.Premium")">Havit.Blazor.Premium repository</a>
+							on GitHub includes exclusive UI Blocks and samples specifically for Premium subscribers.
+							To access this repository, please ensure you are logged into your GitHub account with an active Premium subscription.
+							Once authenticated, you’ll gain full access to the latest premium content and examples.
+						</p>
+					</div>
+				</div>
+
+				<div class="card mb-4 border-0 shadow-sm rounded-4">
+					<div class="card-body p-4">
+						<h4 class="fw-semibold">Priority support</h4>
+						<p class="opacity-75 mt-2">
+							Priority support is one of the key benefits of your Premium subscription. We provide prioritized assistance through:
+						</p>
+						<ul class="list-unstyled ms-3 opacity-75">
+							<li>
+								<a href="https://github.com/Havit/Havit.Blazor/issues">GitHub issues</a>: Submit any bug reports or feature
+								requests directly in the Havit.Blazor GitHub repository.
+								Reports from Premium subscribers are flagged and receive priority attention from our team.
+							</li>
+							<li class="mt-2">
+								<a href="https://github.com/Havit/Havit.Blazor/discussions">GitHub discussions</a>: For general questions
+								and usage advice, feel free to post in the Discussions section of our GitHub repository.
+								Our team will prioritize flagged questions from Premium subscribers to ensure your queries are addressed promptly.
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="card mb-4 border-0 shadow-sm rounded-4">
+					<div class="card-body p-4">
+						<h4 class="fw-semibold">Access to showcase project</h4>
+						<p class="opacity-75 mt-2">
+							As a Premium subscriber, you also gain exclusive access to the <a href="@NavigationRoutes.Premium.GetGatewayPage("https://github.com/Havit/GoranG3")">GoranG3 repository</a>,
+							a closed-source commercial information system that we allow our Premium subscribers to access as a showcase project.<br/>
+							This repository provides you with real-world examples of how to effectively	use HAVIT Blazor components in a professional setting.
+							You can explore the source code to draw inspiration and observe best practices in implementing Blazor
+							components within a complex, production-grade environment.
+						</p>
+						<p class="opacity-75 mt-2">
+							Access to the showcase project will be configured within 24 hours of your subscription activation. You’ll receive an invitation email once your access is ready.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="text-center mt-3">
+			<p class="opacity-75">
+				Enjoy your Premium subscription, and feel free to <a href="https://www.havit.eu/contacts">contact us</a> if you have any questions or need assistance!
+			</p>
+		</div>
+	</div>
+</div>
