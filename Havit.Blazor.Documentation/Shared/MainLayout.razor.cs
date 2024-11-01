@@ -1,6 +1,4 @@
-﻿using Havit.Blazor.Documentation.Shared.Components;
-
-namespace Havit.Blazor.Documentation.Shared;
+﻿namespace Havit.Blazor.Documentation.Shared;
 
 public partial class MainLayout
 {
