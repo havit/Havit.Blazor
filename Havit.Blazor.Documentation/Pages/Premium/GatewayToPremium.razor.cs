@@ -12,11 +12,6 @@ public partial class GatewayToPremium : IAsyncDisposable
 	private IJSObjectReference _jsModule;
 	private bool _skipGatewayPage = true;
 
-	private void LearnMoreAboutPremium()
-	{
-		NavigationManager.NavigateTo("/premium");
-	}
-
 	private async Task ContinueToPremiumContent()
 	{
 		if (_skipGatewayPage)
