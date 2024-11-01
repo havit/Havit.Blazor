@@ -1,24 +1,29 @@
 ﻿@page "/premium/access-content"
+@layout HomeLayout
 
 <HeadContent>
 	@GenerateHeadContent()
 </HeadContent>
 
-<h1>HAVIT Blazor Premium</h1>
-
-<p class="lead">You are accessing content for Premium subscribers.</p>
-
-<div class="hstack align-items-start gap-3">
-	<div>
-		<HxButton Text="Continue"
-				  Size="ButtonSize.Large"
-				  Color="ThemeColor.Primary"
-				  OnClick="ContinueToPremiumContent" />
-		<HxCheckbox @bind-Value="_skipGatewayPage" Text="Skip this page next time" CssClass="mt-1" TextCssClass="small" />
-	</div>
-	<HxButton Text="How to get Premium"
-			  Size="ButtonSize.Large"
-			  Color="ThemeColor.Secondary"
-			  Outline="true"
-			  OnClick="LearnMoreAboutPremium" />
+<div class="d-flex w-100 h-100 justify-content-center align-items-center my-5">
+	<HxCard CssClass="rounded-4 border-0 bg-body-secondary" BodyCssClass="d-flex flex-column align-items-center p-4">
+		<BodyTemplate>
+			<h4 class="fw-bold">HAVIT Blazor Premium</h4>
+			<p class="opacity-75 text-center my-4">
+				You are accessing content for Premium subscribers.
+				<br />
+				<a class="link-body-emphasis" href="/premium">How to get Premium?</a>
+			</p>
+			<HxButton Text="Continue"
+						Size="ButtonSize.Large"
+						Color="ThemeColor.Dark"
+						CssClass="gap-3 px-3 rounded-pill w-100 mb-3"
+						IconPlacement="ButtonIconPlacement.End"
+						Icon="BootstrapIcon.ArrowRightCircleFill"
+						OnClick="ContinueToPremiumContent" />
+			<HxCheckbox @bind-Value="_skipGatewayPage" Text="Skip this page next time" CssClass="mt-1" TextCssClass="small" />
+		</BodyTemplate>
+	</HxCard>
 </div>
+
+

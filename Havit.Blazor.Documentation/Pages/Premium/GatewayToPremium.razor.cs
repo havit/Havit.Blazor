@@ -10,7 +10,7 @@ public partial class GatewayToPremium : IAsyncDisposable
 	[Inject] private IJSRuntime JSRuntime { get; set; }
 
 	private IJSObjectReference _jsModule;
-	private bool _skipGatewayPage = false;
+	private bool _skipGatewayPage = true;
 
 	private void LearnMoreAboutPremium()
 	{
