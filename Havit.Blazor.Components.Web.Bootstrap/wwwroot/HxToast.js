@@ -19,7 +19,6 @@ export function init(element, hxToastDotnetObjectReference) {
 	if (!toast) {
 		toast = new bootstrap.Toast(element);
 		toast.show();
-		console.log('HxToast.init: Toast instance created and shown.', element);
 	}
 	else if (toast._element.classList.contains('hx-toast-init')) {
 		// for SSR enahanced forms, when merging DOM changes, Blazor sometimes reuses the original element
@@ -27,7 +26,6 @@ export function init(element, hxToastDotnetObjectReference) {
 		// in this case, the Bootstrap Toast instance might already exist, but the element is not shown
 		// The .hx-toast-init class indicates that the element is not shown yet.
 		toast.show();
-		console.log('HxToast.init: Toast shown (existing instance).', element);
 	}
 
 	element.classList.remove('hx-toast-init');
