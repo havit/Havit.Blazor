@@ -10,7 +10,9 @@
 	<Sidebar />
 
 	<div style="min-width: 0;" class="doc-content main p-4 pt-0 flex-grow-1">
-		@Body
+        <CascadingValue Value="_pageCanonicalUrlTracker" IsFixed="true">
+		    @Body
+        </CascadingValue>
 	</div>
 
 	<OnThisPageNavigation CssClass="side-page-navigation sticky-top mt-4 d-none d-lg-block">
