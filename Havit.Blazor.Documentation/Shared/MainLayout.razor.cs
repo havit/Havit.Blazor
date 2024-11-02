@@ -1,4 +1,5 @@
-﻿using Havit.Blazor.Documentation.Services;
+﻿using Havit.Blazor.Documentation.Shared.Components;
+using static System.Net.WebRequestMethods;
 
 namespace Havit.Blazor.Documentation.Shared;
 
@@ -11,11 +12,11 @@ public partial class MainLayout
 
 	private string _title;
 
-	private CanonicalLinkManager _canonicalLinkManager;
+	private PageCanonicalUrlTracker _pageCanonicalUrlTracker;
 
 	protected override void OnInitialized()
 	{
-		_canonicalLinkManager = new(NavigationManager);
+		_pageCanonicalUrlTracker = new PageCanonicalUrlTracker(NavigationManager);
 	}
 
 	protected override void OnParametersSet()

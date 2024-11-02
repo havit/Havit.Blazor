@@ -16,10 +16,6 @@ public partial class ComponentApiDoc
 	/// </summary>
 	[Parameter] public Type Type { get; set; }
 
-	[CascadingParameter] public CanonicalLinkManager CanonicalLinkManager { get; set; }
-
-	private bool? _mainComponent;
-
 	[Inject] protected IComponentApiDocModelBuilder ComponentApiDocModelBuilder { get; set; }
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 
@@ -35,15 +31,14 @@ public partial class ComponentApiDoc
 	private bool HasCssVariables => CssVariables is not null;
 
 	private ComponentApiDocModel _model;
+	private string _plainTypeName;
+
 
 	protected override void OnParametersSet()
 	{
-		if (CanonicalLinkManager is not null)
-		{
-			_mainComponent ??= CanonicalLinkManager.RegisterComponentApiDoc();
-		}
-
 		_model = ComponentApiDocModelBuilder.BuildModel(Type);
+		_plainTypeName = ApiRenderer.RemoveSpecialCharacters(Type.Name);
+
 	}
 
 	private string GetRelativeCanonicalUrl(string plainTypeName)

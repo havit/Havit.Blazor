@@ -1,1 +1,6 @@
-﻿<link rel="canonical" href="@GetCanonicalUrl()" />
+﻿@if (_shouldRender)
+{
+	<HeadContent>
+		<link rel="canonical" href="@_canonicalAbsoluteUrl" />
+	</HeadContent>
+}
