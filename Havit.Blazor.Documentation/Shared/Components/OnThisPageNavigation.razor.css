@@ -1,5 +1,6 @@
 ﻿.on-this-page-navigation {
     height: fit-content;
+	top: 3rem;
 }
 
 ul {
@@ -16,9 +17,9 @@ ul,
 	list-style-type: none;
 }
 
-	ul li, ::deep ul li {
-		margin-bottom: .25rem;
-	}
+ul li, ::deep ul li {
+	margin-bottom: .25rem;
+}
 
 ::deep a {
     text-decoration: none;

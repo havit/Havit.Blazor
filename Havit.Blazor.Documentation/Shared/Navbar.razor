@@ -1,0 +1,43 @@
+<div class="@CssClassHelper.Combine(CssClass, "nav-container mx-auto sticky-top bg-body")" style="z-index: 1030;">
+	<HxNavbar ContainerCssClass="container-fluid">
+		<HxNavbarBrand CssClass="py-0">
+			<img src="./logo.png" width="32" alt="HAVIT Blazor">
+			<span class="fw-semibold">HAVIT Blazor</span>
+		</HxNavbarBrand>
+		<HxNavbarToggler />
+		<HxNavbarCollapse>
+			<HxNav CssClass="mx-auto justify-content-center row-gap-2 column-gap-3 mt-lg-0">
+				<HxNavLink Href="/" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover" Match="NavLinkMatch.All">
+					Introduction
+				</HxNavLink>
+				<HxNavLink Href="/getting-started" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover" Match="NavLinkMatch.All">
+					Documentation
+				</HxNavLink>
+				<HxNavLink Href="https://blocks.havit.blazor.eu" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover" Match="NavLinkMatch.All">
+					Blocks
+				</HxNavLink>
+				@*
+				<HxNavLink Href="/showcase" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover" Match="NavLinkMatch.All">
+				Showcase
+				</HxNavLink>
+				*@
+				<HxNavLink Href="/premium" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover" Match="NavLinkMatch.All">
+					Premium
+				</HxNavLink>
+			</HxNav>
+            <div class="d-flex gap-3 align-items-center justify-content-center">
+                <Search />
+
+				<a href="https://github.com/havit/Havit.Blazor" class="text-body" target="_blank">
+					<HxIcon Icon="BootstrapIcon.Github" />
+				</a>
+				<Havit.Blazor.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
+			</div>
+		</HxNavbarCollapse>
+	</HxNavbar>
+</div>
+
+@code
+{
+	[Parameter] public string CssClass { get; set; }
+}

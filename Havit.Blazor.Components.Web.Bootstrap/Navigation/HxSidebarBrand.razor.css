@@ -2,6 +2,7 @@
 	display: flex;
 	align-items: center;
 	text-decoration: none;
+	gap: var(--hx-sidebar-brand-gap);
 	font-size: .875rem;
 	flex-grow: 1;
 }
@@ -25,7 +26,6 @@
 
 .hx-sidebar-brand-name {
 	font-size: 1.25rem;
-	margin-left: .5rem;
 	color: var(--hx-sidebar-brand-name-color);
 	font-weight: var(--hx-sidebar-brand-name-font-weight);
 }

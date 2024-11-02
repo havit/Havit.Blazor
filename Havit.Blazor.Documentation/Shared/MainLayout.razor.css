@@ -5,7 +5,7 @@
     flex-basis: 250px;
 }
 
-.container-floating {
+.container-fluid {
     max-width: 1600px;
     margin: 0 auto;
 }

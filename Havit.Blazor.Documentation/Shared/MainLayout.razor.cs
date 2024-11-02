@@ -1,5 +1,4 @@
 ﻿using Havit.Blazor.Documentation.Shared.Components;
-using static System.Net.WebRequestMethods;
 
 namespace Havit.Blazor.Documentation.Shared;
 

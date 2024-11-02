@@ -228,14 +228,10 @@ public partial class Search
 
 	private HxAutosuggest<SearchItem, SearchItem> _autosuggest;
 
-	private bool _wasFocused = false;
-
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (firstRender && !_wasFocused)
+		if (firstRender && (_autosuggest is not null))
 		{
-			_wasFocused = true;
-			await Task.Delay(1);
 			await _autosuggest.FocusAsync();
 		}
 	}
