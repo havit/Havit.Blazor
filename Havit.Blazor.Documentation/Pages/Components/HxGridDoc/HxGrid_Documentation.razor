@@ -29,10 +29,18 @@
 		</p>
 		<Demo Type="typeof(HxGrid_Demo_ApplyTo)" />
 
+		<DocHeading Title="Asynchronous data" Id="ApplyToAsync" Level="3" />
+		<p>
+			When loading data asynchronously, always ensure <code>DataProvider</code> waits for the data to be available.
+			If you are preloading data and using the <code>request.ApplyTo(data)</code> extension method,
+			you can leverage <code>TaskCompletionSource</code> to handle waiting until the data is loaded.
+		</p>
+		<Demo Type="typeof(HxGrid_Demo_ApplyTo_Async)" />
 
 		<DocHeading Title="Using IQueryable" Id="IQueryable" Level="3" />
 		<p>
-			When utilizing <code>IQueryable</code> as your data source provider, commonly seen in Blazor Server applications,
+			When utilizing <code>IQueryable</code> as your data source provider,
+			commonly seen in Blazor Server applications with Entity Framework Core,
 			you can employ the <code>data.ApplyGridDataProviderRequest(request)</code> method.
 		</p>
 		<p>
