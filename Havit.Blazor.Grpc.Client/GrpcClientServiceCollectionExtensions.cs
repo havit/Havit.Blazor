@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.InteropServices;
 using Grpc.Net.Client.Web;
 using Grpc.Net.ClientFactory;
 using Havit.Blazor.Grpc.Client.HttpHeaders;
@@ -22,19 +21,33 @@ namespace Havit.Blazor.Grpc.Client;
 public static class GrpcClientServiceCollectionExtensions
 {
 	/// <summary>
-	/// Adds the necessary infrastructure for gRPC clients.
+	/// <see cref="AddGrpcClientInfrastructure(IServiceCollection, Assembly[])"/>
 	/// </summary>
 	/// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
-	/// <param name="assemblyToScanForDataContracts">The assembly to scan for data contracts.</param>
+	/// <param name="assemblyToScanForDataContracts">Assembly to scan for data contracts.</param>
 	public static void AddGrpcClientInfrastructure(
 		this IServiceCollection services,
 		Assembly assemblyToScanForDataContracts)
+	{
+		AddGrpcClientInfrastructure(services, [assemblyToScanForDataContracts]);
+	}
+
+	/// <summary>
+	/// Adds the necessary infrastructure for gRPC clients.
+	/// </summary>
+	/// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
+	/// <param name="assembliesToScanForDataContracts">Assemblies to scan for data contracts.</param>
+	public static void AddGrpcClientInfrastructure(
+		this IServiceCollection services,
+		Assembly[] assembliesToScanForDataContracts)
 	{
 		services.AddTransient<ServerExceptionsGrpcClientInterceptor>();
 		services.AddSingleton<GlobalizationLocalizationGrpcClientInterceptor>();
 		services.AddScoped<ClientUriGrpcClientInterceptor>();
 		services.AddTransient<GrpcWebHandler>(provider => new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
-		services.AddSingleton<ClientFactory>(ClientFactory.Create(BinderConfiguration.Create(marshallerFactories: new[] { ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Create().RegisterApplicationContracts(assemblyToScanForDataContracts)) }, binder: new ProtoBufServiceBinder())));
+		services.AddSingleton<ClientFactory>(ClientFactory.Create(BinderConfiguration.Create(
+			marshallerFactories: CreateMarshallerFactories(assembliesToScanForDataContracts),
+			binder: new ProtoBufServiceBinder())));
 
 		services.TryAddScoped<IGrpcClientClientUriResolver, NavigationManagerGrpcClientClientUriResolver>();
 	}
@@ -57,7 +70,31 @@ public static class GrpcClientServiceCollectionExtensions
 		Action<IHttpClientBuilder> configureGrpClientAll = null,
 		Action<IServiceProvider, GrpcClientFactoryOptions> configureGrpcClientFactory = null)
 	{
-		var interfacesAndAttributes = (from type in assemblyToScan.GetTypes()
+		AddGrpcClientsByApiContractAttributes(services, [assemblyToScan], configureGrpcClientWithAuthorization, configureGrpClientAll, configureGrpcClientFactory);
+	}
+
+	/// <summary>
+	/// Adds gRPC clients based on API contract attributes.
+	/// </summary>
+	/// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
+	/// <param name="assembliesToScan">The assembly to scan for API contract attributes.</param>
+	/// <param name="configureGrpcClientWithAuthorization">An optional action to configure gRPC clients with authorization.</param>
+	/// <param name="configureGrpClientAll">An optional action to configure all gRPC clients.</param>
+	/// <param name="configureGrpcClientFactory">
+	/// An optional action to configure the gRPC client factory.
+	/// If Not provided, <c>options.Address</c> (backend URL) will be configured from <c>NavigationManager.BaseUri</c>.
+	/// </param>
+	public static void AddGrpcClientsByApiContractAttributes(
+		this IServiceCollection services,
+		Assembly[] assembliesToScan,
+		Action<IHttpClientBuilder> configureGrpcClientWithAuthorization = null,
+		Action<IHttpClientBuilder> configureGrpClientAll = null,
+		Action<IServiceProvider, GrpcClientFactoryOptions> configureGrpcClientFactory = null)
+	{
+		ArgumentNullException.ThrowIfNull(assembliesToScan, nameof(assembliesToScan));
+
+		var interfacesAndAttributes = (from assembly in assembliesToScan
+									   from type in assembly.GetTypes()
 									   from apiContractAttribute in type.GetCustomAttributes(typeof(ApiContractAttribute), false).Cast<ApiContractAttribute>()
 									   select new { Interface = type, Attribute = apiContractAttribute }).ToArray();
 
@@ -76,6 +113,11 @@ public static class GrpcClientServiceCollectionExtensions
 				});
 		}
 	}
+
+	private static List<MarshallerFactory> CreateMarshallerFactories(Assembly[] assembliesToScanForDataContracts) =>
+		assembliesToScanForDataContracts
+			.Select(assembly => ProtoBufMarshallerFactory.Create(RuntimeTypeModel.Create().RegisterApplicationContracts(assembly)))
+			.ToList();
 
 	private static void AddGrpcClientCore<TService>(
 		this IServiceCollection services,
