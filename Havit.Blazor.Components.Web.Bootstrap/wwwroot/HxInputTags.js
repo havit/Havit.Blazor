@@ -96,7 +96,7 @@ function handleDropdownHidden(event) {
 	// But we need the item click event to fire first.
 	// Therefore we delay jsinterop for a while.
 	window.setTimeout(function (element) {
-		element.hxInputTagsDotnetObjectReference.invokeMethodAsync('HxInputTagsInternal_HandleDropdownHidden');
+		element.hxInputTagsDotnetObjectReference?.invokeMethodAsync('HxInputTagsInternal_HandleDropdownHidden');
 	}, 1, event.target);
 }
 
