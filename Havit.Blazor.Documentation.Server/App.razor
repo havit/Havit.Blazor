@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<base href="/" />
 
-	<script src="@Assets["/js/color-mode-auto.js"]"></script>
+	<script src="@Assets["js/color-mode-auto.js"]"></script>
 
 	<link href="@Assets["_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.min.css"]" rel="stylesheet" />
 	<link href="@Assets["_content/Havit.Blazor.Components.Web.Bootstrap/defaults.css"]" rel="stylesheet" />
@@ -13,7 +13,9 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" /> @* Prism: Syntax Highlighting *@
 	<link href="https://cdn.jsdelivr.net/npm/prism-themes@1.8.0/themes/prism-vs.css" rel="stylesheet" /> @* Prism: Syntax Highlighting *@
 	<link rel="stylesheet" href="@Assets["_content/Havit.Blazor.Components.Web.Bootstrap.Smart/smart.css"]">@* TODO: Integrate into Blazor CSS bundle *@
-	<link href="@Assets["/css/site.css"]" rel="stylesheet" />
+	<link href="@Assets["css/site.css"]" rel="stylesheet" />
+
+	<ImportMap />
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-JWLD6SQ66F"></script>
@@ -45,7 +47,7 @@
 	@* Prism: Syntax Highlighting *@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js"></script>
-	<script src="@Assets["/js/app.js"]"></script>
+	<script src="@Assets["js/app.js"]"></script>
 	<script>
 		Blazor.start({
 			applicationCulture: 'en-US'
