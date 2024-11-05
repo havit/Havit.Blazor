@@ -6,10 +6,10 @@ public partial class HomeLayout
 {
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 
-	private PageCanonicalUrlTracker _pageCanonicalUrlTracker;
+	private DocHeadContentTracker _docHeadContentTracker;
 
 	protected override void OnInitialized()
 	{
-		_pageCanonicalUrlTracker = new PageCanonicalUrlTracker(NavigationManager);
+		_docHeadContentTracker = new DocHeadContentTracker(NavigationManager);
 	}
 }

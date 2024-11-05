@@ -1,10 +1,10 @@
 ﻿namespace Havit.Blazor.Documentation.Shared.Components;
 
 /// <summary>
-/// Tracks usages of <see cref="PageCanonicalUrl"/> component during page rendering
+/// Tracks usages of <see cref="DocHeadContent"/> component during page rendering
 /// and returns the canonical URL of the first registration.
 /// </summary>
-public class PageCanonicalUrlTracker(NavigationManager navigationManager)
+public class DocHeadContentTracker(NavigationManager navigationManager)
 {
 	private readonly NavigationManager _navigationManager = navigationManager;
 

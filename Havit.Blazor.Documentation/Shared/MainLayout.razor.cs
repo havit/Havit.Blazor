@@ -11,11 +11,11 @@ public partial class MainLayout
 
 	private string _title;
 
-	private PageCanonicalUrlTracker _pageCanonicalUrlTracker;
+	private DocHeadContentTracker _docHeadContentTracker;
 
 	protected override void OnInitialized()
 	{
-		_pageCanonicalUrlTracker = new PageCanonicalUrlTracker(NavigationManager);
+		_docHeadContentTracker = new DocHeadContentTracker(NavigationManager);
 	}
 
 	protected override void OnParametersSet()
