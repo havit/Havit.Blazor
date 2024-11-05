@@ -14,8 +14,8 @@
 		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>		
 
 		<!-- aligned NuGet PackageVersion for package-bundles -->
-		<ComponentsPackagesVersion>4.7.0-pre03</ComponentsPackagesVersion>
-		<GrpcPackagesVersion>1.6.0-pre02</GrpcPackagesVersion>
+		<ComponentsPackagesVersion>4.7.0-pre04</ComponentsPackagesVersion>
+		<GrpcPackagesVersion>1.6.0-pre04</GrpcPackagesVersion>
 	</PropertyGroup>
 
 	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" Condition="Exists($([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../')))"/>
