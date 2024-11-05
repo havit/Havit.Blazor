@@ -9,7 +9,7 @@ namespace Havit.Blazor.Grpc.Server;
 public static class EndpointRouteBuilderGrpcExtensions
 {
 	/// <summary>
-	/// <see cref="MapGrpcServicesByApiContractAttributes(IEndpointRouteBuilder, Assembly[], Action{GrpcServiceEndpointConventionBuilder}, Action{GrpcServiceEndpointConventionBuilder})"
+	/// Maps gRPC services with <see cref="ApiContractAttribute"/> as route endpoints.
 	/// </summary>
 	/// <param name="builder">Endpoint route builder.</param>
 	/// <param name="assemblyToScan">Assembly to scan for interfaces with <see cref="ApiContractAttribute"/>.</param>

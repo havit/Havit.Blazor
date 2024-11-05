@@ -6,6 +6,7 @@ using Havit.Blazor.Grpc.Client.Infrastructure;
 using Havit.Blazor.Grpc.Client.ServerExceptions;
 using Havit.Blazor.Grpc.Core;
 using Havit.ComponentModel;
+using Havit.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -21,7 +22,7 @@ namespace Havit.Blazor.Grpc.Client;
 public static class GrpcClientServiceCollectionExtensions
 {
 	/// <summary>
-	/// <see cref="AddGrpcClientInfrastructure(IServiceCollection, Assembly[])"/>
+	/// Adds the necessary infrastructure for gRPC clients.
 	/// </summary>
 	/// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
 	/// <param name="assemblyToScanForDataContracts">Assembly to scan for data contracts.</param>
@@ -91,7 +92,7 @@ public static class GrpcClientServiceCollectionExtensions
 		Action<IHttpClientBuilder> configureGrpClientAll = null,
 		Action<IServiceProvider, GrpcClientFactoryOptions> configureGrpcClientFactory = null)
 	{
-		ArgumentNullException.ThrowIfNull(assembliesToScan, nameof(assembliesToScan));
+		Contract.Requires<ArgumentNullException>(assembliesToScan is not null);
 
 		var interfacesAndAttributes = (from assembly in assembliesToScan
 									   from type in assembly.GetTypes()

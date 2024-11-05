@@ -3,6 +3,7 @@ using Grpc.AspNetCore.Server;
 using Havit.Blazor.Grpc.Core;
 using Havit.Blazor.Grpc.Server.GlobalizationLocalization;
 using Havit.Blazor.Grpc.Server.ServerExceptions;
+using Havit.Diagnostics.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 using ProtoBuf.Grpc.Configuration;
 using ProtoBuf.Grpc.Server;
@@ -13,7 +14,7 @@ namespace Havit.Blazor.Grpc.Server;
 public static class GrpcServerServiceCollectionExtensions
 {
 	/// <summary>
-	/// <see cref="AddGrpcServerInfrastructure(IServiceCollection, Assembly[], Action{GrpcServiceOptions})"/>
+	/// Adds the necessary infrastructure for gRPC servers.
 	/// </summary>
 	/// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
 	/// <param name="assembliesToScanForDataContracts">Assembly to scan for data contracts</param>
@@ -37,7 +38,7 @@ public static class GrpcServerServiceCollectionExtensions
 		Assembly[] assembliesToScanForDataContracts,
 		Action<GrpcServiceOptions> configureOptions = null)
 	{
-		ArgumentNullException.ThrowIfNull(assembliesToScanForDataContracts, nameof(assembliesToScanForDataContracts));
+		Contract.Requires<ArgumentNullException>(assembliesToScanForDataContracts is not null);
 
 		services.AddSingleton<GlobalizationLocalizationGrpcServerInterceptor>();
 		services.AddSingleton<ServerExceptionsGrpcServerInterceptor>();
