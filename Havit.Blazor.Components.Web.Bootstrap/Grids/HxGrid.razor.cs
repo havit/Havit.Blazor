@@ -280,6 +280,64 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected IconBase SortDescendingIconEffective => SortDescendingIcon ?? GetSettings()?.SortDescendingIcon ?? GetDefaults().SortDescendingIcon;
 
 	/// <summary>
+	/// Defines a function that returns additional attributes for a specific <c>tr</c> element based on the item it represents.
+	/// This allows for custom behavior or event handling on a per-row basis.
+	/// </summary>
+	/// <remarks>
+	/// If both <see cref="ItemRowAdditionalAttributesSelector"/> and <see cref="ItemRowAdditionalAttributes"/> are specified,
+	/// both dictionaries are combined into one.
+	/// Note that there is no prevention of duplicate keys, which may result in a <see cref="System.ArgumentException"/>.
+	/// </remarks>
+	[Parameter] public Func<TItem, Dictionary<string, object>> ItemRowAdditionalAttributesSelector { get; set; }
+
+	/// <summary>
+	/// Provides a dictionary of additional attributes to apply to all body <c>tr</c> elements in the grid.
+	/// These attributes can be used to customize the appearance or behavior of rows.
+	/// </summary>
+	/// <remarks>
+	/// If both <see cref="ItemRowAdditionalAttributesSelector"/> and <see cref="ItemRowAdditionalAttributes"/> are specified,
+	/// both dictionaries are combined into one.
+	/// Note that there is no prevention of duplicate keys, which may result in a <see cref="System.ArgumentException"/>.
+	/// </remarks>
+	[Parameter] public Dictionary<string, object> ItemRowAdditionalAttributes { get; set; }
+
+	/// <summary>
+	/// Provides a dictionary of additional attributes to apply to the header <c>tr</c> element of the grid.
+	/// This allows for custom styling or behavior of the header row.
+	/// </summary>
+	[Parameter] public Dictionary<string, object> HeaderRowAdditionalAttributes { get; set; }
+
+	/// <summary>
+	/// Provides a dictionary of additional attributes to apply to the footer <c>tr</c> element of the grid.
+	/// This allows for custom styling or behavior of the footer row.
+	/// </summary>
+	[Parameter] public Dictionary<string, object> FooterRowAdditionalAttributes { get; set; }
+
+	/// <summary>
+	/// Determines the effective additional attributes for a given data row, combining both the global and per-item attributes.
+	/// </summary>
+	/// <param name="item">The data item for the current row.</param>
+	/// <returns>A dictionary of additional attributes to apply to the row.</returns>
+	/// <exception cref="System.ArgumentException">Thrown when there are duplicate keys in the combined dictionaries.</exception>
+	private Dictionary<string, object> ItemRowAdditionalAttributesSelectorEffective(TItem item)
+	{
+		if (ItemRowAdditionalAttributesSelector == null)
+		{
+			return ItemRowAdditionalAttributes;
+		}
+		else if (ItemRowAdditionalAttributes == null)
+		{
+			return ItemRowAdditionalAttributesSelector(item);
+		}
+		else
+		{
+			return ItemRowAdditionalAttributes.Concat(ItemRowAdditionalAttributesSelector(item)).ToDictionary(x => x.Key, x => x.Value);
+		}
+
+	}
+
+
+	/// <summary>
 	/// Retrieves the default settings for the grid. This method can be overridden in derived classes
 	/// to provide different default settings or to use a derived settings class.
 	/// </summary>
