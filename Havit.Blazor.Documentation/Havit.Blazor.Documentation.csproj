@@ -16,6 +16,7 @@
 	<ItemGroup>
 		<PackageReference Include="LoxSmoke.DocXml" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
 	</ItemGroup>
 
 	<ItemGroup>
