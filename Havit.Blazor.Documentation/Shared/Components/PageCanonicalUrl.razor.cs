@@ -10,6 +10,12 @@ public partial class PageCanonicalUrl
 
 	[Parameter] public string RelativeUrl { get; set; }
 
+	/// <summary>
+	/// Determines, whether the <c>link</c> tag should be wrapped in <c>HeadContent</c>.
+	/// Default is <c>true</c>.
+	/// </summary>
+	[Parameter] public bool RenderInHeadContent { get; set; } = true;
+
 	[CascadingParameter] protected PageCanonicalUrlTracker PageCanonicalUrlTracker { get; set; }
 
 	private bool _shouldRender = false;

@@ -2,10 +2,10 @@
 @layout HomeLayout
 
 <PageTitle>Access Premium Content | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
-<PageCanonicalUrl RelativeUrl="/premium/access-content" />
 
 <HeadContent>
 	@GenerateHeadContent()
+    <PageCanonicalUrl RenderInHeadContent="false" RelativeUrl="/premium/access-content" />
 </HeadContent>
 
 <div class="d-flex w-100 h-100 justify-content-center align-items-center my-5">

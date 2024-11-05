@@ -1,6 +1,13 @@
 ﻿@if (_shouldRender)
 {
-	<HeadContent>
-		<link rel="canonical" href="@_canonicalAbsoluteUrl" />
-	</HeadContent>
+    @if (RenderInHeadContent)
+    {
+        <HeadContent>
+		    <link rel="canonical" href="@_canonicalAbsoluteUrl" />
+        </HeadContent>
+    }
+    else
+    {
+        <link rel="canonical" href="@_canonicalAbsoluteUrl" />
+    }
 }
