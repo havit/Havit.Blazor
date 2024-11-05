@@ -1,10 +1,10 @@
 ﻿namespace Havit.Blazor.Documentation.Shared.Components;
 
 /// <summary>
-/// Tracks usages of <see cref="PageCanonicalUrl"/> component during page rendering
+/// Tracks usages of <see cref="DocHeadContent"/> component during page rendering
 /// and returns the canonical URL of the first registration.
 /// </summary>
-public class PageCanonicalUrlTracker(NavigationManager navigationManager)
+public class DocHeadContentTracker(NavigationManager navigationManager)
 {
 	private readonly NavigationManager _navigationManager = navigationManager;
 
@@ -17,14 +17,12 @@ public class PageCanonicalUrlTracker(NavigationManager navigationManager)
 	/// </summary>
 	public bool TryRegisterCanonicalUrlForCurrentPage(string canonicalUrl)
 	{
-		Console.WriteLine($"TryRegisterCanonicalUrlForCurrentPage: {canonicalUrl}");
 		Contract.Requires<ArgumentNullException>(canonicalUrl != null);
 
 		ResetIfCurrentPageUrlChanged();
 
 		if (_canonicalUrl is null)
 		{
-			Console.WriteLine($"Registering canonical URL for {_activePageUri}: {canonicalUrl}");
 			_canonicalUrl = canonicalUrl;
 			return true;
 		}
@@ -62,7 +60,6 @@ public class PageCanonicalUrlTracker(NavigationManager navigationManager)
 			result = result.TrimEnd('/');
 		}
 
-		Console.WriteLine($"GetAbsoluteCanonicalUrl: {result}");
 		return result;
 	}
 }
