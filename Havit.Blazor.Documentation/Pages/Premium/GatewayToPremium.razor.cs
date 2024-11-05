@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Documentation.Pages.Premium;
 
@@ -9,8 +10,43 @@ public partial class GatewayToPremium : IAsyncDisposable
 	[Inject] private NavigationManager NavigationManager { get; set; }
 	[Inject] private IJSRuntime JSRuntime { get; set; }
 
+	[CascadingParameter] private HttpContext HttpContext { get; set; }
+
 	private IJSObjectReference _jsModule;
 	private bool _skipGatewayPage = true;
+
+	protected override async Task OnInitializedAsync()
+	{
+		await RedirectToPremiumContentIfCookieIsSet();
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await RedirectToPremiumContentIfCookieIsSet();
+		}
+	}
+
+	private async Task RedirectToPremiumContentIfCookieIsSet()
+	{
+		if (!RendererInfo.IsInteractive)
+		{
+			if (HttpContext.Request.Cookies.Any(c => c.Key.StartsWith("﻿SkipGatewayPage")))
+			{
+				NavigationManager.NavigateTo(Url);
+			}
+		}
+		else
+		{
+			await EnsureJsModuleAsync();
+			string skipGatewayPage = await _jsModule.InvokeAsync<string>("getSkipGatewayPage");
+			if (!string.IsNullOrEmpty(skipGatewayPage))
+			{
+				NavigationManager.NavigateTo(Url);
+			}
+		}
+	}
 
 	private async Task ContinueToPremiumContent()
 	{
@@ -25,17 +61,6 @@ public partial class GatewayToPremium : IAsyncDisposable
 	private async Task EnsureJsModuleAsync()
 	{
 		_jsModule ??= await JSRuntime.ImportModuleAsync($"./Pages/Premium/{nameof(GatewayToPremium)}.razor.js");
-	}
-
-	private MarkupString GenerateHeadContent()
-	{
-		return (MarkupString)$$"""
-			<script>
-				if (document.cookie.split(';').some((item) => item.trim() === 'SkipGatewayPage=true')) {
-					window.location.href = '{{Url}}'
-				}
-			</script>
-			""";
 	}
 
 	public async ValueTask DisposeAsync()
