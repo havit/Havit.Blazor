@@ -1,0 +1,220 @@
+:root {
+	/* HxAutosuggest */
+	--hx-autosuggest-input-close-icon-opacity: 						.25;
+	--hx-autosuggest-item-highlighted-background-color: 			var(--bs-tertiary-bg);
+	--hx-autosuggest-dropdown-menu-height: 							300px;
+	--hx-autosuggest-dropdown-menu-width: 							100%;
+	--hx-autosuggest-input-search-icon-color:						unset;
+	--hx-autosuggest-input-clear-icon-color:						unset;
+
+	/* HxButton */
+	--hx-button-gap: 							.25rem;
+
+	/* HxSidebar */
+	--hx-sidebar-background-color: 									transparent;
+	--hx-sidebar-collapsed-width: 									72px;
+	--hx-sidebar-width: 											250px;
+	--hx-sidebar-max-height: 										100vh;
+	--hx-sidebar-toggler-background: 								var(--bs-gray-500);
+	--hx-sidebar-item-font-size: 									1rem;
+	--hx-sidebar-item-padding: 										.75rem;
+	--hx-sidebar-item-color: 										var(--bs-body-color);
+	--hx-sidebar-item-icon-color: 									var(--bs-primary);
+	--hx-sidebar-item-border-radius: 								var(--bs-border-radius-lg);
+	--hx-sidebar-item-margin: 										0;
+	--hx-sidebar-item-hover-color: 									var(--bs-primary);
+	--hx-sidebar-item-hover-background-color: 						var(--bs-primary-rgb);
+	--hx-sidebar-item-hover-background-opacity: 					.1;
+	--hx-sidebar-item-hover-icon-color: 							var(--bs-primary);
+	--hx-sidebar-item-active-color: 								var(--bs-primary);
+	--hx-sidebar-item-active-background-color: 						var(--bs-primary-rgb);
+	--hx-sidebar-item-active-background-opacity: 					.1;
+	--hx-sidebar-item-active-icon-color: 							var(--bs-primary);
+	--hx-sidebar-item-active-font-weight: 							inherit;
+	--hx-sidebar-parent-item-active-color:							var(--hx-sidebar-item-color);
+	--hx-sidebar-parent-item-active-background-opacity:				0;
+	--hx-sidebar-parent-item-active-background-color:				unset;
+	--hx-sidebar-parent-item-active-font-weight: 					600;
+	--hx-sidebar-parent-item-active-icon-color: 					var(--hx-sidebar-item-hover-icon-color);
+	--hx-sidebar-subitem-font-size: 								.875rem;
+	--hx-sidebar-subitem-padding: 									.5rem;
+	--hx-sidebar-subitem-margin: 									0 0 .25rem 2rem;
+	--hx-sidebar-header-padding: 									1rem;
+	--hx-sidebar-body-padding: 										0 1rem;
+	--hx-sidebar-body-nav-gap: 										.25rem;														
+	--hx-sidebar-brand-logo-width: 									2.5rem;
+	--hx-sidebar-brand-logo-height: 								2.5rem;
+	--hx-sidebar-brand-shortname-width: 							2.5rem;
+	--hx-sidebar-brand-shortname-height: 							2.5rem;
+	--hx-sidebar-brand-shortname-background-color: 					var(--bs-primary);
+	--hx-sidebar-brand-shortname-border-radius: 					.625rem;
+	--hx-sidebar-brand-shortname-color: 							var(--bs-white);
+	--hx-sidebar-brand-shortname-font-weight: 						600;
+	--hx-sidebar-brand-name-color: 									var(--bs-body-color);
+	--hx-sidebar-brand-name-font-weight: 							600;
+	--hx-sidebar-brand-gap: 										.25rem;
+	--hx-sidebar-footer-padding: 									1rem;
+	--hx-sidebar-footer-item-padding: 								.75rem;
+	--hx-sidebar-footer-item-margin: 								0;
+	--hx-sidebar-footer-item-font-size: 							1rem;
+	--hx-sidebar-footer-item-color: 								unset;
+	--hx-sidebar-footer-item-radius: 								unset;
+	--hx-sidebar-footer-item-hover-background-color: 				unset;
+	--hx-sidebar-footer-item-hover-background-opacity: 				unset;
+	--hx-sidebar-footer-item-hover-color: 							unset;
+
+	/* HxProgressOverlay */
+	--hx-progress-overlay-color: 									var(--bs-white);
+	--hx-progress-overlay-opacity: 									.65;
+
+	/* HxEditForm */
+	--hx-form-spacing: 1.25rem;
+
+	/* HxChipList */
+	--hx-chip-list-chip-margin:										0.75rem 0.25rem .375rem 0;
+	--hx-chip-list-chip-remove-btn-margin: 							0 0 0 .25rem;
+	--hx-chip-list-chip-remove-btn-opacity: 							.75;
+	--hx-chip-list-chip-reset-btn-padding: 							.35em .65em;
+	--hx-chip-list-chip-label-font-weight: 							400;
+	--hx-chip-list-chip-label-margin: 								.25rem;
+	--hx-chip-list-chip-label-opacity: 								.75;
+    --hx-chip-list-gap:												.25rem;
+
+	/* HxContextMenu */
+	--hx-context-menu-button-color: 								unset;
+	--hx-context-menu-button-border: 								unset;
+	--hx-context-menu-button-border-radius: 						var(--bs-border-radius-sm);
+	--hx-context-menu-button-padding: 								0 .25rem;
+	--hx-context-menu-button-hover-background: 						var(--bs-secondary-bg);
+	--hx-context-menu-button-font-size:								inherit;
+	--hx-context-menu-item-icon-margin: 							0 .5rem 0 0;
+
+	/* HxDropdown */
+	--hx-dropdown-menu-item-icon-margin: 							0 .5rem 0 0;
+
+	/* HxGrid */
+	--hx-grid-button-hover-background: 								var(--bs-secondary-bg);
+	--hx-grid-button-border-radius: 								var(--bs-border-radius);
+	--hx-grid-sorted-icon-color: 									var(--bs-primary);
+	--hx-grid-progress-indicator-color:								var(--bs-primary);
+
+	/* HxInputFileDropZone */
+	--hx-input-file-drop-zone-border-width: 						1px;
+	--hx-input-file-drop-zone-box-shadow: 							none;
+	--hx-input-file-drop-zone-hover-box-shadow: 					0 0 0 .25rem rgba(var(--bs-primary-rgb), .25);
+	--hx-input-file-drop-zone-border-color: 						var(--bs-border-color);
+	--hx-input-file-drop-zone-disabled-color: 						var(--bs-secondary-color);
+	--hx-input-file-drop-zone-disabled-background-color: 			var(--bs-secondary-bg);
+	--hx-input-file-drop-zone-background-color: 					transparent;
+	--hx-input-file-drop-zone-hover-background-color: 				rgba(var(--bs-primary-rgb), .1);
+	--hx-input-file-drop-zone-hover-border-color: 					var(--bs-primary);
+	--hx-input-file-drop-zone-border-radius: 						var(--bs-border-radius-lg);
+	--hx-input-file-drop-zone-margin: 								0;
+	--hx-input-file-drop-zone-padding: 								3rem;
+
+	/* HxCalendar */
+	--hx-calendar-day-hover-background: 							var(--bs-tertiary-bg);
+	--hx-calendar-day-hover-border: 								none;
+	--hx-calendar-day-selected-background: 							var(--bs-primary);
+	--hx-calendar-day-selected-color: 								var(--bs-white);
+	--hx-calendar-day-selected-border: 								none;
+	--hx-calendar-day-out-color: 									var(--bs-tertiary-color);
+	--hx-calendar-day-in-color: 									unset;
+	--hx-calendar-day-disabled-opacity: 							.5;
+	--hx-calendar-day-disabled-text-decoration: 					line-through;
+	--hx-calendar-day-names-color: 									unset;
+	--hx-calendar-day-names-font-weight: 							700;
+	--hx-calendar-navigation-button-hover-background: 				var(--bs-tertiary-bg);
+	--hx-calendar-navigation-button-focus-box-shadow: 				0 0 0 0.25rem rgb(0 157 224 / 25%);
+	--hx-calendar-navigation-button-text-color: 					var(--bs-tertiary-color);
+	--hx-calendar-day-today-border: 								none;
+	--hx-calendar-day-today-background: 							var(--bs-primary-rgb);
+	--hx-calendar-day-today-background-opacity: 					.1;
+	--hx-calendar-day-today-color: 									var(--bs-primary);
+	--hx-calendar-day-border-radius: 								var(--bs-border-radius-sm);
+	--hx-calendar-day-padding: 										.375rem .5rem;
+	--hx-calendar-day-width: 										2.25rem;
+	--hx-calendar-day-height: 										2.25rem;
+	--hx-calendar-day-spacing: 										.125rem;
+	--hx-calendar-font-size: 										.875rem;
+
+	/* Offcanvas */
+	--hx-offcanvas-close-icon-font-size: 							2rem;
+	--hx-offcanvas-footer-padding-y: 								1rem;
+	--hx-offcanvas-footer-padding-x: 								1rem;
+	--hx-offcanvas-horizontal-width-sm: 							400px;
+	--hx-offcanvas-horizontal-width-lg: 							600px;
+
+	/* ListLayout */
+	--hx-list-layout-table-font-size: 								.875rem;
+
+	/* HxMultiSelect */
+	--hx-multi-select-background-color: 							var(--bs-body-bg);
+	--hx-multi-select-dropdown-menu-height: 						300px;
+	--hx-multi-select-filter-input-icon-opacity: 					.25;
+	--hx-multi-select-dropdown-menu-width: 							100%;
+
+	/* TagInput */
+	--hx-input-tags-tag-gap: 										.25rem;
+	--hx-input-tags-input-width: 									3em;
+	--hx-input-tags-input-placeholder-color: 						var(--bs-secondary-color);
+	--hx-input-tags-naked-font-size-lg: 							1.25em;
+	--hx-input-tags-naked-font-size-sm: 							.875em;
+	--hx-input-tags-control-focused-box-shadow: 					0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+	--hx-input-tags-control-focused-border-color: 					rgba(var(--bs-primary-rgb), .3);
+	--hx-input-tags-add-button-text-margin: 						0 0 0 .25rem;
+	--hx-input-tags-add-button-disabled-opacity: 					.65;
+	--hx-input-tags-remove-button-margin: 							0 0 0 .25rem;
+	--hx-input-tags-dropdown-item-highlighted-background-color: 	var(--bs-tertiary-bg);
+
+	/* TreeView */
+	--hx-tree-view-item-border-radius: 								var(--bs-border-radius-sm);
+	--hx-tree-view-item-border-width: 								0;
+	--hx-tree-view-item-border-style: 								unset;
+	--hx-tree-view-item-border-color: 								unset;
+	--hx-tree-view-item-color: 										var(--bs-bg-color);
+	--hx-tree-view-item-hover-color: 								var(--bs-primary);
+	--hx-tree-view-item-selected-color: 							var(--bs-primary);
+	--hx-tree-view-item-background: 								transparent;
+	--hx-tree-view-item-hover-background: 							var(--bs-primary-rgb);
+	--hx-tree-view-item-hover-background-opacity: 					.1;
+	--hx-tree-view-item-selected-background: 						var(--bs-primary-rgb);
+	--hx-tree-view-item-spacer-width: 								1rem;
+	--hx-tree-view-item-font-size: 									.75rem;
+	--hx-tree-view-item-padding: 									.25rem .5rem;
+	--hx-tree-view-item-margin: 									0 0 .125rem 0;
+	--hx-tree-view-item-gap:										.25rem;
+	--hx-tree-view-expander-container-width: 						1rem;
+
+	/* HxProgressIndicator */
+	--hx-progress-indicator-background: 							var(--bs-body-bg);
+	--hx-progress-indicator-box-shadow: 							var(--bs-box-shadow);
+	--hx-progress-indicator-border-color: 							var(--bs-border-color);
+	--hx-progress-indicator-spinner-color: 							var(--bs-primary);
+
+	/* HxToastContainer */
+	--hx-toast-container-margin: 									.5rem;
+
+	/* HxSearchBox */
+	--hx-search-box-item-icon-margin: 								0 .5rem 0 0;
+	--hx-search-box-item-icon-font-size: 							inherit;
+	--hx-search-box-item-title-font-size: 							inherit;
+	--hx-search-box-item-title-color: 								inherit;
+	--hx-search-box-item-subtitle-color: 							var(--bs-secondary);
+	--hx-search-box-item-subtitle-font-size: 						.75rem;
+	--hx-search-box-item-highlighted-background-color: 				var(--bs-tertiary-bg);
+	--hx-search-box-dropdown-menu-height: 							300px;
+	--hx-search-box-dropdown-menu-width: 							100%;
+	--hx-search-box-input-search-icon-color:						unset;
+	--hx-search-box-input-clear-icon-color:							unset;
+}
+
+form {
+	display:				flex;
+	flex-direction: 		column;
+	gap: 					var(--hx-form-spacing);
+}
+
+form > .hx-button {
+	align-self: start;
+}

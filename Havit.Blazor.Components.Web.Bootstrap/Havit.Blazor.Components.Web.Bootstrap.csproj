@@ -51,4 +51,18 @@
 		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.Bootstrap.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />
 	</Target>
 
+	<!-- Causes CSS file to be included in the bundle of scoped CSS, even though it's not scoped -->
+	<Target Name="AttachCssAsScoped" BeforeTargets="ComputeCssScope">
+		<ItemGroup>
+			<_CssToAttach Include="wwwroot\*.lib.css" />
+			<_CssToAttachWithIntermediatePath Include="@(_CssToAttach)">
+				<IntermediatePath>$(IntermediateOutputPath)scopedcss\%(Filename).rz.scp.css</IntermediatePath>
+			</_CssToAttachWithIntermediatePath>
+		</ItemGroup>
+		<Copy SourceFiles="@(_CssToAttachWithIntermediatePath)" DestinationFiles="@(_CssToAttachWithIntermediatePath->'%(IntermediatePath)')" />
+		<ItemGroup>
+			<_ScopedCssCandidateFile Include="@(_CssToAttachWithIntermediatePath->'%(IntermediatePath)')" RelativePath="@(_CssToAttachWithIntermediatePath->'%(Filename).rz.scp.css')" OriginalItemSpec="@(_CssToAttachWithIntermediatePath->'%(Filename)')" />
+		</ItemGroup>
+	</Target>
+
 </Project>
