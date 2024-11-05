@@ -1,29 +1,19 @@
-﻿@namespace Havit.Blazor.Documentation.Server.Pages
-@using System.Diagnostics;
-@using System.Reflection;
-@using System.Web;
-@using Havit.Blazor.Documentation
-@using Havit.Blazor.Documentation.Shared.Components.DocColorMode;
-@using Microsoft.AspNetCore.Components.Web
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@inject IDocColorModeResolver DocColorModeResolver
-
-<!doctype html>
-<html lang="en" data-bs-theme="@DocColorModeResolver.GetColorMode().ToString("g").ToLowerInvariant()">
+﻿<!doctype html>
+<html lang="en" data-bs-theme="@_docColorModeResolver.GetColorMode().ToString("g").ToLowerInvariant()">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<base href="~/" />
+	<base href="/" />
 
-	<script src="/js/color-mode-auto.js" asp-append-version="true"></script>
+	<script src="@Assets["/js/color-mode-auto.js"]"></script>
 
-	@Html.Raw(HxSetup.RenderBootstrapCssReference())
-	<link href="_content/Havit.Blazor.Components.Web.Bootstrap/defaults.css" rel="stylesheet" asp-append-version="true" />
-	<link href="Havit.Blazor.Documentation.styles.css" rel="stylesheet" asp-append-version="true" /> @* CSS Isolation *@
+	<link href="@Assets["_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.min.css"]" rel="stylesheet" />
+	<link href="@Assets["_content/Havit.Blazor.Components.Web.Bootstrap/defaults.css"]" rel="stylesheet" />
+	<link href="@Assets["Havit.Blazor.Documentation.Server.styles.css"]" rel="stylesheet" /> @* CSS Isolation *@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" /> @* Prism: Syntax Highlighting *@
 	<link href="https://cdn.jsdelivr.net/npm/prism-themes@1.8.0/themes/prism-vs.css" rel="stylesheet" /> @* Prism: Syntax Highlighting *@
-	<link rel="stylesheet" href="_content/Havit.Blazor.Components.Web.Bootstrap.Smart/smart.css">@* TODO: Integrate into Blazor CSS bundle *@
-	<link href="/css/site.css" rel="stylesheet" asp-append-version="true" />
+	<link rel="stylesheet" href="@Assets["_content/Havit.Blazor.Components.Web.Bootstrap.Smart/smart.css"]">@* TODO: Integrate into Blazor CSS bundle *@
+	<link href="@Assets["/css/site.css"]" rel="stylesheet" />
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-JWLD6SQ66F"></script>
@@ -34,13 +24,11 @@
 
 		gtag('config', 'G-JWLD6SQ66F');
 	</script>
-    <component type="typeof(HeadOutlet)" render-mode="WebAssemblyPrerendered" />
+	<HeadOutlet @rendermode="new InteractiveWebAssemblyRenderMode(prerender: true)" />
 </head>
 <body>
 	<div>
-		<app>
-			@RenderBody()
-		</app>
+		<Routes @rendermode="new InteractiveWebAssemblyRenderMode(prerender: true)" />
 
 		<!--googleoff: index-->
 		<div id="blazor-error-ui">
@@ -51,13 +39,13 @@
 		<!--googleon: index-->
 	</div>
 
-	<script src="_framework/blazor.webassembly.js" autostart="false" asp-append-version="true"></script>
-	@Html.Raw(HxSetup.RenderBootstrapJavaScriptReference())
+	<script src="_framework/blazor.web.js" autostart="false"></script>
+	@((MarkupString)HxSetup.RenderBootstrapJavaScriptReference())
 
 	@* Prism: Syntax Highlighting *@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js"></script>
-	<script src="/js/app.js" asp-append-version="true"></script>
+	<script src="@Assets["/js/app.js"]"></script>
 	<script>
 		Blazor.start({
 			applicationCulture: 'en-US'
@@ -71,6 +59,5 @@
 			var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(l, s);
 		})();
 	</script>
-	<persist-component-state />
 </body>
 </html>

@@ -3,6 +3,8 @@
 	<PropertyGroup>
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<AssemblyName>Havit.Blazor.Documentation.Server</AssemblyName>
+		<RootNamespace>Havit.Blazor.Documentation.Server</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>

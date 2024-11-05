@@ -8,9 +8,11 @@
 		<Product>HAVIT Blazor Library</Product>
 		<AssemblyTitle>HAVIT Blazor Library</AssemblyTitle>
 		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
-		
+		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>		
+
 		<!-- aligned NuGet PackageVersion for package-bundles -->
 		<ComponentsPackagesVersion>4.7.0-pre02</ComponentsPackagesVersion>
 		<GrpcPackagesVersion>1.6.0-pre02</GrpcPackagesVersion>
