@@ -24,6 +24,7 @@ public class Program
 		builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
 		builder.Services.AddSingleton<IDocPageNavigationItemsHolder, DocPageNavigationItemsHolder>();
 		builder.Services.AddSingleton<IDocColorModeResolver, DocColorModeClientResolver>();
+		builder.Services.AddSingleton<IHttpContextProxy, WebAssemblyHttpContextProxy>();
 
 		builder.Services.AddTransient<IDemoDataService, DemoDataService>();
 

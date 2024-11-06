@@ -1,5 +1,6 @@
 using System.Globalization;
 using Havit.Blazor.Documentation.DemoData;
+using Havit.Blazor.Documentation.Server.Services;
 using Havit.Blazor.Documentation.Services;
 using Havit.Blazor.Documentation.Shared.Components.DocColorMode;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -30,6 +31,7 @@ public class Program
 		builder.Services.AddControllers();
 
 		builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+		builder.Services.AddSingleton<IHttpContextProxy, ServerHttpContextProxy>();
 
 		builder.Services.AddHxServices();
 		builder.Services.AddHxMessenger();
