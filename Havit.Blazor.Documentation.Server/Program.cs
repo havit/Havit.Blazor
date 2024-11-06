@@ -41,7 +41,7 @@ public class Program
 
 		builder.Services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
 		builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
-		builder.Services.AddSingleton<IDocPageNavigationItemsHolder, DocPageNavigationItemsHolder>();
+		builder.Services.AddSingleton<IDocPageNavigationItemsTracker, DocPageNavigationItemsTracker>();
 		builder.Services.AddTransient<IDocColorModeResolver, DocColorModeServerResolver>();
 
 		builder.Services.AddTransient<IDemoDataService, DemoDataService>();

@@ -22,7 +22,7 @@ public class Program
 
 		builder.Services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
 		builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
-		builder.Services.AddSingleton<IDocPageNavigationItemsHolder, DocPageNavigationItemsHolder>();
+		builder.Services.AddSingleton<IDocPageNavigationItemsTracker, DocPageNavigationItemsTracker>();
 		builder.Services.AddSingleton<IDocColorModeResolver, DocColorModeClientResolver>();
 
 		builder.Services.AddTransient<IDemoDataService, DemoDataService>();
