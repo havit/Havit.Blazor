@@ -6562,6 +6562,48 @@
             Icon to indicate the descending sort direction in the column header. This icon is shown when a column is sorted in descending order.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributesSelector">
+            <summary>
+            Defines a function that returns additional attributes for a specific <c>tr</c> element based on the item it represents.
+            This allows for custom behavior or event handling on a per-row basis.
+            </summary>
+            <remarks>
+            If both <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributesSelector"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributes"/> are specified,
+            both dictionaries are combined into one.
+            Note that there is no prevention of duplicate keys, which may result in a <see cref="T:System.ArgumentException"/>.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributes">
+            <summary>
+            Provides a dictionary of additional attributes to apply to all body <c>tr</c> elements in the grid.
+            These attributes can be used to customize the appearance or behavior of rows.
+            </summary>
+            <remarks>
+            If both <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributesSelector"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributes"/> are specified,
+            both dictionaries are combined into one.
+            Note that there is no prevention of duplicate keys, which may result in a <see cref="T:System.ArgumentException"/>.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.HeaderRowAdditionalAttributes">
+            <summary>
+            Provides a dictionary of additional attributes to apply to the header <c>tr</c> element of the grid.
+            This allows for custom styling or behavior of the header row.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.FooterRowAdditionalAttributes">
+            <summary>
+            Provides a dictionary of additional attributes to apply to the footer <c>tr</c> element of the grid.
+            This allows for custom styling or behavior of the footer row.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributesSelectorEffective(`0)">
+            <summary>
+            Determines the effective additional attributes for a given data row, combining both the global and per-item attributes.
+            </summary>
+            <param name="item">The data item for the current row.</param>
+            <returns>A dictionary of additional attributes to apply to the row.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when there are duplicate keys in the combined dictionaries.</exception>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetDefaults">
             <summary>
             Retrieves the default settings for the grid. This method can be overridden in derived classes
