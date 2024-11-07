@@ -18,4 +18,10 @@
 		<ProjectReference Include="..\..\Havit.Blazor.Components.Web.Bootstrap\Havit.Blazor.Components.Web.Bootstrap.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<Compile Include="..\..\Havit.Blazor.Documentation\DemoData\**\*.*">
+			<Link>DemoData\%(RecursiveDir)%(FileName)%(Extension)</Link>
+		</Compile>
+	</ItemGroup>
+
 </Project>
