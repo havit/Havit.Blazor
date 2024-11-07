@@ -69,7 +69,8 @@
 
 				<table class="@GetTableElementCssClass(_totalCount > 0)">
 					<thead class="@TableHeaderCssClassEffective">
-						<tr class="@HeaderRowCssClassEffective">
+						<tr class="@HeaderRowCssClassEffective"
+							@attributes="HeaderRowAdditionalAttributes">
 							@{
 								GridHeaderCellContext gridHeaderCellContext = CreateGridHeaderCellContext();
 							}
@@ -137,6 +138,7 @@
 																ItemRowCssClassEffective,
 																ItemRowCssClassSelector?.Invoke(item),
 																((SelectionEnabled && (item != null) && item.Equals(SelectedDataItem)) ? "table-active" : null))"
+									@attributes="ItemRowAdditionalAttributesSelectorEffective(item)"
 									@onclick="async () => await HandleSelectOrMultiSelectDataItemClick(item)"
 									@onclick:stopPropagation>
 
@@ -156,6 +158,7 @@
 								<tr @key="@(ItemKeySelector(item))"
 									height="@((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
 									class="@CssClassHelper.Combine(ItemRowCssClassEffective, ItemRowCssClassSelector?.Invoke(item))"
+									@attributes="ItemRowAdditionalAttributesSelectorEffective(item)"
 									@onclick:stopPropagation>
 
 										@foreach (IHxGridColumn<TItem> column in columnsToRender)
@@ -247,7 +250,8 @@
 						&& shouldRenderFooter)
 						{
 							<tfoot>
-								<tr class="@FooterRowCssClassEffective">
+								<tr class="@FooterRowCssClassEffective"
+									@attributes="FooterRowAdditionalAttributes">
 									@for (int i = 0; i < footerTemplates.Length; i++) // do not use foreach, we need to use i as a key as footerTemplates can contain duplicates
 									{
 										<td @key="@i" class="@footerTemplates[i].CssClass">@footerTemplates[i].Template</td>

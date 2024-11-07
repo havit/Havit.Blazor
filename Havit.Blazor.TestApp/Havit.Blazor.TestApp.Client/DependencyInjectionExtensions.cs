@@ -7,6 +7,7 @@ public static class DependencyInjectionExtensions
 	public static IServiceCollection AddClientServices(this IServiceCollection services)
 	{
 		services.AddHxServices();
+		services.AddTransient<IDemoDataService, DemoDataService>();
 
 		return services;
 	}
