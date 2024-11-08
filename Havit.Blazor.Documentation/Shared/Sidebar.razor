@@ -206,18 +206,4 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxValidationMessage<object>)}")" Text="@(nameof(HxValidationMessage<object>))" />
         </HxSidebarItem>
     </ItemsTemplate>
-    <FooterTemplate>
-        <HxSelect Label="Theme" TItem="Theme" CssClass="flex-fill" TValue="Theme" Data="_themes" @bind-Value="_selectedTheme" TextSelector="t => t.Name" Nullable="true" NullText="Havit.Blazor" />
-    </FooterTemplate>
 </HxSidebar>
-
-<HeadContent>
-    @if (_selectedTheme?.Name == "Bootstrap 5")
-    {
-		@((MarkupString)HxSetup.RenderBootstrapCssReference(BootstrapFlavor.PlainBootstrap))
-    }
-    else if (_selectedTheme is not null) // null = HAVIT Bootstrap build (default)
-    {
-        <link href="@_selectedTheme.CssCdn" rel="stylesheet" />
-    }
-</HeadContent>
