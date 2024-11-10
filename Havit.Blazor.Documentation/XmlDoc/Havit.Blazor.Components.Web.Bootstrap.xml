@@ -7144,6 +7144,11 @@
             Global settings for the Havit Blazor Components library.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSetup.BootstrapVersion">
+            <summary>
+            Bootstrap version used by the library.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSetup.RenderBootstrapJavaScriptReference">
             <summary>
             Renders the <c>&lt;script&gt;</c> tag that references the corresponding Bootstrap JavaScript bundle with Popper.<br/>
