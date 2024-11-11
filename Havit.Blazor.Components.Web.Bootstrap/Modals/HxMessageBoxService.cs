@@ -1,4 +1,4 @@
-﻿namespace Havit.Blazor.Components.Web;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 public class HxMessageBoxService : IHxMessageBoxService
 {
