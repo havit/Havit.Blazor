@@ -1,5 +1,8 @@
-﻿namespace Havit.Blazor.Components.Web;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
+/// <summary>
+/// Represents a request to display a message box with various customizable options.
+/// </summary>
 public struct MessageBoxRequest
 {
 	/// <summary>
@@ -41,6 +44,11 @@ public struct MessageBoxRequest
 	/// Text for the <see cref="MessageBoxButtons.Custom"/> button.
 	/// </summary>
 	public string CustomButtonText { get; set; }
+
+	/// <summary>
+	/// Settings for the message box.
+	/// </summary>
+	public MessageBoxSettings Settings { get; set; }
 
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxModal).

@@ -7664,7 +7664,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox">
             <summary>
             Component for displaying message boxes.<br/>
-            Usually used via <see cref="T:Havit.Blazor.Components.Web.HxMessageBoxService"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost"/>.<br />
+            Usually used via <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxService"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost"/>.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMessageBox">https://havit.blazor.eu/components/HxMessageBox</see>
             </summary>
         </member>
@@ -7678,6 +7678,19 @@
             Returns the defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox"/>.
             Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Title">
             <summary>
@@ -7707,7 +7720,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Buttons">
             <summary>
-            Buttons to show. The default is <see cref="F:Havit.Blazor.Components.Web.MessageBoxButtons.Ok"/>.
+            Buttons to show. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Ok"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.PrimaryButton">
@@ -7717,7 +7730,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.CustomButtonText">
             <summary>
-            Text for <see cref="F:Havit.Blazor.Components.Web.MessageBoxButtons.Custom"/>.
+            Text for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Custom"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.PrimaryButtonSettings">
@@ -7740,7 +7753,7 @@
             Raised when the message box gets closed. Returns the button clicked.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.InvokeOnClosedAsync(Havit.Blazor.Components.Web.MessageBoxButtons)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.InvokeOnClosedAsync(Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.OnClosed"/> event. Allows interception of the event in derived components.
             </summary>
@@ -7758,7 +7771,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost">
             <summary>
-            Displays message boxes initiated through <see cref="T:Havit.Blazor.Components.Web.IHxMessageBoxService"/>.
+            Displays message boxes initiated through <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/>.
             To be placed in the root application component / main layout.
             </summary>
         </member>
@@ -7962,6 +7975,71 @@
             Formats a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop"/> value for use in the <c>data-bs-backdrop</c> attribute.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest">
+            <summary>
+            Represents a request to display a message box with various customizable options.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Title">
+            <summary>
+            Title in the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.HeaderTemplate">
+            <summary>
+            Template for the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Text">
+            <summary>
+            Content (body) text.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.BodyTemplate">
+            <summary>
+            Body (content) template.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.ShowCloseButton">
+            <summary>
+            Indicates whether to show the close button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Buttons">
+            <summary>
+            Buttons to show.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.PrimaryButton">
+            <summary>
+            Primary button (if you want to override the default).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.CustomButtonText">
+            <summary>
+            Text for the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Custom"/> button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Settings">
+            <summary>
+            Settings for the message box.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxModal).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxServiceCollectionExtensions">
+            <summary>
+            Extension methods for installation of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/> support.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.MessageBoxServiceCollectionExtensions.AddHxMessageBoxHost(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/> support to be able to display message boxes using HxMessageBoxHost.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox"/> and derived components.
@@ -7980,6 +8058,41 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.ModalSettings">
             <summary>
             Settings for the underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.OkButtonText">
+            <summary>
+            Text for the OK button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.CancelButtonText">
+            <summary>
+            Text for the Cancel button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.AbortButtonText">
+            <summary>
+            Text for the Abort button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.YesButtonText">
+            <summary>
+            Text for the Yes button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.NoButtonText">
+            <summary>
+            Text for the No button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.RetryButtonText">
+            <summary>
+            Text for the Retry button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.IgnoreButtonText">
+            <summary>
+            Text for the Ignore button.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop">

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Havit.Blazor.Components.Web;
+namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Extension methods for installation of <see cref="IHxMessageBoxService"/> support.
