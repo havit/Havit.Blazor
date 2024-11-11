@@ -1,0 +1,64 @@
+﻿<!doctype html>
+<html lang="en" data-bs-theme="@_docColorModeResolver.GetColorMode().ToString("g").ToLowerInvariant()">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="/" />
+
+	<script>
+		if ((document.documentElement.getAttribute('data-bs-theme') === 'auto') && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+			document.documentElement.setAttribute('data-bs-theme', 'dark');
+		}
+	</script>
+
+	<link rel="stylesheet" href="@Assets["_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.min.css"]" />
+	<link rel="stylesheet" href="@Assets["Havit.Blazor.Documentation.Server.styles.css"]" /> @* CSS Isolation (includes *.lib.css) *@
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" /> @* Prism: Syntax Highlighting *@
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1.8.0/themes/prism-vs.css" /> @* Prism: Syntax Highlighting *@
+	<link rel="stylesheet" href="@Assets["css/site.css"]" />
+
+	<ImportMap />
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-JWLD6SQ66F"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-JWLD6SQ66F');
+	</script>
+	<HeadOutlet @rendermode="new InteractiveWebAssemblyRenderMode(prerender: true)" />
+</head>
+<body>
+	<div>
+		<Routes @rendermode="new InteractiveWebAssemblyRenderMode(prerender: true)" />
+
+		<!--googleoff: index-->
+		<div id="blazor-error-ui">
+			An unhandled error has occurred.
+			<a href="" class="reload">Reload</a>
+			<a class="dismiss">🗙</a>
+		</div>
+		<!--googleon: index-->
+	</div>
+
+	<script src="_framework/blazor.web.js" autostart="false"></script>
+	<script>
+		Blazor.start({
+			applicationCulture: 'en-US'
+		});
+	</script>
+
+	@((MarkupString)HxSetup.RenderBootstrapJavaScriptReference())
+
+	@* Prism: Syntax Highlighting *@
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autoloader/prism-autoloader.min.js"></script>
+	<script>
+		window.highlightCode = function () {
+			Prism.highlightAll();
+		};
+	</script>
+</body>
+</html>

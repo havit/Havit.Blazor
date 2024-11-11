@@ -19,20 +19,4 @@ public class GrpcClientServiceCollectionExtensionsTests
 		// assert
 		Assert.IsNotNull(services.FirstOrDefault(sd => sd.ServiceType == typeof(ITestFacade)));
 	}
-
-#if NET6_0
-	[TestMethod]
-	public void GrpcClientServiceCollectionExtensions_AddGrpcClientsByApiContractAttributes_RegistersFuncFactoryForServiceWithAttribute()
-	{
-		// arrange
-		var services = new ServiceCollection();
-
-
-		// act
-		services.AddGrpcClientsByApiContractAttributes(typeof(Dto).Assembly);
-
-		// assert
-		Assert.IsNotNull(services.FirstOrDefault(sd => sd.ServiceType == typeof(Func<ITestFacade>)));
-	}
-#endif
 }

@@ -39,10 +39,11 @@
 
 	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
 	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(filterModel, request.StartIndex, request.Count, request.CancellationToken);
 		return new GridDataProviderResult<EmployeeDto>()
 			{
-				Data = await DemoDataService.GetEmployeesDataFragmentAsync(filterModel, request.StartIndex, request.Count, request.CancellationToken),
-				TotalCount = await DemoDataService.GetEmployeesCountAsync(filterModel, request.CancellationToken)
+				Data = response.Data,
+				TotalCount = response.TotalCount
 			};
 	}
 }

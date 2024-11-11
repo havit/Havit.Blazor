@@ -1,11 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFrameworks>net9.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<NoWarn>1591;1701;1702;SA1134;BL0007</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Include="css\lib.css" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
@@ -42,5 +46,18 @@
 		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.Bootstrap.Smart.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />
 	</Target>
 
+	<!-- Causes CSS file to be included in the bundle of scoped CSS, even though it's not scoped -->
+	<Target Name="AttachCssAsScoped" BeforeTargets="ComputeCssScope">
+		<ItemGroup>
+			<_CssToAttach Include="css\lib.css" />
+			<_CssToAttachWithIntermediatePath Include="@(_CssToAttach)">
+				<IntermediatePath>$(IntermediateOutputPath)scopedcss\%(Filename).rz.scp.css</IntermediatePath>
+			</_CssToAttachWithIntermediatePath>
+		</ItemGroup>
+		<Copy SourceFiles="@(_CssToAttachWithIntermediatePath)" DestinationFiles="@(_CssToAttachWithIntermediatePath->'%(IntermediatePath)')" />
+		<ItemGroup>
+			<_ScopedCssCandidateFile Include="@(_CssToAttachWithIntermediatePath->'%(IntermediatePath)')" RelativePath="@(_CssToAttachWithIntermediatePath->'%(Filename).rz.scp.css')" OriginalItemSpec="@(_CssToAttachWithIntermediatePath->'%(Filename)')" />
+		</ItemGroup>
+	</Target>
 
 </Project>

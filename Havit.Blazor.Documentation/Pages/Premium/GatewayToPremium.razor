@@ -4,10 +4,6 @@
 <PageTitle>Access Premium Content | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
 <DocHeadContent CanonicalRelativeUrl="/premium/access-content" />
 
-<HeadContent>
-	@GenerateHeadContent()
-</HeadContent>
-
 <div class="d-flex w-100 h-100 justify-content-center align-items-center my-5">
 	<HxCard CssClass="rounded-4 border-0 bg-body-secondary" BodyCssClass="d-flex flex-column align-items-center p-4">
 		<BodyTemplate>
@@ -27,7 +23,7 @@
 					  IconPlacement="ButtonIconPlacement.End"
 					  Icon="BootstrapIcon.ArrowRightCircleFill"
 					  OnClick="ContinueToPremiumContent" />
-			<HxCheckbox @bind-Value="_skipGatewayPage" Text="Skip this page next time" CssClass="mt-1" TextCssClass="small" />
+			<HxCheckbox @bind-Value="_skipGatewayPage" Text="Skip this page for 24 hours" CssClass="mt-1" TextCssClass="small" />
 		</BodyTemplate>
 	</HxCard>
 </div>

@@ -29,10 +29,19 @@
 		</p>
 		<Demo Type="typeof(HxGrid_Demo_ApplyTo)" />
 
+		<DocHeading Title="Asynchronous data" Id="ApplyToAsync" Level="3" />
+		<p>
+            When loading data asynchronously, always ensure that the <code>DataProvider</code> waits for the data to be available;
+            otherwise, the skeleton UI (placeholders) will not display correctly.<br />
+            If you are preloading data and using the <code>request.ApplyTo(data)</code> extension method,
+            you can leverage <code>TaskCompletionSource</code> to handle waiting until the data is loaded.
+            </p>
+		<Demo Type="typeof(HxGrid_Demo_ApplyTo_Async)" />
 
 		<DocHeading Title="Using IQueryable" Id="IQueryable" Level="3" />
 		<p>
-			When utilizing <code>IQueryable</code> as your data source provider, commonly seen in Blazor Server applications,
+			When utilizing <code>IQueryable</code> as your data source provider,
+			commonly seen in Blazor Server applications with Entity Framework Core,
 			you can employ the <code>data.ApplyGridDataProviderRequest(request)</code> method.
 		</p>
 		<p>
@@ -74,7 +83,7 @@
 		<p>
 			Enable <strong>continuous scrolling</strong> in <code>HxGrid</code> by setting <code>ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"</code>.
 			This feature leverages the capabilities, requirements, and limitations of Blazor's
-			<a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/virtualization">Virtualize</a> component.
+			<a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/virtualization?wt.mc_id=DT-MVP-36834">Virtualize</a> component.
 		</p>
 		<DocAlert Type="DocAlertType.Warning">
 			It's important to specify the <code>ItemRowHeight</code> for effective virtualization. By default, it is 41 pixels, aligning with the standard table row height in Bootstrap.

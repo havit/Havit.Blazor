@@ -90,9 +90,7 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 		// TODO VSTHRD101 via RuntimeHelpers.CreateInferredBindSetter?
 		builder.AddAttribute(5, BindEventEffective.ToEventName(), EventCallback.Factory.CreateBinder(this, async value => await HandleValueChanged(value), Value));
 #pragma warning restore VSTHRD101 // Avoid unsupported async delegates
-#if NET8_0_OR_GREATER
 		builder.SetUpdatesAttributeName("value");
-#endif
 		builder.AddAttribute(10, "min", Min);
 		builder.AddAttribute(11, "max", Max);
 
@@ -101,12 +99,10 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 		builder.AddAttribute(20, "disabled", !EnabledEffective);
 
 		builder.AddAttribute(30, "id", InputId);
-#if NET8_0_OR_GREATER
 		if (!String.IsNullOrEmpty(NameAttributeValue))
 		{
 			builder.AddAttribute(31, "name", NameAttributeValue);
 		}
-#endif
 
 		// Capture ElementReference to the input to make focusing it programmatically possible.
 		builder.AddElementReferenceCapture(40, value => InputElement = value);

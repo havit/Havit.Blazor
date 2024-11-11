@@ -25,7 +25,8 @@ public partial class Search
 
 	private readonly List<SearchItem> _searchItems = new()
 	{
-		new("/migrating-to-v3", "Migrating to v3", "upgrade release notes update 5.2 5.1"),
+		new("/premium", "Premium", "support subscription sponsorship price pricing license licensing SLA priority enterprise showcase Goran blocks elements"),
+
 
 		// Components and other pages
 
@@ -54,8 +55,8 @@ public partial class Search
 		new("/components/HxCollapseToggleElement", "HxCollapseToggleElement", ""),
 		new("/components/HxContextMenu", "HxContextMenu", "dropdown popup"),
 		new("/components/HxDialogBase", "HxDialogBase", "custom dialog modal messagebox"),
-		new("/components/HxDropdown", "HxDropdown", "collapse tooltip popover popup popper"),
-		new("/components/HxDropdownButtonGroup", "HxDropdownButtonGroup", "collapse tooltip popover popup popper"),
+		new("/components/HxDropdown", "HxDropdown", "collapse tooltip popover popup popper HxDropdownToggleElement HxDropdownMenu HxDropdownContent HxDropdownHeader HxDropdownItemNavLink HxDropdownItem HxDropdownItemText HxDropdownDivider"),
+		new("/components/HxDropdownButtonGroup", "HxDropdownButtonGroup", "collapse tooltip popover popup popper HxDropdownToggleButton"),
 		new("/components/HxDynamicElement", "HxDynamicElement", "dynamiccomponent html"),
 		new("/components/HxFilterForm", "HxFilterForm", "HxListLayout"),
 		new("/components/HxFormState", "HxFormState", "enabled disabled"),
@@ -253,7 +254,7 @@ public partial class Search
 				.OrderBy(si => si.Level)
 					.ThenByDescending(si => si.GetRelevance(_userInput))
 					.ThenBy(si => si.Title)
-				.Take(5);
+				.Take(8);
 	}
 
 	public void NavigateToSelectedPage(SearchItem searchItem)

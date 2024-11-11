@@ -3,7 +3,7 @@
         <div class="d-flex flex-grow-1 d-lg-none">
             <HxSidebarBrand BrandName="HAVIT Blazor">
                 <LogoTemplate>
-                    <img src="/logo.png" width="32" class="mx-1" />
+                    <img src="/logo.png" width="32" height="30" class="mx-1" />
                 </LogoTemplate>
             </HxSidebarBrand>
             <div class="ms-auto d-flex gap-2">
@@ -16,7 +16,7 @@
 		<HxSidebarItem Text="Getting started" Href="/getting-started" Match="NavLinkMatch.All" Icon="BootstrapIcon.RocketTakeoff" TooltipText="Getting started" />
 		<HxSidebarItem Href="https://blocks.havit.blazor.eu" Match="NavLinkMatch.All" CssClass="w-100" Icon="BootstrapIcon.Boxes" TooltipText="Blocks" >
             <ContentTemplate>
-                    <div class="flex-grow-1">Blocks</div>
+				<div class="flex-grow-1">Blocks 🔥</div>
                     <HxBadge CssClass="ms-auto fw-normal rounded-pill" style="background-image: linear-gradient(to right, transparent, rgba(17, 71, 136))" Color="ThemeColor.Primary">Premium</HxBadge>
             </ContentTemplate>
         </HxSidebarItem>
@@ -112,7 +112,7 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxToast)}")" Text="@nameof(HxToast)" />
         </HxSidebarItem>
 
-		<HxSidebarItem Text="Smart (AI) 🔥" Icon="BootstrapIcon.Stars">
+		<HxSidebarItem Text="Smart (AI)" Icon="BootstrapIcon.Stars">
 			<HxSidebarItem Href="@($"/components/{nameof(HxSmartPasteButton)}")" Text="@nameof(HxSmartPasteButton)" />
 			<HxSidebarItem Href="@($"/components/{nameof(HxSmartTextArea)}")" Text="@nameof(HxSmartTextArea)" />
 			<HxSidebarItem Href="@($"/components/{nameof(HxSmartComboBox)}")" Text="@nameof(HxSmartComboBox)" />
@@ -206,18 +206,4 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxValidationMessage<object>)}")" Text="@(nameof(HxValidationMessage<object>))" />
         </HxSidebarItem>
     </ItemsTemplate>
-    <FooterTemplate>
-        <HxSelect Label="Theme" TItem="Theme" CssClass="flex-fill" TValue="Theme" Data="_themes" @bind-Value="_selectedTheme" TextSelector="t => t.Name" Nullable="true" NullText="Havit.Blazor" />
-    </FooterTemplate>
 </HxSidebar>
-
-<HeadContent>
-    @if (_selectedTheme?.Name == "Bootstrap 5")
-    {
-		@((MarkupString)HxSetup.RenderBootstrapCssReference(BootstrapFlavor.PlainBootstrap))
-    }
-    else if (_selectedTheme is not null) // null = HAVIT Bootstrap build (default)
-    {
-        <link href="@_selectedTheme.CssCdn" rel="stylesheet" />
-    }
-</HeadContent>
