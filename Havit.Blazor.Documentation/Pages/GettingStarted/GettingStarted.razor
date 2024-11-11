@@ -1,0 +1,397 @@
+﻿@page "/getting-started"
+
+<PageTitle>Getting started | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
+<DocHeadContent CanonicalRelativeUrl="/getting-started" />
+
+
+
+<DocHeading Title="Getting started" Level="1" />
+
+<DocHeading Title="Prerequisites" Level="2" />
+<p>Havit.Blazor components have the following requirements:</p>
+<ul>
+	<li>.NET 8.0 or later (our NuGet package provides builds for both <code>net8.0</code> and <code>net9.0</code> to utilize the latest features).</li>
+	<li>Most components require <i>interactive rendering mode</i> for full functionality (some support for <i>static SSR</i> is available, with limited functionality where applicable).</li>
+</ul>
+
+<DocHeading Title="Project template" Level="2" />
+
+<DocAlert Type="DocAlertType.Info">
+	Try our <a href="https://github.com/havit/NewProjectTemplate-Blazor">enterprise project template</a> which includes layered architecture, EF Core, gRPC code-first, ...
+</DocAlert>
+
+
+
+<DocHeading Title="Installation" Level="2" />
+<p>Select your setup to get customized instructions.</p>
+<HxAlert Color="ThemeColor.Light">
+	<p class="mb-0 fw-semibold"><small>Framework version</small></p>
+	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
+		<InputRadioGroup @bind-Value="_setup.TargetFramework">
+			<InputRadio id="tfnet9" class="btn-check" Value="@TargetFramework.Net9" />
+			<label class="btn btn-outline-primary" for="tfnet9">.NET 9</label>
+
+			<InputRadio id="tfnet8" class="btn-check" Value="@TargetFramework.Net8" />
+			<label class="btn btn-outline-primary" for="tfnet8">.NET 8</label>
+		</InputRadioGroup>
+	</HxButtonGroup>
+
+	<p class="mb-0 fw-semibold"><small>Blazor app model</small></p>
+	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
+		<InputRadioGroup @bind-Value="_setup.ProjectSetup">
+			<InputRadio id="psbwa" class="btn-check" Value="@ProjectSetup.BlazorWebApp" />
+			<label class="btn btn-outline-primary" for="psbwa">Blazor Web App</label>
+
+			<InputRadio id="psserver" class="btn-check" Value="@ProjectSetup.Server" />
+			<label class="btn btn-outline-primary" for="psserver">Blazor Server App</label>
+
+			<InputRadio id="pswasm" class="btn-check" Value="@ProjectSetup.WasmStandalone" />
+			<label class="btn btn-outline-primary" for="pswasm">Blazor WebAssembly Standalone App</label>
+		</InputRadioGroup>
+	</HxButtonGroup>
+
+	@if (_setup.ProjectSetup == ProjectSetup.BlazorWebApp)
+	{
+		<p class="mb-0 fw-semibold"><small>Interactive render mode</small></p>
+		<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
+			<InputRadioGroup @bind-Value="_setup.BwaRenderMode">
+				<InputRadio id="bwaauto" class="btn-check" Value="@BwaRenderMode.Auto" />
+				<label class="btn btn-outline-primary" for="bwaauto">Auto</label>
+
+				<InputRadio id="bwaserver" class="btn-check" Value="@BwaRenderMode.Server" />
+				<label class="btn btn-outline-primary" for="bwaserver">Server</label>
+
+				<InputRadio id="bwawasm" class="btn-check" Value="@BwaRenderMode.Wasm" />
+				<label class="btn btn-outline-primary" for="bwawasm">WebAssembly</label>
+
+				<InputRadio id="bwanone" class="btn-check" Value="@BwaRenderMode.None" />
+				<label class="btn btn-outline-primary" for="bwanone">None</label>
+			</InputRadioGroup>
+		</HxButtonGroup>
+	}
+
+	<p class="mb-0 fw-semibold"><small>Did you opt for sample pages when creating the project?</small></p>
+	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
+		<InputRadioGroup @bind-Value="_setup.SamplePagesCreated">
+			<InputRadio id="samplePagesNo" class="btn-check" Value="false" />
+			<label class="btn btn-outline-primary" for="samplePagesNo">Empty project</label>
+
+			<InputRadio id="samplePagesYes" class="btn-check" Value="true" />
+			<label class="btn btn-outline-primary" for="samplePagesYes">Sample pages included</label>
+		</InputRadioGroup>
+	</HxButtonGroup>
+</HxAlert>
+
+
+
+<DocHeading Title="1. NuGet package" Id="NuGet-package" Level="3" />
+@if (HasClientProject())
+{
+	<p>
+		Add <a href="https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/" class="fw-semibold">Havit.Blazor.Components.Web.Bootstrap NuGet package</a>
+		to your <code>{YourBlazorApp}.Client</code> project.
+		You can <a href="https://learn.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio?wt.mc_id=DT-MVP-36834#find-and-install-a-package">use the NuGet Package Manager</a>
+		or execute the following command:
+	</p>
+}
+else
+{
+	<p>
+		Add <a href="https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/" class="fw-semibold">Havit.Blazor.Components.Web.Bootstrap NuGet package</a>
+		to your Blazor project.
+		You can <a href="https://learn.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio?wt.mc_id=DT-MVP-36834#find-and-install-a-package">use the NuGet Package Manager</a>
+		or execute the following command:
+	</p>
+}
+<CodeSnippet Language="none">dotnet add package Havit.Blazor.Components.Web.Bootstrap</CodeSnippet>
+
+
+
+<DocHeading Title="2. Bootstrap CSS" id="css" Level="3" />
+<p>
+	Our library only requires the presence of <strong>any Bootstrap CSS bundle (version @HxSetup.BootstrapVersion)</strong> in your project.<br />
+	All additional CSS rules needed for our components are automatically included in the bundle of scoped CSS.
+	Ensure that the link to <code>{YourBlazorApp}.styles.css</code> remains in your <code>@GetHtmlHostFile()</code>
+	and has NOT been removed.
+</p>
+<HxAlert Color="ThemeColor.Light">
+	<p class="mb-0 fw-semibold"><small>Choose a Bootstrap CSS bundle</small></p>
+	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
+		<InputRadioGroup @bind-Value="_setup.BootstrapTheme">
+			<InputRadio id="bsHavit" class="btn-check" Value="@BootstrapTheme.HavitBlazor" />
+			<label class="btn btn-outline-primary" for="bsHavit">Havit.Blazor</label>
+
+			<InputRadio id="bsPlainCdn" class="btn-check" Value="@BootstrapTheme.PlainCdn" />
+			<label class="btn btn-outline-primary" for="bsPlainCdn">standard Bootstrap from CDN</label>
+
+			<InputRadio id="bsPlainProj" class="btn-check" Value="@BootstrapTheme.PlainProject" />
+			<label class="btn btn-outline-primary" for="bsPlainProj">standard Bootstrap from project</label>
+
+			<InputRadio id="bsCustom" class="btn-check" Value="@BootstrapTheme.Custom" />
+			<label class="btn btn-outline-primary" for="bsCustom">Custom</label>
+		</InputRadioGroup>
+	</HxButtonGroup>
+</HxAlert>
+
+@if ((_setup.BootstrapTheme == BootstrapTheme.HavitBlazor) || (_setup.BootstrapTheme == BootstrapTheme.PlainCdn))
+{
+	<p>
+		Add the following line to the <code>&lt;head&gt;</code> section of your <code>@GetHtmlHostFile()</code> file:
+	</p>
+	if (_setup.BootstrapTheme == BootstrapTheme.HavitBlazor)
+	{
+		if (_setup.ProjectSetup == ProjectSetup.WasmStandalone)
+		{
+			<CodeSnippet Language="razor">@HxSetup.RenderBootstrapCssReference()</CodeSnippet>
+		}
+		else if (HasStaticFileAssets())
+		{
+			<CodeSnippet Language="razor">@("""<link href="@Assets["_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.min.css"]" rel="stylesheet" />""")</CodeSnippet>
+		}
+		else
+		{
+			<CodeSnippet Language="razor">@("""@((MarkupString)HxSetup.RenderBootstrapCssReference())""")</CodeSnippet>
+		}
+		<p>
+			This snippet adds a <code>&lt;link&gt;</code> to our customized Bootstrap CSS build, incorporating the Havit.Blazor theme.
+			It includes various subtle adjustments, such as colors, borders, and other styling tweaks to enhance the appearance of your app.
+			This is the same theme used throughout our documentation to showcase components.
+		</p>
+	}
+	else if (_setup.BootstrapTheme == BootstrapTheme.PlainCdn)
+	{
+		if (_setup.ProjectSetup == ProjectSetup.WasmStandalone)
+		{
+			<CodeSnippet Language="razor">@HxSetup.RenderBootstrapCssReference(BootstrapFlavor.PlainBootstrap)</CodeSnippet>
+		}
+		else
+		{
+			<CodeSnippet Language="razor">@("""@((MarkupString)HxSetup.RenderBootstrapCssReference(BootstrapFlavor.PlainBootstrap))""")</CodeSnippet>
+		}
+		<p>
+			This will add a <code>&lt;link&gt;</code> to the Bootstrap CSS that always matches the version required by Havit.Blazor,
+			so you won’t need to maintain the link manually in the future.
+		</p>
+	}
+}
+else if (_setup.BootstrapTheme == BootstrapTheme.Custom)
+{
+	<p>
+		You can use your own custom Bootstrap CSS build or use any pre-built Bootsrap theme.
+		Just add a <code>&lt;link&gt;</code> to the Bootstrap CSS of your choice
+		to the <code>&lt;head&gt;</code> section of your <code>@GetHtmlHostFile()</code> file.
+	</p>
+	@* TODO Offer creation of customized Bootstrap build here. *@
+}
+
+@if ((_setup.SamplePagesCreated) && (_setup.BootstrapTheme != BootstrapTheme.PlainProject))
+{
+	<h6>Clean sample CSS</h6>
+	<p>
+		When creating your Blazor project, you selected the <i>Include sample pages</i> option,
+		which automatically added local Bootstrap CSS files to your project.
+		Delete the <code>@GetSampleFilesBootstrapFolder()</code> folder as it is no longer needed.
+	</p>
+	<p>
+		The <i>Include sample pages</i> option also inserted some custom CSS rules
+		in your <code>app.css</code> file that override default Bootstrap styles.
+		For example, it changes primary button color or sets a different font,
+		which could disrupt the intended Bootstrap styling. While you may choose
+		to keep these changes, we recommend removing them as they conflict
+		with Bootstrap’s design principles and may lead to inconsistencies
+		(e.g., the primary button color may no longer match other Bootstrap elements).
+	</p>
+	<p>
+		To resolve this, we suggest either:
+		<ul>
+			<li>removing these custom rules from <code>app.css</code>, or</li>
+			<li>starting with an empty <code>app.css</code> file.</li>
+		</ul>
+	</p>
+}
+
+@if (_setup.BootstrapTheme == BootstrapTheme.PlainProject)
+{
+	if (_setup.SamplePagesCreated)
+	{
+		if (_setup.TargetFramework == TargetFramework.Net9)
+		{
+			<p>
+				When creating your Blazor project, you selected the <i>Include sample pages</i> option,
+				which automatically added Bootstrap CSS (version 5.3.3) to your project.
+				This means you likely won’t need to make any additional adjustments to use Bootstrap,
+				unless a new Bootstrap version is released and adopted by Havit.Blazor.
+			</p>
+			<p>
+				However, the <i>Include sample pages</i> option also inserts some custom CSS rules
+				in your <code>app.css</code> file that override default Bootstrap styles.
+				For example, it changes primary button color or set a different font,
+				which could disrupt the intended Bootstrap styling. While you may choose
+				to keep these changes, we recommend removing them as they conflict
+				with Bootstrap’s design principles and may lead to inconsistencies
+				(e.g., the primary button color may no longer match other Bootstrap elements).
+			</p>
+			<p>
+				To resolve this, we suggest either:
+				<ul>
+					<li>removing these custom rules from <code>app.css</code>, or</li>
+					<li>starting with an empty <code>app.css</code> file.</li>
+				</ul>
+			</p>
+			<p>
+				Consider switching to the <HxNavLink OnClick="() => ChangeSetup(_setup with { BootstrapTheme = BootstrapTheme.PlainCdn })" Text="Bootstrap from CDN option" class="link" />.
+				This approach saves you from maintaining the Bootstrap CSS files manually
+				(you will need to update whenever a new version of Bootstrap is released
+				and adopted by Havit.Blazor).
+			</p>
+		}
+		else
+		{
+			<p>
+				When creating your Blazor project, you selected the <i>Include sample pages</i> option,
+				which automatically added Bootstrap CSS to your project. Unfortunately, the version
+				included in the .NET 8 template is outdated and cannot be used with Havit.Blazor.
+			</p>
+			<p>
+				To resolve this, we suggest either:
+				<ul>
+					<li>
+						switching to the <HxNavLink OnClick="() => ChangeSetup(_setup with { BootstrapTheme = BootstrapTheme.PlainCdn })" Text="Bootstrap from CDN option" class="link" />, or
+					</li>
+					<li>
+						starting with <HxNavLink OnClick="() => ChangeSetup(_setup with { TargetFramework = TargetFramework.Net9, SamplePagesCreated = false })" Text="an empty .NET 9 project" class="link" />, or
+					</li>
+					<li>
+						updating the current Bootstrap CSS files to latest version (5.3.3)
+						and cleaning the sample CSS rules from <code>app.css</code>
+						file (or start with an empty one).
+					</li>
+				</ul>
+			</p>
+		}
+	}
+	else
+	{
+		@* Empty project without sample files + Plain Bootstrap from project *@
+		<p>
+			We recommend using the <HxNavLink OnClick="() => ChangeSetup(_setup with { BootstrapTheme = BootstrapTheme.PlainCdn })" Text="Bootstrap from CDN option" class="link" />.
+			This approach saves you from maintaining the Bootstrap CSS files manually
+			(you will need to update whenever a new version of Bootstrap is released and adopted by Havit.Blazor).
+		</p>
+		<p>
+			If you insist on embedding the Bootstrap CSS files into your project (for example if your users are unable to reach the CDN),
+			you can download the latest compiled version from
+			the <a href="https://getbootstrap.com/docs/5.3/getting-started/download/">official Bootstrap website</a>.
+		</p>
+		@if (HasClientProject())
+		{
+			<p>
+				After downloading, extract the contents and copy the <code>bootstrap.min.css</code> file
+				to the <code>/wwwroot</code> folder of your Blazor server project (the one without the <code>.Client</code> suffix).
+			</p>
+		}
+		else
+		{
+			<p>
+				After downloading, extract the contents and copy the <code>bootstrap.min.css</code> file
+				to the <code>/wwwroot</code> folder of your Blazor project.
+			</p>
+		}
+		<p>
+			Add the following line to the <code>&lt;head&gt;</code> section of your <code>@GetHtmlHostFile()</code> file:
+		</p>
+		@if (HasStaticFileAssets())
+		{
+			<CodeSnippet Language="plaintext">@("""<link rel="stylesheet" href="@Assets["bootstrap.min.css"]" />""")</CodeSnippet>
+		}
+		else
+		{
+			<CodeSnippet Language="html">@("""<link rel="stylesheet" href="bootstrap.min.css" />""")</CodeSnippet>
+		}
+	}
+}
+
+
+<DocHeading Title="3. Bootstrap JavaScript" Id="javascript" Level="3" />
+<p>
+	Our library only requires the inclusion of the <strong>appropriate Bootstrap JavaScript bundle (version @HxSetup.BootstrapVersion)</strong> in your project.<br />
+	Any additional JavaScript needed for our components (small JS modules supporting the integration of individual components with Blazor) is automatically loaded as needed.
+</p>
+<p>
+	Add the following line at the end of the <code>&lt;body&gt;</code> section of your <code>@GetHtmlHostFile()</code> file.
+</p>
+@if (_setup.ProjectSetup == ProjectSetup.WasmStandalone)
+{
+	<CodeSnippet Language="razor">@HxSetup.RenderBootstrapJavaScriptReference()</CodeSnippet>
+	<p>
+		This adds <i>Bootstrap JavaScript with Popper</i> to the project.
+	</p>
+}
+else
+{
+	<CodeSnippet Language="razor">@("""@((MarkupString)@HxSetup.RenderBootstrapJavaScriptReference())""")</CodeSnippet>
+	<p>
+		This snippet adds a <code>&lt;script&gt;</code> tag referencing <i>Bootstrap JavaScript with Popper</i>
+		that always matches the version required by Havit.Blazor,
+		so you won’t need to maintain the link manually in the future.
+	</p>
+}
+
+
+
+<DocHeading Title="4. Import namespaces" Id="import-namespaces" Level="3" />
+@if (HasClientProject())
+{
+	<p>Add the following code to both <code>{YourBlazorProject}/Components/_Imports.razor</code> and <code>{YourBlazorProject}.Client/_Imports.razor</code> files:</p>
+}
+else
+{
+	<p>Add the following code to your <code>_Imports.razor</code> file:</p>
+
+}
+<CodeSnippet Language="csharp">@("""@using Havit.Blazor.Components.Web""" + Environment.NewLine + """@using Havit.Blazor.Components.Web.Bootstrap""")</CodeSnippet>
+<p>
+	This code imports the namespaces of the Havit.Blazor library so you can use the components in your Razor files
+	without having to add <code>@@using</code> directive to each file or specify the full namespace each time.
+</p>
+
+
+
+<DocHeading Title="5. Register srvices" Id="register-services" Level="3" />
+@if (HasClientProject())
+{
+	<p>Add the following code to service registrations in both <code>{YourBlazorProject}/Program.cs</code> and <code>{YourBlazorProject}.Client/Program.cs</code> files:</p>
+}
+else
+{
+	<p>Add the following code to service registrations in <code>{YourBlazorProject}/Program.cs</code> file:</p>
+}
+<CodeSnippet Language="csharp">@("""builder.Services.AddHxServices();""")</CodeSnippet>
+<p>You will need to add the following using directive to the top of the file:</p>
+<CodeSnippet Language="csharp">@("""using Havit.Blazor.Components.Web;""")</CodeSnippet>
+
+
+
+
+<DocHeading Title="6. Specific components support" Level="3" />
+<p>
+	[OPTIONAL] Some components require a specific project setup to function correctly.
+	This typically involves registering a service and adding a host component to a <code>MainLayout.razor</code> component.
+</p>
+<p>For detailed instructions, please refer to the documentation of the respective components:</p>
+<ul>
+	<li><a href="/components/@nameof(HxMessenger)">@nameof(HxMessenger)</a> - Facilitates the display of new toast messages from your code with ease.</li>
+	<li><a href="/components/@nameof(HxMessageBoxHost)">@nameof(HxMessageBoxHost)</a> - Enables opening message boxes (and awaiting results) directly from your code.</li>
+</ul>
+
+
+
+<DocHeading Title="Ready, set, go!" Id="done" Level="2" />
+<p>You are now all set to utilize the full range of components in your Razor files. These components are prefixed with <code>Hx</code>. Rely on IntelliSense to guide you through their usage.</p>
+<Demo Type="typeof(GettingStarted_Demo)" Tabs="false" />
+
+
+<DocAlert Type="DocAlertType.Info">
+	This entire documentation is created using the Havit.Blazor library and operates as a Blazor Web App project with WebAssembly interactivity and server prerendering.
+	You can view <a href="https://github.com/havit/Havit.Blazor/tree/master/Havit.Blazor.Documentation">the source code of this documentation on GitHub</a>.
+</DocAlert>

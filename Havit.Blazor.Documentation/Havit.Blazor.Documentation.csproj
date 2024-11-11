@@ -41,8 +41,6 @@
 		<EmbeddedResource Include="**/*.CodeSnippet.*" />
 		<EmbeddedResource Remove="GenericTypePlaceholders\**" />
 		<None Remove="GenericTypePlaceholders\**" />
-		<None Remove="Pages\GettingStarted_HxSetupCshtmlPage.CodeSnippet.html" />
-		<None Remove="Pages\GettingStarted_HxSetupRazorPage.CodeSnippet.html" />
 		<EmbeddedResource Update="**/*.CodeSnippet.*">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
