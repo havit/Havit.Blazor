@@ -12,7 +12,7 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.0.9</PackageVersion>
+		<PackageVersion>1.0.10</PackageVersion>
 		<Description>HAVIT .NET Framework Extensions - Localization</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
