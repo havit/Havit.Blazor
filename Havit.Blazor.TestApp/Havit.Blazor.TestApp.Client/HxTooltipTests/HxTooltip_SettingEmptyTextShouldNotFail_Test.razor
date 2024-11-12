@@ -1,0 +1,21 @@
+﻿@page "/HxTooltip_SettingEmptyTextShouldNotFail"
+@rendermode InteractiveWebAssembly
+
+<HxSwitch Text="Toggle me?" @bind-Value="isChecked" />
+
+@{
+	var tooltip = "";
+	if (isChecked)
+	{
+		tooltip = "Checked";
+	}
+	<HxTooltip Html="true" Text="@(tooltip)">
+		<div>
+			Hover over me to see the tooltip.
+		</div>
+	</HxTooltip>
+}
+
+@code {
+	bool isChecked = false;
+}
