@@ -131,6 +131,16 @@ public class HxCheckbox : HxInputBase<bool>
 
 	protected override void RenderChipValue(RenderTreeBuilder builder)
 	{
-		builder.AddContent(0, CurrentValue ? Localizer["ChipValueTrue"] : Localizer["ChipValueFalse"]);
+		// #886 [HxCheckbox] [HxSwitch] Use Text instead of Yes/No for chips
+		// If both Text and Label are set, use Text for the positive chip value.
+		// BTW: Negative value is currently never used as chip is rendered only if the value is not equal to default(TValue).
+		// This might need additional attention if we implement support for three-state checkboxes
+		// or allow setting neutral value other than default(TValue).
+		string positiveValue = Localizer["ChipValueTrue"];
+		if (!String.IsNullOrWhiteSpace(Text) && !String.IsNullOrWhiteSpace(Label))
+		{
+			positiveValue = Text;
+		}
+		builder.AddContent(0, CurrentValue ? positiveValue : Localizer["ChipValueFalse"]);
 	}
 }
