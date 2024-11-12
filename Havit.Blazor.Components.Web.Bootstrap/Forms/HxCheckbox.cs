@@ -136,10 +136,14 @@ public class HxCheckbox : HxInputBase<bool>
 		// BTW: Negative value is currently never used as chip is rendered only if the value is not equal to default(TValue).
 		// This might need additional attention if we implement support for three-state checkboxes
 		// or allow setting neutral value other than default(TValue).
-		string positiveValue = Localizer["ChipValueTrue"];
+		string positiveValue;
 		if (!String.IsNullOrWhiteSpace(Text) && !String.IsNullOrWhiteSpace(Label))
 		{
 			positiveValue = Text;
+		}
+		else
+		{
+			positiveValue = Localizer["ChipValueTrue"];
 		}
 		builder.AddContent(0, CurrentValue ? positiveValue : Localizer["ChipValueFalse"]);
 	}
