@@ -11,15 +11,11 @@
 [![#StandWithUkraine](https://img.shields.io/badge/%23StandWithUkraine-Russian%20warship%2C%20go%20f%23ck%20yourself-blue)](https://www.peopleinneed.net/what-we-do/humanitarian-aid-and-development/ukraine)
 
 * Free Bootstrap 5.3 components for ASP.NET Blazor
-* .NET 6+ with Blazor WebAssembly or Blazor Server (other hosting models not tested yet, .NET 7 fully supported)
 * [Enterprise project template](https://github.com/havit/NewProjectTemplate-Blazor) (optional) - layered architecture, EF Core, gRPC code-first, ...
 
 If you enjoy using [HAVIT Blazor](https://havit.blazor.eu/), you can [become a sponsor](https://github.com/sponsors/havit). Your sponsorship will allow us to devote time to features and issues requested by the community (i.e. not required by our own projects) ❤️.
 
-
-# See [&gt;&gt;Interactive Documentation & Demos&lt;&lt;](https://havit.blazor.eu)
-
-## 🔥[Migration to v4](https://havit.blazor.eu/migrating)🔥
+ See 👉👉 [Interactive Documentation & Demos](https://havit.blazor.eu) 👈👈
 
 # Components
 
