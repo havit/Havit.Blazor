@@ -1,4 +1,4 @@
-﻿import HxToast from './HxToast.js?v=4.6.17';
+﻿import HxToast from './HxToast.js';
 
 export function afterWebStarted(blazor) {
 	console.debug('Havit.Blazor.Components.Web.Bootstrap.lib.module.js: afterWebStarted');
