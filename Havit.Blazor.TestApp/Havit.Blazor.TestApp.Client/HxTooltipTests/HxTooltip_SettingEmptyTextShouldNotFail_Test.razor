@@ -4,7 +4,7 @@
 <HxSwitch Text="Toggle me?" @bind-Value="isChecked" />
 
 @{
-	var tooltip = "";
+	string tooltip = null; //"";
 	if (isChecked)
 	{
 		tooltip = "Checked";
