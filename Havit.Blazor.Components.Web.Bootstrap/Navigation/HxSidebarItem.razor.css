@@ -43,6 +43,7 @@
 
 ::deep .hx-sidebar-collapsed-nav {
 	flex-direction: column;
+	margin-block: .25rem;
 }
 
 ::deep a.nav-link:hover,

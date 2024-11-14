@@ -13,7 +13,7 @@
 	/* HxSidebar */
 	--hx-sidebar-background-color: 									transparent;
 	--hx-sidebar-collapsed-width: 									72px;
-	--hx-sidebar-width: 											250px;
+	--hx-sidebar-width: 											300px;
 	--hx-sidebar-max-height: 										100vh;
 	--hx-sidebar-toggler-background: 								var(--bs-gray-500);
 	--hx-sidebar-item-font-size: 									1rem;
@@ -38,9 +38,9 @@
 	--hx-sidebar-parent-item-active-icon-color: 					var(--hx-sidebar-item-hover-icon-color);
 	--hx-sidebar-subitem-font-size: 								.875rem;
 	--hx-sidebar-subitem-padding: 									.5rem;
-	--hx-sidebar-subitem-margin: 									0 0 .25rem 2rem;
+	--hx-sidebar-subitem-margin: 									0 0 0 2rem;
 	--hx-sidebar-header-padding: 									1rem;
-	--hx-sidebar-body-padding: 										0 1rem;
+	--hx-sidebar-body-padding: 										0 1rem 1rem 1rem;
 	--hx-sidebar-body-nav-gap: 										.25rem;														
 	--hx-sidebar-brand-logo-width: 									2.5rem;
 	--hx-sidebar-brand-logo-height: 								2.5rem;
@@ -52,11 +52,11 @@
 	--hx-sidebar-brand-shortname-font-weight: 						600;
 	--hx-sidebar-brand-name-color: 									var(--bs-body-color);
 	--hx-sidebar-brand-name-font-weight: 							600;
-	--hx-sidebar-brand-gap: 										.25rem;
-	--hx-sidebar-footer-padding: 									1rem;
+	--hx-sidebar-brand-gap: 										.5rem;
+	--hx-sidebar-footer-padding: 									0 1rem 1rem 1rem;
 	--hx-sidebar-footer-item-padding: 								.75rem;
 	--hx-sidebar-footer-item-margin: 								0;
-	--hx-sidebar-footer-item-font-size: 							1rem;
+	--hx-sidebar-footer-item-font-size: 							1rem;							.75rem;
 	--hx-sidebar-footer-item-color: 								unset;
 	--hx-sidebar-footer-item-radius: 								unset;
 	--hx-sidebar-footer-item-hover-background-color: 				unset;

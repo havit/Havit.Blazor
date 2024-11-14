@@ -10,6 +10,9 @@
 .hx-sidebar-brand-logo {
 	width: var(--hx-sidebar-brand-logo-width);
 	height: var(--hx-sidebar-brand-logo-height);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .hx-sidebar-brand-shortname {
