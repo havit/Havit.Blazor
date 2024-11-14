@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 		<CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-		<AspNetCoreVersion8>8.0.11</AspNetCoreVersion8>
+		<AspNetCoreVersion8>9.0.0</AspNetCoreVersion8>
 		<AspNetCoreVersion9>9.0.0</AspNetCoreVersion9>
 	</PropertyGroup>
 	<ItemGroup>
