@@ -26,10 +26,7 @@
 						@ItemsTemplate
 					</CascadingValue>
 				</HxNav>
-				<div class="@CssClassHelper.Combine(
-												"hx-sidebar-toggler",
-												Collapsed ? "collapsed" : null,
-												GetResponsiveCssClass("d-??-block"))"
+				<div class="@CssClassHelper.Combine("hx-sidebar-toggler", Collapsed ? "collapsed" : null, GetResponsiveCssClass("d-??-block"))"
 					 role="button"
 					 @onclick="HandleCollapseToggleClick"
 					 @onclick:stopPropagation="true">

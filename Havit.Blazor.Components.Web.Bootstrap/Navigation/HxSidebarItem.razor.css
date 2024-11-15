@@ -11,14 +11,6 @@
 	border-radius: var(--hx-sidebar-item-border-radius);
 }
 
-::deep .hx-sidebar-item-navlink-content {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	align-self: stretch;
-	gap: .75rem;
-}
-
 ::deep .hx-sidebar-subitems {
 	--bs-dropdown-border-radius: calc(var(--hx-sidebar-item-border-radius) + var(--bs-dropdown-padding-x));
 }
@@ -29,16 +21,6 @@
 	padding: var(--hx-sidebar-subitem-padding);
 	font-size: var(--hx-sidebar-subitem-font-size);
 	display: flex;
-}
-
-::deep .hx-sidebar-subitems.show .hx-sidebar-item-navlink-content-inner {
-	display: inline-flex;
-}
-
-.hx-sidebar-item-navlink-content-inner {
-	display: flex;
-	align-items: center;
-	flex-grow: 1;
 }
 
 ::deep .hx-sidebar-collapsed-nav {

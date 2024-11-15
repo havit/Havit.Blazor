@@ -8,6 +8,8 @@
 	{
 		<div class="hx-sidebar-brand-shortname">@BrandNameShort</div>
 	}
-
-	<span class="hx-sidebar-brand-name">@BrandName</span>
+	@if(!ParentSidebar.Collapsed)
+	{
+		<span class="hx-sidebar-brand-name">@BrandName</span>
+	}
 </a>

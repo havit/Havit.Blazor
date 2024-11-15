@@ -1,0 +1,30 @@
+@namespace Havit.Blazor.Components.Web.Bootstrap
+
+<div class="hx-sidebar-item-navlink-content">
+    @if (Icon is not null)
+    {
+        <HxIcon CssClass="hx-sidebar-item-icon" Icon="Icon" />
+    }
+    <span class="@CssClassHelper.Combine(InnerCssClass, "hx-sidebar-item-navlink-content-inner")">
+        @if (ContentTemplate is not null)
+        {
+            @ContentTemplate(new() { ItemExpanded = Expanded })
+        }
+        @Text
+    </span>
+    @if (Expandable)
+    {
+        <HxIcon Icon="@BootstrapIcon.ChevronDown" CssClass="@CssClassHelper.Combine(InnerCssClass, "expand-icon")" />
+    }
+</div>
+
+@code
+{
+    [Parameter] public string Text { get; set; }
+    [Parameter] public bool Expandable { get; set; }
+
+    [Parameter] public bool? Expanded { get; set; }
+    [Parameter] public IconBase Icon { get; set; }
+    [Parameter] public string InnerCssClass { get; set; }
+    [Parameter] public RenderFragment<SidebarItemContentTemplateContext> ContentTemplate { get; set; }
+}   
