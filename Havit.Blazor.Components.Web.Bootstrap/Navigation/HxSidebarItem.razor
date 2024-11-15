@@ -1,6 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <CascadingValue Value="this" IsFixed="true">
-	<div class="@CssClassHelper.Combine(HighlightOnActiveChild ? "hx-sidebar-item-highlight-on-active-child" : null)">
+	<div @key="@(GetHashCode() + ParentSidebar.Collapsed.ToString())"
+		 class="@CssClassHelper.Combine(HighlightOnActiveChild ? "hx-sidebar-item-highlight-on-active-child" : null)">
 		@if (!HasExpandableContent)
 		{
 			<HxTooltip @key="@(GetHashCode() + ParentSidebar.Collapsed.ToString())"
@@ -19,7 +20,7 @@
 
 					@* To hide the nav-content in mobile view *@
 					<div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="stretched-link">
-					<HxSidebarItemNavLinkContent Text="@Text"
+						<HxSidebarItemNavLinkContent Text="@Text"
 												Icon="@Icon"
 												InnerCssClass="@((ParentSidebar.Collapsed) ? GetResponsiveCssClass("d-??-none") : null)"
 												ContentTemplate="@ContentTemplate" />
