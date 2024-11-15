@@ -1,5 +1,6 @@
 ﻿@page "/premium/welcome"
 @layout HomeLayout
+@inject NavigationManager NavigationManager
 
 <PageTitle>Welcome to Premium | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
 <DocHeadContent CanonicalRelativeUrl="/premium/welcome" />
@@ -55,13 +56,30 @@
 						<h4 class="fw-semibold">Access to showcase project</h4>
 						<p class="opacity-75 mt-2">
 							As a Premium subscriber, you also gain exclusive access to the <a href="@NavigationRoutes.Premium.GetGatewayPage("https://github.com/Havit/GoranG3")">GoranG3 repository</a>,
-							a closed-source commercial information system that we allow our Premium subscribers to access as a showcase project.<br/>
+							a closed-source commercial information system that we allow our Premium subscribers to access as a showcase project.<br />
 							This repository provides you with real-world examples of how to effectively	use HAVIT Blazor components in a professional setting.
 							You can explore the source code to draw inspiration and observe best practices in implementing Blazor
 							components within a complex, production-grade environment.
 						</p>
 						<p class="opacity-75 mt-2">
 							Access to the showcase project will be configured within 24 hours of your subscription activation. You’ll receive an invitation email once your access is ready.
+						</p>
+					</div>
+				</div>
+
+				<div class="card mb-4 border-0 shadow-sm rounded-4">
+					<div class="card-body p-4">
+						<h4 class="fw-semibold">GitHub organization account sponsors</h4>
+						<p class="opacity-75 mt-2">
+							If your sponsorship is made from a GitHub organization account, please provide the personal GitHub account to receive Premium benefits.
+							Send an email to <a href="mailto:blazor@havit.eu">blazor@havit.eu</a> with the following details:
+						</p>
+						<ul class="list-unstyled ms-3 opacity-75">
+							<li>The name of your organization’s GitHub account used for the sponsorship.</li>
+							<li>The personal GitHub account name to assign Premium benefits to.</li>
+						</ul>
+						<p class="opacity-75 mt-2">
+							This ensures we can correctly link your Premium benefits. Thank you for your support!
 						</p>
 					</div>
 				</div>
@@ -76,18 +94,21 @@
 	</div>
 </div>
 
-<script>
-	gtag("event", "purchase", {
-		transaction_id: "@Guid.NewGuid().ToString("n")",
-		value: 19,
-		currency: "USD",
-		items: [
-		 {
-		  item_id: "GitHubPremium19",
-		  item_name: "GitHub Premium Sponsorship $19",
-		  index: 0,
-		  price: 19,
-		  quantity: 1
-		}]
-	});
-</script>
+@if (NavigationManager.Uri.Contains("utm_"))
+{
+	<script>
+		gtag("event", "purchase", {
+			transaction_id: "@Guid.NewGuid().ToString("n")",
+			value: 19,
+			currency: "USD",
+			items: [
+			 {
+			  item_id: "GitHubPremium19",
+			  item_name: "GitHub Premium Sponsorship $19",
+			  index: 0,
+			  price: 19,
+			  quantity: 1
+			}]
+		});
+	</script>
+}
