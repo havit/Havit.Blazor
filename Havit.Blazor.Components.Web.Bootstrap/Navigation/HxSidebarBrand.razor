@@ -8,8 +8,5 @@
 	{
 		<div class="hx-sidebar-brand-shortname">@BrandNameShort</div>
 	}
-	@if(!ParentSidebar.Collapsed)
-	{
-		<span class="hx-sidebar-brand-name">@BrandName</span>
-	}
+	<span class="@CssClassHelper.Combine("hx-sidebar-brand-name", ParentSidebar.Collapsed ? GetResponsiveCssClass("d-??-none") : null)">@BrandName</span>
 </a>

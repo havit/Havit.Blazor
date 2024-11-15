@@ -29,4 +29,18 @@ public partial class HxSidebarBrand
 	{
 		Contract.Requires<InvalidOperationException>(ParentSidebar is not null, $"{nameof(HxSidebarBrand)} has to be placed inside {nameof(HxSidebar)}.");
 	}
+
+	private string GetResponsiveCssClass(string cssClassPattern)
+	{
+		return ParentSidebar.ResponsiveBreakpoint switch
+		{
+			SidebarResponsiveBreakpoint.None => cssClassPattern.Replace("-??-", "-"), // !!! Simplified for the use case of this component.
+			SidebarResponsiveBreakpoint.Small => cssClassPattern.Replace("??", "sm"),
+			SidebarResponsiveBreakpoint.Medium => cssClassPattern.Replace("??", "md"),
+			SidebarResponsiveBreakpoint.Large => cssClassPattern.Replace("??", "lg"),
+			SidebarResponsiveBreakpoint.ExtraLarge => cssClassPattern.Replace("??", "xl"),
+			SidebarResponsiveBreakpoint.Xxl => cssClassPattern.Replace("??", "xxl"),
+			_ => throw new InvalidOperationException($"Unknown nameof(ResponsiveBreakpoint) value {ParentSidebar.ResponsiveBreakpoint}")
+		};
+	}
 }
