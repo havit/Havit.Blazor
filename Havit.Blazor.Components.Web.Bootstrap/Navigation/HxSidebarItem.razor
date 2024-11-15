@@ -22,7 +22,7 @@
 					<div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="stretched-link">
 						<HxSidebarItemNavLinkContent Text="@Text"
 												Icon="@Icon"
-												InnerCssClass="@((ParentSidebar.Collapsed) ? GetResponsiveCssClass("d-??-none") : null)"
+												InnerCssClass="@((ParentSidebar.Collapsed && ParentSidebarItem is null) ? GetResponsiveCssClass("d-??-none") : null)"
 												ContentTemplate="@ContentTemplate" />
 
 					</div>
@@ -51,6 +51,7 @@
 												Icon="@Icon"
 												ContentTemplate="@ContentTemplate"
 												InnerCssClass="@CssClassHelper.Combine(ParentSidebar.Collapsed ? "d-none" : null)"
+												Expandable="true"
 												Expanded="@expanded" />
 
 					<HxDropdownMenu CssClass="hx-sidebar-subitems">
@@ -75,6 +76,7 @@
 				<HxSidebarItemNavLinkContent Text="@Text"
 						Icon="@Icon"
 						ContentTemplate="@ContentTemplate"
+						Expandable="true"
 						Expanded="@expanded" />
 
 			</HxNavLink>
@@ -82,7 +84,7 @@
 			<HxCollapse Id="@_id"
 						Parent="@(ParentSidebar.MultipleItemsExpansion ? null : $"#{ParentSidebar._navId}")"
 						@ref="collapseComponent"
-						CssClass="hx-sidebar-subitems"
+						CssClass="@CssClassHelper.Combine("hx-sidebar-subitems", ParentSidebar.Collapsed ? GetResponsiveCssClass("d-??-none") : null)"
 						InitiallyExpanded="expanded"
 						OnShown="HandleCollapseShown"
 						OnHidden="HandleCollapseHidden">
