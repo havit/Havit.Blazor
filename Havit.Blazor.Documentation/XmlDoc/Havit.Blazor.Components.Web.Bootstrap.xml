@@ -8734,8 +8734,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.CssClass">
             <summary>
-            Allows you to disable the item with <c>false</c>.
-            The default value is <c>true</c>.
+            Any additional CSS class to add.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.TextCssClass">
+            <summary>
+            Any additional CSS class to add to inner text.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.ChildContent">

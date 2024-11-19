@@ -34,7 +34,3 @@ a.nav-link:hover ::deep .hx-sidebar-item-icon {
 a.nav-link.active ::deep .hx-sidebar-item-icon {
 	color: var(--hx-sidebar-item-active-icon-color);
 }
-
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > .hx-sidebar-item ::deep .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-parent-item-active-icon-color);
-}

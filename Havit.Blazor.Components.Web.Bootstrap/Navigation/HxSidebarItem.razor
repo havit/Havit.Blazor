@@ -37,7 +37,7 @@
 							OnClick="@(OnClick.HasDelegate ? InvokeOnClickAsync : null)"
 							OnClickStopPropagation="OnClickStopPropagation"
 							OnClickPreventDefault="OnClickPreventDefault"
-							CssClass="this.CssClass"
+							CssClass="@this.CssClass"
 							Enabled="Enabled"
 							role="button"
 							onmouseenter="bootstrap.Dropdown.getOrCreateInstance(event.target).show()"

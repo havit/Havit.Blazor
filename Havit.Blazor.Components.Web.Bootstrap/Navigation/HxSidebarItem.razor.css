@@ -28,22 +28,32 @@
 	margin-block: .25rem;
 }
 
-::deep a.nav-link:hover,
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link:hover {
-	background-color: rgba(var(--hx-sidebar-item-hover-background-color), var(--hx-sidebar-item-hover-background-opacity));
-	color: var(--hx-sidebar-item-hover-color);
-}
-
 ::deep a.nav-link.active {
 	background-color: rgba(var(--hx-sidebar-item-active-background-color), var(--hx-sidebar-item-active-background-opacity));
 	color: var(--hx-sidebar-item-active-color);
 	font-weight: var(--hx-sidebar-item-active-font-weight);
 }
 
+/* Font-weight only for first level items */
+.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
+	font-weight: var(--hx-sidebar-parent-item-active-font-weight);
+}
+
+/* Background and color for rest of the content */
+.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep .dropend > a.nav-link,
 .hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
 	background-color: rgba(var(--hx-sidebar-parent-item-active-background-color), var(--hx-sidebar-parent-item-active-background-opacity));
 	color: var(--hx-sidebar-parent-item-active-color);
-	font-weight: var(--hx-sidebar-parent-item-active-font-weight);
+}
+
+.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep .hx-sidebar-item .hx-sidebar-item-icon {
+	color: var(--hx-sidebar-parent-item-active-icon-color);
+}
+
+::deep a.nav-link:hover,
+.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link:hover {
+	background-color: rgba(var(--hx-sidebar-item-hover-background-color), var(--hx-sidebar-item-hover-background-opacity));
+	color: var(--hx-sidebar-item-hover-color);
 }
 
 ::deep .dropdown-menu {
