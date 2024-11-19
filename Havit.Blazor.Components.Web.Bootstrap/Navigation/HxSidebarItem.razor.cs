@@ -249,7 +249,6 @@ public partial class HxSidebarItem : IAsyncDisposable
 		}
 	}
 	#endregion
-
 	private string GetResponsiveCssClass(string cssClassPattern)
 	{
 		return ParentSidebar.ResponsiveBreakpoint switch

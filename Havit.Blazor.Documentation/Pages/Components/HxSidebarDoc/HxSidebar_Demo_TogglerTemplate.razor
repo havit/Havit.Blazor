@@ -1,4 +1,4 @@
-﻿<div class="d-flex border rounded-3">
+﻿<div class="d-flex border rounded-3 overflow-hidden">
 	<HxSidebar>
 		<TogglerTemplate>
 			<div class="d-flex">
@@ -38,7 +38,7 @@
 		</ItemsTemplate>
 
 		<FooterTemplate>
-			<HxSidebarFooter Href="/components/HxSidebar/login" Icon="BootstrapIcon.Person" Text="@(context.SidebarCollapsed ? null : "Login")" />
+			<HxSidebarFooter Icon="BootstrapIcon.Person" TextCssClass="@(context.SidebarCollapsed ? "d-md-none" : null)" Text="Login" Href="/components/HxSidebar/login" />
 		</FooterTemplate>
 	</HxSidebar>
 </div>

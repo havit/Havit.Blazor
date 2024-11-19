@@ -21,7 +21,7 @@
 	--hx-sidebar-item-padding: 										.75rem;
 	--hx-sidebar-item-color: 										var(--bs-body-color);
 	--hx-sidebar-item-icon-color: 									var(--bs-primary);
-	--hx-sidebar-item-border-radius: 								var(--bs-border-radius-lg);
+	--hx-sidebar-item-border-radius: 								var(--bs-border-radius);
 	--hx-sidebar-item-margin: 										0;
 	--hx-sidebar-item-hover-color: 									var(--bs-primary);
 	--hx-sidebar-item-hover-background-color: 						var(--bs-primary-rgb);

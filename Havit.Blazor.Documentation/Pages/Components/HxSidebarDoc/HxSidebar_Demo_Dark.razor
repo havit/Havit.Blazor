@@ -1,7 +1,7 @@
-﻿<div class="d-flex border rounded-3 mb-3 overflow-hidden">
-	<HxSidebar @bind-Collapsed="Collapsed">
+<div class="d-flex border rounded-3 overflow-hidden" data-bs-theme="dark">
+	<HxSidebar>
 		<HeaderTemplate>
-			<HxSidebarBrand BrandName="Brand name" BrandNameShort="BN"/>
+			<HxSidebarBrand BrandName="Brand name" BrandNameShort="BN" />
 		</HeaderTemplate>
 
 		<ItemsTemplate>
@@ -23,9 +23,3 @@
 		</FooterTemplate>
 	</HxSidebar>
 </div>
-
-<HxButton Color="ThemeColor.Primary" OnClick="() => Collapsed = !Collapsed" IconPlacement="ButtonIconPlacement.End" Icon="BootstrapIcon.ArrowLeftRight">Toggle sidebar</HxButton>
-
-@code {
-	public bool Collapsed { get; set; }
-}

@@ -46,30 +46,7 @@
 	font-weight: var(--hx-sidebar-parent-item-active-font-weight);
 }
 
-::deep i {
-	color: var(--hx-sidebar-item-icon-color);
-	transition: transform .35s ease;
-	transform-origin: .5em 50%;
-}
-
-::deep a.nav-link:hover .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-item-hover-icon-color);
-}
-
-::deep a.nav-link.active .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-item-active-icon-color);
-}
-
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep.hx-sidebar-item .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-parent-item-active-icon-color);
-}
-
-::deep .bi-chevron-right {
-	font-size: .75rem;
-	margin-left: .5rem;
-}
-
 ::deep .dropdown-menu {
-	max-height: 100vh;
+	max-height: 75vh;
 	overflow: auto;
 }

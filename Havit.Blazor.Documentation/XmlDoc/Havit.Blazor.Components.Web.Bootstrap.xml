@@ -8828,6 +8828,11 @@
             Sub-items (not intended to be used for any other purpose).
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItemNavLinkContent">
+            <summary>
+            Innter content of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavbarExpand">
             <summary>
             Responsive expand setting (breakpoint) for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar"/>.

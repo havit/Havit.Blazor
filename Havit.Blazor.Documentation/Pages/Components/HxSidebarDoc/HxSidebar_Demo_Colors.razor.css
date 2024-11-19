@@ -1,0 +1,6 @@
+div {
+    --hx-sidebar-item-hover-color: 						            var(--bs-dark);
+    --hx-sidebar-item-active-background-color: 						var(--bs-dark-rgb);
+    --hx-sidebar-item-hover-background-color: 						var(--bs-dark-rgb);
+    --hx-sidebar-item-icon-color: 						            var(--bs-secondary);
+}
