@@ -2578,6 +2578,11 @@
             Prevents the default action for the onclick event. Default is <c>null</c>, which means <c>true</c> when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> is set.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSidebarItemNavLinkContentInternal">
+            <summary>
+            Inner content of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInputInternal.Offset">
             <summary>
             Offset between dropdown input and dropdown menu
@@ -8830,11 +8835,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem.ChildContent">
             <summary>
             Sub-items (not intended to be used for any other purpose).
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItemNavLinkContent">
-            <summary>
-            Innter content of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavbarExpand">

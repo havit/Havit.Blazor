@@ -1,9 +1,9 @@
-namespace Havit.Blazor.Components.Web.Bootstrap;
+namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 /// <summary>
-/// Innter content of the <see cref="HxSidebarItem"/>.
+/// Inner content of the <see cref="HxSidebarItem"/>.
 /// </summary>
-public partial class HxSidebarItemNavLinkContent
+public partial class HxSidebarItemNavLinkContentInternal
 {
 	[Parameter] public string Text { get; set; }
 	[Parameter] public bool Expandable { get; set; }

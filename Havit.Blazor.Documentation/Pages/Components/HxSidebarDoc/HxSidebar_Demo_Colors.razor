@@ -1,4 +1,13 @@
-<div class="d-flex border rounded-3 overflow-hidden">
+<style>
+	/* Demonstration purposes only. Put this CSS into your application's CSS file or into the component's CSS file. */
+	.my-sidebar {
+		--hx-sidebar-item-hover-color: var(--bs-dark);
+		--hx-sidebar-item-active-background-color: var(--bs-dark-rgb);
+		--hx-sidebar-item-hover-background-color: var(--bs-dark-rgb);
+		--hx-sidebar-item-icon-color: var(--bs-secondary);
+	}
+</style>
+<div class="my-sidebar d-flex border rounded-3 overflow-hidden">
 	<HxSidebar CssClass="text-bg-light">
 		<HeaderTemplate>
 			<HxSidebarBrand BrandName="Brand name" BrandNameShort="BN" />

@@ -32,7 +32,7 @@ public partial class HxSidebarFooter
 	/// Any additional CSS class to add.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
-	
+
 	/// <summary>
 	/// Any additional CSS class to add to inner text.
 	/// </summary>
