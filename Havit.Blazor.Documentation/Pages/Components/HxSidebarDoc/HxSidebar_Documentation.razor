@@ -8,6 +8,14 @@
         <DocHeading Title="Basic usage" />
         <Demo Type="typeof(HxSidebar_Demo)" />
 
+        <DocHeading Title="Inverted (dark) variant" Id="dark" />
+        <p>Similarly to Bootstrap Navbar, the Sidebar color can be inverted with <code>data-bs-theme="dark"</code> attribute on parent <code>div</code>.</p>
+        <Demo Type="typeof(HxSidebar_Demo_Dark)" />
+
+        <DocHeading Title="Colors" />
+        <p>Similarly to Bootstrap Navbar, you can use utility classes to create any color variation eg. <code>text-bg-light</code>. Colors of the active/hover states need to be fine-tuned via CSS vars.</p>
+        <Demo Type="typeof(HxSidebar_Demo_Colors)" />
+
         <DocHeading Title="Logo" />
         <p>Use your own custom logo in the sidebar header by setting the <code>LogoTemplate</code> parameter (<code>RenderFragment</code>) on the <code>HxSidebarBrand</code> component.</p>
         <Demo Type="typeof(HxSidebar_Demo_Logo)" />
@@ -71,7 +79,7 @@
 		<ComponentApiDocCssVariable Name="--hx-sidebar-item-icon-color" Default="var(--bs-primary)">
 			Color of the items icons.
 		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-border-radius" Default="var(--bs-border-radius-lg)">
+		<ComponentApiDocCssVariable Name="--hx-sidebar-item-border-radius" Default="var(--bs-border-radius)">
 			Border radius of the items.
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-item-hover-color" Default="var(--bs-primary)">

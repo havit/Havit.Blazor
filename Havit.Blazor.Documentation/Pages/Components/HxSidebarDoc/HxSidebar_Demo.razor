@@ -1,4 +1,4 @@
-<div class="d-flex border rounded-3">
+<div class="d-flex border rounded-3 overflow-hidden">
 	<HxSidebar>
 		<HeaderTemplate>
 			<HxSidebarBrand BrandName="Brand name" BrandNameShort="BN" />
@@ -19,7 +19,7 @@
 		</ItemsTemplate>
 
 		<FooterTemplate>
-			<HxSidebarFooter Icon="BootstrapIcon.Person" Text="@(context.SidebarCollapsed ? null : "Login")" Href="/components/HxSidebar/login" />
+			<HxSidebarFooter Icon="BootstrapIcon.Person" TextCssClass="@(context.SidebarCollapsed ? "d-md-none" : null)" Text="Login" Href="/components/HxSidebar/login" />
 		</FooterTemplate>
 	</HxSidebar>
 </div>

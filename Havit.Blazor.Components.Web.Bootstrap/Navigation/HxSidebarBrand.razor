@@ -1,4 +1,5 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
 <a class="hx-sidebar-brand" href="./">
 	@if (LogoTemplate != null)
 	{
@@ -8,6 +9,5 @@
 	{
 		<div class="hx-sidebar-brand-shortname">@BrandNameShort</div>
 	}
-
-	<span class="hx-sidebar-brand-name">@BrandName</span>
+	<span class="@CssClassHelper.Combine("hx-sidebar-brand-name", ParentSidebar.Collapsed ? ParentSidebar.ResponsiveBreakpoint.GetCssClass("d-??-none") : null)">@BrandName</span>
 </a>

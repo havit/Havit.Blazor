@@ -15,7 +15,7 @@
 @media (min-width: 768px) {
 	.hx-sidebar,
 	.hx-sidebar .nav-menu {
-		max-height: var(--hx-sidebar-max-height);;
+		max-height: var(--hx-sidebar-max-height);
 	}
 }
 
@@ -104,21 +104,10 @@
 	transform: translateY(-.15rem) rotate(15deg) translateZ(0px);
 }
 
-.hx-sidebar-navbar-toggler:hover {
+::deep .hx-sidebar-navbar-toggler:hover {
 	color: var(--bs-primary);
 }
 
 ::deep a[aria-expanded="true"] .bi-chevron-right {
 	transform: rotate(90deg);
-}
-
-/*Desktop collapsed*/
-.hx-sidebar.collapsed {
-	width: var(--hx-sidebar-collapsed-width);
-}
-
-.hx-sidebar.collapsed ::deep .hx-sidebar-brand-name,
-.hx-sidebar.collapsed ::deep .hx-sidebar-item-navlink-content-inner,
-.hx-sidebar.collapsed ::deep .expand-icon {
-	display: none;
 }

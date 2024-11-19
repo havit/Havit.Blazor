@@ -1,4 +1,5 @@
-:root {
+:root, 
+[data-bs-theme=dark] {
 	/* HxAutosuggest */
 	--hx-autosuggest-input-close-icon-opacity: 						.25;
 	--hx-autosuggest-item-highlighted-background-color: 			var(--bs-tertiary-bg);
@@ -11,7 +12,7 @@
 	--hx-button-gap: 							.25rem;
 
 	/* HxSidebar */
-	--hx-sidebar-background-color: 									transparent;
+	--hx-sidebar-background-color: 									var(--bs-body-bg);
 	--hx-sidebar-collapsed-width: 									72px;
 	--hx-sidebar-width: 											300px;
 	--hx-sidebar-max-height: 										100vh;
@@ -20,7 +21,7 @@
 	--hx-sidebar-item-padding: 										.75rem;
 	--hx-sidebar-item-color: 										var(--bs-body-color);
 	--hx-sidebar-item-icon-color: 									var(--bs-primary);
-	--hx-sidebar-item-border-radius: 								var(--bs-border-radius-lg);
+	--hx-sidebar-item-border-radius: 								var(--bs-border-radius);
 	--hx-sidebar-item-margin: 										0;
 	--hx-sidebar-item-hover-color: 									var(--bs-primary);
 	--hx-sidebar-item-hover-background-color: 						var(--bs-primary-rgb);
@@ -56,12 +57,13 @@
 	--hx-sidebar-footer-padding: 									0 1rem 1rem 1rem;
 	--hx-sidebar-footer-item-padding: 								.75rem;
 	--hx-sidebar-footer-item-margin: 								0;
-	--hx-sidebar-footer-item-font-size: 							1rem;							.75rem;
-	--hx-sidebar-footer-item-color: 								unset;
+	--hx-sidebar-footer-item-font-size: 							1rem;
+	--hx-sidebar-footer-item-content-gap: 							.75rem;
+	--hx-sidebar-footer-item-color: 								var(--bs-body-color);
 	--hx-sidebar-footer-item-radius: 								unset;
 	--hx-sidebar-footer-item-hover-background-color: 				unset;
 	--hx-sidebar-footer-item-hover-background-opacity: 				unset;
-	--hx-sidebar-footer-item-hover-color: 							unset;
+	--hx-sidebar-footer-item-hover-color: 							var(--bs-body-color);
 
 	/* HxProgressOverlay */
 	--hx-progress-overlay-color: 									var(--bs-white);
