@@ -9,3 +9,12 @@
     max-width: 1600px;
     margin: 0 auto;
 }
+
+
+.doc-content ::deep h1, 
+.doc-content ::deep h2, 
+.doc-content ::deep h3, 
+.doc-content ::deep h4,
+.doc-content ::deep h5 {
+    padding-top: 56px; margin-top: -56px;
+}
