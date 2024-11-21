@@ -13,7 +13,7 @@
 		<PackageVersion Include="Grpc.Net.Client.Web" Version="2.66.0" />
 		<PackageVersion Include="Havit.Core" Version="2.0.31" />
 		<PackageVersion Include="Havit.AspNetCore" Version="2.0.22" />
-		<PackageVersion Include="LoxSmoke.DocXml" Version="3.7.1" />
+		<PackageVersion Include="LoxSmoke.DocXml" Version="3.8.0" />
 		<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
 		<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
 		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
