@@ -12,4 +12,6 @@ public class ServerHttpContextProxy(
 	{
 		return _httpContextAccessor.HttpContext.Request.Cookies[key];
 	}
+
+	public bool IsSupported() => true;
 }

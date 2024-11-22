@@ -1,5 +1,7 @@
-﻿<!doctype html>
-<html lang="en" data-bs-theme="@_docColorModeResolver.GetColorMode().ToString("g").ToLowerInvariant()">
+﻿@using Havit.Blazor.Documentation.Shared.Components.DocColorMode
+@inject IDocColorModeProvider DocColorModeProvider
+<!doctype html>
+<html lang="en" data-bs-theme="@DocColorModeProvider.GetColorMode().ToString("g").ToLowerInvariant()">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">

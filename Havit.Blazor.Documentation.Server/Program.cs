@@ -3,7 +3,9 @@ using Havit.Blazor.Documentation.DemoData;
 using Havit.Blazor.Documentation.Server.Services;
 using Havit.Blazor.Documentation.Services;
 using Havit.Blazor.Documentation.Shared.Components.DocColorMode;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using SmartComponents.Inference.OpenAI;
 using SmartComponents.LocalEmbeddings;
@@ -44,7 +46,13 @@ public class Program
 		builder.Services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
 		builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
 		builder.Services.AddSingleton<IDocPageNavigationItemsTracker, DocPageNavigationItemsTracker>();
-		builder.Services.AddTransient<IDocColorModeResolver, DocColorModeServerResolver>();
+
+		builder.Services.AddScoped<IDocColorModeProvider, DocColorModeProvider>();
+		builder.Services.AddCascadingValue<ColorMode>(services =>
+		{
+			var docColorModeStateProvider = services.GetRequiredService<IDocColorModeProvider>();
+			return new DocColorModeCascadingValueSource(docColorModeStateProvider);
+		});
 
 		builder.Services.AddTransient<IDemoDataService, DemoDataService>();
 
