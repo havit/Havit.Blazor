@@ -1,4 +1,4 @@
-﻿<HxSidebar CssClass="sticky-md-top doc-sidebar">
+﻿<HxSidebar @bind-Collapsed="_isDesktopCollapsed" CssClass="sticky-md-top doc-sidebar">
     <HeaderTemplate>
         <div class="d-flex flex-grow-1 d-lg-none">
             <HxSidebarBrand BrandName="HAVIT Blazor">
@@ -6,7 +6,7 @@
                     <img src="/logo.png" width="32" height="30" class="mx-1" />
                 </LogoTemplate>
             </HxSidebarBrand>
-            <div class="ms-auto d-flex gap-2">
+            <div class="@CssClassHelper.Combine("ms-auto d-flex gap-2", _isDesktopCollapsed ? "d-md-none" : null)">
                 <Havit.Blazor.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
                 <GitHubLink />
             </div>
@@ -207,3 +207,8 @@
         </HxSidebarItem>
     </ItemsTemplate>
 </HxSidebar>
+
+@code
+{
+    private bool _isDesktopCollapsed;
+}
