@@ -5,7 +5,8 @@
 @{
 	bool enabled = EnabledEffective && (ItemsToRender != null);
 }
-<div class="@CssClassHelper.Combine(HasInputGroups ? "input-group" : null,
+<div class="@CssClassHelper.Combine("hx-multi-select",
+									HasInputGroups ? "input-group" : null,
                                     HasInputGroupEnd ? "input-group-end" : null,
 					                HasInputGroupStart ? "input-group-start" : null,
                                     InputGroupCssClass)">
@@ -15,25 +16,27 @@
 	}
 
 	@InputGroupStartTemplate
-    <div @ref="_elementReference" class="hx-multi-select dropdown @(LabelTypeEffective == LabelType.Floating ? "form-floating": "")" role="listbox">
+	<div @ref="_elementReference"
+		 class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == LabelType.Floating) ? "form-floating": null)"
+		 role="listbox">
 
 		<input @ref="_inputElementReference"
-				type="text"
-				id="@InputId"
-				class="@InputCssClass"
-				value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
-				disabled="@(!enabled)"
-				readonly="true"
-				aria-expanded="@_isShown"
-				data-bs-toggle="@(enabled ? "dropdown" : null)" 
-				data-bs-auto-close="outside"
-				@attributes="this.AdditionalAttributes" />
+			   type="text"
+			   id="@InputId"
+			   class="@InputCssClass"
+			   value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
+			   disabled="@(!enabled)"
+			   readonly="true"
+			   aria-expanded="@_isShown"
+			   data-bs-toggle="@(enabled ? "dropdown" : null)"
+			   data-bs-auto-close="outside"
+			   @attributes="this.AdditionalAttributes" />
 
-        @if (LabelTypeEffective == LabelType.Floating)
-        {
-            <label for="@InputId">@LabelText</label>
-        }
-       
+		@if (LabelTypeEffective == LabelType.Floating)
+		{
+			<label for="@InputId">@LabelText</label>
+		}
+
 		@* Must be always rendered otherwise does not work after disable->enabled scenario *@
 		<ul class="@CssClassHelper.Combine("dropdown-menu", _isShown ? "show" : null)">
 			@if (enabled)
@@ -49,7 +52,7 @@
 								   autocomplete="off"
 								   value="@_filterText"
 								   @oninput="HandleFilterInputChanged"
-							@onclick:stopPropagation
+								   @onclick:stopPropagation
 								   onfocusin="this.select()" />
 
 							<div class="hx-multi-select-filter-input-icon">
