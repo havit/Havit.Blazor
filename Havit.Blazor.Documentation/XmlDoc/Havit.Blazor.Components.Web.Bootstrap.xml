@@ -6204,6 +6204,17 @@
             Settings for the "Load more" navigation button (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore"/>).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PreserveSelection">
+            <summary>
+            Gets or sets a value indicating whether the current selection (either <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItem"/> for single selection
+            or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
+            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync"/>.<br />
+            </summary>
+            <remarks>
+            This setting ensures that the selection remains intact during operations that refresh or modify the displayed data in the grid.
+            Note that preserving the selection requires that the underlying data items can still be matched in the updated dataset (e.g., by <c>item1.Equals(item2)</c>).
+            </remarks>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState">
             <summary>
             User state of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/>.
@@ -6411,6 +6422,18 @@
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemsChanged"/> event. This method can be overridden in derived components to implement custom logic before or after the event is triggered.
             </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PreserveSelection">
+            <summary>
+            Gets or sets a value indicating whether the current selection (either <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItem"/> for single selection
+            or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
+            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync"/>.<br />
+            Default value is <c>false</c> (can be set by using <c>HxGrid.Defaults</c>).
+            </summary>
+            <remarks>
+            This setting ensures that the selection remains intact during operations that refresh or modify the displayed data in the grid.
+            Note that preserving the selection requires that the underlying data items can still be matched in the updated dataset (e.g., by <c>item1.Equals(item2)</c>).
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ContentNavigationMode">
             <summary>

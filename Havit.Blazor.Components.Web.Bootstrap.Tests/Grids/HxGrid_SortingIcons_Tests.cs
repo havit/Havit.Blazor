@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
 
 [TestClass]
-public class HxGridTests
+public class HxGrid_SortingIcons_Tests
 {
 	#region Showing icon "on hover", direction should be the same which will be used when a user clicks.
 

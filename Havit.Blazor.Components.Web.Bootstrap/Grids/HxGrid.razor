@@ -8,7 +8,7 @@
 	@* To get the components to the collections, we have to let them render with this component. Still we don't want them to render any output. *@
 	@if (MultiSelectionEnabled)
 	{
-		bool allDataItemsSelected = (_paginationDataItemsToRender != null) && (SelectedDataItems != null) && (SelectedDataItems.Count > 0) && (_paginationDataItemsToRender.Count == SelectedDataItems.Count);
+		bool allDataItemsSelected = (_paginationDataItemsToRender != null) && (SelectedDataItems != null) && (SelectedDataItems.Count > 0) && (_paginationDataItemsToRender.All(SelectedDataItems.Contains));
 		<HxMultiSelectGridColumnInternal TItem="TItem"
 										 AllDataItemsSelected="@allDataItemsSelected"
 										 SelectedDataItems="@SelectedDataItems"

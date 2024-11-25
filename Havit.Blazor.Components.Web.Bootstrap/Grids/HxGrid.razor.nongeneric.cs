@@ -24,6 +24,7 @@ public sealed class HxGrid
 			ItemRowHeight = 41, // 41px = row-height of a regular table-row within the Bootstrap 5 default theme
 			OverscanCount = 3,
 			PageSize = 20,
+			PreserveSelection = false,
 			ProgressIndicatorDelay = 300, // 300ms
 			PlaceholdersRowCount = 5,
 			ShowFooterWhenEmptyData = false,

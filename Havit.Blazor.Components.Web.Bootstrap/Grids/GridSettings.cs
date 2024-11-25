@@ -110,4 +110,15 @@ public record GridSettings
 	/// Settings for the "Load more" navigation button (<see cref="GridContentNavigationMode.LoadMore"/> or <see cref="GridContentNavigationMode.PaginationAndLoadMore"/>).
 	/// </summary>
 	public ButtonSettings LoadMoreButtonSettings { get; set; }
+
+	/// <summary>
+	/// Gets or sets a value indicating whether the current selection (either <see cref="HxGrid{TItem}.SelectedDataItem"/> for single selection
+	/// or <see cref="HxGrid{TItem}.SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
+	/// or manual invocation of <see cref="HxGrid{TItem}.RefreshDataAsync"/>.<br />
+	/// </summary>
+	/// <remarks>
+	/// This setting ensures that the selection remains intact during operations that refresh or modify the displayed data in the grid.
+	/// Note that preserving the selection requires that the underlying data items can still be matched in the updated dataset (e.g., by <c>item1.Equals(item2)</c>).
+	/// </remarks>
+	public bool? PreserveSelection { get; set; }
 }

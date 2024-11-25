@@ -122,11 +122,18 @@
 			Enable multi-row selection for users by setting <code>@nameof(HxGrid<object>.MultiSelectionEnabled)="true"</code>.
 			The selected items can be accessed via the <code>@nameof(HxGrid<object>.SelectedDataItems)</code> parameter, which is bindable.
 		</p>
-		<DocAlert>
+		<p>
 			Note that <code>@nameof(HxGrid<TItem>.SelectedDataItems)</code> only includes visible items.
-			Items are removed from the selection when they become unrendered (for example, after paging, sorting, etc.).
-			Additionally, <code>@nameof(HxGrid<TItem>.MultiSelectionEnabled)</code> is not compatible
-			with <code>@nameof(GridContentNavigationMode.InfiniteScroll)</code>.<br />
+			By default, items are removed from the selection when they become unrendered (for example, after paging, sorting, etc.).
+			However, this behavior can be modified by setting the <code>@nameof(HxGrid<TItem>.PreserveSelection)="true"</code> parameter,
+			which ensures that selected items are preserved across data operations such as paging, sorting or manual invocation of <code>RefreshDataAsync</code>.
+		</p>
+		<p>
+			The "select/deselect all" checkbox operates only on visible records and adds/removes them from the selection accordingly.
+			Non-visible items (e.g., from other pages) are not affected by this operation.
+		</p>
+		<DocAlert>
+			Multi-row selection is not compatible with <code>@nameof(GridContentNavigationMode.InfiniteScroll)</code>.<br />
 			This design decision might change in the future.
 		</DocAlert>
 		<Demo Type="typeof(HxGrid_Demo_Multiselect)" />
