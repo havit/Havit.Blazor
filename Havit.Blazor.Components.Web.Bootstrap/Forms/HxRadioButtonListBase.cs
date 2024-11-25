@@ -156,7 +156,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 				builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", Inline ? "form-check-inline" : null, ItemCssClassImpl, ItemCssClassSelectorImpl?.Invoke(item)));
 			}
 			builder.OpenElement(200, "input");
-			builder.AddAttribute(201, "class", CssClassHelper.Combine(inputAsToggleEffective == Bootstrap.InputAsToggle.Toggle ? "btn-check" : "form -check-input", ItemInputCssClassImpl, ItemInputCssClassSelectorImpl?.Invoke(item)));
+			builder.AddAttribute(201, "class", CssClassHelper.Combine(inputAsToggleEffective == Bootstrap.InputAsToggle.Toggle ? "btn-check" : "form-check-input", ItemInputCssClassImpl, ItemInputCssClassSelectorImpl?.Invoke(item)));
 			builder.AddAttribute(202, "type", "radio");
 			builder.AddAttribute(203, "name", GroupName);
 			builder.AddAttribute(204, "id", inputId);
