@@ -1,12 +1,21 @@
-﻿@inject IDemoDataService DemoDataService
+﻿@page "/HxGrid_InfiniteScroll_MultiSelectionEnabled"
+@rendermode InteractiveServer
+@inject IDemoDataService DemoDataService
+
+<style>
+	.virtualized-table-container {
+		height: 400px;
+		overflow: auto;
+	}
+</style>
 
 <HxGrid TItem="EmployeeDto"
 		DataProvider="GetGridData"
 		MultiSelectionEnabled="true"
-		PreserveSelection="preserveSelection"
+		PreserveSelection="true"
 		@bind-SelectedDataItems="selectedEmployees"
-		PageSize="5"
-		Responsive="true">
+		TableContainerCssClass="virtualized-table-container"
+		ContentNavigationMode="GridContentNavigationMode.InfiniteScroll">
 	<Columns>
 		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
 		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
@@ -15,8 +24,7 @@
 		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
 	</Columns>
 </HxGrid>
-<HxSwitch @bind-Value="preserveSelection" Text="@(preserveSelection ? "PreserveSelection=\"true\"" : "PreserveSelection=\"false\"")" />
-<hr />
+
 <p>
 	Selected employees: @(String.Join(", ", selectedEmployees.Select(e => e.Name)))
 </p>
@@ -24,7 +32,6 @@
 
 @code {
 	private HashSet<EmployeeDto> selectedEmployees = new();
-	private bool preserveSelection = false;
 
 	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
 	{
